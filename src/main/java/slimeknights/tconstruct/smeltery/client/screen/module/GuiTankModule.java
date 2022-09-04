@@ -2,6 +2,7 @@ package slimeknights.tconstruct.smeltery.client.screen.module;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
@@ -9,6 +10,7 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import slimeknights.mantle.Mantle;
 import slimeknights.mantle.fluid.tooltip.FluidTooltipHandler;
 import slimeknights.tconstruct.library.client.GuiUtil;
 
@@ -21,6 +23,9 @@ import java.util.function.BiConsumer;
  * Module handling the melter tank UI display
  */
 public class GuiTankModule {
+  /** Tooltip for when the capacity is 0, it breaks some stuff */
+  private static final Component NO_CAPACITY = new TranslatableComponent(Mantle.makeDescriptionId("gui", "fluid.millibucket"), 0).withStyle(ChatFormatting.GRAY);
+
   private static final int TANK_INDEX = 0;
   private final AbstractContainerScreen<?> screen;
   private final IFluidHandler tank;
@@ -53,7 +58,11 @@ public class GuiTankModule {
    * @return  Fluid height
    */
   private int getFluidHeight() {
-    return height * tank.getFluidInTank(TANK_INDEX).getAmount() / tank.getTankCapacity(TANK_INDEX);
+    int capacity =  tank.getTankCapacity(TANK_INDEX);
+    if (capacity == 0) {
+      return height;
+    }
+    return height * tank.getFluidInTank(TANK_INDEX).getAmount() / capacity;
   }
 
   /**
@@ -103,7 +112,7 @@ public class GuiTankModule {
 
       // if hovering over the fluid, display with name
       final List<Component> tooltip;
-      if (checkY > (y + height) - getFluidHeight()) {
+      if (capacity > 0 && checkY > (y + height) - getFluidHeight()) {
         tooltip = FluidTooltipHandler.getFluidTooltip(fluid);
       } else {
         // function to call for amounts
@@ -113,16 +122,18 @@ public class GuiTankModule {
 
         // add tooltips
         tooltip = new ArrayList<>();
-        tooltip.add(new TranslatableComponent(GuiSmelteryTank.TOOLTIP_CAPACITY));
-        formatter.accept(capacity, tooltip);
-        if (capacity != amount) {
-          tooltip.add(new TranslatableComponent(GuiSmelteryTank.TOOLTIP_AVAILABLE));
-          formatter.accept(capacity - amount, tooltip);
+        tooltip.add(GuiSmelteryTank.TOOLTIP_CAPACITY);
+        if (capacity == 0) {
+          tooltip.add(NO_CAPACITY);
+        } else {
+          formatter.accept(capacity, tooltip);
+          if (capacity != amount) {
+            tooltip.add(GuiSmelteryTank.TOOLTIP_AVAILABLE);
+            formatter.accept(capacity - amount, tooltip);
+          }
+          // add shift message
+          FluidTooltipHandler.appendShift(tooltip);
         }
-
-        // add shift message
-        //tooltip.add("");
-        FluidTooltipHandler.appendShift(tooltip);
       }
 
       // TODO: renderComponentTooltip->renderTooltip

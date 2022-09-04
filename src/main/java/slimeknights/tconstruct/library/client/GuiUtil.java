@@ -112,7 +112,7 @@ public final class GuiUtil {
    * @param depth     Tank depth
    */
   public static void renderFluidTank(PoseStack matrices, AbstractContainerScreen<?> screen, FluidStack stack, int amount, int capacity, int x, int y, int width, int height, int depth) {
-    if(!stack.isEmpty()) {
+    if(!stack.isEmpty() && capacity > 0) {
       int maxY = y + height;
       int fluidHeight = Math.min(height * amount / capacity, height);
       renderTiledFluid(matrices, screen, stack, x, maxY - fluidHeight, width, fluidHeight, depth);

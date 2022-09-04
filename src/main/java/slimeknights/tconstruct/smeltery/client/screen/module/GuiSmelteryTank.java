@@ -4,7 +4,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.fluid.tooltip.FluidTooltipHandler;
@@ -24,9 +23,9 @@ import java.util.function.BiConsumer;
  */
 public class GuiSmelteryTank {
   // fluid tooltips
-  public static final String TOOLTIP_CAPACITY = TConstruct.makeTranslationKey("gui", "melting.capacity");
-  public static final String TOOLTIP_AVAILABLE = TConstruct.makeTranslationKey("gui", "melting.available");
-  public static final String TOOLTIP_USED = TConstruct.makeTranslationKey("gui", "melting.used");
+  public static final Component TOOLTIP_CAPACITY = TConstruct.makeTranslation("gui", "melting.capacity");
+  public static final Component TOOLTIP_AVAILABLE = TConstruct.makeTranslation("gui", "melting.available");
+  public static final Component TOOLTIP_USED = TConstruct.makeTranslation("gui", "melting.used");
 
   private final AbstractContainerScreen<?> parent;
   private final SmelteryTank<?> tank;
@@ -163,17 +162,17 @@ public class GuiSmelteryTank {
         BiConsumer<Integer, List<Component>> formatter = Screen.hasShiftDown() ? FluidTooltipHandler.BUCKET_FORMATTER : this.formatter;
 
         tooltip = new ArrayList<>();
-        tooltip.add(new TranslatableComponent(TOOLTIP_CAPACITY));
+        tooltip.add(TOOLTIP_CAPACITY);
 
         formatter.accept(tank.getCapacity(), tooltip);
         int remaining = tank.getRemainingSpace();
         if (remaining > 0) {
-          tooltip.add(new TranslatableComponent(TOOLTIP_AVAILABLE));
+          tooltip.add(TOOLTIP_AVAILABLE);
           formatter.accept(remaining, tooltip);
         }
         int used = tank.getContained();
         if (used > 0) {
-          tooltip.add(new TranslatableComponent(TOOLTIP_USED));
+          tooltip.add(TOOLTIP_USED);
           formatter.accept(used, tooltip);
         }
         FluidTooltipHandler.appendShift(tooltip);
