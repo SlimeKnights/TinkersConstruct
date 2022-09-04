@@ -19,9 +19,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CampfireBlock;
+import net.minecraft.world.level.block.CandleBlock;
+import net.minecraft.world.level.block.CandleCakeBlock;
 import net.minecraft.world.level.block.TntBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.common.ToolAction;
 import slimeknights.tconstruct.library.modifiers.impl.InteractionModifier;
 import slimeknights.tconstruct.library.tools.definition.aoe.CircleAOEIterator;
@@ -70,9 +73,10 @@ public class FirestarterModifier extends InteractionModifier.NoLevels {
   /** Ignites the given block */
   private static boolean ignite(IToolStackView tool, Level world, BlockPos pos, BlockState state, Direction sideHit, Direction horizontalFacing, @Nullable Player player) {
     // campfires first
-    if (CampfireBlock.canLight(state)) {
+    if (CampfireBlock.canLight(state) || CandleBlock.canLight(state) || CandleCakeBlock.canLight(state)) {
       world.playSound(player, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, RANDOM.nextFloat() * 0.4F + 0.8F);
       world.setBlock(pos, state.setValue(BlockStateProperties.LIT, true), 11);
+      world.gameEvent(player, GameEvent.BLOCK_PLACE, pos);
       return true;
     }
 
