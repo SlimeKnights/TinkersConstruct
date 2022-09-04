@@ -329,7 +329,7 @@ public class ToolAttackUtil {
     if (targetEntity.hurtMarked && targetEntity instanceof ServerPlayer serverPlayer) {
       serverPlayer.connection.send(new ClientboundSetEntityMotionPacket(targetEntity));
       targetEntity.hurtMarked = false;
-      targetEntity.setDeltaMovement(originalTargetMotion);
+      // TODO: why was this needed before? targetEntity.setDeltaMovement(originalTargetMotion);
     }
 
     // play sound effects and particles
