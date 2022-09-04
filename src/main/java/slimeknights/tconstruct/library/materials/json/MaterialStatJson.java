@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.materials.json;
 
-import com.google.gson.JsonObject;
+import com.google.gson.JsonElement;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.resources.ResourceLocation;
 
@@ -15,9 +15,9 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class MaterialStatJson {
   @Nullable
-  private final Map<ResourceLocation, JsonObject> stats;
+  private final Map<ResourceLocation,JsonElement> stats;
 
-  public Map<ResourceLocation, JsonObject> getStats() {
+  public Map<ResourceLocation, JsonElement> getStats() {
     if (stats == null) {
       return Collections.emptyMap();
     }

@@ -11,6 +11,7 @@ import lombok.extern.log4j.Log4j2;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.util.GsonHelper;
 import slimeknights.mantle.data.MergingJsonDataLoader;
 import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
@@ -175,16 +176,21 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
   protected void parse(Map<ResourceLocation, JsonObject> builder, ResourceLocation id, JsonElement element) throws JsonSyntaxException {
     MaterialStatJson json = GSON.fromJson(element, MaterialStatJson.class);
     // instead of simply replacing the whole JSON object, merge the two together
-    for (Entry<ResourceLocation,JsonObject> entry : json.getStats().entrySet()) {
+    for (Entry<ResourceLocation,JsonElement> entry : json.getStats().entrySet()) {
       ResourceLocation key = entry.getKey();
-      JsonObject value = entry.getValue();
-      JsonObject existing = builder.get(key);
-      if (existing != null) {
-        for (Entry<String,JsonElement> jsonEntry : value.entrySet()) {
-          existing.add(jsonEntry.getKey(), jsonEntry.getValue());
-        }
+      JsonElement valueElement = entry.getValue();
+      if (valueElement.isJsonNull()) {
+        builder.remove(key);
       } else {
-        builder.put(key, value);
+        JsonObject value = GsonHelper.convertToJsonObject(valueElement, key.toString());
+        JsonObject existing = builder.get(key);
+        if (existing != null) {
+          for (Entry<String,JsonElement> jsonEntry : value.entrySet()) {
+            existing.add(jsonEntry.getKey(), jsonEntry.getValue());
+          }
+        } else {
+          builder.put(key, value);
+        }
       }
     }
   }

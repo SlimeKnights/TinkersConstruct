@@ -127,4 +127,18 @@ class MaterialStatsManagerTest extends BaseMcTest {
     Optional<ComplexTestStats> optionalStats = materialStatsManager.getStats(material, new MaterialStatsId("test", "fails"));
     assertThat(optionalStats).isEmpty();
   }
+
+  @Test
+  void testLoadFile_removeStatOverride() {
+    MaterialId material = new MaterialId(TConstruct.getResource("multiple"));
+    MaterialStatsId statId1 = new MaterialStatsId("test", "stat1");
+    materialStatsManager.registerMaterialStat(new ComplexTestStats(statId1, 1, 1f, "one"), ComplexTestStats.class, ComplexTestStats::new);
+    MaterialStatsId statId2 = new MaterialStatsId("test", "stat2");
+    materialStatsManager.registerMaterialStat(new ComplexTestStats(statId2, 2, 2f, "two"), ComplexTestStats.class, ComplexTestStats::new);
+
+    fileLoader.loadAndParseFiles("remove", material);
+
+    assertThat(materialStatsManager.getStats(material, statId1)).isPresent();
+    assertThat(materialStatsManager.getStats(material, statId2)).isNotPresent();
+  }
 }
