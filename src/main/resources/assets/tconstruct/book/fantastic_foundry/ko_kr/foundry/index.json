@@ -4,7 +4,7 @@
   "hidden": ["structurereq", "fgui2"],
   "operations": [
     { "before": "features",       "action": "add_group", "data": "세부 정보" },
-    { "before": "scorched_tanks", "action": "column_break" },
+    { "before": "scorched_tanks", "action": "column_break", "data": "구조물" },
     { "before": "scorched_tanks", "action": "add_group", "data": "블록" }
   ]
 }

@@ -1,8 +1,6 @@
 {
   "title": "EFLN",
-  "item": {
-    "id": "tconstruct:efln"
-  },
+  "item": "tconstruct:efln",
   "text": [
     {
       "text": "",
