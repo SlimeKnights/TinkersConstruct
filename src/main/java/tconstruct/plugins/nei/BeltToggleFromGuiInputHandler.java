@@ -12,16 +12,18 @@ public class BeltToggleFromGuiInputHandler implements IContainerInputHandler {
     static final String KEY_IDENTIFIER = "gui.tinkers_belt";
     public static void init() {
         API.addKeyBind(KEY_IDENTIFIER, 0);
-        GuiContainerManager.addInputHandler((IContainerInputHandler)new BeltToggleFromGuiInputHandler());
+        GuiContainerManager.addInputHandler(new BeltToggleFromGuiInputHandler());
     }
 
     @Override
     public boolean keyTyped(GuiContainer guiContainer, char c, int i) {
-        final int keyBinding = NEIClientConfig.getKeyBinding(KEY_IDENTIFIER);
-        if (i != keyBinding) {
+        if (i == 0) {
             return false;
         }
-
+        final int keyBinding = NEIClientConfig.getKeyBinding(KEY_IDENTIFIER);
+        if (keyBinding == 0 || i != keyBinding) {
+            return false;
+        }
         return ArmorControls.doBeltSwapIfPossible();
     }
 
