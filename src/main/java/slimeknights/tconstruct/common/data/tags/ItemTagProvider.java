@@ -168,6 +168,8 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.copy(BlockTags.SAPLINGS, ItemTags.SAPLINGS);
 
     this.copy(Tags.Blocks.ORES, Tags.Items.ORES);
+    this.copy(Tags.Blocks.ORE_RATES_SINGULAR, Tags.Items.ORE_RATES_SINGULAR);
+    this.copy(Tags.Blocks.ORES_IN_GROUND_NETHERRACK, Tags.Items.ORES_IN_GROUND_NETHERRACK);
     this.copy(TinkerTags.Blocks.ORES_COBALT, TinkerTags.Items.ORES_COBALT);
     this.copy(TinkerTags.Blocks.RAW_BLOCK_COBALT, TinkerTags.Items.RAW_BLOCK_COBALT);
     this.tag(TinkerTags.Items.RAW_COBALT).add(TinkerWorld.rawCobalt.get());
