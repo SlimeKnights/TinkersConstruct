@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:firestarter",
+  "text": [
+    {
+      "text": "Tudo mudou quando o modificador de lança-chamas chegou ao ataque."
+    }
+  ],
+  "effects": [
+    "Interaja para iniciar incêndios",
+    "Nível único",
+    "Requer 1 Slot de Habilidade",
+    "O uso do Isqueiro Tinker aumenta o raio, exigindo 1 slot de melhoria"
+  ]
+}

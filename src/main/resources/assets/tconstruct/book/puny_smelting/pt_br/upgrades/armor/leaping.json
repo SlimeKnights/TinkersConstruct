@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:leaping",
+  "text": [
+    {
+      "text": "Salte para as estrelas, e se não conseguir alcançá-las, escale uma montanha e depois tente alcançá-las."
+    }
+  ],
+  "effects": [
+    "Aumenta a altura do salto e a altura da queda segura",
+    "Múltiplos níveis, cada nível aumenta ainda mais a altura do salto e da queda segura",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

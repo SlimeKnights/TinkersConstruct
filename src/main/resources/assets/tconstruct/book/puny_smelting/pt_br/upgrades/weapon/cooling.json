@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:cooling",
+  "text": [
+    {
+      "text": "A melhor maneira de vencer as chamas do nether é congelando-a, extinguindo sua chama eterna."
+    }
+  ],
+  "effects": [
+    "Aumenta o dano em criaturas baseadas no fogo",
+	"Múltiplos níveis, cada nível aumenta ainda mais o dano",
+    "Requer 1 Slot de Melhoria por nível"
+  ]
+}

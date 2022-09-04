@@ -1,0 +1,14 @@
+{
+  "title": "Bônus",
+  "text": [
+    { "text": "Os modificadores de bônus são um grupo de modificadores sem slots que concedem slots adicionais de modificadores." },
+    {
+      "text": "Por padrão, A maioria das ferramentas pequenas começa com 3 slots de melhoria, e a maioria das ferramentas grandes começam com 2. Os modificadores podem adicionar mais 4 slots à ferramenta.",
+      "paragraph": true
+    },
+    {
+      "text": "Além disso, a maioria das ferramentas começa com 1 slot de habilidade. Os modificadores podem acrescentar um slot de habilidade adicional à ferramenta.",
+      "paragraph": true
+    }
+  ]
+}

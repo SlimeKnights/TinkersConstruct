@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:reach",
+  "text": [
+    {
+      "text": "Alcance as estrelas! Ou a prateleira superior... Ou a prateleira de altura média, se você for baixinho..."
+    }
+  ],
+  "effects": [
+    "Aumenta a distância de alcance para blocos e mineração",
+    "Múltiplos níveis, cada nível permite que você alcance mais longe",
+    "Requer 1 Slot de Habilidade por nível"
+  ]
+}

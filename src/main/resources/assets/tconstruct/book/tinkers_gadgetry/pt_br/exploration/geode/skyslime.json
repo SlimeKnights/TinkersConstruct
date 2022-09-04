@@ -1,0 +1,13 @@
+{
+  "title": "Geodos de Slime-Do-Céu",
+  "image": {
+    "file": "tconstruct:book/images/geodes/skyslime.png",
+    "width": 180,
+    "height": 96
+  },
+  "text": [
+    {
+      "text": "Geodos de Slime-Do-Céu são encontrados em cavernas próximas à superfície, e uma vez eu me deparei com um na superfície que me levou a acreditar que eles poderiam ter origem no espaço. Por alguma razão, os geodos são frequentemente frios mesmo em biomas quentes, levando à formação de gelo embalado ao redor dos cristais."
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:magic_protection",
+  "text": [
+    {
+      "text": "Concede +8% de resistência contra dano mágico, tais como de veneno ou espinhos. O máximo é de 80% em todo o set, ou seja 10 niveis."
+    },
+    {
+      "text": "Reduz a duração de poções negativas em 5% por nivel da peça de nivel mais alto.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Pode aplicar niveis de forma progressiva",
+    "Requer 1 slot de defesa"
+  ]
+}

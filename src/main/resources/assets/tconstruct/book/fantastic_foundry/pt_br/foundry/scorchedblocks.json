@@ -1,0 +1,12 @@
+{
+  "title": "Blocos Chamuscados",
+  "item": {
+    "tag": "tconstruct:scorched_blocks"
+  },
+  "text": [
+    {
+      "text": "Estes blocos podem ser usados em qualquer parte da fundição, como pisos ou paredes. Eles também são úteis para decorar sua base.",
+      "paragraph": true
+    }
+  ]
+}

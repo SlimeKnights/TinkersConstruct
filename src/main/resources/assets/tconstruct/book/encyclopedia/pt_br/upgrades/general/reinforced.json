@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:reinforced",
+  "text": [
+    {
+      "text": "Reduz a chance de a ferramenta sofrer danos. Tem 75% de chance de sofrer danos no nível 1, 55% de chance no nível 2, 40% no nível 3, 30% no nível 4, e 25% no nível 5."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Pode aplicar niveis progressivamente",
+    "Máximo de 5 niveis",
+    "Requer 1 slot de melhoria por nivel"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:dual_wielding",
+  "text": [
+    {
+      "text": "Permite que a ferramenta seja usada tanto na mão secundária quanto na mão principal. Ferramentas com o empunhamento duplo tem 80% da velocidade e dano, ou 90% da velocidade e 70% de dano para ferramentas empunhadas em 2 mãos. As ferramentas precisam estar na mão secundária para ativar o empunhamento duplo."
+    },
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requer 1 slot de habilidade"
+  ]
+}

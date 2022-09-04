@@ -1,0 +1,7 @@
+{
+  "title": "Informações sobre Ferramentas",
+  "text": [
+    { "text": "Todas as ferramentas grandes requerem a Bigorna Tinker para serem fabricadas, assim como para substituir suas peças, A maioria delas requerem 4 peças de ferramentas, e começam apenas com 2 slots de melhorias e 1 slot de habilidade" },
+    { "text": "Ferramentas grandes possuem a mesma quantidade bônus de ataque e modificadores que as pequenas, e possuem muito mais atributos. Alem disso, muitas ferramentas tem durabilidade ou modificador de velocidade de mineração similar a um modificador de ataque, afetando o status base e o status bônus vindo de modificadores. Finalmente, todas as ferramentas grandes possuem o atributo \"empunhamento duplo\" , que impede o uso da mão secundária, a menos que um modificador de mão secundária seja aplicado.", "paragraph": true }
+  ]
+}

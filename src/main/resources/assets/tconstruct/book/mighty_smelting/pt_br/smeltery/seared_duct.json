@@ -1,0 +1,14 @@
+{
+  "title": "Duto Carbonizado",
+  "item": "tconstruct:seared_duct",
+  "text": [
+    {
+      "text": "O duto carbonizado é sua maneira de puxar um fluido específico para fora da fundição. O fluido é escolhido colocando uma lata de cobre ou um balde cheio de um líquido no slot do filtro do duto.",
+      "paragraph": true
+    },
+	{
+      "text": "O fluido que você selecionou para ser filtrado aparecerá no meio do duto.",
+      "paragraph": true
+    }
+	]
+}

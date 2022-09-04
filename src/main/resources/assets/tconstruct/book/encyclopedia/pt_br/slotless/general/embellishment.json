@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:embellishment",
+  "text": [
+    {
+      "text": "Permite mudar a aparência da armadura de placas e da armadura de slime"
+    },
+    {
+      "text": "A armadura de placas é embelezada com lingotes metálicos, enquanto a roupa de slime usa blocos de slime congelados.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Multi-usos",
+    "Sem Slots"
+  ]
+}

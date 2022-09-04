@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:travelers_helmet",
+  "text": [
+    { "text": "Óculos de proteção adequados para um Rei, ou Lêmingue, ou um Rei Lêmingue." },
+	{
+      "text": "Um bom par de óculos de proteção proporciona aventuras mais seguras, uma visão mais fácil e as façanhas de um rei.", "paragraph": true
+    }
+  ],
+  "properties": [
+   "Baixa Armadura",
+	"Baixa Durabilidade",
+    "3 Slots de Melhoria",
+    "2 Slots de Defesa",
+    "1 Slot de Habilidade"
+  ]
+}

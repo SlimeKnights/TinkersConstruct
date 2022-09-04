@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:speedy",
+  "text": [
+    {
+      "text": "Multiplica a velocidade em 10% por nivel."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Pode aplicar niveis progressivamente",
+    "Máximo de 3 niveis",
+    "Requer 1 slot de melhoria por nivel"
+  ]
+}

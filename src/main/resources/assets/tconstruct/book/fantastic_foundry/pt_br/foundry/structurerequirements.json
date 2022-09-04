@@ -1,0 +1,20 @@
+{
+  "title": "Requisitos de Estrutura",
+  "text": [
+    {
+      "text": "Sua fundição tem algumas exigências, maior nem sempre é melhor."
+    },
+    {
+      "text": "Sua fundição deve ter um piso feito de blocos de fundição aceitáveis, excluindo o vidro. Os blocos aceitáveis serão mostrados em algumas páginas! Sua fundição também deve ser retangular, não pode ser em forma de L, círculo ou dodecaedro.",
+      "paragraph": true
+    },
+    {
+      "text": "O tamanho máximo de sua fundição é de 16x16x65 externo. ou de 14x14x64 interno.",
+      "paragraph": true
+    },
+    {
+      "text": "A fundição deve ter cantos e bordas para poder funcionar corretamente.",
+      "paragraph": true
+    }
+  ]
+}

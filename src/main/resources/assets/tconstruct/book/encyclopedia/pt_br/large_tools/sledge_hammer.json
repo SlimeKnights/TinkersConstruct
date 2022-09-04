@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:sledge_hammer",
+  "text": [
+    { "text": "A Marreta é uma ferramenta grande muito útil para a mineração, efetiva na pedra em um área de 3x3." },
+    { "text": "Os expansores se alternam entre aumentar a largura e a altura.", "paragraph": true }
+  ],
+  "properties": [
+    "+3 Dano de Ataque",
+    "135% Ataque",
+    "0.75 Vel de Ataque",
+    "40% Mineração",
+    "400% Durabilidade",
+    "Golpe II"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:knockback_armor",
+  "text": [
+    {
+      "text": "Concede 1 de repulsão por nível a todas as armas, lançando uma criatura a cerca de 2 blocos. A maioria das ferramentas começa com 0,4 repulsão."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 3 niveis",
+    "Requer 1 slot de melhoria por nivel"
+  ]
+}

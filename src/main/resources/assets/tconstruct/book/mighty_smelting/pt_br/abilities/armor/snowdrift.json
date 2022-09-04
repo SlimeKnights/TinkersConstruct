@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:snowdrift",
+  "text": [
+    {
+      "text": "olhe para o golem de neve. Ele não é tao legal, deixando um rastro de neve? Não vai me dizer que você quer deixar rastros de neve também né?"
+    }
+  ],
+  "effects": [
+    "Cria neve por onde você anda",
+    "Não funciona em biomas quentes",
+    "Área pode ser aumentada através de expansores",
+    "Máximo de 1 nivel",
+    "Requer 1 slot de habilidade"
+  ]
+}

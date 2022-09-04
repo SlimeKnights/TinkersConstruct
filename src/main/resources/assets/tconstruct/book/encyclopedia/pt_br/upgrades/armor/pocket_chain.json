@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:pocket_chain",
+  "text": [
+    {
+      "text": "Este modificador permite que os cintos abram a UI da armadura, por meio da interação enquanto se esgueira, sem que seja necessário a adição de bolsos. Este modificador concede +1 slot tanto para o cinto de proteção quanto para o cinto de ferramentas, permitindo trocar a hotbar com o cinto de ferramentas."
+    },
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Sem Slot",
+    "Requer um Cinto de Ferramentas ou um Cinto de Proteção"
+  ]
+}

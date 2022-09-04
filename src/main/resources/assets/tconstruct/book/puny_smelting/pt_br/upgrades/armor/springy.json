@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:springy",
+  "text": [
+    {
+      "text": "Longe de seus inimigos, dando-lhe tempo suficiente para virar os calcanhares e correr, ou curar."
+    }
+  ],
+  "effects": [
+    "Proporciona uma chance de jogar pra longe atacantes",
+    "Múltiplos níveis, cada nível aumenta ainda mais a chance de repulsão",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

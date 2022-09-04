@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:slime_boots",
+  "text": [
+    { "text": "Botas de Slime são botas com alta mobilidade, sem proteção e sem slots de defesa, porem com muitos slots de melhorias." },
+    { "text": "Eles podem ser fabricados despejando calda de enderslime sobre um pé de coelho, e são reparados com pele de coelho.", "paragraph": true }
+  ],
+  "properties": [
+    "546 Durabilidade",
+    "5 Slots de Melhoria",
+    "0 Slots de Defesa",
+    "1 Slots de Habilidade",
+    "Saltitante",
+    "Trampolim I"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:sweeping_edge",
+  "text": [
+    {
+      "text": "Chim chiminey chim chiminey chim chim cher-ee, uma varredura é á maior sorte que um sortudo pode receber."
+    }
+  ],
+  "effects": [
+     "Os alvos do ataque de varredura levam uma porcentagem maior dos danos das ferramentas",
+    "Vários níveis, cada nível aumenta ainda mais a porcentagem de danos",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

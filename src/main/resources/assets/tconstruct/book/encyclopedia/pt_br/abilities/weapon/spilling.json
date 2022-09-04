@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:spilling",
+  "text": [
+    {
+      "text": "Drena uma pequena quantidade de fluido (normalmente entre 10 ml a 50 ml) para fortalecer ataques com efeitos especiais, ou em contra-ataque quando aplicado em um peitoral. "
+    },
+    {
+      "text": "Os efeitos podem incluir acender fogo em você mesmo, dano bônus, efeitos de criaturas como o veneno, ou efeitos de status de limpeza como o leite."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requer 1 slot de habilidade"
+  ]
+}

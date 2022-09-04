@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:overslime",
+  "text": [
+    {
+      "text": "Slimebilidade concede a ferramenta uma segunda barra de durabilidade, que é consumido antes da barra principal de durabilidade. Por padrão, as ferramentas começam com 50 de slimebilidade, multiplicado pelo seu modificador de durabilidade."
+    },
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Multi-usos",
+    "Sem Slots"
+  ]
+}

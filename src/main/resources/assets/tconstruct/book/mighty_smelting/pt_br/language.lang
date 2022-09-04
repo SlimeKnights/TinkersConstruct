@@ -1,0 +1,22 @@
+intro=Introdução
+entity_melting=Fundição de Entidade
+tier_three_materials=Materiais Nivel 3
+tools=Ferramentas Grandes
+tools.subtext=Todas as ferramentas grandes requerem o uso de uma bigorna tinker para sua fabricação
+
+smeltery=Fundição
+
+abilities=Habilidades
+abilities.subtext=As habilidades são mais poderosas do que as melhorias, mas também têm um número mais limitado de slots.
+abilities.group_general=Geral
+abilities.group_harvest=Colheita
+abilities.group_weapon=Arma
+abilities.group_interact=Interação
+abilities.group_armor=Armadura
+abilities.unarmed=Desarmado
+upgrades.subtext=As ferramentas podem ser aperfeiçoadas com melhorias, embora apenas um número limitado possa ser aplicado a cada ferramenta.
+
+defense=Defesa
+defense.subtext=Os modificadores de defesa só podem ser aplicados à armadura, através de slots de defesa.
+defense.group_protection=Proteção
+defense.group_special=Especial

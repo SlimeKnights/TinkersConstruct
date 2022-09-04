@@ -1,0 +1,14 @@
+{
+  "title": "Troca de Peças",
+  "image": {
+    "file": "tconstruct:book/images/part_swapping.png",
+    "width": 136,
+    "height": 72
+  },
+  "text": [
+    {
+      "text": "Você já desejou poder desfazer um erro do passado? Felizmente você pode fazê-lo com ferramentas. Se você quiser mudar o material de uma das peças, coloque a ferramenta com a peça nova desejada na estação tinker. Para ferramentas que têm várias da mesma peça, tente alguns slots diferentes para substituir a peça certa.",
+      "paragraph": false
+    }
+  ]
+}

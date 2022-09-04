@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:double_jump",
+  "text": [
+    {
+      "text": "O Pulo Duplo aumenta suas habilidades e faz suas jornadas ficarem muito melhores no jogo. Não se esqueça de usar botas capazes de suportar tamanho poder."
+    }
+  ],
+  "effects": [
+    "Habilitas pulos extras",
+	"Multiplos niveis, cada nivel concede um pulo extra",
+    "Requer 1 slot de habilidade"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "title": "Molduras de itens extravagantes",
+  "text": [
+    { "text": "• Transparente: se torna invisível quando um item é colocado dentro, e permite interagir com o bloco atrás quando cheio e não se esgueirando." },
+    { "text": "\n" },
+    { "text": "• Ouro: Gira gradualmente o item automaticamente. A fabricação com uma lanterna de redstone inverte a direção." },
+    { "text": "\n" },
+    { "text": "• Diamante: Gradualmente reduz a rotação até que o item esteja em pé. Suporta mais rotações do que uma estrutura padrão." },
+    { "text": "\n" },
+    { "text": "• Manyullyn: Aparece sempre totalmente iluminado, mesmo na escuridão." },
+    { "text": "\n" },
+    { "text": "• Netherita: Resistente a incêndios e explosões." }
+  ]
+}

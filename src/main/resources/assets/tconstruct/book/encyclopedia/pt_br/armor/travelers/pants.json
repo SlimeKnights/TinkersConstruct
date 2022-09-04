@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:travelers_leggings",
+  "text": [
+    { "text": "A Calça do Viajante é um set de perneira balanceado, com proteção média, e uma quantidade mediana de slots de melhoria e de defesa." }
+  ],
+  "properties": [
+    "150 Durabilidade",
+    "+4 Armadura",
+    "3 Slots de Melhoria",
+    "2 Slots de Defesa",
+    "1 Slot de Habilidade"
+  ]
+}

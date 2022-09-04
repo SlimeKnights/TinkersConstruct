@@ -1,0 +1,12 @@
+{
+  "title": "Estilingue de Slime",
+  "item": {
+    "tag": "tconstruct:slimeslings"
+  },
+  "text": [
+    {
+      "text": "Os Estilingues de Slimes são minha última invenção, permitindo que você atire a si mesmo ou a outras criaturas. O slime-terra permite você quicar em blocos para percorrer grandes distâncias, o slime-do-céu não o lança para tão longe, mas funciona no ar, o icor é eficaz para flingir inimigos, e os estilingues de enderslimes permitem que você se teleporte pelo espaço. Estou trabalhando em maneiras de aplicar modificadores no estilingue para aumentar seu poder.",
+      "paragraph": true
+    }
+  ]
+}

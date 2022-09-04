@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:golden",
+  "text": [
+    {
+      "text": "Os piglins amam o drip."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Piglins não irá atacá-lo",
+    "Nível único",
+    "Requer 1 slot de defesa"
+  ]
+}

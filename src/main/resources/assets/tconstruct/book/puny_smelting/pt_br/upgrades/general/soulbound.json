@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:soulbound",
+  "text": [
+    {
+      "text": "A infusão de sua alma com um objeto não parece saudável. Mas é bastante útil!"
+    }
+  ],
+  "effects": [
+    "A ferramenta permanecerá com você após um falecimento prematuro",
+    "Nível Único",
+    "Requer 1 Slot de Melhoria"
+  ]
+}

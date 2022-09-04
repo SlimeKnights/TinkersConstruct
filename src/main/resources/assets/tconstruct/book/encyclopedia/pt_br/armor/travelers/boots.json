@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:travelers_boots",
+  "text": [
+    { "text": "As Botas de Viajantes são botas balanceadas, possuem pouca proteção, e uma quantidade média de slots de melhoria e de defesa." }
+  ],
+  "properties": [
+    "130 Durabilidade",
+    "+1 Armadura",
+    "3 Slots de Melhoria",
+    "2 Slots de Defesa",
+    "1 Slot de Habilidade"
+  ]
+}

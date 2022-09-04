@@ -1,0 +1,25 @@
+intro=Introdução
+
+gadgets=Aparelhos
+
+modifiers=Modificadores Estranhos
+
+exploration=Exploração
+exploration.necrotic_bones=Osso Necrosado
+
+exploration.skyslime_island=Slime-Do-Céu
+exploration.earthslime_island=Slime-Terra
+exploration.clay_island=Argila
+exploration.blood_island=Sangue
+exploration.enderslime_island=Enderslime
+
+exploration.skyslime_geode=Slime-Do-Céu
+exploration.earthslime_geode=Slime-Terra
+exploration.ichor_geode=Icor
+exploration.enderslime_geode=Enderslime
+
+armor=Armadura
+armor.subtext=A mistura de slime com várias partes de mobs produz um conjunto interessante de armaduras. Não é a mais defensiva, mas pode realmente aumentar suas habilidades.
+
+skull_materials=Materiais de Caveiras
+skull_materials.subtext=A colocação de um desses crânios em uma bacia de fundição e a adição de enderslime pode aumentar sua habilidade com capacete.

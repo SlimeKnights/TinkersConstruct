@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:bouncy",
+  "text": [
+    {
+      "text": "O mundo é o seu trampolim."
+    }
+  ],
+  "effects": [
+    "Quica no Chão",
+    "Nivel Único",
+    "Requer 1 slot de habilidade"
+  ]
+}

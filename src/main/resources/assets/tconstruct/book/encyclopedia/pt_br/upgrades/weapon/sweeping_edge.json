@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:sweeping_edge",
+  "text": [
+    {
+      "text": "Aumenta a quantidade de dano causado pelo ataque de varredura de espadas. Faz com que a ferramenta lide com 50% do dano do ataque principal no nível 1, 67% do dano no nível 2, 75% no nível 3, e 80% no nível 4."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Pode aplicar niveis progressivamente",
+    "Máximo de 4 niveis",
+    "Requer 1 slot de melhoria por nivel"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:looting",
+  "text": [
+    {
+      "text": "Aumenta a taxa de drops por monstros mortos por uma mão vazia. Note que, ao contrário de outros modificadores que têm receitas múltiplas, a fortuna requer uma receita diferente para cada nível, e as receitas devem ser aplicadas em ordem."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 3 niveis",
+    "Requer 1 slot de melhoria por nivel",
+    "Requer Ataque Desarmado"
+  ]
+}

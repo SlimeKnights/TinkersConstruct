@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:dyed",
+  "text": [
+    {
+      "text": "Isso vem em preto?"
+    }
+  ],
+  "effects": [
+    "Pode usar corantes para mudar a cor do equipamento do viajante",
+    "Multi-uso",
+    "Sem Slot"
+  ]
+}

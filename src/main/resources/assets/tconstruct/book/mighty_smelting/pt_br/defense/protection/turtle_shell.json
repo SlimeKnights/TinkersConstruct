@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:turtle_shell",
+  "text": [
+    {
+      "text": "Não o protege de cascos verdes, vermelhas ou azuis."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Diminui o dano recebido debaixo d'água e aumenta a velocidade de natação",
+    "Múltiplos níveis, cada nível aumenta ainda mais a proteção e a velocidade de natação",
+    "Requer 1 slot de defesa"
+  ]
+}

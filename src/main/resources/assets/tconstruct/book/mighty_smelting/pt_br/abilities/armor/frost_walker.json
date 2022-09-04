@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:frost_walker",
+  "text": [
+    {
+      "text": "Ganha a habilidade de andar na água. Bem, não exatamente, mas é quase isso."
+    }
+  ],
+  "effects": [
+    "Água congela por onde você andar",
+    "Área pode ser aumentada através de expansores",
+    "Máximo de 1 nivel",
+    "Requer 1 slot de habilidade"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "title": "Latas de Cobre",
+  "text": [
+    {
+      "text": "Latas de cobre (e baldes!) podem ser usados para transferir manualmente fluidos ao seu redor."
+    },
+    {
+      "text": "As latas de cobre suportam até 1 lingote em forma líquido.",
+      "paragraph": true
+    },
+    {
+	    "text": "As latas de cobre podem ser empilhadas em até 16.",
+      "paragraph": true
+    }
+  ]
+}

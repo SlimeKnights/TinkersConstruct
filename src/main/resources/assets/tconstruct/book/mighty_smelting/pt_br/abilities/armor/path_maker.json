@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:path_maker",
+  "text": [
+    {
+      "text": "Cansado de esquecer o caminho para casa? Por que não deixar um caminho contínuo? Caminhe pela terra e nunca se esqueça de onde esteve!"
+    }
+  ],
+  "effects": [
+    "Cria caminhos por onde você andar",
+    "Area aumentada através de expansores",
+    "Máximo de 1 nivel",
+    "Requer 1 slot de habilidade"
+  ]
+}

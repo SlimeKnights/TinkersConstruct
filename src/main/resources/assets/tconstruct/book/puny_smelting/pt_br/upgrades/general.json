@@ -1,0 +1,16 @@
+{
+  "title": "Melhorias gerais",
+  "text": [
+    {
+      "text": "As melhorias são modificadores adicionadas às ferramentas utilizando receitas de melhoria. Cada ferramenta tem um número limitado de slots de melhoria para começar, embora o número de slots possa ser aumentado de algumas maneiras."
+    },
+	{
+      "text": "Muitas das melhorias listadas em gerais, armas, bônus de danos, também funcionam com armaduras em geral!",
+	  "paragraph": true
+    },
+    {
+      "text": " As melhorias gerais funcionam bem em qualquer ferramenta! Estas melhorias aperfeiçoarão sua ferramenta em todos os aspectos, aumentando seus danos de ataque, velocidade de mineração, durabilidade, e muito mais!",
+      "paragraph": true
+    }
+  ]
+}

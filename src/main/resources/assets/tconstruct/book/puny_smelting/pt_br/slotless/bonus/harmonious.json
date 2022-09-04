@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:harmonious",
+  "text": [
+    {
+      "text": "A música é boa para a alma, e sua ferramenta. Talvez sua ferramenta tenha uma alma?"
+    }
+  ],
+  "effects": [
+    "Adiciona um slot de melhoria",
+    "Uso único"
+    
+  ]
+}

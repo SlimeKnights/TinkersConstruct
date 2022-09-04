@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:piercing",
+  "text": [
+    {
+      "text": "Ferramenta ganha o poder do cacto, atacando através da armadura."
+    }
+  ],
+  "effects": [
+    "Adiciona dano extra que perfura a armadura",
+    "Converte um pouco de dano regular em perfuração",
+    "Múltiplos níveis, cada nível aumenta ainda mais o dano",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

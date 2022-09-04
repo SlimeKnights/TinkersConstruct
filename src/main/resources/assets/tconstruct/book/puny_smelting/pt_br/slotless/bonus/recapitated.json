@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:recapitated",
+  "text": [
+    {
+      "text": "Então primeiro você quer tirar a cabeça deles, e agora você quer colocá-las de volta? Quem é você? Frankenstein?"
+    }
+  ],
+  "effects": [
+    "Adiciona um Slot de Melhoria",
+    "Uso único"
+  ]
+}

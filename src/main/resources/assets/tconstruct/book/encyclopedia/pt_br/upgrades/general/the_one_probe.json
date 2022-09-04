@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:the_one_probe",
+  "text": [
+    {
+      "text": "Mostra informações sobre o bloco visado."
+    },
+    {
+      "text": "O elmo precisa estar equipado para mostrar a informação, ou segurar a ferramenta em alguma mão.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Nivel único",
+    "Requer 1 slot de melhoria"
+  ]
+}

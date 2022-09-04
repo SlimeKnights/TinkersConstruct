@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:zoom",
+  "text": [
+    {
+      "text": "Eu espio com meus pequenos olhos, alguma coisa numa grande distância."
+    }
+  ],
+  "effects": [
+    "Permite que você de zoom",
+    "Máximo de 1 nivel",
+    "Requer 1 slot de habilidade"
+  ]
+}

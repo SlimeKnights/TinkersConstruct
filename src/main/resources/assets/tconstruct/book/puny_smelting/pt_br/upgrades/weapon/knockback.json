@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:knockback",
+  "text": [
+    {
+      "text": "Pare de desperdiçar energia e faça com que seus inimigos desperdicem energia voltando para você."
+    }
+  ],
+  "effects": [
+    "Joga para longe inimigos atacados",
+    "Múltiplos níveis, aumenta a força da repulsão por nível",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

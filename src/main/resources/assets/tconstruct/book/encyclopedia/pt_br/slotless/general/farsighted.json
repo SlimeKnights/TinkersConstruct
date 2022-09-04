@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:farsighted",
+  "text": [
+    {
+      "text": "Diminui o campo de visão em 5% por nível enquanto usando esta armadura ou segurando esta ferramenta."
+    },
+    {
+      "text": "Este modificador é útil para anular a mudança do campo de visão do modificador de velocidade, mas você pode encontrar outros usos para ele.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Multi-usos",
+    "Sem Slots"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "title": "Moldes de Areia",
+  "text": [
+    {
+      "text": "Para fundir sua peça de ferramenta: primeiro faça um molde de areia vazio e use o botão de interação para colocá-lo em uma mesa de fundição. Crie uma peça de ferramenta no montador de peças e use-a em um molde de areia vazia, depois use-a novamente para remover a peça do molde. Em seguida, você pode despejar metal fundido na mesa e retirar sua peça uma vez resfriada. O molde de areia é consumido no processo."
+    },
+    {
+      "text": "Os moldes de areia não vazios se transformarão em moldes de areia vazios quando forem recolhidos.",
+      "paragraph": true
+    }
+  ]
+}

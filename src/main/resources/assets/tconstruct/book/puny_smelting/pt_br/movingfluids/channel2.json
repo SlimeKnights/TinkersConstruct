@@ -1,0 +1,16 @@
+{
+  "title": "Canais",
+  "text": [
+    {
+      "text": "Os canais podem ser preenchidos com fluidos de cima ou dos lados que foram definidos como a entrada. Eles saem para baixo, ou dos lados que estão ajustados para sair."
+    },
+    {
+      "text": "Os canais têm setas dentro deles que mostram a direção que o fluido irá percorrer. Um clique com o botão direito do mouse nos lados dos canais os alternará entre entrada, saída e nada. Ao clicar com o botão direito do mouse no meio do canal, ele será ajustado para sair diretamente para baixo se houver um recipiente de fluido válido embaixo. Os canais não podem transferir para cima.",
+      "paragraph": true
+    },
+    {
+      "text": "Os canais respondem a redstone, Acione-o e ele permitirá e desabilitará o fluxo para baixo.",
+      "paragraph": true
+    }
+  ]
+}

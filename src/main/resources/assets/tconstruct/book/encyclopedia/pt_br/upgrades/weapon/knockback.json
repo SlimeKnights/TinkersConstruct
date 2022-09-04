@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:knockback",
+  "text": [
+    {
+      "text": "Concede 1 de repulsão por nivel, que ira lançar uma criatura a aproximadamente 2 blocos. A maioria das ferramentas começa com 0,4 de repulsão."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 5 niveis",
+    "Requer 1 slot de melhoria por nivel"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "title": "Ilhas de Slime-Do-Céu",
+  "image": {
+    "file": "tconstruct:book/images/islands/skyslime.png",
+    "width": 180,
+    "height": 91
+  },
+  "text": [
+    {
+      "text": "As ilhas de Slime-do-Céu podem ser encontradas flutuando ao redor do mundo, e contêm grama que é essencial para a reprodução de Slime-do-Céu. A lenda diz que os Slimes-do-Céu eram invasores de outro reino, embora a maioria deles estejam confinados a áreas próximas às ilhas."
+    }
+  ]
+}

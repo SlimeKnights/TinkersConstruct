@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:slurping",
+  "text": [
+    {
+      "text": "Ele era o número um!"
+    },
+    {
+      "text": "Clique com o botão direito do mouse em um tanque com o capacete equipado para enchê-lo", "paragraph": true
+    }
+  ],
+  "effects": [
+    "Bebe liquidos armazenados no capacete",
+	"Tecla de Atalho é usada para beber",
+    "Nivel Único",
+    "Requer 1 slot de habilidade"
+  ]
+}

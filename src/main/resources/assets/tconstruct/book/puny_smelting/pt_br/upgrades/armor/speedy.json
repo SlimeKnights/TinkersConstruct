@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:speedy",
+  "text": [
+    {
+      "text": "Tem que ir rápido."
+    }
+  ],
+  "effects": [
+    "Aumenta a velocidade do movimento",
+    "Múltiplos níveis, cada nível aumenta ainda mais a velocidade",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

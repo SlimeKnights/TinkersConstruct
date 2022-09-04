@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:plate_helmet",
+  "text": [
+    { "text": "Elmos duros para cabeças duras." },
+	{
+      "text": "Um elmo sólido para proteger seu cérebro. Nada poderá machucar essa sua cabecinha!", "paragraph": true
+    }
+  ],
+  "properties": [
+    "Alta Durabilidade",
+    "Alta Armadura",
+    "1 Slot de Melhoria",
+    "4 Slots de Defesa",
+    "1 Slot de Habilidade"
+  ]
+}

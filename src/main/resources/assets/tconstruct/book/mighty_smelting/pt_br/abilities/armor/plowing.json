@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:plowing",
+  "text": [
+    {
+      "text": "Sempre sonhou em fazer uma fazenda grande? tipo REALMENTE GRANDE? bom agora você pode."
+    }
+  ],
+  "effects": [
+    "Cria terras agrícolas por onde você caminhar",
+    "Area pode ser aumentada através de expansores",
+    "Máximo de 1 nivel",
+    "Requer 1 slot de habilidade"
+  ]
+}

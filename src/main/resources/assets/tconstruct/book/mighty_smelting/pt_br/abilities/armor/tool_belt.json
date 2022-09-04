@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:tool_belt",
+  "text": [
+    {
+      "text": "É um cinto para segurar suas ferramentas. Cinto de ferramentas."
+    }
+  ],
+  "effects": [
+    "Concede +4 slots por nivel",
+    "Slots podem ser trocados por slots da hotbar",
+    "Máximo de 2 niveis",
+    "Requer 1 slot de habilidade"
+  ]
+}

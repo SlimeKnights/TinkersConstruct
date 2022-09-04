@@ -1,0 +1,13 @@
+{
+  "title": "Ilhas de Terra-Slime",
+  "image": {
+	"file": "tconstruct:book/images/islands/earthslime.png",
+    "width": 180,
+    "height": 84
+  },
+  "text": [
+    {
+      "text": "As ilhas de slime-terra são às vezes encontradas nos oceanos do mundo, parecendo menos alienígenas do que seus primos Slime-Do-Céu. Elas não são a única maneira de encontrar a variante verde comum do slime, embora a grama as faça aparecer muito mais comum."
+    }
+  ]
+}

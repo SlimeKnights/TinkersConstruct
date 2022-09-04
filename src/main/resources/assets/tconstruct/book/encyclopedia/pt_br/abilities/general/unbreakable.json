@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:unbreakable",
+  "text": [
+    {
+      "text": "Previne que a ferramenta sofra danos, exceto por fatores especiais, como o modificador gostoso por exemplo."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requer Reforçado V e o modificador Netherita",
+    "Requer 1 slot de habilidade"
+  ]
+}

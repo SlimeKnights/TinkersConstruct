@@ -1,0 +1,10 @@
+{
+  "title": "Shuriken de Sílex",
+  "item": "tconstruct:flint_shuriken",
+  "text": [
+    {
+      "text": "Afiar a pedra em forma de estrela cria uma arma de projétil muito eficaz. Embora não seja tão boa quanto um arco, ainda assim produz bons danos, que podem ajudar a escapar de monstros.",
+      "paragraph": true
+    }
+  ]
+}

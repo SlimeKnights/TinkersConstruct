@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:golden",
+  "text": [
+    {
+      "text": "Torna os piglins seus amigos. Apenas uma peça de todo o conjunto precisa ser dourada."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel por peça",
+    "Requer 1 slot de defesa"
+  ]
+}

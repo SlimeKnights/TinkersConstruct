@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:bane_of_sssss",
+  "text": [
+    {
+      "text": "A melhor melhoria para aqueles com aracnofobia ou creeperfobia. Aranhas e creepers tomem cuidado."
+    }
+  ],
+  "effects": [
+    "Aumenta o dano e aplica lentidão a aranhas e creepers",
+	"Múltiplos níveis, cada nível aumenta ainda mais o dano",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:dual_wielding",
+  "text": [
+    {
+      "text": "Duelos são mais honráveis com empunhamento duplo."
+    }
+  ],
+  "effects": [
+    "Permite você duelar empunhando suas ferramentas",
+    "Requer mão secundária para ferramentas de duas mãos",
+    "Nível único",
+    "Requer 1 Slot de Habilidade"
+  ]
+}

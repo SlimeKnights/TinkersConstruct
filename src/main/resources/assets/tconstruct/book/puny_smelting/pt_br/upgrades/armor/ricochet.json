@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:ricochet",
+  "text": [
+    {
+      "text": "Hora de fazer uma fuga ousada."
+    }
+  ],
+  "effects": [
+    "Aumenta a repulsão que você recebe",
+    "Múltiplos níveis, cada nível aumenta ainda mais a repulsão",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

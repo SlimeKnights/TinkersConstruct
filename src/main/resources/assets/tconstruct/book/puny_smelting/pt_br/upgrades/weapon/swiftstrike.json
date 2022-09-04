@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:swiftstrike",
+  "text": [
+    {
+      "text": "Um som tão tinido quando se quebra a ametista."
+    }
+  ],
+  "effects": [
+    "Aumenta a velocidade de ataque",
+    "Múltiplos níveis, cada nível aumenta um pouco mais a velocidade",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

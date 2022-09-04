@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:turtle_shell",
+  "text": [
+    {
+      "text": "Concede +8% de resistência quando embaixo da água. O máximo é de 80% em todo o set, ou seja 10 niveis."
+    },
+    {
+      "text": "Aumenta a velocidade de nado 5% por nivel.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Pode aplicar niveis progressivamente",
+    "Requer 1 slot de defesa"
+  ]
+}
