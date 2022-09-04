@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:tilling",
+  "text": [
+    {
+      "text": "Não desperdice diamantes em uma enxada."
+    }
+  ],
+  "effects": [
+     "Permite que você cultive o solo com sua ferramenta",
+    "Nível único",
+    "Requer 1 Slot de Habilidade"
+  ]
+}

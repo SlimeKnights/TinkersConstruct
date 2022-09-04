@@ -1,0 +1,14 @@
+{
+  "title": "Guia para Fundição de Ligas",
+  "image": {
+    "file": "tconstruct:book/images/alloyergui.png",
+    "width": 166,
+    "height": 78
+  },
+  "text": [
+    {
+      "text": "Seu guia básico para a fundição de ligas.",
+      "paragraph": true
+    }
+	]
+}

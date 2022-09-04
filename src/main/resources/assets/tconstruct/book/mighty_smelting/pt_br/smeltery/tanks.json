@@ -1,0 +1,16 @@
+{
+  "title": "Tanques Carbonizados",
+  "item": {
+    "tag": "tconstruct:seared_tanks"
+  },
+  "text": [
+    {
+      "text": "Os tanques são bons para armazenar fluidos ou combustíveis fundidos. Se você quiser derreter metais em sua fundição, você precisará de um! Os tanques também podem ser despejados da fundição caso você queira armazenar coisas para mais tarde.",
+      "paragraph": true
+    },
+    {
+      "text": "Os tanques não podem ser usados como piso da fundição.",
+      "paragraph": true
+    }
+  ]
+}

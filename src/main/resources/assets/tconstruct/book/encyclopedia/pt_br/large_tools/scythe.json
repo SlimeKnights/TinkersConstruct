@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:scythe",
+  "text": [
+    { "text": "A Foice é uma ferramenta grande muito útil para a colheita, ela é efetiva em plantas e em monstros numa area de 3x3x3." },
+    { "text": "Os expansores se alternam entre largura/altura e profundidade, enquanto a seda permite tosqueamento.", "paragraph": true }
+  ],
+  "properties": [
+    "+1 Dano de Ataque",
+    "0.8 Vel de Ataque",
+    "45% Modificador de Mineração",
+    "250% De Durabilidade",
+    "Ataca Entidades",
+    "Cultiva Terra",
+    "Colhe Plantas"
+  ]
+}

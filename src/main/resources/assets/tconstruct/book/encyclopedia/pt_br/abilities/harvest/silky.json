@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:silky",
+  "text": [
+    {
+      "text": "Faz com que os blocos minerados dropem em sua forma bruta. Além disso, permite o tosqueamento de criaturas com espadas, clivagens, foices e punhais."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requer 1 slot de habilidade"
+  ]
+}

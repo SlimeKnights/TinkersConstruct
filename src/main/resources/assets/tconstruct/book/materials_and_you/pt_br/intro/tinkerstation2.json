@@ -1,0 +1,12 @@
+{
+  "title": "Estação Tinker",
+  "text": [
+    {
+      "text": "O primeiro passo em sua grande aventura Tinker é a elaboração de sua primeira ferramenta. Pode não começar do melhor, mas é fruto do seu trabalho, e você deve se orgulhar dele. Uma vez que você tenha adquirido todas as peças necessárias para fazer uma ferramenta, a fabricação poderá começar! Para fabricá-las, primeiro adquira uma Estação Tinker, depois selecione qual ferramenta você quer fazer e faça-a!"
+    },
+	{
+      "text": "Você pode usar a Estação Tinker para adicionar modificadores às suas ferramentas. A mesa básica só tem espaço suficiente para combinar três partes, o que significa que nenhuma ferramenta grande poderá ser fabricada. Outros mestres tinkers conhecem o segredo para fazer ferramentas em quatro ou cinco partes.",
+      "paragraph": true
+    }
+  ]
+}

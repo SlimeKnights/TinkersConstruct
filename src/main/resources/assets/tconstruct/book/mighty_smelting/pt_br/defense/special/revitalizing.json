@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:revitalizing",
+  "text": [
+    {
+      "text": "Maçãs ornamentadas, que retrocesso.."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Pode aplicar níveis de forma progressiva",
+    "Máximo de 2 níveis em capacetes ou botas",
+    "Máximo de 3 níveis em peitorais ou perneiras",
+    "Requer 1 slot de defesa"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:knockback_armor",
+  "text": [
+    {
+      "text": "Pare de desperdiçar sua energia correndo, faça seus inimigos desperdiçarem energia voltando até você."
+    }
+  ],
+  "effects": [
+    "Joga para longe inimigos com um hit",
+    "Múltiplos níveis, aumenta a força da repulsão a cada nível",
+    "Requer 1 Slot de melhoria por nível"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "title": "Montador de Peças",
+  "image": {
+    "file": "tconstruct:book/images/partbuilder.png",
+    "width": 170,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Para fazer uma peça: simplesmente pegue um molde em branco, coloque-o no slot do molde. Selecione a peça da ferramenta que você deseja fazer, insira um material macio que você possa moldar com suas mãos e modele sua peça.",
+      "paragraph": true
+    }
+	]
+}

@@ -1,0 +1,14 @@
+{
+  "title": "Negociação",
+  "image": {
+    "file": "tconstruct:book/images/bartering.png",
+    "width": 128,
+    "height": 82
+  },
+  "text": [
+    {
+      "text": "O que?, você é um tipo não-violento? Bem, já vi alguns desses piglins carregando lanternas cheias de algum líquido flamejante, acho que eles as utilizam para iluminação. Eles podem se separar delas por um preço.",
+      "paragraph": true
+    }
+  ]
+}

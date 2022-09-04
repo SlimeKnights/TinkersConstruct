@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:thorns",
+  "text": [
+    {
+      "text": "Que idiota."
+    }
+  ],
+  "effects": [
+    "Tem uma chance de danificar os atacantes quando atingidos",
+    "Múltiplos níveis, cada nível aumenta ainda mais a chance",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

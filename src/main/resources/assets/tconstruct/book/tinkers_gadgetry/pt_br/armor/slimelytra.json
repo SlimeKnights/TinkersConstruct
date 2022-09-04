@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:slime_chestplate",
+  "text": [
+    { "text": "Cansado de andar? Tente voar com estas asas futuristas!" },
+    { "text": "Para criar estas asas futuristas, você precisa derramar calda de enderslime em uma elytra. Ela pode ser reparada com membranas de phantom.", "paragraph": true }
+  ],
+  "properties": [
+    "Alta Durabilidade",
+    "Não possui armadura nem slot de defesa",
+    "5 Slots de melhoria",
+    "1 Slot de habilidade"
+  ]
+}

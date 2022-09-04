@@ -1,0 +1,16 @@
+{
+  "title": "Torneiras",
+  "text": [
+    {
+      "text": "Torneiras são sua principal maneira de tirar fluidos de fundições, fornos de fundição, tanques, ou qualquer recipiente de fluido válido. Basta colocá-la no bloco, e clicar com o botão direito do mouse para despejá-lo em um recipiente de fluido abaixo."
+    },
+    {
+      "text": "As torneiras despejarão pelos lados ou pelo fundo do bloco conectado ao bloco diretamente abaixo da própria torneira.",
+      "paragraph": true
+    },
+    {
+      "text": "As torneiras respondem a sinais de redstone, então simplesmente colocar uma alavanca ativada ao seu lado fará com que ele derrame constantemente seu conteúdo. Um pulso de redstone despejará seu conteúdo até que o destino esteja cheio ou a fonte esteja vazia.",
+      "paragraph": true
+    }
+  ]
+}

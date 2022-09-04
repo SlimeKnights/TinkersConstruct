@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:swiftstrike",
+  "text": [
+    {
+      "text": "등급 당 +5%의 공격 속도를 얻습니다."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "소숫점 등급이 가능합니다.",
+    "최대 5등급",
+    "등급 당 1개의 강화 슬롯 사용"
+  ]
+}

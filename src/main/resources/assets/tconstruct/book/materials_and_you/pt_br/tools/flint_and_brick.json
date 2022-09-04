@@ -1,0 +1,19 @@
+{
+  "tool": "tconstruct:flint_and_brick",
+  "text": [
+    {
+      "text": "O Isqueiro Tinker é uma ferramenta acessível e eficaz para iniciar incêndios."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Ao contrário da maioria das outras ferramentas, ela é fabricada em uma estação de fabricação de artesanato ou mesa de fabricação."
+    }
+  ],
+  "properties": [
+    "Cria Fogo",
+    "Começa com ardente 1",
+    "Reparado usando tijolos queimados ou chamuscados"
+  ]
+}

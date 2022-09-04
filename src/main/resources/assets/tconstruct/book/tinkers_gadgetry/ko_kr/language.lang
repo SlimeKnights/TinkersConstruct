@@ -1,30 +1,22 @@
-// 섹션 - 팅커스 장치
-
 intro=소개
 
 gadgets=장치
-gadgets.slimesling=슬라임 새총
-gadgets.cake=슬라임 케이크
-gadgets.piggybackpack=운반용 돼지 배낭
-gadgets.flint_shuriken=부싯돌 수리검
-gadgets.quartz_shuriken=석영 수리검
-gadgets.efln=EFLN
-gadgets.glowball=발광구
-gadgets.fancy_frames=멋진 아이템 액자
 
 modifiers=특이한 수식어
-modifiers.remove_modifiers=수식어 제거
-modifiers.damage_tools=도구 손상
 
 exploration=탐험
-exploration.skyslime=하늘슬라임 섬
-exploration.earthslime=땅슬라임 섬
-exploration.clay=점토 섬
-exploration.grass_seeds=슬라임 씨앗
-exploration.blood=핏빛 섬
-exploration.necrotic_bones=영골
-exploration.enderslime=엔더슬라임 섬
-exploration.dragon_scales=드래곤의 비늘
+exploration.necrotic_bones=영혼이 깃든 뼈
+
+exploration.skyslime_island=하늘슬라임 섬
+exploration.earthslime_island=대지슬라임 섬
+exploration.clay_island=점토 섬
+exploration.blood_island=핏빛 섬
+exploration.enderslime_island=엔더슬라임 섬
+
+exploration.skyslime_geode=하늘슬라임 정동
+exploration.earthslime_geode=대지슬라임 정동
+exploration.ichor_geode=이코르 정동
+exploration.enderslime_geode=엔더슬라임 정동
 
 armor=갑옷
 armor.subtext=다양한 몬스터의 부위와 슬라임을 혼합하면 흥미로운 갑옷이 만들어져, 방어적이지는 않지만, 강력한 능력을 지니고 있어.

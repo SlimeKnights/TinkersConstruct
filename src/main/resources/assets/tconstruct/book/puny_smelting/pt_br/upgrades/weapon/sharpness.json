@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:sharpness",
+  "text": [
+    {
+      "text": "Quanto mais afiada a lâmina, mais afiado é o empunhador"
+    }
+  ],
+  "effects": [
+    "Aumenta o dano da ferramenta",
+    "Múltiplos níveis, cada nível aumenta ainda mais o dano",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

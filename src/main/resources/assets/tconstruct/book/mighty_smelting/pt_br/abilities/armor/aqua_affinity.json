@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:aqua_affinity",
+  "text": [
+    {
+      "text": "Uma sintonia atrativa com a área aquosa, que ativa todas as aflições de ar."
+    }
+  ],
+  "effects": [
+    "Aumenta a velocidade da mineração debaixo da água",
+    "Nivel Único",
+    "Requer 1 slot de Habilidade"
+  ]
+}

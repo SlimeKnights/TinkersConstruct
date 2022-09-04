@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:lightspeed_armor",
+  "text": [
+    {
+      "text": "Concede +5% de velocidade de movimento por nivel em areas bem iluminadas. Se a área não for tão bem iluminada, ainda será dado alguma melhora, mas não tanto."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Pode aplicar níveis de forma progressiva",
+    "Máximo de 3 niveis",
+    "Requer 1 slot de melhoria por nivel"
+  ]
+}

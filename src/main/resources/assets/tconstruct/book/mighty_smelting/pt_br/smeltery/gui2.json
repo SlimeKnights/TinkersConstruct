@@ -1,0 +1,16 @@
+{
+  "title": "Guia de Fundição",
+  "text": [
+    {
+      "text": "1: Aqui é para onde vão os itens que você deseja fundir. O número de slots mudará dependendo do tamanho de sua fundição."
+    },
+    {
+      "text": "2: É aqui que seus materiais fundidos podem ser vistos. Você pode clicar em um deles para selecioná-lo para derrama-lo.",
+      "paragraph": true
+    },
+    {
+      "text": "3: Aqui é onde você pode ver seu combustível. Ao pairar sobre ele, você verá a quantidade e o tipo exato.",
+      "paragraph": true
+    }
+  ]
+}

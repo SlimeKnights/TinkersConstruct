@@ -1,0 +1,13 @@
+{
+  "title": "Geodos de Icor",
+  "image": {
+	"file": "tconstruct:book/images/geodes/ichor.png",
+    "width": 180,
+    "height": 106
+  },
+  "text": [
+    {
+      "text": "Os geodos de Icor são uma das melhores fontes do raro slime laranja. Eles aparecem em altas altitudes no nether, e os cristais parecem brilhar também."
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "title": "Guia de Fundição",
+  "image": {
+    "file": "tconstruct:book/images/foundrygui.png",
+    "width": 161,
+    "height": 82
+  },
+  "text": [
+    {
+      "text": "Seu guia básico para a fundição.",
+      "paragraph": true
+    }
+	]
+}

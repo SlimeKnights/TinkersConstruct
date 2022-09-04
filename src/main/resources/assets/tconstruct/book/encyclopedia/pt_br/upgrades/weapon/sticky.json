@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:sticky",
+  "text": [
+    {
+      "text": "Aplica até 1.5 segundos (mais 1 segundo por nivel) de lentidão ao atacante."
+    },
+    {
+      "text": "Em peitorais, o bônus se aplica se ele tiver o modificador ataque desarmado. outras armaduras tem efeitos diferentes", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 3 niveis",
+    "Requer 1 slot de melhoria por nivel"
+  ]
+}

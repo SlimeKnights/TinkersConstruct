@@ -1,0 +1,12 @@
+{
+  "tool": "tconstruct:hand_axe",
+  "text": [
+    { "text": "O Machado de uma Mão é uma ferramenta de corte de precisão, efetivo em madeira, plantas e folhas." },
+    { "text": "Os expansores aumentam o raio circular do machado.", "paragraph": true }
+  ],
+  "properties": [
+    "+6 Dano de Ataque",
+    "0.9 Velocidade de Ataque",
+    "Descasca Madeira"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:stripping",
+  "text": [
+    {
+      "text": "Permite que a ferramenta descasque a madeira, de forma semelhante aos machados de mão ou machados largos. As ferramentas utilizarão sua área normal de mineração para descascar a madeira."
+    },
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requer 1 slot de habilidade"
+  ]
+}

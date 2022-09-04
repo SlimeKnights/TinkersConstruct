@@ -1,3 +1,4 @@
 {
-    "recipe": "tconstruct:tables/tinkers_chest"
+  "title": "Создание сундука литейщика",
+  "recipe": "tconstruct:tables/tinkers_chest"
 }

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:necrotic",
+  "text": [
+    {
+      "text": "Colha a vida de seus inimigos para sobreviver por mais tempo."
+    }
+  ],
+  "effects": [
+    "Tem chance de roubar a vida de seus inimigos para curar a sua",
+    "Múltiplos níveis, aumenta a chance de roubo de vida a cada nível",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

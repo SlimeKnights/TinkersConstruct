@@ -1,0 +1,17 @@
+{
+  "title": "Fundição de Compósitos",
+  "image": {
+    "file": "tconstruct:book/images/compositecast.png",
+    "width": 177,
+    "height": 50
+  },
+  "text": [
+    {
+      "text": "A fundição de compósitos permite fazer novos materiais derramando fluido sobre um item/bloco em uma mesa/bacia de fundição."
+    },
+    {
+      "text": "Os materiais mais notáveis são o Slimewood e o Nahuatl, que são feitos ao despejar slime ou obsidiana derretida, sobre peças de ferramentas de madeira.",
+      "paragraph": true
+    }
+  ]
+}

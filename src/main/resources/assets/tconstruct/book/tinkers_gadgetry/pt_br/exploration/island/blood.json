@@ -1,0 +1,13 @@
+{
+  "title": "Ilhas de Sangue",
+  "image": {
+	"file": "tconstruct:book/images/islands/blood.png",
+    "width": 180,
+    "height": 87
+  },
+  "text": [
+    {
+      "text": "Estas ilhas vermelhas de sangue são ocasionalmente encontradas nos oceanos de lava do nether. Elas tendem a ter uma maior concentração de cubos de magma do que o resto do nether, e também incluem uma estranha variante de fungo que parece ser uma fonte de icoor."
+    }
+  ]
+}

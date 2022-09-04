@@ -1,0 +1,8 @@
+{
+  "title": "Fabricação de Aparelhos tinkers",
+  "recipe": "tconstruct:common/tinkers_gadgetry",
+  "grid_size": "small",
+  "description": [
+    { "text": "Usos do slime nas tarefas cotidianas. Guia de Melvin sobre como encontrar materiais para Tinkerar no mundo." }
+  ]
+}

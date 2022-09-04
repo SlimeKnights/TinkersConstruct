@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:magnetic",
+  "text": [
+    {
+      "text": "A gravidade é forte com esta ferramenta."
+    }
+  ],
+  "effects": [
+    "Atacar criaturas ou minerar traz itens para você",
+    "Múltiplos níveis, cada nível aumenta a força magnética",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:knockback_resistance",
+  "text": [
+    {
+      "text": "Aqui estou eu, nem mesmo um tanque me moverá."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Diminui a repulsão recebida",
+    "Nível único",
+    "Requer 1 slot de defesa"
+  ]
+}

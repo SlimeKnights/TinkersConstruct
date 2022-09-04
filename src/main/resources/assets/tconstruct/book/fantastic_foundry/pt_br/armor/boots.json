@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:plate_boots",
+  "text": [
+    { "text": "O que é issooooo?" },
+	{
+      "text": "Viajar ao nether exige botas robustas para proteger os pés! Ninguem nunca pensou em como aquele chão é realmente quente.", "paragraph": true
+    }
+  ],
+  "properties": [
+    "Alta Durabilidade",
+    "Alta Armadura",
+    "1 Slot de Melhoria",
+    "4 Slots de Defesa",
+    "1 Slot de Habilidade"
+  ]
+}

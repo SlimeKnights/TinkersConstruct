@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:sword",
+  "text": [
+    {
+      "text": "A espada é uma arma versátil. Tem dano médio e permite derrubar vários inimigos de uma só vez com um ataque de varredura, tudo isso mantendo sua outra mão livre."
+    },
+    {
+      "text": "\n"
+    }
+  ],
+  "properties": [
+    "Medium Damage",
+    "Sweep attack"
+  ]
+}

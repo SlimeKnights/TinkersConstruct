@@ -1,0 +1,16 @@
+{
+  "title": "Operação",
+  "text": [
+    {
+      "text": "1: Estes 3 slots são onde você coloca o que quer derreter. Podem ser minérios, lingotes, ou qualquer outra coisa que você sinta vontade de tentar derreter!"
+    },
+    {
+      "text": "2: É aqui que seu material fundido aparecerá. Lembre-se que você pode ter apenas um material fundido de cada vez na fundição.",
+      "paragraph": true
+    },
+    {
+      "text": "3: É aqui que seu combustível aparece. Se você tiver um aquecedor, ele aparecerá como incluido e você poderá inserir qualquer item que possa ser usado como combustível. Se você tiver um tanque chamuscado, ele mostrará uma barra com combustível líquido dentro.",
+      "paragraph": true
+    }
+  ]
+}

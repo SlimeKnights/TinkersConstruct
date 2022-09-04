@@ -1,0 +1,16 @@
+{
+  "title": "Sub produtos",
+  "text": [
+    {
+      "text": "Minha Fantástica Fundição lhe fornecerá subprodutos de seus minérios. Você pode estar se perguntando: 'Mas Nemea, o que são esses subprodutos? Bem, leia um pouco mais e descubra."
+    },
+    {
+      "text": "Os subprodutos são complementos escondidos dentro dos minérios que você normalmente não seria capaz de conseguir com um simples forno. Eles são materiais extras que estão escondidos pois são diferentes do material principal contido na rocha.",
+      "paragraph": true
+    },
+    {
+      "text": "Alguns exemplos: o minério de cobre dá ouro como subproduto, e o minério de cobalto dá ferro como subproduto.",
+      "paragraph": true
+    }
+  ]
+}

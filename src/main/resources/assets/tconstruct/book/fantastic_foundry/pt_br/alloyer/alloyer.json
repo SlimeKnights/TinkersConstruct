@@ -1,0 +1,12 @@
+{
+  "title": "Fundição de Ligas",
+  "image": {
+    "file": "tconstruct:book/images/alloyer.png"
+  },
+  "text": [
+    {
+      "text": "Ligas a Frente!",
+      "paragraph": true
+    }
+	]
+}

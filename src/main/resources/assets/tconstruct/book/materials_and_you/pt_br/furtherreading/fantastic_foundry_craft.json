@@ -1,0 +1,8 @@
+{
+  "title": "Fabricação da Fantástica Fundição",
+  "recipe": "tconstruct:common/fantastic_foundry",
+  "grid_size": "small",
+  "description": [
+    { "text": "A mais nova tecnologia em metais fundidos. Pule a fundição, comece com uma fantástica fundição!" }
+  ]
+}

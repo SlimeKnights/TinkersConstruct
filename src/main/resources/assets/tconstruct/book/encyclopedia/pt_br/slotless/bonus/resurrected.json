@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:resurrected",
+  "text": [
+    {
+      "text": "Concede +1 slot de melhoria."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Uso único",
+    "Sem Slots"
+  ]
+}

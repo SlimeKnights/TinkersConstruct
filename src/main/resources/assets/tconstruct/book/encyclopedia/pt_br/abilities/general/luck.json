@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:luck",
+  "text": [
+    {
+      "text": "Aumenta a quantidade de drops dos blocos e dos monstros. A sorte requer uma receita diferente para cada nível."
+    },
+    {
+      "text": "As perneiras podem receber um único nível de sorte, aumentando os drops das criaturas e os drops dos blocos ao usar ferramentas do tinkers.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 3 niveis",
+    "O primeiro nível requer 1 slot de habilidade",
+    "O segundo e terceiro níveis não precisam de slots"
+  ]
+}

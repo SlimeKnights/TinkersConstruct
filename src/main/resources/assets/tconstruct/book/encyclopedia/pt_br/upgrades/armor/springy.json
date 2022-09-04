@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:springy",
+  "text": [
+    {
+      "text": "Tem 25% chance por nivel de aplicar até 2 blocos de repulsão por nivel do atacante. Aplica o efeito da peça com o maior bônus."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Pode aplicar niveis progressivamente",
+    "Máximo de 3 niveis",
+    "Requer 1 slot de melhoraria por nivel"
+  ]
+}

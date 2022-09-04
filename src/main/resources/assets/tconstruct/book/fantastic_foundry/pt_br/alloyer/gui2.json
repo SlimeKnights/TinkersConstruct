@@ -1,0 +1,16 @@
+{
+  "title": "Guia para Fundição de Ligas",
+  "text": [
+    {
+      "text": "1: Esta área é onde você vê os materiais dos tanques laterais, mais tanques significam mais espaços para materiais."
+    },
+    {
+      "text": "2: Esta área é onde seus materiais de ligas aparecerão quando terminarem de aplicar sua magica.",
+      "paragraph": true
+    },
+    {
+      "text": "3: Esta área é onde seu combustível é exibido. Combustíveis mais quentes significam que você pode derreter mais coisas.",
+      "paragraph": true
+    }
+  ]
+}

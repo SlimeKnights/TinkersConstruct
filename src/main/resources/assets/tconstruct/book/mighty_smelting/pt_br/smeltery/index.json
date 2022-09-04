@@ -1,0 +1,10 @@
+{
+  "title": "Fundição",
+  "subText": "A Fundição Poderosa é sua para controlar.",
+  "hidden": ["structurereq", "sgui2"],
+  "operations": [
+    { "before": "features",     "action": "add_group", "data": "Detalhes" },
+    { "before": "seared_tanks", "action": "column_break" },
+    { "before": "seared_tanks", "action": "add_group", "data": "Blocos" }
+  ]
+}

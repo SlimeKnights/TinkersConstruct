@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:feather_falling",
+  "text": [
+    {
+      "text": "Concede +12% resistência de dano de queda por nivel, até um máximo de +48% no 4 nivel."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Pode aplicar niveis progressivamente",
+    "Máximo de 4 niveis",
+    "Requer 1 slot de melhoria por nivel"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "tool": "tconstruct:broad_axe",
+  "text": [
+    {
+      "text": "O Machado Grande é uma ferramenta de corte de árvores de alta eficiência. Capaz de derrubar árvores de uma só vez. "
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Ótimo para o corte de florestas em rápida sequência."
+    }
+  ],
+  "properties": [
+    "Ferramenta de corte avançada",
+    "Capaz de destruir uma árvore inteira de uma só vez",
+    "Capaz de descascar uma árvore inteira em uma interação"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:reinforced",
+  "text": [
+    {
+      "text": "Fortalecer sua ferramenta pode ser menos trabalho para vocês dois!"
+    }
+  ],
+  "effects": [
+    "Chance da durabilidade não ser consumida",
+    "Vários níveis, cada nível diminui a chance de a ferramenta sofrer danos",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:unbreakable",
+  "text": [
+    {
+      "text": "Coisas quebradas não são divertidas, felizmente as coisas podem se tornar inquebráveis."
+    }
+  ],
+  "effects": [
+     "Sua ferramenta agora é inquebravel",
+    "Nivel Único",
+    "Requer 1 Slot de Habilidade, Reforçado 5, Netherita",
+    "Não é efetivo caso você tente comer sua ferramenta"
+  ]
+}

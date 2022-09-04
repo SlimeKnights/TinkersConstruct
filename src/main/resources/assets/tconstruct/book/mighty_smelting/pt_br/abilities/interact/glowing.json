@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:glowing",
+  "text": [
+    {
+      "text": "Isso foi uma ideia brilhante."
+    }
+	
+	
+  ],
+  "effects": [
+    "Interja para colocar brilho",
+	"Colocar brilho consome durabilidade, mesmo que a ferramenta tenha inquebravel",
+    "Nivel único",
+    "Requer 1 slot de habilidade"
+  ]
+}

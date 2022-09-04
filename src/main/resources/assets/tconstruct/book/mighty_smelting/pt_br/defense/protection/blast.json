@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:blast_protection",
+  "text": [
+    {
+      "text": "Creeper, Aw man."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Reduz o dano explosivo, e a repulsão",
+    "Multiplos niveis, cada nível aumenta ainda mais a resistência",
+    "Requer 1 slot de defesa"
+  ]
+}

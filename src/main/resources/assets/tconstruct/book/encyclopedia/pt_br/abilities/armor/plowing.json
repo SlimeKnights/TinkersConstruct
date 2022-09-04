@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:plowing",
+  "text": [
+    {
+      "text": "Cultiva a terra por onde você pisa. A área de efeito pode ser expandida pelo modificador expandido."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nivel",
+    "Requer 1 slot de habilidade"
+  ]
+}

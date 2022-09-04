@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:stripping",
+  "text": [
+    {
+      "text": "Espere, não é esse tipo de despojamento? ISTO É DECEPCIONANTE."
+    }
+  ],
+  "effects": [
+    "Permite descascar madeira com suas ferramentas",
+    "Nível único",
+    "Requer 1 Slot de Habilidade"
+  ]
+}

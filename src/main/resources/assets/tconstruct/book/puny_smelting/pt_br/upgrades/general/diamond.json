@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:diamond",
+  "text": [
+    {
+      "text": "Diamantes são eternos!"
+    }
+  ],
+  "effects": [
+    "Aumenta a durabilidade, a velocidade de mineração e o dano de ataque",
+    "Nível único",
+    "Requer 1 Slot de melhoria"
+  ]
+}

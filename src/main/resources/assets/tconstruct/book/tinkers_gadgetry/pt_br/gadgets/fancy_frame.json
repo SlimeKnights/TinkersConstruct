@@ -1,0 +1,13 @@
+{
+  "title": "Molduras de itens extravagantes",
+  "image": {
+    "file": "tconstruct:book/images/fancy_frames.png",
+    "width": 140,
+    "height": 82
+  },
+  "text": [
+    {
+      "text": "Fazendo uso de metais mais raros, consegui criar variantes de estruturas de itens com propriedades únicas."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:melee_protection",
+  "text": [
+    {
+      "text": "Saco móvel perfurador."
+    }
+   
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Diminui os danos das espadas, ataques desarmados e muito mais",
+    "Múltiplos níveis, cada nível diminui ainda mais os danos.",
+    "Requer 1 slot de defesa"
+  ]
+}

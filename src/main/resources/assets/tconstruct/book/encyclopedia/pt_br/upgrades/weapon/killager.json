@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:killager",
+  "text": [
+    {
+      "text": "Concede +2 de dano por nivel contra aldeões e illagers."
+    },
+    {
+      "text": "Um aldeão ou illager é qualquer coisa que tenha um nariz de lula.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Pode aplicar niveis progressivamente",
+    "Máximo de 5 niveis",
+    "Requer 1 slot de melhoria por nivel"
+  ]
+}

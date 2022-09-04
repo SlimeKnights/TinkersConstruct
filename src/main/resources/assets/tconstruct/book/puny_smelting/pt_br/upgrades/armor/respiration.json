@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:respiration",
+  "text": [
+    {
+      "text": "Quem precisa de ar para respirar de qualquer maneira."
+    }
+  ],
+  "effects": [
+    "Reduz o consumo de ar debaixo d'água", 
+    "Múltiplos níveis, cada nível reduz ainda mais o consumo de ar",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

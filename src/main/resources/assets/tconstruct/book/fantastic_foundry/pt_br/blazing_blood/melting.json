@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:melting",
+  "text": [
+    {
+      "text": "Fundição não é portátil o suficiente? Tente transformar sua ferramenta em uma fundição portátil! Talvez Thruul seja inteligente o suficiente para fazer algo que valha a pena depois de tudo."
+    }
+  ],
+  "effects": [
+    "Derrete mobs atacados no tanque da ferramenta",
+    "Itens dropados também são derretidos, se possível",
+    "A ferramenta pode ser esvaziada em um tanque ou em uma fundição",
+    "Requer 1 Slot de Habilidade, uso único"
+  ]
+}

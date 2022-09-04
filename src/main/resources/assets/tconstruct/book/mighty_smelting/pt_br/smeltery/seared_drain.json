@@ -1,0 +1,14 @@
+{
+  "title": "Escorrimento Carbonizado",
+  "item": "tconstruct:seared_drain",
+  "text": [
+    {
+      "text": "O escorrimento é sua entrada/saída da fundição quando se trata de fluidos. Você pode usar torneiras ou tubos de seu mod favorito no escoamento para despejar fluidos. Baldes, latas de cobre e canais podem ser usados no escoamento para a entrada ou saida de fluidos.",
+      "paragraph": true
+    },
+	{
+      "text": "O fluido que é entregue no meio do escoamento será o próximo a ser derramado.",
+      "paragraph": true
+    }
+	]
+}

@@ -1,0 +1,16 @@
+{
+  "title": "Modificadores de Defesa",
+  "text": [
+    {
+      "text": "Defesa é um tipo de modificador exclusivo da armadura, eles reforçam a proteção contra ameaças particulares, como por exemplo, fogo ou explosão. Eles oferecem outra forma de personalizar a armadura, já que a maioria dos tipos de armaduras carecem de traços materiais."
+    },
+    {	
+      "text": "Assim como muitos outros tipos de modificadores, os modificadores de defesa exigem a aplicação de slots de defesa. Normalmente, as armaduras com um grande número de slots de defesa começam com menos slots de melhoria, o que significa que a funcionalidade é sacrificada pela proteção.",
+      "paragraph": true
+    },
+	 {
+      "text": "O Fundições Poderosas também tem uma lista completa de modificadores de defesa disponíveis em ferramentas, assim como a Enciclopédia.",
+      "paragraph": true
+    }
+  ]
+}

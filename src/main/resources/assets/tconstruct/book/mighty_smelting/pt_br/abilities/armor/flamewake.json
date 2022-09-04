@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:flamewake",
+  "text": [
+    {
+      "text": "Quem pensou que era uma boa idéia combinar sílex e bronze com botas? Agora não posso pisar em nenhum lugar com segurança!"
+    }
+  ],
+  "effects": [
+    "Desepeja fogo por onde você andar",
+    "Pode aumentar a area através de expansores",
+    "Máximo de 1 nivel",
+    "Requer 1 slot de habilidade"
+  ]
+}

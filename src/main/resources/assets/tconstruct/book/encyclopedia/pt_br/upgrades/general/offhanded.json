@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:offhanded",
+  "text": [
+    {
+      "text": "Proibe a interação da mão principal, caso a mão secundária esteja ocupada. Por exemplo, um machado não irá descascar a madeira se um escudo estiver na mão secundária. Em ferramentas de duas mãos, isto o torna efetivamente de uma mão só. O segundo nível desabilita a interação da ferramenta."
+    },
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 2 niveis",
+    "Receitas diferentes para cada nivel",
+    "Requer 1 slot de melhoria"
+  ]
+}

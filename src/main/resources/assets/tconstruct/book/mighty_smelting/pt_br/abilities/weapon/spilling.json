@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:spilling",
+  "text": [
+    {
+      "text": "É um pouco nojento que sua ferramenta esteja vazando. Mas também é muito eficaz!"
+    }
+  ],
+  "effects": [
+    "Drena o tanque ao atacar",
+    "Vários efeitos baseados em fluidos, incluindo fogo e veneno",
+    "Requer 1 Slot de Habilidade, nível único"
+  ]
+}

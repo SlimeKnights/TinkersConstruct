@@ -1,0 +1,17 @@
+{
+  "title": "Automação",
+  "image": {
+    "file": "tconstruct:book/images/cast_automation.png",
+    "width": 88,
+    "height": 75
+  },
+  "text": [
+    {
+      "text": "Mesas e bacias de fundição interagem com funis, permitindo que itens sejam facilmente inseridos e que itens resfriados possam ser removidos, alem disso, um pulso de redstone pode ser usado para trocar a entrada e saida."
+    },
+    {
+      "text": "Os comparadores também fazem com que a redstone torne as cores engraçadas quando conectado a uma bacia ou mesa.",
+      "paragraph": true
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "title": "Geodos de Enderslime",
+  "image": {
+    "file": "tconstruct:book/images/geodes/enderslime.png",
+    "width": 180,
+    "height": 99
+  },
+  "text": [
+    {
+      "text": "Geodos de Enderslime podem ser encontrados ao redor das ilhas siderais do the end, tanto no subsolo quanto flutuando por conta própria. Às vezes é difícil distinguir um geodo das outras rochas que flutuam naquele céu."
+    }
+  ]
+}
