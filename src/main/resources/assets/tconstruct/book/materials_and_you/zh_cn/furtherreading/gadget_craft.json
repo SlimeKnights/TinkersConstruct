@@ -1,8 +1,8 @@
 {
-  "title": "工匠装置宝典",
+  "title": "《工匠装置宝典》Melvin著",
   "recipe": "tconstruct:common/tinkers_gadgetry",
   "grid_size": "small",
   "description": [
-    { "text": "黏液在日常事物中的妙用。由Melvin所著，探讨如何在世界中寻找材料进行修补的书籍。" }
+    { "text": "我已经发现了一整套由黏液、火药和其他你能想到的最奇怪的物品制作而成的东西。这就是即将推出的由Melvin所著的《§o工匠装置宝典§r》。" }
   ]
 }

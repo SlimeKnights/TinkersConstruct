@@ -1,4 +1,7 @@
 {
   "title": "合成工匠箱",
-  "recipe": "tconstruct:tables/tinkers_chest"
+  "recipe": "tconstruct:tables/tinkers_chest",
+  "description": [
+    { "text": "在合成工匠箱之前，你可以使用染料将它染成你想要的颜色。" }
+  ]
 }

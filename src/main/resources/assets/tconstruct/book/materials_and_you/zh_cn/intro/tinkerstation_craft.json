@@ -1,4 +1,7 @@
 {
   "title": "合成工匠站",
-  "recipe": "tconstruct:tables/tinker_station"
+  "recipe": "tconstruct:tables/tinker_station",
+  "description": [
+    { "text": "希望你还剩下一些模具，如果你没有多余的模具，那你可以再做一些。" }
+  ]
 }

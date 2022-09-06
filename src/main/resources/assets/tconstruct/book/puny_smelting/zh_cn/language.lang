@@ -1,8 +1,9 @@
 intro=介绍
 melter=熔化炉
 moving_fluids=流体的转移
-casting=浇铸
+casting=铸造
 tier_two_materials=二级材料
+further_reading=延伸阅读
 
 upgrades=升级强化
 upgrades.subtext=工具可被升级强化，不过一把工具能应用的升级数量是有限的。

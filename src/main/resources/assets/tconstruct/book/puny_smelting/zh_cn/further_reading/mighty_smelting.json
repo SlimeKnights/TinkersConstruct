@@ -1,0 +1,13 @@
+{
+  "title": "大师熔炼术",
+  "image": {
+    "file": "tconstruct:book/images/book_mighty_smelting.png",
+    "width": 128,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "有太多的精彩内容无法写进一本书，所以我不得不写第二本书。在你掌握了冶炼炉的使用之后，去熔炼一些砖泥，然后把它倒在一本书上，制作这本续集。"
+    }
+  ]
+}
