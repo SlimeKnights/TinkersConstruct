@@ -2,7 +2,6 @@ package slimeknights.tconstruct.tables.client.inventory.widget;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.vertex.PoseStack;
-import lombok.Setter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.Widget;
@@ -64,8 +63,7 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
   public int topPos;
   public int imageWidth;
   public int imageHeight;
-  public int yOffset = 0;
-  public int xOffset = 0;
+  private final int xOffset, yOffset;
 
   protected BorderWidget border = new BorderWidget();
 
@@ -77,9 +75,9 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
 
   protected List<Integer> tooltipLines = Lists.newLinkedList();
 
-  @Setter
-  protected float textScale = 1.0f;
-  public InfoPanelWidget(MultiModuleScreen<?> parent) {
+  protected final float textScale;
+
+  public InfoPanelWidget(MultiModuleScreen<?> parent, int xOffset, int yOffset, float textScale) {
 
     this.parent = parent;
     this.font = parent.getMinecraft().font;
@@ -99,6 +97,10 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
 
     this.caption = DEFAULT_CAPTION;
     this.text = Lists.newLinkedList();
+
+    this.xOffset = xOffset;
+    this.yOffset = yOffset;
+    this.textScale = textScale;
   }
 
   public int guiRight() {

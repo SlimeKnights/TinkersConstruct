@@ -20,8 +20,8 @@ public class PartInfoPanelWidget extends InfoPanelWidget {
   private Component patternCost;
   private Component materialValue;
 
-  public PartInfoPanelWidget(MultiModuleScreen<?> parent) {
-    super(parent);
+  public PartInfoPanelWidget(MultiModuleScreen<?> parent, float textScale) {
+    super(parent, 0, 0, textScale);
     this.patternCost = TextComponent.EMPTY;
     this.materialValue = TextComponent.EMPTY;
   }

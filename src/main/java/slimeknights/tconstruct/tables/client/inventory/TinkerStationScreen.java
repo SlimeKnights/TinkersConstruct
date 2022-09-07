@@ -190,15 +190,9 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
 
     super.init();
 
-    this.tinkerInfo = new InfoPanelWidget(this);
-    this.tinkerInfo.setTextScale(8/9f);
-    this.tinkerInfo.xOffset = 2;
-    this.tinkerInfo.yOffset = this.centerBeam.h + this.panelDecorationL.h;
+    this.tinkerInfo = new InfoPanelWidget(this, 2, this.centerBeam.h + this.panelDecorationL.h, 8/9f);
 
-    this.modifierInfo = new InfoPanelWidget(this);
-    this.modifierInfo.setTextScale(7/9f);
-    this.modifierInfo.xOffset = this.tinkerInfo.xOffset;
-    this.modifierInfo.yOffset = this.tinkerInfo.yOffset + this.tinkerInfo.imageHeight + 4;
+    this.modifierInfo = new InfoPanelWidget(this, 2, this.centerBeam.h + this.panelDecorationL.h + this.tinkerInfo.imageHeight + 4, 7/9f);
 
     switch (style) {
       case METAL -> {
