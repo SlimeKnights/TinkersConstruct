@@ -2,12 +2,12 @@ package slimeknights.tconstruct.tables.client.inventory.widget;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.FormattedCharSequence;
-import slimeknights.mantle.client.screen.MultiModuleScreen;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.RenderUtils;
 
@@ -20,8 +20,8 @@ public class PartInfoPanelWidget extends InfoPanelWidget {
   private Component patternCost;
   private Component materialValue;
 
-  public PartInfoPanelWidget(MultiModuleScreen<?> parent, int width, int height, float textScale) {
-    super(parent, Style.PLAIN, 0, 0, width, height, textScale);
+  public PartInfoPanelWidget(Screen parent, int leftPos, int topPos, int width, int height, float textScale) {
+    super(parent, Style.PLAIN, leftPos, topPos, width, height, textScale);
     this.patternCost = TextComponent.EMPTY;
     this.materialValue = TextComponent.EMPTY;
   }

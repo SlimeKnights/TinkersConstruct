@@ -8,6 +8,7 @@ import net.minecraft.client.gui.components.Widget;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
@@ -16,7 +17,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
 import slimeknights.mantle.client.screen.ElementScreen;
-import slimeknights.mantle.client.screen.MultiModuleScreen;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.mantle.client.screen.SliderWidget;
 import slimeknights.tconstruct.TConstruct;
@@ -61,13 +61,11 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
   protected static final ElementScreen SLIDER_TOP = new ElementScreen(3, 88, 3, 4);
   protected static final ElementScreen SLIDER_BOTTOM = new ElementScreen(3, 92, 3, 4);
 
-  protected final MultiModuleScreen<?> parent;
+  protected final Screen parent;
   protected final Font font;
 
-  public int leftPos;
-  public int topPos;
-  protected final int imageWidth;
-  protected final int imageHeight;
+  public final int leftPos, topPos;
+  protected final int imageWidth, imageHeight;
 
   protected final BorderWidget border;
 
@@ -81,11 +79,11 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
 
   protected final float textScale;
 
-  public InfoPanelWidget(MultiModuleScreen<?> parent, Style style, int xOffset, int yOffset, float textScale) {
-    this(parent, style, xOffset, yOffset, DEFAULT_WIDTH, DEFAULT_HEIGHT, textScale);
+  public InfoPanelWidget(Screen parent, Style style, int leftPos, int topPos, float textScale) {
+    this(parent, style, leftPos, topPos, DEFAULT_WIDTH, DEFAULT_HEIGHT, textScale);
   }
 
-  public InfoPanelWidget(MultiModuleScreen<?> parent, Style style, int xOffset, int yOffset, int width, int height, float textScale) {
+  public InfoPanelWidget(Screen parent, Style style, int leftPos, int topPos, int width, int height, float textScale) {
 
     this.parent = parent;
     this.font = parent.getMinecraft().font;
@@ -101,9 +99,8 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
 
     this.textScale = textScale;
 
-    this.leftPos = parent.cornerX + parent.realWidth + xOffset;
-
-    this.topPos = parent.cornerY + yOffset;
+    this.leftPos = leftPos;
+    this.topPos = topPos;
 
     this.border.setPosition(this.leftPos, this.topPos);
     this.border.setSize(this.imageWidth, this.imageHeight);
@@ -364,7 +361,6 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
     float lowerBound = (this.topPos + this.imageHeight - BORDER_SIZE - 1) / this.textScale;
     matrices.pushPose();
     matrices.scale(this.textScale, this.textScale, 1.0f);
-    //RenderSystem.scalef(this.textScale, this.textScale, 1.0f);
     x /= this.textScale;
     y /= this.textScale;
 
@@ -381,9 +377,7 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
     }
 
     matrices.popPose();
-    //RenderSystem.scalef(1f / textScale, 1f / textScale, 1.0f);
 
-    //RenderSystem.setShaderTexture(0, BACKGROUND_IMAGE);
     RenderUtils.setup(BACKGROUND_IMAGE);
     this.slider.update(mouseX, mouseY);
     this.slider.draw(matrices);
