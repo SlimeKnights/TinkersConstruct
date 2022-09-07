@@ -186,7 +186,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     super.init();
 
     this.tinkerInfo = new InfoPanelWidget(this, style, 2, this.centerBeam.h + this.panelDecorationL.h, 8/9f);
-    this.modifierInfo = new InfoPanelWidget(this, style, 2, this.centerBeam.h + this.panelDecorationL.h + this.tinkerInfo.imageHeight + 4, 7/9f);
+    this.modifierInfo = new InfoPanelWidget(this, style, 2, this.centerBeam.h + this.panelDecorationL.h + InfoPanelWidget.DEFAULT_HEIGHT + 4, 7/9f);
 
     tinkerInfo.updatePosition(this.cornerX, this.cornerY, this.realWidth);
     modifierInfo.updatePosition(this.cornerX, this.cornerY, this.realWidth);
@@ -459,7 +459,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
 
     x = tinkerInfo.leftPos - this.leftBeam.w;
     x += this.leftBeam.draw(matrices, x, y);
-    x += this.centerBeam.drawScaledX(matrices, x, y, this.tinkerInfo.imageWidth);
+    x += this.centerBeam.drawScaledX(matrices, x, y, InfoPanelWidget.DEFAULT_WIDTH);
     this.rightBeam.draw(matrices, x, y);
 
     // draw the decoration for the buttons

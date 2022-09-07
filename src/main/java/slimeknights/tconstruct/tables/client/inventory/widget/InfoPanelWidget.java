@@ -35,6 +35,8 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
   private static final int INNER_WIDTH = 118;
   private static final int INNER_HEIGHT = 75;
 
+  public static final int DEFAULT_WIDTH = INNER_WIDTH + 2 * BORDER_SIZE, DEFAULT_HEIGHT = INNER_HEIGHT + 2 * BORDER_SIZE;
+
   /** Default caption displayed until one is set */
   private static final Component DEFAULT_CAPTION = TConstruct.makeTranslation("gui", "caption").withStyle(ChatFormatting.UNDERLINE);
 
@@ -64,8 +66,8 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
 
   public int leftPos;
   public int topPos;
-  public int imageWidth;
-  public int imageHeight;
+  protected final int imageWidth;
+  protected final int imageHeight;
   private final int xOffset, yOffset;
 
   protected final BorderWidget border;
@@ -81,6 +83,10 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
   protected final float textScale;
 
   public InfoPanelWidget(MultiModuleScreen<?> parent, Style style, int xOffset, int yOffset, float textScale) {
+    this(parent, style, xOffset, yOffset, DEFAULT_WIDTH, DEFAULT_HEIGHT, textScale);
+  }
+
+  public InfoPanelWidget(MultiModuleScreen<?> parent, Style style, int xOffset, int yOffset, int width, int height, float textScale) {
 
     this.parent = parent;
     this.font = parent.getMinecraft().font;
@@ -88,8 +94,8 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
     this.border = style.createBorderWidget();
     this.slider = style.createSliderWidget();
 
-    this.imageWidth = INNER_WIDTH + 2 * BORDER_SIZE;
-    this.imageHeight = INNER_HEIGHT + 2 * BORDER_SIZE;
+    this.imageWidth = width;
+    this.imageHeight = height;
 
     this.caption = DEFAULT_CAPTION;
     this.text = Lists.newLinkedList();

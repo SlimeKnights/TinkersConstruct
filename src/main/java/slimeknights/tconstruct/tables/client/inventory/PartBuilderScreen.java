@@ -30,6 +30,7 @@ import slimeknights.tconstruct.library.recipe.partbuilder.IPartBuilderRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tables.block.entity.table.PartBuilderBlockEntity;
+import slimeknights.tconstruct.tables.client.inventory.widget.InfoPanelWidget;
 import slimeknights.tconstruct.tables.client.inventory.widget.PartInfoPanelWidget;
 import slimeknights.tconstruct.tables.menu.PartBuilderContainerMenu;
 
@@ -69,8 +70,7 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
 
     super.init();
 
-    this.infoPanelScreen = new PartInfoPanelWidget(this, 7/9f);
-    this.infoPanelScreen.imageHeight = this.imageHeight;
+    this.infoPanelScreen = new PartInfoPanelWidget(this, InfoPanelWidget.DEFAULT_WIDTH, this.imageHeight, 7/9f);
     infoPanelScreen.updatePosition(this.cornerX, this.cornerY, this.realWidth);
     addRenderableWidget(infoPanelScreen);
 
