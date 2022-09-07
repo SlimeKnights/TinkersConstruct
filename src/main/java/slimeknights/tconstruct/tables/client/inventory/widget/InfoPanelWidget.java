@@ -29,25 +29,28 @@ import java.util.List;
 import java.util.ListIterator;
 
 public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntry {
-  private static final int resW = 118;
-  private static final int resH = 75;
+
+  private static final int BORDER_SIZE = 4;
+
+  private static final int INNER_WIDTH = 118;
+  private static final int INNER_HEIGHT = 75;
 
   /** Default caption displayed until one is set */
   private static final Component DEFAULT_CAPTION = TConstruct.makeTranslation("gui", "caption").withStyle(ChatFormatting.UNDERLINE);
 
   protected static ResourceLocation BACKGROUND_IMAGE = TConstruct.getResource("textures/gui/panel.png");
 
-  protected static final ElementScreen TOP_LEFT = new ElementScreen(0, 0, 4, 4, 256, 256);
-  protected static final ElementScreen TOP_RIGHT = new ElementScreen(resW + 4, 0, 4, 4);
-  protected static final ElementScreen BOTTOM_LEFT = new ElementScreen(0, resH + 4, 4, 4);
-  protected static final ElementScreen BOTTOM_RIGHT = new ElementScreen(resW + 4, resH + 4, 4, 4);
+  protected static final ElementScreen TOP_LEFT = new ElementScreen(0, 0, BORDER_SIZE, BORDER_SIZE);
+  protected static final ElementScreen TOP_RIGHT = new ElementScreen(INNER_WIDTH + BORDER_SIZE, 0, BORDER_SIZE, BORDER_SIZE);
+  protected static final ElementScreen BOTTOM_LEFT = new ElementScreen(0, INNER_HEIGHT + BORDER_SIZE, BORDER_SIZE, BORDER_SIZE);
+  protected static final ElementScreen BOTTOM_RIGHT = new ElementScreen(INNER_WIDTH + BORDER_SIZE, INNER_HEIGHT + BORDER_SIZE, BORDER_SIZE, BORDER_SIZE);
 
-  protected static final ScalableElementScreen TOP = new ScalableElementScreen(4, 0, resW, 4);
-  protected static final ScalableElementScreen BOTTOM = new ScalableElementScreen(4, 4 + resH, resW, 4);
-  protected static final ScalableElementScreen LEFT = new ScalableElementScreen(0, 4, 4, resH);
-  protected static final ScalableElementScreen RIGHT = new ScalableElementScreen(4 + resW, 4, 4, resH);
+  protected static final ScalableElementScreen TOP = new ScalableElementScreen(BORDER_SIZE, 0, INNER_WIDTH, BORDER_SIZE);
+  protected static final ScalableElementScreen BOTTOM = new ScalableElementScreen(BORDER_SIZE, BORDER_SIZE + INNER_HEIGHT, INNER_WIDTH, BORDER_SIZE);
+  protected static final ScalableElementScreen LEFT = new ScalableElementScreen(0, BORDER_SIZE, BORDER_SIZE, INNER_HEIGHT);
+  protected static final ScalableElementScreen RIGHT = new ScalableElementScreen(BORDER_SIZE + INNER_WIDTH, BORDER_SIZE, BORDER_SIZE, INNER_HEIGHT);
 
-  protected static final ScalableElementScreen BACKGROUND = new ScalableElementScreen(4, 4, resW, resH);
+  protected static final ScalableElementScreen BACKGROUND = new ScalableElementScreen(BORDER_SIZE, BORDER_SIZE, INNER_WIDTH, INNER_HEIGHT);
 
   protected static final ElementScreen SLIDER_NORMAL = new ElementScreen(0, 83, 3, 5);
   protected static final ElementScreen SLIDER_HOVER = SLIDER_NORMAL.shift(SLIDER_NORMAL.w, 0);
@@ -92,8 +95,8 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
     this.border.cornerBottomLeft = BOTTOM_LEFT;
     this.border.cornerBottomRight = BOTTOM_RIGHT;
 
-    this.imageWidth = resW + 8;
-    this.imageHeight = resH + 8;
+    this.imageWidth = INNER_WIDTH + 2 * BORDER_SIZE;
+    this.imageHeight = INNER_HEIGHT + 2 * BORDER_SIZE;
 
     this.caption = DEFAULT_CAPTION;
     this.text = Lists.newLinkedList();
@@ -255,13 +258,13 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
   }
 
   public InfoPanelWidget wood() {
-    this.shift(resW + 8, 0);
+    this.shift(INNER_WIDTH + 2 * BORDER_SIZE, 0);
     this.shiftSlider(6, 0);
     return this;
   }
 
   public InfoPanelWidget metal() {
-    this.shift(resW + 8, resH + 8);
+    this.shift(INNER_WIDTH + 2 * BORDER_SIZE, INNER_HEIGHT + 2 * BORDER_SIZE);
     this.shiftSlider(12, 0);
     return this;
   }
@@ -365,7 +368,7 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
     RenderUtils.setup(BACKGROUND_IMAGE);
 
     this.border.draw(matrices);
-    BACKGROUND.drawScaled(matrices, this.leftPos + 4, this.topPos + 4, this.imageWidth - 8, this.imageHeight - 8);
+    BACKGROUND.drawScaled(matrices, this.leftPos + BORDER_SIZE, this.topPos + BORDER_SIZE, this.imageWidth - 2 * BORDER_SIZE, this.imageHeight - 2 * BORDER_SIZE);
 
     float y = 5 + this.topPos;
     float x = 5 + this.leftPos;
@@ -373,7 +376,7 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
 
     // info ? in the top right corner
     if (this.hasTooltips()) {
-      this.font.draw(matrices, "?", guiRight() - this.border.w - this.font.width("?") / 2f, this.topPos + 5, 0xff5f5f5f);
+      this.font.draw(matrices, "?", guiRight() - this.border.w - this.font.width("?") / 2f, this.topPos + BORDER_SIZE + 1, 0xff5f5f5f);
     }
 
     // draw caption
@@ -392,7 +395,7 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
     }
 
     float textHeight = font.lineHeight + 0.5f;
-    float lowerBound = (this.topPos + this.imageHeight - 5) / this.textScale;
+    float lowerBound = (this.topPos + this.imageHeight - BORDER_SIZE - 1) / this.textScale;
     matrices.pushPose();
     matrices.scale(this.textScale, this.textScale, 1.0f);
     //RenderSystem.scalef(this.textScale, this.textScale, 1.0f);
