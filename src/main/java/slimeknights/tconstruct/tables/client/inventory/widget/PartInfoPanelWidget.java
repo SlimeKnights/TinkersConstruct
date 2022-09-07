@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tables.client.inventory;
+package slimeknights.tconstruct.tables.client.inventory.widget;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
@@ -7,24 +7,21 @@ import net.minecraft.network.chat.TextColor;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.FormattedCharSequence;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.RenderUtils;
-import slimeknights.tconstruct.tables.client.inventory.module.InfoPanelScreen;
 
 import java.util.ListIterator;
 
-public class PartInfoPanelScreen extends InfoPanelScreen {
+public class PartInfoPanelWidget extends InfoPanelWidget {
   private static final String COST_KEY = TConstruct.makeTranslationKey("gui", "part_builder.cost");
   private static final String MATERIAL_VALUE_KEY = TConstruct.makeTranslationKey("gui", "part_builder.material_value");
 
   private Component patternCost;
   private Component materialValue;
 
-  public PartInfoPanelScreen(MultiModuleScreen parent, AbstractContainerMenu container, Inventory playerInventory, Component title) {
-    super(parent, container, playerInventory, title);
+  public PartInfoPanelWidget(MultiModuleScreen<?> parent) {
+    super(parent);
     this.patternCost = TextComponent.EMPTY;
     this.materialValue = TextComponent.EMPTY;
   }
@@ -53,6 +50,15 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
     return this.patternCost != null && this.patternCost != TextComponent.EMPTY;
   }
 
+  public Component getPatternCost() {
+    return this.patternCost;
+  }
+
+  public void setRawPatternCost(Component component) {
+    this.patternCost = component;
+    this.updateSliderParameters();
+  }
+
   /* Material value */
 
   /**
@@ -77,13 +83,18 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
     return this.materialValue != null && this.materialValue != TextComponent.EMPTY;
   }
 
+  public Component getMaterialValue() {
+    return this.materialValue;
+  }
+
+  public void setRawMaterialValue(Component component) {
+    this.materialValue = component;
+    this.updateSliderParameters();
+  }
+
   @Override
   public int calcNeededHeight() {
     int neededHeight = 0;
-
-    if (!this.hasInitialized()) {
-      return height;
-    }
 
     int scaledFontHeight = this.getScaledFontHeight();
     if (this.hasCaption()) {
@@ -117,7 +128,7 @@ public class PartInfoPanelScreen extends InfoPanelScreen {
   }
 
   @Override
-  protected void renderBg(PoseStack matrices, float partialTicks, int mouseX, int mouseY) {
+  public void render(PoseStack matrices, int mouseX, int mouseY, float partialTick) {
     RenderUtils.setup(BACKGROUND_IMAGE);
 
     this.border.draw(matrices);

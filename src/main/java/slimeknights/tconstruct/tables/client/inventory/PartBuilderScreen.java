@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
@@ -28,6 +30,7 @@ import slimeknights.tconstruct.library.recipe.partbuilder.IPartBuilderRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tables.block.entity.table.PartBuilderBlockEntity;
+import slimeknights.tconstruct.tables.client.inventory.widget.PartInfoPanelWidget;
 import slimeknights.tconstruct.tables.menu.PartBuilderContainerMenu;
 
 import java.util.List;
@@ -42,7 +45,7 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
   private static final ResourceLocation BACKGROUND = TConstruct.getResource("textures/gui/partbuilder.png");
 
   /** Part builder side panel */
-  protected PartInfoPanelScreen infoPanelScreen;
+  protected PartInfoPanelWidget infoPanelScreen;
   /** Current scrollbar position */
   private float sliderProgress = 0.0F;
   /** Is {@code true} if the player clicked on the scroll wheel in the GUI */
@@ -58,11 +61,38 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
   public PartBuilderScreen(PartBuilderContainerMenu container, Inventory playerInventory, Component title) {
     super(container, playerInventory, title);
 
-    this.infoPanelScreen = new PartInfoPanelScreen(this, container, playerInventory, title);
+    addChestSideInventory(playerInventory);
+  }
+
+  @Override
+  protected void init() {
+
+    super.init();
+
+    this.infoPanelScreen = new PartInfoPanelWidget(this);
     this.infoPanelScreen.setTextScale(7/9f);
     this.infoPanelScreen.imageHeight = this.imageHeight;
-    this.addModule(this.infoPanelScreen);
-    addChestSideInventory(playerInventory);
+    infoPanelScreen.updatePosition(this.cornerX, this.cornerY, this.realWidth);
+    addRenderableWidget(infoPanelScreen);
+
+  }
+
+  @Override
+  public void resize(Minecraft mc, int width, int height) {
+    var panelCaption = infoPanelScreen.getCaption();
+    var panelText = infoPanelScreen.getText();
+    var panelTooltips = infoPanelScreen.getTooltips();
+    var patternCost = infoPanelScreen.getPatternCost();
+    var materialValue = infoPanelScreen.getMaterialValue();
+    var panelSlider = infoPanelScreen.getSliderValue();
+
+    super.resize(mc, width, height);
+
+    infoPanelScreen.setCaption(panelCaption);
+    infoPanelScreen.setText(panelText, panelTooltips);
+    infoPanelScreen.setRawPatternCost(patternCost);
+    infoPanelScreen.setRawMaterialValue(materialValue);
+    infoPanelScreen.setSliderValue(panelSlider);
   }
 
   @Override
@@ -109,7 +139,9 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
   protected void renderTooltip(PoseStack matrixStack, int mouseX, int mouseY) {
     super.renderTooltip(matrixStack, mouseX, mouseY);
 
-    // determime which button we are hovering
+    infoPanelScreen.renderTooltip(matrixStack, mouseX, mouseY);
+
+    // determine which button we are hovering
     List<Pattern> buttons = tile.getSortedButtons();
     if (!buttons.isEmpty()) {
       int index = getButtonAt(mouseX, mouseY);
@@ -258,10 +290,6 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
   public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
     this.clickedOnScrollBar = false;
 
-    if (this.infoPanelScreen.handleMouseClicked(mouseX, mouseY, mouseButton)) {
-      return false;
-    }
-
     List<Pattern> buttons = tile.getSortedButtons();
     if (!buttons.isEmpty()) {
       // handle button click
@@ -287,9 +315,6 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
 
   @Override
   public boolean mouseDragged(double mouseX, double mouseY, int clickedMouseButton, double timeSinceLastClick, double unknown) {
-    if (this.infoPanelScreen.handleMouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick)) {
-      return false;
-    }
 
     if (this.clickedOnScrollBar && this.canScroll()) {
       int i = this.cornerY + 14;
@@ -305,9 +330,6 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
 
   @Override
   public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
-    //if (this.infoPanelScreen.handleMouseScrolled(mouseX, mouseY, delta)) {
-    //  return false;
-    //}
     if (super.mouseScrolled(mouseX, mouseY, delta)) {
       return true;
     }
@@ -324,7 +346,7 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
   @Override
   public boolean mouseReleased(double mouseX, double mouseY, int state) {
     if (this.infoPanelScreen.handleMouseReleased(mouseX, mouseY, state)) {
-      return false;
+      return true;
     }
 
     return super.mouseReleased(mouseX, mouseY, state);
@@ -361,5 +383,18 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
   /** Gets the number of hidden part recipe rows */
   private int getHiddenRows() {
     return (this.getPartRecipeCount() + 4 - 1) / 4 - 3;
+  }
+
+  @Override
+  public List<Rect2i> getModuleAreas() {
+    List<Rect2i> areas = super.getModuleAreas();
+    areas.add(this.infoPanelScreen.getArea());
+    return areas;
+  }
+
+  @Override
+  protected boolean hasClickedOutside(double mouseX, double mouseY, int guiLeft, int guiTop, int mouseButton) {
+    return super.hasClickedOutside(mouseX, mouseY, guiLeft, guiTop, mouseButton)
+      && !this.infoPanelScreen.isMouseOver(mouseX, mouseY);
   }
 }
