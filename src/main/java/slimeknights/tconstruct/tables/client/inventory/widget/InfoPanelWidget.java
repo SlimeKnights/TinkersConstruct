@@ -68,7 +68,6 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
   public int topPos;
   protected final int imageWidth;
   protected final int imageHeight;
-  private final int xOffset, yOffset;
 
   protected final BorderWidget border;
 
@@ -100,9 +99,17 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
     this.caption = DEFAULT_CAPTION;
     this.text = Lists.newLinkedList();
 
-    this.xOffset = xOffset;
-    this.yOffset = yOffset;
     this.textScale = textScale;
+
+    this.leftPos = parent.cornerX + parent.realWidth + xOffset;
+
+    this.topPos = parent.cornerY + yOffset;
+
+    this.border.setPosition(this.leftPos, this.topPos);
+    this.border.setSize(this.imageWidth, this.imageHeight);
+    this.slider.setPosition(this.guiRight() - this.border.w - 2, this.topPos + this.border.h + 12);
+    this.slider.setSize(this.imageHeight - this.border.h * 2 - 2 - 12);
+    this.updateSliderParameters();
   }
 
   public int guiRight() {
@@ -120,18 +127,6 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
   /** Gets the height to render fonts scaled by the text scale */
   public int getScaledFontHeight() {
     return (int)Math.ceil(this.font.lineHeight * textScale);
-  }
-
-  public void updatePosition(int parentX, int parentY, int parentSizeX) {
-    this.leftPos = parentX + parentSizeX + xOffset;
-
-    this.topPos = parentY + yOffset;
-
-    this.border.setPosition(this.leftPos, this.topPos);
-    this.border.setSize(this.imageWidth, this.imageHeight);
-    this.slider.setPosition(this.guiRight() - this.border.w - 2, this.topPos + this.border.h + 12);
-    this.slider.setSize(this.imageHeight - this.border.h * 2 - 2 - 12);
-    this.updateSliderParameters();
   }
 
   public int getSliderValue() {

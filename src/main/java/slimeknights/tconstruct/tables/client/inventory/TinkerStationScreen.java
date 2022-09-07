@@ -185,14 +185,8 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
 
     super.init();
 
-    this.tinkerInfo = new InfoPanelWidget(this, style, 2, this.centerBeam.h + this.panelDecorationL.h, 8/9f);
-    this.modifierInfo = new InfoPanelWidget(this, style, 2, this.centerBeam.h + this.panelDecorationL.h + InfoPanelWidget.DEFAULT_HEIGHT + 4, 7/9f);
-
-    tinkerInfo.updatePosition(this.cornerX, this.cornerY, this.realWidth);
-    modifierInfo.updatePosition(this.cornerX, this.cornerY, this.realWidth);
-
-    addRenderableWidget(tinkerInfo);
-    addRenderableWidget(modifierInfo);
+    this.tinkerInfo = addRenderableWidget(new InfoPanelWidget(this, style, 2, this.centerBeam.h + this.panelDecorationL.h, 8/9f));
+    this.modifierInfo = addRenderableWidget(new InfoPanelWidget(this, style, 2, this.centerBeam.h + this.panelDecorationL.h + InfoPanelWidget.DEFAULT_HEIGHT + 4, 7/9f));
 
     this.updateLayout();
   }

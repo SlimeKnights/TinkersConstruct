@@ -67,13 +67,9 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
 
   @Override
   protected void init() {
-
     super.init();
 
-    this.infoPanelScreen = new PartInfoPanelWidget(this, InfoPanelWidget.DEFAULT_WIDTH, this.imageHeight, 7/9f);
-    infoPanelScreen.updatePosition(this.cornerX, this.cornerY, this.realWidth);
-    addRenderableWidget(infoPanelScreen);
-
+    this.infoPanelScreen = addRenderableWidget(new PartInfoPanelWidget(this, InfoPanelWidget.DEFAULT_WIDTH, this.imageHeight, 7/9f));
   }
 
   @Override
