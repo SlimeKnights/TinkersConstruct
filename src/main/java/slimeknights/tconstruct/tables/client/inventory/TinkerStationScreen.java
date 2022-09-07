@@ -95,12 +95,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
   /** Number of button columns in the UI */
   public static final int COLUMN_COUNT = 5;
 
-  private final Style style;
-
-  private enum Style {
-    METAL,
-    WOOD,
-  }
+  private final InfoPanelWidget.Style style;
 
   // configurable elements
   protected ElementScreen buttonDecorationTop = SLOT_SPACE_TOP;
@@ -150,10 +145,10 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     // large if at least 4, todo can configure?
     if (max > 3) {
       this.metal();
-      style = Style.METAL;
+      style = InfoPanelWidget.Style.METAL;
     } else {
       this.wood();
-      style = Style.WOOD;
+      style = InfoPanelWidget.Style.WOOD;
     }
     // apply base slot information
     if (te == null) {
@@ -190,20 +185,9 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
 
     super.init();
 
-    this.tinkerInfo = new InfoPanelWidget(this, 2, this.centerBeam.h + this.panelDecorationL.h, 8/9f);
+    this.tinkerInfo = new InfoPanelWidget(this, style, 2, this.centerBeam.h + this.panelDecorationL.h, 8/9f);
+    this.modifierInfo = new InfoPanelWidget(this, style, 2, this.centerBeam.h + this.panelDecorationL.h + this.tinkerInfo.imageHeight + 4, 7/9f);
 
-    this.modifierInfo = new InfoPanelWidget(this, 2, this.centerBeam.h + this.panelDecorationL.h + this.tinkerInfo.imageHeight + 4, 7/9f);
-
-    switch (style) {
-      case METAL -> {
-        this.tinkerInfo.metal();
-        this.modifierInfo.metal();
-      }
-      case WOOD -> {
-        this.tinkerInfo.wood();
-        this.modifierInfo.wood();
-      }
-    }
     tinkerInfo.updatePosition(this.cornerX, this.cornerY, this.realWidth);
     modifierInfo.updatePosition(this.cornerX, this.cornerY, this.realWidth);
 

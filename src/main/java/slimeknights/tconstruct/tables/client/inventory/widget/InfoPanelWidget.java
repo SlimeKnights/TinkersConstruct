@@ -68,9 +68,9 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
   public int imageHeight;
   private final int xOffset, yOffset;
 
-  protected BorderWidget border = new BorderWidget();
+  protected final BorderWidget border;
 
-  protected SliderWidget slider = new SliderWidget(SLIDER_NORMAL, SLIDER_HOVER, SLIDER_HOVER, SLIDER_TOP, SLIDER_BOTTOM, SLIDER_BAR);
+  protected final SliderWidget slider;
 
   protected Component caption;
   protected List<Component> text;
@@ -80,20 +80,13 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
 
   protected final float textScale;
 
-  public InfoPanelWidget(MultiModuleScreen<?> parent, int xOffset, int yOffset, float textScale) {
+  public InfoPanelWidget(MultiModuleScreen<?> parent, Style style, int xOffset, int yOffset, float textScale) {
 
     this.parent = parent;
     this.font = parent.getMinecraft().font;
 
-    this.border.borderTop = TOP;
-    this.border.borderBottom = BOTTOM;
-    this.border.borderLeft = LEFT;
-    this.border.borderRight = RIGHT;
-
-    this.border.cornerTopLeft = TOP_LEFT;
-    this.border.cornerTopRight = TOP_RIGHT;
-    this.border.cornerBottomLeft = BOTTOM_LEFT;
-    this.border.cornerBottomRight = BOTTOM_RIGHT;
+    this.border = style.createBorderWidget();
+    this.slider = style.createSliderWidget();
 
     this.imageWidth = INNER_WIDTH + 2 * BORDER_SIZE;
     this.imageHeight = INNER_HEIGHT + 2 * BORDER_SIZE;
@@ -255,34 +248,6 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
     }
 
     return lines;
-  }
-
-  public InfoPanelWidget wood() {
-    this.shift(INNER_WIDTH + 2 * BORDER_SIZE, 0);
-    this.shiftSlider(6, 0);
-    return this;
-  }
-
-  public InfoPanelWidget metal() {
-    this.shift(INNER_WIDTH + 2 * BORDER_SIZE, INNER_HEIGHT + 2 * BORDER_SIZE);
-    this.shiftSlider(12, 0);
-    return this;
-  }
-
-  private void shift(int xd, int yd) {
-    this.border.borderTop = TOP.shift(xd, yd);
-    this.border.borderBottom = BOTTOM.shift(xd, yd);
-    this.border.borderLeft = LEFT.shift(xd, yd);
-    this.border.borderRight = RIGHT.shift(xd, yd);
-
-    this.border.cornerTopLeft = TOP_LEFT.shift(xd, yd);
-    this.border.cornerTopRight = TOP_RIGHT.shift(xd, yd);
-    this.border.cornerBottomLeft = BOTTOM_LEFT.shift(xd, yd);
-    this.border.cornerBottomRight = BOTTOM_RIGHT.shift(xd, yd);
-  }
-
-  private void shiftSlider(int xd, int yd) {
-    this.slider = new SliderWidget(SLIDER_NORMAL.shift(xd, yd), SLIDER_HOVER.shift(xd, yd), SLIDER_HOVER.shift(xd, yd), SLIDER_TOP.shift(xd, yd), SLIDER_BOTTOM.shift(xd, yd), SLIDER_BAR.shift(xd, yd));
   }
 
   public void renderTooltip(PoseStack matrices, int mouseX, int mouseY) {
@@ -474,5 +439,42 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
 
   @Override
   public void updateNarration(NarrationElementOutput pNarrationElementOutput) {
+  }
+
+  /**
+   * Defines texture coordinates for different styles for the info panel.
+   */
+  public enum Style {
+    PLAIN(0, 0, 0),
+    WOOD(INNER_WIDTH + 2 * BORDER_SIZE, 0, 6),
+    METAL(INNER_WIDTH + 2 * BORDER_SIZE, INNER_HEIGHT + 2 * BORDER_SIZE, 12);
+
+    private final int startU, startV, sliderU;
+
+    Style(int startU, int startV, int sliderU) {
+      this.startU = startU;
+      this.startV = startV;
+      this.sliderU = sliderU;
+    }
+
+    private BorderWidget createBorderWidget() {
+      BorderWidget border = new BorderWidget();
+      border.borderTop = TOP.shift(startU, startV);
+      border.borderBottom = BOTTOM.shift(startU, startV);
+      border.borderLeft = LEFT.shift(startU, startV);
+      border.borderRight = RIGHT.shift(startU, startV);
+
+      border.cornerTopLeft = TOP_LEFT.shift(startU, startV);
+      border.cornerTopRight = TOP_RIGHT.shift(startU, startV);
+      border.cornerBottomLeft = BOTTOM_LEFT.shift(startU, startV);
+      border.cornerBottomRight = BOTTOM_RIGHT.shift(startU, startV);
+
+      return border;
+    }
+
+    private SliderWidget createSliderWidget() {
+      return new SliderWidget(SLIDER_NORMAL.shift(sliderU, 0), SLIDER_HOVER.shift(sliderU, 0), SLIDER_HOVER.shift(sliderU, 0),
+        SLIDER_TOP.shift(sliderU, 0), SLIDER_BOTTOM.shift(sliderU, 0), SLIDER_BAR.shift(sliderU, 0));
+    }
   }
 }
