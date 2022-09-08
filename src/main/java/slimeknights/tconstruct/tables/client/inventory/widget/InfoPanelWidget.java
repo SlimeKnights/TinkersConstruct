@@ -181,9 +181,8 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
     return this.tooltips != null && !this.tooltips.isEmpty();
   }
 
-  public int calcNeededHeight() {
-    return this.getCaptionsHeight()
-      + (int) ((this.getScaledFontHeight() + 0.5f) * this.getTotalLines().size());
+  public int calcTextHeight() {
+    return (int) ((this.getScaledFontHeight() + 0.5f) * this.getTotalLines().size());
   }
 
   protected int getCaptionsHeight() {
@@ -194,10 +193,10 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
     // we assume slider not shown
     this.slider.hide();
 
-    int h = imageHeight - 2 * (BORDER_SIZE + 1);
+    int textSpaceHeight = imageHeight - 2 * (BORDER_SIZE + 1) - this.getCaptionsHeight();
 
     // check if we can display all lines
-    if (this.calcNeededHeight() <= h)
+    if (this.calcTextHeight() <= textSpaceHeight)
     // can display all, stay hidden
     {
       return;
@@ -207,10 +206,10 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
     this.slider.show();
     // check how many lines we can show
     int scaledFontHeight = this.getScaledFontHeight();
-    int neededHeight = this.calcNeededHeight(); // recalc because width changed due to slider
-    int hiddenRows = (neededHeight - h) / scaledFontHeight;
+    int textHeight = this.calcTextHeight(); // recalc because width changed due to slider
+    int hiddenRows = (textHeight - textSpaceHeight) / scaledFontHeight;
 
-    if ((neededHeight - h) % scaledFontHeight > 0) {
+    if ((textHeight - textSpaceHeight) % scaledFontHeight > 0) {
       hiddenRows++;
     }
 
