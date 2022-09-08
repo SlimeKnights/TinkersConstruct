@@ -90,12 +90,11 @@ public class PartInfoPanelWidget extends InfoPanelWidget {
 
   @Override
   protected int getCaptionsHeight() {
-    int scaledFontHeight = this.getScaledFontHeight();
     int height = super.getCaptionsHeight();
     if (this.hasPatternCost())
-      height += scaledFontHeight + 3;
+      height += this.font.lineHeight + 1;
     if (this.hasMaterialValue())
-      height += scaledFontHeight + 3;
+      height += this.font.lineHeight + 1;
     return height;
   }
 
@@ -103,7 +102,6 @@ public class PartInfoPanelWidget extends InfoPanelWidget {
   protected float drawCaptions(PoseStack matrices, float y, int color) {
 
     y = super.drawCaptions(matrices, y, color);
-    int scaledFontHeight = this.getScaledFontHeight();
 
     // Draw pattern cost
     if (this.hasPatternCost()) {
@@ -111,7 +109,7 @@ public class PartInfoPanelWidget extends InfoPanelWidget {
       x2 -= this.font.width(this.patternCost) / 2;
 
       this.font.drawShadow(matrices, this.patternCost.getVisualOrderText(), (float) this.leftPos + x2, y, color);
-      y += scaledFontHeight + 3;
+      y += this.font.lineHeight + 1;
     }
 
     // Draw material value
@@ -120,7 +118,7 @@ public class PartInfoPanelWidget extends InfoPanelWidget {
       x2 -= this.font.width(this.materialValue) / 2;
 
       this.font.drawShadow(matrices, this.materialValue.getVisualOrderText(), (float) this.leftPos + x2, y, color);
-      y += scaledFontHeight + 3;
+      y += this.font.lineHeight + 1;
     }
     return y;
   }

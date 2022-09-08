@@ -186,7 +186,7 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
   }
 
   protected int getCaptionsHeight() {
-    return this.hasCaption() ? this.getScaledFontHeight() + 3 : 0;
+    return this.hasCaption() ? this.font.lineHeight + 1 : 0;
   }
 
   protected void updateSliderParameters() {
@@ -253,9 +253,8 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
     }
 
     // floating over tooltip info?
-    int scaledFontHeight = this.getScaledFontHeight();
     if (this.hasTooltips() && mouseX >= this.guiRight() - this.border.w - this.font.width("?") / 2 && mouseX < this.guiRight()
-        && mouseY > this.topPos + 5 && mouseY < this.topPos + 5 + scaledFontHeight) {
+        && mouseY > this.topPos + 5 && mouseY < this.topPos + 5 + this.font.lineHeight) {
       parent.renderTooltip(matrices, this.font.split(new TranslatableComponent("gui.tconstruct.general.hover"), 150), mouseX - 155, mouseY);
     }
 
@@ -360,13 +359,12 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
   }
 
   protected float drawCaptions(PoseStack matrices, float y, int color) {
-    int scaledFontHeight = this.getScaledFontHeight();
     if (this.hasCaption()) {
       int x2 = this.imageWidth / 2;
       x2 -= this.font.width(this.caption) / 2;
 
       this.font.drawShadow(matrices, this.caption.getVisualOrderText(), (float) this.leftPos + x2, y, color);
-      y += scaledFontHeight + 3;
+      y += this.font.lineHeight + 1;
     }
     return y;
   }
