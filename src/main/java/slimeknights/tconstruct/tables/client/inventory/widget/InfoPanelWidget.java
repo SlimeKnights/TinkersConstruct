@@ -182,24 +182,19 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
   }
 
   public int calcNeededHeight() {
-    int neededHeight = 0;
+    return this.getCaptionsHeight()
+      + (int) ((this.getScaledFontHeight() + 0.5f) * this.getTotalLines().size());
+  }
 
-    int scaledFontHeight = this.getScaledFontHeight();
-    if (this.hasCaption()) {
-      neededHeight += scaledFontHeight;
-      neededHeight += 3;
-    }
-
-    neededHeight += (scaledFontHeight + 0.5f) * this.getTotalLines().size();
-
-    return neededHeight;
+  protected int getCaptionsHeight() {
+    return this.hasCaption() ? this.getScaledFontHeight() + 3 : 0;
   }
 
   protected void updateSliderParameters() {
     // we assume slider not shown
     this.slider.hide();
 
-    int h = imageHeight - 2 * 5; // we use 5 as border thickness
+    int h = imageHeight - 2 * (BORDER_SIZE + 1);
 
     // check if we can display all lines
     if (this.calcNeededHeight() <= h)
@@ -266,7 +261,7 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
     }
 
     // are we hovering over an entry?
-    float y = getTooltipStart(5 + this.topPos);
+    float y = this.topPos + BORDER_SIZE + 1 + getCaptionsHeight();
     float textHeight = (font.lineHeight + 0.5f) * this.textScale;
     float lowerBound = (this.topPos + this.imageHeight - 5);
 
@@ -316,16 +311,6 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
     parent.renderTooltip(matrices, lines, mouseX, (mouseY - lines.size() * this.getScaledFontHeight() / 2));
   }
 
-  /**
-   * Gets the location of the first tooltip for info tooltips
-   */
-  protected float getTooltipStart(float y) {
-    if (this.hasCaption()) {
-      y += this.getScaledFontHeight() + 3;
-    }
-    return y;
-  }
-
   @Override
   public void render(PoseStack matrices, int mouseX, int mouseY, float partialTick) {
     RenderUtils.setup(BACKGROUND_IMAGE);
@@ -333,8 +318,8 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
     this.border.draw(matrices);
     BACKGROUND.drawScaled(matrices, this.leftPos + BORDER_SIZE, this.topPos + BORDER_SIZE, this.imageWidth - 2 * BORDER_SIZE, this.imageHeight - 2 * BORDER_SIZE);
 
-    float y = 5 + this.topPos;
-    float x = 5 + this.leftPos;
+    float y = this.topPos + BORDER_SIZE + 1;
+    float x = this.leftPos + BORDER_SIZE + 1;
     int color = 0xfff0f0f0;
 
     // info ? in the top right corner
@@ -342,15 +327,7 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
       this.font.draw(matrices, "?", guiRight() - this.border.w - this.font.width("?") / 2f, this.topPos + BORDER_SIZE + 1, 0xff5f5f5f);
     }
 
-    // draw caption
-    int scaledFontHeight = this.getScaledFontHeight();
-    if (this.hasCaption()) {
-      int x2 = this.imageWidth / 2;
-      x2 -= this.font.width(this.caption) / 2;
-
-      this.font.drawShadow(matrices, this.caption.getVisualOrderText(), (float) this.leftPos + x2, y, color);
-      y += scaledFontHeight + 3;
-    }
+    y = drawCaptions(matrices, y, color);
 
     if (this.text == null || this.text.size() == 0) {
       // no text to draw
@@ -381,6 +358,18 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
     RenderUtils.setup(BACKGROUND_IMAGE);
     this.slider.update(mouseX, mouseY);
     this.slider.draw(matrices);
+  }
+
+  protected float drawCaptions(PoseStack matrices, float y, int color) {
+    int scaledFontHeight = this.getScaledFontHeight();
+    if (this.hasCaption()) {
+      int x2 = this.imageWidth / 2;
+      x2 -= this.font.width(this.caption) / 2;
+
+      this.font.drawShadow(matrices, this.caption.getVisualOrderText(), (float) this.leftPos + x2, y, color);
+      y += scaledFontHeight + 3;
+    }
+    return y;
   }
 
   @Override
