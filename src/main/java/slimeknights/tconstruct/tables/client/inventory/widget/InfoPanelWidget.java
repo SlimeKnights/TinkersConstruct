@@ -117,6 +117,14 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
     return this.topPos + this.imageHeight;
   }
 
+  private float hoverHintX() {
+    return guiRight() - BORDER_SIZE - 1 - this.font.width("?");
+  }
+
+  private float hoverHintY() {
+    return this.topPos + BORDER_SIZE + 1;
+  }
+
   public Rect2i getArea() {
     return new Rect2i(this.leftPos, this.topPos, this.imageWidth, this.imageHeight);
   }
@@ -253,8 +261,8 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
     }
 
     // floating over tooltip info?
-    if (this.hasTooltips() && mouseX >= this.guiRight() - this.border.w - this.font.width("?") / 2 && mouseX < this.guiRight()
-        && mouseY > this.topPos + 5 && mouseY < this.topPos + 5 + this.font.lineHeight) {
+    if (this.hasTooltips() && hoverHintX() <= mouseX && mouseX < hoverHintX() + this.font.width("?")
+        && hoverHintY() <= mouseY && mouseY < hoverHintY() + this.font.lineHeight) {
       parent.renderTooltip(matrices, this.font.split(new TranslatableComponent("gui.tconstruct.general.hover"), 150), mouseX - 155, mouseY);
     }
 
@@ -322,7 +330,7 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
 
     // info ? in the top right corner
     if (this.hasTooltips()) {
-      this.font.draw(matrices, "?", guiRight() - this.border.w - this.font.width("?") / 2f, this.topPos + BORDER_SIZE + 1, 0xff5f5f5f);
+      this.font.draw(matrices, "?", hoverHintX(), hoverHintY(), 0xff5f5f5f);
     }
 
     y = drawCaptions(matrices, y, color);
