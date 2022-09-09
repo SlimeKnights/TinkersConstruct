@@ -33,10 +33,10 @@ import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tables.block.entity.table.PartBuilderBlockEntity;
 import slimeknights.tconstruct.tables.client.inventory.widget.InfoPanelWidget;
-import slimeknights.tconstruct.tables.client.inventory.widget.PartInfoPanelWidget;
 import slimeknights.tconstruct.tables.menu.PartBuilderContainerMenu;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 
 public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,PartBuilderContainerMenu> {
@@ -51,7 +51,7 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
   private static final ResourceLocation BACKGROUND = TConstruct.getResource("textures/gui/partbuilder.png");
 
   /** Part builder side panel */
-  protected PartInfoPanelWidget infoPanelScreen;
+  protected InfoPanelWidget infoPanelScreen;
   /** Current scrollbar position */
   private float sliderProgress = 0.0F;
   /** Is {@code true} if the player clicked on the scroll wheel in the GUI */
@@ -74,24 +74,20 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
   protected void init() {
     super.init();
 
-    this.infoPanelScreen = addRenderableWidget(new PartInfoPanelWidget(this, this.cornerX + this.realWidth, this.cornerY, InfoPanelWidget.DEFAULT_WIDTH, this.imageHeight, 7/9f));
+    this.infoPanelScreen = addRenderableWidget(new InfoPanelWidget(this, InfoPanelWidget.Style.PLAIN, this.cornerX + this.realWidth, this.cornerY, InfoPanelWidget.DEFAULT_WIDTH, this.imageHeight, 7/9f));
   }
 
   @Override
   public void resize(Minecraft mc, int width, int height) {
-    var panelCaption = infoPanelScreen.getCaption();
+    var panelCaption = infoPanelScreen.getCaptions();
     var panelText = infoPanelScreen.getText();
     var panelTooltips = infoPanelScreen.getTooltips();
-    var patternCost = infoPanelScreen.getPatternCost();
-    var materialValue = infoPanelScreen.getMaterialValue();
     var panelSlider = infoPanelScreen.getSliderValue();
 
     super.resize(mc, width, height);
 
-    infoPanelScreen.setCaption(panelCaption);
+    infoPanelScreen.setCaptions(panelCaption);
     infoPanelScreen.setText(panelText, panelTooltips);
-    infoPanelScreen.setPatternCost(patternCost);
-    infoPanelScreen.setMaterialValue(materialValue);
     infoPanelScreen.setSliderValue(panelSlider);
   }
 
@@ -197,23 +193,17 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
       this.recipeIndexOffset = 0;
     }
 
-    // update part recipe cost
-    IPartBuilderRecipe partRecipe = this.tile.getPartRecipe();
-    if (partRecipe != null) {
-      this.infoPanelScreen.setPatternCost(new TranslatableComponent(COST_KEY, partRecipe.getCost()).withStyle(ChatFormatting.GOLD));
-    } else {
-      this.infoPanelScreen.clearPatternCost();
-    }
-
     // update material
     MaterialRecipe materialRecipe = this.tile.getMaterialRecipe();
     if (materialRecipe != null) {
       this.setDisplayForMaterial(materialRecipe);
     } else {
       // default text
-      this.infoPanelScreen.setCaption(this.getTitle().copy().withStyle(ChatFormatting.UNDERLINE));
+      List<Component> captions = Lists.newArrayList();
+      captions.add(this.getTitle().copy().withStyle(ChatFormatting.UNDERLINE));
+      this.getPatternCostCaption().ifPresent(captions::add);
+      this.infoPanelScreen.setCaptions(captions);
       this.infoPanelScreen.setText(INFO_TEXT);
-      this.infoPanelScreen.clearMaterialValue();
     }
   }
 
@@ -223,7 +213,10 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
    */
   private void setDisplayForMaterial(MaterialRecipe materialRecipe) {
     MaterialVariant materialVariant = materialRecipe.getMaterial();
-    this.infoPanelScreen.setCaption(MaterialTooltipCache.getColoredDisplayName(materialVariant.getVariant()).copy().withStyle(ChatFormatting.UNDERLINE));
+
+    List<Component> captions = Lists.newArrayList();
+    captions.add(MaterialTooltipCache.getColoredDisplayName(materialVariant.getVariant()).copy().withStyle(ChatFormatting.UNDERLINE));
+    this.getPatternCostCaption().ifPresent(captions::add);
 
     // determine how much material we have
     // get exact number of material, rather than rounded
@@ -235,7 +228,8 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
     if (partRecipe != null && value < partRecipe.getCost()) {
       formatted = formatted.withStyle(ChatFormatting.DARK_RED);
     }
-    this.infoPanelScreen.setMaterialValue(new TranslatableComponent(MATERIAL_VALUE_KEY, formatted).withStyle(style -> style.withColor(TextColor.fromRgb(0x7fffff))));
+
+    captions.add(new TranslatableComponent(MATERIAL_VALUE_KEY, formatted).withStyle(style -> style.withColor(TextColor.fromRgb(0x7fffff))));
 
     // update stats and traits
     List<Component> stats = Lists.newLinkedList();
@@ -280,9 +274,18 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
       tips.remove(tips.size() - 1);
     }
 
+    this.infoPanelScreen.setCaptions(captions);
     this.infoPanelScreen.setText(stats, tips);
   }
 
+  private Optional<Component> getPatternCostCaption() {
+    IPartBuilderRecipe partRecipe = this.tile.getPartRecipe();
+    if (partRecipe != null) {
+      return Optional.of(new TranslatableComponent(COST_KEY, partRecipe.getCost()).withStyle(ChatFormatting.GOLD));
+    } else {
+      return Optional.empty();
+    }
+  }
 
   /* Scrollbar logic */
 
@@ -357,13 +360,13 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
 
   @Override
   public void error(Component message) {
-    this.infoPanelScreen.setCaption(COMPONENT_ERROR.copy().withStyle(ChatFormatting.UNDERLINE));
+    this.infoPanelScreen.setCaptions(COMPONENT_ERROR.copy().withStyle(ChatFormatting.UNDERLINE));
     this.infoPanelScreen.setText(message);
   }
 
   @Override
   public void warning(Component message) {
-    this.infoPanelScreen.setCaption(COMPONENT_WARNING.copy().withStyle(ChatFormatting.UNDERLINE));
+    this.infoPanelScreen.setCaptions(COMPONENT_WARNING.copy().withStyle(ChatFormatting.UNDERLINE));
     this.infoPanelScreen.setText(message);
   }
 

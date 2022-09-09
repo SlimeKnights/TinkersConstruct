@@ -67,17 +67,17 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
   public final int leftPos, topPos;
   protected final int imageWidth, imageHeight;
 
-  protected final BorderWidget border;
+  private final BorderWidget border;
 
-  protected final SliderWidget slider;
+  private final SliderWidget slider;
 
-  protected Component caption;
-  protected List<Component> text;
-  protected List<Component> tooltips;
+  private List<Component> captions;
+  private List<Component> text;
+  private List<Component> tooltips;
 
-  protected List<Integer> tooltipLines = Lists.newLinkedList();
+  private final List<Integer> tooltipLines = Lists.newLinkedList();
 
-  protected final float textScale;
+  private final float textScale;
 
   public InfoPanelWidget(Screen parent, Style style, int leftPos, int topPos, float textScale) {
     this(parent, style, leftPos, topPos, DEFAULT_WIDTH, DEFAULT_HEIGHT, textScale);
@@ -94,7 +94,7 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
     this.imageWidth = width;
     this.imageHeight = height;
 
-    this.caption = DEFAULT_CAPTION;
+    this.captions = List.of(DEFAULT_CAPTION);
     this.text = Lists.newLinkedList();
 
     this.textScale = textScale;
@@ -142,12 +142,17 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
     this.slider.setSliderValue(value);
   }
 
-  public Component getCaption() {
-    return caption;
+  public List<Component> getCaptions() {
+    return this.captions;
   }
 
-  public void setCaption(Component caption) {
-    this.caption = caption;
+  public void setCaptions(Component... captions) {
+    this.captions = List.of(captions);
+    this.updateSliderParameters();
+  }
+
+  public void setCaptions(List<Component> captions) {
+    this.captions = List.copyOf(captions);
     this.updateSliderParameters();
   }
 
@@ -181,10 +186,6 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
     this.tooltips = tooltips;
   }
 
-  public boolean hasCaption() {
-    return this.caption != null && !this.caption.getString().isEmpty();
-  }
-
   public boolean hasTooltips() {
     return this.tooltips != null && !this.tooltips.isEmpty();
   }
@@ -194,7 +195,7 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
   }
 
   protected int getCaptionsHeight() {
-    return this.hasCaption() ? this.font.lineHeight + 1 : 0;
+    return captions.size() * (this.font.lineHeight + 1);
   }
 
   protected void updateSliderParameters() {
@@ -367,13 +368,14 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
   }
 
   protected float drawCaptions(PoseStack matrices, float y, int color) {
-    if (this.hasCaption()) {
+    for (Component caption : this.captions) {
       int x2 = this.imageWidth / 2;
-      x2 -= this.font.width(this.caption) / 2;
+      x2 -= this.font.width(caption) / 2;
 
-      this.font.drawShadow(matrices, this.caption.getVisualOrderText(), (float) this.leftPos + x2, y, color);
+      this.font.drawShadow(matrices, caption.getVisualOrderText(), (float) this.leftPos + x2, y, color);
       y += this.font.lineHeight + 1;
     }
+
     return y;
   }
 

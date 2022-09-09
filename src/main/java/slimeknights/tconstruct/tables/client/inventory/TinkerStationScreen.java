@@ -195,21 +195,21 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
 
   @Override
   public void resize(Minecraft mc, int width, int height) {
-    var tinkerCaption = tinkerInfo.getCaption();
+    var tinkerCaption = tinkerInfo.getCaptions();
     var tinkerText = tinkerInfo.getText();
     var tinkerTooltips = tinkerInfo.getTooltips();
     var tinkerSlider = tinkerInfo.getSliderValue();
-    var modifierCaption = modifierInfo.getCaption();
+    var modifierCaption = modifierInfo.getCaptions();
     var modifierText = modifierInfo.getText();
     var modifierTooltips = modifierInfo.getTooltips();
     var modifierSlider = modifierInfo.getSliderValue();
 
     super.resize(mc, width, height);
 
-    tinkerInfo.setCaption(tinkerCaption);
+    tinkerInfo.setCaptions(tinkerCaption);
     tinkerInfo.setText(tinkerText, tinkerTooltips);
     tinkerInfo.setSliderValue(tinkerSlider);
-    modifierInfo.setCaption(modifierCaption);
+    modifierInfo.setCaptions(modifierCaption);
     modifierInfo.setText(modifierText, modifierTooltips);
     modifierInfo.setSliderValue(modifierSlider);
   }
@@ -272,13 +272,13 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     if (toolStack.is(TinkerTags.Items.MODIFIABLE)) {
       ToolStack tool = ToolStack.from(toolStack);
       if (toolStack.getItem() instanceof ITinkerStationDisplay display) {
-        this.tinkerInfo.setCaption(display.getLocalizedName().copy().withStyle(ChatFormatting.UNDERLINE));
+        this.tinkerInfo.setCaptions(display.getLocalizedName().copy().withStyle(ChatFormatting.UNDERLINE));
         // TODO: tooltips on these?
         assert minecraft != null;
         this.tinkerInfo.setText(display.getStatInformation(tool, minecraft.player, new ArrayList<>(), SafeClientAccess.getTooltipKey(), TinkerTooltipFlags.TINKER_STATION));
       }
       else {
-        this.tinkerInfo.setCaption(toolStack.getDisplayName().copy().withStyle(ChatFormatting.UNDERLINE));
+        this.tinkerInfo.setCaptions(toolStack.getDisplayName().copy().withStyle(ChatFormatting.UNDERLINE));
         this.tinkerInfo.setText();
       }
 
@@ -320,12 +320,12 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
         }
       }
 
-      this.modifierInfo.setCaption(title.copy().withStyle(ChatFormatting.UNDERLINE));
+      this.modifierInfo.setCaptions(title.copy().withStyle(ChatFormatting.UNDERLINE));
       this.modifierInfo.setText(modifierNames, modifierInfo);
     }
     // tool build info
     else {
-      this.tinkerInfo.setCaption(this.currentLayout.getDisplayName().copy().withStyle(ChatFormatting.UNDERLINE));
+      this.tinkerInfo.setCaptions(this.currentLayout.getDisplayName().copy().withStyle(ChatFormatting.UNDERLINE));
       this.tinkerInfo.setText(this.currentLayout.getDescription());
 
       // for each named slot, color the slot if the slot is filled
@@ -348,10 +348,10 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
       }
       // if we found any components, set the text, use the anvil if no components
       if (hasComponents) {
-        this.modifierInfo.setCaption(COMPONENTS_TEXT.copy().withStyle(ChatFormatting.UNDERLINE));
+        this.modifierInfo.setCaptions(COMPONENTS_TEXT.copy().withStyle(ChatFormatting.UNDERLINE));
         this.modifierInfo.setText(fullText);
       } else {
-        this.modifierInfo.setCaption(TextComponent.EMPTY);
+        this.modifierInfo.setCaptions();
         this.modifierInfo.setText(ASCII_ANVIL);
       }
     }
@@ -643,18 +643,18 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
 
   @Override
   public void error(Component message) {
-    this.tinkerInfo.setCaption(COMPONENT_ERROR.copy().withStyle(ChatFormatting.UNDERLINE));
+    this.tinkerInfo.setCaptions(COMPONENT_ERROR.copy().withStyle(ChatFormatting.UNDERLINE));
     this.tinkerInfo.setText(message);
-    this.modifierInfo.setCaption(TextComponent.EMPTY);
-    this.modifierInfo.setText(TextComponent.EMPTY);
+    this.modifierInfo.setCaptions();
+    this.modifierInfo.setText();
   }
 
   @Override
   public void warning(Component message) {
-    this.tinkerInfo.setCaption(COMPONENT_WARNING.copy().withStyle(ChatFormatting.UNDERLINE));
+    this.tinkerInfo.setCaptions(COMPONENT_WARNING.copy().withStyle(ChatFormatting.UNDERLINE));
     this.tinkerInfo.setText(message);
-    this.modifierInfo.setCaption(TextComponent.EMPTY);
-    this.modifierInfo.setText(TextComponent.EMPTY);
+    this.modifierInfo.setCaptions();
+    this.modifierInfo.setText();
   }
 
   /**
