@@ -272,13 +272,13 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     if (toolStack.is(TinkerTags.Items.MODIFIABLE)) {
       ToolStack tool = ToolStack.from(toolStack);
       if (toolStack.getItem() instanceof ITinkerStationDisplay display) {
-        this.tinkerInfo.setCaption(display.getLocalizedName());
+        this.tinkerInfo.setCaption(display.getLocalizedName().copy().withStyle(ChatFormatting.UNDERLINE));
         // TODO: tooltips on these?
         assert minecraft != null;
         this.tinkerInfo.setText(display.getStatInformation(tool, minecraft.player, new ArrayList<>(), SafeClientAccess.getTooltipKey(), TinkerTooltipFlags.TINKER_STATION));
       }
       else {
-        this.tinkerInfo.setCaption(toolStack.getDisplayName());
+        this.tinkerInfo.setCaption(toolStack.getDisplayName().copy().withStyle(ChatFormatting.UNDERLINE));
         this.tinkerInfo.setText();
       }
 
@@ -320,12 +320,12 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
         }
       }
 
-      this.modifierInfo.setCaption(title);
+      this.modifierInfo.setCaption(title.copy().withStyle(ChatFormatting.UNDERLINE));
       this.modifierInfo.setText(modifierNames, modifierInfo);
     }
     // tool build info
     else {
-      this.tinkerInfo.setCaption(this.currentLayout.getDisplayName());
+      this.tinkerInfo.setCaption(this.currentLayout.getDisplayName().copy().withStyle(ChatFormatting.UNDERLINE));
       this.tinkerInfo.setText(this.currentLayout.getDescription());
 
       // for each named slot, color the slot if the slot is filled
@@ -348,7 +348,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
       }
       // if we found any components, set the text, use the anvil if no components
       if (hasComponents) {
-        this.modifierInfo.setCaption(COMPONENTS_TEXT);
+        this.modifierInfo.setCaption(COMPONENTS_TEXT.copy().withStyle(ChatFormatting.UNDERLINE));
         this.modifierInfo.setText(fullText);
       } else {
         this.modifierInfo.setCaption(TextComponent.EMPTY);
@@ -643,7 +643,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
 
   @Override
   public void error(Component message) {
-    this.tinkerInfo.setCaption(COMPONENT_ERROR);
+    this.tinkerInfo.setCaption(COMPONENT_ERROR.copy().withStyle(ChatFormatting.UNDERLINE));
     this.tinkerInfo.setText(message);
     this.modifierInfo.setCaption(TextComponent.EMPTY);
     this.modifierInfo.setText(TextComponent.EMPTY);
@@ -651,7 +651,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
 
   @Override
   public void warning(Component message) {
-    this.tinkerInfo.setCaption(COMPONENT_WARNING);
+    this.tinkerInfo.setCaption(COMPONENT_WARNING.copy().withStyle(ChatFormatting.UNDERLINE));
     this.tinkerInfo.setText(message);
     this.modifierInfo.setCaption(TextComponent.EMPTY);
     this.modifierInfo.setText(TextComponent.EMPTY);

@@ -10,7 +10,9 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -38,6 +40,9 @@ import java.util.List;
 import java.util.function.Function;
 
 public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,PartBuilderContainerMenu> {
+
+  public static final String COST_KEY = TConstruct.makeTranslationKey("gui", "part_builder.cost");
+  public static final String MATERIAL_VALUE_KEY = TConstruct.makeTranslationKey("gui", "part_builder.material_value");
   private static final Component INFO_TEXT = TConstruct.makeTranslation("gui", "part_builder.info");
   private static final Component TRAIT_TITLE = TConstruct.makeTranslation("gui", "part_builder.trait").withStyle(ChatFormatting.UNDERLINE);
   private static final MutableComponent UNCRAFTABLE_MATERIAL = TConstruct.makeTranslation("gui", "part_builder.uncraftable").withStyle(ChatFormatting.RED);
@@ -85,8 +90,8 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
 
     infoPanelScreen.setCaption(panelCaption);
     infoPanelScreen.setText(panelText, panelTooltips);
-    infoPanelScreen.setRawPatternCost(patternCost);
-    infoPanelScreen.setRawMaterialValue(materialValue);
+    infoPanelScreen.setPatternCost(patternCost);
+    infoPanelScreen.setMaterialValue(materialValue);
     infoPanelScreen.setSliderValue(panelSlider);
   }
 
@@ -195,7 +200,7 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
     // update part recipe cost
     IPartBuilderRecipe partRecipe = this.tile.getPartRecipe();
     if (partRecipe != null) {
-      this.infoPanelScreen.setPatternCost(partRecipe.getCost());
+      this.infoPanelScreen.setPatternCost(new TranslatableComponent(COST_KEY, partRecipe.getCost()).withStyle(ChatFormatting.GOLD));
     } else {
       this.infoPanelScreen.clearPatternCost();
     }
@@ -206,7 +211,7 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
       this.setDisplayForMaterial(materialRecipe);
     } else {
       // default text
-      this.infoPanelScreen.setCaption(this.getTitle());
+      this.infoPanelScreen.setCaption(this.getTitle().copy().withStyle(ChatFormatting.UNDERLINE));
       this.infoPanelScreen.setText(INFO_TEXT);
       this.infoPanelScreen.clearMaterialValue();
     }
@@ -218,7 +223,7 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
    */
   private void setDisplayForMaterial(MaterialRecipe materialRecipe) {
     MaterialVariant materialVariant = materialRecipe.getMaterial();
-    this.infoPanelScreen.setCaption(MaterialTooltipCache.getColoredDisplayName(materialVariant.getVariant()));
+    this.infoPanelScreen.setCaption(MaterialTooltipCache.getColoredDisplayName(materialVariant.getVariant()).copy().withStyle(ChatFormatting.UNDERLINE));
 
     // determine how much material we have
     // get exact number of material, rather than rounded
@@ -230,7 +235,7 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
     if (partRecipe != null && value < partRecipe.getCost()) {
       formatted = formatted.withStyle(ChatFormatting.DARK_RED);
     }
-    this.infoPanelScreen.setMaterialValue(formatted);
+    this.infoPanelScreen.setMaterialValue(new TranslatableComponent(MATERIAL_VALUE_KEY, formatted).withStyle(style -> style.withColor(TextColor.fromRgb(0x7fffff))));
 
     // update stats and traits
     List<Component> stats = Lists.newLinkedList();
@@ -352,13 +357,13 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
 
   @Override
   public void error(Component message) {
-    this.infoPanelScreen.setCaption(COMPONENT_ERROR);
+    this.infoPanelScreen.setCaption(COMPONENT_ERROR.copy().withStyle(ChatFormatting.UNDERLINE));
     this.infoPanelScreen.setText(message);
   }
 
   @Override
   public void warning(Component message) {
-    this.infoPanelScreen.setCaption(COMPONENT_WARNING);
+    this.infoPanelScreen.setCaption(COMPONENT_WARNING.copy().withStyle(ChatFormatting.UNDERLINE));
     this.infoPanelScreen.setText(message);
   }
 

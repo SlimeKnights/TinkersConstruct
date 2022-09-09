@@ -147,7 +147,7 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
   }
 
   public void setCaption(Component caption) {
-    this.caption = caption.copy().withStyle(ChatFormatting.UNDERLINE);
+    this.caption = caption;
     this.updateSliderParameters();
   }
 

@@ -1,17 +1,11 @@
 package slimeknights.tconstruct.tables.client.inventory.widget;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextColor;
 import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
-import slimeknights.tconstruct.TConstruct;
 
 public class PartInfoPanelWidget extends InfoPanelWidget {
-  private static final String COST_KEY = TConstruct.makeTranslationKey("gui", "part_builder.cost");
-  private static final String MATERIAL_VALUE_KEY = TConstruct.makeTranslationKey("gui", "part_builder.material_value");
 
   private Component patternCost;
   private Component materialValue;
@@ -32,12 +26,8 @@ public class PartInfoPanelWidget extends InfoPanelWidget {
     this.updateSliderParameters();
   }
 
-  /**
-   * Sets the pattern cost
-   * @param cost  Pattern cost
-   */
-  public void setPatternCost(int cost) {
-    this.patternCost = new TranslatableComponent(COST_KEY, cost).withStyle(ChatFormatting.GOLD);
+  public void setPatternCost(Component component) {
+    this.patternCost = component;
     this.updateSliderParameters();
   }
 
@@ -50,19 +40,10 @@ public class PartInfoPanelWidget extends InfoPanelWidget {
     return this.patternCost;
   }
 
-  public void setRawPatternCost(Component component) {
-    this.patternCost = component;
-    this.updateSliderParameters();
-  }
-
   /* Material value */
 
-  /**
-   * Sets the material value
-   * @param value  Value text
-   */
   public void setMaterialValue(Component value) {
-    this.materialValue = new TranslatableComponent(MATERIAL_VALUE_KEY, value).withStyle(style -> style.withColor(TextColor.fromRgb(0x7fffff)));
+    this.materialValue = value;
     this.updateSliderParameters();
   }
 
@@ -81,11 +62,6 @@ public class PartInfoPanelWidget extends InfoPanelWidget {
 
   public Component getMaterialValue() {
     return this.materialValue;
-  }
-
-  public void setRawMaterialValue(Component component) {
-    this.materialValue = component;
-    this.updateSliderParameters();
   }
 
   @Override
