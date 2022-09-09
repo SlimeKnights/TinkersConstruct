@@ -195,23 +195,13 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
 
   @Override
   public void resize(Minecraft mc, int width, int height) {
-    var tinkerCaption = tinkerInfo.getCaptions();
-    var tinkerText = tinkerInfo.getText();
-    var tinkerTooltips = tinkerInfo.getTooltips();
-    var tinkerSlider = tinkerInfo.getSliderValue();
-    var modifierCaption = modifierInfo.getCaptions();
-    var modifierText = modifierInfo.getText();
-    var modifierTooltips = modifierInfo.getTooltips();
-    var modifierSlider = modifierInfo.getSliderValue();
+    var tinkerData = tinkerInfo.getData();
+    var modifierData = modifierInfo.getData();
 
     super.resize(mc, width, height);
 
-    tinkerInfo.setCaptions(tinkerCaption);
-    tinkerInfo.setText(tinkerText, tinkerTooltips);
-    tinkerInfo.setSliderValue(tinkerSlider);
-    modifierInfo.setCaptions(modifierCaption);
-    modifierInfo.setText(modifierText, modifierTooltips);
-    modifierInfo.setSliderValue(modifierSlider);
+    tinkerInfo.setData(tinkerData);
+    modifierInfo.setData(modifierData);
   }
 
   @Override

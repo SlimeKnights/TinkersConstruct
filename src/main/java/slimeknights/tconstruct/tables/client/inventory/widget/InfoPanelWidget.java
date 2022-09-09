@@ -134,18 +134,6 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
     return (int)Math.ceil(this.font.lineHeight * textScale);
   }
 
-  public int getSliderValue() {
-    return this.slider.getValue();
-  }
-
-  public void setSliderValue(int value) {
-    this.slider.setSliderValue(value);
-  }
-
-  public List<Component> getCaptions() {
-    return this.captions;
-  }
-
   public void setCaptions(Component... captions) {
     this.captions = List.of(captions);
     this.updateSliderParameters();
@@ -154,10 +142,6 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
   public void setCaptions(List<Component> captions) {
     this.captions = List.copyOf(captions);
     this.updateSliderParameters();
-  }
-
-  public List<Component> getText() {
-    return this.text;
   }
 
   public void setText(Component... text) {
@@ -175,11 +159,6 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
     this.updateSliderParameters();
 
     this.setTooltips(tooltips);
-  }
-
-  @Nullable
-  public List<Component> getTooltips() {
-    return this.tooltips;
   }
 
   protected void setTooltips(@Nullable List<Component> tooltips) {
@@ -468,4 +447,18 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
         SLIDER_TOP.shift(sliderU, 0), SLIDER_BOTTOM.shift(sliderU, 0), SLIDER_BAR.shift(sliderU, 0));
     }
   }
+
+  public Data getData() {
+    return new Data(this.captions, this.text, this.tooltips, this.slider.getValue());
+  }
+
+  public void setData(Data data) {
+    this.captions = data.captions;
+    this.text = data.text;
+    this.tooltips =  data.tooltips;
+    this.updateSliderParameters();
+    this.slider.setSliderValue(data.sliderValue);
+  }
+
+  public record Data(List<Component> captions, List<Component> text, List<Component> tooltips, int sliderValue) {}
 }

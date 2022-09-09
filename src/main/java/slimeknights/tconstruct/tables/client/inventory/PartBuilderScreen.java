@@ -79,16 +79,11 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
 
   @Override
   public void resize(Minecraft mc, int width, int height) {
-    var panelCaption = infoPanelScreen.getCaptions();
-    var panelText = infoPanelScreen.getText();
-    var panelTooltips = infoPanelScreen.getTooltips();
-    var panelSlider = infoPanelScreen.getSliderValue();
+    var panelData = infoPanelScreen.getData();
 
     super.resize(mc, width, height);
 
-    infoPanelScreen.setCaptions(panelCaption);
-    infoPanelScreen.setText(panelText, panelTooltips);
-    infoPanelScreen.setSliderValue(panelSlider);
+    infoPanelScreen.setData(panelData);
   }
 
   @Override
