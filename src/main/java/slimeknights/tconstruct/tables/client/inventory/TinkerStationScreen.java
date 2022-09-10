@@ -21,7 +21,6 @@ import org.lwjgl.glfw.GLFW;
 import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.ModuleScreen;
-import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
@@ -38,8 +37,8 @@ import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.TinkerTooltipFlags;
 import slimeknights.tconstruct.tables.block.entity.table.TinkerStationBlockEntity;
-import slimeknights.tconstruct.tables.client.inventory.widget.InfoPanelWidget;
 import slimeknights.tconstruct.tables.client.inventory.module.TinkerStationButtonsScreen;
+import slimeknights.tconstruct.tables.client.inventory.widget.InfoPanelWidget;
 import slimeknights.tconstruct.tables.client.inventory.widget.SlotButtonItem;
 import slimeknights.tconstruct.tables.menu.TinkerStationContainerMenu;
 import slimeknights.tconstruct.tables.menu.slot.TinkerStationSlot;
@@ -88,9 +87,9 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
   // panel
   private static final ElementScreen PANEL_SPACE_LEFT = new ElementScreen(0, 174, 5, 4);
   private static final ElementScreen PANEL_SPACE_RIGHT = new ElementScreen(9, 174, 9, 4);
-  private static final ElementScreen LEFT_BEAM = new ElementScreen(0, 180, 2, 7);
-  private static final ElementScreen RIGHT_BEAM = new ElementScreen(131, 180, 2, 7);
-  private static final ScalableElementScreen CENTER_BEAM = new ScalableElementScreen(2, 180, 129, 7);
+
+  private static final ElementScreen BUTTONS_BEAM = new ElementScreen(0, 180, 112, 7);
+  private static final ElementScreen PANEL_BEAM = new ElementScreen(0, 180, 128, 7);
 
   /** Number of button columns in the UI */
   public static final int COLUMN_COUNT = 5;
@@ -103,9 +102,8 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
   protected ElementScreen panelDecorationL = PANEL_SPACE_LEFT;
   protected ElementScreen panelDecorationR = PANEL_SPACE_RIGHT;
 
-  protected ElementScreen leftBeam = new ElementScreen(0, 0, 0, 0);
-  protected ElementScreen rightBeam = new ElementScreen(0, 0, 0, 0);
-  protected ScalableElementScreen centerBeam = new ScalableElementScreen(0, 0, 0, 0);
+  protected ElementScreen buttonsBeam = BUTTONS_BEAM;
+  protected ElementScreen panelBeam = PANEL_BEAM;
 
   /** Gets the default layout to apply, the "repair" button */
   @Nonnull @Getter
@@ -176,8 +174,9 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     //this.textField.setEnableBackgroundDrawing(false);
     //this.textField.setMaxStringLength(40);
 
-    this.buttonsScreen.xOffset = -2;
-    this.buttonsScreen.yOffset = this.centerBeam.h + this.buttonDecorationTop.h;
+    // Center the buttons under the beam
+    this.buttonsScreen.xOffset = -3;
+    this.buttonsScreen.yOffset = this.buttonsBeam.h + this.buttonDecorationTop.h;
 
     for (ModuleScreen<?,?> module : this.modules) {
       module.topPos += 4;
@@ -185,10 +184,11 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
 
     super.init();
 
-    final int panelLeft = this.cornerX + this.realWidth + 2;
-    final int panelTop = this.cornerY + this.centerBeam.h + this.panelDecorationL.h;
+    // Center the panels under the beam
+    final int panelLeft = this.cornerX + this.realWidth + (this.panelBeam.w - InfoPanelWidget.DEFAULT_WIDTH)/2;
+    final int panelTop = this.cornerY + this.panelBeam.h + this.panelDecorationL.h;
     this.tinkerInfo = addRenderableWidget(new InfoPanelWidget(this, style, panelLeft, panelTop, 8/9f));
-    this.modifierInfo = addRenderableWidget(new InfoPanelWidget(this, style, panelLeft, panelTop + InfoPanelWidget.DEFAULT_HEIGHT + 4, 7/9f));
+    this.modifierInfo = addRenderableWidget(new InfoPanelWidget(this, style, panelLeft, panelTop + InfoPanelWidget.DEFAULT_HEIGHT + this.panelDecorationL.h, 7/9f));
 
     this.updateLayout();
   }
@@ -436,17 +436,8 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     }
 
     // sidebar beams
-    x = this.buttonsScreen.leftPos - this.leftBeam.w;
-    y = this.cornerY;
-    // draw the beams at the top
-    x += this.leftBeam.draw(matrices, x, y);
-    x += this.centerBeam.drawScaledX(matrices, x, y, this.buttonsScreen.imageWidth);
-    this.rightBeam.draw(matrices, x, y);
-
-    x = tinkerInfo.leftPos - this.leftBeam.w;
-    x += this.leftBeam.draw(matrices, x, y);
-    x += this.centerBeam.drawScaledX(matrices, x, y, InfoPanelWidget.DEFAULT_WIDTH);
-    this.rightBeam.draw(matrices, x, y);
+    this.buttonsBeam.draw(matrices, this.cornerX - this.buttonsBeam.w, this.cornerY);
+    this.panelBeam.draw(matrices, this.cornerX + this.realWidth, this.cornerY);
 
     // draw the decoration for the buttons
     for (Widget widget : this.buttonsScreen.getButtons()) {
@@ -613,9 +604,8 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
 
     this.buttonsScreen.shiftStyle(TinkerStationButtonsScreen.WOOD_STYLE);
 
-    this.leftBeam = LEFT_BEAM;
-    this.rightBeam = RIGHT_BEAM;
-    this.centerBeam = CENTER_BEAM;
+    this.buttonsBeam = BUTTONS_BEAM;
+    this.panelBeam = PANEL_BEAM;
   }
 
   protected void metal() {
@@ -626,9 +616,8 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
 
     this.buttonsScreen.shiftStyle(TinkerStationButtonsScreen.METAL_STYLE);
 
-    this.leftBeam = LEFT_BEAM.shift(0, LEFT_BEAM.h);
-    this.rightBeam = RIGHT_BEAM.shift(0, RIGHT_BEAM.h);
-    this.centerBeam = CENTER_BEAM.shift(0, CENTER_BEAM.h);
+    this.buttonsBeam = BUTTONS_BEAM.shift(0, BUTTONS_BEAM.h);
+    this.panelBeam = PANEL_BEAM.shift(0, PANEL_BEAM.h);
   }
 
   @Override
