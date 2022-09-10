@@ -27,7 +27,6 @@ public class SideButtonsWidget<T extends Button> implements Widget, GuiEventList
   private final int columns;
   protected final List<T> buttons = Lists.newArrayList();
   private Button clickedButton;
-  protected int buttonCount = 0;
 
   public int spacing = 4;
 
@@ -55,6 +54,15 @@ public class SideButtonsWidget<T extends Button> implements Widget, GuiEventList
   }
 
   public void updatePosition(int parentX, int parentY, int parentSizeX, int parentSizeY) {
+    if (!this.buttons.isEmpty()) {
+      int rows = (this.buttons.size() - 1) / this.columns + 1;
+      this.imageWidth = this.buttons.get(0).getWidth() * this.columns + this.spacing * (this.columns - 1);
+      this.imageHeight = this.buttons.get(0).getHeight() * rows + this.spacing * (rows - 1);
+    } else {
+      this.imageWidth = this.imageHeight = 0;
+    }
+
+
     if (this.right) {
       this.leftPos = parentX + parentSizeX;
     } else {
@@ -65,27 +73,14 @@ public class SideButtonsWidget<T extends Button> implements Widget, GuiEventList
 
     this.leftPos += this.xOffset;
     this.topPos += this.yOffset;
-  }
 
-  public void addSideButton(T button) {
-    int rows = (this.buttonCount - 1) / this.columns + 1;
-
-    this.imageWidth = button.getWidth() * this.columns + this.spacing * (this.columns - 1);
-    this.imageHeight = button.getHeight() * rows + this.spacing * (rows - 1);
-
-    int offset = this.buttonCount;
-    int x = (offset % columns) * (button.getWidth() + this.spacing);
-    int y = (offset / columns) * (button.getHeight() + this.spacing);
-
-    button.x = leftPos + x;
-    button.y = topPos + y;
-
-    if (this.right) {
-      button.x += parent.imageWidth;
+    for (int i = 0; i < this.buttons.size(); i++) {
+      T button = this.buttons.get(i);
+      int x = (i % columns) * (button.getWidth() + this.spacing);
+      int y = (i / columns) * (button.getHeight() + this.spacing);
+      button.x = leftPos + x;
+      button.y = topPos + y;
     }
-
-    this.buttons.add(button);
-    this.buttonCount++;
   }
 
   @Override

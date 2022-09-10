@@ -38,8 +38,7 @@ public class TinkerStationButtonsWidget extends SideButtonsWidget<SlotButtonItem
 
   @Override
   public void updatePosition(int parentX, int parentY, int parentSizeX, int parentSizeY) {
-    super.updatePosition(parentX, parentY, parentSizeX, parentSizeY);
-    this.buttonCount = 0;
+    this.buttons.clear();
 
     // repair button
     SlotButtonItem slotButtonItem = new SlotButtonItem(0, -1, -1, parent.getDefaultLayout(), ON_BUTTON_PRESSED);
@@ -66,7 +65,7 @@ public class TinkerStationButtonsWidget extends SideButtonsWidget<SlotButtonItem
 
   public void addInfoButton(SlotButtonItem slotButtonItem) {
     this.shiftButton(slotButtonItem, 0, -18 * this.style);
-    this.addSideButton(slotButtonItem);
+    this.buttons.add(slotButtonItem);
   }
 
   public void shiftStyle(int style) {

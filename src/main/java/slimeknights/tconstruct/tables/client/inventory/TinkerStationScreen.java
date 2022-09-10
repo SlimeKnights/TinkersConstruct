@@ -196,8 +196,6 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     super.init();
 
     this.buttonsScreen.updatePosition(this.cornerX, this.cornerY, this.realWidth, this.realHeight);
-    this.buttonsScreen.getButtons().clear();
-    this.buttonsScreen.updatePosition(this.cornerX, this.cornerY, this.realWidth, this.realHeight);
 
     this.updateLayout();
   }
