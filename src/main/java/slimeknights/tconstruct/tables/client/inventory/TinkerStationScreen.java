@@ -447,13 +447,11 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     this.rightBeam.draw(matrices, x, y);
 
     // draw the decoration for the buttons
-    for (Widget widget : this.buttonsScreen.getButtons()) {
-      if (widget instanceof SlotButtonItem button) {
-        this.buttonDecorationTop.draw(matrices, button.x, button.y - this.buttonDecorationTop.h);
-        // don't draw the bottom for the buttons in the last row
-        if (button.buttonId < this.buttonsScreen.getButtons().size() - COLUMN_COUNT) {
-          this.buttonDecorationBot.draw(matrices, button.x, button.y + button.getHeight());
-        }
+    for (SlotButtonItem button : this.buttonsScreen.getButtons()) {
+      this.buttonDecorationTop.draw(matrices, button.x, button.y - this.buttonDecorationTop.h);
+      // don't draw the bottom for the buttons in the last row
+      if (button.buttonId < this.buttonsScreen.getButtons().size() - COLUMN_COUNT) {
+        this.buttonDecorationBot.draw(matrices, button.x, button.y + button.getHeight());
       }
     }
 

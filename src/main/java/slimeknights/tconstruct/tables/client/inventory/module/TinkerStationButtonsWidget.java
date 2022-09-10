@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.tables.client.inventory.module;
 
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.Widget;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayout;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
@@ -10,7 +9,7 @@ import slimeknights.tconstruct.tables.client.inventory.widget.SlotButtonItem;
 
 import java.util.List;
 
-public class TinkerStationButtonsWidget extends SideButtonsWidget {
+public class TinkerStationButtonsWidget extends SideButtonsWidget<SlotButtonItem> {
 
   protected final TinkerStationScreen parent;
   protected int selected = 0;
@@ -18,10 +17,8 @@ public class TinkerStationButtonsWidget extends SideButtonsWidget {
 
   /** Logic to run when a button is pressed */
   private final Button.OnPress ON_BUTTON_PRESSED = self -> {
-    for (Widget widget : TinkerStationButtonsWidget.this.renderables) {
-      if (widget instanceof SlotButtonItem) {
-        ((SlotButtonItem) widget).pressed = false;
-      }
+    for (SlotButtonItem button : TinkerStationButtonsWidget.this.buttons) {
+      button.pressed = false;
     }
     if (self instanceof SlotButtonItem slotInformationButton) {
       slotInformationButton.pressed = true;
@@ -73,10 +70,8 @@ public class TinkerStationButtonsWidget extends SideButtonsWidget {
   }
 
   public void shiftStyle(int style) {
-    for (Widget widget : this.renderables) {
-      if (widget instanceof SlotButtonItem) {
-        this.shiftButton((SlotButtonItem) widget, 0, -18);
-      }
+      for (SlotButtonItem button : this.buttons) {
+        this.shiftButton(button, 0, -18);
     }
 
     this.style = style;
@@ -89,7 +84,7 @@ public class TinkerStationButtonsWidget extends SideButtonsWidget {
       Icons.ICONS);
   }
 
-  public List<Widget> getButtons() {
-    return this.renderables;
+  public List<SlotButtonItem> getButtons() {
+    return this.buttons;
   }
 }

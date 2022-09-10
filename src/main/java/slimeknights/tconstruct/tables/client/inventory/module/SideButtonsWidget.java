@@ -10,7 +10,7 @@ import slimeknights.mantle.client.screen.MultiModuleScreen;
 
 import java.util.List;
 
-public class SideButtonsWidget implements Widget, GuiEventListener {
+public class SideButtonsWidget<T extends Button> implements Widget, GuiEventListener {
 
   protected final MultiModuleScreen<?> parent;
 
@@ -25,7 +25,7 @@ public class SideButtonsWidget implements Widget, GuiEventListener {
   public int yOffset;
 
   private final int columns;
-  protected final List<Widget> renderables = Lists.newArrayList();
+  protected final List<T> buttons = Lists.newArrayList();
   private Button clickedButton;
   protected int buttonCount = 0;
 
@@ -67,7 +67,7 @@ public class SideButtonsWidget implements Widget, GuiEventListener {
     this.topPos += this.yOffset;
   }
 
-  public void addSideButton(Button button) {
+  public void addSideButton(T button) {
     int rows = (this.buttonCount - 1) / this.columns + 1;
 
     this.imageWidth = button.getWidth() * this.columns + this.spacing * (this.columns - 1);
@@ -84,7 +84,7 @@ public class SideButtonsWidget implements Widget, GuiEventListener {
       button.x += parent.imageWidth;
     }
 
-    this.renderables.add(button);
+    this.buttons.add(button);
     this.buttonCount++;
   }
 
@@ -95,13 +95,10 @@ public class SideButtonsWidget implements Widget, GuiEventListener {
 
   public boolean handleMouseClicked(double mouseX, double mouseY, int mouseButton) {
     if (mouseButton == 0) {
-      for (Widget widget : this.renderables) {
-        if (widget instanceof Button button) {
-
-          if (button.mouseClicked(mouseX, mouseY, mouseButton)) {
-            this.clickedButton = button;
-            return true;
-          }
+      for (T button : this.buttons) {
+        if (button.mouseClicked(mouseX, mouseY, mouseButton)) {
+          this.clickedButton = button;
+          return true;
         }
       }
     }
@@ -121,8 +118,8 @@ public class SideButtonsWidget implements Widget, GuiEventListener {
 
   @Override
   public void render(PoseStack matrices, int mouseX, int mouseY, float partialTicks) {
-    for (Widget widget : this.renderables) {
-      widget.render(matrices, mouseX, mouseY, partialTicks);
+    for (T button : this.buttons) {
+      button.render(matrices, mouseX, mouseY, partialTicks);
     }
   }
 }
