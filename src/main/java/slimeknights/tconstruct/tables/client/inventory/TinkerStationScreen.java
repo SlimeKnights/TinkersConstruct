@@ -6,7 +6,6 @@ import lombok.Getter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Widget;
-import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -39,6 +38,7 @@ import slimeknights.tconstruct.library.utils.TinkerTooltipFlags;
 import slimeknights.tconstruct.tables.block.entity.table.TinkerStationBlockEntity;
 import slimeknights.tconstruct.tables.client.inventory.module.TinkerStationButtonsScreen;
 import slimeknights.tconstruct.tables.client.inventory.widget.InfoPanelWidget;
+import slimeknights.tconstruct.tables.client.inventory.widget.SimpleElementWidget;
 import slimeknights.tconstruct.tables.client.inventory.widget.SlotButtonItem;
 import slimeknights.tconstruct.tables.menu.TinkerStationContainerMenu;
 import slimeknights.tconstruct.tables.menu.slot.TinkerStationSlot;
@@ -184,14 +184,27 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
 
     super.init();
 
+    addExtraArea(addRenderableOnly(new SimpleElementWidget(this.cornerX - this.buttonsBeam.w, this.cornerY, this.buttonsBeam, TINKER_STATION_TEXTURE)));
+
     // Center the panels under the beam
     final int panelLeft = this.cornerX + this.realWidth + (this.panelBeam.w - InfoPanelWidget.DEFAULT_WIDTH)/2;
-    final int panelTop = this.cornerY + this.panelBeam.h + this.panelDecorationL.h;
+    // Adapt panel height to fit withing the height of this screen
     int panelHeight = (this.imageHeight - this.panelBeam.h - 2 * this.panelDecorationL.h)/2;
+
+    int y = this.cornerY;
+    addExtraArea(addRenderableOnly(new SimpleElementWidget(this.cornerX + this.realWidth, y, this.panelBeam, TINKER_STATION_TEXTURE)));
+    y += this.panelBeam.h;
+    addExtraArea(addRenderableOnly(new SimpleElementWidget(panelLeft + 5, y, this.panelDecorationL, TINKER_STATION_TEXTURE)));
+    addExtraArea(addRenderableOnly(new SimpleElementWidget(panelLeft + InfoPanelWidget.DEFAULT_WIDTH - 5 - this.panelDecorationR.w, y, this.panelDecorationR, TINKER_STATION_TEXTURE)));
+    y += this.panelDecorationL.h;
     this.tinkerInfo = addExtraArea(addRenderableWidget(new InfoPanelWidget(this, style,
-      panelLeft, panelTop, InfoPanelWidget.DEFAULT_WIDTH, panelHeight, 8/9f)));
+      panelLeft, y, InfoPanelWidget.DEFAULT_WIDTH, panelHeight, 8/9f)));
+    y += panelHeight;
+    addExtraArea(addRenderableOnly(new SimpleElementWidget(panelLeft + 5, y, this.panelDecorationL, TINKER_STATION_TEXTURE)));
+    addExtraArea(addRenderableOnly(new SimpleElementWidget(panelLeft + InfoPanelWidget.DEFAULT_WIDTH - 5 - this.panelDecorationR.w, y, this.panelDecorationR, TINKER_STATION_TEXTURE)));
+    y += this.panelDecorationL.h;
     this.modifierInfo = addExtraArea(addRenderableWidget(new InfoPanelWidget(this, style,
-      panelLeft, panelTop + panelHeight + this.panelDecorationL.h, InfoPanelWidget.DEFAULT_WIDTH, panelHeight, 7/9f)));
+      panelLeft, y, InfoPanelWidget.DEFAULT_WIDTH, panelHeight, 7/9f)));
 
     this.updateLayout();
   }
@@ -438,10 +451,6 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
       }
     }
 
-    // sidebar beams
-    this.buttonsBeam.draw(matrices, this.cornerX - this.buttonsBeam.w, this.cornerY);
-    this.panelBeam.draw(matrices, this.cornerX + this.realWidth, this.cornerY);
-
     // draw the decoration for the buttons
     for (Widget widget : this.buttonsScreen.getButtons()) {
       if (widget instanceof SlotButtonItem button) {
@@ -452,12 +461,6 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
         }
       }
     }
-
-    // draw the decorations for the panels
-    this.panelDecorationL.draw(matrices, this.tinkerInfo.getLeft() + 5, this.tinkerInfo.getTop() - this.panelDecorationL.h);
-    this.panelDecorationR.draw(matrices, this.tinkerInfo.getRight() - 5 - this.panelDecorationR.w, this.tinkerInfo.getTop() - this.panelDecorationR.h);
-    this.panelDecorationL.draw(matrices, this.modifierInfo.getLeft() + 5, this.modifierInfo.getTop() - this.panelDecorationL.h);
-    this.panelDecorationR.draw(matrices, this.modifierInfo.getRight() - 5 - this.panelDecorationR.w, this.modifierInfo.getTop() - this.panelDecorationR.h);
 
     // render slot background icons
     RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
@@ -651,29 +654,5 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     // update the active slots and filter in the container
     // this.container.setToolSelection(layout); TODO: needed?
     TinkerNetwork.getInstance().sendToServer(new TinkerStationSelectionPacket(layout.getName()));
-  }
-
-  private Rect2i getButtonsBeamArea() {
-    return new Rect2i(this.cornerX - this.buttonsBeam.w, this.cornerY,
-      this.buttonsBeam.w, this.buttonsBeam.h);
-  }
-
-  private Rect2i getPanelBeamArea() {
-    return new Rect2i(this.cornerX + this.realWidth, this.cornerY,
-      this.panelBeam.w, this.panelBeam.h);
-  }
-
-  @Override
-  public List<Rect2i> getModuleAreas() {
-    List<Rect2i> areas = super.getModuleAreas();
-    areas.add(this.getButtonsBeamArea());
-    areas.add(this.getPanelBeamArea());
-    return areas;
-  }
-
-  @Override
-  protected boolean hasClickedOutside(double mouseX, double mouseY, int guiLeft, int guiTop, int mouseButton) {
-    return super.hasClickedOutside(mouseX, mouseY, guiLeft, guiTop, mouseButton)
-      && !this.getButtonsBeamArea().contains((int) mouseX, (int) mouseY) && !this.getPanelBeamArea().contains((int) mouseX, (int) mouseY);
   }
 }
