@@ -6,6 +6,7 @@ import lombok.Getter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Widget;
+import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -38,7 +39,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.TinkerTooltipFlags;
 import slimeknights.tconstruct.tables.block.entity.table.TinkerStationBlockEntity;
 import slimeknights.tconstruct.tables.client.inventory.module.InfoPanelScreen;
-import slimeknights.tconstruct.tables.client.inventory.module.TinkerStationButtonsScreen;
+import slimeknights.tconstruct.tables.client.inventory.module.TinkerStationButtonsWidget;
 import slimeknights.tconstruct.tables.client.inventory.widget.SlotButtonItem;
 import slimeknights.tconstruct.tables.menu.TinkerStationContainerMenu;
 import slimeknights.tconstruct.tables.menu.slot.TinkerStationSlot;
@@ -115,7 +116,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
   //protected TextFieldWidget textField;
   protected InfoPanelScreen tinkerInfo;
   protected InfoPanelScreen modifierInfo;
-  protected TinkerStationButtonsScreen buttonsScreen;
+  protected TinkerStationButtonsWidget buttonsScreen;
 
   /** Maximum available slots */
   @Getter
@@ -126,8 +127,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
   public TinkerStationScreen(TinkerStationContainerMenu container, Inventory playerInventory, Component title) {
     super(container, playerInventory, title);
 
-    this.buttonsScreen = new TinkerStationButtonsScreen(this, container, playerInventory, title);
-    this.addModule(this.buttonsScreen);
+    this.buttonsScreen = new TinkerStationButtonsWidget(this);
 
     this.tinkerInfo = new InfoPanelScreen(this, container, playerInventory, title);
     this.tinkerInfo.setTextScale(8/9f);
@@ -194,6 +194,11 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     }
 
     super.init();
+
+    this.buttonsScreen.updatePosition(this.cornerX, this.cornerY, this.realWidth, this.realHeight);
+    this.buttonsScreen.getButtons().clear();
+    this.buttonsScreen.updatePosition(this.cornerX, this.cornerY, this.realWidth, this.realHeight);
+
     this.updateLayout();
   }
 
@@ -473,6 +478,8 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     RenderSystem.enableDepthTest();
 
     super.renderBg(matrices, partialTicks, mouseX, mouseY);
+
+    this.buttonsScreen.render(matrices, mouseX, mouseY, partialTicks);
   }
 
   @Override
@@ -633,7 +640,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     this.panelDecorationL = PANEL_SPACE_LEFT.shift(18, 0);
     this.panelDecorationR = PANEL_SPACE_RIGHT.shift(18, 0);
 
-    this.buttonsScreen.shiftStyle(TinkerStationButtonsScreen.WOOD_STYLE);
+    this.buttonsScreen.shiftStyle(TinkerStationButtonsWidget.WOOD_STYLE);
 
     this.leftBeam = LEFT_BEAM;
     this.rightBeam = RIGHT_BEAM;
@@ -649,7 +656,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     this.panelDecorationL = PANEL_SPACE_LEFT.shift(18 * 2, 0);
     this.panelDecorationR = PANEL_SPACE_RIGHT.shift(18 * 2, 0);
 
-    this.buttonsScreen.shiftStyle(TinkerStationButtonsScreen.METAL_STYLE);
+    this.buttonsScreen.shiftStyle(TinkerStationButtonsWidget.METAL_STYLE);
 
     this.leftBeam = LEFT_BEAM.shift(0, LEFT_BEAM.h);
     this.rightBeam = RIGHT_BEAM.shift(0, RIGHT_BEAM.h);
@@ -684,5 +691,18 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     // update the active slots and filter in the container
     // this.container.setToolSelection(layout); TODO: needed?
     TinkerNetwork.getInstance().sendToServer(new TinkerStationSelectionPacket(layout.getName()));
+  }
+
+  @Override
+  public List<Rect2i> getModuleAreas() {
+    List<Rect2i> list = super.getModuleAreas();
+    list.add(this.buttonsScreen.getArea());
+    return list;
+  }
+
+  @Override
+  protected boolean hasClickedOutside(double mouseX, double mouseY, int guiLeft, int guiTop, int mouseButton) {
+    return super.hasClickedOutside(mouseX, mouseY, guiLeft, guiTop, mouseButton)
+      && !this.buttonsScreen.isMouseOver(mouseX, mouseY);
   }
 }
