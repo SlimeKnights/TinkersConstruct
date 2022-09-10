@@ -28,7 +28,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 
-public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntry {
+public class InfoPanelWidget implements Widget, ExtraAreaWidget.EventListener, NarratableEntry {
 
   private static final int BORDER_SIZE = 4;
 
@@ -64,8 +64,8 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
   protected final Screen parent;
   protected final Font font;
 
-  public final int leftPos, topPos;
-  protected final int imageWidth, imageHeight;
+  private final int leftPos, topPos;
+  private final int imageWidth, imageHeight;
 
   private final BorderWidget border;
 
@@ -104,29 +104,37 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
 
     this.border.setPosition(this.leftPos, this.topPos);
     this.border.setSize(this.imageWidth, this.imageHeight);
-    this.slider.setPosition(this.guiRight() - this.border.w - 2, this.topPos + this.border.h + 12);
+    this.slider.setPosition(this.getRight() - this.border.w - 2, this.topPos + this.border.h + 12);
     this.slider.setSize(this.imageHeight - this.border.h * 2 - 2 - 12);
     this.updateSliderParameters();
   }
 
-  public int guiRight() {
-    return this.leftPos + this.imageWidth;
+  @Override
+  public int getLeft() {
+    return this.leftPos;
   }
 
-  public int guiBottom() {
-    return this.topPos + this.imageHeight;
+  @Override
+  public int getTop() {
+    return this.topPos;
+  }
+
+  @Override
+  public int getWidth() {
+    return this.imageWidth;
+  }
+
+  @Override
+  public int getHeight() {
+    return this.imageHeight;
   }
 
   private float hoverHintX() {
-    return guiRight() - BORDER_SIZE - 1 - this.font.width("?");
+    return this.getRight() - BORDER_SIZE - 1 - this.font.width("?");
   }
 
   private float hoverHintY() {
     return this.topPos + BORDER_SIZE + 1;
-  }
-
-  public Rect2i getArea() {
-    return new Rect2i(this.leftPos, this.topPos, this.imageWidth, this.imageHeight);
   }
 
   /** Gets the height to render fonts scaled by the text scale */
@@ -236,7 +244,7 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
       return;
     }
 
-    if (mouseX < this.leftPos || mouseX > this.guiRight()) {
+    if (mouseX < this.leftPos || mouseX > this.getRight()) {
       return;
     }
 
@@ -360,7 +368,7 @@ public class InfoPanelWidget implements Widget, GuiEventListener, NarratableEntr
 
   @Override
   public boolean isMouseOver(double mouseX, double mouseY) {
-    return this.leftPos - 1 <= mouseX && mouseX < this.guiRight() + 1 && this.topPos - 1 <= mouseY && mouseY < this.guiBottom() + 1;
+    return this.leftPos - 1 <= mouseX && mouseX < this.getRight() + 1 && this.topPos - 1 <= mouseY && mouseY < this.getBottom() + 1;
   }
 
   @Override

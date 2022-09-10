@@ -188,10 +188,10 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     final int panelLeft = this.cornerX + this.realWidth + (this.panelBeam.w - InfoPanelWidget.DEFAULT_WIDTH)/2;
     final int panelTop = this.cornerY + this.panelBeam.h + this.panelDecorationL.h;
     int panelHeight = (this.imageHeight - this.panelBeam.h - 2 * this.panelDecorationL.h)/2;
-    this.tinkerInfo = addRenderableWidget(new InfoPanelWidget(this, style,
-      panelLeft, panelTop, InfoPanelWidget.DEFAULT_WIDTH, panelHeight, 8/9f));
-    this.modifierInfo = addRenderableWidget(new InfoPanelWidget(this, style,
-      panelLeft, panelTop + panelHeight + this.panelDecorationL.h, InfoPanelWidget.DEFAULT_WIDTH, panelHeight, 7/9f));
+    this.tinkerInfo = addExtraArea(addRenderableWidget(new InfoPanelWidget(this, style,
+      panelLeft, panelTop, InfoPanelWidget.DEFAULT_WIDTH, panelHeight, 8/9f)));
+    this.modifierInfo = addExtraArea(addRenderableWidget(new InfoPanelWidget(this, style,
+      panelLeft, panelTop + panelHeight + this.panelDecorationL.h, InfoPanelWidget.DEFAULT_WIDTH, panelHeight, 7/9f)));
 
     this.updateLayout();
   }
@@ -454,10 +454,10 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     }
 
     // draw the decorations for the panels
-    this.panelDecorationL.draw(matrices, this.tinkerInfo.leftPos + 5, this.tinkerInfo.topPos - this.panelDecorationL.h);
-    this.panelDecorationR.draw(matrices, this.tinkerInfo.guiRight() - 5 - this.panelDecorationR.w, this.tinkerInfo.topPos - this.panelDecorationR.h);
-    this.panelDecorationL.draw(matrices, this.modifierInfo.leftPos + 5, this.modifierInfo.topPos - this.panelDecorationL.h);
-    this.panelDecorationR.draw(matrices, this.modifierInfo.guiRight() - 5 - this.panelDecorationR.w, this.modifierInfo.topPos - this.panelDecorationR.h);
+    this.panelDecorationL.draw(matrices, this.tinkerInfo.getLeft() + 5, this.tinkerInfo.getTop() - this.panelDecorationL.h);
+    this.panelDecorationR.draw(matrices, this.tinkerInfo.getRight() - 5 - this.panelDecorationR.w, this.tinkerInfo.getTop() - this.panelDecorationR.h);
+    this.panelDecorationL.draw(matrices, this.modifierInfo.getLeft() + 5, this.modifierInfo.getTop() - this.panelDecorationL.h);
+    this.panelDecorationR.draw(matrices, this.modifierInfo.getRight() - 5 - this.panelDecorationR.w, this.modifierInfo.getTop() - this.panelDecorationR.h);
 
     // render slot background icons
     RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
@@ -668,15 +668,12 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     List<Rect2i> areas = super.getModuleAreas();
     areas.add(this.getButtonsBeamArea());
     areas.add(this.getPanelBeamArea());
-    areas.add(this.tinkerInfo.getArea());
-    areas.add(this.modifierInfo.getArea());
     return areas;
   }
 
   @Override
   protected boolean hasClickedOutside(double mouseX, double mouseY, int guiLeft, int guiTop, int mouseButton) {
     return super.hasClickedOutside(mouseX, mouseY, guiLeft, guiTop, mouseButton)
-      && !this.getButtonsBeamArea().contains((int) mouseX, (int) mouseY) && !this.getPanelBeamArea().contains((int) mouseX, (int) mouseY)
-      && !this.tinkerInfo.isMouseOver(mouseX, mouseY) && !this.modifierInfo.isMouseOver(mouseX, mouseY);
+      && !this.getButtonsBeamArea().contains((int) mouseX, (int) mouseY) && !this.getPanelBeamArea().contains((int) mouseX, (int) mouseY);
   }
 }

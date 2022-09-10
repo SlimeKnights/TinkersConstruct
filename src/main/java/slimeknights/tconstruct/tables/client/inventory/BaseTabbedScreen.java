@@ -2,7 +2,6 @@ package slimeknights.tconstruct.tables.client.inventory;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -11,7 +10,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import slimeknights.mantle.client.screen.ElementScreen;
-import slimeknights.mantle.client.screen.MultiModuleScreen;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.tables.client.inventory.module.SideInventoryScreen;
@@ -20,9 +18,8 @@ import slimeknights.tconstruct.tables.menu.TabbedContainerMenu;
 import slimeknights.tconstruct.tables.menu.module.SideInventoryContainer;
 
 import javax.annotation.Nullable;
-import java.util.List;
 
-public class BaseTabbedScreen<TILE extends BlockEntity, CONTAINER extends TabbedContainerMenu<TILE>> extends MultiModuleScreen<CONTAINER> {
+public class BaseTabbedScreen<TILE extends BlockEntity, CONTAINER extends TabbedContainerMenu<TILE>> extends ExtendedContainerScreen<CONTAINER> {
   protected static final Component COMPONENT_WARNING = TConstruct.makeTranslation("gui", "warning");
   protected static final Component COMPONENT_ERROR = TConstruct.makeTranslation("gui", "error");
 
@@ -41,7 +38,7 @@ public class BaseTabbedScreen<TILE extends BlockEntity, CONTAINER extends Tabbed
   protected void init() {
     super.init();
 
-    this.tabsScreen = addRenderableWidget(new TinkerTabsWidget(this));
+    this.tabsScreen = addExtraArea(addRenderableWidget(new TinkerTabsWidget(this)));
   }
 
   @Nullable
@@ -83,18 +80,5 @@ public class BaseTabbedScreen<TILE extends BlockEntity, CONTAINER extends Tabbed
 
       this.addModule(new SideInventoryScreen<>(this, sideInventoryContainer, inventory, sideInventoryName, sideInventoryContainer.getSlotCount(), sideInventoryContainer.getColumns()));
     }
-  }
-
-  @Override
-  public List<Rect2i> getModuleAreas() {
-    List<Rect2i> areas = super.getModuleAreas();
-    areas.add(tabsScreen.getArea());
-    return areas;
-  }
-
-  @Override
-  protected boolean hasClickedOutside(double mouseX, double mouseY, int guiLeft, int guiTop, int mouseButton) {
-    return super.hasClickedOutside(mouseX, mouseY, guiLeft, guiTop, mouseButton)
-      && !tabsScreen.isMouseOver(mouseX, mouseY);
   }
 }

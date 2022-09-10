@@ -5,7 +5,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
@@ -74,7 +73,8 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
   protected void init() {
     super.init();
 
-    this.infoPanelScreen = addRenderableWidget(new InfoPanelWidget(this, InfoPanelWidget.Style.PLAIN, this.cornerX + this.realWidth, this.cornerY, InfoPanelWidget.DEFAULT_WIDTH, this.imageHeight, 7/9f));
+    this.infoPanelScreen = addExtraArea(addRenderableWidget(new InfoPanelWidget(this, InfoPanelWidget.Style.PLAIN,
+      this.cornerX + this.realWidth, this.cornerY, InfoPanelWidget.DEFAULT_WIDTH, this.imageHeight, 7/9f)));
   }
 
   @Override
@@ -381,18 +381,5 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
   /** Gets the number of hidden part recipe rows */
   private int getHiddenRows() {
     return (this.getPartRecipeCount() + 4 - 1) / 4 - 3;
-  }
-
-  @Override
-  public List<Rect2i> getModuleAreas() {
-    List<Rect2i> areas = super.getModuleAreas();
-    areas.add(this.infoPanelScreen.getArea());
-    return areas;
-  }
-
-  @Override
-  protected boolean hasClickedOutside(double mouseX, double mouseY, int guiLeft, int guiTop, int mouseButton) {
-    return super.hasClickedOutside(mouseX, mouseY, guiLeft, guiTop, mouseButton)
-      && !this.infoPanelScreen.isMouseOver(mouseX, mouseY);
   }
 }
