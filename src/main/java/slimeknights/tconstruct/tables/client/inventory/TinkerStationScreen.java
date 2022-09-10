@@ -650,9 +650,21 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     TinkerNetwork.getInstance().sendToServer(new TinkerStationSelectionPacket(layout.getName()));
   }
 
+  private Rect2i getButtonsBeamArea() {
+    return new Rect2i(this.cornerX - this.buttonsBeam.w, this.cornerY,
+      this.buttonsBeam.w, this.buttonsBeam.h);
+  }
+
+  private Rect2i getPanelBeamArea() {
+    return new Rect2i(this.cornerX + this.realWidth, this.cornerY,
+      this.panelBeam.w, this.panelBeam.h);
+  }
+
   @Override
   public List<Rect2i> getModuleAreas() {
     List<Rect2i> areas = super.getModuleAreas();
+    areas.add(this.getButtonsBeamArea());
+    areas.add(this.getPanelBeamArea());
     areas.add(this.tinkerInfo.getArea());
     areas.add(this.modifierInfo.getArea());
     return areas;
@@ -661,6 +673,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
   @Override
   protected boolean hasClickedOutside(double mouseX, double mouseY, int guiLeft, int guiTop, int mouseButton) {
     return super.hasClickedOutside(mouseX, mouseY, guiLeft, guiTop, mouseButton)
+      && !this.getButtonsBeamArea().contains((int) mouseX, (int) mouseY) && !this.getPanelBeamArea().contains((int) mouseX, (int) mouseY)
       && !this.tinkerInfo.isMouseOver(mouseX, mouseY) && !this.modifierInfo.isMouseOver(mouseX, mouseY);
   }
 }
