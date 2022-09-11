@@ -86,4 +86,14 @@ public class TinkerStationButtonsWidget extends SideButtonsWidget<SlotButtonItem
   public List<SlotButtonItem> getButtons() {
     return this.buttons;
   }
+
+  public int getSelected() {
+    return this.selected;
+  }
+
+  public void restoreSelected(int selected) {
+    this.buttons.forEach(button -> button.pressed = false);
+    this.buttons.get(selected).pressed = true;
+    this.selected = selected;
+  }
 }

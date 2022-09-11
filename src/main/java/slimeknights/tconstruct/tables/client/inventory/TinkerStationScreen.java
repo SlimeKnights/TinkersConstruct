@@ -5,7 +5,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.components.Widget;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
@@ -127,8 +126,6 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
   public TinkerStationScreen(TinkerStationContainerMenu container, Inventory playerInventory, Component title) {
     super(container, playerInventory, title);
 
-    this.buttonsScreen = new TinkerStationButtonsWidget(this);
-
     this.tinkerInfo = new InfoPanelScreen(this, container, playerInventory, title);
     this.tinkerInfo.setTextScale(8/9f);
     this.addModule(this.tinkerInfo);
@@ -182,8 +179,6 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     //this.textField.setEnableBackgroundDrawing(false);
     //this.textField.setMaxStringLength(40);
 
-    this.buttonsScreen.xOffset = -2;
-    this.buttonsScreen.yOffset = this.centerBeam.h + this.buttonDecorationTop.h;
     this.tinkerInfo.xOffset = 2;
     this.tinkerInfo.yOffset = this.centerBeam.h + this.panelDecorationL.h;
     this.modifierInfo.xOffset = this.tinkerInfo.xOffset;
@@ -195,9 +190,26 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
 
     super.init();
 
+    this.buttonsScreen = new TinkerStationButtonsWidget(this);
+    this.buttonsScreen.xOffset = -2;
+    this.buttonsScreen.yOffset = this.centerBeam.h + this.buttonDecorationTop.h;
+
     this.buttonsScreen.updatePosition(this.cornerX, this.cornerY, this.realWidth, this.realHeight);
 
+    if (this.maxInputs > 3) {
+      this.buttonsScreen.shiftStyle(TinkerStationButtonsWidget.METAL_STYLE);
+    } else {
+      this.buttonsScreen.shiftStyle(TinkerStationButtonsWidget.WOOD_STYLE);
+    }
+
     this.updateLayout();
+  }
+
+  @Override
+  public void resize(Minecraft mc, int width, int height) {
+    var selected = this.buttonsScreen.getSelected();
+    super.resize(mc, width, height);
+    this.buttonsScreen.restoreSelected(selected);
   }
 
   @Override
@@ -636,8 +648,6 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     this.panelDecorationL = PANEL_SPACE_LEFT.shift(18, 0);
     this.panelDecorationR = PANEL_SPACE_RIGHT.shift(18, 0);
 
-    this.buttonsScreen.shiftStyle(TinkerStationButtonsWidget.WOOD_STYLE);
-
     this.leftBeam = LEFT_BEAM;
     this.rightBeam = RIGHT_BEAM;
     this.centerBeam = CENTER_BEAM;
@@ -651,8 +661,6 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     this.buttonDecorationBot = SLOT_SPACE_BOTTOM.shift(SLOT_SPACE_BOTTOM.w * 2, 0);
     this.panelDecorationL = PANEL_SPACE_LEFT.shift(18 * 2, 0);
     this.panelDecorationR = PANEL_SPACE_RIGHT.shift(18 * 2, 0);
-
-    this.buttonsScreen.shiftStyle(TinkerStationButtonsWidget.METAL_STYLE);
 
     this.leftBeam = LEFT_BEAM.shift(0, LEFT_BEAM.h);
     this.rightBeam = RIGHT_BEAM.shift(0, RIGHT_BEAM.h);
