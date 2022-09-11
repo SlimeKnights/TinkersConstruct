@@ -12,7 +12,6 @@ import java.util.List;
 public class TinkerStationButtonsWidget extends SideButtonsWidget<SlotButtonItem> {
 
   protected final TinkerStationScreen parent;
-  protected int selected = 0;
   private int style = 0;
 
   /** Logic to run when a button is pressed */
@@ -22,7 +21,6 @@ public class TinkerStationButtonsWidget extends SideButtonsWidget<SlotButtonItem
     }
     if (self instanceof SlotButtonItem slotInformationButton) {
       slotInformationButton.pressed = true;
-      TinkerStationButtonsWidget.this.selected = slotInformationButton.buttonId;
       TinkerStationButtonsWidget.this.parent.onToolSelection(slotInformationButton.getLayout());
     }
   };
@@ -43,7 +41,7 @@ public class TinkerStationButtonsWidget extends SideButtonsWidget<SlotButtonItem
     // repair button
     SlotButtonItem slotButtonItem = new SlotButtonItem(0, -1, -1, parent.getDefaultLayout(), ON_BUTTON_PRESSED);
     this.addInfoButton(slotButtonItem);
-    if (0 == selected) {
+    if (parent.getDefaultLayout() == parent.getCurrentLayout()) {
       slotButtonItem.pressed = true;
     }
 
@@ -53,7 +51,7 @@ public class TinkerStationButtonsWidget extends SideButtonsWidget<SlotButtonItem
       if (layout.getInputSlots().size() <= parent.getMaxInputs()) {
         slotButtonItem = new SlotButtonItem(index, -1, -1, layout, ON_BUTTON_PRESSED);
         this.addInfoButton(slotButtonItem);
-        if (index == selected) {
+        if (layout == parent.getCurrentLayout()) {
           slotButtonItem.pressed = true;
         }
         index++;
@@ -85,15 +83,5 @@ public class TinkerStationButtonsWidget extends SideButtonsWidget<SlotButtonItem
 
   public List<SlotButtonItem> getButtons() {
     return this.buttons;
-  }
-
-  public int getSelected() {
-    return this.selected;
-  }
-
-  public void restoreSelected(int selected) {
-    this.buttons.forEach(button -> button.pressed = false);
-    this.buttons.get(selected).pressed = true;
-    this.selected = selected;
   }
 }

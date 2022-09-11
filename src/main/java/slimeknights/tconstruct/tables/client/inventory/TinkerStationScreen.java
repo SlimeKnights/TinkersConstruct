@@ -108,7 +108,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
   @Nonnull @Getter
   private final StationSlotLayout defaultLayout;
   /** Currently selected tool */
-  @Nonnull
+  @Nonnull @Getter
   private StationSlotLayout currentLayout;
 
   // components
@@ -203,13 +203,6 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     }
 
     this.updateLayout();
-  }
-
-  @Override
-  public void resize(Minecraft mc, int width, int height) {
-    var selected = this.buttonsScreen.getSelected();
-    super.resize(mc, width, height);
-    this.buttonsScreen.restoreSelected(selected);
   }
 
   @Override
