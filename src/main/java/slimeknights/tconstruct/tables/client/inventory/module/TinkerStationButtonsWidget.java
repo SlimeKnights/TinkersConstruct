@@ -11,19 +11,7 @@ import java.util.List;
 
 public class TinkerStationButtonsWidget extends SideButtonsWidget<SlotButtonItem> {
 
-  protected final TinkerStationScreen parent;
   private int style = 0;
-
-  /** Logic to run when a button is pressed */
-  private final Button.OnPress ON_BUTTON_PRESSED = self -> {
-    for (SlotButtonItem button : TinkerStationButtonsWidget.this.buttons) {
-      button.pressed = false;
-    }
-    if (self instanceof SlotButtonItem slotInformationButton) {
-      slotInformationButton.pressed = true;
-      TinkerStationButtonsWidget.this.parent.onToolSelection(slotInformationButton.getLayout());
-    }
-  };
 
   public static final int WOOD_STYLE = 2;
   public static final int METAL_STYLE = 1;
@@ -31,15 +19,19 @@ public class TinkerStationButtonsWidget extends SideButtonsWidget<SlotButtonItem
   public TinkerStationButtonsWidget(TinkerStationScreen parent) {
     super(parent, TinkerStationScreen.COLUMN_COUNT, false);
 
-    this.parent = parent;
-  }
-
-  @Override
-  public void updatePosition(int parentX, int parentY, int parentSizeX, int parentSizeY) {
-    this.buttons.clear();
+    // Logic to run when a button is pressed
+    Button.OnPress onButtonPressed = self -> {
+      for (SlotButtonItem button : TinkerStationButtonsWidget.this.buttons) {
+        button.pressed = false;
+      }
+      if (self instanceof SlotButtonItem slotInformationButton) {
+        slotInformationButton.pressed = true;
+        parent.onToolSelection(slotInformationButton.getLayout());
+      }
+    };
 
     // repair button
-    SlotButtonItem slotButtonItem = new SlotButtonItem(0, -1, -1, parent.getDefaultLayout(), ON_BUTTON_PRESSED);
+    SlotButtonItem slotButtonItem = new SlotButtonItem(0, -1, -1, parent.getDefaultLayout(), onButtonPressed);
     this.addInfoButton(slotButtonItem);
     if (parent.getDefaultLayout() == parent.getCurrentLayout()) {
       slotButtonItem.pressed = true;
@@ -49,7 +41,7 @@ public class TinkerStationButtonsWidget extends SideButtonsWidget<SlotButtonItem
     int index = 1;
     for (StationSlotLayout layout : StationSlotLayoutLoader.getInstance().getSortedSlots()) {
       if (layout.getInputSlots().size() <= parent.getMaxInputs()) {
-        slotButtonItem = new SlotButtonItem(index, -1, -1, layout, ON_BUTTON_PRESSED);
+        slotButtonItem = new SlotButtonItem(index, -1, -1, layout, onButtonPressed);
         this.addInfoButton(slotButtonItem);
         if (layout == parent.getCurrentLayout()) {
           slotButtonItem.pressed = true;
@@ -57,8 +49,6 @@ public class TinkerStationButtonsWidget extends SideButtonsWidget<SlotButtonItem
         index++;
       }
     }
-
-    super.updatePosition(parentX, parentY, parentSizeX, parentSizeY);
   }
 
   public void addInfoButton(SlotButtonItem slotButtonItem) {
