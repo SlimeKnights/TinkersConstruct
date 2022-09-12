@@ -51,11 +51,7 @@ import java.util.function.Supplier;
  */
 public abstract class TinkerModule {
   protected TinkerModule() {
-    // "seal" this class to prevent other mods from using our deferred registers, basically, prevent anyone from outside our package from instantiating an instance. Yes, it happened
-    // if you are a mod dev and need a protected method here, just copy it, they are all trivial
-    if (!this.getClass().getName().startsWith("slimeknights.tconstruct.")) {
-      throw new IllegalStateException("TinkerModule being extended from invalid package " + this.getClass().getName() + ". This is a bug with the mod containing that class, they should create their own deferred registers.");
-    }
+    TConstruct.sealTinkersClass(this, "TinkerModule", "This is a bug with the mod containing that class, they should create their own deferred registers.");
   }
 
   // deferred register instances
