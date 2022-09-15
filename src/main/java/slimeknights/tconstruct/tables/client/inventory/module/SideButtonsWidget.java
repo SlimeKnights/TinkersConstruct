@@ -16,28 +16,24 @@ public class SideButtonsWidget<T extends Button> implements Widget, GuiEventList
 
   protected final MultiModuleScreen<?> parent;
 
-  // left or right of the parent
-  protected final boolean right;
-
-  public int leftPos;
-  public int topPos;
+  public final int leftPos;
+  public final int topPos;
   public final int imageWidth;
   public final int imageHeight;
-  public int xOffset;
-  public int yOffset;
 
   private final int columns;
   protected final List<T> buttons = Lists.newArrayList();
   private Button clickedButton;
 
-  public SideButtonsWidget(MultiModuleScreen<?> parent, int columns, int rows, int buttonWidth, int buttonHeight, boolean right) {
+  public SideButtonsWidget(MultiModuleScreen<?> parent, int leftPos, int topPos, int columns, int rows, int buttonWidth, int buttonHeight) {
     this.parent = parent;
-    this.right = right;
 
+    this.leftPos = leftPos;
+    this.topPos = topPos;
     this.columns = columns;
 
-    this.imageWidth = buttonWidth * columns + SPACING * (columns - 1);
-    this.imageHeight = buttonHeight * rows + SPACING * (rows - 1);
+    this.imageWidth = size(columns, buttonWidth);
+    this.imageHeight = size(rows, buttonHeight);
   }
 
   public int guiRight() {
@@ -52,19 +48,7 @@ public class SideButtonsWidget<T extends Button> implements Widget, GuiEventList
     return new Rect2i(this.leftPos, this.topPos, this.imageWidth, this.imageHeight);
   }
 
-  public void updatePosition(int parentX, int parentY, int parentSizeX, int parentSizeY) {
-
-    if (this.right) {
-      this.leftPos = parentX + parentSizeX;
-    } else {
-      this.leftPos = parentX - this.imageWidth;
-    }
-
-    this.topPos = parentY;
-
-    this.leftPos += this.xOffset;
-    this.topPos += this.yOffset;
-
+  public void setButtonPositions() {
     for (int i = 0; i < this.buttons.size(); i++) {
       T button = this.buttons.get(i);
       int x = (i % columns) * (button.getWidth() + SPACING);
@@ -111,5 +95,9 @@ public class SideButtonsWidget<T extends Button> implements Widget, GuiEventList
 
   public static int rowsForCount(int columns, int count) {
     return (count - 1) / columns + 1;
+  }
+
+  public static int size(int buttonCount, int buttonSize) {
+    return buttonSize * buttonCount + SPACING * (buttonCount - 1);
   }
 }

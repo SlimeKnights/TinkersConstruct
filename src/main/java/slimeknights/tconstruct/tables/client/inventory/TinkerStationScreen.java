@@ -191,11 +191,8 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     super.init();
 
     int buttonsStyle = this.maxInputs > 3 ? TinkerStationButtonsWidget.METAL_STYLE : TinkerStationButtonsWidget.WOOD_STYLE;
-    this.buttonsScreen = new TinkerStationButtonsWidget(this, buttonsStyle);
-    this.buttonsScreen.xOffset = -2;
-    this.buttonsScreen.yOffset = this.centerBeam.h + this.buttonDecorationTop.h;
-
-    this.buttonsScreen.updatePosition(this.cornerX, this.cornerY, this.realWidth, this.realHeight);
+    this.buttonsScreen = new TinkerStationButtonsWidget(this, this.cornerX - TinkerStationButtonsWidget.width(COLUMN_COUNT) - 2,
+      this.cornerY + this.centerBeam.h + this.buttonDecorationTop.h, buttonsStyle);
 
     this.updateLayout();
   }

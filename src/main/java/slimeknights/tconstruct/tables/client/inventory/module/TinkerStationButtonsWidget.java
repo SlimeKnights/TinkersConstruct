@@ -15,13 +15,13 @@ public class TinkerStationButtonsWidget extends SideButtonsWidget<SlotButtonItem
   public static final int WOOD_STYLE = 2;
   public static final int METAL_STYLE = 1;
 
-  public TinkerStationButtonsWidget(TinkerStationScreen parent, int style) {
-    this(parent, createLayoutsList(parent), style);
+  public TinkerStationButtonsWidget(TinkerStationScreen parent, int leftPos, int topPos, int style) {
+    this(parent, leftPos, topPos, createLayoutsList(parent), style);
   }
 
-  public TinkerStationButtonsWidget(TinkerStationScreen parent, List<StationSlotLayout> layouts, int style) {
-    super(parent, TinkerStationScreen.COLUMN_COUNT, rowsForCount(TinkerStationScreen.COLUMN_COUNT, layouts.size()),
-      SlotButtonItem.WIDTH, SlotButtonItem.HEIGHT, false);
+  public TinkerStationButtonsWidget(TinkerStationScreen parent, int leftPos, int topPos, List<StationSlotLayout> layouts, int style) {
+    super(parent, leftPos, topPos, TinkerStationScreen.COLUMN_COUNT, rowsForCount(TinkerStationScreen.COLUMN_COUNT, layouts.size()),
+      SlotButtonItem.WIDTH, SlotButtonItem.HEIGHT);
 
     // Logic to run when a button is pressed
     Button.OnPress onButtonPressed = self -> {
@@ -44,6 +44,8 @@ public class TinkerStationButtonsWidget extends SideButtonsWidget<SlotButtonItem
         slotButtonItem.pressed = true;
       }
     }
+
+    this.setButtonPositions();
   }
 
   public static List<StationSlotLayout> createLayoutsList(TinkerStationScreen parent) {
@@ -66,5 +68,9 @@ public class TinkerStationButtonsWidget extends SideButtonsWidget<SlotButtonItem
 
   public List<SlotButtonItem> getButtons() {
     return this.buttons;
+  }
+
+  public static int width(int columns) {
+    return size(columns, SlotButtonItem.WIDTH);
   }
 }
