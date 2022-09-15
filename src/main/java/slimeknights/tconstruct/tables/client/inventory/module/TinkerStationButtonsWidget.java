@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tables.client.inventory.module;
 
+import com.google.common.collect.Lists;
 import net.minecraft.client.gui.components.Button;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayout;
@@ -28,23 +29,21 @@ public class TinkerStationButtonsWidget extends SideButtonsWidget<SlotButtonItem
       }
     };
 
-    // repair button
-    SlotButtonItem slotButtonItem = new SlotButtonItem(0, -1, -1, parent.getDefaultLayout(), onButtonPressed);
-    this.addInfoButton(slotButtonItem, style);
-    if (parent.getDefaultLayout() == parent.getCurrentLayout()) {
-      slotButtonItem.pressed = true;
-    }
+    List<StationSlotLayout> layouts = Lists.newArrayList();
+    // repair layout
+    layouts.add(parent.getDefaultLayout());
+    // tool layouts
+    layouts.addAll(StationSlotLayoutLoader.getInstance().getSortedSlots().stream()
+      .filter(layout -> layout.getInputSlots().size() <= parent.getMaxInputs()).toList());
 
-    // tool buttons
-    int index = 1;
-    for (StationSlotLayout layout : StationSlotLayoutLoader.getInstance().getSortedSlots()) {
-      if (layout.getInputSlots().size() <= parent.getMaxInputs()) {
-        slotButtonItem = new SlotButtonItem(index, -1, -1, layout, onButtonPressed);
-        this.addInfoButton(slotButtonItem, style);
-        if (layout == parent.getCurrentLayout()) {
-          slotButtonItem.pressed = true;
-        }
-        index++;
+    // create buttons for layouts
+    for (int index = 0; index < layouts.size(); index++) {
+      StationSlotLayout layout = layouts.get(index);
+
+      SlotButtonItem slotButtonItem = new SlotButtonItem(index, -1, -1, layout, onButtonPressed);
+      this.addInfoButton(slotButtonItem, style);
+      if (layout == parent.getCurrentLayout()) {
+        slotButtonItem.pressed = true;
       }
     }
   }
