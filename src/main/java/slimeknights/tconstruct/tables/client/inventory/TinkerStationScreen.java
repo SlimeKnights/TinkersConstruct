@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tables.client.inventory;
 
+import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
@@ -191,8 +192,16 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     super.init();
 
     int buttonsStyle = this.maxInputs > 3 ? TinkerStationButtonsWidget.METAL_STYLE : TinkerStationButtonsWidget.WOOD_STYLE;
+
+    List<StationSlotLayout> layouts = Lists.newArrayList();
+    // repair layout
+    layouts.add(this.defaultLayout);
+    // tool layouts
+    layouts.addAll(StationSlotLayoutLoader.getInstance().getSortedSlots().stream()
+      .filter(layout -> layout.getInputSlots().size() <= this.maxInputs).toList());
+
     this.buttonsScreen = new TinkerStationButtonsWidget(this, this.cornerX - TinkerStationButtonsWidget.width(COLUMN_COUNT) - 2,
-      this.cornerY + this.centerBeam.h + this.buttonDecorationTop.h, buttonsStyle);
+      this.cornerY + this.centerBeam.h + this.buttonDecorationTop.h, layouts, buttonsStyle);
 
     this.updateLayout();
   }

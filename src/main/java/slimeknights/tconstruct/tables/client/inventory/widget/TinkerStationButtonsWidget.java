@@ -1,10 +1,8 @@
 package slimeknights.tconstruct.tables.client.inventory.widget;
 
-import com.google.common.collect.Lists;
 import net.minecraft.client.gui.components.Button;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayout;
-import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
 import slimeknights.tconstruct.tables.client.inventory.TinkerStationScreen;
 
 import java.util.List;
@@ -13,10 +11,6 @@ public class TinkerStationButtonsWidget extends SideButtonsWidget<SlotButtonItem
 
   public static final int WOOD_STYLE = 2;
   public static final int METAL_STYLE = 1;
-
-  public TinkerStationButtonsWidget(TinkerStationScreen parent, int leftPos, int topPos, int style) {
-    this(parent, leftPos, topPos, createLayoutsList(parent), style);
-  }
 
   public TinkerStationButtonsWidget(TinkerStationScreen parent, int leftPos, int topPos, List<StationSlotLayout> layouts, int style) {
     super(parent, leftPos, topPos, TinkerStationScreen.COLUMN_COUNT, rowsForCount(TinkerStationScreen.COLUMN_COUNT, layouts.size()),
@@ -45,16 +39,6 @@ public class TinkerStationButtonsWidget extends SideButtonsWidget<SlotButtonItem
     }
 
     this.setButtonPositions();
-  }
-
-  public static List<StationSlotLayout> createLayoutsList(TinkerStationScreen parent) {
-    List<StationSlotLayout> layouts = Lists.newArrayList();
-    // repair layout
-    layouts.add(parent.getDefaultLayout());
-    // tool layouts
-    layouts.addAll(StationSlotLayoutLoader.getInstance().getSortedSlots().stream()
-      .filter(layout -> layout.getInputSlots().size() <= parent.getMaxInputs()).toList());
-    return layouts;
   }
 
   private void addInfoButton(SlotButtonItem slotButtonItem, int style) {
