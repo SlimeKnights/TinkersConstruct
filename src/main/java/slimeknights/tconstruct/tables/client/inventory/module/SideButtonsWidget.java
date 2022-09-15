@@ -12,6 +12,8 @@ import java.util.List;
 
 public class SideButtonsWidget<T extends Button> implements Widget, GuiEventListener {
 
+  public static final int SPACING = 4;
+
   protected final MultiModuleScreen<?> parent;
 
   // left or right of the parent
@@ -19,8 +21,8 @@ public class SideButtonsWidget<T extends Button> implements Widget, GuiEventList
 
   public int leftPos;
   public int topPos;
-  public int imageWidth;
-  public int imageHeight;
+  public final int imageWidth;
+  public final int imageHeight;
   public int xOffset;
   public int yOffset;
 
@@ -28,17 +30,14 @@ public class SideButtonsWidget<T extends Button> implements Widget, GuiEventList
   protected final List<T> buttons = Lists.newArrayList();
   private Button clickedButton;
 
-  public int spacing = 4;
-
-  public SideButtonsWidget(MultiModuleScreen<?> parent, int columns) {
-    this(parent, columns, false);
-  }
-
-  public SideButtonsWidget(MultiModuleScreen<?> parent, int columns, boolean right) {
+  public SideButtonsWidget(MultiModuleScreen<?> parent, int columns, int rows, int buttonWidth, int buttonHeight, boolean right) {
     this.parent = parent;
     this.right = right;
 
     this.columns = columns;
+
+    this.imageWidth = buttonWidth * columns + SPACING * (columns - 1);
+    this.imageHeight = buttonHeight * rows + SPACING * (rows - 1);
   }
 
   public int guiRight() {
@@ -54,14 +53,6 @@ public class SideButtonsWidget<T extends Button> implements Widget, GuiEventList
   }
 
   public void updatePosition(int parentX, int parentY, int parentSizeX, int parentSizeY) {
-    if (!this.buttons.isEmpty()) {
-      int rows = (this.buttons.size() - 1) / this.columns + 1;
-      this.imageWidth = this.buttons.get(0).getWidth() * this.columns + this.spacing * (this.columns - 1);
-      this.imageHeight = this.buttons.get(0).getHeight() * rows + this.spacing * (rows - 1);
-    } else {
-      this.imageWidth = this.imageHeight = 0;
-    }
-
 
     if (this.right) {
       this.leftPos = parentX + parentSizeX;
@@ -76,8 +67,8 @@ public class SideButtonsWidget<T extends Button> implements Widget, GuiEventList
 
     for (int i = 0; i < this.buttons.size(); i++) {
       T button = this.buttons.get(i);
-      int x = (i % columns) * (button.getWidth() + this.spacing);
-      int y = (i / columns) * (button.getHeight() + this.spacing);
+      int x = (i % columns) * (button.getWidth() + SPACING);
+      int y = (i / columns) * (button.getHeight() + SPACING);
       button.x = leftPos + x;
       button.y = topPos + y;
     }
@@ -116,5 +107,9 @@ public class SideButtonsWidget<T extends Button> implements Widget, GuiEventList
     for (T button : this.buttons) {
       button.render(matrices, mouseX, mouseY, partialTicks);
     }
+  }
+
+  public static int rowsForCount(int columns, int count) {
+    return (count - 1) / columns + 1;
   }
 }

@@ -16,7 +16,12 @@ public class TinkerStationButtonsWidget extends SideButtonsWidget<SlotButtonItem
   public static final int METAL_STYLE = 1;
 
   public TinkerStationButtonsWidget(TinkerStationScreen parent, int style) {
-    super(parent, TinkerStationScreen.COLUMN_COUNT, false);
+    this(parent, createLayoutsList(parent), style);
+  }
+
+  public TinkerStationButtonsWidget(TinkerStationScreen parent, List<StationSlotLayout> layouts, int style) {
+    super(parent, TinkerStationScreen.COLUMN_COUNT, rowsForCount(TinkerStationScreen.COLUMN_COUNT, layouts.size()),
+      SlotButtonItem.WIDTH, SlotButtonItem.HEIGHT, false);
 
     // Logic to run when a button is pressed
     Button.OnPress onButtonPressed = self -> {
@@ -29,13 +34,6 @@ public class TinkerStationButtonsWidget extends SideButtonsWidget<SlotButtonItem
       }
     };
 
-    List<StationSlotLayout> layouts = Lists.newArrayList();
-    // repair layout
-    layouts.add(parent.getDefaultLayout());
-    // tool layouts
-    layouts.addAll(StationSlotLayoutLoader.getInstance().getSortedSlots().stream()
-      .filter(layout -> layout.getInputSlots().size() <= parent.getMaxInputs()).toList());
-
     // create buttons for layouts
     for (int index = 0; index < layouts.size(); index++) {
       StationSlotLayout layout = layouts.get(index);
@@ -46,6 +44,16 @@ public class TinkerStationButtonsWidget extends SideButtonsWidget<SlotButtonItem
         slotButtonItem.pressed = true;
       }
     }
+  }
+
+  public static List<StationSlotLayout> createLayoutsList(TinkerStationScreen parent) {
+    List<StationSlotLayout> layouts = Lists.newArrayList();
+    // repair layout
+    layouts.add(parent.getDefaultLayout());
+    // tool layouts
+    layouts.addAll(StationSlotLayoutLoader.getInstance().getSortedSlots().stream()
+      .filter(layout -> layout.getInputSlots().size() <= parent.getMaxInputs()).toList());
+    return layouts;
   }
 
   private void addInfoButton(SlotButtonItem slotButtonItem, int style) {
