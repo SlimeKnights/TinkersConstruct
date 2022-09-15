@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tables.client.inventory.module;
+package slimeknights.tconstruct.tables.client.inventory.widget;
 
 import com.google.common.collect.Lists;
 import net.minecraft.client.gui.components.Button;
@@ -6,7 +6,6 @@ import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayout;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
 import slimeknights.tconstruct.tables.client.inventory.TinkerStationScreen;
-import slimeknights.tconstruct.tables.client.inventory.widget.SlotButtonItem;
 
 import java.util.List;
 
