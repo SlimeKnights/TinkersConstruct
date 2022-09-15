@@ -190,17 +190,12 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
 
     super.init();
 
-    this.buttonsScreen = new TinkerStationButtonsWidget(this);
+    int buttonsStyle = this.maxInputs > 3 ? TinkerStationButtonsWidget.METAL_STYLE : TinkerStationButtonsWidget.WOOD_STYLE;
+    this.buttonsScreen = new TinkerStationButtonsWidget(this, buttonsStyle);
     this.buttonsScreen.xOffset = -2;
     this.buttonsScreen.yOffset = this.centerBeam.h + this.buttonDecorationTop.h;
 
     this.buttonsScreen.updatePosition(this.cornerX, this.cornerY, this.realWidth, this.realHeight);
-
-    if (this.maxInputs > 3) {
-      this.buttonsScreen.shiftStyle(TinkerStationButtonsWidget.METAL_STYLE);
-    } else {
-      this.buttonsScreen.shiftStyle(TinkerStationButtonsWidget.WOOD_STYLE);
-    }
 
     this.updateLayout();
   }
