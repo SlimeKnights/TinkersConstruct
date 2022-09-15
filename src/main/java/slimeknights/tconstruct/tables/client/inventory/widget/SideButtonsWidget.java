@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tables.client.inventory.widget;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import lombok.Getter;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Widget;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -12,14 +13,16 @@ import java.util.List;
 
 public class SideButtonsWidget<T extends Button> implements Widget, GuiEventListener {
 
-  public static final int SPACING = 4;
+  private static final int SPACING = 4;
 
   protected final MultiModuleScreen<?> parent;
 
-  public final int leftPos;
-  public final int topPos;
-  public final int imageWidth;
-  public final int imageHeight;
+  @Getter
+  private final int leftPos;
+  private final int topPos;
+  @Getter
+  private final int imageWidth;
+  private final int imageHeight;
 
   private final int columns;
   protected final List<T> buttons = Lists.newArrayList();

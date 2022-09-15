@@ -429,11 +429,11 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     }
 
     // sidebar beams
-    x = this.buttonsScreen.leftPos - this.leftBeam.w;
+    x = this.buttonsScreen.getLeftPos() - this.leftBeam.w;
     y = this.cornerY;
     // draw the beams at the top
     x += this.leftBeam.draw(matrices, x, y);
-    x += this.centerBeam.drawScaledX(matrices, x, y, this.buttonsScreen.imageWidth);
+    x += this.centerBeam.drawScaledX(matrices, x, y, this.buttonsScreen.getImageWidth());
     this.rightBeam.draw(matrices, x, y);
 
     x = tinkerInfo.leftPos - this.leftBeam.w;
