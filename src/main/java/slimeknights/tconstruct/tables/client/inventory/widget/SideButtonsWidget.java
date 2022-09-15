@@ -96,10 +96,16 @@ public class SideButtonsWidget<T extends Button> implements Widget, GuiEventList
     }
   }
 
+  /**
+   * Calculates the number of rows of buttons when fitting the given number of buttons within the given number of columns.
+   */
   public static int rowsForCount(int columns, int count) {
     return (count - 1) / columns + 1;
   }
 
+  /**
+   * Calculates the width or height of this widget given the width or height of a button and the number of buttons along the same axis.
+   */
   public static int size(int buttonCount, int buttonSize) {
     return buttonSize * buttonCount + SPACING * (buttonCount - 1);
   }

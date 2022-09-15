@@ -53,6 +53,9 @@ public class TinkerStationButtonsWidget extends SideButtonsWidget<SlotButtonItem
     return this.buttons;
   }
 
+  /**
+   * Calculates the width of this widget given the number of columns.
+   */
   public static int width(int columns) {
     return size(columns, SlotButtonItem.WIDTH);
   }
