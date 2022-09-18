@@ -11,9 +11,12 @@ import slimeknights.tconstruct.library.tools.layout.StationSlotLayout;
 import slimeknights.tconstruct.tables.client.inventory.TinkerStationScreen;
 
 public class SlotButtonItem extends Button {
-  protected static final ElementScreen BUTTON_PRESSED_GUI = new ElementScreen(144, 216, 18, 18, 256, 256);
-  protected static final ElementScreen BUTTON_NORMAL_GUI = new ElementScreen(144 + 18 * 2, 216, 18, 18, 256, 256);
-  protected static final ElementScreen BUTTON_HOVER_GUI = new ElementScreen(144 + 18 * 4, 216, 18, 18, 256, 256);
+
+  public static int WIDTH = 18, HEIGHT = 18;
+
+  protected static final ElementScreen BUTTON_PRESSED_GUI = new ElementScreen(144, 216, WIDTH, HEIGHT, 256, 256);
+  protected static final ElementScreen BUTTON_NORMAL_GUI = new ElementScreen(144 + WIDTH * 2, 216, WIDTH, HEIGHT, 256, 256);
+  protected static final ElementScreen BUTTON_HOVER_GUI = new ElementScreen(144 + WIDTH * 4, 216, WIDTH, HEIGHT, 256, 256);
 
   @Getter
   private final StationSlotLayout layout;
@@ -26,7 +29,7 @@ public class SlotButtonItem extends Button {
   private ResourceLocation backgroundLocation = Icons.ICONS;
 
   public SlotButtonItem(int buttonId, int x, int y, StationSlotLayout layout, OnPress onPress) {
-    super(x, y, 18, 18, layout.getDisplayName(), onPress);
+    super(x, y, WIDTH, HEIGHT, layout.getDisplayName(), onPress);
     this.layout = layout;
     this.buttonId = buttonId;
   }
