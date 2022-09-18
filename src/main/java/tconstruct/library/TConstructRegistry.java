@@ -39,7 +39,7 @@ public class TConstructRegistry
      * cutlass frypan, battlesign, mattock, chisel lumberaxe, cleaver, scythe,
      * excavator, hammer, battleaxe
      * 
-     * Patterns: blankPattern, woodPattern, metalPattern
+     * Patterns: blankPattern, woodPattern, metalPattern, clayPattern
      * 
      * Tool crafting parts: toolRod, toolShard, binding, toughBinding, toughRod,
      * heavyPlate pickaxeHead, shovelhead, hatchetHead, swordBlade, wideguard,

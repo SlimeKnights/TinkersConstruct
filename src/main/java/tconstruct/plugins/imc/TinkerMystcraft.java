@@ -18,6 +18,7 @@ public class TinkerMystcraft
                 moltenGoldFluid,
                 moltenSteelFluid,
                 moltenEmeraldFluid,
+                moltenQuartzFluid,
                 moltenArditeFluid,
                 moltenCobaltFluid,
                 // all alloys

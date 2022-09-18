@@ -47,6 +47,7 @@ import tconstruct.weaponry.entity.*;
 import tconstruct.weaponry.items.Boneana;
 import tconstruct.weaponry.items.GlassArrows;
 import tconstruct.weaponry.items.WeaponryPattern;
+import tconstruct.weaponry.items.WeaponryPatternClay;
 import tconstruct.library.weaponry.AmmoItem;
 import tconstruct.library.weaponry.AmmoWeapon;
 import tconstruct.library.weaponry.ArrowShaftMaterial;
@@ -93,6 +94,8 @@ public class TinkerWeaponry {
     // patterns/casts
     public static Pattern woodPattern;
     public static Pattern metalPattern;
+    public static Pattern clayPattern;
+
 
     // legendary weapons?
     public static GlassArrows glassArrows;
@@ -189,6 +192,8 @@ public class TinkerWeaponry {
 
         woodPattern = new WeaponryPattern("pattern_", "Pattern");
         metalPattern = new WeaponryPattern("cast_", "MetalPattern");
+        clayPattern = new WeaponryPatternClay("clay_cast_", "ClayPattern");
+
 
         // register tool parts
         GameRegistry.registerItem(bowstring, "bowstring"); // 1.8 todo: rename properly?
@@ -213,6 +218,8 @@ public class TinkerWeaponry {
         // register patterns/casts
         GameRegistry.registerItem(woodPattern, "Pattern");
         GameRegistry.registerItem(metalPattern, "Cast");
+        GameRegistry.registerItem(clayPattern, "Clay Cast");
+
     }
 
     private void addPartRecipies()
@@ -256,9 +263,10 @@ public class TinkerWeaponry {
             LiquidCasting tableCasting = TConstructRegistry.getTableCasting();
             for (int i = 0; i < patternOutputs.length; i++) {
                 ItemStack cast = new ItemStack(metalPattern, 1, i);
-
+                ItemStack clay_cast = new ItemStack(clayPattern, 1, i);
+                
                 tableCasting.addCastingRecipe(cast, new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue), new ItemStack(patternOutputs[i], 1, Short.MAX_VALUE), false, 50);
-				if (!PHConstruct.removeGoldCastRecipes)
+               if (!PHConstruct.removeGoldCastRecipes)
 					tableCasting.addCastingRecipe(cast, new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 2), new ItemStack(patternOutputs[i], 1, Short.MAX_VALUE), false, 50);
 
                 for (int iterTwo = 0; iterTwo < TinkerSmeltery.liquids.length; iterTwo++) {
@@ -266,11 +274,14 @@ public class TinkerWeaponry {
                     int fluidAmount = metalPattern.getPatternCost(cast) * TConstruct.ingotLiquidValue / 2;
                     ItemStack metalCast = new ItemStack(patternOutputs[i], 1, liquidDamage[iterTwo]);
                     tableCasting.addCastingRecipe(metalCast, new FluidStack(fs, fluidAmount), cast, 50);
+                    tableCasting.addCastingRecipe(metalCast, new FluidStack(fs, fluidAmount), clay_cast, true, 50);
                     Smeltery.addMelting(FluidType.getFluidType(fs), metalCast, 0, fluidAmount);
                 }
             }
 
             ItemStack cast = new ItemStack(TinkerSmeltery.metalPattern, 1, 25);
+            ItemStack clay_cast = new ItemStack(TinkerSmeltery.clayPattern, 1, 25);
+            
             tableCasting.addCastingRecipe(cast, new FluidStack(TinkerSmeltery.moltenAlubrassFluid, TConstruct.ingotLiquidValue), new ItemStack(arrowhead, 1, Short.MAX_VALUE), false, 50);
             if (!PHConstruct.removeGoldCastRecipes)
             	tableCasting.addCastingRecipe(cast, new FluidStack(TinkerSmeltery.moltenGoldFluid, TConstruct.ingotLiquidValue * 2), new ItemStack(arrowhead, 1, Short.MAX_VALUE), false, 50);
@@ -280,6 +291,7 @@ public class TinkerWeaponry {
                 int fluidAmount = ((IPattern) TinkerSmeltery.metalPattern).getPatternCost(cast) * TConstruct.ingotLiquidValue / 2;
                 ItemStack metalCast = new ItemStack(arrowhead, 1, liquidDamage[iterTwo]);
                 tableCasting.addCastingRecipe(metalCast, new FluidStack(fs, fluidAmount), cast, 50);
+                tableCasting.addCastingRecipe(metalCast, new FluidStack(fs, fluidAmount), clay_cast, true, 50);
                 Smeltery.addMelting(FluidType.getFluidType(fs), metalCast, 0, fluidAmount);
             }
 

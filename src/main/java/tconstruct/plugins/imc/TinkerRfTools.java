@@ -25,6 +25,7 @@ public class TinkerRfTools {
         configure(moltenTinFluid, 9000, 6000, 500, 4);
         configure(moltenIronFluid, 10000, 7500, 1000, 5);
         configure(moltenSteelFluid, 25000, 12500, 2000, 6);
+        configure(moltenQuartzFluid, 25000, 12500, 2000, 6);
         configure(moltenGoldFluid, 50000, 15000, 2500, 6);
 
         // precious fluids
@@ -39,8 +40,8 @@ public class TinkerRfTools {
         configure(moltenSilverFluid, 45678, 14321, 1234, 6);
 
         // configure availability
-        preventLoot(moltenSteelFluid, moltenGoldFluid, moltenEnderFluid, moltenArditeFluid, moltenCobaltFluid, moltenSilverFluid, moltenEmeraldFluid);
-        preventGen(moltenCobaltFluid, moltenArditeFluid, moltenSteelFluid, moltenGoldFluid, moltenEmeraldFluid, moltenIronFluid);
+        preventLoot(moltenSteelFluid, moltenGoldFluid, moltenEnderFluid, moltenArditeFluid, moltenCobaltFluid, moltenSilverFluid, moltenEmeraldFluid, moltenQuartzFluid);
+        preventGen(moltenCobaltFluid, moltenArditeFluid, moltenSteelFluid, moltenGoldFluid, moltenEmeraldFluid, moltenIronFluid, moltenQuartzFluid);
 
         // configure ores
         if(TinkerWorld.oreSlag != null) {

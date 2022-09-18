@@ -271,6 +271,39 @@ item.tconstruct.MetalPattern.crossbowbody.name=Crossbow Body Cast
 item.tconstruct.MetalPattern.bowlimb.name=Bow Limb Cast
 item.tconstruct.GearPattern.name=Gear Cast
 
+item.tconstruct.ClayPattern.rod.name=Tool Rod Clay Cast
+item.tconstruct.ClayPattern.pickaxe.name=Pickaxe Head Clay Cast
+item.tconstruct.ClayPattern.shovel.name=Shovel Head Clay Cast
+item.tconstruct.ClayPattern.axe.name=Axe Head Clay Cast
+item.tconstruct.ClayPattern.swordblade.name=Sword Blade Clay Cast
+item.tconstruct.ClayPattern.largeguard.name=Wide Guard Clay Cast
+item.tconstruct.ClayPattern.mediumguard.name=Hand Guard Clay Cast
+item.tconstruct.ClayPattern.crossbar.name=Crossbar Clay Cast
+item.tconstruct.ClayPattern.binding.name=Tool Binding Clay Cast
+item.tconstruct.ClayPattern.frypan.name=Pan Clay Cast
+item.tconstruct.ClayPattern.sign.name=Wide Board Clay Cast
+item.tconstruct.ClayPattern.knifeblade.name=Knife Blade Clay Cast
+item.tconstruct.ClayPattern.chisel.name=Chisel Head Clay Cast
+item.tconstruct.ClayPattern.largerod.name=Tough Rod Clay Cast
+item.tconstruct.ClayPattern.toughbinding.name=Tough Binding Clay Cast
+item.tconstruct.ClayPattern.largeplate.name=Large Plate Clay Cast
+item.tconstruct.ClayPattern.broadaxe.name=Broadaxe Head Clay Cast
+item.tconstruct.ClayPattern.scythe.name=Scythe Head Clay Cast
+item.tconstruct.ClayPattern.excavator.name=Excavator Head Clay Cast
+item.tconstruct.ClayPattern.largeblade.name=Large Blade Clay Cast
+item.tconstruct.ClayPattern.hammerhead.name=Hammer Head Clay Cast
+item.tconstruct.ClayPattern.fullguard.name=Full Guard Clay Cast
+item.tconstruct.ClayPattern.bowstring.name=Bowstring Clay Cast
+item.tconstruct.ClayPattern.fletching.name=Fletching Clay Cast
+item.tconstruct.ClayPattern.arrowhead.name=Arrowhead Clay Cast
+item.tconstruct.ClayPattern.ingot.name=Ingot Clay Cast
+item.tconstruct.ClayPattern.gem.name=Gem Clay Cast
+item.tconstruct.ClayPattern.nugget.name=Nugget Clay Cast
+item.tconstruct.ClayPattern.shuriken.name=Shuriken Clay Cast
+item.tconstruct.ClayPattern.crossbowlimb.name=Crossbow Limb Clay Cast
+item.tconstruct.ClayPattern.crossbowbody.name=Crossbow Body Clay Cast
+item.tconstruct.ClayPattern.bowlimb.name=Bow Limb Clay Cast
+
 item.tconstruct.Materials.PaperStack.name=Paper Stack
 item.tconstruct.Materials.SlimeCrystal.name=Slime Crystal
 item.tconstruct.Materials.SearedBrick.name=Seared Brick
@@ -505,6 +538,8 @@ item.tconstruct.bucket.Ender.name=Liquified Ender Bucket
 item.tconstruct.bucket.Slime.name=Liquid Slime Bucket
 item.tconstruct.bucket.PigIron.name=Molten Pig Iron Bucket
 item.tconstruct.bucket.Glue.name=Sticky Glue Bucket
+item.tconstruct.bucket.Quartz.name=Molten Nether Quartz Bucket
+
 
 item.tconstruct.bowstring.string.name=Bowstring
 item.tconstruct.bowstring.enchantedfabriI donc.name=Enchanted Bowstring
@@ -672,6 +707,8 @@ fluid.ender=Liquid Ender
 fluid.slime.blue=Liquid Blueslime
 fluid.pigiron.molten=Pig Iron
 fluid.glue=Glue
+fluid.quartz.molten=Molten Nether Quartz
+
 
 tconstruct.achievementPage.name=TConstruct
 achievement.tconstruct.beginner=Learning to Tinker
