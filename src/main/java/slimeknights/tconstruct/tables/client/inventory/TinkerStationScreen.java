@@ -186,7 +186,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     layouts.addAll(StationSlotLayoutLoader.getInstance().getSortedSlots().stream()
       .filter(layout -> layout.getInputSlots().size() <= this.maxInputs).toList());
 
-    this.buttonsScreen = addExtraArea(new TinkerStationButtonsWidget(this, this.cornerX - TinkerStationButtonsWidget.width(COLUMN_COUNT) - 3,
+    this.buttonsScreen = addExtraArea(new TinkerStationButtonsWidget(this, this.cornerX - (this.buttonsBeam.w + TinkerStationButtonsWidget.width(COLUMN_COUNT))/2,
       this.cornerY + this.buttonsBeam.h + this.buttonDecorationTop.h, layouts, buttonsStyle));
 
 
