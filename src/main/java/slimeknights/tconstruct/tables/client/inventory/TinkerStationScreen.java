@@ -6,7 +6,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -187,8 +186,8 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     layouts.addAll(StationSlotLayoutLoader.getInstance().getSortedSlots().stream()
       .filter(layout -> layout.getInputSlots().size() <= this.maxInputs).toList());
 
-    this.buttonsScreen = new TinkerStationButtonsWidget(this, this.cornerX - TinkerStationButtonsWidget.width(COLUMN_COUNT) - 3,
-      this.cornerY + this.buttonsBeam.h + this.buttonDecorationTop.h, layouts, buttonsStyle);
+    this.buttonsScreen = addExtraArea(new TinkerStationButtonsWidget(this, this.cornerX - TinkerStationButtonsWidget.width(COLUMN_COUNT) - 3,
+      this.cornerY + this.buttonsBeam.h + this.buttonDecorationTop.h, layouts, buttonsStyle));
 
 
     addExtraArea(addRenderableOnly(new SimpleElementWidget(this.cornerX - this.buttonsBeam.w, this.cornerY, this.buttonsBeam, TINKER_STATION_TEXTURE)));
@@ -657,18 +656,5 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     // update the active slots and filter in the container
     // this.container.setToolSelection(layout); TODO: needed?
     TinkerNetwork.getInstance().sendToServer(new TinkerStationSelectionPacket(layout.getName()));
-  }
-
-  @Override
-  public List<Rect2i> getModuleAreas() {
-    List<Rect2i> list = super.getModuleAreas();
-    list.add(this.buttonsScreen.getArea());
-    return list;
-  }
-
-  @Override
-  protected boolean hasClickedOutside(double mouseX, double mouseY, int guiLeft, int guiTop, int mouseButton) {
-    return super.hasClickedOutside(mouseX, mouseY, guiLeft, guiTop, mouseButton)
-      && !this.buttonsScreen.isMouseOver(mouseX, mouseY);
   }
 }
