@@ -497,7 +497,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
   @Override
   public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
     if(this.buttonsScreen.handleMouseClicked(mouseX, mouseY, mouseButton)) {
-      return false;
+      return true;
     }
 
     // TODO: textField
@@ -516,7 +516,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     }
 
     if (this.buttonsScreen.handleMouseReleased(mouseX, mouseY, state)) {
-      return false;
+      return true;
     }
 
     return super.mouseReleased(mouseX, mouseY, state);
