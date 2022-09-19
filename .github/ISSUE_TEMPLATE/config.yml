@@ -1,5 +1,8 @@
 blank_issues_enabled: false
 contact_links:
+ - name: 1.18 Typo or language bug
+   url: https://github.com/SlimeKnights/TinkersConstruct/issues/4932
+   about: Use the typo collection issue instead of reporting typos as separate issues.
  - name: SlimeKnights Discord
    url: https://discord.gg/njGrvuh
    about: Join our discord to discuss new features or to discuss behavior that may not be a bug.
