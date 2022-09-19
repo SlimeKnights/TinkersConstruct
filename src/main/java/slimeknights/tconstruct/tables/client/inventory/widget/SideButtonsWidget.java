@@ -3,13 +3,14 @@ package slimeknights.tconstruct.tables.client.inventory.widget;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Widget;
-import net.minecraft.client.gui.components.events.GuiEventListener;
+import net.minecraft.client.gui.narration.NarratableEntry;
+import net.minecraft.client.gui.narration.NarrationElementOutput;
 import org.apache.commons.compress.utils.Lists;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
 
 import java.util.List;
 
-public class SideButtonsWidget<T extends Button> implements Widget, GuiEventListener, ExtraAreaWidget.EventListener {
+public class SideButtonsWidget<T extends Button> implements Widget, ExtraAreaWidget.EventListener, NarratableEntry {
 
   private static final int SPACING = 4;
 
@@ -65,7 +66,8 @@ public class SideButtonsWidget<T extends Button> implements Widget, GuiEventList
     }
   }
 
-  public boolean handleMouseClicked(double mouseX, double mouseY, int mouseButton) {
+  @Override
+  public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
     if (mouseButton == 0) {
       for (T button : this.buttons) {
         if (button.mouseClicked(mouseX, mouseY, mouseButton)) {
@@ -107,5 +109,14 @@ public class SideButtonsWidget<T extends Button> implements Widget, GuiEventList
    */
   public static int size(int buttonCount, int buttonSize) {
     return buttonSize * buttonCount + SPACING * (buttonCount - 1);
+  }
+
+  @Override
+  public NarrationPriority narrationPriority() {
+    return NarrationPriority.NONE;
+  }
+
+  @Override
+  public void updateNarration(NarrationElementOutput pNarrationElementOutput) {
   }
 }

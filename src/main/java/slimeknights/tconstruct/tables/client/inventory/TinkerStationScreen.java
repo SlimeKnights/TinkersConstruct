@@ -186,8 +186,8 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     layouts.addAll(StationSlotLayoutLoader.getInstance().getSortedSlots().stream()
       .filter(layout -> layout.getInputSlots().size() <= this.maxInputs).toList());
 
-    this.buttonsScreen = addExtraArea(new TinkerStationButtonsWidget(this, this.cornerX - (this.buttonsBeam.w + TinkerStationButtonsWidget.width(COLUMN_COUNT))/2,
-      this.cornerY + this.buttonsBeam.h + this.buttonDecorationTop.h, layouts, buttonsStyle));
+    this.buttonsScreen = addExtraArea(addRenderableWidget(new TinkerStationButtonsWidget(this, this.cornerX - (this.buttonsBeam.w + TinkerStationButtonsWidget.width(COLUMN_COUNT))/2,
+      this.cornerY + this.buttonsBeam.h + this.buttonDecorationTop.h, layouts, buttonsStyle)));
 
 
     addExtraArea(addRenderableOnly(new SimpleElementWidget(this.cornerX - this.buttonsBeam.w, this.cornerY, this.buttonsBeam, TINKER_STATION_TEXTURE)));
@@ -481,8 +481,6 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     RenderSystem.enableDepthTest();
 
     super.renderBg(matrices, partialTicks, mouseX, mouseY);
-
-    this.buttonsScreen.render(matrices, mouseX, mouseY, partialTicks);
   }
 
   @Override
@@ -495,10 +493,6 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
 
   @Override
   public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
-    if(this.buttonsScreen.handleMouseClicked(mouseX, mouseY, mouseButton)) {
-      return true;
-    }
-
     // TODO: textField
     // this.textField.mouseClicked(mouseX, mouseY, mouseButton)
     return super.mouseClicked(mouseX, mouseY, mouseButton);
