@@ -386,10 +386,12 @@ public class ToolAttackUtil {
     }
 
     // damage the tool
-    if (!tool.hasTag(TinkerTags.Items.MELEE_PRIMARY)) {
-      durabilityLost *= 2;
+    if (!tool.hasTag(TinkerTags.Items.UNARMED)) {
+      if (!tool.hasTag(TinkerTags.Items.MELEE_PRIMARY)) {
+        durabilityLost *= 2;
+      }
+      ToolDamageUtil.damageAnimated(tool, durabilityLost, attackerLiving);
     }
-    ToolDamageUtil.damageAnimated(tool, durabilityLost, attackerLiving);
 
     return true;
   }

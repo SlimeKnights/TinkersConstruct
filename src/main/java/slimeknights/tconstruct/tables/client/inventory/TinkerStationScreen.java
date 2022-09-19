@@ -1,11 +1,12 @@
 package slimeknights.tconstruct.tables.client.inventory;
 
+import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.components.Widget;
+import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -36,9 +37,9 @@ import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.TinkerTooltipFlags;
 import slimeknights.tconstruct.tables.block.entity.table.TinkerStationBlockEntity;
-import slimeknights.tconstruct.tables.client.inventory.module.TinkerStationButtonsScreen;
 import slimeknights.tconstruct.tables.client.inventory.widget.InfoPanelWidget;
 import slimeknights.tconstruct.tables.client.inventory.widget.SimpleElementWidget;
+import slimeknights.tconstruct.tables.client.inventory.widget.TinkerStationButtonsWidget;
 import slimeknights.tconstruct.tables.client.inventory.widget.SlotButtonItem;
 import slimeknights.tconstruct.tables.menu.TinkerStationContainerMenu;
 import slimeknights.tconstruct.tables.menu.slot.TinkerStationSlot;
@@ -109,14 +110,14 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
   @Nonnull @Getter
   private final StationSlotLayout defaultLayout;
   /** Currently selected tool */
-  @Nonnull
+  @Nonnull @Getter
   private StationSlotLayout currentLayout;
 
   // components
   //protected TextFieldWidget textField;
   protected InfoPanelWidget tinkerInfo;
   protected InfoPanelWidget modifierInfo;
-  protected TinkerStationButtonsScreen buttonsScreen;
+  protected TinkerStationButtonsWidget buttonsScreen;
 
   /** Maximum available slots */
   @Getter
@@ -126,9 +127,6 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
 
   public TinkerStationScreen(TinkerStationContainerMenu container, Inventory playerInventory, Component title) {
     super(container, playerInventory, title);
-
-    this.buttonsScreen = new TinkerStationButtonsScreen(this, container, playerInventory, title);
-    this.addModule(this.buttonsScreen);
 
     this.imageHeight = 174;
 
@@ -174,15 +172,24 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     //this.textField.setEnableBackgroundDrawing(false);
     //this.textField.setMaxStringLength(40);
 
-    // Center the buttons under the beam
-    this.buttonsScreen.xOffset = -3;
-    this.buttonsScreen.yOffset = this.buttonsBeam.h + this.buttonDecorationTop.h;
-
     for (ModuleScreen<?,?> module : this.modules) {
       module.topPos += 4;
     }
 
     super.init();
+
+    int buttonsStyle = this.maxInputs > 3 ? TinkerStationButtonsWidget.METAL_STYLE : TinkerStationButtonsWidget.WOOD_STYLE;
+
+    List<StationSlotLayout> layouts = Lists.newArrayList();
+    // repair layout
+    layouts.add(this.defaultLayout);
+    // tool layouts
+    layouts.addAll(StationSlotLayoutLoader.getInstance().getSortedSlots().stream()
+      .filter(layout -> layout.getInputSlots().size() <= this.maxInputs).toList());
+
+    this.buttonsScreen = new TinkerStationButtonsWidget(this, this.cornerX - TinkerStationButtonsWidget.width(COLUMN_COUNT) - 3,
+      this.cornerY + this.buttonsBeam.h + this.buttonDecorationTop.h, layouts, buttonsStyle);
+
 
     addExtraArea(addRenderableOnly(new SimpleElementWidget(this.cornerX - this.buttonsBeam.w, this.cornerY, this.buttonsBeam, TINKER_STATION_TEXTURE)));
 
@@ -452,13 +459,11 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     }
 
     // draw the decoration for the buttons
-    for (Widget widget : this.buttonsScreen.getButtons()) {
-      if (widget instanceof SlotButtonItem button) {
-        this.buttonDecorationTop.draw(matrices, button.x, button.y - this.buttonDecorationTop.h);
-        // don't draw the bottom for the buttons in the last row
-        if (button.buttonId < this.buttonsScreen.getButtons().size() - COLUMN_COUNT) {
-          this.buttonDecorationBot.draw(matrices, button.x, button.y + button.getHeight());
-        }
+    for (SlotButtonItem button : this.buttonsScreen.getButtons()) {
+      this.buttonDecorationTop.draw(matrices, button.x, button.y - this.buttonDecorationTop.h);
+      // don't draw the bottom for the buttons in the last row
+      if (button.buttonId < this.buttonsScreen.getButtons().size() - COLUMN_COUNT) {
+        this.buttonDecorationBot.draw(matrices, button.x, button.y + button.getHeight());
       }
     }
 
@@ -477,6 +482,8 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     RenderSystem.enableDepthTest();
 
     super.renderBg(matrices, partialTicks, mouseX, mouseY);
+
+    this.buttonsScreen.render(matrices, mouseX, mouseY, partialTicks);
   }
 
   @Override
@@ -608,8 +615,6 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     this.panelDecorationL = PANEL_SPACE_LEFT.shift(18, 0);
     this.panelDecorationR = PANEL_SPACE_RIGHT.shift(18, 0);
 
-    this.buttonsScreen.shiftStyle(TinkerStationButtonsScreen.WOOD_STYLE);
-
     this.buttonsBeam = BUTTONS_BEAM;
     this.panelBeam = PANEL_BEAM;
   }
@@ -619,8 +624,6 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     this.buttonDecorationBot = SLOT_SPACE_BOTTOM.shift(SLOT_SPACE_BOTTOM.w * 2, 0);
     this.panelDecorationL = PANEL_SPACE_LEFT.shift(18 * 2, 0);
     this.panelDecorationR = PANEL_SPACE_RIGHT.shift(18 * 2, 0);
-
-    this.buttonsScreen.shiftStyle(TinkerStationButtonsScreen.METAL_STYLE);
 
     this.buttonsBeam = BUTTONS_BEAM.shift(0, BUTTONS_BEAM.h);
     this.panelBeam = PANEL_BEAM.shift(0, PANEL_BEAM.h);
@@ -654,5 +657,18 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     // update the active slots and filter in the container
     // this.container.setToolSelection(layout); TODO: needed?
     TinkerNetwork.getInstance().sendToServer(new TinkerStationSelectionPacket(layout.getName()));
+  }
+
+  @Override
+  public List<Rect2i> getModuleAreas() {
+    List<Rect2i> list = super.getModuleAreas();
+    list.add(this.buttonsScreen.getArea());
+    return list;
+  }
+
+  @Override
+  protected boolean hasClickedOutside(double mouseX, double mouseY, int guiLeft, int guiTop, int mouseButton) {
+    return super.hasClickedOutside(mouseX, mouseY, guiLeft, guiTop, mouseButton)
+      && !this.buttonsScreen.isMouseOver(mouseX, mouseY);
   }
 }

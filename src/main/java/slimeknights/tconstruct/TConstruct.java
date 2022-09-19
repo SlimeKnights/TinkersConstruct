@@ -279,4 +279,21 @@ public class TConstruct {
   public static MutableComponent makeTranslation(String base, String name, Object... arguments) {
     return new TranslatableComponent(makeTranslationKey(base, name), arguments);
   }
+
+  /**
+   * This function is called in the constructor in some internal classes that are a common target for addons to wrongly extend.
+   * These classes will cause issues if blindly used by the addon, and are typically trivial for the addon to implement
+   * the parts they need if they just put in some effort understanding the code they are copying.
+   *
+   * As a reminder for addon devs, anything that is not in the library package can and will change arbitrarily. If you need to use a feature outside library, request it on our github.
+   * @param self  Class to validate
+   */
+  public static void sealTinkersClass(Object self, String base, String solution) {
+    // note for future maintainers: this does not use Java 9's sealed classes as unless you use modules those are restricted to the same package.
+    // Dumb restriction but not like we can change it.
+    String name = self.getClass().getName();
+    if (!name.startsWith("slimeknights.tconstruct.")) {
+      throw new IllegalStateException(base + " being extended from invalid package " + name + ". " + solution);
+    }
+  }
 }
