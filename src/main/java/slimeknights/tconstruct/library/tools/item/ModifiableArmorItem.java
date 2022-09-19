@@ -366,6 +366,11 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
     return tooltips;
   }
 
+  @Override
+  public int getDefaultTooltipHideFlags(ItemStack stack) {
+    return TooltipUtil.getModifierHideFlags(getToolDefinition());
+  }
+
   /* Display items */
 
   @Override
