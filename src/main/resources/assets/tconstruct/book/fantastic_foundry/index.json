@@ -43,7 +43,8 @@
     }
   },
   {
-    "name": "tier_four_materials",
+    "name": "materials",
+    "extraData": { "tconstruct:material_tier": 4 },
     "icon": {
       "item": "tconstruct:manyullyn_ingot"
     }

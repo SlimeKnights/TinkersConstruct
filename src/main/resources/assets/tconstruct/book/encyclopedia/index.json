@@ -42,7 +42,8 @@
     }
   },
   {
-    "name": "tier_one_materials",
+    "name": "materials_1",
+    "extraData": { "tconstruct:material_tier": { "tier": 1, "detailed": true }},
     "requirements": [ "tconstruct:tools/materials_and_you" ],
     "hideWhenLocked": true,
     "icon": {
@@ -50,7 +51,8 @@
     }
   },
   {
-    "name": "tier_two_materials",
+    "name": "materials_2",
+    "extraData": { "tconstruct:material_tier": { "tier": 2, "detailed": true }},
     "requirements": [ "tconstruct:smeltery/puny_smelting" ],
     "hideWhenLocked": true,
     "icon": {
@@ -58,7 +60,8 @@
     }
   },
   {
-    "name": "tier_three_materials",
+    "name": "materials_3",
+    "extraData": { "tconstruct:material_tier": { "tier": 3, "detailed": true }},
     "requirements": [ "tconstruct:smeltery/mighty_smelting" ],
     "hideWhenLocked": true,
     "icon": {
@@ -66,7 +69,8 @@
     }
   },
   {
-    "name": "tier_four_materials",
+    "name": "materials_4",
+    "extraData": { "tconstruct:material_tier": { "tier": 4, "detailed": true }},
     "requirements": [ "tconstruct:foundry/fantastic_foundry" ],
     "hideWhenLocked": true,
     "icon": {

@@ -28,7 +28,8 @@
     }
   }, 
   {
-    "name": "tier_two_materials",
+    "name": "materials",
+    "extraData": { "tconstruct:material_tier": 2 },
     "icon": {
       "item": "minecraft:iron_ingot"
     }

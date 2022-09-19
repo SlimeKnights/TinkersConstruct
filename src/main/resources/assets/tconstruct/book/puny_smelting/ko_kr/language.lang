@@ -1,9 +1,8 @@
-// 섹션 - 간단한 제련
 intro=소개
 melter=용해기
 moving_fluids=액체 이동
 casting=주조
-tier_two_materials=2등급 재료
+materials=2등급 재료
 
 upgrades=강화
 upgrades.subtext=강화를 통해 도구를 강력하게 만들 수 있다만, 강화 슬롯이 필요하다.
