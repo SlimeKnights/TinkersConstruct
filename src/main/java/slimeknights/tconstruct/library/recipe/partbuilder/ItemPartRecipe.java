@@ -15,7 +15,7 @@ import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
-import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
+import slimeknights.tconstruct.library.recipe.material.IMaterialValue;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 import javax.annotation.Nullable;
@@ -54,7 +54,7 @@ public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
     }
     // if there is a material item, it must have a valid material and be craftable
     if (!inv.getStack().isEmpty()) {
-      MaterialRecipe materialRecipe = inv.getMaterial();
+      IMaterialValue materialRecipe = inv.getMaterial();
       return materialRecipe != null && material.matchesVariant(materialRecipe.getMaterial());
     }
     // no material item? return match in case we get one later
@@ -63,7 +63,7 @@ public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
 
   @Override
   public boolean matches(IPartBuilderContainer inv, Level worldIn) {
-    MaterialRecipe materialRecipe = inv.getMaterial();
+    IMaterialValue materialRecipe = inv.getMaterial();
     return materialRecipe != null && material.matchesVariant(materialRecipe.getMaterial())
            && inv.getStack().getCount() >= materialRecipe.getItemsUsed(cost);
   }

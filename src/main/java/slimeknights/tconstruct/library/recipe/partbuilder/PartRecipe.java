@@ -19,7 +19,7 @@ import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
-import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
+import slimeknights.tconstruct.library.recipe.material.IMaterialValue;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.tables.TinkerTables;
 
@@ -59,8 +59,13 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<ItemPartReci
       return false;
     }
     // if there is a material item, it must have a valid material and be craftable
-    if (!inv.getStack().isEmpty()) {
-      MaterialRecipe materialRecipe = inv.getMaterial();
+    ItemStack stack = inv.getStack();
+    if (!stack.isEmpty()) {
+      // no sense allowing if there is no change
+      if (stack.getItem() == output) {
+        return false;
+      }
+      IMaterialValue materialRecipe = inv.getMaterial();
       if (materialRecipe == null) {
         return false;
       }
@@ -80,7 +85,7 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<ItemPartReci
   @Override
   public boolean matches(IPartBuilderContainer inv, Level world) {
     // must have a material
-    MaterialRecipe materialRecipe = inv.getMaterial();
+    IMaterialValue materialRecipe = inv.getMaterial();
     if (materialRecipe != null) {
       // material must be craftable, usable in the item, and have a cost we can afford
       MaterialVariant material = materialRecipe.getMaterial();
@@ -112,7 +117,7 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<ItemPartReci
   @Override
   public ItemStack assemble(IPartBuilderContainer inv) {
     MaterialVariant material = MaterialVariant.UNKNOWN;
-    MaterialRecipe materialRecipe = inv.getMaterial();
+    IMaterialValue materialRecipe = inv.getMaterial();
     if (materialRecipe != null) {
       material = materialRecipe.getMaterial();
     }

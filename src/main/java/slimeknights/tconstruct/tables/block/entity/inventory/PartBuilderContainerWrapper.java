@@ -2,9 +2,15 @@ package slimeknights.tconstruct.tables.block.entity.inventory;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
-import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
+import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingLookup;
+import slimeknights.tconstruct.library.recipe.material.IMaterialValue;
+import slimeknights.tconstruct.library.recipe.material.MaterialValue;
 import slimeknights.tconstruct.library.recipe.partbuilder.IPartBuilderContainer;
+import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.tables.block.entity.table.PartBuilderBlockEntity;
 
 import javax.annotation.Nullable;
@@ -16,7 +22,7 @@ public class PartBuilderContainerWrapper implements IPartBuilderContainer {
   private boolean materialNeedsUpdate = true;
   /** Cached material recipe, may be null if not a material item */
   @Nullable
-  private MaterialRecipe material = null;
+  private IMaterialValue material = null;
 
   public PartBuilderContainerWrapper(PartBuilderBlockEntity builder) {
     this.builder = builder;
@@ -45,11 +51,19 @@ public class PartBuilderContainerWrapper implements IPartBuilderContainer {
 
   @Override
   @Nullable
-  public MaterialRecipe getMaterial() {
+  public IMaterialValue getMaterial() {
     if (this.materialNeedsUpdate) {
       this.materialNeedsUpdate = false;
-      if (getStack().isEmpty()) {
+      ItemStack stack = getStack();
+      if (stack.isEmpty()) {
         this.material = null;
+      } else if (stack.is(TinkerTags.Items.TOOL_PARTS)) {
+        MaterialVariantId material = IMaterialItem.getMaterialFromStack(stack);
+        if (IMaterial.UNKNOWN_ID.matchesVariant(material)) {
+          this.material = null;
+        } else {
+          this.material = new MaterialValue(material, MaterialCastingLookup.getItemCost(stack.getItem()));
+        }
       } else {
         Level world = getWorld();
         this.material = world.getRecipeManager().getRecipeFor(TinkerRecipeTypes.MATERIAL.get(), this, world).orElse(null);
