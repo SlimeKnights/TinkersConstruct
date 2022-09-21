@@ -34,8 +34,8 @@ import slimeknights.tconstruct.tables.block.entity.table.PartBuilderBlockEntity;
 import slimeknights.tconstruct.tables.client.inventory.widget.InfoPanelWidget;
 import slimeknights.tconstruct.tables.menu.PartBuilderContainerMenu;
 
+import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Function;
 
 public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,PartBuilderContainerMenu> {
@@ -188,30 +188,35 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
       this.recipeIndexOffset = 0;
     }
 
+    CaptionsBuilder captions = new CaptionsBuilder();
+
+    // update part recipe cost
+    IPartBuilderRecipe partRecipe = this.tile.getPartRecipe();
+    if (partRecipe != null) {
+     captions.setPatternCost(partRecipe.getCost());
+    }
+
     // update material
     MaterialRecipe materialRecipe = this.tile.getMaterialRecipe();
     if (materialRecipe != null) {
-      this.setDisplayForMaterial(materialRecipe);
+      this.setDisplayForMaterial(captions, materialRecipe);
     } else {
       // default text
-      List<Component> captions = Lists.newArrayList();
-      captions.add(this.getTitle().copy().withStyle(ChatFormatting.UNDERLINE));
-      this.getPatternCostCaption().ifPresent(captions::add);
-      this.infoPanelScreen.setCaptions(captions);
+      captions.setCaption(this.getTitle());
       this.infoPanelScreen.setText(INFO_TEXT);
     }
+
+    this.infoPanelScreen.setCaptions(captions.build());
   }
 
   /**
    * Updates the data in the material display
+   * @param captions  a builder for setting info panel caption and material value
    * @param materialRecipe  New material recipe
    */
-  private void setDisplayForMaterial(MaterialRecipe materialRecipe) {
+  private void setDisplayForMaterial(CaptionsBuilder captions, MaterialRecipe materialRecipe) {
     MaterialVariant materialVariant = materialRecipe.getMaterial();
-
-    List<Component> captions = Lists.newArrayList();
-    captions.add(MaterialTooltipCache.getColoredDisplayName(materialVariant.getVariant()).copy().withStyle(ChatFormatting.UNDERLINE));
-    this.getPatternCostCaption().ifPresent(captions::add);
+    captions.setCaption(MaterialTooltipCache.getColoredDisplayName(materialVariant.getVariant()));
 
     // determine how much material we have
     // get exact number of material, rather than rounded
@@ -223,8 +228,7 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
     if (partRecipe != null && value < partRecipe.getCost()) {
       formatted = formatted.withStyle(ChatFormatting.DARK_RED);
     }
-
-    captions.add(new TranslatableComponent(MATERIAL_VALUE_KEY, formatted).withStyle(style -> style.withColor(TextColor.fromRgb(0x7fffff))));
+    captions.setMaterialValue(formatted);
 
     // update stats and traits
     List<Component> stats = Lists.newLinkedList();
@@ -269,16 +273,43 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
       tips.remove(tips.size() - 1);
     }
 
-    this.infoPanelScreen.setCaptions(captions);
     this.infoPanelScreen.setText(stats, tips);
   }
 
-  private Optional<Component> getPatternCostCaption() {
-    IPartBuilderRecipe partRecipe = this.tile.getPartRecipe();
-    if (partRecipe != null) {
-      return Optional.of(new TranslatableComponent(COST_KEY, partRecipe.getCost()).withStyle(ChatFormatting.GOLD));
-    } else {
-      return Optional.empty();
+  /**
+   * Helper class for building the list of captions for the info panel.
+   * Each specific ordered caption can be set optionally in any order.
+   * The built caption list will only contain any captions that have been set.
+   */
+  private static class CaptionsBuilder {
+    @Nullable
+    private Component caption;
+    @Nullable
+    private Component patternCost;
+    @Nullable
+    private Component materialValue;
+
+    private List<Component> build() {
+      List<Component> captions = Lists.newArrayList();
+      if (this.caption != null)
+        captions.add(caption);
+      if (this.patternCost != null)
+        captions.add(patternCost);
+      if (this.materialValue != null)
+        captions.add(materialValue);
+      return captions;
+    }
+
+    public void setCaption(Component caption) {
+      this.caption = caption.copy().withStyle(ChatFormatting.UNDERLINE);
+    }
+
+    public void setPatternCost(int cost) {
+      this.patternCost = new TranslatableComponent(COST_KEY, cost).withStyle(ChatFormatting.GOLD);
+    }
+
+    public void setMaterialValue(Component value) {
+      this.materialValue = new TranslatableComponent(MATERIAL_VALUE_KEY, value).withStyle(style -> style.withColor(TextColor.fromRgb(0x7fffff)));
     }
   }
 
