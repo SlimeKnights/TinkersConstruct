@@ -9,5 +9,5 @@ blazing_blood=Blazing Blood
 armor=Plate Armor
 armor.subtext=Armor is crafted in the Crafting Station instead of the Tinker Station or Anvil. The mighty plate armor boasts a high defense, but less modifiability. Who needs extra features when you can be protected?
 
-tier_four_materials=Tier 4 Materials
-tier_four_materials.subtext=Materials which require blazing blood to craft.
+materials=Tier 4 Materials
+materials.subtext=Materials which require blazing blood to craft.

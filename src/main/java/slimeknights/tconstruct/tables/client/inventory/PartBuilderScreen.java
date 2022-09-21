@@ -26,7 +26,7 @@ import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
+import slimeknights.tconstruct.library.recipe.material.IMaterialValue;
 import slimeknights.tconstruct.library.recipe.partbuilder.IPartBuilderRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.utils.Util;
@@ -190,20 +190,35 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
 
     CaptionsBuilder captions = new CaptionsBuilder();
 
-    // update part recipe cost
-    IPartBuilderRecipe partRecipe = this.tile.getPartRecipe();
-    if (partRecipe != null) {
-     captions.setPatternCost(partRecipe.getCost());
-    }
+    assert this.tile != null;
 
     // update material
-    MaterialRecipe materialRecipe = this.tile.getMaterialRecipe();
+    IMaterialValue materialRecipe = this.tile.getMaterialRecipe();
     if (materialRecipe != null) {
       this.setDisplayForMaterial(captions, materialRecipe);
     } else {
       // default text
       captions.setCaption(this.getTitle());
       this.infoPanelScreen.setText(INFO_TEXT);
+    }
+
+    // update part recipe cost
+    IPartBuilderRecipe partRecipe = this.tile.getPartRecipe();
+    boolean skipCost = false;
+    if (partRecipe == null) {
+      partRecipe = this.tile.getFirstRecipe();
+      skipCost = true;
+    }
+    if (partRecipe != null) {
+      int cost = partRecipe.getCost();
+      if (cost > 0 && !skipCost) {
+        captions.setPatternCost(cost);
+      }
+      Component title = partRecipe.getTitle();
+      if (title != null) {
+        captions.setCaption(title);
+        this.infoPanelScreen.setText(partRecipe.getText(this.tile.getInventoryWrapper()));
+      }
     }
 
     this.infoPanelScreen.setCaptions(captions.build());
@@ -214,7 +229,7 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
    * @param captions  a builder for setting info panel caption and material value
    * @param materialRecipe  New material recipe
    */
-  private void setDisplayForMaterial(CaptionsBuilder captions, MaterialRecipe materialRecipe) {
+  private void setDisplayForMaterial(CaptionsBuilder captions, IMaterialValue materialRecipe) {
     MaterialVariant materialVariant = materialRecipe.getMaterial();
     captions.setCaption(MaterialTooltipCache.getColoredDisplayName(materialVariant.getVariant()));
 

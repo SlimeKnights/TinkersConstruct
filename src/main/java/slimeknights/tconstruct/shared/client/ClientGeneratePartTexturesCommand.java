@@ -147,7 +147,7 @@ public class ClientGeneratePartTexturesCommand {
     JsonObject meta = new JsonObject();
     JsonObject pack = new JsonObject();
     pack.addProperty("description", "Generated Resources from the Tinkers' Construct Part Texture Generator");
-    pack.addProperty("pack_format", 6);
+    pack.addProperty("pack_format", 8);
     meta.add("pack", pack);
 
     try {

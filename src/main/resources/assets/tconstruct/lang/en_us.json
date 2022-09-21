@@ -2428,6 +2428,10 @@
   "recipe.tconstruct.modifier.max_level": "%s level cannot be above %s",
   "recipe.tconstruct.modifier.requirements_error": "Tool state invalid for one of the modifiers. Contact your modpack maker and request a more descriptive error.",
 
+  "recipe.tconstruct.tool_recycling": "Tool Recycling",
+  "recipe.tconstruct.tool_recycling.info": "Select which part to salvage from this tool. There is a chance based on the tool's remaining durability to salvage a second part.",
+  "recipe.tconstruct.tool_recycling.no_modifiers": "A tool cannot be recycled if it contains any upgrades or abilities, those must be removed first.",
+
 
   "_comment": "GUIs Messages",
 

@@ -4,14 +4,14 @@ small_tools=Ferramentas Pequenas
 large_tools=Ferramentas Grandes
 armor=Armadura
 
-tier_one_materials=Materiais Nivel 1
-tier_one_materials.subtext=Estes materiais são fáceis de encontrar, e podem ser colocados no montador de peças para criar peças de ferramentas
-tier_two_materials=Materiais Nivel 2
-tier_two_materials.subtext=Estes materiais requerem fundição e moldagem para sua fabricação, e podem ser um pouco mais raros
-tier_three_materials=Materiais Nivel 3
-tier_three_materials.subtext=Estes materiais requerem ligas, seja através de um fundidor de ligas ou de uma fundição
-tier_four_materials=Materiais Nivel 4
-tier_four_materials.subtext=Estes materiais não podem ser encontrados sem viajar para o Nether
+materials_1=Materiais Nivel 1
+materials_1.subtext=Estes materiais são fáceis de encontrar, e podem ser colocados no montador de peças para criar peças de ferramentas
+materials_2=Materiais Nivel 2
+materials_2.subtext=Estes materiais requerem fundição e moldagem para sua fabricação, e podem ser um pouco mais raros
+materials_3=Materiais Nivel 3
+materials_3.subtext=Estes materiais requerem ligas, seja através de um fundidor de ligas ou de uma fundição
+materials_4=Materiais Nivel 4
+materials_4.subtext=Estes materiais não podem ser encontrados sem viajar para o Nether
 skull_materials=Slimeskulls
 skull_materials.subtext=Este capitulo descreve os efeitos de todos os tipos de caveiras na criação de um slimeskull
 

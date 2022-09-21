@@ -31,6 +31,7 @@ import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -127,9 +128,12 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
           }
         }
 
-        // ensure there is a change in the part, note we compare variants so you could swap oak head for birch head
+        // ensure there is a change in the part or we are repairing the tool, note we compare variants so you could swap oak head for birch head
         MaterialVariant toolVariant = tool.getMaterial(index);
-        if (toolVariant.sameVariant(partVariant)) {
+        boolean didChange = !toolVariant.sameVariant(partVariant);
+        IMaterialStats stats = MaterialRegistry.getInstance().getMaterialStats(partVariant.getId(), part.getStatType()).orElse(null);
+        IRepairableMaterialStats repairable = stats instanceof IRepairableMaterialStats r ? r : null;
+        if (!didChange && (tool.getDamage() == 0 || repairable == null)) {
           return ValidatedResult.PASS;
         }
 
@@ -137,45 +141,47 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
         tool = tool.copy();
 
         // determine which modifiers are going to be removed
-        Map<Modifier,Integer> removedTraits = new HashMap<>();
-        // start with a map of all modifiers on the old part
-        for (ModifierEntry entry : MaterialRegistry.getInstance().getTraits(toolVariant.getId(), part.getStatType())) {
-          removedTraits.put(entry.getModifier(), entry.getLevel());
-        }
-        // subtract any modifiers on the new part
-        for (ModifierEntry entry : MaterialRegistry.getInstance().getTraits(partVariant.getId(), part.getStatType())) {
-          Modifier modifier = entry.getModifier();
-          if (removedTraits.containsKey(modifier)) {
-            int value = removedTraits.get(modifier) - entry.getLevel();
-            if (value <= 0) {
-              removedTraits.remove(modifier);
-            } else {
-              removedTraits.put(modifier, value);
+        List<Modifier> actuallyRemoved = Collections.emptyList();
+        if (didChange) {
+          Map<Modifier,Integer> removedTraits = new HashMap<>();
+          // start with a map of all modifiers on the old part
+          for (ModifierEntry entry : MaterialRegistry.getInstance().getTraits(toolVariant.getId(), part.getStatType())) {
+            removedTraits.put(entry.getModifier(), entry.getLevel());
+          }
+          // subtract any modifiers on the new part
+          for (ModifierEntry entry : MaterialRegistry.getInstance().getTraits(partVariant.getId(), part.getStatType())) {
+            Modifier modifier = entry.getModifier();
+            if (removedTraits.containsKey(modifier)) {
+              int value = removedTraits.get(modifier) - entry.getLevel();
+              if (value <= 0) {
+                removedTraits.remove(modifier);
+              } else {
+                removedTraits.put(modifier, value);
+              }
             }
           }
-        }
-        // for the remainder, fill a list as we have 2 more hooks to call with them
-        List<Modifier> actuallyRemoved = new ArrayList<>();
-        for (Entry<Modifier,Integer> entry : removedTraits.entrySet()) {
-          Modifier modifier = entry.getKey();
-          if (tool.getModifierLevel(modifier) <= entry.getValue()) {
-            modifier.beforeRemoved(tool, tool.getRestrictedNBT());
-            actuallyRemoved.add(modifier);
+          // for the remainder, fill a list as we have 2 more hooks to call with them
+          actuallyRemoved = new ArrayList<>();
+          for (Entry<Modifier,Integer> entry : removedTraits.entrySet()) {
+            Modifier modifier = entry.getKey();
+            if (tool.getModifierLevel(modifier) <= entry.getValue()) {
+              modifier.beforeRemoved(tool, tool.getRestrictedNBT());
+              actuallyRemoved.add(modifier);
+            }
           }
-        }
 
-        // do the actual part replacement
-        tool.replaceMaterial(index, partVariant);
+          // do the actual part replacement
+          tool.replaceMaterial(index, partVariant);
 
-        // allow modifiers to remove any extra NBT based on the new state
-        for (Modifier modifier : actuallyRemoved) {
-          modifier.onRemoved(tool);
+          // allow modifiers to remove any extra NBT based on the new state
+          for (Modifier modifier : actuallyRemoved) {
+            modifier.onRemoved(tool);
+          }
         }
 
         // if swapping in a new head, repair the tool (assuming the give stats type can repair)
         // ideally we would validate before repairing, but don't want to create the stack before repairing
-        IMaterialStats stats = MaterialRegistry.getInstance().getMaterialStats(partVariant.getId(), part.getStatType()).orElse(null);
-        if (stats instanceof IRepairableMaterialStats) {
+        if (repairable != null) {
           // must have a registered recipe
           int cost = MaterialCastingLookup.getItemCost(part);
           if (cost > 0) {
@@ -188,7 +194,7 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
               }
             }
             if (factor > 0) {
-              ToolDamageUtil.repair(tool, (int)(((IRepairableMaterialStats)stats).getDurability() * factor));
+              ToolDamageUtil.repair(tool, (int)(repairable.getDurability() * factor));
             }
           }
         }

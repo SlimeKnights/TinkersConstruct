@@ -11,6 +11,7 @@ import slimeknights.tconstruct.library.client.book.content.ContentTool;
 import slimeknights.tconstruct.library.client.book.sectiontransformer.ModifierSectionTransformer;
 import slimeknights.tconstruct.library.client.book.sectiontransformer.ToolSectionTransformer;
 import slimeknights.tconstruct.library.client.book.sectiontransformer.materials.SkullMaterialSectionTransformer;
+import slimeknights.tconstruct.library.client.book.sectiontransformer.materials.TierRangeMaterialSectionTransformer;
 import slimeknights.tconstruct.library.client.book.sectiontransformer.materials.TieredMaterialSectionTransformer;
 import slimeknights.tconstruct.shared.item.TinkerBookItem.BookType;
 
@@ -50,6 +51,7 @@ public class TinkerBook extends BookData {
     ENCYCLOPEDIA.addTransformer(armorTransformer);
 
     // material tier transformers
+    // TODO 1.19: remove old materail section transformers
     MATERIALS_AND_YOU.addTransformer(new TieredMaterialSectionTransformer("tier_one_materials", 1, false));
     PUNY_SMELTING.addTransformer(new TieredMaterialSectionTransformer("tier_two_materials", 2, false));
     MIGHTY_SMELTING.addTransformer(new TieredMaterialSectionTransformer("tier_three_materials", 3, false));
@@ -96,6 +98,7 @@ public class TinkerBook extends BookData {
     book.addTransformer(BookTransformer.indexTranformer());
     // padding needs to be last to ensure page counts are right
     book.addTransformer(BookTransformer.paddingTransformer());
+    book.addTransformer(TierRangeMaterialSectionTransformer.INSTANCE);
   }
 
   /**

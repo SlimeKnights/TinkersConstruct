@@ -1,7 +1,6 @@
-// Sections - Mighty Smelting
 intro=Вступление
 entity_melting=Переплавка существ
-tier_three_materials=Материалы 3-го уровня
+materials=Материалы 3-го уровня
 tools=Широкие инструменты
 tools.subtext=Для создания всех широких инструментов требуется кузня
 

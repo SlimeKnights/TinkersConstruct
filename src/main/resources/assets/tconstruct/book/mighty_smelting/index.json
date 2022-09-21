@@ -21,7 +21,8 @@
     }
   },
   {
-    "name": "tier_three_materials",
+    "name": "materials",
+    "extraData": { "tconstruct:material_tier": 3 },
     "icon": {
       "item": "tconstruct:slimesteel_ingot"
     }

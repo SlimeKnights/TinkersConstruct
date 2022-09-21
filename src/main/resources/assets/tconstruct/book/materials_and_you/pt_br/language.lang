@@ -1,7 +1,7 @@
 intro=Introdução
 
-tier_one_materials=Materiais Nivel 1
-tier_one_materials.subtext=Os materiais são a primeira parte da fabricação de qualquer ferramenta. Estes materiais podem ser colocados no montador da peças para criar peças de ferramentas.
+materials=Materiais Nivel 1
+materials.subtext=Os materiais são a primeira parte da fabricação de qualquer ferramenta. Estes materiais podem ser colocados no montador da peças para criar peças de ferramentas.
 
 tools=Ferramentas
 
