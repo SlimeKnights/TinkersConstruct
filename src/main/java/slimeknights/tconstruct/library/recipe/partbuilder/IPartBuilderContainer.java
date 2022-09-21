@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.recipe.partbuilder;
 
 import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.recipe.container.ISingleStackContainer;
-import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
+import slimeknights.tconstruct.library.recipe.material.IMaterialValue;
 
 import javax.annotation.Nullable;
 
@@ -15,7 +15,7 @@ public interface IPartBuilderContainer extends ISingleStackContainer {
    * @return  Material recipe, or null if the slot contents are not a valid material
    */
   @Nullable
-  MaterialRecipe getMaterial();
+  IMaterialValue getMaterial();
 
   /**
    * Gets the stack in the pattern slot

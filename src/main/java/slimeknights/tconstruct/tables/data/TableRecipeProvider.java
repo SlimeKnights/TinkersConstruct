@@ -20,6 +20,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
+import slimeknights.tconstruct.tables.recipe.PartBuilderToolRecycle;
 import slimeknights.tconstruct.tables.recipe.TinkerStationDamagingRecipe;
 
 import java.util.function.Consumer;
@@ -184,6 +185,9 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                                  .setSource(TinkerTags.Items.ANVIL_METAL)
                                  .setMatchAll()
                                  .build(consumer, modResource(folder + "scorched_forge"));
+
+    // recycling singleton
+    consumer.accept(new PartBuilderToolRecycle.Finished(modResource(folder + "tool_recycling"), Ingredient.of(TinkerTags.Items.PATTERNS)));
 
     // tool repair recipe
     SpecialRecipeBuilder.special(TinkerTables.tinkerStationRepairSerializer.get())

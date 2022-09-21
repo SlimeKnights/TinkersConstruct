@@ -188,6 +188,15 @@ public final class ModifierUtil {
     return 0;
   }
 
+  /** Checks if the given stack has upgrades */
+  public static boolean hasUpgrades(ItemStack stack) {
+    if (!stack.isEmpty() && stack.is(TinkerTags.Items.MODIFIABLE)) {
+      CompoundTag nbt = stack.getTag();
+      return nbt != null && !nbt.getList(ToolStack.TAG_UPGRADES, Tag.TAG_COMPOUND).isEmpty();
+    }
+    return false;
+  }
+
   /**
    * Adds levels to the given key in entity modifier data for an armor modifier
    * @param tool     Tool instance

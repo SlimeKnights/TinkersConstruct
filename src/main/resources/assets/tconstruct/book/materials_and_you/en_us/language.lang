@@ -1,7 +1,7 @@
 intro=Introduction
 
-tier_one_materials=Tier 1 Materials
-tier_one_materials.subtext=Materials are the first part to making any tool. These materials can be placed in the part builder to create tool parts.
+materials=Tier 1 Materials
+materials.subtext=Materials are the first part to making any tool. These materials can be placed in the part builder to create tool parts.
 
 tools=Tools
 

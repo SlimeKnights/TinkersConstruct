@@ -15,7 +15,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
-import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
+import slimeknights.tconstruct.library.recipe.material.IMaterialValue;
 import slimeknights.tconstruct.library.recipe.partbuilder.IPartBuilderRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.shared.inventory.ConfigurableInvWrapperCapability;
@@ -30,7 +30,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 public class PartBuilderBlockEntity extends RetexturedTableBlockEntity implements ILazyCrafter {
@@ -80,21 +80,19 @@ public class PartBuilderBlockEntity extends RetexturedTableBlockEntity implement
         recipes = Collections.emptyMap();
         sortedButtons = Collections.emptyList();
       } else {
+        record PatternRecipe(Pattern pattern, IPartBuilderRecipe recipe) {}
         // fetch all recipes that can match these inputs, the map ensures the patterns are unique
         recipes = level.getRecipeManager().byType(TinkerRecipeTypes.PART_BUILDER.get()).values().stream()
-											 .filter(r -> r instanceof IPartBuilderRecipe)
-											 .map(r -> (IPartBuilderRecipe)r)
-											 .filter(r -> r.partialMatch(inventoryWrapper))
-											 .sorted(Comparator.comparing(Recipe::getId))
-											 .collect(Collectors.toMap(IPartBuilderRecipe::getPattern, Function.identity(), (a, b) -> a));
-        sortedButtons = recipes.values().stream()
-                               .sorted((a, b) -> {
-                                 if (a.getCost() != b.getCost()) {
-                                   return Integer.compare(a.getCost(), b.getCost());
-                                 }
-                                 return a.getPattern().compareTo(b.getPattern());
-                               })
-                               .map(IPartBuilderRecipe::getPattern).collect(Collectors.toList());
+                       .filter(r -> r instanceof IPartBuilderRecipe)
+                       .map(r -> (IPartBuilderRecipe)r)
+                       .filter(r -> r.partialMatch(inventoryWrapper))
+                       .sorted(Comparator.comparing(Recipe::getId))
+                       .flatMap(r -> r.getPatterns(inventoryWrapper).map(p -> new PatternRecipe(p, r)))
+                       .collect(Collectors.toMap(PatternRecipe::pattern, PatternRecipe::recipe, (a, b) -> a));
+        sortedButtons = recipes.entrySet()
+                               .stream()
+                               .sorted(Comparator.<Entry<Pattern,IPartBuilderRecipe>>comparingInt(ent -> ent.getValue().getCost()).thenComparing(Entry::getKey))
+                               .map(Entry::getKey).collect(Collectors.toList());
       }
     }
     return recipes;
@@ -135,12 +133,22 @@ public class PartBuilderBlockEntity extends RetexturedTableBlockEntity implement
     return null;
   }
 
+  /** Gets the first available recipe */
+  @Nullable
+  public IPartBuilderRecipe getFirstRecipe() {
+    List<Pattern> sortedButtons = getSortedButtons();
+    if (sortedButtons.isEmpty()) {
+      return null;
+    }
+    return getCurrentRecipes().get(sortedButtons.get(0));
+  }
+
   /**
    * Gets the material recipe for the material slot
    * @return  Material slot
    */
   @Nullable
-  public MaterialRecipe getMaterialRecipe() {
+  public IMaterialValue getMaterialRecipe() {
     return inventoryWrapper.getMaterial();
   }
 
@@ -222,7 +230,7 @@ public class PartBuilderBlockEntity extends RetexturedTableBlockEntity implement
     if (level != null) {
       IPartBuilderRecipe recipe = getPartRecipe();
       if (recipe != null && recipe.matches(inventoryWrapper, level)) {
-        return recipe.assemble(inventoryWrapper);
+        return recipe.assemble(inventoryWrapper, selectedPattern);
       }
     }
     return ItemStack.EMPTY;
@@ -266,9 +274,11 @@ public class PartBuilderBlockEntity extends RetexturedTableBlockEntity implement
     this.playCraftSound(player);
 
     // give the player any leftovers
-    ItemStack leftover = recipe.getLeftover(inventoryWrapper);
-    if (!leftover.isEmpty()) {
-      ItemHandlerHelper.giveItemToPlayer(player, leftover);
+    if (level != null && !level.isClientSide) {
+      ItemStack leftover = recipe.getLeftover(inventoryWrapper, selectedPattern);
+      if (!leftover.isEmpty()) {
+        ItemHandlerHelper.giveItemToPlayer(player, leftover);
+      }
     }
 
     // shrink the inputs

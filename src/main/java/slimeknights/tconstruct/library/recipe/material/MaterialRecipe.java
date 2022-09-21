@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 /**
  * Recipe to get the material from an ingredient
  */
-public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer> {
+public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer>, IMaterialValue {
   /** Vanilla requires 4 ingots for full repair, we drop it down to 3 to mesh better with nuggets and blocks and to fit small head costs better */
   public static final float INGOTS_PER_REPAIR = 3f;
 
@@ -90,6 +90,11 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer
     return TinkerTables.materialRecipeSerializer.get();
   }
 
+  @Override
+  public ItemStack getLeftover() {
+    return this.leftover.get().copy();
+  }
+
   /* Material methods */
 
   @Override
@@ -117,38 +122,6 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer
       }
     }
     return displayItems;
-  }
-
-  /**
-   * Gets the amount of material present in the inventory as a float for display
-   * @param inv  Inventory reference
-   * @return  Number of material present as a float
-   */
-  public float getMaterialValue(ISingleStackContainer inv) {
-    return inv.getStack().getCount() * this.value / (float)this.needed;
-  }
-
-  /**
-   * Gets the number of items in order to craft a material with the given cost
-   * @param itemCost  Cost of the item being crafted
-   * @return  Number of the input to consume
-   */
-  public int getItemsUsed(int itemCost) {
-    int needed = itemCost * this.needed;
-    int cost = needed / this.value;
-    if (needed % this.value != 0) {
-      cost++;
-    }
-    return cost;
-  }
-
-  /**
-   * Gets the number of leftover material from crafting a part with this material
-   * @param itemCost  Cost of the item being crafted
-   * @return  Number of input to consume
-   */
-  public int getRemainder(int itemCost) {
-    return itemCost * this.needed % this.value;
   }
 
   /**
@@ -182,13 +155,5 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer
       optional = MaterialRegistry.getInstance().getAllStats(materialId).stream().filter(stats -> stats instanceof IRepairableMaterialStats).findFirst();
     }
     return optional.map(stats -> ((IRepairableMaterialStats)stats).getDurability()).orElseGet(() -> toolData.getBaseStat(ToolStats.DURABILITY).intValue());
-  }
-
-  /**
-   * Gets a copy of the leftover stack for this recipe
-   * @return  Leftover stack
-   */
-  public ItemStack getLeftover() {
-    return this.leftover.get().copy();
   }
 }

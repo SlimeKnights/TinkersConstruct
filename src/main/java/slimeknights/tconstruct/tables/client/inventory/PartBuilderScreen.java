@@ -23,7 +23,7 @@ import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
+import slimeknights.tconstruct.library.recipe.material.IMaterialValue;
 import slimeknights.tconstruct.library.recipe.partbuilder.IPartBuilderRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.utils.Util;
@@ -165,16 +165,10 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
       this.recipeIndexOffset = 0;
     }
 
-    // update part recipe cost
-    IPartBuilderRecipe partRecipe = this.tile.getPartRecipe();
-    if (partRecipe != null) {
-      this.infoPanelScreen.setPatternCost(partRecipe.getCost());
-    } else {
-      this.infoPanelScreen.clearPatternCost();
-    }
+    assert this.tile != null;
 
     // update material
-    MaterialRecipe materialRecipe = this.tile.getMaterialRecipe();
+    IMaterialValue materialRecipe = this.tile.getMaterialRecipe();
     if (materialRecipe != null) {
       this.setDisplayForMaterial(materialRecipe);
     } else {
@@ -183,13 +177,36 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
       this.infoPanelScreen.setText(INFO_TEXT);
       this.infoPanelScreen.clearMaterialValue();
     }
+
+    // update part recipe cost
+    IPartBuilderRecipe partRecipe = this.tile.getPartRecipe();
+    boolean skipCost = false;
+    if (partRecipe == null) {
+      partRecipe = this.tile.getFirstRecipe();
+      skipCost = true;
+    }
+    if (partRecipe != null) {
+      int cost = partRecipe.getCost();
+      if (cost > 0 && !skipCost) {
+        this.infoPanelScreen.setPatternCost(cost);
+      } else {
+        this.infoPanelScreen.clearPatternCost();
+      }
+      Component title = partRecipe.getTitle();
+      if (title != null) {
+        this.infoPanelScreen.setCaption(title);
+        this.infoPanelScreen.setText(partRecipe.getText(this.tile.getInventoryWrapper()));
+      }
+    } else {
+      this.infoPanelScreen.clearPatternCost();
+    }
   }
 
   /**
    * Updates the data in the material display
    * @param materialRecipe  New material recipe
    */
-  private void setDisplayForMaterial(MaterialRecipe materialRecipe) {
+  private void setDisplayForMaterial(IMaterialValue materialRecipe) {
     MaterialVariant materialVariant = materialRecipe.getMaterial();
     this.infoPanelScreen.setCaption(MaterialTooltipCache.getColoredDisplayName(materialVariant.getVariant()));
 

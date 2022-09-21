@@ -495,6 +495,11 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
     TooltipUtil.addInformation(this, stack, level, tooltip, SafeClientAccess.getTooltipKey(), flag);
   }
 
+  @Override
+  public int getDefaultTooltipHideFlags(ItemStack stack) {
+    return TooltipUtil.getModifierHideFlags(getToolDefinition());
+  }
+  
 
   /* Display items */
 
