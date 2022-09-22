@@ -15,14 +15,12 @@ import tconstruct.tools.entity.DaggerEntity;
 
 @SideOnly(Side.CLIENT)
 @Deprecated
-public class DaggerRenderCustom extends Render
-{
+public class DaggerRenderCustom extends Render {
     private static RenderItem renderer = new RenderItem();
     private static ToolCoreRenderer toolCoreRenderer = new ToolCoreRenderer(true, true);
     private Random random = new Random();
 
-    public DaggerRenderCustom()
-    {
+    public DaggerRenderCustom() {
         this.shadowSize = 0.15F;
         this.shadowOpaque = 0.75F;
     }
@@ -30,25 +28,33 @@ public class DaggerRenderCustom extends Render
     /**
      * Renders the item
      */
-    public void doRenderItem (DaggerEntity dagger, double par2, double par4, double par6, float par8, float par9)
-    {
+    public void doRenderItem(DaggerEntity dagger, double par2, double par4, double par6, float par8, float par9) {
         random.setSeed(187L);
         ItemStack item = dagger.getEntityItem();
         GL11.glPushMatrix();
         GL11.glTranslatef((float) par2, (float) par4, (float) par6);
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 
-        GL11.glRotatef(dagger.prevRotationYaw + (dagger.rotationYaw - dagger.prevRotationYaw) * par9 - 90.0F, 0.0F, 1.0F, 0.0F);
-        GL11.glRotatef(dagger.prevRotationPitch + (dagger.rotationPitch - dagger.prevRotationPitch) * par9 - 45.0F, 0.0F, 0.0F, 1.0F);
+        GL11.glRotatef(
+                dagger.prevRotationYaw + (dagger.rotationYaw - dagger.prevRotationYaw) * par9 - 90.0F,
+                0.0F,
+                1.0F,
+                0.0F);
+        GL11.glRotatef(
+                dagger.prevRotationPitch + (dagger.rotationPitch - dagger.prevRotationPitch) * par9 - 45.0F,
+                0.0F,
+                0.0F,
+                1.0F);
 
         float rotation = dagger.prevRotationPitch + (dagger.rotationPitch - dagger.prevRotationPitch) * par9;
         GL11.glRotatef(dagger.rotationYaw + 90, 0.0F, 0.0F, 1.0F);
         GL11.glRotatef(rotation * 15, 0.0F, 0.0F, 1.0F);
-        GL11.glTranslatef(-0.25f, -0.25f, 0f); // translate to the middle. This makes it so that the dagger rotates around its center
+        GL11.glTranslatef(
+                -0.25f, -0.25f,
+                0f); // translate to the middle. This makes it so that the dagger rotates around its center
         float shake = dagger.arrowShake - par9;
-        if (shake > 0.0F)
-            GL11.glRotatef(-MathHelper.sin(shake * 3) * shake, 0, 0, 1);
-        //GL11.glTranslatef(-7 / 16f, -8 / 16f, -1 / 32f);
+        if (shake > 0.0F) GL11.glRotatef(-MathHelper.sin(shake * 3) * shake, 0, 0, 1);
+        // GL11.glTranslatef(-7 / 16f, -8 / 16f, -1 / 32f);
         float scale = 1.35f;
         GL11.glScalef(scale, scale, scale);
 
@@ -66,16 +72,24 @@ public class DaggerRenderCustom extends Render
     /**
      * Renders the item's icon or block into the UI at the specified position.
      */
-    public void renderItemIntoGUI (FontRenderer par1FontRenderer, TextureManager par2TextureManager, ItemStack par3ItemStack, int par4, int par5)
-    {
+    public void renderItemIntoGUI(
+            FontRenderer par1FontRenderer,
+            TextureManager par2TextureManager,
+            ItemStack par3ItemStack,
+            int par4,
+            int par5) {
         renderer.renderItemIntoGUI(par1FontRenderer, par2TextureManager, par3ItemStack, par4, par5);
     }
 
     /**
      * Render the item's icon or block into the GUI, including the glint effect.
      */
-    public void renderItemAndEffectIntoGUI (FontRenderer par1FontRenderer, TextureManager par2TextureManager, ItemStack par3ItemStack, int par4, int par5)
-    {
+    public void renderItemAndEffectIntoGUI(
+            FontRenderer par1FontRenderer,
+            TextureManager par2TextureManager,
+            ItemStack par3ItemStack,
+            int par4,
+            int par5) {
         renderer.renderItemIntoGUI(par1FontRenderer, par2TextureManager, par3ItemStack, par4, par5);
     }
 
@@ -83,8 +97,12 @@ public class DaggerRenderCustom extends Render
      * Renders the item's overlay information. Examples being stack count or
      * damage on top of the item's image at the specified position.
      */
-    public void renderItemOverlayIntoGUI (FontRenderer par1FontRenderer, TextureManager par2TextureManager, ItemStack par3ItemStack, int par4, int par5)
-    {
+    public void renderItemOverlayIntoGUI(
+            FontRenderer par1FontRenderer,
+            TextureManager par2TextureManager,
+            ItemStack par3ItemStack,
+            int par4,
+            int par5) {
         renderer.renderItemOverlayIntoGUI(par1FontRenderer, par2TextureManager, par3ItemStack, par4, par5);
     }
 
@@ -97,19 +115,17 @@ public class DaggerRenderCustom extends Render
      * f1). But JAD is pre 1.5 so doesn't do that.
      */
     @Override
-    public void doRender (Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
-    {
+    public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9) {
         this.doRenderItem((DaggerEntity) par1Entity, par2, par4, par6, par8, par9);
     }
 
     @Override
-    protected ResourceLocation getEntityTexture (Entity par1Entity)
-    {
+    protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return this.func_110796_a((DaggerEntity) par1Entity);
     }
 
-    protected ResourceLocation func_110796_a (DaggerEntity par1ArrowEntity)
-    {
-        return this.renderManager.renderEngine.getResourceLocation(par1ArrowEntity.getEntityItem().getItemSpriteNumber());
+    protected ResourceLocation func_110796_a(DaggerEntity par1ArrowEntity) {
+        return this.renderManager.renderEngine.getResourceLocation(
+                par1ArrowEntity.getEntityItem().getItemSpriteNumber());
     }
 }

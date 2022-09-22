@@ -3,8 +3,7 @@ package tconstruct.mechworks.model;
 import net.minecraft.client.model.*;
 import net.minecraft.entity.Entity;
 
-public class ModelWagon extends ModelBase
-{
+public class ModelWagon extends ModelBase {
     ModelRenderer Bottom;
     ModelRenderer Left;
     ModelRenderer Right;
@@ -58,8 +57,7 @@ public class ModelWagon extends ModelBase
     ModelRenderer StandLeft;
     ModelRenderer StandRight;
 
-    public ModelWagon()
-    {
+    public ModelWagon() {
         this.textureWidth = 128;
         this.textureHeight = 64;
         this.Bottom = new ModelRenderer(this, 26, 46);
@@ -380,11 +378,74 @@ public class ModelWagon extends ModelBase
      * Sets the models various rotation angles then renders the model.
      */
     @Override
-    public void render (Entity var1, float var2, float var3, float var4, float var5, float var6, float var7)
-    {
+    public void render(Entity var1, float var2, float var3, float var4, float var5, float var6, float var7) {
         super.render(var1, var2, var3, var4, var5, var6, var7);
         this.setRotationAngles(var2, var3, var4, var5, var6, var7, var1);
-        this.LeftWheelAxle.rotateAngleZ = this.LeftWCenterHbeam.rotateAngleZ = this.LeftWCenterVtop.rotateAngleZ = this.LeftWCenterVbottom.rotateAngleZ = this.LeftWnwH.rotateAngleZ = this.LeftWnwM.rotateAngleZ = this.LeftWnwV.rotateAngleZ = this.LeftWnwEye.rotateAngleZ = this.LeftWneH.rotateAngleZ = this.LeftWneM.rotateAngleZ = this.LeftWneV.rotateAngleZ = this.LeftWneEye.rotateAngleZ = this.LeftWswH.rotateAngleZ = this.LeftWswM.rotateAngleZ = this.LeftWswV.rotateAngleZ = this.LeftWswEye.rotateAngleZ = this.LeftWseH.rotateAngleZ = this.LeftWseM.rotateAngleZ = this.LeftWseV.rotateAngleZ = this.LeftWseEye.rotateAngleZ = this.RightWheelAxle.rotateAngleZ = this.RightWCenterHbeam.rotateAngleZ = this.RightWCenterVtop.rotateAngleZ = this.RightWCenterVbottom.rotateAngleZ = this.RightWnwH.rotateAngleZ = this.RightWnwM.rotateAngleZ = this.RightWnwV.rotateAngleZ = this.RightWnwEye.rotateAngleZ = this.RoghtWneH.rotateAngleZ = this.RightWneM.rotateAngleZ = this.RightWneV.rotateAngleZ = this.RightWneEye.rotateAngleZ = this.RightWswH.rotateAngleZ = this.RightWswM.rotateAngleZ = this.RightWswV.rotateAngleZ = this.RightWswEye.rotateAngleZ = this.RightWseH.rotateAngleZ = this.RightWseM.rotateAngleZ = this.RightWseV.rotateAngleZ = this.RightWseEye.rotateAngleZ;
+        this.LeftWheelAxle.rotateAngleZ = this.LeftWCenterHbeam.rotateAngleZ = this.LeftWCenterVtop.rotateAngleZ =
+                this.LeftWCenterVbottom.rotateAngleZ = this.LeftWnwH.rotateAngleZ = this.LeftWnwM.rotateAngleZ =
+                        this.LeftWnwV.rotateAngleZ = this.LeftWnwEye.rotateAngleZ = this.LeftWneH.rotateAngleZ =
+                                this.LeftWneM.rotateAngleZ = this.LeftWneV.rotateAngleZ = this.LeftWneEye.rotateAngleZ =
+                                        this.LeftWswH.rotateAngleZ = this.LeftWswM.rotateAngleZ =
+                                                this.LeftWswV.rotateAngleZ = this.LeftWswEye.rotateAngleZ =
+                                                        this.LeftWseH.rotateAngleZ = this.LeftWseM.rotateAngleZ =
+                                                                this.LeftWseV.rotateAngleZ =
+                                                                        this.LeftWseEye.rotateAngleZ =
+                                                                                this.RightWheelAxle.rotateAngleZ =
+                                                                                        this.RightWCenterHbeam
+                                                                                                        .rotateAngleZ =
+                                                                                                this.RightWCenterVtop
+                                                                                                                .rotateAngleZ =
+                                                                                                        this
+                                                                                                                        .RightWCenterVbottom
+                                                                                                                        .rotateAngleZ =
+                                                                                                                this
+                                                                                                                                .RightWnwH
+                                                                                                                                .rotateAngleZ =
+                                                                                                                        this
+                                                                                                                                        .RightWnwM
+                                                                                                                                        .rotateAngleZ =
+                                                                                                                                this
+                                                                                                                                                .RightWnwV
+                                                                                                                                                .rotateAngleZ =
+                                                                                                                                        this
+                                                                                                                                                        .RightWnwEye
+                                                                                                                                                        .rotateAngleZ =
+                                                                                                                                                this
+                                                                                                                                                                .RoghtWneH
+                                                                                                                                                                .rotateAngleZ =
+                                                                                                                                                        this
+                                                                                                                                                                        .RightWneM
+                                                                                                                                                                        .rotateAngleZ =
+                                                                                                                                                                this
+                                                                                                                                                                                .RightWneV
+                                                                                                                                                                                .rotateAngleZ =
+                                                                                                                                                                        this
+                                                                                                                                                                                        .RightWneEye
+                                                                                                                                                                                        .rotateAngleZ =
+                                                                                                                                                                                this
+                                                                                                                                                                                                .RightWswH
+                                                                                                                                                                                                .rotateAngleZ =
+                                                                                                                                                                                        this
+                                                                                                                                                                                                        .RightWswM
+                                                                                                                                                                                                        .rotateAngleZ =
+                                                                                                                                                                                                this
+                                                                                                                                                                                                                .RightWswV
+                                                                                                                                                                                                                .rotateAngleZ =
+                                                                                                                                                                                                        this
+                                                                                                                                                                                                                        .RightWswEye
+                                                                                                                                                                                                                        .rotateAngleZ =
+                                                                                                                                                                                                                this
+                                                                                                                                                                                                                                .RightWseH
+                                                                                                                                                                                                                                .rotateAngleZ =
+                                                                                                                                                                                                                        this
+                                                                                                                                                                                                                                        .RightWseM
+                                                                                                                                                                                                                                        .rotateAngleZ =
+                                                                                                                                                                                                                                this
+                                                                                                                                                                                                                                                .RightWseV
+                                                                                                                                                                                                                                                .rotateAngleZ =
+                                                                                                                                                                                                                                        this
+                                                                                                                                                                                                                                                .RightWseEye
+                                                                                                                                                                                                                                                .rotateAngleZ;
         this.Bottom.render(var7);
         this.Left.render(var7);
         this.Right.render(var7);
@@ -439,8 +500,7 @@ public class ModelWagon extends ModelBase
         this.StandRight.render(var7);
     }
 
-    private void setRotation (ModelRenderer var1, float var2, float var3, float var4)
-    {
+    private void setRotation(ModelRenderer var1, float var2, float var3, float var4) {
         var1.rotateAngleX = var2;
         var1.rotateAngleY = var3;
         var1.rotateAngleZ = var4;
@@ -450,8 +510,8 @@ public class ModelWagon extends ModelBase
      * Sets the models various rotation angles.
      */
     @Override
-    public void setRotationAngles (float var1, float var2, float var3, float var4, float var5, float var6, Entity par7Entity)
-    {
+    public void setRotationAngles(
+            float var1, float var2, float var3, float var4, float var5, float var6, Entity par7Entity) {
         super.setRotationAngles(var1, var2, var3, var4, var5, var6, par7Entity);
     }
 }

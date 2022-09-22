@@ -10,19 +10,14 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-public class HamboneItemBlock extends ItemBlock
-{
-    public HamboneItemBlock(Block b)
-    {
+public class HamboneItemBlock extends ItemBlock {
+    public HamboneItemBlock(Block b) {
         super(b);
         itemUseDuration = 32;
-        if (Loader.isModLoaded("HungerOverhaul"))
-        {
+        if (Loader.isModLoaded("HungerOverhaul")) {
             healAmount = 8;
             saturationModifier = 0.8f;
-        }
-        else
-        {
+        } else {
             healAmount = 20;
             saturationModifier = 3.0f;
         }
@@ -31,8 +26,7 @@ public class HamboneItemBlock extends ItemBlock
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
-    {
+    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
         list.add("\u00A74" + StatCollector.translateToLocal("hambone1.tooltip"));
         list.add(StatCollector.translateToLocal("hambone2.tooltip"));
     }
@@ -42,6 +36,7 @@ public class HamboneItemBlock extends ItemBlock
 
     /** The amount this food item heals the player. */
     private final int healAmount;
+
     private final float saturationModifier;
 
     /** Whether wolves like this food (true for raw and cooked porkchop). */
@@ -73,14 +68,13 @@ public class HamboneItemBlock extends ItemBlock
      * super(par1); this.itemUseDuration = 32; this.healAmount = par2;
      * this.isWolfsFavoriteMeat = par4; this.saturationModifier = par3;
      * this.setCreativeTab(CreativeTabs.tabFood); }
-     * 
+     *
      * public ItemFood(int par1, int par2, boolean par3) { this(par1, par2,
      * 0.6F, par3); }
      */
 
     @Override
-    public ItemStack onEaten (ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
-    {
+    public ItemStack onEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
         --par1ItemStack.stackSize;
         par3EntityPlayer.getFoodStats().addStats(getHealAmount(), getSaturationModifier());
         par2World.playSoundAtEntity(par3EntityPlayer, "random.burp", 0.5F, par2World.rand.nextFloat() * 0.1F + 0.9F);
@@ -88,11 +82,10 @@ public class HamboneItemBlock extends ItemBlock
         return par1ItemStack;
     }
 
-    protected void onFoodEaten (ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
-    {
-        if (!par2World.isRemote && this.potionId > 0 && par2World.rand.nextFloat() < this.potionEffectProbability)
-        {
-            par3EntityPlayer.addPotionEffect(new PotionEffect(this.potionId, this.potionDuration * 20, this.potionAmplifier));
+    protected void onFoodEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+        if (!par2World.isRemote && this.potionId > 0 && par2World.rand.nextFloat() < this.potionEffectProbability) {
+            par3EntityPlayer.addPotionEffect(
+                    new PotionEffect(this.potionId, this.potionDuration * 20, this.potionAmplifier));
         }
     }
 
@@ -100,8 +93,7 @@ public class HamboneItemBlock extends ItemBlock
      * How long it takes to use or consume an item
      */
     @Override
-    public int getMaxItemUseDuration (ItemStack par1ItemStack)
-    {
+    public int getMaxItemUseDuration(ItemStack par1ItemStack) {
         return 32;
     }
 
@@ -110,8 +102,7 @@ public class HamboneItemBlock extends ItemBlock
      * is being used
      */
     @Override
-    public EnumAction getItemUseAction (ItemStack par1ItemStack)
-    {
+    public EnumAction getItemUseAction(ItemStack par1ItemStack) {
         return EnumAction.eat;
     }
 
@@ -120,34 +111,29 @@ public class HamboneItemBlock extends ItemBlock
      * pressed. Args: itemStack, world, entityPlayer
      */
     @Override
-    public ItemStack onItemRightClick (ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
-    {
-        if (par3EntityPlayer.canEat(this.alwaysEdible))
-        {
+    public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
+        if (par3EntityPlayer.canEat(this.alwaysEdible)) {
             par3EntityPlayer.setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack));
         }
 
         return par1ItemStack;
     }
 
-    public int getHealAmount ()
-    {
+    public int getHealAmount() {
         return this.healAmount;
     }
 
     /**
      * gets the saturationModifier of the ItemFood
      */
-    public float getSaturationModifier ()
-    {
+    public float getSaturationModifier() {
         return this.saturationModifier;
     }
 
     /**
      * Whether wolves like this food (true for raw and cooked porkchop).
      */
-    public boolean isWolfsFavoriteMeat ()
-    {
+    public boolean isWolfsFavoriteMeat() {
         return this.isWolfsFavoriteMeat;
     }
 }

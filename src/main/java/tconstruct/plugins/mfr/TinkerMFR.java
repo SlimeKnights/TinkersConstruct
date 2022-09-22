@@ -6,13 +6,16 @@ import mantle.pulsar.pulse.*;
 import tconstruct.TConstruct;
 
 @ObjectHolder(TConstruct.modID)
-@Pulse(id = "Tinkers MFR Compatibility", description = "Tinkers Construct compatibility for MineFactory Reloaded", modsRequired = "MineFactoryReloaded", forced = true)
-public class TinkerMFR
-{
+@Pulse(
+        id = "Tinkers MFR Compatibility",
+        description = "Tinkers Construct compatibility for MineFactory Reloaded",
+        modsRequired = "MineFactoryReloaded",
+        forced = true)
+public class TinkerMFR {
     @Handler
-    public void init (FMLInitializationEvent event)
-    {
-        TConstruct.logger.info("MineFactoryReloaded detected. Registering TConstruct farmables/grindables with MFR's Farming Registry.");
+    public void init(FMLInitializationEvent event) {
+        TConstruct.logger.info(
+                "MineFactoryReloaded detected. Registering TConstruct farmables/grindables with MFR's Farming Registry.");
         MFRRegister.registerWithMFR();
         /*
          * Perhaps TC ores should be registered as drops from the MFR Laser Drill here, but I don't know which things would be suitable for that.

@@ -7,23 +7,19 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
 
-public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
-{
+public class LavaTankLogic extends MultiServantLogic implements IFluidHandler {
     public FluidTank tank;
     public int renderOffset;
-    public final static int tankCapacity = FluidContainerRegistry.BUCKET_VOLUME * 4;
+    public static final int tankCapacity = FluidContainerRegistry.BUCKET_VOLUME * 4;
 
-    public LavaTankLogic()
-    {
+    public LavaTankLogic() {
         tank = new FluidTank(tankCapacity);
     }
 
     @Override
-    public int fill (ForgeDirection from, FluidStack resource, boolean doFill)
-    {
+    public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
         int amount = tank.fill(resource, doFill);
-        if (amount > 0 && doFill)
-        {
+        if (amount > 0 && doFill) {
             renderOffset += resource.amount;
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, this.getBlockType());
@@ -33,11 +29,9 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
     }
 
     @Override
-    public FluidStack drain (ForgeDirection from, int maxDrain, boolean doDrain)
-    {
+    public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
         FluidStack amount = tank.drain(maxDrain, doDrain);
-        if (amount != null && doDrain)
-        {
+        if (amount != null && doDrain) {
             renderOffset = -maxDrain;
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             worldObj.notifyBlocksOfNeighborChange(xCoord, yCoord, zCoord, this.getBlockType());
@@ -46,36 +40,30 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
     }
 
     @Override
-    public FluidStack drain (ForgeDirection from, FluidStack resource, boolean doDrain)
-    {
-        if (tank.getFluidAmount() == 0)
-            return null;
-        if (tank.getFluid().getFluid() != resource.getFluid())
-            return null;
+    public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
+        if (tank.getFluidAmount() == 0) return null;
+        if (tank.getFluid().getFluid() != resource.getFluid()) return null;
 
         // same fluid, k
         return this.drain(from, resource.amount, doDrain);
     }
 
     @Override
-    public boolean canFill (ForgeDirection from, Fluid fluid)
-    {
-        return tank.getFluidAmount() == 0 || (tank.getFluid().getFluid() == fluid && tank.getFluidAmount() < tank.getCapacity());
+    public boolean canFill(ForgeDirection from, Fluid fluid) {
+        return tank.getFluidAmount() == 0
+                || (tank.getFluid().getFluid() == fluid && tank.getFluidAmount() < tank.getCapacity());
     }
 
     @Override
-    public boolean canDrain (ForgeDirection from, Fluid fluid)
-    {
+    public boolean canDrain(ForgeDirection from, Fluid fluid) {
         return tank.getFluidAmount() > 0;
     }
 
     @Override
-    public FluidTankInfo[] getTankInfo (ForgeDirection from)
-    {
+    public FluidTankInfo[] getTankInfo(ForgeDirection from) {
         FluidStack fluid = null;
-        if (tank.getFluid() != null)
-            fluid = tank.getFluid().copy();
-        return new FluidTankInfo[] { new FluidTankInfo(fluid, tank.getCapacity()) };
+        if (tank.getFluid() != null) fluid = tank.getFluid().copy();
+        return new FluidTankInfo[] {new FluidTankInfo(fluid, tank.getCapacity())};
     }
 
     /*
@@ -86,68 +74,52 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
      * type) { return tank; }
      */
 
-    public float getFluidAmountScaled ()
-    {
+    public float getFluidAmountScaled() {
         return (float) (tank.getFluid().amount - renderOffset) / (float) (tank.getCapacity() * 1.01F);
     }
 
-    public boolean containsFluid ()
-    {
+    public boolean containsFluid() {
         return tank.getFluid() != null;
     }
 
-    public int getBrightness ()
-    {
-        if (containsFluid())
-        {
+    public int getBrightness() {
+        if (containsFluid()) {
             return (tank.getFluid().getFluid().getLuminosity() * tank.getFluidAmount()) / tank.getCapacity();
         }
         return 0;
     }
 
     @Override
-    public void readFromNBT (NBTTagCompound tags)
-    {
+    public void readFromNBT(NBTTagCompound tags) {
         super.readFromNBT(tags);
         readCustomNBT(tags);
     }
 
     @Override
-    public void writeToNBT (NBTTagCompound tags)
-    {
+    public void writeToNBT(NBTTagCompound tags) {
         super.writeToNBT(tags);
         writeCustomNBT(tags);
     }
 
     @Override
-    public void readCustomNBT (NBTTagCompound tags)
-    {
-        if (tags.getBoolean("hasFluid"))
-        {
+    public void readCustomNBT(NBTTagCompound tags) {
+        if (tags.getBoolean("hasFluid")) {
             // TODO: Removed in future Versions, backward compat.
-            if (tags.getInteger("itemID") != 0)
-            {
+            if (tags.getInteger("itemID") != 0) {
                 tank.setFluid(new FluidStack(tags.getInteger("itemID"), tags.getInteger("amount")));
-            }
-            else
-            {
+            } else {
                 tank.setFluid(FluidRegistry.getFluidStack(tags.getString("fluidName"), tags.getInteger("amount")));
             }
-        }
-        else
-            tank.setFluid(null);
+        } else tank.setFluid(null);
 
-        if(tags.hasKey("renderOffset"))
-            renderOffset = tags.getInteger("renderOffset");
+        if (tags.hasKey("renderOffset")) renderOffset = tags.getInteger("renderOffset");
     }
 
     @Override
-    public void writeCustomNBT (NBTTagCompound tags)
-    {
+    public void writeCustomNBT(NBTTagCompound tags) {
         FluidStack liquid = tank.getFluid();
         tags.setBoolean("hasFluid", liquid != null);
-        if (liquid != null)
-        {
+        if (liquid != null) {
             tags.setString("fluidName", liquid.getFluid().getName());
             tags.setInteger("amount", liquid.amount);
         }
@@ -156,42 +128,35 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
 
     /* Packets */
     @Override
-    public Packet getDescriptionPacket ()
-    {
+    public Packet getDescriptionPacket() {
         NBTTagCompound tag = new NBTTagCompound();
         writeCustomNBT(tag);
         return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag);
     }
 
     @Override
-    public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
-    {
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
         readCustomNBT(packet.func_148857_g());
         worldObj.func_147479_m(xCoord, yCoord, zCoord);
     }
 
     /* Updating */
     @Override
-    public boolean canUpdate ()
-    {
+    public boolean canUpdate() {
         return true;
     }
 
     @Override
-    public void updateEntity ()
-    {
-        if (renderOffset != 0)
-        {
-            renderOffset -= renderOffset/12 + 1; // has to be at least 1
+    public void updateEntity() {
+        if (renderOffset != 0) {
+            renderOffset -= renderOffset / 12 + 1; // has to be at least 1
 
-            if(renderOffset < 0)
-                renderOffset = 0;
+            if (renderOffset < 0) renderOffset = 0;
             worldObj.func_147479_m(xCoord, yCoord, zCoord);
         }
     }
 
-    public int comparatorStrength ()
-    {
+    public int comparatorStrength() {
         return 15 * tank.getFluidAmount() / tank.getCapacity();
     }
 }

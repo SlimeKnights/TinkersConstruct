@@ -19,37 +19,29 @@ import tconstruct.tools.TinkerTools;
     @Optional.Interface(modid = "ZeldaItemAPI", iface = "zeldaswordskills.api.item.ISword"),
     @Optional.Interface(modid = "DynamicSkillsAPI", iface = "dynamicswordskills.api.ISword")
 })
-public abstract class Weapon extends ToolCore implements IBattlegearWeapon, zeldaswordskills.api.item.ISword, dynamicswordskills.api.ISword
-{
+public abstract class Weapon extends ToolCore
+        implements IBattlegearWeapon, zeldaswordskills.api.item.ISword, dynamicswordskills.api.ISword {
 
-    public Weapon(int baseDamage)
-    {
+    public Weapon(int baseDamage) {
         super(baseDamage);
     }
 
-    protected float baseSpeed ()
-    {
+    protected float baseSpeed() {
         return 1.5f;
     }
 
-    protected float effectiveSpeed ()
-    {
+    protected float effectiveSpeed() {
         return 15f;
     }
 
     @Override
-    public float getDigSpeed (ItemStack stack, Block block, int meta)
-    {
-        if(!stack.hasTagCompound())
-            return 0f;
-        
-        if (stack.getTagCompound().getCompoundTag("InfiTool").getBoolean("Broken"))
-            return 0.1f;
+    public float getDigSpeed(ItemStack stack, Block block, int meta) {
+        if (!stack.hasTagCompound()) return 0f;
 
-        for (int i = 0; i < web.length; i++)
-        {
-            if (web[i] == block.getMaterial())
-            {
+        if (stack.getTagCompound().getCompoundTag("InfiTool").getBoolean("Broken")) return 0.1f;
+
+        for (int i = 0; i < web.length; i++) {
+            if (web[i] == block.getMaterial()) {
                 return effectiveSpeed();
             }
         }
@@ -61,8 +53,7 @@ public abstract class Weapon extends ToolCore implements IBattlegearWeapon, zeld
      * is being used
      */
     @Override
-    public EnumAction getItemUseAction (ItemStack par1ItemStack)
-    {
+    public EnumAction getItemUseAction(ItemStack par1ItemStack) {
         return EnumAction.block;
     }
 
@@ -70,8 +61,7 @@ public abstract class Weapon extends ToolCore implements IBattlegearWeapon, zeld
      * How long it takes to use or consume an item
      */
     @Override
-    public int getMaxItemUseDuration (ItemStack par1ItemStack)
-    {
+    public int getMaxItemUseDuration(ItemStack par1ItemStack) {
         return 72000;
     }
 
@@ -80,15 +70,23 @@ public abstract class Weapon extends ToolCore implements IBattlegearWeapon, zeld
      * pressed. Args: itemStack, world, entityPlayer
      */
     @Override
-    public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
-    {
+    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
         player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
         return stack;
     }
 
     @Override
-    public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ)
-    {
+    public boolean onItemUse(
+            ItemStack stack,
+            EntityPlayer player,
+            World world,
+            int x,
+            int y,
+            int z,
+            int side,
+            float clickX,
+            float clickY,
+            float clickZ) {
         return false;
     }
 
@@ -96,32 +94,25 @@ public abstract class Weapon extends ToolCore implements IBattlegearWeapon, zeld
      * Returns if the item (tool) can harvest results from the block type.
      */
     @Override
-    public boolean canHarvestBlock (Block block, ItemStack is)
-    {
-        for (int i = 0; i < web.length; i++)
-        {
-            if (block.getMaterial() == web[i])
-                return true;
+    public boolean canHarvestBlock(Block block, ItemStack is) {
+        for (int i = 0; i < web.length; i++) {
+            if (block.getMaterial() == web[i]) return true;
         }
         return super.canHarvestBlock(block, is);
     }
 
-    protected Material[] getEffectiveMaterials ()
-    {
+    protected Material[] getEffectiveMaterials() {
         return web;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void onUpdate (ItemStack stack, World world, Entity entity, int par4, boolean par5)
-    {
+    public void onUpdate(ItemStack stack, World world, Entity entity, int par4, boolean par5) {
         super.onUpdate(stack, world, entity, par4, par5);
-        if (entity instanceof EntityPlayerSP)
-        {
+        if (entity instanceof EntityPlayerSP) {
             EntityPlayerSP player = (EntityPlayerSP) entity;
             ItemStack usingItem = player.getItemInUse();
-            if (usingItem != null && usingItem.getItem() == this)
-            {
+            if (usingItem != null && usingItem.getItem() == this) {
                 player.movementInput.moveForward *= 2.5F;
                 player.movementInput.moveStrafe *= 2.5F;
             }
@@ -129,21 +120,18 @@ public abstract class Weapon extends ToolCore implements IBattlegearWeapon, zeld
     }
 
     @Override
-    public String[] getTraits ()
-    {
-        return new String[] { "weapon", "melee" };
+    public String[] getTraits() {
+        return new String[] {"weapon", "melee"};
     }
 
-    public static Material[] web = new Material[] { Material.web, Material.cloth, Material.coral, Material.cake };
+    public static Material[] web = new Material[] {Material.web, Material.cloth, Material.coral, Material.cake};
     public static Material[] none = new Material[0];
-
 
     /*---- Battlegear Support START ----*/
 
     @Override
     @Optional.Method(modid = "battlegear2")
-    public boolean sheatheOnBack(ItemStack item)
-    {
+    public boolean sheatheOnBack(ItemStack item) {
         return true;
     }
 
@@ -155,7 +143,8 @@ public abstract class Weapon extends ToolCore implements IBattlegearWeapon, zeld
 
     @Override
     @Optional.Method(modid = "battlegear2")
-    public boolean offhandAttackEntity(PlayerEventChild.OffhandAttackEvent event, ItemStack mainhandItem, ItemStack offhandItem) {
+    public boolean offhandAttackEntity(
+            PlayerEventChild.OffhandAttackEvent event, ItemStack mainhandItem, ItemStack offhandItem) {
         return true;
     }
 
@@ -180,10 +169,11 @@ public abstract class Weapon extends ToolCore implements IBattlegearWeapon, zeld
     @Override
     @Optional.Method(modid = "battlegear2")
     public boolean allowOffhand(ItemStack mainhand, ItemStack offhand) {
-        if(offhand == null)
-            return true;
+        if (offhand == null) return true;
 
-        return (mainhand != null && mainhand.getItem() != TinkerTools.cleaver && mainhand.getItem() != TinkerTools.battleaxe)
+        return (mainhand != null
+                        && mainhand.getItem() != TinkerTools.cleaver
+                        && mainhand.getItem() != TinkerTools.battleaxe)
                 && (offhand.getItem() != TinkerTools.cleaver && offhand.getItem() != TinkerTools.battleaxe);
     }
 

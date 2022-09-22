@@ -3,16 +3,15 @@ package tconstruct.plugins.nei;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.api.IStackPositioner;
 import codechicken.nei.recipe.GuiRecipe;
+import java.util.ArrayList;
 import net.minecraft.client.Minecraft;
 import tconstruct.TConstruct;
 import tconstruct.tools.gui.CraftingStationGui;
 
-import java.util.ArrayList;
-
 public class CraftingStationStackPositioner implements IStackPositioner {
 
     @Override
-    public ArrayList<PositionedStack> positionStacks (ArrayList<PositionedStack> stacks) {
+    public ArrayList<PositionedStack> positionStacks(ArrayList<PositionedStack> stacks) {
 
         if (Minecraft.getMinecraft().currentScreen instanceof GuiRecipe) {
             GuiRecipe recipeGui = (GuiRecipe) Minecraft.getMinecraft().currentScreen;
@@ -35,5 +34,4 @@ public class CraftingStationStackPositioner implements IStackPositioner {
 
         return stacks;
     }
-
 }

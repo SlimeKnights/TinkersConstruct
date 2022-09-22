@@ -6,10 +6,8 @@ import tconstruct.TConstruct;
 import tconstruct.smeltery.blocks.*;
 import tconstruct.smeltery.logic.*;
 
-public class WailaRegistrar
-{
-    public static void wailaCallback (IWailaRegistrar registrar)
-    {
+public class WailaRegistrar {
+    public static void wailaCallback(IWailaRegistrar registrar) {
         TConstruct.logger.info("[Waila-Compat] Got registrar: " + registrar);
 
         // Configs
@@ -22,7 +20,7 @@ public class WailaRegistrar
         // Tanks
         registrar.registerBodyProvider(new SearedTankDataProvider(), LavaTankBlock.class);
         registrar.registerBodyProvider(new CastingChannelDataProvider(), CastingChannelLogic.class);
-        //registrar.registerBodyProvider(new EssenceExtractorDataProvider(), EssenceExtractor.class);
+        // registrar.registerBodyProvider(new EssenceExtractorDataProvider(), EssenceExtractor.class);
 
         // Casting systems
         registrar.registerBodyProvider(new BasinDataProvider(), CastingBasinLogic.class);
@@ -32,9 +30,7 @@ public class WailaRegistrar
         registrar.registerBodyProvider(new SmelteryDataProvider(), SmelteryBlock.class);
     }
 
-    public static String fluidNameHelper (FluidStack f)
-    {
+    public static String fluidNameHelper(FluidStack f) {
         return f.getFluid().getLocalizedName();
     }
-
 }

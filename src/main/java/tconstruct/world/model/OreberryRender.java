@@ -6,29 +6,22 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.world.IBlockAccess;
 import tconstruct.util.ItemHelper;
 
-public class OreberryRender implements ISimpleBlockRenderingHandler
-{
+public class OreberryRender implements ISimpleBlockRenderingHandler {
     public static int model = RenderingRegistry.getNextAvailableRenderId();
 
     @Override
-    public boolean renderWorldBlock (IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer)
-    {
+    public boolean renderWorldBlock(
+            IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
 
-        if (modelId == model)
-        {
+        if (modelId == model) {
             int md = world.getBlockMetadata(x, y, z);
-            if (md < 4)
-            {
+            if (md < 4) {
                 renderer.setRenderBounds(0.25F, 0.0F, 0.25F, 0.75F, 0.5F, 0.75F);
                 renderer.renderStandardBlock(block, x, y, z);
-            }
-            else if (md < 8)
-            {
+            } else if (md < 8) {
                 renderer.setRenderBounds(0.125F, 0.0F, 0.125F, 0.875F, 0.75F, 0.875F);
                 renderer.renderStandardBlock(block, x, y, z);
-            }
-            else
-            {
+            } else {
                 renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
                 renderer.renderStandardBlock(block, x, y, z);
             }
@@ -38,24 +31,20 @@ public class OreberryRender implements ISimpleBlockRenderingHandler
     }
 
     @Override
-    public void renderInventoryBlock (Block block, int metadata, int modelID, RenderBlocks renderer)
-    {
-        if (modelID == model)
-        {
+    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
+        if (modelID == model) {
             renderer.setRenderBounds(0.125F, 0.0F, 0.125F, 0.875F, 0.75F, 0.875F);
             ItemHelper.renderStandardInvBlock(renderer, block, metadata);
         }
     }
 
     @Override
-    public boolean shouldRender3DInInventory (int modelID)
-    {
+    public boolean shouldRender3DInInventory(int modelID) {
         return true;
     }
 
     @Override
-    public int getRenderId ()
-    {
+    public int getRenderId() {
         return model;
     }
 }

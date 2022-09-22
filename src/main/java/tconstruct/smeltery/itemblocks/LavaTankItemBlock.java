@@ -1,5 +1,6 @@
 package tconstruct.smeltery.itemblocks;
 
+import java.util.List;
 import mantle.blocks.abstracts.MultiItemBlock;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,33 +11,25 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidContainerItem;
 import tconstruct.smeltery.logic.LavaTankLogic;
 
-import java.util.List;
+public class LavaTankItemBlock extends MultiItemBlock implements IFluidContainerItem {
+    public static final String blockTypes[] = {"Tank", "Gague", "Window"};
 
-public class LavaTankItemBlock extends MultiItemBlock implements IFluidContainerItem
-{
-    public static final String blockTypes[] = { "Tank", "Gague", "Window" };
-
-    public LavaTankItemBlock(Block b)
-    {
+    public LavaTankItemBlock(Block b) {
         super(b, "LavaTank", blockTypes);
         setMaxDamage(0);
         setHasSubtypes(true);
     }
 
     @Override
-    public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
-    {
-        if (stack.hasTagCompound())
-        {
+    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
+        if (stack.hasTagCompound()) {
             NBTTagCompound liquidTag = stack.getTagCompound().getCompoundTag("Fluid");
-            if (liquidTag != null)
-            {
-                list.add(StatCollector.translateToLocal("searedtank1.tooltip") + " " + StatCollector.translateToLocal(liquidTag.getString("FluidName")));
+            if (liquidTag != null) {
+                list.add(StatCollector.translateToLocal("searedtank1.tooltip") + " "
+                        + StatCollector.translateToLocal(liquidTag.getString("FluidName")));
                 list.add(liquidTag.getInteger("Amount") + " mB");
             }
-        }
-        else
-        {
+        } else {
             list.add(StatCollector.translateToLocal("searedtank3.tooltip"));
             list.add(StatCollector.translateToLocal("searedtank2.tooltip"));
         }
@@ -78,7 +71,6 @@ public class LavaTankItemBlock extends MultiItemBlock implements IFluidContainer
         if (nbt.hasNoTags()) nbt = null;
         container.setTagCompound(nbt);
     }
-
 
     /**
      * @param container

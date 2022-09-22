@@ -6,6 +6,6 @@ package exterminatorJeff.undergroundBiomes.api;
  */
 public class UBAPIHook {
     public static final UBAPIHook ubAPIHook = new UBAPIHook();
-    //public UBDimensionalStrataColumnProvider dimensionalStrataColumnProvider; // set in the main Underground Biomes
+    // public UBDimensionalStrataColumnProvider dimensionalStrataColumnProvider; // set in the main Underground Biomes
     public UBOreTexturizer ubOreTexturizer;
 }

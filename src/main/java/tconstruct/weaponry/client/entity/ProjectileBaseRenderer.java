@@ -1,7 +1,5 @@
 package tconstruct.weaponry.client.entity;
 
-import tconstruct.client.FlexibleToolRenderer;
-import tconstruct.library.entity.ProjectileBase;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
@@ -10,14 +8,22 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+import tconstruct.client.FlexibleToolRenderer;
+import tconstruct.library.entity.ProjectileBase;
 
 public class ProjectileBaseRenderer<T extends ProjectileBase> extends Render {
     protected static FlexibleToolRenderer toolCoreRenderer = new FlexibleToolRenderer();
 
     @SuppressWarnings("unchecked")
     @Override
-    public void doRender(Entity p_76986_1_, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_) {
-        doRender((T)p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
+    public void doRender(
+            Entity p_76986_1_,
+            double p_76986_2_,
+            double p_76986_4_,
+            double p_76986_6_,
+            float p_76986_8_,
+            float p_76986_9_) {
+        doRender((T) p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
     }
 
     public void doRender(T entity, double x, double y, double z, float p_76986_8_, float p_76986_9_) {
@@ -27,7 +33,7 @@ public class ProjectileBaseRenderer<T extends ProjectileBase> extends Render {
         // So remember to read this from the rendering call up to this line
 
         // can be overwritten in customRendering
-        toolCoreRenderer.setDepth(1/32f);
+        toolCoreRenderer.setDepth(1 / 32f);
 
         GL11.glPushMatrix();
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
@@ -40,15 +46,13 @@ public class ProjectileBaseRenderer<T extends ProjectileBase> extends Render {
         customRendering(entity, x, y, z, p_76986_8_, p_76986_9_);
 
         // arrow shake
-        float f11 = (float)entity.arrowShake - p_76986_9_;
-        if (f11 > 0.0F)
-        {
+        float f11 = (float) entity.arrowShake - p_76986_9_;
+        if (f11 > 0.0F) {
             float f12 = -MathHelper.sin(f11 * 3.0F) * f11;
             GL11.glRotatef(f12, 0.0F, 0.0F, 1.0F);
         }
 
-        if(renderManager == null || renderManager.renderEngine == null)
-            return;
+        if (renderManager == null || renderManager.renderEngine == null) return;
 
         // draw correct texture. not some weird block fragments.
         renderManager.renderEngine.bindTexture(TextureMap.locationItemsTexture);
@@ -61,8 +65,7 @@ public class ProjectileBaseRenderer<T extends ProjectileBase> extends Render {
         GL11.glPopMatrix();
     }
 
-    public void customRendering(T entity, double x, double y, double z, float p_76986_8_, float p_76986_9_)
-    {
+    public void customRendering(T entity, double x, double y, double z, float p_76986_8_, float p_76986_9_) {
         // flip it, flop it, pop it, pull it, push it, rotate it, translate it, TECHNOLOGY
 
         // rotate it into the direction we threw it
@@ -80,13 +83,12 @@ public class ProjectileBaseRenderer<T extends ProjectileBase> extends Render {
     }
 
     @Override
-    protected ResourceLocation getEntityTexture (Entity par1Entity)
-    {
+    protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return this.func_110796_a((ProjectileBase) par1Entity);
     }
 
-    protected ResourceLocation func_110796_a (ProjectileBase par1ArrowEntity)
-    {
-        return this.renderManager.renderEngine.getResourceLocation(par1ArrowEntity.getEntityItem().getItemSpriteNumber());
+    protected ResourceLocation func_110796_a(ProjectileBase par1ArrowEntity) {
+        return this.renderManager.renderEngine.getResourceLocation(
+                par1ArrowEntity.getEntityItem().getItemSpriteNumber());
     }
 }

@@ -18,8 +18,7 @@ public class DaggerEntityRenderer extends ProjectileBaseRenderer<DaggerEntity> {
         // it rotates!
         GL11.glRotatef(entity.roll, 0f, 0f, 1f);
 
-
         // also make it a bit thicker
-        toolCoreRenderer.setDepth(1/20f);
+        toolCoreRenderer.setDepth(1 / 20f);
     }
 }

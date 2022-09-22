@@ -15,14 +15,12 @@ import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.common.util.ForgeDirection;
-import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.world.TinkerWorld;
 import tconstruct.world.model.OreberryRender;
 
-public class OreberryBush extends BlockLeavesBase implements IPlantable
-{
+public class OreberryBush extends BlockLeavesBase implements IPlantable {
     Random random;
     public IIcon[] fastIcons;
     public IIcon[] fancyIcons;
@@ -31,8 +29,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
     public int itemMeat;
     private int subitems;
 
-    public OreberryBush(String[] textureNames, int meta, int sub, String[] oreTypes)
-    {
+    public OreberryBush(String[] textureNames, int meta, int sub, String[] oreTypes) {
         super(Material.leaves, false);
         this.textureNames = textureNames;
         this.itemMeat = meta;
@@ -49,15 +46,12 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerBlockIcons (IIconRegister iconRegister)
-    {
+    public void registerBlockIcons(IIconRegister iconRegister) {
         this.fastIcons = new IIcon[textureNames.length];
         this.fancyIcons = new IIcon[textureNames.length];
 
-        for (int i = 0; i < this.fastIcons.length; i++)
-        {
-            if (textureNames[i] != "")
-            {
+        for (int i = 0; i < this.fastIcons.length; i++) {
+            if (textureNames[i] != "") {
                 this.fastIcons[i] = iconRegister.registerIcon("tinker:crops/" + textureNames[i] + "_fast");
                 this.fancyIcons[i] = iconRegister.registerIcon("tinker:crops/" + textureNames[i] + "_fancy");
             }
@@ -65,28 +59,18 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
     }
 
     @Override
-    public IIcon getIcon (int side, int metadata)
-    {
+    public IIcon getIcon(int side, int metadata) {
         this.setGraphicsLevel(Minecraft.getMinecraft().gameSettings.fancyGraphics);
-        if (field_150121_P)
-        {
-            if (metadata < 12)
-            {
+        if (field_150121_P) {
+            if (metadata < 12) {
                 return fancyIcons[metadata % 4];
-            }
-            else
-            {
+            } else {
                 return fancyIcons[metadata % 4 + 4];
             }
-        }
-        else
-        {
-            if (metadata < 12)
-            {
+        } else {
+            if (metadata < 12) {
                 return fastIcons[metadata % 4];
-            }
-            else
-            {
+            } else {
                 return fastIcons[metadata % 4 + 4];
             }
         }
@@ -94,51 +78,62 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
 
     /* Bushes are stored by size then type */
     @Override
-    public int damageDropped (int metadata)
-    {
+    public int damageDropped(int metadata) {
         return metadata % 4;
     }
 
     /* The following methods define a berry bush's size depending on metadata */
     @Override
-    public AxisAlignedBB getCollisionBoundingBoxFromPool (World world, int x, int y, int z)
-    {
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
         int l = world.getBlockMetadata(x, y, z);
-        if (l < 4)
-        {
-            return AxisAlignedBB.getBoundingBox((double) x + 0.25D, y, (double) z + 0.25D, (double) x + 0.75D, (double) y + 0.5D, (double) z + 0.75D);
-        }
-        else if (l < 8)
-        {
-            return AxisAlignedBB.getBoundingBox((double) x + 0.125D, y, (double) z + 0.125D, (double) x + 0.875D, (double) y + 0.75D, (double) z + 0.875D);
-        }
-        else
-        {
-            return AxisAlignedBB.getBoundingBox(x + 0.0625, y, z + 0.0625, (double) x + 0.9375D, (double) y + 0.9375D, (double) z + 0.9375D);
+        if (l < 4) {
+            return AxisAlignedBB.getBoundingBox(
+                    (double) x + 0.25D,
+                    y,
+                    (double) z + 0.25D,
+                    (double) x + 0.75D,
+                    (double) y + 0.5D,
+                    (double) z + 0.75D);
+        } else if (l < 8) {
+            return AxisAlignedBB.getBoundingBox(
+                    (double) x + 0.125D,
+                    y,
+                    (double) z + 0.125D,
+                    (double) x + 0.875D,
+                    (double) y + 0.75D,
+                    (double) z + 0.875D);
+        } else {
+            return AxisAlignedBB.getBoundingBox(
+                    x + 0.0625, y, z + 0.0625, (double) x + 0.9375D, (double) y + 0.9375D, (double) z + 0.9375D);
         }
     }
 
     @Override
-    public AxisAlignedBB getSelectedBoundingBoxFromPool (World world, int x, int y, int z)
-    {
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
         int l = world.getBlockMetadata(x, y, z);
-        if (l < 4)
-        {
-            return AxisAlignedBB.getBoundingBox((double) x + 0.25D, y, (double) z + 0.25D, (double) x + 0.75D, (double) y + 0.5D, (double) z + 0.75D);
-        }
-        else if (l < 8)
-        {
-            return AxisAlignedBB.getBoundingBox((double) x + 0.125D, y, (double) z + 0.125D, (double) x + 0.875D, (double) y + 0.75D, (double) z + 0.875D);
-        }
-        else
-        {
+        if (l < 4) {
+            return AxisAlignedBB.getBoundingBox(
+                    (double) x + 0.25D,
+                    y,
+                    (double) z + 0.25D,
+                    (double) x + 0.75D,
+                    (double) y + 0.5D,
+                    (double) z + 0.75D);
+        } else if (l < 8) {
+            return AxisAlignedBB.getBoundingBox(
+                    (double) x + 0.125D,
+                    y,
+                    (double) z + 0.125D,
+                    (double) x + 0.875D,
+                    (double) y + 0.75D,
+                    (double) z + 0.875D);
+        } else {
             return AxisAlignedBB.getBoundingBox(x, y, z, (double) x + 1.0D, (double) y + 1.0D, (double) z + 1.0D);
         }
     }
 
     @Override
-    public void setBlockBoundsBasedOnState (IBlockAccess iblockaccess, int x, int y, int z)
-    {
+    public void setBlockBoundsBasedOnState(IBlockAccess iblockaccess, int x, int y, int z) {
         int md = iblockaccess.getBlockMetadata(x, y, z);
 
         float minX;
@@ -148,23 +143,15 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
         float maxY;
         float maxZ;
 
-        if (md < 4)
-        {
+        if (md < 4) {
             minX = minZ = 0.25F;
             maxX = maxZ = 0.75F;
             maxY = 0.5F;
-        }
-        else
-
-        if (md < 8)
-        {
+        } else if (md < 8) {
             minX = minZ = 0.125F;
             maxX = maxZ = 0.875F;
             maxY = 0.75F;
-        }
-
-        else
-        {
+        } else {
             minX = minZ = 0.0F;
             maxX = maxZ = 1.0F;
             maxY = 1.0F;
@@ -174,28 +161,25 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
 
     /* Left-click harvests berries */
     @Override
-    public void onBlockClicked (World world, int x, int y, int z, EntityPlayer player)
-    {
-        harvest(world, x,y,z, player);
+    public void onBlockClicked(World world, int x, int y, int z, EntityPlayer player) {
+        harvest(world, x, y, z, player);
     }
 
     /* Right-click harvests berries */
     @Override
-    public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9)
-    {
-        return harvest(world, x,y,z, player);
+    public boolean onBlockActivated(
+            World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
+        return harvest(world, x, y, z, player);
     }
 
-    public boolean harvest(World world, int x, int y, int z, EntityPlayer player)
-    {
+    public boolean harvest(World world, int x, int y, int z, EntityPlayer player) {
         int meta = world.getBlockMetadata(x, y, z);
-        if (meta >= 12)
-        {
-            if (world.isRemote)
-                return true;
+        if (meta >= 12) {
+            if (world.isRemote) return true;
 
             world.setBlock(x, y, z, this, meta - 4, 3);
-            AbilityHelper.spawnItemAtPlayer(player, new ItemStack(TinkerWorld.oreBerries, random.nextInt(3) + 1, meta % 4 + itemMeat));
+            AbilityHelper.spawnItemAtPlayer(
+                    player, new ItemStack(TinkerWorld.oreBerries, random.nextInt(3) + 1, meta % 4 + itemMeat));
         }
 
         return false;
@@ -204,37 +188,29 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
     /* Render logic */
 
     @Override
-    public boolean isOpaqueCube ()
-    {
+    public boolean isOpaqueCube() {
         return false;
     }
 
-    public void setGraphicsLevel (boolean flag)
-    {
+    public void setGraphicsLevel(boolean flag) {
         field_150121_P = flag;
     }
 
     @Override
-    public boolean renderAsNormalBlock ()
-    {
+    public boolean renderAsNormalBlock() {
         return false;
     }
 
     @Override
-    public int getRenderType ()
-    {
+    public int getRenderType() {
         return OreberryRender.model;
     }
 
     @Override
-    public boolean shouldSideBeRendered (IBlockAccess iblockaccess, int x, int y, int z, int meta)
-    {
-        if (meta > 7 || field_150121_P)
-        {
+    public boolean shouldSideBeRendered(IBlockAccess iblockaccess, int x, int y, int z, int meta) {
+        if (meta > 7 || field_150121_P) {
             return super.shouldSideBeRendered(iblockaccess, x, y, z, meta);
-        }
-        else
-        {
+        } else {
             return true;
         }
     }
@@ -242,20 +218,16 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
     /* Bush growth */
 
     @Override
-    public void updateTick (World world, int x, int y, int z, Random random1)
-    {
-        if (world.isRemote)
-        {
+    public void updateTick(World world, int x, int y, int z, Random random1) {
+        if (world.isRemote) {
             return;
         }
 
-        if (random1.nextInt(20) == 0)// && world.getBlockLightValue(x, y, z) <= 8)
+        if (random1.nextInt(20) == 0) // && world.getBlockLightValue(x, y, z) <= 8)
         {
-            if (world.getFullBlockLightValue(x, y, z) < 10)
-            {
+            if (world.getFullBlockLightValue(x, y, z) < 10) {
                 int meta = world.getBlockMetadata(x, y, z);
-                if (meta < 12)
-                {
+                if (meta < 12) {
                     world.setBlock(x, y, z, this, meta + 4, 3);
                 }
             }
@@ -266,18 +238,14 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
         }
     }
 
-    public boolean canSustainPlant (World world, int x, int y, int z, ForgeDirection direction, IPlantable plant)
-    {
-        if (plant instanceof OreberryBush)
-            return (world.getBlockMetadata(x, y, z) > 7);
+    public boolean canSustainPlant(World world, int x, int y, int z, ForgeDirection direction, IPlantable plant) {
+        if (plant instanceof OreberryBush) return (world.getBlockMetadata(x, y, z) > 7);
         return super.canSustainPlant(world, x, y, z, direction, plant);
     }
 
     @Override
-    public boolean canPlaceBlockAt (World world, int x, int y, int z)
-    {
-        if (world.getFullBlockLightValue(x, y, z) < 13)
-            return super.canPlaceBlockAt(world, x, y, z);
+    public boolean canPlaceBlockAt(World world, int x, int y, int z) {
+        if (world.getFullBlockLightValue(x, y, z) < 13) return super.canPlaceBlockAt(world, x, y, z);
         return false;
     }
 
@@ -288,36 +256,29 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
      */
     @SideOnly(Side.CLIENT)
     @Override
-    public void getSubBlocks (Item par1, CreativeTabs par2CreativeTabs, List par3List)
-    {
-        for (int var4 = 8; var4 < 8 + subitems; ++var4)
-        {
+    public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) {
+        for (int var4 = 8; var4 < 8 + subitems; ++var4) {
             par3List.add(new ItemStack(par1, 1, var4));
         }
     }
 
     @Override
-    public EnumPlantType getPlantType (IBlockAccess world, int x, int y, int z)
-    {
+    public EnumPlantType getPlantType(IBlockAccess world, int x, int y, int z) {
         return EnumPlantType.Cave;
     }
 
     @Override
-    public Block getPlant (IBlockAccess world, int x, int y, int z)
-    {
+    public Block getPlant(IBlockAccess world, int x, int y, int z) {
         return this;
     }
 
     @Override
-    public int getPlantMetadata (IBlockAccess world, int x, int y, int z)
-    {
+    public int getPlantMetadata(IBlockAccess world, int x, int y, int z) {
         return world.getBlockMetadata(x, y, z) - 4;
     }
 
     @Override
-    public void onEntityCollidedWithBlock (World world, int x, int y, int z, Entity entity)
-    {
-        if (!(entity instanceof EntityItem))
-            entity.attackEntityFrom(DamageSource.cactus, 1);
+    public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
+        if (!(entity instanceof EntityItem)) entity.attackEntityFrom(DamageSource.cactus, 1);
     }
 }

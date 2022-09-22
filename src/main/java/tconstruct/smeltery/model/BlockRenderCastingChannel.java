@@ -14,55 +14,50 @@ import tconstruct.smeltery.logic.CastingChannelLogic;
 /**
  * @author BluSunrize
  */
-
-public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
-{
+public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler {
     public static int renderID = RenderingRegistry.getNextAvailableRenderId();
 
     @Override
-    public void renderInventoryBlock (Block block, int metadata, int modelID, RenderBlocks renderer)
-    {
-        //Floor
+    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
+        // Floor
         renderer.setRenderBounds(0.3125D, 0.375D, 0.3125D, 0.6875D, 0.5D, 0.6875D);
         this.renderStandardBlock(block, metadata, renderer);
-        //Channel Z-
+        // Channel Z-
         renderer.setRenderBounds(0.3125D, 0.375D, 0D, 0.6875D, 0.5D, 0.3125D);
         this.renderStandardBlock(block, metadata, renderer);
         renderer.setRenderBounds(0.3125D, 0.5D, 0D, 0.375D, 0.625D, 0.3125D);
         this.renderStandardBlock(block, metadata, renderer);
         renderer.setRenderBounds(0.625D, 0.5D, 0D, 0.6875D, 0.625D, 0.3125D);
         this.renderStandardBlock(block, metadata, renderer);
-        //Channel Z+
+        // Channel Z+
         renderer.setRenderBounds(0.3125D, 0.375D, 0.6875D, 0.6875D, 0.5D, 1D);
         this.renderStandardBlock(block, metadata, renderer);
         renderer.setRenderBounds(0.3125D, 0.5D, 0.6875D, 0.375D, 0.625D, 1D);
         this.renderStandardBlock(block, metadata, renderer);
         renderer.setRenderBounds(0.625D, 0.5D, 0.6875D, 0.6875D, 0.625D, 1D);
         this.renderStandardBlock(block, metadata, renderer);
-        //Wall X-
+        // Wall X-
         renderer.setRenderBounds(0.3125D, 0.375D, 0.3125D, 0.375D, 0.625D, 0.6875D);
         this.renderStandardBlock(block, metadata, renderer);
-        //Wall X+
+        // Wall X+
         renderer.setRenderBounds(0.625D, 0.375D, 0.3125D, 0.6875D, 0.625D, 0.6875D);
         this.renderStandardBlock(block, metadata, renderer);
     }
 
     @Override
-    public boolean renderWorldBlock (IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer)
-    {
-        if (modelID == renderID)
-        {
+    public boolean renderWorldBlock(
+            IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer) {
+        if (modelID == renderID) {
             CastingChannelLogic tile = (CastingChannelLogic) world.getTileEntity(x, y, z);
 
             Set<ForgeDirection> outputs = tile.getOutputs().keySet();
 
-            if (!outputs.contains(ForgeDirection.DOWN))//CentrePiece, floor is removed if tank below is found
+            if (!outputs.contains(ForgeDirection.DOWN)) // CentrePiece, floor is removed if tank below is found
             {
                 renderer.setRenderBounds(0.3125D, 0.375D, 0.3125D, 0.6875D, 0.5D, 0.6875D);
                 renderer.renderStandardBlock(block, x, y, z);
-            }
-            else
-            //"Guiding Borders" when tank below is found
+            } else
+            // "Guiding Borders" when tank below is found
             {
                 renderer.setRenderBounds(0.375D, 0.125D, 0.3125D, 0.625D, 0.5D, 0.375D);
                 renderer.renderStandardBlock(block, x, y, z);
@@ -73,7 +68,7 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
                 renderer.setRenderBounds(0.625D, 0.125D, 0.3125D, 0.6875D, 0.5D, 0.6875D);
                 renderer.renderStandardBlock(block, x, y, z);
             }
-            if (outputs.contains(ForgeDirection.NORTH))//Channel to Z-
+            if (outputs.contains(ForgeDirection.NORTH)) // Channel to Z-
             {
                 renderer.setRenderBounds(0.3125D, 0.375D, 0D, 0.6875D, 0.5D, 0.3125D);
                 renderer.renderStandardBlock(block, x, y, z);
@@ -81,15 +76,14 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
                 renderer.renderStandardBlock(block, x, y, z);
                 renderer.setRenderBounds(0.625D, 0.5D, 0D, 0.6875D, 0.625D, 0.3125D);
                 renderer.renderStandardBlock(block, x, y, z);
-            }
-            else
-            //Wall to Z-
+            } else
+            // Wall to Z-
             {
                 renderer.setRenderBounds(0.375D, 0.5D, 0.3125D, 0.625D, 0.625D, 0.375D);
                 renderer.renderStandardBlock(block, x, y, z);
             }
 
-            if (outputs.contains(ForgeDirection.SOUTH))//Channel to Z+
+            if (outputs.contains(ForgeDirection.SOUTH)) // Channel to Z+
             {
                 renderer.setRenderBounds(0.3125D, 0.375D, 0.6875D, 0.6875D, 0.5D, 1D);
                 renderer.renderStandardBlock(block, x, y, z);
@@ -97,15 +91,14 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
                 renderer.renderStandardBlock(block, x, y, z);
                 renderer.setRenderBounds(0.625D, 0.5D, 0.6875D, 0.6875D, 0.625D, 1D);
                 renderer.renderStandardBlock(block, x, y, z);
-            }
-            else
-            //Wall to Z+
+            } else
+            // Wall to Z+
             {
                 renderer.setRenderBounds(0.375D, 0.5D, 0.625D, 0.625D, 0.625D, 0.6875D);
                 renderer.renderStandardBlock(block, x, y, z);
             }
 
-            if (outputs.contains(ForgeDirection.WEST))//Channel to X-
+            if (outputs.contains(ForgeDirection.WEST)) // Channel to X-
             {
                 renderer.setRenderBounds(0D, 0.375D, 0.3125D, 0.3125D, 0.5D, 0.6875D);
                 renderer.renderStandardBlock(block, x, y, z);
@@ -113,15 +106,14 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
                 renderer.renderStandardBlock(block, x, y, z);
                 renderer.setRenderBounds(0D, 0.5D, 0.625D, 0.375D, 0.625D, 0.6875D);
                 renderer.renderStandardBlock(block, x, y, z);
-            }
-            else
-            //Wall to X-
+            } else
+            // Wall to X-
             {
                 renderer.setRenderBounds(0.3125D, 0.5D, 0.3125D, 0.375D, 0.625D, 0.6875D);
                 renderer.renderStandardBlock(block, x, y, z);
             }
 
-            if (outputs.contains(ForgeDirection.EAST))//Channel to X+
+            if (outputs.contains(ForgeDirection.EAST)) // Channel to X+
             {
                 renderer.setRenderBounds(0.6875D, 0.375D, 0.3125D, 1D, 0.5D, 0.6875D);
                 renderer.renderStandardBlock(block, x, y, z);
@@ -129,29 +121,24 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
                 renderer.renderStandardBlock(block, x, y, z);
                 renderer.setRenderBounds(0.625D, 0.5D, 0.625D, 1D, 0.625D, 0.6875D);
                 renderer.renderStandardBlock(block, x, y, z);
-            }
-            else
-            //Wall to X+
+            } else
+            // Wall to X+
             {
                 renderer.setRenderBounds(0.625D, 0.5D, 0.3125D, 0.6875D, 0.625D, 0.6875D);
                 renderer.renderStandardBlock(block, x, y, z);
             }
             FluidTankInfo tankMain = tile.getTankInfo(null)[0];
-            if (tankMain.fluid != null)
-            {
+            if (tankMain.fluid != null) {
                 float liquidAmount = (float) tankMain.fluid.amount / (float) tankMain.capacity * 0.125f;
                 double startY = tile.tankBelow();
-                renderer.setRenderBounds(0.375D, startY, 0.375D, 0.625D, 0.51 + liquidAmount, 0.625D); //Center
+                renderer.setRenderBounds(0.375D, startY, 0.375D, 0.625D, 0.51 + liquidAmount, 0.625D); // Center
                 renderLiquidPart(world, x, y, z, block, renderer, tankMain.fluid, false);
             }
-            for (ForgeDirection dir : outputs)
-            {
+            for (ForgeDirection dir : outputs) {
                 double[] bounds = getRenderboundsForLiquid(dir);
-                if (bounds == null)
-                    break;
+                if (bounds == null) break;
                 FluidTankInfo tankSub = tile.getTankInfo(dir)[0];
-                if (tankSub == null || tankSub.fluid == null)
-                    break;
+                if (tankSub == null || tankSub.fluid == null) break;
                 float liquidAmount = (float) tankSub.fluid.amount / (float) tankSub.capacity * 0.125f / 2;
                 renderer.setRenderBounds(bounds[0], 0.51, bounds[1], bounds[2], 0.5 + liquidAmount, bounds[3]);
                 renderLiquidPart(world, x, y, z, block, renderer, tankSub.fluid, false);
@@ -161,25 +148,30 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
         return false;
     }
 
-    private double[] getRenderboundsForLiquid (ForgeDirection dir)
-    {
-        switch (dir)
-        {
-        case NORTH:
-            return new double[] { 0.375, 0, 0.625, 0.375 };
-        case SOUTH:
-            return new double[] { 0.375, 0.625, 0.625, 1 };
-        case WEST:
-            return new double[] { 0, 0.375, 0.375, 0.625 };
-        case EAST:
-            return new double[] { 0.625, 0.375, 1, 0.625 };
-        default:
-            return null;
+    private double[] getRenderboundsForLiquid(ForgeDirection dir) {
+        switch (dir) {
+            case NORTH:
+                return new double[] {0.375, 0, 0.625, 0.375};
+            case SOUTH:
+                return new double[] {0.375, 0.625, 0.625, 1};
+            case WEST:
+                return new double[] {0, 0.375, 0.375, 0.625};
+            case EAST:
+                return new double[] {0.625, 0.375, 1, 0.625};
+            default:
+                return null;
         }
     }
 
-    private void renderLiquidPart (IBlockAccess world, int x, int y, int z, Block block, RenderBlocks renderer, FluidStack fluidStack, boolean useFlowingTexture)
-    {
+    private void renderLiquidPart(
+            IBlockAccess world,
+            int x,
+            int y,
+            int z,
+            Block block,
+            RenderBlocks renderer,
+            FluidStack fluidStack,
+            boolean useFlowingTexture) {
         int color = block.colorMultiplier(world, x, y, z);
         float red = (color >> 16 & 0xFF) / 255.0F;
         float green = (color >> 8 & 0xFF) / 255.0F;
@@ -188,13 +180,30 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
         if (fluid.canBePlacedInWorld() && !useFlowingTexture)
             BlockSkinRenderHelper.renderMetadataBlock(fluid.getBlock(), 0, x, y, z, renderer, world);
         else if (useFlowingTexture)
-            BlockSkinRenderHelper.renderLiquidBlock(fluid.getFlowingIcon(), fluid.getFlowingIcon(), x, y, z, renderer, world, false, fluid.getColor(fluidStack));
+            BlockSkinRenderHelper.renderLiquidBlock(
+                    fluid.getFlowingIcon(),
+                    fluid.getFlowingIcon(),
+                    x,
+                    y,
+                    z,
+                    renderer,
+                    world,
+                    false,
+                    fluid.getColor(fluidStack));
         else
-            BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getFlowingIcon(), x, y, z, renderer, world, false, fluid.getColor(fluidStack));
+            BlockSkinRenderHelper.renderLiquidBlock(
+                    fluid.getStillIcon(),
+                    fluid.getFlowingIcon(),
+                    x,
+                    y,
+                    z,
+                    renderer,
+                    world,
+                    false,
+                    fluid.getColor(fluidStack));
     }
 
-    private void renderStandardBlock (Block block, int meta, RenderBlocks renderer)
-    {
+    private void renderStandardBlock(Block block, int meta, RenderBlocks renderer) {
         Tessellator tessellator = Tessellator.instance;
         GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
         tessellator.startDrawingQuads();
@@ -225,14 +234,12 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
     }
 
     @Override
-    public int getRenderId ()
-    {
+    public int getRenderId() {
         return renderID;
     }
 
     @Override
-    public boolean shouldRender3DInInventory (int modelId)
-    {
+    public boolean shouldRender3DInInventory(int modelId) {
         return true;
     }
 }

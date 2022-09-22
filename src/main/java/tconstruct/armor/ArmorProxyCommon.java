@@ -9,41 +9,34 @@ import tconstruct.armor.inventory.*;
 import tconstruct.armor.player.TPlayerStats;
 import tconstruct.common.TProxyCommon;
 
-public class ArmorProxyCommon implements IGuiHandler
-{
+public class ArmorProxyCommon implements IGuiHandler {
     public static final int inventoryGui = 100;
     public static final int armorGuiID = 101;
     public static final int knapsackGuiID = 102;
 
     public void preInit() {}
 
-    public void initialize ()
-    {
+    public void initialize() {
         registerGuiHandler();
     }
 
-    protected void registerGuiHandler ()
-    {
+    protected void registerGuiHandler() {
         TProxyCommon.registerServerGuiHandler(inventoryGui, this);
         TProxyCommon.registerServerGuiHandler(armorGuiID, this);
         TProxyCommon.registerServerGuiHandler(knapsackGuiID, this);
     }
 
     @Override
-    public Object getServerGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
-    {
-        if (ID == ArmorProxyCommon.inventoryGui)
-        {
+    public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+        if (ID == ArmorProxyCommon.inventoryGui) {
             // GuiInventory inv = new GuiInventory(player);
             return player.inventoryContainer;
         }
-        if (ID == ArmorProxyCommon.armorGuiID)
-        {
+        if (ID == ArmorProxyCommon.armorGuiID) {
             TPlayerStats stats = TPlayerStats.get(player);
             return new ArmorExtendedContainer(player.inventory, stats.armor);
         }
-        if (ID == ArmorProxyCommon.knapsackGuiID)
-        {
+        if (ID == ArmorProxyCommon.knapsackGuiID) {
             TPlayerStats stats = TPlayerStats.get(player);
             return new KnapsackContainer(player.inventory, stats.knapsack);
         }
@@ -52,29 +45,18 @@ public class ArmorProxyCommon implements IGuiHandler
     }
 
     @Override
-    public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
-    {
+    public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         // TODO Auto-generated method stub
         return null;
     }
 
-    public void registerTickHandler ()
-    {
+    public void registerTickHandler() {}
 
-    }
+    public void registerKeys() {}
 
-    public void registerKeys ()
-    {
+    public void updatePlayerStats(TPlayerStats stats) {}
 
-    }
-    
-    public void updatePlayerStats(TPlayerStats stats)
-    {
-        
-    }
-    
-    public void dumpTPlayerStats(TPlayerStats stats)
-    {
+    public void dumpTPlayerStats(TPlayerStats stats) {
         TConstruct.logger.debug("~~~~~~~~~~~~~~~~~ STATS ~~~~~~~~~~~~~~~~~");
         TConstruct.logger.debug("Player: " + stats.player.get().getCommandSenderName());
         TConstruct.logger.debug("Level: " + stats.level);
@@ -91,19 +73,15 @@ public class ArmorProxyCommon implements IGuiHandler
         TConstruct.logger.debug("BattleSign Bonus: " + stats.battlesignBonus);
         TConstruct.logger.debug("Derp Level: " + stats.derpLevel);
         int i = 0;
-        for (ItemStack stack : stats.armor.inventory)
-        {
-            if (stack != null)
-            {
-                TConstruct.logger.debug("Armor Slot: " + i + " Contains: " + stack.getDisplayName());   
+        for (ItemStack stack : stats.armor.inventory) {
+            if (stack != null) {
+                TConstruct.logger.debug("Armor Slot: " + i + " Contains: " + stack.getDisplayName());
             }
             i++;
         }
         i = 0;
-        for (ItemStack stack : stats.knapsack.inventory)
-        {
-            if (stack != null)
-            {
+        for (ItemStack stack : stats.knapsack.inventory) {
+            if (stack != null) {
                 TConstruct.logger.debug("Knapsack Slot: " + i + " Contains: " + stack.getDisplayName());
             }
             i++;

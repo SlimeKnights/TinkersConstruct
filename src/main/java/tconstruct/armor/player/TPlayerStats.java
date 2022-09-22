@@ -1,7 +1,6 @@
 package tconstruct.armor.player;
 
 import java.lang.ref.WeakReference;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -10,7 +9,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
 import tconstruct.api.IPlayerExtendedInventoryWrapper;
 
-public class TPlayerStats implements IExtendedEntityProperties, IPlayerExtendedInventoryWrapper //TODO: IExtendedEntityProperties is not appropriate!
+public class TPlayerStats
+        implements IExtendedEntityProperties,
+                IPlayerExtendedInventoryWrapper // TODO: IExtendedEntityProperties is not appropriate!
 {
     public static final String PROP_NAME = "TConstruct";
 
@@ -37,14 +38,12 @@ public class TPlayerStats implements IExtendedEntityProperties, IPlayerExtendedI
     public ArmorExtended armor;
     public KnapsackInventory knapsack;
 
-    public TPlayerStats()
-    {
+    public TPlayerStats() {
         this.armor = new ArmorExtended();
         this.knapsack = new KnapsackInventory();
     }
 
-    public TPlayerStats(EntityPlayer entityplayer)
-    {
+    public TPlayerStats(EntityPlayer entityplayer) {
         this.player = new WeakReference<EntityPlayer>(entityplayer);
         this.armor = new ArmorExtended();
         this.armor.init(entityplayer);
@@ -56,8 +55,7 @@ public class TPlayerStats implements IExtendedEntityProperties, IPlayerExtendedI
     }
 
     @Override
-    public void saveNBTData (NBTTagCompound compound)
-    {
+    public void saveNBTData(NBTTagCompound compound) {
         NBTTagCompound tTag = new NBTTagCompound();
         armor.saveToNBT(tTag);
         knapsack.saveToNBT(tTag);
@@ -71,11 +69,9 @@ public class TPlayerStats implements IExtendedEntityProperties, IPlayerExtendedI
     }
 
     @Override
-    public void loadNBTData (NBTTagCompound compound)
-    {
+    public void loadNBTData(NBTTagCompound compound) {
         NBTTagCompound properties = (NBTTagCompound) compound.getTag(PROP_NAME);
-        if (properties != null)
-        {
+        if (properties != null) {
             this.armor.readFromNBT(properties);
             this.knapsack.readFromNBT(properties);
             this.beginnerManual = properties.getBoolean("beginnerManual");
@@ -88,15 +84,13 @@ public class TPlayerStats implements IExtendedEntityProperties, IPlayerExtendedI
     }
 
     @Override
-    public void init (Entity entity, World world)
-    {
+    public void init(Entity entity, World world) {
         this.player = new WeakReference<EntityPlayer>((EntityPlayer) entity);
         this.armor.init((EntityPlayer) entity);
         this.knapsack.init((EntityPlayer) entity);
     }
 
-    public void copyFrom (TPlayerStats stats, boolean copyCalc)
-    {
+    public void copyFrom(TPlayerStats stats, boolean copyCalc) {
         this.armor = stats.armor;
         this.knapsack = stats.knapsack;
         this.beginnerManual = stats.beginnerManual;
@@ -107,34 +101,28 @@ public class TPlayerStats implements IExtendedEntityProperties, IPlayerExtendedI
 
         this.derpLevel = stats.derpLevel;
 
-        if (copyCalc)
-        {
+        if (copyCalc) {
             this.bonusHealth = stats.bonusHealth;
             this.hunger = stats.hunger;
             this.level = stats.level;
         }
     }
 
-    public static final void register (EntityPlayer player)
-    {
+    public static final void register(EntityPlayer player) {
         player.registerExtendedProperties(TPlayerStats.PROP_NAME, new TPlayerStats(player));
     }
 
-    public static final TPlayerStats get (EntityPlayer player)
-    {
+    public static final TPlayerStats get(EntityPlayer player) {
         return (TPlayerStats) player.getExtendedProperties(PROP_NAME);
     }
 
     @Override
-    public IInventory getKnapsackInventory (EntityPlayer player)
-    {
+    public IInventory getKnapsackInventory(EntityPlayer player) {
         return this.knapsack;
     }
 
     @Override
-    public IInventory getAccessoryInventory (EntityPlayer player)
-    {
+    public IInventory getAccessoryInventory(EntityPlayer player) {
         return this.armor;
     }
-
 }

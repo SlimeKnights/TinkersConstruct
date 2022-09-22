@@ -10,6 +10,7 @@ import tconstruct.client.ArmorControls;
 public class BeltToggleFromGuiInputHandler implements IContainerInputHandler {
 
     static final String KEY_IDENTIFIER = "gui.tinkers_belt";
+
     public static void init() {
         API.addKeyBind(KEY_IDENTIFIER, 0);
         GuiContainerManager.addInputHandler(new BeltToggleFromGuiInputHandler());
@@ -28,9 +29,7 @@ public class BeltToggleFromGuiInputHandler implements IContainerInputHandler {
     }
 
     @Override
-    public void onKeyTyped(GuiContainer guiContainer, char c, int i) {
-
-    }
+    public void onKeyTyped(GuiContainer guiContainer, char c, int i) {}
 
     @Override
     public boolean lastKeyTyped(GuiContainer guiContainer, char c, int i) {
@@ -43,14 +42,10 @@ public class BeltToggleFromGuiInputHandler implements IContainerInputHandler {
     }
 
     @Override
-    public void onMouseClicked(GuiContainer guiContainer, int i, int i1, int i2) {
-
-    }
+    public void onMouseClicked(GuiContainer guiContainer, int i, int i1, int i2) {}
 
     @Override
-    public void onMouseUp(GuiContainer guiContainer, int i, int i1, int i2) {
-
-    }
+    public void onMouseUp(GuiContainer guiContainer, int i, int i1, int i2) {}
 
     @Override
     public boolean mouseScrolled(GuiContainer guiContainer, int i, int i1, int i2) {
@@ -58,12 +53,8 @@ public class BeltToggleFromGuiInputHandler implements IContainerInputHandler {
     }
 
     @Override
-    public void onMouseScrolled(GuiContainer guiContainer, int i, int i1, int i2) {
-
-    }
+    public void onMouseScrolled(GuiContainer guiContainer, int i, int i1, int i2) {}
 
     @Override
-    public void onMouseDragged(GuiContainer guiContainer, int i, int i1, int i2, long l) {
-
-    }
+    public void onMouseDragged(GuiContainer guiContainer, int i, int i1, int i2, long l) {}
 }

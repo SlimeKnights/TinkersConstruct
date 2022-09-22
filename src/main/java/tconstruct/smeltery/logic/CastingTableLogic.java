@@ -6,22 +6,18 @@ import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.CastingRecipe;
 import tconstruct.library.event.*;
 
-public class CastingTableLogic extends CastingBlockLogic
-{
-    public CastingTableLogic()
-    {
+public class CastingTableLogic extends CastingBlockLogic {
+    public CastingTableLogic() {
         super(TConstructRegistry.getTableCasting());
     }
 
     @Override
-    public SmelteryCastEvent getCastingEvent (CastingRecipe recipe, FluidStack metal)
-    {
+    public SmelteryCastEvent getCastingEvent(CastingRecipe recipe, FluidStack metal) {
         return new SmelteryCastEvent.CastingTable(recipe, metal);
     }
 
     @Override
-    public SmelteryCastedEvent getCastedEvent (CastingRecipe recipe, ItemStack result)
-    {
+    public SmelteryCastedEvent getCastedEvent(CastingRecipe recipe, ItemStack result) {
         return new SmelteryCastedEvent.CastingTable(recipe, result);
     }
 }

@@ -13,59 +13,48 @@ import tconstruct.library.crafting.Smeltery;
 import tconstruct.smeltery.logic.SmelteryLogic;
 import tconstruct.util.ItemHelper;
 
-public class SmelteryRender implements ISimpleBlockRenderingHandler
-{
+public class SmelteryRender implements ISimpleBlockRenderingHandler {
     public static int smelteryModel = RenderingRegistry.getNextAvailableRenderId();
 
     @Override
-    public void renderInventoryBlock (Block block, int metadata, int modelID, RenderBlocks renderer)
-    {
-        if (modelID == smelteryModel)
-        {
+    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
+        if (modelID == smelteryModel) {
             ItemHelper.renderStandardInvBlock(renderer, block, metadata);
         }
     }
 
     @Override
-    public boolean renderWorldBlock (IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer)
-    {
-        if (modelID == smelteryModel)
-        {
-            if (world.getBlockMetadata(x, y, z) == 0)
-                return renderSmeltery(world, x, y, z, block, modelID, renderer);
-            else
-                renderer.renderStandardBlock(block, x, y, z);
+    public boolean renderWorldBlock(
+            IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer) {
+        if (modelID == smelteryModel) {
+            if (world.getBlockMetadata(x, y, z) == 0) return renderSmeltery(world, x, y, z, block, modelID, renderer);
+            else renderer.renderStandardBlock(block, x, y, z);
         }
         return true;
     }
 
-    public boolean renderSmeltery (IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer)
-    {
+    public boolean renderSmeltery(
+            IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer) {
         boolean ret = renderer.renderStandardBlock(block, x, y, z);
         SmelteryLogic logic = (SmelteryLogic) world.getTileEntity(x, y, z);
-        if (logic.validStructure)
-        {
+        if (logic.validStructure) {
             CoordTuple from = logic.minPos;
             CoordTuple to = logic.maxPos;
 
-            //Melting
-            if (logic.getSizeInventory() > 0)
-            {
-                for (int i = 0; i < logic.layers; i++)
-                {
+            // Melting
+            if (logic.getSizeInventory() > 0) {
+                for (int i = 0; i < logic.layers; i++) {
                     renderLayer(logic, i * logic.getBlocksPerLayer(), from, to, from.y + i, renderer, world);
                 }
             }
 
-            //Liquids
+            // Liquids
             float base = 0F;
             int yBase = 0;
             int liquidBase = 0;
-            for (FluidStack liquid : logic.moltenMetal)
-            {
+            for (FluidStack liquid : logic.moltenMetal) {
                 int liquidSize = liquid.amount;
-                while (liquidSize > 0)
-                {
+                while (liquidSize > 0) {
                     int cap = logic.getCapacityPerLayer();
                     int room = cap - liquidBase;
                     int countSize = liquidSize > room ? room : liquidSize;
@@ -77,27 +66,34 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
                     base += height;
                     liquidBase += countSize;
 
-                    if(renderHeight < 0.01)
-                        renderHeight = 0.01f;
+                    if (renderHeight < 0.01) renderHeight = 0.01f;
 
                     renderer.setRenderBounds(0, renderBase, 0, 1, renderHeight, 1);
                     Fluid fluid = liquid.getFluid();
                     for (int xi = from.x; xi <= to.x; xi++)
-                        for (int zi = from.z; zi <= to.z; zi++)
-                        {
+                        for (int zi = from.z; zi <= to.z; zi++) {
                             float minX = xi == from.x ? -0.001F : 0F;
                             float minZ = zi == from.z ? -0.001F : 0F;
                             float maxX = xi == to.x ? 1.001F : 1F;
                             float maxZ = zi == to.z ? 1.001F : 1F;
                             renderer.setRenderBounds(minX, renderBase, minZ, maxX, renderHeight, maxZ);
                             if (fluid.canBePlacedInWorld())
-                                BlockSkinRenderHelper.renderMetadataBlock(fluid.getBlock(), 0, xi, from.y + yBase, zi, renderer, world);
+                                BlockSkinRenderHelper.renderMetadataBlock(
+                                        fluid.getBlock(), 0, xi, from.y + yBase, zi, renderer, world);
                             else
-                                BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getFlowingIcon(), xi, from.y + yBase, zi, renderer, world, false, fluid.getColor(liquid));
+                                BlockSkinRenderHelper.renderLiquidBlock(
+                                        fluid.getStillIcon(),
+                                        fluid.getFlowingIcon(),
+                                        xi,
+                                        from.y + yBase,
+                                        zi,
+                                        renderer,
+                                        world,
+                                        false,
+                                        fluid.getColor(liquid));
                         }
 
-                    if (countSize == room)
-                    {
+                    if (countSize == room) {
                         base = 0F;
                         yBase++;
                         liquidBase = 0;
@@ -109,27 +105,31 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
         return ret;
     }
 
-    void renderLayer (SmelteryLogic logic, int start, CoordTuple from, CoordTuple to, int posY, RenderBlocks renderer, IBlockAccess world)
-    {
+    void renderLayer(
+            SmelteryLogic logic,
+            int start,
+            CoordTuple from,
+            CoordTuple to,
+            int posY,
+            RenderBlocks renderer,
+            IBlockAccess world) {
         renderer.setRenderBounds(-0.001F, -0.001F, -0.001F, 1.001F, 1.001F, 1.001F);
         int i = start;
         for (int x = from.x; x <= to.x; x++)
-            for (int z = from.z; z <= to.z; z++)
-            {
+            for (int z = from.z; z <= to.z; z++) {
                 // safety because of changes.
-                if(i > logic.getSizeInventory())
-                    return;
+                if (i > logic.getSizeInventory()) return;
                 ItemStack input = logic.getStackInSlot(i);
-                if (input != null && logic.getTempForSlot(i) > 20)
-                {
+                if (input != null && logic.getTempForSlot(i) > 20) {
                     ItemStack blockToRender = Smeltery.getRenderIndex(input);
-                    if (blockToRender != null)
-                    {
+                    if (blockToRender != null) {
                         float blockHeight = input.stackSize / (float) blockToRender.stackSize;
-                        renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 1.0F, MathHelper.clamp_float(blockHeight, 0.01F, 1.0F), 1.0F);
+                        renderer.setRenderBounds(
+                                0.0F, 0.0F, 0.0F, 1.0F, MathHelper.clamp_float(blockHeight, 0.01F, 1.0F), 1.0F);
 
                         Block liquidBlock = Block.getBlockFromItem(blockToRender.getItem());
-                        BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, blockToRender.getItemDamage(), x, posY, z, renderer, world);
+                        BlockSkinRenderHelper.renderMetadataBlock(
+                                liquidBlock, blockToRender.getItemDamage(), x, posY, z, renderer, world);
                     }
                 }
                 i++;
@@ -137,14 +137,12 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
     }
 
     @Override
-    public boolean shouldRender3DInInventory (int modelId)
-    {
+    public boolean shouldRender3DInInventory(int modelId) {
         return true;
     }
 
     @Override
-    public int getRenderId ()
-    {
+    public int getRenderId() {
         return smelteryModel;
     }
 }

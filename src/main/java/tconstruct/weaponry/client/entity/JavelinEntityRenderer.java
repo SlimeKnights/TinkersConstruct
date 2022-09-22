@@ -1,11 +1,12 @@
 package tconstruct.weaponry.client.entity;
 
-import tconstruct.weaponry.entity.JavelinEntity;
 import org.lwjgl.opengl.GL11;
+import tconstruct.weaponry.entity.JavelinEntity;
 
 public class JavelinEntityRenderer extends ProjectileBaseRenderer<JavelinEntity> {
     @Override
-    public void customRendering(JavelinEntity entity, double x, double y, double z, float p_76986_8_, float p_76986_9_) {
+    public void customRendering(
+            JavelinEntity entity, double x, double y, double z, float p_76986_8_, float p_76986_9_) {
 
         // rotate it into the direction we threw it
         GL11.glRotatef(entity.rotationYaw, 0f, 1f, 0f);
@@ -24,6 +25,6 @@ public class JavelinEntityRenderer extends ProjectileBaseRenderer<JavelinEntity>
         // rotate the projectile it so it faces upwards (because the graphic itself is rotated by 45°)
         GL11.glRotatef(45, 0f, 0f, 1f);
 
-        toolCoreRenderer.setDepth(1/16f);
+        toolCoreRenderer.setDepth(1 / 16f);
     }
 }

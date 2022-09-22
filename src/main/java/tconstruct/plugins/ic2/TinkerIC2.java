@@ -11,24 +11,26 @@ import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.LiquidCasting;
 
 @ObjectHolder(TConstruct.modID)
-@Pulse(id = "Tinkers IC2 Compatibility", description = "Tinkers Construct compatibility for IndustrialCraft 2", modsRequired = "IC2", forced = true)
-public class TinkerIC2
-{
+@Pulse(
+        id = "Tinkers IC2 Compatibility",
+        description = "Tinkers Construct compatibility for IndustrialCraft 2",
+        modsRequired = "IC2",
+        forced = true)
+public class TinkerIC2 {
     private static final String IC2_UUM_FLUIDNAME = "ic2fluiduumatter";
 
     @Handler
-    public void init (FMLInitializationEvent event)
-    {
+    public void init(FMLInitializationEvent event) {
         TConstruct.logger.info("IC2 detected. Preparing for shenanigans.");
 
         Fluid fluidUUM = FluidRegistry.getFluid(IC2_UUM_FLUIDNAME);
-        if (fluidUUM == null)
-            return;
+        if (fluidUUM == null) return;
 
         FluidStack fluidStackBlock = new FluidStack(fluidUUM, 4500);
         LiquidCasting basinCasting = TConstructRegistry.getBasinCasting();
 
         // Block casting
-        basinCasting.addCastingRecipe(new ItemStack(Blocks.diamond_block), fluidStackBlock, new ItemStack(Blocks.dirt), true, 50);
+        basinCasting.addCastingRecipe(
+                new ItemStack(Blocks.diamond_block), fluidStackBlock, new ItemStack(Blocks.dirt), true, 50);
     }
 }

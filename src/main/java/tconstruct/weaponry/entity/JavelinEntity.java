@@ -1,11 +1,11 @@
 package tconstruct.weaponry.entity;
 
-import tconstruct.library.entity.ProjectileBase;
-import tconstruct.weaponry.TinkerWeaponry;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import tconstruct.library.entity.ProjectileBase;
+import tconstruct.weaponry.TinkerWeaponry;
 
 public class JavelinEntity extends ProjectileBase {
     public int roll = 0;
@@ -25,8 +25,7 @@ public class JavelinEntity extends ProjectileBase {
     @Override
     public void onUpdate() {
         // you turn me right round baby
-        if(this.ticksInGround == 0)
-            roll = (roll + 13) % 360;
+        if (this.ticksInGround == 0) roll = (roll + 13) % 360;
 
         super.onUpdate();
     }
@@ -39,7 +38,9 @@ public class JavelinEntity extends ProjectileBase {
         roll = TinkerWeaponry.random.nextInt(360);
     }
 
-    protected double getGravity() { return 0.07; }
+    protected double getGravity() {
+        return 0.07;
+    }
 
     @Override
     protected double getStuckDepth() {

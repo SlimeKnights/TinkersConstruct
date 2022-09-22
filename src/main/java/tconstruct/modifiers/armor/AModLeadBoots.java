@@ -5,17 +5,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
 import tconstruct.library.armor.ArmorPart;
 
-public class AModLeadBoots extends AModBoolean
-{
+public class AModLeadBoots extends AModBoolean {
 
-    public AModLeadBoots(ItemStack[] items)
-    {
+    public AModLeadBoots(ItemStack[] items) {
         super(2, "LeadBoots", EnumSet.of(ArmorPart.Feet), items, "\u00a78", "Lead Boots");
     }
 
     @Override
-    public void modify (ItemStack[] recipe, ItemStack armor)
-    {
+    public void modify(ItemStack[] recipe, ItemStack armor) {
         NBTTagCompound baseTag = armor.getTagCompound();
         NBTTagCompound armorTag = armor.getTagCompound().getCompoundTag(getTagName(armor));
 
@@ -28,18 +25,13 @@ public class AModLeadBoots extends AModBoolean
         addToolTip(armor, color + tooltipName, color + key);
 
         NBTTagList attributes;
-        if (baseTag.hasKey("AttributeModifiers"))
-        {
+        if (baseTag.hasKey("AttributeModifiers")) {
             attributes = baseTag.getTagList("AttributeModifiers", 0);
-            for (int iter = 0; iter < attributes.tagCount(); iter++)
-            {
+            for (int iter = 0; iter < attributes.tagCount(); iter++) {
                 NBTTagCompound tag = (NBTTagCompound) attributes.getCompoundTagAt(iter);
-                if (tag.getString("AttributeName").equals("generic.knockbackResistance"))
-                    attributes.removeTag(iter);
+                if (tag.getString("AttributeName").equals("generic.knockbackResistance")) attributes.removeTag(iter);
             }
-        }
-        else
-        {
+        } else {
             attributes = new NBTTagList();
             baseTag.setTag("AttributeModifiers", attributes);
         }

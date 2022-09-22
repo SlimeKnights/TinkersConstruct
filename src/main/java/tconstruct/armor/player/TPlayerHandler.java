@@ -10,7 +10,6 @@ import java.net.*;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import mantle.player.PlayerUtils;
-import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.*;
 import net.minecraft.entity.Entity.EnumEntitySize;
@@ -21,69 +20,58 @@ import net.minecraft.nbt.*;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import tconstruct.TConstruct;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.tools.TinkerTools;
 import tconstruct.util.config.PHConstruct;
 
-//TODO: Redesign this class
-public class TPlayerHandler
-{
+// TODO: Redesign this class
+public class TPlayerHandler {
     /* Player */
     // public int hunger;
 
     private ConcurrentHashMap<UUID, TPlayerStats> playerStats = new ConcurrentHashMap<UUID, TPlayerStats>();
 
     @SubscribeEvent
-    public void PlayerLoggedInEvent (PlayerLoggedInEvent event)
-    {
+    public void PlayerLoggedInEvent(PlayerLoggedInEvent event) {
         onPlayerLogin(event.player);
     }
 
     @SubscribeEvent
-    public void onPlayerRespawn (PlayerRespawnEvent event)
-    {
+    public void onPlayerRespawn(PlayerRespawnEvent event) {
         onPlayerRespawn(event.player);
     }
 
     @SubscribeEvent
-    public void onEntityConstructing (EntityEvent.EntityConstructing event)
-    {
-        if (event.entity instanceof EntityPlayer && TPlayerStats.get((EntityPlayer) event.entity) == null)
-        {
+    public void onEntityConstructing(EntityEvent.EntityConstructing event) {
+        if (event.entity instanceof EntityPlayer && TPlayerStats.get((EntityPlayer) event.entity) == null) {
             TPlayerStats.register((EntityPlayer) event.entity);
         }
     }
 
-    public void onPlayerLogin (EntityPlayer player)
-    {
+    public void onPlayerLogin(EntityPlayer player) {
         // Lookup player
         TPlayerStats stats = TPlayerStats.get(player);
 
         stats.level = player.experienceLevel;
         stats.hunger = player.getFoodStats().getFoodLevel();
 
-        //stats.battlesignBonus = tags.getCompoundTag("TConstruct").getBoolean("battlesignBonus");
+        // stats.battlesignBonus = tags.getCompoundTag("TConstruct").getBoolean("battlesignBonus");
 
         // gamerule naturalRegeneration false
         if (!PHConstruct.enableHealthRegen)
             player.worldObj.getGameRules().setOrCreateGameRule("naturalRegeneration", "false");
-        if (!stats.beginnerManual)
-        {
+        if (!stats.beginnerManual) {
             stats.beginnerManual = true;
             stats.battlesignBonus = true;
-            if (PHConstruct.beginnerBook)
-            {
+            if (PHConstruct.beginnerBook) {
                 ItemStack diary = new ItemStack(TinkerTools.manualBook);
-                if (!player.inventory.addItemStackToInventory(diary))
-                {
+                if (!player.inventory.addItemStackToInventory(diary)) {
                     AbilityHelper.spawnItemAtPlayer(player, diary);
                 }
             }
 
-            if (player.getDisplayName().toLowerCase().equals("fractuality"))
-            {
+            if (player.getDisplayName().toLowerCase().equals("fractuality")) {
                 ItemStack pattern = new ItemStack(TinkerTools.woodPattern, 1, 22);
 
                 NBTTagCompound compound = new NBTTagCompound();
@@ -98,8 +86,7 @@ public class TPlayerHandler
                 AbilityHelper.spawnItemAtPlayer(player, pattern);
             }
 
-            if (player.getDisplayName().toLowerCase().equals("zerokyuuni"))
-            {
+            if (player.getDisplayName().toLowerCase().equals("zerokyuuni")) {
                 ItemStack pattern = new ItemStack(Items.stick);
 
                 NBTTagCompound compound = new NBTTagCompound();
@@ -112,15 +99,13 @@ public class TPlayerHandler
 
                 AbilityHelper.spawnItemAtPlayer(player, pattern);
             }
-            if (player.getDisplayName().toLowerCase().equals("zisteau"))
-            {
+            if (player.getDisplayName().toLowerCase().equals("zisteau")) {
                 spawnPigmanModifier(player);
             }
 
             NBTTagCompound tags = player.getEntityData();
             NBTTagCompound persistTag = tags.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
-            if (stickUsers.contains(player.getDisplayName()) && !persistTag.hasKey("TCon-Stick"))
-            {
+            if (stickUsers.contains(player.getDisplayName()) && !persistTag.hasKey("TCon-Stick")) {
                 ItemStack stick = new ItemStack(Items.stick);
                 persistTag.setBoolean("TCon-Stick", true);
 
@@ -139,11 +124,8 @@ public class TPlayerHandler
                 AbilityHelper.spawnItemAtPlayer(player, stick);
                 tags.setTag(EntityPlayer.PERSISTED_NBT_TAG, persistTag);
             }
-        }
-        else
-        {
-            if (!stats.battlesignBonus)
-            {
+        } else {
+            if (!stats.battlesignBonus) {
                 stats.battlesignBonus = true;
                 ItemStack modifier = new ItemStack(TinkerTools.creativeModifier);
 
@@ -158,27 +140,24 @@ public class TPlayerHandler
 
                 AbilityHelper.spawnItemAtPlayer(player, modifier);
 
-                if (player.getDisplayName().toLowerCase().equals("zisteau"))
-                {
+                if (player.getDisplayName().toLowerCase().equals("zisteau")) {
                     spawnPigmanModifier(player);
                 }
             }
         }
 
-        if (PHConstruct.gregtech && Loader.isModLoaded("GregTech-Addon"))
-        {
+        if (PHConstruct.gregtech && Loader.isModLoaded("GregTech-Addon")) {
             PHConstruct.gregtech = false;
-            if (PHConstruct.lavaFortuneInteraction)
-            {
+            if (PHConstruct.lavaFortuneInteraction) {
                 PlayerUtils.sendChatMessage(player, "Warning: Cross-mod Exploit Present!");
                 PlayerUtils.sendChatMessage(player, "Solution 1: Disable Reverse Smelting recipes from GregTech.");
-                PlayerUtils.sendChatMessage(player, "Solution 2: Disable Auto-Smelt/Fortune interaction from TConstruct.");
+                PlayerUtils.sendChatMessage(
+                        player, "Solution 2: Disable Auto-Smelt/Fortune interaction from TConstruct.");
             }
         }
     }
 
-    void spawnPigmanModifier (EntityPlayer entityplayer)
-    {
+    void spawnPigmanModifier(EntityPlayer entityplayer) {
         ItemStack modifier = new ItemStack(TinkerTools.creativeModifier);
 
         NBTTagCompound compound = new NBTTagCompound();
@@ -194,13 +173,11 @@ public class TPlayerHandler
         AbilityHelper.spawnItemAtPlayer(entityplayer, modifier);
     }
 
-    public void onPlayerRespawn (EntityPlayer entityplayer)
-    {
+    public void onPlayerRespawn(EntityPlayer entityplayer) {
         // Boom!
         TPlayerStats playerData = playerStats.remove(entityplayer.getPersistentID());
         TPlayerStats stats = TPlayerStats.get(entityplayer);
-        if (playerData != null)
-        {
+        if (playerData != null) {
             stats.copyFrom(playerData, false);
             stats.level = playerData.level;
             stats.hunger = playerData.hunger;
@@ -213,37 +190,29 @@ public class TPlayerHandler
          * TFoodStats food = new TFoodStats(); entityplayer.foodStats = food;
          */
 
-        if (PHConstruct.keepLevels)
-            entityplayer.experienceLevel = stats.level;
-        if (PHConstruct.keepHunger)
-            entityplayer.getFoodStats().addStats(-1 * (20 - stats.hunger), 0);
+        if (PHConstruct.keepLevels) entityplayer.experienceLevel = stats.level;
+        if (PHConstruct.keepHunger) entityplayer.getFoodStats().addStats(-1 * (20 - stats.hunger), 0);
 
         Side side = FMLCommonHandler.instance().getEffectiveSide();
-        if (side == Side.CLIENT)
-        {
+        if (side == Side.CLIENT) {
             // TProxyClient.controlInstance.resetControls();
-            if (PHConstruct.keepHunger)
-                entityplayer.getFoodStats().setFoodLevel(stats.hunger);
+            if (PHConstruct.keepHunger) entityplayer.getFoodStats().setFoodLevel(stats.hunger);
         }
     }
 
     @SubscribeEvent
-    public void livingFall (LivingFallEvent evt) // Only for negating fall damage
-    {
-        if (evt.entityLiving instanceof EntityPlayer)
-        {
+    public void livingFall(LivingFallEvent evt) // Only for negating fall damage
+            {
+        if (evt.entityLiving instanceof EntityPlayer) {
             evt.distance -= 1;
         }
     }
 
     @SubscribeEvent
-    public void playerDeath (LivingDeathEvent event)
-    {
-        if(!(event.entity instanceof EntityPlayer))
-            return;
+    public void playerDeath(LivingDeathEvent event) {
+        if (!(event.entity instanceof EntityPlayer)) return;
 
-        if (!event.entity.worldObj.isRemote)
-        {
+        if (!event.entity.worldObj.isRemote) {
             TPlayerStats properties = (TPlayerStats) event.entity.getExtendedProperties(TPlayerStats.PROP_NAME);
             properties.hunger = ((EntityPlayer) event.entity).getFoodStats().getFoodLevel();
             playerStats.put(((EntityPlayer) event.entity).getPersistentID(), properties);
@@ -251,21 +220,17 @@ public class TPlayerHandler
     }
 
     @SubscribeEvent
-    public void playerDrops (PlayerDropsEvent evt)
-    {
+    public void playerDrops(PlayerDropsEvent evt) {
         // After playerDeath event. Modifying saved data.
         TPlayerStats stats = playerStats.get(evt.entityPlayer.getPersistentID());
 
         stats.level = evt.entityPlayer.experienceLevel / 2;
         // stats.health = 20;
         int hunger = evt.entityPlayer.getFoodStats().getFoodLevel();
-        if (hunger < 6)
-            stats.hunger = 6;
-        else
-            stats.hunger = evt.entityPlayer.getFoodStats().getFoodLevel();
+        if (hunger < 6) stats.hunger = 6;
+        else stats.hunger = evt.entityPlayer.getFoodStats().getFoodLevel();
 
-        if (evt.entityPlayer.capturedDrops != evt.drops)
-        {
+        if (evt.entityPlayer.capturedDrops != evt.drops) {
             evt.entityPlayer.capturedDrops.clear();
         }
 
@@ -274,8 +239,7 @@ public class TPlayerHandler
         stats.knapsack.dropItems();
         evt.entityPlayer.captureDrops = false;
 
-        if (evt.entityPlayer.capturedDrops != evt.drops)
-        {
+        if (evt.entityPlayer.capturedDrops != evt.drops) {
             evt.drops.addAll(evt.entityPlayer.capturedDrops);
         }
 
@@ -283,19 +247,16 @@ public class TPlayerHandler
     }
 
     /* Modify Player */
-    public void updateSize (String user, float offset)
-    {
+    public void updateSize(String user, float offset) {
         /*
          * EntityPlayer player = getEntityPlayer(user); setEntitySize(0.6F,
          * offset, player); player.yOffset = offset - 0.18f;
          */
     }
 
-    public static void setEntitySize (float width, float height, Entity entity)
-    {
+    public static void setEntitySize(float width, float height, Entity entity) {
         // TConstruct.logger.info("Size: " + height);
-        if (width != entity.width || height != entity.height)
-        {
+        if (width != entity.width || height != entity.height) {
             entity.width = width;
             entity.height = height;
             entity.boundingBox.maxX = entity.boundingBox.minX + (double) entity.width;
@@ -305,28 +266,17 @@ public class TPlayerHandler
 
         float que = width % 2.0F;
 
-        if ((double) que < 0.375D)
-        {
+        if ((double) que < 0.375D) {
             entity.myEntitySize = EnumEntitySize.SIZE_1;
-        }
-        else if ((double) que < 0.75D)
-        {
+        } else if ((double) que < 0.75D) {
             entity.myEntitySize = EnumEntitySize.SIZE_2;
-        }
-        else if ((double) que < 1.0D)
-        {
+        } else if ((double) que < 1.0D) {
             entity.myEntitySize = EnumEntitySize.SIZE_3;
-        }
-        else if ((double) que < 1.375D)
-        {
+        } else if ((double) que < 1.375D) {
             entity.myEntitySize = EnumEntitySize.SIZE_4;
-        }
-        else if ((double) que < 1.75D)
-        {
+        } else if ((double) que < 1.75D) {
             entity.myEntitySize = EnumEntitySize.SIZE_5;
-        }
-        else
-        {
+        } else {
             entity.myEntitySize = EnumEntitySize.SIZE_6;
         }
         // entity.yOffset = height;
@@ -336,11 +286,9 @@ public class TPlayerHandler
     private final int timeout = 1000;
     private HashSet<String> stickUsers = new HashSet<String>();
 
-    public void buildStickURLDatabase (String location)
-    {
+    public void buildStickURLDatabase(String location) {
         URL url;
-        try
-        {
+        try {
             url = new URL(location);
             URLConnection con = url.openConnection();
             con.setConnectTimeout(timeout);
@@ -350,19 +298,15 @@ public class TPlayerHandler
 
             String nick;
             int linetracker = 1;
-            while ((nick = br.readLine()) != null)
-            {
-                if (!nick.startsWith("--"))
-                {
+            while ((nick = br.readLine()) != null) {
+                if (!nick.startsWith("--")) {
                     stickUsers.add(nick);
                 }
                 linetracker++;
             }
 
             br.close();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             TConstruct.logger.error(e.getMessage() != null ? e.getMessage() : "UNKOWN DL ERROR", e);
         }
     }

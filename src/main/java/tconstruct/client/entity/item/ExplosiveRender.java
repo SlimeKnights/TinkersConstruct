@@ -12,32 +12,27 @@ import tconstruct.mechworks.entity.item.ExplosivePrimed;
 import tconstruct.world.TinkerWorld;
 
 @SideOnly(Side.CLIENT)
-public class ExplosiveRender extends Render
-{
+public class ExplosiveRender extends Render {
     private RenderBlocks blockRenderer = new RenderBlocks();
 
-    public ExplosiveRender()
-    {
+    public ExplosiveRender() {
         this.shadowSize = 0.5F;
     }
 
-    public void renderPrimedTNT (ExplosivePrimed par1EntityTNTPrimed, double par2, double par4, double par6, float par8, float par9)
-    {
+    public void renderPrimedTNT(
+            ExplosivePrimed par1EntityTNTPrimed, double par2, double par4, double par6, float par8, float par9) {
         GL11.glPushMatrix();
         GL11.glTranslatef((float) par2, (float) par4, (float) par6);
         float f2;
 
-        if ((float) par1EntityTNTPrimed.fuse - par9 + 1.0F < 10.0F)
-        {
+        if ((float) par1EntityTNTPrimed.fuse - par9 + 1.0F < 10.0F) {
             f2 = 1.0F - ((float) par1EntityTNTPrimed.fuse - par9 + 1.0F) / 10.0F;
 
-            if (f2 < 0.0F)
-            {
+            if (f2 < 0.0F) {
                 f2 = 0.0F;
             }
 
-            if (f2 > 1.0F)
-            {
+            if (f2 > 1.0F) {
                 f2 = 1.0F;
             }
 
@@ -51,8 +46,7 @@ public class ExplosiveRender extends Render
         this.bindEntityTexture(par1EntityTNTPrimed);
         this.blockRenderer.renderBlockAsItem(TinkerWorld.slimeExplosive, 0, par1EntityTNTPrimed.getBrightness(par9));
 
-        if (par1EntityTNTPrimed.fuse / 5 % 2 == 0)
-        {
+        if (par1EntityTNTPrimed.fuse / 5 % 2 == 0) {
             GL11.glDisable(GL11.GL_TEXTURE_2D);
             GL11.glDisable(GL11.GL_LIGHTING);
             GL11.glEnable(GL11.GL_BLEND);
@@ -68,8 +62,7 @@ public class ExplosiveRender extends Render
         GL11.glPopMatrix();
     }
 
-    protected ResourceLocation func_110808_a (ExplosivePrimed par1EntityTNTPrimed)
-    {
+    protected ResourceLocation func_110808_a(ExplosivePrimed par1EntityTNTPrimed) {
         return TextureMap.locationBlocksTexture;
     }
 
@@ -78,8 +71,7 @@ public class ExplosiveRender extends Render
      * unless you call Render.bindEntityTexture.
      */
     @Override
-    protected ResourceLocation getEntityTexture (Entity par1Entity)
-    {
+    protected ResourceLocation getEntityTexture(Entity par1Entity) {
         return this.func_110808_a((ExplosivePrimed) par1Entity);
     }
 
@@ -92,8 +84,7 @@ public class ExplosiveRender extends Render
      * f1). But JAD is pre 1.5 so doesn't do that.
      */
     @Override
-    public void doRender (Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
-    {
+    public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9) {
         this.renderPrimedTNT((ExplosivePrimed) par1Entity, par2, par4, par6, par8, par9);
     }
 }

@@ -15,12 +15,9 @@ import tconstruct.smeltery.model.BlockRenderCastingChannel;
 /**
  * @author BluSunrize
  */
+public class CastingChannelBlock extends BlockContainer {
 
-public class CastingChannelBlock extends BlockContainer
-{
-
-    public CastingChannelBlock()
-    {
+    public CastingChannelBlock() {
         super(Material.rock);
         this.setHardness(1F);
         this.setResistance(10);
@@ -29,23 +26,20 @@ public class CastingChannelBlock extends BlockContainer
     }
 
     @Override
-    public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
-    {
+    public boolean onBlockActivated(
+            World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
         ItemStack stack = player.getCurrentEquippedItem();
         CastingChannelLogic tile = (CastingChannelLogic) world.getTileEntity(x, y, z);
 
-        if (stack != null && stack.getItem() == Item.getItemFromBlock(TinkerSmeltery.castingChannel))
-            return false;
-        else
-        {
+        if (stack != null && stack.getItem() == Item.getItemFromBlock(TinkerSmeltery.castingChannel)) return false;
+        else {
             tile.changeOutputs(player, side, hitX, hitY, hitZ);
             return true;
         }
     }
 
     @Override
-    public void setBlockBoundsBasedOnState (IBlockAccess world, int x, int y, int z)
-    {
+    public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
         CastingChannelLogic tile = (CastingChannelLogic) world.getTileEntity(x, y, z);
         float minX = 0.3125F;
         float maxX = 0.6875F;
@@ -59,38 +53,31 @@ public class CastingChannelBlock extends BlockContainer
     }
 
     @Override
-    public boolean renderAsNormalBlock ()
-    {
+    public boolean renderAsNormalBlock() {
         return false;
     }
 
     @Override
-    public boolean isOpaqueCube ()
-    {
+    public boolean isOpaqueCube() {
         return false;
     }
 
-    public boolean shouldSideBeRendered (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
-    {
+    public boolean shouldSideBeRendered(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5) {
         return true;
     }
 
     @Override
-    public int getRenderType ()
-    {
+    public int getRenderType() {
         return BlockRenderCastingChannel.renderID;
     }
 
     @Override
-    public void registerBlockIcons (IIconRegister iconRegister)
-    {
+    public void registerBlockIcons(IIconRegister iconRegister) {
         this.blockIcon = iconRegister.registerIcon("tinker:searedstone");
     }
 
     @Override
-    public TileEntity createNewTileEntity (World var1, int var2)
-    {
+    public TileEntity createNewTileEntity(World var1, int var2) {
         return new CastingChannelLogic();
     }
-
 }

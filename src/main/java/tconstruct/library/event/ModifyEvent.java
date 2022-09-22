@@ -3,7 +3,6 @@ package tconstruct.library.event;
 import cpw.mods.fml.common.eventhandler.Cancelable;
 import cpw.mods.fml.common.eventhandler.Event;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.library.modifier.IModifyable;
 import tconstruct.library.modifier.ItemModifier;
 

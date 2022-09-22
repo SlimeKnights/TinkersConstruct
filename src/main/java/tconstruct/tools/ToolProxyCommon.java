@@ -7,8 +7,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import tconstruct.common.TProxyCommon;
 
-public class ToolProxyCommon implements IGuiHandler
-{
+public class ToolProxyCommon implements IGuiHandler {
     public static final int toolStationID = 0;
     public static final int partBuilderID = 1;
     public static final int patternChestID = 2;
@@ -19,17 +18,13 @@ public class ToolProxyCommon implements IGuiHandler
     public static final int craftingStationID = 11;
     public static final int battlesignTextID = 12;
 
-    public ToolProxyCommon()
-    {
-    }
+    public ToolProxyCommon() {}
 
-    public void initialize ()
-    {
+    public void initialize() {
         registerGuiHandler();
     }
 
-    protected void registerGuiHandler ()
-    {
+    protected void registerGuiHandler() {
         TProxyCommon.registerServerGuiHandler(toolStationID, this);
         TProxyCommon.registerServerGuiHandler(partBuilderID, this);
         TProxyCommon.registerServerGuiHandler(patternChestID, this);
@@ -41,19 +36,16 @@ public class ToolProxyCommon implements IGuiHandler
     }
 
     @Override
-    public Object getServerGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
-    {
+    public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         TileEntity tile = world.getTileEntity(x, y, z);
-        if (tile != null && tile instanceof InventoryLogic)
-        {
+        if (tile != null && tile instanceof InventoryLogic) {
             return ((InventoryLogic) tile).getGuiContainer(player.inventory, world, x, y, z);
         }
         return null;
     }
 
     @Override
-    public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
-    {
+    public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         return null;
     }
 }

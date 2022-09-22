@@ -6,45 +6,37 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
 
-public class PunjiRender implements ISimpleBlockRenderingHandler
-{
+public class PunjiRender implements ISimpleBlockRenderingHandler {
     public static int model = RenderingRegistry.getNextAvailableRenderId();
 
     @Override
-    public void renderInventoryBlock (Block block, int metadata, int modelID, RenderBlocks renderer)
-    {
-        if (modelID == model)
-        {
+    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
+        if (modelID == model) {
             renderer.setRenderBounds(0.4375, 0.0, 0.4375, 0.5625, 1.0f, 0.5625);
             renderStandardInvBlock(renderer, block, metadata);
         }
     }
 
     @Override
-    public boolean renderWorldBlock (IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer)
-    {
-        if (modelID == model)
-        {
+    public boolean renderWorldBlock(
+            IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer) {
+        if (modelID == model) {
             int metadata = world.getBlockMetadata(x, y, z);
             renderer.setRenderBounds(0.4375, 0.0, 0.4375, 0.5625, 0.375f, 0.5625);
             renderer.renderStandardBlock(block, x, y, z);
-            if (metadata >= 1)
-            {
+            if (metadata >= 1) {
                 renderer.setRenderBounds(0.125, 0.0, 0.125, 0.25, 0.375f, 0.25);
                 renderer.renderStandardBlock(block, x, y, z);
             }
-            if (metadata >= 2)
-            {
+            if (metadata >= 2) {
                 renderer.setRenderBounds(0.75, 0.0, 0.75, 0.875, 0.375f, 0.875);
                 renderer.renderStandardBlock(block, x, y, z);
             }
-            if (metadata >= 3)
-            {
+            if (metadata >= 3) {
                 renderer.setRenderBounds(0.125, 0.0, 0.75, 0.25, 0.375f, 0.875);
                 renderer.renderStandardBlock(block, x, y, z);
             }
-            if (metadata >= 4)
-            {
+            if (metadata >= 4) {
                 renderer.setRenderBounds(0.75, 0.0, 0.125, 0.875, 0.375f, 0.25);
                 renderer.renderStandardBlock(block, x, y, z);
             }
@@ -68,19 +60,16 @@ public class PunjiRender implements ISimpleBlockRenderingHandler
     }
 
     @Override
-    public boolean shouldRender3DInInventory (int modelID)
-    {
+    public boolean shouldRender3DInInventory(int modelID) {
         return true;
     }
 
     @Override
-    public int getRenderId ()
-    {
+    public int getRenderId() {
         return model;
     }
 
-    public static void renderStandardInvBlock (RenderBlocks renderblocks, Block block, int meta)
-    {
+    public static void renderStandardInvBlock(RenderBlocks renderblocks, Block block, int meta) {
         Tessellator tessellator = Tessellator.instance;
         GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
         tessellator.startDrawingQuads();

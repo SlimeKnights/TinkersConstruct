@@ -7,19 +7,16 @@ import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
 import tconstruct.tools.TinkerTools;
 
-public class TableRender implements ISimpleBlockRenderingHandler
-{
+public class TableRender implements ISimpleBlockRenderingHandler {
     public static int model = RenderingRegistry.getNextAvailableRenderId();
 
     @Override
-    public void renderInventoryBlock (Block block, int metadata, int modelID, RenderBlocks renderer)
-    {
-        if (modelID == model)
-        {
+    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
+        if (modelID == model) {
             // until we get the new model.. finally...
-            if(block == TinkerTools.toolStationWood && metadata >= 5 && metadata <= 9) {
+            if (block == TinkerTools.toolStationWood && metadata >= 5 && metadata <= 9) {
                 // pattern chest
-                renderer.setRenderBounds(0,0,0,1,0.875,1);
+                renderer.setRenderBounds(0, 0, 0, 1, 0.875, 1);
                 renderStandardInvBlock(renderer, block, metadata);
                 return;
             }
@@ -38,16 +35,15 @@ public class TableRender implements ISimpleBlockRenderingHandler
     }
 
     @Override
-    public boolean renderWorldBlock (IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer)
-    {
-        if (modelID == model)
-        {
-            int metadata = world.getBlockMetadata(x,y,z);
+    public boolean renderWorldBlock(
+            IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer) {
+        if (modelID == model) {
+            int metadata = world.getBlockMetadata(x, y, z);
             // until we get the new model.. finally...
-            if(block == TinkerTools.toolStationWood && metadata >= 5 && metadata <= 9) {
+            if (block == TinkerTools.toolStationWood && metadata >= 5 && metadata <= 9) {
                 // pattern chest
-                renderer.setRenderBounds(0,0,0,1,0.875,1);
-                renderer.renderStandardBlock(block, x,y,z);
+                renderer.setRenderBounds(0, 0, 0, 1, 0.875, 1);
+                renderer.renderStandardBlock(block, x, y, z);
                 return true;
             }
 
@@ -67,19 +63,16 @@ public class TableRender implements ISimpleBlockRenderingHandler
     }
 
     @Override
-    public boolean shouldRender3DInInventory (int modelID)
-    {
+    public boolean shouldRender3DInInventory(int modelID) {
         return true;
     }
 
     @Override
-    public int getRenderId ()
-    {
+    public int getRenderId() {
         return model;
     }
 
-    public static void renderStandardInvBlock (RenderBlocks renderblocks, Block block, int meta)
-    {
+    public static void renderStandardInvBlock(RenderBlocks renderblocks, Block block, int meta) {
         Tessellator tessellator = Tessellator.instance;
         GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
         tessellator.startDrawingQuads();

@@ -1,7 +1,6 @@
 package tconstruct.armor.player;
 
-public class ArmorExtendedClient extends ArmorExtended
-{
+public class ArmorExtendedClient extends ArmorExtended {
     /*
      * public void recalculateSkills(EntityPlayer player, TPlayerStats stats) {
      * TConstruct.logger.info("Client skills"); if (inventory[1] != null &&

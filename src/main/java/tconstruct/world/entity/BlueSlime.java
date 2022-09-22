@@ -4,8 +4,7 @@ import net.minecraft.item.Item;
 import net.minecraft.world.*;
 import tconstruct.world.TinkerWorld;
 
-public class BlueSlime extends SlimeBase
-{
+public class BlueSlime extends SlimeBase {
     public BlueSlime(World world) {
         super(world);
     }
@@ -14,8 +13,7 @@ public class BlueSlime extends SlimeBase
      * Returns the item ID for the item the mob drops on death.
      */
     @Override
-    protected Item getDropItem ()
-    {
+    protected Item getDropItem() {
         return TinkerWorld.strangeFood;
     }
 

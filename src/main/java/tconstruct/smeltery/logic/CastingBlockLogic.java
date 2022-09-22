@@ -19,8 +19,7 @@ import tconstruct.library.event.*;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.util.IPattern;
 
-public abstract class CastingBlockLogic extends InventoryLogic implements IFluidTank, IFluidHandler, ISidedInventory
-{
+public abstract class CastingBlockLogic extends InventoryLogic implements IFluidTank, IFluidHandler, ISidedInventory {
     public FluidStack liquid;
     protected int maxCastingDelay = 0;
     protected int castingDelay = 0;
@@ -31,49 +30,39 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
     protected int tick;
     protected final LiquidCasting liquidCasting;
 
-    public CastingBlockLogic(LiquidCasting casting)
-    {
+    public CastingBlockLogic(LiquidCasting casting) {
         // input slot and output slot, 1 item in it max
         super(2, 1);
         this.liquidCasting = casting;
     }
 
-    public int updateCapacity () // Only used to initialize
-    {
+    public int updateCapacity() // Only used to initialize
+            {
         ItemStack inv = inventory[0];
         int ret = TConstruct.ingotLiquidValue;
         int rec = liquidCasting.getCastingAmount(this.liquid, inv);
 
-        if (rec > 0)
-            ret = rec;
-        else
-        {
-            if (inv != null && inv.getItem() instanceof IPattern)
-            {
+        if (rec > 0) ret = rec;
+        else {
+            if (inv != null && inv.getItem() instanceof IPattern) {
                 int cost = ((IPattern) inv.getItem()).getPatternCost(inv);
-                if (cost > 0)
-                    ret *= ((IPattern) inv.getItem()).getPatternCost(inv) * 0.5;
+                if (cost > 0) ret *= ((IPattern) inv.getItem()).getPatternCost(inv) * 0.5;
             }
         }
 
         return ret;
     }
 
-    public int updateCapacity (int capacity)
-    {
+    public int updateCapacity(int capacity) {
         int ret = TConstruct.ingotLiquidValue;
 
-        if (capacity > 0)
-            ret = capacity;
-        else
-        {
+        if (capacity > 0) ret = capacity;
+        else {
             ItemStack inv = inventory[0];
 
-            if (inv != null && inv.getItem() instanceof IPattern)
-            {
+            if (inv != null && inv.getItem() instanceof IPattern) {
                 int cost = ((IPattern) inv.getItem()).getPatternCost(inv);
-                if (cost > 0)
-                    ret *= cost * 0.5;
+                if (cost > 0) ret *= cost * 0.5;
             }
         }
 
@@ -82,121 +71,98 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
 
     /* FluidHandler stuff. Mostly delegated to Tank stuff */
     @Override
-    public int fill (ForgeDirection from, FluidStack resource, boolean doFill)
-    {
+    public int fill(ForgeDirection from, FluidStack resource, boolean doFill) {
         return fill(resource, doFill);
     }
 
     @Override
-    public FluidStack drain (ForgeDirection from, FluidStack resource, boolean doDrain)
-    {
+    public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain) {
         // only same liquid
-        if (liquid != null && liquid.getFluid() != resource.getFluid())
-            return null;
+        if (liquid != null && liquid.getFluid() != resource.getFluid()) return null;
 
         return drain(resource.amount, doDrain);
     }
 
     @Override
-    public FluidStack drain (ForgeDirection from, int maxDrain, boolean doDrain)
-    {
+    public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain) {
         return drain(maxDrain, doDrain);
     }
 
     @Override
-    public boolean canFill (ForgeDirection from, Fluid fluid)
-    {
-        if(fluid == null)
-            return false;
+    public boolean canFill(ForgeDirection from, Fluid fluid) {
+        if (fluid == null) return false;
         return fill(from, new FluidStack(fluid, 1), false) > 0;
     }
 
     @Override
-    public boolean canDrain (ForgeDirection from, Fluid fluid)
-    {
-        if(fluid == null)
-            return false;
-        
+    public boolean canDrain(ForgeDirection from, Fluid fluid) {
+        if (fluid == null) return false;
+
         FluidStack drained = drain(from, new FluidStack(fluid, 1), false);
         return drained != null && drained.amount > 0;
     }
 
     /* Tank stuff */
     @Override
-    public FluidTankInfo[] getTankInfo (ForgeDirection from)
-    {
-        return new FluidTankInfo[] { getInfo() };
+    public FluidTankInfo[] getTankInfo(ForgeDirection from) {
+        return new FluidTankInfo[] {getInfo()};
     }
 
     @Override
-    public FluidStack getFluid ()
-    {
+    public FluidStack getFluid() {
         return liquid == null ? null : liquid.copy();
     }
 
     @Override
-    public int getFluidAmount ()
-    {
+    public int getFluidAmount() {
         return liquid != null ? liquid.amount : 0;
     }
 
     /** Returns the current amount of the liquid FOR RENDERING */
-    public int getLiquidAmount ()
-    {
+    public int getLiquidAmount() {
         return liquid.amount - renderOffset;
     }
 
     @Override
-    public int getCapacity ()
-    {
+    public int getCapacity() {
         return this.capacity;
     }
 
     @Override
-    public FluidTankInfo getInfo ()
-    {
+    public FluidTankInfo getInfo() {
         return new FluidTankInfo(this);
     }
 
     /**
      * Create and return the casting event here. It'll be fired automatically.
      */
-    public abstract SmelteryCastEvent getCastingEvent (CastingRecipe recipe, FluidStack metal);
+    public abstract SmelteryCastEvent getCastingEvent(CastingRecipe recipe, FluidStack metal);
 
     @Override
-    public int fill (FluidStack resource, boolean doFill)
-    {
-        if (resource == null)
-            return 0;
+    public int fill(FluidStack resource, boolean doFill) {
+        if (resource == null) return 0;
 
-        if (this.liquid == null)
-        {
+        if (this.liquid == null) {
             CastingRecipe recipe = liquidCasting.getCastingRecipe(resource, inventory[0]);
-            if (recipe == null)
-                return 0;
+            if (recipe == null) return 0;
 
             SmelteryCastEvent event = getCastingEvent(recipe, resource);
             MinecraftForge.EVENT_BUS.post(event);
 
-            if (event.getResult() == Event.Result.DENY)
-                return 0;
+            if (event.getResult() == Event.Result.DENY) return 0;
 
             this.capacity = updateCapacity(recipe.castingMetal.amount);
 
-            if (inventory[1] == null)
-            {
+            if (inventory[1] == null) {
                 FluidStack copyLiquid = resource.copy();
 
-                if (copyLiquid.amount > this.capacity)
-                {
+                if (copyLiquid.amount > this.capacity) {
                     copyLiquid.amount = this.capacity;
                 }
 
-                if (doFill)
-                {
-                    if (copyLiquid.amount == this.capacity)
-                    {
-                        maxCastingDelay= castingDelay = recipe.coolTime;
+                if (doFill) {
+                    if (copyLiquid.amount == this.capacity) {
+                        maxCastingDelay = castingDelay = recipe.coolTime;
                     }
                     renderOffset = copyLiquid.amount;
                     worldObj.func_147479_m(xCoord, yCoord, zCoord);
@@ -204,19 +170,14 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
                     needsUpdate = true;
                 }
                 return copyLiquid.amount;
-            }
-            else
-            {
+            } else {
                 return 0;
             }
-        }
-        else if (resource.isFluidEqual(this.liquid))
-        {
+        } else if (resource.isFluidEqual(this.liquid)) {
             if (resource.amount + this.liquid.amount >= this.capacity) // Start timer here
             {
                 int roomInTank = this.capacity - liquid.amount;
-                if (doFill && roomInTank > 0)
-                {
+                if (doFill && roomInTank > 0) {
                     renderOffset = roomInTank;
                     maxCastingDelay = castingDelay = liquidCasting.getCastingDelay(this.liquid, inventory[0]);
                     this.liquid.amount = this.capacity;
@@ -224,12 +185,8 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
                     needsUpdate = true;
                 }
                 return roomInTank;
-            }
-
-            else
-            {
-                if (doFill)
-                {
+            } else {
+                if (doFill) {
                     renderOffset += resource.amount;
                     this.liquid.amount += resource.amount;
                     worldObj.func_147479_m(xCoord, yCoord, zCoord);
@@ -237,28 +194,20 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
                 }
                 return resource.amount;
             }
-        }
-
-        else
-        {
+        } else {
             return 0;
         }
     }
 
     @Override
-    public FluidStack drain (int maxDrain, boolean doDrain)
-    {
-        if (liquid == null || liquid.getFluid() == null || liquid.getFluidID() <= 0 || castingDelay > 0)
-            return null;
-        if (liquid.amount <= 0)
-            return null;
+    public FluidStack drain(int maxDrain, boolean doDrain) {
+        if (liquid == null || liquid.getFluid() == null || liquid.getFluidID() <= 0 || castingDelay > 0) return null;
+        if (liquid.amount <= 0) return null;
 
         int used = maxDrain;
-        if (liquid.amount < used)
-            used = liquid.amount;
+        if (liquid.amount < used) used = liquid.amount;
 
-        if (doDrain)
-        {
+        if (doDrain) {
             liquid.amount -= used;
         }
 
@@ -268,52 +217,49 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
         renderOffset = 0;
 
         // Reset liquid if emptied
-        if (liquid.amount <= 0)
-            liquid = null;
+        if (liquid.amount <= 0) liquid = null;
 
         if (doDrain)
-            FluidEvent.fireEvent(new FluidEvent.FluidDrainingEvent(drained, this.worldObj, this.xCoord, this.yCoord, this.zCoord, this, used));
+            FluidEvent.fireEvent(new FluidEvent.FluidDrainingEvent(
+                    drained, this.worldObj, this.xCoord, this.yCoord, this.zCoord, this, used));
 
         return drained;
     }
 
     /* Inventory, inserting/extracting */
 
-    public void interact(EntityPlayer player)
-    {
+    public void interact(EntityPlayer player) {
         // only server side
-        //if(worldObj.isRemote)
-            //return;
+        // if(worldObj.isRemote)
+        // return;
 
         // can't interact with liquid inside
         // todo: maybe let it interact with a bucket or tank!
-        if(liquid != null)
-            return;
+        if (liquid != null) return;
 
         // put stuff in?
-        if(!isStackInSlot(0) && !isStackInSlot(1))
-        {
+        if (!isStackInSlot(0) && !isStackInSlot(1)) {
             ItemStack stack = player.inventory.decrStackSize(player.inventory.currentItem, stackSizeLimit);
-            SmelteryEvent.ItemInsertedIntoCasting event = new SmelteryEvent.ItemInsertedIntoCasting(this, xCoord, yCoord, zCoord, stack, player);
+            SmelteryEvent.ItemInsertedIntoCasting event =
+                    new SmelteryEvent.ItemInsertedIntoCasting(this, xCoord, yCoord, zCoord, stack, player);
             MinecraftForge.EVENT_BUS.post(event);
-            if(!event.isCanceled())
-                setInventorySlotContents(0, event.item);
+            if (!event.isCanceled()) setInventorySlotContents(0, event.item);
             else
-                player.inventory.addItemStackToInventory(stack); // should never return false, since the itemstack was taken from the inventory
+                player.inventory.addItemStackToInventory(
+                        stack); // should never return false, since the itemstack was taken from the inventory
         }
         // take stuff out.
-        else
-        {
+        else {
             int slot = 0;
             // output-slot has higher priority
-            if(isStackInSlot(1))
-                slot = 1;
+            if (isStackInSlot(1)) slot = 1;
 
             // Additional Info: Only 1 item can only be put into the casting block usually, however recipes
             // can have multiple blocks as output (compressed gravel -> brownstone for example)
             // we therefore spill the whole contents on extraction
 
-            SmelteryEvent.ItemRemovedFromCasting event = new SmelteryEvent.ItemRemovedFromCasting(this, xCoord, yCoord, zCoord, getStackInSlot(slot), player);
+            SmelteryEvent.ItemRemovedFromCasting event = new SmelteryEvent.ItemRemovedFromCasting(
+                    this, xCoord, yCoord, zCoord, getStackInSlot(slot), player);
             MinecraftForge.EVENT_BUS.post(event);
 
             // try to transfer thes tack to the player inventory
@@ -326,137 +272,110 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
     }
 
     @Override
-    public ItemStack decrStackSize (int slot, int quantity)
-    {
+    public ItemStack decrStackSize(int slot, int quantity) {
         ItemStack stack = super.decrStackSize(slot, quantity);
         worldObj.func_147479_m(xCoord, yCoord, zCoord);
         return stack;
     }
 
     @Override
-    public int[] getAccessibleSlotsFromSide (int side)
-    {
-        return new int[] { 0, 1 };
+    public int[] getAccessibleSlotsFromSide(int side) {
+        return new int[] {0, 1};
     }
 
     @Override
-    public boolean canInsertItem (int slot, ItemStack itemstack, int side)
-    {
+    public boolean canInsertItem(int slot, ItemStack itemstack, int side) {
         // can't insert if there's liquid in it
-        if (liquid != null)
-            return false;
+        if (liquid != null) return false;
 
         // only into input slot
         return slot == 0;
     }
 
     @Override
-    public boolean canExtractItem (int slot, ItemStack itemstack, int side)
-    {
+    public boolean canExtractItem(int slot, ItemStack itemstack, int side) {
         // only output slot
         return slot == 1;
     }
 
     /* We don't have a gui or anything */
     @Override
-    public Container getGuiContainer (InventoryPlayer inventoryplayer, World world, int x, int y, int z)
-    {
+    public Container getGuiContainer(InventoryPlayer inventoryplayer, World world, int x, int y, int z) {
         return null;
     }
 
     @Override
-    protected String getDefaultName ()
-    {
+    protected String getDefaultName() {
         return null;
     }
 
     @Override
-    public String getInventoryName ()
-    {
+    public String getInventoryName() {
         return null;
     }
 
     @Override
-    public String getInvName ()
-    {
+    public String getInvName() {
         return null;
     }
 
     @Override
-    public boolean hasCustomInventoryName ()
-    {
+    public boolean hasCustomInventoryName() {
         return false;
     }
 
     @Override
-    public void openInventory ()
-    {
-
-    }
+    public void openInventory() {}
 
     @Override
-    public void closeInventory ()
-    {
-
-    }
+    public void closeInventory() {}
 
     /* NBT, Updating */
     @Override
-    public void markDirty () // Isn't actually called?
-    {
+    public void markDirty() // Isn't actually called?
+            {
         super.markDirty();
         worldObj.func_147479_m(xCoord, yCoord, zCoord);
         needsUpdate = true;
     }
 
     @Override
-    public void updateEntity ()
-    {
-        if (castingDelay > 0)
-        {
+    public void updateEntity() {
+        if (castingDelay > 0) {
             castingDelay--;
-            if (castingDelay == 0)
-                castLiquid();
+            if (castingDelay == 0) castLiquid();
         }
-        if (renderOffset > 0)
-        {
-            //renderOffset -= Math.max(renderOffset/3, 6);
+        if (renderOffset > 0) {
+            // renderOffset -= Math.max(renderOffset/3, 6);
             renderOffset -= 6;
-            if(renderOffset < 0)
-                renderOffset = 0;
+            if (renderOffset < 0) renderOffset = 0;
             worldObj.func_147479_m(xCoord, yCoord, zCoord);
         }
 
         tick++;
-        if (tick % 20 == 0)
-        {
+        if (tick % 20 == 0) {
             tick = 0;
-            if (needsUpdate)
-                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            if (needsUpdate) worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         }
     }
 
     /**
      * Create and return the casting event here. It'll be fired automatically.
      */
-    public abstract SmelteryCastedEvent getCastedEvent (CastingRecipe recipe, ItemStack result);
+    public abstract SmelteryCastedEvent getCastedEvent(CastingRecipe recipe, ItemStack result);
 
-    public void castLiquid ()
-    {
+    public void castLiquid() {
         CastingRecipe recipe = liquidCasting.getCastingRecipe(liquid, inventory[0]);
-        if (recipe != null)
-        {
+        if (recipe != null) {
             SmelteryCastedEvent event = getCastedEvent(recipe, recipe.getResult());
             MinecraftForge.EVENT_BUS.post(event);
             maxCastingDelay = 0;
 
             inventory[1] = event.output;
-            if (event.consumeCast)
-                inventory[0] = null;
+            if (event.consumeCast) inventory[0] = null;
 
             // if we just created a cast, move it to the first slot so we can use it directly afterwards
-            if (event.output != null && event.output.getItem() instanceof IPattern)
-            {
+            if (event.output != null && event.output.getItem() instanceof IPattern) {
                 inventory[1] = inventory[0];
                 inventory[0] = event.output;
             }
@@ -467,42 +386,32 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
     }
 
     @Override
-    public void readFromNBT (NBTTagCompound tags)
-    {
+    public void readFromNBT(NBTTagCompound tags) {
         super.readFromNBT(tags);
         readCustomNBT(tags);
     }
 
-    public void readCustomNBT (NBTTagCompound tags)
-    {
-        if (tags.getBoolean("hasLiquid"))
-        {
+    public void readCustomNBT(NBTTagCompound tags) {
+        if (tags.getBoolean("hasLiquid")) {
             this.liquid = FluidStack.loadFluidStackFromNBT(tags.getCompoundTag("Fluid"));
-        }
-        else
-            this.liquid = null;
+        } else this.liquid = null;
 
-        if (tags.getBoolean("Initialized"))
-            this.capacity = tags.getInteger("Capacity");
-        else
-            this.capacity = updateCapacity();
+        if (tags.getBoolean("Initialized")) this.capacity = tags.getInteger("Capacity");
+        else this.capacity = updateCapacity();
         this.castingDelay = tags.getInteger("castingDelay");
         this.maxCastingDelay = tags.getInteger("maxCastingDelay");
         this.renderOffset = tags.getInteger("RenderOffset");
     }
 
     @Override
-    public void writeToNBT (NBTTagCompound tags)
-    {
+    public void writeToNBT(NBTTagCompound tags) {
         super.writeToNBT(tags);
         writeCustomNBT(tags);
     }
 
-    public void writeCustomNBT (NBTTagCompound tags)
-    {
+    public void writeCustomNBT(NBTTagCompound tags) {
         tags.setBoolean("hasLiquid", liquid != null);
-        if (liquid != null)
-        {
+        if (liquid != null) {
             NBTTagCompound nbt = new NBTTagCompound();
             liquid.writeToNBT(nbt);
             tags.setTag("Fluid", nbt);
@@ -516,25 +425,23 @@ public abstract class CastingBlockLogic extends InventoryLogic implements IFluid
 
     /* Packets */
     @Override
-    public Packet getDescriptionPacket ()
-    {
+    public Packet getDescriptionPacket() {
         NBTTagCompound tag = new NBTTagCompound();
         writeToNBT(tag);
         return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag);
     }
 
     @Override
-    public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
-    {
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
         readFromNBT(packet.func_148857_g());
         worldObj.func_147479_m(xCoord, yCoord, zCoord);
     }
 
     public int getProgress() {
-        if(castingDelay == 0 || maxCastingDelay == 0) {
+        if (castingDelay == 0 || maxCastingDelay == 0) {
             return 0;
         }
 
-        return (int)(( (maxCastingDelay - castingDelay) / (double)maxCastingDelay) * 100);
+        return (int) (((maxCastingDelay - castingDelay) / (double) maxCastingDelay) * 100);
     }
 }

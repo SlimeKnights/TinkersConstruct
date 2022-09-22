@@ -10,20 +10,18 @@ import tconstruct.mechworks.landmine.behavior.Behavior;
 /**
  * This logic is designed only for blocks having TileEntityLandmine as their
  * tileEntity(otherwise ClassCastException will be awarded)
- * 
+ *
  * @author fuj1n
- * 
+ *
  */
-public class LandmineExplodeLogic
-{
+public class LandmineExplodeLogic {
 
     private final World worldObj;
     private final Entity triggerer;
     private final TileEntityLandmine tileEntity;
     private final int x, y, z;
 
-    public LandmineExplodeLogic(World par1World, int par2, int par3, int par4, Entity entity)
-    {
+    public LandmineExplodeLogic(World par1World, int par2, int par3, int par4, Entity entity) {
         worldObj = par1World;
         this.tileEntity = (TileEntityLandmine) par1World.getTileEntity(par2, par3, par4);
         this.x = par2;
@@ -32,10 +30,8 @@ public class LandmineExplodeLogic
         this.triggerer = entity;
     }
 
-    public void explode ()
-    {
-        if (triggerer == null)
-        {
+    public void explode() {
+        if (triggerer == null) {
             return;
         }
 
@@ -46,84 +42,63 @@ public class LandmineExplodeLogic
         ArrayList<ItemStack> stacks = new ArrayList<ItemStack>();
         boolean hasExploded = false;
 
-        if (tileEntity == null)
-        {
+        if (tileEntity == null) {
             return;
         }
 
         tileEntity.isExploding = true;
 
-        for (int i = 0; i < tileEntity.getSizeTriggerInventory(); i++)
-        {
+        for (int i = 0; i < tileEntity.getSizeTriggerInventory(); i++) {
             ItemStack currentStack = tileEntity.getStackInSlot(i);
             Behavior b = Behavior.getBehaviorFromStack(currentStack);
-            if (b != null)
-            {
+            if (b != null) {
 
-                if (b.doesBehaviorPreventRemovalOfBlock(currentStack))
-                {
+                if (b.doesBehaviorPreventRemovalOfBlock(currentStack)) {
                     preventExplode = true;
                 }
 
-                if (!b.isBehaviorExchangableWithOffensive(currentStack))
-                {
+                if (!b.isBehaviorExchangableWithOffensive(currentStack)) {
                     isOffensive = false;
                 }
 
-                if (b.overridesDefault())
-                {
+                if (b.overridesDefault()) {
                     cancelDefault = true;
                 }
 
-                if (!stacks.isEmpty() && Behavior.arrayContainsEqualStack(stacks, currentStack) && b.effectStacks())
-                {
+                if (!stacks.isEmpty() && Behavior.arrayContainsEqualStack(stacks, currentStack) && b.effectStacks()) {
                     stacks.get(Behavior.arrayIndexOfStack(stacks, currentStack)).stackSize += currentStack.stackSize;
-                }
-                else
-                {
+                } else {
                     stacks.add(currentStack.copy());
                 }
             }
         }
 
-        LandmineSpecialStackLogic specialStacks = new LandmineSpecialStackLogic(worldObj, x, y, z, triggerer, isOffensive, stacks);
+        LandmineSpecialStackLogic specialStacks =
+                new LandmineSpecialStackLogic(worldObj, x, y, z, triggerer, isOffensive, stacks);
         specialStacks.handleSpecialStacks();
 
         Iterator<ItemStack> i1 = stacks.iterator();
-        while (i1.hasNext())
-        {
+        while (i1.hasNext()) {
             ItemStack currentStack = i1.next();
             Behavior b = Behavior.getBehaviorFromStack(currentStack);
-            if (b != null)
-            {
-                if (isOffensive || !b.isOffensive(currentStack))
-                {
+            if (b != null) {
+                if (isOffensive || !b.isOffensive(currentStack)) {
                     b.executeLogic(worldObj, x, y, z, currentStack, triggerer, !preventExplode);
-                    if (b.shouldItemBeRemoved(currentStack, !preventExplode))
-                    {
-                        if (b.effectStacks())
-                        {
-                            for (int i = 0; i < tileEntity.getSizeTriggerInventory(); i++)
-                            {
-                                if (tileEntity.getStackInSlot(i) != null)
-                                {
-                                    if (tileEntity.getStackInSlot(i).isItemEqual(currentStack))
-                                    {
+                    if (b.shouldItemBeRemoved(currentStack, !preventExplode)) {
+                        if (b.effectStacks()) {
+                            for (int i = 0; i < tileEntity.getSizeTriggerInventory(); i++) {
+                                if (tileEntity.getStackInSlot(i) != null) {
+                                    if (tileEntity.getStackInSlot(i).isItemEqual(currentStack)) {
                                         tileEntity.setInventorySlotContents(i, null);
                                     }
                                 }
                             }
-                        }
-                        else
-                        {
+                        } else {
                             boolean hasRemoved = false;
 
-                            for (int i = 0; i < tileEntity.getSizeTriggerInventory() && !hasRemoved; i++)
-                            {
-                                if (tileEntity.getStackInSlot(i) != null)
-                                {
-                                    if (tileEntity.getStackInSlot(i).isItemEqual(currentStack))
-                                    {
+                            for (int i = 0; i < tileEntity.getSizeTriggerInventory() && !hasRemoved; i++) {
+                                if (tileEntity.getStackInSlot(i) != null) {
+                                    if (tileEntity.getStackInSlot(i).isItemEqual(currentStack)) {
                                         tileEntity.setInventorySlotContents(i, null);
                                         hasRemoved = true;
                                     }
@@ -136,18 +111,14 @@ public class LandmineExplodeLogic
         }
 
         Behavior defBeh = Behavior.getDefaulBehavior();
-        if (defBeh != null && isOffensive && !cancelDefault)
-        {
+        if (defBeh != null && isOffensive && !cancelDefault) {
             defBeh.executeLogic(worldObj, x, y, z, null, triggerer, !preventExplode);
         }
 
-        if (hasExploded || defBeh != null && !preventExplode)
-        {
+        if (hasExploded || defBeh != null && !preventExplode) {
             worldObj.removeTileEntity(x, y, z);
             WorldHelper.setBlockToAir(worldObj, x, y, z);
-        }
-        else
-        {
+        } else {
             tileEntity.isExploding = false;
         }
     }

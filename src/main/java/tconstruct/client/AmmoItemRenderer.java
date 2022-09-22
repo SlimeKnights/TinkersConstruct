@@ -1,23 +1,24 @@
 package tconstruct.client;
 
-import tconstruct.library.weaponry.IAmmo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
+import tconstruct.library.weaponry.IAmmo;
 
 public class AmmoItemRenderer extends FlexibleToolRenderer {
-    //public static FontRenderer fontRenderer;
+    // public static FontRenderer fontRenderer;
 
     public AmmoItemRenderer() {
-//        super(true);
-        //fontRenderer = new FontRenderer(Minecraft.getMinecraft().gameSettings, new ResourceLocation(Reference.RESOURCE, "textures/font/border_numbers.png"), Minecraft.getMinecraft().renderEngine, false);
+        //        super(true);
+        // fontRenderer = new FontRenderer(Minecraft.getMinecraft().gameSettings, new
+        // ResourceLocation(Reference.RESOURCE, "textures/font/border_numbers.png"),
+        // Minecraft.getMinecraft().renderEngine, false);
     }
 
     @Override
     public boolean handleRenderType(ItemStack item, ItemRenderType type) {
-        if(type == ItemRenderType.INVENTORY)
-            return true;
+        if (type == ItemRenderType.INVENTORY) return true;
 
         return super.handleRenderType(item, type);
     }
@@ -26,19 +27,17 @@ public class AmmoItemRenderer extends FlexibleToolRenderer {
     public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
         // render the item regularly
         super.renderItem(type, item, data);
-        //RenderItem.getInstance().renderItemIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().renderEngine, item, 0,0);
+        // RenderItem.getInstance().renderItemIntoGUI(Minecraft.getMinecraft().fontRenderer,
+        // Minecraft.getMinecraft().renderEngine, item, 0,0);
 
-        if(item.getTagCompound() == null || type != ItemRenderType.INVENTORY)
-            return;
+        if (item.getTagCompound() == null || type != ItemRenderType.INVENTORY) return;
 
         // render custom stacksize
         renderAmmoCount(item);
     }
 
-    public void renderAmmoCount(ItemStack item)
-    {
-        if(!(item.getItem() instanceof IAmmo))
-            return;
+    public void renderAmmoCount(ItemStack item) {
+        if (!(item.getItem() instanceof IAmmo)) return;
         int amount = ((IAmmo) item.getItem()).getAmmoCount(item);
         String str = String.valueOf(amount);
 

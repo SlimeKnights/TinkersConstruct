@@ -5,8 +5,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import tconstruct.library.client.FluidRenderProperties;
 
-public class CastingRecipe
-{
+public class CastingRecipe {
     public ItemStack output;
     public FluidStack castingMetal;
     public ItemStack cast;
@@ -15,8 +14,14 @@ public class CastingRecipe
     public FluidRenderProperties fluidRenderProperties;
     public boolean ignoreNBT;
 
-    public CastingRecipe(ItemStack replacement, FluidStack metal, ItemStack cast, boolean consume, int delay, FluidRenderProperties props, boolean ignoreNBT)
-    {
+    public CastingRecipe(
+            ItemStack replacement,
+            FluidStack metal,
+            ItemStack cast,
+            boolean consume,
+            int delay,
+            FluidRenderProperties props,
+            boolean ignoreNBT) {
         castingMetal = metal;
         this.cast = cast;
         output = replacement;
@@ -26,15 +31,21 @@ public class CastingRecipe
         this.ignoreNBT = ignoreNBT;
     }
 
-    public CastingRecipe(ItemStack replacement, FluidStack metal, ItemStack cast, boolean consume, int delay, FluidRenderProperties props)
-    {
+    public CastingRecipe(
+            ItemStack replacement,
+            FluidStack metal,
+            ItemStack cast,
+            boolean consume,
+            int delay,
+            FluidRenderProperties props) {
         this(replacement, metal, cast, consume, delay, props, false);
     }
 
-    public boolean matches (FluidStack metal, ItemStack inputCast)
-    {
+    public boolean matches(FluidStack metal, ItemStack inputCast) {
         if (castingMetal.isFluidEqual(metal)) {
-            if (cast != null && cast.getItemDamage() == OreDictionary.WILDCARD_VALUE && inputCast.getItem() == cast.getItem()) {
+            if (cast != null
+                    && cast.getItemDamage() == OreDictionary.WILDCARD_VALUE
+                    && inputCast.getItem() == cast.getItem()) {
                 return true;
             } else if (!ignoreNBT && ItemStack.areItemStacksEqual(cast, inputCast)) {
                 return true;
@@ -45,8 +56,7 @@ public class CastingRecipe
         return false;
     }
 
-    public ItemStack getResult ()
-    {
+    public ItemStack getResult() {
         return output.copy();
     }
 }

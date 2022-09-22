@@ -1,19 +1,16 @@
 package tconstruct.smeltery.itemblocks;
 
+import java.util.List;
 import mantle.blocks.abstracts.MultiItemBlock;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
-import java.util.List;
+public class SearedTableItemBlock extends MultiItemBlock {
+    public static final String blockTypes[] = {"Table", "Faucet", "Basin"};
 
-public class SearedTableItemBlock extends MultiItemBlock
-{
-    public static final String blockTypes[] = { "Table", "Faucet", "Basin" };
-
-    public SearedTableItemBlock(Block b)
-    {
+    public SearedTableItemBlock(Block b) {
         super(b, "SearedBlock", blockTypes);
         setMaxDamage(0);
         setHasSubtypes(true);
@@ -34,7 +31,6 @@ public class SearedTableItemBlock extends MultiItemBlock
                 break;
         }
 
-        if(StatCollector.canTranslate(tooltip))
-            p_77624_3_.add(StatCollector.translateToLocal(tooltip));
+        if (StatCollector.canTranslate(tooltip)) p_77624_3_.add(StatCollector.translateToLocal(tooltip));
     }
 }

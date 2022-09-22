@@ -13,14 +13,13 @@ import net.minecraft.util.*;
 import net.minecraft.world.World;
 import tconstruct.tools.entity.LaunchedPotion;
 
-public class PotionLauncher extends Item
-{
+public class PotionLauncher extends Item {
     @SideOnly(Side.CLIENT)
     private IIcon[] icons;
-    public static final String[] textureNames = new String[] { "potionlauncher" };
 
-    public PotionLauncher()
-    {
+    public static final String[] textureNames = new String[] {"potionlauncher"};
+
+    public PotionLauncher() {
         super();
         this.maxStackSize = 1;
         this.setCreativeTab(CreativeTabs.tabCombat);
@@ -28,12 +27,10 @@ public class PotionLauncher extends Item
     }
 
     @Override
-    public ItemStack onEaten (ItemStack stack, World world, EntityPlayer player)
-    {
+    public ItemStack onEaten(ItemStack stack, World world, EntityPlayer player) {
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         boolean loaded = tags.getBoolean("Loaded");
-        if (!loaded)
-        {
+        if (!loaded) {
             int slotID = getInventorySlotContainItem(Items.potionitem, player.inventory);
             ItemStack potion = player.inventory.getStackInSlot(slotID);
 
@@ -42,31 +39,30 @@ public class PotionLauncher extends Item
             tags.setTag("LoadedPotion", potionTag);
             tags.setBoolean("Loaded", true);
 
-            if (!player.capabilities.isCreativeMode)
-            {
+            if (!player.capabilities.isCreativeMode) {
                 potion.stackSize--;
-                if (potion.stackSize < 1)
-                    player.inventory.setInventorySlotContents(slotID, null);
+                if (potion.stackSize < 1) player.inventory.setInventorySlotContents(slotID, null);
             }
 
-            world.playSoundEffect(player.posX, player.posY, player.posZ, "tinker:launcher_clank", 1.0F, (world.rand.nextFloat() - world.rand.nextFloat()) * 0.15F + 1.0F);
+            world.playSoundEffect(
+                    player.posX,
+                    player.posY,
+                    player.posZ,
+                    "tinker:launcher_clank",
+                    1.0F,
+                    (world.rand.nextFloat() - world.rand.nextFloat()) * 0.15F + 1.0F);
         }
         return stack;
     }
 
     @Override
-    public void onPlayerStoppedUsing (ItemStack stack, World world, EntityPlayer player, int time)
-    {
-
-    }
+    public void onPlayerStoppedUsing(ItemStack stack, World world, EntityPlayer player, int time) {}
 
     @Override
-    public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
-    {
+    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         int slotID = getInventorySlotContainItem(Items.potionitem, player.inventory);
-        if (!tags.getBoolean("Loaded") && slotID >= 0)
-            player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
+        if (!tags.getBoolean("Loaded") && slotID >= 0) player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
         return stack;
     }
 
@@ -74,8 +70,7 @@ public class PotionLauncher extends Item
      * How long it takes to use or consume an item
      */
     @Override
-    public int getMaxItemUseDuration (ItemStack stack)
-    {
+    public int getMaxItemUseDuration(ItemStack stack) {
         return 30;
     }
 
@@ -84,36 +79,31 @@ public class PotionLauncher extends Item
      * is being used
      */
     @Override
-    public EnumAction getItemUseAction (ItemStack stack)
-    {
-        if (stack != null && stack.hasTagCompound() && !stack.getTagCompound().getCompoundTag("InfiTool").getBoolean("Loaded"))
-            return EnumAction.bow;
-        else
-            return EnumAction.none;
+    public EnumAction getItemUseAction(ItemStack stack) {
+        if (stack != null
+                && stack.hasTagCompound()
+                && !stack.getTagCompound().getCompoundTag("InfiTool").getBoolean("Loaded")) return EnumAction.bow;
+        else return EnumAction.none;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons (IIconRegister par1IconRegister)
-    {
+    public void registerIcons(IIconRegister par1IconRegister) {
         this.icons = new IIcon[textureNames.length];
 
-        for (int i = 0; i < this.icons.length; ++i)
-        {
+        for (int i = 0; i < this.icons.length; ++i) {
             this.icons[i] = par1IconRegister.registerIcon("tinker:" + textureNames[i]);
         }
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIconFromDamage (int meta)
-    {
+    public IIcon getIconFromDamage(int meta) {
         return icons[0];
     }
 
     @Override
-    public void getSubItems (Item b, CreativeTabs tabs, List list)
-    {
+    public void getSubItems(Item b, CreativeTabs tabs, List list) {
         ItemStack stack = new ItemStack(b, 1, 0);
         NBTTagCompound compound = new NBTTagCompound();
         NBTTagCompound tags = new NBTTagCompound();
@@ -127,22 +117,17 @@ public class PotionLauncher extends Item
     }
 
     @Override
-    public boolean onEntitySwing (EntityLivingBase player, ItemStack stack)
-    {
-        if (stack != null && stack.hasTagCompound())
-        {
+    public boolean onEntitySwing(EntityLivingBase player, ItemStack stack) {
+        if (stack != null && stack.hasTagCompound()) {
             NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-            if (tags.getBoolean("Loaded"))
-            {
+            if (tags.getBoolean("Loaded")) {
                 NBTTagCompound potionTag = tags.getCompoundTag("LoadedPotion");
-                ItemStack potion = ItemStack.loadItemStackFromNBT(potionTag);// findPotion(player);InventoryLogic
-                if (potion != null)
-                {
+                ItemStack potion = ItemStack.loadItemStackFromNBT(potionTag); // findPotion(player);InventoryLogic
+                if (potion != null) {
                     World world = player.worldObj;
                     world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 
-                    if (!world.isRemote)
-                    {
+                    if (!world.isRemote) {
                         world.spawnEntityInWorld(new LaunchedPotion(world, player, potion));
                     }
                     tags.removeTag("LoadedPotion");
@@ -154,26 +139,20 @@ public class PotionLauncher extends Item
         return false;
     }
 
-    ItemStack findPotion (EntityLivingBase living)
-    {
-        if (living instanceof EntityPlayer)
-        {
+    ItemStack findPotion(EntityLivingBase living) {
+        if (living instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) living;
             int potionSlot = getInventorySlotContainItem(Items.potionitem, player.inventory);
-            if (potionSlot >= 0)
-            {
+            if (potionSlot >= 0) {
                 return player.inventory.getStackInSlot(potionSlot);
             }
         }
         return null;
     }
 
-    int getInventorySlotContainItem (Item item, InventoryPlayer inventory)
-    {
-        for (int j = 0; j < inventory.mainInventory.length; ++j)
-        {
-            if (inventory.mainInventory[j] != null && inventory.mainInventory[j].getItem() == item)
-            {
+    int getInventorySlotContainItem(Item item, InventoryPlayer inventory) {
+        for (int j = 0; j < inventory.mainInventory.length; ++j) {
+            if (inventory.mainInventory[j] != null && inventory.mainInventory[j].getItem() == item) {
                 return j;
             }
         }
@@ -183,8 +162,7 @@ public class PotionLauncher extends Item
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
-    {
+    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
         list.add(StatCollector.translateToLocal("potionlauncher.tooltip"));
     }
 }

@@ -24,7 +24,7 @@ public class ChestSlot extends Slot {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public boolean func_111238_b/*isEnabled*/() {
+    public boolean func_111238_b /*isEnabled*/() {
         return enabled;
     }
 
@@ -56,5 +56,11 @@ public class ChestSlot extends Slot {
             return sided.canExtractItem(this.getSlotIndex(), this.getStack(), accessSide);
         }
         return super.canTakeStack(player);
+    }
+
+    @Override
+    public ItemStack getStack() {
+        ItemStack stack = super.getStack();
+        return (stack != null && stack.stackSize > 0) ? stack : null;
     }
 }

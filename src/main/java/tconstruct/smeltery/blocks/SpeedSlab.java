@@ -13,10 +13,8 @@ import tconstruct.blocks.SlabBase;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.smeltery.TinkerSmeltery;
 
-public class SpeedSlab extends SlabBase
-{
-    public SpeedSlab()
-    {
+public class SpeedSlab extends SlabBase {
+    public SpeedSlab() {
         super(Material.rock);
         this.setCreativeTab(TConstructRegistry.blockTab);
         setHardness(3F);
@@ -24,43 +22,34 @@ public class SpeedSlab extends SlabBase
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerBlockIcons (IIconRegister iconRegister)
-    {
-    }
+    public void registerBlockIcons(IIconRegister iconRegister) {}
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon (int side, int meta)
-    {
+    public IIcon getIcon(int side, int meta) {
         meta = meta % 8;
         return TinkerSmeltery.speedBlock.getIcon(side, meta);
     }
 
     @Override
-    public void getSubBlocks (Item b, CreativeTabs tab, List list)
-    {
-        for (int iter = 0; iter < 7; iter++)
-        {
+    public void getSubBlocks(Item b, CreativeTabs tab, List list) {
+        for (int iter = 0; iter < 7; iter++) {
             list.add(new ItemStack(b, 1, iter));
         }
     }
 
     @Override
-    public void onEntityWalking (World world, int x, int y, int z, Entity entity)
-    {
+    public void onEntityWalking(World world, int x, int y, int z, Entity entity) {
         double boost = 2.2D;
         int metadata = world.getBlockMetadata(x, y, z) % 8;
-        if (metadata == 1 || metadata == 4)
-            boost = 2.7D;
+        if (metadata == 1 || metadata == 4) boost = 2.7D;
 
         double mX = Math.abs(entity.motionX);
         double mZ = Math.abs(entity.motionZ);
-        if (mX < 0.5D)
-        {
+        if (mX < 0.5D) {
             entity.motionX *= boost;
         }
-        if (mZ < 0.5D)
-        {
+        if (mZ < 0.5D) {
             entity.motionZ *= boost;
         }
     }

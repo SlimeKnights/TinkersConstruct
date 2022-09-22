@@ -7,8 +7,7 @@ import net.minecraft.util.IIcon;
 import net.minecraftforge.fluids.*;
 import tconstruct.library.TConstructRegistry;
 
-public class TConstructFluid extends BlockFluidClassic
-{
+public class TConstructFluid extends BlockFluidClassic {
     String texture;
     boolean alpha;
     public IIcon stillIcon;
@@ -16,49 +15,40 @@ public class TConstructFluid extends BlockFluidClassic
     boolean overwriteFluidIcons = true;
     private Fluid fluid = null;
 
-    public TConstructFluid(Fluid fluid, Material material, String texture)
-    {
+    public TConstructFluid(Fluid fluid, Material material, String texture) {
         super(fluid, material);
         this.texture = texture;
         this.setCreativeTab(TConstructRegistry.blockTab);
     }
 
-    public TConstructFluid(Fluid fluid, Material material, String texture, boolean alpha)
-    {
+    public TConstructFluid(Fluid fluid, Material material, String texture, boolean alpha) {
         this(fluid, material, texture);
         this.alpha = alpha;
     }
 
     @Override
-    public int getRenderBlockPass ()
-    {
+    public int getRenderBlockPass() {
         return alpha ? 1 : 0;
     }
 
     @Override
-    public void registerBlockIcons (IIconRegister iconRegister)
-    {
+    public void registerBlockIcons(IIconRegister iconRegister) {
         stillIcon = iconRegister.registerIcon("tinker:" + texture);
         flowIcon = iconRegister.registerIcon("tinker:" + texture + "_flow");
 
-        if (overwriteFluidIcons)
-            this.getFluid().setIcons(stillIcon, flowIcon);
+        if (overwriteFluidIcons) this.getFluid().setIcons(stillIcon, flowIcon);
 
-        if(this.getFluid().getBlock() != this && fluid != null)
-            fluid.setIcons(stillIcon, flowIcon);
+        if (this.getFluid().getBlock() != this && fluid != null) fluid.setIcons(stillIcon, flowIcon);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon (int side, int meta)
-    {
-        if (side == 0 || side == 1)
-            return stillIcon;
+    public IIcon getIcon(int side, int meta) {
+        if (side == 0 || side == 1) return stillIcon;
         return flowIcon;
     }
 
-    public void suppressOverwritingFluidIcons ()
-    {
+    public void suppressOverwritingFluidIcons() {
         overwriteFluidIcons = false;
     }
 

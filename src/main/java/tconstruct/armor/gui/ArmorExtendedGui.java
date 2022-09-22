@@ -10,24 +10,21 @@ import tconstruct.armor.inventory.ArmorExtendedContainer;
 import tconstruct.armor.player.ArmorExtended;
 import tconstruct.client.tabs.*;
 
-public class ArmorExtendedGui extends InventoryEffectRenderer
-{
+public class ArmorExtendedGui extends InventoryEffectRenderer {
     public InventoryPlayer inv;
     public ArmorExtended stats;
 
     private float xSize_lo;
     private float ySize_lo;
 
-    public ArmorExtendedGui(InventoryPlayer inventoryplayer, ArmorExtended holder)
-    {
+    public ArmorExtendedGui(InventoryPlayer inventoryplayer, ArmorExtended holder) {
         super(new ArmorExtendedContainer(inventoryplayer, holder));
         inv = inventoryplayer;
         stats = holder;
     }
 
     @Override
-    public void initGui ()
-    {
+    public void initGui() {
         super.initGui();
 
         int cornerX = guiLeft;
@@ -47,8 +44,7 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer (int par1, int par2)
-    {
+    protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         // fontRenderer.drawString(StatCollector.translateToLocal("inventory.armorextended"),
         // 60, 6, 0x404040);
         // fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"),
@@ -56,8 +52,7 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
     }
 
     @Override
-    public void drawScreen (int par1, int par2, float par3)
-    {
+    public void drawScreen(int par1, int par2, float par3) {
         super.drawScreen(par1, par2, par3);
         this.xSize_lo = (float) par1;
         this.ySize_lo = (float) par2;
@@ -85,8 +80,7 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/armorextended.png");
 
     @Override
-    protected void drawGuiContainerBackgroundLayer (float f, int i, int j)
-    {
+    protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         // mc.renderEngine.bindTexture("/mods/tinker/textures/gui/armorextended.png");
         this.mc.getTextureManager().bindTexture(background);
@@ -94,28 +88,26 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
         int cornerY = guiTop;
         drawTexturedModalRect(cornerX, guiTop, 0, 0, xSize, ySize);
 
-        if (!stats.isStackInSlot(0))
-            drawTexturedModalRect(cornerX + 79, cornerY + 16, 176, 9, 18, 18);
-        if (!stats.isStackInSlot(1))
-            drawTexturedModalRect(cornerX + 79, cornerY + 34, 176, 27, 18, 18);
-        if (!stats.isStackInSlot(2))
-            drawTexturedModalRect(cornerX + 115, cornerY + 16, 212, 9, 18, 18);
-        if (!stats.isStackInSlot(3))
-            drawTexturedModalRect(cornerX + 115, cornerY + 34, 212, 27, 18, 18);
-        if (!stats.isStackInSlot(4))
-            drawTexturedModalRect(cornerX + 151, cornerY + 52, 230, 0, 18, 18);
-        if (!stats.isStackInSlot(5))
-            drawTexturedModalRect(cornerX + 151, cornerY + 34, 230, 18, 18, 18);
-        if (!stats.isStackInSlot(6))
-            drawTexturedModalRect(cornerX + 151, cornerY + 16, 230, 36, 18, 18);
+        if (!stats.isStackInSlot(0)) drawTexturedModalRect(cornerX + 79, cornerY + 16, 176, 9, 18, 18);
+        if (!stats.isStackInSlot(1)) drawTexturedModalRect(cornerX + 79, cornerY + 34, 176, 27, 18, 18);
+        if (!stats.isStackInSlot(2)) drawTexturedModalRect(cornerX + 115, cornerY + 16, 212, 9, 18, 18);
+        if (!stats.isStackInSlot(3)) drawTexturedModalRect(cornerX + 115, cornerY + 34, 212, 27, 18, 18);
+        if (!stats.isStackInSlot(4)) drawTexturedModalRect(cornerX + 151, cornerY + 52, 230, 0, 18, 18);
+        if (!stats.isStackInSlot(5)) drawTexturedModalRect(cornerX + 151, cornerY + 34, 230, 18, 18, 18);
+        if (!stats.isStackInSlot(6)) drawTexturedModalRect(cornerX + 151, cornerY + 16, 230, 36, 18, 18);
 
         cornerX = this.guiLeft;
         cornerY = this.guiTop;
-        drawPlayerOnGui(this.mc, cornerX + 33, cornerY + 75, 30, (float) (cornerX + 51) - this.xSize_lo, (float) (cornerY + 75 - 50) - this.ySize_lo);
+        drawPlayerOnGui(
+                this.mc,
+                cornerX + 33,
+                cornerY + 75,
+                30,
+                (float) (cornerX + 51) - this.xSize_lo,
+                (float) (cornerY + 75 - 50) - this.ySize_lo);
     }
 
-    public static void drawPlayerOnGui (Minecraft par0Minecraft, int par1, int par2, int par3, float par4, float par5)
-    {
+    public static void drawPlayerOnGui(Minecraft par0Minecraft, int par1, int par2, int par3, float par4, float par5) {
         GL11.glEnable(GL11.GL_COLOR_MATERIAL);
         GL11.glPushMatrix();
         GL11.glTranslatef((float) par1, (float) par2, 50.0F);
@@ -150,7 +142,7 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
     /*
      * protected void keyTyped(char par1, int par2) { if (par2 ==
      * TControls.armorKey.keyCode) { this.mc.thePlayer.closeScreen(); }
-     * 
+     *
      * super.keyTyped(par1, par2); }
      */
 }

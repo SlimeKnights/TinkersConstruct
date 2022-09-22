@@ -1,5 +1,8 @@
 package tconstruct.plugins.imc;
 
+import static tconstruct.smeltery.TinkerSmeltery.*;
+import static tconstruct.smeltery.TinkerSmeltery.moltenEnderiumFluid;
+
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import mantle.pulsar.pulse.Handler;
@@ -7,12 +10,9 @@ import mantle.pulsar.pulse.Pulse;
 import net.minecraftforge.fluids.Fluid;
 import tconstruct.world.TinkerWorld;
 
-import static tconstruct.smeltery.TinkerSmeltery.*;
-import static tconstruct.smeltery.TinkerSmeltery.moltenEnderiumFluid;
-
 @Pulse(id = "Tinkers RF-Tools Compatibility", forced = true, modsRequired = TinkerRfTools.modid)
 public class TinkerRfTools {
-    final static String modid = "rftools";
+    static final String modid = "rftools";
 
     @Handler
     public void preInit(FMLPreInitializationEvent event) {
@@ -40,41 +40,73 @@ public class TinkerRfTools {
         configure(moltenSilverFluid, 45678, 14321, 1234, 6);
 
         // configure availability
-        preventLoot(moltenSteelFluid, moltenGoldFluid, moltenEnderFluid, moltenArditeFluid, moltenCobaltFluid, moltenSilverFluid, moltenEmeraldFluid, moltenQuartzFluid);
-        preventGen(moltenCobaltFluid, moltenArditeFluid, moltenSteelFluid, moltenGoldFluid, moltenEmeraldFluid, moltenIronFluid, moltenQuartzFluid);
+        preventLoot(
+                moltenSteelFluid,
+                moltenGoldFluid,
+                moltenEnderFluid,
+                moltenArditeFluid,
+                moltenCobaltFluid,
+                moltenSilverFluid,
+                moltenEmeraldFluid,
+                moltenQuartzFluid);
+        preventGen(
+                moltenCobaltFluid,
+                moltenArditeFluid,
+                moltenSteelFluid,
+                moltenGoldFluid,
+                moltenEmeraldFluid,
+                moltenIronFluid,
+                moltenQuartzFluid);
 
         // configure ores
-        if(TinkerWorld.oreSlag != null) {
-            FMLInterModComms.sendMessage(modid, "dimlet_configure", String.format("Material.%s=%d,%d,%d,%d", "tile.tconstruct.stoneore1", 500000, 25000, 15000, 5));
-            FMLInterModComms.sendMessage(modid, "dimlet_preventloot", String.format("Material.%s", "tile.tconstruct.stoneore1"));
-            FMLInterModComms.sendMessage(modid, "dimlet_configure", String.format("Material.%s=%d,%d,%d,%d", "tile.tconstruct.stoneore2", 400000, 20000, 10000, 5));
-            FMLInterModComms.sendMessage(modid, "dimlet_preventloot", String.format("Material.%s", "tile.tconstruct.stoneore2"));
-            FMLInterModComms.sendMessage(modid, "dimlet_configure", String.format("Material.%s=%d,%d,%d,%d", "tile.tconstruct.stoneore3", 10000, 3000,   1000, 3));
-            FMLInterModComms.sendMessage(modid, "dimlet_configure", String.format("Material.%s=%d,%d,%d,%d", "tile.tconstruct.stoneore4", 12000, 3333, 5000, 3));
-            FMLInterModComms.sendMessage(modid, "dimlet_configure", String.format("Material.%s=%d,%d,%d,%d", "tile.tconstruct.stoneore5", 10000, 2800, 500, 3));
+        if (TinkerWorld.oreSlag != null) {
+            FMLInterModComms.sendMessage(
+                    modid,
+                    "dimlet_configure",
+                    String.format("Material.%s=%d,%d,%d,%d", "tile.tconstruct.stoneore1", 500000, 25000, 15000, 5));
+            FMLInterModComms.sendMessage(
+                    modid, "dimlet_preventloot", String.format("Material.%s", "tile.tconstruct.stoneore1"));
+            FMLInterModComms.sendMessage(
+                    modid,
+                    "dimlet_configure",
+                    String.format("Material.%s=%d,%d,%d,%d", "tile.tconstruct.stoneore2", 400000, 20000, 10000, 5));
+            FMLInterModComms.sendMessage(
+                    modid, "dimlet_preventloot", String.format("Material.%s", "tile.tconstruct.stoneore2"));
+            FMLInterModComms.sendMessage(
+                    modid,
+                    "dimlet_configure",
+                    String.format("Material.%s=%d,%d,%d,%d", "tile.tconstruct.stoneore3", 10000, 3000, 1000, 3));
+            FMLInterModComms.sendMessage(
+                    modid,
+                    "dimlet_configure",
+                    String.format("Material.%s=%d,%d,%d,%d", "tile.tconstruct.stoneore4", 12000, 3333, 5000, 3));
+            FMLInterModComms.sendMessage(
+                    modid,
+                    "dimlet_configure",
+                    String.format("Material.%s=%d,%d,%d,%d", "tile.tconstruct.stoneore5", 10000, 2800, 500, 3));
         }
     }
 
     private void configure(Fluid fluid, int create, int maintain, int ticks, int rarity) {
-        if(fluid == null)
-            return;
+        if (fluid == null) return;
 
-        FMLInterModComms.sendMessage(modid, "dimlet_configure", String.format("Liquid.%s=%d,%d,%d,%d", fluid.getName(), create, maintain, ticks, rarity));
+        FMLInterModComms.sendMessage(
+                modid,
+                "dimlet_configure",
+                String.format("Liquid.%s=%d,%d,%d,%d", fluid.getName(), create, maintain, ticks, rarity));
     }
 
     private void preventLoot(Fluid... fluids) {
-        for(Fluid fluid : fluids) {
-            if (fluid == null)
-                continue;
+        for (Fluid fluid : fluids) {
+            if (fluid == null) continue;
 
             FMLInterModComms.sendMessage(modid, "dimlet_preventloot", String.format("Liquid.%s", fluid.getName()));
         }
     }
 
     private void preventGen(Fluid... fluids) {
-        for(Fluid fluid : fluids) {
-            if (fluid == null)
-                continue;
+        for (Fluid fluid : fluids) {
+            if (fluid == null) continue;
 
             FMLInterModComms.sendMessage(modid, "dimlet_preventworldgen", String.format("Liquid.%s", fluid.getName()));
         }
@@ -83,37 +115,41 @@ public class TinkerRfTools {
     private void blacklist() {
         // blacklist alloys
         final Fluid[] fluidBlacklist = {
-                // all alloys
-                pigIronFluid,
-                moltenBronzeFluid,
-                moltenAlumiteFluid,
-                moltenAlubrassFluid,
-                moltenManyullynFluid,
-                moltenInvarFluid,
-                moltenElectrumFluid,
-                moltenSignalumFluid,
-                moltenLumiumFluid,
-                moltenMithrilFluid,
-                moltenEnderiumFluid,
-                // and shiny
-                moltenShinyFluid
+            // all alloys
+            pigIronFluid,
+            moltenBronzeFluid,
+            moltenAlumiteFluid,
+            moltenAlubrassFluid,
+            moltenManyullynFluid,
+            moltenInvarFluid,
+            moltenElectrumFluid,
+            moltenSignalumFluid,
+            moltenLumiumFluid,
+            moltenMithrilFluid,
+            moltenEnderiumFluid,
+            // and shiny
+            moltenShinyFluid
         };
 
-        for(Fluid fluid : fluidBlacklist) {
-            if(fluid == null)
-                continue;
+        for (Fluid fluid : fluidBlacklist) {
+            if (fluid == null) continue;
             FMLInterModComms.sendMessage(modid, "dimlet_blacklist", "Liquid." + fluid.getName());
-            FMLInterModComms.sendMessage(modid, "dimlet_configure", "Liquid." + fluid.getName() + "=999999,999999,999999,6");
+            FMLInterModComms.sendMessage(
+                    modid, "dimlet_configure", "Liquid." + fluid.getName() + "=999999,999999,999999,6");
             FMLInterModComms.sendMessage(modid, "dimlet_preventworldgen", "Liquid." + fluid.getName());
             FMLInterModComms.sendMessage(modid, "dimlet_preventloot", "Liquid." + fluid.getName());
         }
 
         // blacklist oreberry bushes
-        if(TinkerWorld.oreBerry != null) {
-            FMLInterModComms.sendMessage(modid, "dimlet_configure", "Material." + "tile.ore.berries.one=123456,123456,123456,6");
-            FMLInterModComms.sendMessage(modid, "dimlet_configure", "Material." + "tile.ore.berries.one1=123456,123456,123456,6");
-            FMLInterModComms.sendMessage(modid, "dimlet_configure", "Material." + "tile.ore.berries.one2=123456,123456,123456,6");
-            FMLInterModComms.sendMessage(modid, "dimlet_configure", "Material." + "tile.ore.berries.one3=123456,123456,123456,6");
+        if (TinkerWorld.oreBerry != null) {
+            FMLInterModComms.sendMessage(
+                    modid, "dimlet_configure", "Material." + "tile.ore.berries.one=123456,123456,123456,6");
+            FMLInterModComms.sendMessage(
+                    modid, "dimlet_configure", "Material." + "tile.ore.berries.one1=123456,123456,123456,6");
+            FMLInterModComms.sendMessage(
+                    modid, "dimlet_configure", "Material." + "tile.ore.berries.one2=123456,123456,123456,6");
+            FMLInterModComms.sendMessage(
+                    modid, "dimlet_configure", "Material." + "tile.ore.berries.one3=123456,123456,123456,6");
             FMLInterModComms.sendMessage(modid, "dimlet_blacklist", "Material." + "tile.ore.berries.one");
             FMLInterModComms.sendMessage(modid, "dimlet_blacklist", "Material." + "tile.ore.berries.one1");
             FMLInterModComms.sendMessage(modid, "dimlet_blacklist", "Material." + "tile.ore.berries.one2");
@@ -127,9 +163,11 @@ public class TinkerRfTools {
             FMLInterModComms.sendMessage(modid, "dimlet_preventloot", "Material." + "tile.ore.berries.one2");
             FMLInterModComms.sendMessage(modid, "dimlet_preventloot", "Material." + "tile.ore.berries.one3");
         }
-        if(TinkerWorld.oreBerrySecond != null) {
-            FMLInterModComms.sendMessage(modid, "dimlet_configure", "Material." + "tile.ore.berries.two=123456,123456,123456,6");
-            FMLInterModComms.sendMessage(modid, "dimlet_configure", "Material." + "tile.ore.berries.two1=123456,123456,123456,6");
+        if (TinkerWorld.oreBerrySecond != null) {
+            FMLInterModComms.sendMessage(
+                    modid, "dimlet_configure", "Material." + "tile.ore.berries.two=123456,123456,123456,6");
+            FMLInterModComms.sendMessage(
+                    modid, "dimlet_configure", "Material." + "tile.ore.berries.two1=123456,123456,123456,6");
             FMLInterModComms.sendMessage(modid, "dimlet_blacklist", "Material." + "tile.ore.berries.two");
             FMLInterModComms.sendMessage(modid, "dimlet_blacklist", "Material." + "tile.ore.berries.two1");
             FMLInterModComms.sendMessage(modid, "dimlet_preventworldgen", "Material." + "tile.ore.berries.two");

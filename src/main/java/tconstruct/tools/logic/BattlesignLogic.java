@@ -11,86 +11,69 @@ import net.minecraft.world.World;
  * 0: Battlesign item
  */
 
-public class BattlesignLogic extends EquipLogic
-{
+public class BattlesignLogic extends EquipLogic {
     protected String[] text;
 
-    public BattlesignLogic()
-    {
+    public BattlesignLogic() {
         super(1);
     }
 
     @Override
-    public String getDefaultName ()
-    {
+    public String getDefaultName() {
         return "decoration.battlesign";
     }
 
     @Override
     /* NBT */
-    public void readFromNBT (NBTTagCompound tags)
-    {
+    public void readFromNBT(NBTTagCompound tags) {
         super.readFromNBT(tags);
 
         text = new String[tags.getInteger("lineCount")];
-        for (int i = 0; i < text.length; i++)
-        {
+        for (int i = 0; i < text.length; i++) {
             text[i] = tags.getString("line" + i);
         }
     }
 
     @Override
-    public void writeToNBT (NBTTagCompound tags)
-    {
+    public void writeToNBT(NBTTagCompound tags) {
         super.writeToNBT(tags);
 
-        if (text == null)
-        {
+        if (text == null) {
             text = new String[0];
         }
 
         tags.setInteger("lineCount", text.length);
-        for (int i = 0; i < text.length; i++)
-        {
+        for (int i = 0; i < text.length; i++) {
             tags.setString("line" + i, text[i]);
         }
     }
 
     @Override
-    public Container getGuiContainer (InventoryPlayer inventoryplayer, World world, int x, int y, int z)
-    {
-        return null; //Not a normal gui block
+    public Container getGuiContainer(InventoryPlayer inventoryplayer, World world, int x, int y, int z) {
+        return null; // Not a normal gui block
     }
 
     @Override
-    public String getInventoryName ()
-    {
+    public String getInventoryName() {
         return null;
     }
 
     @Override
-    public void openInventory ()
-    {
-    }
+    public void openInventory() {}
 
     @Override
-    public void closeInventory ()
-    {
-    }
+    public void closeInventory() {}
 
-    public void setText (String[] text)
-    {
+    public void setText(String[] text) {
         this.text = text;
     }
 
-    public String[] getText ()
-    {
+    public String[] getText() {
         return text;
     }
 
     @Override
-    public S35PacketUpdateTileEntity getDescriptionPacket ()
-    {
+    public S35PacketUpdateTileEntity getDescriptionPacket() {
         NBTTagCompound compound = new NBTTagCompound();
         this.writeToNBT(compound);
 
@@ -99,8 +82,7 @@ public class BattlesignLogic extends EquipLogic
     }
 
     @Override
-    public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity pkt)
-    {
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
         this.readFromNBT(pkt.func_148857_g());
     }
 }

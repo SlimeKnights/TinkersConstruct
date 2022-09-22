@@ -1,12 +1,13 @@
 package tconstruct.weaponry.client.entity;
 
-import tconstruct.weaponry.entity.ShurikenEntity;
 import org.lwjgl.opengl.GL11;
+import tconstruct.weaponry.entity.ShurikenEntity;
 
 public class ShurikenEntityRenderer extends ProjectileBaseRenderer<ShurikenEntity> {
 
     @Override
-    public void customRendering(ShurikenEntity entity, double x, double y, double z, float p_76986_8_, float p_76986_9_) {
+    public void customRendering(
+            ShurikenEntity entity, double x, double y, double z, float p_76986_8_, float p_76986_9_) {
         // make it smaller
         GL11.glScalef(0.6F, 0.6F, 0.6F);
 
@@ -23,8 +24,7 @@ public class ShurikenEntityRenderer extends ProjectileBaseRenderer<ShurikenEntit
         // shurikens spin around their center a lot. *spin*
         GL11.glRotatef(entity.spin, 0f, 0f, 1f);
 
-
         // also make it a bit thicker
-        toolCoreRenderer.setDepth(1/20f);
+        toolCoreRenderer.setDepth(1 / 20f);
     }
 }

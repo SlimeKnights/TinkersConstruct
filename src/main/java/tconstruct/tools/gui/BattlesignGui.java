@@ -12,28 +12,24 @@ import tconstruct.library.TConstructRegistry;
 import tconstruct.tools.logic.BattlesignLogic;
 import tconstruct.util.network.SignDataPacket;
 
-public class BattlesignGui extends GuiScreen
-{
+public class BattlesignGui extends GuiScreen {
     private BattlesignLogic battlesign;
 
     private float bgColR = 1F;
     private float bgColG = 1F;
     private float bgColB = 1F;
     private static ResourceLocation background = new ResourceLocation("tinker:textures/gui/battlesignText.png");
-    private String[] text = { "", "", "", "", "" };
+    private String[] text = {"", "", "", "", ""};
     int currentLine = 0;
 
-    public BattlesignGui(BattlesignLogic logic)
-    {
+    public BattlesignGui(BattlesignLogic logic) {
         this.battlesign = logic;
 
         ItemStack stack = logic.getEquipmentItem();
-        if (stack != null)
-        {
+        if (stack != null) {
             NBTTagCompound tag = stack.getTagCompound().getCompoundTag("InfiTool");
 
-            if (tag != null)
-            {
+            if (tag != null) {
                 int head = tag.getInteger("Head");
 
                 int bgCol = TConstructRegistry.getMaterial(head).primaryColor();
@@ -46,8 +42,7 @@ public class BattlesignGui extends GuiScreen
     }
 
     @Override
-    public void initGui ()
-    {
+    public void initGui() {
         buttonList.clear();
 
         super.initGui();
@@ -61,8 +56,7 @@ public class BattlesignGui extends GuiScreen
     }
 
     @Override
-    public void drawScreen (int mouseX, int mouseY, float something)
-    {
+    public void drawScreen(int mouseX, int mouseY, float something) {
         Tessellator t = Tessellator.instance;
 
         GL11.glColor4f(bgColR, bgColG, bgColB, 1F);
@@ -77,100 +71,103 @@ public class BattlesignGui extends GuiScreen
         GL11.glPushMatrix();
 
         float lum = calcLuminance(bgColR, bgColG, bgColB);
-        for (int i = 0; i < text.length; i++)
-        {
-            fontRendererObj.drawString((lum >= 35F ? EnumChatFormatting.BLACK : lum >= 31F ? EnumChatFormatting.GRAY : EnumChatFormatting.WHITE) + (i == currentLine ? "> " : "") + text[i] + (i == currentLine ? " \u00A7r" + (lum >= 35F ? EnumChatFormatting.BLACK : lum >= 31F ? EnumChatFormatting.GRAY : EnumChatFormatting.WHITE) + "<" : ""), k - fontRendererObj.getStringWidth((i == currentLine ? "> " : "") + text[i] + (i == currentLine ? " <" : "")) / 2 + 51, l + 4 + 10 * i, 0);
+        for (int i = 0; i < text.length; i++) {
+            fontRendererObj.drawString(
+                    (lum >= 35F
+                                    ? EnumChatFormatting.BLACK
+                                    : lum >= 31F ? EnumChatFormatting.GRAY : EnumChatFormatting.WHITE)
+                            + (i == currentLine ? "> " : "")
+                            + text[i]
+                            + (i == currentLine
+                                    ? " \u00A7r"
+                                            + (lum >= 35F
+                                                    ? EnumChatFormatting.BLACK
+                                                    : lum >= 31F ? EnumChatFormatting.GRAY : EnumChatFormatting.WHITE)
+                                            + "<"
+                                    : ""),
+                    k
+                            - fontRendererObj.getStringWidth(
+                                            (i == currentLine ? "> " : "") + text[i] + (i == currentLine ? " <" : ""))
+                                    / 2
+                            + 51,
+                    l + 4 + 10 * i,
+                    0);
         }
 
         GL11.glPopMatrix();
     }
 
     @Override
-    protected void keyTyped (char c, int i)
-    {
+    protected void keyTyped(char c, int i) {
         super.keyTyped(c, i);
 
-        if (fontRendererObj.getStringWidth(text[currentLine]) < 90 && ChatAllowedCharacters.isAllowedCharacter(c))
-        {
-            if (Keyboard.isKeyDown(56) && c == 'f' && (text[currentLine].length() == 0 || text[currentLine].charAt(text[currentLine].length() - 1) != '\u00A7'))
-            {
+        if (fontRendererObj.getStringWidth(text[currentLine]) < 90 && ChatAllowedCharacters.isAllowedCharacter(c)) {
+            if (Keyboard.isKeyDown(56)
+                    && c == 'f'
+                    && (text[currentLine].length() == 0
+                            || text[currentLine].charAt(text[currentLine].length() - 1) != '\u00A7')) {
                 text[currentLine] += "\u00A7";
-            }
-            else
-            {
+            } else {
                 text[currentLine] += c;
             }
-        }
-        else
-        {
-            switch (i)
-            {
-            case 14:
-                if (text[currentLine].length() > 0)
-                {
-                    text[currentLine] = text[currentLine].substring(0, text[currentLine].length() - 1);
-                }
+        } else {
+            switch (i) {
+                case 14:
+                    if (text[currentLine].length() > 0) {
+                        text[currentLine] = text[currentLine].substring(0, text[currentLine].length() - 1);
+                    }
 
-                break;
-            case 28:
-                moveLine(1);
-                break;
-            case 200:
-                moveLine(-1);
-                break;
-            case 208:
-                moveLine(1);
-                break;
+                    break;
+                case 28:
+                    moveLine(1);
+                    break;
+                case 200:
+                    moveLine(-1);
+                    break;
+                case 208:
+                    moveLine(1);
+                    break;
             }
         }
     }
 
-    private void moveLine (int i)
-    {
-        if (i < 0)
-        {
-            if (currentLine <= 0)
-            {
+    private void moveLine(int i) {
+        if (i < 0) {
+            if (currentLine <= 0) {
                 currentLine = text.length - 1;
-            }
-            else
-            {
+            } else {
                 currentLine--;
             }
-        }
-        else
-        {
-            if (currentLine >= text.length - 1)
-            {
+        } else {
+            if (currentLine >= text.length - 1) {
                 currentLine = 0;
-            }
-            else
-            {
+            } else {
                 currentLine++;
             }
         }
     }
 
     @Override
-    public void onGuiClosed ()
-    {
+    public void onGuiClosed() {
         super.onGuiClosed();
 
         Keyboard.enableRepeatEvents(false);
 
-        TConstruct.packetPipeline.sendToServer(new SignDataPacket(battlesign.getWorldObj().provider.dimensionId, battlesign.xCoord, battlesign.yCoord, battlesign.zCoord, text));
+        TConstruct.packetPipeline.sendToServer(new SignDataPacket(
+                battlesign.getWorldObj().provider.dimensionId,
+                battlesign.xCoord,
+                battlesign.yCoord,
+                battlesign.zCoord,
+                text));
     }
 
-    private float calcLuminance (float r, float g, float b)
-    {
+    private float calcLuminance(float r, float g, float b) {
         return (r * 255 * 0.299f + g * 255 * 0.587f + b * 255 * 0.114f) / 3;
     }
 
     @Override
-    protected void actionPerformed (GuiButton button)
-    {
-        if (button.id == 0)
-        {
+    protected void actionPerformed(GuiButton button) {
+        if (button.id == 0) {
             this.mc.displayGuiScreen((GuiScreen) null);
             this.mc.setIngameFocus();
         }

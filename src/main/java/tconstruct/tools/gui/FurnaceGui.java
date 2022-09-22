@@ -10,13 +10,12 @@ import tconstruct.tools.inventory.FurnaceContainer;
 import tconstruct.tools.logic.FurnaceLogic;
 
 @SideOnly(Side.CLIENT)
-public class FurnaceGui extends GuiContainer
-{
-    private static final ResourceLocation furnaceGuiTextures = new ResourceLocation("textures/gui/container/furnace.png");
+public class FurnaceGui extends GuiContainer {
+    private static final ResourceLocation furnaceGuiTextures =
+            new ResourceLocation("textures/gui/container/furnace.png");
     private FurnaceLogic logic;
 
-    public FurnaceGui(InventoryPlayer inventory, FurnaceLogic furnace)
-    {
+    public FurnaceGui(InventoryPlayer inventory, FurnaceLogic furnace) {
         super(new FurnaceContainer(inventory, furnace));
         this.logic = furnace;
     }
@@ -26,8 +25,7 @@ public class FurnaceGui extends GuiContainer
      * the items)
      */
     @Override
-    protected void drawGuiContainerForegroundLayer (int par1, int par2)
-    {
+    protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         String s = this.logic.isInvNameLocalized() ? this.logic.getInvName() : I18n.format(this.logic.getInvName());
         this.fontRendererObj.drawString(s, this.xSize / 2 - this.fontRendererObj.getStringWidth(s) / 2, 6, 4210752);
         this.fontRendererObj.drawString(I18n.format("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
@@ -38,8 +36,7 @@ public class FurnaceGui extends GuiContainer
      * items)
      */
     @Override
-    protected void drawGuiContainerBackgroundLayer (float par1, int par2, int par3)
-    {
+    protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(furnaceGuiTextures);
         int k = (this.width - this.xSize) / 2;
@@ -47,8 +44,7 @@ public class FurnaceGui extends GuiContainer
         this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
         int i1;
 
-        if (this.logic.isBurning())
-        {
+        if (this.logic.isBurning()) {
             i1 = this.logic.gaugeFuelScaled(12);
             this.drawTexturedModalRect(k + 56, l + 36 + 12 - i1, 176, 12 - i1, 14, i1 + 2);
         }

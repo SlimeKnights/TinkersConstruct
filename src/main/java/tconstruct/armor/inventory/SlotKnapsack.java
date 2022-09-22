@@ -4,10 +4,8 @@ import net.minecraft.inventory.*;
 import net.minecraft.item.*;
 import tconstruct.armor.items.Knapsack;
 
-public class SlotKnapsack extends Slot
-{
-    public SlotKnapsack(IInventory par2IInventory, int par3, int par4, int par5)
-    {
+public class SlotKnapsack extends Slot {
+    public SlotKnapsack(IInventory par2IInventory, int par3, int par4, int par5) {
         super(par2IInventory, par3, par4, par5);
     }
 
@@ -16,8 +14,7 @@ public class SlotKnapsack extends Slot
      * getInventoryStackLimit(), but 1 in the case of armor slots)
      */
     @Override
-    public int getSlotStackLimit ()
-    {
+    public int getSlotStackLimit() {
         return 1;
     }
 
@@ -26,8 +23,7 @@ public class SlotKnapsack extends Slot
      * the armor slots.
      */
     @Override
-    public boolean isItemValid (ItemStack par1ItemStack)
-    {
+    public boolean isItemValid(ItemStack par1ItemStack) {
         Item item = (par1ItemStack == null ? null : par1ItemStack.getItem());
         return item != null && (item instanceof Knapsack);
     }

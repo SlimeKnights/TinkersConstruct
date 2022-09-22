@@ -7,49 +7,39 @@ import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
 import tconstruct.util.ItemHelper;
 
-public class DryingRackRender implements ISimpleBlockRenderingHandler
-{
+public class DryingRackRender implements ISimpleBlockRenderingHandler {
     public static int model = RenderingRegistry.getNextAvailableRenderId();
 
     @Override
-    public void renderInventoryBlock (Block block, int metadata, int modelID, RenderBlocks renderer)
-    {
-        if (modelID == model)
-        {
+    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
+        if (modelID == model) {
             renderer.setRenderBounds(0.375F, 0.375F, 0.0F, 0.625F, 0.625F, 1.0F);
             ItemHelper.renderStandardInvBlock(renderer, block, metadata);
         }
     }
 
     @Override
-    public boolean renderWorldBlock (IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer)
-    {
-        if (modelID == model)
-        {
+    public boolean renderWorldBlock(
+            IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer) {
+        if (modelID == model) {
             int metadata = world.getBlockMetadata(x, y, z);
-            if (metadata == 0)
-            {
+            if (metadata == 0) {
                 renderer.setRenderBounds(0.0F, 0.0, 0.375F, 1.0F, 0.25F, 0.625F);
             }
-            if (metadata == 1)
-            {
+            if (metadata == 1) {
                 renderer.setRenderBounds(0.375F, 0.0, 0.0f, 0.625F, 0.25F, 1F);
             }
 
-            if (metadata == 2)
-            {
+            if (metadata == 2) {
                 renderer.setRenderBounds(0.0F, 0.75F, 0.75F, 1F, 1.0F, 1F);
             }
-            if (metadata == 3)
-            {
+            if (metadata == 3) {
                 renderer.setRenderBounds(0.0F, 0.75F, 0F, 1F, 1.0F, 0.25F);
             }
-            if (metadata == 4)
-            {
+            if (metadata == 4) {
                 renderer.setRenderBounds(0.75F, 0.75F, 0.0f, 1F, 1.0F, 1F);
             }
-            if (metadata == 5)
-            {
+            if (metadata == 5) {
                 renderer.setRenderBounds(0F, 0.75F, 0.0f, 0.25F, 1.0F, 1F);
             }
             renderer.renderStandardBlock(block, x, y, z);
@@ -59,19 +49,16 @@ public class DryingRackRender implements ISimpleBlockRenderingHandler
     }
 
     @Override
-    public boolean shouldRender3DInInventory (int modelID)
-    {
+    public boolean shouldRender3DInInventory(int modelID) {
         return true;
     }
 
     @Override
-    public int getRenderId ()
-    {
+    public int getRenderId() {
         return model;
     }
 
-    public static void renderStandardInvBlock (RenderBlocks renderblocks, Block block, int meta)
-    {
+    public static void renderStandardInvBlock(RenderBlocks renderblocks, Block block, int meta) {
         Tessellator tessellator = Tessellator.instance;
         GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
         tessellator.startDrawingQuads();

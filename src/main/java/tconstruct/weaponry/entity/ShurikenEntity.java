@@ -1,11 +1,11 @@
 package tconstruct.weaponry.entity;
 
-import tconstruct.library.entity.ProjectileBase;
-import tconstruct.weaponry.TinkerWeaponry;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import tconstruct.library.entity.ProjectileBase;
+import tconstruct.weaponry.TinkerWeaponry;
 
 public class ShurikenEntity extends ProjectileBase {
     public int spin = 0;
@@ -32,8 +32,7 @@ public class ShurikenEntity extends ProjectileBase {
     @Override
     public void onUpdate() {
         // you turn me right round baby
-        if(this.ticksInGround == 0)
-            spin = (spin + 33) % 360;
+        if (this.ticksInGround == 0) spin = (spin + 33) % 360;
 
         super.onUpdate();
     }
@@ -43,13 +42,14 @@ public class ShurikenEntity extends ProjectileBase {
         super.readSpawnData(data);
 
         // this is only relevant clientside only, so we don't actually have it on the server
-        //rollAngle = (TinkerWeaponry.random.nextInt(3)-1)*45 + TinkerWeaponry.random.nextInt(30)-15;
+        // rollAngle = (TinkerWeaponry.random.nextInt(3)-1)*45 + TinkerWeaponry.random.nextInt(30)-15;
         spin = TinkerWeaponry.random.nextInt(360);
     }
 
     @Override
     protected double getGravity() {
-        return (this.ticksExisted/8) * 0.018d; // integer division. so the first 20 ticks it will have no gravity at all.
+        return (this.ticksExisted / 8)
+                * 0.018d; // integer division. so the first 20 ticks it will have no gravity at all.
     }
 
     @Override

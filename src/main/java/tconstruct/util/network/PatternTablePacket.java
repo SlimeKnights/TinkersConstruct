@@ -11,19 +11,14 @@ import tconstruct.library.crafting.StencilBuilder;
 import tconstruct.tools.inventory.PatternShaperContainer;
 import tconstruct.tools.logic.StencilTableLogic;
 
-public class PatternTablePacket extends AbstractPacket
-{
+public class PatternTablePacket extends AbstractPacket {
 
     int x, y, z;
     ItemStack contents;
 
-    public PatternTablePacket()
-    {
+    public PatternTablePacket() {}
 
-    }
-
-    public PatternTablePacket(int x, int y, int z, ItemStack contents)
-    {
+    public PatternTablePacket(int x, int y, int z, ItemStack contents) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -31,8 +26,7 @@ public class PatternTablePacket extends AbstractPacket
     }
 
     @Override
-    public void encodeInto (ChannelHandlerContext ctx, ByteBuf buffer)
-    {
+    public void encodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
         buffer.writeInt(x);
         buffer.writeInt(y);
         buffer.writeInt(z);
@@ -40,8 +34,7 @@ public class PatternTablePacket extends AbstractPacket
     }
 
     @Override
-    public void decodeInto (ChannelHandlerContext ctx, ByteBuf buffer)
-    {
+    public void decodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
         x = buffer.readInt();
         y = buffer.readInt();
         z = buffer.readInt();
@@ -49,40 +42,30 @@ public class PatternTablePacket extends AbstractPacket
     }
 
     @Override
-    public void handleClientSide (EntityPlayer player)
-    {
-
-    }
+    public void handleClientSide(EntityPlayer player) {}
 
     @Override
-    public void handleServerSide (EntityPlayer player)
-    {
-        if (player.openContainer instanceof PatternShaperContainer)
-        {
+    public void handleServerSide(EntityPlayer player) {
+        if (player.openContainer instanceof PatternShaperContainer) {
             PatternShaperContainer container = (PatternShaperContainer) player.openContainer;
             StencilTableLogic logic = container.logic;
             if (logic != null && logic.xCoord == this.x && logic.yCoord == this.y && logic.zCoord == this.z)
-                if (this.contents == null)
-                    logic.setSelectedPattern(null);
-                else
-                {
+                if (this.contents == null) logic.setSelectedPattern(null);
+                else {
                     ItemStack stackBlank = logic.getStackInSlot(0);
-                    if (stackBlank != null && stackBlank.stackSize > 0 && StencilBuilder.isBlank(stackBlank))
-                    {
+                    if (stackBlank != null && stackBlank.stackSize > 0 && StencilBuilder.isBlank(stackBlank)) {
                         boolean warning = true;
-                        for (ItemStack stack : StencilBuilder.instance.stencils.values())
-                        {
-                            if (stack != null && this.contents.isItemEqual(stack))
-                            {
+                        for (ItemStack stack : StencilBuilder.instance.stencils.values()) {
+                            if (stack != null && this.contents.isItemEqual(stack)) {
                                 this.contents = stack.copy();
                                 warning = false;
                                 break;
                             }
                         }
                         if (warning)
-                            TConstruct.logger.warn("Possible packet-cheating with PatternTable for player " + player.getCommandSenderName());
-                        else
-                            logic.setSelectedPattern(this.contents);
+                            TConstruct.logger.warn("Possible packet-cheating with PatternTable for player "
+                                    + player.getCommandSenderName());
+                        else logic.setSelectedPattern(this.contents);
                     }
                 }
         }

@@ -11,62 +11,53 @@ import tconstruct.tools.inventory.ToolForgeContainer;
 /* Simple class for storing items in the block
  */
 
-public class ToolForgeLogic extends ToolStationLogic implements ISidedInventory
-{
+public class ToolForgeLogic extends ToolStationLogic implements ISidedInventory {
     ItemStack previousTool;
     String toolName;
 
-    public ToolForgeLogic()
-    {
+    public ToolForgeLogic() {
         super(6);
         toolName = "";
     }
 
     @Override
-    public String getDefaultName ()
-    {
+    public String getDefaultName() {
         return "crafters.ToolForge";
     }
 
     @Override
-    public Container getGuiContainer (InventoryPlayer inventoryplayer, World world, int x, int y, int z)
-    {
+    public Container getGuiContainer(InventoryPlayer inventoryplayer, World world, int x, int y, int z) {
         return new ToolForgeContainer(inventoryplayer, this);
     }
 
     @Override
-    public void buildTool (String name)
-    {
+    public void buildTool(String name) {
         ItemStack output = null;
-        if (inventory[1] != null)
-        {
-            if (inventory[1].getItem() instanceof IModifyable) //Modify item
+        if (inventory[1] != null) {
+            if (inventory[1].getItem() instanceof IModifyable) // Modify item
             {
-                if (inventory[2] == null && inventory[3] == null && inventory[4] == null)
-                    output = inventory[1].copy();
-                else
-                {
-                    output = ModifyBuilder.instance.modifyItem(inventory[1], new ItemStack[] { inventory[2], inventory[3], inventory[4] });
+                if (inventory[2] == null && inventory[3] == null && inventory[4] == null) output = inventory[1].copy();
+                else {
+                    output = ModifyBuilder.instance.modifyItem(
+                            inventory[1], new ItemStack[] {inventory[2], inventory[3], inventory[4]});
                 }
-            }
-            else
-            //Build new item
+            } else
+            // Build new item
             {
                 toolName = name;
-                ItemStack tool = ToolBuilder.instance.buildTool(inventory[1], inventory[2], inventory[3], inventory[4], name);
-                if (inventory[0] == null)
+                ItemStack tool =
+                        ToolBuilder.instance.buildTool(inventory[1], inventory[2], inventory[3], inventory[4], name);
+                if (inventory[0] == null) output = tool;
+                else if (tool != null) {
+                    // NBTTagCompound tags = tool.getTagCompound();
+                    // if (!tags.getCompoundTag(((IModifyable) tool.getItem()).getBaseTagName()).hasKey("Built"))
+                    // {
                     output = tool;
-                else if (tool != null)
-                {
-                    //NBTTagCompound tags = tool.getTagCompound(); 
-                    //if (!tags.getCompoundTag(((IModifyable) tool.getItem()).getBaseTagName()).hasKey("Built"))
-                    //{
-                    output = tool;
-                    //}
+                    // }
                 }
             }
-            if (!name.equals("")) //Name item
-                output = tryRenameTool(output, name);
+            if (!name.equals("")) // Name item
+            output = tryRenameTool(output, name);
         }
         inventory[0] = output;
     }

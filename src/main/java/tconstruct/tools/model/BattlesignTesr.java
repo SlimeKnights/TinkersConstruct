@@ -8,11 +8,9 @@ import net.minecraft.util.EnumChatFormatting;
 import org.lwjgl.opengl.GL11;
 import tconstruct.tools.logic.BattlesignLogic;
 
-public class BattlesignTesr extends TileEntitySpecialRenderer
-{
+public class BattlesignTesr extends TileEntitySpecialRenderer {
 
-    public void renderTileEntityAt (BattlesignLogic te, double x, double y, double z, float something)
-    {
+    public void renderTileEntityAt(BattlesignLogic te, double x, double y, double z, float something) {
         GL11.glPushMatrix();
         GL11.glDisable(GL11.GL_LIGHTING);
 
@@ -23,34 +21,40 @@ public class BattlesignTesr extends TileEntitySpecialRenderer
 
         FontRenderer fr = Minecraft.getMinecraft().fontRenderer;
 
-        switch (te.getWorldObj().getBlockMetadata(te.xCoord, te.yCoord, te.zCoord))
-        {
-        case 0:
-            GL11.glRotatef(-90F, 0F, 1F, 0F);
-            GL11.glTranslatef(5F, -96F, -37F);
-            break;
-        case 1:
-            GL11.glRotatef(90F, 0F, 1F, 0F);
-            GL11.glTranslatef(-85F, -96F, 53F);
-            break;
-        case 2:
-            GL11.glTranslatef(5F, -96F, 53F);
-            break;
-        case 3:
-            GL11.glRotatef(180F, 0F, 1F, 0F);
-            GL11.glTranslatef(-85F, -96F, -37F);
-            break;
+        switch (te.getWorldObj().getBlockMetadata(te.xCoord, te.yCoord, te.zCoord)) {
+            case 0:
+                GL11.glRotatef(-90F, 0F, 1F, 0F);
+                GL11.glTranslatef(5F, -96F, -37F);
+                break;
+            case 1:
+                GL11.glRotatef(90F, 0F, 1F, 0F);
+                GL11.glTranslatef(-85F, -96F, 53F);
+                break;
+            case 2:
+                GL11.glTranslatef(5F, -96F, 53F);
+                break;
+            case 3:
+                GL11.glRotatef(180F, 0F, 1F, 0F);
+                GL11.glTranslatef(-85F, -96F, -37F);
+                break;
         }
 
         String strings[] = te.getText();
 
-        if (strings != null && strings.length > 0)
-        {
-            float lum = calcLuminance(te.getWorldObj().getBlock(te.xCoord, te.yCoord, te.zCoord).colorMultiplier(te.getWorldObj(), te.xCoord, te.yCoord, te.zCoord));
+        if (strings != null && strings.length > 0) {
+            float lum = calcLuminance(te.getWorldObj()
+                    .getBlock(te.xCoord, te.yCoord, te.zCoord)
+                    .colorMultiplier(te.getWorldObj(), te.xCoord, te.yCoord, te.zCoord));
 
-            for (int i = 0; i < strings.length; i++)
-            {
-                fr.drawString((lum >= 35F ? EnumChatFormatting.BLACK : lum >= 31F ? EnumChatFormatting.GRAY : EnumChatFormatting.WHITE) + strings[i], -fr.getStringWidth(strings[i]) / 2 + 40, 10 * i, 0);
+            for (int i = 0; i < strings.length; i++) {
+                fr.drawString(
+                        (lum >= 35F
+                                        ? EnumChatFormatting.BLACK
+                                        : lum >= 31F ? EnumChatFormatting.GRAY : EnumChatFormatting.WHITE)
+                                + strings[i],
+                        -fr.getStringWidth(strings[i]) / 2 + 40,
+                        10 * i,
+                        0);
             }
         }
 
@@ -58,8 +62,7 @@ public class BattlesignTesr extends TileEntitySpecialRenderer
         GL11.glPopMatrix();
     }
 
-    private float calcLuminance (int rgb)
-    {
+    private float calcLuminance(int rgb) {
         int r = (rgb & 0xff0000) >> 16;
         int g = (rgb & 0xff00) >> 8;
         int b = (rgb & 0xff);
@@ -68,8 +71,7 @@ public class BattlesignTesr extends TileEntitySpecialRenderer
     }
 
     @Override
-    public void renderTileEntityAt (TileEntity te, double x, double y, double z, float something)
-    {
+    public void renderTileEntityAt(TileEntity te, double x, double y, double z, float something) {
         this.renderTileEntityAt((BattlesignLogic) te, x, y, z, something);
     }
 }

@@ -2,6 +2,7 @@ package tconstruct.smeltery.blocks;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
 import mantle.blocks.iface.IServantLogic;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -26,15 +27,11 @@ import tconstruct.smeltery.itemblocks.LavaTankItemBlock;
 import tconstruct.smeltery.logic.LavaTankLogic;
 import tconstruct.smeltery.model.TankRender;
 
-import java.util.List;
-
-public class LavaTankBlock extends BlockContainer
-{
+public class LavaTankBlock extends BlockContainer {
     public IIcon[] icons;
     String texturePrefix = "";
 
-    public LavaTankBlock()
-    {
+    public LavaTankBlock() {
         super(Material.rock);
         setHardness(3F);
         setResistance(20F);
@@ -43,73 +40,70 @@ public class LavaTankBlock extends BlockContainer
         setStepSound(Block.soundTypeGrass);
     }
 
-    public LavaTankBlock(String prefix)
-    {
+    public LavaTankBlock(String prefix) {
         this();
         texturePrefix = prefix;
     }
 
-    public String[] getTextureNames ()
-    {
-        String[] textureNames = { "lavatank_side", "lavatank_top", "searedgague_top", "searedgague_side", "searedgague_bottom", "searedwindow_top", "searedwindow_side", "searedwindow_bottom" };
+    public String[] getTextureNames() {
+        String[] textureNames = {
+            "lavatank_side",
+            "lavatank_top",
+            "searedgague_top",
+            "searedgague_side",
+            "searedgague_bottom",
+            "searedwindow_top",
+            "searedwindow_side",
+            "searedwindow_bottom"
+        };
 
         if (!texturePrefix.equals(""))
-            for (int i = 0; i < textureNames.length; i++)
-                textureNames[i] = texturePrefix + "_" + textureNames[i];
+            for (int i = 0; i < textureNames.length; i++) textureNames[i] = texturePrefix + "_" + textureNames[i];
 
         return textureNames;
     }
 
     @Override
-    public void registerBlockIcons (IIconRegister IIconRegister)
-    {
+    public void registerBlockIcons(IIconRegister IIconRegister) {
         String[] textureNames = getTextureNames();
         this.icons = new IIcon[textureNames.length];
 
-        for (int i = 0; i < this.icons.length; ++i)
-        {
+        for (int i = 0; i < this.icons.length; ++i) {
             this.icons[i] = IIconRegister.registerIcon("tinker:" + textureNames[i]);
         }
     }
 
     @Override
-    public int getRenderBlockPass ()
-    {
+    public int getRenderBlockPass() {
         return 1;
     }
 
     @Override
-    public boolean isOpaqueCube ()
-    {
+    public boolean isOpaqueCube() {
         return false;
     }
 
     @Override
-    public boolean renderAsNormalBlock ()
-    {
+    public boolean renderAsNormalBlock() {
         return false;
     }
 
     @Override
-    public boolean shouldSideBeRendered (IBlockAccess world, int x, int y, int z, int side)
-    {
+    public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side) {
         Block bID = world.getBlock(x, y, z);
         return bID == this ? false : super.shouldSideBeRendered(world, x, y, z, side);
     }
 
     @Override
-    public boolean canRenderInPass (int pass)
-    {
+    public boolean canRenderInPass(int pass) {
         TankRender.renderPass = pass;
         return true;
     }
 
     @Override
-    public int getLightValue (IBlockAccess world, int x, int y, int z)
-    {
+    public int getLightValue(IBlockAccess world, int x, int y, int z) {
         TileEntity logic = world.getTileEntity(x, y, z);
-        if (logic != null && logic instanceof LavaTankLogic)
-            return ((LavaTankLogic) logic).getBrightness();
+        if (logic != null && logic instanceof LavaTankLogic) return ((LavaTankLogic) logic).getBrightness();
         return 0;
     }
 
@@ -118,89 +112,78 @@ public class LavaTankBlock extends BlockContainer
      */
 
     @Override
-    public int getRenderType ()
-    {
+    public int getRenderType() {
         return TankRender.tankModelID;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon (int side, int meta)
-    {
-        if (meta >= 3)
-            meta = 0;
-        if (meta == 0)
-        {
-            if (side == 0 || side == 1)
-            {
+    public IIcon getIcon(int side, int meta) {
+        if (meta >= 3) meta = 0;
+        if (meta == 0) {
+            if (side == 0 || side == 1) {
                 return icons[1];
-            }
-            else
-            {
+            } else {
                 return icons[0];
             }
-        }
-        else
-        {
+        } else {
             return icons[meta * 3 + getTextureIndex(side) - 1];
         }
     }
 
-    public int getTextureIndex (int side)
-    {
-        if (side == 0)
-            return 2;
-        if (side == 1)
-            return 0;
+    public int getTextureIndex(int side) {
+        if (side == 0) return 2;
+        if (side == 1) return 0;
 
         return 1;
     }
 
     @Override
-    public TileEntity createTileEntity (World world, int metadata)
-    {
+    public TileEntity createTileEntity(World world, int metadata) {
         return new LavaTankLogic();
     }
 
     @Override
-    public boolean onBlockActivated (World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9)
-    {
+    public boolean onBlockActivated(
+            World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9) {
         ItemStack current = entityplayer.inventory.getCurrentItem();
-        if (current != null)
-        {
+        if (current != null) {
             FluidStack liquid = FluidContainerRegistry.getFluidForFilledItem(current);
             LavaTankLogic logic = (LavaTankLogic) world.getTileEntity(i, j, k);
             // putting liquid into the tank
-            if (liquid != null && !world.isRemote)
-            {
+            if (liquid != null && !world.isRemote) {
                 int amount = logic.fill(ForgeDirection.UNKNOWN, liquid, false);
-                if (amount == liquid.amount)
-                {
+                if (amount == liquid.amount) {
                     logic.fill(ForgeDirection.UNKNOWN, liquid, true);
                     if (!entityplayer.capabilities.isCreativeMode)
-                        entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, consumeItem(current));
+                        entityplayer.inventory.setInventorySlotContents(
+                                entityplayer.inventory.currentItem, consumeItem(current));
 
                     // update
                     entityplayer.inventoryContainer.detectAndSendChanges();
-                    world.markBlockForUpdate(i,j,k);
+                    world.markBlockForUpdate(i, j, k);
                 }
 
                 return true;
             }
             // taking liquit out of the tank
-            else if (FluidContainerRegistry.isBucket(current))
-            {
+            else if (FluidContainerRegistry.isBucket(current)) {
                 FluidTankInfo[] tanks = logic.getTankInfo(ForgeDirection.UNKNOWN);
-                FluidStack fillFluid = tanks[0].fluid;// getFluid();
-                if(!world.isRemote) {
+                FluidStack fillFluid = tanks[0].fluid; // getFluid();
+                if (!world.isRemote) {
                     ItemStack fillStack = FluidContainerRegistry.fillFluidContainer(fillFluid, current);
                     if (fillStack != null) {
-                        logic.drain(ForgeDirection.UNKNOWN, FluidContainerRegistry.getFluidForFilledItem(fillStack).amount, true);
+                        logic.drain(
+                                ForgeDirection.UNKNOWN,
+                                FluidContainerRegistry.getFluidForFilledItem(fillStack).amount,
+                                true);
                         if (!entityplayer.capabilities.isCreativeMode && !world.isRemote) {
                             if (current.stackSize == 1) {
-                                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, fillStack);
+                                entityplayer.inventory.setInventorySlotContents(
+                                        entityplayer.inventory.currentItem, fillStack);
                             } else {
-                                entityplayer.inventory.setInventorySlotContents(entityplayer.inventory.currentItem, consumeItem(current));
+                                entityplayer.inventory.setInventorySlotContents(
+                                        entityplayer.inventory.currentItem, consumeItem(current));
 
                                 if (!entityplayer.inventory.addItemStackToInventory(fillStack)) {
                                     entityplayer.dropPlayerItemWithRandomChoice(fillStack, false);
@@ -222,17 +205,11 @@ public class LavaTankBlock extends BlockContainer
         return false;
     }
 
-    public static ItemStack consumeItem (ItemStack stack)
-    {
-        if (stack.stackSize == 1)
-        {
-            if (stack.getItem().hasContainerItem())
-                return stack.getItem().getContainerItem(stack);
-            else
-                return null;
-        }
-        else
-        {
+    public static ItemStack consumeItem(ItemStack stack) {
+        if (stack.stackSize == 1) {
+            if (stack.getItem().hasContainerItem()) return stack.getItem().getContainerItem(stack);
+            else return null;
+        } else {
             stack.splitStack(1);
 
             return stack;
@@ -240,60 +217,49 @@ public class LavaTankBlock extends BlockContainer
     }
 
     @Override
-    public TileEntity createNewTileEntity (World world, int test)
-    {
+    public TileEntity createNewTileEntity(World world, int test) {
         return createTileEntity(world, 0);
     }
 
     @Override
-    public void getSubBlocks (Item id, CreativeTabs tab, List list)
-    {
-        for (int iter = 0; iter < 3; iter++)
-        {
+    public void getSubBlocks(Item id, CreativeTabs tab, List list) {
+        for (int iter = 0; iter < 3; iter++) {
             list.add(new ItemStack(id, 1, iter));
         }
     }
 
     /* Data */
     @Override
-    public int damageDropped (int meta)
-    {
+    public int damageDropped(int meta) {
         return meta;
     }
 
     /* Updates */
-    public void onNeighborBlockChange (World world, int x, int y, int z, Block nBlockID)
-    {
+    public void onNeighborBlockChange(World world, int x, int y, int z, Block nBlockID) {
         TileEntity logic = world.getTileEntity(x, y, z);
-        if (logic instanceof IServantLogic)
-        {
+        if (logic instanceof IServantLogic) {
             ((IServantLogic) logic).notifyMasterOfChange();
         }
     }
 
     @Override
-    public boolean removedByPlayer (World world, EntityPlayer player, int x, int y, int z)
-    {
+    public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z) {
         player.addExhaustion(0.025F);
         int meta = world.getBlockMetadata(x, y, z);
         ItemStack stack = new ItemStack(this, 1, meta);
         LavaTankLogic logic = (LavaTankLogic) world.getTileEntity(x, y, z);
         FluidStack liquid = logic.tank.getFluid();
-        if (liquid != null)
-        {
+        if (liquid != null) {
             LavaTankItemBlock lavaTankItemBlock = (LavaTankItemBlock) stack.getItem();
             lavaTankItemBlock.setFluid(stack, liquid);
         }
-        if (!player.capabilities.isCreativeMode || player.isSneaking())
-            dropTankBlock(world, x, y, z, stack);
+        if (!player.capabilities.isCreativeMode || player.isSneaking()) dropTankBlock(world, x, y, z, stack);
 
         return world.setBlockToAir(x, y, z);
     }
 
-    protected void dropTankBlock (World world, int x, int y, int z, ItemStack stack)
-    {
-        if (!world.isRemote && world.getGameRules().getGameRuleBooleanValue("doTileDrops"))
-        {
+    protected void dropTankBlock(World world, int x, int y, int z, ItemStack stack) {
+        if (!world.isRemote && world.getGameRules().getGameRuleBooleanValue("doTileDrops")) {
             float f = 0.7F;
             double d0 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
             double d1 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
@@ -305,14 +271,10 @@ public class LavaTankBlock extends BlockContainer
     }
 
     @Override
-    public void harvestBlock (World par1World, EntityPlayer par2EntityPlayer, int par3, int par4, int par5, int par6)
-    {
-
-    }
+    public void harvestBlock(World par1World, EntityPlayer par2EntityPlayer, int par3, int par4, int par5, int par6) {}
 
     @Override
-    public void onBlockPlacedBy (World world, int x, int y, int z, EntityLivingBase living, ItemStack stack)
-    {
+    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase living, ItemStack stack) {
         LavaTankItemBlock lavaTankItemBlock = (LavaTankItemBlock) stack.getItem();
         FluidStack liquid = lavaTankItemBlock.getFluid(stack);
         if (liquid != null) {
@@ -321,22 +283,19 @@ public class LavaTankBlock extends BlockContainer
         }
     }
 
-    //Comparator
+    // Comparator
 
     @Override
-    public boolean hasComparatorInputOverride ()
-    {
+    public boolean hasComparatorInputOverride() {
         return true;
     }
 
     @Override
-    public int getComparatorInputOverride (World world, int x, int y, int z, int comparatorSide)
-    {
+    public int getComparatorInputOverride(World world, int x, int y, int z, int comparatorSide) {
         return getTankLogic(world, x, y, z).comparatorStrength();
     }
 
-    public static LavaTankLogic getTankLogic (IBlockAccess blockAccess, int par1, int par2, int par3)
-    {
+    public static LavaTankLogic getTankLogic(IBlockAccess blockAccess, int par1, int par2, int par3) {
         return (LavaTankLogic) blockAccess.getTileEntity(par1, par2, par3);
     }
 }

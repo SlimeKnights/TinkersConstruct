@@ -10,12 +10,10 @@ import tconstruct.library.util.IToolPart;
 import tconstruct.tools.TinkerTools;
 
 @Deprecated
-public class ToolPart extends CraftingItem implements IToolPart
-{
+public class ToolPart extends CraftingItem implements IToolPart {
     public String partName;
 
-    public ToolPart(String textureType, String name)
-    {
+    public ToolPart(String textureType, String name) {
         super(toolMaterialNames, buildTextureNames(textureType), "parts/", "tinker", TConstructRegistry.partTab);
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
@@ -23,19 +21,15 @@ public class ToolPart extends CraftingItem implements IToolPart
     }
 
     @Override
-    public String getItemStackDisplayName (ItemStack par1ItemStack)
-    {
+    public String getItemStackDisplayName(ItemStack par1ItemStack) {
         String material = "";
-        if(par1ItemStack.getItemDamage() < toolTextureNames.length)
+        if (par1ItemStack.getItemDamage() < toolTextureNames.length)
             material = toolTextureNames[par1ItemStack.getItemDamage()];
         String name = "";
-        
-        if (StatCollector.canTranslate("toolpart." + partName + "." + material))
-        {
+
+        if (StatCollector.canTranslate("toolpart." + partName + "." + material)) {
             name = StatCollector.translateToLocal("toolpart." + partName + "." + material);
-        }
-        else
-        {
+        } else {
             material = StatCollector.translateToLocal("material." + material);
             name = StatCollector.translateToLocal("toolpart." + partName);
             name = name.replaceAll("%%material", material);
@@ -44,38 +38,95 @@ public class ToolPart extends CraftingItem implements IToolPart
         return name;
     }
 
-    private static String[] buildTextureNames (String textureType)
-    {
+    private static String[] buildTextureNames(String textureType) {
         String[] names = new String[toolMaterialNames.length];
-        for (int i = 0; i < toolMaterialNames.length; i++)
-        {
-            if (toolTextureNames[i].equals(""))
-                names[i] = "";
-            else
-                names[i] = toolTextureNames[i] + textureType;
+        for (int i = 0; i < toolMaterialNames.length; i++) {
+            if (toolTextureNames[i].equals("")) names[i] = "";
+            else names[i] = toolTextureNames[i] + textureType;
         }
         return names;
     }
 
-    public static final String[] toolMaterialNames = new String[] { "Wood", "Stone", "Iron", "Flint", "Cactus", "Bone", "Obsidian", "Netherrack", "Slime", "Paper", "Cobalt", "Ardite", "Manyullyn", "Copper", "Bronze", "Alumite", "Steel", "Blue Slime", "Pig Iron", "", "", "", "", "", "", "", "", "", "", "", "", "Thaumium" };
+    public static final String[] toolMaterialNames = new String[] {
+        "Wood",
+        "Stone",
+        "Iron",
+        "Flint",
+        "Cactus",
+        "Bone",
+        "Obsidian",
+        "Netherrack",
+        "Slime",
+        "Paper",
+        "Cobalt",
+        "Ardite",
+        "Manyullyn",
+        "Copper",
+        "Bronze",
+        "Alumite",
+        "Steel",
+        "Blue Slime",
+        "Pig Iron",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "Thaumium"
+    };
 
-    public static final String[] toolTextureNames = new String[] { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn", "copper", "bronze", "alumite", "steel", "blueslime", "pigiron", "", "", "", "", "", "", "", "", "", "", "", "", "thaumium" };
+    public static final String[] toolTextureNames = new String[] {
+        "wood",
+        "stone",
+        "iron",
+        "flint",
+        "cactus",
+        "bone",
+        "obsidian",
+        "netherrack",
+        "slime",
+        "paper",
+        "cobalt",
+        "ardite",
+        "manyullyn",
+        "copper",
+        "bronze",
+        "alumite",
+        "steel",
+        "blueslime",
+        "pigiron",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "thaumium"
+    };
 
     @Override
-    public void getSubItems (Item b, CreativeTabs tab, List list)
-    {
-        for (int i = 0; i < 19; i++)
-            list.add(new ItemStack(b, 1, i));
+    public void getSubItems(Item b, CreativeTabs tab, List list) {
+        for (int i = 0; i < 19; i++) list.add(new ItemStack(b, 1, i));
 
-        if (TinkerTools.thaumcraftAvailable)
-            list.add(new ItemStack(b, 1, 31));
+        if (TinkerTools.thaumcraftAvailable) list.add(new ItemStack(b, 1, 31));
     }
 
     @Override
-    public int getMaterialID (ItemStack stack)
-    {
-        if (TConstructRegistry.toolMaterials.keySet().contains(stack.getItemDamage()))
-            return stack.getItemDamage();
+    public int getMaterialID(ItemStack stack) {
+        if (TConstructRegistry.toolMaterials.keySet().contains(stack.getItemDamage())) return stack.getItemDamage();
 
         return -1;
     }

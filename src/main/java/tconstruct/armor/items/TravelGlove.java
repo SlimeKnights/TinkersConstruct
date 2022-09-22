@@ -9,23 +9,19 @@ import net.minecraft.util.*;
 import tconstruct.armor.ArmorProxyClient;
 import tconstruct.library.accessory.*;
 
-public class TravelGlove extends AccessoryCore implements IAccessoryModel
-{
-    public TravelGlove()
-    {
+public class TravelGlove extends AccessoryCore implements IAccessoryModel {
+    public TravelGlove() {
         super("travelgear/travel_glove");
     }
 
     @Override
-    public boolean canEquipAccessory (ItemStack item, int slot)
-    {
+    public boolean canEquipAccessory(ItemStack item, int slot) {
         return slot == 1;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    protected void registerModifiers (IIconRegister iconRegister)
-    {
+    protected void registerModifiers(IIconRegister iconRegister) {
         this.modifiers = new IIcon[4];
         this.modifiers[0] = iconRegister.registerIcon("tinker:travelgear/glove_guard");
         this.modifiers[1] = iconRegister.registerIcon("tinker:travelgear/glove_speedaura");
@@ -34,8 +30,7 @@ public class TravelGlove extends AccessoryCore implements IAccessoryModel
     }
 
     @SideOnly(Side.CLIENT)
-    public ModelBiped getArmorModel (EntityLivingBase entityLiving, ItemStack itemStack, int armorSlot)
-    {
+    public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, int armorSlot) {
         return ArmorProxyClient.glove;
     }
 
@@ -43,13 +38,12 @@ public class TravelGlove extends AccessoryCore implements IAccessoryModel
 
     @Override
     @SideOnly(Side.CLIENT)
-    public ResourceLocation getWearbleTexture (Entity entity, ItemStack stack, int slot)
-    {
+    public ResourceLocation getWearbleTexture(Entity entity, ItemStack stack, int slot) {
         return texture;
     }
 
     @Override
     public String[] getTraits() {
-        return new String[] { "accessory", "glove" };
+        return new String[] {"accessory", "glove"};
     }
 }

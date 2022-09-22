@@ -6,6 +6,8 @@ import codechicken.nei.api.TaggedInventoryArea;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import java.util.Collections;
+import java.util.List;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -24,13 +26,9 @@ import tconstruct.tools.inventory.ToolStationContainer;
 import tconstruct.tools.logic.ToolStationLogic;
 import tconstruct.util.network.ToolStationPacket;
 
-import java.util.Collections;
-import java.util.List;
-
 @SideOnly(Side.CLIENT)
 @Optional.Interface(iface = "codechicken.nei.api.INEIGuiHandler", modid = "NotEnoughItems")
-public class ToolStationGui extends GuiContainer implements INEIGuiHandler
-{
+public class ToolStationGui extends GuiContainer implements INEIGuiHandler {
     public ToolStationLogic logic;
     public ToolStationContainer toolSlots;
     public GuiTextField text;
@@ -40,8 +38,8 @@ public class ToolStationGui extends GuiContainer implements INEIGuiHandler
     public boolean active;
     public String title, body = "";
 
-    public ToolStationGui(InventoryPlayer inventoryplayer, ToolStationLogic stationlogic, World world, int x, int y, int z)
-    {
+    public ToolStationGui(
+            InventoryPlayer inventoryplayer, ToolStationLogic stationlogic, World world, int x, int y, int z) {
         super((ActiveContainer) stationlogic.getGuiContainer(inventoryplayer, world, x, y, z));
         this.logic = stationlogic;
         toolSlots = (ToolStationContainer) inventorySlots;
@@ -58,11 +56,9 @@ public class ToolStationGui extends GuiContainer implements INEIGuiHandler
     }
 
     @Override
-    protected void mouseClicked (int mouseX, int mouseY, int mouseButton)
-    {
+    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) {
         super.mouseClicked(mouseX, mouseY, mouseButton);
-        if (mouseButton == 0)
-        {
+        if (mouseButton == 0) {
             int gLeft = this.guiLeft + 68 + 110;
             int gTop = this.guiTop + 6;
             int gwidth = 102;
@@ -71,41 +67,53 @@ public class ToolStationGui extends GuiContainer implements INEIGuiHandler
         }
     }
 
-    void resetGui ()
-    {
+    void resetGui() {
         this.text.setText("");
         guiType = 0;
         setSlotType(0);
-        iconX = new int[] { 0, 1, 2 };
-        iconY = new int[] { 13, 13, 13 };
+        iconX = new int[] {0, 1, 2};
+        iconY = new int[] {13, 13, 13};
         title = "\u00A7n" + StatCollector.translateToLocal("gui.toolforge1");
         body = StatCollector.translateToLocal("gui.toolforge2");
     }
 
     @Override
-    public void initGui ()
-    {
+    public void initGui() {
         super.initGui();
         this.xSize = 176 + 110;
         this.guiLeft = (this.width - 176) / 2 - 110;
 
         this.buttonList.clear();
         ToolGuiElement repair = TConstructClientRegistry.toolButtons.get(0);
-        GuiButtonTool repairButton = new GuiButtonTool(0, this.guiLeft, this.guiTop, repair.buttonIconX, repair.buttonIconY, repair.domain, repair.texture, repair); // Repair
+        GuiButtonTool repairButton = new GuiButtonTool(
+                0,
+                this.guiLeft,
+                this.guiTop,
+                repair.buttonIconX,
+                repair.buttonIconY,
+                repair.domain,
+                repair.texture,
+                repair); // Repair
         repairButton.enabled = false;
         this.buttonList.add(repairButton);
 
-        for (int iter = 1; iter < TConstructClientRegistry.toolButtons.size(); iter++)
-        {
+        for (int iter = 1; iter < TConstructClientRegistry.toolButtons.size(); iter++) {
             ToolGuiElement element = TConstructClientRegistry.toolButtons.get(iter);
-            GuiButtonTool button = new GuiButtonTool(iter, this.guiLeft + 22 * (iter % 5), this.guiTop + 22 * (iter / 5), element.buttonIconX, element.buttonIconY, element.domain, element.texture, element);
+            GuiButtonTool button = new GuiButtonTool(
+                    iter,
+                    this.guiLeft + 22 * (iter % 5),
+                    this.guiTop + 22 * (iter / 5),
+                    element.buttonIconX,
+                    element.buttonIconY,
+                    element.domain,
+                    element.texture,
+                    element);
             this.buttonList.add(button);
         }
     }
 
     @Override
-    protected void actionPerformed (GuiButton button)
-    {
+    protected void actionPerformed(GuiButton button) {
         ((GuiButton) this.buttonList.get(guiType)).enabled = true;
         guiType = button.id;
         button.enabled = false;
@@ -116,47 +124,44 @@ public class ToolStationGui extends GuiContainer implements INEIGuiHandler
         iconY = element.iconsY;
         title = "\u00A7n" + element.title;
         body = StatCollector.translateToLocal(element.body);
-        if(body != null) {
+        if (body != null) {
             int i;
-            // for some really weird reason replaceAll doesn't find "\\n", but indexOf does. We have to replace manually.
-            while((i = body.indexOf("\\n")) >= 0)
-            {
-                body = body.substring(0, i) + '\n' + body.substring(i+2);
+            // for some really weird reason replaceAll doesn't find "\\n", but indexOf does. We have to replace
+            // manually.
+            while ((i = body.indexOf("\\n")) >= 0) {
+                body = body.substring(0, i) + '\n' + body.substring(i + 2);
             }
         }
     }
 
-    void setSlotType (int type)
-    {
-        switch (type)
-        {
-        case 0:
-            slotX = new int[] { 56, 38, 38 }; // Repair
-            slotY = new int[] { 37, 28, 46 };
-            break;
-        case 1:
-            slotX = new int[] { 56, 56, 56 }; // Three parts
-            slotY = new int[] { 19, 55, 37 };
-            break;
-        case 2:
-            slotX = new int[] { 56, 56, 14 }; // Two parts
-            slotY = new int[] { 28, 46, 37 };
-            break;
-        case 3:
-            slotX = new int[] { 38, 47, 56 }; // Double head
-            slotY = new int[] { 28, 46, 28 };
-            break;
-        case 7:
-            slotX = new int[] { 56, 56, 56 }; // Three parts reverse
-            slotY = new int[] { 19, 37, 55 };
-            break;
+    void setSlotType(int type) {
+        switch (type) {
+            case 0:
+                slotX = new int[] {56, 38, 38}; // Repair
+                slotY = new int[] {37, 28, 46};
+                break;
+            case 1:
+                slotX = new int[] {56, 56, 56}; // Three parts
+                slotY = new int[] {19, 55, 37};
+                break;
+            case 2:
+                slotX = new int[] {56, 56, 14}; // Two parts
+                slotY = new int[] {28, 46, 37};
+                break;
+            case 3:
+                slotX = new int[] {38, 47, 56}; // Double head
+                slotY = new int[] {28, 46, 28};
+                break;
+            case 7:
+                slotX = new int[] {56, 56, 56}; // Three parts reverse
+                slotY = new int[] {19, 37, 55};
+                break;
         }
         toolSlots.resetSlots(slotX, slotY);
     }
 
     @Override
-    public void updateScreen ()
-    {
+    public void updateScreen() {
         super.updateScreen();
         this.text.updateCursorCounter();
     }
@@ -166,20 +171,17 @@ public class ToolStationGui extends GuiContainer implements INEIGuiHandler
      * the items)
      */
     @Override
-    protected void drawGuiContainerForegroundLayer (int par1, int par2)
-    {
+    protected void drawGuiContainerForegroundLayer(int par1, int par2) {
         this.fontRendererObj.drawString(StatCollector.translateToLocal(logic.getInvName()), 116, 8, 0x000000);
-        this.fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 118, this.ySize - 96 + 2, 0x000000);
+        this.fontRendererObj.drawString(
+                StatCollector.translateToLocal("container.inventory"), 118, this.ySize - 96 + 2, 0x000000);
         this.fontRendererObj.drawString(toolName + "_", 180, 8, 0xffffff);
 
-        if (logic.isStackInSlot(0))
-            ToolStationGuiHelper.drawToolStats(logic.getStackInSlot(0), 294, 0);
-        else
-            drawToolInformation();
+        if (logic.isStackInSlot(0)) ToolStationGuiHelper.drawToolStats(logic.getStackInSlot(0), 294, 0);
+        else drawToolInformation();
     }
 
-    protected void drawToolInformation ()
-    {
+    protected void drawToolInformation() {
         this.drawCenteredString(fontRendererObj, title, 349, 8, 0xffffff);
         fontRendererObj.drawSplitString(body, 294, 24, 115, 0xffffff);
     }
@@ -193,16 +195,14 @@ public class ToolStationGui extends GuiContainer implements INEIGuiHandler
      * items)
      */
     @Override
-    protected void drawGuiContainerBackgroundLayer (float par1, int par2, int par3)
-    {
+    protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
         // Draw the background
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(background);
         final int cornerX = this.guiLeft + 110;
         this.drawTexturedModalRect(cornerX, this.guiTop, 0, 0, 176, this.ySize);
 
-        if (active)
-        {
+        if (active) {
             this.drawTexturedModalRect(cornerX + 62, this.guiTop, 0, this.ySize, 112, 22);
         }
 
@@ -210,12 +210,11 @@ public class ToolStationGui extends GuiContainer implements INEIGuiHandler
         this.mc.getTextureManager().bindTexture(icons);
         // Draw the slots
 
-        for (int i = 0; i < slotX.length; i++)
-        {
+        for (int i = 0; i < slotX.length; i++) {
             this.drawTexturedModalRect(cornerX + slotX[i], this.guiTop + slotY[i], 144, 216, 18, 18);
-            if (!logic.isStackInSlot(i + 1))
-            {
-                this.drawTexturedModalRect(cornerX + slotX[i], this.guiTop + slotY[i], 18 * iconX[i], 18 * iconY[i], 18, 18);
+            if (!logic.isStackInSlot(i + 1)) {
+                this.drawTexturedModalRect(
+                        cornerX + slotX[i], this.guiTop + slotY[i], 18 * iconX[i], 18 * iconY[i], 18, 18);
             }
         }
 
@@ -223,21 +222,16 @@ public class ToolStationGui extends GuiContainer implements INEIGuiHandler
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(description);
         this.drawTexturedModalRect(cornerX + 176, this.guiTop, 0, 0, 126, this.ySize + 30);
-
     }
 
     @Override
-    protected void keyTyped (char par1, int keyCode)
-    {
-        if (keyCode == 1 || (!active && keyCode == this.mc.gameSettings.keyBindInventory.getKeyCode()))
-        {
+    protected void keyTyped(char par1, int keyCode) {
+        if (keyCode == 1 || (!active && keyCode == this.mc.gameSettings.keyBindInventory.getKeyCode())) {
             logic.setToolname("");
             updateServer("");
             Keyboard.enableRepeatEvents(false);
             this.mc.thePlayer.closeScreen();
-        }
-        else if (active)
-        {
+        } else if (active) {
             text.textboxKeyTyped(par1, keyCode);
             toolName = text.getText().trim();
             logic.setToolname(toolName);
@@ -245,8 +239,7 @@ public class ToolStationGui extends GuiContainer implements INEIGuiHandler
         }
     }
 
-    void updateServer (String name)
-    {
+    void updateServer(String name) {
         /*
          * ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
          * DataOutputStream outputStream = new DataOutputStream(bos); try {
@@ -256,11 +249,11 @@ public class ToolStationGui extends GuiContainer implements INEIGuiHandler
          * outputStream.writeInt(logic.yCoord);
          * outputStream.writeInt(logic.zCoord); outputStream.writeUTF(name); }
          * catch (Exception ex) { ex.printStackTrace(); }
-         * 
+         *
          * Packet250CustomPayload packet = new Packet250CustomPayload();
          * packet.channel = "TConstruct"; packet.data = bos.toByteArray();
          * packet.length = bos.size();
-         * 
+         *
          * PacketDispatcher.sendPacketToServer(packet);
          */
 
@@ -274,19 +267,14 @@ public class ToolStationGui extends GuiContainer implements INEIGuiHandler
      */
 
     @Override
-    public VisiblityData modifyVisiblity (GuiContainer gui, VisiblityData currentVisibility)
-    {
-        if (width - xSize < 107)
-        {
+    public VisiblityData modifyVisiblity(GuiContainer gui, VisiblityData currentVisibility) {
+        if (width - xSize < 107) {
             currentVisibility.showWidgets = false;
-        }
-        else
-        {
+        } else {
             currentVisibility.showWidgets = true;
         }
 
-        if (guiLeft < 58)
-        {
+        if (guiLeft < 58) {
             currentVisibility.showStateButtons = false;
         }
 
@@ -294,31 +282,25 @@ public class ToolStationGui extends GuiContainer implements INEIGuiHandler
     }
 
     @Override
-    public Iterable<Integer> getItemSpawnSlots (GuiContainer gui, ItemStack item)
-    {
+    public Iterable<Integer> getItemSpawnSlots(GuiContainer gui, ItemStack item) {
         return null;
     }
 
     @Override
-    public List<TaggedInventoryArea> getInventoryAreas (GuiContainer gui)
-    {
+    public List<TaggedInventoryArea> getInventoryAreas(GuiContainer gui) {
         return Collections.emptyList();
     }
 
     @Override
-    public boolean handleDragNDrop (GuiContainer gui, int mousex, int mousey, ItemStack draggedStack, int button)
-    {
+    public boolean handleDragNDrop(GuiContainer gui, int mousex, int mousey, ItemStack draggedStack, int button) {
         return false;
     }
 
     @Override
-    public boolean hideItemPanelSlot (GuiContainer gui, int x, int y, int w, int h)
-    {
-        if (y + h - 4 < guiTop || y + 4 > guiTop + ySize)
-            return false;
+    public boolean hideItemPanelSlot(GuiContainer gui, int x, int y, int w, int h) {
+        if (y + h - 4 < guiTop || y + 4 > guiTop + ySize) return false;
 
-        if (x - w - 4 < guiLeft - 40 || x + 4 > guiLeft + xSize + 126)
-            return false;
+        if (x - w - 4 < guiLeft - 40 || x + 4 > guiLeft + xSize + 126) return false;
 
         return true;
     }

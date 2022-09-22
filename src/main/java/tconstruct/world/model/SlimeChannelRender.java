@@ -7,24 +7,20 @@ import net.minecraft.util.*;
 import net.minecraft.world.IBlockAccess;
 import tconstruct.util.ItemHelper;
 
-public class SlimeChannelRender implements ISimpleBlockRenderingHandler
-{
+public class SlimeChannelRender implements ISimpleBlockRenderingHandler {
     public static int model = RenderingRegistry.getNextAvailableRenderId();
 
     @Override
-    public void renderInventoryBlock (Block block, int metadata, int modelID, RenderBlocks renderer)
-    {
-        if (modelID == model)
-        {
+    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
+        if (modelID == model) {
             ItemHelper.renderStandardInvBlock(renderer, block, metadata);
         }
     }
 
     @Override
-    public boolean renderWorldBlock (IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer)
-    {
-        if (modelID == model)
-        {
+    public boolean renderWorldBlock(
+            IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer) {
+        if (modelID == model) {
             renderRotatedBlock(block, x, y, z, world, renderer);
             return true;
         }
@@ -36,10 +32,8 @@ public class SlimeChannelRender implements ISimpleBlockRenderingHandler
     static final float LIGHT_XZ_NEG = 0.8F;
     static final float LIGHT_XZ_POS = 0.6F;
 
-    public boolean renderRotatedBlock (Block block, int x, int y, int z, IBlockAccess world, RenderBlocks renderer)
-    {
-        if (true)
-        {
+    public boolean renderRotatedBlock(Block block, int x, int y, int z, IBlockAccess world, RenderBlocks renderer) {
+        if (true) {
             Tessellator tessellator = Tessellator.instance;
             int bMeta = world.getBlockMetadata(x, y, z);
             IIcon iconStill = block.getIcon(1, bMeta);
@@ -47,8 +41,7 @@ public class SlimeChannelRender implements ISimpleBlockRenderingHandler
 
             double u1, u2, u3, u4, v1, v2, v3, v4;
 
-            if (flowDir < -999.0F)
-            {
+            if (flowDir < -999.0F) {
                 u2 = iconStill.getInterpolatedU(0.0D);
                 v2 = iconStill.getInterpolatedV(0.0D);
                 u1 = u2;
@@ -57,9 +50,7 @@ public class SlimeChannelRender implements ISimpleBlockRenderingHandler
                 v4 = v1;
                 u3 = u4;
                 v3 = v2;
-            }
-            else
-            {
+            } else {
                 float xFlow = MathHelper.sin(flowDir) * 0.25F;
                 float zFlow = MathHelper.cos(flowDir) * 0.25F;
                 u2 = iconStill.getInterpolatedU(8.0F + (-zFlow - xFlow) * 16.0F);
@@ -89,7 +80,7 @@ public class SlimeChannelRender implements ISimpleBlockRenderingHandler
          * 0) renderer.uvRotateTop = 2; if (direction == 1) renderer.uvRotateTop
          * = 1; if (direction == 2) renderer.uvRotateTop = 0; if (direction ==
          * 3) renderer.uvRotateTop = 3;
-         * 
+         *
          * boolean flag = renderer.renderStandardBlock(block, x, y, z);
          * renderer.uvRotateTop = 0; return flag;
          */
@@ -97,14 +88,12 @@ public class SlimeChannelRender implements ISimpleBlockRenderingHandler
     }
 
     @Override
-    public boolean shouldRender3DInInventory (int modelID)
-    {
+    public boolean shouldRender3DInInventory(int modelID) {
         return true;
     }
 
     @Override
-    public int getRenderId ()
-    {
+    public int getRenderId() {
         return model;
     }
 }

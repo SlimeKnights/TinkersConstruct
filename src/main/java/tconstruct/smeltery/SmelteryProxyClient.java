@@ -21,13 +21,10 @@ import tconstruct.smeltery.gui.*;
 import tconstruct.smeltery.logic.*;
 import tconstruct.smeltery.model.*;
 import tconstruct.tools.TinkerTools;
-import tconstruct.util.config.PHConstruct;
 
-public class SmelteryProxyClient extends SmelteryProxyCommon
-{
+public class SmelteryProxyClient extends SmelteryProxyCommon {
     @Override
-    public void initialize ()
-    {
+    public void initialize() {
         registerRenderer();
         registerGuiHandler();
         registerManualIcons();
@@ -35,8 +32,7 @@ public class SmelteryProxyClient extends SmelteryProxyCommon
         MinecraftForge.EVENT_BUS.register(this);
     }
 
-    void registerRenderer ()
-    {
+    void registerRenderer() {
         RenderingRegistry.registerBlockHandler(new TankRender());
         RenderingRegistry.registerBlockHandler(new CastingBlockRender());
         RenderingRegistry.registerBlockHandler(new DryingRackRender());
@@ -47,7 +43,8 @@ public class SmelteryProxyClient extends SmelteryProxyCommon
 
         IItemRenderer tankItemRenderer = new TankItemRenderer();
         MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(TinkerSmeltery.lavaTank), tankItemRenderer);
-        MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(TinkerSmeltery.lavaTankNether), tankItemRenderer);
+        MinecraftForgeClient.registerItemRenderer(
+                Item.getItemFromBlock(TinkerSmeltery.lavaTankNether), tankItemRenderer);
 
         RenderingRegistry.registerBlockHandler(new SmelteryRender());
 
@@ -56,8 +53,7 @@ public class SmelteryProxyClient extends SmelteryProxyCommon
         ClientRegistry.bindTileEntitySpecialRenderer(DryingRackLogic.class, new DryingRackSpecialRender());
     }
 
-    void registerManualIcons ()
-    {
+    void registerManualIcons() {
         MantleClientRegistry.registerManualIcon("smelterybook", new ItemStack(TinkerTools.manualBook, 1, 2));
         MantleClientRegistry.registerManualIcon("smeltery", new ItemStack(TinkerSmeltery.smeltery));
         MantleClientRegistry.registerManualIcon("blankcast", new ItemStack(TinkerTools.blankPattern, 1, 1));
@@ -79,8 +75,7 @@ public class SmelteryProxyClient extends SmelteryProxyCommon
         MProxyClient.registerManualPage("blockcast", BlockCastPage.class);
     }
 
-    void registerManualRecipes ()
-    {
+    void registerManualRecipes() {
         ItemStack sand = new ItemStack(Blocks.sand, 1, 0);
         ItemStack gravel = new ItemStack(Blocks.gravel, 1, 0);
         ItemStack clay = new ItemStack(Items.clay_ball, 1, 0);
@@ -93,34 +88,147 @@ public class SmelteryProxyClient extends SmelteryProxyCommon
 
         MantleClientRegistry.registerManualSmallRecipe("grout", grout, sand, gravel, null, clay);
         MantleClientRegistry.registerManualFurnaceRecipe("searedbrick", searedbrick, grout);
-        MantleClientRegistry.registerManualSmallRecipe("searedbricks", new ItemStack(TinkerSmeltery.smeltery, 1, 2), searedbrick, searedbrick, searedbrick, searedbrick);
-        MantleClientRegistry.registerManualLargeRecipe("smelterycontroller", new ItemStack(TinkerSmeltery.smeltery, 1, 0), searedbrick, searedbrick, searedbrick, searedbrick, null, searedbrick, searedbrick, searedbrick, searedbrick);
-        MantleClientRegistry.registerManualLargeRecipe("dryingrack", new ItemStack(TinkerArmor.dryingRack, 1, 0), null, null, null, plankSlab, plankSlab, plankSlab, null, null, null);
+        MantleClientRegistry.registerManualSmallRecipe(
+                "searedbricks",
+                new ItemStack(TinkerSmeltery.smeltery, 1, 2),
+                searedbrick,
+                searedbrick,
+                searedbrick,
+                searedbrick);
+        MantleClientRegistry.registerManualLargeRecipe(
+                "smelterycontroller",
+                new ItemStack(TinkerSmeltery.smeltery, 1, 0),
+                searedbrick,
+                searedbrick,
+                searedbrick,
+                searedbrick,
+                null,
+                searedbrick,
+                searedbrick,
+                searedbrick,
+                searedbrick);
+        MantleClientRegistry.registerManualLargeRecipe(
+                "dryingrack",
+                new ItemStack(TinkerArmor.dryingRack, 1, 0),
+                null,
+                null,
+                null,
+                plankSlab,
+                plankSlab,
+                plankSlab,
+                null,
+                null,
+                null);
 
-        MantleClientRegistry.registerManualLargeRecipe("smelterydrain", new ItemStack(TinkerSmeltery.smeltery, 1, 1), searedbrick, null, searedbrick, searedbrick, null, searedbrick, searedbrick, null, searedbrick);
+        MantleClientRegistry.registerManualLargeRecipe(
+                "smelterydrain",
+                new ItemStack(TinkerSmeltery.smeltery, 1, 1),
+                searedbrick,
+                null,
+                searedbrick,
+                searedbrick,
+                null,
+                searedbrick,
+                searedbrick,
+                null,
+                searedbrick);
 
-        MantleClientRegistry.registerManualLargeRecipe("smelterytank1", new ItemStack(TinkerSmeltery.lavaTank, 1, 0), searedbrick, searedbrick, searedbrick, searedbrick, glass, searedbrick, searedbrick, searedbrick, searedbrick);
-        MantleClientRegistry.registerManualLargeRecipe("smelterytank2", new ItemStack(TinkerSmeltery.lavaTank, 1, 1), searedbrick, glass, searedbrick, glass, glass, glass, searedbrick, glass, searedbrick);
-        MantleClientRegistry.registerManualLargeRecipe("smelterytank3", new ItemStack(TinkerSmeltery.lavaTank, 1, 2), searedbrick, glass, searedbrick, searedbrick, glass, searedbrick, searedbrick, glass, searedbrick);
+        MantleClientRegistry.registerManualLargeRecipe(
+                "smelterytank1",
+                new ItemStack(TinkerSmeltery.lavaTank, 1, 0),
+                searedbrick,
+                searedbrick,
+                searedbrick,
+                searedbrick,
+                glass,
+                searedbrick,
+                searedbrick,
+                searedbrick,
+                searedbrick);
+        MantleClientRegistry.registerManualLargeRecipe(
+                "smelterytank2",
+                new ItemStack(TinkerSmeltery.lavaTank, 1, 1),
+                searedbrick,
+                glass,
+                searedbrick,
+                glass,
+                glass,
+                glass,
+                searedbrick,
+                glass,
+                searedbrick);
+        MantleClientRegistry.registerManualLargeRecipe(
+                "smelterytank3",
+                new ItemStack(TinkerSmeltery.lavaTank, 1, 2),
+                searedbrick,
+                glass,
+                searedbrick,
+                searedbrick,
+                glass,
+                searedbrick,
+                searedbrick,
+                glass,
+                searedbrick);
 
-        MantleClientRegistry.registerManualLargeRecipe("smelterytable", new ItemStack(TinkerSmeltery.searedBlock, 1, 0), searedbrick, searedbrick, searedbrick, searedbrick, null, searedbrick, searedbrick, null, searedbrick);
-        MantleClientRegistry.registerManualLargeRecipe("smelteryfaucet", new ItemStack(TinkerSmeltery.searedBlock, 1, 1), searedbrick, null, searedbrick, null, searedbrick, null, null, null, null);
-        MantleClientRegistry.registerManualLargeRecipe("castingchannel", new ItemStack(TinkerSmeltery.castingChannel), null, null, null, searedbrick, null, searedbrick, searedbrick, searedbrick, searedbrick);
-        MantleClientRegistry.registerManualLargeRecipe("smelterybasin", new ItemStack(TinkerSmeltery.searedBlock, 1, 2), searedbrick, null, searedbrick, searedbrick, null, searedbrick, searedbrick, searedbrick, searedbrick);
+        MantleClientRegistry.registerManualLargeRecipe(
+                "smelterytable",
+                new ItemStack(TinkerSmeltery.searedBlock, 1, 0),
+                searedbrick,
+                searedbrick,
+                searedbrick,
+                searedbrick,
+                null,
+                searedbrick,
+                searedbrick,
+                null,
+                searedbrick);
+        MantleClientRegistry.registerManualLargeRecipe(
+                "smelteryfaucet",
+                new ItemStack(TinkerSmeltery.searedBlock, 1, 1),
+                searedbrick,
+                null,
+                searedbrick,
+                null,
+                searedbrick,
+                null,
+                null,
+                null,
+                null);
+        MantleClientRegistry.registerManualLargeRecipe(
+                "castingchannel",
+                new ItemStack(TinkerSmeltery.castingChannel),
+                null,
+                null,
+                null,
+                searedbrick,
+                null,
+                searedbrick,
+                searedbrick,
+                searedbrick,
+                searedbrick);
+        MantleClientRegistry.registerManualLargeRecipe(
+                "smelterybasin",
+                new ItemStack(TinkerSmeltery.searedBlock, 1, 2),
+                searedbrick,
+                null,
+                searedbrick,
+                searedbrick,
+                null,
+                searedbrick,
+                searedbrick,
+                searedbrick,
+                searedbrick);
     }
 
     @Override
-    protected void registerGuiHandler ()
-    {
+    protected void registerGuiHandler() {
         TProxyCommon.registerClientGuiHandler(smelteryGuiID, this);
         TProxyCommon.registerServerGuiHandler(smelteryGuiID, this);
     }
 
     @Override
-    public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
-    {
-        if (ID == SmelteryProxyCommon.smelteryGuiID)
-        {
+    public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+        if (ID == SmelteryProxyCommon.smelteryGuiID) {
             return new SmelteryGui(player.inventory, (SmelteryLogic) world.getTileEntity(x, y, z), world, x, y, z);
         }
         return null;

@@ -15,8 +15,7 @@ public class IconFlipped extends net.minecraft.client.renderer.IconFlipped {
     }
 
     // has a faulty implementation in original class
-    public float getMinV()
-    {
+    public float getMinV() {
         return this.flipV ? this.baseIcon.getMaxV() : this.baseIcon.getMinV();
     }
 }

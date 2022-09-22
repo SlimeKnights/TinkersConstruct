@@ -11,20 +11,16 @@ import tconstruct.client.BlockSkinRenderHelper;
 import tconstruct.smeltery.logic.LavaTankLogic;
 import tconstruct.util.ItemHelper;
 
-public class TankRender implements ISimpleBlockRenderingHandler
-{
+public class TankRender implements ISimpleBlockRenderingHandler {
     public static int tankModelID = RenderingRegistry.getNextAvailableRenderId();
     public static int renderPass = 0;
 
     @Override
-    public void renderInventoryBlock (Block block, int metadata, int modelID, RenderBlocks renderer)
-    {
-        if (modelID == tankModelID)
-        {
+    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
+        if (modelID == tankModelID) {
             ItemHelper.renderStandardInvBlock(renderer, block, metadata);
             // the thingie on top of lava tanks
-            if (metadata == 0)
-            {
+            if (metadata == 0) {
                 renderer.setRenderBounds(0.1875, 0, 0.1875, 0.8125, 0.125, 0.8125);
                 renderDoRe(renderer, block, metadata);
             }
@@ -32,31 +28,35 @@ public class TankRender implements ISimpleBlockRenderingHandler
     }
 
     @Override
-    public boolean renderWorldBlock (IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer)
-    {
-        if (modelID == tankModelID)
-        {
-            //Liquid
-            if (renderPass == 0)
-            {
+    public boolean renderWorldBlock(
+            IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer) {
+        if (modelID == tankModelID) {
+            // Liquid
+            if (renderPass == 0) {
                 LavaTankLogic logic = (LavaTankLogic) world.getTileEntity(x, y, z);
-                if (logic.containsFluid())
-                {
+                if (logic.containsFluid()) {
                     FluidStack liquid = logic.tank.getFluid();
                     renderer.setRenderBounds(0.001, 0.001, 0.001, 0.999, logic.getFluidAmountScaled(), 0.999);
                     Fluid fluid = liquid.getFluid();
-                    BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getStillIcon(), x, y, z, renderer, world, false, fluid.getColor(liquid));
+                    BlockSkinRenderHelper.renderLiquidBlock(
+                            fluid.getStillIcon(),
+                            fluid.getStillIcon(),
+                            x,
+                            y,
+                            z,
+                            renderer,
+                            world,
+                            false,
+                            fluid.getColor(liquid));
 
                     return true;
                 }
                 return false;
             }
-            //Block
-            else
-            {
+            // Block
+            else {
                 int meta = world.getBlockMetadata(x, y, z);
-                if (meta == 0 && world.getBlock(x, y + 1, z) == Blocks.air)
-                {
+                if (meta == 0 && world.getBlock(x, y + 1, z) == Blocks.air) {
                     renderer.setRenderBounds(0.1875, 0, 0.1875, 0.8125, 0.125, 0.8125);
                     renderer.renderStandardBlock(block, x, y + 1, z);
                 }
@@ -68,19 +68,16 @@ public class TankRender implements ISimpleBlockRenderingHandler
     }
 
     @Override
-    public boolean shouldRender3DInInventory (int modelID)
-    {
+    public boolean shouldRender3DInInventory(int modelID) {
         return true;
     }
 
     @Override
-    public int getRenderId ()
-    {
+    public int getRenderId() {
         return tankModelID;
     }
 
-    private void renderDoRe (RenderBlocks renderblocks, Block block, int meta)
-    {
+    private void renderDoRe(RenderBlocks renderblocks, Block block, int meta) {
         Tessellator tessellator = Tessellator.instance;
         GL11.glTranslatef(-0.5F, 0.5F, -0.5F);
         tessellator.startDrawingQuads();
