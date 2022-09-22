@@ -197,7 +197,6 @@
   "block.tconstruct.small_earth_slime_crystal_bud": "小型大地黏液晶芽",
   "block.tconstruct.medium_earth_slime_crystal_bud": "中型大地黏液晶芽",
   "block.tconstruct.large_earth_slime_crystal_bud": "大型大地黏液晶芽",
-
   "block.tconstruct.earth_slime_crystal_cluster": "大地黏液水晶簇",
   "block.tconstruct.budding_earth_slime_crystal": "大地黏液水晶母岩",
 
@@ -2429,7 +2428,11 @@
   "recipe.tconstruct.modifier.max_level": "%s的等级不可大于%s",
   "recipe.tconstruct.modifier.requirements_error": "工具的其中一个强化物已使该工具状态无效，联系整合包作者以了解详细错误情况。",
 
+  "recipe.tconstruct.tool_recycling": "Tool Recycling",
+  "recipe.tconstruct.tool_recycling.info": "Select which part to salvage from this tool. There is a chance based on the tool's remaining durability to salvage a second part.",
+  "recipe.tconstruct.tool_recycling.no_modifiers": "A tool cannot be recycled if it contains any upgrades or abilities, those must be removed first.",
 
+  
   "_comment": "GUIs Messages",
 
   "gui.tconstruct.caption": "说明",
