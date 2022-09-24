@@ -271,6 +271,39 @@ item.tconstruct.MetalPattern.crossbowbody.name=弩身铸模
 item.tconstruct.MetalPattern.bowlimb.name=弓臂铸模
 item.tconstruct.GearPattern.name=齿轮铸模
 
+item.tconstruct.ClayPattern.rod.name=手柄粘土铸模
+item.tconstruct.ClayPattern.pickaxe.name=镐头粘土铸模
+item.tconstruct.ClayPattern.shovel.name=铲头粘土铸模
+item.tconstruct.ClayPattern.axe.name=斧刃粘土铸模
+item.tconstruct.ClayPattern.swordblade.name=剑刃粘土铸模
+item.tconstruct.ClayPattern.largeguard.name=宽护手粘土铸模
+item.tconstruct.ClayPattern.mediumguard.name=护手粘土铸模
+item.tconstruct.ClayPattern.crossbar.name=十字柄粘土铸模
+item.tconstruct.ClayPattern.binding.name=绑定结粘土铸模
+item.tconstruct.ClayPattern.frypan.name=盘粘土铸模
+item.tconstruct.ClayPattern.sign.name=牌板粘土铸模
+item.tconstruct.ClayPattern.knifeblade.name=刀刃粘土铸模
+item.tconstruct.ClayPattern.chisel.name=凿刃粘土铸模
+item.tconstruct.ClayPattern.largerod.name=坚韧手柄粘土铸模
+item.tconstruct.ClayPattern.toughbinding.name=坚韧绑定结粘土铸模
+item.tconstruct.ClayPattern.largeplate.name=大板粘土铸模
+item.tconstruct.ClayPattern.broadaxe.name=宽斧刃粘土铸模
+item.tconstruct.ClayPattern.scythe.name=镰刀刀刃粘土铸模
+item.tconstruct.ClayPattern.excavator.name=开掘铲头粘土铸模
+item.tconstruct.ClayPattern.largeblade.name=宽剑刃粘土铸模
+item.tconstruct.ClayPattern.hammerhead.name=锤头粘土铸模
+item.tconstruct.ClayPattern.fullguard.name=大型护手粘土铸模
+item.tconstruct.ClayPattern.bowstring.name=弓弦粘土铸模
+item.tconstruct.ClayPattern.fletching.name=箭羽粘土铸模
+item.tconstruct.ClayPattern.arrowhead.name=箭头粘土铸模
+item.tconstruct.ClayPattern.ingot.name=锭粘土铸模
+item.tconstruct.ClayPattern.gem.name=宝石粘土铸模
+item.tconstruct.ClayPattern.nugget.name=粒粘土铸模
+item.tconstruct.ClayPattern.shuriken.name=回旋镖粘土铸模
+item.tconstruct.ClayPattern.crossbowlimb.name=弩臂粘土铸模
+item.tconstruct.ClayPattern.crossbowbody.name=弩身粘土铸模
+item.tconstruct.ClayPattern.bowlimb.name=弓臂粘土铸模
+
 item.tconstruct.Materials.PaperStack.name=纸叠
 item.tconstruct.Materials.SlimeCrystal.name=史莱姆水晶
 item.tconstruct.Materials.SearedBrick.name=焦黑砖
@@ -505,6 +538,8 @@ item.tconstruct.bucket.Ender.name=桶装熔融末影珍珠
 item.tconstruct.bucket.Slime.name=桶装史莱姆粘液
 item.tconstruct.bucket.PigIron.name=桶装熔融生铁
 item.tconstruct.bucket.Glue.name=桶装粘性凝胶
+item.tconstruct.bucket.Quartz.name=熔融下界石英桶
+
 
 item.tconstruct.bowstring.string.name=弓弦
 item.tconstruct.bowstring.enchantedfabriI donc.name=附魔弓弦
@@ -672,6 +707,8 @@ fluid.ender=熔融末影珍珠
 fluid.slime.blue=液态蓝史莱姆
 fluid.pigiron.molten=生铁
 fluid.glue=凝胶
+fluid.quartz.molten=熔融下界石英
+
 
 tconstruct.achievementPage.name=匠魂
 achievement.tconstruct.beginner=初学手艺
