@@ -1845,7 +1845,7 @@
   "modifier.tconstruct.unarmed": "赤手空拳",
   "modifier.tconstruct.unarmed.flavor": "僧侣之选",
   "modifier.tconstruct.unarmed.description": "提升徒手攻击的伤害",
-  "recipe.tconstruct.modifier.unarmed": "需要“无持握”作为前置",
+  "recipe.tconstruct.modifier.unarmed": "需要“赤手空拳”作为前置",
   "modifier.tconstruct.wings": "羽翼",
   "modifier.tconstruct.wings.flavor": "天空属于我",
   "modifier.tconstruct.wings.description": "能够在半空中跳跃，翱翔蓝天",
