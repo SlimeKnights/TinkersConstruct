@@ -1,19 +1,29 @@
 package slimeknights.tconstruct.library.recipe.partbuilder;
 
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import slimeknights.mantle.recipe.ICommonRecipe;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
-import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
+import slimeknights.tconstruct.library.recipe.material.IMaterialValue;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.block.entity.inventory.PartBuilderContainerWrapper;
 
+import javax.annotation.Nullable;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public interface IPartBuilderRecipe extends ICommonRecipe<IPartBuilderContainer> {
   /** Gets the pattern needed for this recipe,
    * if there are multiple recipes with the same pattern, they are effectively merged */
   Pattern getPattern();
+
+  /** Gets a stream of all patterns matching this recipe, allows one recipe to match on multiple patterns */
+  default Stream<Pattern> getPatterns(IPartBuilderContainer inv) {
+    return Stream.of(getPattern());
+  }
 
   /**
    * Gets the number of material needed for this recipe
@@ -39,6 +49,11 @@ public interface IPartBuilderRecipe extends ICommonRecipe<IPartBuilderContainer>
                    .orElse(1);
   }
 
+  /** Assembles the result with the given pattern */
+  default ItemStack assemble(IPartBuilderContainer inv, Pattern pattern) {
+    return assemble(inv);
+  }
+
   /* Recipe data */
 
   @Override
@@ -51,9 +66,10 @@ public interface IPartBuilderRecipe extends ICommonRecipe<IPartBuilderContainer>
     return new ItemStack(TinkerTables.partBuilder);
   }
 
-  /** Gets the leftover from performing this recipe */
+  /** @deprecated use {@link #getLeftover(PartBuilderContainerWrapper, Pattern)} */
+  @Deprecated
   default ItemStack getLeftover(PartBuilderContainerWrapper inventoryWrapper) {
-    MaterialRecipe recipe = inventoryWrapper.getMaterial();
+    IMaterialValue recipe = inventoryWrapper.getMaterial();
     if (recipe != null) {
       int value = recipe.getValue();
       if (value > 1) {
@@ -69,5 +85,24 @@ public interface IPartBuilderRecipe extends ICommonRecipe<IPartBuilderContainer>
       }
     }
     return ItemStack.EMPTY;
+  }
+
+  /**
+   * Gets the leftover from performing this recipe
+   * TODO: switch to the interface for the parameter
+   */
+  default ItemStack getLeftover(PartBuilderContainerWrapper inventoryWrapper, Pattern pattern) {
+    return getLeftover(inventoryWrapper);
+  }
+
+  /** Gets the title to display on the part builder panel. If null, displays default info */
+  @Nullable
+  default Component getTitle() {
+    return null;
+  }
+
+  /** Gets the text to display on the part builder screen */
+  default List<Component> getText(IPartBuilderContainer inv) {
+    return Collections.emptyList();
   }
 }

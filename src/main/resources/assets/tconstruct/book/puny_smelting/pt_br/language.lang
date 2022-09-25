@@ -1,9 +1,8 @@
-// Sections - Puny Smelting
 intro=Introdução
 melter=Fusão
 moving_fluids=Fluidos em movimento
 casting=Fundição
-tier_two_materials=Materiais Nivel 2
+materials=Materiais Nivel 2
 
 upgrades=Melhorias
 upgrades.subtext=Ferramentas podem ser aprimoradas com melhorias, embora apenas um número limitado possa ser aplicado a cada ferramenta.

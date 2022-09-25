@@ -10,7 +10,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemStack.TooltipPart;
 import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
@@ -69,9 +68,6 @@ public class ToolStack implements IToolStackView {
   protected static final String TAG_DAMAGE = "Damage";
   public static final String TAG_UNBREAKABLE = "Unbreakable";
   public static final String TAG_HIDE_FLAGS = "HideFlags";
-
-  /** Flags for vanilla tooltip parts to hide */
-  private static final int HIDE_FLAGS = TooltipPart.ENCHANTMENTS.getMask() | TooltipPart.MODIFIERS.getMask();
 
   /** List of tags to disallow editing for the relevant modifier hooks, disallows all tags we touch. Ignores unbreakable as we only look at that tag for vanilla compat */
   private static final Set<String> RESTRICTED_TAGS = ImmutableSet.of(TAG_MATERIALS, TAG_STATS, TAG_MULTIPLIERS, TAG_PERSISTENT_MOD_DATA, TAG_VOLATILE_MOD_DATA, TAG_UPGRADES, TAG_MODIFIERS, TAG_BROKEN, TAG_DAMAGE, ModifierUtil.TAG_ENCHANTMENTS, TAG_HIDE_FLAGS);
@@ -621,7 +617,9 @@ public class ToolStack implements IToolStackView {
    */
   public void rebuildStats() {
     // hide enchants and attributes, both are added ourself (filtered)
-    nbt.putInt(TAG_HIDE_FLAGS, HIDE_FLAGS);
+    // TODO: remove this line in 1.19, for best compat
+    // will break old tools if we do not remove in 1.18
+    nbt.remove(TAG_HIDE_FLAGS);
 
     // first, rebuild the list of all modifiers
     ModifierNBT.Builder modBuilder = ModifierNBT.builder();

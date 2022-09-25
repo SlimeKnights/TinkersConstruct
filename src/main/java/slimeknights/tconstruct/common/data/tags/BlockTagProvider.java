@@ -418,9 +418,14 @@ public class BlockTagProvider extends BlockTagsProvider {
     // hand axe has a leaf bonus
     tag(TinkerTags.Blocks.MINABLE_WITH_HAND_AXE).addTags(MINEABLE_WITH_AXE, BlockTags.LEAVES);
     // scythe/kama does hoe or shear blocks
-    tag(TinkerTags.Blocks.MINABLE_WITH_SHEARS).add(Blocks.COBWEB, Blocks.REDSTONE_WIRE, Blocks.TRIPWIRE, Blocks.VINE, Blocks.GLOW_LICHEN).addTags(BlockTags.LEAVES, BlockTags.WOOL);
+    tag(TinkerTags.Blocks.MINABLE_WITH_SHEARS)
+      .add(Blocks.AZALEA, Blocks.COBWEB, Blocks.DRIED_KELP_BLOCK, Blocks.GLOW_LICHEN, Blocks.LILY_PAD, Blocks.REDSTONE_WIRE,
+           Blocks.TRIPWIRE, Blocks.TWISTING_VINES_PLANT, Blocks.TWISTING_VINES, Blocks.VINE, Blocks.WEEPING_VINES_PLANT, Blocks.WEEPING_VINES)
+      .addTags(BlockTags.CAVE_VINES, BlockTags.LEAVES, BlockTags.WOOL,BlockTags.SAPLINGS, BlockTags.FLOWERS, BlockTags.REPLACEABLE_PLANTS, BlockTags.CORAL_PLANTS);
     // scythe/kama does hoe or shear blocks
-    tag(TinkerTags.Blocks.MINABLE_WITH_SCYTHE).addTags(MINEABLE_WITH_HOE, TinkerTags.Blocks.MINABLE_WITH_SHEARS);
+    tag(TinkerTags.Blocks.MINABLE_WITH_SCYTHE)
+      .add(Blocks.ATTACHED_MELON_STEM, Blocks.ATTACHED_PUMPKIN_STEM, Blocks.BIG_DRIPLEAF_STEM, Blocks.BIG_DRIPLEAF, Blocks.KELP, Blocks.KELP_PLANT, Blocks.NETHER_WART, Blocks.SMALL_DRIPLEAF, Blocks.SPORE_BLOSSOM, Blocks.SUGAR_CANE, Blocks.SWEET_BERRY_BUSH)
+      .addTags(MINEABLE_WITH_HOE, TinkerTags.Blocks.MINABLE_WITH_SHEARS, BlockTags.CROPS);
     // sword list is filled to best ability, but will be a bit inexact as vanilla uses materials, hopefully putting this tag under forge will get people to tag their blocks
     tag(TinkerTags.Blocks.MINABLE_WITH_SWORD).add(Blocks.COBWEB)
       .add(Blocks.COCOA, Blocks.CHORUS_PLANT, Blocks.CHORUS_FLOWER, Blocks.SWEET_BERRY_BUSH, Blocks.VINE, Blocks.MOSS_CARPET, Blocks.MOSS_BLOCK,

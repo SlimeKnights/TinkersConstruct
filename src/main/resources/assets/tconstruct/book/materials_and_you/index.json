@@ -7,7 +7,8 @@
     }
   },
   {
-    "name": "tier_one_materials",
+    "name": "materials",
+    "extraData": { "tconstruct:material_tier": 1 },
     "icon": {
       "item": "minecraft:stone"
     }

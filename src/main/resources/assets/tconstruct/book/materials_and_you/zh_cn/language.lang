@@ -1,7 +1,7 @@
 intro=介绍
 
-tier_one_materials=一级材料
-tier_one_materials.subtext=制作任何工具，材料都是入门篇章。这些材料可以放在部件制造台中，用于制作一些合成工 具的部件。
+materials=一级材料
+materials.subtext=制作任何工具，材料都是入门篇章。这些材料可以放在部件制造台中，用于制作一些合成工 具的部件。
 
 tools=工具
 
