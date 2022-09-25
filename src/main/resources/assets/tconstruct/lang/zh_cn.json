@@ -2451,6 +2451,7 @@
   "subtitles.tconstruct.little_saw": "锯子：使用",
   "subtitles.tconstruct.item_frame_click": "物品展示框：时钟滴答",
   "subtitles.tconstruct.casting_cools": "铸件：冷却",
+  "subtitles.tconstruct.casting.click": "Casting block clicks",
 
   "subtitles.tconstruct.slime_sling": "黏液弹弓：弹跳",
   "subtitles.tconstruct.slime_sling.teleport": "黏液弹弓：传送",
