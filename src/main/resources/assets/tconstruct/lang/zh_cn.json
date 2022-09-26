@@ -1384,7 +1384,7 @@
   "material.tconstruct.iron": "铁",
   "material.tconstruct.iron.oxidized": "粗铁",
   "material.tconstruct.iron.flavor": "他铁了心要保护别人不死，却不能保护他自己，多么讽刺。",
-  "material.tconstruct.iron.encyclopedia": "每级给予工具10%的额外耐久",
+  "material.tconstruct.iron.encyclopedia": "每级给予工具15%的额外耐久",
   "material.tconstruct.iron.skull_flavor": "违反隔离条例。",
   "material.tconstruct.iron.skull_encyclopedia": "近战攻击会将攻击者携带的所有负面效果复制到攻击目标身上",
 
@@ -1442,7 +1442,7 @@
 
   "material.tconstruct.amethyst_bronze": "紫水晶青铜",
   "material.tconstruct.amethyst_bronze.flavor": "别和青铜搞混了。",
-  "material.tconstruct.amethyst_bronze.encyclopedia": "挖掘不需要工具开采的方块时，每级+0.25挖掘速度，工具种类不匹配时也有效。",
+  "material.tconstruct.amethyst_bronze.encyclopedia": "挖掘不需要工具开采的方块时，每级+0.5挖掘速度，工具种类不匹配时也有效。",
 
   "material.tconstruct.pig_iron": "生铁",
   "material.tconstruct.pig_iron.flavor": "这是最强材料，不允许反驳。",
