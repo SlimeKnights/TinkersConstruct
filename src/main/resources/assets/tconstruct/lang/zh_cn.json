@@ -44,10 +44,10 @@
 
   "block.tconstruct.obsidian_pane": "黑曜石板",
   "block.tconstruct.gold_bars": "金栏杆",
-  "block.tconstruct.gold_bars.tooltip": "在浇铸台上充当空白金质铸模。",
+  "block.tconstruct.gold_bars.tooltip": "在铸件台上充当空白金质铸模。",
   
   "block.tconstruct.gold_platform": "金平台",
-  "block.tconstruct.gold_platform.tooltip": "在浇铸盆中充当空白金质铸模。",
+  "block.tconstruct.gold_platform.tooltip": "在铸造盆中充当空白金质铸模。",
   "block.tconstruct.iron_platform": "铁平台",
   "block.tconstruct.cobalt_platform": "钴平台",
   
@@ -1331,9 +1331,9 @@
   "material.tconstruct.wood.jungle": "丛林木",
   "material.tconstruct.wood.acacia": "金合欢木",
   "material.tconstruct.wood.dark_oak": "深色橡木",
-  "material.tconstruct.wood.crimson": "绯红菌核",
-  "material.tconstruct.wood.warped": "诡异菌核",
-  "material.tconstruct.wood.bamboo": "竹子",
+  "material.tconstruct.wood.crimson": "绯红菌木",
+  "material.tconstruct.wood.warped": "诡异菌木",
+  "material.tconstruct.wood.bamboo": "竹",
   "material.tconstruct.wood.format": "木 %s",
   "material.tconstruct.wood.flavor": "伐伐伐伐伐伐伐伐伐木工",
   "material.tconstruct.wood.encyclopedia": "每有一个木部件，工具修理效率提高50%",
