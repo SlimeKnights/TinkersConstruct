@@ -1566,7 +1566,7 @@
 
   "material.tconstruct.bronze": "青铜",
   "material.tconstruct.bronze.flavor": "可别和紫水晶青铜搞混了。",
-  "material.tconstruct.bronze.encyclopedia": "满耐久时+6采掘速度，50%耐久值以下时不增加采掘速度。",
+  "material.tconstruct.bronze.encyclopedia": "满耐久时+6采掘速度，耐久值在50%以下时不增加采掘速度。",
 
   "material.tconstruct.constantan": "康铜",
   "material.tconstruct.constantan.flavor": "诶，康铜！我还从来没见过呢。都起开，让我“康康”！",
@@ -1578,7 +1578,7 @@
 
   "material.tconstruct.electrum": "琥珀金",
   "material.tconstruct.electrum.flavor": "适用于电子元器件。",
-  "material.tconstruct.electrum.encyclopedia": "挖掘方块和击杀怪物时，每级+50%经验掉落",
+  "material.tconstruct.electrum.encyclopedia": "挖掘方块或击杀怪物时，每级+50%经验掉落",
 
   "material.tconstruct.necronium": "辐射之骨",
   "material.tconstruct.necronium.flavor": "这么多的辐射，很可能标志着你为数不多的生命只剩下四分之一了。",
@@ -1935,7 +1935,7 @@
   "modifier.tconstruct.luck.2": "幸运+",
   "modifier.tconstruct.luck.3": "幸运++",
   "modifier.tconstruct.luck.flavor": "鸿运当头！",
-  "modifier.tconstruct.luck.description": "挖掘方块与击杀生物时，能提升获得高品质战利品的几率！",
+  "modifier.tconstruct.luck.description": "挖掘方块或击杀生物时，能提升获得高品质战利品的几率！",
   "recipe.tconstruct.modifier.luck.level_2": "“幸运+”的合成与前一级不同",
   "recipe.tconstruct.modifier.luck.level_3": "“幸运++”的合成与前两级不同",
   "modifier.tconstruct.fortune": "时运",
@@ -2057,10 +2057,10 @@
   "modifier.tconstruct.stringy.description": "工具可用线进行修复",
   "modifier.tconstruct.tanned": "鞣制",
   "modifier.tconstruct.tanned.flavor": "成为一名皮革大师",
-  "modifier.tconstruct.tanned.description": "工具不再因某些操作而损失双倍或更多耐久了",
+  "modifier.tconstruct.tanned.description": "工具不再因某些操作而损失双倍或更多耐久值了",
   "modifier.tconstruct.solar_powered": "太阳能",
   "modifier.tconstruct.solar_powered.flavor": "十分环保",
-  "modifier.tconstruct.solar_powered.description": "工具在阳光下能够减少耐久消耗",
+  "modifier.tconstruct.solar_powered.description": "工具在阳光下能够减少耐久值消耗",
 
   "__comment": "Tier 2 Traits",
   "modifier.tconstruct.sturdy": "坚固",
@@ -2152,7 +2152,7 @@
   "modifier.tconstruct.heavy.description": "持握时减缓移动速度，但工具的重量也使其攻击伤害得以增强",
   "modifier.tconstruct.stoneshield": "石盾",
   "modifier.tconstruct.stoneshield.flavor": "大师级的制石工艺",
-  "modifier.tconstruct.stoneshield.description": "挖掘的石头有几率保护工具免受之后的耐久损失",
+  "modifier.tconstruct.stoneshield.description": "挖掘的石头有几率保护工具免受之后的耐久值损失",
 
 
   "__comment": "Tier 3 Mod Compat Traits",
@@ -2217,7 +2217,7 @@
   "modifier.tconstruct.firebreath.description": "使用“头盔交互”键时，能够喷射火焰",
   "modifier.tconstruct.chrysophilite": "金石",
   "modifier.tconstruct.chrysophilite.flavor": "就是说你喜欢金子",
-  "modifier.tconstruct.chrysophilite.description": "采矿或者击杀怪物时增加金子的掉落",
+  "modifier.tconstruct.chrysophilite.description": "采矿或击杀怪物时增加金子的掉落",
   "modifier.tconstruct.gold_guard": "金卫",
   "modifier.tconstruct.gold_guard.flavor": "就是说你喜欢金子",
   "modifier.tconstruct.gold_guard.description": "依据穿戴的金盔甲数量，提升基础血量",
