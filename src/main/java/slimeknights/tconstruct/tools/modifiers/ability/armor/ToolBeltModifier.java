@@ -12,6 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -24,9 +25,11 @@ import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.modifiers.impl.InventoryModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
+import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
 
 import javax.annotation.Nullable;
 
@@ -34,6 +37,7 @@ import static slimeknights.tconstruct.library.tools.capability.ToolInventoryCapa
 
 public class ToolBeltModifier extends InventoryModifier implements IArmorInteractModifier {
   private static final Pattern PATTERN = new Pattern(TConstruct.MOD_ID, "tool_belt");
+  private static final ResourceLocation SLOT_OVERRIDE = TConstruct.getResource("tool_belt_override");
 
   /** Loader instance */
   public static final IGenericLoader<ToolBeltModifier> LOADER = new IGenericLoader<>() {
@@ -91,12 +95,56 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
     return 85; // after pockets, before shield strap
   }
 
-  @Override
-  public int getSlots(IToolContext tool, int level) {
+  /** Gets the proper number of slots for the given level */
+  private int getProperSlots(int level) {
     if (level > counts.length) {
       return 9;
+    } else {
+      return counts[level - 1];
     }
-    return counts[level - 1];
+  }
+
+  @Override
+  public void addRawData(IToolStackView tool, int level, RestrictedCompoundTag tag) {
+    ModDataNBT modData = tool.getPersistentData();
+    int properSlots = getProperSlots(level);
+    // find the largest slot index and either add or update the override as needed
+    // TODO: can probably remove this code for 1.19
+    if (properSlots < 9) {
+      ResourceLocation key = getInventoryKey();
+      if (modData.contains(key, Tag.TAG_LIST)) {
+        ListTag list = modData.get(key, GET_COMPOUND_LIST);
+        int maxSlot = 0;
+        for (int i = 0; i < list.size(); i++) {
+          int newSlot = list.getCompound(i).getInt(TAG_SLOT);
+          if (newSlot > maxSlot) {
+            maxSlot = newSlot;
+          }
+        }
+        if (maxSlot >= properSlots) {
+          modData.putInt(SLOT_OVERRIDE, maxSlot + 1);
+          return;
+        }
+      }
+    }
+    modData.remove(SLOT_OVERRIDE);
+  }
+
+  @Override
+  public int getSlots(IToolContext tool, int level) {
+    int properSlots = getProperSlots(level);
+    if (properSlots >= 9) {
+      return 9;
+    }
+    return Mth.clamp(properSlots, tool.getPersistentData().getInt(SLOT_OVERRIDE), 9);
+  }
+
+  @Override
+  public ValidatedResult validate(IToolStackView tool, int level) {
+    // remove the slot override so you may not modify the tool to remove a higher level
+    // means you are not allowed to modify a tool with an invalid tool belt slot count until you remove the items
+    tool.getPersistentData().remove(SLOT_OVERRIDE);
+    return super.validate(tool, level);
   }
 
   @Override
