@@ -6,9 +6,10 @@
     }
   ],
   "effects": [
-    "Grants +4 slots per level",
     "Slots can be swapped with hotbar slots",
-    "Max 2 levels",
-    "Requires 1 ability slot"
+    "Grants +4 slots first level",
+    "Grants +1 slots for consecutive levels",
+    "Different recipe per level",
+    "First level requires 1 ability slot"
   ]
 }

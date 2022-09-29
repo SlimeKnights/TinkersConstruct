@@ -188,7 +188,7 @@
   },
   {
     "type": "tconstruct:modifier",
-    "data": "abilities/armor/shield_strap.json"
+    "data": "upgrades/armor/shield_strap.json"
   },
   {
     "type": "tconstruct:modifier",
