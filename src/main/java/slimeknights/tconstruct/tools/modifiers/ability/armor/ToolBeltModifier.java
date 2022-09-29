@@ -130,6 +130,8 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
                   list.add(write(hotbar, slot));
                 }
                 didChange = true;
+              } else {
+                list.add(compoundNBT);
               }
               swapped[slot] = true;
             }
