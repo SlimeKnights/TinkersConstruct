@@ -225,7 +225,7 @@
   "block.tconstruct.budding_ender_slime_crystal": "末影黏液水晶母岩",
 
   "item.tconstruct.iron_reinforcement": "铁加固板",
-  "item.tconstruct.iron_reinforcement.tooltip": "降低工具损耗耐久值的几率",
+  "item.tconstruct.iron_reinforcement.tooltip": "降低工具损耗耐久度的几率",
   "item.tconstruct.slimesteel_reinforcement": "黏钢加固板",
   "item.tconstruct.slimesteel_reinforcement.tooltip": "提升黏钢的容纳力",
   "item.tconstruct.seared_reinforcement": "焦黑加固板",
@@ -1346,12 +1346,12 @@
   "material.tconstruct.rock.blackstone": "黑石",
   "material.tconstruct.rock.deepslate": "深板岩",
   "material.tconstruct.rock.flavor": "保证坚如磐石",
-  "material.tconstruct.rock.encyclopedia": "按已损耗耐久值平方根的一半加快工具的采掘速度",
+  "material.tconstruct.rock.encyclopedia": "按已损耗耐久度平方根的一半加快工具的采掘速度",
 
   "material.tconstruct.flint": "燧石",
   "material.tconstruct.flint.basalt": "玄武岩",
   "material.tconstruct.flint.flavor": "点燃你滚烫的工匠之心！",
-  "material.tconstruct.flint.encyclopedia": "按已损耗耐久值平方根的四分之一增加工具的伤害",
+  "material.tconstruct.flint.encyclopedia": "按已损耗耐久度平方根的四分之一增加工具的伤害",
 
   "material.tconstruct.bone": "骨头",
   "material.tconstruct.bone.flavor": "吾为所持剑之骨",
@@ -1373,11 +1373,11 @@
 
   "material.tconstruct.leather": "皮革",
   "material.tconstruct.leather.flavor": "温“鞣”地杀死一头牛。",
-  "material.tconstruct.leather.encyclopedia": "每次使用工具最高只会损耗1点耐久值",
+  "material.tconstruct.leather.encyclopedia": "每次使用工具最高只会损耗1点耐久度",
 
   "material.tconstruct.vine": "藤蔓",
   "material.tconstruct.vine.flavor": "生气蓬勃，不像那死气沉沉的社交网络。",
-  "material.tconstruct.vine.encyclopedia": "在太阳光完全照射的情况下，工具最高有75%的几率在使用时不损耗耐久值。",
+  "material.tconstruct.vine.encyclopedia": "在太阳光完全照射的情况下，工具最高有75%的几率在使用时不损耗耐久度。",
 
 
   "__comment": "Tier 2 Materials",
@@ -1424,7 +1424,7 @@
 
   "material.tconstruct.chain": "锁链",
   "material.tconstruct.chain.flavor": "你也可以变成用锁链的猎人。",
-  "material.tconstruct.chain.encyclopedia": "工具的耐久值损耗降低25%",
+  "material.tconstruct.chain.encyclopedia": "工具的耐久度损耗降低25%",
 
   "material.tconstruct.skyslime_vine": "黏液藤蔓",
   "material.tconstruct.skyslime_vine.flavor": "掠翅若蝶，蛰刺似蜂。",
@@ -1472,7 +1472,7 @@
 
   "material.tconstruct.queens_slime": "皇后史莱姆",
   "material.tconstruct.queens_slime.flavor": "公主都不是什么善茬，去找个皇后吧。",
-  "material.tconstruct.queens_slime.encyclopedia": "每级减少15%耐久值，其中的66%转化为黏液覆层",
+  "material.tconstruct.queens_slime.encyclopedia": "每级减少15%耐久度，其中的66%转化为黏液覆层",
 
   "material.tconstruct.blazing_bone": "烈焰之骨",
   "material.tconstruct.blazing_bone.flavor": "获取下界要塞的所有力量——烈焰之力与骨之力。",
@@ -1562,11 +1562,11 @@
   "__comment": "Tier 3 Integration Materials",
   "material.tconstruct.steel": "钢",
   "material.tconstruct.steel.flavor": "差不多90%的材料科学内容都是它。",
-  "material.tconstruct.steel.encyclopedia": "每级+4%耐久值、伤害和速度",
+  "material.tconstruct.steel.encyclopedia": "每级+4%耐久度、伤害和速度",
 
   "material.tconstruct.bronze": "青铜",
   "material.tconstruct.bronze.flavor": "可别和紫水晶青铜搞混了。",
-  "material.tconstruct.bronze.encyclopedia": "满耐久时+6采掘速度，耐久值在50%以下时不增加采掘速度。",
+  "material.tconstruct.bronze.encyclopedia": "满耐久时+6采掘速度，耐久度在50%以下时不增加采掘速度。",
 
   "material.tconstruct.constantan": "康铜",
   "material.tconstruct.constantan.flavor": "诶，康铜！我还从来没见过呢。都起开，让我“康康”！",
@@ -1619,16 +1619,16 @@
   "_comment": "Durability",
   "modifier.tconstruct.reinforced": "加固",
   "modifier.tconstruct.reinforced.flavor": "结实耐用！",
-  "modifier.tconstruct.reinforced.description": "降低工具损耗耐久值的概率",
+  "modifier.tconstruct.reinforced.description": "降低工具损耗耐久度的概率",
   "modifier.tconstruct.overforced": "超强化",
   "modifier.tconstruct.overforced.flavor": "黏液防护！",
   "modifier.tconstruct.overforced.description": "在黏液的强化下，工具将拥有更高的黏液覆层上限",
   "modifier.tconstruct.emerald": "绿宝石",
   "modifier.tconstruct.emerald.flavor": "村民最爱！",
-  "modifier.tconstruct.emerald.description": "依据工具的基础数据提升其耐久值！部分攻击伤害和采掘速度的加成条件不再那么苛刻",
+  "modifier.tconstruct.emerald.description": "依据工具的基础数据提升其耐久度！部分攻击伤害和采掘速度的加成条件不再那么苛刻",
   "modifier.tconstruct.diamond": "钻石",
   "modifier.tconstruct.diamond.flavor": "尊贵富庶！",
-  "modifier.tconstruct.diamond.description": "提升工具的耐久值及各项数据！",
+  "modifier.tconstruct.diamond.description": "提升工具的耐久度及各项数据！",
   "modifier.tconstruct.worldbound": "世界绑定",
   "modifier.tconstruct.worldbound.flavor": "远古回响！",
   "modifier.tconstruct.worldbound.description": "“下界合金”升级的原始版本，使工具获得免疫如火焰等外部伤害的能力，但不提供强度加成",
@@ -1642,7 +1642,7 @@
 
   "modifier.tconstruct.overslime": "黏液覆层",
   "modifier.tconstruct.overslime.flavor": "黏糊糊！",
-  "modifier.tconstruct.overslime.description": "使用工具将优先损耗黏液覆层而非耐久值！但在黏液覆层耗尽时不起任何作用。对缺失黏液的工具不甚友好",
+  "modifier.tconstruct.overslime.description": "使用工具将优先损耗黏液覆层而非耐久度！但在黏液覆层耗尽时不起任何作用。对缺失黏液的工具不甚友好",
 
   "_comment": "Tool or harvest",
   "modifier.tconstruct.experienced": "阅历",
@@ -1917,7 +1917,7 @@
   "_comment": "Abilities",
   "modifier.tconstruct.unbreakable": "不毁",
   "modifier.tconstruct.unbreakable.flavor": "冷冻封存！",
-  "modifier.tconstruct.unbreakable.description": "常规使用时，工具不再消耗耐久值",
+  "modifier.tconstruct.unbreakable.description": "常规使用时，工具不再消耗耐久度",
   "recipe.tconstruct.modifier.unbreakable_requirements": "“不毁”需要“下界合金”和“加固 V”作为作为前置",
   "modifier.tconstruct.dual_wielding": "双持",
   "modifier.tconstruct.dual_wielding.flavor": "二刀流！",
@@ -2046,22 +2046,22 @@
 
   "modifier.tconstruct.cultivated": "培植",
   "modifier.tconstruct.cultivated.flavor": "精打细算！",
-  "modifier.tconstruct.cultivated.description": "工具在修复时，单位材料实际能够提供更多耐久值。",
+  "modifier.tconstruct.cultivated.description": "工具在修复时，单位材料实际能够提供更多耐久度。",
   "modifier.tconstruct.jagged": "锯齿",
   "modifier.tconstruct.jagged.flavor": "破缘生锋刃！",
-  "modifier.tconstruct.jagged.description": "工具的耐久值越低，伤害值越高，但采掘速度越低",
+  "modifier.tconstruct.jagged.description": "工具的耐久度越低，伤害值越高，但采掘速度越低",
   "modifier.tconstruct.stonebound": "石缚",
   "modifier.tconstruct.stonebound.flavor": "你的工具真的超爱石头诶！",
-  "modifier.tconstruct.stonebound.description": "工具的耐久值越低，采掘速度越高，但伤害值越低",
+  "modifier.tconstruct.stonebound.description": "工具的耐久度越低，采掘速度越高，但伤害值越低",
   "modifier.tconstruct.stringy": "丝线",
   "modifier.tconstruct.stringy.flavor": "有点像奶酪，但是味道不大好",
   "modifier.tconstruct.stringy.description": "工具可用线进行修复",
   "modifier.tconstruct.tanned": "鞣制",
   "modifier.tconstruct.tanned.flavor": "成为一名皮革大师",
-  "modifier.tconstruct.tanned.description": "工具不再因某些操作而损失双倍或更多耐久值了",
+  "modifier.tconstruct.tanned.description": "工具不再因某些操作而损失双倍或更多耐久度了",
   "modifier.tconstruct.solar_powered": "太阳能",
   "modifier.tconstruct.solar_powered.flavor": "十分环保",
-  "modifier.tconstruct.solar_powered.description": "工具在阳光下能够减少耐久值消耗",
+  "modifier.tconstruct.solar_powered.description": "工具在阳光下能够减少耐久度消耗",
 
   "__comment": "Tier 2 Traits",
   "modifier.tconstruct.sturdy": "坚固",
@@ -2117,7 +2117,7 @@
   "__comment": "Tier 4 Traits",
   "modifier.tconstruct.overlord": "帝皇",
   "modifier.tconstruct.overlord.flavor": "九五至尊！",
-  "modifier.tconstruct.overlord.description": "工具的部分耐久值会被视作黏液覆层",
+  "modifier.tconstruct.overlord.description": "工具的部分耐久度会被视作黏液覆层",
   "modifier.tconstruct.momentum": "动力",
   "modifier.tconstruct.momentum.flavor": "勇往直前，快上加快！",
   "modifier.tconstruct.momentum.description": "工具的采掘速度会在一次无中断的采掘过程中不断提升",
@@ -2153,7 +2153,7 @@
   "modifier.tconstruct.heavy.description": "持握时减缓移动速度，但工具的重量也使其攻击伤害得以增强",
   "modifier.tconstruct.stoneshield": "石盾",
   "modifier.tconstruct.stoneshield.flavor": "大师级的制石工艺",
-  "modifier.tconstruct.stoneshield.description": "挖掘的石头有几率保护工具免受之后的耐久值损失",
+  "modifier.tconstruct.stoneshield.description": "挖掘的石头有几率保护工具免受之后的耐久度损失",
 
 
   "__comment": "Tier 3 Mod Compat Traits",
@@ -2162,11 +2162,11 @@
   "modifier.tconstruct.ductile.description": "工具更加耐用，采掘速度更快，伤害更高",
   "modifier.tconstruct.maintained": "持久",
   "modifier.tconstruct.maintained.flavor": "永葆青春，永保锋利！",
-  "modifier.tconstruct.maintained.description": "耐久值越高，工具的采掘速度越快",
+  "modifier.tconstruct.maintained.description": "耐久度越高，工具的采掘速度越快",
   "modifier.tconstruct.maintained.mining_speed": "持久采掘速度",
   "modifier.tconstruct.maintained_2": "持久",
   "modifier.tconstruct.maintained_2.flavor": "更简易的磨砺方式！",
-  "modifier.tconstruct.maintained_2.description": "耐久值越高，工具的采掘速度越快",
+  "modifier.tconstruct.maintained_2.description": "耐久度越高，工具的采掘速度越快",
   "modifier.tconstruct.temperate": "恒温",
   "modifier.tconstruct.temperate.flavor": "极端环境开采作业！",
   "modifier.tconstruct.temperate.description": "工具在极端温度下加快采掘速度",
@@ -2312,8 +2312,8 @@
 
   "tool_stat.tconstruct.attack_speed": "攻击速度：",
   "tool_stat.tconstruct.attack_speed.description": "攻击速度计算所依据的基准值。\n大致为每秒满蓄力攻击的次数。",
-  "tool_stat.tconstruct.durability": "耐久值：",
-  "tool_stat.tconstruct.durability.description": "耐久值计算所依据的基准值。\n通常是工具整体耐久不可或缺的一部分。",
+  "tool_stat.tconstruct.durability": "耐久度：",
+  "tool_stat.tconstruct.durability.description": "耐久度计算所依据的基准值。\n通常是工具整体耐久不可或缺的一部分。",
 
   "stat.tconstruct.head": "顶端",
   "tool_stat.tconstruct.mining_speed": "采掘速度：",
@@ -2331,7 +2331,7 @@
   "tool_stat.tconstruct.knockback_resistance.description": "这件盔甲能抵消多少击退效果。",
 
   "stat.tconstruct.handle": "手柄",
-  "tool_stat.tconstruct.handle.durability.description": "工具的最终耐久值会被这一数值修正。",
+  "tool_stat.tconstruct.handle.durability.description": "工具的最终耐久度会被这一数值修正。",
   "tool_stat.tconstruct.handle.attack_damage.description": "工具的最终攻击伤害会被这一数值修正。",
   "tool_stat.tconstruct.handle.attack_speed.description": "工具的最终攻击速度会被这一数值修正。",
   "tool_stat.tconstruct.handle.mining_speed.description": "工具的最终采掘速度会被这一数值修正。",
@@ -2444,7 +2444,7 @@
   "gui.tconstruct.error.invalid_recipe": "配方无效！",
   "gui.tconstruct.error.unknown_material": "未知材料",
   "gui.tconstruct.error.useless_tool_part": "该部件无法用于任何工具种类！\n\n可能由于材料%s的部分信息有所缺失或无任何工具需要%s作为合成材料。",
-  "gui.tconstruct.error.not_enough_durability": "耐久值不足！\n还需要%d点耐久值。",
+  "gui.tconstruct.error.not_enough_durability": "耐久度不足！\n还需要%d点耐久度。",
 
 
   "_comment": "Subtitles for sounds",
@@ -2596,7 +2596,7 @@
   "advancements.tconstruct.tools.upgrade_slots.title": "升级大全",
   "advancements.tconstruct.tools.upgrade_slots.description": "使用“铭刻”“镶金”“重置”“和睦”与“复生”为工具附加6个额外的升级槽",
   "advancements.tconstruct.tools.glass_cannon.title": "玻璃大炮",
-  "advancements.tconstruct.tools.glass_cannon.description": "打造一件攻击伤害大于20但耐久值不超过100的工具",
+  "advancements.tconstruct.tools.glass_cannon.description": "打造一件攻击伤害大于20但耐久度不超过100的工具",
   "advancements.tconstruct.tools.tool_smith.title": "工具精匠",
   "advancements.tconstruct.tools.tool_smith.description": "打造出每一件默认的小型工具",
   "advancements.tconstruct.tools.material_master.title": "材料大师",
