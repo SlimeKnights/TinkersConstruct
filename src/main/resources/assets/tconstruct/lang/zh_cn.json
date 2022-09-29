@@ -260,7 +260,7 @@
   "item.tconstruct.creative_slot.tooltip": "为工具增加一个额外的%s槽",
 
   "item.tconstruct.copper_can": "铜罐",
-  "item.tconstruct.copper_can.tooltip": "可堆叠的流体容器，能够盛装144 mB（1锭）的流体",
+  "item.tconstruct.copper_can.tooltip": "可堆叠的流体容器，能够盛装90 mB（1锭）的流体",
   "item.tconstruct.copper_can.contents": "存有：%s（1锭）",
 
 
@@ -1025,7 +1025,7 @@
   "block.tconstruct.seared_ingot_gauge": "焦黑材料量器",
   "block.tconstruct.seared_ingot_gauge.tooltip": "理想的液态金属容器，能存储相当于48个锭的流体。\n被破坏时仍能保留其中的液体。",
   "block.tconstruct.seared_lantern": "焦黑灯笼",
-  "block.tconstruct.seared_lantern.tooltip": "理想的装饰建材，能存储100mB的流体。\n被破坏时仍能保留其中的液体。",
+  "block.tconstruct.seared_lantern.tooltip": "理想的装饰建材，能存储50mB的流体。\n被破坏时仍能保留其中的液体。",
 
   "block.tconstruct.seared_faucet": "焦黑浇注口",
   "block.tconstruct.seared_faucet.tooltip": "从冶炼炉或储罐中输出流体",
@@ -1102,7 +1102,7 @@
   "block.tconstruct.scorched_ingot_gauge": "焦褐材料量器",
   "block.tconstruct.scorched_ingot_gauge.tooltip": "理想的液态金属容器，能存储相当于3块熔融方块的流体。\n被破坏时仍能保留其中的液体。",
   "block.tconstruct.scorched_lantern": "焦褐灯笼",
-  "block.tconstruct.scorched_lantern.tooltip": "理想的装饰建材，能存储100mB的流体。\n被破坏时仍能保留其中的液体。",
+  "block.tconstruct.scorched_lantern.tooltip": "理想的装饰建材，能存储50mB的流体。\n被破坏时仍能保留其中的液体。",
 
   "block.tconstruct.scorched_faucet": "焦褐浇注口",
   "block.tconstruct.scorched_faucet.tooltip": "从熔铸炉或储罐中输出流体",
