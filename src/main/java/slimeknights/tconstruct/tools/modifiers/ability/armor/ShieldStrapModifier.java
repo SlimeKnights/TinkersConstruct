@@ -16,10 +16,8 @@ import slimeknights.tconstruct.library.modifiers.impl.InventoryModifier;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
-import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
-import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 
@@ -39,11 +37,6 @@ public class ShieldStrapModifier extends InventoryModifier implements IArmorInte
   public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {
     super.addVolatileData(context, level, volatileData);
     volatileData.putBoolean(ToolInventoryCapability.INCLUDE_OFFHAND, true);
-  }
-
-  @Override
-  public int getSlots(IToolContext tool, int level) {
-    return level + tool.getModifierLevel(TinkerModifiers.pocketChain.getId());
   }
 
   @Override

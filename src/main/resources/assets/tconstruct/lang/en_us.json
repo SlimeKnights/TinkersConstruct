@@ -1869,6 +1869,7 @@
   "modifier.tconstruct.tool_belt": "Tool Belt",
   "modifier.tconstruct.tool_belt.flavor": "Ever wish for more hands?",
   "modifier.tconstruct.tool_belt.description": "Interacting with the leggings allows swapping the hotbar",
+  "recipe.tconstruct.modifier.tool_belt": "Tool belt recipes must be applied in order",
   "modifier.tconstruct.pocket_chain": "Pocket Chain",
   "modifier.tconstruct.pocket_chain.flavor": "One Chain to Bind Them",
   "modifier.tconstruct.pocket_chain.description": "Allows accessing all slots for tool belt or shield strap by sneaking and interacting, and adds +1 slot",

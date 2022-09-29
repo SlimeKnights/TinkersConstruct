@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:tool_belt",
+  "level_slots": [
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ]
+}

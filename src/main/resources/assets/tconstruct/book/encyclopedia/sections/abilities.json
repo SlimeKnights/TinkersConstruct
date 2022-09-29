@@ -134,10 +134,6 @@
   },
   {
     "type": "tconstruct:modifier",
-    "data": "abilities/armor/shield_strap.json"
-  },
-  {
-    "type": "tconstruct:modifier",
     "data": "abilities/armor/slurping.json"
   },
   {

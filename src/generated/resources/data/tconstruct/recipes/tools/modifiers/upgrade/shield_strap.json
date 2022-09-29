@@ -15,11 +15,10 @@
     "tag": "tconstruct:modifiable/armor/leggings"
   },
   "slots": {
-    "abilities": 1
+    "upgrades": 1
   },
   "result": {
     "name": "tconstruct:shield_strap",
     "level": 1
-  },
-  "max_level": 1
+  }
 }
