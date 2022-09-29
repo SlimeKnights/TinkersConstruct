@@ -1869,6 +1869,7 @@
   "modifier.tconstruct.tool_belt": "工具腰带",
   "modifier.tconstruct.tool_belt.flavor": "恨不得长出六只手么？",
   "modifier.tconstruct.tool_belt.description": "按下护腿交互键能够交换快捷栏",
+  "recipe.tconstruct.modifier.tool_belt": "Tool belt recipes must be applied in order",
   "modifier.tconstruct.pocket_chain": "锁链行囊",
   "modifier.tconstruct.pocket_chain.flavor": "铁索连环",
   "modifier.tconstruct.pocket_chain.description": "潜行按下“护腿交互”键时，能够访问工具带或护带所有槽位，还能增加一格槽位",
