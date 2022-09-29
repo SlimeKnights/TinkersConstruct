@@ -7,7 +7,7 @@
   ],
   "effects": [
     "Adds more inventory space",
-    "Access with sneaking and leggings interact",
+    "Access with shift plus leggings interact",
     "Multiple levels, each level gives +18 slots",
     "Requires 1 ability slot"
   ]

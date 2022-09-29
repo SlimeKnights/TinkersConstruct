@@ -16,6 +16,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -99,10 +100,10 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
   }
 
   @Override
-  public boolean startArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot equipmentSlot) {
-    if (!player.isShiftKeyDown()) {
+  public boolean startArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot equipmentSlot, TooltipKey modifier) {
+    if (modifier == TooltipKey.CONTROL) {
       if (player.level.isClientSide) {
-        return false; // TODO: see below
+        return true;
       }
 
       boolean didChange = false;
@@ -156,7 +157,7 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
         persistentData.put(key, list);
         player.level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.PLAYERS, 1.0f, 1.0f);
       }
-      //return true; TODO: tuning to make this a blocking interaction
+      return true;
     }
     return false;
   }

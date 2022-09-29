@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.modifiers.dynamic;
 
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
+import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.json.serializer.GenericIntSerializer;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -21,8 +22,8 @@ public class InventoryMenuModifier extends InventoryModifier implements IArmorIn
   }
 
   @Override
-  public boolean startArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot slot) {
-    if (player.isShiftKeyDown()) {
+  public boolean startArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot slot, TooltipKey modifier) {
+    if (modifier == TooltipKey.SHIFT) {
       return ToolInventoryCapability.tryOpenContainer(player.getItemBySlot(slot), tool, player, slot).consumesAction();
     }
     return false;

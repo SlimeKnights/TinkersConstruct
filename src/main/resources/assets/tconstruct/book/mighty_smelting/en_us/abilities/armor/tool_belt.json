@@ -6,9 +6,8 @@
     }
   ],
   "effects": [
-    "Slots can be swapped with hotbar slots",
-    "Grants +4 slots first level",
-    "Grants +1 slots for consecutive levels",
+    "Slots can be swapped with hotbar slots using control plus leggings interact.",
+    "Grants 4 slots, plus 1 per consecutive level",
     "Different recipe per level",
     "First level requires 1 ability slot"
   ]

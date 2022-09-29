@@ -10,6 +10,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.modifiers.impl.InventoryModifier;
@@ -40,10 +41,10 @@ public class ShieldStrapModifier extends InventoryModifier implements IArmorInte
   }
 
   @Override
-  public boolean startArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot equipmentSlot) {
-    if (!player.isShiftKeyDown()) {
+  public boolean startArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot equipmentSlot, TooltipKey modifier) {
+    if (modifier == TooltipKey.NORMAL) {
       if (player.level.isClientSide) {
-        return false; // TODO: see below
+        return true;
       }
       // offhand must be able to go in the pants
       ItemStack offhand = player.getOffhandItem();
@@ -79,7 +80,7 @@ public class ShieldStrapModifier extends InventoryModifier implements IArmorInte
         if (!newOffhand.isEmpty() || !list.isEmpty()) {
           player.level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.PLAYERS, 1.0f, 1.0f);
         }
-        //return true; TODO: tuning to make this a blocking interaction
+        return true;
       }
     }
     return false;
