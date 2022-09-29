@@ -164,7 +164,7 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
   @Nullable
   @Override
   public Pattern getPattern(IToolStackView tool, int level, int slot, boolean hasStack) {
-    return PATTERN;
+    return hasStack ? null : PATTERN;
   }
 
   @SuppressWarnings("unchecked")
