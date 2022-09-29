@@ -18,6 +18,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
 import javax.annotation.Nullable;
+import java.util.BitSet;
 import java.util.function.BiFunction;
 
 /** Modifier that has an inventory */
@@ -60,12 +61,23 @@ public class InventoryModifier extends Modifier implements IInventoryModifier {
         if (level == 0) {
           return HAS_ITEMS;
         }
-        // determine the largest index we are using
+        // first, see whether we have any available slots
         int maxSlots = getSlots(tool, level);
+        BitSet freeSlots = new BitSet(maxSlots);
+        freeSlots.set(0, maxSlots-1, true);
+        for (int i = 0; i < listNBT.size(); i++) {
+          freeSlots.set(listNBT.getCompound(i).getInt(TAG_SLOT), false);
+        }
         for (int i = 0; i < listNBT.size(); i++) {
           CompoundTag compoundNBT = listNBT.getCompound(i);
           if (compoundNBT.getInt(TAG_SLOT) >= maxSlots) {
-            return HAS_ITEMS;
+            int free = freeSlots.stream().findFirst().orElse(-1);
+            if (free == -1) {
+              return HAS_ITEMS;
+            } else {
+              freeSlots.set(free, false);
+              compoundNBT.putInt(TAG_SLOT, free);
+            }
           }
         }
       }
