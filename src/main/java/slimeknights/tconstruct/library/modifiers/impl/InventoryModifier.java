@@ -51,18 +51,23 @@ public class InventoryModifier extends Modifier implements IInventoryModifier {
     ToolInventoryCapability.addSlots(volatileData, getSlots(context, level));
   }
 
-  @Override
-  public ValidatedResult validate(IToolStackView tool, int level) {
+  /**
+   * Same as {@link #validate(IToolStackView, int)} but allows passing in a max slots count.
+   * Allows the subclass to validate on a different max slots if needed
+   * @param tool      Tool to check
+   * @param maxSlots  Max slots to use in the check
+   * @return  True if the number of slots is valid
+   */
+  protected ValidatedResult validateForMaxSlots(IToolStackView tool, int maxSlots) {
     IModDataView persistentData = tool.getPersistentData();
     ResourceLocation key = getInventoryKey();
     if (persistentData.contains(key, Tag.TAG_LIST)) {
       ListTag listNBT = persistentData.get(key, GET_COMPOUND_LIST);
       if (!listNBT.isEmpty()) {
-        if (level == 0) {
+        if (maxSlots == 0) {
           return HAS_ITEMS;
         }
         // first, see whether we have any available slots
-        int maxSlots = getSlots(tool, level);
         BitSet freeSlots = new BitSet(maxSlots);
         freeSlots.set(0, maxSlots-1, true);
         for (int i = 0; i < listNBT.size(); i++) {
@@ -83,6 +88,11 @@ public class InventoryModifier extends Modifier implements IInventoryModifier {
       }
     }
     return ValidatedResult.PASS;
+  }
+
+  @Override
+  public ValidatedResult validate(IToolStackView tool, int level) {
+    return validateForMaxSlots(tool, level == 0 ? 0 : getSlots(tool, level));
   }
 
   @Override

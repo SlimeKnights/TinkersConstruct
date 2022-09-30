@@ -26,10 +26,12 @@ import slimeknights.tconstruct.library.modifiers.impl.InventoryModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
+import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
+import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
+import slimeknights.tconstruct.library.tools.nbt.IModDataView;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
-import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
 
 import javax.annotation.Nullable;
 
@@ -105,13 +107,15 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
   }
 
   @Override
-  public void addRawData(IToolStackView tool, int level, RestrictedCompoundTag tag) {
-    ModDataNBT modData = tool.getPersistentData();
+  public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {
     int properSlots = getProperSlots(level);
+    int slots;
     // find the largest slot index and either add or update the override as needed
     // TODO: can probably remove this code for 1.19
     if (properSlots < 9) {
+      slots = properSlots;
       ResourceLocation key = getInventoryKey();
+      IModDataView modData = context.getPersistentData();
       if (modData.contains(key, Tag.TAG_LIST)) {
         ListTag list = modData.get(key, GET_COMPOUND_LIST);
         int maxSlot = 0;
@@ -121,13 +125,16 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
             maxSlot = newSlot;
           }
         }
-        if (maxSlot >= properSlots) {
-          modData.putInt(SLOT_OVERRIDE, maxSlot + 1);
-          return;
+        maxSlot = Math.min(maxSlot + 1, 9);
+        if (maxSlot > properSlots) {
+          volatileData.putInt(SLOT_OVERRIDE, maxSlot);
+          slots = maxSlot;
         }
       }
+    } else {
+      slots = 9;
     }
-    modData.remove(SLOT_OVERRIDE);
+    ToolInventoryCapability.addSlots(volatileData, slots);
   }
 
   @Override
@@ -136,15 +143,12 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
     if (properSlots >= 9) {
       return 9;
     }
-    return Mth.clamp(properSlots, tool.getPersistentData().getInt(SLOT_OVERRIDE), 9);
+    return Mth.clamp(tool.getVolatileData().getInt(SLOT_OVERRIDE), properSlots, 9);
   }
 
   @Override
   public ValidatedResult validate(IToolStackView tool, int level) {
-    // remove the slot override so you may not modify the tool to remove a higher level
-    // means you are not allowed to modify a tool with an invalid tool belt slot count until you remove the items
-    tool.getPersistentData().remove(SLOT_OVERRIDE);
-    return super.validate(tool, level);
+    return validateForMaxSlots(tool, getProperSlots(level));
   }
 
   @Override
