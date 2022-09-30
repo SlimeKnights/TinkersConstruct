@@ -6,9 +6,9 @@
     }
   ],
   "effects": [
-    "每级给予4个物品槽",
-    "这些槽位可与快捷栏切换",
-    "最多2级",
-    "需要1个能力槽"
+    "Slots can be swapped with hotbar slots using control plus leggings interact.",
+    "Grants 4 slots, plus 1 per consecutive level",
+    "Different recipe per level",
+    "First level requires 1 ability slot"
   ]
 }
