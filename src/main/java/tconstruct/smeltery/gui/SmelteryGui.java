@@ -1,5 +1,6 @@
 package tconstruct.smeltery.gui;
 
+import cpw.mods.fml.common.Loader;
 import java.util.*;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -8,6 +9,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.*;
 import tconstruct.TConstruct;
@@ -332,7 +334,7 @@ public class SmelteryGui extends ActiveContainerGui {
 
     public List getLiquidTooltip(FluidStack liquid, boolean advanced, boolean fuel) {
         ArrayList list = new ArrayList();
-        if (fuel) {
+        if (fuel || Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
             list.add("\u00A7f" + StatCollector.translateToLocal("gui.smeltery.fuel"));
             list.add("mB: " + liquid.amount);
         } else {
@@ -350,12 +352,20 @@ public class SmelteryGui extends ActiveContainerGui {
                 int mB = (liquid.amount % 1000) % 250;
                 if (mB > 0) list.add("mB: " + mB);
             } else if (name.equals(StatCollector.translateToLocal("fluid.stone.seared"))) {
-                int blocks = liquid.amount / TConstruct.ingotLiquidValue;
-                if (blocks > 0) list.add(StatCollector.translateToLocal("gui.smeltery.glass.block") + blocks);
-                int ingots = (liquid.amount % TConstruct.ingotLiquidValue) / (TConstruct.ingotLiquidValue / 4);
-                if (ingots > 0) list.add(StatCollector.translateToLocal("gui.smeltery.metal.ingot") + ingots);
-                int mB = (liquid.amount % TConstruct.ingotLiquidValue) % (TConstruct.ingotLiquidValue / 4);
-                if (mB > 0) list.add("mB: " + mB);
+                if (Loader.isModLoaded("dreamcraft")) {
+                    int blocks = liquid.amount / 360; // in gtnh each seared stone block is 360 mb of fluid
+                    if (blocks > 0) list.add(StatCollector.translateToLocal("gui.smeltery.glass.block") + blocks);
+                    // we also have no casting recipe for seared bricks
+                    int mB = liquid.amount % 360;
+                    if (mB > 0) list.add("mB: " + mB);
+                } else {
+                    int blocks = liquid.amount / TConstruct.ingotLiquidValue;
+                    if (blocks > 0) list.add(StatCollector.translateToLocal("gui.smeltery.glass.block") + blocks);
+                    int ingots = (liquid.amount % TConstruct.ingotLiquidValue) / (TConstruct.ingotLiquidValue / 4);
+                    if (ingots > 0) list.add(StatCollector.translateToLocal("gui.smeltery.metal.ingot") + ingots);
+                    int mB = (liquid.amount % TConstruct.ingotLiquidValue) % (TConstruct.ingotLiquidValue / 4);
+                    if (mB > 0) list.add("mB: " + mB);
+                }
             } else if (isMolten(name)) {
                 int ingots = liquid.amount / TConstruct.ingotLiquidValue;
                 if (ingots > 0) list.add(StatCollector.translateToLocal("gui.smeltery.metal.ingot") + ingots);
