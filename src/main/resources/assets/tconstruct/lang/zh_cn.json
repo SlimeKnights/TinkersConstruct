@@ -2046,7 +2046,7 @@
 
   "modifier.tconstruct.cultivated": "培植",
   "modifier.tconstruct.cultivated.flavor": "精打细算！",
-  "modifier.tconstruct.cultivated.description": "工具在修复时，单位材料实际能够提供更多耐久度。",
+  "modifier.tconstruct.cultivated.description": "工具在修复时，单位材料能够提供更多耐久度。",
   "modifier.tconstruct.jagged": "锯齿",
   "modifier.tconstruct.jagged.flavor": "破缘生锋刃！",
   "modifier.tconstruct.jagged.description": "工具的耐久度越低，伤害值越高，但采掘速度越低",
