@@ -180,7 +180,7 @@
   "item.tconstruct.puny_smelting": "入门熔炼术",
   "item.tconstruct.puny_smelting.tooltip": "为初学者量身打造的冶炼与铸造指南\nThruul M'Gon著",
   "item.tconstruct.mighty_smelting": "大师熔炼术",
-  "item.tconstruct.mighty_smelting.tooltip": "冶炼、浇铸与合金的奥义教科书\nThruul M'Gon著",
+  "item.tconstruct.mighty_smelting.tooltip": "冶炼、铸造与合金的奥义教科书\nThruul M'Gon著",
 
   "item.tconstruct.fantastic_foundry": "奇异熔铸术",
   "item.tconstruct.fantastic_foundry.tooltip": "熔融金属的大热高新科技尽汇于此书\nNemea著",
@@ -260,7 +260,7 @@
   "item.tconstruct.creative_slot.tooltip": "为工具增加一个额外的%s槽",
 
   "item.tconstruct.copper_can": "铜罐",
-  "item.tconstruct.copper_can.tooltip": "可堆叠的流体容器，能够盛装90 mB（1锭）的流体",
+  "item.tconstruct.copper_can.tooltip": "可堆叠的流体容器，能够盛装90mB（1锭）的流体",
   "item.tconstruct.copper_can.contents": "存有：%s（1锭）",
 
 
@@ -904,12 +904,12 @@
   "_conment": "Tool Descriptions",
 
   "item.tconstruct.pickaxe.description": "镐是一种精准型采矿工具，能够高效挖掘石头、矿石等石类方块。\n挖方块用的，懂？",
-  "item.tconstruct.sledge_hammer.description": "大锤是一种范围型采矿工具，能单次挖掘一整片区域内的方块。\n攻击亡灵生物有奇效。",
+  "item.tconstruct.sledge_hammer.description": "大锤是一种范围型挖掘工具，能单次挖掘一整片区域内的方块。\n攻击亡灵生物有奇效。",
   "item.tconstruct.vein_hammer.description": "矿脉锤是一种范围型采矿工具，能一次挖掘多块相连的同类型方块，用以采矿收效甚佳。",
 
   "item.tconstruct.mattock.description": "鹤嘴锄是一种多用途农耕工具，适用于挖掘木头、泥土、沙子、沙砾等方块，亦可用以收割作物。\n请勿自掘坟墓！",
   "item.tconstruct.pickadze.description": "凿石锹是一种多用途挖掘工具，适用于挖掘岩石、泥土、沙子和沙砾，但是其锐利程度不足以挖掘更硬的石质方块，比如各种矿石。",
-  "item.tconstruct.excavator.description": "开掘铲是一种范围型挖掘工具，能单次开采一整片区域内的泥土和雪。\n改天换地！",
+  "item.tconstruct.excavator.description": "开掘铲是一种范围型挖掘工具，能单次挖掘一整片区域内的泥土和雪。\n改天换地！",
 
   "item.tconstruct.hand_axe.description": "短柄斧能砍伐木材，也能高效清理树叶，更是一件趁手的兵器。\n快劈，快！",
   "item.tconstruct.broad_axe.description": "一棵小树的倒伏，只在板斧一挥之间。对付较大的树木，板斧也能极大地提升砍伐效率。厚重有力的斧刃作为武器亦不在话下。\n成吨木料！",
@@ -1115,7 +1115,7 @@
   "block.tconstruct.scorched_channel.tooltip": "将上方浇注口中流下的流体进行分流。",
 
   "block.tconstruct.scorched_alloyer": "焦褐合金炉",
-  "block.tconstruct.scorched_alloyer.tooltip": "简单的合金制造机器。\n将其安放在焦黑储罐或加热器的上方来接受热源。",
+  "block.tconstruct.scorched_alloyer.tooltip": "简单的合金制造机器。\n将其安放在储罐或焦黑加热器的上方来接受热源。",
   "gui.tconstruct.alloyer": "合金炉",
 
   "block.tconstruct.foundry_controller": "熔铸炉控制器",
@@ -1384,7 +1384,7 @@
   "material.tconstruct.iron": "铁",
   "material.tconstruct.iron.oxidized": "粗铁",
   "material.tconstruct.iron.flavor": "他铁了心要保护别人不死，却不能保护他自己，多么讽刺。",
-  "material.tconstruct.iron.encyclopedia": "每级给予工具15%的额外耐久",
+  "material.tconstruct.iron.encyclopedia": "每级给予工具15%的额外耐久度",
   "material.tconstruct.iron.skull_flavor": "违反隔离条例。",
   "material.tconstruct.iron.skull_encyclopedia": "近战攻击会将攻击者携带的所有负面效果复制到攻击目标身上",
 
@@ -1399,7 +1399,7 @@
   "material.tconstruct.copper": "铜",
   "material.tconstruct.copper.oxidized": "氧化铜",
   "material.tconstruct.copper.flavor": "不要被铜锈锈到了。",
-  "material.tconstruct.copper.encyclopedia": "在低海拔时增加工具的采掘速度，每低于海平面64格获得+6采掘速度",
+  "material.tconstruct.copper.encyclopedia": "在低海拔时增加工具的采掘速度。每低于海平面64格，+6采掘速度",
   "material.tconstruct.copper.skull_flavor": "你的攻击令人窒息。",
   "material.tconstruct.copper.skull_encyclopedia": "近战攻击使敌人3秒钟无法呼吸",
 
@@ -1442,10 +1442,10 @@
 
   "material.tconstruct.amethyst_bronze": "紫水晶青铜",
   "material.tconstruct.amethyst_bronze.flavor": "别和青铜搞混了。",
-  "material.tconstruct.amethyst_bronze.encyclopedia": "挖掘不需要工具开采的方块时，每级+0.5挖掘速度，工具种类不匹配时也有效。",
+  "material.tconstruct.amethyst_bronze.encyclopedia": "挖掘不需要工具采掘的方块时，每级+0.5采掘速度，工具种类不匹配时也有效。",
 
   "material.tconstruct.pig_iron": "生铁",
-  "material.tconstruct.pig_iron.flavor": "这是最强材料，不允许反驳。",
+  "material.tconstruct.pig_iron.flavor": "这是最强材料，不接受反驳。",
   "material.tconstruct.pig_iron.encyclopedia": "可以吃，每级增加1点饥饿值和0.1饱和度恢复值",
   "material.tconstruct.pig_iron.skull_flavor": "惹恼我可没有好下场！",
   "material.tconstruct.pig_iron.skull_encyclopedia": "受到来自其他生物的伤害时获得15秒力量效果",
@@ -1468,7 +1468,7 @@
 
   "material.tconstruct.hepatizon": "黑色科林斯青铜",
   "material.tconstruct.hepatizon.flavor": "-科什么斯啊？\n-科林斯啊。\n-什么林斯啊？\n-科林斯啊！\n-科林什么啊？\n-行了你先歇着吧。",
-  "material.tconstruct.hepatizon.encyclopedia": "在连续挖掘32个方块后，每级增加25%挖掘速度",
+  "material.tconstruct.hepatizon.encyclopedia": "在连续挖掘32个方块后，每级增加25%采掘速度",
 
   "material.tconstruct.queens_slime": "皇后史莱姆",
   "material.tconstruct.queens_slime.flavor": "公主都不是什么善茬，去找个皇后吧。",
@@ -1544,7 +1544,7 @@
 
   "material.tconstruct.platinum": "铂",
   "material.tconstruct.platinum.flavor": "它是胜利者的专属。",
-  "material.tconstruct.platinum.encyclopedia": "矿石挖掘速度+8",
+  "material.tconstruct.platinum.encyclopedia": "矿石采掘速度+8",
 
   "material.tconstruct.lead": "铅",
   "material.tconstruct.lead.flavor": "可以试试用这东西做个三明治。",
@@ -1666,7 +1666,7 @@
 
   "modifier.tconstruct.blasting": "爆裂",
   "modifier.tconstruct.blasting.flavor": "爆破采矿！",
-  "modifier.tconstruct.blasting.description": "你的工具能以更快的速度挖掘矿石等爆炸抗性不佳的方块！",
+  "modifier.tconstruct.blasting.description": "你的工具能以更快的速度采掘矿石等爆炸抗性不佳的方块！",
   "modifier.tconstruct.blasting.mining_speed": "爆裂挖掘速度",
   "modifier.tconstruct.hydraulic": "水力驱动",
   "modifier.tconstruct.hydraulic.flavor": "龙王助我！",
@@ -1862,13 +1862,13 @@
   "modifier.tconstruct.leaping.description": "兔子可以跳得很高，那么这个应该也能让你跳得很高",
   "modifier.tconstruct.pockets": "行囊",
   "modifier.tconstruct.pockets.flavor": "真是奇妙的发明！",
-  "modifier.tconstruct.pockets.description": "这护腿是有口袋的，能让你存储一些额外的物品，潜行时按下“护腿交互”键就可以存取 The pants have pockets, allowing you to store additional items which can be accessed by shift plus interacting",
+  "modifier.tconstruct.pockets.description": "这护腿是有口袋的，能让你存储一些额外的物品，同时按下左Shift键和“护腿交互”键就可以存取",
   "modifier.tconstruct.shield_strap": "副手套环",
   "modifier.tconstruct.shield_strap.flavor": "保护与攻击的理想之选",
   "modifier.tconstruct.shield_strap.description": "按下“护腿交互”键能够交换副手物品",
   "modifier.tconstruct.tool_belt": "工具腰带",
   "modifier.tconstruct.tool_belt.flavor": "恨不得长出六只手么？",
-  "modifier.tconstruct.tool_belt.description": "按下护腿交互键能够交换快捷栏 Interacting with the leggings whle holding control allows swapping the hotbar",
+  "modifier.tconstruct.tool_belt.description": "同时按下Ctrl键和“护腿交互”键能够交换快捷栏",
   "recipe.tconstruct.modifier.tool_belt": "Tool belt recipes must be applied in order",
   "modifier.tconstruct.pocket_chain": "锁链行囊",
   "modifier.tconstruct.pocket_chain.flavor": "铁索连环",
@@ -2102,7 +2102,7 @@
   "modifier.tconstruct.lacerating.description": "使攻击目标流血，造成更多伤害",
   "modifier.tconstruct.crumbling": "粉碎",
   "modifier.tconstruct.crumbling.flavor": "不要粉身碎骨！",
-  "modifier.tconstruct.crumbling.description": "工具在挖掘无需工具的方块时速度更快",
+  "modifier.tconstruct.crumbling.description": "工具在挖掘无需工具采掘的方块时速度更快",
   "modifier.tconstruct.crumbling.mining_speed": "粉碎速度",
   "modifier.tconstruct.lightweight": "轻便",
   "modifier.tconstruct.lightweight.flavor": "就像碎片之刃！",
@@ -2452,7 +2452,7 @@
   "subtitles.tconstruct.little_saw": "锯子：使用",
   "subtitles.tconstruct.item_frame_click": "物品展示框：时钟滴答",
   "subtitles.tconstruct.casting_cools": "铸件：冷却",
-  "subtitles.tconstruct.casting.click": "Casting block clicks",
+  "subtitles.tconstruct.casting.click": "浇注方块：槽位切换",
 
   "subtitles.tconstruct.slime_sling": "黏液弹弓：弹跳",
   "subtitles.tconstruct.slime_sling.teleport": "黏液弹弓：传送",
