@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:hydraulic",
   "text": [
     {
-      "text": "在雨中每级挖掘速度+4。在水下时则改为每级挖掘速度+8，抵消水下的挖掘速度减益。"
+      "text": "在雨中每级采掘速度+4。在水下时则改为每级采掘速度+8，抵消水下的采掘速度减益。"
     }
   ],
   "more_text_space": true,

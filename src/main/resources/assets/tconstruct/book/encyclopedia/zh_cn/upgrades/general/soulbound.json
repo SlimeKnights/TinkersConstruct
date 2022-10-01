@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:soulbound",
   "text": [
     {
-      "text": "工具会在你死亡并重生时留在物品栏。"
+      "text": "工具会在你死亡并重生后留在物品栏。"
     }
   ],
   "more_text_space": true,
