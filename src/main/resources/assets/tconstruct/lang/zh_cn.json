@@ -1869,7 +1869,7 @@
   "modifier.tconstruct.tool_belt": "工具腰带",
   "modifier.tconstruct.tool_belt.flavor": "恨不得长出六只手么？",
   "modifier.tconstruct.tool_belt.description": "同时按下Ctrl键和“护腿交互”键能够交换快捷栏",
-  "recipe.tconstruct.modifier.tool_belt": "Tool belt recipes must be applied in order",
+  "recipe.tconstruct.modifier.tool_belt": "“工具腰带”需按顺序施加",
   "modifier.tconstruct.pocket_chain": "锁链行囊",
   "modifier.tconstruct.pocket_chain.flavor": "铁索连环",
   "modifier.tconstruct.pocket_chain.description": "潜行按下“护腿交互”键时，能够访问工具带或护带所有槽位，还能增加一格槽位",
@@ -2429,9 +2429,9 @@
   "recipe.tconstruct.modifier.max_level": "%s的等级不可大于%s",
   "recipe.tconstruct.modifier.requirements_error": "工具的其中一个强化物已使该工具状态无效，联系整合包作者以了解详细错误情况。",
 
-  "recipe.tconstruct.tool_recycling": "Tool Recycling",
-  "recipe.tconstruct.tool_recycling.info": "Select which part to salvage from this tool. There is a chance based on the tool's remaining durability to salvage a second part.",
-  "recipe.tconstruct.tool_recycling.no_modifiers": "A tool cannot be recycled if it contains any upgrades or abilities, those must be removed first.",
+  "recipe.tconstruct.tool_recycling": "工具回收",
+  "recipe.tconstruct.tool_recycling.info": "从构成此工具的工具部件中选择你想回收的一个。根据工具剩余的耐久值，有可能回收第二个工具部件。",
+  "recipe.tconstruct.tool_recycling.no_modifiers": "施加强化或升级的工具无法被回收，你必须先将它们移除。",
 
   
   "_comment": "GUIs Messages",
