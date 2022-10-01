@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:unbreakable",
   "text": [
     {
-      "text": "使工具不消耗耐久值，不过不能抵消特殊的耐久值消耗，例如“美味”。"
+      "text": "使工具不消耗耐久度，不过不能抵消特殊的耐久度消耗，例如“美味”。"
     }
   ],
   "more_text_space": true,
