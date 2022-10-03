@@ -1,7 +1,9 @@
 package slimeknights.tconstruct.library.client.modifiers;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -28,6 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.function.Consumer;
 
 /**
  * Class handling the loading of modifier UI icons
@@ -45,7 +48,7 @@ public class ModifierIconManager implements IEarlySafeManagerReloadListener {
   public static final ModifierIconManager INSTANCE = new ModifierIconManager();
 
   /** Map of icons for each modifier */
-  private static Map<ModifierId,ResourceLocation> modifierIcons = Collections.emptyMap();
+  private static Map<ModifierId,List<ResourceLocation>> modifierIcons = Collections.emptyMap();
 
   /**
    * Initializes this manager, registering it relevant event busses
@@ -64,7 +67,8 @@ public class ModifierIconManager implements IEarlySafeManagerReloadListener {
   /** Called on texture stitch to add the new textures */
   private static void textureStitch(TextureStitchEvent.Pre event) {
     if (event.getAtlas().location().equals(InventoryMenu.BLOCK_ATLAS)) {
-      modifierIcons.values().forEach(event::addSprite);
+      Consumer<ResourceLocation> spriteAdder = event::addSprite;
+      modifierIcons.values().forEach(list -> list.forEach(spriteAdder));
       event.addSprite(DEFAULT_COVER);
       event.addSprite(DEFAULT_PAGES);
     }
@@ -73,7 +77,7 @@ public class ModifierIconManager implements IEarlySafeManagerReloadListener {
   @Override
   public void onReloadSafe(ResourceManager manager) {
     // start building the model map
-    Map<ModifierId,ResourceLocation> icons = new HashMap<>();
+    Map<ModifierId,List<ResourceLocation>> icons = new HashMap<>();
 
     // get a list of files from all namespaces
     List<JsonObject> jsonFiles = JsonHelper.getFileInAllDomainsAndPacks(manager, ICONS, null);
@@ -93,11 +97,19 @@ public class ModifierIconManager implements IEarlySafeManagerReloadListener {
           JsonElement element = entry.getValue();
           if (element.isJsonNull()) {
             icons.remove(name);
+          } else if (element.isJsonArray()) {
+            // list of paths, renders one after another
+            JsonArray array = element.getAsJsonArray();
+            try {
+              icons.put(name, JsonHelper.parseList(array, key, JsonHelper::convertToResourceLocation));
+            } catch (JsonSyntaxException e) {
+              log.error("Skipping invalid modifier " + key + " due to error parsing path list: ", e);
+            }
           } else if (element.isJsonPrimitive()) {
             // primitive means texture path
             ResourceLocation path = ResourceLocation.tryParse(element.getAsString());
             if (path != null) {
-              icons.put(name, path);
+              icons.put(name, Collections.singletonList(path));
             } else {
               log.error("Skipping invalid modifier " + key + " as the path is invalid");
             }
@@ -124,9 +136,11 @@ public class ModifierIconManager implements IEarlySafeManagerReloadListener {
     RenderUtils.setup(InventoryMenu.BLOCK_ATLAS);
     TextureAtlas atlas = Minecraft.getInstance().getModelManager().getAtlas(InventoryMenu.BLOCK_ATLAS);
 
-    ResourceLocation icon = modifierIcons.get(modifier.getId());
-    if (icon != null) {
-      Screen.blit(matrices, x, y, z, size, size, atlas.getSprite(icon));
+    List<ResourceLocation> icons = modifierIcons.getOrDefault(modifier.getId(), Collections.emptyList());
+    if (!icons.isEmpty()) {
+      for (ResourceLocation icon : icons) {
+        Screen.blit(matrices, x, y, z, size, size, atlas.getSprite(icon));
+      }
     } else {
       Screen.blit(matrices, x, y, z, size, size, atlas.getSprite(DEFAULT_PAGES));
       RenderUtils.setColorRGBA(0xFF000000 | modifier.getColor());
