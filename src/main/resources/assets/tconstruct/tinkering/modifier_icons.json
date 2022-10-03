@@ -25,6 +25,7 @@
   "tconstruct:pathing":     "tconstruct:gui/modifiers/held/pathing",
   "tconstruct:stripping":   "tconstruct:gui/modifiers/held/stripping",
   "tconstruct:tilling":     "tconstruct:gui/modifiers/held/tilling",
+  "tconstruct:offhanded":   "tconstruct:gui/modifiers/held/offhanded",
 
   "tconstruct:exchanging":  "tconstruct:gui/modifiers/harvest/exchanging",
   "tconstruct:expanded":    "tconstruct:gui/modifiers/harvest/expanded",
@@ -108,6 +109,11 @@
   "tconstruct:resurrected": ["minecraft:item/end_crystal", "tconstruct:gui/modifiers/plus"],
   "tconstruct:draconic":    ["tconstruct:gui/modifiers/draconic", "tconstruct:gui/modifiers/plus"],
 
-  "tconstruct:golden": ["minecraft:item/golden_chestplate", "tconstruct:gui/modifiers/book"],
-  "tconstruct:dyed":   ["minecraft:item/green_dye", "tconstruct:gui/modifiers/book"]
+  "tconstruct:golden":        ["minecraft:item/golden_chestplate", "tconstruct:gui/modifiers/book"],
+  "tconstruct:dyed":          ["minecraft:item/green_dye", "tconstruct:gui/modifiers/book"],
+  "tconstruct:embellishment": "tconstruct:gui/modifiers/armor/embellishment",
+  
+  "tconstruct:nearsighted": "tconstruct:gui/modifiers/nearsighted",
+  "tconstruct:farsighted":  "tconstruct:gui/modifiers/farsighted",
+  "tconstruct:shiny":       "tconstruct:gui/modifiers/shiny"
 }
