@@ -66,6 +66,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     protected boolean inUse;
 
     protected ArrayList<CoordTuple> lavaTanks;
+    protected ArrayList<CoordTuple> drains;
     protected CoordTuple activeLavaTank;
 
     public int[] activeTemps; // values are multiplied by 10
@@ -79,9 +80,12 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     Random rand = new Random();
     boolean needsUpdate;
 
+    private boolean drainComparatorOutputDirty;
+
     public SmelteryLogic() {
         super(0);
-        lavaTanks = new ArrayList<CoordTuple>();
+        lavaTanks = new ArrayList<>();
+        drains = new ArrayList<>();
         activeTemps = new int[0];
         meltingTemps = new int[0];
     }
@@ -298,6 +302,15 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 needsUpdate = false;
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             }
+
+            if (drainComparatorOutputDirty) {
+                // tank dirty, update drains
+                for (CoordTuple drain : drains) {
+                    // this obfuscated method will propagate a block update (and weak updates) around give coord
+                    worldObj.func_147453_f(drain.x, drain.y, drain.z, worldObj.getBlock(drain.x, drain.y, drain.z));
+                }
+                drainComparatorOutputDirty = false;
+            }
         }
     }
 
@@ -443,6 +456,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             if (liquid.amount + currentLiquid > maxLiquid) return false;
 
             currentLiquid += liquid.amount;
+            drainComparatorOutputDirty = true;
             // TConstruct.logger.info("Current liquid: "+currentLiquid);
             boolean added = false;
             for (int i = 0; i < moltenMetal.size(); i++) {
@@ -469,6 +483,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     private void updateCurrentLiquid() {
         currentLiquid = 0;
         for (FluidStack liquid : moltenMetal) currentLiquid += liquid.amount;
+        drainComparatorOutputDirty = true;
     }
 
     private void updateTemperatures() {
@@ -878,6 +893,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
                 if (te instanceof LavaTankLogic) {
                     lavaTanks.add(new CoordTuple(x, y, z));
+                } else if (te instanceof SmelteryDrainLogic) {
+                    drains.add(new CoordTuple(x, y, z));
                 }
             }
         }
@@ -925,6 +942,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     liquid.amount -= maxDrain;
                     worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                     currentLiquid -= maxDrain;
+                    drainComparatorOutputDirty = true;
                     needsUpdate = true;
                 }
                 return new FluidStack(liquid.getFluid(), maxDrain, liquid.tag);
@@ -1010,6 +1028,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         direction = tags.getByte("Direction");
         useTime = tags.getInteger("UseTime");
         currentLiquid = tags.getInteger("CurrentLiquid");
+        drainComparatorOutputDirty = true;
         maxLiquid = tags.getInteger("MaxLiquid");
         meltingTemps = tags.getIntArray("MeltingTemps");
         activeTemps = tags.getIntArray("ActiveTemps");
