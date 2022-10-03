@@ -12,8 +12,8 @@
   "tconstruct:worldbound":  ["minecraft:item/netherite_scrap", "tconstruct:gui/modifiers/tier"],
 
   "tconstruct:autosmelt": "tconstruct:gui/modifiers/harvest/autosmelt",
-  "tconstruct:fortune":   "tconstruct:gui/modifiers/luck",
-  "tconstruct:looting":   "tconstruct:gui/modifiers/luck",
+  "tconstruct:fortune":   "tconstruct:gui/modifiers/fortune",
+  "tconstruct:looting":   "tconstruct:gui/modifiers/looting",
   "tconstruct:luck":      "tconstruct:gui/modifiers/luck",
   "tconstruct:melting":   "tconstruct:gui/modifiers/harvest/melting",
   "tconstruct:silky":     ["tconstruct:item/materials/silky_cloth", "tconstruct:gui/modifiers/book"],
