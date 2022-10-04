@@ -21,8 +21,8 @@ import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.dynamic.InventoryMenuModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
-import slimeknights.tconstruct.library.modifiers.impl.InventoryModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
@@ -37,7 +37,7 @@ import javax.annotation.Nullable;
 
 import static slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability.isBlacklisted;
 
-public class ToolBeltModifier extends InventoryModifier implements IArmorInteractModifier {
+public class ToolBeltModifier extends InventoryMenuModifier implements IArmorInteractModifier {
   private static final Pattern PATTERN = new Pattern(TConstruct.MOD_ID, "tool_belt");
   private static final ResourceLocation SLOT_OVERRIDE = TConstruct.getResource("tool_belt_override");
 
@@ -94,7 +94,7 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
 
   @Override
   public int getPriority() {
-    return 85; // after pockets, before shield strap
+    return 85; // after shield strap, before pockets
   }
 
   /** Gets the proper number of slots for the given level */
@@ -153,7 +153,10 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
 
   @Override
   public boolean startArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot equipmentSlot, TooltipKey modifier) {
-    if (modifier == TooltipKey.CONTROL) {
+    if (modifier == TooltipKey.SHIFT) {
+      return super.startArmorInteract(tool, level, player, equipmentSlot, modifier);
+    }
+    if (modifier == TooltipKey.NORMAL || modifier == TooltipKey.CONTROL) {
       if (player.level.isClientSide) {
         return true;
       }
@@ -218,15 +221,5 @@ public class ToolBeltModifier extends InventoryModifier implements IArmorInterac
   @Override
   public Pattern getPattern(IToolStackView tool, int level, int slot, boolean hasStack) {
     return hasStack ? null : PATTERN;
-  }
-
-  @SuppressWarnings("unchecked")
-  @Nullable
-  @Override
-  public <T> T getModule(Class<T> type) {
-    if (type == IArmorInteractModifier.class) {
-      return (T) this;
-    }
-    return super.getModule(type);
   }
 }

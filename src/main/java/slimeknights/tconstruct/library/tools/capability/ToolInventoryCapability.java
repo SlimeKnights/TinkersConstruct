@@ -28,6 +28,7 @@ import slimeknights.tconstruct.tools.menu.ToolContainerMenu;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.function.Supplier;
 
 /** Capability for a tool with an inventory */
@@ -68,7 +69,10 @@ public class ToolInventoryCapability implements IItemHandlerModifiable {
     IToolStackView tool = this.tool.get();
     if (slot < getSlots()) {
       int start = 0;
-      for (ModifierEntry entry : tool.getModifierList()) {
+      // iterate in reverse order, as that allows us to put shield strap/tool belt later in the UI without breaking the keybinds
+      List<ModifierEntry> modifiers = tool.getModifierList();
+      for (int i = modifiers.size() - 1; i >= 0; i--) {
+        ModifierEntry entry = modifiers.get(i);
         IInventoryModifier inventory = entry.getModifier().getModule(IInventoryModifier.class);
         if (inventory != null) {
           int slots = inventory.getSlots(tool, entry.getLevel());

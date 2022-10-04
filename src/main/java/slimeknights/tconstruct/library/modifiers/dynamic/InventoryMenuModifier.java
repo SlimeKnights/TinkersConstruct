@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.modifiers.dynamic;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import slimeknights.mantle.client.TooltipKey;
@@ -21,12 +22,18 @@ public class InventoryMenuModifier extends InventoryModifier implements IArmorIn
     super(size);
   }
 
+  public InventoryMenuModifier(ResourceLocation key, int size) {
+    super(key, size);
+  }
+
+  @Override
+  public int getPriority() {
+    return 75; // run latest so the keybind does not prevent shield strap or tool belt
+  }
+
   @Override
   public boolean startArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot slot, TooltipKey modifier) {
-    if (modifier == TooltipKey.SHIFT) {
-      return ToolInventoryCapability.tryOpenContainer(player.getItemBySlot(slot), tool, player, slot).consumesAction();
-    }
-    return false;
+    return ToolInventoryCapability.tryOpenContainer(player.getItemBySlot(slot), tool, player, slot).consumesAction();
   }
 
   @SuppressWarnings("unchecked")

@@ -12,8 +12,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.dynamic.InventoryMenuModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
-import slimeknights.tconstruct.library.modifiers.impl.InventoryModifier;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
@@ -22,7 +22,7 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
 import javax.annotation.Nullable;
 
-public class ShieldStrapModifier extends InventoryModifier implements IArmorInteractModifier {
+public class ShieldStrapModifier extends InventoryMenuModifier implements IArmorInteractModifier {
   private static final ResourceLocation KEY = TConstruct.getResource("shield_strap");
   private static final Pattern PATTERN = new Pattern(TConstruct.MOD_ID, "shield_plus");
   public ShieldStrapModifier() {
@@ -31,7 +31,7 @@ public class ShieldStrapModifier extends InventoryModifier implements IArmorInte
 
   @Override
   public int getPriority() {
-    return 75; // after pockets
+    return 95; // before pockets and tool belt
   }
 
   @Override
@@ -42,6 +42,9 @@ public class ShieldStrapModifier extends InventoryModifier implements IArmorInte
 
   @Override
   public boolean startArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot equipmentSlot, TooltipKey modifier) {
+    if (modifier == TooltipKey.SHIFT) {
+      return super.startArmorInteract(tool, level, player, equipmentSlot, modifier);
+    }
     if (modifier == TooltipKey.NORMAL) {
       if (player.level.isClientSide) {
         return true;
@@ -90,15 +93,5 @@ public class ShieldStrapModifier extends InventoryModifier implements IArmorInte
   @Override
   public Pattern getPattern(IToolStackView tool, int level, int slot, boolean hasStack) {
     return hasStack ? null : PATTERN;
-  }
-
-  @SuppressWarnings("unchecked")
-  @Nullable
-  @Override
-  public <T> T getModule(Class<T> type) {
-    if (type == IArmorInteractModifier.class) {
-      return (T) this;
-    }
-    return super.getModule(type);
   }
 }

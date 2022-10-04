@@ -19,6 +19,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.menu.ToolContainerMenu;
 
+import java.util.List;
 import java.util.function.Function;
 
 import static slimeknights.tconstruct.tools.menu.ToolContainerMenu.REPEAT_BACKGROUND_START;
@@ -138,8 +139,11 @@ public class ToolContainerScreen extends AbstractContainerScreen<ToolContainerMe
     // draw slot patterns for all empty slots
     int start = 0;
     int maxSlots = menu.slots.size();
+
+    List<ModifierEntry> modifiers = tool.getModifierList();
     modifiers:
-    for (ModifierEntry entry : tool.getModifierList()) {
+    for (int modIndex = modifiers.size() - 1; modIndex >= 0; modIndex--) {
+      ModifierEntry entry = modifiers.get(modIndex);
       IInventoryModifier inventory = entry.getModifier().getModule(IInventoryModifier.class);
       if (inventory != null) {
         int level = entry.getLevel();
