@@ -578,7 +578,7 @@ public class TinkerSmeltery {
         };
         for (int i = 0; i < clayPatternTypes.length; i++) {
             TConstructRegistry.addItemStackToDirectory(
-                    clayPatternTypes[i] + "Cast", new ItemStack(TinkerSmeltery.clayPattern, 1, i));
+                    clayPatternTypes[i] + "clayCast", new ItemStack(TinkerSmeltery.clayPattern, 1, i));
         }
 
         oreRegistry();

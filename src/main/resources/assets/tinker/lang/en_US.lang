@@ -1109,3 +1109,5 @@ option.tcon.smeltery=Smeltery Status
 
 fluid.molten.unstableIngots=Molten Unstable Ingots
 fluid.molten.bedrockiumIngots=Molten Bedrockium Ingots
+
+item.iguana.tcon.clayBucket.Quartz.name=Molten Quartz Clay Bucket
