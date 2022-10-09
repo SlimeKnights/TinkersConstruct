@@ -38,6 +38,7 @@ import slimeknights.mantle.data.GenericLoaderRegistry;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.json.JsonRedirect;
+import slimeknights.tconstruct.library.utils.GenericTagUtil;
 import slimeknights.tconstruct.library.utils.JsonUtils;
 
 import javax.annotation.Nullable;
@@ -111,7 +112,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
   public void init() {
     FMLJavaModLoadingContext.get().getModEventBus().addListener(EventPriority.NORMAL, false, FMLCommonSetupEvent.class, e -> e.enqueueWork(this::fireRegistryEvent));
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, AddReloadListenerEvent.class, this::addDataPackListeners);
-    MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, OnDatapackSyncEvent.class, e -> JsonUtils.syncPackets(e, new UpdateModifiersPacket(this.dynamicModifiers)));
+    MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, OnDatapackSyncEvent.class, e -> JsonUtils.syncPackets(e, new UpdateModifiersPacket(this.dynamicModifiers, this.tags)));
   }
 
   /** Fires the modifier registry event */
@@ -175,7 +176,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
       return Optional.of(modifier);
     }, TAG_FOLDER);
     this.tags = tagLoader.loadAndBuild(pResourceManager);
-    this.reverseTags = JsonUtils.reverseTags(REGISTRY_KEY, Modifier::getId, tags);
+    this.reverseTags = GenericTagUtil.reverseTags(REGISTRY_KEY, Modifier::getId, tags);
     log.info("Loaded {} modifier tags for {} modifiers in {} ms", tags.size(), this.reverseTags.size(), (System.nanoTime() - timeStep) / 1000000f);
 
     MinecraftForge.EVENT_BUS.post(new ModifiersLoadedEvent());
@@ -216,9 +217,11 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
   }
 
   /** Updates the modifiers from the server */
-  void updateModifiersFromServer(Map<ModifierId,Modifier> modifiers) {
+  void updateModifiersFromServer(Map<ModifierId,Modifier> modifiers, Map<ResourceLocation,Tag<Modifier>> tags) {
     this.dynamicModifiers = modifiers;
     this.dynamicModifiersLoaded = true;
+    this.tags = tags;
+    this.reverseTags = GenericTagUtil.reverseTags(REGISTRY_KEY, Modifier::getId, tags);
     MinecraftForge.EVENT_BUS.post(new ModifiersLoadedEvent());
   }
 
