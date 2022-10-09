@@ -985,7 +985,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // fluid stuff
     ModifierRecipeBuilder.modifier(TinkerModifiers.melting)
                          .addInput(Items.BLAZE_ROD)
-                         .addInput(TinkerSmeltery.searedMelter)
+                         .addInput(Ingredient.of(TinkerSmeltery.searedMelter, TinkerSmeltery.smelteryController, TinkerSmeltery.foundryController))
                          .addInput(Items.BLAZE_ROD)
                          .addInput(Items.LAVA_BUCKET)
                          .addInput(Items.LAVA_BUCKET)
