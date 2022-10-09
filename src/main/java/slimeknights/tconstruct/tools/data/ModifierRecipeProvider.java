@@ -143,7 +143,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                           .save(withCondition(consumer, ConfigEnabledCondition.WITHER_BONE_CONVERSION), modResource(folder + "wither_bone_conversion"));
 
     // modifier repair
-    String repairFolder = folder + "repair/";
     // stringy - from string
     ModifierRepairRecipeBuilder.repair(ModifierIds.stringy, Ingredient.of(Tags.Items.STRING), 25)
                                .buildCraftingTable(consumer, wrap(ModifierIds.stringy, folder, "_crafting_table"))
@@ -211,7 +210,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Tags.Items.INGOTS_NETHERITE)
                          .setMaxLevel(1)
                          .setSlots(SlotType.UPGRADE, 1)
-                         .setRequirements(ModifierMatch.list(1, ModifierMatch.entry(ModifierIds.diamond), ModifierMatch.entry(ModifierIds.emerald)))
+                         .setRequirements(ModifierMatch.tag(TinkerTags.Modifiers.GEMS))
                          .setRequirementsError(makeRequirementsError("netherite_requirements"))
                          .saveSalvage(consumer, prefix(ModifierIds.netherite, upgradeSalvage))
                          .save(consumer, prefix(ModifierIds.netherite, upgradeFolder));

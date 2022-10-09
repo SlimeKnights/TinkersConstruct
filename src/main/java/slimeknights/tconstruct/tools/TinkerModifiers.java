@@ -23,6 +23,7 @@ import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerEffect;
 import slimeknights.tconstruct.common.TinkerModule;
+import slimeknights.tconstruct.common.data.tags.ModifierTagProvider;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.modifiers.dynamic.ConditionalDamageModifier;
@@ -507,6 +508,7 @@ public final class TinkerModifiers extends TinkerModule {
       generator.addProvider(new ModifierProvider(generator));
       generator.addProvider(new ModifierRecipeProvider(generator));
       generator.addProvider(new SpillingFluidProvider(generator));
+      generator.addProvider(new ModifierTagProvider(generator, event.getExistingFileHelper()));
     }
   }
 }

@@ -1638,7 +1638,7 @@
   "modifier.tconstruct.netherite": "Netherite",
   "modifier.tconstruct.netherite.flavor": "Refined!",
   "modifier.tconstruct.netherite.description": "Harness the power of ancient metal, making the tool stronger and immune to external damage such as fire",
-  "recipe.tconstruct.modifier.netherite_requirements": "Netherite requires either diamond or emerald to be applied",
+  "recipe.tconstruct.modifier.netherite_requirements": "Netherite requires a gem first to be applied",
 
   "modifier.tconstruct.overslime": "Overslime",
   "modifier.tconstruct.overslime.flavor": "Slimy!",

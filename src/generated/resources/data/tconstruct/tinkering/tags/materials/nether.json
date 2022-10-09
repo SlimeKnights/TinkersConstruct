@@ -1,0 +1,25 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:wood",
+    "tconstruct:flint",
+    "tconstruct:rock",
+    "tconstruct:bone",
+    "tconstruct:leather",
+    "tconstruct:vine",
+    "tconstruct:string",
+    "tconstruct:iron",
+    "tconstruct:scorched_stone",
+    "tconstruct:slimewood",
+    "tconstruct:necrotic_bone",
+    "tconstruct:bloodbone",
+    "tconstruct:chain",
+    "tconstruct:nahuatl",
+    "tconstruct:cobalt",
+    "tconstruct:darkthread",
+    "tconstruct:manyullyn",
+    "tconstruct:queens_slime",
+    "tconstruct:blazing_bone",
+    "tconstruct:ancient_hide"
+  ]
+}

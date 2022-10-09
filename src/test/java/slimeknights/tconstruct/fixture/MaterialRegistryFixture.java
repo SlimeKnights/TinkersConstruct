@@ -2,12 +2,14 @@ package slimeknights.tconstruct.fixture;
 
 import lombok.AllArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.tags.TagKey;
 import slimeknights.tconstruct.library.materials.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.materials.traits.MaterialTraits;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
 import java.util.Collection;
@@ -21,11 +23,13 @@ import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public class MaterialRegistryFixture implements IMaterialRegistry {
-
   private final Map<MaterialId, IMaterial> materials;
   private final Map<MaterialId, Map<MaterialStatsId, IMaterialStats>> stats;
   private final Map<MaterialStatsId, IMaterialStats> defaultStats;
   private final Map<MaterialId,MaterialTraits> traits;
+
+
+  /* Materials */
 
   @Override
   public IMaterial getMaterial(MaterialId id) {
@@ -42,6 +46,22 @@ public class MaterialRegistryFixture implements IMaterialRegistry {
   public Collection<IMaterial> getAllMaterials() {
     return materials.values();
   }
+
+
+  /* Tags */
+
+  @Override
+  public boolean isInTag(MaterialId id, TagKey<IMaterial> tag) {
+    return false;
+  }
+
+  @Override
+  public List<IMaterial> getTagValues(TagKey<Modifier> tag) {
+    return Collections.emptyList();
+  }
+
+
+  /* Stats */
 
   @Override
   @SuppressWarnings("unchecked")
@@ -64,6 +84,9 @@ public class MaterialRegistryFixture implements IMaterialRegistry {
   public <T extends IMaterialStats> void registerStatType(T defaultStats, Class<T> clazz, Function<FriendlyByteBuf,T> decoder) {
     throw new UnsupportedOperationException("No registration possible in test mock");
   }
+
+
+  /* Traits */
 
   @Override
   public List<ModifierEntry> getDefaultTraits(MaterialId materialId) {
