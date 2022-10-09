@@ -1638,7 +1638,7 @@
   "modifier.tconstruct.netherite": "下界合金",
   "modifier.tconstruct.netherite.flavor": "精尖增强！",
   "modifier.tconstruct.netherite.description": "掌控远古金属的力量，增强工具并使其免疫火焰等外界伤害",
-  "recipe.tconstruct.modifier.netherite_requirements": "“下界合金”需要“钻石”或“绿宝石”作为前置",
+  "recipe.tconstruct.modifier.netherite_requirements": "“下界合金”需要加持一个宝石作为前置",
 
   "modifier.tconstruct.overslime": "黏液覆层",
   "modifier.tconstruct.overslime.flavor": "黏糊糊！",
