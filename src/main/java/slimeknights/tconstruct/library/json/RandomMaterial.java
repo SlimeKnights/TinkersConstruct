@@ -4,16 +4,22 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.materials.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.materials.definition.MaterialManager;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -159,6 +165,9 @@ public abstract class RandomMaterial {
     private final int maxTier;
     /** If true, hidden materials are allowed */
     private final boolean allowHidden;
+    /** Material tag condition */
+    @Nullable
+    private final TagKey<IMaterial> tag;
 
     /** Cached list of material choices, automatically deleted when loot tables reload */
     private List<MaterialId> materialChoices;
@@ -169,15 +178,22 @@ public abstract class RandomMaterial {
       int minTier = GsonHelper.getAsInt(json, "min_tier", 0);
       int maxTier = GsonHelper.getAsInt(json, "max_tier", Integer.MAX_VALUE);
       boolean allowHidden = GsonHelper.getAsBoolean(json, "allow_hidden", false);
-      return new RandomInTier(statType, minTier, maxTier, allowHidden);
+      TagKey<IMaterial> tag  = null;
+      if (json.has("tag")) {
+        tag = MaterialManager.getTag(JsonHelper.getResourceLocation(json, "tag"));
+      }
+      return new RandomInTier(statType, minTier, maxTier, allowHidden, tag);
     }
 
     /** Checks if a material is valid */
     @Override
     public boolean test(IMaterial material) {
       int tier = material.getTier();
+      IMaterialRegistry registry = MaterialRegistry.getInstance();
+      MaterialId id = material.getIdentifier();
       return tier >= minTier && tier <= maxTier && (allowHidden || !material.isHidden())
-             && MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), statType).isPresent();
+             && (tag == null || registry.isInTag(id, tag))
+             && registry.getMaterialStats(id, statType).isPresent();
     }
 
     @Override
@@ -213,6 +229,9 @@ public abstract class RandomMaterial {
       if (allowHidden) {
         json.addProperty("allow_hidden", true);
       }
+      if (tag != null) {
+        json.addProperty("tag", tag.location().toString());
+      }
       return json;
     }
   }
@@ -226,6 +245,9 @@ public abstract class RandomMaterial {
     /** Maximum material tier */
     private int maxTier = Integer.MAX_VALUE;
     private boolean allowHidden = false;
+    /** Material tag condition */
+    @Nullable @Setter @Accessors(fluent = true)
+    private TagKey<IMaterial> tag;
 
     /** Sets the required tier */
     public RandomBuilder tier(int tier) {
@@ -252,7 +274,7 @@ public abstract class RandomMaterial {
 
     /** Builds the instance */
     public RandomMaterial build() {
-      return new RandomInTier(statType, minTier, maxTier, allowHidden);
+      return new RandomInTier(statType, minTier, maxTier, allowHidden, tag);
     }
   }
 }

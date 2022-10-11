@@ -1,10 +1,12 @@
 package slimeknights.tconstruct.library.materials;
 
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.tags.TagKey;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
 import javax.annotation.Nullable;
@@ -14,6 +16,8 @@ import java.util.Optional;
 import java.util.function.Function;
 
 public interface IMaterialRegistry {
+  /* Materials */
+
   /**
    * Resolves any redirects in the given material ID. Should be called internally by all methods in the registry, but exposed for the sake of using outside
    * @param id  Material ID
@@ -41,6 +45,25 @@ public interface IMaterialRegistry {
    * @return  Collection of all materials
    */
   Collection<IMaterial> getAllMaterials();
+
+
+  /* Tags */
+
+  /**
+   * Checks if the given modifier is in the given tag
+   * @return  True if the modifier is in the tag
+   */
+  boolean isInTag(MaterialId id, TagKey<IMaterial> tag);
+
+  /**
+   * Gets all values contained in the given tag
+   * @param tag  Tag instance
+   * @return  Contained values
+   */
+  List<IMaterial> getTagValues(TagKey<Modifier> tag);
+
+
+  /* Stats */
 
   /**
    * Gets the material stats for the given material and type
@@ -94,6 +117,9 @@ public interface IMaterialRegistry {
    * @param decoder       Logic to decode the stat from the buffer
    */
   <T extends IMaterialStats> void registerStatType(T defaultStats, Class<T> clazz, Function<FriendlyByteBuf,T> decoder);
+
+
+  /* Traits */
 
   /**
    * Gets the default material traits for the given material

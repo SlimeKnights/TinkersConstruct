@@ -382,7 +382,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .part(ArmorSlotType.HELMET, SkullStats.ID, 1)
       .trait(ModifierIds.overslimeFriend)
       .trait(ArmorSlotType.CHESTPLATE, ModifierIds.wings)
-      .trait(ArmorSlotType.LEGGINGS, TinkerModifiers.pockets, 1)
+      .trait(ArmorSlotType.LEGGINGS, ModifierIds.pockets, 1)
       .trait(ArmorSlotType.LEGGINGS, TinkerModifiers.shulking, 1)
       .trait(ArmorSlotType.BOOTS, TinkerModifiers.bouncy)
       .trait(ArmorSlotType.BOOTS, TinkerModifiers.leaping, 1);

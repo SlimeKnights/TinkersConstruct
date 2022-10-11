@@ -1,0 +1,25 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "tag": "forge:ingots/iron"
+    },
+    {
+      "item": "minecraft:leather"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/leggings"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "result": {
+    "name": "tconstruct:tool_belt",
+    "level": 1
+  },
+  "max_level": 1
+}

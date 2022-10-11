@@ -10,6 +10,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.material.Fluid;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialManager;
+import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 public class TinkerTags {
@@ -21,6 +25,8 @@ public class TinkerTags {
     EntityTypes.init();
     TileEntityTypes.init();
     Biomes.init();
+    Modifiers.init();
+    Materials.init();
   }
 
   public static class Blocks {
@@ -440,6 +446,26 @@ public class TinkerTags {
 
     private static TagKey<Biome> tag(String name) {
       return TagKey.create(Registry.BIOME_REGISTRY, TConstruct.getResource(name));
+    }
+  }
+
+  public static class Modifiers {
+    private static void init() {}
+    /** Gem modifiers, one of which is needed for netherite */
+    public static final TagKey<Modifier> GEMS = tag("gems");
+
+    private static TagKey<Modifier> tag(String name) {
+      return ModifierManager.getTag(TConstruct.getResource(name));
+    }
+  }
+
+  public static class Materials {
+    private static void init() {}
+    /** Materials available in nether */
+    public static final TagKey<IMaterial> NETHER = tag("nether");
+
+    private static TagKey<IMaterial> tag(String name) {
+      return MaterialManager.getTag(TConstruct.getResource(name));
     }
   }
 }

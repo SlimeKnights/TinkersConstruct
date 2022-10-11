@@ -24,6 +24,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.config.ConfigurableAction;
+import slimeknights.tconstruct.common.data.tags.MaterialTagProvider;
 import slimeknights.tconstruct.library.client.data.material.GeneratorPartTextureJsonGenerator;
 import slimeknights.tconstruct.library.client.data.material.MaterialPartTextureGenerator;
 import slimeknights.tconstruct.library.json.AddToolDataFunction;
@@ -176,6 +177,7 @@ public final class TinkerTools extends TinkerModule {
   @SubscribeEvent
   void gatherData(final GatherDataEvent event) {
     DataGenerator generator = event.getGenerator();
+    ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
     if (event.includeServer()) {
       generator.addProvider(new ToolsRecipeProvider(generator));
       generator.addProvider(new MaterialRecipeProvider(generator));
@@ -185,9 +187,9 @@ public final class TinkerTools extends TinkerModule {
       generator.addProvider(new MaterialTraitsDataProvider(generator, materials));
       generator.addProvider(new ToolDefinitionDataProvider(generator));
       generator.addProvider(new StationSlotLayoutProvider(generator));
+      generator.addProvider(new MaterialTagProvider(generator, existingFileHelper));
     }
     if (event.includeClient()) {
-      ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
       TinkerMaterialSpriteProvider materialSprites = new TinkerMaterialSpriteProvider();
       TinkerPartSpriteProvider partSprites = new TinkerPartSpriteProvider();
       generator.addProvider(new MaterialRenderInfoProvider(generator, materialSprites));

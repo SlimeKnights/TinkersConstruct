@@ -18,6 +18,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
 import javax.annotation.Nullable;
+import java.util.BitSet;
 import java.util.function.BiFunction;
 
 /** Modifier that has an inventory */
@@ -30,31 +31,58 @@ public class InventoryModifier extends Modifier implements IInventoryModifier {
   /** NBT key to store the slot for a stack */
   protected static final String TAG_SLOT = "Slot";
 
-  /** Persistent data key for the inventory storage */
+  /** Persistent data key for the inventory storage, if null uses the modifier ID */
+  @Nullable
   private final ResourceLocation inventoryKey;
   /** Number of slots to add per modifier level */
-  private final int slotsPerLevel;
+  protected final int slotsPerLevel;
+
+  public InventoryModifier(int slotsPerLevel) {
+    this(null, slotsPerLevel);
+  }
+
+  /** Gets the inventory key used for NBT serializing */
+  protected ResourceLocation getInventoryKey() {
+    return inventoryKey == null ? getId() : inventoryKey;
+  }
 
   @Override
   public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {
     ToolInventoryCapability.addSlots(volatileData, getSlots(context, level));
   }
 
-  @Override
-  public ValidatedResult validate(IToolStackView tool, int level) {
+  /**
+   * Same as {@link #validate(IToolStackView, int)} but allows passing in a max slots count.
+   * Allows the subclass to validate on a different max slots if needed
+   * @param tool      Tool to check
+   * @param maxSlots  Max slots to use in the check
+   * @return  True if the number of slots is valid
+   */
+  protected ValidatedResult validateForMaxSlots(IToolStackView tool, int maxSlots) {
     IModDataView persistentData = tool.getPersistentData();
-    if (persistentData.contains(inventoryKey, Tag.TAG_LIST)) {
-      ListTag listNBT = persistentData.get(inventoryKey, GET_COMPOUND_LIST);
+    ResourceLocation key = getInventoryKey();
+    if (persistentData.contains(key, Tag.TAG_LIST)) {
+      ListTag listNBT = persistentData.get(key, GET_COMPOUND_LIST);
       if (!listNBT.isEmpty()) {
-        if (level == 0) {
+        if (maxSlots == 0) {
           return HAS_ITEMS;
         }
-        // determine the largest index we are using
-        int maxSlots = getSlots(tool, level);
+        // first, see whether we have any available slots
+        BitSet freeSlots = new BitSet(maxSlots);
+        freeSlots.set(0, maxSlots-1, true);
+        for (int i = 0; i < listNBT.size(); i++) {
+          freeSlots.set(listNBT.getCompound(i).getInt(TAG_SLOT), false);
+        }
         for (int i = 0; i < listNBT.size(); i++) {
           CompoundTag compoundNBT = listNBT.getCompound(i);
           if (compoundNBT.getInt(TAG_SLOT) >= maxSlots) {
-            return HAS_ITEMS;
+            int free = freeSlots.stream().findFirst().orElse(-1);
+            if (free == -1) {
+              return HAS_ITEMS;
+            } else {
+              freeSlots.set(free, false);
+              compoundNBT.putInt(TAG_SLOT, free);
+            }
           }
         }
       }
@@ -63,15 +91,21 @@ public class InventoryModifier extends Modifier implements IInventoryModifier {
   }
 
   @Override
+  public ValidatedResult validate(IToolStackView tool, int level) {
+    return validateForMaxSlots(tool, level == 0 ? 0 : getSlots(tool, level));
+  }
+
+  @Override
   public void onRemoved(IToolStackView tool) {
-    tool.getPersistentData().remove(inventoryKey);
+    tool.getPersistentData().remove(getInventoryKey());
   }
 
   @Override
   public ItemStack getStack(IToolStackView tool, int level, int slot) {
     IModDataView modData = tool.getPersistentData();
-    if (slot < getSlots(tool, level) && modData.contains(inventoryKey, Tag.TAG_LIST)) {
-      ListTag list = tool.getPersistentData().get(inventoryKey, GET_COMPOUND_LIST);
+    ResourceLocation key = getInventoryKey();
+    if (slot < getSlots(tool, level) && modData.contains(key, Tag.TAG_LIST)) {
+      ListTag list = tool.getPersistentData().get(key, GET_COMPOUND_LIST);
       for (int i = 0; i < list.size(); i++) {
         CompoundTag compound = list.getCompound(i);
         if (compound.getInt(TAG_SLOT) == slot) {
@@ -88,8 +122,9 @@ public class InventoryModifier extends Modifier implements IInventoryModifier {
       ListTag list;
       ModDataNBT modData = tool.getPersistentData();
       // if the tag exists, fetch it
-      if (modData.contains(inventoryKey, Tag.TAG_LIST)) {
-        list = modData.get(inventoryKey, GET_COMPOUND_LIST);
+      ResourceLocation key = getInventoryKey();
+      if (modData.contains(key, Tag.TAG_LIST)) {
+        list = modData.get(key, GET_COMPOUND_LIST);
         // first, try to find an existing stack in the slot
         for (int i = 0; i < list.size(); i++) {
           CompoundTag compound = list.getCompound(i);
@@ -109,7 +144,7 @@ public class InventoryModifier extends Modifier implements IInventoryModifier {
         return;
       } else {
         list = new ListTag();
-        modData.put(inventoryKey, list);
+        modData.put(key, list);
       }
 
       // list did not contain the slot, so add it
