@@ -12,7 +12,7 @@ materials_2.subtext=这些材料并不那么常见，并且需要进行熔融和
 materials_3=三级材料
 materials_3.subtext=这些材料需要通过合金来获得。你可以用焦褐合金炉或冶炼炉进行合金。
 materials_4=四级材料
-materials_4.subtext=这些材料必须前往下界才能获得。
+materials_4.subtext=这些材料必须前往下界后才能获得。
 skull_materials=黏液头颅
 skull_materials.subtext=本章节介绍了所有类型的头颅制成的黏液头颅的效果。
 
