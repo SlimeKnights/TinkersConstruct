@@ -130,19 +130,11 @@
   },
   {
     "type": "tconstruct:modifier",
-    "data": "abilities/armor/pocket_chain.json"
-  },
-  {
-    "type": "tconstruct:modifier",
     "data": "abilities/armor/protection.json"
   },
   {
     "type": "tconstruct:modifier",
     "data": "abilities/armor/reach.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/armor/shield_strap.json"
   },
   {
     "type": "tconstruct:modifier",

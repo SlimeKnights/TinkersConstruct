@@ -25,6 +25,8 @@ import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import slimeknights.mantle.client.SafeClientAccess;
+import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.ISafeManagerReloadListener;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
@@ -172,8 +174,9 @@ public class ToolClientEvents extends ClientEventBase {
       // helmet interaction
       boolean isHelmetInteracting = HELMET_INTERACT.isDown();
       if (!wasHelmetInteracting && isHelmetInteracting) {
-        if (InteractionHandler.startArmorInteract(event.player, EquipmentSlot.HEAD)) {
-          TinkerNetwork.getInstance().sendToServer(TinkerControlPacket.START_HELMET_INTERACT);
+        TooltipKey key = SafeClientAccess.getTooltipKey();
+        if (InteractionHandler.startArmorInteract(event.player, EquipmentSlot.HEAD, key)) {
+          TinkerNetwork.getInstance().sendToServer(TinkerControlPacket.getStartHelmetInteract(key));
         }
       }
       if (wasHelmetInteracting && !isHelmetInteracting) {
@@ -185,8 +188,9 @@ public class ToolClientEvents extends ClientEventBase {
       // leggings interaction
       boolean isLeggingsInteract = LEGGINGS_INTERACT.isDown();
       if (!wasLeggingsInteracting && isLeggingsInteract) {
-        if (InteractionHandler.startArmorInteract(event.player, EquipmentSlot.LEGS)) {
-          TinkerNetwork.getInstance().sendToServer(TinkerControlPacket.START_LEGGINGS_INTERACT);
+        TooltipKey key = SafeClientAccess.getTooltipKey();
+        if (InteractionHandler.startArmorInteract(event.player, EquipmentSlot.LEGS, key)) {
+          TinkerNetwork.getInstance().sendToServer(TinkerControlPacket.getStartLeggingsInteract(key));
         }
       }
       if (wasLeggingsInteracting && !isLeggingsInteract) {

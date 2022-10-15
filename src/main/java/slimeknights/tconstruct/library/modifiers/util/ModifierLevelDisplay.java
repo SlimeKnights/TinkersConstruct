@@ -67,6 +67,22 @@ public interface ModifierLevelDisplay extends IHaveLoader<ModifierLevelDisplay> 
     }
   });
 
+  /** Displays level with pluses instead of numbers */
+  ModifierLevelDisplay PLUSES = singleton(loader -> new ModifierLevelDisplay() {
+    @Override
+    public Component nameForLevel(Modifier modifier, int level) {
+      if (level > 1) {
+        return modifier.applyStyle(new TranslatableComponent(modifier.getTranslationKey()).append("+".repeat(level - 1)));
+      }
+      return modifier.getDisplayName();
+    }
+
+    @Override
+    public IGenericLoader<? extends ModifierLevelDisplay> getLoader() {
+      return loader;
+    }
+  });
+
   /**
    * Name that is unique for the first several levels
    */

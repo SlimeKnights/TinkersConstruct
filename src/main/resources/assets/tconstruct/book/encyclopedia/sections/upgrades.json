@@ -181,15 +181,15 @@
   },
   {
     "type": "tconstruct:modifier",
-    "data": "upgrades/armor/pocket_chain.json"
-  },
-  {
-    "type": "tconstruct:modifier",
     "data": "upgrades/armor/respiration.json"
   },
   {
     "type": "tconstruct:modifier",
     "data": "upgrades/armor/ricochet.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/armor/shield_strap.json"
   },
   {
     "type": "tconstruct:modifier",

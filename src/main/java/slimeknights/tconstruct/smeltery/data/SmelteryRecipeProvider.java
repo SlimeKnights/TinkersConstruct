@@ -1566,6 +1566,11 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                       .addInput(Fluids.WATER, FluidAttributes.BUCKET_VOLUME / 20)
                       .addInput(Fluids.LAVA, FluidAttributes.BUCKET_VOLUME / 10)
                       .save(consumer, prefix(TinkerFluids.moltenObsidian, folder));
+    // nether obsidian recipe: when water is rare, use the soup
+    AlloyRecipeBuilder.alloy(TinkerFluids.moltenObsidian.get(), FluidValues.GLASS_BLOCK / 4)
+                      .addInput(TinkerFluids.mushroomStew.getForgeTag(), FluidValues.BOWL)
+                      .addInput(Fluids.LAVA, FluidAttributes.BUCKET_VOLUME / 4)
+                      .save(consumer, wrap(TinkerFluids.moltenObsidian, folder, "_from_soup"));
 
     // tier 4
 

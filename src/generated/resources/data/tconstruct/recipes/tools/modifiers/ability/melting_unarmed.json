@@ -5,7 +5,17 @@
       "item": "minecraft:blaze_rod"
     },
     {
-      "item": "tconstruct:seared_melter"
+      "ingredient": [
+        {
+          "item": "tconstruct:seared_melter"
+        },
+        {
+          "item": "tconstruct:smeltery_controller"
+        },
+        {
+          "item": "tconstruct:foundry_controller"
+        }
+      ]
     },
     {
       "item": "minecraft:blaze_rod"

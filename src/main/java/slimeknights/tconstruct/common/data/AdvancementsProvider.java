@@ -243,12 +243,12 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(ModifierIds.looting);
       withL.accept(TinkerModifiers.pathMaker);
       withL.accept(TinkerModifiers.plowing);
-      withL.accept(TinkerModifiers.pockets);
+      with.accept(ModifierIds.pockets);
       withL.accept(TinkerModifiers.shieldStrap);
       withL.accept(TinkerModifiers.slurping);
       withL.accept(TinkerModifiers.snowdrift);
       with.accept(ModifierIds.strength);
-      withL.accept(TinkerModifiers.toolBelt);
+      with.accept(ModifierIds.toolBelt);
       withL.accept(TinkerModifiers.unarmed);
       withL.accept(TinkerModifiers.zoom);
       // harvest

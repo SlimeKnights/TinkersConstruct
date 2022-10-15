@@ -50,8 +50,10 @@ public class ModifierIds {
   public static final ModifierId knockbackArmor = id("knockback_armor");
   public static final ModifierId strength = id("strength");
   // leggings
+  public static final ModifierId pockets = id("pockets");
   public static final ModifierId stepUp = id("step_up");
   public static final ModifierId speedy = id("speedy");
+  public static final ModifierId toolBelt = id("tool_belt");
 
   // internal
   public static final ModifierId overslimeFriend = id("overslime_friend");
