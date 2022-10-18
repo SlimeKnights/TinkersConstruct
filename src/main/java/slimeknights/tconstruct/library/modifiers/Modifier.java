@@ -48,6 +48,7 @@ import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
+import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -344,6 +345,19 @@ public class Modifier implements IHaveLoader<Modifier> {
       return getDescription();
     }
     return listToComponent(extendedDescription);
+  }
+
+
+  /* General hooks */
+
+  /**
+   * Gets the level scaled based on attributes of modifier data. Used mainly for incremental modifiers.
+   * @param tool  Tool context
+   * @param level  Modifier level
+   * @return  Modifier level, possibly adjusted by tool properties
+   */
+  public float getEffectiveLevel(IToolContext tool, int level) {
+    return level;
   }
 
 

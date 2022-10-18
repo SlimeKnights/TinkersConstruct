@@ -109,7 +109,7 @@ public final class MaterialRegistry {
    * @param packet  Materials packet
    */
   public static void updateMaterialsFromServer(UpdateMaterialsPacket packet) {
-    INSTANCE.materialManager.updateMaterialsFromServer(packet.getMaterials(), packet.getRedirects());
+    INSTANCE.materialManager.updateMaterialsFromServer(packet.getMaterials(), packet.getRedirects(), packet.getTags());
   }
 
   /**

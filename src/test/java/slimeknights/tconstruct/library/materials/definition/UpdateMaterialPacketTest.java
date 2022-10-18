@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.materials.definition;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
@@ -8,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.fixture.MaterialFixture;
 import slimeknights.tconstruct.test.BaseMcTest;
 
-import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -24,21 +23,21 @@ class UpdateMaterialPacketTest extends BaseMcTest {
   void testGenericEncodeDecode() {
     IMaterial material1 = new Material(MATERIAL_ID_1, 1, 2, true, false);
     IMaterial material2 = new Material(MATERIAL_ID_2, 3, 4, false, true);
-    Collection<IMaterial> materials = ImmutableList.of(material1, material2);
+    Map<MaterialId,IMaterial> materials = ImmutableMap.of(MATERIAL_ID_1, material1, MATERIAL_ID_2, material2);
     Map<MaterialId,MaterialId> redirects = ImmutableMap.of(REDIRECT_ID, MATERIAL_ID_1);
 
     // send a packet over the buffer
     FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
-    UpdateMaterialsPacket packetToEncode = new UpdateMaterialsPacket(materials, redirects);
+    UpdateMaterialsPacket packetToEncode = new UpdateMaterialsPacket(materials, redirects, Collections.emptyMap());
     packetToEncode.encode(buffer);
     UpdateMaterialsPacket decoded = new UpdateMaterialsPacket(buffer);
 
     // parse results
-    Collection<IMaterial> parsed = decoded.getMaterials();
+    Map<MaterialId,IMaterial> parsed = decoded.getMaterials();
     assertThat(parsed).hasSize(2);
 
     // material 1
-    Iterator<IMaterial> iterator = parsed.iterator();
+    Iterator<IMaterial> iterator = parsed.values().iterator();
     IMaterial parsedMat = iterator.next();
     assertThat(parsedMat.getIdentifier()).isEqualTo(MATERIAL_ID_1);
     assertThat(parsedMat.getTier()).isEqualTo(1);

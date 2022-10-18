@@ -52,6 +52,7 @@ public class Config {
     public final ConfigValue<Integer> veinCountCobalt;
 
     // overworld
+    public final BooleanValue forceGeodeRecipes;
     public final BooleanValue earthGeodes;
     public final BooleanValue skyGeodes;
     public final BooleanValue ichorGeodes;
@@ -221,6 +222,9 @@ public class Config {
           .define("veinCountCobalt", 8);
 
         builder.comment("Options related to slime geodes").push("geodes");
+        this.forceGeodeRecipes = builder
+          .comment("If true, recipes using slime crystals will ignore the other geode configs, useful if you add other ways to get the slime crystals. When false (default), recipes using slime crystals will be substituted for an alternative if the geode is disabled.")
+          .define("forceRecipes", false);
         this.earthGeodes = builder
           .comment("If true, earthslime geodes generate deep in the world as another way to get slime")
             .define("earth", true);

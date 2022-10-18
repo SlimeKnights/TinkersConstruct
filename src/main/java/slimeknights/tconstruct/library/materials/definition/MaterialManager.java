@@ -24,7 +24,7 @@ import slimeknights.tconstruct.library.json.ConditionSerializer;
 import slimeknights.tconstruct.library.json.JsonRedirect;
 import slimeknights.tconstruct.library.materials.json.MaterialJson;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.utils.JsonUtils;
+import slimeknights.tconstruct.library.utils.GenericTagUtil;
 import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nullable;
@@ -38,7 +38,6 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNullElse;
@@ -167,17 +166,12 @@ public class MaterialManager extends SimpleJsonResourceReloadListener {
 
   /**
    * Updates the material list from the server.list. Should only be called client side
-   * @param materialList  Server material list
-   * @param redirects     Map of material redirects
    */
-  public void updateMaterialsFromServer(Collection<IMaterial> materialList, Map<MaterialId,MaterialId> redirects) {
-    this.materials = materialList.stream()
-      .filter(Objects::nonNull)
-      .collect(Collectors.toMap(
-        IMaterial::getIdentifier,
-        Function.identity())
-      );
+  public void updateMaterialsFromServer(Map<MaterialId,IMaterial> materials, Map<MaterialId,MaterialId> redirects, Map<ResourceLocation,Tag<IMaterial>> tags) {
+    this.materials = materials;
     this.redirects = redirects;
+    this.tags = tags;
+    this.reverseTags = GenericTagUtil.reverseTags(REGISTRY_KEY, IMaterial::getIdentifier, tags);
     onMaterialUpdate();
   }
 
@@ -214,7 +208,7 @@ public class MaterialManager extends SimpleJsonResourceReloadListener {
     // load modifier tags
     TagLoader<IMaterial> tagLoader = new TagLoader<>(id -> getMaterial(new MaterialId(id)), TAG_FOLDER);
     this.tags = tagLoader.loadAndBuild(resourceManagerIn);
-    this.reverseTags = JsonUtils.reverseTags(REGISTRY_KEY, IMaterial::getIdentifier, tags);
+    this.reverseTags = GenericTagUtil.reverseTags(REGISTRY_KEY, IMaterial::getIdentifier, tags);
     log.info("Loaded {} material tags for {} materials in {} ms", tags.size(), reverseTags.size(), (System.nanoTime() - timeStep) / 1000000f);
   }
 
@@ -223,7 +217,7 @@ public class MaterialManager extends SimpleJsonResourceReloadListener {
    * @return  Packet object
    */
   public UpdateMaterialsPacket getUpdatePacket() {
-    return new UpdateMaterialsPacket(materials.values(), redirects);
+    return new UpdateMaterialsPacket(materials, redirects, tags);
   }
 
   @Nullable

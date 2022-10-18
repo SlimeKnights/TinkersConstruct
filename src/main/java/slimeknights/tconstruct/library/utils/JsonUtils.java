@@ -1,17 +1,11 @@
 package slimeknights.tconstruct.library.utils;
 
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.ImmutableSet.Builder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.tags.Tag;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -21,13 +15,7 @@ import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 
 import javax.annotation.Nullable;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /** Helpers for a few JSON related tasks */
 public class JsonUtils {
@@ -117,19 +105,5 @@ public class JsonUtils {
   /** Creates a JSON object with the given type set, makes using {@link slimeknights.mantle.data.GenericRegisteredSerializer} eaiser */
   public static JsonObject withType(ResourceLocation type) {
     return withLocation("type", type);
-  }
-
-  /** Creates a map of reverse tags for the given map of tags */
-  public static <T, I extends ResourceLocation> Map<I,Set<TagKey<T>>> reverseTags(ResourceKey<? extends Registry<T>> registry, Function<T,I> keyMapper, Map<ResourceLocation, Tag<T>> tags) {
-    Map<I,ImmutableSet.Builder<TagKey<T>>> reverseTags = new HashMap<>();
-    Function<I, Builder<TagKey<T>>> makeSet = id -> ImmutableSet.builder();
-    for (Entry<ResourceLocation,Tag<T>> entry : tags.entrySet()) {
-      TagKey<T> key = TagKey.create(registry, entry.getKey());
-      for (T value : entry.getValue().getValues()) {
-        reverseTags.computeIfAbsent(keyMapper.apply(value), makeSet).add(key);
-      }
-    }
-    return reverseTags.entrySet().stream()
-                      .collect(Collectors.toMap(Entry::getKey, entry->entry.getValue().build()));
   }
 }
