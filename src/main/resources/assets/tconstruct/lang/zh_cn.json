@@ -817,6 +817,7 @@
   "block.tconstruct.scorched_anvil": "工匠砧",
 
   "block.tconstruct.part_builder": "部件制造台",
+  "block.tconstruct.modifier_worktable": "Modifier Worktable",
 
   "block.tconstruct.part_chest": "部件箱",
   "block.tconstruct.part_chest.tooltip": "可容纳256个不同的工具部件",
@@ -2419,7 +2420,19 @@
   "recipe.tconstruct.tool_repair.fully_repaired": "工具完好无损",
   "recipe.tconstruct.damaging.broken": "工具已损坏",
   "recipe.tconstruct.overslime.at_capacity": "工具已无更多空间来容纳黏液覆层",
+  
+  "gui.tconstruct.modifier_worktable": "Modifier Worktable",
+  "gui.tconstruct.modifier_worktable.title": "Modifier Tuning",
+  "gui.tconstruct.modifier_worktable.info": "Add a tool and the proper items to tune the tool's modifiers",
+
+  "recipe.tconstruct.remove_modifier.title": "Remove Modifiers",
+  "recipe.tconstruct.remove_modifier.description": "Select a modifier to remove, slots will be returned but any item cost is lost. Sponge will be dried upon removing a modifier.",
   "recipe.tconstruct.remove_modifier.no_modifiers": "工具不具有任何可移除强化",
+
+  "recipe.tconstruct.modifier_sorting.title": "Sort Modifiers",
+  "recipe.tconstruct.modifier_sorting.description": "Select a modifier to swap its location with the next modifier in the list. Does not consume items to swap.",
+  "recipe.tconstruct.modifier_sorting.not_enough_modifiers": "Tool needs at least two modifiers to sort",
+
 
   "recipe.tconstruct.part_swapping.too_many_parts": "该工具无法在此切换部件",
 
@@ -2577,7 +2590,9 @@
   "jei.tconstruct.part_builder.title": "部件制造台",
   "jei.tconstruct.part_builder.cost": "花费：%s",
 
+  "jei.tconstruct.modifier_worktable.title": "Modifier Worktable",
 
+  
   "_comment": "Tool Advancements",
   "advancements.tconstruct.tools.materials_and_you.title": "工匠练手",
   "advancements.tconstruct.tools.materials_and_you.description": "制作一本《材料与你》，它将为你打开匠魂的大门",
