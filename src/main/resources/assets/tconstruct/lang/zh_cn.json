@@ -1108,9 +1108,9 @@
   "block.tconstruct.scorched_faucet": "焦褐浇注口",
   "block.tconstruct.scorched_faucet.tooltip": "从熔铸炉或储罐中输出流体",
   "block.tconstruct.scorched_basin": "焦褐铸造盆",
-  "block.tconstruct.scorched_basin.tooltip": "利用熔铸炉中的熔融材料铸造物品",
+  "block.tconstruct.scorched_basin.tooltip": "利用熔铸炉中的熔融材料铸造物品，在铸造时需要一个铸模或是平台以成型",
   "block.tconstruct.scorched_table": "焦褐铸件台",
-  "block.tconstruct.scorched_table.tooltip": "利用熔铸炉中的熔融材料铸造物品",
+  "block.tconstruct.scorched_table.tooltip": "利用熔铸炉中的熔融材料铸造物品，在铸造时需要一个铸模或是平台以成型",
 
   "block.tconstruct.scorched_channel": "焦褐浇注道",
   "block.tconstruct.scorched_channel.tooltip": "将上方浇注口中流下的流体进行分流。",
