@@ -108,6 +108,7 @@
     "tconstruct:foundry_controller",
     "tconstruct:cast_chest",
     "tconstruct:tinkers_anvil",
-    "tconstruct:scorched_anvil"
+    "tconstruct:scorched_anvil",
+    "tconstruct:modifier_worktable"
   ]
 }

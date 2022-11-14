@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:modifier_sorting",
+  "inputs": [
+    {
+      "item": "minecraft:compass"
+    }
+  ]
+}

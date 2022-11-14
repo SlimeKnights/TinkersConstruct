@@ -138,6 +138,19 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                        .unlockedBy("has_item", has(TinkerTags.Items.GOLD_CASTS))
                        .save(consumer, prefix(TinkerTables.castChest, folder));
 
+    // modifier worktable
+    ShapedRetexturedRecipeBuilder.fromShaped(
+                                   ShapedRecipeBuilder.shaped(TinkerTables.modifierWorktable)
+                                                      .define('r', TinkerTags.Items.WORKSTATION_ROCK)
+                                                      .define('s', TinkerTags.Items.SEARED_BLOCKS)
+                                                      .pattern("sss")
+                                                      .pattern("r r")
+                                                      .pattern("r r")
+                                                      .unlockedBy("has_item", has(TinkerTags.Items.SEARED_BLOCKS)))
+                                 .setSource(TinkerTags.Items.WORKSTATION_ROCK)
+                                 .setMatchAll()
+                                 .build(consumer, prefix(TinkerTables.modifierWorktable, folder));
+
     // tinker anvil
     ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shaped(TinkerTables.tinkersAnvil)

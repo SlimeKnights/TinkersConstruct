@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
  * NBT object containing all current modifiers
  */
 @EqualsAndHashCode
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+@RequiredArgsConstructor
 public class ModifierNBT {
   public static final String TAG_MODIFIER = "name";
   public static final String TAG_LEVEL = "level";

@@ -56,6 +56,8 @@ public class TinkerTags {
     /** Materials that can be used to craft wooden tool tables */
     public static final TagKey<Block> PLANKLIKE = tag("planklike");
     /** Metals that can be used to craft the anvil */
+    public static final TagKey<Block> WORKSTATION_ROCK = tag("workstation_rock");
+    /** Metals that can be used to craft the anvil */
     public static final TagKey<Block> ANVIL_METAL = tag("anvil_metal");
 
     /** Things the platform connects to */
@@ -186,6 +188,8 @@ public class TinkerTags {
 
     /** Materials that can be used to craft wooden tool tables */
     public static final TagKey<Item> PLANKLIKE = tag("planklike");
+    /** Metals that can be used to craft the anvil */
+    public static final TagKey<Item> WORKSTATION_ROCK = tag("workstation_rock");
     /** Metals that can be used to craft the anvil */
     public static final TagKey<Item> ANVIL_METAL = tag("anvil_metal");
     /** Copper platform variants */

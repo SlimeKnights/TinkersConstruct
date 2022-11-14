@@ -1,35 +1,54 @@
-package slimeknights.tconstruct.library.recipe.tinkerstation;
+package slimeknights.tconstruct.library.recipe;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.world.item.ItemStack;
+
+import javax.annotation.Nullable;
 
 /**
- * This class represents the result of a tinker station recipe, which is one of:
+ * This class represents the result of a recipe, which is one of:
  * <ul>
- *   <li>Success: returns an item stack result</li>
+ *   <li>Success: returns the generic result</li>
  *   <li>Failure: error state displaying an error message</li>
  *   <li>Pass: acts like a non-recipe match</li>
  * </ul>
- * TODO: in 1.19, replace with {@link slimeknights.tconstruct.library.recipe.RecipeResult}
  */
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public class ValidatedResult {
+public class RecipeResult<T> {
+  /** Single pass instance */
+  @SuppressWarnings("rawtypes")
+  private static final RecipeResult<?> PASS = new RecipeResult(false);
+
   /**
    * Result for when this recipe is not craftable, but has no message to display
    */
-  public static final ValidatedResult PASS = new ValidatedResult(false);
+  @SuppressWarnings("unchecked")
+  public static <T> RecipeResult<T> pass() {
+    return (RecipeResult<T>)PASS;
+  }
 
   /**
    * Result containing the item result
-   * @param result  Item result of this recipe
+   * @param result  Result of this recipe
+   * @return  Validation result with the given item, or pass if null
+   */
+  public static <T> RecipeResult<T> success(@Nullable T result) {
+    if (result == null) {
+      return pass();
+    }
+    return new Success<>(result);
+  }
+
+  /**
+   * Result for when this recipe is not craftable and has an error message
+   * @param component  Error message
    * @return  Validation result with the given message
    */
-  public static ValidatedResult success(ItemStack result) {
-    return new ValidatedResult.Success(result);
+  public static <T> RecipeResult<T> failure(Component component) {
+    return new Failure<>(component);
   }
 
   /**
@@ -38,8 +57,8 @@ public class ValidatedResult {
    * @param params          Arguments to format into the translation key
    * @return  Validation result with the given message
    */
-  public static ValidatedResult failure(String translationKey, Object... params) {
-    return new ValidatedResult.Failure(translationKey, params);
+  public static <T> RecipeResult<T> failure(String translationKey, Object... params) {
+    return failure(new TranslatableComponent(translationKey, params));
   }
 
   /** If true, this recipe passed and can be crafted for the given input */
@@ -47,11 +66,11 @@ public class ValidatedResult {
   private final boolean success;
 
   /**
-   * Gets the item result
-   * @return  Item result
+   * Gets the result, throws if unavailable
+   * @return  Result
    */
-  public ItemStack getResult() {
-    return ItemStack.EMPTY;
+  public T getResult() {
+    throw new UnsupportedOperationException("Cannot get result on failure");
   }
 
   /**
@@ -72,24 +91,24 @@ public class ValidatedResult {
   }
 
   /** Class for success, which has an item stack */
-  private static class Success extends ValidatedResult {
+  private static class Success<T> extends RecipeResult<T> {
     @Getter
-    private final ItemStack result;
+    private final T result;
 
-    private Success(ItemStack result) {
+    private Success(T result) {
       super(true);
       this.result = result;
     }
   }
 
   /** Class for failure, which has a message */
-  private static class Failure extends ValidatedResult {
+  private static class Failure<T> extends RecipeResult<T> {
     @Getter
     private final Component message;
 
-    private Failure(String translationKey, Object[] params) {
+    private Failure(Component message) {
       super(false);
-      this.message = new TranslatableComponent(translationKey, params);
+      this.message = message;
     }
 
     @Override

@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.recipe.modifiers.adding;
 
 import com.google.common.collect.ImmutableList;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import net.minecraft.network.FriendlyByteBuf;
@@ -11,13 +10,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;
+import slimeknights.tconstruct.library.recipe.ITinkerableContainer;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
@@ -26,6 +25,7 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.utils.JsonUtils;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
@@ -208,7 +208,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
    * @param ingredient  Ingredient to try
    * @return  True if the inventory contains just this item
    */
-  public static boolean containsOnlyIngredient(ITinkerStationContainer inv, Ingredient ingredient) {
+  public static boolean containsOnlyIngredient(ITinkerableContainer inv, Ingredient ingredient) {
     boolean found = false;
     for (int i = 0; i < inv.getInputCount(); i++) {
       ItemStack stack = inv.getInput(i);
@@ -277,20 +277,10 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
     }
   }
 
-  /**
-   * Reads the result from the given JSON
-   * @param parent  Parent JSON
-   * @param name    Tag name
-   * @return  Item stack result
-   * @throws com.google.gson.JsonSyntaxException If the syntax is invalid
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.utils.JsonUtils#getAsItemStack(JsonObject, String)} */
+  @Deprecated
   public static ItemStack deseralizeResultItem(JsonObject parent, String name) {
-    JsonElement element = JsonHelper.getElement(parent, name);
-    if (element.isJsonPrimitive()) {
-      return new ItemStack(GsonHelper.convertToItem(element, name));
-    } else {
-      return CraftingHelper.getItemStack(GsonHelper.convertToJsonObject(element, name), true);
-    }
+    return JsonUtils.getAsItemStack(parent, name);
   }
 
   public static class Serializer extends AbstractModifierRecipe.Serializer<IncrementalModifierRecipe> {

@@ -15,6 +15,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.IDisplayPartBuilderRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
+import slimeknights.tconstruct.library.recipe.worktable.IModifierWorktableRecipe;
 
 public class TConstructJEIConstants {
   public static final ResourceLocation PLUGIN = TConstruct.getResource("jei_plugin");
@@ -42,6 +43,9 @@ public class TConstructJEIConstants {
 
   // part builder
   public static final RecipeType<IDisplayPartBuilderRecipe> PART_BUILDER = type("part_builder", IDisplayPartBuilderRecipe.class);
+
+  // modifier workstation
+  public static final RecipeType<IModifierWorktableRecipe> MODIFIER_WORKTABLE = type("modifier_worktable", IModifierWorktableRecipe.class);
 
   private static <T> RecipeType<T> type(String name, Class<T> clazz) {
     return RecipeType.create(TConstruct.MOD_ID, name, clazz);

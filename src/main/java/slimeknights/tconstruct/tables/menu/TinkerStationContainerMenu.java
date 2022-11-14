@@ -2,19 +2,16 @@ package slimeknights.tconstruct.tables.menu;
 
 import lombok.Getter;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import slimeknights.tconstruct.library.tools.layout.LayoutSlot;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayout;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.block.entity.table.TinkerStationBlockEntity;
+import slimeknights.tconstruct.tables.menu.slot.ArmorSlot;
 import slimeknights.tconstruct.tables.menu.slot.LazyResultSlot;
 import slimeknights.tconstruct.tables.menu.slot.TinkerStationSlot;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
@@ -26,13 +23,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class TinkerStationContainerMenu extends TabbedContainerMenu<TinkerStationBlockEntity> {
-  private static final ResourceLocation[] ARMOR_SLOT_BACKGROUNDS = new ResourceLocation[] {
-    InventoryMenu.EMPTY_ARMOR_SLOT_BOOTS,
-    InventoryMenu.EMPTY_ARMOR_SLOT_LEGGINGS,
-    InventoryMenu.EMPTY_ARMOR_SLOT_CHESTPLATE,
-    InventoryMenu.EMPTY_ARMOR_SLOT_HELMET
-  };
-
   @Getter
   private final List<Slot> inputSlots;
   private final LazyResultSlot resultSlot;
@@ -54,8 +44,7 @@ public class TinkerStationContainerMenu extends TabbedContainerMenu<TinkerStatio
       inputSlots = new ArrayList<>();
       inputSlots.add(this.addSlot(new TinkerStationSlot(tile, TinkerStationBlockEntity.TINKER_SLOT, 0, 0)));
 
-      int index;
-      for (index = 0; index < tile.getContainerSize() - 1; index++) {
+      for (int index = 0; index < tile.getContainerSize() - 1; index++) {
         inputSlots.add(this.addSlot(new TinkerStationSlot(tile, index + TinkerStationBlockEntity.INPUT_SLOT, 0, 0)));
       }
 
@@ -126,30 +115,4 @@ public class TinkerStationContainerMenu extends TabbedContainerMenu<TinkerStatio
     return this.resultSlot.getItem();
   }
 
-  private static class ArmorSlot extends Slot {
-    private final Player player;
-    private final EquipmentSlot slotType;
-    public ArmorSlot(Inventory inv, EquipmentSlot slotType, int xPosition, int yPosition) {
-      super(inv, 36 + slotType.getIndex(), xPosition, yPosition);
-      this.player = inv.player;
-      this.slotType = slotType;
-      setBackground(InventoryMenu.BLOCK_ATLAS, ARMOR_SLOT_BACKGROUNDS[slotType.getIndex()]);
-    }
-
-    @Override
-    public int getMaxStackSize() {
-      return 1;
-    }
-
-    @Override
-    public boolean mayPlace(ItemStack stack) {
-      return stack.canEquip(slotType, player);
-    }
-
-    @Override
-    public boolean mayPickup(Player player) {
-      ItemStack stack = this.getItem();
-      return stack.isEmpty() || player.isCreative() || !EnchantmentHelper.hasBindingCurse(stack);
-    }
-  }
 }

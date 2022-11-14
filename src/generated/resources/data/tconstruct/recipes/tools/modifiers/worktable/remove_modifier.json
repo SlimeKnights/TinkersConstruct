@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:remove_modifier",
+  "inputs": [
+    {
+      "item": "minecraft:wet_sponge"
+    }
+  ],
+  "leftovers": [
+    "minecraft:sponge"
+  ]
+}

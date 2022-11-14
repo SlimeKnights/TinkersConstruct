@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:normal_stone",
+    "#forge:blackstone",
+    "#forge:granite",
+    "#forge:diorite",
+    "#forge:andesite",
+    "#forge:deepslate",
+    "#forge:basalt"
+  ]
+}

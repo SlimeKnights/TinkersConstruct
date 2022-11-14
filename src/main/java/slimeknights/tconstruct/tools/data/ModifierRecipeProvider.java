@@ -59,6 +59,7 @@ import slimeknights.tconstruct.tools.data.material.MaterialIds;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
 import slimeknights.tconstruct.tools.recipe.ArmorDyeingRecipe;
 import slimeknights.tconstruct.tools.recipe.ModifierRemovalRecipe;
+import slimeknights.tconstruct.tools.recipe.ModifierSortingRecipe;
 import slimeknights.tconstruct.world.TinkerHeadType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
@@ -164,6 +165,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     String defenseSalvage = "tools/modifiers/salvage/defense/";
     String compatFolder = "tools/modifiers/compat/";
     String compatSalvage = "tools/modifiers/salvage/compat/";
+    String worktableFolder = "tools/modifiers/worktable/";
 
     /*
      * durability
@@ -1189,8 +1191,13 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
 
     // removal
     // temporary removal recipe until a proper table is added
-    ModifierRemovalRecipe.Builder.removal(Ingredient.of(Blocks.WET_SPONGE), new ItemStack(Blocks.SPONGE))
-                                 .save(consumer, modResource(slotlessFolder + "remove_modifier"));
+    ModifierRemovalRecipe.Builder.removal()
+                                 .addInput(Blocks.WET_SPONGE)
+                                 .addLeftover(Blocks.SPONGE)
+                                 .save(consumer, modResource(worktableFolder + "remove_modifier"));
+    ModifierSortingRecipe.Builder.sorting()
+                                 .addInput(Items.COMPASS)
+                                 .save(consumer, modResource(worktableFolder + "modifier_sorting"));
 
     // compatability
     String theOneProbe = "theoneprobe";

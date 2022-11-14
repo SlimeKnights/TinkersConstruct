@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.recipe.modifiers.adding;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -17,10 +16,10 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
+import slimeknights.tconstruct.library.utils.JsonUtils;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
-import java.util.Objects;
 import java.util.function.Consumer;
 
 /** Recipe that supports not just adding multiple of an item, but also adding a partial amount */
@@ -137,26 +136,10 @@ public class IncrementalModifierRecipeBuilder extends AbstractModifierRecipeBuil
     return this;
   }
 
-  /**
-   * Serializes the given result to JSON
-   * @param result  Result
-   * @return  JSON element
-   */
+  /** @deprecated use {@link JsonUtils#serializeItemStack(ItemStack)} */
+  @Deprecated
   public static JsonElement serializeResult(ItemStack result) {
-    // if the item has NBT, write both, else write just the name
-    String itemName = Objects.requireNonNull(result.getItem().getRegistryName()).toString();
-    if (result.hasTag()) {
-      JsonObject jsonResult = new JsonObject();
-      jsonResult.addProperty("item", itemName);
-      int count = result.getCount();
-      if (count > 1) {
-        jsonResult.addProperty("count", count);
-      }
-      jsonResult.addProperty("nbt", Objects.requireNonNull(result.getTag()).toString());
-      return jsonResult;
-    } else {
-      return new JsonPrimitive(itemName);
-    }
+    return JsonUtils.serializeItemStack(result);
   }
 
   private class FinishedAdding extends ModifierFinishedRecipe {
