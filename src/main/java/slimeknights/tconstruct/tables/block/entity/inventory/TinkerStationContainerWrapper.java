@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tables.block.entity.inventory;
 
+import lombok.Setter;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -7,6 +8,7 @@ import slimeknights.mantle.recipe.container.ISingleStackContainer;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tables.block.entity.table.TinkerStationBlockEntity;
 
 import javax.annotation.Nullable;
@@ -22,8 +24,12 @@ public class TinkerStationContainerWrapper implements IMutableTinkerStationConta
   /** Cache of whether each slot has been searched for a material */
   private boolean[] searchedMaterial;
 
-  private MaterialRecipe lastMaterialRecipe;
+  /** Cached tool instance to save lookup effort */
   @Nullable
+  private ToolStack tool;
+
+  private MaterialRecipe lastMaterialRecipe;
+  @Nullable @Setter
   private Player player;
 
   /**
@@ -68,7 +74,9 @@ public class TinkerStationContainerWrapper implements IMutableTinkerStationConta
    * Clears the cached inputs
    */
   public void refreshInput(int slot) {
-    if (slot >= INPUT_SLOT && slot < station.getInputCount() + INPUT_SLOT) {
+    if (slot == TINKER_SLOT) {
+      tool = null;
+    } else if (slot >= INPUT_SLOT && slot < station.getInputCount() + INPUT_SLOT) {
       this.materials[slot - 1] = null;
       this.searchedMaterial[slot - 1] = false;
     }
@@ -86,6 +94,14 @@ public class TinkerStationContainerWrapper implements IMutableTinkerStationConta
   @Override
   public ItemStack getTinkerableStack() {
     return this.station.getItem(TINKER_SLOT);
+  }
+
+  @Override
+  public ToolStack getTinkerable() {
+    if (tool == null) {
+      tool = ToolStack.from(getTinkerableStack());
+    }
+    return tool;
   }
 
   @Override
@@ -126,13 +142,5 @@ public class TinkerStationContainerWrapper implements IMutableTinkerStationConta
     if (player != null) {
       player.getInventory().placeItemBackInInventory(stack);
     }
-  }
-
-  /**
-   * Updates the current player of this inventory
-   * @param player  Player
-   */
-  public void setPlayer(@Nullable Player player) {
-    this.player = player;
   }
 }

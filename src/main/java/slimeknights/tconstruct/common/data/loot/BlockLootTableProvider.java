@@ -136,6 +136,7 @@ public class BlockLootTableProvider extends BlockLoot {
     this.add(TinkerTables.partBuilder.get(), addTable);
     this.add(TinkerTables.tinkerStation.get(), addTable);
     this.add(TinkerTables.tinkersAnvil.get(), addTable);
+    this.add(TinkerTables.modifierWorktable.get(), addTable);
     this.add(TinkerTables.scorchedAnvil.get(), addTable);
   }
 

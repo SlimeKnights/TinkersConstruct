@@ -422,6 +422,7 @@ public class Modifier implements IHaveLoader<Modifier> {
   /**
    * Called when modifiers or tool materials change to validate the tool. You are free to modify persistent data in this hook if needed.
    * Do not validate max level here, simply ignore levels over max if needed.
+   * TODO: in 1.19 switch return type to component
    * <br>
    * Alternatives:
    * <ul>

@@ -102,6 +102,9 @@ public class BlockTagProvider extends BlockTagsProvider {
     this.tag(BlockTags.SOUL_SPEED_BLOCKS).add(TinkerCommons.soulGlass.get(), TinkerCommons.soulGlassPane.get());
     this.tag(BlockTags.SOUL_FIRE_BASE_BLOCKS).add(TinkerCommons.soulGlass.get());
 
+    this.tag(TinkerTags.Blocks.WORKSTATION_ROCK)
+      .addTags(TinkerTags.Blocks.STONE, TinkerTags.Blocks.BLACKSTONE, TinkerTags.Blocks.GRANITE, TinkerTags.Blocks.DIORITE, TinkerTags.Blocks.ANDESITE, TinkerTags.Blocks.DEEPSLATE, TinkerTags.Blocks.BASALT);
+
     TagsProvider.TagAppender<Block> builder = this.tag(TinkerTags.Blocks.ANVIL_METAL)
         // tier 3
         .addTag(TinkerMaterials.slimesteel.getBlockTag())
@@ -402,6 +405,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 
     // tables
     tagBlocks(MINEABLE_WITH_AXE, TinkerTables.craftingStation, TinkerTables.tinkerStation, TinkerTables.partBuilder, TinkerTables.tinkersChest, TinkerTables.partChest);
+    tagBlocks(MINEABLE_WITH_PICKAXE, TinkerTables.modifierWorktable);
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_STONE_TOOL, TinkerTables.castChest);
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_IRON_TOOL, TinkerTables.tinkersAnvil, TinkerTables.scorchedAnvil);
 

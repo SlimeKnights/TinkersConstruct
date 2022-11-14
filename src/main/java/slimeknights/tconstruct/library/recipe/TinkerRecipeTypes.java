@@ -17,6 +17,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.IPartBuilderRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
+import slimeknights.tconstruct.library.recipe.worktable.IModifierWorktableRecipe;
 
 /**
  * Class containing all of Tinkers Construct recipe types
@@ -28,6 +29,7 @@ public class TinkerRecipeTypes {
   public static final RegistryObject<RecipeType<IPartBuilderRecipe>> PART_BUILDER = register("part_builder");
   public static final RegistryObject<RecipeType<MaterialRecipe>> MATERIAL = register("material");
   public static final RegistryObject<RecipeType<ITinkerStationRecipe>> TINKER_STATION = register("tinker_station");
+  public static final RegistryObject<RecipeType<IModifierWorktableRecipe>> MODIFIER_WORKTABLE = register("modifier_worktable");
 
   // casting
   public static final RegistryObject<RecipeType<ICastingRecipe>> CASTING_BASIN = register("casting_basin");

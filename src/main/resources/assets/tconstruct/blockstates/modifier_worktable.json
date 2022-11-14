@@ -1,0 +1,19 @@
+{
+    "variants": {
+        "facing=north": {
+            "model": "tconstruct:block/table/modifier_worktable"
+        },
+        "facing=south": {
+            "model": "tconstruct:block/table/modifier_worktable",
+            "y": 180
+        },
+        "facing=west": {
+            "model": "tconstruct:block/table/modifier_worktable",
+            "y": 270
+        },
+        "facing=east": {
+            "model": "tconstruct:block/table/modifier_worktable",
+            "y": 90
+        }
+    }
+}

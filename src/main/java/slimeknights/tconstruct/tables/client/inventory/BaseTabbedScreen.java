@@ -13,7 +13,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.client.Icons;
+import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.tables.client.inventory.module.SideInventoryScreen;
 import slimeknights.tconstruct.tables.client.inventory.widget.TinkerTabsWidget;
 import slimeknights.tconstruct.tables.menu.TabbedContainerMenu;
@@ -60,6 +62,12 @@ public class BaseTabbedScreen<TILE extends BlockEntity, CONTAINER extends Tabbed
     }
 
     this.drawIcon(matrices, slot, element);
+  }
+
+  protected void drawIconEmpty(PoseStack matrices, Slot slot, Pattern pattern) {
+    if (!slot.hasItem()) {
+      GuiUtil.renderPattern(matrices, pattern, slot.x + this.cornerX, slot.y + this.cornerY);
+    }
   }
 
   public void error(Component message) {

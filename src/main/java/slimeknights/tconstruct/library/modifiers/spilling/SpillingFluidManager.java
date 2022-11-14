@@ -19,9 +19,9 @@ import net.minecraftforge.common.crafting.conditions.ICondition.IContext;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
+import slimeknights.mantle.data.ConditionSerializer;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.library.json.ConditionSerializer;
 import slimeknights.tconstruct.library.utils.JsonUtils;
 
 import javax.annotation.Nullable;

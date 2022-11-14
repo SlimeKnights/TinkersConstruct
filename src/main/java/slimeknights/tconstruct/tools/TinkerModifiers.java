@@ -189,6 +189,7 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.melee.SweepingEdgeModifi
 import slimeknights.tconstruct.tools.recipe.ArmorDyeingRecipe;
 import slimeknights.tconstruct.tools.recipe.CreativeSlotRecipe;
 import slimeknights.tconstruct.tools.recipe.ModifierRemovalRecipe;
+import slimeknights.tconstruct.tools.recipe.ModifierSortingRecipe;
 import slimeknights.tconstruct.tools.recipe.severing.MooshroomDemushroomingRecipe;
 import slimeknights.tconstruct.tools.recipe.severing.PlayerBeheadingRecipe;
 import slimeknights.tconstruct.tools.recipe.severing.SheepShearingRecipe;
@@ -431,6 +432,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<SwappableModifierRecipe.Serializer> swappableModifierSerializer = RECIPE_SERIALIZERS.register("swappable_modifier", SwappableModifierRecipe.Serializer::new);
   public static final RegistryObject<OverslimeModifierRecipe.Serializer> overslimeSerializer = RECIPE_SERIALIZERS.register("overslime_modifier", OverslimeModifierRecipe.Serializer::new);
   public static final RegistryObject<ModifierRemovalRecipe.Serializer> removeModifierSerializer = RECIPE_SERIALIZERS.register("remove_modifier", ModifierRemovalRecipe.Serializer::new);
+  public static final RegistryObject<ModifierSortingRecipe.Serializer> modifierSortingSerializer = RECIPE_SERIALIZERS.register("modifier_sorting", ModifierSortingRecipe.Serializer::new);
   public static final RegistryObject<ModifierSalvage.Serializer> modifierSalvageSerializer = RECIPE_SERIALIZERS.register("modifier_salvage", ModifierSalvage.Serializer::new);
   public static final RegistryObject<ArmorDyeingRecipe.Serializer> armorDyeingSerializer = RECIPE_SERIALIZERS.register("armor_dyeing_modifier", ArmorDyeingRecipe.Serializer::new);
   public static final RegistryObject<SimpleRecipeSerializer<CreativeSlotRecipe>> creativeSlotSerializer = RECIPE_SERIALIZERS.register("creative_slot_modifier", () -> new SimpleRecipeSerializer<>(CreativeSlotRecipe::new));
