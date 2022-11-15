@@ -42,7 +42,6 @@ public interface IModifierWorktableRecipe extends ICommonRecipe<ITinkerableConta
   /**
    * Gets a list of modifier buttons for the given input. May be empty.
    * It will not be automatically sorted, you must ensure the order is consistent on both client and server.
-   * In JEI, return empty to represent any modifier.
    * @param inv  Recipe inventory, null when fetching in JEI
    */
   List<ModifierEntry> getModifierOptions(@Nullable ITinkerableContainer inv);

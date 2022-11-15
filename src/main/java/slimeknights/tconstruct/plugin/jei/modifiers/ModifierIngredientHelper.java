@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.plugin.jei.modifiers;
 
-import lombok.Getter;
-import lombok.Setter;
 import mezz.jei.api.ingredients.IIngredientHelper;
 import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.ingredients.subtypes.UidContext;
@@ -10,13 +8,8 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
 
 import javax.annotation.Nullable;
-import java.util.Collections;
-import java.util.List;
 
 public class ModifierIngredientHelper implements IIngredientHelper<ModifierEntry> {
-  @Setter @Getter
-  private static List<ModifierEntry> allModifiers = Collections.emptyList();
-
   @Override
   public IIngredientType<ModifierEntry> getIngredientType() {
     return TConstructJEIConstants.MODIFIER_TYPE;

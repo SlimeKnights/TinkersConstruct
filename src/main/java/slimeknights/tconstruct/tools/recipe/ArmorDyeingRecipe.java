@@ -19,6 +19,7 @@ import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.util.RegistryHelper;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
@@ -34,11 +35,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /** Recipe to dye travelers gear */
-@RequiredArgsConstructor
 public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDisplayModifierRecipe> {
   @Getter
   private final ResourceLocation id;
   private final Ingredient toolRequirement;
+
+  public ArmorDyeingRecipe(ResourceLocation id, Ingredient toolRequirement) {
+    this.id = id;
+    this.toolRequirement = toolRequirement;
+    ModifierRecipeLookup.addRecipeModifier(null, TinkerModifiers.dyed);
+  }
 
   @Override
   public boolean matches(ITinkerStationContainer inv, Level world) {

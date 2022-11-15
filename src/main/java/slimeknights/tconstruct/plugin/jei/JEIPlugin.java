@@ -49,7 +49,6 @@ import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
@@ -58,6 +57,7 @@ import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuel;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
@@ -103,7 +103,6 @@ import slimeknights.tconstruct.tools.item.CreativeSlotItem;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -141,17 +140,9 @@ public class JEIPlugin implements IModPlugin {
   public void registerIngredients(IModIngredientRegistration registration) {
     assert Minecraft.getInstance().level != null;
     RecipeManager manager = Minecraft.getInstance().level.getRecipeManager();
-    List<ModifierEntry> modifiers =
-      RecipeHelper.getJEIRecipes(manager, TinkerRecipeTypes.TINKER_STATION.get(), IDisplayModifierRecipe.class)
-                  .stream()
-                  .map(recipe -> recipe.getDisplayResult().getModifier())
-                  .distinct()
-                  .sorted(Comparator.comparing(Modifier::getId))
-                  .map(mod -> new ModifierEntry(mod, 1))
-                  .collect(Collectors.toList());
-    ModifierIngredientHelper.setAllModifiers(modifiers);
-    if (!Config.CLIENT.showModifiersInJEI.get()) {
-      modifiers = Collections.emptyList();
+    List<ModifierEntry> modifiers = Collections.emptyList();
+    if (Config.CLIENT.showModifiersInJEI.get()) {
+      modifiers = ModifierRecipeLookup.getRecipeModifierList();
     }
     registration.register(TConstructJEIConstants.ENTITY_TYPE, Collections.emptyList(), new EntityIngredientHelper(), new EntityIngredientRenderer(16));
     registration.register(TConstructJEIConstants.MODIFIER_TYPE, modifiers, new ModifierIngredientHelper(), ModifierBookmarkIngredientRenderer.INSTANCE);
