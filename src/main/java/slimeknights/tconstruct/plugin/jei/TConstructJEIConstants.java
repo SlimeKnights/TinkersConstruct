@@ -1,10 +1,12 @@
 package slimeknights.tconstruct.plugin.jei;
 
 import mezz.jei.api.ingredients.IIngredientType;
+import mezz.jei.api.ingredients.IIngredientTypeWithSubtypes;
 import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
@@ -23,7 +25,22 @@ public class TConstructJEIConstants {
   // ingredient types
   @SuppressWarnings("rawtypes")
   public static final IIngredientType<EntityType> ENTITY_TYPE = () -> EntityType.class;
-  public static final IIngredientType<ModifierEntry> MODIFIER_TYPE = () -> ModifierEntry.class;
+  public static final IIngredientTypeWithSubtypes<Modifier,ModifierEntry> MODIFIER_TYPE = new IIngredientTypeWithSubtypes<>() {
+    @Override
+    public Class<? extends ModifierEntry> getIngredientClass() {
+      return ModifierEntry.class;
+    }
+
+    @Override
+    public Class<? extends Modifier> getIngredientBaseClass() {
+      return Modifier.class;
+    }
+
+    @Override
+    public Modifier getBase(ModifierEntry ingredient) {
+      return ingredient.getModifier();
+    }
+  };
   public static final IIngredientType<Pattern> PATTERN_TYPE = () -> Pattern.class;
 
   // casting
