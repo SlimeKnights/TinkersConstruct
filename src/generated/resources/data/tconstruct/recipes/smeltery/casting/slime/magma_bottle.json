@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "minecraft:glass_bottle"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "tag": "forge:magma",
+    "amount": 250
+  },
+  "result": "tconstruct:magma_bottle",
+  "cooling_time": 1
+}

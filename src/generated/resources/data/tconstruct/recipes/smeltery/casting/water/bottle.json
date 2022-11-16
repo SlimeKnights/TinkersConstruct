@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "minecraft:glass_bottle"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "tag": "mantle:water",
+    "amount": 500
+  },
+  "result": {
+    "item": "minecraft:potion",
+    "nbt": "{Potion:\"minecraft:water\"}"
+  },
+  "cooling_time": 1
+}

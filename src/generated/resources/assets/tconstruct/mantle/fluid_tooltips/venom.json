@@ -1,0 +1,17 @@
+{
+  "tag": "tconstruct:venom",
+  "units": [
+    {
+      "key": "gui.mantle.fluid.kilobucket",
+      "needed": 1000000
+    },
+    {
+      "key": "gui.mantle.fluid.bucket",
+      "needed": 1000
+    },
+    {
+      "key": "gui.tconstruct.fluid.bottle",
+      "needed": 250
+    }
+  ]
+}

@@ -466,31 +466,39 @@
   "fluid.tconstruct.blood": "Blood",
   "fluid.tconstruct.flowing_blood": "Flowing Blood",
   "item.tconstruct.blood_bucket": "Bucket o' Blood",
+  "item.tconstruct.blood_bottle": "Bottle o' Blood",
 
   "block.tconstruct.earth_slime_fluid": "Slime",
   "fluid.tconstruct.earth_slime": "Slime",
   "fluid.tconstruct.flowing_earth_slime": "Flowing Slime",
   "item.tconstruct.earth_slime_bucket": "Slime Bucket",
+  "item.tconstruct.earth_slime_bottle": "Slime Bottle",
 
   "block.tconstruct.sky_slime_fluid": "Skyslime",
   "fluid.tconstruct.sky_slime": "Skyslime",
   "fluid.tconstruct.flowing_sky_slime": "Flowing Skyslime",
   "item.tconstruct.sky_slime_bucket": "Skyslime Bucket",
+  "item.tconstruct.sky_slime_bottle": "Skyslime Bottle",
 
   "block.tconstruct.magma_fluid": "Magma",
   "fluid.tconstruct.magma": "Magma",
   "fluid.tconstruct.flowing_magma": "Flowing Magma",
   "item.tconstruct.magma_bucket": "Magma Bucket",
+  "item.tconstruct.magma_bottle": "Magma Bottle",
 
   "block.tconstruct.ender_slime_fluid": "Enderslime",
   "fluid.tconstruct.ender_slime": "Enderslime",
   "fluid.tconstruct.flowing_ender_slime": "Flowing Enderslime",
   "item.tconstruct.ender_slime_bucket": "Enderslime Bucket",
+  "item.tconstruct.ender_slime_bottle": "Enderslime Bottle",
 
   "block.tconstruct.venom_fluid": "Venom",
   "fluid.tconstruct.venom": "Venom",
   "fluid.tconstruct.flowing_venom": "Flowing Venom",
   "item.tconstruct.venom_bucket": "Venom Bucket",
+  "item.tconstruct.venom_bottle": "Venom Bottle",
+  
+  "item.tconstruct.ichor_bottle": "Ichor Bottle",
 
   "_comment": "Rock",
 

@@ -74,9 +74,10 @@ public class SpillingFluidProvider extends AbstractSpillingFluidProvider {
     addFluid(TinkerFluids.blood.getLocalTag(), slimeballPiece)
       .addEffect(new RestoreHungerSpillingEffect(1, 0.2f))
       .addEffect(new EffectSpillingEffect(MobEffects.DIG_SLOWDOWN, 10, 1));
-    // venom - poison
+    // venom - poison & strength
     addFluid(TinkerFluids.venom.getLocalTag(), slimeballPiece)
-      .addEffect(new EffectSpillingEffect(MobEffects.POISON, 25, 1));
+      .addEffect(new EffectSpillingEffect(MobEffects.POISON, 5, 1))
+      .addEffect(new EffectSpillingEffect(MobEffects.DAMAGE_BOOST, 10, 1));
     // magma - fire resistance
     addFluid(TinkerFluids.magma.getForgeTag(), slimeballPiece)
       .addEffect(new EffectSpillingEffect(MobEffects.FIRE_RESISTANCE, 25, 1));

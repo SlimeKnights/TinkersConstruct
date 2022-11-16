@@ -1,0 +1,11 @@
+{
+  "type": "mantle:fill_item",
+  "input": {
+    "item": "minecraft:glass_bottle"
+  },
+  "filled": "tconstruct:blood_bottle",
+  "fluid": {
+    "tag": "tconstruct:blood",
+    "amount": 250
+  }
+}

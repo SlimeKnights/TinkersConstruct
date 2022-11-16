@@ -92,7 +92,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     addModifierRecipes(consumer);
     addTextureRecipes(consumer);
     addHeadRecipes(consumer);
-    addSpillingRecipes(consumer);
   }
 
   private void addItemRecipes(Consumer<FinishedRecipe> consumer) {
@@ -1371,10 +1370,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .save(consumer, modResource(folder + "turtle_shell"));
     // befleecing
     SpecialRecipeBuilder.special(TinkerModifiers.sheepShearing.get()).save(consumer, modPrefix(folder + "sheep_wool"));
-  }
-
-  private void addSpillingRecipes(Consumer<FinishedRecipe> consumer) {
-
   }
 
   /** Adds recipes for a plate armor texture */
