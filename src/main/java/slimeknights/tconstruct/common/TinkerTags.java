@@ -457,6 +457,8 @@ public class TinkerTags {
     private static void init() {}
     /** Gem modifiers, one of which is needed for netherite */
     public static final TagKey<Modifier> GEMS = tag("gems");
+    /** Blacklist for modifiers that cannot be hidden with invisible ink */
+    public static final TagKey<Modifier> INVISIBLE_INK_BLACKLIST = tag("invisible_ink_blacklist");
 
     private static TagKey<Modifier> tag(String name) {
       return ModifierManager.getTag(TConstruct.getResource(name));

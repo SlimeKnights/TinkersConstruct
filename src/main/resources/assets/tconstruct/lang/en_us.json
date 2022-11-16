@@ -2424,6 +2424,7 @@
   "gui.tconstruct.modifier_worktable": "Modifier Worktable",
   "gui.tconstruct.modifier_worktable.title": "Modifier Tuning",
   "gui.tconstruct.modifier_worktable.info": "Add a tool and the proper items to tune the tool's modifiers",
+  "recipe.tconstruct.modifier_set_worktable.empty": "Tool has no applicable modifiers",
 
   "recipe.tconstruct.remove_modifier.title": "Remove Modifiers",
   "recipe.tconstruct.remove_modifier.description": "Select a modifier to remove, slots will be returned but any item cost is lost. Sponge will be dried upon removing a modifier.",
@@ -2433,6 +2434,10 @@
   "recipe.tconstruct.modifier_sorting.description": "Select a modifier to swap its location with the next modifier in the list. Does not consume items to swap.",
   "recipe.tconstruct.modifier_sorting.not_enough_modifiers": "Tool needs at least two modifiers to sort",
 
+  "recipe.tconstruct.invisible_modifiers.adding.title": "Invisible Ink",
+  "recipe.tconstruct.invisible_modifiers.adding.description": "Select a modifier to hide it from the tool's model",
+  "recipe.tconstruct.invisible_modifiers.removing.title": "Visible Ink",
+  "recipe.tconstruct.invisible_modifiers.removing.description": "Select a hidden modifier to make it show in the tool's model agin",
 
   "recipe.tconstruct.part_swapping.too_many_parts": "Table is too small to swap parts on this tool",
 

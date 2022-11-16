@@ -49,6 +49,7 @@ import slimeknights.mantle.client.model.util.MantleItemLayerModel;
 import slimeknights.mantle.util.ItemLayerPixels;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.mantle.util.ReversedListBuilder;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.client.modifiers.IBakedModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager;
@@ -56,6 +57,7 @@ import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.recipe.worktable.ModifierSetWorktableRecipe;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -205,19 +207,22 @@ public class ToolModel implements IModelGeometry<ToolModel> {
       if (!modifiers.isEmpty()) {
         // last, add all regular modifiers
         FirstModifier[] firsts = new FirstModifier[firstModifiers.size()];
+        Set<ModifierId> hidden = ModifierSetWorktableRecipe.getModifierSet(tool.getPersistentData(), TConstruct.getResource("invisible_modifiers"));
         for (int i = modifiers.size() - 1; i >= 0; i--) {
           ModifierEntry entry = modifiers.get(i);
           ModifierId modifier = entry.getModifier().getId();
-          IBakedModifierModel model = modifierModels.get(modifier);
-          if (model != null) {
-            // if the modifier is in the list, delay adding its quads, but keep the expected tint index
-            int index = firstModifiers.indexOf(modifier);
-            if (index == -1) {
-              quadConsumer.accept(model.getQuads(tool, entry, spriteGetter, transforms, isLarge, modelIndex, pixels));
-            } else {
-              firsts[index] = new FirstModifier(entry, model, modelIndex);
+          if (!hidden.contains(modifier)) {
+            IBakedModifierModel model = modifierModels.get(modifier);
+            if (model != null) {
+              // if the modifier is in the list, delay adding its quads, but keep the expected tint index
+              int index = firstModifiers.indexOf(modifier);
+              if (index == -1) {
+                quadConsumer.accept(model.getQuads(tool, entry, spriteGetter, transforms, isLarge, modelIndex, pixels));
+              } else {
+                firsts[index] = new FirstModifier(entry, model, modelIndex);
+              }
+              modelIndex += model.getTintIndexes();
             }
-            modelIndex += model.getTintIndexes();
           }
         }
         // first, add the first modifiers
@@ -441,11 +446,14 @@ public class ToolModel implements IModelGeometry<ToolModel> {
       // for many, it is just the modifier entry, but they can have more complex keys if needed
       ImmutableList.Builder<Object> builder = ImmutableList.builder();
       for (ModifierEntry entry : tool.getUpgrades().getModifiers()) {
-        IBakedModifierModel model = getModifierModel(entry.getModifier());
-        if (model != null) {
-          Object cacheKey = model.getCacheKey(tool, entry);
-          if (cacheKey != null) {
-            builder.add(cacheKey);
+        Set<ModifierId> hidden = ModifierSetWorktableRecipe.getModifierSet(tool.getPersistentData(), TConstruct.getResource("invisible_modifiers"));
+        if (!hidden.contains(entry.getId())) {
+          IBakedModifierModel model = getModifierModel(entry.getModifier());
+          if (model != null) {
+            Object cacheKey = model.getCacheKey(tool, entry);
+            if (cacheKey != null) {
+              builder.add(cacheKey);
+            }
           }
         }
       }
