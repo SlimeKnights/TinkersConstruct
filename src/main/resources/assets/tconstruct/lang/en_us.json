@@ -2435,7 +2435,7 @@
   "recipe.tconstruct.modifier_set_worktable.empty": "Tool has no applicable modifiers",
 
   "recipe.tconstruct.remove_modifier.title": "Remove Modifiers",
-  "recipe.tconstruct.remove_modifier.description": "Select a modifier to remove, slots will be returned but any item cost is lost. Sponge will be dried upon removing a modifier.",
+  "recipe.tconstruct.remove_modifier.description": "Select a modifier to remove, slots will be returned but any item cost is lost. Fluid will be consumed from the input, and the container returned.",
   "recipe.tconstruct.remove_modifier.no_modifiers": "Tool does not have any removable modifiers",
 
   "recipe.tconstruct.modifier_sorting.title": "Sort Modifiers",

@@ -1197,11 +1197,16 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     SpecialRecipeBuilder.special(TinkerModifiers.creativeSlotSerializer.get()).save(consumer, modPrefix(slotlessFolder + "creative_slot"));
 
     // removal
-    // temporary removal recipe until a proper table is added
     ModifierRemovalRecipe.Builder.removal()
                                  .addInput(Blocks.WET_SPONGE)
                                  .addLeftover(Blocks.SPONGE)
-                                 .save(consumer, modResource(worktableFolder + "remove_modifier"));
+                                 .save(consumer, modResource(worktableFolder + "remove_modifier_sponge"));
+    ModifierRemovalRecipe.Builder.removal()
+                                 .addInput(CompoundIngredient.of(FluidContainerIngredient.fromFluid(TinkerFluids.venom, false),
+                                                                 FluidContainerIngredient.fromIngredient(FluidIngredient.of(TinkerFluids.venom.getLocalTag(), FluidValues.BOTTLE),
+                                                                                                         Ingredient.of(TinkerFluids.venomBottle))))
+                                 .addLeftover(Blocks.SPONGE)
+                                 .save(consumer, modResource(worktableFolder + "remove_modifier_venom"));
     ModifierSortingRecipe.Builder.sorting()
                                  .addInput(Items.COMPASS)
                                  .save(consumer, modResource(worktableFolder + "modifier_sorting"));
