@@ -466,39 +466,39 @@
   "fluid.tconstruct.blood": "血",
   "fluid.tconstruct.flowing_blood": "流动的血",
   "item.tconstruct.blood_bucket": "血桶",
-  "item.tconstruct.blood_bottle": "Bottle o' Blood",
+  "item.tconstruct.blood_bottle": "血瓶",
 
   "block.tconstruct.earth_slime_fluid": "黏液",
   "fluid.tconstruct.earth_slime": "黏液",
   "fluid.tconstruct.flowing_earth_slime": "流动的黏液",
   "item.tconstruct.earth_slime_bucket": "黏液桶",
-  "item.tconstruct.earth_slime_bottle": "Slime Bottle",
+  "item.tconstruct.earth_slime_bottle": "黏液瓶",
 
   "block.tconstruct.sky_slime_fluid": "碧空黏液",
   "fluid.tconstruct.sky_slime": "碧空黏液",
   "fluid.tconstruct.flowing_sky_slime": "流动的碧空黏液",
   "item.tconstruct.sky_slime_bucket": "碧空黏液桶",
-  "item.tconstruct.sky_slime_bottle": "Skyslime Bottle",
+  "item.tconstruct.sky_slime_bottle": "碧空黏液瓶",
 
   "block.tconstruct.magma_fluid": "岩浆",
   "fluid.tconstruct.magma": "岩浆",
   "fluid.tconstruct.flowing_magma": "流动的岩浆",
   "item.tconstruct.magma_bucket": "岩浆桶",
-  "item.tconstruct.magma_bottle": "Magma Bottle",
+  "item.tconstruct.magma_bottle": "岩浆瓶",
 
   "block.tconstruct.ender_slime_fluid": "末影黏液",
   "fluid.tconstruct.ender_slime": "末影黏液",
   "fluid.tconstruct.flowing_ender_slime": "流动的末影黏液",
   "item.tconstruct.ender_slime_bucket": "末影黏液桶",
-  "item.tconstruct.ender_slime_bottle": "Enderslime Bottle",
+  "item.tconstruct.ender_slime_bottle": "末影黏液瓶",
 
   "block.tconstruct.venom_fluid": "毒液",
   "fluid.tconstruct.venom": "毒液",
   "fluid.tconstruct.flowing_venom": "流动的毒液",
   "item.tconstruct.venom_bucket": "毒液桶",
-  "item.tconstruct.venom_bottle": "Venom Bottle",
+  "item.tconstruct.venom_bottle": "毒液瓶",
   
-  "item.tconstruct.ichor_bottle": "Ichor Bottle",
+  "item.tconstruct.ichor_bottle": "灵浆瓶",
 
   "_comment": "Rock",
 
