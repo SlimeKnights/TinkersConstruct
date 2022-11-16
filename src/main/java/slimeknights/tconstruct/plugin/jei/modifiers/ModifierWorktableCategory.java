@@ -17,7 +17,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.client.ResourceColorManager;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.worktable.IModifierWorktableRecipe;
 import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -99,10 +98,6 @@ public class ModifierWorktableCategory implements IRecipeCategory<IModifierWorkt
       builder.addSlot(RecipeIngredientRole.INPUT, 43 + i*18, 16).addItemStacks(recipe.getDisplayItems(i));
     }
     // modifier input
-    List<ModifierEntry> options = recipe.getModifierOptions(null);
-    if (options.isEmpty()) {
-      options = ModifierIngredientHelper.getAllModifiers();
-    }
-    builder.addSlot(RecipeIngredientRole.CATALYST, 82, 16).addIngredients(TConstructJEIConstants.MODIFIER_TYPE, options);
+    builder.addSlot(RecipeIngredientRole.CATALYST, 82, 16).addIngredients(TConstructJEIConstants.MODIFIER_TYPE, recipe.getModifierOptions(null));
   }
 }

@@ -11,7 +11,7 @@
   },
   "retextured": [ "leg", "legBottom" ],
   "items": [
-    { "center": [ 11, 16.234375, 8 ], "size": 7.5, "x": 270 },
+    { "center": [ 11,   16.25, 8 ], "size": 7.5, "x": 270 },
     { "center": [  2.5, 17.5,  8   ], "size": 3 },
     { "center": [  4.5, 17.5,  3.5 ], "size": 3 },
     { "center": [  4.5, 17.5, 12.5 ], "size": 3 }

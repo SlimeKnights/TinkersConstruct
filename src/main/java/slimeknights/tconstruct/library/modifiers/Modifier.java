@@ -150,6 +150,11 @@ public class Modifier implements IHaveLoader<Modifier> {
     return Objects.requireNonNull(id, "Modifier has null registry name");
   }
 
+  /** Checks if the modifier is in the given tag */
+  public final boolean is(TagKey<Modifier> tag) {
+    return ModifierManager.isInTag(this.getId(), tag);
+  }
+
 
   /* Tooltips */
 

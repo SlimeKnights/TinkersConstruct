@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.shared.command.subcommand;
 
-import com.google.common.collect.HashMultimap;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +20,7 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
-import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
-import slimeknights.tconstruct.library.recipe.modifiers.adding.IModifierRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.shared.command.argument.SlotTypeArgument;
@@ -33,7 +31,6 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -68,14 +65,6 @@ public class ModifierUsageCommand {
   }
 
   private static int runForType(CommandContext<CommandSourceStack> context, ModifierUsages filter, @Nullable OptionalSlotType slotFilter) {
-    // recipe modifiers are used in a displayable modifier recipe
-    HashMultimap<SlotType,Modifier> recipeModifiers = context.getSource().getLevel().getRecipeManager().byType(TinkerRecipeTypes.TINKER_STATION.get()).values().stream()
-																														 .filter(r -> r instanceof IModifierRecipe)
-																														 .map(r -> (IModifierRecipe) r)
-																														 .collect(Collector.of(HashMultimap::create, (map, r) -> map.put(r.getSlotType(), r.getModifier()), (m1, m2) -> {
-                                                               m1.putAll(m2);
-                                                               return m1;
-                                                             }));
     // material traits are used in material traits (kinda obvious)
     IMaterialRegistry matReg = MaterialRegistry.getInstance();
     Set<Modifier> materialTraits = matReg.getAllMaterials().stream()
@@ -101,9 +90,9 @@ public class ModifierUsageCommand {
       case RECIPE:
         // filter to just one type of modifier if requested
         if (slotFilter != null) {
-          modifierStream = recipeModifiers.get(slotFilter.slotType()).stream();
+          modifierStream = ModifierRecipeLookup.getRecipeModifiers(slotFilter.slotType());
         } else {
-          modifierStream = recipeModifiers.values().stream();
+          modifierStream = ModifierRecipeLookup.getAllRecipeModifiers();
         }
         break;
       case MATERIAL_TRAIT:
@@ -118,7 +107,7 @@ public class ModifierUsageCommand {
     }
     // if requested, filter out all
     if (filter == ModifierUsages.UNUSED) {
-      modifierStream = modifierStream.filter(modifier -> !recipeModifiers.containsValue(modifier) && !materialTraits.contains(modifier) && !toolTraits.contains(modifier));
+      modifierStream = modifierStream.filter(modifier -> !ModifierRecipeLookup.isRecipeModifier(modifier.getId()) && !materialTraits.contains(modifier) && !toolTraits.contains(modifier));
     }
 
     // start building the table for output
@@ -151,12 +140,12 @@ public class ModifierUsageCommand {
     finalList.forEach(modifier -> {
       // determine which recipes use this by slot type
       List<String> recipeUsages = SlotType.getAllSlotTypes().stream()
-                                          .filter(type -> recipeModifiers.containsEntry(type, modifier))
+                                          .filter(type -> ModifierRecipeLookup.isRecipeModifier(type, modifier.getId()))
                                           .map(SlotType::getName)
                                           .collect(Collectors.toList());
       String recipes;
       if (recipeUsages.isEmpty()) {
-        recipes = recipeModifiers.containsEntry(null, modifier) ? "slotless" : "";
+        recipes = ModifierRecipeLookup.isRecipeModifier(null, modifier.getId()) ? "slotless" : "";
       } else {
         recipes = String.join(", ", recipeUsages);
       }

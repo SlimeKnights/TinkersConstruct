@@ -1,0 +1,11 @@
+{
+  "type": "mantle:fill_item",
+  "input": {
+    "item": "minecraft:glass_bottle"
+  },
+  "filled": "tconstruct:sky_slime_bottle",
+  "fluid": {
+    "tag": "tconstruct:sky_slime",
+    "amount": 250
+  }
+}

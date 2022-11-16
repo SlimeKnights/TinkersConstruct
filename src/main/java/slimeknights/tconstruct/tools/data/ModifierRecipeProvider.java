@@ -12,18 +12,24 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.Tags.Fluids;
 import net.minecraftforge.common.crafting.CompoundIngredient;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.DifferenceIngredient;
 import net.minecraftforge.common.crafting.IntersectionIngredient;
+import net.minecraftforge.common.crafting.PartialNBTIngredient;
 import net.minecraftforge.common.crafting.conditions.TrueCondition;
+import net.minecraftforge.fluids.FluidAttributes;
 import slimeknights.mantle.recipe.data.ItemNameIngredient;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.ingredient.EntityIngredient;
+import slimeknights.mantle.recipe.ingredient.FluidContainerIngredient;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.tconstruct.TConstruct;
@@ -35,6 +41,7 @@ import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
 import slimeknights.tconstruct.library.recipe.FluidValues;
@@ -47,6 +54,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.adding.OverslimeModifier
 import slimeknights.tconstruct.library.recipe.modifiers.adding.SwappableModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRepairRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.worktable.ModifierSetWorktableRecipeBuilder;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
@@ -84,7 +92,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     addModifierRecipes(consumer);
     addTextureRecipes(consumer);
     addHeadRecipes(consumer);
-    addSpillingRecipes(consumer);
   }
 
   private void addItemRecipes(Consumer<FinishedRecipe> consumer) {
@@ -1190,14 +1197,27 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     SpecialRecipeBuilder.special(TinkerModifiers.creativeSlotSerializer.get()).save(consumer, modPrefix(slotlessFolder + "creative_slot"));
 
     // removal
-    // temporary removal recipe until a proper table is added
     ModifierRemovalRecipe.Builder.removal()
                                  .addInput(Blocks.WET_SPONGE)
                                  .addLeftover(Blocks.SPONGE)
-                                 .save(consumer, modResource(worktableFolder + "remove_modifier"));
+                                 .save(consumer, modResource(worktableFolder + "remove_modifier_sponge"));
+    ModifierRemovalRecipe.Builder.removal()
+                                 .addInput(CompoundIngredient.of(FluidContainerIngredient.fromFluid(TinkerFluids.venom, false),
+                                                                 FluidContainerIngredient.fromIngredient(FluidIngredient.of(TinkerFluids.venom.getLocalTag(), FluidValues.BOTTLE),
+                                                                                                         Ingredient.of(TinkerFluids.venomBottle))))
+                                 .addLeftover(Blocks.SPONGE)
+                                 .save(consumer, modResource(worktableFolder + "remove_modifier_venom"));
     ModifierSortingRecipe.Builder.sorting()
                                  .addInput(Items.COMPASS)
                                  .save(consumer, modResource(worktableFolder + "modifier_sorting"));
+    ResourceLocation hiddenModifiers = TConstruct.getResource("invisible_modifiers");
+    TagKey<Modifier> blacklist = TinkerTags.Modifiers.INVISIBLE_INK_BLACKLIST;
+    ModifierSetWorktableRecipeBuilder.setAdding(hiddenModifiers, blacklist)
+                                     .addInput(PartialNBTIngredient.of(Items.POTION, PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.INVISIBILITY).getOrCreateTag()))
+                                     .save(consumer, modResource(worktableFolder + "invisible_ink_adding"));
+    ModifierSetWorktableRecipeBuilder.setRemoving(hiddenModifiers, blacklist)
+                                     .addInput(FluidContainerIngredient.fromIngredient(FluidIngredient.of(Fluids.MILK, FluidAttributes.BUCKET_VOLUME), Ingredient.of(Items.MILK_BUCKET)))
+                                     .save(consumer, modResource(worktableFolder + "invisible_ink_removing"));
 
     // compatability
     String theOneProbe = "theoneprobe";
@@ -1355,10 +1375,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .save(consumer, modResource(folder + "turtle_shell"));
     // befleecing
     SpecialRecipeBuilder.special(TinkerModifiers.sheepShearing.get()).save(consumer, modPrefix(folder + "sheep_wool"));
-  }
-
-  private void addSpillingRecipes(Consumer<FinishedRecipe> consumer) {
-
   }
 
   /** Adds recipes for a plate armor texture */

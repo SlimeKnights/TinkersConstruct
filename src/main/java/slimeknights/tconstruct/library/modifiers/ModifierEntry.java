@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.With;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
@@ -77,6 +78,11 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
   /** Checks if this entry matches the given modifier */
   public boolean matches(Modifier modifier) {
     return matches(modifier.getId());
+  }
+
+  /** Checks if the modifier is in the given tag */
+  public boolean matches(TagKey<Modifier> tag) {
+    return modifier.is(tag);
   }
 
   @Override

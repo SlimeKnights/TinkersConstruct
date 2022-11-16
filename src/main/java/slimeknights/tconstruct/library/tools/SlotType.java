@@ -149,6 +149,15 @@ public final class SlotType {
     private final SlotType type;
     private final int count;
 
+    /** Gets the type for the given slot count */
+    @Nullable
+    public static SlotType getType(@Nullable SlotCount count) {
+      if (count == null) {
+        return null;
+      }
+      return count.getType();
+    }
+
     /**
      * Parses the slot data from the given JSON
      * @param json  JSON

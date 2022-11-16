@@ -72,6 +72,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
     this.result = result;
     this.maxLevel = maxLevel;
     this.slots = slots;
+    ModifierRecipeLookup.addRecipeModifier(SlotCount.getType(slots), result.getLazyModifier());
     ModifierRecipeLookup.addRequirements(toolRequirement, result, requirements, requirementsError);
   }
 
