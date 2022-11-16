@@ -466,31 +466,39 @@
   "fluid.tconstruct.blood": "血",
   "fluid.tconstruct.flowing_blood": "流动的血",
   "item.tconstruct.blood_bucket": "血桶",
+  "item.tconstruct.blood_bottle": "Bottle o' Blood",
 
   "block.tconstruct.earth_slime_fluid": "黏液",
   "fluid.tconstruct.earth_slime": "黏液",
   "fluid.tconstruct.flowing_earth_slime": "流动的黏液",
   "item.tconstruct.earth_slime_bucket": "黏液桶",
+  "item.tconstruct.earth_slime_bottle": "Slime Bottle",
 
   "block.tconstruct.sky_slime_fluid": "碧空黏液",
   "fluid.tconstruct.sky_slime": "碧空黏液",
   "fluid.tconstruct.flowing_sky_slime": "流动的碧空黏液",
   "item.tconstruct.sky_slime_bucket": "碧空黏液桶",
+  "item.tconstruct.sky_slime_bottle": "Skyslime Bottle",
 
   "block.tconstruct.magma_fluid": "岩浆",
   "fluid.tconstruct.magma": "岩浆",
   "fluid.tconstruct.flowing_magma": "流动的岩浆",
   "item.tconstruct.magma_bucket": "岩浆桶",
+  "item.tconstruct.magma_bottle": "Magma Bottle",
 
   "block.tconstruct.ender_slime_fluid": "末影黏液",
   "fluid.tconstruct.ender_slime": "末影黏液",
   "fluid.tconstruct.flowing_ender_slime": "流动的末影黏液",
   "item.tconstruct.ender_slime_bucket": "末影黏液桶",
+  "item.tconstruct.ender_slime_bottle": "Enderslime Bottle",
 
   "block.tconstruct.venom_fluid": "毒液",
   "fluid.tconstruct.venom": "毒液",
   "fluid.tconstruct.flowing_venom": "流动的毒液",
   "item.tconstruct.venom_bucket": "毒液桶",
+  "item.tconstruct.venom_bottle": "Venom Bottle",
+  
+  "item.tconstruct.ichor_bottle": "Ichor Bottle",
 
   "_comment": "Rock",
 
@@ -2424,6 +2432,7 @@
   "gui.tconstruct.modifier_worktable": "Modifier Worktable",
   "gui.tconstruct.modifier_worktable.title": "Modifier Tuning",
   "gui.tconstruct.modifier_worktable.info": "Add a tool and the proper items to tune the tool's modifiers",
+  "recipe.tconstruct.modifier_set_worktable.empty": "Tool has no applicable modifiers",
 
   "recipe.tconstruct.remove_modifier.title": "Remove Modifiers",
   "recipe.tconstruct.remove_modifier.description": "Select a modifier to remove, slots will be returned but any item cost is lost. Sponge will be dried upon removing a modifier.",
@@ -2433,6 +2442,10 @@
   "recipe.tconstruct.modifier_sorting.description": "Select a modifier to swap its location with the next modifier in the list. Does not consume items to swap.",
   "recipe.tconstruct.modifier_sorting.not_enough_modifiers": "Tool needs at least two modifiers to sort",
 
+  "recipe.tconstruct.invisible_modifiers.adding.title": "Invisible Ink",
+  "recipe.tconstruct.invisible_modifiers.adding.description": "Select a modifier to hide it from the tool's model",
+  "recipe.tconstruct.invisible_modifiers.removing.title": "Visible Ink",
+  "recipe.tconstruct.invisible_modifiers.removing.description": "Select a hidden modifier to make it show in the tool's model agin",
 
   "recipe.tconstruct.part_swapping.too_many_parts": "该工具无法在此切换部件",
 
