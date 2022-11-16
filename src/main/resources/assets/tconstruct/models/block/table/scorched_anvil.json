@@ -9,7 +9,7 @@
   },
   "retextured": [ "particle", "top" ],
   "items": [
-    { "center": [  8, 16.234375, 9 ], "size": 7.5, "x": 270 },
+    { "center": [  8,   16.25, 9 ], "size": 7.5, "x": 270 },
     { "center": [  2.5, 17.5, 10.5 ], "size": 3 },
     { "center": [  2.5, 17.5,  5.5 ], "size": 3 },
     { "center": [  8,   17.5,  4.5 ], "size": 3 },
