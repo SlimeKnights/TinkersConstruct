@@ -2429,23 +2429,23 @@
   "recipe.tconstruct.damaging.broken": "工具已损坏",
   "recipe.tconstruct.overslime.at_capacity": "工具已无更多空间来容纳黏液覆层",
   
-  "gui.tconstruct.modifier_worktable": "Modifier Worktable",
-  "gui.tconstruct.modifier_worktable.title": "Modifier Tuning",
-  "gui.tconstruct.modifier_worktable.info": "Add a tool and the proper items to tune the tool's modifiers",
-  "recipe.tconstruct.modifier_set_worktable.empty": "Tool has no applicable modifiers",
+  "gui.tconstruct.modifier_worktable": "强化调配台",
+  "gui.tconstruct.modifier_worktable.title": "强化调配",
+  "gui.tconstruct.modifier_worktable.info": "添加工具和正确的配方物品以调配此工具的强化",
+  "recipe.tconstruct.modifier_set_worktable.empty": "工具没有可调配的强化",
 
-  "recipe.tconstruct.remove_modifier.title": "Remove Modifiers",
-  "recipe.tconstruct.remove_modifier.description": "Select a modifier to remove, slots will be returned but any item cost is lost. Fluid will be consumed from the input, and the container returned.",
+  "recipe.tconstruct.remove_modifier.title": "强化移除",
+  "recipe.tconstruct.remove_modifier.description": "选择一个强化以移除，所占用的槽位将会返还，但是加持强化所消耗的物品将不会返还，其中的流体将会被销毁，而容器则会直接返还",
   "recipe.tconstruct.remove_modifier.no_modifiers": "工具不具有任何可移除强化",
 
-  "recipe.tconstruct.modifier_sorting.title": "Sort Modifiers",
-  "recipe.tconstruct.modifier_sorting.description": "Select a modifier to swap its location with the next modifier in the list. Does not consume items to swap.",
-  "recipe.tconstruct.modifier_sorting.not_enough_modifiers": "Tool needs at least two modifiers to sort",
+  "recipe.tconstruct.modifier_sorting.title": "强化排序",
+  "recipe.tconstruct.modifier_sorting.description": "选择一个强化以将其材质位置与在列表中的下一个强化材质位置互换。互换时不消耗配方物品",
+  "recipe.tconstruct.modifier_sorting.not_enough_modifiers": "工具至少需要2种强化以排序",
 
-  "recipe.tconstruct.invisible_modifiers.adding.title": "Invisible Ink",
-  "recipe.tconstruct.invisible_modifiers.adding.description": "Select a modifier to hide it from the tool's model",
-  "recipe.tconstruct.invisible_modifiers.removing.title": "Visible Ink",
-  "recipe.tconstruct.invisible_modifiers.removing.description": "Select a hidden modifier to make it show in the tool's model agin",
+  "recipe.tconstruct.invisible_modifiers.adding.title": "隐形墨水",
+  "recipe.tconstruct.invisible_modifiers.adding.description": "选择一个强化以将其材质从工具模型中隐藏",
+  "recipe.tconstruct.invisible_modifiers.removing.title": "显性墨水",
+  "recipe.tconstruct.invisible_modifiers.removing.description": "选择一个隐藏的强化以使其从工具模型中再次显性",
 
   "recipe.tconstruct.part_swapping.too_many_parts": "该工具无法在此切换部件",
 
@@ -2603,7 +2603,7 @@
   "jei.tconstruct.part_builder.title": "部件制造台",
   "jei.tconstruct.part_builder.cost": "花费：%s",
 
-  "jei.tconstruct.modifier_worktable.title": "Modifier Worktable",
+  "jei.tconstruct.modifier_worktable.title": "强化调配台",
 
   
   "_comment": "Tool Advancements",
