@@ -825,7 +825,7 @@
   "block.tconstruct.scorched_anvil": "工匠砧",
 
   "block.tconstruct.part_builder": "部件制造台",
-  "block.tconstruct.modifier_worktable": "Modifier Worktable",
+  "block.tconstruct.modifier_worktable": "强化调配台",
 
   "block.tconstruct.part_chest": "部件箱",
   "block.tconstruct.part_chest.tooltip": "可容纳256个不同的工具部件",
