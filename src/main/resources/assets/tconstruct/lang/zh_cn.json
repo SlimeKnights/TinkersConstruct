@@ -2444,8 +2444,8 @@
 
   "recipe.tconstruct.invisible_modifiers.adding.title": "隐形墨水",
   "recipe.tconstruct.invisible_modifiers.adding.description": "选择一个强化以将其材质从工具模型中隐藏",
-  "recipe.tconstruct.invisible_modifiers.removing.title": "显性墨水",
-  "recipe.tconstruct.invisible_modifiers.removing.description": "选择一个隐藏的强化以使其从工具模型中再次显性",
+  "recipe.tconstruct.invisible_modifiers.removing.title": "显形墨水",
+  "recipe.tconstruct.invisible_modifiers.removing.description": "选择一个隐藏的强化以使其从工具模型中再次显形",
 
   "recipe.tconstruct.part_swapping.too_many_parts": "该工具无法在此切换部件",
 
