@@ -125,9 +125,14 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
   }
 
   /** Creates a new compat material */
+  protected void addCompatMaterial(MaterialId location, int tier, int order, String tagName, boolean craftable) {
+    ICondition condition = new OrCondition(ConfigEnabledCondition.FORCE_INTEGRATION_MATERIALS, tagExistsCondition(tagName));
+    addMaterial(location, tier, order, craftable, false, condition);
+  }
+
+  /** Creates a new compat material */
   protected void addCompatMetalMaterial(MaterialId location, int tier, int order, String ingotName) {
-    ICondition condition = new OrCondition(ConfigEnabledCondition.FORCE_INTEGRATION_MATERIALS, tagExistsCondition("ingots/" + ingotName));
-    addMaterial(location, tier, order, false, false, condition);
+    addCompatMaterial(location, tier, order, "ingots/" + ingotName, false);
   }
 
   /** Creates a new compat material */

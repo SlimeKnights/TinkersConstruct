@@ -33,7 +33,7 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     // tier 2
     addMaterial(MaterialIds.iron,        2, ORDER_GENERAL, false);
     addMaterial(MaterialIds.searedStone, 2, ORDER_HARVEST, false);
-    addMaterial(MaterialIds.bloodbone,   2, ORDER_WEAPON,  false);
+    addMaterial(MaterialIds.bloodbone,   2, ORDER_WEAPON,  true);
     addMaterial(MaterialIds.slimewood,   2, ORDER_SPECIAL, true);
     // tier 2 - nether
     addMaterial(MaterialIds.scorchedStone, 2, ORDER_NETHER, false);
@@ -59,7 +59,7 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.queensSlime, 4, ORDER_GENERAL, false);
     addMaterial(MaterialIds.hepatizon,   4, ORDER_HARVEST, false);
     addMaterial(MaterialIds.manyullyn,   4, ORDER_WEAPON,  false);
-    addMaterial(MaterialIds.blazingBone, 4, ORDER_SPECIAL, false);
+    addMaterial(MaterialIds.blazingBone, 4, ORDER_SPECIAL, true);
     //addMetalMaterial(MaterialIds.soulsteel, 4, ORDER_SPECIAL, false, 0x6a5244);
     // tier 4 - binding
     addMaterial(MaterialIds.ancientHide, 4, ORDER_BINDING, false);
@@ -81,7 +81,7 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addCompatMetalMaterial(MaterialIds.bronze,          3, ORDER_COMPAT + ORDER_HARVEST);
     addCompatMetalMaterial(MaterialIds.constantan,      3, ORDER_COMPAT + ORDER_HARVEST);
     addCompatMetalMaterial(MaterialIds.invar,           3, ORDER_COMPAT + ORDER_WEAPON);
-    addCompatMetalMaterial(MaterialIds.necronium,       3, ORDER_COMPAT + ORDER_WEAPON, "uranium");
+    addCompatMaterial     (MaterialIds.necronium,       3, ORDER_COMPAT + ORDER_WEAPON, "ingots/uranium", true);
     addCompatMetalMaterial(MaterialIds.electrum,        3, ORDER_COMPAT + ORDER_SPECIAL);
     addCompatMetalMaterial(MaterialIds.platedSlimewood, 3, ORDER_COMPAT + ORDER_SPECIAL, "brass");
 
