@@ -75,6 +75,7 @@ public class DynamicTextureLoader {
 
     // if the folder we are looking for starts with the preferred folder, we can immediately resolve it by resolving the whole preferred folder
     if (originalFolder.startsWith(PREFERRED_FOLDER)) {
+      SCANNED_FOLDERS.add(originalFolder);
       if (!SCANNED_FOLDERS.contains(PREFERRED_FOLDER)) {
         SCANNED_FOLDERS.add(PREFERRED_FOLDER);
         scanFolder(manager, PREFERRED_FOLDER);
