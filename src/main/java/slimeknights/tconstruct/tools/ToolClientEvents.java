@@ -32,6 +32,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
+import slimeknights.tconstruct.library.client.model.DynamicTextureLoader;
 import slimeknights.tconstruct.library.client.model.tools.MaterialModel;
 import slimeknights.tconstruct.library.client.model.tools.ToolModel;
 import slimeknights.tconstruct.library.client.modifiers.BreakableDyedModifierModel;
@@ -75,6 +76,7 @@ public class ToolClientEvents extends ClientEventBase {
   static void addResourceListener(RegisterClientReloadListenersEvent manager) {
     ModifierModelManager.init(manager);
     MaterialTooltipCache.init(manager);
+    DynamicTextureLoader.init(manager);
     manager.registerReloadListener(MODIFIER_RELOAD_LISTENER);
     manager.registerReloadListener(PlateArmorModel.RELOAD_LISTENER);
     manager.registerReloadListener(SlimeskullArmorModel.RELOAD_LISTENER);

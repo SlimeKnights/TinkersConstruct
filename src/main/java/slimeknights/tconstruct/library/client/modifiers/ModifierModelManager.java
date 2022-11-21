@@ -18,7 +18,7 @@ import net.minecraftforge.fml.event.IModBusEvent;
 import slimeknights.mantle.data.IEarlySafeManagerReloadListener;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.library.client.model.tools.MaterialModel;
+import slimeknights.tconstruct.library.client.model.DynamicTextureLoader;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 
 import javax.annotation.Nullable;
@@ -137,34 +137,60 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
     modifierModels = models;
   }
 
-  /**
-   * Gets the path to the texture for a given modifier
-   * @param modifierRoot  Modifier root location
-   * @param modifierId    Specific modifier ID
-   * @return  Path to the modifier
-   */
-  private static Material getModifierTexture(ResourceLocation modifierRoot, ResourceLocation modifierId, String suffix) {
-    return ForgeHooksClient.getBlockMaterial(new ResourceLocation(modifierRoot.getNamespace(), modifierRoot.getPath() + modifierId.getNamespace() + "_" + modifierId.getPath() + suffix));
+  /** Record handling the texture adder for each given modifier folder */
+  private record ModifierTextureLoader(ResourceLocation root, Predicate<Material> textureAdder) {
+    private ModifierTextureLoader(ResourceLocation root, Collection<Material> textures, boolean logMissingTextures) {
+      // the texture root may be a folder, in which case that method will trim off the trailing slash
+      // it may be instead a folder with a prefix, in that case ignore the prefix
+      this(root, DynamicTextureLoader.getTextureAdder(DynamicTextureLoader.getTextureFolder(root), textures, logMissingTextures));
+    }
+
+    /**
+     * Gets the path to the texture for a given modifier
+     * @param modifierRoot  Modifier root location
+     * @param modifierId    Specific modifier ID
+     * @return  Path to the modifier
+     */
+    private static Material getModifierTexture(ResourceLocation modifierRoot, ResourceLocation modifierId, String suffix) {
+      return ForgeHooksClient.getBlockMaterial(new ResourceLocation(modifierRoot.getNamespace(), modifierRoot.getPath() + modifierId.getNamespace() + "_" + modifierId.getPath() + suffix));
+    }
+
+    /** Gets the texture for the given modifier and suffix */
+    @Nullable
+    public Material getTexture(ResourceLocation modifier, String suffix) {
+      Material texture = getModifierTexture(root, modifier, suffix);
+      if (textureAdder.test(texture)) {
+        return texture;
+      }
+      return null;
+    }
+  }
+
+  /** Gets the texture loaders for the given modifier textures */
+  private static List<ModifierTextureLoader> getModifierTextureLoaders(List<ResourceLocation> modifierRoots, Collection<Material> allTextures) {
+    if (modifierRoots.isEmpty()) {
+      return Collections.emptyList();
+    }
+    return modifierRoots.stream().map(root -> new ModifierTextureLoader(root, allTextures, Config.CLIENT.logMissingModifierTextures.get())).toList();
   }
 
   /**
    * Gets the texture for the given parameters
-   * @param modifierRoots   List of modifier roots, tries each
-   * @param textureAdder    Functon to check if a texture exists, storing it as needed
-   * @param modifier        Modifier to fetch
-   * @param suffix          Additional suffix for the fetched texture
+   * @param loaders   List of texture loaders, tries each one in sequence until one finds it
+   * @param modifier  Modifier to fetch
+   * @param suffix    Additional suffix for the fetched texture
    * @return  Texture, or null if missing
    */
   @Nullable
-  private static Material getTexture(List<ResourceLocation> modifierRoots, @Nullable Predicate<Material> textureAdder, ResourceLocation modifier, String suffix) {
-    if (textureAdder == null) {
+  private static Material getTexture(List<ModifierTextureLoader> loaders, ResourceLocation modifier, String suffix) {
+    if (loaders.isEmpty()) {
       return null;
     }
 
     // try the non-logging ones first
-    for (ResourceLocation root : modifierRoots) {
-      Material texture = getModifierTexture(root, modifier, suffix);
-      if (textureAdder.test(texture)) {
+    for (ModifierTextureLoader root : loaders) {
+      Material texture = root.getTexture(modifier, suffix);
+      if (texture != null) {
         return texture;
       }
     }
@@ -189,18 +215,16 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
     ImmutableMap.Builder<ModifierId,IBakedModifierModel> modelMap = ImmutableMap.builder();
 
     // create two texture adders, so we only log on the final option if missing
-    Predicate<Material> smallTextureAdder = smallModifierRoots.isEmpty() ? null
-                                                  : MaterialModel.getTextureAdder(textures, Config.CLIENT.logMissingModifierTextures.get());
-    Predicate<Material> largeTextureAdder = largeModifierRoots.isEmpty() ? null
-                                                  : MaterialModel.getTextureAdder(textures, Config.CLIENT.logMissingModifierTextures.get());
+    List<ModifierTextureLoader> smallTextureLoaders = getModifierTextureLoaders(smallModifierRoots, textures);
+    List<ModifierTextureLoader> largeTextureLoaders = getModifierTextureLoaders(largeModifierRoots, textures);
 
     // load each modifier
     for (Entry<ModifierId, IUnbakedModifierModel> entry : modifierModels.entrySet()) {
       ModifierId id = entry.getKey();
       IUnbakedModifierModel model = entry.getValue();
       IBakedModifierModel toolModel = model.forTool(
-        name -> getTexture(smallModifierRoots, smallTextureAdder, id, name),
-        name -> getTexture(largeModifierRoots, largeTextureAdder, id, name));
+        name -> getTexture(smallTextureLoaders, id, name),
+        name -> getTexture(largeTextureLoaders, id, name));
       if (toolModel != null) {
         modelMap.put(id, toolModel);
       }
