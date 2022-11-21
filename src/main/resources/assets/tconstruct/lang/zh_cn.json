@@ -1374,6 +1374,10 @@
   "material.tconstruct.necrotic_bone.skull_flavor": "惊悚恐怖骷髅头！",
   "material.tconstruct.necrotic_bone.skull_encyclopedia": "普通攻击给予敌人凋零效果。饮用牛奶后可给予凋零 II。",
 
+  "material.tconstruct.chorus": "Chorus",
+  "material.tconstruct.chorus.flavor": "Not just the endermen, but the enderwomen, and the enderchildren",
+  "material.tconstruct.chorus.encyclopedia": "Prevents the target from teleporting for a 5 seconds per effect level",
+
   "material.tconstruct.string": "线",
   "material.tconstruct.string.flavor": "理论上的最佳材料。",
   "material.tconstruct.string.encyclopedia": "可以在工匠站和工作台上使用线修复工具",
@@ -1496,7 +1500,6 @@
   "material.tconstruct.ancient_hide.encyclopedia": "增加挖掘方块时的掉落几率，可与“幸运”强化同时存在",
 
   "__comment": "Tier End Materials",
-  "material.tconstruct.endstone": "末地石",
   "material.tconstruct.knightslime": "骑士史莱姆",
 
   "material.tconstruct.enderslime_vine": "黏液藤蔓",
@@ -1532,7 +1535,6 @@
   "material.tconstruct.honey": "蜂蜜",
   "material.tconstruct.venom": "毒液",
   "material.tconstruct.phantom": "幻翼膜",
-  "material.tconstruct.chorus": "紫颂",
 
   "material.tconstruct.aluminum": "铝",
   "material.tconstruct.nickel": "镍",
@@ -1564,7 +1566,8 @@
   "material.tconstruct.silver.encyclopedia": "对亡灵生物每级+2.5伤害",
 
   "material.tconstruct.whitestone": "白石",
-  "material.tconstruct.whitestone.flavor": "拿走你那毫无用处的白色金属，做个有用的工具吧。",
+  "material.tconstruct.whitestone.end": "End Stone",
+  "material.tconstruct.whitestone.flavor": "Take your useless white metals or rocks and make a useful tool",
   "material.tconstruct.whitestone.encyclopedia": "挖掘石头时有几率获得+3石盾，每级增加20%概率。",
 
 
@@ -2062,6 +2065,9 @@
   "modifier.tconstruct.stonebound": "石缚",
   "modifier.tconstruct.stonebound.flavor": "你的工具真的超爱石头诶！",
   "modifier.tconstruct.stonebound.description": "工具的耐久度越低，采掘速度越高，但伤害值越低",
+  "modifier.tconstruct.enderference": "Enderference",
+  "modifier.tconstruct.enderference.flavor": "Really quite distracting",
+  "modifier.tconstruct.enderference.description": "Prevents target from teleporting for a short time",
   "modifier.tconstruct.stringy": "丝线",
   "modifier.tconstruct.stringy.flavor": "有点像奶酪，但是味道不大好",
   "modifier.tconstruct.stringy.description": "工具可用线进行修复",
@@ -2293,6 +2299,7 @@
   "effect.tconstruct.fireball_cooldown": "火球冷却",
   "effect.tconstruct.calcified": "钙质化",
   "effect.tconstruct.self_destructing": "自毁",
+  "effect.tconstruct.enderference": "Enderference",
 
 
   "_comment": "Roman numerals",
