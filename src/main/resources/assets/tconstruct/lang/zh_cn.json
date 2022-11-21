@@ -1374,7 +1374,7 @@
   "material.tconstruct.necrotic_bone.skull_flavor": "惊悚恐怖骷髅头！",
   "material.tconstruct.necrotic_bone.skull_encyclopedia": "普通攻击给予敌人凋零效果。饮用牛奶后可给予凋零 II。",
 
-  "material.tconstruct.chorus": "Chorus",
+  "material.tconstruct.chorus": "紫颂果",
   "material.tconstruct.chorus.flavor": "Not just the endermen, but the enderwomen, and the enderchildren",
   "material.tconstruct.chorus.encyclopedia": "Prevents the target from teleporting for a 5 seconds per effect level",
 
@@ -1566,8 +1566,8 @@
   "material.tconstruct.silver.encyclopedia": "对亡灵生物每级+2.5伤害",
 
   "material.tconstruct.whitestone": "白石",
-  "material.tconstruct.whitestone.end": "End Stone",
-  "material.tconstruct.whitestone.flavor": "Take your useless white metals or rocks and make a useful tool",
+  "material.tconstruct.whitestone.end": "末地石",
+  "material.tconstruct.whitestone.flavor": "拿走你那些毫无用处的白色金属和石头，做个有用的工具吧。",
   "material.tconstruct.whitestone.encyclopedia": "挖掘石头时有几率获得+3石盾，每级增加20%概率。",
 
 
