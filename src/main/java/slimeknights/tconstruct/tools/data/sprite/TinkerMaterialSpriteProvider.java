@@ -51,6 +51,10 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .statType(ExtraMaterialStats.ID)
       .fallbacks("primitive")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF143306).addARGB(102, 0xFF183D08).addARGB(140, 0xFF1F4E0A).addARGB(178, 0xFF265F0D).addARGB(216, 0xFF2E730F).addARGB(255, 0xFF3A9313).build());
+    buildMaterial(MaterialIds.chorus)
+      .meleeHarvest()
+      .fallbacks("rock")
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF4F2A4F).addARGB(102, 0xFF593559).addARGB(140, 0xFF643C64).addARGB(178, 0xFF774D77).addARGB(216, 0xFF8F648F).addARGB(255, 0xFFA47CA4).build());
     // tier 1 - wood
     buildMaterial(MaterialIds.wood)
       .meleeHarvest()
@@ -143,6 +147,10 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .meleeHarvest()
       .fallbacks("bone", "rock")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF4A0000).addARGB(102, 0xFF5D0000).addARGB(140, 0xFF820000).addARGB(178, 0xFFA00000).addARGB(216, 0xFFB80000).addARGB(255, 0xFFE82323).build());
+    buildMaterial(MaterialIds.endstone)
+      .meleeHarvest()
+      .fallbacks("rock")
+      .colorMapper(GreyToColorMapping.builder().addARGB(0, 0xFFFFFFFF).addARGB(63, 0xFFF6FABD).addARGB(102, 0xFFEEF6B4).addARGB(140, 0xFFDEE6A4).addARGB(178, 0xFFD5DA94).addARGB(216, 0xFFCDC68B).addARGB(255, 0xFFC5BE8B).build());
     buildMaterial(MaterialIds.osmium)
       .meleeHarvest().statType(TinkerPartSpriteProvider.PLATE)
       .fallbacks("metal")
@@ -336,9 +344,6 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
     buildMaterial(MaterialIds.phantom)
       .statType(RepairKitStats.ID).fallbacks("wood")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF6F516C).addARGB(102, 0xFF7E627B).addARGB(140, 0xFF958C79).addARGB(178, 0xFFA99B87).addARGB(216, 0xFFC3B9A1).addARGB(255, 0xFFDCD9C0).build());
-    buildMaterial(MaterialIds.chorus)
-      .statType(RepairKitStats.ID).fallbacks("rock")
-      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF4F2A4F).addARGB(102, 0xFF593559).addARGB(140, 0xFF643C64).addARGB(178, 0xFF774D77).addARGB(216, 0xFF8F648F).addARGB(255, 0xFFA47CA4).build());
     // slimesuit embellishments
     buildMaterial(MaterialIds.earthslime)
       .statType(TinkerPartSpriteProvider.SLIMESUIT)

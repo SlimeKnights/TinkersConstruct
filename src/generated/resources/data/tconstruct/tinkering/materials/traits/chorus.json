@@ -1,1 +1,8 @@
-{}
+{
+  "default": [
+    {
+      "name": "tconstruct:enderference",
+      "level": 1
+    }
+  ]
+}
