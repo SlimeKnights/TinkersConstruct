@@ -27,6 +27,10 @@ public class DynamicTextureLoader {
   private static final int TRIM_START = "textures/".length();
   /** End of the path to trim when caching existing textures */
   private static final int TRIM_END = ".png".length();
+
+  /** If textures are placed here, only need a single scan instead of one per tool */
+  private static final String PREFERRED_FOLDER = "item/tool";
+
   /** Set of all folders that have been scanned, so we can avoid scanning them twice */
   private static final Set<String> SCANNED_FOLDERS = new HashSet<>();
   /** Map of discovered textures */
@@ -39,7 +43,7 @@ public class DynamicTextureLoader {
   };
 
   /** Clears all cached texture names */
-  private static void clearCache() {
+  public static void clearCache() {
     SCANNED_FOLDERS.clear();
     EXISTING_TEXTURES.clear();
     SKIPPED_TEXTURES.clear();
@@ -52,12 +56,32 @@ public class DynamicTextureLoader {
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, TextureStitchEvent.Pre.class, e -> clearCache());
   }
 
+  /** Scans the given folder to add all textures */
+  private static void scanFolder(ResourceManager manager, String folder) {
+    manager.listResources("textures/" + folder, name -> name.endsWith(".png")).stream()
+           .map(loc -> {
+             String path = loc.getPath();
+             return new ResourceLocation(loc.getNamespace(), path.substring(TRIM_START, path.length() - TRIM_END));
+           })
+           .forEach(EXISTING_TEXTURES::add);
+  }
+
   /** Checks if the given folder is not yet scanned */
-  private static boolean checkFolderNotScanned(String originalFolder) {
+  private static boolean checkFolderNotScanned(ResourceManager manager, String originalFolder) {
     // if we already checked the folder, no work to do
     if (SCANNED_FOLDERS.contains(originalFolder)) {
       return false;
     }
+
+    // if the folder we are looking for starts with the preferred folder, we can immediately resolve it by resolving the whole preferred folder
+    if (originalFolder.startsWith(PREFERRED_FOLDER)) {
+      if (!SCANNED_FOLDERS.contains(PREFERRED_FOLDER)) {
+        SCANNED_FOLDERS.add(PREFERRED_FOLDER);
+        scanFolder(manager, PREFERRED_FOLDER);
+      }
+      return false;
+    }
+
     // if a folder has not been scanned yet, check if any of its parent's have been scanned
     // list resources will fetch all sub folders, so this saves us calling it multiple times per tool
     String folder = originalFolder;
@@ -77,14 +101,9 @@ public class DynamicTextureLoader {
   }
 
   /** Checks if a texture exists */
-  private static boolean textureExists(ResourceManager manager, String folder, ResourceLocation location) {
-    if (checkFolderNotScanned(folder)) {
-      manager.listResources("textures/" + folder, name -> name.endsWith(".png")).stream()
-             .map(loc -> {
-               String path = loc.getPath();
-               return new ResourceLocation(loc.getNamespace(), path.substring(TRIM_START, path.length() - TRIM_END));
-             })
-             .forEach(EXISTING_TEXTURES::add);
+  public static boolean textureExists(ResourceManager manager, String folder, ResourceLocation location) {
+    if (checkFolderNotScanned(manager, folder)) {
+      scanFolder(manager, folder);
     }
     return EXISTING_TEXTURES.contains(location);
   }
