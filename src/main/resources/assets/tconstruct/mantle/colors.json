@@ -157,13 +157,14 @@
     "tasty":         "#F0A8A4",
 
     "__traits_melee__": null,
-    "airborne":    "#00F4DA",
-    "dwarven":     "#E77C56",
-    "jagged":      "#696969",
-    "lustrous":    "#A3E7FE",
-    "momentum":    "#60496b",
-    "sharpweight": "#D1C08B",
-    "temperate":   "#9C5643",
+    "airborne":     "#00F4DA",
+    "dwarven":      "#E77C56",
+    "enderference": "#8F648F",
+    "jagged":       "#696969",
+    "lustrous":     "#A3E7FE",
+    "momentum":     "#60496b",
+    "sharpweight":  "#D1C08B",
+    "temperate":    "#9C5643",
 
     "__traits_harvest__": null,
     "conducting":   "#DBCC0B",
@@ -239,6 +240,7 @@
     "flint.basalt":  "#747474",
     "bone":          "#E8E5D2",
     "necrotic_bone": "#4D4D4D",
+    "chorus":        "#8F648F",
     "string":        "#FFFFFF",
     "leather":       "#C65C35",
     "vine":          "#48B518",
@@ -251,6 +253,7 @@
     "seared_stone":    "#4F4A47",
     "bloodbone":       "#B30000",
     "scorched_stone":  "#5B4C43",
+    "whitestone.end":  "#CDC68B",
     "chain":           "#3E4453",
     "skyslime_vine":   "#00F4DA",
     "__tier_2_slimewood__": null,
@@ -323,8 +326,7 @@
     "venom":      "#EDEDED",
 
     "__repair_kit__": null,
-    "phantom": "#C3B9A1",
-    "chorus":  "#8F648F"
+    "phantom": "#C3B9A1"
   },
 
   "harvest_tier.minecraft": {

@@ -53,6 +53,10 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      new HeadMaterialStats(100, 2.5f, STONE, 1.25f),
                      HandleMaterialStats.DEFAULT.withDurability(0.75f).withAttackSpeed(1.1f),
                      ExtraMaterialStats.DEFAULT);
+    addMaterialStats(MaterialIds.chorus,
+                     new HeadMaterialStats(180, 3.0f, STONE, 1.0f),
+                     HandleMaterialStats.DEFAULT.withDurability(1.1f).withMiningSpeed(0.95f).withAttackSpeed(0.9f),
+                     ExtraMaterialStats.DEFAULT);
     // tier 1 - binding
     addMaterialStats(MaterialIds.string, ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.leather, ExtraMaterialStats.DEFAULT, new RepairKitStats(150));
@@ -85,6 +89,12 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      new HeadMaterialStats(125, 4f, IRON, 2.25f),
                      HandleMaterialStats.DEFAULT.withDurability(0.7f).withAttackSpeed(1.15f).withAttackDamage(1.05f),
                      ExtraMaterialStats.DEFAULT);
+    // tier 2 - end
+    addMaterialStats(MaterialIds.whitestone,
+                     new HeadMaterialStats(275, 6.0f, IRON, 1.25f),
+                     HandleMaterialStats.DEFAULT.withDurability(0.95f).withMiningSpeed(1.1f).withAttackSpeed(0.95f),
+                     ExtraMaterialStats.DEFAULT);
+    // tier 2 - bindings
     addMaterialStats(MaterialIds.chain, ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.skyslimeVine, ExtraMaterialStats.DEFAULT);
 
@@ -108,10 +118,6 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.lead,
                      new HeadMaterialStats(200, 5f, IRON, 2.5f),
                      HandleMaterialStats.DEFAULT.withDurability(0.9f).withAttackSpeed(0.9f).withAttackDamage(1.2f),
-                     ExtraMaterialStats.DEFAULT);
-    addMaterialStats(MaterialIds.whitestone,
-                     new HeadMaterialStats(275, 6.0f, IRON, 1.25f),
-                     HandleMaterialStats.DEFAULT.withDurability(0.95f).withMiningSpeed(1.1f).withAttackSpeed(0.95f),
                      ExtraMaterialStats.DEFAULT);
 
     // tier 3
@@ -219,7 +225,6 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     // slimesuit
     addMaterialStats(MaterialIds.enderslime, new RepairKitStats( 30));
     addMaterialStats(MaterialIds.phantom,    new RepairKitStats(324));
-    addMaterialStats(MaterialIds.chorus,     new RepairKitStats( 65));
     // crafting
     addMaterialStats(MaterialIds.obsidian);
     addMaterialStats(MaterialIds.debris);

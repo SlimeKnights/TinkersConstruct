@@ -1,7 +1,17 @@
 {
   "stats": {
-    "tconstruct:repair_kit": {
-      "durability": 65
+    "tconstruct:extra": {},
+    "tconstruct:handle": {
+      "durability": 1.1,
+      "miningSpeed": 0.95,
+      "attackSpeed": 0.9,
+      "attackDamage": 1.0
+    },
+    "tconstruct:head": {
+      "durability": 180,
+      "miningSpeed": 3.0,
+      "harvestTier": "minecraft:stone",
+      "attack": 1.0
     }
   }
 }

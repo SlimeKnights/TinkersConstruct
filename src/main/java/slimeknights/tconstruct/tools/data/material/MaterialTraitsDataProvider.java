@@ -24,8 +24,8 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.rock, TinkerModifiers.stonebound);
     addDefaultTraits(MaterialIds.flint, TinkerModifiers.jagged);
     addDefaultTraits(MaterialIds.bone, TinkerModifiers.piercing);
-    // tier 1 - nether
-    addDefaultTraits(MaterialIds.necroticBone, TinkerModifiers.necrotic);
+    // tier 1 - end
+    addDefaultTraits(MaterialIds.chorus, TinkerModifiers.enderference);
     // tier 1 - binding
     addDefaultTraits(MaterialIds.string, ModifierIds.stringy);
     addDefaultTraits(MaterialIds.leather, TinkerModifiers.tanned);
@@ -38,7 +38,10 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.slimewood, TinkerModifiers.overgrowth, TinkerModifiers.overslime);
     addDefaultTraits(MaterialIds.bloodbone, TinkerModifiers.raging);
     // tier 2 - nether
+    addDefaultTraits(MaterialIds.necroticBone, TinkerModifiers.necrotic);
     addDefaultTraits(MaterialIds.scorchedStone, ModifierIds.scorching);
+    // tier 2 - end
+    addDefaultTraits(MaterialIds.whitestone, TinkerModifiers.stoneshield);
     // tier 2 - binding
     addDefaultTraits(MaterialIds.chain, TinkerModifiers.reinforced);
     addDefaultTraits(MaterialIds.skyslimeVine, TinkerModifiers.airborne);
@@ -71,7 +74,6 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.platinum, ModifierIds.lustrous);
     addDefaultTraits(MaterialIds.lead, ModifierIds.heavy);
     addDefaultTraits(MaterialIds.silver, ModifierIds.smite);
-    addDefaultTraits(MaterialIds.whitestone, TinkerModifiers.stoneshield);
     // tier 3 - mod compat
     addDefaultTraits(MaterialIds.steel, ModifierIds.ductile);
     addDefaultTraits(MaterialIds.bronze, TinkerModifiers.maintained);
@@ -108,9 +110,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     noTraits(MaterialIds.enderslime);
     noTraits(MaterialIds.clay);
     noTraits(MaterialIds.honey);
-    //noTraits(MaterialIds.venom);
     noTraits(MaterialIds.phantom);
-    noTraits(MaterialIds.chorus);
     // compat plate
     noTraits(MaterialIds.aluminum);
     noTraits(MaterialIds.nickel);

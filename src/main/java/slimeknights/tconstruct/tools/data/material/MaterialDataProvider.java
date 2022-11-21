@@ -1,10 +1,7 @@
 package slimeknights.tconstruct.tools.data.material;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraftforge.common.crafting.conditions.ICondition;
-import net.minecraftforge.common.crafting.conditions.OrCondition;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.library.data.material.AbstractMaterialDataProvider;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 
@@ -26,6 +23,8 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.flint,  1, ORDER_WEAPON,  true);
     addMaterial(MaterialIds.copper, 1, ORDER_SPECIAL, true);
     addMaterial(MaterialIds.bone,   1, ORDER_SPECIAL, true);
+    // tier 1 - end
+    addMaterial(MaterialIds.chorus, 1, ORDER_END,     true);
     // tier 1 - binding
     addMaterial(MaterialIds.string,  1, ORDER_BINDING, true);
     addMaterial(MaterialIds.leather, 1, ORDER_BINDING, true);
@@ -34,11 +33,13 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     // tier 2
     addMaterial(MaterialIds.iron,        2, ORDER_GENERAL, false);
     addMaterial(MaterialIds.searedStone, 2, ORDER_HARVEST, false);
-    addMaterial(MaterialIds.bloodbone,   2, ORDER_WEAPON,  false);
+    addMaterial(MaterialIds.bloodbone,   2, ORDER_WEAPON,  true);
     addMaterial(MaterialIds.slimewood,   2, ORDER_SPECIAL, true);
     // tier 2 - nether
     addMaterial(MaterialIds.scorchedStone, 2, ORDER_NETHER, false);
     addMaterial(MaterialIds.necroticBone,  2, ORDER_NETHER, true);
+    // tier 2 - end
+    addMaterial(MaterialIds.whitestone, 2, ORDER_END, true);
     // tier 2 - binding
     addMaterial(MaterialIds.chain,        2, ORDER_BINDING, true);
     addMaterial(MaterialIds.skyslimeVine, 2, ORDER_BINDING, true);
@@ -58,7 +59,7 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.queensSlime, 4, ORDER_GENERAL, false);
     addMaterial(MaterialIds.hepatizon,   4, ORDER_HARVEST, false);
     addMaterial(MaterialIds.manyullyn,   4, ORDER_WEAPON,  false);
-    addMaterial(MaterialIds.blazingBone, 4, ORDER_SPECIAL, false);
+    addMaterial(MaterialIds.blazingBone, 4, ORDER_SPECIAL, true);
     //addMetalMaterial(MaterialIds.soulsteel, 4, ORDER_SPECIAL, false, 0x6a5244);
     // tier 4 - binding
     addMaterial(MaterialIds.ancientHide, 4, ORDER_BINDING, false);
@@ -75,17 +76,12 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addCompatMetalMaterial(MaterialIds.platinum,   2, ORDER_COMPAT + ORDER_HARVEST);
     addCompatMetalMaterial(MaterialIds.silver,     2, ORDER_COMPAT + ORDER_WEAPON);
     addCompatMetalMaterial(MaterialIds.lead,       2, ORDER_COMPAT + ORDER_WEAPON);
-    ICondition condition = new OrCondition(ConfigEnabledCondition.FORCE_INTEGRATION_MATERIALS,
-                                           tagExistsCondition("ingots/aluminum"),
-                                           tagExistsCondition("ingots/tin"),
-                                           tagExistsCondition("ingots/zinc"));
-    addMaterial(MaterialIds.whitestone, 2, ORDER_COMPAT + ORDER_SPECIAL, false, false, condition);
     // tier 3 (mod integration)
     addCompatMetalMaterial(MaterialIds.steel,           3, ORDER_COMPAT + ORDER_GENERAL);
     addCompatMetalMaterial(MaterialIds.bronze,          3, ORDER_COMPAT + ORDER_HARVEST);
     addCompatMetalMaterial(MaterialIds.constantan,      3, ORDER_COMPAT + ORDER_HARVEST);
     addCompatMetalMaterial(MaterialIds.invar,           3, ORDER_COMPAT + ORDER_WEAPON);
-    addCompatMetalMaterial(MaterialIds.necronium,       3, ORDER_COMPAT + ORDER_WEAPON, "uranium");
+    addCompatMaterial     (MaterialIds.necronium,       3, ORDER_COMPAT + ORDER_WEAPON, "ingots/uranium", true);
     addCompatMetalMaterial(MaterialIds.electrum,        3, ORDER_COMPAT + ORDER_SPECIAL);
     addCompatMetalMaterial(MaterialIds.platedSlimewood, 3, ORDER_COMPAT + ORDER_SPECIAL, "brass");
 
@@ -115,7 +111,6 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     //addMaterial(MaterialIds.venom,      3, ORDER_REPAIR, true);
     // slimesuit - repair
     addMaterial(MaterialIds.phantom,    1, ORDER_REPAIR, true);
-    addMaterial(MaterialIds.chorus,     3, ORDER_REPAIR, true);
 
     // legacy
     addRedirect(new MaterialId(TConstruct.MOD_ID, "stone"),     redirect(MaterialIds.rock));

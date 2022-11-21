@@ -1374,6 +1374,10 @@
   "material.tconstruct.necrotic_bone.skull_flavor": "Spooky Scary Skeleton!",
   "material.tconstruct.necrotic_bone.skull_encyclopedia": "Melee attacks cause withering. After drinking milk the effect becomes faster",
 
+  "material.tconstruct.chorus":              "Chorus",
+  "material.tconstruct.chorus.flavor":       "Not just the endermen, but the enderwomen, and the enderchildren",
+  "material.tconstruct.chorus.encyclopedia": "Prevents the target from teleporting for a 5 seconds per effect level",
+
   "material.tconstruct.string": "String",
   "material.tconstruct.string.flavor": "Theoretically the best material.",
   "material.tconstruct.string.encyclopedia": "Allows the tool to be repaired using string in the tinker station or crafting table",
@@ -1496,7 +1500,6 @@
   "material.tconstruct.ancient_hide.encyclopedia": "Increases drop chances from blocks, stacking with luck",
 
   "__comment": "Tier End Materials",
-  "material.tconstruct.endstone": "End",
   "material.tconstruct.knightslime": "Knightslime",
 
   "material.tconstruct.enderslime_vine": "Slimy Vine",
@@ -1532,7 +1535,6 @@
   "material.tconstruct.honey":      "Honey",
   "material.tconstruct.venom":      "Venom",
   "material.tconstruct.phantom":    "Phantom Membrane",
-  "material.tconstruct.chorus":     "Chorus",
 
   "material.tconstruct.aluminum": "Aluminum",
   "material.tconstruct.nickel":   "Nickel",
@@ -1564,7 +1566,8 @@
   "material.tconstruct.silver.encyclopedia": "Gives +2.5 damage against undead per level",
 
   "material.tconstruct.whitestone": "Whitestone",
-  "material.tconstruct.whitestone.flavor": "Take your useless white metals and make a useful tool",
+  "material.tconstruct.whitestone.end": "End Stone",
+  "material.tconstruct.whitestone.flavor": "Take your useless white metals or rocks and make a useful tool",
   "material.tconstruct.whitestone.encyclopedia": "Mining stone has a 20% per level of granting +3 stoneshield",
 
 
@@ -2062,6 +2065,9 @@
   "modifier.tconstruct.stonebound": "Stonebound",
   "modifier.tconstruct.stonebound.flavor": "Your tool absolutely loves stone!",
   "modifier.tconstruct.stonebound.description": "The tool mines faster as it wears out, but does less damage",
+  "modifier.tconstruct.enderference": "Enderference",
+  "modifier.tconstruct.enderference.flavor": "Really quite distracting",
+  "modifier.tconstruct.enderference.description": "Prevents target from teleporting for a short time",
   "modifier.tconstruct.stringy": "Stringy",
   "modifier.tconstruct.stringy.flavor": "Like cheese, but less tasty",
   "modifier.tconstruct.stringy.description": "Tool can be repaired using string",
@@ -2293,6 +2299,7 @@
   "effect.tconstruct.fireball_cooldown": "Fireball Cooldown",
   "effect.tconstruct.calcified": "Calcified",
   "effect.tconstruct.self_destructing": "Self Destructing",
+  "effect.tconstruct.enderference": "Enderference",
 
 
   "_comment": "Roman numerals",
