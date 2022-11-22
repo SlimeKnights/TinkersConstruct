@@ -1,6 +1,6 @@
 {
   "fluid": {
-    "tag": "tconstruct:spilling/metal/expensive",
+    "tag": "tconstruct:molten_amethyst_bronze",
     "amount": 10
   },
   "effects": [
@@ -13,12 +13,12 @@
       "effect": {
         "type": "tconstruct:damage",
         "damage_type": "fire",
-        "damage_amount": 3.0
+        "damage_amount": 1.5
       }
     },
     {
-      "type": "tconstruct:set_fire",
-      "time": 7
+      "type": "tconstruct:add_insomnia",
+      "amount": 2000
     }
   ]
 }

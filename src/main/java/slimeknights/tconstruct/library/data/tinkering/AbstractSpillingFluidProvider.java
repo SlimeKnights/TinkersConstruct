@@ -101,9 +101,12 @@ public abstract class AbstractSpillingFluidProvider extends GenericDataProvider 
 
   /** Adds a builder for burning */
   protected Builder burningFluid(String name, TagKey<Fluid> tag, int amount, float damage, int time) {
-    return addFluid(name, tag, amount)
-      .addEffect(LivingEntityPredicate.FIRE_IMMUNE.inverted(), new DamageSpillingEffect(DamageType.FIRE, damage))
-      .addEffect(new SetFireSpillingEffect(time));
+    Builder builder = addFluid(name, tag, amount)
+      .addEffect(LivingEntityPredicate.FIRE_IMMUNE.inverted(), new DamageSpillingEffect(DamageType.FIRE, damage));
+    if (time > 0) {
+      builder.addEffect(new SetFireSpillingEffect(time));
+    }
+    return builder;
   }
 
   /** Builder class */

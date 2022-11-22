@@ -1,10 +1,11 @@
 package slimeknights.tconstruct.library.client.data.util;
 
-import lombok.RequiredArgsConstructor;
 import com.mojang.blaze3d.platform.NativeImage;
+import lombok.RequiredArgsConstructor;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.resources.ResourceLocation;
+import slimeknights.tconstruct.library.client.model.DynamicTextureLoader;
 
 import java.io.IOException;
 
@@ -20,7 +21,7 @@ public class ResourceManagerSpriteReader extends AbstractSpriteReader {
 
   @Override
   public boolean exists(ResourceLocation path) {
-    return manager.hasResource(getLocation(path));
+    return DynamicTextureLoader.textureExists(manager, path);
   }
 
   @Override

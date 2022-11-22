@@ -1,6 +1,6 @@
 {
   "fluid": {
-    "tag": "forge:molten_gold",
+    "tag": "forge:molten_rose_gold",
     "amount": 10
   },
   "effects": [
@@ -18,8 +18,8 @@
     },
     {
       "type": "tconstruct:effect",
-      "name": "minecraft:regeneration",
-      "time": 6,
+      "name": "minecraft:health_boost",
+      "time": 15,
       "level": 1
     }
   ]

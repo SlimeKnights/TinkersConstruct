@@ -13,7 +13,6 @@ import com.mojang.math.Transformation;
 import com.mojang.math.Vector3f;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
@@ -29,7 +28,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec2;
 import net.minecraftforge.client.model.BakedItemModel;
@@ -45,12 +43,12 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo.TintedSprite;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
+import slimeknights.tconstruct.library.client.model.DynamicTextureLoader;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -62,8 +60,6 @@ import java.util.function.Predicate;
 @AllArgsConstructor
 @Log4j2
 public class MaterialModel implements IModelGeometry<MaterialModel> {
-  /** Set of all textures that are missing from the resource pack, to avoid logging twice */
-  private static final Set<ResourceLocation> SKIPPED_TEXTURES = new HashSet<>();
 
   /** Shared loader instance */
   public static final Loader LOADER = new Loader();
@@ -83,30 +79,10 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     return allTextures;
   }
 
-  /** Checks if a texture exists */
-  private static boolean textureExists(ResourceManager manager, ResourceLocation location) {
-    return manager.hasResource(new ResourceLocation(location.getNamespace(), "textures/" + location.getPath() + ".png"));
-  }
-
-  /**
-   * Gets a consumer to add textures to the given collection
-   * @param allTextures      Collection of textures
-   * @return  Texture consumer
-   */
+  /** @deprecated use {@link DynamicTextureLoader#getTextureAdder(Collection, boolean)} */
+  @Deprecated
   public static Predicate<Material> getTextureAdder(Collection<Material> allTextures, boolean logMissingTextures) {
-    ResourceManager manager = Minecraft.getInstance().getResourceManager();
-    return mat -> {
-      // either must be non-blocks, or must exist. We have fallbacks if it does not exist
-      ResourceLocation loc = mat.texture();
-      if (!InventoryMenu.BLOCK_ATLAS.equals(mat.atlasLocation()) || textureExists(manager, loc)) {
-        allTextures.add(mat);
-        return true;
-      } else if (logMissingTextures && !SKIPPED_TEXTURES.contains(loc)) {
-        SKIPPED_TEXTURES.add(loc);
-        log.debug("Skipping loading texture '{}' as it does not exist in the resource pack", loc);
-      }
-      return false;
-    };
+    return DynamicTextureLoader.getTextureAdder(allTextures, logMissingTextures);
   }
 
   /**
@@ -123,7 +99,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     // if the texture is missing, stop here
     if (!MissingTextureAtlasSprite.getLocation().equals(texture.texture())) {
       // texture should exist in item/tool, or the validator cannot handle them
-      Predicate<Material> textureAdder = getTextureAdder(allTextures, Config.CLIENT.logMissingMaterialTextures.get());
+      Predicate<Material> textureAdder = DynamicTextureLoader.getTextureAdder(allTextures, Config.CLIENT.logMissingMaterialTextures.get());
       // if no specific material is set, load all materials as dependencies. If just one material, use just that one
       if (material == null) {
         MaterialRenderInfoLoader.INSTANCE.getAllRenderInfos().forEach(info -> info.getTextureDependencies(textureAdder, texture));
@@ -286,9 +262,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
    */
   private static class Loader implements IModelLoader<MaterialModel> {
     @Override
-    public void onResourceManagerReload(ResourceManager resourceManager) {
-      SKIPPED_TEXTURES.clear();
-    }
+    public void onResourceManagerReload(ResourceManager resourceManager) {}
 
     @Override
     public MaterialModel read(JsonDeserializationContext deserializationContext, JsonObject modelContents) {
