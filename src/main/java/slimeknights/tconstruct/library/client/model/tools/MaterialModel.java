@@ -13,7 +13,6 @@ import com.mojang.math.Transformation;
 import com.mojang.math.Vector3f;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
@@ -29,7 +28,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec2;
 import net.minecraftforge.client.model.BakedItemModel;
@@ -81,28 +79,10 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     return allTextures;
   }
 
-  /** Checks if a texture exists */
-  @Deprecated
-  private static boolean textureExists(ResourceManager manager, ResourceLocation location) {
-    return manager.hasResource(new ResourceLocation(location.getNamespace(), "textures/" + location.getPath() + ".png"));
-  }
-
-  /** @deprecated use {@link DynamicTextureLoader#getTextureAdder(String, Collection, boolean)} */
+  /** @deprecated use {@link DynamicTextureLoader#getTextureAdder(Collection, boolean)} */
   @Deprecated
   public static Predicate<Material> getTextureAdder(Collection<Material> allTextures, boolean logMissingTextures) {
-    ResourceManager manager = Minecraft.getInstance().getResourceManager();
-    return mat -> {
-      // either must be non-blocks, or must exist. We have fallbacks if it does not exist
-      ResourceLocation loc = mat.texture();
-      if (!InventoryMenu.BLOCK_ATLAS.equals(mat.atlasLocation()) || textureExists(manager, loc)) {
-        allTextures.add(mat);
-        return true;
-      }
-      if (logMissingTextures) {
-        DynamicTextureLoader.logMissingTexture(loc);
-      }
-      return false;
-    };
+    return DynamicTextureLoader.getTextureAdder(allTextures, logMissingTextures);
   }
 
   /**
@@ -119,7 +99,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     // if the texture is missing, stop here
     if (!MissingTextureAtlasSprite.getLocation().equals(texture.texture())) {
       // texture should exist in item/tool, or the validator cannot handle them
-      Predicate<Material> textureAdder = DynamicTextureLoader.getTextureAdder(DynamicTextureLoader.getTextureFolder(texture.texture()), allTextures, Config.CLIENT.logMissingMaterialTextures.get());
+      Predicate<Material> textureAdder = DynamicTextureLoader.getTextureAdder(allTextures, Config.CLIENT.logMissingMaterialTextures.get());
       // if no specific material is set, load all materials as dependencies. If just one material, use just that one
       if (material == null) {
         MaterialRenderInfoLoader.INSTANCE.getAllRenderInfos().forEach(info -> info.getTextureDependencies(textureAdder, texture));

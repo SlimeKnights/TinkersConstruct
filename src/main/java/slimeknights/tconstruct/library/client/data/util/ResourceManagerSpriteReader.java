@@ -21,7 +21,7 @@ public class ResourceManagerSpriteReader extends AbstractSpriteReader {
 
   @Override
   public boolean exists(ResourceLocation path) {
-    return DynamicTextureLoader.textureExists(manager, DynamicTextureLoader.getTextureFolder(path), path);
+    return DynamicTextureLoader.textureExists(manager, path);
   }
 
   @Override
