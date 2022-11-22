@@ -1,6 +1,6 @@
 {
   "fluid": {
-    "tag": "tconstruct:spilling/metal/expensive",
+    "tag": "forge:molten_bronze",
     "amount": 10
   },
   "effects": [
@@ -13,12 +13,12 @@
       "effect": {
         "type": "tconstruct:damage",
         "damage_type": "fire",
-        "damage_amount": 3.0
+        "damage_amount": 2.0
       }
     },
     {
-      "type": "tconstruct:set_fire",
-      "time": 7
+      "type": "tconstruct:add_insomnia",
+      "amount": -2000
     }
   ]
 }

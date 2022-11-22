@@ -1,6 +1,6 @@
 {
   "fluid": {
-    "tag": "forge:molten_gold",
+    "tag": "forge:molten_electrum",
     "amount": 10
   },
   "effects": [
@@ -18,8 +18,8 @@
     },
     {
       "type": "tconstruct:effect",
-      "name": "minecraft:regeneration",
-      "time": 6,
+      "name": "minecraft:haste",
+      "time": 8,
       "level": 1
     }
   ]

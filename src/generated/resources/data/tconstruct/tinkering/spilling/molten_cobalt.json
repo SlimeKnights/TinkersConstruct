@@ -1,6 +1,6 @@
 {
   "fluid": {
-    "tag": "tconstruct:spilling/metal/expensive",
+    "tag": "forge:molten_cobalt",
     "amount": 10
   },
   "effects": [
@@ -13,12 +13,20 @@
       "effect": {
         "type": "tconstruct:damage",
         "damage_type": "fire",
-        "damage_amount": 3.0
+        "damage_amount": 1.0
       }
     },
     {
-      "type": "tconstruct:set_fire",
-      "time": 7
+      "type": "tconstruct:effect",
+      "name": "minecraft:haste",
+      "time": 7,
+      "level": 1
+    },
+    {
+      "type": "tconstruct:effect",
+      "name": "minecraft:speed",
+      "time": 7,
+      "level": 1
     }
   ]
 }

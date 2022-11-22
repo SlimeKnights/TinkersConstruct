@@ -2293,6 +2293,7 @@
   "_comment": "Internal effects",
   "effect.tconstruct.bleeding": "Bleeding",
   "effect.tconstruct.magnetic": "Magnetic",
+  "effect.tconstruct.repulsive": "Repulsive",
   "effect.tconstruct.momentum": "Momentum",
   "effect.tconstruct.insatiable": "Insatiable",
   "effect.tconstruct.teleport_cooldown": "Teleport Cooldown",

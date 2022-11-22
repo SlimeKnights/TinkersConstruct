@@ -1,6 +1,6 @@
 {
   "fluid": {
-    "tag": "forge:molten_gold",
+    "tag": "forge:molten_silver",
     "amount": 10
   },
   "effects": [
@@ -17,10 +17,8 @@
       }
     },
     {
-      "type": "tconstruct:effect",
-      "name": "minecraft:regeneration",
-      "time": 6,
-      "level": 1
+      "type": "tconstruct:remove_effect",
+      "effect": "minecraft:wither"
     }
   ]
 }

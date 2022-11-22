@@ -90,37 +90,41 @@ public class MagneticModifier extends TotalArmorLevelModifier implements IHarves
   }
 
   /** Performs the magnetic effect */
-  public static void applyMagnet(LivingEntity entity, int amplifier) {
+  public static <T extends Entity> void applyVelocity(LivingEntity entity, int amplifier, Class<T> targetClass, int minRange, float speed, int maxPush) {
     // super magnetic - inspired by botanias code
     double x = entity.getX();
     double y = entity.getY();
     double z = entity.getZ();
-    float range = 3f + 1f * amplifier;
-    List<ItemEntity> items = entity.level.getEntitiesOfClass(ItemEntity.class, new AABB(x - range, y - range, z - range, x + range, y + range, z + range));
+    float range = minRange + amplifier;
+    List<T> targets = entity.level.getEntitiesOfClass(targetClass, new AABB(x - range, y - range, z - range, x + range, y + range, z + range));
 
-    // only pull up to 200 items
+    // only pull up to a max targets
     int pulled = 0;
-    for (ItemEntity item : items) {
-      if (item.getItem().isEmpty() || !item.isAlive()) {
+    for (T target : targets) {
+      if (target.isRemoved()) {
         continue;
       }
       // calculate direction: item -> player
       Vec3 vec = entity.position()
-                       .subtract(item.getX(), item.getY(), item.getZ())
+                       .subtract(target.getX(), target.getY(), target.getZ())
                        .normalize()
-                       .scale(0.05f + amplifier * 0.05f);
-      if (!item.isNoGravity()) {
+                       .scale(speed * (amplifier + 1));
+      if (!target.isNoGravity()) {
         vec = vec.add(0, 0.04f, 0);
       }
 
       // we calculated the movement vector and set it to the correct strength.. now we apply it \o/
-      item.setDeltaMovement(item.getDeltaMovement().add(vec));
+      target.setDeltaMovement(target.getDeltaMovement().add(vec));
 
-      // use stack size as limiting factor
-      pulled += item.getItem().getCount();
-      if (pulled > 200) {
+      pulled++;
+      if (pulled > maxPush) {
         break;
       }
     }
+  }
+
+  /** Performs the magnetic effect */
+  public static void applyMagnet(LivingEntity entity, int amplifier) {
+    applyVelocity(entity, amplifier, ItemEntity.class, 3, 0.05f, 100);
   }
 }

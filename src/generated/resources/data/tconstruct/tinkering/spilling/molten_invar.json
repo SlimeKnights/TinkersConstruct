@@ -1,25 +1,25 @@
 {
   "fluid": {
-    "tag": "forge:molten_gold",
+    "tag": "forge:molten_invar",
     "amount": 10
   },
   "effects": [
     {
       "type": "tconstruct:conditional",
       "entity": {
-        "type": "tconstruct:mob_type",
-        "mobs": "minecraft:undead"
+        "type": "tconstruct:inverted",
+        "predicate": "tconstruct:fire_immune"
       },
       "effect": {
         "type": "tconstruct:damage",
-        "damage_type": "magic",
+        "damage_type": "fire",
         "damage_amount": 2.0
       }
     },
     {
       "type": "tconstruct:effect",
-      "name": "minecraft:regeneration",
-      "time": 6,
+      "name": "minecraft:hunger",
+      "time": 10,
       "level": 1
     }
   ]
