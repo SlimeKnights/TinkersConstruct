@@ -1375,8 +1375,8 @@
   "material.tconstruct.necrotic_bone.skull_encyclopedia": "普通攻击给予敌人凋零效果。饮用牛奶后可给予凋零 II。",
 
   "material.tconstruct.chorus": "紫颂果",
-  "material.tconstruct.chorus.flavor": "Not just the endermen, but the enderwomen, and the enderchildren",
-  "material.tconstruct.chorus.encyclopedia": "Prevents the target from teleporting for a 5 seconds per effect level",
+  "material.tconstruct.chorus.flavor": "不只是末影人，还有末影娘和末影孩",
+  "material.tconstruct.chorus.encyclopedia": "防止目标瞬移，每级增加5秒",
 
   "material.tconstruct.string": "线",
   "material.tconstruct.string.flavor": "理论上的最佳材料。",
@@ -2065,9 +2065,9 @@
   "modifier.tconstruct.stonebound": "石缚",
   "modifier.tconstruct.stonebound.flavor": "你的工具真的超爱石头诶！",
   "modifier.tconstruct.stonebound.description": "工具的耐久度越低，采掘速度越高，但伤害值越低",
-  "modifier.tconstruct.enderference": "Enderference",
+  "modifier.tconstruct.enderference": "抑影",
   "modifier.tconstruct.enderference.flavor": "Really quite distracting",
-  "modifier.tconstruct.enderference.description": "Prevents target from teleporting for a short time",
+  "modifier.tconstruct.enderference.description": "暂时抑制末影人的瞬移",
   "modifier.tconstruct.stringy": "丝线",
   "modifier.tconstruct.stringy.flavor": "有点像奶酪，但是味道不大好",
   "modifier.tconstruct.stringy.description": "工具可用线进行修复",
@@ -2300,7 +2300,7 @@
   "effect.tconstruct.fireball_cooldown": "火球冷却",
   "effect.tconstruct.calcified": "钙质化",
   "effect.tconstruct.self_destructing": "自毁",
-  "effect.tconstruct.enderference": "Enderference",
+  "effect.tconstruct.enderference": "抑影",
 
 
   "_comment": "Roman numerals",
