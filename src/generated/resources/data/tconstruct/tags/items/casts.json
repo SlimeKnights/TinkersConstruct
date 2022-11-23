@@ -3,6 +3,8 @@
   "values": [
     "#tconstruct:casts/gold",
     "#tconstruct:casts/sand",
-    "#tconstruct:casts/red_sand"
+    "#tconstruct:casts/red_sand",
+    "#tconstruct:casts/empty/table",
+    "#tconstruct:casts/empty/basin"
   ]
 }

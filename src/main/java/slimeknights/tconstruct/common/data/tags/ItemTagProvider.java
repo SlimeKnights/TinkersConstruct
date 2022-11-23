@@ -117,6 +117,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
 
     // glass
+    copy(Tags.Blocks.GLASS_SILICA, Tags.Items.GLASS_SILICA);
     copy(TinkerTags.Blocks.GLASS_PANES_SILICA, TinkerTags.Items.GLASS_PANES_SILICA);
     copy(Tags.Blocks.GLASS_COLORLESS, Tags.Items.GLASS_COLORLESS);
     copy(Tags.Blocks.GLASS_PANES_COLORLESS, Tags.Items.GLASS_PANES_COLORLESS);
@@ -384,9 +385,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 
     // add all casts to a common tag
     this.tag(TinkerTags.Items.CASTS)
-        .addTag(TinkerTags.Items.GOLD_CASTS)
-        .addTag(TinkerTags.Items.SAND_CASTS)
-        .addTag(TinkerTags.Items.RED_SAND_CASTS);
+        .addTags(TinkerTags.Items.GOLD_CASTS, TinkerTags.Items.SAND_CASTS, TinkerTags.Items.RED_SAND_CASTS, TinkerTags.Items.TABLE_EMPTY_CASTS, TinkerTags.Items.BASIN_EMPTY_CASTS);
     this.tag(TinkerTags.Items.TABLE_EMPTY_CASTS).add(TinkerCommons.goldBars.asItem());
     this.tag(TinkerTags.Items.BASIN_EMPTY_CASTS).add(TinkerCommons.goldPlatform.asItem());
 

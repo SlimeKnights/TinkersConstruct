@@ -95,8 +95,11 @@ public class BlockTagProvider extends BlockTagsProvider {
 
     // impermeable for all glass
     TagAppender<Block> impermeable = tag(BlockTags.IMPERMEABLE);
+    TagAppender<Block> silicaGlass = tag(Tags.Blocks.GLASS_SILICA);
     impermeable.add(TinkerCommons.clearGlass.get(), TinkerCommons.soulGlass.get(), TinkerSmeltery.searedGlass.get(), TinkerCommons.clearTintedGlass.get());
+    silicaGlass.add(TinkerCommons.clearGlass.get());
     TinkerCommons.clearStainedGlass.values().forEach(impermeable::add);
+    TinkerCommons.clearStainedGlass.values().forEach(silicaGlass::add);
 
     // soul speed on glass
     this.tag(BlockTags.SOUL_SPEED_BLOCKS).add(TinkerCommons.soulGlass.get(), TinkerCommons.soulGlassPane.get());
