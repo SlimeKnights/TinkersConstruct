@@ -384,9 +384,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 
     // add all casts to a common tag
     this.tag(TinkerTags.Items.CASTS)
-        .addTag(TinkerTags.Items.GOLD_CASTS)
-        .addTag(TinkerTags.Items.SAND_CASTS)
-        .addTag(TinkerTags.Items.RED_SAND_CASTS);
+        .addTags(TinkerTags.Items.GOLD_CASTS, TinkerTags.Items.SAND_CASTS, TinkerTags.Items.RED_SAND_CASTS, TinkerTags.Items.TABLE_EMPTY_CASTS, TinkerTags.Items.BASIN_EMPTY_CASTS);
     this.tag(TinkerTags.Items.TABLE_EMPTY_CASTS).add(TinkerCommons.goldBars.asItem());
     this.tag(TinkerTags.Items.BASIN_EMPTY_CASTS).add(TinkerCommons.goldPlatform.asItem());
 
