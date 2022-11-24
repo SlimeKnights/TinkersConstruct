@@ -1107,9 +1107,9 @@
   "block.tconstruct.scorched_fuel_gauge": "Scorched Fuel Gauge",
   "block.tconstruct.scorched_fuel_gauge.tooltip": "Alternate Foundry tank.\nRetains liquid when broken.",
   "block.tconstruct.scorched_ingot_tank": "Scorched Ingot Tank",
-  "block.tconstruct.scorched_ingot_tank.tooltip": "Ideal for metals, holding 3 molten blocks.\nRetains liquid when broken.",
+  "block.tconstruct.scorched_ingot_tank.tooltip": "Ideal for metals, holding 48 ingots of fluid.\nRetains liquid when broken.",
   "block.tconstruct.scorched_ingot_gauge": "Scorched Ingot Gauge",
-  "block.tconstruct.scorched_ingot_gauge.tooltip": "Ideal for metals, holding 3 molten blocks.\nRetains liquid when broken.",
+  "block.tconstruct.scorched_ingot_gauge.tooltip": "Ideal for metals, holding 48 ingots of fluid.\nRetains liquid when broken.",
   "block.tconstruct.scorched_lantern": "Scorched Lantern",
   "block.tconstruct.scorched_lantern.tooltip": "Ideal for decoration, holding 100mb of fluid.\nRetains liquid when broken.",
 

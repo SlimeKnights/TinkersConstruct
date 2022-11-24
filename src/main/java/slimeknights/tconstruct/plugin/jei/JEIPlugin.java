@@ -8,6 +8,7 @@ import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.handlers.IGuiContainerHandler;
 import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.helpers.IModIdHelper;
 import mezz.jei.api.ingredients.subtypes.IIngredientSubtypeInterpreter;
 import mezz.jei.api.ingredients.subtypes.UidContext;
 import mezz.jei.api.registration.IGuiHandlerRegistration;
@@ -110,6 +111,8 @@ import java.util.stream.Collectors;
 @SuppressWarnings("unused")
 @JeiPlugin
 public class JEIPlugin implements IModPlugin {
+  public static IModIdHelper modIdHelper;
+
   @Override
   public ResourceLocation getPluginUid() {
     return TConstructJEIConstants.PLUGIN;
@@ -397,6 +400,7 @@ public class JEIPlugin implements IModPlugin {
     optionalCast(manager, TinkerSmeltery.coinCast);
     optionalCast(manager, TinkerSmeltery.wireCast);
     optionalItem(manager, TinkerMaterials.necroniumBone, "ingots/uranium");
+    modIdHelper = jeiRuntime.getJeiHelpers().getModIdHelper();
   }
 
   /** Class to pass {@link IScreenWithFluidTank} into JEI */
