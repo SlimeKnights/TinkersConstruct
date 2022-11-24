@@ -1107,9 +1107,9 @@
   "block.tconstruct.scorched_fuel_gauge": "焦褐燃料量器",
   "block.tconstruct.scorched_fuel_gauge.tooltip": "备用的熔铸炉储罐。\n被破坏时仍能保留其中的液体。",
   "block.tconstruct.scorched_ingot_tank": "焦褐材料储罐",
-  "block.tconstruct.scorched_ingot_tank.tooltip": "理想的液态金属容器，能存储相当于3块熔融方块的流体。\n被破坏时仍能保留其中的液体。",
+  "block.tconstruct.scorched_ingot_tank.tooltip": "理想的液态金属容器，能存储相当于48锭熔融方块的流体。\n被破坏时仍能保留其中的液体。",
   "block.tconstruct.scorched_ingot_gauge": "焦褐材料量器",
-  "block.tconstruct.scorched_ingot_gauge.tooltip": "理想的液态金属容器，能存储相当于3块熔融方块的流体。\n被破坏时仍能保留其中的液体。",
+  "block.tconstruct.scorched_ingot_gauge.tooltip": "理想的液态金属容器，能存储相当于48锭熔融方块的流体。\n被破坏时仍能保留其中的液体。",
   "block.tconstruct.scorched_lantern": "焦褐灯笼",
   "block.tconstruct.scorched_lantern.tooltip": "理想的装饰建材，能存储50mB的流体。\n被破坏时仍能保留其中的液体。",
 
