@@ -383,6 +383,11 @@ public class ToolAttackUtil {
       }
       // removed: fire damage, handled in modifier hook above
       attackerPlayer.causeFoodExhaustion(0.1F);
+
+      // add usage stat
+      if (!isExtraAttack) {
+        attackerPlayer.awardStat(Stats.ITEM_USED.get(tool.getItem()));
+      }
     }
 
     // damage the tool
