@@ -71,7 +71,7 @@ public class DragonbornModifier extends AbstractProtectionModifier<ModifierMaxLe
 
             // if we either were or became critical, time to boost
             if (isCritical) {
-              // adds +10% critical hit per level
+              // adds +5% critical hit per level
               event.setDamageModifier(event.getDamageModifier() + max * 0.05f);
             }
           }
