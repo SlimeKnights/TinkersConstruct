@@ -9,7 +9,7 @@
   },
   "traits": [
     {
-      "name": "tconstruct:firestarter_hidden",
+      "name": "tconstruct:firestarter",
       "level": 1
     },
     {
