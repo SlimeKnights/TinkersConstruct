@@ -65,6 +65,12 @@ public class ModifierProvider extends AbstractModifierProvider {
     addRedirect(id("blue_extra_upgrade"),  redirect(ModifierIds.harmonious));
     addRedirect(id("extra_ability"),       redirect(ModifierIds.draconic));
 
+    // internal modifier migration
+    addRedirect(id("shovel_flatten"), redirect(TinkerModifiers.pathing.getId()));
+    addRedirect(id("axe_strip"), redirect(TinkerModifiers.stripping.getId()));
+    addRedirect(id("hoe_till"), redirect(TinkerModifiers.tilling.getId()));
+    addRedirect(id("firestarter_hidden"), redirect(TinkerModifiers.firestarter.getId()));
+
     // tier upgrades
     // emerald
     addModifier(ModifierIds.emerald, StatBoostModifier.builder()

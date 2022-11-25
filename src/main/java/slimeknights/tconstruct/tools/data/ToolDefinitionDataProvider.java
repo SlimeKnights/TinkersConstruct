@@ -127,7 +127,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ToolStats.ATTACK_DAMAGE, 1.1f)
       // traits
       .trait(TinkerModifiers.knockback, 1)
-      .trait(TinkerModifiers.hoeTill)
+      .trait(TinkerModifiers.tilling)
       // harvest
       .action(ToolActions.AXE_DIG)
       .action(ToolActions.SHOVEL_DIG)
@@ -152,7 +152,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ToolStats.MINING_SPEED, 0.75f)
       .multiplier(ToolStats.ATTACK_DAMAGE, 1.15f)
       // traits
-      .trait(TinkerModifiers.shovelFlatten)
+      .trait(TinkerModifiers.pathing)
       .trait(ModifierIds.baneOfSssss)
       // harvest
       .action(ToolActions.PICKAXE_DIG)
@@ -175,7 +175,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .largeToolStartingSlots()
       // traits
       .trait(TinkerModifiers.knockback, 2)
-      .trait(TinkerModifiers.shovelFlatten)
+      .trait(TinkerModifiers.pathing)
       // harvest
       .action(ToolActions.SHOVEL_DIG)
       .effective(BlockTags.MINEABLE_WITH_SHOVEL)
@@ -194,7 +194,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .smallToolStartingSlots()
       // traits
       .trait(TinkerModifiers.axeScrape)
-      .trait(TinkerModifiers.axeStrip)
+      .trait(TinkerModifiers.stripping)
       .trait(TinkerModifiers.axeWaxOff)
       // harvest
       .action(ToolActions.AXE_DIG)
@@ -218,7 +218,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .largeToolStartingSlots()
       // traits
       .trait(TinkerModifiers.axeScrape)
-      .trait(TinkerModifiers.axeStrip)
+      .trait(TinkerModifiers.stripping)
       .trait(TinkerModifiers.axeWaxOff)
       // harvest
       .action(ToolActions.AXE_DIG)
@@ -267,7 +267,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ToolStats.DURABILITY, 2.5f)
       .largeToolStartingSlots()
       // traits
-      .trait(TinkerModifiers.hoeTill)
+      .trait(TinkerModifiers.tilling)
       .trait(TinkerModifiers.aoeSilkyShears)
       .trait(TinkerModifiers.harvest)
       // behavior
@@ -350,7 +350,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .stat(ToolStats.DURABILITY, 100)
       .startingSlots(SlotType.UPGRADE, 1)
       // traits
-      .trait(TinkerModifiers.firestarterHidden)
+      .trait(TinkerModifiers.firestarter)
       .trait(TinkerModifiers.fiery);
 
 

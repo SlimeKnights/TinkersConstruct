@@ -24,6 +24,12 @@
     "stripping":   "#ab7a55",
     "tilling":     "#633c1e",
 
+    "__interaction_traits__": null,
+    "shears":           "#A64F3F",
+    "silky_shears":     "#A64F3F",
+    "silky_aoe_shears": "#A64F3F",
+    "harvest":          "#CDB159",
+
     "__armor_abilities__": null,
     "double_jump":  "#01cbcd",
     "bouncy":       "#27C6C6",

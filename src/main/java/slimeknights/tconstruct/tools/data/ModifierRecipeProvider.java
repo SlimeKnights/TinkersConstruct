@@ -1062,7 +1062,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // block transformers
     Ingredient heldWithDurability = IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.DURABILITY), Ingredient.of(TinkerTags.Items.INTERACTABLE));
     ModifierRecipeBuilder.modifier(TinkerModifiers.pathing)
-                         .setTools(DifferenceIngredient.of(heldWithDurability, Ingredient.of(TinkerTools.mattock, TinkerTools.excavator)))
+                         .setTools(DifferenceIngredient.of(heldWithDurability, Ingredient.of(TinkerTools.pickadze, TinkerTools.excavator)))
                          .addInput(roundPlate)
                          .addInput(TinkerMaterials.cobalt.getIngotTag())
                          .addInput(toolBinding)
@@ -1080,7 +1080,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(TinkerModifiers.stripping, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.stripping, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.tilling)
-                         .setTools(DifferenceIngredient.of(heldWithDurability, Ingredient.of(TinkerTools.kama, TinkerTools.scythe)))
+                         .setTools(DifferenceIngredient.of(heldWithDurability, Ingredient.of(TinkerTools.mattock, TinkerTools.scythe)))
                          .addInput(smallBlade)
                          .addInput(TinkerMaterials.cobalt.getIngotTag())
                          .addInput(toolBinding)
@@ -1205,7 +1205,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                  .addInput(CompoundIngredient.of(FluidContainerIngredient.fromFluid(TinkerFluids.venom, false),
                                                                  FluidContainerIngredient.fromIngredient(FluidIngredient.of(TinkerFluids.venom.getLocalTag(), FluidValues.BOTTLE),
                                                                                                          Ingredient.of(TinkerFluids.venomBottle))))
-                                 .addLeftover(Blocks.SPONGE)
                                  .save(consumer, modResource(worktableFolder + "remove_modifier_venom"));
     ModifierSortingRecipe.Builder.sorting()
                                  .addInput(Items.COMPASS)
