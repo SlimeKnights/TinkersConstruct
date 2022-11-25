@@ -104,10 +104,20 @@ public abstract class HeatingStructureMultiblock<T extends MantleBlockEntity & I
    * @return  True if this structure can expand
    */
   public boolean canExpand(StructureData data, Level world) {
+    // note that if the structure has neither a floor nor ceiling, this will only expand upwards
+    // I really doubt we ever will want a structure with neither... if we did they can override this logic
     BlockPos min = data.getMinPos();
-    BlockPos to = data.getMaxPos().above();
+    BlockPos max = data.getMaxPos();
+    BlockPos from, to;
+    if (hasFloor) {
+      to = max.above();
+      from = new BlockPos(min.getX(), to.getY(), min.getZ());
+    } else {
+      from = min.below();
+      to = new BlockPos(max.getX(), from.getY(), max.getZ());
+    }
     // want two positions one layer above the structure
-    MultiblockResult result = detectLayer(world, new BlockPos(min.getX(), to.getY(), min.getZ()), to, pos -> {});
+    MultiblockResult result = detectLayer(world, from, to, pos -> {});
     setLastResult(result);
     return result.isSuccess();
   }
