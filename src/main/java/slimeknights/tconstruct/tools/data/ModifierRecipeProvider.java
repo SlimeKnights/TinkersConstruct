@@ -1205,7 +1205,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                  .addInput(CompoundIngredient.of(FluidContainerIngredient.fromFluid(TinkerFluids.venom, false),
                                                                  FluidContainerIngredient.fromIngredient(FluidIngredient.of(TinkerFluids.venom.getLocalTag(), FluidValues.BOTTLE),
                                                                                                          Ingredient.of(TinkerFluids.venomBottle))))
-                                 .addLeftover(Blocks.SPONGE)
                                  .save(consumer, modResource(worktableFolder + "remove_modifier_venom"));
     ModifierSortingRecipe.Builder.sorting()
                                  .addInput(Items.COMPASS)

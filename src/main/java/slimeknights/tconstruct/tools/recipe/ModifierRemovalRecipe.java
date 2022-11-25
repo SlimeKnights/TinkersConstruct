@@ -123,7 +123,7 @@ public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
     super.updateInputs(result, inv, isServer);
     if (isServer) {
       for (ItemStack stack : leftovers) {
-        inv.giveItem(stack);
+        inv.giveItem(stack.copy());
       }
     }
   }
