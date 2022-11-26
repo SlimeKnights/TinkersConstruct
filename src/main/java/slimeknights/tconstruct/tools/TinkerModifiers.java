@@ -115,6 +115,8 @@ import slimeknights.tconstruct.tools.modifiers.effect.NoMilkEffect;
 import slimeknights.tconstruct.tools.modifiers.effect.RepulsiveEffect;
 import slimeknights.tconstruct.tools.modifiers.loot.ChrysophiliteBonusFunction;
 import slimeknights.tconstruct.tools.modifiers.loot.ChrysophiliteLootCondition;
+import slimeknights.tconstruct.tools.modifiers.loot.HasModifierLootCondition;
+import slimeknights.tconstruct.tools.modifiers.loot.ModifierBonusLootFunction;
 import slimeknights.tconstruct.tools.modifiers.slotless.CreativeSlotModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.DyedModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.EmbellishmentModifier;
@@ -458,6 +460,8 @@ public final class TinkerModifiers extends TinkerModule {
    * Loot
    */
   public static final RegistryObject<ModifierLootModifier.Serializer> modifierLootModifier = GLOBAL_LOOT_MODIFIERS.register("modifier_hook", ModifierLootModifier.Serializer::new);
+  public static final RegistryObject<LootItemConditionType> hasModifierLootCondition = LOOT_CONDITIONS.register("has_modifier", () -> new LootItemConditionType(new HasModifierLootCondition.ConditionSerializer()));
+  public static final RegistryObject<LootItemFunctionType> modifierBonusFunction = LOOT_FUNCTIONS.register("modifier_bonus", () -> new LootItemFunctionType(new ModifierBonusLootFunction.Serializer()));
   public static final RegistryObject<LootItemConditionType> chrysophiliteLootCondition = LOOT_CONDITIONS.register("has_chrysophilite", () -> new LootItemConditionType(ChrysophiliteLootCondition.SERIALIZER));
   public static final RegistryObject<LootItemFunctionType> chrysophiliteBonusFunction = LOOT_FUNCTIONS.register("chrysophilite_bonus", () -> new LootItemFunctionType(ChrysophiliteBonusFunction.SERIALIZER));
 

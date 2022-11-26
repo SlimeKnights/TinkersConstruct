@@ -1,0 +1,53 @@
+{
+  "conditions": [
+    {
+      "condition": "mantle:block_tag",
+      "tag": "forge:ores/osmium"
+    },
+    {
+      "condition": "tconstruct:tag_not_empty",
+      "registry": "minecraft:item",
+      "tag": "forge:nuggets/osmium"
+    },
+    {
+      "condition": "tconstruct:has_modifier",
+      "modifier": "tconstruct:lustrous"
+    }
+  ],
+  "modifier_conditions": [
+    {
+      "type": "mantle:inverted",
+      "condition": {
+        "type": "mantle:contains_item",
+        "ingredient": {
+          "tag": "forge:ores/osmium"
+        }
+      }
+    }
+  ],
+  "entry": {
+    "type": "tconstruct:tag_preference",
+    "tag": "forge:nuggets/osmium"
+  },
+  "functions": [
+    {
+      "function": "minecraft:set_count",
+      "count": {
+        "type": "minecraft:uniform",
+        "min": 2.0,
+        "max": 4.0
+      },
+      "add": false
+    },
+    {
+      "function": "tconstruct:modifier_bonus",
+      "modifier": "tconstruct:lustrous",
+      "formula": "minecraft:ore_drops",
+      "include_base": false
+    },
+    {
+      "function": "minecraft:explosion_decay"
+    }
+  ],
+  "type": "mantle:add_entry"
+}
