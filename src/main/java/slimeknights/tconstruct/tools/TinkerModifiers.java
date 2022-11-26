@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tools;
 
-import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -459,8 +458,8 @@ public final class TinkerModifiers extends TinkerModule {
    * Loot
    */
   public static final RegistryObject<ModifierLootModifier.Serializer> modifierLootModifier = GLOBAL_LOOT_MODIFIERS.register("modifier_hook", ModifierLootModifier.Serializer::new);
-  public static LootItemConditionType chrysophiliteLootCondition;
-  public static LootItemFunctionType chrysophiliteBonusFunction;
+  public static final RegistryObject<LootItemConditionType> chrysophiliteLootCondition = LOOT_CONDITIONS.register("has_chrysophilite", () -> new LootItemConditionType(ChrysophiliteLootCondition.SERIALIZER));
+  public static final RegistryObject<LootItemFunctionType> chrysophiliteBonusFunction = LOOT_FUNCTIONS.register("chrysophilite_bonus", () -> new LootItemFunctionType(ChrysophiliteBonusFunction.SERIALIZER));
 
   /*
    * Events
@@ -504,12 +503,6 @@ public final class TinkerModifiers extends TinkerModule {
   void commonSetup(final FMLCommonSetupEvent event) {
     TinkerDataCapability.register();
     PersistentDataCapability.register();
-  }
-
-  @SubscribeEvent
-  void registerRecipeSerializers(RegistryEvent.Register<RecipeSerializer<?>> event) {
-    chrysophiliteLootCondition = Registry.register(Registry.LOOT_CONDITION_TYPE, ChrysophiliteLootCondition.ID, new LootItemConditionType(ChrysophiliteLootCondition.SERIALIZER));
-    chrysophiliteBonusFunction = Registry.register(Registry.LOOT_FUNCTION_TYPE, ChrysophiliteBonusFunction.ID, new LootItemFunctionType(ChrysophiliteBonusFunction.SERIALIZER));
   }
 
   @SubscribeEvent

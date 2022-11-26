@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.tools;
 
 import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.core.Registry;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.entity.EntityType;
@@ -88,7 +87,7 @@ public final class TinkerTools extends TinkerModule {
   public static final CreativeModeTab TAB_TOOLS = new SupplierCreativeTab(TConstruct.MOD_ID, "tools", () -> TinkerTools.pickaxe.get().getRenderTool());
 
   /** Loot function type for tool add data */
-  public static LootItemFunctionType lootAddToolData;
+  public static final RegistryObject<LootItemFunctionType> lootAddToolData = LOOT_FUNCTIONS.register("add_tool_data", () -> new LootItemFunctionType(AddToolDataFunction.SERIALIZER));
 
   /*
    * Items
@@ -155,7 +154,6 @@ public final class TinkerTools extends TinkerModule {
   @SubscribeEvent
   void registerRecipeSerializers(RegistryEvent.Register<RecipeSerializer<?>> event) {
     ItemPredicate.register(ToolPredicate.ID, ToolPredicate::deserialize);
-    lootAddToolData = Registry.register(Registry.LOOT_FUNCTION_TYPE, AddToolDataFunction.ID, new LootItemFunctionType(AddToolDataFunction.SERIALIZER));
 
     // tool definition components
     // harvest

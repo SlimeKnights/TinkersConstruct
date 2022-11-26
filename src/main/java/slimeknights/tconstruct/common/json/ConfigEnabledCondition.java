@@ -57,7 +57,7 @@ public class ConfigEnabledCondition implements ICondition, LootItemCondition {
 
   @Override
   public LootItemConditionType getType() {
-    return TinkerCommons.lootConfig;
+    return TinkerCommons.lootConfig.get();
   }
 
   private static class ConfigSerializer implements Serializer<ConfigEnabledCondition>, IConditionSerializer<ConfigEnabledCondition> {
