@@ -735,7 +735,10 @@ public class Modifier implements IHaveLoader<Modifier> {
    * @param level     Modifier level
    * @param context   Harvest context
    * @param consumer  Consumer accepting any enchantments
+   * @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.HarvestEnchantmentsModifierHook}
    */
+  @SuppressWarnings("DeprecatedIsStillUsed")
+  @Deprecated
   public void applyHarvestEnchantments(IToolStackView tool, int level, ToolHarvestContext context, BiConsumer<Enchantment,Integer> consumer) {}
 
   /**
@@ -747,7 +750,10 @@ public class Modifier implements IHaveLoader<Modifier> {
    * @param damageSource  Damage source that killed the entity. May be null if this hook is called without attacking anything (e.g. shearing)
    * @param looting          Luck value set from previous modifiers
    * @return New luck value
+   * @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.LootingModifierHook}
    */
+  @SuppressWarnings("DeprecatedIsStillUsed")
+  @Deprecated
   public int getLootingValue(IToolStackView tool, int level, LivingEntity holder, Entity target, @Nullable DamageSource damageSource, int looting) {
     return looting;
   }

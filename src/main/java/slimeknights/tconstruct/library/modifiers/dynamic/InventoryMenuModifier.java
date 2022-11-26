@@ -7,14 +7,15 @@ import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.GenericIntSerializer;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.InteractModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.InventoryModifier;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
-import javax.annotation.Nullable;
-
-public class InventoryMenuModifier extends InventoryModifier implements IArmorInteractModifier {
+public class InventoryMenuModifier extends InventoryModifier implements InteractModifierHook {
   /** Loader instance */
   public static final GenericIntSerializer<InventoryMenuModifier> LOADER = new GenericIntSerializer<>("size", InventoryMenuModifier::new, t -> t.slotsPerLevel);
 
@@ -32,18 +33,14 @@ public class InventoryMenuModifier extends InventoryModifier implements IArmorIn
   }
 
   @Override
-  public boolean startArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot slot, TooltipKey modifier) {
+  public boolean startInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot slot, TooltipKey keyModifier) {
     return ToolInventoryCapability.tryOpenContainer(player.getItemBySlot(slot), tool, player, slot).consumesAction();
   }
 
-  @SuppressWarnings("unchecked")
-  @Nullable
   @Override
-  public <T> T getModule(Class<T> type) {
-    if (type == IArmorInteractModifier.class) {
-      return (T) this;
-    }
-    return super.getModule(type);
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.ARMOR_INTERACT);
   }
 
   @Override

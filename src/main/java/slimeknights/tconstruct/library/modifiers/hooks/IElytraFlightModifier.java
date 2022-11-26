@@ -3,7 +3,12 @@ package slimeknights.tconstruct.library.modifiers.hooks;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
-/** Module for chestplate modifiers to control flight behavior */
+/**
+ * Module for chestplate modifiers to control flight behavior
+ * @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.ElytraFlightModifierHook}
+ */
+@SuppressWarnings("DeprecatedIsStillUsed")
+@Deprecated
 public interface IElytraFlightModifier {
   /**
    * Call on elytra flight tick to run any update effects

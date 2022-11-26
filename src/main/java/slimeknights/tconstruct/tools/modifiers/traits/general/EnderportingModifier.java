@@ -13,11 +13,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
-import org.jetbrains.annotations.Nullable;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.events.teleport.EnderportingTeleportEvent;
-import slimeknights.tconstruct.library.modifiers.hooks.IHarvestModifier;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.PlantHarvestModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -25,7 +27,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.Set;
 
-public class EnderportingModifier extends NoLevelsModifier implements IHarvestModifier {
+public class EnderportingModifier extends NoLevelsModifier implements PlantHarvestModifierHook {
   private static final Set<RelativeArgument> PACKET_FLAGS = ImmutableSet.of(RelativeArgument.X, RelativeArgument.Y, RelativeArgument.Z);
 
   @Override
@@ -107,7 +109,7 @@ public class EnderportingModifier extends NoLevelsModifier implements IHarvestMo
   }
 
   @Override
-  public void afterHarvest(IToolStackView tool, int level, UseOnContext context, ServerLevel world, BlockState state, BlockPos pos) {
+  public void afterHarvest(IToolStackView tool, ModifierEntry modifier, UseOnContext context, ServerLevel world, BlockState state, BlockPos pos) {
     // only teleport to the center block
     if (context.getClickedPos().equals(pos)) {
       LivingEntity living = context.getPlayer();
@@ -117,9 +119,9 @@ public class EnderportingModifier extends NoLevelsModifier implements IHarvestMo
     }
   }
 
-  @Nullable
   @Override
-  public <T> T getModule(Class<T> type) {
-    return tryModuleMatch(type, IHarvestModifier.class, this);
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.PLANT_HARVEST);
   }
 }

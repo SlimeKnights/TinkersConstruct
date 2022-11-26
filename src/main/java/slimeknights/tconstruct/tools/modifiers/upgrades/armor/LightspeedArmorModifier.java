@@ -12,8 +12,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.phys.Vec3;
-import slimeknights.tconstruct.library.modifiers.hooks.IArmorWalkModifier;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.ArmorWalkModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -23,12 +26,12 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
-public class LightspeedArmorModifier extends IncrementalModifier implements IArmorWalkModifier {
+public class LightspeedArmorModifier extends IncrementalModifier implements ArmorWalkModifierHook {
   /** UUID for speed boost */
   private static final UUID ATTRIBUTE_BONUS = UUID.fromString("8790747b-6654-4bd8-83c7-dbe9ae04c0ca");
 
   @Override
-  public void onWalk(IToolStackView tool, int level, LivingEntity living, BlockPos prevPos, BlockPos newPos) {
+  public void onWalk(IToolStackView tool, ModifierEntry modifier, LivingEntity living, BlockPos prevPos, BlockPos newPos) {
     // no point trying if not on the ground
     if (tool.isBroken() || !living.isOnGround() || living.level.isClientSide) {
       return;
@@ -49,7 +52,7 @@ public class LightspeedArmorModifier extends IncrementalModifier implements IArm
     int light = living.level.getBrightness(LightLayer.BLOCK, pos);
     if (light > 5) {
       int scaledLight = light - 5;
-      attribute.addTransientModifier(new AttributeModifier(ATTRIBUTE_BONUS, "tconstruct.modifier.lightspeed", scaledLight * 0.0015f * getScaledLevel(tool, level), Operation.ADDITION));
+      attribute.addTransientModifier(new AttributeModifier(ATTRIBUTE_BONUS, "tconstruct.modifier.lightspeed", scaledLight * 0.0015f * modifier.getEffectiveLevel(tool), Operation.ADDITION));
 
       // damage boots
       if (RANDOM.nextFloat() < (0.005f * scaledLight)) {
@@ -74,10 +77,10 @@ public class LightspeedArmorModifier extends IncrementalModifier implements IArm
     }
   }
 
-  @Nullable
   @Override
-  public <T> T getModule(Class<T> type) {
-    return tryModuleMatch(type, IArmorWalkModifier.class, this);
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.BOOT_WALK);
   }
 
   @Override

@@ -18,7 +18,10 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.modifiers.hooks.IArmorWalkModifier;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.ArmorWalkModifierHook;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -29,7 +32,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
-public class SoulSpeedModifier extends Modifier implements IArmorWalkModifier {
+public class SoulSpeedModifier extends Modifier implements ArmorWalkModifierHook {
   /** UUID for speed boost */
   private static final UUID ATTRIBUTE_BONUS = UUID.fromString("f61dde72-5b8d-11ec-bf63-0242ac130002");
 
@@ -52,7 +55,7 @@ public class SoulSpeedModifier extends Modifier implements IArmorWalkModifier {
   }
 
   @Override
-  public void onWalk(IToolStackView tool, int level, LivingEntity living, BlockPos prevPos, BlockPos newPos) {
+  public void onWalk(IToolStackView tool, ModifierEntry modifier, LivingEntity living, BlockPos prevPos, BlockPos newPos) {
     // no point trying if not on the ground
     if (tool.isBroken() || !living.isOnGround() || living.level.isClientSide) {
       return;
@@ -79,7 +82,7 @@ public class SoulSpeedModifier extends Modifier implements IArmorWalkModifier {
       Random rand = living.getRandom();
 
       // boost speed
-      float boost = (0.03f + level * 0.0105f);
+      float boost = (0.03f + modifier.getEffectiveLevel(tool) * 0.0105f);
       float speedFactor = below.getBlock().getSpeedFactor();
       if (speedFactor != 1.0f) {
         boost *= (1 / speedFactor);
@@ -120,10 +123,10 @@ public class SoulSpeedModifier extends Modifier implements IArmorWalkModifier {
     }
   }
 
-  @Nullable
   @Override
-  public <T> T getModule(Class<T> type) {
-    return tryModuleMatch(type, IArmorWalkModifier.class, this);
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.BOOT_WALK);
   }
 
   @Override

@@ -28,7 +28,7 @@ import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -253,8 +253,7 @@ public class InteractionHandler {
       if (helmet.is(TinkerTags.Items.ARMOR)) {
         ToolStack tool = ToolStack.from(helmet);
         for (ModifierEntry entry : tool.getModifierList()) {
-          IArmorInteractModifier helmetInteract = entry.getModifier().getModule(IArmorInteractModifier.class);
-          if (helmetInteract != null && helmetInteract.startArmorInteract(tool, entry.getLevel(), player, slotType, modifierKey)) {
+          if (entry.getHook(TinkerHooks.ARMOR_INTERACT).startInteract(tool, entry, player, slotType, modifierKey)) {
             break;
           }
         }
@@ -275,10 +274,7 @@ public class InteractionHandler {
       if (helmet.is(TinkerTags.Items.ARMOR)) {
         ToolStack tool = ToolStack.from(helmet);
         for (ModifierEntry entry : tool.getModifierList()) {
-          IArmorInteractModifier helmetInteract = entry.getModifier().getModule(IArmorInteractModifier.class);
-          if (helmetInteract != null) {
-            helmetInteract.stopArmorInteract(tool, entry.getLevel(), player, slotType);
-          }
+          entry.getHook(TinkerHooks.ARMOR_INTERACT).stopInteract(tool, entry, player, slotType);
         }
         return true;
       }

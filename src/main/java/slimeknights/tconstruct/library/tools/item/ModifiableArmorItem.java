@@ -32,7 +32,7 @@ import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.hooks.IElytraFlightModifier;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
@@ -299,8 +299,7 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
       if (!tool.isBroken()) {
         // if any modifier says stop flying, stop flying
         for (ModifierEntry entry : tool.getModifierList()) {
-          IElytraFlightModifier elytraFlight = entry.getModifier().getModule(IElytraFlightModifier.class);
-          if (elytraFlight != null && !elytraFlight.elytraFlightTick(tool, entry.getLevel(), entity, flightTicks)) {
+          if (entry.getHook(TinkerHooks.ELYTRA_FLIGHT).elytraFlightTick(tool, entry, entity, flightTicks)) {
             return false;
           }
         }
