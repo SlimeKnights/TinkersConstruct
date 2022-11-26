@@ -1555,7 +1555,7 @@
 
   "material.tconstruct.platinum": "铂",
   "material.tconstruct.platinum.flavor": "它是胜利者的专属。",
-  "material.tconstruct.platinum.encyclopedia": "矿石采掘速度+8",
+  "material.tconstruct.platinum.encyclopedia": "开采矿石时，额外掉落2-6个金属粒，掉落金属粒的数量随强化等级增加而增加",
 
   "material.tconstruct.lead": "铅",
   "material.tconstruct.lead.flavor": "可以试试用这东西做个三明治。",
@@ -2078,7 +2078,7 @@
   "modifier.tconstruct.stonebound.flavor": "你的工具真的超爱石头诶！",
   "modifier.tconstruct.stonebound.description": "工具的耐久度越低，采掘速度越高，但伤害值越低",
   "modifier.tconstruct.enderference": "抑影",
-  "modifier.tconstruct.enderference.flavor": "Really quite distracting",
+  "modifier.tconstruct.enderference.flavor": "抑影，即抑制末影人，好理解吧",
   "modifier.tconstruct.enderference.description": "暂时抑制末影人的瞬移",
   "modifier.tconstruct.stringy": "丝线",
   "modifier.tconstruct.stringy.flavor": "有点像奶酪，但是味道不大好",
@@ -2173,8 +2173,7 @@
   "modifier.tconstruct.sharpweight.description": "采掘速度更快，但是移动变得更加困难",
   "modifier.tconstruct.lustrous": "光泽",
   "modifier.tconstruct.lustrous.flavor": "闪闪亮的矿石！",
-  "modifier.tconstruct.lustrous.description": "开采矿石速度更快",
-  "modifier.tconstruct.lustrous.mining_speed": "矿石开采速度",
+  "modifier.tconstruct.lustrous.description": "开采的矿石掉落额外的金属粒",
   "modifier.tconstruct.heavy": "沉重",
   "modifier.tconstruct.heavy.flavor": "密度超大！",
   "modifier.tconstruct.heavy.description": "持握时减缓移动速度，但工具的重量也使其攻击伤害得以增强",
