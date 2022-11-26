@@ -40,6 +40,8 @@ import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierManager.ModifierRegistrationEvent;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
@@ -116,6 +118,23 @@ public class Modifier implements IHaveLoader<Modifier> {
   /** Cached text component for description */
   @Nullable
   private Component description;
+  /** Map of all modifier hooks registered to this modifier */
+  private final ModifierHookMap hooks;
+
+  /** Creates a new modifier using the given hook map */
+  protected Modifier(ModifierHookMap hooks) {
+    this.hooks = hooks;
+  }
+
+  /** Creates a new instance using the hook builder */
+  public Modifier() {
+    ModifierHookMap.Builder hookBuilder = new ModifierHookMap.Builder();
+    registerHooks(hookBuilder);
+    this.hooks = hookBuilder.build();
+  }
+
+  /** Registers a hook to the modifier */
+  protected void registerHooks(ModifierHookMap.Builder hookBuilder) {}
 
   @Override
   public IGenericLoader<? extends Modifier> getLoader() {
@@ -1022,11 +1041,24 @@ public class Modifier implements IHaveLoader<Modifier> {
    * @param type  Module type to fetch
    * @param <T>   Module return type
    * @return  Module, or null if the module is not contained
+   * @deprecated use {@link #getHook(ModifierHook)}
    */
-  @Nullable
+  @Nullable @Deprecated
   public <T> T getModule(Class<T> type) {
     return null;
   }
+
+  /**
+   * Gets a hook of this modifier. To modify the return values, use {@link #registerHooks(Builder)}
+   *
+   * @param hook  Hook to fetch
+   * @param <T>   Hook return type
+   * @return  Submodule implementing the hook, or default instance if its not implemented
+   */
+  public final <T> T getHook(ModifierHook<T> hook) {
+    return hooks.getHook(hook);
+  }
+
 
   @Override
   public String toString() {
