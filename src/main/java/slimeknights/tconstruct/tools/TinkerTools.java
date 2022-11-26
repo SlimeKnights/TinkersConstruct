@@ -166,8 +166,6 @@ public final class TinkerTools extends TinkerModule {
       };
 
       DispenserBlock.registerBehavior(TinkerTools.flintAndBrick, behavior);
-      DispenserBlock.registerBehavior(TinkerTools.mattock, behavior);
-      DispenserBlock.registerBehavior(TinkerTools.handAxe, behavior);
     });
 
     for (ConfigurableAction action : Config.COMMON.damageSourceTweaks) {
