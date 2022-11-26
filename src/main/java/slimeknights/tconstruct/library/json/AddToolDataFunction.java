@@ -51,7 +51,7 @@ public class AddToolDataFunction extends LootItemConditionalFunction {
 
   @Override
   public LootItemFunctionType getType() {
-    return TinkerTools.lootAddToolData;
+    return TinkerTools.lootAddToolData.get();
   }
 
   @Override

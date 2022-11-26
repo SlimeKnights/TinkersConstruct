@@ -21,48 +21,61 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParam;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.tools.TinkerModifiers;
-import slimeknights.tconstruct.tools.modifiers.traits.skull.ChrysophiliteModifier;
 
 import java.util.Set;
 
-/** Loot modifier to boost drops based on teh chrysophilite amount */
-public class ChrysophiliteBonusFunction extends LootItemConditionalFunction {
-  public static final Serializer SERIALIZER = new Serializer();
-
+/** Boosts drop rates based on modifier level */
+public class ModifierBonusLootFunction extends LootItemConditionalFunction {
+  /** Modifier ID to use for multiplier bonus */
+  private final ModifierId modifier;
   /** Formula to apply */
   private final Formula formula;
-  /** If true, the includes the helmet in the level, if false level is just gold pieces */
+  /** If true, considers level 1 as bonus, if false considers level 1 as no bonus */
   private final boolean includeBase;
-  protected ChrysophiliteBonusFunction(LootItemCondition[] conditions, Formula formula, boolean includeBase) {
+
+  protected ModifierBonusLootFunction(LootItemCondition[] conditions, ModifierId modifier, Formula formula, boolean includeBase) {
     super(conditions);
+    this.modifier = modifier;
     this.formula = formula;
     this.includeBase = includeBase;
   }
 
   /** Creates a generic builder */
-  public static Builder<?> builder(Formula formula, boolean includeBase) {
-    return simpleBuilder(conditions -> new ChrysophiliteBonusFunction(conditions, formula, includeBase));
+  public static Builder<?> builder(ModifierId modifier, Formula formula, boolean includeBase) {
+    return simpleBuilder(conditions -> new ModifierBonusLootFunction(conditions, modifier, formula, includeBase));
   }
 
   /** Creates a builder for the binomial with bonus formula */
-  public static Builder<?> binomialWithBonusCount(float probability, int extra, boolean includeBase) {
-    return builder(new BinomialWithBonusCount(extra, probability), includeBase);
+  public static Builder<?> binomialWithBonusCount(ModifierId modifier, float probability, int extra, boolean includeBase) {
+    return builder(modifier, new BinomialWithBonusCount(extra, probability), includeBase);
   }
 
   /** Creates a builder for the ore drops formula */
-  public static Builder<?> oreDrops(boolean includeBase) {
-    return builder(new OreDrops(), includeBase);
+  public static Builder<?> oreDrops(ModifierId modifier, boolean includeBase) {
+    return builder(modifier, new OreDrops(), includeBase);
   }
 
   /** Creates a builder for the uniform bonus count */
-  public static Builder<?> uniformBonusCount(int bonusMultiplier, boolean includeBase) {
-    return builder(new UniformBonusCount(bonusMultiplier), includeBase);
+  public static Builder<?> uniformBonusCount(ModifierId modifier, int bonusMultiplier, boolean includeBase) {
+    return builder(modifier, new UniformBonusCount(bonusMultiplier), includeBase);
+  }
+
+  @Override
+  public LootItemFunctionType getType() {
+    return TinkerModifiers.modifierBonusFunction.get();
+  }
+
+  @Override
+  public Set<LootContextParam<?>> getReferencedContextParams() {
+    return ImmutableSet.of(LootContextParams.TOOL);
   }
 
   @Override
   protected ItemStack run(ItemStack stack, LootContext context) {
-    int level = ChrysophiliteModifier.getTotalGold(context.getParamOrNull(LootContextParams.THIS_ENTITY));
+    int level = ModifierUtil.getModifierLevel(context.getParam(LootContextParams.TOOL), modifier);
     if (!includeBase) {
       level--;
     }
@@ -72,21 +85,12 @@ public class ChrysophiliteBonusFunction extends LootItemConditionalFunction {
     return stack;
   }
 
-  @Override
-  public Set<LootContextParam<?>> getReferencedContextParams() {
-    return ImmutableSet.of(LootContextParams.THIS_ENTITY);
-  }
-
-  @Override
-  public LootItemFunctionType getType() {
-    return TinkerModifiers.chrysophiliteBonusFunction.get();
-  }
-
   /** Serializer class */
-  private static class Serializer extends LootItemConditionalFunction.Serializer<ChrysophiliteBonusFunction> {
+  public static class Serializer extends LootItemConditionalFunction.Serializer<ModifierBonusLootFunction> {
     @Override
-    public void serialize(JsonObject json, ChrysophiliteBonusFunction loot, JsonSerializationContext context) {
+    public void serialize(JsonObject json, ModifierBonusLootFunction loot, JsonSerializationContext context) {
       super.serialize(json, loot, context);
+      json.addProperty("modifier", loot.modifier.toString());
       json.addProperty("formula", loot.formula.getType().toString());
       JsonObject parameters = new JsonObject();
       loot.formula.serializeParams(parameters, context);
@@ -97,7 +101,8 @@ public class ChrysophiliteBonusFunction extends LootItemConditionalFunction {
     }
 
     @Override
-    public ChrysophiliteBonusFunction deserialize(JsonObject json, JsonDeserializationContext context, LootItemCondition[] conditions) {
+    public ModifierBonusLootFunction deserialize(JsonObject json, JsonDeserializationContext context, LootItemCondition[] conditions) {
+      ModifierId modifier = new ModifierId(JsonHelper.getResourceLocation(json, "modifier"));
       ResourceLocation id = JsonHelper.getResourceLocation(json, "formula");
       FormulaDeserializer deserializer = ApplyBonusCount.FORMULAS.get(id);
       if (deserializer == null) {
@@ -111,7 +116,7 @@ public class ChrysophiliteBonusFunction extends LootItemConditionalFunction {
       }
       Formula formula = deserializer.deserialize(parameters, context);
       boolean includeBase = GsonHelper.getAsBoolean(json, "include_base", true);
-      return new ChrysophiliteBonusFunction(conditions, formula, includeBase);
+      return new ModifierBonusLootFunction(conditions, modifier, formula, includeBase);
     }
   }
 }

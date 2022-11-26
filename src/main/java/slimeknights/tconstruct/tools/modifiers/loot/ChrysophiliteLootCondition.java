@@ -4,14 +4,12 @@ import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.Serializer;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParam;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.ChrysophiliteModifier;
 
@@ -19,7 +17,6 @@ import java.util.Set;
 
 /** Condition to check if the enemy has the chrysophilite modifier */
 public class ChrysophiliteLootCondition implements LootItemCondition {
-  public static final ResourceLocation ID = TConstruct.getResource("has_chrysophilite");
   public static final ChrysophiliteSerializer SERIALIZER = new ChrysophiliteSerializer();
   public static final ChrysophiliteLootCondition INSTANCE = new ChrysophiliteLootCondition();
 
@@ -37,7 +34,7 @@ public class ChrysophiliteLootCondition implements LootItemCondition {
 
   @Override
   public LootItemConditionType getType() {
-    return TinkerModifiers.chrysophiliteLootCondition;
+    return TinkerModifiers.chrysophiliteLootCondition.get();
   }
 
   /** Loot serializer instance */

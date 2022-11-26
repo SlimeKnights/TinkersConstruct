@@ -11,12 +11,10 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.common.Tags;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.data.tinkering.AbstractModifierProvider;
 import slimeknights.tconstruct.library.json.predicate.block.BlockPredicate;
-import slimeknights.tconstruct.library.json.predicate.block.TagBlockPredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.LivingEntityPredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.MobTypePredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.TagEntityPredicate;
@@ -170,7 +168,7 @@ public class ModifierProvider extends AbstractModifierProvider {
     addModifier(ModifierIds.sturdy, StatBoostModifier.builder().multiplyBase(ToolStats.DURABILITY, 0.15f).build());
     addModifier(ModifierIds.scorching, new ConditionalDamageModifier(LivingEntityPredicate.ON_FIRE, 2f));
     // traits - tier 2 compat
-    addModifier(ModifierIds.lustrous, new ConditionalMiningSpeedModifier(BlockPredicate.OR.create(new TagBlockPredicate(Tags.Blocks.ORES), new TagBlockPredicate(Tags.Blocks.STORAGE_BLOCKS)), true, 8));
+    addModifier(ModifierIds.lustrous, new Modifier());
     addModifier(ModifierIds.sharpweight, StatBoostModifier.builder()
       .multiplyBase(ToolStats.MINING_SPEED, 0.1f)
       .attribute("tconstruct.modifier.sharpweight", Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_BASE, -0.1f, handSlots)

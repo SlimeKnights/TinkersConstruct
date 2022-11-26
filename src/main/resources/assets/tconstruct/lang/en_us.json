@@ -1555,7 +1555,7 @@
 
   "material.tconstruct.platinum": "Platinum",
   "material.tconstruct.platinum.flavor": "Its what winners use!",
-  "material.tconstruct.platinum.encyclopedia": "Grants +8 mining speed against ores",
+  "material.tconstruct.platinum.encyclopedia": "Grants 2-6 bonus nugget drops when mining ore, boosted at higher levels",
 
   "material.tconstruct.lead": "Lead",
   "material.tconstruct.lead.flavor": "Could try and make a sandwich out of this.",
@@ -2173,8 +2173,7 @@
   "modifier.tconstruct.sharpweight.description": "Mines faster, but is extremely hard to move",
   "modifier.tconstruct.lustrous": "Lustrous",
   "modifier.tconstruct.lustrous.flavor": "The shiniest of ores!",
-  "modifier.tconstruct.lustrous.description": "Mines ores faster",
-  "modifier.tconstruct.lustrous.mining_speed": "Ore Mining",
+  "modifier.tconstruct.lustrous.description": "Ores drop bonus nuggets",
   "modifier.tconstruct.heavy": "Heavy",
   "modifier.tconstruct.heavy.flavor": "Dense!",
   "modifier.tconstruct.heavy.description": "Hard to move while wielding, but it packs a heavy punch",
