@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools.modifiers.ability.interaction;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -19,6 +20,7 @@ import net.minecraftforge.common.ToolAction;
 import slimeknights.tconstruct.library.modifiers.impl.InteractionModifier;
 import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
+import slimeknights.tconstruct.library.tools.item.ModifiableItem;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.MutableUseOnContext;
 
@@ -125,6 +127,80 @@ public class BlockTransformModifier extends InteractionModifier.NoLevels {
 
     // if anything happened, return success
     return didTransform ? InteractionResult.sidedSuccess(world.isClientSide) : InteractionResult.PASS;
+  }
+
+  @Override
+  public boolean onDispenserUse(IToolStackView tool, int level, BlockSource source, ItemStack stack) {
+    // tool must not be broken
+    if (tool.isBroken()) {
+      return false;
+    }
+
+    UseOnContext context = ModifiableItem.contextFromBlockSource(source, stack);
+
+    // for hoes and shovels, must have nothing but plants above
+    if (requireGround && context.getClickedFace() == Direction.DOWN) {
+      return true;
+    }
+
+    // must actually transform
+    Level world = context.getLevel();
+    BlockPos pos = context.getClickedPos();
+    BlockState original = world.getBlockState(pos);
+
+    boolean didTransform = transform(context, original, true);
+
+    // if we made a successful transform, client can stop early
+    if (didTransform) {
+      if (world.isClientSide) {
+        return true;
+      }
+
+      // if the tool breaks or it was a campfire, we are done
+      if (ToolDamageUtil.damage(tool, 1, null, null)) {
+        return true;
+      }
+    }
+
+    // AOE transforming, run even if we did not transform the center
+    // note we consider anything effective, as hoes are not effective on all tillable blocks
+//    if (player != null && !tool.isBroken()) {
+//      int totalTransformed = 0;
+//      Iterator<BlockPos> aoePos = tool.getDefinition().getData().getAOE().getBlocks(tool, stack, player, original, world, pos, context.getClickedFace(), IAreaOfEffectIterator.AOEMatchType.TRANSFORM).iterator();
+//      if (aoePos.hasNext()) {
+//        MutableUseOnContext offsetContext = new MutableUseOnContext(context);
+//        do {
+//          BlockPos newPos = aoePos.next();
+//          if (pos.equals(newPos)) {
+//            continue;
+//          }
+//
+//          // try interacting with the new position
+//          offsetContext.setOffsetPos(newPos);
+//
+//          BlockState newTarget = world.getBlockState(newPos);
+//
+//          // limit to playing 40 sounds, that's more than enough for most transforms
+//          if (transform(offsetContext, newTarget, totalTransformed < 40)) {
+//            totalTransformed++;
+//            didTransform = true;
+//
+//            // stop if the tool broke
+//            if (world.isClientSide || ToolDamageUtil.damageAnimated(tool, 1, player, slotType)) {
+//              break;
+//            }
+//          }
+//        } while (aoePos.hasNext());
+//
+//        // sweep attack if we transformed any
+//        if (totalTransformed > 0) {
+//          player.sweepAttack();
+//        }
+//      }
+//    }
+
+    // if anything happened, return success
+    return didTransform;
   }
 
   /** Transforms the given block */

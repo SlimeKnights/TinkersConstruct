@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
@@ -31,8 +32,10 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import slimeknights.mantle.client.SafeClientAccess;
@@ -584,5 +587,9 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
    */
   public static BlockHitResult blockRayTrace(Level worldIn, Player player, ClipContext.Fluid fluidMode) {
     return Item.getPlayerPOVHitResult(worldIn, player, fluidMode);
+  }
+
+  public static UseOnContext contextFromBlockSource(BlockSource source, ItemStack stack) {
+    return new UseOnContext(source.getLevel(), null, InteractionHand.MAIN_HAND, stack, Util.createTraceResult(source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING)), source.getBlockState().getValue(DispenserBlock.FACING), false));
   }
 }
