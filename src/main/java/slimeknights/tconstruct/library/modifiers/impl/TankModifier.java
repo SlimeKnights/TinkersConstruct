@@ -12,11 +12,15 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.capability.ToolFluidCapability;
+import slimeknights.tconstruct.library.tools.capability.ToolFluidCapability.FluidModifierHook;
 import slimeknights.tconstruct.library.tools.capability.ToolFluidCapability.IFluidModifier;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
+import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.utils.TooltipKey;
@@ -41,17 +45,14 @@ public class TankModifier extends Modifier {
   /** Helper function to parse a fluid from NBT */
   public static final BiFunction<CompoundTag, String, FluidStack> PARSE_FLUID = (nbt, key) -> FluidStack.loadFluidStackFromNBT(nbt.getCompound(key));
 
-  private final ModifierTank tank = new ModifierTank();
+  private ModifierTank tank;
   private final int capacity;
 
-  @SuppressWarnings("unchecked")
-  @Nullable
   @Override
-  public <T> T getModule(Class<T> type) {
-    if (type == IFluidModifier.class) {
-      return (T) tank;
-    }
-    return super.getModule(type);
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    tank = new ModifierTank();
+    hookBuilder.addHook(tank, ToolFluidCapability.HOOK);
   }
 
   @Override
@@ -61,7 +62,7 @@ public class TankModifier extends Modifier {
     if (ownerKey != null && !volatileData.contains(ownerKey, Tag.TAG_STRING)) {
       volatileData.putString(ownerKey, getId().toString());
     }
-    ToolFluidCapability.addTanks(volatileData, tank);
+    ToolFluidCapability.addTanks(context, this, volatileData, tank);
     if (capacity > 0) {
       addCapacity(volatileData, capacity * level);
     }
@@ -212,7 +213,7 @@ public class TankModifier extends Modifier {
   }
 
   /** Shared tank implementation of the fluid modifier */
-  public class ModifierTank implements IFluidModifier {
+  public class ModifierTank implements IFluidModifier, FluidModifierHook {
     @Override
     public int getTanks(IModDataView volatileData) {
       return isOwner(volatileData) ? 1 : 0;
@@ -287,6 +288,44 @@ public class TankModifier extends Modifier {
         return drained;
       }
       return FluidStack.EMPTY;
+    }
+
+
+    /* New hooks fallback to deprecated */
+
+    @Override
+    public int getTanks(IToolContext tool, Modifier modifier) {
+      return getTanks(tool.getVolatileData());
+    }
+
+    @Override
+    public FluidStack getFluidInTank(IToolStackView tool, ModifierEntry modifier, int tank) {
+      return getFluidInTank(tool, modifier.getLevel(), tank);
+    }
+
+    @Override
+    public int getTankCapacity(IToolStackView tool, ModifierEntry modifier, int tank) {
+      return getTankCapacity(tool, modifier.getLevel(), tank);
+    }
+
+    @Override
+    public boolean isFluidValid(IToolStackView tool, ModifierEntry modifier, int tank, FluidStack fluid) {
+      return isFluidValid(tool, modifier.getLevel(), tank, fluid);
+    }
+
+    @Override
+    public int fill(IToolStackView tool, ModifierEntry modifier, FluidStack resource, FluidAction action) {
+      return fill(tool, modifier.getLevel(), resource, action);
+    }
+
+    @Override
+    public FluidStack drain(IToolStackView tool, ModifierEntry modifier, FluidStack resource, FluidAction action) {
+      return drain(tool, modifier.getLevel(), resource, action);
+    }
+
+    @Override
+    public FluidStack drain(IToolStackView tool, ModifierEntry modifier, int maxDrain, FluidAction action) {
+      return drain(tool, modifier.getLevel(), maxDrain, action);
     }
   }
 }

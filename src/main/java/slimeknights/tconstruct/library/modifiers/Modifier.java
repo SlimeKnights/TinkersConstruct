@@ -133,7 +133,10 @@ public class Modifier implements IHaveLoader<Modifier> {
     this.hooks = hookBuilder.build();
   }
 
-  /** Registers a hook to the modifier */
+  /**
+   * Registers a hook to the modifier.
+   * Note that this is run in the constructor, so you are unable to use any instance fields in this method unless initialized in this method
+   */
   protected void registerHooks(ModifierHookMap.Builder hookBuilder) {}
 
   @Override

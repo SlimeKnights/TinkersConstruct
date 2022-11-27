@@ -47,6 +47,21 @@ public class ModifierNBT {
   }
 
   /**
+   * Gets the modifier entry for a modifier
+   * @param modifier  Modifier to check
+   * @return  Modifier entry, or null if absent
+   */
+  @Nullable
+  public ModifierEntry getEntry(ModifierId modifier) {
+    for (ModifierEntry entry : modifiers) {
+      if (entry.matches(modifier)) {
+        return entry;
+      }
+    }
+    return null;
+  }
+
+  /**
    * Gets the level of a modifier
    * @param modifier  Modifier to check
    * @return  Modifier level, or 0 if modifier is missing

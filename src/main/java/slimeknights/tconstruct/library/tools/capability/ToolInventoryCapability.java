@@ -18,6 +18,8 @@ import net.minecraftforge.network.NetworkHooks;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierHook;
+import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider.IToolCapabilityProvider;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
@@ -28,16 +30,76 @@ import slimeknights.tconstruct.tools.menu.ToolContainerMenu;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.function.Supplier;
 
 /** Capability for a tool with an inventory */
 @RequiredArgsConstructor
-public class ToolInventoryCapability implements IItemHandlerModifiable {
+public class ToolInventoryCapability extends InventoryModifierHookIterator<ModifierEntry> implements IItemHandlerModifiable {
   /** Boolean key to set in volatile mod data to enable the fluid capability */
   public static final ResourceLocation TOTAL_SLOTS = TConstruct.getResource("total_item_slots");
   /** Boolean key to set in volatile mod data to enable the fluid capability */
   public static final ResourceLocation INCLUDE_OFFHAND = TConstruct.getResource("inventory_show_offhand");
+
+  /** Modifier hook instance to make an inventory modifier */
+  @SuppressWarnings("deprecation")
+  public static final ModifierHook<InventoryModifierHook> HOOK = ModifierHooks.register(TConstruct.getResource("inventory"), InventoryModifierHook.class, new InventoryModifierHook() {
+    @Override
+    public int getSlots(IToolStackView tool, ModifierEntry modifier) {
+      IInventoryModifier inventory = modifier.getModifier().getModule(IInventoryModifier.class);
+      if (inventory != null) {
+        return inventory.getSlots(tool, modifier.getLevel());
+      }
+      return 0;
+    }
+
+    @Override
+    public ItemStack getStack(IToolStackView tool, ModifierEntry modifier, int slot) {
+      IInventoryModifier inventory = modifier.getModifier().getModule(IInventoryModifier.class);
+      if (inventory != null) {
+        return inventory.getStack(tool, modifier.getLevel(), slot);
+      }
+      return ItemStack.EMPTY;
+    }
+
+    @Override
+    public void setStack(IToolStackView tool, ModifierEntry modifier, int slot, ItemStack stack) {
+      IInventoryModifier inventory = modifier.getModifier().getModule(IInventoryModifier.class);
+      if (inventory != null) {
+        inventory.setStack(tool, modifier.getLevel(), slot, stack);
+      }
+    }
+
+    @Override
+    public int getSlotLimit(IToolStackView tool, ModifierEntry modifier, int slot) {
+      IInventoryModifier inventory = modifier.getModifier().getModule(IInventoryModifier.class);
+      if (inventory != null) {
+        return inventory.getSlotLimit(tool, slot);
+      }
+      return 0;
+    }
+
+    @Override
+    public boolean isItemValid(IToolStackView tool, ModifierEntry modifier, int slot, ItemStack stack) {
+      IInventoryModifier inventory = modifier.getModifier().getModule(IInventoryModifier.class);
+      if (inventory != null) {
+        return inventory.isItemValid(tool, slot, stack);
+      }
+      return false;
+    }
+
+    @Nullable
+    @Override
+    public Pattern getPattern(IToolStackView tool, ModifierEntry modifier, int slot, boolean hasStack) {
+      IInventoryModifier inventory = modifier.getModifier().getModule(IInventoryModifier.class);
+      if (inventory != null) {
+        return inventory.getPattern(tool, modifier.getLevel(), slot, hasStack);
+      }
+      return null;
+    }
+  }, InventoryModifierHookMerger::new);
 
   /** Supplier to the tool instance */
   private final Supplier<? extends IToolStackView> tool;
@@ -58,34 +120,16 @@ public class ToolInventoryCapability implements IItemHandlerModifiable {
 
   /* Basic inventory */
 
-  /** Start index from {@link #getInventory(int)}, reduces object creation */
-  private int startForSlot = 0;
-  /** Modifier level from {@link #getInventory(int)}, reduces object creation */
-  private int modifierLevel = 0;
+  @Override
+  protected Iterator<ModifierEntry> getIterator(IToolStackView tool) {
+    // iterate in reverse order, as that allows us to put shield strap/tool belt later in the UI without breaking the keybind
+    return new ReversedListIterator<>(tool.getModifierList());
+  }
 
-  /** Gets the inventory instance for the given slot index */
-  @Nullable
-  private IInventoryModifier getInventory(int slot) {
-    IToolStackView tool = this.tool.get();
-    if (slot < getSlots()) {
-      int start = 0;
-      // iterate in reverse order, as that allows us to put shield strap/tool belt later in the UI without breaking the keybinds
-      List<ModifierEntry> modifiers = tool.getModifierList();
-      for (int i = modifiers.size() - 1; i >= 0; i--) {
-        ModifierEntry entry = modifiers.get(i);
-        IInventoryModifier inventory = entry.getModifier().getModule(IInventoryModifier.class);
-        if (inventory != null) {
-          int slots = inventory.getSlots(tool, entry.getLevel());
-          if (slot < slots + start) {
-            startForSlot = start;
-            modifierLevel = entry.getLevel();
-            return inventory;
-          }
-          start += slots;
-        }
-      }
-    }
-    return null;
+  @Override
+  protected InventoryModifierHook getHook(ModifierEntry entry) {
+    indexEntry = entry;
+    return entry.getHook(HOOK);
   }
 
   /** If true, the given stack is blacklisted from being stored in a tool */
@@ -99,18 +143,20 @@ public class ToolInventoryCapability implements IItemHandlerModifiable {
     if (!stack.isEmpty() && isBlacklisted(stack)) {
       return false;
     }
-    IInventoryModifier inventory = getInventory(slot);
+    IToolStackView tool = this.tool.get();
+    InventoryModifierHook inventory = findHook(tool, slot);
     if (inventory != null) {
-      return inventory.isItemValid(tool.get(), slot - startForSlot, stack);
+      return inventory.isItemValid(tool, indexEntry, slot - startIndex, stack);
     }
     return false;
   }
 
   @Override
   public int getSlotLimit(int slot) {
-    IInventoryModifier inventory = getInventory(slot);
+    IToolStackView tool = this.tool.get();
+    InventoryModifierHook inventory = findHook(tool, slot);
     if (inventory != null) {
-      return inventory.getSlotLimit(tool.get(), slot - startForSlot);
+      return inventory.getSlotLimit(tool, indexEntry, slot - startIndex);
     }
     return 0;
   }
@@ -147,8 +193,8 @@ public class ToolInventoryCapability implements IItemHandlerModifiable {
   }
 
   /** Gets a stack from the given inventory, caching it */
-  private void setAndCache(IInventoryModifier inventory, int localSlot, int globalSlot, ItemStack stack) {
-    inventory.setStack(tool.get(), modifierLevel, localSlot, stack);
+  private void setAndCache(InventoryModifierHook inventory, int localSlot, int globalSlot, ItemStack stack) {
+    inventory.setStack(tool.get(), indexEntry, localSlot, stack);
     // cache the stack to save lookup times later
     cacheStack(globalSlot, stack);
   }
@@ -158,21 +204,21 @@ public class ToolInventoryCapability implements IItemHandlerModifiable {
 
   @Override
   public void setStackInSlot(int slot, ItemStack stack) {
-    IInventoryModifier inventory = getInventory(slot);
+    InventoryModifierHook inventory = findHook(tool.get(), slot);
     if (inventory != null) {
-      setAndCache(inventory, slot - startForSlot, slot, stack);
+      setAndCache(inventory, slot - startIndex, slot, stack);
     }
   }
 
   /** Gets a stack from the given inventory, caching it */
-  private ItemStack getAndCache(IInventoryModifier inventory, int localSlot, int globalSlot) {
-    ItemStack stack = inventory.getStack(tool.get(), modifierLevel, localSlot);
+  private ItemStack getAndCache(InventoryModifierHook inventory, int localSlot, int globalSlot) {
+    ItemStack stack = inventory.getStack(tool.get(), indexEntry, localSlot);
     cacheStack(globalSlot, stack);
     return stack;
   }
 
   /** Gets the stack from cache, if failing parses it */
-  private ItemStack getCached(IInventoryModifier inventory, int localSlot, int globalSlot) {
+  private ItemStack getCached(InventoryModifierHook inventory, int localSlot, int globalSlot) {
     ItemStack stack = getCachedStack(globalSlot);
     if (stack == null) {
       stack = getAndCache(inventory, localSlot, globalSlot);
@@ -187,9 +233,9 @@ public class ToolInventoryCapability implements IItemHandlerModifiable {
     if (cached != null) {
       return cached;
     }
-    IInventoryModifier inventory = getInventory(slot);
+    InventoryModifierHook inventory = findHook(tool.get(), slot);
     if (inventory != null) {
-      return getAndCache(inventory, slot - startForSlot, slot);
+      return getAndCache(inventory, slot - startIndex, slot);
     }
     return ItemStack.EMPTY;
   }
@@ -205,14 +251,14 @@ public class ToolInventoryCapability implements IItemHandlerModifiable {
       return stack;
     }
     // first, do we have an inventory?
-    IInventoryModifier inventory = getInventory(slot);
+    IToolStackView tool = this.tool.get();
+    InventoryModifierHook inventory = findHook(tool, slot);
     if (inventory == null) {
       return stack;
     }
     // next, is the item valid for the slot?
-    int localSlot = slot - startForSlot;
-    IToolStackView tool = this.tool.get();
-    if (!inventory.isItemValid(tool, localSlot, stack)) {
+    int localSlot = slot - startIndex;
+    if (!inventory.isItemValid(tool, indexEntry, localSlot, stack)) {
       return stack;
     }
 
@@ -221,7 +267,7 @@ public class ToolInventoryCapability implements IItemHandlerModifiable {
 
     // nothing currently? place the item in
     int leftover;
-    int slotLimit = inventory.getSlotLimit(tool, localSlot);
+    int slotLimit = inventory.getSlotLimit(tool, indexEntry, localSlot);
     if (current.isEmpty()) {
       int canInsert = Math.min(stack.getCount(), Math.min(stack.getMaxStackSize(), slotLimit));
       leftover = stack.getCount() - canInsert;
@@ -240,7 +286,7 @@ public class ToolInventoryCapability implements IItemHandlerModifiable {
       // store new stack
       if (!simulate) {
         current.setCount(newSize);
-        inventory.setStack(tool, modifierLevel, localSlot, current); // update stack in NBT
+        inventory.setStack(tool, indexEntry, localSlot, current); // update stack in NBT
       }
     }
 
@@ -259,11 +305,12 @@ public class ToolInventoryCapability implements IItemHandlerModifiable {
       return ItemStack.EMPTY;
     }
     // next, do we have an inventory?
-    IInventoryModifier inventory = getInventory(slot);
+    IToolStackView tool = this.tool.get();
+    InventoryModifierHook inventory = findHook(tool, slot);
     if (inventory == null) {
       return ItemStack.EMPTY;
     }
-    int localSlot = slot - startForSlot;
+    int localSlot = slot - startIndex;
 
     // do we have anything in the slot?
     ItemStack current = getCached(inventory, localSlot, slot);
@@ -281,14 +328,15 @@ public class ToolInventoryCapability implements IItemHandlerModifiable {
         setAndCache(inventory, localSlot, slot, ItemStack.EMPTY);
       } else {
         current.shrink(amount);
-        inventory.setStack(tool.get(), modifierLevel, localSlot, current); // update in NBT
+        inventory.setStack(tool, indexEntry, localSlot, current); // update in NBT
       }
     }
     return result;
   }
 
-  /** Interface for an inventory modifier to use */
-  @SuppressWarnings("unused")
+  /** @deprecated use {@link InventoryModifierHook} */
+  @SuppressWarnings({"unused", "DeprecatedIsStillUsed"})
+  @Deprecated
   public interface IInventoryModifier {
     /** Gets the number of item slots used by the given tool. The number returned here must also be added into volatile data under {@link #TOTAL_SLOTS} */
     int getSlots(IToolStackView tool, int level);
@@ -315,6 +363,112 @@ public class ToolInventoryCapability implements IItemHandlerModifiable {
       return null;
     }
 	}
+
+  /** Interface for an inventory modifier to use */
+  @SuppressWarnings("unused")
+  public interface InventoryModifierHook {
+    /** Gets the number of item slots used by the given tool. The number returned here must also be added into volatile data under {@link #TOTAL_SLOTS} */
+    int getSlots(IToolStackView tool, ModifierEntry modifier);
+
+    /** Sets the stack in the given slot */
+    ItemStack getStack(IToolStackView tool, ModifierEntry modifier, int slot);
+
+    /** Sets the stack in the given slot */
+    void setStack(IToolStackView tool, ModifierEntry modifier, int slot, ItemStack stack);
+
+    /** Gets the max stack size for the given slot */
+    default int getSlotLimit(IToolStackView tool, ModifierEntry modifier, int slot) {
+      return 64;
+    }
+
+    /** Checks if the item is valid for the given slot */
+    default boolean isItemValid(IToolStackView tool, ModifierEntry modifier, int slot, ItemStack stack) {
+      return true;
+    }
+
+    /** Gets the pattern to render when the given slot is empty */
+    @Nullable
+    default Pattern getPattern(IToolStackView tool, ModifierEntry modifier, int slot, boolean hasStack) {
+      return null;
+    }
+  }
+
+  /** Merger for inventory modifier hooks */
+  @RequiredArgsConstructor
+  private static class InventoryModifierHookMerger extends InventoryModifierHookIterator<InventoryModifierHook> implements InventoryModifierHook {
+    private final Collection<InventoryModifierHook> modules;
+
+    @Override
+    protected Iterator<InventoryModifierHook> getIterator(IToolStackView tool) {
+      return modules.iterator();
+    }
+
+    @Override
+    protected InventoryModifierHook getHook(InventoryModifierHook hook) {
+      return hook;
+    }
+
+    /** Gets the inventory instance for the given slot index */
+    @Nullable
+    private InventoryModifierHook findHook(IToolStackView tool, ModifierEntry modifier, int slot) {
+      indexEntry = modifier;
+      return this.findHook(tool, slot);
+    }
+
+    @Override
+    public int getSlots(IToolStackView tool, ModifierEntry modifier) {
+      int sum = 0;
+      for (InventoryModifierHook module : modules) {
+        sum += module.getSlots(tool, modifier);
+      }
+      return sum;
+    }
+
+    @Override
+    public ItemStack getStack(IToolStackView tool, ModifierEntry modifier, int slot) {
+      InventoryModifierHook module = findHook(tool, modifier, slot);
+      if (module != null) {
+        return module.getStack(tool, modifier, slot - startIndex);
+      }
+      return ItemStack.EMPTY;
+    }
+
+    @Override
+    public void setStack(IToolStackView tool, ModifierEntry modifier, int slot, ItemStack stack) {
+      InventoryModifierHook module = findHook(tool, modifier, slot);
+      if (module != null) {
+        module.setStack(tool, modifier, slot - startIndex, stack);
+      }
+    }
+
+    @Override
+    public int getSlotLimit(IToolStackView tool, ModifierEntry modifier, int slot) {
+      InventoryModifierHook module = findHook(tool, modifier, slot);
+      if (module != null) {
+        return module.getSlotLimit(tool, modifier, slot - startIndex);
+      }
+      return 0;
+    }
+
+    @Override
+    public boolean isItemValid(IToolStackView tool, ModifierEntry modifier, int slot, ItemStack stack) {
+      InventoryModifierHook module = findHook(tool, modifier, slot);
+      if (module != null) {
+        return module.isItemValid(tool, modifier, slot - startIndex, stack);
+      }
+      return false;
+    }
+
+    @Nullable
+    @Override
+    public Pattern getPattern(IToolStackView tool, ModifierEntry modifier, int slot, boolean hasStack) {
+      InventoryModifierHook module = findHook(tool, modifier, slot);
+      if (module != null) {
+        return module.getPattern(tool, modifier, slot - startIndex, hasStack);
+      }
+      return null;
+    }
+  }
 
   /** Provider for an inventory tool capability */
   public static class Provider implements IToolCapabilityProvider {
@@ -365,5 +519,30 @@ public class ToolInventoryCapability implements IItemHandlerModifiable {
       return InteractionResult.sidedSuccess(player.level.isClientSide);
     }
     return InteractionResult.PASS;
+  }
+
+  /** Iterator that goes through a list in reverse order */
+  private static class ReversedListIterator<T> implements Iterator<T> {
+    /** List to iterate */
+    private final List<T> list;
+    /** Index of the next element */
+    private int index;
+
+    public ReversedListIterator(List<T> list) {
+      this.list = list;
+      this.index = list.size() - 1;
+    }
+
+    @Override
+    public boolean hasNext() {
+      return index >= 0;
+    }
+
+    @Override
+    public T next() {
+      T element = list.get(index);
+      index--;
+      return element;
+    }
   }
 }

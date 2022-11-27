@@ -91,7 +91,7 @@ public class ShieldStrapModifier extends InventoryMenuModifier {
 
   @Nullable
   @Override
-  public Pattern getPattern(IToolStackView tool, int level, int slot, boolean hasStack) {
+  public Pattern getPattern(IToolStackView tool, ModifierEntry modifier, int slot, boolean hasStack) {
     return hasStack ? null : PATTERN;
   }
 }
