@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools.modifiers.ability.interaction;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -21,6 +22,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.CandleBlock;
 import net.minecraft.world.level.block.CandleCakeBlock;
+import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.TntBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -31,6 +33,8 @@ import slimeknights.tconstruct.library.tools.definition.aoe.CircleAOEIterator;
 import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
@@ -160,5 +164,65 @@ public class FirestarterModifier extends InteractionModifier.NoLevels {
       }
     }
     return didIgnite ? InteractionResult.sidedSuccess(world.isClientSide) : InteractionResult.PASS;
+  }
+
+  /** Ignites the given block */
+  private static boolean igniteDispenser(IToolStackView tool, Level world, BlockPos pos, BlockState state, Direction sideHit, Direction horizontalFacing) {
+    // campfires first
+    if (CampfireBlock.canLight(state) || CandleBlock.canLight(state) || CandleCakeBlock.canLight(state)) {
+      world.playSound(null, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, RANDOM.nextFloat() * 0.4F + 0.8F);
+      world.setBlock(pos, state.setValue(BlockStateProperties.LIT, true), 11);
+      world.gameEvent(null, GameEvent.BLOCK_PLACE, pos);
+      return true;
+    }
+
+    // ignite the TNT
+    if (state.getBlock() instanceof TntBlock tnt) {
+      tnt.onCaughtFire(state, world, pos, sideHit, null);
+      world.setBlock(pos, Blocks.AIR.defaultBlockState(), 11);
+      return true;
+    }
+
+    // fire starting
+    BlockPos offset = pos.relative(sideHit);
+    if (BaseFireBlock.canBePlacedAt(world, offset, horizontalFacing)) {
+      world.playSound(null, offset, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, RANDOM.nextFloat() * 0.4F + 0.8F);
+      world.setBlock(offset, BaseFireBlock.getState(world, offset), 11);
+      return true;
+    }
+    return false;
+  }
+
+
+  @Override
+  public boolean onDispenserUse(IToolStackView tool, int level, BlockSource source, ItemStack stack) {
+
+    if (tool.isBroken()) {
+      return false;
+    }
+
+    Level world = source.getLevel();
+
+    Direction interactionDirection = source.getBlockState().getValue(DispenserBlock.FACING);
+    Direction sideHit = interactionDirection.getOpposite();
+    BlockPos pos = source.getPos().relative(interactionDirection);
+    BlockState state = world.getBlockState(pos);
+
+
+    // if targeting fire, offset to behind the fire
+    boolean targetingFire = state.is(BlockTags.FIRE);
+
+    // burn it all in AOE
+    Direction horizontalFacing = interactionDirection.getAxis() != Direction.Axis.Y ? interactionDirection : Direction.NORTH;
+    // first burn the center, unless we already know its fire
+    boolean didIgnite = false;
+    if (!targetingFire) {
+      didIgnite = igniteDispenser(tool, world, pos, state, sideHit, horizontalFacing);
+      if (didIgnite && ToolDamageUtil.damage(tool, 1, null, stack)) {
+        return true;
+      }
+    }
+
+    return didIgnite;
   }
 }

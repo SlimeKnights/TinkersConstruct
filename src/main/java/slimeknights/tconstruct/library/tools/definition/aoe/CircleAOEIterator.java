@@ -59,6 +59,22 @@ public class CircleAOEIterator implements IAreaOfEffectIterator {
    * @return  List of block positions
    */
   public static Iterable<BlockPos> calculate(IToolStackView tool, ItemStack stack, Level world, Player player, BlockPos origin, Direction sideHit, int diameter, boolean is3D, AOEMatchType matchType) {
+    return calculate(tool, stack, world, player.getDirection(), origin, sideHit, diameter, is3D, matchType);
+  }
+
+  /**
+   *
+   * @param tool       Tool used for harvest
+   * @param stack      Item stack used for harvest (for vanilla hooks)
+   * @param world      World containing the block
+   * @param harvestDirection     Player harvesting
+   * @param origin     Center of harvest
+   * @param sideHit    Block side hit
+   * @param diameter   Circle diameter
+   * @param matchType  Type of harvest being performed
+   * @return  List of block positions
+   */
+  public static Iterable<BlockPos> calculate(IToolStackView tool, ItemStack stack, Level world, Direction harvestDirection, BlockPos origin, Direction sideHit, int diameter, boolean is3D, AOEMatchType matchType) {
     // skip if no work
     if (diameter == 1) {
       return Collections.emptyList();
@@ -67,9 +83,25 @@ public class CircleAOEIterator implements IAreaOfEffectIterator {
     // math works out that we can leave this an integer and get the radius working still
     int radiusSq = diameter * diameter / 4;
     Predicate<BlockPos> posPredicate = IAreaOfEffectIterator.defaultBlockPredicate(tool, stack, world, origin, matchType);
-    ExpansionDirections directions = IBoxExpansion.SIDE_HIT.getDirections(player, sideHit);
+    ExpansionDirections directions = getDirections(harvestDirection, sideHit);
     // max needs to be an odd number
     return () -> new CircleIterator(origin, directions.width(), directions.height(), directions.traverseDown(), directions.depth(), radiusSq, diameter / 2, is3D, posPredicate);
+  }
+
+  private static ExpansionDirections getDirections(Direction harvestDirection, Direction sideHit) {
+    // depth is always direction into the block
+    Direction depth = sideHit.getOpposite();
+    Direction width, height;
+    // for Y, direction is based on facing
+    if (sideHit.getAxis() == Direction.Axis.Y) {
+      height = harvestDirection;
+      width = height.getClockWise();
+    } else {
+      // for X and Z, just rotate from side hit
+      width = sideHit.getCounterClockWise();
+      height = Direction.UP;
+    }
+    return new ExpansionDirections(width, height, depth, true);
   }
 
   /** Iterator used for getting the blocks, secret is a circle is a rectangle */

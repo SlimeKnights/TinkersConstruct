@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.modifiers;
 
 import com.google.gson.JsonObject;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -997,6 +998,18 @@ public class Modifier implements IHaveLoader<Modifier> {
    */
   public void onEquipmentChange(IToolStackView tool, int level, EquipmentChangeContext context, EquipmentSlot slotType) {}
 
+  /**
+   * Called when a stack is being used within a dispenser.
+   * <br>
+   * @param tool      Tool instance
+   * @param level     Modifier level
+   * @param source    Block source
+   * @param stack     Stack being dispensed
+   * @return True if dispenser action was taken
+   */
+  public boolean onDispenserUse(IToolStackView tool, int level, BlockSource source, ItemStack stack) {
+    return false;
+  }
 
   /* Display */
 

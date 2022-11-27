@@ -1,6 +1,9 @@
 package slimeknights.tconstruct.tools;
 
 import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.core.BlockSource;
+import net.minecraft.core.Registry;
+import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.entity.EntityType;
@@ -8,7 +11,9 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.event.RegistryEvent;
@@ -28,6 +33,7 @@ import slimeknights.tconstruct.library.client.data.material.GeneratorPartTexture
 import slimeknights.tconstruct.library.client.data.material.MaterialPartTextureGenerator;
 import slimeknights.tconstruct.library.json.AddToolDataFunction;
 import slimeknights.tconstruct.library.json.RandomMaterial;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.ToolPredicate;
@@ -51,6 +57,7 @@ import slimeknights.tconstruct.library.tools.definition.weapon.SweepWeaponAttack
 import slimeknights.tconstruct.library.tools.helper.ModifierLootingHandler;
 import slimeknights.tconstruct.library.tools.item.ModifiableArmorItem;
 import slimeknights.tconstruct.library.tools.item.ModifiableItem;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.BlockSideHitListener;
 import slimeknights.tconstruct.tools.data.StationSlotLayoutProvider;
 import slimeknights.tconstruct.tools.data.ToolDefinitionDataProvider;
@@ -146,6 +153,21 @@ public final class TinkerTools extends TinkerModule {
     EquipmentChangeWatcher.register();
     ToolCapabilityProvider.register(ToolFluidCapability.Provider::new);
     ToolCapabilityProvider.register(ToolInventoryCapability.Provider::new);
+
+    event.enqueueWork(() -> {
+      DispenseItemBehavior behavior = (source, stack) -> {
+        ToolStack tool = ToolStack.from(stack);
+
+        for (ModifierEntry entry : tool.getModifierList()) {
+          if (entry.getModifier().onDispenserUse(tool, entry.getLevel(), source, stack)) break;
+        }
+
+        return stack;
+      };
+
+      DispenserBlock.registerBehavior(TinkerTools.flintAndBrick, behavior);
+    });
+
     for (ConfigurableAction action : Config.COMMON.damageSourceTweaks) {
       event.enqueueWork(action);
     }
