@@ -46,7 +46,9 @@
       "tconstruct:head",
       "tconstruct:handle",
       "tconstruct:extra",
-      "tconstruct:repair_kit"
+      "tconstruct:repair_kit",
+      "tconstruct:limb",
+      "tconstruct:grip"
     ],
     "ignoreMaterialStats": false
   }
