@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:molding_table",
+  "material": {
+    "item": "tconstruct:blank_red_sand_cast"
+  },
+  "pattern": {
+    "item": "tconstruct:bow_limb",
+    "type": "tconstruct:material"
+  },
+  "result": "tconstruct:bow_limb_red_sand_cast"
+}

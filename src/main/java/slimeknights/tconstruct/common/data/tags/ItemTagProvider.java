@@ -273,6 +273,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 						 TinkerToolParts.smallBlade.get(), TinkerToolParts.broadBlade.get(),
 						 TinkerToolParts.toolBinding.get(), TinkerToolParts.roundPlate.get(), TinkerToolParts.largePlate.get(),
 						 TinkerToolParts.toolHandle.get(), TinkerToolParts.toughHandle.get(),
+						 TinkerToolParts.bowLimb.get(), TinkerToolParts.bowGrip.get(), TinkerToolParts.bowstring.get(),
 						 TinkerToolParts.repairKit.get()); // repair kit is not strictly a tool part, but this list just helps out JEI
 
     TagAppender<Item> slimySeeds = this.tag(TinkerTags.Items.SLIMY_SEEDS);
@@ -382,6 +383,9 @@ public class ItemTagProvider extends ItemTagsProvider {
     // tool rods
     addCast.accept(TinkerSmeltery.toolHandleCast);
     addCast.accept(TinkerSmeltery.toughHandleCast);
+    // bow
+    addCast.accept(TinkerSmeltery.bowLimbCast);
+    addCast.accept(TinkerSmeltery.bowGripCast);
 
     // add all casts to a common tag
     this.tag(TinkerTags.Items.CASTS)

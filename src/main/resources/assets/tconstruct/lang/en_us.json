@@ -287,11 +287,13 @@
   "pattern.tconstruct.tool_binding": "Tool Binding",
   "pattern.tconstruct.round_plate": "Round Plate",
   "pattern.tconstruct.large_plate": "Large Plate",
+  "pattern.tconstruct.bowstring": "Bowstring",
 
   "_comment": "Tool Handle Gold Casts",
 
   "pattern.tconstruct.tool_handle": "Tool Handle",
   "pattern.tconstruct.tough_handle": "Tough Handle",
+  "pattern.tconstruct.bow_grip": "Bow Grip",
 
 
   "_comment": "Tinkers Gold Casts",
@@ -316,6 +318,7 @@
   "item.tconstruct.small_blade_cast": "Small Blade Gold Cast",
   "item.tconstruct.sign_head_cast": "Sign Head Gold Cast",
   "item.tconstruct.bow_limb_cast": "Bow Limb Gold Cast",
+  "item.tconstruct.bow_grip_cast": "Bow Grip Gold Cast",
 
   "_comment": "Large Head Gold Casts",
 
@@ -357,6 +360,7 @@
   "item.tconstruct.small_blade_sand_cast": "Small Blade Sand Cast",
   "item.tconstruct.sign_head_sand_cast": "Sign Head Sand Cast",
   "item.tconstruct.bow_limb_sand_cast": "Bow Limb Sand Cast",
+  "item.tconstruct.bow_grip_sand_cast": "Bow Grip Sand Cast",
 
   "_comment": "Large Head Sand Casts",
 
@@ -398,6 +402,7 @@
   "item.tconstruct.small_blade_red_sand_cast": "Small Blade Red Sand Cast",
   "item.tconstruct.sign_head_red_sand_cast": "Sign Head Red Sand Cast",
   "item.tconstruct.bow_limb_red_sand_cast": "Bow Limb Red Sand Cast",
+  "item.tconstruct.bow_grip_red_sand_cast": "Bow Grip Red Sand Cast",
 
   "_comment": "Large Head Red Sand Casts",
 
@@ -908,6 +913,10 @@
   "item.tconstruct.tool_binding": "Tool Binding",
   "item.tconstruct.round_plate": "Round Plate",
   "item.tconstruct.large_plate": "Large Plate",
+  
+  "item.tconstruct.bow_limb": "Bow Limb",
+  "item.tconstruct.bow_grip": "Bow Grip",
+  "item.tconstruct.bowstring": "Bowstring",
 
 
   "_conment": "Tool Descriptions",

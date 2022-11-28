@@ -21,6 +21,8 @@
     "#tconstruct:casts/single_use/round_plate",
     "#tconstruct:casts/single_use/large_plate",
     "#tconstruct:casts/single_use/tool_handle",
-    "#tconstruct:casts/single_use/tough_handle"
+    "#tconstruct:casts/single_use/tough_handle",
+    "#tconstruct:casts/single_use/bow_limb",
+    "#tconstruct:casts/single_use/bow_grip"
   ]
 }

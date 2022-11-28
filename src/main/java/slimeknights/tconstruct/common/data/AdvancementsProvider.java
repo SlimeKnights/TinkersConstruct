@@ -206,6 +206,8 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(TinkerSmeltery.largePlateCast);
       with.accept(TinkerSmeltery.toolHandleCast);
       with.accept(TinkerSmeltery.toughHandleCast);
+      with.accept(TinkerSmeltery.bowLimbCast);
+      with.accept(TinkerSmeltery.bowGripCast);
     });
     Advancement mightySmelting = builder(TinkerCommons.mightySmelting, resource("smeltery/mighty_smelting"), melter, FrameType.TASK, builder ->
       builder.addCriterion("crafted_book", hasItem(TinkerCommons.mightySmelting)));
