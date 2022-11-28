@@ -18,6 +18,7 @@ import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
+import slimeknights.tconstruct.tools.stats.LimbMaterialStats;
 import slimeknights.tconstruct.tools.stats.RepairKitStats;
 
 import javax.annotation.Nullable;
@@ -151,6 +152,12 @@ public abstract class AbstractMaterialSpriteProvider {
       statType(HandleMaterialStats.ID);
       statType(ExtraMaterialStats.ID);
       statType(RepairKitStats.ID);
+      return this;
+    }
+
+    /** Adds stat types for ranged tools - currently just limb but more later */
+    public MaterialSpriteInfoBuilder ranged() {
+      statType(LimbMaterialStats.ID);
       return this;
     }
 

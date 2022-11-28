@@ -339,6 +339,9 @@ public class TinkerTags {
     // /** Modifiable items that support ranged attacks, such as bows */
     // public static final TagKey<Item> RANGED = tag("modifiable/ranged");
 
+    /** Modifiable items that support ranged attacks. Items in this tag support the {@link ToolStats#DRAW_SPEED} stat (plus those from {@link #MELEE_OR_UNARMED}). */
+    public static final TagKey<Item> RANGED = tag("modifiable/ranged");
+
     /** Tag so mods like thermal know our scyhtes can harvest */
     public static final TagKey<Item> SCYTHES = forgeTag("tools/scythe");
 
