@@ -16,6 +16,7 @@ import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
+import slimeknights.tconstruct.tools.stats.GripMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 import slimeknights.tconstruct.tools.stats.LimbMaterialStats;
@@ -155,9 +156,10 @@ public abstract class AbstractMaterialSpriteProvider {
       return this;
     }
 
-    /** Adds stat types for ranged tools - currently just limb but more later */
+    /** Adds stat types for ranged tools - includes limb and grip */
     public MaterialSpriteInfoBuilder ranged() {
       statType(LimbMaterialStats.ID);
+      statType(GripMaterialStats.ID);
       return this;
     }
 

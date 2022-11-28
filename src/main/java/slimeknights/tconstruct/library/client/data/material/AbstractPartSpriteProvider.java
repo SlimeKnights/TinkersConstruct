@@ -9,6 +9,7 @@ import slimeknights.tconstruct.library.client.data.util.AbstractSpriteReader;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.tools.stats.BowstringMaterialStats;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
+import slimeknights.tconstruct.tools.stats.GripMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 import slimeknights.tconstruct.tools.stats.LimbMaterialStats;
@@ -213,6 +214,11 @@ public abstract class AbstractPartSpriteProvider {
     /** Adds a sprite requiring limb stats */
     public ToolSpriteBuilder addLimb(String name) {
       return addPart(name, LimbMaterialStats.ID);
+    }
+
+    /** Adds a sprite requiring grip stats */
+    public ToolSpriteBuilder addGrip(String name) {
+      return addPart(name, GripMaterialStats.ID);
     }
 
     /** Adds a sprite requiring bowstring stats */

@@ -9,6 +9,7 @@ import slimeknights.tconstruct.tools.MeleeHarvestToolStatsBuilder;
 import slimeknights.tconstruct.tools.RangedToolStatsBuilder;
 import slimeknights.tconstruct.tools.stats.BowstringMaterialStats;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
+import slimeknights.tconstruct.tools.stats.GripMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 import slimeknights.tconstruct.tools.stats.LimbMaterialStats;
@@ -58,7 +59,7 @@ public class ToolStatProviders {
 
   /** Tools with 1 or more tool parts using ranged stats */
   public static final IToolStatProvider RANGED = new IToolStatProvider() {
-    private static final Set<MaterialStatsId> VALID_STATS = ImmutableSet.of(BowstringMaterialStats.ID);
+    private static final Set<MaterialStatsId> VALID_STATS = ImmutableSet.of(BowstringMaterialStats.ID, GripMaterialStats.ID);
 
     @Override
     public StatsNBT buildStats(ToolDefinition definition, MaterialNBT materials) {

@@ -352,6 +352,12 @@ public class TooltipUtil {
       }
       builder.add(ToolStats.MINING_SPEED);
     }
+    if (tool.hasTag(TinkerTags.Items.RANGED)) {
+      builder.add(ToolStats.DRAW_SPEED);
+      builder.add(ToolStats.VELOCITY);
+      builder.add(ToolStats.ACCURACY);
+      builder.add(ToolStats.POWER);
+    }
 
     builder.addAllFreeSlots();
     for (ModifierEntry entry : tool.getModifierList()) {
