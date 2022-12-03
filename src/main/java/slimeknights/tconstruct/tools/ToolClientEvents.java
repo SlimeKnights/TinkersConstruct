@@ -33,6 +33,7 @@ import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.client.model.DynamicTextureLoader;
+import slimeknights.tconstruct.library.client.model.TinkerItemProperties;
 import slimeknights.tconstruct.library.client.model.tools.MaterialModel;
 import slimeknights.tconstruct.library.client.model.tools.ToolModel;
 import slimeknights.tconstruct.library.client.modifiers.BreakableDyedModifierModel;
@@ -117,6 +118,9 @@ public class ToolClientEvents extends ClientEventBase {
 
     // screens
     MenuScreens.register(TinkerTools.toolContainer.get(), ToolContainerScreen::new);
+
+    // properties
+    TinkerItemProperties.registerBowProperties(TinkerTools.longbow.asItem());
   }
 
   @SubscribeEvent
@@ -148,6 +152,8 @@ public class ToolClientEvents extends ClientEventBase {
     registerItemColors(colors, TinkerTools.dagger);
     registerItemColors(colors, TinkerTools.sword);
     registerItemColors(colors, TinkerTools.cleaver);
+    // bow
+    registerItemColors(colors, TinkerTools.longbow);
   }
 
   // values to check if a key was being pressed last tick, safe as a static value as we only care about a single player client side

@@ -33,6 +33,9 @@ import slimeknights.tconstruct.tools.ToolDefinitions;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
 import slimeknights.tconstruct.tools.stats.SkullStats;
 
+import static slimeknights.tconstruct.tools.TinkerToolParts.bowGrip;
+import static slimeknights.tconstruct.tools.TinkerToolParts.bowLimb;
+import static slimeknights.tconstruct.tools.TinkerToolParts.bowstring;
 import static slimeknights.tconstruct.tools.TinkerToolParts.broadAxeHead;
 import static slimeknights.tconstruct.tools.TinkerToolParts.broadBlade;
 import static slimeknights.tconstruct.tools.TinkerToolParts.hammerHead;
@@ -343,6 +346,20 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .action(ToolActions.SWORD_DIG)
       .harvestLogic(swordLogic)
       .attack(new SweepWeaponAttack(2));
+
+    // bows
+    define(ToolDefinitions.LONGBOW)
+      // parts
+      .part(bowLimb)
+      .part(bowLimb)
+      .part(bowGrip)
+      .part(bowstring)
+      // stats
+      .stat(ToolStats.ATTACK_DAMAGE, 0f)
+      .stat(ToolStats.ATTACK_SPEED, 1.0f)
+      .stat(ToolStats.DURABILITY, 145)
+      .multiplier(ToolStats.DURABILITY, 4f)
+      .largeToolStartingSlots();
 
     // special
     define(ToolDefinitions.FLINT_AND_BRICK)

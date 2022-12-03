@@ -226,6 +226,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(TinkerTools.broadAxe.get());
       with.accept(TinkerTools.scythe.get());
       with.accept(TinkerTools.cleaver.get());
+      with.accept(TinkerTools.longbow.get());
     });
     builder(TinkerModifiers.silkyCloth, resource("smeltery/abilities"), anvil, FrameType.CHALLENGE, builder -> {
       Consumer<ModifierId> with = modifier -> builder.addCriterion(modifier.getPath(), InventoryChangeTrigger.TriggerInstance.hasItems(ToolPredicate.builder().modifiers(ModifierMatch.entry(modifier)).build()));

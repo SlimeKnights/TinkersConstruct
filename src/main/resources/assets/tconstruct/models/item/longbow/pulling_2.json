@@ -1,0 +1,25 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "tconstruct:item/base/bow",
+  "textures": {
+    "limb_bottom": "tconstruct:item/tool/longbow/limb_bottom_2",
+    "limb_top":    "tconstruct:item/tool/longbow/limb_top_2",
+    "grip":        "tconstruct:item/tool/longbow/grip",
+    "bowstring":   "tconstruct:item/tool/longbow/bowstring_2",
+    "arrow":       "tconstruct:item/tool/longbow/arrow_2",
+    
+    "large_limb_bottom": "tconstruct:item/tool/longbow/large/limb_bottom_2",
+    "large_limb_top":    "tconstruct:item/tool/longbow/large/limb_top_2",
+    "large_grip":        "tconstruct:item/tool/longbow/large/grip",
+    "large_bowstring":   "tconstruct:item/tool/longbow/large/bowstring_2",
+    "large_arrow":       "tconstruct:item/tool/longbow/large/arrow_2"
+  },
+  "large": true,
+  "parts": [
+    { "name": "limb_bottom", "index": 0 },
+    { "name": "limb_top",    "index": 1 },
+    { "name": "bowstring",   "index": 3 },
+    { "name": "grip",        "index": 2 },
+    { "name": "arrow" }
+  ]
+}
