@@ -23,6 +23,7 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.flint,  1, ORDER_WEAPON,  true);
     addMaterial(MaterialIds.copper, 1, ORDER_SPECIAL, true);
     addMaterial(MaterialIds.bone,   1, ORDER_SPECIAL, true);
+    addMaterial(MaterialIds.bamboo, 1, ORDER_RANGED,  true);
     // tier 1 - end
     addMaterial(MaterialIds.chorus, 1, ORDER_END,     true);
     // tier 1 - binding

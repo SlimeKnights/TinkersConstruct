@@ -4,6 +4,7 @@
       "durability": 140,
       "armor": 0
     },
-    "tconstruct:extra": {}
+    "tconstruct:extra": {},
+    "tconstruct:bowstring": {}
   }
 }
