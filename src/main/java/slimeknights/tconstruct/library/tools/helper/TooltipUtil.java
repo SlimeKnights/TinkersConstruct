@@ -342,6 +342,11 @@ public class TooltipUtil {
     if (tool.hasTag(TinkerTags.Items.DURABILITY)) {
       builder.addDurability();
     }
+    if (tool.hasTag(TinkerTags.Items.RANGED)) {
+      builder.add(ToolStats.DRAW_SPEED);
+      builder.add(ToolStats.VELOCITY);
+      builder.add(ToolStats.ACCURACY);
+    }
     if (tool.hasTag(TinkerTags.Items.MELEE)) {
       builder.addWithAttribute(ToolStats.ATTACK_DAMAGE, Attributes.ATTACK_DAMAGE);
       builder.add(ToolStats.ATTACK_SPEED);
@@ -351,12 +356,6 @@ public class TooltipUtil {
         builder.addTier();
       }
       builder.add(ToolStats.MINING_SPEED);
-    }
-    if (tool.hasTag(TinkerTags.Items.RANGED)) {
-      builder.add(ToolStats.DRAW_SPEED);
-      builder.add(ToolStats.VELOCITY);
-      builder.add(ToolStats.ACCURACY);
-      builder.add(ToolStats.POWER);
     }
 
     builder.addAllFreeSlots();

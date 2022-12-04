@@ -17,6 +17,9 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 import java.util.List;
 
+import static slimeknights.tconstruct.tools.stats.LimbMaterialStats.ACCURACY_PREFIX;
+import static slimeknights.tconstruct.tools.stats.LimbMaterialStats.VELOCITY_PREFIX;
+
 /** Secondary stats for a bow */
 @RequiredArgsConstructor
 @Getter
@@ -25,37 +28,35 @@ import java.util.List;
 @With
 public class GripMaterialStats extends BaseMaterialStats {
   public static final MaterialStatsId ID = new MaterialStatsId(TConstruct.getResource("grip"));
-  public static final GripMaterialStats DEFAULT = new GripMaterialStats(1f, 0.5f, 0f, 1f);
+  public static final GripMaterialStats DEFAULT = new GripMaterialStats(1f, 0f, 0f, 0f);
 
   // tooltip prefixes
   private static final String DURABILITY_PREFIX = makeTooltipKey(TConstruct.getResource("durability"));
-  private static final String ACCURACY_PREFIX = makeTooltipKey(TConstruct.getResource("accuracy"));
-  private static final String ATTACK_SPEED_PREFIX = makeTooltipKey(TConstruct.getResource("attack_speed"));
   // description
   private static final List<Component> DESCRIPTION = ImmutableList.of(
     makeTooltip(TConstruct.getResource("handle.durability.description")),
     ToolStats.ACCURACY.getDescription(),
-    ToolStats.POWER.getDescription(),
-    ToolStats.ATTACK_SPEED.getDescription());
+    ToolStats.VELOCITY.getDescription(),
+    ToolStats.ATTACK_DAMAGE.getDescription());
 
   private final float durability;
   private final float accuracy;
-  private final float power;
-  private final float attackSpeed;
+  private final float velocity;
+  private final float meleeAttack;
 
   public GripMaterialStats(FriendlyByteBuf buffer) {
     this.durability = buffer.readFloat();
     this.accuracy = buffer.readFloat();
-    this.power = buffer.readFloat();
-    this.attackSpeed = buffer.readFloat();
+    this.velocity = buffer.readFloat();
+    this.meleeAttack = buffer.readFloat();
   }
 
   @Override
   public void encode(FriendlyByteBuf buffer) {
     buffer.writeFloat(durability);
     buffer.writeFloat(accuracy);
-    buffer.writeFloat(power);
-    buffer.writeFloat(attackSpeed);
+    buffer.writeFloat(velocity);
+    buffer.writeFloat(meleeAttack);
   }
 
   @Override
@@ -67,9 +68,9 @@ public class GripMaterialStats extends BaseMaterialStats {
   public List<Component> getLocalizedInfo() {
     List<Component> info = Lists.newArrayList();
     info.add(IToolStat.formatColoredMultiplier(DURABILITY_PREFIX, this.durability));
-    info.add(IToolStat.formatColoredMultiplier(ACCURACY_PREFIX, this.accuracy));
-    info.add(ToolStats.POWER.formatValue(this.power));
-    info.add(ToolStats.ATTACK_SPEED.formatValue(this.attackSpeed));
+    info.add(IToolStat.formatColoredBonus(ACCURACY_PREFIX, this.accuracy, 0.5f));
+    info.add(IToolStat.formatColoredBonus(VELOCITY_PREFIX, this.velocity, 0.5f));
+    info.add(ToolStats.ATTACK_DAMAGE.formatValue(this.meleeAttack));
     return info;
   }
 

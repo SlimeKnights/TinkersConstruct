@@ -2378,16 +2378,13 @@
   "tool_stat.tconstruct.handle.mining_speed.description": "The total mining speed of the tool will be multiplied by this.",
   
   "stat.tconstruct.limb": "Limb",
+  "stat.tconstruct.grip": "Grip",
   "tool_stat.tconstruct.draw_speed": "Draw Speed: ",
   "tool_stat.tconsturct.draw_speed.description": "Determines the number of times this tool can be used per second.",
   "tool_stat.tconstruct.velocity": "Velocity: ",
   "tool_stat.tconstruct.velocity.description": "Determines how quickly arrows fly after firing. Faster arrows deal more damage.",
-  
-  "stat.tconstruct.grip": "Grip",
   "tool_stat.tconstruct.accuracy": "Accuracy: ",
-  "tool_stat.tconsturct.draw_speed.description": "Determines how close the bow aims towards the center.",
-  "tool_stat.tconstruct.power": "Power: ",
-  "tool_stat.tconstruct.power.description": "Determines the base effect of the projectile, before accounting for velocity.",
+  "tool_stat.tconsturct.accuracy.description": "Determines how close the bow aims towards the center.",
 
   "stat.tconstruct.extra": "Binding",
   "stat.tconstruct.bowstring": "Bowstring",

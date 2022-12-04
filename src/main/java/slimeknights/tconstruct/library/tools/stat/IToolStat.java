@@ -152,4 +152,16 @@ public interface IToolStat<T> {
     float hue = Mth.positiveModulo(number - 0.5f, 2f);
     return new TranslatableComponent(loc).append(new TextComponent(Util.MULTIPLIER_FORMAT.format(number)).withStyle(style -> style.withColor(TextColor.fromRgb(Mth.hsvToRgb(hue / 1.5f, 1.0f, 0.75f)))));
   }
+
+  /**
+   * Formats a multiplier with hue shifting
+   * @param loc     Prefix location
+   * @param number  Percentage
+   * @return  Colored percent with prefix
+   */
+  static Component formatColoredBonus(String loc, float number, float scale) {
+    // 0.5 is red, 1.0 should be roughly green, 1.5 is blue
+    float hue = Mth.positiveModulo(0.5f + number / (2*scale), 2f);
+    return new TranslatableComponent(loc).append(new TextComponent(Util.BONUS_FORMAT.format(number)).withStyle(style -> style.withColor(TextColor.fromRgb(Mth.hsvToRgb(hue / 1.5f, 1.0f, 0.75f)))));
+  }
 }

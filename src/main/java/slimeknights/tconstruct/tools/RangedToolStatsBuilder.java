@@ -55,17 +55,14 @@ public class RangedToolStatsBuilder extends ToolStatsBuilder {
     builder.set(ToolStats.DURABILITY, buildDurability());
     builder.set(ToolStats.DRAW_SPEED, buildDrawSpeed());
     builder.set(ToolStats.VELOCITY, buildVelocity());
-    builder.set(ToolStats.POWER, buildPower());
     builder.set(ToolStats.ACCURACY, buildAccuracy());
     builder.set(ToolStats.ATTACK_DAMAGE, buildAttackDamage());
-    builder.set(ToolStats.ATTACK_SPEED, buildAttackSpeed());
   }
 
   @Override
   protected boolean handles(IToolStat<?> stat) {
-    return stat == ToolStats.DURABILITY || stat == ToolStats.DRAW_SPEED
-           || stat == ToolStats.VELOCITY || stat == ToolStats.ATTACK_DAMAGE
-           || stat == ToolStats.ACCURACY || stat == ToolStats.ATTACK_SPEED;
+    return stat == ToolStats.DURABILITY || stat == ToolStats.ATTACK_DAMAGE
+           || stat == ToolStats.DRAW_SPEED || stat == ToolStats.VELOCITY || stat == ToolStats.ACCURACY;
   }
 
   /** Builds durability for the tool */
@@ -78,38 +75,21 @@ public class RangedToolStatsBuilder extends ToolStatsBuilder {
 
   /** Builds attack speed for the tool */
   public float buildDrawSpeed() {
-    double averageHandleModifier = getAverageValue(limbs, LimbMaterialStats::getDrawSpeed, 1);
-    return (float)Math.max(0, getStatOrDefault(ToolStats.DRAW_SPEED, 1f) * averageHandleModifier);
+    return (float)Math.max(0, getStatOrDefault(ToolStats.DRAW_SPEED, 1f) + getTotalValue(limbs, LimbMaterialStats::getDrawSpeed));
   }
 
   /** Builds velocity for the tool */
   public float buildVelocity() {
-    double averageHandleModifier = getAverageValue(limbs, LimbMaterialStats::getVelocity, 1);
-    return (float)Math.max(0, getStatOrDefault(ToolStats.VELOCITY, 1f) * averageHandleModifier);
+    return (float)Math.max(0, getStatOrDefault(ToolStats.VELOCITY, 1f) + getTotalValue(limbs, LimbMaterialStats::getVelocity) + getTotalValue(grips, GripMaterialStats::getVelocity));
   }
 
   /** Builds velocity for the tool */
   public float buildAccuracy() {
-    double gripBonus = getAverageValue(grips, GripMaterialStats::getAccuracy, 1);
-    return (float)Math.max(0, getStatOrDefault(ToolStats.ACCURACY, 0f) + gripBonus);
-  }
-
-  /** Builds velocity for the tool */
-  public float buildPower() {
-    double gripBonus = getAverageValue(grips, GripMaterialStats::getPower, 1);
-    return (float)Math.max(0, getStatOrDefault(ToolStats.POWER, 0f) + gripBonus);
+    return (float)Math.max(0, getStatOrDefault(ToolStats.ACCURACY, 0.75f) + getTotalValue(limbs, LimbMaterialStats::getAccuracy) + getTotalValue(grips, GripMaterialStats::getAccuracy));
   }
 
   /** Builds attack damage for the tool */
   public float buildAttackDamage() {
-    double averageLimbAttack = getAverageValue(limbs, LimbMaterialStats::getMeleeAttack) + getStatOrDefault(ToolStats.ATTACK_DAMAGE, 0f);
-    return (float)Math.max(0.0d, averageLimbAttack);
-  }
-
-  /** Builds attack speed for the tool */
-  public float buildAttackSpeed() {
-    float baseSpeed = toolData.getBaseStat(ToolStats.ATTACK_SPEED);
-    double averageHandleModifier = getAverageValue(grips, GripMaterialStats::getAttackSpeed, 1);
-    return (float)Math.max(0, baseSpeed * averageHandleModifier);
+    return (float)Math.max(0.0d, getStatOrDefault(ToolStats.ATTACK_DAMAGE, 0f) + getAverageValue(grips, GripMaterialStats::getMeleeAttack));
   }
 }

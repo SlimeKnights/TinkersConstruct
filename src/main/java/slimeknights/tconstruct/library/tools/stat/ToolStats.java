@@ -51,8 +51,6 @@ public class ToolStats {
   public static final FloatToolStat VELOCITY = register(new FloatToolStat(name("velocity"), 0xFF78A0CD, 1, 0, 1024f, TinkerTags.Items.RANGED));
   /** Starting velocity of the projectile launched from a ranged weapon */
   public static final FloatToolStat ACCURACY = register(new FloatToolStat(name("accuracy"), 0xFF8547CC, 0.75f, 0.1f, 1f, TinkerTags.Items.RANGED));
-  /** Boosts the effectiveness of the projectile fired. This damage will be multiplied by velocity later, effectively making velocity a multiplier */
-  public static final FloatToolStat POWER = register(new FloatToolStat(name("power"), 0xFFD76464, 0, -10f, 10f, TinkerTags.Items.RANGED));
   
 
   /**

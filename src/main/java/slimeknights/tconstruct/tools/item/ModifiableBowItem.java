@@ -120,8 +120,6 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
       if (charge == 1.0F) {
         arrowEntity.setCritArrow(true);
       }
-      // half the power stat, as 0.5 is roughly 1 damage at full charge for a wooden bow
-      arrowEntity.setBaseDamage(arrowEntity.getBaseDamage() + 0.5 * stats.get(ToolStats.POWER));
 
       ToolDamageUtil.damageAnimated(tool, 1, player, player.getUsedItemHand());
       // if infinite, skip pickup
