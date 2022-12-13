@@ -20,10 +20,9 @@
       "accuracy": 0.05
     },
     "tconstruct:grip": {
-      "durability": 1.05,
-      "accuracy": 0.05,
-      "velocity": 0.05,
-      "meleeAttack": 1.0
+      "durability": -0.3,
+      "accuracy": 0.2,
+      "meleeAttack": -0.15
     }
   }
 }

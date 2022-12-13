@@ -20,13 +20,12 @@
     "tconstruct:limb": {
       "durability": 100,
       "drawSpeed": 0.05,
-      "velocity": 0.0,
-      "accuracy": -0.05
+      "velocity": -0.05,
+      "accuracy": 0.05
     },
     "tconstruct:grip": {
       "durability": 0.75,
-      "accuracy": -0.05,
-      "velocity": 0.0,
+      "accuracy": 0.05,
       "meleeAttack": 1.25
     }
   }

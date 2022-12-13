@@ -18,7 +18,6 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import java.util.List;
 
 import static slimeknights.tconstruct.tools.stats.LimbMaterialStats.ACCURACY_PREFIX;
-import static slimeknights.tconstruct.tools.stats.LimbMaterialStats.VELOCITY_PREFIX;
 
 /** Secondary stats for a bow */
 @RequiredArgsConstructor
@@ -28,7 +27,7 @@ import static slimeknights.tconstruct.tools.stats.LimbMaterialStats.VELOCITY_PRE
 @With
 public class GripMaterialStats extends BaseMaterialStats {
   public static final MaterialStatsId ID = new MaterialStatsId(TConstruct.getResource("grip"));
-  public static final GripMaterialStats DEFAULT = new GripMaterialStats(1f, 0f, 0f, 0f);
+  public static final GripMaterialStats DEFAULT = new GripMaterialStats(1f, 0f, 0f);
 
   // tooltip prefixes
   private static final String DURABILITY_PREFIX = makeTooltipKey(TConstruct.getResource("durability"));
@@ -41,13 +40,11 @@ public class GripMaterialStats extends BaseMaterialStats {
 
   private final float durability;
   private final float accuracy;
-  private final float velocity;
   private final float meleeAttack;
 
   public GripMaterialStats(FriendlyByteBuf buffer) {
     this.durability = buffer.readFloat();
     this.accuracy = buffer.readFloat();
-    this.velocity = buffer.readFloat();
     this.meleeAttack = buffer.readFloat();
   }
 
@@ -55,7 +52,6 @@ public class GripMaterialStats extends BaseMaterialStats {
   public void encode(FriendlyByteBuf buffer) {
     buffer.writeFloat(durability);
     buffer.writeFloat(accuracy);
-    buffer.writeFloat(velocity);
     buffer.writeFloat(meleeAttack);
   }
 
@@ -69,7 +65,6 @@ public class GripMaterialStats extends BaseMaterialStats {
     List<Component> info = Lists.newArrayList();
     info.add(IToolStat.formatColoredMultiplier(DURABILITY_PREFIX, this.durability));
     info.add(IToolStat.formatColoredBonus(ACCURACY_PREFIX, this.accuracy, 0.5f));
-    info.add(IToolStat.formatColoredBonus(VELOCITY_PREFIX, this.velocity, 0.5f));
     info.add(ToolStats.ATTACK_DAMAGE.formatValue(this.meleeAttack));
     return info;
   }

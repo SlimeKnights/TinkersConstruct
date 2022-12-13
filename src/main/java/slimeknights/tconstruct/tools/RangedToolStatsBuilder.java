@@ -67,7 +67,7 @@ public class RangedToolStatsBuilder extends ToolStatsBuilder {
 
   /** Builds durability for the tool */
   public float buildDurability() {
-    double averageHeadDurability = getAverageValue(limbs, LimbMaterialStats::getDurability) + getStatOrDefault(ToolStats.DURABILITY, 0f);
+    double averageHeadDurability = getTotalValue(limbs, LimbMaterialStats::getDurability) + getStatOrDefault(ToolStats.DURABILITY, 0f);
     double averageHandleModifier = getAverageValue(grips, GripMaterialStats::getDurability, 1);
     // durability should never be below 1
     return Math.max(1, (int)(averageHeadDurability * averageHandleModifier));
@@ -80,7 +80,7 @@ public class RangedToolStatsBuilder extends ToolStatsBuilder {
 
   /** Builds velocity for the tool */
   public float buildVelocity() {
-    return (float)Math.max(0, getStatOrDefault(ToolStats.VELOCITY, 1f) + getTotalValue(limbs, LimbMaterialStats::getVelocity) + getTotalValue(grips, GripMaterialStats::getVelocity));
+    return (float)Math.max(0, getStatOrDefault(ToolStats.VELOCITY, 1f) + getTotalValue(limbs, LimbMaterialStats::getVelocity));
   }
 
   /** Builds velocity for the tool */

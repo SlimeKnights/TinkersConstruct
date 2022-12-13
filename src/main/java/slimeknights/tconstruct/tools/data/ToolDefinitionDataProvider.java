@@ -357,8 +357,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // stats
       .stat(ToolStats.ATTACK_DAMAGE, 0f)
       .stat(ToolStats.ATTACK_SPEED, 1.0f)
-      .stat(ToolStats.DURABILITY, 145)
-      .multiplier(ToolStats.DURABILITY, 4f)
+      .multiplier(ToolStats.DURABILITY, 3f)
       .largeToolStartingSlots();
 
     // special

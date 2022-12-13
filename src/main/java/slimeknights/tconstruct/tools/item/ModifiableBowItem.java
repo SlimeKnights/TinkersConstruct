@@ -105,7 +105,8 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
     if (charge > 1) {
       charge = 1;
     }
-    float power = charge * stats.get(ToolStats.VELOCITY);
+    float velocity = stats.get(ToolStats.VELOCITY);
+    float power = charge * velocity;
     if (power < 0.1f) {
       return;
     }
@@ -115,7 +116,7 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
     if (!level.isClientSide) {
       ArrowItem arrowItem = ammo.getItem() instanceof ArrowItem arrow ? arrow : (ArrowItem)Items.ARROW;
       AbstractArrow arrowEntity = arrowItem.createArrow(level, ammo, player);
-      arrowEntity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, power * 3.0F, 3*(1/stats.get(ToolStats.ACCURACY))-1);
+      arrowEntity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, power * 3.0F, 3*(1/stats.get(ToolStats.ACCURACY)-1) * velocity);
       // TODO: modifier hook to add arrow properties
       if (charge == 1.0F) {
         arrowEntity.setCritArrow(true);
