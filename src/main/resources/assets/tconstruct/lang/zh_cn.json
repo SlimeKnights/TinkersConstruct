@@ -1874,7 +1874,7 @@
   "modifier.tconstruct.leaping.description": "兔子可以跳得很高，那么这个应该也能让你跳得很高",
   "modifier.tconstruct.pockets": "行囊",
   "modifier.tconstruct.pockets.flavor": "真是奇妙的发明！",
-  "modifier.tconstruct.pockets.description": "这护腿是有口袋的，能让你存储一些额外的物品，同时按下左Shift键和“护腿交互”键就可以存取",
+  "modifier.tconstruct.pockets.description": "这护腿有一些口袋，你可以在口袋里存储一些额外的物品。同时按下左Shift键和“护腿交互”键就可以存取",
   "modifier.tconstruct.shield_strap": "副手套环",
   "modifier.tconstruct.shield_strap.flavor": "保护与攻击的理想之选",
   "modifier.tconstruct.shield_strap.description": "按下“护腿交互”键能够交换副手物品",

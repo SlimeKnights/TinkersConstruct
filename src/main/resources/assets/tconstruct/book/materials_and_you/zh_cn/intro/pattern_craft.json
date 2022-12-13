@@ -3,6 +3,6 @@
   "recipe": "tconstruct:tables/pattern",
   "grid_size": "small",
   "description": [
-    { "text": "你将会需要许多模具来制作工具，制作工具部件和部件制造台也是如此。" }
+    { "text": "你将会需要许多模具来制作工具，制作工具部件和部件制造台的时候都用得到。" }
   ]
 }
