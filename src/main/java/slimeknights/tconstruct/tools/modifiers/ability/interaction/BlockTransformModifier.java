@@ -89,6 +89,8 @@ public class BlockTransformModifier extends InteractionModifier.NoLevels impleme
         return InteractionResult.SUCCESS;
       }
 
+      runTransformHook(tool, context, original, pos);
+
       // if the tool breaks or it was a campfire, we are done
       if (ToolDamageUtil.damage(tool, 1, player, stack)) {
         if (player != null) {
@@ -121,6 +123,8 @@ public class BlockTransformModifier extends InteractionModifier.NoLevels impleme
             totalTransformed++;
             didTransform = true;
 
+            runTransformHook(tool, context, newTarget, newPos);
+
             // stop if the tool broke
             if (world.isClientSide || ToolDamageUtil.damageAnimated(tool, 1, player, slotType)) {
               break;
@@ -137,6 +141,13 @@ public class BlockTransformModifier extends InteractionModifier.NoLevels impleme
 
     // if anything happened, return success
     return didTransform ? InteractionResult.sidedSuccess(world.isClientSide) : InteractionResult.PASS;
+  }
+
+  /** Runs the hook after transforming a block */
+  private void runTransformHook(IToolStackView tool, UseOnContext context, BlockState state, BlockPos pos) {
+    for (ModifierEntry entry : tool.getModifierList()) {
+      entry.getHook(TinkerHooks.BLOCK_TRANSFORM).afterTransformBlock(tool, entry, context, state, pos, action);
+    }
   }
 
   /** Transforms the given block */
