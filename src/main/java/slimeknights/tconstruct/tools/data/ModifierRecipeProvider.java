@@ -510,6 +510,44 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setMaxLevel(5)
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .save(consumer, wrap(ModifierIds.swiftstrike, upgradeFolder, "_from_block"));
+
+    /*
+     * ranged
+     */
+    // power also conditions on geodes
+    IncrementalModifierRecipeBuilder powerGeodeBuilder =
+      IncrementalModifierRecipeBuilder.modifier(ModifierIds.power)
+                                      .setTools(TinkerTags.Items.RANGED)
+                                      .setInput(TinkerWorld.ichorGeode.asItem(), 1, 72)
+                                      .setSlots(SlotType.UPGRADE, 1)
+                                      .setMaxLevel(5);
+    IncrementalModifierRecipeBuilder powerNoGeodeBuilder =
+      IncrementalModifierRecipeBuilder.modifier(ModifierIds.power)
+                                      .setTools(TinkerTags.Items.RANGED)
+                                      .setInput(TinkerWorld.slimeDirt.get(SlimeType.ICHOR), 1, 36)
+                                      .setSlots(SlotType.UPGRADE, 1)
+                                      .setMaxLevel(5);
+    ConditionalRecipe.builder()
+                     .addCondition(ConfigEnabledCondition.ICHOR_GEODES)
+                     .addRecipe(powerGeodeBuilder::save)
+                     .addCondition(TrueCondition.INSTANCE)
+                     .addRecipe(powerNoGeodeBuilder::save)
+                     .build(consumer, prefix(ModifierIds.power, upgradeFolder));
+    powerGeodeBuilder.saveSalvage(consumer, prefix(ModifierIds.power, upgradeSalvage));
+    hasteRecipes(consumer, ModifierIds.quickCharge, Ingredient.of(TinkerTags.Items.RANGED), 4, upgradeFolder, upgradeSalvage);
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.trueshot)
+                                    .setInput(Items.TARGET, 1, 10)
+                                    .setSlots(SlotType.UPGRADE, 1)
+                                    .setMaxLevel(3)
+                                    .setTools(TinkerTags.Items.RANGED)
+                                    .saveSalvage(consumer, prefix(ModifierIds.trueshot, upgradeSalvage))
+                                    .save(consumer, prefix(ModifierIds.trueshot, upgradeFolder));
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.blindshot)
+                                    .setInput(Items.DIRT, 1, 10)
+                                    .setTools(TinkerTags.Items.RANGED)
+                                    .save(consumer, prefix(ModifierIds.blindshot, slotlessFolder));
+
+
     /*
      * armor
      */

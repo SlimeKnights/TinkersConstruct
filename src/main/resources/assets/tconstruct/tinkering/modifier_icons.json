@@ -56,6 +56,11 @@
   "tconstruct:sweeping_edge":   "tconstruct:gui/modifiers/melee/sweeping",
   "tconstruct:spilling":        "tconstruct:gui/modifiers/melee/spilling",
   
+  "tconstruct:blindshot":    "tconstruct:gui/modifiers/ranged/blindshot",
+  "tconstruct:power":        "tconstruct:gui/modifiers/ranged/power",
+  "tconstruct:quick_charge": "tconstruct:gui/modifiers/ranged/quick_charge",
+  "tconstruct:trueshot":     "tconstruct:gui/modifiers/ranged/trueshot",
+  
   "tconstruct:protection":            "tconstruct:gui/modifiers/armor/protection",
   "tconstruct:melee_protection":      "tconstruct:gui/modifiers/armor/melee_protection",
   "tconstruct:projectile_protection": "tconstruct:gui/modifiers/armor/projectile_protection",

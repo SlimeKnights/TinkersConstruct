@@ -121,6 +121,9 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
       if (charge == 1.0F) {
         arrowEntity.setCritArrow(true);
       }
+      // vanilla arrows have a base damage of 2, cancel that out then add in our base damage to account for custom arrows with higher base damage
+      float baseArrowDamage = (float)(arrowEntity.baseDamage - 2 + tool.getStats().get(ToolStats.PROJECTILE_DAMAGE));
+      arrowEntity.setBaseDamage(baseArrowDamage);
 
       ToolDamageUtil.damageAnimated(tool, 1, player, player.getUsedItemHand());
       // if infinite, skip pickup

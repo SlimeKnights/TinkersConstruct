@@ -30,6 +30,7 @@
     "silky_aoe_shears": "#A64F3F",
     "harvest":          "#CDB159",
 
+
     "__armor_abilities__": null,
     "double_jump":  "#01cbcd",
     "bouncy":       "#27C6C6",
@@ -125,6 +126,12 @@
     "sweeping_edge": "#888888",
     "swiftstrike":   "#B38EF1",
 
+    "__ranged_upgrades__": null,
+    "blindshot":    "#966C4A",
+    "power":        "#EAA727",
+    "quick_charge": "#7F0901",
+    "trueshot":     "#DC4A4A",
+
     "__upgrade_armor__": null,
     "armor_power":      "#EAA727",
     "feather_falling":  "#ffffff",
@@ -188,6 +195,9 @@
     "searing":      "#4F4A47",
     "stonebound":   "#999999",
 
+    "__traits_ranged__": null,
+    "flexible": "#8AAE60",
+
     "__traits_slimeskull__": null,
     "boon_of_sssss":    "#605448",
     "breathtaking":     "#56847E",
@@ -242,6 +252,7 @@
     "rock.blackstone": "#4E4B54",
 
     "__tier_1__": null,
+    "bamboo":        "#8AAE60",
     "flint":         "#696969",
     "flint.basalt":  "#747474",
     "bone":          "#E8E5D2",

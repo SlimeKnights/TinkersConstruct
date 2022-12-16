@@ -34,6 +34,11 @@
     {
       "stat": "tconstruct:harvest_tier",
       "value": "minecraft:diamond"
+    },
+    {
+      "stat": "tconstruct:projectile_damage",
+      "type": "add",
+      "value": 0.5
     }
   ]
 }

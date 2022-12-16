@@ -1360,6 +1360,8 @@
   "material.tconstruct.wood.encyclopedia": "Makes repairs 50% more effective per part",
 
   "material.tconstruct.bamboo": "Bamboo",
+  "material.tconstruct.bamboo.flavor": "Get bamboozled!",
+  "material.tconstruct.bamboo.encyclopedia": "Arrows have 110% velocity, but deal 90% damage. Effectively, they go farther while dealing about the same damage",
 
   "material.tconstruct.rock": "Rock",
   "material.tconstruct.rock.stone":      "Stone",
@@ -1768,6 +1770,22 @@
   "modifier.tconstruct.swiftstrike.flavor": "Magic!",
   "modifier.tconstruct.swiftstrike.description": "Magic purple gems make the weapon lighter and easier to swing!",
 
+
+  "_comment": "Ranged",
+
+  "modifier.tconstruct.power": "Power",
+  "modifier.tconstruct.power.flavor": "The power within becomes the power without",
+  "modifier.tconstruct.power.description": "Boosts damage of arrows",
+  "modifier.tconstruct.quick_charge": "Quick Charge",
+  "modifier.tconstruct.quick_charge.flavor": "For when you are tired of all the extra fees",
+  "modifier.tconstruct.quick_charge.description": "Increases drawspeed of ranged weapons",
+  "modifier.tconstruct.trueshot": "Trueshot",
+  "modifier.tconstruct.trueshot.flavor": "This bow will always aim true",
+  "modifier.tconstruct.trueshot.description": "Increases the accuracy of the weapon",
+  "modifier.tconstruct.blindshot": "Blindshot",
+  "modifier.tconstruct.blindshot.flavor": "Gonna put some dirt in your eye",
+  "modifier.tconstruct.blindshot.description": "Decreases the accuracy of the weapon",
+
   "_comment": "Armor",
   "modifier.tconstruct.knockback_resistance": "Knockback Resistance",
   "modifier.tconstruct.knockback_resistance.flavor": "A weighty subject",
@@ -2094,6 +2112,9 @@
   "modifier.tconstruct.enderference": "Enderference",
   "modifier.tconstruct.enderference.flavor": "Really quite distracting",
   "modifier.tconstruct.enderference.description": "Prevents target from teleporting for a short time",
+  "modifier.tconstruct.flexible": "Flexible",
+  "modifier.tconstruct.flexible.flavor": "Twang",
+  "modifier.tconstruct.flexible.description": "Your arrows fly faster, but do the same damage",
   "modifier.tconstruct.stringy": "Stringy",
   "modifier.tconstruct.stringy.flavor": "Like cheese, but less tasty",
   "modifier.tconstruct.stringy.description": "Tool can be repaired using string",
@@ -2386,6 +2407,8 @@
   "tool_stat.tconstruct.velocity.description": "Determines how quickly arrows fly after firing. Faster arrows deal more damage.",
   "tool_stat.tconstruct.accuracy": "Accuracy: ",
   "tool_stat.tconsturct.accuracy.description": "Determines how close the bow aims towards the center.",
+  "tool_stat.tconstruct.projectile_damage": "Proj. Damage: ",
+  "tool_stat.tconsturct.projectile_damage.description": "Determines the base damage of projectiles fired by this weapon.",
 
   "stat.tconstruct.extra": "Binding",
   "stat.tconstruct.bowstring": "Bowstring",
