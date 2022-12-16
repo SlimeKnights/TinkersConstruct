@@ -118,6 +118,28 @@ public interface IMaterialRegistry {
    */
   <T extends IMaterialStats> void registerStatType(T defaultStats, Class<T> clazz, Function<FriendlyByteBuf,T> decoder);
 
+  /**
+   * This method serves three purposes:
+   * <ol>
+   * <li>it makes the game aware of a new material stat type</li>
+   * <li>it registers the default stats (=fallback) for the given type</li>
+   * <li>it adds a trait "category" to the stat type to make registering traits easier</li>
+   * </ol><br/>
+   * For stats to be usable they need to be registered, otherwise they can't be loaded.
+   * The default stats are used when something tries to create something out of material with these stats,
+   * but for some reason the material does not have the given stats.<br/>
+   * e.g. building an arrow with stone fletchings (stone cannot be used for fletchings)
+   * <p>
+   * All material stats for the same materialStatType <em>must</em> have the same class as its default after it's registered.
+   *
+   * @param defaultStats  Default stats instance
+   * @param clazz         Stat type class
+   * @param decoder       Logic to decode the stat from the buffer
+   */
+  default <T extends IMaterialStats> void registerStatType(T defaultStats, Class<T> clazz, Function<FriendlyByteBuf,T> decoder, @Nullable MaterialStatsId traitFallback) {
+    registerStatType(defaultStats, clazz, decoder);
+  }
+
 
   /* Traits */
 
