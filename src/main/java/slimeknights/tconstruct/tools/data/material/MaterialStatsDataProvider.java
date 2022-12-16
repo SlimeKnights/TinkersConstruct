@@ -270,7 +270,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      new GripMaterialStats(0.6f, 0.25f, 1.0f));
     addMaterialStats(MaterialIds.cobalt,
                      new LimbMaterialStats(800, 0.05f, 0.05f, 0.05f),
-                     new GripMaterialStats(-0.30f, 0.2f, -0.15f));
+                     new GripMaterialStats(1.05f, 0.05f, 2.25f));
     addMaterialStats(MaterialIds.blazingBone,
                      new LimbMaterialStats(530, -0.3f, 0.2f, -0.15f),
                      new GripMaterialStats(0.85f, -0.10f, 3f));

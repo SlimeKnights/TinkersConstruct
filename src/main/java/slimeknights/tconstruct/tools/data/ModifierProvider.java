@@ -186,6 +186,8 @@ public class ModifierProvider extends AbstractModifierProvider {
     addModifier(ModifierIds.lightweight, StatBoostModifier.builder()
       .multiplyBase(ToolStats.ATTACK_SPEED, 0.07f)
       .multiplyBase(ToolStats.MINING_SPEED, 0.07f)
+      .multiplyBase(ToolStats.DRAW_SPEED, 0.05f)
+      .multiplyBase(ToolStats.VELOCITY, 0.05f)
       .build());
     // traits - tier 3 compat
     addModifier(ModifierIds.ductile, StatBoostModifier.builder()

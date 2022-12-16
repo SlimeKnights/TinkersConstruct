@@ -11,6 +11,16 @@
       "stat": "tconstruct:mining_speed",
       "type": "multiply_base",
       "value": 0.07
+    },
+    {
+      "stat": "tconstruct:draw_speed",
+      "type": "multiply_base",
+      "value": 0.05
+    },
+    {
+      "stat": "tconstruct:velocity",
+      "type": "multiply_base",
+      "value": 0.05
     }
   ]
 }
