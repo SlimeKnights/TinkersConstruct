@@ -165,6 +165,7 @@ public class MaterialTraits {
       } else {
         // add in fallbacks now so no hit to lookup times
         ImmutableMap.Builder<MaterialStatsId,List<ModifierEntry>> builder = ImmutableMap.builder();
+        builder.putAll(this.traitsPerStats);
         for (Entry<MaterialStatsId,MaterialStatsId> fallback : fallbacks.entrySet()) {
           MaterialStatsId statType = fallback.getKey();
           if (!this.traitsPerStats.containsKey(statType)) {
