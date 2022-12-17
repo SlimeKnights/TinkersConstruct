@@ -5,6 +5,7 @@ import com.google.common.collect.LinkedHashMultimap;
 import lombok.RequiredArgsConstructor;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
 
+import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -24,10 +25,16 @@ public class ModifierHookMap {
     return modules.containsKey(hook);
   }
 
-  /** Gets the module matching the given hook */
+  /** Gets the module matching the given hook, or null if not defined */
   @SuppressWarnings("unchecked")
-  public <T> T getHook(ModifierHook<T> hook) {
-    T object = (T)modules.get(hook);
+  @Nullable
+  public <T> T getOrNull(ModifierHook<T> hook) {
+    return (T)modules.get(hook);
+  }
+
+  /** Gets the module matching the given hook */
+  public <T> T getOrDefault(ModifierHook<T> hook) {
+    T object = getOrNull(hook);
     if (object != null) {
       return object;
     }

@@ -27,6 +27,7 @@ public class ModifierHooks {
   public static ModifierHook<?> getHook(ResourceLocation name) {
     return HOOKS.get(name);
   }
+
   /**
    * Registers a new hook
    * @param hook  Hook to register

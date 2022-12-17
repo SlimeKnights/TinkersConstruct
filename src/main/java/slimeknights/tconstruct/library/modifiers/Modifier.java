@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.modifiers;
 
 import com.google.gson.JsonObject;
+import lombok.Getter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
@@ -119,6 +120,7 @@ public class Modifier implements IHaveLoader<Modifier> {
   @Nullable
   private Component description;
   /** Map of all modifier hooks registered to this modifier */
+  @Getter
   private final ModifierHookMap hooks;
 
   /** Creates a new modifier using the given hook map */
@@ -1065,7 +1067,7 @@ public class Modifier implements IHaveLoader<Modifier> {
    * @return  Submodule implementing the hook, or default instance if its not implemented
    */
   public final <T> T getHook(ModifierHook<T> hook) {
-    return hooks.getHook(hook);
+    return hooks.getOrDefault(hook);
   }
 
 
