@@ -336,11 +336,15 @@ public class TinkerTags {
     public static final TagKey<Item> HELMETS = tag("modifiable/armor/helmets");
     /** Modifiable items that boost unarmed attack damage. By default this is just chestplates, but added as a tag to make it easier for adds to change */
     public static final TagKey<Item> UNARMED = tag("modifiable/unarmed");
-    // /** Modifiable items that support ranged attacks, such as bows */
-    // public static final TagKey<Item> RANGED = tag("modifiable/ranged");
 
-    /** Modifiable items that support ranged attacks. Items in this tag support the {@link ToolStats#DRAW_SPEED} stat (plus those from {@link #MELEE_OR_UNARMED}). */
+    /** Modifiable items that support ranged attacks. Items in this tag support {@link ToolStats#DRAW_SPEED}, {@link ToolStats#VELOCITY}, {@link ToolStats#PROJECTILE_DAMAGE} and {@link ToolStats#ACCURACY} */
     public static final TagKey<Item> RANGED = tag("modifiable/ranged");
+    /** Any modifiable ranged items that are a bow, includes crosbows and longbows */
+    public static final TagKey<Item> BOWS = tag("modifiable/ranged/bows");
+    /** Any modifiable bows that fire arrows on release */
+    public static final TagKey<Item> LONGBOWS = tag("modifiable/ranged/longbows");
+    /** Any modifiable bows that store an arrow then fire on next use */
+    public static final TagKey<Item> CROSSBOWS = tag("modifiable/ranged/crossbows");
 
     /** Tag so mods like thermal know our scyhtes can harvest */
     public static final TagKey<Item> SCYTHES = forgeTag("tools/scythe");

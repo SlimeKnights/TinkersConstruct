@@ -40,7 +40,9 @@ import static net.minecraft.tags.ItemTags.CLUSTER_MAX_HARVESTABLES;
 import static slimeknights.tconstruct.common.TinkerTags.Items.AOE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.BOOTS;
+import static slimeknights.tconstruct.common.TinkerTags.Items.BOWS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.CHESTPLATES;
+import static slimeknights.tconstruct.common.TinkerTags.Items.CROSSBOWS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.DURABILITY;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST_PRIMARY;
@@ -48,6 +50,7 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.HELD;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HELMETS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.LEGGINGS;
+import static slimeknights.tconstruct.common.TinkerTags.Items.LONGBOWS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE_OR_HARVEST;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE_OR_UNARMED;
@@ -224,7 +227,8 @@ public class ItemTagProvider extends ItemTagsProvider {
     addToolTags(TinkerTools.sword,   MULTIPART_TOOL, DURABILITY, HARVEST, MELEE_PRIMARY, ONE_HANDED, SWORD, AOE);
     addToolTags(TinkerTools.cleaver, MULTIPART_TOOL, DURABILITY, HARVEST, MELEE_PRIMARY, ONE_HANDED, SWORD, AOE);
     // bow
-    addToolTags(TinkerTools.longbow, MULTIPART_TOOL, DURABILITY, MELEE, RANGED, ONE_HANDED);
+    addToolTags(TinkerTools.longbow, MULTIPART_TOOL, DURABILITY, MELEE, LONGBOWS);
+    this.tag(CROSSBOWS); // TODO: crossbows
     // specialized
     addToolTags(TinkerTools.flintAndBrick, DURABILITY, MELEE, ONE_HANDED, AOE);
 
@@ -247,6 +251,8 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(INTERACTABLE).addTag(HELD).addTag(CHESTPLATES);
     this.tag(ARMOR).addTag(BOOTS).addTag(LEGGINGS).addTag(CHESTPLATES).addTag(HELMETS);
     this.tag(AOE).addTag(BOOTS); // boot walk modifiers
+    this.tag(RANGED).addTag(BOWS);
+    this.tag(BOWS).addTags(LONGBOWS, CROSSBOWS);
 
     // general
     this.tag(MODIFIABLE)
