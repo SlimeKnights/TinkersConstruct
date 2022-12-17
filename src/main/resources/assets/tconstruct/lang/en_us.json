@@ -1791,6 +1791,9 @@
   "modifier.tconstruct.blindshot": "Blindshot",
   "modifier.tconstruct.blindshot.flavor": "Gonna put some dirt in your eye",
   "modifier.tconstruct.blindshot.description": "Decreases the accuracy of the weapon",
+  "modifier.tconstruct.freezing": "Freezing",
+  "modifier.tconstruct.freezing.flavor": "Alright, everyone. Chill!",
+  "modifier.tconstruct.freezing.description": "Causes arrows to freeze the target",
 
   "_comment": "Armor",
   "modifier.tconstruct.knockback_resistance": "Knockback Resistance",
@@ -2351,6 +2354,7 @@
   "effect.tconstruct.momentum": "Momentum",
   "effect.tconstruct.momentum_ranged": "Momentum",
   "effect.tconstruct.insatiable": "Insatiable",
+  "effect.tconstruct.insatiable_ranged": "Insatiable",
   "effect.tconstruct.teleport_cooldown": "Teleport Cooldown",
   "effect.tconstruct.fireball_cooldown": "Fireball Cooldown",
   "effect.tconstruct.calcified": "Calcified",

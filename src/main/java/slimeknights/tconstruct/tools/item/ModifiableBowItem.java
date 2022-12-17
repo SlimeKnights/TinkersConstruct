@@ -17,7 +17,6 @@ import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.ForgeEventFactory;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHook;
@@ -34,7 +33,6 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
 
-import java.util.Optional;
 import java.util.function.Predicate;
 
 public class ModifiableBowItem extends ModifiableLauncherItem {
@@ -132,7 +130,7 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
         arrowEntity.setCritArrow(true);
       }
       // vanilla arrows have a base damage of 2, cancel that out then add in our base damage to account for custom arrows with higher base damage
-      float baseArrowDamage = (float)(arrowEntity.baseDamage - 2 + tool.getStats().get(ToolStats.PROJECTILE_DAMAGE));
+      float baseArrowDamage = (float)(arrowEntity.getBaseDamage() - 2 + tool.getStats().get(ToolStats.PROJECTILE_DAMAGE));
       arrowEntity.setBaseDamage(ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.PROJECTILE_DAMAGE, baseArrowDamage));
 
       // just store all modifiers on the tool for simplicity
@@ -140,14 +138,7 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
       arrowEntity.getCapability(EntityModifierCapability.CAPABILITY).ifPresent(cap -> cap.setModifiers(modifiers));
 
       // fetch the persistent data for the arrow as modifiers may want to store data
-      Optional<NamespacedNBT> arrowDataCap = arrowEntity.getCapability(PersistentDataCapability.CAPABILITY).resolve();
-      NamespacedNBT arrowData;
-      if (arrowDataCap.isEmpty()) {
-        TConstruct.LOG.warn("Failed to fetch persistent data for arrow {}, this should not happen", arrowEntity.getType());
-        arrowData = new NamespacedNBT(); // don't crash
-      } else {
-        arrowData = arrowDataCap.get();
-      }
+      NamespacedNBT arrowData = PersistentDataCapability.getOrWarn(arrowEntity);
 
       // let modifiers such as fiery and punch set properties
       for (ModifierEntry entry : modifiers.getModifiers()) {

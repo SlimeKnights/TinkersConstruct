@@ -13,6 +13,7 @@ import slimeknights.tconstruct.library.modifiers.hook.HarvestEnchantmentsModifie
 import slimeknights.tconstruct.library.modifiers.hook.InteractModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.LootingModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.PlantHarvestModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.ProjectileHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ShearsModifierHook;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorLootModifier;
@@ -52,7 +53,7 @@ public class TinkerHooks {
     return looting;
   });
 
-  /** Hook for looting values on a projectile, will receive {@link IToolStackView#EMPTY} for the tool */
+  /** Hook for looting values on a projectile, will receive {@link slimeknights.tconstruct.library.tools.nbt.DummyToolStack} for the tool */
   public static final ModifierHook<LootingModifierHook> PROJECTILE_LOOTING = register("projectile_looting", LootingModifierHook.class, LootingModifierHook.SUM_MERGER, LootingModifierHook.DEFAULT);
 
   /** Hook for adding harvest enchantments to a held tool based on the tool's modifiers */
@@ -72,7 +73,8 @@ public class TinkerHooks {
 
   /** Hook for firing arrows to modify the entity post firing */
   public static final ModifierHook<ArrowLaunchModifierHook> ARROW_LAUNCH = register("arrow_launch", ArrowLaunchModifierHook.class, ArrowLaunchModifierHook.ALL_MERGER, ArrowLaunchModifierHook.EMPTY);
-
+  /** Hook called when an arrow hits an entity or block */
+  public static final ModifierHook<ProjectileHitModifierHook> PROJECTILE_HIT = register("projectile_hit", ProjectileHitModifierHook.class, ProjectileHitModifierHook.FIRST_MERGER, ProjectileHitModifierHook.EMPTY);
 
   /* Misc Armor */
 

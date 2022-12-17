@@ -6,28 +6,38 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.game.ClientboundPlayerPositionPacket.RelativeArgument;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.events.teleport.EnderportingTeleportEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.ArrowLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.PlantHarvestModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.ProjectileHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
+import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
 
+import javax.annotation.Nullable;
 import java.util.Set;
 
-public class EnderportingModifier extends NoLevelsModifier implements PlantHarvestModifierHook {
+public class EnderportingModifier extends NoLevelsModifier implements PlantHarvestModifierHook, ProjectileHitModifierHook, ArrowLaunchModifierHook {
   private static final Set<RelativeArgument> PACKET_FLAGS = ImmutableSet.of(RelativeArgument.X, RelativeArgument.Y, RelativeArgument.Z);
 
   @Override
@@ -120,8 +130,34 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
   }
 
   @Override
+  public boolean onProjectileHitEntity(ModifierNBT modifiers, NamespacedNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
+    if (attacker != null) {
+      Entity hitEntity = hit.getEntity();
+      tryTeleport(attacker, hitEntity.getX(), hitEntity.getY(), hitEntity.getZ());
+    }
+    return false;
+  }
+
+  @Override
+  public boolean onProjectileHitBlock(ModifierNBT modifiers, NamespacedNBT persistentData, ModifierEntry modifier, Projectile projectile, BlockHitResult hit, @Nullable LivingEntity attacker) {
+    if (attacker != null) {
+      BlockPos target = hit.getBlockPos().relative(hit.getDirection());
+      if (tryTeleport(attacker, target.getX() + 0.5f, target.getY(), target.getZ() + 0.5f)) {
+        projectile.discard();
+      }
+    }
+    return false;
+  }
+
+  @Override
+  public void onArrowLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, AbstractArrow arrow, NamespacedNBT persistentData) {
+    // damage on shoot as we won't have tool context once the arrow lands
+    ToolDamageUtil.damageAnimated(tool, 10, shooter);
+  }
+
+  @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, TinkerHooks.PLANT_HARVEST);
+    hookBuilder.addHook(this, TinkerHooks.PLANT_HARVEST, TinkerHooks.PROJECTILE_HIT, TinkerHooks.ARROW_LAUNCH);
   }
 }

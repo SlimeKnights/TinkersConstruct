@@ -57,6 +57,7 @@
   "tconstruct:spilling":        "tconstruct:gui/modifiers/melee/spilling",
   
   "tconstruct:blindshot":    "tconstruct:gui/modifiers/ranged/blindshot",
+  "tconstruct:freezing":     "tconstruct:gui/modifiers/ranged/freezing",
   "tconstruct:impaling":     "tconstruct:gui/modifiers/ranged/impaling",
   "tconstruct:power":        "tconstruct:gui/modifiers/ranged/power",
   "tconstruct:punch":        "tconstruct:gui/modifiers/ranged/punch",

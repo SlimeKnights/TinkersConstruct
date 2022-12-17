@@ -194,6 +194,7 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.melee.PaddedModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.PiercingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.SeveringModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.SweepingEdgeModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.FreezingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ImpalingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.PunchModifier;
 import slimeknights.tconstruct.tools.recipe.ArmorDyeingRecipe;
@@ -278,6 +279,7 @@ public final class TinkerModifiers extends TinkerModule {
   // ranged
   public static final StaticModifier<PunchModifier> punch = MODIFIERS.register("punch", PunchModifier::new);
   public static final StaticModifier<ImpalingModifier> impaling = MODIFIERS.register("impaling", ImpalingModifier::new);
+  public static final StaticModifier<FreezingModifier> freezing = MODIFIERS.register("freezing", FreezingModifier::new);
 
   // armor
   // protection
@@ -432,6 +434,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static RegistryObject<TinkerEffect> momentumEffect = MOB_EFFECTS.register("momentum", MARKER_EFFECT.apply(0x60496b));
   public static RegistryObject<TinkerEffect> momentumRangedEffect = MOB_EFFECTS.register("momentum_ranged", MARKER_EFFECT.apply(0x60496b));
   public static RegistryObject<TinkerEffect> insatiableEffect = MOB_EFFECTS.register("insatiable", MARKER_EFFECT.apply(0x9261cc));
+  public static RegistryObject<TinkerEffect> insatiableRangedEffect = MOB_EFFECTS.register("insatiable_ranged", MARKER_EFFECT.apply(0x9261cc));
   public static RegistryObject<TinkerEffect> enderferenceEffect = MOB_EFFECTS.register("enderference", () -> new NoMilkEffect(MobEffectCategory.HARMFUL, 0x8F648F, true));
   public static RegistryObject<TinkerEffect> teleportCooldownEffect = MOB_EFFECTS.register("teleport_cooldown", () -> new NoMilkEffect(MobEffectCategory.HARMFUL, 0xCC00FA, true));
   public static RegistryObject<TinkerEffect> fireballCooldownEffect = MOB_EFFECTS.register("fireball_cooldown", () -> new NoMilkEffect(MobEffectCategory.HARMFUL, 0xFC9600, true));

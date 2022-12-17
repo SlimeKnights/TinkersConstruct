@@ -24,6 +24,7 @@ import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Optional;
 
 /**
  * Capability to store persistent NBT data on an entity. For players, this is automatically synced to the client on load, but not during gameplay.
@@ -36,6 +37,16 @@ public class PersistentDataCapability {
   private static final ResourceLocation ID = TConstruct.getResource("persistent_data");
   /** Capability type */
   public static final Capability<NamespacedNBT> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {});
+
+  /** Gets the data or warns if its missing */
+  public static NamespacedNBT getOrWarn(Entity entity) {
+    Optional<NamespacedNBT> data = entity.getCapability(CAPABILITY).resolve();
+    if (data.isEmpty()) {
+      TConstruct.LOG.warn("Missing Tinkers NBT on entity {}, this should not happen", entity.getType());
+      return new NamespacedNBT();
+    }
+    return data.get();
+  }
 
   /** Registers this capability */
   public static void register() {

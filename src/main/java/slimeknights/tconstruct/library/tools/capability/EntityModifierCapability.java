@@ -50,6 +50,11 @@ public class EntityModifierCapability {
   /** Capability type */
   public static final Capability<EntityModifiers> CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {});
 
+  /** Gets the data or an empty instance if missing */
+  public static ModifierNBT getOrEmpty(Entity entity) {
+    return entity.getCapability(CAPABILITY).orElse(EMPTY).getModifiers();
+  }
+
   /** Checks if the given entity supports this capability */
   public static boolean supportCapability(Entity entity) {
     for (Predicate<Entity> entityPredicate : ENTITY_PREDICATES) {

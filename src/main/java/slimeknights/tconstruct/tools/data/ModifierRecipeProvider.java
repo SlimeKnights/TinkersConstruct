@@ -408,7 +408,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.GHAST_TEAR)
                          .setMaxLevel(5) // +50% chance of heal, combine with +40% from traits for +90% total
                          .setSlots(SlotType.UPGRADE, 1)
-                         .setTools(TinkerTags.Items.MELEE)
+                         .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.BOWS))
                          .includeUnarmed()
                          .saveSalvage(consumer, prefix(TinkerModifiers.necrotic, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.necrotic, upgradeFolder));
@@ -563,6 +563,13 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setTools(TinkerTags.Items.CROSSBOWS) // longbows get ricochet instead
                          .saveSalvage(consumer, prefix(TinkerModifiers.impaling, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.impaling, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.freezing)
+                         .addInput(Items.POWDER_SNOW_BUCKET)
+                         .setMaxLevel(2)
+                         .setSlots(SlotType.UPGRADE, 1)
+                         .setTools(TinkerTags.Items.BOWS) // no elementals on fluid cannon
+                         .saveSalvage(consumer, prefix(TinkerModifiers.freezing, upgradeSalvage))
+                         .save(consumer, prefix(TinkerModifiers.freezing, upgradeFolder));
 
 
     /*
