@@ -6,6 +6,7 @@ import net.minecraft.world.entity.player.Player;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.hook.ArmorWalkModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.ArrowLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ElytraFlightModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.HarvestEnchantmentsModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.InteractModifierHook;
@@ -55,6 +56,12 @@ public class TinkerHooks {
       armorLoot.applyHarvestEnchantments(tool, modifier.getLevel(), context, consumer);
     }
   });
+
+
+  /* Ranged */
+
+  /** Hook for firing arrows to modify the entity post firing */
+  public static final ModifierHook<ArrowLaunchModifierHook> ARROW_LAUNCH = register("arrow_launch", ArrowLaunchModifierHook.class, ArrowLaunchModifierHook.ALL_MERGER, ArrowLaunchModifierHook.EMPTY);
 
 
   /* Misc Armor */

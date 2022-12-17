@@ -367,7 +367,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
      */
     ModifierRecipeBuilder.modifier(TinkerModifiers.knockback)
                          .addInput(Items.PISTON)
-                         .addInput(TinkerTags.Items.SLIME_BLOCK)
+                         .addInput(TinkerWorld.slime.get(SlimeType.EARTH))
                          .setMaxLevel(5) // max +2.5 knockback points (knockback 5) (whatever that number means in vanilla)
                          .setSlots(SlotType.UPGRADE, 1)
                          .setTools(TinkerTags.Items.MELEE)
@@ -395,7 +395,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(TinkerModifiers.severing, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.severing, upgradeFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.fiery)
-                                    .setTools(TinkerTags.Items.MELEE)
+                                    .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.BOWS))
                                     .setInput(Items.BLAZE_POWDER, 1, 25)
                                     .setMaxLevel(5) // +25 seconds fire damage
                                     .setSlots(SlotType.UPGRADE, 1)
@@ -546,6 +546,23 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setInput(Items.DIRT, 1, 10)
                                     .setTools(TinkerTags.Items.RANGED)
                                     .save(consumer, prefix(ModifierIds.blindshot, slotlessFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.punch)
+                         .addInput(Items.PISTON)
+                         .addInput(TinkerWorld.slime.get(SlimeType.SKY))
+                         .setMaxLevel(2) // same max as vanilla
+                         .setSlots(SlotType.UPGRADE, 1)
+                         .setTools(TinkerTags.Items.RANGED)
+                         .saveSalvage(consumer, prefix(TinkerModifiers.punch, upgradeSalvage))
+                         .save(consumer, prefix(TinkerModifiers.punch, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.impaling)
+                         .addInput(Items.END_ROD)
+                         .addInput(Items.END_ROD)
+                         .addInput(Items.END_ROD)
+                         .setMaxLevel(4) // same max as vanilla
+                         .setSlots(SlotType.UPGRADE, 1)
+                         .setTools(TinkerTags.Items.CROSSBOWS) // longbows get ricochet instead
+                         .saveSalvage(consumer, prefix(TinkerModifiers.impaling, upgradeSalvage))
+                         .save(consumer, prefix(TinkerModifiers.impaling, upgradeFolder));
 
 
     /*

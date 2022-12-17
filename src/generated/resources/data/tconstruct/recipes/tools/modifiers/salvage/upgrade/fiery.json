@@ -5,6 +5,9 @@
       "tag": "tconstruct:modifiable/melee"
     },
     {
+      "tag": "tconstruct:modifiable/ranged/bows"
+    },
+    {
       "tag": "tconstruct:modifiable/unarmed"
     }
   ],

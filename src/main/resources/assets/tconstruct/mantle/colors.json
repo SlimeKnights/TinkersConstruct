@@ -128,7 +128,9 @@
 
     "__ranged_upgrades__": null,
     "blindshot":    "#966C4A",
+    "impaling":     "#F6E2CD",
     "power":        "#EAA727",
+    "punch":        "#BC9862",
     "quick_charge": "#7F0901",
     "trueshot":     "#DC4A4A",
 

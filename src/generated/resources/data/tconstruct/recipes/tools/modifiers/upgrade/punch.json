@@ -5,18 +5,18 @@
       "item": "minecraft:piston"
     },
     {
-      "item": "minecraft:slime_block"
+      "item": "tconstruct:sky_slime"
     }
   ],
   "tools": {
-    "tag": "tconstruct:modifiable/melee"
+    "tag": "tconstruct:modifiable/ranged"
   },
   "slots": {
     "upgrades": 1
   },
   "result": {
-    "name": "tconstruct:knockback",
+    "name": "tconstruct:punch",
     "level": 1
   },
-  "max_level": 5
+  "max_level": 2
 }

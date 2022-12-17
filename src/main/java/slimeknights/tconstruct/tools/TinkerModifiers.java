@@ -192,6 +192,8 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.melee.PaddedModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.PiercingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.SeveringModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.SweepingEdgeModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ImpalingModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.PunchModifier;
 import slimeknights.tconstruct.tools.recipe.ArmorDyeingRecipe;
 import slimeknights.tconstruct.tools.recipe.CreativeSlotRecipe;
 import slimeknights.tconstruct.tools.recipe.ModifierRemovalRecipe;
@@ -270,6 +272,10 @@ public final class TinkerModifiers extends TinkerModule {
   // damage boost
   public static final StaticModifier<PiercingModifier> piercing = MODIFIERS.register("piercing", PiercingModifier::new);
   public static final StaticModifier<SweepingEdgeModifier> sweeping = MODIFIERS.register("sweeping_edge", SweepingEdgeModifier::new);
+
+  // ranged
+  public static final StaticModifier<PunchModifier> punch = MODIFIERS.register("punch", PunchModifier::new);
+  public static final StaticModifier<ImpalingModifier> impaling = MODIFIERS.register("impaling", ImpalingModifier::new);
 
   // armor
   // protection

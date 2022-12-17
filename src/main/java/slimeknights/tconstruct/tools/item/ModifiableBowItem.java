@@ -17,6 +17,8 @@ import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.ForgeEventFactory;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -124,6 +126,11 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
       // vanilla arrows have a base damage of 2, cancel that out then add in our base damage to account for custom arrows with higher base damage
       float baseArrowDamage = (float)(arrowEntity.baseDamage - 2 + tool.getStats().get(ToolStats.PROJECTILE_DAMAGE));
       arrowEntity.setBaseDamage(baseArrowDamage);
+
+      // let modifiers such as fiery and punch set properties
+      for (ModifierEntry entry : tool.getModifierList()) {
+        entry.getHook(TinkerHooks.ARROW_LAUNCH).onArrowLaunch(tool, entry, living, arrowEntity);
+      }
 
       ToolDamageUtil.damageAnimated(tool, 1, player, player.getUsedItemHand());
       // if infinite, skip pickup
