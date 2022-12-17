@@ -73,15 +73,13 @@ public class ModifierLootingHandler {
       Entity direct = damageSource.getDirectEntity();
       int level = event.getLootingLevel();
       LivingEntity target = event.getEntityLiving();
-      if (direct != source) {
-        if (direct instanceof AbstractArrow) {
-          // need to build a context from the relevant capabilities to use the modifier
-          ModifierNBT modifiers = direct.getCapability(EntityModifierCapability.CAPABILITY).orElse(EntityModifierCapability.EMPTY).getModifiers();
-          if (!modifiers.isEmpty()) {
-            ModDataNBT persistentData = direct.getCapability(PersistentDataCapability.CAPABILITY).map(ModDataNBT::new).orElseGet(ModDataNBT::new);
-            DummyToolStack tool = new DummyToolStack(Items.AIR, modifiers, persistentData);
-            level = LootingModifierHook.getLootingValue(TinkerHooks.PROJECTILE_LOOTING, tool, holder, target, damageSource, 0);
-          }
+      if (direct instanceof AbstractArrow) {
+        // need to build a context from the relevant capabilities to use the modifier
+        ModifierNBT modifiers = EntityModifierCapability.getOrEmpty(direct);
+        if (!modifiers.isEmpty()) {
+          ModDataNBT persistentData = direct.getCapability(PersistentDataCapability.CAPABILITY).map(ModDataNBT::new).orElseGet(ModDataNBT::new);
+          DummyToolStack tool = new DummyToolStack(Items.AIR, modifiers, persistentData);
+          level = LootingModifierHook.getLootingValue(TinkerHooks.PROJECTILE_LOOTING, tool, holder, target, damageSource, 0);
         }
       } else {
         // not an arrow? means the held tool is to blame
