@@ -21,6 +21,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.LootingModifierHook;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
@@ -115,11 +116,7 @@ public final class ModifierUtil {
     if (tool.isBroken()) {
       return 0;
     }
-    int looting = 0;
-    for (ModifierEntry entry : tool.getModifierList()) {
-      looting = entry.getHook(TinkerHooks.TOOL_LOOTING).getLootingValue(tool, entry, holder, target, damageSource, looting);
-    }
-    return looting;
+    return LootingModifierHook.getLootingValue(TinkerHooks.TOOL_LOOTING, tool, holder, target, damageSource, 0);
   }
 
   /**
@@ -135,9 +132,7 @@ public final class ModifierUtil {
     if (!pants.isEmpty() && pants.is(TinkerTags.Items.LEGGINGS)) {
       ToolStack pantsTool = ToolStack.from(pants);
       if (!pantsTool.isBroken()) {
-        for (ModifierEntry entry : pantsTool.getModifierList()) {
-          toolLooting = entry.getHook(TinkerHooks.LEGGINGS_LOOTING).getLootingValue(pantsTool, entry, holder, target, damageSource, toolLooting);
-        }
+        toolLooting = LootingModifierHook.getLootingValue(TinkerHooks.LEGGINGS_LOOTING, pantsTool, holder, target, damageSource, toolLooting);
       }
     }
     return toolLooting;

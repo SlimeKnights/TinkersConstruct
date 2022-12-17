@@ -82,12 +82,14 @@ public interface IToolContext {
   /**
    * Gets persistent modifier data from the tool.
    * This data may be edited by modifiers and will persist when stats rebuild
+   * TODO 1.19: change return type to INamespacedNBTView as modifiers should not be slot sensitive
    */
   IModDataView getPersistentData();
 
   /**
    * Gets volatile modifier data from the tool.
    * This data will be reset whenever modifiers reload and should not be edited.
+   * TODO 1.19: change return type to INamespacedNBTView as modifiers should not be slot sensitive
    */
   IModDataView getVolatileData();
 }

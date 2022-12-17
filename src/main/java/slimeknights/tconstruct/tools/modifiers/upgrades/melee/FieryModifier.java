@@ -9,6 +9,7 @@ import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
 
 public class FieryModifier extends IncrementalModifier implements ArrowLaunchModifierHook {
   @Override
@@ -45,7 +46,7 @@ public class FieryModifier extends IncrementalModifier implements ArrowLaunchMod
   }
 
   @Override
-  public void onArrowLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, AbstractArrow arrow) {
+  public void onArrowLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, AbstractArrow arrow, NamespacedNBT persistentData) {
     arrow.setSecondsOnFire(Math.round(modifier.getEffectiveLevel(tool) * 20));
   }
 }

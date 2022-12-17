@@ -19,6 +19,7 @@ import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHoo
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.TooltipKey;
@@ -68,7 +69,7 @@ public class MomentumModifier extends Modifier implements ArrowLaunchModifierHoo
   }
 
   @Override
-  public void onArrowLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, AbstractArrow arrow) {
+  public void onArrowLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, AbstractArrow arrow, NamespacedNBT persistentData) {
     if (arrow.isCritArrow()) {
       // 16 arrows gets you to max
       int effectLevel = Math.min(15, TinkerModifiers.momentumRangedEffect.get().getLevel(shooter) + 1);

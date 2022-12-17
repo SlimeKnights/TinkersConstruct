@@ -999,8 +999,13 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(ModifierIds.gilded, abilitySalvage))
                          .save(consumer, prefix(ModifierIds.gilded, abilityFolder));
     // luck is 3 recipes, similar for both so pulled into a function
-    luckRecipes(consumer, ModifierIds.luck, TinkerTags.Items.MELEE_OR_HARVEST, SlotType.ABILITY, false, abilityFolder, abilitySalvage);
-    luckRecipes(consumer, ModifierIds.looting, TinkerTags.Items.UNARMED, SlotType.UPGRADE, true, upgradeFolder, upgradeSalvage);
+    // harvest uses luck, at this time there is no harvest that is not melee
+    luckRecipes(consumer, ModifierIds.luck, Ingredient.of(TinkerTags.Items.HARVEST), SlotType.ABILITY, false, abilityFolder, abilitySalvage);
+    // any non-harvest melee and any ranged use looting
+    luckRecipes(consumer, ModifierIds.looting, DifferenceIngredient.of(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.RANGED), Ingredient.of(TinkerTags.Items.HARVEST)), SlotType.ABILITY, false, abilityFolder, abilitySalvage);
+    // unarmed uses upgrades, though in the near future will be merged with above
+    luckRecipes(consumer, ModifierIds.looting, Ingredient.of(TinkerTags.Items.UNARMED), SlotType.UPGRADE, true, upgradeFolder, upgradeSalvage);
+    // pants have just one level
     ModifierRecipeBuilder.modifier(ModifierIds.luck)
                          .setTools(TinkerTags.Items.LEGGINGS)
                          .addInput(SizedIngredient.fromItems(Items.CORNFLOWER, Items.BLUE_ORCHID))
@@ -1458,7 +1463,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
   }
 
   /** Common logic to add recipes for luck and unarmed looting */
-  private void luckRecipes(Consumer<FinishedRecipe> consumer, ModifierId modifier, TagKey<Item> tools, SlotType slotType, boolean unarmed, String folder, String salvage) {
+  private void luckRecipes(Consumer<FinishedRecipe> consumer, ModifierId modifier, Ingredient tools, SlotType slotType, boolean unarmed, String folder, String salvage) {
     String key = modifier.getPath();
     // level 1 always requires a slot
     ModifierRecipeBuilder builder1 = ModifierRecipeBuilder.modifier(modifier)

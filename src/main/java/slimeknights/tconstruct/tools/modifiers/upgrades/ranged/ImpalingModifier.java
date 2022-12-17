@@ -8,6 +8,7 @@ import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.ArrowLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
 
 public class ImpalingModifier extends Modifier implements ArrowLaunchModifierHook {
   @Override
@@ -16,7 +17,7 @@ public class ImpalingModifier extends Modifier implements ArrowLaunchModifierHoo
   }
 
   @Override
-  public void onArrowLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, AbstractArrow arrow) {
+  public void onArrowLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, AbstractArrow arrow, NamespacedNBT persistentData) {
     arrow.setPierceLevel((byte)modifier.getLevel());
   }
 }

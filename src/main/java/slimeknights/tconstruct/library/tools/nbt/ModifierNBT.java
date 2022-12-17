@@ -32,7 +32,7 @@ public class ModifierNBT {
   public static final String TAG_LEVEL = "level";
 
   /** Instance containing no modifiers */
-  static final ModifierNBT EMPTY = new ModifierNBT(Collections.emptyList());
+  public static final ModifierNBT EMPTY = new ModifierNBT(Collections.emptyList());
 
   /** Sorted list of modifiers */
   @Getter

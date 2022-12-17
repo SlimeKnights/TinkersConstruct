@@ -4,6 +4,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierHook;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
@@ -31,6 +32,22 @@ public interface LootingModifierHook {
    */
   int getLootingValue(IToolStackView tool, ModifierEntry modifier, LivingEntity holder, Entity target, @Nullable DamageSource damageSource, int looting);
 
+  /**
+   * Gets the looting value from the given tool
+   * @param hook           Hook to call
+   * @param tool           Tool instance
+   * @param holder         Entity holding the tool
+   * @param target         Target of the attack
+   * @param damageSource   Damage used to attack
+   * @param looting        Previous looting value
+   * @return  New looting value
+   */
+  static int getLootingValue(ModifierHook<LootingModifierHook> hook, IToolStackView tool, LivingEntity holder, Entity target, @Nullable DamageSource damageSource, int looting) {
+    for (ModifierEntry entry : tool.getModifierList()) {
+      looting = entry.getHook(hook).getLootingValue(tool, entry, holder, target, damageSource, looting);
+    }
+    return looting;
+  }
 
   /** Constructor for a merger that sums all children */
   record SumMerger(Collection<LootingModifierHook> modules) implements LootingModifierHook {

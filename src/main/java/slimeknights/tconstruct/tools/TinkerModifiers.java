@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -64,6 +65,7 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRe
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRepairRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRepairTinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.worktable.ModifierSetWorktableRecipe;
+import slimeknights.tconstruct.library.tools.capability.EntityModifierCapability;
 import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
@@ -514,6 +516,9 @@ public final class TinkerModifiers extends TinkerModule {
   void commonSetup(final FMLCommonSetupEvent event) {
     TinkerDataCapability.register();
     PersistentDataCapability.register();
+    EntityModifierCapability.register();
+    // by default, we support modifying arrows, though other entities may come in the future
+    EntityModifierCapability.registerEntityPredicate(entity -> entity instanceof AbstractArrow);
   }
 
   @SubscribeEvent

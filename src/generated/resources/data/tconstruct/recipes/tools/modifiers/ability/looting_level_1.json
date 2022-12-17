@@ -25,13 +25,24 @@
     }
   ],
   "tools": {
-    "tag": "tconstruct:modifiable/harvest"
+    "type": "forge:difference",
+    "base": [
+      {
+        "tag": "tconstruct:modifiable/melee"
+      },
+      {
+        "tag": "tconstruct:modifiable/ranged"
+      }
+    ],
+    "subtracted": {
+      "tag": "tconstruct:modifiable/harvest"
+    }
   },
   "slots": {
     "abilities": 1
   },
   "result": {
-    "name": "tconstruct:luck",
+    "name": "tconstruct:looting",
     "level": 1
   },
   "max_level": 1

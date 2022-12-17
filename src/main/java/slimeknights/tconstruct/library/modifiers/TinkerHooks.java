@@ -52,6 +52,9 @@ public class TinkerHooks {
     return looting;
   });
 
+  /** Hook for looting values on a projectile, will receive {@link IToolStackView#EMPTY} for the tool */
+  public static final ModifierHook<LootingModifierHook> PROJECTILE_LOOTING = register("projectile_looting", LootingModifierHook.class, LootingModifierHook.SUM_MERGER, LootingModifierHook.DEFAULT);
+
   /** Hook for adding harvest enchantments to a held tool based on the tool's modifiers */
   public static final ModifierHook<HarvestEnchantmentsModifierHook> TOOL_HARVEST_ENCHANTMENTS = register("tool_harvest_enchantments", HarvestEnchantmentsModifierHook.class, HarvestEnchantmentsModifierHook.ALL_MERGER,
     (tool, modifier, context, consumer) -> modifier.getModifier().applyHarvestEnchantments(tool, modifier.getLevel(), context, consumer));

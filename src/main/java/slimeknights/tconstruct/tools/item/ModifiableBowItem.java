@@ -17,18 +17,24 @@ import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.ForgeEventFactory;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHook;
+import slimeknights.tconstruct.library.tools.capability.EntityModifierCapability;
+import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.item.ModifiableLauncherItem;
+import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
+import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
 
+import java.util.Optional;
 import java.util.function.Predicate;
 
 public class ModifiableBowItem extends ModifiableLauncherItem {
@@ -129,9 +135,23 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
       float baseArrowDamage = (float)(arrowEntity.baseDamage - 2 + tool.getStats().get(ToolStats.PROJECTILE_DAMAGE));
       arrowEntity.setBaseDamage(ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.PROJECTILE_DAMAGE, baseArrowDamage));
 
+      // just store all modifiers on the tool for simplicity
+      ModifierNBT modifiers = tool.getModifiers();
+      arrowEntity.getCapability(EntityModifierCapability.CAPABILITY).ifPresent(cap -> cap.setModifiers(modifiers));
+
+      // fetch the persistent data for the arrow as modifiers may want to store data
+      Optional<NamespacedNBT> arrowDataCap = arrowEntity.getCapability(PersistentDataCapability.CAPABILITY).resolve();
+      NamespacedNBT arrowData;
+      if (arrowDataCap.isEmpty()) {
+        TConstruct.LOG.warn("Failed to fetch persistent data for arrow {}, this should not happen", arrowEntity.getType());
+        arrowData = new NamespacedNBT(); // don't crash
+      } else {
+        arrowData = arrowDataCap.get();
+      }
+
       // let modifiers such as fiery and punch set properties
-      for (ModifierEntry entry : tool.getModifierList()) {
-        entry.getHook(TinkerHooks.ARROW_LAUNCH).onArrowLaunch(tool, entry, living, arrowEntity);
+      for (ModifierEntry entry : modifiers.getModifiers()) {
+        entry.getHook(TinkerHooks.ARROW_LAUNCH).onArrowLaunch(tool, entry, living, arrowEntity, arrowData);
       }
 
       ToolDamageUtil.damageAnimated(tool, 1, player, player.getUsedItemHand());

@@ -46,7 +46,8 @@ public class LootModifier extends Modifier implements LootingModifierHook, Harve
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, TinkerHooks.TOOL_LOOTING, TinkerHooks.LEGGINGS_LOOTING, TinkerHooks.TOOL_HARVEST_ENCHANTMENTS, TinkerHooks.LEGGINGS_HARVEST_ENCHANTMENTS);
+    hookBuilder.addHook(this, TinkerHooks.TOOL_LOOTING, TinkerHooks.LEGGINGS_LOOTING, TinkerHooks.PROJECTILE_LOOTING,
+                        TinkerHooks.TOOL_HARVEST_ENCHANTMENTS, TinkerHooks.LEGGINGS_HARVEST_ENCHANTMENTS);
   }
 
   @Override

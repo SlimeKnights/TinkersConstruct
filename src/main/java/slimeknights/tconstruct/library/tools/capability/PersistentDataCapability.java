@@ -54,7 +54,9 @@ public class PersistentDataCapability {
 
   /** Event listener to attach the capability */
   private static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
-    if (event.getObject() instanceof Player) {
+    Entity entity = event.getObject();
+    // must be on players, but also support anything else with modifiers, this is their data
+    if (entity instanceof Player || EntityModifierCapability.supportCapability(entity)) {
       Provider provider = new Provider();
       event.addCapability(ID, provider);
       event.addListener(provider);
