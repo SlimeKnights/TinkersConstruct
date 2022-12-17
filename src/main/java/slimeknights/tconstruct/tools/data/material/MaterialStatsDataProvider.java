@@ -229,7 +229,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      new LimbMaterialStats(100, 0.05f, -0.05f, 0.05f),
                      new GripMaterialStats(0.75f, 0.05f, 1.25f));
     addMaterialStats(MaterialIds.copper,
-                     new LimbMaterialStats(2120, -0.10f, 0.05f, 0f),
+                     new LimbMaterialStats(210, -0.10f, 0.05f, 0f),
                      new GripMaterialStats(0.8f, 0f, 0.5f));
     addMaterialStats(MaterialIds.chorus,
                      new LimbMaterialStats(180, 0.1f, 0f, 0.1f),

@@ -18,7 +18,7 @@
       "attack": 0.5
     },
     "tconstruct:limb": {
-      "durability": 2120,
+      "durability": 210,
       "drawSpeed": -0.1,
       "velocity": 0.05,
       "accuracy": 0.0
