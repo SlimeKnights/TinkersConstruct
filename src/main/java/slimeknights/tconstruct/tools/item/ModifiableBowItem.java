@@ -19,6 +19,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.event.ForgeEventFactory;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -102,12 +103,12 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
 
     // calculate arrow power
     StatsNBT stats = tool.getStats();
-    float charge = chargeTime * stats.get(ToolStats.DRAW_SPEED) / 20f;
+    float charge = chargeTime * ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.DRAW_SPEED) / 20f;
     charge = (charge * charge + charge * 2) / 3;
     if (charge > 1) {
       charge = 1;
     }
-    float velocity = stats.get(ToolStats.VELOCITY);
+    float velocity = ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.VELOCITY);
     float power = charge * velocity;
     if (power < 0.1f) {
       return;
@@ -118,14 +119,15 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
     if (!level.isClientSide) {
       ArrowItem arrowItem = ammo.getItem() instanceof ArrowItem arrow ? arrow : (ArrowItem)Items.ARROW;
       AbstractArrow arrowEntity = arrowItem.createArrow(level, ammo, player);
-      arrowEntity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, power * 3.0F, 3*(1/stats.get(ToolStats.ACCURACY)-1) * velocity);
+      float accuracy = ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.ACCURACY);
+      arrowEntity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, power * 3.0F, 3*(1/accuracy-1) * velocity);
       // TODO: modifier hook to add arrow properties
       if (charge == 1.0F) {
         arrowEntity.setCritArrow(true);
       }
       // vanilla arrows have a base damage of 2, cancel that out then add in our base damage to account for custom arrows with higher base damage
       float baseArrowDamage = (float)(arrowEntity.baseDamage - 2 + tool.getStats().get(ToolStats.PROJECTILE_DAMAGE));
-      arrowEntity.setBaseDamage(baseArrowDamage);
+      arrowEntity.setBaseDamage(ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.PROJECTILE_DAMAGE, baseArrowDamage));
 
       // let modifiers such as fiery and punch set properties
       for (ModifierEntry entry : tool.getModifierList()) {

@@ -4,6 +4,7 @@ import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
@@ -13,10 +14,11 @@ public class TinkerItemProperties {
   private static final ResourceLocation PULL_ID = new ResourceLocation("pull");
   /** Property for bow pull amount */
   private static final ItemPropertyFunction PULL = (stack, level, holder, seed) -> {
-    if (holder == null) {
+    if (holder == null || holder.getUseItem() != stack) {
       return 0.0F;
     }
-    return holder.getUseItem() != stack ? 0.0F : (float)(stack.getUseDuration() - holder.getUseItemRemainingTicks()) * ToolStack.from(stack).getStats().get(ToolStats.DRAW_SPEED) / 20.0F;
+    float drawSpeed = ConditionalStatModifierHook.getModifiedStat(ToolStack.from(stack), holder, ToolStats.DRAW_SPEED);
+    return (float)(stack.getUseDuration() - holder.getUseItemRemainingTicks()) * drawSpeed / 20.0F;
   };
 
   /** ID for the pulling property */

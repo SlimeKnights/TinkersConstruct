@@ -7,6 +7,7 @@ import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.hook.ArmorWalkModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ArrowLaunchModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ElytraFlightModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.HarvestEnchantmentsModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.InteractModifierHook;
@@ -29,6 +30,12 @@ import java.util.function.Function;
 @SuppressWarnings("deprecation")
 public class TinkerHooks {
   private TinkerHooks() {}
+
+
+  /* General */
+
+  /** Generic hook for stats conditioned on the entity holding the tool */
+  public static final ModifierHook<ConditionalStatModifierHook> CONDITIONAL_STAT = register("conditional_stat", ConditionalStatModifierHook.class, ConditionalStatModifierHook.ALL_MERGER, ConditionalStatModifierHook.EMPTY);
 
   /* Loot */
 
