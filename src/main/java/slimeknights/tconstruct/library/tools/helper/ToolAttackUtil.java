@@ -467,8 +467,10 @@ public class ToolAttackUtil {
     }
 
     // set hurt resistance time to 0 because we always want to deal damage in traits
+    int lastInvulnerableTime = target.invulnerableTime;
     target.invulnerableTime = 0;
     boolean hit = target.hurt(source, damage);
+    target.invulnerableTime = lastInvulnerableTime; // reset to the old time so bows work right
     // set total received damage, important for AI and stuff
     if (living != null) {
       living.lastHurt += oldLastDamage;
