@@ -1,8 +1,8 @@
-//version: 1662920829
+//version: 1671313514
 /*
  DO NOT CHANGE THIS FILE!
  Also, you may replace this file at any time if there is an update available.
- Please check https://github.com/GTNewHorizons/ExampleMod1.7.10/blob/main/build.gradle for updates.
+ Please check https://github.com/GTNewHorizons/ExampleMod1.7.10/blob/master/build.gradle for updates.
  */
 
 
@@ -31,7 +31,7 @@ buildscript {
             url 'https://maven.minecraftforge.net'
         }
         maven {
-            // GTNH ForgeGradle Fork
+            // GTNH ForgeGradle and ASM Fork
             name = "GTNH Maven"
             url = "http://jenkins.usrv.eu:8081/nexus/content/groups/public/"
         }
@@ -45,7 +45,9 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2.9'
+        //Overwrite the current ASM version to fix shading newer than java 8 applicatations.
+        classpath 'org.ow2.asm:asm-debug-all-custom:5.0.3'  
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2.13'
     }
 }
 plugins {
@@ -147,17 +149,21 @@ String javaSourceDir = "src/main/java/"
 String scalaSourceDir = "src/main/scala/"
 String kotlinSourceDir = "src/main/kotlin/"
 
-String targetPackageJava = javaSourceDir + modGroup.toString().replaceAll("\\.", "/")
-String targetPackageScala = scalaSourceDir + modGroup.toString().replaceAll("\\.", "/")
-String targetPackageKotlin = kotlinSourceDir + modGroup.toString().replaceAll("\\.", "/")
+
+final String modGroupPath = modGroup.toString().replaceAll("\\.", "/")
+final String apiPackagePath = apiPackage.toString().replaceAll("\\.", "/")
+
+String targetPackageJava = javaSourceDir + modGroupPath
+String targetPackageScala = scalaSourceDir + modGroupPath
+String targetPackageKotlin = kotlinSourceDir + modGroupPath
 if (!(getFile(targetPackageJava).exists() || getFile(targetPackageScala).exists() || getFile(targetPackageKotlin).exists())) {
     throw new GradleException("Could not resolve \"modGroup\"! Could not find " + targetPackageJava + " or " + targetPackageScala + " or " + targetPackageKotlin)
 }
 
 if (apiPackage) {
-    targetPackageJava = javaSourceDir + modGroup.toString().replaceAll("\\.", "/") + "/" + apiPackage.toString().replaceAll("\\.", "/")
-    targetPackageScala = scalaSourceDir + modGroup.toString().replaceAll("\\.", "/") + "/" + apiPackage.toString().replaceAll("\\.", "/")
-    targetPackageKotlin = kotlinSourceDir + modGroup.toString().replaceAll("\\.", "/") + "/" + apiPackage.toString().replaceAll("\\.", "/")
+    targetPackageJava = javaSourceDir + modGroupPath + "/" + apiPackagePath
+    targetPackageScala = scalaSourceDir + modGroupPath + "/" + apiPackagePath
+    targetPackageKotlin = kotlinSourceDir + modGroupPath + "/" + apiPackagePath
     if (!(getFile(targetPackageJava).exists() || getFile(targetPackageScala).exists() || getFile(targetPackageKotlin).exists())) {
         throw new GradleException("Could not resolve \"apiPackage\"! Could not find " + targetPackageJava + " or " + targetPackageScala + " or " + targetPackageKotlin)
     }
@@ -171,31 +177,36 @@ if (accessTransformersFile) {
 }
 
 if (usesMixins.toBoolean()) {
-    if (mixinsPackage.isEmpty() || mixinPlugin.isEmpty()) {
-        throw new GradleException("\"mixinPlugin\" requires \"mixinsPackage\" and \"mixinPlugin\" to be set!")
+    if (mixinsPackage.isEmpty()) {
+        throw new GradleException("\"usesMixins\" requires \"mixinsPackage\" to be set!")
     }
+    final String mixinPackagePath = mixinsPackage.toString().replaceAll("\\.", "/")
+    final String mixinPluginPath = mixinPlugin.toString().replaceAll("\\.", "/")
 
-    targetPackageJava = javaSourceDir + modGroup.toString().replaceAll("\\.", "/") + "/" + mixinsPackage.toString().replaceAll("\\.", "/")
-    targetPackageScala = scalaSourceDir + modGroup.toString().replaceAll("\\.", "/") + "/" + mixinsPackage.toString().replaceAll("\\.", "/")
-    targetPackageKotlin = kotlinSourceDir + modGroup.toString().replaceAll("\\.", "/") + "/" + mixinsPackage.toString().replaceAll("\\.", "/")
+    targetPackageJava = javaSourceDir + modGroupPath + "/" + mixinPackagePath
+    targetPackageScala = scalaSourceDir + modGroupPath + "/" + mixinPackagePath
+    targetPackageKotlin = kotlinSourceDir + modGroupPath + "/" + mixinPackagePath
     if (!(getFile(targetPackageJava).exists() || getFile(targetPackageScala).exists() || getFile(targetPackageKotlin).exists())) {
         throw new GradleException("Could not resolve \"mixinsPackage\"! Could not find " + targetPackageJava + " or " + targetPackageScala + " or " + targetPackageKotlin)
     }
 
-    String targetFileJava = javaSourceDir + modGroup.toString().replaceAll("\\.", "/") + "/" + mixinPlugin.toString().replaceAll("\\.", "/") + ".java"
-    String targetFileScala = scalaSourceDir + modGroup.toString().replaceAll("\\.", "/") + "/" + mixinPlugin.toString().replaceAll("\\.", "/") + ".scala"
-    String targetFileScalaJava = scalaSourceDir + modGroup.toString().replaceAll("\\.", "/") + "/" + mixinPlugin.toString().replaceAll("\\.", "/") + ".java"
-    String targetFileKotlin = kotlinSourceDir + modGroup.toString().replaceAll("\\.", "/") + "/" + mixinPlugin.toString().replaceAll("\\.", "/") + ".kt"
-    if (!(getFile(targetFileJava).exists() || getFile(targetFileScala).exists() || getFile(targetFileScalaJava).exists() || getFile(targetFileKotlin).exists())) {
-        throw new GradleException("Could not resolve \"mixinPlugin\"! Could not find " + targetFileJava + " or " + targetFileScala + " or " + targetFileScalaJava + " or " + targetFileKotlin)
+    if (!mixinPlugin.isEmpty()) {
+        String targetFileJava = javaSourceDir + modGroupPath + "/" + mixinPluginPath + ".java"
+        String targetFileScala = scalaSourceDir + modGroupPath + "/" + mixinPluginPath + ".scala"
+        String targetFileScalaJava = scalaSourceDir + modGroupPath + "/" + mixinPluginPath + ".java"
+        String targetFileKotlin = kotlinSourceDir + modGroupPath + "/" + mixinPluginPath + ".kt"
+        if (!(getFile(targetFileJava).exists() || getFile(targetFileScala).exists() || getFile(targetFileScalaJava).exists() || getFile(targetFileKotlin).exists())) {
+            throw new GradleException("Could not resolve \"mixinPlugin\"! Could not find " + targetFileJava + " or " + targetFileScala + " or " + targetFileScalaJava + " or " + targetFileKotlin)
+        }
     }
 }
 
 if (coreModClass) {
-    String targetFileJava = javaSourceDir + modGroup.toString().replaceAll("\\.", "/") + "/" + coreModClass.toString().replaceAll("\\.", "/") + ".java"
-    String targetFileScala = scalaSourceDir + modGroup.toString().replaceAll("\\.", "/") + "/" + coreModClass.toString().replaceAll("\\.", "/") + ".scala"
-    String targetFileScalaJava = scalaSourceDir + modGroup.toString().replaceAll("\\.", "/") + "/" + coreModClass.toString().replaceAll("\\.", "/") + ".java"
-    String targetFileKotlin = kotlinSourceDir + modGroup.toString().replaceAll("\\.", "/") + "/" + coreModClass.toString().replaceAll("\\.", "/") + ".kt"
+    final String coreModPath = coreModClass.toString().replaceAll("\\.", "/")
+    String targetFileJava = javaSourceDir + modGroupPath + "/" + coreModPath + ".java"
+    String targetFileScala = scalaSourceDir + modGroupPath + "/" + coreModPath + ".scala"
+    String targetFileScalaJava = scalaSourceDir + modGroupPath + "/" + coreModPath + ".java"
+    String targetFileKotlin = kotlinSourceDir + modGroupPath + "/" + coreModPath + ".kt"
     if (!(getFile(targetFileJava).exists() || getFile(targetFileScala).exists() || getFile(targetFileScalaJava).exists() || getFile(targetFileKotlin).exists())) {
         throw new GradleException("Could not resolve \"coreModClass\"! Could not find " + targetFileJava + " or " + targetFileScala + " or " + targetFileScalaJava + " or " + targetFileKotlin)
     }
@@ -251,7 +262,7 @@ if (project.hasProperty("customArchiveBaseName") && customArchiveBaseName) {
 def arguments = []
 def jvmArguments = []
 
-if (usesMixins.toBoolean() || forceEnableMixins) {
+if (usesMixins.toBoolean() || forceEnableMixins.toBoolean()) {
     arguments += [
         "--tweakClass org.spongepowered.asm.launch.MixinTweaker"
     ]
@@ -269,7 +280,9 @@ minecraft {
     runDir = 'run'
 
     if (replaceGradleTokenInFile) {
-        replaceIn replaceGradleTokenInFile
+        for (f in replaceGradleTokenInFile.split(',')) {
+            replaceIn f
+        }
         if (gradleTokenModId) {
             replace gradleTokenModId, modId
         }
@@ -316,13 +329,16 @@ repositories {
         name 'Overmind forge repo mirror'
         url 'https://gregtech.overminddl1.com/'
     }
-    if (usesMixins.toBoolean() || forceEnableMixins) {
+    if (usesMixins.toBoolean() || forceEnableMixins.toBoolean()) {
         maven {
-            name 'sponge'
-            url 'https://repo.spongepowered.org/repository/maven-public'
+            name = "GTNH Maven"
+            url = "http://jenkins.usrv.eu:8081/nexus/content/groups/public/"
         }
-        maven {
-            url 'https://jitpack.io'
+        if (usesMixinDebug.toBoolean()) {
+            maven {
+                name = "Fabric Maven"
+                url = "https://maven.fabricmc.net/"
+            }
         }
     }
 }
@@ -332,19 +348,13 @@ dependencies {
         annotationProcessor('org.ow2.asm:asm-debug-all:5.0.3')
         annotationProcessor('com.google.guava:guava:24.1.1-jre')
         annotationProcessor('com.google.code.gson:gson:2.8.6')
-        annotationProcessor('org.spongepowered:mixin:0.8-SNAPSHOT')
-    }
-    if (usesMixins.toBoolean() || forceEnableMixins) {
-        // using 0.8 to workaround a issue in 0.7 which fails mixin application
-        compile('com.github.GTNewHorizons:SpongePoweredMixin:0.7.12-GTNH') {
-            // Mixin includes a lot of dependencies that are too up-to-date
-            exclude module: 'launchwrapper'
-            exclude module: 'guava'
-            exclude module: 'gson'
-            exclude module: 'commons-io'
-            exclude module: 'log4j-core'
+        annotationProcessor('com.gtnewhorizon:gtnhmixins:2.1.3:processor')
+        if (usesMixinDebug.toBoolean()) {
+            runtimeOnly('org.jetbrains:intellij-fernflower:1.2.1.16')
         }
-        compile('com.github.GTNewHorizons:SpongeMixins:1.5.0')
+    }
+    if (usesMixins.toBoolean() || forceEnableMixins.toBoolean()) {
+        compile('com.gtnewhorizon:gtnhmixins:2.1.3')
     }
 }
 
@@ -356,13 +366,18 @@ def mixinSrg = "${tasks.reobf.temporaryDir}" + File.separator + "mixins.srg"
 
 task generateAssets {
     if (usesMixins.toBoolean()) {
-        def mixinConfigFile = getFile("/src/main/resources/mixins." + modId + ".json");
+        def mixinConfigFile = getFile("/src/main/resources/mixins." + modId + ".json")
         if (!mixinConfigFile.exists()) {
+            def mixinPluginLine = ""
+            if(!mixinPlugin.isEmpty()) {
+                // We might not have a mixin plugin if we're using early/late mixins
+                mixinPluginLine +=   """\n  "plugin": "${modGroup}.${mixinPlugin}", """
+            }
+
             mixinConfigFile.text = """{
   "required": true,
-  "minVersion": "0.7.11",
-  "package": "${modGroup}.${mixinsPackage}",
-  "plugin": "${modGroup}.${mixinPlugin}",
+  "minVersion": "0.8.5-GTNH",
+  "package": "${modGroup}.${mixinsPackage}",${mixinPluginLine}
   "refmap": "${mixingConfigRefMap}",
   "target": "@env(DEFAULT)",
   "compatibilityLevel": "JAVA_8",
@@ -574,11 +589,11 @@ task devJar(type: Jar) {
 
 task apiJar(type: Jar) {
     from(sourceSets.main.allSource) {
-        include modGroup.toString().replaceAll("\\.", "/") + "/" + apiPackage.toString().replaceAll("\\.", "/") + '/**'
+        include modGroupPath + "/" + apiPackagePath + '/**'
     }
 
     from(sourceSets.main.output) {
-        include modGroup.toString().replaceAll("\\.", "/") + "/" + apiPackage.toString().replaceAll("\\.", "/") + '/**'
+        include modGroupPath + "/" + apiPackagePath + '/**'
     }
 
     from(sourceSets.main.resources.srcDirs) {
@@ -662,10 +677,10 @@ publishing {
     }
 }
 
-if (modrinthProjectId.size() != 0) {
+if (modrinthProjectId.size() != 0 && System.getenv("MODRINTH_TOKEN") != null) {
     apply plugin: 'com.modrinth.minotaur'
 
-    File changelogFile = new File("CHANGELOG.md")
+    File changelogFile = new File(System.getenv("CHANGELOG_FILE") ?: "CHANGELOG.md")
 
     modrinth {
         token = System.getenv("MODRINTH_TOKEN")
@@ -691,14 +706,17 @@ if (modrinthProjectId.size() != 0) {
             addModrinthDep(qual[0], qual[1], parts[1])
         }
     }
+    if (usesMixins.toBoolean()) {
+        addModrinthDep("required", "project", "gtnhmixins")
+    }
     tasks.modrinth.dependsOn(build)
     tasks.publish.dependsOn(tasks.modrinth)
 }
 
-if (curseForgeProjectId.size() != 0) {
+if (curseForgeProjectId.size() != 0 && System.getenv("CURSEFORGE_TOKEN") != null) {
     apply plugin: 'com.matthewprenger.cursegradle'
 
-    File changelogFile = new File("CHANGELOG.md")
+    File changelogFile = new File(System.getenv("CHANGELOG_FILE") ?: "CHANGELOG.md")
 
     curseforge {
         apiKey = System.getenv("CURSEFORGE_TOKEN")
@@ -731,6 +749,9 @@ if (curseForgeProjectId.size() != 0) {
             String[] parts = dep.split(":")
             addCurseForgeRelation(parts[0], parts[1])
         }
+    }
+    if (usesMixins.toBoolean()) {
+        addCurseForgeRelation("requiredDependency", "gtnhmixins")
     }
     tasks.curseforge.dependsOn(build)
     tasks.publish.dependsOn(tasks.curseforge)

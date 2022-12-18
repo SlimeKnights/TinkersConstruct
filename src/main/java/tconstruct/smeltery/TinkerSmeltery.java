@@ -1414,7 +1414,7 @@ public class TinkerSmeltery {
                 100); // emerald
         basinCasting.addCastingRecipe(
                 new ItemStack(Blocks.quartz_block),
-                new FluidStack(TinkerSmeltery.moltenQuartzFluid, 250 * 9),
+                new FluidStack(TinkerSmeltery.moltenQuartzFluid, 250 * 4),
                 null,
                 true,
                 100); // quartz
@@ -1700,7 +1700,7 @@ public class TinkerSmeltery {
                 0,
                 800,
                 new FluidStack(TinkerSmeltery.moltenEmeraldFluid, 640 * 2)); // the ore also is done here
-        Smeltery.addMelting(Blocks.quartz_block, 0, 800, new FluidStack(TinkerSmeltery.moltenQuartzFluid, 250 * 9));
+        Smeltery.addMelting(Blocks.quartz_block, 0, 800, new FluidStack(TinkerSmeltery.moltenQuartzFluid, 250 * 4));
         Smeltery.addMelting(Blocks.quartz_ore, 0, 800, new FluidStack(TinkerSmeltery.moltenQuartzFluid, 250 * 2));
         Smeltery.addMelting(
                 TinkerSmeltery.glueBlock,
