@@ -7,6 +7,9 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.data.ModifierIds;
 import slimeknights.tconstruct.tools.stats.SkullStats;
 
+import static slimeknights.tconstruct.library.materials.MaterialRegistry.MELEE_HARVEST;
+import static slimeknights.tconstruct.library.materials.MaterialRegistry.RANGED;
+
 public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvider {
   public MaterialTraitsDataProvider(DataGenerator gen, AbstractMaterialDataProvider materials) {
     super(gen, materials);
@@ -49,7 +52,8 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
 
     // tier 3
     addDefaultTraits(MaterialIds.slimesteel, TinkerModifiers.overcast, TinkerModifiers.overslime);
-    addDefaultTraits(MaterialIds.amethystBronze, ModifierIds.crumbling);
+    addTraits(MaterialIds.amethystBronze, MELEE_HARVEST, ModifierIds.crumbling);
+    addTraits(MaterialIds.amethystBronze, RANGED, TinkerModifiers.crystalbound);
     addDefaultTraits(MaterialIds.nahuatl, TinkerModifiers.lacerating);
     addDefaultTraits(MaterialIds.roseGold, ModifierIds.enhanced);
     addDefaultTraits(MaterialIds.pigIron, TinkerModifiers.tasty);
