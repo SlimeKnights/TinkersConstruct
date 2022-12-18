@@ -183,7 +183,6 @@ public class EnderferenceModifier extends Modifier implements ProjectileHitModif
           }
         }
 
-
         return true;
       }
     }

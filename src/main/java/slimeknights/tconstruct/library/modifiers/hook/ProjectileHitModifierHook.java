@@ -18,7 +18,7 @@ public interface ProjectileHitModifierHook {
   ProjectileHitModifierHook EMPTY = new ProjectileHitModifierHook() {};
 
   /** Merger instance */
-  Function<Collection<ProjectileHitModifierHook>,ProjectileHitModifierHook> FIRST_MERGER = FirstMerger::new;
+  Function<Collection<ProjectileHitModifierHook>,ProjectileHitModifierHook> FIRST_MERGER = AllMerger::new;
 
   /**
    * Called when a projectile hits an entity
@@ -29,7 +29,7 @@ public interface ProjectileHitModifierHook {
    * @param hit             Hit result
    * @param attacker        Living entity who fired the projectile, null if non-living or not fired
    * @param target          Living target, will be null if not living
-   * @return true if the hit should be canceled, preventing further modifiers from running
+   * @return true if the hit should be canceled, preventing vanilla logic
    */
   default boolean onProjectileHitEntity(ModifierNBT modifiers, NamespacedNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
     return false;
@@ -43,32 +43,30 @@ public interface ProjectileHitModifierHook {
    * @param projectile      Projectile that hit the entity
    * @param hit             Hit result
    * @param attacker        Living entity who fired the projectile, null if non-living or not fired
-   * @return true if the hit should be canceled, preventing further modifiers from running
+   * @return true if the hit should be canceled
    */
   default boolean onProjectileHitBlock(ModifierNBT modifiers, NamespacedNBT persistentData, ModifierEntry modifier, Projectile projectile, BlockHitResult hit, @Nullable LivingEntity attacker) {
     return false;
   }
 
-  /** Merger that returns when the first hook returns true */
-  record FirstMerger(Collection<ProjectileHitModifierHook> modules) implements ProjectileHitModifierHook {
+  /** Merger that runs all hooks and returns true if any did */
+  record AllMerger(Collection<ProjectileHitModifierHook> modules) implements ProjectileHitModifierHook {
     @Override
     public boolean onProjectileHitEntity(ModifierNBT modifiers, NamespacedNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
+      boolean ret = false;
       for (ProjectileHitModifierHook module : modules) {
-        if (module.onProjectileHitEntity(modifiers, persistentData, modifier, projectile, hit, attacker, target)) {
-          return true;
-        }
+        ret |= module.onProjectileHitEntity(modifiers, persistentData, modifier, projectile, hit, attacker, target);
       }
-      return false;
+      return ret;
     }
 
     @Override
     public boolean onProjectileHitBlock(ModifierNBT modifiers, NamespacedNBT persistentData, ModifierEntry modifier, Projectile projectile, BlockHitResult hit, @Nullable LivingEntity attacker) {
+      boolean ret = false;
       for (ProjectileHitModifierHook module : modules) {
-        if (module.onProjectileHitBlock(modifiers, persistentData, modifier, projectile, hit, attacker)) {
-          return true;
-        }
+        ret |= module.onProjectileHitBlock(modifiers, persistentData, modifier, projectile, hit, attacker);
       }
-      return false;
+      return ret;
     }
   }
 }

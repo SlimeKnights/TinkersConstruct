@@ -42,7 +42,7 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
 
   @Override
   public int getPriority() {
-    return 75;
+    return 45;
   }
 
   /** Attempts to teleport to the given location */
@@ -97,9 +97,11 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
     if (!context.isExtraAttack()) {
       LivingEntity target = context.getLivingTarget();
       // if the entity is dead now
-      if (target != null && target.getHealth() == 0) {
-        Vec3 pos = target.position();
-        if (tryTeleport(context.getAttacker(), pos.x(), pos.y(), pos.z())) {
+      if (target != null) {
+        LivingEntity attacker = context.getAttacker();
+        Vec3 oldPosition = attacker.position();
+        if (tryTeleport(attacker, target.getX(), target.getY(), target.getZ())) {
+          tryTeleport(target, oldPosition.x, oldPosition.y, oldPosition.z);
           return 2;
         }
       }
@@ -131,9 +133,12 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
 
   @Override
   public boolean onProjectileHitEntity(ModifierNBT modifiers, NamespacedNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
-    if (attacker != null) {
+    if (attacker != null && attacker != target) {
       Entity hitEntity = hit.getEntity();
-      tryTeleport(attacker, hitEntity.getX(), hitEntity.getY(), hitEntity.getZ());
+      Vec3 oldPosition = attacker.position();
+      if (tryTeleport(attacker, hitEntity.getX(), hitEntity.getY(), hitEntity.getZ()) && target != null) {
+        tryTeleport(target, oldPosition.x, oldPosition.y, oldPosition.z);
+      }
     }
     return false;
   }

@@ -414,7 +414,6 @@ public class ToolEvents {
             for (ModifierEntry entry : modifiers.getModifiers()) {
               if (entry.getHook(TinkerHooks.PROJECTILE_HIT).onProjectileHitEntity(modifiers, nbt, entry, projectile, entityHit, attacker, target)) {
                 event.setCanceled(true);
-                return;
               }
             }
           }
@@ -424,7 +423,6 @@ public class ToolEvents {
           for (ModifierEntry entry : modifiers.getModifiers()) {
             if (entry.getHook(TinkerHooks.PROJECTILE_HIT).onProjectileHitBlock(modifiers, nbt, entry, projectile, blockHit, attacker)) {
               event.setCanceled(true);
-              return;
             }
           }
         }
