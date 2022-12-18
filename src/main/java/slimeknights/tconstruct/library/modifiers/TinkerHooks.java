@@ -7,6 +7,7 @@ import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.hook.ArmorWalkModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ArrowLaunchModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.BowAmmoModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ElytraFlightModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.HarvestEnchantmentsModifierHook;
@@ -75,6 +76,8 @@ public class TinkerHooks {
   public static final ModifierHook<ArrowLaunchModifierHook> ARROW_LAUNCH = register("arrow_launch", ArrowLaunchModifierHook.class, ArrowLaunchModifierHook.ALL_MERGER, ArrowLaunchModifierHook.EMPTY);
   /** Hook called when an arrow hits an entity or block */
   public static final ModifierHook<ProjectileHitModifierHook> PROJECTILE_HIT = register("projectile_hit", ProjectileHitModifierHook.class, ProjectileHitModifierHook.FIRST_MERGER, ProjectileHitModifierHook.EMPTY);
+  /** Hook called when a bow is looking for ammo. Does not support merging multiple hooks on one modifier */
+  public static final ModifierHook<BowAmmoModifierHook> BOW_AMMO = register("bow_ammo", BowAmmoModifierHook.class, BowAmmoModifierHook.EMPTY);
 
   /* Misc Armor */
 

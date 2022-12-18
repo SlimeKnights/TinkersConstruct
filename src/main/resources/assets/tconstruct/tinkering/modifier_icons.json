@@ -63,6 +63,8 @@
   "tconstruct:punch":        "tconstruct:gui/modifiers/ranged/punch",
   "tconstruct:quick_charge": "tconstruct:gui/modifiers/ranged/quick_charge",
   "tconstruct:trueshot":     "tconstruct:gui/modifiers/ranged/trueshot",
+
+  "tconstruct:bulk_quiver": "tconstruct:gui/modifiers/ranged/bulk_quiver",
   
   "tconstruct:protection":            "tconstruct:gui/modifiers/armor/protection",
   "tconstruct:melee_protection":      "tconstruct:gui/modifiers/armor/melee_protection",

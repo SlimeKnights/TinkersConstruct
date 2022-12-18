@@ -570,7 +570,16 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setTools(TinkerTags.Items.BOWS) // no elementals on fluid cannon
                          .saveSalvage(consumer, prefix(TinkerModifiers.freezing, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.freezing, upgradeFolder));
-
+    ModifierRecipeBuilder.modifier(TinkerModifiers.bulkQuiver)
+                         .addInput(Items.LEATHER)
+                         .addInput(TinkerWorld.skySlimeVine)
+                         .addInput(Items.LEATHER)
+                         .addInput(TinkerWorld.skySlimeVine)
+                         .addInput(TinkerWorld.skySlimeVine)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .setTools(TinkerTags.Items.BOWS)
+                         .saveSalvage(consumer, prefix(TinkerModifiers.bulkQuiver, abilitySalvage))
+                         .save(consumer, prefix(TinkerModifiers.bulkQuiver, abilityFolder));
 
     /*
      * armor

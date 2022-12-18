@@ -30,6 +30,8 @@
     "silky_aoe_shears": "#A64F3F",
     "harvest":          "#CDB159",
 
+    "__ranged_abilities__": null,
+    "bulk_quiver": "#C65C35",
 
     "__armor_abilities__": null,
     "double_jump":  "#01cbcd",

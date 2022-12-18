@@ -1794,6 +1794,9 @@
   "modifier.tconstruct.freezing": "Freezing",
   "modifier.tconstruct.freezing.flavor": "Alright, everyone. Chill!",
   "modifier.tconstruct.freezing.description": "Causes arrows to freeze the target",
+  "modifier.tconstruct.bulk_quiver": "Bulk Quiver",
+  "modifier.tconstruct.bulk_quiver.flavor": "Holding arrows is overrated",
+  "modifier.tconstruct.bulk_quiver.description": "Allows the bow to pull arrows from its own inventory when you run out of arrows, access by sneaking and interacting",
 
   "_comment": "Armor",
   "modifier.tconstruct.knockback_resistance": "Knockback Resistance",
