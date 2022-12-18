@@ -549,7 +549,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     ModifierRecipeBuilder.modifier(TinkerModifiers.punch)
                          .addInput(Items.PISTON)
                          .addInput(TinkerWorld.slime.get(SlimeType.SKY))
-                         .setMaxLevel(2) // same max as vanilla
+                         .setMaxLevel(5) // vanilla caps at 2, that is boring
                          .setSlots(SlotType.UPGRADE, 1)
                          .setTools(TinkerTags.Items.RANGED)
                          .saveSalvage(consumer, prefix(TinkerModifiers.punch, upgradeSalvage))
