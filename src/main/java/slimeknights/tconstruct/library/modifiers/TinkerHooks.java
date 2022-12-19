@@ -16,6 +16,9 @@ import slimeknights.tconstruct.library.modifiers.hook.LootingModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.PlantHarvestModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ProjectileHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ShearsModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteractionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorLootModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorWalkModifier;
@@ -29,7 +32,7 @@ import java.util.Collection;
 import java.util.function.Function;
 
 /** Collection of all hooks implemented by the mod natively */
-@SuppressWarnings("deprecation")
+@SuppressWarnings({"deprecation", "SameParameterValue"})
 public class TinkerHooks {
   private TinkerHooks() {}
 
@@ -98,7 +101,16 @@ public class TinkerHooks {
 
   /* Interaction */
 
-  /** Hook for when the player interacts with an armor slot. Currently only impleented for helmets and leggings */
+  /** Hook for interactions not targeting blocks or entities. Needed for charge attacks, but other hooks may be better for most interactions */
+  public static final ModifierHook<GeneralInteractionModifierHook> GENERAL_INTERACT = register("general_interact", GeneralInteractionModifierHook.class, GeneralInteractionModifierHook.FIRST_MERGER, GeneralInteractionModifierHook.FALLBACK);
+
+  /** Hook for interacting with blocks */
+  public static final ModifierHook<BlockInteractionModifierHook> BLOCK_INTERACT = register("block_interact", BlockInteractionModifierHook.class, BlockInteractionModifierHook.FIRST_MERGER, BlockInteractionModifierHook.FALLBACK);
+
+  /** Hook for interacting with entities */
+  public static final ModifierHook<EntityInteractionModifierHook> ENTITY_INTERACT = register("entity_interact", EntityInteractionModifierHook.class, EntityInteractionModifierHook.FIRST_MERGER, EntityInteractionModifierHook.FALLBACK);
+
+  /** Hook for when the player interacts with an armor slot. Currently, only implemented for helmets and leggings */
   public static final ModifierHook<KeybindInteractModifierHook> ARMOR_INTERACT = register("armor_interact", KeybindInteractModifierHook.class, KeybindInteractModifierHook.MERGER, new KeybindInteractModifierHook() {
     @Override
     public boolean startInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot slot, TooltipKey keyModifier) {

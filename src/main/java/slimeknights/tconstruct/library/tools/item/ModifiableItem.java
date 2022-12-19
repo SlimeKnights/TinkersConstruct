@@ -37,6 +37,8 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
@@ -330,9 +332,8 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
     ToolStack tool = ToolStack.from(stack);
     InteractionHand hand = context.getHand();
     if (shouldInteract(context.getPlayer(), tool, hand)) {
-      EquipmentSlot slot = Util.getSlotType(hand);
       for (ModifierEntry entry : tool.getModifierList()) {
-        InteractionResult result = entry.getModifier().beforeBlockUse(tool, entry.getLevel(), context, slot);
+        InteractionResult result = entry.getHook(TinkerHooks.BLOCK_INTERACT).beforeBlockUse(tool, entry, context, InteractionSource.RIGHT_CLICK);
         if (result.consumesAction()) {
           return result;
         }
@@ -346,9 +347,8 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
     ToolStack tool = ToolStack.from(context.getItemInHand());
     InteractionHand hand = context.getHand();
     if (shouldInteract(context.getPlayer(), tool, hand)) {
-      EquipmentSlot slot = Util.getSlotType(hand);
       for (ModifierEntry entry : tool.getModifierList()) {
-        InteractionResult result = entry.getModifier().afterBlockUse(tool, entry.getLevel(), context, slot);
+        InteractionResult result = entry.getHook(TinkerHooks.BLOCK_INTERACT).afterBlockUse(tool, entry, context, InteractionSource.RIGHT_CLICK);
         if (result.consumesAction()) {
           return result;
         }
@@ -361,9 +361,8 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
   public InteractionResult interactLivingEntity(ItemStack stack, Player playerIn, LivingEntity target, InteractionHand hand) {
     ToolStack tool = ToolStack.from(stack);
     if (shouldInteract(playerIn, tool, hand)) {
-      EquipmentSlot slot = Util.getSlotType(hand);
       for (ModifierEntry entry : tool.getModifierList()) {
-        InteractionResult result = entry.getModifier().afterEntityUse(tool, entry.getLevel(), playerIn, target, hand, slot);
+        InteractionResult result = entry.getHook(TinkerHooks.ENTITY_INTERACT).afterEntityUse(tool, entry, playerIn, target, hand, InteractionSource.RIGHT_CLICK);
         if (result.consumesAction()) {
           return result;
         }
@@ -377,9 +376,8 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
     ItemStack stack = playerIn.getItemInHand(hand);
     ToolStack tool = ToolStack.from(stack);
     if (shouldInteract(playerIn, tool, hand)) {
-      EquipmentSlot slot = Util.getSlotType(hand);
       for (ModifierEntry entry : tool.getModifierList()) {
-        InteractionResult result = entry.getModifier().onToolUse(tool, entry.getLevel(), worldIn, playerIn, hand, slot);
+        InteractionResult result = entry.getHook(TinkerHooks.GENERAL_INTERACT).onToolUse(tool, entry, playerIn, hand, InteractionSource.RIGHT_CLICK);
         if (result.consumesAction()) {
           return new InteractionResultHolder<>(result, stack);
         }
@@ -397,7 +395,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
   public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
     ToolStack tool = ToolStack.from(stack);
     for (ModifierEntry entry : tool.getModifierList()) {
-      if (entry.getModifier().onFinishUsing(tool, entry.getLevel(), worldIn, entityLiving)) {
+      if (entry.getHook(TinkerHooks.GENERAL_INTERACT).onFinishUsing(tool, entry, entityLiving)) {
         return stack;
       }
     }
@@ -408,7 +406,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
   public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
     ToolStack tool = ToolStack.from(stack);
     for (ModifierEntry entry : tool.getModifierList()) {
-      boolean result = entry.getModifier().onStoppedUsing(tool, entry.getLevel(), worldIn, entityLiving, timeLeft);
+      boolean result = entry.getHook(TinkerHooks.GENERAL_INTERACT).onStoppedUsing(tool, entry, entityLiving, timeLeft);
       if (result) {
         return;
       }
@@ -419,7 +417,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
   public int getUseDuration(ItemStack stack) {
     ToolStack tool = ToolStack.from(stack);
     for (ModifierEntry entry : tool.getModifierList()) {
-      int result = entry.getModifier().getUseDuration(tool, entry.getLevel());
+      int result = entry.getHook(TinkerHooks.GENERAL_INTERACT).getUseDuration(tool, entry);
       if (result > 0) {
         return result;
       }
@@ -431,7 +429,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
   public UseAnim getUseAnimation(ItemStack stack) {
     ToolStack tool = ToolStack.from(stack);
     for (ModifierEntry entry : tool.getModifierList()) {
-      UseAnim result = entry.getModifier().getUseAction(tool, entry.getLevel());
+      UseAnim result = entry.getHook(TinkerHooks.GENERAL_INTERACT).getUseAction(tool, entry);
       if (result != UseAnim.NONE) {
         return result;
       }
