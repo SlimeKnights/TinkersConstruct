@@ -15,7 +15,7 @@ import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
-import slimeknights.tconstruct.library.modifiers.hook.InteractModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.KeybindInteractModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.TankModifier;
 import slimeknights.tconstruct.library.modifiers.spilling.SpillingFluid;
 import slimeknights.tconstruct.library.modifiers.spilling.SpillingFluidManager;
@@ -29,7 +29,7 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.particle.FluidParticleData;
 
 /** Modifier to handle spilling recipes on helmets */
-public class SlurpingModifier extends TankModifier implements InteractModifierHook {
+public class SlurpingModifier extends TankModifier implements KeybindInteractModifierHook {
   private static final float DEGREE_TO_RADIANS = (float)Math.PI / 180F;
   private static final TinkerDataKey<SlurpingInfo> SLURP_FINISH_TIME = TConstruct.createKey("slurping_finish");
   public SlurpingModifier() {

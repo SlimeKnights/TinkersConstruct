@@ -9,13 +9,13 @@ import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
-import slimeknights.tconstruct.library.modifiers.hook.InteractModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.KeybindInteractModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.InventoryModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
-public class InventoryMenuModifier extends InventoryModifier implements InteractModifierHook {
+public class InventoryMenuModifier extends InventoryModifier implements KeybindInteractModifierHook {
   /** Loader instance */
   public static final GenericIntSerializer<InventoryMenuModifier> LOADER = new GenericIntSerializer<>("size", InventoryMenuModifier::new, t -> t.slotsPerLevel);
 

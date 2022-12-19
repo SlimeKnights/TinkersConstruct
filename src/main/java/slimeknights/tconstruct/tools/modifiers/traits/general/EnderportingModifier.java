@@ -126,7 +126,7 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
     if (context.getClickedPos().equals(pos)) {
       LivingEntity living = context.getPlayer();
       if (living != null && tryTeleport(living, pos.getX() + 0.5f, pos.getY(), pos.getZ() + 0.5f)) {
-        ToolDamageUtil.damageAnimated(tool, 2, living);
+        ToolDamageUtil.damageAnimated(tool, 2, living, context.getHand());
       }
     }
   }
@@ -157,7 +157,7 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
   @Override
   public void onArrowLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, AbstractArrow arrow, NamespacedNBT persistentData) {
     // damage on shoot as we won't have tool context once the arrow lands
-    ToolDamageUtil.damageAnimated(tool, 10, shooter);
+    ToolDamageUtil.damageAnimated(tool, 10, shooter, shooter.getUsedItemHand());
   }
 
   @Override

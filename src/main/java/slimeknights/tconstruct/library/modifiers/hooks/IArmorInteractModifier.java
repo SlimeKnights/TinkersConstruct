@@ -3,12 +3,12 @@ package slimeknights.tconstruct.library.modifiers.hooks;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import slimeknights.mantle.client.TooltipKey;
-import slimeknights.tconstruct.library.modifiers.hook.InteractModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.KeybindInteractModifierHook;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 /**
  * Hooks for interacting on a helmet, left generic for addonss to use for other armor pieces
- * @deprecated use {@link InteractModifierHook}. This interface extends that one to make migration easier on hold hooks
+ * @deprecated use {@link KeybindInteractModifierHook}. This interface extends that one to make migration easier on hold hooks
  */
 @SuppressWarnings("DeprecatedIsStillUsed")
 @Deprecated

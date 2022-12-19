@@ -11,7 +11,7 @@ import slimeknights.tconstruct.library.modifiers.hook.BowAmmoModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ElytraFlightModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.HarvestEnchantmentsModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.InteractModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.KeybindInteractModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.LootingModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.PlantHarvestModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ProjectileHitModifierHook;
@@ -99,7 +99,7 @@ public class TinkerHooks {
   /* Interaction */
 
   /** Hook for when the player interacts with an armor slot. Currently only impleented for helmets and leggings */
-  public static final ModifierHook<InteractModifierHook> ARMOR_INTERACT = register("armor_interact", InteractModifierHook.class, InteractModifierHook.MERGER, new InteractModifierHook() {
+  public static final ModifierHook<KeybindInteractModifierHook> ARMOR_INTERACT = register("armor_interact", KeybindInteractModifierHook.class, KeybindInteractModifierHook.MERGER, new KeybindInteractModifierHook() {
     @Override
     public boolean startInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot slot, TooltipKey keyModifier) {
       IArmorInteractModifier interact = modifier.getModifier().getModule(IArmorInteractModifier.class);

@@ -13,12 +13,12 @@ import java.util.function.Function;
  * Hooks for interacting with a tool based on a keybind.
  * If you wish to use this hook for another slot, please discuss it with us, so we can implement a solution that will benefit all addons rather than having dupliate keybinds.
  */
-public interface InteractModifierHook {
+public interface KeybindInteractModifierHook {
   /** Empty implementation */
-  InteractModifierHook EMPTY = new InteractModifierHook() {};
+  KeybindInteractModifierHook EMPTY = new KeybindInteractModifierHook() {};
 
   /** Merger that uses the first on start interact, but runs all on stop */
-  Function<Collection<InteractModifierHook>, InteractModifierHook> MERGER = InteractMerger::new;
+  Function<Collection<KeybindInteractModifierHook>,KeybindInteractModifierHook> MERGER = InteractMerger::new;
 
 
   /**
@@ -44,10 +44,10 @@ public interface InteractModifierHook {
 
 
   /** Merger that uses the first on start interact, but runs all on stop */
-  record InteractMerger(Collection<InteractModifierHook> modules) implements InteractModifierHook {
+  record InteractMerger(Collection<KeybindInteractModifierHook> modules) implements KeybindInteractModifierHook {
     @Override
     public boolean startInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot slot, TooltipKey keyModifier) {
-      for (InteractModifierHook module : modules) {
+      for (KeybindInteractModifierHook module : modules) {
         if (module.startInteract(tool, modifier, player, slot, keyModifier)) {
           return true;
         }
@@ -57,7 +57,7 @@ public interface InteractModifierHook {
 
     @Override
     public void stopInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot slot) {
-      for (InteractModifierHook module : modules) {
+      for (KeybindInteractModifierHook module : modules) {
         module.stopInteract(tool, modifier, player, slot);
       }
     }
