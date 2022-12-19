@@ -9,6 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.LeftClickEmpty;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -20,7 +21,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.logic.InteractionHandler;
-import slimeknights.tconstruct.tools.network.OnChestplateUsePacket;
+import slimeknights.tconstruct.tools.network.InteractWithAirPacket;
 
 /**
  * Client side interaction hooks
@@ -40,10 +41,10 @@ public class ClientInteractionHandler {
     // figure out if we have a chestplate making us care
     Player player = event.getPlayer();
     ItemStack chestplate = player.getItemBySlot(EquipmentSlot.CHEST);
-    if (!player.isSpectator() && chestplate.is(TinkerTags.Items.CHESTPLATES)) {
+    if (!player.isSpectator() && chestplate.is(TinkerTags.Items.INTERACTABLE_ARMOR)) {
       // found an interaction, time to notify the server and run logic for the client
       InteractionHand hand = event.getHand();
-      TinkerNetwork.getInstance().sendToServer(OnChestplateUsePacket.from(hand));
+      TinkerNetwork.getInstance().sendToServer(InteractWithAirPacket.fromChestplate(hand));
       InteractionResult result = InteractionHandler.onChestplateUse(player, chestplate, hand);
       if (result.consumesAction()) {
         if (result.shouldSwing()) {
@@ -67,6 +68,32 @@ public class ClientInteractionHandler {
       if (event.getHand() == InteractionHand.OFF_HAND) {
         event.setCanceled(true);
         event.setSwingHand(false);
+      }
+    }
+  }
+
+  /** Implements the client side of left click interaction for {@link slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook#onToolUse(IToolStackView, ModifierEntry, Player, InteractionHand, InteractionSource)} */
+  @SubscribeEvent
+  static void leftClickAir(LeftClickEmpty event) {
+    // not sure if anyone sets the result, but just in case listen to it so they can stop us running
+    if (event.getCancellationResult() != InteractionResult.PASS) {
+      return;
+    }
+    // figure out if we have a chestplate making us care
+    Player player = event.getPlayer();
+    ItemStack tool = event.getItemStack();
+    if (!player.isSpectator() && tool.is(TinkerTags.Items.INTERACTABLE_LEFT)) {
+      // found an interaction, time to notify the server and run logic for the client
+      InteractionHand hand = event.getHand();
+      TinkerNetwork.getInstance().sendToServer(InteractWithAirPacket.LEFT_CLICK);
+      InteractionResult result = InteractionHandler.onLeftClickInteraction(player, tool, hand);
+      if (result.consumesAction()) {
+        if (result.shouldSwing()) {
+          player.swing(hand);
+        }
+        Minecraft.getInstance().gameRenderer.itemInHandRenderer.itemUsed(hand);
+        // set the result so later listeners see we did something
+        event.setCancellationResult(result);
       }
     }
   }

@@ -8,7 +8,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlot.Type;
@@ -22,11 +21,14 @@ import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
-import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import slimeknights.mantle.client.SafeClientAccess;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
@@ -137,19 +139,6 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
   }
 
 
-  /* Disable interaction hooks, reconsider later */
-
-  @Override
-  public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext context) {
-    return InteractionResult.PASS;
-  }
-
-  @Override
-  public InteractionResult interactLivingEntity(ItemStack stack, Player playerIn, LivingEntity target, InteractionHand hand) {
-    return InteractionResult.PASS;
-  }
-
-
   /* Damage/Durability */
 
   @Override
@@ -230,8 +219,29 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
   /* Attacking */
 
   @Override
-  public boolean onLeftClickEntity(ItemStack stack, Player player, Entity entity) {
-    return ToolAttackUtil.attackEntity(stack, player, entity);
+  public boolean onLeftClickEntity(ItemStack stack, Player player, Entity target) {
+    ToolStack tool = ToolStack.from(stack);
+    List<ModifierEntry> modifiers = tool.getModifierList();
+    // TODO: should this be in the event?
+    for (ModifierEntry entry : modifiers) {
+      if (entry.getHook(TinkerHooks.ENTITY_INTERACT).beforeEntityUse(tool, entry, player, target, InteractionHand.MAIN_HAND, InteractionSource.LEFT_CLICK).consumesAction()) {
+        return true;
+      }
+    }
+    if (target instanceof LivingEntity living) {
+      for (ModifierEntry entry : modifiers) {
+        if (entry.getHook(TinkerHooks.ENTITY_INTERACT).afterEntityUse(tool, entry, player, living, InteractionHand.MAIN_HAND, InteractionSource.LEFT_CLICK).consumesAction()) {
+          return true;
+        }
+      }
+    }
+    // no left click modifiers? fallback to standard attack
+    return ToolAttackUtil.attackEntity(tool, player, target);
+  }
+
+  @Override
+  public boolean canPerformAction(ItemStack stack, ToolAction toolAction) {
+    return ModifierUtil.canPerformAction(ToolStack.from(stack), toolAction);
   }
 
   @Override

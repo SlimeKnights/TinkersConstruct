@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.logic;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
@@ -19,6 +20,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.LeftClickBlock;
 import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -29,12 +31,16 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
+import java.util.List;
 import java.util.function.Function;
 
 /**
@@ -42,19 +48,19 @@ import java.util.function.Function;
  */
 @EventBusSubscriber(modid = TConstruct.MOD_ID, bus = Bus.FORGE)
 public class InteractionHandler {
-  /** Implements {@link slimeknights.tconstruct.library.modifiers.Modifier#beforeEntityUse(IToolStackView, int, Player, Entity, InteractionHand, EquipmentSlot)} */
+  /** Implements {@link EntityInteractionModifierHook#beforeEntityUse(IToolStackView, ModifierEntry, Player, Entity, InteractionHand, InteractionSource)} */
   @SubscribeEvent
   static void beforeEntityInteract(EntityInteract event) {
     ItemStack stack = event.getItemStack();
     Player player = event.getPlayer();
     InteractionHand hand = event.getHand();
-    EquipmentSlot slotType = Util.getSlotType(hand);
+    InteractionSource source = InteractionSource.RIGHT_CLICK;
     if (!stack.is(TinkerTags.Items.HELD)) {
       // if the hand is empty, allow performing chestplate interaction (assuming a modifiable chestplate)
       if (stack.isEmpty()) {
         stack = player.getItemBySlot(EquipmentSlot.CHEST);
-        if (stack.is(TinkerTags.Items.CHESTPLATES)) {
-          slotType = EquipmentSlot.CHEST;
+        if (stack.is(TinkerTags.Items.INTERACTABLE_ARMOR)) {
+          source = InteractionSource.ARMOR;
         } else {
           return;
         }
@@ -67,7 +73,7 @@ public class InteractionHandler {
     Entity target = event.getTarget();
     for (ModifierEntry entry : tool.getModifierList()) {
       // exit on first successful result
-      InteractionResult result = entry.getModifier().beforeEntityUse(tool, entry.getLevel(), player, target, hand, slotType);
+      InteractionResult result = entry.getHook(TinkerHooks.ENTITY_INTERACT).beforeEntityUse(tool, entry, player, target, hand, source);
       if (result.consumesAction()) {
         event.setCanceled(true);
         event.setCancellationResult(result);
@@ -76,13 +82,13 @@ public class InteractionHandler {
     }
   }
 
-  /** Implements {@link slimeknights.tconstruct.library.modifiers.Modifier#afterEntityUse(IToolStackView, int, Player, LivingEntity, InteractionHand, EquipmentSlot)} for chestplates */
+  /** Implements {@link EntityInteractionModifierHook#afterEntityUse(IToolStackView, ModifierEntry, Player, LivingEntity, InteractionHand, InteractionSource)} for chestplates */
   @SubscribeEvent(priority = EventPriority.LOWEST)
   static void afterEntityInteract(EntityInteract event) {
     Player player = event.getPlayer();
     if (event.getItemStack().isEmpty() && !player.isSpectator()) {
       ItemStack chestplate = player.getItemBySlot(EquipmentSlot.CHEST);
-      if (chestplate.is(TinkerTags.Items.CHESTPLATES)) {
+      if (chestplate.is(TinkerTags.Items.INTERACTABLE_ARMOR)) {
         // from this point on, we are taking over interaction logic, to ensure chestplate hooks run in the right order
         event.setCanceled(true);
 
@@ -101,7 +107,7 @@ public class InteractionHandler {
         if (target instanceof LivingEntity livingTarget) {
           for (ModifierEntry entry : tool.getModifierList()) {
             // exit on first successful result
-            result = entry.getModifier().afterEntityUse(tool, entry.getLevel(), player, livingTarget, hand, EquipmentSlot.CHEST);
+            result = entry.getHook(TinkerHooks.ENTITY_INTERACT).afterEntityUse(tool, entry, player, livingTarget, hand, InteractionSource.ARMOR);
             if (result.consumesAction()) {
               event.setCanceled(true);
               event.setCancellationResult(result);
@@ -148,7 +154,7 @@ public class InteractionHandler {
     if (event.getItemStack().isEmpty() && !player.isSpectator()) {
       // item must be a chestplate
       ItemStack chestplate = player.getItemBySlot(EquipmentSlot.CHEST);
-      if (chestplate.is(TinkerTags.Items.CHESTPLATES)) {
+      if (chestplate.is(TinkerTags.Items.INTERACTABLE_ARMOR)) {
         // no turning back, from this point we are fully in charge of interaction logic (since we need to ensure order of the hooks)
 
         // begin interaction
@@ -159,7 +165,7 @@ public class InteractionHandler {
 
         // first, before block use (in forge, onItemUseFirst)
         if (event.getUseItem() != Result.DENY) {
-          InteractionResult result = onBlockUse(context, tool, chestplate, entry -> entry.getModifier().beforeBlockUse(tool, entry.getLevel(), context, EquipmentSlot.CHEST));
+          InteractionResult result = onBlockUse(context, tool, chestplate, entry -> entry.getHook(TinkerHooks.BLOCK_INTERACT).beforeBlockUse(tool, entry, context, InteractionSource.ARMOR));
           if (result.consumesAction()) {
             event.setCanceled(true);
             event.setCancellationResult(result);
@@ -189,7 +195,7 @@ public class InteractionHandler {
         event.setCancellationResult(InteractionResult.PASS);
         if (useItem != Result.DENY && (useItem == Result.ALLOW || !player.getCooldowns().isOnCooldown(chestplate.getItem()))) {
           // finally, after block use (in forge, onItemUse)
-          InteractionResult result = onBlockUse(context, tool, chestplate, entry -> entry.getModifier().afterBlockUse(tool, entry.getLevel(), context, EquipmentSlot.CHEST));
+          InteractionResult result = onBlockUse(context, tool, chestplate, entry -> entry.getHook(TinkerHooks.BLOCK_INTERACT).afterBlockUse(tool, entry, context, InteractionSource.ARMOR));
           if (result.consumesAction()) {
             event.setCanceled(true);
             event.setCancellationResult(result);
@@ -209,7 +215,7 @@ public class InteractionHandler {
     }
   }
 
-  /** Implements {@link slimeknights.tconstruct.library.modifiers.Modifier#onToolUse(IToolStackView, int, net.minecraft.world.level.Level, Player, InteractionHand, EquipmentSlot)}, called differently on client and server */
+  /** Implements {@link GeneralInteractionModifierHook#onToolUse(IToolStackView, ModifierEntry, Player, InteractionHand, InteractionSource)}, called differently on client and server */
   public static InteractionResult onChestplateUse(Player player, ItemStack chestplate, InteractionHand hand) {
     if (player.getCooldowns().isOnCooldown(chestplate.getItem())) {
       return InteractionResult.PASS;
@@ -218,7 +224,7 @@ public class InteractionHandler {
     // first, run the modifier hook
     ToolStack tool = ToolStack.from(chestplate);
     for (ModifierEntry entry : tool.getModifierList()) {
-      InteractionResult result = entry.getModifier().onToolUse(tool, entry.getLevel(), player.level, player, hand, EquipmentSlot.CHEST);
+      InteractionResult result = entry.getHook(TinkerHooks.GENERAL_INTERACT).onToolUse(tool, entry, player, hand, InteractionSource.ARMOR);
       if (result.consumesAction()) {
         return result;
       }
@@ -280,5 +286,80 @@ public class InteractionHandler {
       }
     }
     return false;
+  }
+
+  /** Runs the left click interaction for left click */
+  private static InteractionResult onLeftClickInteraction(IToolStackView tool, Player player, InteractionHand hand) {
+    for (ModifierEntry entry : tool.getModifierList()) {
+      InteractionResult result = entry.getHook(TinkerHooks.GENERAL_INTERACT).onToolUse(tool, entry, player, hand, InteractionSource.LEFT_CLICK);
+      if (result.consumesAction()) {
+        return result;
+      }
+    }
+    return InteractionResult.PASS;
+  }
+
+  /** Runs the left click interaction for left click */
+  public static InteractionResult onLeftClickInteraction(Player player, ItemStack held, InteractionHand hand) {
+    if (player.getCooldowns().isOnCooldown(held.getItem())) {
+      return InteractionResult.PASS;
+    }
+    return onLeftClickInteraction(ToolStack.from(held), player, hand);
+  }
+
+  /** Sets the event result and swings the hand */
+  private static void setLeftClickEventResult(PlayerInteractEvent event, InteractionResult result) {
+    if (result.consumesAction()) {
+      if (result == InteractionResult.SUCCESS) {
+        event.getPlayer().swing(event.getHand());
+      }
+      event.setCancellationResult(result);
+      event.setCanceled(true);
+    }
+  }
+
+  /** Implements {@link slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteractionModifierHook} for weapons with left click */
+  @SubscribeEvent
+  static void leftClickBlock(LeftClickBlock event) {
+    // must support interaction
+    ItemStack stack = event.getItemStack();
+    Player player = event.getPlayer();
+    if (!stack.is(TinkerTags.Items.INTERACTABLE_LEFT) || player.getCooldowns().isOnCooldown(stack.getItem())) {
+      return;
+    }
+
+    // build usage context
+    InteractionHand hand = event.getHand();
+    BlockPos pos = event.getPos();
+    Direction direction = event.getFace();
+    if (direction == null) {
+      direction = player.getDirection().getOpposite();
+    }
+    UseOnContext context = new UseOnContext(player, hand, new BlockHitResult(Util.toHitVec(pos, direction), direction, pos, false));
+
+    // run modifier hooks
+    ToolStack tool = ToolStack.from(stack);
+    List<ModifierEntry> modifiers = tool.getModifierList();
+    for (ModifierEntry entry : modifiers) {
+      InteractionResult result = entry.getHook(TinkerHooks.BLOCK_INTERACT).beforeBlockUse(tool, entry, context, InteractionSource.LEFT_CLICK);
+      if (result.consumesAction()) {
+        setLeftClickEventResult(event, result);
+        return;
+      }
+    }
+    // TODO: don't think there is an equivalence to block interactions
+    for (ModifierEntry entry : modifiers) {
+      InteractionResult result = entry.getHook(TinkerHooks.BLOCK_INTERACT).afterBlockUse(tool, entry, context, InteractionSource.LEFT_CLICK);
+      if (result.consumesAction()) {
+        setLeftClickEventResult(event, result);
+        return;
+      }
+    }
+
+    // fallback to default interaction
+    InteractionResult result = onLeftClickInteraction(tool, player, hand);
+    if (result.consumesAction()) {
+      setLeftClickEventResult(event, result);
+    }
   }
 }
