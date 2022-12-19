@@ -34,6 +34,11 @@ public class BulkQuiverModifier extends InventoryModifier implements BowAmmoModi
   }
 
   @Override
+  public int getPriority() {
+    return 50; // after crystalshot
+  }
+
+  @Override
   public boolean isItemValid(IToolStackView tool, ModifierEntry modifier, int slot, ItemStack stack) {
     return stack.getItem() instanceof ArrowItem;
   }

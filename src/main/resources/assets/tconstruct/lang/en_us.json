@@ -896,6 +896,8 @@
   "item.tconstruct.slime_helmet.material.tconstruct.rose_gold":     "Piglin Brute Slimeskull",
   "item.tconstruct.slime_helmet.material.tconstruct.pig_iron":      "Zombified Piglin Slimeskull",
 
+  "item.tconstruct.crystalshot": "Crystalshot",
+  "entity.tconstruct.crystalshot": "Crystalshot",
 
   "_comment": "Tinkers Tool Parts",
 
@@ -1797,6 +1799,9 @@
   "modifier.tconstruct.bulk_quiver": "Bulk Quiver",
   "modifier.tconstruct.bulk_quiver.flavor": "Holding arrows is overrated",
   "modifier.tconstruct.bulk_quiver.description": "Allows the bow to pull arrows from its own inventory when you run out of arrows, access by sneaking and interacting",
+  "modifier.tconstruct.crystalshot": "Crystalshot",
+  "modifier.tconstruct.crystalshot.flavor": "Holding arrows is overrated",
+  "modifier.tconstruct.crystalshot.description": "In place of arrows, fires shards of crystal grown from the bow itself. Growing crystals consumes extra durability",
 
   "_comment": "Armor",
   "modifier.tconstruct.knockback_resistance": "Knockback Resistance",

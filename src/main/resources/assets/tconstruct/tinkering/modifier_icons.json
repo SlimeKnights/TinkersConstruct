@@ -65,6 +65,7 @@
   "tconstruct:trueshot":     "tconstruct:gui/modifiers/ranged/trueshot",
 
   "tconstruct:bulk_quiver": "tconstruct:gui/modifiers/ranged/bulk_quiver",
+  "tconstruct:crystalshot": "tconstruct:item/arrow/amethyst",
   
   "tconstruct:protection":            "tconstruct:gui/modifiers/armor/protection",
   "tconstruct:melee_protection":      "tconstruct:gui/modifiers/armor/melee_protection",

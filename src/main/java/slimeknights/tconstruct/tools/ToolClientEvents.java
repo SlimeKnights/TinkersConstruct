@@ -47,6 +47,7 @@ import slimeknights.tconstruct.library.client.modifiers.TankModifierModel;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.utils.HarvestTiers;
 import slimeknights.tconstruct.tools.client.ArmorModelHelper;
+import slimeknights.tconstruct.tools.client.CrystalshotRenderer;
 import slimeknights.tconstruct.tools.client.OverslimeModifierModel;
 import slimeknights.tconstruct.tools.client.PlateArmorModel;
 import slimeknights.tconstruct.tools.client.SlimelytraArmorModel;
@@ -105,6 +106,7 @@ public class ToolClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
     event.registerEntityRenderer(TinkerTools.indestructibleItem.get(), ItemEntityRenderer::new);
+    event.registerEntityRenderer(TinkerTools.crystalshotEntity.get(), CrystalshotRenderer::new);
   }
 
   @SubscribeEvent

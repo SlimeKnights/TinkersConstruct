@@ -36,6 +36,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
+import slimeknights.tconstruct.common.registration.GeodeItemObject.BudSize;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
@@ -580,6 +581,27 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setTools(TinkerTags.Items.BOWS)
                          .saveSalvage(consumer, prefix(TinkerModifiers.bulkQuiver, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.bulkQuiver, abilityFolder));
+    BiConsumer<ItemLike,String> crystalshotRecipe = (item, variant) -> {
+      SwappableModifierRecipeBuilder.modifier(TinkerModifiers.crystalshot, variant)
+                                    .addInput(item)
+                                    .addInput(Items.BLAZE_ROD)
+                                    .addInput(item)
+                                    .addInput(TinkerMaterials.manyullyn.getIngotTag())
+                                    .addInput(TinkerMaterials.manyullyn.getIngotTag())
+                                    .setTools(TinkerTags.Items.BOWS)
+                                    .setSlots(SlotType.ABILITY, 1)
+                                    .save(consumer, wrap(TinkerModifiers.crystalshot, abilityFolder, "_" + variant));
+    };
+    crystalshotRecipe.accept(Items.AMETHYST_CLUSTER, "amethyst");
+    crystalshotRecipe.accept(TinkerWorld.earthGeode.getBud(BudSize.CLUSTER), "earthslime");
+    crystalshotRecipe.accept(TinkerWorld.skyGeode.getBud(BudSize.CLUSTER), "skyslime");
+    crystalshotRecipe.accept(TinkerWorld.ichorGeode.getBud(BudSize.CLUSTER), "ichor");
+    crystalshotRecipe.accept(TinkerWorld.enderGeode.getBud(BudSize.CLUSTER), "enderslime");
+    crystalshotRecipe.accept(Items.NETHER_QUARTZ_ORE, "quartz");
+    ModifierRecipeBuilder.modifier(TinkerModifiers.crystalshot)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .setTools(TinkerTags.Items.BOWS)
+                         .saveSalvage(consumer, prefix(TinkerModifiers.crystalshot, abilitySalvage));
 
     /*
      * armor

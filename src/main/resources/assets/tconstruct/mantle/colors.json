@@ -32,6 +32,13 @@
 
     "__ranged_abilities__": null,
     "bulk_quiver": "#C65C35",
+    "crystalshot": "#B38EF1",
+    "crystalshot.amethyst":   "#B38EF1",
+    "crystalshot.earthslime": "#8AD580",
+    "crystalshot.enderslime": "#836492",
+    "crystalshot.ichor":      "#FF8324",
+    "crystalshot.skyslime":   "#82D7D5",
+    "crystalshot.quartz":     "#B6A48E",
 
     "__armor_abilities__": null,
     "double_jump":  "#01cbcd",
