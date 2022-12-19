@@ -1798,7 +1798,7 @@
   "modifier.tconstruct.freezing.description": "Causes arrows to freeze the target",
   "modifier.tconstruct.bulk_quiver": "Bulk Quiver",
   "modifier.tconstruct.bulk_quiver.flavor": "Holding arrows is overrated",
-  "modifier.tconstruct.bulk_quiver.description": "Allows the bow to pull arrows from its own inventory when you run out of arrows, access by sneaking and interacting",
+  "modifier.tconstruct.bulk_quiver.description": "Allows the bow to pull arrows from its own inventory when you run out of arrows, access by sneaking and attacking",
   "modifier.tconstruct.crystalshot": "Crystalshot",
   "modifier.tconstruct.crystalshot.flavor": "Holding arrows is overrated",
   "modifier.tconstruct.crystalshot.description": "In place of arrows, fires shards of crystal grown from the bow itself. Growing crystals consumes extra durability",

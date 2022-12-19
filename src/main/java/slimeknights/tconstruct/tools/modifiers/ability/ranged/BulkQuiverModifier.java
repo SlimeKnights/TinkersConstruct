@@ -9,8 +9,8 @@ import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.dynamic.InventoryMenuModifier;
 import slimeknights.tconstruct.library.modifiers.hook.BowAmmoModifierHook;
-import slimeknights.tconstruct.library.modifiers.impl.InventoryModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -19,7 +19,7 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import javax.annotation.Nullable;
 import java.util.function.Predicate;
 
-public class BulkQuiverModifier extends InventoryModifier implements BowAmmoModifierHook {
+public class BulkQuiverModifier extends InventoryMenuModifier implements BowAmmoModifierHook {
   private static final ResourceLocation INVENTORY_KEY = TConstruct.getResource("bulk_quiver");
   private static final ResourceLocation LAST_SLOT = TConstruct.getResource("quiver_last_selected");
   private static final Pattern ARROW = new Pattern(TConstruct.getResource("arrow"));

@@ -18,17 +18,26 @@ import net.minecraftforge.eventbus.api.Event.Result;
 import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolShearEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.impl.InteractionModifier;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 @RequiredArgsConstructor
-public class ShearsAbilityModifier extends InteractionModifier.NoLevels {
+public class ShearsAbilityModifier extends InteractionModifier.NoLevels implements EntityInteractionModifierHook {
   private final int range;
   @Getter
   private final int priority;
+
+  @Override
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.ENTITY_INTERACT);
+  }
 
   @Override
   public boolean shouldDisplay(boolean advanced) {
@@ -64,10 +73,11 @@ public class ShearsAbilityModifier extends InteractionModifier.NoLevels {
   }
 
   @Override
-  public InteractionResult beforeEntityUse(IToolStackView tool, int level, Player player, Entity target, InteractionHand hand, EquipmentSlot slotType) {
+  public InteractionResult beforeEntityUse(IToolStackView tool, ModifierEntry modifier, Player player, Entity target, InteractionHand hand, InteractionSource source) {
     if (tool.isBroken()) {
       return InteractionResult.PASS;
     }
+    EquipmentSlot slotType = source.getSlot(hand);
     ItemStack stack = player.getItemBySlot(slotType);
 
     // use looting instead of fortune, as that is our hook with entity access

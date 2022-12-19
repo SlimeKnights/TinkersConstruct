@@ -5,7 +5,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -25,7 +24,6 @@ import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.tools.capability.EntityModifierCapability;
 import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
-import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -34,7 +32,6 @@ import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
-import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
 
 import java.util.function.Predicate;
@@ -71,12 +68,6 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
 
     // TODO: move this to left click later once left click hooks are implemented
     ToolStack tool = ToolStack.from(bow);
-    if (player.isCrouching()) {
-      InteractionResult result = ToolInventoryCapability.tryOpenContainer(bow, tool, player, Util.getSlotType(hand));
-      if (result.consumesAction()) {
-        return new InteractionResultHolder<>(result, bow);
-      }
-    }
 
     // no need to ask the modifiers for ammo if we have it in the inventory, as there is no way for a modifier to say not to use ammo if its present
     // inventory search is probably a bit faster on average than modifier search as its already parsed

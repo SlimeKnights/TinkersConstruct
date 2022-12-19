@@ -34,16 +34,28 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteractionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.impl.TankModifier;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.item.ModifiableItem;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
-public class BucketingModifier extends TankModifier {
+public class BucketingModifier extends TankModifier implements BlockInteractionModifierHook, GeneralInteractionModifierHook {
   public BucketingModifier() {
     super(FluidAttributes.BUCKET_VOLUME);
+  }
+
+  @Override
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.BLOCK_INTERACT, TinkerHooks.GENERAL_INTERACT);
   }
 
   @Override
@@ -79,8 +91,8 @@ public class BucketingModifier extends TankModifier {
   }
 
   @Override
-  public InteractionResult beforeBlockUse(IToolStackView tool, int level, UseOnContext context, EquipmentSlot slot) {
-    if (slot.getType() != EquipmentSlot.Type.ARMOR) {
+  public InteractionResult beforeBlockUse(IToolStackView tool, ModifierEntry modifier, UseOnContext context, InteractionSource source) {
+    if (source != InteractionSource.ARMOR) {
       return InteractionResult.PASS;
     }
 
@@ -140,7 +152,7 @@ public class BucketingModifier extends TankModifier {
   }
 
   @Override
-  public InteractionResult afterBlockUse(IToolStackView tool, int level, UseOnContext context, EquipmentSlot slotType) {
+  public InteractionResult afterBlockUse(IToolStackView tool, ModifierEntry modifier, UseOnContext context, InteractionSource source) {
     // only place fluid if sneaking, we contain at least a bucket, and its a block
     Player player = context.getPlayer();
     if (player == null || !player.isShiftKeyDown()) {
@@ -207,7 +219,7 @@ public class BucketingModifier extends TankModifier {
   }
 
   @Override
-  public InteractionResult onToolUse(IToolStackView tool, int level, Level world, Player player, InteractionHand hand, EquipmentSlot slotType) {
+  public InteractionResult onToolUse(IToolStackView tool, ModifierEntry modifier, Player player, InteractionHand hand, InteractionSource source) {
     if (player.isCrouching()) {
       return InteractionResult.PASS;
     }
@@ -218,6 +230,7 @@ public class BucketingModifier extends TankModifier {
       return InteractionResult.PASS;
     }
     // have to trace again to find the fluid, ensure we can edit the position
+    Level world = player.level;
     BlockHitResult trace = ModifiableItem.blockRayTrace(world, player, ClipContext.Fluid.SOURCE_ONLY);
     if (trace.getType() != Type.BLOCK) {
       return InteractionResult.PASS;
@@ -225,7 +238,7 @@ public class BucketingModifier extends TankModifier {
     Direction face = trace.getDirection();
     BlockPos target = trace.getBlockPos();
     BlockPos offset = target.relative(face);
-    if (!world.mayInteract(player, target) || !player.mayUseItemAt(offset, face, player.getItemBySlot(slotType))) {
+    if (!world.mayInteract(player, target) || !player.mayUseItemAt(offset, face, player.getItemBySlot(source.getSlot(hand)))) {
       return InteractionResult.PASS;
     }
     // try to find a fluid here
