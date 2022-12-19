@@ -292,7 +292,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setInput(Items.INK_SAC, 1, 45)
                                     .save(consumer, prefix(TinkerModifiers.nearsighted, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.offhanded)
-                         .setTools(TinkerTags.Items.HELD)
+                         .setTools(TinkerTags.Items.INTERACTABLE_RIGHT)
                          .addInput(Items.LEATHER)
                          .addInput(Items.FIRE_CHARGE)
                          .addInput(SlimeType.ICHOR.getSlimeballTag())
@@ -301,7 +301,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, wrap(TinkerModifiers.offhanded, upgradeSalvage, "_level_1"))
                          .save(consumer, wrap(TinkerModifiers.offhanded, upgradeFolder, "_level_1"));
     ModifierRecipeBuilder.modifier(TinkerModifiers.offhanded)
-                         .setTools(TinkerTags.Items.HELD)
+                         .setTools(TinkerTags.Items.INTERACTABLE_RIGHT)
                          .addInput(Items.LEATHER)
                          .addInput(TinkerMaterials.cobalt.getIngotTag())
                          .addInput(SlimeType.ICHOR.getSlimeballTag())
@@ -1129,7 +1129,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(TinkerTags.Items.TANKS) // no salvage as don't want conversion between seared and scorched
                          .setMaxLevel(5)
                          .setSlots(SlotType.UPGRADE, 1)
-                         .setTools(ingredientFromTags(TinkerTags.Items.INTERACTABLE, TinkerTags.Items.HELMETS, TinkerTags.Items.LEGGINGS))
+                         .setTools(ingredientFromTags(TinkerTags.Items.INTERACTABLE, TinkerTags.Items.HELMETS, TinkerTags.Items.CHESTPLATES, TinkerTags.Items.LEGGINGS))
                          .saveSalvage(consumer, prefix(TinkerModifiers.tank, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.tank, upgradeFolder));
     // expanders
@@ -1158,9 +1158,9 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.ABILITY, 1)
                          .saveSalvage(consumer, prefix(ModifierIds.reach, abilitySalvage));
     // block transformers
-    Ingredient heldWithDurability = IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.DURABILITY), Ingredient.of(TinkerTags.Items.INTERACTABLE));
+    Ingredient interactableWithDurability = IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.DURABILITY), Ingredient.of(TinkerTags.Items.INTERACTABLE));
     ModifierRecipeBuilder.modifier(TinkerModifiers.pathing)
-                         .setTools(DifferenceIngredient.of(heldWithDurability, Ingredient.of(TinkerTools.pickadze, TinkerTools.excavator)))
+                         .setTools(DifferenceIngredient.of(interactableWithDurability, Ingredient.of(TinkerTools.pickadze, TinkerTools.excavator)))
                          .addInput(roundPlate)
                          .addInput(TinkerMaterials.cobalt.getIngotTag())
                          .addInput(toolBinding)
@@ -1169,7 +1169,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(TinkerModifiers.pathing, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.pathing, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.stripping)
-                         .setTools(DifferenceIngredient.of(heldWithDurability, Ingredient.of(TinkerTools.handAxe, TinkerTools.broadAxe)))
+                         .setTools(DifferenceIngredient.of(interactableWithDurability, Ingredient.of(TinkerTools.handAxe, TinkerTools.broadAxe)))
                          .addInput(SizedIngredient.of(MaterialIngredient.fromItem(TinkerToolParts.smallAxeHead.get())))
                          .addInput(TinkerMaterials.cobalt.getIngotTag())
                          .addInput(toolBinding)
@@ -1178,7 +1178,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(TinkerModifiers.stripping, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.stripping, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.tilling)
-                         .setTools(DifferenceIngredient.of(heldWithDurability, Ingredient.of(TinkerTools.mattock, TinkerTools.scythe)))
+                         .setTools(DifferenceIngredient.of(interactableWithDurability, Ingredient.of(TinkerTools.mattock, TinkerTools.scythe)))
                          .addInput(smallBlade)
                          .addInput(TinkerMaterials.cobalt.getIngotTag())
                          .addInput(toolBinding)
@@ -1188,7 +1188,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .save(consumer, prefix(TinkerModifiers.tilling, abilityFolder));
     // glowing
     ModifierRecipeBuilder.modifier(TinkerModifiers.glowing)
-                         .setTools(heldWithDurability)
+                         .setTools(interactableWithDurability)
                          .addInput(Items.GLOWSTONE)
                          .addInput(Items.DAYLIGHT_DETECTOR)
                          .addInput(Items.SHROOMLIGHT)
@@ -1197,7 +1197,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(TinkerModifiers.glowing, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.glowing, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.firestarter)
-                         .setTools(DifferenceIngredient.of(heldWithDurability, Ingredient.of(TinkerTools.flintAndBrick)))
+                         .setTools(DifferenceIngredient.of(interactableWithDurability, Ingredient.of(TinkerTools.flintAndBrick)))
                          .addInput(TinkerMaterials.cobalt.getIngotTag())
                          .addInput(Items.FLINT)
                          .setMaxLevel(1)
@@ -1235,26 +1235,10 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(SlimeType.SKY.getSlimeballTag())
                          .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
-                         .setTools(DifferenceIngredient.of(IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.MELEE), Ingredient.of(TinkerTags.Items.ONE_HANDED)), Ingredient.of(TinkerTools.dagger)))
-                         .save(consumer, wrap(TinkerModifiers.dualWielding, abilityFolder, "_one_handed"));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.dualWielding)
-                         .addInput(TinkerMaterials.manyullyn.getIngotTag())
-                         .addInput(Items.NAUTILUS_SHELL)
-                         .addInput(TinkerMaterials.manyullyn.getIngotTag())
-                         .addInput(SlimeType.SKY.getSlimeballTag())
-                         .addInput(SlimeType.SKY.getSlimeballTag())
-                         .setMaxLevel(1)
-                         .setSlots(SlotType.ABILITY, 1)
-                         .setRequirements(ModifierMatch.entry(TinkerModifiers.offhanded))
-                         .setRequirementsError(makeRequirementsError("two_handed_dual_wielding"))
-                         .setTools(IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.MELEE), Ingredient.of(TinkerTags.Items.TWO_HANDED)))
-                         .save(consumer, wrap(TinkerModifiers.dualWielding, abilityFolder, "_two_handed"));
-    // using a single salvage recipe for the two of them, as we don't care about requirements when removing
-    ModifierRecipeBuilder.modifier(TinkerModifiers.dualWielding)
-                         .setMaxLevel(1)
-                         .setSlots(SlotType.ABILITY, 1)
-                         .setTools(DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.MELEE), Ingredient.of(TinkerTools.dagger)))
-                         .saveSalvage(consumer, prefix(TinkerModifiers.dualWielding, abilitySalvage));
+                         .setTools(DifferenceIngredient.of(IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.MELEE), Ingredient.of(TinkerTags.Items.INTERACTABLE_RIGHT)), Ingredient.of(TinkerTools.dagger)))
+                         .saveSalvage(consumer, prefix(TinkerModifiers.dualWielding, abilitySalvage))
+                         .save(consumer, prefix(TinkerModifiers.dualWielding, abilityFolder));
+
     /*
      * extra modifiers
      */

@@ -294,9 +294,11 @@ public class TinkerTags {
     public static final TagKey<Item> MULTIPART_TOOL = tag("modifiable/multipart");
     /** Modifiable items that can have range increased */
     public static final TagKey<Item> AOE = tag("modifiable/aoe");
-    /** Modifiable items that can be held in a single hand */
+    /** @deprecated use {@link #HELD} or {@link #INTERACTABLE_RIGHT} */
+    @Deprecated
     public static final TagKey<Item> ONE_HANDED = tag("modifiable/one_handed");
-    /** Modifiable items that prevent usage of the offhand */
+    /** @deprecated use {@link #HELD} or {@link #INTERACTABLE_RIGHT} */
+    @Deprecated
     public static final TagKey<Item> TWO_HANDED = tag("modifiable/two_handed");
     /** Tools that use durability and can be repaired. Items in this tag support the {@link ToolStats#DURABILITY} stat. */
     public static final TagKey<Item> DURABILITY = tag("modifiable/durability");
@@ -305,10 +307,16 @@ public class TinkerTags {
     public static final TagKey<Item> MELEE_OR_HARVEST = tag("modifiable/melee_or_harvest");
     /** Items in this tag support the @link ToolStats#ATTACK_DAMAGE} stat. Should not be added to directly typically, use {@link #MELEE} or {@link #CHESTPLATES} */
     public static final TagKey<Item> MELEE_OR_UNARMED = tag("modifiable/melee_or_unarmed");
-    /** Anything that is used in the player's hand */
+    /** Anything that is used in the player's hand, mostly tools that support interaction, but other tools can be added directly */
     public static final TagKey<Item> HELD = tag("modifiable/held");
     /** Anything that can use interaction modifiers */
     public static final TagKey<Item> INTERACTABLE = tag("modifiable/interactable");
+    /** Tools that can interact on right click */
+    public static final TagKey<Item> INTERACTABLE_RIGHT = tag("modifiable/interactable/right");
+    /** Tools that can interact on left click */
+    public static final TagKey<Item> INTERACTABLE_LEFT = tag("modifiable/interactable/left");
+    /** Tools that can interact when worn as armor */
+    public static final TagKey<Item> INTERACTABLE_ARMOR = tag("modifiable/interactable/armor");
 
     /** Modifiable items that support melee attacks. Items in this tag support the {@link ToolStats#ATTACK_SPEED} stat (plus those from {@link #MELEE_OR_UNARMED}). */
     public static final TagKey<Item> MELEE = tag("modifiable/melee");
