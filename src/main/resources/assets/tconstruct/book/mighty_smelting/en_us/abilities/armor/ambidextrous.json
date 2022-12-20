@@ -1,12 +1,12 @@
 {
-  "modifier_id": "tconstruct:unarmed",
+  "modifier_id": "tconstruct:ambidextrous",
   "text": [
     {
       "text": "Everybody is Kung Fu Fighting."
     }
   ],
   "effects": [
-    "Increases unarmed damage",
+    "Allows punching with both hands",
     "Single level",
     "Requires 1 ability slot"
   ]

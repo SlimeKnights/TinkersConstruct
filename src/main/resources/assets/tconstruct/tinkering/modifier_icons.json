@@ -90,10 +90,10 @@
   "tconstruct:respiration":   "tconstruct:gui/modifiers/armor/respiration",
   "tconstruct:slurping":      "tconstruct:gui/modifiers/armor/slurping",
   "tconstruct:zoom":          ["minecraft:item/spyglass", "tconstruct:gui/modifiers/book"],
-  
+
+  "tconstruct:ambidextrous":  "tconstruct:gui/modifiers/armor/ambidextrous",
   "tconstruct:reach":    "tconstruct:gui/modifiers/armor/reach",
   "tconstruct:strength": "tconstruct:gui/modifiers/armor/strength",
-  "tconstruct:unarmed":  "tconstruct:gui/modifiers/armor/unarmed",
   
   "tconstruct:leaping":      "tconstruct:gui/modifiers/armor/leaping",
   "tconstruct:pockets":      "tconstruct:gui/modifiers/armor/pockets",

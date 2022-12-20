@@ -4,7 +4,7 @@
     "type": "forge:difference",
     "base": [
       {
-        "tag": "tconstruct:modifiable/melee"
+        "tag": "tconstruct:modifiable/melee_or_unarmed"
       },
       {
         "tag": "tconstruct:modifiable/ranged"

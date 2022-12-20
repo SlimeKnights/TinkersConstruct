@@ -303,10 +303,8 @@ public class TinkerTags {
     /** Tools that use durability and can be repaired. Items in this tag support the {@link ToolStats#DURABILITY} stat. */
     public static final TagKey<Item> DURABILITY = tag("modifiable/durability");
 
-    /** This is a common combination for modifiers, so figured it is worth a tag. Should not be added to directly typically */
+    /** @deprecated This used to be common, but the melee unarmed combo ended up being more common, and a compound ingredient is pretty trivial */
     public static final TagKey<Item> MELEE_OR_HARVEST = tag("modifiable/melee_or_harvest");
-    /** Items in this tag support the @link ToolStats#ATTACK_DAMAGE} stat. Should not be added to directly typically, use {@link #MELEE} or {@link #CHESTPLATES} */
-    public static final TagKey<Item> MELEE_OR_UNARMED = tag("modifiable/melee_or_unarmed");
     /** Anything that is used in the player's hand, mostly tools that support interaction, but other tools can be added directly */
     public static final TagKey<Item> HELD = tag("modifiable/held");
     /** Anything that can use interaction modifiers */
@@ -318,10 +316,17 @@ public class TinkerTags {
     /** Tools that can interact when worn as armor */
     public static final TagKey<Item> INTERACTABLE_ARMOR = tag("modifiable/interactable/armor");
 
-    /** Modifiable items that support melee attacks. Items in this tag support the {@link ToolStats#ATTACK_SPEED} stat (plus those from {@link #MELEE_OR_UNARMED}). */
+    /** Items in this tag support the @link ToolStats#ATTACK_DAMAGE} stat. Should not be added to directly typically, use {@link #MELEE} or {@link #CHESTPLATES}
+     * TODO 1.19: rename to "modifiable/melee" */
+    public static final TagKey<Item> MELEE_OR_UNARMED = tag("modifiable/melee_or_unarmed");
+    /** Modifiable items that support melee attacks. Items in this tag support the {@link ToolStats#ATTACK_SPEED} stat (plus those from {@link #MELEE_OR_UNARMED}).
+     * TODO 1.19: rename to "modifiable/melee/held" */
     public static final TagKey<Item> MELEE = tag("modifiable/melee");
     /** Modifiable items that specifically are designed for melee, removes melee penalties */
     public static final TagKey<Item> MELEE_PRIMARY = tag("modifiable/melee/primary");
+    /** Modifiable items that boost unarmed attack damage. By default this is just chestplates, but added as a tag to make it easier for adds to change
+     * TODO 1.19: rename to "modifiable/unarmed" */
+    public static final TagKey<Item> UNARMED = tag("modifiable/unarmed");
     /** Modifiable items that are also swords, typically no use outside of combat */
     public static final TagKey<Item> SWORD = tag("modifiable/melee/sword");
 
@@ -342,8 +347,6 @@ public class TinkerTags {
     public static final TagKey<Item> CHESTPLATES = tag("modifiable/armor/chestplate");
     /** Modifiable items that are worn as helmets */
     public static final TagKey<Item> HELMETS = tag("modifiable/armor/helmets");
-    /** Modifiable items that boost unarmed attack damage. By default this is just chestplates, but added as a tag to make it easier for adds to change */
-    public static final TagKey<Item> UNARMED = tag("modifiable/unarmed");
 
     /** Modifiable items that support ranged attacks. Items in this tag support {@link ToolStats#DRAW_SPEED}, {@link ToolStats#VELOCITY}, {@link ToolStats#PROJECTILE_DAMAGE} and {@link ToolStats#ACCURACY} */
     public static final TagKey<Item> RANGED = tag("modifiable/ranged");

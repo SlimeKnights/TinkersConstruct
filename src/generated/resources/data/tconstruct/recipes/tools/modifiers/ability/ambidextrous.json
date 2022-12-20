@@ -5,26 +5,27 @@
       "item": "minecraft:leather"
     },
     {
-      "tag": "minecraft:wool"
+      "tag": "forge:gems/diamond"
     },
     {
       "item": "minecraft:leather"
+    },
+    {
+      "tag": "forge:string"
+    },
+    {
+      "tag": "forge:string"
     }
   ],
   "tools": {
     "tag": "tconstruct:modifiable/unarmed"
   },
   "slots": {
-    "upgrades": 1
-  },
-  "requirements": {
-    "name": "tconstruct:unarmed",
-    "level": 1,
-    "error": "recipe.tconstruct.modifier.unarmed"
+    "abilities": 1
   },
   "result": {
-    "name": "tconstruct:padded",
+    "name": "tconstruct:ambidextrous",
     "level": 1
   },
-  "max_level": 3
+  "max_level": 1
 }

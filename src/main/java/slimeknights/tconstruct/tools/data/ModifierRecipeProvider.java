@@ -256,15 +256,14 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.EXPERIENCE_BOTTLE)
                          .setMaxLevel(5) // max +250%
                          .setSlots(SlotType.UPGRADE, 1)
-                         .setTools(ingredientFromTags(TinkerTags.Items.MELEE_OR_HARVEST, TinkerTags.Items.LEGGINGS))
-                         .includeUnarmed()
+                         .setTools(ingredientFromTags(TinkerTags.Items.MELEE_OR_UNARMED, TinkerTags.Items.HARVEST, TinkerTags.Items.LEGGINGS))
                          .saveSalvage(consumer, prefix(TinkerModifiers.experienced, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.experienced, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.magnetic)
                          .addInput(Items.COMPASS)
                          .setMaxLevel(5)
                          .setSlots(SlotType.UPGRADE, 1)
-                         .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
+                         .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.HARVEST))
                          .save(consumer, prefix(TinkerModifiers.magnetic, upgradeFolder));
     // armor has a max level of 1 per piece, so 4 total
     ModifierRecipeBuilder.modifier(TinkerModifiers.magnetic)
@@ -276,7 +275,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // salvage supports either
     ModifierRecipeBuilder.modifier(TinkerModifiers.magnetic)
                          .setSlots(SlotType.UPGRADE, 1)
-                         .setTools(ingredientFromTags(TinkerTags.Items.MELEE_OR_HARVEST, TinkerTags.Items.ARMOR))
+                         .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.HARVEST, TinkerTags.Items.ARMOR))
                          .saveSalvage(consumer, prefix(TinkerModifiers.magnetic, upgradeSalvage));
     // no salvage so we can potentially grant shiny in another way without being an apple farm, and no recipe as that leaves nothing to salvage
     ModifierRecipeBuilder.modifier(ModifierIds.shiny)
@@ -380,8 +379,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.LEATHER)
                          .setMaxLevel(3) // max 12.5% knockback, or 6.25% on the dagger
                          .setSlots(SlotType.UPGRADE, 1)
-                         .setTools(TinkerTags.Items.MELEE)
-                         .includeUnarmed()
+                         .setTools(TinkerTags.Items.MELEE_OR_UNARMED)
                          .saveSalvage(consumer, prefix(TinkerModifiers.padded, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.padded, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.severing)
@@ -391,16 +389,14 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.TNT)
                          .setMaxLevel(5) // max +25% head drop chance, combine with +15% chance from luck
                          .setSlots(SlotType.UPGRADE, 1)
-                         .setTools(TinkerTags.Items.MELEE)
-                         .includeUnarmed()
+                         .setTools(TinkerTags.Items.MELEE_OR_UNARMED)
                          .saveSalvage(consumer, prefix(TinkerModifiers.severing, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.severing, upgradeFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.fiery)
-                                    .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.BOWS))
+                                    .setTools(ingredientFromTags(TinkerTags.Items.MELEE_OR_UNARMED, TinkerTags.Items.BOWS))
                                     .setInput(Items.BLAZE_POWDER, 1, 25)
                                     .setMaxLevel(5) // +25 seconds fire damage
                                     .setSlots(SlotType.UPGRADE, 1)
-                                    .includeUnarmed()
                                     .saveSalvage(consumer, prefix(TinkerModifiers.fiery, upgradeSalvage))
                                     .save(consumer, prefix(TinkerModifiers.fiery, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.necrotic)
@@ -409,8 +405,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.GHAST_TEAR)
                          .setMaxLevel(5) // +50% chance of heal, combine with +40% from traits for +90% total
                          .setSlots(SlotType.UPGRADE, 1)
-                         .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.BOWS))
-                         .includeUnarmed()
+                         .setTools(ingredientFromTags(TinkerTags.Items.MELEE_OR_UNARMED, TinkerTags.Items.BOWS))
                          .saveSalvage(consumer, prefix(TinkerModifiers.necrotic, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.necrotic, upgradeFolder));
 
@@ -425,68 +420,60 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .saveSalvage(consumer, prefix(TinkerModifiers.piercing, upgradeSalvage))
                                     .save(consumer, prefix(TinkerModifiers.piercing, upgradeFolder));
     IncrementalModifierRecipeBuilder.modifier(ModifierIds.smite)
-                                    .setTools(TinkerTags.Items.MELEE)
+                                    .setTools(TinkerTags.Items.MELEE_OR_UNARMED)
                                     .setInput(Items.GLISTERING_MELON_SLICE, 1, 5)
                                     .setMaxLevel(5) // +12.5 undead damage
                                     .setSlots(SlotType.UPGRADE, 1)
-                                    .includeUnarmed()
                                     .saveSalvage(consumer, prefix(ModifierIds.smite, upgradeSalvage))
                                     .save(consumer, prefix(ModifierIds.smite, upgradeFolder));
     IncrementalModifierRecipeBuilder.modifier(ModifierIds.baneOfSssss)
-                                    .setTools(TinkerTags.Items.MELEE)
+                                    .setTools(TinkerTags.Items.MELEE_OR_UNARMED)
                                     .setInput(Items.FERMENTED_SPIDER_EYE, 1, 15)
                                     .setMaxLevel(5) // +12.5 spider damage
                                     .setSlots(SlotType.UPGRADE, 1)
-                                    .includeUnarmed()
                                     .saveSalvage(consumer, prefix(ModifierIds.baneOfSssss, upgradeSalvage))
                                     .save(consumer, prefix(ModifierIds.baneOfSssss, upgradeFolder));
     IncrementalModifierRecipeBuilder.modifier(ModifierIds.antiaquatic)
-                                    .setTools(TinkerTags.Items.MELEE)
+                                    .setTools(TinkerTags.Items.MELEE_OR_UNARMED)
                                     .setInput(Items.PUFFERFISH, 1, 20)
                                     .setMaxLevel(5) // +12.5 fish damage
                                     .setSlots(SlotType.UPGRADE, 1)
-                                    .includeUnarmed()
                                     .saveSalvage(consumer, prefix(ModifierIds.antiaquatic, upgradeSalvage))
                                     .save(consumer, prefix(ModifierIds.antiaquatic, upgradeFolder));
     IncrementalModifierRecipeBuilder.modifier(ModifierIds.cooling)
-                                    .setTools(TinkerTags.Items.MELEE)
+                                    .setTools(TinkerTags.Items.MELEE_OR_UNARMED)
                                     .setInput(Items.PRISMARINE_CRYSTALS, 1, 25)
                                     .setMaxLevel(5) // +10 fire mob damage
                                     .setSlots(SlotType.UPGRADE, 1)
-                                    .includeUnarmed()
                                     .saveSalvage(consumer, prefix(ModifierIds.cooling, upgradeSalvage))
                                     .save(consumer, prefix(ModifierIds.cooling, upgradeFolder));
     // killager uses both types of lapis
     IncrementalModifierRecipeBuilder.modifier(ModifierIds.killager)
-                                    .setTools(TinkerTags.Items.MELEE)
+                                    .setTools(TinkerTags.Items.MELEE_OR_UNARMED)
                                     .setInput(Tags.Items.GEMS_LAPIS, 1, 45)
                                     .setMaxLevel(5) // +12.5 illager damage
                                     .setSlots(SlotType.UPGRADE, 1)
-                                    .includeUnarmed()
                                     .saveSalvage(consumer, prefix(ModifierIds.killager, upgradeSalvage))
                                     .save(consumer, wrap(ModifierIds.killager, upgradeFolder, "_from_dust"));
     IncrementalModifierRecipeBuilder.modifier(ModifierIds.killager)
-                                    .setTools(TinkerTags.Items.MELEE)
+                                    .setTools(TinkerTags.Items.MELEE_OR_UNARMED)
                                     .setInput(Tags.Items.STORAGE_BLOCKS_LAPIS, 9, 45)
                                     .setMaxLevel(5) // +12.5 illager damage
                                     .setSlots(SlotType.UPGRADE, 1)
-                                    .includeUnarmed()
                                     .save(consumer, wrap(ModifierIds.killager, upgradeFolder, "_from_block"));
     // sharpness can use shards or blocks
     IncrementalModifierRecipeBuilder.modifier(ModifierIds.sharpness)
-                                    .setTools(TinkerTags.Items.MELEE)
+                                    .setTools(TinkerTags.Items.MELEE_OR_UNARMED)
                                     .setInput(Tags.Items.GEMS_QUARTZ, 1, 36)
                                     .setMaxLevel(5) // +5 damage
                                     .setSlots(SlotType.UPGRADE, 1)
-                                    .includeUnarmed()
                                     .saveSalvage(consumer, prefix(ModifierIds.sharpness, upgradeSalvage))
                                     .save(consumer, wrap(ModifierIds.sharpness, upgradeFolder, "_from_shard"));
     IncrementalModifierRecipeBuilder.modifier(ModifierIds.sharpness)
-                                    .setTools(TinkerTags.Items.MELEE)
+                                    .setTools(TinkerTags.Items.MELEE_OR_UNARMED)
                                     .setInput(Tags.Items.STORAGE_BLOCKS_QUARTZ, 4, 36)
                                     .setLeftover(new ItemStack(Items.QUARTZ))
                                     .setMaxLevel(5)
-                                    .includeUnarmed()
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .save(consumer, wrap(ModifierIds.sharpness, upgradeFolder, "_from_block"));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.sweeping)
@@ -873,7 +860,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(TinkerModifiers.aquaAffinity, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.aquaAffinity, abilityFolder));
     // chestplate
-    ModifierRecipeBuilder.modifier(TinkerModifiers.unarmed)
+    ModifierRecipeBuilder.modifier(TinkerModifiers.ambidextrous)
                          .setTools(TinkerTags.Items.UNARMED)
                          .addInput(Items.LEATHER)
                          .addInput(Tags.Items.GEMS_DIAMOND)
@@ -882,8 +869,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Tags.Items.STRING)
                          .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
-                         .saveSalvage(consumer, prefix(TinkerModifiers.unarmed, abilitySalvage))
-                         .save(consumer, prefix(TinkerModifiers.unarmed, abilityFolder));
+                         .saveSalvage(consumer, prefix(TinkerModifiers.ambidextrous, abilitySalvage))
+                         .save(consumer, prefix(TinkerModifiers.ambidextrous, abilityFolder));
     // if ichor geodes are disabled (sadface), use ichor dirt instead for the recipe
     // if you are disabling both, you have a ton of recipes to fix anyways
     IncrementalModifierRecipeBuilder strengthGeodeBuilder =
@@ -1048,11 +1035,9 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .save(consumer, prefix(ModifierIds.gilded, abilityFolder));
     // luck is 3 recipes, similar for both so pulled into a function
     // harvest uses luck, at this time there is no harvest that is not melee
-    luckRecipes(consumer, ModifierIds.luck, Ingredient.of(TinkerTags.Items.HARVEST), SlotType.ABILITY, false, abilityFolder, abilitySalvage);
+    luckRecipes(consumer, ModifierIds.luck, Ingredient.of(TinkerTags.Items.HARVEST), abilityFolder, abilitySalvage);
     // any non-harvest melee and any ranged use looting
-    luckRecipes(consumer, ModifierIds.looting, DifferenceIngredient.of(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.RANGED), Ingredient.of(TinkerTags.Items.HARVEST)), SlotType.ABILITY, false, abilityFolder, abilitySalvage);
-    // unarmed uses upgrades, though in the near future will be merged with above
-    luckRecipes(consumer, ModifierIds.looting, Ingredient.of(TinkerTags.Items.UNARMED), SlotType.UPGRADE, true, upgradeFolder, upgradeSalvage);
+    luckRecipes(consumer, ModifierIds.looting, DifferenceIngredient.of(ingredientFromTags(TinkerTags.Items.MELEE_OR_UNARMED, TinkerTags.Items.RANGED), Ingredient.of(TinkerTags.Items.HARVEST)), abilityFolder, abilitySalvage);
     // pants have just one level
     ModifierRecipeBuilder.modifier(ModifierIds.luck)
                          .setTools(TinkerTags.Items.LEGGINGS)
@@ -1108,8 +1093,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.LAVA_BUCKET)
                          .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
-                         .setTools(TinkerTags.Items.MELEE_OR_HARVEST)
-                         .includeUnarmed()
+                         .setTools(ingredientFromTags(TinkerTags.Items.MELEE_OR_UNARMED, TinkerTags.Items.HARVEST))
                          .saveSalvage(consumer, prefix(TinkerModifiers.melting, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.melting, abilityFolder));
     SizedIngredient faucets = SizedIngredient.fromItems(TinkerSmeltery.searedFaucet, TinkerSmeltery.scorchedFaucet); // no salvage as don't want conversion between seared and scorched
@@ -1495,7 +1479,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
   }
 
   /** Common logic to add recipes for luck and unarmed looting */
-  private void luckRecipes(Consumer<FinishedRecipe> consumer, ModifierId modifier, Ingredient tools, SlotType slotType, boolean unarmed, String folder, String salvage) {
+  private void luckRecipes(Consumer<FinishedRecipe> consumer, ModifierId modifier, Ingredient tools, String folder, String salvage) {
     String key = modifier.getPath();
     // level 1 always requires a slot
     ModifierRecipeBuilder builder1 = ModifierRecipeBuilder.modifier(modifier)
@@ -1507,11 +1491,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Tags.Items.STORAGE_BLOCKS_LAPIS)
                          .setSalvageLevelRange(1, 1)
                          .setMaxLevel(1)
-                         .setSlots(slotType, 1);
-    if (unarmed) {
-      builder1.setRequirements(ModifierMatch.entry(TinkerModifiers.unarmed));
-      builder1.setRequirementsError(TConstruct.makeTranslationKey("recipe", "modifier.unarmed"));
-    }
+                         .setSlots(SlotType.ABILITY, 1);
     builder1.saveSalvage(consumer, wrap(modifier, salvage, "_level_1")).save(consumer, wrap(modifier, folder, "_level_1"));
     // level 2 and 3 only charge if not ability
     ModifierRecipeBuilder builder2 = ModifierRecipeBuilder.modifier(modifier)
@@ -1536,10 +1516,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setRequirementsError(makeRequirementsError(key + ".level_3"))
                          .setSalvageLevelRange(3, 3)
                          .setMaxLevel(3);
-    if (slotType == SlotType.UPGRADE) {
-      builder2.setSlots(slotType, 1);
-      builder3.setSlots(slotType, 1);
-    }
     builder2.saveSalvage(consumer, wrap(modifier, salvage, "_level_2")).save(consumer, wrap(modifier, folder, "_level_2"));
     builder3.saveSalvage(consumer, wrap(modifier, salvage, "_level_3")).save(consumer, wrap(modifier, folder, "_level_3"));
   }

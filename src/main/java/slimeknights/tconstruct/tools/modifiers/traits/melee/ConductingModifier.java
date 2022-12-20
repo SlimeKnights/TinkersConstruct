@@ -79,7 +79,7 @@ public class ConductingModifier extends Modifier implements ConditionalStatModif
 
   @Override
   public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag flag) {
-    if (tool.hasTag(TinkerTags.Items.RANGED) || tool.hasTag(TinkerTags.Items.MELEE_OR_HARVEST)) {
+    if (tool.hasTag(TinkerTags.Items.RANGED) || tool.hasTag(TinkerTags.Items.MELEE)) {
       float bonus = PERCENT_PER_LEVEL * level;
       // client only knows if the player is on fire or not, not the amount of fire, so just show full if on fire
       if (player != null && key == TooltipKey.SHIFT && player.getRemainingFireTicks() == 0) {

@@ -252,7 +252,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       withL.accept(TinkerModifiers.snowdrift);
       with.accept(ModifierIds.strength);
       with.accept(ModifierIds.toolBelt);
-      withL.accept(TinkerModifiers.unarmed);
+      withL.accept(TinkerModifiers.ambidextrous);
       withL.accept(TinkerModifiers.zoom);
       // harvest
       withL.accept(TinkerModifiers.autosmelt);

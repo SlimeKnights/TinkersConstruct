@@ -27,9 +27,14 @@
       "item": "minecraft:lava_bucket"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/melee_or_harvest"
-  },
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/melee_or_unarmed"
+    },
+    {
+      "tag": "tconstruct:modifiable/harvest"
+    }
+  ],
   "slots": {
     "abilities": 1
   },

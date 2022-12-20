@@ -69,6 +69,9 @@ public class ModifierProvider extends AbstractModifierProvider {
     addRedirect(id("hoe_till"), redirect(TinkerModifiers.tilling.getId()));
     addRedirect(id("firestarter_hidden"), redirect(TinkerModifiers.firestarter.getId()));
 
+    // unarmed rework
+    addRedirect(id("unarmed"), redirect(TinkerModifiers.ambidextrous.getId()));
+
     // tier upgrades
     // emerald
     addModifier(ModifierIds.emerald, StatBoostModifier.builder()

@@ -4,9 +4,8 @@
     "tag": "tconstruct:modifiable/unarmed"
   },
   "slots": {
-    "upgrades": 1
+    "abilities": 1
   },
-  "modifier": "tconstruct:looting",
-  "min_level": 1,
-  "max_level": 1
+  "modifier": "tconstruct:ambidextrous",
+  "min_level": 1
 }
