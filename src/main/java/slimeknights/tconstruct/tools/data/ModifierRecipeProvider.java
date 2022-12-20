@@ -581,6 +581,16 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setTools(TinkerTags.Items.BOWS)
                          .saveSalvage(consumer, prefix(TinkerModifiers.bulkQuiver, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.bulkQuiver, abilityFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.trickQuiver)
+                         .addInput(TinkerModifiers.silkyCloth)
+                         .addInput(TinkerWorld.skySlimeVine)
+                         .addInput(TinkerModifiers.silkyCloth)
+                         .addInput(TinkerWorld.skySlimeVine)
+                         .addInput(TinkerWorld.skySlimeVine)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .setTools(TinkerTags.Items.BOWS)
+                         .saveSalvage(consumer, prefix(TinkerModifiers.trickQuiver, abilitySalvage))
+                         .save(consumer, prefix(TinkerModifiers.trickQuiver, abilityFolder));
     BiConsumer<ItemLike,String> crystalshotRecipe = (item, variant) -> {
       SwappableModifierRecipeBuilder.modifier(TinkerModifiers.crystalshot, variant)
                                     .addInput(item)

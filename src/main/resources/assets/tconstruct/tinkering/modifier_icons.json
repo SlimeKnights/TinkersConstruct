@@ -66,6 +66,7 @@
 
   "tconstruct:bulk_quiver": "tconstruct:gui/modifiers/ranged/bulk_quiver",
   "tconstruct:crystalshot": "tconstruct:item/arrow/amethyst",
+  "tconstruct:trick_quiver": "tconstruct:gui/modifiers/ranged/trick_quiver",
   
   "tconstruct:protection":            "tconstruct:gui/modifiers/armor/protection",
   "tconstruct:melee_protection":      "tconstruct:gui/modifiers/armor/melee_protection",

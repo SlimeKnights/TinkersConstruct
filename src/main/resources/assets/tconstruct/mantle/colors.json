@@ -31,7 +31,9 @@
     "harvest":          "#CDB159",
 
     "__ranged_abilities__": null,
-    "bulk_quiver": "#C65C35",
+    "bulk_quiver":   "#C65C35",
+    "trick_quiver":  "#F7CDBB",
+
     "crystalshot": "#B38EF1",
     "crystalshot.amethyst":   "#B38EF1",
     "crystalshot.earthslime": "#8AD580",
