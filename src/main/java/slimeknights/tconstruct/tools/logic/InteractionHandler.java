@@ -34,6 +34,8 @@ import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.ComputableDataKey;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -310,20 +312,48 @@ public class InteractionHandler {
   /** Sets the event result and swings the hand */
   private static void setLeftClickEventResult(PlayerInteractEvent event, InteractionResult result) {
     if (result.consumesAction()) {
+      // success means swing hand
       if (result == InteractionResult.SUCCESS) {
         event.getPlayer().swing(event.getHand());
       }
       event.setCancellationResult(result);
-      event.setCanceled(true);
+      // don't cancel the result in survival as it does not actually prevent breaking the block, just causes really weird desyncs
+      // leaving uncanceled lets us still do blocky stuff but if you hold click it digs
+      if (event.getPlayer().getAbilities().instabuild) {
+        event.setCanceled(true);
+      }
     }
   }
+
+  /** Simple class to track the last tick */
+  private static class LastTick {
+    private long lastTick = 0;
+
+    /**
+     * Attempts to update the given player
+     * @return  True if we are ready to interact again
+     */
+    private boolean update(Player player) {
+      if (player.tickCount >= lastTick + 4) {
+        lastTick = player.tickCount;
+        return true;
+      }
+      return false;
+    }
+  }
+  /** Key for the tick tracker instance */
+  private static final ComputableDataKey<LastTick> LAST_TICK = TConstruct.createKey("last_tick", LastTick::new);
 
   /** Implements {@link slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteractionModifierHook} for weapons with left click */
   @SubscribeEvent
   static void leftClickBlock(LeftClickBlock event) {
+    // ensure we have not fired this tick
+    Player player = event.getPlayer();
+    if (player.getCapability(TinkerDataCapability.CAPABILITY).filter(data -> data.computeIfAbsent(LAST_TICK).update(player)).isEmpty()) {
+      return;
+    }
     // must support interaction
     ItemStack stack = event.getItemStack();
-    Player player = event.getPlayer();
     if (!stack.is(TinkerTags.Items.INTERACTABLE_LEFT) || player.getCooldowns().isOnCooldown(stack.getItem())) {
       return;
     }
