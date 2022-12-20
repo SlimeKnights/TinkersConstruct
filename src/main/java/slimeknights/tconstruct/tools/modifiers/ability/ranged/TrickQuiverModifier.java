@@ -41,7 +41,7 @@ public class TrickQuiverModifier extends InventoryMenuModifier implements BowAmm
 
   @Override
   public int getPriority() {
-    return 125; // run first
+    return 70; // run after interaction modifiers, but before crystal shot
   }
 
   @Override
