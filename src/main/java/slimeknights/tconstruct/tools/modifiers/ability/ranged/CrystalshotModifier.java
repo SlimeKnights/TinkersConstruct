@@ -12,7 +12,6 @@ import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.utils.RomanNumeralHelper;
 import slimeknights.tconstruct.tools.item.CrystalshotItem;
 
 import java.util.function.Predicate;
@@ -35,8 +34,6 @@ public class CrystalshotModifier extends NoLevelsModifier implements BowAmmoModi
     if (!variant.isEmpty()) {
       String key = getTranslationKey();
       return new TranslatableComponent(getTranslationKey())
-        .append(" ")
-        .append(RomanNumeralHelper.getNumeral(level))
         .withStyle(style -> style.withColor(ResourceColorManager.getTextColor(key + "." + variant)));
     }
     return super.getDisplayName();
