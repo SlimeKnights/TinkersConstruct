@@ -1,0 +1,14 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "tconstruct:item/base/crossbow",
+  "textures": {
+    "limb":      "tconstruct:item/tool/crossbow/limb",
+    "body":      "tconstruct:item/tool/crossbow/body",
+    "bowstring": "tconstruct:item/tool/crossbow/bowstring_3"
+  },
+  "parts": [
+    { "name": "limb",      "index": 0 },
+    { "name": "body",      "index": 1 },
+    { "name": "bowstring", "index": 2 }
+  ]
+}

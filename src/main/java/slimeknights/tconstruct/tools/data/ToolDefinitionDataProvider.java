@@ -348,6 +348,17 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .attack(new SweepWeaponAttack(2));
 
     // bows
+    define(ToolDefinitions.CROSSBOW)
+      // parts
+      .part(bowLimb)
+      .part(bowGrip)
+      .part(bowstring)
+      // stats
+      .stat(ToolStats.ATTACK_DAMAGE, 0f)
+      .stat(ToolStats.ATTACK_SPEED, 1.0f)
+      .stat(ToolStats.DRAW_SPEED, 0.8f)
+      .multiplier(ToolStats.DURABILITY, 2f)
+      .smallToolStartingSlots();
     define(ToolDefinitions.LONGBOW)
       // parts
       .part(bowLimb)

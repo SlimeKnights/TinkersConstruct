@@ -230,8 +230,8 @@ public class ItemTagProvider extends ItemTagsProvider {
     addToolTags(TinkerTools.sword,   MULTIPART_TOOL, DURABILITY, HARVEST, MELEE_PRIMARY, ONE_HANDED, SWORD, AOE);
     addToolTags(TinkerTools.cleaver, MULTIPART_TOOL, DURABILITY, HARVEST, MELEE_PRIMARY, ONE_HANDED, SWORD, AOE);
     // bow
-    addToolTags(TinkerTools.longbow, MULTIPART_TOOL, DURABILITY, MELEE, LONGBOWS, INTERACTABLE_LEFT);
-    this.tag(CROSSBOWS); // TODO: crossbows
+    addToolTags(TinkerTools.crossbow, MULTIPART_TOOL, DURABILITY, MELEE, CROSSBOWS, INTERACTABLE_LEFT);
+    addToolTags(TinkerTools.longbow,  MULTIPART_TOOL, DURABILITY, MELEE, LONGBOWS,  INTERACTABLE_LEFT);
     // specialized
     addToolTags(TinkerTools.flintAndBrick, DURABILITY, MELEE, ONE_HANDED, AOE);
 

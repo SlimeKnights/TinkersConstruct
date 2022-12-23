@@ -29,6 +29,7 @@ public final class ToolDefinitions {
   public static final ToolDefinition CLEAVER = ToolDefinition.builder(TinkerTools.cleaver).meleeHarvest().build();
 
   // bows
+  public static final ToolDefinition CROSSBOW = ToolDefinition.builder(TinkerTools.crossbow).ranged().build();
   public static final ToolDefinition LONGBOW = ToolDefinition.builder(TinkerTools.longbow).ranged().build();
 
   // special

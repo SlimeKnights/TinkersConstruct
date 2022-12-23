@@ -3,7 +3,7 @@ package slimeknights.tconstruct.tools;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -532,8 +532,8 @@ public final class TinkerModifiers extends TinkerModule {
     TinkerDataCapability.register();
     PersistentDataCapability.register();
     EntityModifierCapability.register();
-    // by default, we support modifying arrows, though other entities may come in the future
-    EntityModifierCapability.registerEntityPredicate(entity -> entity instanceof AbstractArrow);
+    // by default, we support modifying projectiles (arrows or fireworks mainly, but maybe other stuff). other entities may come in the future
+    EntityModifierCapability.registerEntityPredicate(entity -> entity instanceof Projectile);
   }
 
   @SubscribeEvent
