@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.game.ClientboundPlayerPositionPacket.RelativeArgument;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -18,6 +19,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.events.teleport.EnderportingTeleportEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -38,6 +40,7 @@ import javax.annotation.Nullable;
 import java.util.Set;
 
 public class EnderportingModifier extends NoLevelsModifier implements PlantHarvestModifierHook, ProjectileHitModifierHook, ProjectileLaunchModifierHook {
+  private static final ResourceLocation PRIMARY_ARROW = TConstruct.getResource("enderporting_primary");
   private static final Set<RelativeArgument> PACKET_FLAGS = ImmutableSet.of(RelativeArgument.X, RelativeArgument.Y, RelativeArgument.Z);
 
   @Override
@@ -133,7 +136,7 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
 
   @Override
   public boolean onProjectileHitEntity(ModifierNBT modifiers, NamespacedNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
-    if (attacker != null && attacker != target) {
+    if (attacker != null && attacker != target && persistentData.getBoolean(PRIMARY_ARROW)) {
       Entity hitEntity = hit.getEntity();
       Vec3 oldPosition = attacker.position();
       if (tryTeleport(attacker, hitEntity.getX(), hitEntity.getY(), hitEntity.getZ()) && target != null) {
@@ -145,7 +148,7 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
 
   @Override
   public boolean onProjectileHitBlock(ModifierNBT modifiers, NamespacedNBT persistentData, ModifierEntry modifier, Projectile projectile, BlockHitResult hit, @Nullable LivingEntity attacker) {
-    if (attacker != null) {
+    if (attacker != null && persistentData.getBoolean(PRIMARY_ARROW)) {
       BlockPos target = hit.getBlockPos().relative(hit.getDirection());
       if (tryTeleport(attacker, target.getX() + 0.5f, target.getY(), target.getZ() + 0.5f)) {
         projectile.discard();
@@ -155,9 +158,12 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
   }
 
   @Override
-  public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, NamespacedNBT persistentData) {
-    // damage on shoot as we won't have tool context once the arrow lands
-    ToolDamageUtil.damageAnimated(tool, 10, shooter, shooter.getUsedItemHand());
+  public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, NamespacedNBT persistentData, boolean primary) {
+    if (primary) {
+      // damage on shoot as we won't have tool context once the arrow lands
+      ToolDamageUtil.damageAnimated(tool, 10, shooter, shooter.getUsedItemHand());
+      persistentData.putBoolean(PRIMARY_ARROW, true);
+    }
   }
 
   @Override

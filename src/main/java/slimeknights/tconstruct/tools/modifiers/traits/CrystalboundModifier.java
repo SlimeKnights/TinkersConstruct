@@ -31,7 +31,7 @@ public class CrystalboundModifier extends Modifier implements ProjectileLaunchMo
 
   @SuppressWarnings("SuspiciousNameCombination") // mojang uses the angle between X and Z, but parchment named atan2 as the angle between Y and X, makes IDEA mad as it things parameters should swap
   @Override
-  public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, NamespacedNBT persistentData) {
+  public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, NamespacedNBT persistentData, boolean primary) {
     Vec3 direction = projectile.getDeltaMovement();
     double oldAngle = Mth.atan2(direction.x, direction.z);
     int possibleDirections = (int)Math.pow(2, 6 - modifier.getLevel());

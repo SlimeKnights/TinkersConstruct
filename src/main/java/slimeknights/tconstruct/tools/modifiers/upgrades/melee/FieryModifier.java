@@ -49,7 +49,7 @@ public class FieryModifier extends IncrementalModifier implements ProjectileLaun
   }
 
   @Override
-  public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, NamespacedNBT persistentData) {
+  public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, NamespacedNBT persistentData, boolean primary) {
     projectile.setSecondsOnFire(Math.round(modifier.getEffectiveLevel(tool) * 20));
   }
 }

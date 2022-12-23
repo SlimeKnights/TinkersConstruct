@@ -70,8 +70,8 @@ public class MomentumModifier extends Modifier implements ProjectileLaunchModifi
   }
 
   @Override
-  public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, NamespacedNBT persistentData) {
-    if (arrow == null || arrow.isCritArrow()) {
+  public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, NamespacedNBT persistentData, boolean primary) {
+    if (primary && (arrow == null || arrow.isCritArrow())) {
       // 16 arrows gets you to max
       int effectLevel = Math.min(15, TinkerModifiers.momentumRangedEffect.get().getLevel(shooter) + 1);
       TinkerModifiers.momentumRangedEffect.get().apply(shooter, 5 * 20, effectLevel, true);

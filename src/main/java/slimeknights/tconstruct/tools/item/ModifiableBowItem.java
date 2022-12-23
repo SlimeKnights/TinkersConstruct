@@ -15,12 +15,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.item.UseAnim;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.ForgeEventFactory;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.BowAmmoModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.tools.capability.EntityModifierCapability;
 import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
@@ -65,23 +64,12 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
   @Override
   public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
     ItemStack bow = player.getItemInHand(hand);
-
-    // TODO: move this to left click later once left click hooks are implemented
     ToolStack tool = ToolStack.from(bow);
-
-    // no need to ask the modifiers for ammo if we have it in the inventory, as there is no way for a modifier to say not to use ammo if its present
-    // inventory search is probably a bit faster on average than modifier search as its already parsed
-    boolean hasAmmo = !player.getProjectile(bow).isEmpty();
-    if (!hasAmmo) {
-      Predicate<ItemStack> ammoPredicate = getAllSupportedProjectiles();
-      for (ModifierEntry entry : tool.getModifierList()) {
-        if (!entry.getHook(TinkerHooks.BOW_AMMO).findAmmo(tool, entry, player, ItemStack.EMPTY, ammoPredicate).isEmpty()) {
-          hasAmmo = true;
-          break;
-        }
-      }
+    if (tool.isBroken()) {
+      return InteractionResultHolder.fail(bow);
     }
 
+    boolean hasAmmo = BowAmmoModifierHook.hasAmmo(tool, bow, player, getSupportedHeldProjectiles());
     // ask forge if it has any different opinions
     InteractionResultHolder<ItemStack> override = ForgeEventFactory.onArrowNock(bow, level, player, hand, hasAmmo);
     if (override != null) {
@@ -106,32 +94,17 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
       return;
     }
 
-    // for the sake of compat with custom arrows, we cannot do an infinity hook, as its up to each arrow to decide if it supports infinity or not and the only way to decide that is enchants
-    // we may in the future we may toss a conditional enchantment hook here though if we end up needing other bow enchants
-    boolean hasInfinity = player.getAbilities().instabuild || EnchantmentHelper.getItemEnchantmentLevel(Enchantments.INFINITY_ARROWS, bow) > 0;
-
     // find ammo
-    ItemStack standardAmmo = player.getProjectile(bow);
-    ItemStack ammo = ItemStack.EMPTY;
-    ModifierEntry ammoFindingModifier = null;
-    Predicate<ItemStack> ammoPredicate = getAllSupportedProjectiles();
-    for (ModifierEntry entry : tool.getModifierList()) {
-      ammo = entry.getHook(TinkerHooks.BOW_AMMO).findAmmo(tool, entry, living, standardAmmo, ammoPredicate);
-      if (!ammo.isEmpty()) {
-        ammoFindingModifier = entry;
-        break;
-      }
-    }
-    if (ammo.isEmpty()) {
-      ammo = standardAmmo;
-    }
+    ItemStack ammo = BowAmmoModifierHook.findAmmo(tool, bow, player, getSupportedHeldProjectiles());
 
+    // just not handling vanilla infinity at all, we have our own hooks which someone could use to mimic infinity if they wish with a bit of effort
+    boolean creative = player.getAbilities().instabuild;
     // ask forge its thoughts on shooting
     int chargeTime = this.getUseDuration(bow) - timeLeft;
-    chargeTime = ForgeEventFactory.onArrowLoose(bow, level, player, chargeTime, !ammo.isEmpty() || hasInfinity);
+    chargeTime = ForgeEventFactory.onArrowLoose(bow, level, player, chargeTime, !ammo.isEmpty() || creative);
 
     // no ammo? no charge? nothing to do
-    if (chargeTime < 0 || (ammo.isEmpty() && !hasInfinity)) {
+    if (chargeTime < 0 || (ammo.isEmpty() && !creative)) {
       return;
     }
     // could only be empty at this point if we had infinity
@@ -152,53 +125,46 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
     }
 
     // launch the arrow
-    boolean arrowInfinite = player.getAbilities().instabuild || (ammo.getItem() instanceof ArrowItem arrow && arrow.isInfinite(ammo, bow, player));
     if (!level.isClientSide) {
       ArrowItem arrowItem = ammo.getItem() instanceof ArrowItem arrow ? arrow : (ArrowItem)Items.ARROW;
-      AbstractArrow arrowEntity = arrowItem.createArrow(level, ammo, player);
-      float accuracy = ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.ACCURACY);
-      arrowEntity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, power * 3.0F, 3*(1/accuracy-1) * velocity);
-      if (charge == 1.0F) {
-        arrowEntity.setCritArrow(true);
+      float inaccuracy = 3 * (1 / ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.ACCURACY) - 1) * velocity;
+      float startAngle = getAngleStart(ammo.getCount());
+      int primaryIndex = ammo.getCount() / 2;
+      for (int arrowIndex = 0; arrowIndex < ammo.getCount(); arrowIndex++) {
+        AbstractArrow arrow = arrowItem.createArrow(level, ammo, player);
+        arrow.shootFromRotation(player, player.getXRot(), player.getYRot(), startAngle + arrowIndex * 10, power * 3.0F, inaccuracy);
+        if (charge == 1.0F) {
+          arrow.setCritArrow(true);
+        }
+
+        // vanilla arrows have a base damage of 2, cancel that out then add in our base damage to account for custom arrows with higher base damage
+        // calculate it just once as all four arrows are the same item, they should have the same damage
+        float baseArrowDamage = (float)(arrow.getBaseDamage() - 2 + tool.getStats().get(ToolStats.PROJECTILE_DAMAGE));
+        arrow.setBaseDamage(ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.PROJECTILE_DAMAGE, baseArrowDamage));
+
+        // just store all modifiers on the tool for simplicity
+        ModifierNBT modifiers = tool.getModifiers();
+        arrow.getCapability(EntityModifierCapability.CAPABILITY).ifPresent(cap -> cap.setModifiers(modifiers));
+
+        // fetch the persistent data for the arrow as modifiers may want to store data
+        NamespacedNBT arrowData = PersistentDataCapability.getOrWarn(arrow);
+
+        // if infinite, skip pickup
+        if (creative) {
+          arrow.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
+        }
+
+        // let modifiers such as fiery and punch set properties
+        for (ModifierEntry entry : modifiers.getModifiers()) {
+          entry.getHook(TinkerHooks.PROJECTILE_LAUNCH).onProjectileLaunch(tool, entry, living, arrow, arrow, arrowData, arrowIndex == primaryIndex);
+        }
+        level.addFreshEntity(arrow);
       }
-      // vanilla arrows have a base damage of 2, cancel that out then add in our base damage to account for custom arrows with higher base damage
-      float baseArrowDamage = (float)(arrowEntity.getBaseDamage() - 2 + tool.getStats().get(ToolStats.PROJECTILE_DAMAGE));
-      arrowEntity.setBaseDamage(ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.PROJECTILE_DAMAGE, baseArrowDamage));
-
-      // just store all modifiers on the tool for simplicity
-      ModifierNBT modifiers = tool.getModifiers();
-      arrowEntity.getCapability(EntityModifierCapability.CAPABILITY).ifPresent(cap -> cap.setModifiers(modifiers));
-
-      // fetch the persistent data for the arrow as modifiers may want to store data
-      NamespacedNBT arrowData = PersistentDataCapability.getOrWarn(arrowEntity);
-
-      // let modifiers such as fiery and punch set properties
-      for (ModifierEntry entry : modifiers.getModifiers()) {
-        entry.getHook(TinkerHooks.PROJECTILE_LAUNCH).onProjectileLaunch(tool, entry, living, arrowEntity, arrowEntity, arrowData);
-      }
-
-      ToolDamageUtil.damageAnimated(tool, 1, player, player.getUsedItemHand());
-      // if infinite, skip pickup
-      if (arrowInfinite) {
-        arrowEntity.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
-      }
-      level.addFreshEntity(arrowEntity);
+      ToolDamageUtil.damageAnimated(tool, ammo.getCount(), player, player.getUsedItemHand());
     }
 
-    // consume items
+    // stats and sounds
     level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F) + charge * 0.5F);
-    if (!arrowInfinite) {
-      if (ammoFindingModifier != null) {
-        ammoFindingModifier.getHook(TinkerHooks.BOW_AMMO).shrinkAmmo(tool, ammoFindingModifier, living, ammo);
-      } else {
-        ammo.shrink(1);
-      }
-      // there is a chance the ammo came from the inventory either way, does not hurt to call this if it did not
-      if (ammo.isEmpty()) {
-        player.getInventory().removeItem(ammo);
-      }
-    }
-
     player.awardStat(Stats.ITEM_USED.get(this));
   }
 

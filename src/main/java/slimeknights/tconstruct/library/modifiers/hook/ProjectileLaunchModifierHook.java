@@ -16,7 +16,7 @@ import java.util.function.Function;
  */
 public interface ProjectileLaunchModifierHook {
   /** Default instance */
-  ProjectileLaunchModifierHook EMPTY = (tool, modifier, shooter, projectile, arrow, persistentData) -> {};
+  ProjectileLaunchModifierHook EMPTY = (tool, modifier, shooter, projectile, arrow, persistentData, primary) -> {};
   /** Merger instance */
   Function<Collection<ProjectileLaunchModifierHook>,ProjectileLaunchModifierHook> ALL_MERGER = AllMerger::new;
 
@@ -28,15 +28,16 @@ public interface ProjectileLaunchModifierHook {
    * @param projectile      Projectile to modify
    * @param arrow           Arrow to modify as most modifiers wish to change that, will be null for non-arrow projectiles
    * @param persistentData  Persistent data instance stored on the arrow to write arbitrary data. Note the modifier list was already written
+   * @param primary         If true, this is the primary projectile. Multishot may launch multiple
    */
-  void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, NamespacedNBT persistentData);
+  void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, NamespacedNBT persistentData, boolean primary);
 
   /** Logic to merge multiple hooks into one */
   record AllMerger(Collection<ProjectileLaunchModifierHook> modules) implements ProjectileLaunchModifierHook {
     @Override
-    public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, NamespacedNBT persistentData) {
+    public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, NamespacedNBT persistentData, boolean primary) {
       for (ProjectileLaunchModifierHook module : modules) {
-        module.onProjectileLaunch(tool, modifier, shooter, projectile, arrow, persistentData);
+        module.onProjectileLaunch(tool, modifier, shooter, projectile, arrow, persistentData, primary);
       }
     }
   }

@@ -42,8 +42,9 @@ public class CrystalshotItem extends ArrowItem {
   public void fillItemCategory(CreativeModeTab pCategory, NonNullList<ItemStack> pItems) {}
 
   /** Creates a crystal shot with the given variant */
-  public static ItemStack withVariant(String variant) {
+  public static ItemStack withVariant(String variant, int size) {
     ItemStack stack = new ItemStack(TinkerTools.crystalshotItem);
+    stack.setCount(size);
     stack.getOrCreateTag().putString(TAG_VARIANT, variant);
     return stack;
   }
@@ -83,7 +84,7 @@ public class CrystalshotItem extends ArrowItem {
 
     @Override
     public ItemStack getPickupItem() {
-      return withVariant(getVariant());
+      return withVariant(getVariant(), 1);
     }
 
     @Override

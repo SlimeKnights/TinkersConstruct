@@ -20,7 +20,7 @@ public class ImpalingModifier extends Modifier implements ProjectileLaunchModifi
   }
 
   @Override
-  public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, NamespacedNBT persistentData) {
+  public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, NamespacedNBT persistentData, boolean primary) {
     if (arrow != null) {
       arrow.setPierceLevel((byte)modifier.getLevel());
     }

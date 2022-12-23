@@ -287,6 +287,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<BulkQuiverModifier> bulkQuiver = MODIFIERS.register("bulk_quiver", BulkQuiverModifier::new);
   public static final StaticModifier<TrickQuiverModifier> trickQuiver = MODIFIERS.register("trick_quiver", TrickQuiverModifier::new);
   public static final StaticModifier<CrystalshotModifier> crystalshot = MODIFIERS.register("crystalshot", CrystalshotModifier::new);
+  public static final StaticModifier<Modifier> multishot = MODIFIERS.register("multishot", Modifier::new);
 
   // armor
   // protection

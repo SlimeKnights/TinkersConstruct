@@ -32,6 +32,7 @@
 
     "__ranged_abilities__": null,
     "bulk_quiver":   "#C65C35",
+    "multishot":     "#ff9f50",
     "trick_quiver":  "#F7CDBB",
 
     "crystalshot": "#B38EF1",

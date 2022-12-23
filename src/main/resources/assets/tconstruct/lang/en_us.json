@@ -1808,6 +1808,9 @@
   "modifier.tconstruct.crystalshot": "Crystalshot",
   "modifier.tconstruct.crystalshot.flavor": "Holding arrows is overrated",
   "modifier.tconstruct.crystalshot.description": "In place of arrows, fires shards of crystal grown from the bow itself. Growing crystals consumes extra durability",
+  "modifier.tconstruct.multishot": "Multishot",
+  "modifier.tconstruct.multishot.flavor": "Skill like an elf",
+  "modifier.tconstruct.multishot.description": "Allows shooting multiple arrows at once",
 
   "_comment": "Armor",
   "modifier.tconstruct.knockback_resistance": "Knockback Resistance",

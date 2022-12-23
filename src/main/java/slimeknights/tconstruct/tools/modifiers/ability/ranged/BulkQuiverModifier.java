@@ -73,9 +73,9 @@ public class BulkQuiverModifier extends InventoryMenuModifier implements BowAmmo
   }
 
   @Override
-  public void shrinkAmmo(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, ItemStack ammo) {
+  public void shrinkAmmo(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, ItemStack ammo, int needed) {
     // we assume no one else touched the quiver inventory, this is a good assumption, do not make it a bad assumption by modifying the quiver in other modifiers
-    ammo.shrink(1);
+    ammo.shrink(needed);
     setStack(tool, modifier, tool.getPersistentData().getInt((LAST_SLOT)), ammo);
   }
 }

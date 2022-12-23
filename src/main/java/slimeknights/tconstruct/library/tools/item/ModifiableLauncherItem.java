@@ -45,6 +45,7 @@ import slimeknights.tconstruct.tools.TinkerToolActions;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Random;
 import java.util.function.Consumer;
 
 /** Base class for any items that launch projectiles */
@@ -321,5 +322,21 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
   @Override
   public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
     return ModifiableItemUtil.shouldCauseReequip(oldStack, newStack, slotChanged);
+  }
+
+
+  /* Multishot helper */
+
+  /** Gets the arrow pitch */
+  protected static float getRandomShotPitch(int index, Random pRandom) {
+    if (index == 0) {
+      return 1.0f;
+    }
+    return 1.0F / (pRandom.nextFloat() * 0.5F + 1.8F) + (index == 1 ? 0.63F : 0.43F);
+  }
+
+  /** Gets the angle to fire the first arrow, each additional arrow offsets an additional 10 degrees */
+  protected static float getAngleStart(int count) {
+    return -5 * (count - 1);
   }
 }

@@ -599,6 +599,16 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.ABILITY, 1)
                          .setTools(TinkerTags.Items.BOWS)
                          .saveSalvage(consumer, prefix(TinkerModifiers.crystalshot, abilitySalvage));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.multishot)
+                         .addInput(Items.PISTON)
+                         .addInput(TinkerMaterials.amethystBronze.getIngotTag())
+                         .addInput(Items.PISTON)
+                         .addInput(SlimeType.ICHOR.getSlimeballTag())
+                         .addInput(SlimeType.ICHOR.getSlimeballTag())
+                         .setSlots(SlotType.ABILITY, 1)
+                         .setTools(TinkerTags.Items.BOWS)
+                         .saveSalvage(consumer, prefix(TinkerModifiers.multishot, abilitySalvage))
+                         .save(consumer, prefix(TinkerModifiers.multishot, abilityFolder));
 
     /*
      * armor

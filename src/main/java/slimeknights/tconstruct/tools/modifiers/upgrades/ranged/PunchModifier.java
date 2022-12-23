@@ -20,7 +20,7 @@ public class PunchModifier extends Modifier implements ProjectileLaunchModifierH
   }
 
   @Override
-  public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, NamespacedNBT persistentData) {
+  public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, NamespacedNBT persistentData, boolean primary) {
     if (arrow != null) {
       arrow.setKnockback(modifier.getLevel());
     }

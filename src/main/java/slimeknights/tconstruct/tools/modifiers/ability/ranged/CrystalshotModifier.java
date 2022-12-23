@@ -41,11 +41,11 @@ public class CrystalshotModifier extends NoLevelsModifier implements BowAmmoModi
 
   @Override
   public ItemStack findAmmo(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, ItemStack standardAmmo, Predicate<ItemStack> ammoPredicate) {
-    return CrystalshotItem.withVariant(tool.getPersistentData().getString(getId()));
+    return CrystalshotItem.withVariant(tool.getPersistentData().getString(getId()), 64);
   }
 
   @Override
-  public void shrinkAmmo(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, ItemStack ammo) {
-    ToolDamageUtil.damageAnimated(tool, 10, shooter, shooter.getUsedItemHand());
+  public void shrinkAmmo(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, ItemStack ammo, int needed) {
+    ToolDamageUtil.damageAnimated(tool, 4 * needed, shooter, shooter.getUsedItemHand());
   }
 }

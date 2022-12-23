@@ -73,7 +73,7 @@ public class PiercingModifier extends IncrementalModifier implements ProjectileH
   }
 
   @Override
-  public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, NamespacedNBT persistentData) {
+  public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, NamespacedNBT persistentData, boolean primary) {
     // store the float level as we don't have access to the incremental level in the projectile hit hook
     persistentData.putFloat(getId(), modifier.getEffectiveLevel(tool));
   }

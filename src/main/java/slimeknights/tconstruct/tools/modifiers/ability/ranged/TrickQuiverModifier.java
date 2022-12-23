@@ -78,9 +78,9 @@ public class TrickQuiverModifier extends InventoryMenuModifier implements BowAmm
   }
 
   @Override
-  public void shrinkAmmo(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, ItemStack ammo) {
+  public void shrinkAmmo(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, ItemStack ammo, int needed) {
     // assume no one else touched our selected slot, good assumption
-    ammo.shrink(1);
+    ammo.shrink(needed);
     setStack(tool, modifier, tool.getPersistentData().getInt(SELECTED_SLOT), ammo);
   }
 
