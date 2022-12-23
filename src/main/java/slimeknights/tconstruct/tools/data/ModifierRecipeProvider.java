@@ -505,13 +505,13 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // power also conditions on geodes
     IncrementalModifierRecipeBuilder powerGeodeBuilder =
       IncrementalModifierRecipeBuilder.modifier(ModifierIds.power)
-                                      .setTools(TinkerTags.Items.RANGED)
+                                      .setTools(TinkerTags.Items.LONGBOWS)
                                       .setInput(TinkerWorld.ichorGeode.asItem(), 1, 72)
                                       .setSlots(SlotType.UPGRADE, 1)
                                       .setMaxLevel(5);
     IncrementalModifierRecipeBuilder powerNoGeodeBuilder =
       IncrementalModifierRecipeBuilder.modifier(ModifierIds.power)
-                                      .setTools(TinkerTags.Items.RANGED)
+                                      .setTools(TinkerTags.Items.LONGBOWS)
                                       .setInput(TinkerWorld.slimeDirt.get(SlimeType.ICHOR), 1, 36)
                                       .setSlots(SlotType.UPGRADE, 1)
                                       .setMaxLevel(5);
@@ -522,7 +522,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                      .addRecipe(powerNoGeodeBuilder::save)
                      .build(consumer, prefix(ModifierIds.power, upgradeFolder));
     powerGeodeBuilder.saveSalvage(consumer, prefix(ModifierIds.power, upgradeSalvage));
-    hasteRecipes(consumer, ModifierIds.quickCharge, Ingredient.of(TinkerTags.Items.RANGED), 4, upgradeFolder, upgradeSalvage);
+    hasteRecipes(consumer, ModifierIds.quickCharge, Ingredient.of(TinkerTags.Items.CROSSBOWS), 4, upgradeFolder, upgradeSalvage);
     IncrementalModifierRecipeBuilder.modifier(ModifierIds.trueshot)
                                     .setInput(Items.TARGET, 1, 10)
                                     .setSlots(SlotType.UPGRADE, 1)

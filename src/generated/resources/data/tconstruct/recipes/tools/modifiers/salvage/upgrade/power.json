@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:modifier_salvage",
   "tools": {
-    "tag": "tconstruct:modifiable/ranged"
+    "tag": "tconstruct:modifiable/ranged/longbows"
   },
   "slots": {
     "upgrades": 1

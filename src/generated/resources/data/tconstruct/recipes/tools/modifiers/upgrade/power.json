@@ -16,7 +16,7 @@
         "amount_per_item": 1,
         "needed_per_level": 72,
         "tools": {
-          "tag": "tconstruct:modifiable/ranged"
+          "tag": "tconstruct:modifiable/ranged/longbows"
         },
         "slots": {
           "upgrades": 1
@@ -42,7 +42,7 @@
         "amount_per_item": 1,
         "needed_per_level": 36,
         "tools": {
-          "tag": "tconstruct:modifiable/ranged"
+          "tag": "tconstruct:modifiable/ranged/longbows"
         },
         "slots": {
           "upgrades": 1
