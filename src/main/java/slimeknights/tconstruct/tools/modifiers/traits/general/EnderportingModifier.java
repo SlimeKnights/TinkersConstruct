@@ -22,9 +22,9 @@ import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.events.teleport.EnderportingTeleportEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
-import slimeknights.tconstruct.library.modifiers.hook.ArrowLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.PlantHarvestModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ProjectileHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.ProjectileLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
@@ -37,7 +37,7 @@ import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
 import javax.annotation.Nullable;
 import java.util.Set;
 
-public class EnderportingModifier extends NoLevelsModifier implements PlantHarvestModifierHook, ProjectileHitModifierHook, ArrowLaunchModifierHook {
+public class EnderportingModifier extends NoLevelsModifier implements PlantHarvestModifierHook, ProjectileHitModifierHook, ProjectileLaunchModifierHook {
   private static final Set<RelativeArgument> PACKET_FLAGS = ImmutableSet.of(RelativeArgument.X, RelativeArgument.Y, RelativeArgument.Z);
 
   @Override
@@ -155,7 +155,7 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
   }
 
   @Override
-  public void onArrowLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, AbstractArrow arrow, NamespacedNBT persistentData) {
+  public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, NamespacedNBT persistentData) {
     // damage on shoot as we won't have tool context once the arrow lands
     ToolDamageUtil.damageAnimated(tool, 10, shooter, shooter.getUsedItemHand());
   }
@@ -163,6 +163,6 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, TinkerHooks.PLANT_HARVEST, TinkerHooks.PROJECTILE_HIT, TinkerHooks.ARROW_LAUNCH);
+    hookBuilder.addHook(this, TinkerHooks.PLANT_HARVEST, TinkerHooks.PROJECTILE_HIT, TinkerHooks.PROJECTILE_LAUNCH);
   }
 }

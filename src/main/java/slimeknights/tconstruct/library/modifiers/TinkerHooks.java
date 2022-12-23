@@ -6,7 +6,6 @@ import net.minecraft.world.entity.player.Player;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.hook.ArmorWalkModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.ArrowLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.BowAmmoModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ElytraFlightModifierHook;
@@ -15,6 +14,7 @@ import slimeknights.tconstruct.library.modifiers.hook.KeybindInteractModifierHoo
 import slimeknights.tconstruct.library.modifiers.hook.LootingModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.PlantHarvestModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ProjectileHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.ProjectileLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ShearsModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
@@ -75,8 +75,8 @@ public class TinkerHooks {
 
   /* Ranged */
 
-  /** Hook for firing arrows to modify the entity post firing */
-  public static final ModifierHook<ArrowLaunchModifierHook> ARROW_LAUNCH = register("arrow_launch", ArrowLaunchModifierHook.class, ArrowLaunchModifierHook.ALL_MERGER, ArrowLaunchModifierHook.EMPTY);
+  /** Hook for firing arrows or other projectiles to modify the entity post firing */
+  public static final ModifierHook<ProjectileLaunchModifierHook> PROJECTILE_LAUNCH = register("projectile_launch", ProjectileLaunchModifierHook.class, ProjectileLaunchModifierHook.ALL_MERGER, ProjectileLaunchModifierHook.EMPTY);
   /** Hook called when an arrow hits an entity or block */
   public static final ModifierHook<ProjectileHitModifierHook> PROJECTILE_HIT = register("projectile_hit", ProjectileHitModifierHook.class, ProjectileHitModifierHook.FIRST_MERGER, ProjectileHitModifierHook.EMPTY);
   /** Hook called when a bow is looking for ammo. Does not support merging multiple hooks on one modifier */

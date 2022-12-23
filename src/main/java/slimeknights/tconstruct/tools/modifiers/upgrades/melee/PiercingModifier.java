@@ -12,8 +12,8 @@ import net.minecraft.world.phys.EntityHitResult;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
-import slimeknights.tconstruct.library.modifiers.hook.ArrowLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ProjectileHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.ProjectileLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
@@ -30,12 +30,12 @@ import slimeknights.tconstruct.library.utils.TooltipKey;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class PiercingModifier extends IncrementalModifier implements ProjectileHitModifierHook, ArrowLaunchModifierHook {
+public class PiercingModifier extends IncrementalModifier implements ProjectileHitModifierHook, ProjectileLaunchModifierHook {
   private static final ResourceLocation PIERCING_DEBUFF = TConstruct.getResource("piercing_debuff");
 
   @Override
   protected void registerHooks(Builder hookBuilder) {
-    hookBuilder.addHook(this, TinkerHooks.PROJECTILE_HIT, TinkerHooks.ARROW_LAUNCH);
+    hookBuilder.addHook(this, TinkerHooks.PROJECTILE_HIT, TinkerHooks.PROJECTILE_LAUNCH);
   }
 
   @Override
@@ -73,7 +73,7 @@ public class PiercingModifier extends IncrementalModifier implements ProjectileH
   }
 
   @Override
-  public void onArrowLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, AbstractArrow arrow, NamespacedNBT persistentData) {
+  public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, NamespacedNBT persistentData) {
     // store the float level as we don't have access to the incremental level in the projectile hit hook
     persistentData.putFloat(getId(), modifier.getEffectiveLevel(tool));
   }

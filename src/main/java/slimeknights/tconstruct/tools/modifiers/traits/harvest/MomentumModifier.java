@@ -5,6 +5,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.registries.RegistryObject;
@@ -14,8 +15,8 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
-import slimeknights.tconstruct.library.modifiers.hook.ArrowLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.ProjectileLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -28,12 +29,12 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class MomentumModifier extends Modifier implements ArrowLaunchModifierHook, ConditionalStatModifierHook {
+public class MomentumModifier extends Modifier implements ProjectileLaunchModifierHook, ConditionalStatModifierHook {
   private static final Component SPEED = TConstruct.makeTranslation("modifier", "momentum.speed");
 
   @Override
   protected void registerHooks(Builder hookBuilder) {
-    hookBuilder.addHook(this, TinkerHooks.CONDITIONAL_STAT, TinkerHooks.ARROW_LAUNCH);
+    hookBuilder.addHook(this, TinkerHooks.CONDITIONAL_STAT, TinkerHooks.PROJECTILE_LAUNCH);
   }
 
   @Override
@@ -69,8 +70,8 @@ public class MomentumModifier extends Modifier implements ArrowLaunchModifierHoo
   }
 
   @Override
-  public void onArrowLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, AbstractArrow arrow, NamespacedNBT persistentData) {
-    if (arrow.isCritArrow()) {
+  public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, NamespacedNBT persistentData) {
+    if (arrow == null || arrow.isCritArrow()) {
       // 16 arrows gets you to max
       int effectLevel = Math.min(15, TinkerModifiers.momentumRangedEffect.get().getLevel(shooter) + 1);
       TinkerModifiers.momentumRangedEffect.get().apply(shooter, 5 * 20, effectLevel, true);

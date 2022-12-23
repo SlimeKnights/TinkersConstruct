@@ -2,22 +2,27 @@ package slimeknights.tconstruct.tools.modifiers.upgrades.ranged;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.Projectile;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
-import slimeknights.tconstruct.library.modifiers.hook.ArrowLaunchModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.ProjectileLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
 
-public class ImpalingModifier extends Modifier implements ArrowLaunchModifierHook {
+import javax.annotation.Nullable;
+
+public class ImpalingModifier extends Modifier implements ProjectileLaunchModifierHook {
   @Override
   protected void registerHooks(Builder hookBuilder) {
-    hookBuilder.addHook(this, TinkerHooks.ARROW_LAUNCH);
+    hookBuilder.addHook(this, TinkerHooks.PROJECTILE_LAUNCH);
   }
 
   @Override
-  public void onArrowLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, AbstractArrow arrow, NamespacedNBT persistentData) {
-    arrow.setPierceLevel((byte)modifier.getLevel());
+  public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, NamespacedNBT persistentData) {
+    if (arrow != null) {
+      arrow.setPierceLevel((byte)modifier.getLevel());
+    }
   }
 }

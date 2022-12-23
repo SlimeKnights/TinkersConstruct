@@ -174,7 +174,7 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
 
       // let modifiers such as fiery and punch set properties
       for (ModifierEntry entry : modifiers.getModifiers()) {
-        entry.getHook(TinkerHooks.ARROW_LAUNCH).onArrowLaunch(tool, entry, living, arrowEntity, arrowData);
+        entry.getHook(TinkerHooks.PROJECTILE_LAUNCH).onProjectileLaunch(tool, entry, living, arrowEntity, arrowEntity, arrowData);
       }
 
       ToolDamageUtil.damageAnimated(tool, 1, player, player.getUsedItemHand());
