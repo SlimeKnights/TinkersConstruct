@@ -356,7 +356,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // stats
       .stat(ToolStats.ATTACK_DAMAGE, 0f)
       .stat(ToolStats.ATTACK_SPEED, 1.0f)
-      .stat(ToolStats.DRAW_SPEED, 0.8f)
+      .stat(ToolStats.VELOCITY, 1.05f) // vanilla has a 3.15 multiplier on crossbows, but 3 on bows. Works out to a 5% difference
+      .stat(ToolStats.DRAW_SPEED, 0.8f) // vanilla has a 25 second time for crossbows, 20 seconds for bows. Works out to 80%
       .multiplier(ToolStats.DURABILITY, 2f)
       .smallToolStartingSlots();
     define(ToolDefinitions.LONGBOW)

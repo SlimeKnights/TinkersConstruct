@@ -130,7 +130,7 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
         if (ammo.is(Items.FIREWORK_ROCKET)) {
           // TODO: don't hardcode fireworks, perhaps use a map or a JSON behavior list
           projectile = new FireworkRocketEntity(level, ammo, player, player.getX(), player.getY() - 0.15f, player.getZ(), true);
-          speed = 1.6f;
+          speed = 1.5f;
           damage += 3;
         } else {
           ArrowItem arrowItem = ammo.getItem() instanceof ArrowItem a ? a : (ArrowItem)Items.ARROW;
@@ -139,7 +139,7 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
           arrow.setCritArrow(true);
           arrow.setSoundEvent(SoundEvents.CROSSBOW_HIT);
           arrow.setShotFromCrossbow(true);
-          speed = 3.15f;
+          speed = 3f;
           damage += 1;
 
           // vanilla arrows have a base damage of 2, cancel that out then add in our base damage to account for custom arrows with higher base damage
