@@ -201,6 +201,7 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.melee.SweepingEdgeModifi
 import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.FreezingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ImpalingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.PunchModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.SinistralModifier;
 import slimeknights.tconstruct.tools.recipe.ArmorDyeingRecipe;
 import slimeknights.tconstruct.tools.recipe.CreativeSlotRecipe;
 import slimeknights.tconstruct.tools.recipe.ModifierRemovalRecipe;
@@ -288,6 +289,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<TrickQuiverModifier> trickQuiver = MODIFIERS.register("trick_quiver", TrickQuiverModifier::new);
   public static final StaticModifier<CrystalshotModifier> crystalshot = MODIFIERS.register("crystalshot", CrystalshotModifier::new);
   public static final StaticModifier<Modifier> multishot = MODIFIERS.register("multishot", Modifier::new);
+  public static final StaticModifier<SinistralModifier> sinistral = MODIFIERS.register("sinistral", SinistralModifier::new);
 
   // armor
   // protection

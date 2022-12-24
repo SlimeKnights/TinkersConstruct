@@ -1825,6 +1825,9 @@
   "modifier.tconstruct.multishot": "Multishot",
   "modifier.tconstruct.multishot.flavor": "Skill like an elf",
   "modifier.tconstruct.multishot.description": "Allows shooting multiple arrows at once",
+  "modifier.tconstruct.sinistral": "Sinistral",
+  "modifier.tconstruct.sinistral.flavor": "It sounds evil, but I assure you its a perfectly natural condition",
+  "modifier.tconstruct.sinistral.description": "When in main hand, crossbow fires when attacking instead of interacting and will not load while sneaking.",
 
   "_comment": "Armor",
   "modifier.tconstruct.knockback_resistance": "Knockback Resistance",

@@ -37,11 +37,13 @@ import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.item.ModifiableLauncherItem;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
 
 import java.util.Random;
@@ -104,10 +106,18 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
       return InteractionResultHolder.fail(bow);
     }
 
+    // yeah, its hardcoded, I cannot see a need to not hardcode this, request it if you need it
+    boolean sinistral = hand == InteractionHand.MAIN_HAND && tool.getModifierLevel(TinkerModifiers.sinistral.getId()) > 0 && !player.getOffhandItem().isEmpty();
+
     // no ammo? not charged
     ModDataNBT persistentData = tool.getPersistentData();
     CompoundTag heldAmmo = persistentData.getCompound(KEY_CROSSBOW_AMMO);
     if (heldAmmo.isEmpty()) {
+      // do not charge if sneaking and we have sinistral, gives you a way to activate the offhand when the crossbow is not charged
+      if (sinistral && player.isCrouching()) {
+        return InteractionResultHolder.pass(bow);
+      }
+
       // if we have ammo, start charging
       if (BowAmmoModifierHook.hasAmmo(tool, bow, player, getSupportedHeldProjectiles())) {
         player.startUsingItem(hand);
@@ -121,7 +131,26 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
       }
     }
 
+    // sinistral shoots on left click when in main hand
+    if (sinistral) {
+      return InteractionResultHolder.pass(bow);
+    }
+
     // ammo already loaded? time to fire
+    fireCrossbow(tool, player, hand, heldAmmo);
+    return InteractionResultHolder.consume(bow);
+  }
+
+  /**
+   * Fires the crossbow
+   * @param tool       Tool instance
+   * @param player     Player firing
+   * @param hand       Hand fired from
+   * @param heldAmmo   Ammo used to fire, should be non-empty
+   */
+  public static void fireCrossbow(IToolStackView tool, Player player, InteractionHand hand, CompoundTag heldAmmo) {
+    // ammo already loaded? time to fire
+    Level level = player.level;
     if (!level.isClientSide) {
       // shoot the projectile
       int damage = 0;
@@ -192,17 +221,15 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
       }
 
       // clear the ammo, damage the bow
-      persistentData.remove(KEY_CROSSBOW_AMMO);
+      tool.getPersistentData().remove(KEY_CROSSBOW_AMMO);
       ToolDamageUtil.damageAnimated(tool, damage, player, hand);
 
       // stats
       if (player instanceof ServerPlayer serverPlayer) {
-        CriteriaTriggers.SHOT_CROSSBOW.trigger(serverPlayer, bow);
-        serverPlayer.awardStat(Stats.ITEM_USED.get(bow.getItem()));
+        CriteriaTriggers.SHOT_CROSSBOW.trigger(serverPlayer, player.getItemInHand(hand));
+        serverPlayer.awardStat(Stats.ITEM_USED.get(tool.getItem()));
       }
     }
-
-    return InteractionResultHolder.consume(bow);
   }
 
   @Override

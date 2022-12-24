@@ -62,6 +62,7 @@
   "tconstruct:power":        "tconstruct:gui/modifiers/ranged/power",
   "tconstruct:punch":        "tconstruct:gui/modifiers/ranged/punch",
   "tconstruct:quick_charge": "tconstruct:gui/modifiers/ranged/quick_charge",
+  "tconstruct:sinistral":    "tconstruct:gui/modifiers/ranged/sinistral",
   "tconstruct:trueshot":     "tconstruct:gui/modifiers/ranged/trueshot",
 
   "tconstruct:bulk_quiver": "tconstruct:gui/modifiers/ranged/bulk_quiver",

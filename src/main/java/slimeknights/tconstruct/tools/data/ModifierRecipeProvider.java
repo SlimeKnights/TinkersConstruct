@@ -609,6 +609,17 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setTools(TinkerTags.Items.BOWS)
                          .saveSalvage(consumer, prefix(TinkerModifiers.multishot, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.multishot, abilityFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.sinistral)
+                         .addInput(TinkerMaterials.manyullyn.getIngotTag())
+                         .addInput(Items.NAUTILUS_SHELL)
+                         .addInput(TinkerMaterials.manyullyn.getIngotTag())
+                         .addInput(SlimeType.SKY.getSlimeballTag())
+                         .addInput(SlimeType.SKY.getSlimeballTag())
+                         .setMaxLevel(1)
+                         .setSlots(SlotType.UPGRADE, 1)
+                         .setTools(IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.CROSSBOWS), Ingredient.of(TinkerTags.Items.INTERACTABLE_LEFT))) // this is the same recipes as dual wielding, but crossbows do not interact on left
+                         .saveSalvage(consumer, prefix(TinkerModifiers.sinistral, upgradeSalvage))
+                         .save(consumer, prefix(TinkerModifiers.sinistral, upgradeFolder));
 
     /*
      * armor

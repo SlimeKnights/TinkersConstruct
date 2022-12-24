@@ -145,6 +145,7 @@
     "power":        "#EAA727",
     "punch":        "#BC9862",
     "quick_charge": "#7F0901",
+    "sinistral":    "#A6846A",
     "trueshot":     "#DC4A4A",
 
     "__upgrade_armor__": null,
