@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.tools.item;
 
 import net.minecraft.core.NonNullList;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -18,7 +17,6 @@ import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.ForgeEventFactory;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.BowAmmoModifierHook;
@@ -41,8 +39,9 @@ import slimeknights.tconstruct.tools.data.material.MaterialIds;
 
 import java.util.function.Predicate;
 
+import static slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ScopeModifier.SCOPE;
+
 public class ModifiableBowItem extends ModifiableLauncherItem {
-  private static final ResourceLocation SCOPE = TConstruct.getResource("longbow_scope");
   public ModifiableBowItem(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
   }
