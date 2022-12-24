@@ -18,6 +18,7 @@ import slimeknights.tconstruct.library.data.recipe.IToolRecipeHelper;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.casting.material.CompositeCastingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.SpecializedRepairRecipeBuilder;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
@@ -240,6 +241,8 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                      .setPatternItem(Ingredient.of(TinkerTags.Items.DEFAULT_PATTERNS))
                      .setCost(1)
                      .save(consumer, modResource(partFolder + "builder/bowstring"));
+    CompositeCastingRecipeBuilder.table(TinkerToolParts.bowstring.get(), 1)
+                                 .save(consumer, modResource(partFolder + "casting//bowstring_composite"));
   }
 
   /** Helper to create a casting recipe for a slimeskull variant */
