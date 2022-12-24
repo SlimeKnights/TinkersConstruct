@@ -73,6 +73,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     toolBuilding(consumer, TinkerTools.sword, folder);
     toolBuilding(consumer, TinkerTools.cleaver, folder);
     // bow
+    toolBuilding(consumer, TinkerTools.crossbow, folder);
     toolBuilding(consumer, TinkerTools.longbow, folder);
 
     // specialized

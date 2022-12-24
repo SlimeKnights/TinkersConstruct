@@ -1,25 +1,16 @@
 {
-  "translation_key": "item.tconstruct.longbow",
+  "translation_key": "item.tconstruct.crossbow",
   "icon": {
-    "item": "tconstruct:longbow",
+    "item": "tconstruct:crossbow",
     "nbt": "{Damage:0,tic_broken:0b,tic_display:1b,tic_materials:[\"tconstruct:ui_render#head\",\"tconstruct:ui_render#handle\",\"tconstruct:ui_render#extra\",\"tconstruct:ui_render#large\",\"tconstruct:ui_render#extra_large\"]}"
   },
-  "sortIndex": 14,
+  "sortIndex": 8,
   "input_slots": [
     {
       "icon": "tconstruct:bow_limb",
       "translation_key": "item.tconstruct.bow_limb",
-      "x": 20,
-      "y": 55,
-      "filter": {
-        "item": "tconstruct:bow_limb"
-      }
-    },
-    {
-      "icon": "tconstruct:bow_limb",
-      "translation_key": "item.tconstruct.bow_limb",
-      "x": 45,
-      "y": 30,
+      "x": 10,
+      "y": 20,
       "filter": {
         "item": "tconstruct:bow_limb"
       }
@@ -27,8 +18,8 @@
     {
       "icon": "tconstruct:bow_grip",
       "translation_key": "item.tconstruct.bow_grip",
-      "x": 25,
-      "y": 35,
+      "x": 46,
+      "y": 56,
       "filter": {
         "item": "tconstruct:bow_grip"
       }
@@ -36,8 +27,8 @@
     {
       "icon": "tconstruct:bowstring",
       "translation_key": "item.tconstruct.bowstring",
-      "x": 45,
-      "y": 55,
+      "x": 28,
+      "y": 38,
       "filter": {
         "item": "tconstruct:bowstring"
       }
