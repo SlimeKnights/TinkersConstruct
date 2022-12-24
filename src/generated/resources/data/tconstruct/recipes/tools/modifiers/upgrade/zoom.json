@@ -17,11 +17,16 @@
       "tag": "forge:dusts/redstone"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/armor/helmets"
-  },
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/armor/helmets"
+    },
+    {
+      "tag": "tconstruct:modifiable/interactable/right"
+    }
+  ],
   "slots": {
-    "abilities": 1
+    "upgrades": 1
   },
   "result": {
     "name": "tconstruct:zoom",

@@ -861,16 +861,16 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // armor ability
     // helmet
     ModifierRecipeBuilder.modifier(TinkerModifiers.zoom)
-                         .setTools(TinkerTags.Items.HELMETS)
+                         .setTools(ingredientFromTags(TinkerTags.Items.HELMETS, TinkerTags.Items.INTERACTABLE_RIGHT))
                          .addInput(Items.SPYGLASS)
                          .addInput(Tags.Items.STRING)
                          .addInput(Items.SPYGLASS)
                          .addInput(Tags.Items.DUSTS_REDSTONE)
                          .addInput(Tags.Items.DUSTS_REDSTONE)
-                         .setSlots(SlotType.ABILITY, 1)
+                         .setSlots(SlotType.UPGRADE, 1)
                          .setMaxLevel(1)
-                         .saveSalvage(consumer, prefix(TinkerModifiers.zoom, abilitySalvage))
-                         .save(consumer, prefix(TinkerModifiers.zoom, abilityFolder));
+                         .saveSalvage(consumer, prefix(TinkerModifiers.zoom, upgradeSalvage))
+                         .save(consumer, prefix(TinkerModifiers.zoom, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.slurping)
                          .addInput(Items.GLASS_BOTTLE)
                          .addInput(TinkerTags.Items.TANKS)

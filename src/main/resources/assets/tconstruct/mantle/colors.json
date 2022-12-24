@@ -55,7 +55,6 @@
     "tool_belt":    "#893B25",
     "wetting":      "#F98648",
     "wings":        "#D37CFF",
-    "zoom":         "#ffffff",
 
     "__walker_abilities__": null,
     "flamewake":    "#C35F01",
@@ -114,6 +113,7 @@
     "soulbound":     "#D1A75D",
     "tank":          "#3f3f3f",
     "the_one_probe": "#7FF2FF",
+    "zoom":         "#DE923A",
 
     "__upgrade_harvest__": null,
     "blasting":   "#8A8A8A",

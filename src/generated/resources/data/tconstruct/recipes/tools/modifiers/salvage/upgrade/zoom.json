@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/armor/helmets"
+    },
+    {
+      "tag": "tconstruct:modifiable/interactable/right"
+    }
+  ],
+  "slots": {
+    "upgrades": 1
+  },
+  "modifier": "tconstruct:zoom",
+  "min_level": 1
+}
