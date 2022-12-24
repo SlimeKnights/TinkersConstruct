@@ -548,7 +548,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.END_ROD)
                          .setMaxLevel(4) // same max as vanilla
                          .setSlots(SlotType.UPGRADE, 1)
-                         .setTools(TinkerTags.Items.CROSSBOWS) // longbows get ricochet instead
+                         .setTools(TinkerTags.Items.BOWS) // impaling on longbows sounds fun in theory, may reconsider once ricochet is coded
                          .saveSalvage(consumer, prefix(TinkerModifiers.impaling, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.impaling, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.freezing)

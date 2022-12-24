@@ -12,7 +12,7 @@
     }
   ],
   "tools": {
-    "tag": "tconstruct:modifiable/ranged/crossbows"
+    "tag": "tconstruct:modifiable/ranged/bows"
   },
   "slots": {
     "upgrades": 1
