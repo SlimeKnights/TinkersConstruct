@@ -4,9 +4,8 @@ import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHook;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
+import slimeknights.tconstruct.library.tools.item.ModifiableLauncherItem;
 
 /** Properties for tinker tools */
 public class TinkerItemProperties {
@@ -17,8 +16,8 @@ public class TinkerItemProperties {
     if (holder == null || holder.getUseItem() != stack) {
       return 0.0F;
     }
-    float drawSpeed = ConditionalStatModifierHook.getModifiedStat(ToolStack.from(stack), holder, ToolStats.DRAW_SPEED);
-    return (float)(stack.getUseDuration() - holder.getUseItemRemainingTicks()) * drawSpeed / 20.0F;
+    float drawSpeed = holder.getCapability(TinkerDataCapability.CAPABILITY).resolve().map(data -> data.get(ModifiableLauncherItem.DRAWSPEED)).orElse(1/20f);
+    return (float)(stack.getUseDuration() - holder.getUseItemRemainingTicks()) * drawSpeed;
   };
 
   /** ID for the pulling property */
