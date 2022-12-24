@@ -2,10 +2,15 @@ package slimeknights.tconstruct.tools.item;
 
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
+import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -23,6 +28,7 @@ import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.TConstruct;
@@ -44,9 +50,13 @@ import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
 
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
 
@@ -54,6 +64,7 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
   /** Key containing the stored crossbow ammo */
   public static final ResourceLocation KEY_CROSSBOW_AMMO = TConstruct.getResource("crossbow_ammo");
   private static final ResourceLocation KEY_CROSSBOW_DRAWTIME = TConstruct.getResource("crossbow_drawtime");
+  private static final String PROJECTILE_KEY = "item.minecraft.crossbow.projectile";
   public ModifiableCrossbowItem(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
   }
@@ -279,5 +290,37 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
     if (this.allowdedIn(group)) {
       ToolBuildHandler.addDefaultSubItems(this, items, null, null, MaterialIds.string);
     }
+  }
+
+  @Override
+  public List<Component> getStatInformation(IToolStackView tool, @Nullable Player player, List<Component> tooltips, TooltipKey key, TooltipFlag tooltipFlag) {
+    tooltips = super.getStatInformation(tool, player, tooltips, key, tooltipFlag);
+
+    // if we have ammo, render that in the tooltip
+    CompoundTag heldAmmo = tool.getPersistentData().getCompound(KEY_CROSSBOW_AMMO);
+    if (!heldAmmo.isEmpty()) {
+      ItemStack heldStack = ItemStack.of(heldAmmo);
+      if (!heldStack.isEmpty()) {
+        // basic info: item and count
+        MutableComponent component = new TranslatableComponent(PROJECTILE_KEY);
+        int count = heldStack.getCount();
+        if (count > 1) {
+          component.append(" " + count + " ");
+        } else {
+          component.append(" ");
+        }
+        tooltips.add(component.append(heldStack.getDisplayName()));
+
+        // copy the stack's tooltip if advanced
+        if (tooltipFlag.isAdvanced() && player != null) {
+          List<Component> nestedTooltip = new ArrayList<>();
+          heldStack.getItem().appendHoverText(heldStack, player.level, nestedTooltip, tooltipFlag);
+          for (Component nested : nestedTooltip) {
+            tooltips.add(new TextComponent("  ").append(nested).withStyle(ChatFormatting.GRAY));
+          }
+        }
+      }
+    }
+    return tooltips;
   }
 }
