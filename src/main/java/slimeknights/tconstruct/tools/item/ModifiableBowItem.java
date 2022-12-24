@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.item;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -17,6 +18,7 @@ import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.ForgeEventFactory;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.BowAmmoModifierHook;
@@ -24,7 +26,9 @@ import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHoo
 import slimeknights.tconstruct.library.tools.capability.EntityModifierCapability;
 import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.item.ModifiableLauncherItem;
@@ -32,11 +36,13 @@ import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
 
 import java.util.function.Predicate;
 
 public class ModifiableBowItem extends ModifiableLauncherItem {
+  private static final ResourceLocation SCOPE = TConstruct.getResource("longbow_scope");
   public ModifiableBowItem(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
   }
@@ -86,6 +92,11 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
 
   @Override
   public void releaseUsing(ItemStack bow, Level level, LivingEntity living, int timeLeft) {
+    // clear zoom regardless, does not matter if the tool broke, we should not be zooming
+    if (level.isClientSide) {
+      living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).remove(SCOPE));
+    }
+
     // need player
     if (!(living instanceof Player player)) {
       return;
@@ -169,6 +180,22 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
 
     // stats and sounds
     player.awardStat(Stats.ITEM_USED.get(this));
+  }
+
+  @SuppressWarnings("deprecation") // forge is being dumb here, their method is identical to the vanilla one
+  @Override
+  public void onUseTick(Level level, LivingEntity living, ItemStack bow, int chargeRemaining) {
+    if (level.isClientSide && ModifierUtil.getModifierLevel(bow, TinkerModifiers.scope.getId()) > 0) {
+      int chargeTime = this.getUseDuration(bow) - chargeRemaining;
+      if (chargeTime > 0) {
+        living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
+          float totalTime = data.get(DRAWSPEED, 0f);
+          if (totalTime > 0) {
+            data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).set(SCOPE, 1 - (0.6f * Math.min(totalTime * chargeTime, 1)));
+          }
+        });
+      }
+    }
   }
 
   @Override

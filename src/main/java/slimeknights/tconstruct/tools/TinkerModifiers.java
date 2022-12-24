@@ -290,6 +290,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<CrystalshotModifier> crystalshot = MODIFIERS.register("crystalshot", CrystalshotModifier::new);
   public static final StaticModifier<Modifier> multishot = MODIFIERS.register("multishot", Modifier::new);
   public static final StaticModifier<SinistralModifier> sinistral = MODIFIERS.register("sinistral", SinistralModifier::new);
+  public static final StaticModifier<Modifier> scope = MODIFIERS.register("scope", Modifier::new);
 
   // armor
   // protection

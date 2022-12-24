@@ -1828,6 +1828,9 @@
   "modifier.tconstruct.sinistral": "Sinistral",
   "modifier.tconstruct.sinistral.flavor": "It sounds evil, but I assure you its a perfectly natural condition",
   "modifier.tconstruct.sinistral.description": "When in main hand, crossbow fires when attacking instead of interacting and will not load while sneaking.",
+  "modifier.tconstruct.scope": "Scope",
+  "modifier.tconstruct.scope.flavor": "360 with scope does not sound as cool",
+  "modifier.tconstruct.scope.description": "Zoom in on the target when charging the bow.",
 
   "_comment": "Armor",
   "modifier.tconstruct.knockback_resistance": "Knockback Resistance",

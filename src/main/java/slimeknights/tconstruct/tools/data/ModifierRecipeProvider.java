@@ -620,6 +620,17 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setTools(IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.CROSSBOWS), Ingredient.of(TinkerTags.Items.INTERACTABLE_LEFT))) // this is the same recipes as dual wielding, but crossbows do not interact on left
                          .saveSalvage(consumer, prefix(TinkerModifiers.sinistral, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.sinistral, upgradeFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.scope)
+                         .setTools(TinkerTags.Items.LONGBOWS)
+                         .addInput(Tags.Items.STRING)
+                         .addInput(Items.SPYGLASS)
+                         .addInput(Tags.Items.STRING)
+                         .addInput(Tags.Items.DUSTS_REDSTONE)
+                         .addInput(Tags.Items.DUSTS_REDSTONE)
+                         .setSlots(SlotType.UPGRADE, 1)
+                         .setMaxLevel(1)
+                         .saveSalvage(consumer, prefix(TinkerModifiers.scope, upgradeSalvage))
+                         .save(consumer, prefix(TinkerModifiers.scope, upgradeFolder));
 
     /*
      * armor
