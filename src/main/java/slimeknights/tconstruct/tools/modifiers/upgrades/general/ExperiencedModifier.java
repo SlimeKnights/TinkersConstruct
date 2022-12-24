@@ -75,7 +75,7 @@ public class ExperiencedModifier extends Modifier {
    */
   private void onExperienceDrop(LivingExperienceDropEvent event) {
     // if the entity was killed by one of our arrows, boost the experience from that
-    int experienced = event.getEntityLiving().getCapability(TinkerDataCapability.CAPABILITY).resolve().stream().mapToInt(data -> data.get(EXPERIENCED, -1)).sum();
+    int experienced = event.getEntityLiving().getCapability(TinkerDataCapability.CAPABILITY).resolve().map(data -> data.get(EXPERIENCED)).orElse(-1);
     if (experienced > 0) {
       event.setDroppedExperience(boost(event.getDroppedExperience(), experienced));
       // experienced being zero means it was our arrow but it was not modified, do not check the held item in that case
