@@ -4,6 +4,6 @@
     "tag": "tconstruct:casts/single_use/bow_grip"
   },
   "cast_consumed": true,
-  "item_cost": 1,
+  "item_cost": 2,
   "result": "tconstruct:bow_grip"
 }

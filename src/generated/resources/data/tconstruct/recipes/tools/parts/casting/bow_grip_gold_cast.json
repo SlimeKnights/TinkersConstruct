@@ -3,6 +3,6 @@
   "cast": {
     "tag": "tconstruct:casts/multi_use/bow_grip"
   },
-  "item_cost": 1,
+  "item_cost": 2,
   "result": "tconstruct:bow_grip"
 }
