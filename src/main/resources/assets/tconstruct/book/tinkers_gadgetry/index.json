@@ -35,7 +35,8 @@
     }
   },
   {
-    "name": "skull_materials",
+    "name": "materials",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:skull" } },
     "icon": {
       "item": "minecraft:skeleton_skull"
     }

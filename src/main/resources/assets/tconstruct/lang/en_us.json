@@ -1365,7 +1365,7 @@
 
   "material.tconstruct.bamboo": "Bamboo",
   "material.tconstruct.bamboo.flavor": "Get bamboozled!",
-  "material.tconstruct.bamboo.encyclopedia": "Arrows have 110% velocity, but deal 90% damage. Effectively, they go farther while dealing about the same damage",
+  "material.tconstruct.bamboo.ranged": "Arrows have 110% velocity, but deal 90% damage. Effectively, they go farther while dealing about the same damage",
 
   "material.tconstruct.rock": "Rock",
   "material.tconstruct.rock.stone":      "Stone",
@@ -1375,28 +1375,31 @@
   "material.tconstruct.rock.blackstone": "Blackstone",
   "material.tconstruct.rock.deepslate":  "Deepslate",
   "material.tconstruct.rock.flavor": "Rock solid",
-  "material.tconstruct.rock.encyclopedia": "Causes the tool to mine faster by half of the square root of lost durability",
+  "material.tconstruct.rock.encyclopedia": "Causes the tool to mine faster by half of the square root of the trait level times lost durability",
 
   "material.tconstruct.flint": "Flint",
   "material.tconstruct.flint.basalt": "Basalt",
   "material.tconstruct.flint.flavor": "This will spark the flames of a Tinker's heart!",
-  "material.tconstruct.flint.encyclopedia": "Increases damage by a quarter of the square root of the lost durability",
+  "material.tconstruct.flint.encyclopedia": "Increases damage by a quarter of the square root of the trait level times lost durability",
 
   "material.tconstruct.bone": "Bone",
   "material.tconstruct.bone.flavor": "I am the bone of my sword",
-  "material.tconstruct.bone.encyclopedia": "Converts 0.5 damage into 1 piercing damage",
+  "material.tconstruct.bone.encyclopedia": "Converts 0.5 damage into 1 piercing damage per level",
+  "material.tconstruct.bone.ranged": "Causes arrows to deal 1 piercing damage per level in addition to regular damage",
   "material.tconstruct.bone.skull_flavor": "Got Milk?",
   "material.tconstruct.bone.skull_encyclopedia": "Grants resistance for 1 minute after drinking milk",
 
   "material.tconstruct.necrotic_bone": "Necrotic Bone",
   "material.tconstruct.necrotic_bone.flavor": "Do you have a bone to pick with me?",
   "material.tconstruct.necrotic_bone.encyclopedia": "Heals a percentage of damage dealt from critical hits",
+  "material.tconstruct.necrotic_bone.ranged": "Heals a percentage of damage dealt from successful arrow hits",
   "material.tconstruct.necrotic_bone.skull_flavor": "Spooky Scary Skeleton!",
   "material.tconstruct.necrotic_bone.skull_encyclopedia": "Melee attacks cause withering. After drinking milk the effect becomes faster",
 
   "material.tconstruct.chorus":              "Chorus",
   "material.tconstruct.chorus.flavor":       "Not just the endermen, but the enderwomen, and the enderchildren",
   "material.tconstruct.chorus.encyclopedia": "Prevents the target from teleporting for a 5 seconds per effect level",
+  "material.tconstruct.chorus.ranged": "Prevents the target from teleporting for a 5 seconds per effect level and allows damaging endermen with arrows",
 
   "material.tconstruct.string": "String",
   "material.tconstruct.string.flavor": "Theoretically the best material.",
@@ -1432,7 +1435,8 @@
   "material.tconstruct.copper": "Copper",
   "material.tconstruct.copper.oxidized": "Oxidized Copper",
   "material.tconstruct.copper.flavor": "Don't let this tarnish your day.",
-  "material.tconstruct.copper.encyclopedia": "Grants mining speed at lower depth, +6 per 64 blocks below 64",
+  "material.tconstruct.copper.encyclopedia": "Grants bonus mining speed at lower depth, +6 per 64 blocks below 64",
+  "material.tconstruct.copper.ranged": "Grants bonus velocity at lower depth, +0.05 per 64 blocks below 64",
   "material.tconstruct.copper.skull_flavor": "Knocks the wind right out of them",
   "material.tconstruct.copper.skull_encyclopedia": "Melee attacks steal 3 seconds of air from the target",
 
@@ -1446,6 +1450,7 @@
   "material.tconstruct.bloodbone": "Bloodbone",
   "material.tconstruct.bloodbone.flavor": "Isn't the blood supposed to be inside the bone?",
   "material.tconstruct.bloodbone.encyclopedia": "Boosts damage at low health, up to +4 damage per level at 1 heart",
+  "material.tconstruct.bloodbone.ranged": "Boosts drawspeed at low health, up to +0.25 drawspeed per level at 1 heart",
   "material.tconstruct.bloodbone.skull_flavor": "Chills straight to the bone",
   "material.tconstruct.bloodbone.skull_encyclopedia": "Projectiles cause slowness to the target. After drinking milk, melee attacks cause slowness and the level is stronger.",
 
@@ -1462,6 +1467,7 @@
   "material.tconstruct.skyslime_vine": "Slimy Vine",
   "material.tconstruct.skyslime_vine.flavor": "Float like a butterfly, sting like a bee.",
   "material.tconstruct.skyslime_vine.encyclopedia": "Cancels out the mining speed reduction when not on the ground",
+  "material.tconstruct.skyslime_vine.ranged": "Grants +0.5 accuracy when not on the ground or a ladder",
 
 
   "__comment": "Tier 3 Materials",
@@ -1476,6 +1482,7 @@
   "material.tconstruct.amethyst_bronze": "Amethyst Bronze",
   "material.tconstruct.amethyst_bronze.flavor": "Not to be confused with bronze.",
   "material.tconstruct.amethyst_bronze.encyclopedia": "Grants +0.5 mining speed per level to blocks that don't require tools, even ones where the tool is not effective",
+  "material.tconstruct.amethyst_bronze.ranged": "Adds +0.1 velocity per level at the cost of limiting arrow angles to 32, 16, or 8 directions at the first 3 levels respectively",
 
   "material.tconstruct.pig_iron": "Pig Iron",
   "material.tconstruct.pig_iron.flavor": "The absolute best material, no debates.",
@@ -1486,6 +1493,7 @@
   "material.tconstruct.darkthread": "Darkthread",
   "material.tconstruct.darkthread.flavor": "Come to the dark side, we have sowing",
   "material.tconstruct.darkthread.encyclopedia": "Increases drop chances from mobs, stacking with luck",
+  "material.tconstruct.darkthread.ranged": "Increases drop chances from mobs killed by arrows",
   "material.tconstruct.darkthread.skull_flavor": "Perfect for battles of wits, when you have to decide and drink to find out who is right.",
   "material.tconstruct.darkthread.skull_encyclopedia": "Makes the wearer immune to poison, though will not remove existing poison",
 
@@ -1494,14 +1502,17 @@
   "material.tconstruct.cobalt": "Cobalt",
   "material.tconstruct.cobalt.flavor": "Coblat. The material of the Red Army.",
   "material.tconstruct.cobalt.encyclopedia": "Boosts mining and attack speed by 7% per level",
+  "material.tconstruct.cobalt.ranged": "Boosts drawspeed and velocity by 5% per level",
 
   "material.tconstruct.manyullyn": "Manyullyn",
   "material.tconstruct.manyullyn.flavor": "The metal that most Tinkers will never pronounce right. Also known as a star cutting material.",
   "material.tconstruct.manyullyn.encyclopedia": "Grants +2 damage per level after 8 consecutive hits",
+  "material.tconstruct.manyullyn.ranged": "Arrows gain +1 damage per level (before velocity) after 8 consecutive arrow hits",
 
   "material.tconstruct.hepatizon": "Hepatizon",
   "material.tconstruct.hepatizon.flavor": "He-pa-ti-zon - boil it, mash it, put it in a stew.",
   "material.tconstruct.hepatizon.encyclopedia": "Boosts mining speed by 25% per level after mining 32 consecutive blocks",
+  "material.tconstruct.hepatizon.ranged": "Boosts drawspeed by 25% per level after firing 16 consecutive arrows",
 
   "material.tconstruct.queens_slime": "Queen's Slime",
   "material.tconstruct.queens_slime.flavor": "Princesses are evil, get yourself a Queen.",
@@ -1510,6 +1521,7 @@
   "material.tconstruct.blazing_bone": "Blazing Bone",
   "material.tconstruct.blazing_bone.flavor": "Harness the full power of the Nether Fortress - bone and blaze",
   "material.tconstruct.blazing_bone.encyclopedia": "Grants +1% damage per second of fire, up to +15% from lava's 15 seconds. Bonus reduced by fire resistance.",
+  "material.tconstruct.blazing_bone.ranged": "Grants +1% arrow damage per second of fire, up to +15% from lava's 15 seconds. Bonus reduced by fire resistance.",
   "material.tconstruct.blazing_bone.skull_flavor": "I told them this is technically firespit, not firebreath, but apparently I don't get to decide the names for things I invent",
   "material.tconstruct.blazing_bone.skull_encyclopedia": "Allows spitting firecharges from the inventory as fireballs. Has a cooldown of 5 seconds and does not work underwater",
 

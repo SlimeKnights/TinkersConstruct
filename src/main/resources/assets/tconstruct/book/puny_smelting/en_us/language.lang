@@ -2,7 +2,11 @@ intro=Introduction
 melter=Melter
 moving_fluids=Moving Fluids
 casting=Casting
-materials=Tier 2 Materials
+melee_harvest_materials=Tier 2 Melee Harvest Materials
+melee_harvest_materials.subtext=These materials can be casted into tool parts for melee weapons or harvest tools.
+ranged_materials=Tier 2 Ranged Materials
+ranged_materials.subtext=These materials can be casted into tool parts for ranged weapons like bows.
+
 further_reading=Further Reading
 
 upgrades=Upgrades

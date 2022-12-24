@@ -21,10 +21,17 @@
     }
   },
   {
-    "name": "materials",
-    "extraData": { "tconstruct:material_tier": 3 },
+    "name": "melee_harvest_materials",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tier": 3 } },
     "icon": {
       "item": "tconstruct:slimesteel_ingot"
+    }
+  },
+  {
+    "name": "ranged_materials",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tier": 3 } },
+    "icon": {
+      "item": "tconstruct:nahuatl"
     }
   },
   {
