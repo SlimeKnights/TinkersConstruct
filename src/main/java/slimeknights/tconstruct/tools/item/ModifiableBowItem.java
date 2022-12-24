@@ -145,7 +145,7 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
       for (int arrowIndex = 0; arrowIndex < ammo.getCount(); arrowIndex++) {
         AbstractArrow arrow = arrowItem.createArrow(level, ammo, player);
         float angle = startAngle + (10 * arrowIndex);
-        arrow.shootFromRotation(player, player.getXRot(), player.getYRot(), angle, power * 3.0F, inaccuracy);
+        arrow.shootFromRotation(player, player.getXRot() + angle, player.getYRot(), 0, power * 3.0F, inaccuracy);
         if (charge == 1.0F) {
           arrow.setCritArrow(true);
         }
