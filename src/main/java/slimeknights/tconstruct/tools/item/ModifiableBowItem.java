@@ -132,7 +132,8 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
       int primaryIndex = ammo.getCount() / 2;
       for (int arrowIndex = 0; arrowIndex < ammo.getCount(); arrowIndex++) {
         AbstractArrow arrow = arrowItem.createArrow(level, ammo, player);
-        arrow.shootFromRotation(player, player.getXRot(), player.getYRot(), startAngle + arrowIndex * 10, power * 3.0F, inaccuracy);
+        float angle = startAngle + (10 * arrowIndex);
+        arrow.shootFromRotation(player, player.getXRot(), player.getYRot(), angle, power * 3.0F, inaccuracy);
         if (charge == 1.0F) {
           arrow.setCritArrow(true);
         }
@@ -159,12 +160,12 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
           entry.getHook(TinkerHooks.PROJECTILE_LAUNCH).onProjectileLaunch(tool, entry, living, arrow, arrow, arrowData, arrowIndex == primaryIndex);
         }
         level.addFreshEntity(arrow);
+        level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F) + charge * 0.5F + (angle / 10f));
       }
       ToolDamageUtil.damageAnimated(tool, ammo.getCount(), player, player.getUsedItemHand());
     }
 
     // stats and sounds
-    level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F) + charge * 0.5F);
     player.awardStat(Stats.ITEM_USED.get(this));
   }
 

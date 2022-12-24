@@ -33,6 +33,7 @@ import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHoo
 import slimeknights.tconstruct.library.tools.capability.EntityModifierCapability;
 import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.item.ModifiableLauncherItem;
@@ -43,12 +44,13 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
 
+import java.util.Random;
 import java.util.function.Predicate;
 
 public class ModifiableCrossbowItem extends ModifiableLauncherItem {
   /** Key containing the stored crossbow ammo */
   public static final ResourceLocation KEY_CROSSBOW_AMMO = TConstruct.getResource("crossbow_ammo");
-
+  private static final ResourceLocation KEY_CROSSBOW_DRAWTIME = TConstruct.getResource("crossbow_drawtime");
   public ModifiableCrossbowItem(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
   }
@@ -85,6 +87,14 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
 
   /* Arrow launching */
 
+  /** Gets the arrow pitch */
+  private static float getRandomShotPitch(float angle, Random pRandom) {
+    if (angle == 0) {
+      return 1.0f;
+    }
+    return 1.0F / (pRandom.nextFloat() * 0.5F + 1.8F) + 0.53f + (angle / 10f);
+  }
+
   @Override
   public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
     ItemStack bow = player.getItemInHand(hand);
@@ -101,6 +111,10 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
       // if we have ammo, start charging
       if (BowAmmoModifierHook.hasAmmo(tool, bow, player, getSupportedHeldProjectiles())) {
         player.startUsingItem(hand);
+        persistentData.putInt(KEY_CROSSBOW_DRAWTIME, (int)Math.ceil(20 / ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.DRAW_SPEED)));
+        if (!level.isClientSide) {
+          level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.CROSSBOW_QUICK_CHARGE_1, SoundSource.PLAYERS, 0.75F, 1.0F);
+        }
         return InteractionResultHolder.consume(bow);
       } else {
         return InteractionResultHolder.fail(bow);
@@ -156,7 +170,8 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
 
         // setup projectile
         Vector3f targetVector = new Vector3f(player.getViewVector(1.0f));
-        targetVector.transform(new Quaternion(new Vector3f(player.getUpVector(1.0f)), startAngle + (10 * arrowIndex), true));
+        float angle = startAngle + (10 * arrowIndex);
+        targetVector.transform(new Quaternion(new Vector3f(player.getUpVector(1.0f)), angle, true));
         projectile.shoot(targetVector.x(), targetVector.y(), targetVector.z(), velocity * speed, inaccuracy);
 
         // add modifiers to the projectile, will let us use them on impact
@@ -173,7 +188,7 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
 
         // finally, fire the projectile
         level.addFreshEntity(projectile);
-        level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.CROSSBOW_SHOOT, SoundSource.PLAYERS, 1.0F, getRandomShotPitch(arrowIndex, player.getRandom()));
+        level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.CROSSBOW_SHOOT, SoundSource.PLAYERS, 1.0F, getRandomShotPitch(angle, player.getRandom()));
       }
 
       // clear the ammo, damage the bow
@@ -202,8 +217,7 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
     }
 
     // did we charge enough?
-    float chargeTime = (getUseDuration(bow) - chargeRemaining) * ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.DRAW_SPEED) / 20f;
-    if (chargeTime < 1) {
+    if ((getUseDuration(bow) - chargeRemaining) < persistentData.getInt(KEY_CROSSBOW_DRAWTIME)) {
       return;
     }
 
@@ -214,6 +228,18 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
         persistentData.put(KEY_CROSSBOW_AMMO, ammo.save(new CompoundTag()));
       }
       level.playSound(null, living.getX(), living.getY(), living.getZ(), SoundEvents.CROSSBOW_LOADING_END, SoundSource.PLAYERS, 1.0F, 1.0F / (level.getRandom().nextFloat() * 0.5F + 1.0F) + 0.2F);
+    }
+  }
+
+
+  /* Drawback sounds */
+
+  @SuppressWarnings("deprecation") // forge is being dumb here, their method is identical to the vanilla one
+  @Override
+  public void onUseTick(Level level, LivingEntity living, ItemStack bow, int chargeRemaining) {
+    // play the sound at the end of loading as an indicator its loaded, texture is another indicator
+    if (!level.isClientSide && (getUseDuration(bow) - chargeRemaining) == ModifierUtil.getPersistentInt(bow, KEY_CROSSBOW_DRAWTIME, 0)) {
+      level.playSound(null, living.getX(), living.getY(), living.getZ(), SoundEvents.CROSSBOW_LOADING_MIDDLE, SoundSource.PLAYERS, 0.75F, 1.0F);
     }
   }
 
