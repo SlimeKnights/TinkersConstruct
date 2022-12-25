@@ -25,7 +25,7 @@ public class HolyModifier extends Modifier implements ProjectileHitModifierHook 
   @Override
   public boolean onProjectileHitEntity(ModifierNBT modifiers, NamespacedNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
     if (target != null && target.getMobType() == MobType.UNDEAD && projectile instanceof AbstractArrow arrow) {
-      arrow.setBaseDamage(arrow.getBaseDamage() + modifier.getLevel());
+      arrow.setBaseDamage(arrow.getBaseDamage() + modifier.getLevel() / 2f);
     }
     return false;
   }
