@@ -160,6 +160,7 @@ public abstract class AbstractMaterialSpriteProvider {
     public MaterialSpriteInfoBuilder ranged() {
       statType(LimbMaterialStats.ID);
       statType(GripMaterialStats.ID);
+      statType(RepairKitStats.ID);
       return this;
     }
 
