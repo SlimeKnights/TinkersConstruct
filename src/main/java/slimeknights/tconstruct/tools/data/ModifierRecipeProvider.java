@@ -595,6 +595,15 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     crystalshotRecipe.accept(TinkerWorld.ichorGeode.getBud(BudSize.CLUSTER), "ichor");
     crystalshotRecipe.accept(TinkerWorld.enderGeode.getBud(BudSize.CLUSTER), "enderslime");
     crystalshotRecipe.accept(Items.NETHER_QUARTZ_ORE, "quartz");
+    SwappableModifierRecipeBuilder.modifier(TinkerModifiers.crystalshot, "random")
+                                  .addInput(Ingredient.of(TinkerWorld.earthGeode.getBud(BudSize.CLUSTER), TinkerWorld.skyGeode.getBud(BudSize.CLUSTER)))
+                                  .addInput(Ingredient.of(Items.AMETHYST_CLUSTER, Items.NETHER_QUARTZ_ORE))
+                                  .addInput(Ingredient.of(TinkerWorld.ichorGeode.getBud(BudSize.CLUSTER), TinkerWorld.enderGeode.getBud(BudSize.CLUSTER)))
+                                  .addInput(TinkerMaterials.manyullyn.getIngotTag())
+                                  .addInput(TinkerMaterials.manyullyn.getIngotTag())
+                                  .setTools(TinkerTags.Items.BOWS)
+                                  .setSlots(SlotType.ABILITY, 1)
+                                  .save(consumer, wrap(TinkerModifiers.crystalshot, abilityFolder, "_random"));
     ModifierRecipeBuilder.modifier(TinkerModifiers.crystalshot)
                          .setSlots(SlotType.ABILITY, 1)
                          .setTools(TinkerTags.Items.BOWS)

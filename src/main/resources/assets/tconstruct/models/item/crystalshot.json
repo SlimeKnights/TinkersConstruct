@@ -2,7 +2,7 @@
   "loader": "mantle:nbt_key",
   "parent": "forge:item/default",
   "textures": {
-    "default":    "tconstruct:item/arrow/amethyst",
+    "default":    "tconstruct:item/arrow/crystalshot_random",
     "amethyst":   "tconstruct:item/arrow/amethyst",
     "earthslime": "tconstruct:item/arrow/earthslime",
     "enderslime": "tconstruct:item/arrow/enderslime",

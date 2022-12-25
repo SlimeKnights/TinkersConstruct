@@ -17,6 +17,7 @@ import slimeknights.tconstruct.tools.item.CrystalshotItem;
 import java.util.function.Predicate;
 
 public class CrystalshotModifier extends NoLevelsModifier implements BowAmmoModifierHook {
+
   @Override
   protected void registerHooks(Builder hookBuilder) {
     hookBuilder.addHook(this, TinkerHooks.BOW_AMMO);

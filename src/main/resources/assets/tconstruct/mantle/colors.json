@@ -42,6 +42,7 @@
     "crystalshot.ichor":      "#FF8324",
     "crystalshot.skyslime":   "#82D7D5",
     "crystalshot.quartz":     "#B6A48E",
+    "crystalshot.random":     "#FFFFFF",
 
     "__armor_abilities__": null,
     "ambidextrous": "#AA7D66",
