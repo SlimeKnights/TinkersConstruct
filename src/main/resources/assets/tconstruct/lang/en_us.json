@@ -1589,6 +1589,7 @@
   "material.tconstruct.platinum": "Platinum",
   "material.tconstruct.platinum.flavor": "Its what winners use!",
   "material.tconstruct.platinum.encyclopedia": "Grants 2-6 bonus nugget drops when mining ore, boosted at higher levels",
+  "material.tconstruct.platinum.ranged": "Hitting a distant monster has a 5% chance per level to drop nuggets. 50 blocks or more drops platinum, 40 blocks gold, 30 blocks iron, and 20 blocks copper.",
 
   "material.tconstruct.lead": "Lead",
   "material.tconstruct.lead.flavor": "Could try and make a sandwich out of this.",
@@ -2272,6 +2273,9 @@
   "modifier.tconstruct.lustrous": "Lustrous",
   "modifier.tconstruct.lustrous.flavor": "The shiniest of ores!",
   "modifier.tconstruct.lustrous.description": "Ores drop bonus nuggets",
+  "modifier.tconstruct.olympic": "Olympic",
+  "modifier.tconstruct.olympic.flavor": "The shiniest of medals!",
+  "modifier.tconstruct.olympic.description": "Earn medals by hitting far away targets",
   "modifier.tconstruct.heavy": "Heavy",
   "modifier.tconstruct.heavy.flavor": "Dense!",
   "modifier.tconstruct.heavy.description": "Hard to move while wielding, but it packs a heavy punch",

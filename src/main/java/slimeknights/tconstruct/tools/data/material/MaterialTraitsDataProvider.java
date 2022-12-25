@@ -77,7 +77,8 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     // tier 2 - mod compat
     addDefaultTraits(MaterialIds.osmium, TinkerModifiers.dense);
     addDefaultTraits(MaterialIds.tungsten, ModifierIds.sharpweight);
-    addDefaultTraits(MaterialIds.platinum, ModifierIds.lustrous);
+    addTraits(MaterialIds.platinum, MELEE_HARVEST, ModifierIds.lustrous);
+    addTraits(MaterialIds.platinum, RANGED,        TinkerModifiers.olympic);
     addDefaultTraits(MaterialIds.lead, ModifierIds.heavy);
     addTraits(MaterialIds.silver, MELEE_HARVEST, ModifierIds.smite);
     addTraits(MaterialIds.silver, RANGED, TinkerModifiers.holy);
