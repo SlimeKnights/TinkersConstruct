@@ -42,6 +42,8 @@
       }
     },
     "supportedStats": [
+      "tconstruct:limb",
+      "tconstruct:grip",
       "tconstruct:plate"
     ],
     "ignoreMaterialStats": false

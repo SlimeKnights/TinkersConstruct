@@ -255,6 +255,23 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.chain, BowstringMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.skyslimeVine, BowstringMaterialStats.DEFAULT);
 
+    // tier 2 - compat
+    addMaterialStats(MaterialIds.platinum,
+                     new LimbMaterialStats(400, -0.05f, 0, 0.1f),
+                     new GripMaterialStats(1.05f, 0.05f, 1.5f));
+    addMaterialStats(MaterialIds.aluminum,
+                     new LimbMaterialStats(225, 0.15f, -0.15f, -0.05f),
+                     new GripMaterialStats(0.85f, 0.15f, 2f));
+    addMaterialStats(MaterialIds.tungsten,
+                     new LimbMaterialStats(350, 0.2f, -0.3f, 0),
+                     new GripMaterialStats(0.9f, 0.1f, 1.75f));
+    addMaterialStats(MaterialIds.silver,
+                     new LimbMaterialStats(300, -0.15f, 0.1f, -0.1f),
+                     new GripMaterialStats(0.9f, -0.05f, 2.25f));
+    addMaterialStats(MaterialIds.lead,
+                     new LimbMaterialStats(200, -0.3f, 0.15f, -0.05f),
+                     new GripMaterialStats(0.9f, -0.1f, 2.5f));
+
     // tier 3
     addMaterialStats(MaterialIds.slimesteel,
                      new LimbMaterialStats(1040, -0.1f, -0.05f, 0.15f),
@@ -276,6 +293,29 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      new GripMaterialStats(0.85f, -0.10f, 3f));
     // tier 3 - bowstring
     addMaterialStats(MaterialIds.darkthread, BowstringMaterialStats.DEFAULT);
+
+    // tier 3 - compat
+    addMaterialStats(MaterialIds.invar,
+                     new LimbMaterialStats(630, -0.15f, -0.1f, 0.2f),
+                     new GripMaterialStats(1, 0.05f, 2.5f));
+    addMaterialStats(MaterialIds.necronium,
+                     new LimbMaterialStats(357, 0.15f, -0.1f, -0.05f),
+                     new GripMaterialStats(0.8f, 0.15f, 2.75f));
+    addMaterialStats(MaterialIds.constantan,
+                     new LimbMaterialStats(675, 0.2f, -0.05f, -0.25f),
+                     new GripMaterialStats(0.95f, 0.1f, 1.75f));
+    addMaterialStats(MaterialIds.steel,
+                     new LimbMaterialStats(775, -0.3f, 0.2f, -0.1f),
+                     new GripMaterialStats(1.05f, -0.05f, 2.75f));
+    addMaterialStats(MaterialIds.bronze,
+                     new LimbMaterialStats(760, -0.2f, 0.15f, -0.2f),
+                     new GripMaterialStats(1.1f, 0f, 2.25f));
+    addMaterialStats(MaterialIds.electrum,
+                     new LimbMaterialStats(225, -0.25f, 0.1f, 0.15f),
+                     new GripMaterialStats(0.8f, 0.2f, 1.5f));
+    addMaterialStats(MaterialIds.platedSlimewood,
+                     new LimbMaterialStats(595, 0.15f, -0.15f, 0),
+                     new GripMaterialStats(1.25f, -0.1f, 2f));
 
 
     // tier 4

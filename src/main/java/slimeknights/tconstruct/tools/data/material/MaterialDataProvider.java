@@ -77,6 +77,7 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addCompatMetalMaterial(MaterialIds.platinum,   2, ORDER_COMPAT + ORDER_HARVEST);
     addCompatMetalMaterial(MaterialIds.silver,     2, ORDER_COMPAT + ORDER_WEAPON);
     addCompatMetalMaterial(MaterialIds.lead,       2, ORDER_COMPAT + ORDER_WEAPON);
+    addCompatMetalMaterial(MaterialIds.aluminum,   2, ORDER_COMPAT + ORDER_RANGED);
     // tier 3 (mod integration)
     addCompatMetalMaterial(MaterialIds.steel,           3, ORDER_COMPAT + ORDER_GENERAL);
     addCompatMetalMaterial(MaterialIds.bronze,          3, ORDER_COMPAT + ORDER_HARVEST);
@@ -90,7 +91,6 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.obsidian,  3, ORDER_REPAIR, false);
     addMaterial(MaterialIds.debris,    3, ORDER_REPAIR, false);
     addMaterial(MaterialIds.netherite, 4, ORDER_REPAIR, false);
-    addCompatMetalMaterial(MaterialIds.aluminum, 2, ORDER_REPAIR);
     addCompatMetalMaterial(MaterialIds.nickel,   2, ORDER_REPAIR);
     addCompatMetalMaterial(MaterialIds.tin,      2, ORDER_REPAIR);
     addCompatMetalMaterial(MaterialIds.zinc,     2, ORDER_REPAIR);
