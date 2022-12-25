@@ -179,6 +179,11 @@
     "data": "upgrades/ranged/quick_charge.json"
   },
   {
+    "name": "scope",
+    "type": "tconstruct:modifier",
+    "data": "upgrades/ranged/scope.json"
+  },
+  {
     "name": "sinistral",
     "type": "tconstruct:modifier",
     "data": "upgrades/ranged/sinistral.json"
