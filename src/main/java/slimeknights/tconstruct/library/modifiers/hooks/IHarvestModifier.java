@@ -8,9 +8,11 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 /**
  * Modifier module to detect when the harvest modifier harvested a block. Use with {@link slimeknights.tconstruct.library.modifiers.Modifier#getModule(Class)}
+ * @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.PlantHarvestModifierHook}
  */
+@SuppressWarnings("DeprecatedIsStillUsed")
+@Deprecated
 public interface IHarvestModifier {
-
   /**
    * Called after a block is successfully harvested
    * @param tool    Tool used in harvesting

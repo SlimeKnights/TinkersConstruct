@@ -6,8 +6,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.entity.ItemEntityRenderer;
+import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.client.event.ColorHandlerEvent;
@@ -33,6 +36,7 @@ import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.client.model.DynamicTextureLoader;
+import slimeknights.tconstruct.library.client.model.TinkerItemProperties;
 import slimeknights.tconstruct.library.client.model.tools.MaterialModel;
 import slimeknights.tconstruct.library.client.model.tools.ToolModel;
 import slimeknights.tconstruct.library.client.modifiers.BreakableDyedModifierModel;
@@ -44,8 +48,10 @@ import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager.Mod
 import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.TankModifierModel;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.HarvestTiers;
 import slimeknights.tconstruct.tools.client.ArmorModelHelper;
+import slimeknights.tconstruct.tools.client.CrystalshotRenderer;
 import slimeknights.tconstruct.tools.client.OverslimeModifierModel;
 import slimeknights.tconstruct.tools.client.PlateArmorModel;
 import slimeknights.tconstruct.tools.client.SlimelytraArmorModel;
@@ -53,9 +59,12 @@ import slimeknights.tconstruct.tools.client.SlimeskullArmorModel;
 import slimeknights.tconstruct.tools.client.ToolContainerScreen;
 import slimeknights.tconstruct.tools.client.particles.AxeAttackParticle;
 import slimeknights.tconstruct.tools.client.particles.HammerAttackParticle;
+import slimeknights.tconstruct.tools.item.ModifiableCrossbowItem;
 import slimeknights.tconstruct.tools.logic.InteractionHandler;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.DoubleJumpModifier;
 import slimeknights.tconstruct.tools.network.TinkerControlPacket;
+
+import java.util.Objects;
 
 import static slimeknights.tconstruct.library.client.model.tools.ToolModel.registerItemColors;
 
@@ -104,6 +113,7 @@ public class ToolClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
     event.registerEntityRenderer(TinkerTools.indestructibleItem.get(), ItemEntityRenderer::new);
+    event.registerEntityRenderer(TinkerTools.crystalshotEntity.get(), CrystalshotRenderer::new);
   }
 
   @SubscribeEvent
@@ -117,6 +127,25 @@ public class ToolClientEvents extends ClientEventBase {
 
     // screens
     MenuScreens.register(TinkerTools.toolContainer.get(), ToolContainerScreen::new);
+
+    // properties
+    TinkerItemProperties.registerBowProperties(TinkerTools.crossbow.asItem());
+    TinkerItemProperties.registerBowProperties(TinkerTools.longbow.asItem());
+    // no sense having two keys for ammo, just set 1 for arrow, 2 for fireworks
+    String fireworksID = Objects.requireNonNull(Items.FIREWORK_ROCKET.getRegistryName()).toString();
+    ItemProperties.register(TinkerTools.crossbow.asItem(), TConstruct.getResource("ammo"), (stack, level, entity, seed) -> {
+      CompoundTag nbt = stack.getTag();
+      if (nbt != null) {
+        CompoundTag persistentData = nbt.getCompound(ToolStack.TAG_PERSISTENT_MOD_DATA);
+        if (!persistentData.isEmpty()) {
+          CompoundTag ammo = persistentData.getCompound(ModifiableCrossbowItem.KEY_CROSSBOW_AMMO.toString());
+          if (!ammo.isEmpty()) {
+            return ammo.getString("id").equals(fireworksID) ? 2 : 1;
+          }
+        }
+      }
+      return 0;
+    });
   }
 
   @SubscribeEvent
@@ -148,6 +177,8 @@ public class ToolClientEvents extends ClientEventBase {
     registerItemColors(colors, TinkerTools.dagger);
     registerItemColors(colors, TinkerTools.sword);
     registerItemColors(colors, TinkerTools.cleaver);
+    // bow
+    registerItemColors(colors, TinkerTools.longbow);
   }
 
   // values to check if a key was being pressed last tick, safe as a static value as we only care about a single player client side

@@ -11,6 +11,7 @@ import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.OffhandAttackModifier;
 
+// TODO: rename in 1.19
 public class UnarmedModifier extends OffhandAttackModifier {
   @Override
   public void addToolStats(ToolRebuildContext context, int level, ModifierStatsBuilder builder) {

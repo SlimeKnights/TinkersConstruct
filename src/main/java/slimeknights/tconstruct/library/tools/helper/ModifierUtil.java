@@ -20,7 +20,8 @@ import net.minecraftforge.common.ToolAction;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
-import slimeknights.tconstruct.library.modifiers.hooks.IArmorLootModifier;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.LootingModifierHook;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
@@ -66,7 +67,7 @@ public final class ModifierUtil {
         }
       };
       for (ModifierEntry entry : tool.getModifierList()) {
-        entry.getModifier().applyHarvestEnchantments(tool, entry.getLevel(), context, enchantmentConsumer);
+        entry.getHook(TinkerHooks.TOOL_HARVEST_ENCHANTMENTS).applyHarvestEnchantments(tool, entry, context, enchantmentConsumer);
       }
       // lucky pants
       if (player != null) {
@@ -74,10 +75,7 @@ public final class ModifierUtil {
         if (pants.is(TinkerTags.Items.LEGGINGS)) {
           ToolStack pantsTool = ToolStack.from(pants);
           for (ModifierEntry entry : pantsTool.getModifierList()) {
-            IArmorLootModifier leggingLuck = entry.getModifier().getModule(IArmorLootModifier.class);
-            if (leggingLuck != null) {
-              leggingLuck.applyHarvestEnchantments(tool, entry.getLevel(), context, enchantmentConsumer);
-            }
+            entry.getHook(TinkerHooks.LEGGINGS_HARVEST_ENCHANTMENTS).applyHarvestEnchantments(pantsTool, entry, context, enchantmentConsumer);
           }
         }
       }
@@ -118,11 +116,7 @@ public final class ModifierUtil {
     if (tool.isBroken()) {
       return 0;
     }
-    int looting = 0;
-    for (ModifierEntry entry : tool.getModifierList()) {
-      looting = entry.getModifier().getLootingValue(tool, entry.getLevel(), holder, target, damageSource, looting);
-    }
-    return looting;
+    return LootingModifierHook.getLootingValue(TinkerHooks.TOOL_LOOTING, tool, holder, target, damageSource, 0);
   }
 
   /**
@@ -138,12 +132,7 @@ public final class ModifierUtil {
     if (!pants.isEmpty() && pants.is(TinkerTags.Items.LEGGINGS)) {
       ToolStack pantsTool = ToolStack.from(pants);
       if (!pantsTool.isBroken()) {
-        for (ModifierEntry entry : pantsTool.getModifierList()) {
-          IArmorLootModifier leggingLuck = entry.getModifier().getModule(IArmorLootModifier.class);
-          if (leggingLuck != null) {
-            toolLooting = leggingLuck.getLootingValue(pantsTool, entry.getLevel(), holder, target, damageSource, toolLooting);
-          }
-        }
+        toolLooting = LootingModifierHook.getLootingValue(TinkerHooks.LEGGINGS_LOOTING, pantsTool, holder, target, damageSource, toolLooting);
       }
     }
     return toolLooting;

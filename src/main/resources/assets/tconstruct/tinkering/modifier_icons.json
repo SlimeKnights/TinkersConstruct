@@ -56,6 +56,21 @@
   "tconstruct:sweeping_edge":   "tconstruct:gui/modifiers/melee/sweeping",
   "tconstruct:spilling":        "tconstruct:gui/modifiers/melee/spilling",
   
+  "tconstruct:blindshot":    "tconstruct:gui/modifiers/ranged/blindshot",
+  "tconstruct:freezing":     "tconstruct:gui/modifiers/ranged/freezing",
+  "tconstruct:impaling":     "tconstruct:gui/modifiers/ranged/impaling",
+  "tconstruct:power":        "tconstruct:gui/modifiers/ranged/power",
+  "tconstruct:punch":        "tconstruct:gui/modifiers/ranged/punch",
+  "tconstruct:quick_charge": "tconstruct:gui/modifiers/ranged/quick_charge",
+  "tconstruct:scope":        "tconstruct:gui/modifiers/ranged/scope",
+  "tconstruct:sinistral":    "tconstruct:gui/modifiers/ranged/sinistral",
+  "tconstruct:trueshot":     "tconstruct:gui/modifiers/ranged/trueshot",
+
+  "tconstruct:bulk_quiver": "tconstruct:gui/modifiers/ranged/bulk_quiver",
+  "tconstruct:crystalshot": "tconstruct:item/arrow/amethyst",
+  "tconstruct:multishot":    "tconstruct:gui/modifiers/ranged/multishot",
+  "tconstruct:trick_quiver": "tconstruct:gui/modifiers/ranged/trick_quiver",
+  
   "tconstruct:protection":            "tconstruct:gui/modifiers/armor/protection",
   "tconstruct:melee_protection":      "tconstruct:gui/modifiers/armor/melee_protection",
   "tconstruct:projectile_protection": "tconstruct:gui/modifiers/armor/projectile_protection",
@@ -78,10 +93,10 @@
   "tconstruct:respiration":   "tconstruct:gui/modifiers/armor/respiration",
   "tconstruct:slurping":      "tconstruct:gui/modifiers/armor/slurping",
   "tconstruct:zoom":          ["minecraft:item/spyglass", "tconstruct:gui/modifiers/book"],
-  
+
+  "tconstruct:ambidextrous":  "tconstruct:gui/modifiers/armor/ambidextrous",
   "tconstruct:reach":    "tconstruct:gui/modifiers/armor/reach",
   "tconstruct:strength": "tconstruct:gui/modifiers/armor/strength",
-  "tconstruct:unarmed":  "tconstruct:gui/modifiers/armor/unarmed",
   
   "tconstruct:leaping":      "tconstruct:gui/modifiers/armor/leaping",
   "tconstruct:pockets":      "tconstruct:gui/modifiers/armor/pockets",

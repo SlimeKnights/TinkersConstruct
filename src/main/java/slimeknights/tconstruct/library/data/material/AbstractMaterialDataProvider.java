@@ -35,6 +35,8 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
   public static final int ORDER_WEAPON = 2;
   /** General purpose materials */
   public static final int ORDER_SPECIAL = 3;
+  /** Ranged exclusive materials */
+  public static final int ORDER_RANGED = 4;
   /** Order for mod integration materials */
   public static final int ORDER_COMPAT = 5;
   /** Order for nether materials in tiers 1-3 */

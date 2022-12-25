@@ -43,10 +43,17 @@
     }
   },
   {
-    "name": "materials",
-    "extraData": { "tconstruct:material_tier": 4 },
+    "name": "melee_harvest_materials",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tier": 4 } },
     "icon": {
       "item": "tconstruct:manyullyn_ingot"
+    }
+  },
+  {
+    "name": "ranged_materials",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tier": 4 } },
+    "icon": {
+      "item": "tconstruct:hepatizon_ingot"
     }
   }
 ]

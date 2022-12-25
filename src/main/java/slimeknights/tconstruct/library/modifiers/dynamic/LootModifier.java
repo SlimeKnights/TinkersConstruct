@@ -13,7 +13,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.modifiers.hooks.IArmorLootModifier;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.HarvestEnchantmentsModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.LootingModifierHook;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -24,7 +28,7 @@ import java.util.function.BiConsumer;
 
 /** Modifier to boost loot, from mobs or blocks */
 @RequiredArgsConstructor
-public class LootModifier extends Modifier implements IArmorLootModifier {
+public class LootModifier extends Modifier implements LootingModifierHook, HarvestEnchantmentsModifierHook {
   @Nullable
   private final Enchantment enchantment;
   private final int enchantmentLevel;
@@ -40,26 +44,27 @@ public class LootModifier extends Modifier implements IArmorLootModifier {
   }
 
   @Override
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.TOOL_LOOTING, TinkerHooks.LEGGINGS_LOOTING, TinkerHooks.PROJECTILE_LOOTING,
+                        TinkerHooks.TOOL_HARVEST_ENCHANTMENTS, TinkerHooks.LEGGINGS_HARVEST_ENCHANTMENTS);
+  }
+
+  @Override
   public Component getDisplayName(int level) {
     return levelDisplay.nameForLevel(this, level);
   }
 
   @Override
-  public int getLootingValue(IToolStackView tool, int level, LivingEntity holder, Entity target, @org.jetbrains.annotations.Nullable DamageSource damageSource, int looting) {
-    return looting + (this.lootingLevel * level);
+  public int getLootingValue(IToolStackView tool, ModifierEntry modifier, LivingEntity holder, Entity target, @Nullable DamageSource damageSource, int looting) {
+    return looting + (this.lootingLevel * modifier.getLevel());
   }
 
   @Override
-  public void applyHarvestEnchantments(IToolStackView tool, int level, ToolHarvestContext context, BiConsumer<Enchantment,Integer> consumer) {
+  public void applyHarvestEnchantments(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context, BiConsumer<Enchantment,Integer> consumer) {
     if (enchantment != null && enchantmentLevel > 0) {
-      consumer.accept(enchantment, enchantmentLevel * level);
+      consumer.accept(enchantment, enchantmentLevel * modifier.getLevel());
     }
-  }
-
-  @Nullable
-  @Override
-  public <T> T getModule(Class<T> type) {
-    return tryModuleMatch(type, IArmorLootModifier.class, this);
   }
 
   @Override

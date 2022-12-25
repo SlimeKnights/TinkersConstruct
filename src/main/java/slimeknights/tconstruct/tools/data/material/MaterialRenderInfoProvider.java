@@ -83,6 +83,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.silver).color(0xDAF3ED).fallbacks("metal");
     buildRenderInfo(MaterialIds.lead).color(0x696579).fallbacks("metal");
     buildRenderInfo(MaterialIds.whitestone).color(0xE0E9EC).fallbacks("rock");
+    buildRenderInfo(MaterialIds.aluminum);
 
     // tier 3 compat
     buildRenderInfo(MaterialIds.steel).color(0x959595).fallbacks("metal");
@@ -99,7 +100,6 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.debris);
     buildRenderInfo(MaterialIds.netherite).color(0x4C4143).fallbacks("metal");
     // compat plate
-    buildRenderInfo(MaterialIds.aluminum);
     buildRenderInfo(MaterialIds.nickel);
     buildRenderInfo(MaterialIds.tin);
     buildRenderInfo(MaterialIds.zinc);

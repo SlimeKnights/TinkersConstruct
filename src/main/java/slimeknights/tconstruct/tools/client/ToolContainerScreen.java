@@ -13,7 +13,8 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.RenderUtils;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
-import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability.IInventoryModifier;
+import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
+import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability.InventoryModifierHook;
 import slimeknights.tconstruct.library.tools.layout.Patterns;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -144,23 +145,20 @@ public class ToolContainerScreen extends AbstractContainerScreen<ToolContainerMe
     modifiers:
     for (int modIndex = modifiers.size() - 1; modIndex >= 0; modIndex--) {
       ModifierEntry entry = modifiers.get(modIndex);
-      IInventoryModifier inventory = entry.getModifier().getModule(IInventoryModifier.class);
-      if (inventory != null) {
-        int level = entry.getLevel();
-        int size = inventory.getSlots(tool, level);
-        for (int i = 0; i < size; i++) {
-          if (start + i >= maxSlots) {
-            break modifiers;
-          }
-          Slot slot = menu.getSlot(start + i);
-          Pattern pattern = inventory.getPattern(tool, level, i, slot.hasItem());
-          if (pattern != null) {
-            TextureAtlasSprite sprite = spriteGetter.apply(pattern.getTexture());
-            blit(matrixStack, xStart + slot.x, yStart + slot.y, 100, 16, 16, sprite);
-          }
+      InventoryModifierHook inventory = entry.getHook(ToolInventoryCapability.HOOK);
+      int size = inventory.getSlots(tool, entry);
+      for (int i = 0; i < size; i++) {
+        if (start + i >= maxSlots) {
+          break modifiers;
         }
-        start += size;
+        Slot slot = menu.getSlot(start + i);
+        Pattern pattern = inventory.getPattern(tool, entry, i, slot.hasItem());
+        if (pattern != null) {
+          TextureAtlasSprite sprite = spriteGetter.apply(pattern.getTexture());
+          blit(matrixStack, xStart + slot.x, yStart + slot.y, 100, 16, 16, sprite);
+        }
       }
+      start += size;
     }
 
     // offhand icon

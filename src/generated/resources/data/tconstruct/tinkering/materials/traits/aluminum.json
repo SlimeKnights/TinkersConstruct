@@ -1,1 +1,8 @@
-{}
+{
+  "default": [
+    {
+      "name": "tconstruct:featherweight",
+      "level": 1
+    }
+  ]
+}

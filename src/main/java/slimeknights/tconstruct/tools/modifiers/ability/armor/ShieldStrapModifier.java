@@ -12,8 +12,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.dynamic.InventoryMenuModifier;
-import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
@@ -22,7 +22,7 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
 import javax.annotation.Nullable;
 
-public class ShieldStrapModifier extends InventoryMenuModifier implements IArmorInteractModifier {
+public class ShieldStrapModifier extends InventoryMenuModifier {
   private static final ResourceLocation KEY = TConstruct.getResource("shield_strap");
   private static final Pattern PATTERN = new Pattern(TConstruct.MOD_ID, "shield_plus");
   public ShieldStrapModifier() {
@@ -41,17 +41,17 @@ public class ShieldStrapModifier extends InventoryMenuModifier implements IArmor
   }
 
   @Override
-  public boolean startArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot equipmentSlot, TooltipKey modifier) {
-    if (modifier == TooltipKey.SHIFT) {
-      return super.startArmorInteract(tool, level, player, equipmentSlot, modifier);
+  public boolean startInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot equipmentSlot, TooltipKey keyModifier) {
+    if (keyModifier == TooltipKey.SHIFT) {
+      return super.startInteract(tool, modifier, player, equipmentSlot, keyModifier);
     }
-    if (modifier == TooltipKey.NORMAL) {
+    if (keyModifier == TooltipKey.NORMAL) {
       if (player.level.isClientSide) {
         return true;
       }
       // offhand must be able to go in the pants
       ItemStack offhand = player.getOffhandItem();
-      int slots = getSlots(tool, level);
+      int slots = getSlots(tool, modifier.getLevel());
       if (offhand.isEmpty() || !ToolInventoryCapability.isBlacklisted(offhand)) {
         ItemStack newOffhand = ItemStack.EMPTY;
         ModDataNBT persistentData = tool.getPersistentData();
@@ -91,7 +91,7 @@ public class ShieldStrapModifier extends InventoryMenuModifier implements IArmor
 
   @Nullable
   @Override
-  public Pattern getPattern(IToolStackView tool, int level, int slot, boolean hasStack) {
+  public Pattern getPattern(IToolStackView tool, ModifierEntry modifier, int slot, boolean hasStack) {
     return hasStack ? null : PATTERN;
   }
 }

@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:table_casting_material",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/bow_grip"
+  },
+  "item_cost": 2,
+  "result": "tconstruct:bow_grip"
+}

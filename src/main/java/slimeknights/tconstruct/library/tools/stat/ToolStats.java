@@ -27,7 +27,7 @@ public class ToolStats {
   // melee
   /** Tools attack damage for melee */
   public static final FloatToolStat ATTACK_DAMAGE = register(new FloatToolStat(name("attack_damage"), 0xFFD76464, 0, 0, 2048f, TinkerTags.Items.MELEE_OR_UNARMED));
-  /** Equivalent to the vanilla attack speed. 4 is equal to any standard item */
+  /** Equivalent to the vanilla attack speed, which is effectively number of attacks per second. 4 is equal to any standard item */
   public static final FloatToolStat ATTACK_SPEED = register(new FloatToolStat(name("attack_speed"), 0xFF8547CC, 1, 0, 1024f, TinkerTags.Items.MELEE));
 
   // harvest
@@ -43,7 +43,17 @@ public class ToolStats {
   public static final FloatToolStat ARMOR_TOUGHNESS = register(new FloatToolStat(name("armor_toughness"), 0xFF8547CC, 0, 0, 20, TinkerTags.Items.ARMOR));
   /** Knockback resistance percentage */
   public static final FloatToolStat KNOCKBACK_RESISTANCE = register(new FloatToolStat(name("knockback_resistance"), 0xFF8547CC, 0, 0, 1, TinkerTags.Items.ARMOR));
-  
+
+  // ranged
+  /** Number of times per second a tool can be used */
+  public static final FloatToolStat DRAW_SPEED = register(new FloatToolStat(name("draw_speed"), 0xFF8547CC, 1, 0, 1024f, TinkerTags.Items.RANGED));
+  /** Starting velocity of the projectile launched from a ranged weapon */
+  public static final FloatToolStat VELOCITY = register(new FloatToolStat(name("velocity"), 0xFF78A0CD, 1, 0, 1024f, TinkerTags.Items.RANGED));
+  /** Starting velocity of the projectile launched from a ranged weapon */
+  public static final FloatToolStat ACCURACY = register(new FloatToolStat(name("accuracy"), 0xFF8547CC, 0.75f, 0.1f, 1f, TinkerTags.Items.RANGED));
+  /** Base damage of the projectile, boosted by enchantments such as power. Assumes the arrow itself does 2 damage, so we boost on top of that */
+  public static final FloatToolStat PROJECTILE_DAMAGE = register(new FloatToolStat(name("projectile_damage"), 0xFFD76464, 2f, 0f, 1024f, TinkerTags.Items.RANGED));
+
 
   /**
    * Gets the tool stat for the given name

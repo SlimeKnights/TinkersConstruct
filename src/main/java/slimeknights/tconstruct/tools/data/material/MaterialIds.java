@@ -16,6 +16,7 @@ public final class MaterialIds {
   public static final MaterialId rock = id("rock");
   public static final MaterialId copper = id("copper");
   public static final MaterialId bone = id("bone");
+  public static final MaterialId bamboo = id("bamboo");
   // tier 1 - end
   public static final MaterialId chorus = id("chorus");
   // tier 1 - bindings
@@ -62,6 +63,7 @@ public final class MaterialIds {
   public static final MaterialId platinum = id("platinum");
   public static final MaterialId silver = id("silver");
   public static final MaterialId lead = id("lead");
+  public static final MaterialId aluminum = id("aluminum");
   // tier 3 (mod integration)
   public static final MaterialId steel = id("steel");
   public static final MaterialId bronze = id("bronze");
@@ -77,7 +79,6 @@ public final class MaterialIds {
   public static final MaterialId debris = id("debris");
   public static final MaterialId netherite = id("netherite");
   // plate - compat
-  public static final MaterialId aluminum = id("aluminum");
   public static final MaterialId nickel = id("nickel");
   public static final MaterialId tin = id("tin");
   public static final MaterialId zinc = id("zinc");
@@ -112,7 +113,6 @@ public final class MaterialIds {
   public static final MaterialVariantId darkOak = create(wood, "dark_oak");
   public static final MaterialVariantId crimson = create(wood, "crimson");
   public static final MaterialVariantId warped  = create(wood, "warped");
-  public static final MaterialVariantId bamboo  = create(wood, "bamboo");
   // stone
   public static final MaterialVariantId stone      = create(rock, "stone");
   public static final MaterialVariantId andesite   = create(rock, "andesite");

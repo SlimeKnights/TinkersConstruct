@@ -14,6 +14,8 @@
     "tconstruct:dagger",
     "tconstruct:sword",
     "tconstruct:cleaver",
+    "tconstruct:crossbow",
+    "tconstruct:longbow",
     "tconstruct:flint_and_brick",
     "tconstruct:travelers_boots",
     "tconstruct:travelers_leggings",

@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:stat_boost",
+  "level_display": "tconstruct:default",
+  "stats": [
+    {
+      "stat": "tconstruct:projectile_damage",
+      "type": "add",
+      "value": 0.5
+    }
+  ]
+}

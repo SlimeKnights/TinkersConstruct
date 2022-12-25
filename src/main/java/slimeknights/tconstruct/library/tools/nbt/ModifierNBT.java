@@ -32,7 +32,7 @@ public class ModifierNBT {
   public static final String TAG_LEVEL = "level";
 
   /** Instance containing no modifiers */
-  static final ModifierNBT EMPTY = new ModifierNBT(Collections.emptyList());
+  public static final ModifierNBT EMPTY = new ModifierNBT(Collections.emptyList());
 
   /** Sorted list of modifiers */
   @Getter
@@ -44,6 +44,21 @@ public class ModifierNBT {
    */
   public boolean isEmpty() {
     return modifiers.isEmpty();
+  }
+
+  /**
+   * Gets the modifier entry for a modifier
+   * @param modifier  Modifier to check
+   * @return  Modifier entry, or null if absent
+   */
+  @Nullable
+  public ModifierEntry getEntry(ModifierId modifier) {
+    for (ModifierEntry entry : modifiers) {
+      if (entry.matches(modifier)) {
+        return entry;
+      }
+    }
+    return null;
   }
 
   /**

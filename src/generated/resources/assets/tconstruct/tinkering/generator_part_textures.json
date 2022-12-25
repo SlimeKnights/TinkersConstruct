@@ -22,6 +22,10 @@
       "statType": "tconstruct:handle"
     },
     {
+      "path": "tconstruct:item/tool/parts/bowstring",
+      "statType": "tconstruct:bowstring"
+    },
+    {
       "path": "tconstruct:item/tool/parts/tool_binding",
       "statType": "tconstruct:extra"
     },
@@ -484,6 +488,142 @@
     {
       "path": "tconstruct:item/tool/cleaver/large/handle",
       "statType": "tconstruct:handle"
+    },
+    {
+      "path": "tconstruct:item/tool/crossbow/limb",
+      "statType": "tconstruct:limb"
+    },
+    {
+      "path": "tconstruct:item/tool/crossbow/bowstring",
+      "statType": "tconstruct:bowstring"
+    },
+    {
+      "path": "tconstruct:item/tool/crossbow/body",
+      "statType": "tconstruct:grip"
+    },
+    {
+      "path": "tconstruct:item/tool/crossbow/bowstring_1",
+      "statType": "tconstruct:bowstring"
+    },
+    {
+      "path": "tconstruct:item/tool/crossbow/bowstring_3",
+      "statType": "tconstruct:bowstring"
+    },
+    {
+      "path": "tconstruct:item/tool/crossbow/bowstring_2",
+      "statType": "tconstruct:bowstring"
+    },
+    {
+      "path": "tconstruct:item/tool/longbow/grip",
+      "statType": "tconstruct:grip"
+    },
+    {
+      "path": "tconstruct:item/tool/longbow/bowstring",
+      "statType": "tconstruct:bowstring"
+    },
+    {
+      "path": "tconstruct:item/tool/longbow/limb_bottom",
+      "statType": "tconstruct:limb"
+    },
+    {
+      "path": "tconstruct:item/tool/longbow/limb_top",
+      "statType": "tconstruct:limb"
+    },
+    {
+      "path": "tconstruct:item/tool/longbow/broken_bowstring",
+      "statType": "tconstruct:bowstring"
+    },
+    {
+      "path": "tconstruct:item/tool/longbow/limb_top_2",
+      "statType": "tconstruct:limb"
+    },
+    {
+      "path": "tconstruct:item/tool/longbow/limb_bottom_3",
+      "statType": "tconstruct:limb"
+    },
+    {
+      "path": "tconstruct:item/tool/longbow/limb_top_1",
+      "statType": "tconstruct:limb"
+    },
+    {
+      "path": "tconstruct:item/tool/longbow/bowstring_1",
+      "statType": "tconstruct:bowstring"
+    },
+    {
+      "path": "tconstruct:item/tool/longbow/limb_bottom_2",
+      "statType": "tconstruct:limb"
+    },
+    {
+      "path": "tconstruct:item/tool/longbow/bowstring_3",
+      "statType": "tconstruct:bowstring"
+    },
+    {
+      "path": "tconstruct:item/tool/longbow/limb_bottom_1",
+      "statType": "tconstruct:limb"
+    },
+    {
+      "path": "tconstruct:item/tool/longbow/limb_top_3",
+      "statType": "tconstruct:limb"
+    },
+    {
+      "path": "tconstruct:item/tool/longbow/bowstring_2",
+      "statType": "tconstruct:bowstring"
+    },
+    {
+      "path": "tconstruct:item/tool/longbow/large/grip",
+      "statType": "tconstruct:grip"
+    },
+    {
+      "path": "tconstruct:item/tool/longbow/large/bowstring",
+      "statType": "tconstruct:bowstring"
+    },
+    {
+      "path": "tconstruct:item/tool/longbow/large/limb_bottom",
+      "statType": "tconstruct:limb"
+    },
+    {
+      "path": "tconstruct:item/tool/longbow/large/limb_top",
+      "statType": "tconstruct:limb"
+    },
+    {
+      "path": "tconstruct:item/tool/longbow/large/broken_bowstring",
+      "statType": "tconstruct:bowstring"
+    },
+    {
+      "path": "tconstruct:item/tool/longbow/large/limb_top_2",
+      "statType": "tconstruct:limb"
+    },
+    {
+      "path": "tconstruct:item/tool/longbow/large/limb_bottom_3",
+      "statType": "tconstruct:limb"
+    },
+    {
+      "path": "tconstruct:item/tool/longbow/large/limb_top_1",
+      "statType": "tconstruct:limb"
+    },
+    {
+      "path": "tconstruct:item/tool/longbow/large/bowstring_1",
+      "statType": "tconstruct:bowstring"
+    },
+    {
+      "path": "tconstruct:item/tool/longbow/large/limb_bottom_2",
+      "statType": "tconstruct:limb"
+    },
+    {
+      "path": "tconstruct:item/tool/longbow/large/bowstring_3",
+      "statType": "tconstruct:bowstring"
+    },
+    {
+      "path": "tconstruct:item/tool/longbow/large/limb_bottom_1",
+      "statType": "tconstruct:limb"
+    },
+    {
+      "path": "tconstruct:item/tool/longbow/large/limb_top_3",
+      "statType": "tconstruct:limb"
+    },
+    {
+      "path": "tconstruct:item/tool/longbow/large/bowstring_2",
+      "statType": "tconstruct:bowstring"
     }
   ]
 }

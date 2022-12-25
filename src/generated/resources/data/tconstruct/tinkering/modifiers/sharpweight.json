@@ -6,6 +6,11 @@
       "stat": "tconstruct:mining_speed",
       "type": "multiply_base",
       "value": 0.1
+    },
+    {
+      "stat": "tconstruct:draw_speed",
+      "type": "multiply_base",
+      "value": 0.15
     }
   ],
   "attributes": [

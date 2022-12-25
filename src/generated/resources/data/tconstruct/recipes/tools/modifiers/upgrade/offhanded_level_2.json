@@ -12,7 +12,7 @@
     }
   ],
   "tools": {
-    "tag": "tconstruct:modifiable/held"
+    "tag": "tconstruct:modifiable/interactable/right"
   },
   "requirements": {
     "name": "tconstruct:offhanded",

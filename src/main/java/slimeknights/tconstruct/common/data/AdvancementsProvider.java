@@ -206,6 +206,8 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(TinkerSmeltery.largePlateCast);
       with.accept(TinkerSmeltery.toolHandleCast);
       with.accept(TinkerSmeltery.toughHandleCast);
+      with.accept(TinkerSmeltery.bowLimbCast);
+      with.accept(TinkerSmeltery.bowGripCast);
     });
     Advancement mightySmelting = builder(TinkerCommons.mightySmelting, resource("smeltery/mighty_smelting"), melter, FrameType.TASK, builder ->
       builder.addCriterion("crafted_book", hasItem(TinkerCommons.mightySmelting)));
@@ -224,6 +226,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(TinkerTools.broadAxe.get());
       with.accept(TinkerTools.scythe.get());
       with.accept(TinkerTools.cleaver.get());
+      with.accept(TinkerTools.longbow.get());
     });
     builder(TinkerModifiers.silkyCloth, resource("smeltery/abilities"), anvil, FrameType.CHALLENGE, builder -> {
       Consumer<ModifierId> with = modifier -> builder.addCriterion(modifier.getPath(), InventoryChangeTrigger.TriggerInstance.hasItems(ToolPredicate.builder().modifiers(ModifierMatch.entry(modifier)).build()));
@@ -249,7 +252,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       withL.accept(TinkerModifiers.snowdrift);
       with.accept(ModifierIds.strength);
       with.accept(ModifierIds.toolBelt);
-      withL.accept(TinkerModifiers.unarmed);
+      withL.accept(TinkerModifiers.ambidextrous);
       withL.accept(TinkerModifiers.zoom);
       // harvest
       withL.accept(TinkerModifiers.autosmelt);

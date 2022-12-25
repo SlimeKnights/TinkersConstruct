@@ -151,9 +151,10 @@ public class MaterialTraits {
 
     /**
      * Builds this into a material trait object
+     * @param  fallbacks Map of stat type fallbacks
      * @return  Material traits
      */
-    public MaterialTraits build() {
+    public MaterialTraits build(Map<MaterialStatsId,MaterialStatsId> fallbacks) {
       List<ModifierEntry> defaultTraits = this.defaultTraits;
       if (defaultTraits == null || defaultTraits.isEmpty()) {
         defaultTraits = Collections.emptyList();
@@ -162,9 +163,27 @@ public class MaterialTraits {
       if (this.traitsPerStats.isEmpty()) {
         traitsPerStats = Collections.emptyMap();
       } else {
-        traitsPerStats = ImmutableMap.copyOf(this.traitsPerStats);
+        // add in fallbacks now so no hit to lookup times
+        ImmutableMap.Builder<MaterialStatsId,List<ModifierEntry>> builder = ImmutableMap.builder();
+        builder.putAll(this.traitsPerStats);
+        for (Entry<MaterialStatsId,MaterialStatsId> fallback : fallbacks.entrySet()) {
+          MaterialStatsId statType = fallback.getKey();
+          if (!this.traitsPerStats.containsKey(statType)) {
+            List<ModifierEntry> fallbackTraits = this.traitsPerStats.get(fallback.getValue());
+            if (fallbackTraits != null) {
+              builder.put(statType, fallbackTraits);
+            }
+          }
+        }
+        traitsPerStats = builder.build();
       }
       return new MaterialTraits(defaultTraits, traitsPerStats);
+    }
+
+    /** @deprecated use {@link #build(Map)} */
+    @Deprecated
+    public MaterialTraits build() {
+      return build(Collections.emptyMap());
     }
   }
 }

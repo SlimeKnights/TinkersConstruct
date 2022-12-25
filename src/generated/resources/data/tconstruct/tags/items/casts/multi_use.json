@@ -20,6 +20,8 @@
     "#tconstruct:casts/multi_use/round_plate",
     "#tconstruct:casts/multi_use/large_plate",
     "#tconstruct:casts/multi_use/tool_handle",
-    "#tconstruct:casts/multi_use/tough_handle"
+    "#tconstruct:casts/multi_use/tough_handle",
+    "#tconstruct:casts/multi_use/bow_limb",
+    "#tconstruct:casts/multi_use/bow_grip"
   ]
 }

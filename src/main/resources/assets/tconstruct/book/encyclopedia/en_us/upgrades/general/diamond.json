@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:diamond",
   "text": [
     {
-      "text": "Grants +500 durability (+250 on armor), +0.5 attack damage, +2 mining speed, and +1 armor. Additionally boosts the tools harvest level to diamond."
+      "text": "Grants +500 durability (+250 on armor), +0.5 attack damage, +2 mining speed, +0.5 projectile damage, and +1 armor. Additionally boosts the tools harvest level to diamond."
     },
     {
       "text": "Tools and armor will only receive applicable stat boosts, for instance held tools will not receive +1 armor.",

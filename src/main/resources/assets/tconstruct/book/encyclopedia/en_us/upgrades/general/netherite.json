@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:netherite",
   "text": [
     {
-      "text": "Grants +20% durability, +20% attack damage, +25% mining speed, +5% knockback resistance, and +1 armor toughness. Increases the mining level to netherite, and makes the tool invulnerable when dropped."
+      "text": "Grants +20% durability, +20% attack damage, +25% mining speed, +10% velocity, +5% knockback resistance, and +1 armor toughness. Increases the mining level to netherite, and makes the tool invulnerable when dropped."
     },
     {
       "text": "Tools and armor will only receive applicable stat boosts.",

@@ -1,7 +1,8 @@
 {
   "replace": false,
   "values": [
-    "#tconstruct:modifiable/held",
-    "#tconstruct:modifiable/armor/chestplate"
+    "#tconstruct:modifiable/interactable/left",
+    "#tconstruct:modifiable/interactable/right",
+    "#tconstruct:modifiable/interactable/armor"
   ]
 }

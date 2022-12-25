@@ -1,0 +1,44 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "tag": "forge:ingots/gold"
+    },
+    {
+      "item": "minecraft:golden_carrot"
+    },
+    {
+      "tag": "forge:ingots/gold"
+    },
+    {
+      "tag": "forge:ender_pearls"
+    },
+    {
+      "tag": "forge:ender_pearls"
+    }
+  ],
+  "tools": {
+    "type": "forge:difference",
+    "base": [
+      {
+        "tag": "tconstruct:modifiable/melee_or_unarmed"
+      },
+      {
+        "tag": "tconstruct:modifiable/ranged"
+      }
+    ],
+    "subtracted": {
+      "tag": "tconstruct:modifiable/harvest"
+    }
+  },
+  "requirements": {
+    "name": "tconstruct:looting",
+    "level": 1,
+    "error": "recipe.tconstruct.modifier.looting.level_2"
+  },
+  "result": {
+    "name": "tconstruct:looting",
+    "level": 1
+  },
+  "max_level": 2
+}

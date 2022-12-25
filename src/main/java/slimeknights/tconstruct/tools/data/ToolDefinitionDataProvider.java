@@ -33,6 +33,9 @@ import slimeknights.tconstruct.tools.ToolDefinitions;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
 import slimeknights.tconstruct.tools.stats.SkullStats;
 
+import static slimeknights.tconstruct.tools.TinkerToolParts.bowGrip;
+import static slimeknights.tconstruct.tools.TinkerToolParts.bowLimb;
+import static slimeknights.tconstruct.tools.TinkerToolParts.bowstring;
 import static slimeknights.tconstruct.tools.TinkerToolParts.broadAxeHead;
 import static slimeknights.tconstruct.tools.TinkerToolParts.broadBlade;
 import static slimeknights.tconstruct.tools.TinkerToolParts.hammerHead;
@@ -343,6 +346,31 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .action(ToolActions.SWORD_DIG)
       .harvestLogic(swordLogic)
       .attack(new SweepWeaponAttack(2));
+
+    // bows
+    define(ToolDefinitions.CROSSBOW)
+      // parts
+      .part(bowLimb)
+      .part(bowGrip)
+      .part(bowstring)
+      // stats
+      .stat(ToolStats.ATTACK_DAMAGE, 0f)
+      .stat(ToolStats.ATTACK_SPEED, 1.0f)
+      .stat(ToolStats.VELOCITY, 1.05f) // vanilla has a 3.15 multiplier on crossbows, but 3 on bows. Works out to a 5% difference
+      .stat(ToolStats.DRAW_SPEED, 0.8f) // vanilla has a 25 second time for crossbows, 20 seconds for bows. Works out to 80%
+      .multiplier(ToolStats.DURABILITY, 2f)
+      .smallToolStartingSlots();
+    define(ToolDefinitions.LONGBOW)
+      // parts
+      .part(bowLimb)
+      .part(bowLimb)
+      .part(bowGrip)
+      .part(bowstring)
+      // stats
+      .stat(ToolStats.ATTACK_DAMAGE, 0f)
+      .stat(ToolStats.ATTACK_SPEED, 1.0f)
+      .multiplier(ToolStats.DURABILITY, 3f)
+      .largeToolStartingSlots();
 
     // special
     define(ToolDefinitions.FLINT_AND_BRICK)

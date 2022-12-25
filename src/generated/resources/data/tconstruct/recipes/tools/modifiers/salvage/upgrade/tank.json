@@ -8,6 +8,9 @@
       "tag": "tconstruct:modifiable/armor/helmets"
     },
     {
+      "tag": "tconstruct:modifiable/armor/chestplate"
+    },
+    {
       "tag": "tconstruct:modifiable/armor/leggings"
     }
   ],

@@ -8,9 +8,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
-import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability.IInventoryModifier;
+import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability.InventoryModifierHook;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
@@ -23,7 +25,7 @@ import java.util.function.BiFunction;
 
 /** Modifier that has an inventory */
 @RequiredArgsConstructor
-public class InventoryModifier extends Modifier implements IInventoryModifier {
+public class InventoryModifier extends Modifier implements InventoryModifierHook {
   /** Mod Data NBT mapper to get a compound list */
   protected static final BiFunction<CompoundTag,String,ListTag> GET_COMPOUND_LIST = (nbt, name) -> nbt.getList(name, Tag.TAG_COMPOUND);
   /** Error for if the container has items preventing modifier removal */
@@ -101,10 +103,10 @@ public class InventoryModifier extends Modifier implements IInventoryModifier {
   }
 
   @Override
-  public ItemStack getStack(IToolStackView tool, int level, int slot) {
+  public ItemStack getStack(IToolStackView tool, ModifierEntry modifier, int slot) {
     IModDataView modData = tool.getPersistentData();
     ResourceLocation key = getInventoryKey();
-    if (slot < getSlots(tool, level) && modData.contains(key, Tag.TAG_LIST)) {
+    if (slot < getSlots(tool, modifier) && modData.contains(key, Tag.TAG_LIST)) {
       ListTag list = tool.getPersistentData().get(key, GET_COMPOUND_LIST);
       for (int i = 0; i < list.size(); i++) {
         CompoundTag compound = list.getCompound(i);
@@ -117,8 +119,8 @@ public class InventoryModifier extends Modifier implements IInventoryModifier {
   }
 
   @Override
-  public void setStack(IToolStackView tool, int level, int slot, ItemStack stack) {
-    if (slot < getSlots(tool, level)) {
+  public void setStack(IToolStackView tool, ModifierEntry modifier, int slot, ItemStack stack) {
+    if (slot < getSlots(tool, modifier)) {
       ListTag list;
       ModDataNBT modData = tool.getPersistentData();
       // if the tag exists, fetch it
@@ -160,14 +162,14 @@ public class InventoryModifier extends Modifier implements IInventoryModifier {
   }
 
   @Override
-  public final int getSlots(IToolStackView tool, int level) {
-    return getSlots((IToolContext) tool, level);
+  public final int getSlots(IToolStackView tool, ModifierEntry modifier) {
+    return getSlots(tool, modifier.getLevel());
   }
 
-  @Nullable
   @Override
-  public <T> T getModule(Class<T> type) {
-    return tryModuleMatch(type, IInventoryModifier.class, this);
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, ToolInventoryCapability.HOOK);
   }
 
   /** Writes a stack to NBT, including the slot */

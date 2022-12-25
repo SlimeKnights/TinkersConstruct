@@ -26,10 +26,17 @@
     "icon": {
       "item": "tconstruct:ingot_red_sand_cast"
     }
-  }, 
+  },
   {
-    "name": "materials",
-    "extraData": { "tconstruct:material_tier": 2 },
+    "name": "melee_harvest_materials",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tier": 2 } },
+    "icon": {
+      "item": "tconstruct:seared_brick"
+    }
+  },
+  {
+    "name": "ranged_materials",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tier": 2 } },
     "icon": {
       "item": "minecraft:iron_ingot"
     }

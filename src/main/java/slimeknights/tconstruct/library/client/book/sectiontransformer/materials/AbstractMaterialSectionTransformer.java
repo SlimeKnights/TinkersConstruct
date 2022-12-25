@@ -9,6 +9,7 @@ import slimeknights.mantle.client.book.repository.BookRepository;
 import slimeknights.mantle.client.book.transformer.SectionTransformer;
 import slimeknights.mantle.client.screen.book.element.ItemElement;
 import slimeknights.mantle.client.screen.book.element.SizedBookElement;
+import slimeknights.tconstruct.library.client.book.content.AbstractMaterialContent;
 import slimeknights.tconstruct.library.client.book.content.ContentMaterial;
 import slimeknights.tconstruct.library.client.book.content.ContentPageIconList;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
@@ -41,7 +42,7 @@ public abstract class AbstractMaterialSectionTransformer extends SectionTransfor
    * @param material       Material to display
    * @return  Material page
    */
-  protected ContentMaterial getPageContent(MaterialVariantId material) {
+  protected AbstractMaterialContent getPageContent(MaterialVariantId material) {
     return new ContentMaterial(material, detailed);
   }
 
@@ -72,7 +73,7 @@ public abstract class AbstractMaterialSectionTransformer extends SectionTransfor
    * @param validMaterial   Predicate to validate materials
    * @param pageCreator     Logic to create a page
    */
-  public static void createPages(BookData book, SectionData sectionData, Predicate<IMaterial> validMaterial, Function<MaterialVariantId, ContentMaterial> pageCreator) {
+  public static void createPages(BookData book, SectionData sectionData, Predicate<IMaterial> validMaterial, Function<MaterialVariantId,AbstractMaterialContent> pageCreator) {
     sectionData.source = BookRepository.DUMMY;
     sectionData.parent = book;
 
@@ -89,8 +90,8 @@ public abstract class AbstractMaterialSectionTransformer extends SectionTransfor
 
     for (IMaterial material : materialList) {
       MaterialId materialId = material.getIdentifier();
-      ContentMaterial contentMaterial = pageCreator.apply(materialId);
-      PageData page = addPageStatic(sectionData, materialId.toString(), ContentMaterial.ID, contentMaterial);
+      AbstractMaterialContent contentMaterial = pageCreator.apply(materialId);
+      PageData page = addPageStatic(sectionData, materialId.toString(), contentMaterial.getId(), contentMaterial);
 
       SizedBookElement icon = new ItemElement(0, 0, 1f, contentMaterial.getDisplayStacks());
       while (!overview.addLink(icon, contentMaterial.getTitleComponent(), page)) {

@@ -41,6 +41,12 @@ public class ModifierIds {
   public static final ModifierId killager    = id("killager");
   public static final ModifierId cooling     = id("cooling");
 
+  // ranged
+  public static final ModifierId power = id("power");
+  public static final ModifierId quickCharge = id("quick_charge");
+  public static final ModifierId trueshot = id("trueshot");
+  public static final ModifierId blindshot = id("blindshot");
+
   // armor
   public static final ModifierId wings = id("wings");
   public static final ModifierId knockbackResistance = id("knockback_resistance");
@@ -61,6 +67,7 @@ public class ModifierIds {
 
   // traits - tier 1
   public static final ModifierId stringy = id("stringy");
+  public static final ModifierId flexible = id("flexible");
   // traits - tier 2
   public static final ModifierId sturdy = id("sturdy");
   public static final ModifierId scorching = id("scorching");
@@ -68,6 +75,7 @@ public class ModifierIds {
   public static final ModifierId lustrous = id("lustrous");
   public static final ModifierId sharpweight = id("sharpweight");
   public static final ModifierId heavy = id("heavy");
+  public static final ModifierId featherweight = id("featherweight");
   // traits - tier 3
   public static final ModifierId crumbling = id("crumbling");
   public static final ModifierId enhanced = id("enhanced");

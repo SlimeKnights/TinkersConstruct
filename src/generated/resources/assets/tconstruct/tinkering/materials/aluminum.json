@@ -42,6 +42,9 @@
       }
     },
     "supportedStats": [
+      "tconstruct:limb",
+      "tconstruct:grip",
+      "tconstruct:repair_kit",
       "tconstruct:plate"
     ],
     "ignoreMaterialStats": false

@@ -40,14 +40,20 @@ import static net.minecraft.tags.ItemTags.CLUSTER_MAX_HARVESTABLES;
 import static slimeknights.tconstruct.common.TinkerTags.Items.AOE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.BOOTS;
+import static slimeknights.tconstruct.common.TinkerTags.Items.BOWS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.CHESTPLATES;
+import static slimeknights.tconstruct.common.TinkerTags.Items.CROSSBOWS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.DURABILITY;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST_PRIMARY;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HELD;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HELMETS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE;
+import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE_ARMOR;
+import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE_LEFT;
+import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE_RIGHT;
 import static slimeknights.tconstruct.common.TinkerTags.Items.LEGGINGS;
+import static slimeknights.tconstruct.common.TinkerTags.Items.LONGBOWS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE_OR_HARVEST;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE_OR_UNARMED;
@@ -55,6 +61,7 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE_PRIMARY;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MODIFIABLE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MULTIPART_TOOL;
 import static slimeknights.tconstruct.common.TinkerTags.Items.ONE_HANDED;
+import static slimeknights.tconstruct.common.TinkerTags.Items.RANGED;
 import static slimeknights.tconstruct.common.TinkerTags.Items.STONE_HARVEST;
 import static slimeknights.tconstruct.common.TinkerTags.Items.SWORD;
 import static slimeknights.tconstruct.common.TinkerTags.Items.TWO_HANDED;
@@ -222,6 +229,9 @@ public class ItemTagProvider extends ItemTagsProvider {
     addToolTags(TinkerTools.dagger,  MULTIPART_TOOL, DURABILITY, HARVEST, MELEE_PRIMARY, ONE_HANDED);
     addToolTags(TinkerTools.sword,   MULTIPART_TOOL, DURABILITY, HARVEST, MELEE_PRIMARY, ONE_HANDED, SWORD, AOE);
     addToolTags(TinkerTools.cleaver, MULTIPART_TOOL, DURABILITY, HARVEST, MELEE_PRIMARY, ONE_HANDED, SWORD, AOE);
+    // bow
+    addToolTags(TinkerTools.crossbow, MULTIPART_TOOL, DURABILITY, MELEE, CROSSBOWS, INTERACTABLE_LEFT);
+    addToolTags(TinkerTools.longbow,  MULTIPART_TOOL, DURABILITY, MELEE, LONGBOWS,  INTERACTABLE_LEFT);
     // specialized
     addToolTags(TinkerTools.flintAndBrick, DURABILITY, MELEE, ONE_HANDED, AOE);
 
@@ -240,10 +250,17 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(MELEE_OR_HARVEST).addTag(MELEE).addTag(HARVEST);
     this.tag(MELEE_OR_UNARMED).addTag(MELEE).addTag(UNARMED);
     this.tag(UNARMED).addTag(CHESTPLATES);
-    this.tag(HELD).addTag(ONE_HANDED).addTag(TWO_HANDED);
-    this.tag(INTERACTABLE).addTag(HELD).addTag(CHESTPLATES);
+    // migrating one handed and two handed to interactable right
+    this.tag(INTERACTABLE_RIGHT).addTags(ONE_HANDED, TWO_HANDED);
+    // interactable armor is mostly so some mod could disable all chestplate interactions in one swing
+    this.tag(INTERACTABLE_ARMOR).addTag(CHESTPLATES);
+    // left and right handed are held, but not armor
+    this.tag(HELD).addTags(INTERACTABLE_RIGHT, INTERACTABLE_LEFT);
+    this.tag(INTERACTABLE).addTags(INTERACTABLE_LEFT, INTERACTABLE_RIGHT, INTERACTABLE_ARMOR);
     this.tag(ARMOR).addTag(BOOTS).addTag(LEGGINGS).addTag(CHESTPLATES).addTag(HELMETS);
     this.tag(AOE).addTag(BOOTS); // boot walk modifiers
+    this.tag(RANGED).addTag(BOWS);
+    this.tag(BOWS).addTags(LONGBOWS, CROSSBOWS);
 
     // general
     this.tag(MODIFIABLE)
@@ -273,6 +290,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 						 TinkerToolParts.smallBlade.get(), TinkerToolParts.broadBlade.get(),
 						 TinkerToolParts.toolBinding.get(), TinkerToolParts.roundPlate.get(), TinkerToolParts.largePlate.get(),
 						 TinkerToolParts.toolHandle.get(), TinkerToolParts.toughHandle.get(),
+						 TinkerToolParts.bowLimb.get(), TinkerToolParts.bowGrip.get(), TinkerToolParts.bowstring.get(),
 						 TinkerToolParts.repairKit.get()); // repair kit is not strictly a tool part, but this list just helps out JEI
 
     TagAppender<Item> slimySeeds = this.tag(TinkerTags.Items.SLIMY_SEEDS);
@@ -382,6 +400,9 @@ public class ItemTagProvider extends ItemTagsProvider {
     // tool rods
     addCast.accept(TinkerSmeltery.toolHandleCast);
     addCast.accept(TinkerSmeltery.toughHandleCast);
+    // bow
+    addCast.accept(TinkerSmeltery.bowLimbCast);
+    addCast.accept(TinkerSmeltery.bowGripCast);
 
     // add all casts to a common tag
     this.tag(TinkerTags.Items.CASTS)

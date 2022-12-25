@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "tools": {
+    "type": "forge:intersection",
+    "children": [
+      {
+        "tag": "tconstruct:modifiable/ranged/crossbows"
+      },
+      {
+        "tag": "tconstruct:modifiable/interactable/left"
+      }
+    ]
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "modifier": "tconstruct:sinistral",
+  "min_level": 1
+}

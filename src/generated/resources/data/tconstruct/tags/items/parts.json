@@ -12,6 +12,9 @@
     "tconstruct:large_plate",
     "tconstruct:tool_handle",
     "tconstruct:tough_handle",
+    "tconstruct:bow_limb",
+    "tconstruct:bow_grip",
+    "tconstruct:bowstring",
     "tconstruct:repair_kit"
   ]
 }

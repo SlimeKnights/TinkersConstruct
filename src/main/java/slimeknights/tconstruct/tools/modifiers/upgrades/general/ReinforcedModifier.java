@@ -36,10 +36,13 @@ public class ReinforcedModifier extends IncrementalModifier {
     return diminishingPercent(level);
   }
 
-  @Override
-  public int onDamageTool(IToolStackView tool, int level, int amount, @Nullable LivingEntity holder) {
-    // vanilla formula, 100 / (level + 1), means 50% chance at level 1
-    float percentage = getPercentage(getScaledLevel(tool, level));
+  /**
+   * Damages the given amount with the reinforced percentage
+   * @param amount      Amount to damage
+   * @param percentage  Reinforeced percentage
+   * @return  Amount after reinforced
+   */
+  public static int damageReinforced(int amount, float percentage) {
     // 100% protection? all damage blocked
     if (percentage >= 1) {
       return 0;
@@ -56,6 +59,11 @@ public class ReinforcedModifier extends IncrementalModifier {
       }
     }
     return dealt;
+  }
+
+  @Override
+  public int onDamageTool(IToolStackView tool, int level, int amount, @Nullable LivingEntity holder) {
+    return damageReinforced(amount, getPercentage(getScaledLevel(tool, level)));
   }
 
   @Override

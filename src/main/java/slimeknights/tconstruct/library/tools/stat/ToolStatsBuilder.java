@@ -149,4 +149,18 @@ public class ToolStatsBuilder {
                 .average()
                 .orElse(missingValue);
   }
+
+  /**
+   * Gets the average value from a list of stat types
+   * @param stats         Stat list
+   * @param statGetter    Function to get the value
+   * @param missingValue  Default value to use for missing stats
+   * @param <T>  Material type
+   * @return  Average value
+   */
+  public static <T extends IMaterialStats, N extends Number> double getTotalValue(List<T> stats, Function<T, N> statGetter) {
+    return stats.stream()
+                .mapToDouble(value -> statGetter.apply(value).doubleValue())
+                .sum();
+  }
 }

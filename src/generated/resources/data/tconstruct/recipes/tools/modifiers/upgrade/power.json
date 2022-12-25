@@ -1,0 +1,58 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "prop": "ichor_geodes",
+          "type": "tconstruct:config"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:incremental_modifier",
+        "input": {
+          "item": "tconstruct:ichor_slime_crystal"
+        },
+        "amount_per_item": 1,
+        "needed_per_level": 72,
+        "tools": {
+          "tag": "tconstruct:modifiable/ranged/longbows"
+        },
+        "slots": {
+          "upgrades": 1
+        },
+        "result": {
+          "name": "tconstruct:power",
+          "level": 1
+        },
+        "max_level": 5
+      }
+    },
+    {
+      "conditions": [
+        {
+          "type": "forge:true"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:incremental_modifier",
+        "input": {
+          "item": "tconstruct:ichor_slime_dirt"
+        },
+        "amount_per_item": 1,
+        "needed_per_level": 36,
+        "tools": {
+          "tag": "tconstruct:modifiable/ranged/longbows"
+        },
+        "slots": {
+          "upgrades": 1
+        },
+        "result": {
+          "name": "tconstruct:power",
+          "level": 1
+        },
+        "max_level": 5
+      }
+    }
+  ]
+}

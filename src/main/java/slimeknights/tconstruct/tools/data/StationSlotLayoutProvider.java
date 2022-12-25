@@ -137,6 +137,19 @@ public class StationSlotLayoutProvider extends AbstractStationSlotLayoutProvider
       .addInputItem(TinkerToolParts.toughHandle, 25, 46)
       .addInputItem(TinkerToolParts.largePlate,  45, 46)
       .build();
+    defineModifiable(TinkerTools.crossbow)
+      .sortIndex(SORT_RANGED)
+      .addInputItem(TinkerToolParts.bowLimb,   10, 20)
+      .addInputItem(TinkerToolParts.bowGrip,   46, 56)
+      .addInputItem(TinkerToolParts.bowstring, 28, 38)
+      .build();
+    defineModifiable(TinkerTools.longbow)
+      .sortIndex(SORT_RANGED + SORT_LARGE)
+      .addInputItem(TinkerToolParts.bowLimb,   20, 55)
+      .addInputItem(TinkerToolParts.bowLimb,   45, 30)
+      .addInputItem(TinkerToolParts.bowGrip,   25, 35)
+      .addInputItem(TinkerToolParts.bowstring, 45, 55)
+      .build();
   }
 
   @Override

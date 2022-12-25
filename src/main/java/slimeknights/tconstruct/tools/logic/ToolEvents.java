@@ -15,6 +15,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -27,6 +28,10 @@ import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.CarvedPumpkinBlock;
 import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
@@ -44,9 +49,11 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolHarvestEvent;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.data.ModifierMaxLevel;
 import slimeknights.tconstruct.library.modifiers.dynamic.MobDisguiseModifier;
-import slimeknights.tconstruct.library.modifiers.hooks.IArmorWalkModifier;
+import slimeknights.tconstruct.library.tools.capability.EntityModifierCapability;
+import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
@@ -55,6 +62,8 @@ import slimeknights.tconstruct.library.tools.helper.ArmorUtil;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
+import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.BlockSideHitListener;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -348,10 +357,7 @@ public class ToolEvents {
       if (!boots.isEmpty() && boots.is(TinkerTags.Items.BOOTS)) {
         ToolStack tool = ToolStack.from(boots);
         for (ModifierEntry entry : tool.getModifierList()) {
-          IArmorWalkModifier hook = entry.getModifier().getModule(IArmorWalkModifier.class);
-          if (hook != null) {
-            hook.onWalk(tool, entry.getLevel(), living, living.lastPos, pos);
-          }
+          entry.getHook(TinkerHooks.BOOT_WALK).onWalk(tool, entry, living, living.lastPos, pos);
         }
       }
     }
@@ -384,5 +390,43 @@ public class ToolEvents {
         }
       }
     });
+  }
+
+  /** Implements projectile hit hook */
+  @SubscribeEvent
+  static void projectileHit(ProjectileImpactEvent event) {
+    Projectile projectile = event.getProjectile();
+    ModifierNBT modifiers = EntityModifierCapability.getOrEmpty(projectile);
+    if (!modifiers.isEmpty()) {
+      NamespacedNBT nbt = PersistentDataCapability.getOrWarn(projectile);
+      HitResult hit = event.getRayTraceResult();
+      HitResult.Type type = hit.getType();
+      // extract a firing entity as that is a common need
+      LivingEntity attacker = projectile.getOwner() instanceof LivingEntity l ? l : null;
+      switch(type) {
+        case ENTITY -> {
+          EntityHitResult entityHit = (EntityHitResult)hit;
+          // cancel all effects on endermen unless we have enderference, endermen like to teleport away
+          // yes, hardcoded to enderference, if you need your own enderference for whatever reason, talk to us
+          if (entityHit.getEntity().getType() != EntityType.ENDERMAN || modifiers.getLevel(TinkerModifiers.enderference.getId()) > 0) {
+            // extract a living target as that is the most common need
+            LivingEntity target = entityHit.getEntity() instanceof LivingEntity l ? l : null;
+            for (ModifierEntry entry : modifiers.getModifiers()) {
+              if (entry.getHook(TinkerHooks.PROJECTILE_HIT).onProjectileHitEntity(modifiers, nbt, entry, projectile, entityHit, attacker, target)) {
+                event.setCanceled(true);
+              }
+            }
+          }
+        }
+        case BLOCK -> {
+          BlockHitResult blockHit = (BlockHitResult)hit;
+          for (ModifierEntry entry : modifiers.getModifiers()) {
+            if (entry.getHook(TinkerHooks.PROJECTILE_HIT).onProjectileHitBlock(modifiers, nbt, entry, projectile, blockHit, attacker)) {
+              event.setCanceled(true);
+            }
+          }
+        }
+      }
+    }
   }
 }

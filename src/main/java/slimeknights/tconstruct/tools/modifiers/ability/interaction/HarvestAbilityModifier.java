@@ -7,9 +7,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -26,8 +24,11 @@ import net.minecraftforge.eventbus.api.Event.Result;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolHarvestEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.hooks.IHarvestModifier;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteractionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.impl.InteractionModifier;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -38,9 +39,15 @@ import java.util.Iterator;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class HarvestAbilityModifier extends InteractionModifier.NoLevels {
+public class HarvestAbilityModifier extends InteractionModifier.NoLevels implements BlockInteractionModifierHook {
   @Getter
   private final int priority;
+
+  @Override
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.BLOCK_INTERACT);
+  }
 
   @Override
   public boolean shouldDisplay(boolean advanced) {
@@ -183,11 +190,11 @@ public class HarvestAbilityModifier extends InteractionModifier.NoLevels {
    * @param world    Level instance
    * @param state    State to harvest
    * @param pos      Position to harvest
-   * @param slotType Slot used to harvest
+   * @param source   Source of the interaction
    * @return  True if harvested
    */
   @SuppressWarnings("deprecation")
-  private static boolean harvest(UseOnContext context, IToolStackView tool, ServerLevel world, BlockState state, BlockPos pos, EquipmentSlot slotType) {
+  private static boolean harvest(UseOnContext context, IToolStackView tool, ServerLevel world, BlockState state, BlockPos pos, InteractionSource source) {
     Player player = context.getPlayer();
     // first, check main harvestable tag
     Holder<Block> holder = state.getBlock().builtInRegistryHolder();
@@ -196,7 +203,7 @@ public class HarvestAbilityModifier extends InteractionModifier.NoLevels {
     }
     // try harvest event
     boolean didHarvest = false;
-    Result result = new ToolHarvestEvent(tool, context, world, state, pos, slotType).fire();
+    Result result = new ToolHarvestEvent(tool, context, world, state, pos, source).fire();
     if (result != Result.DEFAULT) {
       didHarvest = result == Result.ALLOW;
 
@@ -216,10 +223,7 @@ public class HarvestAbilityModifier extends InteractionModifier.NoLevels {
     // if we successfully harvested, run the modifier hook
     if (didHarvest) {
       for (ModifierEntry entry : tool.getModifierList()) {
-        IHarvestModifier harvest = entry.getModifier().getModule(IHarvestModifier.class);
-        if (harvest != null) {
-          harvest.afterHarvest(tool, entry.getLevel(), context, world, state, pos);
-        }
+        entry.getHook(TinkerHooks.PLANT_HARVEST).afterHarvest(tool, entry, context, world, state, pos);
       }
     }
 
@@ -227,7 +231,7 @@ public class HarvestAbilityModifier extends InteractionModifier.NoLevels {
   }
 
   @Override
-  public InteractionResult beforeBlockUse(IToolStackView tool, int level, UseOnContext context, EquipmentSlot slotType) {
+  public InteractionResult beforeBlockUse(IToolStackView tool, ModifierEntry modifier, UseOnContext context, InteractionSource source) {
     if (tool.isBroken()) {
       return InteractionResult.PASS;
     }
@@ -250,17 +254,16 @@ public class HarvestAbilityModifier extends InteractionModifier.NoLevels {
         boolean didHarvest = false;
         boolean broken = false;
         ItemStack stack = context.getItemInHand();
-        if (harvest(context, tool, server, state, pos, slotType)) {
+        if (harvest(context, tool, server, state, pos, source)) {
           didHarvest = true;
           broken = survival && ToolDamageUtil.damage(tool, 1, player, stack);
         }
 
         // if we have a player and harvest logic, try doing AOE harvest
-        Item item = stack.getItem();
         if (!broken && player != null) {
           for (BlockPos newPos : tool.getDefinition().getData().getAOE().getBlocks(tool, stack, player, state, world, pos, context.getClickedFace(), IAreaOfEffectIterator.AOEMatchType.TRANSFORM)) {
             // try harvesting the crop, if successful and survival, damage the tool
-            if (harvest(context, tool, server, world.getBlockState(newPos), newPos, slotType)) {
+            if (harvest(context, tool, server, world.getBlockState(newPos), newPos, source)) {
               didHarvest = true;
               if (survival && ToolDamageUtil.damage(tool, 1, player, stack)) {
                 broken = true;

@@ -5,7 +5,7 @@
       "item": "minecraft:piston"
     },
     {
-      "tag": "tconstruct:slime_block"
+      "item": "minecraft:slime_block"
     }
   ],
   "tools": {

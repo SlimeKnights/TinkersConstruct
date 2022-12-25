@@ -15,6 +15,11 @@ public class ModDataNBT extends NamespacedNBT implements IModDataView {
     super(nbt);
   }
 
+  /** Constructor to clone from another instance, needed to deal with an API conflict */
+  public ModDataNBT(NamespacedNBT nbt) {
+    super(nbt.getData());
+  }
+
   @Override
   public int getSlots(SlotType type) {
     return getData().getInt(type.getName());

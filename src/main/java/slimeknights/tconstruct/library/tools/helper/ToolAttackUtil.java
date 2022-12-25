@@ -126,7 +126,14 @@ public class ToolAttackUtil {
    * General version of attackEntity. Applies cooldowns but has no projectile entity
    */
   public static boolean attackEntity(ItemStack stack, Player attacker, Entity targetEntity) {
-    return attackEntity(ToolStack.from(stack), attacker, InteractionHand.MAIN_HAND, targetEntity, getCooldownFunction(attacker, InteractionHand.MAIN_HAND), false);
+    return attackEntity(ToolStack.from(stack), attacker, targetEntity);
+  }
+
+  /**
+   * General version of attackEntity. Applies cooldowns but has no projectile entity
+   */
+  public static boolean attackEntity(IToolStackView tool, Player attacker, Entity targetEntity) {
+    return attackEntity(tool, attacker, InteractionHand.MAIN_HAND, targetEntity, getCooldownFunction(attacker, InteractionHand.MAIN_HAND), false);
   }
 
   /** Normal attacking from a tool in the hand */
@@ -467,8 +474,10 @@ public class ToolAttackUtil {
     }
 
     // set hurt resistance time to 0 because we always want to deal damage in traits
+    int lastInvulnerableTime = target.invulnerableTime;
     target.invulnerableTime = 0;
     boolean hit = target.hurt(source, damage);
+    target.invulnerableTime = lastInvulnerableTime; // reset to the old time so bows work right
     // set total received damage, important for AI and stuff
     if (living != null) {
       living.lastHurt += oldLastDamage;

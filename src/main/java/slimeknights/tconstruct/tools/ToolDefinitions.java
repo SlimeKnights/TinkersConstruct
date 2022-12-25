@@ -28,6 +28,10 @@ public final class ToolDefinitions {
   public static final ToolDefinition SWORD = ToolDefinition.builder(TinkerTools.sword).meleeHarvest().build();
   public static final ToolDefinition CLEAVER = ToolDefinition.builder(TinkerTools.cleaver).meleeHarvest().build();
 
+  // bows
+  public static final ToolDefinition CROSSBOW = ToolDefinition.builder(TinkerTools.crossbow).ranged().build();
+  public static final ToolDefinition LONGBOW = ToolDefinition.builder(TinkerTools.longbow).ranged().build();
+
   // special
   public static final ToolDefinition FLINT_AND_BRICK = ToolDefinition.builder(TinkerTools.flintAndBrick).noParts().build();
 }

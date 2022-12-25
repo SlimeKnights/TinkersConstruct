@@ -16,6 +16,16 @@
       "stat": "tconstruct:mining_speed",
       "type": "multiply_base",
       "value": 0.04
+    },
+    {
+      "stat": "tconstruct:velocity",
+      "type": "multiply_base",
+      "value": 0.03
+    },
+    {
+      "stat": "tconstruct:projectile_damage",
+      "type": "multiply_base",
+      "value": 0.03
     }
   ]
 }

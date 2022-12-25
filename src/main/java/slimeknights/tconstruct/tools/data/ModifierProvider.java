@@ -69,16 +69,23 @@ public class ModifierProvider extends AbstractModifierProvider {
     addRedirect(id("hoe_till"), redirect(TinkerModifiers.tilling.getId()));
     addRedirect(id("firestarter_hidden"), redirect(TinkerModifiers.firestarter.getId()));
 
+    // unarmed rework
+    addRedirect(id("unarmed"), redirect(TinkerModifiers.ambidextrous.getId()));
+
     // tier upgrades
     // emerald
     addModifier(ModifierIds.emerald, StatBoostModifier.builder()
       .display(ModifierLevelDisplay.SINGLE_LEVEL)
       .rarity(Rarity.UNCOMMON)
       .multiplyBase(ToolStats.DURABILITY, 0.5f)
+      // armor
+      .add(ToolStats.KNOCKBACK_RESISTANCE, 0.05f)
+      // melee harvest
       .multiplyConditional(ToolStats.ATTACK_DAMAGE, 0.25f)
       .multiplyConditional(ToolStats.MINING_SPEED,  0.25f)
       .update(ToolStats.HARVEST_TIER, Tiers.IRON)
-      .add(ToolStats.KNOCKBACK_RESISTANCE, 0.05f)
+      // ranged
+      .add(ToolStats.ACCURACY, 0.1f)
       .build());
     // diamond
     addModifier(ModifierIds.diamond, StatBoostModifier.builder()
@@ -88,9 +95,12 @@ public class ModifierProvider extends AbstractModifierProvider {
       // armor grants less durability boost
       .add(ToolStats.DURABILITY, -250, ARMOR)
       .add(ToolStats.ARMOR,         1)
+      // melee harvest
       .add(ToolStats.ATTACK_DAMAGE, 0.5f)
       .add(ToolStats.MINING_SPEED,  2)
       .update(ToolStats.HARVEST_TIER, Tiers.DIAMOND)
+      // ranged
+      .add(ToolStats.PROJECTILE_DAMAGE, 0.5f)
       .build());
     // netherite
     addModifier(ModifierIds.netherite, StatBoostModifier.builder()
@@ -98,11 +108,15 @@ public class ModifierProvider extends AbstractModifierProvider {
       .rarity(Rarity.RARE)
       .addFlag(IModifiable.INDESTRUCTIBLE_ENTITY)
       .multiplyBase(ToolStats.DURABILITY,    0.2f)
+      // armor
       .add(ToolStats.ARMOR_TOUGHNESS,        1)
       .add(ToolStats.KNOCKBACK_RESISTANCE,   0.05f)
+      // melee harvest
       .multiplyBase(ToolStats.ATTACK_DAMAGE, 0.2f)
       .multiplyBase(ToolStats.MINING_SPEED,  0.25f)
       .update(ToolStats.HARVEST_TIER, Tiers.NETHERITE)
+      // ranged
+      .multiplyBase(ToolStats.VELOCITY, 0.1f)
       .build());
 
     // general
@@ -141,6 +155,12 @@ public class ModifierProvider extends AbstractModifierProvider {
     // harvest
     addModifier(TinkerModifiers.haste, StatBoostModifier.builder().add(ToolStats.MINING_SPEED, 4f).display(new UniqueForLevels(5)).build());
 
+    // ranged
+    addModifier(ModifierIds.power, StatBoostModifier.builder().add(ToolStats.PROJECTILE_DAMAGE, 0.5f).build());
+    addModifier(ModifierIds.quickCharge, StatBoostModifier.builder().multiplyBase(ToolStats.DRAW_SPEED, 0.25f).build());
+    addModifier(ModifierIds.trueshot,  StatBoostModifier.builder().add(ToolStats.ACCURACY, 0.1f).build());
+    addModifier(ModifierIds.blindshot, StatBoostModifier.builder().add(ToolStats.ACCURACY, -0.1f).build());
+
     // armor
     addModifier(TinkerModifiers.golden, StatBoostModifier.builder().addFlag(ModifiableArmorItem.PIGLIN_NEUTRAL).display(ModifierLevelDisplay.NO_LEVELS).build());
     addModifier(ModifierIds.wings,  StatBoostModifier.builder().addFlag(ModifiableArmorItem.ELYTRA).build());
@@ -164,6 +184,7 @@ public class ModifierProvider extends AbstractModifierProvider {
 
     // traits - tier 1
     addModifier(ModifierIds.stringy, new Modifier());
+    addModifier(ModifierIds.flexible, StatBoostModifier.builder().multiplyBase(ToolStats.VELOCITY, 0.1f).multiplyAll(ToolStats.PROJECTILE_DAMAGE, -0.1f).build());
     // traits - tier 2
     addModifier(ModifierIds.sturdy, StatBoostModifier.builder().multiplyBase(ToolStats.DURABILITY, 0.15f).build());
     addModifier(ModifierIds.scorching, new ConditionalDamageModifier(LivingEntityPredicate.ON_FIRE, 2f));
@@ -171,11 +192,17 @@ public class ModifierProvider extends AbstractModifierProvider {
     addModifier(ModifierIds.lustrous, new Modifier());
     addModifier(ModifierIds.sharpweight, StatBoostModifier.builder()
       .multiplyBase(ToolStats.MINING_SPEED, 0.1f)
+      .multiplyBase(ToolStats.DRAW_SPEED, 0.15f)
       .attribute("tconstruct.modifier.sharpweight", Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_BASE, -0.1f, handSlots)
       .build());
     addModifier(ModifierIds.heavy, StatBoostModifier.builder()
       .multiplyBase(ToolStats.ATTACK_DAMAGE, 0.1f)
+      .multiplyBase(ToolStats.PROJECTILE_DAMAGE, 0.1f)
       .attribute("tconstruct.modifier.heavy", Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_BASE, -0.1f, handSlots)
+      .build());
+    addModifier(ModifierIds.featherweight, StatBoostModifier.builder()
+      .multiplyBase(ToolStats.DRAW_SPEED, 0.07f)
+      .multiplyBase(ToolStats.ACCURACY, 0.07f)
       .build());
 
     // traits - tier 3
@@ -186,12 +213,16 @@ public class ModifierProvider extends AbstractModifierProvider {
     addModifier(ModifierIds.lightweight, StatBoostModifier.builder()
       .multiplyBase(ToolStats.ATTACK_SPEED, 0.07f)
       .multiplyBase(ToolStats.MINING_SPEED, 0.07f)
+      .multiplyBase(ToolStats.DRAW_SPEED, 0.05f)
+      .multiplyBase(ToolStats.VELOCITY, 0.05f)
       .build());
     // traits - tier 3 compat
     addModifier(ModifierIds.ductile, StatBoostModifier.builder()
-      .multiplyBase(ToolStats.DURABILITY,    0.04f)
-      .multiplyBase(ToolStats.ATTACK_DAMAGE, 0.04f)
-      .multiplyBase(ToolStats.MINING_SPEED,  0.04f)
+      .multiplyBase(ToolStats.DURABILITY,        0.04f)
+      .multiplyBase(ToolStats.ATTACK_DAMAGE,     0.04f)
+      .multiplyBase(ToolStats.MINING_SPEED,      0.04f)
+      .multiplyBase(ToolStats.VELOCITY,          0.03f)
+      .multiplyBase(ToolStats.PROJECTILE_DAMAGE, 0.03f)
       .build());
 
     // mob disguise

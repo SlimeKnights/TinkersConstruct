@@ -1,5 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
+@Deprecated
 package slimeknights.tconstruct.library.modifiers.hooks;
 
 import net.minecraft.MethodsReturnNonnullByDefault;

@@ -46,6 +46,7 @@ public interface IToolStackView extends IToolContext {
   /**
    * Gets persistent modifier data from the tool.
    * This data may be edited by modifiers and will persist when stats rebuild
+   * TODO 1.19: change return type to NamespaceNBT as modifiers should not be changing slots, will make bow hooks easier
    */
   @Override
   ModDataNBT getPersistentData();

@@ -11,9 +11,14 @@
       "item": "minecraft:ghast_tear"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/melee"
-  },
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/melee_or_unarmed"
+    },
+    {
+      "tag": "tconstruct:modifiable/ranged/bows"
+    }
+  ],
   "slots": {
     "upgrades": 1
   },

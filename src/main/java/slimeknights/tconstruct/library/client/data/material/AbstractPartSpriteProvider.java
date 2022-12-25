@@ -7,9 +7,12 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.library.client.data.util.AbstractSpriteReader;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
+import slimeknights.tconstruct.tools.stats.BowstringMaterialStats;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
+import slimeknights.tconstruct.tools.stats.GripMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
+import slimeknights.tconstruct.tools.stats.LimbMaterialStats;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -89,6 +92,16 @@ public abstract class AbstractPartSpriteProvider {
   /** Adds a sprite requiring extra stats */
   protected void addBinding(String name) {
     addPart(name, ExtraMaterialStats.ID);
+  }
+
+  /** Adds a sprite requiring head stats */
+  protected void addLimb(String name) {
+    addPart(name, LimbMaterialStats.ID);
+  }
+
+  /** Adds a sprite requiring head stats */
+  protected void addBowstring(String name) {
+    addPart(name, BowstringMaterialStats.ID);
   }
 
   /** Create a builder for tool sprites */
@@ -196,6 +209,26 @@ public abstract class AbstractPartSpriteProvider {
     /** Adds a sprite requiring extra stats */
     public ToolSpriteBuilder addBinding(String name) {
       return addPart(name, ExtraMaterialStats.ID);
+    }
+
+    /** Adds a sprite requiring limb stats */
+    public ToolSpriteBuilder addLimb(String name) {
+      return addPart(name, LimbMaterialStats.ID);
+    }
+
+    /** Adds a sprite requiring grip stats */
+    public ToolSpriteBuilder addGrip(String name) {
+      return addPart(name, GripMaterialStats.ID);
+    }
+
+    /** Adds a sprite requiring bowstring stats */
+    public ToolSpriteBuilder addBowstring(String name) {
+      return addPart(name, BowstringMaterialStats.ID);
+    }
+
+    /** Adds a breakable sprite requiring bowstring stats */
+    public ToolSpriteBuilder addBreakableBowstring(String name) {
+      return addBreakablePart(name, BowstringMaterialStats.ID);
     }
 
     /** Adds sprites for large parts as well */

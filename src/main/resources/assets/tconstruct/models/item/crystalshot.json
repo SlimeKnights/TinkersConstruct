@@ -1,0 +1,15 @@
+{
+  "loader": "mantle:nbt_key",
+  "parent": "forge:item/default",
+  "textures": {
+    "default":    "tconstruct:item/arrow/crystalshot_random",
+    "amethyst":   "tconstruct:item/arrow/amethyst",
+    "earthslime": "tconstruct:item/arrow/earthslime",
+    "enderslime": "tconstruct:item/arrow/enderslime",
+    "ichor":      "tconstruct:item/arrow/ichor",
+    "quartz":     "tconstruct:item/arrow/quartz",
+    "skyslime":   "tconstruct:item/arrow/skyslime"
+  },
+  "nbt_key": "variant",
+  "extra_textures_key": "tconstruct:crystalshot"
+}

@@ -21,8 +21,8 @@ import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.dynamic.InventoryMenuModifier;
-import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
@@ -37,7 +37,7 @@ import javax.annotation.Nullable;
 
 import static slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability.isBlacklisted;
 
-public class ToolBeltModifier extends InventoryMenuModifier implements IArmorInteractModifier {
+public class ToolBeltModifier extends InventoryMenuModifier {
   private static final Pattern PATTERN = new Pattern(TConstruct.MOD_ID, "tool_belt");
   private static final ResourceLocation SLOT_OVERRIDE = TConstruct.getResource("tool_belt_override");
 
@@ -152,17 +152,17 @@ public class ToolBeltModifier extends InventoryMenuModifier implements IArmorInt
   }
 
   @Override
-  public boolean startArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot equipmentSlot, TooltipKey modifier) {
-    if (modifier == TooltipKey.SHIFT) {
-      return super.startArmorInteract(tool, level, player, equipmentSlot, modifier);
+  public boolean startInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot equipmentSlot, TooltipKey keyModifier) {
+    if (keyModifier == TooltipKey.SHIFT) {
+      return super.startInteract(tool, modifier, player, equipmentSlot, keyModifier);
     }
-    if (modifier == TooltipKey.NORMAL || modifier == TooltipKey.CONTROL) {
+    if (keyModifier == TooltipKey.NORMAL || keyModifier == TooltipKey.CONTROL) {
       if (player.level.isClientSide) {
         return true;
       }
 
       boolean didChange = false;
-      int slots = getSlots(tool, level);
+      int slots = getSlots(tool, modifier.getLevel());
       ModDataNBT persistentData = tool.getPersistentData();
       ListTag list = new ListTag();
       boolean[] swapped = new boolean[slots];
@@ -219,7 +219,7 @@ public class ToolBeltModifier extends InventoryMenuModifier implements IArmorInt
 
   @Nullable
   @Override
-  public Pattern getPattern(IToolStackView tool, int level, int slot, boolean hasStack) {
+  public Pattern getPattern(IToolStackView tool, ModifierEntry modifier, int slot, boolean hasStack) {
     return hasStack ? null : PATTERN;
   }
 }

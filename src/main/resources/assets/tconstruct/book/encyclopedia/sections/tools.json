@@ -40,6 +40,11 @@
     "data": "tools/small/pickaxe.json"
   },
   {
+    "name": "crossbow",
+    "type": "tconstruct:tool",
+    "data": "tools/small/crossbow.json"
+  },
+  {
     "name": "flint_and_brick",
     "type": "tconstruct:tool",
     "data": "tools/small/flint_and_brick.json"
@@ -79,5 +84,10 @@
     "name": "vein_hammer",
     "type": "tconstruct:tool",
     "data": "tools/large/vein_hammer.json"
+  },
+  {
+    "name": "longbow",
+    "type": "tconstruct:tool",
+    "data": "tools/large/longbow.json"
   }
 ]

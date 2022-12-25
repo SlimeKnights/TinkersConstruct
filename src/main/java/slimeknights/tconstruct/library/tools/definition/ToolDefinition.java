@@ -194,6 +194,12 @@ public class ToolDefinition {
       return this;
     }
 
+    /** Sets the tool to use a ranged tool stat provider, which requires at least 1 limb part and uses any number of bowstrings */
+    public Builder ranged() {
+      setStatsProvider(ToolStatProviders.RANGED);
+      return this;
+    }
+
     /** Tells the definition to not be registered with the loader, used internally for testing. In general mods wont need this */
     public Builder skipRegister() {
       register = false;

@@ -1,12 +1,15 @@
 package slimeknights.tconstruct.library.modifiers.hooks;
 
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 /**
  * Modifier hook for boots when the player walks
+ * @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.ArmorWalkModifierHook}
  */
+@SuppressWarnings("DeprecatedIsStillUsed")
+@Deprecated
 public interface IArmorWalkModifier {
   /**
    * Called when an entity's block position changes

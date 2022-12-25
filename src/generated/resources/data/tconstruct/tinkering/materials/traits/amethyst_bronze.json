@@ -1,8 +1,16 @@
 {
-  "default": [
-    {
-      "name": "tconstruct:crumbling",
-      "level": 1
-    }
-  ]
+  "perStat": {
+    "tconstruct:ranged": [
+      {
+        "name": "tconstruct:crystalbound",
+        "level": 1
+      }
+    ],
+    "tconstruct:melee_harvest": [
+      {
+        "name": "tconstruct:crumbling",
+        "level": 1
+      }
+    ]
+  }
 }

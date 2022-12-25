@@ -1,0 +1,38 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "tconstruct:item/base/bow",
+  "textures": {
+    "limb_bottom":      "tconstruct:item/tool/longbow/limb_bottom",
+    "limb_top":         "tconstruct:item/tool/longbow/limb_top",
+    "grip":             "tconstruct:item/tool/longbow/grip",
+    "bowstring":        "tconstruct:item/tool/longbow/bowstring",
+    "broken_bowstring": "tconstruct:item/tool/longbow/broken_bowstring",
+    
+    "large_limb_bottom":      "tconstruct:item/tool/longbow/large/limb_bottom",
+    "large_limb_top":         "tconstruct:item/tool/longbow/large/limb_top",
+    "large_grip":             "tconstruct:item/tool/longbow/large/grip",
+    "large_bowstring":        "tconstruct:item/tool/longbow/large/bowstring",
+    "large_broken_bowstring": "tconstruct:item/tool/longbow/large/broken_bowstring"
+  },
+  "large": true,
+  "parts": [
+    { "name": "limb_bottom", "index": 0 },
+    { "name": "limb_top",    "index": 1 },
+    { "name": "bowstring",   "index": 3, "broken": "broken_bowstring" },
+    { "name": "grip",        "index": 2 }
+  ],
+  "overrides": [
+    {
+      "predicate": { "pulling": 1 },
+      "model": "tconstruct:item/longbow/pulling_1"
+    },
+    {
+      "predicate": { "pulling": 1, "pull": 0.65 },
+      "model": "tconstruct:item/longbow/pulling_2"
+    },
+    {
+      "predicate": { "pulling": 1, "pull": 1.0 },
+      "model": "tconstruct:item/longbow/pulling_3"
+    }
+  ]
+}

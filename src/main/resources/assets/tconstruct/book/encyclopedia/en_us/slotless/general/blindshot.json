@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:blindshot",
+  "text": [
+    {
+      "text": "Decreases accuracy by 0.1 per level."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Multi-use",
+    "Slotless",
+    "No max level, though accuracy minimum is 0.1"
+  ]
+}

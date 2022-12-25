@@ -268,14 +268,14 @@
         ]
       }
     },
-    "unarmed": {
+    "ambidextrous": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "type": "tconstruct:tool",
             "modifiers": {
-              "name": "tconstruct:unarmed",
+              "name": "tconstruct:ambidextrous",
               "level": 1
             }
           }
@@ -535,7 +535,7 @@
       "tool_belt"
     ],
     [
-      "unarmed"
+      "ambidextrous"
     ],
     [
       "zoom"

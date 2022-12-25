@@ -42,7 +42,6 @@ import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.Util;
-import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -342,6 +341,11 @@ public class TooltipUtil {
     if (tool.hasTag(TinkerTags.Items.DURABILITY)) {
       builder.addDurability();
     }
+    if (tool.hasTag(TinkerTags.Items.RANGED)) {
+      builder.add(ToolStats.DRAW_SPEED);
+      builder.add(ToolStats.VELOCITY);
+      builder.add(ToolStats.ACCURACY);
+    }
     if (tool.hasTag(TinkerTags.Items.MELEE)) {
       builder.addWithAttribute(ToolStats.ATTACK_DAMAGE, Attributes.ATTACK_DAMAGE);
       builder.add(ToolStats.ATTACK_SPEED);
@@ -384,7 +388,7 @@ public class TooltipUtil {
       builder.addOptional(ToolStats.ARMOR_TOUGHNESS);
       builder.addOptional(ToolStats.KNOCKBACK_RESISTANCE, 10f);
     }
-    if (tool.hasTag(TinkerTags.Items.UNARMED) && tool.getModifierLevel(TinkerModifiers.unarmed.getId()) > 0) {
+    if (tool.hasTag(TinkerTags.Items.UNARMED)) {
       builder.addWithAttribute(ToolStats.ATTACK_DAMAGE, Attributes.ATTACK_DAMAGE);
     }
 

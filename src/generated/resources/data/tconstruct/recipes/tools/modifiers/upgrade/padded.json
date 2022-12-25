@@ -12,7 +12,7 @@
     }
   ],
   "tools": {
-    "tag": "tconstruct:modifiable/melee"
+    "tag": "tconstruct:modifiable/melee_or_unarmed"
   },
   "slots": {
     "upgrades": 1

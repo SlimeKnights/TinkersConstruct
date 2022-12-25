@@ -1,15 +1,20 @@
 package slimeknights.tconstruct.library.tools.definition;
 
+import com.google.common.collect.ImmutableSet;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.stat.ToolStatsBuilder;
 import slimeknights.tconstruct.tools.MeleeHarvestToolStatsBuilder;
+import slimeknights.tconstruct.tools.RangedToolStatsBuilder;
+import slimeknights.tconstruct.tools.stats.BowstringMaterialStats;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
+import slimeknights.tconstruct.tools.stats.GripMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
+import slimeknights.tconstruct.tools.stats.LimbMaterialStats;
 
-import java.util.List;
+import java.util.Set;
 
 public class ToolStatProviders {
   /** For tools that have no parts, crafted directly in the crafting table */
@@ -34,6 +39,8 @@ public class ToolStatProviders {
 
   /** Tools with 1 or more tool parts using melee stats */
   public static final IToolStatProvider MELEE_HARVEST = new IToolStatProvider() {
+    private static final Set<MaterialStatsId> VALID_STATS = ImmutableSet.of(HandleMaterialStats.ID, ExtraMaterialStats.ID);
+
     @Override
     public StatsNBT buildStats(ToolDefinition definition, MaterialNBT materials) {
       return MeleeHarvestToolStatsBuilder.from(definition, materials).buildStats();
@@ -46,22 +53,27 @@ public class ToolStatProviders {
 
     @Override
     public void validate(ToolDefinitionData data) {
-      List<PartRequirement> requirements = data.getParts();
-      if (requirements.isEmpty()) {
-        throw new IllegalStateException("Must have at least one tool part for a melee/harvest tool");
-      }
-      boolean foundHead = false;
-      for (PartRequirement req : requirements) {
-        MaterialStatsId statType = req.getStatType();
-        if (statType.equals(HeadMaterialStats.ID)) {
-          foundHead = true;
-        } else if (!statType.equals(HandleMaterialStats.ID) && !statType.equals(ExtraMaterialStats.ID)) {
-          throw new IllegalStateException("Invalid melee/harvest tool part type, only support head, handle, and extra part types");
-        }
-      }
-      if (!foundHead) {
-        throw new IllegalStateException("Melee/harvest tool must use at least one head part");
-      }
+      IToolStatProvider.validate("Melee/Harvest", HeadMaterialStats.ID, VALID_STATS, data);
+    }
+  };
+
+  /** Tools with 1 or more tool parts using ranged stats */
+  public static final IToolStatProvider RANGED = new IToolStatProvider() {
+    private static final Set<MaterialStatsId> VALID_STATS = ImmutableSet.of(BowstringMaterialStats.ID, GripMaterialStats.ID);
+
+    @Override
+    public StatsNBT buildStats(ToolDefinition definition, MaterialNBT materials) {
+      return RangedToolStatsBuilder.from(definition, materials).buildStats();
+    }
+
+    @Override
+    public boolean isMultipart() {
+      return true;
+    }
+
+    @Override
+    public void validate(ToolDefinitionData data) {
+      IToolStatProvider.validate("Ranged", LimbMaterialStats.ID, VALID_STATS, data);
     }
   };
 }

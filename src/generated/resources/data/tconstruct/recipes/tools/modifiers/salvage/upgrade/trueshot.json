@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "tools": {
+    "tag": "tconstruct:modifiable/ranged"
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "modifier": "tconstruct:trueshot",
+  "min_level": 1
+}

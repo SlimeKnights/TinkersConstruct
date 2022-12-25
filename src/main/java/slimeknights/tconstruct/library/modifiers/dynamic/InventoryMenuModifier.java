@@ -1,20 +1,25 @@
 package slimeknights.tconstruct.library.modifiers.dynamic;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.GenericIntSerializer;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.KeybindInteractModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.impl.InventoryModifier;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
-import javax.annotation.Nullable;
-
-public class InventoryMenuModifier extends InventoryModifier implements IArmorInteractModifier {
+public class InventoryMenuModifier extends InventoryModifier implements KeybindInteractModifierHook, GeneralInteractionModifierHook {
   /** Loader instance */
   public static final GenericIntSerializer<InventoryMenuModifier> LOADER = new GenericIntSerializer<>("size", InventoryMenuModifier::new, t -> t.slotsPerLevel);
 
@@ -32,18 +37,23 @@ public class InventoryMenuModifier extends InventoryModifier implements IArmorIn
   }
 
   @Override
-  public boolean startArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot slot, TooltipKey modifier) {
+  public boolean startInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot slot, TooltipKey keyModifier) {
     return ToolInventoryCapability.tryOpenContainer(player.getItemBySlot(slot), tool, player, slot).consumesAction();
   }
 
-  @SuppressWarnings("unchecked")
-  @Nullable
   @Override
-  public <T> T getModule(Class<T> type) {
-    if (type == IArmorInteractModifier.class) {
-      return (T) this;
+  public InteractionResult onToolUse(IToolStackView tool, ModifierEntry modifier, Player player, InteractionHand hand, InteractionSource source) {
+    if (player.isCrouching()) {
+      EquipmentSlot slot = source.getSlot(hand);
+      return ToolInventoryCapability.tryOpenContainer(player.getItemBySlot(slot), tool, player, slot);
     }
-    return super.getModule(type);
+    return InteractionResult.PASS;
+  }
+
+  @Override
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.ARMOR_INTERACT, TinkerHooks.GENERAL_INTERACT);
   }
 
   @Override

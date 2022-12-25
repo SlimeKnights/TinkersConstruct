@@ -7,7 +7,7 @@
   "needed_per_level": 36,
   "leftover": "minecraft:quartz",
   "tools": {
-    "tag": "tconstruct:modifiable/melee"
+    "tag": "tconstruct:modifiable/melee_or_unarmed"
   },
   "slots": {
     "upgrades": 1
