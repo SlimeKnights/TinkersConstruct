@@ -2,7 +2,11 @@ intro=介绍
 melter=熔化炉
 moving_fluids=流体的转移
 casting=铸造
-materials=二级材料
+melee_harvest_materials=二级近程材料
+melee_harvest_materials.subtext=这些材料可以铸造成近战武器或采掘工具的工具部件。
+ranged_materials=二级远程材料
+ranged_materials.subtext=这些材料可以铸造成像弓那样的远程工具的工具部件。
+
 further_reading=延伸阅读
 
 upgrades=升级强化

@@ -1,6 +1,10 @@
 intro=介绍
 entity_melting=实体熔炼
-materials=三级材料
+melee_harvest_materials=三级近程材料
+melee_harvest_materials.subtext=这些材料需要通过合金来获得，然后铸造成近战武器或采掘工具的工具部件。
+ranged_materials=三级远程材料
+ranged_materials.subtext=这些材料需要通过合金来获得，然后铸造成像弓那样的远程武器的工具部件。
+
 tools=宽型工具
 tools.subtext=宽型工具需要工匠砧才能制作。
 
@@ -13,7 +17,6 @@ abilities.group_harvest=采掘能力
 abilities.group_weapon=武器能力
 abilities.group_interact=交互能力
 abilities.group_armor=盔甲能力
-abilities.unarmed=赤手空拳
 upgrades.subtext=工具可被升级强化，但同一把工具的升级次数是有限的。
 
 defense=防御强化
