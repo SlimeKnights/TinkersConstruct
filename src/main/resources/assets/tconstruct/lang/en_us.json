@@ -1599,7 +1599,7 @@
   "material.tconstruct.silver": "Silver",
   "material.tconstruct.silver.flavor": "You know, this tool isn't going to look so shiny in a few days.",
   "material.tconstruct.silver.encyclopedia": "Gives +2.5 damage against undead per level",
-  "material.tconstruct.silver.ranged": "Gives +1 projectile damage against undead per level",
+  "material.tconstruct.silver.ranged": "Gives +0.5 projectile damage against undead per level",
 
   "material.tconstruct.whitestone": "Whitestone",
   "material.tconstruct.whitestone.end": "End Stone",
