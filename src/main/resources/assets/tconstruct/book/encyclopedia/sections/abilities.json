@@ -10,6 +10,10 @@
   },
   {
     "type": "tconstruct:modifier",
+    "data": "abilities/general/looting.json"
+  },
+  {
+    "type": "tconstruct:modifier",
     "data": "abilities/general/luck.json"
   },
   {
@@ -88,6 +92,29 @@
   },
 
   {
+    "name": "group_ranged",
+    "type": "mantle:text",
+    "data": "abilities/ranged.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "abilities/ranged/bulk_quiver.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "abilities/ranged/crystalshot.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "abilities/ranged/multishot.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "abilities/ranged/trick_quiver.json"
+  },
+
+
+  {
     "name": "group_armor",
     "type": "mantle:text",
     "data": "abilities/armor.json"
@@ -159,9 +186,5 @@
   {
     "type": "tconstruct:modifier",
     "data": "abilities/armor/wetting.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/armor/zoom.json"
   }
 ]

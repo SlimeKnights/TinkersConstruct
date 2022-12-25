@@ -52,6 +52,10 @@
     "type": "tconstruct:modifier",
     "data": "upgrades/general/the_one_probe.json"
   },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/general/zoom.json"
+  },
 
   {
     "name": "group_weapon",
@@ -146,6 +150,56 @@
   },
 
   {
+    "name": "group_ranged",
+    "type": "mantle:text",
+    "data": "upgrades/ranged.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/ranged/fiery.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/ranged/freezing.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/ranged/impaling.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/ranged/necrotic.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/ranged/piercing.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/ranged/power.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/ranged/punch.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/ranged/quick_charge.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/ranged/scope.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/ranged/sinistral.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/ranged/trueshot.json"
+  },
+
+  {
     "name": "group_armor",
     "type": "mantle:text",
     "data": "upgrades/armor.json"
@@ -174,10 +228,6 @@
   {
     "type": "tconstruct:modifier",
     "data": "upgrades/armor/lightspeed.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/armor/looting.json"
   },
   {
     "type": "tconstruct:modifier",

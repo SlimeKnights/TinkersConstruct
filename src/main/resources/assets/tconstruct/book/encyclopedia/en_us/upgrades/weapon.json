@@ -2,6 +2,7 @@
   "title": "Weapon Upgrades",
   "text": [
     { "text": "Weapon upgrades are most effective on tools built for combat, whether it is a sword or a repurposed harvest tool." },
+    { "text": "When applied to ranged weapons such as bows or crossbows, these modifiers will boost the effectiveness of the weapon for melee attacks only unless otherwise stated.", "paragraph": true },
     { "text": "Many of these upgrades can also be applied to chestplates with the unarmed modifier. They will only boost attacks with an empty hand.", "paragraph": true }
   ]
 }
