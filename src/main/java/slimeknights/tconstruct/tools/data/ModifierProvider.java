@@ -192,10 +192,12 @@ public class ModifierProvider extends AbstractModifierProvider {
     addModifier(ModifierIds.lustrous, new Modifier());
     addModifier(ModifierIds.sharpweight, StatBoostModifier.builder()
       .multiplyBase(ToolStats.MINING_SPEED, 0.1f)
+      .multiplyBase(ToolStats.DRAW_SPEED, 0.15f)
       .attribute("tconstruct.modifier.sharpweight", Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_BASE, -0.1f, handSlots)
       .build());
     addModifier(ModifierIds.heavy, StatBoostModifier.builder()
       .multiplyBase(ToolStats.ATTACK_DAMAGE, 0.1f)
+      .multiplyBase(ToolStats.PROJECTILE_DAMAGE, 0.1f)
       .attribute("tconstruct.modifier.heavy", Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_BASE, -0.1f, handSlots)
       .build());
 
@@ -212,9 +214,11 @@ public class ModifierProvider extends AbstractModifierProvider {
       .build());
     // traits - tier 3 compat
     addModifier(ModifierIds.ductile, StatBoostModifier.builder()
-      .multiplyBase(ToolStats.DURABILITY,    0.04f)
-      .multiplyBase(ToolStats.ATTACK_DAMAGE, 0.04f)
-      .multiplyBase(ToolStats.MINING_SPEED,  0.04f)
+      .multiplyBase(ToolStats.DURABILITY,        0.04f)
+      .multiplyBase(ToolStats.ATTACK_DAMAGE,     0.04f)
+      .multiplyBase(ToolStats.MINING_SPEED,      0.04f)
+      .multiplyBase(ToolStats.VELOCITY,          0.03f)
+      .multiplyBase(ToolStats.PROJECTILE_DAMAGE, 0.03f)
       .build());
 
     // mob disguise

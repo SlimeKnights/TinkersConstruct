@@ -6,6 +6,11 @@
       "stat": "tconstruct:attack_damage",
       "type": "multiply_base",
       "value": 0.1
+    },
+    {
+      "stat": "tconstruct:projectile_damage",
+      "type": "multiply_base",
+      "value": 0.1
     }
   ],
   "attributes": [

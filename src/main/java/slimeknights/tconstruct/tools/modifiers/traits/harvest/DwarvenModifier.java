@@ -104,7 +104,7 @@ public class DwarvenModifier extends Modifier implements ConditionalStatModifier
         boost = baseBoost * level;
       }
       if (boost >= 0.01) {
-        addFlatBoost(prefix, boost * tool.getMultiplier(ToolStats.MINING_SPEED), tooltip);
+        addFlatBoost(prefix, boost * tool.getMultiplier(harvest ? ToolStats.MINING_SPEED : ToolStats.VELOCITY), tooltip);
       }
     }
   }
