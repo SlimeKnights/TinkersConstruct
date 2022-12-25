@@ -75,6 +75,7 @@ public class ModifierIds {
   public static final ModifierId lustrous = id("lustrous");
   public static final ModifierId sharpweight = id("sharpweight");
   public static final ModifierId heavy = id("heavy");
+  public static final ModifierId featherweight = id("featherweight");
   // traits - tier 3
   public static final ModifierId crumbling = id("crumbling");
   public static final ModifierId enhanced = id("enhanced");

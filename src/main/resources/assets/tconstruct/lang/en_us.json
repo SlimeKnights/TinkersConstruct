@@ -1569,7 +1569,6 @@
   "material.tconstruct.venom":      "Venom",
   "material.tconstruct.phantom":    "Phantom Membrane",
 
-  "material.tconstruct.aluminum": "Aluminum",
   "material.tconstruct.nickel":   "Nickel",
   "material.tconstruct.tin":      "Tin",
   "material.tconstruct.zinc":     "Zinc",
@@ -1605,6 +1604,10 @@
   "material.tconstruct.whitestone.end": "End Stone",
   "material.tconstruct.whitestone.flavor": "Take your useless white metals or rocks and make a useful tool",
   "material.tconstruct.whitestone.encyclopedia": "Mining stone has a 20% per level of granting +3 stoneshield",
+
+  "material.tconstruct.aluminum": "Aluminum",
+  "material.tconstruct.aluminum.flavor": "Found most commonly in ashmounds.",
+  "material.tconstruct.aluminum.ranged": "Grants +7% drawspeed and accuracy",
 
 
   "__comment": "Tier 3 Integration Materials",
@@ -2275,6 +2278,12 @@
   "modifier.tconstruct.stoneshield": "Stoneshield",
   "modifier.tconstruct.stoneshield.flavor": "Masterful stonebending",
   "modifier.tconstruct.stoneshield.description": "Mined stone has a chance to protect the tool from future damage",
+  "modifier.tconstruct.featherweight": "Featherweight",
+  "modifier.tconstruct.featherweight.flavor": "Light as a feather",
+  "modifier.tconstruct.featherweight.description": "Tool is so easy to use, it has higher drawspeed and accuracy",
+  "modifier.tconstruct.holy": "Holy",
+  "modifier.tconstruct.holy.flavor": "Die, Fowl Creature!",
+  "modifier.tconstruct.holy.description": "Arrows deal bonus damage against undead",
 
 
   "__comment": "Tier 3 Mod Compat Traits",

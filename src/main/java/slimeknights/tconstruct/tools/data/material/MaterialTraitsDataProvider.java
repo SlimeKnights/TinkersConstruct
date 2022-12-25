@@ -41,6 +41,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.searedStone, TinkerModifiers.searing);
     addDefaultTraits(MaterialIds.slimewood, TinkerModifiers.overgrowth, TinkerModifiers.overslime);
     addDefaultTraits(MaterialIds.bloodbone, TinkerModifiers.raging);
+    addDefaultTraits(MaterialIds.aluminum, ModifierIds.featherweight);
     // tier 2 - nether
     addDefaultTraits(MaterialIds.necroticBone, TinkerModifiers.necrotic);
     addDefaultTraits(MaterialIds.scorchedStone, ModifierIds.scorching);
@@ -78,7 +79,8 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.tungsten, ModifierIds.sharpweight);
     addDefaultTraits(MaterialIds.platinum, ModifierIds.lustrous);
     addDefaultTraits(MaterialIds.lead, ModifierIds.heavy);
-    addDefaultTraits(MaterialIds.silver, ModifierIds.smite);
+    addTraits(MaterialIds.silver, MELEE_HARVEST, ModifierIds.smite);
+    addTraits(MaterialIds.silver, RANGED, TinkerModifiers.holy);
     // tier 3 - mod compat
     addDefaultTraits(MaterialIds.steel, ModifierIds.ductile);
     addDefaultTraits(MaterialIds.bronze, TinkerModifiers.maintained);
@@ -117,7 +119,6 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     noTraits(MaterialIds.honey);
     noTraits(MaterialIds.phantom);
     // compat plate
-    noTraits(MaterialIds.aluminum);
     noTraits(MaterialIds.nickel);
     noTraits(MaterialIds.tin);
     noTraits(MaterialIds.zinc);

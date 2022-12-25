@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.modifiers.traits;
+package slimeknights.tconstruct.tools.modifiers.traits.ranged;
 
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;

@@ -214,8 +214,10 @@
     "stonebound":   "#999999",
 
     "__traits_ranged__": null,
-    "crystalbound": "#C687BD",
-    "flexible":     "#8AAE60",
+    "crystalbound":  "#C687BD",
+    "featherweight": "#CDD5D8",
+    "flexible":      "#8AAE60",
+    "holy":          "#D3DFE8",
 
     "__traits_slimeskull__": null,
     "boon_of_sssss":    "#605448",
@@ -324,6 +326,7 @@
     "silver":     "#D3DFE8",
     "lead":       "#575E79",
     "whitestone": "#E0E9EC",
+    "aluminum":   "#CDD5D8",
 
     "__tier_3_integration__": null,
     "steel":            "#959595",
@@ -338,7 +341,6 @@
     "obsidian":  "#271E3D",
     "debris":    "#654740",
     "netherite": "#4C4143",
-    "aluminum":  "#CDD5D8",
     "nickel":    "#EBF1DE",
     "tin":       "#A1C6C2",
     "zinc":      "#A8AA93",

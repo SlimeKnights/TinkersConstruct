@@ -200,6 +200,10 @@ public class ModifierProvider extends AbstractModifierProvider {
       .multiplyBase(ToolStats.PROJECTILE_DAMAGE, 0.1f)
       .attribute("tconstruct.modifier.heavy", Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_BASE, -0.1f, handSlots)
       .build());
+    addModifier(ModifierIds.featherweight, StatBoostModifier.builder()
+      .multiplyBase(ToolStats.DRAW_SPEED, 0.07f)
+      .multiplyBase(ToolStats.ACCURACY, 0.07f)
+      .build());
 
     // traits - tier 3
     addModifier(ModifierIds.crumbling, new ConditionalMiningSpeedModifier(BlockPredicate.REQUIRES_TOOL.inverted(), false, 0.5f));
