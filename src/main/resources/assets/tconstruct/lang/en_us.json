@@ -1536,7 +1536,8 @@
 
   "material.tconstruct.enderslime_vine": "Slimy Vine",
   "material.tconstruct.enderslime_vine.flavor": "The End?",
-  "material.tconstruct.enderslime_vine.encyclopedia": "Teleports the holder to the location of mined blocks or killed monsters",
+  "material.tconstruct.enderslime_vine.encyclopedia": "Teleports the holder to the location of mined blocks or swaps the holder with attacked monsters",
+  "material.tconstruct.enderslime_vine.ranged": "Teleports the holder to the location of arrows that land in blocks or swaps the holder with monsters hit by arrows",
 
   "__comment": "Slimesuit materials",
   "material.tconstruct.glass": "Glass",
@@ -2455,11 +2456,11 @@
   "stat.tconstruct.limb": "Limb",
   "stat.tconstruct.grip": "Grip",
   "tool_stat.tconstruct.draw_speed": "Draw Speed: ",
-  "tool_stat.tconsturct.draw_speed.description": "Determines the number of times this tool can be used per second.",
+  "tool_stat.tconstruct.draw_speed.description": "Determines the number of times this tool can be used per second.",
   "tool_stat.tconstruct.velocity": "Velocity: ",
   "tool_stat.tconstruct.velocity.description": "Determines how quickly arrows fly after firing. Faster arrows deal more damage.",
   "tool_stat.tconstruct.accuracy": "Accuracy: ",
-  "tool_stat.tconsturct.accuracy.description": "Determines how close the bow aims towards the center.",
+  "tool_stat.tconstruct.accuracy.description": "Determines how close the bow aims towards the center.",
   "tool_stat.tconstruct.projectile_damage": "Proj. Damage: ",
   "tool_stat.tconsturct.projectile_damage.description": "Determines the base damage of projectiles fired by this weapon.",
 
