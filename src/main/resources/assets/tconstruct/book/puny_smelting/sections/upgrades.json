@@ -154,6 +154,11 @@
     "data": "upgrades/ranged.json"
   },
   {
+    "name": "fiery",
+    "type": "tconstruct:modifier",
+    "data": "upgrades/ranged/fiery.json"
+  },
+  {
     "name": "freezing",
     "type": "tconstruct:modifier",
     "data": "upgrades/ranged/freezing.json"
@@ -167,6 +172,16 @@
     "name": "power",
     "type": "tconstruct:modifier",
     "data": "upgrades/ranged/power.json"
+  },
+  {
+    "name": "necrotic",
+    "type": "tconstruct:modifier",
+    "data": "upgrades/ranged/necrotic.json"
+  },
+  {
+    "name": "piercing",
+    "type": "tconstruct:modifier",
+    "data": "upgrades/ranged/piercing.json"
   },
   {
     "name": "punch",

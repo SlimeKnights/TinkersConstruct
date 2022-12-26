@@ -6,7 +6,7 @@
     }
   ],
   "effects": [
-    "Fired projectiles slows enemies",
+    "Fired projectiles slows enemies and deal extra damage",
 	"Multiple levels, each level slows enemies for longer",
 	"Requires 1 Upgrade Slot per level"
   ]
