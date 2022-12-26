@@ -18,6 +18,7 @@ import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.tools.TinkerTools;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /** Container for a tool inventory */
@@ -62,7 +63,7 @@ public class ToolContainerMenu extends AbstractContainerMenu {
     // add tool slots
     int slots = itemHandler.getSlots();
     for (int i = 0; i < slots; i++) {
-      this.addSlot(new SmartItemHandlerSlot(itemHandler, i, 8 + (i % 9) * SLOT_SIZE, (REPEAT_BACKGROUND_START + 1) + (i / 9) * SLOT_SIZE));
+      this.addSlot(new ToolContainerSlot(itemHandler, i, 8 + (i % 9) * SLOT_SIZE, (REPEAT_BACKGROUND_START + 1) + (i / 9) * SLOT_SIZE));
     }
     // add offhand if requested
     this.showOffhand = ModifierUtil.checkVolatileFlag(stack, ToolInventoryCapability.INCLUDE_OFFHAND);
@@ -127,5 +128,27 @@ public class ToolContainerMenu extends AbstractContainerMenu {
       }
     }
     return result;
+  }
+
+  private static class ToolContainerSlot extends SmartItemHandlerSlot {
+
+    private final int index;
+
+    public ToolContainerSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition) {
+      super(itemHandler, index, xPosition, yPosition);
+      this.index = index;
+    }
+
+    @Override
+    public void set(@Nonnull ItemStack stack) {
+      // using set as an indicator it changed, so no need to call setChanged anymore here
+      ((IItemHandlerModifiable) this.getItemHandler()).setStackInSlot(index, stack);
+    }
+
+    @Override
+    public void setChanged() {
+      // no proper setChanged method on item handler, so just set the existing stack
+      set(getItem());
+    }
   }
 }
