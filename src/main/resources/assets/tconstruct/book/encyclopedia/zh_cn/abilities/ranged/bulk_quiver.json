@@ -2,10 +2,10 @@
   "modifier_id": "tconstruct:bulk_quiver",
   "text": [
     {
-      "text": "Gives the bow internal slots for holding arrows. Arrows in the slots will be used if there are no arrows in the main inventory."
+      "text": "给予弓装填箭矢的槽位。若玩家物品栏内没有箭矢，就会使用这些槽位中的箭矢。"
     },
     {
-      "text": "Quiver inventory can be accessed by sneaking and attacking. Inventory holds two stacks of 64 arrows per level.",
+      "text": "箭袋可通过潜行攻击访问。每级可装填2组箭矢（每组64根）。",
       "paragraph": true
     }
   ],

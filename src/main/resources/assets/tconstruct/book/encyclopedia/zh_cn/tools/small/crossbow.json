@@ -2,7 +2,7 @@
   "tool": "tconstruct:crossbow",
   "text": [
     { "text": "弩是一种迅捷远程武器，能够发射箭和烟花。箭矢可以装填在弩上，稍后再射出。" },
-    { "text": "当使用交互强化时，需要左键弩。", "paragraph": true }
+    { "text": "加持交互强化后，弩会在左击时触发这些强化。", "paragraph": true }
   ],
   "properties": [
     "1.0 攻击速度",

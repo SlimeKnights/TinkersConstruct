@@ -2,7 +2,7 @@
   "tool": "tconstruct:longbow",
   "text": [
     { "text": "长弓是一种发射箭矢的长距远程武器。松开长弓后，箭矢将会射出。" },
-    { "text": "当使用交互强化时，需要左键长弓。", "paragraph": true }
+    { "text": "加持交互强化后，长弓会在左击时触发这些强化。", "paragraph": true }
   ],
   "properties": [
     "1.0 攻击速度",

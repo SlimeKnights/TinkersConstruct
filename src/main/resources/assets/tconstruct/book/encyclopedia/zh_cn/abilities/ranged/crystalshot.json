@@ -2,10 +2,10 @@
   "modifier_id": "tconstruct:crystalshot",
   "text": [
     {
-      "text": "Instead of using ammo from the inventory, bow produces its own crystal arrows."
+      "text": "弓不再消耗物品栏内箭矢，而是自己产生水晶镞。"
     },
     {
-      "text": "Tool takes an extra 4 damage per arrow produced."
+      "text": "每发射一根箭额外消耗4耐久度。"
     }
   ],
   "more_text_space": true,
