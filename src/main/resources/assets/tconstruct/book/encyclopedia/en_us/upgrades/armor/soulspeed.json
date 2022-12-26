@@ -3,6 +3,10 @@
   "text": [
     {
       "text": "Grants +40.5% speed on soul sand, plus an additional 10.5% added for each additional level. Reduces the slowdown from walking on soulsand."
+    },
+    {
+      "text": "Boots will take damage overtime when this modifier is active.",
+      "paragraph": true
     }
   ],
   "more_text_space": true,

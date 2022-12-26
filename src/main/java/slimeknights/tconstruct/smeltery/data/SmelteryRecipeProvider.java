@@ -1678,10 +1678,22 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
 
     // pewter
     wrapped = withCondition(consumer, tagCondition("ingots/pewter"), tagCondition("ingots/lead"));
-    AlloyRecipeBuilder.alloy(TinkerFluids.moltenPewter.get(), FluidValues.INGOT * 2)
-                      .addInput(TinkerFluids.moltenIron.getForgeTag(), FluidValues.INGOT)
-                      .addInput(TinkerFluids.moltenLead.getForgeTag(), FluidValues.INGOT)
-                      .save(wrapped, prefix(TinkerFluids.moltenPewter, folder));
+    ConditionalRecipe.builder()
+                     // when available, alloy pewter with tin
+                     // we mainly add it to support Edilon which uses iron to reduce ores, but the author thinks tin is fine balance wise
+                     .addCondition(tagCondition("ingots/tin"))
+                     .addRecipe(
+                       // ratio from Allomancy mod
+                       AlloyRecipeBuilder.alloy(TinkerFluids.moltenPewter.get(), FluidValues.INGOT * 3)
+                                         .addInput(TinkerFluids.moltenTin.getForgeTag(), FluidValues.INGOT * 2)
+                                         .addInput(TinkerFluids.moltenLead.getForgeTag(), FluidValues.INGOT)::save)
+                     .addCondition(TrueCondition.INSTANCE) // fallback
+                     .addRecipe(
+                       // ratio from Edilon mod
+                       AlloyRecipeBuilder.alloy(TinkerFluids.moltenPewter.get(), FluidValues.INGOT * 2)
+                                         .addInput(TinkerFluids.moltenIron.getForgeTag(), FluidValues.INGOT)
+                                         .addInput(TinkerFluids.moltenLead.getForgeTag(), FluidValues.INGOT)::save)
+                     .build(wrapped, prefix(TinkerFluids.moltenPewter, folder));
 
     // thermal alloys
     Function<String,ICondition> fluidTagLoaded = name -> new NotCondition(new TagEmptyCondition<>(Registry.FLUID_REGISTRY, new ResourceLocation("forge", name)));

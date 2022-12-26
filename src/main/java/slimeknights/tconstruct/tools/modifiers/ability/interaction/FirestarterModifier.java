@@ -47,6 +47,8 @@ import java.util.Collections;
  */
 @RequiredArgsConstructor
 public class FirestarterModifier extends InteractionModifier.NoLevels implements EntityInteractionModifierHook, BlockInteractionModifierHook {
+  /** Generic action for the sake of people who want compat but do not want to request a specific action */
+  private static final ToolAction LIGHT_FIRE = ToolAction.get("light_fire");
   /** Compat with mods adding custom campfires */
   private static final ToolAction LIGHT_CAMPFIRE = ToolAction.get("light_campfire");
 
@@ -66,7 +68,7 @@ public class FirestarterModifier extends InteractionModifier.NoLevels implements
 
   @Override
   public boolean canPerformAction(IToolStackView tool, int level, ToolAction toolAction) {
-    return toolAction == LIGHT_CAMPFIRE;
+    return toolAction == LIGHT_CAMPFIRE || toolAction == LIGHT_FIRE;
   }
 
   @Override
