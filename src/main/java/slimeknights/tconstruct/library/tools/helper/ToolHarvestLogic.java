@@ -181,8 +181,11 @@ public class ToolHarvestLogic {
     if (breakBlock(tool, stack, context)) {
       Level world = context.getWorld();
       BlockPos pos = context.getPos();
-      // TODO: probably a constant somewhere, no idea where
-      world.globalLevelEvent(2001, pos, Block.getId(context.getState()));
+      // need to send the event to tell the client a block was broken
+      // normally this is sent within one of the block breaking hooks that is called on both sides, suppressing the packet being sent to the breaking player
+      // we only break the center block client side, so need to send the event directly
+      // TODO: in theory, we can use this to reduce the number of sounds playing on breaking a lot of blocks, would require sending a custom packet if we want the particles still
+      world.levelEvent(2001, pos, Block.getId(context.getState()));
       TinkerNetwork.getInstance().sendVanillaPacket(Objects.requireNonNull(context.getPlayer()), new ClientboundBlockUpdatePacket(world, pos));
     }
   }

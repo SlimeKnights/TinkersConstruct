@@ -59,15 +59,15 @@ public class ContainerFoodItem extends Item {
 
   @Override
   public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity living) {
+    ItemStack container = stack.getContainerItem();
     ItemStack result = super.finishUsingItem(stack, level, living);
     Player player = living instanceof Player p ? p : null;
     if (player == null || !player.getAbilities().instabuild) {
-      ItemStack container = stack.getContainerItem().copy();
       if (result.isEmpty()) {
-        return container;
+        return container.copy();
       }
       if (player != null) {
-        if (!player.getInventory().add(container)) {
+        if (!player.getInventory().add(container.copy())) {
           player.drop(stack, false);
         }
       }
