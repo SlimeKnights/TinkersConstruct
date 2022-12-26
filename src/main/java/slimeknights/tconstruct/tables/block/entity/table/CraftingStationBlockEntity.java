@@ -76,6 +76,7 @@ public class CraftingStationBlockEntity extends RetexturedTableBlockEntity imple
       RecipeManager manager = this.level.getServer().getRecipeManager();
 
       // first, try the cached recipe
+      ForgeHooks.setCraftingPlayer(player);
       CraftingRecipe recipe = lastRecipe;
       // if it does not match, find a new recipe
       // note we intentionally have no player access during matches, that could lead to an unstable recipe
@@ -85,9 +86,7 @@ public class CraftingStationBlockEntity extends RetexturedTableBlockEntity imple
 
       // if we have a recipe, fetch its result
       if (recipe != null) {
-        ForgeHooks.setCraftingPlayer(player);
         result = recipe.assemble(this.craftingInventory);
-        ForgeHooks.setCraftingPlayer(null);
 
         // sync if the recipe is different
         if (recipe != lastRecipe) {
@@ -95,6 +94,7 @@ public class CraftingStationBlockEntity extends RetexturedTableBlockEntity imple
           this.syncToRelevantPlayers(this::syncRecipe);
         }
       }
+      ForgeHooks.setCraftingPlayer(null);
     }
     else if (this.lastRecipe != null && this.lastRecipe.matches(this.craftingInventory, this.level)) {
       ForgeHooks.setCraftingPlayer(player);
@@ -203,26 +203,9 @@ public class CraftingStationBlockEntity extends RetexturedTableBlockEntity imple
 
   @Override
   public void onCraft(Player player, ItemStack result, int amount) {
-    int originalSize = result.getCount(); // may be larger than the output count if the player is holding a stack
-    // going to refetch result, so just start at empty
-    result = ItemStack.EMPTY;
-
-    if (amount > 0) {
-      // get the player sensitive result
-      result = getResultForPlayer(player);
-      if (!result.isEmpty()) {
-        // update the inputs and trigger recipe hooks
-        takeResult(player, result, amount);
-      }
-      // if the player was holding this item, increase the count to match
-      if (originalSize > 0) {
-        result.setCount(result.getCount() + player.containerMenu.getCarried().getCount() - originalSize);
-      }
-    }
-    // the return value ultimately does nothing, so manually set the result into the player
-    player.containerMenu.setCarried(result);
-    if (result.isEmpty()) {
-      notifyUncraftable(player);
+    // update the inputs and trigger recipe hooks
+    if (amount != 0 && !result.isEmpty()) {
+      takeResult(player, result, amount);
     }
   }
 
