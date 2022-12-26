@@ -4,6 +4,10 @@
     "type": "mantle:text",
     "data": "slotless/slotless.json"
   },
+   {
+    "type": "tconstruct:modifier",
+    "data": "slotless/general/blindshot.json"
+  },
   {
     "type": "tconstruct:modifier",
     "data": "slotless/general/dyed.json"

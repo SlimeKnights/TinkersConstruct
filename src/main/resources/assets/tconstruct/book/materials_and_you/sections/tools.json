@@ -9,6 +9,11 @@
     "type": "tconstruct:tool",
     "data": "tools/dagger.json"
   },
+   {
+    "name": "crossbow",
+    "type": "tconstruct:tool",
+    "data": "tools/crossbow.json"
+  },
   {
     "name": "axe",
     "type": "tconstruct:tool",

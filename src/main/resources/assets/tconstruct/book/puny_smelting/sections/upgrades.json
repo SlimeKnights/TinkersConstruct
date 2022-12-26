@@ -45,6 +45,10 @@
     "data": "upgrades/general/tank.json"
   },
   {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/general/zoom.json"
+  },
+  {
     "condition": {
       "type": "forge:mod_loaded",
       "modid": "theoneprobe"
@@ -144,6 +148,66 @@
     "data": "upgrades/harvest/lightspeed.json"
   },
   
+  {
+    "name": "group_ranged",
+    "type": "mantle:text",
+    "data": "upgrades/ranged.json"
+  },
+  {
+    "name": "fiery",
+    "type": "tconstruct:modifier",
+    "data": "upgrades/ranged/fiery.json"
+  },
+  {
+    "name": "freezing",
+    "type": "tconstruct:modifier",
+    "data": "upgrades/ranged/freezing.json"
+  },
+  {
+    "name": "impaling",
+    "type": "tconstruct:modifier",
+    "data": "upgrades/ranged/impaling.json"
+  },
+  {
+    "name": "power",
+    "type": "tconstruct:modifier",
+    "data": "upgrades/ranged/power.json"
+  },
+  {
+    "name": "necrotic",
+    "type": "tconstruct:modifier",
+    "data": "upgrades/ranged/necrotic.json"
+  },
+  {
+    "name": "piercing",
+    "type": "tconstruct:modifier",
+    "data": "upgrades/ranged/piercing.json"
+  },
+  {
+    "name": "punch",
+    "type": "tconstruct:modifier",
+    "data": "upgrades/ranged/punch.json"
+  },
+  {
+    "name": "quick_charge",
+    "type": "tconstruct:modifier",
+    "data": "upgrades/ranged/quick_charge.json"
+  },
+  {
+    "name": "scope",
+    "type": "tconstruct:modifier",
+    "data": "upgrades/ranged/scope.json"
+  },
+  {
+    "name": "sinistral",
+    "type": "tconstruct:modifier",
+    "data": "upgrades/ranged/sinistral.json"
+  },   
+  {
+    "name": "trueshot",
+    "type": "tconstruct:modifier",
+    "data": "upgrades/ranged/trueshot.json"
+  }, 
   {
     "name": "group_armor",
     "type": "mantle:text",

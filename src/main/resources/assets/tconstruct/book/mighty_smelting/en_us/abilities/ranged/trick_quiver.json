@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:trick_quiver",
+  "text": [
+    {
+      "text": "Hawkeye's quiver on your bow."
+    }
+  ],
+  "effects": [
+	"Gives the bow three toggleable arrow slots",
+	"Switch slots by attacking",
+	"Access the slots by sneaking and attacking",
+	"Single level",
+	"Requires 1 ability slot"
+  ]
+}
