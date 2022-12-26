@@ -124,10 +124,14 @@ public class BlockTransformModifier extends InteractionModifier.NoLevels impleme
             totalTransformed++;
             didTransform = true;
 
+            if (world.isClientSide) {
+              break;
+            }
+
             BlockTransformModifierHook.afterTransformBlock(tool, context, newTarget, newPos, action);
 
             // stop if the tool broke
-            if (world.isClientSide || ToolDamageUtil.damageAnimated(tool, 1, player, slotType)) {
+            if (ToolDamageUtil.damageAnimated(tool, 1, player, slotType)) {
               break;
             }
           }
