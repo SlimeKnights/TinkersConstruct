@@ -3,7 +3,11 @@
   "text": [
     {
       "text": "Tool gains the power of the cactus, attacking through armor."
-    }
+    },
+	{
+	  "text": "Not to be confused with impaling",
+      "paragraph": true	  
+	}
   ],
   "effects": [
     "Adds extra damage that pierces armor",

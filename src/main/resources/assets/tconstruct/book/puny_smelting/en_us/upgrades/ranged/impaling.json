@@ -4,8 +4,10 @@
     {
       "text": "I'd be rather appalled if you impaled me with impaling."
     },
+	
 	{
-      "text": "Not to be confused with antiaquatic"
+      "text": "Not to be confused with antiaquatic",
+	  "paragraph": true
 	}
   ],
   "effects": [
