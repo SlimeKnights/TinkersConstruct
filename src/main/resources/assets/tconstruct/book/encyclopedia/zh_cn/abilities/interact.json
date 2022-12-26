@@ -9,7 +9,11 @@
       "paragraph": true
     },
     {
-      "text": "不少交互能力在胸甲上也有效，不过需要空手才能触发，并且主副手都可以使用。",
+      "text": "Many interaction abilities also work on ranged weapons, which are used by attacking instead of interacting.",
+      "paragraph": true
+    },
+    {
+      "text": "Many interaction abilities also work on chestplates, requiring an empty hand to be used. They can be used from the main or offhand",
       "paragraph": true
     }
   ]
