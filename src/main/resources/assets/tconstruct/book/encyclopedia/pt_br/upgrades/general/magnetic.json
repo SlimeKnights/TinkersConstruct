@@ -3,7 +3,7 @@
   "text": [
     {
       "text": "Depois de minerar blocos ou atacar mobs (para ferramentas) ou passivamente (para armaduras), puxa os itens dentro de 3 blocos em direção ao jogador, ignorando a gravidade. \nCada nivel aumenta em 1 a distância de blocos, e aumenta a velocidade."
-    },
+    }
   ],
   "more_text_space": true,
   "effects": [

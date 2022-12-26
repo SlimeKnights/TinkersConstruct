@@ -1131,7 +1131,7 @@
   "gui.tconstruct.fluid.block": "Блоків: %s",
   "gui.tconstruct.fluid.pane": "Панелей: %s",
   "gui.tconstruct.fluid.gem": "Самоцвітів: %s",
-  "gui.tconstruct.fluid.shard": "Уламків: %s"
+  "gui.tconstruct.fluid.shard": "Уламків: %s",
   "gui.tconstruct.fluid.slimeball": "Слизових кульок: %s",
   "gui.tconstruct.fluid.brick": "Цеглин: %s",
   "gui.tconstruct.fluid.bowl": "Мисок: %s",
@@ -1445,7 +1445,7 @@
 
   "material.tconstruct.nahuatl": "Ацтекське дерево",
   "material.tconstruct.nahuatl.format": "%s з ацтекського дерева",
-  "material.tconstruct.nahuatl.flavor": "Це не обсидіанова деталь, якби такою була, то так би й написали: \«Обсидіан.\»",
+  "material.tconstruct.nahuatl.flavor": "Це не обсидіанова деталь, якби такою була, то так би й написали: «Обсидіан.»",
   "material.tconstruct.nahuatl.encyclopedia": "Має шанс 50% наносити до 5 шкоди із часом, більше шкоди на вищих рівнях",
 
   "material.tconstruct.amethyst_bronze": "Аметистова бронза",
@@ -1606,7 +1606,7 @@
 
   "material.tconstruct.constantan": "Константан",
   "material.tconstruct.constantan.format": "%s з константану",
-  "material.tconstruct.constantan.flavor": "Константантантантантантан... Вибач, просто весело додавати більше \«танів.\»",
+  "material.tconstruct.constantan.flavor": "Константантантантантантан... Вибач, просто весело додавати більше «танів.»",
   "material.tconstruct.constantan.encyclopedia": "Надає +7.5 швидкости добування в екстримальному теплі чи холоді",
 
   "material.tconstruct.invar": "Інвар",
