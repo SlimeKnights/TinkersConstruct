@@ -2,17 +2,17 @@
   "modifier_id": "tconstruct:looting",
   "text": [
     {
-      "text": "Increases drop rates from monsters killed with an empty hand. Luck requires a different recipe for each level, applied in order."
+      "text": "增加空手杀死怪物时的掉落率。每一级幸运的配方都不同，且需要按顺序升级。"
     },
     {
-      "text": "Tools can only receive either luck or looting, based on whether they can break blocks.",
+      "text": "工具只能加持“幸运”或“抢夺”强化，这取决于它们是否可以打破方块。",
       "paragraph": true
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Maximum of 3 levels",
-    "First level requires 1 ability slot",
-    "Second and third levels are slotless"
+    "最高3级",
+    "第1级需要1个能力槽",
+    "第2级和第3级无需槽位"
   ]
 }

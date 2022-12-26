@@ -1,14 +1,14 @@
 {
   "tool": "tconstruct:longbow",
   "text": [
-    { "text": "The Longbow is a broad ranged weapon that fires arrows. Arrows are launched immediately after releasing the longbow." },
-    { "text": "When using interaction modifiers, the longbow acts on left click.", "paragraph": true }
+    { "text": "长弓是一种发射箭矢的长距远程武器。松开长弓后，箭矢将会射出。" },
+    { "text": "当使用交互强化时，需要左键长弓。", "paragraph": true }
   ],
   "properties": [
-    "1.0 Attack Speed",
-    "1.0 Draw Speed",
-    "1.00 Arrow Velocity",
-    "0.75 Accuracy",
-    "300% Durability"
+    "1.0 攻击速度",
+    "1.0 拉弓速度",
+    "1.00 箭矢初速度",
+    "0.75 精确度",
+    "300% 耐久度"
   ]
 }
