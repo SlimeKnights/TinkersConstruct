@@ -17,6 +17,7 @@ import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.ForgeEventFactory;
+import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.BowAmmoModifierHook;
@@ -85,7 +86,14 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
       return InteractionResultHolder.fail(bow);
     }
     player.startUsingItem(hand);
-    player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.put(DRAWSPEED, ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.DRAW_SPEED) / 20f));
+    // property for scope, release, and item model
+    float drawspeed = ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.DRAW_SPEED) / 20f;
+    player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.put(DRAWSPEED, drawspeed));
+    // we want an int version to make sounds more precise
+    tool.getPersistentData().putInt(KEY_DRAWTIME, (int)Math.ceil(1 / drawspeed));
+    if (!level.isClientSide) {
+      level.playSound(null, player.getX(), player.getY(), player.getZ(), Sounds.LONGBOW_CHARGE.getSound(), SoundSource.PLAYERS, 0.75F, 1.0F);
+    }
     return InteractionResultHolder.consume(bow);
   }
 
@@ -184,7 +192,13 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
   @SuppressWarnings("deprecation") // forge is being dumb here, their method is identical to the vanilla one
   @Override
   public void onUseTick(Level level, LivingEntity living, ItemStack bow, int chargeRemaining) {
-    if (level.isClientSide && ModifierUtil.getModifierLevel(bow, TinkerModifiers.scope.getId()) > 0) {
+    // play the sound at the end of loading as an indicator its loaded, texture is another indicator
+    if (!level.isClientSide) {
+      if (getUseDuration(bow) - chargeRemaining == ModifierUtil.getPersistentInt(bow, KEY_DRAWTIME, 0)) {
+        level.playSound(null, living.getX(), living.getY(), living.getZ(), SoundEvents.CROSSBOW_LOADING_MIDDLE, SoundSource.PLAYERS, 0.75F, 1.0F);
+      }
+    }
+    else if (ModifierUtil.getModifierLevel(bow, TinkerModifiers.scope.getId()) > 0) {
       int chargeTime = this.getUseDuration(bow) - chargeRemaining;
       if (chargeTime > 0) {
         living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {

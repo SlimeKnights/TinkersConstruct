@@ -193,6 +193,34 @@
     ]
   },
 
+  "longbow.charge": {
+    "sounds": [
+      {
+        "name": "item/crossbow/quick_charge/quick1_1",
+        "volume": 0.65
+      },
+      {
+        "name": "item/crossbow/quick_charge/quick1_1",
+        "pitch": 0.9,
+        "volume": 0.5
+      },
+      {
+        "name": "item/crossbow/quick_charge/quick1_2",
+        "volume": 0.65
+      },
+      {
+        "name": "item/crossbow/quick_charge/quick1_2",
+        "pitch": 0.95,
+        "volume": 0.65
+      },
+      {
+        "name": "item/crossbow/quick_charge/quick1_3",
+        "volume": 0.65
+      }
+    ],
+    "subtitle": "subtitles.tconstruct.longbow.charge"
+  },
+
   "block.earth_crystal.chime": {
     "sounds": [
       { "name": "block/amethyst/shimmer", "pitch": 0.75, "volume": 0.2 }

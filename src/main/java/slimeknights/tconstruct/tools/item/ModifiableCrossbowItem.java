@@ -63,7 +63,6 @@ import java.util.function.Predicate;
 public class ModifiableCrossbowItem extends ModifiableLauncherItem {
   /** Key containing the stored crossbow ammo */
   public static final ResourceLocation KEY_CROSSBOW_AMMO = TConstruct.getResource("crossbow_ammo");
-  private static final ResourceLocation KEY_CROSSBOW_DRAWTIME = TConstruct.getResource("crossbow_drawtime");
   private static final String PROJECTILE_KEY = "item.minecraft.crossbow.projectile";
   public ModifiableCrossbowItem(Properties properties, ToolDefinition toolDefinition) {
     super(properties, toolDefinition);
@@ -136,7 +135,7 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
         float drawspeed = ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.DRAW_SPEED) / 20f;
         player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.put(DRAWSPEED, drawspeed));
         // we want an int version to make sounds more precise
-        persistentData.putInt(KEY_CROSSBOW_DRAWTIME, (int)Math.ceil(1 / drawspeed));
+        persistentData.putInt(KEY_DRAWTIME, (int)Math.ceil(1 / drawspeed));
         if (!level.isClientSide) {
           level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.CROSSBOW_QUICK_CHARGE_1, SoundSource.PLAYERS, 0.75F, 1.0F);
         }
@@ -259,7 +258,7 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
     }
 
     // did we charge enough?
-    if ((getUseDuration(bow) - chargeRemaining) < persistentData.getInt(KEY_CROSSBOW_DRAWTIME)) {
+    if ((getUseDuration(bow) - chargeRemaining) < persistentData.getInt(KEY_DRAWTIME)) {
       return;
     }
 
@@ -285,7 +284,7 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
   @Override
   public void onUseTick(Level level, LivingEntity living, ItemStack bow, int chargeRemaining) {
     // play the sound at the end of loading as an indicator its loaded, texture is another indicator
-    if (!level.isClientSide && (getUseDuration(bow) - chargeRemaining) == ModifierUtil.getPersistentInt(bow, KEY_CROSSBOW_DRAWTIME, 0)) {
+    if (!level.isClientSide && (getUseDuration(bow) - chargeRemaining) == ModifierUtil.getPersistentInt(bow, KEY_DRAWTIME, 0)) {
       level.playSound(null, living.getX(), living.getY(), living.getZ(), SoundEvents.CROSSBOW_LOADING_MIDDLE, SoundSource.PLAYERS, 0.75F, 1.0F);
     }
   }

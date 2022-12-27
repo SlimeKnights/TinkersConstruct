@@ -6,6 +6,7 @@ import lombok.Getter;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
@@ -54,6 +55,8 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
   /** Drawspeed as of the time this launcher started charging, used clientside for various features including scope and the model.
    * Not necessary to clear as its only used by logic that checks other hooks to see if a bow is drawing */
   public static final TinkerDataKey<Float> DRAWSPEED = TConstruct.createKey("drawspeed");
+  /** Int version of above, just used for sound effects */
+  protected static final ResourceLocation KEY_DRAWTIME = TConstruct.getResource("drawtime");
 
   /** Tool definition for the given tool */
   @Getter
