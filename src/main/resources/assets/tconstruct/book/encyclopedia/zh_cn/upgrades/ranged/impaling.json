@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:impaling",
   "text": [
     {
-      "text": "Allows arrows to keep moving after damaging the first target, potentially hitting multiple targets. Can pass through one entity per level."
+      "text": "允许箭矢在击中第一个目标后继续移动，击中多个目标。每级可以多击穿一个目标。"
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Maximum of 4 levels",
-    "Requires 1 upgrade slot per level"
+    "最高4级",
+    "每级需要1个升级槽"
   ]
 }

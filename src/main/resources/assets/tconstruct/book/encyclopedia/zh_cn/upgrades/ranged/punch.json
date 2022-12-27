@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:punch",
   "text": [
     {
-      "text": "Increases the knockback dealt by arrows each level."
+      "text": "每级增加箭矢的击退效果。"
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Maximum of 5 levels",
-    "Requires 1 upgrade slot per level"
+    "最高5级",
+    "每级需要1个升级槽"
   ]
 }

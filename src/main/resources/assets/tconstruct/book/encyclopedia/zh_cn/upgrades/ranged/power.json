@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:power",
   "text": [
     {
-      "text": "Increases projectile damage by 0.5 per level."
+      "text": "每级增加0.5点弹射物伤害。"
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Can apply levels incrementally",
-    "Maximum of 5 levels",
-    "Requires 1 upgrade slot per level"
+    "可以逐级强化",
+    "最高5级",
+    "每级需要1个升级槽"
   ]
 }

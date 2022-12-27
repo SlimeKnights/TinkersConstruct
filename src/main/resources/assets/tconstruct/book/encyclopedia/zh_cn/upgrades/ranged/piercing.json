@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:piercing",
   "text": [
     {
-      "text": "Arrows deal 1 piercing damage per level before dealing regular damage."
+      "text": "箭矢在造成常规伤害之前每级造成1点穿刺伤害。"
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Can apply levels incrementally",
-    "Maximum of 5 levels",
-    "Requires 1 upgrade slot per level"
+    "可以逐级强化",
+    "最高5级",
+    "每级需要1个升级槽"
   ]
 }

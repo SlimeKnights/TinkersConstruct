@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:trueshot",
   "text": [
     {
-      "text": "Grants +0.1 accuracy per level."
+      "text": "每级精准度+0.1"
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Can apply levels incrementally",
-    "Maximum of 3 levels",
-    "Requires 1 upgrade slot per level"
+    "可以逐级强化",
+    "最高3级",
+    "每级需要1个升级槽"
   ]
 }

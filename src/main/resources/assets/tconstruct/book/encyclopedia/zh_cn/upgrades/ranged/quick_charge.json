@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:quick_charge",
   "text": [
     {
-      "text": "Boosts the tool's drawspeed by 25% per level."
+      "text": "每级提升工具25%的拉弓速度。"
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Can apply levels incrementally",
-    "Maximum of 3 levels",
-    "Requires 1 upgrade slot per level"
+    "可以逐级强化",
+    "最高3级",
+    "每级需要1个升级槽"
   ]
 }

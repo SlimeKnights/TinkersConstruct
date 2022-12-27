@@ -2,14 +2,14 @@
   "modifier_id": "tconstruct:fiery",
   "text": [
     {
-      "text": "Causes fired arrows to be ignited, burning targets they hit."
+      "text": "使射出的箭矢着火，点燃击中的目标。"
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Can apply levels incrementally",
+    "可以逐级强化",
     "Levels beyond the first only affect melee",
-    "Does not work well with freezing",
-    "Requires 1 upgrade slot per level"
+    "不适用于“冰冻”强化",
+    "每级需要1个升级槽"
   ]
 }
