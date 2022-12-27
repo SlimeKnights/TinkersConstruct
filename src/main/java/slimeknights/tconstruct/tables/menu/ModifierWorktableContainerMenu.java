@@ -82,6 +82,10 @@ public class ModifierWorktableContainerMenu extends TabbedContainerMenu<Modifier
    */
   @Override
   public boolean clickMenuButton(Player playerIn, int id) {
+    // no letting ghosts choose modifiers
+    if (playerIn.isSpectator()) {
+      return false;
+    }
     if (id >= 0 && tile != null) {
       tile.selectModifier(id);
     }
