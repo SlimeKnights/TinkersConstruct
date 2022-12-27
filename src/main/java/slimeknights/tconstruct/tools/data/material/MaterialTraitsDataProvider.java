@@ -27,7 +27,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.rock, TinkerModifiers.stonebound);
     addDefaultTraits(MaterialIds.flint, TinkerModifiers.jagged);
     addDefaultTraits(MaterialIds.bone, TinkerModifiers.piercing);
-    noTraits(MaterialIds.bamboo);
+    addTraits(MaterialIds.bamboo, RANGED, ModifierIds.flexible);
     // tier 1 - end
     addDefaultTraits(MaterialIds.chorus, TinkerModifiers.enderference);
     // tier 1 - binding
@@ -41,7 +41,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.searedStone, TinkerModifiers.searing);
     addDefaultTraits(MaterialIds.slimewood, TinkerModifiers.overgrowth, TinkerModifiers.overslime);
     addDefaultTraits(MaterialIds.bloodbone, TinkerModifiers.raging);
-    addDefaultTraits(MaterialIds.aluminum, ModifierIds.featherweight);
+    addTraits(MaterialIds.aluminum, RANGED, ModifierIds.featherweight);
     // tier 2 - nether
     addDefaultTraits(MaterialIds.necroticBone, TinkerModifiers.necrotic);
     addDefaultTraits(MaterialIds.scorchedStone, ModifierIds.scorching);

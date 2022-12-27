@@ -1,8 +1,10 @@
 {
-  "default": [
-    {
-      "name": "tconstruct:featherweight",
-      "level": 1
-    }
-  ]
+  "perStat": {
+    "tconstruct:ranged": [
+      {
+        "name": "tconstruct:featherweight",
+        "level": 1
+      }
+    ]
+  }
 }
