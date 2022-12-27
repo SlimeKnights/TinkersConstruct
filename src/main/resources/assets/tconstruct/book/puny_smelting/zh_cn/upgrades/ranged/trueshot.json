@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:trueshot",
   "text": [
     {
-      "text": "Zero in on your target."
+      "text": "瞄准目标，一箭入魂。"
     }
   ],
   "effects": [
-    "Increases accuracy of fired projectiles",
-	"Multiple levels, each level increases accuracy further",
-	"Requires 1 Upgrade Slot per level"
+    "增加所发射弹射物的精确度",
+	"多个等级，每级进一步增加精确度",
+	"每级需要1个升级槽"
   ]
 }

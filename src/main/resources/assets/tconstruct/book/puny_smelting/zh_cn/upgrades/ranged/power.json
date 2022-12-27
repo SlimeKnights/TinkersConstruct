@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:power",
   "text": [
     {
-      "text": "unlimited §1§lPOWWWWWWEEEEERRRRRRRRRRRRR§r."
+      "text": "无尽的§1§l力咿咿咿咿咿咿咿量昂昂昂昂昂昂§r。"
     }
   ],
   "effects": [
-    "Increases damage of projectiles fired from longbows",
-	"Multiple levels, each level increases damage further",
-	"Requires 1 Upgrade Slot per level"
+    "增加长弓所发射弹射物的伤害",
+    "多个等级，每级进一步增加伤害",
+	  "每级需要1个升级槽"
   ]
 }

@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:blindshot",
   "text": [
     {
-      "text": "I'm going to put some dirt in your eye."
+      "text": "我要给你眼睛里抓把灰。"
     }
   ],
   "effects": [
-    "Decreases accuracy of fired projectiles",
-	"Multiple levels, each level decreases drawspeed further",
-	"Slotless"
+    "降低所发射弹射物的精确度",
+	  "多个等级，每级降低拉弓速度",
+	  "无需槽位"
   ]
 }

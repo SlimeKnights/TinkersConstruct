@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:necrotic",
   "text": [
     {
-      "text": "Harvest the life of your foes in order to survive longer."
+      "text": "收割敌人的生命以存活得更久。"
     }
   ],
   "effects": [
-    "Critical hits steal life from your enemies to heal you",
-    "Multiple levels, increases amount of life steal per level",
-    "Requires 1 Upgrade Slot per level"
+    "命中会窃取敌人的生命来治愈你",
+    "多个等级，每级进一步增加窃取生命的量",
+    "每级需要1个升级槽"
   ]
 }

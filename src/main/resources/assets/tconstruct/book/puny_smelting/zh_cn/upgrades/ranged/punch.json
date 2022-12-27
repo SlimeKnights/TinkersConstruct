@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:punch",
   "text": [
     {
-      "text": "Here comes the punchline."
+      "text": "冲击性妙言妙语即将抵达。"
     }
   ],
   "effects": [
-    "Increases knockback on fired projectiles",
-	"Multiple levels, each level increases knockback further",
-	"Requires 1 Upgrade Slot per level"
+    "命中目标时击退它们",
+    "多个等级，每级进一步增加击退力度",
+    "每级需要1个升级槽"
   ]
 }

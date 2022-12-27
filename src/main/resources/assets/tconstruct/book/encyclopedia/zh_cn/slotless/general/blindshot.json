@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:blindshot",
   "text": [
     {
-      "text": "Decreases accuracy by 0.1 per level."
+      "text": "每级减少0.1点精确度。"
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Multi-use",
-    "Slotless",
-    "No max level, though accuracy minimum is 0.1"
+    "多次使用",
+    "无需槽位",
+    "没有等级上限，不过精确度的下限为0.1"
   ]
 }

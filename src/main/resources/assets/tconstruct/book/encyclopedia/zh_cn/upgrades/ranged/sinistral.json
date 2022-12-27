@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:sinistral",
   "text": [
     {
-      "text": "Causes the crossbow to fire on attack instead of interact, and to only load when not sneaking. Allows using an item in the offhand while using a crossbow."
+      "text": "使得弩在攻击而非交互时发射，且不会在潜行时装填。从而允许在使用弩时同时使用副手物品。"
     }
   ],
   "more_text_space": true,
