@@ -58,6 +58,7 @@ import slimeknights.tconstruct.library.data.recipe.ISmelteryRecipeHelper;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.casting.PotionCastingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.casting.container.ContainerFillingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelBuilder;
@@ -772,6 +773,24 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                                  .save(consumer, modResource(folder + "filling/bucket"));
     ContainerFillingRecipeBuilder.tableRecipe(TinkerSmeltery.copperCan, FluidValues.INGOT)
                                  .save(consumer, modResource(folder + "filling/copper_can"));
+    // potion filling
+    PotionCastingRecipeBuilder.tableRecipe(Items.POTION)
+                              .setBottle(Items.GLASS_BOTTLE)
+                              .setFluid(TinkerTags.Fluids.POTION, FluidValues.BOTTLE)
+                              .save(consumer, modResource(folder + "filling/bottle"));
+    PotionCastingRecipeBuilder.tableRecipe(Items.SPLASH_POTION)
+                              .setBottle(TinkerTags.Items.SPLASH_BOTTLE)
+                              .setFluid(TinkerTags.Fluids.POTION, FluidValues.BOTTLE)
+                              .save(consumer, modResource(folder + "filling/lingerng_bottle"));
+    PotionCastingRecipeBuilder.tableRecipe(Items.LINGERING_POTION)
+                              .setBottle(TinkerTags.Items.LINGERING_BOTTLE)
+                              .setFluid(TinkerTags.Fluids.POTION, FluidValues.BOTTLE)
+                              .save(consumer, modResource(folder + "filling/splash_bottle"));
+    PotionCastingRecipeBuilder.tableRecipe(Items.TIPPED_ARROW)
+                              .setBottle(Items.ARROW)
+                              .setFluid(TinkerTags.Fluids.POTION, FluidValues.BOTTLE / 10)
+                              .setCoolingTime(20)
+                              .save(consumer, modResource(folder + "filling/tipped_arrow"));
     // tank filling - seared
     ContainerFillingRecipeBuilder.basinRecipe(TinkerSmeltery.searedTank.get(TankType.INGOT_TANK), FluidValues.INGOT)
                                  .save(consumer, modResource(folder + "filling/seared_ingot_tank"));

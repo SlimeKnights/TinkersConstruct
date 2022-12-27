@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_table_potion",
+  "bottle": {
+    "tag": "forge:bottles/lingering"
+  },
+  "fluid": {
+    "tag": "forge:potion",
+    "amount": 250
+  },
+  "result": "minecraft:lingering_potion",
+  "cooling_time": 0
+}
