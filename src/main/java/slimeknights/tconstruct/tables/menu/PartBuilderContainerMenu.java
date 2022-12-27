@@ -66,6 +66,10 @@ public class PartBuilderContainerMenu extends TabbedContainerMenu<PartBuilderBlo
    */
   @Override
   public boolean clickMenuButton(Player playerIn, int id) {
+    // no letting ghosts choose patterns
+    if (playerIn.isSpectator()) {
+      return false;
+    }
     if (id >= 0 && tile != null) {
       tile.selectRecipe(id);
     }
