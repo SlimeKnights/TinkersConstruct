@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:sinistral",
+  "text": [
+    {
+      "text": "Double the bows double the trouble."
+    }
+  ],
+  "effects": [
+    "Crossbows in main hand will fire with attack button, and will not reload when sneaking",
+	"Allows dual wielding crossbows, or using with a shield",
+	"Single level",
+	"Requires 1 Upgrade Slot"
+  ]
+}

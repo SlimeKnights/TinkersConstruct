@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:impaling",
+  "text": [
+    {
+      "text": "I'd be rather appalled if you impaled me with impaling."
+    },
+	
+	{
+      "text": "Not to be confused with antiaquatic",
+	  "paragraph": true
+	}
+  ],
+  "effects": [
+    "Increases damage of projectiles fired from crossbows",
+	"Multiple levels, each level increases damage further",
+	"Requires 1 Upgrade Slot per level"
+  ]
+}

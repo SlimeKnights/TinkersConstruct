@@ -1,0 +1,22 @@
+{
+  "tool": "tconstruct:crossbow",
+  "text": [
+    {
+      "text": "The crossbow is useful for those wanting to stay quick and ready for a fight"
+    },
+	{
+      "text": "\n"
+    },
+	 {
+      "text": "You should never cross a bow",
+	  "paragraph": true
+    }
+  
+  ],
+  "properties": [
+    "Quick and nimble type of bow",
+	"Able to keep an arrow prepared to fire",
+	"Likes to party with fireworks"
+	
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "tool": "tconstruct:longbow",
+  "text": [
+    {
+      "text": "The longbow is useful for those ready to stand their ground and fight with power"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Longer than a bow, but shorter than a long long bow",
+	  "paragraph": true
+    }
+  ],
+  "properties": [
+    "A slower but more powerful bow",
+	"Designed for higher damage"
+  ]
+}

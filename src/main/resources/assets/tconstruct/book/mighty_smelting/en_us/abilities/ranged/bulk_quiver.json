@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:bulk_quiver",
+  "text": [
+    {
+      "text": "Putting a quiver on your back is overrated."
+    }
+  ],
+  "effects": [
+    "Allows your bow to store arrows",
+	"Access by sneaking and attacking",
+	"Multiple levels, each level increases storage size",
+	"Requires 1 ability slot"
+  ]
+}
