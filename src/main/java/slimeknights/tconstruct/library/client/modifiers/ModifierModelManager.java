@@ -17,6 +17,7 @@ import net.minecraftforge.fml.ModLoader;
 import net.minecraftforge.fml.event.IModBusEvent;
 import slimeknights.mantle.data.IEarlySafeManagerReloadListener;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.model.DynamicTextureLoader;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 
@@ -188,7 +189,7 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
     ImmutableMap.Builder<ModifierId,IBakedModifierModel> modelMap = ImmutableMap.builder();
 
     // create two texture adders, so we only log on the final option if missing
-    Predicate<Material> textureAdder = DynamicTextureLoader.getTextureAdder(textures, true);
+    Predicate<Material> textureAdder = DynamicTextureLoader.getTextureAdder(textures, Config.CLIENT.logMissingModifierTextures.get());
 
     // load each modifier
     for (Entry<ModifierId, IUnbakedModifierModel> entry : modifierModels.entrySet()) {
