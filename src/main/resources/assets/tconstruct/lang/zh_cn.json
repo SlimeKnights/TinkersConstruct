@@ -1618,7 +1618,7 @@
   "material.tconstruct.steel.ranged": "每级+4%耐久度，+3%初速度，+3%弹射物伤害。",
 
   "material.tconstruct.bronze": "青铜",
-  "material.tconstruct.bronze.flavor": "可别和紫水晶青铜搞混了",
+  "material.tconstruct.bronze.flavor": "别和紫水晶青铜搞混了",
   "material.tconstruct.bronze.encyclopedia": "满耐久时+6采掘速度，耐久度在50%以下时不增加采掘速度。",
   "material.tconstruct.bronze.ranged": "满耐久时+0.05初速度，耐久度在50%以下时不增加初速度。",
 
