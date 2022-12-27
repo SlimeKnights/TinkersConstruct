@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:multishot",
   "text": [
     {
-      "text": "Thruul is not responsible for any accidents while shooting more than one projectile."
+      "text": "Thruul不对任何由同时发射多个弹射物所导致的事故负责。"
     }
   ],
   "effects": [
-	"Shoots multiple arrows at once",
-	"Multiple levels, each level increases amount of arrows fired",
-	"Requires 1 ability slot"
+	"同时发射多根箭矢",
+	"多个等级，每级进一步增加同时发射的数量",
+	"需要1个能力槽"
   ]
 }
