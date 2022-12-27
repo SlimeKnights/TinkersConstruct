@@ -6,8 +6,8 @@
   ],
   "properties": [
     "1.0 Attack Speed",
-    "0.8 Draw Speed",
-    "1.05 Arrow Velocity",
+    "1.0 Draw Speed",
+    "1.00 Arrow Velocity",
     "0.75 Accuracy",
     "200% Durability"
   ]
