@@ -60,6 +60,7 @@ import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.helper.ArmorUtil;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
@@ -410,7 +411,7 @@ public class ToolEvents {
           // yes, hardcoded to enderference, if you need your own enderference for whatever reason, talk to us
           if (entityHit.getEntity().getType() != EntityType.ENDERMAN || modifiers.getLevel(TinkerModifiers.enderference.getId()) > 0) {
             // extract a living target as that is the most common need
-            LivingEntity target = entityHit.getEntity() instanceof LivingEntity l ? l : null;
+            LivingEntity target = ToolAttackUtil.getLivingEntity(entityHit.getEntity());
             for (ModifierEntry entry : modifiers.getModifiers()) {
               if (entry.getHook(TinkerHooks.PROJECTILE_HIT).onProjectileHitEntity(modifiers, nbt, entry, projectile, entityHit, attacker, target)) {
                 event.setCanceled(true);
