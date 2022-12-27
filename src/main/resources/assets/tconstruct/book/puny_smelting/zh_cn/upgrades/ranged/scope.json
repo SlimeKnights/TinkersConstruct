@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:scope",
   "text": [
     {
-      "text": "360 no scope."
+      "text": "360 no scope"
     }
   ],
   "effects": [
-    "Allows longbows to zoom in when charging the bow",
-	"Single level",
-	"Requires 1 Upgrade Slot"
+    "在拉动长弓时放大视角",
+  	"单个等级",
+  	"需要1个升级槽"
   ]
 }

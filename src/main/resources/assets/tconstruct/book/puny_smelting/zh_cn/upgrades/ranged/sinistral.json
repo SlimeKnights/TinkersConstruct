@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:sinistral",
   "text": [
     {
-      "text": "Double the bows double the trouble."
+      "text": "双弓齐发，麻烦翻番。"
     }
   ],
   "effects": [
-    "Crossbows in main hand will fire with attack button, and will not reload when sneaking",
-	"Allows dual wielding crossbows, or using with a shield",
-	"Single level",
-	"Requires 1 Upgrade Slot"
+    "主手所持的弩会在按下“攻击”键时发射，且不会在潜行时重新装填",
+	  "允许双持弩，或是将弩和盾牌配合使用",
+    "单个等级",
+    "需要1个升级槽"
   ]
 }
