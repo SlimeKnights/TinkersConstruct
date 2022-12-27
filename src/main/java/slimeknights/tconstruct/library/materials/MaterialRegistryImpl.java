@@ -104,7 +104,9 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
   @Override
   public <T extends IMaterialStats> void registerStatType(T defaultStats, Class<T> clazz, Function<FriendlyByteBuf,T> decoder, @Nullable MaterialStatsId fallback) {
     registerStatType(defaultStats, clazz, decoder);
-    materialTraitsManager.registerStatTypeFallback(defaultStats.getIdentifier(), fallback);
+    if (fallback != null) {
+      materialTraitsManager.registerStatTypeFallback(defaultStats.getIdentifier(), fallback);
+    }
   }
 
 
