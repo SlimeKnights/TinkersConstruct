@@ -5,8 +5,11 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArrowItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.dynamic.InventoryMenuModifier;
@@ -40,7 +43,8 @@ public class BulkQuiverModifier extends InventoryMenuModifier implements BowAmmo
 
   @Override
   public boolean isItemValid(IToolStackView tool, ModifierEntry modifier, int slot, ItemStack stack) {
-    return stack.getItem() instanceof ArrowItem;
+    Item item = stack.getItem();
+    return (item == Items.FIREWORK_ROCKET && tool.hasTag(TinkerTags.Items.CROSSBOWS)) || stack.getItem() instanceof ArrowItem;
   }
 
   @Nullable
