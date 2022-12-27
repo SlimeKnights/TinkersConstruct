@@ -346,6 +346,7 @@ public class TooltipUtil {
     if (tool.hasTag(TinkerTags.Items.RANGED)) {
       builder.add(ToolStats.DRAW_SPEED);
       builder.add(ToolStats.VELOCITY);
+      builder.add(ToolStats.PROJECTILE_DAMAGE);
       builder.add(ToolStats.ACCURACY);
     }
     if (tool.hasTag(TinkerTags.Items.MELEE)) {
