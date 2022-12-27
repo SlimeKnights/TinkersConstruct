@@ -34,6 +34,7 @@ import slimeknights.tconstruct.world.TinkerHeadType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import static net.minecraft.tags.BlockTags.MINEABLE_WITH_AXE;
@@ -231,6 +232,10 @@ public class BlockTagProvider extends BlockTagsProvider {
     }));
     TinkerWorld.slimeDirt.forEach((type, block) -> this.tag(type.getDirtBlockTag()).add(block));
     endermanHoldable.addTag(TinkerTags.Blocks.SLIMY_SOIL);
+
+    Consumer<Block> flowerPotAppender = this.tag(BlockTags.FLOWER_POTS)::add;
+    TinkerWorld.pottedSlimeFern.forEach(flowerPotAppender);
+    TinkerWorld.pottedSlimeSapling.forEach(flowerPotAppender);
 
     // slime spawns
     this.tag(TinkerTags.Blocks.SKY_SLIME_SPAWN).add(TinkerWorld.earthGeode.getBlock(), TinkerWorld.earthGeode.getBudding()).addTag(SlimeType.SKY.getGrassBlockTag());

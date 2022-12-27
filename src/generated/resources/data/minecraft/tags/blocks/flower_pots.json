@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:potted_earth_slime_fern",
+    "tconstruct:potted_sky_slime_fern",
+    "tconstruct:potted_ichor_slime_fern",
+    "tconstruct:potted_ender_slime_fern",
+    "tconstruct:potted_blood_slime_fern",
+    "tconstruct:potted_earth_slime_sapling",
+    "tconstruct:potted_sky_slime_sapling",
+    "tconstruct:potted_ichor_slime_sapling",
+    "tconstruct:potted_ender_slime_sapling",
+    "tconstruct:potted_blood_slime_sapling"
+  ]
+}

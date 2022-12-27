@@ -1282,6 +1282,12 @@
   "block.tconstruct.ichor_slime_fern": "Slimy Roots",
   "block.tconstruct.ender_slime_fern": "Slimy Fern",
 
+  "block.tconstruct.potted_earth_slime_fern": "Potted Slimy Fern",
+  "block.tconstruct.potted_sky_slime_fern": "Potted Slimy Fern",
+  "block.tconstruct.potted_blood_slime_fern": "Potted Slimy Roots",
+  "block.tconstruct.potted_ichor_slime_fern": "Potted Slimy Roots",
+  "block.tconstruct.potted_ender_slime_fern": "Potted Slimy Fern",
+
   "block.tconstruct.earth_slime_sapling": "Greenheart Sapling",
   "block.tconstruct.earth_slime_sapling.tooltip": "Only grows on slimy dirt or grass",
   "block.tconstruct.sky_slime_sapling": "Skyroot Sapling",
@@ -1292,6 +1298,12 @@
   "block.tconstruct.ichor_slime_sapling.tooltip": "Only grows on slimy nylium",
   "block.tconstruct.ender_slime_sapling": "Enderslime Sapling",
   "block.tconstruct.ender_slime_sapling.tooltip": "Only grows on slimy dirt or grass",
+
+  "block.tconstruct.potted_earth_slime_sapling": "Potted Greenheart Sapling",
+  "block.tconstruct.potted_sky_slime_sapling":   "Potted Skyroot Sapling",
+  "block.tconstruct.potted_blood_slime_sapling": "Potted Bloodshroom",
+  "block.tconstruct.potted_ichor_slime_sapling": "Potted Ichor Sapling",
+  "block.tconstruct.potted_ender_slime_sapling": "Potted Enderslime Sapling",
 
   "block.tconstruct.ender_slime_vine": "Slimy Vine",
   "block.tconstruct.sky_slime_vine": "Slimy Vine",

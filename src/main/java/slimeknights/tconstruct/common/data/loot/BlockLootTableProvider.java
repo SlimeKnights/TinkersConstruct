@@ -163,6 +163,8 @@ public class BlockLootTableProvider extends BlockLoot {
 
     // saplings
     TinkerWorld.slimeSapling.forEach(this::dropSelf);
+    TinkerWorld.pottedSlimeSapling.forEach(this::dropPottedContents);
+    TinkerWorld.pottedSlimeFern.forEach(this::dropPottedContents);
 
     // foliage
     TinkerWorld.slimeTallGrass.forEach(block -> this.add(block, BlockLootTableProvider::onlyShears));
