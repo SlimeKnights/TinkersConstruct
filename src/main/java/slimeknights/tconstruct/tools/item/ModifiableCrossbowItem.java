@@ -4,7 +4,6 @@ import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
@@ -25,7 +24,6 @@ import net.minecraft.world.entity.projectile.AbstractArrow.Pickup;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ArrowItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
@@ -41,7 +39,6 @@ import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
-import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.item.ModifiableLauncherItem;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -52,7 +49,6 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.tools.TinkerModifiers;
-import slimeknights.tconstruct.tools.data.material.MaterialIds;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -286,13 +282,6 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
     // play the sound at the end of loading as an indicator its loaded, texture is another indicator
     if (!level.isClientSide && (getUseDuration(bow) - chargeRemaining) == ModifierUtil.getPersistentInt(bow, KEY_DRAWTIME, 0)) {
       level.playSound(null, living.getX(), living.getY(), living.getZ(), SoundEvents.CROSSBOW_LOADING_MIDDLE, SoundSource.PLAYERS, 0.75F, 1.0F);
-    }
-  }
-
-  @Override
-  public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
-    if (this.allowdedIn(group)) {
-      ToolBuildHandler.addDefaultSubItems(this, items, null, null, MaterialIds.string);
     }
   }
 

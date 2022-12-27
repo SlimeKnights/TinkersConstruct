@@ -112,13 +112,11 @@ public abstract class RandomMaterial {
 
   /** Constant material */
   @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-  private static class First extends RandomMaterial implements Predicate<IMaterial> {
+  private static class First extends RandomMaterial {
     private static final ResourceLocation ID = TConstruct.getResource("first");
 
     /** Stat type for random materials */
     private final MaterialStatsId statType;
-
-    private MaterialId material;
 
     /** Creates an instance from JSON */
     public static First fromJson(JsonObject json) {
@@ -127,20 +125,8 @@ public abstract class RandomMaterial {
     }
 
     @Override
-    public boolean test(IMaterial material) {
-      return MaterialRegistry.getInstance().getMaterialStats(material.getIdentifier(), statType).isPresent();
-    }
-
-    @Override
     public MaterialVariantId getMaterial(Random random) {
-      if (material == null) {
-        material = MaterialRegistry.getInstance().getVisibleMaterials().stream()
-                                   .filter(this)
-                                   .findFirst()
-                                   .orElse(IMaterial.UNKNOWN)
-                                   .getIdentifier();
-      }
-      return material;
+      return MaterialRegistry.firstWithStatType(statType).getIdentifier();
     }
 
     @Override

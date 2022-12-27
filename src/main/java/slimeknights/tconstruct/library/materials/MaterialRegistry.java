@@ -33,6 +33,8 @@ import slimeknights.tconstruct.tools.stats.SkullStats;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 
 public final class MaterialRegistry {
@@ -42,6 +44,9 @@ public final class MaterialRegistry {
   public static final MaterialStatsId RANGED = new MaterialStatsId(TConstruct.getResource("ranged"));
 
   static MaterialRegistry INSTANCE;
+
+  /** Map of each stat type to its first material */
+  private static final Map<MaterialStatsId,IMaterial> FIRST_MATERIALS = new HashMap<>();
 
   private final MaterialManager materialManager;
   private final MaterialStatsManager materialStatsManager;
@@ -183,6 +188,23 @@ public final class MaterialRegistry {
     return INSTANCE.materialStatsManager.getStatDecoder(id);
   }
 
+  /** Loads the first material of a stat type */
+  private static final Function<MaterialStatsId,IMaterial> FIRST_LOADER = statsId -> {
+    IMaterialRegistry instance = getInstance();
+    for (IMaterial material : instance.getVisibleMaterials()) {
+      if (instance.getMaterialStats(material.getIdentifier(), statsId).isPresent()) {
+        return material;
+      }
+    }
+    return IMaterial.UNKNOWN;
+  };
+
+  /** Gets the first material with the given stat type */
+  public static IMaterial firstWithStatType(MaterialStatsId id) {
+    return FIRST_MATERIALS.computeIfAbsent(id, FIRST_LOADER);
+  }
+
+
 
   /* Loading */
 
@@ -193,6 +215,7 @@ public final class MaterialRegistry {
       statsLoaded = false;
       traitsLoaded = false;
       fullyLoaded = true;
+      FIRST_MATERIALS.clear();
       MinecraftForge.EVENT_BUS.post(new MaterialsLoadedEvent());
     } else {
       fullyLoaded = false;

@@ -285,16 +285,6 @@ public abstract class AbstractMaterialContent extends PageContent {
     return MaterialRegistry.getInstance().getMaterialStats(materialId, statsId).isPresent();
   }
 
-  /** Gets the first material from the registry for the given stat type */
-  private static IMaterial getFirstMaterialWithType(MaterialStatsId statsId) {
-    for (IMaterial material : MaterialRegistry.getMaterials()) {
-      if (hasStatType(material.getIdentifier(), statsId)) {
-        return material;
-      }
-    }
-    return IMaterial.UNKNOWN;
-  }
-
   /** Adds items to the display tools list for all relevant recipes */
   protected void addPrimaryDisplayItems(List<ItemElement> displayTools, MaterialVariantId materialId) {
     // part builder
@@ -364,7 +354,7 @@ public abstract class AbstractMaterialContent extends PageContent {
               materials.add(materialVariant);
               usedMaterial = true;
             } else {
-              materials.add(getFirstMaterialWithType(part.getStatType()));
+              materials.add(MaterialRegistry.firstWithStatType(part.getStatType()));
             }
           }
 
