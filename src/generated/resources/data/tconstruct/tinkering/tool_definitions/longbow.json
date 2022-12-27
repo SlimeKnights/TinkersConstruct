@@ -15,11 +15,12 @@
   ],
   "stats": {
     "base": {
+      "tconstruct:durability": 120.0,
       "tconstruct:attack_damage": 0.0,
       "tconstruct:attack_speed": 1.0
     },
     "multipliers": {
-      "tconstruct:durability": 3.0
+      "tconstruct:durability": 1.5
     }
   },
   "slots": {
