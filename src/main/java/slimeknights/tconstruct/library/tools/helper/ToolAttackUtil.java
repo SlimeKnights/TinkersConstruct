@@ -143,6 +143,19 @@ public class ToolAttackUtil {
   }
 
   /**
+   * Gets a living entity from the given entity, getting the parent if needed
+   * @param entity  Entity instance
+   * @return  Living entity, or null if its not living
+   */
+  @Nullable
+  public static LivingEntity getLivingEntity(Entity entity) {
+    if (entity instanceof PartEntity<?> part) {
+      entity = part.getParent();
+    }
+    return entity instanceof LivingEntity living ? living : null;
+  }
+
+  /**
    * Base attack logic, used by normal attacks, projectiles, and extra attacks.
    * Based on {@link Player#attack(Entity)}
    */
@@ -159,15 +172,7 @@ public class ToolAttackUtil {
     }
 
     // fetch relevant entities
-    LivingEntity targetLiving = null;
-    if (targetEntity instanceof LivingEntity) {
-      targetLiving = (LivingEntity) targetEntity;
-    } else if (targetEntity instanceof PartEntity) {
-      Entity parent = ((PartEntity<?>) targetEntity).getParent();
-      if (parent instanceof LivingEntity) {
-        targetLiving = (LivingEntity)parent;
-      }
-    }
+    LivingEntity targetLiving = getLivingEntity(targetEntity);
     Player attackerPlayer = null;
     if (attackerLiving instanceof Player player) {
       attackerPlayer = player;
