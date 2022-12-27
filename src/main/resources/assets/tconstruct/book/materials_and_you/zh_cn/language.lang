@@ -1,7 +1,9 @@
 intro=介绍
 
-materials=一级材料
-materials.subtext=制作任何工具，材料都是入门篇章。这些材料可以放在部件制造台中，用于制作一些合成工 具的部件。
+melee_harvest_materials=一级近程材料
+melee_harvest_materials.subtext=这些材料可以放在部件制造台中，用于制造近战武器或采掘工具的工具部件。
+ranged_materials=一级远程材料
+ranged_materials.subtext=这些材料可以放在部件制造台中，用于制造像弓那样的远程武器的工具部件。
 
 tools=工具
 

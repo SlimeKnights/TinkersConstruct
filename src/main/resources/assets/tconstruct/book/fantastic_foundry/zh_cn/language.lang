@@ -9,5 +9,7 @@ blazing_blood=烈焰血
 armor=镶板盔甲
 armor.subtext=盔甲可以在工作台上进行合成，不需要用到工匠站或者工匠砧。强大的镶板盔甲能够提供很高的防御，不过相对地，它的升级槽就没那么多。但有了这么高的防御力，还要乱七八糟的属性做什么？
 
-materials=四级材料
-materials.subtext=制作这些材料需要用到烈焰血。
+melee_harvest_materials=四级近程材料
+melee_harvest_materials.subtext=这些材料需要烈焰血合成，能制造用于近战武器和采掘工具的工具部件。
+ranged_materials=四级远程材料
+ranged_materials.subtext=这些材料需要烈焰血合成，能制造用于像弓那样的远程武器的工具部件。

@@ -2,10 +2,10 @@
   "modifier_id": "tconstruct:item_frame",
   "text": [
     {
-      "text": "给头盔增加展示用的物品栏位，戴上头盔后物品栏位会在UI上显示。"
+      "text": "给头盔增加展示用的物品槽位，戴上头盔后物品槽位会在UI上显示。"
     },
     {
-      "text": "手持头盔右击可以打开物品栏位。", "paragraph": true
+      "text": "手持头盔右击可以打开物品槽位。", "paragraph": true
     }
   ],
   "more_text_space": true,
