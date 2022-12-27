@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:trueshot",
+  "text": [
+    {
+      "text": "Zero in on your target."
+    }
+  ],
+  "effects": [
+    "Increases accuracy of fired projectiles",
+	"Multiple levels, each level increases accuracy further",
+	"Requires 1 Upgrade Slot per level"
+  ]
+}
