@@ -225,7 +225,7 @@
   "block.tconstruct.budding_ender_slime_crystal": "末影黏液水晶母岩",
 
   "item.tconstruct.iron_reinforcement": "铁加固板",
-  "item.tconstruct.iron_reinforcement.tooltip": "降低工具损耗耐久度的概率",
+  "item.tconstruct.iron_reinforcement.tooltip": "降低工具消耗耐久度的概率",
   "item.tconstruct.slimesteel_reinforcement": "黏钢加固板",
   "item.tconstruct.slimesteel_reinforcement.tooltip": "提升黏钢的容纳力",
   "item.tconstruct.seared_reinforcement": "焦黑加固板",
@@ -1375,12 +1375,12 @@
   "material.tconstruct.rock.blackstone": "黑石",
   "material.tconstruct.rock.deepslate": "深板岩",
   "material.tconstruct.rock.flavor": "保证坚如磐石",
-  "material.tconstruct.rock.encyclopedia": "按已损耗耐久度和材料特性等级的积的平方根的一半加快工具的采掘速度。",
+  "material.tconstruct.rock.encyclopedia": "按已消耗耐久度和材料特性等级的积的平方根的一半加快工具的采掘速度。",
 
   "material.tconstruct.flint": "燧石",
   "material.tconstruct.flint.basalt": "玄武岩",
   "material.tconstruct.flint.flavor": "点燃你滚烫的工匠之心！",
-  "material.tconstruct.flint.encyclopedia": "按已损耗耐久度和材料特性等级的积的平方根的四分之一增加工具的伤害。",
+  "material.tconstruct.flint.encyclopedia": "按已消耗耐久度和材料特性等级的积的平方根的四分之一增加工具的伤害。",
 
   "material.tconstruct.bone": "骨头",
   "material.tconstruct.bone.flavor": "吾为所持剑之骨",
@@ -1409,11 +1409,11 @@
 
   "material.tconstruct.leather": "皮革",
   "material.tconstruct.leather.flavor": "温“鞣”地杀死一头牛",
-  "material.tconstruct.leather.encyclopedia": "每次使用工具最高只会损耗1点耐久度。",
+  "material.tconstruct.leather.encyclopedia": "每次使用工具最高只会消耗1点耐久度。",
 
   "material.tconstruct.vine": "藤蔓",
   "material.tconstruct.vine.flavor": "生气蓬勃，不像那死气沉沉的社交网络",
-  "material.tconstruct.vine.encyclopedia": "在太阳光完全照射的情况下，工具最高有75%的概率在使用时不损耗耐久度。",
+  "material.tconstruct.vine.encyclopedia": "在太阳光完全照射的情况下，工具最高有75%的概率在使用时不消耗耐久度。",
 
 
   "__comment": "Tier 2 Materials",
@@ -1462,7 +1462,7 @@
 
   "material.tconstruct.chain": "锁链",
   "material.tconstruct.chain.flavor": "你也可以变成用锁链的猎人",
-  "material.tconstruct.chain.encyclopedia": "工具的耐久度损耗降低25%。",
+  "material.tconstruct.chain.encyclopedia": "工具的耐久度消耗降低25%。",
 
   "material.tconstruct.skyslime_vine": "黏液藤蔓",
   "material.tconstruct.skyslime_vine.flavor": "掠翅若蝶，蛰刺似蜂",
@@ -1676,7 +1676,7 @@
   "_comment": "Durability",
   "modifier.tconstruct.reinforced": "加固",
   "modifier.tconstruct.reinforced.flavor": "结实耐用！",
-  "modifier.tconstruct.reinforced.description": "降低工具损耗耐久度的概率",
+  "modifier.tconstruct.reinforced.description": "降低工具消耗耐久度的概率",
   "modifier.tconstruct.overforced": "超强化",
   "modifier.tconstruct.overforced.flavor": "黏液防护！",
   "modifier.tconstruct.overforced.description": "在黏液的强化下，工具将拥有更高的黏液覆层上限",
@@ -1699,7 +1699,7 @@
 
   "modifier.tconstruct.overslime": "黏液覆层",
   "modifier.tconstruct.overslime.flavor": "黏糊糊！",
-  "modifier.tconstruct.overslime.description": "使用工具将优先损耗黏液覆层而非耐久度！但在黏液覆层耗尽时不起任何作用。对缺失黏液的工具不甚友好",
+  "modifier.tconstruct.overslime.description": "使用工具将优先消耗黏液覆层而非耐久度！但在黏液覆层耗尽时不起任何作用。对缺失黏液的工具不甚友好",
 
   "_comment": "Tool or harvest",
   "modifier.tconstruct.experienced": "阅历",
@@ -1834,7 +1834,7 @@
   "modifier.tconstruct.trick_quiver.selected": "戏法箭袋: 选用%2$s号槽位中%1$s",
   "modifier.tconstruct.crystalshot": "晶镞",
   "modifier.tconstruct.crystalshot.flavor": "手持箭也没那么厉害",
-  "modifier.tconstruct.crystalshot.description": "弓不再发射箭矢，而是发射自身长出的水晶碎片；水晶的生长会损耗额外耐久度",
+  "modifier.tconstruct.crystalshot.description": "弓不再发射箭矢，而是发射自身长出的水晶碎片；水晶的生长会消耗额外耐久度",
   "modifier.tconstruct.multishot": "多重射击",
   "modifier.tconstruct.multishot.flavor": "善射似精灵！",
   "modifier.tconstruct.multishot.description": "允许弩一次射出多支箭",
