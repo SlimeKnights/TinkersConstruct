@@ -53,6 +53,10 @@ import java.util.function.BiPredicate;
 
 /** Helper functions for adding tooltips to tools */
 public class TooltipUtil {
+  /** Translation key for the tool name format string */
+  private static final String KEY_FORMAT = TConstruct.makeTranslationKey("item", "tool.format");
+  /** Translation key for the tool name format string */
+  private static final Component MATERIAL_SEPARATOR = TConstruct.makeTranslation("item", "tool.material_separator");
   /** Tool tag to set that makes a tool a display tool */
   public static final String KEY_DISPLAY = "tic_display";
   /** Function to show all attributes in the tooltip */
@@ -102,9 +106,9 @@ public class TooltipUtil {
     if (Util.canTranslate(formatKey)) {
       return new TranslatableComponent(formatKey, itemName);
     }
-    // base name
+    // base name with generic format
     if (Util.canTranslate(materialKey)) {
-      return new TranslatableComponent(materialKey).append(" ").append(itemName);
+      return new TranslatableComponent(KEY_FORMAT, new TranslatableComponent(materialKey), itemName);
     }
     return null;
   }
@@ -147,11 +151,9 @@ public class TooltipUtil {
     Iterator<Component> iter = materials.iterator();
     name.append(iter.next());
     while (iter.hasNext()) {
-      name.append("-").append(iter.next());
+      name.append(MATERIAL_SEPARATOR).append(iter.next());
     }
-    name.append(" ").append(itemName);
-
-    return name;
+    return new TranslatableComponent(KEY_FORMAT, name, itemName);
   }
 
   /**
