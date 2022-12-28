@@ -35,7 +35,6 @@ public class GripMaterialStats extends BaseMaterialStats {
   private static final List<Component> DESCRIPTION = ImmutableList.of(
     makeTooltip(TConstruct.getResource("handle.durability.description")),
     ToolStats.ACCURACY.getDescription(),
-    ToolStats.VELOCITY.getDescription(),
     ToolStats.ATTACK_DAMAGE.getDescription());
 
   private final float durability;

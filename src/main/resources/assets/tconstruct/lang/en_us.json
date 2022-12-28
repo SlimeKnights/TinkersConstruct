@@ -2478,7 +2478,7 @@
   "tool_stat.tconstruct.harvest_tier": "Harvest Tier: ",
   "tool_stat.tconstruct.harvest_tier.description": "What range of blocks a tool with a tool head of this material can mine.",
   "tool_stat.tconstruct.attack_damage": "Attack Damage: ",
-  "tool_stat.tconstruct.attack_damage.description": "Base value for attack calculations.\nThe end result depends on the tool itself and the other components used.",
+  "tool_stat.tconstruct.attack_damage.description": "Base value for melee attack calculations.\nThe end result depends on the tool itself and the other components used.",
 
   "tool_stat.tconstruct.armor": "Armor: ",
   "tool_stat.tconstruct.armor.description": "How much this protects you when worn.",
