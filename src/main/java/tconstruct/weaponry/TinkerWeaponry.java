@@ -281,13 +281,18 @@ public class TinkerWeaponry {
                     Smeltery.addMelting(FluidType.getFluidType(fs), metalCast, 0, fluidAmount);
                 }
             }
-            //Register clay part casting for BowLimbs
+            // Register clay part casting for BowLimbs
             for (int iterTwo = 0; iterTwo < TinkerSmeltery.liquids.length; iterTwo++) {
                 Fluid fs = TinkerSmeltery.liquids[iterTwo].getFluid();
                 ItemStack clay_cast = new ItemStack(clayPattern, 1, 3);
                 int fluidAmount = clayPattern.getPatternCost(clay_cast) * TConstruct.ingotLiquidValue / 2;
 
-                tableCasting.addCastingRecipe(new ItemStack(patternOutputs[3], 1, liquidDamage[iterTwo]), new FluidStack(fs, fluidAmount), clay_cast, true, 50);
+                tableCasting.addCastingRecipe(
+                        new ItemStack(patternOutputs[3], 1, liquidDamage[iterTwo]),
+                        new FluidStack(fs, fluidAmount),
+                        clay_cast,
+                        true,
+                        50);
             }
 
             ItemStack cast = new ItemStack(TinkerSmeltery.metalPattern, 1, 25);
