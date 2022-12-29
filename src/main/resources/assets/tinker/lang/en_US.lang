@@ -491,6 +491,7 @@ block.slime.congealed.purple.name=Congealed Purple Slime
 item.tconstruct.storage.knapsack.name=Knapsack  
 item.tconstruct.blankpattern.pattern.name=Blank Pattern
 item.tconstruct.blankpattern.cast.name=Blank Cast
+item.tconstruct.Pattern.blank_clay_cast.name=Blank Clay Cast
 
 item.tconstruct.Bowstring.string.name=Bowstring
 item.tconstruct.Bowstring.enchantedfabric.name=Enchanted Bowstring

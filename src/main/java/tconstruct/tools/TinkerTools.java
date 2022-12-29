@@ -186,7 +186,7 @@ public class TinkerTools {
         // Items
         TinkerTools.titleIcon = new TitleIcon().setUnlocalizedName("tconstruct.titleicon");
         GameRegistry.registerItem(TinkerTools.titleIcon, "titleIcon");
-        String[] blanks = new String[] {"blank_pattern", "blank_cast", "blank_cast"};
+        String[] blanks = new String[] {"blank_pattern", "blank_cast", "blank_cast", "blank_clay_cast"};
         TinkerTools.blankPattern = new CraftAchievementItem(
                         blanks, blanks, "materials/", "tinker", TConstructRegistry.materialTab, "tconstruct.pattern")
                 .setUnlocalizedName("tconstruct.Pattern");

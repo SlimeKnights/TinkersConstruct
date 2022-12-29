@@ -1,11 +1,16 @@
 package tconstruct.smeltery.blocks;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.*;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.smeltery.TinkerSmeltery;
@@ -23,6 +28,14 @@ public class CastingChannelBlock extends BlockContainer {
         this.setResistance(10);
         this.stepSound = soundTypeStone;
         setCreativeTab(TConstructRegistry.blockTab);
+    }
+
+    public String[] textureNames = new String[] {"searedstone", "nether_searedstone"};
+    public IIcon[] icons;
+
+    /* Rendering */
+    public String[] getTextureNames() {
+        return textureNames;
     }
 
     @Override
@@ -71,13 +84,34 @@ public class CastingChannelBlock extends BlockContainer {
         return BlockRenderCastingChannel.renderID;
     }
 
-    @Override
     public void registerBlockIcons(IIconRegister iconRegister) {
-        this.blockIcon = iconRegister.registerIcon("tinker:searedstone");
+        this.icons = new IIcon[textureNames.length];
+
+        for (int i = 0; i < this.icons.length; ++i) {
+            this.icons[i] = iconRegister.registerIcon("tinker:" + textureNames[i]);
+        }
     }
 
     @Override
-    public TileEntity createNewTileEntity(World var1, int var2) {
+    public int damageDropped(int meta) {
+        return meta;
+    }
+
+    @Override
+    public TileEntity createNewTileEntity(World var1, int metadata) {
         return new CastingChannelLogic();
+    }
+
+    @Override
+    public void getSubBlocks(Item id, CreativeTabs tab, List list) {
+        list.add(new ItemStack(id, 1, 0));
+        list.add(new ItemStack(id, 1, 1));
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public IIcon getIcon(int side, int meta) {
+        if (meta == 0) return icons[0];
+        else return icons[1];
     }
 }
