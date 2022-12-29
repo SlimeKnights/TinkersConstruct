@@ -182,7 +182,7 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
         float speed;
         if (ammo.is(Items.FIREWORK_ROCKET)) {
           // TODO: don't hardcode fireworks, perhaps use a map or a JSON behavior list
-          projectile = new FireworkRocketEntity(level, ammo, player, player.getX(), player.getY() - 0.15f, player.getZ(), true);
+          projectile = new FireworkRocketEntity(level, ammo, player, player.getX(), player.getEyeY() - 0.15f, player.getZ(), true);
           speed = 1.5f;
           damage += 3;
         } else {
