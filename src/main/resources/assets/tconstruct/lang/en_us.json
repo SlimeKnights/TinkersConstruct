@@ -2478,7 +2478,7 @@
   "tool_stat.tconstruct.harvest_tier": "Harvest Tier: ",
   "tool_stat.tconstruct.harvest_tier.description": "What range of blocks a tool with a tool head of this material can mine.",
   "tool_stat.tconstruct.attack_damage": "Attack Damage: ",
-  "tool_stat.tconstruct.attack_damage.description": "Base value for attack calculations.\nThe end result depends on the tool itself and the other components used.",
+  "tool_stat.tconstruct.attack_damage.description": "Base value for melee attack calculations.\nThe end result depends on the tool itself and the other components used.",
 
   "tool_stat.tconstruct.armor": "Armor: ",
   "tool_stat.tconstruct.armor.description": "How much this protects you when worn.",
@@ -2646,6 +2646,7 @@
   "subtitles.tconstruct.throw.throwball": "Throwball flies",
   "subtitles.tconstruct.throw.shuriken": "Shuriken flies",
   "subtitles.tconstruct.longbow.charge": "Longbow pulls back",
+  "subtitles.tconstruct.crystalshot": "Arrow hits",
 
   "subtitles.tconstruct.necrotic_heal": "Life drained",
   "subtitles.tconstruct.extra_jump": "Entity swooshed",
