@@ -25,6 +25,7 @@
     "level": 2,
     "error": "recipe.tconstruct.modifier.luck.level_3"
   },
+  "allow_crystal": false,
   "result": {
     "name": "tconstruct:luck",
     "level": 1

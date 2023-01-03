@@ -251,6 +251,11 @@
   "item.tconstruct.dragon_scale": "Dragon Scale",
   "item.tconstruct.dragon_scale.tooltip": "Blasted off an ender dragon",
 
+  "item.tconstruct.modifier_crystal": "Modifier Crystal",
+  "item.tconstruct.modifier_crystal.format": "%s Crystal",
+  "item.tconstruct.modifier_crystal.missing": "Missing or invalid NBT defining the modifier type",
+  "item.tconstruct.modifier_crystal.tooltip": "Apply to a tool to gain 1 level of the modifier, consuming the appropriate slots.",
+
   "item.tconstruct.creative_slot": "Creative Slot",
   "item.tconstruct.creative_slot.upgrades": "Creative Upgrade",
   "item.tconstruct.creative_slot.abilities": "Creative Ability",

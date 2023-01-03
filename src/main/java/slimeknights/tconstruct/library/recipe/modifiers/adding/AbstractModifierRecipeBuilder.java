@@ -44,6 +44,7 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
   // modifier recipe
   protected ModifierMatch requirements = ModifierMatch.ALWAYS;
   protected String requirementsError = null;
+  protected boolean allowCrystal = true;
   // salvage recipe
   protected int salvageMinLevel = 1;
   protected int salvageMaxLevel = 0;
@@ -148,6 +149,24 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
     return (T) this;
   }
 
+  /**
+   * Allows using modifier crystals to apply this modifier
+   * @return  Builder instance
+   */
+  public T allowCrystal() {
+    allowCrystal = true;
+    return (T) this;
+  }
+
+  /**
+   * Disallows using modifier crystals to apply this modifier
+   * @return  Builder instance
+   */
+  public T disallowCrystal() {
+    allowCrystal = false;
+    return (T) this;
+  }
+
 
   /* Slots */
 
@@ -219,6 +238,7 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
         reqJson.addProperty("error", requirementsError);
         json.add("requirements", reqJson);
       }
+      json.addProperty("allow_crystal", allowCrystal);
       json.add("result", result.toJson());
       if (maxLevel != 0) {
         json.addProperty("max_level", maxLevel);

@@ -16,6 +16,7 @@
     "level": 1,
     "error": "recipe.tconstruct.modifier.netherite_requirements"
   },
+  "allow_crystal": true,
   "result": {
     "name": "tconstruct:netherite",
     "level": 1

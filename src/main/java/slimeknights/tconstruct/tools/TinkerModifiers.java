@@ -74,6 +74,7 @@ import slimeknights.tconstruct.tools.data.ModifierRecipeProvider;
 import slimeknights.tconstruct.tools.data.SpillingFluidProvider;
 import slimeknights.tconstruct.tools.item.CreativeSlotItem;
 import slimeknights.tconstruct.tools.item.DragonScaleItem;
+import slimeknights.tconstruct.tools.item.ModifierCrystalItem;
 import slimeknights.tconstruct.tools.modifiers.ModifierLootModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.UnbreakableModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.BouncyModifier;
@@ -217,6 +218,8 @@ import slimeknights.tconstruct.tools.recipe.severing.SnowGolemBeheadingRecipe;
 import java.util.function.IntFunction;
 import java.util.function.Supplier;
 
+import static slimeknights.tconstruct.tools.TinkerTools.TAB_TOOLS;
+
 /**
  * Contains modifiers and the items or blocks used to craft modifiers
  */
@@ -249,8 +252,9 @@ public final class TinkerModifiers extends TinkerModule {
   public static final ItemObject<Item> emeraldReinforcement = ITEMS.register("emerald_reinforcement", GENERAL_PROPS);
   public static final ItemObject<Item> bronzeReinforcement = ITEMS.register("bronze_reinforcement", GENERAL_PROPS);
   public static final ItemObject<Item> cobaltReinforcement = ITEMS.register("cobalt_reinforcement", GENERAL_PROPS);
-  // creative
-  public static final ItemObject<Item> creativeSlotItem = ITEMS.register("creative_slot", () -> new CreativeSlotItem(GENERAL_PROPS));
+  // special
+  public static final ItemObject<Item> modifierCrystal = ITEMS.register("modifier_crystal", () -> new ModifierCrystalItem(new Item.Properties().tab(TAB_TOOLS).stacksTo(16)));
+  public static final ItemObject<Item> creativeSlotItem = ITEMS.register("creative_slot", () -> new CreativeSlotItem(new Item.Properties().tab(TAB_TOOLS)));
 
   /*
    * Modifiers

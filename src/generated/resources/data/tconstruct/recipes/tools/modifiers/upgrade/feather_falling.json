@@ -11,6 +11,7 @@
   "slots": {
     "upgrades": 1
   },
+  "allow_crystal": true,
   "result": {
     "name": "tconstruct:feather_falling",
     "level": 1

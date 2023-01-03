@@ -21,6 +21,7 @@
         "slots": {
           "abilities": 1
         },
+        "allow_crystal": true,
         "result": {
           "name": "tconstruct:strength",
           "level": 1
@@ -46,6 +47,7 @@
         "slots": {
           "abilities": 1
         },
+        "allow_crystal": true,
         "result": {
           "name": "tconstruct:strength",
           "level": 1

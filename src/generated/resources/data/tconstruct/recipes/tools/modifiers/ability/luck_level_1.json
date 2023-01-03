@@ -30,6 +30,7 @@
   "slots": {
     "abilities": 1
   },
+  "allow_crystal": true,
   "result": {
     "name": "tconstruct:luck",
     "level": 1

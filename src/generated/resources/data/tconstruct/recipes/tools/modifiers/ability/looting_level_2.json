@@ -36,6 +36,7 @@
     "level": 1,
     "error": "recipe.tconstruct.modifier.looting.level_2"
   },
+  "allow_crystal": false,
   "result": {
     "name": "tconstruct:looting",
     "level": 1

@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -38,16 +39,22 @@ public class ModifierRecipe extends AbstractModifierRecipe {
    */
   protected final List<SizedIngredient> inputs;
 
-  public ModifierRecipe(ResourceLocation id, List<SizedIngredient> inputs, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
-    super(id, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots);
+  public ModifierRecipe(ResourceLocation id, List<SizedIngredient> inputs, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots, boolean allowCrystal) {
+    super(id, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots, allowCrystal);
     this.inputs = inputs;
   }
 
-  /**
-   * Creates the bitset used for marking inputs we do not care about
-   * @param inv  Alloy tank
-   * @return  Bitset
-   */
+  /** @deprecated use {@link #ModifierRecipe(ResourceLocation, List, Ingredient, int, ModifierMatch, String, ModifierEntry, int, SlotCount, boolean)} */
+  @Deprecated
+  public ModifierRecipe(ResourceLocation id, List<SizedIngredient> inputs, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
+    this(id, inputs, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots, true);
+  }
+
+    /**
+     * Creates the bitset used for marking inputs we do not care about
+     * @param inv  Alloy tank
+     * @return  Bitset
+     */
   protected static BitSet makeBitset(ITinkerableContainer inv) {
     int inputs = inv.getInputCount();
     BitSet used = new BitSet(inputs);
@@ -114,7 +121,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
     if (!result.isBound() || !this.toolRequirement.test(inv.getTinkerableStack())) {
       return false;
     }
-    return checkMatch(inv, inputs);
+    return matchesCrystal(inv) || checkMatch(inv, inputs);
   }
 
   /**
@@ -170,7 +177,12 @@ public class ModifierRecipe extends AbstractModifierRecipe {
 
   @Override
   public void updateInputs(ItemStack result, IMutableTinkerStationContainer inv, boolean isServer) {
-    updateInputs(inv, inputs);
+    // if its a crystal, just shrink the crystal
+    if (matchesCrystal(inv)) {
+      super.updateInputs(result, inv, isServer);
+    } else {
+      updateInputs(inv, inputs);
+    }
   }
 
   @Override
@@ -199,7 +211,8 @@ public class ModifierRecipe extends AbstractModifierRecipe {
     public ModifierRecipe fromJson(ResourceLocation id, JsonObject json, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements,
                                String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
       List<SizedIngredient> ingredients = JsonHelper.parseList(json, "inputs", SizedIngredient::deserialize);
-      return new ModifierRecipe(id, ingredients, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots);
+      boolean allowCrystal = GsonHelper.getAsBoolean(json, "allow_crystal", true);
+      return new ModifierRecipe(id, ingredients, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots, allowCrystal);
     }
 
     @Override
@@ -210,7 +223,8 @@ public class ModifierRecipe extends AbstractModifierRecipe {
       for (int i = 0; i < size; i++) {
         builder.add(SizedIngredient.read(buffer));
       }
-      return new ModifierRecipe(id, builder.build(), toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots);
+      boolean allowCrystal = buffer.readBoolean();
+      return new ModifierRecipe(id, builder.build(), toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots, allowCrystal);
     }
 
     @Override
@@ -220,6 +234,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
       for (SizedIngredient ingredient : recipe.inputs) {
         ingredient.write(buffer);
       }
+      buffer.writeBoolean(recipe.allowCrystal);
     }
   }
 }

@@ -14,6 +14,7 @@
   "tools": {
     "tag": "tconstruct:modifiable/interactable/right"
   },
+  "allow_crystal": true,
   "result": {
     "name": "tconstruct:offhanded",
     "level": 1

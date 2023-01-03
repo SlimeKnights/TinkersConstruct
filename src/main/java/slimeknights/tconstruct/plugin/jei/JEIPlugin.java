@@ -382,6 +382,9 @@ public class JEIPlugin implements IModPlugin {
   public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
     IIngredientManager manager = jeiRuntime.getIngredientManager();
 
+    // shown via the modifiers
+    manager.removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, Collections.singletonList(new ItemStack(TinkerModifiers.modifierCrystal)));
+
     // hide knightslime and slimesteel until implemented
     removeFluid(manager, TinkerFluids.moltenSoulsteel.get(), TinkerFluids.moltenSoulsteel.asItem());
     removeFluid(manager, TinkerFluids.moltenKnightslime.get(), TinkerFluids.moltenKnightslime.asItem());

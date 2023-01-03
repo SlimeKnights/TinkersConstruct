@@ -8,6 +8,7 @@
   "tools": {
     "tag": "tconstruct:modifiable/ranged"
   },
+  "allow_crystal": true,
   "result": {
     "name": "tconstruct:blindshot",
     "level": 1

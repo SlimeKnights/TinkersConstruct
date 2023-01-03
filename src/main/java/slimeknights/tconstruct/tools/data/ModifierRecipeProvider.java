@@ -308,6 +308,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMinSalvageLevel(2)
                          .setRequirements(ModifierMatch.entry(TinkerModifiers.offhanded, 1))
                          .setRequirementsError(makeRequirementsError("offhanded.level_2"))
+                         .disallowCrystal()
                          .saveSalvage(consumer, wrap(TinkerModifiers.offhanded, upgradeSalvage, "_level_2"))
                          .save(consumer, wrap(TinkerModifiers.offhanded, upgradeFolder, "_level_2"));
 
@@ -338,6 +339,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setInput(Blocks.PRISMARINE, 4, 36)
                                     .setLeftover(new ItemStack(Items.PRISMARINE_SHARD))
                                     .setMaxLevel(5)
+                                    .disallowCrystal()
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .save(consumer, wrap(TinkerModifiers.hydraulic, upgradeFolder, "_from_block"));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.hydraulic)
@@ -345,6 +347,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setInput(Blocks.PRISMARINE_BRICKS, 9, 36)
                                     .setLeftover(new ItemStack(Items.PRISMARINE_SHARD))
                                     .setMaxLevel(5)
+                                    .disallowCrystal()
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .save(consumer, wrap(TinkerModifiers.hydraulic, upgradeFolder, "_from_bricks"));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.lightspeed)
@@ -359,6 +362,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setInput(Blocks.GLOWSTONE, 4, 64)
                                     .setLeftover(new ItemStack(Items.GLOWSTONE_DUST))
                                     .setMaxLevel(5)
+                                    .disallowCrystal()
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .save(consumer, wrap(TinkerModifiers.lightspeed, upgradeFolder, "_from_block"));
 
@@ -459,6 +463,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setTools(TinkerTags.Items.MELEE_OR_UNARMED)
                                     .setInput(Tags.Items.STORAGE_BLOCKS_LAPIS, 9, 45)
                                     .setMaxLevel(5) // +12.5 illager damage
+                                    .disallowCrystal()
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .save(consumer, wrap(ModifierIds.killager, upgradeFolder, "_from_block"));
     // sharpness can use shards or blocks
@@ -474,6 +479,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setInput(Tags.Items.STORAGE_BLOCKS_QUARTZ, 4, 36)
                                     .setLeftover(new ItemStack(Items.QUARTZ))
                                     .setMaxLevel(5)
+                                    .disallowCrystal()
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .save(consumer, wrap(ModifierIds.sharpness, upgradeFolder, "_from_block"));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.sweeping)
@@ -496,6 +502,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setInput(Blocks.AMETHYST_BLOCK, 4, 72)
                                     .setLeftover(new ItemStack(Items.AMETHYST_SHARD))
                                     .setMaxLevel(5)
+                                    .disallowCrystal()
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .save(consumer, wrap(ModifierIds.swiftstrike, upgradeFolder, "_from_block"));
 
@@ -603,6 +610,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                   .addInput(TinkerMaterials.manyullyn.getIngotTag())
                                   .setTools(TinkerTags.Items.BOWS)
                                   .setSlots(SlotType.ABILITY, 1)
+                                  .allowCrystal() // random is the coolest, and happens to be the easiest to enable
                                   .save(consumer, wrap(TinkerModifiers.crystalshot, abilityFolder, "_random"));
     ModifierRecipeBuilder.modifier(TinkerModifiers.crystalshot)
                          .setSlots(SlotType.ABILITY, 1)
@@ -856,6 +864,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setLeftover(new ItemStack(Items.GLOWSTONE_DUST))
                                     .setMaxLevel(3)
                                     .setSlots(SlotType.UPGRADE, 1)
+                                    .disallowCrystal()
                                     .save(consumer, wrap(TinkerModifiers.lightspeedArmor, upgradeFolder, "_from_block"));
     // upgrade - all
     ModifierRecipeBuilder.modifier(TinkerModifiers.ricochet)
@@ -963,6 +972,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
         builder.setSlots(SlotType.ABILITY, 1);
         builder.saveSalvage(consumer, prefix(ModifierIds.toolBelt, abilitySalvage));
       } else {
+        builder.disallowCrystal(); // TODO: find a way to allow all levels of tool belt?
         builder.setRequirements(ModifierMatch.entry(ModifierIds.toolBelt, level - 1));
         builder.setRequirementsError(TConstruct.makeTranslationKey("recipe", "modifier.tool_belt"));
       }
@@ -1307,10 +1317,10 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(TinkerModifiers.dragonScale)
                          .addInput(TinkerModifiers.dragonScale)
                          .setMaxLevel(1)
+                         .disallowCrystal()
                          .saveSalvage(consumer, prefix(ModifierIds.draconic, slotlessSalvage))
                          .save(consumer, wrap(ModifierIds.draconic, slotlessFolder, "_from_scales"));
     // creative
-    // no salvage. I am not adding a recipe for creative modifiers, nope. don't want the gift from the server admin to be abused as a upgrade source
     SpecialRecipeBuilder.special(TinkerModifiers.creativeSlotSerializer.get()).save(consumer, modPrefix(slotlessFolder + "creative_slot"));
 
     // removal
@@ -1545,6 +1555,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setRequirements(ModifierMatch.entry(modifier, 1))
                          .setRequirementsError(makeRequirementsError(key + ".level_2"))
                          .setSalvageLevelRange(2, 2)
+                         .disallowCrystal() // no way to handle multiple recipes same input yet
                          .setMaxLevel(2);
     ModifierRecipeBuilder builder3 = ModifierRecipeBuilder.modifier(modifier)
                          .setTools(tools)
@@ -1556,6 +1567,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setRequirements(ModifierMatch.entry(modifier, 2))
                          .setRequirementsError(makeRequirementsError(key + ".level_3"))
                          .setSalvageLevelRange(3, 3)
+                         .disallowCrystal() // no way to handle multiple recipes same input yet
                          .setMaxLevel(3);
     builder2.saveSalvage(consumer, wrap(modifier, salvage, "_level_2")).save(consumer, wrap(modifier, folder, "_level_2"));
     builder3.saveSalvage(consumer, wrap(modifier, salvage, "_level_3")).save(consumer, wrap(modifier, folder, "_level_3"));
@@ -1580,6 +1592,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                       .setLeftover(new ItemStack(Items.REDSTONE))
                                       .setMaxLevel(maxLevel)
                                       .setSlots(SlotType.UPGRADE, 1)
+                                      .disallowCrystal() // avoid redundancy, though in this case the end result is the same
                                       .save(consumer, wrap(modifier, recipeFolder, "_from_block"));
     }
   }

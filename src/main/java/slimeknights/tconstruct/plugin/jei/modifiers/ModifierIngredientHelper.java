@@ -4,8 +4,10 @@ import mezz.jei.api.ingredients.IIngredientHelper;
 import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.ingredients.subtypes.UidContext;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
+import slimeknights.tconstruct.tools.item.ModifierCrystalItem;
 
 import javax.annotation.Nullable;
 
@@ -66,5 +68,10 @@ public class ModifierIngredientHelper implements IIngredientHelper<ModifierEntry
       return "null";
     }
     return entry.getId().toString();
+  }
+
+  @Override
+  public ItemStack getCheatItemStack(ModifierEntry ingredient) {
+    return ModifierCrystalItem.withModifier(ingredient.getId());
   }
 }

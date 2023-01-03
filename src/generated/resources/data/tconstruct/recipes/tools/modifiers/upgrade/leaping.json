@@ -21,6 +21,7 @@
         "slots": {
           "upgrades": 1
         },
+        "allow_crystal": true,
         "result": {
           "name": "tconstruct:leaping",
           "level": 1
@@ -47,6 +48,7 @@
         "slots": {
           "upgrades": 1
         },
+        "allow_crystal": true,
         "result": {
           "name": "tconstruct:leaping",
           "level": 1
