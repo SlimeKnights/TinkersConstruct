@@ -1,0 +1,14 @@
+{
+  "title": "鋳造炉",
+  "image": {
+    "file": "tconstruct:book/images/blaze_smeltery.png",
+    "width": 128,
+    "height": 73
+  },
+  "text": [
+    {
+      "text": "真のマスターティンカーは、ブレイズの周りを鋳造炉で囲みます。燃料を入れるだけで、愚かものが気付く前に溶かしてしまいます。これは性能の劣る乾式精錬炉でもできると思いますが、誰がそれをやりたいと思うでしょうか。",
+      "paragraph": true
+    }
+  ]
+}

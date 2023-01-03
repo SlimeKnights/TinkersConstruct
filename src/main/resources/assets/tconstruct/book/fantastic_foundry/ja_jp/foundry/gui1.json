@@ -1,0 +1,14 @@
+{
+  "title": "鋳造炉のGUI",
+  "image": {
+    "file": "tconstruct:book/images/foundrygui.png",
+    "width": 161,
+    "height": 82
+  },
+  "text": [
+    {
+      "text": "基本的な鋳造炉のGUIです。それ以上でもそれ以下でもありません。",
+      "paragraph": true
+    }
+	]
+}

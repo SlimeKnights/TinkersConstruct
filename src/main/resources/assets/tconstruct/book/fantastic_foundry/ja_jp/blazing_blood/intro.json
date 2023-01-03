@@ -1,0 +1,14 @@
+{
+  "title": "燃え盛る血液",
+  "image": {
+    "file": "tconstruct:book/images/manyullyn_alloy.png",
+    "width": 179,
+    "height": 69
+  },
+  "text": [
+    {
+      "text": "ティンカー、あなたはより良い合金を作ろうとしていますが、溶岩は温度が低すぎると気付きましたか？生きているブレイズのエッセンスを液化して、あなたの欲望を満たすのはどうでしょう？",
+      "paragraph": true
+    }
+  ]
+}

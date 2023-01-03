@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:ambidextrous",
+  "text": [
+    {
+      "text": "両手でパンチができるようになります。オフハンドの攻撃に対しても、メインハンドの素手用の強化がかかります。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最大1レベル",
+    "アビリティスロットが1つ必要"
+  ]
+}

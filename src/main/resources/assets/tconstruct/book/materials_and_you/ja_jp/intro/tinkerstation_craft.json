@@ -1,0 +1,7 @@
+{
+  "title": "ティンカー台のレシピ",
+  "recipe": "tconstruct:tables/tinker_station",
+  "description": [
+    { "text": "まだパターンが残っているといいのですが。もし足りない場合はいつでも作り足すことができます。" }
+  ]
+}

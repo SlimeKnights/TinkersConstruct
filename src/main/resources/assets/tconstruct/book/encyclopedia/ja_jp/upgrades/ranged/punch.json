@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:punch",
+  "text": [
+    {
+      "text": "レベルごとに、矢によるノックバック距離が増加します。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最大5レベル",
+    "レベルごとにアップグレードスロットが1つ必要"
+  ]
+}

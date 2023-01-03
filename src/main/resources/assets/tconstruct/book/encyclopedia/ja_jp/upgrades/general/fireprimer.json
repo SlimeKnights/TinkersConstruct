@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:fireprimer",
+  "text": [
+    {
+      "text": "火打石とレンガの効果範囲を1広げます。「広範」の1レベルと同じですが、アップグレードスロットで適用できます。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最大1レベル",
+    "アップグレードスロットが1つ必要"
+  ]
+}

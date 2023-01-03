@@ -1,0 +1,13 @@
+{
+  "title": "乾式精錬炉コントローラー",
+  "image": {
+    "file": "tconstruct:book/images/scontroller.png",
+    "width": 128,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "溶融器を使って、焼成レンガにインゴット4個分の銅を流し込むと、乾式精錬炉コントローラーを手に入れることができます。"
+    }
+  ]
+}
