@@ -20,11 +20,9 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.Tags.Fluids;
 import net.minecraftforge.common.crafting.CompoundIngredient;
-import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.DifferenceIngredient;
 import net.minecraftforge.common.crafting.IntersectionIngredient;
 import net.minecraftforge.common.crafting.PartialNBTIngredient;
-import net.minecraftforge.common.crafting.conditions.TrueCondition;
 import net.minecraftforge.fluids.FluidAttributes;
 import slimeknights.mantle.recipe.data.ItemNameIngredient;
 import slimeknights.mantle.recipe.helper.ItemOutput;
@@ -509,26 +507,13 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     /*
      * ranged
      */
-    // power also conditions on geodes
-    IncrementalModifierRecipeBuilder powerGeodeBuilder =
-      IncrementalModifierRecipeBuilder.modifier(ModifierIds.power)
-                                      .setTools(TinkerTags.Items.LONGBOWS)
-                                      .setInput(TinkerWorld.ichorGeode.asItem(), 1, 72)
-                                      .setSlots(SlotType.UPGRADE, 1)
-                                      .setMaxLevel(5);
-    IncrementalModifierRecipeBuilder powerNoGeodeBuilder =
-      IncrementalModifierRecipeBuilder.modifier(ModifierIds.power)
-                                      .setTools(TinkerTags.Items.LONGBOWS)
-                                      .setInput(TinkerWorld.slimeDirt.get(SlimeType.ICHOR), 1, 36)
-                                      .setSlots(SlotType.UPGRADE, 1)
-                                      .setMaxLevel(5);
-    ConditionalRecipe.builder()
-                     .addCondition(ConfigEnabledCondition.ICHOR_GEODES)
-                     .addRecipe(powerGeodeBuilder::save)
-                     .addCondition(TrueCondition.INSTANCE)
-                     .addRecipe(powerNoGeodeBuilder::save)
-                     .build(consumer, prefix(ModifierIds.power, upgradeFolder));
-    powerGeodeBuilder.saveSalvage(consumer, prefix(ModifierIds.power, upgradeSalvage));
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.power)
+                                    .setTools(TinkerTags.Items.LONGBOWS)
+                                    .setInput(TinkerWorld.ichorGeode.asItem(), 1, 72)
+                                    .setSlots(SlotType.UPGRADE, 1)
+                                    .setMaxLevel(5)
+                                    .saveSalvage(consumer, prefix(ModifierIds.power, upgradeSalvage))
+                                    .save(consumer, prefix(ModifierIds.power, upgradeFolder));
     hasteRecipes(consumer, ModifierIds.quickCharge, Ingredient.of(TinkerTags.Items.CROSSBOWS), 4, upgradeFolder, upgradeSalvage);
     IncrementalModifierRecipeBuilder.modifier(ModifierIds.trueshot)
                                     .setInput(Items.TARGET, 1, 10)
@@ -803,25 +788,13 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     hasteRecipes(consumer, ModifierIds.speedy, Ingredient.of(TinkerTags.Items.LEGGINGS), 3, upgradeFolder, upgradeSalvage);
     // leaping lets you disable skyslime geodes in case you don't like fun
     // if you are disabling both, you have a ton of recipes to fix anyways
-    IncrementalModifierRecipeBuilder leapGeodeBuilder =
-      IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.leaping)
-                                      .setTools(TinkerTags.Items.LEGGINGS)
-                                      .setInput(TinkerWorld.skyGeode.asItem(), 1, 36)
-                                      .setMaxLevel(2)
-                                      .setSlots(SlotType.UPGRADE, 1);
-    IncrementalModifierRecipeBuilder leapNoGeodeBuilder =
-      IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.leaping)
-                                      .setTools(TinkerTags.Items.LEGGINGS)
-                                      .setInput(TinkerWorld.slimeDirt.get(SlimeType.SKY), 1, 18)
-                                      .setMaxLevel(2)
-                                      .setSlots(SlotType.UPGRADE, 1);
-    ConditionalRecipe.builder()
-                     .addCondition(ConfigEnabledCondition.SKY_GEODES)
-                     .addRecipe(leapGeodeBuilder::save)
-                     .addCondition(TrueCondition.INSTANCE)
-                     .addRecipe(leapNoGeodeBuilder::save)
-                     .build(consumer, prefix(TinkerModifiers.leaping, upgradeFolder));
-    leapGeodeBuilder.saveSalvage(consumer, prefix(TinkerModifiers.leaping, upgradeSalvage));
+    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.leaping)
+                                    .setTools(TinkerTags.Items.LEGGINGS)
+                                    .setInput(TinkerWorld.skyGeode.asItem(), 1, 36)
+                                    .setMaxLevel(2)
+                                    .setSlots(SlotType.UPGRADE, 1)
+                                    .saveSalvage(consumer, prefix(TinkerModifiers.leaping, upgradeSalvage))
+                                    .save(consumer, prefix(TinkerModifiers.leaping, upgradeFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.stepUp)
                          .setTools(TinkerTags.Items.LEGGINGS)
                          .addInput(Items.LEATHER)
@@ -921,25 +894,12 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.ABILITY, 1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.ambidextrous, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.ambidextrous, abilityFolder));
-    // if ichor geodes are disabled (sadface), use ichor dirt instead for the recipe
-    // if you are disabling both, you have a ton of recipes to fix anyways
-    IncrementalModifierRecipeBuilder strengthGeodeBuilder =
-        IncrementalModifierRecipeBuilder.modifier(ModifierIds.strength)
-                                      .setTools(TinkerTags.Items.CHESTPLATES)
-                                      .setInput(TinkerWorld.ichorGeode.asItem(), 1, 72)
-                                      .setSlots(SlotType.ABILITY, 1);
-    IncrementalModifierRecipeBuilder strengthNoGeodeBuilder =
-      IncrementalModifierRecipeBuilder.modifier(ModifierIds.strength)
-                                      .setTools(TinkerTags.Items.CHESTPLATES)
-                                      .setInput(TinkerWorld.slimeDirt.get(SlimeType.ICHOR), 1, 36)
-                                      .setSlots(SlotType.ABILITY, 1);
-    ConditionalRecipe.builder()
-                     .addCondition(ConfigEnabledCondition.ICHOR_GEODES)
-                     .addRecipe(strengthGeodeBuilder::save)
-                     .addCondition(TrueCondition.INSTANCE)
-                     .addRecipe(strengthNoGeodeBuilder::save)
-                     .build(consumer, prefix(ModifierIds.strength, abilityFolder));
-    strengthGeodeBuilder.saveSalvage(consumer, prefix(ModifierIds.strength, abilitySalvage));
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.strength)
+                                    .setTools(TinkerTags.Items.CHESTPLATES)
+                                    .setInput(TinkerWorld.ichorGeode.asItem(), 1, 72)
+                                    .setSlots(SlotType.ABILITY, 1)
+                                    .saveSalvage(consumer, prefix(ModifierIds.strength, abilitySalvage))
+                                    .save(consumer, prefix(ModifierIds.strength, abilityFolder));
 
     // leggings
     ModifierRecipeBuilder.modifier(ModifierIds.pockets)

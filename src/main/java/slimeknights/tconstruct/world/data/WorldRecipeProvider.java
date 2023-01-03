@@ -8,6 +8,7 @@ import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import slimeknights.mantle.recipe.data.ICommonRecipeHelper;
@@ -125,5 +126,10 @@ public class WorldRecipeProvider extends BaseRecipeProvider implements ICommonRe
                               .unlockedBy("has_crystal", has(geode))
                               .group("tconstruct:slime_crystal")
                               .save(consumer, modResource(folder + "crystal_smelting"));
+    ItemLike dirt = TinkerWorld.slimeDirt.get(slime);
+    SimpleCookingRecipeBuilder.blasting(Ingredient.of(dirt), geode, 0.2f, 400)
+                              .unlockedBy("has_dirt", has(dirt))
+                              .group("tconstruct:slime_dirt")
+                              .save(consumer, modResource(folder + "crystal_growing"));
   }
 }
