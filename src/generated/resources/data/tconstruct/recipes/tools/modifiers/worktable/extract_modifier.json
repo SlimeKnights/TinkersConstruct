@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:extract_modifier",
+  "inputs": [
+    {
+      "item": "tconstruct:ender_slime_crystal"
+    },
+    {
+      "item": "minecraft:dragon_breath",
+      "amount_needed": 5
+    }
+  ],
+  "modifier_predicate": {
+    "type": "tconstruct:inverted",
+    "predicate": {
+      "type": "tconstruct:tag",
+      "tag": "tconstruct:extract_blacklist/tools"
+    }
+  }
+}

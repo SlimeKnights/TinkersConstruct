@@ -14,10 +14,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.json.predicate.modifier.ModifierPredicate;
+import slimeknights.tconstruct.library.json.predicate.modifier.TagModifierPredicate;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
@@ -54,23 +57,29 @@ public class ModifierSetWorktableRecipe extends AbstractWorktableRecipe {
   private final Component description;
   /** Key of the set to fill with modifier names */
   private final ResourceLocation dataKey;
-  /** Tag matching entries that should not be added or removed */
-  private final TagKey<Modifier> blacklist;
+  /** Predicate of modifiers to support in this recipe */
+  private final IJsonPredicate<ModifierId> modifierPredicate;
   /** Filter of modifiers to display */
   private final Predicate<ModifierEntry> entryFilter;
   /** If true, adds the matched modifier to the set, if false removes it */
   private final boolean addToSet;
   /** Cached list of modifiers shown in JEI */
   private List<ModifierEntry> filteredModifiers = null;
-  public ModifierSetWorktableRecipe(ResourceLocation id, ResourceLocation dataKey, List<SizedIngredient> inputs, TagKey<Modifier> blacklist, boolean addToSet) {
+  public ModifierSetWorktableRecipe(ResourceLocation id, ResourceLocation dataKey, List<SizedIngredient> inputs, IJsonPredicate<ModifierId> modifierPredicate, boolean addToSet) {
     super(id, inputs);
     this.dataKey = dataKey;
     this.addToSet = addToSet;
     String rootKey = Util.makeTranslationKey("recipe", dataKey) + (addToSet ? ".adding" : ".removing");
     this.title = new TranslatableComponent(rootKey + ".title");
     this.description = new TranslatableComponent(rootKey + ".description");
-    this.blacklist = blacklist;
-    this.entryFilter = entry -> !entry.matches(blacklist);
+    this.modifierPredicate = modifierPredicate;
+    this.entryFilter = entry -> modifierPredicate.matches(entry.getId());
+  }
+
+  /** @deprecated use {@link #ModifierSetWorktableRecipe(ResourceLocation, ResourceLocation, List, IJsonPredicate, boolean)} */
+  @Deprecated
+  public ModifierSetWorktableRecipe(ResourceLocation id, ResourceLocation dataKey, List<SizedIngredient> inputs, TagKey<Modifier> blacklist, boolean addToSet) {
+    this(id, dataKey, inputs, new TagModifierPredicate(blacklist).inverted(), addToSet);
   }
 
   @Override
@@ -138,9 +147,16 @@ public class ModifierSetWorktableRecipe extends AbstractWorktableRecipe {
     public ModifierSetWorktableRecipe fromJson(ResourceLocation id, JsonObject json) {
       ResourceLocation dataKey = JsonHelper.getResourceLocation(json, "data_key");
       List<SizedIngredient> ingredients = JsonHelper.parseList(json, "inputs", SizedIngredient::deserialize);
-      TagKey<Modifier> blacklist = ModifierManager.getTag(JsonHelper.getResourceLocation(json, "blacklist"));
+      IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ALWAYS;
+      if (json.has("modifier_predicate")) {
+        modifierPredicate = ModifierPredicate.LOADER.getAndDeserialize(json, "modifier_predicate");
+      } else if (json.has("blacklist")) {
+        // TODO: drop backwards compat in 1.19
+        modifierPredicate = new TagModifierPredicate(ModifierManager.getTag(JsonHelper.getResourceLocation(json, "blacklist"))).inverted();
+        TConstruct.LOG.info("Recipe " + id + " is using deprecated blacklist key, this will be removed in 1.19");
+      }
       boolean addToSet = GsonHelper.getAsBoolean(json, "add_to_set");
-      return new ModifierSetWorktableRecipe(id, dataKey, ingredients, blacklist, addToSet);
+      return new ModifierSetWorktableRecipe(id, dataKey, ingredients, modifierPredicate, addToSet);
     }
 
     @Nullable
@@ -152,9 +168,9 @@ public class ModifierSetWorktableRecipe extends AbstractWorktableRecipe {
       for (int i = 0; i < size; i++) {
         ingredients.add(SizedIngredient.read(buffer));
       }
-      TagKey<Modifier> blacklist = ModifierManager.getTag(buffer.readResourceLocation());
+      IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.LOADER.fromNetwork(buffer);
       boolean addToSet = buffer.readBoolean();
-      return new ModifierSetWorktableRecipe(id, dataKey, ingredients.build(), blacklist, addToSet);
+      return new ModifierSetWorktableRecipe(id, dataKey, ingredients.build(), modifierPredicate, addToSet);
     }
 
     @Override
@@ -164,7 +180,7 @@ public class ModifierSetWorktableRecipe extends AbstractWorktableRecipe {
       for (SizedIngredient ingredient : recipe.inputs) {
         ingredient.write(buffer);
       }
-      buffer.writeResourceLocation(recipe.blacklist.location());
+      ModifierPredicate.LOADER.toNetwork(recipe.modifierPredicate, buffer);
       buffer.writeBoolean(recipe.addToSet);
     }
   }

@@ -11,6 +11,7 @@
   "slots": {
     "defense": 1
   },
+  "allow_crystal": true,
   "result": {
     "name": "tconstruct:dragonborn",
     "level": 1

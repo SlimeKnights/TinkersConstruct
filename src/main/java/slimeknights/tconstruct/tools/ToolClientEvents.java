@@ -28,6 +28,7 @@ import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import slimeknights.mantle.client.ResourceColorManager;
 import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.ISafeManagerReloadListener;
@@ -47,9 +48,11 @@ import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager.ModifierModelRegistrationEvent;
 import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.TankModifierModel;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.HarvestTiers;
+import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.client.ArmorModelHelper;
 import slimeknights.tconstruct.tools.client.CrystalshotRenderer;
 import slimeknights.tconstruct.tools.client.OverslimeModifierModel;
@@ -60,6 +63,7 @@ import slimeknights.tconstruct.tools.client.ToolContainerScreen;
 import slimeknights.tconstruct.tools.client.particles.AxeAttackParticle;
 import slimeknights.tconstruct.tools.client.particles.HammerAttackParticle;
 import slimeknights.tconstruct.tools.item.ModifiableCrossbowItem;
+import slimeknights.tconstruct.tools.item.ModifierCrystalItem;
 import slimeknights.tconstruct.tools.logic.InteractionHandler;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.DoubleJumpModifier;
 import slimeknights.tconstruct.tools.network.TinkerControlPacket;
@@ -179,6 +183,15 @@ public class ToolClientEvents extends ClientEventBase {
     registerItemColors(colors, TinkerTools.cleaver);
     // bow
     registerItemColors(colors, TinkerTools.longbow);
+
+    // modifier crystal
+    colors.register((stack, index) -> {
+      ModifierId modifier = ModifierCrystalItem.getModifier(stack);
+      if (modifier != null) {
+        return ResourceColorManager.getColor(Util.makeTranslationKey("modifier", modifier));
+      }
+      return -1;
+    }, TinkerModifiers.modifierCrystal.asItem());
   }
 
   // values to check if a key was being pressed last tick, safe as a static value as we only care about a single player client side

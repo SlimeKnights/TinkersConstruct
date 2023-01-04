@@ -8,6 +8,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import slimeknights.mantle.util.sync.LambdaDataSlot;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -123,7 +124,8 @@ public class ModifierWorktableContainerMenu extends TabbedContainerMenu<Modifier
 
     @Override
     public boolean mayPlace(ItemStack stack) {
-      return stack.is(TinkerTags.Items.MODIFIABLE);
+      // TODO: not hardcode this?
+      return stack.is(TinkerTags.Items.MODIFIABLE) || stack.is(Items.ENCHANTED_BOOK);
     }
   }
 }

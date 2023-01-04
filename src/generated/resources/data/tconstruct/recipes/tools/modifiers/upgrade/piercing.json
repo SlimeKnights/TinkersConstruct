@@ -16,6 +16,7 @@
   "slots": {
     "upgrades": 1
   },
+  "allow_crystal": true,
   "result": {
     "name": "tconstruct:piercing",
     "level": 1

@@ -36,4 +36,9 @@ public class BiomeTagProvider extends BiomeTagsProvider {
     this.tag(TinkerTags.Biomes.BLOOD_ISLANDS).addTags(IS_NETHER);
     this.tag(TinkerTags.Biomes.ENDERSLIME_ISLANDS).add(END_HIGHLANDS, END_MIDLANDS, SMALL_END_ISLANDS, END_BARRENS);
   }
+
+  @Override
+  public String getName() {
+    return "Tinkers' Construct Biome Tags";
+  }
 }

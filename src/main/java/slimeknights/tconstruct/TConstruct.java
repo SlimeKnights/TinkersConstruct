@@ -34,6 +34,7 @@ import slimeknights.tconstruct.common.data.loot.TConstructLootTableProvider;
 import slimeknights.tconstruct.common.data.tags.BiomeTagProvider;
 import slimeknights.tconstruct.common.data.tags.BlockEntityTypeTagProvider;
 import slimeknights.tconstruct.common.data.tags.BlockTagProvider;
+import slimeknights.tconstruct.common.data.tags.EnchantmentTagProvider;
 import slimeknights.tconstruct.common.data.tags.EntityTypeTagProvider;
 import slimeknights.tconstruct.common.data.tags.FluidTagProvider;
 import slimeknights.tconstruct.common.data.tags.ItemTagProvider;
@@ -141,9 +142,10 @@ public class TConstruct {
       datagenerator.addProvider(new FluidTagProvider(datagenerator, existingFileHelper));
       datagenerator.addProvider(new EntityTypeTagProvider(datagenerator, existingFileHelper));
       datagenerator.addProvider(new BlockEntityTypeTagProvider(datagenerator, existingFileHelper));
+      datagenerator.addProvider(new BiomeTagProvider(datagenerator, existingFileHelper));
+      datagenerator.addProvider(new EnchantmentTagProvider(datagenerator, existingFileHelper));
       datagenerator.addProvider(new TConstructLootTableProvider(datagenerator));
       datagenerator.addProvider(new AdvancementsProvider(datagenerator));
-      datagenerator.addProvider(new BiomeTagProvider(datagenerator, existingFileHelper));
       datagenerator.addProvider(new GlobalLootModifiersProvider(datagenerator));
       //datagenerator.addProvider(new StructureUpdater(datagenerator, existingFileHelper, MOD_ID, PackType.SERVER_DATA, "structures"));
     }

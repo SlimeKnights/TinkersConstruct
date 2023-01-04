@@ -16,6 +16,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag.Default;
 import org.lwjgl.glfw.GLFW;
 import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.mantle.client.screen.ElementScreen;
@@ -247,8 +248,10 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
       tinkerInfo.setText(display.getStatInformation(tool, Minecraft.getInstance().player, new ArrayList<>(), SafeClientAccess.getTooltipKey(), TinkerTooltipFlags.TINKER_STATION));
     }
     else {
-      tinkerInfo.setCaption(result.getDisplayName());
-      tinkerInfo.setText();
+      tinkerInfo.setCaption(result.getHoverName());
+      List<Component> list = new ArrayList<>();
+      result.getItem().appendHoverText(result, Minecraft.getInstance().level, list, Default.NORMAL);
+      tinkerInfo.setText(list);
     }
   }
 

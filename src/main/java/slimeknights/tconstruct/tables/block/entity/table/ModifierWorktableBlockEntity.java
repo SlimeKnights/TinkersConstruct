@@ -202,7 +202,7 @@ public class ModifierWorktableBlockEntity extends RetexturedTableBlockEntity imp
     if (selectedModifierIndex != -1) {
       IModifierWorktableRecipe recipe = getCurrentRecipe();
       if (recipe != null && result != null) {
-        return result.createStack(Math.min(getItem(TINKER_SLOT).getCount(), recipe.toolResultSize()));
+        return result.createStack(recipe.toolResultSize(inventoryWrapper, getCurrentButtons().get(selectedModifierIndex)));
       }
     }
     return ItemStack.EMPTY;
@@ -223,7 +223,7 @@ public class ModifierWorktableBlockEntity extends RetexturedTableBlockEntity imp
     // run the recipe, will shrink inputs
     // run both sides for the sake of shift clicking
     this.inventoryWrapper.setPlayer(player);
-    this.lastRecipe.updateInputs(result, inventoryWrapper, !level.isClientSide);
+    this.lastRecipe.updateInputs(result, inventoryWrapper, getCurrentButtons().get(selectedModifierIndex), !level.isClientSide);
     this.inventoryWrapper.setPlayer(null);
 
     ItemStack tinkerable = this.getItem(TINKER_SLOT);

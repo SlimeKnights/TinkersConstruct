@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "cyclic:auto_smelt",
+      "required": false
+    },
+    {
+      "id": "ensorcellation:smelting",
+      "required": false
+    }
+  ]
+}

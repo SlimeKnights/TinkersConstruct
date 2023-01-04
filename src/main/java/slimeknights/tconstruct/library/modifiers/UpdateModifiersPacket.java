@@ -4,10 +4,14 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import io.netty.handler.codec.DecoderException;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.network.NetworkEvent.Context;
+import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.library.utils.GenericTagUtil;
 
@@ -27,6 +31,10 @@ public class UpdateModifiersPacket implements IThreadsafePacket {
   private Collection<Modifier> modifiers;
   /** Map of modifier redirect ID pairs */
   private Map<ModifierId,ModifierId> redirects;
+  /** Map of enchantment to modifier pair */
+  private final Map<Enchantment,Modifier> enchantmentMap;
+  /** Collection of all enchantment tag mappings */
+  private final Map<TagKey<Enchantment>, Modifier> enchantmentTagMappings;
 
   /** Ensures both the modifiers and redirects lists are calculated, allows one packet to be used multiple times without redundant work */
   private void ensureCalculated() {
@@ -77,6 +85,24 @@ public class UpdateModifiersPacket implements IThreadsafePacket {
     }
     this.allModifiers = modifiers;
     this.tags = GenericTagUtil.decodeTags(buffer, id -> getModifier(modifiers, new ModifierId(id)));
+
+    // read in enchantment to modifier mapping
+    ImmutableMap.Builder<Enchantment,Modifier> enchantmentBuilder = ImmutableMap.builder();
+    size = buffer.readVarInt();
+    for (int i = 0; i < size; i++) {
+      enchantmentBuilder.put(
+        buffer.readRegistryIdUnsafe(ForgeRegistries.ENCHANTMENTS),
+        getModifier(modifiers, new ModifierId(buffer.readResourceLocation())));
+    }
+    enchantmentMap = enchantmentBuilder.build();
+    ImmutableMap.Builder<TagKey<Enchantment>, Modifier> enchantmentTagBuilder = ImmutableMap.builder();
+    size = buffer.readVarInt();
+    for (int i = 0; i < size; i++) {
+      enchantmentTagBuilder.put(
+        TagKey.create(Registry.ENCHANTMENT_REGISTRY, buffer.readResourceLocation()),
+        getModifier(modifiers, new ModifierId(buffer.readResourceLocation())));
+    }
+    enchantmentTagMappings = enchantmentTagBuilder.build();
   }
 
   @Override
@@ -95,10 +121,22 @@ public class UpdateModifiersPacket implements IThreadsafePacket {
       buffer.writeResourceLocation(entry.getValue());
     }
     GenericTagUtil.encodeTags(buffer, Modifier::getId, this.tags);
+
+    // enchantment mapping
+    buffer.writeVarInt(enchantmentMap.size());
+    for (Entry<Enchantment,Modifier> entry : enchantmentMap.entrySet()) {
+      buffer.writeRegistryIdUnsafe(ForgeRegistries.ENCHANTMENTS, entry.getKey());
+      buffer.writeResourceLocation(entry.getValue().getId());
+    }
+    buffer.writeVarInt(enchantmentTagMappings.size());
+    for (Entry<TagKey<Enchantment>, Modifier> entry : enchantmentTagMappings.entrySet()) {
+      buffer.writeResourceLocation(entry.getKey().location());
+      buffer.writeResourceLocation(entry.getValue().getId());
+    }
   }
 
   @Override
   public void handleThreadsafe(Context context) {
-    ModifierManager.INSTANCE.updateModifiersFromServer(allModifiers, tags);
+    ModifierManager.INSTANCE.updateModifiersFromServer(allModifiers, tags, enchantmentMap, enchantmentTagMappings);
   }
 }

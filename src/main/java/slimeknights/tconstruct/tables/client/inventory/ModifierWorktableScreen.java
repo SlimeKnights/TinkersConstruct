@@ -11,16 +11,23 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.client.modifiers.ModifierIconManager;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.recipe.worktable.IModifierWorktableRecipe;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tables.block.entity.table.ModifierWorktableBlockEntity;
 import slimeknights.tconstruct.tables.client.inventory.module.InfoPanelScreen;
 import slimeknights.tconstruct.tables.menu.ModifierWorktableContainerMenu;
+import slimeknights.tconstruct.tools.item.ModifierCrystalItem;
 
+import java.util.Collections;
 import java.util.List;
 
 public class ModifierWorktableScreen extends BaseTabbedScreen<ModifierWorktableBlockEntity,ModifierWorktableContainerMenu> {
@@ -191,8 +198,22 @@ public class ModifierWorktableScreen extends BaseTabbedScreen<ModifierWorktableB
       }
 
       // reuse logic from tinker station for final result
-      TinkerStationScreen.updateToolPanel(tinkerInfo, result, getMenu().getOutputSlot().getItem());
-      TinkerStationScreen.updateModifierPanel(modifierInfo, result);
+      ItemStack resultStack = getMenu().getOutputSlot().getItem();
+      TinkerStationScreen.updateToolPanel(tinkerInfo, result, resultStack);
+
+      this.modifierInfo.setCaption(TextComponent.EMPTY);
+      this.modifierInfo.setText(TextComponent.EMPTY);
+      if (result.hasTag(TinkerTags.Items.MODIFIABLE)) {
+        TinkerStationScreen.updateModifierPanel(modifierInfo, result);
+      } else {
+        // modifier crystals can show their modifier, along with anything else with a modifier there
+        ModifierId modifierId = ModifierCrystalItem.getModifier(resultStack);
+        if (modifierId != null) {
+          Modifier modifier = ModifierManager.getValue(modifierId);
+          modifierInfo.setCaption(TConstruct.makeTranslation("gui", "tinker_station.modifiers"));
+          modifierInfo.setText(Collections.singletonList(modifier.getDisplayName()), Collections.singletonList(modifier.getDescription()));
+        }
+      }
     }
   }
 

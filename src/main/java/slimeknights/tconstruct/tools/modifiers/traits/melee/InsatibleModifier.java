@@ -6,6 +6,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.phys.EntityHitResult;
+import slimeknights.tconstruct.common.TinkerEffect;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
@@ -26,8 +28,8 @@ import java.util.List;
 
 public class InsatibleModifier extends Modifier implements ProjectileHitModifierHook, ConditionalStatModifierHook {
   /** Gets the current bonus for the entity */
-  private static float getBonus(LivingEntity attacker, int level) {
-    int effectLevel = TinkerModifiers.insatiableEffect.get().getLevel(attacker) + 1;
+  private static float getBonus(LivingEntity attacker, int level, TinkerEffect effect) {
+    int effectLevel = effect.getLevel(attacker) + 1;
     return level * effectLevel / 4f;
   }
 
@@ -39,7 +41,7 @@ public class InsatibleModifier extends Modifier implements ProjectileHitModifier
   @Override
   public float getEntityDamage(IToolStackView tool, int level, ToolAttackContext context, float baseDamage, float damage) {
     // gives +2 damage per level at max
-    return damage + (getBonus(context.getAttacker(), level) * tool.getMultiplier(ToolStats.ATTACK_DAMAGE));
+    return damage + (getBonus(context.getAttacker(), level, TinkerModifiers.insatiableEffect.get()) * tool.getMultiplier(ToolStats.ATTACK_DAMAGE));
   }
 
   @Override
@@ -57,7 +59,7 @@ public class InsatibleModifier extends Modifier implements ProjectileHitModifier
   public float modifyStat(IToolStackView tool, ModifierEntry modifier, LivingEntity living, FloatToolStat stat, float baseValue, float multiplier) {
     if (stat == ToolStats.PROJECTILE_DAMAGE) {
       // get bonus is +2 damage per level, but we want to half for the actual damage due to velocity stuff
-      baseValue += (getBonus(living, modifier.getLevel()) / 2f * multiplier);
+      baseValue += (getBonus(living, modifier.getLevel(), TinkerModifiers.insatiableRangedEffect.get()) / 2f * multiplier);
     }
     return baseValue;
   }
@@ -75,7 +77,7 @@ public class InsatibleModifier extends Modifier implements ProjectileHitModifier
   public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag flag) {
     float bonus = level * 2;
     if (player != null && key == TooltipKey.SHIFT) {
-      bonus = getBonus(player, level);
+      bonus = getBonus(player, level, tool.hasTag(TinkerTags.Items.RANGED) ? TinkerModifiers.insatiableRangedEffect.get() : TinkerModifiers.insatiableEffect.get());
     }
     addDamageTooltip(tool, bonus, tooltip);
   }

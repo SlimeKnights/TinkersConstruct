@@ -304,6 +304,7 @@ public class TinkerTags {
     public static final TagKey<Item> DURABILITY = tag("modifiable/durability");
 
     /** @deprecated This used to be common, but the melee unarmed combo ended up being more common, and a compound ingredient is pretty trivial */
+    @Deprecated
     public static final TagKey<Item> MELEE_OR_HARVEST = tag("modifiable/melee_or_harvest");
     /** Anything that is used in the player's hand, mostly tools that support interaction, but other tools can be added directly */
     public static final TagKey<Item> HELD = tag("modifiable/held");
@@ -477,6 +478,10 @@ public class TinkerTags {
     public static final TagKey<Modifier> GEMS = tag("gems");
     /** Blacklist for modifiers that cannot be hidden with invisible ink */
     public static final TagKey<Modifier> INVISIBLE_INK_BLACKLIST = tag("invisible_ink_blacklist");
+    /** Blacklist for modifiers that cannot be extracted via the general recipe */
+    public static final TagKey<Modifier> EXTRACT_MODIFIER_BLACKLIST = tag("extract_blacklist/tools");
+    /** Blacklist for modifiers that cannot be extracted via the slotless recipe */
+    public static final TagKey<Modifier> EXTRACT_SLOTLESS_BLACKLIST = tag("extract_blacklist/slotless");
 
     private static TagKey<Modifier> tag(String name) {
       return ModifierManager.getTag(TConstruct.getResource(name));

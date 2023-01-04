@@ -21,5 +21,8 @@
         }
       ]
     }
-  ]
+  ],
+  "modifier_predicate": {
+    "type": "tconstruct:always"
+  }
 }

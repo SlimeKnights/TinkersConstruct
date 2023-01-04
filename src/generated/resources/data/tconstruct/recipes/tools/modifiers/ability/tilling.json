@@ -38,6 +38,7 @@
   "slots": {
     "abilities": 1
   },
+  "allow_crystal": true,
   "result": {
     "name": "tconstruct:tilling",
     "level": 1

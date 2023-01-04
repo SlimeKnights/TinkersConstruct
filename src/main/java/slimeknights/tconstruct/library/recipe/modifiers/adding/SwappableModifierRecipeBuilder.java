@@ -19,6 +19,8 @@ public class SwappableModifierRecipeBuilder extends ModifierRecipeBuilder {
   protected SwappableModifierRecipeBuilder(ModifierId modifier, String value) {
     super(new ModifierEntry(modifier, 1));
     this.value = value;
+    // most variants do not want this as that will conflict, explicitly set it on the default if desired
+    this.allowCrystal = false;
   }
 
   /** Creates a new builder */

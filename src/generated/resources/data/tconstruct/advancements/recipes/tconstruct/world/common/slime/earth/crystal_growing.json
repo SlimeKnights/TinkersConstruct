@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "tconstruct:common/slime/earth/crystal_growing"
+    ]
+  },
+  "criteria": {
+    "has_dirt": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:earth_slime_dirt"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "tconstruct:common/slime/earth/crystal_growing"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_dirt",
+      "has_the_recipe"
+    ]
+  ]
+}

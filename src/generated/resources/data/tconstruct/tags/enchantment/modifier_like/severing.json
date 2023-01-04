@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "cyclic:beheading",
+      "required": false
+    },
+    {
+      "id": "ensorcellation:vorpal",
+      "required": false
+    }
+  ]
+}

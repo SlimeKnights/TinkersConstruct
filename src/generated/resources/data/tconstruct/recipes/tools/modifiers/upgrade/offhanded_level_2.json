@@ -19,6 +19,7 @@
     "level": 1,
     "error": "recipe.tconstruct.modifier.offhanded.level_2"
   },
+  "allow_crystal": false,
   "result": {
     "name": "tconstruct:offhanded",
     "level": 1

@@ -37,6 +37,7 @@
   "slots": {
     "abilities": 1
   },
+  "allow_crystal": true,
   "result": {
     "name": "tconstruct:dual_wielding",
     "level": 1

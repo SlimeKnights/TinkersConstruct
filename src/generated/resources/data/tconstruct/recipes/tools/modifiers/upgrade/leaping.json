@@ -1,58 +1,20 @@
 {
-  "type": "forge:conditional",
-  "recipes": [
-    {
-      "conditions": [
-        {
-          "prop": "sky_geodes",
-          "type": "tconstruct:config"
-        }
-      ],
-      "recipe": {
-        "type": "tconstruct:incremental_modifier",
-        "input": {
-          "item": "tconstruct:sky_slime_crystal"
-        },
-        "amount_per_item": 1,
-        "needed_per_level": 36,
-        "tools": {
-          "tag": "tconstruct:modifiable/armor/leggings"
-        },
-        "slots": {
-          "upgrades": 1
-        },
-        "result": {
-          "name": "tconstruct:leaping",
-          "level": 1
-        },
-        "max_level": 2
-      }
-    },
-    {
-      "conditions": [
-        {
-          "type": "forge:true"
-        }
-      ],
-      "recipe": {
-        "type": "tconstruct:incremental_modifier",
-        "input": {
-          "item": "tconstruct:sky_slime_dirt"
-        },
-        "amount_per_item": 1,
-        "needed_per_level": 18,
-        "tools": {
-          "tag": "tconstruct:modifiable/armor/leggings"
-        },
-        "slots": {
-          "upgrades": 1
-        },
-        "result": {
-          "name": "tconstruct:leaping",
-          "level": 1
-        },
-        "max_level": 2
-      }
-    }
-  ]
+  "type": "tconstruct:incremental_modifier",
+  "input": {
+    "item": "tconstruct:sky_slime_crystal"
+  },
+  "amount_per_item": 1,
+  "needed_per_level": 36,
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/leggings"
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "allow_crystal": true,
+  "result": {
+    "name": "tconstruct:leaping",
+    "level": 1
+  },
+  "max_level": 2
 }

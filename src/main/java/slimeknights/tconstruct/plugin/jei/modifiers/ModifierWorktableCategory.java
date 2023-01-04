@@ -15,7 +15,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import slimeknights.mantle.client.ResourceColorManager;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.worktable.IModifierWorktableRecipe;
 import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
@@ -32,10 +31,12 @@ public class ModifierWorktableCategory implements IRecipeCategory<IModifierWorkt
   private final IDrawable background;
   @Getter
   private final IDrawable icon;
+  private final IDrawable toolIcon;
   private final IDrawable[] slotIcons;
   public ModifierWorktableCategory(IGuiHelper helper) {
     this.background = helper.createDrawable(BACKGROUND_LOC, 0, 166, 121, 35);
     this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(TinkerTables.modifierWorktable));
+    this.toolIcon = helper.createDrawable(BACKGROUND_LOC, 128, 0, 16, 16);
     this.slotIcons = new IDrawable[] {
       helper.createDrawable(BACKGROUND_LOC, 176, 0, 16, 16),
       helper.createDrawable(BACKGROUND_LOC, 208, 0, 16, 16)
@@ -64,21 +65,18 @@ public class ModifierWorktableCategory implements IRecipeCategory<IModifierWorkt
     return TConstructJEIConstants.MODIFIER_WORKTABLE;
   }
 
-  /** Draws a single slot icon */
-  private void drawSlot(PoseStack matrices, IModifierWorktableRecipe recipe, int slot, int x, int y) {
-    List<ItemStack> stacks = recipe.getDisplayItems(slot);
-    if (stacks.isEmpty()) {
-      // -1 as the item list includes the output slot, we skip that
-      slotIcons[slot].draw(matrices, x, y);
-    }
-  }
-
   @Override
   public void draw(IModifierWorktableRecipe recipe, IRecipeSlotsView slots, PoseStack matrixStack, double mouseX, double mouseY) {
-    for (int i = 0; i < 2; i++) {
-      drawSlot(matrixStack, recipe, i, 43 + i * 18, 16);
+    if (recipe.getInputTools().isEmpty()) {
+      toolIcon.draw(matrixStack, 23, 16);
     }
-    Minecraft.getInstance().font.drawShadow(matrixStack, recipe.getTitle(), 3, 2, ResourceColorManager.WHITE.getValue());
+    for (int i = 0; i < 2; i++) {
+      List<ItemStack> stacks = recipe.getDisplayItems(i);
+      if (stacks.isEmpty()) {
+        slotIcons[i].draw(matrixStack, 43 + i * 18, 16);
+      }
+    }
+    Minecraft.getInstance().font.draw(matrixStack, recipe.getTitle(), 3, 2, 0x404040);
   }
 
   @Override
@@ -98,6 +96,6 @@ public class ModifierWorktableCategory implements IRecipeCategory<IModifierWorkt
       builder.addSlot(RecipeIngredientRole.INPUT, 43 + i*18, 16).addItemStacks(recipe.getDisplayItems(i));
     }
     // modifier input
-    builder.addSlot(RecipeIngredientRole.CATALYST, 82, 16).addIngredients(TConstructJEIConstants.MODIFIER_TYPE, recipe.getModifierOptions(null));
+    builder.addSlot(recipe.isModifierOutput() ? RecipeIngredientRole.OUTPUT : RecipeIngredientRole.CATALYST, 82, 16).addIngredients(TConstructJEIConstants.MODIFIER_TYPE, recipe.getModifierOptions(null));
   }
 }
