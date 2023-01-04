@@ -202,7 +202,7 @@ public class ModifierWorktableBlockEntity extends RetexturedTableBlockEntity imp
     if (selectedModifierIndex != -1) {
       IModifierWorktableRecipe recipe = getCurrentRecipe();
       if (recipe != null && result != null) {
-        return result.createStack(Math.min(getItem(TINKER_SLOT).getCount(), recipe.toolResultSize()));
+        return result.createStack(recipe.toolResultSize(inventoryWrapper, getCurrentButtons().get(selectedModifierIndex)));
       }
     }
     return ItemStack.EMPTY;

@@ -59,6 +59,11 @@ public interface IModifierWorktableRecipe extends ICommonRecipe<ITinkerableConta
   default int toolResultSize() {
     return ITinkerStationRecipe.DEFAULT_TOOL_STACK_SIZE;
   }
+  
+  /** Recipe sensitive result size */
+  default int toolResultSize(ITinkerableContainer inv, ModifierEntry selected) {
+    return Math.min(inv.getTinkerableStack().getCount(), toolResultSize());
+  }
 
   /** @deprecated use {@link #updateInputs(IToolStackView, ITinkerableContainer.Mutable, ModifierEntry, boolean)} */
   @Deprecated

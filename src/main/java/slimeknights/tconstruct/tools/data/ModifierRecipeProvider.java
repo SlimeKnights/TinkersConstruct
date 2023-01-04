@@ -38,6 +38,7 @@ import slimeknights.tconstruct.common.registration.GeodeItemObject.BudSize;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
+import slimeknights.tconstruct.library.json.predicate.modifier.SlotTypeModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.modifier.TagModifierPredicate;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
@@ -65,6 +66,7 @@ import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
 import slimeknights.tconstruct.tools.recipe.ArmorDyeingRecipe;
+import slimeknights.tconstruct.tools.recipe.EnchantmentConvertingRecipe;
 import slimeknights.tconstruct.tools.recipe.ModifierRemovalRecipe;
 import slimeknights.tconstruct.tools.recipe.ModifierSortingRecipe;
 import slimeknights.tconstruct.world.TinkerHeadType;
@@ -1309,6 +1311,27 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     ModifierSetWorktableRecipeBuilder.setRemoving(hiddenModifiers, blacklist)
                                      .addInput(FluidContainerIngredient.fromIngredient(FluidIngredient.of(Fluids.MILK, FluidAttributes.BUCKET_VOLUME), Ingredient.of(Items.MILK_BUCKET)))
                                      .save(consumer, modResource(worktableFolder + "invisible_ink_removing"));
+
+    // conversion
+    EnchantmentConvertingRecipe.Builder.converting("slotless")
+                                       .addInput(Items.AMETHYST_SHARD)
+                                       .modifierPredicate(new SlotTypeModifierPredicate(null))
+                                       .save(consumer, modResource(worktableFolder + "enchantment_converting/slotless"));
+    EnchantmentConvertingRecipe.Builder.converting("upgrades")
+                                       .addInput(TinkerWorld.skyGeode.asItem())
+                                       .addInput(Tags.Items.GEMS_LAPIS, 3)
+                                       .modifierPredicate(new SlotTypeModifierPredicate(SlotType.UPGRADE))
+                                       .save(consumer, modResource(worktableFolder + "enchantment_converting/upgrade"));
+    EnchantmentConvertingRecipe.Builder.converting("defense")
+                                       .addInput(TinkerWorld.earthGeode.asItem())
+                                       .addInput(Tags.Items.INGOTS_GOLD, 1)
+                                       .modifierPredicate(new SlotTypeModifierPredicate(SlotType.DEFENSE))
+                                       .save(consumer, modResource(worktableFolder + "enchantment_converting/defense"));
+    EnchantmentConvertingRecipe.Builder.converting("abilities")
+                                       .addInput(TinkerWorld.ichorGeode.asItem())
+                                       .addInput(Tags.Items.GEMS_DIAMOND)
+                                       .modifierPredicate(new SlotTypeModifierPredicate(SlotType.ABILITY))
+                                       .save(consumer, modResource(worktableFolder + "enchantment_converting/ability"));
 
     // compatability
     String theOneProbe = "theoneprobe";

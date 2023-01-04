@@ -2616,6 +2616,14 @@
   "recipe.tconstruct.extract_modifier.description": "Select a modifier to extract onto a modifier crystal, slots will be returned but any item cost is lost.",
   "recipe.tconstruct.extract_modifier.no_modifiers": "Tool does not have any extractable modifiers",
 
+  "recipe.tconstruct.enchantment_converting.upgrades.title": "Extract Upgrade",
+  "recipe.tconstruct.enchantment_converting.slotless.title": "Extract Slotless",
+  "recipe.tconstruct.enchantment_converting.abilities.title": "Extract Ability",
+  "recipe.tconstruct.enchantment_converting.defense.title": "Extract Defense",
+  "recipe.tconstruct.enchantment_converting.description": "Select a modifier of the given type from the enchanted book to extract as a modifier crystal.",
+  "recipe.tconstruct.enchantment_converting.no_enchantments": "Book does not have any applicable enchantments",
+  "recipe.tconstruct.enchantment_converting.too_few": "Need to provide more inputs to convert an enchantment of a higher level",
+
   "recipe.tconstruct.part_swapping.too_many_parts": "Table is too small to swap parts on this tool",
 
   "recipe.tconstruct.modifier.not_enough_slot": "Need at least 1 %s slot to add this modifier",

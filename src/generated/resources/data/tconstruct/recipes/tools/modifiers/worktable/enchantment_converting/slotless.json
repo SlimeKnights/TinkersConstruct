@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:enchantment_converting",
+  "name": "slotless",
+  "inputs": [
+    {
+      "item": "minecraft:amethyst_shard"
+    }
+  ],
+  "modifier_predicate": {
+    "type": "tconstruct:slot_type"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:enchantment_converting",
+  "name": "abilities",
+  "inputs": [
+    {
+      "item": "tconstruct:ichor_slime_crystal"
+    },
+    {
+      "tag": "forge:gems/diamond"
+    }
+  ],
+  "modifier_predicate": {
+    "type": "tconstruct:slot_type",
+    "slot": "abilities"
+  }
+}
