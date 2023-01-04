@@ -142,20 +142,6 @@
         ]
       }
     },
-    "looting": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:looting",
-              "level": 1
-            }
-          }
-        ]
-      }
-    },
     "path_maker": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
@@ -192,20 +178,6 @@
             "type": "tconstruct:tool",
             "modifiers": {
               "name": "tconstruct:pockets",
-              "level": 1
-            }
-          }
-        ]
-      }
-    },
-    "shield_strap": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:shield_strap",
               "level": 1
             }
           }
@@ -477,6 +449,62 @@
           }
         ]
       }
+    },
+    "crystalshot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:crystalshot",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "multishot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:multishot",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "bulk_quiver": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:bulk_quiver",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "trick_quiver": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:trick_quiver",
+              "level": 1
+            }
+          }
+        ]
+      }
     }
   },
   "requirements": [
@@ -508,9 +536,6 @@
       "frost_walker"
     ],
     [
-      "looting"
-    ],
-    [
       "path_maker"
     ],
     [
@@ -518,9 +543,6 @@
     ],
     [
       "pockets"
-    ],
-    [
-      "shield_strap"
     ],
     [
       "slurping"
@@ -578,6 +600,18 @@
     ],
     [
       "spilling"
+    ],
+    [
+      "crystalshot"
+    ],
+    [
+      "multishot"
+    ],
+    [
+      "bulk_quiver"
+    ],
+    [
+      "trick_quiver"
     ]
   ]
 }
