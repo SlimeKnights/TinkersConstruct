@@ -3,9 +3,9 @@ package tconstruct.library;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import java.util.IdentityHashMap;
-import javax.vecmath.Vector3d;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
@@ -122,7 +122,7 @@ public class SlimeBounceHandler {
                 // resets y motion after landing
                 if (entity.ticksExisted == info.bounceTick) {
                     TinkerGadgets.log.info("Bounce Tick?");
-                    entity.setVelocity(entity.motionX, info.bounce, entity.motionZ);
+                    entity.motionY = info.bounce;
                     info.bounceTick = 0;
                 }
 
@@ -145,7 +145,8 @@ public class SlimeBounceHandler {
                         // preserve 95% of former speed
                         double boost = Math.sqrt(info.lastMagSq / motionSq) * 0.95f;
                         if (boost > 1) {
-                            entity.setVelocity(entity.motionX * boost, entity.motionY, entity.motionZ * boost);
+                            entity.motionX *= boost;
+                            entity.motionZ *= boost;
                             entity.isAirBorne = true;
                             info.lastMagSq = info.lastMagSq * 0.95f * 0.95f;
                             // play sound if we had a big angle change
@@ -181,8 +182,8 @@ public class SlimeBounceHandler {
         }
     }
 
-    public static Vector3d getMotion(EntityLivingBase aEntity) {
-        return new Vector3d(aEntity.motionX, aEntity.motionY, aEntity.motionZ);
+    public static Vec3 getMotion(EntityLivingBase aEntity) {
+        return Vec3.createVectorHelper(aEntity.motionX, aEntity.motionY, aEntity.motionZ);
     }
 
     public static boolean hasSlimeBoots(EntityLivingBase entity) {

@@ -4,7 +4,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
-import javax.vecmath.Vector3d;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.resources.I18n;
@@ -19,6 +18,7 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 import net.minecraftforge.common.util.EnumHelper;
@@ -76,7 +76,7 @@ public class ItemSlimeBoots extends ItemArmor implements ISpecialArmor {
     @SubscribeEvent
     // RUBBERY BOUNCY BOUNCERY WOOOOO
     public void onFall(LivingFallEvent event) {
-        EntityLivingBase living = event.entityLiving;
+        final EntityLivingBase living = event.entityLiving;
         // TinkerGadgets.log.info("Fall event.");
         // using fall distance as the event distance could be reduced by jump boost
         if (living == null || living.fallDistance <= 2f) {
@@ -109,13 +109,15 @@ public class ItemSlimeBoots extends ItemArmor implements ISpecialArmor {
 
         // server players behave differently than non-server players, they have no
         // velocity during the event, so we need to reverse engineer it
-        Vector3d motion = SlimeBounceHandler.getMotion(living);
+        Vec3 motion = SlimeBounceHandler.getMotion(living);
         if (living instanceof EntityPlayerMP) {
             // velocity is lost on server players, but we dont have to defer the bounce
             double gravity = 0.2353455252;
             double time = Math.sqrt(living.fallDistance / gravity);
             double velocity = gravity * time;
-            living.setVelocity(motion.x / 0.95f, velocity, motion.z / 0.95f);
+            living.motionX = motion.xCoord / 0.95f;
+            living.motionY = velocity;
+            living.motionZ = motion.zCoord / 0.95f;
             living.velocityChanged = true;
             // preserve momentum
             SlimeBounceHandler.addBounceHandler(living);
@@ -123,8 +125,10 @@ public class ItemSlimeBoots extends ItemArmor implements ISpecialArmor {
         } else {
             // for non-players, need to defer the bounce
             // only slow down half as much when bouncing
-            living.setVelocity(motion.x / 0.95f, motion.y * -0.9, motion.z / 0.95f);
-            SlimeBounceHandler.addBounceHandler(living, SlimeBounceHandler.getMotion(living).y);
+            living.motionX = motion.xCoord / 0.95f;
+            living.motionY = motion.yCoord * -0.9;
+            living.motionZ = motion.zCoord / 0.95f;
+            SlimeBounceHandler.addBounceHandler(living, SlimeBounceHandler.getMotion(living).yCoord);
             // TinkerGadgets.log.info("Not Player");
         }
         // TinkerGadgets.log.info("Server Fall Handler.");
