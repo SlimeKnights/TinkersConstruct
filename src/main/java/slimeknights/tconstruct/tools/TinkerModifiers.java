@@ -69,6 +69,7 @@ import slimeknights.tconstruct.library.tools.capability.EntityModifierCapability
 import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
+import slimeknights.tconstruct.tools.data.EnchantmentToModifierProvider;
 import slimeknights.tconstruct.tools.data.ModifierProvider;
 import slimeknights.tconstruct.tools.data.ModifierRecipeProvider;
 import slimeknights.tconstruct.tools.data.SpillingFluidProvider;
@@ -556,6 +557,7 @@ public final class TinkerModifiers extends TinkerModule {
       generator.addProvider(new ModifierRecipeProvider(generator));
       generator.addProvider(new SpillingFluidProvider(generator));
       generator.addProvider(new ModifierTagProvider(generator, event.getExistingFileHelper()));
+      generator.addProvider(new EnchantmentToModifierProvider(generator));
     }
   }
 }
