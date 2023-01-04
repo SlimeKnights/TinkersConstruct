@@ -95,14 +95,15 @@
   "tconstruct:ambidextrous":  "tconstruct:gui/modifiers/armor/ambidextrous",
   "tconstruct:reach":    "tconstruct:gui/modifiers/armor/reach",
   "tconstruct:strength": "tconstruct:gui/modifiers/armor/strength",
-  
-  "tconstruct:leaping":      "tconstruct:gui/modifiers/armor/leaping",
-  "tconstruct:pockets":      "tconstruct:gui/modifiers/armor/pockets",
-  "tconstruct:shield_strap": "tconstruct:gui/modifiers/armor/shield_strap",
-  "tconstruct:speedy":       "tconstruct:gui/modifiers/armor/speedy",
-  "tconstruct:step_up":      "tconstruct:gui/modifiers/armor/step_up",
-  "tconstruct:tool_belt":    "tconstruct:gui/modifiers/armor/tool_belt",
-  "tconstruct:wetting":      "tconstruct:gui/modifiers/armor/wetting",
+
+  "tconstruct:depth_strider": "tconstruct:gui/modifiers/armor/depth_strider",
+  "tconstruct:leaping":       "tconstruct:gui/modifiers/armor/leaping",
+  "tconstruct:pockets":       "tconstruct:gui/modifiers/armor/pockets",
+  "tconstruct:shield_strap":  "tconstruct:gui/modifiers/armor/shield_strap",
+  "tconstruct:speedy":        "tconstruct:gui/modifiers/armor/speedy",
+  "tconstruct:step_up":       "tconstruct:gui/modifiers/armor/step_up",
+  "tconstruct:tool_belt":     "tconstruct:gui/modifiers/armor/tool_belt",
+  "tconstruct:wetting":       "tconstruct:gui/modifiers/armor/wetting",
   
   "tconstruct:bouncy":           "tconstruct:gui/modifiers/armor/bouncy",
   "tconstruct:double_jump":      "tconstruct:gui/modifiers/armor/double_jump",

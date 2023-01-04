@@ -827,6 +827,15 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(3)
                          .saveSalvage(consumer, prefix(TinkerModifiers.soulspeed, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.soulspeed, upgradeFolder));
+    ModifierRecipeBuilder.modifier(ModifierIds.depthStrider)
+                         .setTools(TinkerTags.Items.BOOTS)
+                         .addInput(ItemTags.FISHES)
+                         .addInput(Blocks.PRISMARINE_BRICKS)
+                         .addInput(ItemTags.FISHES)
+                         .setSlots(SlotType.UPGRADE, 1)
+                         .setMaxLevel(3)
+                         .saveSalvage(consumer, prefix(ModifierIds.depthStrider, upgradeSalvage))
+                         .save(consumer, prefix(ModifierIds.depthStrider, upgradeFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.lightspeedArmor)
                                     .setTools(TinkerTags.Items.BOOTS)
                                     .setInput(Tags.Items.DUSTS_GLOWSTONE, 1, 64)

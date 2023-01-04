@@ -59,6 +59,8 @@ public class ModifierIds {
   public static final ModifierId stepUp = id("step_up");
   public static final ModifierId speedy = id("speedy");
   public static final ModifierId toolBelt = id("tool_belt");
+  // boots
+  public static final ModifierId depthStrider = id("depth_strider");
 
   // internal
   public static final ModifierId overslimeFriend = id("overslime_friend");

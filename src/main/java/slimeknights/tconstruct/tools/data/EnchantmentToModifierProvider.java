@@ -27,7 +27,7 @@ public class EnchantmentToModifierProvider extends AbstractEnchantmentToModifier
     add(Enchantments.RESPIRATION, TinkerModifiers.respiration.getId());
     add(Enchantments.AQUA_AFFINITY, TinkerModifiers.aquaAffinity.getId());
     add(Enchantments.THORNS, TinkerModifiers.thorns.getId());
-    // TODO: depth strider
+    add(Enchantments.DEPTH_STRIDER, ModifierIds.depthStrider);
     add(Enchantments.FROST_WALKER, TinkerModifiers.frostWalker.getId());
     add(Enchantments.SOUL_SPEED, TinkerModifiers.soulspeed.getId());
 

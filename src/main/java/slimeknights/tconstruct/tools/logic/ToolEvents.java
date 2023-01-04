@@ -31,6 +31,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.event.GrindstoneEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
@@ -428,6 +429,14 @@ public class ToolEvents {
           }
         }
       }
+    }
+  }
+
+  @SubscribeEvent
+  static void onGrindstoneChange(GrindstoneEvent.OnPlaceItem event) {
+    // no removing enchantments from tools, you must use the modifier to remove them
+    if (event.getTopItem().is(TinkerTags.Items.MODIFIABLE) || event.getBottomItem().is(TinkerTags.Items.MODIFIABLE)) {
+      event.setCanceled(true);
     }
   }
 }
