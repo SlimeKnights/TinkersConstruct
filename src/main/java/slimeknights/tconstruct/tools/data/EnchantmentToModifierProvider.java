@@ -35,14 +35,14 @@ public class EnchantmentToModifierProvider extends AbstractEnchantmentToModifier
     add(Enchantments.BANE_OF_ARTHROPODS, ModifierIds.baneOfSssss);
     add(Enchantments.KNOCKBACK, TinkerModifiers.knockback.getId());
     add(Enchantments.FIRE_ASPECT, TinkerModifiers.fiery.getId());
-    add(Enchantments.MOB_LOOTING, ModifierIds.looting);
+    add(Enchantments.MOB_LOOTING, ModifierIds.luck);
     add(Enchantments.SWEEPING_EDGE, TinkerModifiers.sweeping.getId());
     add(Enchantments.IMPALING, ModifierIds.antiaquatic);
 
     // harvest
     add(Enchantments.BLOCK_EFFICIENCY, TinkerModifiers.haste.getId());
     add(Enchantments.SILK_TOUCH, TinkerModifiers.silky.getId());
-    add(Enchantments.BLOCK_FORTUNE, ModifierIds.fortune);
+    add(Enchantments.BLOCK_FORTUNE, ModifierIds.luck);
 
     // ranged
     add(Enchantments.POWER_ARROWS, ModifierIds.power);

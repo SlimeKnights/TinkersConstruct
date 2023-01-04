@@ -66,6 +66,7 @@ import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
+import slimeknights.tconstruct.tools.item.ModifierCrystalItem;
 import slimeknights.tconstruct.tools.recipe.ArmorDyeingRecipe;
 import slimeknights.tconstruct.tools.recipe.EnchantmentConvertingRecipe;
 import slimeknights.tconstruct.tools.recipe.ModifierRemovalRecipe;
@@ -75,6 +76,7 @@ import slimeknights.tconstruct.world.TinkerWorld;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -1098,6 +1100,18 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.ABILITY, 1)
                          .saveSalvage(consumer, wrap(ModifierIds.luck, abilitySalvage, "_pants"))
                          .save(consumer, wrap(ModifierIds.luck, abilityFolder, "_pants"));
+    // extra crystal recipes
+    ModifierRecipeBuilder.modifier(ModifierIds.luck)
+                         .setTools(luckSupporting)
+                         .addInput(TinkerWorld.ichorGeode)
+                         .addInput(PartialNBTIngredient.of(TinkerModifiers.modifierCrystal, Objects.requireNonNull(ModifierCrystalItem.withModifier(ModifierIds.luck).getTag())))
+                         .addInput(TinkerWorld.ichorGeode)
+                         .setRequirements(ModifierMatch.entry(ModifierIds.luck, 1))
+                         .setRequirementsError(makeRequirementsError("luck.level_2"))
+                         .disallowCrystal()
+                         .setMaxLevel(3)
+                         .save(consumer, wrap(ModifierIds.luck, abilityFolder, "_crystal_higher_levels"));
+
     // silky: all the cloth
     ModifierRecipeBuilder.modifier(TinkerModifiers.silky)
                          .addInput(TinkerModifiers.silkyCloth)
