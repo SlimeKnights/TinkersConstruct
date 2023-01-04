@@ -120,6 +120,19 @@
         ]
       }
     },
+    "bamboo": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "materials": [
+              "tconstruct:bamboo"
+            ]
+          }
+        ]
+      }
+    },
     "iron": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
@@ -250,14 +263,14 @@
         ]
       }
     },
-    "bronze": {
+    "amethyst_bronze": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "type": "tconstruct:tool",
             "materials": [
-              "tconstruct:bronze"
+              "tconstruct:amethyst_bronze"
             ]
           }
         ]
@@ -407,6 +420,9 @@
       "vine"
     ],
     [
+      "bamboo"
+    ],
+    [
       "iron"
     ],
     [
@@ -437,7 +453,7 @@
       "nahuatl"
     ],
     [
-      "bronze"
+      "amethyst_bronze"
     ],
     [
       "pig_iron"

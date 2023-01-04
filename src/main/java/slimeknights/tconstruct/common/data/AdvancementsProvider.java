@@ -117,6 +117,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(MaterialIds.leather);
       with.accept(MaterialIds.string);
       with.accept(MaterialIds.vine);
+      with.accept(MaterialIds.bamboo);
       // tier 2
       with.accept(MaterialIds.iron);
       with.accept(MaterialIds.searedStone);
@@ -129,7 +130,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(MaterialIds.roseGold);
       with.accept(MaterialIds.slimesteel);
       with.accept(MaterialIds.nahuatl);
-      with.accept(MaterialIds.bronze);
+      with.accept(MaterialIds.amethystBronze);
       with.accept(MaterialIds.pigIron);
       with.accept(MaterialIds.cobalt);
       with.accept(MaterialIds.darkthread);
