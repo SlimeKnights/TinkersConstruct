@@ -1047,11 +1047,45 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.ABILITY, 1)
                          .saveSalvage(consumer, prefix(ModifierIds.gilded, abilitySalvage))
                          .save(consumer, prefix(ModifierIds.gilded, abilityFolder));
-    // luck is 3 recipes, similar for both so pulled into a function
-    // harvest uses luck, at this time there is no harvest that is not melee
-    luckRecipes(consumer, ModifierIds.luck, Ingredient.of(TinkerTags.Items.HARVEST), abilityFolder, abilitySalvage);
-    // any non-harvest melee and any ranged use looting
-    luckRecipes(consumer, ModifierIds.looting, DifferenceIngredient.of(ingredientFromTags(TinkerTags.Items.MELEE_OR_UNARMED, TinkerTags.Items.RANGED), Ingredient.of(TinkerTags.Items.HARVEST)), abilityFolder, abilitySalvage);
+    // luck is 3 recipes
+    // level 1 always requires a slot
+    Ingredient luckSupporting = ingredientFromTags(TinkerTags.Items.MELEE_OR_UNARMED, TinkerTags.Items.HARVEST, TinkerTags.Items.RANGED);
+    ModifierRecipeBuilder.modifier(ModifierIds.luck)
+                         .setTools(luckSupporting)
+                         .addInput(Tags.Items.INGOTS_COPPER)
+                         .addInput(SizedIngredient.fromItems(Items.CORNFLOWER, Items.BLUE_ORCHID))
+                         .addInput(Tags.Items.INGOTS_COPPER)
+                         .addInput(Tags.Items.STORAGE_BLOCKS_LAPIS)
+                         .addInput(Tags.Items.STORAGE_BLOCKS_LAPIS)
+                         .setSalvageLevelRange(1, 1)
+                         .setMaxLevel(1)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .saveSalvage(consumer, prefix(ModifierIds.luck, abilitySalvage))
+                         .save(consumer, wrap(ModifierIds.luck, abilityFolder, "_level_1"));
+     ModifierRecipeBuilder.modifier(ModifierIds.luck)
+                          .setTools(luckSupporting)
+                          .addInput(Tags.Items.INGOTS_GOLD)
+                          .addInput(Items.GOLDEN_CARROT)
+                          .addInput(Tags.Items.INGOTS_GOLD)
+                          .addInput(Tags.Items.ENDER_PEARLS)
+                          .addInput(Tags.Items.ENDER_PEARLS)
+                          .setRequirements(ModifierMatch.entry(ModifierIds.luck, 1))
+                          .setRequirementsError(makeRequirementsError("luck.level_2"))
+                          .disallowCrystal() // no way to handle multiple recipes same input yet
+                          .setMaxLevel(2)
+                          .save(consumer, wrap(ModifierIds.luck, abilityFolder, "_level_2"));
+    ModifierRecipeBuilder.modifier(ModifierIds.luck)
+                         .setTools(luckSupporting)
+                         .addInput(TinkerMaterials.roseGold.getIngotTag())
+                         .addInput(Items.RABBIT_FOOT)
+                         .addInput(TinkerMaterials.roseGold.getIngotTag())
+                         .addInput(Tags.Items.GEMS_DIAMOND)
+                         .addInput(Items.NAME_TAG)
+                         .setRequirements(ModifierMatch.entry(ModifierIds.luck, 2))
+                         .setRequirementsError(makeRequirementsError("luck.level_3"))
+                         .disallowCrystal() // no way to handle multiple recipes same input yet
+                         .setMaxLevel(3)
+                         .save(consumer, wrap(ModifierIds.luck, abilityFolder, "_level_3"));
     // pants have just one level
     ModifierRecipeBuilder.modifier(ModifierIds.luck)
                          .setTools(TinkerTags.Items.LEGGINGS)
@@ -1518,50 +1552,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                   .setTools(tool)
                                   .addInput(congealed).addInput(TinkerWorld.slime.get(slime)).addInput(congealed)
                                   .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_" + slime.getSerializedName()));
-  }
-
-  /** Common logic to add recipes for luck and unarmed looting */
-  private void luckRecipes(Consumer<FinishedRecipe> consumer, ModifierId modifier, Ingredient tools, String folder, String salvage) {
-    String key = modifier.getPath();
-    // level 1 always requires a slot
-    ModifierRecipeBuilder builder1 = ModifierRecipeBuilder.modifier(modifier)
-                         .setTools(tools)
-                         .addInput(Tags.Items.INGOTS_COPPER)
-                         .addInput(SizedIngredient.fromItems(Items.CORNFLOWER, Items.BLUE_ORCHID))
-                         .addInput(Tags.Items.INGOTS_COPPER)
-                         .addInput(Tags.Items.STORAGE_BLOCKS_LAPIS)
-                         .addInput(Tags.Items.STORAGE_BLOCKS_LAPIS)
-                         .setSalvageLevelRange(1, 1)
-                         .setMaxLevel(1)
-                         .setSlots(SlotType.ABILITY, 1);
-    builder1.saveSalvage(consumer, wrap(modifier, salvage, "_level_1")).save(consumer, wrap(modifier, folder, "_level_1"));
-    // level 2 and 3 only charge if not ability
-    ModifierRecipeBuilder builder2 = ModifierRecipeBuilder.modifier(modifier)
-                         .setTools(tools)
-                         .addInput(Tags.Items.INGOTS_GOLD)
-                         .addInput(Items.GOLDEN_CARROT)
-                         .addInput(Tags.Items.INGOTS_GOLD)
-                         .addInput(Tags.Items.ENDER_PEARLS)
-                         .addInput(Tags.Items.ENDER_PEARLS)
-                         .setRequirements(ModifierMatch.entry(modifier, 1))
-                         .setRequirementsError(makeRequirementsError(key + ".level_2"))
-                         .setSalvageLevelRange(2, 2)
-                         .disallowCrystal() // no way to handle multiple recipes same input yet
-                         .setMaxLevel(2);
-    ModifierRecipeBuilder builder3 = ModifierRecipeBuilder.modifier(modifier)
-                         .setTools(tools)
-                         .addInput(TinkerMaterials.roseGold.getIngotTag())
-                         .addInput(Items.RABBIT_FOOT)
-                         .addInput(TinkerMaterials.roseGold.getIngotTag())
-                         .addInput(Tags.Items.GEMS_DIAMOND)
-                         .addInput(Items.NAME_TAG)
-                         .setRequirements(ModifierMatch.entry(modifier, 2))
-                         .setRequirementsError(makeRequirementsError(key + ".level_3"))
-                         .setSalvageLevelRange(3, 3)
-                         .disallowCrystal() // no way to handle multiple recipes same input yet
-                         .setMaxLevel(3);
-    builder2.saveSalvage(consumer, wrap(modifier, salvage, "_level_2")).save(consumer, wrap(modifier, folder, "_level_2"));
-    builder3.saveSalvage(consumer, wrap(modifier, salvage, "_level_3")).save(consumer, wrap(modifier, folder, "_level_3"));
   }
 
   /** Adds haste like recipes using redstone */
