@@ -1738,9 +1738,6 @@
   "modifier.tconstruct.haste.5": "Hastiestest",
   "modifier.tconstruct.haste.flavor": "Science!",
   "modifier.tconstruct.haste.description": "Magic red dust makes tool mine faster!",
-  "modifier.tconstruct.haste_armor": "Haste",
-  "modifier.tconstruct.haste_armor.flavor": "Science!",
-  "modifier.tconstruct.haste_armor.description": "Magic red dust makes all held tools mine faster!",
 
   "modifier.tconstruct.blasting": "Blasting",
   "modifier.tconstruct.blasting.flavor": "Explosive Mining!",
@@ -1758,7 +1755,7 @@
   "_comment": "Weapon",
   "modifier.tconstruct.knockback": "Knockback",
   "modifier.tconstruct.knockback.flavor": "Weeeeee!",
-  "modifier.tconstruct.knockback.description": "Hitting things makes them go flying further!",
+  "modifier.tconstruct.knockback.description": "Hitting things in melee makes them go flying further!",
   "modifier.tconstruct.padded": "Padded",
   "modifier.tconstruct.padded.flavor": "Floof!",
   "modifier.tconstruct.padded.description": "Reduces the knockback of the tool, to stop your enemies from escaping",
@@ -1957,9 +1954,6 @@
   "modifier.tconstruct.item_frame.description": "Adds inventory slots to the helmet for items to observe. Perfect for clocks and compasses",
 
   "_comment": "Armor - chestplate",
-  "modifier.tconstruct.knockback_armor": "Knockback",
-  "modifier.tconstruct.knockback_armor.flavor": "Wolololo!",
-  "modifier.tconstruct.knockback_armor.description": "Hitting things with any weapon makes them go flying further!",
   "modifier.tconstruct.armor_power": "Power",
   "modifier.tconstruct.armor_power.flavor": "Can you feel the power flowing through you?",
   "modifier.tconstruct.armor_power.description": "Makes your weapons stronger",

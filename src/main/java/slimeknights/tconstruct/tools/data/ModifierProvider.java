@@ -69,6 +69,10 @@ public class ModifierProvider extends AbstractModifierProvider {
     addRedirect(id("hoe_till"), redirect(TinkerModifiers.tilling.getId()));
     addRedirect(id("firestarter_hidden"), redirect(TinkerModifiers.firestarter.getId()));
 
+    // merged some armor modifiers
+    addRedirect(id("haste_armor"), redirect(TinkerModifiers.haste.getId()));
+    addRedirect(id("knockback_armor"), redirect(TinkerModifiers.knockback.getId()));
+
     // unarmed rework
     addRedirect(id("unarmed"), redirect(TinkerModifiers.ambidextrous.getId()));
 
@@ -152,9 +156,6 @@ public class ModifierProvider extends AbstractModifierProvider {
       LivingEntityPredicate.OR.create(new MobTypePredicate(MobType.ILLAGER), new TagEntityPredicate(TinkerTags.EntityTypes.VILLAGERS)), 2.0f));
     addRedirect(id("fractured"), redirect(ModifierIds.sharpness));
 
-    // harvest
-    addModifier(TinkerModifiers.haste, StatBoostModifier.builder().add(ToolStats.MINING_SPEED, 4f).display(new UniqueForLevels(5)).build());
-
     // ranged
     addModifier(ModifierIds.power, StatBoostModifier.builder().add(ToolStats.PROJECTILE_DAMAGE, 0.5f).build());
     addModifier(ModifierIds.quickCharge, StatBoostModifier.builder().multiplyBase(ToolStats.DRAW_SPEED, 0.25f).build());
@@ -169,7 +170,6 @@ public class ModifierProvider extends AbstractModifierProvider {
     // TODO: floor?
     addModifier(ModifierIds.revitalizing, StatBoostModifier.builder().attribute("tconstruct.modifier.revitalizing", Attributes.MAX_HEALTH, Operation.ADDITION, 2, armorSlots).build());
     // chestplate
-    addModifier(ModifierIds.knockbackArmor, StatBoostModifier.builder().attribute("tconstruct.modifier.armor_knockback", Attributes.ATTACK_KNOCKBACK, Operation.ADDITION, 1, armorSlots).build());
     addModifier(ModifierIds.strength, StatBoostModifier.builder().attribute("tconstruct.modifier.strength", Attributes.ATTACK_DAMAGE, Operation.MULTIPLY_TOTAL, 0.1f, armorSlots).build());
     addRedirect(id("armor_power"), redirect(ModifierIds.strength));
     // leggings
