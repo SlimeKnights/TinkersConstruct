@@ -1,8 +1,10 @@
 package slimeknights.tconstruct.library.data.tinkering;
 
 import com.google.gson.JsonObject;
+import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.HashCache;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -50,5 +52,10 @@ public abstract class AbstractEnchantmentToModifierProvider extends GenericDataP
       throw new IllegalArgumentException("Duplicate enchantment tag " + tag.location());
     }
     enchantmentMap.addProperty(key, modifierId.toString());
+  }
+
+  /** Adds the given enchantment tag */
+  protected void add(ResourceLocation tag, ModifierId modifierId) {
+    add(TagKey.create(Registry.ENCHANTMENT_REGISTRY, tag), modifierId);
   }
 }

@@ -2,7 +2,9 @@ package slimeknights.tconstruct.tools.data;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.enchantment.Enchantments;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.data.tinkering.AbstractEnchantmentToModifierProvider;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class EnchantmentToModifierProvider extends AbstractEnchantmentToModifierProvider {
@@ -53,7 +55,35 @@ public class EnchantmentToModifierProvider extends AbstractEnchantmentToModifier
     add(Enchantments.QUICK_CHARGE, ModifierIds.quickCharge);
     add(Enchantments.PIERCING, TinkerModifiers.impaling.getId());
 
-    // TODO: tags for common mod added enchantments
+    // tag compat
+    // upgrade
+    addCompat(TinkerModifiers.experienced.getId());
+    addCompat(ModifierIds.killager);
+    addCompat(TinkerModifiers.magnetic.getId());
+    addCompat(TinkerModifiers.necrotic.getId());
+    addCompat(TinkerModifiers.severing.getId());
+    addCompat(ModifierIds.stepUp);
+    addCompat(TinkerModifiers.soulbound.getId());
+    addCompat(ModifierIds.trueshot);
+
+    // defense
+    addCompat(ModifierIds.knockbackResistance);
+    addCompat(TinkerModifiers.magicProtection.getId());
+    addCompat(ModifierIds.revitalizing);
+
+    // ability
+    addCompat(TinkerModifiers.autosmelt.getId());
+    addCompat(TinkerModifiers.doubleJump.getId());
+    addCompat(TinkerModifiers.expanded.getId());
+    addCompat(ModifierIds.luck);
+    addCompat(TinkerModifiers.multishot.getId());
+    addCompat(ModifierIds.reach);
+    addCompat(TinkerModifiers.tilling.getId());
+  }
+
+  /** Adds a compat enchantment */
+  private void addCompat(ModifierId modifier) {
+    add(TConstruct.getResource("modifier_like/" + modifier.getPath()), modifier);
   }
 
   @Override

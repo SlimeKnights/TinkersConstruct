@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "cyclic:magnet",
+      "required": false
+    }
+  ]
+}
