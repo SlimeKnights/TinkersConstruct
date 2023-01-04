@@ -7,6 +7,18 @@
     }
   ],
   "modifier_predicate": {
-    "type": "tconstruct:slot_type"
+    "type": "tconstruct:and",
+    "predicates": [
+      {
+        "type": "tconstruct:slot_type"
+      },
+      {
+        "type": "tconstruct:inverted",
+        "predicate": {
+          "type": "tconstruct:tag",
+          "tag": "tconstruct:extract_blacklist/slotless"
+        }
+      }
+    ]
   }
 }

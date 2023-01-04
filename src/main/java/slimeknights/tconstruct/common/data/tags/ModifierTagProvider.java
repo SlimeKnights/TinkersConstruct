@@ -21,6 +21,8 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
       .addOptional(ModifierIds.shiny, TinkerModifiers.golden.getId());
     tag(TinkerTags.Modifiers.EXTRACT_MODIFIER_BLACKLIST)
       .add(TinkerModifiers.embellishment.getId(), TinkerModifiers.dyed.getId(), TinkerModifiers.creativeSlot.getId(), TinkerModifiers.statOverride.getId());
+    // blacklist modifiers that are not really slotless, they just have a slotless recipe
+    tag(TinkerTags.Modifiers.EXTRACT_SLOTLESS_BLACKLIST).add(ModifierIds.luck, ModifierIds.toolBelt);
   }
 
   @Override

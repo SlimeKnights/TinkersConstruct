@@ -39,6 +39,7 @@ import slimeknights.tconstruct.common.registration.GeodeItemObject.BudSize;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
+import slimeknights.tconstruct.library.json.predicate.modifier.ModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.modifier.SlotTypeModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.modifier.TagModifierPredicate;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
@@ -1363,7 +1364,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // conversion
     EnchantmentConvertingRecipe.Builder.converting("slotless")
                                        .addInput(Items.AMETHYST_SHARD)
-                                       .modifierPredicate(new SlotTypeModifierPredicate(null))
+                                       .modifierPredicate(ModifierPredicate.AND.create(new SlotTypeModifierPredicate(null),
+                                                                                       new TagModifierPredicate(TinkerTags.Modifiers.EXTRACT_SLOTLESS_BLACKLIST).inverted()))
                                        .save(consumer, modResource(worktableFolder + "enchantment_converting/slotless"));
     EnchantmentConvertingRecipe.Builder.converting("upgrades")
                                        .addInput(TinkerWorld.skyGeode.asItem())

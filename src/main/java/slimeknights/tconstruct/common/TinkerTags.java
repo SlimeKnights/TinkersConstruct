@@ -478,8 +478,10 @@ public class TinkerTags {
     public static final TagKey<Modifier> GEMS = tag("gems");
     /** Blacklist for modifiers that cannot be hidden with invisible ink */
     public static final TagKey<Modifier> INVISIBLE_INK_BLACKLIST = tag("invisible_ink_blacklist");
-    /** Blacklist for modifiers that cannot be extracted */
-    public static final TagKey<Modifier> EXTRACT_MODIFIER_BLACKLIST = tag("extract_modifier_blacklist");
+    /** Blacklist for modifiers that cannot be extracted via the general recipe */
+    public static final TagKey<Modifier> EXTRACT_MODIFIER_BLACKLIST = tag("extract_blacklist/tools");
+    /** Blacklist for modifiers that cannot be extracted via the slotless recipe */
+    public static final TagKey<Modifier> EXTRACT_SLOTLESS_BLACKLIST = tag("extract_blacklist/slotless");
 
     private static TagKey<Modifier> tag(String name) {
       return ModifierManager.getTag(TConstruct.getResource(name));
