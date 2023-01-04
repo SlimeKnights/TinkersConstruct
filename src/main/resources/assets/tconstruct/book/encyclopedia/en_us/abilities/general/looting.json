@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:looting",
   "text": [
     {
-      "text": "Increases drop rates from monsters killed with an empty hand. Luck requires a different recipe for each level, applied in order."
+      "text": "Increases drop rates from monsters killed with an empty hand. Looting requires a different recipe for each level, applied in order."
     },
     {
       "text": "Tools can only receive either luck or looting, based on whether they can break blocks.",

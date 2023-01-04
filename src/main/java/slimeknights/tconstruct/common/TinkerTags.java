@@ -304,6 +304,7 @@ public class TinkerTags {
     public static final TagKey<Item> DURABILITY = tag("modifiable/durability");
 
     /** @deprecated This used to be common, but the melee unarmed combo ended up being more common, and a compound ingredient is pretty trivial */
+    @Deprecated
     public static final TagKey<Item> MELEE_OR_HARVEST = tag("modifiable/melee_or_harvest");
     /** Anything that is used in the player's hand, mostly tools that support interaction, but other tools can be added directly */
     public static final TagKey<Item> HELD = tag("modifiable/held");
