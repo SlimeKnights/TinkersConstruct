@@ -2612,6 +2612,10 @@
   "recipe.tconstruct.invisible_modifiers.removing.title": "Visible Ink",
   "recipe.tconstruct.invisible_modifiers.removing.description": "Select a hidden modifier to make it show in the tool's model agin",
 
+  "recipe.tconstruct.extract_modifier.title": "Extract Modifier",
+  "recipe.tconstruct.extract_modifier.description": "Select a modifier to extract onto a modifier crystal, slots will be returned but any item cost is lost.",
+  "recipe.tconstruct.extract_modifier.no_modifiers": "Tool does not have any extractable modifiers",
+
   "recipe.tconstruct.part_swapping.too_many_parts": "Table is too small to swap parts on this tool",
 
   "recipe.tconstruct.modifier.not_enough_slot": "Need at least 1 %s slot to add this modifier",

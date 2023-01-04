@@ -477,6 +477,8 @@ public class TinkerTags {
     public static final TagKey<Modifier> GEMS = tag("gems");
     /** Blacklist for modifiers that cannot be hidden with invisible ink */
     public static final TagKey<Modifier> INVISIBLE_INK_BLACKLIST = tag("invisible_ink_blacklist");
+    /** Blacklist for modifiers that cannot be extracted */
+    public static final TagKey<Modifier> EXTRACT_MODIFIER_BLACKLIST = tag("extract_modifier_blacklist");
 
     private static TagKey<Modifier> tag(String name) {
       return ModifierManager.getTag(TConstruct.getResource(name));

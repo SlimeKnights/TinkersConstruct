@@ -19,6 +19,8 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
     tag(TinkerTags.Modifiers.INVISIBLE_INK_BLACKLIST)
       .add(TinkerModifiers.embellishment.getId(), TinkerModifiers.dyed.getId(), TinkerModifiers.creativeSlot.getId(), TinkerModifiers.statOverride.getId())
       .addOptional(ModifierIds.shiny, TinkerModifiers.golden.getId());
+    tag(TinkerTags.Modifiers.EXTRACT_MODIFIER_BLACKLIST)
+      .add(TinkerModifiers.embellishment.getId(), TinkerModifiers.dyed.getId(), TinkerModifiers.creativeSlot.getId(), TinkerModifiers.statOverride.getId());
   }
 
   @Override
