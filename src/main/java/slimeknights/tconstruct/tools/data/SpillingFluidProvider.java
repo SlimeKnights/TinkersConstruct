@@ -112,7 +112,7 @@ public class SpillingFluidProvider extends AbstractSpillingFluidProvider {
 
     // metals, lose reference to mistborn (though a true fan would probably get angry at how much I stray from the source)
     metalborn(TinkerFluids.moltenIron.getForgeTag(), 2f).addEffect(new EffectSpillingEffect(TinkerModifiers.magneticEffect.get(), 4, 2));
-    metalborn(TinkerFluids.moltenSteel.getForgeTag(), 2f).addEffect(new EffectSpillingEffect(TinkerModifiers.replusiveEffect.get(), 4, 2));
+    metalborn(TinkerFluids.moltenSteel.getForgeTag(), 2f).addEffect(new EffectSpillingEffect(TinkerModifiers.repulsiveEffect.get(), 4, 2));
     metalborn(TinkerFluids.moltenCopper.getForgeTag(), 1.5f).addEffect(new AddBreathSpillingEffect(80));
     metalborn(TinkerFluids.moltenBronze.getForgeTag(), 2f).addEffect(new AddInsomniaSpillingEffect(-2000));
     metalborn(TinkerFluids.moltenAmethystBronze.getLocalTag(), 1.5f).addEffect(new AddInsomniaSpillingEffect(2000));
