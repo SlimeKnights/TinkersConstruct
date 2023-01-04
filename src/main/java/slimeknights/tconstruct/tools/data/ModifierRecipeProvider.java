@@ -24,6 +24,7 @@ import net.minecraftforge.common.crafting.DifferenceIngredient;
 import net.minecraftforge.common.crafting.IntersectionIngredient;
 import net.minecraftforge.common.crafting.PartialNBTIngredient;
 import net.minecraftforge.fluids.FluidAttributes;
+import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.recipe.data.ItemNameIngredient;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.ingredient.EntityIngredient;
@@ -1304,11 +1305,13 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                  .addInput(Items.COMPASS)
                                  .save(consumer, modResource(worktableFolder + "modifier_sorting"));
     ResourceLocation hiddenModifiers = TConstruct.getResource("invisible_modifiers");
-    TagKey<Modifier> blacklist = TinkerTags.Modifiers.INVISIBLE_INK_BLACKLIST;
-    ModifierSetWorktableRecipeBuilder.setAdding(hiddenModifiers, blacklist)
+    IJsonPredicate<ModifierId> blacklist = new TagModifierPredicate(TinkerTags.Modifiers.INVISIBLE_INK_BLACKLIST).inverted();
+    ModifierSetWorktableRecipeBuilder.setAdding(hiddenModifiers)
+                                     .modifierPredicate(blacklist)
                                      .addInput(PartialNBTIngredient.of(Items.POTION, PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.INVISIBILITY).getOrCreateTag()))
                                      .save(consumer, modResource(worktableFolder + "invisible_ink_adding"));
-    ModifierSetWorktableRecipeBuilder.setRemoving(hiddenModifiers, blacklist)
+    ModifierSetWorktableRecipeBuilder.setRemoving(hiddenModifiers)
+                                     .modifierPredicate(blacklist)
                                      .addInput(FluidContainerIngredient.fromIngredient(FluidIngredient.of(Fluids.MILK, FluidAttributes.BUCKET_VOLUME), Ingredient.of(Items.MILK_BUCKET)))
                                      .save(consumer, modResource(worktableFolder + "invisible_ink_removing"));
 

@@ -8,6 +8,12 @@
       "nbt": "{Potion:\"minecraft:invisibility\"}"
     }
   ],
-  "blacklist": "tconstruct:invisible_ink_blacklist",
+  "modifier_predicate": {
+    "type": "tconstruct:inverted",
+    "predicate": {
+      "type": "tconstruct:tag",
+      "tag": "tconstruct:invisible_ink_blacklist"
+    }
+  },
   "add_to_set": true
 }
