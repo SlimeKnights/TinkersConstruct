@@ -15,6 +15,7 @@
     "large_broken_bowstring": "tconstruct:item/tool/longbow/large/broken_bowstring"
   },
   "large": true,
+  "large_offset": [-3, 13],
   "parts": [
     { "name": "limb_bottom", "index": 0 },
     { "name": "limb_top",    "index": 1 },

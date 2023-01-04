@@ -15,6 +15,7 @@
     "large_arrow":       "tconstruct:item/tool/longbow/large/arrow_3"
   },
   "large": true,
+  "large_offset": [-3, 13],
   "parts": [
     { "name": "limb_bottom", "index": 0 },
     { "name": "limb_top",    "index": 1 },
