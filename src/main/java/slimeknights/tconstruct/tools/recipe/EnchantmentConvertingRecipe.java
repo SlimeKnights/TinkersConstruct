@@ -19,7 +19,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
@@ -44,7 +43,10 @@ import slimeknights.tconstruct.tools.item.ModifierCrystalItem;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /** Recipe for converting enchanted books into modifier crystals */
 public class EnchantmentConvertingRecipe extends AbstractWorktableRecipe {
@@ -161,9 +163,18 @@ public class EnchantmentConvertingRecipe extends AbstractWorktableRecipe {
   /* Display */
 
   @Override
+  public boolean isModifierOutput() {
+    return true;
+  }
+
+  @Override
   public List<ItemStack> getInputTools() {
     if (tools == null) {
-      tools = ForgeRegistries.ENCHANTMENTS.getValues().stream().map(enchantment -> EnchantedBookItem.createForEnchantment(new EnchantmentInstance(enchantment, 1))).toList();
+      Set<ModifierId> modifiers = getModifierOptions(null).stream().map(ModifierEntry::getId).collect(Collectors.toSet());
+      tools = ModifierManager.INSTANCE.getEquivalentEnchantments(modifiers::contains)
+                                      .flatMap(enchantment -> IntStream.rangeClosed(1, enchantment.getMaxLevel())
+                                                                       .mapToObj(level -> EnchantedBookItem.createForEnchantment(new EnchantmentInstance(enchantment, level))))
+                                      .toList();
     }
     return tools;
   }

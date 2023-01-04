@@ -13,7 +13,6 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.network.NetworkEvent.Context;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
-import slimeknights.tconstruct.library.modifiers.ModifierManager.EnchantmentTagMapping;
 import slimeknights.tconstruct.library.utils.GenericTagUtil;
 
 import java.util.Collection;
@@ -35,7 +34,7 @@ public class UpdateModifiersPacket implements IThreadsafePacket {
   /** Map of enchantment to modifier pair */
   private final Map<Enchantment,Modifier> enchantmentMap;
   /** Collection of all enchantment tag mappings */
-  private final Collection<EnchantmentTagMapping> enchantmentTagMappings;
+  private final Map<TagKey<Enchantment>, Modifier> enchantmentTagMappings;
 
   /** Ensures both the modifiers and redirects lists are calculated, allows one packet to be used multiple times without redundant work */
   private void ensureCalculated() {
@@ -96,12 +95,12 @@ public class UpdateModifiersPacket implements IThreadsafePacket {
         getModifier(modifiers, new ModifierId(buffer.readResourceLocation())));
     }
     enchantmentMap = enchantmentBuilder.build();
-    ImmutableList.Builder<EnchantmentTagMapping> enchantmentTagBuilder = ImmutableList.builder();
+    ImmutableMap.Builder<TagKey<Enchantment>, Modifier> enchantmentTagBuilder = ImmutableMap.builder();
     size = buffer.readVarInt();
     for (int i = 0; i < size; i++) {
-      enchantmentTagBuilder.add(new EnchantmentTagMapping(
+      enchantmentTagBuilder.put(
         TagKey.create(Registry.ENCHANTMENT_REGISTRY, buffer.readResourceLocation()),
-        getModifier(modifiers, new ModifierId(buffer.readResourceLocation()))));
+        getModifier(modifiers, new ModifierId(buffer.readResourceLocation())));
     }
     enchantmentTagMappings = enchantmentTagBuilder.build();
   }
@@ -130,9 +129,9 @@ public class UpdateModifiersPacket implements IThreadsafePacket {
       buffer.writeResourceLocation(entry.getValue().getId());
     }
     buffer.writeVarInt(enchantmentTagMappings.size());
-    for (EnchantmentTagMapping mapping : enchantmentTagMappings) {
-      buffer.writeResourceLocation(mapping.tag().location());
-      buffer.writeResourceLocation(mapping.modifier().getId());
+    for (Entry<TagKey<Enchantment>, Modifier> entry : enchantmentTagMappings.entrySet()) {
+      buffer.writeResourceLocation(entry.getKey().location());
+      buffer.writeResourceLocation(entry.getValue().getId());
     }
   }
 

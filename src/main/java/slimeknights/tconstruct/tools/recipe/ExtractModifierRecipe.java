@@ -51,6 +51,11 @@ public class ExtractModifierRecipe extends ModifierRemovalRecipe {
   }
 
   @Override
+  public boolean isModifierOutput() {
+    return true;
+  }
+
+  @Override
   public RecipeSerializer<?> getSerializer() {
     return TinkerModifiers.extractModifierSerializer.get();
   }

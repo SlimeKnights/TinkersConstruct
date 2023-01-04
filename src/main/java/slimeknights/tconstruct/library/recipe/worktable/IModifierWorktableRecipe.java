@@ -97,6 +97,11 @@ public interface IModifierWorktableRecipe extends ICommonRecipe<ITinkerableConta
   /** Gets the number of inputs for this recipe */
   int getInputCount();
 
+  /** If true, the recipe modifier is an output */
+  default boolean isModifierOutput() {
+    return false;
+  }
+
 
   /** Deprecated methods to ignore */
 
