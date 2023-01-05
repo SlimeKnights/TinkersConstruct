@@ -1739,7 +1739,6 @@
   "modifier.tconstruct.haste.flavor": "科学！",
   "modifier.tconstruct.haste.description": "神奇红色粉尘，让工具挥舞、采掘疾如风！",
 
-
   "modifier.tconstruct.blasting": "爆裂",
   "modifier.tconstruct.blasting.flavor": "爆破采矿！",
   "modifier.tconstruct.blasting.description": "你的工具能以更快的速度采掘矿石等爆炸抗性不佳的方块！",
@@ -2616,8 +2615,10 @@
   "recipe.tconstruct.enchantment_converting.slotless.title": "Extract Slotless",
   "recipe.tconstruct.enchantment_converting.abilities.title": "Extract Ability",
   "recipe.tconstruct.enchantment_converting.defense.title": "Extract Defense",
-  "recipe.tconstruct.enchantment_converting.description": "Select a modifier of the given type from the enchanted book to extract as a modifier crystal.",
-  "recipe.tconstruct.enchantment_converting.no_enchantments": "Book does not have any applicable enchantments",
+  "recipe.tconstruct.enchantment_converting.modifiers.title": "Extract Modifier",
+  "recipe.tconstruct.enchantment_converting.description.lost": "Select a modifier of the given type from the enchanted book to extract as a modifier crystal. The enchanted item will be lost.",
+  "recipe.tconstruct.enchantment_converting.description.keep": "Select a modifier of the given type from the enchanted book to extract as a modifier crystal. The item will be returned unenchanted.",
+  "recipe.tconstruct.enchantment_converting.no_enchantments": "Item does not have any applicable enchantments",
   "recipe.tconstruct.enchantment_converting.too_few": "Need to provide more inputs to convert an enchantment of a higher level",
   
   "recipe.tconstruct.part_swapping.too_many_parts": "该工具无法在此切换部件",
