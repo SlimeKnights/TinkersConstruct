@@ -8,9 +8,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import slimeknights.mantle.util.sync.LambdaDataSlot;
-import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.block.entity.table.ModifierWorktableBlockEntity;
 import slimeknights.tconstruct.tables.menu.slot.ArmorSlot;
@@ -40,7 +38,7 @@ public class ModifierWorktableContainerMenu extends TabbedContainerMenu<Modifier
       this.addSlot(this.outputSlot = new LazyResultSlot(tile.getCraftingResult(), 125, 33));
       // inputs
       inputSlots = new ArrayList<>();
-      inputSlots.add(this.addSlot(new TinkerableSlot(this, tile, ModifierWorktableBlockEntity.TINKER_SLOT, 8, 15)));
+      inputSlots.add(this.addSlot(new WorktableSlot(this, tile, ModifierWorktableBlockEntity.TINKER_SLOT, 8, 15)));
       for (int index = 0; index < tile.getContainerSize() - 1; index++) {
         inputSlots.add(this.addSlot(new WorktableSlot(this, tile, index + ModifierWorktableBlockEntity.INPUT_START, 8, 35 + 18*index)));
       }
@@ -114,18 +112,6 @@ public class ModifierWorktableContainerMenu extends TabbedContainerMenu<Modifier
       tile.onSlotChanged(index);
       super.setChanged();
       menu.updateScreen();
-    }
-  }
-
-  private static class TinkerableSlot extends WorktableSlot {
-    public TinkerableSlot(TabbedContainerMenu<?> menu, ModifierWorktableBlockEntity tile, int index, int xPosition, int yPosition) {
-      super(menu, tile, index, xPosition, yPosition);
-    }
-
-    @Override
-    public boolean mayPlace(ItemStack stack) {
-      // TODO: not hardcode this?
-      return stack.is(TinkerTags.Items.MODIFIABLE) || stack.is(Items.ENCHANTED_BOOK);
     }
   }
 }

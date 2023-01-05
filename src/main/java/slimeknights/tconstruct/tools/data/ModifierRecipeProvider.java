@@ -1371,26 +1371,34 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                      .save(consumer, modResource(worktableFolder + "invisible_ink_removing"));
 
     // conversion
-    EnchantmentConvertingRecipe.Builder.converting("slotless")
-                                       .addInput(Items.AMETHYST_SHARD)
-                                       .modifierPredicate(ModifierPredicate.AND.create(new SlotTypeModifierPredicate(null),
-                                                                                       new TagModifierPredicate(TinkerTags.Modifiers.EXTRACT_SLOTLESS_BLACKLIST).inverted()))
-                                       .save(consumer, modResource(worktableFolder + "enchantment_converting/slotless"));
-    EnchantmentConvertingRecipe.Builder.converting("upgrades")
-                                       .addInput(TinkerWorld.skyGeode.asItem())
-                                       .addInput(Tags.Items.GEMS_LAPIS, 3)
-                                       .modifierPredicate(new SlotTypeModifierPredicate(SlotType.UPGRADE))
-                                       .save(consumer, modResource(worktableFolder + "enchantment_converting/upgrade"));
-    EnchantmentConvertingRecipe.Builder.converting("defense")
-                                       .addInput(TinkerWorld.earthGeode.asItem())
-                                       .addInput(Tags.Items.INGOTS_GOLD, 1)
-                                       .modifierPredicate(new SlotTypeModifierPredicate(SlotType.DEFENSE))
-                                       .save(consumer, modResource(worktableFolder + "enchantment_converting/defense"));
-    EnchantmentConvertingRecipe.Builder.converting("abilities")
-                                       .addInput(TinkerWorld.ichorGeode.asItem())
-                                       .addInput(Tags.Items.GEMS_DIAMOND)
-                                       .modifierPredicate(new SlotTypeModifierPredicate(SlotType.ABILITY))
-                                       .save(consumer, modResource(worktableFolder + "enchantment_converting/ability"));
+    for (boolean matchBook : new boolean[]{false, true}) {
+      String suffix = matchBook ? "_book" : "_tool";
+      EnchantmentConvertingRecipe.Builder.converting("slotless", matchBook)
+                                         .addInput(Items.AMETHYST_SHARD)
+                                         .modifierPredicate(ModifierPredicate.AND.create(new SlotTypeModifierPredicate(null),
+                                                                                         new TagModifierPredicate(TinkerTags.Modifiers.EXTRACT_SLOTLESS_BLACKLIST).inverted()))
+                                         .save(consumer, modResource(worktableFolder + "enchantment_converting/slotless" + suffix));
+      EnchantmentConvertingRecipe.Builder.converting("upgrades", matchBook)
+                                         .addInput(TinkerWorld.skyGeode.asItem())
+                                         .addInput(Tags.Items.GEMS_LAPIS, 3)
+                                         .modifierPredicate(new SlotTypeModifierPredicate(SlotType.UPGRADE))
+                                         .save(consumer, modResource(worktableFolder + "enchantment_converting/upgrade" + suffix));
+      EnchantmentConvertingRecipe.Builder.converting("defense", matchBook)
+                                         .addInput(TinkerWorld.earthGeode.asItem())
+                                         .addInput(Tags.Items.INGOTS_GOLD, 1)
+                                         .modifierPredicate(new SlotTypeModifierPredicate(SlotType.DEFENSE))
+                                         .save(consumer, modResource(worktableFolder + "enchantment_converting/defense" + suffix));
+      EnchantmentConvertingRecipe.Builder.converting("abilities", matchBook)
+                                         .addInput(TinkerWorld.ichorGeode.asItem())
+                                         .addInput(Tags.Items.GEMS_DIAMOND)
+                                         .modifierPredicate(new SlotTypeModifierPredicate(SlotType.ABILITY))
+                                         .save(consumer, modResource(worktableFolder + "enchantment_converting/ability" + suffix));
+      EnchantmentConvertingRecipe.Builder.converting("modifiers", matchBook)
+                                         .addInput(TinkerWorld.enderGeode)
+                                         .addInput(Items.DRAGON_BREATH, 5)
+                                         .returnInput()
+                                         .save(consumer, modResource(worktableFolder + "enchantment_converting/unenchant" + suffix));
+    }
 
     // compatability
     String theOneProbe = "theoneprobe";

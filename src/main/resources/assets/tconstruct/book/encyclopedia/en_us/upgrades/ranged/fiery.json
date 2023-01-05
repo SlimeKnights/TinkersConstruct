@@ -8,7 +8,7 @@
   "more_text_space": true,
   "effects": [
     "Can apply levels incrementally",
-    "Levels beyond the first only affect melee",
+    "Maximum of 5 levels",
     "Does not work well with freezing",
     "Requires 1 upgrade slot per level"
   ]
