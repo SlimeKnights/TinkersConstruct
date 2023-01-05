@@ -81,7 +81,7 @@ public class LootModifier extends Modifier implements LootingModifierHook, Harve
       if (json.has("enchantment")) {
         JsonObject enchantmentJson = GsonHelper.getAsJsonObject(json, "enchantment");
         enchantment = JsonHelper.getAsEntry(ForgeRegistries.ENCHANTMENTS, enchantmentJson, "name");
-        enchantmentLevel = GsonHelper.getAsInt(enchantmentJson, "level");
+        enchantmentLevel = GsonHelper.getAsInt(enchantmentJson, "level", 1);
       }
       int looting = GsonHelper.getAsInt(json, "looting", 0);
       ModifierLevelDisplay display = ModifierLevelDisplay.LOADER.getAndDeserialize(json, "level_display");

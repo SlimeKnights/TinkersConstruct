@@ -19,6 +19,7 @@
     "level": 3,
     "error": "recipe.tconstruct.modifier.tool_belt"
   },
+  "allow_crystal": false,
   "result": {
     "name": "tconstruct:tool_belt",
     "level": 1

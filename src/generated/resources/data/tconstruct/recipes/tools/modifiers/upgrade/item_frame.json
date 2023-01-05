@@ -27,6 +27,7 @@
   "slots": {
     "upgrades": 1
   },
+  "allow_crystal": true,
   "result": {
     "name": "tconstruct:item_frame",
     "level": 1

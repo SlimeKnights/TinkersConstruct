@@ -299,7 +299,11 @@ public class TooltipUtil {
           CompoundTag enchantmentTag = enchantments.getCompound(i);
           // TODO: tag to whitelist/blacklist enchantments in the tooltip, depends on which ones we reimplement and which work on their own
           Registry.ENCHANTMENT.getOptional(ResourceLocation.tryParse(enchantmentTag.getString("id")))
-                              .ifPresent(enchantment -> tooltips.add(enchantment.getFullname(enchantmentTag.getInt("lvl"))));
+                              .ifPresent(enchantment -> {
+                                if (enchantment.isCurse()) {
+                                  tooltips.add(enchantment.getFullname(enchantmentTag.getInt("lvl")));
+                                }
+                              });
         }
       }
     }

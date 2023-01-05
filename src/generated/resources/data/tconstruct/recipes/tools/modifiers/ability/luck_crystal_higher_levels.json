@@ -1,0 +1,38 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "tconstruct:ichor_slime_crystal"
+    },
+    {
+      "type": "forge:partial_nbt",
+      "item": "tconstruct:modifier_crystal",
+      "nbt": "{modifier:\"tconstruct:luck\"}"
+    },
+    {
+      "item": "tconstruct:ichor_slime_crystal"
+    }
+  ],
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/melee_or_unarmed"
+    },
+    {
+      "tag": "tconstruct:modifiable/harvest"
+    },
+    {
+      "tag": "tconstruct:modifiable/ranged"
+    }
+  ],
+  "requirements": {
+    "name": "tconstruct:luck",
+    "level": 1,
+    "error": "recipe.tconstruct.modifier.luck.level_2"
+  },
+  "allow_crystal": false,
+  "result": {
+    "name": "tconstruct:luck",
+    "level": 1
+  },
+  "max_level": 3
+}

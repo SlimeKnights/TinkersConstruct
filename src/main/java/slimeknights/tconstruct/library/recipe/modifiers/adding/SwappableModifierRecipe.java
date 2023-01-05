@@ -30,15 +30,21 @@ import java.util.stream.Collectors;
 public class SwappableModifierRecipe extends ModifierRecipe {
   /** Value of the modifier being swapped, distinguishing this recipe from others for the same modifier */
   private final String value;
-  public SwappableModifierRecipe(ResourceLocation id, List<SizedIngredient> inputs, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements, String requirementsError, ModifierId result, String value, @Nullable SlotCount slots) {
-    super(id, inputs, toolRequirement, maxToolSize, requirements, requirementsError, new ModifierEntry(result, 1), 1, slots);
+  public SwappableModifierRecipe(ResourceLocation id, List<SizedIngredient> inputs, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements, String requirementsError, ModifierId result, String value, @Nullable SlotCount slots, boolean allowCrystal) {
+    super(id, inputs, toolRequirement, maxToolSize, requirements, requirementsError, new ModifierEntry(result, 1), 1, slots, allowCrystal);
     this.value = value;
   }
 
-  /**
-   * Gets the recipe result, or an object containing an error message if the recipe matches but cannot be applied.
-   * @return Validated result
-   */
+  /** @deprecated use {@link SwappableModifierRecipe(ResourceLocation, List, Ingredient, int, ModifierMatch, String, ModifierId, String, SlotCount, boolean)} */
+  @Deprecated
+  public SwappableModifierRecipe(ResourceLocation id, List<SizedIngredient> inputs, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements, String requirementsError, ModifierId result, String value, @Nullable SlotCount slots) {
+    this(id, inputs, toolRequirement, maxToolSize, requirements, requirementsError, result, value, slots, false);
+  }
+
+    /**
+     * Gets the recipe result, or an object containing an error message if the recipe matches but cannot be applied.
+     * @return Validated result
+     */
   @Override
   public ValidatedResult getValidatedResult(ITinkerStationContainer inv) {
     ItemStack tinkerable = inv.getTinkerableStack();
@@ -120,7 +126,8 @@ public class SwappableModifierRecipe extends ModifierRecipe {
 																				String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
       List<SizedIngredient> ingredients = JsonHelper.parseList(json, "inputs", SizedIngredient::deserialize);
       String value = GsonHelper.getAsString(GsonHelper.getAsJsonObject(json, "result"), "value");
-      return new SwappableModifierRecipe(id, ingredients, toolRequirement, maxToolSize, requirements, requirementsError, result.getId(), value, slots);
+      boolean allowCrystal = GsonHelper.getAsBoolean(json, "allow_crystal", false);
+      return new SwappableModifierRecipe(id, ingredients, toolRequirement, maxToolSize, requirements, requirementsError, result.getId(), value, slots, allowCrystal);
     }
 
     @Override
@@ -132,7 +139,8 @@ public class SwappableModifierRecipe extends ModifierRecipe {
         builder.add(SizedIngredient.read(buffer));
       }
       String value = buffer.readUtf();
-      return new SwappableModifierRecipe(id, builder.build(), toolRequirement, maxToolSize, requirements, requirementsError, result.getId(), value, slots);
+      boolean allowCrystal = buffer.readBoolean();
+      return new SwappableModifierRecipe(id, builder.build(), toolRequirement, maxToolSize, requirements, requirementsError, result.getId(), value, slots, allowCrystal);
     }
 
     @Override
@@ -143,6 +151,7 @@ public class SwappableModifierRecipe extends ModifierRecipe {
         ingredient.write(buffer);
       }
       buffer.writeUtf(recipe.value);
+      buffer.writeBoolean(recipe.allowCrystal);
     }
   }
 }

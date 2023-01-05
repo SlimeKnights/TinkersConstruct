@@ -125,7 +125,7 @@ public class ModifierAttribute {
   }
 
   /** Gets the UUID from a name */
-  private static UUID getUUID(String name, EquipmentSlot slot) {
+  public static UUID getUUID(String name, EquipmentSlot slot) {
     return UUID.nameUUIDFromBytes((name + "." + slot.getName()).getBytes());
   }
 }

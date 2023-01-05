@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "cyclic:multishot",
+      "required": false
+    },
+    {
+      "id": "ensorcellation:volley",
+      "required": false
+    }
+  ]
+}

@@ -12,6 +12,7 @@
   "slots": {
     "upgrades": 1
   },
+  "allow_crystal": false,
   "result": {
     "name": "tconstruct:hydraulic",
     "level": 1

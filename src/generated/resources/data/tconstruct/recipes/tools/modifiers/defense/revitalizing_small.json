@@ -16,6 +16,7 @@
   "slots": {
     "defense": 1
   },
+  "allow_crystal": true,
   "result": {
     "name": "tconstruct:revitalizing",
     "level": 1

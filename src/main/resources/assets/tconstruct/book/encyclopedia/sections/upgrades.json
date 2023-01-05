@@ -205,6 +205,10 @@
     "data": "upgrades/armor.json"
   },
   {
+    "type": "tconstruct:modifier",
+    "data": "upgrades/armor/depth_strider.json"
+  },
+  {
     "name": "feather_falling",
     "type": "tconstruct:modifier",
     "data": "upgrades/armor/feather_falling.json"

@@ -30,7 +30,7 @@ public abstract class AbstractWorktableRecipe implements IModifierWorktableRecip
 
   /* JEI */
   @Nullable
-  private List<ItemStack> tools;
+  protected List<ItemStack> tools;
 
   @Override
   public boolean matches(ITinkerableContainer inv, Level world) {

@@ -31,6 +31,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.event.GrindstoneEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
@@ -69,7 +70,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.BlockSideHitListener;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.defense.ProjectileProtectionModifier;
-import slimeknights.tconstruct.tools.modifiers.upgrades.armor.HasteArmorModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.armor.HasteModifier;
 
 import java.util.List;
 import java.util.Objects;
@@ -112,7 +113,7 @@ public class ToolEvents {
     }
 
     // next, add in armor haste
-    float armorHaste = ModifierUtil.getTotalModifierFloat(player, HasteArmorModifier.HASTE);
+    float armorHaste = ModifierUtil.getTotalModifierFloat(player, HasteModifier.HASTE);
     if (armorHaste > 0) {
       // adds in 10% per level
       event.setNewSpeed(event.getNewSpeed() * (1 + 0.1f * armorHaste));
@@ -428,6 +429,14 @@ public class ToolEvents {
           }
         }
       }
+    }
+  }
+
+  @SubscribeEvent
+  static void onGrindstoneChange(GrindstoneEvent.OnPlaceItem event) {
+    // no removing enchantments from tools, you must use the modifier to remove them
+    if (event.getTopItem().is(TinkerTags.Items.MODIFIABLE) || event.getBottomItem().is(TinkerTags.Items.MODIFIABLE)) {
+      event.setCanceled(true);
     }
   }
 }

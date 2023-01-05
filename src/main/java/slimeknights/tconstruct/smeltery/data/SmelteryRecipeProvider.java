@@ -2193,6 +2193,12 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                             .setCoolingTime(1)
                             .setCast(Items.GLASS_BOTTLE, true)
                             .save(consumer, modResource(colorFolder + "bottle"));
+    if (slimeType != SlimeType.BLOOD) {
+      ItemCastingRecipeBuilder.basinRecipe(TinkerWorld.slimeDirt.get(slimeType))
+                              .setFluidAndTime(fluid, forgeTag, FluidValues.SLIME_CONGEALED)
+                              .setCast(Blocks.DIRT, true)
+                              .save(consumer, modResource(colorFolder + "dirt"));
+    }
   }
 
   /** Adds recipes for melting slime crystals */

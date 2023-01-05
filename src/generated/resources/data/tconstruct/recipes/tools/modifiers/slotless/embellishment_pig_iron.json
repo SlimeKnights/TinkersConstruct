@@ -25,6 +25,7 @@
       "item": "tconstruct:plate_helmet"
     }
   ],
+  "allow_crystal": false,
   "result": {
     "name": "tconstruct:embellishment",
     "value": "tconstruct:pig_iron"

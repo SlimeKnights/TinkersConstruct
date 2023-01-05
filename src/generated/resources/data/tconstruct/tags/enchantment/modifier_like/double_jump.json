@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "cyclic:launch",
+      "required": false
+    },
+    {
+      "id": "walljump:doublejump",
+      "required": false
+    }
+  ]
+}

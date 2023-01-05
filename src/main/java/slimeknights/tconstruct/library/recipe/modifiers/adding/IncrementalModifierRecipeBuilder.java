@@ -15,7 +15,6 @@ import net.minecraft.world.level.ItemLike;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
-import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.library.utils.JsonUtils;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -117,13 +116,7 @@ public class IncrementalModifierRecipeBuilder extends AbstractModifierRecipeBuil
       throw new IllegalStateException("Must set input");
     }
     ResourceLocation advancementId = buildOptionalAdvancement(id, "modifiers");
-    consumer.accept(new FinishedAdding(id, advancementId, false));
-    if (includeUnarmed) {
-      if (requirements != ModifierMatch.ALWAYS) {
-        throw new IllegalStateException("Cannot use includeUnarmed with requirements");
-      }
-      consumer.accept(new FinishedAdding(new ResourceLocation(id.getNamespace(), id.getPath() + "_unarmed"), null, true));
-    }
+    consumer.accept(new FinishedAdding(id, advancementId, includeUnarmed));
   }
 
   @Override

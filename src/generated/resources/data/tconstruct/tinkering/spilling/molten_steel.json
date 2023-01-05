@@ -18,7 +18,7 @@
     },
     {
       "type": "tconstruct:effect",
-      "name": "tconstruct:replusive",
+      "name": "tconstruct:repulsive",
       "time": 4,
       "level": 2
     }

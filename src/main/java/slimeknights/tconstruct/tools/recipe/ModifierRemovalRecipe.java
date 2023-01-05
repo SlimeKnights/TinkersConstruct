@@ -4,6 +4,8 @@ import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -11,10 +13,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
+import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.json.predicate.modifier.ModifierPredicate;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
@@ -36,6 +40,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
   private static final Component TITLE = TConstruct.makeTranslation("recipe", "remove_modifier.title");
@@ -43,9 +48,21 @@ public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
   private static final Component NO_MODIFIERS = TConstruct.makeTranslation("recipe", "remove_modifier.no_modifiers");
 
   private final List<ItemStack> leftovers;
-  public ModifierRemovalRecipe(ResourceLocation id, List<SizedIngredient> inputs, List<ItemStack> leftovers) {
+  private final IJsonPredicate<ModifierId> modifierPredicate;
+
+  protected final Predicate<ModifierEntry> entryPredicate;
+  private List<ModifierEntry> displayModifiers;
+  public ModifierRemovalRecipe(ResourceLocation id, List<SizedIngredient> inputs, List<ItemStack> leftovers, IJsonPredicate<ModifierId> modifierPredicate) {
     super(id, inputs);
     this.leftovers = leftovers;
+    this.modifierPredicate = modifierPredicate;
+    this.entryPredicate = mod -> modifierPredicate.matches(mod.getId());
+  }
+
+  /** @deprecated use {@link #ModifierRemovalRecipe(ResourceLocation, List, List, IJsonPredicate)} */
+  @Deprecated
+  public ModifierRemovalRecipe(ResourceLocation id, List<SizedIngredient> inputs, List<ItemStack> leftovers) {
+    this(id, inputs, leftovers, ModifierPredicate.ALWAYS);
   }
 
   @Override
@@ -53,9 +70,28 @@ public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
     return TITLE;
   }
 
+  /** Filters the given modifier list */
+  private List<ModifierEntry> filter(List<ModifierEntry> modifiers) {
+    if (modifierPredicate != ModifierPredicate.ALWAYS) {
+      return modifiers.stream().filter(entryPredicate).toList();
+    }
+    return modifiers;
+  }
+
+  @Override
+  public List<ModifierEntry> getModifierOptions(@Nullable ITinkerableContainer inv) {
+    if (inv == null) {
+      if (displayModifiers == null) {
+        displayModifiers = filter(ModifierRecipeLookup.getRecipeModifierList());
+      }
+      return displayModifiers;
+    }
+    return filter(inv.getTinkerable().getUpgrades().getModifiers());
+  }
+
   @Override
   public Component getDescription(@Nullable ITinkerableContainer inv) {
-    if (inv != null && inv.getTinkerable().getUpgrades().isEmpty()) {
+    if (inv != null && inv.getTinkerable().getUpgrades().getModifiers().stream().noneMatch(entryPredicate)) {
       return NO_MODIFIERS;
     }
     return DESCRIPTION;
@@ -133,7 +169,15 @@ public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
     return TinkerModifiers.removeModifierSerializer.get();
   }
 
+  /** Factory interface for modifier removal recipes */
+  @FunctionalInterface
+  public interface ModifierRemovalRecipeFactory {
+    ModifierRemovalRecipe create(ResourceLocation id, List<SizedIngredient> inputs, List<ItemStack> leftovers, IJsonPredicate<ModifierId> modifierPredicate);
+  }
+
+  @RequiredArgsConstructor
   public static class Serializer extends LoggingRecipeSerializer<ModifierRemovalRecipe> {
+    private final ModifierRemovalRecipeFactory factory;
 
     @Override
     public ModifierRemovalRecipe fromJson(ResourceLocation id, JsonObject json) {
@@ -142,7 +186,11 @@ public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
       if (json.has("leftovers")) {
         leftovers = JsonHelper.parseList(json, "leftovers", JsonUtils::convertToItemStack);
       }
-      return new ModifierRemovalRecipe(id, ingredients, leftovers);
+      IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ALWAYS;
+      if (json.has("modifier_predicate")) {
+        modifierPredicate = ModifierPredicate.LOADER.getAndDeserialize(json, "modifier_predicate");
+      }
+      return factory.create(id, ingredients, leftovers, modifierPredicate);
     }
 
     @Nullable
@@ -158,7 +206,8 @@ public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
       for (int i = 0; i < size; i++) {
         leftovers.add(buffer.readItem());
       }
-      return new ModifierRemovalRecipe(id, ingredients.build(), leftovers.build());
+      IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.LOADER.fromNetwork(buffer);
+      return factory.create(id, ingredients.build(), leftovers.build(), modifierPredicate);
     }
 
     @Override
@@ -171,12 +220,20 @@ public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
       for (ItemStack itemStack : recipe.leftovers) {
         buffer.writeItem(itemStack);
       }
+      ModifierPredicate.LOADER.toNetwork(recipe.modifierPredicate, buffer);
     }
   }
 
   @RequiredArgsConstructor(staticName = "removal")
   public static class Builder extends AbstractSizedIngredientRecipeBuilder<Builder> {
+    private final RecipeSerializer<? extends ModifierRemovalRecipe> serializer;
     private final List<ItemStack> leftovers = new ArrayList<>();
+    @Setter @Accessors(fluent = true)
+    private IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ALWAYS;
+
+    public static Builder removal() {
+      return removal(TinkerModifiers.removeModifierSerializer.get());
+    }
 
     /** Adds a leftover stack to the recipe */
     public Builder addLeftover(ItemStack stack) {
@@ -218,11 +275,12 @@ public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
           }
           json.add("leftovers", array);
         }
+        json.add("modifier_predicate", ModifierPredicate.LOADER.serialize(modifierPredicate));
       }
 
       @Override
       public RecipeSerializer<?> getType() {
-        return TinkerModifiers.removeModifierSerializer.get();
+        return serializer;
       }
     }
   }

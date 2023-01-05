@@ -25,6 +25,7 @@
       "item": "tconstruct:slime_helmet"
     }
   ],
+  "allow_crystal": false,
   "result": {
     "name": "tconstruct:embellishment",
     "value": "tconstruct:earthslime"

@@ -7,5 +7,8 @@
   ],
   "leftovers": [
     "minecraft:sponge"
-  ]
+  ],
+  "modifier_predicate": {
+    "type": "tconstruct:always"
+  }
 }
