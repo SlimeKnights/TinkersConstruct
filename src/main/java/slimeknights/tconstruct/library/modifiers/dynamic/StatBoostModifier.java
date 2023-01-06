@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.modifiers.dynamic;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import lombok.AccessLevel;
@@ -12,12 +13,14 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
+import net.minecraftforge.common.ToolAction;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -40,6 +43,7 @@ import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.function.BiConsumer;
 
 /**
@@ -60,6 +64,8 @@ public class StatBoostModifier extends IncrementalModifier {
   private final ModifierLevelDisplay levelDisplay;
   /** Determines if this modifier displays */
   private final ModifierDisplay modifierDisplay;
+  /** List of extra tool actions this tool can perform */
+  private final Set<ToolAction> actions;
 
   /** Creates a new builder instance */
   public static Builder builder() {
@@ -95,6 +101,11 @@ public class StatBoostModifier extends IncrementalModifier {
     for (ModifierAttribute attribute : attributes) {
       attribute.apply(tool, scaledLevel, slot, consumer);
     }
+  }
+
+  @Override
+  public boolean canPerformAction(IToolStackView tool, int level, ToolAction toolAction) {
+    return actions.contains(toolAction);
   }
 
   @Override
@@ -150,7 +161,11 @@ public class StatBoostModifier extends IncrementalModifier {
       if (json.has("modifier_display")) {
         modifierDisplay = JsonHelper.getAsEnum(json, "modifier_display", ModifierDisplay.class);
       }
-      return new StatBoostModifier(rarity, stats, attributes, flags, display, modifierDisplay);
+      Set<ToolAction> actions = Collections.emptySet();
+      if (json.has("tool_actions")) {
+        actions = ImmutableSet.copyOf(JsonHelper.parseList(json, "tool_actions", (element, name) -> ToolAction.get(GsonHelper.convertToString(element, name))));
+      }
+      return new StatBoostModifier(rarity, stats, attributes, flags, display, modifierDisplay, actions);
     }
 
     @Override
@@ -183,6 +198,13 @@ public class StatBoostModifier extends IncrementalModifier {
       if (object.modifierDisplay != ModifierDisplay.ALWAYS) {
         json.addProperty("modifier_display", object.modifierDisplay.getName());
       }
+      if (!object.actions.isEmpty()) {
+        JsonArray actions = new JsonArray();
+        for (ToolAction action : object.actions) {
+          actions.add(action.name());
+        }
+        json.add("tool_actions", actions);
+      }
     }
 
     @Override
@@ -208,7 +230,12 @@ public class StatBoostModifier extends IncrementalModifier {
       }
       ModifierLevelDisplay levelDisplay = ModifierLevelDisplay.LOADER.fromNetwork(buffer);
       ModifierDisplay modifierDisplay = buffer.readEnum(ModifierDisplay.class);
-      return new StatBoostModifier(rarity, stats.build(), attributes.build(), flags.build(), levelDisplay, modifierDisplay);
+      size = buffer.readVarInt();
+      ImmutableSet.Builder<ToolAction> actions = ImmutableSet.builder();
+      for (int i = 0; i < size; i++) {
+        actions.add(ToolAction.get(buffer.readUtf(Short.MAX_VALUE)));
+      }
+      return new StatBoostModifier(rarity, stats.build(), attributes.build(), flags.build(), levelDisplay, modifierDisplay, actions.build());
     }
 
     @Override
@@ -233,6 +260,10 @@ public class StatBoostModifier extends IncrementalModifier {
       }
       ModifierLevelDisplay.LOADER.toNetwork(object.levelDisplay, buffer);
       buffer.writeEnum(object.modifierDisplay);
+      buffer.writeVarInt(object.actions.size());
+      for (ToolAction action : object.actions) {
+        buffer.writeUtf(action.name());
+      }
     }
   };
 
@@ -248,6 +279,8 @@ public class StatBoostModifier extends IncrementalModifier {
     private final ImmutableList.Builder<ModifierAttribute> attributes = ImmutableList.builder();
     /** List of flags to set */
     private final ImmutableList.Builder<ResourceLocation> flags = ImmutableList.builder();
+    /** List of flags to set */
+    private final ImmutableSet.Builder<ToolAction> actions = ImmutableSet.builder();
     /** Display for the level */
     @Setter
     private ModifierLevelDisplay display = ModifierLevelDisplay.DEFAULT;
@@ -304,9 +337,15 @@ public class StatBoostModifier extends IncrementalModifier {
       return this;
     }
 
+    /** Adds the given flag to the builder */
+    public Builder addAction(ToolAction action) {
+      this.actions.add(action);
+      return this;
+    }
+
     /** Builds the final modifier */
     public StatBoostModifier build() {
-      return new StatBoostModifier(rarity, boosts.build(), attributes.build(), flags.build(), display, modifierDisplay);
+      return new StatBoostModifier(rarity, boosts.build(), attributes.build(), flags.build(), display, modifierDisplay, actions.build());
     }
   }
 }
