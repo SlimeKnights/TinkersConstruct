@@ -2616,8 +2616,8 @@
   "recipe.tconstruct.enchantment_converting.abilities.title": "能力强化提取",
   "recipe.tconstruct.enchantment_converting.defense.title": "防御强化提取",
   "recipe.tconstruct.enchantment_converting.modifiers.title": "强化提取",
-  "recipe.tconstruct.enchantment_converting.description.lost": "从附魔书中选择给定类型的强化作为强化水晶提取。附魔物品将会消失。",
-  "recipe.tconstruct.enchantment_converting.description.keep": "从附魔书中选择给定类型的强化作为强化水晶提取。该物品的魔咒将会移除并返还。",
+  "recipe.tconstruct.enchantment_converting.description.lost": "从附魔书中选取给定类型的强化并提取为强化水晶。附魔物品将会消失。",
+  "recipe.tconstruct.enchantment_converting.description.keep": "从附魔书中选取给定类型的强化并提取为强化水晶。该物品的魔咒将会移除并返还。",
   "recipe.tconstruct.enchantment_converting.no_enchantments": "物品没有任何可提取的魔咒",
   "recipe.tconstruct.enchantment_converting.too_few": "需要更多的配方物品以转换更高等级的魔咒",
   
