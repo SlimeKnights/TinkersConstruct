@@ -743,13 +743,13 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .saveSalvage(consumer, prefix(TinkerModifiers.thorns, upgradeSalvage))
                                     .save(consumer, prefix(TinkerModifiers.thorns, upgradeFolder));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.sticky)
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.sticky)
                                     .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.ARMOR))
                                     .setInput(Blocks.COBWEB, 1, 5)
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .setMaxLevel(3)
-                                    .saveSalvage(consumer, prefix(TinkerModifiers.sticky, upgradeSalvage))
-                                    .save(consumer, prefix(TinkerModifiers.sticky, upgradeFolder));
+                                    .saveSalvage(consumer, prefix(ModifierIds.sticky, upgradeSalvage))
+                                    .save(consumer, prefix(ModifierIds.sticky, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.springy)
                          .setTools(TinkerTags.Items.ARMOR)
                          .addInput(Items.PISTON)
