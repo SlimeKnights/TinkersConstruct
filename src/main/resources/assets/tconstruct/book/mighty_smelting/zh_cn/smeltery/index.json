@@ -1,0 +1,10 @@
+{
+  "title": "冶炼炉",
+  "subText": "庞大的冶炼炉为你所用。",
+  "hidden": ["structurereq", "sgui2"],
+  "operations": [
+    { "before": "features",     "action": "add_group", "data": "详细信息" },
+    { "before": "seared_tanks", "action": "column_break" },
+    { "before": "seared_tanks", "action": "add_group", "data": "方块" }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "title": "焦褐合金炉",
+  "image": {
+    "file": "tconstruct:book/images/alloyer.png"
+  },
+  "text": [
+    {
+      "text": "合金搞起！",
+      "paragraph": true
+    }
+	]
+}

@@ -1,0 +1,8 @@
+{
+    "title": "入门熔炼术",
+    "recipe": "tconstruct:common/puny_smelting",
+    "grid_size": "small",
+    "description": [
+        { "text": "初学者的冶炼和铸造指南，Thruul M'Gon所著 系列中，首本探讨冶炼炉的书籍。" }
+    ]
+}

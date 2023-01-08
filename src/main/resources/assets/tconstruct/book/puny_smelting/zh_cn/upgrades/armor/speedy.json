@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:speedy",
+  "text": [
+    {
+      "text": "要加速了。"
+    }
+  ],
+  "effects": [
+    "增加移动速度",
+    "多个等级，每级增加速度",
+    "每级需要1个升级槽"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+    "title": "工匠装置宝典",
+    "recipe": "tconstruct:common/tinkers_gadgetry",
+    "grid_size": "small",
+    "description": [
+        { "text": "黏液在日常事物中的妙用。由Melvin所著，探讨如何在世界中寻找材料进行修补的书籍。" }
+    ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:unarmed",
+  "text": [
+    {
+      "text": "可以通过加持强化的形式增强空手攻击伤害，同时允许你用副手进行攻击。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "单个等级",
+    "需要1个能力槽"
+  ]
+}

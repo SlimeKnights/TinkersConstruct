@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:item_frame",
+  "text": [
+    {
+      "text": "给头盔增加展示用的物品栏位，戴上头盔后物品栏位会在UI上显示。"
+    },
+    {
+      "text": "手持头盔时按下“交互”键可以打开物品栏位。", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "每级需要1个升级槽"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "title": "焦黑储罐",
+  "item": {
+    "tag": "tconstruct:seared_tanks"
+  },
+  "text": [
+    {
+      "text": "储罐是储存熔融流体和燃料的绝佳容器。如果你想要在冶炼炉中熔炼金属的话，它们不可或缺！储罐也可储存冶炼炉中的熔融材料。",
+      "paragraph": true
+    },
+    {
+      "text": "焦黑储罐不能用于搭建冶炼炉底板。",
+      "paragraph": true
+    }
+  ]
+}

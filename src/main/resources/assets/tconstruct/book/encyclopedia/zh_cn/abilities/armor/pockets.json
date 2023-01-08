@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:pockets",
+  "text": [
+    {
+      "text": "增加9个物品储存槽位，手持护腿时按住潜行键并按下“护腿交互”键即可打开。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "需要1个能力槽"
+  ]
+}

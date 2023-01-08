@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:sticky",
+  "text": [
+    {
+      "text": "被攻击时，第1级强化有25%概率给予攻击者1.5秒的缓慢效果，之后每级增加1秒。"
+    },
+    {
+      "text": "这个强化装载在武器上时，则改为给予攻击目标缓慢效果。", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最高3级",
+    "每级需要1个强化槽"
+  ]
+}

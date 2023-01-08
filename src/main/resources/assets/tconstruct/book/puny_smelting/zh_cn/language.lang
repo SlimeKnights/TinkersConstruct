@@ -1,0 +1,19 @@
+// Sections - Puny Smelting
+intro=介绍
+melter=熔化炉
+moving_fluids=流体的转移
+casting=浇铸
+tier_two_materials=二级材料
+
+upgrades=升级
+upgrades.subtext=工具可被升级强化，不过一把工具能加持的升级数量是有限的。
+upgrades.group_general=通用升级
+upgrades.group_harvest=采掘升级
+upgrades.group_weapon=武器升级
+upgrades.group_damage=额外伤害升级
+upgrades.group_armor=盔甲升级
+
+slotless=无槽位强化
+slotless.subtext=这些强化不需要任何槽位就能加持，你愿意的话可以都加上。
+slotless.group_slotless=无槽位强化
+slotless.group_bonus_upgrades=附加强化

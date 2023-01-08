@@ -1,0 +1,12 @@
+{
+    "title": "部件制造台",
+    "image": {
+        "file": "tconstruct:book/images/partbuilder.png",
+        "width": 170,
+        "height": 64
+    },
+    "text": [{
+        "text": "制作部件极其简单：制作一个空白模具，将其放入模具槽。选择你想制作的工具部件，然后再放入一种徒手可以塑型的软性材料，就可以获得部件了。",
+        "paragraph": true
+    }]
+}

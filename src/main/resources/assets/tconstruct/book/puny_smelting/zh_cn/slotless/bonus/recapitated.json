@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:recapitated",
+  "text": [
+    {
+      "text": "所以你想把它们的头取下来，现在你又想把这些头拼回去？你难道是科学怪人吗？"
+    }
+  ],
+  "effects": [
+    "增加1个升级槽",
+    "单次使用"
+  ]
+}

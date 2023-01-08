@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:springy",
+  "text": [
+    {
+      "text": "被攻击时，有25%概率击退攻击者，每级增加2格最大击退距离。效果由强化等级最高的盔甲决定。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "可以逐级强化",
+    "最高3级",
+    "每级需要1个升级槽"
+  ]
+}

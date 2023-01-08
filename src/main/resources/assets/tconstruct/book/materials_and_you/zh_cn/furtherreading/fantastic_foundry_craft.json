@@ -1,0 +1,8 @@
+{
+    "title": "奇异熔铸术",
+    "recipe": "tconstruct:common/fantastic_foundry",
+    "grid_size": "small",
+    "description": [
+        { "text": "熔融金属中最热门的新技术。跳过冶炼炉，从熔铸炉开始！" }
+    ]
+}

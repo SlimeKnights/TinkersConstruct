@@ -1,0 +1,12 @@
+{
+  "title": "石英手里剑",
+  "item": {
+    "id": "tconstruct:quartz_shuriken"
+  },
+  "text": [
+    {
+      "text": "石英比燧石更轻盈，也更锋利。石英制成的手里剑可以对怪物造成更多伤害，不过击退效果会稍微变小。",
+      "paragraph": true
+    }
+  ]
+}

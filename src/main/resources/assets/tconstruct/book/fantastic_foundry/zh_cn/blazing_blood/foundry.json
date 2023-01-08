@@ -1,0 +1,14 @@
+{
+  "title": "熔铸炉",
+  "image": {
+    "file": "tconstruct:book/images/blaze_smeltery.png",
+    "width": 128,
+    "height": 73
+  },
+  "text": [
+    {
+      "text": "真正的工匠大师会带着熔铸炉去找烈焰人。只需加入燃料，那些愚蠢的烈焰人还没意识到发生了什么，就会被炉子熔化掉。也许用那个更低级的冶炼炉也能做这事，不过何苦呢？",
+      "paragraph": true
+    }
+  ]
+}

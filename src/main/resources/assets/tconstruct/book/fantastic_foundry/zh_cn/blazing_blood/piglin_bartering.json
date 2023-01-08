@@ -1,0 +1,14 @@
+{
+  "title": "猪灵以物易物",
+  "image": {
+    "file": "tconstruct:book/images/bartering.png",
+    "width": 128,
+    "height": 82
+  },
+  "text": [
+    {
+      "text": "哦，你是和平主义者？这样的话，我看到过那些猪灵带着一些装着烈焰血的灯笼，我觉得是拿来照明用的。没准它们会拿这个跟你交换呢。",
+      "paragraph": true
+    }
+  ]
+}

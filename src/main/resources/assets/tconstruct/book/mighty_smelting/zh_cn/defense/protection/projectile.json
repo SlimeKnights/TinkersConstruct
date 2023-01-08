@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:projectile_protection",
+  "text": [
+    {
+      "text": "对“我膝盖中了一箭”这种远程伤害不具防护能力。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "减少来自弹射物的伤害",
+    "多个等级，每级增加防御能力",
+    "需要1个防御槽"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:magic_protection",
+  "text": [
+    {
+      "text": "哈利，如果你老是得用这个的话，那你作为魔法师的水平还有待提高。多用用铁甲咒。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "减少魔法伤害",
+    "多个等级，每级增加防御能力",
+    "需要1个防御槽"
+  ]
+}

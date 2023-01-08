@@ -1,0 +1,11 @@
+{
+  "title": "实体熔炼",
+  "image": {
+    "file": "tconstruct:book/images/entitymelting.png"
+  },
+  "text": [
+    {
+      "text": "冶炼炉可用于熔尽实体无用部分并收集其中精华。"
+    }
+  ]
+}

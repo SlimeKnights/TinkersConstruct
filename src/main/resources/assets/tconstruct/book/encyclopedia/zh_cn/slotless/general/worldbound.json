@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:worldbound",
+  "text": [
+    {
+      "text": "无需消耗升级槽，就可以使工具在掉落物状态下无敌，类似弱化版下界合金的效果。并不会提供数值强度加成。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "单次使用",
+    "无需槽位"
+  ]
+}

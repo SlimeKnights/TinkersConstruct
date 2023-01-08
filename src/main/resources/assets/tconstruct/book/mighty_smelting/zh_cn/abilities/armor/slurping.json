@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:slurping",
+  "text": [
+    {
+      "text": "他是第一名！"
+    },
+    {
+      "text": "手持头盔右击储罐以填充",
+      "paragraph": true
+    }
+  ],
+  "effects": [
+    "饮用头盔中储存的流体",
+    "使用“头盔交互”按键饮用",
+    "单个等级",
+    "需要1个能力槽"
+  ]
+}

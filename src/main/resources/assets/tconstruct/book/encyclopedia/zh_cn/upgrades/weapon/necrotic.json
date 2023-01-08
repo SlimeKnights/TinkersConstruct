@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:necrotic",
+  "text": [
+    {
+      "text": "造成伤害时，有一定概率按比例回复自身生命值，每级回复量在0%到5%之间。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最高5级",
+    "每级需要1个升级槽"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "title": "精致物品展示框",
+  "image": {
+    "file": "tconstruct:book/images/fancy_frames.png",
+    "width": 140,
+    "height": 82
+  },
+  "text": [
+    {
+      "text": "我用一些不太常见的金属创造了许多独特的物品展示框。"
+    }
+  ]
+}
