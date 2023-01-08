@@ -128,6 +128,7 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
       // if we have ammo, start charging
       if (BowAmmoModifierHook.hasAmmo(tool, bow, player, getSupportedHeldProjectiles())) {
         player.startUsingItem(hand);
+        ModifierUtil.checkFastUsingItem(tool, player);
         float drawspeed = ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.DRAW_SPEED) / 20f;
         player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.put(DRAWSPEED, drawspeed));
         // we want an int version to make sounds more precise
@@ -244,6 +245,7 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
 
   @Override
   public void releaseUsing(ItemStack bow, Level level, LivingEntity living, int chargeRemaining) {
+    ModifierUtil.finishUsingItem(living);
     if (!(living instanceof Player player)) {
       return;
     }
