@@ -82,6 +82,7 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
       return InteractionResultHolder.fail(bow);
     }
     player.startUsingItem(hand);
+    ModifierUtil.checkFastUsingItem(tool, player);
     // property for scope, release, and item model
     float drawspeed = ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.DRAW_SPEED) / 20f;
     player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.put(DRAWSPEED, drawspeed));
@@ -94,11 +95,18 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
   }
 
   @Override
+  public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity living) {
+    ModifierUtil.finishUsingItem(living);
+    return super.finishUsingItem(stack, level, living);
+  }
+
+  @Override
   public void releaseUsing(ItemStack bow, Level level, LivingEntity living, int timeLeft) {
     // clear zoom regardless, does not matter if the tool broke, we should not be zooming
     if (level.isClientSide) {
       living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).remove(SCOPE));
     }
+    ModifierUtil.finishUsingItem(living);
 
     // need player
     if (!(living instanceof Player player)) {

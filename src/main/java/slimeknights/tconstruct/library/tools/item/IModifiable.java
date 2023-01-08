@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.library.tools.item;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
@@ -19,6 +19,8 @@ public interface IModifiable extends ItemLike {
   ResourceLocation DEFER_OFFHAND = TConstruct.getResource("defer_offhand");
   /** Modifier key to entirely disable tool interaction */
   ResourceLocation NO_INTERACTION = TConstruct.getResource("no_interaction");
+  /** Modifier key to allow fast movement when using an item */
+  ResourceLocation FAST_USE_ITEM = TConstruct.getResource("fast_use_item");
 
   /** Gets the definition of this tool for building and applying modifiers */
   ToolDefinition getToolDefinition();
