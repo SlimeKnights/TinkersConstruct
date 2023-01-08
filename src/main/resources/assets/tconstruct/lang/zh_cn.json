@@ -252,7 +252,7 @@
   "item.tconstruct.dragon_scale.tooltip": "从末影龙身上炸下来的",
 
   "item.tconstruct.modifier_crystal": "强化水晶",
-  "item.tconstruct.modifier_crystal.format": "%s水晶",
+  "item.tconstruct.modifier_crystal.format": "%s 水晶",
   "item.tconstruct.modifier_crystal.missing": "定义强化类型的NBT缺失或无效",
   "item.tconstruct.modifier_crystal.tooltip": "加持于工具后对应强化等级增加1级并消耗相应的强化槽。",
 
