@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:depth_strider",
   "text": [
     {
-      "text": "Reduces the penalty of moving underwater by 33% per level. At level 3, there is no underwater movement penalty."
+      "text": "每一等级会减少33%水中移速减益。第3级时，抵消在水中的移速减益。"
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Maximum of 3 levels",
-    "Requires 1 upgrade slot per level"
+    "最高3级",
+    "每级需要1个升级槽"
   ]
 }

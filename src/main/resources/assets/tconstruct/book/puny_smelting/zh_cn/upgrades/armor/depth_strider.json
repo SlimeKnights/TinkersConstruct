@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:depth_strider",
   "text": [
     {
-      "text": "This is either madness or brilliance. Its remarkable how often those two traits coincide."
+      "text": "这要么是疯狂，要么是辉煌。值得注意的是，这两个特征经常重合。"
     }
   ],
   "effects": [
-    "Increases movement speed underwater",
-    "Multiple levels, each level further increases speed",
-    "Requires 1 Upgrade Slot per level"
+    "增加水下移动速度",
+    "多个等级，每级进一步增加水下移动速度",
+    "每级需要1个升级槽"
   ]
 }
