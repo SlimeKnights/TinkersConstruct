@@ -129,7 +129,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ToolStats.MINING_SPEED, 1.1f)
       .multiplier(ToolStats.ATTACK_DAMAGE, 1.1f)
       // traits
-      .trait(TinkerModifiers.knockback, 1)
+      .trait(ModifierIds.sticky, 1)
       .trait(TinkerModifiers.tilling)
       // harvest
       .action(ToolActions.AXE_DIG)
@@ -378,7 +378,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .startingSlots(SlotType.UPGRADE, 1)
       // traits
       .trait(TinkerModifiers.firestarter)
-      .trait(TinkerModifiers.fiery);
+      .trait(TinkerModifiers.fiery)
+      .trait(ModifierIds.scorching);
 
 
     // travelers armor

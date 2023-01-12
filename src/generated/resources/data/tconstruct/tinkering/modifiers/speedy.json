@@ -8,6 +8,7 @@
       "operation": "multiply_total",
       "amount": 0.1,
       "slots": [
+        "mainhand",
         "feet",
         "legs",
         "chest",
