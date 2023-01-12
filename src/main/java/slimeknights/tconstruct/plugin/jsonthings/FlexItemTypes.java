@@ -16,8 +16,22 @@ import slimeknights.tconstruct.plugin.jsonthings.item.FlexModifiableCrossbowItem
 import slimeknights.tconstruct.plugin.jsonthings.item.FlexModifiableItem;
 import slimeknights.tconstruct.plugin.jsonthings.item.FlexToolPartItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /** Collection of custom item types added by Tinkers */
 public class FlexItemTypes {
+  /** All bow items that need their predicate registered */
+  static final List<Item> BOW_ITEMS = new ArrayList<>();
+  /** All crossbow items that need their predicate registered */
+  static final List<Item> CROSSBOW_ITEMS = new ArrayList<>();
+
+  /** Adds a thing to a list so we can fetch the instances later */
+  private static <T> T add(List<? super T> list, T item) {
+    list.add(item);
+    return item;
+  }
+
   /** Register a modifiable tool instance for melee/harvest tools */
   public static final ItemType<FlexToolPartItem> TOOL_PART = register("tool_part", data -> {
     MaterialStatsId statType = new MaterialStatsId(JsonHelper.getResourceLocation(data, "stat_type"));
@@ -34,14 +48,15 @@ public class FlexItemTypes {
   /** Register a modifiable tool instance for bow like items (release on finish) */
   public static final ItemType<FlexModifiableBowItem> BOW = register("bow", data -> {
     IToolStatProvider statProvider = data.has("stat_provider") ? ToolStatProviders.REGISTRY.deserialize(data, "stat_provider") : ToolStatProviders.RANGED;
-    return (props, builder) -> new FlexModifiableBowItem(props, ToolDefinition.builder(builder.getRegistryName()).setStatsProvider(statProvider).build());
+    return (props, builder) -> add(BOW_ITEMS, new FlexModifiableBowItem(props, ToolDefinition.builder(builder.getRegistryName()).setStatsProvider(statProvider).build()));
   });
 
   /** Register a modifiable tool instance for crossbow like items (load on finish) */
   public static final ItemType<FlexModifiableCrossbowItem> CROSSBOW = register("crossbow", data -> {
     IToolStatProvider statProvider = data.has("stat_provider") ? ToolStatProviders.REGISTRY.deserialize(data, "stat_provider") : ToolStatProviders.RANGED;
     boolean allowFireworks = GsonHelper.getAsBoolean(data, "allow_fireworks");
-    return (props, builder) -> new FlexModifiableCrossbowItem(props, ToolDefinition.builder(builder.getRegistryName()).setStatsProvider(statProvider).build(), allowFireworks);
+    return (props, builder) -> add(allowFireworks ? CROSSBOW_ITEMS : BOW_ITEMS,
+                                   new FlexModifiableCrossbowItem(props, ToolDefinition.builder(builder.getRegistryName()).setStatsProvider(statProvider).build(), allowFireworks));
   });
 
   /** Initializes the item types */
