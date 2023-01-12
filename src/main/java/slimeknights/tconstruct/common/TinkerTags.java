@@ -358,6 +358,11 @@ public class TinkerTags {
     /** Any modifiable bows that store an arrow then fire on next use */
     public static final TagKey<Item> CROSSBOWS = tag("modifiable/ranged/crossbows");
 
+    /** Tools that can receive metal based embellishments */
+    public static final TagKey<Item> EMBELLISHMENT_METAL = tag("modifiable/embellishment/metal");
+    /** Tools that can receive slime based embellishments */
+    public static final TagKey<Item> EMBELLISHMENT_SLIME = tag("modifiable/embellishment/slime");
+
     /** Tag so mods like thermal know our scyhtes can harvest */
     public static final TagKey<Item> SCYTHES = forgeTag("tools/scythe");
 

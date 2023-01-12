@@ -1421,63 +1421,61 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     consumer.accept(new ArmorDyeingRecipe.Finished(modResource(folder + "travelers_dyeing"), Ingredient.of(TinkerTools.travelersGear.values().stream().map(ItemStack::new))));
 
     // plate //
-    Ingredient plate = Ingredient.of(TinkerTools.plateArmor.values().stream().map(ItemStack::new));
     // tier 2
-    plateTexture(consumer, plate, MaterialIds.iron,   false, folder);
+    plateTexture(consumer, MaterialIds.iron,   false, folder);
     SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment, MaterialIds.oxidizedIron.toString())
-                                  .setTools(plate)
+                                  .setTools(TinkerTags.Items.EMBELLISHMENT_METAL)
                                   .addInput(Tags.Items.RAW_MATERIALS_IRON).addInput(Tags.Items.RAW_MATERIALS_IRON).addInput(Tags.Items.RAW_MATERIALS_IRON)
                                   .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_iron_oxidized"));
-    plateTexture(consumer, plate, MaterialIds.copper, false, folder);
+    plateTexture(consumer, MaterialIds.copper, false, folder);
     SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment, MaterialIds.oxidizedCopper.toString())
-                                  .setTools(plate)
+                                  .setTools(TinkerTags.Items.EMBELLISHMENT_METAL)
                                   .addInput(Tags.Items.RAW_MATERIALS_COPPER).addInput(Tags.Items.RAW_MATERIALS_COPPER).addInput(Tags.Items.RAW_MATERIALS_COPPER)
                                   .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_copper_oxidized"));
     // tier 3
-    plateTexture(consumer, plate, MaterialIds.slimesteel,    false, folder);
-    plateTexture(consumer, plate, MaterialIds.amethystBronze, false, folder);
-    plateTexture(consumer, plate, MaterialIds.roseGold,      false, folder);
-    plateTexture(consumer, plate, MaterialIds.pigIron,       false, folder);
+    plateTexture(consumer, MaterialIds.slimesteel,    false, folder);
+    plateTexture(consumer, MaterialIds.amethystBronze, false, folder);
+    plateTexture(consumer, MaterialIds.roseGold,      false, folder);
+    plateTexture(consumer, MaterialIds.pigIron,       false, folder);
     SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment, MaterialIds.obsidian.toString())
-                                  .setTools(plate)
+                                  .setTools(TinkerTags.Items.EMBELLISHMENT_METAL)
                                   .addInput(TinkerCommons.obsidianPane).addInput(TinkerCommons.obsidianPane).addInput(TinkerCommons.obsidianPane)
                                   .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_obsidian"));
     // tier 4
-    plateTexture(consumer, plate, MaterialIds.debris, "nuggets/netherite_scrap", false, folder);
-    plateTexture(consumer, plate, MaterialIds.manyullyn, false, folder);
-    plateTexture(consumer, plate, MaterialIds.hepatizon, false, folder);
-    plateTexture(consumer, plate, MaterialIds.netherite, "nuggets/netherite", false, folder);
+    plateTexture(consumer, MaterialIds.debris, "nuggets/netherite_scrap", false, folder);
+    plateTexture(consumer, MaterialIds.manyullyn, false, folder);
+    plateTexture(consumer, MaterialIds.hepatizon, false, folder);
+    plateTexture(consumer, MaterialIds.netherite, "nuggets/netherite", false, folder);
     // tier 2 compat
-    plateTexture(consumer, plate, MaterialIds.osmium,   true, folder);
-    plateTexture(consumer, plate, MaterialIds.tungsten, true, folder);
-    plateTexture(consumer, plate, MaterialIds.platinum, true, folder);
-    plateTexture(consumer, plate, MaterialIds.silver,   true, folder);
-    plateTexture(consumer, plate, MaterialIds.lead,     true, folder);
-    plateTexture(consumer, plate, MaterialIds.aluminum, true, folder);
-    plateTexture(consumer, plate, MaterialIds.nickel,   true, folder);
-    plateTexture(consumer, plate, MaterialIds.tin,      true, folder);
-    plateTexture(consumer, plate, MaterialIds.zinc,     true, folder);
-    plateTexture(consumer, plate, MaterialIds.uranium,  true, folder);
+    plateTexture(consumer, MaterialIds.osmium,   true, folder);
+    plateTexture(consumer, MaterialIds.tungsten, true, folder);
+    plateTexture(consumer, MaterialIds.platinum, true, folder);
+    plateTexture(consumer, MaterialIds.silver,   true, folder);
+    plateTexture(consumer, MaterialIds.lead,     true, folder);
+    plateTexture(consumer, MaterialIds.aluminum, true, folder);
+    plateTexture(consumer, MaterialIds.nickel,   true, folder);
+    plateTexture(consumer, MaterialIds.tin,      true, folder);
+    plateTexture(consumer, MaterialIds.zinc,     true, folder);
+    plateTexture(consumer, MaterialIds.uranium,  true, folder);
     // tier 3 compat
-    plateTexture(consumer, plate, MaterialIds.steel,      true, folder);
-    plateTexture(consumer, plate, MaterialIds.bronze,     true, folder);
-    plateTexture(consumer, plate, MaterialIds.constantan, true, folder);
-    plateTexture(consumer, plate, MaterialIds.invar,      true, folder);
-    plateTexture(consumer, plate, MaterialIds.electrum,   true, folder);
-    plateTexture(consumer, plate, MaterialIds.brass,      true, folder);
+    plateTexture(consumer, MaterialIds.steel,      true, folder);
+    plateTexture(consumer, MaterialIds.bronze,     true, folder);
+    plateTexture(consumer, MaterialIds.constantan, true, folder);
+    plateTexture(consumer, MaterialIds.invar,      true, folder);
+    plateTexture(consumer, MaterialIds.electrum,   true, folder);
+    plateTexture(consumer, MaterialIds.brass,      true, folder);
 
     // slimesuit //
-    Ingredient slimesuit = Ingredient.of(TinkerTools.slimesuit.values().stream().map(ItemStack::new));
-    slimeTexture(consumer, slimesuit, MaterialIds.earthslime, SlimeType.EARTH, folder);
-    slimeTexture(consumer, slimesuit, MaterialIds.skyslime,   SlimeType.SKY, folder);
-    slimeTexture(consumer, slimesuit, MaterialIds.blood,      SlimeType.BLOOD, folder);
-    slimeTexture(consumer, slimesuit, MaterialIds.ichor,      SlimeType.ICHOR, folder);
+    slimeTexture(consumer, MaterialIds.earthslime, SlimeType.EARTH, folder);
+    slimeTexture(consumer, MaterialIds.skyslime,   SlimeType.SKY, folder);
+    slimeTexture(consumer, MaterialIds.blood,      SlimeType.BLOOD, folder);
+    slimeTexture(consumer, MaterialIds.ichor,      SlimeType.ICHOR, folder);
     SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment, MaterialIds.clay.toString())
-                                  .setTools(slimesuit)
+                                  .setTools(TinkerTags.Items.EMBELLISHMENT_SLIME)
                                   .addInput(Blocks.CLAY).addInput(Items.CLAY_BALL).addInput(Blocks.CLAY)
                                   .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_clay"));
     SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment, MaterialIds.honey.toString())
-                                  .setTools(slimesuit)
+                                  .setTools(TinkerTags.Items.EMBELLISHMENT_SLIME)
                                   .addInput(Blocks.HONEY_BLOCK).addInput(Items.HONEY_BOTTLE).addInput(Blocks.HONEY_BLOCK)
                                   .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_honey"));
   }
@@ -1559,27 +1557,27 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
   }
 
   /** Adds recipes for a plate armor texture */
-  private void plateTexture(Consumer<FinishedRecipe> consumer, Ingredient tool, MaterialId material, boolean optional, String folder) {
-    plateTexture(consumer, tool, material, "ingots/" + material.getPath(), optional, folder);
+  private void plateTexture(Consumer<FinishedRecipe> consumer, MaterialId material, boolean optional, String folder) {
+    plateTexture(consumer, material, "ingots/" + material.getPath(), optional, folder);
   }
 
   /** Adds recipes for a plate armor texture with a custom tag */
-  private void plateTexture(Consumer<FinishedRecipe> consumer, Ingredient tool, MaterialVariantId material, String tag, boolean optional, String folder) {
+  private void plateTexture(Consumer<FinishedRecipe> consumer, MaterialVariantId material, String tag, boolean optional, String folder) {
     Ingredient ingot = Ingredient.of(getItemTag("forge", tag));
     if (optional) {
       consumer = withCondition(consumer, tagCondition(tag));
     }
     SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment, material.toString())
-                                  .setTools(tool)
+                                  .setTools(TinkerTags.Items.EMBELLISHMENT_METAL)
                                   .addInput(ingot).addInput(ingot).addInput(ingot)
                                   .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_" + material.getLocation('_').getPath()));
   }
 
   /** Adds recipes for a slime armor texture */
-  private void slimeTexture(Consumer<FinishedRecipe> consumer, Ingredient tool, MaterialId material, SlimeType slime, String folder) {
+  private void slimeTexture(Consumer<FinishedRecipe> consumer, MaterialId material, SlimeType slime, String folder) {
     ItemLike congealed = TinkerWorld.congealedSlime.get(slime);
     SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment, material.toString())
-                                  .setTools(tool)
+                                  .setTools(TinkerTags.Items.EMBELLISHMENT_SLIME)
                                   .addInput(congealed).addInput(TinkerWorld.slime.get(slime)).addInput(congealed)
                                   .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_" + slime.getSerializedName()));
   }
