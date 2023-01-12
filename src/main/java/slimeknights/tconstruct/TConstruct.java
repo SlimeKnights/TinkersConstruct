@@ -49,6 +49,7 @@ import slimeknights.tconstruct.library.tools.definition.ToolDefinitionLoader;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.plugin.ImmersiveEngineeringPlugin;
+import slimeknights.tconstruct.plugin.jsonthings.JsonThingsPlugin;
 import slimeknights.tconstruct.shared.TinkerClient;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
@@ -119,8 +120,12 @@ public class TConstruct {
 //    }
 
     // compat
-    if (ModList.get().isLoaded("immersiveengineering")) {
+    ModList modList = ModList.get();
+    if (modList.isLoaded("immersiveengineering")) {
       bus.register(new ImmersiveEngineeringPlugin());
+    }
+    if (modList.isLoaded("jsonthings")) {
+      JsonThingsPlugin.onConstruct();
     }
   }
 

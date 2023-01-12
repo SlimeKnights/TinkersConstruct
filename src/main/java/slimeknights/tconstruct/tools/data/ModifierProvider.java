@@ -27,6 +27,7 @@ import slimeknights.tconstruct.library.modifiers.dynamic.ExtraModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.InventoryMenuModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.LootModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.MobDisguiseModifier;
+import slimeknights.tconstruct.library.modifiers.dynamic.MobEffectModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.StatBoostModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.StatBoostModifier.ModifierDisplay;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
@@ -141,6 +142,7 @@ public class ModifierProvider extends AbstractModifierProvider {
     addModifier(ModifierIds.looting, new LootModifier(1, ModifierLevelDisplay.DEFAULT));
 
     /// attack
+    addModifier(ModifierIds.sticky, MobEffectModifier.Builder.effect(MobEffects.MOVEMENT_SLOWDOWN).level(0, 1).timeBase(20).timeMultiplierRandom(10).build());
 
     // damage boost
     // vanilla give +1, 1.5, 2, 2.5, 3, but that is low
