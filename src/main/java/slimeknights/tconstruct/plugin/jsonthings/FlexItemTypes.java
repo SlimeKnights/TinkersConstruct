@@ -22,6 +22,7 @@ import slimeknights.tconstruct.plugin.jsonthings.item.FlexLayeredEmbellishedArmo
 import slimeknights.tconstruct.plugin.jsonthings.item.FlexModifiableBowItem;
 import slimeknights.tconstruct.plugin.jsonthings.item.FlexModifiableCrossbowItem;
 import slimeknights.tconstruct.plugin.jsonthings.item.FlexModifiableItem;
+import slimeknights.tconstruct.plugin.jsonthings.item.FlexRepairKitItem;
 import slimeknights.tconstruct.plugin.jsonthings.item.FlexToolPartItem;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
 
@@ -42,10 +43,16 @@ public class FlexItemTypes {
     return item;
   }
 
-  /** Register a modifiable tool instance for melee/harvest tools */
+  /** Register a tool part to create new tools */
   public static final ItemType<FlexToolPartItem> TOOL_PART = register("tool_part", data -> {
     MaterialStatsId statType = new MaterialStatsId(JsonHelper.getResourceLocation(data, "stat_type"));
     return (props, builder) -> new FlexToolPartItem(props, statType);
+  });
+
+  /** Register an item that can be used to repair tools */
+  public static final ItemType<FlexRepairKitItem> REPAIR_KIT = register("repair_kit", data -> {
+    float repairAmount = GsonHelper.getAsFloat(data, "repair_amount");
+    return (props, builder) -> new FlexRepairKitItem(props, repairAmount);
   });
 
   /** Register a modifiable tool instance for melee/harvest tools */

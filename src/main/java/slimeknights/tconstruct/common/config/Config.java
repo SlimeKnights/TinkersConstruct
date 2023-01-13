@@ -5,6 +5,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
+import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
 import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -37,6 +38,7 @@ public class Config {
     public final BooleanValue slimeRecipeFix;
     public final BooleanValue glassRecipeFix;
     public final Map<TinkerHeadType,BooleanValue> headDrops;
+    public final DoubleValue repairKitAmount;
 
     // loot
     public final BooleanValue slimyLootChests;
@@ -85,6 +87,10 @@ public class Config {
       }));
       actions.add(new ConfigurableAction(builder, "lightning", true, "Makes lightning count as fire damage", DamageSource.LIGHTNING_BOLT::setIsFire));
       damageSourceTweaks = actions.build();
+
+      this.repairKitAmount = builder
+        .comment("Amount of durability restored by a repair kit in terms of ingots. Does not affect the cost to create the kit, that is controlled by JSON.")
+        .defineInRange("repairKitAmount", 2f, 0f, Short.MAX_VALUE);
 
       builder.pop();
 

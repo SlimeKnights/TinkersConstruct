@@ -22,10 +22,9 @@ import slimeknights.tconstruct.library.tools.definition.ToolDefinitionData;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-import slimeknights.tconstruct.library.tools.part.IMaterialItem;
+import slimeknights.tconstruct.library.tools.part.IRepairKitItem;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.tables.TinkerTables;
-import slimeknights.tconstruct.tools.TinkerToolParts;
 
 import javax.annotation.Nullable;
 import java.util.function.IntConsumer;
@@ -65,8 +64,8 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
   protected static MaterialId getMaterialFrom(ITinkerStationContainer inv, int slot) {
     // try repair kit first
     ItemStack item = inv.getInput(slot);
-    if (item.getItem() == TinkerToolParts.repairKit.get()) {
-      return IMaterialItem.getMaterialFromStack(item).getId();
+    if (item.getItem() instanceof IRepairKitItem kit) {
+      return kit.getMaterial(item).getId();
     }
     // material recipe fallback
     MaterialRecipe recipe = inv.getInputMaterial(slot);
@@ -91,9 +90,9 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
     ItemStack stack = inv.getInput(slot);
     // repair kit first
     ToolDefinitionData toolData = tool.getDefinition().getData();
-    if (stack.getItem() == TinkerToolParts.repairKit.get()) {
+    if (stack.getItem() instanceof IRepairKitItem kit) {
       // multiply by 2 (part cost), divide again by the repair factor to get the final percent
-      return MaterialRecipe.getRepairDurability(toolData, repairMaterial, getDefaultStatsId(tool, repairMaterial)) * 2 / MaterialRecipe.INGOTS_PER_REPAIR;
+      return MaterialRecipe.getRepairDurability(toolData, repairMaterial, getDefaultStatsId(tool, repairMaterial)) * kit.getRepairAmount() / MaterialRecipe.INGOTS_PER_REPAIR;
     } else {
       // material recipe fallback
       MaterialRecipe recipe = inv.getInputMaterial(slot);
