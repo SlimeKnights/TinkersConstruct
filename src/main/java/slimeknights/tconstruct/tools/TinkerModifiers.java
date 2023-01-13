@@ -66,6 +66,9 @@ import slimeknights.tconstruct.library.recipe.modifiers.adding.OverslimeModifier
 import slimeknights.tconstruct.library.recipe.modifiers.adding.SwappableModifierRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.AgeableSeveringRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
+import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierMaterialRepairKitRecipe;
+import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierMaterialRepairRecipe;
+import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierMaterialRepairSerializer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRepairCraftingRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRepairRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRepairTinkerStationRecipe;
@@ -484,6 +487,8 @@ public final class TinkerModifiers extends TinkerModule {
   // modifiers
   public static final RegistryObject<ModifierRepairRecipeSerializer<?>> modifierRepair = RECIPE_SERIALIZERS.register("modifier_repair", () -> new ModifierRepairRecipeSerializer<>(ModifierRepairTinkerStationRecipe::new));
   public static final RegistryObject<ModifierRepairRecipeSerializer<?>> craftingModifierRepair = RECIPE_SERIALIZERS.register("crafting_modifier_repair", () -> new ModifierRepairRecipeSerializer<>(ModifierRepairCraftingRecipe::new));
+  public static final RegistryObject<ModifierMaterialRepairSerializer<?>> modifierMaterialRepair = RECIPE_SERIALIZERS.register("modifier_material_repair", () -> new ModifierMaterialRepairSerializer<>(ModifierMaterialRepairRecipe::new));
+  public static final RegistryObject<ModifierMaterialRepairSerializer<?>> craftingModifierMaterialRepair = RECIPE_SERIALIZERS.register("crafting_modifier_material_repair", () -> new ModifierMaterialRepairSerializer<>(ModifierMaterialRepairKitRecipe::new));
   // worktable
   public static final RegistryObject<ModifierRemovalRecipe.Serializer> removeModifierSerializer = RECIPE_SERIALIZERS.register("remove_modifier", () -> new ModifierRemovalRecipe.Serializer(ModifierRemovalRecipe::new));
   public static final RegistryObject<ModifierRemovalRecipe.Serializer> extractModifierSerializer = RECIPE_SERIALIZERS.register("extract_modifier", () -> new ModifierRemovalRecipe.Serializer(ExtractModifierRecipe::new));
