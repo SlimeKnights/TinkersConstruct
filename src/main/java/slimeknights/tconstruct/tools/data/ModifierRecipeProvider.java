@@ -1441,6 +1441,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                   .setTools(TinkerTags.Items.EMBELLISHMENT_METAL)
                                   .addInput(TinkerCommons.obsidianPane).addInput(TinkerCommons.obsidianPane).addInput(TinkerCommons.obsidianPane)
                                   .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_obsidian"));
+    // does nothing by default, but helpful for addons
+    plateTexture(consumer, MaterialIds.cobalt,    false, folder);
     // tier 4
     plateTexture(consumer, MaterialIds.debris, "nuggets/netherite_scrap", false, folder);
     plateTexture(consumer, MaterialIds.manyullyn, false, folder);
@@ -1470,6 +1472,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     slimeTexture(consumer, MaterialIds.skyslime,   SlimeType.SKY, folder);
     slimeTexture(consumer, MaterialIds.blood,      SlimeType.BLOOD, folder);
     slimeTexture(consumer, MaterialIds.ichor,      SlimeType.ICHOR, folder);
+    slimeTexture(consumer, MaterialIds.enderslime, SlimeType.ENDER, folder);
     SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment, MaterialIds.clay.toString())
                                   .setTools(TinkerTags.Items.EMBELLISHMENT_SLIME)
                                   .addInput(Blocks.CLAY).addInput(Items.CLAY_BALL).addInput(Blocks.CLAY)

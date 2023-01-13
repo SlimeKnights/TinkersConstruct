@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:swappable_modifier",
+  "inputs": [
+    {
+      "item": "tconstruct:ender_congealed_slime"
+    },
+    {
+      "item": "tconstruct:ender_slime"
+    },
+    {
+      "item": "tconstruct:ender_congealed_slime"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/embellishment/slime"
+  },
+  "allow_crystal": false,
+  "result": {
+    "name": "tconstruct:embellishment",
+    "value": "tconstruct:enderslime"
+  }
+}
