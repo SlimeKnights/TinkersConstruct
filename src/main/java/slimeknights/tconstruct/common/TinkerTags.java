@@ -362,6 +362,8 @@ public class TinkerTags {
     public static final TagKey<Item> EMBELLISHMENT_METAL = tag("modifiable/embellishment/metal");
     /** Tools that can receive slime based embellishments */
     public static final TagKey<Item> EMBELLISHMENT_SLIME = tag("modifiable/embellishment/slime");
+    /** Tools that can be dyed */
+    public static final TagKey<Item> DYEABLE = tag("modifiable/dyeable");
 
     /** Tag so mods like thermal know our scyhtes can harvest */
     public static final TagKey<Item> SCYTHES = forgeTag("tools/scythe");

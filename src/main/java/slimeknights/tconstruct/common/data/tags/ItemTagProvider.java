@@ -44,6 +44,7 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.BOWS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.CHESTPLATES;
 import static slimeknights.tconstruct.common.TinkerTags.Items.CROSSBOWS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.DURABILITY;
+import static slimeknights.tconstruct.common.TinkerTags.Items.DYEABLE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.EMBELLISHMENT_METAL;
 import static slimeknights.tconstruct.common.TinkerTags.Items.EMBELLISHMENT_SLIME;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST;
@@ -238,7 +239,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     addToolTags(TinkerTools.flintAndBrick, DURABILITY, MELEE, ONE_HANDED, AOE);
 
     // armor
-    addArmorTags(TinkerTools.travelersGear, DURABILITY, ItemTags.FREEZE_IMMUNE_WEARABLES);
+    addArmorTags(TinkerTools.travelersGear, DURABILITY, DYEABLE, ItemTags.FREEZE_IMMUNE_WEARABLES);
     addArmorTags(TinkerTools.plateArmor,    DURABILITY, EMBELLISHMENT_METAL);
     addArmorTags(TinkerTools.slimesuit,     DURABILITY, EMBELLISHMENT_SLIME);
     addToolTags(TinkerTools.slimesuit.get(ArmorSlotType.HELMET), MULTIPART_TOOL);

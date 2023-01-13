@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:travelers_boots",
+    "tconstruct:travelers_leggings",
+    "tconstruct:travelers_chestplate",
+    "tconstruct:travelers_helmet"
+  ]
+}

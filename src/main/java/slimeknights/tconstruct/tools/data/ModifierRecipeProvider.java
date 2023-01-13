@@ -1418,7 +1418,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     String folder = "tools/modifiers/slotless/";
 
     // travelers gear //
-    consumer.accept(new ArmorDyeingRecipe.Finished(modResource(folder + "travelers_dyeing"), Ingredient.of(TinkerTools.travelersGear.values().stream().map(ItemStack::new))));
+    consumer.accept(new ArmorDyeingRecipe.Finished(modResource(folder + "travelers_dyeing"), Ingredient.of(TinkerTags.Items.DYEABLE)));
 
     // plate //
     // tier 2
