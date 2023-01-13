@@ -7,6 +7,7 @@
   },
   "time": {
     "base": 20,
-    "multiplier_flat": 10
+    "multiplier_flat": 0,
+    "multiplier_random": 10
   }
 }

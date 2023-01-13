@@ -51,7 +51,7 @@ public class MobEffectModifier extends IncrementalModifier implements Projectile
     if (target == null) {
       return;
     }
-    int level = Math.round(levelBase + scaledLevel * levelMultiplier - 1);
+    int level = Math.round(levelBase + scaledLevel * levelMultiplier) - 1;
     if (level < 0) {
       return;
     }
@@ -134,7 +134,7 @@ public class MobEffectModifier extends IncrementalModifier implements Projectile
       JsonObject time = new JsonObject();
       time.addProperty("base", object.timeBase);
       time.addProperty("multiplier_flat", object.timeMultiplierFlat);
-      time.addProperty("multiplier_flat", object.timeMultiplierRandom);
+      time.addProperty("multiplier_random", object.timeMultiplierRandom);
       json.add("time", time);
     }
 

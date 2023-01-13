@@ -4,7 +4,6 @@ import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
@@ -23,7 +22,6 @@ public class ModifierMaterialRepairSerializer<T extends Recipe<?> & IModifierMat
 
   @Override
   public T fromJson(ResourceLocation id, JsonObject json) {
-    Ingredient tool = Ingredient.fromJson(JsonHelper.getElement(json, "tool"));
     ModifierId modifier = new ModifierId(JsonHelper.getResourceLocation(json, "modifier"));
     MaterialId repairMaterial = MaterialId.fromJson(json, "repair_material");
     return factory.create(id, modifier, repairMaterial);

@@ -72,8 +72,7 @@ public class FlexItemTypes {
   public static final ItemType<FlexModifiableCrossbowItem> CROSSBOW = register("crossbow", data -> {
     IToolStatProvider statProvider = data.has("stat_provider") ? ToolStatProviders.REGISTRY.deserialize(data, "stat_provider") : ToolStatProviders.RANGED;
     boolean allowFireworks = GsonHelper.getAsBoolean(data, "allow_fireworks");
-    return (props, builder) -> add(allowFireworks ? CROSSBOW_ITEMS : BOW_ITEMS,
-                                   new FlexModifiableCrossbowItem(props, ToolDefinition.builder(builder.getRegistryName()).setStatsProvider(statProvider).build(), allowFireworks));
+    return (props, builder) -> add(CROSSBOW_ITEMS, new FlexModifiableCrossbowItem(props, ToolDefinition.builder(builder.getRegistryName()).setStatsProvider(statProvider).build(), allowFireworks));
   });
 
   /** Register a modifiable tool instance for crossbow like items (load on finish) */
