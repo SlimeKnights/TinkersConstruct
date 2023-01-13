@@ -23,49 +23,50 @@ import java.util.function.Function;
 
 public class PlateArmorModel extends Model {
   /** Singleton model instance, all data is passed in via setters */
-  private static final PlateArmorModel INSTANCE = new PlateArmorModel();
-
-  /** Cache of armor render types */
-  private static final Map<String,RenderType> ARMOR_RENDER_CACHE = new HashMap<>();
-  /** Cache of leg render types */
-  private static final Map<String,RenderType> LEG_RENDER_CACHE = new HashMap<>();
-
-  /** Gets the armor texture for a material */
-  private static ResourceLocation getArmorTexture(String material, int variant) {
-    MaterialVariantId variantId = MaterialVariantId.tryParse(material);
-    if (variantId == null) {
-      variantId = MaterialIds.cobalt;
-    }
-    ResourceLocation location = variantId.getLocation('_');
-    return TConstruct.getResource(String.format("textures/models/armor/plate/layer_%d_%s_%s.png", variant, location.getNamespace(), location.getPath()));
-  }
-  /** Function to get armor render type */
-  private static final Function<String,RenderType> ARMOR_GETTER = mat -> RenderType.entityCutoutNoCullZOffset(getArmorTexture(mat, 1));
-  /** Function to get armor render type */
-  private static final Function<String,RenderType> LEG_GETTER = mat -> RenderType.entityCutoutNoCullZOffset(getArmorTexture(mat, 2));
+  private static final Map<ResourceLocation,PlateArmorModel> MODELS = new HashMap<>();
+  /** Cached constructor to not need to create each tick */
+  private static final Function<ResourceLocation,PlateArmorModel> CONSTRUCTOR = PlateArmorModel::new;
+  /** default name */
+  private static final ResourceLocation PLATE = TConstruct.getResource("plate");
 
   /** Listener to clear caches */
-  public static final ISafeManagerReloadListener RELOAD_LISTENER = manager -> {
-    ARMOR_RENDER_CACHE.clear();
-    LEG_RENDER_CACHE.clear();
-  };
+  public static final ISafeManagerReloadListener RELOAD_LISTENER = manager -> MODELS.clear();
+
+  /**
+   * Gets the model for a given entity
+   */
+  public static Model getModel(ItemStack stack, EquipmentSlot slot, HumanoidModel<?> baseModel, ResourceLocation name) {
+    PlateArmorModel model = MODELS.computeIfAbsent(name, CONSTRUCTOR);
+    model.setup(baseModel, stack, slot);
+    return model;
+  }
 
   /**
    * Gets the model for a given entity
    */
   public static Model getModel(ItemStack stack, EquipmentSlot slot, HumanoidModel<?> baseModel) {
-    INSTANCE.setup(baseModel, stack, slot);
-    return INSTANCE;
+    return getModel(stack, slot, baseModel, PLATE);
   }
 
+  /** Cache of armor render types */
+  private final Map<String,RenderType> ARMOR_RENDER_CACHE = new HashMap<>();
+  /** Cache of leg render types */
+  private final Map<String,RenderType> LEG_RENDER_CACHE = new HashMap<>();
+  /** Function to get armor render type */
+  private final Function<String,RenderType> ARMOR_GETTER = mat -> RenderType.entityCutoutNoCullZOffset(getArmorTexture(mat, 1));
+  /** Function to get armor render type */
+  private final Function<String,RenderType> LEG_GETTER = mat -> RenderType.entityCutoutNoCullZOffset(getArmorTexture(mat, 2));
+
+  private final ResourceLocation name;
   @Nullable
   private HumanoidModel<?> base;
   private String material = "";
   private boolean isLegs = false;
   /** If true, applies the enchantment glint to extra layers */
   private boolean hasGlint = false;
-  public PlateArmorModel() {
+  public PlateArmorModel(ResourceLocation name) {
     super(RenderType::entityCutoutNoCull);
+    this.name = name;
   }
 
   @Override
@@ -77,6 +78,16 @@ public class PlateArmorModel extends Model {
         base.renderToBuffer(matrices, overlayBuffer, packedLightIn, packedOverlayIn, red, green, blue, alpha);
       }
     }
+  }
+
+  /** Gets the armor texture for a material */
+  private ResourceLocation getArmorTexture(String material, int variant) {
+    MaterialVariantId variantId = MaterialVariantId.tryParse(material);
+    if (variantId == null) {
+      variantId = MaterialIds.cobalt;
+    }
+    ResourceLocation location = variantId.getLocation('_');
+    return new ResourceLocation(name.getNamespace() + String.format("textures/models/armor/%s/layer_%d_%s_%s.png", name.getPath(), variant, location.getNamespace(), location.getPath()));
   }
 
   private void setup(HumanoidModel<?> base, ItemStack stack, EquipmentSlot slot) {
