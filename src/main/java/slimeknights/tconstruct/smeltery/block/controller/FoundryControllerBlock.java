@@ -38,6 +38,7 @@ public class FoundryControllerBlock extends HeatingControllerBlock {
 
   @Override
   public void setPlacedBy(Level worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+    super.setPlacedBy(worldIn, pos, state, placer, stack);
     // check structure
     BlockEntityHelper.get(FoundryBlockEntity.class, worldIn, pos).ifPresent(FoundryBlockEntity::updateStructure);
   }

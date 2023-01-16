@@ -11,7 +11,7 @@ import slimeknights.mantle.fluid.FluidTransferHelper;
 import slimeknights.tconstruct.smeltery.block.entity.component.DrainBlockEntity;
 
 /** Extenson to include interaction behavior */
-public class SearedDrainBlock extends OrientableSmelteryBlock {
+public class SearedDrainBlock extends RetexturedOrientableSmelteryBlock {
   public SearedDrainBlock(Properties properties) {
     super(properties, DrainBlockEntity::new);
   }

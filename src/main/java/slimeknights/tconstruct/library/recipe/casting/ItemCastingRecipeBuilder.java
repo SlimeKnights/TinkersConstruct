@@ -49,6 +49,15 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
 
   /**
    * Creates a new casting basin recipe
+   * @param result  Recipe result
+   * @return  Builder instance
+   */
+  public static ItemCastingRecipeBuilder retexturedBasinRecipe(ItemOutput result) {
+    return castingRecipe(result, TinkerSmeltery.retexturedBasinRecipeSerializer.get());
+  }
+
+  /**
+   * Creates a new casting basin recipe
    * @param resultIn  Recipe result
    * @return  Builder instance
    */
@@ -72,6 +81,15 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
    */
   public static ItemCastingRecipeBuilder tableRecipe(ItemOutput resultIn) {
     return castingRecipe(resultIn, TinkerSmeltery.tableRecipeSerializer.get());
+  }
+
+  /**
+   * Creates a new casting table recipe
+   * @param resultIn  Recipe result
+   * @return  Builder instance
+   */
+  public static ItemCastingRecipeBuilder retexturedTableRecipe(ItemOutput resultIn) {
+    return castingRecipe(resultIn, TinkerSmeltery.retexturedTableRecipeSerializer.get());
   }
 
   /**

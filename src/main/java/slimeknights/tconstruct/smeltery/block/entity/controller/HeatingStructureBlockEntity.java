@@ -14,6 +14,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -21,6 +23,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.client.model.data.IModelData;
+import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
@@ -28,9 +31,10 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
+import slimeknights.mantle.block.entity.IRetexturedBlockEntity;
 import slimeknights.mantle.block.entity.NameableBlockEntity;
-import slimeknights.mantle.client.model.data.SinglePropertyData;
 import slimeknights.mantle.util.BlockEntityHelper;
+import slimeknights.mantle.util.RetexturedHelper;
 import slimeknights.tconstruct.common.multiblock.IMasterLogic;
 import slimeknights.tconstruct.common.multiblock.IServantLogic;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
@@ -59,7 +63,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-public abstract class HeatingStructureBlockEntity extends NameableBlockEntity implements IMasterLogic, ISmelteryTankHandler {
+import static slimeknights.mantle.util.RetexturedHelper.TAG_TEXTURE;
+
+public abstract class HeatingStructureBlockEntity extends NameableBlockEntity implements IMasterLogic, ISmelteryTankHandler, IRetexturedBlockEntity {
   private static final String TAG_STRUCTURE = "structure";
   private static final String TAG_TANK = "tank";
   private static final String TAG_INVENTORY = "inventory";
@@ -120,10 +126,13 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
   private boolean fluidUpdateQueued = false;
   /** Cache of the bounds for the case of no structure */
   private AABB defaultBounds;
+  @Nonnull
+  @Getter
+  private Block texture = Blocks.AIR;
 
   /* Client display */
   @Getter
-  private final IModelData modelData = new SinglePropertyData<>(IDisplayFluidListener.PROPERTY);
+  private final IModelData modelData = new ModelDataMap.Builder().withProperty(RetexturedHelper.BLOCK_PROPERTY).withProperty(IDisplayFluidListener.PROPERTY).build();
   private final List<WeakReference<IDisplayFluidListener>> fluidDisplayListeners = new ArrayList<>();
 
   /* Misc helpers */
@@ -518,6 +527,25 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
   }
 
 
+  /* Retexturing */
+
+  @Override
+  public String getTextureName() {
+    return RetexturedHelper.getTextureName(texture);
+  }
+
+  @Override
+  public void updateTexture(String name) {
+    Block oldTexture = texture;
+    texture = RetexturedHelper.getBlock(name);
+    if (oldTexture != texture) {
+      setChangedFast();
+      RetexturedHelper.onTextureUpdated(this);
+    }
+  }
+
+
+
   /* Tag */
 
   @Override
@@ -549,6 +577,10 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
       this.errorPos = NbtUtils.readBlockPos(nbt.getCompound(TAG_ERROR_POS));
     }
     fuelModule.readFromTag(nbt);
+    if (nbt.contains(TAG_TEXTURE, Tag.TAG_STRING)) {
+      texture = RetexturedHelper.getBlock(nbt.getString(TAG_TEXTURE));
+      RetexturedHelper.onTextureUpdated(this);
+    }
   }
 
   @Override
@@ -567,6 +599,9 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
     super.saveSynced(compound);
     compound.put(TAG_TANK, tank.write(new CompoundTag()));
     compound.put(TAG_INVENTORY, meltingInventory.writeToTag());
+    if (texture != Blocks.AIR) {
+      compound.putString(TAG_TEXTURE, getTextureName());
+    }
   }
 
   @Override

@@ -1,7 +1,7 @@
 {
-  "type": "tconstruct:casting_basin",
+  "type": "tconstruct:retextured_casting_basin",
   "cast": {
-    "item": "tconstruct:scorched_bricks"
+    "tag": "tconstruct:foundry_bricks"
   },
   "cast_consumed": true,
   "fluid": {

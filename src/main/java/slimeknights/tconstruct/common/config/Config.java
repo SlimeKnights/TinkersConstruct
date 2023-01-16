@@ -64,6 +64,7 @@ public class Config {
     public final ConfigValue<String> showOnlyPartMaterial;
     public final BooleanValue showAllTableVariants;
     public final BooleanValue showAllAnvilVariants;
+    public final BooleanValue showAllSmelteryVariants;
 
     public final BooleanValue forceIntegrationMaterials;
 
@@ -121,6 +122,11 @@ public class Config {
         .comment("If true, anvils will show all metal variants. If false, shows only a variant with the default texture")
         .translation("tconstruct.configgui.showAllAnvilVariants")
         .define("showAllAnvilVariants", true);
+
+      this.showAllSmelteryVariants = builder
+        .comment("If true, smeltery and foundry controllers, drains, ducts, and chutes will show all variants")
+        .translation("tconstruct.configgui.showAllSmelteryVariants")
+        .define("showAllSmelteryVariants", true);
 
       builder.pop();
 
