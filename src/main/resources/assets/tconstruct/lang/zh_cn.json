@@ -1386,7 +1386,7 @@
   
   "material.tconstruct.bamboo": "竹",
   "material.tconstruct.bamboo.flavor": "被敲竹杠了！",
-  "material.tconstruct.bamboo.ranged": "箭矢的速度变为110%，伤害变为90%。也即，箭矢射程更远但伤害基本不变。",
+  "material.tconstruct.bamboo.ranged": "箭矢的初速度变为110%，伤害变为90%。也即，箭矢射程更远但伤害基本不变。",
 
   "material.tconstruct.rock": "岩石",
   "material.tconstruct.rock.stone": "石头",
@@ -2599,7 +2599,7 @@
   "recipe.tconstruct.remove_modifier.no_modifiers": "工具不具有任何可移除强化",
 
   "recipe.tconstruct.modifier_sorting.title": "强化排序",
-  "recipe.tconstruct.modifier_sorting.description": "选择一个强化以将其材质位置与在列表中的下一个强化材质位置互换。互换时不消耗配方物品",
+  "recipe.tconstruct.modifier_sorting.description": "选择一个强化以将其材质位置与在列表中的下一个强化的材质位置互换。互换时不消耗配方物品",
   "recipe.tconstruct.modifier_sorting.not_enough_modifiers": "工具至少需要2种强化以排序",
 
   "recipe.tconstruct.invisible_modifiers.adding.title": "隐形墨水",
@@ -2627,7 +2627,7 @@
   "recipe.tconstruct.modifier.not_enough_slots": "至少需要%s个%s槽来添加该强化物",
   "recipe.tconstruct.modifier.validate_slots": "这项改动留给工具的%s槽过少",
   "recipe.tconstruct.modifier.max_level": "%s的等级不可大于%s",
-  "recipe.tconstruct.modifier.requirements_error": "工具的其中一个强化物已使该工具状态无效，联系整合包作者以了解详细错误情况。",
+  "recipe.tconstruct.modifier.requirements_error": "工具的其中一个强化已使该工具状态无效，联系整合包作者以了解详细错误情况。",
 
   "recipe.tconstruct.tool_recycling": "工具回收",
   "recipe.tconstruct.tool_recycling.info": "从构成此工具的工具部件中选择你想回收的一个。根据工具剩余的耐久度，有可能回收第二个工具部件。",
@@ -2798,7 +2798,7 @@
   "advancements.tconstruct.tools.modified.title": "修缮强化",
   "advancements.tconstruct.tools.modified.description": "为匠魂工具加持一个强化",
   "advancements.tconstruct.tools.upgrade_slots.title": "升级大全",
-  "advancements.tconstruct.tools.upgrade_slots.description": "使用“铭刻”“镶金”“重置”“和睦”与“复生”为工具附加6个额外的升级槽",
+  "advancements.tconstruct.tools.upgrade_slots.description": "使用“铭刻”“镶金”“重置”“和睦”与“复生”强化为工具附加6个额外的升级槽",
   "advancements.tconstruct.tools.glass_cannon.title": "玻璃大炮",
   "advancements.tconstruct.tools.glass_cannon.description": "打造一件攻击伤害大于20但耐久度不超过100的工具",
   "advancements.tconstruct.tools.tool_smith.title": "工具精匠",
@@ -2826,7 +2826,7 @@
   "advancements.tconstruct.smeltery.tool_forge.title": "工具锻造",
   "advancements.tconstruct.smeltery.tool_forge.description": "在工匠砧中锻造出任意一件宽型工具",
   "advancements.tconstruct.smeltery.abilities.title": "能力熟手",
-  "advancements.tconstruct.smeltery.abilities.description": "为一件工具装上每一个默认的能力强化，至少一次",
+  "advancements.tconstruct.smeltery.abilities.description": "将每个默认的能力强化至少加持于工具一次",
 
   "_comment": "Foundry Advancements",
   "advancements.tconstruct.foundry.fantastic_foundry.title": "下界熔炼",
