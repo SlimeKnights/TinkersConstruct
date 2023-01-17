@@ -39,18 +39,23 @@ public class FlexBasicArmorItem extends ModifiableArmorItem implements IFlexItem
   private final Set<CreativeModeTab> tabs = new HashSet<>();
   private final ResourceLocation name;
   private final boolean dyeable;
+  @Nullable
   private final String golden;
-  public FlexBasicArmorItem(ArmorMaterial materialIn, EquipmentSlot slot, Properties builderIn, ToolDefinition toolDefinition, ResourceLocation name, boolean dyeable) {
+  public FlexBasicArmorItem(ArmorMaterial materialIn, EquipmentSlot slot, Properties builderIn, ToolDefinition toolDefinition, ResourceLocation name, boolean dyeable, boolean hasGolden) {
     super(materialIn, slot, builderIn, toolDefinition);
     this.name = name;
     this.dyeable = dyeable;
-    this.golden = name.getNamespace() + ":textures/models/armor/" + name.getPath() + "_golden_" + (slot == EquipmentSlot.LEGS ? 2 : 1) + ".png";
+    if (hasGolden) {
+      this.golden = name.getNamespace() + ":textures/models/armor/" + name.getPath() + "_golden_" + (slot == EquipmentSlot.LEGS ? 2 : 1) + ".png";
+    } else {
+      this.golden = null;
+    }
   }
 
   @Nullable
   @Override
   public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-    if (ModifierUtil.getModifierLevel(stack, TinkerModifiers.golden.getId()) > 0) {
+    if (golden != null && ModifierUtil.getModifierLevel(stack, TinkerModifiers.golden.getId()) > 0) {
       return golden;
     }
     return null;

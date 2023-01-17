@@ -79,10 +79,11 @@ public class FlexItemTypes {
   public static final ItemType<FlexBasicArmorItem> BASIC_ARMOR = register("basic_armor", data -> {
     ResourceLocation name = JsonHelper.getResourceLocation(data, "texture_name");
     boolean dyeable = GsonHelper.getAsBoolean(data, "dyeable", false);
+    boolean hasGolden = GsonHelper.getAsBoolean(data, "has_golden", true);
     ArmorSlotType slot = JsonHelper.getAsEnum(data, "slot", ArmorSlotType.class);
     SoundEvent equipSound = JsonHelper.getAsEntry(ForgeRegistries.SOUND_EVENTS, data, "equip_sound");
     IToolStatProvider statProvider = data.has("stat_provider") ? ToolStatProviders.REGISTRY.deserialize(data, "stat_provider") : ToolStatProviders.NO_PARTS;
-    return (props, builder) -> new FlexBasicArmorItem(new DummyArmorMaterial(name, equipSound), slot.getEquipmentSlot(), props, ToolDefinition.builder(builder.getRegistryName()).setStatsProvider(statProvider).build(), name, dyeable);
+    return (props, builder) -> new FlexBasicArmorItem(new DummyArmorMaterial(name, equipSound), slot.getEquipmentSlot(), props, ToolDefinition.builder(builder.getRegistryName()).setStatsProvider(statProvider).build(), name, dyeable, hasGolden);
   });
 
   /** Register a modifiable armor part that supports embellishments */
