@@ -29,6 +29,8 @@ public abstract class AOEHarvestTool extends HarvestTool {
         NBTTagCompound toolTags = stack.getTagCompound().getCompoundTag("InfiTool");
         if (toolTags == null || toolTags.getBoolean("Broken")) return super.onBlockStartBreak(stack, x, y, z, player);
 
+        if (player.isSneaking()) return super.onBlockStartBreak(stack, x, y, z, player);
+
         MovingObjectPosition mop = AbilityHelper.raytraceFromEntity(player.worldObj, player, false, 4.5d);
         if (mop == null) return super.onBlockStartBreak(stack, x, y, z, player);
         int sideHit = mop.sideHit;
