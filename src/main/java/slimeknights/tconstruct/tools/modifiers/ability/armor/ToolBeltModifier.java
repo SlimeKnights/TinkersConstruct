@@ -99,6 +99,9 @@ public class ToolBeltModifier extends InventoryMenuModifier {
 
   /** Gets the proper number of slots for the given level */
   private int getProperSlots(int level) {
+    if (level <= 0) {
+      return 0;
+    }
     if (level > counts.length) {
       return 9;
     } else {

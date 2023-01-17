@@ -270,6 +270,7 @@ public class BlockTagProvider extends BlockTagsProvider {
     this.tag(TinkerTags.Blocks.SEARED_BLOCKS)
         .add(TinkerSmeltery.searedStone.get(), TinkerSmeltery.searedCrackedBricks.get(), TinkerSmeltery.searedCobble.get(), TinkerSmeltery.searedPaver.get())
         .addTag(TinkerTags.Blocks.SEARED_BRICKS);
+    this.tag(TinkerTags.Blocks.SMELTERY_BRICKS).addTag(TinkerTags.Blocks.SEARED_BLOCKS);
     this.tag(BlockTags.WALLS).add(TinkerSmeltery.searedBricks.getWall(), TinkerSmeltery.searedCobble.getWall());
 
     // scorched
@@ -279,6 +280,7 @@ public class BlockTagProvider extends BlockTagsProvider {
       TinkerSmeltery.scorchedBricks.get(),
       TinkerSmeltery.scorchedRoad.get(),
       TinkerSmeltery.chiseledScorchedBricks.get());
+    this.tag(TinkerTags.Blocks.FOUNDRY_BRICKS).addTag(TinkerTags.Blocks.SCORCHED_BLOCKS);
     this.tag(BlockTags.FENCES).add(TinkerSmeltery.scorchedBricks.getFence(), TinkerMaterials.nahuatl.getFence());
 
     this.tag(TinkerTags.Blocks.CISTERN_CONNECTIONS)

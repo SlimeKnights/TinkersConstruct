@@ -45,7 +45,11 @@ public class SpecializedRepairRecipe extends TinkerStationRepairRecipe implement
     if (!tool.test(tinkerable) || repairMaterial.isUnknown()) {
       return false;
     }
+    return findMaterialItem(inv, repairMaterial);
+  }
 
+  /** Find the repair item in the inventory */
+  public static boolean findMaterialItem(ITinkerStationContainer inv, LazyMaterial repairMaterial) {
     // validate that we have at least one material
     boolean found = false;
     for (int i = 0; i < inv.getInputCount(); i++) {

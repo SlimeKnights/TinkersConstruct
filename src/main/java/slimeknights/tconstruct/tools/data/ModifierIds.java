@@ -24,6 +24,7 @@ public class ModifierIds {
   // general
   public static final ModifierId worldbound = id("worldbound");
   public static final ModifierId shiny      = id("shiny");
+  public static final ModifierId sticky     = id("sticky");
   // general abilities
   public static final ModifierId reach = id("reach");
 

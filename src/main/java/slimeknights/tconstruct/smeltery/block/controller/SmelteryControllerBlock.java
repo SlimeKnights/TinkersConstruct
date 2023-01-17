@@ -37,6 +37,7 @@ public class SmelteryControllerBlock extends HeatingControllerBlock {
 
   @Override
   public void setPlacedBy(Level worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+    super.setPlacedBy(worldIn, pos, state, placer, stack);
     // check structure
     BlockEntityHelper.get(SmelteryBlockEntity.class, worldIn, pos).ifPresent(SmelteryBlockEntity::updateStructure);
   }

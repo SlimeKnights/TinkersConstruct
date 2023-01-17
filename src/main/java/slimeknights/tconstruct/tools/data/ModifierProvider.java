@@ -27,6 +27,7 @@ import slimeknights.tconstruct.library.modifiers.dynamic.ExtraModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.InventoryMenuModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.LootModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.MobDisguiseModifier;
+import slimeknights.tconstruct.library.modifiers.dynamic.MobEffectModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.StatBoostModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.StatBoostModifier.ModifierDisplay;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
@@ -51,6 +52,7 @@ public class ModifierProvider extends AbstractModifierProvider {
   protected void addModifiers() {
     EquipmentSlot[] handSlots = {EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND};
     EquipmentSlot[] armorSlots = ModifiableArmorMaterial.ARMOR_SLOTS;
+    EquipmentSlot[] armorMainHand = {EquipmentSlot.MAINHAND, EquipmentSlot.FEET, EquipmentSlot.LEGS, EquipmentSlot.CHEST, EquipmentSlot.HEAD};
 
     // extra modifier slots
     addModifier(ModifierIds.writable,    ExtraModifier.builder(SlotType.UPGRADE).build());
@@ -141,6 +143,7 @@ public class ModifierProvider extends AbstractModifierProvider {
     addModifier(ModifierIds.looting, new LootModifier(1, ModifierLevelDisplay.DEFAULT));
 
     /// attack
+    addModifier(ModifierIds.sticky, MobEffectModifier.Builder.effect(MobEffects.MOVEMENT_SLOWDOWN).level(0, 0.5f).timeBase(20).timeMultiplierRandom(10).build());
 
     // damage boost
     // vanilla give +1, 1.5, 2, 2.5, 3, but that is low
@@ -178,7 +181,7 @@ public class ModifierProvider extends AbstractModifierProvider {
     addModifier(ModifierIds.toolBelt, new ToolBeltModifier(new int[] {4, 5, 6, 7, 8, 9}));
     addRedirect(id("pocket_chain"), redirect(TinkerModifiers.shieldStrap.getId()));
     addModifier(ModifierIds.stepUp, StatBoostModifier.builder().attribute("tconstruct.modifier.step_up", ForgeMod.STEP_HEIGHT_ADDITION.get(), Operation.ADDITION, 0.5f, armorSlots).build());
-    addModifier(ModifierIds.speedy, StatBoostModifier.builder().attribute("tconstruct.modifier.speedy", Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, 0.1f, armorSlots).build());
+    addModifier(ModifierIds.speedy, StatBoostModifier.builder().attribute("tconstruct.modifier.speedy", Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, 0.1f, armorMainHand).build());
     // boots
     addModifier(ModifierIds.depthStrider, new EnchantmentModifier(Enchantments.DEPTH_STRIDER, 1, ModifierLevelDisplay.DEFAULT));
 

@@ -27,7 +27,7 @@
   },
   "traits": [
     {
-      "name": "tconstruct:knockback",
+      "name": "tconstruct:sticky",
       "level": 1
     },
     {

@@ -36,6 +36,7 @@ import slimeknights.tconstruct.library.modifiers.dynamic.ExtraModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.InventoryMenuModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.LootModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.MobDisguiseModifier;
+import slimeknights.tconstruct.library.modifiers.dynamic.MobEffectModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.StatBoostModifier;
 import slimeknights.tconstruct.library.modifiers.impl.SingleLevelModifier;
 import slimeknights.tconstruct.library.modifiers.impl.TankModifier;
@@ -65,6 +66,9 @@ import slimeknights.tconstruct.library.recipe.modifiers.adding.OverslimeModifier
 import slimeknights.tconstruct.library.recipe.modifiers.adding.SwappableModifierRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.AgeableSeveringRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
+import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierMaterialRepairKitRecipe;
+import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierMaterialRepairRecipe;
+import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierMaterialRepairSerializer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRepairCraftingRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRepairRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRepairTinkerStationRecipe;
@@ -188,7 +192,6 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.armor.RespirationModifie
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.RicochetModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.SoulSpeedModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.SpringyModifier;
-import slimeknights.tconstruct.tools.modifiers.upgrades.armor.StickyModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.ThornsModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.general.ExperiencedModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.general.MagneticModifier;
@@ -325,7 +328,6 @@ public final class TinkerModifiers extends TinkerModule {
   // counterattack
   public static final StaticModifier<ThornsModifier> thorns = MODIFIERS.register("thorns", ThornsModifier::new);
   public static final StaticModifier<SpringyModifier> springy = MODIFIERS.register("springy", SpringyModifier::new);
-  public static final StaticModifier<StickyModifier> sticky = MODIFIERS.register("sticky", StickyModifier::new);
   // helmet
   public static final StaticModifier<RespirationModifier> respiration = MODIFIERS.register("respiration", RespirationModifier::new);
   public static final StaticModifier<ItemFrameModifier> itemFrame = MODIFIERS.register("item_frame", ItemFrameModifier::new);
@@ -485,6 +487,8 @@ public final class TinkerModifiers extends TinkerModule {
   // modifiers
   public static final RegistryObject<ModifierRepairRecipeSerializer<?>> modifierRepair = RECIPE_SERIALIZERS.register("modifier_repair", () -> new ModifierRepairRecipeSerializer<>(ModifierRepairTinkerStationRecipe::new));
   public static final RegistryObject<ModifierRepairRecipeSerializer<?>> craftingModifierRepair = RECIPE_SERIALIZERS.register("crafting_modifier_repair", () -> new ModifierRepairRecipeSerializer<>(ModifierRepairCraftingRecipe::new));
+  public static final RegistryObject<ModifierMaterialRepairSerializer<?>> modifierMaterialRepair = RECIPE_SERIALIZERS.register("modifier_material_repair", () -> new ModifierMaterialRepairSerializer<>(ModifierMaterialRepairRecipe::new));
+  public static final RegistryObject<ModifierMaterialRepairSerializer<?>> craftingModifierMaterialRepair = RECIPE_SERIALIZERS.register("crafting_modifier_material_repair", () -> new ModifierMaterialRepairSerializer<>(ModifierMaterialRepairKitRecipe::new));
   // worktable
   public static final RegistryObject<ModifierRemovalRecipe.Serializer> removeModifierSerializer = RECIPE_SERIALIZERS.register("remove_modifier", () -> new ModifierRemovalRecipe.Serializer(ModifierRemovalRecipe::new));
   public static final RegistryObject<ModifierRemovalRecipe.Serializer> extractModifierSerializer = RECIPE_SERIALIZERS.register("extract_modifier", () -> new ModifierRemovalRecipe.Serializer(ExtractModifierRecipe::new));
@@ -538,6 +542,7 @@ public final class TinkerModifiers extends TinkerModule {
     ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("conditional_mining_speed"), ConditionalMiningSpeedModifier.LOADER);
     ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("loot"), LootModifier.LOADER);
     ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("enchantment"), EnchantmentModifier.LOADER);
+    ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("mob_effect"), MobEffectModifier.LOADER);
     ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("inventory_with_menu"), InventoryMenuModifier.LOADER);
     // specialized
     ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("tool_belt"), ToolBeltModifier.LOADER);

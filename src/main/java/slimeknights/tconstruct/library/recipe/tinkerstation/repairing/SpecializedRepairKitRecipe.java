@@ -11,6 +11,7 @@ import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.SpecializedRepairRecipeSerializer.ISpecializedRepairRecipe;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.recipe.CraftingTableRepairKitRecipe;
 
@@ -35,8 +36,8 @@ public class SpecializedRepairKitRecipe extends CraftingTableRepairKitRecipe imp
 
   @Override
   public boolean matches(CraftingContainer inv, Level worldIn) {
-    Pair<ToolStack, MaterialId> inputs = getRelevantInputs(inv);
-    return inputs != null && repairMaterial.equals(inputs.getSecond());
+    Pair<ToolStack, ItemStack> inputs = getRelevantInputs(inv);
+    return inputs != null && repairMaterial.equals(IMaterialItem.getMaterialFromStack(inputs.getSecond()).getId());
   }
 
   @Override

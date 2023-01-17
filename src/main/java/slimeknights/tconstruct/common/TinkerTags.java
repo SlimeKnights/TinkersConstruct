@@ -59,6 +59,10 @@ public class TinkerTags {
     public static final TagKey<Block> WORKSTATION_ROCK = tag("workstation_rock");
     /** Metals that can be used to craft the anvil */
     public static final TagKey<Block> ANVIL_METAL = tag("anvil_metal");
+    /** Materials that can be used to craft the smeltery controller */
+    public static final TagKey<Block> SMELTERY_BRICKS = tag("smeltery_bricks");
+    /** Materials that can be used to craft the foundry controller */
+    public static final TagKey<Block> FOUNDRY_BRICKS = tag("foundry_bricks");
 
     /** Things the platform connects to */
     public static final TagKey<Block> PLATFORM_CONNECTIONS = tag("platform_connections");
@@ -192,6 +196,10 @@ public class TinkerTags {
     public static final TagKey<Item> WORKSTATION_ROCK = tag("workstation_rock");
     /** Metals that can be used to craft the anvil */
     public static final TagKey<Item> ANVIL_METAL = tag("anvil_metal");
+    /** Materials that can be used to craft the smeltery controller */
+    public static final TagKey<Item> SMELTERY_BRICKS = tag("smeltery_bricks");
+    /** Materials that can be used to craft the foundry controller */
+    public static final TagKey<Item> FOUNDRY_BRICKS = tag("foundry_bricks");
     /** Copper platform variants */
     public static final TagKey<Item> COPPER_PLATFORMS = tag("copper_platforms");
 
@@ -357,6 +365,13 @@ public class TinkerTags {
     public static final TagKey<Item> LONGBOWS = tag("modifiable/ranged/longbows");
     /** Any modifiable bows that store an arrow then fire on next use */
     public static final TagKey<Item> CROSSBOWS = tag("modifiable/ranged/crossbows");
+
+    /** Tools that can receive metal based embellishments */
+    public static final TagKey<Item> EMBELLISHMENT_METAL = tag("modifiable/embellishment/metal");
+    /** Tools that can receive slime based embellishments */
+    public static final TagKey<Item> EMBELLISHMENT_SLIME = tag("modifiable/embellishment/slime");
+    /** Tools that can be dyed */
+    public static final TagKey<Item> DYEABLE = tag("modifiable/dyeable");
 
     /** Tag so mods like thermal know our scyhtes can harvest */
     public static final TagKey<Item> SCYTHES = forgeTag("tools/scythe");
