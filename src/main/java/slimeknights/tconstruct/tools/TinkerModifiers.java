@@ -17,6 +17,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.registries.RegistryObject;
 import slimeknights.mantle.registration.object.ItemObject;
@@ -56,6 +57,7 @@ import slimeknights.tconstruct.library.modifiers.spilling.effects.RestoreHungerS
 import slimeknights.tconstruct.library.modifiers.spilling.effects.SetFireSpillingEffect;
 import slimeknights.tconstruct.library.modifiers.spilling.effects.TeleportSpillingEffect;
 import slimeknights.tconstruct.library.modifiers.util.DynamicModifier;
+import slimeknights.tconstruct.library.modifiers.util.ModifierDeferredRegister;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay.UniqueForLevels;
 import slimeknights.tconstruct.library.modifiers.util.StaticModifier;
@@ -235,11 +237,14 @@ import static slimeknights.tconstruct.tools.TinkerTools.TAB_TOOLS;
  */
 @SuppressWarnings("unused")
 public final class TinkerModifiers extends TinkerModule {
+  private static final ModifierDeferredRegister MODIFIERS = ModifierDeferredRegister.create(TConstruct.MOD_ID);
+
   @SuppressWarnings("deprecation")
   public TinkerModifiers() {
     ModifierManager.INSTANCE.init();
     DynamicModifier.init();
     SpillingFluidManager.INSTANCE.init();
+    MODIFIERS.register(FMLJavaModLoadingContext.get().getModEventBus());
   }
 
   /*
