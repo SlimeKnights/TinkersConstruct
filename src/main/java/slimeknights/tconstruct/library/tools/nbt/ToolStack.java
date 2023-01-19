@@ -383,8 +383,13 @@ public class ToolStack implements IToolStackView {
    * @param multipliers  Stats instance
    */
   protected void setMultipliers(MultiplierNBT multipliers) {
-    this.multipliers = multipliers;
-    nbt.put(TAG_MULTIPLIERS, multipliers.serializeToNBT());
+    if (multipliers.getContainedStats().isEmpty()) {
+      this.multipliers = MultiplierNBT.EMPTY;
+      nbt.remove(TAG_MULTIPLIERS);
+    } else {
+      this.multipliers = multipliers;
+      nbt.put(TAG_MULTIPLIERS, multipliers.serializeToNBT());
+    }
   }
 
   @Override
