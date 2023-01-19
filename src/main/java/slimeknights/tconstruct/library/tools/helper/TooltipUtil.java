@@ -54,7 +54,7 @@ import java.util.function.BiPredicate;
 /** Helper functions for adding tooltips to tools */
 public class TooltipUtil {
   /** Translation key for the tool name format string */
-  private static final String KEY_FORMAT = TConstruct.makeTranslationKey("item", "tool.format");
+  public static final String KEY_FORMAT = TConstruct.makeTranslationKey("item", "tool.format");
   /** Translation key for the tool name format string */
   private static final Component MATERIAL_SEPARATOR = TConstruct.makeTranslation("item", "tool.material_separator");
   /** Tool tag to set that makes a tool a display tool */
