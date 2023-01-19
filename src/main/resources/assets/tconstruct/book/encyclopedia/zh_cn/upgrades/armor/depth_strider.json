@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:depth_strider",
   "text": [
     {
-      "text": "每一等级会减少33%水中移速减益。第3级时，抵消在水中的移速减益。"
+      "text": "每级减少33%水中移速减益。第3级时，抵消在水中的移速减益。"
     }
   ],
   "more_text_space": true,
