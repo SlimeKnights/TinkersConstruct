@@ -2,13 +2,16 @@ package slimeknights.tconstruct.library.recipe.tinkerstation.repairing;
 
 import lombok.Getter;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.materials.definition.LazyMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierMaterialRepairSerializer.IModifierMaterialRepairRecipe;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tables.recipe.TinkerStationRepairRecipe;
@@ -45,7 +48,8 @@ public class ModifierMaterialRepairRecipe extends TinkerStationRepairRecipe impl
       return false;
     }
     // must have the modifier
-    if (ToolStack.from(inv.getTinkerableStack()).getModifierLevel(modifier) == 0) {
+    ItemStack tinkerable = inv.getTinkerableStack();
+    if (!tinkerable.is(TinkerTags.Items.MODIFIABLE) || ModifierUtil.getModifierLevel(tinkerable, modifier) == 0) {
       return false;
     }
     return SpecializedRepairRecipe.findMaterialItem(inv, repairMaterial);
