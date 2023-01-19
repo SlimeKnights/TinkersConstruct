@@ -8,6 +8,7 @@
     "fluid": "tconstruct:block/black",
     "particle": "#front"
   },
+  "colors": [{"uvlock": true}],
   "fluids": ["fluid"],
   "retextured": ["bricks"],
   "elements": [
@@ -15,7 +16,6 @@
       "name": "brick",
       "from": [0, 0, 0],
       "to": [16, 16, 16],
-      "uvlock": true,
       "faces": {
         "north": {"uv": [0, 0, 16, 16], "texture": "#bricks", "cullface": "north" },
         "east":  {"uv": [0, 0, 16, 16], "texture": "#bricks", "cullface": "east"  },
