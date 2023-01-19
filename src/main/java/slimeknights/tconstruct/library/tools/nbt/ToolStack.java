@@ -14,6 +14,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -136,7 +138,15 @@ public class ToolStack implements IToolStackView {
       if (!copyNbt) {
         // bypass the setter as vanilla insists on setting damage values there, along with verifying the tag
         // both are things we will do later, doing so now causes us to recursively call this method (though not infinite)
-        stack.tag = nbt;
+        if (stack.is(TinkerTags.Items.MODIFIABLE)) {
+          stack.tag = nbt;
+        } else {
+          if (Config.COMMON.logInvalidToolStackTrace.get()) {
+            TConstruct.LOG.warn("Tool stack constructed using non-modifiable tool, this may cause issues as it has no NBT. Stacktrace can be disabled in config.", new Exception("Stack trace"));
+          } else {
+            TConstruct.LOG.warn("Tool stack constructed using non-modifiable tool, this may cause issues as it has no NBT. To debug this issue, enable logInvalidToolStackTrace in the config.");
+          }
+        }
       }
     } else if (copyNbt) {
       nbt = nbt.copy();

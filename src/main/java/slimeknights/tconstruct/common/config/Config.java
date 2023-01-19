@@ -66,7 +66,9 @@ public class Config {
     public final BooleanValue showAllAnvilVariants;
     public final BooleanValue showAllSmelteryVariants;
 
+    // debug
     public final BooleanValue forceIntegrationMaterials;
+    public final BooleanValue logInvalidToolStackTrace;
 
     Common(ForgeConfigSpec.Builder builder) {
       builder.comment("Everything to do with gameplay").push("gameplay");
@@ -259,6 +261,9 @@ public class Config {
                  "Does not provide recipes for any of them, they will only be available to cheat in creative.")
         .worldRestart()
         .define("forceIntegrationMaterials", false);
+      this.logInvalidToolStackTrace = builder
+        .comment("If true, logs the stacktrace whenever a tool stack is created from a non-modifiable item. The stacktrace helps debug which mod is causing it, but is rather expensive on the chance they are doing it a lot.")
+        .define("logInvalidToolStackTrace", true);
       builder.pop();
     }
   }
