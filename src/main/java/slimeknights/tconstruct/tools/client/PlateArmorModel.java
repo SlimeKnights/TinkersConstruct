@@ -87,7 +87,7 @@ public class PlateArmorModel extends Model {
       variantId = MaterialIds.cobalt;
     }
     ResourceLocation location = variantId.getLocation('_');
-    return new ResourceLocation(name.getNamespace() + String.format("textures/models/armor/%s/layer_%d_%s_%s.png", name.getPath(), variant, location.getNamespace(), location.getPath()));
+    return new ResourceLocation(name.getNamespace(), String.format("textures/models/armor/%s/layer_%d_%s_%s.png", name.getPath(), variant, location.getNamespace(), location.getPath()));
   }
 
   private void setup(HumanoidModel<?> base, ItemStack stack, EquipmentSlot slot) {

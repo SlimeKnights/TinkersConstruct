@@ -7,9 +7,11 @@ import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierMaterialRepairSerializer.IModifierMaterialRepairRecipe;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
@@ -32,7 +34,7 @@ public class ModifierMaterialRepairKitRecipe extends CraftingTableRepairKitRecip
 
   @Override
   protected boolean toolMatches(ItemStack stack) {
-    return ToolStack.from(stack).getModifierLevel(modifier) > 0;
+    return stack.is(TinkerTags.Items.MODIFIABLE) && ModifierUtil.getModifierLevel(stack, modifier) > 0;
   }
 
   @Override
