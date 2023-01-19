@@ -263,7 +263,7 @@ public class Config {
         .define("forceIntegrationMaterials", false);
       this.logInvalidToolStackTrace = builder
         .comment("If true, logs the stacktrace whenever a tool stack is created from a non-modifiable item. The stacktrace helps debug which mod is causing it, but is rather expensive on the chance they are doing it a lot.")
-        .define("logInvalidToolStackTrace", true);
+        .define("logInvalidToolStackTrace", false);
       builder.pop();
     }
   }
