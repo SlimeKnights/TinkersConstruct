@@ -4,10 +4,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Pair;
-import com.mojang.math.Transformation;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BlockElement;
@@ -38,11 +35,12 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.client.model.RetexturedModel;
 import slimeknights.mantle.client.model.RetexturedModel.RetexturedConfiguration;
 import slimeknights.mantle.client.model.util.ColoredBlockModel;
+import slimeknights.mantle.client.model.util.ColoredBlockModel.ColorData;
 import slimeknights.mantle.client.model.util.DynamicBakedWrapper;
 import slimeknights.mantle.client.model.util.ModelHelper;
-import slimeknights.mantle.client.model.util.SimpleBlockModel;
 import slimeknights.mantle.item.RetexturedBlockItem;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.mantle.util.LogicHelper;
 import slimeknights.mantle.util.RetexturedHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.smeltery.block.entity.tank.IDisplayFluidListener;
@@ -66,10 +64,9 @@ import java.util.function.Function;
 public class FluidTextureModel implements IModelGeometry<FluidTextureModel> {
   public static final Loader LOADER = new Loader();
 
-  private final SimpleBlockModel model;
+  private final ColoredBlockModel model;
   private final Set<String> fluids;
   private final Set<String> retextured;
-  private final List<UvLock> uvLock;
 
   @Override
   public Collection<Material> getTextures(IModelConfiguration owner, Function<ResourceLocation,UnbakedModel> modelGetter, Set<Pair<String,String>> missingTextureErrors) {
@@ -87,29 +84,10 @@ public class FluidTextureModel implements IModelGeometry<FluidTextureModel> {
   @Override
   public BakedModel bake(IModelConfiguration owner, ModelBakery bakery, Function<Material,TextureAtlasSprite> spriteGetter, ModelState transform, ItemOverrides overrides, ResourceLocation modelLocation) {
     // start by baking the model, handing UV lock
-    BakedModel baked;
-    if (!uvLock.isEmpty()) {
-      // TODO: move to colored block model method in mantle
-      TextureAtlasSprite particle = spriteGetter.apply(owner.resolveTexture("particle"));
-      SimpleBakedModel.Builder builder = new SimpleBakedModel.Builder(owner, overrides).particle(particle);
-      boolean defaultUvLock = transform.isUvLocked();
-      ModelState reversedUvLock = new ModelStateUvLockOverride(transform, !defaultUvLock);
-      List<BlockElement> elements = model.getElements();
-      for (int i = 0; i < elements.size(); i++) {
-        BlockElement part = elements.get(i);
-        ModelState elementTransform = transform;
-        if (i < uvLock.size() && uvLock.get(i).isUvLock(defaultUvLock) != defaultUvLock) {
-          elementTransform = reversedUvLock;
-        }
-        SimpleBlockModel.bakePart(builder, owner, part, elementTransform, spriteGetter, modelLocation);
-      }
-      baked = builder.build();
-    } else {
-      baked = model.bakeModel(owner, transform, overrides, spriteGetter, modelLocation);
-    }
+    BakedModel baked = model.bake(owner, bakery, spriteGetter, transform, overrides, modelLocation);
 
     // determine which block parts are fluids
-    Set<String> fluidTextures = this.fluids.isEmpty() ? Collections.emptySet() : RetexturedModel.getAllRetextured(owner, model, this.fluids);
+    Set<String> fluidTextures = this.fluids.isEmpty() ? Collections.emptySet() : RetexturedModel.getAllRetextured(owner, model.getModel(), this.fluids);
     List<BlockElement> elements = model.getElements();
     int size = elements.size();
     BitSet fluidParts = new BitSet(size);
@@ -129,8 +107,8 @@ public class FluidTextureModel implements IModelGeometry<FluidTextureModel> {
         }
       }
     }
-    Set<String> retextured = this.retextured.isEmpty() ? Collections.emptySet() : RetexturedModel.getAllRetextured(owner, this.model, this.retextured);
-    return new Baked(baked, elements, owner, transform, fluidTextures, fluidParts, retextured, uvLock);
+    Set<String> retextured = this.retextured.isEmpty() ? Collections.emptySet() : RetexturedModel.getAllRetextured(owner, this.model.getModel(), this.retextured);
+    return new Baked(baked, elements, model.getColorData(), owner, transform, fluidTextures, fluidParts, retextured);
   }
 
   private record BakedCacheKey(FluidStack fluid, @Nullable ResourceLocation texture) {}
@@ -139,22 +117,22 @@ public class FluidTextureModel implements IModelGeometry<FluidTextureModel> {
   private static class Baked extends DynamicBakedWrapper<BakedModel> {
     private final Map<BakedCacheKey,BakedModel> cache = new ConcurrentHashMap<>();
     private final List<BlockElement> elements;
+    private final List<ColorData> colorData;
     private final IModelConfiguration owner;
     private final ModelState transform;
     private final Set<String> fluids;
     private final BitSet fluidParts;
     private final Set<String> retextured;
-    private final List<UvLock> uvLock;
 
-    protected Baked(BakedModel originalModel, List<BlockElement> elements, IModelConfiguration owner, ModelState transform, Set<String> fluids, BitSet fluidParts, Set<String> retextured, List<UvLock> uvLock) {
+    protected Baked(BakedModel originalModel, List<BlockElement> elements, List<ColorData> colorData, IModelConfiguration owner, ModelState transform, Set<String> fluids, BitSet fluidParts, Set<String> retextured) {
       super(originalModel);
       this.elements = elements;
+      this.colorData = colorData;
       this.owner = owner;
       this.transform = transform;
       this.fluids = fluids;
       this.fluidParts = fluidParts;
       this.retextured = retextured;
-      this.uvLock = uvLock;
     }
 
     /** Retextures a model for the given fluid */
@@ -184,18 +162,14 @@ public class FluidTextureModel implements IModelGeometry<FluidTextureModel> {
 
       // add in elements
       boolean defaultUvLock = transform.isUvLocked();
-      ModelState invertedTransform = new ModelStateUvLockOverride(transform, !defaultUvLock);
       int size = elements.size();
       for (int i = 0; i < size; i++) {
         BlockElement element = elements.get(i);
-        ModelState elementTransform = transform;
-        if (i < uvLock.size() && uvLock.get(i).isUvLock(defaultUvLock) != defaultUvLock) {
-          elementTransform = invertedTransform;
-        }
+        ColorData colors = LogicHelper.getOrDefault(colorData, i, ColorData.DEFAULT);
         if (fluidParts.get(i)) {
-          ColoredBlockModel.bakePart(builder, textured, element, color, luminosity, elementTransform, spriteGetter, TankModel.BAKE_LOCATION);
+          ColoredBlockModel.bakePart(builder, textured, element, color, luminosity, transform.getRotation(), colors.isUvLock(defaultUvLock), spriteGetter, TankModel.BAKE_LOCATION);
         } else {
-          SimpleBlockModel.bakePart(builder, textured, element, elementTransform, spriteGetter, TankModel.BAKE_LOCATION);
+          ColoredBlockModel.bakePart(builder, textured, element, colors.color(), colors.luminosity(), transform.getRotation(), colors.isUvLock(defaultUvLock), spriteGetter, TankModel.BAKE_LOCATION);
         }
       }
       return builder.build();
@@ -227,30 +201,6 @@ public class FluidTextureModel implements IModelGeometry<FluidTextureModel> {
     }
   }
 
-  /** UV lock state */
-  private enum UvLock {
-    DEFAULT {
-      @Override
-      public boolean isUvLock(boolean uvLock) {
-        return uvLock;
-      }
-    },
-    TRUE {
-      @Override
-      public boolean isUvLock(boolean uvLock) {
-        return true;
-      }
-    },
-    FALSE {
-      @Override
-      public boolean isUvLock(boolean uvLock) {
-        return false;
-      }
-    };
-
-    public abstract boolean isUvLock(boolean uvLock);
-  }
-
   /** Model loader class */
   private static class Loader implements IModelLoader<FluidTextureModel> {
     @Override
@@ -258,7 +208,7 @@ public class FluidTextureModel implements IModelGeometry<FluidTextureModel> {
 
     @Override
     public FluidTextureModel read(JsonDeserializationContext context, JsonObject json) {
-      SimpleBlockModel model = SimpleBlockModel.deserialize(context, json);
+      ColoredBlockModel model = ColoredBlockModel.deserialize(context, json);
       Set<String> fluids = Collections.emptySet();
       if (json.has("fluids")) {
         fluids = ImmutableSet.copyOf(JsonHelper.parseList(json, "fluids", GsonHelper::convertToString));
@@ -267,11 +217,7 @@ public class FluidTextureModel implements IModelGeometry<FluidTextureModel> {
       if (json.has("retextured")) {
         retextured = ImmutableSet.copyOf(JsonHelper.parseList(json, "retextured", GsonHelper::convertToString));
       }
-      List<UvLock> uvLock = Collections.emptyList();
-      if (json.has("elements")) {
-        uvLock = JsonHelper.parseList(json, "elements", obj -> obj.has("uvlock") ? JsonHelper.getAsEnum(obj, "uvlock", UvLock.class) : UvLock.DEFAULT);
-      }
-      return new FluidTextureModel(model, fluids, retextured, uvLock);
+      return new FluidTextureModel(model, fluids, retextured);
     }
   }
 
@@ -294,24 +240,6 @@ public class FluidTextureModel implements IModelGeometry<FluidTextureModel> {
 
       // if valid, use the block
       return ((Baked)originalModel).getCachedModel(new BakedCacheKey(FluidStack.EMPTY, ModelHelper.getParticleTexture(block)));
-    }
-  }
-
-  /** Wrapper to override model state UV lock */
-  @RequiredArgsConstructor
-  private static class ModelStateUvLockOverride implements ModelState {
-    private final ModelState internal;
-    @Getter
-    private final boolean uvLocked;
-
-    @Override
-    public Transformation getRotation() {
-      return internal.getRotation();
-    }
-
-    @Override
-    public Transformation getPartTransformation(Object part) {
-      return internal.getPartTransformation(part);
     }
   }
 }
