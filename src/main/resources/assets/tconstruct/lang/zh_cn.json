@@ -252,7 +252,7 @@
   "item.tconstruct.dragon_scale.tooltip": "从末影龙身上炸下来的",
 
   "item.tconstruct.modifier_crystal": "强化水晶",
-  "item.tconstruct.modifier_crystal.format": "%s 水晶",
+  "item.tconstruct.modifier_crystal.format": "%s水晶",
   "item.tconstruct.modifier_crystal.missing": "定义强化类型的NBT缺失或无效",
   "item.tconstruct.modifier_crystal.tooltip": "加持于工具后对应强化等级增加1级并消耗相应的强化槽。",
 
@@ -851,7 +851,7 @@
   "_comment": "Tinkers Tools",
 
   "_comment_on_format_": "These format allows you to have more control over separators in material names. By default we separate with space. You can use %1$s and %2$s if you wish to change the order.",
-  "item.tconstruct.tool.format": "%s %s",
+  "item.tconstruct.tool.format": "%s%s",
   "item.tconstruct.tool.material_separator": "-",
 
   "item.tconstruct.pickaxe": "镐",
@@ -1380,7 +1380,7 @@
   "material.tconstruct.wood.dark_oak": "深色橡木",
   "material.tconstruct.wood.crimson": "绯红木",
   "material.tconstruct.wood.warped": "诡异木",
-  "material.tconstruct.wood.format": "木 %s",
+  "material.tconstruct.wood.format": "木%s",
   "material.tconstruct.wood.flavor": "伐伐伐伐伐伐伐伐伐木工",
   "material.tconstruct.wood.encyclopedia": "每有一个木部件，工具修理效率提高50%。",
   
