@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.items.ItemHandlerHelper;
+import org.apache.commons.lang3.StringUtils;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.SoundUtils;
 import slimeknights.tconstruct.common.Sounds;
@@ -22,6 +23,7 @@ import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
+import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.shared.inventory.ConfigurableInvWrapperCapability;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.block.TinkerStationBlock;
@@ -42,7 +44,7 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
   private static final Component NAME = TConstruct.makeTranslation("gui", "tinker_station");
 
   /** Last crafted crafting recipe */
-  @Nullable
+  @Nullable @Getter
   private ITinkerStationRecipe lastRecipe;
   /** Result inventory, lazy loads results */
   @Getter
@@ -52,6 +54,9 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
 
   @Getter
   private ValidatedResult currentError = ValidatedResult.PASS;
+
+  @Getter
+  private String itemName = "";
 
   public TinkerStationBlockEntity(BlockPos pos, BlockState state) {
     // if the block is the right type, use it for slot count
@@ -149,6 +154,11 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
       }
     }
 
+    // set name if we have one
+    if (!result.isEmpty() && !itemName.isEmpty()) {
+      TooltipUtil.setDisplayName(result, itemName);
+    }
+
     return result;
   }
 
@@ -179,6 +189,7 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
         this.setItem(TINKER_SLOT, ItemHandlerHelper.copyStackWithSize(tinkerable, tinkerable.getCount() - shrinkToolSlot));
       }
     }
+    this.itemName = "";
   }
 
   @Override
@@ -193,6 +204,30 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
   protected void playCraftSound(Player player) {
     SoundUtils.playSoundForAll(player, this.getInputCount() > 4 ? SoundEvents.ANVIL_USE : Sounds.SAW.getSound(), 0.8f, 0.8f + 0.4f * player.level.random.nextFloat());
   }
+
+
+  /* Item name */
+
+  /** Sets the name of the item */
+  public void setItemName(String name) {
+    this.itemName = name;
+    ItemStack result = craftingResult.getResult();
+    if (!result.isEmpty()) {
+      // if blank, set name to original name
+      if (StringUtils.isBlank(name)) {
+        // if the input was named, instead of clearing restore the old name
+        ItemStack input = getItem(TINKER_SLOT);
+        if (!input.isEmpty()) {
+          name = TooltipUtil.getDisplayName(input);
+        } else {
+          // empty string will clear the stack tag
+          name = "";
+        }
+      }
+      TooltipUtil.setDisplayName(result, name);
+    }
+  }
+
 
   /* Syncing */
 
