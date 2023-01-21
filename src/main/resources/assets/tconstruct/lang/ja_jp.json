@@ -802,9 +802,9 @@
   "block.tconstruct.magma_cake": "マグマケーキ",
 
   "item.tconstruct.earth_slime_sling": "スライムスリング",
-  "item.tconstruct.earth_slime_sling.tooltip": "溜めて地面に向けて打つと、跳ね上がる！\n命を大事にしたいならスライムブーツを履いてから使おう！",
+  "item.tconstruct.earth_slime_sling.tooltip": "溜めて地面に向けて打つと、跳ね上がる！\n命を大事にしたいなら弾性の改造を使おう！",
   "item.tconstruct.sky_slime_sling": "スカイスライムスリング",
-  "item.tconstruct.sky_slime_sling.tooltip": "溜めて飛びたい方向に向けて打つと、飛び上がる！\n命を大事にしたいならスライムブーツを履いてから使おう！",
+  "item.tconstruct.sky_slime_sling.tooltip": "溜めて飛びたい方向に向けて打つと、飛び上がる！\n命を大事にしたいなら弾性の改造を使おう！",
   "item.tconstruct.ender_slime_sling": "エンダースライムスリング",
   "item.tconstruct.ender_slime_sling.tooltip": "溜めて行きたい方向に向けて打つと、狙った先にワープする！",
   "item.tconstruct.ichor_slime_sling": "イコルスリング",
