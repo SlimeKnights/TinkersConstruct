@@ -40,8 +40,8 @@ import java.util.Objects;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class MobEffectModifier extends IncrementalModifier implements ProjectileHitModifierHook, ProjectileLaunchModifierHook {
   private final MobEffect effect;
-  private final int levelBase;
-  private final int levelMultiplier;
+  private final float levelBase;
+  private final float levelMultiplier;
   private final int timeBase;
   private final int timeMultiplierFlat;
   private final int timeMultiplierRandom;
@@ -51,7 +51,7 @@ public class MobEffectModifier extends IncrementalModifier implements Projectile
     if (target == null) {
       return;
     }
-    int level = Math.round(levelBase + scaledLevel * levelMultiplier - 1);
+    int level = Math.round(levelBase + scaledLevel * levelMultiplier) - 1;
     if (level < 0) {
       return;
     }
@@ -110,12 +110,12 @@ public class MobEffectModifier extends IncrementalModifier implements Projectile
     @Override
     public MobEffectModifier deserialize(JsonObject json) {
       MobEffect effect = JsonHelper.getAsEntry(ForgeRegistries.MOB_EFFECTS, json, "effect");
-      int levelBase = 1;
-      int levelMultiplier = 0;
+      float levelBase = 1;
+      float levelMultiplier = 0;
       if (json.has("level")) {
         JsonObject level = GsonHelper.getAsJsonObject(json, "level");
-        levelBase = GsonHelper.getAsInt(level, "base", 0);
-        levelMultiplier = GsonHelper.getAsInt(level, "multiplier", 0);
+        levelBase = GsonHelper.getAsFloat(level, "base", 0);
+        levelMultiplier = GsonHelper.getAsFloat(level, "multiplier", 0);
       }
       JsonObject time = GsonHelper.getAsJsonObject(json, "time");
       int timeBase = GsonHelper.getAsInt(time, "base", 0);
@@ -134,15 +134,15 @@ public class MobEffectModifier extends IncrementalModifier implements Projectile
       JsonObject time = new JsonObject();
       time.addProperty("base", object.timeBase);
       time.addProperty("multiplier_flat", object.timeMultiplierFlat);
-      time.addProperty("multiplier_flat", object.timeMultiplierRandom);
+      time.addProperty("multiplier_random", object.timeMultiplierRandom);
       json.add("time", time);
     }
 
     @Override
     public MobEffectModifier fromNetwork(FriendlyByteBuf buffer) {
       MobEffect effect = buffer.readRegistryIdUnsafe(ForgeRegistries.MOB_EFFECTS);
-      int levelBase = buffer.readInt();
-      int levelMultiplier = buffer.readInt();
+      float levelBase = buffer.readFloat();
+      float levelMultiplier = buffer.readFloat();
       int timeBase = buffer.readInt();
       int timeMultiplierFlat = buffer.readInt();
       int timeMultiplierRandom = buffer.readInt();
@@ -152,8 +152,8 @@ public class MobEffectModifier extends IncrementalModifier implements Projectile
     @Override
     public void toNetwork(MobEffectModifier object, FriendlyByteBuf buffer) {
       buffer.writeRegistryIdUnsafe(ForgeRegistries.MOB_EFFECTS, object.effect);
-      buffer.writeInt(object.levelBase);
-      buffer.writeInt(object.levelMultiplier);
+      buffer.writeFloat(object.levelBase);
+      buffer.writeFloat(object.levelMultiplier);
       buffer.writeInt(object.timeBase);
       buffer.writeInt(object.timeMultiplierFlat);
       buffer.writeInt(object.timeMultiplierRandom);
@@ -165,8 +165,8 @@ public class MobEffectModifier extends IncrementalModifier implements Projectile
   @Accessors(fluent = true)
   public static class Builder {
     private final MobEffect effect;
-    private int levelBase = 1;
-    private int levelMultiplier = 0;
+    private float levelBase = 1;
+    private float levelMultiplier = 0;
     @Setter
     private int timeBase;
     @Setter
@@ -180,7 +180,7 @@ public class MobEffectModifier extends IncrementalModifier implements Projectile
      * @param multiplier  Bonus granted per level
      * @return  Builder
      */
-    public Builder level(int base, int multiplier) {
+    public Builder level(float base, float multiplier) {
       levelBase = base;
       levelMultiplier = multiplier;
       return this;

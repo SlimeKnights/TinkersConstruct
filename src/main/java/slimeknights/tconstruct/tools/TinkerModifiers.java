@@ -17,6 +17,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.registries.RegistryObject;
 import slimeknights.mantle.registration.object.ItemObject;
@@ -56,6 +57,7 @@ import slimeknights.tconstruct.library.modifiers.spilling.effects.RestoreHungerS
 import slimeknights.tconstruct.library.modifiers.spilling.effects.SetFireSpillingEffect;
 import slimeknights.tconstruct.library.modifiers.spilling.effects.TeleportSpillingEffect;
 import slimeknights.tconstruct.library.modifiers.util.DynamicModifier;
+import slimeknights.tconstruct.library.modifiers.util.ModifierDeferredRegister;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay.UniqueForLevels;
 import slimeknights.tconstruct.library.modifiers.util.StaticModifier;
@@ -66,6 +68,9 @@ import slimeknights.tconstruct.library.recipe.modifiers.adding.OverslimeModifier
 import slimeknights.tconstruct.library.recipe.modifiers.adding.SwappableModifierRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.AgeableSeveringRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
+import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierMaterialRepairKitRecipe;
+import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierMaterialRepairRecipe;
+import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierMaterialRepairSerializer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRepairCraftingRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRepairRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRepairTinkerStationRecipe;
@@ -232,11 +237,14 @@ import static slimeknights.tconstruct.tools.TinkerTools.TAB_TOOLS;
  */
 @SuppressWarnings("unused")
 public final class TinkerModifiers extends TinkerModule {
+  private static final ModifierDeferredRegister MODIFIERS = ModifierDeferredRegister.create(TConstruct.MOD_ID);
+
   @SuppressWarnings("deprecation")
   public TinkerModifiers() {
     ModifierManager.INSTANCE.init();
     DynamicModifier.init();
     SpillingFluidManager.INSTANCE.init();
+    MODIFIERS.register(FMLJavaModLoadingContext.get().getModEventBus());
   }
 
   /*
@@ -484,6 +492,8 @@ public final class TinkerModifiers extends TinkerModule {
   // modifiers
   public static final RegistryObject<ModifierRepairRecipeSerializer<?>> modifierRepair = RECIPE_SERIALIZERS.register("modifier_repair", () -> new ModifierRepairRecipeSerializer<>(ModifierRepairTinkerStationRecipe::new));
   public static final RegistryObject<ModifierRepairRecipeSerializer<?>> craftingModifierRepair = RECIPE_SERIALIZERS.register("crafting_modifier_repair", () -> new ModifierRepairRecipeSerializer<>(ModifierRepairCraftingRecipe::new));
+  public static final RegistryObject<ModifierMaterialRepairSerializer<?>> modifierMaterialRepair = RECIPE_SERIALIZERS.register("modifier_material_repair", () -> new ModifierMaterialRepairSerializer<>(ModifierMaterialRepairRecipe::new));
+  public static final RegistryObject<ModifierMaterialRepairSerializer<?>> craftingModifierMaterialRepair = RECIPE_SERIALIZERS.register("crafting_modifier_material_repair", () -> new ModifierMaterialRepairSerializer<>(ModifierMaterialRepairKitRecipe::new));
   // worktable
   public static final RegistryObject<ModifierRemovalRecipe.Serializer> removeModifierSerializer = RECIPE_SERIALIZERS.register("remove_modifier", () -> new ModifierRemovalRecipe.Serializer(ModifierRemovalRecipe::new));
   public static final RegistryObject<ModifierRemovalRecipe.Serializer> extractModifierSerializer = RECIPE_SERIALIZERS.register("extract_modifier", () -> new ModifierRemovalRecipe.Serializer(ExtractModifierRecipe::new));

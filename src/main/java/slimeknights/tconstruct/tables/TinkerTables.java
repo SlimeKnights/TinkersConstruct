@@ -118,17 +118,20 @@ public final class TinkerTables extends TinkerModule {
   /*
    * Recipes
    */
-  public static final RegistryObject<PartRecipe.Serializer> partRecipeSerializer = RECIPE_SERIALIZERS.register("part_builder", PartRecipe.Serializer::new);
-  public static final RegistryObject<ItemPartRecipe.Serializer> itemPartBuilderSerializer = RECIPE_SERIALIZERS.register("item_part_builder", ItemPartRecipe.Serializer::new);
   public static final RegistryObject<MaterialRecipeSerializer> materialRecipeSerializer = RECIPE_SERIALIZERS.register("material", MaterialRecipeSerializer::new);
   public static final RegistryObject<ToolBuildingRecipeSerializer> toolBuildingRecipeSerializer = RECIPE_SERIALIZERS.register("tool_building", ToolBuildingRecipeSerializer::new);
-  public static final RegistryObject<SimpleRecipeSerializer<TinkerStationRepairRecipe>> tinkerStationRepairSerializer = RECIPE_SERIALIZERS.register("tinker_station_repair", () -> new SimpleRecipeSerializer<>(TinkerStationRepairRecipe::new));
-  public static final RegistryObject<SimpleRecipeSerializer<CraftingTableRepairKitRecipe>> craftingTableRepairSerializer = RECIPE_SERIALIZERS.register("crafting_table_repair", () -> new SimpleRecipeSerializer<>(CraftingTableRepairKitRecipe::new));
-  public static final RegistryObject<SpecializedRepairRecipeSerializer<?>> specializedRepairSerializer = RECIPE_SERIALIZERS.register("specialized_station_repair", () -> new SpecializedRepairRecipeSerializer<>(SpecializedRepairRecipe::new));
-  public static final RegistryObject<SpecializedRepairRecipeSerializer<?>> specializedRepairKitSerializer = RECIPE_SERIALIZERS.register("specialized_repair_kit", () -> new SpecializedRepairRecipeSerializer<>(SpecializedRepairKitRecipe::new));
   public static final RegistryObject<SimpleRecipeSerializer<TinkerStationPartSwapping>> tinkerStationPartSwappingSerializer = RECIPE_SERIALIZERS.register("tinker_station_part_swapping", () -> new SimpleRecipeSerializer<>(TinkerStationPartSwapping::new));
   public static final RegistryObject<TinkerStationDamagingRecipe.Serializer> tinkerStationDamagingSerializer = RECIPE_SERIALIZERS.register("tinker_station_damaging", TinkerStationDamagingRecipe.Serializer::new);
+  // part builder
+  public static final RegistryObject<PartRecipe.Serializer> partRecipeSerializer = RECIPE_SERIALIZERS.register("part_builder", PartRecipe.Serializer::new);
+  public static final RegistryObject<ItemPartRecipe.Serializer> itemPartBuilderSerializer = RECIPE_SERIALIZERS.register("item_part_builder", ItemPartRecipe.Serializer::new);
   public static final RegistryObject<PartBuilderToolRecycle.Serializer> partBuilderToolRecycling = RECIPE_SERIALIZERS.register("part_builder_tool_recycling", PartBuilderToolRecycle.Serializer::new);
+  // repair - standard
+  public static final RegistryObject<SimpleRecipeSerializer<TinkerStationRepairRecipe>> tinkerStationRepairSerializer = RECIPE_SERIALIZERS.register("tinker_station_repair", () -> new SimpleRecipeSerializer<>(TinkerStationRepairRecipe::new));
+  public static final RegistryObject<SimpleRecipeSerializer<CraftingTableRepairKitRecipe>> craftingTableRepairSerializer = RECIPE_SERIALIZERS.register("crafting_table_repair", () -> new SimpleRecipeSerializer<>(CraftingTableRepairKitRecipe::new));
+  // repair - specialized
+  public static final RegistryObject<SpecializedRepairRecipeSerializer<?>> specializedRepairSerializer = RECIPE_SERIALIZERS.register("specialized_station_repair", () -> new SpecializedRepairRecipeSerializer<>(SpecializedRepairRecipe::new));
+  public static final RegistryObject<SpecializedRepairRecipeSerializer<?>> specializedRepairKitSerializer = RECIPE_SERIALIZERS.register("specialized_repair_kit", () -> new SpecializedRepairRecipeSerializer<>(SpecializedRepairKitRecipe::new));
 
   @SubscribeEvent
   void commonSetup(final FMLCommonSetupEvent event) {

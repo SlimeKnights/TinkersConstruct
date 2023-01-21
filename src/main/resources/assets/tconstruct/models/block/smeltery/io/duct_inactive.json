@@ -1,8 +1,8 @@
 {
-  "parent": "minecraft:block/orientable",
+  "parent": "tconstruct:block/template/io",
   "textures": {
-    "top": "tconstruct:block/smeltery/io/duct_front_inactive",
-    "front": "tconstruct:block/smeltery/io/back",
-    "side": "tconstruct:block/smeltery/io/duct_front_inactive"
+    "drain": "tconstruct:block/smeltery/io/duct_front_inactive",
+    "bricks": "tconstruct:block/smeltery/seared/bricks",
+    "back": "tconstruct:block/smeltery/io/back"
   }
 }

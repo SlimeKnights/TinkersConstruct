@@ -44,6 +44,9 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.BOWS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.CHESTPLATES;
 import static slimeknights.tconstruct.common.TinkerTags.Items.CROSSBOWS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.DURABILITY;
+import static slimeknights.tconstruct.common.TinkerTags.Items.DYEABLE;
+import static slimeknights.tconstruct.common.TinkerTags.Items.EMBELLISHMENT_METAL;
+import static slimeknights.tconstruct.common.TinkerTags.Items.EMBELLISHMENT_SLIME;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST_PRIMARY;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HELD;
@@ -236,9 +239,9 @@ public class ItemTagProvider extends ItemTagsProvider {
     addToolTags(TinkerTools.flintAndBrick, DURABILITY, MELEE, ONE_HANDED, AOE);
 
     // armor
-    addArmorTags(TinkerTools.travelersGear, DURABILITY, ItemTags.FREEZE_IMMUNE_WEARABLES);
-    addArmorTags(TinkerTools.plateArmor,    DURABILITY);
-    addArmorTags(TinkerTools.slimesuit,     DURABILITY);
+    addArmorTags(TinkerTools.travelersGear, DURABILITY, DYEABLE, ItemTags.FREEZE_IMMUNE_WEARABLES);
+    addArmorTags(TinkerTools.plateArmor,    DURABILITY, EMBELLISHMENT_METAL);
+    addArmorTags(TinkerTools.slimesuit,     DURABILITY, EMBELLISHMENT_SLIME);
     addToolTags(TinkerTools.slimesuit.get(ArmorSlotType.HELMET), MULTIPART_TOOL);
 
     // add tags to other tags
@@ -335,7 +338,9 @@ public class ItemTagProvider extends ItemTagsProvider {
   private void addSmeltery() {
     this.copy(TinkerTags.Blocks.SEARED_BRICKS, TinkerTags.Items.SEARED_BRICKS);
     this.copy(TinkerTags.Blocks.SEARED_BLOCKS, TinkerTags.Items.SEARED_BLOCKS);
+    this.copy(TinkerTags.Blocks.SMELTERY_BRICKS, TinkerTags.Items.SMELTERY_BRICKS);
     this.copy(TinkerTags.Blocks.SCORCHED_BLOCKS, TinkerTags.Items.SCORCHED_BLOCKS);
+    this.copy(TinkerTags.Blocks.FOUNDRY_BRICKS, TinkerTags.Items.FOUNDRY_BRICKS);
     this.copy(BlockTags.SOUL_FIRE_BASE_BLOCKS, ItemTags.SOUL_FIRE_BASE_BLOCKS);
 
     // smeltery and foundry structure blocks

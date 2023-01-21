@@ -14,6 +14,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -127,16 +128,25 @@ public class ToolStack implements IToolStackView {
    */
   private static ToolStack from(ItemStack stack, boolean copyNbt) {
     Item item = stack.getItem();
-    ToolDefinition definition = item instanceof IModifiable
-                                ? ((IModifiable)item).getToolDefinition()
+    ToolDefinition definition = item instanceof IModifiable mod
+                                ? mod.getToolDefinition()
                                 : ToolDefinition.EMPTY;
     CompoundTag nbt = stack.getTag();
     if (nbt == null) {
       nbt = new CompoundTag();
       if (!copyNbt) {
-        // bypass the setter as vanilla insists on setting damage values there, along with verifying the tag
-        // both are things we will do later, doing so now causes us to recursively call this method (though not infinite)
-        stack.tag = nbt;
+        // only a wrongly made tool will have an empty definition. check preferred to a tag check as tags may not be loaded when this is first called
+        if (definition != ToolDefinition.EMPTY) {
+          // bypass the setter as vanilla insists on setting damage values there, along with verifying the tag
+          // both are things we will do later, doing so now causes us to recursively call this method (though not infinite)
+          stack.tag = nbt;
+        } else {
+          if (Config.COMMON.logInvalidToolStackTrace.get()) {
+            TConstruct.LOG.warn("Tool stack constructed using non-modifiable tool, this may cause issues as it has no NBT. Stacktrace can be disabled in config.", new Exception("Stack trace"));
+          } else {
+            TConstruct.LOG.warn("Tool stack constructed using non-modifiable tool, this may cause issues as it has no NBT. To debug this issue, enable logInvalidToolStackTrace in the config.");
+          }
+        }
       }
     } else if (copyNbt) {
       nbt = nbt.copy();
@@ -383,8 +393,13 @@ public class ToolStack implements IToolStackView {
    * @param multipliers  Stats instance
    */
   protected void setMultipliers(MultiplierNBT multipliers) {
-    this.multipliers = multipliers;
-    nbt.put(TAG_MULTIPLIERS, multipliers.serializeToNBT());
+    if (multipliers.getContainedStats().isEmpty()) {
+      this.multipliers = MultiplierNBT.EMPTY;
+      nbt.remove(TAG_MULTIPLIERS);
+    } else {
+      this.multipliers = multipliers;
+      nbt.put(TAG_MULTIPLIERS, multipliers.serializeToNBT());
+    }
   }
 
   @Override

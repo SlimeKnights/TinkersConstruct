@@ -1,14 +1,21 @@
 package slimeknights.tconstruct.smeltery.block.controller;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.HitResult;
+import slimeknights.mantle.block.RetexturedBlock;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.smeltery.block.entity.controller.HeatingStructureBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.multiblock.MultiblockResult;
 import slimeknights.tconstruct.smeltery.network.StructureErrorPositionPacket;
+
+import javax.annotation.Nullable;
 
 /**
  * Multiblock that displays the error from the tile entity on right click
@@ -45,5 +52,16 @@ public abstract class HeatingControllerBlock extends ControllerBlock {
       });
     }
     return true;
+  }
+
+  @Override
+  public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+    super.setPlacedBy(world, pos, state, placer, stack);
+    RetexturedBlock.updateTextureBlock(world, pos, stack);
+  }
+
+  @Override
+  public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
+    return RetexturedBlock.getPickBlock(world, pos, state);
   }
 }

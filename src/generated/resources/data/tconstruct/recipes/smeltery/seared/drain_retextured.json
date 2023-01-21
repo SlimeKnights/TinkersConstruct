@@ -1,0 +1,21 @@
+{
+  "type": "mantle:crafting_shaped_retextured",
+  "pattern": [
+    "C#C"
+  ],
+  "key": {
+    "#": {
+      "tag": "tconstruct:smeltery_bricks"
+    },
+    "C": {
+      "tag": "forge:ingots/copper"
+    }
+  },
+  "result": {
+    "item": "tconstruct:seared_drain"
+  },
+  "texture": {
+    "tag": "tconstruct:smeltery_bricks"
+  },
+  "match_all": false
+}

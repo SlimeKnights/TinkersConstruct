@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:swappable_modifier",
+  "inputs": [
+    {
+      "tag": "forge:ingots/cobalt"
+    },
+    {
+      "tag": "forge:ingots/cobalt"
+    },
+    {
+      "tag": "forge:ingots/cobalt"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/embellishment/metal"
+  },
+  "allow_crystal": false,
+  "result": {
+    "name": "tconstruct:embellishment",
+    "value": "tconstruct:cobalt"
+  }
+}

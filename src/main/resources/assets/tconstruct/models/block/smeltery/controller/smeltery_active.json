@@ -2,7 +2,7 @@
   "parent": "tconstruct:block/template/controller_fluid",
   "textures": {
     "front": "tconstruct:block/smeltery/controller/smeltery_active",
-    "top":   "tconstruct:block/smeltery/seared/bricks",
-    "side":  "tconstruct:block/smeltery/seared/bricks"
+    "bricks": "tconstruct:block/smeltery/seared/bricks",
+    "back": "tconstruct:block/smeltery/io/back"
   }
 }

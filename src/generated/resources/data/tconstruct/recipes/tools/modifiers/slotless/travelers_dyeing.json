@@ -1,17 +1,6 @@
 {
   "type": "tconstruct:armor_dyeing_modifier",
-  "tools": [
-    {
-      "item": "tconstruct:travelers_boots"
-    },
-    {
-      "item": "tconstruct:travelers_leggings"
-    },
-    {
-      "item": "tconstruct:travelers_chestplate"
-    },
-    {
-      "item": "tconstruct:travelers_helmet"
-    }
-  ]
+  "tools": {
+    "tag": "tconstruct:modifiable/dyeable"
+  }
 }

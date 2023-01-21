@@ -5,6 +5,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
+import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
 import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -37,6 +38,7 @@ public class Config {
     public final BooleanValue slimeRecipeFix;
     public final BooleanValue glassRecipeFix;
     public final Map<TinkerHeadType,BooleanValue> headDrops;
+    public final DoubleValue repairKitAmount;
 
     // loot
     public final BooleanValue slimyLootChests;
@@ -62,8 +64,11 @@ public class Config {
     public final ConfigValue<String> showOnlyPartMaterial;
     public final BooleanValue showAllTableVariants;
     public final BooleanValue showAllAnvilVariants;
+    public final BooleanValue showAllSmelteryVariants;
 
+    // debug
     public final BooleanValue forceIntegrationMaterials;
+    public final BooleanValue logInvalidToolStackTrace;
 
     Common(ForgeConfigSpec.Builder builder) {
       builder.comment("Everything to do with gameplay").push("gameplay");
@@ -85,6 +90,10 @@ public class Config {
       }));
       actions.add(new ConfigurableAction(builder, "lightning", true, "Makes lightning count as fire damage", DamageSource.LIGHTNING_BOLT::setIsFire));
       damageSourceTweaks = actions.build();
+
+      this.repairKitAmount = builder
+        .comment("Amount of durability restored by a repair kit in terms of ingots. Does not affect the cost to create the kit, that is controlled by JSON.")
+        .defineInRange("repairKitAmount", 2f, 0f, Short.MAX_VALUE);
 
       builder.pop();
 
@@ -115,6 +124,11 @@ public class Config {
         .comment("If true, anvils will show all metal variants. If false, shows only a variant with the default texture")
         .translation("tconstruct.configgui.showAllAnvilVariants")
         .define("showAllAnvilVariants", true);
+
+      this.showAllSmelteryVariants = builder
+        .comment("If true, smeltery and foundry controllers, drains, ducts, and chutes will show all variants")
+        .translation("tconstruct.configgui.showAllSmelteryVariants")
+        .define("showAllSmelteryVariants", true);
 
       builder.pop();
 
@@ -247,6 +261,9 @@ public class Config {
                  "Does not provide recipes for any of them, they will only be available to cheat in creative.")
         .worldRestart()
         .define("forceIntegrationMaterials", false);
+      this.logInvalidToolStackTrace = builder
+        .comment("If true, logs the stacktrace whenever a tool stack is created from a non-modifiable item. The stacktrace helps debug which mod is causing it, but is rather expensive on the chance they are doing it a lot.")
+        .define("logInvalidToolStackTrace", false);
       builder.pop();
     }
   }

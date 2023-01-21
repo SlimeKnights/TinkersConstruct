@@ -1,0 +1,116 @@
+{
+  "loader": "tconstruct:fluid_texture",
+  "parent": "block/block",
+  "textures": {
+    "fluid": "tconstruct:block/black",
+    "particle": "#drain"
+  },
+  "colors": [{"uvlock": true}],
+  "fluids": ["fluid"],
+  "retextured": ["bricks"],
+  "elements": [
+    {
+      "name": "brick",
+      "from": [0, 0, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "north": {"uv": [0, 0, 16, 16], "texture": "#back",   "cullface": "north" },
+        "east":  {"uv": [0, 0, 16, 16], "texture": "#bricks", "cullface": "east"  },
+        "south": {"uv": [0, 0, 16, 16], "texture": "#bricks", "cullface": "south" },
+        "west":  {"uv": [0, 0, 16, 16], "texture": "#bricks", "cullface": "west"  },
+        "up":    {"uv": [0, 0, 16, 16], "texture": "#bricks", "cullface": "up"    },
+        "down":  {"uv": [0, 0, 16, 16], "texture": "#bricks", "cullface": "down"  }
+      }
+    },
+    {
+      "name": "fluid_west",
+      "from": [-1, 3.9, 3.9],
+      "to": [0, 12.1, 12.1],
+      "faces": {"west": {"uv": [4, 4, 12, 12], "texture": "#fluid", "cullface": "west"}}
+    },
+    {
+      "name": "drain_west",
+      "from": [-1, 3.9, 3.9],
+      "to": [0, 12.1, 12.1],
+      "faces": {
+        "north": {"uv": [ 4,  4,  5, 12], "texture": "#drain", "cullface": "west"},
+        "south": {"uv": [11,  4, 12, 12], "texture": "#drain", "cullface": "west"},
+        "west":  {"uv": [ 4,  4, 12, 12], "texture": "#drain", "cullface": "west"},
+        "up":    {"uv": [ 4,  4, 12,  5], "texture": "#drain", "cullface": "west", "rotation":  90},
+        "down":  {"uv": [ 4, 11, 12, 12], "texture": "#drain", "cullface": "west", "rotation": 270}
+      }
+    },
+    {
+      "name": "fluid_east",
+      "from": [16, 3.9, 3.9],
+      "to": [17, 12.1, 12.1],
+      "faces": {"east": {"uv": [4, 4, 12, 12], "texture": "#fluid", "cullface": "east"}}
+    },
+    {
+      "name": "drain_east",
+      "from": [16, 3.9, 3.9],
+      "to": [17, 12.1, 12.1],
+      "faces": {
+        "north": {"uv": [11,  4, 12, 12], "texture": "#drain", "cullface": "east"},
+        "east":  {"uv": [ 4,  4, 12, 12], "texture": "#drain", "cullface": "east"},
+        "south": {"uv": [ 4,  4,  5, 12], "texture": "#drain", "cullface": "east"},
+        "up":    {"uv": [ 4,  4, 12,  5], "texture": "#drain", "cullface": "east", "rotation": 270},
+        "down":  {"uv": [ 4, 11, 12, 12], "texture": "#drain", "cullface": "east", "rotation":  90}
+      }
+    },
+    {
+      "name": "fluid_south",
+      "from": [3.9, 3.9, 16],
+      "to": [12.1, 12.1, 17],
+      "faces": {"south": {"uv": [4, 4, 12, 12], "texture": "#fluid", "cullface": "south"}}
+    },
+    {
+      "name": "drain_south",
+      "from": [3.9, 3.9, 16],
+      "to": [12.1, 12.1, 17],
+      "faces": {
+        "east":  {"uv": [11,  4, 12, 12], "texture": "#drain", "cullface": "south"},
+        "south": {"uv": [ 4,  4, 12, 12], "texture": "#drain", "cullface": "south"},
+        "west":  {"uv": [ 4,  4,  5, 12], "texture": "#drain", "cullface": "south"},
+        "up":    {"uv": [ 4,  4, 12,  5], "texture": "#drain", "cullface": "south"},
+        "down":  {"uv": [ 4, 11, 12, 12], "texture": "#drain", "cullface": "south"}
+      }
+    },
+    {
+      "name": "fluid_top",
+      "from": [3.9, 16, 3.9],
+      "to": [12.1, 17, 12.1],
+      "faces": {"up": {"uv": [4, 4, 12, 12], "texture": "#fluid", "cullface": "up"}}
+    },
+    {
+      "name": "drain_top",
+      "from": [3.9, 16, 3.9],
+      "to": [12.1, 17, 12.1],
+      "faces": {
+        "north": {"uv": [ 4,  4, 12,  5], "texture": "#drain", "cullface": "up", "rotation": 180},
+        "east":  {"uv": [11,  4, 12, 12], "texture": "#drain", "cullface": "up", "rotation":  90},
+        "south": {"uv": [ 4, 11, 12, 12], "texture": "#drain", "cullface": "up"},
+        "west":  {"uv": [ 4,  4,  5, 12], "texture": "#drain", "cullface": "up", "rotation": 270},
+        "up":    {"uv": [ 4,  4, 12, 12], "texture": "#drain", "cullface": "up"}
+      }
+    },
+    {
+      "name": "fluid_bottom",
+      "from": [3.9, -1, 3.9],
+      "to": [12.1, 0, 12.1],
+      "faces": {"down": {"uv": [4, 4, 12, 12], "texture": "#fluid", "cullface": "down"}}
+    },
+    {
+      "name": "drain_bottom",
+      "from": [4, -1, 4],
+      "to": [12, 0, 12],
+      "faces": {
+        "north": {"uv": [ 4, 11, 12, 12], "texture": "#drain", "cullface": "down", "rotation": 180},
+        "east":  {"uv": [11,  4, 12, 12], "texture": "#drain", "cullface": "down", "rotation": 270},
+        "south": {"uv": [ 4,  4, 12,  5], "texture": "#drain", "cullface": "down"},
+        "west":  {"uv": [ 4,  4,  5, 12], "texture": "#drain", "cullface": "down", "rotation":  90},
+        "down":  {"uv": [ 4,  4, 12, 12], "texture": "#drain", "cullface": "down"}
+      }
+    }
+  ]
+}

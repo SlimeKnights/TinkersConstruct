@@ -1,8 +1,9 @@
 {
-  "parent": "minecraft:block/orientable",
+  "parent": "tconstruct:block/template/chute",
   "textures": {
-    "top":   "tconstruct:block/foundry/io/chute_top_inactive",
-    "front": "tconstruct:block/foundry/io/back",
-    "side":  "tconstruct:block/foundry/io/chute_side_inactive"
+    "top": "tconstruct:block/foundry/io/chute_top_inactive",
+    "back": "tconstruct:block/foundry/io/back",
+    "bricks": "tconstruct:block/foundry/scorched/bricks",
+    "side": "tconstruct:block/foundry/io/chute_side_inactive"
   }
 }

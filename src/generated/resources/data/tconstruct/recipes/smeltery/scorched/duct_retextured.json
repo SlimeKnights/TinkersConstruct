@@ -1,0 +1,21 @@
+{
+  "type": "mantle:crafting_shaped_retextured",
+  "pattern": [
+    "C#C"
+  ],
+  "key": {
+    "#": {
+      "tag": "tconstruct:foundry_bricks"
+    },
+    "C": {
+      "tag": "forge:ingots/cobalt"
+    }
+  },
+  "result": {
+    "item": "tconstruct:scorched_duct"
+  },
+  "texture": {
+    "tag": "tconstruct:foundry_bricks"
+  },
+  "match_all": false
+}

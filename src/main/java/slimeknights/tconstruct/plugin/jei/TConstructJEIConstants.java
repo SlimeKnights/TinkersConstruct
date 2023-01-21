@@ -62,7 +62,7 @@ public class TConstructJEIConstants {
   public static final RecipeType<IDisplayPartBuilderRecipe> PART_BUILDER = type("part_builder", IDisplayPartBuilderRecipe.class);
 
   // modifier workstation
-  public static final RecipeType<IModifierWorktableRecipe> MODIFIER_WORKTABLE = type("modifier_worktable", IModifierWorktableRecipe.class);
+  public static final RecipeType<IModifierWorktableRecipe> MODIFIER_WORKTABLE = type("worktable", IModifierWorktableRecipe.class);
 
   private static <T> RecipeType<T> type(String name, Class<T> clazz) {
     return RecipeType.create(TConstruct.MOD_ID, name, clazz);

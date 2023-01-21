@@ -1,8 +1,9 @@
 {
-  "parent": "minecraft:block/orientable",
+  "parent": "tconstruct:block/template/chute",
   "textures": {
     "top": "tconstruct:block/smeltery/io/chute_top_active",
-    "front": "tconstruct:block/smeltery/io/back",
+    "back": "tconstruct:block/smeltery/io/back",
+    "bricks": "tconstruct:block/smeltery/seared/bricks",
     "side": "tconstruct:block/smeltery/io/chute_side_active"
   }
 }
