@@ -59,6 +59,8 @@ public class TooltipUtil {
   private static final Component MATERIAL_SEPARATOR = TConstruct.makeTranslation("item", "tool.material_separator");
   /** Tool tag to set that makes a tool a display tool */
   public static final String KEY_DISPLAY = "tic_display";
+  /** Tag to set name without name being italic */
+  private static final String KEY_NAME = "tic_name";
   /** Function to show all attributes in the tooltip */
   public static final BiPredicate<Attribute, Operation> SHOW_ALL_ATTRIBUTES = (att, op) -> true;
   /** Function to show all attributes in the tooltip */
@@ -156,6 +158,28 @@ public class TooltipUtil {
     return new TranslatableComponent(KEY_FORMAT, name, itemName);
   }
 
+  /** Sets the tool name in a way that will not be italic */
+  public static void setDisplayName(ItemStack tool, String name) {
+    if (name.isEmpty()) {
+      CompoundTag tag = tool.getTag();
+      if (tag != null) {
+        tag.remove(KEY_NAME);
+      }
+    } else {
+      tool.getOrCreateTag().putString(KEY_NAME, name);
+    }
+    tool.resetHoverName();
+  }
+
+  /** Gets the display name from the given tool */
+  public static String getDisplayName(ItemStack tool) {
+    CompoundTag tag = tool.getTag();
+    if (tag != null) {
+      return tag.getString(KEY_NAME);
+    }
+    return "";
+  }
+
   /**
    * Gets the display name for a tool including the head material in the name
    * @param stack           Stack instance
@@ -173,6 +197,10 @@ public class TooltipUtil {
    * @return  Display name including the head material
    */
   public static Component getDisplayName(ItemStack stack, @Nullable IToolStackView tool, ToolDefinition toolDefinition) {
+    String name = getDisplayName(stack);
+    if (!name.isEmpty()) {
+      return new TextComponent(name);
+    }
     List<PartRequirement> components = toolDefinition.getData().getParts();
     Component baseName = new TranslatableComponent(stack.getDescriptionId());
     if (components.isEmpty()) {
