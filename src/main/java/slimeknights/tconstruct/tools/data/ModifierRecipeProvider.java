@@ -55,6 +55,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipeBui
 import slimeknights.tconstruct.library.recipe.modifiers.adding.OverslimeModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.SwappableModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierMaterialRepairRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRepairRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.worktable.ModifierSetWorktableRecipeBuilder;
 import slimeknights.tconstruct.library.tools.SlotType;
@@ -163,6 +164,10 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // pig iron - from bacon, only in the tinker station
     ModifierRepairRecipeBuilder.repair(TinkerModifiers.tasty, Ingredient.of(TinkerCommons.bacon), 25)
                                .save(consumer, prefix(TinkerModifiers.tasty, folder));
+    // golden makes armor repair from gold
+    ModifierMaterialRepairRecipeBuilder.repair(TinkerModifiers.golden, MaterialIds.gold)
+                                       .saveCraftingTable(consumer, wrap(TinkerModifiers.golden, folder, "_crafting_table"))
+                                       .save(consumer, wrap(TinkerModifiers.golden, folder, "_tinker_station"));
   }
 
   private void addModifierRecipes(Consumer<FinishedRecipe> consumer) {

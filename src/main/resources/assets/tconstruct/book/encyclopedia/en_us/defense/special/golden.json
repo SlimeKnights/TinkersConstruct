@@ -3,6 +3,9 @@
   "text": [
     {
       "text": "Causes piglins to be friendly towards you. Only one piece out of the whole set needs to be golden."
+    },
+    {
+      "text": "Allows repairing the armor using gold.", "paragraph": true
     }
   ],
   "more_text_space": true,
