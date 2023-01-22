@@ -7,7 +7,7 @@
       "tconstruct:knockback_resistance": 0.1
     },
     "multipliers": {
-      "tconstruct:attack_damage": 0.5
+      "tconstruct:attack_damage": 0.4
     }
   },
   "slots": {

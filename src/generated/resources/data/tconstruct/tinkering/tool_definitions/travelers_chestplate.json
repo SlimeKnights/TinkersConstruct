@@ -5,7 +5,7 @@
       "tconstruct:armor": 5.0
     },
     "multipliers": {
-      "tconstruct:attack_damage": 0.6
+      "tconstruct:attack_damage": 0.55
     }
   },
   "slots": {

@@ -386,7 +386,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
     defineArmor(ArmorDefinitions.TRAVELERS)
       .durabilityFactor(10)
       .statEach(ToolStats.ARMOR, 1, 4, 5, 1)
-      .multiplier(ArmorSlotType.CHESTPLATE, ToolStats.ATTACK_DAMAGE, 0.6f)
+      .multiplier(ArmorSlotType.CHESTPLATE, ToolStats.ATTACK_DAMAGE, 0.55f)
       .startingSlots(SlotType.UPGRADE, 3)
       .startingSlots(SlotType.DEFENSE, 2)
       .startingSlots(SlotType.ABILITY, 1);
@@ -397,7 +397,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .statEach(ToolStats.ARMOR, 2, 5, 7, 2)
       .statAll(ToolStats.ARMOR_TOUGHNESS, 2)
       .statAll(ToolStats.KNOCKBACK_RESISTANCE, 0.1f)
-      .multiplier(ArmorSlotType.CHESTPLATE, ToolStats.ATTACK_DAMAGE, 0.5f)
+      .multiplier(ArmorSlotType.CHESTPLATE, ToolStats.ATTACK_DAMAGE, 0.4f)
       .startingSlots(SlotType.UPGRADE, 1)
       .startingSlots(SlotType.DEFENSE, 4)
       .startingSlots(SlotType.ABILITY, 1);
@@ -406,7 +406,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
     defineArmor(ArmorDefinitions.SLIMESUIT)
       .statEach(ToolStats.DURABILITY, 546, 630, 672, 362)
       .statAll(ToolStats.ARMOR, 0)
-      .multiplier(ArmorSlotType.CHESTPLATE, ToolStats.ATTACK_DAMAGE, 0.5f)
+      .multiplier(ArmorSlotType.CHESTPLATE, ToolStats.ATTACK_DAMAGE, 0.4f)
       .startingSlots(SlotType.UPGRADE, 5)
       .startingSlots(SlotType.DEFENSE, 0)
       .startingSlots(SlotType.ABILITY, 1, 1, 1, 1)
