@@ -2039,7 +2039,7 @@
   "modifier.tconstruct.unbreakable": "不毁",
   "modifier.tconstruct.unbreakable.flavor": "冷冻封存！",
   "modifier.tconstruct.unbreakable.description": "常规使用时，工具不再消耗耐久度",
-  "recipe.tconstruct.modifier.unbreakable_requirements": "“不毁”需要“下界合金”和“加固 V”作为作为前置",
+  "recipe.tconstruct.modifier.unbreakable_requirements": "“不毁”需要“下界合金”和“加固 V”作为前置",
   "modifier.tconstruct.dual_wielding": "双持",
   "modifier.tconstruct.dual_wielding.flavor": "二刀流！",
   "modifier.tconstruct.dual_wielding.description": "主手可以双持的情况下，可从副手进行攻击；双持工具的属性将会降低",
