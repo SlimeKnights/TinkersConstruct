@@ -1,0 +1,13 @@
+{
+  "title": "Extract Modifiers",
+  "image": {
+    "file": "tconstruct:book/images/worktable/extract_modifier.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "While it is not possible to preserve the items used to apply a modifier, I have managed to store the essence of the modifier into a crystal while removing it, allowing me to put that modifier on a different tool. The process requires an enderslime crystal and dragons breath to perform, so only worth it for expensive modifiers. This technique also works on enchanted tools as books, though the process removes all enchantments instead of just 1."
+    }
+  ]
+}
