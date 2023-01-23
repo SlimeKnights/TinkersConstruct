@@ -1,0 +1,13 @@
+{
+  "title": "Extract Ability",
+  "image": {
+    "file": "tconstruct:book/images/worktable/extract_ability.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Extracting ability modifiers from enchanted tools is a quite expensive process, requiring not only ichor crystals but also a diamond to help the process. Even with the power of ichor, the tool is still lost, seems you need enderslime if you wish to preserve the tool."
+    }
+  ]
+}
