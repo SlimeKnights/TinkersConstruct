@@ -2605,7 +2605,7 @@
   "recipe.tconstruct.invisible_modifiers.adding.title": "Invisible Ink",
   "recipe.tconstruct.invisible_modifiers.adding.description": "Select a modifier to hide it from the tool's model",
   "recipe.tconstruct.invisible_modifiers.removing.title": "Visible Ink",
-  "recipe.tconstruct.invisible_modifiers.removing.description": "Select a hidden modifier to make it show in the tool's model agin",
+  "recipe.tconstruct.invisible_modifiers.removing.description": "Select a hidden modifier to make it show in the tool's model again",
 
   "recipe.tconstruct.extract_modifier.title": "Extract Modifier",
   "recipe.tconstruct.extract_modifier.description": "Select a modifier to extract onto a modifier crystal, slots will be returned but any item cost is lost.",
