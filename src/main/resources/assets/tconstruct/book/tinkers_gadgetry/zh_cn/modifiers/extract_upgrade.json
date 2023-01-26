@@ -1,5 +1,5 @@
 {
-  "title": "Extract Defense",
+  "title": "升级强化提取",
   "image": {
     "file": "tconstruct:book/images/worktable/extract_upgrade.png",
     "width": 147,
@@ -7,7 +7,7 @@
   },
   "text": [
     {
-      "text": "This discovery lead me to further experiment with other crystals and enchantments. It turns out that you can extract upgrade modifiers from enchanted books or tools using just skyslime crystals and lapis. The process seems a lot less stable than the enderslime method however, I have been unable to recover the tool."
+      "text": "在做出重要发现之后，我又进一步试验了其他水晶和魔咒的效果。升级强化可以只用碧空黏液水晶和青金石从附魔书或附魔工具上提取。这一过程相较末影水晶的提取过程而言更不稳定，工具本身也损坏得修复不了了。"
     }
   ]
 }
