@@ -1,5 +1,5 @@
 {
-  "title": "Visible Ink",
+  "title": "显形墨水",
   "image": {
     "file": "tconstruct:book/images/worktable/visible_ink.png",
     "width": 147,
@@ -7,7 +7,7 @@
   },
   "text": [
     {
-      "text": "After some failure using sponges to make the modifier visible again, I remembered milk is effective at neutralizing potions. Sure enough, adding a bit of milk is all it takes to make the modifier once again visible."
+      "text": "在若干次用海绵让强化显形的失败尝试后，我猛然想起奶在中和药水方面极为有效。实际也确实如此，只需要一点点奶就能让强化重新可见。"
     }
   ]
 }
