@@ -1,5 +1,5 @@
 {
-  "title": "Extract Modifiers",
+  "title": "强化提取",
   "image": {
     "file": "tconstruct:book/images/worktable/extract_modifier.png",
     "width": 147,
@@ -7,7 +7,7 @@
   },
   "text": [
     {
-      "text": "While it is not possible to preserve the items used to apply a modifier, I have managed to store the essence of the modifier into a crystal while removing it, allowing me to put that modifier on a different tool. The process requires an enderslime crystal and dragons breath to perform, so only worth it for expensive modifiers. This technique also works on enchanted tools as books, though the process removes all enchantments instead of just 1."
+      "text": "尽管不可能保留用于加持强化的物品，但我找到了能将强化的精华提出并放入水晶的方法，方便重新利用。这一过程需要末影黏液水晶和龙息，所以只有相当贵重的强化才适合这种提取过程。这种提取方法也适用于附魔工具和附魔书，不过和强化只移除一个不同，所有魔咒会被同时移除。"
     }
   ]
 }
