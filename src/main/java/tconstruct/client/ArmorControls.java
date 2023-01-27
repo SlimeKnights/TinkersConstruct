@@ -13,6 +13,7 @@ import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
+import org.lwjgl.input.Keyboard;
 import tconstruct.TConstruct;
 import tconstruct.armor.ArmorProxyClient;
 import tconstruct.armor.ArmorProxyCommon;
@@ -27,11 +28,11 @@ public class ArmorControls {
 
     public static final String keybindCategory = "tconstruct.keybindings";
     public static final String[] keyDescs = new String[] {"key.tarmor", "key.tgoggles", "key.tbelt", "key.tzoom"};
-    public static KeyBinding armorKey = new KeyBinding(keyDescs[0], 24, keybindCategory);
-    public static KeyBinding toggleGoggles = new KeyBinding(keyDescs[1], 34, keybindCategory);
-    public static KeyBinding beltSwap = new KeyBinding(keyDescs[2], 48, keybindCategory);
-    public static KeyBinding zoomKey =
-            new KeyBinding(keyDescs[3], 44, keybindCategory); // TODO: Make this hold, not toggle
+    public static KeyBinding armorKey = new KeyBinding(keyDescs[0], Keyboard.KEY_NONE, keybindCategory);
+    public static KeyBinding toggleGoggles = new KeyBinding(keyDescs[1], Keyboard.KEY_NONE, keybindCategory);
+    public static KeyBinding beltSwap = new KeyBinding(keyDescs[2], Keyboard.KEY_NONE, keybindCategory);
+    // TODO: Make this hold, not toggle
+    public static KeyBinding zoomKey = new KeyBinding(keyDescs[3], Keyboard.KEY_NONE, keybindCategory);
     static KeyBinding jumpKey;
     static KeyBinding invKey;
     static Minecraft mc;
