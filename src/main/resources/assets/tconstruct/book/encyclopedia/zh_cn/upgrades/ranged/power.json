@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:power",
   "text": [
     {
-      "text": "每级增加0.5点弹射物伤害。"
+      "text": "每级弹射物伤害+0.5。"
     }
   ],
   "more_text_space": true,

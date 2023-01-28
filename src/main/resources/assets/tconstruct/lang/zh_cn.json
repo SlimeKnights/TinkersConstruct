@@ -1451,13 +1451,13 @@
 
   "material.tconstruct.scorched_stone": "焦褐石",
   "material.tconstruct.scorched_stone.flavor": "焦黑石（创始人典藏版）",
-  "material.tconstruct.scorched_stone.encyclopedia": "每级对着火目标+2点伤害。",
+  "material.tconstruct.scorched_stone.encyclopedia": "每级对着火目标伤害+2。",
 
   "material.tconstruct.copper": "铜",
   "material.tconstruct.copper.oxidized": "氧化铜",
   "material.tconstruct.copper.flavor": "不要被铜锈锈到了",
-  "material.tconstruct.copper.encyclopedia": "在低海拔时额外增加采掘速度，每低于海平面64格获得+6采掘速度。",
-  "material.tconstruct.copper.ranged": "在低海拔时额外增加初速度，每低于海平面64格获得+0.05初速度。",
+  "material.tconstruct.copper.encyclopedia": "在低海拔时额外增加采掘速度，每低于海平面64格，采掘速度+6。",
+  "material.tconstruct.copper.ranged": "在低海拔时额外增加初速度，每低于海平面64格，初速度+0.05。",
   "material.tconstruct.copper.skull_flavor": "你的攻击令人窒息",
   "material.tconstruct.copper.skull_encyclopedia": "近战攻击使敌人3秒钟无法呼吸。",
 
@@ -1502,7 +1502,7 @@
 
   "material.tconstruct.amethyst_bronze": "紫水晶青铜",
   "material.tconstruct.amethyst_bronze.flavor": "别和青铜搞混了",
-  "material.tconstruct.amethyst_bronze.encyclopedia": "挖掘不需要工具采掘的方块时，每级+0.5采掘速度，工具种类不匹配时也有效。",
+  "material.tconstruct.amethyst_bronze.encyclopedia": "挖掘不需要工具采掘的方块时，每级采掘速度+0.5，工具种类不匹配时也有效。",
   "material.tconstruct.amethyst_bronze.ranged": "每级+0.1初速度，但同时限定箭矢出射方向；前三级分别将方向限定为32、16、8向。",
 
   "material.tconstruct.pig_iron": "生铁",
@@ -1522,8 +1522,8 @@
   "__comment": "Tier Nether Materials",
   "material.tconstruct.cobalt": "钴",
   "material.tconstruct.cobalt.flavor": "雄关漫道真如钴，而今回首从头迈。",
-  "material.tconstruct.cobalt.encyclopedia": "每级提升7%的攻击速度和采掘速度。",
-  "material.tconstruct.cobalt.ranged": "每级提升5%的拉弓速度和初速度。",
+  "material.tconstruct.cobalt.encyclopedia": "每级的攻击速度和采掘速度+7%。",
+  "material.tconstruct.cobalt.ranged": "每级的拉弓速度和初速度+5%。",
 
   "material.tconstruct.manyullyn": "玛玉灵",
   "material.tconstruct.manyullyn.flavor": "没几个工匠能叫对这材料的名字。他们说这个材料能够斩断星辰",
@@ -1532,17 +1532,17 @@
 
   "material.tconstruct.hepatizon": "黑色科林斯青铜",
   "material.tconstruct.hepatizon.flavor": "-科什么斯啊？\n-科林斯啊。\n-什么林斯啊？\n-科林斯啊！\n-科林什么啊？\n-行了你先歇着吧。",
-  "material.tconstruct.hepatizon.encyclopedia": "在连续挖掘32个方块后，每级增加25%采掘速度。",
-  "material.tconstruct.hepatizon.ranged": "在连续发射16次后，每级增加25%拉弓速度。",
+  "material.tconstruct.hepatizon.encyclopedia": "在连续挖掘32个方块后，每级采掘速度+25%。",
+  "material.tconstruct.hepatizon.ranged": "在连续发射16次后，每级拉弓速度+25%。",
 
   "material.tconstruct.queens_slime": "皇后史莱姆",
   "material.tconstruct.queens_slime.flavor": "公主都不是什么善茬，去找个皇后吧",
-  "material.tconstruct.queens_slime.encyclopedia": "每级减少15%耐久度，其中的66%转化为黏液覆层。",
+  "material.tconstruct.queens_slime.encyclopedia": "每级耐久度-15%，其中的66%转化为黏液覆层。",
 
   "material.tconstruct.blazing_bone": "烈焰之骨",
   "material.tconstruct.blazing_bone.flavor": "获取下界要塞的所有力量——烈焰之力与骨之力",
-  "material.tconstruct.blazing_bone.encyclopedia": "在火焰中每秒可+1%伤害，熔岩中15秒最多+15%伤害。抗火会减少增益效果。",
-  "material.tconstruct.blazing_bone.ranged": "在火焰中每秒可+1%箭矢伤害，熔岩中15秒最多+15%伤害。抗火会减少增益效果。",
+  "material.tconstruct.blazing_bone.encyclopedia": "在火焰中每秒伤害+1%，熔岩中15秒伤害至多+15%。减少火焰抗性效果的增益。",
+  "material.tconstruct.blazing_bone.ranged": "在火焰中每秒箭矢伤害+1%，熔岩中15秒伤害至多+15%。减少火焰抗性效果的增益。",
   "material.tconstruct.blazing_bone.skull_flavor": "我给他们说了，这东西技术上来说其实是吐火，不是喷火。但是很明显，我发明的东西我却没有命名权。",
   "material.tconstruct.blazing_bone.skull_encyclopedia": "能够以火球的形式从物品栏中发射火焰弹。冷却时间5秒钟，不能在水下使用。",
 
@@ -1600,7 +1600,7 @@
   "__comment": "Tier 2 Integration Materials",
   "material.tconstruct.osmium": "锇",
   "material.tconstruct.osmium.flavor": "因为密度太大，所以很难Get到笑点",
-  "material.tconstruct.osmium.encyclopedia": "在第1级时，维修消耗增加25%，减少33%耐久损失。",
+  "material.tconstruct.osmium.encyclopedia": "在第1级时，维修消耗+25%，耐久损失-33%。",
 
   "material.tconstruct.tungsten": "钨",
   "material.tconstruct.tungsten.flavor": "你考虑过组建一支重金属乐队吗？",
@@ -1619,13 +1619,13 @@
 
   "material.tconstruct.silver": "银",
   "material.tconstruct.silver.flavor": "你知道的，这东西没几天就不再闪闪发光了",
-  "material.tconstruct.silver.encyclopedia": "对亡灵生物每级+2.5伤害。",
-  "material.tconstruct.silver.ranged": "对亡灵生物每级+0.5弹射物伤害。",
+  "material.tconstruct.silver.encyclopedia": "对亡灵生物每级伤害+2.5。",
+  "material.tconstruct.silver.ranged": "对亡灵生物每级弹射物伤害+0.5。",
 
   "material.tconstruct.whitestone": "白石",
   "material.tconstruct.whitestone.end": "末地石",
   "material.tconstruct.whitestone.flavor": "拿走你那些毫无用处的白色金属和石头，做个有用的工具吧",
-  "material.tconstruct.whitestone.encyclopedia": "挖掘石头时有概率获得+3石盾，每级增加20%概率。",
+  "material.tconstruct.whitestone.encyclopedia": "挖掘石头时有概率石盾+3，每级概率+20%。",
 
   "material.tconstruct.aluminum": "铝",
   "material.tconstruct.aluminum.flavor": "前代奢侈品，现代寻常物",
@@ -1635,28 +1635,28 @@
   "__comment": "Tier 3 Integration Materials",
   "material.tconstruct.steel": "钢",
   "material.tconstruct.steel.flavor": "差不多90%的材料科学内容都是它",
-  "material.tconstruct.steel.encyclopedia": "每级+4%耐久度、伤害和速度。",
-  "material.tconstruct.steel.ranged": "每级+4%耐久度，+3%初速度，+3%弹射物伤害。",
+  "material.tconstruct.steel.encyclopedia": "每级耐久度、伤害和速度+4%。",
+  "material.tconstruct.steel.ranged": "每级耐久度+4%，初速度+3%，弹射物伤害+3%。",
 
   "material.tconstruct.bronze": "青铜",
   "material.tconstruct.bronze.flavor": "别和紫水晶青铜搞混了",
-  "material.tconstruct.bronze.encyclopedia": "满耐久时+6采掘速度，耐久度在50%以下时不增加采掘速度。",
-  "material.tconstruct.bronze.ranged": "满耐久时+0.05初速度，耐久度在50%以下时不增加初速度。",
+  "material.tconstruct.bronze.encyclopedia": "满耐久度时采掘速度+6，耐久度低于50%时不增加采掘速度。",
+  "material.tconstruct.bronze.ranged": "满耐久度时初速度+0.05，耐久度低于50%时不增加初速度。",
 
   "material.tconstruct.constantan": "康铜",
   "material.tconstruct.constantan.flavor": "诶，康铜！我还从来没见过呢。都起开，让我“康康”！",
-  "material.tconstruct.constantan.encyclopedia": "在极冷环境下+7.5采掘速度，极热环境下则双倍增加。",
+  "material.tconstruct.constantan.encyclopedia": "在极冷环境下采掘速度+7.5，极热环境下则双倍增加。",
   "material.tconstruct.constantan.ranged": "在极冷环境下+0.15初速度，极热环境下则双倍增加。",
 
   "material.tconstruct.invar": "殷钢",
   "material.tconstruct.invar.flavor": "它能抵御温度，还能避免追捕",
-  "material.tconstruct.invar.encyclopedia": "在中等温度的生物群系+2.5伤害。",
-  "material.tconstruct.invar.ranged": "在中等温度的生物群系+0.15精确度。",
+  "material.tconstruct.invar.encyclopedia": "在中等温度的生物群系伤害+2.5。",
+  "material.tconstruct.invar.ranged": "在中等温度的生物群系精确度+0.15。",
 
   "material.tconstruct.electrum": "琥珀金",
   "material.tconstruct.electrum.flavor": "适用于电子元器件",
-  "material.tconstruct.electrum.encyclopedia": "挖掘方块或击杀怪物时，每级+50%经验掉落。",
-  "material.tconstruct.electrum.ranged": "以箭矢击杀怪物时，每级+50%经验掉落。",
+  "material.tconstruct.electrum.encyclopedia": "挖掘方块或击杀怪物时，每级经验掉落+50%。",
+  "material.tconstruct.electrum.ranged": "以箭矢击杀怪物时，每级经验掉落+50%。",
 
   "material.tconstruct.necronium": "辐射之骨",
   "material.tconstruct.necronium.flavor": "这么多的辐射，很可能标志着你为数不多的生命只剩下四分之一了",
@@ -2155,7 +2155,7 @@
   "modifier.tconstruct.gilded.description": "以一个能力槽换取两个升级槽！",
   "modifier.tconstruct.draconic": "龙族",
   "modifier.tconstruct.draconic.flavor": "统领末地！",
-  "modifier.tconstruct.draconic.description": "这颗来自巨兽的头颅，为你的工具带来了第二个能力槽！",
+  "modifier.tconstruct.draconic.description": "这颗来自巨兽的头颅，为你的工具带来了第2个能力槽！",
 
   "__comment": "Three more +1 upgrade modifiers for modpacks",
   "modifier.tconstruct.red_extra_upgrade": "红色额外升级",
@@ -2630,7 +2630,7 @@
   "recipe.tconstruct.modifier.requirements_error": "工具的其中一个强化已使该工具状态无效，联系整合包作者以了解详细错误情况。",
 
   "recipe.tconstruct.tool_recycling": "工具回收",
-  "recipe.tconstruct.tool_recycling.info": "从构成此工具的工具部件中选择你想回收的一个。根据工具剩余的耐久度，有可能回收第二个工具部件。",
+  "recipe.tconstruct.tool_recycling.info": "从构成此工具的工具部件中选择你想回收的一个。根据工具剩余的耐久度，有可能回收第2个工具部件。",
   "recipe.tconstruct.tool_recycling.no_modifiers": "加持强化或升级的工具无法被回收，你必须先将它们移除。",
 
   

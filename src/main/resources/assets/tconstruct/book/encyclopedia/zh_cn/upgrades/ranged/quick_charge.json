@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:quick_charge",
   "text": [
     {
-      "text": "每级提升工具25%的拉弓速度。"
+      "text": "每级工具的拉弓速度+25%。"
     }
   ],
   "more_text_space": true,

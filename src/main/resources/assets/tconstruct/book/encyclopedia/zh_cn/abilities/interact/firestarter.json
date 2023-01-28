@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:firestarter",
   "text": [
     {
-      "text": "使用工具可以点燃火焰，每次消耗1点耐久度。"
+      "text": "使用工具可以点燃火焰，每次耐久度-1。"
     }
   ],
   "more_text_space": true,

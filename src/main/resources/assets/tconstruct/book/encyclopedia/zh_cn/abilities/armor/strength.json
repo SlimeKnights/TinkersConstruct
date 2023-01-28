@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:strength",
   "text": [
     {
-      "text": "每级会为所有武器增加10%的攻击力。"
+      "text": "每级所有武器的攻击力+10%。"
     }
   ],
   "more_text_space": true,

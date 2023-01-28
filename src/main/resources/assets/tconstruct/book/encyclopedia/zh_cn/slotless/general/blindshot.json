@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:blindshot",
   "text": [
     {
-      "text": "每级减少0.1点精确度。"
+      "text": "每级精确度-0.1。"
     }
   ],
   "more_text_space": true,

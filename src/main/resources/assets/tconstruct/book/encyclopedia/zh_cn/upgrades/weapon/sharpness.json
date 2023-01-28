@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:sharpness",
   "text": [
     {
-      "text": "每级+0.75点攻击伤害。"
+      "text": "每级攻击伤害+0.75。"
     }
   ],
   "more_text_space": true,

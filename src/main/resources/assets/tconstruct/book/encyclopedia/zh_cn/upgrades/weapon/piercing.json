@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:piercing",
   "text": [
     {
-      "text": "每级+1点穿刺伤害，但会-0.5点常规伤害。每级总计+0.5点伤害。"
+      "text": "每级穿刺伤害+1，但常规伤害会-0.5。每级总计伤害+0.5。"
     }
   ],
   "more_text_space": true,
