@@ -1,7 +1,7 @@
 {
   "tool": "tconstruct:dagger",
   "text": [
-    { "text": "匕首是一种快速而精准的武器，主副手均可使用。" },
+    { "text": "匕首是一种快速而精准的武器，主副手均可使用。Identical daggers can be stacked to 2 when modifying they are undamaged, providing a discount on modifiers." },
     { "text": "“丝触”强化能赋予匕首修剪能力。", "paragraph": true }
   ],
   "properties": [
