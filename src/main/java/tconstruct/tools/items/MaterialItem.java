@@ -61,7 +61,8 @@ public class MaterialItem extends CraftingItem {
         "CobaltDust",
         "AluminumDust",
         "ManyullynDust",
-        "AluBrassDust"
+        "AluBrassDust",
+        "Reinforcement"
     };
 
     static String[] craftingTextures = new String[] {
@@ -107,6 +108,7 @@ public class MaterialItem extends CraftingItem {
         "cobalt_dust",
         "aluminum_dust",
         "manyullyn_dust",
-        "alubrass_dust"
+        "alubrass_dust",
+        "reinforcement"
     };
 }

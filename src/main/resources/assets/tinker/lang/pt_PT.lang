@@ -302,6 +302,7 @@ item.tconstruct.Materials.CobaltDust.name=Pó de Cobalto
 item.tconstruct.Materials.AluminumDust.name=Pó de Alumínio
 item.tconstruct.Materials.ManyullynDust.name=Pó de Manyullyn
 item.tconstruct.Materials.AluBrassDust.name=Pó de Alumínio-Bronze
+item.tconstruct.Materials.Reinforcement.name=Reforço
 
 item.tconstruct.ArmorPattern.helmet.name=Molde de Elmo
 item.tconstruct.ArmorPattern.chestplate.name=Molde do Peitoral

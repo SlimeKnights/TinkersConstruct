@@ -311,6 +311,7 @@ item.tconstruct.Materials.CobaltDust.name=Kobaltpulver
 item.tconstruct.Materials.AluminumDust.name=Aluminumpulver
 item.tconstruct.Materials.ManyullynDust.name=Manyullynpulver
 item.tconstruct.Materials.AluBrassDust.name=Duraluminiumpulver
+item.tconstruct.Materials.Reinforcement.name=Verstärkung
 
 item.tconstruct.ArmorPattern.helmet.name=Helmgussform
 item.tconstruct.ArmorPattern.chestplate.name=Brustpanzergussform
@@ -495,7 +496,7 @@ item.tconstruct.bucket.Silver.name=Eimer mit geschmolzenem Silber
 item.tconstruct.bucket.Shiny.name=Eimer mit geschmolzenem Platin
 item.tconstruct.bucket.Invar.name=Eimer mit geschmolzenem Invar
 item.tconstruct.bucket.Electrum.name=Eimer mit geschmolzenem Elektrum
-item.tconstruct.bucket.Lumium.nameEimer mit geschmolzenem Lumium
+item.tconstruct.bucket.Lumium.name=Eimer mit geschmolzenem Lumium
 item.tconstruct.bucket.Signalum.name=Eimer mit geschmolzenem Signalum
 item.tconstruct.bucket.Mithril.name=Eimer mit geschmolzenem Manaangereichertem Metall
 item.tconstruct.bucket.Enderium.name=Eimer mit geschmolzenem Enderium

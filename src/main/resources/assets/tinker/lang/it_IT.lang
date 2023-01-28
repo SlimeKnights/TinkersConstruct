@@ -302,6 +302,7 @@ item.tconstruct.Materials.CobaltDust.name=Polvere di coblato
 item.tconstruct.Materials.AluminumDust.name=Polvere di alluminio
 item.tconstruct.Materials.ManyullynDust.name=Polvere di manyullyn
 item.tconstruct.Materials.AluBrassDust.name=Polvere di ottone
+item.tconstruct.Materials.Reinforcement.name=Reinforcement
 
 item.tconstruct.ArmorPattern.helmet.name=Stampo per elmo
 item.tconstruct.ArmorPattern.chestplate.name=Stampo per corazza

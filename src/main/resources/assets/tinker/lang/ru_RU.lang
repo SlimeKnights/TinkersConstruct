@@ -313,6 +313,7 @@ item.tconstruct.Materials.CobaltDust.name=Кобальтовая пыль
 item.tconstruct.Materials.AluminumDust.name=Алюминиевая пыль
 item.tconstruct.Materials.ManyullynDust.name=Мануллиновая пыль
 item.tconstruct.Materials.AluBrassDust.name=Пыль алюминиевой латуни
+item.tconstruct.Materials.Reinforcement.name=Укрепитель
 
 item.tconstruct.ArmorPattern.helmet.name=Слепок шлема
 item.tconstruct.ArmorPattern.chestplate.name=Слепок кирасы

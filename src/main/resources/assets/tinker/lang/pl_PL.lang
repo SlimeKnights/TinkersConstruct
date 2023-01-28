@@ -138,6 +138,7 @@ item.tconstruct.Materials.ManyullynNugget.name=Samorodek manialinu
 item.tconstruct.Materials.BronzeNugget.name=Samorodek brązu
 item.tconstruct.Materials.AlumiteNugget.name=Samorodek alumitu
 item.tconstruct.Materials.SteelNugget.name=Samorodek stali
+item.tconstruct.Materials.Reinforcement.name=Reinforcement
 
 item.tconstruct.crystal.essence.name=Kryształ esencji
 

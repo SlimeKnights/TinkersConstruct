@@ -311,6 +311,7 @@ item.tconstruct.Materials.CobaltDust.name=Kobaltový prášek
 item.tconstruct.Materials.AluminumDust.name=Hliníkový prášek
 item.tconstruct.Materials.ManyullynDust.name=Manyullynový prášek
 item.tconstruct.Materials.AluBrassDust.name=Mosazný hliníkový prášek
+item.tconstruct.Materials.Reinforcement.name=Reinforcement
 
 item.tconstruct.ArmorPattern.helmet.name=Odlitek helmy
 item.tconstruct.ArmorPattern.chestplate.name=Odlitek brnění

@@ -803,8 +803,8 @@ public class TinkerTools {
         ModifyBuilder.registerModifier(
                 new ModAntiSpider("ModAntiSpider", 15, new ItemStack[] {spidereyeball}, new int[] {1}));
 
-        ItemStack obsidianPlate = new ItemStack(TinkerTools.largePlate, 1, 6);
-        ModifyBuilder.registerModifier(new ModReinforced(new ItemStack[] {obsidianPlate}, 16, 1));
+        ItemStack reinforcement = new ItemStack(TinkerTools.materials, 1, 43);
+        ModifyBuilder.registerModifier(new ModReinforced(new ItemStack[] {reinforcement}, 16, 1));
 
         TConstructRegistry.registerActiveToolMod(new TActiveOmniMod());
     }

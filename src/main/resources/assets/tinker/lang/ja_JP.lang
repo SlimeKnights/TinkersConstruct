@@ -302,6 +302,7 @@ item.tconstruct.Materials.CobaltDust.name=コバルトの粉
 item.tconstruct.Materials.AluminumDust.name=アルミの粉
 item.tconstruct.Materials.ManyullynDust.name=マニュリンの粉
 item.tconstruct.Materials.AluBrassDust.name=アルミ黄銅の粉
+item.tconstruct.Materials.Reinforcement.name=補強
 
 item.tconstruct.ArmorPattern.helmet.name=ヘルメットの鋳型
 item.tconstruct.ArmorPattern.chestplate.name=チェストプレートの鋳型

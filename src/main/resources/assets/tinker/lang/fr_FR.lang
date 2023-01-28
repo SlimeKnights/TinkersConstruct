@@ -311,6 +311,7 @@ item.tconstruct.Materials.CobaltDust.name=Poussière de cobalt
 item.tconstruct.Materials.AluminumDust.name=Poussière d'aluminum
 item.tconstruct.Materials.ManyullynDust.name=Poussière de manyullyn
 item.tconstruct.Materials.AluBrassDust.name=Poussière de laiton d'aluminium
+item.tconstruct.Materials.Reinforcement.name=Renforcement
 
 item.tconstruct.ArmorPattern.helmet.name=Moule de casque
 item.tconstruct.ArmorPattern.chestplate.name=Moule de plastron

@@ -303,6 +303,7 @@ item.tconstruct.Materials.CobaltDust.name=코발트 가루
 item.tconstruct.Materials.AluminumDust.name=알루미늄 가루
 item.tconstruct.Materials.ManyullynDust.name=마뉼린 가루
 item.tconstruct.Materials.AluBrassDust.name=알루미늄 청동 가루
+item.tconstruct.Materials.Reinforcement.name=강화
 
 item.tconstruct.ArmorPattern.helmet.name=투구 주형
 item.tconstruct.ArmorPattern.chestplate.name=갑옷 주형

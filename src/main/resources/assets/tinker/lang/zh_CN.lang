@@ -346,6 +346,7 @@ item.tconstruct.Materials.CobaltDust.name=钴粉
 item.tconstruct.Materials.AluminumDust.name=铝粉
 item.tconstruct.Materials.ManyullynDust.name=玛玉灵粉
 item.tconstruct.Materials.AluBrassDust.name=铝黄铜粉
+item.tconstruct.Materials.Reinforcement.name=加固板
 
 item.tconstruct.ArmorPattern.helmet.name=头盔铸模
 item.tconstruct.ArmorPattern.chestplate.name=胸甲铸模
