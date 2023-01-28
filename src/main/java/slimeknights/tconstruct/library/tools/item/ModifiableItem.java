@@ -274,7 +274,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
   }
 
   @Override
-  public final float getDestroySpeed(ItemStack stack, BlockState state) {
+  public float getDestroySpeed(ItemStack stack, BlockState state) {
     return ToolHarvestLogic.getDestroySpeed(stack, state);
   }
 
