@@ -2427,6 +2427,11 @@
   "modifier.tconstruct.the_one_probe.flavor": "Sciency!",
   "modifier.tconstruct.the_one_probe.description": "Shows information about the targeted block when held or on a helmet.",
 
+  "_comment": "Internal modifiers",
+  "modifier.tconstruct.fast_use_item": "Fast Use Item",
+  "modifier.tconstruct.overslime_friend": "Overslime Friend",
+
+
   "_comment": "Internal effects",
   "effect.tconstruct.bleeding": "Bleeding",
   "effect.tconstruct.magnetic": "Magnetic",

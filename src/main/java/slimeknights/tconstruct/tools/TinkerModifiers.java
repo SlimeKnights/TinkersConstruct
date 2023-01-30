@@ -143,6 +143,7 @@ import slimeknights.tconstruct.tools.modifiers.slotless.NearsightedModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.StatOverrideModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.DamageSpeedTradeModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.FastUseItemModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.CultivatedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.DenseModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.EnderportingModifier;
@@ -287,6 +288,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<OffhandedModifier> offhanded = MODIFIERS.register("offhanded", OffhandedModifier::new);
   public static final StaticModifier<FarsightedModifier> farsighted = MODIFIERS.register("farsighted", FarsightedModifier::new);
   public static final StaticModifier<NearsightedModifier> nearsighted = MODIFIERS.register("nearsighted", NearsightedModifier::new);
+  public static final StaticModifier<FastUseItemModifier> fastUseItem = MODIFIERS.register("fast_use_item", FastUseItemModifier::new);
 
   // harvest
   public static final StaticModifier<HasteModifier> haste = MODIFIERS.register("haste", HasteModifier::new);
