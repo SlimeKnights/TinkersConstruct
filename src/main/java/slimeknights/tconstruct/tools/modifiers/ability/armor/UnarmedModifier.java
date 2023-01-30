@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.ability.armor;
 
-import net.minecraft.world.entity.EquipmentSlot.Type;
+import net.minecraft.world.entity.EquipmentSlot;
 import slimeknights.mantle.util.OffhandCooldownTracker;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
@@ -26,7 +26,7 @@ public class UnarmedModifier extends OffhandAttackModifier {
 
   @Override
   public void onEquip(IToolStackView tool, int level, EquipmentChangeContext context) {
-    if (!tool.isBroken() && context.getChangedSlot().getType() == Type.ARMOR) {
+    if (!tool.isBroken() && context.getChangedSlot() == EquipmentSlot.CHEST) {
       context.getEntity().getCapability(OffhandCooldownTracker.CAPABILITY).ifPresent(cap -> cap.setEnabled(true));
       ModifierUtil.addTotalArmorModifierLevel(tool, context, TinkerDataKeys.SHOW_EMPTY_OFFHAND, 1);
     }
@@ -34,7 +34,7 @@ public class UnarmedModifier extends OffhandAttackModifier {
 
   @Override
   public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {
-    if (!tool.isBroken() && context.getChangedSlot().getType() == Type.ARMOR) {
+    if (!tool.isBroken() && context.getChangedSlot() == EquipmentSlot.CHEST) {
       context.getEntity().getCapability(OffhandCooldownTracker.CAPABILITY).ifPresent(cap -> cap.setEnabled(false));
       ModifierUtil.addTotalArmorModifierLevel(tool, context, TinkerDataKeys.SHOW_EMPTY_OFFHAND, -1);
     }

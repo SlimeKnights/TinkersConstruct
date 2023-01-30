@@ -194,6 +194,16 @@ public final class ModifierUtil {
     return false;
   }
 
+  /** Checks if the given slot may contain armor */
+  public static boolean validArmorSlot(LivingEntity living, EquipmentSlot slot) {
+    return slot.getType() == Type.ARMOR || living.getItemBySlot(slot).is(TinkerTags.Items.HELD_ARMOR);
+  }
+
+  /** Checks if the given slot may contain armor */
+  public static boolean validArmorSlot(IToolStackView tool, EquipmentSlot slot) {
+    return slot.getType() == Type.ARMOR || tool.hasTag(TinkerTags.Items.HELD_ARMOR);
+  }
+
   /**
    * Adds levels to the given key in entity modifier data for an armor modifier
    * @param tool     Tool instance
@@ -202,7 +212,7 @@ public final class ModifierUtil {
    * @param amount   Amount to add
    */
   public static void addTotalArmorModifierLevel(IToolStackView tool, EquipmentChangeContext context, TinkerDataKey<Integer> key, int amount, boolean allowBroken) {
-    if (context.getChangedSlot().getType() == Type.ARMOR && (allowBroken || !tool.isBroken())) {
+    if (validArmorSlot(tool, context.getChangedSlot()) && (allowBroken || !tool.isBroken())) {
       context.getTinkerData().ifPresent(data -> {
         int totalLevels = data.get(key, 0) + amount;
         if (totalLevels <= 0) {
@@ -233,7 +243,7 @@ public final class ModifierUtil {
    * @param amount   Amount to add
    */
   public static void addTotalArmorModifierFloat(IToolStackView tool, EquipmentChangeContext context, TinkerDataKey<Float> key, float amount) {
-    if (context.getChangedSlot().getType() == Type.ARMOR && !tool.isBroken()) {
+    if (validArmorSlot(tool, context.getChangedSlot()) && !tool.isBroken()) {
       context.getTinkerData().ifPresent(data -> {
         float totalLevels = data.get(key, 0f) + amount;
         if (totalLevels <= 0.005f) {

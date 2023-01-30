@@ -49,6 +49,8 @@ import java.util.function.Function;
  */
 @EventBusSubscriber(modid = TConstruct.MOD_ID, bus = Bus.FORGE)
 public class InteractionHandler {
+  public static final EquipmentSlot[] HAND_SLOTS = {EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND};
+
   /** Implements {@link EntityInteractionModifierHook#beforeEntityUse(IToolStackView, ModifierEntry, Player, Entity, InteractionHand, InteractionSource)} */
   @SubscribeEvent
   static void beforeEntityInteract(EntityInteract event) {

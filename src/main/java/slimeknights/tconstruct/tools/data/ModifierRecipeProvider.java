@@ -278,12 +278,12 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.COMPASS)
                          .setMaxLevel(1)
                          .setSlots(SlotType.UPGRADE, 1)
-                         .setTools(TinkerTags.Items.ARMOR)
+                         .setTools(TinkerTags.Items.WORN_ARMOR) // TODO: reconsider for shields
                          .save(consumer, wrap(TinkerModifiers.magnetic, upgradeFolder, "_armor"));
     // salvage supports either
     ModifierRecipeBuilder.modifier(TinkerModifiers.magnetic)
                          .setSlots(SlotType.UPGRADE, 1)
-                         .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.HARVEST, TinkerTags.Items.ARMOR))
+                         .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.HARVEST, TinkerTags.Items.WORN_ARMOR))
                          .saveSalvage(consumer, prefix(TinkerModifiers.magnetic, upgradeSalvage));
     // no salvage so we can potentially grant shiny in another way without being an apple farm, and no recipe as that leaves nothing to salvage
     ModifierRecipeBuilder.modifier(ModifierIds.shiny)
@@ -680,7 +680,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(ModifierIds.knockbackResistance, defenseSalvage))
                          .save(consumer, prefix(ModifierIds.knockbackResistance, defenseFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.golden)
-                         .setTools(TinkerTags.Items.ARMOR)
+                         .setTools(TinkerTags.Items.WORN_ARMOR) // piglins ignore held items
                          .addInput(Tags.Items.INGOTS_GOLD)
                          .addInput(Tags.Items.INGOTS_GOLD)
                          .addInput(Tags.Items.INGOTS_GOLD)
@@ -720,28 +720,29 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setMaxLevel(2)
                                     .save(consumer, wrap(ModifierIds.revitalizing, defenseFolder, "_small"));
     IncrementalModifierRecipeBuilder.modifier(ModifierIds.revitalizing)
-                                    .setTools(TinkerTags.Items.ARMOR)
+                                    .setTools(TinkerTags.Items.WORN_ARMOR) // revitalizing would suck on an item you constantly change
                                     .setSlots(SlotType.DEFENSE, 1)
                                     .setMaxLevel(3)
                                     .saveSalvage(consumer, prefix(ModifierIds.revitalizing, defenseSalvage));
 
     // upgrade - counterattack
+    Ingredient wornOrShield = ingredientFromTags(TinkerTags.Items.WORN_ARMOR, TinkerTags.Items.SHIELDS); // held armor may include things that cannot block
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.thorns)
-                                    .setTools(TinkerTags.Items.ARMOR)
+                                    .setTools(wornOrShield)
                                     .setInput(Blocks.CACTUS, 1, 25)
                                     .setMaxLevel(3)
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .saveSalvage(consumer, prefix(TinkerModifiers.thorns, upgradeSalvage))
                                     .save(consumer, prefix(TinkerModifiers.thorns, upgradeFolder));
     IncrementalModifierRecipeBuilder.modifier(ModifierIds.sticky)
-                                    .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.ARMOR))
+                                    .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.WORN_ARMOR, TinkerTags.Items.SHIELDS))
                                     .setInput(Blocks.COBWEB, 1, 5)
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .setMaxLevel(3)
                                     .saveSalvage(consumer, prefix(ModifierIds.sticky, upgradeSalvage))
                                     .save(consumer, prefix(ModifierIds.sticky, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.springy)
-                         .setTools(TinkerTags.Items.ARMOR)
+                         .setTools(wornOrShield)
                          .addInput(Items.PISTON)
                          .addInput(TinkerWorld.slime.get(SlimeType.ICHOR))
                          .setSlots(SlotType.UPGRADE, 1)
@@ -843,7 +844,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .save(consumer, wrap(TinkerModifiers.lightspeedArmor, upgradeFolder, "_from_block"));
     // upgrade - all
     ModifierRecipeBuilder.modifier(TinkerModifiers.ricochet)
-                         .setTools(TinkerTags.Items.ARMOR)
+                         .setTools(wornOrShield)
                          .addInput(Items.PISTON)
                          .addInput(TinkerWorld.slime.get(SlimeType.SKY))
                          .setSlots(SlotType.UPGRADE, 1)

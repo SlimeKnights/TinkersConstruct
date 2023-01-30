@@ -5,7 +5,10 @@
       "tag": "tconstruct:modifiable/melee"
     },
     {
-      "tag": "tconstruct:modifiable/armor"
+      "tag": "tconstruct:modifiable/armor/worn"
+    },
+    {
+      "tag": "tconstruct:modifiable/shields"
     }
   ],
   "slots": {

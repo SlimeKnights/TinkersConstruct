@@ -50,6 +50,7 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.EMBELLISHMENT_SLIM
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST_PRIMARY;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HELD;
+import static slimeknights.tconstruct.common.TinkerTags.Items.HELD_ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HELMETS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE_ARMOR;
@@ -65,10 +66,12 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.MODIFIABLE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MULTIPART_TOOL;
 import static slimeknights.tconstruct.common.TinkerTags.Items.ONE_HANDED;
 import static slimeknights.tconstruct.common.TinkerTags.Items.RANGED;
+import static slimeknights.tconstruct.common.TinkerTags.Items.SHIELDS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.STONE_HARVEST;
 import static slimeknights.tconstruct.common.TinkerTags.Items.SWORD;
 import static slimeknights.tconstruct.common.TinkerTags.Items.TWO_HANDED;
 import static slimeknights.tconstruct.common.TinkerTags.Items.UNARMED;
+import static slimeknights.tconstruct.common.TinkerTags.Items.WORN_ARMOR;
 
 @SuppressWarnings("unchecked")
 public class ItemTagProvider extends ItemTagsProvider {
@@ -244,6 +247,9 @@ public class ItemTagProvider extends ItemTagsProvider {
     addArmorTags(TinkerTools.slimesuit,     DURABILITY, EMBELLISHMENT_SLIME);
     addToolTags(TinkerTools.slimesuit.get(ArmorSlotType.HELMET), MULTIPART_TOOL);
 
+    // shields
+    tag(SHIELDS);
+
     // add tags to other tags
     // harvest primary and stone harvest are both automatically harvest
     this.tag(TinkerTags.Items.HARVEST).addTag(HARVEST_PRIMARY).addTag(STONE_HARVEST);
@@ -260,7 +266,9 @@ public class ItemTagProvider extends ItemTagsProvider {
     // left and right handed are held, but not armor
     this.tag(HELD).addTags(INTERACTABLE_RIGHT, INTERACTABLE_LEFT);
     this.tag(INTERACTABLE).addTags(INTERACTABLE_LEFT, INTERACTABLE_RIGHT, INTERACTABLE_ARMOR);
-    this.tag(ARMOR).addTag(BOOTS).addTag(LEGGINGS).addTag(CHESTPLATES).addTag(HELMETS);
+    this.tag(WORN_ARMOR).addTags(BOOTS, LEGGINGS, CHESTPLATES, HELMETS);
+    this.tag(HELD_ARMOR).addTag(SHIELDS);
+    this.tag(ARMOR).addTags(WORN_ARMOR, HELD_ARMOR);
     this.tag(AOE).addTag(BOOTS); // boot walk modifiers
     this.tag(RANGED).addTag(BOWS);
     this.tag(BOWS).addTags(LONGBOWS, CROSSBOWS);

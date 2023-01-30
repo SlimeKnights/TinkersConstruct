@@ -6,7 +6,7 @@
     }
   ],
   "tools": {
-    "tag": "tconstruct:modifiable/armor"
+    "tag": "tconstruct:modifiable/armor/worn"
   },
   "slots": {
     "upgrades": 1

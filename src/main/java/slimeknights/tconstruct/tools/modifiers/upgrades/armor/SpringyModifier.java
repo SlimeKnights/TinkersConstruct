@@ -13,7 +13,9 @@ import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.tools.logic.InteractionHandler;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -54,11 +56,19 @@ public class SpringyModifier extends Modifier {
     }
   }
 
+  /** Checks if the given tool cares about this modifier */
+  private static boolean toolValid(IToolStackView tool, EquipmentSlot slot, EquipmentChangeContext context) {
+    if (!tool.isBroken() && !context.getEntity().level.isClientSide) {
+      return ModifierUtil.validArmorSlot(tool, slot);
+    }
+    return false;
+  }
+
   @Override
   public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {
     // remove slot in charge if that is us
     EquipmentSlot slot = context.getChangedSlot();
-    if (!tool.isBroken() && slot.getType() == Type.ARMOR && !context.getEntity().level.isClientSide) {
+    if (toolValid(tool, slot, context)) {
       context.getTinkerData().ifPresent(data -> {
         SlotInCharge slotInCharge = data.get(SLOT_IN_CHARGE);
         if (slotInCharge != null) {
@@ -71,7 +81,7 @@ public class SpringyModifier extends Modifier {
   @Override
   public void onEquip(IToolStackView tool, int level, EquipmentChangeContext context) {
     EquipmentSlot slot = context.getChangedSlot();
-    if (!tool.isBroken() && slot.getType() == Type.ARMOR && !context.getEntity().level.isClientSide) {
+    if (toolValid(tool, slot, context)) {
       context.getTinkerData().ifPresent(data -> {
         SlotInCharge slotInCharge = data.get(SLOT_IN_CHARGE);
         if (slotInCharge == null) {
@@ -90,24 +100,33 @@ public class SpringyModifier extends Modifier {
 
   /** Tracker to determine which slot should be in charge */
   private static class SlotInCharge {
-    private final boolean[] active = new boolean[4];
+    private final boolean[] active = new boolean[6];
     @Nullable
     EquipmentSlot inCharge = null;
 
     /** Adds the given slot to the tracker */
     void addSlot(EquipmentSlot slotType) {
-      active[slotType.getIndex()] = true;
-      if (inCharge == null) {
+      active[slotType.getFilterFlag()] = true;
+      // prefer armor in charge as hand only runs when blocking, prefer mainhand over offhand
+      if (inCharge == null || (inCharge.getType() == Type.HAND && slotType != EquipmentSlot.OFFHAND)) {
         inCharge = slotType;
       }
     }
 
     /** Removes the given slot from the tracker */
     void removeSlot(EquipmentSlot slotType) {
-      active[slotType.getIndex()] = false;
+      active[slotType.getFilterFlag()] = false;
+      // prioritize armor slots
       for (EquipmentSlot armorSlot : ModifiableArmorMaterial.ARMOR_SLOTS) {
-        if (active[slotType.getIndex()]) {
+        if (active[slotType.getFilterFlag()]) {
           inCharge = armorSlot;
+          return;
+        }
+      }
+      // if none, find a hand slot
+      for (EquipmentSlot hand : InteractionHandler.HAND_SLOTS) {
+        if (active[slotType.getFilterFlag()]) {
+          inCharge = hand;
           return;
         }
       }

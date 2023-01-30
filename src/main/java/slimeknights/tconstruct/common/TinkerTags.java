@@ -356,6 +356,12 @@ public class TinkerTags {
     public static final TagKey<Item> CHESTPLATES = tag("modifiable/armor/chestplate");
     /** Modifiable items that are worn as helmets */
     public static final TagKey<Item> HELMETS = tag("modifiable/armor/helmets");
+    /** Modifiable items that are worn on any of the main armor slots, likely is applicable for curio slots too */
+    public static final TagKey<Item> WORN_ARMOR = tag("modifiable/armor/worn");
+    /** Modifiable items that are held in either hand */
+    public static final TagKey<Item> HELD_ARMOR = tag("modifiable/armor/held");
+    /** Modifiable items that have innate shielding behavior */
+    public static final TagKey<Item> SHIELDS = tag("modifiable/shields");
 
     /** Modifiable items that support ranged attacks. Items in this tag support {@link ToolStats#DRAW_SPEED}, {@link ToolStats#VELOCITY}, {@link ToolStats#PROJECTILE_DAMAGE} and {@link ToolStats#ACCURACY} */
     public static final TagKey<Item> RANGED = tag("modifiable/ranged");

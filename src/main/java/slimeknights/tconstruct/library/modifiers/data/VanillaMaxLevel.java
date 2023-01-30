@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library.modifiers.data;
 import lombok.Getter;
 import net.minecraft.world.entity.EquipmentSlot;
 
-/** Helper class to keep track the max vanilla level in a modifier, ints */
+/** Helper class to keep track the max vanilla level in a modifier, ints and only on four armor slots */
 public class VanillaMaxLevel {
   /** Level for each slot */
   private final int[] levels = new int[4];

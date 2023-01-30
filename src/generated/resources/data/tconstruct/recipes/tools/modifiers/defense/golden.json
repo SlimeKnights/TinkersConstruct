@@ -12,7 +12,7 @@
     }
   ],
   "tools": {
-    "tag": "tconstruct:modifiable/armor"
+    "tag": "tconstruct:modifiable/armor/worn"
   },
   "slots": {
     "defense": 1
