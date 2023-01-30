@@ -64,6 +64,7 @@ import slimeknights.tconstruct.library.modifiers.util.StaticModifier;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierSalvage;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IncrementalModifierRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipe;
+import slimeknights.tconstruct.library.recipe.modifiers.adding.MultilevelModifierRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.OverslimeModifierRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.SwappableModifierRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.AgeableSeveringRecipe;
@@ -142,6 +143,7 @@ import slimeknights.tconstruct.tools.modifiers.slotless.NearsightedModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.StatOverrideModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.DamageSpeedTradeModifier;
+import slimeknights.tconstruct.tools.modifiers.traits.FastUseItemModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.CultivatedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.DenseModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.EnderportingModifier;
@@ -286,6 +288,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<OffhandedModifier> offhanded = MODIFIERS.register("offhanded", OffhandedModifier::new);
   public static final StaticModifier<FarsightedModifier> farsighted = MODIFIERS.register("farsighted", FarsightedModifier::new);
   public static final StaticModifier<NearsightedModifier> nearsighted = MODIFIERS.register("nearsighted", NearsightedModifier::new);
+  public static final StaticModifier<FastUseItemModifier> fastUseItem = MODIFIERS.register("fast_use_item", FastUseItemModifier::new);
 
   // harvest
   public static final StaticModifier<HasteModifier> haste = MODIFIERS.register("haste", HasteModifier::new);
@@ -485,6 +488,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final RegistryObject<ModifierRecipe.Serializer> modifierSerializer = RECIPE_SERIALIZERS.register("modifier", ModifierRecipe.Serializer::new);
   public static final RegistryObject<IncrementalModifierRecipe.Serializer> incrementalModifierSerializer = RECIPE_SERIALIZERS.register("incremental_modifier", IncrementalModifierRecipe.Serializer::new);
   public static final RegistryObject<SwappableModifierRecipe.Serializer> swappableModifierSerializer = RECIPE_SERIALIZERS.register("swappable_modifier", SwappableModifierRecipe.Serializer::new);
+  public static final RegistryObject<MultilevelModifierRecipe.Serializer> multilevelModifierSerializer = RECIPE_SERIALIZERS.register("multilevel_modifier", MultilevelModifierRecipe.Serializer::new);
   public static final RegistryObject<OverslimeModifierRecipe.Serializer> overslimeSerializer = RECIPE_SERIALIZERS.register("overslime_modifier", OverslimeModifierRecipe.Serializer::new);
   public static final RegistryObject<ModifierSalvage.Serializer> modifierSalvageSerializer = RECIPE_SERIALIZERS.register("modifier_salvage", ModifierSalvage.Serializer::new);
   public static final RegistryObject<ArmorDyeingRecipe.Serializer> armorDyeingSerializer = RECIPE_SERIALIZERS.register("armor_dyeing_modifier", ArmorDyeingRecipe.Serializer::new);

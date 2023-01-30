@@ -96,6 +96,9 @@ public class ModifierRecipe extends AbstractModifierRecipe {
    * @return True if a match
    */
   public static boolean checkMatch(ITinkerableContainer inv, List<SizedIngredient> inputs) {
+    if (inputs.isEmpty()) {
+      return false;
+    }
     BitSet used = makeBitset(inv);
     for (SizedIngredient ingredient : inputs) {
       int index = findMatch(ingredient, inv, used);

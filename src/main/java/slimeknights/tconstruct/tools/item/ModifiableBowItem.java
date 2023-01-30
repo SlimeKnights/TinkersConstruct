@@ -118,22 +118,18 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
       return;
     }
 
-    // find ammo
-    ItemStack ammo = BowAmmoModifierHook.findAmmo(tool, bow, player, getSupportedHeldProjectiles());
+    // its a little redundant to search for ammo twice, but otherwise we risk shrinking the stack before we know if we can fire
+    boolean hasAmmo = BowAmmoModifierHook.hasAmmo(tool, bow, player, getSupportedHeldProjectiles());
 
     // just not handling vanilla infinity at all, we have our own hooks which someone could use to mimic infinity if they wish with a bit of effort
     boolean creative = player.getAbilities().instabuild;
     // ask forge its thoughts on shooting
     int chargeTime = this.getUseDuration(bow) - timeLeft;
-    chargeTime = ForgeEventFactory.onArrowLoose(bow, level, player, chargeTime, !ammo.isEmpty() || creative);
+    chargeTime = ForgeEventFactory.onArrowLoose(bow, level, player, chargeTime, hasAmmo || creative);
 
     // no ammo? no charge? nothing to do
-    if (chargeTime < 0 || (ammo.isEmpty() && !creative)) {
+    if (chargeTime < 0) {
       return;
-    }
-    // could only be empty at this point if we had infinity
-    if (ammo.isEmpty()) {
-      ammo = new ItemStack(Items.ARROW);
     }
 
     // calculate arrow power
@@ -150,6 +146,14 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
 
     // launch the arrow
     if (!level.isClientSide) {
+      // find ammo after the return above, as otherwise we might consume ammo before
+      ItemStack ammo = BowAmmoModifierHook.findAmmo(tool, bow, player, getSupportedHeldProjectiles());
+      // could only be empty at this point if we are creative, as hasAmmo returned true above
+      if (ammo.isEmpty()) {
+        ammo = new ItemStack(Items.ARROW);
+      }
+
+      // prepare the arrows
       ArrowItem arrowItem = ammo.getItem() instanceof ArrowItem arrow ? arrow : (ArrowItem)Items.ARROW;
       float inaccuracy = 3 * (1 / ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.ACCURACY) - 1) * velocity;
       float startAngle = getAngleStart(ammo.getCount());

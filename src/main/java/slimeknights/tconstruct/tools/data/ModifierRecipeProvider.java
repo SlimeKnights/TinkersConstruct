@@ -52,6 +52,7 @@ import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IncrementalModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.modifiers.adding.MultilevelModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.OverslimeModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.SwappableModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipeBuilder;
@@ -68,7 +69,6 @@ import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
-import slimeknights.tconstruct.tools.item.ModifierCrystalItem;
 import slimeknights.tconstruct.tools.recipe.ArmorDyeingRecipe;
 import slimeknights.tconstruct.tools.recipe.EnchantmentConvertingRecipe;
 import slimeknights.tconstruct.tools.recipe.ModifierRemovalRecipe;
@@ -78,7 +78,6 @@ import slimeknights.tconstruct.world.TinkerWorld;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -304,22 +303,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.LEATHER)
                          .addInput(Items.FIRE_CHARGE)
                          .addInput(SlimeType.ICHOR.getSlimeballTag())
-                         .setMaxLevel(1)
-                         .setSalvageLevelRange(1, 1)
-                         .saveSalvage(consumer, wrap(TinkerModifiers.offhanded, upgradeSalvage, "_level_1"))
-                         .save(consumer, wrap(TinkerModifiers.offhanded, upgradeFolder, "_level_1"));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.offhanded)
-                         .setTools(TinkerTags.Items.INTERACTABLE_RIGHT)
-                         .addInput(Items.LEATHER)
-                         .addInput(TinkerMaterials.cobalt.getIngotTag())
-                         .addInput(SlimeType.ICHOR.getSlimeballTag())
                          .setMaxLevel(2)
-                         .setMinSalvageLevel(2)
-                         .setRequirements(ModifierMatch.entry(TinkerModifiers.offhanded, 1))
-                         .setRequirementsError(makeRequirementsError("offhanded.level_2"))
-                         .disallowCrystal()
-                         .saveSalvage(consumer, wrap(TinkerModifiers.offhanded, upgradeSalvage, "_level_2"))
-                         .save(consumer, wrap(TinkerModifiers.offhanded, upgradeFolder, "_level_2"));
+                         .save(consumer, prefix(TinkerModifiers.offhanded, upgradeFolder));
 
     /*
      * Speed
@@ -949,10 +934,10 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
         builder.setSlots(SlotType.ABILITY, 1);
         builder.saveSalvage(consumer, prefix(ModifierIds.toolBelt, abilitySalvage));
       } else {
-        builder.disallowCrystal(); // TODO: find a way to allow all levels of tool belt?
         builder.setRequirements(ModifierMatch.entry(ModifierIds.toolBelt, level - 1));
         builder.setRequirementsError(TConstruct.makeTranslationKey("recipe", "modifier.tool_belt"));
       }
+      builder.disallowCrystal(); // handled below
       builder.save(consumer, wrap(ModifierIds.toolBelt, abilityFolder, "_" + level));
     };
     toolBeltRecipe.accept(1, Tags.Items.INGOTS_IRON);
@@ -961,6 +946,12 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     toolBeltRecipe.accept(4, TinkerMaterials.cobalt.getIngotTag());
     toolBeltRecipe.accept(5, TinkerMaterials.hepatizon.getIngotTag());
     toolBeltRecipe.accept(6, TinkerMaterials.manyullyn.getIngotTag());
+    MultilevelModifierRecipeBuilder.modifier(ModifierIds.toolBelt)
+                                   .setTools(TinkerTags.Items.LEGGINGS)
+                                   .addLevel(SlotType.ABILITY, 1, 1)
+                                   .addLevelRange(2, 6)
+                                   .save(consumer, wrap(ModifierIds.toolBelt, abilityFolder, "_crystal"));
+
     ModifierRecipeBuilder.modifier(TinkerModifiers.wetting)
                          .addInput(Tags.Items.DUSTS_REDSTONE)
                          .addInput(TinkerTags.Items.TANKS)
@@ -1074,6 +1065,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSalvageLevelRange(1, 1)
                          .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
+                         .disallowCrystal() // handled below
                          .saveSalvage(consumer, prefix(ModifierIds.luck, abilitySalvage))
                          .save(consumer, wrap(ModifierIds.luck, abilityFolder, "_level_1"));
      ModifierRecipeBuilder.modifier(ModifierIds.luck)
@@ -1085,7 +1077,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                           .addInput(Tags.Items.ENDER_PEARLS)
                           .setRequirements(ModifierMatch.entry(ModifierIds.luck, 1))
                           .setRequirementsError(makeRequirementsError("luck.level_2"))
-                          .disallowCrystal() // no way to handle multiple recipes same input yet
+                          .disallowCrystal() // handled below
                           .setMaxLevel(2)
                           .save(consumer, wrap(ModifierIds.luck, abilityFolder, "_level_2"));
     ModifierRecipeBuilder.modifier(ModifierIds.luck)
@@ -1097,7 +1089,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.NAME_TAG)
                          .setRequirements(ModifierMatch.entry(ModifierIds.luck, 2))
                          .setRequirementsError(makeRequirementsError("luck.level_3"))
-                         .disallowCrystal() // no way to handle multiple recipes same input yet
+                         .disallowCrystal() // handled below
                          .setMaxLevel(3)
                          .save(consumer, wrap(ModifierIds.luck, abilityFolder, "_level_3"));
     // pants have just one level
@@ -1112,17 +1104,12 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.ABILITY, 1)
                          .saveSalvage(consumer, wrap(ModifierIds.luck, abilitySalvage, "_pants"))
                          .save(consumer, wrap(ModifierIds.luck, abilityFolder, "_pants"));
-    // extra crystal recipes
-    ModifierRecipeBuilder.modifier(ModifierIds.luck)
-                         .setTools(luckSupporting)
-                         .addInput(TinkerWorld.ichorGeode)
-                         .addInput(PartialNBTIngredient.of(TinkerModifiers.modifierCrystal, Objects.requireNonNull(ModifierCrystalItem.withModifier(ModifierIds.luck).getTag())))
-                         .addInput(TinkerWorld.ichorGeode)
-                         .setRequirements(ModifierMatch.entry(ModifierIds.luck, 1))
-                         .setRequirementsError(makeRequirementsError("luck.level_2"))
-                         .disallowCrystal()
-                         .setMaxLevel(3)
-                         .save(consumer, wrap(ModifierIds.luck, abilityFolder, "_crystal_higher_levels"));
+    // extra crystal recipe
+    MultilevelModifierRecipeBuilder.modifier(ModifierIds.luck)
+                                   .setTools(luckSupporting)
+                                   .addLevel(SlotType.ABILITY, 1, 1)
+                                   .addLevelRange(2, 3)
+                                   .save(consumer, wrap(ModifierIds.luck, abilityFolder, "_crystal"));
 
     // silky: all the cloth
     ModifierRecipeBuilder.modifier(TinkerModifiers.silky)
