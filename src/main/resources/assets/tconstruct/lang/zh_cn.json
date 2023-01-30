@@ -1691,7 +1691,6 @@
   "modifier.tconstruct.offhanded.flavor": "不要想太多",
   "modifier.tconstruct.offhanded.description": "副手持握物品时禁用工具的交互功能",
   "modifier.tconstruct.offhanded.description.2": "禁用工具的全部交互功能",
-  "recipe.tconstruct.modifier.offhanded.level_2": "“无持握”需要“副手持握”作为前置",
 
 
   "_comment": "Durability",
@@ -2428,6 +2427,11 @@
   "modifier.tconstruct.the_one_probe.flavor": "科学化！",
   "modifier.tconstruct.the_one_probe.description": "当手持或者附加于头盔时，能够显示指向方块的信息",
 
+  "_comment": "Internal modifiers",
+  "modifier.tconstruct.fast_use_item": "Fast Use Item",
+  "modifier.tconstruct.overslime_friend": "Overslime Friend",
+  
+
   "_comment": "Internal effects",
   "effect.tconstruct.bleeding": "流血",
   "effect.tconstruct.magnetic": "磁性",
@@ -2626,6 +2630,7 @@
   "recipe.tconstruct.modifier.not_enough_slot": "至少需要1个%s槽来添加该强化物",
   "recipe.tconstruct.modifier.not_enough_slots": "至少需要%s个%s槽来添加该强化物",
   "recipe.tconstruct.modifier.validate_slots": "这项改动留给工具的%s槽过少",
+  "recipe.tconstruct.modifier.min_level": "This recipe requires the tool to have at least %s level %s to apply",
   "recipe.tconstruct.modifier.max_level": "%s的等级不可大于%s",
   "recipe.tconstruct.modifier.requirements_error": "工具的其中一个强化已使该工具状态无效，联系整合包作者以了解详细错误情况。",
 
