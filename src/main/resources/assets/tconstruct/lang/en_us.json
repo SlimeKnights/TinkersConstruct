@@ -1691,7 +1691,6 @@
   "modifier.tconstruct.offhanded.flavor": "Don't think about it too hard",
   "modifier.tconstruct.offhanded.description": "Disables the tools interaction abilities when the offhand is filled",
   "modifier.tconstruct.offhanded.description.2": "Disables the tools interaction abilities entirely",
-  "recipe.tconstruct.modifier.offhanded.level_2": "Nohanded requires offhanded to apply",
 
 
   "_comment": "Durability",
@@ -2626,6 +2625,7 @@
   "recipe.tconstruct.modifier.not_enough_slot": "Need at least 1 %s slot to add this modifier",
   "recipe.tconstruct.modifier.not_enough_slots": "Need at least %s %s slots to add this modifier",
   "recipe.tconstruct.modifier.validate_slots": "This change leaves the tool with too few %s slots",
+  "recipe.tconstruct.modifier.min_level": "This recipe requires the tool to have at least %s level %s to apply",
   "recipe.tconstruct.modifier.max_level": "%s level cannot be above %s",
   "recipe.tconstruct.modifier.requirements_error": "Tool state invalid for one of the modifiers. Contact your modpack maker and request a more descriptive error.",
 

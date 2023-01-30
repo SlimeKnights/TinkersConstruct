@@ -17,7 +17,7 @@
   "slots": {
     "abilities": 1
   },
-  "allow_crystal": true,
+  "allow_crystal": false,
   "result": {
     "name": "tconstruct:tool_belt",
     "level": 1

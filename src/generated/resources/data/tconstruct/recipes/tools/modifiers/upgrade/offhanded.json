@@ -5,7 +5,7 @@
       "item": "minecraft:leather"
     },
     {
-      "tag": "forge:ingots/cobalt"
+      "item": "minecraft:fire_charge"
     },
     {
       "tag": "forge:slimeball/ichor"
@@ -14,12 +14,7 @@
   "tools": {
     "tag": "tconstruct:modifiable/interactable/right"
   },
-  "requirements": {
-    "name": "tconstruct:offhanded",
-    "level": 1,
-    "error": "recipe.tconstruct.modifier.offhanded.level_2"
-  },
-  "allow_crystal": false,
+  "allow_crystal": true,
   "result": {
     "name": "tconstruct:offhanded",
     "level": 1
