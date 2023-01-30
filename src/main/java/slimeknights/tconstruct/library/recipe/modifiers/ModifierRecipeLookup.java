@@ -19,6 +19,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
@@ -193,6 +194,10 @@ public class ModifierRecipeLookup {
 
   /** Gets a list of modifier entries for display in JEI, basically the same as creating your own, but the result is cached */
   public static List<ModifierEntry> getRecipeModifierList() {
+    // do not cache an empty list during game start, recipes have not yet loaded
+    if (RECIPE_MODIFIERS.isEmpty()) {
+      return Collections.emptyList();
+    }
     if (RECIPE_MODIFIER_LIST == null) {
       RECIPE_MODIFIER_LIST = RECIPE_MODIFIERS.values().stream().distinct().sorted(Comparator.comparing(LazyModifier::getId)).map(mod -> new ModifierEntry(mod, 1)).toList();
     }

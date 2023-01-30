@@ -401,7 +401,9 @@ public class JEIPlugin implements IModPlugin {
     // shown via the modifiers
     NonNullList<ItemStack> modifierCrystals = NonNullList.create();
     TinkerModifiers.modifierCrystal.get().fillItemCategory(CreativeModeTab.TAB_SEARCH, modifierCrystals);
-    manager.removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, modifierCrystals);
+    if (!modifierCrystals.isEmpty()) {
+      manager.removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, modifierCrystals);
+    }
 
     // hide knightslime and slimesteel until implemented
     removeFluid(manager, TinkerFluids.moltenSoulsteel.get(), TinkerFluids.moltenSoulsteel.asItem());
