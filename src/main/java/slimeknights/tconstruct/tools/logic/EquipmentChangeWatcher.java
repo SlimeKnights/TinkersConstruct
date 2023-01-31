@@ -100,8 +100,9 @@ public class EquipmentChangeWatcher {
         entry.getModifier().onUnequip(tool, entry.getLevel(), context);
       }
       // if you scrolled away, we really don't know whether you stopped using an item or not, luckily everything in this method can be safely run multiple times
+      // TODO 1.19: consider simplier check, such as the tool having the active modifier tag set. Will need to do a bit of work for bows which don't set modifiers though
       if (!entity.isUsingItem()) {
-        ModifierUtil.finishUsingItem(entity);
+        ModifierUtil.finishUsingItem(entity, tool);
       }
     }
 
