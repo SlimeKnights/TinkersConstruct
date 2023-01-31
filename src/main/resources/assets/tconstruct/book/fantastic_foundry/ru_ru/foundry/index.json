@@ -1,5 +1,21 @@
 {
-  "title": "Литейная печь",
-  "subText": "Нет ничего более фантастического, чем Литейная Печь.",
-  "hidden": ["structurereq", "fgui2"]
+  "title": "Литейный завод",
+  "subText": "Нет ничего более замечательного, как Литейный завод.",
+  "hidden": ["structurereq", "fgui2"],
+  "operations": [
+    {
+		"before": "features",
+		"action": "add_group",
+		"data": "Сведения"
+	},
+    {
+		"before": "scorched_tanks",
+		"action": "column_break"
+	},
+    {
+		"before": "scorched_tanks",
+		"action": "add_group",
+		"data": "Блоки"
+		}
+  ]
 }

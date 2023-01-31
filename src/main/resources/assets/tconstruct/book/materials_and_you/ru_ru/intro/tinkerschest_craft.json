@@ -1,4 +1,9 @@
 {
-  "title": "Создание сундука литейщика",
-  "recipe": "tconstruct:tables/tinkers_chest"
+  "title": "Создание сундука металлурга",
+  "recipe": "tconstruct:tables/tinkers_chest",
+  "description": [
+    {
+		"text": "После создания ты можешь покрасить сундук в любой желаемый цвет."
+	}
+  ]
 }

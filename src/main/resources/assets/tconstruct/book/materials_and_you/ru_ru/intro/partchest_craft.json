@@ -1,4 +1,9 @@
 {
-  "title": "Создание ящика для частей",
-  "recipe": "tconstruct:tables/part_chest"
+  "title": "Создание сундука для деталей",
+  "recipe": "tconstruct:tables/part_chest",
+  "description": [
+    {
+		"text": "Никогда не знаешь, когда тебе снова может понадобиться неиспользуемая деталь инструмента."
+	}
+  ]
 }

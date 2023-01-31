@@ -1,55 +1,54 @@
-intro=Introduction
+intro=Введение
 
-small_tools=Малые инструменты
-small_tools.info=Информация об инструментах
-large_tools=Широкие инструменты
-large_tools.info=Информация об инструментах
+tools=Инструменты
+tools.group_small=Небольшие инструменты
+tools.group_large=Широкие инструменты
+armor=Доспехи
 
-armor=Броня
-armor.info=Информация о броне
-
-materials_1=Материалы 1-го уровня
-materials_1.subtext=Эти материалы легко найти, и их можно поместить в формирователь частей для создания частей инструментов
-
-materials_2=Материалы 2-го уровня
-materials_2.subtext=Эти материалы требуют плавки и литья для создания, и могут быть немного более редкими
-
-materials_3=Материалы 3-го уровня
-materials_3.subtext=Эти материалы создаются смешиванием, либо в смешивателе или в плавильне
-
-materials_4=Материалы 4-го уровня
-materials_4.subtext=Эти материалы невозможно найти без путешествия в Незер
-skull_materials=Слизечерепа
-skull_materials.subtext=В этом разделе описаные все эффекты, которые имеют слизечерепа после создания
+materials_harvest_1=Материалы 1 уровня для холодного оружия
+materials_harvest_1.subtext=Материалы 1 уровня используются для создания оружия ближнего боя или инструментов для добычи.
+materials_harvest_2=Материалы 2 уровня для холодного оружия
+materials_harvest_2.subtext=Материалы 2 уровня используются для создания оружия ближнего боя или инструментов для добычи.
+materials_harvest_3=Материалы 3 уровня для холодного оружия
+materials_harvest_3.subtext=Материалы 3 уровня используются для создания оружия ближнего боя или инструментов для добычи.
+materials_harvest_4=Материалы 4 уровня для холодного оружия
+materials_harvest_4.subtext=Материалы 4 уровня используются для создания оружия ближнего боя или инструментов для добычи.
+materials_ranged_1=Материалы 1 уровня для оружия дальнего боя
+materials_ranged_1.subtext=Материалы 1 уровня используются для создания оружия дальнего боя.
+materials_ranged_2=Материалы 2 уровня для оружия дальнего боя
+materials_ranged_2.subtext=Материалы 2 уровня используются для создания оружия дальнего боя.
+materials_ranged_3=Материалы 3 уровня для оружия дальнего боя
+materials_ranged_3.subtext=Материалы 3 уровня используются для создания оружия дальнего боя.
+materials_ranged_4=Материалы 4 уровня для оружия дальнего боя
+materials_ranged_4.subtext=Материалы 4 уровня используются для создания оружия дальнего боя.
+materials_skull=Черепа из слизи
+materials_skull.subtext=Этот раздел описывает эффекты всех видов черепов при создании черепа из слизи.
 
 upgrades=Улучшения
-upgrades.subtext=Каждый инструмент имеет ограниченное суммарное количество слотов для улучшений.
+upgrades.subtext=Каждый инструмент получает ограниченное общее число слотов улучшений.
 upgrades.group_general=Основные
-upgrades.group_harvest=Для копания
-upgrades.group_weapon=Для оружия
-upgrades.group_damage=Увелич. урон
-upgrades.group_armor=Для брони
+upgrades.group_harvest=Добыча
+upgrades.group_weapon=Холодное оружие
+upgrades.group_ranged=Оружие дальнего боя
+upgrades.group_damage=Добавочный урон
+upgrades.group_armor=Доспехи
 upgrades.feather_falling=Невесомость
 
 defense=Защита
-defense.subtext=Вместо особенностей от материалов, броня будет иметь защитные слоты для усиления защиты.
-defense.group_protection=Защитные
+defense.subtext=Вместо черт материала, доспехи включают в себя слоты защиты для улучшения защиты.
+defense.group_protection=Защита
 defense.group_special=Специальные
 
-slotless=Бесслотовые
-slotless.subtext=Бесслотовые модификаторы не требуют слотов.
+slotless=Безслотовые
+slotless.subtext=Безслотовые модификаторы не требуют каких-либо слотов.
 slotless.group_general=Основные
-slotless.group_bonus=Дополнительные
+slotless.group_bonus=Добавочные
 
 abilities=Умения
-abilities.subtext=Для умений-модификаторов обычно меньше слотов, чем для улучшений, но они сильнее.
+abilities.subtext=Модификаторы умений имеют меньшее слотов, чем улучшения, но эффектнее за слот.
 abilities.group_general=Основные
-abilities.group_harvest=Для копания
-abilities.group_weapon=Для оружия
-abilities.group_interact=Для взаимод.
-abilities.group_armor=Для брони
-abilities.unarmed=Безоружные
-
-modifier.effect=Effects:
-tool.properties=Properties:
-
+abilities.group_harvest=Добыча
+abilities.group_weapon=Оружие
+abilities.group_ranged=Оружие для дальнего боя
+abilities.group_interact=Взаимодействие
+abilities.group_armor=Доспехи

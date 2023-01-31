@@ -1,18 +1,23 @@
-intro=Вступление
-melter=Плавильная печь
-moving_fluids=Перемещение жидкостей
+intro=Введение
+melter=Плавильщик
+moving_fluids=Поток жидкостей
 casting=Литьё
-materials=Материалы 2-го уровня
+melee_harvest_materials=Материалы 2 уровня для холодного оружия
+melee_harvest_materials.subtext=Эти материалы могут быть отлиты в детали инструментов для холодного оружия или инструментов для добычи.
+ranged_materials=Материалы 2 уровня для оружия дальнего боя
+ranged_materials.subtext=Эти материалы могут быть отлиты в детали инструментов для оружия дальнего боя, например, луки.
+
+further_reading=Дополнительные материалы
 
 upgrades=Улучшения
-upgrades.subtext=Инструменты могут быть усилены с помощью улучшений, хотя к каждому инструменту может быть применено только ограниченное их количество.
+upgrades.subtext=Инструменты могут быть усилены при помощи улучшений, хотя может быть наложено только ограниченное число на инструмент.
 upgrades.group_general=Основные
-upgrades.group_harvest=Для копания
-upgrades.group_weapon=Для оружия
-upgrades.group_damage=Увелич. урон
-upgrades.group_armor=Для брони
+upgrades.group_harvest=Добыча
+upgrades.group_weapon=Холодное оружие
+upgrades.group_damage=Добавочный урон
+upgrades.group_armor=Доспехи
 
-slotless=Бесслотовые модификаторы
-slotless.subtext=Эти модификаторы не требуют слотов для применения, Вы можете иметь их все, если хотите.
-slotless.group_slotless=Бесслотовые
+slotless=Безслотовые модификаторы
+slotless.subtext=Этим материалам не требуется какие-либо слоты для наложения. Ты можешь все их набрать, по желанию.
+slotless.group_slotless=Безслотовые
 slotless.group_bonus_upgrades=Улучшения++

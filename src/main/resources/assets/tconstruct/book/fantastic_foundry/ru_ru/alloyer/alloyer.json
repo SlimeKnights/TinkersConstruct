@@ -1,11 +1,11 @@
 {
-  "title": "Смешиватель",
+  "title": "Сплавщик",
   "image": {
     "file": "tconstruct:book/images/alloyer.png"
   },
   "text": [
     {
-      "text": "Сплавы вперёд!",
+      "text": "Грядущий сплав!",
       "paragraph": true
     }
 	]

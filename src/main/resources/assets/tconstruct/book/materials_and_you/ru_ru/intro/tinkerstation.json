@@ -1,14 +1,14 @@
 {
-  "title":"Литейная станция",
-    "image": {
-     "file": "tconstruct:book/images/tinkerstation.png",
-	 "width": 135,
+  "title": "Металлургическая станция",
+  "image": {
+    "file": "tconstruct:book/images/tinkerstation.png",
+    "width": 135,
     "height": 72
   },
   "text": [
     {
-      "text": "Положите это сюда, а это туда, а это верните назад. Лучше продолжай выплавлять.",
-	  "paragraph": true
+      "text": "Положи это сюда, и то сюда, а это обратно. Лучше продолжай лужение.",
+      "paragraph": true
     }
 	]
 }
