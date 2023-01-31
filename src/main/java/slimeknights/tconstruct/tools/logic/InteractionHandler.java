@@ -6,6 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -17,6 +18,8 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.pattern.BlockInWorld;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.event.entity.living.ShieldBlockEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
@@ -31,6 +34,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
@@ -39,6 +43,7 @@ import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.Com
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.Util;
 
 import java.util.List;
@@ -391,6 +396,51 @@ public class InteractionHandler {
     InteractionResult result = onLeftClickInteraction(tool, player, hand);
     if (result.consumesAction()) {
       setLeftClickEventResult(event, result);
+    }
+  }
+
+  /** Checks if the shield block angle allows blocking this attack */
+  private static boolean canBlock(ShieldBlockEvent event, IToolStackView tool) {
+    // source position should never be null (checked by livingentity) but safety as its marked nullable
+    Vec3 sourcePosition = event.getDamageSource().getSourcePosition();
+    if (sourcePosition == null) {
+      return false;
+    }
+    // no work to do if 90 degrees, that is vanilla logic
+    LivingEntity entity = event.getEntityLiving();
+    float blockAngle = ConditionalStatModifierHook.getModifiedStat(tool, entity, ToolStats.BLOCK_ANGLE);
+    if (blockAngle >= 90) {
+      return true;
+    }
+    // want the angle between the view vector and the
+    Vec3 viewVector = entity.getViewVector(1.0f);
+    Vec3 entityPosition = entity.position();
+    Vec3 direction = new Vec3(entityPosition.x - sourcePosition.x, 0, entityPosition.z - sourcePosition.z);
+    double length = viewVector.length() * direction.length();
+    // prevent zero vector from messing with us
+    if (length < 1.0E-4D) {
+      return false;
+    }
+    // acos will return between 90 and 270, we want an absolute angle from 0 to 180
+    double angle = Math.abs(180 - Math.acos(direction.dot(viewVector) / length) * Mth.RAD_TO_DEG);
+    return blockAngle >= angle;
+  }
+
+  /** Implements shield stats */
+  @SubscribeEvent
+  static void onBlock(ShieldBlockEvent event) {
+    LivingEntity entity = event.getEntityLiving();
+    ItemStack activeStack = entity.getUseItem();
+    if (!activeStack.isEmpty() && activeStack.is(TinkerTags.Items.MODIFIABLE)) {
+      ToolStack tool = ToolStack.from(activeStack);
+      // first check block angle
+      if (canBlock(event, tool)) {
+        // TOOD: hook for conditioning block amount based on on damage type
+        event.setBlockedDamage(Math.min(event.getBlockedDamage(), tool.getStats().get(ToolStats.BLOCK_AMOUNT)));
+        // TODO: consider handling the item damage ourself
+      } else {
+        event.setCanceled(true);
+      }
     }
   }
 }

@@ -19,6 +19,7 @@
     "spilling":      "#F98648",
 
     "__interaction_abilities__": null,
+    "blocking":    "#755A30",
     "firestarter": "#5D342C",
     "pathing":     "#8a361e",
     "stripping":   "#ab7a55",

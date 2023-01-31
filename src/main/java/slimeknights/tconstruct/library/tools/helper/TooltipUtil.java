@@ -42,6 +42,7 @@ import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.Util;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -390,6 +391,11 @@ public class TooltipUtil {
         builder.addTier();
       }
       builder.add(ToolStats.MINING_SPEED);
+    }
+    // TODO: should show for parry too probably, not sure of a good way to do so
+    if (tool.getModifierLevel(TinkerModifiers.blocking.getId()) > 0) {
+      builder.add(ToolStats.BLOCK_AMOUNT);
+      builder.add(ToolStats.BLOCK_ANGLE);
     }
 
     builder.addAllFreeSlots();

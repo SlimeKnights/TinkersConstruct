@@ -2107,6 +2107,9 @@
   "modifier.tconstruct.harvest": "Harvest",
   "modifier.tconstruct.harvest.flavor": "Swish!",
   "modifier.tconstruct.harvest.description": "Tool can be used on crops to harvest and replant them",
+  "modifier.tconstruct.blocking": "Blocking",
+  "modifier.tconstruct.blocking.flavor": "The non-cube type",
+  "modifier.tconstruct.blocking.description": "Interacting with the tool will allow blocking incoming damage",
   "_comment": "Fluids",
   "modifier.tconstruct.melting": "Melting",
   "modifier.tconstruct.melting.flavor": "The power of a Melter on a stick!",
@@ -2511,6 +2514,11 @@
   "stat.tconstruct.extra": "Binding",
   "stat.tconstruct.bowstring": "Bowstring",
   "tool_stat.tconstruct.extra.no_stats": "No stats",
+
+  "tool_stat.tconstruct.block_amount": "Block Amount: ",
+  "tool_stat.tconstruct.block_amount.description": "Maximum amount of damage blocked by this shield per attack.",
+  "tool_stat.tconstruct.block_angle": "Block Angle: ",
+  "tool_stat.tconstruct.block_angle.description": "Angle in degrees on either side this shield protects. Any attacks from an angle beyond this are not blocked.",
 
   "stat.tconstruct.repair_kit": "Repair Kit",
   "stat.tconstruct.skull": "Slimeskull",

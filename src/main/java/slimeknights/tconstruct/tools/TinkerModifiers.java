@@ -103,6 +103,7 @@ import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.FlamewakeMod
 import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.FrostWalkerModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.SnowdriftModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockTransformModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.interaction.FirestarterModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.interaction.HarvestAbilityModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.interaction.PathingModifier;
@@ -385,6 +386,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<BlockTransformModifier> tilling = MODIFIERS.register("tilling", () -> new BlockTransformModifier(75, ToolActions.HOE_TILL, SoundEvents.HOE_TILL, false));
   public static final StaticModifier<FirestarterModifier> firestarter = MODIFIERS.register("firestarter", () -> new FirestarterModifier(75));
   public static final StaticModifier<SingleLevelModifier> fireprimer = MODIFIERS.register("fireprimer", SingleLevelModifier::new);
+  public static final StaticModifier<BlockingModifier> blocking = MODIFIERS.register("blocking", BlockingModifier::new);
 
   // internal abilities
   public static final StaticModifier<BlockTransformModifier> axeScrape = MODIFIERS.register("axe_scrape", () -> new BlockTransformModifier(Integer.MIN_VALUE + 49, ToolActions.AXE_SCRAPE, SoundEvents.AXE_SCRAPE, false, 3005));
