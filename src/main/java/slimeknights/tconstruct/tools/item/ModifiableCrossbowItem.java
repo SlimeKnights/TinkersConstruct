@@ -244,6 +244,12 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
   }
 
   @Override
+  public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity living) {
+    ModifierUtil.finishUsingItem(living);
+    return super.finishUsingItem(stack, level, living);
+  }
+
+  @Override
   public void releaseUsing(ItemStack bow, Level level, LivingEntity living, int chargeRemaining) {
     ModifierUtil.finishUsingItem(living);
     if (!(living instanceof Player player)) {
