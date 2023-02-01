@@ -60,6 +60,7 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierMa
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRepairRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.worktable.ModifierSetWorktableRecipeBuilder;
 import slimeknights.tconstruct.library.tools.SlotType;
+import slimeknights.tconstruct.library.tools.definition.module.interaction.DualOptionInteraction;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.SlimeType;
@@ -1352,6 +1353,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     ModifierSortingRecipe.Builder.sorting()
                                  .addInput(Items.COMPASS)
                                  .save(consumer, modResource(worktableFolder + "modifier_sorting"));
+
+    // invisible ink
     ResourceLocation hiddenModifiers = TConstruct.getResource("invisible_modifiers");
     IJsonPredicate<ModifierId> blacklist = new TagModifierPredicate(TinkerTags.Modifiers.INVISIBLE_INK_BLACKLIST).inverted();
     ModifierSetWorktableRecipeBuilder.setAdding(hiddenModifiers)
@@ -1362,6 +1365,20 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                      .modifierPredicate(blacklist)
                                      .addInput(FluidContainerIngredient.fromIngredient(FluidIngredient.of(Fluids.MILK, FluidAttributes.BUCKET_VOLUME), Ingredient.of(Items.MILK_BUCKET)))
                                      .save(consumer, modResource(worktableFolder + "invisible_ink_removing"));
+
+    // swapping hands
+    IJsonPredicate<ModifierId> whitelist = new TagModifierPredicate(TinkerTags.Modifiers.DUAL_INTERACTION);
+    ModifierSetWorktableRecipeBuilder.setAdding(DualOptionInteraction.KEY)
+                                     .modifierPredicate(whitelist)
+                                     .setTools(TinkerTags.Items.INTERACTABLE_DUAL)
+                                     .addInput(Items.LEVER)
+                                     .save(consumer, modResource(worktableFolder + "attack_modifier_setting"));
+    ModifierSetWorktableRecipeBuilder.setRemoving(DualOptionInteraction.KEY)
+                                     .modifierPredicate(whitelist)
+                                     .setTools(TinkerTags.Items.INTERACTABLE_DUAL)
+                                     .addInput(Items.LEVER)
+                                     .addInput(Items.LEVER)
+                                     .save(consumer, modResource(worktableFolder + "attack_modifier_clearing"));
 
     // conversion
     for (boolean matchBook : new boolean[]{false, true}) {

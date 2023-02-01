@@ -29,6 +29,7 @@ import slimeknights.tconstruct.library.client.data.material.GeneratorPartTexture
 import slimeknights.tconstruct.library.client.data.material.MaterialPartTextureGenerator;
 import slimeknights.tconstruct.library.json.AddToolDataFunction;
 import slimeknights.tconstruct.library.json.RandomMaterial;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.ToolPredicate;
@@ -45,6 +46,10 @@ import slimeknights.tconstruct.library.tools.definition.harvest.FixedTierHarvest
 import slimeknights.tconstruct.library.tools.definition.harvest.IHarvestLogic;
 import slimeknights.tconstruct.library.tools.definition.harvest.ModifiedHarvestLogic;
 import slimeknights.tconstruct.library.tools.definition.harvest.TagHarvestLogic;
+import slimeknights.tconstruct.library.tools.definition.module.IToolModule;
+import slimeknights.tconstruct.library.tools.definition.module.ToolModuleHooks;
+import slimeknights.tconstruct.library.tools.definition.module.interaction.DualOptionInteraction;
+import slimeknights.tconstruct.library.tools.definition.module.interaction.PreferenceSetInteraction;
 import slimeknights.tconstruct.library.tools.definition.weapon.CircleWeaponAttack;
 import slimeknights.tconstruct.library.tools.definition.weapon.IWeaponAttack;
 import slimeknights.tconstruct.library.tools.definition.weapon.ParticleWeaponAttack;
@@ -167,6 +172,8 @@ public final class TinkerTools extends TinkerModule {
     for (ConfigurableAction action : Config.COMMON.damageSourceTweaks) {
       event.enqueueWork(action);
     }
+    TinkerHooks.init();
+    ToolModuleHooks.init();
   }
 
   @SubscribeEvent
@@ -188,6 +195,9 @@ public final class TinkerTools extends TinkerModule {
     IWeaponAttack.LOADER.register(TConstruct.getResource("sweep"), SweepWeaponAttack.LOADER);
     IWeaponAttack.LOADER.register(TConstruct.getResource("circle"), CircleWeaponAttack.LOADER);
     IWeaponAttack.LOADER.register(TConstruct.getResource("particle"), ParticleWeaponAttack.LOADER);
+    // generic tool modules
+    IToolModule.LOADER.register(TConstruct.getResource("dual_option_interaction"), DualOptionInteraction.LOADER);
+    IToolModule.LOADER.register(TConstruct.getResource("preference_set_interaction"), PreferenceSetInteraction.LOADER);
   }
 
   @SubscribeEvent

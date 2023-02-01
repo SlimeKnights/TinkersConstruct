@@ -7,6 +7,7 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
+import slimeknights.tconstruct.library.tools.definition.ToolDefinitionData;
 
 import java.util.List;
 
@@ -19,6 +20,11 @@ public interface IToolContext {
 
   /** Gets the tool definition */
   ToolDefinition getDefinition();
+
+  /** Gets the tool definition data */
+  default ToolDefinitionData getDefinitionData() {
+    return getDefinition().getData();
+  }
 
   /** Checks if the tool has the given tag */
   @SuppressWarnings("deprecation")

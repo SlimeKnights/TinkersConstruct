@@ -324,6 +324,8 @@ public class TinkerTags {
     public static final TagKey<Item> INTERACTABLE_LEFT = tag("modifiable/interactable/left");
     /** Tools that can interact when worn as armor */
     public static final TagKey<Item> INTERACTABLE_ARMOR = tag("modifiable/interactable/armor");
+    /** Tools that can interact on left click or right click */
+    public static final TagKey<Item> INTERACTABLE_DUAL = tag("modifiable/interactable/dual");
 
     /** Items in this tag support the @link ToolStats#ATTACK_DAMAGE} stat. Should not be added to directly typically, use {@link #MELEE} or {@link #CHESTPLATES}
      * TODO 1.19: rename to "modifiable/melee" */
@@ -503,6 +505,8 @@ public class TinkerTags {
     public static final TagKey<Modifier> EXTRACT_MODIFIER_BLACKLIST = tag("extract_blacklist/tools");
     /** Blacklist for modifiers that cannot be extracted via the slotless recipe */
     public static final TagKey<Modifier> EXTRACT_SLOTLESS_BLACKLIST = tag("extract_blacklist/slotless");
+    /** Modifiers that can be used on both left and right click. Does not care about armor modifiers */
+    public static final TagKey<Modifier> DUAL_INTERACTION = tag("dual_interaction");
 
     private static TagKey<Modifier> tag(String name) {
       return ModifierManager.getTag(TConstruct.getResource(name));

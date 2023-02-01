@@ -39,6 +39,8 @@ import java.util.function.Function;
 public class TinkerHooks {
   private TinkerHooks() {}
 
+  public static void init() {}
+
 
   /* General */
 

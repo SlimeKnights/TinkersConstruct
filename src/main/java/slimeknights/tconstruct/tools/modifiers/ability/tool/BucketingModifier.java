@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools.modifiers.ability.tool;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -43,6 +44,8 @@ import slimeknights.tconstruct.library.modifiers.impl.TankModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
+import slimeknights.tconstruct.library.tools.definition.module.ToolModuleHooks;
+import slimeknights.tconstruct.library.tools.definition.module.interaction.DualOptionInteraction;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.item.ModifiableItem;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -61,6 +64,11 @@ public class BucketingModifier extends TankModifier implements BlockInteractionM
   @Override
   public int getPriority() {
     return 80; // little bit less so we get to add volatile data late
+  }
+
+  @Override
+  public Component getDisplayName(IToolStackView tool, int level) {
+    return DualOptionInteraction.formatModifierName(tool, this, super.getDisplayName(tool, level));
   }
 
   @Override
@@ -153,6 +161,9 @@ public class BucketingModifier extends TankModifier implements BlockInteractionM
 
   @Override
   public InteractionResult afterBlockUse(IToolStackView tool, ModifierEntry modifier, UseOnContext context, InteractionSource source) {
+    if (!tool.getDefinitionData().getModule(ToolModuleHooks.INTERACTION).canInteract(tool, modifier.getId(), source)) {
+      return InteractionResult.PASS;
+    }
     // only place fluid if sneaking, we contain at least a bucket, and its a block
     Player player = context.getPlayer();
     if (player == null || !player.isShiftKeyDown()) {
@@ -220,7 +231,7 @@ public class BucketingModifier extends TankModifier implements BlockInteractionM
 
   @Override
   public InteractionResult onToolUse(IToolStackView tool, ModifierEntry modifier, Player player, InteractionHand hand, InteractionSource source) {
-    if (player.isCrouching()) {
+    if (player.isCrouching() || !tool.getDefinitionData().getModule(ToolModuleHooks.INTERACTION).canInteract(tool, modifier.getId(), source)) {
       return InteractionResult.PASS;
     }
 
