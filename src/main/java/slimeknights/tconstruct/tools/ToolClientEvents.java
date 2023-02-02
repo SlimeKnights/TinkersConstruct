@@ -128,6 +128,7 @@ public class ToolClientEvents extends ClientEventBase {
     // properties
     TinkerItemProperties.registerCrossbowProperties(TinkerTools.crossbow.asItem());
     TinkerItemProperties.registerBowProperties(TinkerTools.longbow.asItem());
+    TinkerItemProperties.registerToolProperties(TinkerTools.travelersShield.asItem());
   }
 
   @SubscribeEvent

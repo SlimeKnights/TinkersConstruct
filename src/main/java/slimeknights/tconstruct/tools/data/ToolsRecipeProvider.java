@@ -1,9 +1,11 @@
 package slimeknights.tconstruct.tools.data;
 
+import com.google.common.collect.Streams;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -33,6 +35,7 @@ import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.Collections;
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterialRecipeHelper, IToolRecipeHelper {
   public ToolsRecipeProvider(DataGenerator generator) {
@@ -124,13 +127,23 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                        .define('l', Tags.Items.LEATHER)
                        .unlockedBy("has_item", has(Tags.Items.INGOTS_COPPER))
                        .save(consumer, modResource(armorFolder + "travelers_boots"));
-    Ingredient travelers = Ingredient.of(TinkerTools.travelersGear.values().stream().map(ItemStack::new));
-    SpecializedRepairRecipeBuilder.repair(travelers, MaterialIds.copper)
+    ShapedRecipeBuilder.shaped(TinkerTools.travelersShield)
+                       .pattern(" c ")
+                       .pattern("cwc")
+                       .pattern(" c ")
+                       .define('c', Tags.Items.INGOTS_COPPER)
+                       .define('w', ItemTags.PLANKS)
+                       .unlockedBy("has_item", has(Tags.Items.INGOTS_COPPER))
+                       .save(consumer, modResource(armorFolder + "travelers_shield"));
+    SpecializedRepairRecipeBuilder.repair(Ingredient.of(Streams.concat(TinkerTools.travelersGear.values().stream(), Stream.of(TinkerTools.travelersShield.get())).map(ItemStack::new)), MaterialIds.copper)
                                   .buildRepairKit(consumer, modResource(armorRepairFolder + "travelers_copper_repair_kit"))
                                   .save(consumer, modResource(armorRepairFolder + "travelers_copper_station"));
-    SpecializedRepairRecipeBuilder.repair(travelers, MaterialIds.leather)
+    SpecializedRepairRecipeBuilder.repair(Ingredient.of(TinkerTools.travelersGear.values().stream().map(ItemStack::new)), MaterialIds.leather)
                                   .buildRepairKit(consumer, modResource(armorRepairFolder + "travelers_leather_repair_kit"))
                                   .save(consumer, modResource(armorRepairFolder + "travelers_leather_station"));
+    SpecializedRepairRecipeBuilder.repair(Ingredient.of(TinkerTools.travelersShield), MaterialIds.wood)
+                                  .buildRepairKit(consumer, modResource(armorRepairFolder + "travelers_wood_repair_kit"))
+                                  .save(consumer, modResource(armorRepairFolder + "travelers_wood_station"));
 
     // plate armor
     ShapedRecipeBuilder.shaped(TinkerTools.plateArmor.get(ArmorSlotType.HELMET))

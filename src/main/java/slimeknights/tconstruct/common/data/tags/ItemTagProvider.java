@@ -249,7 +249,8 @@ public class ItemTagProvider extends ItemTagsProvider {
     addToolTags(TinkerTools.slimesuit.get(ArmorSlotType.HELMET), MULTIPART_TOOL);
 
     // shields
-    tag(SHIELDS);
+    addToolTags(TinkerTools.travelersShield, DURABILITY, DYEABLE, SHIELDS, INTERACTABLE_LEFT);
+
 
     // add tags to other tags
     // harvest primary and stone harvest are both automatically harvest

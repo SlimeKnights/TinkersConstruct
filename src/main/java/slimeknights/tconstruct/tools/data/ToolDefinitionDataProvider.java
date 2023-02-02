@@ -10,6 +10,8 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.data.tinkering.AbstractToolDefinitionDataProvider;
 import slimeknights.tconstruct.library.json.predicate.block.BlockPredicate;
 import slimeknights.tconstruct.library.json.predicate.block.TagBlockPredicate;
+import slimeknights.tconstruct.library.json.predicate.modifier.SingleModifierPredicate;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.definition.aoe.BoxAOEIterator;
 import slimeknights.tconstruct.library.tools.definition.aoe.CircleAOEIterator;
@@ -20,6 +22,8 @@ import slimeknights.tconstruct.library.tools.definition.aoe.VeiningAOEIterator;
 import slimeknights.tconstruct.library.tools.definition.harvest.FixedTierHarvestLogic;
 import slimeknights.tconstruct.library.tools.definition.harvest.IHarvestLogic;
 import slimeknights.tconstruct.library.tools.definition.harvest.ModifiedHarvestLogic;
+import slimeknights.tconstruct.library.tools.definition.module.ToolModuleHooks;
+import slimeknights.tconstruct.library.tools.definition.module.interaction.PreferenceSetInteraction;
 import slimeknights.tconstruct.library.tools.definition.weapon.CircleWeaponAttack;
 import slimeknights.tconstruct.library.tools.definition.weapon.ParticleWeaponAttack;
 import slimeknights.tconstruct.library.tools.definition.weapon.SweepWeaponAttack;
@@ -390,6 +394,15 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .startingSlots(SlotType.UPGRADE, 3)
       .startingSlots(SlotType.DEFENSE, 2)
       .startingSlots(SlotType.ABILITY, 1);
+    define(ArmorDefinitions.TRAVELERS_SHIELD)
+      .stat(ToolStats.DURABILITY, 200)
+      .stat(ToolStats.BLOCK_AMOUNT, 10)
+      .startingSlots(SlotType.UPGRADE, 3)
+      .startingSlots(SlotType.DEFENSE, 2)
+      .startingSlots(SlotType.ABILITY, 1)
+      .trait(TinkerModifiers.blocking)
+      .trait(ModifierIds.fastUseItem)
+      .module(ToolModuleHooks.INTERACTION, new PreferenceSetInteraction(InteractionSource.RIGHT_CLICK, new SingleModifierPredicate(TinkerModifiers.blocking.getId())));
 
     // plate armor
     defineArmor(ArmorDefinitions.PLATE)

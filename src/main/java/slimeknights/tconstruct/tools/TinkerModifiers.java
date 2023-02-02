@@ -26,6 +26,7 @@ import slimeknights.tconstruct.common.TinkerEffect;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.data.tags.ModifierTagProvider;
 import slimeknights.tconstruct.library.json.predicate.modifier.ModifierPredicate;
+import slimeknights.tconstruct.library.json.predicate.modifier.SingleModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.modifier.SlotTypeModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.modifier.TagModifierPredicate;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -566,6 +567,7 @@ public final class TinkerModifiers extends TinkerModule {
     ModifierPredicate.LOADER.register(TConstruct.getResource("or"), ModifierPredicate.OR);
     ModifierPredicate.LOADER.register(TConstruct.getResource("inverted"), ModifierPredicate.INVERTED);
     ModifierPredicate.LOADER.register(TConstruct.getResource("always"), ModifierPredicate.ALWAYS.getLoader());
+    ModifierPredicate.LOADER.register(TConstruct.getResource("single"), SingleModifierPredicate.LOADER);
     ModifierPredicate.LOADER.register(TConstruct.getResource("tag"), TagModifierPredicate.LOADER);
     ModifierPredicate.LOADER.register(TConstruct.getResource("slot_type"), SlotTypeModifierPredicate.LOADER);
   }
