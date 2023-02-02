@@ -22,6 +22,7 @@ import slimeknights.tconstruct.plugin.jsonthings.item.FlexLayeredEmbellishedArmo
 import slimeknights.tconstruct.plugin.jsonthings.item.FlexModifiableBowItem;
 import slimeknights.tconstruct.plugin.jsonthings.item.FlexModifiableCrossbowItem;
 import slimeknights.tconstruct.plugin.jsonthings.item.FlexModifiableItem;
+import slimeknights.tconstruct.plugin.jsonthings.item.FlexModifiableStaffItem;
 import slimeknights.tconstruct.plugin.jsonthings.item.FlexRepairKitItem;
 import slimeknights.tconstruct.plugin.jsonthings.item.FlexToolPartItem;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
@@ -32,6 +33,8 @@ import java.util.List;
 /** Collection of custom item types added by Tinkers */
 @SuppressWarnings("unused")
 public class FlexItemTypes {
+  /** Standard tools that need standard properties */
+  static final List<Item> TOOL_ITEMS = new ArrayList<>();
   /** All bow items that need their predicate registered */
   static final List<Item> BOW_ITEMS = new ArrayList<>();
   /** All crossbow items that need their predicate registered */
@@ -59,7 +62,14 @@ public class FlexItemTypes {
   public static final ItemType<FlexModifiableItem> MODIFIABLE_TOOL = register("tool", data -> {
     IToolStatProvider statProvider = ToolStatProviders.REGISTRY.deserialize(data, "stat_provider");
     boolean breakBlocksInCreative = GsonHelper.getAsBoolean(data, "break_blocks_in_creative", true);
-    return (props, builder) -> new FlexModifiableItem(props, ToolDefinition.builder(builder.getRegistryName()).setStatsProvider(statProvider).build(), breakBlocksInCreative);
+    return (props, builder) -> add(TOOL_ITEMS, new FlexModifiableItem(props, ToolDefinition.builder(builder.getRegistryName()).setStatsProvider(statProvider).build(), breakBlocksInCreative));
+  });
+
+  /** Register a modifiable tool instance for melee/harvest tools */
+  public static final ItemType<FlexModifiableStaffItem> MODIFIABLE_STAFF = register("staff", data -> {
+    IToolStatProvider statProvider = ToolStatProviders.REGISTRY.deserialize(data, "stat_provider");
+    boolean breakBlocksInCreative = GsonHelper.getAsBoolean(data, "break_blocks_in_creative", true);
+    return (props, builder) -> add(TOOL_ITEMS, new FlexModifiableStaffItem(props, ToolDefinition.builder(builder.getRegistryName()).setStatsProvider(statProvider).build(), breakBlocksInCreative));
   });
 
   /** Register a modifiable tool instance for bow like items (release on finish) */

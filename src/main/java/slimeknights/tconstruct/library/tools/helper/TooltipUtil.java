@@ -65,7 +65,7 @@ public class TooltipUtil {
   /** Function to show all attributes in the tooltip */
   public static final BiPredicate<Attribute, Operation> SHOW_ALL_ATTRIBUTES = (att, op) -> true;
   /** Function to show all attributes in the tooltip */
-  public static final BiPredicate<Attribute, Operation> SHOW_MELEE_ATTRIBUTES = (att, op) -> op != Operation.ADDITION || (att != Attributes.ATTACK_DAMAGE && att != Attributes.ATTACK_SPEED);
+  public static final BiPredicate<Attribute, Operation> SHOW_MELEE_ATTRIBUTES = (att, op) -> op != Operation.ADDITION || (att != Attributes.ATTACK_DAMAGE && att != Attributes.ATTACK_SPEED && att != Attributes.ARMOR && att != Attributes.ARMOR_TOUGHNESS && att != Attributes.KNOCKBACK_RESISTANCE);
   /** Function to show all attributes in the tooltip */
   public static final BiPredicate<Attribute, Operation> SHOW_ARMOR_ATTRIBUTES = (att, op) -> op != Operation.ADDITION || (att != Attributes.ARMOR && att != Attributes.ARMOR_TOUGHNESS && att != Attributes.KNOCKBACK_RESISTANCE);
   /** Flags used when not holding control or shift */
@@ -391,6 +391,12 @@ public class TooltipUtil {
         builder.addTier();
       }
       builder.add(ToolStats.MINING_SPEED);
+    }
+    // slimestaffs and shields are holdable armor, so show armor stats
+    if (tool.hasTag(TinkerTags.Items.ARMOR)) {
+      builder.add(ToolStats.ARMOR);
+      builder.addOptional(ToolStats.ARMOR_TOUGHNESS);
+      builder.addOptional(ToolStats.KNOCKBACK_RESISTANCE, 10f);
     }
     // TODO: should show for parry too probably, not sure of a good way to do so
     if (tool.getModifierLevel(TinkerModifiers.blocking.getId()) > 0) {
