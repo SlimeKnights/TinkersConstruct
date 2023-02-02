@@ -671,6 +671,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(TinkerModifiers.cobaltReinforcement,  4)
                          .setSlots(SlotType.ABILITY, 1)
                          .setTools(TinkerTags.Items.ARMOR)
+                         .setMaxLevel(1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.protection, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.protection, abilityFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.knockbackResistance)

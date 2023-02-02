@@ -21,7 +21,7 @@ public class ProtectionModifier extends IncrementalModifier {
   @Override
   public float getProtectionModifier(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float modifierValue) {
     if (!source.isBypassMagic() && !source.isBypassInvul()) {
-      modifierValue += getEffectiveLevel(tool, level);
+      modifierValue += getEffectiveLevel(tool, level) * 1.25f;
     }
     return modifierValue;
   }
@@ -29,7 +29,7 @@ public class ProtectionModifier extends IncrementalModifier {
   @Override
   public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     if (tool.hasTag(TinkerTags.Items.ARMOR)) {
-      tooltip.add(applyStyle(new TextComponent(Util.PERCENT_BOOST_FORMAT.format(getEffectiveLevel(tool, level) / 25f))
+      tooltip.add(applyStyle(new TextComponent(Util.PERCENT_BOOST_FORMAT.format(getEffectiveLevel(tool, level) * 1.25f / 25f))
                                .append(" ")
                                .append(new TranslatableComponent(getTranslationKey() + ".resistance"))));
     }
