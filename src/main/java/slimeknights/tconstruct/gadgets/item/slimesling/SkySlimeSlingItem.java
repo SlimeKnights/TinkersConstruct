@@ -52,7 +52,6 @@ public class SkySlimeSlingItem extends BaseSlimeSlingItem {
       (1 + look.y) * speed / 2f,
       (look.z * speed));
 
-    onSuccess(player, stack);
     SlimeBounceHandler.addBounceHandler(player);
     if (!worldIn.isClientSide) {
       player.getCooldowns().addCooldown(stack.getItem(), 3);
