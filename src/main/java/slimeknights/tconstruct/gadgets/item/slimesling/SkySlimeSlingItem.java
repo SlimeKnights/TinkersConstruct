@@ -45,7 +45,9 @@ public class SkySlimeSlingItem extends BaseSlimeSlingItem {
     }
 
     player.causeFoodExhaustion(0.2F);
-    player.setSprinting(true);
+    if (worldIn.isClientSide) {
+      player.setSprinting(true);
+    }
 
     float f = getForce(stack, timeLeft);
     float speed = f / 3F;
