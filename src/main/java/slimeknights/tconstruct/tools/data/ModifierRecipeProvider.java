@@ -177,7 +177,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     String slotlessFolder = "tools/modifiers/slotless/";
     String upgradeSalvage = "tools/modifiers/salvage/upgrade/";
     String abilitySalvage = "tools/modifiers/salvage/ability/";
-    String slotlessSalvage = "tools/modifiers/salvage/slotless/";
     String defenseFolder = "tools/modifiers/defense/";
     String defenseSalvage = "tools/modifiers/salvage/defense/";
     String compatFolder = "tools/modifiers/compat/";
@@ -217,7 +216,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     ModifierRecipeBuilder.modifier(ModifierIds.worldbound)
                          .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
                          .setMaxLevel(1)
-                         .saveSalvage(consumer, prefix(ModifierIds.worldbound, slotlessSalvage))
                          .save(consumer, prefix(ModifierIds.worldbound, slotlessFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.soulbound)
                          .addInput(Ingredient.of(Items.TOTEM_OF_UNDYING, Items.NETHER_STAR))
@@ -1319,21 +1317,18 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     ModifierRecipeBuilder.modifier(ModifierIds.writable)
                          .addInput(Items.WRITABLE_BOOK)
                          .setMaxLevel(1)
-                         .saveSalvage(consumer, prefix(ModifierIds.writable, slotlessSalvage))
                          .save(consumer, prefix(ModifierIds.writable, slotlessFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.harmonious)
                          .addInput(ItemTags.MUSIC_DISCS)
                          .setMaxLevel(1)
-                         .saveSalvage(consumer, prefix(ModifierIds.harmonious, slotlessSalvage))
                          .save(consumer, prefix(ModifierIds.harmonious, slotlessFolder));
-    ModifierRecipeBuilder.modifier(ModifierIds.recapitated) // you want your head back? that is gross!
+    ModifierRecipeBuilder.modifier(ModifierIds.recapitated)
                          .addInput(SizedIngredient.of(DifferenceIngredient.of(Ingredient.of(Tags.Items.HEADS), Ingredient.of(Items.DRAGON_HEAD))))
                          .setMaxLevel(1)
                          .save(consumer, prefix(ModifierIds.recapitated, slotlessFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.resurrected)
                          .addInput(Items.END_CRYSTAL)
                          .setMaxLevel(1)
-                         .saveSalvage(consumer, prefix(ModifierIds.resurrected, slotlessSalvage))
                          .save(consumer, prefix(ModifierIds.resurrected, slotlessFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.draconic)
                          .addInput(Items.DRAGON_HEAD)
@@ -1341,13 +1336,12 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .save(consumer, wrap(ModifierIds.draconic, slotlessFolder, "_from_head"));
     ModifierRecipeBuilder.modifier(ModifierIds.draconic)
                          .addInput(Blocks.WITHER_ROSE)
-                         .addInput(TinkerModifiers.dragonScale) // you can apply the modifier in two ways, but scales are cheap so give them
+                         .addInput(TinkerModifiers.dragonScale)
                          .addInput(Blocks.WITHER_ROSE)
                          .addInput(TinkerModifiers.dragonScale)
                          .addInput(TinkerModifiers.dragonScale)
                          .setMaxLevel(1)
                          .disallowCrystal()
-                         .saveSalvage(consumer, prefix(ModifierIds.draconic, slotlessSalvage))
                          .save(consumer, wrap(ModifierIds.draconic, slotlessFolder, "_from_scales"));
     // creative
     SpecialRecipeBuilder.special(TinkerModifiers.creativeSlotSerializer.get()).save(consumer, modPrefix(slotlessFolder + "creative_slot"));
