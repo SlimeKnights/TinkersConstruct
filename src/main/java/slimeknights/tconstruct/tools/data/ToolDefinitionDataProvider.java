@@ -441,6 +441,16 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .startingSlots(SlotType.UPGRADE, 1)
       .startingSlots(SlotType.DEFENSE, 4)
       .startingSlots(SlotType.ABILITY, 1);
+    define(ArmorDefinitions.PLATE_SHIELD)
+      .stat(ToolStats.DURABILITY, 500)
+      .stat(ToolStats.BLOCK_AMOUNT, 100)
+      .stat(ToolStats.BLOCK_ANGLE, 90)
+      .stat(ToolStats.ARMOR_TOUGHNESS, 2)
+      .startingSlots(SlotType.UPGRADE, 1)
+      .startingSlots(SlotType.DEFENSE, 4)
+      .startingSlots(SlotType.ABILITY, 1)
+      .trait(TinkerModifiers.blocking)
+      .module(ToolModuleHooks.INTERACTION, new PreferenceSetInteraction(InteractionSource.RIGHT_CLICK, new SingleModifierPredicate(TinkerModifiers.blocking.getId())));
 
     // slime suit
     defineArmor(ArmorDefinitions.SLIMESUIT)

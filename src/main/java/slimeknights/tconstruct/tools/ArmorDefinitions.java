@@ -57,6 +57,7 @@ public class ArmorDefinitions {
     .setStatsProvider(ToolStatProviders.NO_PARTS)
     .setSoundEvent(Sounds.EQUIP_PLATE.getSound())
     .build();
+  public static final ToolDefinition PLATE_SHIELD = ToolDefinition.builder(TinkerTools.plateShield).noParts().build();
 
   /** High modifiers armor set */
   public static final ModifiableArmorMaterial SLIMESUIT = ModifiableArmorMaterial

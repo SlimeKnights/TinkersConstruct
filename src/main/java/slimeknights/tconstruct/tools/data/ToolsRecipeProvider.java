@@ -173,9 +173,9 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     SpecializedRepairRecipeBuilder.repair(Ingredient.of(TinkerTools.travelersGear.values().stream().map(ItemStack::new)), MaterialIds.leather)
                                   .buildRepairKit(consumer, modResource(armorRepairFolder + "travelers_leather_repair_kit"))
                                   .save(consumer, modResource(armorRepairFolder + "travelers_leather_station"));
-    SpecializedRepairRecipeBuilder.repair(Ingredient.of(TinkerTools.travelersShield), MaterialIds.wood)
-                                  .buildRepairKit(consumer, modResource(armorRepairFolder + "travelers_wood_repair_kit"))
-                                  .save(consumer, modResource(armorRepairFolder + "travelers_wood_station"));
+    SpecializedRepairRecipeBuilder.repair(Ingredient.of(TinkerTools.travelersShield, TinkerTools.plateShield), MaterialIds.wood)
+                                  .buildRepairKit(consumer, modResource(armorRepairFolder + "wood_repair_kit"))
+                                  .save(consumer, modResource(armorRepairFolder + "wood_station"));
 
     // plate armor
     ShapedRecipeBuilder.shaped(TinkerTools.plateArmor.get(ArmorSlotType.HELMET))
@@ -207,7 +207,15 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                        .define('m', TinkerMaterials.cobalt.getIngotTag())
                        .unlockedBy("has_item", has(TinkerMaterials.cobalt.getIngotTag()))
                        .save(consumer, modResource(armorFolder + "plate_boots"));
-    SpecializedRepairRecipeBuilder.repair(Ingredient.of(TinkerTools.plateArmor.values().stream().map(ItemStack::new)), MaterialIds.cobalt)
+    ShapedRecipeBuilder.shaped(TinkerTools.plateShield)
+                       .pattern("ww")
+                       .pattern("cc")
+                       .pattern("ww")
+                       .define('c', TinkerMaterials.cobalt.getIngotTag())
+                       .define('w', ItemTags.PLANKS)
+                       .unlockedBy("has_item", has(TinkerMaterials.cobalt.getIngotTag()))
+                       .save(consumer, modResource(armorFolder + "plate_shield"));
+    SpecializedRepairRecipeBuilder.repair(Ingredient.of(Streams.concat(TinkerTools.plateArmor.values().stream(), Stream.of(TinkerTools.plateShield.asItem())).map(ItemStack::new)), MaterialIds.cobalt)
                                   .buildRepairKit(consumer, modResource(armorRepairFolder + "plate_repair_kit"))
                                   .save(consumer, modResource(armorRepairFolder + "plate_station"));
 

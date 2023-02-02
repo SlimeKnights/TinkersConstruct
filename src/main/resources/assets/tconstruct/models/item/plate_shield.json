@@ -1,0 +1,21 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "tconstruct:item/base/shield_large",
+  "textures": {
+    "tool":         "tconstruct:item/tool/armor/plate/shield",
+    "broken":       "tconstruct:item/tool/armor/plate/shield_broken",
+    "tool_large":   "tconstruct:item/tool/armor/plate/shield_large",
+    "broken_large": "tconstruct:item/tool/armor/plate/shield_large_broken"
+  },
+  "modifier_roots": {
+    "small": [ "tconstruct:item/tool/armor/plate/shield_modifiers/" ],
+    "large": [ "tconstruct:item/tool/armor/plate/shield_large_modifiers/" ]
+  },
+  "large": true,
+  "first_modifiers": [ "tconstruct:dyed" ],
+  "large_offset": [-8.25, 17],
+  "overrides": [{
+    "predicate": { "tconstruct:charging": 2 },
+    "model": "tconstruct:item/blocking/plate_shield"
+  }]
+}
