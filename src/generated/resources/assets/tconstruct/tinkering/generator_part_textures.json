@@ -98,6 +98,14 @@
       "statType": "tconstruct:plate"
     },
     {
+      "path": "tconstruct:item/tool/staff/modifiers/tconstruct_embellishment",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:item/tool/staff/large_modifiers/tconstruct_embellishment",
+      "statType": "tconstruct:plate"
+    },
+    {
       "path": "tconstruct:item/tool/armor/slime/skull_modifiers/tconstruct_embellishment",
       "statType": "tconstruct:slimesuit"
     },

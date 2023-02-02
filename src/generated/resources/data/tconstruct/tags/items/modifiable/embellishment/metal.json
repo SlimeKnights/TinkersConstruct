@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
+    "tconstruct:sky_staff",
+    "tconstruct:earth_staff",
+    "tconstruct:ichor_staff",
     "tconstruct:plate_boots",
     "tconstruct:plate_leggings",
     "tconstruct:plate_chestplate",

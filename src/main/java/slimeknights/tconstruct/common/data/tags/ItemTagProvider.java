@@ -242,9 +242,9 @@ public class ItemTagProvider extends ItemTagsProvider {
     addToolTags(TinkerTools.longbow,  MULTIPART_TOOL, DURABILITY, MELEE, LONGBOWS,  INTERACTABLE_LEFT);
     // specialized
     addToolTags(TinkerTools.flintAndBrick, DURABILITY, MELEE, ONE_HANDED, AOE);
-    addToolTags(TinkerTools.skyStaff,      DURABILITY, STAFFS, HELD_ARMOR, INTERACTABLE_DUAL, AOE);
-    addToolTags(TinkerTools.earthStaff,    DURABILITY, STAFFS, HELD_ARMOR, INTERACTABLE_DUAL, AOE);
-    addToolTags(TinkerTools.ichorStaff,    DURABILITY, STAFFS, HELD_ARMOR, INTERACTABLE_DUAL, AOE);
+    addToolTags(TinkerTools.skyStaff,      DURABILITY, STAFFS, HELD_ARMOR, INTERACTABLE_DUAL, AOE, DYEABLE, EMBELLISHMENT_METAL);
+    addToolTags(TinkerTools.earthStaff,    DURABILITY, STAFFS, HELD_ARMOR, INTERACTABLE_DUAL, AOE, DYEABLE, EMBELLISHMENT_METAL);
+    addToolTags(TinkerTools.ichorStaff,    DURABILITY, STAFFS, HELD_ARMOR, INTERACTABLE_DUAL, AOE, DYEABLE, EMBELLISHMENT_METAL);
 
     // armor
     addArmorTags(TinkerTools.travelersGear, DURABILITY, DYEABLE, ItemTags.FREEZE_IMMUNE_WEARABLES);
