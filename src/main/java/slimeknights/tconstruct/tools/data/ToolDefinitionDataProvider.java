@@ -23,6 +23,7 @@ import slimeknights.tconstruct.library.tools.definition.harvest.FixedTierHarvest
 import slimeknights.tconstruct.library.tools.definition.harvest.IHarvestLogic;
 import slimeknights.tconstruct.library.tools.definition.harvest.ModifiedHarvestLogic;
 import slimeknights.tconstruct.library.tools.definition.module.ToolModuleHooks;
+import slimeknights.tconstruct.library.tools.definition.module.interaction.DualOptionInteraction;
 import slimeknights.tconstruct.library.tools.definition.module.interaction.PreferenceSetInteraction;
 import slimeknights.tconstruct.library.tools.definition.weapon.CircleWeaponAttack;
 import slimeknights.tconstruct.library.tools.definition.weapon.ParticleWeaponAttack;
@@ -384,6 +385,32 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .trait(TinkerModifiers.firestarter)
       .trait(TinkerModifiers.fiery)
       .trait(ModifierIds.scorching);
+    // staff
+    define(ToolDefinitions.SKY_STAFF)
+      .stat(ToolStats.DURABILITY, 375)
+      .stat(ToolStats.BLOCK_AMOUNT, 8)
+      .startingSlots(SlotType.UPGRADE, 5)
+      .startingSlots(SlotType.ABILITY, 2)
+      .trait(ModifierIds.overslimeFriend)
+      .aoe(new CircleAOEIterator(1, false))
+      .module(ToolModuleHooks.INTERACTION, DualOptionInteraction.INSTANCE);
+    define(ToolDefinitions.EARTH_STAFF)
+      .stat(ToolStats.DURABILITY, 800)
+      .stat(ToolStats.BLOCK_AMOUNT, 13)
+      .startingSlots(SlotType.UPGRADE, 2)
+      .startingSlots(SlotType.DEFENSE, 3)
+      .startingSlots(SlotType.ABILITY, 2)
+      .trait(ModifierIds.overslimeFriend)
+      .aoe(new CircleAOEIterator(1, false))
+      .module(ToolModuleHooks.INTERACTION, DualOptionInteraction.INSTANCE);
+    define(ToolDefinitions.ICHOR_STAFF)
+      .stat(ToolStats.DURABILITY, 1225)
+      .stat(ToolStats.BLOCK_AMOUNT, 6)
+      .startingSlots(SlotType.UPGRADE, 2)
+      .startingSlots(SlotType.ABILITY, 3)
+      .trait(ModifierIds.overslimeFriend)
+      .aoe(new CircleAOEIterator(1, false))
+      .module(ToolModuleHooks.INTERACTION, DualOptionInteraction.INSTANCE);
 
 
     // travelers armor

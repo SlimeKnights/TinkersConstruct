@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CWC",
+    " I ",
+    " W "
+  ],
+  "key": {
+    "C": {
+      "item": "tconstruct:ichor_slime_crystal"
+    },
+    "W": {
+      "tag": "tconstruct:bloodshroom_logs"
+    },
+    "I": {
+      "tag": "forge:ingots/queens_slime"
+    }
+  },
+  "result": {
+    "item": "tconstruct:ichor_staff"
+  }
+}

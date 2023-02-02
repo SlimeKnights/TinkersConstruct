@@ -3,7 +3,6 @@
   "values": [
     "tconstruct:sky_staff",
     "tconstruct:earth_staff",
-    "tconstruct:ichor_staff",
-    "#tconstruct:modifiable/shields"
+    "tconstruct:ichor_staff"
   ]
 }

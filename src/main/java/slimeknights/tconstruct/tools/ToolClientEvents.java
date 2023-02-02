@@ -149,6 +149,9 @@ public class ToolClientEvents extends ClientEventBase {
     TinkerItemProperties.registerBowProperties(TinkerTools.longbow.asItem());
     // misc
     TinkerItemProperties.registerToolProperties(TinkerTools.flintAndBrick.asItem());
+    TinkerItemProperties.registerToolProperties(TinkerTools.skyStaff.asItem());
+    TinkerItemProperties.registerToolProperties(TinkerTools.earthStaff.asItem());
+    TinkerItemProperties.registerToolProperties(TinkerTools.ichorStaff.asItem());
     TinkerItemProperties.registerToolProperties(TinkerTools.travelersShield.asItem());
   }
 

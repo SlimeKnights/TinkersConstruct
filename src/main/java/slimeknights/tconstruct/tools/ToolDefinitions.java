@@ -34,4 +34,7 @@ public final class ToolDefinitions {
 
   // special
   public static final ToolDefinition FLINT_AND_BRICK = ToolDefinition.builder(TinkerTools.flintAndBrick).noParts().build();
+  public static final ToolDefinition SKY_STAFF = ToolDefinition.builder(TinkerTools.skyStaff).noParts().build();
+  public static final ToolDefinition EARTH_STAFF = ToolDefinition.builder(TinkerTools.earthStaff).noParts().build();
+  public static final ToolDefinition ICHOR_STAFF = ToolDefinition.builder(TinkerTools.ichorStaff).noParts().build();
 }

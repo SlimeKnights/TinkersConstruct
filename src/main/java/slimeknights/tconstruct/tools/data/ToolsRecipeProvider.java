@@ -94,6 +94,38 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                                   .buildRepairKit(consumer, wrap(TinkerTools.flintAndBrick, repairFolder, "_scorched_repair_kit"))
                                   .save(consumer, wrap(TinkerTools.flintAndBrick, repairFolder, "_scorched_station"));
 
+    // staff
+    ShapedRecipeBuilder.shaped(TinkerTools.skyStaff)
+                       .pattern("CWC")
+                       .pattern(" I ")
+                       .pattern(" W ")
+                       .define('C', TinkerWorld.skyGeode)
+                       .define('W', TinkerWorld.skyroot.getLogItemTag())
+                       .define('I', TinkerMaterials.roseGold.getIngotTag())
+                       .unlockedBy("has_wood", has(TinkerWorld.skyroot.getLogItemTag()))
+                       .save(consumer, prefix(TinkerTools.skyStaff, folder));
+    ShapedRecipeBuilder.shaped(TinkerTools.earthStaff)
+                       .pattern("CWC")
+                       .pattern(" I ")
+                       .pattern(" W ")
+                       .define('C', TinkerWorld.earthGeode)
+                       .define('W', TinkerWorld.greenheart.getLogItemTag())
+                       .define('I', TinkerMaterials.cobalt.getIngotTag())
+                       .unlockedBy("has_wood", has(TinkerWorld.greenheart.getLogItemTag()))
+                       .save(consumer, prefix(TinkerTools.earthStaff, folder));
+    ShapedRecipeBuilder.shaped(TinkerTools.ichorStaff)
+                       .pattern("CWC")
+                       .pattern(" I ")
+                       .pattern(" W ")
+                       .define('C', TinkerWorld.ichorGeode)
+                       .define('W', TinkerWorld.bloodshroom.getLogItemTag())
+                       .define('I', TinkerMaterials.queensSlime.getIngotTag())
+                       .unlockedBy("has_wood", has(TinkerWorld.bloodshroom.getLogItemTag()))
+                       .save(consumer, prefix(TinkerTools.ichorStaff, folder));
+    SpecializedRepairRecipeBuilder.repair(Ingredient.of(TinkerTools.skyStaff, TinkerTools.earthStaff, TinkerTools.ichorStaff), MaterialIds.slimewood)
+                                  .buildRepairKit(consumer, modResource(repairFolder + "staff_repair_kit"))
+                                  .save(consumer, modResource(repairFolder + "staff_station"));
+
     // travelers gear
     ShapedRecipeBuilder.shaped(TinkerTools.travelersGear.get(ArmorSlotType.HELMET))
                        .pattern("l l")

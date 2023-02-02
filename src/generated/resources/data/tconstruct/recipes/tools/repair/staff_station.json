@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:specialized_station_repair",
+  "tool": [
+    {
+      "item": "tconstruct:sky_staff"
+    },
+    {
+      "item": "tconstruct:earth_staff"
+    },
+    {
+      "item": "tconstruct:ichor_staff"
+    }
+  ],
+  "repair_material": "tconstruct:slimewood"
+}
