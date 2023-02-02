@@ -876,11 +876,15 @@
   "item.tconstruct.longbow": "长弓",
 
   "item.tconstruct.flint_and_brick": "焦砖打火石",
+  "item.tconstruct.sky_staff": "Skyslime Staff",
+  "item.tconstruct.earth_staff": "Earthslime Staff",
+  "item.tconstruct.ichor_staff": "Ichor Staff",
   
   "item.tconstruct.travelers_helmet": "旅行者护目镜",
   "item.tconstruct.travelers_chestplate": "旅行者背心",
   "item.tconstruct.travelers_leggings": "旅行者裤子",
   "item.tconstruct.travelers_boots": "旅行者靴子",
+  "item.tconstruct.travelers_shield": "Traveler's Shield",
   
   "item.tconstruct.plate_helmet": "镶板头盔",
   "item.tconstruct.plate_chestplate": "镶板胸甲",
@@ -2107,6 +2111,9 @@
   "modifier.tconstruct.harvest": "收割",
   "modifier.tconstruct.harvest.flavor": "春耕秋获！",
   "modifier.tconstruct.harvest.description": "工具可收割并重新种植农作物",
+  "modifier.tconstruct.blocking": "Blocking",
+  "modifier.tconstruct.blocking.flavor": "The non-cube type",
+  "modifier.tconstruct.blocking.description": "Interacting with the tool will allow blocking incoming damage",
   "_comment": "Fluids",
   "modifier.tconstruct.melting": "熔炼",
   "modifier.tconstruct.melting.flavor": "木棍上的熔炼之力！",
@@ -2512,6 +2519,11 @@
   "stat.tconstruct.bowstring": "弓弦",
   "tool_stat.tconstruct.extra.no_stats": "无数据",
 
+  "tool_stat.tconstruct.block_amount": "Block Amount: ",
+  "tool_stat.tconstruct.block_amount.description": "Maximum amount of damage blocked by this shield per attack.",
+  "tool_stat.tconstruct.block_angle": "Block Angle: ",
+  "tool_stat.tconstruct.block_angle.description": "Angle in degrees on either side this shield protects. Any attacks from an angle beyond this are not blocked.",
+
   "stat.tconstruct.repair_kit": "修理件",
   "stat.tconstruct.skull": "黏液头颅",
 
@@ -2610,6 +2622,12 @@
   "recipe.tconstruct.invisible_modifiers.adding.description": "选择一个强化以将其材质从工具模型中隐藏",
   "recipe.tconstruct.invisible_modifiers.removing.title": "显形墨水",
   "recipe.tconstruct.invisible_modifiers.removing.description": "选择一个隐藏的强化以使其从工具模型中再次显形",
+
+  "modifier.tconstruct.attack_toggled": "%s (Attack)",
+  "recipe.tconstruct.attack_modifiers.adding.title": "Toggle Interaction Modifier",
+  "recipe.tconstruct.attack_modifiers.adding.description": "Switches an interaction modifier from activating on interaction to attack",
+  "recipe.tconstruct.attack_modifiers.removing.title": "Toggle Interaction Modifier",
+  "recipe.tconstruct.attack_modifiers.removing.description": "Switches an interaction modifier back to activating on interaction",
 
   "recipe.tconstruct.extract_modifier.title": "强化提取",
   "recipe.tconstruct.extract_modifier.description": "选择要提取到强化水晶上的强化，将返还消耗的强化槽，但加持强化所消耗的物品会消失。",
