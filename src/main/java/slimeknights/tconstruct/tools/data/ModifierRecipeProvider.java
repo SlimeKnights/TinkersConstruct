@@ -1454,6 +1454,10 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                   .setTools(TinkerTags.Items.EMBELLISHMENT_METAL)
                                   .addInput(Tags.Items.RAW_MATERIALS_COPPER).addInput(Tags.Items.RAW_MATERIALS_COPPER).addInput(Tags.Items.RAW_MATERIALS_COPPER)
                                   .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_copper_oxidized"));
+    SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment, MaterialIds.gold.toString())
+                                  .setTools(DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.EMBELLISHMENT_METAL), Ingredient.of(TinkerTags.Items.WORN_ARMOR)))
+                                  .addInput(Tags.Items.INGOTS_GOLD).addInput(Tags.Items.INGOTS_GOLD).addInput(Tags.Items.INGOTS_GOLD)
+                                  .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_gold"));
     // tier 3
     plateTexture(consumer, MaterialIds.slimesteel,    false, folder);
     plateTexture(consumer, MaterialIds.amethystBronze, false, folder);

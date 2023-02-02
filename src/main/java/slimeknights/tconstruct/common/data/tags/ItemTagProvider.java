@@ -253,8 +253,8 @@ public class ItemTagProvider extends ItemTagsProvider {
     addToolTags(TinkerTools.slimesuit.get(ArmorSlotType.HELMET), MULTIPART_TOOL);
 
     // shields
-    addToolTags(TinkerTools.travelersShield, DURABILITY, DYEABLE, SHIELDS, INTERACTABLE_LEFT);
-    addToolTags(TinkerTools.plateShield,     DURABILITY, DYEABLE, SHIELDS, INTERACTABLE_LEFT);
+    addToolTags(TinkerTools.travelersShield, DURABILITY, DYEABLE, SHIELDS, INTERACTABLE_LEFT, EMBELLISHMENT_METAL);
+    addToolTags(TinkerTools.plateShield,     DURABILITY, DYEABLE, SHIELDS, INTERACTABLE_LEFT, EMBELLISHMENT_METAL);
 
 
     // add tags to other tags
