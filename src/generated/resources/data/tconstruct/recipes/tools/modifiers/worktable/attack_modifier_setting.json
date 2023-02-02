@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:modifier_set_worktable",
+  "data_key": "tconstruct:attack_modifiers",
+  "tools": {
+    "tag": "tconstruct:modifiable/interactable/dual"
+  },
+  "inputs": [
+    {
+      "item": "minecraft:lever"
+    }
+  ],
+  "modifier_predicate": {
+    "type": "tconstruct:tag",
+    "tag": "tconstruct:dual_interaction"
+  },
+  "add_to_set": true,
+  "allow_traits": false
+}

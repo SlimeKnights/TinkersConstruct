@@ -27,6 +27,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.events.ToolEquipmentChangeEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nonnull;
@@ -80,7 +81,7 @@ public class EquipmentChangeWatcher {
   /** Client side modifier hooks */
   private static void onPlayerTick(PlayerTickEvent event) {
     // only run for client side players every 5 ticks
-    if (event.phase == Phase.END && event.side == LogicalSide.CLIENT && event.player.tickCount % 5 == 0) {
+    if (event.phase == Phase.END && event.side == LogicalSide.CLIENT) {
       event.player.getCapability(CAPABILITY).ifPresent(PlayerLastEquipment::update);
     }
   }
@@ -97,6 +98,11 @@ public class EquipmentChangeWatcher {
     if (tool != null) {
       for (ModifierEntry entry : tool.getModifierList()) {
         entry.getModifier().onUnequip(tool, entry.getLevel(), context);
+      }
+      // if you scrolled away, we really don't know whether you stopped using an item or not, luckily everything in this method can be safely run multiple times
+      // TODO 1.19: consider simplier check, such as the tool having the active modifier tag set. Will need to do a bit of work for bows which don't set modifiers though
+      if (!entity.isUsingItem()) {
+        ModifierUtil.finishUsingItem(entity, tool);
       }
     }
 

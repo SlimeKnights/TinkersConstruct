@@ -10,5 +10,9 @@
   "parts": [
     { "name": "head",       "index": 0, "broken": "broken_head" },
     { "name": "crossguard", "index": 1 }
-  ]
+  ],
+  "overrides": [{
+    "predicate": { "tconstruct:charging": 2 },
+    "model": "tconstruct:item/blocking/dagger"
+  }]
 }

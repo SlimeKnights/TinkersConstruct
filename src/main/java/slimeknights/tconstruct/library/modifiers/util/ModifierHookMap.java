@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.modifiers.util;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.LinkedHashMultimap;
+import com.google.gson.JsonSyntaxException;
 import lombok.RequiredArgsConstructor;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
 
@@ -12,6 +13,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 /** Map working with modifier hooks that automatically maps the objects to the correct generics. */
+@SuppressWarnings("ClassCanBeRecord")
 @RequiredArgsConstructor
 public class ModifierHookMap {
   /** Instance with no modifiers */
@@ -41,10 +43,29 @@ public class ModifierHookMap {
     return hook.getDefaultInstance();
   }
 
+  /** Gets an unchecked view of all internal modules for the sake of serialization */
+  public Map<ModifierHook<?>,Object> getAllModules() {
+    return modules;
+  }
+
   @SuppressWarnings("UnusedReturnValue")
   public static class Builder {
     /** Builder for the final map */
     private final LinkedHashMultimap<ModifierHook<?>,Object> modules = LinkedHashMultimap.create();
+
+    /**
+     * Adds a module to the builder, validating it at runtime. Used for JSON parsing
+     * @throws JsonSyntaxException  if the hook type is invalid
+     */
+    @SuppressWarnings("UnusedReturnValue")
+    public Builder addHookChecked(Object object, ModifierHook<?> hook) {
+      if (hook.isValid(object)) {
+        modules.put(hook, object);
+      } else {
+        throw new JsonSyntaxException("Object " + object + " is invalid for hook " + hook);
+      }
+      return this;
+    }
 
     /** Adds a module to the builder */
     @SuppressWarnings("UnusedReturnValue")

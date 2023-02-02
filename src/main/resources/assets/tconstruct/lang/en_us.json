@@ -876,11 +876,15 @@
   "item.tconstruct.longbow": "Longbow",
 
   "item.tconstruct.flint_and_brick": "Flint and Brick",
+  "item.tconstruct.sky_staff": "Skyslime Staff",
+  "item.tconstruct.earth_staff": "Earthslime Staff",
+  "item.tconstruct.ichor_staff": "Ichor Staff",
   
   "item.tconstruct.travelers_helmet": "Traveler's Goggles",
   "item.tconstruct.travelers_chestplate": "Traveler's Vest",
   "item.tconstruct.travelers_leggings": "Traveler's Pants",
   "item.tconstruct.travelers_boots": "Traveler's Boots",
+  "item.tconstruct.travelers_shield": "Traveler's Shield",
   
   "item.tconstruct.plate_helmet": "Plate Helmet",
   "item.tconstruct.plate_chestplate": "Plate Chestplate",
@@ -2107,6 +2111,9 @@
   "modifier.tconstruct.harvest": "Harvest",
   "modifier.tconstruct.harvest.flavor": "Swish!",
   "modifier.tconstruct.harvest.description": "Tool can be used on crops to harvest and replant them",
+  "modifier.tconstruct.blocking": "Blocking",
+  "modifier.tconstruct.blocking.flavor": "The non-cube type",
+  "modifier.tconstruct.blocking.description": "Interacting with the tool will allow blocking incoming damage",
   "_comment": "Fluids",
   "modifier.tconstruct.melting": "Melting",
   "modifier.tconstruct.melting.flavor": "The power of a Melter on a stick!",
@@ -2512,6 +2519,11 @@
   "stat.tconstruct.bowstring": "Bowstring",
   "tool_stat.tconstruct.extra.no_stats": "No stats",
 
+  "tool_stat.tconstruct.block_amount": "Block Amount: ",
+  "tool_stat.tconstruct.block_amount.description": "Maximum amount of damage blocked by this shield per attack.",
+  "tool_stat.tconstruct.block_angle": "Block Angle: ",
+  "tool_stat.tconstruct.block_angle.description": "Angle in degrees on either side this shield protects. Any attacks from an angle beyond this are not blocked.",
+
   "stat.tconstruct.repair_kit": "Repair Kit",
   "stat.tconstruct.skull": "Slimeskull",
 
@@ -2610,6 +2622,12 @@
   "recipe.tconstruct.invisible_modifiers.adding.description": "Select a modifier to hide it from the tool's model",
   "recipe.tconstruct.invisible_modifiers.removing.title": "Visible Ink",
   "recipe.tconstruct.invisible_modifiers.removing.description": "Select a hidden modifier to make it show in the tool's model agin",
+
+  "modifier.tconstruct.attack_toggled": "%s (Attack)",
+  "recipe.tconstruct.attack_modifiers.adding.title": "Toggle Interaction Modifier",
+  "recipe.tconstruct.attack_modifiers.adding.description": "Switches an interaction modifier from activating on interaction to attack",
+  "recipe.tconstruct.attack_modifiers.removing.title": "Toggle Interaction Modifier",
+  "recipe.tconstruct.attack_modifiers.removing.description": "Switches an interaction modifier back to activating on interaction",
 
   "recipe.tconstruct.extract_modifier.title": "Extract Modifier",
   "recipe.tconstruct.extract_modifier.description": "Select a modifier to extract onto a modifier crystal, slots will be returned but any item cost is lost.",

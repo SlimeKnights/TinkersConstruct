@@ -1,0 +1,15 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "forge:item/default-tool",
+  "textures": {
+    "tool":         "tconstruct:item/tool/staff/ichor",
+    "broken":       "tconstruct:item/tool/staff/ichor_broken",
+    "tool_large":   "tconstruct:item/tool/staff/ichor_large",
+    "broken_large": "tconstruct:item/tool/staff/ichor_large_broken"
+  },
+  "large": true,
+  "overrides": [{
+    "predicate": { "tconstruct:charging": 2 },
+    "model": "tconstruct:item/blocking/ichor_staff"
+  }]
+}

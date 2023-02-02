@@ -32,5 +32,6 @@
   "result": {
     "name": "tconstruct:protection",
     "level": 1
-  }
+  },
+  "max_level": 1
 }

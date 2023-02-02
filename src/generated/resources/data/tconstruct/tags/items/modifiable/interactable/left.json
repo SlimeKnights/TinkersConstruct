@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "tconstruct:crossbow",
-    "tconstruct:longbow"
+    "tconstruct:longbow",
+    "tconstruct:travelers_shield",
+    "#tconstruct:modifiable/interactable/dual"
   ]
 }

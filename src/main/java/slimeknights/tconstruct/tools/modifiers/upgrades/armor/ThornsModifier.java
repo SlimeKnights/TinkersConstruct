@@ -4,6 +4,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlot.Type;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
@@ -26,8 +27,11 @@ public class ThornsModifier extends IncrementalModifier {
     // this works like vanilla, damage is capped due to the hurt immunity mechanics, so if multiple pieces apply thorns between us and vanilla, damage is capped at 4
     Entity attacker = source.getEntity();
     if (attacker != null && isDirectDamage) {
-      // 15% chance of working per level
+      // 15% chance of working per level, doubled bonus on shields
       float scaledLevel = getScaledLevel(tool, level);
+      if (slotType.getType() == Type.HAND) {
+        scaledLevel *= 2;
+      }
       if (RANDOM.nextFloat() < (scaledLevel * 0.15f)) {
         float damage = scaledLevel > 10 ? scaledLevel - 10 : 1 + RANDOM.nextInt(4);
         LivingEntity user = context.getEntity();

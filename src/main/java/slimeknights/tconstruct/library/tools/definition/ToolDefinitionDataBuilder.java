@@ -10,14 +10,17 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.ToolAction;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierHook;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinitionData.Harvest;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinitionData.Stats;
 import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
 import slimeknights.tconstruct.library.tools.definition.harvest.IHarvestLogic;
 import slimeknights.tconstruct.library.tools.definition.harvest.TagHarvestLogic;
+import slimeknights.tconstruct.library.tools.definition.module.IToolModule;
 import slimeknights.tconstruct.library.tools.definition.weapon.IWeaponAttack;
 import slimeknights.tconstruct.library.tools.nbt.MultiplierNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
@@ -42,6 +45,8 @@ public class ToolDefinitionDataBuilder {
   private final DefinitionModifierSlots.Builder slots = DefinitionModifierSlots.builder();
   private final ImmutableList.Builder<ModifierEntry> traits = ImmutableList.builder();
   private final ImmutableSet.Builder<ToolAction> actions = ImmutableSet.builder();
+  private final ModifierHookMap.Builder hookBuilder = new ModifierHookMap.Builder();
+
   /** Tool's harvest logic */
   @Nonnull @Setter
   private IHarvestLogic harvestLogic = IHarvestLogic.DEFAULT;
@@ -194,6 +199,15 @@ public class ToolDefinitionDataBuilder {
   }
 
 
+  /* Modules */
+
+  /** Adds a module to the definition */
+  public <T extends IToolModule> ToolDefinitionDataBuilder module(ModifierHook<? super T> hook, T module) {
+    hookBuilder.addHook(module, hook);
+    return this;
+  }
+
+
   /**
    * Builds the final definition JSON to serialize
    */
@@ -210,6 +224,10 @@ public class ToolDefinitionDataBuilder {
       // null properties if defaults
       harvest = new Harvest(isDefaultHarvest ? null : harvestLogic, isDefaultAOE ? null : aoe);
     }
+    ModifierHookMap hooks = hookBuilder.build();
+    if (hooks.getAllModules().isEmpty()) {
+      hooks = null;
+    }
     return new ToolDefinitionData(parts.isEmpty() ? null : parts,
                                   // null multipliers, traits, and actions if empty
                                   new Stats(bonuses.build(), multipliers == MultiplierNBT.EMPTY ? null : multipliers),
@@ -217,6 +235,7 @@ public class ToolDefinitionDataBuilder {
                                   traits.isEmpty() ? null : traits,
                                   actions.isEmpty() ? null : actions,
                                   harvest,
-                                  attack == IWeaponAttack.DEFAULT ? null : attack);
+                                  attack == IWeaponAttack.DEFAULT ? null : attack,
+                                  hooks);
   }
 }

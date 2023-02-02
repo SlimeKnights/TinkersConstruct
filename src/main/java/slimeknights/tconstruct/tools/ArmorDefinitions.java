@@ -49,6 +49,7 @@ public class ArmorDefinitions {
     .setStatsProvider(ToolStatProviders.NO_PARTS)
     .setSoundEvent(Sounds.EQUIP_TRAVELERS.getSound())
     .build();
+  public static final ToolDefinition TRAVELERS_SHIELD = ToolDefinition.builder(TinkerTools.travelersShield).noParts().build();
 
   /** High defense armor set */
   public static final ModifiableArmorMaterial PLATE = ModifiableArmorMaterial

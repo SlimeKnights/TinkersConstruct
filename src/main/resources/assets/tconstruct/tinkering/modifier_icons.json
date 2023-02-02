@@ -44,6 +44,7 @@
   "tconstruct:sharpness":     "tconstruct:gui/modifiers/melee/sharpness",
   "tconstruct:swiftstrike":   "tconstruct:gui/modifiers/melee/swiftstrike",
 
+  "tconstruct:blocking":        "tconstruct:gui/modifiers/melee/blocking",
   "tconstruct:dual_wielding":   "tconstruct:gui/modifiers/melee/dual_wielding",
   "tconstruct:fiery":           "tconstruct:gui/modifiers/melee/fiery",
   "tconstruct:experienced":     ["minecraft:item/experience_bottle", "tconstruct:gui/modifiers/book"],

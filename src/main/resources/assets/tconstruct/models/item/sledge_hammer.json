@@ -29,5 +29,9 @@
     { "name": "head",   "index": 0, "broken": "broken_head" },
     { "name": "back",   "index": 2, "broken": "broken_back" },
     { "name": "front",  "index": 3, "broken": "broken_front" }
-  ]
+  ],
+  "overrides": [{
+    "predicate": { "tconstruct:charging": 2 },
+    "model": "tconstruct:item/blocking/sledge_hammer"
+  }]
 }

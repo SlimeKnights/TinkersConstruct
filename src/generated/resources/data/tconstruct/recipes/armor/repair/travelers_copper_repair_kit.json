@@ -12,6 +12,9 @@
     },
     {
       "item": "tconstruct:travelers_helmet"
+    },
+    {
+      "item": "tconstruct:travelers_shield"
     }
   ],
   "repair_material": "tconstruct:copper"

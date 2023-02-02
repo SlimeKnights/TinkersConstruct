@@ -19,8 +19,7 @@ public interface IModifiable extends ItemLike {
   ResourceLocation DEFER_OFFHAND = TConstruct.getResource("defer_offhand");
   /** Modifier key to entirely disable tool interaction */
   ResourceLocation NO_INTERACTION = TConstruct.getResource("no_interaction");
-  /** @deprecated use {@link slimeknights.tconstruct.tools.TinkerModifiers#fastUseItem} */
-  @Deprecated
+  /** Modifier key to allow moving quickly while using an item */
   ResourceLocation FAST_USE_ITEM = TConstruct.getResource("fast_use_item");
 
   /** Gets the definition of this tool for building and applying modifiers */
