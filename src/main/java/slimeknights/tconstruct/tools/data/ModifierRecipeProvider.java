@@ -1057,7 +1057,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .save(consumer, prefix(ModifierIds.gilded, abilityFolder));
     // luck is 3 recipes
     // level 1 always requires a slot
-    Ingredient luckSupporting = ingredientFromTags(TinkerTags.Items.MELEE_OR_UNARMED, TinkerTags.Items.HARVEST, TinkerTags.Items.RANGED);
+    Ingredient luckSupporting = ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.HARVEST, TinkerTags.Items.RANGED);
     ModifierRecipeBuilder.modifier(ModifierIds.luck)
                          .setTools(luckSupporting)
                          .addInput(Tags.Items.INGOTS_COPPER)
@@ -1069,7 +1069,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
                          .disallowCrystal() // handled below
-                         .saveSalvage(consumer, prefix(ModifierIds.luck, abilitySalvage))
                          .save(consumer, wrap(ModifierIds.luck, abilityFolder, "_level_1"));
      ModifierRecipeBuilder.modifier(ModifierIds.luck)
                           .setTools(luckSupporting)
@@ -1113,6 +1112,12 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                    .addLevel(SlotType.ABILITY, 1, 1)
                                    .addLevelRange(2, 3)
                                    .save(consumer, wrap(ModifierIds.luck, abilityFolder, "_crystal"));
+    // salvage lets you salvage from chestplates
+    ModifierRecipeBuilder.modifier(ModifierIds.luck)
+                         .setTools(ingredientFromTags(TinkerTags.Items.MELEE_OR_UNARMED, TinkerTags.Items.HARVEST, TinkerTags.Items.RANGED))
+                         .setSalvageLevelRange(1, 1)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .saveSalvage(consumer, prefix(ModifierIds.luck, abilitySalvage));
 
     // silky: all the cloth
     ModifierRecipeBuilder.modifier(TinkerModifiers.silky)
