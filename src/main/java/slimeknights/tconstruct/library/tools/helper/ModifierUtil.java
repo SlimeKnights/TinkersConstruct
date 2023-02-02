@@ -345,8 +345,8 @@ public final class ModifierUtil {
 
   /** Starts using the given hand with the given modifier, will allow filtering modifier hooks so only the one for the given modifier is called */
   public static void startUsingItem(IToolStackView tool, ModifierId modifier, LivingEntity living, InteractionHand hand) {
-    living.startUsingItem(hand);
     tool.getPersistentData().putString(ACTIVE_MODIFIER, modifier.toString());
+    living.startUsingItem(hand);
   }
 
   /** Gets the currently active modifier, or null if none is active */
