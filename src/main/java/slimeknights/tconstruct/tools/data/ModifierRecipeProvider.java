@@ -874,7 +874,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Tags.Items.INGOTS_COPPER)
                          .addInput(Tags.Items.INGOTS_COPPER)
                          .setSlots(SlotType.ABILITY, 1)
-                         .setTools(TinkerTags.Items.HELMETS)
+                         .setTools(ingredientFromTags(TinkerTags.Items.HELMETS, TinkerTags.Items.STAFFS))
                          .saveSalvage(consumer, prefix(TinkerModifiers.slurping, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.slurping, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.aquaAffinity)
@@ -1180,11 +1180,11 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Tags.Items.INGOTS_COPPER)
                          .addInput(Tags.Items.INGOTS_COPPER)
                          .setSlots(SlotType.ABILITY, 1)
-                         .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.CHESTPLATES))
+                         .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.CHESTPLATES, TinkerTags.Items.STAFFS))
                          .saveSalvage(consumer, prefix(TinkerModifiers.spilling, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.spilling, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.tank)
-                         .addInput(TinkerTags.Items.TANKS) // no salvage as don't want conversion between seared and scorched
+                         .addInput(TinkerTags.Items.TANKS)
                          .setMaxLevel(5)
                          .setSlots(SlotType.UPGRADE, 1)
                          .setTools(ingredientFromTags(TinkerTags.Items.INTERACTABLE, TinkerTags.Items.HELMETS, TinkerTags.Items.CHESTPLATES, TinkerTags.Items.LEGGINGS))

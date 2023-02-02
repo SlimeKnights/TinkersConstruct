@@ -28,7 +28,7 @@ public class DualOptionInteraction implements InteractionToolModule, IToolModule
 
   @Override
   public boolean canInteract(IToolStackView tool, ModifierId modifier, InteractionSource source) {
-    return (source == InteractionSource.RIGHT_CLICK) == ModifierSetWorktableRecipe.isInSet(tool.getPersistentData(), KEY, modifier);
+    return (source == InteractionSource.RIGHT_CLICK) != ModifierSetWorktableRecipe.isInSet(tool.getPersistentData(), KEY, modifier);
   }
 
   @Override
