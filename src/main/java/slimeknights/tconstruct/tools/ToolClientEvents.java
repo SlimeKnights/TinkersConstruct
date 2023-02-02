@@ -126,8 +126,29 @@ public class ToolClientEvents extends ClientEventBase {
     MenuScreens.register(TinkerTools.toolContainer.get(), ToolContainerScreen::new);
 
     // properties
+    // stone
+    TinkerItemProperties.registerToolProperties(TinkerTools.pickaxe.asItem());
+    TinkerItemProperties.registerToolProperties(TinkerTools.sledgeHammer.asItem());
+    TinkerItemProperties.registerToolProperties(TinkerTools.veinHammer.asItem());
+    // dirt
+    TinkerItemProperties.registerToolProperties(TinkerTools.mattock.asItem());
+    TinkerItemProperties.registerToolProperties(TinkerTools.pickadze.asItem());
+    TinkerItemProperties.registerToolProperties(TinkerTools.excavator.asItem());
+    // axe
+    TinkerItemProperties.registerToolProperties(TinkerTools.handAxe.asItem());
+    TinkerItemProperties.registerToolProperties(TinkerTools.broadAxe.asItem());
+    // leaves
+    TinkerItemProperties.registerToolProperties(TinkerTools.kama.asItem());
+    TinkerItemProperties.registerToolProperties(TinkerTools.scythe.asItem());
+    // sword
+    TinkerItemProperties.registerToolProperties(TinkerTools.dagger.asItem());
+    TinkerItemProperties.registerToolProperties(TinkerTools.sword.asItem());
+    TinkerItemProperties.registerToolProperties(TinkerTools.cleaver.asItem());
+    // bow
     TinkerItemProperties.registerCrossbowProperties(TinkerTools.crossbow.asItem());
     TinkerItemProperties.registerBowProperties(TinkerTools.longbow.asItem());
+    // misc
+    TinkerItemProperties.registerToolProperties(TinkerTools.flintAndBrick.asItem());
     TinkerItemProperties.registerToolProperties(TinkerTools.travelersShield.asItem());
   }
 
