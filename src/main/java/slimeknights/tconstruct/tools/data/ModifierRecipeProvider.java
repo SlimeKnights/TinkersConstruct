@@ -1296,6 +1296,17 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setTools(DifferenceIngredient.of(IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.MELEE), Ingredient.of(TinkerTags.Items.INTERACTABLE_RIGHT)), Ingredient.of(TinkerTools.dagger)))
                          .saveSalvage(consumer, prefix(TinkerModifiers.dualWielding, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.dualWielding, abilityFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.blocking)
+                         .setTools(TinkerTags.Items.INTERACTABLE_RIGHT)
+                         .addInput(ItemTags.PLANKS)
+                         .addInput(TinkerMaterials.cobalt.getIngotTag())
+                         .addInput(ItemTags.PLANKS)
+                         .addInput(ItemTags.PLANKS)
+                         .addInput(ItemTags.PLANKS)
+                         .setMaxLevel(1)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .saveSalvage(consumer, prefix(TinkerModifiers.blocking, abilitySalvage))
+                         .save(consumer, prefix(TinkerModifiers.blocking, abilityFolder));
 
     /*
      * extra modifiers
