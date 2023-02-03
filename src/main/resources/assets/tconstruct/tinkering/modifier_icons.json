@@ -122,6 +122,7 @@
   "tconstruct:harmonious":  ["minecraft:item/music_disc_13", "tconstruct:gui/modifiers/plus"],
   "tconstruct:recapitated": ["tconstruct:gui/modifiers/recapitated", "tconstruct:gui/modifiers/plus"],
   "tconstruct:resurrected": ["minecraft:item/end_crystal", "tconstruct:gui/modifiers/plus"],
+  "tconstruct:rebalanced":  ["tconstruct:gui/modifiers/rebalanced", "tconstruct:gui/modifiers/plus"],
   "tconstruct:draconic":    ["tconstruct:gui/modifiers/draconic", "tconstruct:gui/modifiers/plus"],
 
   "tconstruct:golden":        ["minecraft:item/golden_chestplate", "tconstruct:gui/modifiers/book"],
