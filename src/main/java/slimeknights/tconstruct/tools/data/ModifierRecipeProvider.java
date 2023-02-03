@@ -631,34 +631,36 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
      * armor
      */
     // protection
+    // all held tools can receive defense slots, so give them something to use it for
+    Ingredient protectableTools = ingredientFromTags(TinkerTags.Items.ARMOR, TinkerTags.Items.HELD);
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.meleeProtection)
                                     .setInput(TinkerModifiers.cobaltReinforcement, 1, 24)
                                     .setSlots(SlotType.DEFENSE, 1)
-                                    .setTools(TinkerTags.Items.ARMOR)
+                                    .setTools(protectableTools)
                                     .saveSalvage(consumer, prefix(TinkerModifiers.meleeProtection, defenseSalvage))
                                     .save(consumer, prefix(TinkerModifiers.meleeProtection, defenseFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.projectileProtection)
                                     .setInput(TinkerModifiers.bronzeReinforcement, 1, 24)
                                     .setSlots(SlotType.DEFENSE, 1)
-                                    .setTools(TinkerTags.Items.ARMOR)
+                                    .setTools(protectableTools)
                                     .saveSalvage(consumer, prefix(TinkerModifiers.projectileProtection, defenseSalvage))
                                     .save(consumer, prefix(TinkerModifiers.projectileProtection, defenseFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.blastProtection)
                                     .setInput(TinkerModifiers.emeraldReinforcement, 1, 24)
                                     .setSlots(SlotType.DEFENSE, 1)
-                                    .setTools(TinkerTags.Items.ARMOR)
+                                    .setTools(protectableTools)
                                     .saveSalvage(consumer, prefix(TinkerModifiers.blastProtection, defenseSalvage))
                                     .save(consumer, prefix(TinkerModifiers.blastProtection, defenseFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.magicProtection)
                                     .setInput(TinkerModifiers.goldReinforcement, 1, 24)
                                     .setSlots(SlotType.DEFENSE, 1)
-                                    .setTools(TinkerTags.Items.ARMOR)
+                                    .setTools(protectableTools)
                                     .saveSalvage(consumer, prefix(TinkerModifiers.magicProtection, defenseSalvage))
                                     .save(consumer, prefix(TinkerModifiers.magicProtection, defenseFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.fireProtection)
                                     .setInput(TinkerModifiers.searedReinforcement, 1, 24)
                                     .setSlots(SlotType.DEFENSE, 1)
-                                    .setTools(TinkerTags.Items.ARMOR)
+                                    .setTools(protectableTools)
                                     .saveSalvage(consumer, prefix(TinkerModifiers.fireProtection, defenseSalvage))
                                     .save(consumer, prefix(TinkerModifiers.fireProtection, defenseFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.protection)
@@ -1343,6 +1345,33 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .disallowCrystal()
                          .save(consumer, wrap(ModifierIds.draconic, slotlessFolder, "_from_scales"));
+    // rebalanced
+    Ingredient rebalancedCommon = Ingredient.of(TinkerModifiers.dragonScale, Blocks.GILDED_BLACKSTONE);
+    SwappableModifierRecipeBuilder.modifier(ModifierIds.rebalanced, SlotType.UPGRADE.getName())
+                                  .addInput(rebalancedCommon)
+                                  .addInput(TinkerMaterials.roseGold.getIngotTag())
+                                  .addInput(rebalancedCommon)
+                                  .addInput(TinkerWorld.skyGeode.getBlock())
+                                  .addInput(TinkerWorld.skyGeode.getBlock())
+                                  .disallowCrystal()
+                                  .save(consumer, wrap(ModifierIds.rebalanced, slotlessFolder, "_" + SlotType.UPGRADE.getName()));
+    SwappableModifierRecipeBuilder.modifier(ModifierIds.rebalanced, SlotType.DEFENSE.getName())
+                                  .setTools(ingredientFromTags(TinkerTags.Items.ARMOR, TinkerTags.Items.HELD))
+                                  .addInput(rebalancedCommon)
+                                  .addInput(TinkerMaterials.cobalt.getIngotTag())
+                                  .addInput(rebalancedCommon)
+                                  .addInput(TinkerWorld.earthGeode.getBlock())
+                                  .addInput(TinkerWorld.earthGeode.getBlock())
+                                  .disallowCrystal()
+                                  .save(consumer, wrap(ModifierIds.rebalanced, slotlessFolder, "_" + SlotType.DEFENSE.getName()));
+    SwappableModifierRecipeBuilder.modifier(ModifierIds.rebalanced, SlotType.ABILITY.getName())
+                                  .addInput(rebalancedCommon)
+                                  .addInput(TinkerMaterials.queensSlime.getIngotTag())
+                                  .addInput(rebalancedCommon)
+                                  .addInput(TinkerWorld.ichorGeode.getBlock())
+                                  .addInput(TinkerWorld.ichorGeode.getBlock())
+                                  .disallowCrystal()
+                                  .save(consumer, wrap(ModifierIds.rebalanced, slotlessFolder, "_" + SlotType.ABILITY.getName()));
     // creative
     SpecialRecipeBuilder.special(TinkerModifiers.creativeSlotSerializer.get()).save(consumer, modPrefix(slotlessFolder + "creative_slot"));
 

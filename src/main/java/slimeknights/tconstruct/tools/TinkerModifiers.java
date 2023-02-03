@@ -40,6 +40,7 @@ import slimeknights.tconstruct.library.modifiers.dynamic.LootModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.MobDisguiseModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.MobEffectModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.StatBoostModifier;
+import slimeknights.tconstruct.library.modifiers.dynamic.SwappableExtraSlotModifier;
 import slimeknights.tconstruct.library.modifiers.impl.SingleLevelModifier;
 import slimeknights.tconstruct.library.modifiers.impl.TankModifier;
 import slimeknights.tconstruct.library.modifiers.impl.TotalArmorLevelModifier;
@@ -547,6 +548,7 @@ public final class TinkerModifiers extends TinkerModule {
     ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("default"), Modifier.DEFAULT_LOADER);
     ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("stat_boost"), StatBoostModifier.LOADER);
     ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("extra_slot"), ExtraModifier.LOADER);
+    ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("swappable_extra_slot"), SwappableExtraSlotModifier.LOADER);
     ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("mob_disguise"), MobDisguiseModifier.LOADER);
     ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("conditional_damage"), ConditionalDamageModifier.LOADER);
     ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("conditional_mining_speed"), ConditionalMiningSpeedModifier.LOADER);

@@ -291,7 +291,6 @@ public class ToolEvents {
     LivingEntity entity = event.getEntityLiving();
 
     // determine if there is any modifiable armor, if not nothing to do
-    // TODO: shields should support this hook too, probably with a separate tag so holding armor does not count as a shield
     DamageSource source = event.getSource();
     EquipmentContext context = new EquipmentContext(entity);
     int vanillaModifier = 0;

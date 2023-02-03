@@ -1,0 +1,42 @@
+{
+  "type": "tconstruct:swappable_modifier",
+  "inputs": [
+    {
+      "ingredient": [
+        {
+          "item": "tconstruct:dragon_scale"
+        },
+        {
+          "item": "minecraft:gilded_blackstone"
+        }
+      ]
+    },
+    {
+      "tag": "forge:ingots/rose_gold"
+    },
+    {
+      "ingredient": [
+        {
+          "item": "tconstruct:dragon_scale"
+        },
+        {
+          "item": "minecraft:gilded_blackstone"
+        }
+      ]
+    },
+    {
+      "item": "tconstruct:sky_slime_crystal_block"
+    },
+    {
+      "item": "tconstruct:sky_slime_crystal_block"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable"
+  },
+  "allow_crystal": false,
+  "result": {
+    "name": "tconstruct:rebalanced",
+    "value": "upgrades"
+  }
+}

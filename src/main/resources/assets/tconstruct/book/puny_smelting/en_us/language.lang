@@ -20,4 +20,4 @@ upgrades.group_armor=Armor
 slotless=Slotless Modifier
 slotless.subtext=These modifiers do not require any slots to apply, you can have them all if you wish.
 slotless.group_slotless=Slotless
-slotless.group_bonus_upgrades=Upgrades++
+slotless.group_bonus_upgrades=Slots++

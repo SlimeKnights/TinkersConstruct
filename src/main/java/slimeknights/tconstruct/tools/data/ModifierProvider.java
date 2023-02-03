@@ -30,6 +30,7 @@ import slimeknights.tconstruct.library.modifiers.dynamic.MobDisguiseModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.MobEffectModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.StatBoostModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.StatBoostModifier.ModifierDisplay;
+import slimeknights.tconstruct.library.modifiers.dynamic.SwappableExtraSlotModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay.UniqueForLevels;
 import slimeknights.tconstruct.library.tools.SlotType;
@@ -61,6 +62,7 @@ public class ModifierProvider extends AbstractModifierProvider {
     addModifier(ModifierIds.resurrected, ExtraModifier.builder(SlotType.UPGRADE).build());
     addModifier(ModifierIds.gilded,      ExtraModifier.builder(SlotType.UPGRADE).slotsPerLevel(2).display(ModifierLevelDisplay.DEFAULT).build());
     addModifier(ModifierIds.draconic,    ExtraModifier.builder(SlotType.ABILITY).build());
+    addModifier(ModifierIds.rebalanced, SwappableExtraSlotModifier.swappable().penalize(SlotType.ABILITY, SlotType.UPGRADE).build());
     addRedirect(id("red_extra_upgrade"),   redirect(ModifierIds.writable));
     addRedirect(id("green_extra_upgrade"), redirect(ModifierIds.recapitated));
     addRedirect(id("blue_extra_upgrade"),  redirect(ModifierIds.harmonious));
