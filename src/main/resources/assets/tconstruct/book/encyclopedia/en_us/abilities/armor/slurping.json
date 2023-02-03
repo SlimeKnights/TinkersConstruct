@@ -10,6 +10,7 @@
   ],
   "more_text_space": true,
   "effects": [
+    "No max level",
     "Requires 1 ability slot",
     "Fill by using tool on a fluid tank"
   ]

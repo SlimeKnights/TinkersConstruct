@@ -561,6 +561,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(TinkerWorld.skySlimeVine)
                          .setSlots(SlotType.ABILITY, 1)
                          .setTools(TinkerTags.Items.BOWS)
+                         .setMaxLevel(2)
                          .saveSalvage(consumer, prefix(TinkerModifiers.trickQuiver, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.trickQuiver, abilityFolder));
     BiConsumer<ItemLike,String> crystalshotRecipe = (item, variant) -> {
@@ -885,6 +886,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Blocks.DARK_PRISMARINE)
                          .setSlots(SlotType.ABILITY, 1)
                          .setTools(TinkerTags.Items.HELMETS)
+                         .setMaxLevel(1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.aquaAffinity, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.aquaAffinity, abilityFolder));
     // chestplate
@@ -995,6 +997,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.BLUE_ICE)
                          .addInput(Items.BLUE_ICE)
                          .setSlots(SlotType.ABILITY, 1)
+                         .setMaxLevel(1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.frostWalker, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.frostWalker, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.snowdrift)
@@ -1005,6 +1008,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.SNOW_BLOCK)
                          .addInput(Items.SNOW_BLOCK)
                          .setSlots(SlotType.ABILITY, 1)
+                         .setMaxLevel(1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.snowdrift, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.snowdrift, abilityFolder));
 
@@ -1190,7 +1194,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .save(consumer, prefix(TinkerModifiers.spilling, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.tank)
                          .addInput(TinkerTags.Items.TANKS)
-                         .setMaxLevel(5)
                          .setSlots(SlotType.UPGRADE, 1)
                          .setTools(ingredientFromTags(TinkerTags.Items.INTERACTABLE, TinkerTags.Items.HELMETS, TinkerTags.Items.CHESTPLATES, TinkerTags.Items.LEGGINGS))
                          .saveSalvage(consumer, prefix(TinkerModifiers.tank, upgradeSalvage))

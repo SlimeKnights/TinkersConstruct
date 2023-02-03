@@ -27,5 +27,6 @@
   "result": {
     "name": "tconstruct:frost_walker",
     "level": 1
-  }
+  },
+  "max_level": 1
 }
