@@ -2440,8 +2440,8 @@
   "modifier.tconstruct.the_one_probe.description": "当手持或者附加于头盔时，能够显示指向方块的信息",
 
   "_comment": "Internal modifiers",
-  "modifier.tconstruct.fast_use_item": "Fast Use Item",
-  "modifier.tconstruct.overslime_friend": "Overslime Friend",
+  "modifier.tconstruct.fast_use_item": "快速使用",
+  "modifier.tconstruct.overslime_friend": "黏液之友",
   
 
   "_comment": "Internal effects",
