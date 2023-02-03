@@ -2629,9 +2629,9 @@
   "recipe.tconstruct.invisible_modifiers.removing.description": "选择一个隐藏的强化以使其从工具模型中再次显形",
 
   "modifier.tconstruct.attack_toggled": "%s（攻击键）",
-  "recipe.tconstruct.attack_modifiers.adding.title": "切换交互强化",
+  "recipe.tconstruct.attack_modifiers.adding.title": "交互切换",
   "recipe.tconstruct.attack_modifiers.adding.description": "将交互强化的触发键位更改至攻击键",
-  "recipe.tconstruct.attack_modifiers.removing.title": "切换交互强化",
+  "recipe.tconstruct.attack_modifiers.removing.title": "交互切换",
   "recipe.tconstruct.attack_modifiers.removing.description": "将交互强化的触发键位更改至交互键",
 
   "recipe.tconstruct.extract_modifier.title": "强化提取",
