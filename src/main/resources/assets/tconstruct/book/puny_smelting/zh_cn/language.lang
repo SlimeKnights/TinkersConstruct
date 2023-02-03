@@ -20,4 +20,4 @@ upgrades.group_armor=盔甲升级
 slotless=无槽位强化
 slotless.subtext=这些强化不需要任何槽位就能应用，你愿意的话可以都加上。
 slotless.group_slotless=无槽位强化
-slotless.group_bonus_upgrades=额外升级强化
+slotless.group_bonus_upgrades=Slots++

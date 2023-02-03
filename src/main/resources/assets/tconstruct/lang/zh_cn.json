@@ -890,6 +890,7 @@
   "item.tconstruct.plate_chestplate": "镶板胸甲",
   "item.tconstruct.plate_leggings": "镶板护腿",
   "item.tconstruct.plate_boots": "镶板靴子",
+  "item.tconstruct.plate_shield": "Plate Shield",
 
   "item.tconstruct.slime_helmet": "黏液头颅",
   "item.tconstruct.slime_chestplate": "黏液鞘翅",
@@ -2144,6 +2145,7 @@
   "modifier.tconstruct.stat_override.multipliers": "倍增：",
 
   "__comment": "Free Modifiers",
+  "modifier.tconstruct.extra_modifier.type_format": "%s (%s)",
   "modifier.tconstruct.writable": "铭刻",
   "modifier.tconstruct.writable.flavor": "知识分子！",
   "modifier.tconstruct.writable.description": "更多的文字，更多升级槽。很符合逻辑！",
@@ -2162,6 +2164,9 @@
   "modifier.tconstruct.draconic": "龙族",
   "modifier.tconstruct.draconic.flavor": "统领末地！",
   "modifier.tconstruct.draconic.description": "这颗来自巨兽的头颅，为你的工具带来了第2个能力槽！",
+  "modifier.tconstruct.rebalanced": "Rebalanced",
+  "modifier.tconstruct.rebalanced.flavor": "The scales of balance on your tool",
+  "modifier.tconstruct.rebalanced.description": "Grants your tool an additional slot type of your choice. Penalizes choice of the most powerful type.",
 
   "__comment": "Three more +1 upgrade modifiers for modpacks",
   "modifier.tconstruct.red_extra_upgrade": "红色额外升级",

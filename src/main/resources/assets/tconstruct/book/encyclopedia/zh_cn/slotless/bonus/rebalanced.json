@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:rebalanced",
+  "text": [
+    {
+      "text": "Grants +1 modifier slot. Type is determined by the recipe."
+    },
+    {
+      "text": "When applying +1 ability slot, loses 1 upgrade slot.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Single use",
+    "Slotless"
+  ]
+}
