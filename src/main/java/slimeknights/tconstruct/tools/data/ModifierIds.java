@@ -13,6 +13,7 @@ public class ModifierIds {
   public static final ModifierId recapitated = id("recapitated");
   public static final ModifierId harmonious  = id("harmonious");
   public static final ModifierId resurrected = id("resurrected");
+  public static final ModifierId rebalanced  = id("rebalanced");
   public static final ModifierId gilded      = id("gilded");
   public static final ModifierId draconic    = id("draconic");
 

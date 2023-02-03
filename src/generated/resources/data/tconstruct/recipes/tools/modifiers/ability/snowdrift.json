@@ -27,5 +27,6 @@
   "result": {
     "name": "tconstruct:snowdrift",
     "level": 1
-  }
+  },
+  "max_level": 1
 }

@@ -8,6 +8,11 @@
     "broken_large": "tconstruct:item/tool/staff/sky_large_broken"
   },
   "large": true,
+  "modifier_roots": {
+    "small": [ "tconstruct:item/tool/staff/modifiers/" ],
+    "large": [ "tconstruct:item/tool/staff/large_modifiers/" ]
+  },
+  "first_modifiers": [ "tconstruct:dyed", "tconstruct:embellishment" ],
   "overrides": [{
     "predicate": { "tconstruct:charging": 2 },
     "model": "tconstruct:item/blocking/sky_staff"

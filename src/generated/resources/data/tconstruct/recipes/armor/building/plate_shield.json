@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ww",
+    "cc",
+    "ww"
+  ],
+  "key": {
+    "c": {
+      "tag": "forge:ingots/cobalt"
+    },
+    "w": {
+      "tag": "minecraft:planks"
+    }
+  },
+  "result": {
+    "item": "tconstruct:plate_shield"
+  }
+}

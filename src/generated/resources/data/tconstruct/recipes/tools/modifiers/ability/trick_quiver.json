@@ -27,5 +27,6 @@
   "result": {
     "name": "tconstruct:trick_quiver",
     "level": 1
-  }
+  },
+  "max_level": 2
 }

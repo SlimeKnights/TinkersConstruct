@@ -392,6 +392,15 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
   }
 
   @Override
+  public void onUseTick(Level pLevel, LivingEntity entityLiving, ItemStack stack, int timeLeft) {
+    ToolStack tool = ToolStack.from(stack);
+    ModifierEntry activeModifier = ModifierUtil.getActiveModifier(tool);
+    if (activeModifier != null) {
+      activeModifier.getHook(TinkerHooks.CHARGEABLE_INTERACT).onUsingTick(tool, activeModifier, entityLiving, timeLeft);
+    }
+  }
+
+  @Override
   public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
     ToolStack tool = ToolStack.from(stack);
     ModifierEntry activeModifier = ModifierUtil.getActiveModifier(tool);

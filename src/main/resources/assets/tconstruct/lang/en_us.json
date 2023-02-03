@@ -890,6 +890,7 @@
   "item.tconstruct.plate_chestplate": "Plate Chestplate",
   "item.tconstruct.plate_leggings": "Plate Leggings",
   "item.tconstruct.plate_boots": "Plate Boots",
+  "item.tconstruct.plate_shield": "Plate Shield",
 
   "item.tconstruct.slime_helmet": "Slimeskull",
   "item.tconstruct.slime_chestplate": "Slimelytra",
@@ -2144,6 +2145,7 @@
   "modifier.tconstruct.stat_override.multipliers": "Multipliers:",
 
   "__comment": "Free Modifiers",
+  "modifier.tconstruct.extra_modifier.type_format": "%s (%s)",
   "modifier.tconstruct.writable": "Writable",
   "modifier.tconstruct.writable.flavor": "Intellectual!",
   "modifier.tconstruct.writable.description": "More words. More upgrade. It's only logical!",
@@ -2162,6 +2164,9 @@
   "modifier.tconstruct.draconic": "Draconic",
   "modifier.tconstruct.draconic.flavor": "Conquered the End!",
   "modifier.tconstruct.draconic.description": "The head of the great beast allows your tool a second ability slot!",
+  "modifier.tconstruct.rebalanced": "Rebalanced",
+  "modifier.tconstruct.rebalanced.flavor": "The scales of balance on your tool",
+  "modifier.tconstruct.rebalanced.description": "Grants your tool an additional slot type of your choice. Penalizes choice of the most powerful type.",
 
   "__comment": "Three more +1 upgrade modifiers for modpacks",
   "modifier.tconstruct.red_extra_upgrade": "Red Extra Upgrade",

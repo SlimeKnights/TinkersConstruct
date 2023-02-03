@@ -12,6 +12,9 @@
     },
     {
       "item": "tconstruct:plate_helmet"
+    },
+    {
+      "item": "tconstruct:plate_shield"
     }
   ],
   "repair_material": "tconstruct:cobalt"

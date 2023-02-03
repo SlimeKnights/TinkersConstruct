@@ -153,6 +153,7 @@ public class ToolClientEvents extends ClientEventBase {
     TinkerItemProperties.registerToolProperties(TinkerTools.earthStaff.asItem());
     TinkerItemProperties.registerToolProperties(TinkerTools.ichorStaff.asItem());
     TinkerItemProperties.registerToolProperties(TinkerTools.travelersShield.asItem());
+    TinkerItemProperties.registerToolProperties(TinkerTools.plateShield.asItem());
   }
 
   @SubscribeEvent

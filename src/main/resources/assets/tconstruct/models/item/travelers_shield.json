@@ -6,7 +6,7 @@
     "broken": "tconstruct:item/tool/armor/travelers/shield_broken"
   },
   "modifier_roots": [ "tconstruct:item/tool/armor/travelers/shield_modifiers/" ],
-  "first_modifiers": [ "tconstruct:dyed" ],
+  "first_modifiers": [ "tconstruct:dyed", "tconstruct:embellishment" ],
   "overrides": [{
     "predicate": { "tconstruct:charging": 2 },
     "model": "tconstruct:item/blocking/travelers_shield"

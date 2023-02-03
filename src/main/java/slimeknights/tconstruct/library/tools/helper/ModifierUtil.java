@@ -202,12 +202,12 @@ public final class ModifierUtil {
 
   /** Checks if the given slot may contain armor */
   public static boolean validArmorSlot(LivingEntity living, EquipmentSlot slot) {
-    return slot.getType() == Type.ARMOR || living.getItemBySlot(slot).is(TinkerTags.Items.HELD_ARMOR);
+    return slot.getType() == Type.ARMOR || living.getItemBySlot(slot).is(TinkerTags.Items.HELD);
   }
 
   /** Checks if the given slot may contain armor */
   public static boolean validArmorSlot(IToolStackView tool, EquipmentSlot slot) {
-    return slot.getType() == Type.ARMOR || tool.hasTag(TinkerTags.Items.HELD_ARMOR);
+    return slot.getType() == Type.ARMOR || tool.hasTag(TinkerTags.Items.HELD);
   }
 
   /**

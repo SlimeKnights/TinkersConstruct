@@ -26,7 +26,7 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
 
     // modifiers in this tag support both left click and right click interaction
     tag(TinkerTags.Modifiers.DUAL_INTERACTION)
-      .add(TinkerModifiers.bucketing.getId(),
+      .add(TinkerModifiers.bucketing.getId(), TinkerModifiers.spilling.getId(),
            TinkerModifiers.glowing.getId(), TinkerModifiers.firestarter.getId(),
            TinkerModifiers.stripping.getId(), TinkerModifiers.tilling.getId(), TinkerModifiers.pathing.getId(),
            TinkerModifiers.shears.getId(), TinkerModifiers.harvest.getId())

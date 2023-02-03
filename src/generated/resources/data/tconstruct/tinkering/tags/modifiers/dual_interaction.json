@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "tconstruct:bucketing",
+    "tconstruct:spilling",
     "tconstruct:glowing",
     "tconstruct:firestarter",
     "tconstruct:stripping",

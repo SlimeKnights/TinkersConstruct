@@ -3,7 +3,7 @@
   "allow_crystal": true,
   "tools": [
     {
-      "tag": "tconstruct:modifiable/melee_or_unarmed"
+      "tag": "tconstruct:modifiable/melee"
     },
     {
       "tag": "tconstruct:modifiable/harvest"

@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:swappable_extra_slot",
+  "slots": 1,
+  "always_show": false,
+  "penalize": {
+    "abilities": "upgrades"
+  }
+}

@@ -106,17 +106,19 @@ public interface EntityInteractionModifierHook {
   /** Logic to left click an entity using interaction modifiers */
   static boolean leftClickEntity(ItemStack stack, Player player, Entity target) {
     ToolStack tool = ToolStack.from(stack);
-    List<ModifierEntry> modifiers = tool.getModifierList();
-    // TODO: should this be in the event?
-    for (ModifierEntry entry : modifiers) {
-      if (entry.getHook(TinkerHooks.ENTITY_INTERACT).beforeEntityUse(tool, entry, player, target, InteractionHand.MAIN_HAND, InteractionSource.LEFT_CLICK).consumesAction()) {
-        return true;
-      }
-    }
-    if (target instanceof LivingEntity living) {
+    if (!player.getCooldowns().isOnCooldown(stack.getItem())) {
+      List<ModifierEntry> modifiers = tool.getModifierList();
+      // TODO: should this be in the event?
       for (ModifierEntry entry : modifiers) {
-        if (entry.getHook(TinkerHooks.ENTITY_INTERACT).afterEntityUse(tool, entry, player, living, InteractionHand.MAIN_HAND, InteractionSource.LEFT_CLICK).consumesAction()) {
+        if (entry.getHook(TinkerHooks.ENTITY_INTERACT).beforeEntityUse(tool, entry, player, target, InteractionHand.MAIN_HAND, InteractionSource.LEFT_CLICK).consumesAction()) {
           return true;
+        }
+      }
+      if (target instanceof LivingEntity living) {
+        for (ModifierEntry entry : modifiers) {
+          if (entry.getHook(TinkerHooks.ENTITY_INTERACT).afterEntityUse(tool, entry, player, living, InteractionHand.MAIN_HAND, InteractionSource.LEFT_CLICK).consumesAction()) {
+            return true;
+          }
         }
       }
     }
