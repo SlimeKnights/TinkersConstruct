@@ -2,16 +2,16 @@
   "modifier_id": "tconstruct:rebalanced",
   "text": [
     {
-      "text": "The balance of power is the scale of peace. --Thomas Paine."
+      "text": "“和平的天平取决于力量的均衡。”——托马斯·潘恩"
     },
     {
-      "text": "The balance of power is actually the scale of a dragon. Ancient gilding is surprisingly close though. --Thruul M'Gon.", "paragraph": true
+      "text": "“均衡的力量则取自龙之鳞，古老的镶金黑石也出奇的相似。”——Thruul M'Gon", "paragraph": true
     }
   ],
   "effects": [
-    "Adds an modifier slot",
-    "Slot type is determined by the recipe",
-    "Greedy are penalized",
-    "Single Use"
+    "增加1个强化槽",
+    "槽位的类型由配方决定",
+    "贪婪终有报应",
+    "单次使用"
   ]
 }
