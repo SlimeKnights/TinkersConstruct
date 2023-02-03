@@ -2653,7 +2653,7 @@
   "recipe.tconstruct.modifier.not_enough_slot": "至少需要1个%s槽来添加该强化物",
   "recipe.tconstruct.modifier.not_enough_slots": "至少需要%s个%s槽来添加该强化物",
   "recipe.tconstruct.modifier.validate_slots": "这项改动留给工具的%s槽过少",
-  "recipe.tconstruct.modifier.min_level": "This recipe requires the tool to have at least %s level %s to apply",
+  "recipe.tconstruct.modifier.min_level": "此配方需要至少%s级%s才可使用",
   "recipe.tconstruct.modifier.max_level": "%s的等级不可大于%s",
   "recipe.tconstruct.modifier.requirements_error": "工具的其中一个强化已使该工具状态无效，联系整合包作者以了解详细错误情况。",
 
