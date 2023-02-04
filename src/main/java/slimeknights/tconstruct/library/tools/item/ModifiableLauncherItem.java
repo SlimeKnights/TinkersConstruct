@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.tools.item;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import lombok.Getter;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -23,6 +24,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import slimeknights.mantle.client.SafeClientAccess;
@@ -36,6 +38,7 @@ import slimeknights.tconstruct.library.tools.helper.ModifiableItemUtil;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolHarvestLogic;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -304,6 +307,29 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
   @Override
   public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
     return ModifiableItemUtil.shouldCauseReequip(oldStack, newStack, slotChanged);
+  }
+
+
+  /* Harvest logic, mostly used by modifiers but technically would let you make a pickaxe bow */
+
+  @Override
+  public boolean isCorrectToolForDrops(ItemStack stack, BlockState state) {
+    return ToolHarvestLogic.isEffective(ToolStack.from(stack), state);
+  }
+
+  @Override
+  public boolean mineBlock(ItemStack stack, Level worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
+    return ToolHarvestLogic.mineBlock(stack, worldIn, state, pos, entityLiving);
+  }
+
+  @Override
+  public float getDestroySpeed(ItemStack stack, BlockState state) {
+    return ToolHarvestLogic.getDestroySpeed(stack, state);
+  }
+
+  @Override
+  public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
+    return ToolHarvestLogic.handleBlockBreak(stack, pos, player);
   }
 
 

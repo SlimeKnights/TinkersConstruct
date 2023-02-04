@@ -380,6 +380,8 @@ public class InteractionHandler {
       InteractionResult result = entry.getHook(TinkerHooks.BLOCK_INTERACT).beforeBlockUse(tool, entry, context, InteractionSource.LEFT_CLICK);
       if (result.consumesAction()) {
         setLeftClickEventResult(event, result);
+        // always cancel block interaction, prevents breaking glows/fires
+        event.setCanceled(true);
         return;
       }
     }
@@ -388,6 +390,8 @@ public class InteractionHandler {
       InteractionResult result = entry.getHook(TinkerHooks.BLOCK_INTERACT).afterBlockUse(tool, entry, context, InteractionSource.LEFT_CLICK);
       if (result.consumesAction()) {
         setLeftClickEventResult(event, result);
+        // always cancel block interaction, prevents breaking glows/fires
+        event.setCanceled(true);
         return;
       }
     }
