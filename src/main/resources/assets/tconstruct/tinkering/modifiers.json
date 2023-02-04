@@ -25,6 +25,7 @@
   "tconstruct:luck":        "tconstruct:normal",
   "tconstruct:silky":       "tconstruct:normal",
   "tconstruct:unbreakable": { "type": "tconstruct:normal", "luminosity": 2 },
+  "tconstruct:firestarter": "tconstruct:normal",
   
   "tconstruct:tank":      "tconstruct:tank",
   "tconstruct:bucketing": "tconstruct:fluid",

@@ -1,6 +1,6 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "forge:item/default-tool",
+  "parent": "tconstruct:item/base/staff",
   "textures": {
     "tool":         "tconstruct:item/tool/staff/ichor",
     "broken":       "tconstruct:item/tool/staff/ichor_broken",
@@ -10,7 +10,7 @@
   "large": true,
   "modifier_roots": {
     "small": [ "tconstruct:item/tool/staff/modifiers/" ],
-    "large": [ "tconstruct:item/tool/staff/large_modifiers/" ]
+    "large": [ "tconstruct:item/tool/staff/large_modifiers/ichor/", "tconstruct:item/tool/staff/large_modifiers/" ]
   },
   "first_modifiers": [ "tconstruct:dyed", "tconstruct:embellishment" ],
   "overrides": [{
