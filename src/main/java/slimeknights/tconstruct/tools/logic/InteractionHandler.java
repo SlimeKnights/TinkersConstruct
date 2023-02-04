@@ -434,7 +434,7 @@ public class InteractionHandler {
     if (!activeStack.isEmpty() && activeStack.is(TinkerTags.Items.MODIFIABLE)) {
       ToolStack tool = ToolStack.from(activeStack);
       // first check block angle
-      if (canBlock(event, tool)) {
+      if (!tool.isBroken() && canBlock(event, tool)) {
         // TOOD: hook for conditioning block amount based on on damage type
         event.setBlockedDamage(Math.min(event.getBlockedDamage(), tool.getStats().get(ToolStats.BLOCK_AMOUNT)));
         // TODO: consider handling the item damage ourself
