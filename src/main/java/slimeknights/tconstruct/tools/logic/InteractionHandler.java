@@ -76,16 +76,18 @@ public class InteractionHandler {
         return;
       }
     }
-    // actual interaction hook
-    ToolStack tool = ToolStack.from(stack);
-    Entity target = event.getTarget();
-    for (ModifierEntry entry : tool.getModifierList()) {
-      // exit on first successful result
-      InteractionResult result = entry.getHook(TinkerHooks.ENTITY_INTERACT).beforeEntityUse(tool, entry, player, target, hand, source);
-      if (result.consumesAction()) {
-        event.setCanceled(true);
-        event.setCancellationResult(result);
-        return;
+    if (!player.getCooldowns().isOnCooldown(stack.getItem())) {
+      // actual interaction hook
+      ToolStack tool = ToolStack.from(stack);
+      Entity target = event.getTarget();
+      for (ModifierEntry entry : tool.getModifierList()) {
+        // exit on first successful result
+        InteractionResult result = entry.getHook(TinkerHooks.ENTITY_INTERACT).beforeEntityUse(tool, entry, player, target, hand, source);
+        if (result.consumesAction()) {
+          event.setCanceled(true);
+          event.setCancellationResult(result);
+          return;
+        }
       }
     }
   }
@@ -96,7 +98,7 @@ public class InteractionHandler {
     Player player = event.getPlayer();
     if (event.getItemStack().isEmpty() && !player.isSpectator()) {
       ItemStack chestplate = player.getItemBySlot(EquipmentSlot.CHEST);
-      if (chestplate.is(TinkerTags.Items.INTERACTABLE_ARMOR)) {
+      if (chestplate.is(TinkerTags.Items.INTERACTABLE_ARMOR) && !player.getCooldowns().isOnCooldown(chestplate.getItem())) {
         // from this point on, we are taking over interaction logic, to ensure chestplate hooks run in the right order
         event.setCanceled(true);
 
@@ -162,7 +164,7 @@ public class InteractionHandler {
     if (event.getItemStack().isEmpty() && !player.isSpectator()) {
       // item must be a chestplate
       ItemStack chestplate = player.getItemBySlot(EquipmentSlot.CHEST);
-      if (chestplate.is(TinkerTags.Items.INTERACTABLE_ARMOR)) {
+      if (chestplate.is(TinkerTags.Items.INTERACTABLE_ARMOR) && !player.getCooldowns().isOnCooldown(chestplate.getItem())) {
         // no turning back, from this point we are fully in charge of interaction logic (since we need to ensure order of the hooks)
 
         // begin interaction
