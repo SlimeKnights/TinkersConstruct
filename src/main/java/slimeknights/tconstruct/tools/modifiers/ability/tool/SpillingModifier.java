@@ -69,7 +69,7 @@ public class SpillingModifier extends WettingModifier implements EntityInteracti
           ToolAttackContext context = new ToolAttackContext(player, player, hand, target, target instanceof LivingEntity l ? l : null, false, 1.0f, false);
           spillFluid(tool, modifier.getLevel(), context, fluid);
         }
-        player.getCooldowns().addCooldown(tool.getItem(), 50);
+        player.getCooldowns().addCooldown(tool.getItem(), 20);
         return InteractionResult.SUCCESS;
       }
     }

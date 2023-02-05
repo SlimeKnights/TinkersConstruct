@@ -15,6 +15,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 import javax.annotation.Nullable;
+import java.util.function.Consumer;
 
 /**
  * Handles tool damage and repair, along with a quick broken check
@@ -137,6 +138,15 @@ public class ToolDamageUtil {
    */
   public static boolean damageAnimated(IToolStackView tool, int amount, LivingEntity entity) {
     return damageAnimated(tool, amount, entity, InteractionHand.MAIN_HAND);
+  }
+
+  /** Implements {@link net.minecraft.world.item.Item#damageItem(ItemStack, int, LivingEntity, Consumer)} for a modifiable item */
+  public static <T extends LivingEntity> void handleDamageItem(ItemStack stack, int amount, T damager, Consumer<T> onBroken) {
+    // We basically emulate Itemstack.damageItem here. We always return 0 to skip the handling in ItemStack.
+    // If we don't tools ignore our damage logic
+    if (stack.getItem().canBeDepleted() && ToolDamageUtil.damage(ToolStack.from(stack), amount, damager, stack)) {
+      onBroken.accept(damager);
+    }
   }
 
   /**

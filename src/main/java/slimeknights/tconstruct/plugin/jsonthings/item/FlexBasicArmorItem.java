@@ -1,22 +1,17 @@
 package slimeknights.tconstruct.plugin.jsonthings.item;
 
-import dev.gigaherz.jsonthings.things.CompletionMode;
 import dev.gigaherz.jsonthings.things.IFlexItem;
 import dev.gigaherz.jsonthings.things.StackContext;
 import dev.gigaherz.jsonthings.things.events.FlexEventHandler;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.UseAnim;
 import net.minecraftforge.client.IItemRenderProperties;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
@@ -28,7 +23,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -103,37 +97,4 @@ public class FlexBasicArmorItem extends ModifiableArmorItem implements IFlexItem
   public FlexEventHandler getEventHandler(String name) {
     return this.eventHandlers.get(name);
   }
-
-
-  /* All of these things are handled via modifiers/JSON already, so no-op them */
-
-  @Override
-  public void setUseAction(UseAnim useAnim) {}
-
-  @Override
-  public UseAnim getUseAction() {
-    return UseAnim.NONE;
-  }
-
-  @Override
-  public void setUseTime(int i) {}
-
-  @Override
-  public int getUseTime() {
-    return 0;
-  }
-
-  @Override
-  public void setUseFinishMode(CompletionMode completionMode) {}
-
-  @Override
-  public CompletionMode getUseFinishMode() {
-    return CompletionMode.USE_ITEM;
-  }
-
-  @Override
-  public void addAttributeModifier(@Nullable EquipmentSlot equipmentSlot, Attribute attribute, AttributeModifier attributeModifier) {}
-
-  @Override
-  public void setLore(List<MutableComponent> list) {}
 }

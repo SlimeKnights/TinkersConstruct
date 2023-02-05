@@ -268,7 +268,8 @@ def modsTomlSpec = copySpec{
             'forge_range': forge_range,
             'mantle_range': mantle_range,
             'jei_range': jei_range,
-            'crt_range': crt_range
+            'crt_range': crt_range,
+            'json_things_range': json_things_range
     }
 }
 // need to copy into each build directory, unfortunately does not seem easy to do this automatically
