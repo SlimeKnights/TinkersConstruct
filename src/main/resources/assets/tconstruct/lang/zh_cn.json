@@ -1452,7 +1452,7 @@
 
   "material.tconstruct.seared_stone": "焦黑石",
   "material.tconstruct.seared_stone.flavor": "……赴汤蹈火在所不辞！",
-  "material.tconstruct.seared_stone.encyclopedia": "挖掘可以在冶炼炉中熔化的方块时每级+6采掘速度。",
+  "material.tconstruct.seared_stone.encyclopedia": "挖掘可以在冶炼炉中熔化的方块时，每级采掘速度+6。",
 
   "material.tconstruct.scorched_stone": "焦褐石",
   "material.tconstruct.scorched_stone.flavor": "焦黑石（创始人典藏版）",
@@ -1512,7 +1512,7 @@
 
   "material.tconstruct.pig_iron": "生铁",
   "material.tconstruct.pig_iron.flavor": "这是最强材料，不接受反驳",
-  "material.tconstruct.pig_iron.encyclopedia": "可以吃，每级增加1点饥饿值和0.1饱和度恢复值。",
+  "material.tconstruct.pig_iron.encyclopedia": "可以吃，每级增加1点饥饿值和0.1点饱和度恢复值。",
   "material.tconstruct.pig_iron.skull_flavor": "惹恼我可没有好下场！",
   "material.tconstruct.pig_iron.skull_encyclopedia": "受到来自其他生物的伤害时获得15秒力量效果。",
 
@@ -1651,7 +1651,7 @@
   "material.tconstruct.constantan": "康铜",
   "material.tconstruct.constantan.flavor": "诶，康铜！我还从来没见过呢。都起开，让我“康康”！",
   "material.tconstruct.constantan.encyclopedia": "在极冷环境下采掘速度+7.5，极热环境下则双倍增加。",
-  "material.tconstruct.constantan.ranged": "在极冷环境下+0.15初速度，极热环境下则双倍增加。",
+  "material.tconstruct.constantan.ranged": "在极冷环境下初速度+0.15，极热环境下则双倍增加。",
 
   "material.tconstruct.invar": "殷钢",
   "material.tconstruct.invar.flavor": "它能抵御温度，还能避免追捕",
