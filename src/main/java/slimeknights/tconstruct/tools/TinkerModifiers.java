@@ -93,6 +93,7 @@ import slimeknights.tconstruct.tools.modifiers.ModifierLootModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.UnbreakableModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.BouncyModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.DoubleJumpModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.armor.LongFallModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.ProtectionModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.ShieldStrapModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.SlurpingModifier;
@@ -353,6 +354,7 @@ public final class TinkerModifiers extends TinkerModule {
 
   // boots
   public static final StaticModifier<FeatherFallingModifier> featherFalling = MODIFIERS.register("feather_falling", FeatherFallingModifier::new);
+  public static final StaticModifier<LongFallModifier> longFall = MODIFIERS.register("long_fall", LongFallModifier::new);
   public static final StaticModifier<SoulSpeedModifier> soulspeed = MODIFIERS.register("soulspeed", SoulSpeedModifier::new);
   public static final StaticModifier<LightspeedArmorModifier> lightspeedArmor = MODIFIERS.register("lightspeed_armor", LightspeedArmorModifier::new);
   public static final StaticModifier<DoubleJumpModifier> doubleJump = MODIFIERS.register("double_jump", DoubleJumpModifier::new);

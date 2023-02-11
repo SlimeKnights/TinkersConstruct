@@ -141,6 +141,10 @@
   },
   {
     "type": "tconstruct:modifier",
+    "data": "abilities/armor/long_fall.json"
+  },
+  {
+    "type": "tconstruct:modifier",
     "data": "abilities/armor/path_maker.json"
   },
   {

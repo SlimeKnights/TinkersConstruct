@@ -1014,6 +1014,19 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.snowdrift, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.snowdrift, abilityFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.longFall)
+                         .setTools(TinkerTags.Items.BOOTS)
+                         .addInput(Items.PISTON)
+                         .addInput(Blocks.BLACK_WOOL)
+                         .addInput(Items.PISTON)
+                         .addInput(TinkerWorld.slime.get(SlimeType.SKY))
+                         .addInput(TinkerWorld.slime.get(SlimeType.SKY))
+                         .setSlots(SlotType.ABILITY, 1)
+                         .setMaxLevel(1)
+                         .setRequirements(ModifierMatch.entry(TinkerModifiers.featherFalling.getId(), 4))
+                         .setRequirementsError(makeRequirementsError("long_fall"))
+                         .saveSalvage(consumer, prefix(TinkerModifiers.longFall, abilitySalvage))
+                         .save(consumer, prefix(TinkerModifiers.longFall, abilityFolder));
 
     // transform ingredients
     Ingredient bootsWithDuraibility = IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.BOOTS), Ingredient.of(TinkerTags.Items.DURABILITY));
