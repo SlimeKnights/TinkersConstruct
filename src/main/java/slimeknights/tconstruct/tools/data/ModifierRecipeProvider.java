@@ -1332,6 +1332,16 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.ABILITY, 1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.blocking, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.blocking, abilityFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.reflecting)
+                         .setTools(TinkerTags.Items.SHIELDS)
+                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.SKY),   4)
+                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.ICHOR), 4)
+                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.SKY),   4)
+                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.EARTH), 4)
+                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.EARTH), 4)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .saveSalvage(consumer, prefix(TinkerModifiers.reflecting, abilitySalvage))
+                         .save(consumer, prefix(TinkerModifiers.reflecting, abilityFolder));
 
     /*
      * extra modifiers

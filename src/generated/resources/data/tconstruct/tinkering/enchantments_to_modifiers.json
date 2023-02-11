@@ -46,5 +46,6 @@
   "#tconstruct:modifier_like/luck": "tconstruct:luck",
   "#tconstruct:modifier_like/multishot": "tconstruct:multishot",
   "#tconstruct:modifier_like/reach": "tconstruct:reach",
-  "#tconstruct:modifier_like/tilling": "tconstruct:tilling"
+  "#tconstruct:modifier_like/tilling": "tconstruct:tilling",
+  "#tconstruct:modifier_like/reflecting": "tconstruct:reflecting"
 }

@@ -147,7 +147,7 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
 
       // prepare the arrows
       ArrowItem arrowItem = ammo.getItem() instanceof ArrowItem arrow ? arrow : (ArrowItem)Items.ARROW;
-      float inaccuracy = 3 * (1 / ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.ACCURACY) - 1) * velocity;
+      float inaccuracy = ModifierUtil.getInaccuracy(tool, living, velocity);
       float startAngle = getAngleStart(ammo.getCount());
       int primaryIndex = ammo.getCount() / 2;
       for (int arrowIndex = 0; arrowIndex < ammo.getCount(); arrowIndex++) {

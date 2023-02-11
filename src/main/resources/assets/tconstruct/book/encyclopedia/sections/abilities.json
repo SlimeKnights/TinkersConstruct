@@ -165,6 +165,10 @@
   },
   {
     "type": "tconstruct:modifier",
+    "data": "abilities/armor/reflecting.json"
+  },
+  {
+    "type": "tconstruct:modifier",
     "data": "abilities/armor/slurping.json"
   },
   {

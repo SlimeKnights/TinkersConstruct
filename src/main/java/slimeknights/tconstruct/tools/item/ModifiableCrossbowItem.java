@@ -167,7 +167,7 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
 
       // don't need to calculate these multiple times
       float velocity = ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.VELOCITY);
-      float inaccuracy = 3 * (1 / ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.ACCURACY) - 1) * velocity;
+      float inaccuracy = ModifierUtil.getInaccuracy(tool, player, velocity);
       boolean creative = player.getAbilities().instabuild;
 
       // the ammo has a stack size that may be greater than 1 (meaning multishot)

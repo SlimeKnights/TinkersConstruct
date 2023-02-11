@@ -282,6 +282,20 @@
         ]
       }
     },
+    "reflecting": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:reflecting",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
     "autosmelt": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
@@ -578,6 +592,9 @@
     ],
     [
       "long_fall"
+    ],
+    [
+      "reflecting"
     ],
     [
       "autosmelt"

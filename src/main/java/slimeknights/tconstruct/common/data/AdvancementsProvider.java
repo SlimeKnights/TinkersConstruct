@@ -254,6 +254,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       withL.accept(TinkerModifiers.ambidextrous);
       withL.accept(TinkerModifiers.zoom);
       withL.accept(TinkerModifiers.longFall);
+      withL.accept(TinkerModifiers.reflecting);
       // harvest
       withL.accept(TinkerModifiers.autosmelt);
       withL.accept(TinkerModifiers.exchanging);
