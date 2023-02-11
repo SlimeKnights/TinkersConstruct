@@ -2004,6 +2004,10 @@
   "modifier.tconstruct.feather_falling.flavor": "呼呼呼",
   "modifier.tconstruct.feather_falling.description": "软着陆能减少伤害",
   "modifier.tconstruct.feather_falling.resistance": "摔落抗性",
+  "modifier.tconstruct.long_fall": "Long Fall",
+  "modifier.tconstruct.long_fall.flavor": "Foot-based suit of armor",
+  "modifier.tconstruct.long_fall.description": "Neutralizes all fall damage",
+  "recipe.tconstruct.modifier.long_fall": "Long Fall requires Feather Falling IV to apply",
   "modifier.tconstruct.soulspeed": "灵魂疾行",
   "modifier.tconstruct.soulspeed.flavor": "鬼怪",
   "modifier.tconstruct.soulspeed.description": "提升灵魂沙上的移动速度",
@@ -2038,7 +2042,11 @@
   "modifier.tconstruct.flamewake.flavor": "这可真行",
   "modifier.tconstruct.flamewake.description": "在你的身后留下一条长长的火痕",
 
-
+  "_comment": "Armor - shields",
+  "modifier.tconstruct.reflecting": "Reflecting",
+  "modifier.tconstruct.reflecting.flavor": "Bouncy Shield",
+  "modifier.tconstruct.reflecting.description": "Allows reflecting projectiles within a short window of deploying your shield",
+  
   "_comment": "Abilities",
   "modifier.tconstruct.unbreakable": "不毁",
   "modifier.tconstruct.unbreakable.flavor": "冷冻封存！",

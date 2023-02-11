@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:turtle_shell",
   "text": [
     {
-      "text": "在水下时抗性+10%。所有盔甲的总上限为80%，也就是10级强化。"
+      "text": "在水下时抗性+10%。所有盔甲的总上限为80%，也就是8级强化。"
     },
     {
       "text": "增加游泳速度，每级+5%。", "paragraph": true
