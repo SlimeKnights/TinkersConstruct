@@ -24,7 +24,7 @@ public class EnchantmentToModifierProvider extends AbstractEnchantmentToModifier
     add(Enchantments.PROJECTILE_PROTECTION, TinkerModifiers.projectileProtection.getId());
     add(Enchantments.FALL_PROTECTION, TinkerModifiers.featherFalling.getId());
     // misc armor
-    add(Enchantments.RESPIRATION, TinkerModifiers.respiration.getId());
+    add(Enchantments.RESPIRATION, ModifierIds.respiration);
     add(Enchantments.AQUA_AFFINITY, TinkerModifiers.aquaAffinity.getId());
     add(Enchantments.THORNS, TinkerModifiers.thorns.getId());
     add(Enchantments.DEPTH_STRIDER, ModifierIds.depthStrider);

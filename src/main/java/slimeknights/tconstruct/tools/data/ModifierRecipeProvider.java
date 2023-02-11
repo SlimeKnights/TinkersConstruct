@@ -1396,7 +1396,13 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                  .addInput(TinkerWorld.enderGeode)
                                  .addInput(Items.DRAGON_BREATH, 5)
                                  .modifierPredicate(new TagModifierPredicate(TinkerTags.Modifiers.EXTRACT_MODIFIER_BLACKLIST).inverted())
-                                 .save(consumer, modResource(worktableFolder + "extract_modifier"));
+                                 .save(consumer, modResource(worktableFolder + "extract_modifier_breath"));
+    ModifierRemovalRecipe.Builder.removal(TinkerModifiers.extractModifierSerializer.get())
+                                 .addInput(TinkerWorld.enderGeode)
+                                 .addInput(Items.WET_SPONGE)
+                                 .addLeftover(Items.SPONGE)
+                                 .modifierPredicate(new TagModifierPredicate(TinkerTags.Modifiers.EXTRACT_MODIFIER_BLACKLIST).inverted())
+                                 .save(consumer, modResource(worktableFolder + "extract_modifier_sponge"));
     ModifierSortingRecipe.Builder.sorting()
                                  .addInput(Items.COMPASS)
                                  .save(consumer, modResource(worktableFolder + "modifier_sorting"));
