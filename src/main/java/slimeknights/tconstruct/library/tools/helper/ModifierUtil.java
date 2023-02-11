@@ -12,10 +12,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlot.Type;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -27,17 +23,18 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.LootingModifierHook;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
-import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -50,9 +47,6 @@ import java.util.function.BiConsumer;
 public final class ModifierUtil {
   /** Vanilla enchantments tag */
   public static final String TAG_ENCHANTMENTS = "Enchantments";
-
-  /** Attribute to mostly cancel out use item slowdown. Use item puts you at 20% speed, so 1+3 leaves you at 80% speed */
-  private static final AttributeModifier FAST_USE_ITEM = new AttributeModifier("tconstruct.fast_use_item", 3f, Operation.MULTIPLY_TOTAL);
 
   /** Key for marking a modifier in use */
   private static final ResourceLocation ACTIVE_MODIFIER = TConstruct.getResource("active_modifier");
@@ -362,33 +356,27 @@ public final class ModifierUtil {
     return null;
   }
 
-  /** Called to apply fast using item if we have that ability */
-  public static void checkFastUsingItem(IToolStackView tool, LivingEntity living) {
-    if (living.isUsingItem() && tool.getVolatileData().getBoolean(IModifiable.FAST_USE_ITEM)) {
-      AttributeInstance instance = living.getAttribute(Attributes.MOVEMENT_SPEED);
-      if (instance != null && !instance.hasModifier(FAST_USE_ITEM)) {
-        instance.addTransientModifier(FAST_USE_ITEM);
-      }
-      if (living.level.isClientSide) {
-        living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).set(IModifiable.FAST_USE_ITEM, 0.4f));
-      }
-    }
-  }
+  /** @deprecated No longer needed, will be removed in 1.19. */
+  @Deprecated
+  public static void checkFastUsingItem(IToolStackView tool, LivingEntity living) {}
 
-  /** Called to clear any data modifiers set when usage starts, does not clear active modifier, use {@link #finishUsingItem(LivingEntity, IToolStackView)} for tools supporting right click modifiers */
-  public static void finishUsingItem(LivingEntity living) {
-    AttributeInstance instance = living.getAttribute(Attributes.MOVEMENT_SPEED);
-    if (instance != null) {
-      instance.removeModifier(FAST_USE_ITEM);
-    }
-    if (living.level.isClientSide) {
-      living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).remove(IModifiable.FAST_USE_ITEM));
-    }
+  /** @deprecated No longer needed. Use {@link #finishUsingItem(IToolStackView)} when you stop using a modifier */
+  @Deprecated
+  public static void finishUsingItem(LivingEntity living) {}
+
+  /** @deprecated No longer needed. Use {@link #finishUsingItem(IToolStackView)} when you stop using a modifier */
+  @Deprecated
+  public static void finishUsingItem(LivingEntity living, IToolStackView tool) {
+    finishUsingItem(tool);
   }
 
   /** Called to clear any data modifiers set when usage starts */
-  public static void finishUsingItem(LivingEntity living, IToolStackView tool) {
+  public static void finishUsingItem(IToolStackView tool) {
     tool.getPersistentData().remove(ACTIVE_MODIFIER);
-    finishUsingItem(living);
+  }
+
+  /** Calculates inaccuracy from the conditional tool stat */
+  public static float getInaccuracy(IToolStackView tool, LivingEntity living, float velocity) {
+    return 3 * (1 / ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.ACCURACY) - 1) * velocity;
   }
 }

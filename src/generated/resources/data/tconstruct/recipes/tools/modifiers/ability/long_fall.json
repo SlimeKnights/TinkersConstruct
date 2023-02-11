@@ -1,0 +1,37 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "minecraft:piston"
+    },
+    {
+      "item": "minecraft:black_wool"
+    },
+    {
+      "item": "minecraft:piston"
+    },
+    {
+      "item": "tconstruct:sky_slime"
+    },
+    {
+      "item": "tconstruct:sky_slime"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/boots"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "requirements": {
+    "name": "tconstruct:feather_falling",
+    "level": 4,
+    "error": "recipe.tconstruct.modifier.long_fall"
+  },
+  "allow_crystal": true,
+  "result": {
+    "name": "tconstruct:long_fall",
+    "level": 1
+  },
+  "max_level": 1
+}

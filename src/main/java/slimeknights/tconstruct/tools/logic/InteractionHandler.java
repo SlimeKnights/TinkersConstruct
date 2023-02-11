@@ -46,6 +46,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.Util;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Function;
 
@@ -245,14 +246,18 @@ public class InteractionHandler {
   /** Handles attacking using the chestplate */
   @SubscribeEvent(priority = EventPriority.LOW)
   static void onChestplateAttack(AttackEntityEvent event) {
-    Player attacker = event.getPlayer();
-    if (attacker.getMainHandItem().isEmpty()) {
-      ItemStack chestplate = attacker.getItemBySlot(EquipmentSlot.CHEST);
-      if (chestplate.is(TinkerTags.Items.UNARMED)) {
-        ToolStack tool = ToolStack.from(chestplate);
-        if (!tool.isBroken()) {
-          ToolAttackUtil.attackEntity(tool, attacker, InteractionHand.MAIN_HAND, event.getTarget(), ToolAttackUtil.getCooldownFunction(attacker, InteractionHand.MAIN_HAND), false, EquipmentSlot.CHEST);
-          event.setCanceled(true);
+    // Carry On is dumb and fires the attack entity event when they are not attacking entities, causing us to punch instead
+    // they should not be doing that, but the author has not done anything to fix it, so just use a hacky check
+    if (event.getClass() == AttackEntityEvent.class) {
+      Player attacker = event.getPlayer();
+      if (attacker.getMainHandItem().isEmpty()) {
+        ItemStack chestplate = attacker.getItemBySlot(EquipmentSlot.CHEST);
+        if (chestplate.is(TinkerTags.Items.UNARMED)) {
+          ToolStack tool = ToolStack.from(chestplate);
+          if (!tool.isBroken()) {
+            ToolAttackUtil.attackEntity(tool, attacker, InteractionHand.MAIN_HAND, event.getTarget(), ToolAttackUtil.getCooldownFunction(attacker, InteractionHand.MAIN_HAND), false, EquipmentSlot.CHEST);
+            event.setCanceled(true);
+          }
         }
       }
     }
@@ -406,21 +411,19 @@ public class InteractionHandler {
   }
 
   /** Checks if the shield block angle allows blocking this attack */
-  private static boolean canBlock(ShieldBlockEvent event, IToolStackView tool) {
+  public static boolean canBlock(LivingEntity holder, @Nullable Vec3 sourcePosition, IToolStackView tool) {
     // source position should never be null (checked by livingentity) but safety as its marked nullable
-    Vec3 sourcePosition = event.getDamageSource().getSourcePosition();
     if (sourcePosition == null) {
       return false;
     }
     // no work to do if 90 degrees, that is vanilla logic
-    LivingEntity entity = event.getEntityLiving();
-    float blockAngle = ConditionalStatModifierHook.getModifiedStat(tool, entity, ToolStats.BLOCK_ANGLE);
+    float blockAngle = ConditionalStatModifierHook.getModifiedStat(tool, holder, ToolStats.BLOCK_ANGLE);
     if (blockAngle >= 90) {
       return true;
     }
     // want the angle between the view vector and the
-    Vec3 viewVector = entity.getViewVector(1.0f);
-    Vec3 entityPosition = entity.position();
+    Vec3 viewVector = holder.getViewVector(1.0f);
+    Vec3 entityPosition = holder.position();
     Vec3 direction = new Vec3(entityPosition.x - sourcePosition.x, 0, entityPosition.z - sourcePosition.z);
     double length = viewVector.length() * direction.length();
     // prevent zero vector from messing with us
@@ -440,8 +443,8 @@ public class InteractionHandler {
     if (!activeStack.isEmpty() && activeStack.is(TinkerTags.Items.MODIFIABLE)) {
       ToolStack tool = ToolStack.from(activeStack);
       // first check block angle
-      if (!tool.isBroken() && canBlock(event, tool)) {
-        // TOOD: hook for conditioning block amount based on on damage type
+      if (!tool.isBroken() && canBlock(event.getEntityLiving(), event.getDamageSource().getSourcePosition(), tool)) {
+        // TODO: hook for conditioning block amount based on on damage type
         event.setBlockedDamage(Math.min(event.getBlockedDamage(), tool.getStats().get(ToolStats.BLOCK_AMOUNT)));
         // TODO: consider handling the item damage ourself
       } else {

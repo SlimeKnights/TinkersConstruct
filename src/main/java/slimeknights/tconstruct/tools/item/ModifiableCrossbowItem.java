@@ -128,7 +128,6 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
       // if we have ammo, start charging
       if (BowAmmoModifierHook.hasAmmo(tool, bow, player, getSupportedHeldProjectiles())) {
         player.startUsingItem(hand);
-        ModifierUtil.checkFastUsingItem(tool, player);
         float drawspeed = ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.DRAW_SPEED) / 20f;
         player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.put(DRAWSPEED, drawspeed));
         // we want an int version to make sounds more precise
@@ -168,7 +167,7 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
 
       // don't need to calculate these multiple times
       float velocity = ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.VELOCITY);
-      float inaccuracy = 3 * (1 / ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.ACCURACY) - 1) * velocity;
+      float inaccuracy = ModifierUtil.getInaccuracy(tool, player, velocity);
       boolean creative = player.getAbilities().instabuild;
 
       // the ammo has a stack size that may be greater than 1 (meaning multishot)
@@ -244,14 +243,7 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
   }
 
   @Override
-  public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity living) {
-    ModifierUtil.finishUsingItem(living);
-    return super.finishUsingItem(stack, level, living);
-  }
-
-  @Override
   public void releaseUsing(ItemStack bow, Level level, LivingEntity living, int chargeRemaining) {
-    ModifierUtil.finishUsingItem(living);
     if (!(living instanceof Player player)) {
       return;
     }

@@ -756,7 +756,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(TinkerModifiers.springy, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.springy, upgradeFolder));
     // upgrade - helmet
-    ModifierRecipeBuilder.modifier(TinkerModifiers.respiration)
+    ModifierRecipeBuilder.modifier(ModifierIds.respiration)
                          .setTools(TinkerTags.Items.HELMETS)
                          .addInput(ItemTags.FISHES)
                          .addInput(Tags.Items.GLASS_COLORLESS)
@@ -765,8 +765,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.KELP)
                          .setMaxLevel(3)
                          .setSlots(SlotType.UPGRADE, 1)
-                         .saveSalvage(consumer, prefix(TinkerModifiers.respiration, upgradeSalvage))
-                         .save(consumer, prefix(TinkerModifiers.respiration, upgradeFolder));
+                         .saveSalvage(consumer, prefix(ModifierIds.respiration, upgradeSalvage))
+                         .save(consumer, prefix(ModifierIds.respiration, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.itemFrame)
                          .setTools(TinkerTags.Items.HELMETS)
                          .addInput(Ingredient.of(Arrays.stream(FrameType.values())
@@ -1014,6 +1014,19 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.snowdrift, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.snowdrift, abilityFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.longFall)
+                         .setTools(TinkerTags.Items.BOOTS)
+                         .addInput(Items.PISTON)
+                         .addInput(Blocks.BLACK_WOOL)
+                         .addInput(Items.PISTON)
+                         .addInput(TinkerWorld.slime.get(SlimeType.SKY))
+                         .addInput(TinkerWorld.slime.get(SlimeType.SKY))
+                         .setSlots(SlotType.ABILITY, 1)
+                         .setMaxLevel(1)
+                         .setRequirements(ModifierMatch.entry(TinkerModifiers.featherFalling.getId(), 4))
+                         .setRequirementsError(makeRequirementsError("long_fall"))
+                         .saveSalvage(consumer, prefix(TinkerModifiers.longFall, abilitySalvage))
+                         .save(consumer, prefix(TinkerModifiers.longFall, abilityFolder));
 
     // transform ingredients
     Ingredient bootsWithDuraibility = IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.BOOTS), Ingredient.of(TinkerTags.Items.DURABILITY));
@@ -1319,6 +1332,16 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.ABILITY, 1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.blocking, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.blocking, abilityFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.reflecting)
+                         .setTools(TinkerTags.Items.SHIELDS)
+                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.SKY),   4)
+                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.ICHOR), 4)
+                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.SKY),   4)
+                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.EARTH), 4)
+                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.EARTH), 4)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .saveSalvage(consumer, prefix(TinkerModifiers.reflecting, abilitySalvage))
+                         .save(consumer, prefix(TinkerModifiers.reflecting, abilityFolder));
 
     /*
      * extra modifiers
@@ -1396,7 +1419,13 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                  .addInput(TinkerWorld.enderGeode)
                                  .addInput(Items.DRAGON_BREATH, 5)
                                  .modifierPredicate(new TagModifierPredicate(TinkerTags.Modifiers.EXTRACT_MODIFIER_BLACKLIST).inverted())
-                                 .save(consumer, modResource(worktableFolder + "extract_modifier"));
+                                 .save(consumer, modResource(worktableFolder + "extract_modifier_breath"));
+    ModifierRemovalRecipe.Builder.removal(TinkerModifiers.extractModifierSerializer.get())
+                                 .addInput(TinkerWorld.enderGeode)
+                                 .addInput(Items.WET_SPONGE)
+                                 .addLeftover(Items.SPONGE)
+                                 .modifierPredicate(new TagModifierPredicate(TinkerTags.Modifiers.EXTRACT_MODIFIER_BLACKLIST).inverted())
+                                 .save(consumer, modResource(worktableFolder + "extract_modifier_sponge"));
     ModifierSortingRecipe.Builder.sorting()
                                  .addInput(Items.COMPASS)
                                  .save(consumer, modResource(worktableFolder + "modifier_sorting"));

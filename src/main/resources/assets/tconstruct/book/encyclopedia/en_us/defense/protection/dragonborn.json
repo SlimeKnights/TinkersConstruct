@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:dragonborn",
   "text": [
     {
-      "text": "Grants +10% resistance while airborne. Caps at 80% across the whole set, or 10 levels."
+      "text": "Grants +10% resistance while airborne. Caps at 80% across the whole set, or 8 levels."
     },
     {
       "text": "Boosts attack damage while in air by 5% per level of the highest level piece.", "paragraph": true

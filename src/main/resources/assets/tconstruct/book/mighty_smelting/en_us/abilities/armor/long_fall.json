@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:long_fall",
+  "text": [
+    {
+      "text": "Go ahead and try to land on your head. Ha! you can't do it!"
+    }
+  ],
+  "effects": [
+    "Prevents all fall damage",
+    "Requires Feather Falling IV",
+    "Requires 1 ability slot"
+  ]
+}

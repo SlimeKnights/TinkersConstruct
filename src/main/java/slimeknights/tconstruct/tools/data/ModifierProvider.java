@@ -175,6 +175,8 @@ public class ModifierProvider extends AbstractModifierProvider {
     // defense
     // TODO: floor?
     addModifier(ModifierIds.revitalizing, StatBoostModifier.builder().attribute("tconstruct.modifier.revitalizing", Attributes.MAX_HEALTH, Operation.ADDITION, 2, armorSlots).build());
+    // helmet
+    addModifier(ModifierIds.respiration, new EnchantmentModifier(Enchantments.RESPIRATION, 1, ModifierLevelDisplay.DEFAULT));
     // chestplate
     addModifier(ModifierIds.strength, StatBoostModifier.builder().attribute("tconstruct.modifier.strength", Attributes.ATTACK_DAMAGE, Operation.MULTIPLY_TOTAL, 0.1f, armorSlots).build());
     addRedirect(id("armor_power"), redirect(ModifierIds.strength));

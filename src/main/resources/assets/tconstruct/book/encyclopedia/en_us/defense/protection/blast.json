@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:blast_protection",
   "text": [
     {
-      "text": "Grants +10% resistance against explosion damage, such as from creepers or TNT. Caps at 80% across the whole set, or 10 levels."
+      "text": "Grants +10% resistance against explosion damage, such as from creepers or TNT. Caps at 80% across the whole set, or 8 levels."
     },
     {
       "text": "Reduces the knockback from explosions by 15% per level of the highest level piece.", "paragraph": true
