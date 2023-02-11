@@ -756,7 +756,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(TinkerModifiers.springy, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.springy, upgradeFolder));
     // upgrade - helmet
-    ModifierRecipeBuilder.modifier(TinkerModifiers.respiration)
+    ModifierRecipeBuilder.modifier(ModifierIds.respiration)
                          .setTools(TinkerTags.Items.HELMETS)
                          .addInput(ItemTags.FISHES)
                          .addInput(Tags.Items.GLASS_COLORLESS)
@@ -765,8 +765,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.KELP)
                          .setMaxLevel(3)
                          .setSlots(SlotType.UPGRADE, 1)
-                         .saveSalvage(consumer, prefix(TinkerModifiers.respiration, upgradeSalvage))
-                         .save(consumer, prefix(TinkerModifiers.respiration, upgradeFolder));
+                         .saveSalvage(consumer, prefix(ModifierIds.respiration, upgradeSalvage))
+                         .save(consumer, prefix(ModifierIds.respiration, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.itemFrame)
                          .setTools(TinkerTags.Items.HELMETS)
                          .addInput(Ingredient.of(Arrays.stream(FrameType.values())

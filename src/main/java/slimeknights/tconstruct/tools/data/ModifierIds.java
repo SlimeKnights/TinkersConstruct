@@ -54,6 +54,8 @@ public class ModifierIds {
   public static final ModifierId knockbackResistance = id("knockback_resistance");
   // defense
   public static final ModifierId revitalizing = id("revitalizing");
+  // helmet
+  public static final ModifierId respiration = id("respiration");
   // chestplate
   public static final ModifierId strength = id("strength");
   // leggings

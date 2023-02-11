@@ -194,7 +194,6 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.armor.HasteModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.ItemFrameModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.LeapingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.LightspeedArmorModifier;
-import slimeknights.tconstruct.tools.modifiers.upgrades.armor.RespirationModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.RicochetModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.SoulSpeedModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.SpringyModifier;
@@ -338,7 +337,6 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<ThornsModifier> thorns = MODIFIERS.register("thorns", ThornsModifier::new);
   public static final StaticModifier<SpringyModifier> springy = MODIFIERS.register("springy", SpringyModifier::new);
   // helmet
-  public static final StaticModifier<RespirationModifier> respiration = MODIFIERS.register("respiration", RespirationModifier::new);
   public static final StaticModifier<ItemFrameModifier> itemFrame = MODIFIERS.register("item_frame", ItemFrameModifier::new);
   public static final StaticModifier<ZoomModifier> zoom = MODIFIERS.register("zoom", ZoomModifier::new);
   public static final StaticModifier<SlurpingModifier> slurping = MODIFIERS.register("slurping", SlurpingModifier::new);
