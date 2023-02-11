@@ -245,14 +245,18 @@ public class InteractionHandler {
   /** Handles attacking using the chestplate */
   @SubscribeEvent(priority = EventPriority.LOW)
   static void onChestplateAttack(AttackEntityEvent event) {
-    Player attacker = event.getPlayer();
-    if (attacker.getMainHandItem().isEmpty()) {
-      ItemStack chestplate = attacker.getItemBySlot(EquipmentSlot.CHEST);
-      if (chestplate.is(TinkerTags.Items.UNARMED)) {
-        ToolStack tool = ToolStack.from(chestplate);
-        if (!tool.isBroken()) {
-          ToolAttackUtil.attackEntity(tool, attacker, InteractionHand.MAIN_HAND, event.getTarget(), ToolAttackUtil.getCooldownFunction(attacker, InteractionHand.MAIN_HAND), false, EquipmentSlot.CHEST);
-          event.setCanceled(true);
+    // Carry On is dumb and fires the attack entity event when they are not attacking entities, causing us to punch instead
+    // they should not be doing that, but the author has not done anything to fix it, so just use a hacky check
+    if (event.getClass() == AttackEntityEvent.class) {
+      Player attacker = event.getPlayer();
+      if (attacker.getMainHandItem().isEmpty()) {
+        ItemStack chestplate = attacker.getItemBySlot(EquipmentSlot.CHEST);
+        if (chestplate.is(TinkerTags.Items.UNARMED)) {
+          ToolStack tool = ToolStack.from(chestplate);
+          if (!tool.isBroken()) {
+            ToolAttackUtil.attackEntity(tool, attacker, InteractionHand.MAIN_HAND, event.getTarget(), ToolAttackUtil.getCooldownFunction(attacker, InteractionHand.MAIN_HAND), false, EquipmentSlot.CHEST);
+            event.setCanceled(true);
+          }
         }
       }
     }
