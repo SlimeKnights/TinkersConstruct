@@ -5,14 +5,18 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.player.Input;
 import net.minecraft.client.renderer.entity.ItemEntityRenderer;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.event.MovementInputUpdateEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
@@ -31,6 +35,7 @@ import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.ISafeManagerReloadListener;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.client.model.DynamicTextureLoader;
@@ -47,6 +52,8 @@ import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.TankModifierModel;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.utils.HarvestTiers;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.client.ArmorModelHelper;
@@ -116,6 +123,7 @@ public class ToolClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void clientSetupEvent(FMLClientSetupEvent event) {
     MinecraftForge.EVENT_BUS.addListener(ToolClientEvents::handleKeyBindings);
+    MinecraftForge.EVENT_BUS.addListener(ToolClientEvents::handleInput);
     ArmorModelHelper.init();
 
     // keybinds
@@ -251,6 +259,19 @@ public class ToolClientEvents extends ClientEventBase {
 
       wasHelmetInteracting = isHelmetInteracting;
       wasLeggingsInteracting = isLeggingsInteract;
+    }
+  }
+
+  private static void handleInput(MovementInputUpdateEvent event) {
+    Player player = event.getPlayer();
+    if (player.isUsingItem() && !player.isPassenger()) {
+      ItemStack using = player.getUseItem();
+      if (using.is(TinkerTags.Items.MODIFIABLE) && ModifierUtil.checkVolatileFlag(using, IModifiable.FAST_USE_ITEM)) {
+        Input input = event.getInput();
+        // mostly cancel out future 0.2x, want 80% move speed instead of 20%
+        input.leftImpulse *= 4;
+        input.forwardImpulse *= 4;
+      }
     }
   }
 }

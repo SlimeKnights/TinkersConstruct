@@ -99,10 +99,10 @@ public class EquipmentChangeWatcher {
       for (ModifierEntry entry : tool.getModifierList()) {
         entry.getModifier().onUnequip(tool, entry.getLevel(), context);
       }
-      // if you scrolled away, we really don't know whether you stopped using an item or not, luckily everything in this method can be safely run multiple times
+      // only path that should bring you here that did not already call the modifier method is when your shield breaks. ideally we will switch to a forge onStoppedUsing method instead
       // TODO 1.19: consider simplier check, such as the tool having the active modifier tag set. Will need to do a bit of work for bows which don't set modifiers though
       if (!entity.isUsingItem() || entity.getItemBySlot(changedSlot) != entity.getUseItem()) {
-        ModifierUtil.finishUsingItem(entity, tool);
+        ModifierUtil.finishUsingItem(tool);
       }
     }
 

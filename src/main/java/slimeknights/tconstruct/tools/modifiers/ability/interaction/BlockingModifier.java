@@ -25,7 +25,6 @@ public class BlockingModifier extends NoLevelsModifier implements GeneralInterac
   public InteractionResult onToolUse(IToolStackView tool, ModifierEntry modifier, Player player, InteractionHand hand, InteractionSource source) {
     if (source == InteractionSource.RIGHT_CLICK && !tool.isBroken()) {
       ModifierUtil.startUsingItem(tool, modifier.getId(), player, hand);
-      ModifierUtil.checkFastUsingItem(tool, player);
       return InteractionResult.CONSUME;
     }
     return InteractionResult.PASS;

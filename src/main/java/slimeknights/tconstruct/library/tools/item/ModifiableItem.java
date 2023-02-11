@@ -362,10 +362,20 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
   }
 
   @Override
+  public boolean canContinueUsing(ItemStack oldStack, ItemStack newStack) {
+    if (super.canContinueUsing(oldStack, newStack)) {
+      if (oldStack != newStack) {
+        ModifierUtil.finishUsingItem(ToolStack.from(oldStack));
+      }
+    }
+    return super.canContinueUsing(oldStack, newStack);
+  }
+
+  @Override
   public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
     ToolStack tool = ToolStack.from(stack);
     ModifierEntry activeModifier = ModifierUtil.getActiveModifier(tool);
-    ModifierUtil.finishUsingItem(entityLiving, tool);
+    ModifierUtil.finishUsingItem(tool);
     if (activeModifier != null) {
       activeModifier.getHook(TinkerHooks.CHARGEABLE_INTERACT).onFinishUsing(tool, activeModifier, entityLiving);
       return stack;
@@ -383,7 +393,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
   public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
     ToolStack tool = ToolStack.from(stack);
     ModifierEntry activeModifier = ModifierUtil.getActiveModifier(tool);
-    ModifierUtil.finishUsingItem(entityLiving, tool);
+    ModifierUtil.finishUsingItem(tool);
     if (activeModifier != null) {
       activeModifier.getHook(TinkerHooks.CHARGEABLE_INTERACT).onStoppedUsing(tool, activeModifier, entityLiving, timeLeft);
       return;
