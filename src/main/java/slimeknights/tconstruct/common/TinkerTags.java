@@ -460,6 +460,11 @@ public class TinkerTags {
     /** Mobs that get the 4x protection boost due to only 1 armor piece */
     public static final TagKey<EntityType<?>> SMALL_ARMOR = forgeTag("small_armor");
 
+    /** Projectiles with this tag cannot be reflected */
+    public static final TagKey<EntityType<?>> REFLECTING_BLACKLIST = forgeTag("reflecting/blacklist");
+    /** Projectiles with this tag cannot be reflected */
+    public static final TagKey<EntityType<?>> REFLECTING_PRESERVE_OWNER = forgeTag("reflecting/preserve_owner");
+
     private static TagKey<EntityType<?>> tag(String name) {
       return TagKey.create(Registry.ENTITY_TYPE_REGISTRY, TConstruct.getResource(name));
     }

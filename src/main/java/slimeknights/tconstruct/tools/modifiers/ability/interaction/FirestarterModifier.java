@@ -34,6 +34,7 @@ import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteract
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.impl.InteractionModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
+import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.definition.aoe.CircleAOEIterator;
 import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
 import slimeknights.tconstruct.library.tools.definition.module.ToolModuleHooks;
@@ -121,7 +122,7 @@ public class FirestarterModifier extends InteractionModifier.NoLevels implements
 
   @Override
   public InteractionResult beforeBlockUse(IToolStackView tool, ModifierEntry modifier, UseOnContext context, InteractionSource source) {
-    if (tool.isBroken()) {
+    if (tool.isBroken() || !tool.getDefinitionData().getModule(ToolModuleHooks.INTERACTION).canInteract(tool, modifier.getId(), source)) {
       return InteractionResult.PASS;
     }
     if (context.getLevel().getBlockState(context.getClickedPos()).is(BlockTags.CANDLE_CAKES)) {
@@ -132,7 +133,7 @@ public class FirestarterModifier extends InteractionModifier.NoLevels implements
 
   @Override
   public InteractionResult afterBlockUse(IToolStackView tool, ModifierEntry modifier, UseOnContext context, InteractionSource source) {
-    if (tool.isBroken()) {
+    if (tool.isBroken() || !tool.getDefinitionData().getModule(ToolModuleHooks.INTERACTION).canInteract(tool, modifier.getId(), source)) {
       return InteractionResult.PASS;
     }
     Player player = context.getPlayer();
@@ -182,6 +183,16 @@ public class FirestarterModifier extends InteractionModifier.NoLevels implements
         }
       }
     }
-    return didIgnite ? InteractionResult.sidedSuccess(world.isClientSide) : InteractionResult.PASS;
+    // when targeting fire, return true so left click interact does not continue to run
+    return didIgnite || targetingFire ? InteractionResult.sidedSuccess(world.isClientSide) : InteractionResult.PASS;
+  }
+
+  @Nullable
+  @Override
+  public Boolean removeBlock(IToolStackView tool, int level, ToolHarvestContext context) {
+    if (context.getState().is(Blocks.FIRE) && tool.getDefinitionData().getModule(ToolModuleHooks.INTERACTION).canInteract(tool, getId(), InteractionSource.LEFT_CLICK)) {
+      return false;
+    }
+    return null;
   }
 }

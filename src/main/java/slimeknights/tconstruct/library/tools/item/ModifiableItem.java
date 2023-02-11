@@ -4,11 +4,9 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -42,7 +40,6 @@ import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSou
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
-import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ModifiableItemUtil;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
@@ -192,12 +189,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
 
   @Override
   public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T damager, Consumer<T> onBroken) {
-    // We basically emulate Itemstack.damageItem here. We always return 0 to skip the handling in ItemStack.
-    // If we don't tools ignore our damage logic
-    if (canBeDepleted() && ToolDamageUtil.damage(ToolStack.from(stack), amount, damager, stack)) {
-      onBroken.accept(damager);
-    }
-
+    ToolDamageUtil.handleDamageItem(stack, amount, damager, onBroken);
     return 0;
   }
 
@@ -256,21 +248,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
 
   @Override
   public boolean mineBlock(ItemStack stack, Level worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
-    ToolStack tool = ToolStack.from(stack);
-    if (tool.isBroken()) {
-      return false;
-    }
-
-    if (!worldIn.isClientSide && worldIn instanceof ServerLevel) {
-      boolean isEffective = ToolHarvestLogic.isEffective(tool, state);
-      ToolHarvestContext context = new ToolHarvestContext((ServerLevel) worldIn, entityLiving, state, pos, Direction.UP, true, isEffective);
-      for (ModifierEntry entry : tool.getModifierList()) {
-        entry.getModifier().afterBlockBreak(tool, entry.getLevel(), context);
-      }
-      ToolDamageUtil.damageAnimated(tool, ToolHarvestLogic.getDamage(tool, worldIn, pos, state), entityLiving);
-    }
-
-    return true;
+    return ToolHarvestLogic.mineBlock(stack, worldIn, state, pos, entityLiving);
   }
 
   @Override
@@ -281,23 +259,6 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
   @Override
   public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
     return ToolHarvestLogic.handleBlockBreak(stack, pos, player);
-
-    // TODO: offhand harvest reconsidering
-    /*// this is a really dumb hack.
-    // Basically when something with silktouch harvests a block from the offhand
-    // the game can't detect that. so we have to switch around the items in the hands for the break call
-    // it's switched back in onBlockDestroyed
-    if (DualToolHarvestUtil.shouldUseOffhand(player, pos, player.getHeldItemMainhand())) {
-      ItemStack off = player.getHeldItemOffhand();
-
-      this.switchItemsInHands(player);
-      // remember, off is in the mainhand now
-      CompoundNBT tag = off.getOrCreateTag();
-      tag.putLong(TAG_SWITCHED_HAND_HAX, player.getEntityWorld().getGameTime());
-      off.setTag(tag);
-    }*/
-
-    //return this.breakBlock(stack, pos, player);
   }
 
 
@@ -401,10 +362,20 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
   }
 
   @Override
+  public boolean canContinueUsing(ItemStack oldStack, ItemStack newStack) {
+    if (super.canContinueUsing(oldStack, newStack)) {
+      if (oldStack != newStack) {
+        ModifierUtil.finishUsingItem(ToolStack.from(oldStack));
+      }
+    }
+    return super.canContinueUsing(oldStack, newStack);
+  }
+
+  @Override
   public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
     ToolStack tool = ToolStack.from(stack);
     ModifierEntry activeModifier = ModifierUtil.getActiveModifier(tool);
-    ModifierUtil.finishUsingItem(entityLiving, tool);
+    ModifierUtil.finishUsingItem(tool);
     if (activeModifier != null) {
       activeModifier.getHook(TinkerHooks.CHARGEABLE_INTERACT).onFinishUsing(tool, activeModifier, entityLiving);
       return stack;
@@ -422,7 +393,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
   public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
     ToolStack tool = ToolStack.from(stack);
     ModifierEntry activeModifier = ModifierUtil.getActiveModifier(tool);
-    ModifierUtil.finishUsingItem(entityLiving, tool);
+    ModifierUtil.finishUsingItem(tool);
     if (activeModifier != null) {
       activeModifier.getHook(TinkerHooks.CHARGEABLE_INTERACT).onStoppedUsing(tool, activeModifier, entityLiving, timeLeft);
       return;

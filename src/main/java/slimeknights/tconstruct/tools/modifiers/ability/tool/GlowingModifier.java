@@ -14,11 +14,14 @@ import slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteracti
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.impl.InteractionModifier.NoLevels;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
+import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.definition.module.ToolModuleHooks;
 import slimeknights.tconstruct.library.tools.definition.module.interaction.DualOptionInteraction;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.shared.TinkerCommons;
+
+import javax.annotation.Nullable;
 
 public class GlowingModifier extends NoLevels implements BlockInteractionModifierHook {
   @Override
@@ -56,5 +59,14 @@ public class GlowingModifier extends NoLevels implements BlockInteractionModifie
       return InteractionResult.sidedSuccess(context.getLevel().isClientSide);
     }
     return InteractionResult.PASS;
+  }
+
+  @Nullable
+  @Override
+  public Boolean removeBlock(IToolStackView tool, int level, ToolHarvestContext context) {
+    if (context.getState().is(TinkerCommons.glow.get()) && tool.getDefinitionData().getModule(ToolModuleHooks.INTERACTION).canInteract(tool, getId(), InteractionSource.LEFT_CLICK)) {
+      return false;
+    }
+    return null;
   }
 }
