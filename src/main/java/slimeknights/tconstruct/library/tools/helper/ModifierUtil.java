@@ -370,7 +370,7 @@ public final class ModifierUtil {
         instance.addTransientModifier(FAST_USE_ITEM);
       }
       if (living.level.isClientSide) {
-        living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).set(IModifiable.FAST_USE_ITEM, 0.4f));
+        living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.computeIfAbsent(TinkerDataKeys.SCALED_FOV_MODIFIER).set(IModifiable.FAST_USE_ITEM, 0.4f));
       }
     }
   }
@@ -382,7 +382,7 @@ public final class ModifierUtil {
       instance.removeModifier(FAST_USE_ITEM);
     }
     if (living.level.isClientSide) {
-      living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).remove(IModifiable.FAST_USE_ITEM));
+      living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.computeIfAbsent(TinkerDataKeys.SCALED_FOV_MODIFIER).remove(IModifiable.FAST_USE_ITEM));
     }
   }
 
