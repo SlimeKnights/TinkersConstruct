@@ -2,11 +2,11 @@
   "modifier_id": "tconstruct:reflecting",
   "text": [
     {
-      "text": "Projectiles are redirected in the direction you look when blocked within 2 seconds of deploying your shield. Each additional level grants an extra 2 seconds for reflecting."
+      "text": "举盾后2秒内，盾牌会将被格挡的弹射物向你的视线方向反弹出去。每级反弹判定时间+2秒。"
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Requires 1 ability slot"
+    "需要1个能力槽"
   ]
 }
