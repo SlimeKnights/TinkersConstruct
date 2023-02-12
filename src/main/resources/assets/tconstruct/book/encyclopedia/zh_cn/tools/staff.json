@@ -1,7 +1,7 @@
 {
-  "title": "Staffs",
+  "title": "黏液手杖",
   "text": [
-    { "text": "Staffs are highly modifiable tools. While they lack any melee potential the make up for it the wide range of abilities they can use on both interaction and attacking." },
-    { "text": "Staffs abilities can be configured using the modifier worktable.", "paragraph": true }
+    { "text": "黏液手杖是一类可接受多种强化的工具。尽管它们完全不能用于近战，但它们能接受许多种能用于交互和攻击的能力。" },
+    { "text": "黏液手杖的各能力可用强化调配台进行配置。", "paragraph": true }
   ]
 }

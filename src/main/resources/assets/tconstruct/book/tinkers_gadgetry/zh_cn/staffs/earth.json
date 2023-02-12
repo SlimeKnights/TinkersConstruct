@@ -1,12 +1,12 @@
 {
   "tool": "tconstruct:earth_staff",
   "text": [
-    { "text": "Using the power of green slime, you can make the most defensive of magic staffs." }
+    { "text": "运用绿色黏液的力量，就能制造出最具防御潜能的神奇手杖。" }
   ],
   "properties": [
-    "Mid Durability",
-    "2 Upgrade Slots",
-    "3 Defense Slots",
-    "2 Ability Slots"
+    "中等耐久度",
+    "2 升级槽",
+    "3 防御槽",
+    "2 能力槽"
   ]
 }

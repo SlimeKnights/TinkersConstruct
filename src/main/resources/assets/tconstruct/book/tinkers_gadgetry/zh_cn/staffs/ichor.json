@@ -1,11 +1,11 @@
 {
   "tool": "tconstruct:ichor_staff",
   "text": [
-    { "text": "Ichor is uncommon stuff, but allows making some of the strongest staffs." }
+    { "text": "灵浆不常见，但能创造出最为强大的手杖。" }
   ],
   "properties": [
-    "High Durability",
-    "2 Upgrade Slots",
-    "3 Ability Slots"
+    "高耐久度",
+    "2 升级槽",
+    "3 能力槽"
   ]
 }

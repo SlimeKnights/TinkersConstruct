@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:blocking",
   "text": [
     {
-      "text": "Your sword is now a shield, now just need a way to make your shield a sword."
+      "text": "你的剑已经变成了盾，现在只要找到一个把盾变成剑的方法就行了。"
     }
   ],
   "effects": [
-    "Allows you to block with your tool",
-    "Single Level",
-    "Requires 1 Ability Slot"
+    "允许使用工具格挡",
+    "单个等级",
+    "需要1个能力槽"
   ]
 }

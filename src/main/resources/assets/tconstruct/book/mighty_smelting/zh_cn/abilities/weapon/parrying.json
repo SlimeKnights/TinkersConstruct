@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:parrying",
   "text": [
     {
-      "text": "Use your crazy ninja skills to swipe attacks out of the air."
+      "text": "运用你的忍者绝技挡开各种攻击。"
     }
   ],
   "effects": [
-    "Allows daggers to briefly block after attacking",
-    "Single Level",
-    "Requires 1 Ability Slot"
+    "允许匕首在攻击后短时间内格挡攻击",
+    "单个等级",
+    "需要1个能力槽"
   ]
 }

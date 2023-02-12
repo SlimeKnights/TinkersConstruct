@@ -2124,9 +2124,9 @@
   "modifier.tconstruct.blocking": "格挡",
   "modifier.tconstruct.blocking.flavor": "今天不行！明天也不行！",
   "modifier.tconstruct.blocking.description": "手持工具交互可阻挡所受到的伤害",
-  "modifier.tconstruct.parrying": "Parrying",
-  "modifier.tconstruct.parrying.flavor": "Ninja reflexes",
-  "modifier.tconstruct.parrying.description": "Briefly block after attacking, allowing for deflection of many attacks",
+  "modifier.tconstruct.parrying": "招架",
+  "modifier.tconstruct.parrying.flavor": "忍者招式！",
+  "modifier.tconstruct.parrying.description": "攻击后能短暂格挡，从而能挡开多数攻击",
   "_comment": "Fluids",
   "modifier.tconstruct.melting": "熔炼",
   "modifier.tconstruct.melting.flavor": "木棍上的熔炼之力！",
@@ -2453,7 +2453,7 @@
 
   "_comment": "Internal modifiers",
   "modifier.tconstruct.overslime_friend": "黏液之友",
-  "modifier.tconstruct.snow_boots": "Snow Boots",
+  "modifier.tconstruct.snow_boots": "雪地靴",
   
 
   "_comment": "Internal effects",
@@ -2499,8 +2499,8 @@
   "tool_stat.tconstruct.attack_speed.description": "攻击速度计算所依据的基准值\n大致为每秒满蓄力攻击的次数",
   "tool_stat.tconstruct.durability": "耐久度：",
   "tool_stat.tconstruct.durability.description": "耐久度计算所依据的基准值\n通常是工具整体耐久不可或缺的一部分",
-  "tool_stat.tconstruct.use_item_speed": "Use Item Speed: ",
-  "tool_stat.tconstruct.use_item_speed.description": "Movement speed multiplier when using an item, such as a bow or a shield.",
+  "tool_stat.tconstruct.use_item_speed": "使用时移速：",
+  "tool_stat.tconstruct.use_item_speed.description": "使用物品（例如弓和盾牌）时移动速度的倍率",
 
   "stat.tconstruct.head": "顶端",
   "tool_stat.tconstruct.mining_speed": "采掘速度：",

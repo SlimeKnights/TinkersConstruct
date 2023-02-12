@@ -1,17 +1,17 @@
 {
   "tool": "tconstruct:plate_shield",
   "text": [
-    { "text": "Shiny blue shield for shiny blue adventures." },
+    { "text": "亮蓝色的盾牌，恰适亮蓝色的冒险。" },
     {
-      "text": "A powerful shield for blocking the strongest of attacks.", "paragraph": true
+      "text": "一面强大的盾牌，足以抵挡最强力的攻击。", "paragraph": true
     }
   ],
   "properties": [
-    "High Durability",
-    "High Block Potential",
-    "Low speed while shielding",
-    "1 Upgrade Slots",
-    "4 Defense Slots",
-    "1 Ability Slot"
+    "高耐久度",
+    "高格挡潜力",
+    "举盾时低移速",
+    "1 升级槽",
+    "4 防御槽",
+    "1 能力槽"
   ]
 }

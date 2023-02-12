@@ -2,15 +2,15 @@
   "modifier_id": "tconstruct:parrying",
   "text": [
     {
-      "text": "Allows using the tool as a shield briefly after attacking. "
+      "text": "允许在攻击后短时间内将工具用作盾牌。"
     },
     {
-      "text": "Most dagger block up to 10 damage, and do not slow the player while using."
+      "text": "大多数匕首能格挡最多10点伤害，且不会在招架时减缓移动速度。"
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Single level",
-    "Requires 1 ability slot"
+    "单个等级",
+    "需要1个能力槽"
   ]
 }

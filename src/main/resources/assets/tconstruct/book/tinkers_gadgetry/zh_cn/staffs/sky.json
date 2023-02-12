@@ -1,11 +1,11 @@
 {
   "tool": "tconstruct:sky_staff",
   "text": [
-    { "text": "Skyslime staffs leave a lot of room for modification." }
+    { "text": "碧空黏液手杖给进一步强化留下了许多空间。" }
   ],
   "properties": [
-    "Low Durability",
-    "5 Upgrade Slots",
-    "2 Ability Slots"
+    "低耐久度",
+    "5 升级槽",
+    "2 能力槽"
   ]
 }

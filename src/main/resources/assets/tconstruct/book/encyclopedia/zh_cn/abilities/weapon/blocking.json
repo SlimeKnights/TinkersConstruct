@@ -2,15 +2,15 @@
   "modifier_id": "tconstruct:blocking",
   "text": [
     {
-      "text": "Allows using the tool as a shield, blocking many potential attacks. "
+      "text": "允许将工具用作盾牌，从而能格挡多种攻击。"
     },
     {
-      "text": "Most tools can block up to 5 damage, but some (such as staffs) can block amounts in the range of 15 to 20 damage."
+      "text": "大部分工具最多能格挡5点伤害，而某些工具（例如黏液手杖）则能格挡15到20点的伤害。"
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Single level",
-    "Requires 1 ability slot"
+    "单个等级",
+    "需要1个能力槽"
   ]
 }
