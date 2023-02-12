@@ -424,11 +424,11 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
     define(ArmorDefinitions.TRAVELERS_SHIELD)
       .stat(ToolStats.DURABILITY, 200)
       .stat(ToolStats.BLOCK_AMOUNT, 10)
+      .stat(ToolStats.USE_ITEM_SPEED, 0.8f)
       .startingSlots(SlotType.UPGRADE, 3)
       .startingSlots(SlotType.DEFENSE, 2)
       .startingSlots(SlotType.ABILITY, 1)
       .trait(TinkerModifiers.blocking)
-      .trait(ModifierIds.fastUseItem)
       .module(ToolModuleHooks.INTERACTION, new PreferenceSetInteraction(InteractionSource.RIGHT_CLICK, new SingleModifierPredicate(TinkerModifiers.blocking.getId())));
 
     // plate armor

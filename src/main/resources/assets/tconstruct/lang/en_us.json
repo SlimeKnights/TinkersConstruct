@@ -2449,7 +2449,6 @@
   "modifier.tconstruct.the_one_probe.description": "Shows information about the targeted block when held or on a helmet.",
 
   "_comment": "Internal modifiers",
-  "modifier.tconstruct.fast_use_item": "Fast Use Item",
   "modifier.tconstruct.overslime_friend": "Overslime Friend",
 
 
@@ -2496,6 +2495,8 @@
   "tool_stat.tconstruct.attack_speed.description": "Base value for attack speed calculations.\nRoughly full strength attacks per second.",
   "tool_stat.tconstruct.durability": "Durability: ",
   "tool_stat.tconstruct.durability.description": "The base-value for durability calculations.\nUsually an integral part to the overall durability of a tool.",
+  "tool_stat.tconstruct.use_item_speed": "Use Item Speed: ",
+  "tool_stat.tconstruct.use_item_speed.description": "Movement speed multiplier when using an item, such as a bow or a shield.",
 
   "stat.tconstruct.head": "Head",
   "tool_stat.tconstruct.mining_speed": "Mining Speed: ",

@@ -1,8 +1,0 @@
-{
-  "type": "tconstruct:stat_boost",
-  "level_display": "tconstruct:default",
-  "flags": [
-    "tconstruct:fast_use_item"
-  ],
-  "modifier_display": "never"
-}
