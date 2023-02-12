@@ -295,6 +295,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .stat(ToolStats.ATTACK_SPEED, 2.0f)
       .multiplier(ToolStats.MINING_SPEED, 0.75f)
       .multiplier(ToolStats.DURABILITY, 0.75f)
+      .stat(ToolStats.BLOCK_AMOUNT, 10)
+      .stat(ToolStats.USE_ITEM_SPEED, 1.0f)
       .smallToolStartingSlots()
       // traits
       .trait(TinkerModifiers.padded, 1)

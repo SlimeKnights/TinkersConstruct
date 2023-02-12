@@ -21,6 +21,7 @@
     "__interaction_abilities__": null,
     "blocking":    "#755A30",
     "firestarter": "#5D342C",
+    "parrying":    "#755A30",
     "pathing":     "#8a361e",
     "stripping":   "#ab7a55",
     "tilling":     "#633c1e",
