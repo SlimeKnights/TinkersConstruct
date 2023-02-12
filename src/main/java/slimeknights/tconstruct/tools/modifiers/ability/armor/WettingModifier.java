@@ -5,6 +5,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlot.Type;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.fluids.FluidAttributes;
@@ -48,8 +49,8 @@ public class WettingModifier extends TankModifier {
   public void onAttacked(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
     Entity attacker = source.getEntity();
     if (doesTrigger(source, isDirectDamage)) {
-      // 25% chance of working per level
-      if (RANDOM.nextInt(4) < level) {
+      // 25% chance of working per level, 50% per level on shields
+      if (RANDOM.nextInt(slotType.getType() == Type.HAND ? 2 : 4) < level) {
         FluidStack fluid = getFluid(tool);
         if (!fluid.isEmpty()) {
           LivingEntity self = context.getEntity();

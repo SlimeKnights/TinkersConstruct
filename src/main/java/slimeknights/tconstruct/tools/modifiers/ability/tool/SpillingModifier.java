@@ -79,8 +79,9 @@ public class SpillingModifier extends WettingModifier implements EntityInteracti
           int numTargets = 1;
           int expanded = tool.getModifierLevel(TinkerModifiers.expanded.get());
           if (expanded > 0 && !fluid.isEmpty()) {
-            int rangeSq = expanded * expanded;
-            for (Entity aoeTarget : player.level.getEntitiesOfClass(Entity.class, target.getBoundingBox().inflate(expanded, 0.25, expanded))) {
+            float range = expanded * 1.5f;
+            float rangeSq = range * range;
+            for (Entity aoeTarget : player.level.getEntitiesOfClass(Entity.class, target.getBoundingBox().inflate(range, 0.25, range))) {
               if (aoeTarget != player && aoeTarget != target && !(aoeTarget instanceof ArmorStand stand && stand.isMarker()) && target.distanceToSqr(aoeTarget) < rangeSq) {
                 numTargets++;
                 context = new ToolAttackContext(player, player, hand, aoeTarget, aoeTarget instanceof LivingEntity l ? l : null, false, 1.0f, true);
