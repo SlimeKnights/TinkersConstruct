@@ -1,4 +1,5 @@
 {
   "type": "tconstruct:tool_building",
-  "result": "tconstruct:hand_axe"
+  "result": "tconstruct:hand_axe",
+  "result_count": 1
 }
