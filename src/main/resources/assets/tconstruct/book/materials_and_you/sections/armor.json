@@ -18,5 +18,10 @@
     "name": "travelers_boots",
     "type": "tconstruct:tool",
     "data": "armor/boots.json"
+  },
+  {
+    "name": "travelers_shield",
+    "type": "tconstruct:tool",
+    "data": "armor/shield.json"
   }
 ]
