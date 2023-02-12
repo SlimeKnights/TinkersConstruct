@@ -2046,6 +2046,7 @@
   "modifier.tconstruct.reflecting": "反弹",
   "modifier.tconstruct.reflecting.flavor": "弹性盾牌！",
   "modifier.tconstruct.reflecting.description": "举盾后短时间内允许反弹弹射物",
+
   
   "_comment": "Abilities",
   "modifier.tconstruct.unbreakable": "不毁",
@@ -2448,8 +2449,8 @@
   "modifier.tconstruct.the_one_probe.description": "当手持或者附加于头盔时，能够显示指向方块的信息",
 
   "_comment": "Internal modifiers",
-  "modifier.tconstruct.fast_use_item": "快速使用",
   "modifier.tconstruct.overslime_friend": "黏液之友",
+  "modifier.tconstruct.snow_boots": "Snow Boots",
   
 
   "_comment": "Internal effects",
@@ -2495,6 +2496,8 @@
   "tool_stat.tconstruct.attack_speed.description": "攻击速度计算所依据的基准值\n大致为每秒满蓄力攻击的次数",
   "tool_stat.tconstruct.durability": "耐久度：",
   "tool_stat.tconstruct.durability.description": "耐久度计算所依据的基准值\n通常是工具整体耐久不可或缺的一部分",
+  "tool_stat.tconstruct.use_item_speed": "Use Item Speed: ",
+  "tool_stat.tconstruct.use_item_speed.description": "Movement speed multiplier when using an item, such as a bow or a shield.",
 
   "stat.tconstruct.head": "顶端",
   "tool_stat.tconstruct.mining_speed": "采掘速度：",

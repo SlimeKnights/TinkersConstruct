@@ -3,6 +3,9 @@
   "text": [
     {
       "text": "被攻击时，有一定概率对攻击者造成1到4点伤害，每级的概率+15%。多件盔甲的效果会叠加。"
+    },
+    {
+      "text": "Shields are twice as effective but only work when blocking.", "paragraph": true
     }
   ],
   "more_text_space": true,

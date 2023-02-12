@@ -5,7 +5,7 @@
       "text": "有一定概率对攻击者造成最多1.5秒（每级+1秒）的减速效果，每级概率+25%。效果由强化等级最高的盔甲决定。"
     },
     {
-      "text": "应用于武器时，效果作用于攻击目标。", "paragraph": true
+      "text": "应用于武器时，效果作用于攻击目标。Shields are twice as effective but only work when blocking.", "paragraph": true
     }
   ],
   "more_text_space": true,

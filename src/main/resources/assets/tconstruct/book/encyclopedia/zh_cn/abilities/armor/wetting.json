@@ -2,10 +2,10 @@
   "modifier_id": "tconstruct:wetting",
   "text": [
     {
-      "text": "在受到伤害时排出少量液体（通常在10mB到50mB之间），可以获得点燃、生命恢复等效果或清除身上的状态效果。"
+      "text": "在受到伤害时排出少量液体（通常在10mB到50mB之间），可以获得点燃、生命恢复等效果或清除身上的状态效果。Only works while blocking for shields."
     },
     {
-      "text": "手持护腿右击储罐或排液孔可以填充流体。", "paragraph": true
+      "text": "手持工具右击储罐或排液孔可以填充流体。", "paragraph": true
     }
   ],
   "more_text_space": true,
