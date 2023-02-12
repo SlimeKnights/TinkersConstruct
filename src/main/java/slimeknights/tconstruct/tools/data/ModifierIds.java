@@ -68,6 +68,7 @@ public class ModifierIds {
 
   // internal
   public static final ModifierId overslimeFriend = id("overslime_friend");
+  public static final ModifierId snowBoots = id("snow_boots");
 
 
   // traits - tier 1

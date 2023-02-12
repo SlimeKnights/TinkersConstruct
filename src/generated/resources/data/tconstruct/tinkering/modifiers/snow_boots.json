@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:stat_boost",
+  "level_display": "tconstruct:default",
+  "flags": [
+    "tconstruct:snow_boots"
+  ],
+  "modifier_display": "never"
+}

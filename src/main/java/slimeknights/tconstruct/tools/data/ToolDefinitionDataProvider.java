@@ -420,7 +420,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ArmorSlotType.CHESTPLATE, ToolStats.ATTACK_DAMAGE, 0.55f)
       .startingSlots(SlotType.UPGRADE, 3)
       .startingSlots(SlotType.DEFENSE, 2)
-      .startingSlots(SlotType.ABILITY, 1);
+      .startingSlots(SlotType.ABILITY, 1)
+      .trait(ArmorSlotType.BOOTS, ModifierIds.snowBoots);
     define(ArmorDefinitions.TRAVELERS_SHIELD)
       .stat(ToolStats.DURABILITY, 200)
       .stat(ToolStats.BLOCK_AMOUNT, 10)

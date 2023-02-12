@@ -191,6 +191,7 @@ public class ModifierProvider extends AbstractModifierProvider {
 
     // internal
     addModifier(ModifierIds.overslimeFriend, StatBoostModifier.builder().addFlag(OverslimeModifier.KEY_OVERSLIME_FRIEND).modifierDisplay(ModifierDisplay.NEVER).build());
+    addModifier(ModifierIds.snowBoots, StatBoostModifier.builder().addFlag(ModifiableArmorItem.SNOW_BOOTS).modifierDisplay(ModifierDisplay.NEVER).build());
 
     // traits - tier 1
     addModifier(ModifierIds.stringy, new Modifier());
