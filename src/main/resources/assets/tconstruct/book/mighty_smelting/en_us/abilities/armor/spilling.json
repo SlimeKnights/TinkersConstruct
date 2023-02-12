@@ -9,7 +9,7 @@
     }
   ],
   "effects": [
-    "Drains tank on attacking",
+    "Drains tank when attacked, must be blocking for shields",
     "Various effects based on fluid, including fire and poison",
     "Requires 1 Ability Slot per level"
   ]

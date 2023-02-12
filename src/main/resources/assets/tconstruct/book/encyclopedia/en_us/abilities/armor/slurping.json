@@ -5,7 +5,7 @@
       "text": "Allows drinking fluid contained in the helmet to perform effects using the helmet keybind, such as lighting yourself on fire, clearing status effects, or restoring hunger."
     },
     {
-      "text": "Helmet can be filled with fluid by interacting with a tank or drain while holding it.", "paragraph": true
+      "text": "Tool can be filled with fluid by interacting with a tank or drain while holding it.", "paragraph": true
     }
   ],
   "more_text_space": true,

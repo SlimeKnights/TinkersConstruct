@@ -5,6 +5,7 @@
     { "text": "\n- Helmets can be controlled using a keybinding for special effects." },
     { "text": "\n- Chestplates can receive interaction abilities that are used when hands are empty. Most are covered in the interaction section." },
     { "text": "\n- Leggings have inventory based abilities and passive boosts to the player." },
-    { "text": "\n- Boots provide movement and jump based abilities." }
+    { "text": "\n- Boots provide movement and jump based abilities." },
+    { "text": "\n- Shields are more effective at counterattacks, but some modifiers only work when blocking." }
   ]
 }

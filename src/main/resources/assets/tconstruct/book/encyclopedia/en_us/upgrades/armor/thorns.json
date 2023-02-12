@@ -3,6 +3,9 @@
   "text": [
     {
       "text": "Has a 15% chance per level to apply 1 to 4 damage to the attacker. Multiple pieces will stack the effect."
+    },
+    {
+      "text": "Shields are twice as effective but only work when blocking.", "paragraph": true
     }
   ],
   "more_text_space": true,
