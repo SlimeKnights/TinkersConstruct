@@ -1,0 +1,12 @@
+{
+  "tool": "tconstruct:earth_staff",
+  "text": [
+    { "text": "Using the power of green slime, you can make the most defensive of magic staffs." }
+  ],
+  "properties": [
+    "Mid Durability",
+    "2 Upgrade Slots",
+    "3 Defense Slots",
+    "2 Ability Slots"
+  ]
+}

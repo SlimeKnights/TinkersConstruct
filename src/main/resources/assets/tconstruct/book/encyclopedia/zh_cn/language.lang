@@ -3,6 +3,7 @@ intro=介绍
 tools=工具
 tools.group_small=小型工具
 tools.group_large=宽型工具
+tools.group_staff=Staffs
 armor=盔甲
 
 materials_harvest_1=一级近程材料
