@@ -388,7 +388,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
     // staff
     define(ToolDefinitions.SKY_STAFF)
       .stat(ToolStats.DURABILITY, 375)
-      .stat(ToolStats.BLOCK_AMOUNT, 8)
+      .stat(ToolStats.BLOCK_AMOUNT, 15)
+      .stat(ToolStats.USE_ITEM_SPEED, 0.5f)
       .startingSlots(SlotType.UPGRADE, 5)
       .startingSlots(SlotType.ABILITY, 2)
       .trait(ModifierIds.overslimeFriend)
@@ -396,7 +397,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .module(ToolModuleHooks.INTERACTION, DualOptionInteraction.INSTANCE);
     define(ToolDefinitions.EARTH_STAFF)
       .stat(ToolStats.DURABILITY, 800)
-      .stat(ToolStats.BLOCK_AMOUNT, 13)
+      .stat(ToolStats.BLOCK_AMOUNT, 20)
+      .stat(ToolStats.USE_ITEM_SPEED, 0.5f)
       .startingSlots(SlotType.UPGRADE, 2)
       .startingSlots(SlotType.DEFENSE, 3)
       .startingSlots(SlotType.ABILITY, 2)
@@ -405,7 +407,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .module(ToolModuleHooks.INTERACTION, DualOptionInteraction.INSTANCE);
     define(ToolDefinitions.ICHOR_STAFF)
       .stat(ToolStats.DURABILITY, 1225)
-      .stat(ToolStats.BLOCK_AMOUNT, 6)
+      .stat(ToolStats.BLOCK_AMOUNT, 15)
+      .stat(ToolStats.USE_ITEM_SPEED, 0.5f)
       .startingSlots(SlotType.UPGRADE, 2)
       .startingSlots(SlotType.ABILITY, 3)
       .trait(ModifierIds.overslimeFriend)
