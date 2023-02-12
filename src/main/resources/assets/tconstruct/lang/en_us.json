@@ -2124,6 +2124,9 @@
   "modifier.tconstruct.blocking": "Blocking",
   "modifier.tconstruct.blocking.flavor": "The non-cube type",
   "modifier.tconstruct.blocking.description": "Interacting with the tool will allow blocking incoming damage",
+  "modifier.tconstruct.parrying": "Parrying",
+  "modifier.tconstruct.parrying.flavor": "Ninja reflexes",
+  "modifier.tconstruct.parrying.description": "Briefly block after attacking, allowing for deflection of many attacks",
   "_comment": "Fluids",
   "modifier.tconstruct.melting": "Melting",
   "modifier.tconstruct.melting.flavor": "The power of a Melter on a stick!",
@@ -2449,8 +2452,8 @@
   "modifier.tconstruct.the_one_probe.description": "Shows information about the targeted block when held or on a helmet.",
 
   "_comment": "Internal modifiers",
-  "modifier.tconstruct.fast_use_item": "Fast Use Item",
   "modifier.tconstruct.overslime_friend": "Overslime Friend",
+  "modifier.tconstruct.snow_boots": "Snow Boots",
 
 
   "_comment": "Internal effects",
@@ -2496,6 +2499,8 @@
   "tool_stat.tconstruct.attack_speed.description": "Base value for attack speed calculations.\nRoughly full strength attacks per second.",
   "tool_stat.tconstruct.durability": "Durability: ",
   "tool_stat.tconstruct.durability.description": "The base-value for durability calculations.\nUsually an integral part to the overall durability of a tool.",
+  "tool_stat.tconstruct.use_item_speed": "Use Item Speed: ",
+  "tool_stat.tconstruct.use_item_speed.description": "Movement speed multiplier when using an item, such as a bow or a shield.",
 
   "stat.tconstruct.head": "Head",
   "tool_stat.tconstruct.mining_speed": "Mining Speed: ",
@@ -2638,9 +2643,9 @@
   "recipe.tconstruct.invisible_modifiers.removing.description": "Select a hidden modifier to make it show in the tool's model again",
 
   "modifier.tconstruct.attack_toggled": "%s (Attack)",
-  "recipe.tconstruct.attack_modifiers.adding.title": "Toggle Interaction Modifier",
+  "recipe.tconstruct.attack_modifiers.adding.title": "Toggle Interaction",
   "recipe.tconstruct.attack_modifiers.adding.description": "Switches an interaction modifier from activating on interaction to attack",
-  "recipe.tconstruct.attack_modifiers.removing.title": "Toggle Interaction Modifier",
+  "recipe.tconstruct.attack_modifiers.removing.title": "Toggle Interaction",
   "recipe.tconstruct.attack_modifiers.removing.description": "Switches an interaction modifier back to activating on interaction",
 
   "recipe.tconstruct.extract_modifier.title": "Extract Modifier",

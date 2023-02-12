@@ -17,9 +17,14 @@
       "tag": "forge:ingots/copper"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/armor/leggings"
-  },
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/armor/leggings"
+    },
+    {
+      "tag": "tconstruct:modifiable/shields"
+    }
+  ],
   "slots": {
     "abilities": 1
   },

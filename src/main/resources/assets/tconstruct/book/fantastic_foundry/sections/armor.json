@@ -18,5 +18,10 @@
     "name": "plate_boots",
     "type": "tconstruct:tool",
     "data": "armor/boots.json"
+  },
+  {
+    "name": "plate_shield",
+    "type": "tconstruct:tool",
+    "data": "armor/shield.json"
   }
 ]

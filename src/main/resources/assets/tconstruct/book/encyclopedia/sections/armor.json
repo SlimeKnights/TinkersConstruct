@@ -25,6 +25,11 @@
     "type": "tconstruct:tool",
     "data": "armor/travelers/boots.json"
   },
+  {
+    "name": "travelers_shield",
+    "type": "tconstruct:tool",
+    "data": "armor/travelers/shield.json"
+  },
 
   {
     "name": "plate_helmet",
@@ -45,6 +50,11 @@
     "name": "plate_boots",
     "type": "tconstruct:tool",
     "data": "armor/plate/boots.json"
+  },
+  {
+    "name": "plate_shield",
+    "type": "tconstruct:tool",
+    "data": "armor/plate/shield.json"
   },
 
   {

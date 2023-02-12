@@ -1,0 +1,11 @@
+{
+  "tool": "tconstruct:ichor_staff",
+  "text": [
+    { "text": "Ichor is uncommon stuff, but allows making some of the strongest staffs." }
+  ],
+  "properties": [
+    "High Durability",
+    "2 Upgrade Slots",
+    "3 Ability Slots"
+  ]
+}

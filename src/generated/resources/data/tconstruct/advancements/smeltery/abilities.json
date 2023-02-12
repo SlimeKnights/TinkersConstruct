@@ -478,6 +478,34 @@
         ]
       }
     },
+    "blocking": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:blocking",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
+    "parrying": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool",
+            "modifiers": {
+              "name": "tconstruct:parrying",
+              "level": 1
+            }
+          }
+        ]
+      }
+    },
     "crystalshot": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
@@ -634,6 +662,12 @@
     ],
     [
       "spilling"
+    ],
+    [
+      "blocking"
+    ],
+    [
+      "parrying"
     ],
     [
       "crystalshot"

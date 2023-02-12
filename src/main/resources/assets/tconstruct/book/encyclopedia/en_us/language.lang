@@ -3,6 +3,7 @@ intro=Introduction
 tools=Tools
 tools.group_small=Small Tools
 tools.group_large=Broad Tools
+tools.group_staff=Staffs
 armor=Armor
 
 materials_harvest_1=Tier 1 Melee Harvest Materials

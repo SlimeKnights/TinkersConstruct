@@ -1,4 +1,5 @@
 {
   "type": "tconstruct:tool_building",
-  "result": "tconstruct:broad_axe"
+  "result": "tconstruct:broad_axe",
+  "result_count": 1
 }

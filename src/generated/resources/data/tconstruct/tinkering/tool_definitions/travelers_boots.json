@@ -9,5 +9,11 @@
     "upgrades": 3,
     "defense": 2,
     "abilities": 1
-  }
+  },
+  "traits": [
+    {
+      "name": "tconstruct:snow_boots",
+      "level": 1
+    }
+  ]
 }

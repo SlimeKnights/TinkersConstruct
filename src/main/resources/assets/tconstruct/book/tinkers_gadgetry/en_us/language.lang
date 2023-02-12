@@ -21,5 +21,8 @@ exploration.enderslime_geode=Enderslime
 armor=Armor
 armor.subtext=Mixing slime with various mob parts produces an interesting set of armor. Its not the most defensive, but it can really enhance your abilities.
 
+staffs=Staffs
+staffs.subtext=Combining slime crystals and slime wood aids in creation of very flexible tools. Just need a bit of metal to hold the whole thing together.
+
 materials=Skull Materials
 materials.subtext=Placing one of these skulls in a casting basin and adding enderslime can enhance their ability as a helmet.

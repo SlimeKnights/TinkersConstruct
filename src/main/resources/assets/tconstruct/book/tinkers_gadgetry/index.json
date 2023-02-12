@@ -28,6 +28,13 @@
     }
   },
   {
+    "name": "staffs",
+    "data": "sections/staffs.json",
+    "icon": {
+      "item": "tconstruct:sky_staff"
+    }
+  },
+  {
     "name": "armor",
     "data": "sections/armor.json",
     "icon": {

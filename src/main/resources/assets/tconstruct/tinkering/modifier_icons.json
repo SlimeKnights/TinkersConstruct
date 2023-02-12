@@ -51,6 +51,7 @@
   "tconstruct:knockback":       "tconstruct:gui/modifiers/melee/knockback",
   "tconstruct:necrotic":        "tconstruct:gui/modifiers/melee/necrotic",
   "tconstruct:padded":          "tconstruct:gui/modifiers/melee/padded",
+  "tconstruct:parrying":        "tconstruct:gui/modifiers/melee/parrying",
   "tconstruct:severing":        "tconstruct:gui/modifiers/melee/severing",
   "tconstruct:sweeping_edge":   "tconstruct:gui/modifiers/melee/sweeping",
   "tconstruct:spilling":        "tconstruct:gui/modifiers/melee/spilling",

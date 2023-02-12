@@ -18,7 +18,13 @@
     }
   ],
   "tools": {
-    "tag": "tconstruct:modifiable/interactable/right"
+    "type": "forge:difference",
+    "base": {
+      "tag": "tconstruct:modifiable/interactable/right"
+    },
+    "subtracted": {
+      "tag": "tconstruct:modifiable/melee/parry"
+    }
   },
   "slots": {
     "abilities": 1

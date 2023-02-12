@@ -61,6 +61,8 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
   public static final ResourceLocation PIGLIN_NEUTRAL = TConstruct.getResource("piglin_neutral");
   /** Volatile modifier tag to make this item an elytra */
   public static final ResourceLocation ELYTRA = TConstruct.getResource("elyta");
+  /** Volatile flag for a boot item to walk on powdered snow. Cold immunity is handled through a tag */
+  public static final ResourceLocation SNOW_BOOTS = TConstruct.getResource("snow_boots");
 
   @Getter
   private final ToolDefinition toolDefinition;
@@ -100,6 +102,11 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
   @Override
   public boolean makesPiglinsNeutral(ItemStack stack, LivingEntity wearer) {
     return ModifierUtil.checkVolatileFlag(stack, PIGLIN_NEUTRAL);
+  }
+
+  @Override
+  public boolean canWalkOnPowderedSnow(ItemStack stack, LivingEntity wearer) {
+    return slot == EquipmentSlot.FEET && ModifierUtil.checkVolatileFlag(stack, SNOW_BOOTS);
   }
 
   @Override

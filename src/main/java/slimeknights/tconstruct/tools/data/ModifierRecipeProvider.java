@@ -479,7 +479,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.sweeping)
                                     .setTools(TinkerTags.Items.SWORD)
                                     .setInput(Blocks.CHAIN, 1, 18) // every 9 is 11 ingots, so this is 22 ingots
-                                    .setMaxLevel(4) // goes 25%, 50%, 75%, 100%
+                                    .setMaxLevel(3) // goes 25%, 50%, 75%
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .saveSalvage(consumer, prefix(TinkerModifiers.sweeping, upgradeSalvage))
                                     .save(consumer, prefix(TinkerModifiers.sweeping, upgradeFolder));
@@ -967,7 +967,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Tags.Items.INGOTS_COPPER)
                          .addInput(Tags.Items.INGOTS_COPPER)
                          .setSlots(SlotType.ABILITY, 1)
-                         .setTools(TinkerTags.Items.LEGGINGS)
+                         .setTools(ingredientFromTags(TinkerTags.Items.LEGGINGS, TinkerTags.Items.SHIELDS))
                          .saveSalvage(consumer, prefix(TinkerModifiers.wetting, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.wetting, abilityFolder));
     // boots
@@ -1205,13 +1205,13 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Tags.Items.INGOTS_COPPER)
                          .addInput(Tags.Items.INGOTS_COPPER)
                          .setSlots(SlotType.ABILITY, 1)
-                         .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.CHESTPLATES, TinkerTags.Items.STAFFS))
+                         .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.CHESTPLATES, TinkerTags.Items.STAFFS, TinkerTags.Items.SHIELDS))
                          .saveSalvage(consumer, prefix(TinkerModifiers.spilling, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.spilling, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.tank)
                          .addInput(TinkerTags.Items.TANKS)
                          .setSlots(SlotType.UPGRADE, 1)
-                         .setTools(ingredientFromTags(TinkerTags.Items.INTERACTABLE, TinkerTags.Items.HELMETS, TinkerTags.Items.CHESTPLATES, TinkerTags.Items.LEGGINGS))
+                         .setTools(ingredientFromTags(TinkerTags.Items.INTERACTABLE, TinkerTags.Items.HELMETS, TinkerTags.Items.CHESTPLATES, TinkerTags.Items.LEGGINGS, TinkerTags.Items.SHIELDS))
                          .saveSalvage(consumer, prefix(TinkerModifiers.tank, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.tank, upgradeFolder));
     // expanders
@@ -1322,7 +1322,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(TinkerModifiers.dualWielding, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.dualWielding, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.blocking)
-                         .setTools(TinkerTags.Items.INTERACTABLE_RIGHT)
+                         .setTools(DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.INTERACTABLE_RIGHT), Ingredient.of(TinkerTags.Items.PARRY)))
                          .addInput(ItemTags.PLANKS)
                          .addInput(TinkerMaterials.cobalt.getIngotTag())
                          .addInput(ItemTags.PLANKS)
@@ -1332,6 +1332,15 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.ABILITY, 1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.blocking, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.blocking, abilityFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.parrying)
+                         .setTools(TinkerTags.Items.PARRY)
+                         .addInput(ItemTags.PLANKS)
+                         .addInput(TinkerMaterials.cobalt.getIngotTag())
+                         .addInput(ItemTags.PLANKS)
+                         .setMaxLevel(1)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .saveSalvage(consumer, prefix(TinkerModifiers.parrying, abilitySalvage))
+                         .save(consumer, prefix(TinkerModifiers.parrying, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.reflecting)
                          .setTools(TinkerTags.Items.SHIELDS)
                          .addInput(TinkerWorld.congealedSlime.get(SlimeType.SKY),   4)
