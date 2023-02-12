@@ -398,8 +398,8 @@ public class TooltipUtil {
       builder.addOptional(ToolStats.ARMOR_TOUGHNESS);
       builder.addOptional(ToolStats.KNOCKBACK_RESISTANCE, 10f);
     }
-    // TODO: should show for parry too probably, not sure of a good way to do so
-    if (tool.getModifierLevel(TinkerModifiers.blocking.getId()) > 0) {
+    // TODO: should this be a tag? or a volatile flag?
+    if (tool.getModifierLevel(TinkerModifiers.blocking.getId()) > 0 || tool.getModifierLevel(TinkerModifiers.parrying.getId()) > 0) {
       builder.add(ToolStats.BLOCK_AMOUNT);
       builder.add(ToolStats.BLOCK_ANGLE);
     }
