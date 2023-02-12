@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:spilling",
   "text": [
     {
-      "text": "Drains a small amount of fluid (typically between 10 mb to 50 mb) to boost attacks or counterattacks with special effects, such as fire, bonus damage, or potion effects. "
+      "text": "Drains a small amount of fluid (typically between 10 mb to 50 mb) to boost attacks with special effects, such as fire, bonus damage, or potion effects. "
     },
     {
       "text": "Tool can be filled with fluid by interacting with a tank or drain while holding the tool."

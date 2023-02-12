@@ -2,10 +2,10 @@
   "modifier_id": "tconstruct:wetting",
   "text": [
     {
-      "text": "Drains a small amount of fluid (typically between 10 mb to 50 mb) when damaged to apply effects such as fire, healing, or clearing status effects. "
+      "text": "Drains a small amount of fluid (typically between 10 mb to 50 mb) when damaged to apply effects such as fire, healing, or clearing status effects. Only works while blocking for shields. "
     },
     {
-      "text": "Leggings can be filled with fluid interacting with a tank or drain while holding it.", "paragraph": true
+      "text": "Tool can be filled with fluid interacting with a tank or drain while holding it.", "paragraph": true
     }
   ],
   "more_text_space": true,

@@ -1,0 +1,17 @@
+[
+  {
+    "name": "sky_staff",
+    "type": "tconstruct:tool",
+    "data": "staffs/sky.json"
+  },
+  {
+    "name": "earth_staff",
+    "type": "tconstruct:tool",
+    "data": "staffs/earth.json"
+  },
+  {
+    "name": "ichor_staff",
+    "type": "tconstruct:tool",
+    "data": "staffs/ichor.json"
+  }
+]

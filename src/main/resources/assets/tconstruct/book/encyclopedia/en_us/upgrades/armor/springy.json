@@ -3,6 +3,9 @@
   "text": [
     {
       "text": "Has a 25% chance per level to apply up to 2 blocks of knockback per level to the attacker. Applies effect from the piece with the largest bonus."
+    },
+    {
+      "text": "Shields are twice as effective but only work when blocking.", "paragraph": true
     }
   ],
   "more_text_space": true,

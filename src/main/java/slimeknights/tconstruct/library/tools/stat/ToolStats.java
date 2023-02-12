@@ -23,6 +23,8 @@ public class ToolStats {
 
   /** Tools durability, determines how long it lasts */
   public static final FloatToolStat DURABILITY = register(new FloatToolStat(name("durability"), 0xFF47CC47, 1, 1, Integer.MAX_VALUE, TinkerTags.Items.DURABILITY));
+  /** Movement speed percentage when using this item, applicable to charging tools, pulling back bows, and shield blocking among other actions */
+  public static final FloatToolStat USE_ITEM_SPEED = register(new FloatToolStat(name("use_item_speed"), 0xFF78A0CD, 0.2f, 0, 1, TinkerTags.Items.HELD));
 
   // melee
   /** Tools attack damage for melee */

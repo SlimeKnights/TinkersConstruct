@@ -40,6 +40,9 @@
     },
     {
       "tag": "tconstruct:modifiable/staffs"
+    },
+    {
+      "tag": "tconstruct:modifiable/shields"
     }
   ],
   "slots": {
