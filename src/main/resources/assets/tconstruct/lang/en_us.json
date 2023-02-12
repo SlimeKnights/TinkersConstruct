@@ -2640,9 +2640,9 @@
   "recipe.tconstruct.invisible_modifiers.removing.description": "Select a hidden modifier to make it show in the tool's model again",
 
   "modifier.tconstruct.attack_toggled": "%s (Attack)",
-  "recipe.tconstruct.attack_modifiers.adding.title": "Toggle Interaction Modifier",
+  "recipe.tconstruct.attack_modifiers.adding.title": "Toggle Interaction",
   "recipe.tconstruct.attack_modifiers.adding.description": "Switches an interaction modifier from activating on interaction to attack",
-  "recipe.tconstruct.attack_modifiers.removing.title": "Toggle Interaction Modifier",
+  "recipe.tconstruct.attack_modifiers.removing.title": "Toggle Interaction",
   "recipe.tconstruct.attack_modifiers.removing.description": "Switches an interaction modifier back to activating on interaction",
 
   "recipe.tconstruct.extract_modifier.title": "Extract Modifier",

@@ -53,5 +53,15 @@
     "name": "extract_ability",
     "type": "mantle:image_text",
     "data": "modifiers/extract_ability.json"
+  },
+  {
+    "name": "toggle_interaction",
+    "type": "mantle:image_text",
+    "data": "modifiers/toggle_interaction.json"
+  },
+  {
+    "name": "untoggle_interaction",
+    "type": "mantle:image_text",
+    "data": "modifiers/untoggle_interaction.json"
   }
 ]
