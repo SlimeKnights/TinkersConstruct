@@ -1,0 +1,16 @@
+{
+  "parent": "tconstruct:item/base/shield",
+  "gui_light": "front",
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [ 0, 90, 0 ],
+      "translation": [ 2, 5, 4 ],
+      "scale": [ 1, 1, 1 ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [ 0, -90, 0 ],
+      "translation": [ 2, 5, 4 ],
+      "scale": [ 1, 1, 1 ]
+    }
+  }
+}

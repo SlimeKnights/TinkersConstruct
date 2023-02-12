@@ -1,14 +1,16 @@
 package slimeknights.tconstruct.library.modifiers;
 
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.hook.ArmorWalkModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.BlockTransformModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.BowAmmoModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.BlockTransformModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ElytraFlightModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.HarvestEnchantmentsModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.KeybindInteractModifierHook;
@@ -36,6 +38,8 @@ import java.util.function.Function;
 @SuppressWarnings({"deprecation", "SameParameterValue"})
 public class TinkerHooks {
   private TinkerHooks() {}
+
+  public static void init() {}
 
 
   /* General */
@@ -102,8 +106,16 @@ public class TinkerHooks {
 
   /* Interaction */
 
-  /** Hook for interactions not targeting blocks or entities. Needed for charge attacks, but other hooks may be better for most interactions */
+  /** @deprecated use {@link #CHARGEABLE_INTERACT} with {@link slimeknights.tconstruct.library.tools.helper.ModifierUtil#startUsingItem(IToolStackView, ModifierId, LivingEntity, InteractionHand)} for chargeable actions.
+   * For regular interactions, the two are interchangable, though eventually they will be merged into chargable. */
+  @Deprecated
   public static final ModifierHook<GeneralInteractionModifierHook> GENERAL_INTERACT = register("general_interact", GeneralInteractionModifierHook.class, GeneralInteractionModifierHook.FIRST_MERGER, GeneralInteractionModifierHook.FALLBACK);
+
+  /** Hook for interactions not targeting blocks or entities. Needed for charge attacks, but other hooks may be better for most interactions.
+   * Unlike {@link #GENERAL_INTERACT}, the charged interaction hooks will only fire for the modifier that called {@link slimeknights.tconstruct.library.tools.helper.ModifierUtil#startUsingItem(IToolStackView, ModifierId, LivingEntity, InteractionHand)},
+   * meaning there is no need to manually track that you were called. */
+  public static final ModifierHook<GeneralInteractionModifierHook> CHARGEABLE_INTERACT = register("chargable_interact", GeneralInteractionModifierHook.class, GeneralInteractionModifierHook.FIRST_MERGER, ((tool, modifier, player, hand, source) ->
+    modifier.getHook(GENERAL_INTERACT).onToolUse(tool, modifier, player, hand, source)));
 
   /** Hook for interacting with blocks */
   public static final ModifierHook<BlockInteractionModifierHook> BLOCK_INTERACT = register("block_interact", BlockInteractionModifierHook.class, BlockInteractionModifierHook.FIRST_MERGER, BlockInteractionModifierHook.FALLBACK);

@@ -78,6 +78,9 @@ public class BreakableMaterialModifierModel implements IBakedModifierModel {
   @Override
   public ImmutableList<BakedQuad> getQuads(IToolStackView tool, ModifierEntry modifier, Function<Material,TextureAtlasSprite> spriteGetter, Transformation transforms, boolean isLarge, int startTintIndex, @Nullable ItemLayerPixels pixels) {
     Material texture = textures[(isLarge ? 2 : 0) | (tool.isBroken() ? 1 : 0)];
+    if (texture == null && tool.isBroken()) {
+      texture = textures[isLarge ? 2 : 0];
+    }
     if (texture != null) {
       MutableObject<ImmutableList<BakedQuad>> mutable = new MutableObject<>();
       MaterialModel.getPartQuads(mutable::setValue, texture, spriteGetter, transforms, -1, getMaterial(tool, modifier.getModifier()), pixels);

@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.modifiers.ability.tool;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -13,9 +14,14 @@ import slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteracti
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.impl.InteractionModifier.NoLevels;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
+import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
+import slimeknights.tconstruct.library.tools.definition.module.ToolModuleHooks;
+import slimeknights.tconstruct.library.tools.definition.module.interaction.DualOptionInteraction;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.shared.TinkerCommons;
+
+import javax.annotation.Nullable;
 
 public class GlowingModifier extends NoLevels implements BlockInteractionModifierHook {
   @Override
@@ -28,11 +34,16 @@ public class GlowingModifier extends NoLevels implements BlockInteractionModifie
   public int getPriority() {
     return 75; // after bucketing
   }
+
+  @Override
+  public Component getDisplayName(IToolStackView tool, int level) {
+    return DualOptionInteraction.formatModifierName(tool, this, super.getDisplayName(tool, level));
+  }
   
   @Override
   public InteractionResult afterBlockUse(IToolStackView tool, ModifierEntry modifier, UseOnContext context, InteractionSource source) {
-    Player player = context.getPlayer();
-    if (tool.getCurrentDurability() >= 10) {
+    if (tool.getCurrentDurability() >= 10 && tool.getDefinitionData().getModule(ToolModuleHooks.INTERACTION).canInteract(tool, modifier.getId(), source)) {
+      Player player = context.getPlayer();
       if (!context.getLevel().isClientSide) {
         Level world = context.getLevel();
         Direction face = context.getClickedFace();
@@ -48,5 +59,14 @@ public class GlowingModifier extends NoLevels implements BlockInteractionModifie
       return InteractionResult.sidedSuccess(context.getLevel().isClientSide);
     }
     return InteractionResult.PASS;
+  }
+
+  @Nullable
+  @Override
+  public Boolean removeBlock(IToolStackView tool, int level, ToolHarvestContext context) {
+    if (context.getState().is(TinkerCommons.glow.get()) && tool.getDefinitionData().getModule(ToolModuleHooks.INTERACTION).canInteract(tool, getId(), InteractionSource.LEFT_CLICK)) {
+      return false;
+    }
+    return null;
   }
 }

@@ -5,10 +5,15 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.function.Function;
 
 /**
@@ -96,4 +101,28 @@ public interface EntityInteractionModifierHook {
       return InteractionResult.PASS;
     }
   };
+
+
+  /** Logic to left click an entity using interaction modifiers */
+  static boolean leftClickEntity(ItemStack stack, Player player, Entity target) {
+    ToolStack tool = ToolStack.from(stack);
+    if (!player.getCooldowns().isOnCooldown(stack.getItem())) {
+      List<ModifierEntry> modifiers = tool.getModifierList();
+      // TODO: should this be in the event?
+      for (ModifierEntry entry : modifiers) {
+        if (entry.getHook(TinkerHooks.ENTITY_INTERACT).beforeEntityUse(tool, entry, player, target, InteractionHand.MAIN_HAND, InteractionSource.LEFT_CLICK).consumesAction()) {
+          return true;
+        }
+      }
+      if (target instanceof LivingEntity living) {
+        for (ModifierEntry entry : modifiers) {
+          if (entry.getHook(TinkerHooks.ENTITY_INTERACT).afterEntityUse(tool, entry, player, living, InteractionHand.MAIN_HAND, InteractionSource.LEFT_CLICK).consumesAction()) {
+            return true;
+          }
+        }
+      }
+    }
+    // no left click modifiers? fallback to standard attack
+    return ToolAttackUtil.attackEntity(tool, player, target);
+  }
 }

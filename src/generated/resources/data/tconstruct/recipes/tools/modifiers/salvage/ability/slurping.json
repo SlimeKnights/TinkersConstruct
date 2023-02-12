@@ -1,8 +1,13 @@
 {
   "type": "tconstruct:modifier_salvage",
-  "tools": {
-    "tag": "tconstruct:modifiable/armor/helmets"
-  },
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/armor/helmets"
+    },
+    {
+      "tag": "tconstruct:modifiable/staffs"
+    }
+  ],
   "slots": {
     "abilities": 1
   },

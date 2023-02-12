@@ -6,6 +6,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.UseAnim;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.item.ModifiableLauncherItem;
@@ -50,6 +51,21 @@ public class TinkerItemProperties {
     return 0;
   };
 
+  /** ID for the pulling property */
+  private static final ResourceLocation CHARGING_ID = TConstruct.getResource("charging");
+  /** Boolean indicating the bow is pulling */
+  private static final ItemPropertyFunction CHARGING = (stack, level, holder, seed) -> {
+    if (holder != null && holder.isUsingItem() && holder.getUseItem() == stack) {
+      UseAnim anim = stack.getUseAnimation();
+      if (anim == UseAnim.BLOCK) {
+        return 2;
+      } else if (anim != UseAnim.EAT && anim != UseAnim.DRINK) {
+        return 1;
+      }
+    }
+    return 0;
+  };
+
   /** Registers properties for a bow */
   public static void registerBowProperties(Item item) {
     ItemProperties.register(item, PULL_ID, PULL);
@@ -60,5 +76,10 @@ public class TinkerItemProperties {
   public static void registerCrossbowProperties(Item item) {
     registerBowProperties(item);
     ItemProperties.register(item, AMMO_ID, AMMO);
+  }
+
+  /** Registers properties for a bow */
+  public static void registerToolProperties(Item item) {
+    ItemProperties.register(item, CHARGING_ID, CHARGING);
   }
 }

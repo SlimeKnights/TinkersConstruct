@@ -38,6 +38,7 @@ public class TinkerStationContainerMenu extends TabbedContainerMenu<TinkerStatio
 
     // unfortunately, nothing works with no tile
     if (tile != null) {
+      tile.setItemName("");
       // send the player the current recipe, as we only sync to open containers
       tile.syncRecipe(inv.player);
 
@@ -114,5 +115,4 @@ public class TinkerStationContainerMenu extends TabbedContainerMenu<TinkerStatio
   public ItemStack getResult() {
     return this.resultSlot.getItem();
   }
-
 }

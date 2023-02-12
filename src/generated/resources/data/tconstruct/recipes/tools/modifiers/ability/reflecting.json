@@ -1,0 +1,36 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "tconstruct:sky_congealed_slime",
+      "amount_needed": 4
+    },
+    {
+      "item": "tconstruct:ichor_congealed_slime",
+      "amount_needed": 4
+    },
+    {
+      "item": "tconstruct:sky_congealed_slime",
+      "amount_needed": 4
+    },
+    {
+      "item": "tconstruct:earth_congealed_slime",
+      "amount_needed": 4
+    },
+    {
+      "item": "tconstruct:earth_congealed_slime",
+      "amount_needed": 4
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/shields"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "allow_crystal": true,
+  "result": {
+    "name": "tconstruct:reflecting",
+    "level": 1
+  }
+}

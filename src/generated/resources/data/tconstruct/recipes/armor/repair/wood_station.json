@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:specialized_station_repair",
+  "tool": [
+    {
+      "item": "tconstruct:travelers_shield"
+    },
+    {
+      "item": "tconstruct:plate_shield"
+    }
+  ],
+  "repair_material": "tconstruct:wood"
+}

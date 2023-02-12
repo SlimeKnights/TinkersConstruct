@@ -6,6 +6,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
+import net.minecraftforge.common.ForgeConfigSpec.EnumValue;
 import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -68,7 +69,8 @@ public class Config {
 
     // debug
     public final BooleanValue forceIntegrationMaterials;
-    public final BooleanValue logInvalidToolStackTrace;
+    public final EnumValue<LogInvalidToolStack> logInvalidToolStack;
+    public enum LogInvalidToolStack { STACKTRACE, WARNING, IGNORED };
 
     Common(ForgeConfigSpec.Builder builder) {
       builder.comment("Everything to do with gameplay").push("gameplay");
@@ -261,9 +263,9 @@ public class Config {
                  "Does not provide recipes for any of them, they will only be available to cheat in creative.")
         .worldRestart()
         .define("forceIntegrationMaterials", false);
-      this.logInvalidToolStackTrace = builder
-        .comment("If true, logs the stacktrace whenever a tool stack is created from a non-modifiable item. The stacktrace helps debug which mod is causing it, but is rather expensive on the chance they are doing it a lot.")
-        .define("logInvalidToolStackTrace", false);
+      this.logInvalidToolStack = builder
+        .comment("If STACKTRACE, logs the stacktrace whenever a tool stack is created from a non-modifiable item. If WARNING (default), logs a shorter but more efficient error. If IGNORE, disables logging (useful for modpacks/players *after* they reported the issue). The stacktrace helps debug which mod is causing it, but is rather expensive on the chance they are doing it a lot.")
+        .defineEnum("logInvalidToolStack", LogInvalidToolStack.WARNING);
       builder.pop();
     }
   }

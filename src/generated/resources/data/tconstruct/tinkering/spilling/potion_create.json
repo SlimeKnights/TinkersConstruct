@@ -5,7 +5,7 @@
   },
   "fluid": {
     "name": "create:potion",
-    "amount": 125
+    "amount": 50
   },
   "effects": [
     {
@@ -20,7 +20,7 @@
     },
     {
       "type": "tconstruct:potion_fluid",
-      "scale": 1.0,
+      "scale": 0.75,
       "predicate": "{Bottle:\"LINGERING\"}"
     }
   ]

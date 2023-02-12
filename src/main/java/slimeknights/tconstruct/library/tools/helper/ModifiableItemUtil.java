@@ -12,6 +12,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
@@ -20,10 +21,13 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 import java.util.function.BiConsumer;
 
 /** General item helper functions */
 public class ModifiableItemUtil {
+  private static final UUID[] HELD_ARMOR_UUID = new UUID[]{UUID.fromString("00a1a5fe-43b5-4849-8660-de9aa497736a"), UUID.fromString("6776fd7e-4b22-4cdf-a0bc-bb8d2ad1f0bf")};
+
   private ModifiableItemUtil() {}
 
   /**
@@ -36,15 +40,32 @@ public class ModifiableItemUtil {
     ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
     if (!tool.isBroken()) {
       // base stats
-      if (slot == EquipmentSlot.MAINHAND) {
-        StatsNBT statsNBT = tool.getStats();
+      StatsNBT statsNBT = tool.getStats();
+      if (slot == EquipmentSlot.MAINHAND && tool.hasTag(TinkerTags.Items.MELEE)) {
         builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(Item.BASE_ATTACK_DAMAGE_UUID, "tconstruct.tool.attack_damage", statsNBT.get(ToolStats.ATTACK_DAMAGE), AttributeModifier.Operation.ADDITION));
         // base attack speed is 4, but our numbers start from 4
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(Item.BASE_ATTACK_SPEED_UUID, "tconstruct.tool.attack_speed", statsNBT.get(ToolStats.ATTACK_SPEED) - 4d, AttributeModifier.Operation.ADDITION));
       }
 
-      // grab attributes from modifiers, only do for hands (other slots would just be weird)
       if (slot.getType() == Type.HAND) {
+        // shields and slimestaffs can get armor
+        if (tool.hasTag(TinkerTags.Items.ARMOR)) {
+          UUID uuid = HELD_ARMOR_UUID[slot.getIndex()];
+          double value = statsNBT.get(ToolStats.ARMOR);
+          if (value != 0) {
+            builder.put(Attributes.ARMOR, new AttributeModifier(uuid, "tconstruct.held.armor", value, AttributeModifier.Operation.ADDITION));
+          }
+          value = statsNBT.get(ToolStats.ARMOR_TOUGHNESS);
+          if (value != 0) {
+            builder.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "tconstruct.held.toughness", value, AttributeModifier.Operation.ADDITION));
+          }
+          value = statsNBT.get(ToolStats.KNOCKBACK_RESISTANCE);
+          if (value != 0) {
+            builder.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "tconstruct.held.knockback_resistance", value, AttributeModifier.Operation.ADDITION));
+          }
+        }
+
+        // grab attributes from modifiers, only do for hands (other slots would just be weird)
         BiConsumer<net.minecraft.world.entity.ai.attributes.Attribute,AttributeModifier> attributeConsumer = builder::put;
         for (ModifierEntry entry : tool.getModifierList()) {
           entry.getModifier().addAttributes(tool, entry.getLevel(), slot, attributeConsumer);

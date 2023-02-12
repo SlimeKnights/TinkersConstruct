@@ -13,6 +13,7 @@ public class ModifierIds {
   public static final ModifierId recapitated = id("recapitated");
   public static final ModifierId harmonious  = id("harmonious");
   public static final ModifierId resurrected = id("resurrected");
+  public static final ModifierId rebalanced  = id("rebalanced");
   public static final ModifierId gilded      = id("gilded");
   public static final ModifierId draconic    = id("draconic");
 
@@ -53,6 +54,8 @@ public class ModifierIds {
   public static final ModifierId knockbackResistance = id("knockback_resistance");
   // defense
   public static final ModifierId revitalizing = id("revitalizing");
+  // helmet
+  public static final ModifierId respiration = id("respiration");
   // chestplate
   public static final ModifierId strength = id("strength");
   // leggings
@@ -65,6 +68,7 @@ public class ModifierIds {
 
   // internal
   public static final ModifierId overslimeFriend = id("overslime_friend");
+  public static final ModifierId fastUseItem = id("fast_use_item");
 
 
   // traits - tier 1

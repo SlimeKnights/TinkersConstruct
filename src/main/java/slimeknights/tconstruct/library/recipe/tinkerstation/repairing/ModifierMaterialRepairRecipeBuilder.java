@@ -55,7 +55,7 @@ public class ModifierMaterialRepairRecipeBuilder extends AbstractRecipeBuilder<M
     @Override
     public void serializeRecipeData(JsonObject json) {
       json.addProperty("modifier", modifier.toString());
-      json.addProperty("material", material.toString());
+      json.addProperty("repair_material", material.toString());
     }
   }
 }

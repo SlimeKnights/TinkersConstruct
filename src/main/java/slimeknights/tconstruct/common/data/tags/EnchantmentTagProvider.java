@@ -43,6 +43,7 @@ public class EnchantmentTagProvider extends TagsProvider<Enchantment> {
     modifierTag(TinkerModifiers.multishot.getId(), "cyclic:multishot", "ensorcellation:volley");
     modifierTag(ModifierIds.reach, "cyclic:reach", "ensorcellation:reach");
     modifierTag(TinkerModifiers.tilling.getId(), "ensorcellation:tilling");
+    modifierTag(TinkerModifiers.reflecting.getId(), "parry:rebound");
   }
 
   /** Creates a builder for a tag for the given modifier */

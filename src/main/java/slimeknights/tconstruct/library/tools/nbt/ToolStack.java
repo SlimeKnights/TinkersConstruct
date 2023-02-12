@@ -141,10 +141,11 @@ public class ToolStack implements IToolStackView {
           // both are things we will do later, doing so now causes us to recursively call this method (though not infinite)
           stack.tag = nbt;
         } else {
-          if (Config.COMMON.logInvalidToolStackTrace.get()) {
-            TConstruct.LOG.warn("Tool stack constructed using non-modifiable tool, this may cause issues as it has no NBT. Stacktrace can be disabled in config.", new Exception("Stack trace"));
-          } else {
-            TConstruct.LOG.warn("Tool stack constructed using non-modifiable tool, this may cause issues as it has no NBT. To debug this issue, enable logInvalidToolStackTrace in the config.");
+          switch (Config.COMMON.logInvalidToolStack.get()) {
+            case STACKTRACE ->
+              TConstruct.LOG.warn("Tool stack constructed using non-modifiable tool, this may cause issues as it has no NBT. Stacktrace can be disabled in config.", new Exception("Stack trace"));
+            case WARNING ->
+              TConstruct.LOG.warn("Tool stack constructed using non-modifiable tool, this may cause issues as it has no NBT. To debug this issue or disable the warning, use logInvalidToolStack in the config.");
           }
         }
       }

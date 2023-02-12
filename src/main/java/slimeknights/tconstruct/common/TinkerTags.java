@@ -324,6 +324,8 @@ public class TinkerTags {
     public static final TagKey<Item> INTERACTABLE_LEFT = tag("modifiable/interactable/left");
     /** Tools that can interact when worn as armor */
     public static final TagKey<Item> INTERACTABLE_ARMOR = tag("modifiable/interactable/armor");
+    /** Tools that can interact on left click or right click */
+    public static final TagKey<Item> INTERACTABLE_DUAL = tag("modifiable/interactable/dual");
 
     /** Items in this tag support the @link ToolStats#ATTACK_DAMAGE} stat. Should not be added to directly typically, use {@link #MELEE} or {@link #CHESTPLATES}
      * TODO 1.19: rename to "modifiable/melee" */
@@ -356,6 +358,14 @@ public class TinkerTags {
     public static final TagKey<Item> CHESTPLATES = tag("modifiable/armor/chestplate");
     /** Modifiable items that are worn as helmets */
     public static final TagKey<Item> HELMETS = tag("modifiable/armor/helmets");
+    /** Modifiable items that are worn on any of the main armor slots, likely is applicable for curio slots too */
+    public static final TagKey<Item> WORN_ARMOR = tag("modifiable/armor/worn");
+    /** Modifiable items that are held in either hand */
+    public static final TagKey<Item> HELD_ARMOR = tag("modifiable/armor/held");
+    /** Modifiable items that have innate shielding behavior */
+    public static final TagKey<Item> SHIELDS = tag("modifiable/shields");
+    /** Modifiable items support special staff modifiers */
+    public static final TagKey<Item> STAFFS = tag("modifiable/staffs");
 
     /** Modifiable items that support ranged attacks. Items in this tag support {@link ToolStats#DRAW_SPEED}, {@link ToolStats#VELOCITY}, {@link ToolStats#PROJECTILE_DAMAGE} and {@link ToolStats#ACCURACY} */
     public static final TagKey<Item> RANGED = tag("modifiable/ranged");
@@ -450,6 +460,11 @@ public class TinkerTags {
     /** Mobs that get the 4x protection boost due to only 1 armor piece */
     public static final TagKey<EntityType<?>> SMALL_ARMOR = forgeTag("small_armor");
 
+    /** Projectiles with this tag cannot be reflected */
+    public static final TagKey<EntityType<?>> REFLECTING_BLACKLIST = forgeTag("reflecting/blacklist");
+    /** Projectiles with this tag cannot be reflected */
+    public static final TagKey<EntityType<?>> REFLECTING_PRESERVE_OWNER = forgeTag("reflecting/preserve_owner");
+
     private static TagKey<EntityType<?>> tag(String name) {
       return TagKey.create(Registry.ENTITY_TYPE_REGISTRY, TConstruct.getResource(name));
     }
@@ -497,6 +512,8 @@ public class TinkerTags {
     public static final TagKey<Modifier> EXTRACT_MODIFIER_BLACKLIST = tag("extract_blacklist/tools");
     /** Blacklist for modifiers that cannot be extracted via the slotless recipe */
     public static final TagKey<Modifier> EXTRACT_SLOTLESS_BLACKLIST = tag("extract_blacklist/slotless");
+    /** Modifiers that can be used on both left and right click. Does not care about armor modifiers */
+    public static final TagKey<Modifier> DUAL_INTERACTION = tag("dual_interaction");
 
     private static TagKey<Modifier> tag(String name) {
       return ModifierManager.getTag(TConstruct.getResource(name));

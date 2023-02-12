@@ -26,7 +26,7 @@
   ],
   "tools": [
     {
-      "tag": "tconstruct:modifiable/melee_or_unarmed"
+      "tag": "tconstruct:modifiable/melee"
     },
     {
       "tag": "tconstruct:modifiable/harvest"
@@ -38,7 +38,7 @@
   "slots": {
     "abilities": 1
   },
-  "allow_crystal": true,
+  "allow_crystal": false,
   "result": {
     "name": "tconstruct:luck",
     "level": 1

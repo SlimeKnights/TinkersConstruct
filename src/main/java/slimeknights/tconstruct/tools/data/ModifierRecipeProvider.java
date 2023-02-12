@@ -52,12 +52,15 @@ import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IncrementalModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.modifiers.adding.MultilevelModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.OverslimeModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.SwappableModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierMaterialRepairRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRepairRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.worktable.ModifierSetWorktableRecipeBuilder;
 import slimeknights.tconstruct.library.tools.SlotType;
+import slimeknights.tconstruct.library.tools.definition.module.interaction.DualOptionInteraction;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.SlimeType;
@@ -67,7 +70,6 @@ import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
-import slimeknights.tconstruct.tools.item.ModifierCrystalItem;
 import slimeknights.tconstruct.tools.recipe.ArmorDyeingRecipe;
 import slimeknights.tconstruct.tools.recipe.EnchantmentConvertingRecipe;
 import slimeknights.tconstruct.tools.recipe.ModifierRemovalRecipe;
@@ -77,7 +79,6 @@ import slimeknights.tconstruct.world.TinkerWorld;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -163,6 +164,10 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // pig iron - from bacon, only in the tinker station
     ModifierRepairRecipeBuilder.repair(TinkerModifiers.tasty, Ingredient.of(TinkerCommons.bacon), 25)
                                .save(consumer, prefix(TinkerModifiers.tasty, folder));
+    // golden makes armor repair from gold
+    ModifierMaterialRepairRecipeBuilder.repair(TinkerModifiers.golden, MaterialIds.gold)
+                                       .saveCraftingTable(consumer, wrap(TinkerModifiers.golden, folder, "_crafting_table"))
+                                       .save(consumer, wrap(TinkerModifiers.golden, folder, "_tinker_station"));
   }
 
   private void addModifierRecipes(Consumer<FinishedRecipe> consumer) {
@@ -172,7 +177,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     String slotlessFolder = "tools/modifiers/slotless/";
     String upgradeSalvage = "tools/modifiers/salvage/upgrade/";
     String abilitySalvage = "tools/modifiers/salvage/ability/";
-    String slotlessSalvage = "tools/modifiers/salvage/slotless/";
     String defenseFolder = "tools/modifiers/defense/";
     String defenseSalvage = "tools/modifiers/salvage/defense/";
     String compatFolder = "tools/modifiers/compat/";
@@ -198,12 +202,14 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .save(consumer, prefix(TinkerModifiers.overforced, upgradeFolder));
     // gems are special, I'd like them to be useful on all types of tools
     ModifierRecipeBuilder.modifier(ModifierIds.emerald)
+                         .setTools(TinkerTags.Items.DURABILITY)
                          .addInput(Tags.Items.GEMS_EMERALD)
                          .setMaxLevel(1)
                          .setSlots(SlotType.UPGRADE, 1)
                          .saveSalvage(consumer, prefix(ModifierIds.emerald, upgradeSalvage))
                          .save(consumer, prefix(ModifierIds.emerald, upgradeFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.diamond)
+                         .setTools(TinkerTags.Items.DURABILITY)
                          .addInput(Tags.Items.GEMS_DIAMOND)
                          .setMaxLevel(1)
                          .setSlots(SlotType.UPGRADE, 1)
@@ -212,7 +218,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     ModifierRecipeBuilder.modifier(ModifierIds.worldbound)
                          .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
                          .setMaxLevel(1)
-                         .saveSalvage(consumer, prefix(ModifierIds.worldbound, slotlessSalvage))
                          .save(consumer, prefix(ModifierIds.worldbound, slotlessFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.soulbound)
                          .addInput(Ingredient.of(Items.TOTEM_OF_UNDYING, Items.NETHER_STAR))
@@ -221,6 +226,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(TinkerModifiers.soulbound, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.soulbound, upgradeFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.netherite)
+                         .setTools(TinkerTags.Items.DURABILITY)
                          .addInput(Tags.Items.INGOTS_NETHERITE)
                          .setMaxLevel(1)
                          .setSlots(SlotType.UPGRADE, 1)
@@ -274,12 +280,12 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.COMPASS)
                          .setMaxLevel(1)
                          .setSlots(SlotType.UPGRADE, 1)
-                         .setTools(TinkerTags.Items.ARMOR)
+                         .setTools(TinkerTags.Items.WORN_ARMOR) // TODO: reconsider for shields
                          .save(consumer, wrap(TinkerModifiers.magnetic, upgradeFolder, "_armor"));
     // salvage supports either
     ModifierRecipeBuilder.modifier(TinkerModifiers.magnetic)
                          .setSlots(SlotType.UPGRADE, 1)
-                         .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.HARVEST, TinkerTags.Items.ARMOR))
+                         .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.HARVEST, TinkerTags.Items.WORN_ARMOR))
                          .saveSalvage(consumer, prefix(TinkerModifiers.magnetic, upgradeSalvage));
     // no salvage so we can potentially grant shiny in another way without being an apple farm, and no recipe as that leaves nothing to salvage
     ModifierRecipeBuilder.modifier(ModifierIds.shiny)
@@ -299,22 +305,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.LEATHER)
                          .addInput(Items.FIRE_CHARGE)
                          .addInput(SlimeType.ICHOR.getSlimeballTag())
-                         .setMaxLevel(1)
-                         .setSalvageLevelRange(1, 1)
-                         .saveSalvage(consumer, wrap(TinkerModifiers.offhanded, upgradeSalvage, "_level_1"))
-                         .save(consumer, wrap(TinkerModifiers.offhanded, upgradeFolder, "_level_1"));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.offhanded)
-                         .setTools(TinkerTags.Items.INTERACTABLE_RIGHT)
-                         .addInput(Items.LEATHER)
-                         .addInput(TinkerMaterials.cobalt.getIngotTag())
-                         .addInput(SlimeType.ICHOR.getSlimeballTag())
                          .setMaxLevel(2)
-                         .setMinSalvageLevel(2)
-                         .setRequirements(ModifierMatch.entry(TinkerModifiers.offhanded, 1))
-                         .setRequirementsError(makeRequirementsError("offhanded.level_2"))
-                         .disallowCrystal()
-                         .saveSalvage(consumer, wrap(TinkerModifiers.offhanded, upgradeSalvage, "_level_2"))
-                         .save(consumer, wrap(TinkerModifiers.offhanded, upgradeFolder, "_level_2"));
+                         .save(consumer, prefix(TinkerModifiers.offhanded, upgradeFolder));
 
     /*
      * Speed
@@ -572,6 +564,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(TinkerWorld.skySlimeVine)
                          .setSlots(SlotType.ABILITY, 1)
                          .setTools(TinkerTags.Items.BOWS)
+                         .setMaxLevel(2)
                          .saveSalvage(consumer, prefix(TinkerModifiers.trickQuiver, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.trickQuiver, abilityFolder));
     BiConsumer<ItemLike,String> crystalshotRecipe = (item, variant) -> {
@@ -642,34 +635,36 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
      * armor
      */
     // protection
+    // all held tools can receive defense slots, so give them something to use it for
+    Ingredient protectableTools = ingredientFromTags(TinkerTags.Items.ARMOR, TinkerTags.Items.HELD);
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.meleeProtection)
                                     .setInput(TinkerModifiers.cobaltReinforcement, 1, 24)
                                     .setSlots(SlotType.DEFENSE, 1)
-                                    .setTools(TinkerTags.Items.ARMOR)
+                                    .setTools(protectableTools)
                                     .saveSalvage(consumer, prefix(TinkerModifiers.meleeProtection, defenseSalvage))
                                     .save(consumer, prefix(TinkerModifiers.meleeProtection, defenseFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.projectileProtection)
                                     .setInput(TinkerModifiers.bronzeReinforcement, 1, 24)
                                     .setSlots(SlotType.DEFENSE, 1)
-                                    .setTools(TinkerTags.Items.ARMOR)
+                                    .setTools(protectableTools)
                                     .saveSalvage(consumer, prefix(TinkerModifiers.projectileProtection, defenseSalvage))
                                     .save(consumer, prefix(TinkerModifiers.projectileProtection, defenseFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.blastProtection)
                                     .setInput(TinkerModifiers.emeraldReinforcement, 1, 24)
                                     .setSlots(SlotType.DEFENSE, 1)
-                                    .setTools(TinkerTags.Items.ARMOR)
+                                    .setTools(protectableTools)
                                     .saveSalvage(consumer, prefix(TinkerModifiers.blastProtection, defenseSalvage))
                                     .save(consumer, prefix(TinkerModifiers.blastProtection, defenseFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.magicProtection)
                                     .setInput(TinkerModifiers.goldReinforcement, 1, 24)
                                     .setSlots(SlotType.DEFENSE, 1)
-                                    .setTools(TinkerTags.Items.ARMOR)
+                                    .setTools(protectableTools)
                                     .saveSalvage(consumer, prefix(TinkerModifiers.magicProtection, defenseSalvage))
                                     .save(consumer, prefix(TinkerModifiers.magicProtection, defenseFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.fireProtection)
                                     .setInput(TinkerModifiers.searedReinforcement, 1, 24)
                                     .setSlots(SlotType.DEFENSE, 1)
-                                    .setTools(TinkerTags.Items.ARMOR)
+                                    .setTools(protectableTools)
                                     .saveSalvage(consumer, prefix(TinkerModifiers.fireProtection, defenseSalvage))
                                     .save(consumer, prefix(TinkerModifiers.fireProtection, defenseFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.protection)
@@ -680,6 +675,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(TinkerModifiers.cobaltReinforcement,  4)
                          .setSlots(SlotType.ABILITY, 1)
                          .setTools(TinkerTags.Items.ARMOR)
+                         .setMaxLevel(1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.protection, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.protection, abilityFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.knockbackResistance)
@@ -690,7 +686,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(ModifierIds.knockbackResistance, defenseSalvage))
                          .save(consumer, prefix(ModifierIds.knockbackResistance, defenseFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.golden)
-                         .setTools(TinkerTags.Items.ARMOR)
+                         .setTools(TinkerTags.Items.WORN_ARMOR) // piglins ignore held items
                          .addInput(Tags.Items.INGOTS_GOLD)
                          .addInput(Tags.Items.INGOTS_GOLD)
                          .addInput(Tags.Items.INGOTS_GOLD)
@@ -730,28 +726,29 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setMaxLevel(2)
                                     .save(consumer, wrap(ModifierIds.revitalizing, defenseFolder, "_small"));
     IncrementalModifierRecipeBuilder.modifier(ModifierIds.revitalizing)
-                                    .setTools(TinkerTags.Items.ARMOR)
+                                    .setTools(TinkerTags.Items.WORN_ARMOR) // revitalizing would suck on an item you constantly change
                                     .setSlots(SlotType.DEFENSE, 1)
                                     .setMaxLevel(3)
                                     .saveSalvage(consumer, prefix(ModifierIds.revitalizing, defenseSalvage));
 
     // upgrade - counterattack
+    Ingredient wornOrShield = ingredientFromTags(TinkerTags.Items.WORN_ARMOR, TinkerTags.Items.SHIELDS); // held armor may include things that cannot block
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.thorns)
-                                    .setTools(TinkerTags.Items.ARMOR)
+                                    .setTools(wornOrShield)
                                     .setInput(Blocks.CACTUS, 1, 25)
                                     .setMaxLevel(3)
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .saveSalvage(consumer, prefix(TinkerModifiers.thorns, upgradeSalvage))
                                     .save(consumer, prefix(TinkerModifiers.thorns, upgradeFolder));
     IncrementalModifierRecipeBuilder.modifier(ModifierIds.sticky)
-                                    .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.ARMOR))
+                                    .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.WORN_ARMOR, TinkerTags.Items.SHIELDS))
                                     .setInput(Blocks.COBWEB, 1, 5)
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .setMaxLevel(3)
                                     .saveSalvage(consumer, prefix(ModifierIds.sticky, upgradeSalvage))
                                     .save(consumer, prefix(ModifierIds.sticky, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.springy)
-                         .setTools(TinkerTags.Items.ARMOR)
+                         .setTools(wornOrShield)
                          .addInput(Items.PISTON)
                          .addInput(TinkerWorld.slime.get(SlimeType.ICHOR))
                          .setSlots(SlotType.UPGRADE, 1)
@@ -759,7 +756,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(TinkerModifiers.springy, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.springy, upgradeFolder));
     // upgrade - helmet
-    ModifierRecipeBuilder.modifier(TinkerModifiers.respiration)
+    ModifierRecipeBuilder.modifier(ModifierIds.respiration)
                          .setTools(TinkerTags.Items.HELMETS)
                          .addInput(ItemTags.FISHES)
                          .addInput(Tags.Items.GLASS_COLORLESS)
@@ -768,8 +765,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.KELP)
                          .setMaxLevel(3)
                          .setSlots(SlotType.UPGRADE, 1)
-                         .saveSalvage(consumer, prefix(TinkerModifiers.respiration, upgradeSalvage))
-                         .save(consumer, prefix(TinkerModifiers.respiration, upgradeFolder));
+                         .saveSalvage(consumer, prefix(ModifierIds.respiration, upgradeSalvage))
+                         .save(consumer, prefix(ModifierIds.respiration, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.itemFrame)
                          .setTools(TinkerTags.Items.HELMETS)
                          .addInput(Ingredient.of(Arrays.stream(FrameType.values())
@@ -853,7 +850,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .save(consumer, wrap(TinkerModifiers.lightspeedArmor, upgradeFolder, "_from_block"));
     // upgrade - all
     ModifierRecipeBuilder.modifier(TinkerModifiers.ricochet)
-                         .setTools(TinkerTags.Items.ARMOR)
+                         .setTools(wornOrShield)
                          .addInput(Items.PISTON)
                          .addInput(TinkerWorld.slime.get(SlimeType.SKY))
                          .setSlots(SlotType.UPGRADE, 1)
@@ -881,7 +878,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Tags.Items.INGOTS_COPPER)
                          .addInput(Tags.Items.INGOTS_COPPER)
                          .setSlots(SlotType.ABILITY, 1)
-                         .setTools(TinkerTags.Items.HELMETS)
+                         .setTools(ingredientFromTags(TinkerTags.Items.HELMETS, TinkerTags.Items.STAFFS))
                          .saveSalvage(consumer, prefix(TinkerModifiers.slurping, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.slurping, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.aquaAffinity)
@@ -892,6 +889,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Blocks.DARK_PRISMARINE)
                          .setSlots(SlotType.ABILITY, 1)
                          .setTools(TinkerTags.Items.HELMETS)
+                         .setMaxLevel(1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.aquaAffinity, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.aquaAffinity, abilityFolder));
     // chestplate
@@ -944,10 +942,10 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
         builder.setSlots(SlotType.ABILITY, 1);
         builder.saveSalvage(consumer, prefix(ModifierIds.toolBelt, abilitySalvage));
       } else {
-        builder.disallowCrystal(); // TODO: find a way to allow all levels of tool belt?
         builder.setRequirements(ModifierMatch.entry(ModifierIds.toolBelt, level - 1));
         builder.setRequirementsError(TConstruct.makeTranslationKey("recipe", "modifier.tool_belt"));
       }
+      builder.disallowCrystal(); // handled below
       builder.save(consumer, wrap(ModifierIds.toolBelt, abilityFolder, "_" + level));
     };
     toolBeltRecipe.accept(1, Tags.Items.INGOTS_IRON);
@@ -956,6 +954,12 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     toolBeltRecipe.accept(4, TinkerMaterials.cobalt.getIngotTag());
     toolBeltRecipe.accept(5, TinkerMaterials.hepatizon.getIngotTag());
     toolBeltRecipe.accept(6, TinkerMaterials.manyullyn.getIngotTag());
+    MultilevelModifierRecipeBuilder.modifier(ModifierIds.toolBelt)
+                                   .setTools(TinkerTags.Items.LEGGINGS)
+                                   .addLevel(SlotType.ABILITY, 1, 1)
+                                   .addLevelRange(2, 6)
+                                   .save(consumer, wrap(ModifierIds.toolBelt, abilityFolder, "_crystal"));
+
     ModifierRecipeBuilder.modifier(TinkerModifiers.wetting)
                          .addInput(Tags.Items.DUSTS_REDSTONE)
                          .addInput(TinkerTags.Items.TANKS)
@@ -996,6 +1000,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.BLUE_ICE)
                          .addInput(Items.BLUE_ICE)
                          .setSlots(SlotType.ABILITY, 1)
+                         .setMaxLevel(1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.frostWalker, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.frostWalker, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.snowdrift)
@@ -1006,8 +1011,22 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.SNOW_BLOCK)
                          .addInput(Items.SNOW_BLOCK)
                          .setSlots(SlotType.ABILITY, 1)
+                         .setMaxLevel(1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.snowdrift, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.snowdrift, abilityFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.longFall)
+                         .setTools(TinkerTags.Items.BOOTS)
+                         .addInput(Items.PISTON)
+                         .addInput(Blocks.BLACK_WOOL)
+                         .addInput(Items.PISTON)
+                         .addInput(TinkerWorld.slime.get(SlimeType.SKY))
+                         .addInput(TinkerWorld.slime.get(SlimeType.SKY))
+                         .setSlots(SlotType.ABILITY, 1)
+                         .setMaxLevel(1)
+                         .setRequirements(ModifierMatch.entry(TinkerModifiers.featherFalling.getId(), 4))
+                         .setRequirementsError(makeRequirementsError("long_fall"))
+                         .saveSalvage(consumer, prefix(TinkerModifiers.longFall, abilitySalvage))
+                         .save(consumer, prefix(TinkerModifiers.longFall, abilityFolder));
 
     // transform ingredients
     Ingredient bootsWithDuraibility = IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.BOOTS), Ingredient.of(TinkerTags.Items.DURABILITY));
@@ -1058,7 +1077,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .save(consumer, prefix(ModifierIds.gilded, abilityFolder));
     // luck is 3 recipes
     // level 1 always requires a slot
-    Ingredient luckSupporting = ingredientFromTags(TinkerTags.Items.MELEE_OR_UNARMED, TinkerTags.Items.HARVEST, TinkerTags.Items.RANGED);
+    Ingredient luckSupporting = ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.HARVEST, TinkerTags.Items.RANGED);
     ModifierRecipeBuilder.modifier(ModifierIds.luck)
                          .setTools(luckSupporting)
                          .addInput(Tags.Items.INGOTS_COPPER)
@@ -1069,7 +1088,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSalvageLevelRange(1, 1)
                          .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
-                         .saveSalvage(consumer, prefix(ModifierIds.luck, abilitySalvage))
+                         .disallowCrystal() // handled below
                          .save(consumer, wrap(ModifierIds.luck, abilityFolder, "_level_1"));
      ModifierRecipeBuilder.modifier(ModifierIds.luck)
                           .setTools(luckSupporting)
@@ -1080,7 +1099,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                           .addInput(Tags.Items.ENDER_PEARLS)
                           .setRequirements(ModifierMatch.entry(ModifierIds.luck, 1))
                           .setRequirementsError(makeRequirementsError("luck.level_2"))
-                          .disallowCrystal() // no way to handle multiple recipes same input yet
+                          .disallowCrystal() // handled below
                           .setMaxLevel(2)
                           .save(consumer, wrap(ModifierIds.luck, abilityFolder, "_level_2"));
     ModifierRecipeBuilder.modifier(ModifierIds.luck)
@@ -1092,7 +1111,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.NAME_TAG)
                          .setRequirements(ModifierMatch.entry(ModifierIds.luck, 2))
                          .setRequirementsError(makeRequirementsError("luck.level_3"))
-                         .disallowCrystal() // no way to handle multiple recipes same input yet
+                         .disallowCrystal() // handled below
                          .setMaxLevel(3)
                          .save(consumer, wrap(ModifierIds.luck, abilityFolder, "_level_3"));
     // pants have just one level
@@ -1107,17 +1126,18 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.ABILITY, 1)
                          .saveSalvage(consumer, wrap(ModifierIds.luck, abilitySalvage, "_pants"))
                          .save(consumer, wrap(ModifierIds.luck, abilityFolder, "_pants"));
-    // extra crystal recipes
+    // extra crystal recipe
+    MultilevelModifierRecipeBuilder.modifier(ModifierIds.luck)
+                                   .setTools(luckSupporting)
+                                   .addLevel(SlotType.ABILITY, 1, 1)
+                                   .addLevelRange(2, 3)
+                                   .save(consumer, wrap(ModifierIds.luck, abilityFolder, "_crystal"));
+    // salvage lets you salvage from chestplates
     ModifierRecipeBuilder.modifier(ModifierIds.luck)
-                         .setTools(luckSupporting)
-                         .addInput(TinkerWorld.ichorGeode)
-                         .addInput(PartialNBTIngredient.of(TinkerModifiers.modifierCrystal, Objects.requireNonNull(ModifierCrystalItem.withModifier(ModifierIds.luck).getTag())))
-                         .addInput(TinkerWorld.ichorGeode)
-                         .setRequirements(ModifierMatch.entry(ModifierIds.luck, 1))
-                         .setRequirementsError(makeRequirementsError("luck.level_2"))
-                         .disallowCrystal()
-                         .setMaxLevel(3)
-                         .save(consumer, wrap(ModifierIds.luck, abilityFolder, "_crystal_higher_levels"));
+                         .setTools(ingredientFromTags(TinkerTags.Items.MELEE_OR_UNARMED, TinkerTags.Items.HARVEST, TinkerTags.Items.RANGED))
+                         .setSalvageLevelRange(1, 1)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .saveSalvage(consumer, prefix(ModifierIds.luck, abilitySalvage));
 
     // silky: all the cloth
     ModifierRecipeBuilder.modifier(TinkerModifiers.silky)
@@ -1185,12 +1205,11 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Tags.Items.INGOTS_COPPER)
                          .addInput(Tags.Items.INGOTS_COPPER)
                          .setSlots(SlotType.ABILITY, 1)
-                         .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.CHESTPLATES))
+                         .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.CHESTPLATES, TinkerTags.Items.STAFFS))
                          .saveSalvage(consumer, prefix(TinkerModifiers.spilling, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.spilling, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.tank)
-                         .addInput(TinkerTags.Items.TANKS) // no salvage as don't want conversion between seared and scorched
-                         .setMaxLevel(5)
+                         .addInput(TinkerTags.Items.TANKS)
                          .setSlots(SlotType.UPGRADE, 1)
                          .setTools(ingredientFromTags(TinkerTags.Items.INTERACTABLE, TinkerTags.Items.HELMETS, TinkerTags.Items.CHESTPLATES, TinkerTags.Items.LEGGINGS))
                          .saveSalvage(consumer, prefix(TinkerModifiers.tank, upgradeSalvage))
@@ -1278,6 +1297,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
 
     // unbreakable
     ModifierRecipeBuilder.modifier(TinkerModifiers.unbreakable)
+                         .setTools(TinkerTags.Items.DURABILITY)
                          .addInput(Items.SHULKER_SHELL)
                          .addInput(Items.DRAGON_BREATH)
                          .addInput(Items.SHULKER_SHELL)
@@ -1301,6 +1321,27 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setTools(DifferenceIngredient.of(IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.MELEE), Ingredient.of(TinkerTags.Items.INTERACTABLE_RIGHT)), Ingredient.of(TinkerTools.dagger)))
                          .saveSalvage(consumer, prefix(TinkerModifiers.dualWielding, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.dualWielding, abilityFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.blocking)
+                         .setTools(TinkerTags.Items.INTERACTABLE_RIGHT)
+                         .addInput(ItemTags.PLANKS)
+                         .addInput(TinkerMaterials.cobalt.getIngotTag())
+                         .addInput(ItemTags.PLANKS)
+                         .addInput(ItemTags.PLANKS)
+                         .addInput(ItemTags.PLANKS)
+                         .setMaxLevel(1)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .saveSalvage(consumer, prefix(TinkerModifiers.blocking, abilitySalvage))
+                         .save(consumer, prefix(TinkerModifiers.blocking, abilityFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.reflecting)
+                         .setTools(TinkerTags.Items.SHIELDS)
+                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.SKY),   4)
+                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.ICHOR), 4)
+                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.SKY),   4)
+                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.EARTH), 4)
+                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.EARTH), 4)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .saveSalvage(consumer, prefix(TinkerModifiers.reflecting, abilitySalvage))
+                         .save(consumer, prefix(TinkerModifiers.reflecting, abilityFolder));
 
     /*
      * extra modifiers
@@ -1308,21 +1349,18 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     ModifierRecipeBuilder.modifier(ModifierIds.writable)
                          .addInput(Items.WRITABLE_BOOK)
                          .setMaxLevel(1)
-                         .saveSalvage(consumer, prefix(ModifierIds.writable, slotlessSalvage))
                          .save(consumer, prefix(ModifierIds.writable, slotlessFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.harmonious)
                          .addInput(ItemTags.MUSIC_DISCS)
                          .setMaxLevel(1)
-                         .saveSalvage(consumer, prefix(ModifierIds.harmonious, slotlessSalvage))
                          .save(consumer, prefix(ModifierIds.harmonious, slotlessFolder));
-    ModifierRecipeBuilder.modifier(ModifierIds.recapitated) // you want your head back? that is gross!
+    ModifierRecipeBuilder.modifier(ModifierIds.recapitated)
                          .addInput(SizedIngredient.of(DifferenceIngredient.of(Ingredient.of(Tags.Items.HEADS), Ingredient.of(Items.DRAGON_HEAD))))
                          .setMaxLevel(1)
                          .save(consumer, prefix(ModifierIds.recapitated, slotlessFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.resurrected)
                          .addInput(Items.END_CRYSTAL)
                          .setMaxLevel(1)
-                         .saveSalvage(consumer, prefix(ModifierIds.resurrected, slotlessSalvage))
                          .save(consumer, prefix(ModifierIds.resurrected, slotlessFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.draconic)
                          .addInput(Items.DRAGON_HEAD)
@@ -1330,14 +1368,40 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .save(consumer, wrap(ModifierIds.draconic, slotlessFolder, "_from_head"));
     ModifierRecipeBuilder.modifier(ModifierIds.draconic)
                          .addInput(Blocks.WITHER_ROSE)
-                         .addInput(TinkerModifiers.dragonScale) // you can apply the modifier in two ways, but scales are cheap so give them
+                         .addInput(TinkerModifiers.dragonScale)
                          .addInput(Blocks.WITHER_ROSE)
                          .addInput(TinkerModifiers.dragonScale)
                          .addInput(TinkerModifiers.dragonScale)
                          .setMaxLevel(1)
                          .disallowCrystal()
-                         .saveSalvage(consumer, prefix(ModifierIds.draconic, slotlessSalvage))
                          .save(consumer, wrap(ModifierIds.draconic, slotlessFolder, "_from_scales"));
+    // rebalanced
+    Ingredient rebalancedCommon = Ingredient.of(TinkerModifiers.dragonScale, Blocks.GILDED_BLACKSTONE);
+    SwappableModifierRecipeBuilder.modifier(ModifierIds.rebalanced, SlotType.UPGRADE.getName())
+                                  .addInput(rebalancedCommon)
+                                  .addInput(TinkerMaterials.roseGold.getIngotTag())
+                                  .addInput(rebalancedCommon)
+                                  .addInput(TinkerWorld.skyGeode.getBlock())
+                                  .addInput(TinkerWorld.skyGeode.getBlock())
+                                  .disallowCrystal()
+                                  .save(consumer, wrap(ModifierIds.rebalanced, slotlessFolder, "_" + SlotType.UPGRADE.getName()));
+    SwappableModifierRecipeBuilder.modifier(ModifierIds.rebalanced, SlotType.DEFENSE.getName())
+                                  .setTools(ingredientFromTags(TinkerTags.Items.ARMOR, TinkerTags.Items.HELD))
+                                  .addInput(rebalancedCommon)
+                                  .addInput(TinkerMaterials.cobalt.getIngotTag())
+                                  .addInput(rebalancedCommon)
+                                  .addInput(TinkerWorld.earthGeode.getBlock())
+                                  .addInput(TinkerWorld.earthGeode.getBlock())
+                                  .disallowCrystal()
+                                  .save(consumer, wrap(ModifierIds.rebalanced, slotlessFolder, "_" + SlotType.DEFENSE.getName()));
+    SwappableModifierRecipeBuilder.modifier(ModifierIds.rebalanced, SlotType.ABILITY.getName())
+                                  .addInput(rebalancedCommon)
+                                  .addInput(TinkerMaterials.queensSlime.getIngotTag())
+                                  .addInput(rebalancedCommon)
+                                  .addInput(TinkerWorld.ichorGeode.getBlock())
+                                  .addInput(TinkerWorld.ichorGeode.getBlock())
+                                  .disallowCrystal()
+                                  .save(consumer, wrap(ModifierIds.rebalanced, slotlessFolder, "_" + SlotType.ABILITY.getName()));
     // creative
     SpecialRecipeBuilder.special(TinkerModifiers.creativeSlotSerializer.get()).save(consumer, modPrefix(slotlessFolder + "creative_slot"));
 
@@ -1355,10 +1419,18 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                  .addInput(TinkerWorld.enderGeode)
                                  .addInput(Items.DRAGON_BREATH, 5)
                                  .modifierPredicate(new TagModifierPredicate(TinkerTags.Modifiers.EXTRACT_MODIFIER_BLACKLIST).inverted())
-                                 .save(consumer, modResource(worktableFolder + "extract_modifier"));
+                                 .save(consumer, modResource(worktableFolder + "extract_modifier_breath"));
+    ModifierRemovalRecipe.Builder.removal(TinkerModifiers.extractModifierSerializer.get())
+                                 .addInput(TinkerWorld.enderGeode)
+                                 .addInput(Items.WET_SPONGE)
+                                 .addLeftover(Items.SPONGE)
+                                 .modifierPredicate(new TagModifierPredicate(TinkerTags.Modifiers.EXTRACT_MODIFIER_BLACKLIST).inverted())
+                                 .save(consumer, modResource(worktableFolder + "extract_modifier_sponge"));
     ModifierSortingRecipe.Builder.sorting()
                                  .addInput(Items.COMPASS)
                                  .save(consumer, modResource(worktableFolder + "modifier_sorting"));
+
+    // invisible ink
     ResourceLocation hiddenModifiers = TConstruct.getResource("invisible_modifiers");
     IJsonPredicate<ModifierId> blacklist = new TagModifierPredicate(TinkerTags.Modifiers.INVISIBLE_INK_BLACKLIST).inverted();
     ModifierSetWorktableRecipeBuilder.setAdding(hiddenModifiers)
@@ -1369,6 +1441,20 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                      .modifierPredicate(blacklist)
                                      .addInput(FluidContainerIngredient.fromIngredient(FluidIngredient.of(Fluids.MILK, FluidAttributes.BUCKET_VOLUME), Ingredient.of(Items.MILK_BUCKET)))
                                      .save(consumer, modResource(worktableFolder + "invisible_ink_removing"));
+
+    // swapping hands
+    IJsonPredicate<ModifierId> whitelist = new TagModifierPredicate(TinkerTags.Modifiers.DUAL_INTERACTION);
+    ModifierSetWorktableRecipeBuilder.setAdding(DualOptionInteraction.KEY)
+                                     .modifierPredicate(whitelist)
+                                     .setTools(TinkerTags.Items.INTERACTABLE_DUAL)
+                                     .addInput(Items.LEVER)
+                                     .save(consumer, modResource(worktableFolder + "attack_modifier_setting"));
+    ModifierSetWorktableRecipeBuilder.setRemoving(DualOptionInteraction.KEY)
+                                     .modifierPredicate(whitelist)
+                                     .setTools(TinkerTags.Items.INTERACTABLE_DUAL)
+                                     .addInput(Items.LEVER)
+                                     .addInput(Items.LEVER)
+                                     .save(consumer, modResource(worktableFolder + "attack_modifier_clearing"));
 
     // conversion
     for (boolean matchBook : new boolean[]{false, true}) {
@@ -1432,6 +1518,10 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                   .setTools(TinkerTags.Items.EMBELLISHMENT_METAL)
                                   .addInput(Tags.Items.RAW_MATERIALS_COPPER).addInput(Tags.Items.RAW_MATERIALS_COPPER).addInput(Tags.Items.RAW_MATERIALS_COPPER)
                                   .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_copper_oxidized"));
+    SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment, MaterialIds.gold.toString())
+                                  .setTools(DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.EMBELLISHMENT_METAL), Ingredient.of(TinkerTags.Items.WORN_ARMOR)))
+                                  .addInput(Tags.Items.INGOTS_GOLD).addInput(Tags.Items.INGOTS_GOLD).addInput(Tags.Items.INGOTS_GOLD)
+                                  .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_gold"));
     // tier 3
     plateTexture(consumer, MaterialIds.slimesteel,    false, folder);
     plateTexture(consumer, MaterialIds.amethystBronze, false, folder);

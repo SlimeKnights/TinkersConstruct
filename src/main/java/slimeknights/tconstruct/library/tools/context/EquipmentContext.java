@@ -7,7 +7,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.util.LazyOptional;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
-import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
@@ -53,8 +53,8 @@ public class EquipmentContext {
 
   /** Checks if any of the armor items are modifiable */
   public boolean hasModifiableArmor() {
-    for (EquipmentSlot slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
-      if (getToolInSlot(slotType) != null) {
+    for (EquipmentSlot slotType : EquipmentSlot.values()) {
+      if (ModifierUtil.validArmorSlot(entity, slotType) && getToolInSlot(slotType) != null) {
         return true;
       }
     }

@@ -42,6 +42,7 @@ import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.Util;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -59,10 +60,12 @@ public class TooltipUtil {
   private static final Component MATERIAL_SEPARATOR = TConstruct.makeTranslation("item", "tool.material_separator");
   /** Tool tag to set that makes a tool a display tool */
   public static final String KEY_DISPLAY = "tic_display";
+  /** Tag to set name without name being italic */
+  private static final String KEY_NAME = "tic_name";
   /** Function to show all attributes in the tooltip */
   public static final BiPredicate<Attribute, Operation> SHOW_ALL_ATTRIBUTES = (att, op) -> true;
   /** Function to show all attributes in the tooltip */
-  public static final BiPredicate<Attribute, Operation> SHOW_MELEE_ATTRIBUTES = (att, op) -> op != Operation.ADDITION || (att != Attributes.ATTACK_DAMAGE && att != Attributes.ATTACK_SPEED);
+  public static final BiPredicate<Attribute, Operation> SHOW_MELEE_ATTRIBUTES = (att, op) -> op != Operation.ADDITION || (att != Attributes.ATTACK_DAMAGE && att != Attributes.ATTACK_SPEED && att != Attributes.ARMOR && att != Attributes.ARMOR_TOUGHNESS && att != Attributes.KNOCKBACK_RESISTANCE);
   /** Function to show all attributes in the tooltip */
   public static final BiPredicate<Attribute, Operation> SHOW_ARMOR_ATTRIBUTES = (att, op) -> op != Operation.ADDITION || (att != Attributes.ARMOR && att != Attributes.ARMOR_TOUGHNESS && att != Attributes.KNOCKBACK_RESISTANCE);
   /** Flags used when not holding control or shift */
@@ -156,6 +159,28 @@ public class TooltipUtil {
     return new TranslatableComponent(KEY_FORMAT, name, itemName);
   }
 
+  /** Sets the tool name in a way that will not be italic */
+  public static void setDisplayName(ItemStack tool, String name) {
+    if (name.isEmpty()) {
+      CompoundTag tag = tool.getTag();
+      if (tag != null) {
+        tag.remove(KEY_NAME);
+      }
+    } else {
+      tool.getOrCreateTag().putString(KEY_NAME, name);
+    }
+    tool.resetHoverName();
+  }
+
+  /** Gets the display name from the given tool */
+  public static String getDisplayName(ItemStack tool) {
+    CompoundTag tag = tool.getTag();
+    if (tag != null) {
+      return tag.getString(KEY_NAME);
+    }
+    return "";
+  }
+
   /**
    * Gets the display name for a tool including the head material in the name
    * @param stack           Stack instance
@@ -173,6 +198,10 @@ public class TooltipUtil {
    * @return  Display name including the head material
    */
   public static Component getDisplayName(ItemStack stack, @Nullable IToolStackView tool, ToolDefinition toolDefinition) {
+    String name = getDisplayName(stack);
+    if (!name.isEmpty()) {
+      return new TextComponent(name);
+    }
     List<PartRequirement> components = toolDefinition.getData().getParts();
     Component baseName = new TranslatableComponent(stack.getDescriptionId());
     if (components.isEmpty()) {
@@ -316,7 +345,7 @@ public class TooltipUtil {
    */
   public static void getDefaultInfo(ItemStack stack, IToolStackView tool, List<Component> tooltips) {
     // shows as broken when broken, hold shift for proper durability
-    if (tool.getItem().canBeDepleted() && !tool.isUnbreakable()) {
+    if (tool.getItem().canBeDepleted() && !tool.isUnbreakable() && tool.hasTag(TinkerTags.Items.DURABILITY)) {
       tooltips.add(TooltipBuilder.formatDurability(tool.getCurrentDurability(), tool.getStats().getInt(ToolStats.DURABILITY), true));
     }
     // modifier tooltip
@@ -362,6 +391,17 @@ public class TooltipUtil {
         builder.addTier();
       }
       builder.add(ToolStats.MINING_SPEED);
+    }
+    // slimestaffs and shields are holdable armor, so show armor stats
+    if (tool.hasTag(TinkerTags.Items.ARMOR)) {
+      builder.add(ToolStats.ARMOR);
+      builder.addOptional(ToolStats.ARMOR_TOUGHNESS);
+      builder.addOptional(ToolStats.KNOCKBACK_RESISTANCE, 10f);
+    }
+    // TODO: should show for parry too probably, not sure of a good way to do so
+    if (tool.getModifierLevel(TinkerModifiers.blocking.getId()) > 0) {
+      builder.add(ToolStats.BLOCK_AMOUNT);
+      builder.add(ToolStats.BLOCK_ANGLE);
     }
 
     builder.addAllFreeSlots();

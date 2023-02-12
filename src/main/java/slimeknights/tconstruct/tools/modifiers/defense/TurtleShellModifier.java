@@ -39,7 +39,7 @@ public class TurtleShellModifier extends IncrementalModifier {
       LivingEntity entity = context.getEntity();
       // helmet/chest boost if eyes in water, legs/boots boost if feet in water
       if ((slotType == EquipmentSlot.HEAD || slotType == EquipmentSlot.CHEST) ? entity.wasEyeInWater : entity.isInWater()) {
-        modifierValue += getScaledLevel(tool, level) * 2;
+        modifierValue += getScaledLevel(tool, level) * 2.5f;
       }
     }
     return modifierValue;
@@ -47,6 +47,6 @@ public class TurtleShellModifier extends IncrementalModifier {
 
   @Override
   public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
-    AbstractProtectionModifier.addResistanceTooltip(this, tool, level, 2f, tooltip);
+    AbstractProtectionModifier.addResistanceTooltip(this, tool, level, 2.5f, tooltip);
   }
 }

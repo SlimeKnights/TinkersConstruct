@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "#tconstruct:modifiable/one_handed",
-    "#tconstruct:modifiable/two_handed"
+    "#tconstruct:modifiable/two_handed",
+    "#tconstruct:modifiable/interactable/dual"
   ]
 }

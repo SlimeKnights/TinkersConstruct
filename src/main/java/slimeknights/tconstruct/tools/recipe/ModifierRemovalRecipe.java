@@ -71,7 +71,7 @@ public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
   }
 
   /** Filters the given modifier list */
-  private List<ModifierEntry> filter(List<ModifierEntry> modifiers) {
+  protected List<ModifierEntry> filter(@Nullable IToolStackView tool, List<ModifierEntry> modifiers) {
     if (modifierPredicate != ModifierPredicate.ALWAYS) {
       return modifiers.stream().filter(entryPredicate).toList();
     }
@@ -82,11 +82,11 @@ public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
   public List<ModifierEntry> getModifierOptions(@Nullable ITinkerableContainer inv) {
     if (inv == null) {
       if (displayModifiers == null) {
-        displayModifiers = filter(ModifierRecipeLookup.getRecipeModifierList());
+        displayModifiers = filter(null, ModifierRecipeLookup.getRecipeModifierList());
       }
       return displayModifiers;
     }
-    return filter(inv.getTinkerable().getUpgrades().getModifiers());
+    return filter(inv.getTinkerable(), inv.getTinkerable().getUpgrades().getModifiers());
   }
 
   @Override

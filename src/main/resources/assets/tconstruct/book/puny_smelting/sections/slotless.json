@@ -61,5 +61,13 @@
   {
     "type": "tconstruct:modifier",
     "data": "slotless/bonus/writable.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "slotless/bonus/draconic.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "slotless/bonus/rebalanced.json"
   }
 ]

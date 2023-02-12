@@ -19,6 +19,7 @@
     "spilling":      "#F98648",
 
     "__interaction_abilities__": null,
+    "blocking":    "#755A30",
     "firestarter": "#5D342C",
     "pathing":     "#8a361e",
     "stripping":   "#ab7a55",
@@ -50,6 +51,7 @@
     "bouncy":       "#27C6C6",
     "pockets":      "#976997",
     "protection":   "#A8A8A8",
+    "reflecting":   "#27C6C6",
     "shield_strap": "#01cbcd",
     "slurping":     "#F98648",
     "strength":     "#EAA727",

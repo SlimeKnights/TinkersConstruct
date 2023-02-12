@@ -44,6 +44,7 @@
   "tconstruct:sharpness":     "tconstruct:gui/modifiers/melee/sharpness",
   "tconstruct:swiftstrike":   "tconstruct:gui/modifiers/melee/swiftstrike",
 
+  "tconstruct:blocking":        "tconstruct:gui/modifiers/melee/blocking",
   "tconstruct:dual_wielding":   "tconstruct:gui/modifiers/melee/dual_wielding",
   "tconstruct:fiery":           "tconstruct:gui/modifiers/melee/fiery",
   "tconstruct:experienced":     ["minecraft:item/experience_bottle", "tconstruct:gui/modifiers/book"],
@@ -111,8 +112,10 @@
   "tconstruct:flamewake":        "tconstruct:gui/modifiers/armor/flamewake",
   "tconstruct:frost_walker":     "tconstruct:gui/modifiers/armor/frost_walker",
   "tconstruct:lightspeed_armor": "tconstruct:gui/modifiers/armor/lightspeed",
+  "tconstruct:long_fall":        "tconstruct:gui/modifiers/armor/long_fall",
   "tconstruct:path_maker":       "tconstruct:gui/modifiers/armor/path_maker",
   "tconstruct:plowing":          "tconstruct:gui/modifiers/armor/plowing",
+  "tconstruct:reflecting":       "tconstruct:gui/modifiers/armor/reflecting",
   "tconstruct:snowdrift":        "tconstruct:gui/modifiers/armor/snowdrift",
   "tconstruct:soulspeed":        "tconstruct:gui/modifiers/armor/soulspeed",
   
@@ -121,6 +124,7 @@
   "tconstruct:harmonious":  ["minecraft:item/music_disc_13", "tconstruct:gui/modifiers/plus"],
   "tconstruct:recapitated": ["tconstruct:gui/modifiers/recapitated", "tconstruct:gui/modifiers/plus"],
   "tconstruct:resurrected": ["minecraft:item/end_crystal", "tconstruct:gui/modifiers/plus"],
+  "tconstruct:rebalanced":  ["tconstruct:gui/modifiers/rebalanced", "tconstruct:gui/modifiers/plus"],
   "tconstruct:draconic":    ["tconstruct:gui/modifiers/draconic", "tconstruct:gui/modifiers/plus"],
 
   "tconstruct:golden":        ["minecraft:item/golden_chestplate", "tconstruct:gui/modifiers/book"],

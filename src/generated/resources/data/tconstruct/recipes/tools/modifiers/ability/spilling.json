@@ -37,6 +37,9 @@
     },
     {
       "tag": "tconstruct:modifiable/armor/chestplate"
+    },
+    {
+      "tag": "tconstruct:modifiable/staffs"
     }
   ],
   "slots": {

@@ -17,6 +17,9 @@
     "tconstruct:crossbow",
     "tconstruct:longbow",
     "tconstruct:flint_and_brick",
+    "tconstruct:sky_staff",
+    "tconstruct:earth_staff",
+    "tconstruct:ichor_staff",
     "tconstruct:travelers_boots",
     "tconstruct:travelers_leggings",
     "tconstruct:travelers_chestplate",
@@ -28,6 +31,8 @@
     "tconstruct:slime_boots",
     "tconstruct:slime_leggings",
     "tconstruct:slime_chestplate",
-    "tconstruct:slime_helmet"
+    "tconstruct:slime_helmet",
+    "tconstruct:travelers_shield",
+    "tconstruct:plate_shield"
   ]
 }

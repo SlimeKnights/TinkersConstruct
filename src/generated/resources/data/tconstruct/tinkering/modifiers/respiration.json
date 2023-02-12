@@ -1,0 +1,8 @@
+{
+  "type": "tconstruct:enchantment",
+  "level_display": "tconstruct:default",
+  "enchantment": {
+    "name": "minecraft:respiration",
+    "level": 1
+  }
+}

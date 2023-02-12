@@ -68,6 +68,7 @@ import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.BlockSideHitListener;
+import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.defense.ProjectileProtectionModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.HasteModifier;
@@ -217,13 +218,15 @@ public class ToolEvents {
     float amount = event.getAmount();
     if (context.hasModifiableArmor()) {
       // first we need to determine if any of the four slots want to cancel the event, then we need to determine if any want to respond assuming its not canceled
-      for (EquipmentSlot slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
-        IToolStackView toolStack = context.getToolInSlot(slotType);
-        if (toolStack != null && !toolStack.isBroken()) {
-          for (ModifierEntry entry : toolStack.getModifierList()) {
-            if (entry.getModifier().isSourceBlocked(toolStack, entry.getLevel(), context, slotType, source, amount)) {
-              event.setCanceled(true);
-              return;
+      for (EquipmentSlot slotType : EquipmentSlot.values()) {
+        if (ModifierUtil.validArmorSlot(entity, slotType)) {
+          IToolStackView toolStack = context.getToolInSlot(slotType);
+          if (toolStack != null && !toolStack.isBroken()) {
+            for (ModifierEntry entry : toolStack.getModifierList()) {
+              if (entry.getModifier().isSourceBlocked(toolStack, entry.getLevel(), context, slotType, source, amount)) {
+                event.setCanceled(true);
+                return;
+              }
             }
           }
         }
@@ -236,6 +239,17 @@ public class ToolEvents {
         if (toolStack != null && !toolStack.isBroken()) {
           for (ModifierEntry entry : toolStack.getModifierList()) {
             entry.getModifier().onAttacked(toolStack, entry.getLevel(), context, slotType, source, amount, isDirectDamage);
+          }
+        }
+      }
+      // shields only run this hook when blocking
+      // TODO: what if the slot in charge is not the blocking slot, can that happen?
+      if (entity.isBlocking()) {
+        EquipmentSlot slot = Util.getSlotType(entity.getUsedItemHand());
+        IToolStackView shield = context.getToolInSlot(slot);
+        if (shield != null && !shield.isBroken()) {
+          for (ModifierEntry entry : shield.getModifierList()) {
+            entry.getModifier().onAttacked(shield, entry.getLevel(), context, slot, source, amount, isDirectDamage);
           }
         }
       }
@@ -277,7 +291,6 @@ public class ToolEvents {
     LivingEntity entity = event.getEntityLiving();
 
     // determine if there is any modifiable armor, if not nothing to do
-    // TODO: shields should support this hook too, probably with a separate tag so holding armor does not count as a shield
     DamageSource source = event.getSource();
     EquipmentContext context = new EquipmentContext(entity);
     int vanillaModifier = 0;
@@ -293,11 +306,13 @@ public class ToolEvents {
 
       // next, determine how much tinkers armor wants to change it
       // note that armor modifiers can choose to block "absolute damage" if they wish, currently just starving damage I think
-      for (EquipmentSlot slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
-        IToolStackView tool = context.getToolInSlot(slotType);
-        if (tool != null && !tool.isBroken()) {
-          for (ModifierEntry entry : tool.getModifierList()) {
-            modifierValue = entry.getModifier().getProtectionModifier(tool, entry.getLevel(), context, slotType, source, modifierValue);
+      for (EquipmentSlot slotType : EquipmentSlot.values()) {
+        if (ModifierUtil.validArmorSlot(entity, slotType)) {
+          IToolStackView tool = context.getToolInSlot(slotType);
+          if (tool != null && !tool.isBroken()) {
+            for (ModifierEntry entry : tool.getModifierList()) {
+              modifierValue = entry.getModifier().getProtectionModifier(tool, entry.getLevel(), context, slotType, source, modifierValue);
+            }
           }
         }
       }

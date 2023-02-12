@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:rebalanced",
+  "text": [
+    {
+      "text": "The balance of power is the scale of peace. --Thomas Paine."
+    },
+    {
+      "text": "The balance of power is actually the scale of a dragon. Ancient gilding is surprisingly close though. --Thruul M'Gon.", "paragraph": true
+    }
+  ],
+  "effects": [
+    "Adds an modifier slot",
+    "Slot type is determined by the recipe",
+    "Greedy are penalized",
+    "Single Use"
+  ]
+}

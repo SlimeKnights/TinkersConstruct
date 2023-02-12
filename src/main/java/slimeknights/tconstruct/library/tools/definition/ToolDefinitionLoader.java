@@ -22,8 +22,10 @@ import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap;
 import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
 import slimeknights.tconstruct.library.tools.definition.harvest.IHarvestLogic;
+import slimeknights.tconstruct.library.tools.definition.module.IToolModule;
 import slimeknights.tconstruct.library.tools.definition.weapon.IWeaponAttack;
 import slimeknights.tconstruct.library.tools.nbt.MultiplierNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
@@ -50,6 +52,7 @@ public class ToolDefinitionLoader extends SimpleJsonResourceReloadListener {
     .registerTypeHierarchyAdapter(IAreaOfEffectIterator.class, IAreaOfEffectIterator.LOADER)
     .registerTypeHierarchyAdapter(IHarvestLogic.class, IHarvestLogic.LOADER)
     .registerTypeHierarchyAdapter(IWeaponAttack.class, IWeaponAttack.LOADER)
+    .registerTypeAdapter(ModifierHookMap.class, IToolModule.Serializer.INSTANCE)
     .setPrettyPrinting()
     .disableHtmlEscaping()
     .create();

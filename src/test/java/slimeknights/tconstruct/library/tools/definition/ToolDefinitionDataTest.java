@@ -65,7 +65,7 @@ class ToolDefinitionDataTest extends BaseMcTest {
 
   @Test
   void data_nullContainsNoData() {
-    checkToolDataEmpty(new ToolDefinitionData(null, null, null, null, null, null, null));
+    checkToolDataEmpty(new ToolDefinitionData(null, null, null, null, null, null, null, null));
   }
 
   @Test
@@ -182,7 +182,7 @@ class ToolDefinitionDataTest extends BaseMcTest {
   void actions_canPerform() {
     assertThat(ToolDefinitionData.EMPTY.canPerformAction(ToolActions.SHOVEL_FLATTEN)).isFalse();
     assertThat(ToolDefinitionData.EMPTY.canPerformAction(ToolActions.SWORD_DIG)).isFalse();
-    ToolDefinitionData newData = new ToolDefinitionData(null, null, null, null, ImmutableSet.of(ToolActions.SHOVEL_FLATTEN), null, null);
+    ToolDefinitionData newData = new ToolDefinitionData(null, null, null, null, ImmutableSet.of(ToolActions.SHOVEL_FLATTEN), null, null, null);
     assertThat(newData.canPerformAction(ToolActions.SHOVEL_FLATTEN)).isTrue();
     assertThat(newData.canPerformAction(ToolActions.SWORD_DIG)).isFalse();
   }

@@ -14,6 +14,9 @@
     "tconstruct:sword",
     "tconstruct:cleaver",
     "tconstruct:flint_and_brick",
+    "tconstruct:sky_staff",
+    "tconstruct:earth_staff",
+    "tconstruct:ichor_staff",
     "#tconstruct:modifiable/armor/boots"
   ]
 }

@@ -25,5 +25,9 @@
     { "name": "head",    "index": 0, "broken": "broken_head" },
     { "name": "grip",    "index": 3 },
     { "name": "binding", "index": 2 }
-  ]
+  ],
+  "overrides": [{
+    "predicate": { "tconstruct:charging": 2 },
+    "model": "tconstruct:item/blocking/excavator"
+  }]
 }

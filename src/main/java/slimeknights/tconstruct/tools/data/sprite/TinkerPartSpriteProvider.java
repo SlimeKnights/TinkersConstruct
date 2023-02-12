@@ -49,6 +49,18 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
     addTexture("models/armor/plate/layer_1", PLATE);
     addTexture("models/armor/plate/layer_2", PLATE);
 
+    // shield textures
+    addSprite("armor/travelers/shield_modifiers/tconstruct_embellishment", PLATE);
+    addSprite("armor/travelers/shield_modifiers/tconstruct_embellishment_broken", PLATE);
+    addSprite("armor/plate/shield_modifiers/tconstruct_embellishment", PLATE);
+    addSprite("armor/plate/shield_modifiers/tconstruct_embellishment_broken", PLATE);
+    addSprite("armor/plate/shield_large_modifiers/tconstruct_embellishment", PLATE);
+    addSprite("armor/plate/shield_large_modifiers/tconstruct_embellishment_broken", PLATE);
+
+    // staff
+    addSprite("staff/modifiers/tconstruct_embellishment", PLATE);
+    addSprite("staff/large_modifiers/tconstruct_embellishment", PLATE);
+
     // slimesuit textures
     addSprite("armor/slime/skull_modifiers/tconstruct_embellishment", SLIMESUIT);
     addSprite("armor/slime/skull_modifiers/tconstruct_embellishment_broken", SLIMESUIT);

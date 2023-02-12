@@ -162,7 +162,7 @@ public class ToolAttackUtil {
   public static boolean attackEntity(IToolStackView tool, LivingEntity attackerLiving, InteractionHand hand,
                                      Entity targetEntity, DoubleSupplier cooldownFunction, boolean isExtraAttack, EquipmentSlot sourceSlot) {
     // broken? give to vanilla
-    if (tool.isBroken()) {
+    if (tool.isBroken() || !tool.hasTag(TinkerTags.Items.MELEE_OR_UNARMED)) {
       return false;
     }
     // nothing to do? cancel
