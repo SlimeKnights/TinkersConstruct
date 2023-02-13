@@ -2541,7 +2541,7 @@
   "tool_stat.tconstruct.block_amount": "格挡值：",
   "tool_stat.tconstruct.block_amount.description": "每次受到攻击时所阻挡伤害的最大值",
   "tool_stat.tconstruct.block_angle": "格挡角度：",
-  "tool_stat.tconstruct.block_angle.description": "此盾在其正前方两侧能提供保护的角度范围，超出该角度范围的攻击不会被阻挡",
+  "tool_stat.tconstruct.block_angle.description": "Total angle of protection in front when shielding out of a max 360 degrees. 超出该角度范围的攻击不会被阻挡",
 
   "stat.tconstruct.repair_kit": "修理件",
   "stat.tconstruct.skull": "黏液头颅",
