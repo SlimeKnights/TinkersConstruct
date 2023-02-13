@@ -1,0 +1,13 @@
+{
+  "title": "アクションのトグル",
+  "image": {
+    "file": "tconstruct:book/images/worktable/toggle_interaction.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "レバーはレッドストーン信号を切り替えるだけでなく、スライムスタッフのアクション改造の発動方法を、攻撃にするかアクションにするか切り替えることができます。"
+    }
+  ]
+}

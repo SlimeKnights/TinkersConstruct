@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:reflecting",
+  "text": [
+    {
+      "text": "盾を構えて2秒以内にブロックした場合、あなたが見ている方向に飛翔体を跳ね返します。レベルが上がると有効時間が2秒ずつ伸びます。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "アビリティスロットが1つ必要"
+  ]
+}

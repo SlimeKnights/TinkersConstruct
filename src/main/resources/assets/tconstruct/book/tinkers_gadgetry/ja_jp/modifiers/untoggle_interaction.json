@@ -1,0 +1,13 @@
+{
+  "title": "アクションのトグル解除",
+  "image": {
+    "file": "tconstruct:book/images/worktable/untoggle_interaction.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "もちろん、改造の発動方法を切り替えた後でもいつでも元に戻すことができますが、奇妙なことにその際には追加のレバーが必要です。"
+    }
+  ]
+}

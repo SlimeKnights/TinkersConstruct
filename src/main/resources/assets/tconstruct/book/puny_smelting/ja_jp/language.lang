@@ -20,4 +20,4 @@ upgrades.group_armor=防具
 slotless=スロット不要の改造
 slotless.subtext=これらの改造は、適用するためにスロットは不要で、望むなら全てを適用できます。
 slotless.group_slotless=スロット不要
-slotless.group_bonus_upgrades=アップグレード++
+slotless.group_bonus_upgrades=スロット++

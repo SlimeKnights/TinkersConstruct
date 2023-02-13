@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:rebalanced",
+  "text": [
+    {
+      "text": "改造スロットが+1されます。タイプはレシピで決まります。"
+    },
+    {
+      "text": "アビリティスロットを+1する場合は、アップグレードスロットが1つ失われます。", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "1回のみ",
+    "スロット不要"
+  ]
+}

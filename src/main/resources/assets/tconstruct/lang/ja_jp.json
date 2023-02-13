@@ -876,16 +876,21 @@
   "item.tconstruct.longbow": "ロングボウ",
 
   "item.tconstruct.flint_and_brick": "火打石とレンガ",
+  "item.tconstruct.sky_staff": "スカイスライムの杖",
+  "item.tconstruct.earth_staff": "アーススライムの杖",
+  "item.tconstruct.ichor_staff": "イコルの杖",
   
   "item.tconstruct.travelers_helmet": "旅行者のゴーグル",
   "item.tconstruct.travelers_chestplate": "旅行者のベスト",
   "item.tconstruct.travelers_leggings": "旅行者のズボン",
   "item.tconstruct.travelers_boots": "旅行者の靴",
+  "item.tconstruct.travelers_shield": "旅行者の盾",
   
   "item.tconstruct.plate_helmet": "プレートヘルメット",
   "item.tconstruct.plate_chestplate": "プレートチェストプレート",
   "item.tconstruct.plate_leggings": "プレートレギンス",
   "item.tconstruct.plate_boots": "プレートブーツ",
+  "item.tconstruct.plate_shield": "プレートシールド",
 
   "item.tconstruct.slime_helmet": "スライムスカル",
   "item.tconstruct.slime_chestplate": "スライムリトラ",
@@ -1691,7 +1696,6 @@
   "modifier.tconstruct.offhanded.flavor": "あまり難しく考えなくて良い",
   "modifier.tconstruct.offhanded.description": "オフハンドに何か持っている場合にこの道具のアクション効果を無効にする",
   "modifier.tconstruct.offhanded.description.2": "道具のアクション効果を完全に無効にする",
-  "recipe.tconstruct.modifier.offhanded.level_2": "無力化を適用するにはオフハンド化が適用されていなければなりません",
 
 
   "_comment": "Durability",
@@ -1869,7 +1873,7 @@
   "modifier.tconstruct.knockback_resistance.description": "金床は重い、だからノックバックから防いでくれる、分かった？",
   "modifier.tconstruct.golden": "金ピカ",
   "modifier.tconstruct.golden.flavor": "金より良い",
-  "modifier.tconstruct.golden.description": "防具に金色の輝きを与える、ピグリンも大好き！",
+  "modifier.tconstruct.golden.description": "防具に金色の輝きを与え、修理に新しい選択肢ができ、ピグリンも大好き！",
   "modifier.tconstruct.ricochet": "跳弾",
   "modifier.tconstruct.ricochet.flavor": "追加の反射",
   "modifier.tconstruct.ricochet.description": "攻撃すると反対側に跳ねる、逃げたいときに効果的",
@@ -2000,6 +2004,10 @@
   "modifier.tconstruct.feather_falling.flavor": "フワフワ",
   "modifier.tconstruct.feather_falling.description": "ゆっくり落下するようになり、ダメージが減る",
   "modifier.tconstruct.feather_falling.resistance": "落下耐性",
+  "modifier.tconstruct.long_fall": "ロングフォール",
+  "modifier.tconstruct.long_fall.flavor": "足型の防具",
+  "modifier.tconstruct.long_fall.description": "全ての落下ダメージを打ち消す",
+  "recipe.tconstruct.modifier.long_fall": "ロングフォールを適用するには落下耐性IVが必要です",
   "modifier.tconstruct.soulspeed": "ソウルスピード",
   "modifier.tconstruct.soulspeed.flavor": "不気味",
   "modifier.tconstruct.soulspeed.description": "ソウルサンドの上での移動速度が上がる",
@@ -2033,6 +2041,11 @@
   "modifier.tconstruct.flamewake": "火渡り",
   "modifier.tconstruct.flamewake.flavor": "これでいいのだ！",
   "modifier.tconstruct.flamewake.description": "歩いたところに火が残る",
+
+  "_comment": "Armor - shields",
+  "modifier.tconstruct.reflecting": "反射",
+  "modifier.tconstruct.reflecting.flavor": "弾性のある盾",
+  "modifier.tconstruct.reflecting.description": "盾を構えた瞬間、少しの間飛翔体を反射できるようになる",
 
 
   "_comment": "Abilities",
@@ -2108,6 +2121,12 @@
   "modifier.tconstruct.harvest": "収穫",
   "modifier.tconstruct.harvest.flavor": "シュッ！",
   "modifier.tconstruct.harvest.description": "道具で作物を収穫し、植え直しができるようになる",
+  "modifier.tconstruct.blocking": "ブロッキング",
+  "modifier.tconstruct.blocking.flavor": "ノンキューブ型",
+  "modifier.tconstruct.blocking.description": "道具を使うと、受けるダメージをブロックできるようになる",
+  "modifier.tconstruct.parrying": "受け流し",
+  "modifier.tconstruct.parrying.flavor": "忍者の反射神経",
+  "modifier.tconstruct.parrying.description": "攻撃の後しばらくブロックできるようになり、多くの攻撃を回避できる",
   "_comment": "Fluids",
   "modifier.tconstruct.melting": "溶融",
   "modifier.tconstruct.melting.flavor": "溶融器の力がこの手の中に！",
@@ -2138,6 +2157,7 @@
   "modifier.tconstruct.stat_override.multipliers": "倍率:",
 
   "__comment": "Free Modifiers",
+  "modifier.tconstruct.extra_modifier.type_format": "%s (%s)",
   "modifier.tconstruct.writable": "余白",
   "modifier.tconstruct.writable.flavor": "インテリ！",
   "modifier.tconstruct.writable.description": "もっと文字を書ける。つまりもっとアップグレードできる。実に合理的だ！",
@@ -2156,6 +2176,9 @@
   "modifier.tconstruct.draconic": "ドラコニック",
   "modifier.tconstruct.draconic.flavor": "エンドの征服！",
   "modifier.tconstruct.draconic.description": "偉大なる獣の頭はあなたの道具に2番目のアビリティスロットを与える！",
+  "modifier.tconstruct.rebalanced": "調整",
+  "modifier.tconstruct.rebalanced.flavor": "道具の天秤の皿",
+  "modifier.tconstruct.rebalanced.description": "道具に好きな種類のスロットを追加できるが、強力なものを選べばペナルティがある",
 
   "__comment": "Three more +1 upgrade modifiers for modpacks",
   "modifier.tconstruct.red_extra_upgrade": "赤の追加アップグレード",
@@ -2428,6 +2451,11 @@
   "modifier.tconstruct.the_one_probe.flavor": "科学的！",
   "modifier.tconstruct.the_one_probe.description": "この改造が付いた道具を所持またはヘルメットを着用していると、見ているブロックの情報が表示される。",
 
+  "_comment": "Internal modifiers",
+  "modifier.tconstruct.overslime_friend": "オーバースライムの友",
+  "modifier.tconstruct.snow_boots": "雪のブーツ",
+
+
   "_comment": "Internal effects",
   "effect.tconstruct.bleeding": "出血",
   "effect.tconstruct.magnetic": "磁力",
@@ -2471,6 +2499,8 @@
   "tool_stat.tconstruct.attack_speed.description": "攻撃速度計算の基本値。\n概ね1秒毎に最大の攻撃力で攻撃できる。",
   "tool_stat.tconstruct.durability": "耐久度: ",
   "tool_stat.tconstruct.durability.description": "耐久度計算の基本値。\n通常、道具全体の耐久度を決める重要な値。",
+  "tool_stat.tconstruct.use_item_speed": "使用時速度補正: ",
+  "tool_stat.tconstruct.use_item_speed.description": "弓や盾を使用中の移動速度倍率",
 
   "stat.tconstruct.head": "ヘッド部",
   "tool_stat.tconstruct.mining_speed": "採掘速度: ",
@@ -2507,6 +2537,11 @@
   "stat.tconstruct.extra": "締め具",
   "stat.tconstruct.bowstring": "弓弦",
   "tool_stat.tconstruct.extra.no_stats": "能力なし",
+
+  "tool_stat.tconstruct.block_amount": "ブロック量: ",
+  "tool_stat.tconstruct.block_amount.description": "この盾で攻撃を防いだ際に減少させる最大ダメージ量",
+  "tool_stat.tconstruct.block_angle": "ブロック角度: ",
+  "tool_stat.tconstruct.block_angle.description": "盾でブロックできる前方の角度で、最大360度。この範囲外からの攻撃はブロックできません。",
 
   "stat.tconstruct.repair_kit": "リペアキット",
   "stat.tconstruct.skull": "スライムスカル",
@@ -2607,6 +2642,12 @@
   "recipe.tconstruct.invisible_modifiers.removing.title": "可視のインク",
   "recipe.tconstruct.invisible_modifiers.removing.description": "道具の情報から非表示になっている改造を選んで再表示させます",
 
+  "modifier.tconstruct.attack_toggled": "%s (攻撃)",
+  "recipe.tconstruct.attack_modifiers.adding.title": "アクションのトグル",
+  "recipe.tconstruct.attack_modifiers.adding.description": "アクション改造を発動させる方法を攻撃(通常は左クリック)にします",
+  "recipe.tconstruct.attack_modifiers.removing.title": "アクションのトグル",
+  "recipe.tconstruct.attack_modifiers.removing.description": "アクション改造を発動させる方法をアクション(通常は右クリック)にします",
+
   "recipe.tconstruct.extract_modifier.title": "改造の抽出",
   "recipe.tconstruct.extract_modifier.description": "改造クリスタルに抽出する改造を選択します。スロットが復活しますが、改造に使用したアイテムは失われます。",
   "recipe.tconstruct.extract_modifier.no_modifiers": "道具に抽出できる改造がありません。",
@@ -2626,6 +2667,7 @@
   "recipe.tconstruct.modifier.not_enough_slot": " この改造を適用するには少なくとも1以上の%sスロットが必要です",
   "recipe.tconstruct.modifier.not_enough_slots": "この改造を適用するには少なくとも%s以上の%sスロットが必要です",
   "recipe.tconstruct.modifier.validate_slots": "この変更を適用すると道具の%sスロットが不足します",
+  "recipe.tconstruct.modifier.min_level": "このレシピを道具に適用するには、最低%sレベルの%sが必要です",
   "recipe.tconstruct.modifier.max_level": "%sのレベルは%s以上にはなりません",
   "recipe.tconstruct.modifier.requirements_error": "道具の改造の状態が不正です。Modパック作成者に連絡して記述エラーがないか確認してください。",
 

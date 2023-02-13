@@ -1,0 +1,7 @@
+{
+  "title": "改造調整台",
+  "recipe": "tconstruct:tables/modifier_worktable",
+  "description": [
+    { "text": "このように焼成石を配置すると、特定の改造をしやすくなるものを作れます。" }
+  ]
+}

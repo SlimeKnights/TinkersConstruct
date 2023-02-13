@@ -3,6 +3,7 @@ intro=はじめに
 tools=道具
 small_tools=小型道具
 large_tools=大型道具
+tools.group_staff=杖
 armor=防具
 
 materials_harvest_1=Tier1 近接/収穫用素材
