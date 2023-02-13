@@ -3,6 +3,7 @@
     "base": {
       "tconstruct:durability": 200.0,
       "tconstruct:block_amount": 10.0,
+      "tconstruct:block_angle": 90.0,
       "tconstruct:use_item_speed": 0.8
     }
   },
