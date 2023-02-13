@@ -9,22 +9,24 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Explosion;
+import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.KeybindInteractModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.effect.NoMilkEffect;
 
-import javax.annotation.Nullable;
-
-public class SelfDestructiveModifier extends NoLevelsModifier implements IArmorInteractModifier {
+public class SelfDestructiveModifier extends NoLevelsModifier implements KeybindInteractModifierHook {
   /** Self damage source */
   private static final DamageSource SELF_DESTRUCT = (new DamageSource(TConstruct.prefix("self_destruct"))).bypassArmor().setExplosion();
 
   @Override
-  public boolean startArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot slot) {
+  public boolean startInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot slot, TooltipKey keyModifier) {
     if (player.isShiftKeyDown()) {
       TinkerModifiers.selfDestructiveEffect.get().apply(player, 30, 2, true);
       player.playSound(SoundEvents.CREEPER_PRIMED, 1.0F, 0.5F);
@@ -34,7 +36,7 @@ public class SelfDestructiveModifier extends NoLevelsModifier implements IArmorI
   }
 
   @Override
-  public void stopArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot slot) {
+  public void stopInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot slot) {
     player.removeEffect(TinkerModifiers.selfDestructiveEffect.get());
   }
 
@@ -43,10 +45,10 @@ public class SelfDestructiveModifier extends NoLevelsModifier implements IArmorI
     context.getEntity().removeEffect(TinkerModifiers.selfDestructiveEffect.get());
   }
 
-  @Nullable
   @Override
-  public <T> T getModule(Class<T> type) {
-    return tryModuleMatch(type, IArmorInteractModifier.class, this);
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.ARMOR_INTERACT);
   }
 
   /** Internal potion effect handling the explosion */

@@ -11,20 +11,10 @@
       "item": "tconstruct:sky_congealed_slime"
     }
   ],
-  "tools": [
-    {
-      "item": "tconstruct:slime_boots"
-    },
-    {
-      "item": "tconstruct:slime_leggings"
-    },
-    {
-      "item": "tconstruct:slime_chestplate"
-    },
-    {
-      "item": "tconstruct:slime_helmet"
-    }
-  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/embellishment/slime"
+  },
+  "allow_crystal": false,
   "result": {
     "name": "tconstruct:embellishment",
     "value": "tconstruct:skyslime"

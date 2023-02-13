@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -18,7 +19,9 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.HitResult;
 import slimeknights.mantle.block.InventoryBlock;
+import slimeknights.mantle.block.RetexturedBlock;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.smeltery.block.entity.component.DuctBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryComponentBlockEntity;
@@ -55,6 +58,12 @@ public class SearedDuctBlock extends InventoryBlock {
   @Override
   public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
     SmelteryComponentBlockEntity.updateNeighbors(world, pos, state);
+    RetexturedBlock.updateTextureBlock(world, pos, stack);
+  }
+  
+  @Override
+  public ItemStack getCloneItemStack(BlockState state, HitResult target, BlockGetter world, BlockPos pos, Player player) {
+    return RetexturedBlock.getPickBlock(world, pos, state);
   }
 
 

@@ -11,6 +11,6 @@
   "effects": [
     "Drains tank on attacking",
     "Various effects based on fluid, including fire and poison",
-    "Requires 1 Ability Slot, single level"
+    "Requires 1 Ability Slot per level"
   ]
 }

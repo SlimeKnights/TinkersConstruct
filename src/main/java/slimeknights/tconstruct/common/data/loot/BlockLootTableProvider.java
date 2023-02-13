@@ -130,13 +130,12 @@ public class BlockLootTableProvider extends BlockLoot {
              .apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy("Items", "TinkerData.Items"))));
 
     // tables with legs
-    Function<Block, LootTable.Builder> addTable = block -> droppingWithFunctions(block, (builder) ->
-      builder.apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY)).apply(RetexturedLootFunction::new));
-    this.add(TinkerTables.craftingStation.get(), addTable);
-    this.add(TinkerTables.partBuilder.get(), addTable);
-    this.add(TinkerTables.tinkerStation.get(), addTable);
-    this.add(TinkerTables.tinkersAnvil.get(), addTable);
-    this.add(TinkerTables.scorchedAnvil.get(), addTable);
+    this.dropTable(TinkerTables.craftingStation.get());
+    this.dropTable(TinkerTables.partBuilder.get());
+    this.dropTable(TinkerTables.tinkerStation.get());
+    this.dropTable(TinkerTables.tinkersAnvil.get());
+    this.dropTable(TinkerTables.modifierWorktable.get());
+    this.dropTable(TinkerTables.scorchedAnvil.get());
   }
 
   private void addWorld() {
@@ -162,6 +161,8 @@ public class BlockLootTableProvider extends BlockLoot {
 
     // saplings
     TinkerWorld.slimeSapling.forEach(this::dropSelf);
+    TinkerWorld.pottedSlimeSapling.forEach(this::dropPottedContents);
+    TinkerWorld.pottedSlimeFern.forEach(this::dropPottedContents);
 
     // foliage
     TinkerWorld.slimeTallGrass.forEach(block -> this.add(block, BlockLootTableProvider::onlyShears));
@@ -203,7 +204,7 @@ public class BlockLootTableProvider extends BlockLoot {
     // controller
     this.dropSelf(TinkerSmeltery.searedMelter.get());
     this.dropSelf(TinkerSmeltery.searedHeater.get());
-    this.dropSelf(TinkerSmeltery.smelteryController.get());
+    this.dropTable(TinkerSmeltery.smelteryController.get());
 
     // smeltery component
     this.registerBuildingLootTables(TinkerSmeltery.searedStone);
@@ -216,9 +217,9 @@ public class BlockLootTableProvider extends BlockLoot {
     this.dropSelf(TinkerSmeltery.searedLadder.get());
     this.dropSelf(TinkerSmeltery.searedGlass.get());
     this.dropSelf(TinkerSmeltery.searedGlassPane.get());
-    this.dropSelf(TinkerSmeltery.searedDrain.get());
-    this.dropSelf(TinkerSmeltery.searedChute.get());
-    this.dropSelf(TinkerSmeltery.searedDuct.get());
+    this.dropTable(TinkerSmeltery.searedDrain.get());
+    this.dropTable(TinkerSmeltery.searedChute.get());
+    this.dropTable(TinkerSmeltery.searedDuct.get());
 
     Function<Block, LootTable.Builder> dropTank = block -> droppingWithFunctions(block, builder ->
       builder.apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY))
@@ -239,7 +240,7 @@ public class BlockLootTableProvider extends BlockLoot {
     this.dropSelf(TinkerSmeltery.netherGrout.get());
     // controller
     this.dropSelf(TinkerSmeltery.scorchedAlloyer.get());
-    this.dropSelf(TinkerSmeltery.foundryController.get());
+    this.dropTable(TinkerSmeltery.foundryController.get());
 
     // smeltery component
     this.dropSelf(TinkerSmeltery.scorchedStone.get());
@@ -250,9 +251,9 @@ public class BlockLootTableProvider extends BlockLoot {
     this.dropSelf(TinkerSmeltery.scorchedLadder.get());
     this.dropSelf(TinkerSmeltery.scorchedGlass.get());
     this.dropSelf(TinkerSmeltery.scorchedGlassPane.get());
-    this.dropSelf(TinkerSmeltery.scorchedDrain.get());
-    this.dropSelf(TinkerSmeltery.scorchedChute.get());
-    this.dropSelf(TinkerSmeltery.scorchedDuct.get());
+    this.dropTable(TinkerSmeltery.scorchedDrain.get());
+    this.dropTable(TinkerSmeltery.scorchedChute.get());
+    this.dropTable(TinkerSmeltery.scorchedDuct.get());
 
     Function<Block, LootTable.Builder> dropTank = block -> droppingWithFunctions(block, builder ->
       builder.apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY))
@@ -349,6 +350,14 @@ public class BlockLootTableProvider extends BlockLoot {
     this.dropSelf(object.getButton());
     // sign
     this.dropSelf(object.getSign());
+  }
+
+  private static Function<Block, LootTable.Builder> ADD_TABLE = block -> droppingWithFunctions(block, (builder) ->
+    builder.apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY)).apply(RetexturedLootFunction::new));
+
+  /** Registers a block that drops with its own texture stored in NBT */
+  private void dropTable(Block table) {
+    this.add(table, ADD_TABLE);
   }
 
   /** Adds all loot tables relevant to the given geode block set */

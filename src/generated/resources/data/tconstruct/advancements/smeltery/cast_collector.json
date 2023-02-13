@@ -207,6 +207,30 @@
           }
         ]
       }
+    },
+    "bow_limb": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:bow_limb_cast"
+            ]
+          }
+        ]
+      }
+    },
+    "bow_grip": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:bow_grip_cast"
+            ]
+          }
+        ]
+      }
     }
   },
   "requirements": [
@@ -257,6 +281,12 @@
     ],
     [
       "tough_handle"
+    ],
+    [
+      "bow_limb"
+    ],
+    [
+      "bow_grip"
     ]
   ]
 }

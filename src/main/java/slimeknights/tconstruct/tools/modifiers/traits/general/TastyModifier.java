@@ -1,14 +1,11 @@
 package slimeknights.tconstruct.tools.modifiers.traits.general;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.EquipmentSlot.Type;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -16,9 +13,14 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
@@ -26,66 +28,53 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 
 import java.util.List;
 
-public class TastyModifier extends Modifier {
-  private static final ResourceLocation IS_EATING = TConstruct.getResource("eating_tasty");
+public class TastyModifier extends Modifier implements GeneralInteractionModifierHook {
 
   @Override
-  public InteractionResult onToolUse(IToolStackView tool, int level, Level world, Player player, InteractionHand hand, EquipmentSlot slotType) {
-    if (slotType.getType() == Type.HAND) {
-      if (!tool.isBroken() && player.canEat(false)) {
-        player.startUsingItem(hand);
-        // mark tool as eating as use action is only stack sensitive
-        tool.getPersistentData().putBoolean(IS_EATING, true);
-        return InteractionResult.CONSUME;
-      } else {
-        // clear is eating boolean if we cannot eat, prevents messing with other modifier's animations
-        tool.getPersistentData().remove(IS_EATING);
-      }
+  protected void registerHooks(Builder hookBuilder) {
+    hookBuilder.addHook(this, TinkerHooks.CHARGEABLE_INTERACT);
+  }
+
+  @Override
+  public InteractionResult onToolUse(IToolStackView tool, ModifierEntry modifier, Player player, InteractionHand hand, InteractionSource source) {
+    if (source == InteractionSource.RIGHT_CLICK && !tool.isBroken() && player.canEat(false)) {
+      ModifierUtil.startUsingItem(tool, modifier.getId(), player, hand);
+      return InteractionResult.CONSUME;
     }
     return InteractionResult.PASS;
   }
 
   @Override
-  public boolean onStoppedUsing(IToolStackView tool, int level, Level world, LivingEntity entity, int timeLeft) {
-    tool.getPersistentData().remove(IS_EATING);
-    return false;
-  }
-
-  @Override
-  public boolean onFinishUsing(IToolStackView tool, int level, Level world, LivingEntity entity) {
+  public boolean onFinishUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity) {
     // remove is eating tag to prevent from messing with other modifiers
     ModDataNBT persistentData = tool.getPersistentData();
-    boolean wasEating = persistentData.getBoolean(IS_EATING);
-    persistentData.remove(IS_EATING);
+    if (!tool.isBroken() && entity instanceof Player player && player.canEat(false)) {
+      // eat the food
+      int level = modifier.getLevel();
+      Level world = entity.getLevel();
+      player.getFoodData().eat(level, level * 0.1f);
+      player.awardStat(Stats.ITEM_USED.get(tool.getItem()));
+      world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GENERIC_EAT, SoundSource.NEUTRAL, 1.0F, 1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.4F);
+      world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.PLAYER_BURP, SoundSource.NEUTRAL, 0.5F, world.random.nextFloat() * 0.1F + 0.9F);
 
-    if (!tool.isBroken() && wasEating && entity instanceof Player) {
-      // clear eating marker
-      Player player = (Player) entity;
-      if (player.canEat(false)) {
-        // eat the food
-        player.getFoodData().eat(level, level * 0.1f);
-        player.awardStat(Stats.ITEM_USED.get(tool.getItem()));
-        world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GENERIC_EAT, SoundSource.NEUTRAL, 1.0F, 1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.4F);
-        world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.PLAYER_BURP, SoundSource.NEUTRAL, 0.5F, world.random.nextFloat() * 0.1F + 0.9F);
-
-        // 15 damage for a bite per level, does not process reinforced/overslime, your teeth are tough
-        if (ToolDamageUtil.directDamage(tool, 15 * level, player, player.getUseItem())) {
-          player.broadcastBreakEvent(player.getUsedItemHand());
-        }
-        return true;
+      // 15 damage for a bite per level, does not process reinforced/overslime, your teeth are tough
+      if (ToolDamageUtil.directDamage(tool, 15 * level, player, player.getUseItem())) {
+        player.broadcastBreakEvent(player.getUsedItemHand());
       }
+      // TODO - nutrition mod support
+      return true;
     }
     return false;
   }
 
   @Override
-  public UseAnim getUseAction(IToolStackView tool, int level) {
-    return tool.getPersistentData().getBoolean(IS_EATING) ? UseAnim.EAT : UseAnim.NONE;
+  public UseAnim getUseAction(IToolStackView tool, ModifierEntry modifier) {
+    return UseAnim.EAT;
   }
 
   @Override
-  public int getUseDuration(IToolStackView tool, int level) {
-    return tool.getPersistentData().getBoolean(IS_EATING) ? 16 : 0;
+  public int getUseDuration(IToolStackView tool, ModifierEntry modifier) {
+    return 16;
   }
 
   @Override

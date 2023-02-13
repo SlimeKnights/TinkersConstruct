@@ -13,7 +13,7 @@
       "effect": {
         "type": "tconstruct:damage",
         "damage_type": "fire",
-        "damage_amount": 2.5
+        "damage_amount": 3.0
       }
     },
     {

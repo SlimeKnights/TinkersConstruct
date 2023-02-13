@@ -11,9 +11,10 @@
   "slots": {
     "upgrades": 1
   },
+  "allow_crystal": true,
   "result": {
     "name": "tconstruct:sweeping_edge",
     "level": 1
   },
-  "max_level": 4
+  "max_level": 3
 }

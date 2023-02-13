@@ -1,0 +1,18 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:bucketing",
+    "tconstruct:spilling",
+    "tconstruct:glowing",
+    "tconstruct:firestarter",
+    "tconstruct:stripping",
+    "tconstruct:tilling",
+    "tconstruct:pathing",
+    "tconstruct:shears",
+    "tconstruct:harvest",
+    {
+      "id": "tconstruct:pockets",
+      "required": false
+    }
+  ]
+}

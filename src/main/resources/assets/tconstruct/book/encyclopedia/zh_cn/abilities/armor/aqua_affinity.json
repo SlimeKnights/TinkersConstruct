@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:aqua_affinity",
   "text": [
     {
-      "text": "可以在水下以满速挖掘方块，而不是20%的速度。"
+      "text": "可以在水下以满速挖掘方块，而不是以20%的速度挖掘。"
     }
   ],
   "more_text_space": true,

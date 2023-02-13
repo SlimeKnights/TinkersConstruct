@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:incremental_modifier",
+  "input": {
+    "item": "minecraft:dirt"
+  },
+  "amount_per_item": 1,
+  "needed_per_level": 10,
+  "tools": {
+    "tag": "tconstruct:modifiable/ranged"
+  },
+  "allow_crystal": true,
+  "result": {
+    "name": "tconstruct:blindshot",
+    "level": 1
+  }
+}

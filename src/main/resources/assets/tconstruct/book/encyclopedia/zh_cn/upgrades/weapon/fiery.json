@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:fiery",
   "text": [
     {
-      "text": "令攻击到的生物燃烧，每级提供5秒时长。"
+      "text": "使攻击到的生物燃烧，每级提供5秒时长。"
     }
   ],
   "more_text_space": true,

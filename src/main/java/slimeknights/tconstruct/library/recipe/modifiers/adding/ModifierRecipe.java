@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -12,6 +13,7 @@ import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.recipe.ITinkerableContainer;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
@@ -37,17 +39,23 @@ public class ModifierRecipe extends AbstractModifierRecipe {
    */
   protected final List<SizedIngredient> inputs;
 
-  public ModifierRecipe(ResourceLocation id, List<SizedIngredient> inputs, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
-    super(id, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots);
+  public ModifierRecipe(ResourceLocation id, List<SizedIngredient> inputs, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots, boolean allowCrystal) {
+    super(id, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots, allowCrystal);
     this.inputs = inputs;
   }
 
-  /**
-   * Creates the bitset used for marking inputs we do not care about
-   * @param inv  Alloy tank
-   * @return  Bitset
-   */
-  protected static BitSet makeBitset(ITinkerStationContainer inv) {
+  /** @deprecated use {@link #ModifierRecipe(ResourceLocation, List, Ingredient, int, ModifierMatch, String, ModifierEntry, int, SlotCount, boolean)} */
+  @Deprecated
+  public ModifierRecipe(ResourceLocation id, List<SizedIngredient> inputs, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
+    this(id, inputs, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots, true);
+  }
+
+    /**
+     * Creates the bitset used for marking inputs we do not care about
+     * @param inv  Alloy tank
+     * @return  Bitset
+     */
+  protected static BitSet makeBitset(ITinkerableContainer inv) {
     int inputs = inv.getInputCount();
     BitSet used = new BitSet(inputs);
     // mark empty as used to save a bit of effort
@@ -66,7 +74,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
    * @param used        Bitset for already used matches, will be modified
    * @return  Index of found match, or -1 if match not found
    */
-  protected static int findMatch(SizedIngredient ingredient, ITinkerStationContainer inv, BitSet used) {
+  protected static int findMatch(SizedIngredient ingredient, ITinkerableContainer inv, BitSet used) {
     ItemStack stack;
     for (int i = 0; i < inv.getInputCount(); i++) {
       // must not have used that fluid yet
@@ -81,14 +89,16 @@ public class ModifierRecipe extends AbstractModifierRecipe {
     return -1;
   }
 
-  @Override
-  public boolean matches(ITinkerStationContainer inv, Level world) {
-    // ensure this modifier can be applied
-    if (!result.isBound() || !this.toolRequirement.test(inv.getTinkerableStack())) {
+  /**
+   * Tries to match the given list of ingredients to the inventory
+   * @param inv     Inventory to check
+   * @param inputs  List of inputs to check
+   * @return True if a match
+   */
+  public static boolean checkMatch(ITinkerableContainer inv, List<SizedIngredient> inputs) {
+    if (inputs.isEmpty()) {
       return false;
     }
-
-    // check inputs
     BitSet used = makeBitset(inv);
     for (SizedIngredient ingredient : inputs) {
       int index = findMatch(ingredient, inv, used);
@@ -106,6 +116,15 @@ public class ModifierRecipe extends AbstractModifierRecipe {
 
     // goal of matches is to see if this works for any tool, so ignore current tool NBT
     return true;
+  }
+
+  @Override
+  public boolean matches(ITinkerStationContainer inv, Level world) {
+    // ensure this modifier can be applied
+    if (!result.isBound() || !this.toolRequirement.test(inv.getTinkerableStack())) {
+      return false;
+    }
+    return matchesCrystal(inv) || checkMatch(inv, inputs);
   }
 
   /**
@@ -143,13 +162,8 @@ public class ModifierRecipe extends AbstractModifierRecipe {
     return ValidatedResult.success(tool.createStack(Math.min(tinkerable.getCount(), shrinkToolSlotBy())));
   }
 
-  /**
-   * Updates the input stacks upon crafting this recipe
-   * @param result  Result from {@link #assemble(ITinkerStationContainer)}. Generally should not be modified
-   * @param inv     Inventory instance to modify inputs
-   */
-  @Override
-  public void updateInputs(ItemStack result, IMutableTinkerStationContainer inv, boolean isServer) {
+  /** Updates all inputs in the given container */
+  public static void updateInputs(ITinkerableContainer.Mutable inv, List<SizedIngredient> inputs) {
     // bit corresponding to items that are already found
     BitSet used = makeBitset(inv);
     // just shrink each input
@@ -161,6 +175,16 @@ public class ModifierRecipe extends AbstractModifierRecipe {
       } else {
         TConstruct.LOG.warn("Missing ingredient in modifier recipe input consume");
       }
+    }
+  }
+
+  @Override
+  public void updateInputs(ItemStack result, IMutableTinkerStationContainer inv, boolean isServer) {
+    // if its a crystal, just shrink the crystal
+    if (matchesCrystal(inv)) {
+      super.updateInputs(result, inv, isServer);
+    } else {
+      updateInputs(inv, inputs);
     }
   }
 
@@ -190,7 +214,8 @@ public class ModifierRecipe extends AbstractModifierRecipe {
     public ModifierRecipe fromJson(ResourceLocation id, JsonObject json, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements,
                                String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
       List<SizedIngredient> ingredients = JsonHelper.parseList(json, "inputs", SizedIngredient::deserialize);
-      return new ModifierRecipe(id, ingredients, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots);
+      boolean allowCrystal = GsonHelper.getAsBoolean(json, "allow_crystal", true);
+      return new ModifierRecipe(id, ingredients, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots, allowCrystal);
     }
 
     @Override
@@ -201,7 +226,8 @@ public class ModifierRecipe extends AbstractModifierRecipe {
       for (int i = 0; i < size; i++) {
         builder.add(SizedIngredient.read(buffer));
       }
-      return new ModifierRecipe(id, builder.build(), toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots);
+      boolean allowCrystal = buffer.readBoolean();
+      return new ModifierRecipe(id, builder.build(), toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots, allowCrystal);
     }
 
     @Override
@@ -211,6 +237,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
       for (SizedIngredient ingredient : recipe.inputs) {
         ingredient.write(buffer);
       }
+      buffer.writeBoolean(recipe.allowCrystal);
     }
   }
 }

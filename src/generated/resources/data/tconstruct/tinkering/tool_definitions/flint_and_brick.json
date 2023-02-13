@@ -9,11 +9,15 @@
   },
   "traits": [
     {
-      "name": "tconstruct:firestarter_hidden",
+      "name": "tconstruct:firestarter",
       "level": 1
     },
     {
       "name": "tconstruct:fiery",
+      "level": 1
+    },
+    {
+      "name": "tconstruct:scorching",
       "level": 1
     }
   ]

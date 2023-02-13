@@ -13,12 +13,14 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.RenderUtils;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
-import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability.IInventoryModifier;
+import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
+import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability.InventoryModifierHook;
 import slimeknights.tconstruct.library.tools.layout.Patterns;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.menu.ToolContainerMenu;
 
+import java.util.List;
 import java.util.function.Function;
 
 import static slimeknights.tconstruct.tools.menu.ToolContainerMenu.REPEAT_BACKGROUND_START;
@@ -138,25 +140,25 @@ public class ToolContainerScreen extends AbstractContainerScreen<ToolContainerMe
     // draw slot patterns for all empty slots
     int start = 0;
     int maxSlots = menu.slots.size();
+
+    List<ModifierEntry> modifiers = tool.getModifierList();
     modifiers:
-    for (ModifierEntry entry : tool.getModifierList()) {
-      IInventoryModifier inventory = entry.getModifier().getModule(IInventoryModifier.class);
-      if (inventory != null) {
-        int level = entry.getLevel();
-        int size = inventory.getSlots(tool, level);
-        for (int i = 0; i < size; i++) {
-          if (start + i >= maxSlots) {
-            break modifiers;
-          }
-          Slot slot = menu.getSlot(start + i);
-          Pattern pattern = inventory.getPattern(tool, level, i, slot.hasItem());
-          if (pattern != null) {
-            TextureAtlasSprite sprite = spriteGetter.apply(pattern.getTexture());
-            blit(matrixStack, xStart + slot.x, yStart + slot.y, 100, 16, 16, sprite);
-          }
+    for (int modIndex = modifiers.size() - 1; modIndex >= 0; modIndex--) {
+      ModifierEntry entry = modifiers.get(modIndex);
+      InventoryModifierHook inventory = entry.getHook(ToolInventoryCapability.HOOK);
+      int size = inventory.getSlots(tool, entry);
+      for (int i = 0; i < size; i++) {
+        if (start + i >= maxSlots) {
+          break modifiers;
         }
-        start += size;
+        Slot slot = menu.getSlot(start + i);
+        Pattern pattern = inventory.getPattern(tool, entry, i, slot.hasItem());
+        if (pattern != null) {
+          TextureAtlasSprite sprite = spriteGetter.apply(pattern.getTexture());
+          blit(matrixStack, xStart + slot.x, yStart + slot.y, 100, 16, 16, sprite);
+        }
       }
+      start += size;
     }
 
     // offhand icon

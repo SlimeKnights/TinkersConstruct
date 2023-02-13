@@ -28,8 +28,6 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-import static slimeknights.tconstruct.smeltery.block.entity.multiblock.MultiblockResult.error;
-
 /**
  * Base class for all cuboid multiblocks
  */
@@ -99,15 +97,35 @@ public abstract class MultiblockCuboid<T extends MultiblockStructureData> {
   public T detectMultiblock(Level world, BlockPos master, Direction facing) {
     // list of blocks that are part of the multiblock, but not in a standard position
     ImmutableSet.Builder<BlockPos> extraBlocks = ImmutableSet.builder();
-    // center is the lowest block behind in a position behind the controller
-    BlockPos center = getOuterPos(world, master.relative(facing.getOpposite()), Direction.DOWN, maxHeight).above();
+    // center is the block behind the controller
+    BlockPos center = master.relative(facing.getOpposite());
+    // if behind the controller is not a valid inner block, behavior depends on the frame
+    CuboidSide neededCap = null;
+    if (!isInnerBlock(world, center)) {
+      // with no frame, its invalid, we need at least 1 inner space
+      // alternatively, if we have a frame and no floor nor ceiling, there is no way this block would be here
+      if (!hasFrame || (!hasFloor && !hasCeiling)) {
+        setLastResult(MultiblockResult.error(center, INVALID_INNER_BLOCK));
+        return null;
+      }
+      // with a frame, we could be on one of the caps, will have to pick one or the other to avoid running the entire logic twice and lagging the game
+      // luckily, in most cases the choice is easy, choose the one we have. On the odd chance we have both, choose the ceiling (no controller in top layer)
+      if (hasFloor) {
+        neededCap = CuboidSide.FLOOR;
+        center = center.above();
+      } else {
+        neededCap = CuboidSide.CEILING;
+        center = center.below();
+      }
 
-    // below lowest internal position
-    if (master.getY() < center.getY() && (!hasFrame || !isInnerBlock(world, center))) {
-      setLastResult(MultiblockResult.error(center.below(), INVALID_INNER_BLOCK));
-      return null;
+      // still not an inner block? guess we just give up
+      if (!isInnerBlock(world, center)) {
+        setLastResult(MultiblockResult.error(center, INVALID_INNER_BLOCK));
+        return null;
+      }
     }
 
+    // before we can find the cap (if needed), must find our horizontals
     // distances to the edges including the outer blocks
     int[] edges = new int[4];
     // order: south/west/north/east
@@ -130,57 +148,77 @@ public abstract class MultiblockCuboid<T extends MultiblockStructureData> {
     BlockPos to = center.offset(edges[EAST], 0, edges[SOUTH]);
     Consumer<Collection<BlockPos>> posConsumer = extraBlocks::addAll;
 
-    // check the floor (frame check done inside)
-    if (hasFloor) {
-      MultiblockResult result = detectCap(world, from.below(), to.below(), CuboidSide.FLOOR, posConsumer);
-      if (!result.isSuccess()) {
-        setLastResult(result);
-        return null;
-      }
-    }
-
-    // go up layer for layer (again, frame check done inside)
-    int height = 0;
-    int localMax = Math.min(maxHeight, world.getHeight() - center.getY());
-    // its fine to fail on a layer above the first, so store the result in case we need it
-    MultiblockResult heightResult = TOO_HIGH;
-    for (; height < localMax; height++) {
-      heightResult = detectLayer(world, from.above(height), to.above(height), posConsumer);
-      if (!heightResult.isSuccess()) {
-        break;
-      }
-    }
-
-    // no walls?
-    if (height == 0 || height <= master.getY() - center.getY()) {
-      setLastResult(heightResult);
+    // make sure our middle layer is valid, makes later math easier if we know height of 0 is accounted for
+    MultiblockResult result = detectLayer(world, from, to, posConsumer);
+    if (!result.isSuccess()) {
+      setLastResult(result);
       return null;
-    } else if (height == localMax) {
-      // expanded as high as possible, so no error to display
-      heightResult = MultiblockResult.SUCCESS;
     }
 
-    // detect ceiling (yup. frame check done inside.)
-    if (hasCeiling) {
-      // "height" failed above meaning there is a non-hollow layer there
-      // assuming its a valid structure, it failed because its a ceiling (if another reason, the ceiling check will fail)
-      MultiblockResult result = detectCap(world, from.above(height), to.above(height), CuboidSide.CEILING, posConsumer);
-      if (!result.isSuccess()) {
-        setLastResult(result);
+    // there are a few cases below where we might succeed without setting the last result, so just pre-emptively clear it and prepare the local
+    MultiblockResult layerResult = MultiblockResult.SUCCESS;
+    setLastResult(MultiblockResult.SUCCESS);
+
+    // we found the middle layer, time to iterate down until we find the bottom. we can skip this if the controller is in the bottom layer
+    int minLayer = -1;
+    int remainingHeight = maxHeight - 1; // subtract 1 because we already found the middle layer
+    if (neededCap != CuboidSide.FLOOR) {
+      // first, detect layers downwards until we can no longer
+      for (; minLayer > -remainingHeight; minLayer--) {
+        layerResult = detectLayer(world, from.above(minLayer), to.above(minLayer), posConsumer);
+        if (!layerResult.isSuccess()) {
+          break;
+        }
+      }
+    }
+    // mark all the layers we have used, add 1 to account for the layer we did not find
+    remainingHeight += minLayer + 1;
+    // ran out of layers, time to find the floor
+    if (hasFloor) {
+      MultiblockResult floorResult = detectCap(world, from.above(minLayer), to.above(minLayer), CuboidSide.FLOOR, posConsumer);
+      if (!floorResult.isSuccess()) {
+        setLastResult(floorResult);
         return null;
       }
-      // if we have a ceiling, the structure is done, so mark success
-      setLastResult(MultiblockResult.SUCCESS);
     } else {
-      // with no ceiling, we will display the position that caused the next layer to fail as a "warning", in case they wonder why it won't expand
-      setLastResult(heightResult);
+      minLayer++;
+      // if we have a floor, this direction is complete so leave result at success
+      // if we do not need a floor, then we want to set the result to our failure, may be success
+      setLastResult(layerResult);
+    }
+
+    // next, go up to find the ceiling, again can skip if we started in the ceiling
+    int maxLayer = 1;
+    if (neededCap != CuboidSide.CEILING) {
+      // detect layers upwards until we can no longer, note we will stop early if we reach the max height
+      for (; maxLayer < remainingHeight; maxLayer++) {
+        layerResult = detectLayer(world, from.above(maxLayer), to.above(maxLayer), posConsumer);
+        if (!layerResult.isSuccess()) {
+          break;
+        }
+      }
+    }
+
+    // ran out of layers, time to find the ceiling
+    if (hasCeiling) {
+      MultiblockResult floorResult = detectCap(world, from.above(maxLayer), to.above(maxLayer), CuboidSide.CEILING, posConsumer);
+      if (!floorResult.isSuccess()) {
+        setLastResult(floorResult);
+        return null;
+      }
+    } else {
+      maxLayer--;
+      // if we have a ceiling, this direction is complete so leave result at success
+      // if we do not need a ceiling, then we want to set the result to our failure, may be success
+      // supposing we hit max height (success), and have no floor or ceiling (why would you do that), this has the bonus of marking success as we cannot expand
+      setLastResult(layerResult);
     }
 
     // get final bounds
     // min is 1 block below if we have a floor (to/from is at the first layer)
     // max is at height, 1 below is the last successful layer if no ceiling
-    BlockPos minPos = hasFloor ? from.below() : from;
-    BlockPos maxPos = to.above(hasCeiling ? height : height - 1);
+    BlockPos minPos = from.above(minLayer);
+    BlockPos maxPos = to.above(maxLayer);
     return create(minPos, maxPos, extraBlocks.build());
   }
 
@@ -268,22 +306,10 @@ public abstract class MultiblockCuboid<T extends MultiblockStructureData> {
 
     // temporary list of position candidates, so we can only add them if successful
     List<BlockPos> candidates = Lists.newArrayList();
-
-    // validate frame first
     MutableBlockPos mutable = new MutableBlockPos();
     int height = from.getY();
-    if (hasFrame) {
-      // function to check a single position in the frame
-      Predicate<BlockPos> frameCheck = pos -> isValidBlock(world, pos, CuboidSide.WALL, true);
 
-      // we only have 4 corner blocks to check
-      if (!frameCheck.test(from)) return MultiblockResult.error(from.immutable(), INVALID_WALL_FRAME);
-      if (!frameCheck.test(mutable.set(from.getX(), height, to.getZ()))) return MultiblockResult.error(mutable.immutable(), INVALID_WALL_FRAME);
-      if (!frameCheck.test(mutable.set(to.getX(), height, from.getZ()))) return MultiblockResult.error(mutable.immutable(), INVALID_WALL_FRAME);
-      if (!frameCheck.test(to))   return MultiblockResult.error(to.immutable(), INVALID_WALL_FRAME);
-    }
-
-    // validate the inside
+    // validate the inside first, gives us a quick exit for the ceiling/floor detection (as no holes in ceiling/floor)
     for (int x = from.getX() + 1; x < to.getX(); x++) {
       for (int z = from.getZ() + 1; z < to.getZ(); z++) {
         // ensure its a valid block for inside the structure
@@ -297,6 +323,18 @@ public abstract class MultiblockCuboid<T extends MultiblockStructureData> {
           return MultiblockResult.error(mutable.immutable(), INVALID_INNER_BLOCK);
         }
       }
+    }
+
+    // next, do the frame
+    if (hasFrame) {
+      // function to check a single position in the frame
+      Predicate<BlockPos> frameCheck = pos -> isValidBlock(world, pos, CuboidSide.WALL, true);
+
+      // we only have 4 corner blocks to check
+      if (!frameCheck.test(from)) return MultiblockResult.error(from.immutable(), INVALID_WALL_FRAME);
+      if (!frameCheck.test(mutable.set(from.getX(), height, to.getZ()))) return MultiblockResult.error(mutable.immutable(), INVALID_WALL_FRAME);
+      if (!frameCheck.test(mutable.set(to.getX(), height, from.getZ()))) return MultiblockResult.error(mutable.immutable(), INVALID_WALL_FRAME);
+      if (!frameCheck.test(to))   return MultiblockResult.error(to.immutable(), INVALID_WALL_FRAME);
     }
 
     // validate the 4 sides

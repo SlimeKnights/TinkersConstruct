@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:stat_boost",
+  "level_display": "tconstruct:default",
+  "stats": [
+    {
+      "stat": "tconstruct:velocity",
+      "type": "multiply_base",
+      "value": 0.1
+    },
+    {
+      "stat": "tconstruct:projectile_damage",
+      "type": "multiply_all",
+      "value": -0.1
+    }
+  ]
+}

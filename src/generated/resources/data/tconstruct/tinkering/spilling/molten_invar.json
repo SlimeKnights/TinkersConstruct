@@ -1,0 +1,26 @@
+{
+  "fluid": {
+    "tag": "forge:molten_invar",
+    "amount": 10
+  },
+  "effects": [
+    {
+      "type": "tconstruct:conditional",
+      "entity": {
+        "type": "tconstruct:inverted",
+        "predicate": "tconstruct:fire_immune"
+      },
+      "effect": {
+        "type": "tconstruct:damage",
+        "damage_type": "fire",
+        "damage_amount": 2.0
+      }
+    },
+    {
+      "type": "tconstruct:effect",
+      "name": "minecraft:hunger",
+      "time": 10,
+      "level": 1
+    }
+  ]
+}

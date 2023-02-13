@@ -1,99 +1,110 @@
 package slimeknights.tconstruct.tools.recipe;
 
+import com.google.common.collect.ImmutableList;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.level.Level;
-import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
+import net.minecraft.world.level.ItemLike;
+import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
+import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.json.predicate.modifier.ModifierPredicate;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.recipe.ITinkerableContainer;
+import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierSalvage;
-import slimeknights.tconstruct.library.recipe.modifiers.adding.IncrementalModifierRecipe;
-import slimeknights.tconstruct.library.recipe.modifiers.adding.IncrementalModifierRecipeBuilder;
-import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
+import slimeknights.tconstruct.library.recipe.worktable.AbstractSizedIngredientRecipeBuilder;
+import slimeknights.tconstruct.library.recipe.worktable.AbstractWorktableRecipe;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.utils.JsonUtils;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
-@RequiredArgsConstructor
-public class ModifierRemovalRecipe implements ITinkerStationRecipe {
-  private static final ValidatedResult NO_MODIFIERS = ValidatedResult.failure(TConstruct.makeTranslationKey("recipe", "remove_modifier.no_modifiers"));
+public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
+  private static final Component TITLE = TConstruct.makeTranslation("recipe", "remove_modifier.title");
+  private static final Component DESCRIPTION = TConstruct.makeTranslation("recipe", "remove_modifier.description");
+  private static final Component NO_MODIFIERS = TConstruct.makeTranslation("recipe", "remove_modifier.no_modifiers");
 
-  @Getter
-  private final ResourceLocation id;
-  private final Ingredient ingredient;
-  private final ItemStack container;
+  private final List<ItemStack> leftovers;
+  private final IJsonPredicate<ModifierId> modifierPredicate;
 
-  @Override
-  public boolean matches(ITinkerStationContainer inv, Level world) {
-    if (!inv.getTinkerableStack().is(TinkerTags.Items.MODIFIABLE)) {
-      return false;
-    }
-    return IncrementalModifierRecipe.containsOnlyIngredient(inv, ingredient);
+  protected final Predicate<ModifierEntry> entryPredicate;
+  private List<ModifierEntry> displayModifiers;
+  public ModifierRemovalRecipe(ResourceLocation id, List<SizedIngredient> inputs, List<ItemStack> leftovers, IJsonPredicate<ModifierId> modifierPredicate) {
+    super(id, inputs);
+    this.leftovers = leftovers;
+    this.modifierPredicate = modifierPredicate;
+    this.entryPredicate = mod -> modifierPredicate.matches(mod.getId());
   }
 
-  /** Gets the modifier entry being removed */
-  @Nullable
-  private ModifierEntry getModifierToRemove(ITinkerStationContainer inv, List<ModifierEntry> modifiers) {
-    // sums all filled slots for the removal index, should be able to reach any index, but requires 1 wet sponge for every 5
-    int removeIndex = -1;
-    for (int i = 0; i < inv.getInputCount(); i++) {
-      ItemStack stack = inv.getInput(i);
-      if (!stack.isEmpty() && ingredient.test(stack)) {
-        removeIndex += (i + 1) * stack.getCount();
+  /** @deprecated use {@link #ModifierRemovalRecipe(ResourceLocation, List, List, IJsonPredicate)} */
+  @Deprecated
+  public ModifierRemovalRecipe(ResourceLocation id, List<SizedIngredient> inputs, List<ItemStack> leftovers) {
+    this(id, inputs, leftovers, ModifierPredicate.ALWAYS);
+  }
+
+  @Override
+  public Component getTitle() {
+    return TITLE;
+  }
+
+  /** Filters the given modifier list */
+  protected List<ModifierEntry> filter(@Nullable IToolStackView tool, List<ModifierEntry> modifiers) {
+    if (modifierPredicate != ModifierPredicate.ALWAYS) {
+      return modifiers.stream().filter(entryPredicate).toList();
+    }
+    return modifiers;
+  }
+
+  @Override
+  public List<ModifierEntry> getModifierOptions(@Nullable ITinkerableContainer inv) {
+    if (inv == null) {
+      if (displayModifiers == null) {
+        displayModifiers = filter(null, ModifierRecipeLookup.getRecipeModifierList());
       }
+      return displayModifiers;
     }
-    // shouldn't be possible, but better than a crash just in case
-    if (removeIndex == -1) {
-      return null;
-    }
-    // we start at the most recent modifier, moving backwards
-    if (removeIndex >= modifiers.size()) {
-      removeIndex = 0;
-    } else {
-      removeIndex = modifiers.size() - removeIndex - 1;
-    }
-    return modifiers.get(removeIndex);
+    return filter(inv.getTinkerable(), inv.getTinkerable().getUpgrades().getModifiers());
   }
 
   @Override
-  public ValidatedResult getValidatedResult(ITinkerStationContainer inv) {
-    ItemStack toolStack = inv.getTinkerableStack();
-    ToolStack tool = ToolStack.from(toolStack);
-    List<ModifierEntry> modifiers = tool.getUpgrades().getModifiers();
-    if (modifiers.isEmpty()) {
+  public Component getDescription(@Nullable ITinkerableContainer inv) {
+    if (inv != null && inv.getTinkerable().getUpgrades().getModifiers().stream().noneMatch(entryPredicate)) {
       return NO_MODIFIERS;
     }
+    return DESCRIPTION;
+  }
 
-    // find the modifier to remove
-    ModifierEntry toRemove = getModifierToRemove(inv, modifiers);
-    if (toRemove == null) {
-      return ValidatedResult.PASS;
-    }
+  @Override
+  public RecipeResult<ToolStack> getResult(ITinkerableContainer inv, ModifierEntry entry) {
+    ToolStack tool = inv.getTinkerable();
 
     // salvage
     tool = tool.copy();
-    ModifierId id = toRemove.getId();
-    ModifierSalvage salvage = ModifierRecipeLookup.getSalvage(toolStack, tool, id, toRemove.getLevel());
+    ModifierId modifierId = entry.getId();
+    ModifierSalvage salvage = ModifierRecipeLookup.getSalvage(inv.getTinkerableStack(), tool, modifierId, entry.getLevel());
 
     // restore the slots
     if (salvage != null) {
@@ -101,14 +112,14 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
     }
 
     // first remove hook, primarily for removing raw NBT which is highly discouraged using
-    int newLevel = tool.getModifierLevel(id) - 1;
-    Modifier modifier = toRemove.getModifier();
+    int newLevel = tool.getModifierLevel(modifierId) - 1;
+    Modifier modifier = entry.getModifier();
     if (newLevel <= 0) {
       modifier.beforeRemoved(tool, tool.getRestrictedNBT());
     }
 
     // remove the actual modifier
-    tool.removeModifier(id, 1);
+    tool.removeModifier(modifierId, 1);
 
     // second remove hook, useful for removing modifier specific state data
     if (newLevel <= 0) {
@@ -116,51 +127,41 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
     }
 
     // ensure the tool is still valid
-    ValidatedResult validated = tool.validate();
-    if (validated.hasError()) {
-      return validated;
+    Component error = tool.tryValidate();
+    if (error != null) {
+      return RecipeResult.failure(error);
     }
     // if this was the last level, validate the tool is still valid without it
     if (newLevel <= 0) {
-      validated = modifier.validate(tool, 0);
+      ValidatedResult validated = modifier.validate(tool, 0);
       if (validated.hasError()) {
-        return validated;
+        return RecipeResult.failure(validated.getMessage());
       }
     }
 
     // check the modifier requirements
-    ItemStack resultStack = tool.createStack(Math.min(toolStack.getCount(), shrinkToolSlotBy())); // creating a stack to make it as accurate as possible, though the old stack should be sufficient
-    validated = ModifierRecipeLookup.checkRequirements(resultStack, tool);
+    ValidatedResult validated = ModifierRecipeLookup.checkRequirements(inv.getTinkerableStack(), tool);
     if (validated.hasError()) {
-      return validated;
+      return RecipeResult.failure(validated.getMessage());
     }
-    
+
     // successfully removed
-    return ValidatedResult.success(resultStack);
+    return RecipeResult.success(tool);
   }
 
   @Override
-  public int shrinkToolSlotBy() {
+  public int toolResultSize() {
     return 64;
   }
 
   @Override
-  public void updateInputs(ItemStack result, IMutableTinkerStationContainer inv, boolean isServer) {
-    // remove the input item, done second as we need its location for salvage
-    for (int i = 0; i < inv.getInputCount(); i++) {
-      ItemStack stack = inv.getInput(i);
-      if (!stack.isEmpty() && ingredient.test(stack)) {
-        inv.shrinkInput(i, 1, container.copy());
-        break;
+  public void updateInputs(IToolStackView result, ITinkerableContainer.Mutable inv, boolean isServer) {
+    super.updateInputs(result, inv, isServer);
+    if (isServer) {
+      for (ItemStack stack : leftovers) {
+        inv.giveItem(stack.copy());
       }
     }
-  }
-
-  /** @deprecated Use {@link #getValidatedResult(ITinkerStationContainer)} */
-  @Deprecated
-  @Override
-  public ItemStack getResultItem() {
-    return ItemStack.EMPTY;
   }
 
   @Override
@@ -168,68 +169,118 @@ public class ModifierRemovalRecipe implements ITinkerStationRecipe {
     return TinkerModifiers.removeModifierSerializer.get();
   }
 
+  /** Factory interface for modifier removal recipes */
+  @FunctionalInterface
+  public interface ModifierRemovalRecipeFactory {
+    ModifierRemovalRecipe create(ResourceLocation id, List<SizedIngredient> inputs, List<ItemStack> leftovers, IJsonPredicate<ModifierId> modifierPredicate);
+  }
+
+  @RequiredArgsConstructor
   public static class Serializer extends LoggingRecipeSerializer<ModifierRemovalRecipe> {
+    private final ModifierRemovalRecipeFactory factory;
 
     @Override
     public ModifierRemovalRecipe fromJson(ResourceLocation id, JsonObject json) {
-      Ingredient ingredient = Ingredient.fromJson(JsonHelper.getElement(json, "ingredient"));
-      ItemStack container = ItemStack.EMPTY;
-      if (json.has("container")) {
-        container = IncrementalModifierRecipe.deseralizeResultItem(json, "container");
+      List<SizedIngredient> ingredients = JsonHelper.parseList(json, "inputs", SizedIngredient::deserialize);
+      List<ItemStack> leftovers = Collections.emptyList();
+      if (json.has("leftovers")) {
+        leftovers = JsonHelper.parseList(json, "leftovers", JsonUtils::convertToItemStack);
       }
-      return new ModifierRemovalRecipe(id, ingredient, container);
+      IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ALWAYS;
+      if (json.has("modifier_predicate")) {
+        modifierPredicate = ModifierPredicate.LOADER.getAndDeserialize(json, "modifier_predicate");
+      }
+      return factory.create(id, ingredients, leftovers, modifierPredicate);
     }
 
     @Nullable
     @Override
     public ModifierRemovalRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
-      Ingredient ingredient = Ingredient.fromNetwork(buffer);
-      ItemStack container = buffer.readItem();
-      return new ModifierRemovalRecipe(id, ingredient, container);
+      int size = buffer.readVarInt();
+      ImmutableList.Builder<SizedIngredient> ingredients = ImmutableList.builder();
+      for (int i = 0; i < size; i++) {
+        ingredients.add(SizedIngredient.read(buffer));
+      }
+      size = buffer.readVarInt();
+      ImmutableList.Builder<ItemStack> leftovers = ImmutableList.builder();
+      for (int i = 0; i < size; i++) {
+        leftovers.add(buffer.readItem());
+      }
+      IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.LOADER.fromNetwork(buffer);
+      return factory.create(id, ingredients.build(), leftovers.build(), modifierPredicate);
     }
 
     @Override
     public void toNetworkSafe(FriendlyByteBuf buffer, ModifierRemovalRecipe recipe) {
-      recipe.ingredient.toNetwork(buffer);
-      buffer.writeItem(recipe.container);
+      buffer.writeVarInt(recipe.inputs.size());
+      for (SizedIngredient ingredient : recipe.inputs) {
+        ingredient.write(buffer);
+      }
+      buffer.writeVarInt(recipe.leftovers.size());
+      for (ItemStack itemStack : recipe.leftovers) {
+        buffer.writeItem(itemStack);
+      }
+      ModifierPredicate.LOADER.toNetwork(recipe.modifierPredicate, buffer);
     }
   }
 
   @RequiredArgsConstructor(staticName = "removal")
-  public static class Builder extends AbstractRecipeBuilder<Builder> {
-    private final Ingredient ingredient;
-    private final ItemStack container;
+  public static class Builder extends AbstractSizedIngredientRecipeBuilder<Builder> {
+    private final RecipeSerializer<? extends ModifierRemovalRecipe> serializer;
+    private final List<ItemStack> leftovers = new ArrayList<>();
+    @Setter @Accessors(fluent = true)
+    private IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ALWAYS;
+
+    public static Builder removal() {
+      return removal(TinkerModifiers.removeModifierSerializer.get());
+    }
+
+    /** Adds a leftover stack to the recipe */
+    public Builder addLeftover(ItemStack stack) {
+      leftovers.add(stack);
+      return this;
+    }
+
+    /** Adds a leftover stack to the recipe */
+    public Builder addLeftover(ItemLike item) {
+      return addLeftover(new ItemStack(item));
+    }
 
     @Override
     public void save(Consumer<FinishedRecipe> consumer) {
-      save(consumer, Objects.requireNonNull(container.getItem().getRegistryName()));
+      save(consumer, Objects.requireNonNull(leftovers.get(0).getItem().getRegistryName()));
     }
 
     @Override
     public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
-      if (ingredient == Ingredient.EMPTY) {
-        throw new IllegalStateException("Empty ingredient not allowed");
+      if (inputs.isEmpty()) {
+        throw new IllegalStateException("Must have at least one input");
       }
       ResourceLocation advancementId = buildOptionalAdvancement(id, "modifiers");
       consumer.accept(new Finished(id, advancementId));
     }
 
-    private class Finished extends AbstractFinishedRecipe {
+    private class Finished extends SizedFinishedRecipe {
       public Finished(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
         super(ID, advancementID);
       }
 
       @Override
       public void serializeRecipeData(JsonObject json) {
-        json.add("ingredient", ingredient.toJson());
-        if (!container.isEmpty()) {
-          json.add("container", IncrementalModifierRecipeBuilder.serializeResult(container));
+        super.serializeRecipeData(json);
+        if (!leftovers.isEmpty()) {
+          JsonArray array = new JsonArray();
+          for (ItemStack stack : leftovers) {
+            array.add(JsonUtils.serializeItemStack(stack));
+          }
+          json.add("leftovers", array);
         }
+        json.add("modifier_predicate", ModifierPredicate.LOADER.serialize(modifierPredicate));
       }
 
       @Override
       public RecipeSerializer<?> getType() {
-        return TinkerModifiers.removeModifierSerializer.get();
+        return serializer;
       }
     }
   }

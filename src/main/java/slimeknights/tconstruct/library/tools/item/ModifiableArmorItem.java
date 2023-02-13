@@ -32,7 +32,7 @@ import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.hooks.IElytraFlightModifier;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
@@ -61,6 +61,8 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
   public static final ResourceLocation PIGLIN_NEUTRAL = TConstruct.getResource("piglin_neutral");
   /** Volatile modifier tag to make this item an elytra */
   public static final ResourceLocation ELYTRA = TConstruct.getResource("elyta");
+  /** Volatile flag for a boot item to walk on powdered snow. Cold immunity is handled through a tag */
+  public static final ResourceLocation SNOW_BOOTS = TConstruct.getResource("snow_boots");
 
   @Getter
   private final ToolDefinition toolDefinition;
@@ -100,6 +102,11 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
   @Override
   public boolean makesPiglinsNeutral(ItemStack stack, LivingEntity wearer) {
     return ModifierUtil.checkVolatileFlag(stack, PIGLIN_NEUTRAL);
+  }
+
+  @Override
+  public boolean canWalkOnPowderedSnow(ItemStack stack, LivingEntity wearer) {
+    return slot == EquipmentSlot.FEET && ModifierUtil.checkVolatileFlag(stack, SNOW_BOOTS);
   }
 
   @Override
@@ -299,8 +306,7 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
       if (!tool.isBroken()) {
         // if any modifier says stop flying, stop flying
         for (ModifierEntry entry : tool.getModifierList()) {
-          IElytraFlightModifier elytraFlight = entry.getModifier().getModule(IElytraFlightModifier.class);
-          if (elytraFlight != null && !elytraFlight.elytraFlightTick(tool, entry.getLevel(), entity, flightTicks)) {
+          if (entry.getHook(TinkerHooks.ELYTRA_FLIGHT).elytraFlightTick(tool, entry, entity, flightTicks)) {
             return false;
           }
         }

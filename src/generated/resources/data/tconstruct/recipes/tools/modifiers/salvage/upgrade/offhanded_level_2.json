@@ -1,8 +1,0 @@
-{
-  "type": "tconstruct:modifier_salvage",
-  "tools": {
-    "tag": "tconstruct:modifiable/held"
-  },
-  "modifier": "tconstruct:offhanded",
-  "min_level": 2
-}

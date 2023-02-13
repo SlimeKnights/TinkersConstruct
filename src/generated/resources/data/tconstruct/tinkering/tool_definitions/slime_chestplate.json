@@ -3,6 +3,9 @@
     "base": {
       "tconstruct:durability": 672.0,
       "tconstruct:armor": 0.0
+    },
+    "multipliers": {
+      "tconstruct:attack_damage": 0.4
     }
   },
   "slots": {

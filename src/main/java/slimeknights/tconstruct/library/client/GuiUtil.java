@@ -10,6 +10,7 @@ import com.mojang.blaze3d.vertex.VertexFormat.Mode;
 import com.mojang.math.Matrix4f;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.Screen;
@@ -20,6 +21,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.client.screen.ElementScreen;
+import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class GuiUtil {
@@ -254,5 +256,11 @@ public final class GuiUtil {
       GuiComponent.fill(matrices, x, y, x + width, y + height, 0x80FFFFFF);
       RenderSystem.colorMask(true, true, true, true);
       RenderSystem.enableDepthTest();
+  }
+
+  /** Renders a pattern at the given location */
+  public static void renderPattern(PoseStack matrices, Pattern pattern, int x, int y) {
+    TextureAtlasSprite sprite = Minecraft.getInstance().getModelManager().getAtlas(InventoryMenu.BLOCK_ATLAS).getSprite(pattern.getTexture());
+    GuiComponent.blit(matrices, x, y, 100, 16, 16, sprite);
   }
 }

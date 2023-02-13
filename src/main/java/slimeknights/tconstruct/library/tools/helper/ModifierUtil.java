@@ -6,6 +6,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -17,18 +18,23 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraftforge.common.ToolAction;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
-import slimeknights.tconstruct.library.modifiers.hooks.IArmorLootModifier;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.LootingModifierHook;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
+import slimeknights.tconstruct.library.tools.nbt.IModDataView;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -41,6 +47,9 @@ import java.util.function.BiConsumer;
 public final class ModifierUtil {
   /** Vanilla enchantments tag */
   public static final String TAG_ENCHANTMENTS = "Enchantments";
+
+  /** Key for marking a modifier in use */
+  private static final ResourceLocation ACTIVE_MODIFIER = TConstruct.getResource("active_modifier");
 
   /**
    * Adds all enchantments from tools. Separate method as tools don't have enchants all the time.
@@ -66,7 +75,7 @@ public final class ModifierUtil {
         }
       };
       for (ModifierEntry entry : tool.getModifierList()) {
-        entry.getModifier().applyHarvestEnchantments(tool, entry.getLevel(), context, enchantmentConsumer);
+        entry.getHook(TinkerHooks.TOOL_HARVEST_ENCHANTMENTS).applyHarvestEnchantments(tool, entry, context, enchantmentConsumer);
       }
       // lucky pants
       if (player != null) {
@@ -74,10 +83,7 @@ public final class ModifierUtil {
         if (pants.is(TinkerTags.Items.LEGGINGS)) {
           ToolStack pantsTool = ToolStack.from(pants);
           for (ModifierEntry entry : pantsTool.getModifierList()) {
-            IArmorLootModifier leggingLuck = entry.getModifier().getModule(IArmorLootModifier.class);
-            if (leggingLuck != null) {
-              leggingLuck.applyHarvestEnchantments(tool, entry.getLevel(), context, enchantmentConsumer);
-            }
+            entry.getHook(TinkerHooks.LEGGINGS_HARVEST_ENCHANTMENTS).applyHarvestEnchantments(pantsTool, entry, context, enchantmentConsumer);
           }
         }
       }
@@ -118,11 +124,7 @@ public final class ModifierUtil {
     if (tool.isBroken()) {
       return 0;
     }
-    int looting = 0;
-    for (ModifierEntry entry : tool.getModifierList()) {
-      looting = entry.getModifier().getLootingValue(tool, entry.getLevel(), holder, target, damageSource, looting);
-    }
-    return looting;
+    return LootingModifierHook.getLootingValue(TinkerHooks.TOOL_LOOTING, tool, holder, target, damageSource, 0);
   }
 
   /**
@@ -138,12 +140,7 @@ public final class ModifierUtil {
     if (!pants.isEmpty() && pants.is(TinkerTags.Items.LEGGINGS)) {
       ToolStack pantsTool = ToolStack.from(pants);
       if (!pantsTool.isBroken()) {
-        for (ModifierEntry entry : pantsTool.getModifierList()) {
-          IArmorLootModifier leggingLuck = entry.getModifier().getModule(IArmorLootModifier.class);
-          if (leggingLuck != null) {
-            toolLooting = leggingLuck.getLootingValue(pantsTool, entry.getLevel(), holder, target, damageSource, toolLooting);
-          }
-        }
+        toolLooting = LootingModifierHook.getLootingValue(TinkerHooks.LEGGINGS_LOOTING, pantsTool, holder, target, damageSource, toolLooting);
       }
     }
     return toolLooting;
@@ -197,6 +194,16 @@ public final class ModifierUtil {
     return false;
   }
 
+  /** Checks if the given slot may contain armor */
+  public static boolean validArmorSlot(LivingEntity living, EquipmentSlot slot) {
+    return slot.getType() == Type.ARMOR || living.getItemBySlot(slot).is(TinkerTags.Items.HELD);
+  }
+
+  /** Checks if the given slot may contain armor */
+  public static boolean validArmorSlot(IToolStackView tool, EquipmentSlot slot) {
+    return slot.getType() == Type.ARMOR || tool.hasTag(TinkerTags.Items.HELD);
+  }
+
   /**
    * Adds levels to the given key in entity modifier data for an armor modifier
    * @param tool     Tool instance
@@ -205,7 +212,7 @@ public final class ModifierUtil {
    * @param amount   Amount to add
    */
   public static void addTotalArmorModifierLevel(IToolStackView tool, EquipmentChangeContext context, TinkerDataKey<Integer> key, int amount, boolean allowBroken) {
-    if (context.getChangedSlot().getType() == Type.ARMOR && (allowBroken || !tool.isBroken())) {
+    if (validArmorSlot(tool, context.getChangedSlot()) && (allowBroken || !tool.isBroken())) {
       context.getTinkerData().ifPresent(data -> {
         int totalLevels = data.get(key, 0) + amount;
         if (totalLevels <= 0) {
@@ -236,7 +243,7 @@ public final class ModifierUtil {
    * @param amount   Amount to add
    */
   public static void addTotalArmorModifierFloat(IToolStackView tool, EquipmentChangeContext context, TinkerDataKey<Float> key, float amount) {
-    if (context.getChangedSlot().getType() == Type.ARMOR && !tool.isBroken()) {
+    if (validArmorSlot(tool, context.getChangedSlot()) && !tool.isBroken()) {
       context.getTinkerData().ifPresent(data -> {
         float totalLevels = data.get(key, 0f) + amount;
         if (totalLevels <= 0.005f) {
@@ -328,5 +335,48 @@ public final class ModifierUtil {
       }
     }
     return false;
+  }
+
+  /** Starts using the given hand with the given modifier, will allow filtering modifier hooks so only the one for the given modifier is called */
+  public static void startUsingItem(IToolStackView tool, ModifierId modifier, LivingEntity living, InteractionHand hand) {
+    tool.getPersistentData().putString(ACTIVE_MODIFIER, modifier.toString());
+    living.startUsingItem(hand);
+  }
+
+  /** Gets the currently active modifier, or null if none is active */
+  @Nullable
+  public static ModifierEntry getActiveModifier(IToolStackView tool) {
+    IModDataView persistentData = tool.getPersistentData();
+    if (persistentData.contains(ACTIVE_MODIFIER, Tag.TAG_STRING)) {
+      ModifierId modifier = ModifierId.tryParse(persistentData.getString(ACTIVE_MODIFIER));
+      if (modifier != null) {
+        return tool.getModifiers().getEntry(modifier);
+      }
+    }
+    return null;
+  }
+
+  /** @deprecated No longer needed, will be removed in 1.19. */
+  @Deprecated
+  public static void checkFastUsingItem(IToolStackView tool, LivingEntity living) {}
+
+  /** @deprecated No longer needed. Use {@link #finishUsingItem(IToolStackView)} when you stop using a modifier */
+  @Deprecated
+  public static void finishUsingItem(LivingEntity living) {}
+
+  /** @deprecated No longer needed. Use {@link #finishUsingItem(IToolStackView)} when you stop using a modifier */
+  @Deprecated
+  public static void finishUsingItem(LivingEntity living, IToolStackView tool) {
+    finishUsingItem(tool);
+  }
+
+  /** Called to clear any data modifiers set when usage starts */
+  public static void finishUsingItem(IToolStackView tool) {
+    tool.getPersistentData().remove(ACTIVE_MODIFIER);
+  }
+
+  /** Calculates inaccuracy from the conditional tool stat */
+  public static float getInaccuracy(IToolStackView tool, LivingEntity living, float velocity) {
+    return 3 * (1 / ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.ACCURACY) - 1) * velocity;
   }
 }

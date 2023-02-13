@@ -9,9 +9,12 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.common.ToolAction;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierHook;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
 import slimeknights.tconstruct.library.tools.definition.harvest.IHarvestLogic;
+import slimeknights.tconstruct.library.tools.definition.module.IToolModule;
 import slimeknights.tconstruct.library.tools.definition.weapon.IWeaponAttack;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
@@ -38,7 +41,7 @@ public class ToolDefinitionData {
   @VisibleForTesting
   protected static final Stats EMPTY_STATS = new Stats(StatsNBT.EMPTY, MultiplierNBT.EMPTY);
   /** Empty tool data definition instance */
-  public static final ToolDefinitionData EMPTY = new ToolDefinitionData(Collections.emptyList(), EMPTY_STATS, DefinitionModifierSlots.EMPTY, Collections.emptyList(), Collections.emptySet(), null, null);
+  public static final ToolDefinitionData EMPTY = new ToolDefinitionData(Collections.emptyList(), EMPTY_STATS, DefinitionModifierSlots.EMPTY, Collections.emptyList(), Collections.emptySet(), null, null, ModifierHookMap.EMPTY);
 
   @Nullable
   private final List<PartRequirement> parts;
@@ -54,6 +57,8 @@ public class ToolDefinitionData {
   private final Harvest harvest;
   @Nullable
   private final IWeaponAttack attack;
+  @Nullable
+  private final ModifierHookMap modules;
 
 
   /* Getters */
@@ -90,6 +95,16 @@ public class ToolDefinitionData {
    */
   public int getStartingSlots(SlotType type) {
     return getSlots().getSlots(type);
+  }
+
+  /** Gets the map of internal module hooks */
+  public ModifierHookMap getModules() {
+    return requireNonNullElse(modules, ModifierHookMap.EMPTY);
+  }
+
+  /** Gets the given module from the tool */
+  public <T> T getModule(ModifierHook<T> hook) {
+    return getModules().getOrDefault(hook);
   }
 
 
@@ -150,6 +165,8 @@ public class ToolDefinitionData {
 
   /* Harvest */
 
+  // TODO: migrate harvest into modules
+
   /** Gets the tools's harvest logic */
   public IHarvestLogic getHarvestLogic() {
     if (harvest != null && harvest.logic != null) {
@@ -168,6 +185,8 @@ public class ToolDefinitionData {
 
 
   /* Attack */
+
+  // TODO: migrate attack into modules
 
   /** Gets the tool's attack logic */
   public IWeaponAttack getAttack() {
@@ -204,6 +223,7 @@ public class ToolDefinitionData {
     IHarvestLogic.LOADER.toNetwork(getHarvestLogic(), buffer);
     IAreaOfEffectIterator.LOADER.toNetwork(getAOE(), buffer);
     IWeaponAttack.LOADER.toNetwork(getAttack(), buffer);
+    IToolModule.write(getModules(), buffer);
   }
 
   /** Reads a tool definition stat object from a packet buffer */
@@ -229,7 +249,8 @@ public class ToolDefinitionData {
     IHarvestLogic harvestLogic = IHarvestLogic.LOADER.fromNetwork(buffer);
     IAreaOfEffectIterator aoe = IAreaOfEffectIterator.LOADER.fromNetwork(buffer);
     IWeaponAttack attack = IWeaponAttack.LOADER.fromNetwork(buffer);
-    return new ToolDefinitionData(parts.build(), new Stats(bonuses, multipliers), slots, traits.build(), actions.build(), new Harvest(harvestLogic, aoe), attack);
+    ModifierHookMap modules = IToolModule.read(buffer);
+    return new ToolDefinitionData(parts.build(), new Stats(bonuses, multipliers), slots, traits.build(), actions.build(), new Harvest(harvestLogic, aoe), attack, modules);
   }
 
   /** Internal stats object */

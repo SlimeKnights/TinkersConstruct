@@ -4,9 +4,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlot.Type;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
@@ -15,7 +17,6 @@ import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.TooltipKey;
-import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -26,8 +27,11 @@ public class ThornsModifier extends IncrementalModifier {
     // this works like vanilla, damage is capped due to the hurt immunity mechanics, so if multiple pieces apply thorns between us and vanilla, damage is capped at 4
     Entity attacker = source.getEntity();
     if (attacker != null && isDirectDamage) {
-      // 15% chance of working per level
+      // 15% chance of working per level, doubled bonus on shields
       float scaledLevel = getScaledLevel(tool, level);
+      if (slotType.getType() == Type.HAND) {
+        scaledLevel *= 2;
+      }
       if (RANDOM.nextFloat() < (scaledLevel * 0.15f)) {
         float damage = scaledLevel > 10 ? scaledLevel - 10 : 1 + RANDOM.nextInt(4);
         LivingEntity user = context.getEntity();
@@ -58,7 +62,7 @@ public class ThornsModifier extends IncrementalModifier {
 
   @Override
   public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
-    if (tool.getModifierLevel(TinkerModifiers.unarmed.getId()) > 0) {
+    if (tool.hasTag(TinkerTags.Items.UNARMED)) {
       addDamageTooltip(tool, getScaledLevel(tool, level) * 0.75f, tooltip);
     }
   }

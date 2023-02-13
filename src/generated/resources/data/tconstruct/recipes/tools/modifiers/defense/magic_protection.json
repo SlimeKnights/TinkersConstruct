@@ -5,12 +5,18 @@
   },
   "amount_per_item": 1,
   "needed_per_level": 24,
-  "tools": {
-    "tag": "tconstruct:modifiable/armor"
-  },
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/armor"
+    },
+    {
+      "tag": "tconstruct:modifiable/held"
+    }
+  ],
   "slots": {
     "defense": 1
   },
+  "allow_crystal": true,
   "result": {
     "name": "tconstruct:magic_protection",
     "level": 1

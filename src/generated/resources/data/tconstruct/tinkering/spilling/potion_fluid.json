@@ -1,12 +1,12 @@
 {
   "fluid": {
     "tag": "forge:potion",
-    "amount": 125
+    "amount": 50
   },
   "effects": [
     {
       "type": "tconstruct:potion_fluid",
-      "scale": 0.5
+      "scale": 0.25
     }
   ]
 }

@@ -1,8 +1,8 @@
 {
-  "title": "入门熔炼术",
+  "title": "《入门熔炼术》Thruul著",
   "recipe": "tconstruct:common/puny_smelting",
   "grid_size": "small",
   "description": [
-    { "text": "初学者的冶炼和铸造指南，Thruul M'Gon所著 系列中首本探讨冶炼炉的书籍。" }
+    { "text": "你们这些工匠都给我听好了！我即将推出的两本新书《§o入门熔炼术§r》《§o大师熔炼术§r》将会告诉你如何使用更高级的材料、熔化你的金属、合金等等。而至于我，则是独一无二的§lTHRUUL§r §lM'GON§r。" }
   ]
 }

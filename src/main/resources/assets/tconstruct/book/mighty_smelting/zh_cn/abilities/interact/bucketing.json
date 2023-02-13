@@ -8,26 +8,23 @@
       "text": "\n"
     },
 	  {
-      "text": "§l我滴亲娘嘞。§r",
-	    "pargraph": true
+      "text": "§l我滴亲娘嘞。§r"
     },
 	  {
       "text": "\n"
     },
 	  {
-      "text": "§o不止这些。§r",
-	    "pargraph": true
+      "text": "§o不止这些。§r"
     },
 	  {
       "text": "\n"
     },
 	  {
-      "text": "§l不会吧。§r",
-	    "pargraph": true
+      "text": "§l不会吧。§r"
     }
   ],
   "effects": [
-    "你的工具可以被用作桶",
+    "你的工具可以用作桶",
     "储量可通过“储罐”升级增加",
     "单个等级",
     "需要1个能力槽"

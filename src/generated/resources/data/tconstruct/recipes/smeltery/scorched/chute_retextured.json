@@ -1,0 +1,23 @@
+{
+  "type": "mantle:crafting_shaped_retextured",
+  "pattern": [
+    "C",
+    "#",
+    "C"
+  ],
+  "key": {
+    "#": {
+      "tag": "tconstruct:foundry_bricks"
+    },
+    "C": {
+      "item": "tconstruct:obsidian_pane"
+    }
+  },
+  "result": {
+    "item": "tconstruct:scorched_chute"
+  },
+  "texture": {
+    "tag": "tconstruct:foundry_bricks"
+  },
+  "match_all": false
+}

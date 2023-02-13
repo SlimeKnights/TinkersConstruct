@@ -28,6 +28,13 @@ public final class ToolDefinitions {
   public static final ToolDefinition SWORD = ToolDefinition.builder(TinkerTools.sword).meleeHarvest().build();
   public static final ToolDefinition CLEAVER = ToolDefinition.builder(TinkerTools.cleaver).meleeHarvest().build();
 
+  // bows
+  public static final ToolDefinition CROSSBOW = ToolDefinition.builder(TinkerTools.crossbow).ranged().build();
+  public static final ToolDefinition LONGBOW = ToolDefinition.builder(TinkerTools.longbow).ranged().build();
+
   // special
   public static final ToolDefinition FLINT_AND_BRICK = ToolDefinition.builder(TinkerTools.flintAndBrick).noParts().build();
+  public static final ToolDefinition SKY_STAFF = ToolDefinition.builder(TinkerTools.skyStaff).noParts().build();
+  public static final ToolDefinition EARTH_STAFF = ToolDefinition.builder(TinkerTools.earthStaff).noParts().build();
+  public static final ToolDefinition ICHOR_STAFF = ToolDefinition.builder(TinkerTools.ichorStaff).noParts().build();
 }

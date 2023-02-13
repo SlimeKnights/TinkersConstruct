@@ -2,18 +2,22 @@ intro=Introduction
 melter=Melter
 moving_fluids=Moving Fluids
 casting=Casting
-materials=Tier 2 Materials
+melee_harvest_materials=Tier 2 Melee Harvest Materials
+melee_harvest_materials.subtext=These materials can be casted into tool parts for melee weapons or harvest tools.
+ranged_materials=Tier 2 Ranged Materials
+ranged_materials.subtext=These materials can be casted into tool parts for ranged weapons like bows.
+
 further_reading=Further Reading
 
 upgrades=Upgrades
 upgrades.subtext=Tools can be enhanced with upgrades, though only a limited number can be applied per tool.
 upgrades.group_general=General
 upgrades.group_harvest=Harvest
-upgrades.group_weapon=Weapon
+upgrades.group_weapon=Melee
 upgrades.group_damage=Bonus Damage
 upgrades.group_armor=Armor
 
 slotless=Slotless Modifier
 slotless.subtext=These modifiers do not require any slots to apply, you can have them all if you wish.
 slotless.group_slotless=Slotless
-slotless.group_bonus_upgrades=Upgrades++
+slotless.group_bonus_upgrades=Slots++

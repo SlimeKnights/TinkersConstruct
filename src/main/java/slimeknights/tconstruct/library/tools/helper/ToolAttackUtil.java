@@ -126,7 +126,14 @@ public class ToolAttackUtil {
    * General version of attackEntity. Applies cooldowns but has no projectile entity
    */
   public static boolean attackEntity(ItemStack stack, Player attacker, Entity targetEntity) {
-    return attackEntity(ToolStack.from(stack), attacker, InteractionHand.MAIN_HAND, targetEntity, getCooldownFunction(attacker, InteractionHand.MAIN_HAND), false);
+    return attackEntity(ToolStack.from(stack), attacker, targetEntity);
+  }
+
+  /**
+   * General version of attackEntity. Applies cooldowns but has no projectile entity
+   */
+  public static boolean attackEntity(IToolStackView tool, Player attacker, Entity targetEntity) {
+    return attackEntity(tool, attacker, InteractionHand.MAIN_HAND, targetEntity, getCooldownFunction(attacker, InteractionHand.MAIN_HAND), false);
   }
 
   /** Normal attacking from a tool in the hand */
@@ -136,13 +143,26 @@ public class ToolAttackUtil {
   }
 
   /**
+   * Gets a living entity from the given entity, getting the parent if needed
+   * @param entity  Entity instance
+   * @return  Living entity, or null if its not living
+   */
+  @Nullable
+  public static LivingEntity getLivingEntity(Entity entity) {
+    if (entity instanceof PartEntity<?> part) {
+      entity = part.getParent();
+    }
+    return entity instanceof LivingEntity living ? living : null;
+  }
+
+  /**
    * Base attack logic, used by normal attacks, projectiles, and extra attacks.
    * Based on {@link Player#attack(Entity)}
    */
   public static boolean attackEntity(IToolStackView tool, LivingEntity attackerLiving, InteractionHand hand,
                                      Entity targetEntity, DoubleSupplier cooldownFunction, boolean isExtraAttack, EquipmentSlot sourceSlot) {
     // broken? give to vanilla
-    if (tool.isBroken()) {
+    if (tool.isBroken() || !tool.hasTag(TinkerTags.Items.MELEE_OR_UNARMED)) {
       return false;
     }
     // nothing to do? cancel
@@ -152,15 +172,7 @@ public class ToolAttackUtil {
     }
 
     // fetch relevant entities
-    LivingEntity targetLiving = null;
-    if (targetEntity instanceof LivingEntity) {
-      targetLiving = (LivingEntity) targetEntity;
-    } else if (targetEntity instanceof PartEntity) {
-      Entity parent = ((PartEntity<?>) targetEntity).getParent();
-      if (parent instanceof LivingEntity) {
-        targetLiving = (LivingEntity)parent;
-      }
-    }
+    LivingEntity targetLiving = getLivingEntity(targetEntity);
     Player attackerPlayer = null;
     if (attackerLiving instanceof Player player) {
       attackerPlayer = player;
@@ -383,6 +395,11 @@ public class ToolAttackUtil {
       }
       // removed: fire damage, handled in modifier hook above
       attackerPlayer.causeFoodExhaustion(0.1F);
+
+      // add usage stat
+      if (!isExtraAttack) {
+        attackerPlayer.awardStat(Stats.ITEM_USED.get(tool.getItem()));
+      }
     }
 
     // damage the tool
@@ -462,8 +479,10 @@ public class ToolAttackUtil {
     }
 
     // set hurt resistance time to 0 because we always want to deal damage in traits
+    int lastInvulnerableTime = target.invulnerableTime;
     target.invulnerableTime = 0;
     boolean hit = target.hurt(source, damage);
+    target.invulnerableTime = lastInvulnerableTime; // reset to the old time so bows work right
     // set total received damage, important for AI and stuff
     if (living != null) {
       living.lastHurt += oldLastDamage;

@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:plate_shield",
+  "text": [
+    { "text": "The plate shield is a highly defensive shield, granting high blocking power at the cost of speed while blocking." }
+  ],
+  "properties": [
+    "500 Durability",
+    "Blocks 100 damage per hit",
+    "180 degree block angle",
+    "20% speed while blocking",
+    "+2 Toughness",
+    "1 Upgrade Slot",
+    "4 Defense Slots",
+    "1 Ability Slot"
+  ]
+}

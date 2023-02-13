@@ -10,6 +10,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.material.Fluid;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.materials.definition.IMaterial;
+import slimeknights.tconstruct.library.materials.definition.MaterialManager;
+import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 public class TinkerTags {
@@ -21,6 +25,8 @@ public class TinkerTags {
     EntityTypes.init();
     TileEntityTypes.init();
     Biomes.init();
+    Modifiers.init();
+    Materials.init();
   }
 
   public static class Blocks {
@@ -50,7 +56,13 @@ public class TinkerTags {
     /** Materials that can be used to craft wooden tool tables */
     public static final TagKey<Block> PLANKLIKE = tag("planklike");
     /** Metals that can be used to craft the anvil */
+    public static final TagKey<Block> WORKSTATION_ROCK = tag("workstation_rock");
+    /** Metals that can be used to craft the anvil */
     public static final TagKey<Block> ANVIL_METAL = tag("anvil_metal");
+    /** Materials that can be used to craft the smeltery controller */
+    public static final TagKey<Block> SMELTERY_BRICKS = tag("smeltery_bricks");
+    /** Materials that can be used to craft the foundry controller */
+    public static final TagKey<Block> FOUNDRY_BRICKS = tag("foundry_bricks");
 
     /** Things the platform connects to */
     public static final TagKey<Block> PLATFORM_CONNECTIONS = tag("platform_connections");
@@ -181,7 +193,13 @@ public class TinkerTags {
     /** Materials that can be used to craft wooden tool tables */
     public static final TagKey<Item> PLANKLIKE = tag("planklike");
     /** Metals that can be used to craft the anvil */
+    public static final TagKey<Item> WORKSTATION_ROCK = tag("workstation_rock");
+    /** Metals that can be used to craft the anvil */
     public static final TagKey<Item> ANVIL_METAL = tag("anvil_metal");
+    /** Materials that can be used to craft the smeltery controller */
+    public static final TagKey<Item> SMELTERY_BRICKS = tag("smeltery_bricks");
+    /** Materials that can be used to craft the foundry controller */
+    public static final TagKey<Item> FOUNDRY_BRICKS = tag("foundry_bricks");
     /** Copper platform variants */
     public static final TagKey<Item> COPPER_PLATFORMS = tag("copper_platforms");
 
@@ -284,28 +302,46 @@ public class TinkerTags {
     public static final TagKey<Item> MULTIPART_TOOL = tag("modifiable/multipart");
     /** Modifiable items that can have range increased */
     public static final TagKey<Item> AOE = tag("modifiable/aoe");
-    /** Modifiable items that can be held in a single hand */
+    /** @deprecated use {@link #HELD} or {@link #INTERACTABLE_RIGHT} */
+    @Deprecated
     public static final TagKey<Item> ONE_HANDED = tag("modifiable/one_handed");
-    /** Modifiable items that prevent usage of the offhand */
+    /** @deprecated use {@link #HELD} or {@link #INTERACTABLE_RIGHT} */
+    @Deprecated
     public static final TagKey<Item> TWO_HANDED = tag("modifiable/two_handed");
     /** Tools that use durability and can be repaired. Items in this tag support the {@link ToolStats#DURABILITY} stat. */
     public static final TagKey<Item> DURABILITY = tag("modifiable/durability");
 
-    /** This is a common combination for modifiers, so figured it is worth a tag. Should not be added to directly typically */
+    /** @deprecated This used to be common, but the melee unarmed combo ended up being more common, and a compound ingredient is pretty trivial */
+    @Deprecated
     public static final TagKey<Item> MELEE_OR_HARVEST = tag("modifiable/melee_or_harvest");
-    /** Items in this tag support the @link ToolStats#ATTACK_DAMAGE} stat. Should not be added to directly typically, use {@link #MELEE} or {@link #CHESTPLATES} */
-    public static final TagKey<Item> MELEE_OR_UNARMED = tag("modifiable/melee_or_unarmed");
-    /** Anything that is used in the player's hand */
+    /** Anything that is used in the player's hand, mostly tools that support interaction, but other tools can be added directly */
     public static final TagKey<Item> HELD = tag("modifiable/held");
     /** Anything that can use interaction modifiers */
     public static final TagKey<Item> INTERACTABLE = tag("modifiable/interactable");
+    /** Tools that can interact on right click */
+    public static final TagKey<Item> INTERACTABLE_RIGHT = tag("modifiable/interactable/right");
+    /** Tools that can interact on left click */
+    public static final TagKey<Item> INTERACTABLE_LEFT = tag("modifiable/interactable/left");
+    /** Tools that can interact when worn as armor */
+    public static final TagKey<Item> INTERACTABLE_ARMOR = tag("modifiable/interactable/armor");
+    /** Tools that can interact on left click or right click */
+    public static final TagKey<Item> INTERACTABLE_DUAL = tag("modifiable/interactable/dual");
 
-    /** Modifiable items that support melee attacks. Items in this tag support the {@link ToolStats#ATTACK_SPEED} stat (plus those from {@link #MELEE_OR_UNARMED}). */
+    /** Items in this tag support the @link ToolStats#ATTACK_DAMAGE} stat. Should not be added to directly typically, use {@link #MELEE} or {@link #CHESTPLATES}
+     * TODO 1.19: rename to "modifiable/melee" */
+    public static final TagKey<Item> MELEE_OR_UNARMED = tag("modifiable/melee_or_unarmed");
+    /** Modifiable items that support melee attacks. Items in this tag support the {@link ToolStats#ATTACK_SPEED} stat (plus those from {@link #MELEE_OR_UNARMED}).
+     * TODO 1.19: rename to "modifiable/melee/held" */
     public static final TagKey<Item> MELEE = tag("modifiable/melee");
     /** Modifiable items that specifically are designed for melee, removes melee penalties */
     public static final TagKey<Item> MELEE_PRIMARY = tag("modifiable/melee/primary");
+    /** Modifiable items that boost unarmed attack damage. By default this is just chestplates, but added as a tag to make it easier for adds to change
+     * TODO 1.19: rename to "modifiable/unarmed" */
+    public static final TagKey<Item> UNARMED = tag("modifiable/unarmed");
     /** Modifiable items that are also swords, typically no use outside of combat */
     public static final TagKey<Item> SWORD = tag("modifiable/melee/sword");
+    /** Modifiable items that can parry, cannot receive blocking */
+    public static final TagKey<Item> PARRY = tag("modifiable/melee/parry");
 
     /** Modifiable items that can break blocks. Items in this tag support the {@link ToolStats#MINING_SPEED} and {@link ToolStats#HARVEST_TIER} stats. */
     public static final TagKey<Item> HARVEST = tag("modifiable/harvest");
@@ -324,10 +360,30 @@ public class TinkerTags {
     public static final TagKey<Item> CHESTPLATES = tag("modifiable/armor/chestplate");
     /** Modifiable items that are worn as helmets */
     public static final TagKey<Item> HELMETS = tag("modifiable/armor/helmets");
-    /** Modifiable items that boost unarmed attack damage. By default this is just chestplates, but added as a tag to make it easier for adds to change */
-    public static final TagKey<Item> UNARMED = tag("modifiable/unarmed");
-    // /** Modifiable items that support ranged attacks, such as bows */
-    // public static final TagKey<Item> RANGED = tag("modifiable/ranged");
+    /** Modifiable items that are worn on any of the main armor slots, likely is applicable for curio slots too */
+    public static final TagKey<Item> WORN_ARMOR = tag("modifiable/armor/worn");
+    /** Modifiable items that are held in either hand */
+    public static final TagKey<Item> HELD_ARMOR = tag("modifiable/armor/held");
+    /** Modifiable items that have innate shielding behavior */
+    public static final TagKey<Item> SHIELDS = tag("modifiable/shields");
+    /** Modifiable items support special staff modifiers */
+    public static final TagKey<Item> STAFFS = tag("modifiable/staffs");
+
+    /** Modifiable items that support ranged attacks. Items in this tag support {@link ToolStats#DRAW_SPEED}, {@link ToolStats#VELOCITY}, {@link ToolStats#PROJECTILE_DAMAGE} and {@link ToolStats#ACCURACY} */
+    public static final TagKey<Item> RANGED = tag("modifiable/ranged");
+    /** Any modifiable ranged items that are a bow, includes crosbows and longbows */
+    public static final TagKey<Item> BOWS = tag("modifiable/ranged/bows");
+    /** Any modifiable bows that fire arrows on release */
+    public static final TagKey<Item> LONGBOWS = tag("modifiable/ranged/longbows");
+    /** Any modifiable bows that store an arrow then fire on next use */
+    public static final TagKey<Item> CROSSBOWS = tag("modifiable/ranged/crossbows");
+
+    /** Tools that can receive metal based embellishments */
+    public static final TagKey<Item> EMBELLISHMENT_METAL = tag("modifiable/embellishment/metal");
+    /** Tools that can receive slime based embellishments */
+    public static final TagKey<Item> EMBELLISHMENT_SLIME = tag("modifiable/embellishment/slime");
+    /** Tools that can be dyed */
+    public static final TagKey<Item> DYEABLE = tag("modifiable/dyeable");
 
     /** Tag so mods like thermal know our scyhtes can harvest */
     public static final TagKey<Item> SCYTHES = forgeTag("tools/scythe");
@@ -406,6 +462,11 @@ public class TinkerTags {
     /** Mobs that get the 4x protection boost due to only 1 armor piece */
     public static final TagKey<EntityType<?>> SMALL_ARMOR = forgeTag("small_armor");
 
+    /** Projectiles with this tag cannot be reflected */
+    public static final TagKey<EntityType<?>> REFLECTING_BLACKLIST = forgeTag("reflecting/blacklist");
+    /** Projectiles with this tag cannot be reflected */
+    public static final TagKey<EntityType<?>> REFLECTING_PRESERVE_OWNER = forgeTag("reflecting/preserve_owner");
+
     private static TagKey<EntityType<?>> tag(String name) {
       return TagKey.create(Registry.ENTITY_TYPE_REGISTRY, TConstruct.getResource(name));
     }
@@ -440,6 +501,34 @@ public class TinkerTags {
 
     private static TagKey<Biome> tag(String name) {
       return TagKey.create(Registry.BIOME_REGISTRY, TConstruct.getResource(name));
+    }
+  }
+
+  public static class Modifiers {
+    private static void init() {}
+    /** Gem modifiers, one of which is needed for netherite */
+    public static final TagKey<Modifier> GEMS = tag("gems");
+    /** Blacklist for modifiers that cannot be hidden with invisible ink */
+    public static final TagKey<Modifier> INVISIBLE_INK_BLACKLIST = tag("invisible_ink_blacklist");
+    /** Blacklist for modifiers that cannot be extracted via the general recipe */
+    public static final TagKey<Modifier> EXTRACT_MODIFIER_BLACKLIST = tag("extract_blacklist/tools");
+    /** Blacklist for modifiers that cannot be extracted via the slotless recipe */
+    public static final TagKey<Modifier> EXTRACT_SLOTLESS_BLACKLIST = tag("extract_blacklist/slotless");
+    /** Modifiers that can be used on both left and right click. Does not care about armor modifiers */
+    public static final TagKey<Modifier> DUAL_INTERACTION = tag("dual_interaction");
+
+    private static TagKey<Modifier> tag(String name) {
+      return ModifierManager.getTag(TConstruct.getResource(name));
+    }
+  }
+
+  public static class Materials {
+    private static void init() {}
+    /** Materials available in nether */
+    public static final TagKey<IMaterial> NETHER = tag("nether");
+
+    private static TagKey<IMaterial> tag(String name) {
+      return MaterialManager.getTag(TConstruct.getResource(name));
     }
   }
 }

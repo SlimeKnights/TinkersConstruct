@@ -1,0 +1,32 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "tconstruct:silky_cloth"
+    },
+    {
+      "item": "tconstruct:sky_slime_vine"
+    },
+    {
+      "item": "tconstruct:silky_cloth"
+    },
+    {
+      "item": "tconstruct:sky_slime_vine"
+    },
+    {
+      "item": "tconstruct:sky_slime_vine"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/ranged/bows"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "allow_crystal": true,
+  "result": {
+    "name": "tconstruct:trick_quiver",
+    "level": 1
+  },
+  "max_level": 2
+}

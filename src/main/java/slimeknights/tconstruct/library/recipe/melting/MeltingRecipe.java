@@ -18,6 +18,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer.OreRateType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
@@ -92,12 +93,17 @@ public class MeltingRecipe implements IMeltingRecipe {
     }
   }
 
-  /** Gets the recipe output for display in JEI */
+  /** Gets the recipe output for foundry display in JEI */
   public List<List<FluidStack>> getOutputWithByproducts() {
     if (outputWithByproducts == null) {
-      outputWithByproducts = Stream.concat(Stream.of(output), byproducts.stream())
-                                   .map(Collections::singletonList)
-                                   .collect(Collectors.toList());
+      outputWithByproducts = Stream.concat(Stream.of(output).map(output -> {
+        // boost for foundry rate, this method is used for the foundry only
+        OreRateType rate = getOreType();
+        if (rate != null) {
+          return new FluidStack(output, Config.COMMON.foundryOreRate.applyOreBoost(rate, output.getAmount()));
+        }
+        return output;
+      }), byproducts.stream()).map(Collections::singletonList).collect(Collectors.toList());
     }
     return outputWithByproducts;
   }

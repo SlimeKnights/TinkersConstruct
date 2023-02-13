@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "tools": {
+    "tag": "tconstruct:modifiable/ranged/crossbows"
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "modifier": "tconstruct:quick_charge",
+  "min_level": 1
+}

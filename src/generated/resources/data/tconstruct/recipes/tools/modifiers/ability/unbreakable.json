@@ -18,7 +18,7 @@
     }
   ],
   "tools": {
-    "tag": "tconstruct:modifiable"
+    "tag": "tconstruct:modifiable/durability"
   },
   "slots": {
     "abilities": 1
@@ -37,6 +37,7 @@
     "matches_needed": 2,
     "error": "recipe.tconstruct.modifier.unbreakable_requirements"
   },
+  "allow_crystal": true,
   "result": {
     "name": "tconstruct:unbreakable",
     "level": 1

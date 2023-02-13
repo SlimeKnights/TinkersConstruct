@@ -1,0 +1,24 @@
+{
+  "fluid": {
+    "tag": "forge:molten_silver",
+    "amount": 10
+  },
+  "effects": [
+    {
+      "type": "tconstruct:conditional",
+      "entity": {
+        "type": "tconstruct:mob_type",
+        "mobs": "minecraft:undead"
+      },
+      "effect": {
+        "type": "tconstruct:damage",
+        "damage_type": "magic",
+        "damage_amount": 2.0
+      }
+    },
+    {
+      "type": "tconstruct:remove_effect",
+      "effect": "minecraft:wither"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:multilevel_modifier",
+  "allow_crystal": true,
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/leggings"
+  },
+  "levels": [
+    {
+      "slots": {
+        "abilities": 1
+      },
+      "level": 1
+    },
+    {
+      "min_level": 2,
+      "max_level": 6
+    }
+  ],
+  "result": "tconstruct:tool_belt"
+}

@@ -9,6 +9,10 @@ public class TinkerAPIMaterialException extends TinkerAPIException {
     return new TinkerAPIMaterialException("Trying to register the material stats '" + materialStatType + "', but it has already been registered before");
   }
 
+  public static TinkerAPIMaterialException materialStatTypeFallbackRegisteredTwice(ResourceLocation materialStatType) {
+    return new TinkerAPIMaterialException("Trying to register fallback for material stats '" + materialStatType + "', but it has already been registered before");
+  }
+
   public static TinkerAPIMaterialException materialNotRegistered(ResourceLocation materialStatType) {
     return new TinkerAPIMaterialException("The material '" + materialStatType + "' has not been registered");
   }

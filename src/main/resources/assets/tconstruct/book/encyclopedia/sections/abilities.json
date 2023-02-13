@@ -24,6 +24,10 @@
   },
   {
     "type": "tconstruct:modifier",
+    "data": "abilities/weapon/blocking.json"
+  },
+  {
+    "type": "tconstruct:modifier",
     "data": "abilities/weapon/dual_wielding.json"
   },
   {
@@ -88,9 +92,36 @@
   },
 
   {
+    "name": "group_ranged",
+    "type": "mantle:text",
+    "data": "abilities/ranged.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "abilities/ranged/bulk_quiver.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "abilities/ranged/crystalshot.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "abilities/ranged/multishot.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "abilities/ranged/trick_quiver.json"
+  },
+
+
+  {
     "name": "group_armor",
     "type": "mantle:text",
     "data": "abilities/armor.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "abilities/armor/ambidextrous.json"
   },
   {
     "type": "tconstruct:modifier",
@@ -114,6 +145,10 @@
   },
   {
     "type": "tconstruct:modifier",
+    "data": "abilities/armor/long_fall.json"
+  },
+  {
+    "type": "tconstruct:modifier",
     "data": "abilities/armor/path_maker.json"
   },
   {
@@ -134,7 +169,7 @@
   },
   {
     "type": "tconstruct:modifier",
-    "data": "abilities/armor/shield_strap.json"
+    "data": "abilities/armor/reflecting.json"
   },
   {
     "type": "tconstruct:modifier",
@@ -150,23 +185,14 @@
   },
   {
     "type": "tconstruct:modifier",
-    "data": "abilities/weapon/spilling.json"
+    "data": "abilities/armor/spilling.json"
   },
   {
     "type": "tconstruct:modifier",
     "data": "abilities/armor/tool_belt.json"
   },
   {
-    "name": "unarmed",
-    "type": "tconstruct:modifier",
-    "data": "abilities/armor/unarmed_attack.json"
-  },
-  {
     "type": "tconstruct:modifier",
     "data": "abilities/armor/wetting.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/armor/zoom.json"
   }
 ]

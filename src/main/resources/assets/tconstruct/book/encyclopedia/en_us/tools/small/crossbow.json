@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:crossbow",
+  "text": [
+    { "text": "The Crossbow is a quick ranged weapon, capable of firing both arrows and fireworks. Arrows can be loaded into the bow then fired at a later time." },
+    { "text": "When using interaction modifiers, the crossbow acts on left click.", "paragraph": true }
+  ],
+  "properties": [
+    "1.0 Attack Speed",
+    "1.0 Draw Speed",
+    "1.00 Arrow Velocity",
+    "0.75 Accuracy",
+    "200% Durability"
+  ]
+}

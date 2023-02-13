@@ -13,7 +13,6 @@ import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
-import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
@@ -120,17 +119,11 @@ public class ModifierRecipeBuilder extends AbstractModifierRecipeBuilder<Modifie
 
   @Override
   public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
-    if (inputs.isEmpty()) {
+    if (inputs.isEmpty() && !allowCrystal) {
       throw new IllegalStateException("Must have at least 1 input");
     }
     ResourceLocation advancementId = buildOptionalAdvancement(id, "modifiers");
-    consumer.accept(new FinishedAdding(id, advancementId, false));
-    if (includeUnarmed) {
-      if (requirements != ModifierMatch.ALWAYS) {
-        throw new IllegalStateException("Cannot use includeUnarmed with requirements");
-      }
-      consumer.accept(new FinishedAdding(new ResourceLocation(id.getNamespace(), id.getPath() + "_unarmed"), null, true));
-    }
+    consumer.accept(new FinishedAdding(id, advancementId, includeUnarmed));
   }
 
   @Override

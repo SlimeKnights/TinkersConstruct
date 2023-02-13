@@ -16,8 +16,10 @@ import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
+import slimeknights.tconstruct.tools.stats.GripMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
+import slimeknights.tconstruct.tools.stats.LimbMaterialStats;
 import slimeknights.tconstruct.tools.stats.RepairKitStats;
 
 import javax.annotation.Nullable;
@@ -150,6 +152,14 @@ public abstract class AbstractMaterialSpriteProvider {
       statType(HeadMaterialStats.ID);
       statType(HandleMaterialStats.ID);
       statType(ExtraMaterialStats.ID);
+      statType(RepairKitStats.ID);
+      return this;
+    }
+
+    /** Adds stat types for ranged tools - includes limb and grip */
+    public MaterialSpriteInfoBuilder ranged() {
+      statType(LimbMaterialStats.ID);
+      statType(GripMaterialStats.ID);
       statType(RepairKitStats.ID);
       return this;
     }

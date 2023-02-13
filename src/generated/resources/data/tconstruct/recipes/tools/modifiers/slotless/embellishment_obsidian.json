@@ -11,20 +11,10 @@
       "item": "tconstruct:obsidian_pane"
     }
   ],
-  "tools": [
-    {
-      "item": "tconstruct:plate_boots"
-    },
-    {
-      "item": "tconstruct:plate_leggings"
-    },
-    {
-      "item": "tconstruct:plate_chestplate"
-    },
-    {
-      "item": "tconstruct:plate_helmet"
-    }
-  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/embellishment/metal"
+  },
+  "allow_crystal": false,
   "result": {
     "name": "tconstruct:embellishment",
     "value": "tconstruct:obsidian"

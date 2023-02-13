@@ -1,0 +1,26 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "minecraft:end_rod"
+    },
+    {
+      "item": "minecraft:end_rod"
+    },
+    {
+      "item": "minecraft:end_rod"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/ranged/bows"
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "allow_crystal": true,
+  "result": {
+    "name": "tconstruct:impaling",
+    "level": 1
+  },
+  "max_level": 4
+}

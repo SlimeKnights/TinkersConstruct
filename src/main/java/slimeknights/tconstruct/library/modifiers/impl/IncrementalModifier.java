@@ -98,12 +98,19 @@ public class IncrementalModifier extends Modifier {
     return level;
   }
 
+  @Override
+  public float getEffectiveLevel(IToolContext tool, int level) {
+    return getScaledLevel(tool.getPersistentData(), level);
+  }
+
   /**
    * Gets the level scaled based on the current amount into the level
    * @param tool   Tool instance
    * @param level  Modifier level
    * @return  Level, possibly reduced by an incomplete level
+   * @deprecated use {@link #getEffectiveLevel(IToolContext, int)}
    */
+  @Deprecated
   public float getScaledLevel(IToolContext tool, int level) {
     return getScaledLevel(tool.getPersistentData(), level);
   }

@@ -8,6 +8,7 @@
   "tools": {
     "tag": "tconstruct:modifiable"
   },
+  "allow_crystal": true,
   "result": {
     "name": "tconstruct:writable",
     "level": 1

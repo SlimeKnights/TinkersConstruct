@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " c ",
+    "cwc",
+    " c "
+  ],
+  "key": {
+    "c": {
+      "tag": "forge:ingots/copper"
+    },
+    "w": {
+      "type": "forge:difference",
+      "base": {
+        "tag": "minecraft:planks"
+      },
+      "subtracted": {
+        "tag": "tconstruct:slimy_planks"
+      }
+    }
+  },
+  "result": {
+    "item": "tconstruct:travelers_shield"
+  }
+}

@@ -2,17 +2,18 @@ package slimeknights.tconstruct.library.events;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.Event;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
@@ -39,15 +40,40 @@ public abstract class TinkerToolEvent extends Event {
     private final ServerLevel world;
     private final BlockState state;
     private final BlockPos pos;
+    private final InteractionSource source;
+    /** @deprecated use {@link #getSource()} */
+    @Deprecated
     private final EquipmentSlot slotType;
 
+    /** @deprecated use {@link #ToolHarvestEvent(IToolStackView, UseOnContext, ServerLevel, BlockState, BlockPos, InteractionSource)} */
+    @Deprecated
     public ToolHarvestEvent(IToolStackView tool, UseOnContext context, ServerLevel world, BlockState state, BlockPos pos, EquipmentSlot slotType) {
       super(getItem(context, slotType), tool);
       this.context = context;
       this.world = world;
       this.state = state;
       this.pos = pos;
+      this.source = InteractionSource.fromEquipmentSlot(slotType);
       this.slotType = slotType;
+    }
+
+    public ToolHarvestEvent(IToolStackView tool, UseOnContext context, ServerLevel world, BlockState state, BlockPos pos, InteractionSource source) {
+      super(getItem(context, source), tool);
+      this.context = context;
+      this.world = world;
+      this.state = state;
+      this.pos = pos;
+      this.source = source;
+      this.slotType = source.getSlot(context.getHand());
+    }
+
+    /** Gets the item for the event */
+    private static ItemStack getItem(UseOnContext context, InteractionSource source) {
+      Player player = context.getPlayer();
+      if (player != null) {
+        return player.getItemBySlot(source.getSlot(context.getHand()));
+      }
+      return context.getItemInHand();
     }
 
     /** Gets the item for the event */
@@ -94,6 +120,5 @@ public abstract class TinkerToolEvent extends Event {
       MinecraftForge.EVENT_BUS.post(this);
       return this.getResult();
     }
-
   }
 }

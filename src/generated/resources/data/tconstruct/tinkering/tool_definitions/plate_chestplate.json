@@ -5,6 +5,9 @@
       "tconstruct:armor": 7.0,
       "tconstruct:armor_toughness": 2.0,
       "tconstruct:knockback_resistance": 0.1
+    },
+    "multipliers": {
+      "tconstruct:attack_damage": 0.4
     }
   },
   "slots": {

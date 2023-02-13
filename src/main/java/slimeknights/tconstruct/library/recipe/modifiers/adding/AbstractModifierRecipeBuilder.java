@@ -28,7 +28,11 @@ import java.util.function.Consumer;
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRecipeBuilder<T>> extends AbstractRecipeBuilder<T> {
   protected static final Lazy<Ingredient> DEFAULT_TOOL = Lazy.of(() -> Ingredient.of(TinkerTags.Items.MODIFIABLE));
-  protected static final Lazy<ModifierMatch> UNARMED_MODIFIER = Lazy.of(() -> ModifierMatch.entry(TinkerModifiers.unarmed));
+  /** @deprecated use {@link TinkerTags.Items#UNARMED} */
+  @Deprecated
+  protected static final Lazy<ModifierMatch> UNARMED_MODIFIER = Lazy.of(() -> ModifierMatch.entry(TinkerModifiers.ambidextrous));
+  /** @deprecated use {@link TinkerTags.Items#UNARMED} */
+  @Deprecated
   protected static final String UNARMED_ERROR = TConstruct.makeTranslationKey("recipe", "modifier.unarmed");
   // shared
   protected final ModifierEntry result;
@@ -40,13 +44,16 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
   // modifier recipe
   protected ModifierMatch requirements = ModifierMatch.ALWAYS;
   protected String requirementsError = null;
+  protected boolean allowCrystal = true;
   // salvage recipe
   protected int salvageMinLevel = 1;
   protected int salvageMaxLevel = 0;
   protected boolean includeUnarmed = false;
 
   /** Generates a second copy of this recipe for the sake of the unarmed modifier */
+  @Deprecated
   public T includeUnarmed() {
+    TConstruct.LOG.warn("Unarmed has been reworked for Tinkers 1.18. Instead of having two recipes, just include the unarmed tag as a valid input for your recipe. This method will be removed in 1.19");
     this.includeUnarmed = true;
     return (T) this;
   }
@@ -142,6 +149,24 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
     return (T) this;
   }
 
+  /**
+   * Allows using modifier crystals to apply this modifier
+   * @return  Builder instance
+   */
+  public T allowCrystal() {
+    allowCrystal = true;
+    return (T) this;
+  }
+
+  /**
+   * Disallows using modifier crystals to apply this modifier
+   * @return  Builder instance
+   */
+  public T disallowCrystal() {
+    allowCrystal = false;
+    return (T) this;
+  }
+
 
   /* Slots */
 
@@ -173,16 +198,13 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
   public abstract T saveSalvage(Consumer<FinishedRecipe> consumer, ResourceLocation id);
 
   /** Writes common JSON components between the two types */
-  private void writeCommon(JsonObject json, @Nullable Boolean unarmed) {
+  private void writeCommon(JsonObject json, boolean unarmed) {
     Ingredient ingredient = tools;
     if (tools == Ingredient.EMPTY) {
       ingredient = DEFAULT_TOOL.get();
     }
     // if true, only chestplates
-    if (unarmed == Boolean.TRUE) {
-      ingredient = Ingredient.of(TinkerTags.Items.UNARMED);
-      // if null, both
-    } else if (unarmed == null) {
+    if (unarmed) {
       ingredient = CompoundIngredient.of(ingredient, Ingredient.of(TinkerTags.Items.UNARMED));
     }
     json.add("tools", ingredient.toJson());
@@ -211,15 +233,12 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
     @Override
     public void serializeRecipeData(JsonObject json) {
       writeCommon(json, withUnarmed);
-      if (withUnarmed) {
-        JsonObject reqJson = UNARMED_MODIFIER.get().serialize();
-        reqJson.addProperty("error", UNARMED_ERROR);
-        json.add("requirements", reqJson);
-      } else if (requirements != ModifierMatch.ALWAYS) {
+      if (requirements != ModifierMatch.ALWAYS) {
         JsonObject reqJson = requirements.serialize();
         reqJson.addProperty("error", requirementsError);
         json.add("requirements", reqJson);
       }
+      json.addProperty("allow_crystal", allowCrystal);
       json.add("result", result.toJson());
       if (maxLevel != 0) {
         json.addProperty("max_level", maxLevel);
@@ -235,7 +254,7 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
 
     @Override
     public void serializeRecipeData(JsonObject json) {
-      writeCommon(json, includeUnarmed ? null : false);
+      writeCommon(json, includeUnarmed);
       json.addProperty("modifier", result.getId().toString());
       json.addProperty("min_level", salvageMinLevel);
       if (salvageMaxLevel != 0) {

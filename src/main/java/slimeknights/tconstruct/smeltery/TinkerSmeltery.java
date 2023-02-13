@@ -29,11 +29,16 @@ import slimeknights.mantle.registration.object.WallBuildingBlockObject;
 import slimeknights.mantle.util.SupplierCreativeTab;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
+import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.fluids.item.EmptyPotionTransfer;
 import slimeknights.tconstruct.library.recipe.FluidValues;
+import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
+import slimeknights.tconstruct.library.recipe.casting.PotionCastingRecipe;
+import slimeknights.tconstruct.library.recipe.casting.RetexturedCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.container.ContainerFillingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.container.ContainerFillingRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.casting.material.CompositeCastingRecipe;
@@ -54,6 +59,7 @@ import slimeknights.tconstruct.smeltery.block.ChannelBlock;
 import slimeknights.tconstruct.smeltery.block.FaucetBlock;
 import slimeknights.tconstruct.smeltery.block.SearedLanternBlock;
 import slimeknights.tconstruct.smeltery.block.component.OrientableSmelteryBlock;
+import slimeknights.tconstruct.smeltery.block.component.RetexturedOrientableSmelteryBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedDrainBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedDuctBlock;
@@ -91,6 +97,7 @@ import slimeknights.tconstruct.smeltery.menu.AlloyerContainerMenu;
 import slimeknights.tconstruct.smeltery.menu.HeatingStructureContainerMenu;
 import slimeknights.tconstruct.smeltery.menu.MelterContainerMenu;
 import slimeknights.tconstruct.smeltery.menu.SingleItemContainerMenu;
+import slimeknights.tconstruct.tables.item.TableBlockItem;
 
 import java.util.function.Function;
 import java.util.function.IntFunction;
@@ -155,9 +162,10 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final ItemObject<SearedGlassBlock> searedGlass = BLOCKS.register("seared_glass", () -> new SearedGlassBlock(SEARED_GLASS), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<ClearGlassPaneBlock> searedGlassPane = BLOCKS.register("seared_glass_pane", () -> new ClearGlassPaneBlock(SEARED_GLASS), TOOLTIP_BLOCK_ITEM);
   // peripherals
-  public static final ItemObject<Block> searedDrain = BLOCKS.register("seared_drain", () -> new SearedDrainBlock(TOUGH_SEARED), TOOLTIP_BLOCK_ITEM);
-  public static final ItemObject<Block> searedDuct = BLOCKS.register("seared_duct", () -> new SearedDuctBlock(TOUGH_SEARED), TOOLTIP_BLOCK_ITEM);
-  public static final ItemObject<Block> searedChute = BLOCKS.register("seared_chute", () -> new OrientableSmelteryBlock(TOUGH_SEARED, ChuteBlockEntity::new), TOOLTIP_BLOCK_ITEM);
+  private static final Function<Block, ? extends BlockItem> SEARED_IO_BLOCK_ITEM = block -> new TableBlockItem(block, TinkerTags.Items.SMELTERY_BRICKS, SMELTERY_PROPS, Config.COMMON.showAllSmelteryVariants::get);
+  public static final ItemObject<Block> searedDrain = BLOCKS.register("seared_drain", () -> new SearedDrainBlock(TOUGH_SEARED), SEARED_IO_BLOCK_ITEM);
+  public static final ItemObject<Block> searedDuct = BLOCKS.register("seared_duct", () -> new SearedDuctBlock(TOUGH_SEARED), SEARED_IO_BLOCK_ITEM);
+  public static final ItemObject<Block> searedChute = BLOCKS.register("seared_chute", () -> new RetexturedOrientableSmelteryBlock(TOUGH_SEARED, ChuteBlockEntity::new), SEARED_IO_BLOCK_ITEM);
 
   // scorched blocks
   private static final Properties SCORCHED, TOUGH_SCORCHED, SCORCHED_GLASS, SCORCHED_NON_SOLID, SCORCHED_LANTERN;
@@ -191,9 +199,10 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final ItemObject<SearedGlassBlock> scorchedGlass = BLOCKS.register("scorched_glass", () -> new SearedGlassBlock(SCORCHED_GLASS), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<ClearGlassPaneBlock> scorchedGlassPane = BLOCKS.register("scorched_glass_pane", () -> new ClearGlassPaneBlock(SCORCHED_GLASS), TOOLTIP_BLOCK_ITEM);
   // peripherals
-  public static final ItemObject<Block> scorchedDrain = BLOCKS.register("scorched_drain", () -> new SearedDrainBlock(TOUGH_SCORCHED), TOOLTIP_BLOCK_ITEM);
-  public static final ItemObject<Block> scorchedDuct = BLOCKS.register("scorched_duct", () -> new SearedDuctBlock(TOUGH_SCORCHED), TOOLTIP_BLOCK_ITEM);
-  public static final ItemObject<Block> scorchedChute = BLOCKS.register("scorched_chute", () -> new OrientableSmelteryBlock(TOUGH_SCORCHED, ChuteBlockEntity::new), TOOLTIP_BLOCK_ITEM);
+  private static final Function<Block, ? extends BlockItem> SCORCHED_IO_BLOCK_ITEM = block -> new TableBlockItem(block, TinkerTags.Items.FOUNDRY_BRICKS, SMELTERY_PROPS, Config.COMMON.showAllSmelteryVariants::get);
+  public static final ItemObject<Block> scorchedDrain = BLOCKS.register("scorched_drain", () -> new SearedDrainBlock(TOUGH_SCORCHED), SCORCHED_IO_BLOCK_ITEM);
+  public static final ItemObject<Block> scorchedDuct = BLOCKS.register("scorched_duct", () -> new SearedDuctBlock(TOUGH_SCORCHED), SCORCHED_IO_BLOCK_ITEM);
+  public static final ItemObject<Block> scorchedChute = BLOCKS.register("scorched_chute", () -> new OrientableSmelteryBlock(TOUGH_SCORCHED, ChuteBlockEntity::new), SCORCHED_IO_BLOCK_ITEM);
 
   // seared
   public static final EnumObject<TankType,SearedTankBlock> searedTank = BLOCKS.registerEnum("seared", SearedTankBlock.TankType.values(), type -> new SearedTankBlock(SEARED_NON_SOLID, type.getCapacity()), b -> new TankItem(b, SMELTERY_PROPS, true));
@@ -220,8 +229,8 @@ public final class TinkerSmeltery extends TinkerModule {
   static {
     Supplier<Properties> seared = () -> builder(Material.STONE, MaterialColor.COLOR_GRAY, SoundType.METAL).requiresCorrectToolForDrops().strength(8.0F, 28F).lightLevel(s -> s.getValue(ControllerBlock.ACTIVE) ? 13 : 0);
     Supplier<Properties> scorched = () -> builder(Material.STONE, MaterialColor.TERRACOTTA_BROWN, SoundType.BASALT).requiresCorrectToolForDrops().strength(9.0F, 35f).lightLevel(s -> s.getValue(ControllerBlock.ACTIVE) ? 13 : 0);
-    smelteryController = BLOCKS.register("smeltery_controller", () -> new SmelteryControllerBlock(seared.get()), TOOLTIP_BLOCK_ITEM);
-    foundryController = BLOCKS.register("foundry_controller", () -> new FoundryControllerBlock(scorched.get()), TOOLTIP_BLOCK_ITEM);
+    smelteryController = BLOCKS.register("smeltery_controller", () -> new SmelteryControllerBlock(seared.get()),  SEARED_IO_BLOCK_ITEM);
+    foundryController = BLOCKS.register("foundry_controller", () -> new FoundryControllerBlock(scorched.get()),  SCORCHED_IO_BLOCK_ITEM);
     // tiny
     searedMelter = BLOCKS.register("seared_melter", () -> new MelterBlock(seared.get().noOcclusion()), TOOLTIP_BLOCK_ITEM);
     searedHeater = BLOCKS.register("seared_heater", () -> new HeaterBlock(seared.get()), TOOLTIP_BLOCK_ITEM);
@@ -301,6 +310,9 @@ public final class TinkerSmeltery extends TinkerModule {
   // tool rods
   public static final CastItemObject toolHandleCast  = ITEMS.registerCast("tool_handle", SMELTERY_PROPS);
   public static final CastItemObject toughHandleCast = ITEMS.registerCast("tough_handle", SMELTERY_PROPS);
+  // bow
+  public static final CastItemObject bowLimbCast = ITEMS.registerCast("bow_limb", SMELTERY_PROPS);
+  public static final CastItemObject bowGripCast = ITEMS.registerCast("bow_grip", SMELTERY_PROPS);
 
   /*
    * Recipe
@@ -310,6 +322,10 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final RegistryObject<ItemCastingRecipe.Serializer<ItemCastingRecipe.Table>> tableRecipeSerializer = RECIPE_SERIALIZERS.register("casting_table", () -> new ItemCastingRecipe.Serializer<>(ItemCastingRecipe.Table::new));
   public static final RegistryObject<ContainerFillingRecipeSerializer<ContainerFillingRecipe.Basin>> basinFillingRecipeSerializer = RECIPE_SERIALIZERS.register("basin_filling", () -> new ContainerFillingRecipeSerializer<>(ContainerFillingRecipe.Basin::new));
   public static final RegistryObject<ContainerFillingRecipeSerializer<ContainerFillingRecipe.Table>> tableFillingRecipeSerializer = RECIPE_SERIALIZERS.register("table_filling", () -> new ContainerFillingRecipeSerializer<>(ContainerFillingRecipe.Table::new));
+  public static final RegistryObject<PotionCastingRecipe.Serializer> basinPotionRecipeSerializer = RECIPE_SERIALIZERS.register("casting_basin_potion", () -> new PotionCastingRecipe.Serializer(TinkerRecipeTypes.CASTING_BASIN));
+  public static final RegistryObject<PotionCastingRecipe.Serializer> tablePotionRecipeSerializer = RECIPE_SERIALIZERS.register("casting_table_potion", () -> new PotionCastingRecipe.Serializer(TinkerRecipeTypes.CASTING_TABLE));
+  public static final RegistryObject<ItemCastingRecipe.Serializer<RetexturedCastingRecipe.Basin>> retexturedBasinRecipeSerializer = RECIPE_SERIALIZERS.register("retextured_casting_basin", () -> new ItemCastingRecipe.Serializer<>(RetexturedCastingRecipe.Basin::new));
+  public static final RegistryObject<ItemCastingRecipe.Serializer<RetexturedCastingRecipe.Table>> retexturedTableRecipeSerializer = RECIPE_SERIALIZERS.register("retextured_casting_table", () -> new ItemCastingRecipe.Serializer<>(RetexturedCastingRecipe.Table::new));
   // material casting
   public static final RegistryObject<MaterialCastingRecipe.Serializer<MaterialCastingRecipe.Basin>> basinMaterialSerializer = RECIPE_SERIALIZERS.register("basin_casting_material", () -> new MaterialCastingRecipe.Serializer<>(MaterialCastingRecipe.Basin::new));
   public static final RegistryObject<MaterialCastingRecipe.Serializer<MaterialCastingRecipe.Table>> tableMaterialSerializer = RECIPE_SERIALIZERS.register("table_casting_material", () -> new MaterialCastingRecipe.Serializer<>(MaterialCastingRecipe.Table::new));

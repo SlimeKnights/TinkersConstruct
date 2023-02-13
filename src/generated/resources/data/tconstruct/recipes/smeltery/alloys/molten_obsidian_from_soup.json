@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:alloy",
+  "inputs": [
+    {
+      "tag": "forge:mushroom_stew",
+      "amount": 250
+    },
+    {
+      "name": "minecraft:lava",
+      "amount": 250
+    }
+  ],
+  "result": {
+    "fluid": "tconstruct:molten_obsidian",
+    "amount": 250
+  },
+  "temperature": 1000
+}

@@ -126,6 +126,7 @@ public final class ToolBuildHandler {
 
   /**
    * Adds all sub items to a tool
+   * TODO 1.19: remove fixed materials
    * @param item             item being created
    * @param itemList         List to fill with items
    * @param fixedMaterials   Materials that should be forced
@@ -147,10 +148,8 @@ public final class ToolBuildHandler {
         MaterialId materialId = MaterialId.tryParse(showOnlyId);
         if (materialId != null) {
           IMaterial material = MaterialRegistry.getMaterial(materialId);
-          if (material != IMaterial.UNKNOWN) {
-            if (addSubItem(item, itemList, material, fixedMaterials)) {
-              added = true;
-            }
+          if (material != IMaterial.UNKNOWN && addSubItem(item, itemList, material, fixedMaterials)) {
+            added = true;
           }
         }
       }
@@ -170,17 +169,31 @@ public final class ToolBuildHandler {
   private static boolean addSubItem(IModifiable item, List<ItemStack> items, IMaterial material, MaterialVariantId[] fixedMaterials) {
     List<PartRequirement> required = item.getToolDefinition().getData().getParts();
     MaterialNBT.Builder materials = MaterialNBT.builder();
+    boolean useMaterial = false;
     for (int i = 0; i < required.size(); i++) {
-      if (fixedMaterials.length > i && fixedMaterials[i] != null && required.get(i).canUseMaterial(fixedMaterials[i])) {
+      PartRequirement requirement = required.get(i);
+      // if fixed, used fixed
+      if (fixedMaterials.length > i && fixedMaterials[i] != null && requirement.canUseMaterial(fixedMaterials[i])) {
         materials.add(fixedMaterials[i]);
+        // mark we used it even if fixed
+        if (fixedMaterials[i].getId().equals(material.getIdentifier())) {
+          useMaterial = true;
+        }
       }
-      else if (required.get(i).canUseMaterial(material.getIdentifier())) {
+      // if not fixed, try to use requested material
+      else if (requirement.canUseMaterial(material.getIdentifier())) {
         materials.add(material);
+        useMaterial = true;
       } else {
-        return false;
+        // fallback to first that works
+        materials.add(MaterialRegistry.firstWithStatType(requirement.getStatType()));
       }
     }
-    items.add(buildItemFromMaterials(item, materials.build()));
-    return true;
+    // only report success if we actually used the material somewhere
+    if (useMaterial) {
+      items.add(buildItemFromMaterials(item, materials.build()));
+      return true;
+    }
+    return false;
   }
 }

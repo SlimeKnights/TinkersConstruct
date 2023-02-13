@@ -1,0 +1,32 @@
+{
+  "stats": {
+    "base": {
+      "tconstruct:durability": 800.0,
+      "tconstruct:block_amount": 20.0,
+      "tconstruct:use_item_speed": 0.4
+    }
+  },
+  "slots": {
+    "upgrades": 2,
+    "defense": 3,
+    "abilities": 2
+  },
+  "traits": [
+    {
+      "name": "tconstruct:overslime_friend",
+      "level": 1
+    }
+  ],
+  "harvest": {
+    "aoe": {
+      "type": "tconstruct:circle",
+      "diameter": 1,
+      "3D": false
+    }
+  },
+  "modules": {
+    "tconstruct:tool_interaction": {
+      "type": "tconstruct:dual_option_interaction"
+    }
+  }
+}

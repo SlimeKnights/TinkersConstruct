@@ -54,12 +54,18 @@ import java.util.function.BiPredicate;
 
 /** Helper functions for adding tooltips to tools */
 public class TooltipUtil {
+  /** Translation key for the tool name format string */
+  public static final String KEY_FORMAT = TConstruct.makeTranslationKey("item", "tool.format");
+  /** Translation key for the tool name format string */
+  private static final Component MATERIAL_SEPARATOR = TConstruct.makeTranslation("item", "tool.material_separator");
   /** Tool tag to set that makes a tool a display tool */
   public static final String KEY_DISPLAY = "tic_display";
+  /** Tag to set name without name being italic */
+  private static final String KEY_NAME = "tic_name";
   /** Function to show all attributes in the tooltip */
   public static final BiPredicate<Attribute, Operation> SHOW_ALL_ATTRIBUTES = (att, op) -> true;
   /** Function to show all attributes in the tooltip */
-  public static final BiPredicate<Attribute, Operation> SHOW_MELEE_ATTRIBUTES = (att, op) -> op != Operation.ADDITION || (att != Attributes.ATTACK_DAMAGE && att != Attributes.ATTACK_SPEED);
+  public static final BiPredicate<Attribute, Operation> SHOW_MELEE_ATTRIBUTES = (att, op) -> op != Operation.ADDITION || (att != Attributes.ATTACK_DAMAGE && att != Attributes.ATTACK_SPEED && att != Attributes.ARMOR && att != Attributes.ARMOR_TOUGHNESS && att != Attributes.KNOCKBACK_RESISTANCE);
   /** Function to show all attributes in the tooltip */
   public static final BiPredicate<Attribute, Operation> SHOW_ARMOR_ATTRIBUTES = (att, op) -> op != Operation.ADDITION || (att != Attributes.ARMOR && att != Attributes.ARMOR_TOUGHNESS && att != Attributes.KNOCKBACK_RESISTANCE);
   /** Flags used when not holding control or shift */
@@ -103,9 +109,9 @@ public class TooltipUtil {
     if (Util.canTranslate(formatKey)) {
       return new TranslatableComponent(formatKey, itemName);
     }
-    // base name
+    // base name with generic format
     if (Util.canTranslate(materialKey)) {
-      return new TranslatableComponent(materialKey).append(" ").append(itemName);
+      return new TranslatableComponent(KEY_FORMAT, new TranslatableComponent(materialKey), itemName);
     }
     return null;
   }
@@ -148,11 +154,31 @@ public class TooltipUtil {
     Iterator<Component> iter = materials.iterator();
     name.append(iter.next());
     while (iter.hasNext()) {
-      name.append("-").append(iter.next());
+      name.append(MATERIAL_SEPARATOR).append(iter.next());
     }
-    name.append(" ").append(itemName);
+    return new TranslatableComponent(KEY_FORMAT, name, itemName);
+  }
 
-    return name;
+  /** Sets the tool name in a way that will not be italic */
+  public static void setDisplayName(ItemStack tool, String name) {
+    if (name.isEmpty()) {
+      CompoundTag tag = tool.getTag();
+      if (tag != null) {
+        tag.remove(KEY_NAME);
+      }
+    } else {
+      tool.getOrCreateTag().putString(KEY_NAME, name);
+    }
+    tool.resetHoverName();
+  }
+
+  /** Gets the display name from the given tool */
+  public static String getDisplayName(ItemStack tool) {
+    CompoundTag tag = tool.getTag();
+    if (tag != null) {
+      return tag.getString(KEY_NAME);
+    }
+    return "";
   }
 
   /**
@@ -172,6 +198,10 @@ public class TooltipUtil {
    * @return  Display name including the head material
    */
   public static Component getDisplayName(ItemStack stack, @Nullable IToolStackView tool, ToolDefinition toolDefinition) {
+    String name = getDisplayName(stack);
+    if (!name.isEmpty()) {
+      return new TextComponent(name);
+    }
     List<PartRequirement> components = toolDefinition.getData().getParts();
     Component baseName = new TranslatableComponent(stack.getDescriptionId());
     if (components.isEmpty()) {
@@ -298,7 +328,11 @@ public class TooltipUtil {
           CompoundTag enchantmentTag = enchantments.getCompound(i);
           // TODO: tag to whitelist/blacklist enchantments in the tooltip, depends on which ones we reimplement and which work on their own
           Registry.ENCHANTMENT.getOptional(ResourceLocation.tryParse(enchantmentTag.getString("id")))
-                              .ifPresent(enchantment -> tooltips.add(enchantment.getFullname(enchantmentTag.getInt("lvl"))));
+                              .ifPresent(enchantment -> {
+                                if (enchantment.isCurse()) {
+                                  tooltips.add(enchantment.getFullname(enchantmentTag.getInt("lvl")));
+                                }
+                              });
         }
       }
     }
@@ -311,7 +345,7 @@ public class TooltipUtil {
    */
   public static void getDefaultInfo(ItemStack stack, IToolStackView tool, List<Component> tooltips) {
     // shows as broken when broken, hold shift for proper durability
-    if (tool.getItem().canBeDepleted() && !tool.isUnbreakable()) {
+    if (tool.getItem().canBeDepleted() && !tool.isUnbreakable() && tool.hasTag(TinkerTags.Items.DURABILITY)) {
       tooltips.add(TooltipBuilder.formatDurability(tool.getCurrentDurability(), tool.getStats().getInt(ToolStats.DURABILITY), true));
     }
     // modifier tooltip
@@ -342,6 +376,12 @@ public class TooltipUtil {
     if (tool.hasTag(TinkerTags.Items.DURABILITY)) {
       builder.addDurability();
     }
+    if (tool.hasTag(TinkerTags.Items.RANGED)) {
+      builder.add(ToolStats.DRAW_SPEED);
+      builder.add(ToolStats.VELOCITY);
+      builder.add(ToolStats.PROJECTILE_DAMAGE);
+      builder.add(ToolStats.ACCURACY);
+    }
     if (tool.hasTag(TinkerTags.Items.MELEE)) {
       builder.addWithAttribute(ToolStats.ATTACK_DAMAGE, Attributes.ATTACK_DAMAGE);
       builder.add(ToolStats.ATTACK_SPEED);
@@ -351,6 +391,17 @@ public class TooltipUtil {
         builder.addTier();
       }
       builder.add(ToolStats.MINING_SPEED);
+    }
+    // slimestaffs and shields are holdable armor, so show armor stats
+    if (tool.hasTag(TinkerTags.Items.ARMOR)) {
+      builder.add(ToolStats.ARMOR);
+      builder.addOptional(ToolStats.ARMOR_TOUGHNESS);
+      builder.addOptional(ToolStats.KNOCKBACK_RESISTANCE, 10f);
+    }
+    // TODO: should this be a tag? or a volatile flag?
+    if (tool.getModifierLevel(TinkerModifiers.blocking.getId()) > 0 || tool.getModifierLevel(TinkerModifiers.parrying.getId()) > 0) {
+      builder.add(ToolStats.BLOCK_AMOUNT);
+      builder.add(ToolStats.BLOCK_ANGLE);
     }
 
     builder.addAllFreeSlots();
@@ -384,7 +435,7 @@ public class TooltipUtil {
       builder.addOptional(ToolStats.ARMOR_TOUGHNESS);
       builder.addOptional(ToolStats.KNOCKBACK_RESISTANCE, 10f);
     }
-    if (tool.hasTag(TinkerTags.Items.UNARMED) && tool.getModifierLevel(TinkerModifiers.unarmed.getId()) > 0) {
+    if (tool.hasTag(TinkerTags.Items.UNARMED)) {
       builder.addWithAttribute(ToolStats.ATTACK_DAMAGE, Attributes.ATTACK_DAMAGE);
     }
 

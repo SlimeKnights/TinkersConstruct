@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:modifier_set_worktable",
+  "data_key": "tconstruct:invisible_modifiers",
+  "tools": {
+    "tag": "tconstruct:modifiable"
+  },
+  "inputs": [
+    {
+      "type": "forge:partial_nbt",
+      "item": "minecraft:potion",
+      "nbt": "{Potion:\"minecraft:invisibility\"}"
+    }
+  ],
+  "modifier_predicate": {
+    "type": "tconstruct:inverted",
+    "predicate": {
+      "type": "tconstruct:tag",
+      "tag": "tconstruct:invisible_ink_blacklist"
+    }
+  },
+  "add_to_set": true,
+  "allow_traits": false
+}

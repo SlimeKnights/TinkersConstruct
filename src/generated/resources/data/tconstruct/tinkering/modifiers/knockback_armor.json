@@ -1,18 +1,7 @@
 {
-  "type": "tconstruct:stat_boost",
-  "level_display": "tconstruct:default",
-  "attributes": [
+  "redirects": [
     {
-      "unique": "tconstruct.modifier.armor_knockback",
-      "attribute": "minecraft:generic.attack_knockback",
-      "operation": "addition",
-      "amount": 1.0,
-      "slots": [
-        "feet",
-        "legs",
-        "chest",
-        "head"
-      ]
+      "id": "tconstruct:knockback"
     }
   ]
 }

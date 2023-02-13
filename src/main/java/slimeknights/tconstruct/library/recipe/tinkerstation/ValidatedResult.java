@@ -3,9 +3,9 @@ package slimeknights.tconstruct.library.recipe.tinkerstation;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.item.ItemStack;
 
 /**
  * This class represents the result of a tinker station recipe, which is one of:
@@ -14,6 +14,7 @@ import net.minecraft.network.chat.TranslatableComponent;
  *   <li>Failure: error state displaying an error message</li>
  *   <li>Pass: acts like a non-recipe match</li>
  * </ul>
+ * TODO: in 1.19, replace with {@link slimeknights.tconstruct.library.recipe.RecipeResult}
  */
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class ValidatedResult {

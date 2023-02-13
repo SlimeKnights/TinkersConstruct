@@ -16,7 +16,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.flint).color(0x3D3C3C).fallbacks("crystal", "rock", "stick");
     buildRenderInfo(MaterialIds.basalt);
     buildRenderInfo(MaterialIds.bone).color(0xE8E5D2).fallbacks("bone", "rock");
-    buildRenderInfo(MaterialIds.necroticBone).color(0x2A2A2A).fallbacks("bone", "rock");
+    buildRenderInfo(MaterialIds.chorus);
     buildRenderInfo(MaterialIds.string).color(0xFFFFFF);
     buildRenderInfo(MaterialIds.leather).color(0xC65C35);
     buildRenderInfo(MaterialIds.vine).color(0x48B518).fallbacks("vine");
@@ -48,6 +48,8 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.searedStone).color(0x4F4A47).fallbacks("rock");
     buildRenderInfo(MaterialIds.scorchedStone).color(0x5B4C43).fallbacks("rock");
     buildRenderInfo(MaterialIds.bloodbone).color(0xE52323).fallbacks("bone", "rock");
+    buildRenderInfo(MaterialIds.necroticBone).color(0x2A2A2A).fallbacks("bone", "rock");
+    buildRenderInfo(MaterialIds.endstone);
     buildRenderInfo(MaterialIds.chain).color(0x3E4453).fallbacks("chain", "metal");
     buildRenderInfo(MaterialIds.skyslimeVine).color(0x00F4DA).fallbacks("vine");
     // slimewood
@@ -81,6 +83,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.silver).color(0xDAF3ED).fallbacks("metal");
     buildRenderInfo(MaterialIds.lead).color(0x696579).fallbacks("metal");
     buildRenderInfo(MaterialIds.whitestone).color(0xE0E9EC).fallbacks("rock");
+    buildRenderInfo(MaterialIds.aluminum);
 
     // tier 3 compat
     buildRenderInfo(MaterialIds.steel).color(0x959595).fallbacks("metal");
@@ -97,7 +100,6 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.debris);
     buildRenderInfo(MaterialIds.netherite).color(0x4C4143).fallbacks("metal");
     // compat plate
-    buildRenderInfo(MaterialIds.aluminum);
     buildRenderInfo(MaterialIds.nickel);
     buildRenderInfo(MaterialIds.tin);
     buildRenderInfo(MaterialIds.zinc);
@@ -118,7 +120,6 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     //buildRenderInfo(MaterialIds.venom);
 
     buildRenderInfo(MaterialIds.phantom);
-    buildRenderInfo(MaterialIds.chorus);
 
     // UI internal
     buildRenderInfo(ToolBuildHandler.getRenderMaterial(0)).color(0xD8D8D8).texture(MaterialIds.iron).fallbacks("metal");

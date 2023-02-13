@@ -37,11 +37,18 @@
     },
     {
       "tag": "tconstruct:modifiable/armor/chestplate"
+    },
+    {
+      "tag": "tconstruct:modifiable/staffs"
+    },
+    {
+      "tag": "tconstruct:modifiable/shields"
     }
   ],
   "slots": {
     "abilities": 1
   },
+  "allow_crystal": true,
   "result": {
     "name": "tconstruct:spilling",
     "level": 1

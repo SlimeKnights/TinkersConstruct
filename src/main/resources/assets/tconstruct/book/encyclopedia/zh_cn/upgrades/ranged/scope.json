@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:scope",
+  "text": [
+    {
+      "text": "拉弓时逐渐将视角放大到远处目标。满弦时放大效果比望远镜稍弱。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "单个等级",
+    "需要1个升级槽"
+  ]
+}

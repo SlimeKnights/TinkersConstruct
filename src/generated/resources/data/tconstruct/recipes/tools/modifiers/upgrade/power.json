@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:incremental_modifier",
+  "input": {
+    "item": "tconstruct:ichor_slime_crystal"
+  },
+  "amount_per_item": 1,
+  "needed_per_level": 72,
+  "tools": {
+    "tag": "tconstruct:modifiable/ranged/longbows"
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "allow_crystal": true,
+  "result": {
+    "name": "tconstruct:power",
+    "level": 1
+  },
+  "max_level": 5
+}

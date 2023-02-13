@@ -1,0 +1,24 @@
+{
+  "fluid": {
+    "tag": "forge:molten_bronze",
+    "amount": 10
+  },
+  "effects": [
+    {
+      "type": "tconstruct:conditional",
+      "entity": {
+        "type": "tconstruct:inverted",
+        "predicate": "tconstruct:fire_immune"
+      },
+      "effect": {
+        "type": "tconstruct:damage",
+        "damage_type": "fire",
+        "damage_amount": 2.0
+      }
+    },
+    {
+      "type": "tconstruct:add_insomnia",
+      "amount": -2000
+    }
+  ]
+}

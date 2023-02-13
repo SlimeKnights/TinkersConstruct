@@ -15,6 +15,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -27,6 +28,11 @@ import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.CarvedPumpkinBlock;
 import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.event.GrindstoneEvent;
+import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
@@ -44,22 +50,28 @@ import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolHarvestEvent;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.data.ModifierMaxLevel;
 import slimeknights.tconstruct.library.modifiers.dynamic.MobDisguiseModifier;
-import slimeknights.tconstruct.library.modifiers.hooks.IArmorWalkModifier;
+import slimeknights.tconstruct.library.tools.capability.EntityModifierCapability;
+import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.helper.ArmorUtil;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
+import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.BlockSideHitListener;
+import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.defense.ProjectileProtectionModifier;
-import slimeknights.tconstruct.tools.modifiers.upgrades.armor.HasteArmorModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.armor.HasteModifier;
 
 import java.util.List;
 import java.util.Objects;
@@ -102,7 +114,7 @@ public class ToolEvents {
     }
 
     // next, add in armor haste
-    float armorHaste = ModifierUtil.getTotalModifierFloat(player, HasteArmorModifier.HASTE);
+    float armorHaste = ModifierUtil.getTotalModifierFloat(player, HasteModifier.HASTE);
     if (armorHaste > 0) {
       // adds in 10% per level
       event.setNewSpeed(event.getNewSpeed() * (1 + 0.1f * armorHaste));
@@ -206,13 +218,15 @@ public class ToolEvents {
     float amount = event.getAmount();
     if (context.hasModifiableArmor()) {
       // first we need to determine if any of the four slots want to cancel the event, then we need to determine if any want to respond assuming its not canceled
-      for (EquipmentSlot slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
-        IToolStackView toolStack = context.getToolInSlot(slotType);
-        if (toolStack != null && !toolStack.isBroken()) {
-          for (ModifierEntry entry : toolStack.getModifierList()) {
-            if (entry.getModifier().isSourceBlocked(toolStack, entry.getLevel(), context, slotType, source, amount)) {
-              event.setCanceled(true);
-              return;
+      for (EquipmentSlot slotType : EquipmentSlot.values()) {
+        if (ModifierUtil.validArmorSlot(entity, slotType)) {
+          IToolStackView toolStack = context.getToolInSlot(slotType);
+          if (toolStack != null && !toolStack.isBroken()) {
+            for (ModifierEntry entry : toolStack.getModifierList()) {
+              if (entry.getModifier().isSourceBlocked(toolStack, entry.getLevel(), context, slotType, source, amount)) {
+                event.setCanceled(true);
+                return;
+              }
             }
           }
         }
@@ -225,6 +239,17 @@ public class ToolEvents {
         if (toolStack != null && !toolStack.isBroken()) {
           for (ModifierEntry entry : toolStack.getModifierList()) {
             entry.getModifier().onAttacked(toolStack, entry.getLevel(), context, slotType, source, amount, isDirectDamage);
+          }
+        }
+      }
+      // shields only run this hook when blocking
+      // TODO: what if the slot in charge is not the blocking slot, can that happen?
+      if (entity.isBlocking()) {
+        EquipmentSlot slot = Util.getSlotType(entity.getUsedItemHand());
+        IToolStackView shield = context.getToolInSlot(slot);
+        if (shield != null && !shield.isBroken()) {
+          for (ModifierEntry entry : shield.getModifierList()) {
+            entry.getModifier().onAttacked(shield, entry.getLevel(), context, slot, source, amount, isDirectDamage);
           }
         }
       }
@@ -266,7 +291,6 @@ public class ToolEvents {
     LivingEntity entity = event.getEntityLiving();
 
     // determine if there is any modifiable armor, if not nothing to do
-    // TODO: shields should support this hook too, probably with a separate tag so holding armor does not count as a shield
     DamageSource source = event.getSource();
     EquipmentContext context = new EquipmentContext(entity);
     int vanillaModifier = 0;
@@ -282,11 +306,13 @@ public class ToolEvents {
 
       // next, determine how much tinkers armor wants to change it
       // note that armor modifiers can choose to block "absolute damage" if they wish, currently just starving damage I think
-      for (EquipmentSlot slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
-        IToolStackView tool = context.getToolInSlot(slotType);
-        if (tool != null && !tool.isBroken()) {
-          for (ModifierEntry entry : tool.getModifierList()) {
-            modifierValue = entry.getModifier().getProtectionModifier(tool, entry.getLevel(), context, slotType, source, modifierValue);
+      for (EquipmentSlot slotType : EquipmentSlot.values()) {
+        if (ModifierUtil.validArmorSlot(entity, slotType)) {
+          IToolStackView tool = context.getToolInSlot(slotType);
+          if (tool != null && !tool.isBroken()) {
+            for (ModifierEntry entry : tool.getModifierList()) {
+              modifierValue = entry.getModifier().getProtectionModifier(tool, entry.getLevel(), context, slotType, source, modifierValue);
+            }
           }
         }
       }
@@ -348,10 +374,7 @@ public class ToolEvents {
       if (!boots.isEmpty() && boots.is(TinkerTags.Items.BOOTS)) {
         ToolStack tool = ToolStack.from(boots);
         for (ModifierEntry entry : tool.getModifierList()) {
-          IArmorWalkModifier hook = entry.getModifier().getModule(IArmorWalkModifier.class);
-          if (hook != null) {
-            hook.onWalk(tool, entry.getLevel(), living, living.lastPos, pos);
-          }
+          entry.getHook(TinkerHooks.BOOT_WALK).onWalk(tool, entry, living, living.lastPos, pos);
         }
       }
     }
@@ -384,5 +407,51 @@ public class ToolEvents {
         }
       }
     });
+  }
+
+  /** Implements projectile hit hook */
+  @SubscribeEvent
+  static void projectileHit(ProjectileImpactEvent event) {
+    Projectile projectile = event.getProjectile();
+    ModifierNBT modifiers = EntityModifierCapability.getOrEmpty(projectile);
+    if (!modifiers.isEmpty()) {
+      NamespacedNBT nbt = PersistentDataCapability.getOrWarn(projectile);
+      HitResult hit = event.getRayTraceResult();
+      HitResult.Type type = hit.getType();
+      // extract a firing entity as that is a common need
+      LivingEntity attacker = projectile.getOwner() instanceof LivingEntity l ? l : null;
+      switch(type) {
+        case ENTITY -> {
+          EntityHitResult entityHit = (EntityHitResult)hit;
+          // cancel all effects on endermen unless we have enderference, endermen like to teleport away
+          // yes, hardcoded to enderference, if you need your own enderference for whatever reason, talk to us
+          if (entityHit.getEntity().getType() != EntityType.ENDERMAN || modifiers.getLevel(TinkerModifiers.enderference.getId()) > 0) {
+            // extract a living target as that is the most common need
+            LivingEntity target = ToolAttackUtil.getLivingEntity(entityHit.getEntity());
+            for (ModifierEntry entry : modifiers.getModifiers()) {
+              if (entry.getHook(TinkerHooks.PROJECTILE_HIT).onProjectileHitEntity(modifiers, nbt, entry, projectile, entityHit, attacker, target)) {
+                event.setCanceled(true);
+              }
+            }
+          }
+        }
+        case BLOCK -> {
+          BlockHitResult blockHit = (BlockHitResult)hit;
+          for (ModifierEntry entry : modifiers.getModifiers()) {
+            if (entry.getHook(TinkerHooks.PROJECTILE_HIT).onProjectileHitBlock(modifiers, nbt, entry, projectile, blockHit, attacker)) {
+              event.setCanceled(true);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @SubscribeEvent
+  static void onGrindstoneChange(GrindstoneEvent.OnPlaceItem event) {
+    // no removing enchantments from tools, you must use the modifier to remove them
+    if (event.getTopItem().is(TinkerTags.Items.MODIFIABLE) || event.getBottomItem().is(TinkerTags.Items.MODIFIABLE)) {
+      event.setCanceled(true);
+    }
   }
 }

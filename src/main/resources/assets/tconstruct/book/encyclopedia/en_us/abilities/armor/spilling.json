@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:spilling",
+  "text": [
+    {
+      "text": "Drains a small amount of fluid (typically between 10 mb to 50 mb) to boost counterattacks with special effects. Shields must be blocking to use. "
+    },
+    {
+      "text": "Tool can be filled with fluid by interacting with a tank or drain while holding the tool."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "No max level",
+    "Requires 1 ability slot",
+    "Fill by using tool on a fluid tank"
+  ]
+}

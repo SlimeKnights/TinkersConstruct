@@ -1,8 +1,23 @@
 {
   "replace": false,
   "entries": [
+    "tconstruct:lustrous/platinum",
     "tconstruct:wither_bone",
+    "tconstruct:lustrous/tungsten",
+    "tconstruct:lustrous/nickel",
     "tconstruct:modifier_hook",
-    "tconstruct:chrysophilite_modifier"
+    "tconstruct:lustrous/uranium",
+    "tconstruct:lustrous/iron",
+    "tconstruct:lustrous/copper",
+    "tconstruct:lustrous/aluminum",
+    "tconstruct:lustrous/tin",
+    "tconstruct:lustrous/netherite_scrap",
+    "tconstruct:lustrous/lead",
+    "tconstruct:lustrous/zinc",
+    "tconstruct:lustrous/silver",
+    "tconstruct:lustrous/cobalt",
+    "tconstruct:lustrous/gold",
+    "tconstruct:chrysophilite_modifier",
+    "tconstruct:lustrous/osmium"
   ]
 }

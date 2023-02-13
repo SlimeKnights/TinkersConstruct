@@ -30,7 +30,7 @@ import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
 import slimeknights.tconstruct.shared.block.TableBlock;
 import slimeknights.tconstruct.tables.block.ChestBlock;
 import slimeknights.tconstruct.tables.block.CraftingStationBlock;
-import slimeknights.tconstruct.tables.block.PartBuilderBlock;
+import slimeknights.tconstruct.tables.block.GenericTableBlock;
 import slimeknights.tconstruct.tables.block.ScorchedAnvilBlock;
 import slimeknights.tconstruct.tables.block.TinkerStationBlock;
 import slimeknights.tconstruct.tables.block.TinkersAnvilBlock;
@@ -39,12 +39,14 @@ import slimeknights.tconstruct.tables.block.entity.chest.CastChestBlockEntity;
 import slimeknights.tconstruct.tables.block.entity.chest.PartChestBlockEntity;
 import slimeknights.tconstruct.tables.block.entity.chest.TinkersChestBlockEntity;
 import slimeknights.tconstruct.tables.block.entity.table.CraftingStationBlockEntity;
+import slimeknights.tconstruct.tables.block.entity.table.ModifierWorktableBlockEntity;
 import slimeknights.tconstruct.tables.block.entity.table.PartBuilderBlockEntity;
 import slimeknights.tconstruct.tables.block.entity.table.TinkerStationBlockEntity;
 import slimeknights.tconstruct.tables.data.TableRecipeProvider;
 import slimeknights.tconstruct.tables.item.TableBlockItem;
 import slimeknights.tconstruct.tables.item.TinkersChestBlockItem;
 import slimeknights.tconstruct.tables.menu.CraftingStationContainerMenu;
+import slimeknights.tconstruct.tables.menu.ModifierWorktableContainerMenu;
 import slimeknights.tconstruct.tables.menu.PartBuilderContainerMenu;
 import slimeknights.tconstruct.tables.menu.TinkerChestContainerMenu;
 import slimeknights.tconstruct.tables.menu.TinkerStationContainerMenu;
@@ -72,9 +74,13 @@ public final class TinkerTables extends TinkerModule {
   private static final BiFunction<TagKey<Item>,BooleanSupplier,Function<Block,RetexturedBlockItem>> RETEXTURED_BLOCK_ITEM = (tag, cond) -> block -> new TableBlockItem(block, tag, GENERAL_PROPS, cond);
   public static final ItemObject<TableBlock> craftingStation = BLOCKS.register("crafting_station", () -> new CraftingStationBlock(WOOD_TABLE), RETEXTURED_BLOCK_ITEM.apply(ItemTags.LOGS, Config.COMMON.showAllTableVariants::get));
   public static final ItemObject<TableBlock> tinkerStation = BLOCKS.register("tinker_station", () -> new TinkerStationBlock(WOOD_TABLE, 4), RETEXTURED_BLOCK_ITEM.apply(ItemTags.PLANKS, Config.COMMON.showAllTableVariants::get));
-  public static final ItemObject<TableBlock> partBuilder = BLOCKS.register("part_builder", () -> new PartBuilderBlock(WOOD_TABLE), RETEXTURED_BLOCK_ITEM.apply(ItemTags.PLANKS, Config.COMMON.showAllTableVariants::get));
+  public static final ItemObject<TableBlock> partBuilder = BLOCKS.register("part_builder", () -> new GenericTableBlock(WOOD_TABLE, PartBuilderBlockEntity::new), RETEXTURED_BLOCK_ITEM.apply(ItemTags.PLANKS, Config.COMMON.showAllTableVariants::get));
   public static final ItemObject<TableBlock> tinkersChest = BLOCKS.register("tinkers_chest", () -> new TinkersChestBlock(WOOD_TABLE, TinkersChestBlockEntity::new, true), block -> new TinkersChestBlockItem(block, GENERAL_PROPS));
   public static final ItemObject<TableBlock> partChest = BLOCKS.register("part_chest", () -> new ChestBlock(WOOD_TABLE, PartChestBlockEntity::new, true), GENERAL_BLOCK_ITEM);
+
+  public static final ItemObject<TableBlock> modifierWorktable = BLOCKS.register("modifier_worktable",
+    () -> new GenericTableBlock(builder(Material.STONE, SoundType.STONE).requiresCorrectToolForDrops().strength(3.5F).noOcclusion(), ModifierWorktableBlockEntity::new),
+    RETEXTURED_BLOCK_ITEM.apply(TinkerTags.Items.WORKSTATION_ROCK, Config.COMMON.showAllTableVariants::get));
 
   private static final Block.Properties METAL_TABLE = builder(Material.HEAVY_METAL, SoundType.ANVIL).requiresCorrectToolForDrops().strength(5.0F, 1200.0F).noOcclusion();
   public static final ItemObject<TableBlock> tinkersAnvil = BLOCKS.register("tinkers_anvil", () -> new TinkersAnvilBlock(METAL_TABLE, 6), RETEXTURED_BLOCK_ITEM.apply(TinkerTags.Items.ANVIL_METAL, Config.COMMON.showAllAnvilVariants::get));
@@ -94,6 +100,7 @@ public final class TinkerTables extends TinkerModule {
   public static final RegistryObject<BlockEntityType<TinkerStationBlockEntity>> tinkerStationTile = BLOCK_ENTITIES.register("tinker_station", TinkerStationBlockEntity::new, builder ->
     builder.add(tinkerStation.get(), tinkersAnvil.get(), scorchedAnvil.get()));
   public static final RegistryObject<BlockEntityType<PartBuilderBlockEntity>> partBuilderTile = BLOCK_ENTITIES.register("part_builder", PartBuilderBlockEntity::new, partBuilder);
+  public static final RegistryObject<BlockEntityType<ModifierWorktableBlockEntity>> modifierWorktableTile = BLOCK_ENTITIES.register("modifier_worktable", ModifierWorktableBlockEntity::new, modifierWorktable);
   // legacy name as tile entities cannot be remapped
   public static final RegistryObject<BlockEntityType<TinkersChestBlockEntity>> tinkersChestTile = BLOCK_ENTITIES.register("modifier_chest", TinkersChestBlockEntity::new, tinkersChest);
   public static final RegistryObject<BlockEntityType<PartChestBlockEntity>> partChestTile = BLOCK_ENTITIES.register("part_chest", PartChestBlockEntity::new, partChest);
@@ -105,22 +112,26 @@ public final class TinkerTables extends TinkerModule {
   public static final RegistryObject<MenuType<CraftingStationContainerMenu>> craftingStationContainer = MENUS.register("crafting_station", CraftingStationContainerMenu::new);
   public static final RegistryObject<MenuType<TinkerStationContainerMenu>> tinkerStationContainer = MENUS.register("tinker_station", TinkerStationContainerMenu::new);
   public static final RegistryObject<MenuType<PartBuilderContainerMenu>> partBuilderContainer = MENUS.register("part_builder", PartBuilderContainerMenu::new);
+  public static final RegistryObject<MenuType<ModifierWorktableContainerMenu>> modifierWorktableContainer = MENUS.register("modifier_worktable", ModifierWorktableContainerMenu::new);
   public static final RegistryObject<MenuType<TinkerChestContainerMenu>> tinkerChestContainer = MENUS.register("tinker_chest", TinkerChestContainerMenu::new);
 
   /*
    * Recipes
    */
-  public static final RegistryObject<PartRecipe.Serializer> partRecipeSerializer = RECIPE_SERIALIZERS.register("part_builder", PartRecipe.Serializer::new);
-  public static final RegistryObject<ItemPartRecipe.Serializer> itemPartBuilderSerializer = RECIPE_SERIALIZERS.register("item_part_builder", ItemPartRecipe.Serializer::new);
   public static final RegistryObject<MaterialRecipeSerializer> materialRecipeSerializer = RECIPE_SERIALIZERS.register("material", MaterialRecipeSerializer::new);
   public static final RegistryObject<ToolBuildingRecipeSerializer> toolBuildingRecipeSerializer = RECIPE_SERIALIZERS.register("tool_building", ToolBuildingRecipeSerializer::new);
-  public static final RegistryObject<SimpleRecipeSerializer<TinkerStationRepairRecipe>> tinkerStationRepairSerializer = RECIPE_SERIALIZERS.register("tinker_station_repair", () -> new SimpleRecipeSerializer<>(TinkerStationRepairRecipe::new));
-  public static final RegistryObject<SimpleRecipeSerializer<CraftingTableRepairKitRecipe>> craftingTableRepairSerializer = RECIPE_SERIALIZERS.register("crafting_table_repair", () -> new SimpleRecipeSerializer<>(CraftingTableRepairKitRecipe::new));
-  public static final RegistryObject<SpecializedRepairRecipeSerializer<?>> specializedRepairSerializer = RECIPE_SERIALIZERS.register("specialized_station_repair", () -> new SpecializedRepairRecipeSerializer<>(SpecializedRepairRecipe::new));
-  public static final RegistryObject<SpecializedRepairRecipeSerializer<?>> specializedRepairKitSerializer = RECIPE_SERIALIZERS.register("specialized_repair_kit", () -> new SpecializedRepairRecipeSerializer<>(SpecializedRepairKitRecipe::new));
   public static final RegistryObject<SimpleRecipeSerializer<TinkerStationPartSwapping>> tinkerStationPartSwappingSerializer = RECIPE_SERIALIZERS.register("tinker_station_part_swapping", () -> new SimpleRecipeSerializer<>(TinkerStationPartSwapping::new));
   public static final RegistryObject<TinkerStationDamagingRecipe.Serializer> tinkerStationDamagingSerializer = RECIPE_SERIALIZERS.register("tinker_station_damaging", TinkerStationDamagingRecipe.Serializer::new);
+  // part builder
+  public static final RegistryObject<PartRecipe.Serializer> partRecipeSerializer = RECIPE_SERIALIZERS.register("part_builder", PartRecipe.Serializer::new);
+  public static final RegistryObject<ItemPartRecipe.Serializer> itemPartBuilderSerializer = RECIPE_SERIALIZERS.register("item_part_builder", ItemPartRecipe.Serializer::new);
   public static final RegistryObject<PartBuilderToolRecycle.Serializer> partBuilderToolRecycling = RECIPE_SERIALIZERS.register("part_builder_tool_recycling", PartBuilderToolRecycle.Serializer::new);
+  // repair - standard
+  public static final RegistryObject<SimpleRecipeSerializer<TinkerStationRepairRecipe>> tinkerStationRepairSerializer = RECIPE_SERIALIZERS.register("tinker_station_repair", () -> new SimpleRecipeSerializer<>(TinkerStationRepairRecipe::new));
+  public static final RegistryObject<SimpleRecipeSerializer<CraftingTableRepairKitRecipe>> craftingTableRepairSerializer = RECIPE_SERIALIZERS.register("crafting_table_repair", () -> new SimpleRecipeSerializer<>(CraftingTableRepairKitRecipe::new));
+  // repair - specialized
+  public static final RegistryObject<SpecializedRepairRecipeSerializer<?>> specializedRepairSerializer = RECIPE_SERIALIZERS.register("specialized_station_repair", () -> new SpecializedRepairRecipeSerializer<>(SpecializedRepairRecipe::new));
+  public static final RegistryObject<SpecializedRepairRecipeSerializer<?>> specializedRepairKitSerializer = RECIPE_SERIALIZERS.register("specialized_repair_kit", () -> new SpecializedRepairRecipeSerializer<>(SpecializedRepairKitRecipe::new));
 
   @SubscribeEvent
   void commonSetup(final FMLCommonSetupEvent event) {

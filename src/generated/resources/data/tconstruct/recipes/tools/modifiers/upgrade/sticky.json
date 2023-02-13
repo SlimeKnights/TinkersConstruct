@@ -10,12 +10,16 @@
       "tag": "tconstruct:modifiable/melee"
     },
     {
-      "tag": "tconstruct:modifiable/armor"
+      "tag": "tconstruct:modifiable/armor/worn"
+    },
+    {
+      "tag": "tconstruct:modifiable/shields"
     }
   ],
   "slots": {
     "upgrades": 1
   },
+  "allow_crystal": true,
   "result": {
     "name": "tconstruct:sticky",
     "level": 1

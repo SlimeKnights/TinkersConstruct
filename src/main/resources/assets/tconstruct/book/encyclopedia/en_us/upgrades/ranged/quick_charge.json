@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:quick_charge",
+  "text": [
+    {
+      "text": "Boosts the tool's drawspeed by 25% per level."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Can apply levels incrementally",
+    "Maximum of 4 levels",
+    "Requires 1 upgrade slot per level"
+  ]
+}

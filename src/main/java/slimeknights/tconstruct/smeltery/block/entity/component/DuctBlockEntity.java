@@ -12,13 +12,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import slimeknights.mantle.client.model.data.SinglePropertyData;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryInputOutputBlockEntity.SmelteryFluidIO;
@@ -40,8 +38,6 @@ public class DuctBlockEntity extends SmelteryFluidIO implements MenuProvider {
   @Getter
   private final DuctItemHandler itemHandler = new DuctItemHandler(this);
   private final LazyOptional<IItemHandler> itemCapability = LazyOptional.of(() -> itemHandler);
-  @Getter
-  private final IModelData modelData = new SinglePropertyData<>(IDisplayFluidListener.PROPERTY);
 
   public DuctBlockEntity(BlockPos pos, BlockState state) {
     this(TinkerSmeltery.duct.get(), pos, state);
@@ -90,7 +86,7 @@ public class DuctBlockEntity extends SmelteryFluidIO implements MenuProvider {
 
   /** Updates the fluid in model data */
   public void updateFluid() {
-    modelData.setData(IDisplayFluidListener.PROPERTY, IDisplayFluidListener.normalizeFluid(itemHandler.getFluid()));
+    getModelData().setData(IDisplayFluidListener.PROPERTY, IDisplayFluidListener.normalizeFluid(itemHandler.getFluid()));
     requestModelDataUpdate();
     assert level != null;
     BlockState state = getBlockState();

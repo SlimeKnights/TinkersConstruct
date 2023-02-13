@@ -28,8 +28,10 @@
   "slots": {
     "abilities": 1
   },
+  "allow_crystal": true,
   "result": {
     "name": "tconstruct:protection",
     "level": 1
-  }
+  },
+  "max_level": 1
 }

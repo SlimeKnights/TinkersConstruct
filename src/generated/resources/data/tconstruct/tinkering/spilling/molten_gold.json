@@ -17,8 +17,10 @@
       }
     },
     {
-      "type": "tconstruct:set_fire",
-      "time": 3
+      "type": "tconstruct:effect",
+      "name": "minecraft:regeneration",
+      "time": 6,
+      "level": 1
     }
   ]
 }

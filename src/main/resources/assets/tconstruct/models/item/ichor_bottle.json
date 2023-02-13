@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "tconstruct:item/bottle/ichor_contents",
+        "layer1": "tconstruct:item/bottle/bottle_reversed"
+    }
+}

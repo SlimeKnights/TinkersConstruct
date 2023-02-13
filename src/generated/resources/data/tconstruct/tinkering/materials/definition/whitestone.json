@@ -1,36 +1,6 @@
 {
-  "condition": {
-    "values": [
-      {
-        "prop": "force_integration_materials",
-        "type": "tconstruct:config"
-      },
-      {
-        "value": {
-          "tag": "forge:ingots/aluminum",
-          "type": "forge:tag_empty"
-        },
-        "type": "forge:not"
-      },
-      {
-        "value": {
-          "tag": "forge:ingots/tin",
-          "type": "forge:tag_empty"
-        },
-        "type": "forge:not"
-      },
-      {
-        "value": {
-          "tag": "forge:ingots/zinc",
-          "type": "forge:tag_empty"
-        },
-        "type": "forge:not"
-      }
-    ],
-    "type": "forge:or"
-  },
-  "craftable": false,
+  "craftable": true,
   "tier": 2,
-  "sortOrder": 8,
+  "sortOrder": 15,
   "hidden": false
 }

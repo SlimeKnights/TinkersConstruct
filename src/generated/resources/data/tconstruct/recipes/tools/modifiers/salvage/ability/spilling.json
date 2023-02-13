@@ -6,6 +6,12 @@
     },
     {
       "tag": "tconstruct:modifiable/armor/chestplate"
+    },
+    {
+      "tag": "tconstruct:modifiable/staffs"
+    },
+    {
+      "tag": "tconstruct:modifiable/shields"
     }
   ],
   "slots": {

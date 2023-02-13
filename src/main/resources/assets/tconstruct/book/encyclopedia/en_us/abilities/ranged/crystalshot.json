@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:crystalshot",
+  "text": [
+    {
+      "text": "Instead of using ammo from the inventory, bow produces its own crystal arrows."
+    },
+    {
+      "text": "Tool takes an extra 4 damage per arrow produced."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 1 level",
+    "Requires 1 ability slot"
+  ]
+}

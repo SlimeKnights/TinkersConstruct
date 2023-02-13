@@ -7,10 +7,17 @@
     }
   },
   {
-    "name": "materials",
-    "extraData": { "tconstruct:material_tier": 1 },
+    "name": "melee_harvest_materials",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tier": 1 } },
     "icon": {
       "item": "minecraft:stone"
+    }
+  },
+  {
+    "name": "ranged_materials",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tier": 1 } },
+    "icon": {
+      "item": "minecraft:bamboo"
     }
   },
   {

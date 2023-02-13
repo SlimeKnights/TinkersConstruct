@@ -10,20 +10,19 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
-import slimeknights.tconstruct.library.modifiers.impl.InventoryModifier;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.dynamic.InventoryMenuModifier;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
-import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
-import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 
-public class ShieldStrapModifier extends InventoryModifier implements IArmorInteractModifier {
+public class ShieldStrapModifier extends InventoryMenuModifier {
   private static final ResourceLocation KEY = TConstruct.getResource("shield_strap");
   private static final Pattern PATTERN = new Pattern(TConstruct.MOD_ID, "shield_plus");
   public ShieldStrapModifier() {
@@ -32,7 +31,7 @@ public class ShieldStrapModifier extends InventoryModifier implements IArmorInte
 
   @Override
   public int getPriority() {
-    return 75; // after pockets
+    return 95; // before pockets and tool belt
   }
 
   @Override
@@ -42,19 +41,17 @@ public class ShieldStrapModifier extends InventoryModifier implements IArmorInte
   }
 
   @Override
-  public int getSlots(IToolContext tool, int level) {
-    return level + tool.getModifierLevel(TinkerModifiers.pocketChain.getId());
-  }
-
-  @Override
-  public boolean startArmorInteract(IToolStackView tool, int level, Player player, EquipmentSlot equipmentSlot) {
-    if (!player.isShiftKeyDown()) {
+  public boolean startInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot equipmentSlot, TooltipKey keyModifier) {
+    if (keyModifier == TooltipKey.SHIFT) {
+      return super.startInteract(tool, modifier, player, equipmentSlot, keyModifier);
+    }
+    if (keyModifier == TooltipKey.NORMAL) {
       if (player.level.isClientSide) {
-        return false; // TODO: see below
+        return true;
       }
       // offhand must be able to go in the pants
       ItemStack offhand = player.getOffhandItem();
-      int slots = getSlots(tool, level);
+      int slots = getSlots(tool, modifier.getLevel());
       if (offhand.isEmpty() || !ToolInventoryCapability.isBlacklisted(offhand)) {
         ItemStack newOffhand = ItemStack.EMPTY;
         ModDataNBT persistentData = tool.getPersistentData();
@@ -86,7 +83,7 @@ public class ShieldStrapModifier extends InventoryModifier implements IArmorInte
         if (!newOffhand.isEmpty() || !list.isEmpty()) {
           player.level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.PLAYERS, 1.0f, 1.0f);
         }
-        //return true; TODO: tuning to make this a blocking interaction
+        return true;
       }
     }
     return false;
@@ -94,17 +91,7 @@ public class ShieldStrapModifier extends InventoryModifier implements IArmorInte
 
   @Nullable
   @Override
-  public Pattern getPattern(IToolStackView tool, int level, int slot, boolean hasStack) {
+  public Pattern getPattern(IToolStackView tool, ModifierEntry modifier, int slot, boolean hasStack) {
     return hasStack ? null : PATTERN;
-  }
-
-  @SuppressWarnings("unchecked")
-  @Nullable
-  @Override
-  public <T> T getModule(Class<T> type) {
-    if (type == IArmorInteractModifier.class) {
-      return (T) this;
-    }
-    return super.getModule(type);
   }
 }

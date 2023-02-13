@@ -49,6 +49,7 @@ import slimeknights.mantle.client.model.util.MantleItemLayerModel;
 import slimeknights.mantle.util.ItemLayerPixels;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.mantle.util.ReversedListBuilder;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
 import slimeknights.tconstruct.library.client.modifiers.IBakedModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager;
@@ -56,6 +57,7 @@ import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.recipe.worktable.ModifierSetWorktableRecipe;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -205,19 +207,22 @@ public class ToolModel implements IModelGeometry<ToolModel> {
       if (!modifiers.isEmpty()) {
         // last, add all regular modifiers
         FirstModifier[] firsts = new FirstModifier[firstModifiers.size()];
+        Set<ModifierId> hidden = ModifierSetWorktableRecipe.getModifierSet(tool.getPersistentData(), TConstruct.getResource("invisible_modifiers"));
         for (int i = modifiers.size() - 1; i >= 0; i--) {
           ModifierEntry entry = modifiers.get(i);
           ModifierId modifier = entry.getModifier().getId();
-          IBakedModifierModel model = modifierModels.get(modifier);
-          if (model != null) {
-            // if the modifier is in the list, delay adding its quads, but keep the expected tint index
-            int index = firstModifiers.indexOf(modifier);
-            if (index == -1) {
-              quadConsumer.accept(model.getQuads(tool, entry, spriteGetter, transforms, isLarge, modelIndex, pixels));
-            } else {
-              firsts[index] = new FirstModifier(entry, model, modelIndex);
+          if (!hidden.contains(modifier)) {
+            IBakedModifierModel model = modifierModels.get(modifier);
+            if (model != null) {
+              // if the modifier is in the list, delay adding its quads, but keep the expected tint index
+              int index = firstModifiers.indexOf(modifier);
+              if (index == -1) {
+                quadConsumer.accept(model.getQuads(tool, entry, spriteGetter, transforms, isLarge, modelIndex, pixels));
+              } else {
+                firsts[index] = new FirstModifier(entry, model, modelIndex);
+              }
+              modelIndex += model.getTintIndexes();
             }
-            modelIndex += model.getTintIndexes();
           }
         }
         // first, add the first modifiers
@@ -323,7 +328,7 @@ public class ToolModel implements IModelGeometry<ToolModel> {
     // Map<Modifier,IBakedModifierModel> modifierModels = ModifierModelManager.getModelsForTool(smallModifierRoots, isLarge ? largeModifierRoots : Collections.emptyList());
 
     Transformation largeTransforms = isLarge ? new Transformation(new Vector3f((offset.x - 8) / 32, (-offset.y - 8) / 32, 0), null, new Vector3f(2, 2, 1), null) : null;
-    overrides = new MaterialOverrideHandler(owner, toolParts, firstModifiers, largeTransforms, modifierModels); // TODO: nest original overrides?
+    overrides = new MaterialOverrideHandler(owner, toolParts, firstModifiers, largeTransforms, modifierModels, overrides); // TODO: nest original overrides?
     // bake the original with no modifiers or materials
     return bakeInternal(owner, spriteGetter, largeTransforms, toolParts, modifierModels, firstModifiers, Collections.emptyList(), null, overrides);
   }
@@ -381,6 +386,9 @@ public class ToolModel implements IModelGeometry<ToolModel> {
    * Dynamic override handler to swap in the material texture
    */
   public static final class MaterialOverrideHandler extends ItemOverrides {
+    /** If true, we are currently resolving a nested model and should ignore further nesting */
+    private static boolean ignoreNested = false;
+
     // contains all the baked models since they'll never change, cleared automatically as the baked model is discarded
     private final Cache<ToolCacheKey, BakedModel> cache = CacheBuilder
       .newBuilder()
@@ -395,13 +403,15 @@ public class ToolModel implements IModelGeometry<ToolModel> {
     @Nullable
     private final Transformation largeTransforms;
     private final Map<ModifierId,IBakedModifierModel> modifierModels;
+    private final ItemOverrides nested;
 
-    private MaterialOverrideHandler(IModelConfiguration owner, List<ToolPart> toolParts, List<ModifierId> firstModifiers, @Nullable Transformation largeTransforms, Map<ModifierId,IBakedModifierModel> modifierModels) {
+    private MaterialOverrideHandler(IModelConfiguration owner, List<ToolPart> toolParts, List<ModifierId> firstModifiers, @Nullable Transformation largeTransforms, Map<ModifierId,IBakedModifierModel> modifierModels, ItemOverrides nested) {
       this.owner = owner;
       this.toolParts = toolParts;
       this.firstModifiers = firstModifiers;
       this.largeTransforms = largeTransforms;
       this.modifierModels = modifierModels;
+      this.nested = nested;
     }
 
     /**
@@ -427,6 +437,18 @@ public class ToolModel implements IModelGeometry<ToolModel> {
 
     @Override
     public BakedModel resolve(BakedModel originalModel, ItemStack stack, @Nullable ClientLevel world, @Nullable LivingEntity entity, int seed) {
+      // first, resolve the overrides
+      // hack: we set a boolean flag to prevent that model from resolving its nested overrides, no nesting multiple deep
+      if (!ignoreNested) {
+        BakedModel overridden = nested.resolve(originalModel, stack, world, entity, seed);
+        if (overridden != null && overridden != originalModel) {
+          ignoreNested = true;
+          // if the override does have a new model, make sure to fetch its overrides to handle the nested texture as its most likely a tool model
+          BakedModel finalModel = overridden.getOverrides().resolve(overridden, stack, world, entity, seed);
+          ignoreNested = false;
+          return finalModel;
+        }
+      }
       // use material IDs for the sake of internal rendering materials
       List<MaterialVariantId> materialIds = MaterialIdNBT.from(stack).getMaterials();
       IToolStackView tool = ToolStack.from(stack);
@@ -441,11 +463,14 @@ public class ToolModel implements IModelGeometry<ToolModel> {
       // for many, it is just the modifier entry, but they can have more complex keys if needed
       ImmutableList.Builder<Object> builder = ImmutableList.builder();
       for (ModifierEntry entry : tool.getUpgrades().getModifiers()) {
-        IBakedModifierModel model = getModifierModel(entry.getModifier());
-        if (model != null) {
-          Object cacheKey = model.getCacheKey(tool, entry);
-          if (cacheKey != null) {
-            builder.add(cacheKey);
+        Set<ModifierId> hidden = ModifierSetWorktableRecipe.getModifierSet(tool.getPersistentData(), TConstruct.getResource("invisible_modifiers"));
+        if (!hidden.contains(entry.getId())) {
+          IBakedModifierModel model = getModifierModel(entry.getModifier());
+          if (model != null) {
+            Object cacheKey = model.getCacheKey(tool, entry);
+            if (cacheKey != null) {
+              builder.add(cacheKey);
+            }
           }
         }
       }

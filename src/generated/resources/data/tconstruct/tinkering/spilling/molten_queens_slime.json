@@ -1,0 +1,26 @@
+{
+  "fluid": {
+    "tag": "tconstruct:molten_queens_slime",
+    "amount": 10
+  },
+  "effects": [
+    {
+      "type": "tconstruct:conditional",
+      "entity": {
+        "type": "tconstruct:inverted",
+        "predicate": "tconstruct:fire_immune"
+      },
+      "effect": {
+        "type": "tconstruct:damage",
+        "damage_type": "fire",
+        "damage_amount": 1.0
+      }
+    },
+    {
+      "type": "tconstruct:effect",
+      "name": "minecraft:levitation",
+      "time": 5,
+      "level": 1
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ww",
+    "cc",
+    "ww"
+  ],
+  "key": {
+    "c": {
+      "tag": "forge:ingots/cobalt"
+    },
+    "w": {
+      "type": "forge:difference",
+      "base": {
+        "type": "forge:intersection",
+        "children": [
+          {
+            "tag": "minecraft:planks"
+          },
+          {
+            "tag": "minecraft:non_flammable_wood"
+          }
+        ]
+      },
+      "subtracted": {
+        "tag": "tconstruct:slimy_planks"
+      }
+    }
+  },
+  "result": {
+    "item": "tconstruct:plate_shield"
+  }
+}

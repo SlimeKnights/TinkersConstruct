@@ -43,6 +43,7 @@
     },
     "supportedStats": [
       "tconstruct:extra",
+      "tconstruct:bowstring",
       "tconstruct:repair_kit"
     ],
     "ignoreMaterialStats": false

@@ -42,50 +42,6 @@
     }
   },
   {
-    "name": "materials_1",
-    "extraData": { "tconstruct:material_tier": { "tier": 1, "detailed": true }},
-    "requirements": [ "tconstruct:tools/materials_and_you" ],
-    "hideWhenLocked": true,
-    "icon": {
-      "item": "minecraft:stone"
-    }
-  },
-  {
-    "name": "materials_2",
-    "extraData": { "tconstruct:material_tier": { "tier": 2, "detailed": true }},
-    "requirements": [ "tconstruct:smeltery/puny_smelting" ],
-    "hideWhenLocked": true,
-    "icon": {
-      "item": "minecraft:iron_ingot"
-    }
-  },
-  {
-    "name": "materials_3",
-    "extraData": { "tconstruct:material_tier": { "tier": 3, "detailed": true }},
-    "requirements": [ "tconstruct:smeltery/mighty_smelting" ],
-    "hideWhenLocked": true,
-    "icon": {
-      "item": "tconstruct:slimesteel_ingot"
-    }
-  },
-  {
-    "name": "materials_4",
-    "extraData": { "tconstruct:material_tier": { "tier": 4, "detailed": true }},
-    "requirements": [ "tconstruct:foundry/fantastic_foundry" ],
-    "hideWhenLocked": true,
-    "icon": {
-      "item": "tconstruct:manyullyn_ingot"
-    }
-  },
-  {
-    "name": "skull_materials",
-    "requirements": [ "tconstruct:world/tinkers_gadgetry" ],
-    "hideWhenLocked": true,
-    "icon": {
-      "item": "minecraft:skeleton_skull"
-    }
-  },
-  {
     "name": "upgrades",
     "data": "sections/upgrades.json",
     "requirements": [ "tconstruct:smeltery/puny_smelting" ],
@@ -143,6 +99,86 @@
           "slot": "abilities"
         }
       }
+    }
+  },
+  {
+    "name": "materials_harvest_1",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tier": 1, "detailed": true }},
+    "requirements": [ "tconstruct:tools/materials_and_you" ],
+    "hideWhenLocked": true,
+    "icon": {
+      "item": "minecraft:stone"
+    }
+  },
+  {
+    "name": "materials_harvest_2",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tier": 2, "detailed": true }},
+    "requirements": [ "tconstruct:smeltery/puny_smelting" ],
+    "hideWhenLocked": true,
+    "icon": {
+      "item": "tconstruct:seared_brick"
+    }
+  },
+  {
+    "name": "materials_harvest_3",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tier": 3, "detailed": true }},
+    "requirements": [ "tconstruct:smeltery/mighty_smelting" ],
+    "hideWhenLocked": true,
+    "icon": {
+      "item": "tconstruct:slimesteel_ingot"
+    }
+  },
+  {
+    "name": "materials_harvest_4",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tier": 4, "detailed": true }},
+    "requirements": [ "tconstruct:foundry/fantastic_foundry" ],
+    "hideWhenLocked": true,
+    "icon": {
+      "item": "tconstruct:manyullyn_ingot"
+    }
+  },
+  {
+    "name": "materials_ranged_1",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tier": 1, "detailed": true }},
+    "requirements": [ "tconstruct:tools/materials_and_you" ],
+    "hideWhenLocked": true,
+    "icon": {
+      "item": "minecraft:bamboo"
+    }
+  },
+  {
+    "name": "materials_ranged_2",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tier": 2, "detailed": true }},
+    "requirements": [ "tconstruct:smeltery/puny_smelting" ],
+    "hideWhenLocked": true,
+    "icon": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  {
+    "name": "materials_ranged_3",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tier": 3, "detailed": true }},
+    "requirements": [ "tconstruct:smeltery/mighty_smelting" ],
+    "hideWhenLocked": true,
+    "icon": {
+      "item": "tconstruct:nahuatl"
+    }
+  },
+  {
+    "name": "materials_ranged_4",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tier": 4, "detailed": true }},
+    "requirements": [ "tconstruct:foundry/fantastic_foundry" ],
+    "hideWhenLocked": true,
+    "icon": {
+      "item": "tconstruct:hepatizon_ingot"
+    }
+  },
+  {
+    "name": "materials_skull",
+    "requirements": [ "tconstruct:world/tinkers_gadgetry" ],
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:skull", "detailed": true } },
+    "icon": {
+      "item": "minecraft:skeleton_skull"
     }
   }
 ]

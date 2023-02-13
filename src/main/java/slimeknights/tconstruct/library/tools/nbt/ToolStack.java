@@ -6,12 +6,15 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -21,7 +24,6 @@ import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.definition.PartRequirement;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
-import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
@@ -70,7 +72,7 @@ public class ToolStack implements IToolStackView {
   public static final String TAG_HIDE_FLAGS = "HideFlags";
 
   /** List of tags to disallow editing for the relevant modifier hooks, disallows all tags we touch. Ignores unbreakable as we only look at that tag for vanilla compat */
-  private static final Set<String> RESTRICTED_TAGS = ImmutableSet.of(TAG_MATERIALS, TAG_STATS, TAG_MULTIPLIERS, TAG_PERSISTENT_MOD_DATA, TAG_VOLATILE_MOD_DATA, TAG_UPGRADES, TAG_MODIFIERS, TAG_BROKEN, TAG_DAMAGE, ModifierUtil.TAG_ENCHANTMENTS, TAG_HIDE_FLAGS);
+  private static final Set<String> RESTRICTED_TAGS = ImmutableSet.of(TAG_MATERIALS, TAG_STATS, TAG_MULTIPLIERS, TAG_PERSISTENT_MOD_DATA, TAG_VOLATILE_MOD_DATA, TAG_UPGRADES, TAG_MODIFIERS, TAG_BROKEN, TAG_DAMAGE, TAG_HIDE_FLAGS);
 
   /** Item representing this tool */
   @Getter
@@ -126,16 +128,26 @@ public class ToolStack implements IToolStackView {
    */
   private static ToolStack from(ItemStack stack, boolean copyNbt) {
     Item item = stack.getItem();
-    ToolDefinition definition = item instanceof IModifiable
-                                ? ((IModifiable)item).getToolDefinition()
+    ToolDefinition definition = item instanceof IModifiable mod
+                                ? mod.getToolDefinition()
                                 : ToolDefinition.EMPTY;
     CompoundTag nbt = stack.getTag();
     if (nbt == null) {
       nbt = new CompoundTag();
       if (!copyNbt) {
-        // bypass the setter as vanilla insists on setting damage values there, along with verifying the tag
-        // both are things we will do later, doing so now causes us to recursively call this method (though not infinite)
-        stack.tag = nbt;
+        // only a wrongly made tool will have an empty definition. check preferred to a tag check as tags may not be loaded when this is first called
+        if (definition != ToolDefinition.EMPTY) {
+          // bypass the setter as vanilla insists on setting damage values there, along with verifying the tag
+          // both are things we will do later, doing so now causes us to recursively call this method (though not infinite)
+          stack.tag = nbt;
+        } else {
+          switch (Config.COMMON.logInvalidToolStack.get()) {
+            case STACKTRACE ->
+              TConstruct.LOG.warn("Tool stack constructed using non-modifiable tool, this may cause issues as it has no NBT. Stacktrace can be disabled in config.", new Exception("Stack trace"));
+            case WARNING ->
+              TConstruct.LOG.warn("Tool stack constructed using non-modifiable tool, this may cause issues as it has no NBT. To debug this issue or disable the warning, use logInvalidToolStack in the config.");
+          }
+        }
       }
     } else if (copyNbt) {
       nbt = nbt.copy();
@@ -382,8 +394,13 @@ public class ToolStack implements IToolStackView {
    * @param multipliers  Stats instance
    */
   protected void setMultipliers(MultiplierNBT multipliers) {
-    this.multipliers = multipliers;
-    nbt.put(TAG_MULTIPLIERS, multipliers.serializeToNBT());
+    if (multipliers.getContainedStats().isEmpty()) {
+      this.multipliers = MultiplierNBT.EMPTY;
+      nbt.remove(TAG_MULTIPLIERS);
+    } else {
+      this.multipliers = multipliers;
+      nbt.put(TAG_MULTIPLIERS, multipliers.serializeToNBT());
+    }
   }
 
   @Override
@@ -561,10 +578,31 @@ public class ToolStack implements IToolStackView {
 
   /* Utilities */
 
+  @Nullable
+  public Component tryValidate() {
+    // first check slot counts
+    for (SlotType slotType : SlotType.getAllSlotTypes()) {
+      if (getFreeSlots(slotType) < 0) {
+        return new TranslatableComponent(KEY_VALIDATE_SLOTS, slotType.getDisplayName());
+      }
+    }
+    // next, ensure modifiers validate
+    ValidatedResult result;
+    for (ModifierEntry entry : getModifierList()) {
+      result = entry.getModifier().validate(this, entry.getLevel());
+      if (result.hasError()) {
+        return result.getMessage();
+      }
+    }
+    return null;
+  }
+
   /**
    * Checks if this tool stack is in a valid state
    * @return  Pass if the tool is valid, failure result if invalid
+   * @deprecated use {@link #tryValidate()}
    */
+  @Deprecated
   public ValidatedResult validate() {
     // first check slot counts
     for (SlotType slotType : SlotType.getAllSlotTypes()) {

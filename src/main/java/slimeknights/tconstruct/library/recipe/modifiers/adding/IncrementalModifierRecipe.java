@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.recipe.modifiers.adding;
 
 import com.google.common.collect.ImmutableList;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import net.minecraft.network.FriendlyByteBuf;
@@ -11,13 +10,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;
+import slimeknights.tconstruct.library.recipe.ITinkerableContainer;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
@@ -26,6 +25,7 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.utils.JsonUtils;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
@@ -44,13 +44,19 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
   /** Item stack to use when a partial amount is leftover */
   private final ItemStack leftover;
 
-  public IncrementalModifierRecipe(ResourceLocation id, Ingredient input, int amountPerInput, int neededPerLevel, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots, ItemStack leftover) {
-    super(id, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots);
+  public IncrementalModifierRecipe(ResourceLocation id, Ingredient input, int amountPerInput, int neededPerLevel, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots, ItemStack leftover, boolean allowCrystal) {
+    super(id, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots, allowCrystal);
     this.input = input;
     this.amountPerInput = amountPerInput;
     this.neededPerLevel = neededPerLevel;
     this.leftover = leftover;
     ModifierRecipeLookup.setNeededPerLevel(result.getId(), neededPerLevel);
+  }
+
+  /** @deprecated use {@link #IncrementalModifierRecipe(ResourceLocation, Ingredient, int, int, Ingredient, int, ModifierMatch, String, ModifierEntry, int, SlotCount, ItemStack, boolean)} */
+  @Deprecated
+  public IncrementalModifierRecipe(ResourceLocation id, Ingredient input, int amountPerInput, int neededPerLevel, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements, String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots, ItemStack leftover) {
+    this(id, input, amountPerInput, neededPerLevel, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots, leftover, true);
   }
 
   @Override
@@ -59,7 +65,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
     if (!result.isBound() || !this.toolRequirement.test(inv.getTinkerableStack())) {
       return false;
     }
-    return containsOnlyIngredient(inv, input);
+    return matchesCrystal(inv) || containsOnlyIngredient(inv, input);
   }
 
   @Override
@@ -76,29 +82,37 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
       current = IncrementalModifier.getAmount(tool, modifier);
     }
 
-    // can skip validations if we are not adding a new level
-    if (current >= neededPerLevel) {
+    // can skip validations if we are not adding a new level, crystals always add one
+    boolean crystal = matchesCrystal(inv);
+    if (crystal || current >= neededPerLevel) {
       ValidatedResult commonError = validatePrerequisites(tool);
       if (commonError.hasError()) {
         return commonError;
       }
     }
 
-    // see how much value is available
-    int available = getAvailableAmount(inv, input, amountPerInput);
-
     // if at the max, add a new level
     tool = tool.copy();
     ModDataNBT persistentData = tool.getPersistentData();
-    if (current >= neededPerLevel) {
+
+    // see how much value is available
+    int available = getAvailableAmount(inv, input, amountPerInput);
+    if (crystal || current >= neededPerLevel) {
       // consume slots as we are adding a new level
       SlotCount slots = getSlots();
       if (slots != null) {
         persistentData.addSlots(slots.getType(), -slots.getCount());
       }
 
-      // add up to 1 level of this to the tool
-      IncrementalModifier.setAmount(persistentData, modifier, Math.min(available + current - neededPerLevel, neededPerLevel));
+      int amount;
+      if (crystal) {
+        // crystal just adds 1 level on top of what we had before
+        amount = current;
+      } else {
+        // add up to 1 level of this to the tool
+        amount = Math.min(available + current - neededPerLevel, neededPerLevel);
+      }
+      IncrementalModifier.setAmount(persistentData, modifier, amount);
       tool.addModifier(result.getId(), result.getLevel());
     } else {
       // boost original based on the new level, and rebuild data so stats adjust
@@ -117,6 +131,12 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
    */
   @Override
   public void updateInputs(ItemStack result, IMutableTinkerStationContainer inv, boolean isServer) {
+    // if its a crystal, just shrink the crystal
+    if (matchesCrystal(inv)) {
+      super.updateInputs(result, inv, isServer);
+      return;
+    }
+
     ToolStack inputTool = ToolStack.from(inv.getTinkerableStack());
     ToolStack resultTool = ToolStack.from(result);
 
@@ -208,7 +228,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
    * @param ingredient  Ingredient to try
    * @return  True if the inventory contains just this item
    */
-  public static boolean containsOnlyIngredient(ITinkerStationContainer inv, Ingredient ingredient) {
+  public static boolean containsOnlyIngredient(ITinkerableContainer inv, Ingredient ingredient) {
     boolean found = false;
     for (int i = 0; i < inv.getInputCount(); i++) {
       ItemStack stack = inv.getInput(i);
@@ -277,20 +297,10 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
     }
   }
 
-  /**
-   * Reads the result from the given JSON
-   * @param parent  Parent JSON
-   * @param name    Tag name
-   * @return  Item stack result
-   * @throws com.google.gson.JsonSyntaxException If the syntax is invalid
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.utils.JsonUtils#getAsItemStack(JsonObject, String)} */
+  @Deprecated
   public static ItemStack deseralizeResultItem(JsonObject parent, String name) {
-    JsonElement element = JsonHelper.getElement(parent, name);
-    if (element.isJsonPrimitive()) {
-      return new ItemStack(GsonHelper.convertToItem(element, name));
-    } else {
-      return CraftingHelper.getItemStack(GsonHelper.convertToJsonObject(element, name), true);
-    }
+    return JsonUtils.getAsItemStack(parent, name);
   }
 
   public static class Serializer extends AbstractModifierRecipe.Serializer<IncrementalModifierRecipe> {
@@ -310,7 +320,8 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
       if (amountPerInput > 1 && json.has("leftover")) {
         leftover = deseralizeResultItem(json, "leftover");
       }
-      return new IncrementalModifierRecipe(id, input, amountPerInput, neededPerLevel, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots, leftover);
+      boolean allowCrystal = GsonHelper.getAsBoolean(json, "allow_crystal", true);
+      return new IncrementalModifierRecipe(id, input, amountPerInput, neededPerLevel, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots, leftover, allowCrystal);
     }
 
     @Override
@@ -320,7 +331,8 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
       int amountPerInput = buffer.readVarInt();
       int neededPerLevel = buffer.readVarInt();
       ItemStack leftover = buffer.readItem();
-      return new IncrementalModifierRecipe(id, input, amountPerInput, neededPerLevel, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots, leftover);
+      boolean allowCrystal = buffer.readBoolean();
+      return new IncrementalModifierRecipe(id, input, amountPerInput, neededPerLevel, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots, leftover, allowCrystal);
     }
 
     @Override
@@ -330,6 +342,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
       buffer.writeVarInt(recipe.amountPerInput);
       buffer.writeVarInt(recipe.neededPerLevel);
       buffer.writeItem(recipe.leftover);
+      buffer.writeBoolean(recipe.allowCrystal);
     }
   }
 }

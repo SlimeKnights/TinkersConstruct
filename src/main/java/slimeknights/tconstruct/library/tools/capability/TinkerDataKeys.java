@@ -15,4 +15,7 @@ public interface TinkerDataKeys {
 
 	/** Float value for the FOV modifier, will be 1.0 if no change */
 	ComputableDataKey<FloatMultiplier> FOV_MODIFIER = TConstruct.createKey("zoom_multiplier", FloatMultiplier::new);
+
+	/** FOV modifier that only applies when not disabled in the settings menu */
+	ComputableDataKey<FloatMultiplier> SCALED_FOV_MODIFIER = TConstruct.createKey("scaled_fov_multiplier", FloatMultiplier::new);
 }

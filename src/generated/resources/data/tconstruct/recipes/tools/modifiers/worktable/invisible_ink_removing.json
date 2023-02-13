@@ -1,0 +1,26 @@
+{
+  "type": "tconstruct:modifier_set_worktable",
+  "data_key": "tconstruct:invisible_modifiers",
+  "tools": {
+    "tag": "tconstruct:modifiable"
+  },
+  "inputs": [
+    {
+      "tag": "forge:milk",
+      "amount": 1000,
+      "type": "mantle:fluid_container",
+      "display": {
+        "item": "minecraft:milk_bucket"
+      }
+    }
+  ],
+  "modifier_predicate": {
+    "type": "tconstruct:inverted",
+    "predicate": {
+      "type": "tconstruct:tag",
+      "tag": "tconstruct:invisible_ink_blacklist"
+    }
+  },
+  "add_to_set": false,
+  "allow_traits": false
+}

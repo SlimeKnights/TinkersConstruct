@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:zoom",
+  "text": [
+    {
+      "text": "Allows zooming in the field of view while sneaking and pressing the helmet keybind or by interacting with the held tool."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 1 level",
+    "Requires 1 upgrade slot"
+  ]
+}

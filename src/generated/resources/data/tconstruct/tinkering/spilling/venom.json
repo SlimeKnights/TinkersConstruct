@@ -7,7 +7,13 @@
     {
       "type": "tconstruct:effect",
       "name": "minecraft:poison",
-      "time": 25,
+      "time": 5,
+      "level": 1
+    },
+    {
+      "type": "tconstruct:effect",
+      "name": "minecraft:strength",
+      "time": 10,
       "level": 1
     }
   ]

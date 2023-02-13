@@ -193,6 +193,43 @@
     ]
   },
 
+  "longbow.charge": {
+    "sounds": [
+      {
+        "name": "item/crossbow/quick_charge/quick1_1",
+        "volume": 0.65
+      },
+      {
+        "name": "item/crossbow/quick_charge/quick1_1",
+        "pitch": 0.9,
+        "volume": 0.5
+      },
+      {
+        "name": "item/crossbow/quick_charge/quick1_2",
+        "volume": 0.65
+      },
+      {
+        "name": "item/crossbow/quick_charge/quick1_2",
+        "pitch": 0.95,
+        "volume": 0.65
+      },
+      {
+        "name": "item/crossbow/quick_charge/quick1_3",
+        "volume": 0.65
+      }
+    ],
+    "subtitle": "subtitles.tconstruct.longbow.charge"
+  },
+  "crystalshot": {
+    "sounds": [
+      { "name": "block/amethyst_cluster/break1", "pitch": 0.8 },
+      { "name": "block/amethyst_cluster/break2", "pitch": 0.8 },
+      { "name": "block/amethyst_cluster/break3", "pitch": 0.8 },
+      { "name": "block/amethyst_cluster/break4", "pitch": 0.8 }
+    ],
+    "subtitle": "subtitles.tconstruct.crystalshot"
+  },
+
   "block.earth_crystal.chime": {
     "sounds": [
       { "name": "block/amethyst/shimmer", "pitch": 0.75, "volume": 0.2 }

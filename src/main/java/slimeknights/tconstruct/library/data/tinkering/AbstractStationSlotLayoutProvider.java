@@ -23,6 +23,8 @@ public abstract class AbstractStationSlotLayoutProvider extends GenericDataProvi
   protected static final int SORT_WEAPON = 3;
   /** Sort index for harvest */
   protected static final int SORT_HARVEST = 6;
+  /** Sort index for ranged */
+  protected static final int SORT_RANGED = 8;
   /** Index for large tools, add to either weapon or harvest */
   protected static final int SORT_LARGE = 6;
 

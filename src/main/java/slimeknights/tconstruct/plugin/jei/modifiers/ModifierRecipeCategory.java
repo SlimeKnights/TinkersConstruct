@@ -8,6 +8,7 @@ import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
+import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
@@ -25,17 +26,26 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.ForgeI18n;
 import slimeknights.mantle.client.model.NBTKeyModel;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.GuiUtil;
+import slimeknights.tconstruct.library.materials.IMaterialRegistry;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
+import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
+import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
 import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.item.ArmorSlotType;
 import slimeknights.tconstruct.tools.item.CreativeSlotItem;
+import slimeknights.tconstruct.tools.stats.SkullStats;
 
 import javax.annotation.Nullable;
 import java.awt.Color;
@@ -207,24 +217,61 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
            .setCustomRenderer(TConstructJEIConstants.MODIFIER_TYPE, modifierRenderer)
            .addIngredient(TConstructJEIConstants.MODIFIER_TYPE, recipe.getDisplayResult());
     // tool
-    builder.addSlot(RecipeIngredientRole.CATALYST,  25, 38).addItemStacks(recipe.getToolWithoutModifier());
-    builder.addSlot(RecipeIngredientRole.CATALYST, 105, 34).addItemStacks(recipe.getToolWithModifier());
+    List<ItemStack> toolWithoutModifier = recipe.getToolWithoutModifier();
+    List<ItemStack> toolWithModifier = recipe.getToolWithModifier();
 
-    // TODO: still needed?
-    // if focusing on a tool, filter out other tools
-//    IFocus<ItemStack> focus = layout.getFocus(VanillaTypes.ITEM_STACK);
-//    List<ItemStack> output = recipe.getToolWithModifier();
-//    items.set(-1, output);
-//    if (focus != null) {
-//      Item item = focus.getValue().getItem();
-//      if (TinkerTags.Items.MODIFIABLE.contains(item)) {
-//        List<List<ItemStack>> allItems = recipe.getDisplayItems();
-//        if (allItems.size() >= 1) {
-//          allItems.get(0).stream().filter(stack -> stack.getItem() == item)
-//                  .findFirst().ifPresent(stack -> items.set(0, stack));
-//        }
-//        output.stream().filter(stack -> stack.getItem() == item).findFirst().ifPresent(stack -> items.set(-1, stack));
-//      }
-//    }
+    // hack: if any slimeskull is selected, add all known variants to the recipe lookup
+    Item slimeskull = TinkerTools.slimesuit.get(ArmorSlotType.HELMET);
+    for (ItemStack stack : toolWithoutModifier) {
+      if (stack.is(slimeskull)) {
+        builder.addInvisibleIngredients(RecipeIngredientRole.CATALYST).addItemStacks(getSlimeskullHelmets());
+        break;
+      }
+    }
+
+    // JEI is currently being dumb and using ingredient subtypes within recipe focuses
+    // we use a more strict subtype for tools in ingredients so they all show in JEI, but do not care in recipes
+    // thus, manually handle the focuses
+    IFocus<ItemStack> focus = focuses.getFocuses(VanillaTypes.ITEM_STACK).filter(f -> f.getRole() == RecipeIngredientRole.CATALYST).findFirst().orElse(null);
+    if (focus != null) {
+      Item item = focus.getTypedValue().getIngredient().getItem();
+      for (ItemStack stack : toolWithoutModifier) {
+        if (stack.is(item)) {
+          toolWithoutModifier = List.of(stack);
+          break;
+        }
+      }
+      for (ItemStack stack : toolWithModifier) {
+        if (stack.is(item)) {
+          toolWithModifier = List.of(stack);
+          break;
+        }
+      }
+    }
+    builder.addSlot(RecipeIngredientRole.CATALYST,  25, 38).addItemStacks(toolWithoutModifier);
+    builder.addSlot(RecipeIngredientRole.CATALYST, 105, 34).addItemStacks(toolWithModifier);
+  }
+
+
+  /* Slimeskull workaround */
+  /** internal list of slimeskulls for the sake of ingredient lookup, needed since they are technically distinct but modifiers treat them as the same */
+  private static List<ItemStack> SLIMESKULL_HELMETS = null;
+
+  /** called to clear the cache on ingredient reload as materials may have changed */
+  public static void clearSlimeskullCache() {
+    SLIMESKULL_HELMETS = null;
+  }
+
+  /** gets the list of slimeskull helmets, loading it if needed */
+  private static List<ItemStack> getSlimeskullHelmets() {
+    if (SLIMESKULL_HELMETS == null) {
+      IMaterialRegistry registry = MaterialRegistry.getInstance();
+      IModifiable slimeskull = TinkerTools.slimesuit.get(ArmorSlotType.HELMET);
+      SLIMESKULL_HELMETS = registry.getAllMaterials().stream()
+                                   .filter(material -> registry.getMaterialStats(material.getIdentifier(), SkullStats.ID).isPresent())
+                                   .map(material -> ToolBuildHandler.buildItemFromMaterials(slimeskull, MaterialNBT.of(material)))
+                                   .toList();
+    }
+    return SLIMESKULL_HELMETS;
   }
 }

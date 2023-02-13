@@ -1,0 +1,37 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "minecraft:spyglass"
+    },
+    {
+      "tag": "forge:string"
+    },
+    {
+      "item": "minecraft:spyglass"
+    },
+    {
+      "tag": "forge:dusts/redstone"
+    },
+    {
+      "tag": "forge:dusts/redstone"
+    }
+  ],
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/armor/helmets"
+    },
+    {
+      "tag": "tconstruct:modifiable/interactable/right"
+    }
+  ],
+  "slots": {
+    "upgrades": 1
+  },
+  "allow_crystal": true,
+  "result": {
+    "name": "tconstruct:zoom",
+    "level": 1
+  },
+  "max_level": 1
+}

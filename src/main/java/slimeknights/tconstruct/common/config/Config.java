@@ -5,6 +5,8 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
+import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
+import net.minecraftforge.common.ForgeConfigSpec.EnumValue;
 import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -37,6 +39,7 @@ public class Config {
     public final BooleanValue slimeRecipeFix;
     public final BooleanValue glassRecipeFix;
     public final Map<TinkerHeadType,BooleanValue> headDrops;
+    public final DoubleValue repairKitAmount;
 
     // loot
     public final BooleanValue slimyLootChests;
@@ -52,6 +55,7 @@ public class Config {
     public final ConfigValue<Integer> veinCountCobalt;
 
     // overworld
+    public final BooleanValue forceGeodeRecipes;
     public final BooleanValue earthGeodes;
     public final BooleanValue skyGeodes;
     public final BooleanValue ichorGeodes;
@@ -61,8 +65,12 @@ public class Config {
     public final ConfigValue<String> showOnlyPartMaterial;
     public final BooleanValue showAllTableVariants;
     public final BooleanValue showAllAnvilVariants;
+    public final BooleanValue showAllSmelteryVariants;
 
+    // debug
     public final BooleanValue forceIntegrationMaterials;
+    public final EnumValue<LogInvalidToolStack> logInvalidToolStack;
+    public enum LogInvalidToolStack { STACKTRACE, WARNING, IGNORED };
 
     Common(ForgeConfigSpec.Builder builder) {
       builder.comment("Everything to do with gameplay").push("gameplay");
@@ -84,6 +92,10 @@ public class Config {
       }));
       actions.add(new ConfigurableAction(builder, "lightning", true, "Makes lightning count as fire damage", DamageSource.LIGHTNING_BOLT::setIsFire));
       damageSourceTweaks = actions.build();
+
+      this.repairKitAmount = builder
+        .comment("Amount of durability restored by a repair kit in terms of ingots. Does not affect the cost to create the kit, that is controlled by JSON.")
+        .defineInRange("repairKitAmount", 2f, 0f, Short.MAX_VALUE);
 
       builder.pop();
 
@@ -114,6 +126,11 @@ public class Config {
         .comment("If true, anvils will show all metal variants. If false, shows only a variant with the default texture")
         .translation("tconstruct.configgui.showAllAnvilVariants")
         .define("showAllAnvilVariants", true);
+
+      this.showAllSmelteryVariants = builder
+        .comment("If true, smeltery and foundry controllers, drains, ducts, and chutes will show all variants")
+        .translation("tconstruct.configgui.showAllSmelteryVariants")
+        .define("showAllSmelteryVariants", true);
 
       builder.pop();
 
@@ -221,6 +238,9 @@ public class Config {
           .define("veinCountCobalt", 8);
 
         builder.comment("Options related to slime geodes").push("geodes");
+        this.forceGeodeRecipes = builder
+          .comment("If true, recipes using slime crystals will ignore the other geode configs, useful if you add other ways to get the slime crystals. When false (default), recipes using slime crystals will be substituted for an alternative if the geode is disabled.")
+          .define("forceRecipes", false);
         this.earthGeodes = builder
           .comment("If true, earthslime geodes generate deep in the world as another way to get slime")
             .define("earth", true);
@@ -243,6 +263,9 @@ public class Config {
                  "Does not provide recipes for any of them, they will only be available to cheat in creative.")
         .worldRestart()
         .define("forceIntegrationMaterials", false);
+      this.logInvalidToolStack = builder
+        .comment("If STACKTRACE, logs the stacktrace whenever a tool stack is created from a non-modifiable item. If WARNING (default), logs a shorter but more efficient error. If IGNORE, disables logging (useful for modpacks/players *after* they reported the issue). The stacktrace helps debug which mod is causing it, but is rather expensive on the chance they are doing it a lot.")
+        .defineEnum("logInvalidToolStack", LogInvalidToolStack.WARNING);
       builder.pop();
     }
   }

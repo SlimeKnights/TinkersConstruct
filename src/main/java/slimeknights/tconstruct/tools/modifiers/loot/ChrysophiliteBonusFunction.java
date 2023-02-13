@@ -5,33 +5,29 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
-import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParam;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount.BinomialWithBonusCount;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount.Formula;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount.FormulaDeserializer;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount.OreDrops;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount.UniformBonusCount;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParam;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.ChrysophiliteModifier;
 
 import java.util.Set;
 
-import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction.Builder;
-
 /** Loot modifier to boost drops based on teh chrysophilite amount */
 public class ChrysophiliteBonusFunction extends LootItemConditionalFunction {
-  public static final ResourceLocation ID = TConstruct.getResource("chrysophilite_bonus");
   public static final Serializer SERIALIZER = new Serializer();
 
   /** Formula to apply */
@@ -83,7 +79,7 @@ public class ChrysophiliteBonusFunction extends LootItemConditionalFunction {
 
   @Override
   public LootItemFunctionType getType() {
-    return TinkerModifiers.chrysophiliteBonusFunction;
+    return TinkerModifiers.chrysophiliteBonusFunction.get();
   }
 
   /** Serializer class */

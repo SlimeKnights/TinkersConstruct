@@ -6,25 +6,17 @@
     }
   ],
   "tools": {
-    "tag": "tconstruct:modifiable"
+    "tag": "tconstruct:modifiable/durability"
   },
   "slots": {
     "upgrades": 1
   },
   "requirements": {
-    "options": [
-      {
-        "name": "tconstruct:diamond",
-        "level": 1
-      },
-      {
-        "name": "tconstruct:emerald",
-        "level": 1
-      }
-    ],
-    "matches_needed": 1,
+    "tag": "tconstruct:gems",
+    "level": 1,
     "error": "recipe.tconstruct.modifier.netherite_requirements"
   },
+  "allow_crystal": true,
   "result": {
     "name": "tconstruct:netherite",
     "level": 1

@@ -10,7 +10,9 @@
   "stats": {
     "base": {
       "tconstruct:attack_damage": 3.0,
-      "tconstruct:attack_speed": 2.0
+      "tconstruct:attack_speed": 2.0,
+      "tconstruct:block_amount": 10.0,
+      "tconstruct:use_item_speed": 1.0
     },
     "multipliers": {
       "tconstruct:attack_damage": 0.65,

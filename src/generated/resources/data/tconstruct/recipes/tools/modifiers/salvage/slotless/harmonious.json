@@ -1,8 +1,0 @@
-{
-  "type": "tconstruct:modifier_salvage",
-  "tools": {
-    "tag": "tconstruct:modifiable"
-  },
-  "modifier": "tconstruct:harmonious",
-  "min_level": 1
-}

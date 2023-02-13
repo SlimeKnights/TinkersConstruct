@@ -14,8 +14,9 @@
   "slots": {
     "upgrades": 1
   },
+  "allow_crystal": true,
   "result": {
-    "name": "tconstruct:knockback_armor",
+    "name": "tconstruct:knockback",
     "level": 1
   },
   "max_level": 3

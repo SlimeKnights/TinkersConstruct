@@ -1,0 +1,17 @@
+{
+  "tool": "tconstruct:plate_shield",
+  "text": [
+    { "text": "Shiny blue shield for shiny blue adventures." },
+    {
+      "text": "A powerful shield for blocking the strongest of attacks.", "paragraph": true
+    }
+  ],
+  "properties": [
+    "High Durability",
+    "High Block Potential",
+    "Low speed while shielding",
+    "1 Upgrade Slots",
+    "4 Defense Slots",
+    "1 Ability Slot"
+  ]
+}

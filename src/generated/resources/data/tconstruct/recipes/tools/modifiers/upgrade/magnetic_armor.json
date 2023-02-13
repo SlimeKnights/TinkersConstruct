@@ -6,11 +6,12 @@
     }
   ],
   "tools": {
-    "tag": "tconstruct:modifiable/armor"
+    "tag": "tconstruct:modifiable/armor/worn"
   },
   "slots": {
     "upgrades": 1
   },
+  "allow_crystal": true,
   "result": {
     "name": "tconstruct:magnetic",
     "level": 1

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:sinistral",
+  "text": [
+    {
+      "text": "使得弩在攻击而非交互时发射，且不会在潜行时装填。从而允许在使用弩时同时使用副手物品。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "单个等级",
+    "需要1个升级槽"
+  ]
+}

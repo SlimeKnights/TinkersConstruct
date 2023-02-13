@@ -5,6 +5,11 @@
     "data": "tools/cleaver.json"
   },
   {
+    "name": "longbow",
+    "type": "tconstruct:tool",
+    "data": "tools/longbow.json"
+  },
+  {
     "name": "broad_axe",
     "type": "tconstruct:tool",
     "data": "tools/broad_axe.json"

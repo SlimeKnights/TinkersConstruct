@@ -1,0 +1,30 @@
+{
+  "parts": [
+    {
+      "item": "tconstruct:bow_limb"
+    },
+    {
+      "item": "tconstruct:bow_limb"
+    },
+    {
+      "item": "tconstruct:bow_grip"
+    },
+    {
+      "item": "tconstruct:bowstring"
+    }
+  ],
+  "stats": {
+    "base": {
+      "tconstruct:durability": 120.0,
+      "tconstruct:attack_damage": 0.0,
+      "tconstruct:attack_speed": 1.0
+    },
+    "multipliers": {
+      "tconstruct:durability": 1.5
+    }
+  },
+  "slots": {
+    "upgrades": 2,
+    "abilities": 1
+  }
+}

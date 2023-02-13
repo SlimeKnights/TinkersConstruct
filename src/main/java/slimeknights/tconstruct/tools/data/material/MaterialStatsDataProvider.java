@@ -3,9 +3,12 @@ package slimeknights.tconstruct.tools.data.material;
 import net.minecraft.data.DataGenerator;
 import slimeknights.tconstruct.library.data.material.AbstractMaterialDataProvider;
 import slimeknights.tconstruct.library.data.material.AbstractMaterialStatsDataProvider;
+import slimeknights.tconstruct.tools.stats.BowstringMaterialStats;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
+import slimeknights.tconstruct.tools.stats.GripMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
+import slimeknights.tconstruct.tools.stats.LimbMaterialStats;
 import slimeknights.tconstruct.tools.stats.RepairKitStats;
 import slimeknights.tconstruct.tools.stats.SkullStats;
 
@@ -28,6 +31,12 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
 
   @Override
   protected void addMaterialStats() {
+    addMeleeHarvest();
+    addRanged();
+    addMisc();
+  }
+
+  private void addMeleeHarvest() {
     // head order is durability, mining speed, mining level, damage
 
     // tier 1
@@ -53,9 +62,13 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      new HeadMaterialStats(100, 2.5f, STONE, 1.25f),
                      HandleMaterialStats.DEFAULT.withDurability(0.75f).withAttackSpeed(1.1f),
                      ExtraMaterialStats.DEFAULT);
+    addMaterialStats(MaterialIds.chorus,
+                     new HeadMaterialStats(180, 3.0f, STONE, 1.0f),
+                     HandleMaterialStats.DEFAULT.withDurability(1.1f).withMiningSpeed(0.95f).withAttackSpeed(0.9f),
+                     ExtraMaterialStats.DEFAULT);
     // tier 1 - binding
     addMaterialStats(MaterialIds.string, ExtraMaterialStats.DEFAULT);
-    addMaterialStats(MaterialIds.leather, ExtraMaterialStats.DEFAULT, new RepairKitStats(150));
+    addMaterialStats(MaterialIds.leather, ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.vine, ExtraMaterialStats.DEFAULT);
 
     // tier 2
@@ -85,6 +98,12 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      new HeadMaterialStats(125, 4f, IRON, 2.25f),
                      HandleMaterialStats.DEFAULT.withDurability(0.7f).withAttackSpeed(1.15f).withAttackDamage(1.05f),
                      ExtraMaterialStats.DEFAULT);
+    // tier 2 - end
+    addMaterialStats(MaterialIds.whitestone,
+                     new HeadMaterialStats(275, 6.0f, IRON, 1.25f),
+                     HandleMaterialStats.DEFAULT.withDurability(0.95f).withMiningSpeed(1.1f).withAttackSpeed(0.95f),
+                     ExtraMaterialStats.DEFAULT);
+    // tier 2 - bindings
     addMaterialStats(MaterialIds.chain, ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.skyslimeVine, ExtraMaterialStats.DEFAULT);
 
@@ -108,10 +127,6 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.lead,
                      new HeadMaterialStats(200, 5f, IRON, 2.5f),
                      HandleMaterialStats.DEFAULT.withDurability(0.9f).withAttackSpeed(0.9f).withAttackDamage(1.2f),
-                     ExtraMaterialStats.DEFAULT);
-    addMaterialStats(MaterialIds.whitestone,
-                     new HeadMaterialStats(275, 6.0f, IRON, 1.25f),
-                     HandleMaterialStats.DEFAULT.withDurability(0.95f).withMiningSpeed(1.1f).withAttackSpeed(0.95f),
                      ExtraMaterialStats.DEFAULT);
 
     // tier 3
@@ -142,6 +157,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      new HeadMaterialStats(800, 6.5f, DIAMOND, 2.25f),
                      HandleMaterialStats.DEFAULT.withDurability(1.05f).withMiningSpeed(1.05f).withAttackSpeed(1.05f),
                      ExtraMaterialStats.DEFAULT);
+    // tier 3 - binding
     addMaterialStats(MaterialIds.darkthread, ExtraMaterialStats.DEFAULT);
 
     // tier 3 (mod integration)
@@ -192,15 +208,133 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      new HeadMaterialStats(530, 6f, IRON, 3f),
                      HandleMaterialStats.DEFAULT.withDurability(0.85f).withAttackDamage(1.05f).withAttackSpeed(1.2f),
                      ExtraMaterialStats.DEFAULT);
-    //    addMaterialStats(MaterialIds.soulsteel,
-    //                     new HeadMaterialStats(1120, 7.5f, NETHERITE, 3f),
-    //                     HandleMaterialStats.DEFAULT.withAttackSpeed(1.1f).withAttackDamage(1.3f),
-    //                     ExtraMaterialStats.DEFAULT);
     addMaterialStats(MaterialIds.ancientHide, ExtraMaterialStats.DEFAULT);
 
-    // tier 5
+    // tier 4 (end)
     addMaterialStats(MaterialIds.enderslimeVine, ExtraMaterialStats.DEFAULT);
+  }
 
+  private void addRanged() {
+    // limb order is durability, drawspeed, velocity, accuracy
+    // grip order is durability, accuracy, melee
+
+    // tier 1 - wood is basically the only one from vanilla so it has (mostly) vanilla stats
+    addMaterialStats(MaterialIds.wood,
+                     new LimbMaterialStats(60, 0, 0, 0),
+                     new GripMaterialStats(1.0f, 0, 0));
+    addMaterialStats(MaterialIds.bamboo,
+                     new LimbMaterialStats(70, 0.1f, -0.05f, -0.05f),
+                     new GripMaterialStats(0.95f, 0.05f, 0.75f));
+    addMaterialStats(MaterialIds.bone,
+                     new LimbMaterialStats(100, 0.05f, -0.05f, 0.05f),
+                     new GripMaterialStats(0.75f, 0.05f, 1.25f));
+    addMaterialStats(MaterialIds.copper,
+                     new LimbMaterialStats(210, -0.10f, 0.05f, 0f),
+                     new GripMaterialStats(0.8f, 0f, 0.5f));
+    addMaterialStats(MaterialIds.chorus,
+                     new LimbMaterialStats(180, 0.1f, 0f, 0.1f),
+                     new GripMaterialStats(1.1f, -0.1f, 1.0f));
+    // tier 1 - bowstring
+    addMaterialStats(MaterialIds.string, BowstringMaterialStats.DEFAULT);
+    addMaterialStats(MaterialIds.vine, BowstringMaterialStats.DEFAULT);
+
+    // tier 2
+    addMaterialStats(MaterialIds.slimewood,
+                     new LimbMaterialStats(375, 0, -0.05f, 0.1f),
+                     new GripMaterialStats(1.4f, -0.2f, 1f));
+    addMaterialStats(MaterialIds.bloodbone,
+                     new LimbMaterialStats(175, 0.1f, -0.1f, 0.05f),
+                     new GripMaterialStats(0.9f, -0.1f, 2.25f));
+    addMaterialStats(MaterialIds.iron,
+                     new LimbMaterialStats(250, -0.2f, 0.1f, 0),
+                     new GripMaterialStats(1.1f, 0f, 2f));
+    addMaterialStats(MaterialIds.necroticBone,
+                     new LimbMaterialStats(125, 0.05f, 0.05f, -0.15f),
+                     new GripMaterialStats(0.7f, 0.1f, 2.25f));
+    // tier 2 - bowstring
+    addMaterialStats(MaterialIds.chain, BowstringMaterialStats.DEFAULT);
+    addMaterialStats(MaterialIds.skyslimeVine, BowstringMaterialStats.DEFAULT);
+
+    // tier 2 - compat
+    addMaterialStats(MaterialIds.platinum,
+                     new LimbMaterialStats(400, -0.05f, 0, 0.1f),
+                     new GripMaterialStats(1.05f, 0.05f, 1.5f));
+    addMaterialStats(MaterialIds.aluminum,
+                     new LimbMaterialStats(225, 0.15f, -0.15f, -0.05f),
+                     new GripMaterialStats(0.85f, 0.15f, 2f));
+    addMaterialStats(MaterialIds.tungsten,
+                     new LimbMaterialStats(350, 0.2f, -0.3f, 0),
+                     new GripMaterialStats(0.9f, 0.1f, 1.75f));
+    addMaterialStats(MaterialIds.silver,
+                     new LimbMaterialStats(300, -0.15f, 0.1f, -0.1f),
+                     new GripMaterialStats(0.9f, -0.05f, 2.25f));
+    addMaterialStats(MaterialIds.lead,
+                     new LimbMaterialStats(200, -0.3f, 0.15f, -0.05f),
+                     new GripMaterialStats(0.9f, -0.1f, 2.5f));
+
+    // tier 3
+    addMaterialStats(MaterialIds.slimesteel,
+                     new LimbMaterialStats(1040, -0.1f, -0.05f, 0.15f),
+                     new GripMaterialStats(1.2f, -0.1f, 2.5f));
+    addMaterialStats(MaterialIds.nahuatl,
+                     new LimbMaterialStats(350, 0.2f, -0.15f, 0.1f),
+                     new GripMaterialStats(0.9f, -0.15f, 3f));
+    addMaterialStats(MaterialIds.amethystBronze,
+                     new LimbMaterialStats(720, -0.25f, 0.15f, -0.1f),
+                     new GripMaterialStats(1.0f, 0.1f, 1.5f));
+    addMaterialStats(MaterialIds.roseGold,
+                     new LimbMaterialStats(175, 0.15f, -0.25f, 0.15f),
+                     new GripMaterialStats(0.6f, 0.25f, 1.0f));
+    addMaterialStats(MaterialIds.cobalt,
+                     new LimbMaterialStats(800, 0.05f, 0.05f, 0.05f),
+                     new GripMaterialStats(1.05f, 0.05f, 2.25f));
+    addMaterialStats(MaterialIds.blazingBone,
+                     new LimbMaterialStats(530, -0.3f, 0.2f, -0.15f),
+                     new GripMaterialStats(0.85f, -0.10f, 3f));
+    // tier 3 - bowstring
+    addMaterialStats(MaterialIds.darkthread, BowstringMaterialStats.DEFAULT);
+
+    // tier 3 - compat
+    addMaterialStats(MaterialIds.invar,
+                     new LimbMaterialStats(630, -0.15f, -0.1f, 0.2f),
+                     new GripMaterialStats(1, 0.05f, 2.5f));
+    addMaterialStats(MaterialIds.necronium,
+                     new LimbMaterialStats(357, 0.15f, -0.1f, -0.05f),
+                     new GripMaterialStats(0.8f, 0.15f, 2.75f));
+    addMaterialStats(MaterialIds.constantan,
+                     new LimbMaterialStats(675, 0.2f, -0.05f, -0.25f),
+                     new GripMaterialStats(0.95f, 0.1f, 1.75f));
+    addMaterialStats(MaterialIds.steel,
+                     new LimbMaterialStats(775, -0.3f, 0.2f, -0.1f),
+                     new GripMaterialStats(1.05f, -0.05f, 2.75f));
+    addMaterialStats(MaterialIds.bronze,
+                     new LimbMaterialStats(760, -0.2f, 0.15f, -0.2f),
+                     new GripMaterialStats(1.1f, 0f, 2.25f));
+    addMaterialStats(MaterialIds.electrum,
+                     new LimbMaterialStats(225, -0.25f, 0.1f, 0.15f),
+                     new GripMaterialStats(0.8f, 0.2f, 1.5f));
+    addMaterialStats(MaterialIds.platedSlimewood,
+                     new LimbMaterialStats(595, 0.15f, -0.15f, 0),
+                     new GripMaterialStats(1.25f, -0.1f, 2f));
+
+
+    // tier 4
+    addMaterialStats(MaterialIds.queensSlime,
+                     new LimbMaterialStats(1650, 0f, -0.15f, 0.2f),
+                     new GripMaterialStats(1.35f, -0.15f, 2f));
+    addMaterialStats(MaterialIds.hepatizon,
+                     new LimbMaterialStats(975, 0.25f, -0.05f, -0.10f),
+                     new GripMaterialStats(1.1f, 0.15f, 2.5f));
+    addMaterialStats(MaterialIds.manyullyn,
+                     new LimbMaterialStats(1250, -0.35f, 0.25f, -0.15f),
+                     new GripMaterialStats(1.1f, -0.20f, 3.5f));
+    // tier 4 (end)
+    addMaterialStats(MaterialIds.enderslimeVine, BowstringMaterialStats.DEFAULT);
+  }
+
+  private void addMisc() {
+    // travelers gear
+    addMaterialStats(MaterialIds.leather, new RepairKitStats(150));
     // slimeskull
     addMaterialStats(MaterialIds.glass,        new SkullStats( 90, 0));
     addMaterialStats(MaterialIds.enderPearl,   new SkullStats(180, 0));
@@ -219,7 +353,6 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     // slimesuit
     addMaterialStats(MaterialIds.enderslime, new RepairKitStats( 30));
     addMaterialStats(MaterialIds.phantom,    new RepairKitStats(324));
-    addMaterialStats(MaterialIds.chorus,     new RepairKitStats( 65));
     // crafting
     addMaterialStats(MaterialIds.obsidian);
     addMaterialStats(MaterialIds.debris);

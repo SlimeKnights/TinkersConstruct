@@ -27,12 +27,13 @@ import slimeknights.tconstruct.smeltery.network.SmelteryTankUpdatePacket;
 import slimeknights.tconstruct.smeltery.network.StructureErrorPositionPacket;
 import slimeknights.tconstruct.smeltery.network.StructureUpdatePacket;
 import slimeknights.tconstruct.tables.network.StationTabPacket;
+import slimeknights.tconstruct.tables.network.TinkerStationRenamePacket;
 import slimeknights.tconstruct.tables.network.TinkerStationSelectionPacket;
 import slimeknights.tconstruct.tables.network.UpdateCraftingRecipePacket;
 import slimeknights.tconstruct.tables.network.UpdateStationScreenPacket;
 import slimeknights.tconstruct.tables.network.UpdateTinkerStationRecipePacket;
 import slimeknights.tconstruct.tools.network.EntityMovementChangePacket;
-import slimeknights.tconstruct.tools.network.OnChestplateUsePacket;
+import slimeknights.tconstruct.tools.network.InteractWithAirPacket;
 import slimeknights.tconstruct.tools.network.TinkerControlPacket;
 
 import javax.annotation.Nullable;
@@ -75,21 +76,24 @@ public class TinkerNetwork extends NetworkWrapper {
     // gadgets
     instance.registerPacket(EntityMovementChangePacket.class, EntityMovementChangePacket::new, NetworkDirection.PLAY_TO_CLIENT);
 
-    // tools
+    // tables
     instance.registerPacket(StationTabPacket.class, StationTabPacket::new, NetworkDirection.PLAY_TO_SERVER);
+    instance.registerPacket(TinkerStationRenamePacket.class, TinkerStationRenamePacket::new, NetworkDirection.PLAY_TO_SERVER);
+    instance.registerPacket(UpdateCraftingRecipePacket.class, UpdateCraftingRecipePacket::new, NetworkDirection.PLAY_TO_CLIENT);
+    instance.registerPacket(TinkerStationSelectionPacket.class, TinkerStationSelectionPacket::new, NetworkDirection.PLAY_TO_SERVER);
+    instance.registerPacket(UpdateTinkerSlotLayoutsPacket.class, UpdateTinkerSlotLayoutsPacket::new, NetworkDirection.PLAY_TO_CLIENT);
+    instance.registerPacket(UpdateStationScreenPacket.class, buf -> UpdateStationScreenPacket.INSTANCE, NetworkDirection.PLAY_TO_CLIENT);
+    instance.registerPacket(UpdateTinkerStationRecipePacket.class, UpdateTinkerStationRecipePacket::new, NetworkDirection.PLAY_TO_CLIENT);
+
+    // tools
     instance.registerPacket(UpdateMaterialsPacket.class, UpdateMaterialsPacket::new, NetworkDirection.PLAY_TO_CLIENT);
     instance.registerPacket(UpdateMaterialStatsPacket.class, UpdateMaterialStatsPacket::new, NetworkDirection.PLAY_TO_CLIENT);
     instance.registerPacket(UpdateMaterialTraitsPacket.class, UpdateMaterialTraitsPacket::new, NetworkDirection.PLAY_TO_CLIENT);
-    instance.registerPacket(UpdateCraftingRecipePacket.class, UpdateCraftingRecipePacket::new, NetworkDirection.PLAY_TO_CLIENT);
     instance.registerPacket(UpdateToolDefinitionDataPacket.class, UpdateToolDefinitionDataPacket::new, NetworkDirection.PLAY_TO_CLIENT);
-    instance.registerPacket(TinkerStationSelectionPacket.class, TinkerStationSelectionPacket::new, NetworkDirection.PLAY_TO_SERVER);
-    instance.registerPacket(UpdateTinkerStationRecipePacket.class, UpdateTinkerStationRecipePacket::new, NetworkDirection.PLAY_TO_CLIENT);
-    instance.registerPacket(UpdateStationScreenPacket.class, buf -> UpdateStationScreenPacket.INSTANCE, NetworkDirection.PLAY_TO_CLIENT);
-    instance.registerPacket(UpdateTinkerSlotLayoutsPacket.class, UpdateTinkerSlotLayoutsPacket::new, NetworkDirection.PLAY_TO_CLIENT);
 
     // modifiers
     instance.registerPacket(TinkerControlPacket.class, TinkerControlPacket::read, NetworkDirection.PLAY_TO_SERVER);
-    instance.registerPacket(OnChestplateUsePacket.class, OnChestplateUsePacket::read, NetworkDirection.PLAY_TO_SERVER);
+    instance.registerPacket(InteractWithAirPacket.class, InteractWithAirPacket::read, NetworkDirection.PLAY_TO_SERVER);
     instance.registerPacket(UpdateModifiersPacket.class, UpdateModifiersPacket::new, NetworkDirection.PLAY_TO_CLIENT);
     instance.registerPacket(UpdateSpillingFluidsPacket.class, UpdateSpillingFluidsPacket::new, NetworkDirection.PLAY_TO_CLIENT);
 

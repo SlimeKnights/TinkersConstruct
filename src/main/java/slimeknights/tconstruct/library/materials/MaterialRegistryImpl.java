@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.materials;
 
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.tags.TagKey;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialManager;
@@ -8,8 +9,10 @@ import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsManager;
 import slimeknights.tconstruct.library.materials.traits.MaterialTraitsManager;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
+import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +37,9 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
     this.materialTraitsManager = materialTraitsManager;
   }
 
+
+  /* Materials */
+
   @Override
   public MaterialId resolve(MaterialId id) {
     return materialManager.resolveRedirect(id);
@@ -53,6 +59,22 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
   public Collection<IMaterial> getAllMaterials() {
     return materialManager.getAllMaterials();
   }
+
+
+  /* Tags */
+
+  @Override
+  public boolean isInTag(MaterialId id, TagKey<IMaterial> tag) {
+    return materialManager.isIn(id, tag);
+  }
+
+  @Override
+  public List<IMaterial> getTagValues(TagKey<Modifier> tag) {
+    return materialManager.getValues(tag);
+  }
+
+
+  /* Stats */
 
   @Override
   public <T extends IMaterialStats> Optional<T> getMaterialStats(MaterialId materialId, MaterialStatsId statsId) {
@@ -78,6 +100,17 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
   public <T extends IMaterialStats> void registerStatType(T defaultStats, Class<T> clazz, Function<FriendlyByteBuf,T> decoder) {
     materialStatsManager.registerMaterialStat(defaultStats, clazz, decoder);
   }
+
+  @Override
+  public <T extends IMaterialStats> void registerStatType(T defaultStats, Class<T> clazz, Function<FriendlyByteBuf,T> decoder, @Nullable MaterialStatsId fallback) {
+    registerStatType(defaultStats, clazz, decoder);
+    if (fallback != null) {
+      materialTraitsManager.registerStatTypeFallback(defaultStats.getIdentifier(), fallback);
+    }
+  }
+
+
+  /* Traits */
 
   @Override
   public List<ModifierEntry> getDefaultTraits(MaterialId materialId) {

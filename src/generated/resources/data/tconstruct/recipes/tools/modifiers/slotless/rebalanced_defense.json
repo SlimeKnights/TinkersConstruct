@@ -1,0 +1,47 @@
+{
+  "type": "tconstruct:swappable_modifier",
+  "inputs": [
+    {
+      "ingredient": [
+        {
+          "item": "tconstruct:dragon_scale"
+        },
+        {
+          "item": "minecraft:gilded_blackstone"
+        }
+      ]
+    },
+    {
+      "tag": "forge:ingots/cobalt"
+    },
+    {
+      "ingredient": [
+        {
+          "item": "tconstruct:dragon_scale"
+        },
+        {
+          "item": "minecraft:gilded_blackstone"
+        }
+      ]
+    },
+    {
+      "item": "tconstruct:earth_slime_crystal_block"
+    },
+    {
+      "item": "tconstruct:earth_slime_crystal_block"
+    }
+  ],
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/armor"
+    },
+    {
+      "tag": "tconstruct:modifiable/held"
+    }
+  ],
+  "allow_crystal": false,
+  "result": {
+    "name": "tconstruct:rebalanced",
+    "value": "defense"
+  }
+}

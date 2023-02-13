@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:multishot",
+  "text": [
+    {
+      "text": "Allows shooting 2 additional arrows per level. Additional arrows location may vary based on the bow."
+    },
+    {
+      "text": "Must have additionall arrows in the inventory to fire them, if too few the bow will shoot fewer arrows.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "No max level",
+    "Requires 1 ability slot per level"
+  ]
+}

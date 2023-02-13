@@ -1,0 +1,46 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "tag": "forge:ingots/manyullyn"
+    },
+    {
+      "item": "minecraft:nautilus_shell"
+    },
+    {
+      "tag": "forge:ingots/manyullyn"
+    },
+    {
+      "tag": "forge:slimeball/sky"
+    },
+    {
+      "tag": "forge:slimeball/sky"
+    }
+  ],
+  "tools": {
+    "type": "forge:difference",
+    "base": {
+      "type": "forge:intersection",
+      "children": [
+        {
+          "tag": "tconstruct:modifiable/melee"
+        },
+        {
+          "tag": "tconstruct:modifiable/interactable/right"
+        }
+      ]
+    },
+    "subtracted": {
+      "item": "tconstruct:dagger"
+    }
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "allow_crystal": true,
+  "result": {
+    "name": "tconstruct:dual_wielding",
+    "level": 1
+  },
+  "max_level": 1
+}

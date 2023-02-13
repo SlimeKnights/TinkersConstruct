@@ -2,7 +2,7 @@
   "parent": "tconstruct:block/template/controller_fluid",
   "textures": {
     "front": "tconstruct:block/foundry/controller/foundry_inactive",
-    "top":   "tconstruct:block/foundry/scorched/bricks",
-    "side":  "tconstruct:block/foundry/scorched/bricks"
+    "bricks": "tconstruct:block/foundry/scorched/bricks",
+    "back": "tconstruct:block/foundry/io/back"
   }
 }

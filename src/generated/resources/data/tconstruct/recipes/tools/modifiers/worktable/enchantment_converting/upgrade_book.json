@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:enchantment_converting",
+  "name": "upgrades",
+  "inputs": [
+    {
+      "item": "tconstruct:sky_slime_crystal"
+    },
+    {
+      "tag": "forge:gems/lapis",
+      "amount_needed": 3
+    }
+  ],
+  "match_book": true,
+  "return_unenchanted": false,
+  "modifier_predicate": {
+    "type": "tconstruct:slot_type",
+    "slot": "upgrades"
+  }
+}

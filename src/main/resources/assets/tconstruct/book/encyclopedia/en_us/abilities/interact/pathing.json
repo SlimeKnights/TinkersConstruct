@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:pathing",
   "text": [
     {
-      "text": "Allows the tool to create paths, similarly to mattocks or excavators. Tools will use their normal mining area for placing paths."
+      "text": "Allows the tool to create paths, similarly to pickadzes or excavators. Tools will use their normal mining area for placing paths."
     },
     {
       "text": "Triggers before the tool's native stripping or tilling if present.",

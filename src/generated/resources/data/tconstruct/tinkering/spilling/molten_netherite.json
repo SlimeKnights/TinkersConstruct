@@ -1,0 +1,30 @@
+{
+  "fluid": {
+    "tag": "forge:molten_netherite",
+    "amount": 10
+  },
+  "effects": [
+    {
+      "type": "tconstruct:conditional",
+      "entity": {
+        "type": "tconstruct:inverted",
+        "predicate": "tconstruct:fire_immune"
+      },
+      "effect": {
+        "type": "tconstruct:damage",
+        "damage_type": "fire",
+        "damage_amount": 3.5
+      }
+    },
+    {
+      "type": "tconstruct:set_fire",
+      "time": 4
+    },
+    {
+      "type": "tconstruct:effect",
+      "name": "minecraft:blindness",
+      "time": 15,
+      "level": 1
+    }
+  ]
+}

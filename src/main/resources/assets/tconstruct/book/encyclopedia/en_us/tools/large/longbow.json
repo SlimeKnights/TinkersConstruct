@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:longbow",
+  "text": [
+    { "text": "The Longbow is a broad ranged weapon that fires arrows. Arrows are launched immediately after releasing the longbow." },
+    { "text": "When using interaction modifiers, the longbow acts on left click.", "paragraph": true }
+  ],
+  "properties": [
+    "1.0 Attack Speed",
+    "1.0 Draw Speed",
+    "1.00 Arrow Velocity",
+    "0.75 Accuracy",
+    "Sums stats of both limbs",
+    "150% Durability"
+  ]
+}

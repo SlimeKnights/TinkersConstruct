@@ -11,12 +11,18 @@
       "item": "minecraft:ghast_tear"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/melee"
-  },
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/melee_or_unarmed"
+    },
+    {
+      "tag": "tconstruct:modifiable/ranged/bows"
+    }
+  ],
   "slots": {
     "upgrades": 1
   },
+  "allow_crystal": true,
   "result": {
     "name": "tconstruct:necrotic",
     "level": 1

@@ -9,6 +9,8 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.util.JsonHelper;
@@ -17,6 +19,8 @@ import slimeknights.tconstruct.library.modifiers.spilling.ISpillingEffect;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.utils.JsonUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -34,7 +38,11 @@ public record EffectSpillingEffect(MobEffect effect, int time, int level) implem
     if (target != null) {
       int time = (int)(this.time * 20 * scale);
       if (time > 0) {
-        target.addEffect(new MobEffectInstance(effect, time, level - 1));
+        MobEffectInstance instance = new MobEffectInstance(effect, time, level - 1);
+        List<ItemStack> curative = new ArrayList<>();
+        curative.add(new ItemStack(Items.MILK_BUCKET));
+        instance.setCurativeItems(curative);
+        target.addEffect(instance);
       }
     }
   }

@@ -1,10 +1,12 @@
 package slimeknights.tconstruct.plugin.jei;
 
 import mezz.jei.api.ingredients.IIngredientType;
+import mezz.jei.api.ingredients.IIngredientTypeWithSubtypes;
 import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
@@ -15,6 +17,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.IDisplayPartBuilderRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
+import slimeknights.tconstruct.library.recipe.worktable.IModifierWorktableRecipe;
 
 public class TConstructJEIConstants {
   public static final ResourceLocation PLUGIN = TConstruct.getResource("jei_plugin");
@@ -22,7 +25,22 @@ public class TConstructJEIConstants {
   // ingredient types
   @SuppressWarnings("rawtypes")
   public static final IIngredientType<EntityType> ENTITY_TYPE = () -> EntityType.class;
-  public static final IIngredientType<ModifierEntry> MODIFIER_TYPE = () -> ModifierEntry.class;
+  public static final IIngredientTypeWithSubtypes<Modifier,ModifierEntry> MODIFIER_TYPE = new IIngredientTypeWithSubtypes<>() {
+    @Override
+    public Class<? extends ModifierEntry> getIngredientClass() {
+      return ModifierEntry.class;
+    }
+
+    @Override
+    public Class<? extends Modifier> getIngredientBaseClass() {
+      return Modifier.class;
+    }
+
+    @Override
+    public Modifier getBase(ModifierEntry ingredient) {
+      return ingredient.getModifier();
+    }
+  };
   public static final IIngredientType<Pattern> PATTERN_TYPE = () -> Pattern.class;
 
   // casting
@@ -42,6 +60,9 @@ public class TConstructJEIConstants {
 
   // part builder
   public static final RecipeType<IDisplayPartBuilderRecipe> PART_BUILDER = type("part_builder", IDisplayPartBuilderRecipe.class);
+
+  // modifier workstation
+  public static final RecipeType<IModifierWorktableRecipe> MODIFIER_WORKTABLE = type("worktable", IModifierWorktableRecipe.class);
 
   private static <T> RecipeType<T> type(String name, Class<T> clazz) {
     return RecipeType.create(TConstruct.MOD_ID, name, clazz);

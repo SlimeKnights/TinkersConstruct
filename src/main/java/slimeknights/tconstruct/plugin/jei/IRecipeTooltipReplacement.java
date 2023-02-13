@@ -19,7 +19,10 @@ public interface IRecipeTooltipReplacement extends IRecipeSlotTooltipCallback {
     tooltip.clear();
     tooltip.add(name);
     addMiddleLines(recipeSlotView, tooltip);
-    tooltip.add(modId);
+    // only add last line if we actually have mod IDs
+    if (JEIPlugin.modIdHelper != null && JEIPlugin.modIdHelper.isDisplayingModNameEnabled()) {
+      tooltip.add(modId);
+    }
   }
 
   /** Adds the lines between the name and mod ID */

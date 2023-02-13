@@ -12,11 +12,12 @@
     }
   ],
   "tools": {
-    "tag": "tconstruct:modifiable/armor"
+    "tag": "tconstruct:modifiable/armor/worn"
   },
   "slots": {
     "defense": 1
   },
+  "allow_crystal": true,
   "result": {
     "name": "tconstruct:golden",
     "level": 1

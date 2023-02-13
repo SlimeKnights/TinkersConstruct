@@ -7,6 +7,9 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.data.ModifierIds;
 import slimeknights.tconstruct.tools.stats.SkullStats;
 
+import static slimeknights.tconstruct.library.materials.MaterialRegistry.MELEE_HARVEST;
+import static slimeknights.tconstruct.library.materials.MaterialRegistry.RANGED;
+
 public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvider {
   public MaterialTraitsDataProvider(DataGenerator gen, AbstractMaterialDataProvider materials) {
     super(gen, materials);
@@ -24,8 +27,9 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.rock, TinkerModifiers.stonebound);
     addDefaultTraits(MaterialIds.flint, TinkerModifiers.jagged);
     addDefaultTraits(MaterialIds.bone, TinkerModifiers.piercing);
-    // tier 1 - nether
-    addDefaultTraits(MaterialIds.necroticBone, TinkerModifiers.necrotic);
+    addTraits(MaterialIds.bamboo, RANGED, ModifierIds.flexible);
+    // tier 1 - end
+    addDefaultTraits(MaterialIds.chorus, TinkerModifiers.enderference);
     // tier 1 - binding
     addDefaultTraits(MaterialIds.string, ModifierIds.stringy);
     addDefaultTraits(MaterialIds.leather, TinkerModifiers.tanned);
@@ -37,15 +41,20 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.searedStone, TinkerModifiers.searing);
     addDefaultTraits(MaterialIds.slimewood, TinkerModifiers.overgrowth, TinkerModifiers.overslime);
     addDefaultTraits(MaterialIds.bloodbone, TinkerModifiers.raging);
+    addTraits(MaterialIds.aluminum, RANGED, ModifierIds.featherweight);
     // tier 2 - nether
+    addDefaultTraits(MaterialIds.necroticBone, TinkerModifiers.necrotic);
     addDefaultTraits(MaterialIds.scorchedStone, ModifierIds.scorching);
+    // tier 2 - end
+    addDefaultTraits(MaterialIds.whitestone, TinkerModifiers.stoneshield);
     // tier 2 - binding
     addDefaultTraits(MaterialIds.chain, TinkerModifiers.reinforced);
     addDefaultTraits(MaterialIds.skyslimeVine, TinkerModifiers.airborne);
 
     // tier 3
     addDefaultTraits(MaterialIds.slimesteel, TinkerModifiers.overcast, TinkerModifiers.overslime);
-    addDefaultTraits(MaterialIds.amethystBronze, ModifierIds.crumbling);
+    addTraits(MaterialIds.amethystBronze, MELEE_HARVEST, ModifierIds.crumbling);
+    addTraits(MaterialIds.amethystBronze, RANGED, TinkerModifiers.crystalbound);
     addDefaultTraits(MaterialIds.nahuatl, TinkerModifiers.lacerating);
     addDefaultTraits(MaterialIds.roseGold, ModifierIds.enhanced);
     addDefaultTraits(MaterialIds.pigIron, TinkerModifiers.tasty);
@@ -68,10 +77,11 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     // tier 2 - mod compat
     addDefaultTraits(MaterialIds.osmium, TinkerModifiers.dense);
     addDefaultTraits(MaterialIds.tungsten, ModifierIds.sharpweight);
-    addDefaultTraits(MaterialIds.platinum, ModifierIds.lustrous);
+    addTraits(MaterialIds.platinum, MELEE_HARVEST, ModifierIds.lustrous);
+    addTraits(MaterialIds.platinum, RANGED,        TinkerModifiers.olympic);
     addDefaultTraits(MaterialIds.lead, ModifierIds.heavy);
-    addDefaultTraits(MaterialIds.silver, ModifierIds.smite);
-    addDefaultTraits(MaterialIds.whitestone, TinkerModifiers.stoneshield);
+    addTraits(MaterialIds.silver, MELEE_HARVEST, ModifierIds.smite);
+    addTraits(MaterialIds.silver, RANGED, TinkerModifiers.holy);
     // tier 3 - mod compat
     addDefaultTraits(MaterialIds.steel, ModifierIds.ductile);
     addDefaultTraits(MaterialIds.bronze, TinkerModifiers.maintained);
@@ -108,11 +118,8 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     noTraits(MaterialIds.enderslime);
     noTraits(MaterialIds.clay);
     noTraits(MaterialIds.honey);
-    //noTraits(MaterialIds.venom);
     noTraits(MaterialIds.phantom);
-    noTraits(MaterialIds.chorus);
     // compat plate
-    noTraits(MaterialIds.aluminum);
     noTraits(MaterialIds.nickel);
     noTraits(MaterialIds.tin);
     noTraits(MaterialIds.zinc);

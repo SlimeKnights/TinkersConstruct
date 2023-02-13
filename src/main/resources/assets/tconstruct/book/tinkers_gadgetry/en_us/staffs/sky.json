@@ -1,0 +1,11 @@
+{
+  "tool": "tconstruct:sky_staff",
+  "text": [
+    { "text": "Skyslime staffs leave a lot of room for modification." }
+  ],
+  "properties": [
+    "Low Durability",
+    "5 Upgrade Slots",
+    "2 Ability Slots"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "type": "tconstruct:swappable_modifier",
+  "inputs": [
+    {
+      "item": "tconstruct:ichor_slime_crystal_cluster"
+    },
+    {
+      "item": "minecraft:blaze_rod"
+    },
+    {
+      "item": "tconstruct:ichor_slime_crystal_cluster"
+    },
+    {
+      "tag": "forge:ingots/manyullyn"
+    },
+    {
+      "tag": "forge:ingots/manyullyn"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/ranged/bows"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "allow_crystal": false,
+  "result": {
+    "name": "tconstruct:crystalshot",
+    "value": "ichor"
+  }
+}

@@ -1,7 +1,7 @@
 {
   "tool": "tconstruct:dagger",
   "text": [
-    { "text": "The Dagger is a quick precise weapon, usable in both hands." },
+    { "text": "The Dagger is a quick precise weapon, usable in both hands. Identical daggers can be stacked to 2 when modifying they are undamaged, providing a discount on modifiers." },
     { "text": "Silky grants shearing.", "paragraph": true }
   ],
   "properties": [

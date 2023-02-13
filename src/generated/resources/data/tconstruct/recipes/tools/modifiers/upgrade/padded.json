@@ -12,11 +12,12 @@
     }
   ],
   "tools": {
-    "tag": "tconstruct:modifiable/melee"
+    "tag": "tconstruct:modifiable/melee_or_unarmed"
   },
   "slots": {
     "upgrades": 1
   },
+  "allow_crystal": true,
   "result": {
     "name": "tconstruct:padded",
     "level": 1

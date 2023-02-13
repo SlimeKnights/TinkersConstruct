@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.HumanoidArm;
@@ -29,6 +30,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.events.ToolEquipmentChangeEvent;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.data.FloatMultiplier;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
@@ -111,10 +113,31 @@ public class ModifierClientEvents {
   @SubscribeEvent
   static void handleZoom(FOVModifierEvent event) {
     event.getEntity().getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
-      FloatMultiplier zoom = data.get(TinkerDataKeys.FOV_MODIFIER);
-      if (zoom != null) {
-        event.setNewfov(event.getNewfov() * zoom.getValue());
+      float newFov = event.getNewfov();
+
+      // scaled effects only apply if we have FOV scaling, nothing to do if 0
+      float effectScale = Minecraft.getInstance().options.fovEffectScale;
+      if (effectScale > 0) {
+        FloatMultiplier scaledZoom = data.get(TinkerDataKeys.SCALED_FOV_MODIFIER);
+        if (scaledZoom != null) {
+          // much easier when 1, save some effort
+          if (effectScale == 1) {
+            newFov *= scaledZoom.getValue();
+          } else {
+            // unlerp the fov before multiplitying to make sure we apply the proper amount
+            // we could use the original FOV, but someone else may have modified it
+            float original = event.getFov();
+            newFov *= Mth.lerp(effectScale, 1.0F, scaledZoom.getValue() * original) / original;
+          }
+        }
       }
+
+      // non-scaled effects are much easier to deal with
+      FloatMultiplier constZoom = data.get(TinkerDataKeys.FOV_MODIFIER);
+      if (constZoom != null) {
+        newFov *= constZoom.getValue();
+      }
+      event.setNewfov(newFov);
     });
   }
 
@@ -139,9 +162,9 @@ public class ModifierClientEvents {
         IToolStackView tool = context.getToolInSlot(EquipmentSlot.LEGS);
         if (tool != null) {
           ShieldStrapModifier modifier = TinkerModifiers.shieldStrap.get();
-          int level = tool.getModifierLevel(modifier);
-          if (level > 0) {
-            nextOffhand = modifier.getStack(tool, level, 0);
+          ModifierEntry entry = tool.getModifiers().getEntry(modifier.getId());
+          if (entry != null) {
+            nextOffhand = modifier.getStack(tool, entry, 0);
             return;
           }
         }

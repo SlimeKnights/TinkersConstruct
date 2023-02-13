@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.modifiers.ability.interaction;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -17,18 +18,34 @@ import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.eventbus.api.Event.Result;
 import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolShearEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.hooks.IShearModifier;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.impl.InteractionModifier;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
+import slimeknights.tconstruct.library.tools.definition.module.ToolModuleHooks;
+import slimeknights.tconstruct.library.tools.definition.module.interaction.DualOptionInteraction;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 @RequiredArgsConstructor
-public class ShearsAbilityModifier extends InteractionModifier.NoLevels {
+public class ShearsAbilityModifier extends InteractionModifier.NoLevels implements EntityInteractionModifierHook {
   private final int range;
   @Getter
   private final int priority;
+
+  @Override
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.ENTITY_INTERACT);
+  }
+
+  @Override
+  public Component getDisplayName(IToolStackView tool, int level) {
+    return DualOptionInteraction.formatModifierName(tool, this, super.getDisplayName(tool, level));
+  }
 
   @Override
   public boolean shouldDisplay(boolean advanced) {
@@ -64,10 +81,11 @@ public class ShearsAbilityModifier extends InteractionModifier.NoLevels {
   }
 
   @Override
-  public InteractionResult beforeEntityUse(IToolStackView tool, int level, Player player, Entity target, InteractionHand hand, EquipmentSlot slotType) {
-    if (tool.isBroken()) {
+  public InteractionResult beforeEntityUse(IToolStackView tool, ModifierEntry modifier, Player player, Entity target, InteractionHand hand, InteractionSource source) {
+    if (tool.isBroken() || !tool.getDefinitionData().getModule(ToolModuleHooks.INTERACTION).canInteract(tool, modifier.getId(), source)) {
       return InteractionResult.PASS;
     }
+    EquipmentSlot slotType = source.getSlot(hand);
     ItemStack stack = player.getItemBySlot(slotType);
 
     // use looting instead of fortune, as that is our hook with entity access
@@ -108,10 +126,7 @@ public class ShearsAbilityModifier extends InteractionModifier.NoLevels {
   /** Runs the hook after shearing an entity */
   private static void runShearHook(IToolStackView tool, Player player, Entity entity, boolean isTarget) {
     for (ModifierEntry entry : tool.getModifierList()) {
-      IShearModifier shearModifier = entry.getModifier().getModule(IShearModifier.class);
-      if (shearModifier != null) {
-        shearModifier.afterShearEntity(tool, entry.getLevel(), player, entity, isTarget);
-      }
+      entry.getHook(TinkerHooks.SHEAR_ENTITY).afterShearEntity(tool, entry, player, entity, isTarget);
     }
   }
 

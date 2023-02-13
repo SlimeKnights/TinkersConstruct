@@ -17,14 +17,23 @@
       "item": "minecraft:name_tag"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/melee_or_harvest"
-  },
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/melee"
+    },
+    {
+      "tag": "tconstruct:modifiable/harvest"
+    },
+    {
+      "tag": "tconstruct:modifiable/ranged"
+    }
+  ],
   "requirements": {
     "name": "tconstruct:luck",
     "level": 2,
     "error": "recipe.tconstruct.modifier.luck.level_3"
   },
+  "allow_crystal": false,
   "result": {
     "name": "tconstruct:luck",
     "level": 1

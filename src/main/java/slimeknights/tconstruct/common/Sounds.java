@@ -35,6 +35,8 @@ public enum Sounds {
   SLIME_SLING_TELEPORT("slime_sling.teleport"),
   THROWBALL_THROW("throw.throwball"),
   SHURIKEN_THROW("throw.shuriken"),
+  LONGBOW_CHARGE("longbow.charge"),
+  CRYSTALSHOT,
 
   // modifiers
   NECROTIC_HEAL,

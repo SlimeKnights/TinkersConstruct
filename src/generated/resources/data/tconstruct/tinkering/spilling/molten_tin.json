@@ -1,0 +1,26 @@
+{
+  "fluid": {
+    "tag": "forge:molten_tin",
+    "amount": 10
+  },
+  "effects": [
+    {
+      "type": "tconstruct:conditional",
+      "entity": {
+        "type": "tconstruct:inverted",
+        "predicate": "tconstruct:fire_immune"
+      },
+      "effect": {
+        "type": "tconstruct:damage",
+        "damage_type": "fire",
+        "damage_amount": 1.5
+      }
+    },
+    {
+      "type": "tconstruct:effect",
+      "name": "minecraft:night_vision",
+      "time": 8,
+      "level": 1
+    }
+  ]
+}

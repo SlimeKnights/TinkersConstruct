@@ -6,6 +6,6 @@
   "slots": {
     "upgrades": 1
   },
-  "modifier": "tconstruct:knockback_armor",
+  "modifier": "tconstruct:knockback",
   "min_level": 1
 }

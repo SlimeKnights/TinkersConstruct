@@ -16,6 +16,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierManager;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,13 +26,13 @@ import java.util.stream.Collectors;
  * NBT object containing all current modifiers
  */
 @EqualsAndHashCode
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+@RequiredArgsConstructor
 public class ModifierNBT {
   public static final String TAG_MODIFIER = "name";
   public static final String TAG_LEVEL = "level";
 
   /** Instance containing no modifiers */
-  static final ModifierNBT EMPTY = new ModifierNBT(Collections.emptyList());
+  public static final ModifierNBT EMPTY = new ModifierNBT(Collections.emptyList());
 
   /** Sorted list of modifiers */
   @Getter
@@ -43,6 +44,21 @@ public class ModifierNBT {
    */
   public boolean isEmpty() {
     return modifiers.isEmpty();
+  }
+
+  /**
+   * Gets the modifier entry for a modifier
+   * @param modifier  Modifier to check
+   * @return  Modifier entry, or null if absent
+   */
+  @Nullable
+  public ModifierEntry getEntry(ModifierId modifier) {
+    for (ModifierEntry entry : modifiers) {
+      if (entry.matches(modifier)) {
+        return entry;
+      }
+    }
+    return null;
   }
 
   /**
@@ -232,8 +248,10 @@ public class ModifierNBT {
       // converts the map into a list of entries, priority sorted
       // note priority is negated so higher numbers go first
       List<ModifierEntry> list = modifiers.entrySet().stream()
-        .map(entry -> new ModifierEntry(entry.getKey(), entry.getValue()))
-        .sorted().collect(Collectors.toList());
+                                          .map(entry -> new ModifierEntry(entry.getKey(), entry.getValue()))
+                                          // sort on priority, falls back to the order they were added
+                                          .sorted(Comparator.comparingInt(entry -> -entry.getModifier().getPriority()))
+                                          .collect(Collectors.toList());
       return new ModifierNBT(ImmutableList.copyOf(list));
     }
   }

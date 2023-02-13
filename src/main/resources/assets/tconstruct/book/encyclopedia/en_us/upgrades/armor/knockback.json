@@ -1,5 +1,5 @@
 {
-  "modifier_id": "tconstruct:knockback_armor",
+  "modifier_id": "tconstruct:knockback",
   "text": [
     {
       "text": "Grants 1 knockback per level to all weapons, which launches a mob roughly 2 blocks. Most tools start with 0.4 knockback."

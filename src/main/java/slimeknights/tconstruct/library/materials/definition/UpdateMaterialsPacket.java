@@ -1,14 +1,16 @@
 package slimeknights.tconstruct.library.materials.definition;
 
+import com.google.common.collect.ImmutableMap;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.Tag;
 import net.minecraftforge.network.NetworkEvent.Context;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
+import slimeknights.tconstruct.library.utils.GenericTagUtil;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,12 +18,13 @@ import java.util.Map;
 @Getter
 @AllArgsConstructor
 public class UpdateMaterialsPacket implements IThreadsafePacket {
-  private final Collection<IMaterial> materials;
+  private final Map<MaterialId,IMaterial> materials;
   private final Map<MaterialId,MaterialId> redirects;
+  private final Map<ResourceLocation,Tag<IMaterial>> tags;
 
   public UpdateMaterialsPacket(FriendlyByteBuf buffer) {
     int materialCount = buffer.readInt();
-    this.materials = new ArrayList<>(materialCount);
+    ImmutableMap.Builder<MaterialId,IMaterial> materials = ImmutableMap.builder();
 
     for (int i = 0; i < materialCount; i++) {
       MaterialId id = new MaterialId(buffer.readResourceLocation());
@@ -29,8 +32,9 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
       int sortOrder = buffer.readVarInt();
       boolean craftable = buffer.readBoolean();
       boolean hidden = buffer.readBoolean();
-      this.materials.add(new Material(id, tier, sortOrder, craftable, hidden));
+      materials.put(id, new Material(id, tier, sortOrder, craftable, hidden));
     }
+    this.materials = materials.build();
     // process redirects
     int redirectCount = buffer.readVarInt();
     if (redirectCount == 0) {
@@ -41,12 +45,13 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
         this.redirects.put(new MaterialId(buffer.readUtf()), new MaterialId(buffer.readUtf()));
       }
     }
+    this.tags = GenericTagUtil.decodeTags(buffer, id -> this.materials.get(new MaterialId(id)));
   }
 
   @Override
   public void encode(FriendlyByteBuf buffer) {
     buffer.writeInt(this.materials.size());
-    this.materials.forEach(material -> {
+    this.materials.values().forEach(material -> {
       buffer.writeResourceLocation(material.getIdentifier());
       buffer.writeVarInt(material.getTier());
       buffer.writeVarInt(material.getSortOrder());
@@ -58,6 +63,7 @@ public class UpdateMaterialsPacket implements IThreadsafePacket {
       buffer.writeUtf(key.toString());
       buffer.writeUtf(value.toString());
     });
+    GenericTagUtil.encodeTags(buffer, IMaterial::getIdentifier, this.tags);
   }
 
   @Override

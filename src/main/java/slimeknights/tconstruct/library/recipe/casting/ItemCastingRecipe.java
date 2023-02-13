@@ -109,6 +109,7 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe implements
     }
   }
 
+  // TODO 1.19: migrate serializer to work like PotionCastingRecipe
   @AllArgsConstructor
   public static class Serializer<T extends ItemCastingRecipe> extends AbstractCastingRecipe.Serializer<T> {
     private final IFactory<T> factory;

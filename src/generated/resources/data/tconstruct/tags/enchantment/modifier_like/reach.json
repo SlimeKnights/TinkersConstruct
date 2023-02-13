@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "cyclic:reach",
+      "required": false
+    },
+    {
+      "id": "ensorcellation:reach",
+      "required": false
+    }
+  ]
+}

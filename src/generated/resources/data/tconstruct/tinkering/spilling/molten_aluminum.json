@@ -1,0 +1,24 @@
+{
+  "fluid": {
+    "tag": "forge:molten_aluminum",
+    "amount": 10
+  },
+  "effects": [
+    {
+      "type": "tconstruct:conditional",
+      "entity": {
+        "type": "tconstruct:inverted",
+        "predicate": "tconstruct:fire_immune"
+      },
+      "effect": {
+        "type": "tconstruct:damage",
+        "damage_type": "fire",
+        "damage_amount": 1.0
+      }
+    },
+    {
+      "type": "tconstruct:cure_effects",
+      "item": "minecraft:milk_bucket"
+    }
+  ]
+}

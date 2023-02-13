@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:tilling",
   "text": [
     {
-      "text": "Allows the tool to till dirt, similarly to kamas or scythes. Tools will use their normal mining area for tilling."
+      "text": "Allows the tool to till dirt, similarly to mattocks or scythes. Tools will use their normal mining area for tilling."
     },
     {
       "text": "Triggers before the tool's native pathing or stripping if present.",

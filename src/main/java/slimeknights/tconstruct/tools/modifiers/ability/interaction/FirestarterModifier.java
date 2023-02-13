@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
@@ -26,9 +27,18 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.common.ToolAction;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteractionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.impl.InteractionModifier;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
+import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.definition.aoe.CircleAOEIterator;
 import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
+import slimeknights.tconstruct.library.tools.definition.module.ToolModuleHooks;
+import slimeknights.tconstruct.library.tools.definition.module.interaction.DualOptionInteraction;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -40,7 +50,9 @@ import java.util.Collections;
  * Modifier that starts a fire at the given position
  */
 @RequiredArgsConstructor
-public class FirestarterModifier extends InteractionModifier.NoLevels {
+public class FirestarterModifier extends InteractionModifier.NoLevels implements EntityInteractionModifierHook, BlockInteractionModifierHook {
+  /** Generic action for the sake of people who want compat but do not want to request a specific action */
+  private static final ToolAction LIGHT_FIRE = ToolAction.get("light_fire");
   /** Compat with mods adding custom campfires */
   private static final ToolAction LIGHT_CAMPFIRE = ToolAction.get("light_campfire");
 
@@ -48,22 +60,33 @@ public class FirestarterModifier extends InteractionModifier.NoLevels {
   private final int priority;
 
   @Override
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.ENTITY_INTERACT, TinkerHooks.BLOCK_INTERACT);
+  }
+
+  @Override
   public boolean shouldDisplay(boolean advanced) {
     return priority > Short.MIN_VALUE;
   }
 
   @Override
-  public boolean canPerformAction(IToolStackView tool, int level, ToolAction toolAction) {
-    return toolAction == LIGHT_CAMPFIRE;
+  public Component getDisplayName(IToolStackView tool, int level) {
+    return DualOptionInteraction.formatModifierName(tool, this, super.getDisplayName(tool, level));
   }
 
   @Override
-  public InteractionResult afterEntityUse(IToolStackView tool, int level, Player player, LivingEntity target, InteractionHand hand, EquipmentSlot slotType) {
-    if (target instanceof Creeper creeper) {
+  public boolean canPerformAction(IToolStackView tool, int level, ToolAction toolAction) {
+    return toolAction == LIGHT_CAMPFIRE || toolAction == LIGHT_FIRE;
+  }
+
+  @Override
+  public InteractionResult afterEntityUse(IToolStackView tool, ModifierEntry modifier, Player player, LivingEntity target, InteractionHand hand, InteractionSource source) {
+    if (tool.getDefinitionData().getModule(ToolModuleHooks.INTERACTION).canInteract(tool, modifier.getId(), source) && target instanceof Creeper creeper) {
       player.level.playSound(player, creeper.getX(), creeper.getY(), creeper.getZ(), SoundEvents.FLINTANDSTEEL_USE, creeper.getSoundSource(), 1.0F, RANDOM.nextFloat() * 0.4F + 0.8F);
       if (!player.level.isClientSide) {
         creeper.ignite();
-        ToolDamageUtil.damageAnimated(tool, 1, player, slotType);
+        ToolDamageUtil.damageAnimated(tool, 1, player, source.getSlot(hand));
       }
       return InteractionResult.sidedSuccess(player.level.isClientSide);
     }
@@ -98,19 +121,19 @@ public class FirestarterModifier extends InteractionModifier.NoLevels {
   }
 
   @Override
-  public InteractionResult beforeBlockUse(IToolStackView tool, int level, UseOnContext context, EquipmentSlot slotType) {
-    if (tool.isBroken()) {
+  public InteractionResult beforeBlockUse(IToolStackView tool, ModifierEntry modifier, UseOnContext context, InteractionSource source) {
+    if (tool.isBroken() || !tool.getDefinitionData().getModule(ToolModuleHooks.INTERACTION).canInteract(tool, modifier.getId(), source)) {
       return InteractionResult.PASS;
     }
     if (context.getLevel().getBlockState(context.getClickedPos()).is(BlockTags.CANDLE_CAKES)) {
-      return afterBlockUse(tool, level, context, slotType);
+      return afterBlockUse(tool, modifier, context, source);
     }
     return InteractionResult.PASS;
   }
 
   @Override
-  public InteractionResult afterBlockUse(IToolStackView tool, int level, UseOnContext context, EquipmentSlot slotType) {
-    if (tool.isBroken()) {
+  public InteractionResult afterBlockUse(IToolStackView tool, ModifierEntry modifier, UseOnContext context, InteractionSource source) {
+    if (tool.isBroken() || !tool.getDefinitionData().getModule(ToolModuleHooks.INTERACTION).canInteract(tool, modifier.getId(), source)) {
       return InteractionResult.PASS;
     }
     Player player = context.getPlayer();
@@ -138,6 +161,7 @@ public class FirestarterModifier extends InteractionModifier.NoLevels {
     // first burn the center, unless we already know its fire
     boolean didIgnite = false;
     ItemStack stack = context.getItemInHand();
+    EquipmentSlot slotType = source.getSlot(context.getHand());
     if (!targetingFire) {
       didIgnite = ignite(tool, world, pos, state, sideHit, horizontalFacing, player);
       if (didIgnite && ToolDamageUtil.damage(tool, 1, player, stack)) {
@@ -159,6 +183,16 @@ public class FirestarterModifier extends InteractionModifier.NoLevels {
         }
       }
     }
-    return didIgnite ? InteractionResult.sidedSuccess(world.isClientSide) : InteractionResult.PASS;
+    // when targeting fire, return true so left click interact does not continue to run
+    return didIgnite || targetingFire ? InteractionResult.sidedSuccess(world.isClientSide) : InteractionResult.PASS;
+  }
+
+  @Nullable
+  @Override
+  public Boolean removeBlock(IToolStackView tool, int level, ToolHarvestContext context) {
+    if (context.getState().is(Blocks.FIRE) && tool.getDefinitionData().getModule(ToolModuleHooks.INTERACTION).canInteract(tool, getId(), InteractionSource.LEFT_CLICK)) {
+      return false;
+    }
+    return null;
   }
 }

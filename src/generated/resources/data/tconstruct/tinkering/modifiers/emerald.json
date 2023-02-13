@@ -9,6 +9,11 @@
       "value": 0.5
     },
     {
+      "stat": "tconstruct:knockback_resistance",
+      "type": "add",
+      "value": 0.05
+    },
+    {
       "stat": "tconstruct:attack_damage",
       "type": "multiply_conditional",
       "value": 0.25
@@ -23,9 +28,9 @@
       "value": "minecraft:iron"
     },
     {
-      "stat": "tconstruct:knockback_resistance",
+      "stat": "tconstruct:accuracy",
       "type": "add",
-      "value": 0.05
+      "value": 0.1
     }
   ]
 }

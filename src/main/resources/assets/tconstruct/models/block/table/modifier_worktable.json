@@ -1,0 +1,18 @@
+{
+  "loader": "tconstruct:table",
+  "parent": "tconstruct:block/table/table",
+  "textures": {
+    "particle":  "tconstruct:block/table/modifier_workstation_top",
+    "top":       "tconstruct:block/table/modifier_workstation_top",
+    "side":      "tconstruct:block/table/modifier_workstation_side",
+    "leg":       "tconstruct:block/table/modifier_workstation_side",
+    "bottom":    "tconstruct:block/table/modifier_workstation_top",
+    "legBottom": "tconstruct:block/table/modifier_workstation_top"
+  },
+  "retextured": [ "leg", "legBottom" ],
+  "items": [
+    { "center": [  5,   16.25, 8   ], "size": 7.5, "x": 270 },
+    { "center": [ 11.5, 17.5,  3.5 ], "size": 3 },
+    { "center": [ 11.5, 17.5, 12.5 ], "size": 3 }
+  ]
+}

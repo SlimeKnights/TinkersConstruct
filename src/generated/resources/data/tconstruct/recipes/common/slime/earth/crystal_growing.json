@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:blasting",
+  "group": "tconstruct:slime_dirt",
+  "ingredient": {
+    "item": "tconstruct:earth_slime_dirt"
+  },
+  "result": "tconstruct:earth_slime_crystal",
+  "experience": 0.2,
+  "cookingtime": 400
+}

@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "minecraft:glass_bottle"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "tag": "tconstruct:venom",
+    "amount": 250
+  },
+  "result": "tconstruct:venom_bottle",
+  "cooling_time": 1
+}

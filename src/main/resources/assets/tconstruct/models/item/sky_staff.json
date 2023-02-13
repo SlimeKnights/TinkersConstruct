@@ -1,0 +1,42 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "tconstruct:item/base/staff",
+  "textures": {
+    "tool":         "tconstruct:item/tool/staff/sky",
+    "broken":       "tconstruct:item/tool/staff/sky_broken",
+    "tool_large":   "tconstruct:item/tool/staff/sky_large",
+    "broken_large": "tconstruct:item/tool/staff/sky_large_broken"
+  },
+  "large": true,
+  "modifier_roots": {
+    "small": [ "tconstruct:item/tool/staff/modifiers/" ],
+    "large": [ "tconstruct:item/tool/staff/large_modifiers/sky/", "tconstruct:item/tool/staff/large_modifiers/" ]
+  },
+  "first_modifiers": [ "tconstruct:dyed", "tconstruct:embellishment" ],
+  "overrides": [
+    {
+      "predicate": { "tconstruct:charging": 2 },
+      "model": "tconstruct:item/blocking/sky_staff"
+    },
+    {
+      "predicate": { "pulling": 1 },
+      "model": "tconstruct:item/slimestaff/sky_charging_1"
+    },
+    {
+      "predicate": { "pulling": 1, "pull": 0.4 },
+      "model": "tconstruct:item/slimestaff/sky_charging_2"
+    },
+    {
+      "predicate": { "pulling": 1, "pull": 0.7 },
+      "model": "tconstruct:item/slimestaff/sky_charging_3"
+    },
+    {
+      "predicate": { "pulling": 1, "pull": 0.9 },
+      "model": "tconstruct:item/slimestaff/sky_charging_4"
+    },
+    {
+      "predicate": { "pulling": 1, "pull": 1.0 },
+      "model": "tconstruct:item/slimestaff/sky_charging_5"
+    }
+  ]
+}

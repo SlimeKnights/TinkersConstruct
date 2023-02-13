@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.modifiers;
 
 import com.google.gson.JsonObject;
+import lombok.Getter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
@@ -40,6 +41,9 @@ import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierManager.ModifierRegistrationEvent;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
@@ -48,6 +52,7 @@ import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
+import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -115,6 +120,27 @@ public class Modifier implements IHaveLoader<Modifier> {
   /** Cached text component for description */
   @Nullable
   private Component description;
+  /** Map of all modifier hooks registered to this modifier */
+  @Getter
+  private final ModifierHookMap hooks;
+
+  /** Creates a new modifier using the given hook map */
+  protected Modifier(ModifierHookMap hooks) {
+    this.hooks = hooks;
+  }
+
+  /** Creates a new instance using the hook builder */
+  public Modifier() {
+    ModifierHookMap.Builder hookBuilder = new ModifierHookMap.Builder();
+    registerHooks(hookBuilder);
+    this.hooks = hookBuilder.build();
+  }
+
+  /**
+   * Registers a hook to the modifier.
+   * Note that this is run in the constructor, so you are unable to use any instance fields in this method unless initialized in this method
+   */
+  protected void registerHooks(ModifierHookMap.Builder hookBuilder) {}
 
   @Override
   public IGenericLoader<? extends Modifier> getLoader() {
@@ -147,6 +173,11 @@ public class Modifier implements IHaveLoader<Modifier> {
    */
   public ModifierId getId() {
     return Objects.requireNonNull(id, "Modifier has null registry name");
+  }
+
+  /** Checks if the modifier is in the given tag */
+  public final boolean is(TagKey<Modifier> tag) {
+    return ModifierManager.isInTag(this.getId(), tag);
   }
 
 
@@ -347,6 +378,19 @@ public class Modifier implements IHaveLoader<Modifier> {
   }
 
 
+  /* General hooks */
+
+  /**
+   * Gets the level scaled based on attributes of modifier data. Used mainly for incremental modifiers.
+   * @param tool  Tool context
+   * @param level  Modifier level
+   * @return  Modifier level, possibly adjusted by tool properties
+   */
+  public float getEffectiveLevel(IToolContext tool, int level) {
+    return level;
+  }
+
+
   /* Tool building hooks */
 
   /**
@@ -408,6 +452,7 @@ public class Modifier implements IHaveLoader<Modifier> {
   /**
    * Called when modifiers or tool materials change to validate the tool. You are free to modify persistent data in this hook if needed.
    * Do not validate max level here, simply ignore levels over max if needed.
+   * TODO: in 1.19 switch return type to component
    * <br>
    * Alternatives:
    * <ul>
@@ -503,158 +548,56 @@ public class Modifier implements IHaveLoader<Modifier> {
 
   /* Interaction hooks */
 
-  /**
-   * Called when this item is used when targeting a block, <i>before</i> the block is activated.
-   * In general it is better to use {@link #afterBlockUse(IToolStackView, int, UseOnContext, EquipmentSlot)} for consistency with vanilla items.
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #afterEntityUse(IToolStackView, int, Player, LivingEntity, InteractionHand, EquipmentSlot)}: Processes use actions on entities.</li>
-   *   <li>{@link #afterBlockUse(IToolStackView, int, UseOnContext, EquipmentSlot)}: Runs after the block is activated, preferred hook. </li>
-   *   <li>{@link #onToolUse(IToolStackView, int, Level, Player, InteractionHand, EquipmentSlot)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
-   * </ul>
-   * @param tool           Current tool instance
-   * @param level          Modifier level
-   * @param context        Full item use context
-   * @param slot           Slot performing interaction, may mismatch the hand in context
-   * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteractionModifierHook#beforeBlockUse(IToolStackView, ModifierEntry, UseOnContext, InteractionSource)}} */
+  @Deprecated
   public InteractionResult beforeBlockUse(IToolStackView tool, int level, UseOnContext context, EquipmentSlot slot) {
     return InteractionResult.PASS;
   }
 
-  /**
-   * Called when this item is used when targeting a block, <i>after</i> the block is activated. This is the perferred hook for block based tool interactions
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #afterEntityUse(IToolStackView, int, Player, LivingEntity, InteractionHand, EquipmentSlot)}: Processes use actions on entities.</li>
-   *   <li>{@link #beforeBlockUse(IToolStackView, int, UseOnContext, EquipmentSlot)}: Runs before the block is activated, can be used to prevent block interaction entirely but less consistent with vanilla </li>
-   *   <li>{@link #onToolUse(IToolStackView, int, Level, Player, InteractionHand, EquipmentSlot)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
-   * </ul>
-   * @param tool           Current tool instance
-   * @param level          Modifier level
-   * @param context        Full item use context
-   * @param slot           Slot performing interaction, may mismatch the hand in context
-   * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteractionModifierHook#afterBlockUse(IToolStackView, ModifierEntry, UseOnContext, InteractionSource)}} */
+  @Deprecated
   public InteractionResult afterBlockUse(IToolStackView tool, int level, UseOnContext context, EquipmentSlot slot) {
     return InteractionResult.PASS;
   }
 
-  /**
-   * Called when this item is used when targeting an entity. Runs before the native entity interaction hooks and on all entities instead of just living
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #afterEntityUse(IToolStackView, int, Player, LivingEntity, InteractionHand, EquipmentSlot)}: Standard interaction hook, generally preferred over this one</li>
-   *   <li>{@link #afterBlockUse(IToolStackView, int, UseOnContext, EquipmentSlot)}: Processes use actions on blocks.</li>
-   *   <li>{@link #onToolUse(IToolStackView, int, Level, Player, InteractionHand, EquipmentSlot)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
-   * </ul>
-   * @param tool           Current tool instance
-   * @param level          Modifier level
-   * @param player         Player holding tool
-   * @param target         Target
-   * @param hand           InteractionHand performing interaction, for chestplates this may be either hand, for all other slots it is the hand that slot is simulating
-   * @param slot           Slot performing interaction
-   * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook#beforeEntityUse(IToolStackView, ModifierEntry, Player, Entity, InteractionHand, InteractionSource)}} */
+  @Deprecated
   public InteractionResult beforeEntityUse(IToolStackView tool, int level, Player player, Entity target, InteractionHand hand, EquipmentSlot slot) {
     return InteractionResult.PASS;
   }
 
-  /**
-   * Called when this item is used when targeting an entity, after normal interaction
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #beforeEntityUse(IToolStackView, int, Player, Entity, InteractionHand, EquipmentSlot)}: Runs on all entities instead of just living, and runs before normal entity interaction</li>
-   *   <li>{@link #afterBlockUse(IToolStackView, int, UseOnContext, EquipmentSlot)}: Processes use actions on blocks.</li>
-   *   <li>{@link #onToolUse(IToolStackView, int, Level, Player, InteractionHand, EquipmentSlot)}: Processes any use actions, but runs later than onBlockUse or onEntityUse.</li>
-   * </ul>
-   * @param tool           Current tool instance
-   * @param level          Modifier level
-   * @param player         Player holding tool
-   * @param target         Target
-   * @param hand           InteractionHand performing interaction, for chestplates this may be either hand, for all other slots it is the hand that slot is simulating
-   * @param slot           Slot performing interaction
-   * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook#afterEntityUse(IToolStackView, ModifierEntry, Player, LivingEntity, InteractionHand, InteractionSource)}} */
+  @Deprecated
   public InteractionResult afterEntityUse(IToolStackView tool, int level, Player player, LivingEntity target, InteractionHand hand, EquipmentSlot slot) {
     return InteractionResult.PASS;
   }
 
-  /**
-   * Called when this item is used, after all other hooks PASS.
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #afterBlockUse(IToolStackView, int, UseOnContext, EquipmentSlot)}: Processes use actions on blocks.</li>
-   *   <li>{@link #afterEntityUse(IToolStackView, int, Player, LivingEntity, InteractionHand, EquipmentSlot)}: Processes use actions on entities.</li>
-   * </ul>
-   * @param tool           Current tool instance
-   * @param level          Modifier level
-   * @param world          World containing tool
-   * @param player         Player holding tool
-   * @param hand           InteractionHand performing interaction, for chestplates this may be either hand, for all other slots it is the hand that slot is simulating
-   * @param slot           Slot performing interaction
-   * @return  Return PASS or FAIL to allow vanilla handling, any other to stop later modifiers from running.
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook#onToolUse(IToolStackView, ModifierEntry, Player, InteractionHand, InteractionSource)}} */
+  @Deprecated
   public InteractionResult onToolUse(IToolStackView tool, int level, Level world, Player player, InteractionHand hand, EquipmentSlot slot) {
     return InteractionResult.PASS;
   }
 
-  /**
-   * Called when the player stops using the tool.
-   * To setup, use {@link LivingEntity#startUsingItem(InteractionHand)} in {@link #onToolUse(IToolStackView, int, Level, Player, InteractionHand, EquipmentSlot)}.
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #onFinishUsing(IToolStackView, int, Level, LivingEntity)}: Called when the duration timer reaches the end, even if still held
-   *  </ul>
-   * @param tool           Current tool instance
-   * @param level          Modifier level
-   * @param world          World containing tool
-   * @param entity         Entity holding tool
-   * @param timeLeft       How many ticks of use duration was left
-  * @return  Whether the modifier should block any incoming ones from firing
-  */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook#onStoppedUsing(IToolStackView, ModifierEntry, LivingEntity, int)}} */
+  @Deprecated
   public boolean onStoppedUsing(IToolStackView tool, int level, Level world, LivingEntity entity, int timeLeft) {
     return false;
   }
 
-  /**
-   * Called when the use duration on this tool reaches the end.
-   * To setup, use {@link LivingEntity#startUsingItem(InteractionHand)} in {@link #onToolUse(IToolStackView, int, Level, Player, InteractionHand, EquipmentSlot)} and set the duration in {@link #getUseDuration(IToolStackView, int)}
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #onStoppedUsing(IToolStackView, int, Level, LivingEntity, int)}: Called when the player lets go before the duration reaches the end
-   * </ul>
-   * @param tool           Current tool instance
-   * @param level          Modifier level
-   * @param world          World containing tool
-   * @param entity         Entity holding tool
-   * @return  Whether the modifier should block any incoming ones from firing
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook#onFinishUsing(IToolStackView, ModifierEntry, LivingEntity)}} */
+  @Deprecated
   public boolean onFinishUsing(IToolStackView tool, int level, Level world, LivingEntity entity) {
     return false;
   }
 
-  /**
-   * @param tool           Current tool instance
-   * @param level          Modifier level
-  * @return  For how many ticks the modifier should run its use action
-  */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook#getUseDuration(IToolStackView, ModifierEntry)}} */
+  @Deprecated
   public int getUseDuration(IToolStackView tool, int level) {
      return 0;
   }
 
-  /**
-   * @param tool           Current tool instance
-   * @param level          Modifier level
-  * @return  Use action to be performed
-  */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook#getUseAction(IToolStackView, ModifierEntry)}} */
+  @Deprecated
   public UseAnim getUseAction(IToolStackView tool, int level) {
      return UseAnim.NONE;
   }
@@ -696,7 +639,10 @@ public class Modifier implements IHaveLoader<Modifier> {
    * @param level     Modifier level
    * @param context   Harvest context
    * @param consumer  Consumer accepting any enchantments
+   * @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.HarvestEnchantmentsModifierHook}
    */
+  @SuppressWarnings("DeprecatedIsStillUsed")
+  @Deprecated
   public void applyHarvestEnchantments(IToolStackView tool, int level, ToolHarvestContext context, BiConsumer<Enchantment,Integer> consumer) {}
 
   /**
@@ -708,7 +654,10 @@ public class Modifier implements IHaveLoader<Modifier> {
    * @param damageSource  Damage source that killed the entity. May be null if this hook is called without attacking anything (e.g. shearing)
    * @param looting          Luck value set from previous modifiers
    * @return New luck value
+   * @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.LootingModifierHook}
    */
+  @SuppressWarnings("DeprecatedIsStillUsed")
+  @Deprecated
   public int getLootingValue(IToolStackView tool, int level, LivingEntity holder, Entity target, @Nullable DamageSource damageSource, int looting) {
     return looting;
   }
@@ -1002,11 +951,24 @@ public class Modifier implements IHaveLoader<Modifier> {
    * @param type  Module type to fetch
    * @param <T>   Module return type
    * @return  Module, or null if the module is not contained
+   * @deprecated use {@link #getHook(ModifierHook)}
    */
-  @Nullable
+  @Nullable @Deprecated
   public <T> T getModule(Class<T> type) {
     return null;
   }
+
+  /**
+   * Gets a hook of this modifier. To modify the return values, use {@link #registerHooks(Builder)}
+   *
+   * @param hook  Hook to fetch
+   * @param <T>   Hook return type
+   * @return  Submodule implementing the hook, or default instance if its not implemented
+   */
+  public final <T> T getHook(ModifierHook<T> hook) {
+    return hooks.getOrDefault(hook);
+  }
+
 
   @Override
   public String toString() {

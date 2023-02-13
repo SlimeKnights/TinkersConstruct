@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.modifiers.util;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.tags.TagKey;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
@@ -55,6 +56,11 @@ public class LazyModifier implements Supplier<Modifier> {
       //return ModifierManager.INSTANCE.getDefaultValue();
     }
     return getUnchecked();
+  }
+
+  /** Checks if the modifier is in the given tag */
+  public boolean is(TagKey<Modifier> tag) {
+    return ModifierManager.isInTag(getId(), tag);
   }
 
   @Override

@@ -10,14 +10,17 @@ import lombok.extern.log4j.Log4j2;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import slimeknights.mantle.data.MergingJsonDataLoader;
+import slimeknights.tconstruct.library.exception.TinkerAPIMaterialException;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.json.MaterialTraitsJson;
+import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.utils.Util;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -50,6 +53,9 @@ public class MaterialTraitsManager extends MergingJsonDataLoader<MaterialTraits.
   /** Runnable to run after loading traits */
   private final Runnable onLoaded;
 
+  /** Map of fallback stat ID to use if the stat ID lacks traits */
+  private final Map<MaterialStatsId, MaterialStatsId> statTypeFallbacks = new HashMap<>();
+
   /** Map of material ID to all relevant trait data */
   @VisibleForTesting
   protected Map<MaterialId, MaterialTraits> materialTraits = Collections.emptyMap();
@@ -62,6 +68,17 @@ public class MaterialTraitsManager extends MergingJsonDataLoader<MaterialTraits.
   @VisibleForTesting
   MaterialTraitsManager() {
     this(() -> {});
+  }
+
+  /**
+   * Registers a fallback to use when a stat type has no traits. if the fallback does not have it, will use the default.
+   * Fallbacks are not recursive, they are intended to be categories.
+   */
+  public <T extends IMaterialStats> void registerStatTypeFallback(MaterialStatsId statType, MaterialStatsId fallback) {
+    if (statTypeFallbacks.containsKey(statType)) {
+      throw TinkerAPIMaterialException.materialStatsTypeRegisteredTwice(statType);
+    }
+    statTypeFallbacks.put(statType, fallback);
   }
 
   /**
@@ -127,7 +144,7 @@ public class MaterialTraitsManager extends MergingJsonDataLoader<MaterialTraits.
   protected void finishLoad(Map<ResourceLocation,MaterialTraits.Builder> map, ResourceManager manager) {
     ImmutableMap.Builder<MaterialId,MaterialTraits> builder = ImmutableMap.builder();
     for (Entry<ResourceLocation,MaterialTraits.Builder> entry : map.entrySet()) {
-      MaterialTraits traits = entry.getValue().build();
+      MaterialTraits traits = entry.getValue().build(statTypeFallbacks);
       builder.put(new MaterialId(entry.getKey()), traits);
       log.debug("Loaded traits for material '{}': \n\tDefault - {}{}",
                 entry.getKey(),

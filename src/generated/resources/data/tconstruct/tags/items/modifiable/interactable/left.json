@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:crossbow",
+    "tconstruct:longbow",
+    "tconstruct:travelers_shield",
+    "tconstruct:plate_shield",
+    "#tconstruct:modifiable/interactable/dual"
+  ]
+}

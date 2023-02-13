@@ -8,12 +8,18 @@
       "item": "tconstruct:sky_slime"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/armor"
-  },
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/armor/worn"
+    },
+    {
+      "tag": "tconstruct:modifiable/shields"
+    }
+  ],
   "slots": {
     "upgrades": 1
   },
+  "allow_crystal": true,
   "result": {
     "name": "tconstruct:ricochet",
     "level": 1

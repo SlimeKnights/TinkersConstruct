@@ -6,11 +6,12 @@
     }
   ],
   "tools": {
-    "tag": "tconstruct:modifiable"
+    "tag": "tconstruct:modifiable/durability"
   },
   "slots": {
     "upgrades": 1
   },
+  "allow_crystal": true,
   "result": {
     "name": "tconstruct:diamond",
     "level": 1

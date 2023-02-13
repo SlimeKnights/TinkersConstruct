@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "minecraft:piston"
+    },
+    {
+      "item": "tconstruct:sky_slime"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/ranged"
+  },
+  "slots": {
+    "upgrades": 1
+  },
+  "allow_crystal": true,
+  "result": {
+    "name": "tconstruct:punch",
+    "level": 1
+  },
+  "max_level": 5
+}

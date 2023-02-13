@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:ambidextrous",
+  "text": [
+    {
+      "text": "人人都是功夫高手~♪"
+    }
+  ],
+  "effects": [
+    "允许使用双手攻击",
+    "单个等级",
+    "需要1个能力槽"
+  ]
+}

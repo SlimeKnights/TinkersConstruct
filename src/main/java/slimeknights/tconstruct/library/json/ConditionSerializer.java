@@ -12,7 +12,11 @@ import net.minecraftforge.common.crafting.conditions.ICondition;
 
 import java.lang.reflect.Type;
 
-/** Serializer for a forge condition */
+/**
+ * Serializer for a forge condition
+ * @deprecated use {@link slimeknights.tconstruct.common.json.BlockOrEntityCondition.ConditionSerializer}
+ */
+@Deprecated
 public class ConditionSerializer implements JsonDeserializer<ICondition>, JsonSerializer<ICondition> {
   public static final ConditionSerializer INSTANCE = new ConditionSerializer();
 

@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:mob_effect",
+  "effect": "minecraft:slowness",
+  "level": {
+    "base": 0.0,
+    "multiplier": 0.5
+  },
+  "time": {
+    "base": 20,
+    "multiplier_flat": 0,
+    "multiplier_random": 10
+  }
+}

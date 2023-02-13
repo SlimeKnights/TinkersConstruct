@@ -31,6 +31,8 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
     // handles
     addHandle("tool_handle");
     addHandle("tough_handle");
+    // bow
+    addBowstring("bowstring");
     // misc
     addBinding("tool_binding");
     addPart("repair_kit", RepairKitStats.ID);
@@ -46,6 +48,18 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
     addSprite("armor/plate/boot_modifiers/tconstruct_embellishment_broken", PLATE);
     addTexture("models/armor/plate/layer_1", PLATE);
     addTexture("models/armor/plate/layer_2", PLATE);
+
+    // shield textures
+    addSprite("armor/travelers/shield_modifiers/tconstruct_embellishment", PLATE);
+    addSprite("armor/travelers/shield_modifiers/tconstruct_embellishment_broken", PLATE);
+    addSprite("armor/plate/shield_modifiers/tconstruct_embellishment", PLATE);
+    addSprite("armor/plate/shield_modifiers/tconstruct_embellishment_broken", PLATE);
+    addSprite("armor/plate/shield_large_modifiers/tconstruct_embellishment", PLATE);
+    addSprite("armor/plate/shield_large_modifiers/tconstruct_embellishment_broken", PLATE);
+
+    // staff
+    addSprite("staff/modifiers/tconstruct_embellishment", PLATE);
+    addSprite("staff/large_modifiers/tconstruct_embellishment", PLATE);
 
     // slimesuit textures
     addSprite("armor/slime/skull_modifiers/tconstruct_embellishment", SLIMESUIT);
@@ -79,5 +93,14 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
     buildTool("dagger").addBreakableHead("blade").addHandle("crossguard");
     buildTool("sword").addBreakableHead("blade").addHandle("guard").addHandle("handle");
     buildTool("cleaver").withLarge().addBreakableHead("head").addBreakableHead("shield").addHandle("handle").addHandle("guard");
+    // bow
+    buildTool("crossbow")
+      .addLimb("limb").addGrip("body")
+      .addBowstring("bowstring").addBowstring("bowstring_1").addBowstring("bowstring_2").addBowstring("bowstring_3");
+    buildTool("longbow").withLarge()
+      .addLimb("limb_bottom").addLimb("limb_bottom_1").addLimb("limb_bottom_2").addLimb("limb_bottom_3")
+      .addLimb("limb_top").addLimb("limb_top_1").addLimb("limb_top_2").addLimb("limb_top_3")
+      .addGrip("grip")
+      .addBreakableBowstring("bowstring").addBowstring("bowstring_1").addBowstring("bowstring_2").addBowstring("bowstring_3");
   }
 }

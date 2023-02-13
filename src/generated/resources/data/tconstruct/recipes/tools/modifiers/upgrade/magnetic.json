@@ -5,12 +5,18 @@
       "item": "minecraft:compass"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/melee_or_harvest"
-  },
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/melee"
+    },
+    {
+      "tag": "tconstruct:modifiable/harvest"
+    }
+  ],
   "slots": {
     "upgrades": 1
   },
+  "allow_crystal": true,
   "result": {
     "name": "tconstruct:magnetic",
     "level": 1

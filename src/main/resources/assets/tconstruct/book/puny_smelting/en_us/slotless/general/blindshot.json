@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:blindshot",
+  "text": [
+    {
+      "text": "I'm going to put some dirt in your eye."
+    }
+  ],
+  "effects": [
+    "Decreases accuracy of fired projectiles",
+	"Multiple levels, each level decreases drawspeed further",
+	"Slotless"
+  ]
+}

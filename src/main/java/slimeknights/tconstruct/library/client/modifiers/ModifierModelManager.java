@@ -18,7 +18,7 @@ import net.minecraftforge.fml.event.IModBusEvent;
 import slimeknights.mantle.data.IEarlySafeManagerReloadListener;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.library.client.model.tools.MaterialModel;
+import slimeknights.tconstruct.library.client.model.DynamicTextureLoader;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 
 import javax.annotation.Nullable;
@@ -149,15 +149,15 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
 
   /**
    * Gets the texture for the given parameters
-   * @param modifierRoots   List of modifier roots, tries each
-   * @param textureAdder    Functon to check if a texture exists, storing it as needed
-   * @param modifier        Modifier to fetch
-   * @param suffix          Additional suffix for the fetched texture
+   * @param modifierRoots List of modifier root locations to try
+   * @param textureAdder  Logic to add a texture to the model
+   * @param modifier      Modifier to fetch
+   * @param suffix        Additional suffix for the fetched texture
    * @return  Texture, or null if missing
    */
   @Nullable
-  private static Material getTexture(List<ResourceLocation> modifierRoots, @Nullable Predicate<Material> textureAdder, ResourceLocation modifier, String suffix) {
-    if (textureAdder == null) {
+  private static Material getTexture(List<ResourceLocation> modifierRoots, Predicate<Material> textureAdder, ResourceLocation modifier, String suffix) {
+    if (modifierModels.isEmpty()) {
       return null;
     }
 
@@ -189,18 +189,15 @@ public class ModifierModelManager implements IEarlySafeManagerReloadListener {
     ImmutableMap.Builder<ModifierId,IBakedModifierModel> modelMap = ImmutableMap.builder();
 
     // create two texture adders, so we only log on the final option if missing
-    Predicate<Material> smallTextureAdder = smallModifierRoots.isEmpty() ? null
-                                                  : MaterialModel.getTextureAdder(textures, Config.CLIENT.logMissingModifierTextures.get());
-    Predicate<Material> largeTextureAdder = largeModifierRoots.isEmpty() ? null
-                                                  : MaterialModel.getTextureAdder(textures, Config.CLIENT.logMissingModifierTextures.get());
+    Predicate<Material> textureAdder = DynamicTextureLoader.getTextureAdder(textures, Config.CLIENT.logMissingModifierTextures.get());
 
     // load each modifier
     for (Entry<ModifierId, IUnbakedModifierModel> entry : modifierModels.entrySet()) {
       ModifierId id = entry.getKey();
       IUnbakedModifierModel model = entry.getValue();
       IBakedModifierModel toolModel = model.forTool(
-        name -> getTexture(smallModifierRoots, smallTextureAdder, id, name),
-        name -> getTexture(largeModifierRoots, largeTextureAdder, id, name));
+        name -> getTexture(smallModifierRoots, textureAdder, id, name),
+        name -> getTexture(largeModifierRoots, textureAdder, id, name));
       if (toolModel != null) {
         modelMap.put(id, toolModel);
       }

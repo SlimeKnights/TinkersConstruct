@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:stat_boost",
+  "level_display": "tconstruct:default",
+  "stats": [
+    {
+      "stat": "tconstruct:draw_speed",
+      "type": "multiply_base",
+      "value": 0.07
+    },
+    {
+      "stat": "tconstruct:accuracy",
+      "type": "multiply_base",
+      "value": 0.07
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "tconstruct:item/bottle/earth_slime_contents",
+        "layer1": "item/potion"
+    }
+}

@@ -28,6 +28,13 @@
     }
   },
   {
+    "name": "staffs",
+    "data": "sections/staffs.json",
+    "icon": {
+      "item": "tconstruct:sky_staff"
+    }
+  },
+  {
     "name": "armor",
     "data": "sections/armor.json",
     "icon": {
@@ -35,7 +42,8 @@
     }
   },
   {
-    "name": "skull_materials",
+    "name": "materials",
+    "extraData": { "tconstruct:material_tier": { "type": "tconstruct:skull" } },
     "icon": {
       "item": "minecraft:skeleton_skull"
     }

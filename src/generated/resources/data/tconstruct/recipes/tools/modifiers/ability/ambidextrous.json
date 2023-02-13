@@ -1,0 +1,32 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "tag": "forge:gems/diamond"
+    },
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "tag": "forge:string"
+    },
+    {
+      "tag": "forge:string"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/unarmed"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "allow_crystal": true,
+  "result": {
+    "name": "tconstruct:ambidextrous",
+    "level": 1
+  },
+  "max_level": 1
+}

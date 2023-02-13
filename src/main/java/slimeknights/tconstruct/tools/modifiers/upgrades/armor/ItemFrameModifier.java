@@ -5,6 +5,7 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.impl.InventoryModifier;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
@@ -21,13 +22,13 @@ public class ItemFrameModifier extends InventoryModifier {
   }
 
   @Override
-  public int getSlotLimit(IToolStackView tool, int slot) {
+  public int getSlotLimit(IToolStackView tool, ModifierEntry modifier, int slot) {
     return 1;
   }
 
   @Nullable
   @Override
-  public Pattern getPattern(IToolStackView tool, int level, int slot, boolean hasStack) {
+  public Pattern getPattern(IToolStackView tool, ModifierEntry modifier, int slot, boolean hasStack) {
     return hasStack ? null : ITEM_FRAME;
   }
 
