@@ -2,9 +2,10 @@ package slimeknights.tconstruct.tables.client.inventory;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -23,7 +24,7 @@ import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.recipe.worktable.IModifierWorktableRecipe;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tables.block.entity.table.ModifierWorktableBlockEntity;
-import slimeknights.tconstruct.tables.client.inventory.module.InfoPanelScreen;
+import slimeknights.tconstruct.tables.client.inventory.widget.InfoPanelWidget;
 import slimeknights.tconstruct.tables.menu.ModifierWorktableContainerMenu;
 import slimeknights.tconstruct.tools.item.ModifierCrystalItem;
 
@@ -42,8 +43,8 @@ public class ModifierWorktableScreen extends BaseTabbedScreen<ModifierWorktableB
   };
 
   /** Side panels, for tools and modifiers */
-  protected InfoPanelScreen tinkerInfo;
-  protected InfoPanelScreen modifierInfo;
+  protected InfoPanelWidget tinkerInfo;
+  protected InfoPanelWidget modifierInfo;
 
   /** Current scrollbar position */
   private float sliderProgress = 0.0F;
@@ -60,18 +61,16 @@ public class ModifierWorktableScreen extends BaseTabbedScreen<ModifierWorktableB
   public ModifierWorktableScreen(ModifierWorktableContainerMenu container, Inventory playerInventory, Component title) {
     super(container, playerInventory, title);
 
-    this.tinkerInfo = new InfoPanelScreen(this, container, playerInventory, title);
-    this.tinkerInfo.setTextScale(8/9f);
-    this.addModule(this.tinkerInfo);
-
-    this.modifierInfo = new InfoPanelScreen(this, container, playerInventory, title);
-    this.modifierInfo.setTextScale(7/9f);
-    this.addModule(this.modifierInfo);
-
-    this.tinkerInfo.yOffset = 0;
-    this.modifierInfo.yOffset = this.tinkerInfo.imageHeight + 4;
-
     addChestSideInventory(playerInventory);
+  }
+
+  @Override
+  protected void init() {
+    super.init();
+
+    final int panelLeft = this.cornerX + this.realWidth;
+    this.tinkerInfo = addExtraArea(addRenderableWidget(new InfoPanelWidget(this, InfoPanelWidget.Style.PLAIN, panelLeft, this.cornerY, 8/9f)));
+    this.modifierInfo = addExtraArea(addRenderableWidget(new InfoPanelWidget(this, InfoPanelWidget.Style.PLAIN, panelLeft, this.cornerY + InfoPanelWidget.DEFAULT_HEIGHT + 4, 7/9f)));
   }
 
   @Override
@@ -135,6 +134,8 @@ public class ModifierWorktableScreen extends BaseTabbedScreen<ModifierWorktableB
         }
       }
     }
+    this.tinkerInfo.renderTooltip(matrixStack, mouseX, mouseY);
+    this.modifierInfo.renderTooltip(matrixStack, mouseX, mouseY);
   }
 
   /** Draw backgrounds for all modifiers */
@@ -201,8 +202,8 @@ public class ModifierWorktableScreen extends BaseTabbedScreen<ModifierWorktableB
       ItemStack resultStack = getMenu().getOutputSlot().getItem();
       TinkerStationScreen.updateToolPanel(tinkerInfo, result, resultStack);
 
-      this.modifierInfo.setCaption(TextComponent.EMPTY);
-      this.modifierInfo.setText(TextComponent.EMPTY);
+      this.modifierInfo.setCaptions();
+      this.modifierInfo.setText();
       if (result.hasTag(TinkerTags.Items.MODIFIABLE)) {
         TinkerStationScreen.updateModifierPanel(modifierInfo, result);
       } else {
@@ -210,7 +211,7 @@ public class ModifierWorktableScreen extends BaseTabbedScreen<ModifierWorktableB
         ModifierId modifierId = ModifierCrystalItem.getModifier(resultStack);
         if (modifierId != null) {
           Modifier modifier = ModifierManager.getValue(modifierId);
-          modifierInfo.setCaption(TConstruct.makeTranslation("gui", "tinker_station.modifiers"));
+          modifierInfo.setCaptions(TConstruct.makeTranslation("gui", "tinker_station.modifiers").withStyle(ChatFormatting.UNDERLINE));
           modifierInfo.setText(Collections.singletonList(modifier.getDisplayName()), Collections.singletonList(modifier.getDescription()));
         }
       }
@@ -223,10 +224,6 @@ public class ModifierWorktableScreen extends BaseTabbedScreen<ModifierWorktableB
   @Override
   public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
     this.clickedOnScrollBar = false;
-    if (this.tinkerInfo.handleMouseClicked(mouseX, mouseY, mouseButton)
-        || this.modifierInfo.handleMouseClicked(mouseX, mouseY, mouseButton)) {
-      return false;
-    }
 
     if (tile != null && !tile.getCurrentButtons().isEmpty()) {
       // handle button click
@@ -252,11 +249,6 @@ public class ModifierWorktableScreen extends BaseTabbedScreen<ModifierWorktableB
 
   @Override
   public boolean mouseDragged(double mouseX, double mouseY, int clickedMouseButton, double timeSinceLastClick, double unknown) {
-    if (this.tinkerInfo.handleMouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick)
-        || this.modifierInfo.handleMouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick)) {
-      return false;
-    }
-
     if (this.clickedOnScrollBar && this.canScroll()) {
       int i = this.cornerY + 14;
       int j = i + 54;
@@ -271,10 +263,6 @@ public class ModifierWorktableScreen extends BaseTabbedScreen<ModifierWorktableB
 
   @Override
   public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
-    if (this.tinkerInfo.handleMouseScrolled(mouseX, mouseY, delta)
-        || this.modifierInfo.handleMouseScrolled(mouseX, mouseY, delta)) {
-      return false;
-    }
     if (super.mouseScrolled(mouseX, mouseY, delta)) {
       return true;
     }
@@ -292,7 +280,7 @@ public class ModifierWorktableScreen extends BaseTabbedScreen<ModifierWorktableB
   public boolean mouseReleased(double mouseX, double mouseY, int state) {
     if (this.tinkerInfo.handleMouseReleased(mouseX, mouseY, state)
         || this.modifierInfo.handleMouseReleased(mouseX, mouseY, state)) {
-      return false;
+      return true;
     }
     return super.mouseReleased(mouseX, mouseY, state);
   }
@@ -302,18 +290,18 @@ public class ModifierWorktableScreen extends BaseTabbedScreen<ModifierWorktableB
 
   @Override
   public void error(Component message) {
-    this.tinkerInfo.setCaption(COMPONENT_ERROR);
+    this.tinkerInfo.setCaptions(COMPONENT_ERROR.copy().withStyle(ChatFormatting.UNDERLINE));
     this.tinkerInfo.setText(message);
-    this.modifierInfo.setCaption(TextComponent.EMPTY);
-    this.modifierInfo.setText(TextComponent.EMPTY);
+    this.modifierInfo.setCaptions();
+    this.modifierInfo.setText();
   }
 
   @Override
   public void warning(Component message) {
-    this.tinkerInfo.setCaption(COMPONENT_WARNING);
+    this.tinkerInfo.setCaptions(COMPONENT_WARNING.copy().withStyle(ChatFormatting.UNDERLINE));
     this.tinkerInfo.setText(message);
-    this.modifierInfo.setCaption(TextComponent.EMPTY);
-    this.modifierInfo.setText(TextComponent.EMPTY);
+    this.modifierInfo.setCaptions();
+    this.modifierInfo.setText();
   }
 
   private Component getInfoTitle() {
@@ -328,10 +316,10 @@ public class ModifierWorktableScreen extends BaseTabbedScreen<ModifierWorktableB
 
   /** Displays a message with the default title */
   public void message(Component message) {
-    this.tinkerInfo.setCaption(getInfoTitle());
+    this.tinkerInfo.setCaptions(getInfoTitle().copy().withStyle(ChatFormatting.UNDERLINE));
     this.tinkerInfo.setText(message);
-    this.modifierInfo.setCaption(TextComponent.EMPTY);
-    this.modifierInfo.setText(TextComponent.EMPTY);
+    this.modifierInfo.setCaptions();
+    this.modifierInfo.setText();
   }
 
   @Override
@@ -366,5 +354,16 @@ public class ModifierWorktableScreen extends BaseTabbedScreen<ModifierWorktableB
   /** Gets the number of hidden part recipe rows */
   private int getHiddenRows() {
     return (this.getPartRecipeCount() + 4 - 1) / 4 - 3;
+  }
+
+  @Override
+  public void resize(Minecraft mc, int width, int height) {
+    var tinkerData = tinkerInfo.getData();
+    var modifierData = modifierInfo.getData();
+
+    super.resize(mc, width, height);
+
+    tinkerInfo.setData(tinkerData);
+    modifierInfo.setData(modifierData);
   }
 }
