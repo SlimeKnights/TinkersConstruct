@@ -2505,8 +2505,8 @@
   "stat.tconstruct.head": "ヘッド部",
   "tool_stat.tconstruct.mining_speed": "採掘速度: ",
   "tool_stat.tconstruct.mining_speed.description": "この素材でヘッド部を作った道具がどれくらい早くブロックを採掘できるかの値。\n他の道具部品によって補正がかかる場合がある。",
-  "tool_stat.tconstruct.harvest_tier": "採掘レベル: ",
-  "tool_stat.tconstruct.harvest_tier.description": "この素材でヘッド部を作った道具がどれくらいの硬さのブロックを採掘できるかの値。",
+  "tool_stat.tconstruct.harvest_tier": "採掘ランク: ",
+  "tool_stat.tconstruct.harvest_tier.description": "この素材でヘッド部を作った道具が、バニラのどのツルハシと同じブロック採掘範囲かを表したもの。",
   "tool_stat.tconstruct.attack_damage": "攻撃力: ",
   "tool_stat.tconstruct.attack_damage.description": "攻撃力計算の基本値。\n最終的な値は、他の構成や改造等によって変わる。",
 
