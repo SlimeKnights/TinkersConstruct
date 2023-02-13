@@ -295,6 +295,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .stat(ToolStats.ATTACK_SPEED, 2.0f)
       .multiplier(ToolStats.MINING_SPEED, 0.75f)
       .multiplier(ToolStats.DURABILITY, 0.75f)
+      .stat(ToolStats.BLOCK_AMOUNT, 10)
+      .stat(ToolStats.USE_ITEM_SPEED, 1.0f)
       .smallToolStartingSlots()
       // traits
       .trait(TinkerModifiers.padded, 1)
@@ -388,7 +390,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
     // staff
     define(ToolDefinitions.SKY_STAFF)
       .stat(ToolStats.DURABILITY, 375)
-      .stat(ToolStats.BLOCK_AMOUNT, 8)
+      .stat(ToolStats.BLOCK_AMOUNT, 15)
+      .stat(ToolStats.USE_ITEM_SPEED, 0.4f)
       .startingSlots(SlotType.UPGRADE, 5)
       .startingSlots(SlotType.ABILITY, 2)
       .trait(ModifierIds.overslimeFriend)
@@ -396,7 +399,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .module(ToolModuleHooks.INTERACTION, DualOptionInteraction.INSTANCE);
     define(ToolDefinitions.EARTH_STAFF)
       .stat(ToolStats.DURABILITY, 800)
-      .stat(ToolStats.BLOCK_AMOUNT, 13)
+      .stat(ToolStats.BLOCK_AMOUNT, 20)
+      .stat(ToolStats.USE_ITEM_SPEED, 0.4f)
       .startingSlots(SlotType.UPGRADE, 2)
       .startingSlots(SlotType.DEFENSE, 3)
       .startingSlots(SlotType.ABILITY, 2)
@@ -405,7 +409,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .module(ToolModuleHooks.INTERACTION, DualOptionInteraction.INSTANCE);
     define(ToolDefinitions.ICHOR_STAFF)
       .stat(ToolStats.DURABILITY, 1225)
-      .stat(ToolStats.BLOCK_AMOUNT, 6)
+      .stat(ToolStats.BLOCK_AMOUNT, 15)
+      .stat(ToolStats.USE_ITEM_SPEED, 0.4f)
       .startingSlots(SlotType.UPGRADE, 2)
       .startingSlots(SlotType.ABILITY, 3)
       .trait(ModifierIds.overslimeFriend)
@@ -420,15 +425,17 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ArmorSlotType.CHESTPLATE, ToolStats.ATTACK_DAMAGE, 0.55f)
       .startingSlots(SlotType.UPGRADE, 3)
       .startingSlots(SlotType.DEFENSE, 2)
-      .startingSlots(SlotType.ABILITY, 1);
+      .startingSlots(SlotType.ABILITY, 1)
+      .trait(ArmorSlotType.BOOTS, ModifierIds.snowBoots);
     define(ArmorDefinitions.TRAVELERS_SHIELD)
       .stat(ToolStats.DURABILITY, 200)
       .stat(ToolStats.BLOCK_AMOUNT, 10)
+      .stat(ToolStats.BLOCK_ANGLE, 90)
+      .stat(ToolStats.USE_ITEM_SPEED, 0.8f)
       .startingSlots(SlotType.UPGRADE, 3)
       .startingSlots(SlotType.DEFENSE, 2)
       .startingSlots(SlotType.ABILITY, 1)
       .trait(TinkerModifiers.blocking)
-      .trait(ModifierIds.fastUseItem)
       .module(ToolModuleHooks.INTERACTION, new PreferenceSetInteraction(InteractionSource.RIGHT_CLICK, new SingleModifierPredicate(TinkerModifiers.blocking.getId())));
 
     // plate armor
@@ -444,7 +451,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
     define(ArmorDefinitions.PLATE_SHIELD)
       .stat(ToolStats.DURABILITY, 500)
       .stat(ToolStats.BLOCK_AMOUNT, 100)
-      .stat(ToolStats.BLOCK_ANGLE, 90)
+      .stat(ToolStats.BLOCK_ANGLE, 180)
       .stat(ToolStats.ARMOR_TOUGHNESS, 2)
       .startingSlots(SlotType.UPGRADE, 1)
       .startingSlots(SlotType.DEFENSE, 4)

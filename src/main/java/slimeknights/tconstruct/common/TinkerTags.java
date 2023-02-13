@@ -340,6 +340,8 @@ public class TinkerTags {
     public static final TagKey<Item> UNARMED = tag("modifiable/unarmed");
     /** Modifiable items that are also swords, typically no use outside of combat */
     public static final TagKey<Item> SWORD = tag("modifiable/melee/sword");
+    /** Modifiable items that can parry, cannot receive blocking */
+    public static final TagKey<Item> PARRY = tag("modifiable/melee/parry");
 
     /** Modifiable items that can break blocks. Items in this tag support the {@link ToolStats#MINING_SPEED} and {@link ToolStats#HARVEST_TIER} stats. */
     public static final TagKey<Item> HARVEST = tag("modifiable/harvest");

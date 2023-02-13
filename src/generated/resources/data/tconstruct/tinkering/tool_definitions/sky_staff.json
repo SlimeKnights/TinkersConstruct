@@ -2,7 +2,8 @@
   "stats": {
     "base": {
       "tconstruct:durability": 375.0,
-      "tconstruct:block_amount": 8.0
+      "tconstruct:block_amount": 15.0,
+      "tconstruct:use_item_speed": 0.4
     }
   },
   "slots": {

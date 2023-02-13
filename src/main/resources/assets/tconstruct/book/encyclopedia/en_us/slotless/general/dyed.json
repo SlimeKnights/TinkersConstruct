@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:dyed",
   "text": [
     {
-      "text": "Changes the color of the leather parts of travelers's gear."
+      "text": "Changes the color of the leather or wood parts of travelers's gear, shields, and staffs."
     },
     {
       "text": "Can mix multiple dyes, along with mixing dyes from the previous gear color.", "paragraph": true

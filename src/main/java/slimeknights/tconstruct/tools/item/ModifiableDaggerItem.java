@@ -20,7 +20,12 @@ public class ModifiableDaggerItem extends ModifiableSwordItem {
 
   @Override
   public int getItemStackLimit(ItemStack stack) {
-    return isBarVisible(stack) ? 1 : 2;
+    return getDamage(stack) == 0 ? 2 : 1;
+  }
+
+  @Override
+  public boolean isBarVisible(ItemStack stack) {
+    return stack.getCount() == 1 && super.isBarVisible(stack);
   }
 
   /* stack size 1 actions */

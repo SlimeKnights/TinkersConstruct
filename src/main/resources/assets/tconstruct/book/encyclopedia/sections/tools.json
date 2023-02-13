@@ -89,5 +89,26 @@
     "name": "longbow",
     "type": "tconstruct:tool",
     "data": "tools/large/longbow.json"
+  },
+
+  {
+    "name": "group_staff",
+    "type": "mantle:text",
+    "data": "tools/staff.json"
+  },
+  {
+    "name": "sky_staff",
+    "type": "tconstruct:tool",
+    "data": "tools/staff/sky.json"
+  },
+  {
+    "name": "earth_staff",
+    "type": "tconstruct:tool",
+    "data": "tools/staff/earth.json"
+  },
+  {
+    "name": "ichor_staff",
+    "type": "tconstruct:tool",
+    "data": "tools/staff/ichor.json"
   }
 ]

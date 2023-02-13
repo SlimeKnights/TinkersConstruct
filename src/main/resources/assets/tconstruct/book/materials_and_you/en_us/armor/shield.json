@@ -1,0 +1,17 @@
+{
+  "tool": "tconstruct:travelers_shield",
+  "text": [
+    { "text": "Unfortunately, makes a poor frisbee." },
+    {
+      "text": "Shields are important for defending yourself against attacks in the world, best to take one with when you go traveling.", "paragraph": true
+    }
+  ],
+  "properties": [
+    "Low Durability",
+    "Low Block Potential",
+    "High speed while shielding",
+    "3 Upgrade Slots",
+    "2 Defense Slots",
+    "1 Ability Slot"
+  ]
+}

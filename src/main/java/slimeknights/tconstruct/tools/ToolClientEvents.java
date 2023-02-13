@@ -52,8 +52,9 @@ import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.TankModifierModel;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
-import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.HarvestTiers;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.client.ArmorModelHelper;
@@ -266,11 +267,17 @@ public class ToolClientEvents extends ClientEventBase {
     Player player = event.getPlayer();
     if (player.isUsingItem() && !player.isPassenger()) {
       ItemStack using = player.getUseItem();
-      if (using.is(TinkerTags.Items.MODIFIABLE) && ModifierUtil.checkVolatileFlag(using, IModifiable.FAST_USE_ITEM)) {
+      if (using.is(TinkerTags.Items.HELD)) {
+        ToolStack tool = ToolStack.from(using);
+        // multiply by 5 to cancel out the vanilla 20%
+        float speed = 5 * (tool.getStats().get(ToolStats.USE_ITEM_SPEED));
+        // FAST_USE_ITEM was originally 80% move speed, since the stat defaults to 20% this makes it act the same as long as you don't modify the stat
+        if (tool.getVolatileData().getBoolean(IModifiable.FAST_USE_ITEM)) {
+          speed = Math.min(5, speed + 5 * 0.6f);
+        }
         Input input = event.getInput();
-        // mostly cancel out future 0.2x, want 80% move speed instead of 20%
-        input.leftImpulse *= 4;
-        input.forwardImpulse *= 4;
+        input.leftImpulse *= speed;
+        input.forwardImpulse *= speed;
       }
     }
   }

@@ -271,6 +271,8 @@ public class AdvancementsProvider extends GenericDataProvider {
       withL.accept(TinkerModifiers.dualWielding);
       withL.accept(TinkerModifiers.melting);
       withL.accept(TinkerModifiers.spilling);
+      withL.accept(TinkerModifiers.blocking);
+      withL.accept(TinkerModifiers.parrying);
       // ranged
       withL.accept(TinkerModifiers.crystalshot);
       withL.accept(TinkerModifiers.multishot);

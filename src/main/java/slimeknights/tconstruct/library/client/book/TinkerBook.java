@@ -60,8 +60,8 @@ public class TinkerBook extends BookData {
     MIGHTY_SMELTING.addTransformer(ToolSectionTransformer.INSTANCE);
     FANTASTIC_FOUNDRY.addTransformer(armorTransformer);
     TINKERS_GADGETRY.addTransformer(armorTransformer);
-    ENCYCLOPEDIA.addTransformer(new ToolSectionTransformer("small_tools"));
-    ENCYCLOPEDIA.addTransformer(new ToolSectionTransformer("large_tools"));
+    TINKERS_GADGETRY.addTransformer(new ToolSectionTransformer("staffs"));
+    ENCYCLOPEDIA.addTransformer(new ToolSectionTransformer("tools"));
     ENCYCLOPEDIA.addTransformer(armorTransformer);
 
     // material tier transformers

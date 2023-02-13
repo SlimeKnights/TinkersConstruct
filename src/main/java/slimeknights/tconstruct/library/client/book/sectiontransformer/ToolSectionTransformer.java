@@ -3,12 +3,11 @@ package slimeknights.tconstruct.library.client.book.sectiontransformer;
 import net.minecraft.world.item.Items;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.PageData;
-import slimeknights.mantle.client.book.data.content.ContentListing;
-import slimeknights.mantle.client.book.transformer.ContentListingSectionTransformer;
+import slimeknights.mantle.client.book.transformer.ContentGroupingSectionTransformer;
 import slimeknights.tconstruct.library.client.book.content.ContentTool;
 
 /** Section transformer to generate an index with tool names */
-public class ToolSectionTransformer extends ContentListingSectionTransformer {
+public class ToolSectionTransformer extends ContentGroupingSectionTransformer {
   public static final ToolSectionTransformer INSTANCE = new ToolSectionTransformer("tools");
 
   public ToolSectionTransformer(String name, boolean largeTitle, boolean centerTitle) {
@@ -20,10 +19,26 @@ public class ToolSectionTransformer extends ContentListingSectionTransformer {
   }
 
   @Override
-  protected boolean processPage(BookData book, ContentListing listing, PageData page) {
+  protected boolean processPage(BookData book, GroupingBuilder builder, PageData page) {
     // only add tool pages if the tool exists, barrier is the fallback item for missing
-    if (!(page.content instanceof ContentTool tool && tool.getTool().asItem() == Items.BARRIER)) {
-      super.processPage(book, listing, page);
+    if (page.content instanceof ContentTool tool) {
+      if (tool.getTool().asItem() != Items.BARRIER) {
+        builder.addPage(page.getTitle(), page);
+        return true;
+      }
+      return false;
+    } else if (page.name.startsWith("group_")) {
+      // skip adding the page if no data
+      if (page.data.isEmpty()) {
+        builder.addGroup(page.getTitle(), null);
+        return false;
+      } else {
+        builder.addGroup(page.getTitle(), page);
+        return true;
+      }
+    // anything other than hidden continues same column
+    } else if (!page.name.equals("hidden")) {
+      builder.addPage(page.getTitle(), page);
     }
     return true;
   }

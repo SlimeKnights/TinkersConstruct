@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:travelers_shield",
+  "text": [
+    { "text": "Traveler's Shield is a lightweight shield with limited blocking potential but quick movement while blocking." }
+  ],
+  "properties": [
+    "200 Durability",
+    "Blocks 10 damage per hit",
+    "90 degree block angle",
+    "80% speed while blocking",
+    "+4 Armor",
+    "3 Upgrade Slots",
+    "2 Defense Slots",
+    "1 Ability Slot"
+  ]
+}

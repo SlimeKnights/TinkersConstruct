@@ -5,11 +5,13 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.spilling.SpillingFluid;
@@ -17,7 +19,10 @@ import slimeknights.tconstruct.library.modifiers.spilling.SpillingFluidManager;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.definition.module.ToolModuleHooks;
+import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.WettingModifier;
 
 import javax.annotation.Nullable;
@@ -64,13 +69,41 @@ public class SpillingModifier extends WettingModifier implements EntityInteracti
   public InteractionResult beforeEntityUse(IToolStackView tool, ModifierEntry modifier, Player player, Entity target, InteractionHand hand, InteractionSource source) {    // melee items get spilling via attack, non melee interact to use it
     if (source != InteractionSource.ARMOR && !tool.hasTag(TinkerTags.Items.MELEE) && tool.getDefinitionData().getModule(ToolModuleHooks.INTERACTION).canInteract(tool, modifier.getId(), source)) {
       FluidStack fluid = getFluid(tool);
-      if (!fluid.isEmpty() && SpillingFluidManager.INSTANCE.contains(fluid.getFluid())) {
-        if (!player.level.isClientSide) {
-          ToolAttackContext context = new ToolAttackContext(player, player, hand, target, target instanceof LivingEntity l ? l : null, false, 1.0f, false);
-          spillFluid(tool, modifier.getLevel(), context, fluid);
+      if (!fluid.isEmpty()) {
+        SpillingFluid recipe = SpillingFluidManager.INSTANCE.find(fluid.getFluid());
+        if (recipe.hasEffects()) {
+          if (!player.level.isClientSide) {
+            // for the main target, consume fluids
+            int level = modifier.getLevel();
+            ToolAttackContext context = new ToolAttackContext(player, player, hand, target, target instanceof LivingEntity l ? l : null, false, 1.0f, false);
+            FluidStack remaining = recipe.applyEffects(fluid.copy(), level, context);
+            spawnParticles(target, fluid);
+            if (!player.isCreative()) {
+              setFluid(tool, remaining);
+            }
+
+            // expanded logic, they do not consume fluid, you get some splash for free
+            int numTargets = 1;
+            float range = 1 + tool.getModifierLevel(TinkerModifiers.expanded.get());
+            float rangeSq = range * range;
+            for (Entity aoeTarget : player.level.getEntitiesOfClass(Entity.class, target.getBoundingBox().inflate(range, 0.25, range))) {
+              if (aoeTarget != player && aoeTarget != target && !(aoeTarget instanceof ArmorStand stand && stand.isMarker()) && target.distanceToSqr(aoeTarget) < rangeSq) {
+                numTargets++;
+                context = new ToolAttackContext(player, player, hand, aoeTarget, aoeTarget instanceof LivingEntity l ? l : null, false, 1.0f, true);
+
+                recipe.applyEffects(fluid.copy(), level, context);
+                spawnParticles(aoeTarget, fluid);
+              }
+            }
+
+            // damage the tool, we charge for the multiplier and for the number of targets hit
+            ToolDamageUtil.damageAnimated(tool, numTargets * level, player, hand);
+          }
+
+          // cooldown based on attack speed/draw speed. both are on the same scale and default to 1, we don't care which one the tool uses
+          player.getCooldowns().addCooldown(tool.getItem(), (int)(20 / (tool.getStats().get(ToolStats.ATTACK_SPEED) * ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.DRAW_SPEED))));
+          return InteractionResult.SUCCESS;
         }
-        player.getCooldowns().addCooldown(tool.getItem(), 20);
-        return InteractionResult.SUCCESS;
       }
     }
     return InteractionResult.PASS;
