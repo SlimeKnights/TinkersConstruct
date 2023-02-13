@@ -10,7 +10,13 @@
       "tag": "forge:ingots/copper"
     },
     "w": {
-      "tag": "minecraft:planks"
+      "type": "forge:difference",
+      "base": {
+        "tag": "minecraft:planks"
+      },
+      "subtracted": {
+        "tag": "tconstruct:slimy_planks"
+      }
     }
   },
   "result": {
