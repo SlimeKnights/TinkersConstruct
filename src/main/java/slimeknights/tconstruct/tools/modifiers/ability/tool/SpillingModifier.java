@@ -69,36 +69,41 @@ public class SpillingModifier extends WettingModifier implements EntityInteracti
   public InteractionResult beforeEntityUse(IToolStackView tool, ModifierEntry modifier, Player player, Entity target, InteractionHand hand, InteractionSource source) {    // melee items get spilling via attack, non melee interact to use it
     if (source != InteractionSource.ARMOR && !tool.hasTag(TinkerTags.Items.MELEE) && tool.getDefinitionData().getModule(ToolModuleHooks.INTERACTION).canInteract(tool, modifier.getId(), source)) {
       FluidStack fluid = getFluid(tool);
-      if (!fluid.isEmpty() && SpillingFluidManager.INSTANCE.contains(fluid.getFluid())) {
-        if (!player.level.isClientSide) {
-          int level = modifier.getLevel();
-          ToolAttackContext context = new ToolAttackContext(player, player, hand, target, target instanceof LivingEntity l ? l : null, false, 1.0f, false);
-          spillFluid(tool, level, context, fluid);
+      if (!fluid.isEmpty()) {
+        SpillingFluid recipe = SpillingFluidManager.INSTANCE.find(fluid.getFluid());
+        if (recipe.hasEffects()) {
+          if (!player.level.isClientSide) {
+            // for the main target, consume fluids
+            int level = modifier.getLevel();
+            ToolAttackContext context = new ToolAttackContext(player, player, hand, target, target instanceof LivingEntity l ? l : null, false, 1.0f, false);
+            FluidStack remaining = recipe.applyEffects(fluid.copy(), level, context);
+            spawnParticles(target, fluid);
+            if (!player.isCreative()) {
+              setFluid(tool, remaining);
+            }
 
-          // expanded logic
-          int numTargets = 1;
-          int expanded = tool.getModifierLevel(TinkerModifiers.expanded.get());
-          if (expanded > 0 && !fluid.isEmpty()) {
-            float range = expanded * 1.5f;
+            // expanded logic, they do not consume fluid, you get some splash for free
+            int numTargets = 1;
+            float range = 1 + tool.getModifierLevel(TinkerModifiers.expanded.get());
             float rangeSq = range * range;
             for (Entity aoeTarget : player.level.getEntitiesOfClass(Entity.class, target.getBoundingBox().inflate(range, 0.25, range))) {
               if (aoeTarget != player && aoeTarget != target && !(aoeTarget instanceof ArmorStand stand && stand.isMarker()) && target.distanceToSqr(aoeTarget) < rangeSq) {
                 numTargets++;
                 context = new ToolAttackContext(player, player, hand, aoeTarget, aoeTarget instanceof LivingEntity l ? l : null, false, 1.0f, true);
-                spillFluid(tool, level, context, fluid);
-                if (fluid.isEmpty()) {
-                  break;
-                }
+
+                recipe.applyEffects(fluid.copy(), level, context);
+                spawnParticles(aoeTarget, fluid);
               }
             }
+
+            // damage the tool, we charge for the multiplier and for the number of targets hit
+            ToolDamageUtil.damageAnimated(tool, numTargets * level, player, hand);
           }
 
-          // damage the tool, we charge for the multiplier and for the number of targets hit
-          ToolDamageUtil.damageAnimated(tool, numTargets * level, player, hand);
+          // cooldown based on attack speed/draw speed. both are on the same scale and default to 1, we don't care which one the tool uses
+          player.getCooldowns().addCooldown(tool.getItem(), (int)(20 / (tool.getStats().get(ToolStats.ATTACK_SPEED) * ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.DRAW_SPEED))));
+          return InteractionResult.SUCCESS;
         }
-        // cooldown based on attack speed/draw speed. both are on the same scale and default to 1, we don't care which one the tool uses
-        player.getCooldowns().addCooldown(tool.getItem(), (int)(20 / (tool.getStats().get(ToolStats.ATTACK_SPEED) * ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.DRAW_SPEED))));
-        return InteractionResult.SUCCESS;
       }
     }
     return InteractionResult.PASS;
