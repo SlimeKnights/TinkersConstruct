@@ -28,7 +28,7 @@
       "model": "tconstruct:item/longbow/pulling_1"
     },
     {
-      "predicate": { "pulling": 1, "pull": 0.65 },
+      "predicate": { "pulling": 1, "pull": 0.6 },
       "model": "tconstruct:item/longbow/pulling_2"
     },
     {

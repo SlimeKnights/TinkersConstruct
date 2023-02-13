@@ -49,8 +49,8 @@ public class ToolStats {
   // shield
   /** Maximum damage blocked by the shield. If more than this number is dealt, the damage is reduced by this number */
   public static final FloatToolStat BLOCK_AMOUNT = register(new FloatToolStat(name("block_amount"), 0xFF78A0CD, 5, 0, 2048, TinkerTags.Items.HELD));
-  /** Maximum angle of blocking in degrees. 90 is vanilla (90 degrees either direction). */
-  public static final FloatToolStat BLOCK_ANGLE = register(new FloatToolStat(name("block_angle"), 0xFF78A0CD, 60, 0, 90, TinkerTags.Items.HELD));
+  /** Maximum angle of blocking in degrees. 180 is vanilla (90 degrees either direction). */
+  public static final FloatToolStat BLOCK_ANGLE = register(new FloatToolStat(name("block_angle"), 0xFF78A0CD, 120, 0, 180, TinkerTags.Items.HELD));
 
   // ranged
   /** Number of times per second a tool can be used */

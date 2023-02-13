@@ -416,11 +416,11 @@ public class InteractionHandler {
     if (sourcePosition == null) {
       return false;
     }
-    // no work to do if 90 degrees, that is vanilla logic
-    float blockAngle = ConditionalStatModifierHook.getModifiedStat(tool, holder, ToolStats.BLOCK_ANGLE);
-    if (blockAngle >= 90) {
-      return true;
-    }
+    // divide by 2 as the stat is 0 to 180 (more intutive) but logic is 0 to 90 (simplier to work with)
+    // we could potentially do a quick exit here, but that would mean this method is not applicable for modifiers like reflection
+    // that skip the vanilla check first
+    float blockAngle = ConditionalStatModifierHook.getModifiedStat(tool, holder, ToolStats.BLOCK_ANGLE) / 2;
+
     // want the angle between the view vector and the
     Vec3 viewVector = holder.getViewVector(1.0f);
     Vec3 entityPosition = holder.position();

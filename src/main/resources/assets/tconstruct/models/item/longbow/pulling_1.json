@@ -8,11 +8,11 @@
     "bowstring":   "tconstruct:item/tool/longbow/bowstring_1",
     "arrow":       "tconstruct:item/tool/longbow/arrow_1",
     
-    "large_limb_bottom": "tconstruct:item/tool/longbow/large/limb_bottom_2",
-    "large_limb_top":    "tconstruct:item/tool/longbow/large/limb_top_2",
+    "large_limb_bottom": "tconstruct:item/tool/longbow/large/limb_bottom_1",
+    "large_limb_top":    "tconstruct:item/tool/longbow/large/limb_top_1",
     "large_grip":        "tconstruct:item/tool/longbow/large/grip",
-    "large_bowstring":   "tconstruct:item/tool/longbow/large/bowstring_2",
-    "large_arrow":       "tconstruct:item/tool/longbow/large/arrow_2"
+    "large_bowstring":   "tconstruct:item/tool/longbow/large/bowstring_1",
+    "large_arrow":       "tconstruct:item/tool/longbow/large/arrow_1"
   },
   "large": true,
   "large_offset": [-3, 13],

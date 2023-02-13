@@ -10,7 +10,21 @@
       "tag": "forge:ingots/cobalt"
     },
     "w": {
-      "tag": "minecraft:planks"
+      "type": "forge:difference",
+      "base": {
+        "type": "forge:intersection",
+        "children": [
+          {
+            "tag": "minecraft:planks"
+          },
+          {
+            "tag": "minecraft:non_flammable_wood"
+          }
+        ]
+      },
+      "subtracted": {
+        "tag": "tconstruct:slimy_planks"
+      }
     }
   },
   "result": {

@@ -214,7 +214,7 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
     buildMaterial(MaterialIds.amethystBronze)
       .meleeHarvest().ranged().statType(TinkerPartSpriteProvider.PLATE)
       .fallbacks("metal")
-      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF583757).addARGB(102, 0xFF754D73).addARGB(140, 0xFFB174A9).addARGB(178, 0xFFC687BD).addARGB(216, 0xFFD9A2D0).addARGB(255, 0xFFE6BFDD).build());
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF6A2D6F).addARGB(102, 0xFF8B4991).addARGB(140, 0xFFBE76B8).addARGB(178, 0xFFD28CC5).addARGB(216, 0xFFDFA8CF).addARGB(255, 0xFFEEC6DE).build());
     buildMaterial(MaterialIds.nahuatl)
       .meleeHarvest().ranged()
       .fallbacks("wood", "stick")

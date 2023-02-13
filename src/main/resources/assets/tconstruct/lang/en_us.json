@@ -2541,7 +2541,7 @@
   "tool_stat.tconstruct.block_amount": "Block Amount: ",
   "tool_stat.tconstruct.block_amount.description": "Maximum amount of damage blocked by this shield per attack.",
   "tool_stat.tconstruct.block_angle": "Block Angle: ",
-  "tool_stat.tconstruct.block_angle.description": "Angle in degrees on either side this shield protects. Any attacks from an angle beyond this are not blocked.",
+  "tool_stat.tconstruct.block_angle.description": "Total angle of protection in front when shielding out of a max 360 degrees. Any attacks from an angle beyond this are not blocked.",
 
   "stat.tconstruct.repair_kit": "Repair Kit",
   "stat.tconstruct.skull": "Slimeskull",

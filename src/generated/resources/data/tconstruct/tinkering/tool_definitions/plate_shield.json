@@ -3,7 +3,7 @@
     "base": {
       "tconstruct:durability": 500.0,
       "tconstruct:block_amount": 100.0,
-      "tconstruct:block_angle": 90.0,
+      "tconstruct:block_angle": 180.0,
       "tconstruct:armor_toughness": 2.0
     }
   },
