@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:blindshot",
+  "text": [
+    {
+      "text": "正確性が(0.1×レベル)減少します。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "複数回適用できる",
+    "スロット不要",
+    "最大レベルはないが、正確性の最小値は0.1"
+  ]
+}

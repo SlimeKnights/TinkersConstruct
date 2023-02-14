@@ -1,0 +1,14 @@
+{
+  "title": "部品作成台",
+  "image": {
+    "file": "tconstruct:book/images/partbuilder.png",
+    "width": 170,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "部品の作り方: 空のパターンをパターンスロットに入れます。作りたい道具の部品を選び、手で成形可能な柔らかい素材を入れて、道具の部品を取り出します。以前に作った柔らかい素材の部品を再成形することもできます。",
+      "paragraph": true
+    }
+	]
+}

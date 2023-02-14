@@ -1,0 +1,14 @@
+intro=はじめに
+
+melee_harvest_materials=Tier1 近接/収穫用素材
+melee_harvest_materials.subtext=これらの素材を部品作成台に置いて近接武器や収穫道具の部品を作れます。
+ranged_materials=Tier1 遠距離用素材
+ranged_materials.subtext=これらの素材を部品作成台に置いて弓のような遠距離武器の部品を作れます。
+
+tools=道具
+
+armor=旅行者の装備
+armor.subtext=旅行者の装備は改良作業台でクラフトします！これらの防具の防御力は高くはありませんが、防具をアップグレードする機会はまだたくさんあります。ああ、どんな素敵なものを作りますか？
+
+modifiers=改造
+further_reading=参考文献

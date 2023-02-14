@@ -1,0 +1,15 @@
+intro=はじめに
+
+alloyer=合金炉
+
+foundry=鋳造炉
+
+blazing_blood=燃え盛る血液
+
+armor=プレートアーマー
+armor.subtext=この防具は、ティンカー台やティンカー金床ではなく、作業台で作ります。強固なプレートアーマーは高い防御力を持っていますが、改造の自由度は低いです。守ってもらえるなら、余計な機能は必要ないでしょう？
+
+melee_harvest_materials=Tier4 近接/収穫用素材
+melee_harvest_materials.subtext=これらの素材を作成するには燃え盛る血液が必要で、近接武器や収穫道具の部品を作るのに使用できます。
+ranged_materials=Tier4 遠距離用素材
+ranged_materials.subtext=これらの素材を作成するには燃え盛る血液が必要で、弓のような遠距離武器の部品を作るのに使用できます。

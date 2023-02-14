@@ -1,0 +1,13 @@
+{
+  "title": "イコルのジオード",
+  "image": {
+	"file": "tconstruct:book/images/geodes/ichor.png",
+    "width": 180,
+    "height": 106
+  },
+  "text": [
+    {
+      "text": "イコルのジオードは、貴重なオレンジ色のスライムの最良の供給源の1つです。ネザーの高所に存在し、クリスタルが光っていることで識別できます。"
+    }
+  ]
+}

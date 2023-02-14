@@ -1,0 +1,12 @@
+{
+  "title": "焦熱石のブロック",
+  "item": {
+    "tag": "tconstruct:scorched_blocks"
+  },
+  "text": [
+    {
+      "text": "これらのブロックは、床や壁など、鋳造炉のあらゆる部分に使用できます。また、あなたの拠点を装飾するのに使うのも良いでしょう。",
+      "paragraph": true
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "title": "鋳造炉",
+  "subText": "鋳造炉ほど魅惑的なものはありません。",
+  "hidden": ["structurereq", "fgui2"],
+  "operations": [
+    { "before": "features",       "action": "add_group", "data": "詳細" },
+    { "before": "scorched_tanks", "action": "column_break" },
+    { "before": "scorched_tanks", "action": "add_group", "data": "ブロック" }
+  ]
+}

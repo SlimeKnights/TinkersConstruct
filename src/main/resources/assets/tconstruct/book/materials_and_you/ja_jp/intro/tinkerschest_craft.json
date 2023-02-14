@@ -1,0 +1,7 @@
+{
+  "title": "ティンカーチェストのレシピ",
+  "recipe": "tconstruct:tables/tinkers_chest",
+  "description": [
+    { "text": "クラフト後、チェストを好きな色に染色できます。" }
+  ]
+}

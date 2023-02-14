@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:overforced",
+  "text": [
+    {
+      "text": "オーバースライムの最大値に(+75×レベル)の補正がかかります。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "段階的に適用できる",
+    "最大5レベル",
+    "レベルごとにアップグレードスロットが1つ必要"
+  ]
+}

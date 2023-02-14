@@ -1,0 +1,13 @@
+{
+  "title": "応用精錬",
+  "image": {
+    "file": "tconstruct:book/images/book_mighty_smelting.png",
+    "width": 128,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "私の知識は1冊の本に収まらないほどの分量だから、2冊目の本を書かねばならない。溶融器をマスターしたら、グラウトを溶かして本に注ぎ、続編を手に入れてくれ。"
+    }
+  ]
+}

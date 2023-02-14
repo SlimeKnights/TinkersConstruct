@@ -1,0 +1,55 @@
+intro=はじめに
+
+tools=道具
+small_tools=小型道具
+large_tools=大型道具
+tools.group_staff=杖
+armor=防具
+
+materials_harvest_1=Tier1 近接/収穫用素材
+materials_harvest_1.subtext=近接武器、収穫用道具を作成するために使用するTier1の素材です。
+materials_harvest_2=Tier2 近接/収穫用素材
+materials_harvest_2.subtext=近接武器、収穫用道具を作成するために使用するTier2の素材です。
+materials_harvest_3=Tier3 近接/収穫用素材
+materials_harvest_3.subtext=近接武器、収穫用道具を作成するために使用するTier3の素材です。
+materials_harvest_4=Tier4 近接/収穫用素材
+materials_harvest_4.subtext=近接武器、収穫用道具を作成するために使用するTier4の素材です。
+materials_ranged_1=Tier1 遠距離用素材
+materials_ranged_1.subtext=遠距離武器を作成するために使用するTier1の素材です。
+materials_ranged_2=Tier2 遠距離用素材
+materials_ranged_2.subtext=遠距離武器を作成するために使用するTier2の素材です。
+materials_ranged_3=Tier3 遠距離用素材
+materials_ranged_3.subtext=遠距離武器を作成するために使用するTier3の素材です。
+materials_ranged_4=Tier4 遠距離用素材
+materials_ranged_4.subtext=遠距離武器を作成するために使用するTier4の素材です。
+materials_skull=スライムスカル
+materials_skull.subtext=このセクションではスライムスカルを作る際の頭全種類の効果を解説します。
+
+upgrades=アップグレード
+upgrades.subtext=各道具は有限個のアップグレードスロットを持っています。
+upgrades.group_general=一般
+upgrades.group_harvest=収穫
+upgrades.group_weapon=近接
+upgrades.group_ranged=遠距離
+upgrades.group_damage=攻撃力増加
+upgrades.group_armor=防具
+
+defense=防御
+defense.subtext=素材の能力の代わりに、防具は耐性を高めるための防御スロットを持っています。
+defense.group_protection=耐性
+defense.group_special=特殊
+
+slotless=スロット不要
+slotless.subtext=スロット不要の改造は、適用にスロットを必要としません。
+slotless.group_general=一般
+slotless.group_bonus=ボーナス
+
+abilities=アビリティ
+abilities.subtext=アビリティの改造は、アップグレードよりスロットが少ないですが、1スロットあたりの効果は大きいです。
+abilities.group_general=一般
+abilities.group_harvest=収穫
+abilities.group_weapon=近接
+abilities.group_ranged=遠距離
+abilities.group_interact=アクション
+abilities.group_armor=防具
+

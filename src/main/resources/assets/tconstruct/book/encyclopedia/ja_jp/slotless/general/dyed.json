@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:dyed",
+  "text": [
+    {
+      "text": "旅行者の防具、盾、杖の革や木の部分の色を変更します。"
+    },
+    {
+      "text": "複数の染料を混ぜたり、以前の防具の色と染料を混ぜたりもできます。", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "複数回適用できる",
+    "スロット不要"
+  ]
+}

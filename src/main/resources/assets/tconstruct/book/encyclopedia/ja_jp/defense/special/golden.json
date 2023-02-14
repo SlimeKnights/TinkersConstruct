@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:golden",
+  "text": [
+    {
+      "text": "ピグリンが攻撃してこなくなります。防具のいずれか1箇所に「金ピカ」が適用されていれば効果が発生します。"
+    },
+    {
+      "text": "防具を金で修理できるようになります。", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "部位ごとに最大1レベル",
+    "防御スロットが1つ必要"
+  ]
+}

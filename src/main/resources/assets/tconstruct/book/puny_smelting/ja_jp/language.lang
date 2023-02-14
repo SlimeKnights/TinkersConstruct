@@ -1,0 +1,23 @@
+intro=はじめに
+melter=溶融器
+moving_fluids=液体の移動
+casting=鋳造
+melee_harvest_materials=Tier2 近接/収穫用素材
+melee_harvest_materials.subtext=これらの素材を鋳造して近接武器や収穫道具の部品を作れます。
+ranged_materials=Tier2 遠距離用素材
+ranged_materials.subtext=これらの素材を鋳造して弓のような遠距離武器の部品を作れます。
+
+further_reading=参考文献
+
+upgrades=アップグレード
+upgrades.subtext=道具はアップグレードで強化できますが、各道具に適用できるのは有限個のみです。
+upgrades.group_general=一般
+upgrades.group_harvest=収穫
+upgrades.group_weapon=近接
+upgrades.group_damage=攻撃力上昇
+upgrades.group_armor=防具
+
+slotless=スロット不要の改造
+slotless.subtext=これらの改造は、適用するためにスロットは不要で、望むなら全てを適用できます。
+slotless.group_slotless=スロット不要
+slotless.group_bonus_upgrades=スロット++

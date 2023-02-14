@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:crystalshot",
+  "text": [
+    {
+      "text": "インベントリの矢の代わりに、弓がクリスタルの矢を生成します。"
+    },
+    {
+      "text": "矢を生成する毎に、弓の耐久度が4減ります。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最大1レベル",
+    "アビリティスロットが1つ必要"
+  ]
+}

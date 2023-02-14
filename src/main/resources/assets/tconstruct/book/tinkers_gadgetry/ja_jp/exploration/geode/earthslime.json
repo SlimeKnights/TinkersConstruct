@@ -1,0 +1,13 @@
+{
+  "title": "アーススライムのジオード",
+  "image": {
+	"file": "tconstruct:book/images/geodes/earthslime.png",
+    "width": 180,
+    "height": 90
+  },
+  "text": [
+    {
+      "text": "アーススライムのジオードは地中深くにあり、私が見た中では最も大きなジオードです。粘土が目印になります。"
+    }
+  ]
+}

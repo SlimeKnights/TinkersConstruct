@@ -1,0 +1,11 @@
+{
+  "title": "探検",
+  "subText": "多くのティンカーは、改造や道具の素材として有用な資源について言及しますが、その入手方法は教えてくれません。幸運なことに、私は旅先でそれらの多くを発見したので、見つけたものをあなたにお教えします。",
+  "operations": [
+    { "before": "grass_seeds", "action": "add_group", "data": "資源" },
+    { "before": "skyslime_island", "action": "column_break" },
+    { "before": "skyslime_island", "action": "add_group", "data": "島" },
+    { "before": "skyslime_geode", "action": "column_break" },
+    { "before": "skyslime_geode", "action": "add_group", "data": "ジオード" }
+  ]
+}
