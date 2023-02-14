@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:smite",
   "text": [
     {
-      "text": "每级+2.5点对亡灵生物伤害。"
+      "text": "每级对亡灵生物伤害+2.5。"
     }
   ],
   "more_text_space": true,

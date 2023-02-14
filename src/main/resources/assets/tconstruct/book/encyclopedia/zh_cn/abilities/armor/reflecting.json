@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:reflecting",
+  "text": [
+    {
+      "text": "举盾后2秒内，盾牌会将被格挡的弹射物向你的视线方向反弹出去。每级反弹判定时间+2秒。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "需要1个能力槽"
+  ]
+}

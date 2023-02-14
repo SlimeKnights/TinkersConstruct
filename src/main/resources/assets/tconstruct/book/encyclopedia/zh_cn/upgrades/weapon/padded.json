@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:padded",
   "text": [
     {
-      "text": "降低工具的击退效果，每级降低50%。"
+      "text": "降低工具的击退效果，每级-50%。"
     }
   ],
   "more_text_space": true,

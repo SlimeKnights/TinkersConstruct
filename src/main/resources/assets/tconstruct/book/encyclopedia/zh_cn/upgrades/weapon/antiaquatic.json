@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:antiaquatic",
   "text": [
     {
-      "text": "每级+2点对水生生物的伤害。"
+      "text": "每级对水生生物的伤害+2。"
     }
   ],
   "more_text_space": true,

@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:knockback_resistance",
   "text": [
     {
-      "text": "受到的击退效果减少10%。"
+      "text": "受到的击退效果-10%。"
     }
   ],
   "more_text_space": true,

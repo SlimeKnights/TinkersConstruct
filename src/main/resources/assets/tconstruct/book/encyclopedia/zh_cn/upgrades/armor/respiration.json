@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:respiration",
   "text": [
     {
-      "text": "减少潜水时的空气消耗，1、2、3级分别减少至原消耗量的50%、33%和25%。"
+      "text": "减少潜水时的空气消耗，第1、2、3级分别减少至原消耗量的50%、33%和25%。"
     }
   ],
   "more_text_space": true,

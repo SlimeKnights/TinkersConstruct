@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:draconic",
+  "text": [
+    {
+      "text": "我将带§o头§r冲锋！"
+    },
+    {
+      "text": "怎么了，工匠，你难道不知道能力槽为何物？那么，是时候读读我的第二本书——《大师熔炼术》了！", "paragraph": true
+    }
+  ],
+  "effects": [
+    "增加1个能力槽",
+    "单个等级"
+  ]
+}

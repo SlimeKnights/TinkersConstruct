@@ -1,0 +1,11 @@
+{
+  "tool": "tconstruct:ichor_staff",
+  "text": [
+    { "text": "灵浆不常见，但能创造出最为强大的手杖。" }
+  ],
+  "properties": [
+    "高耐久度",
+    "2 升级槽",
+    "3 能力槽"
+  ]
+}
