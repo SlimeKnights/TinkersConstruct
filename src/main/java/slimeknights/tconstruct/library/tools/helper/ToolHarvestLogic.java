@@ -44,7 +44,7 @@ public class ToolHarvestLogic {
    * @return  Damage to deal
    */
   public static int getDamage(ToolStack tool, Level world, BlockPos pos, BlockState state) {
-    if (state.getDestroySpeed(world, pos) == 0) {
+    if (state.getDestroySpeed(world, pos) == 0 || !tool.hasTag(TinkerTags.Items.HARVEST)) {
       // tools that can shear take damage from instant break for non-fire
       return (!state.is(BlockTags.FIRE) && ModifierUtil.canPerformAction(tool, ToolActions.SHEARS_DIG)) ? 1 : 0;
     }

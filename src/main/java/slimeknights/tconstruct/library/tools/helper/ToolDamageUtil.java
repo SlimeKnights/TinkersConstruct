@@ -9,6 +9,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -187,7 +188,7 @@ public class ToolDamageUtil {
         return show;
       }
     }
-    return tool.getDamage() > 0;
+    return tool.getDamage() > 0 && stack.is(TinkerTags.Items.DURABILITY);
   }
 
   /**
