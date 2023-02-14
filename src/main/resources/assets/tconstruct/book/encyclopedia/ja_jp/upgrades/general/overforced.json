@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:overforced",
   "text": [
     {
-      "text": "オーバースライムの最大値に(+75*レベル)の補正がかかります。"
+      "text": "オーバースライムの最大値に(+75×レベル)の補正がかかります。"
     }
   ],
   "more_text_space": true,

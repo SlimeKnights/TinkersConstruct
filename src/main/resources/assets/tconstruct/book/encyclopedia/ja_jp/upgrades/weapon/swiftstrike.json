@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:swiftstrike",
   "text": [
     {
-      "text": "攻撃速度に(+5*レベル)%の補正がかかります。"
+      "text": "攻撃速度に(+5×レベル)%の補正がかかります。"
     }
   ],
   "more_text_space": true,

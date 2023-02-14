@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:piercing",
   "text": [
     {
-      "text": "矢が通常ダメージと別で(1*レベル)の貫通ダメージを与えられるようになります。"
+      "text": "矢が通常ダメージと別で(1×レベル)の貫通ダメージを与えられるようになります。"
     }
   ],
   "more_text_space": true,

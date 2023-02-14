@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:cooling",
   "text": [
     {
-      "text": "火に耐性をもつMobに対して(+1.6*レベル)の攻撃力補正がかかります。"
+      "text": "火に耐性をもつMobに対して(+1.6×レベル)の攻撃力補正がかかります。"
     }
   ],
   "more_text_space": true,

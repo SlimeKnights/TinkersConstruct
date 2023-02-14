@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:blindshot",
   "text": [
     {
-      "text": "正確性が(0.1*レベル)減少します。"
+      "text": "正確性が(0.1×レベル)減少します。"
     }
   ],
   "more_text_space": true,

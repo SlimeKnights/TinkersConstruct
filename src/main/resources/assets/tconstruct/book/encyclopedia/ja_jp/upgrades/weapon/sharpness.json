@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:sharpness",
   "text": [
     {
-      "text": "攻撃力に(+0.75*レベル)の補正がかかります。"
+      "text": "攻撃力に(+0.75×レベル)の補正がかかります。"
     }
   ],
   "more_text_space": true,

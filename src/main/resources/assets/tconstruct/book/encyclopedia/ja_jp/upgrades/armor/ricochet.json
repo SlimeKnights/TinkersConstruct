@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:ricochet",
   "text": [
     {
-      "text": "受けるノックバックが(20*レベル)%増加します。"
+      "text": "受けるノックバックが(20×レベル)%増加します。"
     }
   ],
   "more_text_space": true,

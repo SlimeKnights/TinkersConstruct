@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:antiaquatic",
   "text": [
     {
-      "text": "水生Mobに対して(+2*レベル)の攻撃力補正がかかります。"
+      "text": "水生Mobに対して(+2×レベル)の攻撃力補正がかかります。"
     }
   ],
   "more_text_space": true,

@@ -2,10 +2,10 @@
   "modifier_id": "tconstruct:turtle_shell",
   "text": [
     {
-      "text": "水中での耐性を(+10*レベル)%付与します。上限は防具全体で80%(合計8レベル)です。"
+      "text": "水中での耐性を(+10×レベル)%付与します。上限は防具全体で80%(合計8レベル)です。"
     },
     {
-      "text": "水泳速度を(5*レベル)%上昇させます。", "paragraph": true
+      "text": "水泳速度を(5×レベル)%上昇させます。", "paragraph": true
     }
   ],
   "more_text_space": true,

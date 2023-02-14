@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:power",
   "text": [
     {
-      "text": "飛翔体のダメージが(0.5*レベル)増加します。"
+      "text": "飛翔体のダメージが(0.5×レベル)増加します。"
     }
   ],
   "more_text_space": true,

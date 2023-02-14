@@ -1000,7 +1000,7 @@
   "multiblock.tconstruct.generic.no_attempt": "構造物の検出はまだ実行されていません、これは通常はmodのバグです",
   "multiblock.tconstruct.generic.not_loaded": "構造物が読み込み済みのエリア外にあります、これは通常はmodのバグです。",
   "multiblock.tconstruct.generic.too_high": "構造物にはワールドの設置上限より上にブロックが必要です",
-  "multiblock.tconstruct.generic.too_large": "構造体が大きすぎます: 現在%s×%s、最大%s×%s",
+  "multiblock.tconstruct.generic.too_large": "構造体の内寸が大きすぎます: 現在%s×%s、最大%s×%s",
 
   "multiblock.tconstruct.generic.invalid_inner_block": "構造内に無効なブロックがあります",
   "multiblock.tconstruct.generic.invalid_wall_block": "壁に無効なブロックがあります",

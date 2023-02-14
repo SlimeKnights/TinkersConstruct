@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:fiery",
   "text": [
     {
-      "text": "(5*レベル)秒間、攻撃したMobを炎上させます。"
+      "text": "(5×レベル)秒間、攻撃したMobを炎上させます。"
     }
   ],
   "more_text_space": true,

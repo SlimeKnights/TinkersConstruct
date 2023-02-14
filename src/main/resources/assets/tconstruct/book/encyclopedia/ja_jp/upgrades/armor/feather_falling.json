@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:feather_falling",
   "text": [
     {
-      "text": "落下ダメージに対して(+15*レベル)%の耐性がつき、4レベルで最大+60%になります。"
+      "text": "落下ダメージに対して(+15×レベル)%の耐性がつき、4レベルで最大+60%になります。"
     }
   ],
   "more_text_space": true,

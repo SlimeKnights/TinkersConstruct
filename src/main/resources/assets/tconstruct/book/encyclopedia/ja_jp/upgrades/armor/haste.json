@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:haste",
   "text": [
     {
-      "text": "全ての道具の採掘速度に(+10*レベル)%の補正がかかります。"
+      "text": "全ての道具の採掘速度に(+10×レベル)%の補正がかかります。"
     }
   ],
   "more_text_space": true,

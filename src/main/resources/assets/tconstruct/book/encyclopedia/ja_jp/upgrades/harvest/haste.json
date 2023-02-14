@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:haste",
   "text": [
     {
-      "text": "収穫用の道具の採掘速度に(+4*レベル)の補正がかかります。"
+      "text": "収穫用の道具の採掘速度に(+4×レベル)の補正がかかります。"
     }
   ],
   "more_text_space": true,

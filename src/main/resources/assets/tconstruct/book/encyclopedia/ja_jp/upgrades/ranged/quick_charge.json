@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:quick_charge",
   "text": [
     {
-      "text": "道具の弓引き速度が(25*レベル)%増加します。"
+      "text": "道具の弓引き速度が(25×レベル)%増加します。"
     }
   ],
   "more_text_space": true,
