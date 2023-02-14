@@ -2007,7 +2007,7 @@
   "modifier.tconstruct.long_fall": "ロングフォール",
   "modifier.tconstruct.long_fall.flavor": "足型の防具",
   "modifier.tconstruct.long_fall.description": "全ての落下ダメージを打ち消す",
-  "recipe.tconstruct.modifier.long_fall": "ロングフォールを適用するには落下耐性IVが必要です",
+  "recipe.tconstruct.modifier.long_fall": "ロングフォールを適用するには低速落下IVが必要です",
   "modifier.tconstruct.soulspeed": "ソウルスピード",
   "modifier.tconstruct.soulspeed.flavor": "不気味",
   "modifier.tconstruct.soulspeed.description": "ソウルサンドの上での移動速度が上がる",
