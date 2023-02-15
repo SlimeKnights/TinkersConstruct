@@ -1385,7 +1385,7 @@
   "material.tconstruct.wood.dark_oak": "ダークオークの木",
   "material.tconstruct.wood.crimson":  "真紅の菌糸",
   "material.tconstruct.wood.warped":   "歪んだ菌糸",
-  
+  "material.tconstruct.wood.format": "木の%s",
   "material.tconstruct.wood.flavor": "キツツキ木突き中きつく木に頭突きし傷つき気絶し木突き続けられず",
   "material.tconstruct.wood.encyclopedia": "部品1個辺り、修理の際に素材1個で回復する耐久度が50%上昇する",
 
