@@ -1,0 +1,11 @@
+{
+  "tool": "tconstruct:sky_staff",
+  "text": [
+    { "text": "碧空黏液手杖给进一步强化留下了许多空间。" }
+  ],
+  "properties": [
+    "低耐久度",
+    "5 升级槽",
+    "2 能力槽"
+  ]
+}

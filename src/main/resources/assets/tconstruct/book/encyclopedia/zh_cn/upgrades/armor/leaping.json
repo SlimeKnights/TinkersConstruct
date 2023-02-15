@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:leaping",
   "text": [
     {
-      "text": "每级+0.5格跳跃高度，并且增加1格安全摔落高度。"
+      "text": "每级跳跃高度+0.5格，并且增加1格安全摔落高度。"
     }
   ],
   "more_text_space": true,

@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:freezing",
   "text": [
     {
-      "text": "冰冻任何被箭击中的实体4秒（每级增加4秒），施加缓慢效果并且造成伤害。"
+      "text": "冰冻任何被箭击中的实体4秒（每级+4秒），施加缓慢效果并且造成伤害。"
     }
   ],
   "more_text_space": true,

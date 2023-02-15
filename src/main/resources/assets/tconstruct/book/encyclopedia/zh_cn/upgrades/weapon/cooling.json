@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:cooling",
   "text": [
     {
-      "text": "每级+1.6点对免疫火焰的生物的伤害。"
+      "text": "每级对免疫火焰的生物的伤害+1.6。"
     }
   ],
   "more_text_space": true,

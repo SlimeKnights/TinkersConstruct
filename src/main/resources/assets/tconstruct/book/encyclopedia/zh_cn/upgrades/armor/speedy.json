@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:speedy",
   "text": [
     {
-      "text": "每级增加10%的移动速度。"
+      "text": "每级移动速度+10%。"
     }
   ],
   "more_text_space": true,

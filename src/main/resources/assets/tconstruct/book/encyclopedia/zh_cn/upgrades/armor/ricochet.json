@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:ricochet",
   "text": [
     {
-      "text": "增加受到的击退效果，每级增加20%。"
+      "text": "增加受到的击退效果，每级+20%。"
     }
   ],
   "more_text_space": true,
