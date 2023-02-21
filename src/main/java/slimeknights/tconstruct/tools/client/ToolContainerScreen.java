@@ -6,7 +6,9 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.Slot;
 import slimeknights.tconstruct.TConstruct;
@@ -69,6 +71,18 @@ public class ToolContainerScreen extends AbstractContainerScreen<ToolContainerMe
     this.imageHeight = 114 + this.inventoryRows * 18;
     this.inventoryLabelY = this.imageHeight - 94;
     this.tool = ToolStack.from(menu.getStack());
+  }
+
+  @Override
+  protected void slotClicked(Slot slot, int slotId, int index, ClickType type) {
+    // disallow swapping the tool slot
+    if (type == ClickType.SWAP) {
+      EquipmentSlot toolSlot = menu.getSlotType();
+      if (toolSlot == EquipmentSlot.MAINHAND && index == menu.getSelectedHotbarSlot() || toolSlot == EquipmentSlot.OFFHAND && index == Inventory.SLOT_OFFHAND) {
+        return;
+      }
+    }
+    super.slotClicked(slot, slotId, index, type);
   }
 
   @Override
