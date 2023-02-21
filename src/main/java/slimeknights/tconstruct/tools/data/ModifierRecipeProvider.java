@@ -187,14 +187,14 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
      * durability
      */
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.reinforced)
-                         .setInput(TinkerModifiers.ironReinforcement, 1, 24)
+                         .setInput(TinkerModifiers.ironReinforcement, 1, 20)
                          .setMaxLevel(5) // max 75% resistant to damage
                          .setSlots(SlotType.UPGRADE, 1)
                          .setTools(TinkerTags.Items.DURABILITY)
                          .saveSalvage(consumer, prefix(TinkerModifiers.reinforced, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.reinforced, upgradeFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.overforced)
-                                    .setInput(TinkerModifiers.slimesteelReinforcement, 1, 24)
+                                    .setInput(TinkerModifiers.slimesteelReinforcement, 1, 20)
                                     .setMaxLevel(5) // +250 capacity
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .setTools(TinkerTags.Items.DURABILITY)
@@ -638,31 +638,31 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // all held tools can receive defense slots, so give them something to use it for
     Ingredient protectableTools = ingredientFromTags(TinkerTags.Items.ARMOR, TinkerTags.Items.HELD);
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.meleeProtection)
-                                    .setInput(TinkerModifiers.cobaltReinforcement, 1, 24)
+                                    .setInput(TinkerModifiers.cobaltReinforcement, 1, 20)
                                     .setSlots(SlotType.DEFENSE, 1)
                                     .setTools(protectableTools)
                                     .saveSalvage(consumer, prefix(TinkerModifiers.meleeProtection, defenseSalvage))
                                     .save(consumer, prefix(TinkerModifiers.meleeProtection, defenseFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.projectileProtection)
-                                    .setInput(TinkerModifiers.bronzeReinforcement, 1, 24)
+                                    .setInput(TinkerModifiers.bronzeReinforcement, 1, 20)
                                     .setSlots(SlotType.DEFENSE, 1)
                                     .setTools(protectableTools)
                                     .saveSalvage(consumer, prefix(TinkerModifiers.projectileProtection, defenseSalvage))
                                     .save(consumer, prefix(TinkerModifiers.projectileProtection, defenseFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.blastProtection)
-                                    .setInput(TinkerModifiers.emeraldReinforcement, 1, 24)
+                                    .setInput(TinkerModifiers.emeraldReinforcement, 1, 20)
                                     .setSlots(SlotType.DEFENSE, 1)
                                     .setTools(protectableTools)
                                     .saveSalvage(consumer, prefix(TinkerModifiers.blastProtection, defenseSalvage))
                                     .save(consumer, prefix(TinkerModifiers.blastProtection, defenseFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.magicProtection)
-                                    .setInput(TinkerModifiers.goldReinforcement, 1, 24)
+                                    .setInput(TinkerModifiers.goldReinforcement, 1, 20)
                                     .setSlots(SlotType.DEFENSE, 1)
                                     .setTools(protectableTools)
                                     .saveSalvage(consumer, prefix(TinkerModifiers.magicProtection, defenseSalvage))
                                     .save(consumer, prefix(TinkerModifiers.magicProtection, defenseFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.fireProtection)
-                                    .setInput(TinkerModifiers.searedReinforcement, 1, 24)
+                                    .setInput(TinkerModifiers.searedReinforcement, 1, 20)
                                     .setSlots(SlotType.DEFENSE, 1)
                                     .setTools(protectableTools)
                                     .saveSalvage(consumer, prefix(TinkerModifiers.fireProtection, defenseSalvage))
