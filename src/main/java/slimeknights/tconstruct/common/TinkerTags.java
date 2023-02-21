@@ -384,6 +384,8 @@ public class TinkerTags {
     public static final TagKey<Item> EMBELLISHMENT_SLIME = tag("modifiable/embellishment/slime");
     /** Tools that can be dyed */
     public static final TagKey<Item> DYEABLE = tag("modifiable/dyeable");
+    /** Tools to blacklist from default salvage recipes. May still be salvagable in other recipes */
+    public static final TagKey<Item> UNSALVAGABLE = tag("modifiable/unsalvageable");
 
     /** Tag so mods like thermal know our scyhtes can harvest */
     public static final TagKey<Item> SCYTHES = forgeTag("tools/scythe");

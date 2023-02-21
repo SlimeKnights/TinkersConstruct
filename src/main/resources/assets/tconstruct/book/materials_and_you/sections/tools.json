@@ -53,5 +53,10 @@
     "name": "part_swapping",
     "type": "mantle:image_text",
     "data": "tools/part_swapping.json"
+  },
+  {
+    "name": "recycling",
+    "type": "mantle:image_text",
+    "data": "tools/recycling.json"
   }
 ]

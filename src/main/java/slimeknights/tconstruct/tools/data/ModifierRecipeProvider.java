@@ -1424,17 +1424,34 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                                                  FluidContainerIngredient.fromIngredient(FluidIngredient.of(TinkerFluids.venom.getLocalTag(), FluidValues.BOTTLE),
                                                                                                          Ingredient.of(TinkerFluids.venomBottle))))
                                  .save(consumer, modResource(worktableFolder + "remove_modifier_venom"));
+    // non-dagger extracting
     ModifierRemovalRecipe.Builder.removal(TinkerModifiers.extractModifierSerializer.get())
+                                 .setTools(DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.MODIFIABLE), Ingredient.of(TinkerTags.Items.UNSALVAGABLE)))
                                  .addInput(TinkerWorld.enderGeode)
                                  .addInput(Items.DRAGON_BREATH, 5)
                                  .modifierPredicate(new TagModifierPredicate(TinkerTags.Modifiers.EXTRACT_MODIFIER_BLACKLIST).inverted())
                                  .save(consumer, modResource(worktableFolder + "extract_modifier_breath"));
     ModifierRemovalRecipe.Builder.removal(TinkerModifiers.extractModifierSerializer.get())
+                                 .setTools(DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.MODIFIABLE), Ingredient.of(TinkerTags.Items.UNSALVAGABLE)))
                                  .addInput(TinkerWorld.enderGeode)
                                  .addInput(Items.WET_SPONGE)
                                  .addLeftover(Items.SPONGE)
                                  .modifierPredicate(new TagModifierPredicate(TinkerTags.Modifiers.EXTRACT_MODIFIER_BLACKLIST).inverted())
                                  .save(consumer, modResource(worktableFolder + "extract_modifier_sponge"));
+    // dagger extracting
+    ModifierRemovalRecipe.Builder.removal(TinkerModifiers.extractModifierSerializer.get())
+                                 .setTools(SizedIngredient.fromItems(2, TinkerTools.dagger))
+                                 .addInput(TinkerWorld.enderGeode)
+                                 .addInput(Items.DRAGON_BREATH, 5)
+                                 .modifierPredicate(new TagModifierPredicate(TinkerTags.Modifiers.EXTRACT_MODIFIER_BLACKLIST).inverted())
+                                 .save(consumer, modResource(worktableFolder + "extract_dagger_modifier_breath"));
+    ModifierRemovalRecipe.Builder.removal(TinkerModifiers.extractModifierSerializer.get())
+                                 .setTools(SizedIngredient.fromItems(2, TinkerTools.dagger))
+                                 .addInput(TinkerWorld.enderGeode)
+                                 .addInput(Items.WET_SPONGE)
+                                 .addLeftover(Items.SPONGE)
+                                 .modifierPredicate(new TagModifierPredicate(TinkerTags.Modifiers.EXTRACT_MODIFIER_BLACKLIST).inverted())
+                                 .save(consumer, modResource(worktableFolder + "extract_dagger_modifier_sponge"));
     ModifierSortingRecipe.Builder.sorting()
                                  .addInput(Items.COMPASS)
                                  .save(consumer, modResource(worktableFolder + "modifier_sorting"));

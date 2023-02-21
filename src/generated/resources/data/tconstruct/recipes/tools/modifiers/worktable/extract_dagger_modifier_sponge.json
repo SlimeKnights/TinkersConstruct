@@ -5,19 +5,16 @@
       "item": "tconstruct:ender_slime_crystal"
     },
     {
-      "item": "minecraft:dragon_breath",
-      "amount_needed": 5
+      "item": "minecraft:wet_sponge"
     }
   ],
   "tools": {
-    "type": "forge:difference",
-    "base": {
-      "tag": "tconstruct:modifiable"
-    },
-    "subtracted": {
-      "tag": "tconstruct:modifiable/unsalvageable"
-    }
+    "item": "tconstruct:dagger",
+    "amount_needed": 2
   },
+  "leftovers": [
+    "minecraft:sponge"
+  ],
   "modifier_predicate": {
     "type": "tconstruct:inverted",
     "predicate": {

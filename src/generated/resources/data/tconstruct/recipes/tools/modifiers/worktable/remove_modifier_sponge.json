@@ -5,6 +5,9 @@
       "item": "minecraft:wet_sponge"
     }
   ],
+  "tools": {
+    "tag": "tconstruct:modifiable"
+  },
   "leftovers": [
     "minecraft:sponge"
   ],

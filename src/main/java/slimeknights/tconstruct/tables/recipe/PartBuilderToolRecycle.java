@@ -10,12 +10,14 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
+import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -50,7 +52,14 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe {
   private static final Pattern ERROR = new Pattern(TConstruct.MOD_ID, "missingno");
   @Getter
   private final ResourceLocation id;
+  private final SizedIngredient toolRequirement;
   private final Ingredient pattern;
+
+  /** @deprecated use {@link #PartBuilderToolRecycle(ResourceLocation, SizedIngredient, Ingredient)} */
+  @Deprecated
+  public PartBuilderToolRecycle(ResourceLocation id, Ingredient pattern) {
+    this(id, SizedIngredient.fromTag(TinkerTags.Items.MULTIPART_TOOL), pattern);
+  }
 
   @Override
   public Pattern getPattern() {
@@ -75,12 +84,12 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe {
 
   @Override
   public int getItemsUsed(IPartBuilderContainer inv) {
-    return 1;
+    return toolRequirement.getAmountNeeded();
   }
 
   @Override
   public boolean partialMatch(IPartBuilderContainer inv) {
-    return pattern.test(inv.getPatternStack()) && inv.getStack().is(TinkerTags.Items.MULTIPART_TOOL);
+    return pattern.test(inv.getPatternStack()) && toolRequirement.test(inv.getStack());
   }
 
   @Override
@@ -173,18 +182,25 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe {
   public static class Serializer extends LoggingRecipeSerializer<PartBuilderToolRecycle> {
     @Override
     public PartBuilderToolRecycle fromJson(ResourceLocation id, JsonObject json) {
-      return new PartBuilderToolRecycle(id, Ingredient.fromJson(JsonHelper.getElement(json, "pattern")));
+      SizedIngredient tools;
+      if (json.has("tools")) {
+        tools = SizedIngredient.deserialize(GsonHelper.getAsJsonObject(json, "tools"));
+      } else {
+        tools = SizedIngredient.fromTag(TinkerTags.Items.MULTIPART_TOOL);
+      }
+      return new PartBuilderToolRecycle(id, tools, Ingredient.fromJson(JsonHelper.getElement(json, "pattern")));
     }
 
     @Override
     protected void toNetworkSafe(FriendlyByteBuf buffer, PartBuilderToolRecycle recipe) {
+      recipe.toolRequirement.write(buffer);
       recipe.pattern.toNetwork(buffer);
     }
 
     @Nullable
     @Override
     protected PartBuilderToolRecycle fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
-      return new PartBuilderToolRecycle(id, Ingredient.fromNetwork(buffer));
+      return new PartBuilderToolRecycle(id, SizedIngredient.read(buffer), Ingredient.fromNetwork(buffer));
     }
   }
 
@@ -192,10 +208,18 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe {
   public static class Finished implements FinishedRecipe {
     @Getter
     private final ResourceLocation id;
+    private final SizedIngredient tools;
     private final Ingredient pattern;
+
+    /** @deprecated use {@link #Finished(ResourceLocation, SizedIngredient, Ingredient)} */
+    @Deprecated
+    public Finished(ResourceLocation id, Ingredient pattern) {
+      this(id, SizedIngredient.fromTag(TinkerTags.Items.MULTIPART_TOOL), pattern);
+    }
 
     @Override
     public void serializeRecipeData(JsonObject json) {
+      json.add("tools", tools.serialize());
       json.add("pattern", pattern.toJson());
     }
 

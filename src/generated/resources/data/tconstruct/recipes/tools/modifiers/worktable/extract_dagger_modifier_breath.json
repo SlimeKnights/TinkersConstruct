@@ -10,13 +10,8 @@
     }
   ],
   "tools": {
-    "type": "forge:difference",
-    "base": {
-      "tag": "tconstruct:modifiable"
-    },
-    "subtracted": {
-      "tag": "tconstruct:modifiable/unsalvageable"
-    }
+    "item": "tconstruct:dagger",
+    "amount_needed": 2
   },
   "modifier_predicate": {
     "type": "tconstruct:inverted",
