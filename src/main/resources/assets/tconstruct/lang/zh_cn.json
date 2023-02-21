@@ -254,7 +254,7 @@
   "item.tconstruct.modifier_crystal": "强化水晶",
   "item.tconstruct.modifier_crystal.format": "%s水晶",
   "item.tconstruct.modifier_crystal.missing": "定义强化类型的NBT缺失或无效",
-  "item.tconstruct.modifier_crystal.tooltip": "加持于工具后对应强化等级增加1级并消耗相应的强化槽。",
+  "item.tconstruct.modifier_crystal.tooltip": "加持于工具后对应强化等级增加1级并消耗相应的强化槽",
 
   "item.tconstruct.creative_slot": "创造强化槽",
   "item.tconstruct.creative_slot.upgrades": "创造升级槽",
@@ -775,7 +775,7 @@
   "_comment": "Tinkers Gadgets",
 
   "block.tconstruct.punji": "尖竹钉",
-  "block.tconstruct.punji.tooltip": "很尖锐！还能钉在墙上",
+  "block.tconstruct.punji.tooltip": "很尖锐！还能钉在墙上。",
 
   "item.tconstruct.clear_item_frame": "通透玻璃物品展示框",
   "item.tconstruct.gold_item_frame": "金物品展示框",
@@ -785,7 +785,7 @@
   "item.tconstruct.netherite_item_frame": "下界合金物品展示框",
 
   "item.tconstruct.glow_ball": "荧光球",
-  "item.tconstruct.glow_ball.tooltip": "不宜食用。",
+  "item.tconstruct.glow_ball.tooltip": "不宜食用",
   "item.tconstruct.efln_ball": "EFLN",
   "item.tconstruct.efln_ball.tooltip": "爆破！一种安全的采矿方式",
 
@@ -1054,7 +1054,7 @@
   "block.tconstruct.seared_glass_pane.tooltip": "无法用于构造冶炼炉",
 
   "block.tconstruct.seared_ladder": "焦黑梯子",
-  "block.tconstruct.seared_ladder.tooltip": "可供攀爬的冶炼炉建材。",
+  "block.tconstruct.seared_ladder.tooltip": "可供攀爬的冶炼炉建材",
 
   "block.tconstruct.seared_fuel_tank": "焦黑燃料储罐",
   "block.tconstruct.seared_fuel_tank.tooltip": "冶炼炉的心脏\n被破坏时仍能保留其中的液体",
@@ -1925,8 +1925,11 @@
   "modifier.tconstruct.dragonborn.resistance": "空中抗性",
   "modifier.tconstruct.shulking": "潜影壳",
   "modifier.tconstruct.shulking.flavor": "这个壳是我的家",
-  "modifier.tconstruct.shulking.description": "潜行时提升抗性，但也减少攻击力",
+  "modifier.tconstruct.shulking.description": "潜行时提升抗性，但同时减少攻击力",
   "modifier.tconstruct.shulking.resistance": "外壳抗性",
+  "modifier.tconstruct.boundless": "无垠",
+  "modifier.tconstruct.boundless.flavor": "提升上限！",
+  "modifier.tconstruct.boundless.description": "提升所有来源的保护加成上限",
 
   "_comment": "Armor - counterattack",
   "modifier.tconstruct.thorns": "荆棘",
