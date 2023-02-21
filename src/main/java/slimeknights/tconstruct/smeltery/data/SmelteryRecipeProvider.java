@@ -1617,9 +1617,9 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     MeltingRecipeBuilder.melting(Ingredient.of(Items.HONEY_BLOCK), TinkerFluids.honey.get(), FluidValues.BOTTLE * 4)
                         .save(consumer, modResource(slimeFolder + "honey_block"));
     // soup
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.BEETROOT), TinkerFluids.beetrootSoup.get(), FluidValues.BOTTLE / 5, 10)
+    MeltingRecipeBuilder.melting(Ingredient.of(Items.BEETROOT), TinkerFluids.beetrootSoup.get(), FluidValues.BOTTLE / 5, 1)
                         .save(consumer, modResource(slimeFolder + "beetroot_soup"));
-    MeltingRecipeBuilder.melting(Ingredient.of(Tags.Items.MUSHROOMS), TinkerFluids.mushroomStew.get(), FluidValues.BOTTLE / 2, 10)
+    MeltingRecipeBuilder.melting(Ingredient.of(Tags.Items.MUSHROOMS), TinkerFluids.mushroomStew.get(), FluidValues.BOTTLE / 2, 1)
                         .save(consumer, modResource(slimeFolder + "mushroom_stew"));
 
     // fuels
