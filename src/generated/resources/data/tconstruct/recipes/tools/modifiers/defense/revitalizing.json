@@ -5,14 +5,9 @@
   },
   "amount_per_item": 1,
   "needed_per_level": 2,
-  "tools": [
-    {
-      "tag": "tconstruct:modifiable/armor/helmets"
-    },
-    {
-      "tag": "tconstruct:modifiable/armor/boots"
-    }
-  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/worn"
+  },
   "slots": {
     "defense": 1
   },
@@ -21,5 +16,5 @@
     "name": "tconstruct:revitalizing",
     "level": 1
   },
-  "max_level": 2
+  "max_level": 5
 }

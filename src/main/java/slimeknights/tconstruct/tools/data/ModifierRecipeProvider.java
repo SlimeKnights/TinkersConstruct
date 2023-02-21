@@ -714,22 +714,12 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .save(consumer, prefix(TinkerModifiers.dragonScale, defenseFolder));
     // 3 each for chest and legs, 2 each for boots and helmet, leads to 10 total
     IncrementalModifierRecipeBuilder.modifier(ModifierIds.revitalizing)
-                                    .setTools(ingredientFromTags(TinkerTags.Items.CHESTPLATES, TinkerTags.Items.LEGGINGS))
+                                    .setTools(ingredientFromTags(TinkerTags.Items.WORN_ARMOR)) // revitalizing would suck on an item you constantly change
                                     .setInput(TinkerCommons.jeweledApple, 1, 2)
                                     .setSlots(SlotType.DEFENSE, 1)
-                                    .setMaxLevel(3)
-                                    .save(consumer, wrap(ModifierIds.revitalizing, defenseFolder, "_large"));
-    IncrementalModifierRecipeBuilder.modifier(ModifierIds.revitalizing)
-                                    .setTools(ingredientFromTags(TinkerTags.Items.HELMETS, TinkerTags.Items.BOOTS))
-                                    .setInput(TinkerCommons.jeweledApple, 1, 2)
-                                    .setSlots(SlotType.DEFENSE, 1)
-                                    .setMaxLevel(2)
-                                    .save(consumer, wrap(ModifierIds.revitalizing, defenseFolder, "_small"));
-    IncrementalModifierRecipeBuilder.modifier(ModifierIds.revitalizing)
-                                    .setTools(TinkerTags.Items.WORN_ARMOR) // revitalizing would suck on an item you constantly change
-                                    .setSlots(SlotType.DEFENSE, 1)
-                                    .setMaxLevel(3)
-                                    .saveSalvage(consumer, prefix(ModifierIds.revitalizing, defenseSalvage));
+                                    .setMaxLevel(5)
+                                    .saveSalvage(consumer, prefix(ModifierIds.revitalizing, defenseSalvage))
+                                    .save(consumer, prefix(ModifierIds.revitalizing, defenseFolder));
 
     // upgrade - counterattack
     Ingredient wornOrShield = ingredientFromTags(TinkerTags.Items.WORN_ARMOR, TinkerTags.Items.SHIELDS); // held armor may include things that cannot block
