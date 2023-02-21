@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:boundless",
+  "text": [
+    {
+      "text": "Increases the  cap from modifiers like protection, dragonborn, or shulking from 80% to 90%. If applied on two pieces, further increases the cap from 90% to 95%."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 1 level",
+    "Requires 1 ability slot per level"
+  ]
+}

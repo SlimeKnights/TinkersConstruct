@@ -327,8 +327,11 @@ public class ToolEvents {
     }
 
     // TODO: consider hook for modifiers to change damage directly
-    // if we changed anything, run our logic
-    if (vanillaModifier != modifierValue) {
+    // if we changed anything, run our logic. Changing the cap has 2 problematic cases where same value will work:
+    // * increased cap and vanilla is over the vanilla cap
+    // * decreased cap and vanilla is now under the cap
+    float cap = Math.min(20 + context.getTinkerData().resolve().map(data -> data.get(TinkerDataKeys.PROTECTION_CAP)).orElse(0f), 25 * 0.95f);
+    if (vanillaModifier != modifierValue || (cap > 20 && vanillaModifier > 20) || (cap < 20 && vanillaModifier > cap)) {
       // fetch armor and toughness if blockable, passing in 0 to the logic will skip the armor calculations
       float armor = 0, toughness = 0;
       if (!source.isBypassArmor()) {
@@ -337,7 +340,7 @@ public class ToolEvents {
       }
 
       // set the final dealt damage
-      float finalDamage = ArmorUtil.getDamageForEvent(originalDamage, armor, toughness, vanillaModifier, modifierValue);
+      float finalDamage = ArmorUtil.getDamageForEvent(originalDamage, armor, toughness, vanillaModifier, modifierValue, cap);
       event.setAmount(finalDamage);
 
       // armor is damaged less as a result of our math, so damage the armor based on the difference if there is one

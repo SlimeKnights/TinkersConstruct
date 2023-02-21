@@ -15,6 +15,7 @@ import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.Util;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import java.util.List;
 
@@ -93,7 +94,8 @@ public abstract class AbstractProtectionModifier<T extends ModifierMaxLevel> ext
    */
   public static void addResistanceTooltip(Modifier modifier, IToolStackView tool, int level, float multiplier, List<Component> tooltip) {
     if (tool.hasTag(TinkerTags.Items.ARMOR)) {
-      tooltip.add(modifier.applyStyle(new TextComponent(Util.PERCENT_BOOST_FORMAT.format(Math.min(modifier.getEffectiveLevel(tool, level) * multiplier / 25f, 0.8f)))
+      float cap = Math.min(0.95f, 0.8f + tool.getModifierLevel(TinkerModifiers.boundless.getId()) * 0.1f);
+      tooltip.add(modifier.applyStyle(new TextComponent(Util.PERCENT_BOOST_FORMAT.format(Math.min(modifier.getEffectiveLevel(tool, level) * multiplier / 25f, cap)))
                                         .append(" ")
                                         .append(new TranslatableComponent(modifier.getTranslationKey() + ".resistance"))));
     }

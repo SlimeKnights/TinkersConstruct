@@ -37,11 +37,21 @@ public class ArmorUtil {
    * @return  Original damage to be dealt
    */
   public static float getDamageAfterMagicAbsorb(float damage, float enchantModifiers) {
+    return getDamageAfterMagicAbsorb(damage, enchantModifiers, 20f);
+  }
+
+  /**
+   * Extension of of {@link net.minecraft.world.damagesource.CombatRules#getDamageAfterMagicAbsorb(float, float)} to allow increasing damage via negative numbers and a higher cap
+   * @param damage            Damage to absorb (or increase)
+   * @param enchantModifiers  Enchantment modifier amount, between -20 and 20
+   * @return  Original damage to be dealt
+   */
+  public static float getDamageAfterMagicAbsorb(float damage, float enchantModifiers, float cap) {
     // saves a bit of effort for 0 ranges
     if (enchantModifiers == 0 || damage <= 0) {
       return damage;
     }
-    return damage * (1f - Mth.clamp(enchantModifiers, -20f, 20f) / 25f);
+    return damage * (1f - Mth.clamp(enchantModifiers, -20f, cap) / 25f);
   }
 
   /**
@@ -54,6 +64,11 @@ public class ArmorUtil {
     return damage / (1f - (Mth.clamp(enchantModifiers, 0f, 20f) / 25f));
   }
 
+  /** Same as {@link #getDamageForEvent(float, float, float, float, float, float)} but sets the cap to 20f */
+  public static float getDamageForEvent(float originalDamage, float armor, float toughness, float vanillaModifiers, float finalModifiers) {
+    return getDamageForEvent(originalDamage, armor, toughness, vanillaModifiers, finalModifiers, 20f);
+  }
+
   /**
    * Calculates the final damage for use in {@link net.minecraftforge.event.entity.living.LivingHurtEvent}. Requires applying several inverse functions to cancel out vanilla formulas that are applied later
    * @param originalDamage     Original damage to be dealt
@@ -61,11 +76,12 @@ public class ArmorUtil {
    * @param toughness          Armor toughness attribute
    * @param vanillaModifiers   Vanilla armor modifiers from enchantments
    * @param finalModifiers     Armor modifiers from modifiers and vanilla
+   * @param modifierCap        Maximum protection value allowed
    * @return  Damage to return in the event
    */
-  public static float getDamageForEvent(float originalDamage, float armor, float toughness, float vanillaModifiers, float finalModifiers) {
+  public static float getDamageForEvent(float originalDamage, float armor, float toughness, float vanillaModifiers, float finalModifiers, float modifierCap) {
     // if we are changing no values, nothing to do
-    if (vanillaModifiers == finalModifiers) {
+    if (vanillaModifiers == finalModifiers && modifierCap == 20) {
       return originalDamage;
     }
 
@@ -82,7 +98,7 @@ public class ArmorUtil {
     // this includes the vanilla bonus as that makes our modifier 1 to 1 with the vanilla enchant
     // again, can skip if no bonus. This means we are just removing the vanilla bonus
     if (finalModifiers != 0) {
-      damage = getDamageAfterMagicAbsorb(damage, finalModifiers);
+      damage = getDamageAfterMagicAbsorb(damage, finalModifiers, modifierCap);
     }
 
     // if there is a vanilla bonus, we want to cancel it out so our bonus remains

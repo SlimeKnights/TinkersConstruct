@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "tools": {
+    "tag": "tconstruct:modifiable/shields"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "modifier": "tconstruct:boundless",
+  "min_level": 1
+}

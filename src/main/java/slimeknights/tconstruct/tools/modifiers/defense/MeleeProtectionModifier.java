@@ -89,12 +89,4 @@ public class MeleeProtectionModifier extends AbstractProtectionModifier<Modifier
   protected ModifierMaxLevel createData() {
     return new ModifierMaxLevel();
   }
-
-  private static class MeleeAttackSpeed extends ModifierMaxLevel {
-
-    @Override
-    public void set(EquipmentSlot slot, float level) {
-
-    }
-  }
 }

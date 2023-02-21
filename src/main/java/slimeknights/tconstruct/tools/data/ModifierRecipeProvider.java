@@ -678,6 +678,17 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.protection, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.protection, abilityFolder));
+    ModifierRecipeBuilder.modifier(TinkerModifiers.boundless)
+                         .addInput(TinkerCommons.obsidianPane, 4)
+                         .addInput(Items.WRITABLE_BOOK)
+                         .addInput(TinkerCommons.obsidianPane, 4)
+                         .addInput(TinkerWorld.ichorGeode, 2)
+                         .addInput(TinkerWorld.ichorGeode, 2)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .setTools(TinkerTags.Items.SHIELDS)
+                         .setMaxLevel(1)
+                         .saveSalvage(consumer, prefix(TinkerModifiers.boundless, abilitySalvage))
+                         .save(consumer, prefix(TinkerModifiers.boundless, abilityFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.knockbackResistance)
                          .setTools(TinkerTags.Items.ARMOR)
                          .addInput(SizedIngredient.fromItems(Blocks.ANVIL, Blocks.CHIPPED_ANVIL, Blocks.DAMAGED_ANVIL))
