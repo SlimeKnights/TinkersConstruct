@@ -992,7 +992,7 @@
   "gui.tconstruct.melting.fuel.no_tank": "结构内缺少储罐",
   "gui.tconstruct.melting.fuel.empty": "缺少燃料",
   "gui.tconstruct.melting.fuel.solid": "固体燃料",
-  "gui.tconstruct.melting.fuel.temperature": "温度：%s ℃",
+  "gui.tconstruct.melting.fuel.temperature": "温度：%s °C",
   "gui.tconstruct.melting.fuel.invalid": "无效的熔炼燃料！",
 
   "gui.tconstruct.duct": "输导孔",
@@ -2787,7 +2787,7 @@
 
   "_comment": "JEI Strings",
   "jei.tconstruct.time": "%s秒",
-  "jei.tconstruct.temperature": "%s℃",
+  "jei.tconstruct.temperature": "%s°C",
   "jei.tconstruct.modifier_ingredient": "%s强化",
 
   "jei.tconstruct.casting.basin": "铸造盆",
