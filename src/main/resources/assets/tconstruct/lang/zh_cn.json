@@ -1155,7 +1155,7 @@
   "block.tconstruct.scorched_channel.tooltip": "将上方浇注口中流下的流体进行分流",
 
   "block.tconstruct.scorched_alloyer": "焦褐合金炉",
-  "block.tconstruct.scorched_alloyer.tooltip": "简单的合金制造机器。\n将其安放在储罐或焦黑加热器的上方来接受热源",
+  "block.tconstruct.scorched_alloyer.tooltip": "简单的合金制造机器\n将其安放在储罐或焦黑加热器的上方来接受热源",
   "gui.tconstruct.alloyer": "合金炉",
 
   "block.tconstruct.foundry_controller": "熔铸炉控制器",
