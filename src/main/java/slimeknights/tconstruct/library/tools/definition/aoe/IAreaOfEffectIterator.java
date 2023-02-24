@@ -76,11 +76,7 @@ public interface IAreaOfEffectIterator extends IHaveLoader<IAreaOfEffectIterator
         }
         return false;
       };
-    }
-    else if (matchType == AOEMatchType.REPLACEABLE) {
-      return pos -> world.getBlockState(pos).getMaterial().isReplaceable();
-    }
-    else {
+    } else {
       return pos -> !world.isEmptyBlock(pos);
     }
   }
@@ -91,8 +87,6 @@ public interface IAreaOfEffectIterator extends IHaveLoader<IAreaOfEffectIterator
      * When using this type, the iteratable should be fetched before breaking the block */
     BREAKING,
     /** Used for right click interactions such as hoeing, typically matches any block (will filter later) */
-    TRANSFORM,
-    /** Matches only replaceable blocks (e.g. air, tall grass) **/
-    REPLACEABLE,
+    TRANSFORM
   }
 }
