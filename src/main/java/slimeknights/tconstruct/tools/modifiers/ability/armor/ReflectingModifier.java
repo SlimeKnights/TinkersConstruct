@@ -45,35 +45,38 @@ public class ReflectingModifier extends Modifier {
         ItemStack stack = living.getUseItem();
         if (stack.is(TinkerTags.Items.SHIELDS)) {
           ToolStack tool = ToolStack.from(stack);
+          // make sure we actually have the modifier
+          int reflectingLevel = tool.getModifierLevel(this);
+          if (reflectingLevel > 0) {
+            // only support the new hook for blocking, the old hook is a pain
+            ModifierEntry activeModifier = ModifierUtil.getActiveModifier(tool);
+            if (activeModifier != null) {
+              GeneralInteractionModifierHook hook = activeModifier.getHook(TinkerHooks.CHARGEABLE_INTERACT);
+              int time = hook.getUseDuration(tool, activeModifier) - living.getUseItemRemainingTicks();
+              // must be blocking, started blocking within the last 2*level seconds, and be within the block angle
+              if (hook.getUseAction(tool, activeModifier) == UseAnim.BLOCK
+                  && (time >= 5 && time < 40 * reflectingLevel)
+                  && InteractionHandler.canBlock(living, projectile.position(), tool)) {
 
-          // only support the new hook for blocking, the old hook is a pain
-          ModifierEntry activeModifier = ModifierUtil.getActiveModifier(tool);
-          if (activeModifier != null) {
-            GeneralInteractionModifierHook hook = activeModifier.getHook(TinkerHooks.CHARGEABLE_INTERACT);
-            int time = hook.getUseDuration(tool, activeModifier) - living.getUseItemRemainingTicks();
-            // must be blocking, started blocking within the last 2*level seconds, and be within the block angle
-            if (hook.getUseAction(tool, activeModifier) == UseAnim.BLOCK
-                && (time >= 5 && time < 40 * activeModifier.getLevel())
-                && InteractionHandler.canBlock(living, projectile.position(), tool)) {
+                // time to actually reflect, this code is strongly based on code from the Parry mod
+                // take ownership of the projectile so it counts as a player kill, except in the case of fishing bobbers
+                if (!RegistryHelper.contains(TinkerTags.EntityTypes.REFLECTING_PRESERVE_OWNER, projectile.getType())) {
+                  projectile.setOwner(living);
+                  projectile.leftOwner = true;
+                }
 
-              // time to actually reflect, this code is strongly based on code from the Parry mod
-              // take ownership of the projectile so it counts as a player kill, except in the case of fishing bobbers
-              if (!RegistryHelper.contains(TinkerTags.EntityTypes.REFLECTING_PRESERVE_OWNER, projectile.getType())) {
-                projectile.setOwner(living);
-                projectile.leftOwner = true;
+                Vec3 reboundAngle = living.getLookAngle();
+                // use the shield accuracy and velocity stats when reflecting
+                float velocity = ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.VELOCITY) * 1.1f;
+                projectile.shoot(reboundAngle.x, reboundAngle.y, reboundAngle.z, velocity, ModifierUtil.getInaccuracy(tool, living, (float)(velocity * projectile.getDeltaMovement().length())));
+                if (projectile instanceof AbstractHurtingProjectile hurting) {
+                  hurting.xPower = reboundAngle.x * 0.1;
+                  hurting.yPower = reboundAngle.y * 0.1;
+                  hurting.zPower = reboundAngle.z * 0.1;
+                }
+                living.level.playSound(null, living.blockPosition(), SoundEvents.SHIELD_BLOCK, SoundSource.PLAYERS, 1.0F, 1.5F + living.level.random.nextFloat() * 0.4F);
+                event.setCanceled(true);
               }
-
-              Vec3 reboundAngle = living.getLookAngle();
-              // use the shield accuracy and velocity stats when reflecting
-              float velocity = ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.VELOCITY) * 1.1f;
-              projectile.shoot(reboundAngle.x, reboundAngle.y, reboundAngle.z, velocity, ModifierUtil.getInaccuracy(tool, living, (float)(velocity * projectile.getDeltaMovement().length())));
-              if (projectile instanceof AbstractHurtingProjectile hurting) {
-                hurting.xPower = reboundAngle.x * 0.1;
-                hurting.yPower = reboundAngle.y * 0.1;
-                hurting.zPower = reboundAngle.z * 0.1;
-              }
-              living.level.playSound(null, living.blockPosition(), SoundEvents.SHIELD_BLOCK, SoundSource.PLAYERS, 1.0F, 1.5F + living.level.random.nextFloat() * 0.4F);
-              event.setCanceled(true);
             }
           }
         }
