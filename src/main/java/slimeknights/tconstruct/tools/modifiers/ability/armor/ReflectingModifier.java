@@ -4,6 +4,8 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.AbstractArrow.Pickup;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
@@ -61,7 +63,14 @@ public class ReflectingModifier extends Modifier {
                 // time to actually reflect, this code is strongly based on code from the Parry mod
                 // take ownership of the projectile so it counts as a player kill, except in the case of fishing bobbers
                 if (!RegistryHelper.contains(TinkerTags.EntityTypes.REFLECTING_PRESERVE_OWNER, projectile.getType())) {
-                  projectile.setOwner(living);
+                  // arrows are dumb and mutate their pickup status when owner is set, so disagree and set it back
+                  if (projectile instanceof AbstractArrow arrow) {
+                    Pickup pickup = arrow.pickup;
+                    arrow.setOwner(living);
+                    arrow.pickup = pickup;
+                  } else {
+                    projectile.setOwner(living);
+                  }
                   projectile.leftOwner = true;
                 }
 
