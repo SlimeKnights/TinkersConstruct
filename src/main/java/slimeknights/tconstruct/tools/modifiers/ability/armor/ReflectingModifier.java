@@ -1,8 +1,10 @@
 package slimeknights.tconstruct.tools.modifiers.ability.armor;
 
+import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.AbstractArrow.Pickup;
@@ -18,6 +20,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import slimeknights.mantle.util.RegistryHelper;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
@@ -43,7 +46,7 @@ public class ReflectingModifier extends Modifier {
       // living entity must be using one of our shields
       HitResult hit = event.getRayTraceResult();
       if (!RegistryHelper.contains(TinkerTags.EntityTypes.REFLECTING_BLACKLIST, projectile.getType())
-          && hit.getType() == Type.ENTITY && ((EntityHitResult) hit).getEntity() instanceof LivingEntity living && living.isUsingItem()) {
+          && hit.getType() == Type.ENTITY && ((EntityHitResult) hit).getEntity() instanceof LivingEntity living && living.isUsingItem() && living != projectile.getOwner()) {
         ItemStack stack = living.getUseItem();
         if (stack.is(TinkerTags.Items.SHIELDS)) {
           ToolStack tool = ToolStack.from(stack);
@@ -82,6 +85,9 @@ public class ReflectingModifier extends Modifier {
                   hurting.xPower = reboundAngle.x * 0.1;
                   hurting.yPower = reboundAngle.y * 0.1;
                   hurting.zPower = reboundAngle.z * 0.1;
+                }
+                if (living.getType() == EntityType.PLAYER) {
+                  TinkerNetwork.getInstance().sendVanillaPacket(new ClientboundSetEntityMotionPacket(projectile), living);
                 }
                 living.level.playSound(null, living.blockPosition(), SoundEvents.SHIELD_BLOCK, SoundSource.PLAYERS, 1.0F, 1.5F + living.level.random.nextFloat() * 0.4F);
                 event.setCanceled(true);
