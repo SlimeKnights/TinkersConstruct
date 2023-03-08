@@ -3,6 +3,6 @@
   "recipe": "tconstruct:tables/part_builder",
   "grid_size": "small",
   "description": [
-    { "text": "いくつかパターンンを作成したら、部品作成台を作成して道具の作成を開始ましょう。" }
+    { "text": "いくつかパターンを作成したら、部品作成台を作成して道具の作成を開始ましょう。" }
   ]
 }
