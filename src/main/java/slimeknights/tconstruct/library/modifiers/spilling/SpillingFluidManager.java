@@ -26,10 +26,10 @@ import slimeknights.tconstruct.library.utils.JsonUtils;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 /** Manager for spilling fluids for spilling, slurping, and wetting */
 @Log4j2
@@ -51,7 +51,7 @@ public class SpillingFluidManager extends SimpleJsonResourceReloadListener {
   /** List of available fluids, only exists serverside */
   private List<SpillingFluid> fluids = Collections.emptyList();
   /** Cache of fluid to recipe, recipe will be null client side */
-  private final Map<Fluid,SpillingFluid> cache = new HashMap<>();
+  private final Map<Fluid,SpillingFluid> cache = new ConcurrentHashMap<>();
 
   /** Empty spilling fluid instance */
   private static final SpillingFluid EMPTY = new SpillingFluid(FluidIngredient.EMPTY, Collections.emptyList());
