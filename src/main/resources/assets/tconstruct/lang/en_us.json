@@ -1927,6 +1927,9 @@
   "modifier.tconstruct.shulking.flavor": "This shell is my home",
   "modifier.tconstruct.shulking.description": "Increases resistance while sneaking, but also decreases damage",
   "modifier.tconstruct.shulking.resistance": "Shell Resistance",
+  "modifier.tconstruct.boundless": "Boundless",
+  "modifier.tconstruct.boundless.flavor": "Increasing your limits",
+  "modifier.tconstruct.boundless.description": "Increases the maximum percentage of protection from any source",
 
   "_comment": "Armor - counterattack",
   "modifier.tconstruct.thorns": "Thorns",

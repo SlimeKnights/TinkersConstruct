@@ -20,7 +20,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-/** Default implementation of modifier worktable recipes, taking a list of inputs */
+/**
+ * Default implementation of modifier worktable recipes, taking a list of inputs
+ * TODO 1.19: switch to sized ingredient
+ */
 @RequiredArgsConstructor
 public abstract class AbstractWorktableRecipe implements IModifierWorktableRecipe {
   @Getter

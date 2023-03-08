@@ -36,8 +36,8 @@ public class EnchantmentModifier extends Modifier {
     return levelDisplay.nameForLevel(this, level);
   }
 
-  @Override
-  public void addRawData(IToolStackView tool, int level, RestrictedCompoundTag tag) {
+  /** Adds an enchantment to the given tool, for use in {@link #addRawData(IToolStackView, int, RestrictedCompoundTag)} */
+  public static void addEnchantmentData(RestrictedCompoundTag tag, Enchantment enchantment, int level) {
     // first, find the enchantment tag
     ListTag enchantments;
     if (tag.contains(ModifierUtil.TAG_ENCHANTMENTS, Tag.TAG_LIST)) {
@@ -51,16 +51,16 @@ public class EnchantmentModifier extends Modifier {
     for (int i = 0; i < enchantments.size(); i++) {
       CompoundTag enchantmentTag = enchantments.getCompound(i);
       if (id.equals(enchantmentTag.getString("id"))) {
-        EnchantmentHelper.setEnchantmentLevel(enchantmentTag, level * enchantmentLevel);
+        EnchantmentHelper.setEnchantmentLevel(enchantmentTag, level);
         return;
       }
     }
     // none of the existing tags match the enchant, so add it
-    enchantments.add(EnchantmentHelper.storeEnchantment(enchantment.getRegistryName(), level * enchantmentLevel));
+    enchantments.add(EnchantmentHelper.storeEnchantment(enchantment.getRegistryName(), level));
   }
 
-  @Override
-  public void beforeRemoved(IToolStackView tool, RestrictedCompoundTag tag) {
+  /** Adds an enchantment to the given tool, for use in {@link #beforeRemoved(IToolStackView, RestrictedCompoundTag)} */
+  public static void removeEnchantmentData(RestrictedCompoundTag tag, Enchantment enchantment) {
     // when removing the modifier, remove the enchant
     // this will clobber anyone else trying to remove it, not much we can do
     if (tag.contains(ModifierUtil.TAG_ENCHANTMENTS, Tag.TAG_LIST)) {
@@ -77,6 +77,16 @@ public class EnchantmentModifier extends Modifier {
         }
       }
     }
+  }
+
+  @Override
+  public void addRawData(IToolStackView tool, int level, RestrictedCompoundTag tag) {
+    addEnchantmentData(tag, enchantment, level * enchantmentLevel);
+  }
+
+  @Override
+  public void beforeRemoved(IToolStackView tool, RestrictedCompoundTag tag) {
+    removeEnchantmentData(tag, enchantment);
   }
 
   @Override

@@ -18,4 +18,7 @@ public interface TinkerDataKeys {
 
 	/** FOV modifier that only applies when not disabled in the settings menu */
 	ComputableDataKey<FloatMultiplier> SCALED_FOV_MODIFIER = TConstruct.createKey("scaled_fov_multiplier", FloatMultiplier::new);
+
+	/** Cap modifier. Cap defaults to 20, but can be increased up to 23.75 and decreased down to 0 */
+	TinkerDataKey<Float> PROTECTION_CAP = TConstruct.createKey("protection_cap");
 }

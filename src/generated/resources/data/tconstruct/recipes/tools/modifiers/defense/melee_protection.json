@@ -4,7 +4,7 @@
     "item": "tconstruct:cobalt_reinforcement"
   },
   "amount_per_item": 1,
-  "needed_per_level": 24,
+  "needed_per_level": 20,
   "tools": [
     {
       "tag": "tconstruct:modifiable/armor"

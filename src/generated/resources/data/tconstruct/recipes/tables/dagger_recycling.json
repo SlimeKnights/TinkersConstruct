@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:part_builder_tool_recycling",
+  "tools": {
+    "item": "tconstruct:dagger",
+    "amount_needed": 2
+  },
+  "pattern": {
+    "tag": "tconstruct:patterns"
+  }
+}

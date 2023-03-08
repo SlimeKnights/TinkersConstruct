@@ -22,6 +22,9 @@
       ]
     }
   ],
+  "tools": {
+    "tag": "tconstruct:modifiable"
+  },
   "modifier_predicate": {
     "type": "tconstruct:always"
   }

@@ -36,6 +36,8 @@ public class ToolContainerMenu extends AbstractContainerMenu {
   private final IItemHandler itemHandler;
   private final Player player;
   @Getter
+  private final EquipmentSlot slotType;
+  @Getter
   private final int selectedHotbarSlot;
   @Getter
   private final boolean showOffhand;
@@ -59,6 +61,7 @@ public class ToolContainerMenu extends AbstractContainerMenu {
     this.stack = stack;
     this.itemHandler = handler;
     this.player = playerInventory.player;
+    this.slotType = slotType;
 
     // add tool slots
     int slots = itemHandler.getSlots();
@@ -100,7 +103,8 @@ public class ToolContainerMenu extends AbstractContainerMenu {
 
   @Override
   public boolean stillValid(Player playerIn) {
-    return player == playerIn;
+    // if the stack ever leaves the slot, close the menu, as we have no way to recover then and dupes are likely
+    return player == playerIn && !stack.isEmpty() && player.getItemBySlot(slotType) == stack;
   }
 
   @Override

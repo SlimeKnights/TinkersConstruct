@@ -1,5 +1,14 @@
 {
   "type": "tconstruct:part_builder_tool_recycling",
+  "tools": {
+    "type": "forge:difference",
+    "base": {
+      "tag": "tconstruct:modifiable/multipart"
+    },
+    "subtracted": {
+      "tag": "tconstruct:modifiable/unsalvageable"
+    }
+  },
   "pattern": {
     "tag": "tconstruct:patterns"
   }

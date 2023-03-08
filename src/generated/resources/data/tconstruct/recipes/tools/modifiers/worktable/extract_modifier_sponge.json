@@ -8,6 +8,15 @@
       "item": "minecraft:wet_sponge"
     }
   ],
+  "tools": {
+    "type": "forge:difference",
+    "base": {
+      "tag": "tconstruct:modifiable"
+    },
+    "subtracted": {
+      "tag": "tconstruct:modifiable/unsalvageable"
+    }
+  },
   "leftovers": [
     "minecraft:sponge"
   ],

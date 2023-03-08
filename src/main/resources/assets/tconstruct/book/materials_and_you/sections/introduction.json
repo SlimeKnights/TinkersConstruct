@@ -35,11 +35,6 @@
     "data": "intro/tinkerstation_craft.json"
   },
   {
-    "name": "recycling",
-    "type": "mantle:image_text",
-    "data": "intro/recycling.json"
-  },
-  {
     "name": "storage",
     "type": "mantle:text",
     "data": "intro/storage.json"

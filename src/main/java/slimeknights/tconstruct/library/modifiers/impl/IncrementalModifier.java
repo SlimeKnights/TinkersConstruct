@@ -91,9 +91,12 @@ public class IncrementalModifier extends Modifier {
     }
     int neededPerLevel = ModifierRecipeLookup.getNeededPerLevel(this.getId());
     if (neededPerLevel > 0) {
+      int amount = getAmount(persistentData);
       // if amount == needed per level, returns level
-      // if amount == 0, returns level - 1, otherwise returns some fractional amount
-      return level + (getAmount(persistentData) - neededPerLevel) / (float)neededPerLevel;
+      if (amount < neededPerLevel) {
+        // if amount == 0, returns level - 1, otherwise returns some fractional amount
+        return level + (getAmount(persistentData) - neededPerLevel) / (float)neededPerLevel;
+      }
     }
     return level;
   }
