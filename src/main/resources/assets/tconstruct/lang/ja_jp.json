@@ -1927,6 +1927,9 @@
   "modifier.tconstruct.shulking.flavor": "この殻は私の家",
   "modifier.tconstruct.shulking.description": "スニーク中に防御力が上がるが、攻撃力も下がる",
   "modifier.tconstruct.shulking.resistance": "殻耐性",
+  "modifier.tconstruct.boundless": "限界突破",
+  "modifier.tconstruct.boundless.flavor": "制限を超える",
+  "modifier.tconstruct.boundless.description": "あらゆる種類の耐性効果の上限を上げる",
 
   "_comment": "Armor - counterattack",
   "modifier.tconstruct.thorns": "棘の鎧",
