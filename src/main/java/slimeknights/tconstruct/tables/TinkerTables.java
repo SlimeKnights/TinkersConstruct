@@ -3,6 +3,8 @@ package slimeknights.tconstruct.tables;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
@@ -35,6 +37,7 @@ import slimeknights.tconstruct.tables.block.ScorchedAnvilBlock;
 import slimeknights.tconstruct.tables.block.TinkerStationBlock;
 import slimeknights.tconstruct.tables.block.TinkersAnvilBlock;
 import slimeknights.tconstruct.tables.block.TinkersChestBlock;
+import slimeknights.tconstruct.tables.block.entity.FallingAnvilEntity;
 import slimeknights.tconstruct.tables.block.entity.chest.CastChestBlockEntity;
 import slimeknights.tconstruct.tables.block.entity.chest.PartChestBlockEntity;
 import slimeknights.tconstruct.tables.block.entity.chest.TinkersChestBlockEntity;
@@ -105,6 +108,17 @@ public final class TinkerTables extends TinkerModule {
   public static final RegistryObject<BlockEntityType<TinkersChestBlockEntity>> tinkersChestTile = BLOCK_ENTITIES.register("modifier_chest", TinkersChestBlockEntity::new, tinkersChest);
   public static final RegistryObject<BlockEntityType<PartChestBlockEntity>> partChestTile = BLOCK_ENTITIES.register("part_chest", PartChestBlockEntity::new, partChest);
   public static final RegistryObject<BlockEntityType<CastChestBlockEntity>> castChestTile = BLOCK_ENTITIES.register("cast_chest", CastChestBlockEntity::new, castChest);
+
+  /*
+   * Entities
+   */
+
+  public static final RegistryObject<EntityType<FallingAnvilEntity>> fallingAnvil = ENTITIES.register("falling_anvil", () ->
+    EntityType.Builder.<FallingAnvilEntity>of(FallingAnvilEntity::new, MobCategory.MISC)
+      .sized(0.98F, 0.98F)
+      .clientTrackingRange(10)
+      .updateInterval(20)
+  );
 
   /*
    * Containers
