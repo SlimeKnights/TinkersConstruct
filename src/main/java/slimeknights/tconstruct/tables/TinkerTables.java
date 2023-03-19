@@ -37,7 +37,7 @@ import slimeknights.tconstruct.tables.block.ScorchedAnvilBlock;
 import slimeknights.tconstruct.tables.block.TinkerStationBlock;
 import slimeknights.tconstruct.tables.block.TinkersAnvilBlock;
 import slimeknights.tconstruct.tables.block.TinkersChestBlock;
-import slimeknights.tconstruct.tables.block.entity.FallingAnvilEntity;
+import slimeknights.tconstruct.tables.entity.FallingAnvilEntity;
 import slimeknights.tconstruct.tables.block.entity.chest.CastChestBlockEntity;
 import slimeknights.tconstruct.tables.block.entity.chest.PartChestBlockEntity;
 import slimeknights.tconstruct.tables.block.entity.chest.TinkersChestBlockEntity;

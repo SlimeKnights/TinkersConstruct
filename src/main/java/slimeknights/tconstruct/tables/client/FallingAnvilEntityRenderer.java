@@ -14,7 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.data.IModelData;
-import slimeknights.tconstruct.tables.block.entity.FallingAnvilEntity;
+import slimeknights.tconstruct.tables.entity.FallingAnvilEntity;
 
 import java.util.Random;
 

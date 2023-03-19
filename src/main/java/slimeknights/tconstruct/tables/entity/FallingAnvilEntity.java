@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tables.block.entity;
+package slimeknights.tconstruct.tables.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;

@@ -3,22 +3,19 @@ package slimeknights.tconstruct.tables.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Fallable;
+import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import slimeknights.tconstruct.tables.block.entity.FallingAnvilEntity;
-import slimeknights.tconstruct.tables.client.FallingAnvilEntityRenderer;
+import slimeknights.tconstruct.tables.entity.FallingAnvilEntity;
 
 import java.util.Random;
 
@@ -58,23 +55,14 @@ public class TinkersAnvilBlock extends TinkerStationBlock implements Fallable {
 
   @Override
   public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRand) {
-    if (isFree(pLevel.getBlockState(pPos.below())) && pPos.getY() >= pLevel.getMinBuildHeight()) {
+    if (FallingBlock.isFree(pLevel.getBlockState(pPos.below())) && pPos.getY() >= pLevel.getMinBuildHeight()) {
       FallingAnvilEntity fallingblockentity = FallingAnvilEntity.fall(pLevel, pPos, pState);
-      this.falling(fallingblockentity);
+      fallingblockentity.setHurtsEntities(2.0F, 40);
     }
-  }
-
-  public void falling(FallingAnvilEntity pEntity) {
-    pEntity.setHurtsEntities(2.0F, 40);
   }
 
   public int getDelayAfterPlace() {
     return 2;
-  }
-
-  public static boolean isFree(BlockState pState) {
-    Material material = pState.getMaterial();
-    return pState.isAir() || pState.is(BlockTags.FIRE) || material.isLiquid() || material.isReplaceable();
   }
 
   @Override
