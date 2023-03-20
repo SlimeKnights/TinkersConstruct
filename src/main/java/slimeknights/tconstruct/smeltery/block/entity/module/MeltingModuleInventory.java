@@ -31,7 +31,7 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
   private static final String TAG_SIZE = "size";
 
   /** Last used recipe by any slot in the inventory */
-  private IMeltingRecipe lastInventoryRecipe;
+  private IMeltingRecipe lastRecipe;
   /** Parent tile entity */
   private final MantleBlockEntity parent;
   /** Fluid handler for outputs */
@@ -138,11 +138,15 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
     if (world == null) {
       return null;
     }
-    if (lastInventoryRecipe != null && slotRecipe != lastInventoryRecipe && lastInventoryRecipe.matches(module, world)) {
-        return lastInventoryRecipe;
+    if (lastRecipe != null && slotRecipe != lastRecipe && lastRecipe.matches(module, world)) {
+        return lastRecipe;
     }
     Optional<IMeltingRecipe> newRecipe = world.getRecipeManager().getRecipeFor(TinkerRecipeTypes.MELTING.get(), module, world);
-    return newRecipe.orElse(null);
+    if (newRecipe.isPresent()) {
+      lastRecipe = newRecipe.get();
+      return lastRecipe;
+    }
+    return null;
   }
 
 
