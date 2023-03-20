@@ -40,6 +40,8 @@ public class MeltingModule implements IMeltingContainer, ContainerData {
   private final IOreRate oreRate;
   /** Slot index for updates */
   private final int slotIndex;
+  /** Last recipe the inventory */
+  private final IMeltingRecipe[] lastInventoryRecipe;
 
   /** Current time of the item in the slot */
   @Getter
@@ -173,12 +175,22 @@ public class MeltingModule implements IMeltingContainer, ContainerData {
     // first, try last recipe for the slot
     IMeltingRecipe last = lastRecipe;
     if (last != null && last.matches(this, world)) {
+      lastInventoryRecipe[0] = lastRecipe;
       return last;
     }
+
+    // second, try the last recipe from the inventory
+    last = lastInventoryRecipe[0];
+    if (last != null && last.matches(this, world)) {
+      lastRecipe = last;
+      return last;
+    }
+
     // if that fails, try to find a new recipe
     Optional<IMeltingRecipe> newRecipe = world.getRecipeManager().getRecipeFor(TinkerRecipeTypes.MELTING.get(), this, world);
     if (newRecipe.isPresent()) {
       lastRecipe = newRecipe.get();
+      lastInventoryRecipe[0] = lastRecipe;
       return lastRecipe;
     }
     return null;

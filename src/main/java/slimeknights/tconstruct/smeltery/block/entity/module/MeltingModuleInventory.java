@@ -26,6 +26,8 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
   private static final String TAG_ITEMS = "items";
   private static final String TAG_SIZE = "size";
 
+  /** Last used recipe by any slot in the inventory */
+  private IMeltingRecipe[] lastInventoryRecipe = new IMeltingRecipe[1];
   /** Parent tile entity */
   private final MantleBlockEntity parent;
   /** Fluid handler for outputs */
@@ -134,7 +136,7 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
       throw new IndexOutOfBoundsException();
     }
     if (modules[slot] == null) {
-      modules[slot] = new MeltingModule(parent, recipe -> tryFillTank(slot, recipe), oreRate, slot);
+      modules[slot] = new MeltingModule(parent, recipe -> tryFillTank(slot, recipe), oreRate, slot, lastInventoryRecipe);
     }
     return modules[slot];
   }
