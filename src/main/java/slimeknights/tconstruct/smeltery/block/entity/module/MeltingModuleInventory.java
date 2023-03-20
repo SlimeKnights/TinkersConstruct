@@ -1,23 +1,25 @@
 package slimeknights.tconstruct.smeltery.block.entity.module;
 
-import lombok.Getter;
-import lombok.Setter;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.block.entity.MantleBlockEntity;
+import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer.IOreRate;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 /**
@@ -29,11 +31,8 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
   private static final String TAG_SIZE = "size";
 
   /** Last used recipe by any slot in the inventory */
-  @Getter
-  @Setter
   private IMeltingRecipe lastInventoryRecipe;
   /** Parent tile entity */
-  @Getter
   private final MantleBlockEntity parent;
   /** Fluid handler for outputs */
   protected final IFluidHandler fluidHandler;
@@ -127,6 +126,25 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
     return hasModule(slot) ? modules[slot].getRequiredTemp() : 0;
   }
 
+  /**
+   * Finds a melting recipe
+   * @param module Melting Module asking for a recipe
+   * @param slotRecipe Last used Recipe of that slot
+   * @return Melting recipe found, or null if no match
+   */
+  @Nullable
+  public IMeltingRecipe findRecipe(MeltingModule module, @Nullable IMeltingRecipe slotRecipe) {
+    Level world = parent.getLevel();
+    if (world == null) {
+      return null;
+    }
+    if (lastInventoryRecipe != null && slotRecipe != lastInventoryRecipe && lastInventoryRecipe.matches(module, world)) {
+        return lastInventoryRecipe;
+    }
+    Optional<IMeltingRecipe> newRecipe = world.getRecipeManager().getRecipeFor(TinkerRecipeTypes.MELTING.get(), module, world);
+    return newRecipe.orElse(null);
+  }
+
 
   /* Sub modules */
 
@@ -141,7 +159,7 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
       throw new IndexOutOfBoundsException();
     }
     if (modules[slot] == null) {
-      modules[slot] = new MeltingModule(this, recipe -> tryFillTank(slot, recipe), oreRate, slot);
+      modules[slot] = new MeltingModule(parent, this, recipe -> tryFillTank(slot, recipe), oreRate, slot);
     }
     return modules[slot];
   }
