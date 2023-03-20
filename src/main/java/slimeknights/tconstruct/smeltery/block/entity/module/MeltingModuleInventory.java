@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.smeltery.block.entity.module;
 
+import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -27,8 +29,11 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
   private static final String TAG_SIZE = "size";
 
   /** Last used recipe by any slot in the inventory */
-  private IMeltingRecipe[] lastInventoryRecipe = new IMeltingRecipe[1];
+  @Getter
+  @Setter
+  private IMeltingRecipe lastInventoryRecipe;
   /** Parent tile entity */
+  @Getter
   private final MantleBlockEntity parent;
   /** Fluid handler for outputs */
   protected final IFluidHandler fluidHandler;
@@ -136,7 +141,7 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
       throw new IndexOutOfBoundsException();
     }
     if (modules[slot] == null) {
-      modules[slot] = new MeltingModule(parent, recipe -> tryFillTank(slot, recipe), oreRate, slot, lastInventoryRecipe);
+      modules[slot] = new MeltingModule(this, recipe -> tryFillTank(slot, recipe), oreRate, slot);
     }
     return modules[slot];
   }

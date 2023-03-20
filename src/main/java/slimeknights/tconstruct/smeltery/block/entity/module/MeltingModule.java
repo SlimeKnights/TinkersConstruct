@@ -33,15 +33,13 @@ public class MeltingModule implements IMeltingContainer, ContainerData {
   private static final int REQUIRED_TEMP = 2;
 
   /** Tile entity containing this melting module */
-  private final MantleBlockEntity parent;
+  private final MeltingModuleInventory parent;
   /** Function that accepts fluid output from this module */
   private final Predicate<IMeltingRecipe> outputFunction;
   /** Function that boosts the ores based on the rate type */
   private final IOreRate oreRate;
   /** Slot index for updates */
   private final int slotIndex;
-  /** Last recipe the inventory */
-  private final IMeltingRecipe[] lastInventoryRecipe;
 
   /** Current time of the item in the slot */
   @Getter
@@ -80,9 +78,9 @@ public class MeltingModule implements IMeltingContainer, ContainerData {
    */
   public void setStack(ItemStack newStack) {
     // send a slot update to the client when items change, so we can update the TESR
-    Level world = parent.getLevel();
+    Level world = parent.getParent().getLevel();
     if (slotIndex != -1 && world != null && !world.isClientSide && !ItemStack.matches(stack, newStack)) {
-      TinkerNetwork.getInstance().sendToClientsAround(new InventorySlotSyncPacket(newStack, slotIndex, parent.getBlockPos()), world, parent.getBlockPos());
+      TinkerNetwork.getInstance().sendToClientsAround(new InventorySlotSyncPacket(newStack, slotIndex, parent.getParent().getBlockPos()), world, parent.getParent().getBlockPos());
     }
 
     // clear progress if setting to empty or the items do not match
@@ -105,7 +103,7 @@ public class MeltingModule implements IMeltingContainer, ContainerData {
     }
     requiredTime = newTime;
     requiredTemp = newTemp;
-    parent.setChangedFast();
+    parent.getParent().setChangedFast();
   }
 
 
@@ -167,7 +165,7 @@ public class MeltingModule implements IMeltingContainer, ContainerData {
    */
   @Nullable
   private IMeltingRecipe findRecipe() {
-    Level world = parent.getLevel();
+    Level world = parent.getParent().getLevel();
     if (world == null) {
       return null;
     }
@@ -175,12 +173,12 @@ public class MeltingModule implements IMeltingContainer, ContainerData {
     // first, try last recipe for the slot
     IMeltingRecipe last = lastRecipe;
     if (last != null && last.matches(this, world)) {
-      lastInventoryRecipe[0] = lastRecipe;
+      parent.setLastInventoryRecipe(lastRecipe);
       return last;
     }
 
     // second, try the last recipe from the inventory
-    last = lastInventoryRecipe[0];
+    last = parent.getLastInventoryRecipe();
     if (last != null && last.matches(this, world)) {
       lastRecipe = last;
       return last;
@@ -190,7 +188,7 @@ public class MeltingModule implements IMeltingContainer, ContainerData {
     Optional<IMeltingRecipe> newRecipe = world.getRecipeManager().getRecipeFor(TinkerRecipeTypes.MELTING.get(), this, world);
     if (newRecipe.isPresent()) {
       lastRecipe = newRecipe.get();
-      lastInventoryRecipe[0] = lastRecipe;
+      parent.setLastInventoryRecipe(lastRecipe);
       return lastRecipe;
     }
     return null;
