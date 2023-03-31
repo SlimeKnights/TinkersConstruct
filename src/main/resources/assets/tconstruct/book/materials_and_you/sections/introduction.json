@@ -48,5 +48,10 @@
     "name": "tinkers_chest",
     "type": "mantle:crafting",
     "data": "intro/tinkerschest_craft.json"
+  },
+  {
+    "name": "hidden",
+    "type": "mantle:image_text",
+	"data": "intro/selena.json"
   }
 ]
