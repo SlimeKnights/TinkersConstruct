@@ -388,7 +388,7 @@
   "item.tconstruct.coin_red_sand_cast": "Червона піщана форма для монети",
   "item.tconstruct.wire_red_sand_cast": "Червона піщана форма для дроту",
 
-  "item.tconstruct.repair_kit_red_sand_cast": "Червона міщана форма для ремонтного набору",
+  "item.tconstruct.repair_kit_red_sand_cast": "Червона піщана форма для ремонтного набору",
 
   "_comment": "Small Head Red Sand Casts",
 
@@ -608,10 +608,10 @@
   "fluid.tconstruct.flowing_molten_hepatizon": "Текучий розплавлений гепатизон",
   "item.tconstruct.molten_hepatizon_bucket": "Відро розплавленого гепатизону",
 
-  "block.tconstruct.molten_queens_slime_fluid": "Розплавлена королівська слизь",
-  "fluid.tconstruct.molten_queens_slime": "Розплавлена королівська слизь",
-  "fluid.tconstruct.flowing_molten_queens_slime": "Текуча розплавлена королівська слизь",
-  "item.tconstruct.molten_queens_slime_bucket": "Відро розплавленої королівської слизі",
+  "block.tconstruct.molten_queens_slime_fluid": "Розплавлений королевин слиз",
+  "fluid.tconstruct.molten_queens_slime": "Розплавлений королевин слиз",
+  "fluid.tconstruct.flowing_molten_queens_slime": "Текучий розплавлений королевин слиз",
+  "item.tconstruct.molten_queens_slime_bucket": "Відро розплавленого королевиного слизу",
 
   "block.tconstruct.molten_soulsteel_fluid": "Розплавлена сталь душ",
   "fluid.tconstruct.molten_soulsteel": "Розплавлена сталь душ",
@@ -1483,10 +1483,10 @@
   "material.tconstruct.hepatizon.flavor": "Ге-па-ти-зон - звари його, потовчи його, кинь його в суп.",
   "material.tconstruct.hepatizon.encyclopedia": "Прискорює добування на 25% на рівень після ламання 32 послідовних блоків",
 
-  "material.tconstruct.queens_slime": "Королівська слизь",
-  "material.tconstruct.queens_slime.format": "%s з королівської слизі",
+  "material.tconstruct.queens_slime": "Королевин слиз",
+  "material.tconstruct.queens_slime.format": "%s з королевиного слизу",
   "material.tconstruct.queens_slime.flavor": "Принцеси злі, знайди собі королеву.",
-  "material.tconstruct.queens_slime.encyclopedia": "Зменшує міцність на 15% на рівень, 66% від неї йде на переслиз",
+  "material.tconstruct.queens_slime.encyclopedia": "Зменшує міцність на 15% на рівень, 66% від цього йде на переслиз",
 
   "material.tconstruct.blazing_bone": "Пломениста кістка",
   "material.tconstruct.blazing_bone.format": "%s з пломенистої кістки",
