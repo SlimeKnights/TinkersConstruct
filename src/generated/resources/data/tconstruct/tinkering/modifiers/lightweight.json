@@ -15,12 +15,12 @@
     {
       "stat": "tconstruct:draw_speed",
       "type": "multiply_base",
-      "value": 0.05
+      "value": 0.03
     },
     {
       "stat": "tconstruct:velocity",
       "type": "multiply_base",
-      "value": 0.05
+      "value": 0.03
     }
   ]
 }

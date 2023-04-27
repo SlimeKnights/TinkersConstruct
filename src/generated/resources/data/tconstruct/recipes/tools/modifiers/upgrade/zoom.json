@@ -2,19 +2,13 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "item": "minecraft:spyglass"
-    },
-    {
       "tag": "forge:string"
     },
     {
       "item": "minecraft:spyglass"
     },
     {
-      "tag": "forge:dusts/redstone"
-    },
-    {
-      "tag": "forge:dusts/redstone"
+      "tag": "forge:string"
     }
   ],
   "tools": [

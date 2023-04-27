@@ -30,8 +30,8 @@ public class SeveringModifier extends Modifier {
         // find proper recipe
         List<SeveringRecipe> recipes = SeveringRecipeCache.findRecipe(context.getLevel().getRecipeManager(), entity.getType());
         if (!recipes.isEmpty()) {
-          // 5% chance per level, bonus 5% per level of looting
-          float chance = (level + context.getLootingModifier()) * 0.05f;
+          // 5% chance per level, each luck level adds an extra 1% per severing level
+          float chance = (level) * (0.05f + 0.01f * context.getLootingModifier());
           // double chance for mobs such as ender dragons and the wither
           if (entity.getType().is(TinkerTags.EntityTypes.RARE_MOBS)) {
             chance *= 2;
