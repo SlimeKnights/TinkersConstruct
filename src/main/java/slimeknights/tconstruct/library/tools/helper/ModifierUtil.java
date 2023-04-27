@@ -166,7 +166,7 @@ public final class ModifierUtil {
    * @return  Modifier level, or 0 if not present or the stack is not modifiable
    */
   public static int getModifierLevel(ItemStack stack, ModifierId modifier) {
-    if (!stack.isEmpty() && stack.is(TinkerTags.Items.MODIFIABLE) && !ToolDamageUtil.isBroken(stack)) {
+    if (!stack.isEmpty() && stack.is(TinkerTags.Items.MODIFIABLE)) {
       CompoundTag nbt = stack.getTag();
       if (nbt != null && nbt.contains(ToolStack.TAG_MODIFIERS, Tag.TAG_LIST)) {
         ListTag list = nbt.getList(ToolStack.TAG_MODIFIERS, Tag.TAG_COMPOUND);
