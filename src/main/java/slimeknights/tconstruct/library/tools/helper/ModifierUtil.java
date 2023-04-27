@@ -375,8 +375,9 @@ public final class ModifierUtil {
     tool.getPersistentData().remove(ACTIVE_MODIFIER);
   }
 
-  /** Calculates inaccuracy from the conditional tool stat */
+  /** Calculates inaccuracy from the conditional tool stat. TODO: reconsidering velocity impacting inaccuracy, remove parameter in 1.19 */
+  @SuppressWarnings("unused")
   public static float getInaccuracy(IToolStackView tool, LivingEntity living, float velocity) {
-    return 3 * (1 / ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.ACCURACY) - 1) * velocity;
+    return 3 * (1 / ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.ACCURACY) - 1);
   }
 }
