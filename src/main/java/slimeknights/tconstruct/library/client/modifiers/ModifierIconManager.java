@@ -67,6 +67,10 @@ public class ModifierIconManager implements IEarlySafeManagerReloadListener {
   /** Called on texture stitch to add the new textures */
   private static void textureStitch(TextureStitchEvent.Pre event) {
     if (event.getAtlas().location().equals(InventoryMenu.BLOCK_ATLAS)) {
+      // temporary workaround to the fact that texture stitching might run before the resource loader
+      if (modifierIcons.isEmpty()) {
+        INSTANCE.onReloadSafe(Minecraft.getInstance().getResourceManager());
+      }
       Consumer<ResourceLocation> spriteAdder = event::addSprite;
       modifierIcons.values().forEach(list -> list.forEach(spriteAdder));
       event.addSprite(DEFAULT_COVER);

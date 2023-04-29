@@ -16,14 +16,16 @@ public class PluginClient {
   }
 
   private static void clientSetup(FMLClientSetupEvent event) {
-    for (Item item : FlexItemTypes.TOOL_ITEMS) {
-      TinkerItemProperties.registerToolProperties(item);
-    }
-    for (Item item : FlexItemTypes.BOW_ITEMS) {
-      TinkerItemProperties.registerBowProperties(item);
-    }
-    for (Item item : FlexItemTypes.CROSSBOW_ITEMS) {
-      TinkerItemProperties.registerCrossbowProperties(item);
-    }
+    event.enqueueWork(() -> {
+      for (Item item : FlexItemTypes.TOOL_ITEMS) {
+        TinkerItemProperties.registerToolProperties(item);
+      }
+      for (Item item : FlexItemTypes.BOW_ITEMS) {
+        TinkerItemProperties.registerBowProperties(item);
+      }
+      for (Item item : FlexItemTypes.CROSSBOW_ITEMS) {
+        TinkerItemProperties.registerCrossbowProperties(item);
+      }
+    });
   }
 }

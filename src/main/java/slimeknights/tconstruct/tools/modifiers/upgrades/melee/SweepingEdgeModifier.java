@@ -21,10 +21,10 @@ public class SweepingEdgeModifier extends IncrementalModifier {
     int level = toolStack.getModifierLevel(this);
     float sweepingDamage = 1;
     if (level > 4) {
-      sweepingDamage += baseDamage;
+      sweepingDamage = baseDamage;
     } else if (level > 0) {
-      // gives 25% per level
-      sweepingDamage += getScaledLevel(toolStack, level) * 0.25f * baseDamage;
+      // gives 25% per level, cap at base damage
+      sweepingDamage = Math.min(baseDamage, getScaledLevel(toolStack, level) * 0.25f * baseDamage + 1);
     }
     return sweepingDamage;
   }

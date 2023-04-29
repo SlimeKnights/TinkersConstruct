@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:necrotic",
   "text": [
     {
-      "text": "Critical hits heal a percentage of the damage dealt. Heals 25% at level 1, 45% chance at level 2, 60% at level 3, 70% at level 4, and 75% at level 5. Tool loses 1 extra durability per level."
+      "text": "Critical hits heal 5% of the damage dealt per level. Tool loses 1 extra durability per level."
     }
   ],
   "more_text_space": true,

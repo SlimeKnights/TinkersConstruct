@@ -101,7 +101,7 @@ public class SearedLadderBlock extends OrientableSmelteryBlock {
     BlockState state = context.getLevel().getBlockState(context.getClickedPos().below());
     Direction direction = context.getHorizontalDirection().getOpposite();
     return this.defaultBlockState()
-               .setValue(BOTTOM, !state.is(this) || state.getValue(FACING) != direction)
+               .setValue(BOTTOM, !(state.getBlock() instanceof SearedLadderBlock) || state.getValue(FACING) != direction)
                .setValue(FACING, direction);
   }
 

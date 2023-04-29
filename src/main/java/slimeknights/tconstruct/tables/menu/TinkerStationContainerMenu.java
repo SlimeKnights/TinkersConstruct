@@ -43,7 +43,7 @@ public class TinkerStationContainerMenu extends TabbedContainerMenu<TinkerStatio
       tile.syncRecipe(inv.player);
 
       inputSlots = new ArrayList<>();
-      inputSlots.add(this.addSlot(new TinkerStationSlot(tile, TinkerStationBlockEntity.TINKER_SLOT, 0, 0)));
+      this.addSlot(new TinkerStationSlot(tile, TinkerStationBlockEntity.TINKER_SLOT, 0, 0));
 
       for (int index = 0; index < tile.getContainerSize() - 1; index++) {
         inputSlots.add(this.addSlot(new TinkerStationSlot(tile, index + TinkerStationBlockEntity.INPUT_SLOT, 0, 0)));
