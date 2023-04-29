@@ -36,7 +36,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.vine, TinkerModifiers.solarPowered);
 
     // tier 2
-    addDefaultTraits(MaterialIds.iron, ModifierIds.sturdy);
+    addDefaultTraits(MaterialIds.iron, TinkerModifiers.magnetic);
     addDefaultTraits(MaterialIds.copper, TinkerModifiers.dwarven);
     addDefaultTraits(MaterialIds.searedStone, TinkerModifiers.searing);
     addDefaultTraits(MaterialIds.slimewood, TinkerModifiers.overgrowth, TinkerModifiers.overslime);
