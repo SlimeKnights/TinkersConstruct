@@ -1422,7 +1422,7 @@
   "material.tconstruct.necrotic_bone.skull_flavor": "惊悚恐怖骷髅头！",
   "material.tconstruct.necrotic_bone.skull_encyclopedia": "普通攻击给予敌人凋零效果。饮用牛奶后可给予凋零II。",
 
-  "material.tconstruct.chorus": "紫颂果",
+  "material.tconstruct.chorus": "紫颂",
   "material.tconstruct.chorus.flavor": "不只是末影人，还有末影娘和末影孩",
   "material.tconstruct.chorus.encyclopedia": "防止目标瞬移，每级+5秒。",
   "material.tconstruct.chorus.ranged": "防止目标瞬移，每级+5秒，也使得箭矢能击中末影人。",
@@ -1546,8 +1546,8 @@
 
   "material.tconstruct.blazing_bone": "烈焰之骨",
   "material.tconstruct.blazing_bone.flavor": "获取下界要塞的所有力量——烈焰之力与骨之力",
-  "material.tconstruct.blazing_bone.encyclopedia": "在火焰中每秒伤害+1%，熔岩中15秒伤害至多+15%。减少火焰抗性效果的增益。",
-  "material.tconstruct.blazing_bone.ranged": "在火焰中每秒箭矢伤害+1%，熔岩中15秒伤害至多+15%。减少火焰抗性效果的增益。",
+  "material.tconstruct.blazing_bone.encyclopedia": "在火焰中每秒伤害+1%，熔岩中15秒伤害至多+15%。防火效果会减少加成。",
+  "material.tconstruct.blazing_bone.ranged": "在火焰中每秒箭矢伤害+1%，熔岩中15秒伤害至多+15%。防火效果会减少加成。",
   "material.tconstruct.blazing_bone.skull_flavor": "我给他们说了，这东西技术上来说其实是吐火，不是喷火。但是很明显，我发明的东西我却没有命名权。",
   "material.tconstruct.blazing_bone.skull_encyclopedia": "能够以火球的形式从物品栏中发射火焰弹。冷却时间5秒钟，不能在水下使用。",
 
