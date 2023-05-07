@@ -2601,7 +2601,7 @@
   "gui.tconstruct.part_builder.info": "在这里你能制作工具部件，从而实现你的工匠之梦。\n\n要制作一个工具部件，你需要将模具放入左侧的空槽，并选择目标部件类型。接着在右侧的槽中放入材料，即可制成对应材料的对应部件。",
   "gui.tconstruct.part_builder.material_value": "材料值：%s",
   "gui.tconstruct.part_builder.cost": "模具消耗：%s",
-  "gui.tconstruct.part_builder.trait": "属性",
+  "gui.tconstruct.part_builder.trait": "特性",
   "gui.tconstruct.part_builder.uncraftable": "无法打造",
   "gui.tconstruct.part_builder.uncraftable.tooltip": "部件制造台无法打造该材料。需使用浇注等方式进行部件成型。",
 
@@ -2616,7 +2616,7 @@
   "gui.tconstruct.tinker_station.repair.description": "制作小型或宽型工具，也可以如你所愿地强化工具。从左侧点击一个按钮来开始制作吧。",
   "gui.tconstruct.tinker_station.modifiers": "强化属性",
   "gui.tconstruct.tinker_station.upgrades": "升级与能力",
-  "gui.tconstruct.tinker_station.traits": "属性",
+  "gui.tconstruct.tinker_station.traits": "特性",
   "gui.tconstruct.tinker_station.components": "组成部件",
   "gui.tconstruct.tinker_station.info": "修复和改装你工具的主要手段。在左侧放置工具和材料即可开始。",
   "gui.tconstruct.tinker_station.no_traits": "无 :[",

@@ -36,7 +36,7 @@ upgrades.group_armor=盔甲升级
 upgrades.feather_falling=摔落保护
 
 defense=防御强化
-defense.subtext=盔甲没有材料属性，但有防御强化槽来提供更好的防护。
+defense.subtext=盔甲没有材料特性，但有防御强化槽来提供更好的防护。
 defense.group_protection=保护防御
 defense.group_special=特殊防御
 

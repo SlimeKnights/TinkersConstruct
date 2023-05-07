@@ -1,7 +1,7 @@
 {
   "tool": "tconstruct:flint_and_brick",
   "text": [
-    { "text": "焦砖打火石是一种自带“纵火”属性的手持工具。" },
+    { "text": "焦砖打火石是一种自带“纵火”特性的手持工具。" },
     { "text": "“延展”强化可以增加点火半径，可以用“火种”强化进一步增加。", "paragraph": true }
   ],
   "properties": [
