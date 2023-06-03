@@ -158,9 +158,9 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
 
     // modifier repair
     // stringy - from string
-    ModifierRepairRecipeBuilder.repair(ModifierIds.stringy, Ingredient.of(Tags.Items.STRING), 25)
-                               .buildCraftingTable(consumer, wrap(ModifierIds.stringy, folder, "_crafting_table"))
-                               .save(consumer, wrap(ModifierIds.stringy, folder, "_tinker_station"));
+    ModifierMaterialRepairRecipeBuilder.repair(ModifierIds.stringy, MaterialIds.string)
+                                       .saveCraftingTable(consumer, wrap(ModifierIds.stringy, folder, "_crafting_table"))
+                                       .save(consumer, wrap(ModifierIds.stringy, folder, "_tinker_station"));
     // pig iron - from bacon, only in the tinker station
     ModifierRepairRecipeBuilder.repair(TinkerModifiers.tasty, Ingredient.of(TinkerCommons.bacon), 25)
                                .save(consumer, prefix(TinkerModifiers.tasty, folder));
@@ -366,7 +366,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     ModifierRecipeBuilder.modifier(TinkerModifiers.knockback)
                          .addInput(Items.PISTON)
                          .addInput(TinkerWorld.slime.get(SlimeType.EARTH))
-                         .setMaxLevel(5) // max +2.5 knockback points (knockback 5) (whatever that number means in vanilla)
+                         .setMaxLevel(3) // max +2.5 knockback points (knockback 5) (whatever that number means in vanilla)
                          .setSlots(SlotType.UPGRADE, 1)
                          .setTools(TinkerTags.Items.MELEE)
                          .saveSalvage(consumer, prefix(TinkerModifiers.knockback, upgradeSalvage))
@@ -385,7 +385,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.LIGHTNING_ROD)
                          .addInput(TinkerTags.Items.WITHER_BONES)
                          .addInput(Items.TNT)
-                         .setMaxLevel(5) // max +25% head drop chance, combine with +15% chance from luck
+                         .setMaxLevel(3) // max +25% head drop chance, combine with +15% chance from luck
                          .setSlots(SlotType.UPGRADE, 1)
                          .setTools(TinkerTags.Items.MELEE_OR_UNARMED)
                          .saveSalvage(consumer, prefix(TinkerModifiers.severing, upgradeSalvage))
@@ -863,11 +863,9 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // helmet
     ModifierRecipeBuilder.modifier(TinkerModifiers.zoom)
                          .setTools(ingredientFromTags(TinkerTags.Items.HELMETS, TinkerTags.Items.INTERACTABLE_RIGHT))
-                         .addInput(Items.SPYGLASS)
                          .addInput(Tags.Items.STRING)
                          .addInput(Items.SPYGLASS)
-                         .addInput(Tags.Items.DUSTS_REDSTONE)
-                         .addInput(Tags.Items.DUSTS_REDSTONE)
+                         .addInput(Tags.Items.STRING)
                          .setSlots(SlotType.UPGRADE, 1)
                          .setMaxLevel(1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.zoom, upgradeSalvage))

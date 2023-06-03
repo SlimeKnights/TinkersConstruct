@@ -166,6 +166,10 @@ public class TankModifier extends Modifier {
 
   /** Sets the fluid in the tank */
   public FluidStack setFluid(IToolStackView tool, FluidStack fluid) {
+    if (fluid.isEmpty()) {
+      tool.getPersistentData().remove(getFluidKey());
+      return fluid;
+    }
     int capacity = getCapacity(tool);
     if (fluid.getAmount() > capacity) {
       fluid.setAmount(capacity);
