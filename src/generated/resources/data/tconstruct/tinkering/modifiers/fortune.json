@@ -1,8 +1,11 @@
 {
-  "type": "tconstruct:loot",
+  "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "enchantment": {
-    "name": "minecraft:fortune",
-    "level": 1
-  }
+  "modules": [
+    {
+      "type": "tconstruct:harvest_enchantment",
+      "name": "minecraft:fortune",
+      "level": 1
+    }
+  ]
 }

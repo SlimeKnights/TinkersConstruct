@@ -25,12 +25,13 @@ import slimeknights.tconstruct.library.modifiers.dynamic.ConditionalMiningSpeedM
 import slimeknights.tconstruct.library.modifiers.dynamic.EnchantmentModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.ExtraModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.InventoryMenuModifier;
-import slimeknights.tconstruct.library.modifiers.dynamic.LootModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.MobDisguiseModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.MobEffectModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.StatBoostModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.StatBoostModifier.ModifierDisplay;
 import slimeknights.tconstruct.library.modifiers.dynamic.SwappableExtraSlotModifier;
+import slimeknights.tconstruct.library.modifiers.modules.HarvestEnchantmentModule;
+import slimeknights.tconstruct.library.modifiers.modules.LootingModule;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay.UniqueForLevels;
 import slimeknights.tconstruct.library.tools.SlotType;
@@ -139,10 +140,12 @@ public class ModifierProvider extends AbstractModifierProvider {
 
 
     // loot
-    addModifier(TinkerModifiers.silky, new LootModifier(Enchantments.SILK_TOUCH, 1, ModifierLevelDisplay.NO_LEVELS));
-    addModifier(ModifierIds.luck, new LootModifier(Enchantments.BLOCK_FORTUNE, 1, 1, new UniqueForLevels(3)));
-    addModifier(ModifierIds.fortune, new LootModifier(Enchantments.BLOCK_FORTUNE, 1, ModifierLevelDisplay.DEFAULT));
-    addModifier(ModifierIds.looting, new LootModifier(1, ModifierLevelDisplay.DEFAULT));
+    buildModifier(TinkerModifiers.silky).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addHook(new HarvestEnchantmentModule(Enchantments.SILK_TOUCH));
+    HarvestEnchantmentModule FORTUNE = new HarvestEnchantmentModule(Enchantments.BLOCK_FORTUNE);
+    LootingModule LOOTING = new LootingModule(1);
+    buildModifier(ModifierIds.luck).levelDisplay(new UniqueForLevels(3)).addHook(FORTUNE).addHook(LOOTING);
+    buildModifier(ModifierIds.fortune).addHook(FORTUNE);
+    buildModifier(ModifierIds.looting).addHook(LOOTING);
 
     /// attack
     addModifier(ModifierIds.sticky, MobEffectModifier.Builder.effect(MobEffects.MOVEMENT_SLOWDOWN).level(0, 0.5f).timeBase(20).timeMultiplierRandom(10).build());

@@ -281,6 +281,7 @@ public class Config {
     public final ForgeConfigSpec.BooleanValue logMissingModifierTextures;
     public final ForgeConfigSpec.BooleanValue showModifiersInJEI;
     public final ForgeConfigSpec.BooleanValue renderShieldSlotItem;
+    public final ForgeConfigSpec.BooleanValue modifiersIDsInAdvancedTooltips;
     public final ForgeConfigSpec.IntValue maxSmelteryItemQuads;
 
     // framed modifier
@@ -330,6 +331,11 @@ public class Config {
         .comment("Maximum number of quads to render for items in the smeltery. Most blocks are about 6 quads, items like ingots are around 26.",
                  "Setting this lower will cause fewer items to be renderer (but never a partial item). Set to -1 to allow unlimited quads, and 0 to disable the item renderer.")
         .defineInRange("maxSmelteryItemQuads", 3500, -1, Short.MAX_VALUE);
+
+      this.modifiersIDsInAdvancedTooltips = builder
+        .comment("If true, shows modifier IDs in advanced tooltips for tools and tool parts.",
+                 "They are more intrusive than most advanced tooltip content, so this option is provided in case some mod made poor design decisions and put essential gameplay info in tooltips or for pack makers who do not need modifier info.")
+        .define("modifiersIDsInAdvancedTooltips", true);
 
       builder.comment("Settings related to modifiers").push("modifiers");
       {

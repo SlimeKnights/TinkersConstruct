@@ -12,6 +12,7 @@ import slimeknights.tconstruct.library.json.JsonRedirect;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
+import slimeknights.tconstruct.library.modifiers.dynamic.ComposableModifier;
 import slimeknights.tconstruct.library.modifiers.util.DynamicModifier;
 
 import javax.annotation.Nullable;
@@ -20,8 +21,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /** Datagen for dynamic modifiers */
+@SuppressWarnings("SameParameterValue")
 public abstract class AbstractModifierProvider extends GenericDataProvider {
   private final Map<ModifierId,Result> allModifiers = new HashMap<>();
+  private final Map<ModifierId,Composable> composableModifiers = new HashMap<>();
 
   public AbstractModifierProvider(DataGenerator generator) {
     super(generator, PackType.SERVER_DATA, ModifierManager.FOLDER, ModifierManager.GSON);
@@ -35,14 +38,10 @@ public abstract class AbstractModifierProvider extends GenericDataProvider {
   /** Adds a modifier to be saved */
   protected void addModifier(ModifierId id, @Nullable ICondition condition, @Nullable Modifier result, JsonRedirect... redirects) {
     if (result == null && redirects.length == 0) {
-      throw new IllegalArgumentException("Must hae either a modifier or a redirect");
+      throw new IllegalArgumentException("Must have either a modifier or a redirect");
     }
-    if (redirects.length == 0) {
-      redirects = null;
-    }
-
     Result previous = allModifiers.putIfAbsent(id, new Result(result, condition, redirects));
-    if (previous != null) {
+    if (previous != null || composableModifiers.containsKey(id)) {
       throw new IllegalArgumentException("Duplicate modifier " + id);
     }
   }
@@ -62,13 +61,41 @@ public abstract class AbstractModifierProvider extends GenericDataProvider {
     addModifier(id, null, result, redirects);
   }
 
-  /** Adds a modifier redirect */
-  protected void addRedirect(ModifierId id, JsonRedirect... redirects) {
-    addModifier(id, null, null, redirects);
+
+  /* Composable helpers */
+
+  /** Sets up a builder for a composable modifier */
+  protected ComposableModifier.Builder buildModifier(ModifierId id, @Nullable ICondition condition, JsonRedirect... redirects) {
+    ComposableModifier.Builder builder = ComposableModifier.builder();
+    Composable previous = composableModifiers.putIfAbsent(id, new Composable(builder, condition, redirects));
+    if (previous != null || allModifiers.containsKey(id)) {
+      throw new IllegalArgumentException("Duplicate modifier " + id);
+    }
+    return builder;
+  }
+
+  /** Sets up a builder for a composable modifier */
+  protected ComposableModifier.Builder buildModifier(ModifierId id, JsonRedirect... redirects) {
+    return buildModifier(id, null, redirects);
+  }
+
+  /** Sets up a builder for a composable modifier */
+  protected ComposableModifier.Builder buildModifier(DynamicModifier<?> modifier, @Nullable ICondition condition, JsonRedirect... redirects) {
+    return buildModifier(modifier.getId(), condition, redirects);
+  }
+
+  /** Sets up a builder for a composable modifier */
+  protected ComposableModifier.Builder buildModifier(DynamicModifier<?> modifier, JsonRedirect... redirects) {
+    return buildModifier(modifier, null, redirects);
   }
 
 
   /* Redirect helpers */
+
+  /** Adds a modifier redirect */
+  protected void addRedirect(ModifierId id, JsonRedirect... redirects) {
+    addModifier(id, null, null, redirects);
+  }
 
   /** Makes a conditional redirect to the given ID */
   protected JsonRedirect conditionalRedirect(ModifierId id, @Nullable ICondition condition) {
@@ -83,30 +110,44 @@ public abstract class AbstractModifierProvider extends GenericDataProvider {
   @Override
   public void run(HashCache cache) throws IOException {
     addModifiers();
-    allModifiers.forEach((id, data) -> saveThing(cache, id, convert(data)));
+    allModifiers.forEach((id, data) -> saveThing(cache, id, data.serialize()));
+    composableModifiers.forEach((id, data) -> saveThing(cache, id, data.serialize()));
   }
 
-  /** Converts the given object to json */
-  private static JsonObject convert(Result result) {
+  /** Serializes the given modifier with its condition and redirects */
+  private static JsonObject serializeModifier(@Nullable Modifier modifier, @Nullable ICondition condition, JsonRedirect[] redirects) {
     JsonObject json;
-    if (result.modifier != null) {
-      json = ModifierManager.MODIFIER_LOADERS.serialize(result.modifier).getAsJsonObject();
+    if (modifier != null) {
+      json = ModifierManager.MODIFIER_LOADERS.serialize(modifier).getAsJsonObject();
     } else {
       json = new JsonObject();
     }
-    if (result.redirects != null) {
+    if (redirects.length != 0) {
       JsonArray array = new JsonArray();
-      for (JsonRedirect redirect : result.redirects) {
+      for (JsonRedirect redirect : redirects) {
         array.add(redirect.toJson());
       }
       json.add("redirects", array);
     }
-    if (result.condition != null) {
-      json.add("condition", CraftingHelper.serialize(result.condition));
+    if (condition != null) {
+      json.add("condition", CraftingHelper.serialize(condition));
     }
     return json;
   }
 
   /** Result record, as its nicer than a pair */
-  private record Result(@Nullable Modifier modifier, @Nullable ICondition condition, JsonRedirect[] redirects) {}
+  private record Result(@Nullable Modifier modifier, @Nullable ICondition condition, JsonRedirect[] redirects) {
+    /** Writes this result to JSON */
+    public JsonObject serialize() {
+      return serializeModifier(modifier, condition, redirects);
+    }
+  }
+
+  /** Result for composable too */
+  private record Composable(ComposableModifier.Builder builder, @Nullable ICondition condition, JsonRedirect[] redirects) {
+    /** Writes this result to JSON */
+    public JsonObject serialize() {
+      return serializeModifier(builder.build(), condition, redirects);
+    }
+  }
 }

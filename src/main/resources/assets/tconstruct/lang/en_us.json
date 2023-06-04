@@ -852,6 +852,7 @@
 
   "_comment_on_format_": "These format allows you to have more control over separators in material names. By default we separate with space. You can use %1$s and %2$s if you wish to change the order.",
   "item.tconstruct.tool.format": "%s %s",
+  "item.tconstruct.tool.id_format": "%s (%s)",
   "item.tconstruct.tool.material_separator": "-",
 
   "item.tconstruct.pickaxe": "Pickaxe",
@@ -2584,6 +2585,7 @@
   "tooltip.tconstruct.part.missing_material": "Missing material: %s",
   "tooltip.tconstruct.part.missing_stats": "Material does not support %s",
   "tooltip.tconstruct.part.missing_info": "Part has no data",
+  "tooltip.tconstruct.part.material_id": "Material ID: %s",
 
   "_comment": "GUIs",
 
