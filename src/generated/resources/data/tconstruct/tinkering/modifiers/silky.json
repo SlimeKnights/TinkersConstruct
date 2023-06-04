@@ -1,8 +1,11 @@
 {
-  "type": "tconstruct:loot",
+  "type": "tconstruct:composable",
   "level_display": "tconstruct:no_levels",
-  "enchantment": {
-    "name": "minecraft:silk_touch",
-    "level": 1
-  }
+  "modules": [
+    {
+      "type": "tconstruct:harvest_enchantment",
+      "name": "minecraft:silk_touch",
+      "level": 1
+    }
+  ]
 }
