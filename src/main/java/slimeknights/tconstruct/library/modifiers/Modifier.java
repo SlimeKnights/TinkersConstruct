@@ -269,26 +269,12 @@ public class Modifier implements IHaveLoader<Modifier> {
     return getDisplayName(level);
   }
 
-  /**
-   * Adds additional information from the modifier to the tooltip. Shown when holding shift on a tool, or in the stats area of the tinker station
-   * @param tool         Tool instance
-   * @param level        Tool level
-   * @param player       Player holding this tool
-   * @param tooltip      Tooltip
-   * @param tooltipKey   Shows if the player is holding shift, control, or neither
-   * @param tooltipFlag  Flag determining tooltip type
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.TooltipModifierHook} */
+  @Deprecated
   public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, slimeknights.tconstruct.library.utils.TooltipKey tooltipKey, TooltipFlag tooltipFlag) {}
 
-  /**
-   * Adds additional information from the modifier to the tooltip. Shown when holding shift on a tool, or in the stats area of the tinker station
-   * @param tool         Tool instance
-   * @param level        Tool level
-   * @param player       Player holding this tool
-   * @param tooltip      Tooltip
-   * @param tooltipKey   Shows if the player is holding shift, control, or neither
-   * @param tooltipFlag  Flag determining tooltip type
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.TooltipModifierHook} */
+  @Deprecated
   public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     addInformation(tool, level, player, tooltip, slimeknights.tconstruct.library.utils.TooltipKey.fromMantle(tooltipKey), tooltipFlag);
   }
