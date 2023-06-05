@@ -35,6 +35,7 @@ import slimeknights.mantle.util.SingleKeyMultimap;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -98,7 +99,7 @@ public class ToolAttackUtil {
       }
     };
     for (ModifierEntry entry : tool.getModifierList()) {
-      entry.getModifier().addAttributes(tool, entry.getLevel(), EquipmentSlot.MAINHAND, attributeConsumer);
+      entry.getHook(TinkerHooks.ATTRIBUTES).addAttributes(tool, entry, EquipmentSlot.MAINHAND, attributeConsumer);
     }
     Multimap<Attribute,AttributeModifier> offhandModifiers = new SingleKeyMultimap<>(Attributes.ATTACK_DAMAGE, listBuilder.build());
 

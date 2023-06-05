@@ -275,7 +275,7 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
       // grab attributes from modifiers
       BiConsumer<Attribute,AttributeModifier> attributeConsumer = builder::put;
       for (ModifierEntry entry : tool.getModifierList()) {
-        entry.getModifier().addAttributes(tool, entry.getLevel(), slot, attributeConsumer);
+        entry.getHook(TinkerHooks.ATTRIBUTES).addAttributes(tool, entry, slot, attributeConsumer);
       }
     }
 

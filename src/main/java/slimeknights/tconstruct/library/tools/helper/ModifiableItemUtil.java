@@ -14,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -68,7 +69,7 @@ public class ModifiableItemUtil {
         // grab attributes from modifiers, only do for hands (other slots would just be weird)
         BiConsumer<net.minecraft.world.entity.ai.attributes.Attribute,AttributeModifier> attributeConsumer = builder::put;
         for (ModifierEntry entry : tool.getModifierList()) {
-          entry.getModifier().addAttributes(tool, entry.getLevel(), slot, attributeConsumer);
+          entry.getHook(TinkerHooks.ATTRIBUTES).addAttributes(tool, entry, slot, attributeConsumer);
         }
       }
     }
