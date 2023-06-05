@@ -6,11 +6,13 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import io.netty.handler.codec.DecoderException;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.GsonHelper;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -22,16 +24,22 @@ import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Modifier consisting of many composed hooks
  */
 public class ComposableModifier extends Modifier {
   private final ModifierLevelDisplay levelDisplay;
+  private final TooltipDisplay tooltipDisplay;
+  @Getter
+  private final int priority;
   private final List<ModuleWithHooks> modules;
-  public ComposableModifier(ModifierLevelDisplay levelDisplay, List<ModuleWithHooks> modules) {
+  protected ComposableModifier(ModifierLevelDisplay levelDisplay, TooltipDisplay tooltipDisplay, int priority, List<ModuleWithHooks> modules) {
     super(ModifierModule.createMap(modules));
     this.levelDisplay = levelDisplay;
+    this.tooltipDisplay = tooltipDisplay;
+    this.priority = priority;
     this.modules = modules;
   }
 
@@ -54,14 +62,28 @@ public class ComposableModifier extends Modifier {
     return levelDisplay.nameForLevel(this, level);
   }
 
+  @Override
+  public boolean shouldDisplay(boolean advanced) {
+    return advanced ? tooltipDisplay != TooltipDisplay.NEVER
+                    : tooltipDisplay == TooltipDisplay.ALWAYS;
+  }
+
+  /** Determines when this modifier shows in tooltips */
+  public enum TooltipDisplay { ALWAYS, TINKER_STATION, NEVER }
+
   public static IGenericLoader<ComposableModifier> LOADER = new IGenericLoader<>() {
     @Override
     public ComposableModifier deserialize(JsonObject json) {
-      ModifierLevelDisplay display = ModifierLevelDisplay.LOADER.getAndDeserialize(json, "level_display");
+      ModifierLevelDisplay level_display = ModifierLevelDisplay.LOADER.getAndDeserialize(json, "level_display");
+      TooltipDisplay tooltipDisplay = TooltipDisplay.ALWAYS;
+      int priority = GsonHelper.getAsInt(json, "priority", DEFAULT_PRIORITY);
+      if (json.has("tooltip_display")) {
+        tooltipDisplay = JsonHelper.getAsEnum(json, "tooltip_display", TooltipDisplay.class);
+      }
       List<ModuleWithHooks> modules = JsonHelper.parseList(json, "modules", ModuleWithHooks::deserialize);
       // convert illegal argument to json syntax, bit more expected in this context
       try {
-        return new ComposableModifier(display, modules);
+        return new ComposableModifier(level_display, tooltipDisplay, priority, modules);
       } catch (IllegalArgumentException e) {
         throw new JsonSyntaxException(e.getMessage(), e);
       }
@@ -70,6 +92,8 @@ public class ComposableModifier extends Modifier {
     @Override
     public void serialize(ComposableModifier object, JsonObject json) {
       json.add("level_display", ModifierLevelDisplay.LOADER.serialize(object.levelDisplay));
+      json.addProperty("tooltip_display", object.tooltipDisplay.name().toLowerCase(Locale.ROOT));
+      json.addProperty("priority", object.priority);
       JsonArray modules = new JsonArray();
       for (ModuleWithHooks module : object.modules) {
         modules.add(module.serialize());
@@ -79,14 +103,16 @@ public class ComposableModifier extends Modifier {
 
     @Override
     public ComposableModifier fromNetwork(FriendlyByteBuf buffer) {
-      ModifierLevelDisplay display = ModifierLevelDisplay.LOADER.fromNetwork(buffer);
+      ModifierLevelDisplay levelDisplay = ModifierLevelDisplay.LOADER.fromNetwork(buffer);
+      TooltipDisplay tooltipDisplay = buffer.readEnum(TooltipDisplay.class);
+      int priority = buffer.readInt();
       int moduleCount = buffer.readVarInt();
       ImmutableList.Builder<ModuleWithHooks> builder = ImmutableList.builder();
       for (int i = 0; i < moduleCount; i++) {
         builder.add(ModuleWithHooks.fromNetwork(buffer));
       }
       try {
-        return new ComposableModifier(display, builder.build());
+        return new ComposableModifier(levelDisplay, tooltipDisplay, priority, builder.build());
       } catch (IllegalArgumentException e) {
         throw new DecoderException(e.getMessage(), e);
       }
@@ -95,6 +121,8 @@ public class ComposableModifier extends Modifier {
     @Override
     public void toNetwork(ComposableModifier object, FriendlyByteBuf buffer) {
       ModifierLevelDisplay.LOADER.toNetwork(object.levelDisplay, buffer);
+      buffer.writeEnum(object.tooltipDisplay);
+      buffer.writeInt(object.priority);
       buffer.writeVarInt(object.modules.size());
       for (ModuleWithHooks module : object.modules) {
         module.toNetwork(buffer);
@@ -108,6 +136,10 @@ public class ComposableModifier extends Modifier {
   public static class Builder {
     @Setter
     private ModifierLevelDisplay levelDisplay = ModifierLevelDisplay.DEFAULT;
+    @Setter
+    private TooltipDisplay tooltipDisplay = TooltipDisplay.ALWAYS;
+    @Setter
+    private int priority = DEFAULT_PRIORITY;
     private final ImmutableList.Builder<ModuleWithHooks> modules = ImmutableList.builder();
 
     /** Adds a module to the builder */
@@ -125,7 +157,7 @@ public class ComposableModifier extends Modifier {
 
     /** Builds the final instance */
     public ComposableModifier build() {
-      return new ComposableModifier(levelDisplay, modules.build());
+      return new ComposableModifier(levelDisplay, tooltipDisplay, priority, modules.build());
     }
   }
 }

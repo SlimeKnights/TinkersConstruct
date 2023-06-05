@@ -4,6 +4,8 @@
     "type": "tconstruct:unique",
     "unique_until": 3
   },
+  "tooltip_display": "always",
+  "priority": 100,
   "modules": [
     {
       "type": "tconstruct:harvest_enchantment",
