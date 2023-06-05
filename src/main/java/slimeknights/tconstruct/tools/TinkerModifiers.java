@@ -49,6 +49,7 @@ import slimeknights.tconstruct.library.modifiers.impl.TotalArmorLevelModifier;
 import slimeknights.tconstruct.library.modifiers.modules.EnchantmentModule;
 import slimeknights.tconstruct.library.modifiers.modules.LootingModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
+import slimeknights.tconstruct.library.modifiers.modules.ModifierSlotModule;
 import slimeknights.tconstruct.library.modifiers.spilling.ISpillingEffect;
 import slimeknights.tconstruct.library.modifiers.spilling.SpillingFluidManager;
 import slimeknights.tconstruct.library.modifiers.spilling.effects.AddBreathSpillingEffect;
@@ -579,6 +580,7 @@ public final class TinkerModifiers extends TinkerModule {
     ModifierModule.LOADER.register(TConstruct.getResource("harvest_enchantment"), EnchantmentModule.Harvest.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("constant_enchantment"), EnchantmentModule.Constant.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("looting"), LootingModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("modifier_slot"), ModifierSlotModule.LOADER);
 
     ModifierPredicate.LOADER.register(TConstruct.getResource("and"), ModifierPredicate.AND);
     ModifierPredicate.LOADER.register(TConstruct.getResource("or"), ModifierPredicate.OR);

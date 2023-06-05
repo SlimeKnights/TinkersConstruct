@@ -20,9 +20,9 @@ import slimeknights.tconstruct.library.json.predicate.entity.MobTypePredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.TagEntityPredicate;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.modifiers.dynamic.ComposableModifier.TooltipDisplay;
 import slimeknights.tconstruct.library.modifiers.dynamic.ConditionalDamageModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.ConditionalMiningSpeedModifier;
-import slimeknights.tconstruct.library.modifiers.dynamic.ExtraModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.InventoryMenuModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.MobDisguiseModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.MobEffectModifier;
@@ -31,6 +31,7 @@ import slimeknights.tconstruct.library.modifiers.dynamic.StatBoostModifier.Modif
 import slimeknights.tconstruct.library.modifiers.dynamic.SwappableExtraSlotModifier;
 import slimeknights.tconstruct.library.modifiers.modules.EnchantmentModule;
 import slimeknights.tconstruct.library.modifiers.modules.LootingModule;
+import slimeknights.tconstruct.library.modifiers.modules.ModifierSlotModule;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay.UniqueForLevels;
 import slimeknights.tconstruct.library.tools.SlotType;
@@ -56,12 +57,14 @@ public class ModifierProvider extends AbstractModifierProvider {
     EquipmentSlot[] armorMainHand = {EquipmentSlot.MAINHAND, EquipmentSlot.FEET, EquipmentSlot.LEGS, EquipmentSlot.CHEST, EquipmentSlot.HEAD};
 
     // extra modifier slots
-    addModifier(ModifierIds.writable,    ExtraModifier.builder(SlotType.UPGRADE).build());
-    addModifier(ModifierIds.recapitated, ExtraModifier.builder(SlotType.UPGRADE).build());
-    addModifier(ModifierIds.harmonious,  ExtraModifier.builder(SlotType.UPGRADE).build());
-    addModifier(ModifierIds.resurrected, ExtraModifier.builder(SlotType.UPGRADE).build());
-    addModifier(ModifierIds.gilded,      ExtraModifier.builder(SlotType.UPGRADE).slotsPerLevel(2).display(ModifierLevelDisplay.DEFAULT).build());
-    addModifier(ModifierIds.draconic,    ExtraModifier.builder(SlotType.ABILITY).build());
+    ModifierSlotModule UPGRADE = new ModifierSlotModule(SlotType.UPGRADE);
+    buildModifier(ModifierIds.writable)   .priority(50).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addHook(UPGRADE);
+    buildModifier(ModifierIds.recapitated).priority(50).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addHook(UPGRADE);
+    buildModifier(ModifierIds.harmonious) .priority(50).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addHook(UPGRADE);
+    buildModifier(ModifierIds.resurrected).priority(50).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addHook(UPGRADE);
+    buildModifier(ModifierIds.gilded)     .priority(50).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addHook(new ModifierSlotModule(SlotType.UPGRADE, 2));
+    buildModifier(ModifierIds.draconic)   .priority(50).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addHook(new ModifierSlotModule(SlotType.ABILITY, 1));
+
     addModifier(ModifierIds.rebalanced, SwappableExtraSlotModifier.swappable().penalize(SlotType.ABILITY, SlotType.UPGRADE).build());
     addRedirect(id("red_extra_upgrade"),   redirect(ModifierIds.writable));
     addRedirect(id("green_extra_upgrade"), redirect(ModifierIds.recapitated));
@@ -220,7 +223,7 @@ public class ModifierProvider extends AbstractModifierProvider {
 
     // traits - tier 3
     addModifier(ModifierIds.crumbling, new ConditionalMiningSpeedModifier(BlockPredicate.REQUIRES_TOOL.inverted(), false, 0.5f));
-    addModifier(ModifierIds.enhanced, ExtraModifier.builder(SlotType.UPGRADE).alwaysShow().display(ModifierLevelDisplay.DEFAULT).build());
+    buildModifier(ModifierIds.enhanced).priority(60).addHook(UPGRADE);
     addRedirect(id("maintained_2"), redirect(TinkerModifiers.maintained.getId()));
     // traits - tier 3 nether
     addModifier(ModifierIds.lightweight, StatBoostModifier.builder()
