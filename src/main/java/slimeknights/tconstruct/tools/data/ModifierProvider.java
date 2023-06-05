@@ -22,7 +22,6 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.dynamic.ConditionalDamageModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.ConditionalMiningSpeedModifier;
-import slimeknights.tconstruct.library.modifiers.dynamic.EnchantmentModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.ExtraModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.InventoryMenuModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.MobDisguiseModifier;
@@ -30,7 +29,7 @@ import slimeknights.tconstruct.library.modifiers.dynamic.MobEffectModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.StatBoostModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.StatBoostModifier.ModifierDisplay;
 import slimeknights.tconstruct.library.modifiers.dynamic.SwappableExtraSlotModifier;
-import slimeknights.tconstruct.library.modifiers.modules.HarvestEnchantmentModule;
+import slimeknights.tconstruct.library.modifiers.modules.EnchantmentModule;
 import slimeknights.tconstruct.library.modifiers.modules.LootingModule;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay.UniqueForLevels;
@@ -140,8 +139,8 @@ public class ModifierProvider extends AbstractModifierProvider {
 
 
     // loot
-    buildModifier(TinkerModifiers.silky).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addHook(new HarvestEnchantmentModule(Enchantments.SILK_TOUCH));
-    HarvestEnchantmentModule FORTUNE = new HarvestEnchantmentModule(Enchantments.BLOCK_FORTUNE);
+    buildModifier(TinkerModifiers.silky).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addHook(new EnchantmentModule.Harvest(Enchantments.SILK_TOUCH));
+    EnchantmentModule.Harvest FORTUNE = new EnchantmentModule.Harvest(Enchantments.BLOCK_FORTUNE);
     LootingModule LOOTING = new LootingModule(1);
     buildModifier(ModifierIds.luck).levelDisplay(new UniqueForLevels(3)).addHook(FORTUNE).addHook(LOOTING);
     buildModifier(ModifierIds.fortune).addHook(FORTUNE);
@@ -179,7 +178,7 @@ public class ModifierProvider extends AbstractModifierProvider {
     // TODO: floor?
     addModifier(ModifierIds.revitalizing, StatBoostModifier.builder().attribute("tconstruct.modifier.revitalizing", Attributes.MAX_HEALTH, Operation.ADDITION, 2, armorSlots).build());
     // helmet
-    addModifier(ModifierIds.respiration, new EnchantmentModifier(Enchantments.RESPIRATION, 1, ModifierLevelDisplay.DEFAULT));
+    buildModifier(ModifierIds.respiration).addHook(new EnchantmentModule.Constant(Enchantments.RESPIRATION));
     // chestplate
     addModifier(ModifierIds.strength, StatBoostModifier.builder().attribute("tconstruct.modifier.strength", Attributes.ATTACK_DAMAGE, Operation.MULTIPLY_TOTAL, 0.1f, armorSlots).build());
     addRedirect(id("armor_power"), redirect(ModifierIds.strength));
@@ -190,7 +189,7 @@ public class ModifierProvider extends AbstractModifierProvider {
     addModifier(ModifierIds.stepUp, StatBoostModifier.builder().attribute("tconstruct.modifier.step_up", ForgeMod.STEP_HEIGHT_ADDITION.get(), Operation.ADDITION, 0.5f, armorSlots).build());
     addModifier(ModifierIds.speedy, StatBoostModifier.builder().attribute("tconstruct.modifier.speedy", Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, 0.1f, armorMainHand).build());
     // boots
-    addModifier(ModifierIds.depthStrider, new EnchantmentModifier(Enchantments.DEPTH_STRIDER, 1, ModifierLevelDisplay.DEFAULT));
+    buildModifier(ModifierIds.depthStrider).addHook(new EnchantmentModule.Constant(Enchantments.DEPTH_STRIDER));
 
     // internal
     addModifier(ModifierIds.overslimeFriend, StatBoostModifier.builder().addFlag(OverslimeModifier.KEY_OVERSLIME_FRIEND).modifierDisplay(ModifierDisplay.NEVER).build());
