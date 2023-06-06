@@ -19,6 +19,7 @@ import slimeknights.tconstruct.library.modifiers.hook.PlantHarvestModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ProjectileHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ProjectileLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ShearsModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.ToolActionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.TooltipModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.AttributesModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
@@ -59,6 +60,10 @@ public class TinkerHooks {
   /** Hook for modifiers adding additional information to the tooltip */
   public static final ModifierHook<TooltipModifierHook> TOOLTIP = register("tooltip", TooltipModifierHook.class, TooltipModifierHook.AllMerger::new, (tool, modifier, player, tooltip, tooltipKey, tooltipFlag)
     -> modifier.getModifier().addInformation(tool, modifier.getLevel(), player, tooltip, tooltipKey, tooltipFlag));
+
+  /** Hook for modifiers checking if they can perform a tool action */
+  public static final ModifierHook<ToolActionModifierHook> TOOL_ACTION = register("tool_action", ToolActionModifierHook.class, ToolActionModifierHook.AnyMerger::new, (tool, modifier, toolAction)
+    -> modifier.getModifier().canPerformAction(tool, modifier.getLevel(), toolAction));
 
 
   /* Tool Building */

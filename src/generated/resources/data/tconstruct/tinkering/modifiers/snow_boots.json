@@ -1,8 +1,12 @@
 {
-  "type": "tconstruct:stat_boost",
+  "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "flags": [
-    "tconstruct:snow_boots"
-  ],
-  "modifier_display": "never"
+  "tooltip_display": "never",
+  "priority": 100,
+  "modules": [
+    {
+      "type": "tconstruct:volatile_flag",
+      "flag": "tconstruct:snow_boots"
+    }
+  ]
 }

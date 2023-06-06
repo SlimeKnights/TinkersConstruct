@@ -517,13 +517,8 @@ public class Modifier implements IHaveLoader<Modifier> {
      return UseAnim.NONE;
   }
 
-  /**
-   * Checks if the tool can perform the given tool action. If any modifier returns true, the action is assumed to be present
-   * @param tool        Tool to check, will never be broken
-   * @param level       Modifier level
-   * @param toolAction  Action to check
-   * @return  True if the tool can perform the action.
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.ToolActionModifierHook} */
+  @Deprecated
   public boolean canPerformAction(IToolStackView tool, int level, ToolAction toolAction) {
     return false;
   }
