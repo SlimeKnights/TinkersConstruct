@@ -143,14 +143,14 @@ public class ComposableModifier extends Modifier {
     private final ImmutableList.Builder<ModuleWithHooks> modules = ImmutableList.builder();
 
     /** Adds a module to the builder */
-    public final <T extends ModifierModule> Builder addHook(T object) {
+    public final <T extends ModifierModule> Builder addModule(T object) {
       modules.add(new ModuleWithHooks(object, Collections.emptyList()));
       return this;
     }
 
     /** Adds a module to the builder */
     @SafeVarargs
-    public final <T extends ModifierModule> Builder addHook(T object, ModifierHook<? super T>... hooks) {
+    public final <T extends ModifierModule> Builder addModule(T object, ModifierHook<? super T>... hooks) {
       modules.add(new ModuleWithHooks(object, List.of(hooks)));
       return this;
     }
