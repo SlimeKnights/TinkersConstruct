@@ -1,8 +1,11 @@
 {
-  "type": "tconstruct:stat_boost",
+  "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "attributes": [
+  "tooltip_display": "always",
+  "priority": 100,
+  "modules": [
     {
+      "type": "tconstruct:attribute",
       "unique": "tconstruct.modifier.step_up",
       "attribute": "forge:step_height_addition",
       "operation": "addition",

@@ -19,6 +19,14 @@ import slimeknights.tconstruct.library.modifiers.hook.PlantHarvestModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ProjectileHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ProjectileLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ShearsModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.ToolActionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.TooltipModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.AttributesModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.RawDataModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.ToolStatsModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.ValidateModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.VolatileDataModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
@@ -28,7 +36,9 @@ import slimeknights.tconstruct.library.modifiers.hooks.IArmorWalkModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IElytraFlightModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IHarvestModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IShearModifier;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -46,6 +56,63 @@ public class TinkerHooks {
 
   /** Generic hook for stats conditioned on the entity holding the tool */
   public static final ModifierHook<ConditionalStatModifierHook> CONDITIONAL_STAT = register("conditional_stat", ConditionalStatModifierHook.class, ConditionalStatModifierHook.ALL_MERGER, ConditionalStatModifierHook.EMPTY);
+
+  /** Hook for modifiers adding additional information to the tooltip */
+  public static final ModifierHook<TooltipModifierHook> TOOLTIP = register("tooltip", TooltipModifierHook.class, TooltipModifierHook.AllMerger::new, (tool, modifier, player, tooltip, tooltipKey, tooltipFlag)
+    -> modifier.getModifier().addInformation(tool, modifier.getLevel(), player, tooltip, tooltipKey, tooltipFlag));
+
+  /** Hook for modifiers checking if they can perform a tool action */
+  public static final ModifierHook<ToolActionModifierHook> TOOL_ACTION = register("tool_action", ToolActionModifierHook.class, ToolActionModifierHook.AnyMerger::new, (tool, modifier, toolAction)
+    -> modifier.getModifier().canPerformAction(tool, modifier.getLevel(), toolAction));
+
+
+  /* Tool Building */
+
+  /** Hook for adding raw unconditional stats to a tool */
+  public static final ModifierHook<ToolStatsModifierHook> TOOL_STATS = register("tool_stats", ToolStatsModifierHook.class, ToolStatsModifierHook.AllMerger::new, (context, modifier, builder)
+    -> modifier.getModifier().addToolStats(context, modifier.getLevel(), builder));
+
+  /** Hook for adding item stack attributes to a tool when in the proper slot */
+  public static final ModifierHook<AttributesModifierHook> ATTRIBUTES = register("attributes", AttributesModifierHook.class, AttributesModifierHook.AllMerger::new, (tool, modifier, slot, consumer)
+    -> modifier.getModifier().addAttributes(tool, modifier.getLevel(), slot, consumer));
+
+  /** Hook to add data that resets every time stats rebuild */
+  public static final ModifierHook<VolatileDataModifierHook> VOLATILE_DATA = register("volatile_data", VolatileDataModifierHook.class, VolatileDataModifierHook.AllMerger::new, (context, modifier, volatileData)
+    -> modifier.getModifier().addVolatileData(context, modifier.getLevel(), volatileData));
+
+  /** Hook to add and remove data directly to the tools NBT. It is generally better to use persistent data or volatile data when possible. */
+  public static final ModifierHook<RawDataModifierHook> RAW_DATA = register("raw_data", RawDataModifierHook.class, RawDataModifierHook.AllMerger::new, new RawDataModifierHook() {
+    @Override
+    public void addRawData(IToolStackView tool, ModifierEntry modifier, RestrictedCompoundTag tag) {
+      modifier.getModifier().addRawData(tool, modifier.getLevel(), tag);
+    }
+
+    @Override
+    public void removeRawData(IToolStackView tool, Modifier modifier, RestrictedCompoundTag tag) {
+      modifier.beforeRemoved(tool, tag);
+    }
+  });
+
+  /** Hook called to give a modifier a chance to clean up data while on the tool and to reject the current tool state */
+  public static final ModifierHook<ValidateModifierHook> VALIDATE = register("validate", ValidateModifierHook.class, ValidateModifierHook.AllMerger::new, (tool, modifier) -> {
+    ValidatedResult result = modifier.getModifier().validate(tool, modifier.getLevel());
+    if (result.hasError()) {
+      return result.getMessage();
+    }
+    return null;
+  });
+
+  /** Hook called when a modifier is removed to give it a chance to clean up data */
+  public static final ModifierHook<ModifierRemovalHook> REMOVE = register("remove", ModifierRemovalHook.class, ModifierRemovalHook.FirstMerger::new, ((tool, modifier) -> {
+    modifier.onRemoved(tool);
+    ValidatedResult result = modifier.validate(tool, 0);
+    if (result.hasError()) {
+      return result.getMessage();
+    }
+    return null;
+  }));
+
+
 
   /* Loot */
 

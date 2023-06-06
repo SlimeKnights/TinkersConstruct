@@ -1,8 +1,11 @@
 {
-  "type": "tconstruct:stat_boost",
+  "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "attributes": [
+  "tooltip_display": "always",
+  "priority": 100,
+  "modules": [
     {
+      "type": "tconstruct:attribute",
       "unique": "tconstruct.modifier.speedy",
       "attribute": "minecraft:generic.movement_speed",
       "operation": "multiply_total",

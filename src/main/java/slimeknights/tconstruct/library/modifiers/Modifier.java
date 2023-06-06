@@ -269,26 +269,12 @@ public class Modifier implements IHaveLoader<Modifier> {
     return getDisplayName(level);
   }
 
-  /**
-   * Adds additional information from the modifier to the tooltip. Shown when holding shift on a tool, or in the stats area of the tinker station
-   * @param tool         Tool instance
-   * @param level        Tool level
-   * @param player       Player holding this tool
-   * @param tooltip      Tooltip
-   * @param tooltipKey   Shows if the player is holding shift, control, or neither
-   * @param tooltipFlag  Flag determining tooltip type
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.TooltipModifierHook} */
+  @Deprecated
   public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, slimeknights.tconstruct.library.utils.TooltipKey tooltipKey, TooltipFlag tooltipFlag) {}
 
-  /**
-   * Adds additional information from the modifier to the tooltip. Shown when holding shift on a tool, or in the stats area of the tinker station
-   * @param tool         Tool instance
-   * @param level        Tool level
-   * @param player       Player holding this tool
-   * @param tooltip      Tooltip
-   * @param tooltipKey   Shows if the player is holding shift, control, or neither
-   * @param tooltipFlag  Flag determining tooltip type
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.TooltipModifierHook} */
+  @Deprecated
   public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     addInformation(tool, level, player, tooltip, slimeknights.tconstruct.library.utils.TooltipKey.fromMantle(tooltipKey), tooltipFlag);
   }
@@ -393,105 +379,34 @@ public class Modifier implements IHaveLoader<Modifier> {
 
   /* Tool building hooks */
 
-  /**
-   * Adds any relevant volatile data to the tool data. This data is rebuilt every time modifiers rebuild.
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>Persistent mod data (accessed via {@link IToolStackView}): Can be written to freely, but will not automatically remove if the modifier is removed.</li>
-   *   <li>{@link #addRawData(IToolStackView, int, RestrictedCompoundTag)}: Allows modifying a restricted view of the tools main data, might help with other mod compat, but not modifier compat</li>
-   * </ul>
-   * @param context         Context about the tool beilt. Partial view of {@link IToolStackView} as the tool is not fully built
-   * @param level           Modifier level
-   * @param volatileData    Mutable mod NBT data, result of this method
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.build.VolatileDataModifierHook} */
+  @Deprecated
   public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {}
 
-  /**
-   * Adds raw stats to the tool. Called whenever tool stats are rebuilt.
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #addAttributes(IToolStackView, int, EquipmentSlot, BiConsumer)}: Allows dynamic stats based on any tool stat, but does not support mining speed, mining level, or durability.</li>
-   *   <li>{@link #onBreakSpeed(IToolStackView, int, BreakSpeed, Direction, boolean, float)}: Allows dynamic mining speed based on the block mined and the entity mining. Will not show in tooltips.</li>
-   * </ul>
-   * @param context         Context about the tool beilt. Partial view of {@link IToolStackView} as the tool is not fully built. Note this hook runs after volatile data builds
-   * @param level           Modifier level
-   * @param builder         Tool stat builder
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.build.ToolStatsModifierHook} */
+  @Deprecated
   public void addToolStats(ToolRebuildContext context, int level, ModifierStatsBuilder builder) {}
 
-  /**
-   * Adds attributes from this modifier's effect. Called whenever the item stack refreshes capabilities.
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #addToolStats(ToolRebuildContext, int, ModifierStatsBuilder)}: Limited context, but can affect durability, mining level, and mining speed.</li>
-   * </ul>
-   * @param tool      Current tool instance
-   * @param level     Modifier level
-   * @param slot      Slot for the attributes
-   * @param consumer  Attribute consumer
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.build.AttributesModifierHook} */
+  @Deprecated
   public void addAttributes(IToolStackView tool, int level, EquipmentSlot slot, BiConsumer<Attribute,AttributeModifier> consumer) {}
 
-  /**
-   * Allows editing a restricted view of the tools raw NBT. You are responsible for cleaning up that data on removal via {@link #beforeRemoved(IToolStackView, RestrictedCompoundTag)}.
-   * In most cases volatile data via {@link #addVolatileData(ToolRebuildContext, int, ModDataNBT)} is a much better choice, only use this hook if you have no other choice.
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #addVolatileData(ToolRebuildContext, int, ModDataNBT)}: Modifier data that automatically cleans up when the modifier is removed.11</li>
-   * </ul>
-   * @param tool   Tool stack instance
-   * @param level  Level of the modifier
-   * @param tag    Mutable tag, will not allow modifiying any important tool stat
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.build.RawDataModifierHook#addRawData(IToolStackView, ModifierEntry, RestrictedCompoundTag)} */
+  @Deprecated
   public void addRawData(IToolStackView tool, int level, RestrictedCompoundTag tag) {}
 
-  /**
-   * Called when modifiers or tool materials change to validate the tool. You are free to modify persistent data in this hook if needed.
-   * Do not validate max level here, simply ignore levels over max if needed.
-   * TODO: in 1.19 switch return type to component
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #onRemoved(IToolStackView)}: Called when the last level of a modifier is removed after validation is finished</li>
-   *   <li>{@link #beforeRemoved(IToolStackView, RestrictedCompoundTag)}: Called before the modifier is actually removed</li>
-   * </ul>
-   * @param tool   Current tool instance
-   * @param level  Modifier level, may be 0 if the modifier is removed.
-   * @return  PASS result if success, failure if there was an error.
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.build.ValidateModifierHook} */
+  @Deprecated
   public ValidatedResult validate(IToolStackView tool, int level) {
     return ValidatedResult.PASS;
   }
 
-  /**
-   * Called when this modifier is about to be removed. At this time stats are not yet rebuild and the modifier is still on the tool.
-   * Mainly exists to work with the raw tool NBT, as its a lot more difficult for multiple modifiers to collaborate on that.
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #onRemoved(IToolStackView)}: Called after the modifier is removed and stat are rebuilt without it. Typically a better choice for working with persistent NBT</li>
-   *   <li>{@link #addVolatileData(ToolRebuildContext, int, ModDataNBT)}: Adds NBT that is automatically removed</li>
-   *   <li>{@link #validate(IToolStackView, int)}: Allows marking a new state invalid</li>
-   * </ul>
-   * @param tool  Tool instance
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.build.RawDataModifierHook#removeRawData(IToolStackView, Modifier, RestrictedCompoundTag)} */
+  @Deprecated
   public void beforeRemoved(IToolStackView tool, RestrictedCompoundTag tag) {}
 
-  /**
-   * Called after this modifier is removed (and after stats are rebuilt) to clean up persistent data.
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #validate(IToolStackView, int)}: Called when the tool still has levels and allows rejecting the new tool state</li>
-   *   <li>{@link #beforeRemoved(IToolStackView, RestrictedCompoundTag)}: Grants access to the tools raw NBT, but called before tool stats are rebuilt</li>
-   *   <li>{@link #addVolatileData(ToolRebuildContext, int, ModDataNBT)}: Adds NBT that is automatically removed</li>
-   * </ul>
-   * @param tool  Tool instance
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook} */
+  @Deprecated
   public void onRemoved(IToolStackView tool) {}
 
 
@@ -602,13 +517,8 @@ public class Modifier implements IHaveLoader<Modifier> {
      return UseAnim.NONE;
   }
 
-  /**
-   * Checks if the tool can perform the given tool action. If any modifier returns true, the action is assumed to be present
-   * @param tool        Tool to check, will never be broken
-   * @param level       Modifier level
-   * @param toolAction  Action to check
-   * @return  True if the tool can perform the action.
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.ToolActionModifierHook} */
+  @Deprecated
   public boolean canPerformAction(IToolStackView tool, int level, ToolAction toolAction) {
     return false;
   }

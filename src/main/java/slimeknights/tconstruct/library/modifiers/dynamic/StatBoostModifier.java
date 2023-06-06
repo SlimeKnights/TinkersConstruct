@@ -46,9 +46,9 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
-/**
- * Modifier that applies generic stat boosts
- */
+/** @deprecated use one or more of {@link slimeknights.tconstruct.library.modifiers.modules.ToolStatModule}, {@link slimeknights.tconstruct.library.modifiers.modules.AttributeModule},
+ * {@link slimeknights.tconstruct.library.modifiers.modules.VolatileFlagModule}, or {@link slimeknights.tconstruct.library.modifiers.modules.ToolActionsModule} */
+@Deprecated
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class StatBoostModifier extends IncrementalModifier {
   /** Rarity to display */
