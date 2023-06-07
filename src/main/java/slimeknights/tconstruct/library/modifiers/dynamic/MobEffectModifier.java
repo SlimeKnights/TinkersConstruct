@@ -36,7 +36,8 @@ import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
-/** Modifier that applies an effect on hit. Supports melee, armor, and ranged */
+/** @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.MobEffectModule} */
+@Deprecated
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class MobEffectModifier extends IncrementalModifier implements ProjectileHitModifierHook, ProjectileLaunchModifierHook {
   private final MobEffect effect;

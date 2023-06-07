@@ -4,6 +4,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -14,22 +15,24 @@ import net.minecraftforge.common.ForgeMod;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.data.tinkering.AbstractModifierProvider;
+import slimeknights.tconstruct.library.json.predicate.IJsonPredicate;
 import slimeknights.tconstruct.library.json.predicate.block.BlockPredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.LivingEntityPredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.MobTypePredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.TagEntityPredicate;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.dynamic.ComposableModifier.TooltipDisplay;
-import slimeknights.tconstruct.library.modifiers.dynamic.ConditionalDamageModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.ConditionalMiningSpeedModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.InventoryMenuModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.MobDisguiseModifier;
-import slimeknights.tconstruct.library.modifiers.dynamic.MobEffectModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.SwappableExtraSlotModifier;
 import slimeknights.tconstruct.library.modifiers.modules.AttributeModule;
+import slimeknights.tconstruct.library.modifiers.modules.ConditionalDamageModule;
 import slimeknights.tconstruct.library.modifiers.modules.EnchantmentModule;
 import slimeknights.tconstruct.library.modifiers.modules.LootingModule;
+import slimeknights.tconstruct.library.modifiers.modules.MobEffectModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierSlotModule;
 import slimeknights.tconstruct.library.modifiers.modules.RarityModule;
 import slimeknights.tconstruct.library.modifiers.modules.ToolStatModule;
@@ -41,6 +44,7 @@ import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.ModifiableArmorItem;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.utils.ScalingValue;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.ToolBeltModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
@@ -147,7 +151,7 @@ public class ModifierProvider extends AbstractModifierProvider {
     buildModifier(ModifierIds.looting).addModule(LOOTING);
 
     /// attack
-    addModifier(ModifierIds.sticky, MobEffectModifier.Builder.effect(MobEffects.MOVEMENT_SLOWDOWN).level(0, 0.5f).timeBase(20).timeMultiplierRandom(10).build());
+    buildModifier(ModifierIds.sticky).addModule(MobEffectModule.builder(MobEffects.MOVEMENT_SLOWDOWN).level(ScalingValue.leveling(0, 0.5f)).time(ScalingValue.random(20, 10)).build());
 
     // damage boost
     // vanilla give +1, 1.5, 2, 2.5, 3, but that is low
@@ -155,14 +159,17 @@ public class ModifierProvider extends AbstractModifierProvider {
     UniqueForLevels uniqueForFive = new UniqueForLevels(5);
     buildModifier(ModifierIds.sharpness).addModule(ToolStatModule.add(ToolStats.ATTACK_DAMAGE, 0.75f)).levelDisplay(uniqueForFive);
     buildModifier(ModifierIds.swiftstrike).addModule(ToolStatModule.multiplyBase(ToolStats.ATTACK_SPEED, 0.05f)).levelDisplay(uniqueForFive);
-    addModifier(ModifierIds.smite,       new ConditionalDamageModifier(new MobTypePredicate(MobType.UNDEAD), 2.0f));
-    addModifier(ModifierIds.antiaquatic, new ConditionalDamageModifier(new MobTypePredicate(MobType.WATER),  2.0f));
-    addModifier(ModifierIds.cooling,     new ConditionalDamageModifier(LivingEntityPredicate.FIRE_IMMUNE,    1.6f));
-    addModifier(ModifierIds.baneOfSssss, new ConditionalDamageModifier(
-      LivingEntityPredicate.OR.create(new MobTypePredicate(MobType.ARTHROPOD), new TagEntityPredicate(TinkerTags.EntityTypes.CREEPERS)),
-      2.0f, MobEffects.MOVEMENT_SLOWDOWN, 4));
-    addModifier(ModifierIds.killager, new ConditionalDamageModifier(
-      LivingEntityPredicate.OR.create(new MobTypePredicate(MobType.ILLAGER), new TagEntityPredicate(TinkerTags.EntityTypes.VILLAGERS)), 2.0f));
+    buildModifier(ModifierIds.smite)      .addModule(new ConditionalDamageModule(new MobTypePredicate(MobType.UNDEAD), 2.0f));
+    buildModifier(ModifierIds.antiaquatic).addModule(new ConditionalDamageModule(new MobTypePredicate(MobType.WATER),  2.0f));
+    buildModifier(ModifierIds.cooling)    .addModule(new ConditionalDamageModule(LivingEntityPredicate.FIRE_IMMUNE,    1.6f));
+    IJsonPredicate<LivingEntity> baneSssssPredicate = LivingEntityPredicate.OR.create(new MobTypePredicate(MobType.ARTHROPOD), new TagEntityPredicate(TinkerTags.EntityTypes.CREEPERS));
+    buildModifier(ModifierIds.baneOfSssss)
+      .addModule(new ConditionalDamageModule(baneSssssPredicate, 2.0f))
+      .addModule(MobEffectModule.builder(MobEffects.MOVEMENT_SLOWDOWN).level(ScalingValue.flat(4)).time(ScalingValue.random(20, 10)).entity(baneSssssPredicate).build(), TinkerHooks.MELEE_HIT);
+    buildModifier(ModifierIds.killager).addModule(new ConditionalDamageModule(LivingEntityPredicate.OR.create(
+      new MobTypePredicate(MobType.ILLAGER),
+      new TagEntityPredicate(TinkerTags.EntityTypes.VILLAGERS)
+    ), 2.0f));
     addRedirect(id("fractured"), redirect(ModifierIds.sharpness));
 
     // ranged
@@ -201,7 +208,7 @@ public class ModifierProvider extends AbstractModifierProvider {
     buildModifier(ModifierIds.flexible).addModule(ToolStatModule.add(ToolStats.VELOCITY, 0.1f)).addModule(ToolStatModule.multiplyAll(ToolStats.PROJECTILE_DAMAGE, -0.1f));
     // traits - tier 2
     buildModifier(ModifierIds.sturdy).addModule(ToolStatModule.multiplyBase(ToolStats.DURABILITY, 0.15f));
-    addModifier(ModifierIds.scorching, new ConditionalDamageModifier(LivingEntityPredicate.ON_FIRE, 2f));
+    buildModifier(ModifierIds.scorching).addModule(new ConditionalDamageModule(LivingEntityPredicate.ON_FIRE, 2f));
     // traits - tier 2 compat
     addModifier(ModifierIds.lustrous, new Modifier());
     buildModifier(ModifierIds.sharpweight)
