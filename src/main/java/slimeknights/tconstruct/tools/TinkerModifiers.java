@@ -55,6 +55,7 @@ import slimeknights.tconstruct.library.modifiers.modules.MobEffectModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierSlotModule;
 import slimeknights.tconstruct.library.modifiers.modules.RarityModule;
+import slimeknights.tconstruct.library.modifiers.modules.SwappableSlotModule;
 import slimeknights.tconstruct.library.modifiers.modules.ToolActionsModule;
 import slimeknights.tconstruct.library.modifiers.modules.ToolStatModule;
 import slimeknights.tconstruct.library.modifiers.modules.VolatileFlagModule;
@@ -596,6 +597,8 @@ public final class TinkerModifiers extends TinkerModule {
     ModifierModule.LOADER.register(TConstruct.getResource("constant_enchantment"), EnchantmentModule.Constant.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("looting"), LootingModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("modifier_slot"), ModifierSlotModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("swappable_slot"), SwappableSlotModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("swappable_bonus_slot"), SwappableSlotModule.BonusSlot.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("mob_effect"), MobEffectModule.LOADER);
 
     ModifierPredicate.LOADER.register(TConstruct.getResource("and"), ModifierPredicate.AND);

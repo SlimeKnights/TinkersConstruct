@@ -27,7 +27,6 @@ import slimeknights.tconstruct.library.modifiers.dynamic.ComposableModifier.Tool
 import slimeknights.tconstruct.library.modifiers.dynamic.ConditionalMiningSpeedModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.InventoryMenuModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.MobDisguiseModifier;
-import slimeknights.tconstruct.library.modifiers.dynamic.SwappableExtraSlotModifier;
 import slimeknights.tconstruct.library.modifiers.modules.AttributeModule;
 import slimeknights.tconstruct.library.modifiers.modules.ConditionalDamageModule;
 import slimeknights.tconstruct.library.modifiers.modules.EnchantmentModule;
@@ -36,6 +35,7 @@ import slimeknights.tconstruct.library.modifiers.modules.LootingModule;
 import slimeknights.tconstruct.library.modifiers.modules.MobEffectModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierSlotModule;
 import slimeknights.tconstruct.library.modifiers.modules.RarityModule;
+import slimeknights.tconstruct.library.modifiers.modules.SwappableSlotModule;
 import slimeknights.tconstruct.library.modifiers.modules.ToolStatModule;
 import slimeknights.tconstruct.library.modifiers.modules.VolatileFlagModule;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
@@ -71,8 +71,9 @@ public class ModifierProvider extends AbstractModifierProvider {
     buildModifier(ModifierIds.resurrected).priority(50).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
     buildModifier(ModifierIds.gilded)     .priority(50).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new ModifierSlotModule(SlotType.UPGRADE, 2));
     buildModifier(ModifierIds.draconic)   .priority(50).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new ModifierSlotModule(SlotType.ABILITY, 1));
-
-    addModifier(ModifierIds.rebalanced, SwappableExtraSlotModifier.swappable().penalize(SlotType.ABILITY, SlotType.UPGRADE).build());
+    buildModifier(ModifierIds.rebalanced)
+      .priority(50).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
+      .addModule(new SwappableSlotModule(1)).addModule(new SwappableSlotModule.BonusSlot(SlotType.ABILITY, SlotType.UPGRADE, -1));
     addRedirect(id("red_extra_upgrade"),   redirect(ModifierIds.writable));
     addRedirect(id("green_extra_upgrade"), redirect(ModifierIds.recapitated));
     addRedirect(id("blue_extra_upgrade"),  redirect(ModifierIds.harmonious));

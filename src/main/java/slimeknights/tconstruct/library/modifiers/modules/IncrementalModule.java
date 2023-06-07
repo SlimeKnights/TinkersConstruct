@@ -6,7 +6,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
@@ -14,6 +13,7 @@ import slimeknights.tconstruct.library.modifiers.hook.DisplayNameModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.EffectiveLevelModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
 import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;
+import slimeknights.tconstruct.library.modifiers.util.ModuleWithKey;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.tools.nbt.INamespacedNBTView;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
@@ -30,7 +30,7 @@ import java.util.List;
  * @param neededPerLevel  If zero, modifier is incremental with no max set and will fetch if from the recipe.
  *                        If greater than zero, modifier will have a fixed max.
  */
-public record IncrementalModule(@Nullable ResourceLocation key, int neededPerLevel) implements EffectiveLevelModifierHook, DisplayNameModifierHook, ModifierRemovalHook, ModifierModule {
+public record IncrementalModule(@Nullable ResourceLocation key, int neededPerLevel) implements EffectiveLevelModifierHook, DisplayNameModifierHook, ModifierRemovalHook, ModifierModule, ModuleWithKey {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.EFFECTIVE_LEVEL, TinkerHooks.DISPLAY_NAME, TinkerHooks.REMOVE);
 
   /** Recipe controlled incremental modifier with no extra settings */
@@ -42,14 +42,6 @@ public record IncrementalModule(@Nullable ResourceLocation key, int neededPerLev
       return RECIPE_CONTROLLED;
     }
     return new IncrementalModule(key, neededPerLevel);
-  }
-
-  /** Gets the key to use for incremental data */
-  private ResourceLocation getKey(Modifier modifier) {
-    if (key != null) {
-      return key;
-    }
-    return modifier.getId();
   }
 
   /** Gets the number needed per level */
@@ -112,10 +104,7 @@ public record IncrementalModule(@Nullable ResourceLocation key, int neededPerLev
   public static final IGenericLoader<IncrementalModule> LOADER = new IGenericLoader<>() {
     @Override
     public IncrementalModule deserialize(JsonObject json) {
-      ResourceLocation key = null;
-      if (json.has("key")) {
-        key = JsonHelper.getResourceLocation(json, "key");
-      }
+      ResourceLocation key = ModuleWithKey.parseKey(json);
       int neededPerLevel = JsonUtils.getIntMin(json, "needed_per_level", 0);
       return IncrementalModule.create(key, neededPerLevel);
     }
@@ -132,22 +121,14 @@ public record IncrementalModule(@Nullable ResourceLocation key, int neededPerLev
 
     @Override
     public IncrementalModule fromNetwork(FriendlyByteBuf buffer) {
-      ResourceLocation key = null;
-      if (buffer.readBoolean()) {
-        key = buffer.readResourceLocation();
-      }
+      ResourceLocation key = ModuleWithKey.fromNetwork(buffer);
       int neededPerLevel = buffer.readVarInt();
       return IncrementalModule.create(key, neededPerLevel);
     }
 
     @Override
     public void toNetwork(IncrementalModule object, FriendlyByteBuf buffer) {
-      if (object.key != null) {
-        buffer.writeBoolean(true);
-        buffer.writeResourceLocation(object.key);
-      } else {
-        buffer.writeBoolean(false);
-      }
+      ModuleWithKey.toNetwork(object.key, buffer);
       buffer.writeVarInt(object.neededPerLevel);
     }
   };
