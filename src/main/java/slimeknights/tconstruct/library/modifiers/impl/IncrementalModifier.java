@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.modifiers.impl;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
@@ -111,7 +112,7 @@ public class IncrementalModifier extends Modifier {
    * @param tool   Tool instance
    * @param level  Modifier level
    * @return  Level, possibly reduced by an incomplete level
-   * @deprecated use {@link #getEffectiveLevel(IToolContext, int)}
+   * @deprecated use {@link #getEffectiveLevel(IToolContext, int)} or {@link ModifierEntry#getEffectiveLevel(IToolContext)}
    */
   @Deprecated
   public float getScaledLevel(IToolContext tool, int level) {
@@ -128,13 +129,8 @@ public class IncrementalModifier extends Modifier {
     persistentData.putInt(modifier, amount);
   }
 
-  /**
-   * Adds a tooltip showing the bonus damage and the type of damage dded
-   * @param tool         Tool instance
-   * @param level        Current level
-   * @param levelAmount  Bonus per level
-   * @param tooltip      Tooltip
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.TooltipModifierHook#addDamageBoost(IToolStackView, ModifierEntry, float, List)} */
+  @Deprecated
   protected void addDamageTooltip(IToolStackView tool, int level, float levelAmount, List<Component> tooltip) {
     addDamageTooltip(tool, getScaledLevel(tool, level) * levelAmount, tooltip);
   }

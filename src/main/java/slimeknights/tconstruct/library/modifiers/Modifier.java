@@ -41,6 +41,7 @@ import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierManager.ModifierRegistrationEvent;
+import slimeknights.tconstruct.library.modifiers.hook.TooltipModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeDamageModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
@@ -849,48 +850,28 @@ public class Modifier implements IHaveLoader<Modifier> {
     return modifier;
   }
 
-  /**
-   * Adds a flat bonus tooltip
-   * @param name     Bonus name
-   * @param bonus    Bonus amount
-   * @param tooltip  Tooltip list
-   */
+  /** @deprecated use {@link TooltipModifierHook#addFlatBoost(Modifier, Component, double, List)} */
+  @Deprecated
   protected void addFlatBoost(Component name, double bonus, List<Component> tooltip) {
-    tooltip.add(applyStyle(new TextComponent(Util.BONUS_FORMAT.format(bonus) + " ").append(name)));
+    TooltipModifierHook.addFlatBoost(this, name, bonus, tooltip);
   }
 
-  /**
-   * Adds a percent bonus tooltip
-   * @param name     Bonus name
-   * @param bonus    Bonus amount
-   * @param tooltip  Tooltip list
-   */
+  /** @deprecated use {@link TooltipModifierHook#addPercentBoost(Modifier, Component, double, List)} (Modifier, Component, double, List)} */
+  @Deprecated
   protected void addPercentTooltip(Component name, double bonus, List<Component> tooltip) {
-    tooltip.add(applyStyle(new TextComponent(Util.PERCENT_BOOST_FORMAT.format(bonus) + " ").append(name)));
+    TooltipModifierHook.addPercentBoost(this, name, bonus, tooltip);
   }
 
-  /**
-   * Adds a tooltip showing a bonus stat
-   * @param tool       Tool instance
-   * @param stat       Stat added
-   * @param condition  Condition to show the tooltip
-   * @param amount     Amount to show, before scaling by the tool's modifier
-   * @param tooltip    Tooltip list
-   */
+  /** @deprecated use {@link TooltipModifierHook#addStatBoost(IToolStackView, Modifier, FloatToolStat, TagKey, float, List)} */
+  @Deprecated
   protected void addStatTooltip(IToolStackView tool, FloatToolStat stat, TagKey<Item> condition, float amount, List<Component> tooltip) {
-    if (tool.hasTag(condition)) {
-      addFlatBoost(new TranslatableComponent(getTranslationKey() + "." + stat.getName().getPath()), amount * tool.getMultiplier(stat), tooltip);
-    }
+    TooltipModifierHook.addStatBoost(tool, this, stat, condition, amount, tooltip);
   }
 
-  /**
-   * Adds a tooltip showing the bonus damage and the type of damage
-   * @param tool     Tool instance
-   * @param amount   Damage amount
-   * @param tooltip  Tooltip
-   */
+  /** @deprecated use {@link TooltipModifierHook#addDamageBoost(IToolStackView, Modifier, float, List)} */
+  @Deprecated
   protected void addDamageTooltip(IToolStackView tool, float amount, List<Component> tooltip) {
-    addStatTooltip(tool, ToolStats.ATTACK_DAMAGE, TinkerTags.Items.MELEE_OR_UNARMED, amount, tooltip);
+    TooltipModifierHook.addDamageBoost(tool, this, amount, tooltip);
   }
 
   /** Tries an expected module against the given module type, returning null if failing. Do not use if you extend another modifier with modules */
