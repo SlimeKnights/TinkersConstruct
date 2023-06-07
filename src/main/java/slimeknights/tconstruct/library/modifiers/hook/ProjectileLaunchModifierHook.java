@@ -12,7 +12,8 @@ import java.util.Collection;
 import java.util.function.Function;
 
 /**
- * Hook for modifiers which wish to modify an arrow before its fired
+ * Hook for modifiers which wish to modify an arrow before its fired.
+ * TODO 1.19: move into combat package
  */
 public interface ProjectileLaunchModifierHook {
   /** Default instance */

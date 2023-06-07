@@ -223,7 +223,7 @@ public class ToolEvents {
           IToolStackView toolStack = context.getToolInSlot(slotType);
           if (toolStack != null && !toolStack.isBroken()) {
             for (ModifierEntry entry : toolStack.getModifierList()) {
-              if (entry.getModifier().isSourceBlocked(toolStack, entry.getLevel(), context, slotType, source, amount)) {
+              if (entry.getHook(TinkerHooks.DAMAGE_BLOCK).isDamageBlocked(toolStack, entry, context, slotType, source, amount)) {
                 event.setCanceled(true);
                 return;
               }
@@ -238,7 +238,7 @@ public class ToolEvents {
         IToolStackView toolStack = context.getToolInSlot(slotType);
         if (toolStack != null && !toolStack.isBroken()) {
           for (ModifierEntry entry : toolStack.getModifierList()) {
-            entry.getModifier().onAttacked(toolStack, entry.getLevel(), context, slotType, source, amount, isDirectDamage);
+            entry.getHook(TinkerHooks.DAMAGE_TAKEN).onDamageTaken(toolStack, entry, context, slotType, source, amount, isDirectDamage);
           }
         }
       }
@@ -249,7 +249,7 @@ public class ToolEvents {
         IToolStackView shield = context.getToolInSlot(slot);
         if (shield != null && !shield.isBroken()) {
           for (ModifierEntry entry : shield.getModifierList()) {
-            entry.getModifier().onAttacked(shield, entry.getLevel(), context, slot, source, amount, isDirectDamage);
+            entry.getHook(TinkerHooks.DAMAGE_TAKEN).onDamageTaken(shield, entry, context, slot, source, amount, isDirectDamage);
           }
         }
       }
@@ -264,7 +264,7 @@ public class ToolEvents {
           IToolStackView toolStack = context.getToolInSlot(slotType);
           if (toolStack != null && !toolStack.isBroken()) {
             for (ModifierEntry entry : toolStack.getModifierList()) {
-              entry.getModifier().attackWithArmor(toolStack, entry.getLevel(), context, slotType, entity, source, amount, isDirectDamage);
+              entry.getHook(TinkerHooks.DAMAGE_DEALT).onDamageDealt(toolStack, entry, context, slotType, entity, source, amount, isDirectDamage);
             }
           }
         }
@@ -311,7 +311,7 @@ public class ToolEvents {
           IToolStackView tool = context.getToolInSlot(slotType);
           if (tool != null && !tool.isBroken()) {
             for (ModifierEntry entry : tool.getModifierList()) {
-              modifierValue = entry.getModifier().getProtectionModifier(tool, entry.getLevel(), context, slotType, source, modifierValue);
+              modifierValue = entry.getHook(TinkerHooks.PROTECTION).getProtectionModifier(tool, entry, context, slotType, source, modifierValue);
             }
           }
         }

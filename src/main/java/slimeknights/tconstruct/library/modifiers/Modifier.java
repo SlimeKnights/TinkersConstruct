@@ -41,6 +41,8 @@ import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierManager.ModifierRegistrationEvent;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeDamageModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
@@ -58,7 +60,6 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
-import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
 import slimeknights.tconstruct.library.utils.Util;
 
@@ -619,148 +620,49 @@ public class Modifier implements IHaveLoader<Modifier> {
 
   /* Attack hooks */
 
-  /**
-   * Called when an entity is attacked, before critical hit damage is calculated. Allows modifying the damage dealt.
-   * Do not modify the entity here, its possible the attack will still be canceled without calling further hooks due to 0 damage being dealt.
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #addToolStats(ToolRebuildContext, int, ModifierStatsBuilder)}: Adjusts the base tool stats that show in the tooltip, but has less context for modification</li>
-   *   <li>{@link #beforeEntityHit(IToolStackView, int, ToolAttackContext, float, float, float)}: If you need to modify the entity before attacking, use this hook</li>
-   *   <li>{@link #afterEntityHit(IToolStackView, int, ToolAttackContext, float)}: Perform special attacks on entity hit beyond damage boosts</li>
-   * </ul>
-   * @param tool          Tool used to attack
-   * @param level         Modifier level
-   * @param context       Attack context
-   * @param baseDamage    Base damage dealt before modifiers
-   * @param damage        Computed damage from all prior modifiers
-   * @return  New damage to deal
-   */
+  /** @deprecated use {@link MeleeDamageModifierHook} */
+  @Deprecated
   public float getEntityDamage(IToolStackView tool, int level, ToolAttackContext context, float baseDamage, float damage) {
     return damage;
   }
 
-  /**
-   * Called right before an entity is hit, used to modify knockback applied or to apply special effects that need to run before damage. Damage is final damage including critical damage.
-   * Note there is still a chance this attack won't deal damage, if that happens {@link #failedEntityHit(IToolStackView, int, ToolAttackContext)} will run.
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #afterEntityHit(IToolStackView, int, ToolAttackContext, float)}: Perform special attacks on entity hit beyond knockback boosts</li>
-   * </ul>
-   * @param tool           Tool used to attack
-   * @param level          Modifier level
-   * @param context        Attack context
-   * @param damage         Damage to deal to the attacker
-   * @param baseKnockback  Base knockback before modifiers
-   * @param knockback      Computed knockback from all prior modifiers
-   * @return  New knockback to apply. 0.5 is equivelent to 1 level of the vanilla enchant
-   */
+  /** @deprecated use {@link MeleeHitModifierHook#beforeMeleeHit(IToolStackView, ModifierEntry, ToolAttackContext, float, float, float)} */
+  @Deprecated
   public float beforeEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
     return knockback;
   }
 
-  /**
-   * Called after a living entity is successfully attacked. Used to apply special effects on hit.
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #addToolStats(ToolRebuildContext, int, ModifierStatsBuilder)}: Adjusts the base tool stats that affect damage</li>
-   *   <li>{@link #getEntityDamage(IToolStackView, int, ToolAttackContext, float, float)}: Change the amount of damage dealt with attacker context</li>
-   *   <li>{@link #beforeEntityHit(IToolStackView, int, ToolAttackContext, float, float, float)}: Change the amount of knockback dealt</li>
-   *   <li>{@link #failedEntityHit(IToolStackView, int, ToolAttackContext)}: Called after living hit when damage was not dealt</li>
-   * </ul>
-   * @param tool          Tool used to attack
-   * @param level         Modifier level
-   * @param context       Attack context
-   * @param damageDealt   Amount of damage successfully dealt
-   * @return  Extra damage to deal to the tool
-   */
+  /** @deprecated use {@link MeleeHitModifierHook#afterMeleeHit(IToolStackView, ModifierEntry, ToolAttackContext, float)} */
+  @Deprecated
   public int afterEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damageDealt) {
     return 0;
   }
 
-  /**
-   * Called after attacking an entity when no damage was dealt
-   * @param tool          Tool used to attack
-   * @param level         Modifier level
-   * @param context       Attack context
-   */
+  /** @deprecated use {@link MeleeHitModifierHook#failedMeleeHit(IToolStackView, ModifierEntry, ToolAttackContext, float)} */
+  @Deprecated
   public void failedEntityHit(IToolStackView tool, int level, ToolAttackContext context) {}
 
 
   /* Armor */
 
-  /**
-   * Gets the protection value of the armor from this modifier. A value of 1 blocks about 4% of damage, equivalent to 1 level of the protection enchantment.
-   * Maximum effect is 80% reduction from a modifier value of 20. Can also go negative, up to 180% increase from a modifier value of -20
-   * <br/>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #isSourceBlocked(IToolStackView, int, EquipmentContext, EquipmentSlot, DamageSource, float)}: Allows canceling the attack entirely, including the hurt animation.</li>
-   *   <li>{@link #onAttacked(IToolStackView, int, EquipmentContext, EquipmentSlot, DamageSource, float, boolean)}: Allows running logic that should take place on attack, such as counterattacks.</li>
-   * </ul>
-   * @param tool            Worn armor
-   * @param level           Modifier level
-   * @param context         Equipment context of the entity wearing the armor
-   * @param slotType        Slot containing the armor
-   * @param source          Damage source
-   * @param modifierValue   Modifier value from previous modifiers to add
-   * @return  New modifier value
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.combat.ProtectionModifierHook} */
+  @Deprecated
   public float getProtectionModifier(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float modifierValue) {
     return modifierValue;
   }
 
-  /**
-   * Checks if this modifier blocks damage from the given source.
-   * <br/>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #getProtectionModifier(IToolStackView, int, EquipmentContext, EquipmentSlot, DamageSource, float)}: Allows reducing damage from a source rather than completely blocking it. Reduced damage will still play the attack animation.</li>
-   *   <li>{@link #onAttacked(IToolStackView, int, EquipmentContext, EquipmentSlot, DamageSource, float, boolean)}: Allows running logic that should take place on attack, such as counterattacks.</li>
-   * </ul>
-   * @param tool       Tool being used
-   * @param level      Level of the modifier
-   * @param context    Context of entity and other equipment
-   * @param slotType   Slot containing the tool
-   * @param source     Damage source causing the attack
-   * @param amount     Amount of damage caused
-   * @return True if this attack should be blocked entirely
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.combat.DamageBlockModifierHook} */
+  @Deprecated
   public boolean isSourceBlocked(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount) {
     return false;
   }
 
-  /**
-   * Runs after an entity is attacked (and we know the attack will land). Note you can attack the entity here, but you are responsible for preventing infinite recursion if you do so (by detecting your own attack source for instance)
-   * <br/>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #isSourceBlocked(IToolStackView, int, EquipmentContext, EquipmentSlot, DamageSource, float)}: Allows canceling the attack entirely, including the hurt animation.</li>
-   *   <li>{@link #getProtectionModifier(IToolStackView, int, EquipmentContext, EquipmentSlot, DamageSource, float)}: Allows reducing the attack damage.</li>
-   * </ul>
-   * @param tool             Tool being used
-   * @param level            Level of the modifier
-   * @param context          Context of entity and other equipment
-   * @param slotType         Slot containing the tool
-   * @param source           Damage source causing the attack
-   * @param amount           Amount of damage caused
-   * @param isDirectDamage   If true, this attack is direct damage from an entity
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.combat.DamageTakenModifierHook} */
+  @Deprecated
   public void onAttacked(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {}
 
-  /**
-   * Called when an entity is attacked and this entity is the attacker
-   * @param tool             Tool being used
-   * @param level            Level of the modifier
-   * @param context          Context of entity and other equipment
-   * @param slotType         Slot containing the tool
-   * @param target           Entity that was attacked
-   * @param source           Damage source used in the attack
-   * @param amount           Amount of damage caused
-   * @param isDirectDamage   If true, this attack is direct damage from an entity
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.combat.DamageDealtModifierHook} */
+  @Deprecated
   public void attackWithArmor(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, LivingEntity target, DamageSource source, float amount, boolean isDirectDamage) {}
 
   /* Equipment events */
