@@ -1,8 +1,16 @@
 {
-  "type": "tconstruct:conditional_damage",
-  "entity": {
-    "type": "tconstruct:mob_type",
-    "mobs": "minecraft:water"
-  },
-  "damage": 2.0
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:default",
+  "tooltip_display": "always",
+  "priority": 100,
+  "modules": [
+    {
+      "type": "tconstruct:conditional_damage",
+      "entity": {
+        "type": "tconstruct:mob_type",
+        "mobs": "minecraft:water"
+      },
+      "damage": 2.0
+    }
+  ]
 }

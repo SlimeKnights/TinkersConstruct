@@ -47,8 +47,10 @@ import slimeknights.tconstruct.library.modifiers.impl.SingleLevelModifier;
 import slimeknights.tconstruct.library.modifiers.impl.TankModifier;
 import slimeknights.tconstruct.library.modifiers.impl.TotalArmorLevelModifier;
 import slimeknights.tconstruct.library.modifiers.modules.AttributeModule;
+import slimeknights.tconstruct.library.modifiers.modules.ConditionalDamageModule;
 import slimeknights.tconstruct.library.modifiers.modules.EnchantmentModule;
 import slimeknights.tconstruct.library.modifiers.modules.LootingModule;
+import slimeknights.tconstruct.library.modifiers.modules.MobEffectModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierSlotModule;
 import slimeknights.tconstruct.library.modifiers.modules.RarityModule;
@@ -585,12 +587,14 @@ public final class TinkerModifiers extends TinkerModule {
     ModifierModule.LOADER.register(TConstruct.getResource("attribute"), AttributeModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("tool_stat"), ToolStatModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("tool_actions"), ToolActionsModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("conditional_damage"), ConditionalDamageModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("volatile_flag"), VolatileFlagModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("rarity"), RarityModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("harvest_enchantment"), EnchantmentModule.Harvest.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("constant_enchantment"), EnchantmentModule.Constant.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("looting"), LootingModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("modifier_slot"), ModifierSlotModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("mob_effect"), MobEffectModule.LOADER);
 
     ModifierPredicate.LOADER.register(TConstruct.getResource("and"), ModifierPredicate.AND);
     ModifierPredicate.LOADER.register(TConstruct.getResource("or"), ModifierPredicate.OR);
