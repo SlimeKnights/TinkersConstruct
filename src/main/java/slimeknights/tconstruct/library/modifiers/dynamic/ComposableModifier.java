@@ -17,10 +17,13 @@ import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule.ModuleWithHooks;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
+import slimeknights.tconstruct.library.tools.nbt.IToolContext;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.Collections;
 import java.util.List;
@@ -60,6 +63,16 @@ public class ComposableModifier extends Modifier {
   @Override
   public Component getDisplayName(int level) {
     return levelDisplay.nameForLevel(this, level);
+  }
+
+  @Override
+  public Component getDisplayName(IToolStackView tool, int level) {
+    return getHook(TinkerHooks.DISPLAY_NAME).getDisplayName(tool, this, level, getDisplayName(level));
+  }
+
+  @Override
+  public float getEffectiveLevel(IToolContext tool, int level) {
+    return getHook(TinkerHooks.EFFECTIVE_LEVEL).getEffectiveLevel(tool, this, level);
   }
 
   @Override

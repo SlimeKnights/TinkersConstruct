@@ -31,6 +31,7 @@ import slimeknights.tconstruct.library.modifiers.dynamic.SwappableExtraSlotModif
 import slimeknights.tconstruct.library.modifiers.modules.AttributeModule;
 import slimeknights.tconstruct.library.modifiers.modules.ConditionalDamageModule;
 import slimeknights.tconstruct.library.modifiers.modules.EnchantmentModule;
+import slimeknights.tconstruct.library.modifiers.modules.IncrementalModule;
 import slimeknights.tconstruct.library.modifiers.modules.LootingModule;
 import slimeknights.tconstruct.library.modifiers.modules.MobEffectModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierSlotModule;
@@ -139,6 +140,7 @@ public class ModifierProvider extends AbstractModifierProvider {
     buildModifier(ModifierIds.shiny).addModule(new VolatileFlagModule(IModifiable.SHINY)).addModule(new RarityModule(Rarity.EPIC)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
     // general abilities
     buildModifier(ModifierIds.reach)
+      .addModule(IncrementalModule.RECIPE_CONTROLLED)
       .addModule(new AttributeModule("tconstruct.modifier.reach", ForgeMod.REACH_DISTANCE.get(), Operation.ADDITION, 1, EquipmentSlot.MAINHAND, EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET))
       .addModule(new AttributeModule("tconstruct.modifier.range", ForgeMod.ATTACK_RANGE.get(), Operation.ADDITION, 1, EquipmentSlot.MAINHAND, EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET));
 
@@ -151,44 +153,49 @@ public class ModifierProvider extends AbstractModifierProvider {
     buildModifier(ModifierIds.looting).addModule(LOOTING);
 
     /// attack
-    buildModifier(ModifierIds.sticky).addModule(MobEffectModule.builder(MobEffects.MOVEMENT_SLOWDOWN).level(ScalingValue.leveling(0, 0.5f)).time(ScalingValue.random(20, 10)).build());
+    buildModifier(ModifierIds.sticky)
+      .addModule(IncrementalModule.RECIPE_CONTROLLED)
+      .addModule(MobEffectModule.builder(MobEffects.MOVEMENT_SLOWDOWN).level(ScalingValue.leveling(0, 0.5f)).time(ScalingValue.random(20, 10)).build());
 
     // damage boost
     // vanilla give +1, 1.5, 2, 2.5, 3, but that is low
     // we instead do +0.75, +1.5, +2.25, +3, +3.75
     UniqueForLevels uniqueForFive = new UniqueForLevels(5);
-    buildModifier(ModifierIds.sharpness).addModule(ToolStatModule.add(ToolStats.ATTACK_DAMAGE, 0.75f)).levelDisplay(uniqueForFive);
-    buildModifier(ModifierIds.swiftstrike).addModule(ToolStatModule.multiplyBase(ToolStats.ATTACK_SPEED, 0.05f)).levelDisplay(uniqueForFive);
-    buildModifier(ModifierIds.smite)      .addModule(new ConditionalDamageModule(new MobTypePredicate(MobType.UNDEAD), 2.0f));
-    buildModifier(ModifierIds.antiaquatic).addModule(new ConditionalDamageModule(new MobTypePredicate(MobType.WATER),  2.0f));
-    buildModifier(ModifierIds.cooling)    .addModule(new ConditionalDamageModule(LivingEntityPredicate.FIRE_IMMUNE,    1.6f));
+    buildModifier(ModifierIds.sharpness).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ToolStatModule.add(ToolStats.ATTACK_DAMAGE, 0.75f)).levelDisplay(uniqueForFive);
+    buildModifier(ModifierIds.swiftstrike).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ToolStatModule.multiplyBase(ToolStats.ATTACK_SPEED, 0.05f)).levelDisplay(uniqueForFive);
+    buildModifier(ModifierIds.smite).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(new ConditionalDamageModule(new MobTypePredicate(MobType.UNDEAD), 2.0f));
+    buildModifier(ModifierIds.antiaquatic).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(new ConditionalDamageModule(new MobTypePredicate(MobType.WATER),  2.0f));
+    buildModifier(ModifierIds.cooling).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(new ConditionalDamageModule(LivingEntityPredicate.FIRE_IMMUNE,    1.6f));
     IJsonPredicate<LivingEntity> baneSssssPredicate = LivingEntityPredicate.OR.create(new MobTypePredicate(MobType.ARTHROPOD), new TagEntityPredicate(TinkerTags.EntityTypes.CREEPERS));
     buildModifier(ModifierIds.baneOfSssss)
+      .addModule(IncrementalModule.RECIPE_CONTROLLED)
       .addModule(new ConditionalDamageModule(baneSssssPredicate, 2.0f))
       .addModule(MobEffectModule.builder(MobEffects.MOVEMENT_SLOWDOWN).level(ScalingValue.flat(4)).time(ScalingValue.random(20, 10)).entity(baneSssssPredicate).build(), TinkerHooks.MELEE_HIT);
-    buildModifier(ModifierIds.killager).addModule(new ConditionalDamageModule(LivingEntityPredicate.OR.create(
+    buildModifier(ModifierIds.killager).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(new ConditionalDamageModule(LivingEntityPredicate.OR.create(
       new MobTypePredicate(MobType.ILLAGER),
       new TagEntityPredicate(TinkerTags.EntityTypes.VILLAGERS)
     ), 2.0f));
     addRedirect(id("fractured"), redirect(ModifierIds.sharpness));
 
     // ranged
-    buildModifier(ModifierIds.power).addModule(ToolStatModule.add(ToolStats.PROJECTILE_DAMAGE, 0.5f));
-    buildModifier(ModifierIds.quickCharge).addModule(ToolStatModule.multiplyBase(ToolStats.DRAW_SPEED, 0.25f));
-    buildModifier(ModifierIds.trueshot).addModule(ToolStatModule.add(ToolStats.ACCURACY, 0.1f));
-    buildModifier(ModifierIds.blindshot).addModule(ToolStatModule.add(ToolStats.ACCURACY, -0.1f));
+    buildModifier(ModifierIds.power).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ToolStatModule.add(ToolStats.PROJECTILE_DAMAGE, 0.5f));
+    buildModifier(ModifierIds.quickCharge).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ToolStatModule.multiplyBase(ToolStats.DRAW_SPEED, 0.25f));
+    buildModifier(ModifierIds.trueshot).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ToolStatModule.add(ToolStats.ACCURACY, 0.1f));
+    buildModifier(ModifierIds.blindshot).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ToolStatModule.add(ToolStats.ACCURACY, -0.1f));
 
     // armor
     buildModifier(TinkerModifiers.golden).addModule(new VolatileFlagModule(ModifiableArmorItem.PIGLIN_NEUTRAL)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
     buildModifier(ModifierIds.wings).addModule(new VolatileFlagModule(ModifiableArmorItem.ELYTRA)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
-    buildModifier(ModifierIds.knockbackResistance).addModule(ToolStatModule.add(ToolStats.KNOCKBACK_RESISTANCE, 0.1f));
+    buildModifier(ModifierIds.knockbackResistance).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ToolStatModule.add(ToolStats.KNOCKBACK_RESISTANCE, 0.1f));
     // defense
     // TODO: floor?
-    buildModifier(ModifierIds.revitalizing).addModule(new AttributeModule("tconstruct.modifier.revitalizing", Attributes.MAX_HEALTH, Operation.ADDITION, 2, armorSlots));
+    buildModifier(ModifierIds.revitalizing).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(new AttributeModule("tconstruct.modifier.revitalizing", Attributes.MAX_HEALTH, Operation.ADDITION, 2, armorSlots));
     // helmet
     buildModifier(ModifierIds.respiration).addModule(new EnchantmentModule.Constant(Enchantments.RESPIRATION));
     // chestplate
-    buildModifier(ModifierIds.strength).addModule(new AttributeModule("tconstruct.modifier.strength", Attributes.ATTACK_DAMAGE, Operation.MULTIPLY_TOTAL, 0.1f, armorSlots));
+    buildModifier(ModifierIds.strength)
+      .addModule(IncrementalModule.RECIPE_CONTROLLED)
+      .addModule(new AttributeModule("tconstruct.modifier.strength", Attributes.ATTACK_DAMAGE, Operation.MULTIPLY_TOTAL, 0.1f, armorSlots));
     addRedirect(id("armor_power"), redirect(ModifierIds.strength));
     // leggings
     addModifier(ModifierIds.pockets, new InventoryMenuModifier(18));
