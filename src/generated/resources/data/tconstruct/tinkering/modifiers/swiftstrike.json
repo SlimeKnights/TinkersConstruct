@@ -8,6 +8,9 @@
   "priority": 100,
   "modules": [
     {
+      "type": "tconstruct:incremental"
+    },
+    {
       "type": "tconstruct:tool_stat",
       "stat": "tconstruct:attack_speed",
       "operation": "multiply_base",

@@ -4,6 +4,7 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import slimeknights.tconstruct.TConstruct;
@@ -34,7 +35,7 @@ public class ModifierRecipeLookup {
   /** Map of requirements for each modifier */
   private static final Multimap<ModifierId,ModifierRequirements> REQUIREMENTS = HashMultimap.create();
   /** Map of the number needed for each incremental modifier */
-  private static final Object2IntMap<ModifierId> INCREMENTAL_PER_LEVEL = new Object2IntOpenHashMap<>();
+  private static final Object2IntMap<ResourceLocation> INCREMENTAL_PER_LEVEL = new Object2IntOpenHashMap<>();
   /** Map of salvage recipes for each modifier */
   private static final Multimap<ModifierId,ModifierSalvage> SALVAGE = HashMultimap.create();
 
@@ -140,7 +141,7 @@ public class ModifierRecipeLookup {
    * @param modifier  Modifier
    * @return  Amount needed per level
    */
-  public static int getNeededPerLevel(ModifierId modifier) {
+  public static int getNeededPerLevel(ResourceLocation modifier) {
     return INCREMENTAL_PER_LEVEL.getOrDefault(modifier, 0);
   }
 

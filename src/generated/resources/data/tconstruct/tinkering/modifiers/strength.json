@@ -5,6 +5,9 @@
   "priority": 100,
   "modules": [
     {
+      "type": "tconstruct:incremental"
+    },
+    {
       "type": "tconstruct:attribute",
       "unique": "tconstruct.modifier.strength",
       "attribute": "minecraft:generic.attack_damage",

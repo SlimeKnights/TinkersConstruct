@@ -16,17 +16,23 @@ import java.util.List;
 /**
  * Modifier which can take just part of an input instead of the whole input
  * TODO: consider moving incremental max to a field, serialized in JSON
+ * TODO: consider removing this class in favor of {@link slimeknights.tconstruct.library.modifiers.modules.IncrementalModule}
  */
 public class IncrementalModifier extends Modifier {
+  /** Gets the display name for an incremental modifier */
+  public static Component addAmountToName(int amount, int neededPerLevel, Component name) {
+    if (amount < neededPerLevel) {
+      return name.copy().append(": " + amount + " / " + neededPerLevel);
+    }
+    return name;
+  }
+
   @Override
   public Component getDisplayName(IToolStackView tool, int level) {
     int neededPerLevel = ModifierRecipeLookup.getNeededPerLevel(this.getId());
-    Component name = this.getDisplayName(level);
+    Component name = getDisplayName(level);
     if (neededPerLevel > 0) {
-      int amount = getAmount(tool);
-      if (amount < neededPerLevel) {
-        return name.copy().append(": " + amount + " / " + neededPerLevel);
-      }
+      return addAmountToName(getAmount(tool), neededPerLevel, getDisplayName(level));
     }
     return name;
   }
@@ -80,6 +86,16 @@ public class IncrementalModifier extends Modifier {
     return getAmount(tool, this.getId());
   }
 
+  /** Scales the level based on the given amount and needed amount per level */
+  public static float scaleLevel(float level, int amount, int neededPerLevel) {
+    // if amount == needed per level, returns level
+    if (amount < neededPerLevel) {
+      // if amount == 0, returns level - 1, otherwise returns some fractional amount
+      return level + (amount - neededPerLevel) / (float)neededPerLevel;
+    }
+    return level;
+  };
+
   /**
    * Gets the level scaled based on the current amount into the level
    * @param persistentData  Tool persistent mod NBT
@@ -92,12 +108,7 @@ public class IncrementalModifier extends Modifier {
     }
     int neededPerLevel = ModifierRecipeLookup.getNeededPerLevel(this.getId());
     if (neededPerLevel > 0) {
-      int amount = getAmount(persistentData);
-      // if amount == needed per level, returns level
-      if (amount < neededPerLevel) {
-        // if amount == 0, returns level - 1, otherwise returns some fractional amount
-        return level + (getAmount(persistentData) - neededPerLevel) / (float)neededPerLevel;
-      }
+      return scaleLevel(level, getAmount(persistentData), neededPerLevel);
     }
     return level;
   }

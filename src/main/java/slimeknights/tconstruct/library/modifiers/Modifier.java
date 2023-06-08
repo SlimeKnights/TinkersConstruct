@@ -73,8 +73,10 @@ import java.util.Random;
 import java.util.function.BiConsumer;
 
 /**
- * Interface representing both modifiers and traits.
- * Any behavior special to either one is handled elsewhere.
+ * Class representing both modifiers and traits. Acts as a storage container for {@link ModifierHook} modules, which are used to implement various modifier behaviors.
+ * TODO 1.19: consider making {@link #registerHooks(Builder)} abstract as everyone is going to need it in the future.
+ * @see TinkerHooks
+ * @see #registerHooks(Builder)
  */
 @SuppressWarnings("unused")
 public class Modifier implements IHaveLoader<Modifier> {

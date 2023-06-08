@@ -5,6 +5,9 @@
   "priority": 100,
   "modules": [
     {
+      "type": "tconstruct:incremental"
+    },
+    {
       "type": "tconstruct:conditional_damage",
       "entity": {
         "type": "tconstruct:mob_type",
