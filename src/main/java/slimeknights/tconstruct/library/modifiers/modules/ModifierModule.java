@@ -15,7 +15,6 @@ import slimeknights.tconstruct.library.modifiers.ModifierHook;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap;
 
-import javax.json.stream.JsonGenerationException;
 import java.util.Collections;
 import java.util.List;
 
@@ -45,7 +44,7 @@ public interface ModifierModule extends IHaveLoader<ModifierModule> {
     public JsonObject serialize() {
       JsonElement json = LOADER.serialize(module);
       if (!json.isJsonObject()) {
-        throw new JsonGenerationException("Serializers for modifier modules must return json objects");
+        throw new JsonSyntaxException("Serializers for modifier modules must return json objects");
       }
       JsonObject object = json.getAsJsonObject();
       if (!this.hooks.isEmpty()) {
