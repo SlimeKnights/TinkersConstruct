@@ -627,49 +627,19 @@ public class Modifier implements IHaveLoader<Modifier> {
   @Deprecated
   public void attackWithArmor(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, LivingEntity target, DamageSource source, float amount, boolean isDirectDamage) {}
 
+
   /* Equipment events */
 
-  /**
-   * Called when a tinker tool is unequipped from an entity
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #onEquip(IToolStackView, int, EquipmentChangeContext)}}: Called when a tool is added to an entity</li>
-   *   <li>{@link #onEquipmentChange(IToolStackView, int, EquipmentChangeContext, EquipmentSlot)}: Called on all other slots that did not change</li>
-   * </ul>
-   * @param tool         Tool unequipped
-   * @param level        Level of the modifier
-   * @param context      Context about the event
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.EquipmentChangeModifierHook#onUnequip(IToolStackView, ModifierEntry, EquipmentChangeContext)} */
+  @Deprecated
   public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {}
 
-  /**
-   * Called when a tinker tool is equipped to an entity
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #onUnequip(IToolStackView, int, EquipmentChangeContext)}: Called when a tool is removed from an entity</li>
-   *   <li>{@link #onEquipmentChange(IToolStackView, int, EquipmentChangeContext, EquipmentSlot)}: Called on all other slots did not change</li>
-   * </ul>
-   * @param tool         Tool equipped
-   * @param level        Level of the modifier
-   * @param context      Context about the event
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.EquipmentChangeModifierHook#onEquip(IToolStackView, ModifierEntry, EquipmentChangeContext)} (IToolStackView, ModifierEntry, EquipmentChangeContext)} */
+  @Deprecated
   public void onEquip(IToolStackView tool, int level, EquipmentChangeContext context) {}
 
-  /**
-   * Called when a stack in a different slot changed. Not called on the slot that changed
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #onUnequip(IToolStackView, int, EquipmentChangeContext)}: Called when a tool is removed from an entity</li>
-   *   <li>{@link #onEquip(IToolStackView, int, EquipmentChangeContext)}: Called when a tool is added to an entity. Called instead of this hook for the new item</li>
-   * </ul>
-   * @param tool      Tool instance
-   * @param level     Modifier level
-   * @param context   Context describing the change
-   * @param slotType  Slot containing this tool, did not change
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.EquipmentChangeModifierHook#onEquipmentChange(IToolStackView, ModifierEntry, EquipmentChangeContext, EquipmentSlot)} */
+  @Deprecated
   public void onEquipmentChange(IToolStackView tool, int level, EquipmentChangeContext context, EquipmentSlot slotType) {}
 
 

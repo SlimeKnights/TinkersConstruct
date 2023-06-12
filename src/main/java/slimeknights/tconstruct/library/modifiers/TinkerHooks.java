@@ -14,6 +14,7 @@ import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHoo
 import slimeknights.tconstruct.library.modifiers.hook.DisplayNameModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.EffectiveLevelModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ElytraFlightModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.EquipmentChangeModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.HarvestEnchantmentsModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.KeybindInteractModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.LootingModifierHook;
@@ -49,6 +50,7 @@ import slimeknights.tconstruct.library.modifiers.hooks.IElytraFlightModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IHarvestModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IShearModifier;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
+import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -78,6 +80,24 @@ public class TinkerHooks {
   /** Hook for modifiers checking if they can perform a tool action */
   public static final ModifierHook<ToolActionModifierHook> TOOL_ACTION = register("tool_action", ToolActionModifierHook.class, ToolActionModifierHook.AnyMerger::new, (tool, modifier, toolAction)
     -> modifier.getModifier().canPerformAction(tool, modifier.getLevel(), toolAction));
+
+  /** Hook used when any {@link EquipmentSlot} changes on an entity while using at least one tool */
+  public static final ModifierHook<EquipmentChangeModifierHook> EQUIPMENT_CHANGE = register("equipment_change", EquipmentChangeModifierHook.class, EquipmentChangeModifierHook.AllMerger::new, new EquipmentChangeModifierHook() {
+    @Override
+    public void onEquip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
+      modifier.getModifier().onEquip(tool, modifier.getLevel(), context);
+    }
+
+    @Override
+    public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
+      modifier.getModifier().onUnequip(tool, modifier.getLevel(), context);
+    }
+
+    @Override
+    public void onEquipmentChange(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context, EquipmentSlot slotType) {
+      modifier.getModifier().onEquipmentChange(tool, modifier.getLevel(), context, slotType);
+    }
+  });
 
 
   /* Composable only  */
