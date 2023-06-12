@@ -9,7 +9,10 @@ import java.util.Collection;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
-/** Modifier hook implementing bonus enchantments from a tool, applied directly before block break. Can implement separately for leggings and tools if desired via the different hooks */
+/**
+ * Modifier hook implementing bonus enchantments from a tool, applied directly before block break. Can implement separately for leggings and tools if desired via the different hooks
+ * TODO 1.19: move into {@link slimeknights.tconstruct.library.modifiers.hook.mining}
+ */
 public interface HarvestEnchantmentsModifierHook {
   HarvestEnchantmentsModifierHook EMPTY = (tool, modifier, context, consumer) -> {};
 

@@ -38,6 +38,10 @@ import slimeknights.tconstruct.library.modifiers.hook.combat.ProtectionModifierH
 import slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.mining.BlockBreakModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.mining.FinishHarvestModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.mining.RemoveBlockModifierHook;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorLootModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorWalkModifier;
@@ -204,6 +208,25 @@ public class TinkerHooks {
       armorLoot.applyHarvestEnchantments(tool, modifier.getLevel(), context, consumer);
     }
   });
+
+
+  /* Harvest */
+
+  /** Hook for conditionally modifying the break speed of a block */
+  public static final ModifierHook<BreakSpeedModifierHook> BREAK_SPEED = register("break_speed", BreakSpeedModifierHook.class, BreakSpeedModifierHook.AllMerger::new, (tool, modifier, event, sideHit, isEffective, miningSpeedModifier)
+    -> modifier.getModifier().onBreakSpeed(tool, modifier.getLevel(), event, sideHit, isEffective, miningSpeedModifier));
+
+  /** Called when a block is broken by a tool to allow the modifier to take over the block removing logic */
+  public static final ModifierHook<RemoveBlockModifierHook> REMOVE_BLOCK = register("remove_block", RemoveBlockModifierHook.class, RemoveBlockModifierHook.FirstMerger::new, (tool, modifier, context)
+    -> modifier.getModifier().removeBlock(tool, modifier.getLevel(), context));
+
+  /** Called after a block is broken by a tool for every block in the AOE */
+  public static final ModifierHook<BlockBreakModifierHook> BLOCK_BREAK = register("block_break", BlockBreakModifierHook.class, BlockBreakModifierHook.AllMerger::new, (tool, modifier, context)
+    -> modifier.getModifier().afterBlockBreak(tool, modifier.getLevel(), context));
+
+  /** Called after all blocks in the AOE are broken */
+  public static final ModifierHook<FinishHarvestModifierHook> FINISH_HARVEST = register("finish_harvest", FinishHarvestModifierHook.class, FinishHarvestModifierHook.AllMerger::new, (tool, modifier, context)
+    -> modifier.getModifier().finishBreakingBlocks(tool, modifier.getLevel(), context));
 
 
   /* Ranged */

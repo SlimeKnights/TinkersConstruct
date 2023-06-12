@@ -103,7 +103,7 @@ public class ToolEvents {
           boolean isEffective = stack.isCorrectToolForDrops(event.getState());
           Direction direction = BlockSideHitListener.getSideHit(player);
           for (ModifierEntry entry : tool.getModifierList()) {
-            entry.getModifier().onBreakSpeed(tool, entry.getLevel(), event, direction, isEffective, miningSpeedModifier);
+            entry.getHook(TinkerHooks.BREAK_SPEED).onBreakSpeed(tool, entry, event, direction, isEffective, miningSpeedModifier);
             // if any modifier cancels mining, stop right here
             if (event.isCanceled()) {
               return;
