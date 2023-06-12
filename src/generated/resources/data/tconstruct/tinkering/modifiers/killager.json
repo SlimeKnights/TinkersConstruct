@@ -10,14 +10,14 @@
     {
       "type": "tconstruct:conditional_damage",
       "entity": {
-        "type": "tconstruct:or",
+        "type": "mantle:or",
         "predicates": [
           {
-            "type": "tconstruct:mob_type",
+            "type": "mantle:mob_type",
             "mobs": "minecraft:illager"
           },
           {
-            "type": "tconstruct:tag",
+            "type": "mantle:tag",
             "tag": "forge:villagers"
           }
         ]

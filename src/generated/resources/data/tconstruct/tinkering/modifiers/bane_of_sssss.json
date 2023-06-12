@@ -10,14 +10,14 @@
     {
       "type": "tconstruct:conditional_damage",
       "entity": {
-        "type": "tconstruct:or",
+        "type": "mantle:or",
         "predicates": [
           {
-            "type": "tconstruct:mob_type",
+            "type": "mantle:mob_type",
             "mobs": "minecraft:arthropod"
           },
           {
-            "type": "tconstruct:tag",
+            "type": "mantle:tag",
             "tag": "forge:creepers"
           }
         ]
@@ -27,14 +27,14 @@
     {
       "type": "tconstruct:mob_effect",
       "entity": {
-        "type": "tconstruct:or",
+        "type": "mantle:or",
         "predicates": [
           {
-            "type": "tconstruct:mob_type",
+            "type": "mantle:mob_type",
             "mobs": "minecraft:arthropod"
           },
           {
-            "type": "tconstruct:tag",
+            "type": "mantle:tag",
             "tag": "forge:creepers"
           }
         ]

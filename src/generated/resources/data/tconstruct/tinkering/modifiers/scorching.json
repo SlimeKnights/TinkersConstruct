@@ -6,7 +6,7 @@
   "modules": [
     {
       "type": "tconstruct:conditional_damage",
-      "entity": "tconstruct:on_fire",
+      "entity": "mantle:on_fire",
       "damage": 2.0
     }
   ]

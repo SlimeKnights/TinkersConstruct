@@ -5,7 +5,9 @@ import slimeknights.mantle.data.GenericLoaderRegistry.IHaveLoader;
 /**
  * Generic interface for predicate based JSON loaders
  * TODO 1.19: replace with Mantle version (generics prevent doing so in 1.18)
+ * @deprecated use {@link slimeknights.mantle.data.predicate.IJsonPredicate}
  */
+@Deprecated
 public interface IJsonPredicate<I> extends IHaveLoader<IJsonPredicate<I>> {
   /** Returns true if this json predicate matches the given input */
   boolean matches(I input);

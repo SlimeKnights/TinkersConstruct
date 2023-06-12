@@ -9,7 +9,7 @@
     },
     {
       "type": "tconstruct:conditional_damage",
-      "entity": "tconstruct:fire_immune",
+      "entity": "mantle:fire_immune",
       "damage": 1.6
     }
   ]
