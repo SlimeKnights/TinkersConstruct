@@ -27,6 +27,12 @@ public record ModifierSlotModule(SlotType type, int count) implements VolatileDa
   }
 
   @Override
+  public Integer getPriority() {
+    // show lower priority so they group together
+    return 50;
+  }
+
+  @Override
   public void addVolatileData(ToolRebuildContext context, ModifierEntry modifier, ModDataNBT volatileData) {
     volatileData.addSlots(type, modifier.getLevel() * count);
   }

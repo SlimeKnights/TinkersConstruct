@@ -30,6 +30,11 @@ public record ConditionalMiningSpeedModule(IJsonPredicate<BlockState> predicate,
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.BREAK_SPEED);
 
   @Override
+  public Integer getPriority() {
+    return 125; // run before percentage conditional boosts
+  }
+
+  @Override
   public void onBreakSpeed(IToolStackView tool, ModifierEntry modifier, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
     if ((isEffective || !requireEffective) && predicate.matches(event.getState())) {
       event.setNewSpeed(event.getNewSpeed() * (modifier.getEffectiveLevel(tool) * bonus * tool.getMultiplier(ToolStats.MINING_SPEED) * miningSpeedModifier));

@@ -2,7 +2,6 @@
   "type": "tconstruct:composable",
   "level_display": "tconstruct:single_level",
   "tooltip_display": "tinker_station",
-  "priority": 50,
   "modules": [
     {
       "type": "tconstruct:modifier_slot",

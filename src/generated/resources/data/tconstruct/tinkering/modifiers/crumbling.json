@@ -2,7 +2,6 @@
   "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
   "tooltip_display": "always",
-  "priority": 125,
   "modules": [
     {
       "type": "tconstruct:conditional_mining_speed",

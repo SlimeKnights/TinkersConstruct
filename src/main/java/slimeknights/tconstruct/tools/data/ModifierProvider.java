@@ -65,14 +65,14 @@ public class ModifierProvider extends AbstractModifierProvider {
 
     // extra modifier slots
     ModifierSlotModule UPGRADE = new ModifierSlotModule(SlotType.UPGRADE);
-    buildModifier(ModifierIds.writable)   .priority(50).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
-    buildModifier(ModifierIds.recapitated).priority(50).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
-    buildModifier(ModifierIds.harmonious) .priority(50).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
-    buildModifier(ModifierIds.resurrected).priority(50).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
-    buildModifier(ModifierIds.gilded)     .priority(50).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new ModifierSlotModule(SlotType.UPGRADE, 2));
-    buildModifier(ModifierIds.draconic)   .priority(50).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new ModifierSlotModule(SlotType.ABILITY, 1));
+    buildModifier(ModifierIds.writable)   .tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
+    buildModifier(ModifierIds.recapitated).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
+    buildModifier(ModifierIds.harmonious) .tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
+    buildModifier(ModifierIds.resurrected).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
+    buildModifier(ModifierIds.gilded)     .tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new ModifierSlotModule(SlotType.UPGRADE, 2));
+    buildModifier(ModifierIds.draconic)   .tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new ModifierSlotModule(SlotType.ABILITY, 1));
     buildModifier(ModifierIds.rebalanced)
-      .priority(50).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
+      .tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
       .addModule(new SwappableSlotModule(1)).addModule(new SwappableSlotModule.BonusSlot(SlotType.ABILITY, SlotType.UPGRADE, -1));
     addRedirect(id("red_extra_upgrade"),   redirect(ModifierIds.writable));
     addRedirect(id("green_extra_upgrade"), redirect(ModifierIds.recapitated));
@@ -232,7 +232,7 @@ public class ModifierProvider extends AbstractModifierProvider {
       .addModule(ToolStatModule.multiplyBase(ToolStats.ACCURACY, 0.07f));
 
     // traits - tier 3
-    buildModifier(ModifierIds.crumbling).addModule(new ConditionalMiningSpeedModule(BlockPredicate.REQUIRES_TOOL.inverted(), false, 0.5f)).priority(125);
+    buildModifier(ModifierIds.crumbling).addModule(new ConditionalMiningSpeedModule(BlockPredicate.REQUIRES_TOOL.inverted(), false, 0.5f));
     buildModifier(ModifierIds.enhanced).priority(60).addModule(UPGRADE);
     addRedirect(id("maintained_2"), redirect(TinkerModifiers.maintained.getId()));
     // traits - tier 3 nether
