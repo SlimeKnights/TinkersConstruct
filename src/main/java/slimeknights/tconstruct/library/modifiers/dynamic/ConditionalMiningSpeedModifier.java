@@ -16,6 +16,7 @@ import slimeknights.tconstruct.library.json.predicate.IJsonPredicate;
 import slimeknights.tconstruct.library.json.predicate.block.BlockPredicate;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;
+import slimeknights.tconstruct.library.modifiers.modules.ConditionalMiningSpeedModule;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.TooltipKey;
@@ -23,7 +24,11 @@ import slimeknights.tconstruct.library.utils.TooltipKey;
 import javax.annotation.Nullable;
 import java.util.List;
 
-/** Modifier that conditionally boosts mining speed */
+/**
+ * Modifier that conditionally boosts mining speed
+ * @deprecated use {@link ConditionalMiningSpeedModule}
+ */
+@Deprecated
 @RequiredArgsConstructor
 public class ConditionalMiningSpeedModifier extends IncrementalModifier {
   private final IJsonPredicate<BlockState> predicate;

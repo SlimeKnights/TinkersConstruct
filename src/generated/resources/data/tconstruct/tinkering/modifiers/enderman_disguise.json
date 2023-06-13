@@ -1,4 +1,12 @@
 {
-  "type": "tconstruct:mob_disguise",
-  "entity": "minecraft:enderman"
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:default",
+  "tooltip_display": "always",
+  "priority": 100,
+  "modules": [
+    {
+      "type": "tconstruct:mob_disguise",
+      "entity": "minecraft:enderman"
+    }
+  ]
 }

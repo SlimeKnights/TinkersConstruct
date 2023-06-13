@@ -52,7 +52,7 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.data.ModifierMaxLevel;
-import slimeknights.tconstruct.library.modifiers.dynamic.MobDisguiseModifier;
+import slimeknights.tconstruct.library.modifiers.modules.MobDisguiseModule;
 import slimeknights.tconstruct.library.tools.capability.EntityModifierCapability;
 import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
@@ -398,7 +398,7 @@ public class ToolEvents {
     LivingEntity living = event.getEntityLiving();
     living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
       // mob disguise
-      Multiset<EntityType<?>> disguises = data.get(MobDisguiseModifier.DISGUISES);
+      Multiset<EntityType<?>> disguises = data.get(MobDisguiseModule.DISGUISES);
       if (disguises != null && disguises.contains(lookingEntity.getType())) {
         // not as good as a real head
         event.modifyVisibility(0.65f);
