@@ -11,10 +11,12 @@ import net.minecraft.resources.ResourceLocation;
 import slimeknights.mantle.data.GenericLoaderRegistry;
 import slimeknights.mantle.data.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap;
 
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,6 +31,22 @@ public interface ModifierModule extends IHaveLoader<ModifierModule> {
    * Gets the default list of hooks this module implements
    */
   List<ModifierHook<?>> getDefaultHooks();
+
+  /**
+   * Gets the priority for this module.
+   * All modules are polled to choose the priority of the final modifier with the following criteria:
+   * <ol>
+   *   <li>If no modifier sets a priority in its JSON, that is used</li>
+   *   <li>If no module has nonnull priority, then the modifier will use {@link Modifier#DEFAULT_PRIORITY}</li>
+   *   <li>If one module has nonnull priority, that priority will be used</li>
+   *   <li>If two or more modules has nonnull priority, the first will be used and a warning will be logged</li>
+   * </ol>>
+   * @return Priority
+   */
+  @Nullable
+  default Integer getPriority() {
+    return null;
+  }
 
   /** Represents a modifier module with a list of hooks */
   record ModuleWithHooks(ModifierModule module, List<ModifierHook<?>> hooks) {

@@ -2,14 +2,13 @@
   "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
   "tooltip_display": "always",
-  "priority": 100,
   "modules": [
     {
       "type": "tconstruct:incremental"
     },
     {
       "type": "tconstruct:mob_effect",
-      "entity": "tconstruct:any",
+      "entity": "mantle:any",
       "effect": "minecraft:slowness",
       "level": {
         "leveling": 0.5

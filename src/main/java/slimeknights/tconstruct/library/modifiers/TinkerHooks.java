@@ -14,6 +14,7 @@ import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHoo
 import slimeknights.tconstruct.library.modifiers.hook.DisplayNameModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.EffectiveLevelModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ElytraFlightModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.EquipmentChangeModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.HarvestEnchantmentsModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.KeybindInteractModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.LootingModifierHook;
@@ -38,6 +39,10 @@ import slimeknights.tconstruct.library.modifiers.hook.combat.ProtectionModifierH
 import slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.mining.BlockBreakModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.mining.FinishHarvestModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.mining.RemoveBlockModifierHook;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorLootModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorWalkModifier;
@@ -45,6 +50,7 @@ import slimeknights.tconstruct.library.modifiers.hooks.IElytraFlightModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IHarvestModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IShearModifier;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
+import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -74,6 +80,24 @@ public class TinkerHooks {
   /** Hook for modifiers checking if they can perform a tool action */
   public static final ModifierHook<ToolActionModifierHook> TOOL_ACTION = register("tool_action", ToolActionModifierHook.class, ToolActionModifierHook.AnyMerger::new, (tool, modifier, toolAction)
     -> modifier.getModifier().canPerformAction(tool, modifier.getLevel(), toolAction));
+
+  /** Hook used when any {@link EquipmentSlot} changes on an entity while using at least one tool */
+  public static final ModifierHook<EquipmentChangeModifierHook> EQUIPMENT_CHANGE = register("equipment_change", EquipmentChangeModifierHook.class, EquipmentChangeModifierHook.AllMerger::new, new EquipmentChangeModifierHook() {
+    @Override
+    public void onEquip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
+      modifier.getModifier().onEquip(tool, modifier.getLevel(), context);
+    }
+
+    @Override
+    public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
+      modifier.getModifier().onUnequip(tool, modifier.getLevel(), context);
+    }
+
+    @Override
+    public void onEquipmentChange(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context, EquipmentSlot slotType) {
+      modifier.getModifier().onEquipmentChange(tool, modifier.getLevel(), context, slotType);
+    }
+  });
 
 
   /* Composable only  */
@@ -204,6 +228,25 @@ public class TinkerHooks {
       armorLoot.applyHarvestEnchantments(tool, modifier.getLevel(), context, consumer);
     }
   });
+
+
+  /* Harvest */
+
+  /** Hook for conditionally modifying the break speed of a block */
+  public static final ModifierHook<BreakSpeedModifierHook> BREAK_SPEED = register("break_speed", BreakSpeedModifierHook.class, BreakSpeedModifierHook.AllMerger::new, (tool, modifier, event, sideHit, isEffective, miningSpeedModifier)
+    -> modifier.getModifier().onBreakSpeed(tool, modifier.getLevel(), event, sideHit, isEffective, miningSpeedModifier));
+
+  /** Called when a block is broken by a tool to allow the modifier to take over the block removing logic */
+  public static final ModifierHook<RemoveBlockModifierHook> REMOVE_BLOCK = register("remove_block", RemoveBlockModifierHook.class, RemoveBlockModifierHook.FirstMerger::new, (tool, modifier, context)
+    -> modifier.getModifier().removeBlock(tool, modifier.getLevel(), context));
+
+  /** Called after a block is broken by a tool for every block in the AOE */
+  public static final ModifierHook<BlockBreakModifierHook> BLOCK_BREAK = register("block_break", BlockBreakModifierHook.class, BlockBreakModifierHook.AllMerger::new, (tool, modifier, context)
+    -> modifier.getModifier().afterBlockBreak(tool, modifier.getLevel(), context));
+
+  /** Called after all blocks in the AOE are broken */
+  public static final ModifierHook<FinishHarvestModifierHook> FINISH_HARVEST = register("finish_harvest", FinishHarvestModifierHook.class, FinishHarvestModifierHook.AllMerger::new, (tool, modifier, context)
+    -> modifier.getModifier().finishBreakingBlocks(tool, modifier.getLevel(), context));
 
 
   /* Ranged */

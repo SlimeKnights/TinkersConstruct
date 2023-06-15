@@ -529,20 +529,8 @@ public class Modifier implements IHaveLoader<Modifier> {
 
   /* Harvest hooks */
 
-  /**
-   * Called when break speed is being calculated to affect mining speed conditionally.
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #addToolStats(ToolRebuildContext, int, ModifierStatsBuilder)}: Limited context, but effect shows in the tooltip.</li>
-   * </ul>
-   * @param tool                 Current tool instance
-   * @param level                Modifier level
-   * @param event                Event instance
-   * @param sideHit              Side of the block that was hit
-   * @param isEffective          If true, the tool is effective against this block type
-   * @param miningSpeedModifier  Calculated modifier from potion effects such as haste and environment such as water, use for additive bonuses to ensure consistency with the mining speed stat
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedModifierHook} */
+  @Deprecated
   public void onBreakSpeed(IToolStackView tool, int level, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {}
 
   /**
@@ -576,48 +564,19 @@ public class Modifier implements IHaveLoader<Modifier> {
     return looting;
   }
 
-  /**
-   * Removes the block from the world
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #afterBlockBreak(IToolStackView, int, ToolHarvestContext)}: Called after the block is successfully removed.</li>
-   * </ul>
-   * @param tool      Tool used
-   * @param level     Modifier level
-   * @param context   Harvest context
-   * @return  True to override the default block removing logic and stop all later modifiers from running. False to override default without breaking the block. Null to let default logic run
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.mining.RemoveBlockModifierHook} */
   @Nullable
+  @Deprecated
   public Boolean removeBlock(IToolStackView tool, int level, ToolHarvestContext context) {
     return null;
   }
 
-  /**
-   * Called after a block is broken to apply special effects
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #removeBlock(IToolStackView, int, ToolHarvestContext)}: Called before the block is set to air.</li>
-   *   <li>{@link #finishBreakingBlocks(IToolStackView, int, ToolHarvestContext)}: Called after all blocks are broken instead of per block.</li>
-   * </ul>
-   * @param tool      Tool used
-   * @param level     Modifier level
-   * @param context   Harvest context
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.mining.BlockBreakModifierHook} */
+  @Deprecated
   public void afterBlockBreak(IToolStackView tool, int level, ToolHarvestContext context) {}
 
-  /**
-   * Called after all blocks are broken on the target block
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #afterBlockBreak(IToolStackView, int, ToolHarvestContext)}: Called after each individual block is broken.</li>
-   * </ul>
-   * @param tool      Tool used
-   * @param level     Modifier level
-   * @param context   Harvest context
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.mining.FinishHarvestModifierHook} */
+  @Deprecated
   public void finishBreakingBlocks(IToolStackView tool, int level, ToolHarvestContext context) {}
 
 
@@ -668,49 +627,19 @@ public class Modifier implements IHaveLoader<Modifier> {
   @Deprecated
   public void attackWithArmor(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, LivingEntity target, DamageSource source, float amount, boolean isDirectDamage) {}
 
+
   /* Equipment events */
 
-  /**
-   * Called when a tinker tool is unequipped from an entity
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #onEquip(IToolStackView, int, EquipmentChangeContext)}}: Called when a tool is added to an entity</li>
-   *   <li>{@link #onEquipmentChange(IToolStackView, int, EquipmentChangeContext, EquipmentSlot)}: Called on all other slots that did not change</li>
-   * </ul>
-   * @param tool         Tool unequipped
-   * @param level        Level of the modifier
-   * @param context      Context about the event
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.EquipmentChangeModifierHook#onUnequip(IToolStackView, ModifierEntry, EquipmentChangeContext)} */
+  @Deprecated
   public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {}
 
-  /**
-   * Called when a tinker tool is equipped to an entity
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #onUnequip(IToolStackView, int, EquipmentChangeContext)}: Called when a tool is removed from an entity</li>
-   *   <li>{@link #onEquipmentChange(IToolStackView, int, EquipmentChangeContext, EquipmentSlot)}: Called on all other slots did not change</li>
-   * </ul>
-   * @param tool         Tool equipped
-   * @param level        Level of the modifier
-   * @param context      Context about the event
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.EquipmentChangeModifierHook#onEquip(IToolStackView, ModifierEntry, EquipmentChangeContext)} (IToolStackView, ModifierEntry, EquipmentChangeContext)} */
+  @Deprecated
   public void onEquip(IToolStackView tool, int level, EquipmentChangeContext context) {}
 
-  /**
-   * Called when a stack in a different slot changed. Not called on the slot that changed
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #onUnequip(IToolStackView, int, EquipmentChangeContext)}: Called when a tool is removed from an entity</li>
-   *   <li>{@link #onEquip(IToolStackView, int, EquipmentChangeContext)}: Called when a tool is added to an entity. Called instead of this hook for the new item</li>
-   * </ul>
-   * @param tool      Tool instance
-   * @param level     Modifier level
-   * @param context   Context describing the change
-   * @param slotType  Slot containing this tool, did not change
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.EquipmentChangeModifierHook#onEquipmentChange(IToolStackView, ModifierEntry, EquipmentChangeContext, EquipmentSlot)} */
+  @Deprecated
   public void onEquipmentChange(IToolStackView tool, int level, EquipmentChangeContext context, EquipmentSlot slotType) {}
 
 

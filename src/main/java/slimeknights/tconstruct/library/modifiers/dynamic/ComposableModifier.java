@@ -15,6 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.GsonHelper;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
@@ -25,9 +26,11 @@ import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 /**
  * Modifier consisting of many composed hooks
@@ -35,6 +38,7 @@ import java.util.Locale;
 public class ComposableModifier extends Modifier {
   private final ModifierLevelDisplay levelDisplay;
   private final TooltipDisplay tooltipDisplay;
+  /** If the priority is {@link Integer#MIN_VALUE}, assumed unset for datagen */
   @Getter
   private final int priority;
   private final List<ModuleWithHooks> modules;
@@ -84,16 +88,51 @@ public class ComposableModifier extends Modifier {
   /** Determines when this modifier shows in tooltips */
   public enum TooltipDisplay { ALWAYS, TINKER_STATION, NEVER }
 
+  /** Computes the recommended priority for a set of modifier modules */
+  private static int computePriority(List<ModuleWithHooks> modules) {
+    // poll all modules to find who has a priority preference
+    List<ModifierModule> priorityModules = new ArrayList<>();
+    for (ModuleWithHooks module : modules) {
+      if (module.module().getPriority() != null) {
+        priorityModules.add(module.module());
+      }
+    }
+    if (!priorityModules.isEmpty()) {
+      //noinspection ConstantConditions  validated nonnull above
+      int firstPriority = priorityModules.get(0).getPriority();
+
+      // check if any module disagrees with the first priority, if so we need a warning (but not more than one warning)
+      for (int i = 1; i < priorityModules.size(); i++) {
+        //noinspection ConstantConditions  validated nonnull above
+        if (priorityModules.get(i).getPriority() != firstPriority) {
+          TConstruct.LOG.warn("Multiple modules disagree on the preferred priority for composable modifier, choosing priority {}. Set the priority manually to silence this warning. All opinions: \n{}", firstPriority,
+                              priorityModules.stream()
+                                             .map(module -> "* " + module + ": " + module.getPriority())
+                                             .collect(Collectors.joining("\n")));
+          break;
+        }
+      }
+      return firstPriority;
+    }
+    return Modifier.DEFAULT_PRIORITY;
+  }
+
   public static IGenericLoader<ComposableModifier> LOADER = new IGenericLoader<>() {
     @Override
     public ComposableModifier deserialize(JsonObject json) {
       ModifierLevelDisplay level_display = ModifierLevelDisplay.LOADER.getAndDeserialize(json, "level_display");
       TooltipDisplay tooltipDisplay = TooltipDisplay.ALWAYS;
-      int priority = GsonHelper.getAsInt(json, "priority", DEFAULT_PRIORITY);
       if (json.has("tooltip_display")) {
         tooltipDisplay = JsonHelper.getAsEnum(json, "tooltip_display", TooltipDisplay.class);
       }
       List<ModuleWithHooks> modules = JsonHelper.parseList(json, "modules", ModuleWithHooks::deserialize);
+      int priority;
+      if (json.has("priority")) {
+        priority = GsonHelper.getAsInt(json, "priority");
+      } else {
+        priority = computePriority(modules);
+      }
+
       // convert illegal argument to json syntax, bit more expected in this context
       try {
         return new ComposableModifier(level_display, tooltipDisplay, priority, modules);
@@ -106,7 +145,9 @@ public class ComposableModifier extends Modifier {
     public void serialize(ComposableModifier object, JsonObject json) {
       json.add("level_display", ModifierLevelDisplay.LOADER.serialize(object.levelDisplay));
       json.addProperty("tooltip_display", object.tooltipDisplay.name().toLowerCase(Locale.ROOT));
-      json.addProperty("priority", object.priority);
+      if (object.priority != Integer.MIN_VALUE) {
+        json.addProperty("priority", object.priority);
+      }
       JsonArray modules = new JsonArray();
       for (ModuleWithHooks module : object.modules) {
         modules.add(module.serialize());
@@ -151,8 +192,9 @@ public class ComposableModifier extends Modifier {
     private ModifierLevelDisplay levelDisplay = ModifierLevelDisplay.DEFAULT;
     @Setter
     private TooltipDisplay tooltipDisplay = TooltipDisplay.ALWAYS;
+    /** {@link Integer#MIN_VALUE} is an internal value used to represent unset for datagen, to distinguish unset from {@link Modifier#DEFAULT_PRIORITY} */
     @Setter
-    private int priority = DEFAULT_PRIORITY;
+    private int priority = Integer.MIN_VALUE;
     private final ImmutableList.Builder<ModuleWithHooks> modules = ImmutableList.builder();
 
     /** Adds a module to the builder */
@@ -162,6 +204,7 @@ public class ComposableModifier extends Modifier {
     }
 
     /** Adds a module to the builder */
+    @SuppressWarnings("UnusedReturnValue")
     @SafeVarargs
     public final <T extends ModifierModule> Builder addModule(T object, ModifierHook<? super T>... hooks) {
       modules.add(new ModuleWithHooks(object, List.of(hooks)));
@@ -170,7 +213,12 @@ public class ComposableModifier extends Modifier {
 
     /** Builds the final instance */
     public ComposableModifier build() {
-      return new ComposableModifier(levelDisplay, tooltipDisplay, priority, modules.build());
+      List<ModuleWithHooks> modules = this.modules.build();
+      if (priority == Integer.MIN_VALUE) {
+        // call computePriority if we did not set one so we get the warning if multiple modules wish to set the priority
+        computePriority(modules);
+      }
+      return new ComposableModifier(levelDisplay, tooltipDisplay, priority, modules);
     }
   }
 }

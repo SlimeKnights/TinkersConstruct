@@ -5,7 +5,6 @@
     "unique_until": 5
   },
   "tooltip_display": "always",
-  "priority": 100,
   "modules": [
     {
       "type": "tconstruct:incremental"

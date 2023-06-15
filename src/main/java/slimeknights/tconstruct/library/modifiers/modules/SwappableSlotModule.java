@@ -52,6 +52,12 @@ public record SwappableSlotModule(@Nullable ResourceLocation key, int slotCount)
   }
 
   @Override
+  public Integer getPriority() {
+    // show lower priority so they group together
+    return 50;
+  }
+
+  @Override
   public void addVolatileData(ToolRebuildContext context, ModifierEntry modifier, ModDataNBT volatileData) {
     String slotName = context.getPersistentData().getString(getKey(modifier.getModifier()));
     if (!slotName.isEmpty()) {
