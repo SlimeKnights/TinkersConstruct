@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:firestarter",
   "text": [
     {
-      "text": "工具右击可以生成火焰，每次消耗1点耐久值。"
+      "text": "工具右击可以生成火焰，每次消耗1点耐久度。"
     }
   ],
   "more_text_space": true,
