@@ -262,7 +262,7 @@
   "item.tconstruct.creative_slot.souls": "创造灵魂槽",
   "item.tconstruct.creative_slot.defense": "创造防御槽",
   "item.tconstruct.creative_slot.missing": "定义强化槽类型的NBT缺失或无效",
-  "item.tconstruct.creative_slot.tooltip": "为工具增加一个额外的%s槽",
+  "item.tconstruct.creative_slot.tooltip": "为工具增加1个额外的%s槽",
 
   "item.tconstruct.copper_can": "铜罐",
   "item.tconstruct.copper_can.tooltip": "可堆叠的流体容器，能够盛装90mB（1锭）的流体",
@@ -966,12 +966,12 @@
   "_comment": "Smeltery shared",
 
   "block.tconstruct.tank.fluid": "液体储量：%s",
-  "block.tconstruct.tank.mb": "%d mB",
+  "block.tconstruct.tank.mb": "%dmB",
   "block.tconstruct.tank.ingots": "%d锭",
-  "block.tconstruct.tank.mixed": "%d锭，%d mB",
+  "block.tconstruct.tank.mixed": "%d锭，%dmB",
 
-  "block.tconstruct.tank.drained": "输出%s mB%s",
-  "block.tconstruct.tank.filled": "输入%s mB%s",
+  "block.tconstruct.tank.drained": "输出%smB%s",
+  "block.tconstruct.tank.filled": "输入%smB%s",
 
   "block.tconstruct.channel.side.in": "将该侧面设为输入",
   "block.tconstruct.channel.side.out": "将该侧面设为输出",
@@ -1171,9 +1171,9 @@
   "block.tconstruct.scorched_chute.tooltip": "熔铸炉输入输出物品的端口",
 
 
-  "gui.tconstruct.fluid.kilobucket": "%s kB",
-  "gui.tconstruct.fluid.bucket": "%s B",
-  "gui.tconstruct.fluid.millibucket": "%s mB",
+  "gui.tconstruct.fluid.kilobucket": "%skB",
+  "gui.tconstruct.fluid.bucket": "%sB",
+  "gui.tconstruct.fluid.millibucket": "%smB",
 
   "gui.tconstruct.fluid.block": "%s块",
   "gui.tconstruct.fluid.ingot": "%s锭",
@@ -2136,8 +2136,8 @@
   "modifier.tconstruct.melting.flavor": "木棍上的熔炼之力！",
   "modifier.tconstruct.melting.description": "熔炼攻击目标及其掉落物！",
   "modifier.tconstruct.tank": "储液",
-  "modifier.tconstruct.tank.filled": "存储：%s mB %s",
-  "modifier.tconstruct.tank.capacity": "存储容量：%s mB",
+  "modifier.tconstruct.tank.filled": "存储：%smB%s",
+  "modifier.tconstruct.tank.capacity": "存储容量：%smB",
   "modifier.tconstruct.tank.flavor": "越大越好！",
   "modifier.tconstruct.tank.description": "工具拥有一个可存储流体的内部储罐",
   "modifier.tconstruct.bucketing": "装桶",
@@ -2669,7 +2669,7 @@
   
   "recipe.tconstruct.part_swapping.too_many_parts": "该工具无法在此切换部件",
 
-  "recipe.tconstruct.modifier.not_enough_slot": "至少需要1个%s槽来添加该强化物",
+  "recipe.tconstruct.modifier.not_enough_slot": "至少需要一个%s槽来添加该强化物",
   "recipe.tconstruct.modifier.not_enough_slots": "至少需要%s个%s槽来添加该强化物",
   "recipe.tconstruct.modifier.validate_slots": "这项改动留给工具的%s槽过少",
   "recipe.tconstruct.modifier.min_level": "此配方需要至少%s级%s才可使用",
@@ -2882,8 +2882,8 @@
   "advancements.tconstruct.foundry.alloyer.description": "利用合金炉、一个燃料储罐、若干材料储罐、一个铸件台、一个铸造盆和一个浇注口来部署最基础的合金工艺",
   "advancements.tconstruct.foundry.structure.title": "奇异熔铸",
   "advancements.tconstruct.foundry.structure.description": "使用合金而成的黑曜石制造一个熔铸炉控制器，在完成熔铸炉的搭建后打开其界面",
-  "advancements.tconstruct.foundry.blaze.title": "烈焰之血",
-  "advancements.tconstruct.foundry.blaze.description": "用烈焰之血装满一个储罐",
+  "advancements.tconstruct.foundry.blaze.title": "烈焰血",
+  "advancements.tconstruct.foundry.blaze.description": "用烈焰血装满一个储罐",
   "advancements.tconstruct.foundry.plate_armor.title": "镶板盔甲",
   "advancements.tconstruct.foundry.plate_armor.description": "制作全套的镶板盔甲",
   "advancements.tconstruct.foundry.manyullyn_lanterns.title": "饱和光照",
