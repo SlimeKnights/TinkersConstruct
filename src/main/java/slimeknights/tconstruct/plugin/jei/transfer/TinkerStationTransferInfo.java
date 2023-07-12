@@ -7,6 +7,7 @@ import net.minecraft.world.inventory.Slot;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe;
 import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
 import slimeknights.tconstruct.tables.menu.TinkerStationContainerMenu;
+import slimeknights.tconstruct.tools.item.ArmorSlotType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,8 +48,8 @@ public class TinkerStationTransferInfo implements IRecipeTransferInfo<TinkerStat
   @Override
   public List<Slot> getInventorySlots(TinkerStationContainerMenu container, IDisplayModifierRecipe recipe) {
     List<Slot> slots = new ArrayList<>();
-    // skip over inputs and the output slot
-    int start = container.getInputSlots().size() + 1;
+    // skip over inputs, output slot, tool slot, armor, and offhand
+    int start = container.getInputSlots().size() + 3 + ArmorSlotType.values().length;
     for(int i = start; i < start + 36; i++) {
       Slot slot = container.getSlot(i);
       slots.add(slot);

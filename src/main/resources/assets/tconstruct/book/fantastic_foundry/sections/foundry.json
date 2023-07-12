@@ -31,10 +31,6 @@
     "data": "foundry/structurerequirements.json"
   },
   {
-    "name": "hidden",
-    "type": "mantle:right_padding"
-  },
-  {
     "name": "fgui1",
     "type": "mantle:image_text",
     "data": "foundry/gui1.json"

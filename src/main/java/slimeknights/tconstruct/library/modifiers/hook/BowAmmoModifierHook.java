@@ -15,7 +15,8 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import java.util.function.Predicate;
 
 /**
- * Hook to find ammo on a bow
+ * Hook to find ammo on a bow.
+ * TODO 1.19: move into combat package
  */
 public interface BowAmmoModifierHook {
   /** Default instance */

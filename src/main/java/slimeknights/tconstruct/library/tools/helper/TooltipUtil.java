@@ -21,17 +21,20 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStack.TooltipPart;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.TooltipFlag.Default;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.materials.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.tools.definition.PartRequirement;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
@@ -56,18 +59,23 @@ import java.util.function.BiPredicate;
 public class TooltipUtil {
   /** Translation key for the tool name format string */
   public static final String KEY_FORMAT = TConstruct.makeTranslationKey("item", "tool.format");
+  /** Format for a name ID pair */
+  public static final String KEY_ID_FORMAT = TConstruct.makeTranslationKey("item", "tool.id_format");
   /** Translation key for the tool name format string */
   private static final Component MATERIAL_SEPARATOR = TConstruct.makeTranslation("item", "tool.material_separator");
+
   /** Tool tag to set that makes a tool a display tool */
   public static final String KEY_DISPLAY = "tic_display";
   /** Tag to set name without name being italic */
   private static final String KEY_NAME = "tic_name";
+
   /** Function to show all attributes in the tooltip */
   public static final BiPredicate<Attribute, Operation> SHOW_ALL_ATTRIBUTES = (att, op) -> true;
   /** Function to show all attributes in the tooltip */
   public static final BiPredicate<Attribute, Operation> SHOW_MELEE_ATTRIBUTES = (att, op) -> op != Operation.ADDITION || (att != Attributes.ATTACK_DAMAGE && att != Attributes.ATTACK_SPEED && att != Attributes.ARMOR && att != Attributes.ARMOR_TOUGHNESS && att != Attributes.KNOCKBACK_RESISTANCE);
   /** Function to show all attributes in the tooltip */
   public static final BiPredicate<Attribute, Operation> SHOW_ARMOR_ATTRIBUTES = (att, op) -> op != Operation.ADDITION || (att != Attributes.ARMOR && att != Attributes.ARMOR_TOUGHNESS && att != Attributes.KNOCKBACK_RESISTANCE);
+
   /** Flags used when not holding control or shift */
   private static final int DEFAULT_HIDE_FLAGS = TooltipPart.ENCHANTMENTS.getMask();
   /** Flags used when holding control or shift */
@@ -265,7 +273,7 @@ public class TooltipUtil {
     ToolDefinition definition = item.getToolDefinition();
     if (isDisplay(stack)) {
       ToolStack tool = ToolStack.from(stack);
-      addModifierNames(stack, tool, tooltip);
+      addModifierNames(stack, tool, tooltip, tooltipFlag);
       // No definition?
     } else if (!definition.isDataLoaded()) {
       tooltip.add(NO_DATA);
@@ -286,25 +294,22 @@ public class TooltipUtil {
           break;
         case CONTROL:
           if (definition.isMultipart()) {
-            TooltipUtil.getComponents(item, stack, tooltip);
+            getComponents(item, stack, tooltip, tooltipFlag);
             break;
           }
           // intentional fallthrough
         default:
           ToolStack tool = ToolStack.from(stack);
-          getDefaultInfo(stack, tool, tooltip);
+          getDefaultInfo(stack, tool, tooltip, tooltipFlag);
           break;
       }
     }
   }
 
-  /**
-   * Adds information when holding neither control nor shift
-   * @param stack     Stack instance
-   * @param tooltips  Tooltip list
-   */
-  public static void getDefaultInfo(ItemStack stack, List<Component> tooltips) {
-    getDefaultInfo(stack, ToolStack.from(stack), tooltips);
+  /** @deprecated use {@link #addModifierNames(ItemStack, IToolStackView, List, TooltipFlag)} */
+  @Deprecated
+  public static void addModifierNames(ItemStack stack, IToolStackView tool, List<Component> tooltips) {
+    addModifierNames(stack, tool, tooltips, Default.NORMAL);
   }
 
   /**
@@ -312,12 +317,18 @@ public class TooltipUtil {
    * @param stack      Stack instance. If empty, skips adding enchantment names
    * @param tool       Tool instance
    * @param tooltips   Tooltip list
+   * @param flag      Tooltip flag
    */
   @SuppressWarnings("deprecation")
-  public static void addModifierNames(ItemStack stack, IToolStackView tool, List<Component> tooltips) {
+  public static void addModifierNames(ItemStack stack, IToolStackView tool, List<Component> tooltips, TooltipFlag flag) {
     for (ModifierEntry entry : tool.getModifierList()) {
       if (entry.getModifier().shouldDisplay(false)) {
-        tooltips.add(entry.getModifier().getDisplayName(tool, entry.getLevel()));
+        Component name = entry.getModifier().getDisplayName(tool, entry.getLevel());
+        if (flag.isAdvanced() && Config.CLIENT.modifiersIDsInAdvancedTooltips.get()) {
+          tooltips.add(new TranslatableComponent(KEY_ID_FORMAT, name, new TextComponent(entry.getModifier().getId().toString())).withStyle(ChatFormatting.DARK_GRAY));
+        } else {
+          tooltips.add(name);
+        }
       }
     }
     if (!stack.isEmpty()) {
@@ -326,7 +337,7 @@ public class TooltipUtil {
         ListTag enchantments = tag.getList("Enchantments", Tag.TAG_COMPOUND);
         for (int i = 0; i < enchantments.size(); ++i) {
           CompoundTag enchantmentTag = enchantments.getCompound(i);
-          // TODO: tag to whitelist/blacklist enchantments in the tooltip, depends on which ones we reimplement and which work on their own
+          // TODO: remove in 1.19, as the new enchantment hooks mean any enchants that end up on the tool are desired
           Registry.ENCHANTMENT.getOptional(ResourceLocation.tryParse(enchantmentTag.getString("id")))
                               .ifPresent(enchantment -> {
                                 if (enchantment.isCurse()) {
@@ -338,18 +349,31 @@ public class TooltipUtil {
     }
   }
 
+  /** @deprecated use {@link #getDefaultInfo(ItemStack, IToolStackView, List, TooltipFlag)} */
+  @Deprecated
+  public static void getDefaultInfo(ItemStack stack, List<Component> tooltips) {
+    getDefaultInfo(stack, ToolStack.from(stack), tooltips);
+  }
+
+  /** @deprecated use {@link #getDefaultInfo(ItemStack, IToolStackView, List, TooltipFlag)} */
+  @Deprecated
+  public static void getDefaultInfo(ItemStack stack, IToolStackView tool, List<Component> tooltips) {
+    getDefaultInfo(stack, tool, tooltips, Default.NORMAL);
+  }
+
   /**
    * Adds information when holding neither control nor shift
    * @param tool      Tool stack instance
    * @param tooltips  Tooltip list
+   * @param flag      Tooltip flag
    */
-  public static void getDefaultInfo(ItemStack stack, IToolStackView tool, List<Component> tooltips) {
+  public static void getDefaultInfo(ItemStack stack, IToolStackView tool, List<Component> tooltips, TooltipFlag flag) {
     // shows as broken when broken, hold shift for proper durability
     if (tool.getItem().canBeDepleted() && !tool.isUnbreakable() && tool.hasTag(TinkerTags.Items.DURABILITY)) {
       tooltips.add(TooltipBuilder.formatDurability(tool.getCurrentDurability(), tool.getStats().getInt(ToolStats.DURABILITY), true));
     }
     // modifier tooltip
-    addModifierNames(stack, tool, tooltips);
+    addModifierNames(stack, tool, tooltips, flag);
     tooltips.add(TextComponent.EMPTY);
     tooltips.add(TOOLTIP_HOLD_SHIFT);
     if (tool.getDefinition().isMultipart()) {
@@ -406,7 +430,7 @@ public class TooltipUtil {
 
     builder.addAllFreeSlots();
     for (ModifierEntry entry : tool.getModifierList()) {
-      entry.getModifier().addInformation(tool, entry.getLevel(), player, tooltip, key, flag);
+      entry.getHook(TinkerHooks.TOOLTIP).addTooltip(tool, entry, player, tooltip, key, flag);
     }
     return builder.getTooltips();
   }
@@ -442,9 +466,15 @@ public class TooltipUtil {
     builder.addAllFreeSlots();
 
     for (ModifierEntry entry : tool.getModifierList()) {
-      entry.getModifier().addInformation(tool, entry.getLevel(), player, tooltip, key, flag);
+      entry.getHook(TinkerHooks.TOOLTIP).addTooltip(tool, entry, player, tooltip, key, flag);
     }
     return builder.getTooltips();
+  }
+
+  /** @deprecated use {@link #getComponents(IModifiable, ItemStack, List, TooltipFlag)} */
+  @Deprecated
+  public static void getComponents(IModifiable item, ItemStack stack, List<Component> tooltips) {
+    getComponents(item, stack, tooltips, Default.NORMAL);
   }
 
   /**
@@ -452,8 +482,9 @@ public class TooltipUtil {
    * @param item      Modifiable item instance
    * @param stack     Item stack being displayed
    * @param tooltips  List of tooltips
+   * @param flag      Tooltip flag, if advanced will show material IDs
    */
-  public static void getComponents(IModifiable item, ItemStack stack, List<Component> tooltips) {
+  public static void getComponents(IModifiable item, ItemStack stack, List<Component> tooltips, TooltipFlag flag) {
     // no components, nothing to do
     List<PartRequirement> components = item.getToolDefinition().getData().getParts();
     if (components.isEmpty()) {
@@ -475,6 +506,9 @@ public class TooltipUtil {
       PartRequirement requirement = components.get(i);
       MaterialVariantId material = materials.get(i).getVariant();
       tooltips.add(requirement.nameForMaterial(material).copy().withStyle(ChatFormatting.UNDERLINE).withStyle(style -> style.withColor(MaterialTooltipCache.getColor(material))));
+      if (flag.isAdvanced()) {
+        tooltips.add((new TextComponent(material.toString())).withStyle(ChatFormatting.DARK_GRAY));
+      }
       MaterialRegistry.getInstance().getMaterialStats(material.getId(), requirement.getStatType()).ifPresent(stat -> tooltips.addAll(stat.getLocalizedInfo()));
       if (i != max) {
         tooltips.add(TextComponent.EMPTY);

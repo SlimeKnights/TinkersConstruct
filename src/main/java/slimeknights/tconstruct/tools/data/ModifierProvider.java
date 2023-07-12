@@ -4,6 +4,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -11,26 +12,32 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraftforge.common.ForgeMod;
+import slimeknights.mantle.data.predicate.IJsonPredicate;
+import slimeknights.mantle.data.predicate.block.BlockPredicate;
+import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
+import slimeknights.mantle.data.predicate.entity.MobTypePredicate;
+import slimeknights.mantle.data.predicate.entity.TagEntityPredicate;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.data.tinkering.AbstractModifierProvider;
-import slimeknights.tconstruct.library.json.predicate.block.BlockPredicate;
-import slimeknights.tconstruct.library.json.predicate.entity.LivingEntityPredicate;
-import slimeknights.tconstruct.library.json.predicate.entity.MobTypePredicate;
-import slimeknights.tconstruct.library.json.predicate.entity.TagEntityPredicate;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
-import slimeknights.tconstruct.library.modifiers.dynamic.ConditionalDamageModifier;
-import slimeknights.tconstruct.library.modifiers.dynamic.ConditionalMiningSpeedModifier;
-import slimeknights.tconstruct.library.modifiers.dynamic.EnchantmentModifier;
-import slimeknights.tconstruct.library.modifiers.dynamic.ExtraModifier;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.dynamic.ComposableModifier.TooltipDisplay;
 import slimeknights.tconstruct.library.modifiers.dynamic.InventoryMenuModifier;
-import slimeknights.tconstruct.library.modifiers.dynamic.LootModifier;
-import slimeknights.tconstruct.library.modifiers.dynamic.MobDisguiseModifier;
-import slimeknights.tconstruct.library.modifiers.dynamic.MobEffectModifier;
-import slimeknights.tconstruct.library.modifiers.dynamic.StatBoostModifier;
-import slimeknights.tconstruct.library.modifiers.dynamic.StatBoostModifier.ModifierDisplay;
-import slimeknights.tconstruct.library.modifiers.dynamic.SwappableExtraSlotModifier;
+import slimeknights.tconstruct.library.modifiers.modules.AttributeModule;
+import slimeknights.tconstruct.library.modifiers.modules.ConditionalDamageModule;
+import slimeknights.tconstruct.library.modifiers.modules.ConditionalMiningSpeedModule;
+import slimeknights.tconstruct.library.modifiers.modules.EnchantmentModule;
+import slimeknights.tconstruct.library.modifiers.modules.IncrementalModule;
+import slimeknights.tconstruct.library.modifiers.modules.LootingModule;
+import slimeknights.tconstruct.library.modifiers.modules.MobDisguiseModule;
+import slimeknights.tconstruct.library.modifiers.modules.MobEffectModule;
+import slimeknights.tconstruct.library.modifiers.modules.ModifierSlotModule;
+import slimeknights.tconstruct.library.modifiers.modules.RarityModule;
+import slimeknights.tconstruct.library.modifiers.modules.SwappableSlotModule;
+import slimeknights.tconstruct.library.modifiers.modules.ToolStatModule;
+import slimeknights.tconstruct.library.modifiers.modules.VolatileFlagModule;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay.UniqueForLevels;
 import slimeknights.tconstruct.library.tools.SlotType;
@@ -38,6 +45,7 @@ import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.ModifiableArmorItem;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.utils.ScalingValue;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.ToolBeltModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
@@ -56,13 +64,16 @@ public class ModifierProvider extends AbstractModifierProvider {
     EquipmentSlot[] armorMainHand = {EquipmentSlot.MAINHAND, EquipmentSlot.FEET, EquipmentSlot.LEGS, EquipmentSlot.CHEST, EquipmentSlot.HEAD};
 
     // extra modifier slots
-    addModifier(ModifierIds.writable,    ExtraModifier.builder(SlotType.UPGRADE).build());
-    addModifier(ModifierIds.recapitated, ExtraModifier.builder(SlotType.UPGRADE).build());
-    addModifier(ModifierIds.harmonious,  ExtraModifier.builder(SlotType.UPGRADE).build());
-    addModifier(ModifierIds.resurrected, ExtraModifier.builder(SlotType.UPGRADE).build());
-    addModifier(ModifierIds.gilded,      ExtraModifier.builder(SlotType.UPGRADE).slotsPerLevel(2).display(ModifierLevelDisplay.DEFAULT).build());
-    addModifier(ModifierIds.draconic,    ExtraModifier.builder(SlotType.ABILITY).build());
-    addModifier(ModifierIds.rebalanced, SwappableExtraSlotModifier.swappable().penalize(SlotType.ABILITY, SlotType.UPGRADE).build());
+    ModifierSlotModule UPGRADE = new ModifierSlotModule(SlotType.UPGRADE);
+    buildModifier(ModifierIds.writable)   .tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
+    buildModifier(ModifierIds.recapitated).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
+    buildModifier(ModifierIds.harmonious) .tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
+    buildModifier(ModifierIds.resurrected).tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(UPGRADE);
+    buildModifier(ModifierIds.gilded)     .tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new ModifierSlotModule(SlotType.UPGRADE, 2));
+    buildModifier(ModifierIds.draconic)   .tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new ModifierSlotModule(SlotType.ABILITY, 1));
+    buildModifier(ModifierIds.rebalanced)
+      .tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
+      .addModule(new SwappableSlotModule(1)).addModule(new SwappableSlotModule.BonusSlot(SlotType.ABILITY, SlotType.UPGRADE, -1));
     addRedirect(id("red_extra_upgrade"),   redirect(ModifierIds.writable));
     addRedirect(id("green_extra_upgrade"), redirect(ModifierIds.recapitated));
     addRedirect(id("blue_extra_upgrade"),  redirect(ModifierIds.harmonious));
@@ -83,174 +94,176 @@ public class ModifierProvider extends AbstractModifierProvider {
 
     // tier upgrades
     // emerald
-    addModifier(ModifierIds.emerald, StatBoostModifier.builder()
-      .display(ModifierLevelDisplay.SINGLE_LEVEL)
-      .rarity(Rarity.UNCOMMON)
-      .multiplyBase(ToolStats.DURABILITY, 0.5f)
+    buildModifier(ModifierIds.emerald)
+      .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
+      .addModule(new RarityModule(Rarity.UNCOMMON))
+      .addModule(ToolStatModule.multiplyBase(ToolStats.DURABILITY, 0.5f))
       // armor
-      .add(ToolStats.KNOCKBACK_RESISTANCE, 0.05f)
+      .addModule(ToolStatModule.add(ToolStats.KNOCKBACK_RESISTANCE, 0.05f))
       // melee harvest
-      .multiplyConditional(ToolStats.ATTACK_DAMAGE, 0.25f)
-      .multiplyConditional(ToolStats.MINING_SPEED,  0.25f)
-      .update(ToolStats.HARVEST_TIER, Tiers.IRON)
+      .addModule(ToolStatModule.multiplyConditional(ToolStats.ATTACK_DAMAGE, 0.25f))
+      .addModule(ToolStatModule.multiplyConditional(ToolStats.MINING_SPEED, 0.25f))
+      .addModule(ToolStatModule.update(ToolStats.HARVEST_TIER, Tiers.IRON))
       // ranged
-      .add(ToolStats.ACCURACY, 0.1f)
-      .build());
+      .addModule(ToolStatModule.add(ToolStats.ACCURACY, 0.1f));
     // diamond
-    addModifier(ModifierIds.diamond, StatBoostModifier.builder()
-      .display(ModifierLevelDisplay.SINGLE_LEVEL)
-      .rarity(Rarity.UNCOMMON)
-      .add(ToolStats.DURABILITY,  500)
+    buildModifier(ModifierIds.diamond)
+      .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
+      .addModule(new RarityModule(Rarity.UNCOMMON))
+      .addModule(ToolStatModule.add(ToolStats.DURABILITY, 500))
       // armor grants less durability boost
-      .add(ToolStats.DURABILITY, -250, ARMOR)
-      .add(ToolStats.ARMOR,         1)
+      .addModule(ToolStatModule.add(ToolStats.DURABILITY, -250, ARMOR))
+      .addModule(ToolStatModule.add(ToolStats.ARMOR, 1))
       // melee harvest
-      .add(ToolStats.ATTACK_DAMAGE, 0.5f)
-      .add(ToolStats.MINING_SPEED,  2)
-      .update(ToolStats.HARVEST_TIER, Tiers.DIAMOND)
+      .addModule(ToolStatModule.add(ToolStats.ATTACK_DAMAGE, 0.5f))
+      .addModule(ToolStatModule.add(ToolStats.MINING_SPEED, 2))
+      .addModule(ToolStatModule.update(ToolStats.HARVEST_TIER, Tiers.DIAMOND))
       // ranged
-      .add(ToolStats.PROJECTILE_DAMAGE, 0.5f)
-      .build());
+      .addModule(ToolStatModule.add(ToolStats.PROJECTILE_DAMAGE, 0.5f));
     // netherite
-    addModifier(ModifierIds.netherite, StatBoostModifier.builder()
-      .display(ModifierLevelDisplay.SINGLE_LEVEL)
-      .rarity(Rarity.RARE)
-      .addFlag(IModifiable.INDESTRUCTIBLE_ENTITY)
-      .multiplyBase(ToolStats.DURABILITY,    0.2f)
+    buildModifier(ModifierIds.netherite)
+      .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
+      .addModule(new RarityModule(Rarity.RARE))
+      .addModule(new VolatileFlagModule(IModifiable.INDESTRUCTIBLE_ENTITY))
+      .addModule(ToolStatModule.multiplyBase(ToolStats.DURABILITY, 0.2f))
       // armor
-      .add(ToolStats.ARMOR_TOUGHNESS,        1)
-      .add(ToolStats.KNOCKBACK_RESISTANCE,   0.05f)
+      .addModule(ToolStatModule.add(ToolStats.ARMOR_TOUGHNESS, 1))
+      .addModule(ToolStatModule.add(ToolStats.KNOCKBACK_RESISTANCE, 0.05f))
       // melee harvest
-      .multiplyBase(ToolStats.ATTACK_DAMAGE, 0.2f)
-      .multiplyBase(ToolStats.MINING_SPEED,  0.25f)
-      .update(ToolStats.HARVEST_TIER, Tiers.NETHERITE)
+      .addModule(ToolStatModule.multiplyBase(ToolStats.ATTACK_DAMAGE, 0.2f))
+      .addModule(ToolStatModule.multiplyBase(ToolStats.MINING_SPEED, 0.25f))
+      .addModule(ToolStatModule.update(ToolStats.HARVEST_TIER, Tiers.NETHERITE))
       // ranged
-      .multiplyBase(ToolStats.VELOCITY, 0.1f)
-      .build());
+      .addModule(ToolStatModule.multiplyBase(ToolStats.VELOCITY, 0.1f));
 
     // general
-    addModifier(ModifierIds.worldbound, StatBoostModifier.builder().addFlag(IModifiable.INDESTRUCTIBLE_ENTITY).rarity(Rarity.UNCOMMON).display(ModifierLevelDisplay.NO_LEVELS).build());
-    addModifier(ModifierIds.shiny,      StatBoostModifier.builder().addFlag(IModifiable.SHINY).rarity(Rarity.EPIC).display(ModifierLevelDisplay.NO_LEVELS).build());
+    buildModifier(ModifierIds.worldbound).addModule(new VolatileFlagModule(IModifiable.INDESTRUCTIBLE_ENTITY)).addModule(new RarityModule(Rarity.UNCOMMON)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
+    buildModifier(ModifierIds.shiny).addModule(new VolatileFlagModule(IModifiable.SHINY)).addModule(new RarityModule(Rarity.EPIC)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
     // general abilities
-    addModifier(ModifierIds.reach, StatBoostModifier.builder()
-      .attribute("tconstruct.modifier.reach", ForgeMod.REACH_DISTANCE.get(), Operation.ADDITION, 1, EquipmentSlot.MAINHAND, EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET)
-      .attribute("tconstruct.modifier.range", ForgeMod.ATTACK_RANGE.get(),   Operation.ADDITION, 1, EquipmentSlot.MAINHAND, EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET)
-      .build());
-
+    buildModifier(ModifierIds.reach)
+      .addModule(IncrementalModule.RECIPE_CONTROLLED)
+      .addModule(new AttributeModule("tconstruct.modifier.reach", ForgeMod.REACH_DISTANCE.get(), Operation.ADDITION, 1, EquipmentSlot.MAINHAND, EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET))
+      .addModule(new AttributeModule("tconstruct.modifier.range", ForgeMod.ATTACK_RANGE.get(), Operation.ADDITION, 1, EquipmentSlot.MAINHAND, EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET));
 
     // loot
-    addModifier(TinkerModifiers.silky, new LootModifier(Enchantments.SILK_TOUCH, 1, ModifierLevelDisplay.NO_LEVELS));
-    addModifier(ModifierIds.luck, new LootModifier(Enchantments.BLOCK_FORTUNE, 1, 1, new UniqueForLevels(3)));
-    addModifier(ModifierIds.fortune, new LootModifier(Enchantments.BLOCK_FORTUNE, 1, ModifierLevelDisplay.DEFAULT));
-    addModifier(ModifierIds.looting, new LootModifier(1, ModifierLevelDisplay.DEFAULT));
+    buildModifier(TinkerModifiers.silky).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new EnchantmentModule.Harvest(Enchantments.SILK_TOUCH));
+    EnchantmentModule.Harvest FORTUNE = new EnchantmentModule.Harvest(Enchantments.BLOCK_FORTUNE);
+    LootingModule LOOTING = new LootingModule(1);
+    buildModifier(ModifierIds.luck).levelDisplay(new UniqueForLevels(3)).addModule(FORTUNE).addModule(LOOTING);
+    buildModifier(ModifierIds.fortune).addModule(FORTUNE);
+    buildModifier(ModifierIds.looting).addModule(LOOTING);
 
     /// attack
-    addModifier(ModifierIds.sticky, MobEffectModifier.Builder.effect(MobEffects.MOVEMENT_SLOWDOWN).level(0, 0.5f).timeBase(20).timeMultiplierRandom(10).build());
+    buildModifier(ModifierIds.sticky)
+      .addModule(IncrementalModule.RECIPE_CONTROLLED)
+      .addModule(MobEffectModule.builder(MobEffects.MOVEMENT_SLOWDOWN).level(ScalingValue.leveling(0, 0.5f)).time(ScalingValue.random(20, 10)).build());
 
     // damage boost
     // vanilla give +1, 1.5, 2, 2.5, 3, but that is low
     // we instead do +0.75, +1.5, +2.25, +3, +3.75
-    addModifier(ModifierIds.sharpness,   StatBoostModifier.builder().add(ToolStats.ATTACK_DAMAGE, 0.75f).display(new UniqueForLevels(5)).build());
-    addModifier(ModifierIds.swiftstrike, StatBoostModifier.builder().multiplyBase(ToolStats.ATTACK_SPEED, 0.05f).display(new UniqueForLevels(5)).build());
-    addModifier(ModifierIds.smite,       new ConditionalDamageModifier(new MobTypePredicate(MobType.UNDEAD), 2.0f));
-    addModifier(ModifierIds.antiaquatic, new ConditionalDamageModifier(new MobTypePredicate(MobType.WATER),  2.0f));
-    addModifier(ModifierIds.cooling,     new ConditionalDamageModifier(LivingEntityPredicate.FIRE_IMMUNE,    1.6f));
-    addModifier(ModifierIds.baneOfSssss, new ConditionalDamageModifier(
-      LivingEntityPredicate.OR.create(new MobTypePredicate(MobType.ARTHROPOD), new TagEntityPredicate(TinkerTags.EntityTypes.CREEPERS)),
-      2.0f, MobEffects.MOVEMENT_SLOWDOWN, 4));
-    addModifier(ModifierIds.killager, new ConditionalDamageModifier(
-      LivingEntityPredicate.OR.create(new MobTypePredicate(MobType.ILLAGER), new TagEntityPredicate(TinkerTags.EntityTypes.VILLAGERS)), 2.0f));
+    UniqueForLevels uniqueForFive = new UniqueForLevels(5);
+    buildModifier(ModifierIds.sharpness).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ToolStatModule.add(ToolStats.ATTACK_DAMAGE, 0.75f)).levelDisplay(uniqueForFive);
+    buildModifier(ModifierIds.swiftstrike).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ToolStatModule.multiplyBase(ToolStats.ATTACK_SPEED, 0.05f)).levelDisplay(uniqueForFive);
+    buildModifier(ModifierIds.smite).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(new ConditionalDamageModule(new MobTypePredicate(MobType.UNDEAD), 2.0f));
+    buildModifier(ModifierIds.antiaquatic).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(new ConditionalDamageModule(new MobTypePredicate(MobType.WATER),  2.0f));
+    buildModifier(ModifierIds.cooling).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(new ConditionalDamageModule(LivingEntityPredicate.FIRE_IMMUNE,    1.6f));
+    IJsonPredicate<LivingEntity> baneSssssPredicate = LivingEntityPredicate.OR.create(new MobTypePredicate(MobType.ARTHROPOD), new TagEntityPredicate(TinkerTags.EntityTypes.CREEPERS));
+    buildModifier(ModifierIds.baneOfSssss)
+      .addModule(IncrementalModule.RECIPE_CONTROLLED)
+      .addModule(new ConditionalDamageModule(baneSssssPredicate, 2.0f))
+      .addModule(MobEffectModule.builder(MobEffects.MOVEMENT_SLOWDOWN).level(ScalingValue.flat(4)).time(ScalingValue.random(20, 10)).entity(baneSssssPredicate).build(), TinkerHooks.MELEE_HIT);
+    buildModifier(ModifierIds.killager).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(new ConditionalDamageModule(LivingEntityPredicate.OR.create(
+      new MobTypePredicate(MobType.ILLAGER),
+      new TagEntityPredicate(TinkerTags.EntityTypes.VILLAGERS)
+    ), 2.0f));
     addRedirect(id("fractured"), redirect(ModifierIds.sharpness));
 
     // ranged
-    addModifier(ModifierIds.power, StatBoostModifier.builder().add(ToolStats.PROJECTILE_DAMAGE, 0.5f).build());
-    addModifier(ModifierIds.quickCharge, StatBoostModifier.builder().multiplyBase(ToolStats.DRAW_SPEED, 0.25f).build());
-    addModifier(ModifierIds.trueshot,  StatBoostModifier.builder().add(ToolStats.ACCURACY, 0.1f).build());
-    addModifier(ModifierIds.blindshot, StatBoostModifier.builder().add(ToolStats.ACCURACY, -0.1f).build());
+    buildModifier(ModifierIds.power).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ToolStatModule.add(ToolStats.PROJECTILE_DAMAGE, 0.5f));
+    buildModifier(ModifierIds.quickCharge).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ToolStatModule.multiplyBase(ToolStats.DRAW_SPEED, 0.25f));
+    buildModifier(ModifierIds.trueshot).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ToolStatModule.add(ToolStats.ACCURACY, 0.1f));
+    buildModifier(ModifierIds.blindshot).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ToolStatModule.add(ToolStats.ACCURACY, -0.1f));
 
     // armor
-    addModifier(TinkerModifiers.golden, StatBoostModifier.builder().addFlag(ModifiableArmorItem.PIGLIN_NEUTRAL).display(ModifierLevelDisplay.NO_LEVELS).build());
-    addModifier(ModifierIds.wings,  StatBoostModifier.builder().addFlag(ModifiableArmorItem.ELYTRA).build());
-    addModifier(ModifierIds.knockbackResistance, StatBoostModifier.builder().add(ToolStats.KNOCKBACK_RESISTANCE, 0.1f).build());
+    buildModifier(TinkerModifiers.golden).addModule(new VolatileFlagModule(ModifiableArmorItem.PIGLIN_NEUTRAL)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
+    buildModifier(ModifierIds.wings).addModule(new VolatileFlagModule(ModifiableArmorItem.ELYTRA)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
+    buildModifier(ModifierIds.knockbackResistance).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ToolStatModule.add(ToolStats.KNOCKBACK_RESISTANCE, 0.1f));
     // defense
     // TODO: floor?
-    addModifier(ModifierIds.revitalizing, StatBoostModifier.builder().attribute("tconstruct.modifier.revitalizing", Attributes.MAX_HEALTH, Operation.ADDITION, 2, armorSlots).build());
+    buildModifier(ModifierIds.revitalizing).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(new AttributeModule("tconstruct.modifier.revitalizing", Attributes.MAX_HEALTH, Operation.ADDITION, 2, armorSlots));
     // helmet
-    addModifier(ModifierIds.respiration, new EnchantmentModifier(Enchantments.RESPIRATION, 1, ModifierLevelDisplay.DEFAULT));
+    buildModifier(ModifierIds.respiration).addModule(new EnchantmentModule.Constant(Enchantments.RESPIRATION));
     // chestplate
-    addModifier(ModifierIds.strength, StatBoostModifier.builder().attribute("tconstruct.modifier.strength", Attributes.ATTACK_DAMAGE, Operation.MULTIPLY_TOTAL, 0.1f, armorSlots).build());
+    buildModifier(ModifierIds.strength)
+      .addModule(IncrementalModule.RECIPE_CONTROLLED)
+      .addModule(new AttributeModule("tconstruct.modifier.strength", Attributes.ATTACK_DAMAGE, Operation.MULTIPLY_TOTAL, 0.1f, armorSlots));
     addRedirect(id("armor_power"), redirect(ModifierIds.strength));
     // leggings
     addModifier(ModifierIds.pockets, new InventoryMenuModifier(18));
     addModifier(ModifierIds.toolBelt, new ToolBeltModifier(new int[] {4, 5, 6, 7, 8, 9}));
     addRedirect(id("pocket_chain"), redirect(TinkerModifiers.shieldStrap.getId()));
-    addModifier(ModifierIds.stepUp, StatBoostModifier.builder().attribute("tconstruct.modifier.step_up", ForgeMod.STEP_HEIGHT_ADDITION.get(), Operation.ADDITION, 0.5f, armorSlots).build());
-    addModifier(ModifierIds.speedy, StatBoostModifier.builder().attribute("tconstruct.modifier.speedy", Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, 0.1f, armorMainHand).build());
+    buildModifier(ModifierIds.stepUp).addModule(new AttributeModule("tconstruct.modifier.step_up", ForgeMod.STEP_HEIGHT_ADDITION.get(), Operation.ADDITION, 0.5f, armorSlots));
+    buildModifier(ModifierIds.speedy).addModule(new AttributeModule("tconstruct.modifier.speedy", Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, 0.1f, armorMainHand));
     // boots
-    addModifier(ModifierIds.depthStrider, new EnchantmentModifier(Enchantments.DEPTH_STRIDER, 1, ModifierLevelDisplay.DEFAULT));
+    buildModifier(ModifierIds.depthStrider).addModule(new EnchantmentModule.Constant(Enchantments.DEPTH_STRIDER));
 
     // internal
-    addModifier(ModifierIds.overslimeFriend, StatBoostModifier.builder().addFlag(OverslimeModifier.KEY_OVERSLIME_FRIEND).modifierDisplay(ModifierDisplay.NEVER).build());
-    addModifier(ModifierIds.snowBoots, StatBoostModifier.builder().addFlag(ModifiableArmorItem.SNOW_BOOTS).modifierDisplay(ModifierDisplay.NEVER).build());
+    buildModifier(ModifierIds.overslimeFriend).addModule(new VolatileFlagModule(OverslimeModifier.KEY_OVERSLIME_FRIEND)).tooltipDisplay(TooltipDisplay.NEVER);
+    buildModifier(ModifierIds.snowBoots).addModule(new VolatileFlagModule(ModifiableArmorItem.SNOW_BOOTS)).tooltipDisplay(TooltipDisplay.NEVER);
 
     // traits - tier 1
     addModifier(ModifierIds.stringy, new Modifier());
-    addModifier(ModifierIds.flexible, StatBoostModifier.builder().multiplyBase(ToolStats.VELOCITY, 0.1f).multiplyAll(ToolStats.PROJECTILE_DAMAGE, -0.1f).build());
+    buildModifier(ModifierIds.flexible).addModule(ToolStatModule.add(ToolStats.VELOCITY, 0.1f)).addModule(ToolStatModule.multiplyAll(ToolStats.PROJECTILE_DAMAGE, -0.1f));
     // traits - tier 2
-    addModifier(ModifierIds.sturdy, StatBoostModifier.builder().multiplyBase(ToolStats.DURABILITY, 0.15f).build());
-    addModifier(ModifierIds.scorching, new ConditionalDamageModifier(LivingEntityPredicate.ON_FIRE, 2f));
+    buildModifier(ModifierIds.sturdy).addModule(ToolStatModule.multiplyBase(ToolStats.DURABILITY, 0.15f));
+    buildModifier(ModifierIds.scorching).addModule(new ConditionalDamageModule(LivingEntityPredicate.ON_FIRE, 2f));
     // traits - tier 2 compat
     addModifier(ModifierIds.lustrous, new Modifier());
-    addModifier(ModifierIds.sharpweight, StatBoostModifier.builder()
-      .multiplyBase(ToolStats.MINING_SPEED, 0.1f)
-      .multiplyBase(ToolStats.DRAW_SPEED, 0.15f)
-      .attribute("tconstruct.modifier.sharpweight", Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_BASE, -0.1f, handSlots)
-      .build());
-    addModifier(ModifierIds.heavy, StatBoostModifier.builder()
-      .multiplyBase(ToolStats.ATTACK_DAMAGE, 0.1f)
-      .multiplyBase(ToolStats.PROJECTILE_DAMAGE, 0.1f)
-      .attribute("tconstruct.modifier.heavy", Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_BASE, -0.1f, handSlots)
-      .build());
-    addModifier(ModifierIds.featherweight, StatBoostModifier.builder()
-      .multiplyBase(ToolStats.DRAW_SPEED, 0.07f)
-      .multiplyBase(ToolStats.ACCURACY, 0.07f)
-      .build());
+    buildModifier(ModifierIds.sharpweight)
+      .addModule(ToolStatModule.multiplyBase(ToolStats.MINING_SPEED, 0.1f))
+      .addModule(ToolStatModule.multiplyBase(ToolStats.DRAW_SPEED, 0.15f))
+      .addModule(new AttributeModule("tconstruct.modifier.sharpweight", Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_BASE, -0.1f, handSlots));
+    buildModifier(ModifierIds.heavy)
+      .addModule(ToolStatModule.multiplyBase(ToolStats.ATTACK_DAMAGE, 0.1f))
+      .addModule(ToolStatModule.multiplyBase(ToolStats.PROJECTILE_DAMAGE, 0.1f))
+      .addModule(new AttributeModule("tconstruct.modifier.heavy", Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_BASE, -0.1f, handSlots));
+    buildModifier(ModifierIds.featherweight)
+      .addModule(ToolStatModule.multiplyBase(ToolStats.DRAW_SPEED, 0.07f))
+      .addModule(ToolStatModule.multiplyBase(ToolStats.ACCURACY, 0.07f));
 
     // traits - tier 3
-    addModifier(ModifierIds.crumbling, new ConditionalMiningSpeedModifier(BlockPredicate.REQUIRES_TOOL.inverted(), false, 0.5f));
-    addModifier(ModifierIds.enhanced, ExtraModifier.builder(SlotType.UPGRADE).alwaysShow().display(ModifierLevelDisplay.DEFAULT).build());
+    buildModifier(ModifierIds.crumbling).addModule(new ConditionalMiningSpeedModule(BlockPredicate.REQUIRES_TOOL.inverted(), false, 0.5f));
+    buildModifier(ModifierIds.enhanced).priority(60).addModule(UPGRADE);
     addRedirect(id("maintained_2"), redirect(TinkerModifiers.maintained.getId()));
     // traits - tier 3 nether
-    addModifier(ModifierIds.lightweight, StatBoostModifier.builder()
-      .multiplyBase(ToolStats.ATTACK_SPEED, 0.07f)
-      .multiplyBase(ToolStats.MINING_SPEED, 0.07f)
-      .multiplyBase(ToolStats.DRAW_SPEED, 0.05f)
-      .multiplyBase(ToolStats.VELOCITY, 0.05f)
-      .build());
+    buildModifier(ModifierIds.lightweight)
+      .addModule(ToolStatModule.multiplyBase(ToolStats.ATTACK_SPEED, 0.07f))
+      .addModule(ToolStatModule.multiplyBase(ToolStats.MINING_SPEED, 0.07f))
+      .addModule(ToolStatModule.multiplyBase(ToolStats.DRAW_SPEED, 0.03f))
+      .addModule(ToolStatModule.multiplyBase(ToolStats.VELOCITY, 0.03f));
     // traits - tier 3 compat
-    addModifier(ModifierIds.ductile, StatBoostModifier.builder()
-      .multiplyBase(ToolStats.DURABILITY,        0.04f)
-      .multiplyBase(ToolStats.ATTACK_DAMAGE,     0.04f)
-      .multiplyBase(ToolStats.MINING_SPEED,      0.04f)
-      .multiplyBase(ToolStats.VELOCITY,          0.03f)
-      .multiplyBase(ToolStats.PROJECTILE_DAMAGE, 0.03f)
-      .build());
+    buildModifier(ModifierIds.ductile)
+      .addModule(ToolStatModule.multiplyBase(ToolStats.DURABILITY,        0.04f))
+      .addModule(ToolStatModule.multiplyBase(ToolStats.ATTACK_DAMAGE,     0.04f))
+      .addModule(ToolStatModule.multiplyBase(ToolStats.MINING_SPEED,      0.04f))
+      .addModule(ToolStatModule.multiplyBase(ToolStats.VELOCITY,          0.03f))
+      .addModule(ToolStatModule.multiplyBase(ToolStats.PROJECTILE_DAMAGE, 0.03f));
 
     // mob disguise
-    addModifier(ModifierIds.creeperDisguise,         new MobDisguiseModifier(EntityType.CREEPER));
-    addModifier(ModifierIds.endermanDisguise,        new MobDisguiseModifier(EntityType.ENDERMAN));
-    addModifier(ModifierIds.skeletonDisguise,        new MobDisguiseModifier(EntityType.SKELETON));
-    addModifier(ModifierIds.strayDisguise,           new MobDisguiseModifier(EntityType.STRAY));
-    addModifier(ModifierIds.witherSkeletonDisguise,  new MobDisguiseModifier(EntityType.WITHER_SKELETON));
-    addModifier(ModifierIds.spiderDisguise,          new MobDisguiseModifier(EntityType.SPIDER));
-    addModifier(ModifierIds.caveSpiderDisguise,      new MobDisguiseModifier(EntityType.CAVE_SPIDER));
-    addModifier(ModifierIds.zombieDisguise,          new MobDisguiseModifier(EntityType.ZOMBIE));
-    addModifier(ModifierIds.huskDisguise,            new MobDisguiseModifier(EntityType.HUSK));
-    addModifier(ModifierIds.drownedDisguise,         new MobDisguiseModifier(EntityType.DROWNED));
-    addModifier(ModifierIds.blazeDisguise,           new MobDisguiseModifier(EntityType.BLAZE));
-    addModifier(ModifierIds.piglinDisguise,          new MobDisguiseModifier(EntityType.PIGLIN));
-    addModifier(ModifierIds.piglinBruteDisguise,     new MobDisguiseModifier(EntityType.PIGLIN_BRUTE));
-    addModifier(ModifierIds.zombifiedPiglinDisguise, new MobDisguiseModifier(EntityType.ZOMBIFIED_PIGLIN));
+    buildModifier(ModifierIds.creeperDisguise        ).addModule(new MobDisguiseModule(EntityType.CREEPER));
+    buildModifier(ModifierIds.endermanDisguise       ).addModule(new MobDisguiseModule(EntityType.ENDERMAN));
+    buildModifier(ModifierIds.skeletonDisguise       ).addModule(new MobDisguiseModule(EntityType.SKELETON));
+    buildModifier(ModifierIds.strayDisguise          ).addModule(new MobDisguiseModule(EntityType.STRAY));
+    buildModifier(ModifierIds.witherSkeletonDisguise ).addModule(new MobDisguiseModule(EntityType.WITHER_SKELETON));
+    buildModifier(ModifierIds.spiderDisguise         ).addModule(new MobDisguiseModule(EntityType.SPIDER));
+    buildModifier(ModifierIds.caveSpiderDisguise     ).addModule(new MobDisguiseModule(EntityType.CAVE_SPIDER));
+    buildModifier(ModifierIds.zombieDisguise         ).addModule(new MobDisguiseModule(EntityType.ZOMBIE));
+    buildModifier(ModifierIds.huskDisguise           ).addModule(new MobDisguiseModule(EntityType.HUSK));
+    buildModifier(ModifierIds.drownedDisguise        ).addModule(new MobDisguiseModule(EntityType.DROWNED));
+    buildModifier(ModifierIds.blazeDisguise          ).addModule(new MobDisguiseModule(EntityType.BLAZE));
+    buildModifier(ModifierIds.piglinDisguise         ).addModule(new MobDisguiseModule(EntityType.PIGLIN));
+    buildModifier(ModifierIds.piglinBruteDisguise    ).addModule(new MobDisguiseModule(EntityType.PIGLIN_BRUTE));
+    buildModifier(ModifierIds.zombifiedPiglinDisguise).addModule(new MobDisguiseModule(EntityType.ZOMBIFIED_PIGLIN));
   }
 
   @Override

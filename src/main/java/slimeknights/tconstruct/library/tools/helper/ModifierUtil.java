@@ -166,7 +166,7 @@ public final class ModifierUtil {
    * @return  Modifier level, or 0 if not present or the stack is not modifiable
    */
   public static int getModifierLevel(ItemStack stack, ModifierId modifier) {
-    if (!stack.isEmpty() && stack.is(TinkerTags.Items.MODIFIABLE) && !ToolDamageUtil.isBroken(stack)) {
+    if (!stack.isEmpty() && stack.is(TinkerTags.Items.MODIFIABLE)) {
       CompoundTag nbt = stack.getTag();
       if (nbt != null && nbt.contains(ToolStack.TAG_MODIFIERS, Tag.TAG_LIST)) {
         ListTag list = nbt.getList(ToolStack.TAG_MODIFIERS, Tag.TAG_COMPOUND);
@@ -329,7 +329,7 @@ public final class ModifierUtil {
         return true;
       }
       for (ModifierEntry entry : tool.getModifierList()) {
-        if (entry.getModifier().canPerformAction(tool, entry.getLevel(), action)) {
+        if (entry.getHook(TinkerHooks.TOOL_ACTION).canPerformAction(tool, entry, action)) {
           return true;
         }
       }
@@ -375,8 +375,9 @@ public final class ModifierUtil {
     tool.getPersistentData().remove(ACTIVE_MODIFIER);
   }
 
-  /** Calculates inaccuracy from the conditional tool stat */
+  /** Calculates inaccuracy from the conditional tool stat. TODO: reconsidering velocity impacting inaccuracy, remove parameter in 1.19 */
+  @SuppressWarnings("unused")
   public static float getInaccuracy(IToolStackView tool, LivingEntity living, float velocity) {
-    return 3 * (1 / ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.ACCURACY) - 1) * velocity;
+    return 3 * (1 / ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.ACCURACY) - 1);
   }
 }

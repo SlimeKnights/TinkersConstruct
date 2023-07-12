@@ -22,7 +22,6 @@ import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.library.utils.Util;
-import slimeknights.tconstruct.tools.modifiers.upgrades.general.ReinforcedModifier;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -39,7 +38,7 @@ public class NecroticModifier extends Modifier implements ProjectileHitModifierH
   public int afterEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damageDealt) {
     if (context.isFullyCharged() && context.isCritical() && damageDealt > 0) {
       // heals a percentage of damage dealt, using same rate as reinforced
-      float percent = ReinforcedModifier.diminishingPercent(level);
+      float percent = 0.05f * level;
       if (percent > 0) {
         LivingEntity attacker = context.getAttacker();
         attacker.heal(percent * damageDealt);
@@ -54,7 +53,7 @@ public class NecroticModifier extends Modifier implements ProjectileHitModifierH
   @Override
   public boolean onProjectileHitEntity(ModifierNBT modifiers, NamespacedNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
     if (target != null && attacker != null) {
-      float percent = ReinforcedModifier.diminishingPercent(modifier.getLevel());
+      float percent = 0.05f * modifier.getLevel();
       if (percent > 0) {
         if (projectile instanceof AbstractArrow arrow && arrow.isCritArrow()) {
           // we don't actually know how much damage will be dealt, so just guess by using the standard formula
@@ -69,7 +68,7 @@ public class NecroticModifier extends Modifier implements ProjectileHitModifierH
 
   @Override
   public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
-    float lifesteal = ReinforcedModifier.diminishingPercent(level);
+    float lifesteal = 0.05f * level;
     if (lifesteal > 0) {
       tooltip.add(applyStyle(new TextComponent(Util.PERCENT_FORMAT.format(lifesteal) + " ").append(LIFE_STEAL)));
     }

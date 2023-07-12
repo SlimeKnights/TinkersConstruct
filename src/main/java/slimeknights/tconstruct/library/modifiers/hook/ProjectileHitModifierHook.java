@@ -12,7 +12,10 @@ import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.function.Function;
 
-/** Hook fired when an arrow hits an entity */
+/**
+ * Hook fired when an arrow hits an entity
+ * TODO 1.19: move into combat package
+ */
 public interface ProjectileHitModifierHook {
   /** Default instance */
   ProjectileHitModifierHook EMPTY = new ProjectileHitModifierHook() {};

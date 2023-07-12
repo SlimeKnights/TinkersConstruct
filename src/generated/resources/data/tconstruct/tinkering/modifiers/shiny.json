@@ -1,8 +1,15 @@
 {
-  "type": "tconstruct:stat_boost",
+  "type": "tconstruct:composable",
   "level_display": "tconstruct:no_levels",
-  "rarity": "epic",
-  "flags": [
-    "tconstruct:shiny"
+  "tooltip_display": "always",
+  "modules": [
+    {
+      "type": "tconstruct:volatile_flag",
+      "flag": "tconstruct:shiny"
+    },
+    {
+      "type": "tconstruct:rarity",
+      "rarity": "epic"
+    }
   ]
 }

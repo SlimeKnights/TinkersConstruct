@@ -26,7 +26,10 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.function.BiConsumer;
 
-/** Modifier to boost loot, from mobs or blocks */
+/** Modifier to boost loot, from mobs or blocks
+ * @deprecated use {@link ComposableModifier} with {@link slimeknights.tconstruct.library.modifiers.modules.LootingModule}
+ * or {@link slimeknights.tconstruct.library.modifiers.modules.EnchantmentModule.Harvest} */
+@Deprecated
 @RequiredArgsConstructor
 public class LootModifier extends Modifier implements LootingModifierHook, HarvestEnchantmentsModifierHook {
   @Nullable

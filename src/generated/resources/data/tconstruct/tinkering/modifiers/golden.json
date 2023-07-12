@@ -1,7 +1,11 @@
 {
-  "type": "tconstruct:stat_boost",
+  "type": "tconstruct:composable",
   "level_display": "tconstruct:no_levels",
-  "flags": [
-    "tconstruct:piglin_neutral"
+  "tooltip_display": "always",
+  "modules": [
+    {
+      "type": "tconstruct:volatile_flag",
+      "flag": "tconstruct:piglin_neutral"
+    }
   ]
 }

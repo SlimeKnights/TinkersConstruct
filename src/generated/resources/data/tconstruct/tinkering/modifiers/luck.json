@@ -1,12 +1,19 @@
 {
-  "type": "tconstruct:loot",
+  "type": "tconstruct:composable",
   "level_display": {
     "type": "tconstruct:unique",
     "unique_until": 3
   },
-  "enchantment": {
-    "name": "minecraft:fortune",
-    "level": 1
-  },
-  "looting": 1
+  "tooltip_display": "always",
+  "modules": [
+    {
+      "type": "tconstruct:harvest_enchantment",
+      "name": "minecraft:fortune",
+      "level": 1
+    },
+    {
+      "type": "tconstruct:looting",
+      "level": 1
+    }
+  ]
 }

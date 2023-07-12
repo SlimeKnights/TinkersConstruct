@@ -852,6 +852,7 @@
 
   "_comment_on_format_": "These format allows you to have more control over separators in material names. By default we separate with space. You can use %1$s and %2$s if you wish to change the order.",
   "item.tconstruct.tool.format": "%s %s",
+  "item.tconstruct.tool.id_format": "%s (%s)",
   "item.tconstruct.tool.material_separator": "-",
 
   "item.tconstruct.pickaxe": "Pickaxe",
@@ -1065,7 +1066,7 @@
   "block.tconstruct.seared_ingot_gauge": "Seared Ingot Gauge",
   "block.tconstruct.seared_ingot_gauge.tooltip": "Ideal for metals, holding 48 ingots of fluid.\nRetains liquid when broken.",
   "block.tconstruct.seared_lantern": "Seared Lantern",
-  "block.tconstruct.seared_lantern.tooltip": "Ideal for decoration, holding 100mb of fluid.\nRetains liquid when broken.",
+  "block.tconstruct.seared_lantern.tooltip": "Ideal for decoration, holding 50mb of fluid.\nRetains liquid when broken.",
 
   "block.tconstruct.seared_faucet": "Seared Faucet",
   "block.tconstruct.seared_faucet.tooltip": "Drains liquids from Smelteries and Tanks",
@@ -1993,7 +1994,7 @@
   "modifier.tconstruct.shield_strap.description": "Interacting with the leggings allows swapping the offhand item",
   "modifier.tconstruct.tool_belt": "Tool Belt",
   "modifier.tconstruct.tool_belt.flavor": "Ever wish for more hands?",
-  "modifier.tconstruct.tool_belt.description": "Interacting with the leggings whle holding control allows swapping the hotbar",
+  "modifier.tconstruct.tool_belt.description": "Interacting with the leggings while holding control allows swapping the hotbar",
   "recipe.tconstruct.modifier.tool_belt": "Tool belt recipes must be applied in order",
   "modifier.tconstruct.pocket_chain": "Pocket Chain",
   "modifier.tconstruct.pocket_chain.flavor": "One Chain to Bind Them",
@@ -2584,6 +2585,7 @@
   "tooltip.tconstruct.part.missing_material": "Missing material: %s",
   "tooltip.tconstruct.part.missing_stats": "Material does not support %s",
   "tooltip.tconstruct.part.missing_info": "Part has no data",
+  "tooltip.tconstruct.part.material_id": "Material ID: %s",
 
   "_comment": "GUIs",
 
@@ -2648,7 +2650,7 @@
   "modifier.tconstruct.attack_toggled": "%s (Attack)",
   "recipe.tconstruct.attack_modifiers.adding.title": "Toggle Interaction",
   "recipe.tconstruct.attack_modifiers.adding.description": "Switches an interaction modifier from activating on interaction to attack",
-  "recipe.tconstruct.attack_modifiers.removing.title": "Toggle Interaction",
+  "recipe.tconstruct.attack_modifiers.removing.title": "Untoggle Interaction",
   "recipe.tconstruct.attack_modifiers.removing.description": "Switches an interaction modifier back to activating on interaction",
 
   "recipe.tconstruct.extract_modifier.title": "Extract Modifier",

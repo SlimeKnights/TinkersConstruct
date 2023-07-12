@@ -1,5 +1,12 @@
 {
-  "type": "tconstruct:conditional_damage",
-  "entity": "tconstruct:on_fire",
-  "damage": 2.0
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:default",
+  "tooltip_display": "always",
+  "modules": [
+    {
+      "type": "tconstruct:conditional_damage",
+      "entity": "mantle:on_fire",
+      "damage": 2.0
+    }
+  ]
 }

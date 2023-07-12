@@ -31,6 +31,7 @@ import slimeknights.tconstruct.library.json.predicate.modifier.SlotTypeModifierP
 import slimeknights.tconstruct.library.json.predicate.modifier.TagModifierPredicate;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
+import slimeknights.tconstruct.library.modifiers.dynamic.ComposableModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.ConditionalDamageModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.ConditionalMiningSpeedModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.EnchantmentModifier;
@@ -45,6 +46,21 @@ import slimeknights.tconstruct.library.modifiers.impl.ScaledArmorLevelModifier;
 import slimeknights.tconstruct.library.modifiers.impl.SingleLevelModifier;
 import slimeknights.tconstruct.library.modifiers.impl.TankModifier;
 import slimeknights.tconstruct.library.modifiers.impl.TotalArmorLevelModifier;
+import slimeknights.tconstruct.library.modifiers.modules.AttributeModule;
+import slimeknights.tconstruct.library.modifiers.modules.ConditionalDamageModule;
+import slimeknights.tconstruct.library.modifiers.modules.ConditionalMiningSpeedModule;
+import slimeknights.tconstruct.library.modifiers.modules.EnchantmentModule;
+import slimeknights.tconstruct.library.modifiers.modules.IncrementalModule;
+import slimeknights.tconstruct.library.modifiers.modules.LootingModule;
+import slimeknights.tconstruct.library.modifiers.modules.MobDisguiseModule;
+import slimeknights.tconstruct.library.modifiers.modules.MobEffectModule;
+import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
+import slimeknights.tconstruct.library.modifiers.modules.ModifierSlotModule;
+import slimeknights.tconstruct.library.modifiers.modules.RarityModule;
+import slimeknights.tconstruct.library.modifiers.modules.SwappableSlotModule;
+import slimeknights.tconstruct.library.modifiers.modules.ToolActionsModule;
+import slimeknights.tconstruct.library.modifiers.modules.ToolStatModule;
+import slimeknights.tconstruct.library.modifiers.modules.VolatileFlagModule;
 import slimeknights.tconstruct.library.modifiers.spilling.ISpillingEffect;
 import slimeknights.tconstruct.library.modifiers.spilling.SpillingFluidManager;
 import slimeknights.tconstruct.library.modifiers.spilling.effects.AddBreathSpillingEffect;
@@ -562,6 +578,7 @@ public final class TinkerModifiers extends TinkerModule {
     ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("enchantment"), EnchantmentModifier.LOADER);
     ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("mob_effect"), MobEffectModifier.LOADER);
     ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("inventory_with_menu"), InventoryMenuModifier.LOADER);
+    ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("composable"), ComposableModifier.LOADER);
     // specialized
     ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("tool_belt"), ToolBeltModifier.LOADER);
     // modifier names, sometimes I wonder if I have too many registries for tiny JSON pieces
@@ -570,6 +587,23 @@ public final class TinkerModifiers extends TinkerModule {
     ModifierLevelDisplay.LOADER.register(TConstruct.getResource("no_levels"), ModifierLevelDisplay.NO_LEVELS.getLoader());
     ModifierLevelDisplay.LOADER.register(TConstruct.getResource("pluses"), ModifierLevelDisplay.PLUSES.getLoader());
     ModifierLevelDisplay.LOADER.register(TConstruct.getResource("unique"), UniqueForLevels.LOADER);
+    // modifier modules
+    ModifierModule.LOADER.register(TConstruct.getResource("incremental"), IncrementalModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("attribute"), AttributeModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("tool_stat"), ToolStatModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("tool_actions"), ToolActionsModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("conditional_damage"), ConditionalDamageModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("conditional_mining_speed"), ConditionalMiningSpeedModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("volatile_flag"), VolatileFlagModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("rarity"), RarityModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("harvest_enchantment"), EnchantmentModule.Harvest.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("constant_enchantment"), EnchantmentModule.Constant.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("looting"), LootingModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("modifier_slot"), ModifierSlotModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("swappable_slot"), SwappableSlotModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("swappable_bonus_slot"), SwappableSlotModule.BonusSlot.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("mob_effect"), MobEffectModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("mob_disguise"), MobDisguiseModule.LOADER);
 
     ModifierPredicate.LOADER.register(TConstruct.getResource("and"), ModifierPredicate.AND);
     ModifierPredicate.LOADER.register(TConstruct.getResource("or"), ModifierPredicate.OR);

@@ -1,21 +1,54 @@
 {
-  "type": "tconstruct:conditional_damage",
-  "entity": {
-    "type": "tconstruct:or",
-    "predicates": [
-      {
-        "type": "tconstruct:mob_type",
-        "mobs": "minecraft:arthropod"
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:default",
+  "tooltip_display": "always",
+  "modules": [
+    {
+      "type": "tconstruct:incremental"
+    },
+    {
+      "type": "tconstruct:conditional_damage",
+      "entity": {
+        "type": "mantle:or",
+        "predicates": [
+          {
+            "type": "mantle:mob_type",
+            "mobs": "minecraft:arthropod"
+          },
+          {
+            "type": "mantle:tag",
+            "tag": "forge:creepers"
+          }
+        ]
       },
-      {
-        "type": "tconstruct:tag",
-        "tag": "forge:creepers"
-      }
-    ]
-  },
-  "damage": 2.0,
-  "effect": {
-    "name": "minecraft:slowness",
-    "level": 4
-  }
+      "damage": 2.0
+    },
+    {
+      "type": "tconstruct:mob_effect",
+      "entity": {
+        "type": "mantle:or",
+        "predicates": [
+          {
+            "type": "mantle:mob_type",
+            "mobs": "minecraft:arthropod"
+          },
+          {
+            "type": "mantle:tag",
+            "tag": "forge:creepers"
+          }
+        ]
+      },
+      "effect": "minecraft:slowness",
+      "level": {
+        "flat": 4.0
+      },
+      "time": {
+        "flat": 20.0,
+        "random": 10.0
+      },
+      "hooks": [
+        "tconstruct:melee_hit"
+      ]
+    }
+  ]
 }

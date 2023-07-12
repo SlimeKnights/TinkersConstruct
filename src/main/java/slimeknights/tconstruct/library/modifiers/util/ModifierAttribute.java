@@ -20,7 +20,10 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.function.BiConsumer;
 
-/** Represents an attribute in a modifier */
+/**
+ * Represents an attribute in a modifier
+ * TODO 1.19: merge into {@link slimeknights.tconstruct.library.modifiers.modules.AttributeModule}
+ */
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class ModifierAttribute {
   private final String name;
@@ -67,8 +70,7 @@ public class ModifierAttribute {
   }
 
   /** Converts this to JSON */
-  public JsonObject toJson() {
-    JsonObject json = new JsonObject();
+  public JsonObject toJson(JsonObject json) {
     json.addProperty("unique", name);
     json.addProperty("attribute", Objects.requireNonNull(attribute.getRegistryName()).toString());
     json.addProperty("operation", operation.name().toLowerCase(Locale.ROOT));
@@ -81,6 +83,11 @@ public class ModifierAttribute {
     }
     json.add("slots", array);
     return json;
+  }
+
+  /** Converts this to JSON */
+  public JsonObject toJson() {
+    return toJson(new JsonObject());
   }
 
   /** Parses the modifier attribute from JSON */

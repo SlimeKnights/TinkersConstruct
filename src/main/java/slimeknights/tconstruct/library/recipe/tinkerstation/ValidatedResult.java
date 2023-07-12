@@ -34,12 +34,21 @@ public class ValidatedResult {
 
   /**
    * Result for when this recipe is not craftable and has an error message
+   * @param message  Error message
+   * @return  Validation result with the given message
+   */
+  public static ValidatedResult failure(Component message) {
+    return new ValidatedResult.Failure(message);
+  }
+
+  /**
+   * Result for when this recipe is not craftable and has an error message
    * @param translationKey  Error message translation key
    * @param params          Arguments to format into the translation key
    * @return  Validation result with the given message
    */
   public static ValidatedResult failure(String translationKey, Object... params) {
-    return new ValidatedResult.Failure(translationKey, params);
+    return failure(new TranslatableComponent(translationKey, params));
   }
 
   /** If true, this recipe passed and can be crafted for the given input */
@@ -87,9 +96,9 @@ public class ValidatedResult {
     @Getter
     private final Component message;
 
-    private Failure(String translationKey, Object[] params) {
+    private Failure(Component message) {
       super(false);
-      this.message = new TranslatableComponent(translationKey, params);
+      this.message = message;
     }
 
     @Override

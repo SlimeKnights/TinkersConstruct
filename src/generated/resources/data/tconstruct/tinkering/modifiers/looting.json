@@ -1,5 +1,11 @@
 {
-  "type": "tconstruct:loot",
+  "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "looting": 1
+  "tooltip_display": "always",
+  "modules": [
+    {
+      "type": "tconstruct:looting",
+      "level": 1
+    }
+  ]
 }
