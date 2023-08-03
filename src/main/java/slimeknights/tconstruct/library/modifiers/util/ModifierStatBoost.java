@@ -25,7 +25,7 @@ import java.util.Locale;
 /**
  * Stat boost to apply
  */
-public interface ModifierStatBoost {
+public sealed interface ModifierStatBoost {
   /**
    * Checks if all tags match
    */
@@ -52,7 +52,14 @@ public interface ModifierStatBoost {
   /**
    * Converts this to JSON
    */
-  JsonObject toJson();
+  JsonObject toJson(JsonObject json);
+
+  /**
+   * Converts this to JSON
+   */
+  default JsonObject toJson() {
+    return toJson(new JsonObject());
+  }
 
   /**
    * Writes this to the network
@@ -156,12 +163,10 @@ public interface ModifierStatBoost {
       }
     }
 
-    /** Converts the object to JSON */
     @Override
-    public JsonObject toJson() {
-      JsonObject json = new JsonObject();
+    public JsonObject toJson(JsonObject json) {
       json.addProperty("stat", stat.getName().toString());
-      json.addProperty("type", type.getName());
+      json.addProperty("operation", type.getName());
       json.addProperty("value", amount);
       serializeTags(json, tagRequirements);
       return json;
@@ -169,10 +174,16 @@ public interface ModifierStatBoost {
 
     /** Parses this from JSON */
     public static StatBoost fromJson(JsonObject json, INumericToolStat<?> stat, List<TagKey<Item>> tagRequirements) {
-      String typeName = GsonHelper.getAsString(json, "type", "add");
+      String typeName;
+      // TODO 1.19: remove type key entirely, assuming this
+      if (json.has("operation")) {
+        typeName = GsonHelper.getAsString(json, "operation");
+      } else {
+        typeName = GsonHelper.getAsString(json, "type", "add");
+      }
       BoostType boostType = BoostType.byName(typeName);
       if (boostType == null) {
-        throw new JsonSyntaxException("Unknown stat type '" + typeName + "'");
+        throw new JsonSyntaxException("Unknown stat operation '" + typeName + "'");
       }
       float amount = GsonHelper.getAsFloat(json, "value");
       return new StatBoost(stat, boostType, amount, tagRequirements);
@@ -206,8 +217,7 @@ public interface ModifierStatBoost {
     }
 
     @Override
-    public JsonObject toJson() {
-      JsonObject json = new JsonObject();
+    public JsonObject toJson(JsonObject json) {
       json.addProperty("stat", stat.getName().toString());
       json.add("value", stat.serialize(value));
       serializeTags(json, tagRequirements);

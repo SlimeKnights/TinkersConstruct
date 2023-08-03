@@ -1,15 +1,18 @@
 {
-  "type": "tconstruct:stat_boost",
+  "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "stats": [
+  "tooltip_display": "always",
+  "modules": [
     {
+      "type": "tconstruct:tool_stat",
       "stat": "tconstruct:draw_speed",
-      "type": "multiply_base",
+      "operation": "multiply_base",
       "value": 0.07
     },
     {
+      "type": "tconstruct:tool_stat",
       "stat": "tconstruct:accuracy",
-      "type": "multiply_base",
+      "operation": "multiply_base",
       "value": 0.07
     }
   ]

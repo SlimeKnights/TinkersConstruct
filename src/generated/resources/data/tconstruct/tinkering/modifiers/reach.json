@@ -1,8 +1,13 @@
 {
-  "type": "tconstruct:stat_boost",
+  "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "attributes": [
+  "tooltip_display": "always",
+  "modules": [
     {
+      "type": "tconstruct:incremental"
+    },
+    {
+      "type": "tconstruct:attribute",
       "unique": "tconstruct.modifier.reach",
       "attribute": "forge:reach_distance",
       "operation": "addition",
@@ -16,6 +21,7 @@
       ]
     },
     {
+      "type": "tconstruct:attribute",
       "unique": "tconstruct.modifier.range",
       "attribute": "forge:attack_range",
       "operation": "addition",

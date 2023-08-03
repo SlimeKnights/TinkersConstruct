@@ -1,15 +1,18 @@
 {
-  "type": "tconstruct:stat_boost",
+  "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "stats": [
+  "tooltip_display": "always",
+  "modules": [
     {
+      "type": "tconstruct:tool_stat",
       "stat": "tconstruct:velocity",
-      "type": "multiply_base",
+      "operation": "add",
       "value": 0.1
     },
     {
+      "type": "tconstruct:tool_stat",
       "stat": "tconstruct:projectile_damage",
-      "type": "multiply_all",
+      "operation": "multiply_all",
       "value": -0.1
     }
   ]

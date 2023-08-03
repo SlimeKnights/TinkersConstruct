@@ -11,7 +11,10 @@ import slimeknights.tconstruct.library.modifiers.hook.ArmorWalkModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.BlockTransformModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.BowAmmoModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.DisplayNameModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.EffectiveLevelModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ElytraFlightModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.EquipmentChangeModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.HarvestEnchantmentsModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.KeybindInteractModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.LootingModifierHook;
@@ -19,16 +22,39 @@ import slimeknights.tconstruct.library.modifiers.hook.PlantHarvestModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ProjectileHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ProjectileLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ShearsModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.ToolActionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.TooltipModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.AttributesModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.RawDataModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.ToolStatsModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.ValidateModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.VolatileDataModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.DamageBlockModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.DamageDealtModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.DamageTakenModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeDamageModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.ProtectionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.mining.BlockBreakModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.mining.FinishHarvestModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.mining.RemoveBlockModifierHook;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorInteractModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorLootModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IArmorWalkModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IElytraFlightModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IHarvestModifier;
 import slimeknights.tconstruct.library.modifiers.hooks.IShearModifier;
+import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
+import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
+import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
+import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -46,6 +72,132 @@ public class TinkerHooks {
 
   /** Generic hook for stats conditioned on the entity holding the tool */
   public static final ModifierHook<ConditionalStatModifierHook> CONDITIONAL_STAT = register("conditional_stat", ConditionalStatModifierHook.class, ConditionalStatModifierHook.ALL_MERGER, ConditionalStatModifierHook.EMPTY);
+
+  /** Hook for modifiers adding additional information to the tooltip */
+  public static final ModifierHook<TooltipModifierHook> TOOLTIP = register("tooltip", TooltipModifierHook.class, TooltipModifierHook.AllMerger::new, (tool, modifier, player, tooltip, tooltipKey, tooltipFlag)
+    -> modifier.getModifier().addInformation(tool, modifier.getLevel(), player, tooltip, tooltipKey, tooltipFlag));
+
+  /** Hook for modifiers checking if they can perform a tool action */
+  public static final ModifierHook<ToolActionModifierHook> TOOL_ACTION = register("tool_action", ToolActionModifierHook.class, ToolActionModifierHook.AnyMerger::new, (tool, modifier, toolAction)
+    -> modifier.getModifier().canPerformAction(tool, modifier.getLevel(), toolAction));
+
+  /** Hook used when any {@link EquipmentSlot} changes on an entity while using at least one tool */
+  public static final ModifierHook<EquipmentChangeModifierHook> EQUIPMENT_CHANGE = register("equipment_change", EquipmentChangeModifierHook.class, EquipmentChangeModifierHook.AllMerger::new, new EquipmentChangeModifierHook() {
+    @Override
+    public void onEquip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
+      modifier.getModifier().onEquip(tool, modifier.getLevel(), context);
+    }
+
+    @Override
+    public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
+      modifier.getModifier().onUnequip(tool, modifier.getLevel(), context);
+    }
+
+    @Override
+    public void onEquipmentChange(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context, EquipmentSlot slotType) {
+      modifier.getModifier().onEquipmentChange(tool, modifier.getLevel(), context, slotType);
+    }
+  });
+
+
+  /* Composable only  */
+
+  /** Hook for supporting modifiers to change the effective level */
+  public static final ModifierHook<EffectiveLevelModifierHook> EFFECTIVE_LEVEL = register("effective_level", EffectiveLevelModifierHook.class, EffectiveLevelModifierHook.ComposeMerger::new, (tool, modifier, level) -> level);
+
+  /** Hook for supporting modifiers to change the modifier display name */
+  public static final ModifierHook<DisplayNameModifierHook> DISPLAY_NAME = register("display_name", DisplayNameModifierHook.class, DisplayNameModifierHook.ComposeMerger::new, (tool, modifier, level, name) -> name);
+
+
+  /* Tool Building */
+
+  /** Hook for adding raw unconditional stats to a tool */
+  public static final ModifierHook<ToolStatsModifierHook> TOOL_STATS = register("tool_stats", ToolStatsModifierHook.class, ToolStatsModifierHook.AllMerger::new, (context, modifier, builder)
+    -> modifier.getModifier().addToolStats(context, modifier.getLevel(), builder));
+
+  /** Hook for adding item stack attributes to a tool when in the proper slot */
+  public static final ModifierHook<AttributesModifierHook> ATTRIBUTES = register("attributes", AttributesModifierHook.class, AttributesModifierHook.AllMerger::new, (tool, modifier, slot, consumer)
+    -> modifier.getModifier().addAttributes(tool, modifier.getLevel(), slot, consumer));
+
+  /** Hook to add data that resets every time stats rebuild */
+  public static final ModifierHook<VolatileDataModifierHook> VOLATILE_DATA = register("volatile_data", VolatileDataModifierHook.class, VolatileDataModifierHook.AllMerger::new, (context, modifier, volatileData)
+    -> modifier.getModifier().addVolatileData(context, modifier.getLevel(), volatileData));
+
+  /** Hook to add and remove data directly to the tools NBT. It is generally better to use persistent data or volatile data when possible. */
+  public static final ModifierHook<RawDataModifierHook> RAW_DATA = register("raw_data", RawDataModifierHook.class, RawDataModifierHook.AllMerger::new, new RawDataModifierHook() {
+    @Override
+    public void addRawData(IToolStackView tool, ModifierEntry modifier, RestrictedCompoundTag tag) {
+      modifier.getModifier().addRawData(tool, modifier.getLevel(), tag);
+    }
+
+    @Override
+    public void removeRawData(IToolStackView tool, Modifier modifier, RestrictedCompoundTag tag) {
+      modifier.beforeRemoved(tool, tag);
+    }
+  });
+
+  /** Hook called to give a modifier a chance to clean up data while on the tool and to reject the current tool state */
+  public static final ModifierHook<ValidateModifierHook> VALIDATE = register("validate", ValidateModifierHook.class, ValidateModifierHook.AllMerger::new, (tool, modifier) -> {
+    ValidatedResult result = modifier.getModifier().validate(tool, modifier.getLevel());
+    if (result.hasError()) {
+      return result.getMessage();
+    }
+    return null;
+  });
+
+  /** Hook called when a modifier is removed to give it a chance to clean up data */
+  public static final ModifierHook<ModifierRemovalHook> REMOVE = register("remove", ModifierRemovalHook.class, ModifierRemovalHook.FirstMerger::new, (tool, modifier) -> {
+    modifier.onRemoved(tool);
+    ValidatedResult result = modifier.validate(tool, 0);
+    if (result.hasError()) {
+      return result.getMessage();
+    }
+    return null;
+  });
+
+
+  /* Combat */
+
+  /** Hook to adjust melee damage when a weapon is attacking an entity */
+  public static final ModifierHook<MeleeDamageModifierHook> MELEE_DAMAGE = register("melee_damage", MeleeDamageModifierHook.class, MeleeDamageModifierHook.AllMerger::new, (tool, modifier, context, baseDamage, damage)
+    -> modifier.getModifier().getEntityDamage(tool, modifier.getLevel(), context, baseDamage, damage));
+
+  /** Hook called when an entity is attacked to apply special effects */
+  public static final ModifierHook<MeleeHitModifierHook> MELEE_HIT = register("melee_hit", MeleeHitModifierHook.class, MeleeHitModifierHook.AllMerger::new, new MeleeHitModifierHook() {
+    @Override
+    public float beforeMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
+      return modifier.getModifier().beforeEntityHit(tool, modifier.getLevel(), context, damage, baseKnockback, knockback);
+    }
+
+    @Override
+    public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt) {
+      int damage = modifier.getModifier().afterEntityHit(tool, modifier.getLevel(), context, damageDealt);
+      if (damage > 0) {
+        ToolDamageUtil.damageAnimated(tool, damage, context.getAttacker(), context.getSlotType());
+      }
+    }
+
+    @Override
+    public void failedMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageAttempted) {
+      modifier.getModifier().failedEntityHit(tool, modifier.getLevel(), context);
+    }
+  });
+
+  /** Hook called when taking damage wearing this armor to reduce the damage */
+  public static final ModifierHook<ProtectionModifierHook> PROTECTION = register("protection", ProtectionModifierHook.class, ProtectionModifierHook.AllMerger::new, (tool, modifier, context, slotType, source, modifierValue)
+    -> modifier.getModifier().getProtectionModifier(tool, modifier.getLevel(), context, slotType, source, modifierValue));
+
+  /** Hook called when taking damage wearing this armor to cancel the damage */
+  public static final ModifierHook<DamageBlockModifierHook> DAMAGE_BLOCK = register("damage_block", DamageBlockModifierHook.class, DamageBlockModifierHook.AnyMerger::new, (tool, modifier, context, slotType, source, amount)
+    -> modifier.getModifier().isSourceBlocked(tool, modifier.getLevel(), context, slotType, source, amount));
+
+  /** Hook called when taking damage to apply secondary effects such as counterattack or healing */
+  public static final ModifierHook<DamageTakenModifierHook> DAMAGE_TAKEN = register("damage_taken", DamageTakenModifierHook.class, DamageTakenModifierHook.AllMerger::new, (tool, modifier, context, slotType, source, amount, isDirectDamage)
+    -> modifier.getModifier().onAttacked(tool, modifier.getLevel(), context, slotType, source, amount, isDirectDamage));
+
+  /** Hook called when dealing damage while wearing this equipment */
+  public static final ModifierHook<DamageDealtModifierHook> DAMAGE_DEALT = register("damage_dealt", DamageDealtModifierHook.class, DamageDealtModifierHook.AllMerger::new, (tool, modifier, context, slotType, target, source, amount, isDirectDamage)
+    -> modifier.getModifier().attackWithArmor(tool, modifier.getLevel(), context, slotType, target, source, amount, isDirectDamage));
 
   /* Loot */
 
@@ -76,6 +228,25 @@ public class TinkerHooks {
       armorLoot.applyHarvestEnchantments(tool, modifier.getLevel(), context, consumer);
     }
   });
+
+
+  /* Harvest */
+
+  /** Hook for conditionally modifying the break speed of a block */
+  public static final ModifierHook<BreakSpeedModifierHook> BREAK_SPEED = register("break_speed", BreakSpeedModifierHook.class, BreakSpeedModifierHook.AllMerger::new, (tool, modifier, event, sideHit, isEffective, miningSpeedModifier)
+    -> modifier.getModifier().onBreakSpeed(tool, modifier.getLevel(), event, sideHit, isEffective, miningSpeedModifier));
+
+  /** Called when a block is broken by a tool to allow the modifier to take over the block removing logic */
+  public static final ModifierHook<RemoveBlockModifierHook> REMOVE_BLOCK = register("remove_block", RemoveBlockModifierHook.class, RemoveBlockModifierHook.FirstMerger::new, (tool, modifier, context)
+    -> modifier.getModifier().removeBlock(tool, modifier.getLevel(), context));
+
+  /** Called after a block is broken by a tool for every block in the AOE */
+  public static final ModifierHook<BlockBreakModifierHook> BLOCK_BREAK = register("block_break", BlockBreakModifierHook.class, BlockBreakModifierHook.AllMerger::new, (tool, modifier, context)
+    -> modifier.getModifier().afterBlockBreak(tool, modifier.getLevel(), context));
+
+  /** Called after all blocks in the AOE are broken */
+  public static final ModifierHook<FinishHarvestModifierHook> FINISH_HARVEST = register("finish_harvest", FinishHarvestModifierHook.class, FinishHarvestModifierHook.AllMerger::new, (tool, modifier, context)
+    -> modifier.getModifier().finishBreakingBlocks(tool, modifier.getLevel(), context));
 
 
   /* Ranged */

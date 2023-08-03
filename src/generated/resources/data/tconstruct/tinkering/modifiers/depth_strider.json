@@ -1,8 +1,12 @@
 {
-  "type": "tconstruct:enchantment",
+  "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "enchantment": {
-    "name": "minecraft:depth_strider",
-    "level": 1
-  }
+  "tooltip_display": "always",
+  "modules": [
+    {
+      "type": "tconstruct:constant_enchantment",
+      "name": "minecraft:depth_strider",
+      "level": 1
+    }
+  ]
 }

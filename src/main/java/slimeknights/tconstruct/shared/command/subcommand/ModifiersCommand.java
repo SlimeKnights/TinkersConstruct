@@ -19,6 +19,7 @@ import slimeknights.mantle.command.MantleCommand;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRequirements;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
@@ -121,34 +122,30 @@ public class ModifiersCommand {
       // first remove hook, primarily for removing raw NBT which is highly discouraged using
       int newLevel = currentLevel - removeLevel;
       if (newLevel <= 0) {
-        modifier.beforeRemoved(tool, tool.getRestrictedNBT());
+        modifier.getHook(TinkerHooks.RAW_DATA).removeRawData(tool, modifier, tool.getRestrictedNBT());
       }
 
       // remove the actual modifier
       tool.removeModifier(modifier.getId(), removeLevel);
 
       // ensure the tool is still valid
-      ValidatedResult validated = tool.validate();
-      if (validated.hasError()) {
-        throw MODIFIER_ERROR.create(validated.getMessage());
+      Component validated = tool.tryValidate();
+      if (validated != null) {
+        throw MODIFIER_ERROR.create(validated);
       }
 
-      // second remove hook, useful for removing modifier specific state data
-      if (newLevel <= 0) {
-        modifier.onRemoved(tool);
-      }
       // if this was the last level, validate the tool is still valid without it
       if (newLevel <= 0) {
-        validated = modifier.validate(tool, 0);
-        if (validated.hasError()) {
-          throw MODIFIER_ERROR.create(validated.getMessage());
+        validated = modifier.getHook(TinkerHooks.REMOVE).onRemoved(tool, modifier);
+        if (validated != null) {
+          throw MODIFIER_ERROR.create(validated);
         }
       }
       // check the modifier requirements
       ItemStack resultStack = tool.createStack(stack.getCount()); // creating a stack to make it as accurate as possible, though the old stack should be sufficient
-      validated = ModifierRecipeLookup.checkRequirements(resultStack, tool);
-      if (validated.hasError()) {
-        throw MODIFIER_ERROR.create(validated.getMessage());
+      ValidatedResult result = ModifierRecipeLookup.checkRequirements(resultStack, tool);
+      if (result.hasError()) {
+        throw MODIFIER_ERROR.create(result.getMessage());
       }
 
       // if successful, update held item

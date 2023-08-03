@@ -19,6 +19,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.mantle.command.MantleCommand;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -195,12 +196,15 @@ public class StatsCommand {
       if (level > 0) {
         tool = tool.copy();
         tool.removeModifier(stats.getId(), level);
-        stats.onRemoved(tool);
 
         // ensure the tool is still valid
-        ValidatedResult validated = tool.validate();
-        if (validated.hasError()) {
-          throw MODIFIER_ERROR.create(validated.getMessage());
+        Component error = tool.tryValidate();
+        if (error != null) {
+          throw MODIFIER_ERROR.create(error);
+        }
+        error = stats.getHook(TinkerHooks.REMOVE).onRemoved(tool, stats);
+        if (error != null) {
+          throw MODIFIER_ERROR.create(error);
         }
 
         // if successful, update held item

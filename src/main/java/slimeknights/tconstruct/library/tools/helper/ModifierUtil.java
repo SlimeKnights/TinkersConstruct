@@ -329,7 +329,7 @@ public final class ModifierUtil {
         return true;
       }
       for (ModifierEntry entry : tool.getModifierList()) {
-        if (entry.getModifier().canPerformAction(tool, entry.getLevel(), action)) {
+        if (entry.getHook(TinkerHooks.TOOL_ACTION).canPerformAction(tool, entry, action)) {
           return true;
         }
       }

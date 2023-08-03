@@ -27,7 +27,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
-/** Modifier that boosts damage against a conditional mob, applying an optional potion effect */
+/** @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.ConditionalDamageModule} */
+@Deprecated
 @RequiredArgsConstructor
 public class ConditionalDamageModifier extends IncrementalModifier {
   /** Requirement for entities to match */

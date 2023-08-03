@@ -1,5 +1,15 @@
 {
-  "type": "tconstruct:conditional_damage",
-  "entity": "tconstruct:fire_immune",
-  "damage": 1.6
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:default",
+  "tooltip_display": "always",
+  "modules": [
+    {
+      "type": "tconstruct:incremental"
+    },
+    {
+      "type": "tconstruct:conditional_damage",
+      "entity": "mantle:fire_immune",
+      "damage": 1.6
+    }
+  ]
 }

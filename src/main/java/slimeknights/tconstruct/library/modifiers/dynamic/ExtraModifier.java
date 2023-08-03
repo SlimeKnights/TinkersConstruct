@@ -16,9 +16,8 @@ import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
-/**
- * Modifier that grants a bonus modifier slot
- */
+/** @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.ModifierSlotModule} */
+@Deprecated
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class ExtraModifier extends Modifier {
   /** Loader instance */

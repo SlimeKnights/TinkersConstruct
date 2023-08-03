@@ -1,8 +1,18 @@
 {
-  "type": "tconstruct:conditional_damage",
-  "entity": {
-    "type": "tconstruct:mob_type",
-    "mobs": "minecraft:undead"
-  },
-  "damage": 2.0
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:default",
+  "tooltip_display": "always",
+  "modules": [
+    {
+      "type": "tconstruct:incremental"
+    },
+    {
+      "type": "tconstruct:conditional_damage",
+      "entity": {
+        "type": "mantle:mob_type",
+        "mobs": "minecraft:undead"
+      },
+      "damage": 2.0
+    }
+  ]
 }

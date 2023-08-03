@@ -1,13 +1,18 @@
 {
-  "type": "tconstruct:stat_boost",
+  "type": "tconstruct:composable",
   "level_display": {
     "type": "tconstruct:unique",
     "unique_until": 5
   },
-  "stats": [
+  "tooltip_display": "always",
+  "modules": [
     {
+      "type": "tconstruct:incremental"
+    },
+    {
+      "type": "tconstruct:tool_stat",
       "stat": "tconstruct:attack_damage",
-      "type": "add",
+      "operation": "add",
       "value": 0.75
     }
   ]

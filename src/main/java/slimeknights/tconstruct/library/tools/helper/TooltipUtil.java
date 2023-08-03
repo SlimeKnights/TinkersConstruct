@@ -34,6 +34,7 @@ import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.tools.definition.PartRequirement;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
@@ -429,7 +430,7 @@ public class TooltipUtil {
 
     builder.addAllFreeSlots();
     for (ModifierEntry entry : tool.getModifierList()) {
-      entry.getModifier().addInformation(tool, entry.getLevel(), player, tooltip, key, flag);
+      entry.getHook(TinkerHooks.TOOLTIP).addTooltip(tool, entry, player, tooltip, key, flag);
     }
     return builder.getTooltips();
   }
@@ -465,7 +466,7 @@ public class TooltipUtil {
     builder.addAllFreeSlots();
 
     for (ModifierEntry entry : tool.getModifierList()) {
-      entry.getModifier().addInformation(tool, entry.getLevel(), player, tooltip, key, flag);
+      entry.getHook(TinkerHooks.TOOLTIP).addTooltip(tool, entry, player, tooltip, key, flag);
     }
     return builder.getTooltips();
   }
