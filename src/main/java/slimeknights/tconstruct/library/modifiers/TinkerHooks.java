@@ -21,6 +21,7 @@ import slimeknights.tconstruct.library.modifiers.hook.LootingModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.PlantHarvestModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ProjectileHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ProjectileLaunchModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.RepairFactorModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ShearsModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ToolActionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.TooltipModifierHook;
@@ -98,6 +99,9 @@ public class TinkerHooks {
       modifier.getModifier().onEquipmentChange(tool, modifier.getLevel(), context, slotType);
     }
   });
+
+  /** Hook for modifying the repair amount for tools */
+  public static final ModifierHook<RepairFactorModifierHook> REPAIR_FACTOR = register("repair_factor", RepairFactorModifierHook.class, RepairFactorModifierHook.ComposeMerger::new, (tool, entry, factor) -> entry.getModifier().getRepairFactor(tool, entry.getLevel(), factor));
 
 
   /* Composable only  */

@@ -187,7 +187,7 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
             // apply modifier repair boost
             float factor = cost / MaterialRecipe.INGOTS_PER_REPAIR;
             for (ModifierEntry entry : tool.getModifierList()) {
-              factor = entry.getModifier().getRepairFactor(tool, entry.getLevel(), factor);
+              factor = entry.getHook(TinkerHooks.REPAIR_FACTOR).getRepairFactor(tool, entry, factor);
               if (factor <= 0) {
                 break;
               }

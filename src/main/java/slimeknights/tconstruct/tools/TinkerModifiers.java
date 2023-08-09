@@ -57,6 +57,7 @@ import slimeknights.tconstruct.library.modifiers.modules.MobEffectModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierSlotModule;
 import slimeknights.tconstruct.library.modifiers.modules.RarityModule;
+import slimeknights.tconstruct.library.modifiers.modules.RepairModule;
 import slimeknights.tconstruct.library.modifiers.modules.SwappableSlotModule;
 import slimeknights.tconstruct.library.modifiers.modules.ToolActionsModule;
 import slimeknights.tconstruct.library.modifiers.modules.ToolStatModule;
@@ -166,7 +167,6 @@ import slimeknights.tconstruct.tools.modifiers.slotless.NearsightedModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.StatOverrideModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.DamageSpeedTradeModifier;
-import slimeknights.tconstruct.tools.modifiers.traits.general.CultivatedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.DenseModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.EnderportingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.OvercastModifier;
@@ -427,7 +427,6 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<StatOverrideModifier> statOverride = MODIFIERS.register("stat_override", StatOverrideModifier::new);
 
   // traits - tier 1
-  public static final StaticModifier<CultivatedModifier> cultivated = MODIFIERS.register("cultivated", CultivatedModifier::new);
   public static final StaticModifier<DamageSpeedTradeModifier> jagged = MODIFIERS.register("jagged", () -> new DamageSpeedTradeModifier(0.005f));
   public static final StaticModifier<DamageSpeedTradeModifier> stonebound = MODIFIERS.register("stonebound", () -> new DamageSpeedTradeModifier(-0.005f));
   // traits - tier 1 nether
@@ -604,6 +603,7 @@ public final class TinkerModifiers extends TinkerModule {
     ModifierModule.LOADER.register(TConstruct.getResource("swappable_bonus_slot"), SwappableSlotModule.BonusSlot.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("mob_effect"), MobEffectModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("mob_disguise"), MobDisguiseModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("repair"), RepairModule.LOADER);
 
     ModifierPredicate.LOADER.register(TConstruct.getResource("and"), ModifierPredicate.AND);
     ModifierPredicate.LOADER.register(TConstruct.getResource("or"), ModifierPredicate.OR);

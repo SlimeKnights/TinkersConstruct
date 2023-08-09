@@ -428,13 +428,8 @@ public class Modifier implements IHaveLoader<Modifier> {
     return amount;
   }
 
-  /**
-   * Called when the tool is repair. Can be used to decrease, increase, or cancel the repair.
-   * @param toolStack  Tool stack
-   * @param level      Tool level
-   * @param factor     Original factor
-   * @return  Replacement factor. Returning 0 prevents repair
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.RepairFactorModifierHook} */
+  @Deprecated
   public float getRepairFactor(IToolStackView toolStack, int level, float factor) {
     return factor;
   }
