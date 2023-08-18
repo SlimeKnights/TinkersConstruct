@@ -72,6 +72,7 @@ public class ModifierIds {
 
 
   // traits - tier 1
+  public static final ModifierId cultivated = id("cultivated");
   public static final ModifierId stringy = id("stringy");
   public static final ModifierId flexible = id("flexible");
   // traits - tier 2

@@ -35,6 +35,7 @@ import slimeknights.tconstruct.library.modifiers.modules.MobDisguiseModule;
 import slimeknights.tconstruct.library.modifiers.modules.MobEffectModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierSlotModule;
 import slimeknights.tconstruct.library.modifiers.modules.RarityModule;
+import slimeknights.tconstruct.library.modifiers.modules.RepairModule;
 import slimeknights.tconstruct.library.modifiers.modules.SwappableSlotModule;
 import slimeknights.tconstruct.library.modifiers.modules.ToolStatModule;
 import slimeknights.tconstruct.library.modifiers.modules.VolatileFlagModule;
@@ -98,6 +99,7 @@ public class ModifierProvider extends AbstractModifierProvider {
       .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
       .addModule(new RarityModule(Rarity.UNCOMMON))
       .addModule(ToolStatModule.multiplyBase(ToolStats.DURABILITY, 0.5f))
+      .addModule(RepairModule.leveling(0.5f))
       // armor
       .addModule(ToolStatModule.add(ToolStats.KNOCKBACK_RESISTANCE, 0.05f))
       // melee harvest
@@ -212,6 +214,7 @@ public class ModifierProvider extends AbstractModifierProvider {
     buildModifier(ModifierIds.snowBoots).addModule(new VolatileFlagModule(ModifiableArmorItem.SNOW_BOOTS)).tooltipDisplay(TooltipDisplay.NEVER);
 
     // traits - tier 1
+    buildModifier(ModifierIds.cultivated).addModule(RepairModule.leveling(0.5f));
     addModifier(ModifierIds.stringy, new Modifier());
     buildModifier(ModifierIds.flexible).addModule(ToolStatModule.add(ToolStats.VELOCITY, 0.1f)).addModule(ToolStatModule.multiplyAll(ToolStats.PROJECTILE_DAMAGE, -0.1f));
     // traits - tier 2
