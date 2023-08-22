@@ -330,7 +330,7 @@ item.tconstruct.clay_cast.blank=空白鑄模黏土
 item.tconstruct.cast_custom.ingot.name=錠狀鑄模
 item.tconstruct.cast_custom.nugget.name=粒狀鑄模
 item.tconstruct.cast_custom.gem.name=寶石鑄模
-item.tconstruct.cast_custom.plate.name=大板鑄模
+item.tconstruct.cast_custom.plate.name=板鑄模
 item.tconstruct.cast_custom.gear.name=齒輪鑄模
 
 item.tconstruct.sharpening_kit.name=磨刀器
@@ -944,7 +944,7 @@ gui.error.not_enough_modifiers=改造空間不足。(需要 %d 個)
 gui.error.single_modifier=%s只可以被使用一次。
 gui.error.max_level_modifier=已達%s的最高等級。
 gui.error.no_modifier_for_item=找不到%s的改造空間。
-gui.error.already_has_extratrait=這把工具已有刻紋，它只能刻一次。
+gui.error.already_has_extratrait=這把工具已有刻紋，它只能被雕刻一次。
 gui.error.incompatible_modifiers=改造%s及%s不能一起使用
 gui.error.incompatible_trait=改造%s不能與%s的特性一起使用
 gui.error.incompatible_enchantments=改造%s不能與%s附魔結合
