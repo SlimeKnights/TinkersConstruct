@@ -26,7 +26,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.entity.PartEntity;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
@@ -35,6 +34,7 @@ import slimeknights.mantle.util.SingleKeyMultimap;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -98,7 +98,7 @@ public class ToolAttackUtil {
       }
     };
     for (ModifierEntry entry : tool.getModifierList()) {
-      entry.getModifier().addAttributes(tool, entry.getLevel(), EquipmentSlot.MAINHAND, attributeConsumer);
+      entry.getHook(TinkerHooks.ATTRIBUTES).addAttributes(tool, entry, EquipmentSlot.MAINHAND, attributeConsumer);
     }
     Multimap<Attribute,AttributeModifier> offhandModifiers = new SingleKeyMultimap<>(Attributes.ATTACK_DAMAGE, listBuilder.build());
 
@@ -202,7 +202,7 @@ public class ToolAttackUtil {
     float baseDamage = damage;
     List<ModifierEntry> modifiers = tool.getModifierList();
     for (ModifierEntry entry : modifiers) {
-      damage = entry.getModifier().getEntityDamage(tool, entry.getLevel(), context, baseDamage, damage);
+      damage = entry.getHook(TinkerHooks.MELEE_DAMAGE).getMeleeDamage(tool, entry, context, baseDamage, damage);
     }
 
     // no damage? do nothing
@@ -255,7 +255,7 @@ public class ToolAttackUtil {
     }
 
     // track original health and motion before attack
-    Vec3 originalTargetMotion = targetEntity.getDeltaMovement();
+    // Vec3 originalTargetMotion = targetEntity.getDeltaMovement();
     float oldHealth = 0.0F;
     if (targetLiving != null) {
       oldHealth = targetLiving.getHealth();
@@ -267,7 +267,7 @@ public class ToolAttackUtil {
     // apply modifier knockback and special effects
     float baseKnockback = knockback;
     for (ModifierEntry entry : modifiers) {
-      knockback = entry.getModifier().beforeEntityHit(tool, entry.getLevel(), context, damage, baseKnockback, knockback);
+      knockback = entry.getHook(TinkerHooks.MELEE_HIT).beforeMeleeHit(tool, entry, context, damage, baseKnockback, knockback);
     }
 
     // set hand for proper looting context
@@ -312,7 +312,7 @@ public class ToolAttackUtil {
       }
       // alert modifiers nothing was hit, mainly used for fiery
       for (ModifierEntry entry : modifiers) {
-        entry.getModifier().failedEntityHit(tool, entry.getLevel(), context);
+        entry.getHook(TinkerHooks.MELEE_HIT).failedMeleeHit(tool, entry, context, damage);
       }
 
       return !isExtraAttack;
@@ -370,9 +370,8 @@ public class ToolAttackUtil {
 
     // apply modifier effects
     // removed: bane of arthropods hook, replaced by this
-    int durabilityLost = targetLiving != null ? 1 : 0;
     for (ModifierEntry entry : modifiers) {
-      durabilityLost += entry.getModifier().afterEntityHit(tool, entry.getLevel(), context, damageDealt);
+      entry.getHook(TinkerHooks.MELEE_HIT).afterMeleeHit(tool, entry, context, damageDealt);
     }
 
     // hurt resistance adjustment for high speed weapons
@@ -404,6 +403,7 @@ public class ToolAttackUtil {
 
     // damage the tool
     if (!tool.hasTag(TinkerTags.Items.UNARMED)) {
+      int durabilityLost = targetLiving != null ? 1 : 0;
       if (!tool.hasTag(TinkerTags.Items.MELEE_PRIMARY)) {
         durabilityLost *= 2;
       }

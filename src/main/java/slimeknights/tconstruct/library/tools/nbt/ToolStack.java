@@ -19,6 +19,7 @@ import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
@@ -587,11 +588,11 @@ public class ToolStack implements IToolStackView {
       }
     }
     // next, ensure modifiers validate
-    ValidatedResult result;
+    Component result;
     for (ModifierEntry entry : getModifierList()) {
-      result = entry.getModifier().validate(this, entry.getLevel());
-      if (result.hasError()) {
-        return result.getMessage();
+      result = entry.getHook(TinkerHooks.VALIDATE).validate(this, entry);
+      if (result != null) {
+        return result;
       }
     }
     return null;
@@ -611,11 +612,11 @@ public class ToolStack implements IToolStackView {
       }
     }
     // next, ensure modifiers validate
-    ValidatedResult result;
+    Component result;
     for (ModifierEntry entry : getModifierList()) {
-      result = entry.getModifier().validate(this, entry.getLevel());
-      if (result.hasError()) {
-        return result;
+      result = entry.getHook(TinkerHooks.VALIDATE).validate(this, entry);
+      if (result != null) {
+        return ValidatedResult.failure(result);
       }
     }
     return ValidatedResult.PASS;
@@ -691,12 +692,12 @@ public class ToolStack implements IToolStackView {
 
       // build persistent data first, its a parameter to the other two hooks
       for (ModifierEntry entry : modifierList) {
-        entry.getModifier().addVolatileData(context, entry.getLevel(), volatileData);
+        entry.getHook(TinkerHooks.VOLATILE_DATA).addVolatileData(context, entry, volatileData);
       }
 
       // regular stats last so we can include volatile data
       for (ModifierEntry entry : modifierList) {
-        entry.getModifier().addToolStats(context, entry.getLevel(), statBuilder);
+        entry.getHook(TinkerHooks.TOOL_STATS).addToolStats(context, entry, statBuilder);
       }
 
       // set into NBT
@@ -708,7 +709,7 @@ public class ToolStack implements IToolStackView {
 
     // finally, update raw data, called last to make the parameters more convenient mostly, plus no other hooks should be responding to this data
     for (ModifierEntry entry : modifierList) {
-      entry.getModifier().addRawData(this, entry.getLevel(), getRestrictedNBT());
+      entry.getHook(TinkerHooks.RAW_DATA).addRawData(this, entry, getRestrictedNBT());
     }
   }
 

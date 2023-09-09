@@ -1,13 +1,22 @@
 {
-  "type": "tconstruct:mob_effect",
-  "effect": "minecraft:slowness",
-  "level": {
-    "base": 0.0,
-    "multiplier": 0.5
-  },
-  "time": {
-    "base": 20,
-    "multiplier_flat": 0,
-    "multiplier_random": 10
-  }
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:default",
+  "tooltip_display": "always",
+  "modules": [
+    {
+      "type": "tconstruct:incremental"
+    },
+    {
+      "type": "tconstruct:mob_effect",
+      "entity": "mantle:any",
+      "effect": "minecraft:slowness",
+      "level": {
+        "leveling": 0.5
+      },
+      "time": {
+        "flat": 20.0,
+        "random": 10.0
+      }
+    }
+  ]
 }

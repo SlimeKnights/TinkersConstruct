@@ -1,30 +1,36 @@
 {
-  "type": "tconstruct:stat_boost",
+  "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "stats": [
+  "tooltip_display": "always",
+  "modules": [
     {
+      "type": "tconstruct:tool_stat",
       "stat": "tconstruct:durability",
-      "type": "multiply_base",
+      "operation": "multiply_base",
       "value": 0.04
     },
     {
+      "type": "tconstruct:tool_stat",
       "stat": "tconstruct:attack_damage",
-      "type": "multiply_base",
+      "operation": "multiply_base",
       "value": 0.04
     },
     {
+      "type": "tconstruct:tool_stat",
       "stat": "tconstruct:mining_speed",
-      "type": "multiply_base",
+      "operation": "multiply_base",
       "value": 0.04
     },
     {
+      "type": "tconstruct:tool_stat",
       "stat": "tconstruct:velocity",
-      "type": "multiply_base",
+      "operation": "multiply_base",
       "value": 0.03
     },
     {
+      "type": "tconstruct:tool_stat",
       "stat": "tconstruct:projectile_damage",
-      "type": "multiply_base",
+      "operation": "multiply_base",
       "value": 0.03
     }
   ]

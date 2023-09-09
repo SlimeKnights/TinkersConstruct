@@ -1,8 +1,15 @@
 {
-  "type": "tconstruct:stat_boost",
+  "type": "tconstruct:composable",
   "level_display": "tconstruct:no_levels",
-  "rarity": "uncommon",
-  "flags": [
-    "tconstruct:indestructible"
+  "tooltip_display": "always",
+  "modules": [
+    {
+      "type": "tconstruct:volatile_flag",
+      "flag": "tconstruct:indestructible"
+    },
+    {
+      "type": "tconstruct:rarity",
+      "rarity": "uncommon"
+    }
   ]
 }

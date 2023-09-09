@@ -14,6 +14,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.modules.EnchantmentModule.Constant;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -21,10 +23,8 @@ import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
 
 import java.util.Objects;
 
-/**
- * Modifier that adds an enchantment. The current implementation is a bit of a hack, and will clobber enchantments from other sources.
- * TODO 1.19: switch to new hook to make this less of a hack
- */
+/** @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.EnchantmentModule.Constant} */
+@Deprecated
 @RequiredArgsConstructor
 public class EnchantmentModifier extends Modifier {
   private final Enchantment enchantment;
@@ -36,7 +36,7 @@ public class EnchantmentModifier extends Modifier {
     return levelDisplay.nameForLevel(this, level);
   }
 
-  /** Adds an enchantment to the given tool, for use in {@link #addRawData(IToolStackView, int, RestrictedCompoundTag)} */
+  /** Adds an enchantment to the given tool, for use in {@link Constant#addRawData(IToolStackView, ModifierEntry, RestrictedCompoundTag)} */
   public static void addEnchantmentData(RestrictedCompoundTag tag, Enchantment enchantment, int level) {
     // first, find the enchantment tag
     ListTag enchantments;
@@ -50,7 +50,9 @@ public class EnchantmentModifier extends Modifier {
     String id = Objects.requireNonNull(enchantment.getRegistryName()).toString();
     for (int i = 0; i < enchantments.size(); i++) {
       CompoundTag enchantmentTag = enchantments.getCompound(i);
-      if (id.equals(enchantmentTag.getString("id"))) {
+      // only replace if our level is smaller, means that multiple modifiers adding the same enchantment lead to max behavior
+      // cannot do adding behavior as this hook can run multiple times without ever removing the level
+      if (id.equals(enchantmentTag.getString("id")) && enchantmentTag.getShort("lvl") < level) {
         EnchantmentHelper.setEnchantmentLevel(enchantmentTag, level);
         return;
       }
@@ -59,10 +61,11 @@ public class EnchantmentModifier extends Modifier {
     enchantments.add(EnchantmentHelper.storeEnchantment(enchantment.getRegistryName(), level));
   }
 
-  /** Adds an enchantment to the given tool, for use in {@link #beforeRemoved(IToolStackView, RestrictedCompoundTag)} */
+  /** Adds an enchantment to the given tool, for use in {@link Constant#removeRawData(IToolStackView, Modifier, RestrictedCompoundTag)} */
   public static void removeEnchantmentData(RestrictedCompoundTag tag, Enchantment enchantment) {
     // when removing the modifier, remove the enchant
     // this will clobber anyone else trying to remove it, not much we can do
+    // luckily, with the order these hooks run, if another modifier wished to add it, they will simply come after the fact to add it
     if (tag.contains(ModifierUtil.TAG_ENCHANTMENTS, Tag.TAG_LIST)) {
       ListTag enchantments = tag.getList(ModifierUtil.TAG_ENCHANTMENTS, Tag.TAG_COMPOUND);
       String id = Objects.requireNonNull(enchantment.getRegistryName()).toString();

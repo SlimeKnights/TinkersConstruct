@@ -1,10 +1,15 @@
 {
-  "type": "tconstruct:stat_boost",
+  "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "stats": [
+  "tooltip_display": "always",
+  "modules": [
     {
+      "type": "tconstruct:incremental"
+    },
+    {
+      "type": "tconstruct:tool_stat",
       "stat": "tconstruct:projectile_damage",
-      "type": "add",
+      "operation": "add",
       "value": 0.5
     }
   ]

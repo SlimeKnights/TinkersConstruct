@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tables.recipe;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -17,6 +18,7 @@ import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.IRepairableMaterialStats;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingLookup;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
@@ -145,6 +147,8 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
         if (didChange) {
           Map<Modifier,Integer> removedTraits = new HashMap<>();
           // start with a map of all modifiers on the old part
+          // TODO: this logic looks correct, but I feel like it might be more complicated than needed
+          // basically, if the new part has the modifier, its not going to be removed no matter how the levels differ, a set should suffice
           for (ModifierEntry entry : MaterialRegistry.getInstance().getTraits(toolVariant.getId(), part.getStatType())) {
             removedTraits.put(entry.getModifier(), entry.getLevel());
           }
@@ -160,23 +164,18 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
               }
             }
           }
-          // for the remainder, fill a list as we have 2 more hooks to call with them
+          // for the remainder, fill a list as we have another hooks to call with them
           actuallyRemoved = new ArrayList<>();
           for (Entry<Modifier,Integer> entry : removedTraits.entrySet()) {
             Modifier modifier = entry.getKey();
             if (tool.getModifierLevel(modifier) <= entry.getValue()) {
-              modifier.beforeRemoved(tool, tool.getRestrictedNBT());
+              modifier.getHook(TinkerHooks.RAW_DATA).removeRawData(tool, modifier, tool.getRestrictedNBT());
               actuallyRemoved.add(modifier);
             }
           }
 
           // do the actual part replacement
           tool.replaceMaterial(index, partVariant);
-
-          // allow modifiers to remove any extra NBT based on the new state
-          for (Modifier modifier : actuallyRemoved) {
-            modifier.onRemoved(tool);
-          }
         }
 
         // if swapping in a new head, repair the tool (assuming the give stats type can repair)
@@ -207,15 +206,15 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
           return toolValidation;
         }
         // next, modifier validation
-        toolValidation = tool.validate();
-        if (toolValidation.hasError()) {
-          return toolValidation;
+        Component error = tool.tryValidate();
+        if (error != null) {
+          return ValidatedResult.failure(error);
         }
         // finally, validate removed modifiers
         for (Modifier modifier : actuallyRemoved) {
-          toolValidation = modifier.validate(tool, 0);
-          if (toolValidation.hasError()) {
-            return toolValidation;
+          error = modifier.getHook(TinkerHooks.REMOVE).onRemoved(tool, modifier);
+          if (error != null) {
+            return ValidatedResult.failure(error);
           }
         }
         // everything worked, so good to go

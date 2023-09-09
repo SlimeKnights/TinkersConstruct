@@ -1,8 +1,11 @@
 {
-  "type": "tconstruct:stat_boost",
+  "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "flags": [
-    "tconstruct:overslime_friend"
-  ],
-  "modifier_display": "never"
+  "tooltip_display": "never",
+  "modules": [
+    {
+      "type": "tconstruct:volatile_flag",
+      "flag": "tconstruct:overslime_friend"
+    }
+  ]
 }

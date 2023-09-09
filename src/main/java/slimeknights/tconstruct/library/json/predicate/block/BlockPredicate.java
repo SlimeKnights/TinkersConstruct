@@ -13,7 +13,9 @@ import static slimeknights.mantle.data.GenericLoaderRegistry.SingletonLoader.sin
 
 /**
  * Simple serializable block predicate
+ * @deprecated use {@link slimeknights.mantle.data.predicate.block.BlockPredicate}
  */
+@Deprecated
 public interface BlockPredicate extends IJsonPredicate<BlockState> {
   /** Loader for block state predicates */
   GenericLoaderRegistry<IJsonPredicate<BlockState>> LOADER = new GenericLoaderRegistry<>(true);
