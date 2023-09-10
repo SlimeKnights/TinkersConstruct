@@ -2105,7 +2105,7 @@
   "modifier.tconstruct.glowing.flavor": "闪闪放光芒！",
   "modifier.tconstruct.glowing.description": "持握者潜行时可放置荧光球，会消耗工具耐久度",
   "modifier.tconstruct.exchanging": "置换",
-  "modifier.tconstruct.exchanging.flavor": "The Ole Switcheroo!",
+  "modifier.tconstruct.exchanging.flavor": "出其不意！",
   "modifier.tconstruct.exchanging.description": "若有可能，副手持握的方块将会在该工具挖掘方块后，立即填补被挖空的位置",
   "modifier.tconstruct.firestarter": "纵火",
   "modifier.tconstruct.firestarter.flavor": "熊熊火焰燃烧了我！",
@@ -2669,7 +2669,7 @@
   
   "recipe.tconstruct.part_swapping.too_many_parts": "该工具无法在此切换部件",
 
-  "recipe.tconstruct.modifier.not_enough_slot": "至少需要一个%s槽来添加该强化物",
+  "recipe.tconstruct.modifier.not_enough_slot": "至少需要1个%s槽来添加该强化物",
   "recipe.tconstruct.modifier.not_enough_slots": "至少需要%s个%s槽来添加该强化物",
   "recipe.tconstruct.modifier.validate_slots": "这项改动留给工具的%s槽过少",
   "recipe.tconstruct.modifier.min_level": "此配方需要至少%s级%s才可使用",
