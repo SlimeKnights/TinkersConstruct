@@ -14,6 +14,10 @@
       "value": 0.5
     },
     {
+      "type": "tconstruct:repair",
+      "leveling": 0.5
+    },
+    {
       "type": "tconstruct:tool_stat",
       "stat": "tconstruct:knockback_resistance",
       "operation": "add",
