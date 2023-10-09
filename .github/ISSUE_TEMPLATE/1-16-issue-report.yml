@@ -116,6 +116,7 @@ body:
         - 'Searched open issues'
         - 'Searched closed issues'
         - 'Checked the FAQ'
+        - 'Checked the in game books'
         - 'I did not search'
     validations:
       required: true
