@@ -95,12 +95,12 @@ body:
     id: performance-enhancers
     attributes:
       label: "Performance Enchancers"
-      description: "Select all that you were using when you reproduced the issue. Ideally reproduce with fewer performance enhancers."
+      description: "Select all that you were using when you reproduced the issue. Please attempt to reproduce the issue without them."
       multiple: true
       options:
-        - 'Magnesium'
         - 'Optifine'
         - 'Performant'
+        - 'Rubidium/Embeddium'
         - 'Other (specify under other mods)'
         - 'None of the above'
     validations:
