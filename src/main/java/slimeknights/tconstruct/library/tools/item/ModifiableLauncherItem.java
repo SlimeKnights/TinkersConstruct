@@ -55,7 +55,7 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
    * Not necessary to clear as its only used by logic that checks other hooks to see if a bow is drawing */
   public static final TinkerDataKey<Float> DRAWSPEED = TConstruct.createKey("drawspeed");
   /** Int version of above, just used for sound effects */
-  protected static final ResourceLocation KEY_DRAWTIME = TConstruct.getResource("drawtime");
+  public static final ResourceLocation KEY_DRAWTIME = TConstruct.getResource("drawtime");
 
   /** Tool definition for the given tool */
   @Getter
