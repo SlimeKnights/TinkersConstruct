@@ -9,6 +9,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.UseAnim;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.item.ModifiableLauncherItem;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.item.ModifiableCrossbowItem;
@@ -30,7 +31,10 @@ public class TinkerItemProperties {
 
   /** ID for the pulling property */
   private static final ResourceLocation PULLING_ID = new ResourceLocation("pulling");
-  /** Boolean indicating the bow is pulling */
+  /**
+   * Boolean indicating the bow is pulling
+   * TODO: ditch in favor of charging?
+   */
   private static final ItemPropertyFunction PULLING = (stack, level, holder, seed) -> holder != null && holder.isUsingItem() && holder.getUseItem() == stack ? 1.0F : 0.0F;
 
   /** ID for ammo property */
@@ -65,6 +69,15 @@ public class TinkerItemProperties {
     }
     return 0;
   };
+  /** ID for the pull property */
+  private static final ResourceLocation CHARGE_ID = TConstruct.getResource("charge");
+  /** Property for bow pull amount */
+  private static final ItemPropertyFunction CHARGE = (stack, level, holder, seed) -> {
+    if (holder == null || holder.getUseItem() != stack) {
+      return 0.0F;
+    }
+    return (float)(stack.getUseDuration() - holder.getUseItemRemainingTicks()) / ModifierUtil.getPersistentInt(stack, ModifiableLauncherItem.KEY_DRAWTIME, 20);
+  };
 
   /** Registers properties for a bow */
   public static void registerBowProperties(Item item) {
@@ -81,5 +94,6 @@ public class TinkerItemProperties {
   /** Registers properties for a bow */
   public static void registerToolProperties(Item item) {
     ItemProperties.register(item, CHARGING_ID, CHARGING);
+    ItemProperties.register(item, CHARGE_ID, CHARGE);
   }
 }
