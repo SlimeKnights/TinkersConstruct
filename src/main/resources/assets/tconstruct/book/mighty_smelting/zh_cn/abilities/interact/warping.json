@@ -6,9 +6,9 @@
     }
   ],
   "effects": [
-    "Charge to teleport in the direction looked",
-    "Can boost teleport range with power",
-    "Single Level",
-    "Requires 1 Ability Slot"
+    "蓄力以传送至视线方向",
+    "可以加持“力量”或“击退”增大传送距离",
+    "单个等级",
+    "需要1个能力槽"
   ]
 }

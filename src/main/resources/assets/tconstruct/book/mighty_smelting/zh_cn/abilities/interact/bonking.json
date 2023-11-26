@@ -6,9 +6,9 @@
     }
   ],
   "effects": [
-    "Charge to launch the targeted mob away",
-    "Can boost launch speed with power or knockback",
-    "Single Level",
-    "Requires 1 Ability Slot"
+    "蓄力以将目标怪物发射到远处",
+    "可以加持“力量”或“击退”提升发射速度",
+    "单个等级",
+    "需要1个能力槽"
   ]
 }
