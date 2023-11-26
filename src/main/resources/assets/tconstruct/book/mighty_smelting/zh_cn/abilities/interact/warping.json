@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:warping",
+  "text": [
+    {
+      "text": " "
+    }
+  ],
+  "effects": [
+    "Charge to teleport in the direction looked",
+    "Can boost teleport range with power",
+    "Single Level",
+    "Requires 1 Ability Slot"
+  ]
+}
