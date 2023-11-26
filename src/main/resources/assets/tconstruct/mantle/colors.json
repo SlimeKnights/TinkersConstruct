@@ -26,6 +26,12 @@
     "stripping":   "#ab7a55",
     "tilling":     "#633c1e",
 
+    "__sling_abilities__": null,
+    "flinging":  "#01cd4e",
+    "springing": "#01cbcd",
+    "bonking":   "#ff970d",
+    "warping":   "#af4cf6",
+
     "__interaction_traits__": null,
     "shears":           "#A64F3F",
     "silky_shears":     "#A64F3F",
