@@ -173,6 +173,7 @@ public class ToolClientEvents extends ClientEventBase {
     ParticleEngine.SpriteParticleRegistration<SimpleParticleType> factory = AttackParticle.Factory::new;
     Minecraft.getInstance().particleEngine.register(TinkerTools.hammerAttackParticle.get(), factory);
     Minecraft.getInstance().particleEngine.register(TinkerTools.axeAttackParticle.get(), factory);
+    Minecraft.getInstance().particleEngine.register(TinkerTools.bonkAttackParticle.get(), factory);
   }
 
   @SubscribeEvent
