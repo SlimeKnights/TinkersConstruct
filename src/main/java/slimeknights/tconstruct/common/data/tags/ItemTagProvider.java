@@ -280,7 +280,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(HELD_ARMOR).addTag(SHIELDS);
     this.tag(ARMOR).addTags(WORN_ARMOR, HELD_ARMOR);
     this.tag(AOE).addTag(BOOTS); // boot walk modifiers
-    this.tag(RANGED).addTag(BOWS);
+    this.tag(RANGED).addTags(BOWS, STAFFS);
     this.tag(BOWS).addTags(LONGBOWS, CROSSBOWS);
 
     // general

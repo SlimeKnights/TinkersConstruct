@@ -37,6 +37,7 @@ public enum Sounds {
   SHURIKEN_THROW("throw.shuriken"),
   LONGBOW_CHARGE("longbow.charge"),
   CRYSTALSHOT,
+  BONK,
 
   // modifiers
   NECROTIC_HEAL,
@@ -53,7 +54,6 @@ public enum Sounds {
   EQUIP_PLATE("equip.plate"),
 
   // unused
-  FRYING_PAN_BOING("frypan_hit"),
   TOY_SQUEAK,
   CROSSBOW_RELOAD,
   STONE_HIT,

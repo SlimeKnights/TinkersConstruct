@@ -134,6 +134,10 @@ import slimeknights.tconstruct.tools.modifiers.ability.interaction.SilkyShearsAb
 import slimeknights.tconstruct.tools.modifiers.ability.ranged.BulkQuiverModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.ranged.CrystalshotModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.ranged.TrickQuiverModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.sling.BonkingModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.sling.FlingingModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.sling.SpringingModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.sling.WarpingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.AutosmeltModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.BucketingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.DuelWieldingModifier;
@@ -411,6 +415,12 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<SingleLevelModifier> fireprimer = MODIFIERS.register("fireprimer", SingleLevelModifier::new);
   public static final StaticModifier<BlockingModifier> blocking = MODIFIERS.register("blocking", BlockingModifier::new);
   public static final StaticModifier<ParryingModifier> parrying = MODIFIERS.register("parrying", ParryingModifier::new);
+  // slings
+  public static final StaticModifier<FlingingModifier> flinging = MODIFIERS.register("flinging", FlingingModifier::new);
+  public static final StaticModifier<SpringingModifier> springing = MODIFIERS.register("springing", SpringingModifier::new);
+  public static final StaticModifier<BonkingModifier> bonking = MODIFIERS.register("bonking", BonkingModifier::new);
+  public static final StaticModifier<WarpingModifier> warping = MODIFIERS.register("warping", WarpingModifier::new);
+
 
   // internal abilities
   public static final StaticModifier<BlockTransformModifier> axeScrape = MODIFIERS.register("axe_scrape", () -> new BlockTransformModifier(Integer.MIN_VALUE + 49, ToolActions.AXE_SCRAPE, SoundEvents.AXE_SCRAPE, false, 3005));

@@ -15,28 +15,28 @@
   "first_modifiers": [ "tconstruct:dyed", "tconstruct:embellishment" ],
   "overrides": [
     {
-      "predicate": { "tconstruct:charging": 2 },
-      "model": "tconstruct:item/blocking/ichor_staff"
-    },
-    {
-      "predicate": { "pulling": 1 },
+      "predicate": { "tconstruct:charging": 1 },
       "model": "tconstruct:item/slimestaff/ichor_charging_1"
     },
     {
-      "predicate": { "pulling": 1, "pull": 0.4 },
+      "predicate": { "tconstruct:charging": 1, "tconstruct:charge": 0.4 },
       "model": "tconstruct:item/slimestaff/ichor_charging_2"
     },
     {
-      "predicate": { "pulling": 1, "pull": 0.7 },
+      "predicate": { "tconstruct:charging": 1, "tconstruct:charge": 0.7 },
       "model": "tconstruct:item/slimestaff/ichor_charging_3"
     },
     {
-      "predicate": { "pulling": 1, "pull": 0.9 },
+      "predicate": { "tconstruct:charging": 1, "tconstruct:charge": 0.9 },
       "model": "tconstruct:item/slimestaff/ichor_charging_4"
     },
     {
-      "predicate": { "pulling": 1, "pull": 1.0 },
+      "predicate": { "tconstruct:charging": 1, "tconstruct:charge": 1.0 },
       "model": "tconstruct:item/slimestaff/ichor_charging_5"
+    },
+    {
+      "predicate": { "tconstruct:charging": 2 },
+      "model": "tconstruct:item/blocking/ichor_staff"
     }
   ]
 }

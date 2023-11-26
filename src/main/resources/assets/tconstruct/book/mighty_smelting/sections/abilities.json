@@ -72,11 +72,19 @@
   },
   {
     "type": "tconstruct:modifier",
+    "data": "abilities/interact/bonking.json"
+  },
+  {
+    "type": "tconstruct:modifier",
     "data": "abilities/interact/bucketing.json"
   },
   {
     "type": "tconstruct:modifier",
     "data": "abilities/interact/firestarter.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "abilities/interact/flinging.json"
   },
   {
     "type": "tconstruct:modifier",
@@ -88,11 +96,19 @@
   },
   {
     "type": "tconstruct:modifier",
+    "data": "abilities/interact/springing.json"
+  },
+  {
+    "type": "tconstruct:modifier",
     "data": "abilities/interact/stripping.json"
   },
   {
     "type": "tconstruct:modifier",
     "data": "abilities/interact/tilling.json"
+  },
+  {
+    "type": "tconstruct:modifier",
+    "data": "abilities/interact/warping.json"
   },
   
   {

@@ -1,0 +1,32 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "tag": "forge:feathers"
+    },
+    {
+      "item": "tconstruct:sky_slime_crystal"
+    },
+    {
+      "tag": "forge:feathers"
+    },
+    {
+      "item": "tconstruct:sky_congealed_slime"
+    },
+    {
+      "item": "tconstruct:sky_congealed_slime"
+    }
+  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/interactable/right"
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "allow_crystal": true,
+  "result": {
+    "name": "tconstruct:springing",
+    "level": 1
+  },
+  "max_level": 1
+}

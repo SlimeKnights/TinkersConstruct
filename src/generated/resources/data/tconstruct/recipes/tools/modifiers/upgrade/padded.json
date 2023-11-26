@@ -11,9 +11,14 @@
       "item": "minecraft:leather"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/melee_or_unarmed"
-  },
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/melee_or_unarmed"
+    },
+    {
+      "tag": "tconstruct:modifiable/staffs"
+    }
+  ],
   "slots": {
     "upgrades": 1
   },

@@ -3,6 +3,9 @@
   "text": [
     {
       "text": "Increases projectile damage by 0.5 per level."
+    },
+    {
+      "text": "Makes flinging, springing, bonking, and warping 25% more effective per level.", "paragraph": true
     }
   ],
   "more_text_space": true,

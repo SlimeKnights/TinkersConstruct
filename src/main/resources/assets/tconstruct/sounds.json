@@ -26,7 +26,6 @@
   },
 
   "slime_sling": {
-    "category": "player",
     "sounds": [
       "tconstruct:slime_sling"
     ],
@@ -38,6 +37,12 @@
       "mob/endermen/portal2"
     ],
     "subtitle": "subtitles.tconstruct.slime_sling.teleport"
+  },
+  "bonk": {
+    "sounds": [
+      "tconstruct:bonk"
+    ],
+    "subtitle": "subtitles.tconstruct.bonk"
   },
   "throw.throwball": {
     "sounds": [
@@ -151,11 +156,6 @@
     "subtitle": "subtitles.tconstruct.equip.plate"
   },
 
-  "frypan_hit": {
-    "sounds": [
-      "tconstruct:frypan_hit"
-    ]
-  },
   "toy_squeak": {
     "sounds": [
       "tconstruct:toy_squeak"

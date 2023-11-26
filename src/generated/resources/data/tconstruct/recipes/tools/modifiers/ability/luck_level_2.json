@@ -25,7 +25,7 @@
       "tag": "tconstruct:modifiable/harvest"
     },
     {
-      "tag": "tconstruct:modifiable/ranged"
+      "tag": "tconstruct:modifiable/ranged/bows"
     }
   ],
   "requirements": {

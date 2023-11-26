@@ -6,8 +6,8 @@
     }
   ],
   "effects": [
-    "Increases drawspeed of crossbows",
-	"Multiple levels, each level increases drawspeed further",
-	"Requires 1 Upgrade Slot per level"
+    "Increases drawspeed of crossbows or staffs",
+    "Multiple levels, each level increases drawspeed further",
+    "Requires 1 Upgrade Slot per level"
   ]
 }

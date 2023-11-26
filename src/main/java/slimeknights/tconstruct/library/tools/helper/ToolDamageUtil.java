@@ -138,7 +138,7 @@ public class ToolDamageUtil {
    * @param entity  Entity for animation
    */
   public static boolean damageAnimated(IToolStackView tool, int amount, LivingEntity entity) {
-    return damageAnimated(tool, amount, entity, InteractionHand.MAIN_HAND);
+    return damageAnimated(tool, amount, entity, entity.isUsingItem() ? entity.getUsedItemHand() : InteractionHand.MAIN_HAND);
   }
 
   /** Implements {@link net.minecraft.world.item.Item#damageItem(ItemStack, int, LivingEntity, Consumer)} for a modifiable item */
