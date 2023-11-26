@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.tools.client.particles;
+package slimeknights.tconstruct.tools.modifiers.ability.sling;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
 

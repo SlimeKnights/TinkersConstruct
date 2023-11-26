@@ -3,15 +3,13 @@ package slimeknights.tconstruct.gadgets.item.slimesling;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
 import slimeknights.tconstruct.shared.block.SlimeType;
-
-import net.minecraft.world.item.Item.Properties;
 
 public class EarthSlimeSlingItem extends BaseSlimeSlingItem {
 
@@ -22,12 +20,11 @@ public class EarthSlimeSlingItem extends BaseSlimeSlingItem {
   /** Called when the player stops using an Item (stops holding the right mouse button). */
   @Override
   public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
-    if (!entityLiving.isOnGround() || !(entityLiving instanceof Player)) {
+    if (!entityLiving.isOnGround() || !(entityLiving instanceof Player player)) {
       return;
     }
 
     // check if player was targeting a block
-    Player player = (Player) entityLiving;
     BlockHitResult mop = getPlayerPOVHitResult(worldIn, player, ClipContext.Fluid.NONE);
     if (mop.getType() == HitResult.Type.BLOCK) {
       // we fling the inverted player look vector

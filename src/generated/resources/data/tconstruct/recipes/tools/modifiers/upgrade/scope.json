@@ -17,9 +17,14 @@
       "tag": "forge:dusts/redstone"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/ranged/longbows"
-  },
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/ranged/longbows"
+    },
+    {
+      "tag": "tconstruct:modifiable/staffs"
+    }
+  ],
   "slots": {
     "upgrades": 1
   },

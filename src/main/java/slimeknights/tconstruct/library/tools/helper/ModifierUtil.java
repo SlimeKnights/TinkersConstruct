@@ -30,6 +30,7 @@ import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.Tin
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
+import slimeknights.tconstruct.library.tools.item.ModifiableLauncherItem;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
@@ -341,6 +342,22 @@ public final class ModifierUtil {
   public static void startUsingItem(IToolStackView tool, ModifierId modifier, LivingEntity living, InteractionHand hand) {
     tool.getPersistentData().putString(ACTIVE_MODIFIER, modifier.toString());
     living.startUsingItem(hand);
+  }
+
+  /** Starts using the given hand with the given modifier, will allow filtering modifier hooks so only the one for the given modifier is called */
+  public static void startUsingItemWithDrawtime(IToolStackView tool, ModifierId modifier, LivingEntity living, InteractionHand hand, float speedFactor) {
+    tool.getPersistentData().putInt(ModifiableLauncherItem.KEY_DRAWTIME, (int)Math.ceil(20f * speedFactor / ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.DRAW_SPEED)));
+    startUsingItem(tool, modifier, living, hand);
+  }
+
+  /** Scales the drawtime from the persistent data like a bow */
+  public static float getToolCharge(IToolStackView tool, float chargeTime) {
+    float charge = chargeTime / tool.getPersistentData().getInt(ModifiableLauncherItem.KEY_DRAWTIME);
+    charge = (charge * charge + charge * 2) / 3;
+    if (charge > 1) {
+      charge = 1;
+    }
+    return charge;
   }
 
   /** Gets the currently active modifier, or null if none is active */

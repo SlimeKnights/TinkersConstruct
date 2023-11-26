@@ -5,9 +5,14 @@
   },
   "amount_per_item": 1,
   "needed_per_level": 45,
-  "tools": {
-    "tag": "tconstruct:modifiable/ranged/crossbows"
-  },
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/ranged/crossbows"
+    },
+    {
+      "tag": "tconstruct:modifiable/staffs"
+    }
+  ],
   "slots": {
     "upgrades": 1
   },

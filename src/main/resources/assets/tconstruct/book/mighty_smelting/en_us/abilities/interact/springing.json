@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:springing",
+  "text": [
+    {
+      "text": " "
+    }
+  ],
+  "effects": [
+    "Charge to launch in the direction you are looking",
+    "Can boost launch speed with power or knockback",
+    "Single Level",
+    "Requires 1 Ability Slot"
+  ]
+}

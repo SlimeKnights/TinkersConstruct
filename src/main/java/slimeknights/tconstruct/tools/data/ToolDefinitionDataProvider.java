@@ -187,6 +187,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       // harvest
       .action(ToolActions.SHOVEL_DIG)
       .effective(BlockTags.MINEABLE_WITH_SHOVEL)
+      .attack(new ParticleWeaponAttack(TinkerTools.bonkAttackParticle.get()))
       .aoe(BoxAOEIterator.builder(1, 1, 0).addWidth(1).addHeight(1).build());
 
 
