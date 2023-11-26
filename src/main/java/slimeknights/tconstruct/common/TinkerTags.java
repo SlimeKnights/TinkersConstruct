@@ -366,8 +366,6 @@ public class TinkerTags {
     public static final TagKey<Item> HELD_ARMOR = tag("modifiable/armor/held");
     /** Modifiable items that have innate shielding behavior */
     public static final TagKey<Item> SHIELDS = tag("modifiable/shields");
-    /** Modifiable items support special staff modifiers */
-    public static final TagKey<Item> STAFFS = tag("modifiable/staffs");
 
     /** Modifiable items that support ranged attacks. Items in this tag support {@link ToolStats#DRAW_SPEED}, {@link ToolStats#VELOCITY}, {@link ToolStats#PROJECTILE_DAMAGE} and {@link ToolStats#ACCURACY} */
     public static final TagKey<Item> RANGED = tag("modifiable/ranged");
@@ -377,6 +375,8 @@ public class TinkerTags {
     public static final TagKey<Item> LONGBOWS = tag("modifiable/ranged/longbows");
     /** Any modifiable bows that store an arrow then fire on next use */
     public static final TagKey<Item> CROSSBOWS = tag("modifiable/ranged/crossbows");
+    /** Modifiable items support special staff modifiers, is a subtag of ranged. TODO 1.19: rename to modifiable/ranged/staffs */
+    public static final TagKey<Item> STAFFS = tag("modifiable/staffs");
 
     /** Tools that can receive metal based embellishments */
     public static final TagKey<Item> EMBELLISHMENT_METAL = tag("modifiable/embellishment/metal");

@@ -2499,8 +2499,8 @@
 
   "_comment": "Stats",
 
-  "tool_stat.tconstruct.attack_speed": "Attack Speed: ",
-  "tool_stat.tconstruct.attack_speed.description": "Base value for attack speed calculations.\nRoughly full strength attacks per second.",
+  "tool_stat.tconstruct.attack_speed": "Melee Speed: ",
+  "tool_stat.tconstruct.attack_speed.description": "Base value for melee attack speed calculations.\nRoughly is number of full strength attacks per second.",
   "tool_stat.tconstruct.durability": "Durability: ",
   "tool_stat.tconstruct.durability.description": "The base-value for durability calculations.\nUsually an integral part to the overall durability of a tool.",
   "tool_stat.tconstruct.use_item_speed": "Use Item Speed: ",
@@ -2509,9 +2509,9 @@
   "stat.tconstruct.head": "Head",
   "tool_stat.tconstruct.mining_speed": "Mining Speed: ",
   "tool_stat.tconstruct.mining_speed.description": "How fast a tool with a tool head of this material can mine blocks.\nMay be influenced by other toolparts.",
-  "tool_stat.tconstruct.harvest_tier": "Harvest Tier: ",
+  "tool_stat.tconstruct.harvest_tier": "Mining Tier: ",
   "tool_stat.tconstruct.harvest_tier.description": "What range of blocks a tool with a tool head of this material can mine.",
-  "tool_stat.tconstruct.attack_damage": "Attack Damage: ",
+  "tool_stat.tconstruct.attack_damage": "Melee Damage: ",
   "tool_stat.tconstruct.attack_damage.description": "Base value for melee attack calculations.\nThe end result depends on the tool itself and the other components used.",
 
   "tool_stat.tconstruct.armor": "Armor: ",
@@ -2535,8 +2535,8 @@
   "tool_stat.tconstruct.velocity.description": "Determines how quickly arrows fly after firing. Faster arrows deal more damage.",
   "tool_stat.tconstruct.accuracy": "Accuracy: ",
   "tool_stat.tconstruct.accuracy.description": "Determines how close the bow aims towards the center.",
-  "tool_stat.tconstruct.projectile_damage": "Proj. Damage: ",
-  "tool_stat.tconsturct.projectile_damage.description": "Determines the base damage of projectiles fired by this weapon.",
+  "tool_stat.tconstruct.projectile_damage": "Proj. Power: ",
+  "tool_stat.tconsturct.projectile_damage.description": "Determines the base damage or strength of projectiles fired by this weapon.",
 
   "stat.tconstruct.extra": "Binding",
   "stat.tconstruct.bowstring": "Bowstring",
