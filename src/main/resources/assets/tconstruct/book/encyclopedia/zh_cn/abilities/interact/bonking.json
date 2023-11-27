@@ -2,15 +2,15 @@
   "modifier_id": "tconstruct:bonking",
   "text": [
     {
-      "text": "Charging up then release to knock the targeted mob away, consuming 1 durability."
-    },,
+      "text": "蓄力后击飞目标生物，消耗1点耐久度。"
+    },
     {
-      "text": " Effect is boosted by 25% per level of power or knockback, and halved by padded. Charge time is reduced by quick charge.", "paragraph": true
+      "text": "可通过加持“力量”或“击退”每级增强25%击飞效果；加持“护垫”每级减弱50%；加持“快速装填”缩短蓄力时间。", "paragraph": true
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Maximum of 1 level",
-    "Requires 1 ability slot"
+    "最高1级",
+    "需要1个能力槽"
   ]
 }
