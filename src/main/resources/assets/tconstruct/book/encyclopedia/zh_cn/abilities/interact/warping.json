@@ -1,16 +1,16 @@
 {
-  "modifier_id": "tconstruct:firestarter",
+  "modifier_id": "tconstruct:warping",
   "text": [
     {
-      "text": "Charging up then release to teleport yourself in the targeted direction, consuming 1 durability. Effect is boosted by power. Charge time is reduced by quick charge."
+      "text": "蓄力后将你传送至目标方向，消耗1点耐久。"
     },
     {
-      "text": " Effect is boosted by 25% per level of power. Charge time is reduced by quick charge.", "paragraph": true
+      "text": "可通过加持“力量”每级增强25%击飞效果；加持“快速装填”缩短蓄力时间。", "paragraph": true
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Maximum of 1 level",
-    "Requires 1 ability slot"
+    "最高1级",
+    "需要1个能力槽"
   ]
 }
