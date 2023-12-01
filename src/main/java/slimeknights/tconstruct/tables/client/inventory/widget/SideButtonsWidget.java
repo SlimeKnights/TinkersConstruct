@@ -1,26 +1,23 @@
 package slimeknights.tconstruct.tables.client.inventory.widget;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import lombok.Getter;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Widget;
-import net.minecraft.client.gui.components.events.GuiEventListener;
-import net.minecraft.client.renderer.Rect2i;
+import net.minecraft.client.gui.narration.NarratableEntry;
+import net.minecraft.client.gui.narration.NarrationElementOutput;
 import org.apache.commons.compress.utils.Lists;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
 
 import java.util.List;
 
-public class SideButtonsWidget<T extends Button> implements Widget, GuiEventListener {
+public class SideButtonsWidget<T extends Button> implements Widget, ExtraAreaWidget.EventListener, NarratableEntry {
 
   private static final int SPACING = 4;
 
   protected final MultiModuleScreen<?> parent;
 
-  @Getter
   private final int leftPos;
   private final int topPos;
-  @Getter
   private final int imageWidth;
   private final int imageHeight;
 
@@ -39,16 +36,24 @@ public class SideButtonsWidget<T extends Button> implements Widget, GuiEventList
     this.imageHeight = size(rows, buttonHeight);
   }
 
-  public int guiRight() {
-    return this.leftPos + this.imageWidth;
+  @Override
+  public int getLeft() {
+    return this.leftPos;
   }
 
-  public int guiBottom() {
-    return this.topPos + this.imageHeight;
+  @Override
+  public int getTop() {
+    return this.topPos;
   }
 
-  public Rect2i getArea() {
-    return new Rect2i(this.leftPos, this.topPos, this.imageWidth, this.imageHeight);
+  @Override
+  public int getWidth() {
+    return this.imageWidth;
+  }
+
+  @Override
+  public int getHeight() {
+    return this.imageHeight;
   }
 
   public void setButtonPositions() {
@@ -62,11 +67,7 @@ public class SideButtonsWidget<T extends Button> implements Widget, GuiEventList
   }
 
   @Override
-  public boolean isMouseOver(double mouseX, double mouseY) {
-    return this.leftPos <= mouseX && mouseX < this.guiRight() && this.topPos <= mouseY && mouseY < this.guiBottom();
-  }
-
-  public boolean handleMouseClicked(double mouseX, double mouseY, int mouseButton) {
+  public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
     if (mouseButton == 0) {
       for (T button : this.buttons) {
         if (button.mouseClicked(mouseX, mouseY, mouseButton)) {
@@ -108,5 +109,14 @@ public class SideButtonsWidget<T extends Button> implements Widget, GuiEventList
    */
   public static int size(int buttonCount, int buttonSize) {
     return buttonSize * buttonCount + SPACING * (buttonCount - 1);
+  }
+
+  @Override
+  public NarrationPriority narrationPriority() {
+    return NarrationPriority.NONE;
+  }
+
+  @Override
+  public void updateNarration(NarrationElementOutput pNarrationElementOutput) {
   }
 }

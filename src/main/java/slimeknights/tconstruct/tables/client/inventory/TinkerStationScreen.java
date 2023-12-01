@@ -7,7 +7,6 @@ import lombok.Getter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextComponent;
@@ -22,7 +21,6 @@ import org.lwjgl.glfw.GLFW;
 import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.ModuleScreen;
-import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
@@ -40,7 +38,8 @@ import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.TinkerTooltipFlags;
 import slimeknights.tconstruct.tables.block.entity.table.TinkerStationBlockEntity;
-import slimeknights.tconstruct.tables.client.inventory.module.InfoPanelScreen;
+import slimeknights.tconstruct.tables.client.inventory.widget.InfoPanelWidget;
+import slimeknights.tconstruct.tables.client.inventory.widget.SimpleElementWidget;
 import slimeknights.tconstruct.tables.client.inventory.widget.SlotButtonItem;
 import slimeknights.tconstruct.tables.client.inventory.widget.TinkerStationButtonsWidget;
 import slimeknights.tconstruct.tables.menu.TinkerStationContainerMenu;
@@ -91,14 +90,16 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
   // panel
   private static final ElementScreen PANEL_SPACE_LEFT = new ElementScreen(0, 174, 5, 4);
   private static final ElementScreen PANEL_SPACE_RIGHT = new ElementScreen(9, 174, 9, 4);
-  private static final ElementScreen LEFT_BEAM = new ElementScreen(0, 180, 2, 7);
-  private static final ElementScreen RIGHT_BEAM = new ElementScreen(131, 180, 2, 7);
-  private static final ScalableElementScreen CENTER_BEAM = new ScalableElementScreen(2, 180, 129, 7);
+
+  private static final ElementScreen BUTTONS_BEAM = new ElementScreen(0, 180, 112, 7);
+  private static final ElementScreen PANEL_BEAM = new ElementScreen(0, 180, 128, 7);
   // text boxes
   private static final ElementScreen TEXT_BOX = new ElementScreen(0, 222, 90, 12);
 
   /** Number of button columns in the UI */
   public static final int COLUMN_COUNT = 5;
+
+  private final InfoPanelWidget.Style style;
 
   // configurable elements
   protected ElementScreen buttonDecorationTop = SLOT_SPACE_TOP;
@@ -106,9 +107,8 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
   protected ElementScreen panelDecorationL = PANEL_SPACE_LEFT;
   protected ElementScreen panelDecorationR = PANEL_SPACE_RIGHT;
 
-  protected ElementScreen leftBeam = new ElementScreen(0, 0, 0, 0);
-  protected ElementScreen rightBeam = new ElementScreen(0, 0, 0, 0);
-  protected ScalableElementScreen centerBeam = new ScalableElementScreen(0, 0, 0, 0);
+  protected ElementScreen buttonsBeam = BUTTONS_BEAM;
+  protected ElementScreen panelBeam = PANEL_BEAM;
 
   /** Gets the default layout to apply, the "repair" button */
   @Nonnull @Getter
@@ -119,8 +119,8 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
 
   // components
   protected EditBox textField;
-  protected InfoPanelScreen tinkerInfo;
-  protected InfoPanelScreen modifierInfo;
+  protected InfoPanelWidget tinkerInfo;
+  protected InfoPanelWidget modifierInfo;
   protected TinkerStationButtonsWidget buttonsScreen;
 
   /** Maximum available slots */
@@ -131,17 +131,6 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
 
   public TinkerStationScreen(TinkerStationContainerMenu container, Inventory playerInventory, Component title) {
     super(container, playerInventory, title);
-
-    this.tinkerInfo = new InfoPanelScreen(this, container, playerInventory, title);
-    this.tinkerInfo.setTextScale(8/9f);
-    this.addModule(this.tinkerInfo);
-
-    this.modifierInfo = new InfoPanelScreen(this, container, playerInventory, title);
-    this.modifierInfo.setTextScale(7/9f);
-    this.addModule(this.modifierInfo);
-
-    this.tinkerInfo.yOffset = 5;
-    this.modifierInfo.yOffset = this.tinkerInfo.imageHeight + 9;
 
     this.imageHeight = 174;
 
@@ -156,8 +145,10 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     // large if at least 4, todo can configure?
     if (max > 3) {
       this.metal();
+      style = InfoPanelWidget.Style.METAL;
     } else {
       this.wood();
+      style = InfoPanelWidget.Style.WOOD;
     }
     // apply base slot information
     if (te == null) {
@@ -180,11 +171,6 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     // workaround to line up the tabs on switching even though the GUI is a tad higher
     this.topPos += 4;
     this.cornerY += 4;
-
-    this.tinkerInfo.xOffset = 2;
-    this.tinkerInfo.yOffset = this.centerBeam.h + this.panelDecorationL.h;
-    this.modifierInfo.xOffset = this.tinkerInfo.xOffset;
-    this.modifierInfo.yOffset = this.tinkerInfo.yOffset + this.tinkerInfo.imageHeight + 4;
 
     for (ModuleScreen<?,?> module : this.modules) {
       module.topPos += 4;
@@ -215,8 +201,31 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     layouts.addAll(StationSlotLayoutLoader.getInstance().getSortedSlots().stream()
       .filter(layout -> layout.getInputSlots().size() <= this.maxInputs).toList());
 
-    this.buttonsScreen = new TinkerStationButtonsWidget(this, this.cornerX - TinkerStationButtonsWidget.width(COLUMN_COUNT) - 2,
-      this.cornerY + this.centerBeam.h + this.buttonDecorationTop.h, layouts, buttonsStyle);
+    this.buttonsScreen = addExtraArea(addRenderableWidget(new TinkerStationButtonsWidget(this, this.cornerX - (this.buttonsBeam.w + TinkerStationButtonsWidget.width(COLUMN_COUNT))/2,
+      this.cornerY + this.buttonsBeam.h + this.buttonDecorationTop.h, layouts, buttonsStyle)));
+
+
+    addExtraArea(addRenderableOnly(new SimpleElementWidget(this.cornerX - this.buttonsBeam.w, this.cornerY, this.buttonsBeam, TINKER_STATION_TEXTURE)));
+
+    // Center the panels under the beam
+    final int panelLeft = this.cornerX + this.realWidth + (this.panelBeam.w - InfoPanelWidget.DEFAULT_WIDTH)/2;
+    // Adapt panel height to fit withing the height of this screen
+    int panelHeight = (this.imageHeight - this.panelBeam.h - 2 * this.panelDecorationL.h)/2;
+
+    int panelY = this.cornerY;
+    addExtraArea(addRenderableOnly(new SimpleElementWidget(this.cornerX + this.realWidth, panelY, this.panelBeam, TINKER_STATION_TEXTURE)));
+    panelY += this.panelBeam.h;
+    addExtraArea(addRenderableOnly(new SimpleElementWidget(panelLeft + 5, panelY, this.panelDecorationL, TINKER_STATION_TEXTURE)));
+    addExtraArea(addRenderableOnly(new SimpleElementWidget(panelLeft + InfoPanelWidget.DEFAULT_WIDTH - 5 - this.panelDecorationR.w, panelY, this.panelDecorationR, TINKER_STATION_TEXTURE)));
+    panelY += this.panelDecorationL.h;
+    this.tinkerInfo = addExtraArea(addRenderableWidget(new InfoPanelWidget(this, style,
+      panelLeft, panelY, InfoPanelWidget.DEFAULT_WIDTH, panelHeight, 8/9f)));
+    panelY += panelHeight;
+    addExtraArea(addRenderableOnly(new SimpleElementWidget(panelLeft + 5, panelY, this.panelDecorationL, TINKER_STATION_TEXTURE)));
+    addExtraArea(addRenderableOnly(new SimpleElementWidget(panelLeft + InfoPanelWidget.DEFAULT_WIDTH - 5 - this.panelDecorationR.w, panelY, this.panelDecorationR, TINKER_STATION_TEXTURE)));
+    panelY += this.panelDecorationL.h;
+    this.modifierInfo = addExtraArea(addRenderableWidget(new InfoPanelWidget(this, style,
+      panelLeft, panelY, InfoPanelWidget.DEFAULT_WIDTH, panelHeight, 7/9f)));
 
     this.updateLayout();
   }
@@ -248,13 +257,13 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
   }
 
   /** Updates the tool panel area */
-  static void updateToolPanel(InfoPanelScreen tinkerInfo, ToolStack tool, ItemStack result) {
+  static void updateToolPanel(InfoPanelWidget tinkerInfo, ToolStack tool, ItemStack result) {
     if (tool.getItem() instanceof ITinkerStationDisplay display) {
-      tinkerInfo.setCaption(display.getLocalizedName());
+      tinkerInfo.setCaptions(display.getLocalizedName().copy().withStyle(ChatFormatting.UNDERLINE));
       tinkerInfo.setText(display.getStatInformation(tool, Minecraft.getInstance().player, new ArrayList<>(), SafeClientAccess.getTooltipKey(), TinkerTooltipFlags.TINKER_STATION));
     }
     else {
-      tinkerInfo.setCaption(result.getHoverName());
+      tinkerInfo.setCaptions(result.getHoverName().copy().withStyle(ChatFormatting.UNDERLINE));
       List<Component> list = new ArrayList<>();
       result.getItem().appendHoverText(result, Minecraft.getInstance().level, list, Default.NORMAL);
       tinkerInfo.setText(list);
@@ -262,7 +271,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
   }
 
   /** Updates the modifier panel with relevant info */
-  static void updateModifierPanel(InfoPanelScreen modifierInfo, ToolStack tool) {
+  static void updateModifierPanel(InfoPanelWidget modifierInfo, ToolStack tool) {
     List<Component> modifierNames = new ArrayList<>();
     List<Component> modifierTooltip = new ArrayList<>();
     Component title;
@@ -301,7 +310,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
       }
     }
 
-    modifierInfo.setCaption(title);
+    modifierInfo.setCaptions(title.copy().withStyle(ChatFormatting.UNDERLINE));
     modifierInfo.setText(modifierNames, modifierTooltip);
   }
 
@@ -348,7 +357,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     }
     // tool build info
     else {
-      this.tinkerInfo.setCaption(this.currentLayout.getDisplayName());
+      this.tinkerInfo.setCaptions(this.currentLayout.getDisplayName().copy().withStyle(ChatFormatting.UNDERLINE));
       this.tinkerInfo.setText(this.currentLayout.getDescription());
 
       // for each named slot, color the slot if the slot is filled
@@ -371,10 +380,10 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
       }
       // if we found any components, set the text, use the anvil if no components
       if (hasComponents) {
-        this.modifierInfo.setCaption(COMPONENTS_TEXT);
+        this.modifierInfo.setCaptions(COMPONENTS_TEXT.copy().withStyle(ChatFormatting.UNDERLINE));
         this.modifierInfo.setText(fullText);
       } else {
-        this.modifierInfo.setCaption(TextComponent.EMPTY);
+        this.modifierInfo.setCaptions();
         this.modifierInfo.setText(ASCII_ANVIL);
       }
     }
@@ -451,19 +460,6 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
       }
     }
 
-    // sidebar beams
-    x = this.buttonsScreen.getLeftPos() - this.leftBeam.w;
-    y = this.cornerY;
-    // draw the beams at the top
-    x += this.leftBeam.draw(matrices, x, y);
-    x += this.centerBeam.drawScaledX(matrices, x, y, this.buttonsScreen.getImageWidth());
-    this.rightBeam.draw(matrices, x, y);
-
-    x = tinkerInfo.leftPos - this.leftBeam.w;
-    x += this.leftBeam.draw(matrices, x, y);
-    x += this.centerBeam.drawScaledX(matrices, x, y, this.tinkerInfo.imageWidth);
-    this.rightBeam.draw(matrices, x, y);
-
     // draw the decoration for the buttons
     for (SlotButtonItem button : this.buttonsScreen.getButtons()) {
       this.buttonDecorationTop.draw(matrices, button.x, button.y - this.buttonDecorationTop.h);
@@ -472,12 +468,6 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
         this.buttonDecorationBot.draw(matrices, button.x, button.y + button.getHeight());
       }
     }
-
-    // draw the decorations for the panels
-    this.panelDecorationL.draw(matrices, this.tinkerInfo.leftPos + 5, this.tinkerInfo.topPos - this.panelDecorationL.h);
-    this.panelDecorationR.draw(matrices, this.tinkerInfo.guiRight() - 5 - this.panelDecorationR.w, this.tinkerInfo.topPos - this.panelDecorationR.h);
-    this.panelDecorationL.draw(matrices, this.modifierInfo.leftPos + 5, this.modifierInfo.topPos - this.panelDecorationL.h);
-    this.panelDecorationR.draw(matrices, this.modifierInfo.guiRight() - 5 - this.panelDecorationR.w, this.modifierInfo.topPos - this.panelDecorationR.h);
 
     // render slot background icons
     RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
@@ -495,8 +485,6 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
 
     super.renderBg(matrices, partialTicks, mouseX, mouseY);
 
-    this.buttonsScreen.render(matrices, mouseX, mouseY, partialTicks);
-
     // text field
     if (textField != null && textField.visible) {
       RenderUtils.setup(TINKER_STATION_TEXTURE, 1.0f, 1.0f, 1.0f, 1.0f);
@@ -506,60 +494,30 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
   }
 
   @Override
+  protected void renderTooltip(PoseStack poseStack, int mouseX, int mouseY) {
+    super.renderTooltip(poseStack, mouseX, mouseY);
+
+    this.tinkerInfo.renderTooltip(poseStack, mouseX, mouseY);
+    this.modifierInfo.renderTooltip(poseStack, mouseX, mouseY);
+  }
+
+  @Override
   public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
-    if (this.tinkerInfo.handleMouseClicked(mouseX, mouseY, mouseButton)) {
-      return false;
-    }
-
-    if (this.modifierInfo.handleMouseClicked(mouseX, mouseY, mouseButton)) {
-      return false;
-    }
-    
-    if(this.buttonsScreen.handleMouseClicked(mouseX, mouseY, mouseButton)) {
-      return false;
-    }
-
     return super.mouseClicked(mouseX, mouseY, mouseButton);
-  }
-
-  @Override
-  public boolean mouseDragged(double mouseX, double mouseY, int clickedMouseButton, double timeSinceLastClick, double unkowwn) {
-    if (this.tinkerInfo.handleMouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick)) {
-      return false;
-    }
-
-    if (this.modifierInfo.handleMouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick)) {
-      return false;
-    }
-
-    return super.mouseDragged(mouseX, mouseY, clickedMouseButton, timeSinceLastClick, unkowwn);
-  }
-
-  @Override
-  public boolean mouseScrolled(double mouseX, double mouseY, double delta) {
-    if (this.tinkerInfo.handleMouseScrolled(mouseX, mouseY, delta)) {
-      return false;
-    }
-
-    if (this.modifierInfo.handleMouseScrolled(mouseX, mouseY, delta)) {
-      return false;
-    }
-
-    return super.mouseScrolled(mouseX, mouseY, delta);
   }
 
   @Override
   public boolean mouseReleased(double mouseX, double mouseY, int state) {
     if (this.tinkerInfo.handleMouseReleased(mouseX, mouseY, state)) {
-      return false;
+      return true;
     }
 
     if (this.modifierInfo.handleMouseReleased(mouseX, mouseY, state)) {
-      return false;
+      return true;
     }
 
     if (this.buttonsScreen.handleMouseReleased(mouseX, mouseY, state)) {
-      return false;
+      return true;
     }
 
     return super.mouseReleased(mouseX, mouseY, state);
@@ -618,47 +576,39 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
   }
 
   protected void wood() {
-    this.tinkerInfo.wood();
-    this.modifierInfo.wood();
-
     this.buttonDecorationTop = SLOT_SPACE_TOP.shift(SLOT_SPACE_TOP.w, 0);
     this.buttonDecorationBot = SLOT_SPACE_BOTTOM.shift(SLOT_SPACE_BOTTOM.w, 0);
     this.panelDecorationL = PANEL_SPACE_LEFT.shift(18, 0);
     this.panelDecorationR = PANEL_SPACE_RIGHT.shift(18, 0);
 
-    this.leftBeam = LEFT_BEAM;
-    this.rightBeam = RIGHT_BEAM;
-    this.centerBeam = CENTER_BEAM;
+    this.buttonsBeam = BUTTONS_BEAM;
+    this.panelBeam = PANEL_BEAM;
   }
 
   protected void metal() {
-    this.tinkerInfo.metal();
-    this.modifierInfo.metal();
-
     this.buttonDecorationTop = SLOT_SPACE_TOP.shift(SLOT_SPACE_TOP.w * 2, 0);
     this.buttonDecorationBot = SLOT_SPACE_BOTTOM.shift(SLOT_SPACE_BOTTOM.w * 2, 0);
     this.panelDecorationL = PANEL_SPACE_LEFT.shift(18 * 2, 0);
     this.panelDecorationR = PANEL_SPACE_RIGHT.shift(18 * 2, 0);
 
-    this.leftBeam = LEFT_BEAM.shift(0, LEFT_BEAM.h);
-    this.rightBeam = RIGHT_BEAM.shift(0, RIGHT_BEAM.h);
-    this.centerBeam = CENTER_BEAM.shift(0, CENTER_BEAM.h);
+    this.buttonsBeam = BUTTONS_BEAM.shift(0, BUTTONS_BEAM.h);
+    this.panelBeam = PANEL_BEAM.shift(0, PANEL_BEAM.h);
   }
 
   @Override
   public void error(Component message) {
-    this.tinkerInfo.setCaption(COMPONENT_ERROR);
+    this.tinkerInfo.setCaptions(COMPONENT_ERROR.copy().withStyle(ChatFormatting.UNDERLINE));
     this.tinkerInfo.setText(message);
-    this.modifierInfo.setCaption(TextComponent.EMPTY);
-    this.modifierInfo.setText(TextComponent.EMPTY);
+    this.modifierInfo.setCaptions();
+    this.modifierInfo.setText();
   }
 
   @Override
   public void warning(Component message) {
-    this.tinkerInfo.setCaption(COMPONENT_WARNING);
+    this.tinkerInfo.setCaptions(COMPONENT_WARNING.copy().withStyle(ChatFormatting.UNDERLINE));
     this.tinkerInfo.setText(message);
-    this.modifierInfo.setCaption(TextComponent.EMPTY);
-    this.modifierInfo.setText(TextComponent.EMPTY);
+    this.modifierInfo.setCaptions();
+    this.modifierInfo.setText();
   }
 
   /**
@@ -673,19 +623,6 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     // update the active slots and filter in the container
     // this.container.setToolSelection(layout); TODO: needed?
     TinkerNetwork.getInstance().sendToServer(new TinkerStationSelectionPacket(layout.getName()));
-  }
-
-  @Override
-  public List<Rect2i> getModuleAreas() {
-    List<Rect2i> list = super.getModuleAreas();
-    list.add(this.buttonsScreen.getArea());
-    return list;
-  }
-
-  @Override
-  protected boolean hasClickedOutside(double mouseX, double mouseY, int guiLeft, int guiTop, int mouseButton) {
-    return super.hasClickedOutside(mouseX, mouseY, guiLeft, guiTop, mouseButton)
-      && !this.buttonsScreen.isMouseOver(mouseX, mouseY);
   }
 
 
@@ -706,9 +643,13 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
 
   @Override
   public void resize(Minecraft pMinecraft, int pWidth, int pHeight) {
+    var tinkerData = tinkerInfo.getData();
+    var modifierData = modifierInfo.getData();
     String s = this.textField.getValue();
     super.resize(pMinecraft, pWidth, pHeight);
     this.textField.setValue(s);
+    tinkerInfo.setData(tinkerData);
+    modifierInfo.setData(modifierData);
   }
 
   @Override
