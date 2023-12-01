@@ -18,6 +18,7 @@ import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.client.model.block.TableModel;
 import slimeknights.tconstruct.shared.block.entity.TableBlockEntity;
 import slimeknights.tconstruct.tables.block.entity.chest.TinkersChestBlockEntity;
+import slimeknights.tconstruct.tables.client.FallingAnvilEntityRenderer;
 import slimeknights.tconstruct.tables.client.TableTileEntityRenderer;
 import slimeknights.tconstruct.tables.client.inventory.CraftingStationScreen;
 import slimeknights.tconstruct.tables.client.inventory.ModifierWorktableScreen;
@@ -40,6 +41,8 @@ public class TableClientEvents extends ClientEventBase {
     event.registerBlockEntityRenderer(TinkerTables.tinkerStationTile.get(), tableRenderer);
     event.registerBlockEntityRenderer(TinkerTables.modifierWorktableTile.get(), tableRenderer);
     event.registerBlockEntityRenderer(TinkerTables.partBuilderTile.get(), tableRenderer);
+
+    event.registerEntityRenderer(TinkerTables.fallingAnvil.get(), FallingAnvilEntityRenderer::new);
   }
 
   @SubscribeEvent
