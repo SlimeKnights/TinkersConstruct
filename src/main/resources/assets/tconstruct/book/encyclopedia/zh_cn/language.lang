@@ -13,7 +13,7 @@ tier_one_materials=一级材料
 tier_one_materials.subtext=这些材料都十分常见，并且可以直接在部件制造台上打造成工具部件。
 
 tier_two_materials=二级材料
-tier_two_materials.subtext=这些材料并不那么常见，并且需要进行熔融和浇铸才能制成工具部件。
+tier_two_materials.subtext=这些材料并不那么常见，并且需要进行熔融和铸造才能制成工具部件。
 
 tier_three_materials=三级材料
 tier_three_materials.subtext=这些材料需要通过合金来获得。你可以用焦褐合金炉或冶炼炉进行合金。
