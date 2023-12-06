@@ -1,0 +1,12 @@
+{
+    "title": "工匠站",
+    "image": {
+        "file": "tconstruct:book/images/tinkerstation.png",
+        "width": 135,
+        "height": 72
+    },
+    "text": [{
+        "text": "这个放在这儿，那个放在那儿，还有那个要反过来放。熟能生巧嘛！",
+        "paragraph": true
+    }]
+}

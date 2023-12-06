@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:bouncy",
+  "text": [
+    {
+      "text": "能够在落地时弹跳，不会受到摔落伤害并以 90%的原速度向上弹起。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "单个等级",
+    "需要1个能力槽"
+  ]
+}

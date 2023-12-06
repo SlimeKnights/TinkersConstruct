@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:revitalizing",
+  "text": [
+    {
+      "text": "增加生命值上限，每级增加1颗心。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "可以逐级强化",
+    "在头盔或靴子上最高2级",
+    "在胸甲或护腿上最高3级",
+    "需要1个防御槽"
+  ]
+}

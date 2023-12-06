@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:silky",
+  "text": [
+    {
+      "text": "纵享丝滑。"
+    }
+  ],
+  "effects": [
+    "采集的方块掉落其自身",
+    "多个等级",
+    "每级需要1个能力槽"
+  ]
+}

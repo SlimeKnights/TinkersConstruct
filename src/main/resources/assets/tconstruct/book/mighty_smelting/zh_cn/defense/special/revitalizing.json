@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:revitalizing",
+  "text": [
+    {
+      "text": "宝钻苹果，回归本源。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "多个等级",
+    "加持于头盔或靴子上时最高2级",
+    "加持于胸甲或护腿上时最高3级",
+    "需要1个防御槽"
+  ]
+}

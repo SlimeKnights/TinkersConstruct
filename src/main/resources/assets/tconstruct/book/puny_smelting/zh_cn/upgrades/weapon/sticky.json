@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:sticky",
+  "text": [
+    {
+      "text": "嗯~黏黏的。"
+    }
+  ],
+  "more_text_space": false,
+  "effects": [
+    "击中目标时使其缓慢",
+    "多个等级，每级增加施加缓慢的概率",
+    "每级需要1个升级槽"
+  ]
+}

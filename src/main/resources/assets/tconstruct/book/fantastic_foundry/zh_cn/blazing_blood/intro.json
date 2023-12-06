@@ -1,0 +1,14 @@
+{
+  "title": "烈焰血",
+  "image": {
+    "file": "tconstruct:book/images/manyullyn_alloy.png",
+    "width": 179,
+    "height": 69
+  },
+  "text": [
+    {
+      "text": "那么，工匠，你是不是正在尝试制作更好的合金，结果发现熔岩不太够用了？何不把烈焰人的精华液化，来点燃你躁动的创造欲望？",
+      "paragraph": true
+    }
+  ]
+}

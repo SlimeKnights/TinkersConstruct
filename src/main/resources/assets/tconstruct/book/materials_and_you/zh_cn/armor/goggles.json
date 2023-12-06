@@ -1,0 +1,17 @@
+{
+    "tool": "tconstruct:travelers_helmet",
+    "text": [
+        { "text": "它适用于“King”或是“Lemmings”亦或是“King Lemmings”。" },
+        {
+            "text": "一副好的护目镜可以让你的冒险更加安全，也更容易看清东西，并拥有一股国王（King）的气质。",
+            "paragraph": true
+        }
+    ],
+    "properties": [
+        "低护甲值",
+        "低耐久度",
+        "3个升级槽",
+        "2个防御槽",
+        "1个能力槽"
+    ]
+}

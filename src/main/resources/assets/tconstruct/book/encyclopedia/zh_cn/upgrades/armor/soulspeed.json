@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:soulspeed",
+  "text": [
+    {
+      "text": "在灵魂沙上的移动速度+40.5%，每增加一级强化就再增加10.5%，能够减少灵魂沙带来的减速效果。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最高3级",
+    "每级需要1个升级槽"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:piercing",
+  "text": [
+    {
+      "text": "每级增加1点穿刺伤害，但会减少0.5点常规伤害。总计每级增加0.5点伤害。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "可以逐级强化",
+    "最高5级",
+    "每级需要1个升级槽"
+  ]
+}

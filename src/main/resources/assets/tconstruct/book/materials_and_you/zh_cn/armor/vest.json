@@ -1,0 +1,17 @@
+{
+    "tool": "tconstruct:travelers_chestplate",
+    "text": [
+        { "text": "别忘了把衣服的标签塞进去，我可不想带着它到处走。" },
+        {
+            "text": "背心是保护上身的重要防具，而且看起来也很帅。",
+            "paragraph": true
+        }
+    ],
+    "properties": [
+        "低护甲值",
+        "低耐久度",
+        "3个升级槽",
+        "2个防御槽",
+        "1个能力槽"
+    ]
+}

@@ -1,0 +1,12 @@
+{
+  "title": "焦褐梯子",
+  "item": {
+    "id": "tconstruct:scorched_ladder"
+  },
+  "text": [
+    {
+      "text": "你可以用焦褐梯子爬到熔铸炉上面或从里面爬出来，这对后续加盖熔铸炉十分有用！",
+      "paragraph": true
+    }
+  ]
+}

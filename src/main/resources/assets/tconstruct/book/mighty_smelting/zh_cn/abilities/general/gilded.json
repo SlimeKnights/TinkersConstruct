@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:gilded",
+  "text": [
+    {
+      "text": "买一赠一！"
+    }
+  ],
+  "effects": [
+    "以1个能力槽换得2个升级槽",
+    "多个等级",
+    "每级需要1个能力槽"
+  ]
+}

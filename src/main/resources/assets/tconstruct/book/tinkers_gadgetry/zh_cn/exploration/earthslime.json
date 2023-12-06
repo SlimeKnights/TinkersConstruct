@@ -1,0 +1,13 @@
+{
+  "title": "大地黏液岛",
+  "image": {
+	"file": "tconstruct:book/images/islands/earthslime.png",
+    "width": 180,
+    "height": 84
+  },
+  "text": [
+    {
+      "text": "大地黏液岛有时可以在主世界的海洋中找到，和它们的碧空黏液变种相比，这些岛屿看起来没那么奇异。这种绿色黏液也有其他的获取途径，不过这些黏液草使得这种黏液随处可见。"
+    }
+  ]
+}

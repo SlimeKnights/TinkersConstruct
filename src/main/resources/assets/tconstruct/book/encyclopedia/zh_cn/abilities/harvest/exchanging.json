@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:exchanging",
+  "text": [
+    {
+      "text": "会将采掘的方块和副手的方块交换。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "单个等级",
+    "需要1个能力槽"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:fire_protection",
+  "text": [
+    {
+      "text": "穿过烈焰与火光。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "减少燃烧伤害和燃烧时间",
+    "多个等级，每级增加防御能力并进一步缩短燃烧时间",
+    "需要1个防御槽"
+  ]
+}

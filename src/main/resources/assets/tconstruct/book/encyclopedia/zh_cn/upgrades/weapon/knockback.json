@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:knockback",
+  "text": [
+    {
+      "text": "每级增加1点击退效果，可以将生物击飞大约2格距离。大部分工具自带0.4点击退。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最高5级",
+    "每级需要1个升级槽"
+  ]
+}

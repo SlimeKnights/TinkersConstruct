@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:gilded",
+  "text": [
+    {
+      "text": "以1个能力槽换取2个升级槽。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "无等级上限",
+    "每级需要1个强化槽"
+  ]
+}

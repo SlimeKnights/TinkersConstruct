@@ -1,0 +1,13 @@
+{
+  "title": "碧空黏液岛",
+  "image": {
+    "file": "tconstruct:book/images/islands/skyslime.png",
+    "width": 180,
+    "height": 91
+  },
+  "text": [
+    {
+      "text": "碧空黏液岛漂浮在主世界的陆地上空，上面长着黏性草丛。传说中，碧空史莱姆是来自另一个领域的入侵者，不过它们的活动范围被限制在岛屿之上。"
+    }
+  ]
+}

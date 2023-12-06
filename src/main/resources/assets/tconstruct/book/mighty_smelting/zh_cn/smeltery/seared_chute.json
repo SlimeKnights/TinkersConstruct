@@ -1,0 +1,12 @@
+{
+  "title": "焦黑滑槽",
+  "item": {
+    "id": "tconstruct:seared_chute"
+  },
+  "text": [
+    {
+      "text": "焦黑滑槽是向冶炼炉输入或从冶炼炉输出物品的设备。最好是放在能连上漏斗的地方。",
+      "paragraph": true
+    }
+	]
+}

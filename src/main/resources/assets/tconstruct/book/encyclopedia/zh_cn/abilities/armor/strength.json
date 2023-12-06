@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:strength",
+  "text": [
+    {
+      "text": "每级会为所有武器增加10%的攻击力。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "可以多个等级叠加",
+    "每级需要1个能力槽"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "title": "肩驮",
+  "image": {
+    "file": "tconstruct:book/images/carry_blaze.png",
+    "width": 128,
+    "height": 73
+  },
+  "text": [
+    {
+      "text": "“但是Nemea，我要怎么把烈焰人放到熔铸炉里呢？”要是Melvin那个呆子的话肯定会说“喝一瓶抗火药水然后用肩驮架或者灵浆弹弓弹进去”。看我这炉子烤不烤你就完了。",
+      "paragraph": true
+    }
+  ]
+}

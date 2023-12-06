@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:slurping",
+  "text": [
+    {
+      "text": "按下“头盔交互”键可以饮用头盔中储存的流体并获得不同的效果，流体的效果和“泼洒”强化相同。"
+    },
+    {
+      "text": "可能的效果包括使自身着火、获得药水效果（如跳跃提升），或者清除自身状态效果（如牛奶）。", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "需要1个能力槽"
+  ]
+}

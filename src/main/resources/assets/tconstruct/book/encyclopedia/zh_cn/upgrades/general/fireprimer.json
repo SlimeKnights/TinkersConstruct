@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:fireprimer",
+  "text": [
+    {
+      "text": "使青铜打火石的作用范围增加1格。效果和1级“延展”强化等同，但是只需要1个升级槽。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "单个等级",
+    "需要1个升级槽"
+  ]
+}

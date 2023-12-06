@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:dyed",
+  "text": [
+    {
+      "text": "改变旅行者套装上皮革部分的颜色。"
+    },
+    {
+      "text": "可以混合多种染料的颜色，并和盔甲上已有的颜色进行叠加。", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "多次使用",
+    "无需槽位"
+  ]
+}

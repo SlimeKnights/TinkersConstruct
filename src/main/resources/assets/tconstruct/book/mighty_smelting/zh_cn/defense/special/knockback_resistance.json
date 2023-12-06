@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:knockback_resistance",
+  "text": [
+    {
+      "text": "我就站在这里，来辆坦克都挪不走我。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "减少受到的击退",
+    "单个等级",
+    "需要1个防御槽"
+  ]
+}

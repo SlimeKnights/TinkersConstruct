@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:smite",
+  "text": [
+    {
+      "text": "每级增加2.5点对亡灵生物伤害。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "可以逐级强化",
+    "最高5级",
+    "每级需要1个升级槽"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:draconic",
+  "text": [
+    {
+      "text": "额外获得1个能力槽。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+	  "单次使用",
+    "无需槽位"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:golden",
+  "text": [
+    {
+      "text": "猪灵的最爱。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "猪灵不会攻击你",
+    "单个等级",
+    "需要1个防御槽"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "title": "焦黑玻璃",
+  "item": {
+    "id": "tconstruct:seared_glass"
+  },
+  "text": [
+    {
+      "text": "这种玻璃允许你在不破坏冶炼炉结构的情况下直接看见其中的熔融材料。它不能储存流体。",
+      "paragraph": true
+    },
+	{
+      "text": "焦黑玻璃不能用于搭建冶炼炉底板。",
+      "paragraph": true
+    }
+  ]
+}

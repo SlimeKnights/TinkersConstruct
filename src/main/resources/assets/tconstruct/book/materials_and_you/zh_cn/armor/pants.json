@@ -1,0 +1,17 @@
+{
+    "tool": "tconstruct:travelers_leggings",
+    "text": [
+        { "text": "亲爱的，我的裤子呢！" },
+        {
+            "text": "不穿裤子出门可不是个好主意，为什么不穿一条既保暖，又方便行动的裤子呢！",
+            "paragraph": true
+        }
+    ],
+    "properties": [
+        "低护甲值",
+        "低耐久度",
+        "3个升级槽",
+        "2个防御槽",
+        "1个能力槽"
+    ]
+}

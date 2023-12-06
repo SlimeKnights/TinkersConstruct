@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:thorns",
+  "text": [
+    {
+      "text": "被攻击时，每级有15%概率对攻击者造成1到4点伤害。多件盔甲的效果会叠加。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最高3级",
+    "每级需要1个升级槽"
+  ]
+}

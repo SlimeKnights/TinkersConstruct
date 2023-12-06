@@ -1,0 +1,12 @@
+{
+  "title": "燧石手里剑",
+  "item": {
+    "id": "tconstruct:flint_shuriken"
+  },
+  "text": [
+    {
+      "text": "把燧石磨成四角星状，就可以做出十分好用的远程武器。尽管比不上弓箭，但它也能造成可观的击退效果和伤害，帮你逃离怪物的追杀。",
+      "paragraph": true
+    }
+  ]
+}

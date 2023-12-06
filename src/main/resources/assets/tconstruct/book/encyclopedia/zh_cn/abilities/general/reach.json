@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:reach",
+  "text": [
+    {
+      "text": "该能力加持在工具上时，每级增加一格触及距离。加持在胸甲上时，会增加所持工具的触及距离。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "无等级上限",
+    "每级需要1个能力槽"
+  ]
+}
