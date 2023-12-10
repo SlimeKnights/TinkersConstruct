@@ -2214,7 +2214,7 @@
 
 
   "__comment": "Tier 1 Traits",
-  "modifier.tconstruct.fake_attribute.mining_speed": "采掘速度",
+  "modifier.tconstruct.fake_attribute.mining_speed": "挖掘速度",
 
   "modifier.tconstruct.cultivated": "培植",
   "modifier.tconstruct.cultivated.flavor": "精打细算！",
