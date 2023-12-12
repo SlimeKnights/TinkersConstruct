@@ -1,13 +1,4 @@
-/*
- * Tinkers Construct
- * Master build file
- * 
- * Authors: boni, Sunstrike, ProgWML6
- * Help from AbrarSyed
- */
-
-buildscript {
-    repositories {
+  repositories {
         mavenLocal()
         maven { url = 'https://maven.minecraftforge.net/' }
         maven { url = 'https://libraries.minecraft.net/' }
@@ -122,7 +113,7 @@ sourceSets {
 }
 
 minecraft {
-    mappings channel: 'parchment', version: "${parchment_version}-${minecraft_version}"
+    mappings channel: 'parchment', version: '1.18.2-2022.03.13-1.19.2'
 
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
@@ -223,25 +214,26 @@ configurations {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:' + minecraft_version + '-' + forge_version
+
+    minecraft 'net.minecraftforge:forge:1.19.2-43.3.0'
 
     // would ideally use API for this, but that does not work well with fg.deobf in my understanding
     implementation fg.deobf("slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}")
 
     // compile against the JEI API but do not include it at runtime
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
+    //compileOnly fg.deobf("mezz.jei:jei-238222:4615177-${minecraft_version}:${jei_version}:api")
     // at runtime, use the full JEI jar
-    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
+    //runtimeOnly fg.deobf("mezz.jei:jei-238222:4615177-${minecraft_version}:${jei_version}")
 
     // implementation fg.deobf("mcjty.theoneprobe:TheOneProbe-${minecraft_base_version}:${minecraft_base_version}-${probe_version}")
 
     // compileOnly fg.deobf("com.blamejared.crafttweaker:CraftTweaker-${minecraft_version}:${crt_version}")
-    compileOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${minecraft_version}-${ie_version}")
-    runtimeOnly fg.deobf("curse.maven:MmmMmmMmmMmm-225738:3820503")
-    runtimeOnly fg.deobf("curse.maven:lazy-dfu-forge-460819:3544496")
+  //  compileOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${minecraft_version}-${ie_version}")
+    runtimeOnly fg.deobf("curse.maven:mmmmmmmmmmmm-225738:4382196")
+    runtimeOnly fg.deobf("curse.maven:lazy-dfu-forge-460819:3831644")
 
     // runtimeOnly fg.deobf("curse.maven:terrablender-563928:3619749")
-    // runtimeOnly fg.deobf("curse.maven:biomes-o-plenty-220318:3616582")
+     runtimeOnly fg.deobf("curse.maven:biomes-o-plenty-220318:4128419")
     // runtimeOnly fg.deobf("curse.maven:terralith-513688:3606078")
 
     compileOnly fg.deobf("dev.gigaherz.jsonthings:JsonThings-${minecraft_version}:${json_things_version}")
