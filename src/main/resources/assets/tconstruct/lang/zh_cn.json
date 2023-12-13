@@ -273,7 +273,7 @@
 
   "pattern.tconstruct.repair_kit": "修补件",
 
-  "_comment": "Small Head Gold Casts",
+  "_comment": "Small Head Patterns",
 
   "pattern.tconstruct.pick_head": "镐头",
   "pattern.tconstruct.small_axe_head": "小型斧刃",
@@ -281,20 +281,20 @@
   "pattern.tconstruct.sign_head": "牌板",
   "pattern.tconstruct.bow_limb": "弓臂",
 
-  "_comment": "Large Head Gold Casts",
+  "_comment": "Large Head Patterns",
 
   "pattern.tconstruct.hammer_head": "锤头",
   "pattern.tconstruct.broad_axe_head": "板斧刃",
   "pattern.tconstruct.broad_blade": "宽刃",
 
-  "_comment": "Binding Gold Casts",
+  "_comment": "Binding Patterns",
 
   "pattern.tconstruct.tool_binding": "绑定结",
   "pattern.tconstruct.round_plate": "圆板",
   "pattern.tconstruct.large_plate": "大板",
   "pattern.tconstruct.bowstring": "弓弦",
 
-  "_comment": "Tool Handle Gold Casts",
+  "_comment": "Tool Handle Patterns",
 
   "pattern.tconstruct.tool_handle": "工具手柄",
   "pattern.tconstruct.tough_handle": "坚韧手柄",
@@ -1447,7 +1447,7 @@
   "material.tconstruct.iron": "铁",
   "material.tconstruct.iron.oxidized": "粗铁",
   "material.tconstruct.iron.flavor": "他铁了心要保护别人不死，却不能保护他自己，多么讽刺",
-  "material.tconstruct.iron.encyclopedia": "每级给予工具15%的额外耐久度。",
+  "material.tconstruct.iron.encyclopedia": "采掘方块与攻击生物时吸引周围物品。",
   "material.tconstruct.iron.skull_flavor": "违反隔离条例",
   "material.tconstruct.iron.skull_encyclopedia": "近战攻击会将攻击者携带的所有负面效果复制到攻击目标身上。",
 
@@ -2643,6 +2643,8 @@
   "recipe.tconstruct.damaging.broken": "工具已损坏",
   "recipe.tconstruct.overslime.at_capacity": "工具已无更多空间来容纳黏液覆层",
   
+  "recipe.tconstruct.swappable.already_present": "工具已经拥有了此变种的%s",
+
   "gui.tconstruct.modifier_worktable": "强化调配台",
   "gui.tconstruct.modifier_worktable.title": "强化调配",
   "gui.tconstruct.modifier_worktable.info": "添加工具和正确的配方物品以调配此工具的强化。",
