@@ -19,7 +19,9 @@ import javax.annotation.Nullable;
 public class IndestructibleItemEntity extends ItemEntity {
   public IndestructibleItemEntity(EntityType<? extends IndestructibleItemEntity> entityType, Level world) {
     super(entityType, world);
-    this.setExtendedLifetime();
+    // using setUnlimitedLifetime() makes the item no longer spin, dumb design
+    // since age is a short, this value should never be reachable so the item will never despawn
+    this.lifespan = Integer.MAX_VALUE;
   }
 
   public IndestructibleItemEntity(Level worldIn, double x, double y, double z, ItemStack stack) {
