@@ -3,7 +3,6 @@ package slimeknights.tconstruct.tools.modifiers.defense;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.EquipmentSlot.Type;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -13,6 +12,7 @@ import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
 import slimeknights.tconstruct.library.utils.TooltipKey;
+import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -34,7 +34,7 @@ public class FireProtectionModifier extends IncrementalModifier {
     if (!source.isBypassMagic() && !source.isBypassInvul() && source.isFire()) {
       // we already got floored level * 2 boost from the vanilla enchantment on armor, so cancel that out
       float scaledLevel = getEffectiveLevel(tool, level);
-      if (slotType.getType() == Type.ARMOR) {
+      if (Util.isInList(Enchantments.FIRE_PROTECTION.slots, slotType)) {
         modifierValue += scaledLevel * 2.5f - Math.floor(scaledLevel) * 2f;
       } else {
         modifierValue += scaledLevel * 2.5f;
