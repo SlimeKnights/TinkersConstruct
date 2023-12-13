@@ -939,6 +939,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
         .setMaxLevel(level);
       if (level == 1) {
         builder.setSlots(SlotType.ABILITY, 1);
+        builder.setSalvageLevelRange(1, 1);
         builder.saveSalvage(consumer, prefix(ModifierIds.toolBelt, abilitySalvage));
       } else {
         builder.setRequirements(ModifierMatch.entry(ModifierIds.toolBelt, level - 1));
