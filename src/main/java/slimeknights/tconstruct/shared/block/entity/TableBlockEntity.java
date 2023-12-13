@@ -17,12 +17,17 @@ import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.tables.menu.TabbedContainerMenu;
 import slimeknights.tconstruct.tables.network.UpdateStationScreenPacket;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import java.util.function.Consumer;
 
 /**
  * Tile entity that displays items in world. TODO: better name?
  */
 public abstract class TableBlockEntity extends InventoryBlockEntity {
+  /** tick sound was last played for each player */
+  private final Map<UUID, Integer> lastSoundTick = new HashMap<>();
 
   public TableBlockEntity(BlockEntityType<?> tileEntityTypeIn, BlockPos pos, BlockState state, Component name, int inventorySize) {
     super(tileEntityTypeIn, pos, state, name, false, inventorySize);
@@ -76,13 +81,25 @@ public abstract class TableBlockEntity extends InventoryBlockEntity {
       .forEach(action);
   }
 
+  /** Checks if we can play the sound right now */
+  protected boolean isSoundReady(Player player) {
+    int lastSound = lastSoundTick.getOrDefault(player.getUUID(), 0);
+    if (lastSound < player.tickCount) {
+      lastSoundTick.put(player.getUUID(), player.tickCount);
+      return true;
+    }
+    return false;
+  }
+
   /**
    * Plays the crafting sound for all players around the given player
    *
    * @param player the player
    */
   protected void playCraftSound(Player player) {
-    SoundUtils.playSoundForAll(player, Sounds.SAW.getSound(), 0.8f, 0.8f + 0.4f * player.level.random.nextFloat());
+    if (isSoundReady(player)) {
+      SoundUtils.playSoundForAll(player, Sounds.SAW.getSound(), 0.8f, 0.8f + 0.4f * player.level.random.nextFloat());
+    }
   }
 
   /**
