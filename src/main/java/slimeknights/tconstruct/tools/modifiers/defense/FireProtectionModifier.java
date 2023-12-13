@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools.modifiers.defense;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlot.Type;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -31,9 +32,13 @@ public class FireProtectionModifier extends IncrementalModifier {
   @Override
   public float getProtectionModifier(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float modifierValue) {
     if (!source.isBypassMagic() && !source.isBypassInvul() && source.isFire()) {
-      // we already got floored level * 2 boost from the vanilla enchantment, so cancel that out
+      // we already got floored level * 2 boost from the vanilla enchantment on armor, so cancel that out
       float scaledLevel = getEffectiveLevel(tool, level);
-      modifierValue += scaledLevel * 2.5f - Math.floor(scaledLevel) * 2f;
+      if (slotType.getType() == Type.ARMOR) {
+        modifierValue += scaledLevel * 2.5f - Math.floor(scaledLevel) * 2f;
+      } else {
+        modifierValue += scaledLevel * 2.5f;
+      }
     }
     return modifierValue;
   }
