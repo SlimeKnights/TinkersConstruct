@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.smeltery.data;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -12,6 +11,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.datagen.MantleTags;
 import slimeknights.mantle.fluid.transfer.AbstractFluidContainerTransferProvider;
 import slimeknights.mantle.fluid.transfer.FillFluidContainerTransfer;
 import slimeknights.mantle.fluid.transfer.FillFluidWithNBTTransfer;
@@ -59,7 +59,7 @@ public class FluidContainerTransferProvider extends AbstractFluidContainerTransf
     addTransfer(prefix + "water", new FillFluidContainerTransfer(
       container,
       ItemOutput.fromStack(PotionUtils.setPotion(new ItemStack(filled), Potions.WATER)),
-      FluidIngredient.of(FluidTags.WATER, FluidValues.BOTTLE * 2)));
+      FluidIngredient.of(MantleTags.Fluids.WATER, FluidValues.BOTTLE * 2)));
   }
 
   /** Adds a recipe for a bottle that fills with 250mb of fluid, emptying is assumed handled */

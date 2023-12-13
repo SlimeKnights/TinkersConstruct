@@ -273,7 +273,7 @@
 
   "pattern.tconstruct.repair_kit": "Repair Kit",
 
-  "_comment": "Small Head Gold Casts",
+  "_comment": "Small Head Patterns",
 
   "pattern.tconstruct.pick_head": "Pick Head",
   "pattern.tconstruct.small_axe_head": "Small Axe Head",
@@ -281,20 +281,20 @@
   "pattern.tconstruct.sign_head": "Sign Head",
   "pattern.tconstruct.bow_limb": "Bow Limb",
 
-  "_comment": "Large Head Gold Casts",
+  "_comment": "Large Head Patterns",
 
   "pattern.tconstruct.hammer_head": "Hammer Head",
   "pattern.tconstruct.broad_axe_head": "Broad Axe Head",
   "pattern.tconstruct.broad_blade": "Broad Blade",
 
-  "_comment": "Binding Gold Casts",
+  "_comment": "Binding Patterns",
 
   "pattern.tconstruct.tool_binding": "Tool Binding",
   "pattern.tconstruct.round_plate": "Round Plate",
   "pattern.tconstruct.large_plate": "Large Plate",
   "pattern.tconstruct.bowstring": "Bowstring",
 
-  "_comment": "Tool Handle Gold Casts",
+  "_comment": "Tool Handle Patterns",
 
   "pattern.tconstruct.tool_handle": "Tool Handle",
   "pattern.tconstruct.tough_handle": "Tough Handle",
@@ -375,7 +375,7 @@
 
   "_comment": "Binding Sand Casts",
 
-  "item.tconstruct.tool_binding_sand_cast": "Binding Sand Cast",
+  "item.tconstruct.tool_binding_sand_cast": "Tool Binding Sand Cast",
   "item.tconstruct.round_plate_sand_cast": "Round Plate Sand Cast",
   "item.tconstruct.large_plate_sand_cast": "Large Plate Sand Cast",
 
@@ -1143,7 +1143,7 @@
   "block.tconstruct.scorched_ingot_gauge": "Scorched Ingot Gauge",
   "block.tconstruct.scorched_ingot_gauge.tooltip": "Ideal for metals, holding 48 ingots of fluid.\nRetains liquid when broken.",
   "block.tconstruct.scorched_lantern": "Scorched Lantern",
-  "block.tconstruct.scorched_lantern.tooltip": "Ideal for decoration, holding 100mb of fluid.\nRetains liquid when broken.",
+  "block.tconstruct.scorched_lantern.tooltip": "Ideal for decoration, holding 50mb of fluid.\nRetains liquid when broken.",
 
   "block.tconstruct.scorched_faucet": "Scorched Faucet",
   "block.tconstruct.scorched_faucet.tooltip": "Drains liquids from Foundries and Tanks",
@@ -1447,7 +1447,7 @@
   "material.tconstruct.iron": "Iron",
   "material.tconstruct.iron.oxidized": "Raw Iron",
   "material.tconstruct.iron.flavor": "Ironic. He could save others from death, but not himself.",
-  "material.tconstruct.iron.encyclopedia": "Gives an extra 15% durability per part",
+  "material.tconstruct.iron.encyclopedia": "Causes mining blocks and hitting mobs to attract nearby items.",
   "material.tconstruct.iron.skull_flavor": "Violation of quarantine",
   "material.tconstruct.iron.skull_encyclopedia": "Melee attacks copy all negative status effects from the wearer to the target",
 
@@ -2255,7 +2255,7 @@
   "modifier.tconstruct.scorching.attack_damage": "Damage on Fire",
   "modifier.tconstruct.dwarven": "Dwarven",
   "modifier.tconstruct.dwarven.flavor": "Miner's Friend!",
-  "modifier.tconstruct.dwarven.description": "Tool mines faster and has more projectile velocity faster the deeper you mine",
+  "modifier.tconstruct.dwarven.description": "Tool mines faster and has more projectile velocity the deeper you mine",
   "modifier.tconstruct.dwarven.mining_speed": "Depth Mining",
   "modifier.tconstruct.dwarven.velocity": "Depth Velocity",
   "modifier.tconstruct.overgrowth": "Overgrowth",
@@ -2642,6 +2642,8 @@
   "recipe.tconstruct.tool_repair.fully_repaired": "Tool is not damaged",
   "recipe.tconstruct.damaging.broken": "Tool is already broken",
   "recipe.tconstruct.overslime.at_capacity": "Tool has no more space for overslime",
+
+  "recipe.tconstruct.swappable.already_present": "Tool already contains %s with this variant",
 
   "gui.tconstruct.modifier_worktable": "Modifier Worktable",
   "gui.tconstruct.modifier_worktable.title": "Modifier Tuning",

@@ -7,5 +7,6 @@
     "abilities": 1
   },
   "modifier": "tconstruct:tool_belt",
-  "min_level": 1
+  "min_level": 1,
+  "max_level": 1
 }

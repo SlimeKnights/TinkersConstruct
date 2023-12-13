@@ -209,6 +209,7 @@ public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
   }
 
   /** @deprecated use {@link Factory} */
+  @Deprecated
   @FunctionalInterface
   public interface ModifierRemovalRecipeFactory extends Factory {
     ModifierRemovalRecipe create(ResourceLocation id, List<SizedIngredient> inputs, List<ItemStack> leftovers, IJsonPredicate<ModifierId> modifierPredicate);
