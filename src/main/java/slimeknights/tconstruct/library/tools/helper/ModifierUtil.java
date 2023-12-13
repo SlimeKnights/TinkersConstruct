@@ -276,8 +276,12 @@ public final class ModifierUtil {
     return living.getCapability(TinkerDataCapability.CAPABILITY).resolve().map(data -> data.get(key)).orElse(0f);
   }
 
-  /** Checks if the entity has aqua affinity from either enchants or modifiers */
+  /**
+   * Checks if the entity has aqua affinity from either enchants or modifiers
+   * @deprecated will be replaced by {@link EnchantmentHelper#hasAquaAffinity(LivingEntity)} in 1.19, still used in 1.18 in case anyone used the old method.
+   */
   @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+  @Deprecated
   public static boolean hasAquaAffinity(LivingEntity living) {
     return ModifierUtil.getTotalModifierLevel(living, TinkerDataKeys.AQUA_AFFINITY) > 0 || EnchantmentHelper.hasAquaAffinity(living);
   }

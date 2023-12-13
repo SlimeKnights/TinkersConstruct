@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:no_levels",
+  "tooltip_display": "always",
+  "modules": [
+    {
+      "type": "tconstruct:constant_enchantment",
+      "name": "minecraft:aqua_affinity",
+      "level": 1
+    }
+  ]
+}

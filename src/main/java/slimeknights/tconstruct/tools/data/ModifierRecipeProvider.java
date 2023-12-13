@@ -880,7 +880,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setTools(ingredientFromTags(TinkerTags.Items.HELMETS, TinkerTags.Items.STAFFS))
                          .saveSalvage(consumer, prefix(TinkerModifiers.slurping, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.slurping, abilityFolder));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.aquaAffinity)
+    ModifierRecipeBuilder.modifier(ModifierIds.aquaAffinity)
                          .addInput(Blocks.PRISMARINE_BRICKS)
                          .addInput(Items.HEART_OF_THE_SEA)
                          .addInput(Blocks.PRISMARINE_BRICKS)
@@ -889,8 +889,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.ABILITY, 1)
                          .setTools(TinkerTags.Items.HELMETS)
                          .setMaxLevel(1)
-                         .saveSalvage(consumer, prefix(TinkerModifiers.aquaAffinity, abilitySalvage))
-                         .save(consumer, prefix(TinkerModifiers.aquaAffinity, abilityFolder));
+                         .saveSalvage(consumer, prefix(ModifierIds.aquaAffinity, abilitySalvage))
+                         .save(consumer, prefix(ModifierIds.aquaAffinity, abilityFolder));
     // chestplate
     ModifierRecipeBuilder.modifier(TinkerModifiers.ambidextrous)
                          .setTools(TinkerTags.Items.UNARMED)
