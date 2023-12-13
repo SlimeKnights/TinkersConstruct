@@ -10,6 +10,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
@@ -28,6 +29,8 @@ import java.util.stream.Collectors;
  * Standard recipe to add a modifier
  */
 public class SwappableModifierRecipe extends ModifierRecipe {
+  private static final String ALREADY_PRESENT = TConstruct.makeTranslationKey("recipe", "swappable.already_present");
+
   /** Value of the modifier being swapped, distinguishing this recipe from others for the same modifier */
   private final String value;
   public SwappableModifierRecipe(ResourceLocation id, List<SizedIngredient> inputs, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements, String requirementsError, ModifierId result, String value, @Nullable SlotCount slots, boolean allowCrystal) {
@@ -64,6 +67,12 @@ public class SwappableModifierRecipe extends ModifierRecipe {
     }
     if (commonError.hasError()) {
       return commonError;
+    }
+
+    // do not allow adding the modifier if this variant is already present
+    // TODO: include variant in name? need variant to be translatable for that probably
+    if (tool.getPersistentData().getString(modifier).equals(value)) {
+      return ValidatedResult.failure(ALREADY_PRESENT, result.getModifier().getDisplayName());
     }
 
     // consume slots
