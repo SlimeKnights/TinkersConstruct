@@ -391,7 +391,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(TinkerModifiers.severing, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.severing, upgradeFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.fiery)
-                                    .setTools(ingredientFromTags(TinkerTags.Items.MELEE_OR_UNARMED, TinkerTags.Items.BOWS))
+                                    .setTools(ingredientFromTags(TinkerTags.Items.MELEE_OR_UNARMED, TinkerTags.Items.BOWS, TinkerTags.Items.WORN_ARMOR, TinkerTags.Items.SHIELDS))
                                     .setInput(Items.BLAZE_POWDER, 1, 25)
                                     .setMaxLevel(5) // +25 seconds fire damage
                                     .setSlots(SlotType.UPGRADE, 1)
@@ -541,9 +541,9 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .save(consumer, prefix(TinkerModifiers.impaling, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.freezing)
                          .addInput(Items.POWDER_SNOW_BUCKET)
-                         .setMaxLevel(2)
+                         .setMaxLevel(3)
                          .setSlots(SlotType.UPGRADE, 1)
-                         .setTools(TinkerTags.Items.BOWS) // no elementals on fluid cannon
+                         .setTools(ingredientFromTags(TinkerTags.Items.MELEE_OR_UNARMED, TinkerTags.Items.BOWS, TinkerTags.Items.WORN_ARMOR, TinkerTags.Items.SHIELDS))
                          .saveSalvage(consumer, prefix(TinkerModifiers.freezing, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.freezing, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.bulkQuiver)
@@ -743,11 +743,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .save(consumer, prefix(TinkerModifiers.thorns, upgradeFolder));
     IncrementalModifierRecipeBuilder.modifier(ModifierIds.sticky)
                                     .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.WORN_ARMOR, TinkerTags.Items.SHIELDS))
-                                    .setInput(Blocks.COBWEB, 1, 5)
                                     .setSlots(SlotType.UPGRADE, 1)
-                                    .setMaxLevel(3)
-                                    .saveSalvage(consumer, prefix(ModifierIds.sticky, upgradeSalvage))
-                                    .save(consumer, prefix(ModifierIds.sticky, upgradeFolder));
+                                    .saveSalvage(consumer, prefix(ModifierIds.sticky, upgradeSalvage));
     ModifierRecipeBuilder.modifier(TinkerModifiers.springy)
                          .setTools(wornOrShield)
                          .addInput(Items.PISTON)
