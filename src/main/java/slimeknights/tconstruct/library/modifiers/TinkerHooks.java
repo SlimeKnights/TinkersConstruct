@@ -161,7 +161,7 @@ public class TinkerHooks {
   });
 
   /** Hook for a modifier to add other modifiers to the builder */
-  public static final ModifierHook<ModifierTraitHook> MODIFIER_TRAITS = register("modifier_traits", ModifierTraitHook.class, ModifierTraitHook.AllMerger::new, (context, modifier, state, firstEncounter) -> {});
+  public static final ModifierHook<ModifierTraitHook> MODIFIER_TRAITS = register("modifier_traits", ModifierTraitHook.class, ModifierTraitHook.AllMerger::new, (context, modifier, builder, firstEncounter) -> {});
 
   /* Combat */
 

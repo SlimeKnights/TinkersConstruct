@@ -24,15 +24,15 @@ public record ModifierTraitModule(ModifierEntry modifier, boolean fixedLevel) im
   }
 
   @Override
-  public void addTraits(ToolRebuildContext context, ModifierEntry self, TraitBuilder state, boolean firstEncounter) {
+  public void addTraits(ToolRebuildContext context, ModifierEntry self, TraitBuilder builder, boolean firstEncounter) {
     if (fixedLevel) {
       // fixed levels do not need to add again if already added
       if (firstEncounter) {
-        state.addEntry(this.modifier);
+        builder.addEntry(this.modifier);
       }
     } else {
       // level of the trait is based on the level of the modifier, just multiply the two
-      state.addEntry(this.modifier.withLevel(this.modifier.getLevel() * self.getLevel()));
+      builder.addEntry(this.modifier.withLevel(this.modifier.getLevel() * self.getLevel()));
     }
   }
 

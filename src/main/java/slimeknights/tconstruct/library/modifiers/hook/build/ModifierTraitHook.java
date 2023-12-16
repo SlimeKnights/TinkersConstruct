@@ -21,10 +21,10 @@ public interface ModifierTraitHook {
    * Do not call this method directly, call it through {@link TraitBuilder}.
    * @param context         Tool building context, note that volatile data has not yet been filled and modifiers does not include traits
    * @param modifier        Modifier entry
-   * @param state           State keeping track of traits, use methods on this object to add traits
+   * @param builder         Builder handling traits, use methods on this object to add traits
    * @param firstEncounter  If true, this is the first time this modifier has been seen while rebuilding the stats
    */
-  void addTraits(ToolRebuildContext context, ModifierEntry modifier, TraitBuilder state, boolean firstEncounter);
+  void addTraits(ToolRebuildContext context, ModifierEntry modifier, TraitBuilder builder, boolean firstEncounter);
 
   /** Builder that handles adding traits that can themselves contain traits */
   @RequiredArgsConstructor
@@ -72,9 +72,9 @@ public interface ModifierTraitHook {
   /** Merger that runs all hooks */
   record AllMerger(Collection<ModifierTraitHook> modules) implements ModifierTraitHook {
     @Override
-    public void addTraits(ToolRebuildContext context, ModifierEntry modifier, TraitBuilder state, boolean firstEncounter) {
+    public void addTraits(ToolRebuildContext context, ModifierEntry modifier, TraitBuilder builder, boolean firstEncounter) {
       for (ModifierTraitHook module : modules) {
-        module.addTraits(context, modifier, state, firstEncounter);
+        module.addTraits(context, modifier, builder, firstEncounter);
       }
     }
   }
