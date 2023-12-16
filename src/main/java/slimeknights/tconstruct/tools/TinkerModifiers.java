@@ -55,6 +55,7 @@ import slimeknights.tconstruct.library.modifiers.modules.MobDisguiseModule;
 import slimeknights.tconstruct.library.modifiers.modules.MobEffectModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierSlotModule;
+import slimeknights.tconstruct.library.modifiers.modules.ModifierTraitModule;
 import slimeknights.tconstruct.library.modifiers.modules.RarityModule;
 import slimeknights.tconstruct.library.modifiers.modules.RepairModule;
 import slimeknights.tconstruct.library.modifiers.modules.SwappableSlotModule;
@@ -612,6 +613,7 @@ public final class TinkerModifiers extends TinkerModule {
     ModifierModule.LOADER.register(TConstruct.getResource("mob_effect"), MobEffectModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("mob_disguise"), MobDisguiseModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("repair"), RepairModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("trait"), ModifierTraitModule.LOADER);
 
     ModifierPredicate.LOADER.register(TConstruct.getResource("and"), ModifierPredicate.AND);
     ModifierPredicate.LOADER.register(TConstruct.getResource("or"), ModifierPredicate.OR);

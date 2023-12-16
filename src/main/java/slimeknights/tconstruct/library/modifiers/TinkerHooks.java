@@ -27,6 +27,7 @@ import slimeknights.tconstruct.library.modifiers.hook.ToolActionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.TooltipModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.AttributesModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.ModifierTraitHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.RawDataModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ToolStatsModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ValidateModifierHook;
@@ -159,6 +160,8 @@ public class TinkerHooks {
     return null;
   });
 
+  /** Hook for a modifier to add other modifiers to the builder */
+  public static final ModifierHook<ModifierTraitHook> MODIFIER_TRAITS = register("modifier_traits", ModifierTraitHook.class, ModifierTraitHook.AllMerger::new, (context, modifier, state, firstEncounter) -> {});
 
   /* Combat */
 

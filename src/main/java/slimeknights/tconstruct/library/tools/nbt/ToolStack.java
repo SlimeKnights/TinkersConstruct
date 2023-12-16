@@ -20,6 +20,7 @@ import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.build.ModifierTraitHook.TraitBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
@@ -34,6 +35,7 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
 
 import javax.annotation.Nullable;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -670,8 +672,8 @@ public class ToolStack implements IToolStackView {
     for (int i = 0; i < max; i++) {
       modBuilder.add(MaterialRegistry.getInstance().getTraits(materials.get(i).getId(), parts.get(i).getStatType()));
     }
-    ModifierNBT allMods = modBuilder.build();
-    setModifiers(allMods);
+    // intermediate modifier list before we add modifier traits
+    ModifierNBT beforeTraits = modBuilder.build();
 
     // pass in the list to stats, note for no part tools this should always be empty
     StatsNBT stats = definition.buildStats(materials);
@@ -679,16 +681,29 @@ public class ToolStack implements IToolStackView {
     definition.getData().buildStatMultipliers(statBuilder);
 
     // next, update modifier related properties
-    List<ModifierEntry> modifierList = allMods.getModifiers();
-    if (modifierList.isEmpty()) {
+    List<ModifierEntry> modifierList = Collections.emptyList();
+    if (beforeTraits.isEmpty()) {
       // if no modifiers, clear out data that only exists with modifiers
       nbt.remove(TAG_VOLATILE_MOD_DATA);
+      setModifiers(ModifierNBT.EMPTY);
       volatileModData = IModDataView.EMPTY;
     } else {
       ModDataNBT volatileData = new ModDataNBT();
+      // temporary context while we add modifier traits
+      ToolRebuildContext context = new ToolRebuildContext(item, getDefinition(), getMaterials(), getUpgrades(), beforeTraits, stats, getPersistentData(), volatileData);
+      modBuilder = ModifierNBT.builder();
+      TraitBuilder traitBuilder = new TraitBuilder(context, modBuilder);
+      for (ModifierEntry entry : beforeTraits.getModifiers()) {
+        traitBuilder.addEntry(entry);
+      }
+
+      // set the final modifier list on the tool
+      ModifierNBT allMods = modBuilder.build();
+      setModifiers(allMods);
+      modifierList = allMods.getModifiers();
 
       // context for further modifier hooks
-      ToolRebuildContext context = new ToolRebuildContext(item, getDefinition(), getMaterials(), getUpgrades(), allMods, stats, getPersistentData(), volatileData);
+      context = context.withModifiers(allMods);
 
       // build persistent data first, its a parameter to the other two hooks
       for (ModifierEntry entry : modifierList) {

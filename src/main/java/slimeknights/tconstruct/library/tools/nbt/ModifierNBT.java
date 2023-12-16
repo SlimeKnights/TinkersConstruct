@@ -252,6 +252,10 @@ public class ModifierNBT {
                                           // sort on priority, falls back to the order they were added
                                           .sorted(Comparator.comparingInt(entry -> -entry.getModifier().getPriority()))
                                           .collect(Collectors.toList());
+      // its rare to see no modifiers, but no sense creating a new instance for that
+      if (list.isEmpty()) {
+        return EMPTY;
+      }
       return new ModifierNBT(ImmutableList.copyOf(list));
     }
   }
