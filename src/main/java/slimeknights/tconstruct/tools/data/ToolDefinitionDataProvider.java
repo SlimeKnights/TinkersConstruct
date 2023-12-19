@@ -134,7 +134,6 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ToolStats.MINING_SPEED, 1.1f)
       .multiplier(ToolStats.ATTACK_DAMAGE, 1.1f)
       // traits
-      .trait(ModifierIds.sticky, 1)
       .trait(TinkerModifiers.tilling)
       // harvest
       .action(ToolActions.AXE_DIG)
@@ -161,7 +160,6 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ToolStats.ATTACK_DAMAGE, 1.15f)
       // traits
       .trait(TinkerModifiers.pathing)
-      .trait(ModifierIds.baneOfSssss)
       // harvest
       .action(ToolActions.PICKAXE_DIG)
       .action(ToolActions.SHOVEL_DIG)
@@ -255,6 +253,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ToolStats.ATTACK_DAMAGE, 0.5f)
       .smallToolStartingSlots()
       // traits
+      .trait(TinkerModifiers.tilling)
       .trait(TinkerModifiers.shears)
       .trait(TinkerModifiers.harvest)
       // harvest
