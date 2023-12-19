@@ -15,6 +15,8 @@ import slimeknights.tconstruct.tools.MeleeHarvestToolStatsBuilder;
 
 public final class ToolDefinitionFixture {
   private static final ResourceLocation DEFINITION_ID = new ResourceLocation("test", "test_tool");
+
+  /** Stat provider with pickaxe mining and tool parts */
   private static final IToolStatProvider TEST_STATS_PROVIDER = new IToolStatProvider() {
     private final Lazy<ToolDefinitionData> DATA = Lazy.of(
       () -> ToolDefinitionDataBuilder.builder()
@@ -23,6 +25,7 @@ public final class ToolDefinitionFixture {
                                      .part(MaterialItemFixture.MATERIAL_ITEM_EXTRA)
                                      .action(ToolActions.PICKAXE_DIG)
                                      .harvestLogic(new BlockHarvestLogic(Blocks.STONE))
+                                     .smallToolStartingSlots()
                                      .build());
     @Override
     public StatsNBT buildStats(ToolDefinition definition, MaterialNBT materials) {

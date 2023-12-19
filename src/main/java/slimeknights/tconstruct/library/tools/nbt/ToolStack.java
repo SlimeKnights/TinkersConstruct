@@ -15,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.library.materials.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -26,6 +27,7 @@ import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.definition.PartRequirement;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
+import slimeknights.tconstruct.library.tools.definition.ToolDefinitionData;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
@@ -46,18 +48,28 @@ import java.util.Set;
 public class ToolStack implements IToolStackView {
   /** Error messages for when there are not enough remaining modifiers */
   private static final String KEY_VALIDATE_SLOTS = TConstruct.makeTranslationKey("recipe", "modifier.validate_slots");
-  /** flag to set in persistent data to mark a tool as needing persistent data, by default any tools with no persistent data are initialized */
+  /**
+   * flag to set in persistent data to mark a tool as needing persistent data, by default any tools with no persistent data are initialized
+   * @deprecated should no longer be needed with the new slot loading
+   */
+  @Deprecated
   public static final ResourceLocation NEEDS_SLOTS_BUILT = TConstruct.getResource("needs_slots_built");
 
   // persistent NBT
   /** Tag for list of materials */
   public static final String TAG_MATERIALS = "tic_materials";
   /** Tag for extra arbitrary modifier data */
-  public static final String TAG_PERSISTENT_MOD_DATA = "tic_persistent_data";
+  public static final String TAG_PERSISTENT_MOD_DATA = "tic_persistent";
   /** Tag for recipe based modifier */
   public static final String TAG_UPGRADES = "tic_upgrades";
   /** Tag marking a tool as broken */
   public static final String TAG_BROKEN = "tic_broken";
+  /**
+   * Old location of persistent data, used for migration. Will be removed in 1.19.
+   * @deprecated use {@link #TAG_PERSISTENT_MOD_DATA}
+   */
+  @Deprecated
+  protected static final String TAG_PERSISTENT_LEGACY_DATA = "tic_persistent_data";
 
   // volatile NBT
   /** Tag for calculated stats */
@@ -65,7 +77,7 @@ public class ToolStack implements IToolStackView {
   /** Tag for tool stat global multipliers */
   protected static final String TAG_MULTIPLIERS = "tic_multipliers";
   /** Tag for arbitrary modifier data rebuilt on stat rebuild */
-  public static final String TAG_VOLATILE_MOD_DATA = "tic_volatile_data";
+  public static final String TAG_VOLATILE_MOD_DATA = "tic_volatile_data"; // TODO: consider dropping "_data" from the key for consistency
   /** Tag for merged modifiers of upgrades and traits */
   public static final String TAG_MODIFIERS = "tic_modifiers";
 
@@ -75,7 +87,7 @@ public class ToolStack implements IToolStackView {
   public static final String TAG_HIDE_FLAGS = "HideFlags";
 
   /** List of tags to disallow editing for the relevant modifier hooks, disallows all tags we touch. Ignores unbreakable as we only look at that tag for vanilla compat */
-  private static final Set<String> RESTRICTED_TAGS = ImmutableSet.of(TAG_MATERIALS, TAG_STATS, TAG_MULTIPLIERS, TAG_PERSISTENT_MOD_DATA, TAG_VOLATILE_MOD_DATA, TAG_UPGRADES, TAG_MODIFIERS, TAG_BROKEN, TAG_DAMAGE, TAG_HIDE_FLAGS);
+  private static final Set<String> RESTRICTED_TAGS = ImmutableSet.of(TAG_MATERIALS, TAG_STATS, TAG_MULTIPLIERS, TAG_PERSISTENT_MOD_DATA, TAG_PERSISTENT_LEGACY_DATA, TAG_VOLATILE_MOD_DATA, TAG_UPGRADES, TAG_MODIFIERS, TAG_BROKEN, TAG_DAMAGE, TAG_HIDE_FLAGS);
 
   /** Item representing this tool */
   @Getter
@@ -188,9 +200,7 @@ public class ToolStack implements IToolStackView {
     tool.damage = 0;
     tool.broken = false;
     tool.upgrades = ModifierNBT.EMPTY;
-    // add slots
-    definition.getData().buildSlots(tool.getPersistentData());
-    // update the materials
+    // update the materials, this will also rebuild the stats
     tool.setMaterials(materials);
     return tool;
   }
@@ -624,33 +634,22 @@ public class ToolStack implements IToolStackView {
     return ValidatedResult.PASS;
   }
 
-  /** Initializes modifier slots on the tool if needed */
+  /** @deprecated slot building has been moved to {@link #rebuildStats()} and safely builds from empty NBT, so this method is no longer needed. WIll be removed in 1.19 */
+  @Deprecated
   public void ensureSlotsBuilt() {
-    // no persistent data means no slots added yet, so time to build them
-    // note that empty persistent data will not trigger this, which is important when a tool has no slots remaining
-    if (!nbt.contains(TAG_PERSISTENT_MOD_DATA, Tag.TAG_COMPOUND) || getPersistentData().getBoolean(NEEDS_SLOTS_BUILT)) {
-      ModDataNBT persistentData = getPersistentData();
-      persistentData.remove(NEEDS_SLOTS_BUILT);
-      definition.getData().buildSlots(persistentData);
-    }
+    // NO-OP: moved to #rebuildStats()
   }
 
-  /** Called on inventory tick to ensure the tool has all required data including materials, prevents tools with no stats from existing */
+  /** Called on inventory tick to ensure the tool has all required data including materials and starting slots, prevents tools with no stats from existing */
   public void ensureHasData() {
-    if (!definition.isDataLoaded()) {
-      return;
+    // if datapacks have loaded and the tool does not have stats, it needs to have stats built
+    if (definition.isDataLoaded() && !isInitialized(nbt)) {
+      // need materials to build stats, randomize them if missing
+      if (definition.isMultipart() && !nbt.contains(TAG_MATERIALS, Tag.TAG_LIST)) {
+        setMaterialsRaw(ToolBuildHandler.randomMaterials(definition.getData(), definition.getDefaultMaxTier(), false));
+      }
+      rebuildStats();
     }
-    ensureSlotsBuilt();
-
-    // if the tool has stats already, nothing more to do
-    if (isInitialized(nbt)) {
-      return;
-    }
-    // need materials to build stats, randomize them if missing
-    if (definition.isMultipart() && !nbt.contains(TAG_MATERIALS, Tag.TAG_LIST)) {
-      setMaterialsRaw(ToolBuildHandler.randomMaterials(definition.getData(), definition.getDefaultMaxTier(), false));
-    }
-    rebuildStats();
   }
 
   /**
@@ -662,35 +661,57 @@ public class ToolStack implements IToolStackView {
     // will break old tools if we do not remove in 1.18
     nbt.remove(TAG_HIDE_FLAGS);
 
-    // first, rebuild the list of all modifiers
-    ModifierNBT.Builder modBuilder = ModifierNBT.builder();
-    modBuilder.add(getUpgrades());
-    modBuilder.add(getDefinition().getData().getTraits());
-    List<PartRequirement> parts = getDefinition().getData().getParts();
-    MaterialNBT materials = getMaterials();
-    int max = Math.min(materials.size(), parts.size());
-    for (int i = 0; i < max; i++) {
-      modBuilder.add(MaterialRegistry.getInstance().getTraits(materials.get(i).getId(), parts.get(i).getStatType()));
-    }
-    // intermediate modifier list before we add modifier traits
-    ModifierNBT beforeTraits = modBuilder.build();
+    // add tool slots to volatile data, ensures it is there even from an empty tool, and properly updates on datapack update
+    ToolDefinitionData toolData = getDefinitionData();
+    ModDataNBT volatileData = new ModDataNBT();
+    toolData.buildSlots(volatileData);
+    ModDataNBT persistentData = getPersistentData();
+    // migrate from the legacy tag to the current tag
+    // TODO: remove this migration in 1.19
+    if (nbt.contains(TAG_PERSISTENT_LEGACY_DATA, Tag.TAG_COMPOUND)) {
+      // merge is a little overkill since non-legacy should be empty, but better safe than deleting new persistent data
+      persistentData.getData().merge(nbt.getCompound(TAG_PERSISTENT_LEGACY_DATA));
+      nbt.remove(TAG_PERSISTENT_LEGACY_DATA);
 
-    // pass in the list to stats, note for no part tools this should always be empty
+      // if we had a legacy tag, we likely have  too many slots as the legacy tag put the slots in persistent data instead of volatile
+      if (persistentData.getBoolean(NEEDS_SLOTS_BUILT)) {
+        // an exception is if the legacy data set "needs slots built", which means it does not have slots and requests them added
+        persistentData.remove(NEEDS_SLOTS_BUILT);
+      } else {
+        // luckily, it's as simple as subtracting the slots from persistent data, new tools will not need this
+        toolData.migrateLegacySlots(persistentData);
+      }
+    }
+
+    // after slots, time to build stats
+    MaterialNBT materials = getMaterials();
     StatsNBT stats = definition.buildStats(materials);
     ModifierStatsBuilder statBuilder = ModifierStatsBuilder.builder();
-    definition.getData().buildStatMultipliers(statBuilder);
+    toolData.buildStatMultipliers(statBuilder);
 
-    // next, update modifier related properties
+    // next, determine the list of modifiers, this is done in a couple stages
+    // we start by cloning upgrades and adding tool traits and material traits
+    ModifierNBT.Builder modBuilder = ModifierNBT.builder();
+    modBuilder.add(getUpgrades());
+    modBuilder.add(toolData.getTraits());
+    List<PartRequirement> parts = getDefinition().getData().getParts();
+    int max = Math.min(materials.size(), parts.size());
+    IMaterialRegistry materialRegistry = MaterialRegistry.getInstance();
+    for (int i = 0; i < max; i++) {
+      modBuilder.add(materialRegistry.getTraits(materials.get(i).getId(), parts.get(i).getStatType()));
+    }
+    ModifierNBT beforeTraits = modBuilder.build();
+
+    // next, update modifier related properties, can skip if we have none
     List<ModifierEntry> modifierList = Collections.emptyList();
     if (beforeTraits.isEmpty()) {
       // if no modifiers, clear out data that only exists with modifiers
+      // no way to have modifier traits without modifiers
       nbt.remove(TAG_VOLATILE_MOD_DATA);
       setModifiers(ModifierNBT.EMPTY);
-      volatileModData = IModDataView.EMPTY;
     } else {
-      ModDataNBT volatileData = new ModDataNBT();
       // temporary context while we add modifier traits
-      ToolRebuildContext context = new ToolRebuildContext(item, getDefinition(), getMaterials(), getUpgrades(), beforeTraits, stats, getPersistentData(), volatileData);
+      ToolRebuildContext context = new ToolRebuildContext(item, getDefinition(), getMaterials(), getUpgrades(), beforeTraits, stats, persistentData, volatileData);
       modBuilder = ModifierNBT.builder();
       TraitBuilder traitBuilder = new TraitBuilder(context, modBuilder);
       for (ModifierEntry entry : beforeTraits.getModifiers()) {
@@ -716,9 +737,9 @@ public class ToolStack implements IToolStackView {
       }
 
       // set into NBT
-      setVolatileModData(volatileData);
     }
     // build stats from the tool stats
+    setVolatileModData(volatileData);
     setStats(statBuilder.build(stats, item));
     setMultipliers(statBuilder.buildMultipliers(item));
 
@@ -811,9 +832,8 @@ public class ToolStack implements IToolStackView {
         resolved.updateNBT(tag);
       }
     }
-    // rebuild stats
+    // rebuild stats if we have required data (skip if multipart with no materials)
     ToolStack tool = ToolStack.from(item, definition, tag);
-    tool.ensureSlotsBuilt();
     if (hasMaterials || !definition.isMultipart()) {
       tool.rebuildStats();
     }
