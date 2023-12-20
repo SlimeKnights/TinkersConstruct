@@ -14,6 +14,7 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 import net.minecraftforge.fluids.FluidAttributes;
 import slimeknights.mantle.recipe.data.FluidNameIngredient;
+import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.fluids.TinkerFluids;
@@ -34,6 +35,8 @@ import slimeknights.tconstruct.library.modifiers.spilling.effects.SetFireSpillin
 import slimeknights.tconstruct.library.modifiers.spilling.effects.TeleportSpillingEffect;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.TagPredicate;
+import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.StrongBonesModifier;
 
@@ -77,7 +80,7 @@ public class SpillingFluidProvider extends AbstractSpillingFluidProvider {
     // slimelike
     // blood - food
     addFluid(TinkerFluids.blood.getLocalTag(), slimeballPiece)
-      .addEffect(new RestoreHungerSpillingEffect(1, 0.2f))
+      .addEffect(new RestoreHungerSpillingEffect(1, 0.2f, ItemOutput.fromItem(TinkerFluids.slimeBottle.get(SlimeType.BLOOD))))
       .addEffect(new EffectSpillingEffect(MobEffects.DIG_SLOWDOWN, 10, 1));
     // venom - poison & strength
     addFluid(TinkerFluids.venom.getLocalTag(), slimeballPiece)
@@ -97,17 +100,17 @@ public class SpillingFluidProvider extends AbstractSpillingFluidProvider {
 
     // foods
     addFluid(TinkerFluids.honey.getForgeTag(), slimeballPiece)
-      .addEffect(new RestoreHungerSpillingEffect(1, 0.02f))
+      .addEffect(new RestoreHungerSpillingEffect(1, 0.02f, ItemOutput.fromItem(Items.HONEY_BOTTLE)))
       .addEffect(new RemoveEffectSpillingEffect(MobEffects.POISON));
     addFluid(TinkerFluids.beetrootSoup.getForgeTag(), slimeballPiece)
-      .addEffect(new RestoreHungerSpillingEffect(1, 0.15f));
+      .addEffect(new RestoreHungerSpillingEffect(1, 0.15f, ItemOutput.fromItem(Items.BEETROOT_SOUP)));
     addFluid(TinkerFluids.mushroomStew.getForgeTag(), slimeballPiece)
-      .addEffect(new RestoreHungerSpillingEffect(1, 0.15f));
+      .addEffect(new RestoreHungerSpillingEffect(1, 0.15f, ItemOutput.fromItem(Items.MUSHROOM_STEW)));
     addFluid(TinkerFluids.rabbitStew.getForgeTag(), slimeballPiece)
-      .addEffect(new RestoreHungerSpillingEffect(2, 0.10f));
+      .addEffect(new RestoreHungerSpillingEffect(2, 0.10f, ItemOutput.fromItem(Items.RABBIT_STEW)));
     // pig iron fills you up food, but still hurts
     addFluid(TinkerFluids.moltenPigIron.getLocalTag(), FluidValues.NUGGET)
-      .addEffect(new RestoreHungerSpillingEffect(2, 0.3f))
+      .addEffect(new RestoreHungerSpillingEffect(2, 0.3f, ItemOutput.fromItem(TinkerCommons.bacon)))
       .addEffect(new SetFireSpillingEffect(2));
 
     // metals, lose reference to mistborn (though a true fan would probably get angry at how much I stray from the source)

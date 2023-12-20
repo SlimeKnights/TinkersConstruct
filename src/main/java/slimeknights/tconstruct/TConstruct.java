@@ -48,6 +48,7 @@ import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.Tin
 import slimeknights.tconstruct.library.tools.definition.ToolDefinitionLoader;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
 import slimeknights.tconstruct.library.utils.Util;
+import slimeknights.tconstruct.plugin.DietPlugin;
 import slimeknights.tconstruct.plugin.ImmersiveEngineeringPlugin;
 import slimeknights.tconstruct.plugin.jsonthings.JsonThingsPlugin;
 import slimeknights.tconstruct.shared.TinkerClient;
@@ -115,9 +116,6 @@ public class TConstruct {
     TinkerBookIDs.registerCommandSuggestion();
     DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> TinkerClient::onConstruct);
     MinecraftForge.EVENT_BUS.register(this);
-//    if (ModList.get().isLoaded("crafttweaker")) {
-//      MinecraftForge.EVENT_BUS.register(new CRTHelper());
-//    }
 
     // compat
     ModList modList = ModList.get();
@@ -126,6 +124,9 @@ public class TConstruct {
     }
     if (modList.isLoaded("jsonthings")) {
       JsonThingsPlugin.onConstruct();
+    }
+    if (modList.isLoaded("diet")) {
+      DietPlugin.onConstruct();
     }
   }
 
