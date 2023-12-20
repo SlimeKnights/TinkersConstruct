@@ -24,7 +24,6 @@ import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHoo
 import slimeknights.tconstruct.library.tools.capability.EntityModifierCapability;
 import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
-import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -33,12 +32,10 @@ import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
-import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockingModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ScopeModifier;
 
 import java.util.function.Predicate;
-
-import static slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ScopeModifier.SCOPE;
 
 public class ModifiableBowItem extends ModifiableLauncherItem {
   public ModifiableBowItem(Properties properties, ToolDefinition toolDefinition) {
@@ -104,9 +101,7 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
   @Override
   public void releaseUsing(ItemStack bow, Level level, LivingEntity living, int timeLeft) {
     // clear zoom regardless, does not matter if the tool broke, we should not be zooming
-    if (level.isClientSide) {
-      living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).remove(SCOPE));
-    }
+    ScopeModifier.stopScoping(living);
 
     // need player
     if (!(living instanceof Player player)) {
@@ -197,27 +192,5 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
 
     // stats and sounds
     player.awardStat(Stats.ITEM_USED.get(this));
-  }
-
-  @SuppressWarnings("deprecation") // forge is being dumb here, their method is identical to the vanilla one
-  @Override
-  public void onUseTick(Level level, LivingEntity living, ItemStack bow, int chargeRemaining) {
-    // play the sound at the end of loading as an indicator its loaded, texture is another indicator
-    if (!level.isClientSide) {
-      if (getUseDuration(bow) - chargeRemaining == ModifierUtil.getPersistentInt(bow, KEY_DRAWTIME, -1)) {
-        level.playSound(null, living.getX(), living.getY(), living.getZ(), SoundEvents.CROSSBOW_LOADING_MIDDLE, SoundSource.PLAYERS, 0.75F, 1.0F);
-      }
-    }
-    else if (ModifierUtil.getModifierLevel(bow, TinkerModifiers.scope.getId()) > 0) {
-      int chargeTime = this.getUseDuration(bow) - chargeRemaining;
-      if (chargeTime > 0) {
-        living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
-          float totalTime = data.get(DRAWSPEED, 0f);
-          if (totalTime > 0) {
-            data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).set(SCOPE, 1 - (0.6f * Math.min(totalTime * chargeTime, 1)));
-          }
-        });
-      }
-    }
   }
 }

@@ -29,6 +29,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.ToolActions;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
@@ -50,6 +51,7 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockingModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ScopeModifier;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -256,6 +258,8 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
 
   @Override
   public void releaseUsing(ItemStack bow, Level level, LivingEntity living, int chargeRemaining) {
+    // clear zoom regardless, does not matter if the tool broke, we should not be zooming
+    ScopeModifier.stopScoping(living);
     if (!(living instanceof Player player)) {
       return;
     }
@@ -283,18 +287,6 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
           fireCrossbow(tool, player, player.getUsedItemHand(), ammoNBT);
         }
       }
-    }
-  }
-
-
-  /* Drawback sounds */
-
-  @SuppressWarnings("deprecation") // forge is being dumb here, their method is identical to the vanilla one
-  @Override
-  public void onUseTick(Level level, LivingEntity living, ItemStack bow, int chargeRemaining) {
-    // play the sound at the end of loading as an indicator its loaded, texture is another indicator
-    if (!level.isClientSide && (getUseDuration(bow) - chargeRemaining) == ModifierUtil.getPersistentInt(bow, KEY_DRAWTIME, -1)) {
-      level.playSound(null, living.getX(), living.getY(), living.getZ(), SoundEvents.CROSSBOW_LOADING_MIDDLE, SoundSource.PLAYERS, 0.75F, 1.0F);
     }
   }
 
