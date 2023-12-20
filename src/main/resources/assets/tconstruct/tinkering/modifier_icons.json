@@ -23,6 +23,7 @@
   "tconstruct:fireprimer":  ["minecraft:item/fire_charge", "tconstruct:gui/modifiers/book"],
   "tconstruct:glowing":     "tconstruct:gui/modifiers/glowing",
   "tconstruct:pathing":     "tconstruct:gui/modifiers/held/pathing",
+  "tconstruct:spitting":    "tconstruct:gui/modifiers/held/spitting",
   "tconstruct:stripping":   "tconstruct:gui/modifiers/held/stripping",
   "tconstruct:tilling":     "tconstruct:gui/modifiers/held/tilling",
   "tconstruct:offhanded":   "tconstruct:gui/modifiers/held/offhanded",

@@ -14,6 +14,6 @@
   "slots": {
     "abilities": 1
   },
-  "modifier": "tconstruct:flinging",
+  "modifier": "tconstruct:spitting",
   "min_level": 1
 }

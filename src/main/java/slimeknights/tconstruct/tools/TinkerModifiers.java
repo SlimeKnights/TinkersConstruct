@@ -3,6 +3,8 @@ package slimeknights.tconstruct.tools;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -126,6 +128,8 @@ import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.BlockTransfo
 import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.FlamewakeModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.FrostWalkerModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.SnowdriftModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.fluid.SpittingModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.fluid.SpittingModifier.FluidSpitEntity;
 import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockTransformModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.interaction.FirestarterModifier;
@@ -300,6 +304,10 @@ public final class TinkerModifiers extends TinkerModule {
   public static final ItemObject<Item> modifierCrystal = ITEMS.register("modifier_crystal", () -> new ModifierCrystalItem(new Item.Properties().tab(TAB_TOOLS).stacksTo(16)));
   public static final ItemObject<Item> creativeSlotItem = ITEMS.register("creative_slot", () -> new CreativeSlotItem(new Item.Properties().tab(TAB_TOOLS)));
 
+  // entity
+  public static final RegistryObject<EntityType<FluidSpitEntity>> fluidSpitEntity = ENTITIES.register("fluid_spit", () ->
+    EntityType.Builder.<FluidSpitEntity>of(FluidSpitEntity::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10).setShouldReceiveVelocityUpdates(false));
+
   /*
    * Modifiers
    */
@@ -406,6 +414,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<TankModifier> tank = MODIFIERS.register("tank", () -> new TankModifier(FluidAttributes.BUCKET_VOLUME));
   public static final StaticModifier<BucketingModifier> bucketing = MODIFIERS.register("bucketing", BucketingModifier::new);
   public static final StaticModifier<SpillingModifier> spilling = MODIFIERS.register("spilling", SpillingModifier::new);
+  public static final StaticModifier<SpittingModifier> spitting = MODIFIERS.register("spitting", SpittingModifier::new);
   
   // right click abilities
   public static final StaticModifier<GlowingModifier> glowing = MODIFIERS.register("glowing", GlowingModifier::new);

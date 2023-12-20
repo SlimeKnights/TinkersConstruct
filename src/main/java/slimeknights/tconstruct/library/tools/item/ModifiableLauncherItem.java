@@ -336,7 +336,7 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
   /* Multishot helper */
 
   /** Gets the angle to fire the first arrow, each additional arrow offsets an additional 10 degrees */
-  protected static float getAngleStart(int count) {
+  public static float getAngleStart(int count) {
     return -5 * (count - 1);
   }
 }

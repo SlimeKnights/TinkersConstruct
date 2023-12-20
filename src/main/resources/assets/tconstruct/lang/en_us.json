@@ -2163,6 +2163,9 @@
   "modifier.tconstruct.wetting": "Wetting",
   "modifier.tconstruct.wetting.flavor": "Not that kind of wetting",
   "modifier.tconstruct.wetting.description": "Causes you to wet yourself when damaged, applying different effects based on the contained fluid",
+  "modifier.tconstruct.spitting": "Spitting",
+  "modifier.tconstruct.spitting.flavor": "Become the better llama",
+  "modifier.tconstruct.spitting.description": "Can charge the tool to launch fluid projectiles from the tank, applying the effect to the target. Affected by bow stats.",
 
   "_comment": "Bonus modifier slots",
   "modifier.tconstruct.creative_slot": "Creative Slot",

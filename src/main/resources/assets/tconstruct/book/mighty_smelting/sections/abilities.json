@@ -96,6 +96,10 @@
   },
   {
     "type": "tconstruct:modifier",
+    "data": "abilities/interact/spitting.json"
+  },
+  {
+    "type": "tconstruct:modifier",
     "data": "abilities/interact/springing.json"
   },
   {

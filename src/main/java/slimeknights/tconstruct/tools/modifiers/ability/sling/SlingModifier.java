@@ -12,15 +12,11 @@ import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInterac
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
-import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
-import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
-import slimeknights.tconstruct.library.tools.item.ModifiableLauncherItem;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerModifiers;
-
-import static slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ScopeModifier.SCOPE;
+import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ScopeModifier;
 
 /**
  * Shared logic for all slinging modifiers
@@ -35,27 +31,20 @@ public abstract class SlingModifier extends NoLevelsModifier implements GeneralI
   public InteractionResult onToolUse(IToolStackView tool, ModifierEntry modifier, Player player, InteractionHand hand, InteractionSource source) {
     if (!tool.isBroken() && source == InteractionSource.RIGHT_CLICK) {
       ModifierUtil.startUsingItemWithDrawtime(tool, modifier.getId(), player, hand, 1.5f);
+      return InteractionResult.SUCCESS;
     }
-    return InteractionResult.SUCCESS;
+    return InteractionResult.PASS;
   }
+
 
   @Override
   public void onUsingTick(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {
-    if (entity.level.isClientSide && tool.getModifierLevel(TinkerModifiers.scope.getId()) > 0) {
-      float drawTime = tool.getPersistentData().getInt(ModifiableLauncherItem.KEY_DRAWTIME);
-      float chargeTime = this.getUseDuration(tool, modifier) - timeLeft;
-      if (chargeTime > 0 && drawTime > 0) {
-        entity.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data ->
-          data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).set(SCOPE, 1 - (0.6f * Math.min(chargeTime / drawTime, 1))));
-      }
-    }
+    ScopeModifier.scopingUsingTick(tool, entity, getUseDuration(tool, modifier) - timeLeft);
   }
 
   @Override
   public boolean onStoppedUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {
-    if (entity.level.isClientSide) {
-      entity.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).remove(SCOPE));
-    }
+    ScopeModifier.stopScoping(entity);
     return false;
   }
 
