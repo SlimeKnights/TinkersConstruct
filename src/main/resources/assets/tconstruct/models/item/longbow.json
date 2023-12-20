@@ -34,6 +34,22 @@
     {
       "predicate": { "pulling": 1, "pull": 1.0 },
       "model": "tconstruct:item/longbow/pulling_3"
+    },
+    {
+      "predicate": { "pulling": 2 },
+      "model": "tconstruct:item/longbow/blocking"
+    },
+    {
+      "predicate": { "pulling": 2, "pull": 0.05 },
+      "model": "tconstruct:item/longbow/blocking_1"
+    },
+    {
+      "predicate": { "pulling": 2, "pull": 0.6 },
+      "model": "tconstruct:item/longbow/blocking_2"
+    },
+    {
+      "predicate": { "pulling": 2, "pull": 1.0 },
+      "model": "tconstruct:item/longbow/blocking_3"
     }
   ]
 }

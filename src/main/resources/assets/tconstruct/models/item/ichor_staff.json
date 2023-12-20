@@ -16,27 +16,47 @@
   "overrides": [
     {
       "predicate": { "tconstruct:charging": 1 },
-      "model": "tconstruct:item/slimestaff/ichor_charging_1"
+      "model": "tconstruct:item/slimestaff/ichor/charging_1"
     },
     {
       "predicate": { "tconstruct:charging": 1, "tconstruct:charge": 0.4 },
-      "model": "tconstruct:item/slimestaff/ichor_charging_2"
+      "model": "tconstruct:item/slimestaff/ichor/charging_2"
     },
     {
       "predicate": { "tconstruct:charging": 1, "tconstruct:charge": 0.7 },
-      "model": "tconstruct:item/slimestaff/ichor_charging_3"
+      "model": "tconstruct:item/slimestaff/ichor/charging_3"
     },
     {
       "predicate": { "tconstruct:charging": 1, "tconstruct:charge": 0.9 },
-      "model": "tconstruct:item/slimestaff/ichor_charging_4"
+      "model": "tconstruct:item/slimestaff/ichor/charging_4"
     },
     {
       "predicate": { "tconstruct:charging": 1, "tconstruct:charge": 1.0 },
-      "model": "tconstruct:item/slimestaff/ichor_charging_5"
+      "model": "tconstruct:item/slimestaff/ichor/charging_5"
     },
     {
       "predicate": { "tconstruct:charging": 2 },
-      "model": "tconstruct:item/blocking/ichor_staff"
+      "model": "tconstruct:item/slimestaff/ichor/blocking"
+    },
+    {
+      "predicate": { "tconstruct:charging": 2, "tconstruct:charge": 0.05 },
+      "model": "tconstruct:item/slimestaff/ichor/blocking_1"
+    },
+    {
+      "predicate": { "tconstruct:charging": 2, "tconstruct:charge": 0.4 },
+      "model": "tconstruct:item/slimestaff/ichor/blocking_2"
+    },
+    {
+      "predicate": { "tconstruct:charging": 2, "tconstruct:charge": 0.7 },
+      "model": "tconstruct:item/slimestaff/ichor/blocking_3"
+    },
+    {
+      "predicate": { "tconstruct:charging": 2, "tconstruct:charge": 0.9 },
+      "model": "tconstruct:item/slimestaff/ichor/blocking_4"
+    },
+    {
+      "predicate": { "tconstruct:charging": 2, "tconstruct:charge": 1.0 },
+      "model": "tconstruct:item/slimestaff/ichor/blocking_5"
     }
   ]
 }

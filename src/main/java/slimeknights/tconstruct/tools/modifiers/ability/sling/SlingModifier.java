@@ -16,6 +16,7 @@ import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ScopeModifier;
 
 /**
@@ -55,7 +56,7 @@ public abstract class SlingModifier extends NoLevelsModifier implements GeneralI
 
   @Override
   public UseAnim getUseAction(IToolStackView tool, ModifierEntry modifier) {
-    return UseAnim.BOW;
+    return BlockingModifier.blockWhileCharging(tool, UseAnim.BOW);
   }
 
   /** Gets the force to launch the sling at, considers drawspeed and velocity */

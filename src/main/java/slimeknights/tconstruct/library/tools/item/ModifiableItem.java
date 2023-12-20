@@ -375,17 +375,17 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
   public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
     ToolStack tool = ToolStack.from(stack);
     ModifierEntry activeModifier = ModifierUtil.getActiveModifier(tool);
-    ModifierUtil.finishUsingItem(tool);
     if (activeModifier != null) {
       activeModifier.getHook(TinkerHooks.CHARGEABLE_INTERACT).onFinishUsing(tool, activeModifier, entityLiving);
-      return stack;
-    }
-    // TODO: legacy call to hook, remove in 1.19. All modifiers should use the new hook as its smarter
-    for (ModifierEntry entry : tool.getModifierList()) {
-      if (entry.getHook(TinkerHooks.GENERAL_INTERACT).onFinishUsing(tool, entry, entityLiving)) {
-        return stack;
+    } else {
+      // TODO: legacy call to hook, remove in 1.19. All modifiers should use the new hook as its smarter
+      for (ModifierEntry entry : tool.getModifierList()) {
+        if (entry.getHook(TinkerHooks.GENERAL_INTERACT).onFinishUsing(tool, entry, entityLiving)) {
+          break;
+        }
       }
     }
+    ModifierUtil.finishUsingItem(tool);
     return stack;
   }
 
@@ -393,18 +393,17 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
   public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
     ToolStack tool = ToolStack.from(stack);
     ModifierEntry activeModifier = ModifierUtil.getActiveModifier(tool);
-    ModifierUtil.finishUsingItem(tool);
     if (activeModifier != null) {
       activeModifier.getHook(TinkerHooks.CHARGEABLE_INTERACT).onStoppedUsing(tool, activeModifier, entityLiving, timeLeft);
-      return;
-    }
-    // TODO: legacy call to hook, remove in 1.19. All modifiers should use the new hook as its smarter
-    for (ModifierEntry entry : tool.getModifierList()) {
-      boolean result = entry.getHook(TinkerHooks.GENERAL_INTERACT).onStoppedUsing(tool, entry, entityLiving, timeLeft);
-      if (result) {
-        return;
+    } else {
+      // TODO: legacy call to hook, remove in 1.19. All modifiers should use the new hook as its smarter
+      for (ModifierEntry entry : tool.getModifierList()) {
+        if (entry.getHook(TinkerHooks.GENERAL_INTERACT).onStoppedUsing(tool, entry, entityLiving, timeLeft)) {
+          break;
+        }
       }
     }
+    ModifierUtil.finishUsingItem(tool);
   }
 
   @Override

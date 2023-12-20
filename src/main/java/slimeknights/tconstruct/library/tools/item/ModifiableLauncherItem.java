@@ -51,8 +51,11 @@ import java.util.function.Consumer;
 
 /** Base class for any items that launch projectiles */
 public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implements IModifiableDisplay {
-  /** Drawspeed as of the time this launcher started charging, used clientside for various features including scope and the model.
-   * Not necessary to clear as its only used by logic that checks other hooks to see if a bow is drawing */
+  /**
+   * Drawspeed as of the time this launcher started charging. No longer used in favor of {@link #KEY_DRAWTIME}.
+   * @deprecated use {@link #KEY_DRAWTIME} with {@link ModifierUtil#getPersistentInt(ItemStack, ResourceLocation, int)}.
+   */
+  @Deprecated
   public static final TinkerDataKey<Float> DRAWSPEED = TConstruct.createKey("drawspeed");
   /** Int version of above, just used for sound effects */
   public static final ResourceLocation KEY_DRAWTIME = TConstruct.getResource("drawtime");
@@ -259,6 +262,12 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
 
   @Override
   public abstract UseAnim getUseAnimation(ItemStack pStack);
+
+  @Override
+  public ItemStack finishUsingItem(ItemStack stack, Level pLevel, LivingEntity living) {
+    ToolStack.from(stack).getPersistentData().remove(KEY_DRAWTIME);
+    return stack;
+  }
 
 
   /* Tooltips */

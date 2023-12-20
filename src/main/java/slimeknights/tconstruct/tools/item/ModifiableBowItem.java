@@ -14,6 +14,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.ForgeEventFactory;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -33,6 +34,7 @@ import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockingModifier;
 
 import java.util.function.Predicate;
 
@@ -57,8 +59,8 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
   }
 
   @Override
-  public UseAnim getUseAnimation(ItemStack pStack) {
-    return UseAnim.BOW;
+  public UseAnim getUseAnimation(ItemStack stack) {
+    return BlockingModifier.blockWhileCharging(ToolStack.from(stack), UseAnim.BOW);
   }
 
 
@@ -78,7 +80,13 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
     if (override != null) {
       return override;
     }
+    // if no ammo, cannot fire
     if (!player.getAbilities().instabuild && !hasAmmo) {
+      // however, we can block if enabled
+      if (ModifierUtil.canPerformAction(tool, ToolActions.SHIELD_BLOCK)) {
+        player.startUsingItem(hand);
+        return InteractionResultHolder.consume(bow);
+      }
       return InteractionResultHolder.fail(bow);
     }
     player.startUsingItem(hand);
@@ -106,21 +114,23 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
     }
     // no broken
     ToolStack tool = ToolStack.from(bow);
+    tool.getPersistentData().remove(KEY_DRAWTIME);
     if (tool.isBroken()) {
       return;
     }
 
-    // its a little redundant to search for ammo twice, but otherwise we risk shrinking the stack before we know if we can fire
-    boolean hasAmmo = BowAmmoModifierHook.hasAmmo(tool, bow, player, getSupportedHeldProjectiles());
-
     // just not handling vanilla infinity at all, we have our own hooks which someone could use to mimic infinity if they wish with a bit of effort
     boolean creative = player.getAbilities().instabuild;
+    // its a little redundant to search for ammo twice, but otherwise we risk shrinking the stack before we know if we can fire
+    // sldo helps blocking, as you can block without ammo
+    boolean hasAmmo = creative || BowAmmoModifierHook.hasAmmo(tool, bow, player, getSupportedHeldProjectiles());
+
     // ask forge its thoughts on shooting
     int chargeTime = this.getUseDuration(bow) - timeLeft;
-    chargeTime = ForgeEventFactory.onArrowLoose(bow, level, player, chargeTime, hasAmmo || creative);
+    chargeTime = ForgeEventFactory.onArrowLoose(bow, level, player, chargeTime, hasAmmo);
 
     // no ammo? no charge? nothing to do
-    if (chargeTime < 0) {
+    if (!hasAmmo || chargeTime < 0) {
       return;
     }
 
@@ -194,7 +204,7 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
   public void onUseTick(Level level, LivingEntity living, ItemStack bow, int chargeRemaining) {
     // play the sound at the end of loading as an indicator its loaded, texture is another indicator
     if (!level.isClientSide) {
-      if (getUseDuration(bow) - chargeRemaining == ModifierUtil.getPersistentInt(bow, KEY_DRAWTIME, 0)) {
+      if (getUseDuration(bow) - chargeRemaining == ModifierUtil.getPersistentInt(bow, KEY_DRAWTIME, -1)) {
         level.playSound(null, living.getX(), living.getY(), living.getZ(), SoundEvents.CROSSBOW_LOADING_MIDDLE, SoundSource.PLAYERS, 0.75F, 1.0F);
       }
     }

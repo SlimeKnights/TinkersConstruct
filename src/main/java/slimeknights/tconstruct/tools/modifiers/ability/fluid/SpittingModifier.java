@@ -42,6 +42,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ScopeModifier;
 
 /** Modifier that fires fluid as a projectile */
@@ -62,7 +63,7 @@ public class SpittingModifier extends Modifier implements GeneralInteractionModi
 
   @Override
   public UseAnim getUseAction(IToolStackView tool, ModifierEntry modifier) {
-    return UseAnim.BOW;
+    return BlockingModifier.blockWhileCharging(tool, UseAnim.BOW);
   }
 
   @Override

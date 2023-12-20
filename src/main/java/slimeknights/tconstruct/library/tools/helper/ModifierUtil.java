@@ -33,6 +33,7 @@ import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.item.ModifiableLauncherItem;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -394,7 +395,9 @@ public final class ModifierUtil {
 
   /** Called to clear any data modifiers set when usage starts */
   public static void finishUsingItem(IToolStackView tool) {
-    tool.getPersistentData().remove(ACTIVE_MODIFIER);
+    ModDataNBT persistentData = tool.getPersistentData();
+    persistentData.remove(ACTIVE_MODIFIER);
+    persistentData.remove(ModifiableLauncherItem.KEY_DRAWTIME);
   }
 
   /** Calculates inaccuracy from the conditional tool stat. TODO: reconsidering velocity impacting inaccuracy, remove parameter in 1.19 */

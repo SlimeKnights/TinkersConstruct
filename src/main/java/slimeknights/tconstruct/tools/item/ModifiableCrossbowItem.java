@@ -49,6 +49,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockingModifier;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -83,9 +84,9 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
   }
 
   @Override
-  public UseAnim getUseAnimation(ItemStack pStack) {
+  public UseAnim getUseAnimation(ItemStack stack) {
     // crossbow is superhardcoded to crossbows, so use none and rely on the model
-    return UseAnim.NONE;
+    return BlockingModifier.blockWhileCharging(ToolStack.from(stack), UseAnim.NONE);
   }
 
   @Override
@@ -114,14 +115,14 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
     }
 
     // yeah, its hardcoded, I cannot see a need to not hardcode this, request it if you need it
-    boolean sinistral = hand == InteractionHand.MAIN_HAND && tool.getModifierLevel(TinkerModifiers.sinistral.getId()) > 0 && !player.getOffhandItem().isEmpty();
+    boolean sinistral = hand == InteractionHand.MAIN_HAND && tool.getModifierLevel(TinkerModifiers.sinistral.getId()) > 0;
 
     // no ammo? not charged
     ModDataNBT persistentData = tool.getPersistentData();
     CompoundTag heldAmmo = persistentData.getCompound(KEY_CROSSBOW_AMMO);
     if (heldAmmo.isEmpty()) {
       // do not charge if sneaking and we have sinistral, gives you a way to activate the offhand when the crossbow is not charged
-      if (sinistral && player.isCrouching()) {
+      if (sinistral && !player.getOffhandItem().isEmpty() && player.isCrouching()) {
         return InteractionResultHolder.pass(bow);
       }
 
@@ -136,14 +137,25 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
           level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.CROSSBOW_QUICK_CHARGE_1, SoundSource.PLAYERS, 0.75F, 1.0F);
         }
         return InteractionResultHolder.consume(bow);
+        // no ammo still lets us block
+      } else if (ModifierUtil.canPerformAction(tool, ToolActions.SHIELD_BLOCK)) {
+        player.startUsingItem(hand);
+        return InteractionResultHolder.consume(bow);
       } else {
         return InteractionResultHolder.fail(bow);
       }
     }
 
-    // sinistral shoots on left click when in main hand
+    // sinistral shoots on left click when in main hand, and lets us block instead of shooting if the offhand is empty
     if (sinistral) {
-      return InteractionResultHolder.pass(bow);
+      ItemStack offhand = player.getOffhandItem();
+      if (!offhand.isEmpty() && !offhand.is(Items.FIREWORK_ROCKET)) {
+        return InteractionResultHolder.pass(bow);
+      }
+      if (ModifierUtil.canPerformAction(tool, ToolActions.SHIELD_BLOCK)) {
+        player.startUsingItem(hand);
+        return InteractionResultHolder.consume(bow);
+      }
     }
 
     // ammo already loaded? time to fire
@@ -257,6 +269,7 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
     if ((getUseDuration(bow) - chargeRemaining) < persistentData.getInt(KEY_DRAWTIME)) {
       return;
     }
+    persistentData.remove(KEY_DRAWTIME);
 
     // find ammo and store it on the bow
     ItemStack ammo = BowAmmoModifierHook.findAmmo(tool, bow, player, getSupportedHeldProjectiles());
@@ -280,7 +293,7 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
   @Override
   public void onUseTick(Level level, LivingEntity living, ItemStack bow, int chargeRemaining) {
     // play the sound at the end of loading as an indicator its loaded, texture is another indicator
-    if (!level.isClientSide && (getUseDuration(bow) - chargeRemaining) == ModifierUtil.getPersistentInt(bow, KEY_DRAWTIME, 0)) {
+    if (!level.isClientSide && (getUseDuration(bow) - chargeRemaining) == ModifierUtil.getPersistentInt(bow, KEY_DRAWTIME, -1)) {
       level.playSound(null, living.getX(), living.getY(), living.getZ(), SoundEvents.CROSSBOW_LOADING_MIDDLE, SoundSource.PLAYERS, 0.75F, 1.0F);
     }
   }

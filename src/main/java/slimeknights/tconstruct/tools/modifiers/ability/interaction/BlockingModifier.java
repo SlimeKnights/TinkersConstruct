@@ -44,4 +44,12 @@ public class BlockingModifier extends NoLevelsModifier implements GeneralInterac
   public boolean canPerformAction(IToolStackView tool, int level, ToolAction toolAction) {
     return toolAction == ToolActions.SHIELD_BLOCK;
   }
+
+  /**
+   * Makes the tool use the blocking animation if the blocking modifier is installed, falling back to the given animation.
+   * Allows your tool to block while charging up.
+   */
+  public static UseAnim blockWhileCharging(IToolStackView tool, UseAnim fallback) {
+    return ModifierUtil.canPerformAction(tool, ToolActions.SHIELD_BLOCK) ? UseAnim.BLOCK : fallback;
+  }
 }
