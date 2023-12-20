@@ -83,7 +83,6 @@ public class SkySlimeEntity extends ArmoredSlimeEntity {
 
       // for plate, just init stats
       ToolStack tool = ToolStack.from(helmet);
-      tool.ensureSlotsBuilt();
       ModifierNBT modifiers = tool.getUpgrades();
       ModDataNBT persistentData = tool.getPersistentData();
       if (!isPlate) {
@@ -108,6 +107,7 @@ public class SkySlimeEntity extends ArmoredSlimeEntity {
         modifiers = modifiers.withModifier(random.nextBoolean() ? ModifierIds.emerald : ModifierIds.diamond, 1);
       }
 
+      // triggers stat rebuild
       tool.setUpgrades(modifiers);
 
       // finally, give the slime the helmet

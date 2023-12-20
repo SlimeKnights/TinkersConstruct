@@ -3,6 +3,8 @@ package slimeknights.tconstruct.tools;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -45,7 +47,6 @@ import slimeknights.tconstruct.library.modifiers.dynamic.SwappableExtraSlotModif
 import slimeknights.tconstruct.library.modifiers.impl.ScaledArmorLevelModifier;
 import slimeknights.tconstruct.library.modifiers.impl.SingleLevelModifier;
 import slimeknights.tconstruct.library.modifiers.impl.TankModifier;
-import slimeknights.tconstruct.library.modifiers.impl.TotalArmorLevelModifier;
 import slimeknights.tconstruct.library.modifiers.modules.AttributeModule;
 import slimeknights.tconstruct.library.modifiers.modules.ConditionalDamageModule;
 import slimeknights.tconstruct.library.modifiers.modules.ConditionalMiningSpeedModule;
@@ -56,9 +57,12 @@ import slimeknights.tconstruct.library.modifiers.modules.MobDisguiseModule;
 import slimeknights.tconstruct.library.modifiers.modules.MobEffectModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierSlotModule;
+import slimeknights.tconstruct.library.modifiers.modules.ModifierTraitModule;
 import slimeknights.tconstruct.library.modifiers.modules.RarityModule;
 import slimeknights.tconstruct.library.modifiers.modules.RepairModule;
 import slimeknights.tconstruct.library.modifiers.modules.SwappableSlotModule;
+import slimeknights.tconstruct.library.modifiers.modules.TankCapacityModule;
+import slimeknights.tconstruct.library.modifiers.modules.TankModule;
 import slimeknights.tconstruct.library.modifiers.modules.ToolActionsModule;
 import slimeknights.tconstruct.library.modifiers.modules.ToolStatModule;
 import slimeknights.tconstruct.library.modifiers.modules.VolatileFlagModule;
@@ -124,6 +128,8 @@ import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.BlockTransfo
 import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.FlamewakeModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.FrostWalkerModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.SnowdriftModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.fluid.SpittingModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.fluid.SpittingModifier.FluidSpitEntity;
 import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockTransformModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.interaction.FirestarterModifier;
@@ -298,6 +304,10 @@ public final class TinkerModifiers extends TinkerModule {
   public static final ItemObject<Item> modifierCrystal = ITEMS.register("modifier_crystal", () -> new ModifierCrystalItem(new Item.Properties().tab(TAB_TOOLS).stacksTo(16)));
   public static final ItemObject<Item> creativeSlotItem = ITEMS.register("creative_slot", () -> new CreativeSlotItem(new Item.Properties().tab(TAB_TOOLS)));
 
+  // entity
+  public static final RegistryObject<EntityType<FluidSpitEntity>> fluidSpitEntity = ENTITIES.register("fluid_spit", () ->
+    EntityType.Builder.<FluidSpitEntity>of(FluidSpitEntity::new, MobCategory.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10).setShouldReceiveVelocityUpdates(false));
+
   /*
    * Modifiers
    */
@@ -366,7 +376,6 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<ItemFrameModifier> itemFrame = MODIFIERS.register("item_frame", ItemFrameModifier::new);
   public static final StaticModifier<ZoomModifier> zoom = MODIFIERS.register("zoom", ZoomModifier::new);
   public static final StaticModifier<SlurpingModifier> slurping = MODIFIERS.register("slurping", SlurpingModifier::new);
-  public static final StaticModifier<TotalArmorLevelModifier> aquaAffinity = MODIFIERS.register("aqua_affinity", () -> new TotalArmorLevelModifier(TinkerDataKeys.AQUA_AFFINITY, true));
   // chestplate
   public static final StaticModifier<UnarmedModifier> ambidextrous = MODIFIERS.register("ambidextrous", UnarmedModifier::new);
   /** Renaming this but some addon is probably using it. You might want {@link #ambidextrous}, but you might simply want to update your logic */
@@ -405,6 +414,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<TankModifier> tank = MODIFIERS.register("tank", () -> new TankModifier(FluidAttributes.BUCKET_VOLUME));
   public static final StaticModifier<BucketingModifier> bucketing = MODIFIERS.register("bucketing", BucketingModifier::new);
   public static final StaticModifier<SpillingModifier> spilling = MODIFIERS.register("spilling", SpillingModifier::new);
+  public static final StaticModifier<SpittingModifier> spitting = MODIFIERS.register("spitting", SpittingModifier::new);
   
   // right click abilities
   public static final StaticModifier<GlowingModifier> glowing = MODIFIERS.register("glowing", GlowingModifier::new);
@@ -614,6 +624,9 @@ public final class TinkerModifiers extends TinkerModule {
     ModifierModule.LOADER.register(TConstruct.getResource("mob_effect"), MobEffectModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("mob_disguise"), MobDisguiseModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("repair"), RepairModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("trait"), ModifierTraitModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("tank_capacity"), TankCapacityModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("tank"), TankModule.LOADER);
 
     ModifierPredicate.LOADER.register(TConstruct.getResource("and"), ModifierPredicate.AND);
     ModifierPredicate.LOADER.register(TConstruct.getResource("or"), ModifierPredicate.OR);

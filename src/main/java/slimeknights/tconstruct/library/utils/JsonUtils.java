@@ -158,4 +158,18 @@ public class JsonUtils {
       return new JsonPrimitive(itemName);
     }
   }
+
+  /**
+   * Gets a resource location from JSON, throwing a nice exception if invalid
+   * @param json  JSON object
+   * @param key   Key to fetch
+   * @param fallback  Fallback if key is not present
+   * @return  Resource location parsed
+   */
+  public static ResourceLocation getResourceLocation(JsonObject json, String key, ResourceLocation fallback) {
+    if (json.has(key)) {
+      return JsonHelper.getResourceLocation(json, key);
+    }
+    return fallback;
+  }
 }

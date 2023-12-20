@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.LinkedHashMultimap;
 import lombok.RequiredArgsConstructor;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
+import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -62,6 +63,14 @@ public class ModifierHookMap {
         modules.put(hook, object);
       } else {
         throw new IllegalArgumentException("Object " + object + " is invalid for hook " + hook);
+      }
+      return this;
+    }
+
+    /** Adds a modifier module to the builder, automatically adding all its hooks */
+    public Builder addModule(ModifierModule module) {
+      for (ModifierHook<?> hook : module.getDefaultHooks()) {
+        addHookChecked(module, hook);
       }
       return this;
     }

@@ -114,13 +114,21 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
 
   /**
    * Converts this entry to JSON
+   * @param json  JSON object to fill
    * @return  Json object of entry
    */
-  public JsonObject toJson() {
-    JsonObject json = new JsonObject();
+  public JsonObject toJson(JsonObject json) {
     json.addProperty("name", getId().toString());
     json.addProperty("level", level);
     return json;
+  }
+
+  /**
+   * Converts this entry to JSON
+   * @return  Json object of entry
+   */
+  public JsonObject toJson() {
+    return toJson(new JsonObject());
   }
 
   /**

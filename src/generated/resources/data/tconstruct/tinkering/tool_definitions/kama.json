@@ -25,6 +25,10 @@
   },
   "traits": [
     {
+      "name": "tconstruct:tilling",
+      "level": 1
+    },
+    {
       "name": "tconstruct:shears",
       "level": 1
     },

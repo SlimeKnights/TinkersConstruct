@@ -239,7 +239,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(ModifierIds.reach);
       withL.accept(TinkerModifiers.unbreakable);
       // armor
-      withL.accept(TinkerModifiers.aquaAffinity);
+      with.accept(ModifierIds.aquaAffinity);
       withL.accept(TinkerModifiers.bouncy);
       withL.accept(TinkerModifiers.doubleJump);
       withL.accept(TinkerModifiers.flamewake);

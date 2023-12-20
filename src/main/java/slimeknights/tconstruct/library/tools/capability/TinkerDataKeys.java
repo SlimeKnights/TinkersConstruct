@@ -10,7 +10,11 @@ public interface TinkerDataKeys {
   /** If this key is greater than 0, the offhand will be rendered even if empty */
   TinkerDataKey<Integer> SHOW_EMPTY_OFFHAND = TConstruct.createKey("show_empty_offhand");
 
-  /** If this key is greater than 0, the entity has aqua affinity */
+  /**
+   * If this key is greater than 0, the entity has aqua affinity.
+   * @deprecated Use {@link net.minecraft.world.item.enchantment.Enchantments#AQUA_AFFINITY}
+   * */
+  @Deprecated
 	TinkerDataKey<Integer> AQUA_AFFINITY = TConstruct.createKey("aqua_affinity");
 
 	/** Float value for the FOV modifier, will be 1.0 if no change */

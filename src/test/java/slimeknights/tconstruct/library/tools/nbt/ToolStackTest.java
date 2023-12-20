@@ -433,4 +433,49 @@ class ToolStackTest extends ToolItemTest {
     assertThat(toolStack.getVolatileData()).isNotEqualTo(volatileData);
     assertThat(toolStack.getModifiers().getLevel(ModifierFixture.TEST_1)).isEqualTo(2);
   }
+
+  @Test
+  void rebuildStats_migratePersistentDataSlots() {
+    // sanity check: definition is what we expect
+    ToolDefinition definition = ToolDefinitionFixture.getStandardToolDefinition();
+    assertThat(definition.getData().getStartingSlots(SlotType.UPGRADE)).isEqualTo(3);
+    assertThat(definition.getData().getStartingSlots(SlotType.DEFENSE)).isEqualTo(0);
+    assertThat(definition.getData().getStartingSlots(SlotType.ABILITY)).isEqualTo(1);
+
+    // control test: this definition should by default grant 3 upgrades and 1 ability as it started with no data
+    ToolStack toolStack = ToolStack.from(tool, definition, new CompoundTag());
+    toolStack.rebuildStats();
+    assertThat(toolStack.getFreeSlots(SlotType.UPGRADE)).isEqualTo(3);
+    assertThat(toolStack.getFreeSlots(SlotType.DEFENSE)).isEqualTo(0);
+    assertThat(toolStack.getFreeSlots(SlotType.ABILITY)).isEqualTo(1);
+
+    // create legacy NBT with 5 upgrades and 2 defense, then check if that properly migrates
+    // however many slots we had before via persistent data, we should still have on the final tool moved to volatile data
+    ModDataNBT persistentData = new ModDataNBT();
+    persistentData.addSlots(SlotType.UPGRADE, 5);
+    persistentData.addSlots(SlotType.DEFENSE, 2);
+    CompoundTag stackTag = new CompoundTag();
+    stackTag.put(ToolStack.TAG_PERSISTENT_LEGACY_DATA, persistentData.getData());
+    toolStack = ToolStack.from(tool, definition, stackTag);
+    toolStack.rebuildStats();
+    // expect the legacy data to be removed
+    assertThat(stackTag.getAllKeys()).doesNotContain(ToolStack.TAG_PERSISTENT_LEGACY_DATA);
+    // expect the new key to be added
+    assertThat(stackTag.getAllKeys()).contains(ToolStack.TAG_PERSISTENT_MOD_DATA);
+    // expect the same number of slots to still exist on the tool
+    assertThat(toolStack.getFreeSlots(SlotType.UPGRADE)).isEqualTo(5);
+    assertThat(toolStack.getFreeSlots(SlotType.DEFENSE)).isEqualTo(2);
+    assertThat(toolStack.getFreeSlots(SlotType.ABILITY)).isEqualTo(0);
+
+    // ensure that if slots need to be built, then migration is skipped
+    persistentData = new ModDataNBT();
+    persistentData.putBoolean(ToolStack.NEEDS_SLOTS_BUILT, true);
+    stackTag = new CompoundTag();
+    stackTag.put(ToolStack.TAG_PERSISTENT_LEGACY_DATA, persistentData.getData());
+    toolStack = ToolStack.from(tool, definition, stackTag);
+    toolStack.rebuildStats();
+    assertThat(toolStack.getFreeSlots(SlotType.UPGRADE)).isEqualTo(3);
+    assertThat(toolStack.getFreeSlots(SlotType.DEFENSE)).isEqualTo(0);
+    assertThat(toolStack.getFreeSlots(SlotType.ABILITY)).isEqualTo(1);
+  }
 }

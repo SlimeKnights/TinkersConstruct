@@ -195,6 +195,7 @@ public class ModifierProvider extends AbstractModifierProvider {
     buildModifier(ModifierIds.revitalizing).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(new AttributeModule("tconstruct.modifier.revitalizing", Attributes.MAX_HEALTH, Operation.ADDITION, 2, armorSlots));
     // helmet
     buildModifier(ModifierIds.respiration).addModule(new EnchantmentModule.Constant(Enchantments.RESPIRATION));
+    buildModifier(ModifierIds.aquaAffinity).addModule(new EnchantmentModule.Constant(Enchantments.AQUA_AFFINITY)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
     // chestplate
     buildModifier(ModifierIds.strength)
       .addModule(IncrementalModule.RECIPE_CONTROLLED)
