@@ -13,6 +13,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.modules.TankModule;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.capability.ToolFluidCapability;
@@ -29,21 +30,22 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.BiFunction;
 
-/** Modifier containing the standard tank, extend if you want to share this tank */
+import static slimeknights.tconstruct.library.modifiers.modules.TankCapacityModule.DEFAULT_CAPACITY_KEY;
+import static slimeknights.tconstruct.library.modifiers.modules.TankModule.DEFAULT_FLUID_KEY;
+import static slimeknights.tconstruct.library.modifiers.modules.TankModule.DEFAULT_OWNER_KEY;
+
+/**
+ * Modifier containing the standard tank, extend if you want to share this tank
+ * @deprecated use {@link TankModule}
+ */
+@Deprecated
 @RequiredArgsConstructor
 public class TankModifier extends Modifier {
   private static final String FILLED_KEY = TConstruct.makeTranslationKey("modifier", "tank.filled");
   private static final String CAPACITY_KEY = TConstruct.makeTranslationKey("modifier", "tank.capacity");
 
-  /** Volatile NBT string indicating which modifier is in charge of logic for the one tank */
-  private static final ResourceLocation OWNER = TConstruct.getResource("tank_owner");
-  /** Volatile NBT integer indicating the tank's max capacity */
-  private static final ResourceLocation CAPACITY = TConstruct.getResource("tank_capacity");
-  /** Persistent NBT compound containing the fluid in the tank */
-  private static final ResourceLocation FLUID = TConstruct.getResource("tank_fluid");
-
   /** Helper function to parse a fluid from NBT */
-  public static final BiFunction<CompoundTag, String, FluidStack> PARSE_FLUID = (nbt, key) -> FluidStack.loadFluidStackFromNBT(nbt.getCompound(key));
+  public static final BiFunction<CompoundTag, String, FluidStack> PARSE_FLUID = TankModule.PARSE_FLUID;
 
   private ModifierTank tank;
   private final int capacity;
@@ -100,7 +102,7 @@ public class TankModifier extends Modifier {
   public void onRemoved(IToolStackView tool) {
     ModDataNBT persistentData = tool.getPersistentData();
     // if no one claims the tank, it either belonged to us or another removed modifier, so clean up data
-    if (!persistentData.contains(OWNER, Tag.TAG_STRING)) {
+    if (!persistentData.contains(DEFAULT_OWNER_KEY, Tag.TAG_STRING)) {
       persistentData.remove(getFluidKey());
     }
   }
@@ -110,17 +112,17 @@ public class TankModifier extends Modifier {
   /** Overridable method to change the owner key */
   @Nullable
   public ResourceLocation getOwnerKey() {
-    return OWNER;
+    return DEFAULT_OWNER_KEY;
   }
 
   /** Overridable method to change the capacity key */
   public ResourceLocation getCapacityKey() {
-    return CAPACITY;
+    return DEFAULT_CAPACITY_KEY;
   }
 
   /** Overridable method to change the fluid key */
   public ResourceLocation getFluidKey() {
-    return FLUID;
+    return DEFAULT_FLUID_KEY;
   }
 
 
