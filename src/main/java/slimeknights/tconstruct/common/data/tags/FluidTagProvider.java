@@ -99,6 +99,7 @@ public class FluidTagProvider extends FluidTagsProvider {
         .addTag(TinkerFluids.enderSlime.getLocalTag());
 
     this.tag(TinkerTags.Fluids.POTION).add(TinkerFluids.potion.get());
+    this.tag(TinkerTags.Fluids.POWDERED_SNOW).add(TinkerFluids.powderedSnow.get());
 
     // tooltips //
     this.tag(TinkerTags.Fluids.GLASS_TOOLTIPS).addTags(TinkerFluids.moltenGlass.getLocalTag(), TinkerFluids.liquidSoul.getLocalTag(), TinkerFluids.moltenObsidian.getLocalTag());
