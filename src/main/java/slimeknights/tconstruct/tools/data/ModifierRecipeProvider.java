@@ -368,7 +368,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(TinkerWorld.slime.get(SlimeType.EARTH))
                          .setMaxLevel(3) // max +2.5 knockback points (knockback 5) (whatever that number means in vanilla)
                          .setSlots(SlotType.UPGRADE, 1)
-                         .setTools(TinkerTags.Items.MELEE)
+                         .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.CHESTPLATES))
                          .saveSalvage(consumer, prefix(TinkerModifiers.knockback, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.knockback, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.padded)
@@ -527,7 +527,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(TinkerWorld.slime.get(SlimeType.SKY))
                          .setMaxLevel(5) // vanilla caps at 2, that is boring
                          .setSlots(SlotType.UPGRADE, 1)
-                         .setTools(TinkerTags.Items.BOWS) // TODO: can we make punch work on spitting?
+                         .setTools(TinkerTags.Items.RANGED)
                          .saveSalvage(consumer, prefix(TinkerModifiers.punch, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.punch, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.impaling)
@@ -773,15 +773,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.UPGRADE, 1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.itemFrame, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.itemFrame, upgradeFolder));
-    // upgrade - chestplate
-    ModifierRecipeBuilder.modifier(TinkerModifiers.knockback)
-                         .setTools(TinkerTags.Items.CHESTPLATES)
-                         .addInput(Items.PISTON)
-                         .addInput(TinkerWorld.slime.get(SlimeType.EARTH))
-                         .setSlots(SlotType.UPGRADE, 1)
-                         .setMaxLevel(3)
-                         .saveSalvage(consumer, wrap(TinkerModifiers.knockback, upgradeSalvage, "_armor"))
-                         .save(consumer, wrap(TinkerModifiers.knockback, upgradeFolder, "_armor"));
     // upgrade - leggings
     hasteRecipes(consumer, ModifierIds.speedy, Ingredient.of(TinkerTags.Items.LEGGINGS), 3, upgradeFolder, upgradeSalvage);
     // leaping lets you disable skyslime geodes in case you don't like fun

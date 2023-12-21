@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.modifiers.ability.fluid;
 
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
+import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -18,6 +19,7 @@ import net.minecraft.world.entity.projectile.LlamaSpit;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.fluids.TinkerFluids;
@@ -152,10 +154,12 @@ public class SpittingModifier extends Modifier implements GeneralInteractionModi
 
   /** Projectile entity for spitting */
   public static class FluidSpitEntity extends LlamaSpit {
-    @Setter
-    private int power = 1;
     private static final EntityDataAccessor<FluidStack> FLUID = SynchedEntityData.defineId(FluidSpitEntity.class, TinkerFluids.FLUID_DATA_SERIALIZER);
 
+    @Setter
+    private int power = 1;
+    @Setter @Getter
+    private int knockback = 1;
     public FluidSpitEntity(EntityType<? extends FluidSpitEntity> type, Level level) {
       super(type, level);
     }
@@ -183,11 +187,18 @@ public class SpittingModifier extends Modifier implements GeneralInteractionModi
       FluidStack fluid = getFluid();
       if (!level.isClientSide && !fluid.isEmpty() && getOwner() instanceof LivingEntity living) {
         SpillingFluid recipe = SpillingFluidManager.INSTANCE.find(fluid.getFluid());
+        Entity target = result.getEntity();
         if (recipe.hasEffects()) {
-          Entity target = result.getEntity();
           recipe.applyEffects(fluid.copy(), power, new ToolAttackContext(
             living, living instanceof Player p ? p : null, InteractionHand.MAIN_HAND,
             target, ToolAttackUtil.getLivingEntity(target), false, 1.0f, false));
+        }
+        // apply knockback to the entity regardless of fluid type
+        if (knockback > 0) {
+          Vec3 vec3 = this.getDeltaMovement().multiply(1, 0, 1).normalize().scale(knockback * 0.6);
+          if (vec3.lengthSqr() > 0) {
+            target.push(vec3.x, 0.1, vec3.z);
+          }
         }
       }
     }
@@ -205,6 +216,7 @@ public class SpittingModifier extends Modifier implements GeneralInteractionModi
     protected void addAdditionalSaveData(CompoundTag nbt) {
       super.addAdditionalSaveData(nbt);
       nbt.putInt("power", power);
+      nbt.putInt("knockback", knockback);
       FluidStack fluid = getFluid();
       if (!fluid.isEmpty()) {
         nbt.put("fluid", fluid.writeToNBT(new CompoundTag()));
@@ -215,6 +227,7 @@ public class SpittingModifier extends Modifier implements GeneralInteractionModi
     protected void readAdditionalSaveData(CompoundTag nbt) {
       super.readAdditionalSaveData(nbt);
       this.power = nbt.getInt("power");
+      this.knockback = nbt.getInt("knockback");
       setFluid(FluidStack.loadFluidStackFromNBT(nbt.getCompound("fluid")));
     }
   }
