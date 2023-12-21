@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "item": "tconstruct:scorched_tinted_glass"
+  },
+  "result": {
+    "fluid": "tconstruct:scorched_stone",
+    "amount": 1000
+  },
+  "temperature": 500,
+  "time": 100,
+  "byproducts": [
+    {
+      "fluid": "tconstruct:molten_glass",
+      "amount": 1000
+    },
+    {
+      "fluid": "tconstruct:molten_amethyst",
+      "amount": 200
+    }
+  ]
+}

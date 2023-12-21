@@ -57,6 +57,7 @@ public class SmelteryClientEvents extends ClientEventBase {
   static void clientSetup(final FMLClientSetupEvent event) {
     // render layers
     RenderType cutout = RenderType.cutout();
+    RenderType translucent = RenderType.translucent();
     // seared
     // casting
     ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedFaucet.get(), cutout);
@@ -72,7 +73,10 @@ public class SmelteryClientEvents extends ClientEventBase {
     TinkerSmeltery.searedTank.forEach(tank -> ItemBlockRenderTypes.setRenderLayer(tank, cutout));
     ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedLantern.get(), cutout);
     ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedGlass.get(), cutout);
+    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedSoulGlass.get(), translucent);
+    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedTintedGlass.get(), translucent);
     ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedGlassPane.get(), cutout);
+    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedSoulGlassPane.get(), translucent);
     // scorched
     // casting
     ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.scorchedFaucet.get(), cutout);
@@ -86,7 +90,10 @@ public class SmelteryClientEvents extends ClientEventBase {
     TinkerSmeltery.scorchedTank.forEach(tank -> ItemBlockRenderTypes.setRenderLayer(tank, cutout));
     ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.scorchedLantern.get(), cutout);
     ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.scorchedGlass.get(), cutout);
+    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.scorchedSoulGlass.get(), translucent);
+    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.scorchedTintedGlass.get(), translucent);
     ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.scorchedGlassPane.get(), cutout);
+    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.scorchedSoulGlassPane.get(), translucent);
 
     // screens
     MenuScreens.register(TinkerSmeltery.melterContainer.get(), MelterScreen::new);

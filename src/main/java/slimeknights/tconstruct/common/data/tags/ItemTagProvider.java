@@ -135,6 +135,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 
     // glass
     copy(Tags.Blocks.GLASS_SILICA, Tags.Items.GLASS_SILICA);
+    copy(Tags.Blocks.GLASS_TINTED, Tags.Items.GLASS_TINTED);
     copy(TinkerTags.Blocks.GLASS_PANES_SILICA, TinkerTags.Items.GLASS_PANES_SILICA);
     copy(Tags.Blocks.GLASS_COLORLESS, Tags.Items.GLASS_COLORLESS);
     copy(Tags.Blocks.GLASS_PANES_COLORLESS, Tags.Items.GLASS_PANES_COLORLESS);
@@ -367,11 +368,15 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(TinkerTags.Items.SMELTERY)
         .addTag(TinkerTags.Items.SEARED_BLOCKS)
         .addTag(TinkerTags.Items.SEARED_TANKS)
-        .add(TinkerSmeltery.smelteryController.asItem(), TinkerSmeltery.searedDrain.asItem(), TinkerSmeltery.searedChute.asItem(), TinkerSmeltery.searedDuct.asItem(), TinkerSmeltery.searedGlass.asItem(), TinkerSmeltery.searedLadder.asItem());
+        .add(TinkerSmeltery.smelteryController.asItem(), TinkerSmeltery.searedLadder.asItem(),
+             TinkerSmeltery.searedDrain.asItem(), TinkerSmeltery.searedChute.asItem(), TinkerSmeltery.searedDuct.asItem(),
+             TinkerSmeltery.searedGlass.asItem(), TinkerSmeltery.searedSoulGlass.asItem(), TinkerSmeltery.searedTintedGlass.asItem());
     this.tag(TinkerTags.Items.FOUNDRY)
         .addTag(TinkerTags.Items.SCORCHED_BLOCKS)
         .addTag(TinkerTags.Items.SCORCHED_TANKS)
-        .add(TinkerSmeltery.foundryController.asItem(), TinkerSmeltery.scorchedDrain.asItem(), TinkerSmeltery.scorchedChute.asItem(), TinkerSmeltery.scorchedDuct.asItem(), TinkerSmeltery.scorchedGlass.asItem(), TinkerSmeltery.scorchedLadder.asItem());
+        .add(TinkerSmeltery.foundryController.asItem(), TinkerSmeltery.scorchedLadder.asItem(),
+             TinkerSmeltery.scorchedDrain.asItem(), TinkerSmeltery.scorchedChute.asItem(), TinkerSmeltery.scorchedDuct.asItem(),
+             TinkerSmeltery.scorchedGlass.asItem(), TinkerSmeltery.scorchedSoulGlass.asItem(), TinkerSmeltery.scorchedTintedGlass.asItem());
     // structure debug
     this.tag(TinkerTags.Items.GENERAL_STRUCTURE_DEBUG);
     this.tag(TinkerTags.Items.SMELTERY_DEBUG).addTag(TinkerTags.Items.GENERAL_STRUCTURE_DEBUG).addTag(TinkerTags.Items.SMELTERY);

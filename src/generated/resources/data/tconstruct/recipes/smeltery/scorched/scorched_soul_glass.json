@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " b ",
+    "bGb",
+    " b "
+  ],
+  "key": {
+    "b": {
+      "item": "tconstruct:scorched_brick"
+    },
+    "G": {
+      "item": "tconstruct:soul_glass"
+    }
+  },
+  "result": {
+    "item": "tconstruct:scorched_soul_glass"
+  }
+}

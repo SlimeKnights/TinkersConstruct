@@ -52,6 +52,8 @@ public class TinkerTags {
     /** Compat: allows other mods to add basalt variants which can be used to create basalt tools */
     public static final TagKey<Block> BASALT = forgeTag("basalt");
 
+    /** Blocks that render a transparent overlay when you are inside */
+    public static final TagKey<Block> TRANSPARENT_OVERLAY = tag("transparent_overlay");
 
     /** Materials that can be used to craft wooden tool tables */
     public static final TagKey<Block> PLANKLIKE = tag("planklike");

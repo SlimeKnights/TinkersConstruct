@@ -40,7 +40,7 @@
 
   "block.tconstruct.clear_glass": "Clear Glass",
   "block.tconstruct.clear_glass_pane": "Clear Glass Pane",
-  "block.tconstruct.clear_tinted_glass": "Clear Tinted Glass",
+  "block.tconstruct.clear_tinted_glass": "Tinted Clear Glass",
 
   "block.tconstruct.obsidian_pane": "Obsidian Pane",
   "block.tconstruct.gold_bars": "Gold Bars",
@@ -96,7 +96,9 @@
   "block.tconstruct.black_clear_stained_glass_pane": "Clear Black Stained Glass Pane",
 
   "block.tconstruct.soul_glass": "Soul Glass",
+  "block.tconstruct.soul_glass.tooltip": "Acts solid, but can be walked though",
   "block.tconstruct.soul_glass_pane": "Soul Glass Pane",
+  "block.tconstruct.soul_glass_pane.tooltip": "Acts solid, but can be walked though",
 
   "block.tconstruct.glow": "Glow",
   "block.tconstruct.silky_jewel_block": "Silky Block of Jewel",
@@ -1051,8 +1053,14 @@
 
   "block.tconstruct.seared_glass": "Seared Glass",
   "block.tconstruct.seared_glass.tooltip": "Part of the Smeltery.\nCannot store liquids.",
+  "block.tconstruct.seared_soul_glass": "Seared Soul Glass",
+  "block.tconstruct.seared_soul_glass.tooltip": "Part of the Smeltery.\nCannot store liquids, and can be walked though.",
+  "block.tconstruct.seared_tinted_glass": "Tinted Seared Glass",
+  "block.tconstruct.seared_tinted_glass.tooltip": "Part of the Smeltery.\nCannot store liquids, and does not let light through.",
   "block.tconstruct.seared_glass_pane": "Seared Glass Pane",
   "block.tconstruct.seared_glass_pane.tooltip": "Cannot be used in a Smeltery.",
+  "block.tconstruct.seared_soul_glass_pane": "Seared Soul Glass Pane",
+  "block.tconstruct.seared_soul_glass_pane.tooltip": "Cannot be used in a Smeltery, but can be walked though.",
 
   "block.tconstruct.seared_ladder": "Seared Ladder",
   "block.tconstruct.seared_ladder.tooltip": "Climbable Smeltery block.",
@@ -1128,8 +1136,14 @@
 
   "block.tconstruct.scorched_glass": "Scorched Glass",
   "block.tconstruct.scorched_glass.tooltip": "Part of the Foundry.\nCannot store liquids.",
+  "block.tconstruct.scorched_soul_glass": "Scorched Soul Glass",
+  "block.tconstruct.scorched_soul_glass.tooltip": "Part of the Foundry.\nCannot store liquids, and can be walked though.",
+  "block.tconstruct.scorched_tinted_glass": "Tinted Scorched Glass",
+  "block.tconstruct.scorched_tinted_glass.tooltip": "Part of the Foundry.\nCannot store liquids, and does not let light through.",
   "block.tconstruct.scorched_glass_pane": "Scorched Glass Pane",
   "block.tconstruct.scorched_glass_pane.tooltip": "Cannot be used in a Foundry.",
+  "block.tconstruct.scorched_soul_glass_pane": "Scorched Soul Glass Pane",
+  "block.tconstruct.scorched_soul_glass_pane.tooltip": "Cannot be used in a Foundry, but can be walked though.",
 
   "block.tconstruct.scorched_ladder": "Scorched Ladder",
   "block.tconstruct.scorched_ladder.tooltip": "Climbable Foundry block.",
