@@ -32,6 +32,7 @@ import slimeknights.tconstruct.library.modifiers.spilling.effects.PotionFluidEff
 import slimeknights.tconstruct.library.modifiers.spilling.effects.RemoveEffectSpillingEffect;
 import slimeknights.tconstruct.library.modifiers.spilling.effects.RestoreHungerSpillingEffect;
 import slimeknights.tconstruct.library.modifiers.spilling.effects.SetFireSpillingEffect;
+import slimeknights.tconstruct.library.modifiers.spilling.effects.SetFreezeSpillingEffect;
 import slimeknights.tconstruct.library.modifiers.spilling.effects.TeleportSpillingEffect;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.TagPredicate;
@@ -59,6 +60,8 @@ public class SpillingFluidProvider extends AbstractSpillingFluidProvider {
     addFluid(Tags.Fluids.MILK, FluidAttributes.BUCKET_VOLUME / 10)
       .addEffect(new CureEffectsSpillingEffect(new ItemStack(Items.MILK_BUCKET)))
       .addEffect(StrongBonesModifier.SPILLING_EFFECT);
+    addFluid(TinkerTags.Fluids.POWDERED_SNOW, FluidAttributes.BUCKET_VOLUME / 10)
+      .addEffect(new SetFreezeSpillingEffect(160));
 
     // blaze - more damage, less fire
     burningFluid("blazing_blood", TinkerFluids.blazingBlood.getLocalTag(), FluidAttributes.BUCKET_VOLUME / 20, 3f, 5);

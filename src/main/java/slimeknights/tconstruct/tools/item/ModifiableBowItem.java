@@ -14,6 +14,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.ForgeEventFactory;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -23,7 +24,6 @@ import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHoo
 import slimeknights.tconstruct.library.tools.capability.EntityModifierCapability;
 import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
-import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -32,11 +32,10 @@ import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
-import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockingModifier;
+import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ScopeModifier;
 
 import java.util.function.Predicate;
-
-import static slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ScopeModifier.SCOPE;
 
 public class ModifiableBowItem extends ModifiableLauncherItem {
   public ModifiableBowItem(Properties properties, ToolDefinition toolDefinition) {
@@ -57,8 +56,8 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
   }
 
   @Override
-  public UseAnim getUseAnimation(ItemStack pStack) {
-    return UseAnim.BOW;
+  public UseAnim getUseAnimation(ItemStack stack) {
+    return BlockingModifier.blockWhileCharging(ToolStack.from(stack), UseAnim.BOW);
   }
 
 
@@ -78,7 +77,13 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
     if (override != null) {
       return override;
     }
+    // if no ammo, cannot fire
     if (!player.getAbilities().instabuild && !hasAmmo) {
+      // however, we can block if enabled
+      if (ModifierUtil.canPerformAction(tool, ToolActions.SHIELD_BLOCK)) {
+        player.startUsingItem(hand);
+        return InteractionResultHolder.consume(bow);
+      }
       return InteractionResultHolder.fail(bow);
     }
     player.startUsingItem(hand);
@@ -96,9 +101,7 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
   @Override
   public void releaseUsing(ItemStack bow, Level level, LivingEntity living, int timeLeft) {
     // clear zoom regardless, does not matter if the tool broke, we should not be zooming
-    if (level.isClientSide) {
-      living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).remove(SCOPE));
-    }
+    ScopeModifier.stopScoping(living);
 
     // need player
     if (!(living instanceof Player player)) {
@@ -106,21 +109,23 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
     }
     // no broken
     ToolStack tool = ToolStack.from(bow);
+    tool.getPersistentData().remove(KEY_DRAWTIME);
     if (tool.isBroken()) {
       return;
     }
 
-    // its a little redundant to search for ammo twice, but otherwise we risk shrinking the stack before we know if we can fire
-    boolean hasAmmo = BowAmmoModifierHook.hasAmmo(tool, bow, player, getSupportedHeldProjectiles());
-
     // just not handling vanilla infinity at all, we have our own hooks which someone could use to mimic infinity if they wish with a bit of effort
     boolean creative = player.getAbilities().instabuild;
+    // its a little redundant to search for ammo twice, but otherwise we risk shrinking the stack before we know if we can fire
+    // sldo helps blocking, as you can block without ammo
+    boolean hasAmmo = creative || BowAmmoModifierHook.hasAmmo(tool, bow, player, getSupportedHeldProjectiles());
+
     // ask forge its thoughts on shooting
     int chargeTime = this.getUseDuration(bow) - timeLeft;
-    chargeTime = ForgeEventFactory.onArrowLoose(bow, level, player, chargeTime, hasAmmo || creative);
+    chargeTime = ForgeEventFactory.onArrowLoose(bow, level, player, chargeTime, hasAmmo);
 
     // no ammo? no charge? nothing to do
-    if (chargeTime < 0) {
+    if (!hasAmmo || chargeTime < 0) {
       return;
     }
 
@@ -187,27 +192,5 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
 
     // stats and sounds
     player.awardStat(Stats.ITEM_USED.get(this));
-  }
-
-  @SuppressWarnings("deprecation") // forge is being dumb here, their method is identical to the vanilla one
-  @Override
-  public void onUseTick(Level level, LivingEntity living, ItemStack bow, int chargeRemaining) {
-    // play the sound at the end of loading as an indicator its loaded, texture is another indicator
-    if (!level.isClientSide) {
-      if (getUseDuration(bow) - chargeRemaining == ModifierUtil.getPersistentInt(bow, KEY_DRAWTIME, 0)) {
-        level.playSound(null, living.getX(), living.getY(), living.getZ(), SoundEvents.CROSSBOW_LOADING_MIDDLE, SoundSource.PLAYERS, 0.75F, 1.0F);
-      }
-    }
-    else if (ModifierUtil.getModifierLevel(bow, TinkerModifiers.scope.getId()) > 0) {
-      int chargeTime = this.getUseDuration(bow) - chargeRemaining;
-      if (chargeTime > 0) {
-        living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
-          float totalTime = data.get(DRAWSPEED, 0f);
-          if (totalTime > 0) {
-            data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).set(SCOPE, 1 - (0.6f * Math.min(totalTime * chargeTime, 1)));
-          }
-        });
-      }
-    }
   }
 }

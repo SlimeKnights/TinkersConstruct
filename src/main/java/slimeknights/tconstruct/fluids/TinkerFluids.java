@@ -75,6 +75,7 @@ public final class TinkerFluids extends TinkerModule {
                                  .build()).tab(TAB_GENERAL).stacksTo(1).craftRemainder(Items.GLASS_BOTTLE),
     () -> new FluidStack(venom.get(), FluidValues.BOTTLE))
   );
+  public static final RegistryObject<UnplaceableFluid> powderedSnow = FLUIDS.registerFluid("powdered_snow", () -> new UnplaceableFluid(Items.POWDER_SNOW_BUCKET.delegate, FluidAttributes.builder(TConstruct.getResource("block/fluid/powdered_snow/still"), TConstruct.getResource("block/fluid/powdered_snow/flowing")).sound(SoundEvents.BUCKET_FILL, SoundEvents.BUCKET_EMPTY).temperature(270)));
 
   // slime -  note second name parameter is forge tag name
   public static final FluidObject<ForgeFlowingFluid> earthSlime = FLUIDS.register("earth_slime", "slime",  coolBuilder().density(1400).viscosity(1400).temperature(350), SlimeFluid.Source::new, SlimeFluid.Flowing::new, Material.WATER, 0);

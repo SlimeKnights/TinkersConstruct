@@ -79,6 +79,7 @@ import slimeknights.tconstruct.library.modifiers.spilling.effects.PotionFluidEff
 import slimeknights.tconstruct.library.modifiers.spilling.effects.RemoveEffectSpillingEffect;
 import slimeknights.tconstruct.library.modifiers.spilling.effects.RestoreHungerSpillingEffect;
 import slimeknights.tconstruct.library.modifiers.spilling.effects.SetFireSpillingEffect;
+import slimeknights.tconstruct.library.modifiers.spilling.effects.SetFreezeSpillingEffect;
 import slimeknights.tconstruct.library.modifiers.spilling.effects.TeleportSpillingEffect;
 import slimeknights.tconstruct.library.modifiers.util.DynamicModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierDeferredRegister;
@@ -581,6 +582,7 @@ public final class TinkerModifiers extends TinkerModule {
     ISpillingEffect.LOADER.registerDeserializer(PotionFluidEffect.ID,           PotionFluidEffect.LOADER);
     ISpillingEffect.LOADER.registerDeserializer(RestoreHungerSpillingEffect.ID, RestoreHungerSpillingEffect.LOADER);
     ISpillingEffect.LOADER.registerDeserializer(SetFireSpillingEffect.ID,       SetFireSpillingEffect.LOADER);
+    ISpillingEffect.LOADER.registerDeserializer(SetFreezeSpillingEffect.ID,     SetFreezeSpillingEffect.LOADER);
     ISpillingEffect.LOADER.registerDeserializer(TeleportSpillingEffect.ID,      TeleportSpillingEffect.LOADER);
     ISpillingEffect.LOADER.registerDeserializer(AddInsomniaSpillingEffect.ID,   AddInsomniaSpillingEffect.LOADER);
     ISpillingEffect.LOADER.registerDeserializer(AddBreathSpillingEffect.ID,     AddBreathSpillingEffect.LOADER);

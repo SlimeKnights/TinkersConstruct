@@ -1,0 +1,12 @@
+{
+  "fluid": {
+    "tag": "forge:powdered_snow",
+    "amount": 100
+  },
+  "effects": [
+    {
+      "type": "tconstruct:set_freeze",
+      "time": 160
+    }
+  ]
+}

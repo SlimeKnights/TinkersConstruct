@@ -53,6 +53,7 @@ import slimeknights.tconstruct.library.recipe.melting.OreMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.molding.MoldingRecipe;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.shared.block.ClearGlassPaneBlock;
+import slimeknights.tconstruct.shared.block.SoulGlassPaneBlock;
 import slimeknights.tconstruct.smeltery.block.CastingBasinBlock;
 import slimeknights.tconstruct.smeltery.block.CastingTableBlock;
 import slimeknights.tconstruct.smeltery.block.ChannelBlock;
@@ -66,8 +67,10 @@ import slimeknights.tconstruct.smeltery.block.component.SearedDuctBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedGlassBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedLadderBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedPillarBlock;
+import slimeknights.tconstruct.smeltery.block.component.SearedSoulGlassBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
+import slimeknights.tconstruct.smeltery.block.component.SearedTintedGlassBlock;
 import slimeknights.tconstruct.smeltery.block.controller.AlloyerBlock;
 import slimeknights.tconstruct.smeltery.block.controller.ControllerBlock;
 import slimeknights.tconstruct.smeltery.block.controller.FoundryControllerBlock;
@@ -128,7 +131,7 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final ItemObject<Block> netherGrout = BLOCKS.register("nether_grout", builder(Material.SAND, SoundType.SOUL_SOIL).strength(3.0f).friction(0.8F), TOOLTIP_BLOCK_ITEM);
 
   // seared blocks
-  private static final Properties SEARED, TOUGH_SEARED, SEARED_GLASS, SEARED_NON_SOLID, SEARED_LANTERN;
+  private static final Properties SEARED, TOUGH_SEARED, SEARED_GLASS, SEARED_SOUL_GLASS, SEARED_NON_SOLID, SEARED_LANTERN;
   static {
     // solid
     IntFunction<Properties> solidProps = factor ->
@@ -141,6 +144,7 @@ public final class TinkerSmeltery extends TinkerModule {
       .requiresCorrectToolForDrops().strength(3.0F, 9.0F).noOcclusion()
       .isValidSpawn(Blocks::never).isRedstoneConductor(Blocks::never).isSuffocating(Blocks::never).isViewBlocking(Blocks::never);
     SEARED_GLASS = nonSolidProps.apply(SoundType.GLASS);
+    SEARED_SOUL_GLASS = nonSolidProps.apply(SoundType.GLASS).noCollission().speedFactor(0.2f).isViewBlocking((state, getter, pos) -> true);
     SEARED_NON_SOLID = nonSolidProps.apply(SoundType.METAL);
     SEARED_LANTERN = nonSolidProps.apply(SoundType.LANTERN);
   }
@@ -160,7 +164,10 @@ public final class TinkerSmeltery extends TinkerModule {
   }
   public static final ItemObject<SearedLadderBlock> searedLadder = BLOCKS.register("seared_ladder", () -> new SearedLadderBlock(SEARED_NON_SOLID), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<SearedGlassBlock> searedGlass = BLOCKS.register("seared_glass", () -> new SearedGlassBlock(SEARED_GLASS), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<SearedSoulGlassBlock> searedSoulGlass = BLOCKS.register("seared_soul_glass", () -> new SearedSoulGlassBlock(SEARED_SOUL_GLASS), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<SearedTintedGlassBlock> searedTintedGlass = BLOCKS.register("seared_tinted_glass", () -> new SearedTintedGlassBlock(SEARED_GLASS), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<ClearGlassPaneBlock> searedGlassPane = BLOCKS.register("seared_glass_pane", () -> new ClearGlassPaneBlock(SEARED_GLASS), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<SoulGlassPaneBlock> searedSoulGlassPane = BLOCKS.register("seared_soul_glass_pane", () -> new SoulGlassPaneBlock(SEARED_SOUL_GLASS), TOOLTIP_BLOCK_ITEM);
   // peripherals
   private static final Function<Block, ? extends BlockItem> SEARED_IO_BLOCK_ITEM = block -> new TableBlockItem(block, TinkerTags.Items.SMELTERY_BRICKS, SMELTERY_PROPS, Config.COMMON.showAllSmelteryVariants::get);
   public static final ItemObject<Block> searedDrain = BLOCKS.register("seared_drain", () -> new SearedDrainBlock(TOUGH_SEARED), SEARED_IO_BLOCK_ITEM);
@@ -168,7 +175,7 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final ItemObject<Block> searedChute = BLOCKS.register("seared_chute", () -> new RetexturedOrientableSmelteryBlock(TOUGH_SEARED, ChuteBlockEntity::new), SEARED_IO_BLOCK_ITEM);
 
   // scorched blocks
-  private static final Properties SCORCHED, TOUGH_SCORCHED, SCORCHED_GLASS, SCORCHED_NON_SOLID, SCORCHED_LANTERN;
+  private static final Properties SCORCHED, TOUGH_SCORCHED, SCORCHED_GLASS, SCORCHED_SOUL_GLASS, SCORCHED_NON_SOLID, SCORCHED_LANTERN;
   static {
     IntFunction<Properties> solidProps = factor -> builder(Material.STONE, MaterialColor.TERRACOTTA_BROWN, SoundType.BASALT)
       .requiresCorrectToolForDrops().strength(2.5F * factor, 8.0F * factor).isValidSpawn((s, r, p, e) -> !s.hasProperty(SearedBlock.IN_STRUCTURE) || !s.getValue(SearedBlock.IN_STRUCTURE));
@@ -178,6 +185,7 @@ public final class TinkerSmeltery extends TinkerModule {
       .requiresCorrectToolForDrops().strength(2.5F, 8.0F).noOcclusion()
       .isValidSpawn(Blocks::never).isRedstoneConductor(Blocks::never).isSuffocating(Blocks::never).isViewBlocking(Blocks::never);
     SCORCHED_GLASS = nonSolidProps.apply(SoundType.GLASS);
+    SCORCHED_SOUL_GLASS = nonSolidProps.apply(SoundType.GLASS).noCollission().speedFactor(0.2f).isViewBlocking((state, getter, pos) -> true);
     SCORCHED_NON_SOLID = nonSolidProps.apply(SoundType.BASALT);
     SCORCHED_LANTERN = nonSolidProps.apply(SoundType.LANTERN);
   }
@@ -197,7 +205,10 @@ public final class TinkerSmeltery extends TinkerModule {
   }
   public static final ItemObject<SearedLadderBlock> scorchedLadder = BLOCKS.register("scorched_ladder", () -> new SearedLadderBlock(SCORCHED_NON_SOLID), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<SearedGlassBlock> scorchedGlass = BLOCKS.register("scorched_glass", () -> new SearedGlassBlock(SCORCHED_GLASS), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<SearedSoulGlassBlock> scorchedSoulGlass = BLOCKS.register("scorched_soul_glass", () -> new SearedSoulGlassBlock(SCORCHED_SOUL_GLASS), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<SearedTintedGlassBlock> scorchedTintedGlass = BLOCKS.register("scorched_tinted_glass", () -> new SearedTintedGlassBlock(SCORCHED_GLASS), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<ClearGlassPaneBlock> scorchedGlassPane = BLOCKS.register("scorched_glass_pane", () -> new ClearGlassPaneBlock(SCORCHED_GLASS), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<SoulGlassPaneBlock> scorchedSoulGlassPane = BLOCKS.register("scorched_soul_glass_pane", () -> new SoulGlassPaneBlock(SCORCHED_SOUL_GLASS), TOOLTIP_BLOCK_ITEM);
   // peripherals
   private static final Function<Block, ? extends BlockItem> SCORCHED_IO_BLOCK_ITEM = block -> new TableBlockItem(block, TinkerTags.Items.FOUNDRY_BRICKS, SMELTERY_PROPS, Config.COMMON.showAllSmelteryVariants::get);
   public static final ItemObject<Block> scorchedDrain = BLOCKS.register("scorched_drain", () -> new SearedDrainBlock(TOUGH_SCORCHED), SCORCHED_IO_BLOCK_ITEM);
@@ -247,9 +258,9 @@ public final class TinkerSmeltery extends TinkerModule {
     set.addAll(searedCobble.values());
     set.addAll(searedBricks.values());
     set.addAll(searedPaver.values());
-    set.add(searedCrackedBricks.get(), searedFancyBricks.get(), searedTriangleBricks.get(), searedLadder.get(), searedGlass.get());
+    set.add(searedCrackedBricks.get(), searedFancyBricks.get(), searedTriangleBricks.get(), searedLadder.get(), searedGlass.get(), searedSoulGlass.get(), searedTintedGlass.get());
     // scorched
-    set.add(scorchedStone.get(), polishedScorchedStone.get(), chiseledScorchedBricks.get(), scorchedLadder.get());
+    set.add(scorchedStone.get(), polishedScorchedStone.get(), chiseledScorchedBricks.get(), scorchedLadder.get(), scorchedGlass.get(), scorchedSoulGlass.get(), scorchedTintedGlass.get());
     set.addAll(scorchedBricks.values());
     set.addAll(scorchedRoad.values());
   });

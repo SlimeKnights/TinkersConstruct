@@ -9,7 +9,7 @@
     }
   ],
   "tools": {
-    "tag": "tconstruct:modifiable/ranged/bows"
+    "tag": "tconstruct:modifiable/ranged"
   },
   "slots": {
     "upgrades": 1

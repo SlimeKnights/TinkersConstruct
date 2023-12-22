@@ -52,6 +52,8 @@ public class TinkerTags {
     /** Compat: allows other mods to add basalt variants which can be used to create basalt tools */
     public static final TagKey<Block> BASALT = forgeTag("basalt");
 
+    /** Blocks that render a transparent overlay when you are inside */
+    public static final TagKey<Block> TRANSPARENT_OVERLAY = tag("transparent_overlay");
 
     /** Materials that can be used to craft wooden tool tables */
     public static final TagKey<Block> PLANKLIKE = tag("planklike");
@@ -434,6 +436,7 @@ public class TinkerTags {
     public static final TagKey<Fluid> EXPENSIVE_METAL_SPILLING = tag("spilling/metal/expensive");
 
     public static final TagKey<Fluid> POTION = forgeTag("potion");
+    public static final TagKey<Fluid> POWDERED_SNOW = forgeTag("powdered_snow");
 
     private static TagKey<Fluid> tag(String name) {
       return TagKey.create(Registry.FLUID_REGISTRY, TConstruct.getResource(name));

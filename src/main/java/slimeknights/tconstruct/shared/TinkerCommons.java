@@ -57,6 +57,8 @@ import slimeknights.tconstruct.shared.block.ClearStainedGlassPaneBlock;
 import slimeknights.tconstruct.shared.block.GlowBlock;
 import slimeknights.tconstruct.shared.block.PlatformBlock;
 import slimeknights.tconstruct.shared.block.SlimeType;
+import slimeknights.tconstruct.shared.block.SoulGlassBlock;
+import slimeknights.tconstruct.shared.block.SoulGlassPaneBlock;
 import slimeknights.tconstruct.shared.block.WaxedPlatformBlock;
 import slimeknights.tconstruct.shared.block.WeatheringPlatformBlock;
 import slimeknights.tconstruct.shared.command.TConstructCommand;
@@ -85,8 +87,8 @@ public final class TinkerCommons extends TinkerModule {
   public static final ItemObject<ClearGlassPaneBlock> clearGlassPane = BLOCKS.register("clear_glass_pane", () -> new ClearGlassPaneBlock(glassBuilder(MaterialColor.NONE)), GENERAL_BLOCK_ITEM);
   public static final EnumObject<GlassColor,ClearStainedGlassBlock> clearStainedGlass = BLOCKS.registerEnum(GlassColor.values(), "clear_stained_glass", (color) -> new ClearStainedGlassBlock(glassBuilder(color.getDye().getMaterialColor()), color), GENERAL_BLOCK_ITEM);
   public static final EnumObject<GlassColor,ClearStainedGlassPaneBlock> clearStainedGlassPane = BLOCKS.registerEnum(GlassColor.values(), "clear_stained_glass_pane", (color) -> new ClearStainedGlassPaneBlock(glassBuilder(color.getDye().getMaterialColor()), color), GENERAL_BLOCK_ITEM);
-  public static final ItemObject<GlassBlock> soulGlass = BLOCKS.register("soul_glass", () -> new GlassBlock(glassBuilder(MaterialColor.COLOR_BROWN)), GENERAL_BLOCK_ITEM);
-  public static final ItemObject<ClearGlassPaneBlock> soulGlassPane = BLOCKS.register("soul_glass_pane", () -> new ClearGlassPaneBlock(glassBuilder(MaterialColor.COLOR_BROWN)), GENERAL_BLOCK_ITEM);
+  public static final ItemObject<GlassBlock> soulGlass = BLOCKS.register("soul_glass", () -> new SoulGlassBlock(glassBuilder(MaterialColor.COLOR_BROWN).speedFactor(0.2F).noCollission().isViewBlocking((state, getter, pos) -> true)), GENERAL_TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<ClearGlassPaneBlock> soulGlassPane = BLOCKS.register("soul_glass_pane", () -> new SoulGlassPaneBlock(glassBuilder(MaterialColor.COLOR_BROWN).speedFactor(0.2F)), GENERAL_TOOLTIP_BLOCK_ITEM);
   // wood
   public static final BuildingBlockObject lavawood = BLOCKS.registerBuilding("lavawood", woodBuilder(MaterialColor.COLOR_ORANGE).lightLevel(s -> 7), GENERAL_BLOCK_ITEM);
   public static final BuildingBlockObject blazewood = BLOCKS.registerBuilding("blazewood", woodBuilder(MaterialColor.TERRACOTTA_RED).lightLevel(s -> 7), GENERAL_BLOCK_ITEM);
