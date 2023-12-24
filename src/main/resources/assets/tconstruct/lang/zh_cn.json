@@ -40,7 +40,7 @@
 
   "block.tconstruct.clear_glass": "通透玻璃",
   "block.tconstruct.clear_glass_pane": "通透玻璃板",
-  "block.tconstruct.clear_tinted_glass": "通透遮光玻璃",
+  "block.tconstruct.clear_tinted_glass": "遮光通透玻璃",
 
   "block.tconstruct.obsidian_pane": "黑曜石板",
   "block.tconstruct.gold_bars": "金栏杆",
@@ -96,7 +96,9 @@
   "block.tconstruct.black_clear_stained_glass_pane": "黑色染色通透玻璃板",
 
   "block.tconstruct.soul_glass": "灵魂玻璃",
+  "block.tconstruct.soul_glass.tooltip": "与普通方块相似，但是可以从中穿过",
   "block.tconstruct.soul_glass_pane": "灵魂玻璃板",
+  "block.tconstruct.soul_glass_pane.tooltip": "与普通方块相似，但是可以从中穿过",
 
   "block.tconstruct.glow": "荧光球",
   "block.tconstruct.silky_jewel_block": "裹绸宝石块",
@@ -434,6 +436,7 @@
   "fluid.tconstruct.flowing_blazing_blood": "流动的烈焰血",
   "item.tconstruct.blazing_blood_bucket": "烈焰血桶",
 
+  "fluid.tconstruct.powdered_snow": "细雪",
 
   "_comment": "Food",
 
@@ -1050,9 +1053,15 @@
   "block.tconstruct.seared_triangle_bricks.tooltip": "构造冶炼炉的建材",
 
   "block.tconstruct.seared_glass": "焦黑玻璃",
-  "block.tconstruct.seared_glass.tooltip": "构造冶炼炉的建材\n不能储存液体",
+  "block.tconstruct.seared_glass.tooltip": "构造冶炼炉的建材\n无法储存液体",
+  "block.tconstruct.seared_soul_glass": "焦黑灵魂玻璃",
+  "block.tconstruct.seared_soul_glass.tooltip": "构造冶炼炉的建材\n无法储存液体，但可以从中穿过。",
+  "block.tconstruct.seared_tinted_glass": "焦黑遮光玻璃",
+  "block.tconstruct.seared_tinted_glass.tooltip": "构造冶炼炉的建材\n无法存储流体，且无法透光。",
   "block.tconstruct.seared_glass_pane": "焦黑玻璃板",
   "block.tconstruct.seared_glass_pane.tooltip": "无法用于构造冶炼炉",
+  "block.tconstruct.seared_soul_glass_pane": "焦黑灵魂玻璃板",
+  "block.tconstruct.seared_soul_glass_pane.tooltip": "无法用于构造冶炼炉，但可以从中穿过。",
 
   "block.tconstruct.seared_ladder": "焦黑梯子",
   "block.tconstruct.seared_ladder.tooltip": "可供攀爬的冶炼炉建材",
@@ -1128,9 +1137,15 @@
 
   "block.tconstruct.scorched_glass": "焦褐玻璃",
   "block.tconstruct.scorched_glass.tooltip": "构造熔铸炉的建材\n无法存储流体",
+  "block.tconstruct.scorched_soul_glass": "焦褐灵魂玻璃",
+  "block.tconstruct.scorched_soul_glass.tooltip": "构造熔铸炉的建材\n无法存储流体，但可以从中穿过。",
+  "block.tconstruct.scorched_tinted_glass": "焦褐遮光玻璃",
+  "block.tconstruct.scorched_tinted_glass.tooltip": "构造熔铸炉的建材\n无法存储流体，且无法透光。",
   "block.tconstruct.scorched_glass_pane": "焦褐玻璃板",
   "block.tconstruct.scorched_glass_pane.tooltip": "无法用于构造熔铸炉",
-
+  "block.tconstruct.scorched_soul_glass_pane": "焦褐灵魂玻璃板",
+  "block.tconstruct.scorched_soul_glass_pane.tooltip": "无法用于构造熔铸炉，但可以从中穿过。",
+  
   "block.tconstruct.scorched_ladder": "焦褐梯子",
   "block.tconstruct.scorched_ladder.tooltip": "可供攀爬的冶炼炉建材",
 
@@ -2163,6 +2178,9 @@
   "modifier.tconstruct.wetting": "润湿",
   "modifier.tconstruct.wetting.flavor": "不是尿裤子那种",
   "modifier.tconstruct.wetting.description": "在受伤时会用液体打湿自己，根据液体种类不同，产生不同的效果",
+  "modifier.tconstruct.spitting": "喷洒",
+  "modifier.tconstruct.spitting.flavor": "成为更厉害的羊驼",
+  "modifier.tconstruct.spitting.description": "蓄力后工具可从储罐中喷出流体，并对目标造成效果。受弓的数值影响。",
 
   "_comment": "Bonus modifier slots",
   "modifier.tconstruct.creative_slot": "创造强化",
