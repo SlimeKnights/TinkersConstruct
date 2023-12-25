@@ -22,7 +22,7 @@
   },
   "traits": [
     {
-      "name": "tconstruct:piercing",
+      "name": "tconstruct:pierce",
       "level": 1
     }
   ],

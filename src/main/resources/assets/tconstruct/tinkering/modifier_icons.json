@@ -45,6 +45,7 @@
   "tconstruct:bane_of_sssss": "tconstruct:gui/modifiers/melee/bane_of_sssss",
   "tconstruct:cooling":       "tconstruct:gui/modifiers/melee/cooling",
   "tconstruct:killager":      "tconstruct:gui/modifiers/melee/killager",
+  "tconstruct:pierce":        "tconstruct:gui/modifiers/melee/piercing",
   "tconstruct:piercing":      "tconstruct:gui/modifiers/melee/piercing",
   "tconstruct:smite":         "tconstruct:gui/modifiers/melee/smite",
   "tconstruct:sharpness":     "tconstruct:gui/modifiers/melee/sharpness",

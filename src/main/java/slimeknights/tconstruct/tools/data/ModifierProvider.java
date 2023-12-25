@@ -31,6 +31,7 @@ import slimeknights.tconstruct.library.modifiers.modules.ConditionalMiningSpeedM
 import slimeknights.tconstruct.library.modifiers.modules.EnchantmentModule;
 import slimeknights.tconstruct.library.modifiers.modules.IncrementalModule;
 import slimeknights.tconstruct.library.modifiers.modules.LootingModule;
+import slimeknights.tconstruct.library.modifiers.modules.MeleeAttributeModule;
 import slimeknights.tconstruct.library.modifiers.modules.MobDisguiseModule;
 import slimeknights.tconstruct.library.modifiers.modules.MobEffectModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierSlotModule;
@@ -179,6 +180,12 @@ public class ModifierProvider extends AbstractModifierProvider {
       new TagEntityPredicate(TinkerTags.EntityTypes.VILLAGERS)
     ), 2.0f));
     addRedirect(id("fractured"), redirect(ModifierIds.sharpness));
+    buildModifier(ModifierIds.pierce)
+      // less than sharpness, but pierces 1 armor
+      .addModule(ToolStatModule.add(ToolStats.ATTACK_DAMAGE, 0.5f))
+      .addModule(new MeleeAttributeModule(TConstruct.prefix("modifier.pierce"), Attributes.ARMOR, Operation.ADDITION, -1, true))
+      // use a mob effect to make this work on ranged, to ensure it automatically cancels
+      .addModule(new MobEffectModule(LivingEntityPredicate.ANY, TinkerModifiers.pierceEffect.get(), ScalingValue.leveling(0, 1), ScalingValue.flat(2)), TinkerHooks.PROJECTILE_LAUNCH, TinkerHooks.PROJECTILE_HIT);
 
     // ranged
     buildModifier(ModifierIds.power).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ToolStatModule.add(ToolStats.PROJECTILE_DAMAGE, 0.5f));

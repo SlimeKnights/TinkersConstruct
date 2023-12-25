@@ -410,13 +410,17 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     /*
      * damage boost
      */
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.pierce)
+                                    .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.RANGED))
+                                    .setInput(Blocks.CACTUS, 1, 25)
+                                    .setMaxLevel(3) // +3 pierce, +1.5 damage
+                                    .setSlots(SlotType.UPGRADE, 1)
+                                    .saveSalvage(consumer, prefix(ModifierIds.pierce, upgradeSalvage))
+                                    .save(consumer, prefix(ModifierIds.pierce, upgradeFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.piercing)
                                     .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.BOWS))
-                                    .setInput(Blocks.CACTUS, 1, 25)
-                                    .setMaxLevel(5) // +2.5 pierce damage
                                     .setSlots(SlotType.UPGRADE, 1)
-                                    .saveSalvage(consumer, prefix(TinkerModifiers.piercing, upgradeSalvage))
-                                    .save(consumer, prefix(TinkerModifiers.piercing, upgradeFolder));
+                                    .saveSalvage(consumer, prefix(TinkerModifiers.piercing, upgradeSalvage));
     IncrementalModifierRecipeBuilder.modifier(ModifierIds.smite)
                                     .setTools(TinkerTags.Items.MELEE_OR_UNARMED)
                                     .setInput(Items.GLISTERING_MELON_SLICE, 1, 5)
