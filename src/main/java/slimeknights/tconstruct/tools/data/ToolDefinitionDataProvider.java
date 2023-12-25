@@ -71,7 +71,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .stat(ToolStats.ATTACK_SPEED, 1.2f)
       .smallToolStartingSlots()
       // traits
-      .trait(TinkerModifiers.piercing, 1)
+      .trait(ModifierIds.pierce, 1)
       // harvest
       .action(ToolActions.PICKAXE_DIG)
       .effective(BlockTags.MINEABLE_WITH_PICKAXE)
@@ -112,7 +112,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ToolStats.DURABILITY, 5.0f)
       .largeToolStartingSlots()
       // traits
-      .trait(TinkerModifiers.piercing, 2)
+      .trait(ModifierIds.pierce, 2)
       // harvest
       .action(ToolActions.PICKAXE_DIG)
       .effective(BlockTags.MINEABLE_WITH_PICKAXE)

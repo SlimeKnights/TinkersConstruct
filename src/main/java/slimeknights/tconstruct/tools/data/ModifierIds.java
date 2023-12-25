@@ -42,6 +42,7 @@ public class ModifierIds {
   public static final ModifierId antiaquatic = id("antiaquatic");
   public static final ModifierId killager    = id("killager");
   public static final ModifierId cooling     = id("cooling");
+  public static final ModifierId pierce      = id("pierce");
 
   // ranged
   public static final ModifierId power = id("power");

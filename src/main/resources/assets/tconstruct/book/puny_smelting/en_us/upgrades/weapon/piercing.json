@@ -1,18 +1,18 @@
 {
-  "modifier_id": "tconstruct:piercing",
+  "modifier_id": "tconstruct:pierce",
   "text": [
     {
       "text": "Tool gains the power of the cactus, attacking through armor."
     },
-	{
-	  "text": "Not to be confused with impaling",
-      "paragraph": true	  
-	}
+    {
+      "text": "Not to be confused with impaling",
+      "paragraph": true
+    }
   ],
   "effects": [
-    "Adds extra damage that pierces armor",
-    "Converts a bit of regular damage into piercing",
-    "Multiple levels, each level increases damage further",
+    "Cancels out a small amount of armor",
+    "Also slightly boosts the tool's damage",
+    "Multiple levels, each level increases effect",
     "Requires 1 Upgrade Slot per level"
   ]
 }

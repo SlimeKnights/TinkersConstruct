@@ -10,7 +10,7 @@
       "tag": "tconstruct:modifiable/melee"
     },
     {
-      "tag": "tconstruct:modifiable/ranged/bows"
+      "tag": "tconstruct:modifiable/ranged"
     }
   ],
   "slots": {
@@ -18,8 +18,8 @@
   },
   "allow_crystal": true,
   "result": {
-    "name": "tconstruct:piercing",
+    "name": "tconstruct:pierce",
     "level": 1
   },
-  "max_level": 5
+  "max_level": 3
 }
