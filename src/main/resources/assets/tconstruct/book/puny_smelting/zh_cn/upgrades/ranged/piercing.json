@@ -1,14 +1,17 @@
 {
-  "modifier_id": "tconstruct:piercing",
+  "modifier_id": "tconstruct:pierce",
   "text": [
     {
       "text": "工具现在拥有了仙人掌的力量：穿刺伤害。"
+    },
+    {
+      "text": "Not to be confused with impaling",
+      "paragraph": true
     }
   ],
   "effects": [
-    "增加额外穿刺伤害",
-    "将一部分伤害转换为穿刺伤害",
-    "多个等级，每级进一步增加穿刺伤害",
+    "Cancels out a small amount of armor",
+    "Multiple levels, each level increases effect",
     "每级需要1个升级槽"
   ]
 }

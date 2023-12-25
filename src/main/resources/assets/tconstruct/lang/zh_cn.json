@@ -1426,8 +1426,8 @@
 
   "material.tconstruct.bone": "骨头",
   "material.tconstruct.bone.flavor": "吾为所持剑之骨",
-  "material.tconstruct.bone.encyclopedia": "每级将0.5点伤害转换为1点穿刺伤害。",
-  "material.tconstruct.bone.ranged": "箭矢每级额外造成1点穿刺伤害。",
+  "material.tconstruct.bone.encyclopedia": "Increases melee damage by 0.5 and grants 1 armor pierce per level",
+  "material.tconstruct.bone.ranged": "Increases melee damage by 0.5 and grants 1 armor pierce per level",
   "material.tconstruct.bone.skull_flavor": "来点牛奶么？",
   "material.tconstruct.bone.skull_encyclopedia": "饮用牛奶后获得1分钟抗性提升。",
 
@@ -1795,6 +1795,9 @@
   "modifier.tconstruct.piercing.flavor": "变身仙人掌！",
   "modifier.tconstruct.piercing.description": "工具会无视护甲造成额外伤害！",
   "modifier.tconstruct.piercing.attack_damage": "穿刺伤害",
+  "modifier.tconstruct.pierce": "Pierce",
+  "modifier.tconstruct.pierce.flavor": "Become the cactus!",
+  "modifier.tconstruct.pierce.description": "Attacks cancels out some of the target's armor!",
   "modifier.tconstruct.smite": "亡灵杀手",
   "modifier.tconstruct.smite.flavor": "死吧，贱种！",
   "modifier.tconstruct.smite.description": "哪只亡灵不惧怕这金光闪闪的西瓜！",
@@ -2495,6 +2498,7 @@
   "_comment": "Internal effects",
   "effect.tconstruct.bleeding": "流血",
   "effect.tconstruct.magnetic": "磁性",
+    "effect.tconstruct.pierce": "Pierced",
   "effect.tconstruct.repulsive": "排斥",
   "effect.tconstruct.momentum": "动力",
   "effect.tconstruct.momentum_ranged": "动力",
