@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.modifiers.modules;
+package slimeknights.tconstruct.library.modifiers.modules.build;
 
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
@@ -12,9 +12,10 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
-import slimeknights.tconstruct.library.modifiers.hook.DisplayNameModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.VolatileDataModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.display.DisplayNameModifierHook;
+import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.util.ModuleWithKey;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;

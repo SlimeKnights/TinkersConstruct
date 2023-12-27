@@ -175,7 +175,7 @@ public sealed interface ModifierStatBoost {
     /** Parses this from JSON */
     public static StatBoost fromJson(JsonObject json, INumericToolStat<?> stat, List<TagKey<Item>> tagRequirements) {
       String typeName;
-      // TODO 1.19: remove type key entirely, assuming this
+      // TODO 1.19: remove type key entirely, assuming this sticks around
       if (json.has("operation")) {
         typeName = GsonHelper.getAsString(json, "operation");
       } else {

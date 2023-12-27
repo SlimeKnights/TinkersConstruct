@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.modifiers.modules;
+package slimeknights.tconstruct.library.modifiers.modules.build;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonArray;
@@ -11,7 +11,8 @@ import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
-import slimeknights.tconstruct.library.modifiers.hook.ToolActionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.ToolActionModifierHook;
+import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.List;

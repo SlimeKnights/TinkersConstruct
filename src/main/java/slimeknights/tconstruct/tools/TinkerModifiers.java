@@ -49,26 +49,26 @@ import slimeknights.tconstruct.library.modifiers.dynamic.SwappableExtraSlotModif
 import slimeknights.tconstruct.library.modifiers.impl.ScaledArmorLevelModifier;
 import slimeknights.tconstruct.library.modifiers.impl.SingleLevelModifier;
 import slimeknights.tconstruct.library.modifiers.impl.TankModifier;
-import slimeknights.tconstruct.library.modifiers.modules.AttributeModule;
-import slimeknights.tconstruct.library.modifiers.modules.ConditionalDamageModule;
-import slimeknights.tconstruct.library.modifiers.modules.ConditionalMiningSpeedModule;
-import slimeknights.tconstruct.library.modifiers.modules.EnchantmentModule;
-import slimeknights.tconstruct.library.modifiers.modules.IncrementalModule;
-import slimeknights.tconstruct.library.modifiers.modules.LootingModule;
-import slimeknights.tconstruct.library.modifiers.modules.MeleeAttributeModule;
-import slimeknights.tconstruct.library.modifiers.modules.MobDisguiseModule;
-import slimeknights.tconstruct.library.modifiers.modules.MobEffectModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
-import slimeknights.tconstruct.library.modifiers.modules.ModifierSlotModule;
-import slimeknights.tconstruct.library.modifiers.modules.ModifierTraitModule;
-import slimeknights.tconstruct.library.modifiers.modules.RarityModule;
-import slimeknights.tconstruct.library.modifiers.modules.RepairModule;
-import slimeknights.tconstruct.library.modifiers.modules.SwappableSlotModule;
-import slimeknights.tconstruct.library.modifiers.modules.TankCapacityModule;
-import slimeknights.tconstruct.library.modifiers.modules.TankModule;
-import slimeknights.tconstruct.library.modifiers.modules.ToolActionsModule;
-import slimeknights.tconstruct.library.modifiers.modules.ToolStatModule;
-import slimeknights.tconstruct.library.modifiers.modules.VolatileFlagModule;
+import slimeknights.tconstruct.library.modifiers.modules.armor.MobDisguiseModule;
+import slimeknights.tconstruct.library.modifiers.modules.build.AttributeModule;
+import slimeknights.tconstruct.library.modifiers.modules.build.EnchantmentModule;
+import slimeknights.tconstruct.library.modifiers.modules.build.IncrementalModule;
+import slimeknights.tconstruct.library.modifiers.modules.build.ModifierSlotModule;
+import slimeknights.tconstruct.library.modifiers.modules.build.ModifierTraitModule;
+import slimeknights.tconstruct.library.modifiers.modules.build.RarityModule;
+import slimeknights.tconstruct.library.modifiers.modules.build.RepairModule;
+import slimeknights.tconstruct.library.modifiers.modules.build.SwappableSlotModule;
+import slimeknights.tconstruct.library.modifiers.modules.build.ToolActionsModule;
+import slimeknights.tconstruct.library.modifiers.modules.build.ToolStatModule;
+import slimeknights.tconstruct.library.modifiers.modules.build.VolatileFlagModule;
+import slimeknights.tconstruct.library.modifiers.modules.combat.ConditionalDamageModule;
+import slimeknights.tconstruct.library.modifiers.modules.combat.LootingModule;
+import slimeknights.tconstruct.library.modifiers.modules.combat.MeleeAttributeModule;
+import slimeknights.tconstruct.library.modifiers.modules.combat.MobEffectModule;
+import slimeknights.tconstruct.library.modifiers.modules.fluid.TankCapacityModule;
+import slimeknights.tconstruct.library.modifiers.modules.fluid.TankModule;
+import slimeknights.tconstruct.library.modifiers.modules.mining.ConditionalMiningSpeedModule;
 import slimeknights.tconstruct.library.modifiers.spilling.ISpillingEffect;
 import slimeknights.tconstruct.library.modifiers.spilling.SpillingFluidManager;
 import slimeknights.tconstruct.library.modifiers.spilling.effects.AddBreathSpillingEffect;
@@ -612,28 +612,34 @@ public final class TinkerModifiers extends TinkerModule {
     ModifierLevelDisplay.LOADER.register(TConstruct.getResource("no_levels"), ModifierLevelDisplay.NO_LEVELS.getLoader());
     ModifierLevelDisplay.LOADER.register(TConstruct.getResource("pluses"), ModifierLevelDisplay.PLUSES.getLoader());
     ModifierLevelDisplay.LOADER.register(TConstruct.getResource("unique"), UniqueForLevels.LOADER);
-    // modifier modules
-    ModifierModule.LOADER.register(TConstruct.getResource("incremental"), IncrementalModule.LOADER);
+
+    // modifier modules //
+    // armor
+    ModifierModule.LOADER.register(TConstruct.getResource("mob_disguise"), MobDisguiseModule.LOADER);
+    // build
     ModifierModule.LOADER.register(TConstruct.getResource("attribute"), AttributeModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("tool_stat"), ToolStatModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("tool_actions"), ToolActionsModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("conditional_damage"), ConditionalDamageModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("conditional_mining_speed"), ConditionalMiningSpeedModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("volatile_flag"), VolatileFlagModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("rarity"), RarityModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("harvest_enchantment"), EnchantmentModule.Harvest.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("constant_enchantment"), EnchantmentModule.Constant.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("looting"), LootingModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("incremental"), IncrementalModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("modifier_slot"), ModifierSlotModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("rarity"), RarityModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("repair"), RepairModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("swappable_slot"), SwappableSlotModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("swappable_bonus_slot"), SwappableSlotModule.BonusSlot.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("mob_effect"), MobEffectModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("mob_disguise"), MobDisguiseModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("repair"), RepairModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("tool_actions"), ToolActionsModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("tool_stat"), ToolStatModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("trait"), ModifierTraitModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("volatile_flag"), VolatileFlagModule.LOADER);
+    // combat
+    ModifierModule.LOADER.register(TConstruct.getResource("conditional_damage"), ConditionalDamageModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("looting"), LootingModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("melee_attribute"), MeleeAttributeModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("mob_effect"), MobEffectModule.LOADER);
+    // mining
+    ModifierModule.LOADER.register(TConstruct.getResource("conditional_mining_speed"), ConditionalMiningSpeedModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("harvest_enchantment"), EnchantmentModule.Harvest.LOADER);
+    // fluid
     ModifierModule.LOADER.register(TConstruct.getResource("tank_capacity"), TankCapacityModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("tank"), TankModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("melee_attribute"), MeleeAttributeModule.LOADER);
 
     ModifierPredicate.LOADER.register(TConstruct.getResource("and"), ModifierPredicate.AND);
     ModifierPredicate.LOADER.register(TConstruct.getResource("or"), ModifierPredicate.OR);

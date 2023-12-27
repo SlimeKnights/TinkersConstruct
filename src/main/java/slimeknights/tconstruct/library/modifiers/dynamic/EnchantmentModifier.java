@@ -15,7 +15,8 @@ import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.modules.EnchantmentModule.Constant;
+import slimeknights.tconstruct.library.modifiers.modules.build.EnchantmentModule;
+import slimeknights.tconstruct.library.modifiers.modules.build.EnchantmentModule.Constant;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -23,7 +24,7 @@ import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
 
 import java.util.Objects;
 
-/** @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.EnchantmentModule.Constant} */
+/** @deprecated use {@link EnchantmentModule.Constant} */
 @Deprecated
 @RequiredArgsConstructor
 public class EnchantmentModifier extends Modifier {

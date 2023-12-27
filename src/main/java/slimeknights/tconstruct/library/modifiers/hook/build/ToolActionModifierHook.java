@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.modifiers.hook;
+package slimeknights.tconstruct.library.modifiers.hook.build;
 
 import net.minecraftforge.common.ToolAction;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;

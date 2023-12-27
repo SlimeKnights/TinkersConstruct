@@ -12,6 +12,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.library.modifiers.modules.build.AttributeModule;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.List;
@@ -22,7 +23,7 @@ import java.util.function.BiConsumer;
 
 /**
  * Represents an attribute in a modifier
- * TODO 1.19: merge into {@link slimeknights.tconstruct.library.modifiers.modules.AttributeModule}
+ * TODO 1.19: merge into {@link AttributeModule}
  */
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class ModifierAttribute {

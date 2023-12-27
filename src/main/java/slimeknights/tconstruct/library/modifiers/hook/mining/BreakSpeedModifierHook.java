@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.modifiers.hook.mining;
 import net.minecraft.core.Direction;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.Collection;
@@ -15,7 +16,7 @@ public interface BreakSpeedModifierHook {
    * Alternatives:
    * <ul>
    *   <li>{@link slimeknights.tconstruct.library.modifiers.hook.build.ToolStatsModifierHook}: Limited context, but effect shows in the tooltip automatically.</li>
-   *   <li>{@link slimeknights.tconstruct.library.modifiers.hook.TooltipModifierHook}: Allows adding bonus effects to the tooltip.</li>
+   *   <li>{@link TooltipModifierHook}: Allows adding bonus effects to the tooltip.</li>
    * </ul>
    * @param tool                 Current tool instance
    * @param modifier             Modifier level

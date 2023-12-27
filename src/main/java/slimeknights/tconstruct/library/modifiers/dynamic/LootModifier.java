@@ -17,6 +17,8 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.HarvestEnchantmentsModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.LootingModifierHook;
+import slimeknights.tconstruct.library.modifiers.modules.build.EnchantmentModule;
+import slimeknights.tconstruct.library.modifiers.modules.combat.LootingModule;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
@@ -26,9 +28,10 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.function.BiConsumer;
 
-/** Modifier to boost loot, from mobs or blocks
- * @deprecated use {@link ComposableModifier} with {@link slimeknights.tconstruct.library.modifiers.modules.LootingModule}
- * or {@link slimeknights.tconstruct.library.modifiers.modules.EnchantmentModule.Harvest} */
+/**
+ * Modifier to boost loot, from mobs or blocks
+ * @deprecated use {@link ComposableModifier} with {@link LootingModule} or {@link EnchantmentModule.Harvest}
+ */
 @Deprecated
 @RequiredArgsConstructor
 public class LootModifier extends Modifier implements LootingModifierHook, HarvestEnchantmentsModifierHook {

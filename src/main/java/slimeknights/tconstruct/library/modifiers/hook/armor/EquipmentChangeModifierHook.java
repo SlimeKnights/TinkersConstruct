@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.modifiers.hook;
+package slimeknights.tconstruct.library.modifiers.hook.armor;
 
 import net.minecraft.world.entity.EquipmentSlot;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -7,9 +7,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.Collection;
 
-/**
- * Hook used when a tool is added or removed from any of the six {@link EquipmentSlot}.
- */
+/** Hook used when a tool is added or removed from any of the six {@link EquipmentSlot}. */
 public interface EquipmentChangeModifierHook {
   /**
    * Called when a tinker tool is equipped to an entity

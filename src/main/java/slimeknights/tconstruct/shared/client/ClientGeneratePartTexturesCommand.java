@@ -62,7 +62,7 @@ public class ClientGeneratePartTexturesCommand {
 
   /** Gets the clickable output link */
   protected static Component getOutputComponent(File file) {
-    return (new TextComponent(file.getAbsolutePath())).withStyle((style) -> style.setUnderlined(true).withClickEvent(new ClickEvent(Action.OPEN_FILE, file.getAbsolutePath())));
+    return (new TextComponent(file.getAbsolutePath())).withStyle((style) -> style.withUnderlined(true).withClickEvent(new ClickEvent(Action.OPEN_FILE, file.getAbsolutePath())));
   }
 
   /** Generates all textures using the resource pack list */

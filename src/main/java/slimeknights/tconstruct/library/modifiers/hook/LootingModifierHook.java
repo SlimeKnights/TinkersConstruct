@@ -11,7 +11,10 @@ import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.function.Function;
 
-/** Modifier hooks for wearing leggings boosting loot. One as a module in case you want to only apply the bonus to leggings/not leggings */
+/**
+ * Modifier hooks for wearing leggings boosting loot. One as a module in case you want to only apply the bonus to leggings/not leggings
+ * TODO 1.19: move to {@link slimeknights.tconstruct.library.modifiers.hook.combat}
+ */
 public interface LootingModifierHook {
   /** Default behavior for the looting modifier */
   LootingModifierHook DEFAULT = (tool, entry, holder, target, damageSource, looting) -> looting;

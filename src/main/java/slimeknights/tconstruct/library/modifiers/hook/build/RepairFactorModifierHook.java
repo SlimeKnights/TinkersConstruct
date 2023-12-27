@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.modifiers.hook;
+package slimeknights.tconstruct.library.modifiers.hook.build;
 
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;

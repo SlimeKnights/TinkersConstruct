@@ -9,7 +9,8 @@ import java.util.Collection;
 import java.util.function.Function;
 
 /**
- * Modifier hook for boots when the player walks
+ * Modifier hook for boots when the player walks.
+ * TODO 1.19: move to {@link slimeknights.tconstruct.library.modifiers.hook.armor}
  */
 public interface ArmorWalkModifierHook {
   /** Empty implementation for the sake of default behavior */

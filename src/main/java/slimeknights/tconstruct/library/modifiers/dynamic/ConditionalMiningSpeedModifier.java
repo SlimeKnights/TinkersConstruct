@@ -16,7 +16,7 @@ import slimeknights.tconstruct.library.json.predicate.IJsonPredicate;
 import slimeknights.tconstruct.library.json.predicate.block.BlockPredicate;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;
-import slimeknights.tconstruct.library.modifiers.modules.ConditionalMiningSpeedModule;
+import slimeknights.tconstruct.library.modifiers.modules.mining.ConditionalMiningSpeedModule;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.TooltipKey;

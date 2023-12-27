@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.modifiers.modules;
+package slimeknights.tconstruct.library.modifiers.modules.build;
 
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +14,7 @@ import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.dynamic.EnchantmentModifier;
 import slimeknights.tconstruct.library.modifiers.hook.HarvestEnchantmentsModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.RawDataModifierHook;
+import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.JsonUtils;

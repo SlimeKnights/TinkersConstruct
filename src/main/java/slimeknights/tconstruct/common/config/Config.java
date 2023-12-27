@@ -282,7 +282,7 @@ public class Config {
   public static class Client {
     //public final ForgeConfigSpec.BooleanValue temperatureInCelsius;
     public final ForgeConfigSpec.BooleanValue tankFluidModel;
-    public final ForgeConfigSpec.BooleanValue extraToolTips;
+    public final ForgeConfigSpec.BooleanValue extraToolTips; // TODO: do we even need this config option? who would turn it off?
     public final ForgeConfigSpec.BooleanValue logMissingMaterialTextures;
     public final ForgeConfigSpec.BooleanValue logMissingModifierTextures;
     public final ForgeConfigSpec.BooleanValue showModifiersInJEI;

@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.modifiers.hook;
+package slimeknights.tconstruct.library.modifiers.hook.display;
 
 import net.minecraft.network.chat.Component;
 import slimeknights.tconstruct.library.modifiers.Modifier;

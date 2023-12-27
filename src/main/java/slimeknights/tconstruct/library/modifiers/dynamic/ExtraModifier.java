@@ -10,13 +10,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.GsonHelper;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.modules.build.ModifierSlotModule;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
-/** @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.ModifierSlotModule} */
+/** @deprecated use {@link ModifierSlotModule} */
 @Deprecated
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class ExtraModifier extends Modifier {
