@@ -1,0 +1,16 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "tconstruct:item/base/staff_charging",
+  "textures": {
+    "tool":         "tconstruct:item/tool/staff/ender_4",
+    "broken":       "tconstruct:item/tool/staff/ender_broken",
+    "tool_large":   "tconstruct:item/tool/staff/ender_large_4",
+    "broken_large": "tconstruct:item/tool/staff/ender_large_broken"
+  },
+  "large": true,
+  "modifier_roots": {
+    "small": [ "tconstruct:item/tool/staff/modifiers/" ],
+    "large": [ "tconstruct:item/tool/staff/large_modifiers/ender/", "tconstruct:item/tool/staff/large_modifiers/" ]
+  },
+  "first_modifiers": [ "tconstruct:dyed", "tconstruct:embellishment" ]
+}

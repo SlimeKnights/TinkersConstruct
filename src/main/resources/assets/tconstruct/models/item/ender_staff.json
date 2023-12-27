@@ -1,0 +1,62 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "tconstruct:item/base/staff",
+  "textures": {
+    "tool":         "tconstruct:item/tool/staff/ender",
+    "broken":       "tconstruct:item/tool/staff/ender_broken",
+    "tool_large":   "tconstruct:item/tool/staff/ender_large",
+    "broken_large": "tconstruct:item/tool/staff/ender_large_broken"
+  },
+  "large": true,
+  "modifier_roots": {
+    "small": [ "tconstruct:item/tool/staff/modifiers/" ],
+    "large": [ "tconstruct:item/tool/staff/large_modifiers/ender/", "tconstruct:item/tool/staff/large_modifiers/" ]
+  },
+  "first_modifiers": [ "tconstruct:dyed", "tconstruct:embellishment" ],
+  "overrides": [
+    {
+      "predicate": { "tconstruct:charging": 1 },
+      "model": "tconstruct:item/slimestaff/ender/charging_1"
+    },
+    {
+      "predicate": { "tconstruct:charging": 1, "tconstruct:charge": 0.4 },
+      "model": "tconstruct:item/slimestaff/ender/charging_2"
+    },
+    {
+      "predicate": { "tconstruct:charging": 1, "tconstruct:charge": 0.7 },
+      "model": "tconstruct:item/slimestaff/ender/charging_3"
+    },
+    {
+      "predicate": { "tconstruct:charging": 1, "tconstruct:charge": 0.9 },
+      "model": "tconstruct:item/slimestaff/ender/charging_4"
+    },
+    {
+      "predicate": { "tconstruct:charging": 1, "tconstruct:charge": 1.0 },
+      "model": "tconstruct:item/slimestaff/ender/charging_5"
+    },
+    {
+      "predicate": { "tconstruct:charging": 2 },
+      "model": "tconstruct:item/slimestaff/ender/blocking"
+    },
+    {
+      "predicate": { "tconstruct:charging": 2, "tconstruct:charge": 0.05 },
+      "model": "tconstruct:item/slimestaff/ender/blocking_1"
+    },
+    {
+      "predicate": { "tconstruct:charging": 2, "tconstruct:charge": 0.4 },
+      "model": "tconstruct:item/slimestaff/ender/blocking_2"
+    },
+    {
+      "predicate": { "tconstruct:charging": 2, "tconstruct:charge": 0.7 },
+      "model": "tconstruct:item/slimestaff/ender/blocking_3"
+    },
+    {
+      "predicate": { "tconstruct:charging": 2, "tconstruct:charge": 0.9 },
+      "model": "tconstruct:item/slimestaff/ender/blocking_4"
+    },
+    {
+      "predicate": { "tconstruct:charging": 2, "tconstruct:charge": 1.0 },
+      "model": "tconstruct:item/slimestaff/ender/blocking_5"
+    }
+  ]
+}

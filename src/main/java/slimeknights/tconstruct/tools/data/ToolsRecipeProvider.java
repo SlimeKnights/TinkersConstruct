@@ -127,9 +127,21 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                        .define('I', TinkerMaterials.queensSlime.getIngotTag())
                        .unlockedBy("has_wood", has(TinkerWorld.bloodshroom.getLogItemTag()))
                        .save(consumer, prefix(TinkerTools.ichorStaff, folder));
+    ShapedRecipeBuilder.shaped(TinkerTools.enderStaff)
+                       .pattern("CWC")
+                       .pattern(" I ")
+                       .pattern(" W ")
+                       .define('C', TinkerWorld.enderGeode)
+                       .define('W', TinkerMaterials.nahuatl)
+                       .define('I', Tags.Items.INGOTS_NETHERITE)
+                       .unlockedBy("has_wood", has(TinkerWorld.bloodshroom.getLogItemTag()))
+                       .save(consumer, prefix(TinkerTools.enderStaff, folder));
     SpecializedRepairRecipeBuilder.repair(Ingredient.of(TinkerTools.skyStaff, TinkerTools.earthStaff, TinkerTools.ichorStaff), MaterialIds.slimewood)
                                   .buildRepairKit(consumer, modResource(repairFolder + "staff_repair_kit"))
                                   .save(consumer, modResource(repairFolder + "staff_station"));
+    SpecializedRepairRecipeBuilder.repair(Ingredient.of(TinkerTools.enderStaff), MaterialIds.nahuatl)
+                                  .buildRepairKit(consumer, modResource(repairFolder + "staff_ender_repair_kit"))
+                                  .save(consumer, modResource(repairFolder + "staff_ender_station"));
 
     // travelers gear
     ShapedRecipeBuilder.shaped(TinkerTools.travelersGear.get(ArmorSlotType.HELMET))
