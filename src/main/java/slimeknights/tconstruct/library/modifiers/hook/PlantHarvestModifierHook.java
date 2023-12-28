@@ -5,14 +5,14 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.ModifierHook;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.Collection;
 import java.util.function.Function;
 
 /**
- * Modifier module to detect when the harvest modifier harvested a block. Use with {@link slimeknights.tconstruct.library.modifiers.Modifier#getHook(ModifierHook)} (Class)}
+ * Modifier module to detect when the harvest modifier harvested a block.
+ * TODO 1.19: move to {@code slimeknights.tconstruct.library.modifiers.hook.special}
  */
 public interface PlantHarvestModifierHook {
   /** Default behavior for modifiers not using this hook */

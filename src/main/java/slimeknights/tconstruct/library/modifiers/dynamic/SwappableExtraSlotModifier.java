@@ -15,7 +15,7 @@ import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
-import slimeknights.tconstruct.library.modifiers.modules.SwappableSlotModule;
+import slimeknights.tconstruct.library.modifiers.modules.build.SwappableSlotModule;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;

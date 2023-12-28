@@ -25,6 +25,7 @@ import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.ProjectileHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ProjectileLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;
+import slimeknights.tconstruct.library.modifiers.modules.combat.MobEffectModule;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
@@ -36,7 +37,7 @@ import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
-/** @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.MobEffectModule} */
+/** @deprecated use {@link MobEffectModule} */
 @Deprecated
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class MobEffectModifier extends IncrementalModifier implements ProjectileHitModifierHook, ProjectileLaunchModifierHook {

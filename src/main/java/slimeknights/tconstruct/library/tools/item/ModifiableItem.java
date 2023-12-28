@@ -36,12 +36,14 @@ import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.behavior.AttributesModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.display.DurabilityDisplayModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.InventoryTickModifierHook;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
-import slimeknights.tconstruct.library.tools.helper.ModifiableItemUtil;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
@@ -56,6 +58,7 @@ import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerToolActions;
 
 import javax.annotation.Nullable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -198,17 +201,17 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
 
   @Override
   public boolean isBarVisible(ItemStack pStack) {
-    return ToolDamageUtil.showDurabilityBar(pStack);
+    return DurabilityDisplayModifierHook.showDurabilityBar(pStack);
   }
 
   @Override
   public int getBarColor(ItemStack pStack) {
-    return ToolDamageUtil.getRGBDurabilityForDisplay(pStack);
+    return DurabilityDisplayModifierHook.getDurabilityRGB(pStack);
   }
 
   @Override
   public int getBarWidth(ItemStack pStack) {
-    return ToolDamageUtil.getDamageForDisplay(pStack);
+    return DurabilityDisplayModifierHook.getDurabilityWidth(pStack);
   }
 
 
@@ -221,7 +224,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
 
   @Override
   public Multimap<Attribute,AttributeModifier> getAttributeModifiers(IToolStackView tool, EquipmentSlot slot) {
-    return ModifiableItemUtil.getMeleeAttributeModifiers(tool, slot);
+    return AttributesModifierHook.getHeldAttributeModifiers(tool, slot);
   }
 
   @Override
@@ -266,7 +269,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
 
   @Override
   public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-    ModifiableItemUtil.heldInventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
+    InventoryTickModifierHook.heldInventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
   }
   
   /* Right click hooks */
@@ -484,6 +487,56 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
 
   /* Misc */
 
+  /**
+   * Logic to prevent reanimation on tools when properties such as autorepair change.
+   * @param oldStack      Old stack instance
+   * @param newStack      New stack instance
+   * @param slotChanged   If true, a slot changed
+   * @return  True if a reequip animation should be triggered
+   */
+  public static boolean shouldCauseReequip(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+    if (oldStack == newStack) {
+      return false;
+    }
+    // basic changes
+    if (slotChanged || oldStack.getItem() != newStack.getItem()) {
+      return true;
+    }
+
+    // if the tool props changed,
+    ToolStack oldTool = ToolStack.from(oldStack);
+    ToolStack newTool = ToolStack.from(newStack);
+
+    // check if modifiers or materials changed
+    if (!oldTool.getMaterials().equals(newTool.getMaterials())) {
+      return true;
+    }
+    if (!oldTool.getModifierList().equals(newTool.getModifierList())) {
+      return true;
+    }
+
+    // if the attributes changed, reequip
+    Multimap<Attribute,AttributeModifier> attributesNew = newStack.getAttributeModifiers(EquipmentSlot.MAINHAND);
+    Multimap<Attribute, AttributeModifier> attributesOld = oldStack.getAttributeModifiers(EquipmentSlot.MAINHAND);
+    if (attributesNew.size() != attributesOld.size()) {
+      return true;
+    }
+    for (Attribute attribute : attributesOld.keySet()) {
+      if (!attributesNew.containsKey(attribute)) {
+        return true;
+      }
+      Iterator<AttributeModifier> iter1 = attributesNew.get(attribute).iterator();
+      Iterator<AttributeModifier> iter2 = attributesOld.get(attribute).iterator();
+      while (iter1.hasNext() && iter2.hasNext()) {
+        if (!iter1.next().equals(iter2.next())) {
+          return true;
+        }
+      }
+    }
+    // no changes, no reequip
+    return false;
+  }
+
   @Override
   public boolean shouldCauseBlockBreakReset(ItemStack oldStack, ItemStack newStack) {
     return shouldCauseReequipAnimation(oldStack, newStack, false);
@@ -491,7 +544,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
 
   @Override
   public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-    return ModifiableItemUtil.shouldCauseReequip(oldStack, newStack, slotChanged);
+    return shouldCauseReequip(oldStack, newStack, slotChanged);
   }
 
 

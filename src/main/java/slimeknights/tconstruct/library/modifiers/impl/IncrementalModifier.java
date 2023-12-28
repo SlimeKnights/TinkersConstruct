@@ -5,6 +5,8 @@ import net.minecraft.network.chat.Component;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
+import slimeknights.tconstruct.library.modifiers.modules.behavior.IncrementalModule;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
@@ -16,7 +18,7 @@ import java.util.List;
 /**
  * Modifier which can take just part of an input instead of the whole input
  * TODO: consider moving incremental max to a field, serialized in JSON
- * TODO: consider removing this class in favor of {@link slimeknights.tconstruct.library.modifiers.modules.IncrementalModule}
+ * TODO: consider removing this class in favor of {@link IncrementalModule}
  */
 public class IncrementalModifier extends Modifier {
   /** Gets the display name for an incremental modifier */
@@ -140,7 +142,7 @@ public class IncrementalModifier extends Modifier {
     persistentData.putInt(modifier, amount);
   }
 
-  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.TooltipModifierHook#addDamageBoost(IToolStackView, ModifierEntry, float, List)} */
+  /** @deprecated use {@link TooltipModifierHook#addDamageBoost(IToolStackView, ModifierEntry, float, List)} */
   @Deprecated
   protected void addDamageTooltip(IToolStackView tool, int level, float levelAmount, List<Component> tooltip) {
     addDamageTooltip(tool, getScaledLevel(tool, level) * levelAmount, tooltip);

@@ -22,6 +22,7 @@ import slimeknights.tconstruct.library.tools.definition.module.ToolModuleHooks;
 import slimeknights.tconstruct.library.tools.definition.module.interaction.DualOptionInteraction;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
+// TODO: migrate to a modifier module
 public class InventoryMenuModifier extends InventoryModifier implements KeybindInteractModifierHook, GeneralInteractionModifierHook {
   /** Loader instance */
   public static final GenericIntSerializer<InventoryMenuModifier> LOADER = new GenericIntSerializer<>("size", InventoryMenuModifier::new, t -> t.slotsPerLevel);

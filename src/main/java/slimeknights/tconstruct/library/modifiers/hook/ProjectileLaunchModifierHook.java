@@ -13,7 +13,7 @@ import java.util.function.Function;
 
 /**
  * Hook for modifiers which wish to modify an arrow before its fired.
- * TODO 1.19: move into combat package
+ * TODO 1.19: move into {@link slimeknights.tconstruct.library.modifiers.hook.combat}
  */
 public interface ProjectileLaunchModifierHook {
   /** Default instance */

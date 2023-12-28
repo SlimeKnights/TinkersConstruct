@@ -33,6 +33,7 @@ import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.display.DurabilityDisplayModifierHook;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
@@ -233,17 +234,17 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
 
   @Override
   public boolean isBarVisible(ItemStack pStack) {
-    return ToolDamageUtil.showDurabilityBar(pStack);
+    return DurabilityDisplayModifierHook.showDurabilityBar(pStack);
   }
 
   @Override
   public int getBarColor(ItemStack pStack) {
-    return ToolDamageUtil.getRGBDurabilityForDisplay(pStack);
+    return DurabilityDisplayModifierHook.getDurabilityRGB(pStack);
   }
 
   @Override
   public int getBarWidth(ItemStack pStack) {
-    return ToolDamageUtil.getDamageForDisplay(pStack);
+    return DurabilityDisplayModifierHook.getDurabilityWidth(pStack);
   }
 
 
@@ -339,7 +340,7 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
         boolean isCorrectSlot = living.getItemBySlot(slot) == stack;
         // we pass in the stack for most custom context, but for the sake of armor its easier to tell them that this is the correct slot for effects
         for (ModifierEntry entry : modifiers) {
-          entry.getModifier().onInventoryTick(tool, entry.getLevel(), levelIn, living, itemSlot, isSelected, isCorrectSlot, stack);
+          entry.getHook(TinkerHooks.INVENTORY_TICK).onInventoryTick(tool, entry, levelIn, living, itemSlot, isSelected, isCorrectSlot, stack);
         }
       }
     }

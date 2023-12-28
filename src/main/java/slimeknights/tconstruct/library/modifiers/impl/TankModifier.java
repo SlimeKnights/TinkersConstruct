@@ -13,7 +13,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.modules.TankModule;
+import slimeknights.tconstruct.library.modifiers.modules.fluid.TankModule;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.capability.ToolFluidCapability;
@@ -30,9 +30,9 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.BiFunction;
 
-import static slimeknights.tconstruct.library.modifiers.modules.TankCapacityModule.DEFAULT_CAPACITY_KEY;
-import static slimeknights.tconstruct.library.modifiers.modules.TankModule.DEFAULT_FLUID_KEY;
-import static slimeknights.tconstruct.library.modifiers.modules.TankModule.DEFAULT_OWNER_KEY;
+import static slimeknights.tconstruct.library.modifiers.modules.fluid.TankCapacityModule.DEFAULT_CAPACITY_KEY;
+import static slimeknights.tconstruct.library.modifiers.modules.fluid.TankModule.DEFAULT_FLUID_KEY;
+import static slimeknights.tconstruct.library.modifiers.modules.fluid.TankModule.DEFAULT_OWNER_KEY;
 
 /**
  * Modifier containing the standard tank, extend if you want to share this tank

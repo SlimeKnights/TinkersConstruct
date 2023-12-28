@@ -31,14 +31,16 @@ import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.hook.behavior.AttributesModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.display.DurabilityDisplayModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.InventoryTickModifierHook;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
-import slimeknights.tconstruct.library.tools.helper.ModifiableItemUtil;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -207,17 +209,17 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
 
   @Override
   public boolean isBarVisible(ItemStack pStack) {
-    return ToolDamageUtil.showDurabilityBar(pStack);
+    return DurabilityDisplayModifierHook.showDurabilityBar(pStack);
   }
 
   @Override
   public int getBarColor(ItemStack pStack) {
-    return ToolDamageUtil.getRGBDurabilityForDisplay(pStack);
+    return DurabilityDisplayModifierHook.getDurabilityRGB(pStack);
   }
 
   @Override
   public int getBarWidth(ItemStack pStack) {
-    return ToolDamageUtil.getDamageForDisplay(pStack);
+    return DurabilityDisplayModifierHook.getDurabilityWidth(pStack);
   }
 
 
@@ -225,7 +227,7 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
 
   @Override
   public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-    ModifiableItemUtil.heldInventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
+    InventoryTickModifierHook.heldInventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
   }
 
 
@@ -243,7 +245,7 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
 
   @Override
   public Multimap<Attribute,AttributeModifier> getAttributeModifiers(IToolStackView tool, EquipmentSlot slot) {
-    return ModifiableItemUtil.getMeleeAttributeModifiers(tool, slot);
+    return AttributesModifierHook.getHeldAttributeModifiers(tool, slot);
   }
 
   @Override
@@ -344,7 +346,7 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
 
   @Override
   public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-    return ModifiableItemUtil.shouldCauseReequip(oldStack, newStack, slotChanged);
+    return ModifiableItem.shouldCauseReequip(oldStack, newStack, slotChanged);
   }
 
 
