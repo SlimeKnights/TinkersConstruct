@@ -416,6 +416,17 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .trait(ModifierIds.overslimeFriend)
       .aoe(new CircleAOEIterator(1, false))
       .module(ToolModuleHooks.INTERACTION, DualOptionInteraction.INSTANCE);
+    define(ToolDefinitions.ENDER_STAFF)
+      .stat(ToolStats.DURABILITY, 1520)
+      .stat(ToolStats.BLOCK_AMOUNT, 17)
+      .stat(ToolStats.USE_ITEM_SPEED, 0.4f)
+      .startingSlots(SlotType.UPGRADE, 3)
+      .startingSlots(SlotType.DEFENSE, 1)
+      .startingSlots(SlotType.ABILITY, 2)
+      .trait(ModifierIds.overslimeFriend)
+      .trait(ModifierIds.reach)
+      .aoe(new CircleAOEIterator(1, false))
+      .module(ToolModuleHooks.INTERACTION, DualOptionInteraction.INSTANCE);
 
 
     // travelers armor
