@@ -42,9 +42,10 @@ import slimeknights.mantle.data.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierManager.ModifierRegistrationEvent;
 import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.build.RepairFactorModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.build.ToolActionModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.build.ToolDamageModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.behavior.AttributesModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.behavior.RepairFactorModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolActionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolDamageModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeDamageModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
@@ -395,7 +396,7 @@ public class Modifier implements IHaveLoader<Modifier> {
   @Deprecated
   public void addToolStats(ToolRebuildContext context, int level, ModifierStatsBuilder builder) {}
 
-  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.build.AttributesModifierHook} */
+  /** @deprecated use {@link AttributesModifierHook} */
   @Deprecated
   public void addAttributes(IToolStackView tool, int level, EquipmentSlot slot, BiConsumer<Attribute,AttributeModifier> consumer) {}
 

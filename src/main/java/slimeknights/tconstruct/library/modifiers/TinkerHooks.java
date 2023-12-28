@@ -20,14 +20,14 @@ import slimeknights.tconstruct.library.modifiers.hook.ProjectileHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ProjectileLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ShearsModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.build.AttributesModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.build.EffectiveLevelModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.behavior.AttributesModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.behavior.EffectiveLevelModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.behavior.RepairFactorModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolActionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolDamageModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ModifierTraitHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.RawDataModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.build.RepairFactorModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.build.ToolActionModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.build.ToolDamageModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ToolStatsModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ValidateModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.VolatileDataModifierHook;
@@ -145,7 +145,7 @@ public class TinkerHooks {
     }
   });
 
-  
+
   /* Tool Building */
 
   /** Hook for adding raw unconditional stats to a tool */

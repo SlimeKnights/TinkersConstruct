@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.modifiers.hook.build;
+package slimeknights.tconstruct.library.modifiers.hook.behavior;
 
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;

@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.modifiers.modules.build;
+package slimeknights.tconstruct.library.modifiers.modules.behavior;
 
 import com.google.gson.JsonObject;
 import net.minecraft.nbt.Tag;
@@ -9,7 +9,7 @@ import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
-import slimeknights.tconstruct.library.modifiers.hook.build.EffectiveLevelModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.behavior.EffectiveLevelModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.DisplayNameModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;

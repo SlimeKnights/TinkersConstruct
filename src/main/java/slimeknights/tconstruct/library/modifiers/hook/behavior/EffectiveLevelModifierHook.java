@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.modifiers.hook.build;
+package slimeknights.tconstruct.library.modifiers.hook.behavior;
 
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;

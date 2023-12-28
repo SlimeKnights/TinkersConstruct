@@ -51,15 +51,15 @@ import slimeknights.tconstruct.library.modifiers.impl.SingleLevelModifier;
 import slimeknights.tconstruct.library.modifiers.impl.TankModifier;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.MobDisguiseModule;
-import slimeknights.tconstruct.library.modifiers.modules.build.AttributeModule;
+import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule;
+import slimeknights.tconstruct.library.modifiers.modules.behavior.IncrementalModule;
+import slimeknights.tconstruct.library.modifiers.modules.behavior.RepairModule;
+import slimeknights.tconstruct.library.modifiers.modules.behavior.ToolActionsModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.EnchantmentModule;
-import slimeknights.tconstruct.library.modifiers.modules.build.IncrementalModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.ModifierSlotModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.ModifierTraitModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.RarityModule;
-import slimeknights.tconstruct.library.modifiers.modules.build.RepairModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.SwappableSlotModule;
-import slimeknights.tconstruct.library.modifiers.modules.build.ToolActionsModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.ToolStatModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.VolatileFlagModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.ConditionalDamageModule;
@@ -616,16 +616,17 @@ public final class TinkerModifiers extends TinkerModule {
     // modifier modules //
     // armor
     ModifierModule.LOADER.register(TConstruct.getResource("mob_disguise"), MobDisguiseModule.LOADER);
-    // build
+    // behavior
     ModifierModule.LOADER.register(TConstruct.getResource("attribute"), AttributeModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("constant_enchantment"), EnchantmentModule.Constant.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("incremental"), IncrementalModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("repair"), RepairModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("tool_actions"), ToolActionsModule.LOADER);
+    // build
+    ModifierModule.LOADER.register(TConstruct.getResource("constant_enchantment"), EnchantmentModule.Constant.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("modifier_slot"), ModifierSlotModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("rarity"), RarityModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("repair"), RepairModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("swappable_slot"), SwappableSlotModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("swappable_bonus_slot"), SwappableSlotModule.BonusSlot.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("tool_actions"), ToolActionsModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("tool_stat"), ToolStatModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("trait"), ModifierTraitModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("volatile_flag"), VolatileFlagModule.LOADER);

@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.library.modifiers.hook.display;
+package slimeknights.tconstruct.library.modifiers.modules.behavior;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
 
