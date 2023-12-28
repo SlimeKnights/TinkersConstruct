@@ -340,7 +340,7 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
         boolean isCorrectSlot = living.getItemBySlot(slot) == stack;
         // we pass in the stack for most custom context, but for the sake of armor its easier to tell them that this is the correct slot for effects
         for (ModifierEntry entry : modifiers) {
-          entry.getModifier().onInventoryTick(tool, entry.getLevel(), levelIn, living, itemSlot, isSelected, isCorrectSlot, stack);
+          entry.getHook(TinkerHooks.INVENTORY_TICK).onInventoryTick(tool, entry, levelIn, living, itemSlot, isSelected, isCorrectSlot, stack);
         }
       }
     }

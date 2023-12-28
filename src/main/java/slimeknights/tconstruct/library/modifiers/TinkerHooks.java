@@ -43,6 +43,7 @@ import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHoo
 import slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.InventoryTickModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BlockBreakModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.FinishHarvestModifierHook;
@@ -104,6 +105,10 @@ public class TinkerHooks {
 
   /** Hook for modifying the damage amount for tools */
   public static final ModifierHook<ToolDamageModifierHook> ON_DAMAGE = register("on_damage", ToolDamageModifierHook.class, ToolDamageModifierHook.Merger::new, (tool, modifier, amount, holder) -> modifier.getModifier().onDamageTool(tool, modifier.getLevel(), amount, holder));
+
+  /** Hook running while the tool is in the inventory */
+  public static final ModifierHook<InventoryTickModifierHook> INVENTORY_TICK = register("inventory_tick", InventoryTickModifierHook.class, InventoryTickModifierHook.AllMerger::new,
+    (tool, modifier, world, holder, itemSlot, isSelected, isCorrectSlot, stack) -> modifier.getModifier().onInventoryTick(tool, modifier.getLevel(), world, holder, itemSlot, isSelected, isCorrectSlot, stack));
 
 
   /* Composable only  */

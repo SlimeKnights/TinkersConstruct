@@ -422,6 +422,7 @@ public class Modifier implements IHaveLoader<Modifier> {
   /* Hooks */
 
   /** @deprecated use {@link ToolDamageModifierHook} */
+  @Deprecated
   public int onDamageTool(IToolStackView tool, int level, int amount, @Nullable LivingEntity holder) {
     return amount;
   }
@@ -432,17 +433,8 @@ public class Modifier implements IHaveLoader<Modifier> {
     return factor;
   }
 
-  /**
-   * Called when the stack updates in the player inventory
-   * @param tool           Current tool instance
-   * @param level          Modifier level
-   * @param world          World containing tool
-   * @param holder         Entity holding tool
-   * @param itemSlot       Slot containing this tool
-   * @param isSelected     If true, this item is currently in the player's main hand
-   * @param isCorrectSlot  If true, this item is in the proper slot. For tools, that is main hand or off hand. For armor, this means its in the correct armor slot
-   * @param stack          Item stack instance to check other slots for the tool. Do not modify
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.interaction.InventoryTickModifierHook} */
+  @Deprecated
   public void onInventoryTick(IToolStackView tool, int level, Level world, LivingEntity holder, int itemSlot, boolean isSelected, boolean isCorrectSlot, ItemStack stack) {}
 
   /**
@@ -452,6 +444,7 @@ public class Modifier implements IHaveLoader<Modifier> {
    * @param generatedLoot  Current loot list before this modifier
    * @param context        Full loot context
    * @return  Loot replacement
+   * TODO: can we ditch this hook in favor of just using GLMs? Just need a loot condition to detect a modifier, and it gives us a lot more flexability
    */
   public List<ItemStack> processLoot(IToolStackView tool, int level, List<ItemStack> generatedLoot, LootContext context) {
     return generatedLoot;
@@ -606,7 +599,7 @@ public class Modifier implements IHaveLoader<Modifier> {
   @Deprecated
   public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {}
 
-  /** @deprecated use {@link EquipmentChangeModifierHook#onEquip(IToolStackView, ModifierEntry, EquipmentChangeContext)} (IToolStackView, ModifierEntry, EquipmentChangeContext)} */
+  /** @deprecated use {@link EquipmentChangeModifierHook#onEquip(IToolStackView, ModifierEntry, EquipmentChangeContext)} */
   @Deprecated
   public void onEquip(IToolStackView tool, int level, EquipmentChangeContext context) {}
 
@@ -639,7 +632,7 @@ public class Modifier implements IHaveLoader<Modifier> {
     return null;
   }
 
-  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.display.DurabilityDisplayModifierHook#getDurabilityRGB(IToolStackView, ModifierEntry)} (IToolStackView, ModifierEntry)} */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.display.DurabilityDisplayModifierHook#getDurabilityRGB(IToolStackView, ModifierEntry)} */
   @Deprecated
   public int getDurabilityRGB(IToolStackView tool, int level) {
     return -1;
@@ -765,9 +758,13 @@ public class Modifier implements IHaveLoader<Modifier> {
     TooltipModifierHook.addDamageBoost(tool, this, amount, tooltip);
   }
 
-  /** Tries an expected module against the given module type, returning null if failing. Do not use if you extend another modifier with modules */
+  /**
+   * Tries an expected module against the given module type, returning null if failing. Do not use if you extend another modifier with modules
+   * @deprecated use {@link #registerHooks(Builder)} with the new hook system.
+   */
   @SuppressWarnings("unchecked")
   @Nullable
+  @Deprecated
   protected static <M, E> E tryModuleMatch(Class<E> expected, Class<M> moduleType, M module) {
     if (moduleType == expected) {
       return (E) module;
