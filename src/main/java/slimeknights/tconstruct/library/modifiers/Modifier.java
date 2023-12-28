@@ -44,6 +44,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierManager.ModifierRegistr
 import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.RepairFactorModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ToolActionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.ToolDamageModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeDamageModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
@@ -419,14 +420,7 @@ public class Modifier implements IHaveLoader<Modifier> {
 
   /* Hooks */
 
-  /**
-   * Called when the tool is damaged. Can be used to cancel, decrease, or increase the damage.
-   * @param tool       Tool stack
-   * @param level      Tool level
-   * @param amount     Amount of damage to deal
-   * @param holder     Entity holding the tool
-   * @return  Replacement damage. Returning 0 cancels the damage and stops other modifiers from processing.
-   */
+  /** @deprecated use {@link ToolDamageModifierHook} */
   public int onDamageTool(IToolStackView tool, int level, int amount, @Nullable LivingEntity holder) {
     return amount;
   }
@@ -631,33 +625,21 @@ public class Modifier implements IHaveLoader<Modifier> {
     return true;
   }
 
-  /**
-   * Gets the damage percentage for display.  First tool returning something other than NaN will determine display durability
-   * @param tool   Tool instance
-   * @param level  Modifier level
-   * @return  Damage percentage. 0 is undamaged, 1 is fully damaged.
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.display.DurabilityDisplayModifierHook#getDurabilityWidth(IToolStackView, ModifierEntry)} */
+  @Deprecated
   public double getDamagePercentage(IToolStackView tool, int level) {
     return Double.NaN;
   }
 
-  /**
-   * Override the default tool logic for showing the durability bar
-   * @param tool   Tool instance
-   * @param level  Modifier level
-   * @return  True forces the bar to show, false forces it to hide. Return null to allow default behavior
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.display.DurabilityDisplayModifierHook#showDurabilityBar(IToolStackView, ModifierEntry)} */
   @Nullable
+  @Deprecated
   public Boolean showDurabilityBar(IToolStackView tool, int level) {
     return null;
   }
 
-  /**
-   * Gets the RGB for the durability bar
-   * @param tool   Tool instance
-   * @param level  Modifier level
-   * @return  RGB, or -1 to not handle it
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.display.DurabilityDisplayModifierHook#getDurabilityRGB(IToolStackView, ModifierEntry)} (IToolStackView, ModifierEntry)} */
+  @Deprecated
   public int getDurabilityRGB(IToolStackView tool, int level) {
     return -1;
   }

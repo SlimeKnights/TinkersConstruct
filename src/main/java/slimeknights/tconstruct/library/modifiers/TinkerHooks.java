@@ -27,6 +27,7 @@ import slimeknights.tconstruct.library.modifiers.hook.build.ModifierTraitHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.RawDataModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.RepairFactorModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ToolActionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.ToolDamageModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ToolStatsModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ValidateModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.VolatileDataModifierHook;
@@ -37,6 +38,7 @@ import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeDamageModifier
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.ProtectionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.DisplayNameModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.display.DurabilityDisplayModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
@@ -75,10 +77,6 @@ public class TinkerHooks {
   /** Generic hook for stats conditioned on the entity holding the tool */
   public static final ModifierHook<ConditionalStatModifierHook> CONDITIONAL_STAT = register("conditional_stat", ConditionalStatModifierHook.class, ConditionalStatModifierHook.ALL_MERGER, ConditionalStatModifierHook.EMPTY);
 
-  /** Hook for modifiers adding additional information to the tooltip */
-  public static final ModifierHook<TooltipModifierHook> TOOLTIP = register("tooltip", TooltipModifierHook.class, TooltipModifierHook.AllMerger::new, (tool, modifier, player, tooltip, tooltipKey, tooltipFlag)
-    -> modifier.getModifier().addInformation(tool, modifier.getLevel(), player, tooltip, tooltipKey, tooltipFlag));
-
   /** Hook for modifiers checking if they can perform a tool action */
   public static final ModifierHook<ToolActionModifierHook> TOOL_ACTION = register("tool_action", ToolActionModifierHook.class, ToolActionModifierHook.AnyMerger::new, (tool, modifier, toolAction)
     -> modifier.getModifier().canPerformAction(tool, modifier.getLevel(), toolAction));
@@ -104,6 +102,9 @@ public class TinkerHooks {
   /** Hook for modifying the repair amount for tools */
   public static final ModifierHook<RepairFactorModifierHook> REPAIR_FACTOR = register("repair_factor", RepairFactorModifierHook.class, RepairFactorModifierHook.ComposeMerger::new, (tool, entry, factor) -> entry.getModifier().getRepairFactor(tool, entry.getLevel(), factor));
 
+  /** Hook for modifying the damage amount for tools */
+  public static final ModifierHook<ToolDamageModifierHook> ON_DAMAGE = register("on_damage", ToolDamageModifierHook.class, ToolDamageModifierHook.Merger::new, (tool, modifier, amount, holder) -> modifier.getModifier().onDamageTool(tool, modifier.getLevel(), amount, holder));
+
 
   /* Composable only  */
 
@@ -114,6 +115,37 @@ public class TinkerHooks {
   public static final ModifierHook<DisplayNameModifierHook> DISPLAY_NAME = register("display_name", DisplayNameModifierHook.class, DisplayNameModifierHook.ComposeMerger::new, (tool, modifier, level, name) -> name);
 
 
+  /* Display */
+
+  /** Hook for modifiers adding additional information to the tooltip */
+  public static final ModifierHook<TooltipModifierHook> TOOLTIP = register("tooltip", TooltipModifierHook.class, TooltipModifierHook.AllMerger::new, (tool, modifier, player, tooltip, tooltipKey, tooltipFlag)
+    -> modifier.getModifier().addInformation(tool, modifier.getLevel(), player, tooltip, tooltipKey, tooltipFlag));
+
+  /** Hook for changing the itemstack durability bar */
+  public static final ModifierHook<DurabilityDisplayModifierHook> DURABILITY_DISPLAY = register("durability_display", DurabilityDisplayModifierHook.class, DurabilityDisplayModifierHook.FirstMerger::new, new DurabilityDisplayModifierHook() {
+    @Nullable
+    @Override
+    public Boolean showDurabilityBar(IToolStackView tool, ModifierEntry modifier) {
+      return modifier.getModifier().showDurabilityBar(tool, modifier.getLevel());
+    }
+
+    @Override
+    public int getDurabilityWidth(IToolStackView tool, ModifierEntry modifier) {
+      double damagePercent = modifier.getModifier().getDamagePercentage(tool, modifier.getLevel());
+      if (Double.isNaN(damagePercent)) {
+        return 0;
+      }
+      // using 12.75 to increase the amount of the bar that shows as nearly full, see full comment on DurabilityDisplayModifierHook#getWidthFor
+      return (int)(1 + 12.75 * (1 - damagePercent));
+    }
+
+    @Override
+    public int getDurabilityRGB(IToolStackView tool, ModifierEntry modifier) {
+      return modifier.getModifier().getDurabilityRGB(tool, modifier.getLevel());
+    }
+  });
+
+  
   /* Tool Building */
 
   /** Hook for adding raw unconditional stats to a tool */
