@@ -14,6 +14,9 @@ import javax.annotation.Nullable;
 
 /** Represents a material that possibly has a variant. Variants are simply a different texture with the same material properties */
 public sealed interface MaterialVariantId permits MaterialId, MaterialVariantIdImpl {
+  /** Variant ID that will match normal {@link MaterialId} with no variant, to allow checking for non-variant materials specifically. */
+  String DEFAULT_VARIANT = "default";
+
   /** Gets the material ID */
   MaterialId getId();
 
