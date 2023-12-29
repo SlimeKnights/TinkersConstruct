@@ -22,6 +22,8 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.data.tinkering.AbstractModifierProvider;
 import slimeknights.tconstruct.library.json.RandomLevelingValue;
 import slimeknights.tconstruct.library.json.predicate.item.ItemTagPredicate;
+import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate;
+import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate.ModifierCheck;
 import slimeknights.tconstruct.library.json.predicate.tool.ItemToolPredicate;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
@@ -31,6 +33,7 @@ import slimeknights.tconstruct.library.modifiers.dynamic.InventoryMenuModifier;
 import slimeknights.tconstruct.library.modifiers.modules.armor.MobDisguiseModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.IncrementalModule;
+import slimeknights.tconstruct.library.modifiers.modules.behavior.ReduceToolDamageModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.RepairModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.EnchantmentModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.ModifierSlotModule;
@@ -40,9 +43,11 @@ import slimeknights.tconstruct.library.modifiers.modules.build.StatBoostModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.SwappableSlotModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.VolatileFlagModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.ConditionalDamageModule;
+import slimeknights.tconstruct.library.modifiers.modules.combat.KnockbackModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.LootingModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.MeleeAttributeModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.MobEffectModule;
+import slimeknights.tconstruct.library.modifiers.modules.display.DurabilityBarColorModule;
 import slimeknights.tconstruct.library.modifiers.modules.mining.ConditionalMiningSpeedModule;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay.UniqueForLevels;
@@ -50,12 +55,16 @@ import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.ModifiableArmorItem;
+import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.ToolBeltModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
 
 import static slimeknights.tconstruct.common.TinkerTags.Items.ARMOR;
+import static slimeknights.tconstruct.library.json.math.ModifierFormula.LEVEL;
+import static slimeknights.tconstruct.library.modifiers.modules.behavior.RepairModule.FACTOR;
+import static slimeknights.tconstruct.library.modifiers.modules.combat.KnockbackModule.KNOCKBACK;
 
 public class ModifierProvider extends AbstractModifierProvider {
   public ModifierProvider(DataGenerator generator) {
@@ -103,7 +112,7 @@ public class ModifierProvider extends AbstractModifierProvider {
       .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
       .addModule(new RarityModule(Rarity.UNCOMMON))
       .addModule(StatBoostModule.multiplyBase(ToolStats.DURABILITY).flat(0.5f))
-      .addModule(RepairModule.flat(0.5f))
+      .addModule(RepairModule.builder().flat(0.5f))
       // armor
       .addModule(StatBoostModule.add(ToolStats.KNOCKBACK_RESISTANCE).flat(0.05f))
       // melee harvest
@@ -150,6 +159,18 @@ public class ModifierProvider extends AbstractModifierProvider {
       .addModule(IncrementalModule.RECIPE_CONTROLLED)
       .addModule(new AttributeModule("tconstruct.modifier.reach", ForgeMod.REACH_DISTANCE.get(), Operation.ADDITION, 1, EquipmentSlot.values()))
       .addModule(new AttributeModule("tconstruct.modifier.range", ForgeMod.ATTACK_RANGE.get(), Operation.ADDITION, 1, EquipmentSlot.values()));
+    IJsonPredicate<IToolContext> noUnbreakable = new HasModifierPredicate(TinkerModifiers.unbreakable.getId(), ModifierCheck.ALL).inverted();
+    buildModifier(ModifierIds.reinforced)
+      .addModule(IncrementalModule.RECIPE_CONTROLLED)
+      // level 0 to 5: 0.025 * LEVEL * (11 - LEVEL)
+      .addModule(ReduceToolDamageModule.builder().tool(noUnbreakable).maxLevel(5).formula()
+                                       .constant(0.025f).variable(LEVEL).multiply() // 0.025 * level
+                                       .constant(11).variable(LEVEL).subtract()     // 11 - level
+                                       .multiply().build())
+      // level 6+: 0.5 + level * 0.05
+      .addModule(ReduceToolDamageModule.builder().tool(noUnbreakable).minLevel(6).amount(0.5f, 0.05f));
+    // unbreakable priority is after overslime but before standard modifiers like dense
+    buildModifier(TinkerModifiers.unbreakable).levelDisplay(ModifierLevelDisplay.NO_LEVELS).priority(125).addModule(new DurabilityBarColorModule(0xffffff)).addModule(ReduceToolDamageModule.builder().flat(1.0f));
 
     // loot
     buildModifier(TinkerModifiers.silky).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new EnchantmentModule.Harvest(Enchantments.SILK_TOUCH));
@@ -159,7 +180,18 @@ public class ModifierProvider extends AbstractModifierProvider {
     buildModifier(ModifierIds.fortune).addModule(FORTUNE);
     buildModifier(ModifierIds.looting).addModule(LOOTING);
 
+
     /// attack
+    buildModifier(TinkerModifiers.knockback)
+      // do not boost unarmed attacks twice, thats a bit too much knockback for the cost
+      .addModule(KnockbackModule.builder().tool(new ItemToolPredicate(new ItemTagPredicate(TinkerTags.Items.UNARMED)).inverted()).eachLevel(0.5f))
+      .addModule(new AttributeModule("tconstruct.modifier.knockback", Attributes.ATTACK_KNOCKBACK, Operation.ADDITION, 1, ModifiableArmorMaterial.ARMOR_SLOTS));
+    buildModifier(TinkerModifiers.padded)
+      .priority(75) // run after knockback
+      .addModule(KnockbackModule.builder().formula()
+        .variable(KNOCKBACK)
+        .constant(2).variable(LEVEL).power() // 2^LEVEL
+        .divide().build()); // KNOCKBACK / 2^LEVEL
     buildModifier(ModifierIds.sticky)
       .addModule(IncrementalModule.RECIPE_CONTROLLED)
       .addModule(MobEffectModule.builder(MobEffects.MOVEMENT_SLOWDOWN).level(RandomLevelingValue.perLevel(0, 0.5f)).time(RandomLevelingValue.random(20, 10)).build());
@@ -225,7 +257,7 @@ public class ModifierProvider extends AbstractModifierProvider {
     buildModifier(ModifierIds.snowBoots).addModule(new VolatileFlagModule(ModifiableArmorItem.SNOW_BOOTS)).tooltipDisplay(TooltipDisplay.NEVER);
 
     // traits - tier 1
-    buildModifier(ModifierIds.cultivated).addModule(RepairModule.eachLevel(0.5f));
+    buildModifier(ModifierIds.cultivated).addModule(RepairModule.builder().eachLevel(0.5f));
     addModifier(ModifierIds.stringy, new Modifier());
     buildModifier(ModifierIds.flexible).addModule(StatBoostModule.add(ToolStats.VELOCITY).eachLevel(0.1f))
                                        .addModule(StatBoostModule.multiplyAll(ToolStats.PROJECTILE_DAMAGE).eachLevel(-0.1f));
@@ -245,6 +277,25 @@ public class ModifierProvider extends AbstractModifierProvider {
     buildModifier(ModifierIds.featherweight)
       .addModule(StatBoostModule.multiplyBase(ToolStats.DRAW_SPEED).eachLevel(0.07f))
       .addModule(StatBoostModule.multiplyBase(ToolStats.ACCURACY).eachLevel(0.07f));
+    buildModifier(ModifierIds.dense)
+      // from 0 to 5, repair formula is FACTOR * (1 - 0.025 * LEVEL * (11 - LEVEL))
+      .addModule(RepairModule.builder().maxLevel(5).formula()
+          .variable(FACTOR)
+            .constant(1)
+              .constant(0.025f).variable(LEVEL).multiply()
+              .constant(11).variable(LEVEL).subtract()
+            .multiply()
+          .subtract()
+        .multiply().build())
+      // at 6+, repair formula is FACTOR * (0.5 - LEVEL * 0.05), simple formula supports below
+      .addModule(RepairModule.builder().minLevel(6).amount(-0.5f, -0.05f))
+      // durability formula is 1 - 1/(1.5^LEVEL)
+      .addModule(ReduceToolDamageModule.builder().formula()
+          .constant(1)
+            .constant(1)
+            .constant(1.5f).variable(LEVEL).power()
+          .divide()
+        .subtract().build());
 
     // traits - tier 3
     buildModifier(ModifierIds.crumbling).addModule(new ConditionalMiningSpeedModule(BlockPredicate.REQUIRES_TOOL.inverted(), false, 0.5f));

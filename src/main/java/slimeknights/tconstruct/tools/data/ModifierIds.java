@@ -23,6 +23,7 @@ public class ModifierIds {
   public static final ModifierId netherite = id("netherite");
 
   // general
+  public static final ModifierId reinforced = id("reinforced");
   public static final ModifierId worldbound = id("worldbound");
   public static final ModifierId shiny      = id("shiny");
   public static final ModifierId sticky     = id("sticky");
@@ -81,6 +82,7 @@ public class ModifierIds {
   public static final ModifierId sturdy = id("sturdy");
   public static final ModifierId scorching = id("scorching");
   // traits - tier 2 compat
+  public static final ModifierId dense = id("dense");
   public static final ModifierId lustrous = id("lustrous");
   public static final ModifierId sharpweight = id("sharpweight");
   public static final ModifierId heavy = id("heavy");

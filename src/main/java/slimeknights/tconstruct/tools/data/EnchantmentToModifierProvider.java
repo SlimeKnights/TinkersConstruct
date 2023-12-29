@@ -15,7 +15,7 @@ public class EnchantmentToModifierProvider extends AbstractEnchantmentToModifier
   @Override
   protected void addEnchantmentMappings() {
     // general
-    add(Enchantments.UNBREAKING, TinkerModifiers.reinforced.getId());
+    add(Enchantments.UNBREAKING, ModifierIds.reinforced);
 
     // protection
     add(Enchantments.ALL_DAMAGE_PROTECTION, TinkerModifiers.protection.getId());

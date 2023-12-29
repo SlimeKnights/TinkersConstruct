@@ -74,6 +74,15 @@ public class ModifierDeferredRegister {
     return new DynamicModifier<>(id, classFilter);
   }
 
+  /**
+   * Registers a modifier as an expected dynamic modifier supporting any class
+   * @param name  Modifier name, if this modifier is missing from datapacks a warning will be logged
+   * @return  Dynamic modifier instance
+   */
+  public DynamicModifier<Modifier> registerDynamic(String name) {
+    return registerDynamic(name, Modifier.class);
+  }
+
   /** Called on modifier registration to register all entries */
   private void handleEvent(ModifierRegistrationEvent event) {
     seenRegisterEvent = true;

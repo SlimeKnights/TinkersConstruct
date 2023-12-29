@@ -31,7 +31,7 @@ public record ModifierModuleCondition(IJsonPredicate<IToolContext> tool, IntRang
 
   /** Validates that the tool and modifier pass the conditions */
   public boolean matches(IToolContext tool, ModifierEntry modifier) {
-    return this.tool.matches(tool) && this.modifierLevel.test(modifier.getLevel());
+    return this.modifierLevel.test(modifier.getLevel()) && this.tool.matches(tool);
   }
 
 

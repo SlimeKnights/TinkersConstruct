@@ -186,13 +186,13 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     /*
      * durability
      */
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.reinforced)
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.reinforced)
                          .setInput(TinkerModifiers.ironReinforcement, 1, 20)
                          .setMaxLevel(5) // max 75% resistant to damage
                          .setSlots(SlotType.UPGRADE, 1)
                          .setTools(TinkerTags.Items.DURABILITY)
-                         .saveSalvage(consumer, prefix(TinkerModifiers.reinforced, upgradeSalvage))
-                         .save(consumer, prefix(TinkerModifiers.reinforced, upgradeFolder));
+                         .saveSalvage(consumer, prefix(ModifierIds.reinforced, upgradeSalvage))
+                         .save(consumer, prefix(ModifierIds.reinforced, upgradeFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.overforced)
                                     .setInput(TinkerModifiers.slimesteelReinforcement, 1, 20)
                                     .setMaxLevel(5) // +250 capacity
@@ -1357,7 +1357,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Tags.Items.INGOTS_NETHERITE)
                          .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
-                         .setRequirements(ModifierMatch.list(2, ModifierMatch.entry(ModifierIds.netherite, 1), ModifierMatch.entry(TinkerModifiers.reinforced, 5)))
+                         .setRequirements(ModifierMatch.list(2, ModifierMatch.entry(ModifierIds.netherite, 1), ModifierMatch.entry(ModifierIds.reinforced, 5)))
                          .setRequirementsError(makeRequirementsError("unbreakable_requirements"))
                          .saveSalvage(consumer, prefix(TinkerModifiers.unbreakable, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.unbreakable, abilityFolder));

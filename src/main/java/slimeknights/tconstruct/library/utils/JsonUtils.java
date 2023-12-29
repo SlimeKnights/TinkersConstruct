@@ -172,4 +172,30 @@ public class JsonUtils {
     }
     return fallback;
   }
+
+  /**
+   * Parses a color as a string
+   * @param color  Color to parse
+   * @return  Parsed string
+   */
+  public static int parseColor(@Nullable String color) {
+    if (color == null || color.isEmpty()) {
+      return -1;
+    }
+    // only support 6 character colors here, simplified over the mantle version
+    int length = color.length();
+    if (length == 6) {
+      try {
+        return Integer.parseInt(color, 16);
+      } catch (NumberFormatException ex) {
+        // NO-OP
+      }
+    }
+    throw new JsonSyntaxException("Invalid color '" + color + "'");
+  }
+
+  /** Writes the color as a 6 character string */
+  public static String colorToString(int color) {
+    return String.format("%06X", color);
+  }
 }

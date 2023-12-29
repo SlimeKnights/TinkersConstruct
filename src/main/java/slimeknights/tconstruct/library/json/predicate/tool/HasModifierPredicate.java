@@ -34,6 +34,20 @@ public record HasModifierPredicate(ModifierId modifier, IntRange level, Modifier
   }
 
   @Override
+  public IJsonPredicate<IToolContext> inverted() {
+    // if our range touches the maximum bound, then inverted just goes from min to our min-1
+    if (level.max() == MAX_RANGE.max()) {
+      return new HasModifierPredicate(modifier, new IntRange(MAX_RANGE.min(), level.min() - 1), check);
+    }
+    // if our range touches the minimum bound, then inverted just goes from our max+1 to max possible
+    if (level.min() == MAX_RANGE.min()) {
+      return new HasModifierPredicate(modifier, new IntRange(level.max() + 1, MAX_RANGE.max()), check);
+    }
+    // if we are not touching either edge, no possible range exists so use the regular inverted logic
+    return ToolContextPredicate.super.inverted();
+  }
+
+  @Override
   public IGenericLoader<? extends IJsonPredicate<IToolContext>> getLoader() {
     return LOADER;
   }

@@ -6,6 +6,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
 import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;
+import slimeknights.tconstruct.library.modifiers.modules.behavior.ReduceToolDamageModule;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.library.utils.Util;
@@ -14,6 +15,8 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import javax.annotation.Nullable;
 import java.util.List;
 
+/** @deprecated use {@link ReduceToolDamageModule} */
+@Deprecated
 public class ReinforcedModifier extends IncrementalModifier {
   /** Default logic that starting at 25% gives a bonus of 5% less per level */
   public static float diminishingPercent(float level) {
@@ -36,29 +39,10 @@ public class ReinforcedModifier extends IncrementalModifier {
     return diminishingPercent(level);
   }
 
-  /**
-   * Damages the given amount with the reinforced percentage
-   * @param amount      Amount to damage
-   * @param percentage  Reinforeced percentage
-   * @return  Amount after reinforced
-   */
+  /** @deprecated use {@link ReduceToolDamageModule#reduceDamage(int, float)} */
+  @Deprecated
   public static int damageReinforced(int amount, float percentage) {
-    // 100% protection? all damage blocked
-    if (percentage >= 1) {
-      return 0;
-    }
-    // 0% protection? nothing blocked
-    if (percentage <= 0) {
-      return amount;
-    }
-    // no easy closed form formula for this that I know of, and damage amount tends to be small, so take a chance for each durability
-    int dealt = 0;
-    for (int i = 0; i < amount; i++) {
-      if (RANDOM.nextFloat() >= percentage) {
-        dealt++;
-      }
-    }
-    return dealt;
+    return ReduceToolDamageModule.reduceDamage(amount, percentage);
   }
 
   @Override
