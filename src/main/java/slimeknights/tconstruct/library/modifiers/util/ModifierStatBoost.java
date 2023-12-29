@@ -25,6 +25,7 @@ import java.util.Locale;
 /**
  * Stat boost to apply
  */
+@Deprecated
 public sealed interface ModifierStatBoost {
   /**
    * Checks if all tags match
@@ -40,7 +41,6 @@ public sealed interface ModifierStatBoost {
 
   /**
    * Gets all tag requirements
-   * TODO: general tag compound logic? to allow AND, OR, NOT, and alike
    */
   List<TagKey<Item>> tagRequirements();
 
@@ -97,7 +97,10 @@ public sealed interface ModifierStatBoost {
     return StatUpdate.fromNetwork(buffer, stat, tagRequirements.build());
   }
 
-  /** Record representing a single stat boost */
+  /**
+   * Record representing a single stat boost
+   * TODO 1.19: move to {@link slimeknights.tconstruct.library.modifiers.modules.build.StatBoostModule} as {@code StatOperation}
+   */
   enum BoostType {
     ADD {
       @Override
@@ -127,7 +130,10 @@ public sealed interface ModifierStatBoost {
     @Getter
     private final String name = name().toLowerCase(Locale.ROOT);
 
-    /** Applies this boost type for the given values */
+    /**
+     * Applies this boost type for the given values.
+     * TODO 1.19: remove level parameter.
+     */
     public abstract void apply(ModifierStatsBuilder builder, INumericToolStat<?> stat, float value, float level);
 
     /** Gets the boost type for the given name */
@@ -154,6 +160,7 @@ public sealed interface ModifierStatBoost {
   }
 
   /** Record representing a single stat boost */
+  @Deprecated
   record StatBoost(INumericToolStat<?> stat, BoostType type, float amount, List<TagKey<Item>> tagRequirements) implements ModifierStatBoost {
     /** Applies the given boost */
     @Override
@@ -166,7 +173,7 @@ public sealed interface ModifierStatBoost {
     @Override
     public JsonObject toJson(JsonObject json) {
       json.addProperty("stat", stat.getName().toString());
-      json.addProperty("operation", type.getName());
+      json.addProperty("type", type.getName());
       json.addProperty("value", amount);
       serializeTags(json, tagRequirements);
       return json;
@@ -174,16 +181,10 @@ public sealed interface ModifierStatBoost {
 
     /** Parses this from JSON */
     public static StatBoost fromJson(JsonObject json, INumericToolStat<?> stat, List<TagKey<Item>> tagRequirements) {
-      String typeName;
-      // TODO 1.19: remove type key entirely, assuming this sticks around
-      if (json.has("operation")) {
-        typeName = GsonHelper.getAsString(json, "operation");
-      } else {
-        typeName = GsonHelper.getAsString(json, "type", "add");
-      }
+      String typeName = GsonHelper.getAsString(json, "type", "add");
       BoostType boostType = BoostType.byName(typeName);
       if (boostType == null) {
-        throw new JsonSyntaxException("Unknown stat operation '" + typeName + "'");
+        throw new JsonSyntaxException("Unknown stat type '" + typeName + "'");
       }
       float amount = GsonHelper.getAsFloat(json, "value");
       return new StatBoost(stat, boostType, amount, tagRequirements);
@@ -210,6 +211,7 @@ public sealed interface ModifierStatBoost {
   }
 
   /** Performs a generic stat update */
+  @Deprecated
   record StatUpdate<T>(IToolStat<T> stat, T value, List<TagKey<Item>> tagRequirements) implements ModifierStatBoost {
     @Override
     public void apply(ToolRebuildContext context, float level, ModifierStatsBuilder builder) {

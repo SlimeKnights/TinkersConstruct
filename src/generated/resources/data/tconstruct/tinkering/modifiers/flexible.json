@@ -4,16 +4,16 @@
   "tooltip_display": "always",
   "modules": [
     {
-      "type": "tconstruct:tool_stat",
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:velocity",
       "operation": "add",
-      "value": 0.1
+      "each_level": 0.1
     },
     {
-      "type": "tconstruct:tool_stat",
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:projectile_damage",
       "operation": "multiply_all",
-      "value": -0.1
+      "each_level": -0.1
     }
   ]
 }

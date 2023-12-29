@@ -20,6 +20,7 @@ import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.library.json.RandomLevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
@@ -34,7 +35,6 @@ import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
-import slimeknights.tconstruct.library.utils.ScalingValue;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -48,8 +48,8 @@ import static slimeknights.tconstruct.TConstruct.RANDOM;
 public record MobEffectModule(
   IJsonPredicate<LivingEntity> predicate,
   MobEffect effect,
-  ScalingValue level,
-  ScalingValue time
+  RandomLevelingValue level,
+  RandomLevelingValue time
 ) implements DamageTakenModifierHook, MeleeHitModifierHook, ProjectileLaunchModifierHook, ProjectileHitModifierHook, ModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.DAMAGE_TAKEN, TinkerHooks.MELEE_HIT, TinkerHooks.PROJECTILE_LAUNCH, TinkerHooks.PROJECTILE_HIT);
 
@@ -119,8 +119,8 @@ public record MobEffectModule(
   public static class Builder {
     private final MobEffect effect;
     private IJsonPredicate<LivingEntity> entity = LivingEntityPredicate.ANY;
-    private ScalingValue level = ScalingValue.flat(1);
-    private ScalingValue time = ScalingValue.flat(0);
+    private RandomLevelingValue level = RandomLevelingValue.flat(1);
+    private RandomLevelingValue time = RandomLevelingValue.flat(0);
 
     /** Builds the finished modifier */
     public MobEffectModule build() {
@@ -133,8 +133,8 @@ public record MobEffectModule(
     public MobEffectModule deserialize(JsonObject json) {
       IJsonPredicate<LivingEntity> predicate = LivingEntityPredicate.LOADER.getAndDeserialize(json, "entity");
       MobEffect effect = JsonHelper.getAsEntry(ForgeRegistries.MOB_EFFECTS, json, "effect");
-      ScalingValue level = ScalingValue.get(json, "level");
-      ScalingValue time = ScalingValue.get(json, "time");
+      RandomLevelingValue level = RandomLevelingValue.get(json, "level");
+      RandomLevelingValue time = RandomLevelingValue.get(json, "time");
       return new MobEffectModule(predicate, effect, level, time);
     }
 
@@ -150,8 +150,8 @@ public record MobEffectModule(
     public MobEffectModule fromNetwork(FriendlyByteBuf buffer) {
       IJsonPredicate<LivingEntity> predicate = LivingEntityPredicate.LOADER.fromNetwork(buffer);
       MobEffect effect = buffer.readRegistryIdUnsafe(ForgeRegistries.MOB_EFFECTS);
-      ScalingValue level = ScalingValue.fromNetwork(buffer);
-      ScalingValue time = ScalingValue.fromNetwork(buffer);
+      RandomLevelingValue level = RandomLevelingValue.fromNetwork(buffer);
+      RandomLevelingValue time = RandomLevelingValue.fromNetwork(buffer);
       return new MobEffectModule(predicate, effect, level, time);
     }
 

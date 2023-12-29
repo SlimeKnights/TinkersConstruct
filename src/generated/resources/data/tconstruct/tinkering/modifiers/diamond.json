@@ -1,6 +1,6 @@
 {
   "type": "tconstruct:composable",
-  "level_display": "tconstruct:single_level",
+  "level_display": "tconstruct:no_levels",
   "tooltip_display": "always",
   "modules": [
     {
@@ -8,48 +8,50 @@
       "rarity": "uncommon"
     },
     {
-      "type": "tconstruct:tool_stat",
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:durability",
       "operation": "add",
-      "value": 500.0
+      "flat": 500.0
     },
     {
-      "type": "tconstruct:tool_stat",
+      "type": "tconstruct:stat_boost",
+      "tool": {
+        "type": "tconstruct:item",
+        "item_type": "tconstruct:tag",
+        "tag": "tconstruct:modifiable/armor"
+      },
       "stat": "tconstruct:durability",
       "operation": "add",
-      "value": -250.0,
-      "tags": [
-        "tconstruct:modifiable/armor"
-      ]
+      "flat": -250.0
     },
     {
-      "type": "tconstruct:tool_stat",
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:armor",
       "operation": "add",
-      "value": 1.0
+      "flat": 1.0
     },
     {
-      "type": "tconstruct:tool_stat",
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:attack_damage",
       "operation": "add",
-      "value": 0.5
+      "flat": 0.5
     },
     {
-      "type": "tconstruct:tool_stat",
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:mining_speed",
       "operation": "add",
-      "value": 2.0
+      "flat": 2.0
     },
     {
-      "type": "tconstruct:tool_stat",
+      "type": "tconstruct:set_stat",
       "stat": "tconstruct:harvest_tier",
       "value": "minecraft:diamond"
     },
     {
-      "type": "tconstruct:tool_stat",
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:projectile_damage",
       "operation": "add",
-      "value": 0.5
+      "flat": 0.5
     }
   ]
 }

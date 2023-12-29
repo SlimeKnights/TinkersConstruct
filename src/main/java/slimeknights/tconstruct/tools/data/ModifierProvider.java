@@ -20,6 +20,9 @@ import slimeknights.mantle.data.predicate.entity.TagEntityPredicate;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.data.tinkering.AbstractModifierProvider;
+import slimeknights.tconstruct.library.json.RandomLevelingValue;
+import slimeknights.tconstruct.library.json.predicate.item.ItemTagPredicate;
+import slimeknights.tconstruct.library.json.predicate.tool.ItemToolPredicate;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
@@ -27,13 +30,14 @@ import slimeknights.tconstruct.library.modifiers.dynamic.ComposableModifier.Tool
 import slimeknights.tconstruct.library.modifiers.dynamic.InventoryMenuModifier;
 import slimeknights.tconstruct.library.modifiers.modules.armor.MobDisguiseModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule;
-import slimeknights.tconstruct.library.modifiers.modules.build.EnchantmentModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.IncrementalModule;
+import slimeknights.tconstruct.library.modifiers.modules.behavior.RepairModule;
+import slimeknights.tconstruct.library.modifiers.modules.build.EnchantmentModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.ModifierSlotModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.RarityModule;
-import slimeknights.tconstruct.library.modifiers.modules.behavior.RepairModule;
+import slimeknights.tconstruct.library.modifiers.modules.build.SetStatModule;
+import slimeknights.tconstruct.library.modifiers.modules.build.StatBoostModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.SwappableSlotModule;
-import slimeknights.tconstruct.library.modifiers.modules.build.ToolStatModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.VolatileFlagModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.ConditionalDamageModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.LootingModule;
@@ -47,7 +51,6 @@ import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.ModifiableArmorItem;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
-import slimeknights.tconstruct.library.utils.ScalingValue;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.ToolBeltModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
@@ -97,47 +100,47 @@ public class ModifierProvider extends AbstractModifierProvider {
     // tier upgrades
     // emerald
     buildModifier(ModifierIds.emerald)
-      .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
+      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
       .addModule(new RarityModule(Rarity.UNCOMMON))
-      .addModule(ToolStatModule.multiplyBase(ToolStats.DURABILITY, 0.5f))
-      .addModule(RepairModule.leveling(0.5f))
+      .addModule(StatBoostModule.multiplyBase(ToolStats.DURABILITY).flat(0.5f))
+      .addModule(RepairModule.flat(0.5f))
       // armor
-      .addModule(ToolStatModule.add(ToolStats.KNOCKBACK_RESISTANCE, 0.05f))
+      .addModule(StatBoostModule.add(ToolStats.KNOCKBACK_RESISTANCE).flat(0.05f))
       // melee harvest
-      .addModule(ToolStatModule.multiplyConditional(ToolStats.ATTACK_DAMAGE, 0.25f))
-      .addModule(ToolStatModule.multiplyConditional(ToolStats.MINING_SPEED, 0.25f))
-      .addModule(ToolStatModule.update(ToolStats.HARVEST_TIER, Tiers.IRON))
+      .addModule(StatBoostModule.multiplyConditional(ToolStats.ATTACK_DAMAGE).flat(0.25f))
+      .addModule(StatBoostModule.multiplyConditional(ToolStats.MINING_SPEED).flat(0.25f))
+      .addModule(SetStatModule.set(ToolStats.HARVEST_TIER).value(Tiers.IRON))
       // ranged
-      .addModule(ToolStatModule.add(ToolStats.ACCURACY, 0.1f));
+      .addModule(StatBoostModule.add(ToolStats.ACCURACY).flat(0.1f));
     // diamond
     buildModifier(ModifierIds.diamond)
-      .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
+      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
       .addModule(new RarityModule(Rarity.UNCOMMON))
-      .addModule(ToolStatModule.add(ToolStats.DURABILITY, 500))
+      .addModule(StatBoostModule.add(ToolStats.DURABILITY).flat(500))
       // armor grants less durability boost
-      .addModule(ToolStatModule.add(ToolStats.DURABILITY, -250, ARMOR))
-      .addModule(ToolStatModule.add(ToolStats.ARMOR, 1))
+      .addModule(StatBoostModule.add(ToolStats.DURABILITY).tool(new ItemToolPredicate(new ItemTagPredicate(ARMOR))).flat(-250))
+      .addModule(StatBoostModule.add(ToolStats.ARMOR).flat(1))
       // melee harvest
-      .addModule(ToolStatModule.add(ToolStats.ATTACK_DAMAGE, 0.5f))
-      .addModule(ToolStatModule.add(ToolStats.MINING_SPEED, 2))
-      .addModule(ToolStatModule.update(ToolStats.HARVEST_TIER, Tiers.DIAMOND))
+      .addModule(StatBoostModule.add(ToolStats.ATTACK_DAMAGE).flat(0.5f))
+      .addModule(StatBoostModule.add(ToolStats.MINING_SPEED).flat(2))
+      .addModule(SetStatModule.set(ToolStats.HARVEST_TIER).value(Tiers.DIAMOND))
       // ranged
-      .addModule(ToolStatModule.add(ToolStats.PROJECTILE_DAMAGE, 0.5f));
+      .addModule(StatBoostModule.add(ToolStats.PROJECTILE_DAMAGE).flat(0.5f));
     // netherite
     buildModifier(ModifierIds.netherite)
-      .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
+      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
       .addModule(new RarityModule(Rarity.RARE))
       .addModule(new VolatileFlagModule(IModifiable.INDESTRUCTIBLE_ENTITY))
-      .addModule(ToolStatModule.multiplyBase(ToolStats.DURABILITY, 0.2f))
+      .addModule(StatBoostModule.multiplyBase(ToolStats.DURABILITY).flat(0.2f))
       // armor
-      .addModule(ToolStatModule.add(ToolStats.ARMOR_TOUGHNESS, 1))
-      .addModule(ToolStatModule.add(ToolStats.KNOCKBACK_RESISTANCE, 0.05f))
+      .addModule(StatBoostModule.add(ToolStats.ARMOR_TOUGHNESS).flat(1))
+      .addModule(StatBoostModule.add(ToolStats.KNOCKBACK_RESISTANCE).flat(0.05f))
       // melee harvest
-      .addModule(ToolStatModule.multiplyBase(ToolStats.ATTACK_DAMAGE, 0.2f))
-      .addModule(ToolStatModule.multiplyBase(ToolStats.MINING_SPEED, 0.25f))
-      .addModule(ToolStatModule.update(ToolStats.HARVEST_TIER, Tiers.NETHERITE))
+      .addModule(StatBoostModule.multiplyBase(ToolStats.ATTACK_DAMAGE).flat(0.2f))
+      .addModule(StatBoostModule.multiplyBase(ToolStats.MINING_SPEED).flat(0.25f))
+      .addModule(SetStatModule.set(ToolStats.HARVEST_TIER).value(Tiers.NETHERITE))
       // ranged
-      .addModule(ToolStatModule.multiplyBase(ToolStats.VELOCITY, 0.1f));
+      .addModule(StatBoostModule.multiplyBase(ToolStats.VELOCITY).flat(0.1f));
 
     // general
     buildModifier(ModifierIds.worldbound).addModule(new VolatileFlagModule(IModifiable.INDESTRUCTIBLE_ENTITY)).addModule(new RarityModule(Rarity.UNCOMMON)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
@@ -159,14 +162,14 @@ public class ModifierProvider extends AbstractModifierProvider {
     /// attack
     buildModifier(ModifierIds.sticky)
       .addModule(IncrementalModule.RECIPE_CONTROLLED)
-      .addModule(MobEffectModule.builder(MobEffects.MOVEMENT_SLOWDOWN).level(ScalingValue.leveling(0, 0.5f)).time(ScalingValue.random(20, 10)).build());
+      .addModule(MobEffectModule.builder(MobEffects.MOVEMENT_SLOWDOWN).level(RandomLevelingValue.perLevel(0, 0.5f)).time(RandomLevelingValue.random(20, 10)).build());
 
     // damage boost
     // vanilla give +1, 1.5, 2, 2.5, 3, but that is low
     // we instead do +0.75, +1.5, +2.25, +3, +3.75
     UniqueForLevels uniqueForFive = new UniqueForLevels(5);
-    buildModifier(ModifierIds.sharpness).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ToolStatModule.add(ToolStats.ATTACK_DAMAGE, 0.75f)).levelDisplay(uniqueForFive);
-    buildModifier(ModifierIds.swiftstrike).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ToolStatModule.multiplyBase(ToolStats.ATTACK_SPEED, 0.05f)).levelDisplay(uniqueForFive);
+    buildModifier(ModifierIds.sharpness).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(StatBoostModule.add(ToolStats.ATTACK_DAMAGE).eachLevel(0.75f)).levelDisplay(uniqueForFive);
+    buildModifier(ModifierIds.swiftstrike).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(StatBoostModule.multiplyBase(ToolStats.ATTACK_SPEED).eachLevel(0.05f)).levelDisplay(uniqueForFive);
     buildModifier(ModifierIds.smite).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(new ConditionalDamageModule(new MobTypePredicate(MobType.UNDEAD), 2.0f));
     buildModifier(ModifierIds.antiaquatic).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(new ConditionalDamageModule(new MobTypePredicate(MobType.WATER),  2.0f));
     buildModifier(ModifierIds.cooling).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(new ConditionalDamageModule(LivingEntityPredicate.FIRE_IMMUNE,    1.6f));
@@ -174,7 +177,7 @@ public class ModifierProvider extends AbstractModifierProvider {
     buildModifier(ModifierIds.baneOfSssss)
       .addModule(IncrementalModule.RECIPE_CONTROLLED)
       .addModule(new ConditionalDamageModule(baneSssssPredicate, 2.0f))
-      .addModule(MobEffectModule.builder(MobEffects.MOVEMENT_SLOWDOWN).level(ScalingValue.flat(4)).time(ScalingValue.random(20, 10)).entity(baneSssssPredicate).build(), TinkerHooks.MELEE_HIT);
+      .addModule(MobEffectModule.builder(MobEffects.MOVEMENT_SLOWDOWN).level(RandomLevelingValue.flat(4)).time(RandomLevelingValue.random(20, 10)).entity(baneSssssPredicate).build(), TinkerHooks.MELEE_HIT);
     buildModifier(ModifierIds.killager).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(new ConditionalDamageModule(LivingEntityPredicate.OR.create(
       new MobTypePredicate(MobType.ILLAGER),
       new TagEntityPredicate(TinkerTags.EntityTypes.VILLAGERS)
@@ -182,21 +185,21 @@ public class ModifierProvider extends AbstractModifierProvider {
     addRedirect(id("fractured"), redirect(ModifierIds.sharpness));
     buildModifier(ModifierIds.pierce)
       // less than sharpness, but pierces 1 armor
-      .addModule(ToolStatModule.add(ToolStats.ATTACK_DAMAGE, 0.5f))
+      .addModule(StatBoostModule.add(ToolStats.ATTACK_DAMAGE).eachLevel(0.5f))
       .addModule(new MeleeAttributeModule(TConstruct.prefix("modifier.pierce"), Attributes.ARMOR, Operation.ADDITION, -1, true))
       // use a mob effect to make this work on ranged, to ensure it automatically cancels
-      .addModule(new MobEffectModule(LivingEntityPredicate.ANY, TinkerModifiers.pierceEffect.get(), ScalingValue.leveling(0, 1), ScalingValue.flat(2)), TinkerHooks.PROJECTILE_LAUNCH, TinkerHooks.PROJECTILE_HIT);
+      .addModule(new MobEffectModule(LivingEntityPredicate.ANY, TinkerModifiers.pierceEffect.get(), RandomLevelingValue.perLevel(0, 1), RandomLevelingValue.flat(2)), TinkerHooks.PROJECTILE_LAUNCH, TinkerHooks.PROJECTILE_HIT);
 
     // ranged
-    buildModifier(ModifierIds.power).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ToolStatModule.add(ToolStats.PROJECTILE_DAMAGE, 0.5f));
-    buildModifier(ModifierIds.quickCharge).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ToolStatModule.multiplyBase(ToolStats.DRAW_SPEED, 0.25f));
-    buildModifier(ModifierIds.trueshot).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ToolStatModule.add(ToolStats.ACCURACY, 0.1f));
-    buildModifier(ModifierIds.blindshot).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ToolStatModule.add(ToolStats.ACCURACY, -0.1f));
+    buildModifier(ModifierIds.power).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(StatBoostModule.add(ToolStats.PROJECTILE_DAMAGE).eachLevel(0.5f));
+    buildModifier(ModifierIds.quickCharge).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(StatBoostModule.multiplyBase(ToolStats.DRAW_SPEED).eachLevel(0.25f));
+    buildModifier(ModifierIds.trueshot).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(StatBoostModule.add(ToolStats.ACCURACY).eachLevel(0.1f));
+    buildModifier(ModifierIds.blindshot).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(StatBoostModule.add(ToolStats.ACCURACY).eachLevel(-0.1f));
 
     // armor
     buildModifier(TinkerModifiers.golden).addModule(new VolatileFlagModule(ModifiableArmorItem.PIGLIN_NEUTRAL)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
     buildModifier(ModifierIds.wings).addModule(new VolatileFlagModule(ModifiableArmorItem.ELYTRA)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
-    buildModifier(ModifierIds.knockbackResistance).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ToolStatModule.add(ToolStats.KNOCKBACK_RESISTANCE, 0.1f));
+    buildModifier(ModifierIds.knockbackResistance).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(StatBoostModule.add(ToolStats.KNOCKBACK_RESISTANCE).eachLevel(0.1f));
     // defense
     // TODO: floor?
     buildModifier(ModifierIds.revitalizing).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(new AttributeModule("tconstruct.modifier.revitalizing", Attributes.MAX_HEALTH, Operation.ADDITION, 2, armorSlots));
@@ -222,25 +225,26 @@ public class ModifierProvider extends AbstractModifierProvider {
     buildModifier(ModifierIds.snowBoots).addModule(new VolatileFlagModule(ModifiableArmorItem.SNOW_BOOTS)).tooltipDisplay(TooltipDisplay.NEVER);
 
     // traits - tier 1
-    buildModifier(ModifierIds.cultivated).addModule(RepairModule.leveling(0.5f));
+    buildModifier(ModifierIds.cultivated).addModule(RepairModule.eachLevel(0.5f));
     addModifier(ModifierIds.stringy, new Modifier());
-    buildModifier(ModifierIds.flexible).addModule(ToolStatModule.add(ToolStats.VELOCITY, 0.1f)).addModule(ToolStatModule.multiplyAll(ToolStats.PROJECTILE_DAMAGE, -0.1f));
+    buildModifier(ModifierIds.flexible).addModule(StatBoostModule.add(ToolStats.VELOCITY).eachLevel(0.1f))
+                                       .addModule(StatBoostModule.multiplyAll(ToolStats.PROJECTILE_DAMAGE).eachLevel(-0.1f));
     // traits - tier 2
-    buildModifier(ModifierIds.sturdy).addModule(ToolStatModule.multiplyBase(ToolStats.DURABILITY, 0.15f));
+    buildModifier(ModifierIds.sturdy).addModule(StatBoostModule.multiplyBase(ToolStats.DURABILITY).eachLevel(0.15f));
     buildModifier(ModifierIds.scorching).addModule(new ConditionalDamageModule(LivingEntityPredicate.ON_FIRE, 2f));
     // traits - tier 2 compat
     addModifier(ModifierIds.lustrous, new Modifier());
     buildModifier(ModifierIds.sharpweight)
-      .addModule(ToolStatModule.multiplyBase(ToolStats.MINING_SPEED, 0.1f))
-      .addModule(ToolStatModule.multiplyBase(ToolStats.DRAW_SPEED, 0.15f))
+      .addModule(StatBoostModule.multiplyBase(ToolStats.MINING_SPEED).eachLevel(0.1f))
+      .addModule(StatBoostModule.multiplyBase(ToolStats.DRAW_SPEED).eachLevel(0.15f))
       .addModule(new AttributeModule("tconstruct.modifier.sharpweight", Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_BASE, -0.1f, handSlots));
     buildModifier(ModifierIds.heavy)
-      .addModule(ToolStatModule.multiplyBase(ToolStats.ATTACK_DAMAGE, 0.1f))
-      .addModule(ToolStatModule.multiplyBase(ToolStats.PROJECTILE_DAMAGE, 0.1f))
+      .addModule(StatBoostModule.multiplyBase(ToolStats.ATTACK_DAMAGE).eachLevel(0.1f))
+      .addModule(StatBoostModule.multiplyBase(ToolStats.PROJECTILE_DAMAGE).eachLevel(0.1f))
       .addModule(new AttributeModule("tconstruct.modifier.heavy", Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_BASE, -0.1f, handSlots));
     buildModifier(ModifierIds.featherweight)
-      .addModule(ToolStatModule.multiplyBase(ToolStats.DRAW_SPEED, 0.07f))
-      .addModule(ToolStatModule.multiplyBase(ToolStats.ACCURACY, 0.07f));
+      .addModule(StatBoostModule.multiplyBase(ToolStats.DRAW_SPEED).eachLevel(0.07f))
+      .addModule(StatBoostModule.multiplyBase(ToolStats.ACCURACY).eachLevel(0.07f));
 
     // traits - tier 3
     buildModifier(ModifierIds.crumbling).addModule(new ConditionalMiningSpeedModule(BlockPredicate.REQUIRES_TOOL.inverted(), false, 0.5f));
@@ -248,17 +252,17 @@ public class ModifierProvider extends AbstractModifierProvider {
     addRedirect(id("maintained_2"), redirect(TinkerModifiers.maintained.getId()));
     // traits - tier 3 nether
     buildModifier(ModifierIds.lightweight)
-      .addModule(ToolStatModule.multiplyBase(ToolStats.ATTACK_SPEED, 0.07f))
-      .addModule(ToolStatModule.multiplyBase(ToolStats.MINING_SPEED, 0.07f))
-      .addModule(ToolStatModule.multiplyBase(ToolStats.DRAW_SPEED, 0.03f))
-      .addModule(ToolStatModule.multiplyBase(ToolStats.VELOCITY, 0.03f));
+      .addModule(StatBoostModule.multiplyBase(ToolStats.ATTACK_SPEED).eachLevel(0.07f))
+      .addModule(StatBoostModule.multiplyBase(ToolStats.MINING_SPEED).eachLevel(0.07f))
+      .addModule(StatBoostModule.multiplyBase(ToolStats.DRAW_SPEED).eachLevel(0.03f))
+      .addModule(StatBoostModule.multiplyBase(ToolStats.VELOCITY).eachLevel(0.03f));
     // traits - tier 3 compat
     buildModifier(ModifierIds.ductile)
-      .addModule(ToolStatModule.multiplyBase(ToolStats.DURABILITY,        0.04f))
-      .addModule(ToolStatModule.multiplyBase(ToolStats.ATTACK_DAMAGE,     0.04f))
-      .addModule(ToolStatModule.multiplyBase(ToolStats.MINING_SPEED,      0.04f))
-      .addModule(ToolStatModule.multiplyBase(ToolStats.VELOCITY,          0.03f))
-      .addModule(ToolStatModule.multiplyBase(ToolStats.PROJECTILE_DAMAGE, 0.03f));
+      .addModule(StatBoostModule.multiplyBase(ToolStats.DURABILITY).eachLevel(0.04f))
+      .addModule(StatBoostModule.multiplyBase(ToolStats.ATTACK_DAMAGE).eachLevel(0.04f))
+      .addModule(StatBoostModule.multiplyBase(ToolStats.MINING_SPEED).eachLevel(0.04f))
+      .addModule(StatBoostModule.multiplyBase(ToolStats.VELOCITY).eachLevel(0.03f))
+      .addModule(StatBoostModule.multiplyBase(ToolStats.PROJECTILE_DAMAGE).eachLevel(0.03f));
 
     // mob disguise
     buildModifier(ModifierIds.creeperDisguise        ).addModule(new MobDisguiseModule(EntityType.CREEPER));

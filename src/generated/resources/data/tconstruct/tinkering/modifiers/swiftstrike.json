@@ -10,10 +10,10 @@
       "type": "tconstruct:incremental"
     },
     {
-      "type": "tconstruct:tool_stat",
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:attack_speed",
       "operation": "multiply_base",
-      "value": 0.05
+      "each_level": 0.05
     }
   ]
 }

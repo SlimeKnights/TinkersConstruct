@@ -4,28 +4,28 @@
   "tooltip_display": "always",
   "modules": [
     {
-      "type": "tconstruct:tool_stat",
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:attack_speed",
       "operation": "multiply_base",
-      "value": 0.07
+      "each_level": 0.07
     },
     {
-      "type": "tconstruct:tool_stat",
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:mining_speed",
       "operation": "multiply_base",
-      "value": 0.07
+      "each_level": 0.07
     },
     {
-      "type": "tconstruct:tool_stat",
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:draw_speed",
       "operation": "multiply_base",
-      "value": 0.03
+      "each_level": 0.03
     },
     {
-      "type": "tconstruct:tool_stat",
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:velocity",
       "operation": "multiply_base",
-      "value": 0.03
+      "each_level": 0.03
     }
   ]
 }

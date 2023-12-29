@@ -4,10 +4,10 @@
   "tooltip_display": "always",
   "modules": [
     {
-      "type": "tconstruct:tool_stat",
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:attack_damage",
       "operation": "add",
-      "value": 0.5
+      "each_level": 0.5
     },
     {
       "type": "tconstruct:melee_attribute",
@@ -22,7 +22,7 @@
       "entity": "mantle:any",
       "effect": "tconstruct:pierce",
       "level": {
-        "leveling": 1.0
+        "per_level": 1.0
       },
       "time": {
         "flat": 2.0
