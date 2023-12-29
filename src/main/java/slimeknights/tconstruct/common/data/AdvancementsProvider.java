@@ -44,11 +44,16 @@ import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
+import slimeknights.tconstruct.library.json.predicate.item.ItemSetPredicate;
+import slimeknights.tconstruct.library.json.predicate.tool.HasMaterialPredicate;
+import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate;
+import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate.ModifierCheck;
+import slimeknights.tconstruct.library.json.predicate.tool.ItemToolPredicate;
+import slimeknights.tconstruct.library.json.predicate.tool.ToolContextPredicate;
+import slimeknights.tconstruct.library.json.predicate.tool.ToolStackItemPredicate;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
-import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
-import slimeknights.tconstruct.library.tools.ToolPredicate;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -107,7 +112,7 @@ public class AdvancementsProvider extends GenericDataProvider {
     Advancement tinkerTool = builder(TinkerTools.pickaxe.get().getRenderTool(), resource("tools/tinker_tool"), tinkerStation, FrameType.TASK, builder ->
       builder.addCriterion("crafted_tool", hasTag(TinkerTags.Items.MULTIPART_TOOL)));
     builder(TinkerMaterials.manyullyn.getIngot(), resource("tools/material_master"), tinkerTool, FrameType.CHALLENGE, builder -> {
-      Consumer<MaterialId> with = id -> builder.addCriterion(id.getPath(), InventoryChangeTrigger.TriggerInstance.hasItems(ToolPredicate.builder().withMaterial(id).build()));
+      Consumer<MaterialId> with = id -> builder.addCriterion(id.getPath(), InventoryChangeTrigger.TriggerInstance.hasItems(new ToolStackItemPredicate(new HasMaterialPredicate(id))));
       // tier 1
       with.accept(MaterialIds.wood);
       with.accept(MaterialIds.flint);
@@ -155,19 +160,20 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(TinkerTools.sword.get());
     });
     Advancement modified = builder(Items.REDSTONE, resource("tools/modified"), tinkerTool, FrameType.TASK, builder ->
-      builder.addCriterion("crafted_tool", InventoryChangeTrigger.TriggerInstance.hasItems(ToolPredicate.builder().hasUpgrades(true).build())));
+      builder.addCriterion("crafted_tool", InventoryChangeTrigger.TriggerInstance.hasItems(new ToolStackItemPredicate(ToolContextPredicate.HAS_UPGRADES))));
     //    builder(TinkerTools.cleaver.get().buildToolForRendering(), location("tools/glass_cannon"), modified, FrameType.CHALLENGE, builder ->
     //      builder.addCriterion()("crafted_tool", InventoryChangeTrigger.TriggerInstance.hasItems(ToolPredicate.builder()
     //                                                                                                  .withStat(StatPredicate.max(ToolStats.DURABILITY, 100))
     //                                                                                                  .withStat(StatPredicate.min(ToolStats.ATTACK_DAMAGE, 20))
     //                                                                                                  .build())));
     builder(Items.WRITABLE_BOOK, resource("tools/upgrade_slots"), modified, FrameType.CHALLENGE, builder ->
-      builder.addCriterion("has_modified", InventoryChangeTrigger.TriggerInstance.hasItems(ToolPredicate.builder().upgrades(
-        ModifierMatch.list(5, ModifierMatch.entry(ModifierIds.writable),
-                           ModifierMatch.entry(ModifierIds.recapitated),
-                           ModifierMatch.entry(ModifierIds.harmonious),
-                           ModifierMatch.entry(ModifierIds.resurrected),
-                           ModifierMatch.entry(ModifierIds.gilded))).build()))
+      builder.addCriterion("has_modified", InventoryChangeTrigger.TriggerInstance.hasItems(new ToolStackItemPredicate(
+        ToolContextPredicate.AND.create(
+          new HasModifierPredicate(ModifierIds.writable, ModifierCheck.UPGRADES),
+          new HasModifierPredicate(ModifierIds.recapitated, ModifierCheck.UPGRADES),
+          new HasModifierPredicate(ModifierIds.harmonious, ModifierCheck.UPGRADES),
+          new HasModifierPredicate(ModifierIds.resurrected, ModifierCheck.UPGRADES),
+          new HasModifierPredicate(ModifierIds.gilded, ModifierCheck.UPGRADES)))))
     );
 
     // smeltery path
@@ -230,7 +236,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(TinkerTools.longbow.get());
     });
     builder(TinkerModifiers.silkyCloth, resource("smeltery/abilities"), anvil, FrameType.CHALLENGE, builder -> {
-      Consumer<ModifierId> with = modifier -> builder.addCriterion(modifier.getPath(), InventoryChangeTrigger.TriggerInstance.hasItems(ToolPredicate.builder().modifiers(ModifierMatch.entry(modifier)).build()));
+      Consumer<ModifierId> with = modifier -> builder.addCriterion(modifier.getPath(), InventoryChangeTrigger.TriggerInstance.hasItems(new ToolStackItemPredicate(new HasModifierPredicate(modifier, ModifierCheck.UPGRADES))));
       Consumer<LazyModifier> withL = modifier -> with.accept(modifier.getId());
 
       // general
@@ -358,7 +364,8 @@ public class AdvancementsProvider extends GenericDataProvider {
     builder(new MaterialIdNBT(Collections.singletonList(MaterialIds.glass)).updateStack(new ItemStack(TinkerTools.slimesuit.get(ArmorSlotType.HELMET))),
             resource("world/slimeskull"), slimesuit, FrameType.CHALLENGE, builder -> {
       Item helmet = TinkerTools.slimesuit.get(ArmorSlotType.HELMET);
-      Consumer<MaterialId> with = mat -> builder.addCriterion(mat.getPath(), InventoryChangeTrigger.TriggerInstance.hasItems(ToolPredicate.builder(helmet).withMaterial(mat).build()));
+      Consumer<MaterialId> with = mat -> builder.addCriterion(mat.getPath(), InventoryChangeTrigger.TriggerInstance.hasItems(new ToolStackItemPredicate(
+        ToolContextPredicate.AND.create(new ItemToolPredicate(new ItemSetPredicate(helmet)), new HasMaterialPredicate(mat, 0)))));
       with.accept(MaterialIds.glass);
       with.accept(MaterialIds.bone);
       with.accept(MaterialIds.necroticBone);

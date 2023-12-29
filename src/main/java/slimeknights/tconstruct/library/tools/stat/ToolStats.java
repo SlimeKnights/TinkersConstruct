@@ -110,6 +110,18 @@ public class ToolStats {
   }
 
   /**
+   * Parses a numeric stat from JSON, throwing if invalid
+   * @throws JsonSyntaxException if invalid
+   */
+  public static INumericToolStat<?> numericFromNetwork(FriendlyByteBuf buffer) {
+    IToolStat<?> stat = fromNetwork(buffer);
+    if (stat instanceof INumericToolStat<?> numeric) {
+      return numeric;
+    }
+    throw new DecoderException("Invalid tool stat " + stat.getName() + ", must be a numeric stat");
+  }
+
+  /**
    * Registers a new tool stat
    * @param toolStat  Stat to register
    * @param <T>  Stat type

@@ -32,4 +32,9 @@ public class ToolRebuildContext implements IToolContext {
   private final IModDataView persistentData;
   /** Volatile modifier data */
   private final IModDataView volatileData;
+
+  @Override
+  public StatsNBT getStats() {
+    return getBaseStats();
+  }
 }
