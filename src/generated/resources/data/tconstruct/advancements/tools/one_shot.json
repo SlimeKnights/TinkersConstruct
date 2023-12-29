@@ -1,0 +1,40 @@
+{
+  "parent": "tconstruct:tools/tinker_tool",
+  "display": {
+    "icon": {
+      "item": "minecraft:zombie_head"
+    },
+    "title": {
+      "translate": "advancements.tconstruct.tools.one_shot.title"
+    },
+    "description": {
+      "translate": "advancements.tconstruct.tools.one_shot.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "damage": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:stat_in_range",
+              "stat": "tconstruct:attack_damage",
+              "min": 20.0
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "damage"
+    ]
+  ]
+}

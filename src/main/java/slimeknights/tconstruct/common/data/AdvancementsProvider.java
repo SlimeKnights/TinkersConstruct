@@ -29,6 +29,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
@@ -49,12 +50,15 @@ import slimeknights.tconstruct.library.json.predicate.tool.HasMaterialPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate.ModifierCheck;
 import slimeknights.tconstruct.library.json.predicate.tool.ItemToolPredicate;
+import slimeknights.tconstruct.library.json.predicate.tool.StatInSetPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolContextPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolStackItemPredicate;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
+import slimeknights.tconstruct.library.tools.stat.StatPredicate;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
@@ -111,7 +115,14 @@ public class AdvancementsProvider extends GenericDataProvider {
       builder.addCriterion("crafted_block", hasItem(TinkerTables.tinkerStation)));
     Advancement tinkerTool = builder(TinkerTools.pickaxe.get().getRenderTool(), resource("tools/tinker_tool"), tinkerStation, FrameType.TASK, builder ->
       builder.addCriterion("crafted_tool", hasTag(TinkerTags.Items.MULTIPART_TOOL)));
-    builder(TinkerMaterials.manyullyn.getIngot(), resource("tools/material_master"), tinkerTool, FrameType.CHALLENGE, builder -> {
+    Advancement harvestLevel = builder(Items.NETHERITE_INGOT, resource("tools/netherite_tier"), tinkerTool, FrameType.GOAL, builder ->
+      builder.addCriterion("harvest_level", InventoryChangeTrigger.TriggerInstance.hasItems(new ToolStackItemPredicate(new StatInSetPredicate<>(ToolStats.HARVEST_TIER, Tiers.NETHERITE)))));
+    builder(Items.TARGET, resource("tools/perfect_aim"), tinkerTool, FrameType.GOAL, builder ->
+      builder.addCriterion("accuracy", InventoryChangeTrigger.TriggerInstance.hasItems(new ToolStackItemPredicate(new StatPredicate(ToolStats.ACCURACY, 1, 1)))));
+    // note that attack damage gets +1 from player attributes, so 20 is actually 21 damage with the tool
+    builder(Items.ZOMBIE_HEAD, resource("tools/one_shot"), tinkerTool, FrameType.GOAL, builder ->
+      builder.addCriterion("damage", InventoryChangeTrigger.TriggerInstance.hasItems(new ToolStackItemPredicate(new StatPredicate(ToolStats.ATTACK_DAMAGE, 20, Float.POSITIVE_INFINITY)))));
+    builder(TinkerMaterials.manyullyn.getIngot(), resource("tools/material_master"), harvestLevel, FrameType.CHALLENGE, builder -> {
       Consumer<MaterialId> with = id -> builder.addCriterion(id.getPath(), InventoryChangeTrigger.TriggerInstance.hasItems(new ToolStackItemPredicate(new HasMaterialPredicate(id))));
       // tier 1
       with.accept(MaterialIds.wood);
@@ -242,24 +253,32 @@ public class AdvancementsProvider extends GenericDataProvider {
       // general
       with.accept(ModifierIds.gilded);
       with.accept(ModifierIds.luck);
-      with.accept(ModifierIds.reach);
       withL.accept(TinkerModifiers.unbreakable);
       // armor
+      withL.accept(TinkerModifiers.protection);
+      // helmet
       with.accept(ModifierIds.aquaAffinity);
+      withL.accept(TinkerModifiers.slurping);
+      withL.accept(TinkerModifiers.zoom);
+      // chestplate
+      withL.accept(TinkerModifiers.ambidextrous);
+      with.accept(ModifierIds.reach);
+      with.accept(ModifierIds.strength);
+      // leggings
+      with.accept(ModifierIds.pockets);
+      with.accept(ModifierIds.toolBelt);
+      withL.accept(TinkerModifiers.wetting);
+      // boots
       withL.accept(TinkerModifiers.bouncy);
       withL.accept(TinkerModifiers.doubleJump);
       withL.accept(TinkerModifiers.flamewake);
       withL.accept(TinkerModifiers.frostWalker);
+      withL.accept(TinkerModifiers.longFall);
       withL.accept(TinkerModifiers.pathMaker);
       withL.accept(TinkerModifiers.plowing);
-      with.accept(ModifierIds.pockets);
-      withL.accept(TinkerModifiers.slurping);
       withL.accept(TinkerModifiers.snowdrift);
-      with.accept(ModifierIds.strength);
-      with.accept(ModifierIds.toolBelt);
-      withL.accept(TinkerModifiers.ambidextrous);
-      withL.accept(TinkerModifiers.zoom);
-      withL.accept(TinkerModifiers.longFall);
+      // shield
+      withL.accept(TinkerModifiers.boundless);
       withL.accept(TinkerModifiers.reflecting);
       // harvest
       withL.accept(TinkerModifiers.autosmelt);
@@ -273,6 +292,12 @@ public class AdvancementsProvider extends GenericDataProvider {
       withL.accept(TinkerModifiers.pathing);
       withL.accept(TinkerModifiers.stripping);
       withL.accept(TinkerModifiers.tilling);
+      // staff
+      withL.accept(TinkerModifiers.bonking);
+      withL.accept(TinkerModifiers.flinging);
+      withL.accept(TinkerModifiers.spitting);
+      withL.accept(TinkerModifiers.springing);
+      withL.accept(TinkerModifiers.warping);
       // weapon
       withL.accept(TinkerModifiers.dualWielding);
       withL.accept(TinkerModifiers.melting);

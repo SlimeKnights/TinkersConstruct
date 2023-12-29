@@ -12,8 +12,9 @@ import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import java.util.function.Predicate;
 
 /**
- * Predicate to check if a tool has the given stat.
- * TODO 1.19: move to {@link slimeknights.tconstruct.library.json.predicate.tool}
+ * Predicate to check if a tool has the given stat within the range.
+ * TODO 1.19: move to {@link slimeknights.tconstruct.library.json.predicate.tool} as {@code StatInRangePredicate}
+ * @see slimeknights.tconstruct.library.json.predicate.tool.StatInSetPredicate
  */
 public record StatPredicate(INumericToolStat<?> stat, float min, float max) implements Predicate<StatsNBT>, ToolContextPredicate {
 

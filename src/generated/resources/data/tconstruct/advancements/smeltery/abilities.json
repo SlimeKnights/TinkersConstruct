@@ -52,24 +52,6 @@
         ]
       }
     },
-    "reach": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_modifier",
-              "modifier": "tconstruct:reach",
-              "level": {
-                "min": 1
-              },
-              "check": "upgrades"
-            }
-          }
-        ]
-      }
-    },
     "unbreakable": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
@@ -88,6 +70,24 @@
         ]
       }
     },
+    "protection": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:protection",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
     "aqua_affinity": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
@@ -97,6 +97,150 @@
             "predicate": {
               "type": "tconstruct:has_modifier",
               "modifier": "tconstruct:aqua_affinity",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "slurping": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:slurping",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "zoom": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:zoom",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "ambidextrous": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:ambidextrous",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "reach": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:reach",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "strength": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:strength",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "pockets": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:pockets",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "tool_belt": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:tool_belt",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "wetting": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:wetting",
               "level": {
                 "min": 1
               },
@@ -178,6 +322,24 @@
         ]
       }
     },
+    "long_fall": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:long_fall",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
     "path_maker": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
@@ -214,42 +376,6 @@
         ]
       }
     },
-    "pockets": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_modifier",
-              "modifier": "tconstruct:pockets",
-              "level": {
-                "min": 1
-              },
-              "check": "upgrades"
-            }
-          }
-        ]
-      }
-    },
-    "slurping": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_modifier",
-              "modifier": "tconstruct:slurping",
-              "level": {
-                "min": 1
-              },
-              "check": "upgrades"
-            }
-          }
-        ]
-      }
-    },
     "snowdrift": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
@@ -268,7 +394,7 @@
         ]
       }
     },
-    "strength": {
+    "boundless": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -276,79 +402,7 @@
             "type": "tconstruct:tool_stack",
             "predicate": {
               "type": "tconstruct:has_modifier",
-              "modifier": "tconstruct:strength",
-              "level": {
-                "min": 1
-              },
-              "check": "upgrades"
-            }
-          }
-        ]
-      }
-    },
-    "tool_belt": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_modifier",
-              "modifier": "tconstruct:tool_belt",
-              "level": {
-                "min": 1
-              },
-              "check": "upgrades"
-            }
-          }
-        ]
-      }
-    },
-    "ambidextrous": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_modifier",
-              "modifier": "tconstruct:ambidextrous",
-              "level": {
-                "min": 1
-              },
-              "check": "upgrades"
-            }
-          }
-        ]
-      }
-    },
-    "zoom": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_modifier",
-              "modifier": "tconstruct:zoom",
-              "level": {
-                "min": 1
-              },
-              "check": "upgrades"
-            }
-          }
-        ]
-      }
-    },
-    "long_fall": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_modifier",
-              "modifier": "tconstruct:long_fall",
+              "modifier": "tconstruct:boundless",
               "level": {
                 "min": 1
               },
@@ -556,6 +610,96 @@
         ]
       }
     },
+    "bonking": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:bonking",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "flinging": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:flinging",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "spitting": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:spitting",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "springing": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:springing",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "warping": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:warping",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
     "dual_wielding": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
@@ -727,13 +871,37 @@
       "luck"
     ],
     [
-      "reach"
-    ],
-    [
       "unbreakable"
     ],
     [
+      "protection"
+    ],
+    [
       "aqua_affinity"
+    ],
+    [
+      "slurping"
+    ],
+    [
+      "zoom"
+    ],
+    [
+      "ambidextrous"
+    ],
+    [
+      "reach"
+    ],
+    [
+      "strength"
+    ],
+    [
+      "pockets"
+    ],
+    [
+      "tool_belt"
+    ],
+    [
+      "wetting"
     ],
     [
       "bouncy"
@@ -748,34 +916,19 @@
       "frost_walker"
     ],
     [
+      "long_fall"
+    ],
+    [
       "path_maker"
     ],
     [
       "plowing"
     ],
     [
-      "pockets"
-    ],
-    [
-      "slurping"
-    ],
-    [
       "snowdrift"
     ],
     [
-      "strength"
-    ],
-    [
-      "tool_belt"
-    ],
-    [
-      "ambidextrous"
-    ],
-    [
-      "zoom"
-    ],
-    [
-      "long_fall"
+      "boundless"
     ],
     [
       "reflecting"
@@ -809,6 +962,21 @@
     ],
     [
       "tilling"
+    ],
+    [
+      "bonking"
+    ],
+    [
+      "flinging"
+    ],
+    [
+      "spitting"
+    ],
+    [
+      "springing"
+    ],
+    [
+      "warping"
     ],
     [
       "dual_wielding"

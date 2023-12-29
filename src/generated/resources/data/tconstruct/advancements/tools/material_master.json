@@ -1,5 +1,5 @@
 {
-  "parent": "tconstruct:tools/tinker_tool",
+  "parent": "tconstruct:tools/netherite_tier",
   "display": {
     "icon": {
       "item": "tconstruct:manyullyn_ingot"

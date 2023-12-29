@@ -33,6 +33,7 @@ import slimeknights.tconstruct.library.json.predicate.tool.HasMaterialPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.HasStatTypePredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.ItemToolPredicate;
+import slimeknights.tconstruct.library.json.predicate.tool.StatInSetPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolContextPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolStackItemPredicate;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
@@ -225,6 +226,7 @@ public final class TinkerTools extends TinkerModule {
     ToolContextPredicate.LOADER.register(TConstruct.getResource("has_upgrades"), ToolContextPredicate.HAS_UPGRADES.getLoader());
     ToolContextPredicate.LOADER.register(TConstruct.getResource("has_modifier"), HasModifierPredicate.LOADER);
     ToolContextPredicate.LOADER.register(TConstruct.getResource("stat_in_range"), StatPredicate.LOADER);
+    ToolContextPredicate.LOADER.register(TConstruct.getResource("stat_in_set"), StatInSetPredicate.LOADER);
     ToolContextPredicate.LOADER.register(TConstruct.getResource("has_material"), HasMaterialPredicate.LOADER);
     ToolContextPredicate.LOADER.register(TConstruct.getResource("has_stat_type"), HasStatTypePredicate.LOADER);
   }
