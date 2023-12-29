@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import net.minecraft.ResourceLocationException;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
@@ -103,6 +104,9 @@ public sealed interface MaterialVariantId permits MaterialId, MaterialVariantIdI
     return location;
   }
 
+
+  /* JSON */
+
   /** Shared logic for {@link #fromJson(JsonObject, String)} and {@link #convertJson(JsonElement, String)} */
   private static MaterialVariantId parse(String text, String key) {
     MaterialVariantId location = tryParse(text);
@@ -132,5 +136,18 @@ public sealed interface MaterialVariantId permits MaterialId, MaterialVariantIdI
   static MaterialVariantId convertJson(JsonElement json, String key) {
     String text = GsonHelper.convertToString(json, key);
     return parse(text, key);
+  }
+
+
+  /* Networking */
+
+  /** Writes an ID to the packet buffer */
+  default void toNetwork(FriendlyByteBuf buf) {
+    buf.writeUtf(toString());
+  }
+
+  /** Reads an ID from the packet buffer */
+  static MaterialVariantId fromNetwork(FriendlyByteBuf buf) {
+    return parse(buf.readUtf(Short.MAX_VALUE));
   }
 }

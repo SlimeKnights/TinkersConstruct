@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.tools.stat;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.ResourceLocationException;
+import slimeknights.tconstruct.library.utils.IdParser;
 
 import javax.annotation.Nullable;
 
@@ -9,6 +9,7 @@ import javax.annotation.Nullable;
  * This is just a copy of ResourceLocation for type safety.
  */
 public class ToolStatId extends ResourceLocation {
+  public static final IdParser<ToolStatId> PARSER = new IdParser<>(ToolStatId::new, "Tool Stat");
 
   public ToolStatId(String namespaceIn, String pathIn) {
     super(namespaceIn, pathIn);
@@ -29,10 +30,6 @@ public class ToolStatId extends ResourceLocation {
    */
   @Nullable
   public static ToolStatId tryCreate(String string) {
-    try {
-      return new ToolStatId(string);
-    } catch (ResourceLocationException resourcelocationexception) {
-      return null;
-    }
+    return PARSER.tryParse(string);
   }
 }
