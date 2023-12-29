@@ -142,6 +142,20 @@
         ]
       }
     },
+    "chorus": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:chorus"
+            }
+          }
+        ]
+      }
+    },
     "iron": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
@@ -235,6 +249,20 @@
             "predicate": {
               "type": "tconstruct:has_material",
               "material": "tconstruct:skyslime_vine"
+            }
+          }
+        ]
+      }
+    },
+    "whitestone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:whitestone"
             }
           }
         ]
@@ -452,6 +480,9 @@
       "bamboo"
     ],
     [
+      "chorus"
+    ],
+    [
       "iron"
     ],
     [
@@ -471,6 +502,9 @@
     ],
     [
       "skyslime_vine"
+    ],
+    [
+      "whitestone"
     ],
     [
       "rose_gold"

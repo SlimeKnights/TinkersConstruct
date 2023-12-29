@@ -134,6 +134,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(MaterialIds.string);
       with.accept(MaterialIds.vine);
       with.accept(MaterialIds.bamboo);
+      with.accept(MaterialIds.chorus);
       // tier 2
       with.accept(MaterialIds.iron);
       with.accept(MaterialIds.searedStone);
@@ -142,6 +143,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(MaterialIds.slimewood);
       with.accept(MaterialIds.chain);
       with.accept(MaterialIds.skyslimeVine);
+      with.accept(MaterialIds.whitestone);
       // tier 3
       with.accept(MaterialIds.roseGold);
       with.accept(MaterialIds.slimesteel);
@@ -361,15 +363,15 @@ public class AdvancementsProvider extends GenericDataProvider {
     Advancement tinkersGadgetry = builder(TinkerCommons.tinkersGadgetry, resource("world/tinkers_gadgetry"), materialsAndYou, FrameType.TASK, builder ->
       builder.addCriterion("crafted_book", hasItem(TinkerCommons.tinkersGadgetry)));
     builder(TinkerWorld.slimeSapling.get(SlimeType.EARTH), resource("world/earth_island"), tinkersGadgetry, FrameType.GOAL, builder ->
-      builder.addCriterion("found_island", LocationTrigger.TriggerInstance.located(LocationPredicate.inFeature(TinkerStructures.configuredEarthSlimeIsland.getKey()))));
+      builder.addCriterion("found_island", LocationTrigger.TriggerInstance.located(LocationPredicate.inFeature(Objects.requireNonNull(TinkerStructures.configuredEarthSlimeIsland.getKey())))));
     builder(TinkerWorld.slimeSapling.get(SlimeType.SKY), resource("world/sky_island"), tinkersGadgetry, FrameType.GOAL, builder ->
-      builder.addCriterion("found_island", LocationTrigger.TriggerInstance.located(LocationPredicate.inFeature(TinkerStructures.configuredSkySlimeIsland.getKey()))));
+      builder.addCriterion("found_island", LocationTrigger.TriggerInstance.located(LocationPredicate.inFeature(Objects.requireNonNull(TinkerStructures.configuredSkySlimeIsland.getKey())))));
     builder(TinkerWorld.slimeSapling.get(SlimeType.BLOOD), resource("world/blood_island"), tinkersGadgetry, FrameType.GOAL, builder ->
-      builder.addCriterion("found_island", LocationTrigger.TriggerInstance.located(LocationPredicate.inFeature(TinkerStructures.configuredBloodIsland.getKey()))));
+      builder.addCriterion("found_island", LocationTrigger.TriggerInstance.located(LocationPredicate.inFeature(Objects.requireNonNull(TinkerStructures.configuredBloodIsland.getKey())))));
     Advancement enderslimeIsland = builder(TinkerWorld.slimeSapling.get(SlimeType.ENDER), resource("world/ender_island"), tinkersGadgetry, FrameType.GOAL, builder ->
-      builder.addCriterion("found_island", LocationTrigger.TriggerInstance.located(LocationPredicate.inFeature(TinkerStructures.configuredEndSlimeIsland.getKey()))));
+      builder.addCriterion("found_island", LocationTrigger.TriggerInstance.located(LocationPredicate.inFeature(Objects.requireNonNull(TinkerStructures.configuredEndSlimeIsland.getKey())))));
     builder(Items.CLAY_BALL, resource("world/clay_island"), tinkersGadgetry, FrameType.GOAL, builder ->
-      builder.addCriterion("found_island", LocationTrigger.TriggerInstance.located(LocationPredicate.inFeature(TinkerStructures.configuredClayIsland.getKey()))));
+      builder.addCriterion("found_island", LocationTrigger.TriggerInstance.located(LocationPredicate.inFeature(Objects.requireNonNull(TinkerStructures.configuredClayIsland.getKey())))));
     Advancement slimes = builder(TinkerCommons.slimeball.get(SlimeType.ICHOR), resource("world/slime_collector"), tinkersGadgetry, FrameType.TASK, builder -> {
       for (SlimeType type : SlimeType.values()) {
         builder.addCriterion(type.getSerializedName(), hasTag(type.getSlimeballTag()));
