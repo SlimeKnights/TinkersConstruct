@@ -12,7 +12,6 @@ import java.util.function.IntPredicate;
 /**
  * Predicate for checking if an integer is between the given values, inclusive.
  * This object is setup to simplify JSON parsing by creating an instance representing the minimum and maximum range values, then using that object to parse from JSON.
- *
  */
 public record IntRange(int min, int max) implements IntPredicate {
   @Override
@@ -132,7 +131,7 @@ public record IntRange(int min, int max) implements IntPredicate {
       object.addProperty("min", range.min);
     }
     if (range.max < this.max) {
-      object.addProperty("min", range.min);
+      object.addProperty("max", range.max);
     }
     return object;
   }
