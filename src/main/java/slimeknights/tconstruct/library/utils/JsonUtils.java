@@ -43,6 +43,7 @@ public class JsonUtils {
 
   /**
    * Reads an integer with a minimum value
+   * TODO 1.19: rename to {@code convertToIntMin}
    * @param json  Json element to parse as an integer
    * @param key   Key to read
    * @param min   Minimum

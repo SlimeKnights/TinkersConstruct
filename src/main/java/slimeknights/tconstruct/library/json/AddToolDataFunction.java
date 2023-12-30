@@ -28,7 +28,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-/** Loot function to add data to a tool */
+/**
+ * Loot function to add data to a tool.
+ * TODO 1.19: move to {@code slimeknights.tconsturct.library.json.loot}
+ */
 public class AddToolDataFunction extends LootItemConditionalFunction {
   public static final ResourceLocation ID = TConstruct.getResource("add_tool_data");
   public static final Serializer SERIALIZER = new Serializer();

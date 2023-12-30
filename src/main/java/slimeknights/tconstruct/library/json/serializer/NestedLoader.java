@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.json;
+package slimeknights.tconstruct.library.json.serializer;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;

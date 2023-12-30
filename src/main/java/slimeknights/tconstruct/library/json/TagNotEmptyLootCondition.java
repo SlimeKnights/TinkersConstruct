@@ -15,7 +15,10 @@ import slimeknights.mantle.util.JsonHelper;
 import slimeknights.mantle.util.RegistryHelper;
 import slimeknights.tconstruct.shared.TinkerCommons;
 
-/** Loot table condition to test if a tag has entries */
+/**
+ * Loot table condition to test if a tag has entries.
+ * TODO 1.19: move to {@code slimeknights.tconsturct.library.json.condition}
+ */
 @RequiredArgsConstructor
 public class TagNotEmptyLootCondition<T> implements LootItemCondition {
   private final TagKey<T> tag;

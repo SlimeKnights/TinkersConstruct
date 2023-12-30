@@ -176,6 +176,7 @@ public class ToolDamageUtil {
   /* Durability display. */
 
   /** @deprecated use {@link DurabilityDisplayModifierHook#showDurabilityBar(ItemStack)} */
+  @Deprecated
   public static boolean showDurabilityBar(ItemStack stack) {
     return DurabilityDisplayModifierHook.showDurabilityBar(stack);
   }
@@ -187,6 +188,7 @@ public class ToolDamageUtil {
   }
 
   /** @deprecated use {@link DurabilityDisplayModifierHook#getDurabilityRGB(ItemStack)} */
+  @Deprecated
   public static int getRGBDurabilityForDisplay(ItemStack stack) {
     return DurabilityDisplayModifierHook.getDurabilityRGB(stack);
   }
