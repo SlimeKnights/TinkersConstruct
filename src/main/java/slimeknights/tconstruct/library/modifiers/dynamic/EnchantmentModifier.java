@@ -22,6 +22,7 @@ import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
 
+import java.util.Iterator;
 import java.util.Objects;
 
 /** @deprecated use {@link EnchantmentModule.Constant} */
@@ -51,10 +52,12 @@ public class EnchantmentModifier extends Modifier {
     String id = Objects.requireNonNull(enchantment.getRegistryName()).toString();
     for (int i = 0; i < enchantments.size(); i++) {
       CompoundTag enchantmentTag = enchantments.getCompound(i);
-      // only replace if our level is smaller, means that multiple modifiers adding the same enchantment lead to max behavior
       // cannot do adding behavior as this hook can run multiple times without ever removing the level
-      if (id.equals(enchantmentTag.getString("id")) && enchantmentTag.getShort("lvl") < level) {
-        EnchantmentHelper.setEnchantmentLevel(enchantmentTag, level);
+      if (id.equals(enchantmentTag.getString("id"))) {
+        // only replace if our level is smaller, means that multiple modifiers adding the same enchantment lead to max behavior
+        if (enchantmentTag.getShort("lvl") < level) {
+          EnchantmentHelper.setEnchantmentLevel(enchantmentTag, level);
+        }
         return;
       }
     }
@@ -70,15 +73,18 @@ public class EnchantmentModifier extends Modifier {
     if (tag.contains(ModifierUtil.TAG_ENCHANTMENTS, Tag.TAG_LIST)) {
       ListTag enchantments = tag.getList(ModifierUtil.TAG_ENCHANTMENTS, Tag.TAG_COMPOUND);
       String id = Objects.requireNonNull(enchantment.getRegistryName()).toString();
-      for (int i = 0; i < enchantments.size(); i++) {
-        CompoundTag enchantmentTag = enchantments.getCompound(i);
-        if (id.equals(enchantmentTag.getString("id"))) {
-          enchantments.remove(i);
-          if (enchantments.isEmpty()) {
-            tag.remove(ModifierUtil.TAG_ENCHANTMENTS);
+      Iterator<Tag> iterator = enchantments.iterator();
+      while (iterator.hasNext()) {
+        Tag iteratorTag = iterator.next();
+        if (iteratorTag.getId() == Tag.TAG_COMPOUND) {
+          CompoundTag enchantmentTag = (CompoundTag)iteratorTag;
+          if (id.equals(enchantmentTag.getString("id"))) {
+            iterator.remove();
           }
-          break;
         }
+      }
+      if (enchantments.isEmpty()) {
+        tag.remove(ModifierUtil.TAG_ENCHANTMENTS);
       }
     }
   }
