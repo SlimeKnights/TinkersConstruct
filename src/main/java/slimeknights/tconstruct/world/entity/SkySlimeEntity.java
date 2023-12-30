@@ -85,10 +85,12 @@ public class SkySlimeEntity extends ArmoredSlimeEntity {
     if (this.random.nextFloat() < 0.15F * multiplier) {
       // 2.5% chance of plate
       boolean isPlate = this.random.nextFloat() < (0.05f * multiplier);
+      // TODO: allow adding more helmet types, unfortunately tags don't let me add chances
       ItemStack helmet = new ItemStack((isPlate ? TinkerTools.plateArmor : TinkerTools.travelersGear).get(ArmorSlotType.HELMET));
 
       // for plate, just init stats
       ToolStack tool = ToolStack.from(helmet);
+      tool.ensureHasData();
       ModifierNBT modifiers = tool.getUpgrades();
       ModDataNBT persistentData = tool.getPersistentData();
       if (!isPlate) {
