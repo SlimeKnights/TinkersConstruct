@@ -74,6 +74,11 @@ public class ModifierIds {
   public static final ModifierId featherFalling = id("feather_falling");
   public static final ModifierId longFall = id("long_fall");
 
+  // interaction
+  public static final ModifierId pathing = id("pathing");
+  public static final ModifierId stripping = id("stripping");
+  public static final ModifierId tilling = id("tilling");
+
   // internal
   public static final ModifierId overslimeFriend = id("overslime_friend");
   public static final ModifierId snowBoots = id("snow_boots");

@@ -78,7 +78,7 @@ public class EnchantmentToModifierProvider extends AbstractEnchantmentToModifier
     addCompat(ModifierIds.luck);
     addCompat(TinkerModifiers.multishot.getId());
     addCompat(ModifierIds.reach);
-    addCompat(TinkerModifiers.tilling.getId());
+    addCompat(ModifierIds.tilling);
     addCompat(TinkerModifiers.reflecting.getId());
   }
 

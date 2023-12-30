@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.tools.modifiers.ability.interaction;
+package slimeknights.tconstruct.library.modifiers.modules.behavior;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
@@ -8,24 +8,29 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.ToolActions;
+import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.GenericLoaderRegistry.SingletonLoader;
+import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+
 /**
- * @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.behavior.ExtinguishCampfireModule}
- * and {@link slimeknights.tconstruct.library.modifiers.modules.behavior.ToolActionTransformModule}
+ * Module which performs AOE removing of campfires
  */
-@Deprecated
-public class PathingModifier extends BlockTransformModifier {
-  public PathingModifier(int priority) {
-    super(priority, ToolActions.SHOVEL_FLATTEN, SoundEvents.SHOVEL_FLATTEN, true);
+public class ExtinguishCampfireModule extends BlockTransformModule {
+  public static final ExtinguishCampfireModule INSTANCE = new ExtinguishCampfireModule();
+  public static final IGenericLoader<ExtinguishCampfireModule> LOADER = new SingletonLoader<>(INSTANCE);
+
+  private ExtinguishCampfireModule() {
+    super(false);
   }
 
   @Override
-  protected boolean transform(UseOnContext context, BlockState original, boolean playSound) {
-    if (super.transform(context, original, playSound)) {
-      return true;
-    }
+  public IGenericLoader<? extends ModifierModule> getLoader() {
+    return LOADER;
+  }
 
-    // shovel special case: campfires
+  @Override
+  protected boolean transform(IToolStackView tool, UseOnContext context, BlockState original, boolean playSound) {
     if (original.getBlock() instanceof CampfireBlock && original.getValue(CampfireBlock.LIT)) {
       Level level = context.getLevel();
       BlockPos pos = context.getClickedPos();

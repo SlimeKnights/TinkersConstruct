@@ -291,9 +291,9 @@ public class AdvancementsProvider extends GenericDataProvider {
       withL.accept(TinkerModifiers.bucketing);
       withL.accept(TinkerModifiers.firestarter);
       withL.accept(TinkerModifiers.glowing);
-      withL.accept(TinkerModifiers.pathing);
-      withL.accept(TinkerModifiers.stripping);
-      withL.accept(TinkerModifiers.tilling);
+      with.accept(ModifierIds.pathing);
+      with.accept(ModifierIds.stripping);
+      with.accept(ModifierIds.tilling);
       // staff
       withL.accept(TinkerModifiers.bonking);
       withL.accept(TinkerModifiers.flinging);

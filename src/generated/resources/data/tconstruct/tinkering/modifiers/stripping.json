@@ -1,0 +1,30 @@
+{
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:default",
+  "tooltip_display": "always",
+  "modules": [
+    {
+      "type": "tconstruct:show_offhand"
+    },
+    {
+      "type": "tconstruct:tool_action_transform",
+      "tool_action": "axe_strip",
+      "sound": "minecraft:item.axe.strip",
+      "require_ground": false
+    },
+    {
+      "type": "tconstruct:tool_action_transform",
+      "tool_action": "axe_scrape",
+      "sound": "minecraft:item.axe.scrape",
+      "require_ground": false,
+      "event_id": 3005
+    },
+    {
+      "type": "tconstruct:tool_action_transform",
+      "tool_action": "axe_wax_off",
+      "sound": "minecraft:item.axe.wax_off",
+      "require_ground": false,
+      "event_id": 3004
+    }
+  ]
+}

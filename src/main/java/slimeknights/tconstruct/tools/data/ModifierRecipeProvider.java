@@ -1244,37 +1244,37 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(ModifierIds.reach, abilitySalvage));
     // block transformers
     Ingredient interactableWithDurability = IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.DURABILITY), Ingredient.of(TinkerTags.Items.INTERACTABLE));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.pathing)
+    ModifierRecipeBuilder.modifier(ModifierIds.pathing)
                          .setTools(DifferenceIngredient.of(interactableWithDurability, Ingredient.of(TinkerTools.pickadze, TinkerTools.excavator)))
                          .addInput(roundPlate)
                          .addInput(TinkerMaterials.cobalt.getIngotTag())
                          .addInput(toolBinding)
                          .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
-                         .saveSalvage(consumer, prefix(TinkerModifiers.pathing, abilitySalvage))
-                         .save(consumer, prefix(TinkerModifiers.pathing, abilityFolder));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.stripping)
+                         .saveSalvage(consumer, prefix(ModifierIds.pathing, abilitySalvage))
+                         .save(consumer, prefix(ModifierIds.pathing, abilityFolder));
+    ModifierRecipeBuilder.modifier(ModifierIds.stripping)
                          .setTools(DifferenceIngredient.of(interactableWithDurability, Ingredient.of(TinkerTools.handAxe, TinkerTools.broadAxe)))
                          .addInput(SizedIngredient.of(MaterialIngredient.fromItem(TinkerToolParts.smallAxeHead.get())))
                          .addInput(TinkerMaterials.cobalt.getIngotTag())
                          .addInput(toolBinding)
                          .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
-                         .saveSalvage(consumer, prefix(TinkerModifiers.stripping, abilitySalvage))
-                         .save(consumer, prefix(TinkerModifiers.stripping, abilityFolder));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.tilling)
+                         .saveSalvage(consumer, prefix(ModifierIds.stripping, abilitySalvage))
+                         .save(consumer, prefix(ModifierIds.stripping, abilityFolder));
+    ModifierRecipeBuilder.modifier(ModifierIds.tilling)
                          .setTools(DifferenceIngredient.of(interactableWithDurability, Ingredient.of(TinkerTools.mattock, TinkerTools.kama, TinkerTools.scythe)))
                          .addInput(smallBlade)
                          .addInput(TinkerMaterials.cobalt.getIngotTag())
                          .addInput(toolBinding)
                          .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
-                         .save(consumer, prefix(TinkerModifiers.tilling, abilityFolder));
+                         .save(consumer, prefix(ModifierIds.tilling, abilityFolder));
     // TODO 1.19: make the salvage recipe match the original recipe again
-    ModifierRecipeBuilder.modifier(TinkerModifiers.tilling)
+    ModifierRecipeBuilder.modifier(ModifierIds.tilling)
                          .setTools(DifferenceIngredient.of(interactableWithDurability, Ingredient.of(TinkerTools.mattock, TinkerTools.scythe)))
                          .setSlots(SlotType.ABILITY, 1)
-                         .saveSalvage(consumer, prefix(TinkerModifiers.tilling, abilitySalvage));
+                         .saveSalvage(consumer, prefix(ModifierIds.tilling, abilitySalvage));
     // glowing
     ModifierRecipeBuilder.modifier(TinkerModifiers.glowing)
                          .setTools(interactableWithDurability)

@@ -1,72 +1,39 @@
-package slimeknights.tconstruct.tools.modifiers.ability.interaction;
+package slimeknights.tconstruct.library.modifiers.modules.behavior;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
-import net.minecraftforge.common.ToolAction;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierHook;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
-import slimeknights.tconstruct.library.modifiers.hook.BlockTransformModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
-import slimeknights.tconstruct.library.modifiers.impl.InteractionModifier;
-import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
+import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
 import slimeknights.tconstruct.library.tools.definition.module.ToolModuleHooks;
-import slimeknights.tconstruct.library.tools.definition.module.interaction.DualOptionInteraction;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.MutableUseOnContext;
 
 import java.util.Iterator;
+import java.util.List;
 
-/** @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.behavior.ToolActionTransformModule} */
-@Deprecated
 @RequiredArgsConstructor
-public class BlockTransformModifier extends InteractionModifier.NoLevels implements BlockInteractionModifierHook {
-  @Getter
-  private final int priority;
-  private final ToolAction action;
-  private final SoundEvent sound;
-  private final boolean requireGround;
-  private final int eventId;
+public abstract class BlockTransformModule implements ModifierModule, BlockInteractionModifierHook {
+  private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.BLOCK_INTERACT);
 
-  public BlockTransformModifier(int priority, ToolAction action, SoundEvent sound, boolean requireGround) {
-    this(priority, action, sound, requireGround, -1);
-  }
+  protected final boolean requireGround;
 
   @Override
-  protected void registerHooks(Builder hookBuilder) {
-    super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, TinkerHooks.BLOCK_INTERACT);
-  }
-
-  @Override
-  public Component getDisplayName(IToolStackView tool, int level) {
-    return DualOptionInteraction.formatModifierName(tool, this, super.getDisplayName(tool, level));
-  }
-
-  @Override
-  public boolean shouldDisplay(boolean advanced) {
-    return priority > Short.MIN_VALUE;
-  }
-
-  @Override
-  public boolean canPerformAction(IToolStackView tool, int level, ToolAction toolAction) {
-    return action == toolAction;
+  public List<ModifierHook<?>> getDefaultHooks() {
+    return DEFAULT_HOOKS;
   }
 
   @Override
@@ -91,7 +58,7 @@ public class BlockTransformModifier extends InteractionModifier.NoLevels impleme
     BlockPos pos = context.getClickedPos();
     BlockState original = world.getBlockState(pos);
     ItemStack stack = context.getItemInHand();
-    boolean didTransform = transform(context, original, true);
+    boolean didTransform = transform(tool, context, original, true);
 
     // if we made a successful transform, client can stop early
     EquipmentSlot slotType = source.getSlot(context.getHand());
@@ -99,8 +66,6 @@ public class BlockTransformModifier extends InteractionModifier.NoLevels impleme
       if (world.isClientSide) {
         return InteractionResult.SUCCESS;
       }
-
-      BlockTransformModifierHook.afterTransformBlock(tool, context, original, pos, action);
 
       // if the tool breaks or it was a campfire, we are done
       if (ToolDamageUtil.damage(tool, 1, player, stack)) {
@@ -130,15 +95,13 @@ public class BlockTransformModifier extends InteractionModifier.NoLevels impleme
           BlockState newTarget = world.getBlockState(newPos);
 
           // limit to playing 40 sounds, that's more than enough for most transforms
-          if (transform(offsetContext, newTarget, totalTransformed < 40)) {
+          if (transform(tool, offsetContext, newTarget, totalTransformed < 40)) {
             totalTransformed++;
             didTransform = true;
 
             if (world.isClientSide) {
               break;
             }
-
-            BlockTransformModifierHook.afterTransformBlock(tool, context, newTarget, newPos, action);
 
             // stop if the tool broke
             if (ToolDamageUtil.damageAnimated(tool, 1, player, slotType)) {
@@ -158,38 +121,6 @@ public class BlockTransformModifier extends InteractionModifier.NoLevels impleme
     return didTransform ? InteractionResult.sidedSuccess(world.isClientSide) : InteractionResult.PASS;
   }
 
-  /** Transforms the given block */
-  protected boolean transform(UseOnContext context, BlockState original, boolean playSound) {
-    Level level = context.getLevel();
-    BlockPos pos = context.getClickedPos();
-    BlockPos above = pos.above();
-
-    // hoes and shovels: air or plants above
-    if (requireGround) {
-      Material material = level.getBlockState(above).getMaterial();
-      if (!material.isReplaceable() && material != Material.PLANT) {
-        return false;
-      }
-    }
-
-    // normal action transform
-    Player player = context.getPlayer();
-    BlockState transformed = original.getToolModifiedState(context, action, false);
-    if (transformed != null) {
-      if (playSound) {
-        level.playSound(player, pos, sound, SoundSource.BLOCKS, 1.0F, 1.0F);
-        if (eventId != -1) {
-          level.levelEvent(player, eventId, pos, 0);
-        }
-      }
-      if (!level.isClientSide) {
-        level.setBlock(pos, transformed, Block.UPDATE_ALL_IMMEDIATE);
-        if (requireGround) {
-          level.destroyBlock(above, true);
-        }
-      }
-      return true;
-    }
-    return false;
-  }
+  /** Applies this transformation */
+  protected abstract boolean transform(IToolStackView tool, UseOnContext context, BlockState original, boolean playSound);
 }

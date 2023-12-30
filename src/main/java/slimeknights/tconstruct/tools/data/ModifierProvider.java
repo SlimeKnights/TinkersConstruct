@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.data;
 
 import net.minecraft.data.DataGenerator;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
@@ -13,6 +14,7 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.common.ToolActions;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.block.BlockPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
@@ -39,9 +41,12 @@ import slimeknights.tconstruct.library.modifiers.modules.armor.BlockDamageSource
 import slimeknights.tconstruct.library.modifiers.modules.armor.MobDisguiseModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.ProtectionModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule;
+import slimeknights.tconstruct.library.modifiers.modules.behavior.ExtinguishCampfireModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.IncrementalModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.ReduceToolDamageModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.RepairModule;
+import slimeknights.tconstruct.library.modifiers.modules.behavior.ShowOffhandModule;
+import slimeknights.tconstruct.library.modifiers.modules.behavior.ToolActionTransformModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.EnchantmentModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.ModifierSlotModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.RarityModule;
@@ -101,9 +106,9 @@ public class ModifierProvider extends AbstractModifierProvider {
     addRedirect(id("extra_ability"),       redirect(ModifierIds.draconic));
 
     // internal modifier migration
-    addRedirect(id("shovel_flatten"), redirect(TinkerModifiers.pathing.getId()));
-    addRedirect(id("axe_strip"), redirect(TinkerModifiers.stripping.getId()));
-    addRedirect(id("hoe_till"), redirect(TinkerModifiers.tilling.getId()));
+    addRedirect(id("shovel_flatten"), redirect(ModifierIds.pathing));
+    addRedirect(id("axe_strip"), redirect(ModifierIds.stripping));
+    addRedirect(id("hoe_till"), redirect(ModifierIds.tilling));
     addRedirect(id("firestarter_hidden"), redirect(TinkerModifiers.firestarter.getId()));
 
     // merged some armor modifiers
@@ -274,6 +279,23 @@ public class ModifierProvider extends AbstractModifierProvider {
     buildModifier(ModifierIds.depthStrider).addModule(new EnchantmentModule.Constant(Enchantments.DEPTH_STRIDER));
     buildModifier(ModifierIds.featherFalling).addModule(ProtectionModule.source(DamageSourcePredicate.FALL).eachLevel(3.75f));
     buildModifier(ModifierIds.longFall).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new BlockDamageSourceModule(DamageSourcePredicate.FALL));
+
+    // interaction
+    buildModifier(ModifierIds.pathing)
+      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
+      .addModule(ShowOffhandModule.INSTANCE)
+      .addModule(ExtinguishCampfireModule.INSTANCE)
+      .addModule(new ToolActionTransformModule(ToolActions.SHOVEL_FLATTEN, SoundEvents.SHOVEL_FLATTEN, true));
+    buildModifier(ModifierIds.stripping)
+      .addModule(ShowOffhandModule.INSTANCE)
+      .addModule(new ToolActionTransformModule(ToolActions.AXE_STRIP, SoundEvents.AXE_STRIP, false))
+      .addModule(new ToolActionTransformModule(ToolActions.AXE_SCRAPE, SoundEvents.AXE_SCRAPE, false, 3005))
+      .addModule(new ToolActionTransformModule(ToolActions.AXE_WAX_OFF, SoundEvents.AXE_WAX_OFF, false, 3004));
+    buildModifier(ModifierIds.tilling)
+      .addModule(ShowOffhandModule.INSTANCE)
+      .addModule(new ToolActionTransformModule(ToolActions.HOE_TILL, SoundEvents.HOE_TILL, false));
+    addRedirect(id("axe_scrape"), redirect(ModifierIds.stripping));
+    addRedirect(id("axe_wax_off"), redirect(ModifierIds.stripping));
 
     // internal
     buildModifier(ModifierIds.overslimeFriend).addModule(new VolatileFlagModule(OverslimeModifier.KEY_OVERSLIME_FRIEND)).tooltipDisplay(TooltipDisplay.NEVER);
