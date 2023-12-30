@@ -33,7 +33,7 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
       .addOptional(ModifierIds.pockets);
     tag(TinkerTags.Modifiers.SLIME_DEFENSE)
       .add(TinkerModifiers.meleeProtection.getId(), TinkerModifiers.projectileProtection.getId(),
-           TinkerModifiers.fireProtection.getId(), TinkerModifiers.magicProtection.getId(),
+           ModifierIds.fireProtection, TinkerModifiers.magicProtection.getId(),
            TinkerModifiers.blastProtection.getId(), TinkerModifiers.golden.getId());
   }
 

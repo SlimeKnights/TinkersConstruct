@@ -257,7 +257,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(ModifierIds.luck);
       withL.accept(TinkerModifiers.unbreakable);
       // armor
-      withL.accept(TinkerModifiers.protection);
+      with.accept(ModifierIds.protection);
       // helmet
       with.accept(ModifierIds.aquaAffinity);
       withL.accept(TinkerModifiers.slurping);

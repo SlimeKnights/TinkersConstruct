@@ -84,7 +84,7 @@ public sealed interface ModifierFormula permits PostFixFormula, SimpleLevelingFo
 
   /** Builder for a module containing a modifier formula */
   @RequiredArgsConstructor
-  abstract class Builder<T extends Builder<T>> extends ModifierModuleCondition.Builder<T> {
+  abstract class Builder<T extends Builder<T>> extends ModifierModuleCondition.Builder<T> implements LevelingValue.Builder {
     /** Variables to use for post fix formulas */
     private final String[] variables;
     /** Fallback formula for simple leveling */
@@ -93,19 +93,9 @@ public sealed interface ModifierFormula permits PostFixFormula, SimpleLevelingFo
     /** Builds the module given the formula */
     protected abstract ModifierModule build(ModifierFormula formula);
 
-    /** Builds the module with the given amount */
+    @Override
     public ModifierModule amount(float flat, float leveling) {
       return build(new SimpleLevelingFormula(new LevelingValue(flat, leveling), formula));
-    }
-
-    /** Builds the module with a flat amount */
-    public ModifierModule flat(float flat) {
-      return amount(flat, 0);
-    }
-
-    /** Builds the module with an amount multiplied by the level */
-    public ModifierModule eachLevel(float eachLevel) {
-      return amount(0, eachLevel);
     }
 
     /** Switches this builder into formula building mode */

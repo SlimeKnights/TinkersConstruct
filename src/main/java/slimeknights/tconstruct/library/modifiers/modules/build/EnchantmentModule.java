@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.modifiers.modules.build;
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.Mth;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
@@ -80,7 +81,7 @@ public abstract class EnchantmentModule implements ModifierModule {
 
     @Override
     public void applyHarvestEnchantments(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context, BiConsumer<Enchantment,Integer> consumer) {
-      consumer.accept(enchantment, level * modifier.getLevel());
+      consumer.accept(enchantment, Mth.floor(modifier.getEffectiveLevel(tool)));
     }
 
     @Override
@@ -113,7 +114,7 @@ public abstract class EnchantmentModule implements ModifierModule {
 
     @Override
     public void addRawData(IToolStackView tool, ModifierEntry modifier, RestrictedCompoundTag tag) {
-      EnchantmentModifier.addEnchantmentData(tag, enchantment, modifier.getLevel() * level);
+      EnchantmentModifier.addEnchantmentData(tag, enchantment, Mth.floor(modifier.getEffectiveLevel(tool)));
     }
 
     @Override

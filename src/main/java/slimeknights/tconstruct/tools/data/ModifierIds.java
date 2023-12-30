@@ -52,6 +52,9 @@ public class ModifierIds {
   public static final ModifierId blindshot = id("blindshot");
 
   // armor
+  public static final ModifierId protection = id("protection");
+  public static final ModifierId fireProtection = id("fire_protection");
+  public static final ModifierId turtleShell = id("turtle_shell");
   public static final ModifierId wings = id("wings");
   public static final ModifierId knockbackResistance = id("knockback_resistance");
   // defense
@@ -68,6 +71,8 @@ public class ModifierIds {
   public static final ModifierId toolBelt = id("tool_belt");
   // boots
   public static final ModifierId depthStrider = id("depth_strider");
+  public static final ModifierId featherFalling = id("feather_falling");
+  public static final ModifierId longFall = id("long_fall");
 
   // internal
   public static final ModifierId overslimeFriend = id("overslime_friend");

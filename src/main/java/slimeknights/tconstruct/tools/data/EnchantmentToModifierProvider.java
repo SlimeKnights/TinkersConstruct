@@ -18,11 +18,11 @@ public class EnchantmentToModifierProvider extends AbstractEnchantmentToModifier
     add(Enchantments.UNBREAKING, ModifierIds.reinforced);
 
     // protection
-    add(Enchantments.ALL_DAMAGE_PROTECTION, TinkerModifiers.protection.getId());
-    add(Enchantments.FIRE_PROTECTION, TinkerModifiers.fireProtection.getId());
+    add(Enchantments.ALL_DAMAGE_PROTECTION, ModifierIds.protection);
+    add(Enchantments.FIRE_PROTECTION, ModifierIds.fireProtection);
     add(Enchantments.BLAST_PROTECTION, TinkerModifiers.blastProtection.getId());
     add(Enchantments.PROJECTILE_PROTECTION, TinkerModifiers.projectileProtection.getId());
-    add(Enchantments.FALL_PROTECTION, TinkerModifiers.featherFalling.getId());
+    add(Enchantments.FALL_PROTECTION, ModifierIds.featherFalling);
     // misc armor
     add(Enchantments.RESPIRATION, ModifierIds.respiration);
     add(Enchantments.AQUA_AFFINITY, ModifierIds.aquaAffinity);

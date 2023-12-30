@@ -665,13 +665,13 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setTools(protectableTools)
                                     .saveSalvage(consumer, prefix(TinkerModifiers.magicProtection, defenseSalvage))
                                     .save(consumer, prefix(TinkerModifiers.magicProtection, defenseFolder));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.fireProtection)
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.fireProtection)
                                     .setInput(TinkerModifiers.searedReinforcement, 1, 20)
                                     .setSlots(SlotType.DEFENSE, 1)
                                     .setTools(protectableTools)
-                                    .saveSalvage(consumer, prefix(TinkerModifiers.fireProtection, defenseSalvage))
-                                    .save(consumer, prefix(TinkerModifiers.fireProtection, defenseFolder));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.protection)
+                                    .saveSalvage(consumer, prefix(ModifierIds.fireProtection, defenseSalvage))
+                                    .save(consumer, prefix(ModifierIds.fireProtection, defenseFolder));
+    ModifierRecipeBuilder.modifier(ModifierIds.protection)
                          .addInput(TinkerModifiers.goldReinforcement,    4)
                          .addInput(TinkerModifiers.searedReinforcement,  4)
                          .addInput(TinkerModifiers.bronzeReinforcement,  4)
@@ -680,8 +680,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.ABILITY, 1)
                          .setTools(TinkerTags.Items.ARMOR)
                          .setMaxLevel(1)
-                         .saveSalvage(consumer, prefix(TinkerModifiers.protection, abilitySalvage))
-                         .save(consumer, prefix(TinkerModifiers.protection, abilityFolder));
+                         .saveSalvage(consumer, prefix(ModifierIds.protection, abilitySalvage))
+                         .save(consumer, prefix(ModifierIds.protection, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.boundless)
                          .addInput(TinkerCommons.obsidianPane, 4)
                          .addInput(Items.WRITABLE_BOOK)
@@ -709,12 +709,12 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.golden, defenseSalvage))
                          .save(consumer, prefix(TinkerModifiers.golden, defenseFolder));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.turtleShell)
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.turtleShell)
                                     .setInput(Items.SCUTE, 1, 5)
                                     .setSlots(SlotType.DEFENSE, 1)
                                     .setTools(TinkerTags.Items.ARMOR)
-                                    .saveSalvage(consumer, prefix(TinkerModifiers.turtleShell, defenseSalvage))
-                                    .save(consumer, prefix(TinkerModifiers.turtleShell, defenseFolder));
+                                    .saveSalvage(consumer, prefix(ModifierIds.turtleShell, defenseSalvage))
+                                    .save(consumer, prefix(ModifierIds.turtleShell, defenseFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.shulking)
                                     .setInput(Items.SHULKER_SHELL, 1, 5)
                                     .setSlots(SlotType.DEFENSE, 1)
@@ -801,13 +801,13 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .save(consumer, prefix(ModifierIds.stepUp, upgradeFolder));
 
     // upgrade - boots
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.featherFalling)
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.featherFalling)
                                     .setTools(TinkerTags.Items.BOOTS)
                                     .setInput(Items.FEATHER, 1, 40)
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .setMaxLevel(4)
-                                    .saveSalvage(consumer, prefix(TinkerModifiers.featherFalling, upgradeSalvage))
-                                    .save(consumer, prefix(TinkerModifiers.featherFalling, upgradeFolder));
+                                    .saveSalvage(consumer, prefix(ModifierIds.featherFalling, upgradeSalvage))
+                                    .save(consumer, prefix(ModifierIds.featherFalling, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.soulspeed)
                          .setTools(TinkerTags.Items.BOOTS)
                          .addInput(Items.MAGMA_BLOCK)
@@ -1006,7 +1006,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.snowdrift, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.snowdrift, abilityFolder));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.longFall)
+    ModifierRecipeBuilder.modifier(ModifierIds.longFall)
                          .setTools(TinkerTags.Items.BOOTS)
                          .addInput(Items.PISTON)
                          .addInput(Blocks.BLACK_WOOL)
@@ -1015,10 +1015,10 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(TinkerWorld.slime.get(SlimeType.SKY))
                          .setSlots(SlotType.ABILITY, 1)
                          .setMaxLevel(1)
-                         .setRequirements(ModifierMatch.entry(TinkerModifiers.featherFalling.getId(), 4))
+                         .setRequirements(ModifierMatch.entry(ModifierIds.featherFalling, 4))
                          .setRequirementsError(makeRequirementsError("long_fall"))
-                         .saveSalvage(consumer, prefix(TinkerModifiers.longFall, abilitySalvage))
-                         .save(consumer, prefix(TinkerModifiers.longFall, abilityFolder));
+                         .saveSalvage(consumer, prefix(ModifierIds.longFall, abilitySalvage))
+                         .save(consumer, prefix(ModifierIds.longFall, abilityFolder));
 
     // transform ingredients
     Ingredient bootsWithDuraibility = IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.BOOTS), Ingredient.of(TinkerTags.Items.DURABILITY));

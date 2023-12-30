@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.data;
 
 import net.minecraft.data.DataGenerator;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -21,6 +22,10 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.data.tinkering.AbstractModifierProvider;
 import slimeknights.tconstruct.library.json.RandomLevelingValue;
+import slimeknights.tconstruct.library.json.predicate.damage.DamageSourcePredicate;
+import slimeknights.tconstruct.library.json.predicate.damage.SourceMessagePredicate;
+import slimeknights.tconstruct.library.json.predicate.entity.TinkerLivingEntityPredicate;
+import slimeknights.tconstruct.library.json.predicate.item.ItemPredicate;
 import slimeknights.tconstruct.library.json.predicate.item.ItemTagPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate.ModifierCheck;
@@ -30,7 +35,9 @@ import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.dynamic.ComposableModifier.TooltipDisplay;
 import slimeknights.tconstruct.library.modifiers.dynamic.InventoryMenuModifier;
+import slimeknights.tconstruct.library.modifiers.modules.armor.BlockDamageSourceModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.MobDisguiseModule;
+import slimeknights.tconstruct.library.modifiers.modules.armor.ProtectionModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.IncrementalModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.ReduceToolDamageModule;
@@ -232,9 +239,23 @@ public class ModifierProvider extends AbstractModifierProvider {
     buildModifier(TinkerModifiers.golden).addModule(new VolatileFlagModule(ModifiableArmorItem.PIGLIN_NEUTRAL)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
     buildModifier(ModifierIds.wings).addModule(new VolatileFlagModule(ModifiableArmorItem.ELYTRA)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
     buildModifier(ModifierIds.knockbackResistance).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(StatBoostModule.add(ToolStats.KNOCKBACK_RESISTANCE).eachLevel(0.1f));
+
     // defense
     // TODO: floor?
     buildModifier(ModifierIds.revitalizing).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(new AttributeModule("tconstruct.modifier.revitalizing", Attributes.MAX_HEALTH, Operation.ADDITION, 2, armorSlots));
+    // protection
+    buildModifier(ModifierIds.protection).addModule(ProtectionModule.source(DamageSourcePredicate.CAN_PROTECT).eachLevel(1.25f));
+    buildModifier(ModifierIds.fireProtection)
+      .addModule(new EnchantmentModule.Constant(Enchantments.FIRE_PROTECTION))
+      .addModule(ProtectionModule.source(DamageSourcePredicate.AND.create(DamageSourcePredicate.CAN_PROTECT, DamageSourcePredicate.FIRE)).subtract(Enchantments.FIRE_PROTECTION).eachLevel(2.5f));
+    buildModifier(ModifierIds.turtleShell)
+      .addModule(new AttributeModule("tconstruct.modifiers.turtle_shell", ForgeMod.SWIM_SPEED.get(), Operation.MULTIPLY_TOTAL, 0.05f, ModifiableArmorMaterial.ARMOR_SLOTS))
+      .addModule(ProtectionModule.source(DamageSourcePredicate.CAN_PROTECT)
+                                 .tool(new ItemToolPredicate(ItemPredicate.OR.create(new ItemTagPredicate(TinkerTags.Items.HELMETS), new ItemTagPredicate(TinkerTags.Items.CHESTPLATES))))
+                                 .entity(TinkerLivingEntityPredicate.EYES_IN_WATER).eachLevel(2.5f))
+      .addModule(ProtectionModule.source(DamageSourcePredicate.CAN_PROTECT)
+                                 .tool(new ItemToolPredicate(ItemPredicate.OR.create(new ItemTagPredicate(TinkerTags.Items.LEGGINGS), new ItemTagPredicate(TinkerTags.Items.BOOTS))))
+                                 .entity(TinkerLivingEntityPredicate.FEET_IN_WATER).eachLevel(2.5f));
     // helmet
     buildModifier(ModifierIds.respiration).addModule(new EnchantmentModule.Constant(Enchantments.RESPIRATION));
     buildModifier(ModifierIds.aquaAffinity).addModule(new EnchantmentModule.Constant(Enchantments.AQUA_AFFINITY)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
@@ -251,6 +272,8 @@ public class ModifierProvider extends AbstractModifierProvider {
     buildModifier(ModifierIds.speedy).addModule(new AttributeModule("tconstruct.modifier.speedy", Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL, 0.1f, armorMainHand));
     // boots
     buildModifier(ModifierIds.depthStrider).addModule(new EnchantmentModule.Constant(Enchantments.DEPTH_STRIDER));
+    buildModifier(ModifierIds.featherFalling).addModule(ProtectionModule.source(DamageSourcePredicate.FALL).eachLevel(3.75f));
+    buildModifier(ModifierIds.longFall).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new BlockDamageSourceModule(DamageSourcePredicate.FALL));
 
     // internal
     buildModifier(ModifierIds.overslimeFriend).addModule(new VolatileFlagModule(OverslimeModifier.KEY_OVERSLIME_FRIEND)).tooltipDisplay(TooltipDisplay.NEVER);
