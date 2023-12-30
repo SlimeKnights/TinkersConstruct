@@ -31,6 +31,10 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
            TinkerModifiers.stripping.getId(), TinkerModifiers.tilling.getId(), TinkerModifiers.pathing.getId(),
            TinkerModifiers.shears.getId(), TinkerModifiers.harvest.getId())
       .addOptional(ModifierIds.pockets);
+    tag(TinkerTags.Modifiers.SLIME_DEFENSE)
+      .add(TinkerModifiers.meleeProtection.getId(), TinkerModifiers.projectileProtection.getId(),
+           TinkerModifiers.fireProtection.getId(), TinkerModifiers.magicProtection.getId(),
+           TinkerModifiers.blastProtection.getId(), TinkerModifiers.golden.getId());
   }
 
   @Override
