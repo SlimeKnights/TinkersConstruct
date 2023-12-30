@@ -7,10 +7,10 @@
       "type": "tconstruct:incremental"
     },
     {
-      "type": "tconstruct:tool_stat",
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:projectile_damage",
       "operation": "add",
-      "value": 0.5
+      "each_level": 0.5
     }
   ]
 }

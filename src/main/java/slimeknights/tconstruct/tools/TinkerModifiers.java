@@ -59,8 +59,9 @@ import slimeknights.tconstruct.library.modifiers.modules.build.EnchantmentModule
 import slimeknights.tconstruct.library.modifiers.modules.build.ModifierSlotModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.ModifierTraitModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.RarityModule;
+import slimeknights.tconstruct.library.modifiers.modules.build.SetStatModule;
+import slimeknights.tconstruct.library.modifiers.modules.build.StatBoostModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.SwappableSlotModule;
-import slimeknights.tconstruct.library.modifiers.modules.build.ToolStatModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.VolatileFlagModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.ConditionalDamageModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.LootingModule;
@@ -627,7 +628,8 @@ public final class TinkerModifiers extends TinkerModule {
     ModifierModule.LOADER.register(TConstruct.getResource("rarity"), RarityModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("swappable_slot"), SwappableSlotModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("swappable_bonus_slot"), SwappableSlotModule.BonusSlot.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("tool_stat"), ToolStatModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("stat_boost"), StatBoostModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("set_stat"), SetStatModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("trait"), ModifierTraitModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("volatile_flag"), VolatileFlagModule.LOADER);
     // combat

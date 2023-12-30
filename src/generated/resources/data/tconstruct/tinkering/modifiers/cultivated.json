@@ -5,7 +5,7 @@
   "modules": [
     {
       "type": "tconstruct:repair",
-      "leveling": 0.5
+      "each_level": 0.5
     }
   ]
 }

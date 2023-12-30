@@ -7,10 +7,10 @@
       "type": "tconstruct:incremental"
     },
     {
-      "type": "tconstruct:tool_stat",
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:draw_speed",
       "operation": "multiply_base",
-      "value": 0.25
+      "each_level": 0.25
     }
   ]
 }

@@ -40,9 +40,6 @@ public interface IToolStackView extends IToolContext {
    */
   void setDamage(int damage);
 
-  /** Cached tool stats calculated from materials and modifiers */
-  StatsNBT getStats();
-
   /**
    * Gets persistent modifier data from the tool.
    * This data may be edited by modifiers and will persist when stats rebuild

@@ -4,16 +4,16 @@
   "tooltip_display": "always",
   "modules": [
     {
-      "type": "tconstruct:tool_stat",
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:draw_speed",
       "operation": "multiply_base",
-      "value": 0.07
+      "each_level": 0.07
     },
     {
-      "type": "tconstruct:tool_stat",
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:accuracy",
       "operation": "multiply_base",
-      "value": 0.07
+      "each_level": 0.07
     }
   ]
 }

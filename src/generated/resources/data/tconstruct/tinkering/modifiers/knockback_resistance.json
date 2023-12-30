@@ -7,10 +7,10 @@
       "type": "tconstruct:incremental"
     },
     {
-      "type": "tconstruct:tool_stat",
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:knockback_resistance",
       "operation": "add",
-      "value": 0.1
+      "each_level": 0.1
     }
   ]
 }

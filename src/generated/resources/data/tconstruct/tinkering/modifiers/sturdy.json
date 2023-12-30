@@ -4,10 +4,10 @@
   "tooltip_display": "always",
   "modules": [
     {
-      "type": "tconstruct:tool_stat",
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:durability",
       "operation": "multiply_base",
-      "value": 0.15
+      "each_level": 0.15
     }
   ]
 }

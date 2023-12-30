@@ -91,7 +91,7 @@ public class ToolDamageUtil {
 
     // try each modifier
     for (ModifierEntry entry : tool.getModifierList()) {
-      amount = entry.getHook(TinkerHooks.ON_DAMAGE).onDamageTool(tool, entry, amount, entity);
+      amount = entry.getHook(TinkerHooks.TOOL_DAMAGE).onDamageTool(tool, entry, amount, entity);
       // if no more damage, done
       if (amount <= 0) {
         return false;

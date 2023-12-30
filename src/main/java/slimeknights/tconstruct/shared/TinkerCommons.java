@@ -47,6 +47,9 @@ import slimeknights.tconstruct.library.json.predicate.block.TagBlockPredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.LivingEntityPredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.MobTypePredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.TagEntityPredicate;
+import slimeknights.tconstruct.library.json.predicate.item.ItemPredicate;
+import slimeknights.tconstruct.library.json.predicate.item.ItemSetPredicate;
+import slimeknights.tconstruct.library.json.predicate.item.ItemTagPredicate;
 import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.shared.block.BetterPaneBlock;
@@ -183,6 +186,13 @@ public final class TinkerCommons extends TinkerModule {
     MobTypePredicate.MOB_TYPES.register(new ResourceLocation("arthropod"), MobType.ARTHROPOD);
     MobTypePredicate.MOB_TYPES.register(new ResourceLocation("illager"), MobType.ILLAGER);
     MobTypePredicate.MOB_TYPES.register(new ResourceLocation("water"), MobType.WATER);
+    // item predicates
+    ItemPredicate.LOADER.register(TConstruct.getResource("and"), ItemPredicate.AND);
+    ItemPredicate.LOADER.register(TConstruct.getResource("or"), ItemPredicate.OR);
+    ItemPredicate.LOADER.register(TConstruct.getResource("inverted"), ItemPredicate.INVERTED);
+    ItemPredicate.LOADER.register(TConstruct.getResource("any"), ItemPredicate.ANY.getLoader());
+    ItemPredicate.LOADER.register(TConstruct.getResource("set"), ItemSetPredicate.LOADER);
+    ItemPredicate.LOADER.register(TConstruct.getResource("tag"), ItemTagPredicate.LOADER);
   }
 
   @SubscribeEvent

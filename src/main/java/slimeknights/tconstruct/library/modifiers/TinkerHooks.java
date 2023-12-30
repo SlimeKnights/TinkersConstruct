@@ -104,7 +104,7 @@ public class TinkerHooks {
   public static final ModifierHook<RepairFactorModifierHook> REPAIR_FACTOR = register("repair_factor", RepairFactorModifierHook.class, RepairFactorModifierHook.ComposeMerger::new, (tool, entry, factor) -> entry.getModifier().getRepairFactor(tool, entry.getLevel(), factor));
 
   /** Hook for modifying the damage amount for tools */
-  public static final ModifierHook<ToolDamageModifierHook> ON_DAMAGE = register("on_damage", ToolDamageModifierHook.class, ToolDamageModifierHook.Merger::new, (tool, modifier, amount, holder) -> modifier.getModifier().onDamageTool(tool, modifier.getLevel(), amount, holder));
+  public static final ModifierHook<ToolDamageModifierHook> TOOL_DAMAGE = register("tool_damage", ToolDamageModifierHook.class, ToolDamageModifierHook.Merger::new, (tool, modifier, amount, holder) -> modifier.getModifier().onDamageTool(tool, modifier.getLevel(), amount, holder));
 
   /** Hook running while the tool is in the inventory */
   public static final ModifierHook<InventoryTickModifierHook> INVENTORY_TICK = register("inventory_tick", InventoryTickModifierHook.class, InventoryTickModifierHook.AllMerger::new,

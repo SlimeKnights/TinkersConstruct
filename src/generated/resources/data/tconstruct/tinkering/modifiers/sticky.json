@@ -11,7 +11,7 @@
       "entity": "mantle:any",
       "effect": "minecraft:slowness",
       "level": {
-        "leveling": 0.5
+        "per_level": 0.5
       },
       "time": {
         "flat": 20.0,
