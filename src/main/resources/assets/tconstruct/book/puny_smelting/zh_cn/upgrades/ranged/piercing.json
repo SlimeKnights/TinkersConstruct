@@ -5,13 +5,13 @@
       "text": "工具现在拥有了仙人掌的力量：穿刺伤害。"
     },
     {
-      "text": "Not to be confused with impaling",
+      "text": "别和“穿刺”搞混了",
       "paragraph": true
     }
   ],
   "effects": [
-    "Cancels out a small amount of armor",
-    "Multiple levels, each level increases effect",
+    "穿透少部分护甲值",
+    "多个等级，每个等级进一步提升作用效果",
     "每级需要1个升级槽"
   ]
 }
