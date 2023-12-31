@@ -42,6 +42,7 @@ import slimeknights.tconstruct.library.json.TagIntersectionPresentCondition;
 import slimeknights.tconstruct.library.json.TagNotEmptyLootCondition;
 import slimeknights.tconstruct.library.json.TagPreferenceLootEntry;
 import slimeknights.tconstruct.library.json.predicate.block.BlockPredicate;
+import slimeknights.tconstruct.library.json.predicate.block.BlockPropertiesPredicate;
 import slimeknights.tconstruct.library.json.predicate.block.SetBlockPredicate;
 import slimeknights.tconstruct.library.json.predicate.block.TagBlockPredicate;
 import slimeknights.tconstruct.library.json.predicate.damage.DamageSourcePredicate;
@@ -174,6 +175,7 @@ public final class TinkerCommons extends TinkerModule {
     BlockPredicate.LOADER.register(TConstruct.getResource("requires_tool"), BlockPredicate.REQUIRES_TOOL.getLoader());
     BlockPredicate.LOADER.register(TConstruct.getResource("set"), SetBlockPredicate.LOADER);
     BlockPredicate.LOADER.register(TConstruct.getResource("tag"), TagBlockPredicate.LOADER);
+    slimeknights.mantle.data.predicate.block.BlockPredicate.LOADER.register(TConstruct.getResource("block_properties"), BlockPropertiesPredicate.LOADER);
     // entity predicates
     LivingEntityPredicate.LOADER.register(TConstruct.getResource("and"), LivingEntityPredicate.AND);
     LivingEntityPredicate.LOADER.register(TConstruct.getResource("or"), LivingEntityPredicate.OR);

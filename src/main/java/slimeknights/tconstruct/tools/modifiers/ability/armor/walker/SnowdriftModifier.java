@@ -9,6 +9,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
+/** @deprecated {@link slimeknights.tconstruct.library.modifiers.modules.armor.CoverGroundWalkerModule} */
+@Deprecated
 public class SnowdriftModifier extends AbstractWalkerModifier {
   @Override
   public int getPriority() {

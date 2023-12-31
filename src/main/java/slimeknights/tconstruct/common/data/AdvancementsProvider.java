@@ -274,11 +274,11 @@ public class AdvancementsProvider extends GenericDataProvider {
       withL.accept(TinkerModifiers.bouncy);
       withL.accept(TinkerModifiers.doubleJump);
       withL.accept(TinkerModifiers.flamewake);
-      withL.accept(TinkerModifiers.frostWalker);
-      withL.accept(TinkerModifiers.longFall);
-      withL.accept(TinkerModifiers.pathMaker);
-      withL.accept(TinkerModifiers.plowing);
-      withL.accept(TinkerModifiers.snowdrift);
+      with.accept(ModifierIds.frostWalker);
+      with.accept(ModifierIds.longFall);
+      with.accept(ModifierIds.pathMaker);
+      with.accept(ModifierIds.plowing);
+      with.accept(ModifierIds.snowdrift);
       // shield
       withL.accept(TinkerModifiers.boundless);
       withL.accept(TinkerModifiers.reflecting);

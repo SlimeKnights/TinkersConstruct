@@ -984,7 +984,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.bouncy, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.bouncy, abilityFolder));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.frostWalker)
+    ModifierRecipeBuilder.modifier(ModifierIds.frostWalker)
                          .setTools(TinkerTags.Items.BOOTS)
                          .addInput(Items.BLUE_ICE)
                          .addInput(TinkerWorld.heads.get(TinkerHeadType.STRAY))
@@ -993,9 +993,9 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.BLUE_ICE)
                          .setSlots(SlotType.ABILITY, 1)
                          .setMaxLevel(1)
-                         .saveSalvage(consumer, prefix(TinkerModifiers.frostWalker, abilitySalvage))
-                         .save(consumer, prefix(TinkerModifiers.frostWalker, abilityFolder));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.snowdrift)
+                         .saveSalvage(consumer, prefix(ModifierIds.frostWalker, abilitySalvage))
+                         .save(consumer, prefix(ModifierIds.frostWalker, abilityFolder));
+    ModifierRecipeBuilder.modifier(ModifierIds.snowdrift)
                          .setTools(TinkerTags.Items.BOOTS)
                          .addInput(Items.SNOW_BLOCK)
                          .addInput(Items.CARVED_PUMPKIN)
@@ -1004,8 +1004,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.SNOW_BLOCK)
                          .setSlots(SlotType.ABILITY, 1)
                          .setMaxLevel(1)
-                         .saveSalvage(consumer, prefix(TinkerModifiers.snowdrift, abilitySalvage))
-                         .save(consumer, prefix(TinkerModifiers.snowdrift, abilityFolder));
+                         .saveSalvage(consumer, prefix(ModifierIds.snowdrift, abilitySalvage))
+                         .save(consumer, prefix(ModifierIds.snowdrift, abilityFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.longFall)
                          .setTools(TinkerTags.Items.BOOTS)
                          .addInput(Items.PISTON)
@@ -1025,7 +1025,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     SizedIngredient roundPlate = SizedIngredient.of(MaterialIngredient.fromItem(TinkerToolParts.roundPlate.get()));
     SizedIngredient smallBlade = SizedIngredient.of(MaterialIngredient.fromItem(TinkerToolParts.smallBlade.get()));
     SizedIngredient toolBinding = SizedIngredient.of(MaterialIngredient.fromItem(TinkerToolParts.toolBinding.get()));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.pathMaker)
+    ModifierRecipeBuilder.modifier(ModifierIds.pathMaker)
                          .setTools(bootsWithDuraibility)
                          .addInput(roundPlate)
                          .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
@@ -1034,9 +1034,9 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(toolBinding)
                          .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
-                         .saveSalvage(consumer, prefix(TinkerModifiers.pathMaker, abilitySalvage))
-                         .save(consumer, prefix(TinkerModifiers.pathMaker, abilityFolder));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.plowing)
+                         .saveSalvage(consumer, prefix(ModifierIds.pathMaker, abilitySalvage))
+                         .save(consumer, prefix(ModifierIds.pathMaker, abilityFolder));
+    ModifierRecipeBuilder.modifier(ModifierIds.plowing)
                          .setTools(bootsWithDuraibility)
                          .addInput(smallBlade)
                          .addInput(TinkerTags.Items.INGOTS_NETHERITE_SCRAP)
@@ -1045,8 +1045,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(toolBinding)
                          .setMaxLevel(1)
                          .setSlots(SlotType.ABILITY, 1)
-                         .saveSalvage(consumer, prefix(TinkerModifiers.plowing, abilitySalvage))
-                         .save(consumer, prefix(TinkerModifiers.plowing, abilityFolder));
+                         .saveSalvage(consumer, prefix(ModifierIds.plowing, abilitySalvage))
+                         .save(consumer, prefix(ModifierIds.plowing, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.flamewake)
                          .setTools(bootsWithDuraibility)
                          .addInput(Items.FLINT)

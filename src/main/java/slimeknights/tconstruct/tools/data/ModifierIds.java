@@ -73,6 +73,10 @@ public class ModifierIds {
   public static final ModifierId depthStrider = id("depth_strider");
   public static final ModifierId featherFalling = id("feather_falling");
   public static final ModifierId longFall = id("long_fall");
+  public static final ModifierId frostWalker = id("frost_walker");
+  public static final ModifierId pathMaker = id("path_maker");
+  public static final ModifierId plowing = id("plowing");
+  public static final ModifierId snowdrift = id("snowdrift");
 
   // interaction
   public static final ModifierId pathing = id("pathing");

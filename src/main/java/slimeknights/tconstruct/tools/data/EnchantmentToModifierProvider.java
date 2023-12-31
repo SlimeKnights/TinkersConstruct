@@ -28,7 +28,7 @@ public class EnchantmentToModifierProvider extends AbstractEnchantmentToModifier
     add(Enchantments.AQUA_AFFINITY, ModifierIds.aquaAffinity);
     add(Enchantments.THORNS, TinkerModifiers.thorns.getId());
     add(Enchantments.DEPTH_STRIDER, ModifierIds.depthStrider);
-    add(Enchantments.FROST_WALKER, TinkerModifiers.frostWalker.getId());
+    add(Enchantments.FROST_WALKER, ModifierIds.frostWalker);
     add(Enchantments.SOUL_SPEED, TinkerModifiers.soulspeed.getId());
 
     // melee

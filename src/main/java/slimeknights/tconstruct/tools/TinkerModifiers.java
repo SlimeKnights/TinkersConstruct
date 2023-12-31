@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.tools;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -16,7 +15,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
-import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidAttributes;
@@ -51,8 +49,11 @@ import slimeknights.tconstruct.library.modifiers.impl.SingleLevelModifier;
 import slimeknights.tconstruct.library.modifiers.impl.TankModifier;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.BlockDamageSourceModule;
+import slimeknights.tconstruct.library.modifiers.modules.armor.CoverGroundWalkerModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.MobDisguiseModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.ProtectionModule;
+import slimeknights.tconstruct.library.modifiers.modules.armor.ReplaceBlockWalkerModule;
+import slimeknights.tconstruct.library.modifiers.modules.armor.ToolActionWalkerTransformModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.ExtinguishCampfireModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.IncrementalModule;
@@ -135,10 +136,7 @@ import slimeknights.tconstruct.tools.modifiers.ability.armor.ToolBeltModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.UnarmedModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.WettingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.ZoomModifier;
-import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.BlockTransformWalkerModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.FlamewakeModifier;
-import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.FrostWalkerModifier;
-import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.SnowdriftModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.fluid.SpittingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.fluid.SpittingModifier.FluidSpitEntity;
 import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockingModifier;
@@ -406,10 +404,18 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<LightspeedArmorModifier> lightspeedArmor = MODIFIERS.register("lightspeed_armor", LightspeedArmorModifier::new);
   public static final StaticModifier<DoubleJumpModifier> doubleJump = MODIFIERS.register("double_jump", DoubleJumpModifier::new);
   public static final StaticModifier<Modifier> bouncy = MODIFIERS.register("bouncy", BouncyModifier::new);
-  public static final StaticModifier<FrostWalkerModifier> frostWalker = MODIFIERS.register("frost_walker", FrostWalkerModifier::new);
-  public static final StaticModifier<BlockTransformWalkerModifier> pathMaker = MODIFIERS.register("path_maker", () -> new BlockTransformWalkerModifier(ToolActions.SHOVEL_FLATTEN, SoundEvents.SHOVEL_FLATTEN));
-  public static final StaticModifier<BlockTransformWalkerModifier> plowing = MODIFIERS.register("plowing", () -> new BlockTransformWalkerModifier(ToolActions.HOE_TILL, SoundEvents.HOE_TILL));
-  public static final StaticModifier<SnowdriftModifier> snowdrift = MODIFIERS.register("snowdrift", SnowdriftModifier::new);
+  /** @deprecated use {@link ModifierIds#frostWalker} */
+  @Deprecated
+  public static final DynamicModifier<Modifier> frostWalker = MODIFIERS.registerDynamic("frost_walker");
+  /** @deprecated use {@link ModifierIds#pathMaker} */
+  @Deprecated
+  public static final DynamicModifier<Modifier> pathMaker = MODIFIERS.registerDynamic("path_maker");
+  /** @deprecated use {@link ModifierIds#plowing} */
+  @Deprecated
+  public static final DynamicModifier<Modifier> plowing = MODIFIERS.registerDynamic("plowing");
+  /** @deprecated use {@link ModifierIds#snowdrift} */
+  @Deprecated
+  public static final DynamicModifier<Modifier> snowdrift = MODIFIERS.registerDynamic("snowdrift");
   public static final StaticModifier<FlamewakeModifier> flamewake = MODIFIERS.register("flamewake", FlamewakeModifier::new);
 
   // abilities
@@ -638,7 +644,10 @@ public final class TinkerModifiers extends TinkerModule {
     // armor
     ModifierModule.LOADER.register(TConstruct.getResource("mob_disguise"), MobDisguiseModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("block_damage"), BlockDamageSourceModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("cover_ground"), CoverGroundWalkerModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("protection"), ProtectionModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("replace_fluid"), ReplaceBlockWalkerModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("tool_action_walk_transform"), ToolActionWalkerTransformModule.LOADER);
     // behavior
     ModifierModule.LOADER.register(TConstruct.getResource("attribute"), AttributeModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("campfire_extinguish"), ExtinguishCampfireModule.LOADER);
