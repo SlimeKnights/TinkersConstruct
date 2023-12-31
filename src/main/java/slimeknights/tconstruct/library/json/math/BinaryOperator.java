@@ -41,7 +41,20 @@ public enum BinaryOperator implements StackOperation {
     public float apply(float left, float right) {
       return (float)Math.pow(left, right);
     }
+  },
+  MIN("min") {
+    @Override
+    public float apply(float left, float right) {
+      return Math.min(left, right);
+    }
+  },
+  MAX("max") {
+    @Override
+    public float apply(float left, float right) {
+      return Math.max(left, right);
+    }
   };
+
   /** Index used for serializing value to the network */
   public static final int VALUE_INDEX = values().length;
   /** Index used for serializing a variable to the network */

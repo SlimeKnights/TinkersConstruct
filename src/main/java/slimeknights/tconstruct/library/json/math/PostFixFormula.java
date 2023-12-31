@@ -149,6 +149,16 @@ public record PostFixFormula(List<StackOperation> operations, int numArguments) 
       return operation(BinaryOperator.POWER);
     }
 
+    /** Pushes a min operation into the builder */
+    public T min() {
+      return operation(BinaryOperator.MIN);
+    }
+
+    /** Pushes a max operation into the builder */
+    public T max() {
+      return operation(BinaryOperator.MAX);
+    }
+
     /** Validates and builds the formula */
     public PostFixFormula buildFormula() {
       PostFixFormula formula = new PostFixFormula(operations.build(), variableNames.length);
