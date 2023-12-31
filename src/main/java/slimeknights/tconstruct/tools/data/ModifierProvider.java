@@ -191,8 +191,8 @@ public class ModifierProvider extends AbstractModifierProvider {
     buildModifier(TinkerModifiers.unbreakable).levelDisplay(ModifierLevelDisplay.NO_LEVELS).priority(125).addModule(new DurabilityBarColorModule(0xffffff)).addModule(ReduceToolDamageModule.builder().flat(1.0f));
 
     // loot
-    buildModifier(TinkerModifiers.silky).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(new EnchantmentModule.Harvest(Enchantments.SILK_TOUCH));
-    EnchantmentModule.Harvest FORTUNE = new EnchantmentModule.Harvest(Enchantments.BLOCK_FORTUNE);
+    buildModifier(TinkerModifiers.silky).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(EnchantmentModule.harvest(Enchantments.SILK_TOUCH).build());
+    EnchantmentModule FORTUNE = EnchantmentModule.harvest(Enchantments.BLOCK_FORTUNE).build();
     LootingModule LOOTING = new LootingModule(1);
     buildModifier(ModifierIds.luck).levelDisplay(new UniqueForLevels(3)).addModule(FORTUNE).addModule(LOOTING);
     buildModifier(ModifierIds.fortune).addModule(FORTUNE);
@@ -256,7 +256,7 @@ public class ModifierProvider extends AbstractModifierProvider {
     // protection
     buildModifier(ModifierIds.protection).addModule(ProtectionModule.source(DamageSourcePredicate.CAN_PROTECT).eachLevel(1.25f));
     buildModifier(ModifierIds.fireProtection)
-      .addModule(new EnchantmentModule.Constant(Enchantments.FIRE_PROTECTION))
+      .addModule(EnchantmentModule.constant(Enchantments.FIRE_PROTECTION).build())
       .addModule(ProtectionModule.source(DamageSourcePredicate.AND.create(DamageSourcePredicate.CAN_PROTECT, DamageSourcePredicate.FIRE)).subtract(Enchantments.FIRE_PROTECTION).eachLevel(2.5f));
     buildModifier(ModifierIds.turtleShell)
       .addModule(AttributeModule.builder(ForgeMod.SWIM_SPEED.get(), Operation.MULTIPLY_TOTAL).uniqueFrom(ModifierIds.turtleShell).slots(armorSlots).eachLevel(0.05f))
@@ -267,8 +267,8 @@ public class ModifierProvider extends AbstractModifierProvider {
                                  .tool(new ItemToolPredicate(ItemPredicate.OR.create(new ItemTagPredicate(TinkerTags.Items.LEGGINGS), new ItemTagPredicate(TinkerTags.Items.BOOTS))))
                                  .entity(TinkerLivingEntityPredicate.FEET_IN_WATER).eachLevel(2.5f));
     // helmet
-    buildModifier(ModifierIds.respiration).addModule(new EnchantmentModule.Constant(Enchantments.RESPIRATION));
-    buildModifier(ModifierIds.aquaAffinity).addModule(new EnchantmentModule.Constant(Enchantments.AQUA_AFFINITY)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
+    buildModifier(ModifierIds.respiration).addModule(EnchantmentModule.constant(Enchantments.RESPIRATION).build());
+    buildModifier(ModifierIds.aquaAffinity).addModule(EnchantmentModule.constant(Enchantments.AQUA_AFFINITY).build()).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
     // chestplate
     buildModifier(ModifierIds.strength)
       .addModule(IncrementalModule.RECIPE_CONTROLLED)
@@ -281,7 +281,7 @@ public class ModifierProvider extends AbstractModifierProvider {
     buildModifier(ModifierIds.stepUp).addModule(AttributeModule.builder(ForgeMod.STEP_HEIGHT_ADDITION.get(), Operation.ADDITION).uniqueFrom(ModifierIds.stepUp).slots(armorSlots).eachLevel(0.5f));
     buildModifier(ModifierIds.speedy).addModule(AttributeModule.builder(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL).uniqueFrom(ModifierIds.speedy).slots(armorMainHand).eachLevel(0.1f));
     // boots
-    buildModifier(ModifierIds.depthStrider).addModule(new EnchantmentModule.Constant(Enchantments.DEPTH_STRIDER));
+    buildModifier(ModifierIds.depthStrider).addModule(EnchantmentModule.constant(Enchantments.DEPTH_STRIDER).build());
     buildModifier(ModifierIds.featherFalling).addModule(ProtectionModule.source(DamageSourcePredicate.FALL).eachLevel(3.75f));
     buildModifier(ModifierIds.longFall).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(BlockDamageSourceModule.source(DamageSourcePredicate.FALL).build());
     buildModifier(ModifierIds.frostWalker)
