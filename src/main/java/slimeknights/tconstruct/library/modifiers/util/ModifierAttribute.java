@@ -21,10 +21,8 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.function.BiConsumer;
 
-/**
- * Represents an attribute in a modifier
- * TODO 1.19: merge into {@link AttributeModule}
- */
+/** @deprecated use {@link AttributeModule} */
+@Deprecated
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class ModifierAttribute {
   private final String name;
@@ -132,8 +130,9 @@ public class ModifierAttribute {
     return new ModifierAttribute(name, attribute, operation, amount, slotUUIDs);
   }
 
-  /** Gets the UUID from a name */
+  /** @deprecated use {@link AttributeModule#getUUID(String, EquipmentSlot)} */
+  @Deprecated
   public static UUID getUUID(String name, EquipmentSlot slot) {
-    return UUID.nameUUIDFromBytes((name + "." + slot.getName()).getBytes());
+    return AttributeModule.getUUID(name, slot);
   }
 }

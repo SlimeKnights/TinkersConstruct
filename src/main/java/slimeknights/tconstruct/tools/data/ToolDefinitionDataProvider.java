@@ -134,7 +134,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ToolStats.MINING_SPEED, 1.1f)
       .multiplier(ToolStats.ATTACK_DAMAGE, 1.1f)
       // traits
-      .trait(TinkerModifiers.tilling)
+      .trait(ModifierIds.tilling)
       // harvest
       .action(ToolActions.AXE_DIG)
       .action(ToolActions.SHOVEL_DIG)
@@ -159,7 +159,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ToolStats.MINING_SPEED, 0.75f)
       .multiplier(ToolStats.ATTACK_DAMAGE, 1.15f)
       // traits
-      .trait(TinkerModifiers.pathing)
+      .trait(ModifierIds.pathing)
       // harvest
       .action(ToolActions.PICKAXE_DIG)
       .action(ToolActions.SHOVEL_DIG)
@@ -181,7 +181,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .largeToolStartingSlots()
       // traits
       .trait(TinkerModifiers.knockback, 2)
-      .trait(TinkerModifiers.pathing)
+      .trait(ModifierIds.pathing)
       // harvest
       .action(ToolActions.SHOVEL_DIG)
       .effective(BlockTags.MINEABLE_WITH_SHOVEL)
@@ -200,9 +200,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .stat(ToolStats.ATTACK_SPEED, 0.9f)
       .smallToolStartingSlots()
       // traits
-      .trait(TinkerModifiers.axeScrape)
-      .trait(TinkerModifiers.stripping)
-      .trait(TinkerModifiers.axeWaxOff)
+      .trait(ModifierIds.stripping)
       // harvest
       .action(ToolActions.AXE_DIG)
       .action(TinkerToolActions.SHIELD_DISABLE)
@@ -224,9 +222,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ToolStats.DURABILITY, 4.25f)
       .largeToolStartingSlots()
       // traits
-      .trait(TinkerModifiers.axeScrape)
-      .trait(TinkerModifiers.stripping)
-      .trait(TinkerModifiers.axeWaxOff)
+      .trait(ModifierIds.stripping)
       // harvest
       .action(ToolActions.AXE_DIG)
       .action(TinkerToolActions.SHIELD_DISABLE)
@@ -253,7 +249,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ToolStats.ATTACK_DAMAGE, 0.5f)
       .smallToolStartingSlots()
       // traits
-      .trait(TinkerModifiers.tilling)
+      .trait(ModifierIds.tilling)
       .trait(TinkerModifiers.shears)
       .trait(TinkerModifiers.harvest)
       // harvest
@@ -275,7 +271,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ToolStats.DURABILITY, 2.5f)
       .largeToolStartingSlots()
       // traits
-      .trait(TinkerModifiers.tilling)
+      .trait(ModifierIds.tilling)
       .trait(TinkerModifiers.aoeSilkyShears)
       .trait(TinkerModifiers.harvest)
       // behavior

@@ -521,6 +521,8 @@ public class TinkerTags {
     public static final TagKey<Modifier> EXTRACT_SLOTLESS_BLACKLIST = tag("extract_blacklist/slotless");
     /** Modifiers that can be used on both left and right click. Does not care about armor modifiers */
     public static final TagKey<Modifier> DUAL_INTERACTION = tag("dual_interaction");
+    /** Common defense modifier types, used for skyslime armor */
+    public static final TagKey<Modifier> SLIME_DEFENSE = tag("slime_defense");
 
     private static TagKey<Modifier> tag(String name) {
       return ModifierManager.getTag(TConstruct.getResource(name));

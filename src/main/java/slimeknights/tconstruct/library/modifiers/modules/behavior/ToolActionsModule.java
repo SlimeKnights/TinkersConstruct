@@ -13,6 +13,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierHook;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolActionModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
+import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.List;
@@ -21,16 +22,16 @@ import java.util.Set;
 /**
  * Module that allows a modifier to perform tool actions
  */
-public record ToolActionsModule(Set<ToolAction> actions) implements ToolActionModifierHook, ModifierModule {
+public record ToolActionsModule(Set<ToolAction> actions, ModifierModuleCondition condition) implements ToolActionModifierHook, ModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.TOOL_ACTION);
 
   public ToolActionsModule(ToolAction... actions) {
-    this(ImmutableSet.copyOf(actions));
+    this(ImmutableSet.copyOf(actions), ModifierModuleCondition.ANY);
   }
 
   @Override
   public boolean canPerformAction(IToolStackView tool, ModifierEntry modifier, ToolAction toolAction) {
-    return actions.contains(toolAction);
+    return condition.matches(tool, modifier) && actions.contains(toolAction);
   }
 
   @Override
@@ -49,7 +50,7 @@ public record ToolActionsModule(Set<ToolAction> actions) implements ToolActionMo
       return new ToolActionsModule(ImmutableSet.copyOf(JsonHelper.parseList(
         json, "tool_actions",
         (element, name) -> ToolAction.get(GsonHelper.convertToString(element, name))
-      )));
+      )), ModifierModuleCondition.deserializeFrom(json));
     }
 
     @Override
@@ -59,11 +60,12 @@ public record ToolActionsModule(Set<ToolAction> actions) implements ToolActionMo
       for (int i = 0; i < size; i++) {
         actions.add(ToolAction.get(buffer.readUtf(Short.MAX_VALUE)));
       }
-      return new ToolActionsModule(actions.build());
+      return new ToolActionsModule(actions.build(), ModifierModuleCondition.fromNetwork(buffer));
     }
 
     @Override
     public void serialize(ToolActionsModule object, JsonObject json) {
+      object.condition.serializeInto(json);
       JsonArray actions = new JsonArray();
       for (ToolAction action : object.actions) {
         actions.add(action.name());
@@ -77,6 +79,7 @@ public record ToolActionsModule(Set<ToolAction> actions) implements ToolActionMo
       for (ToolAction action : object.actions) {
         buffer.writeUtf(action.name());
       }
+      object.condition.toNetwork(buffer);
     }
   };
 }

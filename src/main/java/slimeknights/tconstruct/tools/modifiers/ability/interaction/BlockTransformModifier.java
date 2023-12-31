@@ -33,6 +33,8 @@ import slimeknights.tconstruct.library.utils.MutableUseOnContext;
 
 import java.util.Iterator;
 
+/** @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.behavior.ToolActionTransformModule} */
+@Deprecated
 @RequiredArgsConstructor
 public class BlockTransformModifier extends InteractionModifier.NoLevels implements BlockInteractionModifierHook {
   @Getter

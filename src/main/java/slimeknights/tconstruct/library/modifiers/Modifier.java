@@ -232,7 +232,8 @@ public class Modifier implements IHaveLoader<Modifier> {
   }
 
   /**
-   * Overridable method to create the display name for this modifier, ideal to modify colors
+   * Overridable method to create the display name for this modifier, ideal to modify colors.
+   * TODO: this method does not really seem to do much, is it really needed? I feel like it was supposed to be called in {@link #getDisplayName()}, but it needs to be mutable for that.
    * @return  Display name
    */
   protected Component makeDisplayName() {

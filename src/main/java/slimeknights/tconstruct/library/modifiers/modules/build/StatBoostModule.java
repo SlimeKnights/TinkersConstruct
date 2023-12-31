@@ -103,23 +103,13 @@ public record StatBoostModule(INumericToolStat<?> stat, BoostType operation, Lev
   }
 
   @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-  public static class Builder extends ModifierModuleCondition.Builder<Builder> {
+  public static class Builder extends ModifierModuleCondition.Builder<Builder> implements LevelingValue.Builder {
     private final INumericToolStat<?> stat;
     private final BoostType operation;
 
-    /** Creates an instance with a flat value and a leveling value*/
-    public StatBoostModule amount(float flat, float eachLevel) {
+    @Override
+    public ModifierModule amount(float flat, float eachLevel) {
       return new StatBoostModule(stat, operation, new LevelingValue(flat, eachLevel), condition);
-    }
-
-    /** Creates an instance with a value that ignores level */
-    public StatBoostModule flat(float flat) {
-      return amount(flat, 0);
-    }
-
-    /** Creates an instance with a value that increases each level */
-    public StatBoostModule eachLevel(float eachLevel) {
-      return amount(0, eachLevel);
     }
   }
 }

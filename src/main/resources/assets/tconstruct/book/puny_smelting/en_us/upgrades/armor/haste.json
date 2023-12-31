@@ -9,6 +9,7 @@
       "paragraph": true
     }
   ],
+  "tool_filter": "tconstruct:modifiable/armor",
   "effects": [
     "Increases mining speed",
     "Multiple levels, each level increases speed a bit more",

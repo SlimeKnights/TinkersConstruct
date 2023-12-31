@@ -14,7 +14,7 @@ import java.lang.reflect.Type;
 
 /**
  * Serializer for a forge condition
- * @deprecated use {@link slimeknights.tconstruct.common.json.BlockOrEntityCondition.ConditionSerializer}
+ * @deprecated use {@link slimeknights.mantle.data.ConditionSerializer}
  */
 @Deprecated
 public class ConditionSerializer implements JsonDeserializer<ICondition>, JsonSerializer<ICondition> {

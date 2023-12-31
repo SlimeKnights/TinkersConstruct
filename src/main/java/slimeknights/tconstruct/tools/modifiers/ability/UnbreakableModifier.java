@@ -6,6 +6,8 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 
+/** @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.behavior.ReduceToolDamageModule} and {@link slimeknights.tconstruct.library.modifiers.modules.display.DurabilityBarColorModule} */
+@Deprecated
 public class UnbreakableModifier extends NoLevelsModifier {
   @Override
   public int onDamageTool(IToolStackView tool, int level, int amount, @Nullable LivingEntity holder) {

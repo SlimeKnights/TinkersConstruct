@@ -31,15 +31,7 @@
   },
   "traits": [
     {
-      "name": "tconstruct:axe_scrape",
-      "level": 1
-    },
-    {
       "name": "tconstruct:stripping",
-      "level": 1
-    },
-    {
-      "name": "tconstruct:axe_wax_off",
       "level": 1
     }
   ],

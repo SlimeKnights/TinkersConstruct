@@ -2,8 +2,8 @@ package slimeknights.tconstruct.library.utils;
 
 import lombok.RequiredArgsConstructor;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 
 import javax.annotation.Nullable;
 import java.util.Set;
@@ -22,7 +22,7 @@ public class RestrictedCompoundTag {
   /**
    * Checks if the data contains the given tag
    * @param name  Namespaced key
-   * @param type  Tag type, see {@link net.minecraftforge.common.util.Constants.NBT} for values
+   * @param type  Tag type, see {@link Tag} for values
    * @return  True if the tag is contained
    */
   public boolean contains(String name, int type) {

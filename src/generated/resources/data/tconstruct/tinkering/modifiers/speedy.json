@@ -8,7 +8,7 @@
       "unique": "tconstruct.modifier.speedy",
       "attribute": "minecraft:generic.movement_speed",
       "operation": "multiply_total",
-      "amount": 0.1,
+      "each_level": 0.1,
       "slots": [
         "mainhand",
         "feet",

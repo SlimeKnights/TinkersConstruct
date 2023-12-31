@@ -257,7 +257,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(ModifierIds.luck);
       withL.accept(TinkerModifiers.unbreakable);
       // armor
-      withL.accept(TinkerModifiers.protection);
+      with.accept(ModifierIds.protection);
       // helmet
       with.accept(ModifierIds.aquaAffinity);
       withL.accept(TinkerModifiers.slurping);
@@ -274,11 +274,11 @@ public class AdvancementsProvider extends GenericDataProvider {
       withL.accept(TinkerModifiers.bouncy);
       withL.accept(TinkerModifiers.doubleJump);
       withL.accept(TinkerModifiers.flamewake);
-      withL.accept(TinkerModifiers.frostWalker);
-      withL.accept(TinkerModifiers.longFall);
-      withL.accept(TinkerModifiers.pathMaker);
-      withL.accept(TinkerModifiers.plowing);
-      withL.accept(TinkerModifiers.snowdrift);
+      with.accept(ModifierIds.frostWalker);
+      with.accept(ModifierIds.longFall);
+      with.accept(ModifierIds.pathMaker);
+      with.accept(ModifierIds.plowing);
+      with.accept(ModifierIds.snowdrift);
       // shield
       withL.accept(TinkerModifiers.boundless);
       withL.accept(TinkerModifiers.reflecting);
@@ -291,9 +291,9 @@ public class AdvancementsProvider extends GenericDataProvider {
       withL.accept(TinkerModifiers.bucketing);
       withL.accept(TinkerModifiers.firestarter);
       withL.accept(TinkerModifiers.glowing);
-      withL.accept(TinkerModifiers.pathing);
-      withL.accept(TinkerModifiers.stripping);
-      withL.accept(TinkerModifiers.tilling);
+      with.accept(ModifierIds.pathing);
+      with.accept(ModifierIds.stripping);
+      with.accept(ModifierIds.tilling);
       // staff
       withL.accept(TinkerModifiers.bonking);
       withL.accept(TinkerModifiers.flinging);

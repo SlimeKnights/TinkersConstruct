@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:melee_protection",
+    "tconstruct:projectile_protection",
+    "tconstruct:fire_protection",
+    "tconstruct:magic_protection",
+    "tconstruct:blast_protection",
+    "tconstruct:golden"
+  ]
+}

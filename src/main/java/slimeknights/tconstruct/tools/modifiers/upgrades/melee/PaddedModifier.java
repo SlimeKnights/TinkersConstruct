@@ -4,7 +4,8 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
-/** Modifier that cancels the base 0.4 modifier tools get */
+/** @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.combat.KnockbackModule} */
+@Deprecated
 public class PaddedModifier extends Modifier {
   @Override
   public float beforeEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damage, float baseKnockback, float knockback) {

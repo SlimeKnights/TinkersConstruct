@@ -3,12 +3,16 @@ package slimeknights.tconstruct.library.modifiers.modules;
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.Item;
+import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.tconstruct.library.json.IntRange;
 import slimeknights.tconstruct.library.json.predicate.tool.ItemToolPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolContextPredicate;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
+
+import java.util.function.Function;
 
 /**
  * Represents conditions for a modifier module, since this is reused across several modules
@@ -31,7 +35,7 @@ public record ModifierModuleCondition(IJsonPredicate<IToolContext> tool, IntRang
 
   /** Validates that the tool and modifier pass the conditions */
   public boolean matches(IToolContext tool, ModifierEntry modifier) {
-    return this.tool.matches(tool) && this.modifierLevel.test(modifier.getLevel());
+    return this.modifierLevel.test(modifier.getLevel()) && this.tool.matches(tool);
   }
 
 
@@ -66,6 +70,31 @@ public record ModifierModuleCondition(IJsonPredicate<IToolContext> tool, IntRang
     IJsonPredicate<IToolContext> tool = ToolContextPredicate.LOADER.fromNetwork(buffer);
     IntRange modifierLevel = IntRange.fromNetwork(buffer);
     return new ModifierModuleCondition(tool, modifierLevel);
+  }
+
+  /**
+   * Generic loader for modules with only the module conditions
+   */
+  public record Loader<T extends IHaveLoader<?>>(Function<ModifierModuleCondition,T> constructor, Function<T,ModifierModuleCondition> getter) implements IGenericLoader<T> {
+    @Override
+    public T deserialize(JsonObject json) {
+      return constructor.apply(deserializeFrom(json));
+    }
+
+    @Override
+    public void serialize(T object, JsonObject json) {
+      getter.apply(object).serializeInto(json);
+    }
+
+    @Override
+    public T fromNetwork(FriendlyByteBuf buffer) {
+      return constructor.apply(ModifierModuleCondition.fromNetwork(buffer));
+    }
+
+    @Override
+    public void toNetwork(T object, FriendlyByteBuf buffer) {
+      getter.apply(object).toNetwork(buffer);
+    }
   }
 
 
@@ -106,22 +135,22 @@ public record ModifierModuleCondition(IJsonPredicate<IToolContext> tool, IntRang
 
     /** Sets the modifier level range for this module */
     public T levelRange(int min, int max) {
-      return setLevels(ModifierModuleCondition.MODIFIER_LEVEL.range(min, max));
+      return setLevels(MODIFIER_LEVEL.range(min, max));
     }
 
     /** Sets the modifier level range for this module */
     public T minLevel(int min) {
-      return setLevels(ModifierModuleCondition.MODIFIER_LEVEL.min(min));
+      return setLevels(MODIFIER_LEVEL.min(min));
     }
 
     /** Sets the modifier level range for this module */
     public T maxLevel(int max) {
-      return setLevels(ModifierModuleCondition.MODIFIER_LEVEL.max(max));
+      return setLevels(MODIFIER_LEVEL.max(max));
     }
 
     /** Sets the modifier level range for this module */
     public T exactLevel(int value) {
-      return setLevels(ModifierModuleCondition.MODIFIER_LEVEL.exactly(value));
+      return setLevels(MODIFIER_LEVEL.exactly(value));
     }
   }
 }

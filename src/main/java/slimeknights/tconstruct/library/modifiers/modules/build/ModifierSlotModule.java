@@ -10,6 +10,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierHook;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.VolatileDataModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
+import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
@@ -20,8 +21,12 @@ import java.util.List;
 /**
  * Module that adds extra modifier slots to a tool.
  */
-public record ModifierSlotModule(SlotType type, int count) implements VolatileDataModifierHook, ModifierModule {
+public record ModifierSlotModule(SlotType type, int count, ModifierModuleCondition condition) implements VolatileDataModifierHook, ModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.VOLATILE_DATA);
+
+  public ModifierSlotModule(SlotType type, int count) {
+    this(type, count, ModifierModuleCondition.ANY);
+  }
 
   public ModifierSlotModule(SlotType type) {
     this(type, 1);
@@ -35,7 +40,9 @@ public record ModifierSlotModule(SlotType type, int count) implements VolatileDa
 
   @Override
   public void addVolatileData(ToolRebuildContext context, ModifierEntry modifier, ModDataNBT volatileData) {
-    volatileData.addSlots(type, modifier.getLevel() * count);
+    if (condition.matches(context, modifier)) {
+      volatileData.addSlots(type, count * modifier.getLevel());
+    }
   }
 
   @Override

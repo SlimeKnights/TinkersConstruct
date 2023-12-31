@@ -9,8 +9,9 @@
       "paragraph": true
     }
   ],
+  "tool_filter": "tconstruct:modifiable/ranged",
   "effects": [
-    "Cancels out a small amount of armor",
+    "Arrows cancel out a small amount of armor",
     "Multiple levels, each level increases effect",
     "Requires 1 Upgrade Slot per level"
   ]

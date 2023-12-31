@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.exception;
 
 import net.minecraft.resources.ResourceLocation;
 
+// TODO 1.19: reevaluate whether this is actually needed
 public class TinkerJSONException extends TinkerAPIException {
 
   public static TinkerJSONException materialJsonWithoutCraftingInformation(ResourceLocation materialId) {

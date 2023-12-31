@@ -18,7 +18,6 @@ import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.utils.DomainDisplayName;
-import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nullable;
@@ -38,7 +37,7 @@ public class MaterialItem extends Item implements IMaterialItem {
   /** Gets the material ID for the given NBT compound */
   private static MaterialVariantId getMaterialId(@Nullable CompoundTag nbt) {
     if (nbt != null) {
-      String str = nbt.getString(NBTTags.PART_MATERIAL);
+      String str = nbt.getString(MATERIAL_TAG);
       if (!str.isEmpty()) {
         MaterialVariantId id = MaterialVariantId.tryParse(str);
         if (id != null) {
@@ -160,7 +159,7 @@ public class MaterialItem extends Item implements IMaterialItem {
       MaterialId original = id.getId();
       MaterialId resolved = MaterialRegistry.getInstance().resolve(original);
       if (original != resolved) {
-        nbt.putString(NBTTags.PART_MATERIAL, MaterialVariantId.create(resolved, id.getVariant()).toString());
+        nbt.putString(MATERIAL_TAG, MaterialVariantId.create(resolved, id.getVariant()).toString());
       }
     }
   }

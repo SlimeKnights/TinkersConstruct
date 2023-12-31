@@ -7,12 +7,12 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 
 public class RomanNumeralHelper {
-  private static String TRANSLATION_KEY_PREFIX = "roman_numeral.value.";
+  private static final String TRANSLATION_KEY_PREFIX = "roman_numeral.value.";
 
   private RomanNumeralHelper() {}
 
   /** Cache of components for each numeral */
-  private static Int2ObjectMap<Component> NUMERAL_CACHE = new Int2ObjectOpenHashMap<>();
+  private static final Int2ObjectMap<Component> NUMERAL_CACHE = new Int2ObjectOpenHashMap<>();
 
   /** Converts a value to a roman numeral string, based on https://stackoverflow.com/questions/12967896/converting-integers-to-roman-numerals-java */
   private static String intToRomanNumeral(int value) {

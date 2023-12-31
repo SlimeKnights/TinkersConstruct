@@ -28,9 +28,13 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
     tag(TinkerTags.Modifiers.DUAL_INTERACTION)
       .add(TinkerModifiers.bucketing.getId(), TinkerModifiers.spilling.getId(),
            TinkerModifiers.glowing.getId(), TinkerModifiers.firestarter.getId(),
-           TinkerModifiers.stripping.getId(), TinkerModifiers.tilling.getId(), TinkerModifiers.pathing.getId(),
+           ModifierIds.stripping, ModifierIds.tilling, ModifierIds.pathing,
            TinkerModifiers.shears.getId(), TinkerModifiers.harvest.getId())
       .addOptional(ModifierIds.pockets);
+    tag(TinkerTags.Modifiers.SLIME_DEFENSE)
+      .add(TinkerModifiers.meleeProtection.getId(), TinkerModifiers.projectileProtection.getId(),
+           ModifierIds.fireProtection, TinkerModifiers.magicProtection.getId(),
+           TinkerModifiers.blastProtection.getId(), TinkerModifiers.golden.getId());
   }
 
   @Override

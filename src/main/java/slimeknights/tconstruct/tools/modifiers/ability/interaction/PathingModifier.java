@@ -9,7 +9,11 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ToolActions;
-
+/**
+ * @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.behavior.ExtinguishCampfireModule}
+ * and {@link slimeknights.tconstruct.library.modifiers.modules.behavior.ToolActionTransformModule}
+ */
+@Deprecated
 public class PathingModifier extends BlockTransformModifier {
   public PathingModifier(int priority) {
     super(priority, ToolActions.SHOVEL_FLATTEN, SoundEvents.SHOVEL_FLATTEN, true);

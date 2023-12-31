@@ -14,8 +14,7 @@
       "unique": "tconstruct.modifier.pierce",
       "attribute": "minecraft:generic.armor",
       "operation": "addition",
-      "amount": -1.0,
-      "scale": true
+      "each_level": -1.0
     },
     {
       "type": "tconstruct:mob_effect",

@@ -2,23 +2,16 @@ package slimeknights.tconstruct.library.modifiers.dynamic;
 
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.modules.build.EnchantmentModule;
-import slimeknights.tconstruct.library.modifiers.modules.build.EnchantmentModule.Constant;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
-import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
 
@@ -37,50 +30,16 @@ public class EnchantmentModifier extends Modifier {
     return levelDisplay.nameForLevel(this, level);
   }
 
-  /** Adds an enchantment to the given tool, for use in {@link Constant#addRawData(IToolStackView, ModifierEntry, RestrictedCompoundTag)} */
+  /** @deprecated use {@link EnchantmentModule#setEnchantmentLevel(RestrictedCompoundTag, Enchantment, int)} */
+  @Deprecated
   public static void addEnchantmentData(RestrictedCompoundTag tag, Enchantment enchantment, int level) {
-    // first, find the enchantment tag
-    ListTag enchantments;
-    if (tag.contains(ModifierUtil.TAG_ENCHANTMENTS, Tag.TAG_LIST)) {
-      enchantments = tag.getList(ModifierUtil.TAG_ENCHANTMENTS, Tag.TAG_COMPOUND);
-    } else {
-      enchantments = new ListTag();
-      tag.put(ModifierUtil.TAG_ENCHANTMENTS, enchantments);
-    }
-    // first, see if it already exists, if so we need to replace it
-    String id = Objects.requireNonNull(enchantment.getRegistryName()).toString();
-    for (int i = 0; i < enchantments.size(); i++) {
-      CompoundTag enchantmentTag = enchantments.getCompound(i);
-      // only replace if our level is smaller, means that multiple modifiers adding the same enchantment lead to max behavior
-      // cannot do adding behavior as this hook can run multiple times without ever removing the level
-      if (id.equals(enchantmentTag.getString("id")) && enchantmentTag.getShort("lvl") < level) {
-        EnchantmentHelper.setEnchantmentLevel(enchantmentTag, level);
-        return;
-      }
-    }
-    // none of the existing tags match the enchant, so add it
-    enchantments.add(EnchantmentHelper.storeEnchantment(enchantment.getRegistryName(), level));
+    EnchantmentModule.setEnchantmentLevel(tag, enchantment, level);
   }
 
-  /** Adds an enchantment to the given tool, for use in {@link Constant#removeRawData(IToolStackView, Modifier, RestrictedCompoundTag)} */
+  /** @deprecated use {@link EnchantmentModule#removeEnchantment(RestrictedCompoundTag, Enchantment)} */
+  @Deprecated
   public static void removeEnchantmentData(RestrictedCompoundTag tag, Enchantment enchantment) {
-    // when removing the modifier, remove the enchant
-    // this will clobber anyone else trying to remove it, not much we can do
-    // luckily, with the order these hooks run, if another modifier wished to add it, they will simply come after the fact to add it
-    if (tag.contains(ModifierUtil.TAG_ENCHANTMENTS, Tag.TAG_LIST)) {
-      ListTag enchantments = tag.getList(ModifierUtil.TAG_ENCHANTMENTS, Tag.TAG_COMPOUND);
-      String id = Objects.requireNonNull(enchantment.getRegistryName()).toString();
-      for (int i = 0; i < enchantments.size(); i++) {
-        CompoundTag enchantmentTag = enchantments.getCompound(i);
-        if (id.equals(enchantmentTag.getString("id"))) {
-          enchantments.remove(i);
-          if (enchantments.isEmpty()) {
-            tag.remove(ModifierUtil.TAG_ENCHANTMENTS);
-          }
-          break;
-        }
-      }
-    }
+    EnchantmentModule.removeEnchantment(tag, enchantment);
   }
 
   @Override

@@ -13,6 +13,7 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
+import slimeknights.tconstruct.library.tools.stat.IToolStat;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.Util;
 
@@ -48,6 +49,11 @@ public interface TooltipModifierHook {
 
   /* Helpers */
 
+  /** Gets the name of the stat to display, uses a translation key built from the tool and the stat */
+  static Component statName(Modifier modifier, IToolStat<?> stat) {
+    return new TranslatableComponent(modifier.getTranslationKey() + "." + stat.getName().getPath());
+  }
+
   /** Adds a flat bonus tooltip */
   static void addFlatBoost(Modifier modifier, Component name, double bonus, List<Component> tooltip) {
     tooltip.add(modifier.applyStyle(new TextComponent(Util.BONUS_FORMAT.format(bonus) + " ").append(name)));
@@ -69,7 +75,7 @@ public interface TooltipModifierHook {
    */
   static void addStatBoost(IToolStackView tool, Modifier modifier, FloatToolStat stat, TagKey<Item> condition, float amount, List<Component> tooltip) {
     if (tool.hasTag(condition)) {
-      addFlatBoost(modifier, new TranslatableComponent(modifier.getTranslationKey() + "." + stat.getName().getPath()), amount * tool.getMultiplier(stat), tooltip);
+      addFlatBoost(modifier, statName(modifier, stat), amount * tool.getMultiplier(stat), tooltip);
     }
   }
 

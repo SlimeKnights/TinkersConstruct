@@ -9,8 +9,10 @@
         "type": "mantle:inverted",
         "predicate": "mantle:requires_tool"
       },
+      "entity": "mantle:any",
       "require_effective": false,
-      "bonus": 0.5
+      "percent": false,
+      "each_level": 0.5
     }
   ]
 }

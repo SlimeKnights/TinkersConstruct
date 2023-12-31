@@ -8,6 +8,7 @@
       "text": "Right clicking a tank with tool fills it", "paragraph": true
     }
   ],
+  "tool_filter": "tconstruct:modifiable/held",
   "effects": [
     "Drains tank on attacking",
     "Various effects based on fluid, including fire and poison",

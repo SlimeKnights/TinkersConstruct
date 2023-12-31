@@ -8,7 +8,7 @@
     },
     {
       "type": "tconstruct:conditional_damage",
-      "entity": {
+      "target": {
         "type": "mantle:or",
         "predicates": [
           {
@@ -21,7 +21,8 @@
           }
         ]
       },
-      "damage": 2.0
+      "percent": false,
+      "each_level": 2.0
     },
     {
       "type": "tconstruct:mob_effect",

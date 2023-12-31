@@ -6,12 +6,14 @@ import net.minecraft.world.level.ItemLike;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
-import slimeknights.tconstruct.library.utils.NBTTags;
 
 /**
  * Items implementing this interface contain a material
  */
 public interface IMaterialItem extends ItemLike {
+  /** Tag used in NBT for the material ID */
+  String MATERIAL_TAG = "Material";
+
   /**
    * Returns the material ID of the part this itemstack holds.
    *
@@ -22,7 +24,8 @@ public interface IMaterialItem extends ItemLike {
   /** Returns the item with the given material, bypassing material validation */
   default ItemStack withMaterialForDisplay(MaterialVariantId materialId) {
     ItemStack stack = new ItemStack(this);
-    stack.getOrCreateTag().putString(NBTTags.PART_MATERIAL, materialId.toString());
+    // FIXME: it is odd that we assume the NBT format in this method but not in getMaterial, should be consistent in the implementation location
+    stack.getOrCreateTag().putString(MATERIAL_TAG, materialId.toString());
     return stack;
   }
 

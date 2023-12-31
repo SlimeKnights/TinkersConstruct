@@ -6,8 +6,9 @@
     }
   ],
   "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/ranged",
   "effects": [
-    "Maximum of 2 levels",
+    "Maximum of 3 levels",
     "Does not work well with fiery",
     "Requires 1 upgrade slot per level"
   ]

@@ -6,6 +6,10 @@
   },
   {
     "type": "tconstruct:modifier",
+    "data": "abilities/general/expanded.json"
+  },
+  {
+    "type": "tconstruct:modifier",
     "data": "abilities/general/gilded.json"
   },
   {
@@ -55,10 +59,6 @@
   {
     "type": "tconstruct:modifier",
     "data": "abilities/harvest/exchanging.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/harvest/expanded.json"
   },
   {
     "type": "tconstruct:modifier",

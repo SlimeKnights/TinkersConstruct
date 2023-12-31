@@ -22,7 +22,7 @@ import slimeknights.tconstruct.library.utils.Util;
 import javax.annotation.Nullable;
 import java.util.List;
 
-import static slimeknights.tconstruct.tools.modifiers.upgrades.general.ReinforcedModifier.damageReinforced;
+import static slimeknights.tconstruct.library.modifiers.modules.behavior.ReduceToolDamageModule.reduceDamage;
 import static slimeknights.tconstruct.tools.modifiers.upgrades.general.ReinforcedModifier.diminishingPercent;
 
 public class TemperateModifier extends Modifier implements ConditionalStatModifierHook {
@@ -45,7 +45,7 @@ public class TemperateModifier extends Modifier implements ConditionalStatModifi
     if (holder != null) {
       float bonus = getBonus(holder, holder.blockPosition(), level);
       if (bonus > 0) {
-        return damageReinforced(amount, diminishingPercent(bonus * 2));
+        return reduceDamage(amount, diminishingPercent(bonus * 2));
       }
     }
     return amount;
