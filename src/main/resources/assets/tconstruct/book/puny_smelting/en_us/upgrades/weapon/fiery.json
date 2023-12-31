@@ -5,6 +5,7 @@
       "text": "The fires of the nether work to punish your foes."
     }
   ],
+  "tool_filter": "tconstruct:modifiable/melee",
   "effects": [
     "Burns targets on hit",
     "Multiple levels, higher levels increase burn duration",

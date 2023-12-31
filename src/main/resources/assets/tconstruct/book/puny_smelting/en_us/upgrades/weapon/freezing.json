@@ -5,9 +5,9 @@
       "text": "Elsa may be jealous."
     }
   ],
-  "tool_filter": "tconstruct:modifiable/ranged",
+  "tool_filter": "tconstruct:modifiable/melee",
   "effects": [
-    "Fired projectiles slows enemies and deal extra damage",
+    "Attacked enemies are slowed and take extra damage",
   	"Multiple levels, each level slows enemies for longer",
   	"Requires 1 Upgrade Slot per level"
   ]

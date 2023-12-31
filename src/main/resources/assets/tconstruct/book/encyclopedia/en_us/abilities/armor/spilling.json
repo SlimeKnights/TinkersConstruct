@@ -9,6 +9,7 @@
     }
   ],
   "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/armor",
   "effects": [
     "No max level",
     "Requires 1 ability slot",

@@ -5,9 +5,9 @@
       "text": "The fires of the nether work to punish your foes."
     }
   ],
-  "tool_filter": "tconstruct:modifiable/ranged",
+  "tool_filter": "tconstruct:modifiable/armor",
   "effects": [
-    "Burns targets hit by the arrow",
+    "Has a chance to burn attackers on hit",
     "Multiple levels, higher levels increase burn duration",
     "Requires 1 Upgrade Slot per level"
   ]

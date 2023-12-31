@@ -65,7 +65,7 @@ public class TinkerBook extends BookData {
     ENCYCLOPEDIA.addTransformer(armorTransformer);
 
     // material tier transformers
-    // TODO 1.19: remove old materail section transformers
+    // TODO 1.19: remove old material section transformers
     MATERIALS_AND_YOU.addTransformer(new TieredMaterialSectionTransformer("tier_one_materials", 1, false));
     PUNY_SMELTING.addTransformer(new TieredMaterialSectionTransformer("tier_two_materials", 2, false));
     MIGHTY_SMELTING.addTransformer(new TieredMaterialSectionTransformer("tier_three_materials", 3, false));

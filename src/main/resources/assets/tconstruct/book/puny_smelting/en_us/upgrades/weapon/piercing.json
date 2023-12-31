@@ -9,6 +9,7 @@
       "paragraph": true
     }
   ],
+  "tool_filter": "tconstruct:modifiable/ranged",
   "effects": [
     "Cancels out a small amount of armor",
     "Also slightly boosts the tool's damage",

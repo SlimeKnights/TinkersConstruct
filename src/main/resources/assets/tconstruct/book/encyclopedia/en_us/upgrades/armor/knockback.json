@@ -6,6 +6,7 @@
     }
   ],
   "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/armor",
   "effects": [
     "Maximum of 3 levels",
     "Requires 1 upgrade slot per level"

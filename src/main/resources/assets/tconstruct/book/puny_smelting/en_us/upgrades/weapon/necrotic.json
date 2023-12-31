@@ -5,6 +5,7 @@
       "text": "Harvest the life of your foes in order to survive longer."
     }
   ],
+  "tool_filter": "tconstruct:modifiable/melee",
   "effects": [
     "Critical hits steal life from your enemies to heal you",
     "Multiple levels, increases amount of life steal per level",
