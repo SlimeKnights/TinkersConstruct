@@ -7,8 +7,8 @@
     ],
     "tool_filter": "tconstruct:modifiable/melee",
     "effects": [
-      "Attacked enemies are slowed and take extra damage",
-        "Multiple levels, each level slows enemies for longer",
-        "Requires 1 Upgrade Slot per level"
+      "命中目标时使其缓慢，并造成额外伤害",
+      "多个等级，每级进一步增加冰冻时间",
+      "每级需要1个升级槽"
     ]
   }

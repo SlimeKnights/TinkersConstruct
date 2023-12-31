@@ -2,17 +2,17 @@
     "modifier_id": "tconstruct:freezing",
     "text": [
       {
-        "text": "Has a 15% chance per level to freezes the attacker for 4 seconds (plus 4 seconds per level), causing damage over time and slowness.. Multiple pieces will stack the effect."
+        "text": "每级有15%的概率冰冻攻击者4秒（每级+4秒），施加缓慢效果并且造成伤害。多件盔甲的效果将会堆叠。"
       },
       {
-        "text": "Shields are twice as effective but only work when blocking.", "paragraph": true
+        "text": "盾牌在格挡时造成的效果将翻倍。", "paragraph": true
       }
     ],
     "more_text_space": true,
     "tool_filter": "tconstruct:modifiable/armor",
     "effects": [
-      "Maximum of 3 levels",
-      "Does not work well with fiery",
-      "Requires 1 upgrade slot per level"
+      "最高3级",
+      "与“怒火”强化相性不佳",
+      "每级需要1个升级槽"
     ]
   }

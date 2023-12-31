@@ -2,10 +2,10 @@
     "modifier_id": "tconstruct:fiery",
     "text": [
       {
-        "text": "Has a 15% chance per level to cause the attacker to burn for 5 seconds per level. Multiple pieces will stack the effect."
+        "text": "每级有15%的概率对攻击者造成5秒的燃烧效果。多件盔甲的效果将会堆叠。"
       },
       {
-        "text": "Shields are twice as effective but only work when blocking.", "paragraph": true
+        "text": "盾牌在格挡时造成的效果将翻倍。", "paragraph": true
       }
     ],
     "more_text_space": true,

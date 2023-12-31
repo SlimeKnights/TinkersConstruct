@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:fiery",
   "text": [
     {
-      "text": "The fires of the nether work to punish your foes."
+      "text": "使用来自下界的烈焰惩罚你的敌人。"
     }
   ],
   "tool_filter": "tconstruct:modifiable/armor",
   "effects": [
-    "Has a chance to burn attackers on hit",
-    "Multiple levels, higher levels increase burn duration",
-    "Requires 1 Upgrade Slot per level"
+    "有概率点燃攻击者",
+    "多个等级，每级进一步增加燃烧时间",
+    "每级需要1个升级槽"
   ]
 }
