@@ -19,7 +19,7 @@ record SimpleLevelingFormula(LevelingValue leveling, FallbackFormula formula) im
   }
 
   @Override
-  public JsonObject serialize(JsonObject json) {
+  public JsonObject serialize(JsonObject json, String[] variableNames) {
     return leveling.serialize(json);
   }
 

@@ -72,14 +72,14 @@ public record KnockbackModule(IJsonPredicate<LivingEntity> entity, ModifierFormu
     public void serialize(KnockbackModule object, JsonObject json) {
       object.condition.serializeInto(json);
       json.add("entity", LivingEntityPredicate.LOADER.serialize(object.entity));
-      object.formula.serialize(json);
+      object.formula.serialize(json, VARIABLES);
     }
 
     @Override
     public KnockbackModule fromNetwork(FriendlyByteBuf buffer) {
       return new KnockbackModule(
         LivingEntityPredicate.LOADER.fromNetwork(buffer),
-        ModifierFormula.fromNetwork(buffer, VARIABLES, FALLBACK_FORMULA),
+        ModifierFormula.fromNetwork(buffer, VARIABLES.length, FALLBACK_FORMULA),
         ModifierModuleCondition.fromNetwork(buffer)
       );
     }

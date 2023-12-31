@@ -116,7 +116,7 @@ public record ConditionalMiningSpeedModule(IJsonPredicate<BlockState> block, IJs
       json.add("entity", LivingEntityPredicate.LOADER.serialize(object.holder));
       json.addProperty("require_effective", object.requireEffective);
       json.addProperty("percent", object.percent);
-      object.formula.serialize(json);
+      object.formula.serialize(json, VARIABLES);
     }
 
     @Override
@@ -126,7 +126,7 @@ public record ConditionalMiningSpeedModule(IJsonPredicate<BlockState> block, IJs
         BlockPredicate.LOADER.fromNetwork(buffer),
         LivingEntityPredicate.LOADER.fromNetwork(buffer),
         buffer.readBoolean(),
-        ModifierFormula.fromNetwork(buffer, VARIABLES, percent ? PERCENT : BOOST), percent,
+        ModifierFormula.fromNetwork(buffer, VARIABLES.length, percent ? PERCENT : BOOST), percent,
         ModifierModuleCondition.fromNetwork(buffer)
       );
     }

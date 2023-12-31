@@ -25,7 +25,7 @@ public sealed interface ModifierFormula permits PostFixFormula, SimpleLevelingFo
   float apply(float... arguments);
 
   /** Serializes this object to JSON */
-  JsonObject serialize(JsonObject json);
+  JsonObject serialize(JsonObject json, String[] variableNames);
 
   /** Writes this object to the network */
   void toNetwork(FriendlyByteBuf buffer);
@@ -52,17 +52,17 @@ public sealed interface ModifierFormula permits PostFixFormula, SimpleLevelingFo
   /**
    * Reads a formula from the network
    * @param buffer         Buffer instance
-   * @param variableNames  Variable names for when post fix is used
+   * @param numArguments   Number of arguments for the formula for validation
    * @param fallback       Fallback for when not using post fix
    * @return  Formula object
    */
-  static ModifierFormula fromNetwork(FriendlyByteBuf buffer, String[] variableNames, FallbackFormula fallback) {
+  static ModifierFormula fromNetwork(FriendlyByteBuf buffer, int numArguments, FallbackFormula fallback) {
     short size = buffer.readShort();
     if (size == -1) {
       LevelingValue leveling = LevelingValue.fromNetwork(buffer);
       return new SimpleLevelingFormula(leveling, fallback);
     }
-    return PostFixFormula.fromNetwork(buffer, size, variableNames);
+    return PostFixFormula.fromNetwork(buffer, size, numArguments);
   }
 
   /** Formula to use when not using the post fix formula */

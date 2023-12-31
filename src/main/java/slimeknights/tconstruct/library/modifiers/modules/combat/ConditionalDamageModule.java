@@ -118,7 +118,7 @@ public record ConditionalDamageModule(
       object.condition.serializeInto(json);
       json.add("target", LivingEntityPredicate.LOADER.serialize(object.target));
       json.addProperty("percent", object.percent);
-      object.formula.serialize(json);
+      object.formula.serialize(json, VARIABLES);
     }
 
     @Override
@@ -127,7 +127,7 @@ public record ConditionalDamageModule(
       return new ConditionalDamageModule(
         LivingEntityPredicate.LOADER.fromNetwork(buffer),
         LivingEntityPredicate.LOADER.fromNetwork(buffer),
-        ModifierFormula.fromNetwork(buffer, VARIABLES, percent ? PERCENT : BOOST), percent,
+        ModifierFormula.fromNetwork(buffer, VARIABLES.length, percent ? PERCENT : BOOST), percent,
         ModifierModuleCondition.fromNetwork(buffer));
     }
 

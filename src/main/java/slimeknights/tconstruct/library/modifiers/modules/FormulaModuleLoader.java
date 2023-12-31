@@ -23,12 +23,12 @@ public record FormulaModuleLoader<T extends FormulaModule & ModifierModule>(
   @Override
   public void serialize(T object, JsonObject json) {
     object.condition().serializeInto(json);
-    object.formula().serialize(json);
+    object.formula().serialize(json, variables);
   }
 
   @Override
   public T fromNetwork(FriendlyByteBuf buffer) {
-    return constructor.apply(ModifierFormula.fromNetwork(buffer, variables, fallbackFormula), ModifierModuleCondition.fromNetwork(buffer));
+    return constructor.apply(ModifierFormula.fromNetwork(buffer, variables.length, fallbackFormula), ModifierModuleCondition.fromNetwork(buffer));
   }
 
   @Override

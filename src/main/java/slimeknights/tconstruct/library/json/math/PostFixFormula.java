@@ -17,12 +17,12 @@ import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import java.util.List;
 
 /** Performs a math formula using a post fix calculator */
-public record PostFixFormula(List<StackOperation> operations, String[] variableNames) implements ModifierFormula {
+public record PostFixFormula(List<StackOperation> operations, int numArguments) implements ModifierFormula {
   @Override
   public float apply(float... values) {
     // must have the right number of values to evaluate
-    if (values.length != variableNames.length) {
-      throw new IllegalArgumentException("Expected " + variableNames.length + " arguments, but received " + values.length);
+    if (values.length != numArguments) {
+      throw new IllegalArgumentException("Expected " + numArguments + " arguments, but received " + values.length);
     }
     AbstractFloatList stack = new FloatArrayList(5);
     for (StackOperation operation : operations) {
@@ -44,7 +44,7 @@ public record PostFixFormula(List<StackOperation> operations, String[] variableN
    * @throws RuntimeException  if something is invalid in the formula
    */
   public void validateFormula() {
-    apply(new float[variableNames.length]);
+    apply(new float[numArguments]);
   }
 
   /** Deserializes a formula from JSON */
@@ -54,12 +54,12 @@ public record PostFixFormula(List<StackOperation> operations, String[] variableN
         return StackOperation.deserialize(element.getAsJsonPrimitive(), variableNames);
       }
       throw new JsonSyntaxException("Expected " + key + " to be a string or number, was " + GsonHelper.getType(element));
-    }), variableNames);
+    }), variableNames.length);
   }
 
   /** Serializes this object to JSON */
   @Override
-  public JsonObject serialize(JsonObject json) {
+  public JsonObject serialize(JsonObject json, String[] variableNames) {
     JsonArray array = new JsonArray();
     for (StackOperation operation : operations) {
       array.add(operation.serialize(variableNames));
@@ -69,17 +69,17 @@ public record PostFixFormula(List<StackOperation> operations, String[] variableN
   }
 
   /** Reads a formula from the network */
-  public static PostFixFormula fromNetwork(FriendlyByteBuf buffer, String[] variableNames) {
-    return fromNetwork(buffer, buffer.readShort(), variableNames);
+  public static PostFixFormula fromNetwork(FriendlyByteBuf buffer, int numArguments) {
+    return fromNetwork(buffer, buffer.readShort(), numArguments);
   }
 
-  /** Common logic between {@link #fromNetwork(FriendlyByteBuf, String[])} and {@link ModifierFormula#fromNetwork(FriendlyByteBuf, String[], FallbackFormula)} */
-  static PostFixFormula fromNetwork(FriendlyByteBuf buffer, short size, String[] variableNames) {
+  /** Common logic between {@link #fromNetwork(FriendlyByteBuf, int)} and {@link ModifierFormula#fromNetwork(FriendlyByteBuf, int, FallbackFormula)} */
+  static PostFixFormula fromNetwork(FriendlyByteBuf buffer, short size, int numArguments) {
     ImmutableList.Builder<StackOperation> builder = ImmutableList.builder();
     for (int i = 0; i < size; i++) {
       builder.add(StackOperation.fromNetwork(buffer));
     }
-    return new PostFixFormula(builder.build(), variableNames);
+    return new PostFixFormula(builder.build(), numArguments);
   }
 
   /** Writes this formula to the network */
@@ -151,7 +151,7 @@ public record PostFixFormula(List<StackOperation> operations, String[] variableN
 
     /** Validates and builds the formula */
     public PostFixFormula buildFormula() {
-      PostFixFormula formula = new PostFixFormula(operations.build(), variableNames);
+      PostFixFormula formula = new PostFixFormula(operations.build(), variableNames.length);
       formula.validateFormula();
       return formula;
     }
