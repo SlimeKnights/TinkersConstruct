@@ -47,7 +47,7 @@ import static slimeknights.tconstruct.library.json.math.ModifierFormula.LEVEL;
  * @param condition  Standard modifier conditions
  */
 public record ConditionalMiningSpeedModule(IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder, boolean requireEffective, ModifierFormula formula, boolean percent, ModifierModuleCondition condition) implements BreakSpeedModifierHook, TooltipModifierHook, ModifierModule {
-  private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.BREAK_SPEED);
+  private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.BREAK_SPEED, TinkerHooks.TOOLTIP);
   /** Variables for the modifier formula */
   private static final String[] VARIABLES = { "level", "original_speed", "new_speed", "multiplier" };
   /** Speed before event listeners ran */
