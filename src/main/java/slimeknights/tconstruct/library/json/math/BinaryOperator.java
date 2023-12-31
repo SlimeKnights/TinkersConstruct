@@ -42,6 +42,10 @@ public enum BinaryOperator implements StackOperation {
       return (float)Math.pow(left, right);
     }
   };
+  /** Index used for serializing value to the network */
+  public static final int VALUE_INDEX = values().length;
+  /** Index used for serializing a variable to the network */
+  public static final int VARIABLE_INDEX = VALUE_INDEX + 1;
 
   private final char ch;
 

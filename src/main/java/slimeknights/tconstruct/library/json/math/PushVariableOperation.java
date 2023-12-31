@@ -19,7 +19,7 @@ record PushVariableOperation(int index) implements StackOperation {
 
   @Override
   public void toNetwork(FriendlyByteBuf buffer) {
-    buffer.writeEnum(StackNetworkType.VARIABLE);
+    buffer.writeVarInt(BinaryOperator.VARIABLE_INDEX);
     buffer.writeVarInt(index);
   }
 }

@@ -40,13 +40,13 @@ public interface StackOperation {
 
   /** Reads an operation from the network */
   static StackOperation fromNetwork(FriendlyByteBuf buffer) {
-    StackNetworkType type = buffer.readEnum(StackNetworkType.class);
-    if (type == StackNetworkType.VALUE) {
+    int type = buffer.readVarInt();
+    if (type == BinaryOperator.VALUE_INDEX) {
       return new PushConstantOperation(buffer.readFloat());
     }
-    if (type == StackNetworkType.VARIABLE) {
+    if (type == BinaryOperator.VARIABLE_INDEX) {
       return new PushVariableOperation(buffer.readVarInt());
     }
-    return type.toOperator();
+    return BinaryOperator.values()[type];
   }
 }
