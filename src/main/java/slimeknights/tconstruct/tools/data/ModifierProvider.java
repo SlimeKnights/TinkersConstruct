@@ -60,7 +60,7 @@ import slimeknights.tconstruct.library.modifiers.modules.build.SetStatModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.StatBoostModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.SwappableSlotModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.VolatileFlagModule;
-import slimeknights.tconstruct.library.modifiers.modules.combat.ConditionalDamageModule;
+import slimeknights.tconstruct.library.modifiers.modules.combat.ConditionalMeleeDamageModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.KnockbackModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.LootingModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.MeleeAttributeModule;
@@ -220,15 +220,15 @@ public class ModifierProvider extends AbstractModifierProvider {
     UniqueForLevels uniqueForFive = new UniqueForLevels(5);
     buildModifier(ModifierIds.sharpness).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(StatBoostModule.add(ToolStats.ATTACK_DAMAGE).eachLevel(0.75f)).levelDisplay(uniqueForFive);
     buildModifier(ModifierIds.swiftstrike).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(StatBoostModule.multiplyBase(ToolStats.ATTACK_SPEED).eachLevel(0.05f)).levelDisplay(uniqueForFive);
-    buildModifier(ModifierIds.smite).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ConditionalDamageModule.target(new MobTypePredicate(MobType.UNDEAD)).eachLevel(2.0f));
-    buildModifier(ModifierIds.antiaquatic).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ConditionalDamageModule.target(new MobTypePredicate(MobType.WATER)).eachLevel(2.0f));
-    buildModifier(ModifierIds.cooling).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ConditionalDamageModule.target(LivingEntityPredicate.FIRE_IMMUNE).eachLevel(1.6f));
+    buildModifier(ModifierIds.smite).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ConditionalMeleeDamageModule.target(new MobTypePredicate(MobType.UNDEAD)).eachLevel(2.0f));
+    buildModifier(ModifierIds.antiaquatic).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ConditionalMeleeDamageModule.target(new MobTypePredicate(MobType.WATER)).eachLevel(2.0f));
+    buildModifier(ModifierIds.cooling).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ConditionalMeleeDamageModule.target(LivingEntityPredicate.FIRE_IMMUNE).eachLevel(1.6f));
     IJsonPredicate<LivingEntity> baneSssssPredicate = LivingEntityPredicate.OR.create(new MobTypePredicate(MobType.ARTHROPOD), new TagEntityPredicate(TinkerTags.EntityTypes.CREEPERS));
     buildModifier(ModifierIds.baneOfSssss)
       .addModule(IncrementalModule.RECIPE_CONTROLLED)
-      .addModule(ConditionalDamageModule.target(baneSssssPredicate).eachLevel(2.0f))
+      .addModule(ConditionalMeleeDamageModule.target(baneSssssPredicate).eachLevel(2.0f))
       .addModule(MobEffectModule.builder(MobEffects.MOVEMENT_SLOWDOWN).level(RandomLevelingValue.flat(4)).time(RandomLevelingValue.random(20, 10)).target(baneSssssPredicate).build(), TinkerHooks.MELEE_HIT);
-    buildModifier(ModifierIds.killager).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ConditionalDamageModule.target(LivingEntityPredicate.OR.create(
+    buildModifier(ModifierIds.killager).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ConditionalMeleeDamageModule.target(LivingEntityPredicate.OR.create(
       new MobTypePredicate(MobType.ILLAGER),
       new TagEntityPredicate(TinkerTags.EntityTypes.VILLAGERS))).eachLevel(2.0f));
     addRedirect(id("fractured"), redirect(ModifierIds.sharpness));
@@ -320,7 +320,7 @@ public class ModifierProvider extends AbstractModifierProvider {
                                        .addModule(StatBoostModule.multiplyAll(ToolStats.PROJECTILE_DAMAGE).eachLevel(-0.1f));
     // traits - tier 2
     buildModifier(ModifierIds.sturdy).addModule(StatBoostModule.multiplyBase(ToolStats.DURABILITY).eachLevel(0.15f));
-    buildModifier(ModifierIds.scorching).addModule(ConditionalDamageModule.target(LivingEntityPredicate.ON_FIRE).eachLevel(2f));
+    buildModifier(ModifierIds.scorching).addModule(ConditionalMeleeDamageModule.target(LivingEntityPredicate.ON_FIRE).eachLevel(2f));
     // traits - tier 2 compat
     addModifier(ModifierIds.lustrous, new Modifier());
     buildModifier(ModifierIds.sharpweight)

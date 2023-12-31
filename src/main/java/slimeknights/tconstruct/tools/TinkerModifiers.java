@@ -70,7 +70,7 @@ import slimeknights.tconstruct.library.modifiers.modules.build.SetStatModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.StatBoostModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.SwappableSlotModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.VolatileFlagModule;
-import slimeknights.tconstruct.library.modifiers.modules.combat.ConditionalDamageModule;
+import slimeknights.tconstruct.library.modifiers.modules.combat.ConditionalMeleeDamageModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.KnockbackModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.LootingModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.MeleeAttributeModule;
@@ -668,7 +668,7 @@ public final class TinkerModifiers extends TinkerModule {
     ModifierModule.LOADER.register(TConstruct.getResource("trait"), ModifierTraitModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("volatile_flag"), VolatileFlagModule.LOADER);
     // combat
-    ModifierModule.LOADER.register(TConstruct.getResource("conditional_damage"), ConditionalDamageModule.LOADER);
+    ModifierModule.LOADER.register(TConstruct.getResource("conditional_melee_damage"), ConditionalMeleeDamageModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("knockback"), KnockbackModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("looting"), LootingModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("melee_attribute"), MeleeAttributeModule.LOADER);

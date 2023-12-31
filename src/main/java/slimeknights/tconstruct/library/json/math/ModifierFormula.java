@@ -74,6 +74,8 @@ public sealed interface ModifierFormula permits PostFixFormula, SimpleLevelingFo
     FallbackFormula ADD = arguments -> arguments[LEVEL] + arguments[1];
     /** Formula for standard percent boosts, requires 1 additional argument */
     FallbackFormula PERCENT = arguments -> arguments[1] * (1 + arguments[LEVEL]);
+    /** Formula for standard boosts, requires argument 1 to be the base value and argument 2 to be the multiplier */
+    FallbackFormula BOOST = arguments -> arguments[1] + arguments[LEVEL] * arguments[2];
 
     /**
      * Runs this formula
