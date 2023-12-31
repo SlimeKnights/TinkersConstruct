@@ -6,8 +6,9 @@
     }
   ],
   "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/ranged",
   "effects": [
-    "最高2级",
+    "最高3级",
     "与“怒火”强化相性不佳",
     "每级需要1个升级槽"
   ]

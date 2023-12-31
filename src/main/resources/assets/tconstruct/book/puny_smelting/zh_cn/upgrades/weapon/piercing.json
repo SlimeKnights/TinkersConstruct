@@ -9,6 +9,7 @@
         "paragraph": true	  
     }
   ],
+  "tool_filter": "tconstruct:modifiable/ranged",
   "effects": [
     "抵消少部分护甲值",
     "同时略微增加工具伤害",

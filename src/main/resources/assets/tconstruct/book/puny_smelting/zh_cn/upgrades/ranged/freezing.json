@@ -5,6 +5,7 @@
       "text": "艾尔莎都要嫉妒了。"
     }
   ],
+  "tool_filter": "tconstruct:modifiable/ranged",
   "effects": [
     "命中目标时使其缓慢，弹射物造成额外伤害",
     "多个等级，每级进一步增加燃烧时间",

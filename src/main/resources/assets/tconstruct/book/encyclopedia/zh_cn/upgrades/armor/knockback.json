@@ -6,6 +6,7 @@
     }
   ],
   "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/armor",
   "effects": [
     "最高3级",
     "每级需要1个升级槽"

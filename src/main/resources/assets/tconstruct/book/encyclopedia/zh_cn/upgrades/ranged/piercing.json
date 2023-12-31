@@ -6,6 +6,7 @@
     }
   ],
   "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/ranged",
   "effects": [
     "可以逐级强化",
     "最高3级",
