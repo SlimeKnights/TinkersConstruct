@@ -18,15 +18,20 @@ public interface StackOperation {
     // strings are either binary operators or are variables
     if (element.isString()) {
       String str = element.getAsString();
-      if (str.length() == 1) {
-        return BinaryOperator.deserialize(str.charAt(0));
+      if (str.isBlank()) {
+        throw new JsonSyntaxException("Operation must not be empty");
       }
-      for (int i = 0; i < variableNames.length; i++) {
-        if (str.equals(variableNames[i])) {
-          return new PushVariableOperation(i);
+      // if it starts with a $, it's a variable
+      if (str.charAt(0) == '$') {
+        str = str.substring(1);
+        for (int i = 0; i < variableNames.length; i++) {
+          if (str.equals(variableNames[i])) {
+            return new PushVariableOperation(i);
+          }
         }
+        throw new JsonSyntaxException("Unknown variable '" + str + "'");
       }
-      throw new JsonSyntaxException("Unknown variable '" + str + "'");
+      return BinaryOperator.deserialize(str);
     }
     // numbers are constants
     if (element.isNumber()) {

@@ -8,9 +8,9 @@
       "type": "tconstruct:knockback",
       "entity": "mantle:any",
       "formula": [
-        "knockback",
+        "$knockback",
         2.0,
-        "level",
+        "$level",
         "^",
         "/"
       ]

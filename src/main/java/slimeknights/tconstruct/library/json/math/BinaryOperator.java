@@ -9,25 +9,25 @@ import net.minecraft.network.FriendlyByteBuf;
 /** Represents 2 argument stack operations */
 @RequiredArgsConstructor
 public enum BinaryOperator implements StackOperation {
-  ADD('+') {
+  ADD("+") {
     @Override
     public float apply(float left, float right) {
       return left + right;
     }
   },
-  SUBTRACT('-') {
+  SUBTRACT("-") {
     @Override
     public float apply(float left, float right) {
       return left - right;
     }
   },
-  MULTIPLY('*') {
+  MULTIPLY("*") {
     @Override
     public float apply(float left, float right) {
       return left * right;
     }
   },
-  DIVIDE('/') {
+  DIVIDE("/") {
     @Override
     public float apply(float left, float right) {
       if (right == 0) {
@@ -36,7 +36,7 @@ public enum BinaryOperator implements StackOperation {
       return left / right;
     }
   },
-  POWER('^') {
+  POWER("^") {
     @Override
     public float apply(float left, float right) {
       return (float)Math.pow(left, right);
@@ -47,7 +47,8 @@ public enum BinaryOperator implements StackOperation {
   /** Index used for serializing a variable to the network */
   public static final int VARIABLE_INDEX = VALUE_INDEX + 1;
 
-  private final char ch;
+  /** Name of this operator when serialized into JSON */
+  private final String serialized;
 
   /** Applies this operator to the given values */
   public abstract float apply(float left, float right);
@@ -65,18 +66,18 @@ public enum BinaryOperator implements StackOperation {
   /* JSON and network */
 
   /** Deserializes the operator from a character */
-  public static BinaryOperator deserialize(char ch) {
+  public static BinaryOperator deserialize(String name) {
     for (BinaryOperator operator : BinaryOperator.values()) {
-      if (operator.ch == ch) {
+      if (operator.serialized.equals(name)) {
         return operator;
       }
     }
-    throw new JsonSyntaxException("Unknown binary operator " + ch);
+    throw new JsonSyntaxException("Unknown binary operator '" + name + "'");
   }
 
   @Override
   public JsonPrimitive serialize(String[] variableNames) {
-    return new JsonPrimitive(ch);
+    return new JsonPrimitive(serialized);
   }
 
   @Override
