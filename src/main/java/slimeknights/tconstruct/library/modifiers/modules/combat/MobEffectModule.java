@@ -29,6 +29,7 @@ import slimeknights.tconstruct.library.modifiers.hook.ProjectileLaunchModifierHo
 import slimeknights.tconstruct.library.modifiers.hook.combat.DamageTakenModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
+import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -46,10 +47,11 @@ import static slimeknights.tconstruct.TConstruct.RANDOM;
  * Module that applies a mob effect on melee attack, projectile hit, and counterattack
  */
 public record MobEffectModule(
-  IJsonPredicate<LivingEntity> predicate,
+  IJsonPredicate<LivingEntity> target,
   MobEffect effect,
   RandomLevelingValue level,
-  RandomLevelingValue time
+  RandomLevelingValue time,
+  ModifierModuleCondition condition
 ) implements DamageTakenModifierHook, MeleeHitModifierHook, ProjectileLaunchModifierHook, ProjectileHitModifierHook, ModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.DAMAGE_TAKEN, TinkerHooks.MELEE_HIT, TinkerHooks.PROJECTILE_LAUNCH, TinkerHooks.PROJECTILE_HIT);
 
@@ -60,7 +62,7 @@ public record MobEffectModule(
 
   /** Applies the effect for the given level */
   private void applyEffect(@Nullable LivingEntity target, float scaledLevel) {
-    if (target == null || !predicate.matches(target)) {
+    if (target == null || !this.target.matches(target)) {
       return;
     }
     int level = Math.round(this.level.computeValue(scaledLevel)) - 1;
@@ -116,31 +118,34 @@ public record MobEffectModule(
   @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   @Accessors(fluent = true)
   @Setter
-  public static class Builder {
+  public static class Builder extends ModifierModuleCondition.Builder<Builder> {
     private final MobEffect effect;
-    private IJsonPredicate<LivingEntity> entity = LivingEntityPredicate.ANY;
+    private IJsonPredicate<LivingEntity> target = LivingEntityPredicate.ANY;
     private RandomLevelingValue level = RandomLevelingValue.flat(1);
     private RandomLevelingValue time = RandomLevelingValue.flat(0);
 
     /** Builds the finished modifier */
     public MobEffectModule build() {
-      return new MobEffectModule(entity, effect, level, time);
+      return new MobEffectModule(target, effect, level, time, condition);
     }
   }
 
   public static final IGenericLoader<MobEffectModule> LOADER = new IGenericLoader<>() {
     @Override
     public MobEffectModule deserialize(JsonObject json) {
-      IJsonPredicate<LivingEntity> predicate = LivingEntityPredicate.LOADER.getAndDeserialize(json, "entity");
-      MobEffect effect = JsonHelper.getAsEntry(ForgeRegistries.MOB_EFFECTS, json, "effect");
-      RandomLevelingValue level = RandomLevelingValue.get(json, "level");
-      RandomLevelingValue time = RandomLevelingValue.get(json, "time");
-      return new MobEffectModule(predicate, effect, level, time);
+      return new MobEffectModule(
+        LivingEntityPredicate.LOADER.getAndDeserialize(json, "target"),
+        JsonHelper.getAsEntry(ForgeRegistries.MOB_EFFECTS, json, "effect"),
+        RandomLevelingValue.get(json, "level"),
+        RandomLevelingValue.get(json, "time"),
+        ModifierModuleCondition.deserializeFrom(json)
+      );
     }
 
     @Override
     public void serialize(MobEffectModule object, JsonObject json) {
-      json.add("entity", LivingEntityPredicate.LOADER.serialize(object.predicate));
+      object.condition.serializeInto(json);
+      json.add("entity", LivingEntityPredicate.LOADER.serialize(object.target));
       json.addProperty("effect", Objects.requireNonNull(object.effect.getRegistryName()).toString());
       json.add("level", object.level.serialize());
       json.add("time", object.time.serialize());
@@ -148,19 +153,22 @@ public record MobEffectModule(
 
     @Override
     public MobEffectModule fromNetwork(FriendlyByteBuf buffer) {
-      IJsonPredicate<LivingEntity> predicate = LivingEntityPredicate.LOADER.fromNetwork(buffer);
-      MobEffect effect = buffer.readRegistryIdUnsafe(ForgeRegistries.MOB_EFFECTS);
-      RandomLevelingValue level = RandomLevelingValue.fromNetwork(buffer);
-      RandomLevelingValue time = RandomLevelingValue.fromNetwork(buffer);
-      return new MobEffectModule(predicate, effect, level, time);
+      return new MobEffectModule(
+        LivingEntityPredicate.LOADER.fromNetwork(buffer),
+        buffer.readRegistryIdUnsafe(ForgeRegistries.MOB_EFFECTS),
+        RandomLevelingValue.fromNetwork(buffer),
+        RandomLevelingValue.fromNetwork(buffer),
+        ModifierModuleCondition.fromNetwork(buffer)
+      );
     }
 
     @Override
     public void toNetwork(MobEffectModule object, FriendlyByteBuf buffer) {
-      LivingEntityPredicate.LOADER.toNetwork(object.predicate, buffer);
+      LivingEntityPredicate.LOADER.toNetwork(object.target, buffer);
       buffer.writeRegistryIdUnsafe(ForgeRegistries.MOB_EFFECTS, object.effect);
       object.level.toNetwork(buffer);
       object.time.toNetwork(buffer);
+      object.condition.toNetwork(buffer);
     }
   };
 }

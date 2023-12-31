@@ -11,7 +11,7 @@
       "unique": "tconstruct.modifier.strength",
       "attribute": "minecraft:generic.attack_damage",
       "operation": "multiply_total",
-      "amount": 0.1,
+      "each_level": 0.1,
       "slots": [
         "feet",
         "legs",

@@ -1,6 +1,10 @@
 package slimeknights.tconstruct.library.modifiers.modules.behavior;
 
 import com.google.gson.JsonObject;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.sounds.SoundEvent;
@@ -22,6 +26,7 @@ import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.BlockTransformModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolActionModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
+import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.List;
@@ -30,23 +35,8 @@ import java.util.Objects;
 /**
  * Module which transforms a block using a tool action
  */
-public class ToolActionTransformModule extends BlockTransformModule implements ToolActionModifierHook {
+public record ToolActionTransformModule(ToolAction action, SoundEvent sound, boolean requireGround, int eventId, ModifierModuleCondition condition) implements BlockTransformModule, ToolActionModifierHook {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.BLOCK_INTERACT, TinkerHooks.TOOL_ACTION);
-
-  private final ToolAction action;
-  private final SoundEvent sound;
-  private final int eventId;
-
-  public ToolActionTransformModule(ToolAction action, SoundEvent sound, boolean requireGround, int eventId) {
-    super(requireGround);
-    this.action = action;
-    this.sound = sound;
-    this.eventId = eventId;
-  }
-
-  public ToolActionTransformModule(ToolAction action, SoundEvent sound, boolean requireGround) {
-    this(action, sound, requireGround, -1);
-  }
 
   @Override
   public List<ModifierHook<?>> getDefaultHooks() {
@@ -55,11 +45,11 @@ public class ToolActionTransformModule extends BlockTransformModule implements T
 
   @Override
   public boolean canPerformAction(IToolStackView tool, ModifierEntry modifier, ToolAction toolAction) {
-    return this.action == toolAction;
+    return condition.matches(tool, modifier) && this.action == toolAction;
   }
 
   @Override
-  protected boolean transform(IToolStackView tool, UseOnContext context, BlockState original, boolean playSound) {
+  public boolean transform(IToolStackView tool, UseOnContext context, BlockState original, boolean playSound) {
     Level level = context.getLevel();
     BlockPos pos = context.getClickedPos();
     BlockPos above = pos.above();
@@ -99,19 +89,21 @@ public class ToolActionTransformModule extends BlockTransformModule implements T
     return LOADER;
   }
 
-  public static final IGenericLoader<ToolActionTransformModule> LOADER = new IGenericLoader<ToolActionTransformModule>() {
+  public static final IGenericLoader<ToolActionTransformModule> LOADER = new IGenericLoader<>() {
     @Override
     public ToolActionTransformModule deserialize(JsonObject json) {
       return new ToolActionTransformModule(
         ToolAction.get(GsonHelper.getAsString(json, "tool_action")),
         JsonHelper.getAsEntry(ForgeRegistries.SOUND_EVENTS, json, "sound"),
         GsonHelper.getAsBoolean(json, "require_ground"),
-        GsonHelper.getAsInt(json, "event_id", -1)
+        GsonHelper.getAsInt(json, "event_id", -1),
+        ModifierModuleCondition.deserializeFrom(json)
       );
     }
 
     @Override
     public void serialize(ToolActionTransformModule object, JsonObject json) {
+      object.condition.serializeInto(json);
       json.addProperty("tool_action", object.action.name());
       json.addProperty("sound", Objects.requireNonNull(object.sound.getRegistryName()).toString());
       json.addProperty("require_ground", object.requireGround);
@@ -126,7 +118,8 @@ public class ToolActionTransformModule extends BlockTransformModule implements T
         ToolAction.get(buffer.readUtf(Short.MAX_VALUE)),
         buffer.readRegistryIdUnsafe(ForgeRegistries.SOUND_EVENTS),
         buffer.readBoolean(),
-        buffer.readShort()
+        buffer.readShort(),
+        ModifierModuleCondition.fromNetwork(buffer)
       );
     }
 
@@ -136,6 +129,39 @@ public class ToolActionTransformModule extends BlockTransformModule implements T
       buffer.writeRegistryIdUnsafe(ForgeRegistries.SOUND_EVENTS, object.sound);
       buffer.writeBoolean(object.requireGround);
       buffer.writeShort(object.eventId);
+      object.condition.toNetwork(buffer);
     }
   };
+
+
+  /* Builder */
+
+  public static Builder builder(ToolAction action, SoundEvent sound) {
+    return new Builder(action, sound);
+  }
+
+  @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+  public static class Builder extends ModifierModuleCondition.Builder<Builder> {
+    private final ToolAction action;
+    private final SoundEvent sound;
+    private boolean requireGround;
+    /**
+     * Event ID to play upon success
+     * @see Level#levelEvent(int, BlockPos, int)
+     */
+    @Setter
+    @Accessors(fluent = true)
+    private int eventId = -1;
+
+    /** Sets the module to require the block above to be empty */
+    public Builder requireGround() {
+      this.requireGround = true;
+      return this;
+    }
+
+    /** Builds the module */
+    public ToolActionTransformModule build() {
+      return new ToolActionTransformModule(action, sound, requireGround, eventId, condition);
+    }
+  }
 }

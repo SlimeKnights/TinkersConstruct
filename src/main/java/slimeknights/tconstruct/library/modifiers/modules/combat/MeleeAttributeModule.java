@@ -1,7 +1,10 @@
 package slimeknights.tconstruct.library.modifiers.modules.combat;
 
 import com.google.gson.JsonObject;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -11,11 +14,13 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
+import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
@@ -32,13 +37,13 @@ import java.util.UUID;
  * @param uuid       UUID generated via {@link UUID#nameUUIDFromBytes(byte[])}
  * @param operation  Attribute operation
  * @param amount     Amount of the attribute to apply
- * @param scale      If true, multiples the amount by the modifier level. If false, amount is flat
+ * @param condition  Standard modifier conditions
  */
-public record MeleeAttributeModule(String unique, Attribute attribute, UUID uuid, Operation operation, float amount, boolean scale) implements ModifierModule, MeleeHitModifierHook {
+public record MeleeAttributeModule(String unique, Attribute attribute, UUID uuid, Operation operation, LevelingValue amount, ModifierModuleCondition condition) implements ModifierModule, MeleeHitModifierHook {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.MELEE_HIT);
 
-  public MeleeAttributeModule(String unique, Attribute attribute, Operation operation, float amount, boolean scale) {
-    this(unique, attribute, UUID.nameUUIDFromBytes(unique.getBytes()), operation, amount, scale);
+  public MeleeAttributeModule(String unique, Attribute attribute, Operation operation, LevelingValue amount, ModifierModuleCondition condition) {
+    this(unique, attribute, UUID.nameUUIDFromBytes(unique.getBytes()), operation, amount, condition);
   }
 
   @Override
@@ -48,14 +53,16 @@ public record MeleeAttributeModule(String unique, Attribute attribute, UUID uuid
 
   @Override
   public float beforeMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
-    LivingEntity target = context.getLivingTarget();
-    if (target != null) {
-      AttributeInstance instance = target.getAttribute(attribute);
-      if (instance != null) {
-        instance.addTransientModifier(new AttributeModifier(uuid, unique, scale ? amount * modifier.getEffectiveLevel(tool) : amount, operation));
+    if (condition.matches(tool, modifier)) {
+      LivingEntity target = context.getLivingTarget();
+      if (target != null) {
+        AttributeInstance instance = target.getAttribute(attribute);
+        if (instance != null) {
+          instance.addTransientModifier(new AttributeModifier(uuid, unique, amount.compute(tool, modifier), operation));
+        }
       }
     }
-    return baseKnockback;
+    return knockback;
   }
 
   private void removeAttribute(@Nullable LivingEntity target) {
@@ -85,31 +92,33 @@ public record MeleeAttributeModule(String unique, Attribute attribute, UUID uuid
   public static final IGenericLoader<MeleeAttributeModule> LOADER = new IGenericLoader<>() {
     @Override
     public MeleeAttributeModule deserialize(JsonObject json) {
-      String unique = GsonHelper.getAsString(json, "unique");
-      Attribute attribute = JsonHelper.getAsEntry(ForgeRegistries.ATTRIBUTES, json, "attribute");
-      Operation op = JsonHelper.getAsEnum(json, "operation", Operation.class);
-      float amount = GsonHelper.getAsFloat(json, "amount");
-      boolean scale = GsonHelper.getAsBoolean(json, "scale");
-      return new MeleeAttributeModule(unique, attribute, op, amount, scale);
+      return new MeleeAttributeModule(
+        GsonHelper.getAsString(json, "unique"),
+        JsonHelper.getAsEntry(ForgeRegistries.ATTRIBUTES, json, "attribute"),
+        JsonHelper.getAsEnum(json, "operation", Operation.class),
+        LevelingValue.deserialize(json),
+        ModifierModuleCondition.deserializeFrom(json)
+      );
     }
 
     @Override
     public void serialize(MeleeAttributeModule object, JsonObject json) {
+      object.condition.serializeInto(json);
       json.addProperty("unique", object.unique);
       json.addProperty("attribute", Objects.requireNonNull(object.attribute.getRegistryName()).toString());
       json.addProperty("operation", object.operation.name().toLowerCase(Locale.ROOT));
-      json.addProperty("amount", object.amount);
-      json.addProperty("scale", object.scale);
+      object.amount.serialize(json);
     }
 
     @Override
     public MeleeAttributeModule fromNetwork(FriendlyByteBuf buffer) {
-      String unique = buffer.readUtf(Short.MAX_VALUE);
-      Attribute attribute = buffer.readRegistryIdUnsafe(ForgeRegistries.ATTRIBUTES);
-      Operation operation = buffer.readEnum(Operation.class);
-      float amount = buffer.readFloat();
-      boolean scale = buffer.readBoolean();
-      return new MeleeAttributeModule(unique, attribute, operation, amount, scale);
+      return new MeleeAttributeModule(
+        buffer.readUtf(Short.MAX_VALUE),
+        buffer.readRegistryIdUnsafe(ForgeRegistries.ATTRIBUTES),
+        buffer.readEnum(Operation.class),
+        LevelingValue.fromNetwork(buffer),
+        ModifierModuleCondition.fromNetwork(buffer)
+      );
     }
 
     @Override
@@ -117,8 +126,41 @@ public record MeleeAttributeModule(String unique, Attribute attribute, UUID uuid
       buffer.writeUtf(object.unique);
       buffer.writeRegistryIdUnsafe(ForgeRegistries.ATTRIBUTES, object.attribute);
       buffer.writeEnum(object.operation);
-      buffer.writeFloat(object.amount);
-      buffer.writeBoolean(object.scale);
+      object.amount.toNetwork(buffer);
+      object.condition.toNetwork(buffer);
     }
   };
+
+
+  /** Creates a new builder instance */
+  public static Builder<?> builder(Attribute attribute, Operation operation) {
+    return new Builder<>(attribute, operation);
+  }
+
+  @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+  public static class Builder<T extends Builder<T>> extends ModifierModuleCondition.Builder<T> implements LevelingValue.Builder {
+    protected final Attribute attribute;
+    protected final Operation operation;
+    protected String unique;
+
+    /** Sets the unique string directly */
+    @SuppressWarnings("unchecked")
+    public T unique(String unique) {
+      this.unique = unique;
+      return (T) this;
+    }
+
+    /** Sets the unique string using a resource location */
+    public T uniqueFrom(ResourceLocation id) {
+      return unique(id.getNamespace() + ".modifier." + id.getPath());
+    }
+
+    @Override
+    public ModifierModule amount(float flat, float eachLevel) {
+      if (unique == null) {
+        throw new IllegalStateException("Must set unique for attributes");
+      }
+      return new MeleeAttributeModule(unique, attribute, operation, new LevelingValue(flat, eachLevel), condition);
+    }
+  }
 }

@@ -135,22 +135,22 @@ public record ModifierModuleCondition(IJsonPredicate<IToolContext> tool, IntRang
 
     /** Sets the modifier level range for this module */
     public T levelRange(int min, int max) {
-      return setLevels(ModifierModuleCondition.MODIFIER_LEVEL.range(min, max));
+      return setLevels(MODIFIER_LEVEL.range(min, max));
     }
 
     /** Sets the modifier level range for this module */
     public T minLevel(int min) {
-      return setLevels(ModifierModuleCondition.MODIFIER_LEVEL.min(min));
+      return setLevels(MODIFIER_LEVEL.min(min));
     }
 
     /** Sets the modifier level range for this module */
     public T maxLevel(int max) {
-      return setLevels(ModifierModuleCondition.MODIFIER_LEVEL.max(max));
+      return setLevels(MODIFIER_LEVEL.max(max));
     }
 
     /** Sets the modifier level range for this module */
     public T exactLevel(int value) {
-      return setLevels(ModifierModuleCondition.MODIFIER_LEVEL.exactly(value));
+      return setLevels(MODIFIER_LEVEL.exactly(value));
     }
   }
 }

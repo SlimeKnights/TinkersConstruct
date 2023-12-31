@@ -5,8 +5,9 @@
   "modules": [
     {
       "type": "tconstruct:conditional_damage",
-      "entity": "mantle:on_fire",
-      "damage": 2.0
+      "target": "mantle:on_fire",
+      "percent": false,
+      "each_level": 2.0
     }
   ]
 }

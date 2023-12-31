@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.modifiers.modules.behavior;
 
-import lombok.RequiredArgsConstructor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionResult;
@@ -25,19 +24,22 @@ import slimeknights.tconstruct.library.utils.MutableUseOnContext;
 import java.util.Iterator;
 import java.util.List;
 
-@RequiredArgsConstructor
-public abstract class BlockTransformModule implements ModifierModule, BlockInteractionModifierHook {
-  private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.BLOCK_INTERACT);
+/**
+ * Shared logic for interaction actions which transform blocks
+ */
+public interface BlockTransformModule extends ModifierModule, BlockInteractionModifierHook {
+  List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.BLOCK_INTERACT);
 
-  protected final boolean requireGround;
+  /** If true, disallows targeting the bottom face of the block to transform */
+  boolean requireGround();
 
   @Override
-  public List<ModifierHook<?>> getDefaultHooks() {
+  default List<ModifierHook<?>> getDefaultHooks() {
     return DEFAULT_HOOKS;
   }
 
   @Override
-  public InteractionResult afterBlockUse(IToolStackView tool, ModifierEntry modifier, UseOnContext context, InteractionSource source) {
+  default InteractionResult afterBlockUse(IToolStackView tool, ModifierEntry modifier, UseOnContext context, InteractionSource source) {
     // tool must not be broken
     if (tool.isBroken() || !tool.getDefinitionData().getModule(ToolModuleHooks.INTERACTION).canInteract(tool, modifier.getId(), source)) {
       return InteractionResult.PASS;
@@ -49,7 +51,7 @@ public abstract class BlockTransformModule implements ModifierModule, BlockInter
     }
 
     // for hoes and shovels, must have nothing but plants above
-    if (requireGround && context.getClickedFace() == Direction.DOWN) {
+    if (requireGround() && context.getClickedFace() == Direction.DOWN) {
       return InteractionResult.PASS;
     }
 
@@ -122,5 +124,5 @@ public abstract class BlockTransformModule implements ModifierModule, BlockInter
   }
 
   /** Applies this transformation */
-  protected abstract boolean transform(IToolStackView tool, UseOnContext context, BlockState original, boolean playSound);
+  boolean transform(IToolStackView tool, UseOnContext context, BlockState original, boolean playSound);
 }

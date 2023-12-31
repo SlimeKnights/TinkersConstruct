@@ -11,7 +11,7 @@
       "unique": "tconstruct.modifier.revitalizing",
       "attribute": "minecraft:generic.max_health",
       "operation": "addition",
-      "amount": 2.0,
+      "each_level": 2.0,
       "slots": [
         "feet",
         "legs",

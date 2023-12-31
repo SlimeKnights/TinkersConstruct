@@ -5,10 +5,10 @@
   "modules": [
     {
       "type": "tconstruct:attribute",
-      "unique": "tconstruct.modifiers.turtle_shell",
+      "unique": "tconstruct.modifier.turtle_shell",
       "attribute": "forge:swim_speed",
       "operation": "multiply_total",
-      "amount": 0.05,
+      "each_level": 0.05,
       "slots": [
         "feet",
         "legs",

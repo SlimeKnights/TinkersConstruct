@@ -8,7 +8,7 @@
       "unique": "tconstruct.modifier.step_up",
       "attribute": "forge:step_height_addition",
       "operation": "addition",
-      "amount": 0.5,
+      "each_level": 0.5,
       "slots": [
         "feet",
         "legs",

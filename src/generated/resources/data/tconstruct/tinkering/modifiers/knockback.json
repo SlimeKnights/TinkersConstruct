@@ -21,7 +21,7 @@
       "unique": "tconstruct.modifier.knockback",
       "attribute": "minecraft:generic.attack_knockback",
       "operation": "addition",
-      "amount": 1.0,
+      "each_level": 1.0,
       "slots": [
         "feet",
         "legs",

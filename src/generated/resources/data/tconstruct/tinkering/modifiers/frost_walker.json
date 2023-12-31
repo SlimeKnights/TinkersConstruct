@@ -5,8 +5,10 @@
   "modules": [
     {
       "type": "tconstruct:block_damage",
-      "damage_source": "tconstruct:message",
-      "message": "hotFloor"
+      "damage_source": {
+        "type": "tconstruct:message",
+        "message": "hotFloor"
+      }
     },
     {
       "type": "tconstruct:replace_fluid",

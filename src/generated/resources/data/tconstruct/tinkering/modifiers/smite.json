@@ -8,11 +8,12 @@
     },
     {
       "type": "tconstruct:conditional_damage",
-      "entity": {
+      "target": {
         "type": "mantle:mob_type",
         "mobs": "minecraft:undead"
       },
-      "damage": 2.0
+      "percent": false,
+      "each_level": 2.0
     }
   ]
 }

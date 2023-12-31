@@ -20,7 +20,7 @@
       "unique": "tconstruct.modifier.heavy",
       "attribute": "minecraft:generic.movement_speed",
       "operation": "multiply_base",
-      "amount": -0.1,
+      "each_level": -0.1,
       "slots": [
         "mainhand",
         "offhand"

@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.library.json.math;
 
 import com.google.gson.JsonObject;
+import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
 import slimeknights.tconstruct.library.json.LevelingValue;
@@ -88,6 +90,7 @@ public sealed interface ModifierFormula permits PostFixFormula, SimpleLevelingFo
     /** Variables to use for post fix formulas */
     private final String[] variables;
     /** Fallback formula for simple leveling */
+    @Getter(AccessLevel.PROTECTED)
     private final FallbackFormula formula;
 
     /** Builds the module given the formula */
@@ -95,7 +98,7 @@ public sealed interface ModifierFormula permits PostFixFormula, SimpleLevelingFo
 
     @Override
     public ModifierModule amount(float flat, float leveling) {
-      return build(new SimpleLevelingFormula(new LevelingValue(flat, leveling), formula));
+      return build(new SimpleLevelingFormula(new LevelingValue(flat, leveling), getFormula()));
     }
 
     /** Switches this builder into formula building mode */
