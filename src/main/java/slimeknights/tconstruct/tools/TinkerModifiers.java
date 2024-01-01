@@ -55,6 +55,7 @@ import slimeknights.tconstruct.library.modifiers.modules.armor.ProtectionModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.ReplaceBlockWalkerModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.ToolActionWalkerTransformModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule;
+import slimeknights.tconstruct.library.modifiers.modules.behavior.ConditionalStatModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.ExtinguishCampfireModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.IncrementalModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.ReduceToolDamageModule;
@@ -191,7 +192,6 @@ import slimeknights.tconstruct.tools.modifiers.traits.general.SolarPoweredModifi
 import slimeknights.tconstruct.tools.modifiers.traits.general.StoneshieldModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.TannedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.TastyModifier;
-import slimeknights.tconstruct.tools.modifiers.traits.harvest.AirborneModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.DwarvenModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.MaintainedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.MomentumModifier;
@@ -490,7 +490,9 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<DwarvenModifier> dwarven = MODIFIERS.register("dwarven", DwarvenModifier::new);
   public static final StaticModifier<OvergrowthModifier> overgrowth = MODIFIERS.register("overgrowth", OvergrowthModifier::new);
   public static final StaticModifier<RagingModifier> raging = MODIFIERS.register("raging", RagingModifier::new);
-  public static final StaticModifier<AirborneModifier> airborne = MODIFIERS.register("airborne", AirborneModifier::new);
+  /** @deprecated use {@link ModifierIds#airborne} */
+  @Deprecated
+  public static final DynamicModifier<Modifier> airborne = MODIFIERS.registerDynamic("airborne");
   // traits - tier 3
   public static final StaticModifier<OvercastModifier> overcast = MODIFIERS.register("overcast", OvercastModifier::new);
   public static final StaticModifier<LaceratingModifier> lacerating = MODIFIERS.register("lacerating", LaceratingModifier::new);
@@ -658,6 +660,7 @@ public final class TinkerModifiers extends TinkerModule {
     ModifierModule.LOADER.register(TConstruct.getResource("tool_actions"), ToolActionsModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("tool_action_transform"), ToolActionTransformModule.LOADER);
     // build
+    ModifierModule.LOADER.register(TConstruct.getResource("conditional_stat"), ConditionalStatModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("constant_enchantment"), EnchantmentModule.Constant.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("modifier_slot"), ModifierSlotModule.LOADER);
     ModifierModule.LOADER.register(TConstruct.getResource("rarity"), RarityModule.LOADER);

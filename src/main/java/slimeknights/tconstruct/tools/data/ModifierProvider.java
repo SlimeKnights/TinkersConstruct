@@ -27,6 +27,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.data.tinkering.AbstractModifierProvider;
 import slimeknights.tconstruct.library.json.RandomLevelingValue;
 import slimeknights.tconstruct.library.json.predicate.block.BlockPropertiesPredicate;
+import slimeknights.tconstruct.library.json.predicate.block.TinkerBlockPredicate;
 import slimeknights.tconstruct.library.json.predicate.damage.DamageSourcePredicate;
 import slimeknights.tconstruct.library.json.predicate.damage.SourceMessagePredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.TinkerLivingEntityPredicate;
@@ -47,6 +48,7 @@ import slimeknights.tconstruct.library.modifiers.modules.armor.ProtectionModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.ReplaceBlockWalkerModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.ToolActionWalkerTransformModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule;
+import slimeknights.tconstruct.library.modifiers.modules.behavior.ConditionalStatModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.ExtinguishCampfireModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.IncrementalModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.ReduceToolDamageModule;
@@ -321,6 +323,11 @@ public class ModifierProvider extends AbstractModifierProvider {
     // traits - tier 2
     buildModifier(ModifierIds.sturdy).addModule(StatBoostModule.multiplyBase(ToolStats.DURABILITY).eachLevel(0.15f));
     buildModifier(ModifierIds.scorching).addModule(ConditionalMeleeDamageModule.target(LivingEntityPredicate.ON_FIRE).eachLevel(2f));
+    buildModifier(ModifierIds.airborne)
+      // 400% boost means 5x mining speed
+      .addModule(ConditionalMiningSpeedModule.blocks(TinkerBlockPredicate.ANY).holder(TinkerLivingEntityPredicate.ON_GROUND.inverted()).percent().allowIneffective().flat(4), TinkerHooks.BREAK_SPEED)
+      // accuracy gets a 0.5 boost under the stricter version of in air (no boost just for being on a ladder)
+      .addModule(ConditionalStatModule.stat(ToolStats.ACCURACY).holder(TinkerLivingEntityPredicate.AIRBORNE).flat(0.5f));
     // traits - tier 2 compat
     addModifier(ModifierIds.lustrous, new Modifier());
     buildModifier(ModifierIds.sharpweight)

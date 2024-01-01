@@ -95,6 +95,7 @@ public class ModifierIds {
   // traits - tier 2
   public static final ModifierId sturdy = id("sturdy");
   public static final ModifierId scorching = id("scorching");
+  public static final ModifierId airborne = id("airborne");
   // traits - tier 2 compat
   public static final ModifierId dense = id("dense");
   public static final ModifierId lustrous = id("lustrous");

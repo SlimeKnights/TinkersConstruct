@@ -11,8 +11,10 @@ import java.util.function.Predicate;
 
 public interface TinkerLivingEntityPredicate {
 
-  /** Entities that are in the air */
+  /** Entities that are in the air, notably does not count you as airborne if swimming, riding, or climbing */
   LivingEntityPredicate AIRBORNE = simple(entity -> !entity.isOnGround() && !entity.onClimbable() && !entity.isInWater() && !entity.isPassenger());
+  /** Checks if the entity is on the ground */
+  LivingEntityPredicate ON_GROUND = simple(Entity::isOnGround);
   /** Entities that are in the air */
   LivingEntityPredicate CROUCHING = simple(Entity::isCrouching);
   /** Entities with eyes in water */

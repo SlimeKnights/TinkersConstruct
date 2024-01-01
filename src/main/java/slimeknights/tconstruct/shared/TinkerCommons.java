@@ -45,6 +45,7 @@ import slimeknights.tconstruct.library.json.predicate.block.BlockPredicate;
 import slimeknights.tconstruct.library.json.predicate.block.BlockPropertiesPredicate;
 import slimeknights.tconstruct.library.json.predicate.block.SetBlockPredicate;
 import slimeknights.tconstruct.library.json.predicate.block.TagBlockPredicate;
+import slimeknights.tconstruct.library.json.predicate.block.TinkerBlockPredicate;
 import slimeknights.tconstruct.library.json.predicate.damage.DamageSourcePredicate;
 import slimeknights.tconstruct.library.json.predicate.damage.SourceAttackerPredicate;
 import slimeknights.tconstruct.library.json.predicate.damage.SourceMessagePredicate;
@@ -175,6 +176,7 @@ public final class TinkerCommons extends TinkerModule {
     BlockPredicate.LOADER.register(TConstruct.getResource("requires_tool"), BlockPredicate.REQUIRES_TOOL.getLoader());
     BlockPredicate.LOADER.register(TConstruct.getResource("set"), SetBlockPredicate.LOADER);
     BlockPredicate.LOADER.register(TConstruct.getResource("tag"), TagBlockPredicate.LOADER);
+    slimeknights.mantle.data.predicate.block.BlockPredicate.LOADER.register(TConstruct.getResource("any"), TinkerBlockPredicate.ANY.getLoader());
     slimeknights.mantle.data.predicate.block.BlockPredicate.LOADER.register(TConstruct.getResource("block_properties"), BlockPropertiesPredicate.LOADER);
     // entity predicates
     LivingEntityPredicate.LOADER.register(TConstruct.getResource("and"), LivingEntityPredicate.AND);
@@ -192,6 +194,7 @@ public final class TinkerCommons extends TinkerModule {
     LivingEntityPredicate.LOADER.register(TConstruct.getResource("feet_in_water"), LivingEntityPredicate.FEET_IN_WATER.getLoader());
     // mantle
     slimeknights.mantle.data.predicate.entity.LivingEntityPredicate.LOADER.register(TConstruct.getResource("airborne"), TinkerLivingEntityPredicate.AIRBORNE.getLoader());
+    slimeknights.mantle.data.predicate.entity.LivingEntityPredicate.LOADER.register(TConstruct.getResource("on_ground"), TinkerLivingEntityPredicate.ON_GROUND.getLoader());
     slimeknights.mantle.data.predicate.entity.LivingEntityPredicate.LOADER.register(TConstruct.getResource("crouching"), TinkerLivingEntityPredicate.CROUCHING.getLoader());
     slimeknights.mantle.data.predicate.entity.LivingEntityPredicate.LOADER.register(TConstruct.getResource("eyes_in_water"), TinkerLivingEntityPredicate.EYES_IN_WATER.getLoader());
     slimeknights.mantle.data.predicate.entity.LivingEntityPredicate.LOADER.register(TConstruct.getResource("feet_in_water"), TinkerLivingEntityPredicate.FEET_IN_WATER.getLoader());

@@ -12,6 +12,11 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
+/**
+ * @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.mining.ConditionalMiningSpeedModule}
+ * and {@link slimeknights.tconstruct.library.modifiers.modules.behavior.ConditionalStatModule}
+ * */
+@Deprecated
 public class AirborneModifier extends NoLevelsModifier implements ConditionalStatModifierHook {
   @Override
   public int getPriority() {

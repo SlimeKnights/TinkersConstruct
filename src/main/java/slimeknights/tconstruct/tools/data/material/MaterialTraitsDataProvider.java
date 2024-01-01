@@ -49,7 +49,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.whitestone, TinkerModifiers.stoneshield);
     // tier 2 - binding
     addDefaultTraits(MaterialIds.chain, ModifierIds.reinforced);
-    addDefaultTraits(MaterialIds.skyslimeVine, TinkerModifiers.airborne);
+    addDefaultTraits(MaterialIds.skyslimeVine, ModifierIds.airborne);
 
     // tier 3
     addDefaultTraits(MaterialIds.slimesteel, TinkerModifiers.overcast, TinkerModifiers.overslime);
