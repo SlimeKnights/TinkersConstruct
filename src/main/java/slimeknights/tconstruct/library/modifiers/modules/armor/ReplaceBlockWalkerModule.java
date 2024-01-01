@@ -170,7 +170,7 @@ public record ReplaceBlockWalkerModule(List<BlockReplacement> replacements, Leve
     return new Builder();
   }
 
-  public static class Builder implements LevelingValue.Builder {
+  public static class Builder implements LevelingValue.Builder<ReplaceBlockWalkerModule> {
     private final ImmutableList.Builder<BlockReplacement> replacements = ImmutableList.builder();
     @Setter
     @Accessors(fluent = true)
@@ -205,7 +205,7 @@ public record ReplaceBlockWalkerModule(List<BlockReplacement> replacements, Leve
     }
 
     @Override
-    public ModifierModule amount(float flat, float eachLevel) {
+    public ReplaceBlockWalkerModule amount(float flat, float eachLevel) {
       List<BlockReplacement> replacements = this.replacements.build();
       if (replacements.isEmpty()) {
         throw new IllegalStateException("Must have at least 1 replacement");

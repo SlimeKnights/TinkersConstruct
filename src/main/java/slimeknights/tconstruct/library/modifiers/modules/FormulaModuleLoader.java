@@ -51,13 +51,13 @@ public record FormulaModuleLoader<T extends FormulaModule & ModifierModule>(
   }
 
   /** Builder for this module */
-  public class Builder extends ModifierFormula.Builder<Builder> {
+  public class Builder extends ModifierFormula.Builder<Builder,T> {
     private Builder() {
       super(variables, fallbackFormula);
     }
 
     @Override
-    protected ModifierModule build(ModifierFormula formula) {
+    protected T build(ModifierFormula formula) {
       return constructor.apply(formula, condition);
     }
   }

@@ -1,10 +1,7 @@
 package slimeknights.tconstruct.library.modifiers.modules.combat;
 
 import com.google.gson.JsonObject;
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -19,6 +16,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.modules.AttributeModuleBuilder;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
@@ -133,30 +131,17 @@ public record MeleeAttributeModule(String unique, Attribute attribute, UUID uuid
 
 
   /** Creates a new builder instance */
-  public static Builder<?> builder(Attribute attribute, Operation operation) {
-    return new Builder<>(attribute, operation);
+  public static Builder builder(Attribute attribute, Operation operation) {
+    return new Builder(attribute, operation);
   }
 
-  @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
-  public static class Builder<T extends Builder<T>> extends ModifierModuleCondition.Builder<T> implements LevelingValue.Builder {
-    protected final Attribute attribute;
-    protected final Operation operation;
-    protected String unique;
-
-    /** Sets the unique string directly */
-    @SuppressWarnings("unchecked")
-    public T unique(String unique) {
-      this.unique = unique;
-      return (T) this;
-    }
-
-    /** Sets the unique string using a resource location */
-    public T uniqueFrom(ResourceLocation id) {
-      return unique(id.getNamespace() + ".modifier." + id.getPath());
+  public static class Builder extends AttributeModuleBuilder<Builder,MeleeAttributeModule> {
+    private Builder(Attribute attribute, Operation operation) {
+      super(attribute, operation);
     }
 
     @Override
-    public ModifierModule amount(float flat, float eachLevel) {
+    public MeleeAttributeModule amount(float flat, float eachLevel) {
       if (unique == null) {
         throw new IllegalStateException("Must set unique for attributes");
       }

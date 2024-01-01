@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
 import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 
@@ -88,7 +87,7 @@ public sealed interface ModifierFormula permits PostFixFormula, SimpleLevelingFo
 
   /** Builder for a module containing a modifier formula */
   @RequiredArgsConstructor
-  abstract class Builder<T extends Builder<T>> extends ModifierModuleCondition.Builder<T> implements LevelingValue.Builder {
+  abstract class Builder<T extends Builder<T,M>,M> extends ModifierModuleCondition.Builder<T> implements LevelingValue.Builder<M> {
     /** Variables to use for post fix formulas */
     private final String[] variables;
     /** Fallback formula for simple leveling */
@@ -96,10 +95,10 @@ public sealed interface ModifierFormula permits PostFixFormula, SimpleLevelingFo
     private final FallbackFormula formula;
 
     /** Builds the module given the formula */
-    protected abstract ModifierModule build(ModifierFormula formula);
+    protected abstract M build(ModifierFormula formula);
 
     @Override
-    public ModifierModule amount(float flat, float leveling) {
+    public M amount(float flat, float leveling) {
       return build(new SimpleLevelingFormula(new LevelingValue(flat, leveling), getFormula()));
     }
 
@@ -115,7 +114,7 @@ public sealed interface ModifierFormula permits PostFixFormula, SimpleLevelingFo
       }
 
       /** Builds the module given the formula */
-      public ModifierModule build() {
+      public M build() {
         return Builder.this.build(buildFormula());
       }
     }

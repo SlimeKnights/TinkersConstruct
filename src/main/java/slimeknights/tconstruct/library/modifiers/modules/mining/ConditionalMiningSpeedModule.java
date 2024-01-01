@@ -22,7 +22,6 @@ import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedModifierH
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.ConditionalStatTooltip;
-import slimeknights.tconstruct.library.modifiers.modules.combat.ConditionalMeleeDamageModule;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.INumericToolStat;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -141,7 +140,7 @@ public record ConditionalMiningSpeedModule(IJsonPredicate<BlockState> block, IJs
   }
 
   /** Builder class */
-  public static class Builder extends ModifierFormula.Builder<ConditionalMeleeDamageModule.Builder> {
+  public static class Builder extends ModifierFormula.Builder<Builder,ConditionalMiningSpeedModule> {
     private final IJsonPredicate<BlockState> blocks;
     @Setter
     @Accessors(fluent = true)
@@ -172,7 +171,7 @@ public record ConditionalMiningSpeedModule(IJsonPredicate<BlockState> block, IJs
     }
 
     @Override
-    protected ModifierModule build(ModifierFormula formula) {
+    protected ConditionalMiningSpeedModule build(ModifierFormula formula) {
       return new ConditionalMiningSpeedModule(blocks, holder, requireEffective, formula, percent, condition);
     }
   }

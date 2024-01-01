@@ -17,9 +17,9 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.AttributesModifierHook;
+import slimeknights.tconstruct.library.modifiers.modules.AttributeModuleBuilder;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition;
-import slimeknights.tconstruct.library.modifiers.modules.combat.MeleeAttributeModule;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.Collection;
@@ -143,7 +143,7 @@ public record AttributeModule(String unique, Attribute attribute, Operation oper
     return new Builder(attribute, operation);
   }
 
-  public static class Builder extends MeleeAttributeModule.Builder<Builder> {
+  public static class Builder extends AttributeModuleBuilder<Builder,AttributeModule> {
     private EquipmentSlot[] slots = EquipmentSlot.values();
 
     protected Builder(Attribute attribute, Operation operation) {
@@ -157,7 +157,7 @@ public record AttributeModule(String unique, Attribute attribute, Operation oper
     }
 
     @Override
-    public ModifierModule amount(float flat, float eachLevel) {
+    public AttributeModule amount(float flat, float eachLevel) {
       if (unique == null) {
         throw new IllegalStateException("Must set unique for attributes");
       }

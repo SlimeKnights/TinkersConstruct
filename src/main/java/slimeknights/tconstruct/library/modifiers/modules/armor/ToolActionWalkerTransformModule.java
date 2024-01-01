@@ -145,12 +145,12 @@ public record ToolActionWalkerTransformModule(ToolAction action, SoundEvent soun
   }
 
   @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-  public static class Builder extends ModifierModuleCondition.Builder<Builder> implements LevelingValue.Builder {
+  public static class Builder extends ModifierModuleCondition.Builder<Builder> implements LevelingValue.Builder<ToolActionWalkerTransformModule> {
     private final ToolAction action;
     private final SoundEvent sound;
 
     @Override
-    public ModifierModule amount(float flat, float eachLevel) {
+    public ToolActionWalkerTransformModule amount(float flat, float eachLevel) {
       return new ToolActionWalkerTransformModule(action, sound, new LevelingValue(flat, eachLevel), condition);
     }
   }

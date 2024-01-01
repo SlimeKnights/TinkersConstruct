@@ -145,7 +145,7 @@ public record ConditionalMeleeDamageModule(
   }
 
   /** Builder class */
-  public static class Builder extends ModifierFormula.Builder<Builder> {
+  public static class Builder extends ModifierFormula.Builder<Builder,ConditionalMeleeDamageModule> {
     private final IJsonPredicate<LivingEntity> target;
     @Setter
     @Accessors(fluent = true)
@@ -169,7 +169,7 @@ public record ConditionalMeleeDamageModule(
     }
 
     @Override
-    protected ModifierModule build(ModifierFormula formula) {
+    protected ConditionalMeleeDamageModule build(ModifierFormula formula) {
       return new ConditionalMeleeDamageModule(target, attacker, formula, percent, condition);
     }
   }

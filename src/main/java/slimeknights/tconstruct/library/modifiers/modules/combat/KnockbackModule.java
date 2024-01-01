@@ -101,7 +101,7 @@ public record KnockbackModule(IJsonPredicate<LivingEntity> entity, ModifierFormu
   }
 
   /** Builder class */
-  public static class Builder extends ModifierFormula.Builder<Builder> {
+  public static class Builder extends ModifierFormula.Builder<Builder,KnockbackModule> {
     @Setter
     @Accessors(fluent = true)
     private IJsonPredicate<LivingEntity> entity = LivingEntityPredicate.ANY;
@@ -111,7 +111,7 @@ public record KnockbackModule(IJsonPredicate<LivingEntity> entity, ModifierFormu
     }
 
     @Override
-    protected ModifierModule build(ModifierFormula formula) {
+    protected KnockbackModule build(ModifierFormula formula) {
       return new KnockbackModule(entity, formula, condition);
     }
   }
