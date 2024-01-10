@@ -31,7 +31,7 @@ public interface StackOperation {
         }
         throw new JsonSyntaxException("Unknown variable '" + str + "'");
       }
-      return BinaryOperator.deserialize(str);
+      return PostFixOperator.deserialize(str);
     }
     // numbers are constants
     if (element.isNumber()) {
@@ -46,12 +46,12 @@ public interface StackOperation {
   /** Reads an operation from the network */
   static StackOperation fromNetwork(FriendlyByteBuf buffer) {
     int type = buffer.readVarInt();
-    if (type == BinaryOperator.VALUE_INDEX) {
+    if (type == PostFixOperator.VALUE_INDEX) {
       return new PushConstantOperation(buffer.readFloat());
     }
-    if (type == BinaryOperator.VARIABLE_INDEX) {
+    if (type == PostFixOperator.VARIABLE_INDEX) {
       return new PushVariableOperation(buffer.readVarInt());
     }
-    return BinaryOperator.values()[type];
+    return PostFixOperator.values()[type];
   }
 }

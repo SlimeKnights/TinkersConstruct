@@ -49,6 +49,7 @@ public record PostFixFormula(List<StackOperation> operations, int numArguments) 
 
   /** Deserializes a formula from JSON */
   public static PostFixFormula deserialize(JsonObject json, String[] variableNames) {
+    // TODO: string formulas using Shunting yard algorithm
     return new PostFixFormula(JsonHelper.parseList(json, "formula", (element, key) -> {
       if (element.isJsonPrimitive()) {
         return StackOperation.deserialize(element.getAsJsonPrimitive(), variableNames);
@@ -126,37 +127,72 @@ public record PostFixFormula(List<StackOperation> operations, int numArguments) 
 
     /** Pushes an add operation into the builder */
     public T add() {
-      return operation(BinaryOperator.ADD);
+      return operation(PostFixOperator.ADD);
     }
 
     /** Pushes a subtract operation into the builder */
     public T subtract() {
-      return operation(BinaryOperator.SUBTRACT);
+      return operation(PostFixOperator.SUBTRACT);
+    }
+
+    /** Pushes a subtract flipped operation into the builder */
+    public T subtractFlipped() {
+      return operation(PostFixOperator.SUBTRACT_FLIPPED);
     }
 
     /** Pushes a multiply operation into the builder */
     public T multiply() {
-      return operation(BinaryOperator.MULTIPLY);
+      return operation(PostFixOperator.MULTIPLY);
+    }
+
+    /** Pushes a negate operation into the builder */
+    public T negate() {
+      return operation(PostFixOperator.NEGATE);
     }
 
     /** Pushes a divide operation into the builder */
     public T divide() {
-      return operation(BinaryOperator.DIVIDE);
+      return operation(PostFixOperator.DIVIDE);
+    }
+
+    /** Pushes a divide flipped operation into the builder */
+    public T divideFlipped() {
+      return operation(PostFixOperator.DIVIDE_FLIPPED);
     }
 
     /** Pushes a power operation into the builder */
     public T power() {
-      return operation(BinaryOperator.POWER);
+      return operation(PostFixOperator.POWER);
+    }
+
+    /** Pushes a power flipped operation into the builder */
+    public T powerFlipped() {
+      return operation(PostFixOperator.POWER_FLIPPED);
     }
 
     /** Pushes a min operation into the builder */
     public T min() {
-      return operation(BinaryOperator.MIN);
+      return operation(PostFixOperator.MIN);
     }
 
     /** Pushes a max operation into the builder */
     public T max() {
-      return operation(BinaryOperator.MAX);
+      return operation(PostFixOperator.MAX);
+    }
+
+    /** Pushes a abs operation into the builder */
+    public T abs() {
+      return operation(PostFixOperator.ABS);
+    }
+
+    /** Pushes a swap operation into the builder */
+    public T swap() {
+      return operation(PostFixOperator.SWAP);
+    }
+
+    /** Pushes a duplicate operation into the builder */
+    public T duplicate() {
+      return operation(PostFixOperator.DUPLICATE);
     }
 
     /** Validates and builds the formula */

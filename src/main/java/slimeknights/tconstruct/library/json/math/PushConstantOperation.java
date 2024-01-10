@@ -18,7 +18,7 @@ record PushConstantOperation(float value) implements StackOperation {
 
   @Override
   public void toNetwork(FriendlyByteBuf buffer) {
-    buffer.writeVarInt(BinaryOperator.VALUE_INDEX);
+    buffer.writeVarInt(PostFixOperator.VALUE_INDEX);
     buffer.writeFloat(value);
   }
 }
