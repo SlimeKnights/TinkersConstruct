@@ -98,19 +98,22 @@ public sealed interface ModifierFormula permits PostFixFormula, SimpleLevelingFo
     }
 
     /** Switches this builder into formula building mode */
-    public FormulaBuilder formula() {
-      return new FormulaBuilder();
+    public FormulaBuilder<M> formula() {
+      return new FormulaBuilder<>(this);
     }
 
     /** Builder for the formula segment of this module */
-    public class FormulaBuilder extends PostFixFormula.Builder<FormulaBuilder> {
-      protected FormulaBuilder() {
-        super(variables);
+    public static class FormulaBuilder<M> extends PostFixFormula.Builder<FormulaBuilder<M>> {
+      private final Builder<?,M> parent;
+      // for some reason having this as a non-static class breaks the M generic, a static class fixes the issue even if its less "pretty"
+      protected FormulaBuilder(Builder<?,M> parent) {
+        super(parent.variableNames);
+        this.parent = parent;
       }
 
       /** Builds the module given the formula */
       public M build() {
-        return Builder.this.build(buildFormula());
+        return parent.build(buildFormula());
       }
     }
   }
