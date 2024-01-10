@@ -134,13 +134,8 @@ public record ConditionalStatModule(INumericToolStat<?> stat, IJsonPredicate<Liv
     private boolean percent = false;
 
     private Builder(INumericToolStat<?> stat) {
-      super(VARIABLES, BOOST);
+      super(VARIABLES);
       this.stat = stat;
-    }
-
-    @Override
-    protected FallbackFormula getFormula() {
-      return percent ? PERCENT : BOOST;
     }
 
     /** Sets this to a percent boost formula */

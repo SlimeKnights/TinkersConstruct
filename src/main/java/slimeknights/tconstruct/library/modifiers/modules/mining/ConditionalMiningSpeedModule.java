@@ -149,13 +149,8 @@ public record ConditionalMiningSpeedModule(IJsonPredicate<BlockState> block, IJs
     private boolean requireEffective = true;
 
     private Builder(IJsonPredicate<BlockState> blocks) {
-      super(VARIABLES, BOOST);
+      super(VARIABLES);
       this.blocks = blocks;
-    }
-
-    @Override
-    protected FallbackFormula getFormula() {
-      return percent ? PERCENT : BOOST;
     }
 
     /** Sets this to a percent boost formula */

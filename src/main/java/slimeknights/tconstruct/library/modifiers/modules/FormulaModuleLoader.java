@@ -53,7 +53,7 @@ public record FormulaModuleLoader<T extends FormulaModule & ModifierModule>(
   /** Builder for this module */
   public class Builder extends ModifierFormula.Builder<Builder,T> {
     private Builder() {
-      super(variables, fallbackFormula);
+      super(variables);
     }
 
     @Override

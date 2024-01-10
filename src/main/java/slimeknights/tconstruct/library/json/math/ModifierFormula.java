@@ -1,8 +1,6 @@
 package slimeknights.tconstruct.library.json.math;
 
 import com.google.gson.JsonObject;
-import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
 import slimeknights.tconstruct.library.json.LevelingValue;
@@ -41,7 +39,6 @@ public sealed interface ModifierFormula permits PostFixFormula, SimpleLevelingFo
    */
   static ModifierFormula deserialize(JsonObject json, String[] variableNames, FallbackFormula fallback) {
     if (json.has("formula")) {
-      // TODO: string formulas using Shunting yard algorithm
       return PostFixFormula.deserialize(json, variableNames);
     }
     LevelingValue leveling = LevelingValue.deserialize(json);
@@ -89,17 +86,15 @@ public sealed interface ModifierFormula permits PostFixFormula, SimpleLevelingFo
   @RequiredArgsConstructor
   abstract class Builder<T extends Builder<T,M>,M> extends ModifierModuleCondition.Builder<T> implements LevelingValue.Builder<M> {
     /** Variables to use for post fix formulas */
-    private final String[] variables;
-    /** Fallback formula for simple leveling */
-    @Getter(AccessLevel.PROTECTED)
-    private final FallbackFormula formula;
+    private final String[] variableNames;
 
     /** Builds the module given the formula */
     protected abstract M build(ModifierFormula formula);
 
     @Override
     public M amount(float flat, float leveling) {
-      return build(new SimpleLevelingFormula(new LevelingValue(flat, leveling), getFormula()));
+      // formula does not actually matter during datagen, so just pass in a dummy formula to save constructor arguments
+      return build(new SimpleLevelingFormula(new LevelingValue(flat, leveling), FallbackFormula.IDENTITY));
     }
 
     /** Switches this builder into formula building mode */

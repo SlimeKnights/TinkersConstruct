@@ -107,7 +107,7 @@ public record KnockbackModule(IJsonPredicate<LivingEntity> entity, ModifierFormu
     private IJsonPredicate<LivingEntity> entity = LivingEntityPredicate.ANY;
 
     private Builder() {
-      super(VARIABLES, FALLBACK_FORMULA);
+      super(VARIABLES);
     }
 
     @Override

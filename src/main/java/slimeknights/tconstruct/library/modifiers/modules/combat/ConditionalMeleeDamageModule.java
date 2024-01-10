@@ -153,13 +153,8 @@ public record ConditionalMeleeDamageModule(
     private boolean percent = false;
 
     private Builder(IJsonPredicate<LivingEntity> target) {
-      super(VARIABLES, BOOST);
+      super(VARIABLES);
       this.target = target;
-    }
-
-    @Override
-    protected FallbackFormula getFormula() {
-      return percent ? PERCENT : BOOST;
     }
 
     /** Sets this to a percent boost formula */
