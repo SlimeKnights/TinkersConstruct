@@ -11,7 +11,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolContext;
  * Tool predicate that matches by item
  */
 public record ItemToolPredicate(IJsonPredicate<Item> predicate) implements ToolContextPredicate {
-  public static final IGenericLoader<ItemToolPredicate> LOADER = new NestedLoader<>(ItemPredicate.LOADER, ItemToolPredicate::new, p -> p.predicate, "item_type");
+  public static final IGenericLoader<ItemToolPredicate> LOADER = new NestedLoader<>("item_type", ItemPredicate.LOADER, ItemToolPredicate::new, p -> p.predicate);
 
   @Override
   public boolean matches(IToolContext tool) {

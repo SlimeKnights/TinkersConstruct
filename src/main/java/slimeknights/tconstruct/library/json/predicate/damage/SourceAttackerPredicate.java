@@ -11,7 +11,7 @@ import slimeknights.tconstruct.library.json.serializer.NestedLoader;
  * Predicate that checks for properties of the attacker in a damage source
  */
 public record SourceAttackerPredicate(IJsonPredicate<LivingEntity> attacker) implements DamageSourcePredicate {
-  public static final IGenericLoader<SourceAttackerPredicate> LOADER = new NestedLoader<>(LivingEntityPredicate.LOADER, SourceAttackerPredicate::new, SourceAttackerPredicate::attacker, "entity_type");
+  public static final IGenericLoader<SourceAttackerPredicate> LOADER = new NestedLoader<>("entity_type", LivingEntityPredicate.LOADER, SourceAttackerPredicate::new, SourceAttackerPredicate::attacker);
 
   @Override
   public boolean matches(DamageSource source) {
