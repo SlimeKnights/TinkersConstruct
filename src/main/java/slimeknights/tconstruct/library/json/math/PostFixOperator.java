@@ -21,16 +21,16 @@ public enum PostFixOperator implements StackOperation {
     }
   },
   DIVIDE("/", (left, right) -> {
-    if (left == 0) {
-      return 0;
-    }
-    return right / left;
-  }),
-  DIVIDE_FLIPPED("!/", (left, right) -> {
     if (right == 0) {
       return 0;
     }
     return left / right;
+  }),
+  DIVIDE_FLIPPED("!/", (left, right) -> {
+    if (left == 0) {
+      return 0;
+    }
+    return right / left;
   }),
   POWER("^", (left, right) -> (float)Math.pow(left, right)),
   POWER_FLIPPED("!^", (left, right) -> (float)Math.pow(right, left)),
@@ -56,7 +56,7 @@ public enum PostFixOperator implements StackOperation {
       if (value < 0) {
         stack.popFloat();
         stack.push(0);
-      } else if (value > 0) {
+      } else if (value > 1) {
         stack.popFloat();
         stack.push(1);
       }

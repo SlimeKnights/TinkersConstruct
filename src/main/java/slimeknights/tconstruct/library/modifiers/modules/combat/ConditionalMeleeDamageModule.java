@@ -6,11 +6,14 @@ import lombok.experimental.Accessors;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.tconstruct.library.json.math.ModifierFormula;
-import slimeknights.tconstruct.library.json.math.ModifierFormula.FallbackFormula;
+import slimeknights.tconstruct.library.json.variable.VariableFormula;
+import slimeknights.tconstruct.library.json.variable.melee.MeleeFormula;
+import slimeknights.tconstruct.library.json.variable.melee.MeleeVariable;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
@@ -26,9 +29,6 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import javax.annotation.Nullable;
 import java.util.List;
 
-import static slimeknights.tconstruct.library.json.math.ModifierFormula.FallbackFormula.BOOST;
-import static slimeknights.tconstruct.library.json.math.ModifierFormula.FallbackFormula.PERCENT;
-
 /**
  * Implementation of attack damage conditioned on the attacker or target's properties
  * @param target     Target condition
@@ -39,12 +39,10 @@ import static slimeknights.tconstruct.library.json.math.ModifierFormula.Fallback
  */
 public record ConditionalMeleeDamageModule(
   IJsonPredicate<LivingEntity> target, IJsonPredicate<LivingEntity> attacker,
-  ModifierFormula formula, boolean percent,
+  MeleeFormula formula, boolean percent,
   ModifierModuleCondition condition
 ) implements MeleeDamageModifierHook, ConditionalStatTooltip, ModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.MELEE_DAMAGE, TinkerHooks.TOOLTIP);
-  /** Variables for the modifier formula */
-  private static final String[] VARIABLES = { "level", "damage", "multiplier", "base_damage" };
 
   @Nullable
   @Override
@@ -58,7 +56,7 @@ public record ConditionalMeleeDamageModule(
     if (condition.matches(tool, modifier) && attacker.matches(context.getAttacker())) {
       LivingEntity target = context.getLivingTarget();
       if (target != null && this.target.matches(target)) {
-        damage = formula.apply(formula.computeLevel(tool, modifier), damage, tool.getMultiplier(ToolStats.ATTACK_DAMAGE), baseDamage);
+        damage = formula.apply(tool, modifier, context, context.getAttacker(), baseDamage, damage);
       }
     }
     return damage;
@@ -75,8 +73,8 @@ public record ConditionalMeleeDamageModule(
   }
 
   @Override
-  public float computeTooltipValue(IToolStackView tool, ModifierEntry entry) {
-    return formula.apply(formula.computeLevel(tool, entry), 1, tool.getMultiplier(ToolStats.ATTACK_DAMAGE), 1);
+  public float computeTooltipValue(IToolStackView tool, ModifierEntry entry, @Nullable Player player) {
+    return formula.apply(tool, entry, null, player, 1, 1);
   }
 
   @Override
@@ -96,7 +94,7 @@ public record ConditionalMeleeDamageModule(
       return new ConditionalMeleeDamageModule(
         LivingEntityPredicate.LOADER.getAndDeserialize(json, "target"),
         LivingEntityPredicate.LOADER.getAndDeserialize(json, "attacker"),
-        ModifierFormula.deserialize(json, VARIABLES, percent ? PERCENT : BOOST), percent,
+        MeleeFormula.deserialize(json, percent), percent,
         ModifierModuleCondition.deserializeFrom(json)
       );
     }
@@ -106,7 +104,7 @@ public record ConditionalMeleeDamageModule(
       object.condition.serializeInto(json);
       json.add("target", LivingEntityPredicate.LOADER.serialize(object.target));
       json.addProperty("percent", object.percent);
-      object.formula.serialize(json, VARIABLES);
+      object.formula.serialize(json);
     }
 
     @Override
@@ -115,7 +113,7 @@ public record ConditionalMeleeDamageModule(
       return new ConditionalMeleeDamageModule(
         LivingEntityPredicate.LOADER.fromNetwork(buffer),
         LivingEntityPredicate.LOADER.fromNetwork(buffer),
-        ModifierFormula.fromNetwork(buffer, VARIABLES.length, percent ? PERCENT : BOOST), percent,
+        MeleeFormula.fromNetwork(buffer, percent), percent,
         ModifierModuleCondition.fromNetwork(buffer));
     }
 
@@ -139,7 +137,7 @@ public record ConditionalMeleeDamageModule(
 
   /** Builder class */
   @Accessors(fluent = true)
-  public static class Builder extends ModifierFormula.Builder<Builder,ConditionalMeleeDamageModule> {
+  public static class Builder extends VariableFormula.Builder<Builder,ConditionalMeleeDamageModule,MeleeVariable> {
     @Setter
     private IJsonPredicate<LivingEntity> target = LivingEntityPredicate.ANY;
     @Setter
@@ -147,7 +145,7 @@ public record ConditionalMeleeDamageModule(
     private boolean percent = false;
 
     private Builder() {
-      super(VARIABLES);
+      super(MeleeFormula.VARIABLES);
     }
 
     /** Sets this to a percent boost formula */
@@ -158,7 +156,7 @@ public record ConditionalMeleeDamageModule(
 
     @Override
     protected ConditionalMeleeDamageModule build(ModifierFormula formula) {
-      return new ConditionalMeleeDamageModule(target, attacker, formula, percent, condition);
+      return new ConditionalMeleeDamageModule(target, attacker, new MeleeFormula(formula, variables), percent, condition);
     }
   }
 }

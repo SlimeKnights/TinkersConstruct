@@ -18,24 +18,36 @@ import java.util.function.Function;
  * @param <N>  Nested object type
  */
 public record NestedLoader<T extends IHaveLoader<?>, N extends IHaveLoader<N>>(String typeKey, GenericLoaderRegistry<N> nestedLoader, Function<N, T> constructor, Function<T, N> getter) implements IGenericLoader<T> {
-  @Override
-  public T deserialize(JsonObject json) {
+  /** Moves the passed type key to "type" */
+  public static void mapType(JsonObject json, String typeKey) {
     // replace our type with the nested type, then run the nested loader
     json.addProperty("type", GsonHelper.getAsString(json, typeKey));
     json.remove(typeKey);
-    return constructor.apply(nestedLoader.deserialize(json));
   }
 
   @Override
-  public void serialize(T object, JsonObject json) {
-    JsonElement element = nestedLoader.serialize(getter.apply(object));
+  public T deserialize(JsonObject json) {
+    mapType(json, typeKey);
+    return constructor.apply(nestedLoader.deserialize(json));
+  }
+
+  /**
+   * Serializes the passed object into the passed JSON
+   * @param json      JSON target for serializing
+   * @param typeKey   Key to use for "type" in the serialized value
+   * @param loader    Loader for serializing the value
+   * @param value     Value to serialized
+   * @param <N>  Type of value
+   */
+  public static <N extends IHaveLoader<N>> void serializeInto(JsonObject json, String typeKey, GenericLoaderRegistry<N> loader, N value) {
+    JsonElement element = loader.serialize(value);
     // if its an object, copy all the data over
     if (element.isJsonObject()) {
       JsonObject nestedObject = element.getAsJsonObject();
       for (Entry<String, JsonElement> entry : nestedObject.entrySet()) {
         String key = entry.getKey();
         if ("type".equals(key)) {
-          key = this.typeKey;
+          key = typeKey;
         }
         json.add(key, entry.getValue());
       }
@@ -45,6 +57,11 @@ public record NestedLoader<T extends IHaveLoader<?>, N extends IHaveLoader<N>>(S
     } else {
       throw new JsonIOException("Unable to serialize nested object, expected string or object");
     }
+  }
+
+  @Override
+  public void serialize(T object, JsonObject json) {
+    serializeInto(json, typeKey, nestedLoader, getter.apply(object));
   }
 
   @Override

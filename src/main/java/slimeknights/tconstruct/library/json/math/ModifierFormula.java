@@ -93,7 +93,7 @@ public sealed interface ModifierFormula permits PostFixFormula, SimpleLevelingFo
   @RequiredArgsConstructor
   abstract class Builder<T extends Builder<T,M>,M> extends ModifierModuleCondition.Builder<T> implements LevelingValue.Builder<M> {
     /** Variables to use for post fix formulas */
-    private final String[] variableNames;
+    protected final String[] variableNames;
 
     /** Builds the module given the formula */
     protected abstract M build(ModifierFormula formula);
@@ -105,12 +105,12 @@ public sealed interface ModifierFormula permits PostFixFormula, SimpleLevelingFo
     }
 
     /** Switches this builder into formula building mode */
-    public FormulaBuilder<M> formula() {
+    public FormulaBuilder<?,M> formula() {
       return new FormulaBuilder<>(this);
     }
 
     /** Builder for the formula segment of this module */
-    public static class FormulaBuilder<M> extends PostFixFormula.Builder<FormulaBuilder<M>> {
+    public static class FormulaBuilder<P extends FormulaBuilder<P,M>,M> extends PostFixFormula.Builder<P> {
       private final Builder<?,M> parent;
       // for some reason having this as a non-static class breaks the M generic, a static class fixes the issue even if its less "pretty"
       protected FormulaBuilder(Builder<?,M> parent) {

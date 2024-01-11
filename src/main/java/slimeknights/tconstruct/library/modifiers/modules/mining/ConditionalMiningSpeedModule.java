@@ -7,6 +7,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
@@ -14,7 +15,10 @@ import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.block.BlockPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.tconstruct.library.json.math.ModifierFormula;
-import slimeknights.tconstruct.library.json.math.ModifierFormula.FallbackFormula;
+import slimeknights.tconstruct.library.json.predicate.block.TinkerBlockPredicate;
+import slimeknights.tconstruct.library.json.variable.VariableFormula;
+import slimeknights.tconstruct.library.json.variable.mining.MiningSpeedFormula;
+import slimeknights.tconstruct.library.json.variable.mining.MiningSpeedVariable;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
@@ -29,9 +33,6 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import javax.annotation.Nullable;
 import java.util.List;
 
-import static slimeknights.tconstruct.library.json.math.ModifierFormula.FallbackFormula.BOOST;
-import static slimeknights.tconstruct.library.json.math.ModifierFormula.FallbackFormula.PERCENT;
-
 /**
  * Implementation of attack damage conditioned on the attacker or target's properties
  * @param block      Blocks to boost speed
@@ -40,10 +41,11 @@ import static slimeknights.tconstruct.library.json.math.ModifierFormula.Fallback
  * @param percent    If true, formula acts as a percent (try to display as a percent)
  * @param condition  Standard modifier conditions
  */
-public record ConditionalMiningSpeedModule(IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder, boolean requireEffective, ModifierFormula formula, boolean percent, ModifierModuleCondition condition) implements BreakSpeedModifierHook, ConditionalStatTooltip, ModifierModule {
+public record ConditionalMiningSpeedModule(
+  IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder, boolean requireEffective,
+  MiningSpeedFormula formula, boolean percent, ModifierModuleCondition condition
+) implements BreakSpeedModifierHook, ConditionalStatTooltip, ModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.BREAK_SPEED, TinkerHooks.TOOLTIP);
-  /** Variables for the modifier formula */
-  private static final String[] VARIABLES = { "level", "speed", "multiplier", "original_speed" };
 
   @Nullable
   @Override
@@ -55,7 +57,7 @@ public record ConditionalMiningSpeedModule(IJsonPredicate<BlockState> block, IJs
   @Override
   public void onBreakSpeed(IToolStackView tool, ModifierEntry modifier, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
     if ((isEffective || !requireEffective) && condition.matches(tool, modifier) && block.matches(event.getState())) {
-      event.setNewSpeed(formula.apply(formula.computeLevel(tool, modifier), event.getNewSpeed(), tool.getMultiplier(ToolStats.MINING_SPEED) * miningSpeedModifier, event.getOriginalSpeed()));
+      event.setNewSpeed(formula.apply(tool, modifier, event, event.getPlayer(), sideHit, event.getOriginalSpeed(), event.getNewSpeed(), miningSpeedModifier));
     }
   }
 
@@ -65,8 +67,8 @@ public record ConditionalMiningSpeedModule(IJsonPredicate<BlockState> block, IJs
   }
 
   @Override
-  public float computeTooltipValue(IToolStackView tool, ModifierEntry entry) {
-    return formula.apply(formula.computeLevel(tool, entry), 1, tool.getMultiplier(ToolStats.MINING_SPEED), 1);
+  public float computeTooltipValue(IToolStackView tool, ModifierEntry entry, @Nullable Player player) {
+    return formula.apply(tool, entry, null, player, null, 1, 1, 1);
   }
 
   @Override
@@ -87,7 +89,7 @@ public record ConditionalMiningSpeedModule(IJsonPredicate<BlockState> block, IJs
         BlockPredicate.LOADER.getAndDeserialize(json, "blocks"),
         LivingEntityPredicate.LOADER.getAndDeserialize(json, "entity"),
         GsonHelper.getAsBoolean(json, "require_effective", true),
-        ModifierFormula.deserialize(json, VARIABLES, percent ? PERCENT : BOOST), percent,
+        MiningSpeedFormula.deserialize(json, percent), percent,
         ModifierModuleCondition.deserializeFrom(json)
       );
     }
@@ -99,7 +101,7 @@ public record ConditionalMiningSpeedModule(IJsonPredicate<BlockState> block, IJs
       json.add("entity", LivingEntityPredicate.LOADER.serialize(object.holder));
       json.addProperty("require_effective", object.requireEffective);
       json.addProperty("percent", object.percent);
-      object.formula.serialize(json, VARIABLES);
+      object.formula.serialize(json);
     }
 
     @Override
@@ -109,7 +111,7 @@ public record ConditionalMiningSpeedModule(IJsonPredicate<BlockState> block, IJs
         BlockPredicate.LOADER.fromNetwork(buffer),
         LivingEntityPredicate.LOADER.fromNetwork(buffer),
         buffer.readBoolean(),
-        ModifierFormula.fromNetwork(buffer, VARIABLES.length, percent ? PERCENT : BOOST), percent,
+        MiningSpeedFormula.fromNetwork(buffer, percent), percent,
         ModifierModuleCondition.fromNetwork(buffer)
       );
     }
@@ -135,7 +137,7 @@ public record ConditionalMiningSpeedModule(IJsonPredicate<BlockState> block, IJs
 
   /** Builder class */
   @Accessors(fluent = true)
-  public static class Builder extends ModifierFormula.Builder<Builder,ConditionalMiningSpeedModule> {
+  public static class Builder extends VariableFormula.Builder<Builder,ConditionalMiningSpeedModule,MiningSpeedVariable> {
     @Setter
     private IJsonPredicate<BlockState> blocks = TinkerBlockPredicate.ANY;
     @Setter
@@ -144,7 +146,7 @@ public record ConditionalMiningSpeedModule(IJsonPredicate<BlockState> block, IJs
     private boolean requireEffective = true;
 
     private Builder() {
-      super(VARIABLES);
+      super(MiningSpeedFormula.VARIABLES);
     }
 
     /** Sets this to a percent boost formula */
@@ -161,7 +163,7 @@ public record ConditionalMiningSpeedModule(IJsonPredicate<BlockState> block, IJs
 
     @Override
     protected ConditionalMiningSpeedModule build(ModifierFormula formula) {
-      return new ConditionalMiningSpeedModule(blocks, holder, requireEffective, formula, percent, condition);
+      return new ConditionalMiningSpeedModule(blocks, holder, requireEffective, new MiningSpeedFormula(formula, variables), percent, condition);
     }
   }
 }

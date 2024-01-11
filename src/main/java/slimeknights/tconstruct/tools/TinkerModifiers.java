@@ -31,6 +31,22 @@ import slimeknights.tconstruct.library.json.predicate.modifier.ModifierPredicate
 import slimeknights.tconstruct.library.json.predicate.modifier.SingleModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.modifier.SlotTypeModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.modifier.TagModifierPredicate;
+import slimeknights.tconstruct.library.json.variable.block.BlockVariable;
+import slimeknights.tconstruct.library.json.variable.block.ConditionalBlockVariable;
+import slimeknights.tconstruct.library.json.variable.entity.ConditionalEntityVariable;
+import slimeknights.tconstruct.library.json.variable.entity.EntityVariable;
+import slimeknights.tconstruct.library.json.variable.melee.EntityMeleeVariable;
+import slimeknights.tconstruct.library.json.variable.melee.MeleeVariable;
+import slimeknights.tconstruct.library.json.variable.melee.ToolMeleeVariable;
+import slimeknights.tconstruct.library.json.variable.mining.BlockMiningSpeedVariable;
+import slimeknights.tconstruct.library.json.variable.mining.EntityMiningSpeedVariable;
+import slimeknights.tconstruct.library.json.variable.mining.MiningSpeedVariable;
+import slimeknights.tconstruct.library.json.variable.mining.ToolMiningSpeedVariable;
+import slimeknights.tconstruct.library.json.variable.stat.ConditionalStatVariable;
+import slimeknights.tconstruct.library.json.variable.stat.EntityConditionalStatVariable;
+import slimeknights.tconstruct.library.json.variable.stat.ToolConditionalStatVariable;
+import slimeknights.tconstruct.library.json.variable.tool.ConditionalToolVariable;
+import slimeknights.tconstruct.library.json.variable.tool.ToolVariable;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.modifiers.dynamic.ComposableModifier;
@@ -693,6 +709,31 @@ public final class TinkerModifiers extends TinkerModule {
     ModifierPredicate.LOADER.register(getResource("single"), SingleModifierPredicate.LOADER);
     ModifierPredicate.LOADER.register(getResource("tag"), TagModifierPredicate.LOADER);
     ModifierPredicate.LOADER.register(getResource("slot_type"), SlotTypeModifierPredicate.LOADER);
+
+
+    // variables
+    // block
+    BlockVariable.LOADER.register(getResource("constant"), BlockVariable.Constant.LOADER);
+    BlockVariable.LOADER.register(getResource("conditional"), ConditionalBlockVariable.LOADER);
+    // entity
+    EntityVariable.LOADER.register(getResource("constant"), EntityVariable.Constant.LOADER);
+    EntityVariable.LOADER.register(getResource("conditional"), ConditionalEntityVariable.LOADER);
+    // tool
+    ToolVariable.LOADER.register(getResource("constant"), ToolVariable.Constant.LOADER);
+    ToolVariable.LOADER.register(getResource("conditional"), ConditionalToolVariable.LOADER);
+    // stat
+    ConditionalStatVariable.LOADER.register(getResource("constant"), ConditionalStatVariable.Constant.LOADER);
+    ConditionalStatVariable.LOADER.register(getResource("entity"), EntityConditionalStatVariable.LOADER);
+    ConditionalStatVariable.LOADER.register(getResource("tool"), ToolConditionalStatVariable.LOADER);
+    // melee
+    MeleeVariable.LOADER.register(getResource("constant"), MeleeVariable.Constant.LOADER);
+    MeleeVariable.LOADER.register(getResource("entity"), EntityMeleeVariable.LOADER);
+    MeleeVariable.LOADER.register(getResource("tool"), ToolMeleeVariable.LOADER);
+    // mining speed
+    MiningSpeedVariable.LOADER.register(getResource("constant"), MiningSpeedVariable.Constant.LOADER);
+    MiningSpeedVariable.LOADER.register(getResource("block"), BlockMiningSpeedVariable.LOADER);
+    MiningSpeedVariable.LOADER.register(getResource("entity"), EntityMiningSpeedVariable.LOADER);
+    MiningSpeedVariable.LOADER.register(getResource("tool"), ToolMiningSpeedVariable.LOADER);
   }
 
   @SubscribeEvent

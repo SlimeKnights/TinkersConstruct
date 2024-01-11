@@ -29,7 +29,7 @@ public interface ConditionalStatTooltip extends TooltipModifierHook {
   boolean percent();
 
   /** Computes the value to display in the tooltip */
-  float computeTooltipValue(IToolStackView tool, ModifierEntry entry);
+  float computeTooltipValue(IToolStackView tool, ModifierEntry entry, @Nullable Player player);
 
   @Override
   default void addTooltip(IToolStackView tool, ModifierEntry entry, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
@@ -42,7 +42,8 @@ public interface ConditionalStatTooltip extends TooltipModifierHook {
       Modifier modifier = entry.getModifier();
       Component statName = TooltipModifierHook.statName(modifier, stat);
       // subtracting 1 will cancel out the base value or the 100%, based on the type
-      float value = computeTooltipValue(tool, entry) - 1;
+      // null player on shift to be able to show the "max value", up to the formula to set proper fallbacks to ensure that happens
+      float value = computeTooltipValue(tool, entry, tooltipKey == TooltipKey.SHIFT ? null : player) - 1;
       if (value != 0) {
         if (percent()) {
           TooltipModifierHook.addPercentBoost(modifier, statName, value, tooltip);

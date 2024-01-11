@@ -170,7 +170,7 @@ public class Util {
   /** Quick helper to search an array for a given value by reference equality, designed mainly for enums. */
   public static <T> boolean isInList(T[] slots, T predicate) {
     for (T slot : slots) {
-      if (slot == predicate) {
+      if (predicate.equals(slot)) {
         return true;
       }
     }
