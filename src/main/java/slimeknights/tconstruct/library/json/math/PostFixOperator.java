@@ -5,13 +5,14 @@ import com.google.gson.JsonSyntaxException;
 import it.unimi.dsi.fastutil.floats.FloatStack;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.Mth;
 
 /** Represents 2 argument stack operations */
 @RequiredArgsConstructor
 public enum PostFixOperator implements StackOperation {
   ADD("+", Float::sum),
   SUBTRACT("-", (left, right) -> left - right),
-  SUBTRACT_FLIPPED("--", (left, right) -> right - left),
+  SUBTRACT_FLIPPED("!-", (left, right) -> right - left),
   MULTIPLY("*", (left, right) -> left * right),
   NEGATE("negate") {
     @Override
@@ -25,20 +26,62 @@ public enum PostFixOperator implements StackOperation {
     }
     return right / left;
   }),
-  DIVIDE_FLIPPED("//", (left, right) -> {
+  DIVIDE_FLIPPED("!/", (left, right) -> {
     if (right == 0) {
       return 0;
     }
     return left / right;
   }),
   POWER("^", (left, right) -> (float)Math.pow(left, right)),
-  POWER_FLIPPED("^^", (left, right) -> (float)Math.pow(right, left)),
+  POWER_FLIPPED("!^", (left, right) -> (float)Math.pow(right, left)),
   MIN("min", Math::min),
   MAX("max", Math::max),
+  /** Makes the top value on the stack 0 if its negative */
+  NON_NEGATIVE("non-negative") {
+    @Override
+    public void perform(FloatStack stack, float[] variables) {
+      float value = stack.topFloat();
+      if (value < 0) {
+        stack.popFloat();
+        stack.push(0);
+      }
+    }
+  },
+  /** Clamps the value between 0 and 1 */
+  PERCENT_CLAMP("percent_clamp") {
+    @Override
+    public void perform(FloatStack stack, float[] variables) {
+      // could do a 1 liner, but not pushing/popping when unchanged seems more efficient
+      float value = stack.topFloat();
+      if (value < 0) {
+        stack.popFloat();
+        stack.push(0);
+      } else if (value > 0) {
+        stack.popFloat();
+        stack.push(1);
+      }
+    }
+  },
   ABS("abs") {
     @Override
     public void perform(FloatStack stack, float[] variables) {
-      stack.push(Math.abs(stack.popFloat()));
+      float value = stack.topFloat();
+      if (value < 0) {
+        stack.popFloat();
+        stack.push(-value);
+      }
+    }
+  },
+  FLOOR("floor") {
+    @Override
+    public void perform(FloatStack stack, float[] variables) {
+      stack.push(Mth.floor(stack.popFloat()));
+    }
+  },
+  CEIL("ceil") {
+    @Override
+    public void perform(FloatStack stack, float[] variables) {
+      stack.push(Mth.ceil(stack.popFloat()));
     }
   },
   /** Swaps the top two elements */
@@ -55,9 +98,7 @@ public enum PostFixOperator implements StackOperation {
   DUPLICATE("duplicate") {
     @Override
     public void perform(FloatStack stack, float[] variables) {
-      float value = stack.popFloat();
-      stack.push(value);
-      stack.push(value);
+      stack.push(stack.topFloat());
     }
   };
 

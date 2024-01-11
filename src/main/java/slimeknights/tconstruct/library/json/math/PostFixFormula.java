@@ -180,9 +180,29 @@ public record PostFixFormula(List<StackOperation> operations, int numArguments) 
       return operation(PostFixOperator.MAX);
     }
 
+    /** Pushes a percent clamp operation into the builder */
+    public T nonNegative() {
+      return operation(PostFixOperator.NON_NEGATIVE);
+    }
+
+    /** Pushes a percent clamp operation into the builder */
+    public T percentClamp() {
+      return operation(PostFixOperator.PERCENT_CLAMP);
+    }
+
     /** Pushes a abs operation into the builder */
     public T abs() {
       return operation(PostFixOperator.ABS);
+    }
+
+    /** Pushes a floor operation into the builder */
+    public T floor() {
+      return operation(PostFixOperator.FLOOR);
+    }
+
+    /** Pushes a ceil operation into the builder */
+    public T ceil() {
+      return operation(PostFixOperator.CEIL);
     }
 
     /** Pushes a swap operation into the builder */
