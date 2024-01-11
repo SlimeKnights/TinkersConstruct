@@ -223,15 +223,15 @@ public class ModifierProvider extends AbstractModifierProvider {
     UniqueForLevels uniqueForFive = new UniqueForLevels(5);
     buildModifier(ModifierIds.sharpness).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(StatBoostModule.add(ToolStats.ATTACK_DAMAGE).eachLevel(0.75f)).levelDisplay(uniqueForFive);
     buildModifier(ModifierIds.swiftstrike).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(StatBoostModule.multiplyBase(ToolStats.ATTACK_SPEED).eachLevel(0.05f)).levelDisplay(uniqueForFive);
-    buildModifier(ModifierIds.smite).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ConditionalMeleeDamageModule.target(new MobTypePredicate(MobType.UNDEAD)).eachLevel(2.0f));
-    buildModifier(ModifierIds.antiaquatic).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ConditionalMeleeDamageModule.target(new MobTypePredicate(MobType.WATER)).eachLevel(2.0f));
-    buildModifier(ModifierIds.cooling).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ConditionalMeleeDamageModule.target(LivingEntityPredicate.FIRE_IMMUNE).eachLevel(1.6f));
+    buildModifier(ModifierIds.smite).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ConditionalMeleeDamageModule.builder().target(new MobTypePredicate(MobType.UNDEAD)).eachLevel(2.0f));
+    buildModifier(ModifierIds.antiaquatic).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ConditionalMeleeDamageModule.builder().target(new MobTypePredicate(MobType.WATER)).eachLevel(2.0f));
+    buildModifier(ModifierIds.cooling).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ConditionalMeleeDamageModule.builder().target(LivingEntityPredicate.FIRE_IMMUNE).eachLevel(1.6f));
     IJsonPredicate<LivingEntity> baneSssssPredicate = LivingEntityPredicate.OR.create(new MobTypePredicate(MobType.ARTHROPOD), new TagEntityPredicate(TinkerTags.EntityTypes.CREEPERS));
     buildModifier(ModifierIds.baneOfSssss)
       .addModule(IncrementalModule.RECIPE_CONTROLLED)
-      .addModule(ConditionalMeleeDamageModule.target(baneSssssPredicate).eachLevel(2.0f))
+      .addModule(ConditionalMeleeDamageModule.builder().target(baneSssssPredicate).eachLevel(2.0f))
       .addModule(MobEffectModule.builder(MobEffects.MOVEMENT_SLOWDOWN).level(RandomLevelingValue.flat(4)).time(RandomLevelingValue.random(20, 10)).target(baneSssssPredicate).build(), TinkerHooks.MELEE_HIT);
-    buildModifier(ModifierIds.killager).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ConditionalMeleeDamageModule.target(LivingEntityPredicate.OR.create(
+    buildModifier(ModifierIds.killager).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ConditionalMeleeDamageModule.builder().target(LivingEntityPredicate.OR.create(
       new MobTypePredicate(MobType.ILLAGER),
       new TagEntityPredicate(TinkerTags.EntityTypes.VILLAGERS))).eachLevel(2.0f));
     addRedirect(id("fractured"), redirect(ModifierIds.sharpness));
@@ -323,10 +323,10 @@ public class ModifierProvider extends AbstractModifierProvider {
                                        .addModule(StatBoostModule.multiplyAll(ToolStats.PROJECTILE_DAMAGE).eachLevel(-0.1f));
     // traits - tier 2
     buildModifier(ModifierIds.sturdy).addModule(StatBoostModule.multiplyBase(ToolStats.DURABILITY).eachLevel(0.15f));
-    buildModifier(ModifierIds.scorching).addModule(ConditionalMeleeDamageModule.target(LivingEntityPredicate.ON_FIRE).eachLevel(2f));
+    buildModifier(ModifierIds.scorching).addModule(ConditionalMeleeDamageModule.builder().target(LivingEntityPredicate.ON_FIRE).eachLevel(2f));
     buildModifier(ModifierIds.airborne)
       // 400% boost means 5x mining speed
-      .addModule(ConditionalMiningSpeedModule.blocks(TinkerBlockPredicate.ANY).holder(TinkerLivingEntityPredicate.ON_GROUND.inverted()).percent().allowIneffective().flat(4), TinkerHooks.BREAK_SPEED)
+      .addModule(ConditionalMiningSpeedModule.builder().holder(TinkerLivingEntityPredicate.ON_GROUND.inverted()).percent().allowIneffective().flat(4), TinkerHooks.BREAK_SPEED)
       // accuracy gets a 0.5 boost under the stricter version of in air (no boost just for being on a ladder)
       .addModule(ConditionalStatModule.stat(ToolStats.ACCURACY).holder(TinkerLivingEntityPredicate.AIRBORNE).flat(0.5f));
     // traits - tier 2 compat
@@ -363,7 +363,7 @@ public class ModifierProvider extends AbstractModifierProvider {
         .subtract().build());
 
     // traits - tier 3
-    buildModifier(ModifierIds.crumbling).addModule(ConditionalMiningSpeedModule.blocks(BlockPredicate.REQUIRES_TOOL.inverted()).allowIneffective().eachLevel(0.5f));
+    buildModifier(ModifierIds.crumbling).addModule(ConditionalMiningSpeedModule.builder().blocks(BlockPredicate.REQUIRES_TOOL.inverted()).allowIneffective().eachLevel(0.5f));
     buildModifier(ModifierIds.enhanced).priority(60).addModule(UPGRADE);
     addRedirect(id("maintained_2"), redirect(TinkerModifiers.maintained.getId()));
     // traits - tier 3 nether

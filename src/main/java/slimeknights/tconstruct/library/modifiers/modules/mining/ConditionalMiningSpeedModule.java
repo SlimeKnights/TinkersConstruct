@@ -129,22 +129,22 @@ public record ConditionalMiningSpeedModule(IJsonPredicate<BlockState> block, IJs
   /* Builder */
 
   /** Creates a builder instance */
-  public static Builder blocks(IJsonPredicate<BlockState> blocks) {
-    return new Builder(blocks);
+  public static Builder builder() {
+    return new Builder();
   }
 
   /** Builder class */
+  @Accessors(fluent = true)
   public static class Builder extends ModifierFormula.Builder<Builder,ConditionalMiningSpeedModule> {
-    private final IJsonPredicate<BlockState> blocks;
     @Setter
-    @Accessors(fluent = true)
+    private IJsonPredicate<BlockState> blocks = TinkerBlockPredicate.ANY;
+    @Setter
     private IJsonPredicate<LivingEntity> holder = LivingEntityPredicate.ANY;
     private boolean percent = false;
     private boolean requireEffective = true;
 
-    private Builder(IJsonPredicate<BlockState> blocks) {
+    private Builder() {
       super(VARIABLES);
-      this.blocks = blocks;
     }
 
     /** Sets this to a percent boost formula */

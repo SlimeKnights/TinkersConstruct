@@ -133,21 +133,21 @@ public record ConditionalMeleeDamageModule(
   /* Builder */
 
   /** Creates a builder instance */
-  public static Builder target(IJsonPredicate<LivingEntity> target) {
-    return new Builder(target);
+  public static Builder builder() {
+    return new Builder();
   }
 
   /** Builder class */
+  @Accessors(fluent = true)
   public static class Builder extends ModifierFormula.Builder<Builder,ConditionalMeleeDamageModule> {
-    private final IJsonPredicate<LivingEntity> target;
     @Setter
-    @Accessors(fluent = true)
+    private IJsonPredicate<LivingEntity> target = LivingEntityPredicate.ANY;
+    @Setter
     private IJsonPredicate<LivingEntity> attacker = LivingEntityPredicate.ANY;
     private boolean percent = false;
 
-    private Builder(IJsonPredicate<LivingEntity> target) {
+    private Builder() {
       super(VARIABLES);
-      this.target = target;
     }
 
     /** Sets this to a percent boost formula */
