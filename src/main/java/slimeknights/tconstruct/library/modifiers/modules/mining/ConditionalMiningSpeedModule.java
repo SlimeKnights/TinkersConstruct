@@ -44,12 +44,6 @@ public record ConditionalMiningSpeedModule(IJsonPredicate<BlockState> block, IJs
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.BREAK_SPEED, TinkerHooks.TOOLTIP);
   /** Variables for the modifier formula */
   private static final String[] VARIABLES = { "level", "speed", "multiplier", "original_speed" };
-  /** Speed after modifiers ran */
-  public static final int NEW_SPEED = 1;
-  /** Mining speed multiplier */
-  public static final int MULTIPLIER = 2;
-  /** Speed before event listeners ran */
-  public static final int ORIGINAL_SPEED = 3;
 
   @Nullable
   @Override

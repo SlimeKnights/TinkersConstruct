@@ -83,8 +83,9 @@ import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
 
 import static slimeknights.tconstruct.common.TinkerTags.Items.ARMOR;
 import static slimeknights.tconstruct.library.json.math.ModifierFormula.LEVEL;
+import static slimeknights.tconstruct.library.json.math.ModifierFormula.MULTIPLIER;
+import static slimeknights.tconstruct.library.json.math.ModifierFormula.VALUE;
 import static slimeknights.tconstruct.library.modifiers.modules.behavior.RepairModule.FACTOR;
-import static slimeknights.tconstruct.library.modifiers.modules.combat.KnockbackModule.KNOCKBACK;
 
 public class ModifierProvider extends AbstractModifierProvider {
   public ModifierProvider(DataGenerator generator) {
@@ -209,7 +210,7 @@ public class ModifierProvider extends AbstractModifierProvider {
     buildModifier(TinkerModifiers.padded)
       .priority(75) // run after knockback
       .addModule(KnockbackModule.builder().formula()
-        .variable(KNOCKBACK)
+        .variable(VALUE)
         .constant(2).variable(LEVEL).power() // 2^LEVEL
         .divide().build()); // KNOCKBACK / 2^LEVEL
     buildModifier(ModifierIds.sticky)

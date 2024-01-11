@@ -30,8 +30,6 @@ public record KnockbackModule(IJsonPredicate<LivingEntity> entity, ModifierFormu
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.MELEE_HIT);
   /** Variables for the modifier formula */
   private static final String[] VARIABLES = { "level", "knockback" };
-  /** Variable name for the knockback argument in this module */
-  public static final int KNOCKBACK = 1;
   /** Fallback for the modifier formula */
   private static final FallbackFormula FALLBACK_FORMULA = FallbackFormula.ADD;
 

@@ -12,8 +12,15 @@ import slimeknights.tconstruct.library.tools.nbt.IToolContext;
  * Represents a modifier formula that may be either simple or complex.
  */
 public sealed interface ModifierFormula permits PostFixFormula, SimpleLevelingFormula {
+  // common variable indexes, not required to use but make things easier
   /** Variable index for the modifier level for the sake of the builder */
   int LEVEL = 0;
+  /** Variable index for the original value the formula is computing */
+  int VALUE = 1;
+  /** Variable index for the common multiplier for this stat */
+  int MULTIPLIER = 2;
+  /** Variable index for the base value before modifiers changed anything */
+  int BASE_VALUE = 3;
 
   /** Computes the level value for this formula, allows some optimizations to not compute level when not needed */
   float computeLevel(IToolContext tool, ModifierEntry modifier);
@@ -67,11 +74,11 @@ public sealed interface ModifierFormula permits PostFixFormula, SimpleLevelingFo
     /** Formula that just returns the leveling value directly */
     FallbackFormula IDENTITY = arguments -> arguments[LEVEL];
     /** Formula adding the leveling value to the second argument, requires 1 additional argument */
-    FallbackFormula ADD = arguments -> arguments[LEVEL] + arguments[1];
+    FallbackFormula ADD = arguments -> arguments[LEVEL] + arguments[VALUE];
     /** Formula for standard percent boosts, requires 1 additional argument */
-    FallbackFormula PERCENT = arguments -> arguments[1] * (1 + arguments[LEVEL]);
+    FallbackFormula PERCENT = arguments -> arguments[VALUE] * (1 + arguments[LEVEL]);
     /** Formula for standard boosts, requires argument 1 to be the base value and argument 2 to be the multiplier */
-    FallbackFormula BOOST = arguments -> arguments[1] + arguments[LEVEL] * arguments[2];
+    FallbackFormula BOOST = arguments -> arguments[VALUE] + arguments[LEVEL] * arguments[MULTIPLIER];
 
     /**
      * Runs this formula

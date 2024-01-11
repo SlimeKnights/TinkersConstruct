@@ -45,13 +45,6 @@ public record ConditionalMeleeDamageModule(
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.MELEE_DAMAGE, TinkerHooks.TOOLTIP);
   /** Variables for the modifier formula */
   private static final String[] VARIABLES = { "level", "damage", "multiplier", "base_damage" };
-  // variables for the formula
-  /** Damage from the previous conditional modifier */
-  public static final int DAMAGE = 1;
-  /** Damage multiplier from the tool */
-  public static final int MULTIPLIER = 2;
-  /** Damage before any conditional modifiers ran */
-  public static final int BASE_DAMAGE = 3;
 
   @Nullable
   @Override
