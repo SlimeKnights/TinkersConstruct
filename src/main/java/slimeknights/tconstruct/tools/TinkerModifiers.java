@@ -33,11 +33,13 @@ import slimeknights.tconstruct.library.json.predicate.modifier.SlotTypeModifierP
 import slimeknights.tconstruct.library.json.predicate.modifier.TagModifierPredicate;
 import slimeknights.tconstruct.library.json.variable.block.BlockVariable;
 import slimeknights.tconstruct.library.json.variable.block.ConditionalBlockVariable;
+import slimeknights.tconstruct.library.json.variable.entity.AttributeEntityVariable;
 import slimeknights.tconstruct.library.json.variable.entity.ConditionalEntityVariable;
 import slimeknights.tconstruct.library.json.variable.entity.EntityVariable;
 import slimeknights.tconstruct.library.json.variable.melee.EntityMeleeVariable;
 import slimeknights.tconstruct.library.json.variable.melee.MeleeVariable;
 import slimeknights.tconstruct.library.json.variable.melee.ToolMeleeVariable;
+import slimeknights.tconstruct.library.json.variable.mining.BlockLightVariable;
 import slimeknights.tconstruct.library.json.variable.mining.BlockMiningSpeedVariable;
 import slimeknights.tconstruct.library.json.variable.mining.EntityMiningSpeedVariable;
 import slimeknights.tconstruct.library.json.variable.mining.MiningSpeedVariable;
@@ -46,6 +48,7 @@ import slimeknights.tconstruct.library.json.variable.stat.ConditionalStatVariabl
 import slimeknights.tconstruct.library.json.variable.stat.EntityConditionalStatVariable;
 import slimeknights.tconstruct.library.json.variable.stat.ToolConditionalStatVariable;
 import slimeknights.tconstruct.library.json.variable.tool.ConditionalToolVariable;
+import slimeknights.tconstruct.library.json.variable.tool.ToolStatVariable;
 import slimeknights.tconstruct.library.json.variable.tool.ToolVariable;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
@@ -209,7 +212,6 @@ import slimeknights.tconstruct.tools.modifiers.traits.general.StoneshieldModifie
 import slimeknights.tconstruct.tools.modifiers.traits.general.TannedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.TastyModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.DwarvenModifier;
-import slimeknights.tconstruct.tools.modifiers.traits.harvest.MaintainedModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.MomentumModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.SearingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.harvest.TemperateModifier;
@@ -220,7 +222,6 @@ import slimeknights.tconstruct.tools.modifiers.traits.melee.InsatibleModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.InvariantModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.LaceratingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.melee.NecroticModifier;
-import slimeknights.tconstruct.tools.modifiers.traits.melee.RagingModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.ranged.CrystalboundModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.ranged.HolyModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.ranged.OlympicModifier;
@@ -253,9 +254,6 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.general.OffhandedModifie
 import slimeknights.tconstruct.tools.modifiers.upgrades.general.OverforcedModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.general.SoulboundModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.general.TOPModifier;
-import slimeknights.tconstruct.tools.modifiers.upgrades.harvest.BlastingModifier;
-import slimeknights.tconstruct.tools.modifiers.upgrades.harvest.HydraulicModifier;
-import slimeknights.tconstruct.tools.modifiers.upgrades.harvest.LightspeedModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.FieryModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.PiercingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.SeveringModifier;
@@ -345,9 +343,15 @@ public final class TinkerModifiers extends TinkerModule {
 
   // harvest
   public static final StaticModifier<HasteModifier> haste = MODIFIERS.register("haste", HasteModifier::new);
-  public static final StaticModifier<BlastingModifier> blasting = MODIFIERS.register("blasting", BlastingModifier::new);
-  public static final StaticModifier<HydraulicModifier> hydraulic = MODIFIERS.register("hydraulic", HydraulicModifier::new);
-  public static final StaticModifier<LightspeedModifier> lightspeed = MODIFIERS.register("lightspeed", LightspeedModifier::new);
+  /** @deprecated use {@link ModifierIds#blasting} */
+  @Deprecated
+  public static final DynamicModifier<Modifier> blasting = MODIFIERS.registerDynamic("blasting");
+  /** @deprecated use {@link ModifierIds#hydraulic} */
+  @Deprecated
+  public static final DynamicModifier<Modifier> hydraulic = MODIFIERS.registerDynamic("hydraulic");
+  /** @deprecated use {@link ModifierIds#lightspeed} */
+  @Deprecated
+  public static final DynamicModifier<Modifier> lightspeed = MODIFIERS.registerDynamic("lightspeed");
 
   // weapon
   public static final DynamicModifier<Modifier> knockback = MODIFIERS.registerDynamic("knockback");
@@ -506,7 +510,9 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<SearingModifier> searing = MODIFIERS.register("searing", SearingModifier::new);
   public static final StaticModifier<DwarvenModifier> dwarven = MODIFIERS.register("dwarven", DwarvenModifier::new);
   public static final StaticModifier<OvergrowthModifier> overgrowth = MODIFIERS.register("overgrowth", OvergrowthModifier::new);
-  public static final StaticModifier<RagingModifier> raging = MODIFIERS.register("raging", RagingModifier::new);
+  /** @deprecated use {@link ModifierIds#raging} */
+  @Deprecated
+  public static final DynamicModifier<Modifier> raging = MODIFIERS.registerDynamic("raging");
   /** @deprecated use {@link ModifierIds#airborne} */
   @Deprecated
   public static final DynamicModifier<Modifier> airborne = MODIFIERS.registerDynamic("airborne");
@@ -531,7 +537,9 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<HolyModifier> holy = MODIFIERS.register("holy", HolyModifier::new);
   public static final StaticModifier<OlympicModifier> olympic = MODIFIERS.register("olympic", OlympicModifier::new);
   // traits - mod compat tier 3
-  public static final StaticModifier<MaintainedModifier> maintained = MODIFIERS.register("maintained", MaintainedModifier::new);
+  /** @deprecated use {@link ModifierIds#maintained} */
+  @Deprecated
+  public static final DynamicModifier<Modifier> maintained = MODIFIERS.registerDynamic("maintained");
   public static final StaticModifier<TemperateModifier> temperate = MODIFIERS.register("temperate", TemperateModifier::new);
   public static final StaticModifier<InvariantModifier> invariant = MODIFIERS.register("invariant", InvariantModifier::new);
   public static final StaticModifier<DecayModifier> decay = MODIFIERS.register("decay", DecayModifier::new);
@@ -715,12 +723,17 @@ public final class TinkerModifiers extends TinkerModule {
     // block
     BlockVariable.LOADER.register(getResource("constant"), BlockVariable.Constant.LOADER);
     BlockVariable.LOADER.register(getResource("conditional"), ConditionalBlockVariable.LOADER);
+    BlockVariable.LOADER.register(getResource("blast_resistance"), BlockVariable.BLAST_RESISTANCE.getLoader());
     // entity
     EntityVariable.LOADER.register(getResource("constant"), EntityVariable.Constant.LOADER);
     EntityVariable.LOADER.register(getResource("conditional"), ConditionalEntityVariable.LOADER);
+    EntityVariable.LOADER.register(getResource("health"), EntityVariable.HEALTH.getLoader());
+    EntityVariable.LOADER.register(getResource("attribute"), AttributeEntityVariable.LOADER);
     // tool
     ToolVariable.LOADER.register(getResource("constant"), ToolVariable.Constant.LOADER);
     ToolVariable.LOADER.register(getResource("conditional"), ConditionalToolVariable.LOADER);
+    ToolVariable.LOADER.register(getResource("current_durability"), ToolVariable.CURRENT_DURABILITY.getLoader());
+    ToolVariable.LOADER.register(getResource("stat"), ToolStatVariable.LOADER);
     // stat
     ConditionalStatVariable.LOADER.register(getResource("constant"), ConditionalStatVariable.Constant.LOADER);
     ConditionalStatVariable.LOADER.register(getResource("entity"), EntityConditionalStatVariable.LOADER);
@@ -734,6 +747,7 @@ public final class TinkerModifiers extends TinkerModule {
     MiningSpeedVariable.LOADER.register(getResource("block"), BlockMiningSpeedVariable.LOADER);
     MiningSpeedVariable.LOADER.register(getResource("entity"), EntityMiningSpeedVariable.LOADER);
     MiningSpeedVariable.LOADER.register(getResource("tool"), ToolMiningSpeedVariable.LOADER);
+    MiningSpeedVariable.LOADER.register(getResource("block_light"), BlockLightVariable.LOADER);
   }
 
   @SubscribeEvent

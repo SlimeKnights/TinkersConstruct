@@ -48,6 +48,7 @@ import slimeknights.tconstruct.library.json.predicate.block.TinkerBlockPredicate
 import slimeknights.tconstruct.library.json.predicate.damage.DamageSourcePredicate;
 import slimeknights.tconstruct.library.json.predicate.damage.SourceAttackerPredicate;
 import slimeknights.tconstruct.library.json.predicate.damage.SourceMessagePredicate;
+import slimeknights.tconstruct.library.json.predicate.entity.HasEnchantmentEntityPredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.LivingEntityPredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.MobTypePredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.TagEntityPredicate;
@@ -199,6 +200,8 @@ public final class TinkerCommons extends TinkerModule {
     slimeknights.mantle.data.predicate.entity.LivingEntityPredicate.LOADER.register(getResource("crouching"), TinkerLivingEntityPredicate.CROUCHING.getLoader());
     slimeknights.mantle.data.predicate.entity.LivingEntityPredicate.LOADER.register(getResource("eyes_in_water"), TinkerLivingEntityPredicate.EYES_IN_WATER.getLoader());
     slimeknights.mantle.data.predicate.entity.LivingEntityPredicate.LOADER.register(getResource("feet_in_water"), TinkerLivingEntityPredicate.FEET_IN_WATER.getLoader());
+    slimeknights.mantle.data.predicate.entity.LivingEntityPredicate.LOADER.register(getResource("raining_at"), TinkerLivingEntityPredicate.RAINING.getLoader());
+    slimeknights.mantle.data.predicate.entity.LivingEntityPredicate.LOADER.register(getResource("has_enchantment"), HasEnchantmentEntityPredicate.LOADER);
     // register mob types
     MobTypePredicate.MOB_TYPES.register(new ResourceLocation("undefined"), MobType.UNDEFINED);
     MobTypePredicate.MOB_TYPES.register(new ResourceLocation("undead"), MobType.UNDEAD);

@@ -30,6 +30,11 @@ public class ModifierIds {
   // general abilities
   public static final ModifierId reach = id("reach");
 
+  // harvest
+  public static final ModifierId blasting = id("blasting");
+  public static final ModifierId hydraulic = id("hydraulic");
+  public static final ModifierId lightspeed = id("lightspeed");
+
   // loot
   public static final ModifierId luck    = id("luck");
   public static final ModifierId looting = id("looting");
@@ -95,6 +100,7 @@ public class ModifierIds {
   // traits - tier 2
   public static final ModifierId sturdy = id("sturdy");
   public static final ModifierId scorching = id("scorching");
+  public static final ModifierId raging = id("raging");
   public static final ModifierId airborne = id("airborne");
   // traits - tier 2 compat
   public static final ModifierId dense = id("dense");
@@ -107,6 +113,7 @@ public class ModifierIds {
   public static final ModifierId enhanced = id("enhanced");
   public static final ModifierId lightweight = id("lightweight");
   // traits - tier 3 compat
+  public static final ModifierId maintained = id("maintained");
   public static final ModifierId ductile = id("ductile");
 
   // mob disguises

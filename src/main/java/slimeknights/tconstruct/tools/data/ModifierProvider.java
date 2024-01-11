@@ -13,6 +13,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraftforge.common.ForgeMod;
@@ -27,15 +28,29 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.data.tinkering.AbstractModifierProvider;
 import slimeknights.tconstruct.library.json.RandomLevelingValue;
 import slimeknights.tconstruct.library.json.predicate.block.BlockPropertiesPredicate;
-import slimeknights.tconstruct.library.json.predicate.block.TinkerBlockPredicate;
 import slimeknights.tconstruct.library.json.predicate.damage.DamageSourcePredicate;
 import slimeknights.tconstruct.library.json.predicate.damage.SourceMessagePredicate;
+import slimeknights.tconstruct.library.json.predicate.entity.HasEnchantmentEntityPredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.TinkerLivingEntityPredicate;
 import slimeknights.tconstruct.library.json.predicate.item.ItemPredicate;
 import slimeknights.tconstruct.library.json.predicate.item.ItemTagPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate.ModifierCheck;
 import slimeknights.tconstruct.library.json.predicate.tool.ItemToolPredicate;
+import slimeknights.tconstruct.library.json.variable.block.BlockVariable;
+import slimeknights.tconstruct.library.json.variable.entity.AttributeEntityVariable;
+import slimeknights.tconstruct.library.json.variable.entity.ConditionalEntityVariable;
+import slimeknights.tconstruct.library.json.variable.entity.EntityVariable;
+import slimeknights.tconstruct.library.json.variable.melee.EntityMeleeVariable;
+import slimeknights.tconstruct.library.json.variable.melee.EntityMeleeVariable.WhichEntity;
+import slimeknights.tconstruct.library.json.variable.mining.BlockLightVariable;
+import slimeknights.tconstruct.library.json.variable.mining.BlockMiningSpeedVariable;
+import slimeknights.tconstruct.library.json.variable.mining.EntityMiningSpeedVariable;
+import slimeknights.tconstruct.library.json.variable.mining.ToolMiningSpeedVariable;
+import slimeknights.tconstruct.library.json.variable.stat.EntityConditionalStatVariable;
+import slimeknights.tconstruct.library.json.variable.stat.ToolConditionalStatVariable;
+import slimeknights.tconstruct.library.json.variable.tool.ToolStatVariable;
+import slimeknights.tconstruct.library.json.variable.tool.ToolVariable;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
@@ -193,6 +208,45 @@ public class ModifierProvider extends AbstractModifierProvider {
     // unbreakable priority is after overslime but before standard modifiers like dense
     buildModifier(TinkerModifiers.unbreakable).levelDisplay(ModifierLevelDisplay.NO_LEVELS).priority(125).addModule(new DurabilityBarColorModule(0xffffff)).addModule(ReduceToolDamageModule.builder().flat(1.0f));
 
+    // harvest
+    buildModifier(ModifierIds.blasting).addModule(
+      ConditionalMiningSpeedModule.builder()
+        .customVariable("resistance", new BlockMiningSpeedVariable(BlockVariable.BLAST_RESISTANCE, 3))
+        .formula()
+        .constant(3)
+        .constant(6).customVariable("resistance").subtract() // (6 - resistance)
+        .constant(1.5f)
+        .divide() // above / 1.5
+        .power() // 3^above
+        .constant(10).min() // min(above, 10)
+        .variable(LEVEL).multiply() // above * level
+        .variable(MULTIPLIER).multiply() // above * multiplier
+        .variable(VALUE).add() // above + newSpeed
+        .build());
+    buildModifier(ModifierIds.hydraulic).addModule(
+      ConditionalMiningSpeedModule.builder()
+        .customVariable("bonus", new EntityMiningSpeedVariable(new ConditionalEntityVariable(
+          TinkerLivingEntityPredicate.EYES_IN_WATER,
+          new ConditionalEntityVariable(new HasEnchantmentEntityPredicate(Enchantments.AQUA_AFFINITY), 8, 40),
+          new ConditionalEntityVariable(TinkerLivingEntityPredicate.RAINING, 4, 0)
+        ), 8)).formula()
+        .variable(MULTIPLIER).customVariable("bonus").multiply()
+        .variable(LEVEL).multiply()
+        .variable(VALUE).add()
+        .build());
+    buildModifier(ModifierIds.lightspeed).addModule(
+      ConditionalMiningSpeedModule.builder()
+        .customVariable("light", new BlockLightVariable(LightLayer.BLOCK, 15))
+        .formula()
+        .constant(3)
+        .customVariable("light").constant(5).subtract()
+        .constant(5).divide()
+        .power()
+        .variable(LEVEL).multiply()
+        .variable(MULTIPLIER).multiply()
+        .variable(VALUE).add().build());
+
+
     // loot
     buildModifier(TinkerModifiers.silky).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(EnchantmentModule.harvest(Enchantments.SILK_TOUCH).build());
     EnchantmentModule FORTUNE = EnchantmentModule.harvest(Enchantments.BLOCK_FORTUNE).build();
@@ -329,6 +383,35 @@ public class ModifierProvider extends AbstractModifierProvider {
       .addModule(ConditionalMiningSpeedModule.builder().holder(TinkerLivingEntityPredicate.ON_GROUND.inverted()).percent().allowIneffective().flat(4), TinkerHooks.BREAK_SPEED)
       // accuracy gets a 0.5 boost under the stricter version of in air (no boost just for being on a ladder)
       .addModule(ConditionalStatModule.stat(ToolStats.ACCURACY).holder(TinkerLivingEntityPredicate.AIRBORNE).flat(0.5f));
+    buildModifier(ModifierIds.raging)
+      .addModule(ConditionalMeleeDamageModule.builder()
+        .customVariable("health", new EntityMeleeVariable(EntityVariable.HEALTH, WhichEntity.ATTACKER, 0))
+        .customVariable("max_health", new EntityMeleeVariable(new AttributeEntityVariable(Attributes.MAX_HEALTH), WhichEntity.ATTACKER, 20))
+        .formula()
+        .customVariable("health")
+        // add (10 - max_health) to health, at minimum 0, to account for low max health
+        .constant(10).customVariable("max_health").subtract().nonNegative().add()
+        // linear bonus from 2 to 8, max bonus below 2, no bonus above 8
+        .constant(10).subtractFlipped().constant(8).divide().percentClamp()
+        // get 4 bonus per level, bring in standard multiplier
+        .variable(LEVEL).multiply().constant(4).multiply().variable(MULTIPLIER).multiply()
+        // finally, add in base damage
+        .variable(VALUE).add().build())
+      .addModule(ConditionalStatModule.stat(ToolStats.DRAW_SPEED)
+        .customVariable("health", new EntityConditionalStatVariable(EntityVariable.HEALTH, 0))
+        .customVariable("max", new EntityConditionalStatVariable(new AttributeEntityVariable(Attributes.MAX_HEALTH), 20))
+        .formula()
+        .customVariable("health")
+        // add (10 - max_health) to health, at minimum 0, to account for low max health
+        .constant(10).customVariable("max").subtract().nonNegative().add()
+        // linear bonus from 2 to 8, max bonus below 2, no bonus above 8
+        .constant(10).subtractFlipped().constant(8).divide().percentClamp()
+        // get 0.25 bonus per level, bring in standard multiplier
+        .variable(LEVEL).multiply().constant(0.25f).multiply().variable(MULTIPLIER).multiply()
+        // finally, add in base damage
+        .variable(VALUE).add().build());
+
+
     // traits - tier 2 compat
     addModifier(ModifierIds.lustrous, new Modifier());
     buildModifier(ModifierIds.sharpweight)
@@ -365,7 +448,7 @@ public class ModifierProvider extends AbstractModifierProvider {
     // traits - tier 3
     buildModifier(ModifierIds.crumbling).addModule(ConditionalMiningSpeedModule.builder().blocks(BlockPredicate.REQUIRES_TOOL.inverted()).allowIneffective().eachLevel(0.5f));
     buildModifier(ModifierIds.enhanced).priority(60).addModule(UPGRADE);
-    addRedirect(id("maintained_2"), redirect(TinkerModifiers.maintained.getId()));
+    addRedirect(id("maintained_2"), redirect(ModifierIds.maintained));
     // traits - tier 3 nether
     buildModifier(ModifierIds.lightweight)
       .addModule(StatBoostModule.multiplyBase(ToolStats.ATTACK_SPEED).eachLevel(0.07f))
@@ -379,6 +462,29 @@ public class ModifierProvider extends AbstractModifierProvider {
       .addModule(StatBoostModule.multiplyBase(ToolStats.MINING_SPEED).eachLevel(0.04f))
       .addModule(StatBoostModule.multiplyBase(ToolStats.VELOCITY).eachLevel(0.03f))
       .addModule(StatBoostModule.multiplyBase(ToolStats.PROJECTILE_DAMAGE).eachLevel(0.03f));
+    buildModifier(ModifierIds.maintained)
+      .addModule(ConditionalMiningSpeedModule.builder()
+        .customVariable("durability", new ToolMiningSpeedVariable(ToolVariable.CURRENT_DURABILITY))
+        .customVariable("max_durability", new ToolMiningSpeedVariable(new ToolStatVariable(ToolStats.DURABILITY)))
+        .formula()
+        .customVariable("max_durability").constant(0.5f).multiply().duplicate()
+        .customVariable("durability").subtractFlipped()
+        .nonNegative().divideFlipped()
+        .variable(LEVEL).multiply()
+        .constant(6).multiply()
+        .variable(MULTIPLIER).multiply()
+        .variable(VALUE).add().build())
+      .addModule(ConditionalStatModule.stat(ToolStats.VELOCITY)
+        .customVariable("durability", new ToolConditionalStatVariable(ToolVariable.CURRENT_DURABILITY))
+        .customVariable("max_durability", new ToolConditionalStatVariable(new ToolStatVariable(ToolStats.DURABILITY)))
+        .formula()
+        .customVariable("max_durability").constant(0.5f).multiply().duplicate()
+        .customVariable("durability").subtractFlipped()
+        .nonNegative().divideFlipped()
+        .variable(LEVEL).multiply()
+        .constant(0.05f).multiply()
+        .variable(MULTIPLIER).multiply()
+        .variable(VALUE).add().build());
 
     // mob disguise
     buildModifier(ModifierIds.creeperDisguise        ).addModule(new MobDisguiseModule(EntityType.CREEPER));

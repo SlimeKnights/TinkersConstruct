@@ -21,7 +21,11 @@ import slimeknights.tconstruct.library.utils.TooltipKey;
 import javax.annotation.Nullable;
 import java.util.List;
 
-/** Well maintained for Tinkers Bronze */
+/**
+ * @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.mining.ConditionalMiningSpeedModule}
+ * and {@link slimeknights.tconstruct.library.modifiers.modules.behavior.ConditionalStatModule}
+ */
+@Deprecated
 public class MaintainedModifier extends Modifier implements ConditionalStatModifierHook {
   private static final Component MINING_SPEED = TConstruct.makeTranslation("modifier", "maintained.mining_speed");
   private static final Component VELOCITY = TConstruct.makeTranslation("modifier", "maintained.velocity");

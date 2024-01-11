@@ -19,7 +19,11 @@ import slimeknights.tconstruct.library.utils.TooltipKey;
 import javax.annotation.Nullable;
 import java.util.List;
 
-/** Modifier that boosts damage at low health */
+/**
+ * @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.combat.ConditionalMeleeDamageModule}
+ * and {@link slimeknights.tconstruct.library.modifiers.modules.behavior.ConditionalStatModule}
+ */
+@Deprecated
 public class RagingModifier extends Modifier implements ConditionalStatModifierHook {
   private static final float LOWEST_HEALTH = 2f;
   private static final float HIGHEST_HEALTH = 10f;
