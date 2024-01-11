@@ -36,14 +36,14 @@ public interface ConditionalStatTooltip extends TooltipModifierHook {
     // if holding shift, or we have no attacker condition, then we don't need the player to show the tooltip
     INumericToolStat<?> stat = stat();
     IJsonPredicate<LivingEntity> holder = holder();
-    if (stat.supports(tool.getItem()) && condition().matches(tool, entry) && (tooltipKey == TooltipKey.SHIFT || holder == LivingEntityPredicate.ANY || player != null && holder.matches(player))) {
+    if (stat.supports(tool.getItem()) && condition().matches(tool, entry) && (tooltipKey != TooltipKey.SHIFT || holder == LivingEntityPredicate.ANY || player != null && holder.matches(player))) {
       // it's hard to display a good tooltip value without knowing the details of the formula, best we can do is guess based on the boolean
       // if this is inaccurate, just add this module without the tooltip hook to ignore
       Modifier modifier = entry.getModifier();
       Component statName = TooltipModifierHook.statName(modifier, stat);
       // subtracting 1 will cancel out the base value or the 100%, based on the type
-      // null player on shift to be able to show the "max value", up to the formula to set proper fallbacks to ensure that happens
-      float value = computeTooltipValue(tool, entry, tooltipKey == TooltipKey.SHIFT ? null : player) - 1;
+      // null player when not pressing shift, so we can see the max value in the table instead of the current value. Shift lets you see max
+      float value = computeTooltipValue(tool, entry, tooltipKey == TooltipKey.SHIFT ? player : null) - 1;
       if (value != 0) {
         if (percent()) {
           TooltipModifierHook.addPercentBoost(modifier, statName, value, tooltip);
