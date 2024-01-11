@@ -263,6 +263,7 @@ import slimeknights.tconstruct.tools.recipe.severing.SnowGolemBeheadingRecipe;
 import java.util.function.IntFunction;
 import java.util.function.Supplier;
 
+import static slimeknights.tconstruct.TConstruct.getResource;
 import static slimeknights.tconstruct.tools.TinkerTools.TAB_TOOLS;
 
 /**
@@ -621,77 +622,77 @@ public final class TinkerModifiers extends TinkerModule {
     ISpillingEffect.LOADER.registerDeserializer(AddBreathSpillingEffect.ID,     AddBreathSpillingEffect.LOADER);
     ISpillingEffect.LOADER.registerDeserializer(StrongBonesModifier.SPILLING_EFFECT_ID, StrongBonesModifier.SPILLING_EFFECT_LOADER);
     // modifier loaders
-    ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("default"), Modifier.DEFAULT_LOADER);
-    ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("stat_boost"), StatBoostModifier.LOADER);
-    ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("extra_slot"), ExtraModifier.LOADER);
-    ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("swappable_extra_slot"), SwappableExtraSlotModifier.LOADER);
-    ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("mob_disguise"), MobDisguiseModifier.LOADER);
-    ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("conditional_damage"), ConditionalDamageModifier.LOADER);
-    ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("conditional_mining_speed"), ConditionalMiningSpeedModifier.LOADER);
-    ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("loot"), LootModifier.LOADER);
-    ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("enchantment"), EnchantmentModifier.LOADER);
-    ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("mob_effect"), MobEffectModifier.LOADER);
-    ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("inventory_with_menu"), InventoryMenuModifier.LOADER);
-    ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("composable"), ComposableModifier.LOADER);
+    ModifierManager.MODIFIER_LOADERS.register(getResource("default"), Modifier.DEFAULT_LOADER);
+    ModifierManager.MODIFIER_LOADERS.register(getResource("stat_boost"), StatBoostModifier.LOADER);
+    ModifierManager.MODIFIER_LOADERS.register(getResource("extra_slot"), ExtraModifier.LOADER);
+    ModifierManager.MODIFIER_LOADERS.register(getResource("swappable_extra_slot"), SwappableExtraSlotModifier.LOADER);
+    ModifierManager.MODIFIER_LOADERS.register(getResource("mob_disguise"), MobDisguiseModifier.LOADER);
+    ModifierManager.MODIFIER_LOADERS.register(getResource("conditional_damage"), ConditionalDamageModifier.LOADER);
+    ModifierManager.MODIFIER_LOADERS.register(getResource("conditional_mining_speed"), ConditionalMiningSpeedModifier.LOADER);
+    ModifierManager.MODIFIER_LOADERS.register(getResource("loot"), LootModifier.LOADER);
+    ModifierManager.MODIFIER_LOADERS.register(getResource("enchantment"), EnchantmentModifier.LOADER);
+    ModifierManager.MODIFIER_LOADERS.register(getResource("mob_effect"), MobEffectModifier.LOADER);
+    ModifierManager.MODIFIER_LOADERS.register(getResource("inventory_with_menu"), InventoryMenuModifier.LOADER);
+    ModifierManager.MODIFIER_LOADERS.register(getResource("composable"), ComposableModifier.LOADER);
     // specialized
-    ModifierManager.MODIFIER_LOADERS.register(TConstruct.getResource("tool_belt"), ToolBeltModifier.LOADER);
+    ModifierManager.MODIFIER_LOADERS.register(getResource("tool_belt"), ToolBeltModifier.LOADER);
     // modifier names, sometimes I wonder if I have too many registries for tiny JSON pieces
-    ModifierLevelDisplay.LOADER.register(TConstruct.getResource("default"), ModifierLevelDisplay.DEFAULT.getLoader());
-    ModifierLevelDisplay.LOADER.register(TConstruct.getResource("single_level"), ModifierLevelDisplay.SINGLE_LEVEL.getLoader());
-    ModifierLevelDisplay.LOADER.register(TConstruct.getResource("no_levels"), ModifierLevelDisplay.NO_LEVELS.getLoader());
-    ModifierLevelDisplay.LOADER.register(TConstruct.getResource("pluses"), ModifierLevelDisplay.PLUSES.getLoader());
-    ModifierLevelDisplay.LOADER.register(TConstruct.getResource("unique"), UniqueForLevels.LOADER);
+    ModifierLevelDisplay.LOADER.register(getResource("default"), ModifierLevelDisplay.DEFAULT.getLoader());
+    ModifierLevelDisplay.LOADER.register(getResource("single_level"), ModifierLevelDisplay.SINGLE_LEVEL.getLoader());
+    ModifierLevelDisplay.LOADER.register(getResource("no_levels"), ModifierLevelDisplay.NO_LEVELS.getLoader());
+    ModifierLevelDisplay.LOADER.register(getResource("pluses"), ModifierLevelDisplay.PLUSES.getLoader());
+    ModifierLevelDisplay.LOADER.register(getResource("unique"), UniqueForLevels.LOADER);
 
     // modifier modules //
     // armor
-    ModifierModule.LOADER.register(TConstruct.getResource("mob_disguise"), MobDisguiseModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("block_damage"), BlockDamageSourceModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("cover_ground"), CoverGroundWalkerModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("protection"), ProtectionModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("replace_fluid"), ReplaceBlockWalkerModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("tool_action_walk_transform"), ToolActionWalkerTransformModule.LOADER);
+    ModifierModule.LOADER.register(getResource("mob_disguise"), MobDisguiseModule.LOADER);
+    ModifierModule.LOADER.register(getResource("block_damage"), BlockDamageSourceModule.LOADER);
+    ModifierModule.LOADER.register(getResource("cover_ground"), CoverGroundWalkerModule.LOADER);
+    ModifierModule.LOADER.register(getResource("protection"), ProtectionModule.LOADER);
+    ModifierModule.LOADER.register(getResource("replace_fluid"), ReplaceBlockWalkerModule.LOADER);
+    ModifierModule.LOADER.register(getResource("tool_action_walk_transform"), ToolActionWalkerTransformModule.LOADER);
     // behavior
-    ModifierModule.LOADER.register(TConstruct.getResource("attribute"), AttributeModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("campfire_extinguish"), ExtinguishCampfireModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("incremental"), IncrementalModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("reduce_tool_damage"), ReduceToolDamageModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("repair"), RepairModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("show_offhand"), ShowOffhandModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("tool_actions"), ToolActionsModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("tool_action_transform"), ToolActionTransformModule.LOADER);
+    ModifierModule.LOADER.register(getResource("attribute"), AttributeModule.LOADER);
+    ModifierModule.LOADER.register(getResource("campfire_extinguish"), ExtinguishCampfireModule.LOADER);
+    ModifierModule.LOADER.register(getResource("incremental"), IncrementalModule.LOADER);
+    ModifierModule.LOADER.register(getResource("reduce_tool_damage"), ReduceToolDamageModule.LOADER);
+    ModifierModule.LOADER.register(getResource("repair"), RepairModule.LOADER);
+    ModifierModule.LOADER.register(getResource("show_offhand"), ShowOffhandModule.LOADER);
+    ModifierModule.LOADER.register(getResource("tool_actions"), ToolActionsModule.LOADER);
+    ModifierModule.LOADER.register(getResource("tool_action_transform"), ToolActionTransformModule.LOADER);
     // build
-    ModifierModule.LOADER.register(TConstruct.getResource("conditional_stat"), ConditionalStatModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("constant_enchantment"), EnchantmentModule.Constant.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("modifier_slot"), ModifierSlotModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("rarity"), RarityModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("swappable_slot"), SwappableSlotModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("swappable_bonus_slot"), SwappableSlotModule.BonusSlot.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("stat_boost"), StatBoostModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("set_stat"), SetStatModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("trait"), ModifierTraitModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("volatile_flag"), VolatileFlagModule.LOADER);
+    ModifierModule.LOADER.register(getResource("conditional_stat"), ConditionalStatModule.LOADER);
+    ModifierModule.LOADER.register(getResource("constant_enchantment"), EnchantmentModule.Constant.LOADER);
+    ModifierModule.LOADER.register(getResource("modifier_slot"), ModifierSlotModule.LOADER);
+    ModifierModule.LOADER.register(getResource("rarity"), RarityModule.LOADER);
+    ModifierModule.LOADER.register(getResource("swappable_slot"), SwappableSlotModule.LOADER);
+    ModifierModule.LOADER.register(getResource("swappable_bonus_slot"), SwappableSlotModule.BonusSlot.LOADER);
+    ModifierModule.LOADER.register(getResource("stat_boost"), StatBoostModule.LOADER);
+    ModifierModule.LOADER.register(getResource("set_stat"), SetStatModule.LOADER);
+    ModifierModule.LOADER.register(getResource("trait"), ModifierTraitModule.LOADER);
+    ModifierModule.LOADER.register(getResource("volatile_flag"), VolatileFlagModule.LOADER);
     // combat
-    ModifierModule.LOADER.register(TConstruct.getResource("conditional_melee_damage"), ConditionalMeleeDamageModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("knockback"), KnockbackModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("looting"), LootingModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("melee_attribute"), MeleeAttributeModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("mob_effect"), MobEffectModule.LOADER);
+    ModifierModule.LOADER.register(getResource("conditional_melee_damage"), ConditionalMeleeDamageModule.LOADER);
+    ModifierModule.LOADER.register(getResource("knockback"), KnockbackModule.LOADER);
+    ModifierModule.LOADER.register(getResource("looting"), LootingModule.LOADER);
+    ModifierModule.LOADER.register(getResource("melee_attribute"), MeleeAttributeModule.LOADER);
+    ModifierModule.LOADER.register(getResource("mob_effect"), MobEffectModule.LOADER);
     // display
-    ModifierModule.LOADER.register(TConstruct.getResource("durability_color"), DurabilityBarColorModule.LOADER);
+    ModifierModule.LOADER.register(getResource("durability_color"), DurabilityBarColorModule.LOADER);
     // mining
-    ModifierModule.LOADER.register(TConstruct.getResource("conditional_mining_speed"), ConditionalMiningSpeedModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("harvest_enchantment"), EnchantmentModule.Harvest.LOADER);
+    ModifierModule.LOADER.register(getResource("conditional_mining_speed"), ConditionalMiningSpeedModule.LOADER);
+    ModifierModule.LOADER.register(getResource("harvest_enchantment"), EnchantmentModule.Harvest.LOADER);
     // fluid
-    ModifierModule.LOADER.register(TConstruct.getResource("tank_capacity"), TankCapacityModule.LOADER);
-    ModifierModule.LOADER.register(TConstruct.getResource("tank"), TankModule.LOADER);
+    ModifierModule.LOADER.register(getResource("tank_capacity"), TankCapacityModule.LOADER);
+    ModifierModule.LOADER.register(getResource("tank"), TankModule.LOADER);
 
-    ModifierPredicate.LOADER.register(TConstruct.getResource("and"), ModifierPredicate.AND);
-    ModifierPredicate.LOADER.register(TConstruct.getResource("or"), ModifierPredicate.OR);
-    ModifierPredicate.LOADER.register(TConstruct.getResource("inverted"), ModifierPredicate.INVERTED);
-    ModifierPredicate.LOADER.register(TConstruct.getResource("always"), ModifierPredicate.ALWAYS.getLoader());
-    ModifierPredicate.LOADER.register(TConstruct.getResource("single"), SingleModifierPredicate.LOADER);
-    ModifierPredicate.LOADER.register(TConstruct.getResource("tag"), TagModifierPredicate.LOADER);
-    ModifierPredicate.LOADER.register(TConstruct.getResource("slot_type"), SlotTypeModifierPredicate.LOADER);
+    ModifierPredicate.LOADER.register(getResource("and"), ModifierPredicate.AND);
+    ModifierPredicate.LOADER.register(getResource("or"), ModifierPredicate.OR);
+    ModifierPredicate.LOADER.register(getResource("inverted"), ModifierPredicate.INVERTED);
+    ModifierPredicate.LOADER.register(getResource("always"), ModifierPredicate.ALWAYS.getLoader());
+    ModifierPredicate.LOADER.register(getResource("single"), SingleModifierPredicate.LOADER);
+    ModifierPredicate.LOADER.register(getResource("tag"), TagModifierPredicate.LOADER);
+    ModifierPredicate.LOADER.register(getResource("slot_type"), SlotTypeModifierPredicate.LOADER);
   }
 
   @SubscribeEvent
