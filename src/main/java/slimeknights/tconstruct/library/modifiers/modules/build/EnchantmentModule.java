@@ -105,6 +105,7 @@ public interface EnchantmentModule extends ModifierModule {
     public void toNetwork(EnchantmentModule object, FriendlyByteBuf buffer) {
       buffer.writeRegistryIdUnsafe(ForgeRegistries.ENCHANTMENTS, object.enchantment());
       buffer.writeVarInt(object.level());
+      object.condition().toNetwork(buffer);
     }
   }
 
