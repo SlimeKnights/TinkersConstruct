@@ -99,11 +99,11 @@ public record CoverGroundWalkerModule(BlockState state, LevelingValue radius, Mo
   }
 
   @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-  public static class Builder extends ModifierModuleCondition.Builder<Builder> implements LevelingValue.Builder {
+  public static class Builder extends ModifierModuleCondition.Builder<Builder> implements LevelingValue.Builder<CoverGroundWalkerModule> {
     private final BlockState state;
 
     @Override
-    public ModifierModule amount(float flat, float eachLevel) {
+    public CoverGroundWalkerModule amount(float flat, float eachLevel) {
       return new CoverGroundWalkerModule(state, new LevelingValue(flat, eachLevel), condition);
     }
   }

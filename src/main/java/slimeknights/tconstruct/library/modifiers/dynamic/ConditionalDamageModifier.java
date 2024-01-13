@@ -17,7 +17,7 @@ import slimeknights.tconstruct.library.json.predicate.IJsonPredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.LivingEntityPredicate;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;
-import slimeknights.tconstruct.library.modifiers.modules.combat.ConditionalDamageModule;
+import slimeknights.tconstruct.library.modifiers.modules.combat.ConditionalMeleeDamageModule;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -28,7 +28,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
-/** @deprecated use {@link ConditionalDamageModule} */
+/** @deprecated use {@link ConditionalMeleeDamageModule} */
 @Deprecated
 @RequiredArgsConstructor
 public class ConditionalDamageModifier extends IncrementalModifier {

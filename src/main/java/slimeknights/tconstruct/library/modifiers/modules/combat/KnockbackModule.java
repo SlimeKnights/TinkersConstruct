@@ -30,8 +30,6 @@ public record KnockbackModule(IJsonPredicate<LivingEntity> entity, ModifierFormu
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.MELEE_HIT);
   /** Variables for the modifier formula */
   private static final String[] VARIABLES = { "level", "knockback" };
-  /** Variable name for the knockback argument in this module */
-  public static final int KNOCKBACK = 1;
   /** Fallback for the modifier formula */
   private static final FallbackFormula FALLBACK_FORMULA = FallbackFormula.ADD;
 
@@ -72,14 +70,14 @@ public record KnockbackModule(IJsonPredicate<LivingEntity> entity, ModifierFormu
     public void serialize(KnockbackModule object, JsonObject json) {
       object.condition.serializeInto(json);
       json.add("entity", LivingEntityPredicate.LOADER.serialize(object.entity));
-      object.formula.serialize(json);
+      object.formula.serialize(json, VARIABLES);
     }
 
     @Override
     public KnockbackModule fromNetwork(FriendlyByteBuf buffer) {
       return new KnockbackModule(
         LivingEntityPredicate.LOADER.fromNetwork(buffer),
-        ModifierFormula.fromNetwork(buffer, VARIABLES, FALLBACK_FORMULA),
+        ModifierFormula.fromNetwork(buffer, VARIABLES.length, FALLBACK_FORMULA),
         ModifierModuleCondition.fromNetwork(buffer)
       );
     }
@@ -101,17 +99,17 @@ public record KnockbackModule(IJsonPredicate<LivingEntity> entity, ModifierFormu
   }
 
   /** Builder class */
-  public static class Builder extends ModifierFormula.Builder<Builder> {
+  public static class Builder extends ModifierFormula.Builder<Builder,KnockbackModule> {
     @Setter
     @Accessors(fluent = true)
     private IJsonPredicate<LivingEntity> entity = LivingEntityPredicate.ANY;
 
     private Builder() {
-      super(VARIABLES, FALLBACK_FORMULA);
+      super(VARIABLES);
     }
 
     @Override
-    protected ModifierModule build(ModifierFormula formula) {
+    protected KnockbackModule build(ModifierFormula formula) {
       return new KnockbackModule(entity, formula, condition);
     }
   }

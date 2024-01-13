@@ -4,7 +4,6 @@ import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 
 /**
@@ -79,17 +78,17 @@ public record LevelingValue(float flat, float eachLevel) {
   }
 
   /** Trait to mix into a builder using leveling values */
-  public interface Builder {
+  public interface Builder<M> {
     /** Creates an instance with a flat value and a leveling value*/
-    ModifierModule amount(float flat, float eachLevel);
+    M amount(float flat, float eachLevel);
 
     /** Creates an instance with a value that ignores level */
-    default ModifierModule flat(float flat) {
+    default M flat(float flat) {
       return amount(flat, 0);
     }
 
     /** Creates an instance with a value that increases each level */
-    default ModifierModule eachLevel(float eachLevel) {
+    default M eachLevel(float eachLevel) {
       return amount(0, eachLevel);
     }
   }

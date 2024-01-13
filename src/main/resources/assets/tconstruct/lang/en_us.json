@@ -2294,6 +2294,7 @@
   "modifier.tconstruct.airborne": "Airborne",
   "modifier.tconstruct.airborne.flavor": "Take to the skies!",
   "modifier.tconstruct.airborne.description": "Tool no longer is penalized when mining in the air and gains a projectile accuracy bonus",
+  "modifier.tconstruct.airborne.accuracy": "Airborne Accuracy",
 
   "__comment": "Tier 3 Traits",
   "modifier.tconstruct.overcast": "Overcast",
@@ -2895,7 +2896,7 @@
   "advancements.tconstruct.tools.perfect_aim.title": "Perfect Aim",
   "advancements.tconstruct.tools.perfect_aim.description": "Create a bow with 1.0 accuracy",
   "advancements.tconstruct.tools.one_shot.title": "One Shot",
-  "advancements.tconstruct.tools.one_shot.description": "Create a melee weapon that can kill zombies in a single non-critical attack (21 damage or more)",
+  "advancements.tconstruct.tools.one_shot.description": "Create a melee weapon that can unconditionally kill any common monsters in a single non-critical attack (21 flat damage or more)",
   "advancements.tconstruct.tools.material_master.title": "Material Master",
   "advancements.tconstruct.tools.material_master.description": "Use each default material at least once",
 

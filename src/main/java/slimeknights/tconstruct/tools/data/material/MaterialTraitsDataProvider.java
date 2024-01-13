@@ -40,7 +40,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.copper, TinkerModifiers.dwarven);
     addDefaultTraits(MaterialIds.searedStone, TinkerModifiers.searing);
     addDefaultTraits(MaterialIds.slimewood, TinkerModifiers.overgrowth, TinkerModifiers.overslime);
-    addDefaultTraits(MaterialIds.bloodbone, TinkerModifiers.raging);
+    addDefaultTraits(MaterialIds.bloodbone, ModifierIds.raging);
     addTraits(MaterialIds.aluminum, RANGED, ModifierIds.featherweight);
     // tier 2 - nether
     addDefaultTraits(MaterialIds.necroticBone, TinkerModifiers.necrotic);
@@ -49,7 +49,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.whitestone, TinkerModifiers.stoneshield);
     // tier 2 - binding
     addDefaultTraits(MaterialIds.chain, ModifierIds.reinforced);
-    addDefaultTraits(MaterialIds.skyslimeVine, TinkerModifiers.airborne);
+    addDefaultTraits(MaterialIds.skyslimeVine, ModifierIds.airborne);
 
     // tier 3
     addDefaultTraits(MaterialIds.slimesteel, TinkerModifiers.overcast, TinkerModifiers.overslime);
@@ -84,7 +84,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.silver, RANGED, TinkerModifiers.holy);
     // tier 3 - mod compat
     addDefaultTraits(MaterialIds.steel, ModifierIds.ductile);
-    addDefaultTraits(MaterialIds.bronze, TinkerModifiers.maintained);
+    addDefaultTraits(MaterialIds.bronze, ModifierIds.maintained);
     addDefaultTraits(MaterialIds.constantan, TinkerModifiers.temperate);
     addDefaultTraits(MaterialIds.invar, TinkerModifiers.invariant);
     addDefaultTraits(MaterialIds.necronium, TinkerModifiers.decay);

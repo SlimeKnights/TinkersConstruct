@@ -32,7 +32,6 @@ import slimeknights.mantle.item.EdibleItem;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.json.BlockOrEntityCondition;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
@@ -45,9 +44,11 @@ import slimeknights.tconstruct.library.json.predicate.block.BlockPredicate;
 import slimeknights.tconstruct.library.json.predicate.block.BlockPropertiesPredicate;
 import slimeknights.tconstruct.library.json.predicate.block.SetBlockPredicate;
 import slimeknights.tconstruct.library.json.predicate.block.TagBlockPredicate;
+import slimeknights.tconstruct.library.json.predicate.block.TinkerBlockPredicate;
 import slimeknights.tconstruct.library.json.predicate.damage.DamageSourcePredicate;
 import slimeknights.tconstruct.library.json.predicate.damage.SourceAttackerPredicate;
 import slimeknights.tconstruct.library.json.predicate.damage.SourceMessagePredicate;
+import slimeknights.tconstruct.library.json.predicate.entity.HasEnchantmentEntityPredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.LivingEntityPredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.MobTypePredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.TagEntityPredicate;
@@ -75,6 +76,8 @@ import slimeknights.tconstruct.shared.inventory.BlockContainerOpenedTrigger;
 import slimeknights.tconstruct.shared.item.TinkerBookItem;
 import slimeknights.tconstruct.shared.item.TinkerBookItem.BookType;
 import slimeknights.tconstruct.shared.particle.FluidParticleData;
+
+import static slimeknights.tconstruct.TConstruct.getResource;
 
 /**
  * Contains items and blocks and stuff that is shared by multiple modules, but might be required individually
@@ -169,32 +172,36 @@ public final class TinkerCommons extends TinkerModule {
     CraftingHelper.register(TagIntersectionPresentCondition.SERIALIZER);
     CraftingHelper.register(TagDifferencePresentCondition.SERIALIZER);
     // block predicates
-    BlockPredicate.LOADER.register(TConstruct.getResource("and"), BlockPredicate.AND);
-    BlockPredicate.LOADER.register(TConstruct.getResource("or"), BlockPredicate.OR);
-    BlockPredicate.LOADER.register(TConstruct.getResource("inverted"), BlockPredicate.INVERTED);
-    BlockPredicate.LOADER.register(TConstruct.getResource("requires_tool"), BlockPredicate.REQUIRES_TOOL.getLoader());
-    BlockPredicate.LOADER.register(TConstruct.getResource("set"), SetBlockPredicate.LOADER);
-    BlockPredicate.LOADER.register(TConstruct.getResource("tag"), TagBlockPredicate.LOADER);
-    slimeknights.mantle.data.predicate.block.BlockPredicate.LOADER.register(TConstruct.getResource("block_properties"), BlockPropertiesPredicate.LOADER);
+    BlockPredicate.LOADER.register(getResource("and"), BlockPredicate.AND);
+    BlockPredicate.LOADER.register(getResource("or"), BlockPredicate.OR);
+    BlockPredicate.LOADER.register(getResource("inverted"), BlockPredicate.INVERTED);
+    BlockPredicate.LOADER.register(getResource("requires_tool"), BlockPredicate.REQUIRES_TOOL.getLoader());
+    BlockPredicate.LOADER.register(getResource("set"), SetBlockPredicate.LOADER);
+    BlockPredicate.LOADER.register(getResource("tag"), TagBlockPredicate.LOADER);
+    slimeknights.mantle.data.predicate.block.BlockPredicate.LOADER.register(getResource("any"), TinkerBlockPredicate.ANY.getLoader());
+    slimeknights.mantle.data.predicate.block.BlockPredicate.LOADER.register(getResource("block_properties"), BlockPropertiesPredicate.LOADER);
     // entity predicates
-    LivingEntityPredicate.LOADER.register(TConstruct.getResource("and"), LivingEntityPredicate.AND);
-    LivingEntityPredicate.LOADER.register(TConstruct.getResource("or"), LivingEntityPredicate.OR);
-    LivingEntityPredicate.LOADER.register(TConstruct.getResource("inverted"), LivingEntityPredicate.INVERTED);
-    LivingEntityPredicate.LOADER.register(TConstruct.getResource("any"), LivingEntityPredicate.ANY.getLoader());
-    LivingEntityPredicate.LOADER.register(TConstruct.getResource("airborne"), LivingEntityPredicate.AIRBORNE.getLoader());
-    LivingEntityPredicate.LOADER.register(TConstruct.getResource("crouching"), LivingEntityPredicate.CROUCHING.getLoader());
-    LivingEntityPredicate.LOADER.register(TConstruct.getResource("fire_immune"), LivingEntityPredicate.FIRE_IMMUNE.getLoader());
-    LivingEntityPredicate.LOADER.register(TConstruct.getResource("water_sensitive"), LivingEntityPredicate.WATER_SENSITIVE.getLoader());
-    LivingEntityPredicate.LOADER.register(TConstruct.getResource("on_fire"), LivingEntityPredicate.ON_FIRE.getLoader());
-    LivingEntityPredicate.LOADER.register(TConstruct.getResource("tag"), TagEntityPredicate.LOADER);
-    LivingEntityPredicate.LOADER.register(TConstruct.getResource("mob_type"), MobTypePredicate.LOADER);
-    LivingEntityPredicate.LOADER.register(TConstruct.getResource("eyes_in_water"), LivingEntityPredicate.EYES_IN_WATER.getLoader());
-    LivingEntityPredicate.LOADER.register(TConstruct.getResource("feet_in_water"), LivingEntityPredicate.FEET_IN_WATER.getLoader());
+    LivingEntityPredicate.LOADER.register(getResource("and"), LivingEntityPredicate.AND);
+    LivingEntityPredicate.LOADER.register(getResource("or"), LivingEntityPredicate.OR);
+    LivingEntityPredicate.LOADER.register(getResource("inverted"), LivingEntityPredicate.INVERTED);
+    LivingEntityPredicate.LOADER.register(getResource("any"), LivingEntityPredicate.ANY.getLoader());
+    LivingEntityPredicate.LOADER.register(getResource("airborne"), LivingEntityPredicate.AIRBORNE.getLoader());
+    LivingEntityPredicate.LOADER.register(getResource("crouching"), LivingEntityPredicate.CROUCHING.getLoader());
+    LivingEntityPredicate.LOADER.register(getResource("fire_immune"), LivingEntityPredicate.FIRE_IMMUNE.getLoader());
+    LivingEntityPredicate.LOADER.register(getResource("water_sensitive"), LivingEntityPredicate.WATER_SENSITIVE.getLoader());
+    LivingEntityPredicate.LOADER.register(getResource("on_fire"), LivingEntityPredicate.ON_FIRE.getLoader());
+    LivingEntityPredicate.LOADER.register(getResource("tag"), TagEntityPredicate.LOADER);
+    LivingEntityPredicate.LOADER.register(getResource("mob_type"), MobTypePredicate.LOADER);
+    LivingEntityPredicate.LOADER.register(getResource("eyes_in_water"), LivingEntityPredicate.EYES_IN_WATER.getLoader());
+    LivingEntityPredicate.LOADER.register(getResource("feet_in_water"), LivingEntityPredicate.FEET_IN_WATER.getLoader());
     // mantle
-    slimeknights.mantle.data.predicate.entity.LivingEntityPredicate.LOADER.register(TConstruct.getResource("airborne"), TinkerLivingEntityPredicate.AIRBORNE.getLoader());
-    slimeknights.mantle.data.predicate.entity.LivingEntityPredicate.LOADER.register(TConstruct.getResource("crouching"), TinkerLivingEntityPredicate.CROUCHING.getLoader());
-    slimeknights.mantle.data.predicate.entity.LivingEntityPredicate.LOADER.register(TConstruct.getResource("eyes_in_water"), TinkerLivingEntityPredicate.EYES_IN_WATER.getLoader());
-    slimeknights.mantle.data.predicate.entity.LivingEntityPredicate.LOADER.register(TConstruct.getResource("feet_in_water"), TinkerLivingEntityPredicate.FEET_IN_WATER.getLoader());
+    slimeknights.mantle.data.predicate.entity.LivingEntityPredicate.LOADER.register(getResource("airborne"), TinkerLivingEntityPredicate.AIRBORNE.getLoader());
+    slimeknights.mantle.data.predicate.entity.LivingEntityPredicate.LOADER.register(getResource("on_ground"), TinkerLivingEntityPredicate.ON_GROUND.getLoader());
+    slimeknights.mantle.data.predicate.entity.LivingEntityPredicate.LOADER.register(getResource("crouching"), TinkerLivingEntityPredicate.CROUCHING.getLoader());
+    slimeknights.mantle.data.predicate.entity.LivingEntityPredicate.LOADER.register(getResource("eyes_in_water"), TinkerLivingEntityPredicate.EYES_IN_WATER.getLoader());
+    slimeknights.mantle.data.predicate.entity.LivingEntityPredicate.LOADER.register(getResource("feet_in_water"), TinkerLivingEntityPredicate.FEET_IN_WATER.getLoader());
+    slimeknights.mantle.data.predicate.entity.LivingEntityPredicate.LOADER.register(getResource("raining_at"), TinkerLivingEntityPredicate.RAINING.getLoader());
+    slimeknights.mantle.data.predicate.entity.LivingEntityPredicate.LOADER.register(getResource("has_enchantment"), HasEnchantmentEntityPredicate.LOADER);
     // register mob types
     MobTypePredicate.MOB_TYPES.register(new ResourceLocation("undefined"), MobType.UNDEFINED);
     MobTypePredicate.MOB_TYPES.register(new ResourceLocation("undead"), MobType.UNDEAD);
@@ -202,32 +209,32 @@ public final class TinkerCommons extends TinkerModule {
     MobTypePredicate.MOB_TYPES.register(new ResourceLocation("illager"), MobType.ILLAGER);
     MobTypePredicate.MOB_TYPES.register(new ResourceLocation("water"), MobType.WATER);
     // item predicates
-    ItemPredicate.LOADER.register(TConstruct.getResource("and"), ItemPredicate.AND);
-    ItemPredicate.LOADER.register(TConstruct.getResource("or"), ItemPredicate.OR);
-    ItemPredicate.LOADER.register(TConstruct.getResource("inverted"), ItemPredicate.INVERTED);
-    ItemPredicate.LOADER.register(TConstruct.getResource("any"), ItemPredicate.ANY.getLoader());
-    ItemPredicate.LOADER.register(TConstruct.getResource("set"), ItemSetPredicate.LOADER);
-    ItemPredicate.LOADER.register(TConstruct.getResource("tag"), ItemTagPredicate.LOADER);
+    ItemPredicate.LOADER.register(getResource("and"), ItemPredicate.AND);
+    ItemPredicate.LOADER.register(getResource("or"), ItemPredicate.OR);
+    ItemPredicate.LOADER.register(getResource("inverted"), ItemPredicate.INVERTED);
+    ItemPredicate.LOADER.register(getResource("any"), ItemPredicate.ANY.getLoader());
+    ItemPredicate.LOADER.register(getResource("set"), ItemSetPredicate.LOADER);
+    ItemPredicate.LOADER.register(getResource("tag"), ItemTagPredicate.LOADER);
     // damage source predicate
-    DamageSourcePredicate.LOADER.register(TConstruct.getResource("and"), DamageSourcePredicate.AND);
-    DamageSourcePredicate.LOADER.register(TConstruct.getResource("or"), DamageSourcePredicate.OR);
-    DamageSourcePredicate.LOADER.register(TConstruct.getResource("inverted"), DamageSourcePredicate.INVERTED);
-    DamageSourcePredicate.LOADER.register(TConstruct.getResource("any"), DamageSourcePredicate.ANY.getLoader());
+    DamageSourcePredicate.LOADER.register(getResource("and"), DamageSourcePredicate.AND);
+    DamageSourcePredicate.LOADER.register(getResource("or"), DamageSourcePredicate.OR);
+    DamageSourcePredicate.LOADER.register(getResource("inverted"), DamageSourcePredicate.INVERTED);
+    DamageSourcePredicate.LOADER.register(getResource("any"), DamageSourcePredicate.ANY.getLoader());
     // vanilla properties
-    DamageSourcePredicate.LOADER.register(TConstruct.getResource("projectile"), DamageSourcePredicate.PROJECTILE.getLoader());
-    DamageSourcePredicate.LOADER.register(TConstruct.getResource("explosion"), DamageSourcePredicate.EXPLOSION.getLoader());
-    DamageSourcePredicate.LOADER.register(TConstruct.getResource("bypass_armor"), DamageSourcePredicate.BYPASS_ARMOR.getLoader());
-    DamageSourcePredicate.LOADER.register(TConstruct.getResource("damage_helmet"), DamageSourcePredicate.DAMAGE_HELMET.getLoader());
-    DamageSourcePredicate.LOADER.register(TConstruct.getResource("bypass_invulnerable"), DamageSourcePredicate.BYPASS_INVULNERABLE.getLoader());
-    DamageSourcePredicate.LOADER.register(TConstruct.getResource("bypass_magic"), DamageSourcePredicate.BYPASS_MAGIC.getLoader());
-    DamageSourcePredicate.LOADER.register(TConstruct.getResource("fire"), DamageSourcePredicate.FIRE.getLoader());
-    DamageSourcePredicate.LOADER.register(TConstruct.getResource("magic"), DamageSourcePredicate.MAGIC.getLoader());
-    DamageSourcePredicate.LOADER.register(TConstruct.getResource("fall"), DamageSourcePredicate.FALL.getLoader());
+    DamageSourcePredicate.LOADER.register(getResource("projectile"), DamageSourcePredicate.PROJECTILE.getLoader());
+    DamageSourcePredicate.LOADER.register(getResource("explosion"), DamageSourcePredicate.EXPLOSION.getLoader());
+    DamageSourcePredicate.LOADER.register(getResource("bypass_armor"), DamageSourcePredicate.BYPASS_ARMOR.getLoader());
+    DamageSourcePredicate.LOADER.register(getResource("damage_helmet"), DamageSourcePredicate.DAMAGE_HELMET.getLoader());
+    DamageSourcePredicate.LOADER.register(getResource("bypass_invulnerable"), DamageSourcePredicate.BYPASS_INVULNERABLE.getLoader());
+    DamageSourcePredicate.LOADER.register(getResource("bypass_magic"), DamageSourcePredicate.BYPASS_MAGIC.getLoader());
+    DamageSourcePredicate.LOADER.register(getResource("fire"), DamageSourcePredicate.FIRE.getLoader());
+    DamageSourcePredicate.LOADER.register(getResource("magic"), DamageSourcePredicate.MAGIC.getLoader());
+    DamageSourcePredicate.LOADER.register(getResource("fall"), DamageSourcePredicate.FALL.getLoader());
     // custom
-    DamageSourcePredicate.LOADER.register(TConstruct.getResource("can_protect"), DamageSourcePredicate.CAN_PROTECT.getLoader());
-    DamageSourcePredicate.LOADER.register(TConstruct.getResource("melee"), DamageSourcePredicate.MELEE.getLoader());
-    DamageSourcePredicate.LOADER.register(TConstruct.getResource("message"), SourceMessagePredicate.LOADER);
-    DamageSourcePredicate.LOADER.register(TConstruct.getResource("attacker"), SourceAttackerPredicate.LOADER);
+    DamageSourcePredicate.LOADER.register(getResource("can_protect"), DamageSourcePredicate.CAN_PROTECT.getLoader());
+    DamageSourcePredicate.LOADER.register(getResource("melee"), DamageSourcePredicate.MELEE.getLoader());
+    DamageSourcePredicate.LOADER.register(getResource("message"), SourceMessagePredicate.LOADER);
+    DamageSourcePredicate.LOADER.register(getResource("attacker"), SourceAttackerPredicate.LOADER);
   }
 
   @SubscribeEvent

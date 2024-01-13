@@ -17,12 +17,12 @@ import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import java.util.List;
 
 /** Performs a math formula using a post fix calculator */
-public record PostFixFormula(List<StackOperation> operations, String[] variableNames) implements ModifierFormula {
+public record PostFixFormula(List<StackOperation> operations, int numArguments) implements ModifierFormula {
   @Override
   public float apply(float... values) {
     // must have the right number of values to evaluate
-    if (values.length != variableNames.length) {
-      throw new IllegalArgumentException("Expected " + variableNames.length + " arguments, but received " + values.length);
+    if (values.length != numArguments) {
+      throw new IllegalArgumentException("Expected " + numArguments + " arguments, but received " + values.length);
     }
     AbstractFloatList stack = new FloatArrayList(5);
     for (StackOperation operation : operations) {
@@ -44,22 +44,23 @@ public record PostFixFormula(List<StackOperation> operations, String[] variableN
    * @throws RuntimeException  if something is invalid in the formula
    */
   public void validateFormula() {
-    apply(new float[variableNames.length]);
+    apply(new float[numArguments]);
   }
 
   /** Deserializes a formula from JSON */
   public static PostFixFormula deserialize(JsonObject json, String[] variableNames) {
+    // TODO: string formulas using Shunting yard algorithm
     return new PostFixFormula(JsonHelper.parseList(json, "formula", (element, key) -> {
       if (element.isJsonPrimitive()) {
         return StackOperation.deserialize(element.getAsJsonPrimitive(), variableNames);
       }
       throw new JsonSyntaxException("Expected " + key + " to be a string or number, was " + GsonHelper.getType(element));
-    }), variableNames);
+    }), variableNames.length);
   }
 
   /** Serializes this object to JSON */
   @Override
-  public JsonObject serialize(JsonObject json) {
+  public JsonObject serialize(JsonObject json, String[] variableNames) {
     JsonArray array = new JsonArray();
     for (StackOperation operation : operations) {
       array.add(operation.serialize(variableNames));
@@ -69,17 +70,17 @@ public record PostFixFormula(List<StackOperation> operations, String[] variableN
   }
 
   /** Reads a formula from the network */
-  public static PostFixFormula fromNetwork(FriendlyByteBuf buffer, String[] variableNames) {
-    return fromNetwork(buffer, buffer.readShort(), variableNames);
+  public static PostFixFormula fromNetwork(FriendlyByteBuf buffer, int numArguments) {
+    return fromNetwork(buffer, buffer.readShort(), numArguments);
   }
 
-  /** Common logic between {@link #fromNetwork(FriendlyByteBuf, String[])} and {@link ModifierFormula#fromNetwork(FriendlyByteBuf, String[], FallbackFormula)} */
-  static PostFixFormula fromNetwork(FriendlyByteBuf buffer, short size, String[] variableNames) {
+  /** Common logic between {@link #fromNetwork(FriendlyByteBuf, int)} and {@link ModifierFormula#fromNetwork(FriendlyByteBuf, int, FallbackFormula)} */
+  static PostFixFormula fromNetwork(FriendlyByteBuf buffer, short size, int numArguments) {
     ImmutableList.Builder<StackOperation> builder = ImmutableList.builder();
     for (int i = 0; i < size; i++) {
       builder.add(StackOperation.fromNetwork(buffer));
     }
-    return new PostFixFormula(builder.build(), variableNames);
+    return new PostFixFormula(builder.build(), numArguments);
   }
 
   /** Writes this formula to the network */
@@ -126,32 +127,97 @@ public record PostFixFormula(List<StackOperation> operations, String[] variableN
 
     /** Pushes an add operation into the builder */
     public T add() {
-      return operation(BinaryOperator.ADD);
+      return operation(PostFixOperator.ADD);
     }
 
     /** Pushes a subtract operation into the builder */
     public T subtract() {
-      return operation(BinaryOperator.SUBTRACT);
+      return operation(PostFixOperator.SUBTRACT);
+    }
+
+    /** Pushes a subtract flipped operation into the builder */
+    public T subtractFlipped() {
+      return operation(PostFixOperator.SUBTRACT_FLIPPED);
     }
 
     /** Pushes a multiply operation into the builder */
     public T multiply() {
-      return operation(BinaryOperator.MULTIPLY);
+      return operation(PostFixOperator.MULTIPLY);
+    }
+
+    /** Pushes a negate operation into the builder */
+    public T negate() {
+      return operation(PostFixOperator.NEGATE);
     }
 
     /** Pushes a divide operation into the builder */
     public T divide() {
-      return operation(BinaryOperator.DIVIDE);
+      return operation(PostFixOperator.DIVIDE);
+    }
+
+    /** Pushes a divide flipped operation into the builder */
+    public T divideFlipped() {
+      return operation(PostFixOperator.DIVIDE_FLIPPED);
     }
 
     /** Pushes a power operation into the builder */
     public T power() {
-      return operation(BinaryOperator.POWER);
+      return operation(PostFixOperator.POWER);
+    }
+
+    /** Pushes a power flipped operation into the builder */
+    public T powerFlipped() {
+      return operation(PostFixOperator.POWER_FLIPPED);
+    }
+
+    /** Pushes a min operation into the builder */
+    public T min() {
+      return operation(PostFixOperator.MIN);
+    }
+
+    /** Pushes a max operation into the builder */
+    public T max() {
+      return operation(PostFixOperator.MAX);
+    }
+
+    /** Pushes a percent clamp operation into the builder */
+    public T nonNegative() {
+      return operation(PostFixOperator.NON_NEGATIVE);
+    }
+
+    /** Pushes a percent clamp operation into the builder */
+    public T percentClamp() {
+      return operation(PostFixOperator.PERCENT_CLAMP);
+    }
+
+    /** Pushes a abs operation into the builder */
+    public T abs() {
+      return operation(PostFixOperator.ABS);
+    }
+
+    /** Pushes a floor operation into the builder */
+    public T floor() {
+      return operation(PostFixOperator.FLOOR);
+    }
+
+    /** Pushes a ceil operation into the builder */
+    public T ceil() {
+      return operation(PostFixOperator.CEIL);
+    }
+
+    /** Pushes a swap operation into the builder */
+    public T swap() {
+      return operation(PostFixOperator.SWAP);
+    }
+
+    /** Pushes a duplicate operation into the builder */
+    public T duplicate() {
+      return operation(PostFixOperator.DUPLICATE);
     }
 
     /** Validates and builds the formula */
     public PostFixFormula buildFormula() {
-      PostFixFormula formula = new PostFixFormula(operations.build(), variableNames);
+      PostFixFormula formula = new PostFixFormula(operations.build(), variableNames.length);
       formula.validateFormula();
       return formula;
     }

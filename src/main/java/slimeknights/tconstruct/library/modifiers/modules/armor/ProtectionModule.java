@@ -159,13 +159,13 @@ public record ProtectionModule(IJsonPredicate<DamageSource> source, IJsonPredica
   @Setter
   @Accessors(fluent = true)
   @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-  public static class Builder extends ModifierModuleCondition.Builder<Builder> implements LevelingValue.Builder {
+  public static class Builder extends ModifierModuleCondition.Builder<Builder> implements LevelingValue.Builder<ProtectionModule> {
     private final IJsonPredicate<DamageSource> source;
     private IJsonPredicate<LivingEntity> entity = LivingEntityPredicate.ANY;
     private Enchantment subtract;
 
     @Override
-    public ModifierModule amount(float flat, float eachLevel) {
+    public ProtectionModule amount(float flat, float eachLevel) {
       return new ProtectionModule(source, entity, new LevelingValue(flat, eachLevel), subtract, condition);
     }
   }

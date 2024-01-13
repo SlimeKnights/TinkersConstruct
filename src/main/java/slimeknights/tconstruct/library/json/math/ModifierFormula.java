@@ -1,13 +1,10 @@
 package slimeknights.tconstruct.library.json.math;
 
 import com.google.gson.JsonObject;
-import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
 import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 
@@ -15,8 +12,15 @@ import slimeknights.tconstruct.library.tools.nbt.IToolContext;
  * Represents a modifier formula that may be either simple or complex.
  */
 public sealed interface ModifierFormula permits PostFixFormula, SimpleLevelingFormula {
+  // common variable indexes, not required to use but make things easier
   /** Variable index for the modifier level for the sake of the builder */
   int LEVEL = 0;
+  /** Variable index for the original value the formula is computing */
+  int VALUE = 1;
+  /** Variable index for the common multiplier for this stat */
+  int MULTIPLIER = 2;
+  /** Variable index for the base value before modifiers changed anything */
+  int BASE_VALUE = 3;
 
   /** Computes the level value for this formula, allows some optimizations to not compute level when not needed */
   float computeLevel(IToolContext tool, ModifierEntry modifier);
@@ -25,7 +29,7 @@ public sealed interface ModifierFormula permits PostFixFormula, SimpleLevelingFo
   float apply(float... arguments);
 
   /** Serializes this object to JSON */
-  JsonObject serialize(JsonObject json);
+  JsonObject serialize(JsonObject json, String[] variableNames);
 
   /** Writes this object to the network */
   void toNetwork(FriendlyByteBuf buffer);
@@ -42,7 +46,6 @@ public sealed interface ModifierFormula permits PostFixFormula, SimpleLevelingFo
    */
   static ModifierFormula deserialize(JsonObject json, String[] variableNames, FallbackFormula fallback) {
     if (json.has("formula")) {
-      // TODO: string formulas using Shunting yard algorithm
       return PostFixFormula.deserialize(json, variableNames);
     }
     LevelingValue leveling = LevelingValue.deserialize(json);
@@ -52,17 +55,17 @@ public sealed interface ModifierFormula permits PostFixFormula, SimpleLevelingFo
   /**
    * Reads a formula from the network
    * @param buffer         Buffer instance
-   * @param variableNames  Variable names for when post fix is used
+   * @param numArguments   Number of arguments for the formula for validation
    * @param fallback       Fallback for when not using post fix
    * @return  Formula object
    */
-  static ModifierFormula fromNetwork(FriendlyByteBuf buffer, String[] variableNames, FallbackFormula fallback) {
+  static ModifierFormula fromNetwork(FriendlyByteBuf buffer, int numArguments, FallbackFormula fallback) {
     short size = buffer.readShort();
     if (size == -1) {
       LevelingValue leveling = LevelingValue.fromNetwork(buffer);
       return new SimpleLevelingFormula(leveling, fallback);
     }
-    return PostFixFormula.fromNetwork(buffer, size, variableNames);
+    return PostFixFormula.fromNetwork(buffer, size, numArguments);
   }
 
   /** Formula to use when not using the post fix formula */
@@ -71,9 +74,11 @@ public sealed interface ModifierFormula permits PostFixFormula, SimpleLevelingFo
     /** Formula that just returns the leveling value directly */
     FallbackFormula IDENTITY = arguments -> arguments[LEVEL];
     /** Formula adding the leveling value to the second argument, requires 1 additional argument */
-    FallbackFormula ADD = arguments -> arguments[LEVEL] + arguments[1];
+    FallbackFormula ADD = arguments -> arguments[LEVEL] + arguments[VALUE];
     /** Formula for standard percent boosts, requires 1 additional argument */
-    FallbackFormula PERCENT = arguments -> arguments[1] * (1 + arguments[LEVEL]);
+    FallbackFormula PERCENT = arguments -> arguments[VALUE] * (1 + arguments[LEVEL]);
+    /** Formula for standard boosts, requires argument 1 to be the base value and argument 2 to be the multiplier */
+    FallbackFormula BOOST = arguments -> arguments[VALUE] + arguments[LEVEL] * arguments[MULTIPLIER];
 
     /**
      * Runs this formula
@@ -86,35 +91,36 @@ public sealed interface ModifierFormula permits PostFixFormula, SimpleLevelingFo
 
   /** Builder for a module containing a modifier formula */
   @RequiredArgsConstructor
-  abstract class Builder<T extends Builder<T>> extends ModifierModuleCondition.Builder<T> implements LevelingValue.Builder {
+  abstract class Builder<T extends Builder<T,M>,M> extends ModifierModuleCondition.Builder<T> implements LevelingValue.Builder<M> {
     /** Variables to use for post fix formulas */
-    private final String[] variables;
-    /** Fallback formula for simple leveling */
-    @Getter(AccessLevel.PROTECTED)
-    private final FallbackFormula formula;
+    protected final String[] variableNames;
 
     /** Builds the module given the formula */
-    protected abstract ModifierModule build(ModifierFormula formula);
+    protected abstract M build(ModifierFormula formula);
 
     @Override
-    public ModifierModule amount(float flat, float leveling) {
-      return build(new SimpleLevelingFormula(new LevelingValue(flat, leveling), getFormula()));
+    public M amount(float flat, float leveling) {
+      // formula does not actually matter during datagen, so just pass in a dummy formula to save constructor arguments
+      return build(new SimpleLevelingFormula(new LevelingValue(flat, leveling), FallbackFormula.IDENTITY));
     }
 
     /** Switches this builder into formula building mode */
-    public FormulaBuilder formula() {
-      return new FormulaBuilder();
+    public FormulaBuilder<?,M> formula() {
+      return new FormulaBuilder<>(this);
     }
 
     /** Builder for the formula segment of this module */
-    public class FormulaBuilder extends PostFixFormula.Builder<FormulaBuilder> {
-      protected FormulaBuilder() {
-        super(variables);
+    public static class FormulaBuilder<P extends FormulaBuilder<P,M>,M> extends PostFixFormula.Builder<P> {
+      private final Builder<?,M> parent;
+      // for some reason having this as a non-static class breaks the M generic, a static class fixes the issue even if its less "pretty"
+      protected FormulaBuilder(Builder<?,M> parent) {
+        super(parent.variableNames);
+        this.parent = parent;
       }
 
       /** Builds the module given the formula */
-      public ModifierModule build() {
-        return Builder.this.build(buildFormula());
+      public M build() {
+        return parent.build(buildFormula());
       }
     }
   }

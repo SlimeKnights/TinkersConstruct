@@ -18,15 +18,20 @@ public interface StackOperation {
     // strings are either binary operators or are variables
     if (element.isString()) {
       String str = element.getAsString();
-      if (str.length() == 1) {
-        return BinaryOperator.deserialize(str.charAt(0));
+      if (str.isBlank()) {
+        throw new JsonSyntaxException("Operation must not be empty");
       }
-      for (int i = 0; i < variableNames.length; i++) {
-        if (str.equals(variableNames[i])) {
-          return new PushVariableOperation(i);
+      // if it starts with a $, it's a variable
+      if (str.charAt(0) == '$') {
+        str = str.substring(1);
+        for (int i = 0; i < variableNames.length; i++) {
+          if (str.equals(variableNames[i])) {
+            return new PushVariableOperation(i);
+          }
         }
+        throw new JsonSyntaxException("Unknown variable '" + str + "'");
       }
-      throw new JsonSyntaxException("Unknown variable '" + str + "'");
+      return PostFixOperator.deserialize(str);
     }
     // numbers are constants
     if (element.isNumber()) {
@@ -40,13 +45,13 @@ public interface StackOperation {
 
   /** Reads an operation from the network */
   static StackOperation fromNetwork(FriendlyByteBuf buffer) {
-    StackNetworkType type = buffer.readEnum(StackNetworkType.class);
-    if (type == StackNetworkType.VALUE) {
+    int type = buffer.readVarInt();
+    if (type == PostFixOperator.VALUE_INDEX) {
       return new PushConstantOperation(buffer.readFloat());
     }
-    if (type == StackNetworkType.VARIABLE) {
+    if (type == PostFixOperator.VARIABLE_INDEX) {
       return new PushVariableOperation(buffer.readVarInt());
     }
-    return type.toOperator();
+    return PostFixOperator.values()[type];
   }
 }

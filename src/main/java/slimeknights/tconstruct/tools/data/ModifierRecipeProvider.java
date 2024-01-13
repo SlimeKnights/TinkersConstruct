@@ -314,51 +314,51 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
 
     // haste can use redstone or blocks
     hasteRecipes(consumer, TinkerModifiers.haste.getId(), ingredientFromTags(TinkerTags.Items.HARVEST, TinkerTags.Items.CHESTPLATES), 5, upgradeFolder, upgradeSalvage);
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.blasting)
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.blasting)
                                     .setTools(TinkerTags.Items.STONE_HARVEST)
                                     .setInput(Tags.Items.GUNPOWDER, 1, 20)
                                     .setMaxLevel(5) // +50 mining speed at max, conditionally
                                     .setSlots(SlotType.UPGRADE, 1)
-                                    .saveSalvage(consumer, prefix(TinkerModifiers.blasting, upgradeSalvage))
-                                    .save(consumer, prefix(TinkerModifiers.blasting, upgradeFolder));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.hydraulic)
+                                    .saveSalvage(consumer, prefix(ModifierIds.blasting, upgradeSalvage))
+                                    .save(consumer, prefix(ModifierIds.blasting, upgradeFolder));
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.hydraulic)
                                     .setTools(TinkerTags.Items.HARVEST)
                                     .setInput(Tags.Items.DUSTS_PRISMARINE, 1, 36) // stupid forge name
                                     .setMaxLevel(5)
                                     .setSlots(SlotType.UPGRADE, 1)
-                                    .saveSalvage(consumer, prefix(TinkerModifiers.hydraulic, upgradeSalvage))
-                                    .save(consumer, wrap(TinkerModifiers.hydraulic, upgradeFolder, "_from_shard"));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.hydraulic)
+                                    .saveSalvage(consumer, prefix(ModifierIds.hydraulic, upgradeSalvage))
+                                    .save(consumer, wrap(ModifierIds.hydraulic, upgradeFolder, "_from_shard"));
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.hydraulic)
                                     .setTools(TinkerTags.Items.HARVEST)
                                     .setInput(Blocks.PRISMARINE, 4, 36)
                                     .setLeftover(new ItemStack(Items.PRISMARINE_SHARD))
                                     .setMaxLevel(5)
                                     .disallowCrystal()
                                     .setSlots(SlotType.UPGRADE, 1)
-                                    .save(consumer, wrap(TinkerModifiers.hydraulic, upgradeFolder, "_from_block"));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.hydraulic)
+                                    .save(consumer, wrap(ModifierIds.hydraulic, upgradeFolder, "_from_block"));
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.hydraulic)
                                     .setTools(TinkerTags.Items.HARVEST)
                                     .setInput(Blocks.PRISMARINE_BRICKS, 9, 36)
                                     .setLeftover(new ItemStack(Items.PRISMARINE_SHARD))
                                     .setMaxLevel(5)
                                     .disallowCrystal()
                                     .setSlots(SlotType.UPGRADE, 1)
-                                    .save(consumer, wrap(TinkerModifiers.hydraulic, upgradeFolder, "_from_bricks"));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.lightspeed)
+                                    .save(consumer, wrap(ModifierIds.hydraulic, upgradeFolder, "_from_bricks"));
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.lightspeed)
                                     .setTools(TinkerTags.Items.HARVEST)
                                     .setInput(Tags.Items.DUSTS_GLOWSTONE, 1, 64)
                                     .setMaxLevel(5) // +45 mining speed at max, conditionally
                                     .setSlots(SlotType.UPGRADE, 1)
-                                    .saveSalvage(consumer, prefix(TinkerModifiers.lightspeed, upgradeSalvage))
-                                    .save(consumer, wrap(TinkerModifiers.lightspeed, upgradeFolder, "_from_dust"));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.lightspeed)
+                                    .saveSalvage(consumer, prefix(ModifierIds.lightspeed, upgradeSalvage))
+                                    .save(consumer, wrap(ModifierIds.lightspeed, upgradeFolder, "_from_dust"));
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.lightspeed)
                                     .setTools(TinkerTags.Items.HARVEST)
                                     .setInput(Blocks.GLOWSTONE, 4, 64)
                                     .setLeftover(new ItemStack(Items.GLOWSTONE_DUST))
                                     .setMaxLevel(5)
                                     .disallowCrystal()
                                     .setSlots(SlotType.UPGRADE, 1)
-                                    .save(consumer, wrap(TinkerModifiers.lightspeed, upgradeFolder, "_from_block"));
+                                    .save(consumer, wrap(ModifierIds.lightspeed, upgradeFolder, "_from_block"));
 
     /*
      * weapon

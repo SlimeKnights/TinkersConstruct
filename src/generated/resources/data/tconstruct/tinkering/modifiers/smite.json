@@ -7,7 +7,7 @@
       "type": "tconstruct:incremental"
     },
     {
-      "type": "tconstruct:conditional_damage",
+      "type": "tconstruct:conditional_melee_damage",
       "target": {
         "type": "mantle:mob_type",
         "mobs": "minecraft:undead"

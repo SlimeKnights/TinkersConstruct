@@ -14,12 +14,12 @@ record PushVariableOperation(int index) implements StackOperation {
 
   @Override
   public JsonPrimitive serialize(String[] variableNames) {
-    return new JsonPrimitive(variableNames[index]);
+    return new JsonPrimitive('$' + variableNames[index]);
   }
 
   @Override
   public void toNetwork(FriendlyByteBuf buffer) {
-    buffer.writeEnum(StackNetworkType.VARIABLE);
+    buffer.writeVarInt(PostFixOperator.VARIABLE_INDEX);
     buffer.writeVarInt(index);
   }
 }

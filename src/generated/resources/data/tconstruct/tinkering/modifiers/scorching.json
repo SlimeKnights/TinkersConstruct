@@ -4,7 +4,7 @@
   "tooltip_display": "always",
   "modules": [
     {
-      "type": "tconstruct:conditional_damage",
+      "type": "tconstruct:conditional_melee_damage",
       "target": "mantle:on_fire",
       "percent": false,
       "each_level": 2.0
