@@ -2896,7 +2896,7 @@
   "advancements.tconstruct.tools.perfect_aim.title": "夺命之剑",
   "advancements.tconstruct.tools.perfect_aim.description": "打造一把精确度为1.0的弓",
   "advancements.tconstruct.tools.one_shot.title": "一击毙命",
-  "advancements.tconstruct.tools.one_shot.description": "打造一把能在不暴击的情况下一击击杀僵尸（造成21点伤害及以上）的近战武器。",
+  "advancements.tconstruct.tools.one_shot.description": "打造一把能在正常情况下一击击杀任何生物（造成21点伤害及以上）的近战武器。",
   "advancements.tconstruct.tools.material_master.title": "材料大师",
   "advancements.tconstruct.tools.material_master.description": "使用每种默认材料至少一次",
 
