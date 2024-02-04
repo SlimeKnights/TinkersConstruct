@@ -6,7 +6,7 @@
     {
       "type": "tconstruct:block_damage",
       "damage_source": {
-        "type": "tconstruct:message",
+        "type": "mantle:message",
         "message": "hotFloor"
       }
     },
@@ -15,7 +15,7 @@
       "replace": [
         {
           "target": {
-            "type": "tconstruct:block_properties",
+            "type": "mantle:block_properties",
             "block": "minecraft:water",
             "properties": {
               "level": "0"

@@ -7,7 +7,7 @@
       "type": "tconstruct:conditional_mining_speed",
       "blocks": {
         "type": "mantle:inverted",
-        "predicate": "mantle:requires_tool"
+        "inverted_type": "mantle:requires_tool"
       },
       "entity": "mantle:any",
       "require_effective": false,

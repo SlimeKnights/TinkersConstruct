@@ -20,20 +20,20 @@ import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.ToolActions;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.block.BlockPredicate;
+import slimeknights.mantle.data.predicate.block.BlockPropertiesPredicate;
+import slimeknights.mantle.data.predicate.damage.DamageSourcePredicate;
+import slimeknights.mantle.data.predicate.damage.SourceMessagePredicate;
+import slimeknights.mantle.data.predicate.entity.HasEnchantmentEntityPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.mantle.data.predicate.entity.MobTypePredicate;
 import slimeknights.mantle.data.predicate.entity.TagEntityPredicate;
+import slimeknights.mantle.data.predicate.item.ItemPredicate;
+import slimeknights.mantle.data.predicate.item.ItemTagPredicate;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.data.tinkering.AbstractModifierProvider;
 import slimeknights.tconstruct.library.json.RandomLevelingValue;
-import slimeknights.tconstruct.library.json.predicate.block.BlockPropertiesPredicate;
-import slimeknights.tconstruct.library.json.predicate.damage.DamageSourcePredicate;
-import slimeknights.tconstruct.library.json.predicate.damage.SourceMessagePredicate;
-import slimeknights.tconstruct.library.json.predicate.entity.HasEnchantmentEntityPredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.TinkerLivingEntityPredicate;
-import slimeknights.tconstruct.library.json.predicate.item.ItemPredicate;
-import slimeknights.tconstruct.library.json.predicate.item.ItemTagPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate.ModifierCheck;
 import slimeknights.tconstruct.library.json.predicate.tool.ItemToolPredicate;
@@ -226,9 +226,9 @@ public class ModifierProvider extends AbstractModifierProvider {
     buildModifier(ModifierIds.hydraulic).addModule(
       ConditionalMiningSpeedModule.builder()
         .customVariable("bonus", new EntityMiningSpeedVariable(new ConditionalEntityVariable(
-          TinkerLivingEntityPredicate.EYES_IN_WATER,
+          LivingEntityPredicate.EYES_IN_WATER,
           new ConditionalEntityVariable(new HasEnchantmentEntityPredicate(Enchantments.AQUA_AFFINITY), 8, 40),
-          new ConditionalEntityVariable(TinkerLivingEntityPredicate.RAINING, 4, 0)
+          new ConditionalEntityVariable(LivingEntityPredicate.RAINING, 4, 0)
         ), 8)).formula()
         .variable(MULTIPLIER).customVariable("bonus").multiply()
         .variable(LEVEL).multiply()
@@ -319,10 +319,10 @@ public class ModifierProvider extends AbstractModifierProvider {
       .addModule(AttributeModule.builder(ForgeMod.SWIM_SPEED.get(), Operation.MULTIPLY_TOTAL).uniqueFrom(ModifierIds.turtleShell).slots(armorSlots).eachLevel(0.05f))
       .addModule(ProtectionModule.source(DamageSourcePredicate.CAN_PROTECT)
                                  .tool(new ItemToolPredicate(ItemPredicate.OR.create(new ItemTagPredicate(TinkerTags.Items.HELMETS), new ItemTagPredicate(TinkerTags.Items.CHESTPLATES))))
-                                 .entity(TinkerLivingEntityPredicate.EYES_IN_WATER).eachLevel(2.5f))
+                                 .entity(LivingEntityPredicate.EYES_IN_WATER).eachLevel(2.5f))
       .addModule(ProtectionModule.source(DamageSourcePredicate.CAN_PROTECT)
                                  .tool(new ItemToolPredicate(ItemPredicate.OR.create(new ItemTagPredicate(TinkerTags.Items.LEGGINGS), new ItemTagPredicate(TinkerTags.Items.BOOTS))))
-                                 .entity(TinkerLivingEntityPredicate.FEET_IN_WATER).eachLevel(2.5f));
+                                 .entity(LivingEntityPredicate.FEET_IN_WATER).eachLevel(2.5f));
     // helmet
     buildModifier(ModifierIds.respiration).addModule(EnchantmentModule.constant(Enchantments.RESPIRATION).build());
     buildModifier(ModifierIds.aquaAffinity).addModule(EnchantmentModule.constant(Enchantments.AQUA_AFFINITY).build()).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
@@ -380,7 +380,7 @@ public class ModifierProvider extends AbstractModifierProvider {
     buildModifier(ModifierIds.scorching).addModule(ConditionalMeleeDamageModule.builder().target(LivingEntityPredicate.ON_FIRE).eachLevel(2f));
     buildModifier(ModifierIds.airborne)
       // 400% boost means 5x mining speed
-      .addModule(ConditionalMiningSpeedModule.builder().holder(TinkerLivingEntityPredicate.ON_GROUND.inverted()).percent().allowIneffective().flat(4), TinkerHooks.BREAK_SPEED)
+      .addModule(ConditionalMiningSpeedModule.builder().holder(LivingEntityPredicate.ON_GROUND.inverted()).percent().allowIneffective().flat(4), TinkerHooks.BREAK_SPEED)
       // accuracy gets a 0.5 boost under the stricter version of in air (no boost just for being on a ladder)
       .addModule(ConditionalStatModule.stat(ToolStats.ACCURACY).holder(TinkerLivingEntityPredicate.AIRBORNE).flat(0.5f));
     buildModifier(ModifierIds.raging)

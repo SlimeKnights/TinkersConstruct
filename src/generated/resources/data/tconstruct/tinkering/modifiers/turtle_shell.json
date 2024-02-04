@@ -20,40 +20,40 @@
       "type": "tconstruct:protection",
       "tool": {
         "type": "tconstruct:item",
-        "item_type": "tconstruct:or",
+        "item_type": "mantle:or",
         "predicates": [
           {
-            "type": "tconstruct:tag",
+            "type": "mantle:tag",
             "tag": "tconstruct:modifiable/armor/helmets"
           },
           {
-            "type": "tconstruct:tag",
+            "type": "mantle:tag",
             "tag": "tconstruct:modifiable/armor/chestplate"
           }
         ]
       },
-      "damage_source": "tconstruct:can_protect",
-      "wearing_entity": "tconstruct:eyes_in_water",
+      "damage_source": "mantle:can_protect",
+      "wearing_entity": "mantle:eyes_in_water",
       "each_level": 2.5
     },
     {
       "type": "tconstruct:protection",
       "tool": {
         "type": "tconstruct:item",
-        "item_type": "tconstruct:or",
+        "item_type": "mantle:or",
         "predicates": [
           {
-            "type": "tconstruct:tag",
+            "type": "mantle:tag",
             "tag": "tconstruct:modifiable/armor/leggings"
           },
           {
-            "type": "tconstruct:tag",
+            "type": "mantle:tag",
             "tag": "tconstruct:modifiable/armor/boots"
           }
         ]
       },
-      "damage_source": "tconstruct:can_protect",
-      "wearing_entity": "tconstruct:feet_in_water",
+      "damage_source": "mantle:can_protect",
+      "wearing_entity": "mantle:feet_in_water",
       "each_level": 2.5
     }
   ]

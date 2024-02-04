@@ -15,7 +15,6 @@ import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.block.BlockPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.tconstruct.library.json.math.ModifierFormula;
-import slimeknights.tconstruct.library.json.predicate.block.TinkerBlockPredicate;
 import slimeknights.tconstruct.library.json.variable.VariableFormula;
 import slimeknights.tconstruct.library.json.variable.mining.MiningSpeedFormula;
 import slimeknights.tconstruct.library.json.variable.mining.MiningSpeedVariable;
@@ -139,7 +138,7 @@ public record ConditionalMiningSpeedModule(
   @Accessors(fluent = true)
   public static class Builder extends VariableFormula.Builder<Builder,ConditionalMiningSpeedModule,MiningSpeedVariable> {
     @Setter
-    private IJsonPredicate<BlockState> blocks = TinkerBlockPredicate.ANY;
+    private IJsonPredicate<BlockState> blocks = BlockPredicate.ANY;
     @Setter
     private IJsonPredicate<LivingEntity> holder = LivingEntityPredicate.ANY;
     private boolean percent = false;

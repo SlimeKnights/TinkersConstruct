@@ -5,7 +5,7 @@
   "modules": [
     {
       "type": "tconstruct:conditional_mining_speed",
-      "blocks": "tconstruct:any",
+      "blocks": "mantle:any",
       "entity": "mantle:any",
       "require_effective": true,
       "percent": false,

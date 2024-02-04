@@ -17,7 +17,7 @@
       "type": "tconstruct:stat_boost",
       "tool": {
         "type": "tconstruct:item",
-        "item_type": "tconstruct:tag",
+        "item_type": "mantle:tag",
         "tag": "tconstruct:modifiable/armor"
       },
       "stat": "tconstruct:durability",

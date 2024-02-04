@@ -16,10 +16,8 @@
       },
       {
         "type": "tconstruct:inverted",
-        "predicate": {
-          "type": "tconstruct:tag",
-          "tag": "tconstruct:extract_blacklist/slotless"
-        }
+        "inverted_type": "tconstruct:tag",
+        "tag": "tconstruct:extract_blacklist/slotless"
       }
     ]
   }
