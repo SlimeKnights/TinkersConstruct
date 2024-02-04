@@ -5,7 +5,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import slimeknights.mantle.data.GenericLoaderRegistry;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.GenericLoaderRegistry.IHaveLoader;
-import slimeknights.tconstruct.library.json.serializer.NestedLoader;
+import slimeknights.mantle.data.loader.NestedLoader;
 import slimeknights.tconstruct.library.json.variable.ConditionalVariableLoader.ConditionalVariable;
 
 /**

@@ -3,9 +3,9 @@ package slimeknights.tconstruct.library.json.predicate.damage;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.loader.NestedLoader;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
-import slimeknights.tconstruct.library.json.serializer.NestedLoader;
 
 /**
  * Predicate that checks for properties of the attacker in a damage source

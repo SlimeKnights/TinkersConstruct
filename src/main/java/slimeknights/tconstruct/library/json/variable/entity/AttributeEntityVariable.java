@@ -4,11 +4,11 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.tconstruct.library.json.serializer.GenericRegistryEntrySerializer;
+import slimeknights.mantle.data.loader.RegistryEntryLoader;
 
 /** Variable that fetches an attribute value */
 public record AttributeEntityVariable(Attribute attribute) implements EntityVariable {
-  public static final IGenericLoader<AttributeEntityVariable> LOADER = new GenericRegistryEntrySerializer<>("attribute", ForgeRegistries.ATTRIBUTES, AttributeEntityVariable::new, AttributeEntityVariable::attribute);
+  public static final IGenericLoader<AttributeEntityVariable> LOADER = new RegistryEntryLoader<>("attribute", ForgeRegistries.ATTRIBUTES, AttributeEntityVariable::new, AttributeEntityVariable::attribute);
 
   @Override
   public float getValue(LivingEntity entity) {

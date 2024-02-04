@@ -7,7 +7,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot.Type;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.tconstruct.library.json.serializer.GenericRegistryEntrySerializer;
+import slimeknights.mantle.data.loader.RegistryEntryLoader;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.modifiers.modules.armor.MobDisguiseModule;
@@ -20,7 +20,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 @RequiredArgsConstructor
 public class MobDisguiseModifier extends NoLevelsModifier {
   /** Loader instance */
-  public static final IGenericLoader<MobDisguiseModifier> LOADER = new GenericRegistryEntrySerializer<>("entity", ForgeRegistries.ENTITIES, MobDisguiseModifier::new, m -> m.type);
+  public static final IGenericLoader<MobDisguiseModifier> LOADER = new RegistryEntryLoader<>("entity", ForgeRegistries.ENTITIES, MobDisguiseModifier::new, m -> m.type);
   /** @deprecated use {@link MobDisguiseModule#DISGUISES} */
   @Deprecated
   public static final TinkerDataKey<Multiset<EntityType<?>>> DISGUISES = MobDisguiseModule.DISGUISES;
