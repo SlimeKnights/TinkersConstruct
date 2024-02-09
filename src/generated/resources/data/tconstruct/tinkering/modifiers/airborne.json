@@ -5,10 +5,10 @@
   "modules": [
     {
       "type": "tconstruct:conditional_mining_speed",
-      "blocks": "tconstruct:any",
+      "blocks": "mantle:any",
       "entity": {
         "type": "mantle:inverted",
-        "predicate": "tconstruct:on_ground"
+        "inverted_type": "mantle:on_ground"
       },
       "require_effective": false,
       "percent": true,

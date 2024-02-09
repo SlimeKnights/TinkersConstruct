@@ -41,21 +41,12 @@ import slimeknights.tconstruct.library.json.TagIntersectionPresentCondition;
 import slimeknights.tconstruct.library.json.TagNotEmptyLootCondition;
 import slimeknights.tconstruct.library.json.TagPreferenceLootEntry;
 import slimeknights.tconstruct.library.json.predicate.block.BlockPredicate;
-import slimeknights.tconstruct.library.json.predicate.block.BlockPropertiesPredicate;
 import slimeknights.tconstruct.library.json.predicate.block.SetBlockPredicate;
 import slimeknights.tconstruct.library.json.predicate.block.TagBlockPredicate;
-import slimeknights.tconstruct.library.json.predicate.block.TinkerBlockPredicate;
-import slimeknights.tconstruct.library.json.predicate.damage.DamageSourcePredicate;
-import slimeknights.tconstruct.library.json.predicate.damage.SourceAttackerPredicate;
-import slimeknights.tconstruct.library.json.predicate.damage.SourceMessagePredicate;
-import slimeknights.tconstruct.library.json.predicate.entity.HasEnchantmentEntityPredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.LivingEntityPredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.MobTypePredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.TagEntityPredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.TinkerLivingEntityPredicate;
-import slimeknights.tconstruct.library.json.predicate.item.ItemPredicate;
-import slimeknights.tconstruct.library.json.predicate.item.ItemSetPredicate;
-import slimeknights.tconstruct.library.json.predicate.item.ItemTagPredicate;
 import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.shared.block.BetterPaneBlock;
@@ -178,8 +169,6 @@ public final class TinkerCommons extends TinkerModule {
     BlockPredicate.LOADER.register(getResource("requires_tool"), BlockPredicate.REQUIRES_TOOL.getLoader());
     BlockPredicate.LOADER.register(getResource("set"), SetBlockPredicate.LOADER);
     BlockPredicate.LOADER.register(getResource("tag"), TagBlockPredicate.LOADER);
-    slimeknights.mantle.data.predicate.block.BlockPredicate.LOADER.register(getResource("any"), TinkerBlockPredicate.ANY.getLoader());
-    slimeknights.mantle.data.predicate.block.BlockPredicate.LOADER.register(getResource("block_properties"), BlockPropertiesPredicate.LOADER);
     // entity predicates
     LivingEntityPredicate.LOADER.register(getResource("and"), LivingEntityPredicate.AND);
     LivingEntityPredicate.LOADER.register(getResource("or"), LivingEntityPredicate.OR);
@@ -196,45 +185,12 @@ public final class TinkerCommons extends TinkerModule {
     LivingEntityPredicate.LOADER.register(getResource("feet_in_water"), LivingEntityPredicate.FEET_IN_WATER.getLoader());
     // mantle
     slimeknights.mantle.data.predicate.entity.LivingEntityPredicate.LOADER.register(getResource("airborne"), TinkerLivingEntityPredicate.AIRBORNE.getLoader());
-    slimeknights.mantle.data.predicate.entity.LivingEntityPredicate.LOADER.register(getResource("on_ground"), TinkerLivingEntityPredicate.ON_GROUND.getLoader());
-    slimeknights.mantle.data.predicate.entity.LivingEntityPredicate.LOADER.register(getResource("crouching"), TinkerLivingEntityPredicate.CROUCHING.getLoader());
-    slimeknights.mantle.data.predicate.entity.LivingEntityPredicate.LOADER.register(getResource("eyes_in_water"), TinkerLivingEntityPredicate.EYES_IN_WATER.getLoader());
-    slimeknights.mantle.data.predicate.entity.LivingEntityPredicate.LOADER.register(getResource("feet_in_water"), TinkerLivingEntityPredicate.FEET_IN_WATER.getLoader());
-    slimeknights.mantle.data.predicate.entity.LivingEntityPredicate.LOADER.register(getResource("raining_at"), TinkerLivingEntityPredicate.RAINING.getLoader());
-    slimeknights.mantle.data.predicate.entity.LivingEntityPredicate.LOADER.register(getResource("has_enchantment"), HasEnchantmentEntityPredicate.LOADER);
     // register mob types
     MobTypePredicate.MOB_TYPES.register(new ResourceLocation("undefined"), MobType.UNDEFINED);
     MobTypePredicate.MOB_TYPES.register(new ResourceLocation("undead"), MobType.UNDEAD);
     MobTypePredicate.MOB_TYPES.register(new ResourceLocation("arthropod"), MobType.ARTHROPOD);
     MobTypePredicate.MOB_TYPES.register(new ResourceLocation("illager"), MobType.ILLAGER);
     MobTypePredicate.MOB_TYPES.register(new ResourceLocation("water"), MobType.WATER);
-    // item predicates
-    ItemPredicate.LOADER.register(getResource("and"), ItemPredicate.AND);
-    ItemPredicate.LOADER.register(getResource("or"), ItemPredicate.OR);
-    ItemPredicate.LOADER.register(getResource("inverted"), ItemPredicate.INVERTED);
-    ItemPredicate.LOADER.register(getResource("any"), ItemPredicate.ANY.getLoader());
-    ItemPredicate.LOADER.register(getResource("set"), ItemSetPredicate.LOADER);
-    ItemPredicate.LOADER.register(getResource("tag"), ItemTagPredicate.LOADER);
-    // damage source predicate
-    DamageSourcePredicate.LOADER.register(getResource("and"), DamageSourcePredicate.AND);
-    DamageSourcePredicate.LOADER.register(getResource("or"), DamageSourcePredicate.OR);
-    DamageSourcePredicate.LOADER.register(getResource("inverted"), DamageSourcePredicate.INVERTED);
-    DamageSourcePredicate.LOADER.register(getResource("any"), DamageSourcePredicate.ANY.getLoader());
-    // vanilla properties
-    DamageSourcePredicate.LOADER.register(getResource("projectile"), DamageSourcePredicate.PROJECTILE.getLoader());
-    DamageSourcePredicate.LOADER.register(getResource("explosion"), DamageSourcePredicate.EXPLOSION.getLoader());
-    DamageSourcePredicate.LOADER.register(getResource("bypass_armor"), DamageSourcePredicate.BYPASS_ARMOR.getLoader());
-    DamageSourcePredicate.LOADER.register(getResource("damage_helmet"), DamageSourcePredicate.DAMAGE_HELMET.getLoader());
-    DamageSourcePredicate.LOADER.register(getResource("bypass_invulnerable"), DamageSourcePredicate.BYPASS_INVULNERABLE.getLoader());
-    DamageSourcePredicate.LOADER.register(getResource("bypass_magic"), DamageSourcePredicate.BYPASS_MAGIC.getLoader());
-    DamageSourcePredicate.LOADER.register(getResource("fire"), DamageSourcePredicate.FIRE.getLoader());
-    DamageSourcePredicate.LOADER.register(getResource("magic"), DamageSourcePredicate.MAGIC.getLoader());
-    DamageSourcePredicate.LOADER.register(getResource("fall"), DamageSourcePredicate.FALL.getLoader());
-    // custom
-    DamageSourcePredicate.LOADER.register(getResource("can_protect"), DamageSourcePredicate.CAN_PROTECT.getLoader());
-    DamageSourcePredicate.LOADER.register(getResource("melee"), DamageSourcePredicate.MELEE.getLoader());
-    DamageSourcePredicate.LOADER.register(getResource("message"), SourceMessagePredicate.LOADER);
-    DamageSourcePredicate.LOADER.register(getResource("attacker"), SourceAttackerPredicate.LOADER);
   }
 
   @SubscribeEvent

@@ -6,7 +6,7 @@ import net.minecraft.util.GsonHelper;
 import slimeknights.mantle.data.GenericLoaderRegistry;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.GenericLoaderRegistry.IHaveLoader;
-import slimeknights.tconstruct.library.json.serializer.NestedLoader;
+import slimeknights.mantle.data.loader.NestedLoader;
 import slimeknights.tconstruct.library.json.variable.NestedFallbackLoader.NestedFallback;
 
 import java.util.function.BiFunction;
@@ -15,7 +15,6 @@ import java.util.function.BiFunction;
  * Represents a nested loader with a single float argument. Common loader for variables.
  * @param <T>  Type being loaded
  * @param <N>  Nested type
- * @param <F>  Fallback type
  */
 public record NestedFallbackLoader<T extends IHaveLoader<?> & NestedFallback<N>, N extends IHaveLoader<N>>(String typeKey, GenericLoaderRegistry<N> nestedLoader, BiFunction<N, Float, T> constructor) implements IGenericLoader<T> {
   @Override

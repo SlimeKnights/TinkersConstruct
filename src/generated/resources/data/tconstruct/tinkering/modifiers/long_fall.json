@@ -5,7 +5,7 @@
   "modules": [
     {
       "type": "tconstruct:block_damage",
-      "damage_source": "tconstruct:fall"
+      "damage_source": "mantle:fall"
     }
   ]
 }

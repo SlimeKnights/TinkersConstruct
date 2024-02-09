@@ -28,7 +28,7 @@
               "predicates": [
                 {
                   "type": "tconstruct:item",
-                  "item_type": "tconstruct:set",
+                  "item_type": "mantle:set",
                   "items": [
                     "tconstruct:slime_helmet"
                   ]
@@ -54,7 +54,7 @@
               "predicates": [
                 {
                   "type": "tconstruct:item",
-                  "item_type": "tconstruct:set",
+                  "item_type": "mantle:set",
                   "items": [
                     "tconstruct:slime_helmet"
                   ]
@@ -80,7 +80,7 @@
               "predicates": [
                 {
                   "type": "tconstruct:item",
-                  "item_type": "tconstruct:set",
+                  "item_type": "mantle:set",
                   "items": [
                     "tconstruct:slime_helmet"
                   ]
@@ -106,7 +106,7 @@
               "predicates": [
                 {
                   "type": "tconstruct:item",
-                  "item_type": "tconstruct:set",
+                  "item_type": "mantle:set",
                   "items": [
                     "tconstruct:slime_helmet"
                   ]
@@ -132,7 +132,7 @@
               "predicates": [
                 {
                   "type": "tconstruct:item",
-                  "item_type": "tconstruct:set",
+                  "item_type": "mantle:set",
                   "items": [
                     "tconstruct:slime_helmet"
                   ]
@@ -158,7 +158,7 @@
               "predicates": [
                 {
                   "type": "tconstruct:item",
-                  "item_type": "tconstruct:set",
+                  "item_type": "mantle:set",
                   "items": [
                     "tconstruct:slime_helmet"
                   ]
@@ -184,7 +184,7 @@
               "predicates": [
                 {
                   "type": "tconstruct:item",
-                  "item_type": "tconstruct:set",
+                  "item_type": "mantle:set",
                   "items": [
                     "tconstruct:slime_helmet"
                   ]
@@ -210,7 +210,7 @@
               "predicates": [
                 {
                   "type": "tconstruct:item",
-                  "item_type": "tconstruct:set",
+                  "item_type": "mantle:set",
                   "items": [
                     "tconstruct:slime_helmet"
                   ]
@@ -236,7 +236,7 @@
               "predicates": [
                 {
                   "type": "tconstruct:item",
-                  "item_type": "tconstruct:set",
+                  "item_type": "mantle:set",
                   "items": [
                     "tconstruct:slime_helmet"
                   ]
@@ -262,7 +262,7 @@
               "predicates": [
                 {
                   "type": "tconstruct:item",
-                  "item_type": "tconstruct:set",
+                  "item_type": "mantle:set",
                   "items": [
                     "tconstruct:slime_helmet"
                   ]
@@ -288,7 +288,7 @@
               "predicates": [
                 {
                   "type": "tconstruct:item",
-                  "item_type": "tconstruct:set",
+                  "item_type": "mantle:set",
                   "items": [
                     "tconstruct:slime_helmet"
                   ]
@@ -314,7 +314,7 @@
               "predicates": [
                 {
                   "type": "tconstruct:item",
-                  "item_type": "tconstruct:set",
+                  "item_type": "mantle:set",
                   "items": [
                     "tconstruct:slime_helmet"
                   ]
@@ -340,7 +340,7 @@
               "predicates": [
                 {
                   "type": "tconstruct:item",
-                  "item_type": "tconstruct:set",
+                  "item_type": "mantle:set",
                   "items": [
                     "tconstruct:slime_helmet"
                   ]
@@ -366,7 +366,7 @@
               "predicates": [
                 {
                   "type": "tconstruct:item",
-                  "item_type": "tconstruct:set",
+                  "item_type": "mantle:set",
                   "items": [
                     "tconstruct:slime_helmet"
                   ]

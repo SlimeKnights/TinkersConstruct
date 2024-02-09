@@ -7,11 +7,9 @@
       "type": "tconstruct:knockback",
       "tool": {
         "type": "tconstruct:inverted",
-        "predicate": {
-          "type": "tconstruct:item",
-          "item_type": "tconstruct:tag",
-          "tag": "tconstruct:modifiable/unarmed"
-        }
+        "inverted_type": "tconstruct:item",
+        "item_type": "mantle:tag",
+        "tag": "tconstruct:modifiable/unarmed"
       },
       "entity": "mantle:any",
       "each_level": 0.5

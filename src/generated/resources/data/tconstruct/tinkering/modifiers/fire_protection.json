@@ -11,10 +11,10 @@
     {
       "type": "tconstruct:protection",
       "damage_source": {
-        "type": "tconstruct:and",
+        "type": "mantle:and",
         "predicates": [
-          "tconstruct:can_protect",
-          "tconstruct:fire"
+          "mantle:can_protect",
+          "mantle:fire"
         ]
       },
       "wearing_entity": "mantle:any",
