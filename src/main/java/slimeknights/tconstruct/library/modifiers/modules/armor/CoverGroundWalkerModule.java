@@ -12,12 +12,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.utils.JsonUtils;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 /**
@@ -55,7 +55,7 @@ public record CoverGroundWalkerModule(BlockState state, LevelingValue radius, Mo
     @Override
     public CoverGroundWalkerModule deserialize(JsonObject json) {
       return new CoverGroundWalkerModule(
-        JsonUtils.convertToBlockState(json),
+        JsonHelper.convertToBlockState(json),
         LevelingValue.deserialize(GsonHelper.getAsJsonObject(json, "radius")),
         ModifierModuleCondition.deserializeFrom(json)
       );
@@ -64,7 +64,7 @@ public record CoverGroundWalkerModule(BlockState state, LevelingValue radius, Mo
     @Override
     public void serialize(CoverGroundWalkerModule object, JsonObject json) {
       object.condition.serializeInto(json);
-      JsonUtils.serializeBlockState(object.state, json);
+      JsonHelper.serializeBlockState(object.state, json);
       json.add("radius", object.radius.serialize(new JsonObject()));
     }
 

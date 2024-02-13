@@ -7,6 +7,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
@@ -16,7 +17,6 @@ import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
-import slimeknights.tconstruct.library.utils.JsonUtils;
 
 import java.util.List;
 
@@ -65,7 +65,7 @@ public class TankCapacityModule implements ModifierModule, VolatileDataModifierH
     public TankCapacityModule deserialize(JsonObject json) {
       int capacity = GsonHelper.getAsInt(json, "capacity");
       boolean scaleCapacity = GsonHelper.getAsBoolean(json, "scale_capacity");
-      ResourceLocation capacityKey = JsonUtils.getResourceLocation(json, "capacity_key", DEFAULT_CAPACITY_KEY);
+      ResourceLocation capacityKey = JsonHelper.getResourceLocation(json, "capacity_key", DEFAULT_CAPACITY_KEY);
       return new TankCapacityModule(capacityKey, capacity, scaleCapacity);
     }
 

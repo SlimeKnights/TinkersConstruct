@@ -10,11 +10,11 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
 import slimeknights.mantle.data.GenericLoaderRegistry;
 import slimeknights.mantle.data.GenericLoaderRegistry.IHaveLoader;
+import slimeknights.mantle.util.LogicHelper;
 import slimeknights.tconstruct.library.json.math.ModifierFormula;
 import slimeknights.tconstruct.library.json.math.ModifierFormula.FallbackFormula;
 import slimeknights.tconstruct.library.json.math.PostFixFormula;
 import slimeknights.tconstruct.library.json.math.StackOperation;
-import slimeknights.tconstruct.library.utils.Util;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -86,7 +86,7 @@ public interface VariableFormula<T extends IHaveLoader<T>> {
       String[] newNames = Arrays.copyOf(defaultNames, index + variableObj.size());
       for (Entry<String,JsonElement> entry : variableObj.entrySet()) {
         String key = entry.getKey();
-        if (Util.isInList(defaultNames, key)) {
+        if (LogicHelper.isInList(defaultNames, key)) {
           throw new JsonSyntaxException("Variable " + key + " is already defined for this module");
         }
         newNames[index] = key;
@@ -143,7 +143,7 @@ public interface VariableFormula<T extends IHaveLoader<T>> {
     @SuppressWarnings("unchecked")
     public T customVariable(String key, V variable) {
       // disallow a variable that is already there
-      if (Util.isInList(variableNames, key)) {
+      if (LogicHelper.isInList(variableNames, key)) {
         throw new IllegalArgumentException("Variable " + key + " already exists in the module's variables");
       }
       // disallow adding the same name multiple times
