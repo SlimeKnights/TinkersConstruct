@@ -23,6 +23,7 @@ import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.damage.DamageSourcePredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.mantle.util.LogicHelper;
 import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -63,7 +64,7 @@ public record ProtectionModule(IJsonPredicate<DamageSource> source, IJsonPredica
     if (condition.matches(tool, modifier) && this.source.matches(source) && this.entity.matches(context.getEntity())) {
       // if this modifier also has an enchantment, subtract out that enchantment value
       // used for fire protection to subtract out the 2 protection from vanilla
-      if (subtract != null && Util.isInList(subtract.slots, slotType)) {
+      if (subtract != null && LogicHelper.isInList(subtract.slots, slotType)) {
         float scaledLevel = modifier.getEffectiveLevel(tool);
         modifierValue += amount.compute(scaledLevel) - subtract.getDamageProtection(Mth.floor(scaledLevel), source);
       } else {

@@ -166,14 +166,4 @@ public class Util {
   public static <B extends BlockEntity> ClientboundBlockEntityDataPacket createBEPacket(B be, Function<? super B,CompoundTag> tagFunction) {
     return new ClientboundBlockEntityDataPacket(be.getBlockPos(), be.getType(), tagFunction.apply(be));
   }
-
-  /** Quick helper to search an array for a given value by reference equality, designed mainly for enums. */
-  public static <T> boolean isInList(T[] slots, T predicate) {
-    for (T slot : slots) {
-      if (predicate.equals(slot)) {
-        return true;
-      }
-    }
-    return false;
-  }
 }
