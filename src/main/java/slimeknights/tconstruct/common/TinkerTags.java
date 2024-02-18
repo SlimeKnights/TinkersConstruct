@@ -304,14 +304,19 @@ public class TinkerTags {
     public static final TagKey<Item> MULTIPART_TOOL = tag("modifiable/multipart");
     /** Modifiable items that can have range increased */
     public static final TagKey<Item> AOE = tag("modifiable/aoe");
-    /** @deprecated use {@link #HELD} or {@link #INTERACTABLE_RIGHT} */
+    /** @deprecated use {@link #HELD}, {@link #INTERACTABLE_RIGHT}, or {@link #SMALL_TOOLS} */
     @Deprecated
     public static final TagKey<Item> ONE_HANDED = tag("modifiable/one_handed");
-    /** @deprecated use {@link #HELD} or {@link #INTERACTABLE_RIGHT} */
+    /** @deprecated use {@link #HELD}, {@link #INTERACTABLE_RIGHT}, or {@link #BROAD_TOOLS} */
     @Deprecated
     public static final TagKey<Item> TWO_HANDED = tag("modifiable/two_handed");
     /** Tools that use durability and can be repaired. Items in this tag support the {@link ToolStats#DURABILITY} stat. */
     public static final TagKey<Item> DURABILITY = tag("modifiable/durability");
+
+    /** Generally faster tools with lower damage */
+    public static final TagKey<Item> SMALL_TOOLS = tag("modifiable/small");
+    /** Generally slower tools with higher damage, to customize stat debuff on offhand attack */
+    public static final TagKey<Item> BROAD_TOOLS = tag("modifiable/broad");
 
     /** @deprecated This used to be common, but the melee unarmed combo ended up being more common, and a compound ingredient is pretty trivial */
     @Deprecated
