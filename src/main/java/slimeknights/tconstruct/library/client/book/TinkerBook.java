@@ -110,9 +110,9 @@ public class TinkerBook extends BookData {
   private static void addStandardData(BookData book, ResourceLocation id) {
     book.addRepository(new FileRepository(new ResourceLocation(id.getNamespace(), "book/" + id.getPath())));
     book.addTransformer(BookTransformer.indexTranformer());
+    book.addTransformer(TierRangeMaterialSectionTransformer.INSTANCE);
     // padding needs to be last to ensure page counts are right
     book.addTransformer(BookTransformer.paddingTransformer());
-    book.addTransformer(TierRangeMaterialSectionTransformer.INSTANCE);
   }
 
   /**
