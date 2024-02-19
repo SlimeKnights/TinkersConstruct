@@ -15,6 +15,6 @@
     "name": "group_staff",
     "type": "mantle:text",
     "data": "tools/staff.json",
-    "extraData": { "tconstruct:load_tools": { "tag": "tconstruct:modifiable/staffs", "path": "tools/staff" }}
+    "extraData": { "tconstruct:load_tools": { "tag": "tconstruct:modifiable/special", "path": "tools/staff", "sort": false }}
   }
 ]

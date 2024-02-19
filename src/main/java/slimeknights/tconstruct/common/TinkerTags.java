@@ -317,6 +317,8 @@ public class TinkerTags {
     public static final TagKey<Item> SMALL_TOOLS = tag("modifiable/small");
     /** Generally slower tools with higher damage, used for book display and to customize stat debuff on offhand attack */
     public static final TagKey<Item> BROAD_TOOLS = tag("modifiable/broad");
+    /** Speciality tools that don't fit into either broad or small, notably includes staffs. Used in the books */
+    public static final TagKey<Item> SPECIAL_TOOLS = tag("modifiable/special");
 
     /** @deprecated This used to be common, but the melee unarmed combo ended up being more common, and a compound ingredient is pretty trivial */
     @Deprecated
