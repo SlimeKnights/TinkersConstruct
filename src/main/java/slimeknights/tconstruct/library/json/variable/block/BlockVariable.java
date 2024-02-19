@@ -37,6 +37,8 @@ public interface BlockVariable extends IHaveLoader<BlockVariable> {
 
   /** Gets the block's blast resistance */
   BlockVariable BLAST_RESISTANCE = simple(state -> state.getBlock().getExplosionResistance());
+  /** Gets the block's hardness */
+  BlockVariable HARDNESS = simple(state -> state.getBlock().defaultDestroyTime());
 
 
   /** Constant value instance for this object */

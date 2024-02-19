@@ -33,8 +33,11 @@ import slimeknights.tconstruct.library.json.predicate.modifier.SlotTypeModifierP
 import slimeknights.tconstruct.library.json.predicate.modifier.TagModifierPredicate;
 import slimeknights.tconstruct.library.json.variable.block.BlockVariable;
 import slimeknights.tconstruct.library.json.variable.block.ConditionalBlockVariable;
+import slimeknights.tconstruct.library.json.variable.block.StatePropertyVariable;
 import slimeknights.tconstruct.library.json.variable.entity.AttributeEntityVariable;
 import slimeknights.tconstruct.library.json.variable.entity.ConditionalEntityVariable;
+import slimeknights.tconstruct.library.json.variable.entity.EntityEffectLevelVariable;
+import slimeknights.tconstruct.library.json.variable.entity.EntityLightVariable;
 import slimeknights.tconstruct.library.json.variable.entity.EntityVariable;
 import slimeknights.tconstruct.library.json.variable.melee.EntityMeleeVariable;
 import slimeknights.tconstruct.library.json.variable.melee.MeleeVariable;
@@ -728,11 +731,16 @@ public final class TinkerModifiers extends TinkerModule {
     BlockVariable.LOADER.register(getResource("constant"), BlockVariable.Constant.LOADER);
     BlockVariable.LOADER.register(getResource("conditional"), ConditionalBlockVariable.LOADER);
     BlockVariable.LOADER.register(getResource("blast_resistance"), BlockVariable.BLAST_RESISTANCE.getLoader());
+    BlockVariable.LOADER.register(getResource("hardness"), BlockVariable.HARDNESS.getLoader());
+    BlockVariable.LOADER.register(getResource("state_property"), StatePropertyVariable.LOADER);
     // entity
     EntityVariable.LOADER.register(getResource("constant"), EntityVariable.Constant.LOADER);
     EntityVariable.LOADER.register(getResource("conditional"), ConditionalEntityVariable.LOADER);
     EntityVariable.LOADER.register(getResource("health"), EntityVariable.HEALTH.getLoader());
+    EntityVariable.LOADER.register(getResource("height"), EntityVariable.HEIGHT.getLoader());
     EntityVariable.LOADER.register(getResource("attribute"), AttributeEntityVariable.LOADER);
+    EntityVariable.LOADER.register(getResource("effect_level"), EntityEffectLevelVariable.LOADER);
+    EntityVariable.LOADER.register(getResource("light"), EntityLightVariable.LOADER);
     // tool
     ToolVariable.LOADER.register(getResource("constant"), ToolVariable.Constant.LOADER);
     ToolVariable.LOADER.register(getResource("conditional"), ConditionalToolVariable.LOADER);
