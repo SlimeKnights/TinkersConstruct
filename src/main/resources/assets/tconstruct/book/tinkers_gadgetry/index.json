@@ -32,7 +32,7 @@
     "icon": {
       "item": "tconstruct:sky_staff"
     },
-    "extraData": { "tconstruct:load_tools": { "tag": "tconstruct:modifiable/staffs", "path": "staffs" }}
+    "extraData": { "tconstruct:load_tools": { "tag": "tconstruct:modifiable/special", "path": "staffs", "sort": false }}
   },
   {
     "name": "armor",
