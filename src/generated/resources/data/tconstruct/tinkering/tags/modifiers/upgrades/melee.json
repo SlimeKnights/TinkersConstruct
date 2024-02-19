@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:knockback",
+    "tconstruct:padded",
+    "tconstruct:severing",
+    "tconstruct:necrotic",
+    "tconstruct:sweeping_edge",
+    "tconstruct:fiery",
+    "tconstruct:freezing"
+  ]
+}

@@ -39,6 +39,7 @@ import java.util.function.Consumer;
 import static net.minecraft.tags.ItemTags.CLUSTER_MAX_HARVESTABLES;
 import static slimeknights.tconstruct.common.TinkerTags.Items.AOE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.ARMOR;
+import static slimeknights.tconstruct.common.TinkerTags.Items.BOOK_ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.BOOTS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.BOWS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.BROAD_TOOLS;
@@ -261,6 +262,20 @@ public class ItemTagProvider extends ItemTagsProvider {
     // shields
     addToolTags(TinkerTools.travelersShield, DURABILITY, DYEABLE, SHIELDS, INTERACTABLE_LEFT, EMBELLISHMENT_METAL);
     addToolTags(TinkerTools.plateShield,     DURABILITY, DYEABLE, SHIELDS, INTERACTABLE_LEFT, EMBELLISHMENT_METAL);
+
+    // care about order for armor in the book
+    TagAppender<Item> bookArmor = this.tag(BOOK_ARMOR);
+    for (ArmorSlotType slotType : ArmorSlotType.TOP_DOWN) {
+      bookArmor.add(TinkerTools.travelersGear.get(slotType));
+    }
+    bookArmor.add(TinkerTools.travelersShield.get());
+    for (ArmorSlotType slotType : ArmorSlotType.TOP_DOWN) {
+      bookArmor.add(TinkerTools.plateArmor.get(slotType));
+    }
+    bookArmor.add(TinkerTools.plateShield.get());
+    for (ArmorSlotType slotType : ArmorSlotType.TOP_DOWN) {
+      bookArmor.add(TinkerTools.slimesuit.get(slotType));
+    }
 
 
     // add tags to other tags

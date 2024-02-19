@@ -12,7 +12,9 @@ import slimeknights.tconstruct.library.client.book.content.ContentModifier;
 import slimeknights.tconstruct.library.client.book.content.ContentTool;
 import slimeknights.tconstruct.library.client.book.content.RangedMaterialContent;
 import slimeknights.tconstruct.library.client.book.sectiontransformer.ModifierSectionTransformer;
+import slimeknights.tconstruct.library.client.book.sectiontransformer.ModifierTagInjectorTransformer;
 import slimeknights.tconstruct.library.client.book.sectiontransformer.ToolSectionTransformer;
+import slimeknights.tconstruct.library.client.book.sectiontransformer.ToolTagInjectorTransformer;
 import slimeknights.tconstruct.library.client.book.sectiontransformer.materials.SkullMaterialSectionTransformer;
 import slimeknights.tconstruct.library.client.book.sectiontransformer.materials.TierRangeMaterialSectionTransformer;
 import slimeknights.tconstruct.library.client.book.sectiontransformer.materials.TieredMaterialSectionTransformer;
@@ -39,6 +41,7 @@ public class TinkerBook extends BookData {
   public static final BookData TINKERS_GADGETRY  = BookLoader.registerBook(TINKERS_GADGETRY_ID,  false, false);
   public static final BookData FANTASTIC_FOUNDRY = BookLoader.registerBook(FANTASTIC_FOUNDRY_ID, false, false);
   public static final BookData ENCYCLOPEDIA      = BookLoader.registerBook(ENCYCLOPEDIA_ID,      false, false);
+  private static final BookData[] ALL_BOOKS = {MATERIALS_AND_YOU, PUNY_SMELTING, MIGHTY_SMELTING, TINKERS_GADGETRY, FANTASTIC_FOUNDRY, ENCYCLOPEDIA};
 
   /**
    * Initializes the books
@@ -53,7 +56,14 @@ public class TinkerBook extends BookData {
     TierRangeMaterialSectionTransformer.registerMaterialType(TConstruct.getResource("ranged"), RangedMaterialContent::new, LimbMaterialStats.ID, GripMaterialStats.ID, BowstringMaterialStats.ID);
     TierRangeMaterialSectionTransformer.registerMaterialType(TConstruct.getResource("skull"), ContentMaterialSkull::new, SkullStats.ID);
 
+    // add transformers that load modifiers from tags
+    for (BookData book : ALL_BOOKS) {
+      book.addTransformer(ToolTagInjectorTransformer.INSTANCE);
+      book.addTransformer(ModifierTagInjectorTransformer.INSTANCE);
+    }
+
     // tool transformers
+    // TODO: migrate to using extraData instead of hardcoded names
     ToolSectionTransformer armorTransformer = new ToolSectionTransformer("armor");
     MATERIALS_AND_YOU.addTransformer(ToolSectionTransformer.INSTANCE);
     MATERIALS_AND_YOU.addTransformer(armorTransformer);

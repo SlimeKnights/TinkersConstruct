@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.ToolActions;
+import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.block.BlockPredicate;
 import slimeknights.mantle.data.predicate.block.BlockPropertiesPredicate;
@@ -95,6 +96,7 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.ToolBeltModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
+import slimeknights.tconstruct.tools.modules.TheOneProbeModule;
 
 import static slimeknights.tconstruct.common.TinkerTags.Items.ARMOR;
 import static slimeknights.tconstruct.library.json.math.ModifierFormula.LEVEL;
@@ -102,7 +104,7 @@ import static slimeknights.tconstruct.library.json.math.ModifierFormula.MULTIPLI
 import static slimeknights.tconstruct.library.json.math.ModifierFormula.VALUE;
 import static slimeknights.tconstruct.library.modifiers.modules.behavior.RepairModule.FACTOR;
 
-public class ModifierProvider extends AbstractModifierProvider {
+public class ModifierProvider extends AbstractModifierProvider implements IConditionBuilder {
   public ModifierProvider(DataGenerator generator) {
     super(generator);
   }
@@ -207,6 +209,7 @@ public class ModifierProvider extends AbstractModifierProvider {
       .addModule(ReduceToolDamageModule.builder().tool(noUnbreakable).minLevel(6).amount(0.5f, 0.05f));
     // unbreakable priority is after overslime but before standard modifiers like dense
     buildModifier(TinkerModifiers.unbreakable).levelDisplay(ModifierLevelDisplay.NO_LEVELS).priority(125).addModule(new DurabilityBarColorModule(0xffffff)).addModule(ReduceToolDamageModule.builder().flat(1.0f));
+    buildModifier(ModifierIds.theOneProbe, modLoaded("theoneprobe")).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(TheOneProbeModule.INSTANCE);
 
     // harvest
     buildModifier(ModifierIds.blasting).addModule(

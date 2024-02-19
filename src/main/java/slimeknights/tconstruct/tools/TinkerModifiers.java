@@ -253,7 +253,6 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.general.MagneticModifier
 import slimeknights.tconstruct.tools.modifiers.upgrades.general.OffhandedModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.general.OverforcedModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.general.SoulboundModifier;
-import slimeknights.tconstruct.tools.modifiers.upgrades.general.TOPModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.FieryModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.PiercingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.SeveringModifier;
@@ -263,6 +262,7 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ImpalingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.PunchModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ScopeModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.SinistralModifier;
+import slimeknights.tconstruct.tools.modules.TheOneProbeModule;
 import slimeknights.tconstruct.tools.recipe.ArmorDyeingRecipe;
 import slimeknights.tconstruct.tools.recipe.CreativeSlotRecipe;
 import slimeknights.tconstruct.tools.recipe.EnchantmentConvertingRecipe;
@@ -563,7 +563,9 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<RevengeModifier> revenge = MODIFIERS.register("revenge", RevengeModifier::new);
 
   // mod compat
-  public static final StaticModifier<TOPModifier> theOneProbe = MODIFIERS.register("the_one_probe", TOPModifier::new);
+  /** @deprecated use {@link ModifierIds#theOneProbe} */
+  @Deprecated // using DynamicModifier directly as we don't want to mark the probe as required
+  public static final DynamicModifier<Modifier> theOneProbe = new DynamicModifier<>(ModifierIds.theOneProbe, Modifier.class);
 
   /*
    * Internal effects
@@ -709,6 +711,8 @@ public final class TinkerModifiers extends TinkerModule {
     // fluid
     ModifierModule.LOADER.register(getResource("tank_capacity"), TankCapacityModule.LOADER);
     ModifierModule.LOADER.register(getResource("tank"), TankModule.LOADER);
+    // special
+    ModifierModule.LOADER.register(getResource("the_one_probe"), TheOneProbeModule.INSTANCE.getLoader());
 
     ModifierPredicate.LOADER.register(getResource("and"), ModifierPredicate.AND);
     ModifierPredicate.LOADER.register(getResource("or"), ModifierPredicate.OR);

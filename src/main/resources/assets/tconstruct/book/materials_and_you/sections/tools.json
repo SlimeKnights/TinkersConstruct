@@ -1,50 +1,5 @@
 [
   {
-    "name": "sword",
-    "type": "tconstruct:tool",
-    "data": "tools/sword.json"
-  },
-  {
-    "name": "dagger",
-    "type": "tconstruct:tool",
-    "data": "tools/dagger.json"
-  },
-   {
-    "name": "crossbow",
-    "type": "tconstruct:tool",
-    "data": "tools/crossbow.json"
-  },
-  {
-    "name": "axe",
-    "type": "tconstruct:tool",
-    "data": "tools/axe.json"
-  },
-  {
-    "name": "kama",
-    "type": "tconstruct:tool",
-    "data": "tools/kama.json"
-  },
-  {
-    "name": "mattock",
-    "type": "tconstruct:tool",
-    "data": "tools/mattock.json"
-  },
-  {
-    "name": "pickadze",
-    "type": "tconstruct:tool",
-    "data": "tools/pickadze.json"
-  },
-  {
-    "name": "pickaxe",
-    "type": "tconstruct:tool",
-    "data": "tools/pickaxe.json"
-  },
-  {
-    "name": "flint_and_bronze",
-    "type": "tconstruct:tool",
-    "data": "tools/flint_and_brick.json"
-  },
-  {
     "name": "repairing",
     "type": "mantle:crafting",
     "data": "tools/repairing.json"

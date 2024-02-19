@@ -1,0 +1,20 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:diamond",
+    "tconstruct:emerald",
+    "tconstruct:netherite",
+    "tconstruct:reinforced",
+    "tconstruct:overforced",
+    "tconstruct:soulbound",
+    "tconstruct:experienced",
+    "tconstruct:magnetic",
+    "tconstruct:zoom",
+    "tconstruct:tank",
+    "tconstruct:fireprimer",
+    {
+      "id": "tconstruct:the_one_probe",
+      "required": false
+    }
+  ]
+}

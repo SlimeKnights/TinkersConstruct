@@ -313,9 +313,9 @@ public class TinkerTags {
     /** Tools that use durability and can be repaired. Items in this tag support the {@link ToolStats#DURABILITY} stat. */
     public static final TagKey<Item> DURABILITY = tag("modifiable/durability");
 
-    /** Generally faster tools with lower damage */
+    /** Generally faster tools with lower damage, used for book display */
     public static final TagKey<Item> SMALL_TOOLS = tag("modifiable/small");
-    /** Generally slower tools with higher damage, to customize stat debuff on offhand attack */
+    /** Generally slower tools with higher damage, used for book display and to customize stat debuff on offhand attack */
     public static final TagKey<Item> BROAD_TOOLS = tag("modifiable/broad");
 
     /** @deprecated This used to be common, but the melee unarmed combo ended up being more common, and a compound ingredient is pretty trivial */
@@ -359,6 +359,8 @@ public class TinkerTags {
 
     /** Modifiable items that are worn as armor. Items in this tag support the {@link ToolStats#ARMOR}, {@link ToolStats#ARMOR_TOUGHNESS} and {@link ToolStats#KNOCKBACK_RESISTANCE} stats. */
     public static final TagKey<Item> ARMOR = tag("modifiable/armor");
+    /** Armor tag for display in the book, order matters */
+    public static final TagKey<Item> BOOK_ARMOR = tag("modifiable/armor/book");
     /** Modifiable items that are worn as boots */
     public static final TagKey<Item> BOOTS = tag("modifiable/armor/boots");
     /** Modifiable items that are worn as leggings */
@@ -528,6 +530,46 @@ public class TinkerTags {
     public static final TagKey<Modifier> DUAL_INTERACTION = tag("dual_interaction");
     /** Common defense modifier types, used for skyslime armor */
     public static final TagKey<Modifier> SLIME_DEFENSE = tag("slime_defense");
+
+    // book tags - these are used to determine pages to load in resource packs
+    // upgrades
+    public static final TagKey<Modifier> UPGRADES = tag("upgrades");
+    public static final TagKey<Modifier> GENERAL_UPGRADES = tag("upgrades/general");
+    public static final TagKey<Modifier> MELEE_UPGRADES = tag("upgrades/melee");
+    public static final TagKey<Modifier> DAMAGE_UPGRADES = tag("upgrades/damage");
+    public static final TagKey<Modifier> HARVEST_UPGRADES = tag("upgrades/harvest");
+    public static final TagKey<Modifier> RANGED_UPGRADES = tag("upgrades/ranged");
+    // armor upgrades
+    public static final TagKey<Modifier> ARMOR_UPGRADES = tag("upgrades/armor");
+    public static final TagKey<Modifier> GENERAL_ARMOR_UPGRADES = tag("upgrades/armor/general");
+    public static final TagKey<Modifier> HELMET_UPGRADES = tag("upgrades/armor/helmet");
+    public static final TagKey<Modifier> CHESTPLATE_UPGRADES = tag("upgrades/armor/chestplate");
+    public static final TagKey<Modifier> LEGGING_UPGRADES = tag("upgrades/armor/leggings");
+    public static final TagKey<Modifier> BOOT_UPGRADES = tag("upgrades/armor/boots");
+    // abilities
+    public static final TagKey<Modifier> ABILITIES = tag("abilities");
+    public static final TagKey<Modifier> GENERAL_ABILITIES = tag("abilities/general");
+    public static final TagKey<Modifier> INTERACTION_ABILITIES = tag("abilities/interaction");
+    public static final TagKey<Modifier> MELEE_ABILITIES = tag("abilities/melee");
+    public static final TagKey<Modifier> HARVEST_ABILITIES = tag("abilities/harvest");
+    public static final TagKey<Modifier> RANGED_ABILITIES = tag("abilities/ranged");
+    // armor abilities
+    public static final TagKey<Modifier> ARMOR_ABILITIES = tag("abilities/armor");
+    public static final TagKey<Modifier> GENERAL_ARMOR_ABILITIES = tag("abilities/armor/general");
+    public static final TagKey<Modifier> HELMET_ABILITIES = tag("abilities/armor/helmet");
+    public static final TagKey<Modifier> CHESTPLATE_ABILITIES = tag("abilities/armor/chestplate");
+    public static final TagKey<Modifier> LEGGING_ABILITIES = tag("abilities/armor/leggings");
+    public static final TagKey<Modifier> BOOT_ABILITIES = tag("abilities/armor/boots");
+    public static final TagKey<Modifier> SHIELD_ABILITIES = tag("abilities/armor/shield");
+    // defense
+    public static final TagKey<Modifier> DEFENSE = tag("defense");
+    public static final TagKey<Modifier> PROTECTION_DEFENSE = tag("defense/protection");
+    public static final TagKey<Modifier> SPECIAL_DEFENSE = tag("defense/special");
+    // slotless
+    public static final TagKey<Modifier> SLOTLESS = tag("slotless");
+    public static final TagKey<Modifier> GENERAL_SLOTLESS = tag("slotless/general");
+    public static final TagKey<Modifier> BONUS_SLOTLESS = tag("slotless/bonus");
+
 
     private static TagKey<Modifier> tag(String name) {
       return ModifierManager.getTag(TConstruct.getResource(name));

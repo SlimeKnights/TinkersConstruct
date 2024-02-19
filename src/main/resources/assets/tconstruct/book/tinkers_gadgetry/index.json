@@ -29,10 +29,10 @@
   },
   {
     "name": "staffs",
-    "data": "sections/staffs.json",
     "icon": {
       "item": "tconstruct:sky_staff"
-    }
+    },
+    "extraData": { "tconstruct:load_tools": { "tag": "tconstruct:modifiable/staffs", "path": "staffs" }}
   },
   {
     "name": "armor",

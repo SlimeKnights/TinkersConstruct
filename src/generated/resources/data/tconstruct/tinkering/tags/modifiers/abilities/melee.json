@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:blocking",
+    "tconstruct:parrying",
+    "tconstruct:dual_wielding",
+    "tconstruct:spilling"
+  ]
+}

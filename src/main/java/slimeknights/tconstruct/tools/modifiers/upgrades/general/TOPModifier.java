@@ -5,10 +5,12 @@ import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
 
-/** Modifier for compatability with TOP */
+import static slimeknights.tconstruct.tools.modules.TheOneProbeModule.TOP_NBT_HAND;
+import static slimeknights.tconstruct.tools.modules.TheOneProbeModule.TOP_NBT_HELMET;
+
+/** @deprecated use {@link slimeknights.tconstruct.tools.modules.TheOneProbeModule} */
+@Deprecated
 public class TOPModifier extends NoLevelsModifier {
-  private static final String TOP_NBT_HELMET = "theoneprobe";
-  private static final String TOP_NBT_HAND = "theoneprobe_hand";
 
   @Override
   public void addRawData(IToolStackView tool, int level, RestrictedCompoundTag tag) {

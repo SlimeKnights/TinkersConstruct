@@ -14,7 +14,7 @@ abilities=アビリティ
 abilities.subtext=アビリティはアップグレードより強力ですが、スロットの数も限られています。
 abilities.group_general=一般
 abilities.group_harvest=収穫
-abilities.group_weapon=近接
+abilities.group_melee=近接
 abilities.group_interact=アクション
 abilities.group_armor=防具
 

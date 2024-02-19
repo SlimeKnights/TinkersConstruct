@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:depth_strider",
+    "tconstruct:feather_falling",
+    "tconstruct:lightspeed_armor",
+    "tconstruct:soulspeed"
+  ]
+}

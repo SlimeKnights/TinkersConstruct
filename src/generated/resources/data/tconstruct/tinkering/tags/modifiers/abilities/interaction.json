@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:bucketing",
+    "tconstruct:firestarter",
+    "tconstruct:glowing",
+    "tconstruct:pathing",
+    "tconstruct:stripping",
+    "tconstruct:tilling",
+    "tconstruct:spitting",
+    "tconstruct:bonking",
+    "tconstruct:flinging",
+    "tconstruct:springing",
+    "tconstruct:warping"
+  ]
+}

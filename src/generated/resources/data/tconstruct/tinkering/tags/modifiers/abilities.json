@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "#tconstruct:abilities/general",
+    "#tconstruct:abilities/interaction",
+    "#tconstruct:abilities/melee",
+    "#tconstruct:abilities/harvest",
+    "#tconstruct:abilities/armor",
+    "#tconstruct:abilities/ranged"
+  ]
+}

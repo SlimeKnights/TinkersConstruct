@@ -1568,13 +1568,13 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     String theOneProbe = "theoneprobe";
     ResourceLocation probe = new ResourceLocation(theOneProbe, "probe");
     Consumer<FinishedRecipe> topConsumer = withCondition(consumer, modLoaded(theOneProbe));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.theOneProbe)
+    ModifierRecipeBuilder.modifier(ModifierIds.theOneProbe)
                          .setTools(ingredientFromTags(TinkerTags.Items.HELMETS, TinkerTags.Items.HELD))
                          .addInput(ItemNameIngredient.from(probe))
                          .setSlots(SlotType.UPGRADE, 1)
                          .setMaxLevel(1)
-                         .saveSalvage(topConsumer, prefix(TinkerModifiers.theOneProbe, compatSalvage))
-                         .save(topConsumer, prefix(TinkerModifiers.theOneProbe, compatFolder));
+                         .saveSalvage(topConsumer, prefix(ModifierIds.theOneProbe, compatSalvage))
+                         .save(topConsumer, prefix(ModifierIds.theOneProbe, compatFolder));
 
   }
 

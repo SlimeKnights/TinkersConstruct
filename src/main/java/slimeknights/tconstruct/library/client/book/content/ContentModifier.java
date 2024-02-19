@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.common.ForgeI18n;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.content.PageContent;
 import slimeknights.mantle.client.book.data.element.ImageData;
@@ -77,6 +78,18 @@ public class ContentModifier extends PageContent {
   /** Tag filter to limit tools that display on a page */
   @SerializedName("tool_filter")
   public String toolFilter = null;
+
+  /** Default constructor for page loader */
+  public ContentModifier() {}
+
+  /** Creates a new page using the given modifier description */
+  public ContentModifier(Modifier modifier) {
+    this.modifier = modifier;
+    this.modifierID = modifier.getId().toString();
+    this.text = new TextData[] {new TextData(ForgeI18n.getPattern(modifier.getTranslationKey() + ".description"))};
+    this.effects = new String[0];
+    this.more_text_space = true;
+  }
 
   /** Gets the modifier for this page */
   public Modifier getModifier() {

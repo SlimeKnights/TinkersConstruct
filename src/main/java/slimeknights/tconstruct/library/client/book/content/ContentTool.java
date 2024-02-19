@@ -15,6 +15,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
+import net.minecraftforge.common.ForgeI18n;
 import net.minecraftforge.common.crafting.IShapedRecipe;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.client.book.data.BookData;
@@ -100,10 +101,20 @@ public class ContentTool extends PageContent {
   public ContentTool() {
   }
 
-  @SuppressWarnings("unused")
   public ContentTool(IModifiableDisplay tool) {
     this.tool = tool;
     this.toolName = Objects.requireNonNull(tool.asItem().getRegistryName()).toString();
+    this.text = new TextData[] { new TextData(ForgeI18n.getPattern(tool.asItem().getDescriptionId() + ".description"))};
+  }
+
+  public ContentTool(Item item) {
+    this.toolName = Objects.requireNonNull(item.asItem().getRegistryName()).toString();
+    if (item instanceof IModifiableDisplay tool) {
+      this.tool = tool;
+    } else {
+      this.tool = new Fallback(item);
+    }
+    this.text = new TextData[] { new TextData(ForgeI18n.getPattern(tool.asItem().getDescriptionId() + ".description"))};
   }
 
   public IModifiableDisplay getTool() {
@@ -111,11 +122,11 @@ public class ContentTool extends PageContent {
       if (this.toolName == null) {
         this.toolName = this.parent.name;
       }
-      Item tool = ForgeRegistries.ITEMS.getValue(new ResourceLocation(this.toolName));
-      if (tool instanceof IModifiableDisplay) {
-        this.tool = (IModifiableDisplay) tool;
+      Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(this.toolName));
+      if (item instanceof IModifiableDisplay tool) {
+        this.tool = tool;
       } else {
-        this.tool = new Fallback(tool == null ? Items.BARRIER : tool);
+        this.tool = new Fallback(item == null ? Items.BARRIER : item);
       }
     }
     return this.tool;
