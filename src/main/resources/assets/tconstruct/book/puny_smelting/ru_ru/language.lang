@@ -8,7 +8,7 @@ upgrades=Улучшения
 upgrades.subtext=Инструменты могут быть усилены с помощью улучшений, хотя к каждому инструменту может быть применено только ограниченное их количество.
 upgrades.group_general=Основные
 upgrades.group_harvest=Для копания
-upgrades.group_weapon=Для оружия
+upgrades.group_melee=Для оружия
 upgrades.group_damage=Увелич. урон
 upgrades.group_armor=Для брони
 

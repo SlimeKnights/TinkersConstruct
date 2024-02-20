@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:blast_protection",
+    "tconstruct:fire_protection",
+    "tconstruct:magic_protection",
+    "tconstruct:melee_protection",
+    "tconstruct:projectile_protection",
+    "tconstruct:dragonborn",
+    "tconstruct:shulking",
+    "tconstruct:turtle_shell"
+  ]
+}

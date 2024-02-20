@@ -420,7 +420,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .startingSlots(SlotType.DEFENSE, 1)
       .startingSlots(SlotType.ABILITY, 2)
       .trait(ModifierIds.overslimeFriend)
-      .trait(ModifierIds.reach)
+      .trait(ModifierIds.reach, 2)
       .aoe(new CircleAOEIterator(1, false))
       .module(ToolModuleHooks.INTERACTION, DualOptionInteraction.INSTANCE);
 
