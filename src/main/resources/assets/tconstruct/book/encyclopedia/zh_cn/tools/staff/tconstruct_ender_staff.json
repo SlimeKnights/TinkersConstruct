@@ -1,7 +1,7 @@
 {
   "tool": "tconstruct:ender_staff",
   "text": [
-    { "text": "末影黏液手杖是一种高触及距离的手杖类型。" }
+    { "text": "末影黏液手杖是一种高触及距离的黏液手杖。" }
   ],
   "properties": [
     "1520 耐久度",
