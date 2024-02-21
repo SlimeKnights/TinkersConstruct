@@ -15,8 +15,14 @@ abilities.subtext=能力强化的效果比升级强化更强大，但其槽位�
 abilities.group_general=通用能力
 abilities.group_harvest=采掘能力
 abilities.group_melee=近战能力
-abilities.group_interact=交互能力
+abilities.group_ranged=远程能力
+abilities.group_interact=交互升级
 abilities.group_armor=盔甲能力
+abilities.group_armor.helmet=头盔能力
+abilities.group_armor.chestplate=胸甲能力
+abilities.group_armor.leggings=护腿能力
+abilities.group_armor.boots=靴子能力
+abilities.group_armor.shield=盾牌能力
 upgrades.subtext=工具可被升级强化，但同一把工具的升级次数是有限的。
 
 defense=防御强化

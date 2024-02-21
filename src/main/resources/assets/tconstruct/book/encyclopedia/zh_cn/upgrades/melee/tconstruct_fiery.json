@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:fiery",
+  "text": [
+    {
+      "text": "使攻击到的生物燃烧，每级提供5秒时长。"
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/melee",
+  "effects": [
+    "可以逐级强化",
+    "最高5级",
+    "每级需要1个升级槽"
+  ]
+}

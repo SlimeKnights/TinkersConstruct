@@ -1,0 +1,13 @@
+{
+  "title": "交互逆切换",
+  "image": {
+    "file": "tconstruct:book/images/worktable/untoggle_interaction.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "当然，强化切换过后还能切换回来，但说来奇怪，这么做需要再加一个拉杆。"
+    }
+  ]
+}

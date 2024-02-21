@@ -1,0 +1,13 @@
+{
+  "title": "Selena",
+  "image": {
+	"file": "tconstruct:book/images/selena.png",
+    "width": 95,
+    "height": 105
+  },
+  "text": [
+    {
+      "text": "我，Selena Arcadia Eodhan，是黏液制造工会的 图书管理员和某特殊黏液部队高级将领，祝你 们能学有所成，并在这方面有所建树。"
+    }
+  ]
+}

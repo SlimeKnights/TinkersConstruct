@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:necrotic",
+  "text": [
+    {
+      "text": "箭矢在弓拉满时，射出后会按造成伤害的百分比治疗。第1级恢复25%，第2级恢复45%，第3级恢复60%，第4级恢复70%，第5级恢复75%。每级额外消耗1点耐久度。"
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/ranged",
+  "effects": [
+    "最高5级",
+    "每级需要1个升级槽"
+  ]
+}
