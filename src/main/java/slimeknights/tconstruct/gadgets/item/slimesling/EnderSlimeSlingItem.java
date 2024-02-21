@@ -1,18 +1,16 @@
 package slimeknights.tconstruct.gadgets.item.slimesling;
 
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.events.teleport.SlimeslingTeleportEvent;
 import slimeknights.tconstruct.shared.block.SlimeType;
-
-import net.minecraft.world.item.Item.Properties;
 
 public class EnderSlimeSlingItem extends BaseSlimeSlingItem {
 
@@ -23,11 +21,10 @@ public class EnderSlimeSlingItem extends BaseSlimeSlingItem {
   /** Called when the player stops using an Item (stops holding the right mouse button). */
   @Override
   public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
-    if (worldIn.isClientSide || !(entityLiving instanceof ServerPlayer)) {
+    if (worldIn.isClientSide || !(entityLiving instanceof ServerPlayer player)) {
       return;
     }
 
-    ServerPlayer player = (ServerPlayer) entityLiving;
     float f = getForce(stack, timeLeft);
 
     Vec3 look = player.getLookAngle();

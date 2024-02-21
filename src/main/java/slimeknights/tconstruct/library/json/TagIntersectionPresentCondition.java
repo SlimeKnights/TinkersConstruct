@@ -16,7 +16,10 @@ import slimeknights.tconstruct.TConstruct;
 import java.util.Arrays;
 import java.util.List;
 
-/** Condition requiring that items exist in the intersection of all required item tags */
+/**
+ * Condition requiring that items exist in the intersection of all required item tags.
+ * TODO 1.19: move to {@code slimeknights.tconsturct.library.json.condition}
+ */
 public class TagIntersectionPresentCondition<T> implements ICondition {
   private static final ResourceLocation NAME = TConstruct.getResource("tag_intersection_present");
   public static final Serializer SERIALIZER = new Serializer();

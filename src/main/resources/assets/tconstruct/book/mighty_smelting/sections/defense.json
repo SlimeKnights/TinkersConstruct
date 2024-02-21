@@ -2,56 +2,13 @@
   {
     "name": "group_protection",
     "type": "mantle:text",
-    "data": "defense/protection.json"
+    "data": "defense/protection.json",
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:defense/protection", "path": "defense/protection" }}
   },
-  {
-    "type": "tconstruct:modifier",
-    "data": "defense/protection/blast.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "defense/protection/fire.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "defense/protection/magic.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "defense/protection/melee.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "defense/protection/projectile.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "defense/protection/turtle_shell.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "defense/protection/shulking.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "defense/protection/dragonborn.json"
-  },
-
   {
     "name": "group_special",
     "type": "mantle:text",
-    "data": "defense/special.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "defense/special/golden.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "defense/special/knockback_resistance.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "defense/special/revitalizing.json"
+    "data": "defense/special.json",
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:defense/special", "path": "defense/special" }}
   }
 ]

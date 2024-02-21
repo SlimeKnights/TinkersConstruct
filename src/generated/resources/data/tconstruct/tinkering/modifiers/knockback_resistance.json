@@ -1,11 +1,16 @@
 {
-  "type": "tconstruct:stat_boost",
+  "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "stats": [
+  "tooltip_display": "always",
+  "modules": [
     {
+      "type": "tconstruct:incremental"
+    },
+    {
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:knockback_resistance",
-      "type": "add",
-      "value": 0.1
+      "operation": "add",
+      "each_level": 0.1
     }
   ]
 }

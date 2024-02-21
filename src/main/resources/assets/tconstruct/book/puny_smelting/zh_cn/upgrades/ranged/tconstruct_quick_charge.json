@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:quick_charge",
+  "text": [
+    {
+      "text": "高度紧张。"
+    }
+  ],
+  "effects": [
+    "增加弩或手杖的拉弓速度",
+    "多个等级，每级进一步增加拉弓速度",
+    "每级需要1个升级槽"
+  ]
+}

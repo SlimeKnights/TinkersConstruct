@@ -1,9 +1,18 @@
 {
-  "type": "tconstruct:conditional_mining_speed",
-  "blocks": {
-    "type": "tconstruct:inverted",
-    "predicate": "tconstruct:requires_tool"
-  },
-  "require_effective": false,
-  "bonus": 0.5
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:default",
+  "tooltip_display": "always",
+  "modules": [
+    {
+      "type": "tconstruct:conditional_mining_speed",
+      "blocks": {
+        "type": "mantle:inverted",
+        "inverted_type": "mantle:requires_tool"
+      },
+      "entity": "mantle:any",
+      "require_effective": false,
+      "percent": false,
+      "each_level": 0.5
+    }
+  ]
 }

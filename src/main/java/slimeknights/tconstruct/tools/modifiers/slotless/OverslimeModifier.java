@@ -74,7 +74,7 @@ public class OverslimeModifier extends DurabilityShieldModifier {
   @Override
   public Boolean showDurabilityBar(IToolStackView tool, int level) {
     // only show as fully repaired if overslime is full
-    return getOverslime(tool) < getCapacity(tool);
+    return getOverslime(tool) < getCapacity(tool) ? true : null;
   }
 
   @Override

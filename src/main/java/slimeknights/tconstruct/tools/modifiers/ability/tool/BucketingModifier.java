@@ -62,11 +62,6 @@ public class BucketingModifier extends TankModifier implements BlockInteractionM
   }
 
   @Override
-  public int getPriority() {
-    return 80; // little bit less so we get to add volatile data late
-  }
-
-  @Override
   public Component getDisplayName(IToolStackView tool, int level) {
     return DualOptionInteraction.formatModifierName(tool, this, super.getDisplayName(tool, level));
   }

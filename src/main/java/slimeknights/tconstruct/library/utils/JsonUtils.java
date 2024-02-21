@@ -43,6 +43,7 @@ public class JsonUtils {
 
   /**
    * Reads an integer with a minimum value
+   * TODO 1.19: rename to {@code convertToIntMin}
    * @param json  Json element to parse as an integer
    * @param key   Key to read
    * @param min   Minimum
@@ -157,5 +158,31 @@ public class JsonUtils {
     } else {
       return new JsonPrimitive(itemName);
     }
+  }
+
+  /**
+   * Parses a color as a string
+   * @param color  Color to parse
+   * @return  Parsed string
+   */
+  public static int parseColor(@Nullable String color) {
+    if (color == null || color.isEmpty()) {
+      return -1;
+    }
+    // only support 6 character colors here, simplified over the mantle version
+    int length = color.length();
+    if (length == 6) {
+      try {
+        return Integer.parseInt(color, 16);
+      } catch (NumberFormatException ex) {
+        // NO-OP
+      }
+    }
+    throw new JsonSyntaxException("Invalid color '" + color + "'");
+  }
+
+  /** Writes the color as a 6 character string */
+  public static String colorToString(int color) {
+    return String.format("%06X", color);
   }
 }

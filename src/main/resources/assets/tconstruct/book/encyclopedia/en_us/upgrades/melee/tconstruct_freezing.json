@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:freezing",
+  "text": [
+    {
+      "text": "Freezes attacked mobs for 4 seconds (plus 4 seconds per level), causing damage over time and slowness."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/melee",
+  "effects": [
+    "Maximum of 3 levels",
+    "Does not work well with fiery",
+    "Requires 1 upgrade slot per level"
+  ]
+}

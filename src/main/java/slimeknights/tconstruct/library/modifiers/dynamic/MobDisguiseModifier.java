@@ -2,49 +2,28 @@ package slimeknights.tconstruct.library.modifiers.dynamic;
 
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
-import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot.Type;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.TConstruct;
+import slimeknights.mantle.data.loader.RegistryEntryLoader;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
+import slimeknights.tconstruct.library.modifiers.modules.armor.MobDisguiseModule;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
-import java.util.Objects;
-
-/** Modifier that makes the player less visible to a certain mob type */
+/** @deprecated use {@link MobDisguiseModule} */
+@Deprecated
 @RequiredArgsConstructor
 public class MobDisguiseModifier extends NoLevelsModifier {
   /** Loader instance */
-  public static final IGenericLoader<MobDisguiseModifier> LOADER = new IGenericLoader<MobDisguiseModifier>() {
-    @Override
-    public MobDisguiseModifier deserialize(JsonObject json) {
-      return new MobDisguiseModifier(JsonHelper.getAsEntry(ForgeRegistries.ENTITIES, json, "entity"));
-    }
-
-    @Override
-    public void serialize(MobDisguiseModifier object, JsonObject json) {
-      json.addProperty("entity", Objects.requireNonNull(object.type.getRegistryName()).toString());
-    }
-
-    @Override
-    public MobDisguiseModifier fromNetwork(FriendlyByteBuf buffer) {
-      return new MobDisguiseModifier(buffer.readRegistryIdUnsafe(ForgeRegistries.ENTITIES));
-    }
-
-    @Override
-    public void toNetwork(MobDisguiseModifier object, FriendlyByteBuf buffer) {
-      buffer.writeRegistryIdUnsafe(ForgeRegistries.ENTITIES, object.type);
-    }
-  };
-  public static final TinkerDataKey<Multiset<EntityType<?>>> DISGUISES = TConstruct.createKey("mob_disguise");
+  public static final IGenericLoader<MobDisguiseModifier> LOADER = new RegistryEntryLoader<>("entity", ForgeRegistries.ENTITIES, MobDisguiseModifier::new, m -> m.type);
+  /** @deprecated use {@link MobDisguiseModule#DISGUISES} */
+  @Deprecated
+  public static final TinkerDataKey<Multiset<EntityType<?>>> DISGUISES = MobDisguiseModule.DISGUISES;
 
   private final EntityType<?> type;
 

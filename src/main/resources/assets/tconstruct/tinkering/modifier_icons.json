@@ -23,9 +23,15 @@
   "tconstruct:fireprimer":  ["minecraft:item/fire_charge", "tconstruct:gui/modifiers/book"],
   "tconstruct:glowing":     "tconstruct:gui/modifiers/glowing",
   "tconstruct:pathing":     "tconstruct:gui/modifiers/held/pathing",
+  "tconstruct:spitting":    "tconstruct:gui/modifiers/held/spitting",
   "tconstruct:stripping":   "tconstruct:gui/modifiers/held/stripping",
   "tconstruct:tilling":     "tconstruct:gui/modifiers/held/tilling",
   "tconstruct:offhanded":   "tconstruct:gui/modifiers/held/offhanded",
+
+  "tconstruct:flinging":  ["tconstruct:item/gadgets/earth_slime_sling", "tconstruct:gui/modifiers/book"],
+  "tconstruct:springing": ["tconstruct:item/gadgets/sky_slime_sling",   "tconstruct:gui/modifiers/book"],
+  "tconstruct:bonking":   ["tconstruct:item/gadgets/ichor_slime_sling", "tconstruct:gui/modifiers/book"],
+  "tconstruct:warping":   ["tconstruct:item/gadgets/ender_slime_sling", "tconstruct:gui/modifiers/book"],
 
   "tconstruct:exchanging":  "tconstruct:gui/modifiers/harvest/exchanging",
   "tconstruct:expanded":    "tconstruct:gui/modifiers/harvest/expanded",
@@ -39,6 +45,7 @@
   "tconstruct:bane_of_sssss": "tconstruct:gui/modifiers/melee/bane_of_sssss",
   "tconstruct:cooling":       "tconstruct:gui/modifiers/melee/cooling",
   "tconstruct:killager":      "tconstruct:gui/modifiers/melee/killager",
+  "tconstruct:pierce":        "tconstruct:gui/modifiers/melee/piercing",
   "tconstruct:piercing":      "tconstruct:gui/modifiers/melee/piercing",
   "tconstruct:smite":         "tconstruct:gui/modifiers/melee/smite",
   "tconstruct:sharpness":     "tconstruct:gui/modifiers/melee/sharpness",

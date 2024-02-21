@@ -1,11 +1,13 @@
 {
-  "type": "tconstruct:stat_boost",
+  "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "stats": [
+  "tooltip_display": "always",
+  "modules": [
     {
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:durability",
-      "type": "multiply_base",
-      "value": 0.15
+      "operation": "multiply_base",
+      "each_level": 0.15
     }
   ]
 }

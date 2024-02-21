@@ -21,31 +21,51 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "upgrades": {
-              "options": [
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:and",
+              "predicates": [
                 {
-                  "name": "tconstruct:writable",
-                  "level": 1
+                  "type": "tconstruct:has_modifier",
+                  "modifier": "tconstruct:writable",
+                  "level": {
+                    "min": 1
+                  },
+                  "check": "upgrades"
                 },
                 {
-                  "name": "tconstruct:recapitated",
-                  "level": 1
+                  "type": "tconstruct:has_modifier",
+                  "modifier": "tconstruct:recapitated",
+                  "level": {
+                    "min": 1
+                  },
+                  "check": "upgrades"
                 },
                 {
-                  "name": "tconstruct:harmonious",
-                  "level": 1
+                  "type": "tconstruct:has_modifier",
+                  "modifier": "tconstruct:harmonious",
+                  "level": {
+                    "min": 1
+                  },
+                  "check": "upgrades"
                 },
                 {
-                  "name": "tconstruct:resurrected",
-                  "level": 1
+                  "type": "tconstruct:has_modifier",
+                  "modifier": "tconstruct:resurrected",
+                  "level": {
+                    "min": 1
+                  },
+                  "check": "upgrades"
                 },
                 {
-                  "name": "tconstruct:gilded",
-                  "level": 1
+                  "type": "tconstruct:has_modifier",
+                  "modifier": "tconstruct:gilded",
+                  "level": {
+                    "min": 1
+                  },
+                  "check": "upgrades"
                 }
-              ],
-              "matches_needed": 5
+              ]
             }
           }
         ]

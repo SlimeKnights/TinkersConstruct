@@ -6,6 +6,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
@@ -125,7 +126,7 @@ public interface IDisplayModifierRecipe extends IModifierRecipe {
     persistentDataConsumer.accept(persistentData);
     ToolRebuildContext context = new ToolRebuildContext(stack.getItem(), ToolDefinition.EMPTY, MaterialNBT.EMPTY, modifiers, modifiers, StatsNBT.EMPTY, persistentData, volatileData);
     for (ModifierEntry entry : modifiers.getModifiers()) {
-      entry.getModifier().addVolatileData(context, entry.getLevel(), volatileData);
+      entry.getHook(TinkerHooks.VOLATILE_DATA).addVolatileData(context, entry, volatileData);
     }
     nbt.put(ToolStack.TAG_VOLATILE_MOD_DATA, volatileNBT);
     nbt.put(ToolStack.TAG_PERSISTENT_MOD_DATA, persistentNBT);

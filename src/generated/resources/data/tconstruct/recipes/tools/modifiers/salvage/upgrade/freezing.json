@@ -1,8 +1,19 @@
 {
   "type": "tconstruct:modifier_salvage",
-  "tools": {
-    "tag": "tconstruct:modifiable/ranged/bows"
-  },
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/melee_or_unarmed"
+    },
+    {
+      "tag": "tconstruct:modifiable/ranged/bows"
+    },
+    {
+      "tag": "tconstruct:modifiable/armor/worn"
+    },
+    {
+      "tag": "tconstruct:modifiable/shields"
+    }
+  ],
   "slots": {
     "upgrades": 1
   },

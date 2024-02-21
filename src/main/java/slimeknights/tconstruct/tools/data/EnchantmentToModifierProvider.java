@@ -15,20 +15,20 @@ public class EnchantmentToModifierProvider extends AbstractEnchantmentToModifier
   @Override
   protected void addEnchantmentMappings() {
     // general
-    add(Enchantments.UNBREAKING, TinkerModifiers.reinforced.getId());
+    add(Enchantments.UNBREAKING, ModifierIds.reinforced);
 
     // protection
-    add(Enchantments.ALL_DAMAGE_PROTECTION, TinkerModifiers.protection.getId());
-    add(Enchantments.FIRE_PROTECTION, TinkerModifiers.fireProtection.getId());
+    add(Enchantments.ALL_DAMAGE_PROTECTION, ModifierIds.protection);
+    add(Enchantments.FIRE_PROTECTION, ModifierIds.fireProtection);
     add(Enchantments.BLAST_PROTECTION, TinkerModifiers.blastProtection.getId());
     add(Enchantments.PROJECTILE_PROTECTION, TinkerModifiers.projectileProtection.getId());
-    add(Enchantments.FALL_PROTECTION, TinkerModifiers.featherFalling.getId());
+    add(Enchantments.FALL_PROTECTION, ModifierIds.featherFalling);
     // misc armor
     add(Enchantments.RESPIRATION, ModifierIds.respiration);
-    add(Enchantments.AQUA_AFFINITY, TinkerModifiers.aquaAffinity.getId());
+    add(Enchantments.AQUA_AFFINITY, ModifierIds.aquaAffinity);
     add(Enchantments.THORNS, TinkerModifiers.thorns.getId());
     add(Enchantments.DEPTH_STRIDER, ModifierIds.depthStrider);
-    add(Enchantments.FROST_WALKER, TinkerModifiers.frostWalker.getId());
+    add(Enchantments.FROST_WALKER, ModifierIds.frostWalker);
     add(Enchantments.SOUL_SPEED, TinkerModifiers.soulspeed.getId());
 
     // melee
@@ -78,7 +78,7 @@ public class EnchantmentToModifierProvider extends AbstractEnchantmentToModifier
     addCompat(ModifierIds.luck);
     addCompat(TinkerModifiers.multishot.getId());
     addCompat(ModifierIds.reach);
-    addCompat(TinkerModifiers.tilling.getId());
+    addCompat(ModifierIds.tilling);
     addCompat(TinkerModifiers.reflecting.getId());
   }
 

@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:springing",
+  "text": [
+    {
+      "text": "Charging up then release to launch yourself in the targeted direction, consuming 1 durability."
+    },
+    {
+      "text": " Effect is boosted by 25% per level of power or knockback, and halved by padded. Charge time is reduced by quick charge.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 1 level",
+    "Requires 1 ability slot"
+  ]
+}

@@ -15,6 +15,8 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import java.util.UUID;
 import java.util.function.BiConsumer;
 
+/** @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.combat.KnockbackModule} */
+@Deprecated
 public class KnockbackModifier extends Modifier {
   private static final UUID[] UUIDS = new UUID[4];
   static {

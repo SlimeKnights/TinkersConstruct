@@ -1,0 +1,28 @@
+{
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:default",
+  "tooltip_display": "always",
+  "modules": [
+    {
+      "type": "tconstruct:conditional_mining_speed",
+      "blocks": "mantle:any",
+      "entity": {
+        "type": "mantle:inverted",
+        "inverted_type": "mantle:on_ground"
+      },
+      "require_effective": false,
+      "percent": true,
+      "flat": 4.0,
+      "hooks": [
+        "tconstruct:break_speed"
+      ]
+    },
+    {
+      "type": "tconstruct:conditional_stat",
+      "stat": "tconstruct:accuracy",
+      "entity": "tconstruct:airborne",
+      "percent": false,
+      "flat": 0.5
+    }
+  ]
+}

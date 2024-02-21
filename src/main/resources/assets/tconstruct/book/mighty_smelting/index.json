@@ -36,7 +36,6 @@
   },
   {
     "name": "tools",
-    "data": "sections/tools.json",
     "icon": {
       "item": {
         "type": "forge:nbt",
@@ -53,6 +52,9 @@
           ]
         }
       }
+    },
+    "extraData": {
+      "tconstruct:load_tools": { "tag": "tconstruct:modifiable/broad", "path": "tools" }
     }
   },
   {

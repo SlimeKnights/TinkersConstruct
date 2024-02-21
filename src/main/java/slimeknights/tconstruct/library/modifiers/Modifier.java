@@ -41,6 +41,14 @@ import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierManager.ModifierRegistrationEvent;
+import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.behavior.AttributesModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.behavior.RepairFactorModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolActionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolDamageModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeDamageModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
@@ -58,7 +66,6 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
-import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
 import slimeknights.tconstruct.library.utils.Util;
 
@@ -71,8 +78,9 @@ import java.util.Random;
 import java.util.function.BiConsumer;
 
 /**
- * Interface representing both modifiers and traits.
- * Any behavior special to either one is handled elsewhere.
+ * Class representing both modifiers and traits. Acts as a storage container for {@link ModifierHook} modules, which are used to implement various modifier behaviors.
+ * @see TinkerHooks
+ * @see #registerHooks(Builder)
  */
 @SuppressWarnings("unused")
 public class Modifier implements IHaveLoader<Modifier> {
@@ -138,7 +146,8 @@ public class Modifier implements IHaveLoader<Modifier> {
 
   /**
    * Registers a hook to the modifier.
-   * Note that this is run in the constructor, so you are unable to use any instance fields in this method unless initialized in this method
+   * Note that this is run in the constructor, so you are unable to use any instance fields in this method unless initialized in this method.
+   * TODO 1.19: consider making abstract as everyone is going to need it in the future.
    */
   protected void registerHooks(ModifierHookMap.Builder hookBuilder) {}
 
@@ -223,7 +232,8 @@ public class Modifier implements IHaveLoader<Modifier> {
   }
 
   /**
-   * Overridable method to create the display name for this modifier, ideal to modify colors
+   * Overridable method to create the display name for this modifier, ideal to modify colors.
+   * TODO: this method does not really seem to do much, is it really needed? I feel like it was supposed to be called in {@link #getDisplayName()}, but it needs to be mutable for that.
    * @return  Display name
    */
   protected Component makeDisplayName() {
@@ -269,26 +279,12 @@ public class Modifier implements IHaveLoader<Modifier> {
     return getDisplayName(level);
   }
 
-  /**
-   * Adds additional information from the modifier to the tooltip. Shown when holding shift on a tool, or in the stats area of the tinker station
-   * @param tool         Tool instance
-   * @param level        Tool level
-   * @param player       Player holding this tool
-   * @param tooltip      Tooltip
-   * @param tooltipKey   Shows if the player is holding shift, control, or neither
-   * @param tooltipFlag  Flag determining tooltip type
-   */
+  /** @deprecated use {@link TooltipModifierHook} */
+  @Deprecated
   public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, slimeknights.tconstruct.library.utils.TooltipKey tooltipKey, TooltipFlag tooltipFlag) {}
 
-  /**
-   * Adds additional information from the modifier to the tooltip. Shown when holding shift on a tool, or in the stats area of the tinker station
-   * @param tool         Tool instance
-   * @param level        Tool level
-   * @param player       Player holding this tool
-   * @param tooltip      Tooltip
-   * @param tooltipKey   Shows if the player is holding shift, control, or neither
-   * @param tooltipFlag  Flag determining tooltip type
-   */
+  /** @deprecated use {@link TooltipModifierHook} */
+  @Deprecated
   public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     addInformation(tool, level, player, tooltip, slimeknights.tconstruct.library.utils.TooltipKey.fromMantle(tooltipKey), tooltipFlag);
   }
@@ -393,144 +389,53 @@ public class Modifier implements IHaveLoader<Modifier> {
 
   /* Tool building hooks */
 
-  /**
-   * Adds any relevant volatile data to the tool data. This data is rebuilt every time modifiers rebuild.
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>Persistent mod data (accessed via {@link IToolStackView}): Can be written to freely, but will not automatically remove if the modifier is removed.</li>
-   *   <li>{@link #addRawData(IToolStackView, int, RestrictedCompoundTag)}: Allows modifying a restricted view of the tools main data, might help with other mod compat, but not modifier compat</li>
-   * </ul>
-   * @param context         Context about the tool beilt. Partial view of {@link IToolStackView} as the tool is not fully built
-   * @param level           Modifier level
-   * @param volatileData    Mutable mod NBT data, result of this method
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.build.VolatileDataModifierHook} */
+  @Deprecated
   public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {}
 
-  /**
-   * Adds raw stats to the tool. Called whenever tool stats are rebuilt.
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #addAttributes(IToolStackView, int, EquipmentSlot, BiConsumer)}: Allows dynamic stats based on any tool stat, but does not support mining speed, mining level, or durability.</li>
-   *   <li>{@link #onBreakSpeed(IToolStackView, int, BreakSpeed, Direction, boolean, float)}: Allows dynamic mining speed based on the block mined and the entity mining. Will not show in tooltips.</li>
-   * </ul>
-   * @param context         Context about the tool beilt. Partial view of {@link IToolStackView} as the tool is not fully built. Note this hook runs after volatile data builds
-   * @param level           Modifier level
-   * @param builder         Tool stat builder
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.build.ToolStatsModifierHook} */
+  @Deprecated
   public void addToolStats(ToolRebuildContext context, int level, ModifierStatsBuilder builder) {}
 
-  /**
-   * Adds attributes from this modifier's effect. Called whenever the item stack refreshes capabilities.
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #addToolStats(ToolRebuildContext, int, ModifierStatsBuilder)}: Limited context, but can affect durability, mining level, and mining speed.</li>
-   * </ul>
-   * @param tool      Current tool instance
-   * @param level     Modifier level
-   * @param slot      Slot for the attributes
-   * @param consumer  Attribute consumer
-   */
+  /** @deprecated use {@link AttributesModifierHook} */
+  @Deprecated
   public void addAttributes(IToolStackView tool, int level, EquipmentSlot slot, BiConsumer<Attribute,AttributeModifier> consumer) {}
 
-  /**
-   * Allows editing a restricted view of the tools raw NBT. You are responsible for cleaning up that data on removal via {@link #beforeRemoved(IToolStackView, RestrictedCompoundTag)}.
-   * In most cases volatile data via {@link #addVolatileData(ToolRebuildContext, int, ModDataNBT)} is a much better choice, only use this hook if you have no other choice.
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #addVolatileData(ToolRebuildContext, int, ModDataNBT)}: Modifier data that automatically cleans up when the modifier is removed.11</li>
-   * </ul>
-   * @param tool   Tool stack instance
-   * @param level  Level of the modifier
-   * @param tag    Mutable tag, will not allow modifiying any important tool stat
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.build.RawDataModifierHook#addRawData(IToolStackView, ModifierEntry, RestrictedCompoundTag)} */
+  @Deprecated
   public void addRawData(IToolStackView tool, int level, RestrictedCompoundTag tag) {}
 
-  /**
-   * Called when modifiers or tool materials change to validate the tool. You are free to modify persistent data in this hook if needed.
-   * Do not validate max level here, simply ignore levels over max if needed.
-   * TODO: in 1.19 switch return type to component
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #onRemoved(IToolStackView)}: Called when the last level of a modifier is removed after validation is finished</li>
-   *   <li>{@link #beforeRemoved(IToolStackView, RestrictedCompoundTag)}: Called before the modifier is actually removed</li>
-   * </ul>
-   * @param tool   Current tool instance
-   * @param level  Modifier level, may be 0 if the modifier is removed.
-   * @return  PASS result if success, failure if there was an error.
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.build.ValidateModifierHook} */
+  @Deprecated
   public ValidatedResult validate(IToolStackView tool, int level) {
     return ValidatedResult.PASS;
   }
 
-  /**
-   * Called when this modifier is about to be removed. At this time stats are not yet rebuild and the modifier is still on the tool.
-   * Mainly exists to work with the raw tool NBT, as its a lot more difficult for multiple modifiers to collaborate on that.
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #onRemoved(IToolStackView)}: Called after the modifier is removed and stat are rebuilt without it. Typically a better choice for working with persistent NBT</li>
-   *   <li>{@link #addVolatileData(ToolRebuildContext, int, ModDataNBT)}: Adds NBT that is automatically removed</li>
-   *   <li>{@link #validate(IToolStackView, int)}: Allows marking a new state invalid</li>
-   * </ul>
-   * @param tool  Tool instance
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.build.RawDataModifierHook#removeRawData(IToolStackView, Modifier, RestrictedCompoundTag)} */
+  @Deprecated
   public void beforeRemoved(IToolStackView tool, RestrictedCompoundTag tag) {}
 
-  /**
-   * Called after this modifier is removed (and after stats are rebuilt) to clean up persistent data.
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #validate(IToolStackView, int)}: Called when the tool still has levels and allows rejecting the new tool state</li>
-   *   <li>{@link #beforeRemoved(IToolStackView, RestrictedCompoundTag)}: Grants access to the tools raw NBT, but called before tool stats are rebuilt</li>
-   *   <li>{@link #addVolatileData(ToolRebuildContext, int, ModDataNBT)}: Adds NBT that is automatically removed</li>
-   * </ul>
-   * @param tool  Tool instance
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook} */
+  @Deprecated
   public void onRemoved(IToolStackView tool) {}
 
 
   /* Hooks */
 
-  /**
-   * Called when the tool is damaged. Can be used to cancel, decrease, or increase the damage.
-   * @param tool       Tool stack
-   * @param level      Tool level
-   * @param amount     Amount of damage to deal
-   * @param holder     Entity holding the tool
-   * @return  Replacement damage. Returning 0 cancels the damage and stops other modifiers from processing.
-   */
+  /** @deprecated use {@link ToolDamageModifierHook} */
+  @Deprecated
   public int onDamageTool(IToolStackView tool, int level, int amount, @Nullable LivingEntity holder) {
     return amount;
   }
 
-  /**
-   * Called when the tool is repair. Can be used to decrease, increase, or cancel the repair.
-   * @param toolStack  Tool stack
-   * @param level      Tool level
-   * @param factor     Original factor
-   * @return  Replacement factor. Returning 0 prevents repair
-   */
+  /** @deprecated use {@link RepairFactorModifierHook} */
+  @Deprecated
   public float getRepairFactor(IToolStackView toolStack, int level, float factor) {
     return factor;
   }
 
-  /**
-   * Called when the stack updates in the player inventory
-   * @param tool           Current tool instance
-   * @param level          Modifier level
-   * @param world          World containing tool
-   * @param holder         Entity holding tool
-   * @param itemSlot       Slot containing this tool
-   * @param isSelected     If true, this item is currently in the player's main hand
-   * @param isCorrectSlot  If true, this item is in the proper slot. For tools, that is main hand or off hand. For armor, this means its in the correct armor slot
-   * @param stack          Item stack instance to check other slots for the tool. Do not modify
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.interaction.InventoryTickModifierHook} */
+  @Deprecated
   public void onInventoryTick(IToolStackView tool, int level, Level world, LivingEntity holder, int itemSlot, boolean isSelected, boolean isCorrectSlot, ItemStack stack) {}
 
   /**
@@ -540,6 +445,7 @@ public class Modifier implements IHaveLoader<Modifier> {
    * @param generatedLoot  Current loot list before this modifier
    * @param context        Full loot context
    * @return  Loot replacement
+   * TODO: can we ditch this hook in favor of just using GLMs? Just need a loot condition to detect a modifier, and it gives us a lot more flexability
    */
   public List<ItemStack> processLoot(IToolStackView tool, int level, List<ItemStack> generatedLoot, LootContext context) {
     return generatedLoot;
@@ -602,300 +508,104 @@ public class Modifier implements IHaveLoader<Modifier> {
      return UseAnim.NONE;
   }
 
-  /**
-   * Checks if the tool can perform the given tool action. If any modifier returns true, the action is assumed to be present
-   * @param tool        Tool to check, will never be broken
-   * @param level       Modifier level
-   * @param toolAction  Action to check
-   * @return  True if the tool can perform the action.
-   */
+  /** @deprecated use {@link ToolActionModifierHook} */
+  @Deprecated
   public boolean canPerformAction(IToolStackView tool, int level, ToolAction toolAction) {
     return false;
   }
 
   /* Harvest hooks */
 
-  /**
-   * Called when break speed is being calculated to affect mining speed conditionally.
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #addToolStats(ToolRebuildContext, int, ModifierStatsBuilder)}: Limited context, but effect shows in the tooltip.</li>
-   * </ul>
-   * @param tool                 Current tool instance
-   * @param level                Modifier level
-   * @param event                Event instance
-   * @param sideHit              Side of the block that was hit
-   * @param isEffective          If true, the tool is effective against this block type
-   * @param miningSpeedModifier  Calculated modifier from potion effects such as haste and environment such as water, use for additive bonuses to ensure consistency with the mining speed stat
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedModifierHook} */
+  @Deprecated
   public void onBreakSpeed(IToolStackView tool, int level, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {}
 
-  /**
-   * Adds harvest loot table related enchantments from this modifier's effect, called before breaking a block.
-   * Needed to add enchantments for silk touch and fortune. Can add conditionally if needed.
-   * For looting, see {@link #getLootingValue(IToolStackView, int, LivingEntity, Entity, DamageSource, int)}
-   * @param tool      Tool used
-   * @param level     Modifier level
-   * @param context   Harvest context
-   * @param consumer  Consumer accepting any enchantments
-   * @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.HarvestEnchantmentsModifierHook}
-   */
-  @SuppressWarnings("DeprecatedIsStillUsed")
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.HarvestEnchantmentsModifierHook} */
   @Deprecated
   public void applyHarvestEnchantments(IToolStackView tool, int level, ToolHarvestContext context, BiConsumer<Enchantment,Integer> consumer) {}
 
-  /**
-   * Gets the amount of luck contained in this tool
-   * @param tool          Tool instance
-   * @param level         Modifier level
-   * @param holder        Entity holding the tool
-   * @param target        Entity being looted
-   * @param damageSource  Damage source that killed the entity. May be null if this hook is called without attacking anything (e.g. shearing)
-   * @param looting          Luck value set from previous modifiers
-   * @return New luck value
-   * @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.LootingModifierHook}
-   */
-  @SuppressWarnings("DeprecatedIsStillUsed")
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.LootingModifierHook} */
   @Deprecated
   public int getLootingValue(IToolStackView tool, int level, LivingEntity holder, Entity target, @Nullable DamageSource damageSource, int looting) {
     return looting;
   }
 
-  /**
-   * Removes the block from the world
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #afterBlockBreak(IToolStackView, int, ToolHarvestContext)}: Called after the block is successfully removed.</li>
-   * </ul>
-   * @param tool      Tool used
-   * @param level     Modifier level
-   * @param context   Harvest context
-   * @return  True to override the default block removing logic and stop all later modifiers from running. False to override default without breaking the block. Null to let default logic run
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.mining.RemoveBlockModifierHook} */
   @Nullable
+  @Deprecated
   public Boolean removeBlock(IToolStackView tool, int level, ToolHarvestContext context) {
     return null;
   }
 
-  /**
-   * Called after a block is broken to apply special effects
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #removeBlock(IToolStackView, int, ToolHarvestContext)}: Called before the block is set to air.</li>
-   *   <li>{@link #finishBreakingBlocks(IToolStackView, int, ToolHarvestContext)}: Called after all blocks are broken instead of per block.</li>
-   * </ul>
-   * @param tool      Tool used
-   * @param level     Modifier level
-   * @param context   Harvest context
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.mining.BlockBreakModifierHook} */
+  @Deprecated
   public void afterBlockBreak(IToolStackView tool, int level, ToolHarvestContext context) {}
 
-  /**
-   * Called after all blocks are broken on the target block
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #afterBlockBreak(IToolStackView, int, ToolHarvestContext)}: Called after each individual block is broken.</li>
-   * </ul>
-   * @param tool      Tool used
-   * @param level     Modifier level
-   * @param context   Harvest context
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.mining.FinishHarvestModifierHook} */
+  @Deprecated
   public void finishBreakingBlocks(IToolStackView tool, int level, ToolHarvestContext context) {}
 
 
   /* Attack hooks */
 
-  /**
-   * Called when an entity is attacked, before critical hit damage is calculated. Allows modifying the damage dealt.
-   * Do not modify the entity here, its possible the attack will still be canceled without calling further hooks due to 0 damage being dealt.
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #addToolStats(ToolRebuildContext, int, ModifierStatsBuilder)}: Adjusts the base tool stats that show in the tooltip, but has less context for modification</li>
-   *   <li>{@link #beforeEntityHit(IToolStackView, int, ToolAttackContext, float, float, float)}: If you need to modify the entity before attacking, use this hook</li>
-   *   <li>{@link #afterEntityHit(IToolStackView, int, ToolAttackContext, float)}: Perform special attacks on entity hit beyond damage boosts</li>
-   * </ul>
-   * @param tool          Tool used to attack
-   * @param level         Modifier level
-   * @param context       Attack context
-   * @param baseDamage    Base damage dealt before modifiers
-   * @param damage        Computed damage from all prior modifiers
-   * @return  New damage to deal
-   */
+  /** @deprecated use {@link MeleeDamageModifierHook} */
+  @Deprecated
   public float getEntityDamage(IToolStackView tool, int level, ToolAttackContext context, float baseDamage, float damage) {
     return damage;
   }
 
-  /**
-   * Called right before an entity is hit, used to modify knockback applied or to apply special effects that need to run before damage. Damage is final damage including critical damage.
-   * Note there is still a chance this attack won't deal damage, if that happens {@link #failedEntityHit(IToolStackView, int, ToolAttackContext)} will run.
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #afterEntityHit(IToolStackView, int, ToolAttackContext, float)}: Perform special attacks on entity hit beyond knockback boosts</li>
-   * </ul>
-   * @param tool           Tool used to attack
-   * @param level          Modifier level
-   * @param context        Attack context
-   * @param damage         Damage to deal to the attacker
-   * @param baseKnockback  Base knockback before modifiers
-   * @param knockback      Computed knockback from all prior modifiers
-   * @return  New knockback to apply. 0.5 is equivelent to 1 level of the vanilla enchant
-   */
+  /** @deprecated use {@link MeleeHitModifierHook#beforeMeleeHit(IToolStackView, ModifierEntry, ToolAttackContext, float, float, float)} */
+  @Deprecated
   public float beforeEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
     return knockback;
   }
 
-  /**
-   * Called after a living entity is successfully attacked. Used to apply special effects on hit.
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #addToolStats(ToolRebuildContext, int, ModifierStatsBuilder)}: Adjusts the base tool stats that affect damage</li>
-   *   <li>{@link #getEntityDamage(IToolStackView, int, ToolAttackContext, float, float)}: Change the amount of damage dealt with attacker context</li>
-   *   <li>{@link #beforeEntityHit(IToolStackView, int, ToolAttackContext, float, float, float)}: Change the amount of knockback dealt</li>
-   *   <li>{@link #failedEntityHit(IToolStackView, int, ToolAttackContext)}: Called after living hit when damage was not dealt</li>
-   * </ul>
-   * @param tool          Tool used to attack
-   * @param level         Modifier level
-   * @param context       Attack context
-   * @param damageDealt   Amount of damage successfully dealt
-   * @return  Extra damage to deal to the tool
-   */
+  /** @deprecated use {@link MeleeHitModifierHook#afterMeleeHit(IToolStackView, ModifierEntry, ToolAttackContext, float)} */
+  @Deprecated
   public int afterEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damageDealt) {
     return 0;
   }
 
-  /**
-   * Called after attacking an entity when no damage was dealt
-   * @param tool          Tool used to attack
-   * @param level         Modifier level
-   * @param context       Attack context
-   */
+  /** @deprecated use {@link MeleeHitModifierHook#failedMeleeHit(IToolStackView, ModifierEntry, ToolAttackContext, float)} */
+  @Deprecated
   public void failedEntityHit(IToolStackView tool, int level, ToolAttackContext context) {}
 
 
   /* Armor */
 
-  /**
-   * Gets the protection value of the armor from this modifier. A value of 1 blocks about 4% of damage, equivalent to 1 level of the protection enchantment.
-   * Maximum effect is 80% reduction from a modifier value of 20. Can also go negative, up to 180% increase from a modifier value of -20
-   * <br/>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #isSourceBlocked(IToolStackView, int, EquipmentContext, EquipmentSlot, DamageSource, float)}: Allows canceling the attack entirely, including the hurt animation.</li>
-   *   <li>{@link #onAttacked(IToolStackView, int, EquipmentContext, EquipmentSlot, DamageSource, float, boolean)}: Allows running logic that should take place on attack, such as counterattacks.</li>
-   * </ul>
-   * @param tool            Worn armor
-   * @param level           Modifier level
-   * @param context         Equipment context of the entity wearing the armor
-   * @param slotType        Slot containing the armor
-   * @param source          Damage source
-   * @param modifierValue   Modifier value from previous modifiers to add
-   * @return  New modifier value
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.combat.ProtectionModifierHook} */
+  @Deprecated
   public float getProtectionModifier(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float modifierValue) {
     return modifierValue;
   }
 
-  /**
-   * Checks if this modifier blocks damage from the given source.
-   * <br/>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #getProtectionModifier(IToolStackView, int, EquipmentContext, EquipmentSlot, DamageSource, float)}: Allows reducing damage from a source rather than completely blocking it. Reduced damage will still play the attack animation.</li>
-   *   <li>{@link #onAttacked(IToolStackView, int, EquipmentContext, EquipmentSlot, DamageSource, float, boolean)}: Allows running logic that should take place on attack, such as counterattacks.</li>
-   * </ul>
-   * @param tool       Tool being used
-   * @param level      Level of the modifier
-   * @param context    Context of entity and other equipment
-   * @param slotType   Slot containing the tool
-   * @param source     Damage source causing the attack
-   * @param amount     Amount of damage caused
-   * @return True if this attack should be blocked entirely
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.combat.DamageBlockModifierHook} */
+  @Deprecated
   public boolean isSourceBlocked(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount) {
     return false;
   }
 
-  /**
-   * Runs after an entity is attacked (and we know the attack will land). Note you can attack the entity here, but you are responsible for preventing infinite recursion if you do so (by detecting your own attack source for instance)
-   * <br/>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #isSourceBlocked(IToolStackView, int, EquipmentContext, EquipmentSlot, DamageSource, float)}: Allows canceling the attack entirely, including the hurt animation.</li>
-   *   <li>{@link #getProtectionModifier(IToolStackView, int, EquipmentContext, EquipmentSlot, DamageSource, float)}: Allows reducing the attack damage.</li>
-   * </ul>
-   * @param tool             Tool being used
-   * @param level            Level of the modifier
-   * @param context          Context of entity and other equipment
-   * @param slotType         Slot containing the tool
-   * @param source           Damage source causing the attack
-   * @param amount           Amount of damage caused
-   * @param isDirectDamage   If true, this attack is direct damage from an entity
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.combat.DamageTakenModifierHook} */
+  @Deprecated
   public void onAttacked(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {}
 
-  /**
-   * Called when an entity is attacked and this entity is the attacker
-   * @param tool             Tool being used
-   * @param level            Level of the modifier
-   * @param context          Context of entity and other equipment
-   * @param slotType         Slot containing the tool
-   * @param target           Entity that was attacked
-   * @param source           Damage source used in the attack
-   * @param amount           Amount of damage caused
-   * @param isDirectDamage   If true, this attack is direct damage from an entity
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.combat.DamageDealtModifierHook} */
+  @Deprecated
   public void attackWithArmor(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, LivingEntity target, DamageSource source, float amount, boolean isDirectDamage) {}
+
 
   /* Equipment events */
 
-  /**
-   * Called when a tinker tool is unequipped from an entity
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #onEquip(IToolStackView, int, EquipmentChangeContext)}}: Called when a tool is added to an entity</li>
-   *   <li>{@link #onEquipmentChange(IToolStackView, int, EquipmentChangeContext, EquipmentSlot)}: Called on all other slots that did not change</li>
-   * </ul>
-   * @param tool         Tool unequipped
-   * @param level        Level of the modifier
-   * @param context      Context about the event
-   */
+  /** @deprecated use {@link EquipmentChangeModifierHook#onUnequip(IToolStackView, ModifierEntry, EquipmentChangeContext)} */
+  @Deprecated
   public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {}
 
-  /**
-   * Called when a tinker tool is equipped to an entity
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #onUnequip(IToolStackView, int, EquipmentChangeContext)}: Called when a tool is removed from an entity</li>
-   *   <li>{@link #onEquipmentChange(IToolStackView, int, EquipmentChangeContext, EquipmentSlot)}: Called on all other slots did not change</li>
-   * </ul>
-   * @param tool         Tool equipped
-   * @param level        Level of the modifier
-   * @param context      Context about the event
-   */
+  /** @deprecated use {@link EquipmentChangeModifierHook#onEquip(IToolStackView, ModifierEntry, EquipmentChangeContext)} */
+  @Deprecated
   public void onEquip(IToolStackView tool, int level, EquipmentChangeContext context) {}
 
-  /**
-   * Called when a stack in a different slot changed. Not called on the slot that changed
-   * <br>
-   * Alternatives:
-   * <ul>
-   *   <li>{@link #onUnequip(IToolStackView, int, EquipmentChangeContext)}: Called when a tool is removed from an entity</li>
-   *   <li>{@link #onEquip(IToolStackView, int, EquipmentChangeContext)}: Called when a tool is added to an entity. Called instead of this hook for the new item</li>
-   * </ul>
-   * @param tool      Tool instance
-   * @param level     Modifier level
-   * @param context   Context describing the change
-   * @param slotType  Slot containing this tool, did not change
-   */
+  /** @deprecated use {@link EquipmentChangeModifierHook#onEquipmentChange(IToolStackView, ModifierEntry, EquipmentChangeContext, EquipmentSlot)} */
+  @Deprecated
   public void onEquipmentChange(IToolStackView tool, int level, EquipmentChangeContext context, EquipmentSlot slotType) {}
 
 
@@ -910,33 +620,21 @@ public class Modifier implements IHaveLoader<Modifier> {
     return true;
   }
 
-  /**
-   * Gets the damage percentage for display.  First tool returning something other than NaN will determine display durability
-   * @param tool   Tool instance
-   * @param level  Modifier level
-   * @return  Damage percentage. 0 is undamaged, 1 is fully damaged.
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.display.DurabilityDisplayModifierHook#getDurabilityWidth(IToolStackView, ModifierEntry)} */
+  @Deprecated
   public double getDamagePercentage(IToolStackView tool, int level) {
     return Double.NaN;
   }
 
-  /**
-   * Override the default tool logic for showing the durability bar
-   * @param tool   Tool instance
-   * @param level  Modifier level
-   * @return  True forces the bar to show, false forces it to hide. Return null to allow default behavior
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.display.DurabilityDisplayModifierHook#showDurabilityBar(IToolStackView, ModifierEntry)} */
   @Nullable
+  @Deprecated
   public Boolean showDurabilityBar(IToolStackView tool, int level) {
     return null;
   }
 
-  /**
-   * Gets the RGB for the durability bar
-   * @param tool   Tool instance
-   * @param level  Modifier level
-   * @return  RGB, or -1 to not handle it
-   */
+  /** @deprecated use {@link slimeknights.tconstruct.library.modifiers.hook.display.DurabilityDisplayModifierHook#getDurabilityRGB(IToolStackView, ModifierEntry)} */
+  @Deprecated
   public int getDurabilityRGB(IToolStackView tool, int level) {
     return -1;
   }
@@ -1037,53 +735,37 @@ public class Modifier implements IHaveLoader<Modifier> {
     return modifier;
   }
 
-  /**
-   * Adds a flat bonus tooltip
-   * @param name     Bonus name
-   * @param bonus    Bonus amount
-   * @param tooltip  Tooltip list
-   */
+  /** @deprecated use {@link TooltipModifierHook#addFlatBoost(Modifier, Component, double, List)} */
+  @Deprecated
   protected void addFlatBoost(Component name, double bonus, List<Component> tooltip) {
-    tooltip.add(applyStyle(new TextComponent(Util.BONUS_FORMAT.format(bonus) + " ").append(name)));
+    TooltipModifierHook.addFlatBoost(this, name, bonus, tooltip);
   }
 
-  /**
-   * Adds a percent bonus tooltip
-   * @param name     Bonus name
-   * @param bonus    Bonus amount
-   * @param tooltip  Tooltip list
-   */
+  /** @deprecated use {@link TooltipModifierHook#addPercentBoost(Modifier, Component, double, List)} (Modifier, Component, double, List)} */
+  @Deprecated
   protected void addPercentTooltip(Component name, double bonus, List<Component> tooltip) {
-    tooltip.add(applyStyle(new TextComponent(Util.PERCENT_BOOST_FORMAT.format(bonus) + " ").append(name)));
+    TooltipModifierHook.addPercentBoost(this, name, bonus, tooltip);
   }
 
-  /**
-   * Adds a tooltip showing a bonus stat
-   * @param tool       Tool instance
-   * @param stat       Stat added
-   * @param condition  Condition to show the tooltip
-   * @param amount     Amount to show, before scaling by the tool's modifier
-   * @param tooltip    Tooltip list
-   */
+  /** @deprecated use {@link TooltipModifierHook#addStatBoost(IToolStackView, Modifier, FloatToolStat, TagKey, float, List)} */
+  @Deprecated
   protected void addStatTooltip(IToolStackView tool, FloatToolStat stat, TagKey<Item> condition, float amount, List<Component> tooltip) {
-    if (tool.hasTag(condition)) {
-      addFlatBoost(new TranslatableComponent(getTranslationKey() + "." + stat.getName().getPath()), amount * tool.getMultiplier(stat), tooltip);
-    }
+    TooltipModifierHook.addStatBoost(tool, this, stat, condition, amount, tooltip);
+  }
+
+  /** @deprecated use {@link TooltipModifierHook#addDamageBoost(IToolStackView, Modifier, float, List)} */
+  @Deprecated
+  protected void addDamageTooltip(IToolStackView tool, float amount, List<Component> tooltip) {
+    TooltipModifierHook.addDamageBoost(tool, this, amount, tooltip);
   }
 
   /**
-   * Adds a tooltip showing the bonus damage and the type of damage
-   * @param tool     Tool instance
-   * @param amount   Damage amount
-   * @param tooltip  Tooltip
+   * Tries an expected module against the given module type, returning null if failing. Do not use if you extend another modifier with modules
+   * @deprecated use {@link #registerHooks(Builder)} with the new hook system.
    */
-  protected void addDamageTooltip(IToolStackView tool, float amount, List<Component> tooltip) {
-    addStatTooltip(tool, ToolStats.ATTACK_DAMAGE, TinkerTags.Items.MELEE_OR_UNARMED, amount, tooltip);
-  }
-
-  /** Tries an expected module against the given module type, returning null if failing. Do not use if you extend another modifier with modules */
   @SuppressWarnings("unchecked")
   @Nullable
+  @Deprecated
   protected static <M, E> E tryModuleMatch(Class<E> expected, Class<M> moduleType, M module) {
     if (moduleType == expected) {
       return (E) module;

@@ -71,7 +71,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .stat(ToolStats.ATTACK_SPEED, 1.2f)
       .smallToolStartingSlots()
       // traits
-      .trait(TinkerModifiers.piercing, 1)
+      .trait(ModifierIds.pierce, 1)
       // harvest
       .action(ToolActions.PICKAXE_DIG)
       .effective(BlockTags.MINEABLE_WITH_PICKAXE)
@@ -112,7 +112,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ToolStats.DURABILITY, 5.0f)
       .largeToolStartingSlots()
       // traits
-      .trait(TinkerModifiers.piercing, 2)
+      .trait(ModifierIds.pierce, 2)
       // harvest
       .action(ToolActions.PICKAXE_DIG)
       .effective(BlockTags.MINEABLE_WITH_PICKAXE)
@@ -134,8 +134,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ToolStats.MINING_SPEED, 1.1f)
       .multiplier(ToolStats.ATTACK_DAMAGE, 1.1f)
       // traits
-      .trait(ModifierIds.sticky, 1)
-      .trait(TinkerModifiers.tilling)
+      .trait(ModifierIds.tilling)
       // harvest
       .action(ToolActions.AXE_DIG)
       .action(ToolActions.SHOVEL_DIG)
@@ -160,8 +159,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ToolStats.MINING_SPEED, 0.75f)
       .multiplier(ToolStats.ATTACK_DAMAGE, 1.15f)
       // traits
-      .trait(TinkerModifiers.pathing)
-      .trait(ModifierIds.baneOfSssss)
+      .trait(ModifierIds.pathing)
       // harvest
       .action(ToolActions.PICKAXE_DIG)
       .action(ToolActions.SHOVEL_DIG)
@@ -183,10 +181,11 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .largeToolStartingSlots()
       // traits
       .trait(TinkerModifiers.knockback, 2)
-      .trait(TinkerModifiers.pathing)
+      .trait(ModifierIds.pathing)
       // harvest
       .action(ToolActions.SHOVEL_DIG)
       .effective(BlockTags.MINEABLE_WITH_SHOVEL)
+      .attack(new ParticleWeaponAttack(TinkerTools.bonkAttackParticle.get()))
       .aoe(BoxAOEIterator.builder(1, 1, 0).addWidth(1).addHeight(1).build());
 
 
@@ -201,9 +200,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .stat(ToolStats.ATTACK_SPEED, 0.9f)
       .smallToolStartingSlots()
       // traits
-      .trait(TinkerModifiers.axeScrape)
-      .trait(TinkerModifiers.stripping)
-      .trait(TinkerModifiers.axeWaxOff)
+      .trait(ModifierIds.stripping)
       // harvest
       .action(ToolActions.AXE_DIG)
       .action(TinkerToolActions.SHIELD_DISABLE)
@@ -225,9 +222,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ToolStats.DURABILITY, 4.25f)
       .largeToolStartingSlots()
       // traits
-      .trait(TinkerModifiers.axeScrape)
-      .trait(TinkerModifiers.stripping)
-      .trait(TinkerModifiers.axeWaxOff)
+      .trait(ModifierIds.stripping)
       // harvest
       .action(ToolActions.AXE_DIG)
       .action(TinkerToolActions.SHIELD_DISABLE)
@@ -254,6 +249,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ToolStats.ATTACK_DAMAGE, 0.5f)
       .smallToolStartingSlots()
       // traits
+      .trait(ModifierIds.tilling)
       .trait(TinkerModifiers.shears)
       .trait(TinkerModifiers.harvest)
       // harvest
@@ -275,7 +271,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .multiplier(ToolStats.DURABILITY, 2.5f)
       .largeToolStartingSlots()
       // traits
-      .trait(TinkerModifiers.tilling)
+      .trait(ModifierIds.tilling)
       .trait(TinkerModifiers.aoeSilkyShears)
       .trait(TinkerModifiers.harvest)
       // behavior
@@ -414,6 +410,17 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .startingSlots(SlotType.UPGRADE, 2)
       .startingSlots(SlotType.ABILITY, 3)
       .trait(ModifierIds.overslimeFriend)
+      .aoe(new CircleAOEIterator(1, false))
+      .module(ToolModuleHooks.INTERACTION, DualOptionInteraction.INSTANCE);
+    define(ToolDefinitions.ENDER_STAFF)
+      .stat(ToolStats.DURABILITY, 1520)
+      .stat(ToolStats.BLOCK_AMOUNT, 17)
+      .stat(ToolStats.USE_ITEM_SPEED, 0.4f)
+      .startingSlots(SlotType.UPGRADE, 3)
+      .startingSlots(SlotType.DEFENSE, 1)
+      .startingSlots(SlotType.ABILITY, 2)
+      .trait(ModifierIds.overslimeFriend)
+      .trait(ModifierIds.reach, 2)
       .aoe(new CircleAOEIterator(1, false))
       .module(ToolModuleHooks.INTERACTION, DualOptionInteraction.INSTANCE);
 

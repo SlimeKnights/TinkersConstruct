@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:haste",
+  "text": [
+    {
+      "text": "往工具上抹红石好像能加快其挖掘速度。对挖掘速度较慢的工具更有效。"
+    },
+    {
+      "text": "红石，可真是疯狂的东西。难道不是吗？",
+      "paragraph": true
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/harvest",
+  "effects": [
+    "增加挖掘速度",
+    "多个等级，每级进一步增加一点挖掘速度",
+    "每级需要1个升级槽"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:knockback",
+  "text": [
+    {
+      "text": "每级所有武器击退效果+1，可以将生物击飞大约2格距离。大部分工具自带0.4点击退。"
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/armor",
+  "effects": [
+    "最高3级",
+    "每级需要1个升级槽"
+  ]
+}

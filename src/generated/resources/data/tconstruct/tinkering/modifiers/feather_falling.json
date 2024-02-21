@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:default",
+  "tooltip_display": "always",
+  "modules": [
+    {
+      "type": "tconstruct:protection",
+      "damage_source": "mantle:fall",
+      "wearing_entity": "mantle:any",
+      "each_level": 3.75
+    }
+  ]
+}

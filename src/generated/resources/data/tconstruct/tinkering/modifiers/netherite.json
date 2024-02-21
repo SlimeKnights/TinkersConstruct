@@ -1,44 +1,56 @@
 {
-  "type": "tconstruct:stat_boost",
-  "level_display": "tconstruct:single_level",
-  "rarity": "rare",
-  "stats": [
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:no_levels",
+  "tooltip_display": "always",
+  "modules": [
     {
+      "type": "tconstruct:rarity",
+      "rarity": "rare"
+    },
+    {
+      "type": "tconstruct:volatile_flag",
+      "flag": "tconstruct:indestructible"
+    },
+    {
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:durability",
-      "type": "multiply_base",
-      "value": 0.2
+      "operation": "multiply_base",
+      "flat": 0.2
     },
     {
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:armor_toughness",
-      "type": "add",
-      "value": 1.0
+      "operation": "add",
+      "flat": 1.0
     },
     {
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:knockback_resistance",
-      "type": "add",
-      "value": 0.05
+      "operation": "add",
+      "flat": 0.05
     },
     {
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:attack_damage",
-      "type": "multiply_base",
-      "value": 0.2
+      "operation": "multiply_base",
+      "flat": 0.2
     },
     {
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:mining_speed",
-      "type": "multiply_base",
-      "value": 0.25
+      "operation": "multiply_base",
+      "flat": 0.25
     },
     {
+      "type": "tconstruct:set_stat",
       "stat": "tconstruct:harvest_tier",
       "value": "minecraft:netherite"
     },
     {
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:velocity",
-      "type": "multiply_base",
-      "value": 0.1
+      "operation": "multiply_base",
+      "flat": 0.1
     }
-  ],
-  "flags": [
-    "tconstruct:indestructible"
   ]
 }

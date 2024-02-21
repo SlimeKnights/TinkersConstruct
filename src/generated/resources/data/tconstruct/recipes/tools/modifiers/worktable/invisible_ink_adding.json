@@ -13,10 +13,8 @@
   ],
   "modifier_predicate": {
     "type": "tconstruct:inverted",
-    "predicate": {
-      "type": "tconstruct:tag",
-      "tag": "tconstruct:invisible_ink_blacklist"
-    }
+    "inverted_type": "tconstruct:tag",
+    "tag": "tconstruct:invisible_ink_blacklist"
   },
   "add_to_set": true,
   "allow_traits": false

@@ -1,0 +1,36 @@
+{
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:default",
+  "tooltip_display": "always",
+  "modules": [
+    {
+      "type": "tconstruct:conditional_mining_speed",
+      "blocks": "mantle:any",
+      "entity": "mantle:any",
+      "require_effective": true,
+      "percent": false,
+      "variables": {
+        "light": {
+          "type": "tconstruct:block_light",
+          "light_layer": "block",
+          "fallback": 15.0
+        }
+      },
+      "formula": [
+        3.0,
+        "$light",
+        5.0,
+        "-",
+        5.0,
+        "/",
+        "^",
+        "$level",
+        "*",
+        "$multiplier",
+        "*",
+        "$speed",
+        "+"
+      ]
+    }
+  ]
+}

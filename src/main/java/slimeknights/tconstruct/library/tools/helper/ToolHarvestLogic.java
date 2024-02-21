@@ -21,6 +21,7 @@ import net.minecraftforge.common.ToolActions;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -91,7 +92,7 @@ public class ToolHarvestLogic {
     Boolean removed = null;
     if (!tool.isBroken()) {
       for (ModifierEntry entry : tool.getModifierList()) {
-        removed = entry.getModifier().removeBlock(tool, entry.getLevel(), context);
+        removed = entry.getHook(TinkerHooks.REMOVE_BLOCK).removeBlock(tool, entry, context);
         if (removed != null) {
           break;
         }
@@ -163,7 +164,7 @@ public class ToolHarvestLogic {
     // broken means we are using "empty hand"
     if (!tool.isBroken() && removed) {
       for (ModifierEntry entry : tool.getModifierList()) {
-        entry.getModifier().afterBlockBreak(tool, entry.getLevel(), context);
+        entry.getHook(TinkerHooks.BLOCK_BREAK).afterBlockBreak(tool, entry, context);
       }
       ToolDamageUtil.damageAnimated(tool, damage, player);
     }
@@ -261,7 +262,7 @@ public class ToolHarvestLogic {
           }
         }
         for (ModifierEntry entry : tool.getModifierList()) {
-          entry.getModifier().finishBreakingBlocks(tool, entry.getLevel(), context);
+          entry.getHook(TinkerHooks.FINISH_HARVEST).finishHarvest(tool, entry, context);
         }
       }
 
@@ -285,7 +286,7 @@ public class ToolHarvestLogic {
       boolean isEffective = ToolHarvestLogic.isEffective(tool, state);
       ToolHarvestContext context = new ToolHarvestContext((ServerLevel) worldIn, entityLiving, state, pos, Direction.UP, true, isEffective);
       for (ModifierEntry entry : tool.getModifierList()) {
-        entry.getModifier().afterBlockBreak(tool, entry.getLevel(), context);
+        entry.getHook(TinkerHooks.BLOCK_BREAK).afterBlockBreak(tool, entry, context);
       }
       ToolDamageUtil.damageAnimated(tool, ToolHarvestLogic.getDamage(tool, worldIn, pos, state), entityLiving);
     }

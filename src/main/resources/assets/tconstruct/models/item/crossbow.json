@@ -26,12 +26,36 @@
       "model": "tconstruct:item/crossbow/pulling_3"
     },
     {
+      "predicate": { "pulling": 2 },
+      "model": "tconstruct:item/crossbow/blocking"
+    },
+    {
+      "predicate": { "pulling": 2, "pull": 0.05 },
+      "model": "tconstruct:item/crossbow/blocking_1"
+    },
+    {
+      "predicate": { "pulling": 2, "pull": 0.58 },
+      "model": "tconstruct:item/crossbow/blocking_2"
+    },
+    {
+      "predicate": { "pulling": 2, "pull": 1.0 },
+      "model": "tconstruct:item/crossbow/blocking_3"
+    },
+    {
       "predicate": { "tconstruct:ammo": 1 },
       "model": "tconstruct:item/crossbow/arrow"
     },
     {
+      "predicate": { "tconstruct:ammo": 1, "pulling": 2 },
+      "model": "tconstruct:item/crossbow/arrow_blocking"
+    },
+    {
       "predicate": { "tconstruct:ammo": 2 },
       "model": "tconstruct:item/crossbow/firework"
+    },
+    {
+      "predicate": { "tconstruct:ammo": 2, "pulling": 2 },
+      "model": "tconstruct:item/crossbow/firework_blocking"
     }
   ]
 }

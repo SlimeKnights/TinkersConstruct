@@ -21,10 +21,14 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:gilded",
-              "level": 1
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:gilded",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
             }
           }
         ]
@@ -35,24 +39,14 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:luck",
-              "level": 1
-            }
-          }
-        ]
-      }
-    },
-    "reach": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:reach",
-              "level": 1
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:luck",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
             }
           }
         ]
@@ -63,10 +57,32 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:unbreakable",
-              "level": 1
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:unbreakable",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "protection": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:protection",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
             }
           }
         ]
@@ -77,108 +93,14 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:aqua_affinity",
-              "level": 1
-            }
-          }
-        ]
-      }
-    },
-    "bouncy": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:bouncy",
-              "level": 1
-            }
-          }
-        ]
-      }
-    },
-    "double_jump": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:double_jump",
-              "level": 1
-            }
-          }
-        ]
-      }
-    },
-    "flamewake": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:flamewake",
-              "level": 1
-            }
-          }
-        ]
-      }
-    },
-    "frost_walker": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:frost_walker",
-              "level": 1
-            }
-          }
-        ]
-      }
-    },
-    "path_maker": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:path_maker",
-              "level": 1
-            }
-          }
-        ]
-      }
-    },
-    "plowing": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:plowing",
-              "level": 1
-            }
-          }
-        ]
-      }
-    },
-    "pockets": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:pockets",
-              "level": 1
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:aqua_affinity",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
             }
           }
         ]
@@ -189,66 +111,14 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:slurping",
-              "level": 1
-            }
-          }
-        ]
-      }
-    },
-    "snowdrift": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:snowdrift",
-              "level": 1
-            }
-          }
-        ]
-      }
-    },
-    "strength": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:strength",
-              "level": 1
-            }
-          }
-        ]
-      }
-    },
-    "tool_belt": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:tool_belt",
-              "level": 1
-            }
-          }
-        ]
-      }
-    },
-    "ambidextrous": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:ambidextrous",
-              "level": 1
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:slurping",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
             }
           }
         ]
@@ -259,10 +129,194 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:zoom",
-              "level": 1
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:zoom",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "ambidextrous": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:ambidextrous",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "reach": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:reach",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "strength": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:strength",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "pockets": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:pockets",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "tool_belt": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:tool_belt",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "wetting": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:wetting",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "bouncy": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:bouncy",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "double_jump": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:double_jump",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "flamewake": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:flamewake",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "frost_walker": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:frost_walker",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
             }
           }
         ]
@@ -273,10 +327,86 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:long_fall",
-              "level": 1
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:long_fall",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "path_maker": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:path_maker",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "plowing": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:plowing",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "snowdrift": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:snowdrift",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "boundless": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:boundless",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
             }
           }
         ]
@@ -287,10 +417,14 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:reflecting",
-              "level": 1
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:reflecting",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
             }
           }
         ]
@@ -301,10 +435,14 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:autosmelt",
-              "level": 1
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:autosmelt",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
             }
           }
         ]
@@ -315,10 +453,14 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:exchanging",
-              "level": 1
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:exchanging",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
             }
           }
         ]
@@ -329,10 +471,14 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:expanded",
-              "level": 1
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:expanded",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
             }
           }
         ]
@@ -343,10 +489,14 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:silky",
-              "level": 1
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:silky",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
             }
           }
         ]
@@ -357,10 +507,14 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:bucketing",
-              "level": 1
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:bucketing",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
             }
           }
         ]
@@ -371,10 +525,14 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:firestarter",
-              "level": 1
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:firestarter",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
             }
           }
         ]
@@ -385,10 +543,14 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:glowing",
-              "level": 1
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:glowing",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
             }
           }
         ]
@@ -399,10 +561,14 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:pathing",
-              "level": 1
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:pathing",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
             }
           }
         ]
@@ -413,10 +579,14 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:stripping",
-              "level": 1
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:stripping",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
             }
           }
         ]
@@ -427,10 +597,104 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:tilling",
-              "level": 1
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:tilling",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "bonking": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:bonking",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "flinging": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:flinging",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "spitting": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:spitting",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "springing": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:springing",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
+            }
+          }
+        ]
+      }
+    },
+    "warping": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:warping",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
             }
           }
         ]
@@ -441,10 +705,14 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:dual_wielding",
-              "level": 1
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:dual_wielding",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
             }
           }
         ]
@@ -455,10 +723,14 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:melting",
-              "level": 1
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:melting",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
             }
           }
         ]
@@ -469,10 +741,14 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:spilling",
-              "level": 1
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:spilling",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
             }
           }
         ]
@@ -483,10 +759,14 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:blocking",
-              "level": 1
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:blocking",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
             }
           }
         ]
@@ -497,10 +777,14 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:parrying",
-              "level": 1
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:parrying",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
             }
           }
         ]
@@ -511,10 +795,14 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:crystalshot",
-              "level": 1
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:crystalshot",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
             }
           }
         ]
@@ -525,10 +813,14 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:multishot",
-              "level": 1
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:multishot",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
             }
           }
         ]
@@ -539,10 +831,14 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:bulk_quiver",
-              "level": 1
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:bulk_quiver",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
             }
           }
         ]
@@ -553,10 +849,14 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "modifiers": {
-              "name": "tconstruct:trick_quiver",
-              "level": 1
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "modifier": "tconstruct:trick_quiver",
+              "level": {
+                "min": 1
+              },
+              "check": "upgrades"
             }
           }
         ]
@@ -571,13 +871,37 @@
       "luck"
     ],
     [
-      "reach"
-    ],
-    [
       "unbreakable"
     ],
     [
+      "protection"
+    ],
+    [
       "aqua_affinity"
+    ],
+    [
+      "slurping"
+    ],
+    [
+      "zoom"
+    ],
+    [
+      "ambidextrous"
+    ],
+    [
+      "reach"
+    ],
+    [
+      "strength"
+    ],
+    [
+      "pockets"
+    ],
+    [
+      "tool_belt"
+    ],
+    [
+      "wetting"
     ],
     [
       "bouncy"
@@ -592,34 +916,19 @@
       "frost_walker"
     ],
     [
+      "long_fall"
+    ],
+    [
       "path_maker"
     ],
     [
       "plowing"
     ],
     [
-      "pockets"
-    ],
-    [
-      "slurping"
-    ],
-    [
       "snowdrift"
     ],
     [
-      "strength"
-    ],
-    [
-      "tool_belt"
-    ],
-    [
-      "ambidextrous"
-    ],
-    [
-      "zoom"
-    ],
-    [
-      "long_fall"
+      "boundless"
     ],
     [
       "reflecting"
@@ -653,6 +962,21 @@
     ],
     [
       "tilling"
+    ],
+    [
+      "bonking"
+    ],
+    [
+      "flinging"
+    ],
+    [
+      "spitting"
+    ],
+    [
+      "springing"
+    ],
+    [
+      "warping"
     ],
     [
       "dual_wielding"

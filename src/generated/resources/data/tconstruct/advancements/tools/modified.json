@@ -21,8 +21,8 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "has_upgrades": true
+            "type": "tconstruct:tool_stack",
+            "predicate": "tconstruct:has_upgrades"
           }
         ]
       }

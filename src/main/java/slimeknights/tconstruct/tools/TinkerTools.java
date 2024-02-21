@@ -29,6 +29,13 @@ import slimeknights.tconstruct.library.client.data.material.GeneratorPartTexture
 import slimeknights.tconstruct.library.client.data.material.MaterialPartTextureGenerator;
 import slimeknights.tconstruct.library.json.AddToolDataFunction;
 import slimeknights.tconstruct.library.json.RandomMaterial;
+import slimeknights.tconstruct.library.json.predicate.tool.HasMaterialPredicate;
+import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate;
+import slimeknights.tconstruct.library.json.predicate.tool.HasStatTypePredicate;
+import slimeknights.tconstruct.library.json.predicate.tool.ItemToolPredicate;
+import slimeknights.tconstruct.library.json.predicate.tool.StatInSetPredicate;
+import slimeknights.tconstruct.library.json.predicate.tool.ToolContextPredicate;
+import slimeknights.tconstruct.library.json.predicate.tool.ToolStackItemPredicate;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.SlotType;
@@ -59,6 +66,7 @@ import slimeknights.tconstruct.library.tools.item.ModifiableArmorItem;
 import slimeknights.tconstruct.library.tools.item.ModifiableItem;
 import slimeknights.tconstruct.library.tools.item.ModifiableLauncherItem;
 import slimeknights.tconstruct.library.tools.item.ModifiableStaffItem;
+import slimeknights.tconstruct.library.tools.stat.StatPredicate;
 import slimeknights.tconstruct.library.utils.BlockSideHitListener;
 import slimeknights.tconstruct.tools.data.StationSlotLayoutProvider;
 import slimeknights.tconstruct.tools.data.ToolDefinitionDataProvider;
@@ -132,6 +140,7 @@ public final class TinkerTools extends TinkerModule {
   public static final ItemObject<ModifiableItem> skyStaff = ITEMS.register("sky_staff", () -> new ModifiableStaffItem(TOOL, ToolDefinitions.SKY_STAFF));
   public static final ItemObject<ModifiableItem> earthStaff = ITEMS.register("earth_staff", () -> new ModifiableStaffItem(TOOL, ToolDefinitions.EARTH_STAFF));
   public static final ItemObject<ModifiableItem> ichorStaff = ITEMS.register("ichor_staff", () -> new ModifiableStaffItem(TOOL, ToolDefinitions.ICHOR_STAFF));
+  public static final ItemObject<ModifiableItem> enderStaff = ITEMS.register("ender_staff", () -> new ModifiableStaffItem(TOOL, ToolDefinitions.ENDER_STAFF));
 
   // armor
   public static final EnumObject<ArmorSlotType,ModifiableArmorItem> travelersGear = ITEMS.registerEnum("travelers", ArmorSlotType.values(), type -> new TravelersGearItem(ArmorDefinitions.TRAVELERS, type, TOOL));
@@ -152,6 +161,7 @@ public final class TinkerTools extends TinkerModule {
   /* Particles */
   public static final RegistryObject<SimpleParticleType> hammerAttackParticle = PARTICLE_TYPES.register("hammer_attack", () -> new SimpleParticleType(true));
   public static final RegistryObject<SimpleParticleType> axeAttackParticle = PARTICLE_TYPES.register("axe_attack", () -> new SimpleParticleType(true));
+  public static final RegistryObject<SimpleParticleType> bonkAttackParticle = PARTICLE_TYPES.register("bonk", () -> new SimpleParticleType(true));
 
   /* Entities */
   public static final RegistryObject<EntityType<IndestructibleItemEntity>> indestructibleItem = ENTITIES.register("indestructible_item", () ->
@@ -177,7 +187,7 @@ public final class TinkerTools extends TinkerModule {
     EquipmentChangeWatcher.register();
     ToolCapabilityProvider.register(ToolFluidCapability.Provider::new);
     ToolCapabilityProvider.register(ToolInventoryCapability.Provider::new);
-    for (ConfigurableAction action : Config.COMMON.damageSourceTweaks) {
+    for (ConfigurableAction action : Config.COMMON.toolTweaks) {
       event.enqueueWork(action);
     }
     TinkerHooks.init();
@@ -187,6 +197,7 @@ public final class TinkerTools extends TinkerModule {
   @SubscribeEvent
   void registerRecipeSerializers(RegistryEvent.Register<RecipeSerializer<?>> event) {
     ItemPredicate.register(ToolPredicate.ID, ToolPredicate::deserialize);
+    ItemPredicate.register(ToolStackItemPredicate.ID, ToolStackItemPredicate::deserialize);
 
     // tool definition components
     // harvest
@@ -206,6 +217,18 @@ public final class TinkerTools extends TinkerModule {
     // generic tool modules
     IToolModule.LOADER.register(TConstruct.getResource("dual_option_interaction"), DualOptionInteraction.LOADER);
     IToolModule.LOADER.register(TConstruct.getResource("preference_set_interaction"), PreferenceSetInteraction.LOADER);
+    // tool predicates
+    ToolContextPredicate.LOADER.register(TConstruct.getResource("and"), ToolContextPredicate.AND);
+    ToolContextPredicate.LOADER.register(TConstruct.getResource("or"), ToolContextPredicate.OR);
+    ToolContextPredicate.LOADER.register(TConstruct.getResource("inverted"), ToolContextPredicate.INVERTED);
+    ToolContextPredicate.LOADER.register(TConstruct.getResource("any"), ToolContextPredicate.ANY.getLoader());
+    ToolContextPredicate.LOADER.register(TConstruct.getResource("item"), ItemToolPredicate.LOADER);
+    ToolContextPredicate.LOADER.register(TConstruct.getResource("has_upgrades"), ToolContextPredicate.HAS_UPGRADES.getLoader());
+    ToolContextPredicate.LOADER.register(TConstruct.getResource("has_modifier"), HasModifierPredicate.LOADER);
+    ToolContextPredicate.LOADER.register(TConstruct.getResource("stat_in_range"), StatPredicate.LOADER);
+    ToolContextPredicate.LOADER.register(TConstruct.getResource("stat_in_set"), StatInSetPredicate.LOADER);
+    ToolContextPredicate.LOADER.register(TConstruct.getResource("has_material"), HasMaterialPredicate.LOADER);
+    ToolContextPredicate.LOADER.register(TConstruct.getResource("has_stat_type"), HasStatTypePredicate.LOADER);
   }
 
   @SubscribeEvent

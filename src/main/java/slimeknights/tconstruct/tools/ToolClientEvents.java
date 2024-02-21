@@ -5,8 +5,10 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.player.Input;
 import net.minecraft.client.renderer.entity.ItemEntityRenderer;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -50,6 +52,7 @@ import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager.ModifierModelRegistrationEvent;
 import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.TankModifierModel;
+import slimeknights.tconstruct.library.client.particle.AttackParticle;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
@@ -59,13 +62,12 @@ import slimeknights.tconstruct.library.utils.HarvestTiers;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.client.ArmorModelHelper;
 import slimeknights.tconstruct.tools.client.CrystalshotRenderer;
+import slimeknights.tconstruct.tools.client.FluidSpitRenderer;
 import slimeknights.tconstruct.tools.client.OverslimeModifierModel;
 import slimeknights.tconstruct.tools.client.PlateArmorModel;
 import slimeknights.tconstruct.tools.client.SlimelytraArmorModel;
 import slimeknights.tconstruct.tools.client.SlimeskullArmorModel;
 import slimeknights.tconstruct.tools.client.ToolContainerScreen;
-import slimeknights.tconstruct.tools.client.particles.AxeAttackParticle;
-import slimeknights.tconstruct.tools.client.particles.HammerAttackParticle;
 import slimeknights.tconstruct.tools.item.ModifierCrystalItem;
 import slimeknights.tconstruct.tools.logic.InteractionHandler;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.DoubleJumpModifier;
@@ -119,6 +121,7 @@ public class ToolClientEvents extends ClientEventBase {
   static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
     event.registerEntityRenderer(TinkerTools.indestructibleItem.get(), ItemEntityRenderer::new);
     event.registerEntityRenderer(TinkerTools.crystalshotEntity.get(), CrystalshotRenderer::new);
+    event.registerEntityRenderer(TinkerModifiers.fluidSpitEntity.get(), FluidSpitRenderer::new);
   }
 
   @SubscribeEvent
@@ -162,6 +165,7 @@ public class ToolClientEvents extends ClientEventBase {
       TinkerItemProperties.registerToolProperties(TinkerTools.skyStaff.asItem());
       TinkerItemProperties.registerToolProperties(TinkerTools.earthStaff.asItem());
       TinkerItemProperties.registerToolProperties(TinkerTools.ichorStaff.asItem());
+      TinkerItemProperties.registerToolProperties(TinkerTools.enderStaff.asItem());
       TinkerItemProperties.registerToolProperties(TinkerTools.travelersShield.asItem());
       TinkerItemProperties.registerToolProperties(TinkerTools.plateShield.asItem());
     });
@@ -169,8 +173,10 @@ public class ToolClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void registerParticleFactories(ParticleFactoryRegisterEvent event) {
-    Minecraft.getInstance().particleEngine.register(TinkerTools.hammerAttackParticle.get(), HammerAttackParticle.Factory::new);
-    Minecraft.getInstance().particleEngine.register(TinkerTools.axeAttackParticle.get(), AxeAttackParticle.Factory::new);
+    ParticleEngine.SpriteParticleRegistration<SimpleParticleType> factory = AttackParticle.Factory::new;
+    Minecraft.getInstance().particleEngine.register(TinkerTools.hammerAttackParticle.get(), factory);
+    Minecraft.getInstance().particleEngine.register(TinkerTools.axeAttackParticle.get(), factory);
+    Minecraft.getInstance().particleEngine.register(TinkerTools.bonkAttackParticle.get(), factory);
   }
 
   @SubscribeEvent

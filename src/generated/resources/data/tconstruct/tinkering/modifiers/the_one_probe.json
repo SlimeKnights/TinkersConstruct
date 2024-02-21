@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:no_levels",
+  "tooltip_display": "always",
+  "modules": [
+    {
+      "type": "tconstruct:the_one_probe"
+    }
+  ],
+  "condition": {
+    "modid": "theoneprobe",
+    "type": "forge:mod_loaded"
+  }
+}

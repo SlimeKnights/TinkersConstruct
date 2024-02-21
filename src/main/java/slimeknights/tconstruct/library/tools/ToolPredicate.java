@@ -33,7 +33,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 
-/** Variant of ItemPredicate for matching Tinker tools */
+/** @deprecated use {@link slimeknights.tconstruct.library.json.predicate.tool.ToolStackItemPredicate} */
+@Deprecated
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class ToolPredicate extends ItemPredicate {
   public static final ResourceLocation ID = TConstruct.getResource("tool");
@@ -171,16 +172,19 @@ public class ToolPredicate extends ItemPredicate {
   }
 
   /** Creates a new builder instance for an item */
+  @Deprecated
   public static Builder builder(Item item) {
     return new Builder(item, null);
   }
 
   /** Creates a new builder instance for a tag */
+  @Deprecated
   public static Builder builder(TagKey<Item> tag) {
     return new Builder(null, tag);
   }
 
   /** Creates a new builder instance for any item */
+  @Deprecated
   public static Builder builder() {
     return new Builder(null, null);
   }

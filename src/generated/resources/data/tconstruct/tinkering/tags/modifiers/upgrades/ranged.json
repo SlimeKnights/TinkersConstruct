@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:pierce",
+    "tconstruct:power",
+    "tconstruct:punch",
+    "tconstruct:quick_charge",
+    "tconstruct:scope",
+    "tconstruct:sinistral",
+    "tconstruct:trueshot",
+    "tconstruct:fiery",
+    "tconstruct:freezing",
+    "tconstruct:impaling",
+    "tconstruct:necrotic"
+  ]
+}

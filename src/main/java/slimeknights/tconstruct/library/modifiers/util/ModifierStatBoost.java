@@ -25,7 +25,8 @@ import java.util.Locale;
 /**
  * Stat boost to apply
  */
-public interface ModifierStatBoost {
+@Deprecated
+public sealed interface ModifierStatBoost {
   /**
    * Checks if all tags match
    */
@@ -40,7 +41,6 @@ public interface ModifierStatBoost {
 
   /**
    * Gets all tag requirements
-   * TODO: general tag compound logic? to allow AND, OR, NOT, and alike
    */
   List<TagKey<Item>> tagRequirements();
 
@@ -52,7 +52,14 @@ public interface ModifierStatBoost {
   /**
    * Converts this to JSON
    */
-  JsonObject toJson();
+  JsonObject toJson(JsonObject json);
+
+  /**
+   * Converts this to JSON
+   */
+  default JsonObject toJson() {
+    return toJson(new JsonObject());
+  }
 
   /**
    * Writes this to the network
@@ -90,7 +97,10 @@ public interface ModifierStatBoost {
     return StatUpdate.fromNetwork(buffer, stat, tagRequirements.build());
   }
 
-  /** Record representing a single stat boost */
+  /**
+   * Record representing a single stat boost
+   * TODO 1.19: move to {@link slimeknights.tconstruct.library.modifiers.modules.build.StatBoostModule} as {@code StatOperation}
+   */
   enum BoostType {
     ADD {
       @Override
@@ -120,7 +130,10 @@ public interface ModifierStatBoost {
     @Getter
     private final String name = name().toLowerCase(Locale.ROOT);
 
-    /** Applies this boost type for the given values */
+    /**
+     * Applies this boost type for the given values.
+     * TODO 1.19: remove level parameter.
+     */
     public abstract void apply(ModifierStatsBuilder builder, INumericToolStat<?> stat, float value, float level);
 
     /** Gets the boost type for the given name */
@@ -147,6 +160,7 @@ public interface ModifierStatBoost {
   }
 
   /** Record representing a single stat boost */
+  @Deprecated
   record StatBoost(INumericToolStat<?> stat, BoostType type, float amount, List<TagKey<Item>> tagRequirements) implements ModifierStatBoost {
     /** Applies the given boost */
     @Override
@@ -156,10 +170,8 @@ public interface ModifierStatBoost {
       }
     }
 
-    /** Converts the object to JSON */
     @Override
-    public JsonObject toJson() {
-      JsonObject json = new JsonObject();
+    public JsonObject toJson(JsonObject json) {
       json.addProperty("stat", stat.getName().toString());
       json.addProperty("type", type.getName());
       json.addProperty("value", amount);
@@ -199,6 +211,7 @@ public interface ModifierStatBoost {
   }
 
   /** Performs a generic stat update */
+  @Deprecated
   record StatUpdate<T>(IToolStat<T> stat, T value, List<TagKey<Item>> tagRequirements) implements ModifierStatBoost {
     @Override
     public void apply(ToolRebuildContext context, float level, ModifierStatsBuilder builder) {
@@ -206,8 +219,7 @@ public interface ModifierStatBoost {
     }
 
     @Override
-    public JsonObject toJson() {
-      JsonObject json = new JsonObject();
+    public JsonObject toJson(JsonObject json) {
       json.addProperty("stat", stat.getName().toString());
       json.add("value", stat.serialize(value));
       serializeTags(json, tagRequirements);

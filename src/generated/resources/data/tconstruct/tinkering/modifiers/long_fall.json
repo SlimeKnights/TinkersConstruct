@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:no_levels",
+  "tooltip_display": "always",
+  "modules": [
+    {
+      "type": "tconstruct:block_damage",
+      "damage_source": "mantle:fall"
+    }
+  ]
+}

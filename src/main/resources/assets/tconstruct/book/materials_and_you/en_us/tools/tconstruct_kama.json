@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:kama",
+  "text": [
+    {
+      "text": "The Kama is a precision reaping tool, fantastic at mowing down plants and shearing animals."
+    }
+  ],
+  "properties": [
+    "Tills dirt",
+    "Interact with crops to harvest them",
+    "Shears blocks and animals",
+    "Effective on plants",
+    "AoE attack capabilities"
+  ]
+}

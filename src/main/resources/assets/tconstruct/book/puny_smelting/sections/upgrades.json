@@ -2,276 +2,52 @@
   {
     "name": "group_general",
     "type": "mantle:text",
-    "data": "upgrades/general.json"
+    "data": "upgrades/general.json",
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:upgrades/general", "path": "upgrades/general" }}
   },
   {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/general/diamond.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/general/emerald.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/general/experienced.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/general/fireprimer.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/general/magnetic.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/general/netherite.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/general/overforced.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/general/reinforced.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/general/soulbound.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/general/tank.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/general/zoom.json"
-  },
-  {
-    "condition": {
-      "type": "forge:mod_loaded",
-      "modid": "theoneprobe"
-    },
-    "type": "tconstruct:modifier",
-    "data": "upgrades/general/the_one_probe.json"
-  },
-
-  {
-    "name": "group_weapon",
+    "name": "group_melee",
     "type": "mantle:text",
-    "data": "upgrades/weapon.json"
+    "data": "upgrades/melee.json",
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:upgrades/melee", "path": "upgrades/melee" }}
   },
   {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/weapon/fiery.json"
+    "name": "group_damage",
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:upgrades/damage", "path": "upgrades/damage" }}
   },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/weapon/knockback.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/weapon/necrotic.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/weapon/padded.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/weapon/severing.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/weapon/sticky.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/weapon/sweeping_edge.json"
-  },
-  {
-    "name": "group_damage"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/weapon/antiaquatic.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/weapon/baneofsssss.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/weapon/cooling.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/weapon/killager.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/weapon/piercing.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/weapon/sharpness.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/weapon/smite.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/weapon/swiftstrike.json"
-  },
-
   {
     "name": "group_harvest",
     "type": "mantle:text",
-    "data": "upgrades/harvest.json"
+    "data": "upgrades/harvest.json",
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:upgrades/harvest", "path": "upgrades/harvest" }}
   },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/harvest/blasting.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/harvest/haste.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/harvest/hydraulic.json"
-  },
-   {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/harvest/lightspeed.json"
-  },
-  
   {
     "name": "group_ranged",
     "type": "mantle:text",
-    "data": "upgrades/ranged.json"
+    "data": "upgrades/ranged.json",
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:upgrades/ranged", "path": "upgrades/ranged" }}
   },
-  {
-    "name": "fiery",
-    "type": "tconstruct:modifier",
-    "data": "upgrades/ranged/fiery.json"
-  },
-  {
-    "name": "freezing",
-    "type": "tconstruct:modifier",
-    "data": "upgrades/ranged/freezing.json"
-  },
-  {
-    "name": "impaling",
-    "type": "tconstruct:modifier",
-    "data": "upgrades/ranged/impaling.json"
-  },
-  {
-    "name": "power",
-    "type": "tconstruct:modifier",
-    "data": "upgrades/ranged/power.json"
-  },
-  {
-    "name": "necrotic",
-    "type": "tconstruct:modifier",
-    "data": "upgrades/ranged/necrotic.json"
-  },
-  {
-    "name": "piercing",
-    "type": "tconstruct:modifier",
-    "data": "upgrades/ranged/piercing.json"
-  },
-  {
-    "name": "punch",
-    "type": "tconstruct:modifier",
-    "data": "upgrades/ranged/punch.json"
-  },
-  {
-    "name": "quick_charge",
-    "type": "tconstruct:modifier",
-    "data": "upgrades/ranged/quick_charge.json"
-  },
-  {
-    "name": "scope",
-    "type": "tconstruct:modifier",
-    "data": "upgrades/ranged/scope.json"
-  },
-  {
-    "name": "sinistral",
-    "type": "tconstruct:modifier",
-    "data": "upgrades/ranged/sinistral.json"
-  },   
-  {
-    "name": "trueshot",
-    "type": "tconstruct:modifier",
-    "data": "upgrades/ranged/trueshot.json"
-  }, 
+
   {
     "name": "group_armor",
     "type": "mantle:text",
-    "data": "upgrades/armor.json"
+    "data": "upgrades/armor.json",
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:upgrades/armor/general", "path": "upgrades/armor/general" }}
   },
   {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/armor/depth_strider.json"
+    "name": "group_armor.helmet",
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:upgrades/armor/helmet", "path": "upgrades/armor/helmet" }}
   },
   {
-    "name": "feather_falling",
-    "type": "tconstruct:modifier",
-    "data": "upgrades/armor/feather_falling.json"
+    "name": "group_armor.chestplate",
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:upgrades/armor/chestplate", "path": "upgrades/armor/chestplate" }}
   },
   {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/armor/knockback.json"
+    "name": "group_armor.leggings",
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:upgrades/armor/leggings", "path": "upgrades/armor/leggings" }}
   },
   {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/armor/haste.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/armor/item_frame.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/armor/leaping.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/armor/lightspeed.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/armor/respiration.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/armor/ricochet.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/armor/shield_strap.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/armor/soulspeed.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/armor/speedy.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/armor/step_up.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/armor/springy.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "upgrades/armor/thorns.json"
+    "name": "group_armor.boots",
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:upgrades/armor/boots", "path": "upgrades/armor/boots" }}
   }
 ]

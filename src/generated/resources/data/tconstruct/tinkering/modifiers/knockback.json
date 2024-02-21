@@ -1,0 +1,31 @@
+{
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:default",
+  "tooltip_display": "always",
+  "modules": [
+    {
+      "type": "tconstruct:knockback",
+      "tool": {
+        "type": "tconstruct:inverted",
+        "inverted_type": "tconstruct:item",
+        "item_type": "mantle:tag",
+        "tag": "tconstruct:modifiable/unarmed"
+      },
+      "entity": "mantle:any",
+      "each_level": 0.5
+    },
+    {
+      "type": "tconstruct:attribute",
+      "unique": "tconstruct.modifier.knockback",
+      "attribute": "minecraft:generic.attack_knockback",
+      "operation": "addition",
+      "each_level": 1.0,
+      "slots": [
+        "feet",
+        "legs",
+        "chest",
+        "head"
+      ]
+    }
+  ]
+}

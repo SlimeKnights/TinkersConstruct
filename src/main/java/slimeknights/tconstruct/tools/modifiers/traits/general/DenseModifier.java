@@ -12,6 +12,8 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.general.ReinforcedModifi
 import javax.annotation.Nullable;
 import java.util.List;
 
+/** @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.behavior.ReduceToolDamageModule} and {@link slimeknights.tconstruct.library.modifiers.modules.behavior.RepairModule} */
+@Deprecated
 public class DenseModifier extends ReinforcedModifier {
   @Override
   public float getRepairFactor(IToolStackView toolStack, int level, float factor) {

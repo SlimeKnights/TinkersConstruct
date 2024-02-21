@@ -1,0 +1,25 @@
+{
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:default",
+  "tooltip_display": "always",
+  "modules": [
+    {
+      "type": "tconstruct:constant_enchantment",
+      "name": "minecraft:fire_protection",
+      "level": 1
+    },
+    {
+      "type": "tconstruct:protection",
+      "damage_source": {
+        "type": "mantle:and",
+        "predicates": [
+          "mantle:can_protect",
+          "mantle:fire"
+        ]
+      },
+      "wearing_entity": "mantle:any",
+      "each_level": 2.5,
+      "subtract_enchantment": "minecraft:fire_protection"
+    }
+  ]
+}

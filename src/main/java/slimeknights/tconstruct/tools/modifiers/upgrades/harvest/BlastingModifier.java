@@ -14,6 +14,8 @@ import slimeknights.tconstruct.library.utils.TooltipKey;
 import javax.annotation.Nullable;
 import java.util.List;
 
+/** @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.mining.ConditionalMiningSpeedModule} */
+@Deprecated
 public class BlastingModifier extends IncrementalModifier {
   @Override
   public int getPriority() {

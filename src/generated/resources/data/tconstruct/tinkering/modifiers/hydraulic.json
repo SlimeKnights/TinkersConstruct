@@ -1,0 +1,44 @@
+{
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:default",
+  "tooltip_display": "always",
+  "modules": [
+    {
+      "type": "tconstruct:conditional_mining_speed",
+      "blocks": "mantle:any",
+      "entity": "mantle:any",
+      "require_effective": true,
+      "percent": false,
+      "variables": {
+        "bonus": {
+          "type": "tconstruct:entity",
+          "entity_type": "tconstruct:conditional",
+          "condition_type": "mantle:eyes_in_water",
+          "if_true": {
+            "type": "tconstruct:conditional",
+            "condition_type": "mantle:has_enchantment",
+            "enchantment": "minecraft:aqua_affinity",
+            "if_true": 8.0,
+            "if_false": 40.0
+          },
+          "if_false": {
+            "type": "tconstruct:conditional",
+            "condition_type": "mantle:raining_at",
+            "if_true": 4.0,
+            "if_false": 0.0
+          },
+          "fallback": 8.0
+        }
+      },
+      "formula": [
+        "$multiplier",
+        "$bonus",
+        "*",
+        "$level",
+        "*",
+        "$speed",
+        "+"
+      ]
+    }
+  ]
+}

@@ -21,6 +21,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.DataSerializerEntry;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistries.Keys;
 import slimeknights.mantle.item.BlockTooltipItem;
@@ -58,6 +59,7 @@ public abstract class TinkerModule {
   protected static final FluidDeferredRegister FLUIDS = new FluidDeferredRegister(TConstruct.MOD_ID);
   protected static final SynchronizedDeferredRegister<MobEffect> MOB_EFFECTS = SynchronizedDeferredRegister.create(ForgeRegistries.MOB_EFFECTS, TConstruct.MOD_ID);
   protected static final SynchronizedDeferredRegister<ParticleType<?>> PARTICLE_TYPES = SynchronizedDeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, TConstruct.MOD_ID);
+  protected static final SynchronizedDeferredRegister<DataSerializerEntry> DATA_SERIALIZERS = SynchronizedDeferredRegister.create(Keys.DATA_SERIALIZERS, TConstruct.MOD_ID);
   // gameplay instances
   protected static final BlockEntityTypeDeferredRegister BLOCK_ENTITIES = new BlockEntityTypeDeferredRegister(TConstruct.MOD_ID);
   protected static final EntityTypeDeferredRegister ENTITIES = new EntityTypeDeferredRegister(TConstruct.MOD_ID);
@@ -94,6 +96,7 @@ public abstract class TinkerModule {
     FLUIDS.register(bus);
     MOB_EFFECTS.register(bus);
     PARTICLE_TYPES.register(bus);
+    DATA_SERIALIZERS.register(bus);
     // gameplay instance
     BLOCK_ENTITIES.register(bus);
     ENTITIES.register(bus);

@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:haste",
+  "text": [
+    {
+      "text": "每级手持工具挖掘速度+10%。"
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/armor",
+  "effects": [
+    "可以逐级强化",
+    "最高5级",
+    "每级需要1个升级槽"
+  ]
+}

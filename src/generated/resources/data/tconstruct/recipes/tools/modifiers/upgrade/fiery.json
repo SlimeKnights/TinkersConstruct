@@ -11,6 +11,12 @@
     },
     {
       "tag": "tconstruct:modifiable/ranged/bows"
+    },
+    {
+      "tag": "tconstruct:modifiable/armor/worn"
+    },
+    {
+      "tag": "tconstruct:modifiable/shields"
     }
   ],
   "slots": {

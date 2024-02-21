@@ -13,6 +13,7 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraftforge.common.util.Lazy;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -29,6 +30,8 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 import java.util.List;
 
 public class TastyModifier extends Modifier implements GeneralInteractionModifierHook {
+  // TODO: consider making this modifier dynamic and letting addons swap out representative items and food rewards
+  private static final Lazy<ItemStack> BACON_STACK = Lazy.of(() -> new ItemStack(TinkerCommons.bacon));
 
   @Override
   protected void registerHooks(Builder hookBuilder) {
@@ -53,6 +56,7 @@ public class TastyModifier extends Modifier implements GeneralInteractionModifie
       int level = modifier.getLevel();
       Level world = entity.getLevel();
       player.getFoodData().eat(level, level * 0.1f);
+      ModifierUtil.foodConsumer.onConsume(player, BACON_STACK.get(), level, level * 0.1f);
       player.awardStat(Stats.ITEM_USED.get(tool.getItem()));
       world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GENERIC_EAT, SoundSource.NEUTRAL, 1.0F, 1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.4F);
       world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.PLAYER_BURP, SoundSource.NEUTRAL, 0.5F, world.random.nextFloat() * 0.1F + 0.9F);

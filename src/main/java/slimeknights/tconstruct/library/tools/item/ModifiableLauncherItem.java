@@ -8,6 +8,8 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -29,12 +31,16 @@ import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.hook.behavior.AttributesModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.display.DurabilityDisplayModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.InventoryTickModifierHook;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
-import slimeknights.tconstruct.library.tools.helper.ModifiableItemUtil;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -43,19 +49,26 @@ import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolActions;
+import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ScopeModifier;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Consumer;
 
+import static slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ScopeModifier.SCOPE;
+
 /** Base class for any items that launch projectiles */
 public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implements IModifiableDisplay {
-  /** Drawspeed as of the time this launcher started charging, used clientside for various features including scope and the model.
-   * Not necessary to clear as its only used by logic that checks other hooks to see if a bow is drawing */
+  /**
+   * Drawspeed as of the time this launcher started charging. No longer used in favor of {@link #KEY_DRAWTIME}.
+   * @deprecated use {@link #KEY_DRAWTIME} with {@link ModifierUtil#getPersistentInt(ItemStack, ResourceLocation, int)}.
+   */
+  @Deprecated
   public static final TinkerDataKey<Float> DRAWSPEED = TConstruct.createKey("drawspeed");
   /** Int version of above, just used for sound effects */
-  protected static final ResourceLocation KEY_DRAWTIME = TConstruct.getResource("drawtime");
+  public static final ResourceLocation KEY_DRAWTIME = TConstruct.getResource("drawtime");
 
   /** Tool definition for the given tool */
   @Getter
@@ -196,17 +209,17 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
 
   @Override
   public boolean isBarVisible(ItemStack pStack) {
-    return ToolDamageUtil.showDurabilityBar(pStack);
+    return DurabilityDisplayModifierHook.showDurabilityBar(pStack);
   }
 
   @Override
   public int getBarColor(ItemStack pStack) {
-    return ToolDamageUtil.getRGBDurabilityForDisplay(pStack);
+    return DurabilityDisplayModifierHook.getDurabilityRGB(pStack);
   }
 
   @Override
   public int getBarWidth(ItemStack pStack) {
-    return ToolDamageUtil.getDamageForDisplay(pStack);
+    return DurabilityDisplayModifierHook.getDurabilityWidth(pStack);
   }
 
 
@@ -214,7 +227,7 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
 
   @Override
   public void inventoryTick(ItemStack stack, Level worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
-    ModifiableItemUtil.heldInventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
+    InventoryTickModifierHook.heldInventoryTick(stack, worldIn, entityIn, itemSlot, isSelected);
   }
 
 
@@ -232,7 +245,7 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
 
   @Override
   public Multimap<Attribute,AttributeModifier> getAttributeModifiers(IToolStackView tool, EquipmentSlot slot) {
-    return ModifiableItemUtil.getMeleeAttributeModifiers(tool, slot);
+    return AttributesModifierHook.getHeldAttributeModifiers(tool, slot);
   }
 
   @Override
@@ -259,6 +272,33 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
 
   @Override
   public abstract UseAnim getUseAnimation(ItemStack pStack);
+
+  @Override
+  public ItemStack finishUsingItem(ItemStack stack, Level pLevel, LivingEntity living) {
+    ScopeModifier.stopScoping(living);
+    ToolStack.from(stack).getPersistentData().remove(KEY_DRAWTIME);
+    return stack;
+  }
+
+  @SuppressWarnings("deprecation") // forge is being dumb here, their method is identical to the vanilla one
+  @Override
+  public void onUseTick(Level level, LivingEntity living, ItemStack bow, int chargeRemaining) {
+    // play the sound at the end of loading as an indicator its loaded, texture is another indicator
+    if (!level.isClientSide) {
+      if (getUseDuration(bow) - chargeRemaining == ModifierUtil.getPersistentInt(bow, KEY_DRAWTIME, -1)) {
+        level.playSound(null, living.getX(), living.getY(), living.getZ(), SoundEvents.CROSSBOW_LOADING_MIDDLE, SoundSource.PLAYERS, 0.75F, 1.0F);
+      }
+    }
+    else if (ModifierUtil.getModifierLevel(bow, TinkerModifiers.scope.getId()) > 0) {
+      int chargeTime = this.getUseDuration(bow) - chargeRemaining;
+      if (chargeTime > 0) {
+        float drawtime = ModifierUtil.getPersistentInt(bow, KEY_DRAWTIME, -1);
+        if (drawtime > 0) {
+          living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).set(SCOPE, 1 - (0.6f * Math.min(chargeTime / drawtime, 1))));
+        }
+      }
+    }
+  }
 
 
   /* Tooltips */
@@ -306,7 +346,7 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
 
   @Override
   public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-    return ModifiableItemUtil.shouldCauseReequip(oldStack, newStack, slotChanged);
+    return ModifiableItem.shouldCauseReequip(oldStack, newStack, slotChanged);
   }
 
 
@@ -336,7 +376,7 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
   /* Multishot helper */
 
   /** Gets the angle to fire the first arrow, each additional arrow offsets an additional 10 degrees */
-  protected static float getAngleStart(int count) {
+  public static float getAngleStart(int count) {
     return -5 * (count - 1);
   }
 }

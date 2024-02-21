@@ -1,0 +1,40 @@
+{
+  "type": "tconstruct:modifier",
+  "inputs": [
+    {
+      "tag": "forge:string"
+    },
+    {
+      "item": "tconstruct:earth_slime_crystal"
+    },
+    {
+      "tag": "forge:string"
+    },
+    {
+      "item": "tconstruct:earth_congealed_slime"
+    },
+    {
+      "item": "tconstruct:earth_congealed_slime"
+    }
+  ],
+  "tools": {
+    "type": "forge:intersection",
+    "children": [
+      {
+        "tag": "tconstruct:modifiable/durability"
+      },
+      {
+        "tag": "tconstruct:modifiable/interactable/right"
+      }
+    ]
+  },
+  "slots": {
+    "abilities": 1
+  },
+  "allow_crystal": true,
+  "result": {
+    "name": "tconstruct:flinging",
+    "level": 1
+  },
+  "max_level": 1
+}

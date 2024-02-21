@@ -23,10 +23,10 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
   @Override
   protected void addMaterialTraits() {
     // tier 1
-    addDefaultTraits(MaterialIds.wood, TinkerModifiers.cultivated);
+    addDefaultTraits(MaterialIds.wood, ModifierIds.cultivated);
     addDefaultTraits(MaterialIds.rock, TinkerModifiers.stonebound);
     addDefaultTraits(MaterialIds.flint, TinkerModifiers.jagged);
-    addDefaultTraits(MaterialIds.bone, TinkerModifiers.piercing);
+    addDefaultTraits(MaterialIds.bone, ModifierIds.pierce);
     addTraits(MaterialIds.bamboo, RANGED, ModifierIds.flexible);
     // tier 1 - end
     addDefaultTraits(MaterialIds.chorus, TinkerModifiers.enderference);
@@ -40,7 +40,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.copper, TinkerModifiers.dwarven);
     addDefaultTraits(MaterialIds.searedStone, TinkerModifiers.searing);
     addDefaultTraits(MaterialIds.slimewood, TinkerModifiers.overgrowth, TinkerModifiers.overslime);
-    addDefaultTraits(MaterialIds.bloodbone, TinkerModifiers.raging);
+    addDefaultTraits(MaterialIds.bloodbone, ModifierIds.raging);
     addTraits(MaterialIds.aluminum, RANGED, ModifierIds.featherweight);
     // tier 2 - nether
     addDefaultTraits(MaterialIds.necroticBone, TinkerModifiers.necrotic);
@@ -48,8 +48,8 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     // tier 2 - end
     addDefaultTraits(MaterialIds.whitestone, TinkerModifiers.stoneshield);
     // tier 2 - binding
-    addDefaultTraits(MaterialIds.chain, TinkerModifiers.reinforced);
-    addDefaultTraits(MaterialIds.skyslimeVine, TinkerModifiers.airborne);
+    addDefaultTraits(MaterialIds.chain, ModifierIds.reinforced);
+    addDefaultTraits(MaterialIds.skyslimeVine, ModifierIds.airborne);
 
     // tier 3
     addDefaultTraits(MaterialIds.slimesteel, TinkerModifiers.overcast, TinkerModifiers.overslime);
@@ -75,7 +75,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.enderslimeVine, TinkerModifiers.enderporting);
 
     // tier 2 - mod compat
-    addDefaultTraits(MaterialIds.osmium, TinkerModifiers.dense);
+    addDefaultTraits(MaterialIds.osmium, ModifierIds.dense);
     addDefaultTraits(MaterialIds.tungsten, ModifierIds.sharpweight);
     addTraits(MaterialIds.platinum, MELEE_HARVEST, ModifierIds.lustrous);
     addTraits(MaterialIds.platinum, RANGED,        TinkerModifiers.olympic);
@@ -84,7 +84,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.silver, RANGED, TinkerModifiers.holy);
     // tier 3 - mod compat
     addDefaultTraits(MaterialIds.steel, ModifierIds.ductile);
-    addDefaultTraits(MaterialIds.bronze, TinkerModifiers.maintained);
+    addDefaultTraits(MaterialIds.bronze, ModifierIds.maintained);
     addDefaultTraits(MaterialIds.constantan, TinkerModifiers.temperate);
     addDefaultTraits(MaterialIds.invar, TinkerModifiers.invariant);
     addDefaultTraits(MaterialIds.necronium, TinkerModifiers.decay);

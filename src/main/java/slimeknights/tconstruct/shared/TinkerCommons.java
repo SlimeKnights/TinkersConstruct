@@ -32,7 +32,6 @@ import slimeknights.mantle.item.EdibleItem;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.json.BlockOrEntityCondition;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
@@ -47,6 +46,7 @@ import slimeknights.tconstruct.library.json.predicate.block.TagBlockPredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.LivingEntityPredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.MobTypePredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.TagEntityPredicate;
+import slimeknights.tconstruct.library.json.predicate.entity.TinkerLivingEntityPredicate;
 import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.shared.block.BetterPaneBlock;
@@ -57,6 +57,8 @@ import slimeknights.tconstruct.shared.block.ClearStainedGlassPaneBlock;
 import slimeknights.tconstruct.shared.block.GlowBlock;
 import slimeknights.tconstruct.shared.block.PlatformBlock;
 import slimeknights.tconstruct.shared.block.SlimeType;
+import slimeknights.tconstruct.shared.block.SoulGlassBlock;
+import slimeknights.tconstruct.shared.block.SoulGlassPaneBlock;
 import slimeknights.tconstruct.shared.block.WaxedPlatformBlock;
 import slimeknights.tconstruct.shared.block.WeatheringPlatformBlock;
 import slimeknights.tconstruct.shared.command.TConstructCommand;
@@ -65,6 +67,8 @@ import slimeknights.tconstruct.shared.inventory.BlockContainerOpenedTrigger;
 import slimeknights.tconstruct.shared.item.TinkerBookItem;
 import slimeknights.tconstruct.shared.item.TinkerBookItem.BookType;
 import slimeknights.tconstruct.shared.particle.FluidParticleData;
+
+import static slimeknights.tconstruct.TConstruct.getResource;
 
 /**
  * Contains items and blocks and stuff that is shared by multiple modules, but might be required individually
@@ -85,8 +89,8 @@ public final class TinkerCommons extends TinkerModule {
   public static final ItemObject<ClearGlassPaneBlock> clearGlassPane = BLOCKS.register("clear_glass_pane", () -> new ClearGlassPaneBlock(glassBuilder(MaterialColor.NONE)), GENERAL_BLOCK_ITEM);
   public static final EnumObject<GlassColor,ClearStainedGlassBlock> clearStainedGlass = BLOCKS.registerEnum(GlassColor.values(), "clear_stained_glass", (color) -> new ClearStainedGlassBlock(glassBuilder(color.getDye().getMaterialColor()), color), GENERAL_BLOCK_ITEM);
   public static final EnumObject<GlassColor,ClearStainedGlassPaneBlock> clearStainedGlassPane = BLOCKS.registerEnum(GlassColor.values(), "clear_stained_glass_pane", (color) -> new ClearStainedGlassPaneBlock(glassBuilder(color.getDye().getMaterialColor()), color), GENERAL_BLOCK_ITEM);
-  public static final ItemObject<GlassBlock> soulGlass = BLOCKS.register("soul_glass", () -> new GlassBlock(glassBuilder(MaterialColor.COLOR_BROWN)), GENERAL_BLOCK_ITEM);
-  public static final ItemObject<ClearGlassPaneBlock> soulGlassPane = BLOCKS.register("soul_glass_pane", () -> new ClearGlassPaneBlock(glassBuilder(MaterialColor.COLOR_BROWN)), GENERAL_BLOCK_ITEM);
+  public static final ItemObject<GlassBlock> soulGlass = BLOCKS.register("soul_glass", () -> new SoulGlassBlock(glassBuilder(MaterialColor.COLOR_BROWN).speedFactor(0.2F).noCollission().isViewBlocking((state, getter, pos) -> true)), GENERAL_TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<ClearGlassPaneBlock> soulGlassPane = BLOCKS.register("soul_glass_pane", () -> new SoulGlassPaneBlock(glassBuilder(MaterialColor.COLOR_BROWN).speedFactor(0.2F)), GENERAL_TOOLTIP_BLOCK_ITEM);
   // wood
   public static final BuildingBlockObject lavawood = BLOCKS.registerBuilding("lavawood", woodBuilder(MaterialColor.COLOR_ORANGE).lightLevel(s -> 7), GENERAL_BLOCK_ITEM);
   public static final BuildingBlockObject blazewood = BLOCKS.registerBuilding("blazewood", woodBuilder(MaterialColor.TERRACOTTA_RED).lightLevel(s -> 7), GENERAL_BLOCK_ITEM);
@@ -159,22 +163,28 @@ public final class TinkerCommons extends TinkerModule {
     CraftingHelper.register(TagIntersectionPresentCondition.SERIALIZER);
     CraftingHelper.register(TagDifferencePresentCondition.SERIALIZER);
     // block predicates
-    BlockPredicate.LOADER.register(TConstruct.getResource("and"), BlockPredicate.AND);
-    BlockPredicate.LOADER.register(TConstruct.getResource("or"), BlockPredicate.OR);
-    BlockPredicate.LOADER.register(TConstruct.getResource("inverted"), BlockPredicate.INVERTED);
-    BlockPredicate.LOADER.register(TConstruct.getResource("requires_tool"), BlockPredicate.REQUIRES_TOOL.getLoader());
-    BlockPredicate.LOADER.register(TConstruct.getResource("set"), SetBlockPredicate.LOADER);
-    BlockPredicate.LOADER.register(TConstruct.getResource("tag"), TagBlockPredicate.LOADER);
+    BlockPredicate.LOADER.register(getResource("and"), BlockPredicate.AND);
+    BlockPredicate.LOADER.register(getResource("or"), BlockPredicate.OR);
+    BlockPredicate.LOADER.register(getResource("inverted"), BlockPredicate.INVERTED);
+    BlockPredicate.LOADER.register(getResource("requires_tool"), BlockPredicate.REQUIRES_TOOL.getLoader());
+    BlockPredicate.LOADER.register(getResource("set"), SetBlockPredicate.LOADER);
+    BlockPredicate.LOADER.register(getResource("tag"), TagBlockPredicate.LOADER);
     // entity predicates
-    LivingEntityPredicate.LOADER.register(TConstruct.getResource("and"), LivingEntityPredicate.AND);
-    LivingEntityPredicate.LOADER.register(TConstruct.getResource("or"), LivingEntityPredicate.OR);
-    LivingEntityPredicate.LOADER.register(TConstruct.getResource("inverted"), LivingEntityPredicate.INVERTED);
-    LivingEntityPredicate.LOADER.register(TConstruct.getResource("any"), LivingEntityPredicate.ANY.getLoader());
-    LivingEntityPredicate.LOADER.register(TConstruct.getResource("fire_immune"), LivingEntityPredicate.FIRE_IMMUNE.getLoader());
-    LivingEntityPredicate.LOADER.register(TConstruct.getResource("water_sensitive"), LivingEntityPredicate.WATER_SENSITIVE.getLoader());
-    LivingEntityPredicate.LOADER.register(TConstruct.getResource("on_fire"), LivingEntityPredicate.ON_FIRE.getLoader());
-    LivingEntityPredicate.LOADER.register(TConstruct.getResource("tag"), TagEntityPredicate.LOADER);
-    LivingEntityPredicate.LOADER.register(TConstruct.getResource("mob_type"), MobTypePredicate.LOADER);
+    LivingEntityPredicate.LOADER.register(getResource("and"), LivingEntityPredicate.AND);
+    LivingEntityPredicate.LOADER.register(getResource("or"), LivingEntityPredicate.OR);
+    LivingEntityPredicate.LOADER.register(getResource("inverted"), LivingEntityPredicate.INVERTED);
+    LivingEntityPredicate.LOADER.register(getResource("any"), LivingEntityPredicate.ANY.getLoader());
+    LivingEntityPredicate.LOADER.register(getResource("airborne"), LivingEntityPredicate.AIRBORNE.getLoader());
+    LivingEntityPredicate.LOADER.register(getResource("crouching"), LivingEntityPredicate.CROUCHING.getLoader());
+    LivingEntityPredicate.LOADER.register(getResource("fire_immune"), LivingEntityPredicate.FIRE_IMMUNE.getLoader());
+    LivingEntityPredicate.LOADER.register(getResource("water_sensitive"), LivingEntityPredicate.WATER_SENSITIVE.getLoader());
+    LivingEntityPredicate.LOADER.register(getResource("on_fire"), LivingEntityPredicate.ON_FIRE.getLoader());
+    LivingEntityPredicate.LOADER.register(getResource("tag"), TagEntityPredicate.LOADER);
+    LivingEntityPredicate.LOADER.register(getResource("mob_type"), MobTypePredicate.LOADER);
+    LivingEntityPredicate.LOADER.register(getResource("eyes_in_water"), LivingEntityPredicate.EYES_IN_WATER.getLoader());
+    LivingEntityPredicate.LOADER.register(getResource("feet_in_water"), LivingEntityPredicate.FEET_IN_WATER.getLoader());
+    // mantle
+    slimeknights.mantle.data.predicate.entity.LivingEntityPredicate.LOADER.register(getResource("airborne"), TinkerLivingEntityPredicate.AIRBORNE.getLoader());
     // register mob types
     MobTypePredicate.MOB_TYPES.register(new ResourceLocation("undefined"), MobType.UNDEFINED);
     MobTypePredicate.MOB_TYPES.register(new ResourceLocation("undead"), MobType.UNDEAD);

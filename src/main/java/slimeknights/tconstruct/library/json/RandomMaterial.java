@@ -29,7 +29,8 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
- * Loot table object to get a randomized material
+ * Loot table object to get a randomized material.
+ * TODO 1.19: move to {@code slimeknights.tconsturct.library.json.loot}
  */
 public abstract class RandomMaterial {
   /** Map of all types */

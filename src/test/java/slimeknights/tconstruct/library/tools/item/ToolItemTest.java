@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import slimeknights.tconstruct.fixture.MaterialFixture;
+import slimeknights.tconstruct.fixture.MaterialItemFixture;
 import slimeknights.tconstruct.fixture.ToolDefinitionFixture;
 import slimeknights.tconstruct.library.materials.MaterialRegistryExtension;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
@@ -22,10 +23,9 @@ public abstract class ToolItemTest extends BaseMcTest {
 
   @BeforeAll
   synchronized static void beforeAllToolCore() {
+    MaterialItemFixture.init();
     if (tool == null) {
-      Item.Properties properties = new Item.Properties()
-        //.addToolType(ToolType.PICKAXE, 1)
-        .stacksTo(1);
+      Item.Properties properties = new Item.Properties().stacksTo(1);
       tool = new ModifiableItem(properties, ToolDefinitionFixture.getStandardToolDefinition());
       tool.setRegistryName("test:toolcore");
       ForgeRegistries.ITEMS.register(tool);

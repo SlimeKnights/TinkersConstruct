@@ -29,6 +29,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
   private static final Component MISSING_INFO = TConstruct.makeTranslation("tooltip", "part.missing_info");
   private static final String MISSING_MATERIAL_KEY = TConstruct.makeTranslationKey("tooltip", "part.missing_material");
   private static final String MISSING_STATS_KEY = TConstruct.makeTranslationKey("tooltip", "part.missing_stats");
+  public static final String MATERIAL_KEY = TConstruct.makeTranslationKey("tooltip", "part.material_id");
 
   public final MaterialStatsId materialStatId;
 
@@ -44,7 +45,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
   }
 
   @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
+  public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flag) {
     if (TooltipUtil.isDisplay(stack)) {
       return;
     }
@@ -53,9 +54,17 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
     MaterialVariantId materialVariant = this.getMaterial(stack);
     MaterialId id = materialVariant.getId();
     if (!materialVariant.equals(IMaterial.UNKNOWN_ID)) {
+      if (flag.isAdvanced()) {
+        tooltip.add((new TranslatableComponent(MATERIAL_KEY, materialVariant.toString())).withStyle(ChatFormatting.DARK_GRAY));
+      }
       if (canUseMaterial(id)) {
         for (ModifierEntry entry : MaterialRegistry.getInstance().getTraits(id, getStatType())) {
-          tooltip.add(entry.getModifier().getDisplayName(entry.getLevel()));
+          Component name = entry.getModifier().getDisplayName(entry.getLevel());
+          if (flag.isAdvanced() && Config.CLIENT.modifiersIDsInAdvancedTooltips.get()) {
+            tooltip.add(new TranslatableComponent(TooltipUtil.KEY_ID_FORMAT, name, new TextComponent(entry.getModifier().getId().toString())).withStyle(ChatFormatting.DARK_GRAY));
+          } else {
+            tooltip.add(name);
+          }
         }
         // add stats
         if (Config.CLIENT.extraToolTips.get()) {

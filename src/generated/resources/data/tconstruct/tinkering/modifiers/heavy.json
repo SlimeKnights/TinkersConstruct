@@ -1,24 +1,26 @@
 {
-  "type": "tconstruct:stat_boost",
+  "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "stats": [
+  "tooltip_display": "always",
+  "modules": [
     {
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:attack_damage",
-      "type": "multiply_base",
-      "value": 0.1
+      "operation": "multiply_base",
+      "each_level": 0.1
     },
     {
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:projectile_damage",
-      "type": "multiply_base",
-      "value": 0.1
-    }
-  ],
-  "attributes": [
+      "operation": "multiply_base",
+      "each_level": 0.1
+    },
     {
+      "type": "tconstruct:attribute",
       "unique": "tconstruct.modifier.heavy",
       "attribute": "minecraft:generic.movement_speed",
       "operation": "multiply_base",
-      "amount": -0.1,
+      "each_level": -0.1,
       "slots": [
         "mainhand",
         "offhand"

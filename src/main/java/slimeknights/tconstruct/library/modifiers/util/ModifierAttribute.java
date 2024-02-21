@@ -12,6 +12,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.List;
@@ -20,7 +21,8 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.function.BiConsumer;
 
-/** Represents an attribute in a modifier */
+/** @deprecated use {@link AttributeModule} */
+@Deprecated
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class ModifierAttribute {
   private final String name;
@@ -67,8 +69,7 @@ public class ModifierAttribute {
   }
 
   /** Converts this to JSON */
-  public JsonObject toJson() {
-    JsonObject json = new JsonObject();
+  public JsonObject toJson(JsonObject json) {
     json.addProperty("unique", name);
     json.addProperty("attribute", Objects.requireNonNull(attribute.getRegistryName()).toString());
     json.addProperty("operation", operation.name().toLowerCase(Locale.ROOT));
@@ -81,6 +82,11 @@ public class ModifierAttribute {
     }
     json.add("slots", array);
     return json;
+  }
+
+  /** Converts this to JSON */
+  public JsonObject toJson() {
+    return toJson(new JsonObject());
   }
 
   /** Parses the modifier attribute from JSON */
@@ -124,8 +130,9 @@ public class ModifierAttribute {
     return new ModifierAttribute(name, attribute, operation, amount, slotUUIDs);
   }
 
-  /** Gets the UUID from a name */
+  /** @deprecated use {@link AttributeModule#getUUID(String, EquipmentSlot)} */
+  @Deprecated
   public static UUID getUUID(String name, EquipmentSlot slot) {
-    return UUID.nameUUIDFromBytes((name + "." + slot.getName()).getBytes());
+    return AttributeModule.getUUID(name, slot);
   }
 }

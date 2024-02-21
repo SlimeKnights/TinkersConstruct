@@ -23,8 +23,15 @@
     "firestarter": "#5D342C",
     "parrying":    "#755A30",
     "pathing":     "#8a361e",
+    "spitting":    "#B0B0B0",
     "stripping":   "#ab7a55",
     "tilling":     "#633c1e",
+
+    "__sling_abilities__": null,
+    "flinging":  "#01cd4e",
+    "springing": "#01cbcd",
+    "bonking":   "#ff970d",
+    "warping":   "#af4cf6",
 
     "__interaction_traits__": null,
     "shears":           "#A64F3F",
@@ -136,6 +143,7 @@
     "knockback":     "#BC9862",
     "looting":       "#503572",
     "padded":        "#ffffff",
+    "pierce":        "#D1D37A",
     "piercing":      "#D1D37A",
     "severing":      "#BB8972",
     "sharpness":     "#EAE5DE",

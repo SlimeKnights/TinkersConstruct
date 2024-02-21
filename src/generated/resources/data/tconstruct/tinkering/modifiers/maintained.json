@@ -1,0 +1,78 @@
+{
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:default",
+  "tooltip_display": "always",
+  "modules": [
+    {
+      "type": "tconstruct:conditional_mining_speed",
+      "blocks": "mantle:any",
+      "entity": "mantle:any",
+      "require_effective": true,
+      "percent": false,
+      "variables": {
+        "durability": {
+          "type": "tconstruct:tool",
+          "tool_type": "tconstruct:current_durability"
+        },
+        "max_durability": {
+          "type": "tconstruct:tool",
+          "tool_type": "tconstruct:stat",
+          "stat": "tconstruct:durability"
+        }
+      },
+      "formula": [
+        "$max_durability",
+        0.5,
+        "*",
+        "duplicate",
+        "$durability",
+        "!-",
+        "non-negative",
+        "!/",
+        "$level",
+        "*",
+        6.0,
+        "*",
+        "$multiplier",
+        "*",
+        "$speed",
+        "+"
+      ]
+    },
+    {
+      "type": "tconstruct:conditional_stat",
+      "stat": "tconstruct:velocity",
+      "entity": "mantle:any",
+      "percent": false,
+      "variables": {
+        "durability": {
+          "type": "tconstruct:tool",
+          "tool_type": "tconstruct:current_durability"
+        },
+        "max_durability": {
+          "type": "tconstruct:tool",
+          "tool_type": "tconstruct:stat",
+          "stat": "tconstruct:durability"
+        }
+      },
+      "formula": [
+        "$max_durability",
+        0.5,
+        "*",
+        "duplicate",
+        "$durability",
+        "!-",
+        "non-negative",
+        "!/",
+        "$level",
+        "*",
+        0.05,
+        "*",
+        "$multiplier",
+        "*",
+        "$value",
+        "+"
+      ]
+    }
+  ]
+}

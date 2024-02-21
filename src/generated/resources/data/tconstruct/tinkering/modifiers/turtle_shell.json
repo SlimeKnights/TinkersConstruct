@@ -1,0 +1,60 @@
+{
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:default",
+  "tooltip_display": "always",
+  "modules": [
+    {
+      "type": "tconstruct:attribute",
+      "unique": "tconstruct.modifier.turtle_shell",
+      "attribute": "forge:swim_speed",
+      "operation": "multiply_total",
+      "each_level": 0.05,
+      "slots": [
+        "feet",
+        "legs",
+        "chest",
+        "head"
+      ]
+    },
+    {
+      "type": "tconstruct:protection",
+      "tool": {
+        "type": "tconstruct:item",
+        "item_type": "mantle:or",
+        "predicates": [
+          {
+            "type": "mantle:tag",
+            "tag": "tconstruct:modifiable/armor/helmets"
+          },
+          {
+            "type": "mantle:tag",
+            "tag": "tconstruct:modifiable/armor/chestplate"
+          }
+        ]
+      },
+      "damage_source": "mantle:can_protect",
+      "wearing_entity": "mantle:eyes_in_water",
+      "each_level": 2.5
+    },
+    {
+      "type": "tconstruct:protection",
+      "tool": {
+        "type": "tconstruct:item",
+        "item_type": "mantle:or",
+        "predicates": [
+          {
+            "type": "mantle:tag",
+            "tag": "tconstruct:modifiable/armor/leggings"
+          },
+          {
+            "type": "mantle:tag",
+            "tag": "tconstruct:modifiable/armor/boots"
+          }
+        ]
+      },
+      "damage_source": "mantle:can_protect",
+      "wearing_entity": "mantle:feet_in_water",
+      "each_level": 2.5
+    }
+  ]
+}

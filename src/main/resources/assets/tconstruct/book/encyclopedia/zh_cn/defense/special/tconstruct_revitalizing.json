@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:revitalizing",
+  "text": [
+    {
+      "text": "增加生命值上限，每级增加1颗心。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "可以逐级强化",
+    "最高5级",
+    "每级需要1个防御槽"
+  ]
+}

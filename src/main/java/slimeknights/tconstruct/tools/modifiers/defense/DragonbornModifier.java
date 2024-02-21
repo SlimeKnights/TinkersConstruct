@@ -11,7 +11,9 @@ import net.minecraftforge.event.entity.player.CriticalHitEvent;
 import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.EventPriority;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.json.predicate.entity.TinkerLivingEntityPredicate;
 import slimeknights.tconstruct.library.modifiers.data.ModifierMaxLevel;
+import slimeknights.tconstruct.library.modifiers.modules.armor.ProtectionModule;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
@@ -34,20 +36,20 @@ public class DragonbornModifier extends AbstractProtectionModifier<ModifierMaxLe
   }
 
   private static boolean isAirborne(LivingEntity living) {
-    return !living.isOnGround() && !living.onClimbable() && !living.isInWater() && !living.isPassenger();
+    return TinkerLivingEntityPredicate.AIRBORNE.matches(living);
   }
 
   @Override
   public float getProtectionModifier(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float modifierValue) {
     if (!source.isBypassMagic() && !source.isBypassInvul() && isAirborne(context.getEntity())) {
-      modifierValue += getScaledLevel(tool, level) * 2.5f;
+      modifierValue += getEffectiveLevel(tool, level) * 2.5f;
     }
     return modifierValue;
   }
 
   @Override
   public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
-    AbstractProtectionModifier.addResistanceTooltip(this, tool, level, 2.5f, tooltip);
+    ProtectionModule.addResistanceTooltip(tool, this, getEffectiveLevel(tool, level) * 2.5f, player, tooltip);
   }
 
   /** Boosts critical hit damage */

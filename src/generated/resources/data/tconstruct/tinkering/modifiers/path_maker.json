@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:no_levels",
+  "tooltip_display": "always",
+  "modules": [
+    {
+      "type": "tconstruct:tool_action_walk_transform",
+      "tool_action": "shovel_flatten",
+      "sound": "minecraft:item.shovel.flatten",
+      "radius": {
+        "flat": 0.5,
+        "each_level": 1.0
+      }
+    }
+  ]
+}

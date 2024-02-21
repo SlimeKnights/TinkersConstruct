@@ -15,6 +15,7 @@ import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
+import slimeknights.tconstruct.library.modifiers.modules.build.SwappableSlotModule;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -24,9 +25,8 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Map.Entry;
 
-/**
- * Modifier that grants slot type based on an NBT tag
- */
+/** @deprecated use {@link SwappableSlotModule} */
+@Deprecated
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class SwappableExtraSlotModifier extends NoLevelsModifier {
   /** Format key for swappable variant */
@@ -81,6 +81,11 @@ public class SwappableExtraSlotModifier extends NoLevelsModifier {
         }
       }
     }
+  }
+
+  @Override
+  public void onRemoved(IToolStackView tool) {
+    tool.getPersistentData().remove(getId());
   }
 
   @Override

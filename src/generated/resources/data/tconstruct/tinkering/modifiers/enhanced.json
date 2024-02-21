@@ -1,8 +1,13 @@
 {
-  "type": "tconstruct:extra_slot",
+  "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "always_show": true,
-  "slots": {
-    "upgrades": 1
-  }
+  "tooltip_display": "always",
+  "priority": 60,
+  "modules": [
+    {
+      "type": "tconstruct:modifier_slot",
+      "name": "upgrades",
+      "count": 1
+    }
+  ]
 }

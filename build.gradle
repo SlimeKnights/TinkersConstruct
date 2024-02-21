@@ -243,6 +243,7 @@ dependencies {
     // runtimeOnly fg.deobf("curse.maven:terrablender-563928:3619749")
     // runtimeOnly fg.deobf("curse.maven:biomes-o-plenty-220318:3616582")
     // runtimeOnly fg.deobf("curse.maven:terralith-513688:3606078")
+    compileOnly fg.deobf("curse.maven:diet-443570:4571116")
 
     compileOnly fg.deobf("dev.gigaherz.jsonthings:JsonThings-${minecraft_version}:${json_things_version}")
 

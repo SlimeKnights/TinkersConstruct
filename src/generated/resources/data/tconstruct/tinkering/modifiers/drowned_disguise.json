@@ -1,4 +1,11 @@
 {
-  "type": "tconstruct:mob_disguise",
-  "entity": "minecraft:drowned"
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:default",
+  "tooltip_display": "always",
+  "modules": [
+    {
+      "type": "tconstruct:mob_disguise",
+      "entity": "minecraft:drowned"
+    }
+  ]
 }

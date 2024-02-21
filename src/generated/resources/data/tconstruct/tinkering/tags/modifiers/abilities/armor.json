@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "#tconstruct:abilities/armor/general",
+    "#tconstruct:abilities/armor/helmet",
+    "#tconstruct:abilities/armor/chestplate",
+    "#tconstruct:abilities/armor/leggings",
+    "#tconstruct:abilities/armor/boots",
+    "#tconstruct:abilities/armor/shield"
+  ]
+}

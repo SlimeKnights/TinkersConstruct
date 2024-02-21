@@ -2,203 +2,58 @@
   {
     "name": "group_general",
     "type": "mantle:text",
-    "data": "abilities/general.json"
+    "data": "abilities/general.json",
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/general", "path": "abilities/general" }}
   },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/general/gilded.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/general/luck.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/general/unbreakable.json"
-  },
-
-  {
-    "name": "group_weapon",
-    "type": "mantle:text",
-    "data": "abilities/weapon.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/weapon/blocking.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/weapon/dual_wielding.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/weapon/melting.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/weapon/parrying.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/weapon/spilling.json"
-  },
-
-  {
-    "name": "group_harvest",
-    "type": "mantle:text",
-    "data": "abilities/harvest.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/harvest/autosmelt.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/harvest/exchanging.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/harvest/expanded.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/harvest/silky.json"
-  },
-
   {
     "name": "group_interact",
     "type": "mantle:text",
-    "data": "abilities/interact.json"
+    "data": "abilities/interact.json",
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/interaction", "path": "abilities/interact" }}
   },
   {
-    "type": "tconstruct:modifier",
-    "data": "abilities/interact/bucketing.json"
+    "name": "group_melee",
+    "type": "mantle:text",
+    "data": "abilities/melee.json",
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/melee", "path": "abilities/melee" }}
   },
   {
-    "type": "tconstruct:modifier",
-    "data": "abilities/interact/firestarter.json"
+    "name": "group_harvest",
+    "type": "mantle:text",
+    "data": "abilities/harvest.json",
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/harvest", "path": "abilities/harvest" }}
   },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/interact/glowing.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/interact/pathing.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/interact/stripping.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/interact/tilling.json"
-  },
-  
   {
     "name": "group_ranged",
     "type": "mantle:text",
-    "data": "abilities/ranged.json"
+    "data": "abilities/ranged.json",
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/ranged", "path": "abilities/ranged" }}
   },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/ranged/bulk_quiver.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/ranged/crystalshot.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/ranged/multishot.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/ranged/trick_quiver.json"
-  },
+
   {
     "name": "group_armor",
     "type": "mantle:text",
-    "data": "abilities/armor.json"
+    "data": "abilities/armor.json",
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/armor/general", "path": "abilities/armor/general" }}
   },
   {
-    "type": "tconstruct:modifier",
-    "data": "abilities/armor/ambidextrous.json"
+    "name": "group_armor.helmet",
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/armor/helmet", "path": "abilities/armor/helmet" }}
   },
   {
-    "type": "tconstruct:modifier",
-    "data": "abilities/armor/aqua_affinity.json"
+    "name": "group_armor.chestplate",
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/armor/chestplate", "path": "abilities/armor/chestplate" }}
   },
   {
-    "type": "tconstruct:modifier",
-    "data": "abilities/armor/bouncy.json"
+    "name": "group_armor.leggings",
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/armor/leggings", "path": "abilities/armor/leggings" }}
   },
   {
-    "type": "tconstruct:modifier",
-    "data": "abilities/armor/boundless.json"
+    "name": "group_armor.boots",
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/armor/boots", "path": "abilities/armor/boots" }}
   },
   {
-    "type": "tconstruct:modifier",
-    "data": "abilities/armor/double_jump.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/armor/flamewake.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/armor/frost_walker.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/armor/long_fall.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/armor/path_maker.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/armor/plowing.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/armor/pockets.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/armor/protection.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/armor/reach.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/armor/reflecting.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/armor/slurping.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/armor/snowdrift.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/armor/spilling.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/armor/strength.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/armor/tool_belt.json"
-  },
-  {
-    "type": "tconstruct:modifier",
-    "data": "abilities/armor/wetting.json"
+    "name": "group_armor.shield",
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/armor/shield", "path": "abilities/armor/shield" }}
   }
 ]

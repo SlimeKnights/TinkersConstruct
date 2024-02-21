@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "tconstruct:soul_glass_pane"
+  },
+  "cast_consumed": true,
+  "fluid": {
+    "tag": "tconstruct:scorched_stone",
+    "amount": 250
+  },
+  "result": "tconstruct:scorched_soul_glass_pane",
+  "cooling_time": 83
+}

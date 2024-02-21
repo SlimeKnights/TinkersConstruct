@@ -7,7 +7,8 @@
     {
       "type": "tconstruct:restore_hunger",
       "hunger": 2,
-      "saturation": 0.1
+      "saturation": 0.1,
+      "representative_item": "minecraft:rabbit_stew"
     }
   ]
 }

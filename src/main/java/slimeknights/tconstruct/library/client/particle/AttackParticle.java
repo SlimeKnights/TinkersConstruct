@@ -1,11 +1,15 @@
 package slimeknights.tconstruct.library.client.particle;
 
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.TextureSheetParticle;
+import net.minecraft.core.particles.SimpleParticleType;
 
-public abstract class AttackParticle extends TextureSheetParticle {
+/** Simple particle used on attack */
+public class AttackParticle extends TextureSheetParticle {
 
   private final SpriteSet spriteList;
 
@@ -42,6 +46,20 @@ public abstract class AttackParticle extends TextureSheetParticle {
     }
     else {
       this.setSpriteFromAge(this.spriteList);
+    }
+  }
+
+  /** Render factory instance */
+  public static class Factory implements ParticleProvider<SimpleParticleType> {
+    private final SpriteSet spriteSet;
+
+    public Factory(SpriteSet spriteSet) {
+      this.spriteSet = spriteSet;
+    }
+
+    @Override
+    public Particle createParticle(SimpleParticleType typeIn, ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+      return new AttackParticle(worldIn, x, y, z, xSpeed, this.spriteSet);
     }
   }
 }

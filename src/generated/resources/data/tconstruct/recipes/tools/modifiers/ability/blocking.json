@@ -19,9 +19,14 @@
   ],
   "tools": {
     "type": "forge:difference",
-    "base": {
-      "tag": "tconstruct:modifiable/interactable/right"
-    },
+    "base": [
+      {
+        "tag": "tconstruct:modifiable/interactable/right"
+      },
+      {
+        "tag": "tconstruct:modifiable/ranged/bows"
+      }
+    ],
     "subtracted": {
       "tag": "tconstruct:modifiable/melee/parry"
     }

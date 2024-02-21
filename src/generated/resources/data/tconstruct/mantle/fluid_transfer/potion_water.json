@@ -8,7 +8,7 @@
     "nbt": "{Potion:\"minecraft:water\"}"
   },
   "fluid": {
-    "tag": "minecraft:water",
+    "tag": "mantle:water",
     "amount": 500
   }
 }

@@ -151,13 +151,27 @@ public class ToolDefinitionData {
   }
 
   /**
-   * Adds the starting slots to the given mod data
-   * @param persistentModData  Mod data
+   * Adds the base slots to the given data. Called on tool rebuild, should not be called elsewhere.
+   * @param volatileModData  Volatile mod data instance
    */
-  public void buildSlots(ModDataNBT persistentModData) {
+  public void buildSlots(ModDataNBT volatileModData) {
     if (slots != null) {
       for (SlotType type : slots.containedTypes()) {
-        persistentModData.setSlots(type, slots.getSlots(type));
+        volatileModData.setSlots(type, slots.getSlots(type));
+      }
+    }
+  }
+
+  /**
+   * Subtracts all the given slots from the data
+   * @param persistentModData  Mod data
+   * @deprecated will be removed in 1.19
+   */
+  @Deprecated
+  public void migrateLegacySlots(ModDataNBT persistentModData) {
+    if (slots != null) {
+      for (SlotType type : slots.containedTypes()) {
+        persistentModData.addSlots(type, -slots.getSlots(type));
       }
     }
   }

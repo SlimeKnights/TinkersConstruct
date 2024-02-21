@@ -1,0 +1,88 @@
+{
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:default",
+  "tooltip_display": "always",
+  "modules": [
+    {
+      "type": "tconstruct:conditional_melee_damage",
+      "target": "mantle:any",
+      "percent": false,
+      "variables": {
+        "health": {
+          "type": "tconstruct:entity",
+          "entity_type": "tconstruct:health",
+          "which": "attacker",
+          "fallback": 0.0
+        },
+        "max_health": {
+          "type": "tconstruct:entity",
+          "entity_type": "tconstruct:attribute",
+          "attribute": "minecraft:generic.max_health",
+          "which": "attacker",
+          "fallback": 20.0
+        }
+      },
+      "formula": [
+        "$health",
+        10.0,
+        "$max_health",
+        "-",
+        "non-negative",
+        "+",
+        10.0,
+        "!-",
+        8.0,
+        "/",
+        "percent_clamp",
+        "$level",
+        "*",
+        4.0,
+        "*",
+        "$multiplier",
+        "*",
+        "$damage",
+        "+"
+      ]
+    },
+    {
+      "type": "tconstruct:conditional_stat",
+      "stat": "tconstruct:draw_speed",
+      "entity": "mantle:any",
+      "percent": false,
+      "variables": {
+        "health": {
+          "type": "tconstruct:entity",
+          "entity_type": "tconstruct:health",
+          "fallback": 0.0
+        },
+        "max": {
+          "type": "tconstruct:entity",
+          "entity_type": "tconstruct:attribute",
+          "attribute": "minecraft:generic.max_health",
+          "fallback": 20.0
+        }
+      },
+      "formula": [
+        "$health",
+        10.0,
+        "$max",
+        "-",
+        "non-negative",
+        "+",
+        10.0,
+        "!-",
+        8.0,
+        "/",
+        "percent_clamp",
+        "$level",
+        "*",
+        0.25,
+        "*",
+        "$multiplier",
+        "*",
+        "$value",
+        "+"
+      ]
+    }
+  ]
+}

@@ -37,4 +37,5 @@ public final class ToolDefinitions {
   public static final ToolDefinition SKY_STAFF = ToolDefinition.builder(TinkerTools.skyStaff).noParts().build();
   public static final ToolDefinition EARTH_STAFF = ToolDefinition.builder(TinkerTools.earthStaff).noParts().build();
   public static final ToolDefinition ICHOR_STAFF = ToolDefinition.builder(TinkerTools.ichorStaff).noParts().build();
+  public static final ToolDefinition ENDER_STAFF = ToolDefinition.builder(TinkerTools.enderStaff).noParts().build();
 }

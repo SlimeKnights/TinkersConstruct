@@ -1,16 +1,19 @@
 {
-  "type": "tconstruct:stat_boost",
+  "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "stats": [
+  "tooltip_display": "always",
+  "modules": [
     {
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:velocity",
-      "type": "multiply_base",
-      "value": 0.1
+      "operation": "add",
+      "each_level": 0.1
     },
     {
+      "type": "tconstruct:stat_boost",
       "stat": "tconstruct:projectile_damage",
-      "type": "multiply_all",
-      "value": -0.1
+      "operation": "multiply_all",
+      "each_level": -0.1
     }
   ]
 }

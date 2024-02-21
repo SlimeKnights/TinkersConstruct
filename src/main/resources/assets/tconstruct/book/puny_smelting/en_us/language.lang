@@ -13,9 +13,13 @@ upgrades=Upgrades
 upgrades.subtext=Tools can be enhanced with upgrades, though only a limited number can be applied per tool.
 upgrades.group_general=General
 upgrades.group_harvest=Harvest
-upgrades.group_weapon=Melee
+upgrades.group_melee=Melee
 upgrades.group_damage=Bonus Damage
 upgrades.group_armor=Armor
+upgrades.group_armor.helmet=Helmet
+upgrades.group_armor.chestplate=Chestplate
+upgrades.group_armor.leggings=Leggings
+upgrades.group_armor.boots=Boots
 
 slotless=Slotless Modifier
 slotless.subtext=These modifiers do not require any slots to apply, you can have them all if you wish.

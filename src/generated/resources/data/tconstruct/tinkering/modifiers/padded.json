@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:default",
+  "tooltip_display": "always",
+  "priority": 75,
+  "modules": [
+    {
+      "type": "tconstruct:knockback",
+      "entity": "mantle:any",
+      "formula": [
+        "$knockback",
+        2.0,
+        "$level",
+        "^",
+        "/"
+      ]
+    }
+  ]
+}

@@ -3,14 +3,14 @@ package slimeknights.tconstruct.library.tools.helper;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.display.DurabilityDisplayModifierHook;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -91,9 +91,9 @@ public class ToolDamageUtil {
 
     // try each modifier
     for (ModifierEntry entry : tool.getModifierList()) {
-      amount = entry.getModifier().onDamageTool(tool, entry.getLevel(), amount, entity);
+      amount = entry.getHook(TinkerHooks.TOOL_DAMAGE).onDamageTool(tool, entry, amount, entity);
       // if no more damage, done
-      if (amount < 0) {
+      if (amount <= 0) {
         return false;
       }
     }
@@ -138,7 +138,7 @@ public class ToolDamageUtil {
    * @param entity  Entity for animation
    */
   public static boolean damageAnimated(IToolStackView tool, int amount, LivingEntity entity) {
-    return damageAnimated(tool, amount, entity, InteractionHand.MAIN_HAND);
+    return damageAnimated(tool, amount, entity, entity.isUsingItem() ? entity.getUsedItemHand() : InteractionHand.MAIN_HAND);
   }
 
   /** Implements {@link net.minecraft.world.item.Item#damageItem(ItemStack, int, LivingEntity, Consumer)} for a modifiable item */
@@ -173,73 +173,23 @@ public class ToolDamageUtil {
   }
 
 
-  /* Durability display */
+  /* Durability display. */
 
-
+  /** @deprecated use {@link DurabilityDisplayModifierHook#showDurabilityBar(ItemStack)} */
+  @Deprecated
   public static boolean showDurabilityBar(ItemStack stack) {
-    if (!stack.getItem().canBeDepleted()) {
-      return false;
-    }
-    ToolStack tool = ToolStack.from(stack);
-    // if any modifier wishes to show when undamaged, let them
-    for (ModifierEntry entry : tool.getModifierList()) {
-      Boolean show = entry.getModifier().showDurabilityBar(tool, entry.getLevel());
-      if (show != null) {
-        return show;
-      }
-    }
-    return tool.getDamage() > 0 && stack.is(TinkerTags.Items.DURABILITY);
+    return DurabilityDisplayModifierHook.showDurabilityBar(stack);
   }
 
-  /**
-   * Helper to avoid unneeded tool stack parsing
-   * @param tool  Tool stack
-   * @return  Durability for display
-   */
-  private static double getDamagePercentage(ToolStack tool) {
-    // first modifier who wishs to handle it wins
-    for (ModifierEntry entry : tool.getModifierList()) {
-      // TODO: update to the vanilla 0 to 13 range
-      double display = entry.getModifier().getDamagePercentage(tool, entry.getLevel());
-      if (!Double.isNaN(display)) {
-        return display;
-      }
-    }
-
-    // no one took it? just use regular durability
-    return (double) tool.getDamage() / tool.getStats().get(ToolStats.DURABILITY);
-  }
-
-  /**
-   * Gets the durability to display on the stack durability bar
-   * @param stack  Stack instance
-   * @return  Damage taken between 0 and 1
-   */
+  /** @deprecated use {@link DurabilityDisplayModifierHook#getDurabilityWidth(ItemStack)} */
+  @Deprecated
   public static int getDamageForDisplay(ItemStack stack) {
-    ToolStack tool = ToolStack.from(stack);
-    if (tool.isBroken()) {
-      return 0;
-    }
-    // always show at least 5% when not broken
-    return (int)(1 + 12 * (1 - getDamagePercentage(tool)));
+    return DurabilityDisplayModifierHook.getDurabilityWidth(stack);
   }
 
-  /**
-   * Gets the RGB to display durability at
-   * @param stack  Stack instance
-   * @return  RGB value
-   */
+  /** @deprecated use {@link DurabilityDisplayModifierHook#getDurabilityRGB(ItemStack)} */
+  @Deprecated
   public static int getRGBDurabilityForDisplay(ItemStack stack) {
-    ToolStack tool = ToolStack.from(stack);
-
-    // first modifier who wishs to handle it wins
-    for (ModifierEntry entry : tool.getModifierList()) {
-      int rgb = entry.getModifier().getDurabilityRGB(tool, entry.getLevel());
-      // not a problem to check against -1, the top 16 bits are unused
-      if (rgb != -1) {
-        return rgb;
-      }
-    }
-    return Mth.hsvToRgb(Math.max(0.0f, (float) (1.0f - getDamagePercentage(tool))) / 3.0f, 1.0f, 1.0f);
+    return DurabilityDisplayModifierHook.getDurabilityRGB(stack);
   }
 }

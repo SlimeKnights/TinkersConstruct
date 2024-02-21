@@ -22,6 +22,8 @@ import slimeknights.tconstruct.library.utils.MutableUseOnContext;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
+/** @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.armor.ToolActionWalkerTransformModule} */
+@Deprecated
 @RequiredArgsConstructor
 public class BlockTransformWalkerModifier extends AbstractWalkerModifier {
   private final ToolAction action;

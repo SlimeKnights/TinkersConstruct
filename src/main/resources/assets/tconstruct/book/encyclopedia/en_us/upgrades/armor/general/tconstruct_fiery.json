@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:fiery",
+  "text": [
+    {
+      "text": "Has a 15% chance per level to cause the attacker to burn for 5 seconds per level. Multiple pieces will stack the effect."
+    },
+    {
+      "text": "Shields are twice as effective but only work when blocking.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/armor",
+  "effects": [
+    "Can apply levels incrementally",
+    "Maximum of 5 levels",
+    "Requires 1 upgrade slot per level"
+  ]
+}

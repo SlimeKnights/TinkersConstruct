@@ -1,0 +1,45 @@
+{
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:default",
+  "tooltip_display": "always",
+  "modules": [
+    {
+      "type": "tconstruct:incremental"
+    },
+    {
+      "type": "tconstruct:reduce_tool_damage",
+      "tool": {
+        "type": "tconstruct:has_modifier",
+        "modifier": "tconstruct:unbreakable",
+        "level": 0,
+        "check": "all"
+      },
+      "modifier_level": {
+        "max": 5
+      },
+      "formula": [
+        0.025,
+        "$level",
+        "*",
+        11.0,
+        "$level",
+        "-",
+        "*"
+      ]
+    },
+    {
+      "type": "tconstruct:reduce_tool_damage",
+      "tool": {
+        "type": "tconstruct:has_modifier",
+        "modifier": "tconstruct:unbreakable",
+        "level": 0,
+        "check": "all"
+      },
+      "modifier_level": {
+        "min": 6
+      },
+      "flat": 0.5,
+      "each_level": 0.05
+    }
+  ]
+}

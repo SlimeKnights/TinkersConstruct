@@ -22,9 +22,7 @@
   ],
   "modifier_predicate": {
     "type": "tconstruct:inverted",
-    "predicate": {
-      "type": "tconstruct:tag",
-      "tag": "tconstruct:extract_blacklist/tools"
-    }
+    "inverted_type": "tconstruct:tag",
+    "tag": "tconstruct:extract_blacklist/tools"
   }
 }

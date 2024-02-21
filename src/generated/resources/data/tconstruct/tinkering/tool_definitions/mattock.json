@@ -27,10 +27,6 @@
   },
   "traits": [
     {
-      "name": "tconstruct:sticky",
-      "level": 1
-    },
-    {
       "name": "tconstruct:tilling",
       "level": 1
     }

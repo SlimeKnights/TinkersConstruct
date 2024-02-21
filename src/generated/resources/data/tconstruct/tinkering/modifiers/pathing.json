@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:no_levels",
+  "tooltip_display": "always",
+  "modules": [
+    {
+      "type": "tconstruct:show_offhand"
+    },
+    {
+      "type": "tconstruct:campfire_extinguish"
+    },
+    {
+      "type": "tconstruct:tool_action_transform",
+      "tool_action": "shovel_flatten",
+      "sound": "minecraft:item.shovel.flatten",
+      "require_ground": true
+    }
+  ]
+}

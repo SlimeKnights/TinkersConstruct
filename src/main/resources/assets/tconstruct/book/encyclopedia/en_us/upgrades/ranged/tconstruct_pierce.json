@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:pierce",
+  "text": [
+    {
+      "text": "Arrows cancel out 1 point of armor per level."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/ranged",
+  "effects": [
+    "Can apply levels incrementally",
+    "Maximum of 3 levels",
+    "Requires 1 upgrade slot per level"
+  ]
+}

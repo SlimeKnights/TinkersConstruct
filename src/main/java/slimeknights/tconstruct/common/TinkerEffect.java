@@ -7,6 +7,8 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraftforge.client.EffectRenderer;
 
 import java.util.function.Consumer;
@@ -22,6 +24,13 @@ public class TinkerEffect extends MobEffect {
   public TinkerEffect(MobEffectCategory typeIn, int color, boolean show) {
     super(typeIn, color);
     this.show = show;
+  }
+
+  // override to change return type
+  @Override
+  public TinkerEffect addAttributeModifier(Attribute pAttribute, String pUuid, double pAmount, Operation pOperation) {
+    super.addAttributeModifier(pAttribute, pUuid, pAmount, pOperation);
+    return this;
   }
 
   /* Visibility */

@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.world.entity;
 
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -11,16 +12,21 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeHooks;
 import slimeknights.tconstruct.common.Sounds;
+import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerTools;
-import slimeknights.tconstruct.tools.data.ModifierIds;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
 import slimeknights.tconstruct.world.TinkerWorld;
+
+import java.util.List;
+import java.util.Random;
 
 public class SkySlimeEntity extends ArmoredSlimeEntity {
   private double bounceAmount = 0f;
@@ -79,11 +85,12 @@ public class SkySlimeEntity extends ArmoredSlimeEntity {
     if (this.random.nextFloat() < 0.15F * multiplier) {
       // 2.5% chance of plate
       boolean isPlate = this.random.nextFloat() < (0.05f * multiplier);
+      // TODO: allow adding more helmet types, unfortunately tags don't let me add chances
       ItemStack helmet = new ItemStack((isPlate ? TinkerTools.plateArmor : TinkerTools.travelersGear).get(ArmorSlotType.HELMET));
 
       // for plate, just init stats
       ToolStack tool = ToolStack.from(helmet);
-      tool.ensureSlotsBuilt();
+      tool.ensureHasData();
       ModifierNBT modifiers = tool.getUpgrades();
       ModDataNBT persistentData = tool.getPersistentData();
       if (!isPlate) {
@@ -92,7 +99,6 @@ public class SkySlimeEntity extends ArmoredSlimeEntity {
         modifiers = modifiers.withModifier(TinkerModifiers.dyed.getId(), 1);
       }
 
-      // TODO: make this less hardcoded?
       // add some random defense modifiers
       int max = tool.getFreeSlots(SlotType.DEFENSE);
       for (int i = 0; i < max; i++) {
@@ -100,14 +106,15 @@ public class SkySlimeEntity extends ArmoredSlimeEntity {
           break;
         }
         persistentData.addSlots(SlotType.DEFENSE, -1);
-        modifiers = modifiers.withModifier(randomDefense(random.nextInt(6)), 1);
+        modifiers = modifiers.withModifier(randomModifier(random, TinkerTags.Modifiers.SLIME_DEFENSE), 1);
       }
       // chance of diamond or emerald
       if (tool.getFreeSlots(SlotType.UPGRADE) > 0 && random.nextFloat() < 0.5f * multiplier) {
         persistentData.addSlots(SlotType.UPGRADE, -1);
-        modifiers = modifiers.withModifier(random.nextBoolean() ? ModifierIds.emerald : ModifierIds.diamond, 1);
+        modifiers = modifiers.withModifier(randomModifier(random, TinkerTags.Modifiers.GEMS), 1);
       }
 
+      // triggers stat rebuild
       tool.setUpgrades(modifiers);
 
       // finally, give the slime the helmet
@@ -115,15 +122,10 @@ public class SkySlimeEntity extends ArmoredSlimeEntity {
     }
   }
 
-  private static ModifierId randomDefense(int index) {
-    return switch (index) {
-      default -> TinkerModifiers.meleeProtection.getId();
-      case 1 -> TinkerModifiers.projectileProtection.getId();
-      case 2 -> TinkerModifiers.fireProtection.getId();
-      case 3 -> TinkerModifiers.magicProtection.getId();
-      case 4 -> TinkerModifiers.blastProtection.getId();
-      case 5 -> TinkerModifiers.golden.getId();
-    };
+  /** Gets a random defense modifier from the tag */
+  private static ModifierId randomModifier(Random random, TagKey<Modifier> tag) {
+    List<Modifier> options = ModifierManager.getTagValues(tag);
+    return options.get(random.nextInt(options.size())).getId();
   }
 
   @Override

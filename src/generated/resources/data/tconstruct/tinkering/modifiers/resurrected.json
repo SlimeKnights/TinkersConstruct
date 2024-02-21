@@ -1,8 +1,12 @@
 {
-  "type": "tconstruct:extra_slot",
+  "type": "tconstruct:composable",
   "level_display": "tconstruct:single_level",
-  "always_show": false,
-  "slots": {
-    "upgrades": 1
-  }
+  "tooltip_display": "tinker_station",
+  "modules": [
+    {
+      "type": "tconstruct:modifier_slot",
+      "name": "upgrades",
+      "count": 1
+    }
+  ]
 }

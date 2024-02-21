@@ -22,11 +22,23 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "item": "tconstruct:slime_helmet",
-            "materials": [
-              "tconstruct:glass"
-            ]
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:and",
+              "predicates": [
+                {
+                  "type": "tconstruct:item",
+                  "item_type": "mantle:set",
+                  "items": [
+                    "tconstruct:slime_helmet"
+                  ]
+                },
+                {
+                  "type": "tconstruct:has_material",
+                  "material": "tconstruct:glass"
+                }
+              ]
+            }
           }
         ]
       }
@@ -36,11 +48,23 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "item": "tconstruct:slime_helmet",
-            "materials": [
-              "tconstruct:bone"
-            ]
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:and",
+              "predicates": [
+                {
+                  "type": "tconstruct:item",
+                  "item_type": "mantle:set",
+                  "items": [
+                    "tconstruct:slime_helmet"
+                  ]
+                },
+                {
+                  "type": "tconstruct:has_material",
+                  "material": "tconstruct:bone"
+                }
+              ]
+            }
           }
         ]
       }
@@ -50,11 +74,23 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "item": "tconstruct:slime_helmet",
-            "materials": [
-              "tconstruct:necrotic_bone"
-            ]
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:and",
+              "predicates": [
+                {
+                  "type": "tconstruct:item",
+                  "item_type": "mantle:set",
+                  "items": [
+                    "tconstruct:slime_helmet"
+                  ]
+                },
+                {
+                  "type": "tconstruct:has_material",
+                  "material": "tconstruct:necrotic_bone"
+                }
+              ]
+            }
           }
         ]
       }
@@ -64,11 +100,23 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "item": "tconstruct:slime_helmet",
-            "materials": [
-              "tconstruct:rotten_flesh"
-            ]
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:and",
+              "predicates": [
+                {
+                  "type": "tconstruct:item",
+                  "item_type": "mantle:set",
+                  "items": [
+                    "tconstruct:slime_helmet"
+                  ]
+                },
+                {
+                  "type": "tconstruct:has_material",
+                  "material": "tconstruct:rotten_flesh"
+                }
+              ]
+            }
           }
         ]
       }
@@ -78,11 +126,23 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "item": "tconstruct:slime_helmet",
-            "materials": [
-              "tconstruct:ender_pearl"
-            ]
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:and",
+              "predicates": [
+                {
+                  "type": "tconstruct:item",
+                  "item_type": "mantle:set",
+                  "items": [
+                    "tconstruct:slime_helmet"
+                  ]
+                },
+                {
+                  "type": "tconstruct:has_material",
+                  "material": "tconstruct:ender_pearl"
+                }
+              ]
+            }
           }
         ]
       }
@@ -92,11 +152,23 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "item": "tconstruct:slime_helmet",
-            "materials": [
-              "tconstruct:bloodbone"
-            ]
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:and",
+              "predicates": [
+                {
+                  "type": "tconstruct:item",
+                  "item_type": "mantle:set",
+                  "items": [
+                    "tconstruct:slime_helmet"
+                  ]
+                },
+                {
+                  "type": "tconstruct:has_material",
+                  "material": "tconstruct:bloodbone"
+                }
+              ]
+            }
           }
         ]
       }
@@ -106,11 +178,23 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "item": "tconstruct:slime_helmet",
-            "materials": [
-              "tconstruct:string"
-            ]
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:and",
+              "predicates": [
+                {
+                  "type": "tconstruct:item",
+                  "item_type": "mantle:set",
+                  "items": [
+                    "tconstruct:slime_helmet"
+                  ]
+                },
+                {
+                  "type": "tconstruct:has_material",
+                  "material": "tconstruct:string"
+                }
+              ]
+            }
           }
         ]
       }
@@ -120,11 +204,23 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "item": "tconstruct:slime_helmet",
-            "materials": [
-              "tconstruct:darkthread"
-            ]
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:and",
+              "predicates": [
+                {
+                  "type": "tconstruct:item",
+                  "item_type": "mantle:set",
+                  "items": [
+                    "tconstruct:slime_helmet"
+                  ]
+                },
+                {
+                  "type": "tconstruct:has_material",
+                  "material": "tconstruct:darkthread"
+                }
+              ]
+            }
           }
         ]
       }
@@ -134,11 +230,23 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "item": "tconstruct:slime_helmet",
-            "materials": [
-              "tconstruct:iron"
-            ]
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:and",
+              "predicates": [
+                {
+                  "type": "tconstruct:item",
+                  "item_type": "mantle:set",
+                  "items": [
+                    "tconstruct:slime_helmet"
+                  ]
+                },
+                {
+                  "type": "tconstruct:has_material",
+                  "material": "tconstruct:iron"
+                }
+              ]
+            }
           }
         ]
       }
@@ -148,11 +256,23 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "item": "tconstruct:slime_helmet",
-            "materials": [
-              "tconstruct:copper"
-            ]
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:and",
+              "predicates": [
+                {
+                  "type": "tconstruct:item",
+                  "item_type": "mantle:set",
+                  "items": [
+                    "tconstruct:slime_helmet"
+                  ]
+                },
+                {
+                  "type": "tconstruct:has_material",
+                  "material": "tconstruct:copper"
+                }
+              ]
+            }
           }
         ]
       }
@@ -162,11 +282,23 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "item": "tconstruct:slime_helmet",
-            "materials": [
-              "tconstruct:blazing_bone"
-            ]
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:and",
+              "predicates": [
+                {
+                  "type": "tconstruct:item",
+                  "item_type": "mantle:set",
+                  "items": [
+                    "tconstruct:slime_helmet"
+                  ]
+                },
+                {
+                  "type": "tconstruct:has_material",
+                  "material": "tconstruct:blazing_bone"
+                }
+              ]
+            }
           }
         ]
       }
@@ -176,11 +308,23 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "item": "tconstruct:slime_helmet",
-            "materials": [
-              "tconstruct:gold"
-            ]
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:and",
+              "predicates": [
+                {
+                  "type": "tconstruct:item",
+                  "item_type": "mantle:set",
+                  "items": [
+                    "tconstruct:slime_helmet"
+                  ]
+                },
+                {
+                  "type": "tconstruct:has_material",
+                  "material": "tconstruct:gold"
+                }
+              ]
+            }
           }
         ]
       }
@@ -190,11 +334,23 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "item": "tconstruct:slime_helmet",
-            "materials": [
-              "tconstruct:rose_gold"
-            ]
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:and",
+              "predicates": [
+                {
+                  "type": "tconstruct:item",
+                  "item_type": "mantle:set",
+                  "items": [
+                    "tconstruct:slime_helmet"
+                  ]
+                },
+                {
+                  "type": "tconstruct:has_material",
+                  "material": "tconstruct:rose_gold"
+                }
+              ]
+            }
           }
         ]
       }
@@ -204,11 +360,23 @@
       "conditions": {
         "items": [
           {
-            "type": "tconstruct:tool",
-            "item": "tconstruct:slime_helmet",
-            "materials": [
-              "tconstruct:pig_iron"
-            ]
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:and",
+              "predicates": [
+                {
+                  "type": "tconstruct:item",
+                  "item_type": "mantle:set",
+                  "items": [
+                    "tconstruct:slime_helmet"
+                  ]
+                },
+                {
+                  "type": "tconstruct:has_material",
+                  "material": "tconstruct:pig_iron"
+                }
+              ]
+            }
           }
         ]
       }

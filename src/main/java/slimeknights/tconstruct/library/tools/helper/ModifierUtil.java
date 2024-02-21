@@ -30,12 +30,15 @@ import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.Tin
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
+import slimeknights.tconstruct.library.tools.item.ModifiableLauncherItem;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
@@ -275,8 +278,12 @@ public final class ModifierUtil {
     return living.getCapability(TinkerDataCapability.CAPABILITY).resolve().map(data -> data.get(key)).orElse(0f);
   }
 
-  /** Checks if the entity has aqua affinity from either enchants or modifiers */
+  /**
+   * Checks if the entity has aqua affinity from either enchants or modifiers
+   * @deprecated will be replaced by {@link EnchantmentHelper#hasAquaAffinity(LivingEntity)} in 1.19, still used in 1.18 in case anyone used the old method.
+   */
   @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+  @Deprecated
   public static boolean hasAquaAffinity(LivingEntity living) {
     return ModifierUtil.getTotalModifierLevel(living, TinkerDataKeys.AQUA_AFFINITY) > 0 || EnchantmentHelper.hasAquaAffinity(living);
   }
@@ -329,7 +336,7 @@ public final class ModifierUtil {
         return true;
       }
       for (ModifierEntry entry : tool.getModifierList()) {
-        if (entry.getModifier().canPerformAction(tool, entry.getLevel(), action)) {
+        if (entry.getHook(TinkerHooks.TOOL_ACTION).canPerformAction(tool, entry, action)) {
           return true;
         }
       }
@@ -341,6 +348,22 @@ public final class ModifierUtil {
   public static void startUsingItem(IToolStackView tool, ModifierId modifier, LivingEntity living, InteractionHand hand) {
     tool.getPersistentData().putString(ACTIVE_MODIFIER, modifier.toString());
     living.startUsingItem(hand);
+  }
+
+  /** Starts using the given hand with the given modifier, will allow filtering modifier hooks so only the one for the given modifier is called */
+  public static void startUsingItemWithDrawtime(IToolStackView tool, ModifierId modifier, LivingEntity living, InteractionHand hand, float speedFactor) {
+    tool.getPersistentData().putInt(ModifiableLauncherItem.KEY_DRAWTIME, (int)Math.ceil(20f * speedFactor / ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.DRAW_SPEED)));
+    startUsingItem(tool, modifier, living, hand);
+  }
+
+  /** Scales the drawtime from the persistent data like a bow */
+  public static float getToolCharge(IToolStackView tool, float chargeTime) {
+    float charge = chargeTime / tool.getPersistentData().getInt(ModifiableLauncherItem.KEY_DRAWTIME);
+    charge = (charge * charge + charge * 2) / 3;
+    if (charge > 1) {
+      charge = 1;
+    }
+    return charge;
   }
 
   /** Gets the currently active modifier, or null if none is active */
@@ -372,7 +395,9 @@ public final class ModifierUtil {
 
   /** Called to clear any data modifiers set when usage starts */
   public static void finishUsingItem(IToolStackView tool) {
-    tool.getPersistentData().remove(ACTIVE_MODIFIER);
+    ModDataNBT persistentData = tool.getPersistentData();
+    persistentData.remove(ACTIVE_MODIFIER);
+    persistentData.remove(ModifiableLauncherItem.KEY_DRAWTIME);
   }
 
   /** Calculates inaccuracy from the conditional tool stat. TODO: reconsidering velocity impacting inaccuracy, remove parameter in 1.19 */
@@ -380,4 +405,14 @@ public final class ModifierUtil {
   public static float getInaccuracy(IToolStackView tool, LivingEntity living, float velocity) {
     return 3 * (1 / ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.ACCURACY) - 1);
   }
+
+  /** Interface used for {@link #foodConsumer} */
+  public interface FoodConsumer {
+    /** Called when food is eaten to notify compat that food was eaten */
+    void onConsume(Player player, ItemStack stack, int hunger, float saturation);
+  }
+
+  /** Instance of the current food consumer, will be either no-op or an implementation calling the Diet API, never null. */
+  @Nonnull
+  public static FoodConsumer foodConsumer = (player, stack, hunger, saturation) -> {};
 }

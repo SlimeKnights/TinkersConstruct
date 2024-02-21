@@ -1,0 +1,33 @@
+{
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:no_levels",
+  "tooltip_display": "always",
+  "modules": [
+    {
+      "type": "tconstruct:block_damage",
+      "damage_source": {
+        "type": "mantle:message",
+        "message": "hotFloor"
+      }
+    },
+    {
+      "type": "tconstruct:replace_fluid",
+      "replace": [
+        {
+          "target": {
+            "type": "mantle:block_properties",
+            "block": "minecraft:water",
+            "properties": {
+              "level": "0"
+            }
+          },
+          "block": "minecraft:frosted_ice"
+        }
+      ],
+      "radius": {
+        "flat": 2.0,
+        "each_level": 1.0
+      }
+    }
+  ]
+}

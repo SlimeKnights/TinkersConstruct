@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:fiery",
+  "text": [
+    {
+      "text": "使用来自下界的烈焰惩罚你的敌人。"
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/ranged",
+  "effects": [
+    "箭矢命中目标时点燃它们",
+    "多个等级，每级进一步增加燃烧时间",
+    "每级需要1个升级槽"
+  ]
+}

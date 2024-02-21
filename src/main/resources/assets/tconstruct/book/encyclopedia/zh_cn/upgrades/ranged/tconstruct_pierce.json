@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:pierce",
+  "text": [
+    {
+      "text": "箭矢每级抵消护甲值+1"
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/ranged",
+  "effects": [
+    "可以逐级强化",
+    "最高3级",
+    "每级需要1个升级槽"
+  ]
+}

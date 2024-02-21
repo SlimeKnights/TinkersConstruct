@@ -23,6 +23,7 @@ import slimeknights.tconstruct.tables.menu.module.SideInventoryContainer;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Objects;
 
 public class BaseTabbedScreen<TILE extends BlockEntity, CONTAINER extends TabbedContainerMenu<TILE>> extends MultiModuleScreen<CONTAINER> {
   protected static final Component COMPONENT_WARNING = TConstruct.makeTranslation("gui", "warning");
@@ -86,7 +87,7 @@ public class BaseTabbedScreen<TILE extends BlockEntity, CONTAINER extends Tabbed
       Component sideInventoryName = TextComponent.EMPTY;
       BlockEntity te = sideInventoryContainer.getTile();
       if (te instanceof MenuProvider) {
-        sideInventoryName = ((MenuProvider) te).getDisplayName();
+        sideInventoryName = Objects.requireNonNullElse(((MenuProvider)te).getDisplayName(), TextComponent.EMPTY);
       }
 
       this.addModule(new SideInventoryScreen<>(this, sideInventoryContainer, inventory, sideInventoryName, sideInventoryContainer.getSlotCount(), sideInventoryContainer.getColumns()));
