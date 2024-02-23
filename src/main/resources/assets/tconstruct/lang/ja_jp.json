@@ -96,7 +96,9 @@
   "block.tconstruct.black_clear_stained_glass_pane": "黒色の色付きクリアガラス板",
 
   "block.tconstruct.soul_glass": "ソウルガラス",
+  "block.tconstruct.soul_glass.tooltip": "固体のようだが、通り抜けられる",
   "block.tconstruct.soul_glass_pane": "ソウルガラス板",
+  "block.tconstruct.soul_glass_pane.tooltip": "固体のようだが、通り抜けられる",
 
   "block.tconstruct.glow": "グロウ",
   "block.tconstruct.silky_jewel_block": "シルキージュエルブロック",
@@ -434,6 +436,7 @@
   "fluid.tconstruct.flowing_blazing_blood": "流れる燃え盛る血液",
   "item.tconstruct.blazing_blood_bucket": "燃え盛る血液入りバケツ",
 
+  "fluid.tconstruct.powdered_snow": "粉雪",
 
   "_comment": "Food",
 
@@ -852,6 +855,7 @@
 
   "_comment_on_format_": "These format allows you to have more control over separators in material names. By default we separate with space. You can use %1$s and %2$s if you wish to change the order.",
   "item.tconstruct.tool.format": "%sの%s",
+  "item.tconstruct.tool.id_format": "%s (%s)",
   "item.tconstruct.tool.material_separator": "と",
 
   "item.tconstruct.pickaxe": "ツルハシ",
@@ -879,6 +883,7 @@
   "item.tconstruct.sky_staff": "スカイスライムの杖",
   "item.tconstruct.earth_staff": "アーススライムの杖",
   "item.tconstruct.ichor_staff": "イコルの杖",
+  "item.tconstruct.ender_staff": "エンダースライムの杖",
   
   "item.tconstruct.travelers_helmet": "旅行者のゴーグル",
   "item.tconstruct.travelers_chestplate": "旅行者のベスト",
@@ -1050,8 +1055,14 @@
 
   "block.tconstruct.seared_glass": "焼成ガラス",
   "block.tconstruct.seared_glass.tooltip": "乾式製錬炉の部品。\n液体は格納できない。",
+  "block.tconstruct.seared_soul_glass": "焼成ソウルガラス",
+  "block.tconstruct.seared_soul_glass.tooltip": "乾式製錬炉の部品。\n液体は格納できないが、通り抜けられる。",
+  "block.tconstruct.seared_tinted_glass": "遮光焼成ガラス",
+  "block.tconstruct.seared_tinted_glass.tooltip": "乾式製錬炉の部品。\n液体は格納できず、光を通さない。",
   "block.tconstruct.seared_glass_pane": "焼成ガラス板",
   "block.tconstruct.seared_glass_pane.tooltip": "乾式製錬炉の部品として使用できない。",
+  "block.tconstruct.seared_soul_glass_pane": "焼成ソウルガラス板",
+  "block.tconstruct.seared_soul_glass_pane.tooltip": "乾式製錬炉の部品として使用できないが、通り抜けられる。",
 
   "block.tconstruct.seared_ladder": "焼成石のはしご",
   "block.tconstruct.seared_ladder.tooltip": "壁伝いに登れる乾式製錬炉の部品。",
@@ -1126,9 +1137,15 @@
   "block.tconstruct.chiseled_scorched_bricks.tooltip": "鋳造炉の部品。",
 
   "block.tconstruct.scorched_glass": "焦熱ガラス",
-  "block.tconstruct.scorched_glass.tooltip": "乾式製錬炉の部品。\n液体は格納できない。",
+  "block.tconstruct.scorched_glass.tooltip": "鋳造炉の部品。\n液体は格納できない。",
+  "block.tconstruct.scorched_soul_glass": "焦熱ソウルガラス",
+  "block.tconstruct.scorched_soul_glass.tooltip": "鋳造炉の部品。\n液体は格納できないが、通り抜けられる。",
+  "block.tconstruct.scorched_tinted_glass": "遮光焦熱ガラス",
+  "block.tconstruct.scorched_tinted_glass.tooltip": "鋳造炉の部品。\n液体は格納できず、光を通さない。",
   "block.tconstruct.scorched_glass_pane": "焦熱ガラス板",
   "block.tconstruct.scorched_glass_pane.tooltip": "鋳造炉の部品として使用できない。",
+  "block.tconstruct.scorched_soul_glass_pane": "焦熱ソウルガラス",
+  "block.tconstruct.scorched_soul_glass_pane.tooltip": "鋳造炉の部品として使用できないが、通り抜けられる。",
 
   "block.tconstruct.scorched_ladder": "焦熱石のはしご",
   "block.tconstruct.scorched_ladder.tooltip": "壁伝いに登れる鋳造炉の部品。",
@@ -1385,7 +1402,7 @@
   "material.tconstruct.wood.dark_oak": "ダークオークの木",
   "material.tconstruct.wood.crimson":  "真紅の菌糸",
   "material.tconstruct.wood.warped":   "歪んだ菌糸",
-  
+  "material.tconstruct.wood.format": "木の%s",
   "material.tconstruct.wood.flavor": "キツツキ木突き中きつく木に頭突きし傷つき気絶し木突き続けられず",
   "material.tconstruct.wood.encyclopedia": "部品1個辺り、修理の際に素材1個で回復する耐久度が50%上昇する",
 
@@ -1779,6 +1796,9 @@
   "modifier.tconstruct.piercing.flavor": "サボテンになる！",
   "modifier.tconstruct.piercing.description": "防御を無視するボーナスダメージを与える",
   "modifier.tconstruct.piercing.attack_damage": "貫通攻撃力補正",
+  "modifier.tconstruct.pierce": "防御無視",
+  "modifier.tconstruct.pierce.flavor": "サボテンになる！",
+  "modifier.tconstruct.pierce.description": "対象の防御の一部を無視して攻撃できる",
   "modifier.tconstruct.smite": "アンデッド特効",
   "modifier.tconstruct.smite.flavor": "邪悪なるものに天罰を！",
   "modifier.tconstruct.smite.description": "アンデッドはスイカの力を恐れる！",
@@ -1927,6 +1947,9 @@
   "modifier.tconstruct.shulking.flavor": "この殻は私の家",
   "modifier.tconstruct.shulking.description": "スニーク中に防御力が上がるが、攻撃力も下がる",
   "modifier.tconstruct.shulking.resistance": "殻耐性",
+  "modifier.tconstruct.boundless": "限界突破",
+  "modifier.tconstruct.boundless.flavor": "制限を超える",
+  "modifier.tconstruct.boundless.description": "あらゆる種類の耐性効果の上限を上げる",
 
   "_comment": "Armor - counterattack",
   "modifier.tconstruct.thorns": "棘の鎧",
@@ -2087,6 +2110,7 @@
   "modifier.tconstruct.reach": "リーチ",
   "modifier.tconstruct.reach.flavor": "テレキネシス！",
   "modifier.tconstruct.reach.description": "この道具を持っている間、遠くのブロックやMobに届くようになる！",
+
   "_comment": "Block transform",
   "modifier.tconstruct.pathing": "整地",
   "modifier.tconstruct.pathing.flavor": "我々の行く先には、道路が必要だ！",
@@ -2127,6 +2151,19 @@
   "modifier.tconstruct.parrying": "受け流し",
   "modifier.tconstruct.parrying.flavor": "忍者の反射神経",
   "modifier.tconstruct.parrying.description": "攻撃の後しばらくブロックできるようになり、多くの攻撃を回避できる",
+  "modifier.tconstruct.flinging": "投げ飛ばし",
+  "modifier.tconstruct.flinging.flavor": "大地との別れ",
+  "modifier.tconstruct.flinging.description": "溜めて地面に向けて打つと、跳ね上がる！\n命を大事にしたいなら弾性の改造を使おう。",
+  "modifier.tconstruct.springing": "跳ね飛ばし",
+  "modifier.tconstruct.springing.flavor": "空への跳躍",
+  "modifier.tconstruct.springing.description": "溜めて飛びたい方向に向けて打つと、飛び上がる！",
+  "modifier.tconstruct.bonking": "ぶっ飛ばし",
+  "modifier.tconstruct.bonking.flavor": "イコルの一撃",
+  "modifier.tconstruct.bonking.description": "溜めてMobに向かって打つと、相手を吹き飛ばす！",
+  "modifier.tconstruct.warping": "ワープ",
+  "modifier.tconstruct.warping.flavor": "エンダーテレポート",
+  "modifier.tconstruct.warping.description": "溜めて行きたい方向に向けて打つと、狙った先にワープする！",
+
   "_comment": "Fluids",
   "modifier.tconstruct.melting": "溶融",
   "modifier.tconstruct.melting.flavor": "溶融器の力がこの手の中に！",
@@ -2145,6 +2182,9 @@
   "modifier.tconstruct.wetting": "粗相",
   "modifier.tconstruct.wetting.flavor": "そんな濡れ方じゃない",
   "modifier.tconstruct.wetting.description": "ダメージを受けると体が濡れ、含まれている液体に応じて様々な影響を受ける",
+  "modifier.tconstruct.spitting": "唾吐き",
+  "modifier.tconstruct.spitting.flavor": "ラマより良い",
+  "modifier.tconstruct.spitting.description": "道具を溜めて離すとタンクの中の液体を飛ばし、対象に影響を与える。弓の能力の影響を受ける。",
 
   "_comment": "Bonus modifier slots",
   "modifier.tconstruct.creative_slot": "クリエイティブスロット",
@@ -2254,6 +2294,7 @@
   "modifier.tconstruct.airborne": "エアボーン",
   "modifier.tconstruct.airborne.flavor": "空を飛ぶ！",
   "modifier.tconstruct.airborne.description": "道具は空中での採掘時にペナルティを受けず、矢の正確性にボーナスが発生する",
+  "modifier.tconstruct.airborne.accuracy": "エアボーン正確性",
 
   "__comment": "Tier 3 Traits",
   "modifier.tconstruct.overcast": "オーバーキャスト",
@@ -2459,6 +2500,7 @@
   "_comment": "Internal effects",
   "effect.tconstruct.bleeding": "出血",
   "effect.tconstruct.magnetic": "磁力",
+  "effect.tconstruct.pierce": "防御無視",
   "effect.tconstruct.repulsive": "反発",
   "effect.tconstruct.momentum": "モメンタム",
   "effect.tconstruct.momentum_ranged": "モメンタム",
@@ -2581,6 +2623,7 @@
   "tooltip.tconstruct.part.missing_material": "素材データなし: %s",
   "tooltip.tconstruct.part.missing_stats": "素材は%sに対応していません",
   "tooltip.tconstruct.part.missing_info": "部品のデータなし",
+  "tooltip.tconstruct.part.material_id": "素材ID: %s",
 
   "_comment": "GUIs",
 
@@ -2623,6 +2666,8 @@
   "recipe.tconstruct.tool_repair.fully_repaired": "道具は新品そのものです",
   "recipe.tconstruct.damaging.broken": "道具は既に壊れています",
   "recipe.tconstruct.overslime.at_capacity": "道具にオーバースライムを適用するスペースがもうありません",
+
+  "recipe.tconstruct.swappable.already_present": "道具には既にこの改造と類似した%sが含まれています",
 
   "gui.tconstruct.modifier_worktable": "改造調整台",
   "gui.tconstruct.modifier_worktable.title": "改造のチューニング",
@@ -2703,6 +2748,7 @@
   "subtitles.tconstruct.throw.shuriken": "手裏剣が飛ぶ",
   "subtitles.tconstruct.longbow.charge": "ロングボウが引かれる",
   "subtitles.tconstruct.crystalshot": "矢が当たる",
+  "subtitles.tconstruct.bonk": "道具がぶっ飛ばす",
 
   "subtitles.tconstruct.necrotic_heal": "体力を奪う",
   "subtitles.tconstruct.extra_jump": "エンティティが急降下する",
@@ -2845,6 +2891,12 @@
   "advancements.tconstruct.tools.glass_cannon.description": "耐久度が100以下で、攻撃力が20以上の道具を作る",
   "advancements.tconstruct.tools.tool_smith.title": "道具鍛冶屋",
   "advancements.tconstruct.tools.tool_smith.description": "全種類の小型の道具を作る",
+  "advancements.tconstruct.tools.netherite_tier.title": "ネザライトランク",
+  "advancements.tconstruct.tools.netherite_tier.description": "採掘ランクがネザライトの道具を作る",
+  "advancements.tconstruct.tools.perfect_aim.title": "完璧な狙い",
+  "advancements.tconstruct.tools.perfect_aim.description": "正確性が1.0の弓を作る",
+  "advancements.tconstruct.tools.one_shot.title": "ワンパン",
+  "advancements.tconstruct.tools.one_shot.description": "一般的なMobをクリティカルなしで一撃で倒せる攻撃力(21以上)を持つ近接武器を作る",
   "advancements.tconstruct.tools.material_master.title": "素材マスター",
   "advancements.tconstruct.tools.material_master.description": "全ての標準素材を1回以上使用する",
 
