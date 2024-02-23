@@ -1,9 +1,8 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "type": "forge:nbt",
     "item": "tconstruct:copper_can",
-    "count": 1
+    "type": "tconstruct:no_container"
   },
   "result": {
     "fluid": "tconstruct:molten_copper",

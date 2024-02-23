@@ -43,6 +43,11 @@ public class TankItem extends BlockTooltipItem {
   }
 
   @Override
+  public boolean hasContainerItem(ItemStack stack) {
+    return isFilled(stack);
+  }
+
+  @Override
   public ItemStack getContainerItem(ItemStack stack) {
     return isFilled(stack) ? new ItemStack(this) : ItemStack.EMPTY;
   }

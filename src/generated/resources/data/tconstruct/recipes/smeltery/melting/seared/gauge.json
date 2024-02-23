@@ -1,17 +1,16 @@
 {
   "type": "tconstruct:melting",
-  "ingredient": [
-    {
-      "type": "forge:nbt",
-      "item": "tconstruct:seared_fuel_gauge",
-      "count": 1
-    },
-    {
-      "type": "forge:nbt",
-      "item": "tconstruct:seared_ingot_gauge",
-      "count": 1
-    }
-  ],
+  "ingredient": {
+    "type": "tconstruct:no_container",
+    "match": [
+      {
+        "item": "tconstruct:seared_fuel_gauge"
+      },
+      {
+        "item": "tconstruct:seared_ingot_gauge"
+      }
+    ]
+  },
   "result": {
     "fluid": "tconstruct:seared_stone",
     "amount": 1000

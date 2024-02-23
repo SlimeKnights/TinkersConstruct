@@ -29,7 +29,6 @@ import net.minecraftforge.common.crafting.CompoundIngredient;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.DifferenceIngredient;
 import net.minecraftforge.common.crafting.IntersectionIngredient;
-import net.minecraftforge.common.crafting.NBTIngredient;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 import net.minecraftforge.common.crafting.conditions.NotCondition;
@@ -63,6 +62,7 @@ import slimeknights.tconstruct.library.recipe.casting.PotionCastingRecipeBuilder
 import slimeknights.tconstruct.library.recipe.casting.container.ContainerFillingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.fuel.MeltingFuelBuilder;
+import slimeknights.tconstruct.library.recipe.ingredient.NoContainerIngredient;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer.OreRateType;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipeBuilder;
@@ -382,7 +382,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
 
     // controllers
     ShapedRecipeBuilder.shaped(TinkerSmeltery.searedMelter)
-                       .define('G', Ingredient.of(TinkerSmeltery.searedTank.get(TankType.FUEL_GAUGE), TinkerSmeltery.searedTank.get(TankType.INGOT_GAUGE)))
+                       .define('G', NoContainerIngredient.of(TinkerSmeltery.searedTank.get(TankType.FUEL_GAUGE), TinkerSmeltery.searedTank.get(TankType.INGOT_GAUGE)))
                        .define('B', TinkerSmeltery.searedBrick)
                        .pattern("BGB")
                        .pattern("BBB")
@@ -481,18 +481,16 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.searedBasin, TinkerSmeltery.searedTable), TinkerFluids.searedStone.get(), FluidValues.BRICK * 7, 2.5f)
                         .save(consumer, modResource(meltingFolder + "casting"));
     // tanks
-    MeltingRecipeBuilder.melting(NBTIngredient.of(new ItemStack(TinkerSmeltery.searedTank.get(TankType.FUEL_TANK))), TinkerFluids.searedStone.get(), FluidValues.BRICK * 8, 3f)
+    MeltingRecipeBuilder.melting(NoContainerIngredient.of(TinkerSmeltery.searedTank.get(TankType.FUEL_TANK)), TinkerFluids.searedStone.get(), FluidValues.BRICK * 8, 3f)
                         .addByproduct(new FluidStack(TinkerFluids.moltenGlass.get(), FluidValues.GLASS_BLOCK))
                         .save(consumer, modResource(meltingFolder + "fuel_tank"));
-    MeltingRecipeBuilder.melting(NBTIngredient.of(new ItemStack(TinkerSmeltery.searedTank.get(TankType.INGOT_TANK))), TinkerFluids.searedStone.get(), FluidValues.BRICK * 6, 2.5f)
+    MeltingRecipeBuilder.melting(NoContainerIngredient.of(TinkerSmeltery.searedTank.get(TankType.INGOT_TANK)), TinkerFluids.searedStone.get(), FluidValues.BRICK * 6, 2.5f)
                         .addByproduct(new FluidStack(TinkerFluids.moltenGlass.get(), FluidValues.GLASS_BLOCK * 3))
                         .save(consumer, modResource(meltingFolder + "ingot_tank"));
-    MeltingRecipeBuilder.melting(CompoundIngredient.of(NBTIngredient.of(new ItemStack(TinkerSmeltery.searedTank.get(TankType.FUEL_GAUGE))),
-                                                       NBTIngredient.of(new ItemStack(TinkerSmeltery.searedTank.get(TankType.INGOT_GAUGE)))),
-                                 TinkerFluids.searedStone.get(), FluidValues.BRICK * 4, 2f)
+    MeltingRecipeBuilder.melting(NoContainerIngredient.of(TinkerSmeltery.searedTank.get(TankType.FUEL_GAUGE), TinkerSmeltery.searedTank.get(TankType.INGOT_GAUGE)), TinkerFluids.searedStone.get(), FluidValues.BRICK * 4, 2f)
                         .addByproduct(new FluidStack(TinkerFluids.moltenGlass.get(), FluidValues.GLASS_BLOCK * 5))
                         .save(consumer, modResource(meltingFolder + "gauge"));
-    MeltingRecipeBuilder.melting(NBTIngredient.of(new ItemStack(TinkerSmeltery.searedLantern)), TinkerFluids.searedStone.get(), FluidValues.BRICK * 2, 1.0f)
+    MeltingRecipeBuilder.melting(NoContainerIngredient.of(TinkerSmeltery.searedLantern), TinkerFluids.searedStone.get(), FluidValues.BRICK * 2, 1.0f)
                         .addByproduct(new FluidStack(TinkerFluids.moltenGlass.get(), FluidValues.GLASS_PANE))
                         .addByproduct(new FluidStack(TinkerFluids.moltenIron.get(), FluidValues.INGOT / 3))
                         .save(consumer, modResource(meltingFolder + "lantern"));
@@ -783,7 +781,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
 
     // controllers
     ShapedRecipeBuilder.shaped(TinkerSmeltery.scorchedAlloyer)
-                       .define('G', Ingredient.of(TinkerSmeltery.scorchedTank.get(TankType.INGOT_GAUGE), TinkerSmeltery.scorchedTank.get(TankType.FUEL_GAUGE)))
+                       .define('G', NoContainerIngredient.of(TinkerSmeltery.scorchedTank.get(TankType.INGOT_GAUGE), TinkerSmeltery.scorchedTank.get(TankType.FUEL_GAUGE)))
                        .define('B', TinkerSmeltery.scorchedBrick)
                        .pattern("BGB")
                        .pattern("BBB")
@@ -859,18 +857,16 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.scorchedBasin, TinkerSmeltery.scorchedTable), TinkerFluids.scorchedStone.get(), FluidValues.BRICK * 7, 2.5f)
                         .save(consumer, modResource(meltingFolder + "casting"));
     // tanks
-    MeltingRecipeBuilder.melting(NBTIngredient.of(new ItemStack(TinkerSmeltery.scorchedTank.get(TankType.FUEL_TANK))), TinkerFluids.scorchedStone.get(), FluidValues.BRICK * 8, 3f)
+    MeltingRecipeBuilder.melting(NoContainerIngredient.of(TinkerSmeltery.scorchedTank.get(TankType.FUEL_TANK)), TinkerFluids.scorchedStone.get(), FluidValues.BRICK * 8, 3f)
                         .addByproduct(new FluidStack(TinkerFluids.moltenQuartz.get(), FluidValues.GEM))
                         .save(consumer, modResource(meltingFolder + "fuel_tank"));
-    MeltingRecipeBuilder.melting(NBTIngredient.of(new ItemStack(TinkerSmeltery.scorchedTank.get(TankType.INGOT_TANK))), TinkerFluids.scorchedStone.get(), FluidValues.BRICK * 6, 2.5f)
+    MeltingRecipeBuilder.melting(NoContainerIngredient.of(TinkerSmeltery.scorchedTank.get(TankType.INGOT_TANK)), TinkerFluids.scorchedStone.get(), FluidValues.BRICK * 6, 2.5f)
                         .addByproduct(new FluidStack(TinkerFluids.moltenQuartz.get(), FluidValues.GEM * 3))
                         .save(consumer, modResource(meltingFolder + "ingot_tank"));
-    MeltingRecipeBuilder.melting(CompoundIngredient.of(NBTIngredient.of(new ItemStack(TinkerSmeltery.scorchedTank.get(TankType.FUEL_GAUGE))),
-                                                       NBTIngredient.of(new ItemStack(TinkerSmeltery.scorchedTank.get(TankType.INGOT_GAUGE)))),
-                                 TinkerFluids.scorchedStone.get(), FluidValues.BRICK * 4, 2f)
+    MeltingRecipeBuilder.melting(NoContainerIngredient.of(TinkerSmeltery.scorchedTank.get(TankType.FUEL_GAUGE), TinkerSmeltery.scorchedTank.get(TankType.INGOT_GAUGE)), TinkerFluids.scorchedStone.get(), FluidValues.BRICK * 4, 2f)
                         .addByproduct(new FluidStack(TinkerFluids.moltenQuartz.get(), FluidValues.GEM * 5))
                         .save(consumer, modResource(meltingFolder + "gauge"));
-    MeltingRecipeBuilder.melting(NBTIngredient.of(new ItemStack(TinkerSmeltery.scorchedLantern)), TinkerFluids.scorchedStone.get(), FluidValues.BRICK * 2, 1.0f)
+    MeltingRecipeBuilder.melting(NoContainerIngredient.of(TinkerSmeltery.scorchedLantern), TinkerFluids.scorchedStone.get(), FluidValues.BRICK * 2, 1.0f)
                         .addByproduct(new FluidStack(TinkerFluids.moltenQuartz.get(), FluidValues.GEM_SHARD))
                         .addByproduct(new FluidStack(TinkerFluids.moltenIron.get(), FluidValues.NUGGET * 3))
                         .save(consumer, modResource(meltingFolder + "lantern"));
@@ -1376,7 +1372,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .save(consumer, modResource(slimeFolder + "magma/block"));
 
     // copper cans if empty
-    MeltingRecipeBuilder.melting(NBTIngredient.of(new ItemStack(TinkerSmeltery.copperCan)), TinkerFluids.moltenCopper.get(), FluidValues.INGOT, 1.0f)
+    MeltingRecipeBuilder.melting(NoContainerIngredient.of(TinkerSmeltery.copperCan), TinkerFluids.moltenCopper.get(), FluidValues.INGOT, 1.0f)
                         .save(consumer, modResource(metalFolder + "copper/can"));
     // ender
     MeltingRecipeBuilder.melting(

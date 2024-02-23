@@ -5,14 +5,17 @@
     "BBB"
   ],
   "key": {
-    "G": [
-      {
-        "item": "tconstruct:seared_fuel_gauge"
-      },
-      {
-        "item": "tconstruct:seared_ingot_gauge"
-      }
-    ],
+    "G": {
+      "type": "tconstruct:no_container",
+      "match": [
+        {
+          "item": "tconstruct:seared_fuel_gauge"
+        },
+        {
+          "item": "tconstruct:seared_ingot_gauge"
+        }
+      ]
+    },
     "B": {
       "item": "tconstruct:seared_brick"
     }

@@ -45,8 +45,7 @@ public class CopperCanItem extends Item {
 
   @Override
   public ItemStack getContainerItem(ItemStack stack) {
-    Fluid fluid = getFluid(stack);
-    if (fluid != Fluids.EMPTY) {
+    if (hasContainerItem(stack)) {
       return new ItemStack(this);
     }
     return ItemStack.EMPTY;
