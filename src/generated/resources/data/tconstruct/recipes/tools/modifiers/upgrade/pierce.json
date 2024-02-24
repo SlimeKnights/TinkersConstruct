@@ -1,13 +1,13 @@
 {
   "type": "tconstruct:incremental_modifier",
   "input": {
-    "item": "minecraft:cactus"
+    "item": "minecraft:pointed_dripstone"
   },
   "amount_per_item": 1,
-  "needed_per_level": 25,
+  "needed_per_level": 10,
   "tools": [
     {
-      "tag": "tconstruct:modifiable/melee"
+      "tag": "tconstruct:modifiable/melee_or_unarmed"
     },
     {
       "tag": "tconstruct:modifiable/ranged"

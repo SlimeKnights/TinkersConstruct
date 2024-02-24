@@ -412,8 +412,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
      * damage boost
      */
     IncrementalModifierRecipeBuilder.modifier(ModifierIds.pierce)
-                                    .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.RANGED))
-                                    .setInput(Blocks.CACTUS, 1, 25)
+                                    .setTools(ingredientFromTags(TinkerTags.Items.MELEE_OR_UNARMED, TinkerTags.Items.RANGED))
+                                    .setInput(Blocks.POINTED_DRIPSTONE, 1, 10)
                                     .setMaxLevel(3) // +3 pierce, +1.5 damage
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .saveSalvage(consumer, prefix(ModifierIds.pierce, upgradeSalvage))
