@@ -7,7 +7,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.EntityDamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -52,6 +51,8 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.data.ModifierMaxLevel;
+import slimeknights.tconstruct.library.modifiers.hook.combat.DamageTakenModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.ModifyDamageModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.ProtectionModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.armor.MobDisguiseModule;
 import slimeknights.tconstruct.library.tools.capability.EntityModifierCapability;
@@ -69,7 +70,6 @@ import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.BlockSideHitListener;
-import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.defense.ProjectileProtectionModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.HasteModifier;
@@ -181,23 +181,6 @@ public class ToolEvents {
     }
   }
 
-  @SubscribeEvent
-  static void enderDragonDamage(LivingDamageEvent event) {
-    if (!Config.COMMON.dropDragonScales.get()) {
-      return;
-    }
-    // dragon being damaged
-    LivingEntity entity = event.getEntityLiving();
-    if (entity.getType() == EntityType.ENDER_DRAGON && event.getAmount() > 0 && !entity.level.isClientSide) {
-      // player caused explosion, end crystals and TNT are examples
-      DamageSource source = event.getSource();
-      if (source.isExplosion() && source.getEntity() != null && source.getEntity().getType() == EntityType.PLAYER) {
-        // drops 1 - 8 scales
-        ModifierUtil.dropItem(entity, new ItemStack(TinkerModifiers.dragonScale, 1 + entity.level.random.nextInt(8)));
-      }
-    }
-  }
-
   @SubscribeEvent(priority = EventPriority.LOW)
   static void livingAttack(LivingAttackEvent event) {
     LivingEntity entity = event.getEntityLiving();
@@ -212,13 +195,13 @@ public class ToolEvents {
     }
 
     // a lot of counterattack hooks want to detect direct attacks, so save time by calculating once
-    boolean isDirectDamage = source.getEntity() != null && source instanceof EntityDamageSource entityDamage && !entityDamage.isThorns();
+    boolean isDirectDamage = DamageTakenModifierHook.isDirectDamage(source);
 
     // determine if there is any modifiable armor, handles the target wearing modifiable armor
     EquipmentContext context = new EquipmentContext(entity);
     float amount = event.getAmount();
     if (context.hasModifiableArmor()) {
-      // first we need to determine if any of the four slots want to cancel the event, then we need to determine if any want to respond assuming its not canceled
+      // first we need to determine if any of the four slots want to cancel the event
       for (EquipmentSlot slotType : EquipmentSlot.values()) {
         if (ModifierUtil.validArmorSlot(entity, slotType)) {
           IToolStackView toolStack = context.getToolInSlot(slotType);
@@ -233,27 +216,8 @@ public class ToolEvents {
         }
       }
 
-      // next, give modifiers a chance to respond to the entity being attacked, for counterattack hooks mainly
-      // first we need to determine if any of the four slots want to cancel the event, then we need to determine if any want to respond assuming its not canceled
-      for (EquipmentSlot slotType : ModifiableArmorMaterial.ARMOR_SLOTS) {
-        IToolStackView toolStack = context.getToolInSlot(slotType);
-        if (toolStack != null && !toolStack.isBroken()) {
-          for (ModifierEntry entry : toolStack.getModifierList()) {
-            entry.getHook(TinkerHooks.DAMAGE_TAKEN).onDamageTaken(toolStack, entry, context, slotType, source, amount, isDirectDamage);
-          }
-        }
-      }
-      // shields only run this hook when blocking
-      // TODO: what if the slot in charge is not the blocking slot, can that happen?
-      if (entity.isBlocking()) {
-        EquipmentSlot slot = Util.getSlotType(entity.getUsedItemHand());
-        IToolStackView shield = context.getToolInSlot(slot);
-        if (shield != null && !shield.isBroken()) {
-          for (ModifierEntry entry : shield.getModifierList()) {
-            entry.getHook(TinkerHooks.DAMAGE_TAKEN).onDamageTaken(shield, entry, context, slot, source, amount, isDirectDamage);
-          }
-        }
-      }
+      // then we need to determine if any want to respond assuming its not canceled
+      DamageTakenModifierHook.handleDamageTaken(TinkerHooks.DAMAGE_TAKEN, context, source, amount, isDirectDamage);
     }
 
     // next, consider the attacker is wearing modifiable armor
@@ -300,7 +264,16 @@ public class ToolEvents {
 
     // for our own armor, we have boosts from modifiers to consider
     if (context.hasModifiableArmor()) {
-      // first, fetch vanilla enchant level, assuming its not bypassed in vanilla
+      // first, allow modifiers to change the damage being dealt and respond to it happening
+      originalDamage = ModifyDamageModifierHook.modifyDamageTaken(TinkerHooks.MODIFY_HURT, context, source, originalDamage, DamageTakenModifierHook.isDirectDamage(source));
+      event.setAmount(originalDamage);
+      if (originalDamage <= 0) {
+        event.setCanceled(true);
+        return;
+      }
+
+      // remaining logic is reducing damage like vanilla protection
+      // fetch vanilla enchant level, assuming its not bypassed in vanilla
       if (!source.isBypassMagic()) {
         modifierValue = vanillaModifier = EnchantmentHelper.getDamageProtection(entity.getArmorSlots(), source);
       }
@@ -327,7 +300,6 @@ public class ToolEvents {
       modifierValue = vanillaModifier * 4;
     }
 
-    // TODO: consider hook for modifiers to change damage directly
     // if we changed anything, run our logic. Changing the cap has 2 problematic cases where same value will work:
     // * increased cap and vanilla is over the vanilla cap
     // * decreased cap and vanilla is now under the cap
@@ -368,6 +340,30 @@ public class ToolEvents {
           }
         }
       }
+    }
+  }
+
+  @SubscribeEvent
+  static void livingDamage(LivingDamageEvent event) {
+    LivingEntity entity = event.getEntityLiving();
+    DamageSource source = event.getSource();
+
+    // give modifiers a chance to respond to damage happening
+    EquipmentContext context = new EquipmentContext(entity);
+    if (context.hasModifiableArmor()) {
+      float amount = ModifyDamageModifierHook.modifyDamageTaken(TinkerHooks.MODIFY_DAMAGE, context, source, event.getAmount(), DamageTakenModifierHook.isDirectDamage(source));
+      event.setAmount(amount);
+      if (amount <= 0) {
+        event.setCanceled(true);
+        return;
+      }
+    }
+
+    // when damaging ender dragons, may drop scales - must be player caused explosion, end crystals and TNT are examples
+    if (Config.COMMON.dropDragonScales.get() && entity.getType() == EntityType.ENDER_DRAGON && event.getAmount() > 0
+        && source.isExplosion() && source.getEntity() != null && source.getEntity().getType() == EntityType.PLAYER) {
+      // drops 1 - 8 scales
+      ModifierUtil.dropItem(entity, new ItemStack(TinkerModifiers.dragonScale, 1 + entity.level.random.nextInt(8)));
     }
   }
 

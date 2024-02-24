@@ -4,6 +4,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
@@ -12,55 +13,46 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.DamageTakenModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.spilling.SpillingFluid;
 import slimeknights.tconstruct.library.modifiers.spilling.SpillingFluidManager;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
+import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.definition.module.ToolModuleHooks;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerModifiers;
-import slimeknights.tconstruct.tools.modifiers.ability.armor.WettingModifier;
+import slimeknights.tconstruct.tools.modifiers.ability.armor.UseFluidOnHitModifier;
 
 import javax.annotation.Nullable;
 
 /** Modifier to handle spilling recipes */
-public class SpillingModifier extends WettingModifier implements EntityInteractionModifierHook {
-  /** Overridable method to create the attack context */
+public class SpillingModifier extends UseFluidOnHitModifier implements EntityInteractionModifierHook, DamageTakenModifierHook {
   @Override
-  public ToolAttackContext createContext(LivingEntity self, @Nullable Player player, @Nullable Entity attacker, FluidStack fluid) {
-    assert attacker != null;
-    spawnParticles(attacker, fluid);
-    return new ToolAttackContext(self, player, InteractionHand.MAIN_HAND, attacker, attacker instanceof LivingEntity living ? living : null, false, 1.0f, false);
-  }
-
-  /** Checks if the modifier triggers */
-  @Override
-  protected boolean doesTrigger(DamageSource source, boolean isDirectDamage) {
-    return source.getEntity() != null && isDirectDamage;
-  }
-
-  private void spillFluid(IToolStackView tool, int level, ToolAttackContext context, FluidStack fluid) {
-    if (!fluid.isEmpty()) {
-      SpillingFluid recipe = SpillingFluidManager.INSTANCE.find(fluid.getFluid());
-      if (recipe.hasEffects()) {
-        FluidStack remaining = recipe.applyEffects(fluid, level, context);
-        spawnParticles(context.getTarget(), fluid);
-        Player player = context.getPlayerAttacker();
-        if (player == null || !player.isCreative()) {
-          setFluid(tool, remaining);
-        }
-      }
-    }
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.ENTITY_INTERACT, TinkerHooks.DAMAGE_TAKEN);
   }
 
   @Override
   public int afterEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damageDealt) {
     if (damageDealt > 0 && context.isFullyCharged()) {
-      spillFluid(tool, level, context, getFluid(tool));
+      FluidStack fluid = getFluid(tool);
+      if (!fluid.isEmpty()) {
+        SpillingFluid recipe = SpillingFluidManager.INSTANCE.find(fluid.getFluid());
+        if (recipe.hasEffects()) {
+          FluidStack remaining = recipe.applyEffects(fluid, level, context);
+          spawnParticles(context.getTarget(), fluid);
+          Player player = context.getPlayerAttacker();
+          if (player == null || !player.isCreative()) {
+            setFluid(tool, remaining);
+          }
+        }
+      }
     }
     return 0;
   }
@@ -110,8 +102,19 @@ public class SpillingModifier extends WettingModifier implements EntityInteracti
   }
 
   @Override
-  protected void registerHooks(Builder hookBuilder) {
-    super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, TinkerHooks.ENTITY_INTERACT);
+  public ToolAttackContext createContext(LivingEntity self, @Nullable Player player, @Nullable Entity attacker, FluidStack fluid) {
+    assert attacker != null;
+    spawnParticles(attacker, fluid);
+    return new ToolAttackContext(self, player, InteractionHand.MAIN_HAND, attacker, attacker instanceof LivingEntity living ? living : null, false, 1.0f, false);
+  }
+
+  @Override
+  protected boolean doesTrigger(DamageSource source, boolean isDirectDamage) {
+    return source.getEntity() != null && isDirectDamage;
+  }
+
+  @Override
+  public void onDamageTaken(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
+    useFluid(tool, modifier, context, slotType, source, isDirectDamage);
   }
 }
