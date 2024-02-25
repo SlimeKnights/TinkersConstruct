@@ -37,6 +37,8 @@ public interface EntityVariable extends IHaveLoader<EntityVariable> {
 
   /** Gets the current health of the entity. For max health, see {@link AttributeEntityVariable} */
   EntityVariable HEALTH = simple(LivingEntity::getHealth);
+  /** Gets the height of the entities feet */
+  EntityVariable HEIGHT = simple(entity -> (float)entity.getY());
 
 
   /** Constant value instance for this object */

@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:ender_staff",
+  "text": [
+    { "text": "Enderslime Staff is a high reach staff variant." }
+  ],
+  "properties": [
+    "1520 Durability",
+    "40% speed while using",
+    "3 Upgrade Slots",
+    "1 Defense Slot",
+    "2 Ability Slots",
+    "Reach 2"
+  ]
+}

@@ -49,6 +49,7 @@ import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
+import slimeknights.tconstruct.library.recipe.ingredient.NoContainerIngredient;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IncrementalModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipeBuilder;
@@ -411,8 +412,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
      * damage boost
      */
     IncrementalModifierRecipeBuilder.modifier(ModifierIds.pierce)
-                                    .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.RANGED))
-                                    .setInput(Blocks.CACTUS, 1, 25)
+                                    .setTools(ingredientFromTags(TinkerTags.Items.MELEE_OR_UNARMED, TinkerTags.Items.RANGED))
+                                    .setInput(Blocks.POINTED_DRIPSTONE, 1, 10)
                                     .setMaxLevel(3) // +3 pierce, +1.5 damage
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .saveSalvage(consumer, prefix(ModifierIds.pierce, upgradeSalvage))
@@ -862,9 +863,10 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.zoom, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.zoom, upgradeFolder));
+    Ingredient tanks = NoContainerIngredient.of(TinkerTags.Items.TANKS);
     ModifierRecipeBuilder.modifier(TinkerModifiers.slurping)
                          .addInput(Items.GLASS_BOTTLE)
-                         .addInput(TinkerTags.Items.TANKS)
+                         .addInput(tanks)
                          .addInput(Items.GLASS_BOTTLE)
                          .addInput(Tags.Items.INGOTS_COPPER)
                          .addInput(Tags.Items.INGOTS_COPPER)
@@ -954,7 +956,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
 
     ModifierRecipeBuilder.modifier(TinkerModifiers.wetting)
                          .addInput(Tags.Items.DUSTS_REDSTONE)
-                         .addInput(TinkerTags.Items.TANKS)
+                         .addInput(tanks)
                          .addInput(Tags.Items.DUSTS_REDSTONE)
                          .addInput(Tags.Items.INGOTS_COPPER)
                          .addInput(Tags.Items.INGOTS_COPPER)
@@ -1192,7 +1194,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     SizedIngredient channels = SizedIngredient.fromItems(TinkerSmeltery.searedChannel, TinkerSmeltery.scorchedChannel);
     ModifierRecipeBuilder.modifier(TinkerModifiers.spilling)
                          .addInput(channels)
-                         .addInput(TinkerTags.Items.TANKS)
+                         .addInput(tanks)
                          .addInput(channels)
                          .addInput(Tags.Items.INGOTS_COPPER)
                          .addInput(Tags.Items.INGOTS_COPPER)
@@ -1202,9 +1204,9 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .save(consumer, prefix(TinkerModifiers.spilling, abilityFolder));
     Ingredient durabilityRightClick = IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.DURABILITY), Ingredient.of(TinkerTags.Items.INTERACTABLE_RIGHT));
     ModifierRecipeBuilder.modifier(TinkerModifiers.spitting)
-                         .addInput(TinkerTags.Items.TANKS)
+                         .addInput(tanks)
                          .addInput(Items.DISPENSER)
-                         .addInput(TinkerTags.Items.TANKS)
+                         .addInput(tanks)
                          .addInput(Tags.Items.INGOTS_COPPER)
                          .addInput(Tags.Items.INGOTS_COPPER)
                          .setSlots(SlotType.ABILITY, 1)
@@ -1212,7 +1214,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(TinkerModifiers.spitting, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.spitting, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.tank)
-                         .addInput(TinkerTags.Items.TANKS)
+                         .addInput(tanks)
                          .setSlots(SlotType.UPGRADE, 1)
                          .setTools(ingredientFromTags(TinkerTags.Items.INTERACTABLE, TinkerTags.Items.HELMETS, TinkerTags.Items.CHESTPLATES, TinkerTags.Items.LEGGINGS, TinkerTags.Items.SHIELDS))
                          .saveSalvage(consumer, prefix(TinkerModifiers.tank, upgradeSalvage))
@@ -1568,13 +1570,13 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     String theOneProbe = "theoneprobe";
     ResourceLocation probe = new ResourceLocation(theOneProbe, "probe");
     Consumer<FinishedRecipe> topConsumer = withCondition(consumer, modLoaded(theOneProbe));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.theOneProbe)
+    ModifierRecipeBuilder.modifier(ModifierIds.theOneProbe)
                          .setTools(ingredientFromTags(TinkerTags.Items.HELMETS, TinkerTags.Items.HELD))
                          .addInput(ItemNameIngredient.from(probe))
                          .setSlots(SlotType.UPGRADE, 1)
                          .setMaxLevel(1)
-                         .saveSalvage(topConsumer, prefix(TinkerModifiers.theOneProbe, compatSalvage))
-                         .save(topConsumer, prefix(TinkerModifiers.theOneProbe, compatFolder));
+                         .saveSalvage(topConsumer, prefix(ModifierIds.theOneProbe, compatSalvage))
+                         .save(topConsumer, prefix(ModifierIds.theOneProbe, compatFolder));
 
   }
 

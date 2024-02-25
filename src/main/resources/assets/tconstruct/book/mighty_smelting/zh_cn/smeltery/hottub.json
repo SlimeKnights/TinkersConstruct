@@ -1,0 +1,13 @@
+{
+  "title": "热炉浴",
+  "image": {
+	"file": "tconstruct:book/images/hottub.png",
+    "width": 120,
+    "height": 120
+  },
+  "text": [
+    {
+      "text": "愿意和我一起泡在炉子里面吗？"
+    }
+  ]
+}

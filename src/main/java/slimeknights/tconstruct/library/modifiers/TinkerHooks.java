@@ -36,6 +36,7 @@ import slimeknights.tconstruct.library.modifiers.hook.combat.DamageDealtModifier
 import slimeknights.tconstruct.library.modifiers.hook.combat.DamageTakenModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeDamageModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.ModifyDamageModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.ProtectionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.DisplayNameModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.DurabilityDisplayModifierHook;
@@ -227,17 +228,30 @@ public class TinkerHooks {
     }
   });
 
-  /** Hook called when taking damage wearing this armor to reduce the damage */
+  /** Hook called when taking damage wearing this armor to reduce the damage, runs after {@link #MODIFY_HURT} and before {@link #MODIFY_DAMAGE} */
   public static final ModifierHook<ProtectionModifierHook> PROTECTION = register("protection", ProtectionModifierHook.class, ProtectionModifierHook.AllMerger::new, (tool, modifier, context, slotType, source, modifierValue)
     -> modifier.getModifier().getProtectionModifier(tool, modifier.getLevel(), context, slotType, source, modifierValue));
 
   /** Hook called when taking damage wearing this armor to cancel the damage */
   public static final ModifierHook<DamageBlockModifierHook> DAMAGE_BLOCK = register("damage_block", DamageBlockModifierHook.class, DamageBlockModifierHook.AnyMerger::new, (tool, modifier, context, slotType, source, amount)
     -> modifier.getModifier().isSourceBlocked(tool, modifier.getLevel(), context, slotType, source, amount));
-
-  /** Hook called when taking damage to apply secondary effects such as counterattack or healing */
+  /**
+   * Hook called when taking damage to apply secondary effects such as counterattack or healing. Runs after {@link #DAMAGE_BLOCK} but before vanilla effects that cancel damage.
+   * TODO 1.19: rename hook to {@code ON_ATTACKED} to better represent the appropriate event and the fact that damage is still pending.
+   */
   public static final ModifierHook<DamageTakenModifierHook> DAMAGE_TAKEN = register("damage_taken", DamageTakenModifierHook.class, DamageTakenModifierHook.AllMerger::new, (tool, modifier, context, slotType, source, amount, isDirectDamage)
     -> modifier.getModifier().onAttacked(tool, modifier.getLevel(), context, slotType, source, amount, isDirectDamage));
+
+  /** Hook allowing modifying damage taken or responding when damage is taken. Runs after {@link #DAMAGE_TAKEN} and any vanilla effects that cancel damage, but before armor reduction and {@link #PROTECTION}.  */
+  public static final ModifierHook<ModifyDamageModifierHook> MODIFY_HURT;
+  /** Hook allowing modifying damage taken or responding when damage is taken. Runs after {@link #PROTECTION}, armor damage reduction, and absorption.  */
+  public static final ModifierHook<ModifyDamageModifierHook> MODIFY_DAMAGE;
+  static {
+    Function<Collection<ModifyDamageModifierHook>,ModifyDamageModifierHook> merger = ModifyDamageModifierHook.AllMerger::new;
+    ModifyDamageModifierHook fallback = (tool, modifier, context, slotType, source, amount, isDirectDamage) -> amount;
+    MODIFY_HURT = register("modify_hurt", ModifyDamageModifierHook.class, merger, fallback);
+    MODIFY_DAMAGE = register("modify_damage", ModifyDamageModifierHook.class, merger, fallback);
+  }
 
   /** Hook called when dealing damage while wearing this equipment */
   public static final ModifierHook<DamageDealtModifierHook> DAMAGE_DEALT = register("damage_dealt", DamageDealtModifierHook.class, DamageDealtModifierHook.AllMerger::new, (tool, modifier, context, slotType, target, source, amount, isDirectDamage)

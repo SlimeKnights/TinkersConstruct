@@ -47,6 +47,7 @@ import slimeknights.tconstruct.library.json.predicate.entity.LivingEntityPredica
 import slimeknights.tconstruct.library.json.predicate.entity.MobTypePredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.TagEntityPredicate;
 import slimeknights.tconstruct.library.json.predicate.entity.TinkerLivingEntityPredicate;
+import slimeknights.tconstruct.library.recipe.ingredient.NoContainerIngredient;
 import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.shared.block.BetterPaneBlock;
@@ -157,6 +158,7 @@ public final class TinkerCommons extends TinkerModule {
 
   @SubscribeEvent
   void registerRecipeSerializers(RegistryEvent.Register<RecipeSerializer<?>> event) {
+    CraftingHelper.register(NoContainerIngredient.ID, NoContainerIngredient.Serializer.INSTANCE);
     CraftingHelper.register(ConfigEnabledCondition.SERIALIZER);
     CriteriaTriggers.register(CONTAINER_OPENED_TRIGGER);
 

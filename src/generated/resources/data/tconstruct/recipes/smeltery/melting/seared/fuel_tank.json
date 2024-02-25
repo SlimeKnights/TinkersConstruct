@@ -1,9 +1,8 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "type": "forge:nbt",
     "item": "tconstruct:seared_fuel_tank",
-    "count": 1
+    "type": "tconstruct:no_container"
   },
   "result": {
     "fluid": "tconstruct:seared_stone",

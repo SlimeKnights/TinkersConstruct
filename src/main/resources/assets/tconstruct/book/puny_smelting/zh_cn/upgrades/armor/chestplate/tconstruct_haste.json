@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:haste",
+  "text": [
+    {
+      "text": "在胸甲上涂抹红石似乎可以让所有工具更快，比如你的手臂变得更高效了。"
+    },
+    {
+      "text": "真的很像你能整出来的疯狂的活，对吧？",
+      "paragraph": true
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/armor",
+  "effects": [
+    "增加挖掘速度",
+    "多个等级，每级进一步增加一点速度",
+    "每级需要1个升级槽"
+  ]
+}

@@ -29,7 +29,6 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.utils.JsonUtils;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import java.util.List;
@@ -85,7 +84,7 @@ public record ReplaceBlockWalkerModule(List<BlockReplacement> replacements, Leve
     public static BlockReplacement deserialize(JsonObject json) {
       return new BlockReplacement(
         BlockPredicate.LOADER.getAndDeserialize(json, "target"),
-        JsonUtils.convertToBlockState(json), // pulling from this object directly means the keys used are block and properties
+        JsonHelper.convertToBlockState(json), // pulling from this object directly means the keys used are block and properties
         MODIFIER_LEVEL.getAndDeserialize(json, "modifier_level")
       );
     }
@@ -94,7 +93,7 @@ public record ReplaceBlockWalkerModule(List<BlockReplacement> replacements, Leve
     public JsonObject serialize() {
       JsonObject json = new JsonObject();
       json.add("target", BlockPredicate.LOADER.serialize(target));
-      JsonUtils.serializeBlockState(state, json);
+      JsonHelper.serializeBlockState(state, json);
       MODIFIER_LEVEL.serializeInto(json, "modifier_level", level);
       return json;
     }

@@ -2,13 +2,15 @@
   "type": "tconstruct:modifier",
   "inputs": [
     {
-      "tag": "tconstruct:tanks"
+      "tag": "tconstruct:tanks",
+      "type": "tconstruct:no_container"
     },
     {
       "item": "minecraft:dispenser"
     },
     {
-      "tag": "tconstruct:tanks"
+      "tag": "tconstruct:tanks",
+      "type": "tconstruct:no_container"
     },
     {
       "tag": "forge:ingots/copper"

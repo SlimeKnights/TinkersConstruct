@@ -33,8 +33,11 @@ import slimeknights.tconstruct.library.json.predicate.modifier.SlotTypeModifierP
 import slimeknights.tconstruct.library.json.predicate.modifier.TagModifierPredicate;
 import slimeknights.tconstruct.library.json.variable.block.BlockVariable;
 import slimeknights.tconstruct.library.json.variable.block.ConditionalBlockVariable;
+import slimeknights.tconstruct.library.json.variable.block.StatePropertyVariable;
 import slimeknights.tconstruct.library.json.variable.entity.AttributeEntityVariable;
 import slimeknights.tconstruct.library.json.variable.entity.ConditionalEntityVariable;
+import slimeknights.tconstruct.library.json.variable.entity.EntityEffectLevelVariable;
+import slimeknights.tconstruct.library.json.variable.entity.EntityLightVariable;
 import slimeknights.tconstruct.library.json.variable.entity.EntityVariable;
 import slimeknights.tconstruct.library.json.variable.melee.EntityMeleeVariable;
 import slimeknights.tconstruct.library.json.variable.melee.MeleeVariable;
@@ -253,7 +256,6 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.general.MagneticModifier
 import slimeknights.tconstruct.tools.modifiers.upgrades.general.OffhandedModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.general.OverforcedModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.general.SoulboundModifier;
-import slimeknights.tconstruct.tools.modifiers.upgrades.general.TOPModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.FieryModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.PiercingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.melee.SeveringModifier;
@@ -263,6 +265,7 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ImpalingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.PunchModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ScopeModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.SinistralModifier;
+import slimeknights.tconstruct.tools.modules.TheOneProbeModule;
 import slimeknights.tconstruct.tools.recipe.ArmorDyeingRecipe;
 import slimeknights.tconstruct.tools.recipe.CreativeSlotRecipe;
 import slimeknights.tconstruct.tools.recipe.EnchantmentConvertingRecipe;
@@ -563,7 +566,9 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<RevengeModifier> revenge = MODIFIERS.register("revenge", RevengeModifier::new);
 
   // mod compat
-  public static final StaticModifier<TOPModifier> theOneProbe = MODIFIERS.register("the_one_probe", TOPModifier::new);
+  /** @deprecated use {@link ModifierIds#theOneProbe} */
+  @Deprecated // using DynamicModifier directly as we don't want to mark the probe as required
+  public static final DynamicModifier<Modifier> theOneProbe = new DynamicModifier<>(ModifierIds.theOneProbe, Modifier.class);
 
   /*
    * Internal effects
@@ -709,6 +714,8 @@ public final class TinkerModifiers extends TinkerModule {
     // fluid
     ModifierModule.LOADER.register(getResource("tank_capacity"), TankCapacityModule.LOADER);
     ModifierModule.LOADER.register(getResource("tank"), TankModule.LOADER);
+    // special
+    ModifierModule.LOADER.register(getResource("the_one_probe"), TheOneProbeModule.INSTANCE.getLoader());
 
     ModifierPredicate.LOADER.register(getResource("and"), ModifierPredicate.AND);
     ModifierPredicate.LOADER.register(getResource("or"), ModifierPredicate.OR);
@@ -724,11 +731,16 @@ public final class TinkerModifiers extends TinkerModule {
     BlockVariable.LOADER.register(getResource("constant"), BlockVariable.Constant.LOADER);
     BlockVariable.LOADER.register(getResource("conditional"), ConditionalBlockVariable.LOADER);
     BlockVariable.LOADER.register(getResource("blast_resistance"), BlockVariable.BLAST_RESISTANCE.getLoader());
+    BlockVariable.LOADER.register(getResource("hardness"), BlockVariable.HARDNESS.getLoader());
+    BlockVariable.LOADER.register(getResource("state_property"), StatePropertyVariable.LOADER);
     // entity
     EntityVariable.LOADER.register(getResource("constant"), EntityVariable.Constant.LOADER);
     EntityVariable.LOADER.register(getResource("conditional"), ConditionalEntityVariable.LOADER);
     EntityVariable.LOADER.register(getResource("health"), EntityVariable.HEALTH.getLoader());
+    EntityVariable.LOADER.register(getResource("height"), EntityVariable.HEIGHT.getLoader());
     EntityVariable.LOADER.register(getResource("attribute"), AttributeEntityVariable.LOADER);
+    EntityVariable.LOADER.register(getResource("effect_level"), EntityEffectLevelVariable.LOADER);
+    EntityVariable.LOADER.register(getResource("light"), EntityLightVariable.LOADER);
     // tool
     ToolVariable.LOADER.register(getResource("constant"), ToolVariable.Constant.LOADER);
     ToolVariable.LOADER.register(getResource("conditional"), ConditionalToolVariable.LOADER);

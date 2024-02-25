@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:spilling",
+  "text": [
+    {
+      "text": "工具漏液还挺恶心的。但也挺有用的！"
+    },
+    {
+      "text": "手持工具对着储罐右击可以填充。", "paragraph": true
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/armor",
+  "effects": [
+    "受击时消耗储罐内液体，盾牌则会在格挡时消耗",
+    "可通过液体达成多种效果，包括着火与中毒",
+    "每级需要1个能力槽"
+  ]
+}

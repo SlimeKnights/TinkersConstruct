@@ -8,7 +8,7 @@ upgrades=강화
 upgrades.subtext=강화를 통해 도구를 강력하게 만들 수 있다만, 강화 슬롯이 필요하다.
 upgrades.group_general=일반
 upgrades.group_harvest=수확
-upgrades.group_weapon=무기
+upgrades.group_melee=무기
 upgrades.group_damage=추가 피해
 upgrades.group_armor=갑옷
 

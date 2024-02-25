@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:haste",
+    "tconstruct:blasting",
+    "tconstruct:hydraulic",
+    "tconstruct:lightspeed"
+  ]
+}

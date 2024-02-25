@@ -143,7 +143,7 @@ public class MaterialIngredient extends Ingredient {
 
   @Override
   public boolean isSimple() {
-    return material == WILDCARD && super.isSimple();
+    return material == WILDCARD;
   }
 
   @Override

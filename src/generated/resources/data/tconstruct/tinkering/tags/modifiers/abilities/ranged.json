@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:bulk_quiver",
+    "tconstruct:trick_quiver",
+    "tconstruct:crystalshot",
+    "tconstruct:multishot"
+  ]
+}
