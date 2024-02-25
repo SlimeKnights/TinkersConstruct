@@ -1,9 +1,9 @@
 {
     "parent": "block/cube_all",
 	"textures": {
-		"0": "tconstruct:block/cheese_block_inner",
-		"1": "tconstruct:block/cheese_block_outer",
-		"particle": "tconstruct:block/cheese_block_outer"
+		"0": "tconstruct:block/storage/cheese_block_inner",
+		"1": "tconstruct:block/storage/cheese_block_outer",
+		"particle": "tconstruct:block/storage/cheese_block_outer"
 	},
 	"elements": [
 		{
