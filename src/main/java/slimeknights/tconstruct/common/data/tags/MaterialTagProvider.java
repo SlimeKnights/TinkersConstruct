@@ -14,8 +14,6 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
 
   @Override
   protected void addTags() {
-    tag(TinkerTags.Materials.PLATE_EMBELLISHMENT);
-    tag(TinkerTags.Materials.SLIME_EMBELLISHMENT);
     tag(TinkerTags.Materials.NETHER).add(
       // tier 1
       MaterialIds.wood, MaterialIds.flint, MaterialIds.rock, MaterialIds.bone,

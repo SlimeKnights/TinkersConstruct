@@ -11,10 +11,8 @@ import slimeknights.tconstruct.library.client.data.spritetransformer.IColorMappi
 import slimeknights.tconstruct.library.client.data.spritetransformer.ISpriteTransformer;
 import slimeknights.tconstruct.library.client.data.spritetransformer.RecolorSpriteTransformer;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoJson.MaterialGeneratorJson;
-import slimeknights.tconstruct.library.materials.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
-import slimeknights.tconstruct.library.materials.definition.MaterialManager;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
@@ -107,12 +105,8 @@ public abstract class AbstractMaterialSpriteProvider {
         return true;
       }
       // if material registry is loaded and we are not ignoring it, allow checking that
-      // also allow a tag as an override, useful mainly for making existing materials a new embellishment
       if (!ignoreMaterialStats && MaterialRegistry.isFullyLoaded()) {
-        IMaterialRegistry materials = MaterialRegistry.getInstance();
-        MaterialId id = new MaterialId(texture);
-        return materials.getMaterialStats(id, statType).isPresent()
-          || materials.isInTag(id, MaterialManager.getTag(new ResourceLocation(statType.getNamespace(), "generator_stat_type/" + statType.getPath())));
+        return  MaterialRegistry.getInstance().getMaterialStats(new MaterialId(texture), statType).isPresent();
       }
       return false;
     }

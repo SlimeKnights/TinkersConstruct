@@ -9,6 +9,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.tconstruct.library.client.data.GenericTextureGenerator;
 import slimeknights.tconstruct.library.client.data.material.AbstractMaterialSpriteProvider.MaterialSpriteInfo;
 import slimeknights.tconstruct.library.client.data.material.AbstractPartSpriteProvider.PartSpriteInfo;
+import slimeknights.tconstruct.library.client.data.material.GeneratorPartTextureJsonGenerator.StatOverride;
 import slimeknights.tconstruct.library.client.data.util.AbstractSpriteReader;
 import slimeknights.tconstruct.library.client.data.util.DataGenSpriteReader;
 
@@ -39,12 +40,18 @@ public class MaterialPartTextureGenerator extends GenericTextureGenerator {
   private final AbstractPartSpriteProvider partProvider;
   /** Materials to provide */
   private final AbstractMaterialSpriteProvider[] materialProviders;
+  private final StatOverride overrides;
 
   public MaterialPartTextureGenerator(DataGenerator generator, ExistingFileHelper existingFileHelper, AbstractPartSpriteProvider spriteProvider, AbstractMaterialSpriteProvider... materialProviders) {
+    this(generator, existingFileHelper, spriteProvider, StatOverride.EMPTY, materialProviders);
+  }
+
+  public MaterialPartTextureGenerator(DataGenerator generator, ExistingFileHelper existingFileHelper, AbstractPartSpriteProvider spriteProvider, StatOverride overrides, AbstractMaterialSpriteProvider... materialProviders) {
     super(generator, FOLDER);
     this.spriteReader = new DataGenSpriteReader(existingFileHelper, FOLDER);
     this.existingFileHelper = existingFileHelper;
     this.partProvider = spriteProvider;
+    this.overrides = overrides;
     this.materialProviders = materialProviders;
   }
 
@@ -83,7 +90,7 @@ public class MaterialPartTextureGenerator extends GenericTextureGenerator {
       Predicate<ResourceLocation> shouldGenerate = path -> !spriteReader.exists(path);
       for (MaterialSpriteInfo material : materials) {
         for (PartSpriteInfo part : parts) {
-          if (material.supportStatType(part.getStatType())) {
+          if (material.supportStatType(part.getStatType()) || overrides.hasOverride(part.getStatType(), material.getTexture())) {
             generateSprite(spriteReader, material, part, shouldGenerate, saver);
           }
         }
