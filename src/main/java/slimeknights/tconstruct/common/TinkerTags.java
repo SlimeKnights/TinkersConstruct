@@ -594,6 +594,11 @@ public class TinkerTags {
     /** Materials available in nether */
     public static final TagKey<IMaterial> NETHER = tag("nether");
 
+    /** Tag override to add an existing material to the plate embellishment. Typically better to do via the render info but this is an alternative for addons to use. */
+    public static final TagKey<IMaterial> PLATE_EMBELLISHMENT = tag("generator_stat_type/plate");
+    /** Tag override to add an existing material to the slime embellishment Typically better to do via the render info but this is an alternative for addons to use. */
+    public static final TagKey<IMaterial> SLIME_EMBELLISHMENT = tag("generator_stat_type/slimesuit");
+
     private static TagKey<IMaterial> tag(String name) {
       return MaterialManager.getTag(TConstruct.getResource(name));
     }
