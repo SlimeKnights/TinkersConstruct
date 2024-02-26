@@ -3,7 +3,9 @@
     "base": {
       "tconstruct:durability": 1225.0,
       "tconstruct:block_amount": 15.0,
-      "tconstruct:use_item_speed": 0.4
+      "tconstruct:use_item_speed": 0.4,
+      "tconstruct:velocity": 1.2,
+      "tconstruct:draw_speed": 0.75
     }
   },
   "slots": {

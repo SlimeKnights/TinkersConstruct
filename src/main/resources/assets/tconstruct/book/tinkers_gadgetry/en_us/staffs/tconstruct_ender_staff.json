@@ -1,7 +1,7 @@
 {
   "tool": "tconstruct:ender_staff",
   "text": [
-    { "text": "Using the power of ender slime, you can make a staff for grabbing far away targets." }
+    { "text": "Using the power of ender slime, you can make a staff for grabbing far away targets. Has stronger velocity and block angle, but has worse accuracy." }
   ],
   "properties": [
     "High Durability",

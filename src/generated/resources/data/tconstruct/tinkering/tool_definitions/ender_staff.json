@@ -2,8 +2,11 @@
   "stats": {
     "base": {
       "tconstruct:durability": 1520.0,
-      "tconstruct:block_amount": 17.0,
-      "tconstruct:use_item_speed": 0.4
+      "tconstruct:block_amount": 15.0,
+      "tconstruct:block_angle": 140.0,
+      "tconstruct:use_item_speed": 0.4,
+      "tconstruct:projectile_damage": 3.0,
+      "tconstruct:accuracy": 0.5
     }
   },
   "slots": {

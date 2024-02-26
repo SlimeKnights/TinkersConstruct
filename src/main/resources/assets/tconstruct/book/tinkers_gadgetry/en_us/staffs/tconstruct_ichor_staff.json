@@ -1,7 +1,7 @@
 {
   "tool": "tconstruct:ichor_staff",
   "text": [
-    { "text": "Ichor is uncommon stuff, but allows making some of the strongest staffs." }
+    { "text": "Ichor is uncommon stuff, but allows making some of the strongest staffs. Grants higher projectile power at the cost of drawspeed." }
   ],
   "properties": [
     "High Durability",

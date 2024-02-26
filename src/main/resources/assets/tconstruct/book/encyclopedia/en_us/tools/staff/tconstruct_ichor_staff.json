@@ -1,11 +1,12 @@
 {
   "tool": "tconstruct:ichor_staff",
   "text": [
-    { "text": "Ichor Staff is a high ability slot staff variant." }
+    { "text": "Ichor Staff is a high ability slot and velocity staff variant." }
   ],
   "properties": [
     "1225 Durability",
-    "50% speed while using",
+    "1.2 Velocity",
+    "0.75 Draw Speed",
     "2 Upgrade Slots",
     "3 Ability Slots"
   ]

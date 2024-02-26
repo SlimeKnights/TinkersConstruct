@@ -1,11 +1,14 @@
 {
   "tool": "tconstruct:earth_staff",
   "text": [
-    { "text": "Earthslime Staff is a high defense staff variant." }
+    { "text": "Earthslime Staff is a high defense  and accuracy staff variant." }
   ],
   "properties": [
     "800 Durability",
-    "50% speed while using",
+    "1.5 Projectile Power",
+    "0.9 Accuracy",
+    "35 Max Blocking",
+    "1.25 Draw Speed",
     "2 Upgrade Slots",
     "3 Defense Slots",
     "2 Ability Slots"

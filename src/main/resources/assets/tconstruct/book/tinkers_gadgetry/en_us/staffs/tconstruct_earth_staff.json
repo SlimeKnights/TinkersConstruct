@@ -1,7 +1,7 @@
 {
   "tool": "tconstruct:earth_staff",
   "text": [
-    { "text": "Using the power of green slime, you can make the most defensive of magic staffs." }
+    { "text": "Using the power of green slime, you can make the most defensive of magic staffs. Has higher block potential and accuracy, but worse velocity." }
   ],
   "properties": [
     "Mid Durability",

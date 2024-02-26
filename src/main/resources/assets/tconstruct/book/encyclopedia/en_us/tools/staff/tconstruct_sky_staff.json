@@ -1,11 +1,12 @@
 {
   "tool": "tconstruct:sky_staff",
   "text": [
-    { "text": "Skyslime Staff is a highly upgradable staff variant." }
+    { "text": "Skyslime Staff is a highly upgradable and fast staff variant." }
   ],
   "properties": [
     "375 Durability",
-    "50% speed while using",
+    "0.8 Velocity",
+    "1.25 Draw Speed",
     "5 Upgrade Slots",
     "2 Ability Slots"
   ]
