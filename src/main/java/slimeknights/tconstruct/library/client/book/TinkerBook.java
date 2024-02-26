@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.client.book;
 
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.mantle.client.book.BookLoader;
 import slimeknights.mantle.client.book.data.BookData;
@@ -11,6 +12,7 @@ import slimeknights.tconstruct.library.client.book.content.ContentMaterialSkull;
 import slimeknights.tconstruct.library.client.book.content.ContentModifier;
 import slimeknights.tconstruct.library.client.book.content.ContentTool;
 import slimeknights.tconstruct.library.client.book.content.RangedMaterialContent;
+import slimeknights.tconstruct.library.client.book.content.TooltipShowcaseContent;
 import slimeknights.tconstruct.library.client.book.sectiontransformer.ModifierSectionTransformer;
 import slimeknights.tconstruct.library.client.book.sectiontransformer.ModifierTagInjectorTransformer;
 import slimeknights.tconstruct.library.client.book.sectiontransformer.ToolSectionTransformer;
@@ -47,10 +49,13 @@ public class TinkerBook extends BookData {
    * Initializes the books
    */
   public static void initBook() {
+    BookLoader.registerGsonTypeAdapter(Component.class, new Component.Serializer());
+
     // register page types
     BookLoader.registerPageType(ContentMaterial.ID, ContentMaterial.class);
     BookLoader.registerPageType(ContentTool.ID,     ContentTool.class);
     BookLoader.registerPageType(ContentModifier.ID, ContentModifier.class);
+    BookLoader.registerPageType(TooltipShowcaseContent.ID, TooltipShowcaseContent.class);
 
     TierRangeMaterialSectionTransformer.registerMaterialType(TConstruct.getResource("melee_harvest"), ContentMaterial::new, HeadMaterialStats.ID, HandleMaterialStats.ID, ExtraMaterialStats.ID);
     TierRangeMaterialSectionTransformer.registerMaterialType(TConstruct.getResource("ranged"), RangedMaterialContent::new, LimbMaterialStats.ID, GripMaterialStats.ID, BowstringMaterialStats.ID);

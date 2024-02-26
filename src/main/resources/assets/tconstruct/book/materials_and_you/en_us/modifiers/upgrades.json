@@ -1,12 +1,20 @@
 {
+  "type": "tconstruct:showcase",
   "title": "Upgrades",
+  "item": {
+    "type": "forge:nbt",
+    "item": "tconstruct:creative_slot",
+    "nbt": {
+      "slot": "upgrades"
+    }
+  },
+  "tooltip": [ "Upgrade Slot Icon" ],
   "text": [
     {
-      "text": "Upgrades are standard improvements to a tool. They are usually done by applying an item and 'rubbing off' some of its magic qualities, like redstone making tools faster."
+      "text": "Upgrades are standard improvements to a tool. They are usually done by applying an item and 'rubbing off' some of its magic qualities, like redstone making tools faster. "
     },
     {
-      "text": "Upgrades require upgrade slots to be applied. Most tools start with 3 or 4 upgrade slots, though it's possible to get more slots through other types of modifiers.",
-      "paragraph": true
+      "text": "Most tools start with around 3 upgrade slots, though it's possible to get more slots through other types of modifiers."
     },
     {
       "text": "Thruul M'Gon's Puny Smelting has a full list of upgrades available on tools, along with the Encyclopedia of Tinkering.",
