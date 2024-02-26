@@ -51,7 +51,9 @@ public class CommonsClientEvents extends ClientEventBase {
     ItemBlockRenderTypes.setRenderLayer(TinkerCommons.soulGlassPane.get(), RenderType.translucent());
     ItemBlockRenderTypes.setRenderLayer(TinkerMaterials.soulsteel.get(), RenderType.translucent());
     ItemBlockRenderTypes.setRenderLayer(TinkerMaterials.slimesteel.get(), RenderType.translucent());
+
     RenderType cutout = RenderType.cutout();
+    ItemBlockRenderTypes.setRenderLayer(TinkerCommons.cheeseBlock.get(), cutout);
     ItemBlockRenderTypes.setRenderLayer(TinkerCommons.goldBars.get(), cutout);
     ItemBlockRenderTypes.setRenderLayer(TinkerCommons.goldPlatform.get(), cutout);
     ItemBlockRenderTypes.setRenderLayer(TinkerCommons.ironPlatform.get(), cutout);

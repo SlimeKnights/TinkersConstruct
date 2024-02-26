@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/ingot"
+  },
+  "fluid": {
+    "name": "minecraft:milk",
+    "amount": 250
+  },
+  "result": "tconstruct:cheese_ingot",
+  "cooling_time": 2400
+}

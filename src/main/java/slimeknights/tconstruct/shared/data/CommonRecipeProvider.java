@@ -243,6 +243,17 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
                        .pattern("###")
                        .unlockedBy("has_smooth_stone", has(Blocks.SMOOTH_BASALT))
                        .save(consumer, modResource("common/basalt_blast_furnace"));
+
+    // cheese
+    ShapedRecipeBuilder.shaped(TinkerCommons.cheeseBlock)
+                       .define('#', TinkerCommons.cheeseIngot)
+                       .pattern("##").pattern("##")
+                       .unlockedBy("has_cheese", has(TinkerCommons.cheeseIngot))
+                       .save(consumer, modResource("common/cheese_block_from_ingot"));
+    ShapelessRecipeBuilder.shapeless(TinkerCommons.cheeseIngot, 4)
+                          .requires(TinkerCommons.cheeseBlock)
+                          .unlockedBy("has_cheese", has(TinkerCommons.cheeseBlock))
+                          .save(consumer, modResource("common/cheese_ingot_from_block"));
   }
 
   private void addMaterialRecipes(Consumer<FinishedRecipe> consumer) {

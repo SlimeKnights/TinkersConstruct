@@ -74,6 +74,7 @@ public class BlockLootTableProvider extends BlockLoot {
     this.registerBuildingLootTables(TinkerCommons.blazewood);
     this.registerBuildingLootTables(TinkerCommons.lavawood);
     this.registerFenceBuildingLootTables(TinkerMaterials.nahuatl);
+    this.dropSelf(TinkerCommons.cheeseBlock.get());
 
     this.dropSelf(TinkerModifiers.silkyJewelBlock.get());
     this.dropSelf(TinkerCommons.goldBars.get());

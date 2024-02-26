@@ -2,8 +2,7 @@
   "replace": false,
   "values": [
     "tconstruct:mud_bricks",
-    "tconstruct:mud_bricks_slab",
-    "tconstruct:mud_bricks_stairs",
+    "tconstruct:cheese_block",
     "tconstruct:earth_congealed_slime",
     "tconstruct:sky_congealed_slime",
     "tconstruct:ichor_congealed_slime",

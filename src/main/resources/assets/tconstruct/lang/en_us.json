@@ -193,6 +193,9 @@
   "item.tconstruct.ichor_slime_ball": "Ichor Ball",
 
   "item.tconstruct.bacon": "Bacon",
+  "item.tconstruct.cheese_ingot": "Cheese",
+  "block.tconstruct.cheese_block": "Cheese Block",
+  "item.tconstruct.cheese.tooltip": "Removes a random effect when eaten",
 
   "item.tconstruct.earth_slime_crystal": "Earthslime Crystal",
   "block.tconstruct.earth_slime_crystal_block": "Earthslime Crystal Block",

@@ -115,6 +115,16 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
 
   /**
    * Sets the fluid for this recipe
+   * @param fluid   Fluid instance
+   * @param amount  amount of fluid
+   * @return  Builder instance
+   */
+  public ItemCastingRecipeBuilder setFluid(Fluid fluid, int amount) {
+    return this.setFluid(FluidIngredient.of(fluid, amount));
+  }
+
+  /**
+   * Sets the fluid for this recipe
    * @param tagIn   Tag<Fluid> instance
    * @param amount  amount of fluid
    * @return  Builder instance

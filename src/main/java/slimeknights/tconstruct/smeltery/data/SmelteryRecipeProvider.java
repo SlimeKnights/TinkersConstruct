@@ -1176,6 +1176,23 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                             .setCast(Items.GLASS_BOTTLE, true)
                             .save(consumer, modResource(folder + "venom_bottle"));
 
+    // cheese
+    ItemCastingRecipeBuilder.tableRecipe(TinkerCommons.cheeseIngot)
+                            .setFluid(ForgeMod.MILK.get(), FluidValues.BOTTLE)
+                            .setCast(TinkerSmeltery.ingotCast.getMultiUseTag(), false)
+                            .setCoolingTime(20*60*2)
+                            .save(consumer, modResource(folder + "cheese_ingot_gold_cast"));
+    ItemCastingRecipeBuilder.tableRecipe(TinkerCommons.cheeseIngot)
+                            .setFluid(ForgeMod.MILK.get(), FluidValues.BOTTLE)
+                            .setCast(TinkerSmeltery.ingotCast.getSingleUseTag(), true)
+                            .setCoolingTime(20*60*2)
+                            .save(consumer, modResource(folder + "cheese_ingot_sand_cast"));
+    ItemCastingRecipeBuilder.basinRecipe(TinkerCommons.cheeseBlock)
+                            .setFluid(ForgeMod.MILK.get(), FluidAttributes.BUCKET_VOLUME)
+                            .setCoolingTime(20*60*5)
+                            .save(consumer, modResource(folder + "cheese_block"));
+
+
     String castFolder = "smeltery/casts/";
     this.castCreation(consumer, Tags.Items.INGOTS, TinkerSmeltery.ingotCast, castFolder);
     this.castCreation(consumer, Tags.Items.NUGGETS, TinkerSmeltery.nuggetCast, castFolder);
