@@ -57,22 +57,19 @@ public class TinkerBook extends BookData {
     TierRangeMaterialSectionTransformer.registerMaterialType(TConstruct.getResource("skull"), ContentMaterialSkull::new, SkullStats.ID);
 
     // add transformers that load modifiers from tags
+    ToolSectionTransformer armorTransformer = new ToolSectionTransformer("armor");
     for (BookData book : ALL_BOOKS) {
       book.addTransformer(ToolTagInjectorTransformer.INSTANCE);
       book.addTransformer(ModifierTagInjectorTransformer.INSTANCE);
+      book.addTransformer(armorTransformer);
     }
 
     // tool transformers
     // TODO: migrate to using extraData instead of hardcoded names
-    ToolSectionTransformer armorTransformer = new ToolSectionTransformer("armor");
     MATERIALS_AND_YOU.addTransformer(ToolSectionTransformer.INSTANCE);
-    MATERIALS_AND_YOU.addTransformer(armorTransformer);
     MIGHTY_SMELTING.addTransformer(ToolSectionTransformer.INSTANCE);
-    FANTASTIC_FOUNDRY.addTransformer(armorTransformer);
-    TINKERS_GADGETRY.addTransformer(armorTransformer);
     TINKERS_GADGETRY.addTransformer(new ToolSectionTransformer("staffs"));
-    ENCYCLOPEDIA.addTransformer(new ToolSectionTransformer("tools"));
-    ENCYCLOPEDIA.addTransformer(armorTransformer);
+    ENCYCLOPEDIA.addTransformer(ToolSectionTransformer.INSTANCE);
 
     // material tier transformers
     // TODO 1.19: remove old material section transformers

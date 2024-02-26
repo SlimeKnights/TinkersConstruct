@@ -9,6 +9,9 @@ ranged_materials.subtext=These materials can be casted into tool parts for range
 
 further_reading=Further Reading
 
+armor=Puny Armor
+armor.subtext=Access to early resources such as copper allow creating basic armor such as Traveler's Gear in the crafting station! This suit doesn't offer the best defense, but there are still many opportunities to upgrade your suit of armor!
+
 upgrades=Upgrades
 upgrades.subtext=Tools can be enhanced with upgrades, though only a limited number can be applied per tool.
 upgrades.group_general=General

@@ -170,6 +170,7 @@ public final class TinkerCommons extends TinkerModule {
 
     CraftingHelper.register(TagIntersectionPresentCondition.SERIALIZER);
     CraftingHelper.register(TagDifferencePresentCondition.SERIALIZER);
+    CraftingHelper.register(new TagNotEmptyLootCondition.ConditionSerializer());
     // block predicates
     BlockPredicate.LOADER.register(getResource("and"), BlockPredicate.AND);
     BlockPredicate.LOADER.register(getResource("or"), BlockPredicate.OR);

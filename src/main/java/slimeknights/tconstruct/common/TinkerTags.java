@@ -361,8 +361,6 @@ public class TinkerTags {
 
     /** Modifiable items that are worn as armor. Items in this tag support the {@link ToolStats#ARMOR}, {@link ToolStats#ARMOR_TOUGHNESS} and {@link ToolStats#KNOCKBACK_RESISTANCE} stats. */
     public static final TagKey<Item> ARMOR = tag("modifiable/armor");
-    /** Armor tag for display in the book, order matters */
-    public static final TagKey<Item> BOOK_ARMOR = tag("modifiable/armor/book");
     /** Modifiable items that are worn as boots */
     public static final TagKey<Item> BOOTS = tag("modifiable/armor/boots");
     /** Modifiable items that are worn as leggings */
@@ -377,6 +375,19 @@ public class TinkerTags {
     public static final TagKey<Item> HELD_ARMOR = tag("modifiable/armor/held");
     /** Modifiable items that have innate shielding behavior */
     public static final TagKey<Item> SHIELDS = tag("modifiable/shields");
+    // armor book tags
+    /** Full list of armor shown in the encyclopedia, can add to directly to show only in the encyclopedia */
+    public static final TagKey<Item> BOOK_ARMOR = tag("modifiable/book_armor");
+    /** Full list of armor shown in materials and you, automatically added first to encyclopedia */
+    public static final TagKey<Item> BASIC_ARMOR = tag("modifiable/book_armor/materials_and_you");
+    /** Full list of armor shown in puny smelting, automatically added second to encyclopedia */
+    public static final TagKey<Item> PUNY_ARMOR = tag("modifiable/book_armor/puny_smelting");
+    /** Full list of armor shown in mighty smelting, automatically added third to encyclopedia */
+    public static final TagKey<Item> MIGHTY_ARMOR = tag("modifiable/book_armor/mighty_smelting");
+    /** Full list of armor shown in fantastic foundrry, automatically added fourth to encyclopedia */
+    public static final TagKey<Item> FANTASTIC_ARMOR = tag("modifiable/book_armor/fantastic_foundry");
+    /** Full list of armor shown in tinkers gadgetry, automatically added last to encyclopedia */
+    public static final TagKey<Item> GADGETRY_ARMOR = tag("modifiable/book_armor/tinkers_gadgetry");
 
     /** Modifiable items that support ranged attacks. Items in this tag support {@link ToolStats#DRAW_SPEED}, {@link ToolStats#VELOCITY}, {@link ToolStats#PROJECTILE_DAMAGE} and {@link ToolStats#ACCURACY} */
     public static final TagKey<Item> RANGED = tag("modifiable/ranged");

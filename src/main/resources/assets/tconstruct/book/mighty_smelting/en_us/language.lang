@@ -8,6 +8,9 @@ ranged_materials.subtext=These materials can be created with alloying then caste
 tools=Broad Tools
 tools.subtext=Broad tools all require the use of a tinker's anvil to create
 
+armor=Mighty Armor
+armor.subtext=Alloys unlock a wider range of materials for armor creation. These may grant additional abilities beyond basic sets like travelers gear.
+
 smeltery=Smeltery
 
 abilities=Abilities

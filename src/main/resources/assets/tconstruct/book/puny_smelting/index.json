@@ -42,6 +42,27 @@
     }
   },
   {
+    "name": "armor",
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:travelers_chestplate",
+        "nbt": {
+          "tic_broken": false,
+          "tic_display": true
+        }
+      }
+    },
+    "condition": {
+      "type": "tconstruct:tag_not_empty",
+      "registry": "minecraft:item",
+      "tag": "tconstruct:modifiable/book_armor/puny_smelting"
+    },
+    "extraData": {
+      "tconstruct:load_tools": { "tag": "tconstruct:modifiable/book_armor/puny_smelting", "path": "armor", "sort": false }
+    }
+  },
+  {
     "name": "upgrades",
     "data": "sections/upgrades.json",
     "icon": {

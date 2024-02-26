@@ -58,6 +58,20 @@
     }
   },
   {
+    "name": "armor",
+    "icon": {
+      "item": "tconstruct:diamond_chestplate"
+    },
+    "condition": {
+      "type": "tconstruct:tag_not_empty",
+      "registry": "minecraft:item",
+      "tag": "tconstruct:modifiable/book_armor/mighty_smelting"
+    },
+    "extraData": {
+      "tconstruct:load_tools": { "tag": "tconstruct:modifiable/book_armor/mighty_smelting", "path": "armor", "sort": false }
+    }
+  },
+  {
     "name": "abilities",
     "data": "sections/abilities.json",
     "icon": {

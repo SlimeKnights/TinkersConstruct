@@ -4,6 +4,9 @@ moving_fluids=Fluidos em movimento
 casting=Fundição
 materials=Materiais Nivel 2
 
+armor=Equipamento do viajante
+armor.subtext=O Equipamento do Viajante é fabricado usando uma estação de fabricação! Este equipamento não oferece a melhor defesa, mas ainda há muitas oportunidades para melhorar sua armadura! Oh, que coisas divertidas você vai criar?
+
 upgrades=Melhorias
 upgrades.subtext=Ferramentas podem ser aprimoradas com melhorias, embora apenas um número limitado possa ser aplicado a cada ferramenta.
 upgrades.group_general=Gerais

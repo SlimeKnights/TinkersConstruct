@@ -28,21 +28,6 @@
     }
   },
   {
-    "name": "armor",
-    "data": "sections/armor.json",
-    "icon": {
-      "item": {
-        "type": "forge:nbt",
-        "item": "tconstruct:plate_chestplate",
-        "nbt": {
-          "tic_broken": false,
-          "tic_display": true,
-          "Damage": 0
-        }
-      }
-    }
-  },
-  {
     "name": "melee_harvest_materials",
     "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tier": 4 } },
     "icon": {
@@ -54,6 +39,27 @@
     "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tier": 4 } },
     "icon": {
       "item": "tconstruct:hepatizon_ingot"
+    }
+  },
+  {
+    "name": "armor",
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:plate_chestplate",
+        "nbt": {
+          "tic_broken": false,
+          "tic_display": true
+        }
+      }
+    },
+    "condition": {
+      "type": "tconstruct:tag_not_empty",
+      "registry": "minecraft:item",
+      "tag": "tconstruct:modifiable/book_armor/fantastic_foundry"
+    },
+    "extraData": {
+      "tconstruct:load_tools": { "tag": "tconstruct:modifiable/book_armor/fantastic_foundry", "path": "armor", "sort": false }
     }
   }
 ]

@@ -35,8 +35,7 @@
         "item": "tconstruct:travelers_chestplate",
         "nbt": {
           "tic_broken": false,
-          "tic_display": true,
-          "Damage": 0
+          "tic_display": true
         }
       }
     }

@@ -4,6 +4,9 @@ moving_fluids=액체 이동
 casting=주조
 materials=2등급 재료
 
+armor=여행자의 장비
+armor.subtext=여행자의 장비는 제작대를 사용하여 제작할 수 있습니다! 이 장비는 방어력이 뛰어나지는 않지만, 강화할 기회는 많습니다! 어떤 재미있는 갑옷을 만들 건가요?
+
 upgrades=강화
 upgrades.subtext=강화를 통해 도구를 강력하게 만들 수 있다만, 강화 슬롯이 필요하다.
 upgrades.group_general=일반

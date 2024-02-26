@@ -7,8 +7,8 @@ ranged_materials.subtext=These materials can be placed in the part builder to cr
 
 tools=Tools
 
-armor=Traveler's Gear
-armor.subtext=Traveler's Gear is crafted using a crafting station! This suit doesn't offer the best defense, but there are still many opportunities to upgrade your suit of armor! Oh what fun things will you create?
+armor=Basic Armor
+armor.subtext=Basic armor allows basic protection without needing to hunt for resources or build any machinery. This will grant limited defense, but there are still many opportunities to upgrade your suit of armor! Oh what fun things will you create?
 
 modifiers=Modifiers
 further_reading=Further Reading

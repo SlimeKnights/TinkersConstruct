@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "#tconstruct:modifiable/book_armor/materials_and_you",
+    "#tconstruct:modifiable/book_armor/puny_smelting",
+    "#tconstruct:modifiable/book_armor/mighty_smelting",
+    "#tconstruct:modifiable/book_armor/fantastic_foundry",
+    "#tconstruct:modifiable/book_armor/tinkers_gadgetry"
+  ]
+}

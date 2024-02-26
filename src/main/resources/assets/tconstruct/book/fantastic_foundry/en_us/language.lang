@@ -6,8 +6,8 @@ foundry=Foundry
 
 blazing_blood=Blazing Blood
 
-armor=Plate Armor
-armor.subtext=Armor is crafted in the Crafting Station instead of the Tinker Station or Anvil. The mighty plate armor boasts a high defense, but less modifiability. Who needs extra features when you can be protected?
+armor=Fantastic Armor
+armor.subtext=Using Nether resources grants access to create higher tiers of armor. For instance, the mighty plate armor boasts a high defense, but less modifiability. Who needs extra features when you can be protected?
 
 melee_harvest_materials=Tier 4 Melee Harvest Materials
 melee_harvest_materials.subtext=These materials require blazing blood to create, and can be used to create tool parts for melee weapons or harvest tools.

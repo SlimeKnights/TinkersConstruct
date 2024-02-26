@@ -40,22 +40,21 @@
       }
     },
     "extraData": {
-      "tconstruct:load_tools": { "tag": "tconstruct:modifiable/small", "path": "tools" }
+      "tconstruct:load_tools": { "tag": "tconstruct:modifiable/small", "path": "armor" }
     }
   },
   {
     "name": "armor",
-    "data": "sections/armor.json",
     "icon": {
-      "item": {
-        "type": "forge:nbt",
-        "item": "tconstruct:travelers_chestplate",
-        "nbt": {
-          "tic_broken": false,
-          "tic_display": true,
-          "Damage": 0
-        }
-      }
+      "item": "minecraft:carved_pumpkin"
+    },
+    "condition": {
+      "type": "tconstruct:tag_not_empty",
+      "registry": "minecraft:item",
+      "tag": "tconstruct:modifiable/book_armor/materials_and_you"
+    },
+    "extraData": {
+      "tconstruct:load_tools": { "tag": "tconstruct:modifiable/book_armor/materials_and_you", "path": "armor", "sort": false }
     }
   },
   {

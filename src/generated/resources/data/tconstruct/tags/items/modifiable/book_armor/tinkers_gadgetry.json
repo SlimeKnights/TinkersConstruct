@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "tconstruct:slime_helmet",
+    "tconstruct:slime_chestplate",
+    "tconstruct:slime_leggings",
+    "tconstruct:slime_boots"
+  ]
+}

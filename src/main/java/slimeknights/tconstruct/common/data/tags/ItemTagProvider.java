@@ -39,6 +39,7 @@ import java.util.function.Consumer;
 import static net.minecraft.tags.ItemTags.CLUSTER_MAX_HARVESTABLES;
 import static slimeknights.tconstruct.common.TinkerTags.Items.AOE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.ARMOR;
+import static slimeknights.tconstruct.common.TinkerTags.Items.BASIC_ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.BOOK_ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.BOOTS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.BOWS;
@@ -49,6 +50,8 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.DURABILITY;
 import static slimeknights.tconstruct.common.TinkerTags.Items.DYEABLE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.EMBELLISHMENT_METAL;
 import static slimeknights.tconstruct.common.TinkerTags.Items.EMBELLISHMENT_SLIME;
+import static slimeknights.tconstruct.common.TinkerTags.Items.FANTASTIC_ARMOR;
+import static slimeknights.tconstruct.common.TinkerTags.Items.GADGETRY_ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST_PRIMARY;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HELD;
@@ -65,10 +68,12 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE_OR_HARVEST;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE_OR_UNARMED;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE_PRIMARY;
+import static slimeknights.tconstruct.common.TinkerTags.Items.MIGHTY_ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MODIFIABLE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MULTIPART_TOOL;
 import static slimeknights.tconstruct.common.TinkerTags.Items.ONE_HANDED;
 import static slimeknights.tconstruct.common.TinkerTags.Items.PARRY;
+import static slimeknights.tconstruct.common.TinkerTags.Items.PUNY_ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.RANGED;
 import static slimeknights.tconstruct.common.TinkerTags.Items.SHIELDS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.SMALL_TOOLS;
@@ -265,18 +270,23 @@ public class ItemTagProvider extends ItemTagsProvider {
     addToolTags(TinkerTools.plateShield,     DURABILITY, DYEABLE, SHIELDS, INTERACTABLE_LEFT, EMBELLISHMENT_METAL);
 
     // care about order for armor in the book
-    TagAppender<Item> bookArmor = this.tag(BOOK_ARMOR);
+    tag(BASIC_ARMOR);
+    TagAppender<Item> bookArmor = tag(PUNY_ARMOR);
     for (ArmorSlotType slotType : ArmorSlotType.TOP_DOWN) {
       bookArmor.add(TinkerTools.travelersGear.get(slotType));
     }
     bookArmor.add(TinkerTools.travelersShield.get());
+    tag(MIGHTY_ARMOR);
+    bookArmor = this.tag(FANTASTIC_ARMOR);
     for (ArmorSlotType slotType : ArmorSlotType.TOP_DOWN) {
       bookArmor.add(TinkerTools.plateArmor.get(slotType));
     }
     bookArmor.add(TinkerTools.plateShield.get());
+    bookArmor = this.tag(GADGETRY_ARMOR);
     for (ArmorSlotType slotType : ArmorSlotType.TOP_DOWN) {
       bookArmor.add(TinkerTools.slimesuit.get(slotType));
     }
+    tag(BOOK_ARMOR).addTags(BASIC_ARMOR, PUNY_ARMOR, MIGHTY_ARMOR, FANTASTIC_ARMOR, GADGETRY_ARMOR);
 
 
     // add tags to other tags
