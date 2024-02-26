@@ -8,6 +8,9 @@ ranged_materials.subtext=这些材料需要通过合金来获得，然后铸造�
 tools=宽型工具
 tools.subtext=宽型工具需要工匠砧才能制作。
 
+armor=Mighty Armor
+armor.subtext=Alloys unlock a wider range of materials for armor creation. These may grant additional abilities beyond basic sets like travelers gear.
+
 smeltery=冶炼炉
 
 abilities=能力强化
