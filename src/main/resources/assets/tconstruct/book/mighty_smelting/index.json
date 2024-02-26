@@ -60,7 +60,7 @@
   {
     "name": "armor",
     "icon": {
-      "item": "tconstruct:diamond_chestplate"
+      "item": "minecraft:diamond_chestplate"
     },
     "condition": {
       "type": "tconstruct:tag_not_empty",
