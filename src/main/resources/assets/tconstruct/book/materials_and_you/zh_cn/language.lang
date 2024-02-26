@@ -7,8 +7,8 @@ ranged_materials.subtext=这些材料可以放在部件制造台中，用于制�
 
 tools=工具
 
-armor=旅行者套装
-armor.subtext=你可以在工作站中合成旅行者套装！这套装备虽然不能提供最好的防御，但它却拥有很多升 级功能。你会创造出什么有趣的东西来呢？
+armor=基础盔甲
+armor.subtext=基础盔甲无需通过猎杀获取资源或是建造任何机械。这套装备虽然只能提供有限的防御，但它却拥有很多升级功能。你会创造出什么有趣的东西来呢？
 
 modifiers=强化
 further_reading=延伸阅读
