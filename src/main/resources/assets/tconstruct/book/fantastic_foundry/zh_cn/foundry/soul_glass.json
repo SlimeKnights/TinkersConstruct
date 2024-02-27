@@ -1,0 +1,14 @@
+{
+  "title": "焦褐灵魂玻璃",
+  "item": "tconstruct:scorched_soul_glass",
+  "text": [
+    {
+      "text": "不满足于站着欣赏，而想要伸手触摸那些熔融金属？甚至是遨游其中？灵魂玻璃为你提供了一层透明的隔断，流体不能穿过但你能够自由穿梭其间。",
+      "paragraph": true
+    },
+	{
+      "text": "焦褐灵魂玻璃不能用于搭建熔铸炉底板。",
+      "paragraph": true
+    }
+  ]
+}
