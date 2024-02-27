@@ -5,10 +5,9 @@
   ],
   "properties": [
     "200 Durability",
-    "Blocks 10 damage per hit",
-    "90 degree block angle",
-    "80% speed while blocking",
-    "+4 Armor",
+    "Blocks 10 damage",
+    "90° block angle",
+    "80% block speed",
     "3 Upgrade Slots",
     "2 Defense Slots",
     "1 Ability Slot"

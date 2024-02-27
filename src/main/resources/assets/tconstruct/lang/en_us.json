@@ -2092,7 +2092,7 @@
   "modifier.tconstruct.autosmelt.flavor": "Fires of the Nether in your tool!",
   "modifier.tconstruct.autosmelt.description": "Tool automatically smelts all drops",
   "modifier.tconstruct.luck": "Luck",
-  "modifier.tconstruct.luck.1": "Luck",
+  "modifier.tconstruct.luck.1": "Lucky",
   "modifier.tconstruct.luck.2": "Luckier",
   "modifier.tconstruct.luck.3": "Luckiest",
   "modifier.tconstruct.luck.flavor": "Flashy!",
@@ -2553,7 +2553,7 @@
   "tool_stat.tconstruct.harvest_tier": "Mining Tier: ",
   "tool_stat.tconstruct.harvest_tier.description": "What range of blocks a tool with a tool head of this material can mine.",
   "tool_stat.tconstruct.attack_damage": "Melee Damage: ",
-  "tool_stat.tconstruct.attack_damage.description": "Base value for melee attack calculations.\nThe end result depends on the tool itself and the other components used.",
+  "tool_stat.tconstruct.attack_damage.description": "Base value for melee attack damage calculations.\nThe end result depends on the tool itself and the other components used.",
 
   "tool_stat.tconstruct.armor": "Armor: ",
   "tool_stat.tconstruct.armor.description": "How much this protects you when worn.",

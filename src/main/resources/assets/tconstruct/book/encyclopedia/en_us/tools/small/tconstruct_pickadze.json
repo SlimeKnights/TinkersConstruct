@@ -8,9 +8,9 @@
     "+0.5 Attack Damage",
     "115% Attack Modifier",
     "1.3 Attack Speed",
-    "75% Mining Modifier",
-    "130% Durability Modifier",
+    "75% Mining Multiplier",
+    "130% Durability Multiplier",
     "Makes paths",
-    "Harvest level limited to wood"
+    "Harvest level limited to gold"
   ]
 }

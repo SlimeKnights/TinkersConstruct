@@ -6,10 +6,10 @@
   ],
   "properties": [
     "+5 Attack Damage",
-    "165% Attack Modifier",
+    "165% Attack Multiplier",
     "0.6 Attack Speed",
-    "30% Mining Modifier",
-    "425% Durability Modifier",
+    "30% Mining Multiplier",
+    "425% Durability Multiplier",
     "Strips wood"
   ]
 }

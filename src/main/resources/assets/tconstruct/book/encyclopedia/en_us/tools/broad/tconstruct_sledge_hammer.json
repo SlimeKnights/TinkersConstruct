@@ -6,10 +6,10 @@
   ],
   "properties": [
     "+3 Attack Damage",
-    "135% Attack Modifier",
+    "135% Attack Multiplier",
     "0.75 Attack Speed",
-    "40% Mining Modifier",
-    "400% Durability Modifier",
+    "40% Mining Multiplier",
+    "400% Durability Multiplier",
     "Smite II"
   ]
 }

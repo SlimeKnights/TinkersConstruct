@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:spitting",
   "text": [
     {
-      "text": "Charging up then release to launch fluid in the targeted direction inflicting effects on the target and consuming 1 durability. Higher levels fire multiple shots and consume more durability."
+      "text": "Charging up then release to launch fluid inflicting effects on the target and consuming 1 durability. Higher levels fire multiple shots and consume more durability."
     },
     {
       "text": "Power boosts the effect and fluid consumption by 25% per level. Charge time is reduced by quick charge.", "paragraph": true
