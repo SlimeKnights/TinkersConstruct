@@ -7,7 +7,7 @@
   ],
   "effects": [
     "Decreases damage underwater and increases swim speed",
-    "Multiple levels, each level further increases protection and swim speed",
+    "Multiple levels, each level further boosts the effect",
     "Requires 1 defense slot"
   ]
 }

@@ -3,14 +3,12 @@
   "text": [
     {
       "text": "Its okay if you wet yourself a bit when you get hurt. Wait, you did not add this modifier to your pants?"
-    },
-    {
-      "text": "Use tool on a tank to fill with fluid.", "paragraph": true
     }
   ],
   "effects": [
     "Applies fluid effects when damaged",
     "Single level",
-    "Requires 1 ability slot"
+    "Requires 1 ability slot",
+    "Use tool on a tank to fill with fluid."
   ]
 }

@@ -2,11 +2,11 @@
   "title": "Features",
   "text": [
     { "text": "• Early smeltery" },
-    { "text": "\n• Gives +3 nuggets or +1 gem per ore (by default)" },
-    { "text": "\n• Heater can be replaced with seared tank which can increase temperature\n" },
+    { "text": "\n• Gives +3 nuggets or +1 gem per ore" },
+    { "text": "\n• Heater can be replaced with seared tank which can increase temperature" },
     { "text": "\n• Internal capacity of 9 ingots" },
     { "text": "\n• Melts 3 items at once" },
     { "text": "\n• Very fuel efficient" },
-    { "text": "\n• Ideal for melting Piglin drops such as gold swords or armor" }
+    { "text": "\n• Ideal for melting piglin drops such as gold swords or armor" }
   ]
 }

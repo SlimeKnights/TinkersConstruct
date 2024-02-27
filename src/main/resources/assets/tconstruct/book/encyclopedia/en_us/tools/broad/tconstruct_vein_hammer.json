@@ -6,9 +6,9 @@
   ],
   "properties": [
     "+3 Attack Damage",
-    "125% Attack Modifier",
+    "125% Attack Multiplier",
     "0.85 Attack Speed",
-    "30% Mining Modifier",
+    "30% Mining Multiplier",
     "500% Durability",
     "Piercing II"
   ]

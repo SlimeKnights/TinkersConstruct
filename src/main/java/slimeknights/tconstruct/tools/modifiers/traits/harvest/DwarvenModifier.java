@@ -36,6 +36,11 @@ public class DwarvenModifier extends Modifier implements ConditionalStatModifier
   private static final float VELOCITY_BONUS = 0.05f;
 
   @Override
+  public int getPriority() {
+    return 85; // after flat boosts, before multipliers
+  }
+
+  @Override
   protected void registerHooks(Builder hookBuilder) {
     hookBuilder.addHook(this, TinkerHooks.CONDITIONAL_STAT);
   }

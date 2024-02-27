@@ -9,7 +9,6 @@
   "effects": [
     "Disables tool's interaction when offhand is occupied",
     "Second level fully disables interactions",
-    "Maximum of 2 levels",
-    "Different recipe for each level"
+    "Maximum of 2 levels"
   ]
 }
