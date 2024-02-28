@@ -39,10 +39,10 @@ public class ParryingModifier extends OffhandAttackModifier {
 
   @Override
   public InteractionResult onToolUse(IToolStackView tool, ModifierEntry modifier, Player player, InteractionHand hand, InteractionSource source) {
-    if (source == InteractionSource.RIGHT_CLICK) {
+    if (source == InteractionSource.RIGHT_CLICK && hand == InteractionHand.OFF_HAND) {
       InteractionResult result = super.onToolUse(tool, modifier, player, hand, source);
       // also allow just blocking when used in main hand
-      if (result.consumesAction() || hand == InteractionHand.MAIN_HAND) {
+      if (result.consumesAction()) {
         ModifierUtil.startUsingItem(tool, modifier.getId(), player, hand);
         return InteractionResult.CONSUME;
       }
