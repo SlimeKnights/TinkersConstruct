@@ -1,5 +1,14 @@
 {
+  "type": "tconstruct:showcase",
   "title": "无槽位强化",
+  "item": {
+    "type": "forge:nbt",
+    "item": "tconstruct:creative_slot",
+    "nbt": {
+      "slot": "slotless"
+    }
+  },
+  "tooltip": [ "无槽位图标" ],
   "text": [
     {
       "text": "无槽位强化不像其他强化一样需要强化槽。但这也意味着这些强化要么有些折衷的属性，要么效果不明显。"

@@ -1,5 +1,14 @@
 {
+  "type": "tconstruct:showcase",
   "title": "能力强化",
+  "item": {
+    "type": "forge:nbt",
+    "item": "tconstruct:creative_slot",
+    "nbt": {
+      "slot": "abilities"
+    }
+  },
+  "tooltip": [ "能力槽图标" ],
   "text": [
     {
       "text": "“能力”是一种非常强大的工具强化，它甚至可以彻底改变一个工具。诸如“精准采集”和“自动烧炼”这样的能力非常瞩目，它们彻底改变了开采矿物的效果，而“双持”则让工具更便于使用。"

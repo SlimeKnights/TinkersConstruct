@@ -8,6 +8,9 @@ ranged_materials.subtext=这些材料需要通过合金来获得，然后铸造�
 tools=宽型工具
 tools.subtext=宽型工具需要工匠砧才能制作。
 
+armor=大师盔甲
+armor.subtext=合金拓宽了盔甲制造中材料的使用范围。这些材料或许能向旅行者套装这样的基础盔甲上增加额外的能力。
+
 smeltery=冶炼炉
 
 abilities=能力强化

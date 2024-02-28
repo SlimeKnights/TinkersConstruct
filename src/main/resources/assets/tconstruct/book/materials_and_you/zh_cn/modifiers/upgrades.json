@@ -1,5 +1,14 @@
 {
+  "type": "tconstruct:showcase",
   "title": "升级强化",
+  "item": {
+    "type": "forge:nbt",
+    "item": "tconstruct:creative_slot",
+    "nbt": {
+      "slot": "upgrades"
+    }
+  },
+  "tooltip": [ "升级槽图标" ],
   "text": [
     {
       "text": "“升级”是对工具的标准改进。它们通常是通过使用某个物品并“转移”它的一些特有品质来做到的，比如红石可以让工具有更快的速度。"
