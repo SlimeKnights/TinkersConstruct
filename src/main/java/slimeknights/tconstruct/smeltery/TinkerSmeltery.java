@@ -149,7 +149,7 @@ public final class TinkerSmeltery extends TinkerModule {
       .requiresCorrectToolForDrops().strength(3.0F, 9.0F).noOcclusion()
       .isValidSpawn(Blocks::never).isRedstoneConductor(Blocks::never).isSuffocating(Blocks::never).isViewBlocking(Blocks::never);
     SEARED_GLASS = nonSolidProps.apply(SoundType.GLASS);
-    SEARED_SOUL_GLASS = nonSolidProps.apply(SoundType.GLASS).noCollission().speedFactor(0.2f).isViewBlocking((state, getter, pos) -> true);
+    SEARED_SOUL_GLASS = nonSolidProps.apply(SoundType.GLASS).noCollission().speedFactor(0.1f).isViewBlocking((state, getter, pos) -> true);
     SEARED_NON_SOLID = nonSolidProps.apply(SoundType.METAL);
     SEARED_LANTERN = nonSolidProps.apply(SoundType.LANTERN);
   }
@@ -190,7 +190,7 @@ public final class TinkerSmeltery extends TinkerModule {
       .requiresCorrectToolForDrops().strength(2.5F, 8.0F).noOcclusion()
       .isValidSpawn(Blocks::never).isRedstoneConductor(Blocks::never).isSuffocating(Blocks::never).isViewBlocking(Blocks::never);
     SCORCHED_GLASS = nonSolidProps.apply(SoundType.GLASS);
-    SCORCHED_SOUL_GLASS = nonSolidProps.apply(SoundType.GLASS).noCollission().speedFactor(0.2f).isViewBlocking((state, getter, pos) -> true);
+    SCORCHED_SOUL_GLASS = nonSolidProps.apply(SoundType.GLASS).noCollission().speedFactor(0.1f).isViewBlocking((state, getter, pos) -> true);
     SCORCHED_NON_SOLID = nonSolidProps.apply(SoundType.BASALT);
     SCORCHED_LANTERN = nonSolidProps.apply(SoundType.LANTERN);
   }
