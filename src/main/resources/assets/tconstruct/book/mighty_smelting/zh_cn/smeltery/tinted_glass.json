@@ -1,0 +1,14 @@
+{
+  "title": "焦黑遮光玻璃",
+  "item": "tconstruct:seared_tinted_glass",
+  "text": [
+    {
+      "text": "你的冶炼炉太亮了？不如将玻璃换成焦黑遮光玻璃，它不仅完全透明还不会透光，能让内部保持昏暗。真是一种神奇的建材。",
+      "paragraph": true
+    },
+	{
+      "text": "焦黑遮光玻璃不能用于搭建冶炼炉底板。",
+      "paragraph": true
+    }
+  ]
+}
