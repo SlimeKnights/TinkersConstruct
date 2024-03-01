@@ -60,6 +60,10 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
     // staff
     addSprite("staff/modifiers/tconstruct_embellishment", PLATE);
     addSprite("staff/large_modifiers/tconstruct_embellishment", PLATE);
+    addSprite("staff/large_modifiers/sky/tconstruct_embellishment", PLATE);
+    addSprite("staff/large_modifiers/earth/tconstruct_embellishment", PLATE);
+    addSprite("staff/large_modifiers/ichor/tconstruct_embellishment", PLATE);
+    addSprite("staff/large_modifiers/ender/tconstruct_embellishment", PLATE);
 
     // slimesuit textures
     addSprite("armor/slime/skull_modifiers/tconstruct_embellishment", SLIMESUIT);
