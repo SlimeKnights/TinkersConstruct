@@ -25,10 +25,17 @@ public class ConstantFluidContainerWrapper implements IFluidHandlerItem, ICapabi
   @Getter
   @Nonnull
   protected ItemStack container;
+  /** Empty version of the container */
+  private final ItemStack emptyStack;
 
-  public ConstantFluidContainerWrapper(FluidStack fluid, ItemStack container) {
+  public ConstantFluidContainerWrapper(FluidStack fluid, ItemStack container, ItemStack emptyStack) {
     this.fluid = fluid;
     this.container = container;
+    this.emptyStack = emptyStack;
+  }
+
+  public ConstantFluidContainerWrapper(FluidStack fluid, ItemStack container) {
+    this(fluid, container, container.getContainerItem());
   }
 
   @Override
@@ -65,7 +72,7 @@ public class ConstantFluidContainerWrapper implements IFluidHandlerItem, ICapabi
       return FluidStack.EMPTY;
     }
     if (action == FluidAction.EXECUTE) {
-      container = container.getContainerItem();
+      container = emptyStack;
       empty = true;
     }
     return fluid.copy();
@@ -79,7 +86,7 @@ public class ConstantFluidContainerWrapper implements IFluidHandlerItem, ICapabi
       return FluidStack.EMPTY;
     }
     if (action == FluidAction.EXECUTE) {
-      container = container.getContainerItem();
+      container = emptyStack;
       empty = true;
     }
     return fluid.copy();

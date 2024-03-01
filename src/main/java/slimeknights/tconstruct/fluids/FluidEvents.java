@@ -33,7 +33,7 @@ public class FluidEvents {
     if (event.getObject().is(Items.POWDER_SNOW_BUCKET)) {
       event.addCapability(
         TConstruct.getResource("powdered_snow"),
-        new ConstantFluidContainerWrapper(new FluidStack(TinkerFluids.powderedSnow.get(), FluidAttributes.BUCKET_VOLUME), Items.BUCKET.getDefaultInstance()));
+        new ConstantFluidContainerWrapper(new FluidStack(TinkerFluids.powderedSnow.get(), FluidAttributes.BUCKET_VOLUME), stack, Items.BUCKET.getDefaultInstance()));
     }
   }
 }
