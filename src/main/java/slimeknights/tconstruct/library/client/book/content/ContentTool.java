@@ -12,6 +12,7 @@ import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
@@ -29,6 +30,8 @@ import slimeknights.mantle.client.screen.book.element.TextElement;
 import slimeknights.mantle.util.ItemStackList;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.book.elements.TinkerItemElement;
+import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
+import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipe;
 import slimeknights.tconstruct.library.tools.definition.PartRequirement;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
@@ -144,13 +147,14 @@ public class ContentTool extends PageContent {
   public void load() {
     // determine the recipe to display
     if (this.parts == null || slotPos == null) {
-      List<PartRequirement> required = getTool().getToolDefinition().getData().getParts();
+      IModifiableDisplay tool = getTool();
+      List<PartRequirement> required = tool.getToolDefinition().getData().getParts();
       // if no required components, do a crafting recipe lookup
       if (required.isEmpty()) {
         // get the stacks for the first crafting table recipe
         Recipe<CraftingContainer> recipe = Optional.ofNullable(Minecraft.getInstance().level)
                                                    .flatMap(world -> world.getRecipeManager().byType(RecipeType.CRAFTING).values().stream()
-                                                                          .filter(r -> r.getResultItem().getItem() == getTool().asItem())
+                                                                          .filter(r -> r.getResultItem().getItem() == tool.asItem())
                                                                           .findFirst())
                                                    .orElse(null);
         if (recipe != null) {
@@ -176,6 +180,15 @@ public class ContentTool extends PageContent {
             stack.getOrCreateTag().putBoolean(TooltipUtil.KEY_DISPLAY, true);
             partBuilder.add(ItemStackList.of(stack));
           }
+        }
+        // fetch the tool building recipe for extra ingredients
+        List<Ingredient> extraRequirements = Optional.ofNullable(Minecraft.getInstance().level)
+                                                     .flatMap(world -> world.getRecipeManager().byType(TinkerRecipeTypes.TINKER_STATION.get()).values().stream()
+                                                                            .filter(r -> r instanceof ToolBuildingRecipe toolRecipe && toolRecipe.getOutput() == tool)
+                                                                            .map(r -> ((ToolBuildingRecipe)r).getExtraRequirements())
+                                                                            .findFirst()).orElse(List.of());
+        for (Ingredient ingredient : extraRequirements) {
+          partBuilder.add(ItemStackList.of(ingredient.getItems()));
         }
         this.parts = partBuilder.build();
       }

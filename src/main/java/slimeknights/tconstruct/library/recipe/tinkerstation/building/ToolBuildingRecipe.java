@@ -31,6 +31,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   protected final ResourceLocation id;
   @Getter
   protected final String group;
+  @Getter
   protected final IModifiable output;
   protected final int outputCount;
   protected final List<Ingredient> ingredients;
@@ -39,6 +40,11 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   @Deprecated
   public ToolBuildingRecipe(ResourceLocation id, String group, IModifiable output) {
     this(id, group, output, 1, Collections.emptyList());
+  }
+
+  /** Gets the additional recipe requirements beyond the tool parts */
+  public List<Ingredient> getExtraRequirements() {
+    return ingredients;
   }
 
   @Override
