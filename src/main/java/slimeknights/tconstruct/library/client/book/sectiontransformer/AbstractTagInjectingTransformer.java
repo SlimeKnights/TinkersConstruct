@@ -59,6 +59,11 @@ public abstract class AbstractTagInjectingTransformer<T> extends BookTransformer
         JsonObject load = GsonHelper.convertToJsonObject(element, key.toString());
         String path = GsonHelper.getAsString(load, "path");
         boolean sort = GsonHelper.getAsBoolean(load, "sort", true);
+        // not using standard default as we only want the trailing dot when not empty
+        String prefix = "";
+        if (load.has("prefix")) {
+          prefix = GsonHelper.getAsString(load, "prefix") + ".";
+        }
 
         // use a helper to allow changing how the tag is fetched for modifiers
         List<PageData> newPages = new ArrayList<>();
@@ -74,7 +79,7 @@ public abstract class AbstractTagInjectingTransformer<T> extends BookTransformer
           // the name and path are created from the ID directly
           // use the book domain as the folder, the object domain as page name
           ResourceLocation id = getId(value);
-          newPage.name = id.getNamespace() + "." + id.getPath();
+          newPage.name = prefix + id.getNamespace() + "." + id.getPath();
           String data = path + "/" + id.getNamespace() + "_" + id.getPath() + ".json";
           // if the path exists load the page, otherwise use a fallback option
           if (section.source.resourceExists(section.source.getResourceLocation(data))) {

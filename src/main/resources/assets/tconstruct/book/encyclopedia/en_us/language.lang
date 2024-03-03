@@ -41,7 +41,10 @@ upgrades.group_armor.helmet=Helmet
 upgrades.group_armor.chestplate=Chestplate
 upgrades.group_armor.leggings=Leggings
 upgrades.group_armor.boots=Boots
-upgrades.tconstruct.feather_falling=Feather Fall
+upgrades.boots.tconstruct.feather_falling=Feather Fall
+# can add other modifiers using [section].[prefix].[mod_id].[modifier_id], we just use this for long names
+# you should also be able to leave off feather falling in your language and it will fallback to the language .json
+# see the section json to find the prefix, any modifier type that defines that can use it
 
 defense=Defense
 defense.subtext=Instead of material traits, armor will include defense slots to improve protection.

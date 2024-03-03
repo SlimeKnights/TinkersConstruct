@@ -3,57 +3,57 @@
     "name": "group_general",
     "type": "mantle:text",
     "data": "abilities/general.json",
-    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/general", "path": "abilities/general" }}
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/general", "path": "abilities/general", "prefix": "general" }}
   },
   {
     "name": "group_interact",
     "type": "mantle:text",
     "data": "abilities/interact.json",
-    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/interaction", "path": "abilities/interact" }}
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/interaction", "path": "abilities/interact", "prefix": "interact" }}
   },
   {
     "name": "group_melee",
     "type": "mantle:text",
     "data": "abilities/melee.json",
-    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/melee", "path": "abilities/melee" }}
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/melee", "path": "abilities/melee", "prefix": "melee" }}
   },
   {
     "name": "group_harvest",
     "type": "mantle:text",
     "data": "abilities/harvest.json",
-    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/harvest", "path": "abilities/harvest" }}
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/harvest", "path": "abilities/harvest", "prefix": "harvest" }}
   },
   {
     "name": "group_ranged",
     "type": "mantle:text",
     "data": "abilities/ranged.json",
-    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/ranged", "path": "abilities/ranged" }}
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/ranged", "path": "abilities/ranged", "prefix": "ranged" }}
   },
 
   {
     "name": "group_armor",
     "type": "mantle:text",
     "data": "abilities/armor.json",
-    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/armor/general", "path": "abilities/armor/general" }}
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/armor/general", "path": "abilities/armor/general", "prefix": "armor" }}
   },
   {
     "name": "group_armor.helmet",
-    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/armor/helmet", "path": "abilities/armor/helmet" }}
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/armor/helmet", "path": "abilities/armor/helmet", "prefix": "helmet" }}
   },
   {
     "name": "group_armor.chestplate",
-    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/armor/chestplate", "path": "abilities/armor/chestplate" }}
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/armor/chestplate", "path": "abilities/armor/chestplate", "prefix": "chestplate" }}
   },
   {
     "name": "group_armor.leggings",
-    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/armor/leggings", "path": "abilities/armor/leggings" }}
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/armor/leggings", "path": "abilities/armor/leggings", "prefix": "leggings" }}
   },
   {
     "name": "group_armor.boots",
-    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/armor/boots", "path": "abilities/armor/boots" }}
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/armor/boots", "path": "abilities/armor/boots", "prefix": "boots" }}
   },
   {
     "name": "group_armor.shield",
-    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/armor/shield", "path": "abilities/armor/shield" }}
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:abilities/armor/shield", "path": "abilities/armor/shield", "prefix": "shield" }}
   }
 ]

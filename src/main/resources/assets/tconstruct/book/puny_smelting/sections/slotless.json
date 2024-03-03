@@ -3,12 +3,12 @@
     "name": "group_slotless",
     "type": "mantle:text",
     "data": "slotless/slotless.json",
-    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:slotless/general", "path": "slotless/general" }}
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:slotless/general", "path": "slotless/general", "prefix": "general" }}
   },
   {
     "name": "group_bonus_upgrades",
     "type": "mantle:text",
     "data": "slotless/bonus_upgrades.json",
-    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:slotless/bonus", "path": "slotless/bonus" }}
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:slotless/bonus", "path": "slotless/bonus", "prefix": "bonus" }}
   }
 ]
