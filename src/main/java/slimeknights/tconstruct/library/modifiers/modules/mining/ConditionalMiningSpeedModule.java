@@ -55,8 +55,9 @@ public record ConditionalMiningSpeedModule(
 
   @Override
   public void onBreakSpeed(IToolStackView tool, ModifierEntry modifier, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
-    if ((isEffective || !requireEffective) && condition.matches(tool, modifier) && block.matches(event.getState())) {
-      event.setNewSpeed(formula.apply(tool, modifier, event, event.getPlayer(), sideHit, event.getOriginalSpeed(), event.getNewSpeed(), miningSpeedModifier));
+    Player player = event.getPlayer();
+    if ((isEffective || !requireEffective) && condition.matches(tool, modifier) && block.matches(event.getState()) && holder.matches(player)) {
+      event.setNewSpeed(formula.apply(tool, modifier, event, player, sideHit, event.getOriginalSpeed(), event.getNewSpeed(), miningSpeedModifier));
     }
   }
 
