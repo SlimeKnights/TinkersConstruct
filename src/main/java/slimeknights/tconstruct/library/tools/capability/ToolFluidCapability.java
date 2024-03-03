@@ -39,64 +39,26 @@ public class ToolFluidCapability extends FluidModifierHookIterator<ModifierEntry
   public static final ModifierHook<FluidModifierHook> HOOK = ModifierHooks.register(TConstruct.getResource("fluid"), FluidModifierHook.class, new FluidModifierHook() {
     @Override
     public int getTanks(IToolContext tool, Modifier modifier) {
-      IFluidModifier hook = modifier.getModule(IFluidModifier.class);
-      if (hook != null) {
-        return hook.getTanks(tool.getVolatileData());
-      }
-      return 0;
-    }
-
-    @Override
-    public FluidStack getFluidInTank(IToolStackView tool, ModifierEntry modifier, int tank) {
-      IFluidModifier hook = modifier.getModifier().getModule(IFluidModifier.class);
-      if (hook != null) {
-        return hook.getFluidInTank(tool, modifier.getLevel(), tank);
-      }
-      return FluidStack.EMPTY;
-    }
-
-    @Override
-    public int getTankCapacity(IToolStackView tool, ModifierEntry modifier, int tank) {
-      IFluidModifier hook = modifier.getModifier().getModule(IFluidModifier.class);
-      if (hook != null) {
-        return hook.getTankCapacity(tool, modifier.getLevel(), tank);
-      }
       return 0;
     }
 
     @Override
     public boolean isFluidValid(IToolStackView tool, ModifierEntry modifier, int tank, FluidStack fluid) {
-      IFluidModifier hook = modifier.getModifier().getModule(IFluidModifier.class);
-      if (hook != null) {
-        return hook.isFluidValid(tool, modifier.getLevel(), tank, fluid);
-      }
       return false;
     }
 
     @Override
     public int fill(IToolStackView tool, ModifierEntry modifier, FluidStack resource, FluidAction action) {
-      IFluidModifier hook = modifier.getModifier().getModule(IFluidModifier.class);
-      if (hook != null) {
-        return hook.fill(tool, modifier.getLevel(), resource, action);
-      }
       return 0;
     }
 
     @Override
     public FluidStack drain(IToolStackView tool, ModifierEntry modifier, FluidStack resource, FluidAction action) {
-      IFluidModifier hook = modifier.getModifier().getModule(IFluidModifier.class);
-      if (hook != null) {
-        return hook.drain(tool, modifier.getLevel(), resource, action);
-      }
       return FluidStack.EMPTY;
     }
 
     @Override
     public FluidStack drain(IToolStackView tool, ModifierEntry modifier, int maxDrain, FluidAction action) {
-      IFluidModifier hook = modifier.getModifier().getModule(IFluidModifier.class);
-      if (hook != null) {
-        return hook.drain(tool, modifier.getLevel(), maxDrain, action);
-      }
       return FluidStack.EMPTY;
     }
   }, FluidModifierHookMerger::new);

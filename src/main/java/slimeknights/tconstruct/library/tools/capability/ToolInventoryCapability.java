@@ -48,56 +48,25 @@ public class ToolInventoryCapability extends InventoryModifierHookIterator<Modif
   public static final ModifierHook<InventoryModifierHook> HOOK = ModifierHooks.register(TConstruct.getResource("inventory"), InventoryModifierHook.class, new InventoryModifierHook() {
     @Override
     public int getSlots(IToolStackView tool, ModifierEntry modifier) {
-      IInventoryModifier inventory = modifier.getModifier().getModule(IInventoryModifier.class);
-      if (inventory != null) {
-        return inventory.getSlots(tool, modifier.getLevel());
-      }
       return 0;
     }
 
     @Override
     public ItemStack getStack(IToolStackView tool, ModifierEntry modifier, int slot) {
-      IInventoryModifier inventory = modifier.getModifier().getModule(IInventoryModifier.class);
-      if (inventory != null) {
-        return inventory.getStack(tool, modifier.getLevel(), slot);
-      }
       return ItemStack.EMPTY;
     }
 
     @Override
-    public void setStack(IToolStackView tool, ModifierEntry modifier, int slot, ItemStack stack) {
-      IInventoryModifier inventory = modifier.getModifier().getModule(IInventoryModifier.class);
-      if (inventory != null) {
-        inventory.setStack(tool, modifier.getLevel(), slot, stack);
-      }
-    }
+    public void setStack(IToolStackView tool, ModifierEntry modifier, int slot, ItemStack stack) {}
 
     @Override
     public int getSlotLimit(IToolStackView tool, ModifierEntry modifier, int slot) {
-      IInventoryModifier inventory = modifier.getModifier().getModule(IInventoryModifier.class);
-      if (inventory != null) {
-        return inventory.getSlotLimit(tool, slot);
-      }
       return 0;
     }
 
     @Override
     public boolean isItemValid(IToolStackView tool, ModifierEntry modifier, int slot, ItemStack stack) {
-      IInventoryModifier inventory = modifier.getModifier().getModule(IInventoryModifier.class);
-      if (inventory != null) {
-        return inventory.isItemValid(tool, slot, stack);
-      }
       return false;
-    }
-
-    @Nullable
-    @Override
-    public Pattern getPattern(IToolStackView tool, ModifierEntry modifier, int slot, boolean hasStack) {
-      IInventoryModifier inventory = modifier.getModifier().getModule(IInventoryModifier.class);
-      if (inventory != null) {
-        return inventory.getPattern(tool, modifier.getLevel(), slot, hasStack);
-      }
-      return null;
     }
   }, InventoryModifierHookMerger::new);
 

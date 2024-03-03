@@ -643,20 +643,6 @@ public class Modifier implements IHaveLoader<Modifier> {
   /* Modules */
 
   /**
-   * Gets a submodule of this modifier.
-   *
-   * Submodules will contain tool stack sensitive hooks, and do not contain storage. Generally returning the same instance each time is preferred.
-   * @param type  Module type to fetch
-   * @param <T>   Module return type
-   * @return  Module, or null if the module is not contained
-   * @deprecated use {@link #getHook(ModifierHook)}
-   */
-  @Nullable @Deprecated
-  public <T> T getModule(Class<T> type) {
-    return null;
-  }
-
-  /**
    * Gets a hook of this modifier. To modify the return values, use {@link #registerHooks(Builder)}
    *
    * @param hook  Hook to fetch
