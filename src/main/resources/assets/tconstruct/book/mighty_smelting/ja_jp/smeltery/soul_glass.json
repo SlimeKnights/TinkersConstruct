@@ -1,0 +1,14 @@
+{
+  "title": "焼成ソウルガラス",
+  "item": "tconstruct:seared_soul_glass",
+  "text": [
+    {
+      "text": "見ているだけでは物足りない時や、乾式精錬炉の中の液体を感じたい時もあります。ソウルガラスを使えば歩いて通れる窓を作ることができます！",
+      "paragraph": true
+    },
+	{
+      "text": "ガラスは乾式精錬炉の床に使用できません。",
+      "paragraph": true
+    }
+  ]
+}

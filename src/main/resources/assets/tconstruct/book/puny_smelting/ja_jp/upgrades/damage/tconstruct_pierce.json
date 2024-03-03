@@ -1,17 +1,18 @@
 {
-  "modifier_id": "tconstruct:piercing",
+  "modifier_id": "tconstruct:pierce",
   "text": [
     {
       "text": "道具はサボテンの力を手に入れ、防具を貫通して攻撃できます。"
     },
-	{
-	  "text": "串刺しと混同しないように。",
-      "paragraph": true	  
-	}
+    {
+      "text": "串刺しと混同しないように。",
+      "paragraph": true
+    }
   ],
+  "tool_filter": "tconstruct:modifiable/melee",
   "effects": [
-    "防具を貫通する追加ダメージを与える",
-    "通常の攻撃力の一部を貫通ダメージに変換する",
+    "防御を少し無視できる",
+    "道具の攻撃力も少し上がる",
     "複数回適用でき、レベルが上がると攻撃力が更に上がる",
     "レベルごとにアップグレードスロットが1つ必要"
   ]

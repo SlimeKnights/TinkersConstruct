@@ -5,6 +5,7 @@
       "text": "エルザは嫉妬しているかも。"
     }
   ],
+  "tool_filter": "tconstruct:modifiable/ranged",
   "effects": [
     "発射された飛翔体が敵の動きを遅くし、継続ダメージを与える",
 	"複数回適用でき、レベルが上がると効果時間が伸びる",

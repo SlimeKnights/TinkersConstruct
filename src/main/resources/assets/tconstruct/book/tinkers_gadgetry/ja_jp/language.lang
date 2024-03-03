@@ -18,7 +18,7 @@ exploration.earthslime_geode=アース
 exploration.ichor_geode=イコル
 exploration.enderslime_geode=エンダー
 
-armor=防具
+armor=スライム防具
 armor.subtext=スライムを様々なMobの部品と混ぜると、興味深い防具のセットが作成できます。これらの防御力はそれほど高くありませんが、あなたの能力を高めてくれます。
 
 staffs=杖

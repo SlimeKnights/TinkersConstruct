@@ -1,14 +1,15 @@
 {
-  "modifier_id": "tconstruct:piercing",
+  "modifier_id": "tconstruct:pierce",
   "text": [
     {
-      "text": "(+1×レベル)の貫通ダメージ効果を得られますが、その代わり通常の攻撃力に(-0.5×レベル)の補正がかかります。差し引き、(+0.5×レベル)の攻撃力補正がかかることになります。"
+      "text": "与えるダメージが(+0.5×レベル)増加します。近接攻撃は(+1×レベル)ポイントの防御を無視します。"
     }
   ],
   "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/melee",
   "effects": [
     "段階的に適用できる",
-    "最大5レベル",
+    "最大3レベル",
     "レベルごとにアップグレードスロットが1つ必要"
   ]
 }

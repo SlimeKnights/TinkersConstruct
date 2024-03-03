@@ -1,0 +1,14 @@
+{
+  "title": "遮光焼成ガラス",
+  "item": "tconstruct:seared_tinted_glass",
+  "text": [
+    {
+      "text": "乾式精錬炉が明るすぎますか？遮光焼成ガラスを使って内部を暗く保つのはどうでしょう。内部を明るく保ちつつ完全に透明で、魔法のようです。",
+      "paragraph": true
+    },
+	{
+      "text": "ガラスは乾式精錬炉の床に使用できません。",
+      "paragraph": true
+    }
+  ]
+}

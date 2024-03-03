@@ -1,0 +1,14 @@
+{
+  "title": "焦熱ソウルガラス",
+  "item": "tconstruct:scorched_soul_glass",
+  "text": [
+    {
+      "text": "見ているだけでは物足りないので、溶融した金属に触れてみませんか？その中で泳いでみませんか？ソウルガラスで液体を通さず通過できるバリアを作れます。",
+      "paragraph": true
+    },
+	{
+      "text": "ガラスは鋳造炉の床に使用できません。",
+      "paragraph": true
+    }
+  ]
+}

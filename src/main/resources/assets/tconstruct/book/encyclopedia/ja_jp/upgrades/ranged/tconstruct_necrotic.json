@@ -6,6 +6,7 @@
     }
   ],
   "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/ranged",
   "effects": [
     "最大5レベル",
     "レベルごとにアップグレードスロットが1つ必要"

@@ -8,6 +8,9 @@ ranged_materials.subtext=これらの素材は合金化で作成でき、鋳造�
 tools=大型道具
 tools.subtext=大型道具を作成するためにはティンカー金床が必要です
 
+armor=強力な防具
+armor.subtext=合金化により、防具の作成に使用できる多くの素材が開放されます。これらの素材は、旅行者の防具などの基本的なものにその防御性能を超える追加の能力を付与できる場合があります。
+
 smeltery=乾式精錬炉
 
 abilities=アビリティ
@@ -15,8 +18,15 @@ abilities.subtext=アビリティはアップグレードより強力ですが�
 abilities.group_general=一般
 abilities.group_harvest=収穫
 abilities.group_melee=近接
+abilities.group_ranged=遠距離
 abilities.group_interact=アクション
 abilities.group_armor=防具
+abilities.group_armor.helmet=ヘルメット
+abilities.group_armor.chestplate=チェストプレート
+abilities.group_armor.leggings=レギンス
+abilities.group_armor.boots=ブーツ
+abilities.group_armor.shield=盾
+
 
 defense=防御
 defense.subtext=防御の改造は防具に適用でき、防御スロットを消費します。
