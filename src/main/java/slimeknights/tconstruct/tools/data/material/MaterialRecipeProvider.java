@@ -17,6 +17,7 @@ import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.data.recipe.IMaterialRecipeHelper;
 import slimeknights.tconstruct.library.json.TagDifferencePresentCondition;
+import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialFluidRecipeBuilder;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -176,12 +177,12 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialComposite(consumer, MaterialIds.bone,  MaterialIds.bloodbone,          TinkerFluids.blood,      false, FluidValues.SLIMEBALL, folder);
     // oxidize copper and iron via water, it does not rust iron because magic
     MaterialFluidRecipeBuilder.material(MaterialIds.oxidizedIron)
-                              .setInputId(MaterialIds.iron)
+                              .setInputId(MaterialVariantId.create(MaterialIds.iron, MaterialVariantId.DEFAULT_VARIANT))
                               .setFluid(MantleTags.Fluids.WATER, FluidValues.BOTTLE)
                               .setTemperature(1)
                               .save(consumer, modResource(folder + "composite/iron_oxidized"));
     MaterialFluidRecipeBuilder.material(MaterialIds.oxidizedCopper)
-                              .setInputId(MaterialIds.copper)
+                              .setInputId(MaterialVariantId.create(MaterialIds.copper, MaterialVariantId.DEFAULT_VARIANT))
                               .setFluid(MantleTags.Fluids.WATER, FluidValues.BOTTLE)
                               .setTemperature(1)
                               .save(consumer, modResource(folder + "composite/copper_oxidized"));
