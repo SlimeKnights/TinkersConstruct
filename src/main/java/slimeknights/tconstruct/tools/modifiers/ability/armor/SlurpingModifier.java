@@ -16,12 +16,13 @@ import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.KeybindInteractModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
-import slimeknights.tconstruct.library.modifiers.impl.TankModifier;
+import slimeknights.tconstruct.library.modifiers.modules.fluid.TankModule;
 import slimeknights.tconstruct.library.modifiers.spilling.SpillingFluid;
 import slimeknights.tconstruct.library.modifiers.spilling.SpillingFluidManager;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
@@ -35,18 +36,28 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.particle.FluidParticleData;
 
 /** Modifier to handle spilling recipes on helmets */
-public class SlurpingModifier extends TankModifier implements KeybindInteractModifierHook, GeneralInteractionModifierHook {
+public class SlurpingModifier extends Modifier implements KeybindInteractModifierHook, GeneralInteractionModifierHook {
   private static final float DEGREE_TO_RADIANS = (float)Math.PI / 180F;
   private static final TinkerDataKey<SlurpingInfo> SLURP_FINISH_TIME = TConstruct.createKey("slurping_finish");
+
+  private TankModule tank;
+
   public SlurpingModifier() {
-    super(FluidAttributes.BUCKET_VOLUME);
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, PlayerTickEvent.class, this::playerTick);
+  }
+
+  @Override
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    tank = new TankModule(FluidAttributes.BUCKET_VOLUME, true);
+    hookBuilder.addModule(tank);
+    hookBuilder.addHook(this, TinkerHooks.ARMOR_INTERACT, TinkerHooks.CHARGEABLE_INTERACT);
   }
 
   @Override
   public boolean startInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot slot, TooltipKey keyModifier) {
     if (!player.isShiftKeyDown()) {
-      FluidStack fluid = getFluid(tool);
+      FluidStack fluid = tank.getFluid(tool);
       // if we have a recipe, start drinking
       if (!fluid.isEmpty() && SpillingFluidManager.INSTANCE.contains(fluid.getFluid())) {
         player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.put(SLURP_FINISH_TIME, new SlurpingInfo(fluid, player.tickCount + 20)));
@@ -79,7 +90,7 @@ public class SlurpingModifier extends TankModifier implements KeybindInteractMod
   private void finishDrinking(IToolStackView tool, Player player, InteractionHand hand) {
     // only server needs to drink
     if (!player.level.isClientSide) {
-      FluidStack fluid = getFluid(tool);
+      FluidStack fluid = tank.getFluid(tool);
       if (!fluid.isEmpty()) {
         // find the recipe
         SpillingFluid recipe = SpillingFluidManager.INSTANCE.find(fluid.getFluid());
@@ -87,7 +98,7 @@ public class SlurpingModifier extends TankModifier implements KeybindInteractMod
           ToolAttackContext context = new ToolAttackContext(player, player, hand, player, player, false, 1.0f, false);
           FluidStack remaining = recipe.applyEffects(fluid, tool.getModifierLevel(this), context);
           if (!player.isCreative()) {
-            setFluid(tool, remaining);
+            tank.setFluid(tool, remaining);
           }
         }
       }
@@ -134,7 +145,7 @@ public class SlurpingModifier extends TankModifier implements KeybindInteractMod
   @Override
   public InteractionResult onToolUse(IToolStackView tool, ModifierEntry modifier, Player player, InteractionHand hand, InteractionSource source) {
     if (source == InteractionSource.RIGHT_CLICK) {
-      FluidStack fluid = getFluid(tool);
+      FluidStack fluid = tank.getFluid(tool);
       if (!fluid.isEmpty() && SpillingFluidManager.INSTANCE.contains(fluid.getFluid())) {
         ModifierUtil.startUsingItem(tool, modifier.getId(), player, hand);
         return InteractionResult.CONSUME;
@@ -156,7 +167,7 @@ public class SlurpingModifier extends TankModifier implements KeybindInteractMod
   @Override
   public void onUsingTick(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {
     if (timeLeft % 4 == 0 && entity instanceof Player player) {
-      FluidStack fluidStack = getFluid(tool);
+      FluidStack fluidStack = tank.getFluid(tool);
       if (!fluidStack.isEmpty()) {
         addFluidParticles(player, fluidStack, 5);
       }
@@ -169,12 +180,6 @@ public class SlurpingModifier extends TankModifier implements KeybindInteractMod
       finishDrinking(tool, player, entity.getUsedItemHand());
     }
     return true;
-  }
-
-  @Override
-  protected void registerHooks(Builder hookBuilder) {
-    super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, TinkerHooks.ARMOR_INTERACT, TinkerHooks.CHARGEABLE_INTERACT);
   }
 
   private record SlurpingInfo(FluidStack fluid, int finishTime) {}

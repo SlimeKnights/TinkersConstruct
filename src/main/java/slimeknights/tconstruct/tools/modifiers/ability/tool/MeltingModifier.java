@@ -2,7 +2,6 @@ package slimeknights.tconstruct.tools.modifiers.ability.tool;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -10,7 +9,9 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.library.modifiers.impl.TankModifier;
+import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
+import slimeknights.tconstruct.library.modifiers.modules.fluid.TankModule;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipe;
 import slimeknights.tconstruct.library.recipe.entitymelting.EntityMeltingRecipeCache;
@@ -23,7 +24,7 @@ import slimeknights.tconstruct.smeltery.block.entity.module.EntityMeltingModule;
 import java.util.Iterator;
 import java.util.List;
 
-public class MeltingModifier extends TankModifier {
+public class MeltingModifier extends NoLevelsModifier {
   /** Max temperature allowed for melting items */
   private static final int MAX_TEMPERATURE = 1000;
 
@@ -32,14 +33,13 @@ public class MeltingModifier extends TankModifier {
   /** Inventory used for finding recipes */
   private static final MeltingContainer inventory = new MeltingContainer();
 
-  public MeltingModifier() {
-    super(FluidAttributes.BUCKET_VOLUME);
-  }
+  private TankModule tank;
 
   @Override
-  public Component getDisplayName(int level) {
-    // display name without the level, single use
-    return super.getDisplayName();
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    tank = new TankModule(FluidAttributes.BUCKET_VOLUME, true);
+    hookBuilder.addModule(tank);
   }
 
   /**
@@ -72,8 +72,8 @@ public class MeltingModifier extends TankModifier {
   @Override
   public List<ItemStack> processLoot(IToolStackView tool, int level, List<ItemStack> generatedLoot, LootContext context) {
     // if tank is full, nothing to do
-    FluidStack current = getFluid(tool);
-    int capacity = getCapacity(tool);
+    FluidStack current = tank.getFluid(tool);
+    int capacity = tank.getCapacity(tool);
     if (current.getAmount() >= capacity) {
       return generatedLoot;
     }
@@ -81,6 +81,7 @@ public class MeltingModifier extends TankModifier {
     // try melting each item dropped
     Level world = context.getLevel();
     Iterator<ItemStack> iterator = generatedLoot.iterator();
+    boolean isDirty = false;
     while (iterator.hasNext()) {
       ItemStack stack = iterator.next();
       FluidStack output = meltItem(stack, world);
@@ -91,18 +92,25 @@ public class MeltingModifier extends TankModifier {
 
         // if it fits in the tank, remove
         if (maxCopies > 0) {
-          FluidStack filled = fill(tool, current, output, output.getAmount() * maxCopies);
-          // update current fluid stack for next iteration
-          if (!filled.isEmpty()) {
-            current = filled;
-            // decrease items dropped
-            stack.shrink(maxCopies);
-            if (stack.isEmpty()) {
-              iterator.remove();
-            }
+          // fill fluid
+          int amount = output.getAmount() * maxCopies;
+          if (current.isEmpty()) {
+            output.setAmount(amount);
+            current = output;
+          } else {
+            current.setAmount(amount);
+          }
+          isDirty = true;
+          // decrease items dropped
+          stack.shrink(maxCopies);
+          if (stack.isEmpty()) {
+            iterator.remove();
           }
         }
       }
+    }
+    if (isDirty) {
+      tank.setFluid(tool, current);
     }
     return generatedLoot;
   }
@@ -133,7 +141,14 @@ public class MeltingModifier extends TankModifier {
         }
 
         // fluid must match that which is stored in the tank
-        fill(tool, getFluid(tool), output, fluidAmount);
+        FluidStack fluid = tank.getFluid(tool);
+        if (fluid.isEmpty()) {
+          output.setAmount(fluidAmount);
+          fluid = output;
+        } else {
+          fluid.grow(fluidAmount);
+        }
+        tank.setFluid(tool, fluid);
       }
     }
     return 0;

@@ -90,6 +90,7 @@ public class TankModule extends TankCapacityModule implements FluidModifierHook,
     return modifier.toString().equals(tool.getVolatileData().getString(key));
   }
 
+  // TODO: may be worth separating tanks vs unique tanks, unique tanks are used for drain/fill hooks while total tanks for anyone interacting directly such as modifiers
   @Override
   public int getTanks(IToolContext tool, Modifier modifier) {
     return isOwner(tool, modifier.getId()) ? 1 : 0;
@@ -97,7 +98,7 @@ public class TankModule extends TankCapacityModule implements FluidModifierHook,
 
   @Override
   public int getTankCapacity(IToolStackView tool, ModifierEntry modifier, int tank) {
-    return isOwner(tool, modifier.getId()) ? getCapacity(tool) : 0;
+    return getCapacity(tool);
   }
 
   @Override
@@ -134,7 +135,7 @@ public class TankModule extends TankCapacityModule implements FluidModifierHook,
 
   @Override
   public FluidStack getFluidInTank(IToolStackView tool, ModifierEntry modifier, int tank) {
-    return isOwner(tool, modifier.getId()) ? getFluid(tool) : FluidStack.EMPTY;
+    return getFluid(tool);
   }
 
 

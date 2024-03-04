@@ -41,7 +41,7 @@ public class SpillingModifier extends UseFluidOnHitModifier implements EntityInt
   @Override
   public int afterEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damageDealt) {
     if (damageDealt > 0 && context.isFullyCharged()) {
-      FluidStack fluid = getFluid(tool);
+      FluidStack fluid = tank.getFluid(tool);
       if (!fluid.isEmpty()) {
         SpillingFluid recipe = SpillingFluidManager.INSTANCE.find(fluid.getFluid());
         if (recipe.hasEffects()) {
@@ -49,7 +49,7 @@ public class SpillingModifier extends UseFluidOnHitModifier implements EntityInt
           spawnParticles(context.getTarget(), fluid);
           Player player = context.getPlayerAttacker();
           if (player == null || !player.isCreative()) {
-            setFluid(tool, remaining);
+            tank.setFluid(tool, remaining);
           }
         }
       }
@@ -60,7 +60,7 @@ public class SpillingModifier extends UseFluidOnHitModifier implements EntityInt
   @Override
   public InteractionResult beforeEntityUse(IToolStackView tool, ModifierEntry modifier, Player player, Entity target, InteractionHand hand, InteractionSource source) {    // melee items get spilling via attack, non melee interact to use it
     if (source != InteractionSource.ARMOR && !tool.hasTag(TinkerTags.Items.MELEE) && tool.getDefinitionData().getModule(ToolModuleHooks.INTERACTION).canInteract(tool, modifier.getId(), source)) {
-      FluidStack fluid = getFluid(tool);
+      FluidStack fluid = tank.getFluid(tool);
       if (!fluid.isEmpty()) {
         SpillingFluid recipe = SpillingFluidManager.INSTANCE.find(fluid.getFluid());
         if (recipe.hasEffects()) {
@@ -71,7 +71,7 @@ public class SpillingModifier extends UseFluidOnHitModifier implements EntityInt
             FluidStack remaining = recipe.applyEffects(fluid.copy(), level, context);
             spawnParticles(target, fluid);
             if (!player.isCreative()) {
-              setFluid(tool, remaining);
+              tank.setFluid(tool, remaining);
             }
 
             // expanded logic, they do not consume fluid, you get some splash for free

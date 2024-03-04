@@ -8,7 +8,10 @@ import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
-/** Modifier that keeps track of the total level as a scale */
+/**
+ * Modifier that keeps track of the total level as a scale
+ * TODO: move to a module, maybe a registered one?
+ */
 @RequiredArgsConstructor
 public class ScaledArmorLevelModifier extends Modifier {
   private final TinkerDataKey<Float> key;

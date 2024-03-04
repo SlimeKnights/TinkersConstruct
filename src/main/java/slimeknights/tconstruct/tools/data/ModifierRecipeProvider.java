@@ -1213,12 +1213,12 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setTools(durabilityRightClick)
                          .saveSalvage(consumer, prefix(TinkerModifiers.spitting, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.spitting, abilityFolder));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.tank)
+    ModifierRecipeBuilder.modifier(ModifierIds.tank)
                          .addInput(tanks)
                          .setSlots(SlotType.UPGRADE, 1)
                          .setTools(ingredientFromTags(TinkerTags.Items.INTERACTABLE, TinkerTags.Items.HELMETS, TinkerTags.Items.CHESTPLATES, TinkerTags.Items.LEGGINGS, TinkerTags.Items.SHIELDS))
-                         .saveSalvage(consumer, prefix(TinkerModifiers.tank, upgradeSalvage))
-                         .save(consumer, prefix(TinkerModifiers.tank, upgradeFolder));
+                         .saveSalvage(consumer, prefix(ModifierIds.tank, upgradeSalvage))
+                         .save(consumer, prefix(ModifierIds.tank, upgradeFolder));
     // expanders
     ModifierRecipeBuilder.modifier(TinkerModifiers.expanded)
                          .addInput(Items.PISTON)

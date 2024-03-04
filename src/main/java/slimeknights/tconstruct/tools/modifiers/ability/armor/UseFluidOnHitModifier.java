@@ -9,10 +9,12 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.impl.TankModifier;
+import slimeknights.tconstruct.library.modifiers.modules.fluid.TankModule;
 import slimeknights.tconstruct.library.modifiers.spilling.SpillingFluid;
 import slimeknights.tconstruct.library.modifiers.spilling.SpillingFluidManager;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -22,9 +24,14 @@ import slimeknights.tconstruct.shared.particle.FluidParticleData;
 import javax.annotation.Nullable;
 
 /** Modifier to handle spilling recipes onto self when attacked */
-public abstract class UseFluidOnHitModifier extends TankModifier {
-  public UseFluidOnHitModifier() {
-    super(FluidAttributes.BUCKET_VOLUME);
+public abstract class UseFluidOnHitModifier extends Modifier {
+  protected TankModule tank;
+
+  @Override
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    tank = new TankModule(FluidAttributes.BUCKET_VOLUME, true);
+    hookBuilder.addModule(tank);
   }
 
   /** Spawns particles at the given entity */
@@ -49,7 +56,7 @@ public abstract class UseFluidOnHitModifier extends TankModifier {
       // 25% chance of working per level, 50% per level on shields
       int level = modifier.getLevel();
       if (RANDOM.nextInt(slotType.getType() == Type.HAND ? 2 : 4) < level) {
-        FluidStack fluid = getFluid(tool);
+        FluidStack fluid = tank.getFluid(tool);
         if (!fluid.isEmpty()) {
           LivingEntity self = context.getEntity();
           Player player = self instanceof Player p ? p : null;
@@ -57,7 +64,7 @@ public abstract class UseFluidOnHitModifier extends TankModifier {
           if (recipe.hasEffects()) {
             FluidStack remaining = recipe.applyEffects(fluid, level, createContext(self, player, source.getEntity(), fluid));
             if (player == null || !player.isCreative()) {
-              setFluid(tool, remaining);
+              tank.setFluid(tool, remaining);
             }
           }
         }

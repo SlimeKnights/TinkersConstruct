@@ -6,7 +6,10 @@ import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
-/** Cross of {@link IncrementalModifier} and {@link TotalArmorLevelModifier} */
+/**
+ * Cross of {@link IncrementalModifier} and {@link TotalArmorLevelModifier}
+ * TODO: move to a module, maybe a registered one?
+ */
 @RequiredArgsConstructor
 public class IncrementalArmorLevelModifier extends IncrementalModifier {
   private final TinkerDataKey<Float> key;

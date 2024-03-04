@@ -8,7 +8,10 @@ import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
-/** Modifier that implements interaction abilities, set up to automatically set relevant properties for chestplates */
+/**
+ * Modifier that implements interaction abilities, set up to automatically set relevant properties for chestplates
+ * TODO: move to a module, maybe a registered one?
+ */
 public class InteractionModifier extends Modifier {
   @Override
   public void onEquip(IToolStackView tool, int level, EquipmentChangeContext context) {

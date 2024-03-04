@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
+import net.minecraftforge.fluids.FluidAttributes;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.block.BlockPredicate;
 import slimeknights.mantle.data.predicate.block.BlockPropertiesPredicate;
@@ -84,6 +85,7 @@ import slimeknights.tconstruct.library.modifiers.modules.combat.LootingModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.MeleeAttributeModule;
 import slimeknights.tconstruct.library.modifiers.modules.combat.MobEffectModule;
 import slimeknights.tconstruct.library.modifiers.modules.display.DurabilityBarColorModule;
+import slimeknights.tconstruct.library.modifiers.modules.fluid.TankModule;
 import slimeknights.tconstruct.library.modifiers.modules.mining.ConditionalMiningSpeedModule;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay.UniqueForLevels;
@@ -209,6 +211,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(ReduceToolDamageModule.builder().tool(noUnbreakable).minLevel(6).amount(0.5f, 0.05f));
     // unbreakable priority is after overslime but before standard modifiers like dense
     buildModifier(TinkerModifiers.unbreakable).levelDisplay(ModifierLevelDisplay.NO_LEVELS).priority(125).addModule(new DurabilityBarColorModule(0xffffff)).addModule(ReduceToolDamageModule.builder().flat(1.0f));
+    buildModifier(ModifierIds.tank).addModule(new TankModule(FluidAttributes.BUCKET_VOLUME, true));
     buildModifier(ModifierIds.theOneProbe, modLoaded("theoneprobe")).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(TheOneProbeModule.INSTANCE);
 
     // harvest

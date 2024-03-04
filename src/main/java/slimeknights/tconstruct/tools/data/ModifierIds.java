@@ -27,6 +27,7 @@ public class ModifierIds {
   public static final ModifierId worldbound = id("worldbound");
   public static final ModifierId shiny      = id("shiny");
   public static final ModifierId sticky     = id("sticky");
+  public static final ModifierId tank       = id("tank");
   public static final ModifierId theOneProbe = id("the_one_probe");
   // general abilities
   public static final ModifierId reach = id("reach");

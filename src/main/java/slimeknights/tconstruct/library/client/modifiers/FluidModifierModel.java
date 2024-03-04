@@ -14,7 +14,8 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.util.ItemLayerPixels;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.impl.TankModifier;
+import slimeknights.tconstruct.library.tools.capability.ToolFluidCapability;
+import slimeknights.tconstruct.library.tools.capability.ToolFluidCapability.FluidModifierHook;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
@@ -52,18 +53,16 @@ public class FluidModifierModel extends NormalModifierModel {
   @Nullable
   @Override
   public Object getCacheKey(IToolStackView tool, ModifierEntry entry) {
-    if (entry.getModifier() instanceof TankModifier tank) {
-      FluidStack fluid = tank.getFluid(tool);
-      if (!fluid.isEmpty()) {
-        // cache by modifier and fluid
-        return new FluidModifierCacheKey(tank, fluid.getFluid());
-      }
+    FluidStack fluid = entry.getHook(ToolFluidCapability.HOOK).getFluidInTank(tool, entry, 0);
+    if (!fluid.isEmpty()) {
+      // cache by modifier and fluid
+      return new FluidModifierCacheKey(entry.getModifier(), fluid.getFluid());
     }
     return entry.getId();
   }
 
   @Nullable
-  protected Material getTemplate(TankModifier tank, IToolStackView tool, FluidStack fluid, boolean isLarge) {
+  protected Material getTemplate(FluidModifierHook tank, IToolStackView tool, ModifierEntry entry, FluidStack fluid, boolean isLarge) {
     return fluidTextures[(isLarge ? 1 : 0)];
   }
 
@@ -73,25 +72,24 @@ public class FluidModifierModel extends NormalModifierModel {
     ImmutableList<BakedQuad> quads = super.getQuads(tool, entry, spriteGetter, transforms, isLarge, startTintIndex, pixels);
     // modifier must be tank
     // TODO: is there anything that can be done about the fluid? to prevent weird offsets?
-    if (entry.getModifier() instanceof TankModifier tank) {
-      FluidStack fluid = tank.getFluid(tool);
-      // must have fluid
-      if (!fluid.isEmpty()) {
-        // must have texture for the proper state
-        Material template = getTemplate(tank, tool, fluid, isLarge);
-        if (template != null) {
-          // finally, build (mostly based on bucket model)
-          ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
-          builder.addAll(quads);
-          FluidAttributes attributes = fluid.getFluid().getAttributes();
-          TextureAtlasSprite fluidSprite = spriteGetter.apply(ForgeHooksClient.getBlockMaterial(attributes.getStillTexture(fluid)));
-          int color = attributes.getColor(fluid);
-          int luminosity = attributes.getLuminosity(fluid);
-          TextureAtlasSprite templateSprite = spriteGetter.apply(template);
-          builder.addAll(ItemTextureQuadConverter.convertTexture(transforms, templateSprite, fluidSprite, 7.498f / 16f, Direction.NORTH, color, -1, luminosity));
-          builder.addAll(ItemTextureQuadConverter.convertTexture(transforms, templateSprite, fluidSprite, 8.502f / 16f, Direction.SOUTH, color, -1, luminosity));
-          quads = builder.build();
-        }
+    FluidModifierHook tank = entry.getHook(ToolFluidCapability.HOOK);
+    FluidStack fluid = tank.getFluidInTank(tool, entry, 0);
+    // must have fluid
+    if (!fluid.isEmpty()) {
+      // must have texture for the proper state
+      Material template = getTemplate(tank, tool, entry, fluid, isLarge);
+      if (template != null) {
+        // finally, build (mostly based on bucket model)
+        ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
+        builder.addAll(quads);
+        FluidAttributes attributes = fluid.getFluid().getAttributes();
+        TextureAtlasSprite fluidSprite = spriteGetter.apply(ForgeHooksClient.getBlockMaterial(attributes.getStillTexture(fluid)));
+        int color = attributes.getColor(fluid);
+        int luminosity = attributes.getLuminosity(fluid);
+        TextureAtlasSprite templateSprite = spriteGetter.apply(template);
+        builder.addAll(ItemTextureQuadConverter.convertTexture(transforms, templateSprite, fluidSprite, 7.498f / 16f, Direction.NORTH, color, -1, luminosity));
+        builder.addAll(ItemTextureQuadConverter.convertTexture(transforms, templateSprite, fluidSprite, 8.502f / 16f, Direction.SOUTH, color, -1, luminosity));
+        quads = builder.build();
       }
     }
     return quads;

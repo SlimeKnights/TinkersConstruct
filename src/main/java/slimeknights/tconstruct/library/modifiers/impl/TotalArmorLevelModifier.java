@@ -8,7 +8,10 @@ import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
-/** Modifier that keeps track of the total armor level in persistent data */
+/**
+ * Modifier that keeps track of the total armor level in persistent data
+ * TODO: move to a module, maybe a registered one?
+ */
 @RequiredArgsConstructor
 public class TotalArmorLevelModifier extends Modifier {
   private final TinkerDataKey<Integer> key;

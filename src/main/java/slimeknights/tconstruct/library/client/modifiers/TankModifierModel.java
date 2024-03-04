@@ -5,7 +5,8 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.impl.TankModifier;
+import slimeknights.tconstruct.library.tools.capability.ToolFluidCapability;
+import slimeknights.tconstruct.library.tools.capability.ToolFluidCapability.FluidModifierHook;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
@@ -37,20 +38,19 @@ public class TankModifierModel extends FluidModifierModel {
   @Nullable
   @Override
   public Object getCacheKey(IToolStackView tool, ModifierEntry entry) {
-    if (entry.getModifier() instanceof TankModifier tank) {
-      FluidStack fluid = tank.getFluid(tool);
-      if (!fluid.isEmpty()) {
-        // cache by modifier, fluid, and not being full
-        return new TankModifierCacheKey(tank, fluid.getFluid(), fluid.getAmount() < tank.getCapacity(tool));
-      }
+    FluidModifierHook tank = entry.getHook(ToolFluidCapability.HOOK);
+    FluidStack fluid = tank.getFluidInTank(tool, entry, 0);
+    if (!fluid.isEmpty()) {
+      // cache by modifier, fluid, and not being full
+      return new TankModifierCacheKey(entry.getModifier(), fluid.getFluid(), fluid.getAmount() < tank.getTankCapacity(tool, entry, 0));
     }
     return entry.getModifier();
   }
 
   @Override
   @Nullable
-  protected Material getTemplate(TankModifier tank, IToolStackView tool, FluidStack fluid, boolean isLarge) {
-    boolean isFull = fluid.getAmount() == tank.getCapacity(tool);
+  protected Material getTemplate(FluidModifierHook tank, IToolStackView tool, ModifierEntry entry, FluidStack fluid, boolean isLarge) {
+    boolean isFull = fluid.getAmount() == tank.getTankCapacity(tool, entry, 0);
     return fluidTextures[(isFull ? 2 : 0) | (isLarge ? 1 : 0)];
   }
 

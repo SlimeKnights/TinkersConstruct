@@ -16,15 +16,11 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer;
-import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.TooltipKey;
-import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -38,11 +34,6 @@ public class SearingModifier extends Modifier {
   private static final Map<Item, Boolean> BOOSTED_BLOCKS = new ConcurrentHashMap<>();
   static {
     RecipeCacheInvalidator.addReloadListener(client -> BOOSTED_BLOCKS.clear());
-  }
-
-  @Override
-  public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {
-    TinkerModifiers.tank.get().addCapacity(volatileData, FluidValues.BRICK);
   }
 
   /** Checks if the modifier is effective on the given block state */
