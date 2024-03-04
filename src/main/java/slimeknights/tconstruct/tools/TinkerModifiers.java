@@ -56,16 +56,7 @@ import slimeknights.tconstruct.library.json.variable.tool.ToolVariable;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.modifiers.dynamic.ComposableModifier;
-import slimeknights.tconstruct.library.modifiers.dynamic.ConditionalDamageModifier;
-import slimeknights.tconstruct.library.modifiers.dynamic.ConditionalMiningSpeedModifier;
-import slimeknights.tconstruct.library.modifiers.dynamic.EnchantmentModifier;
-import slimeknights.tconstruct.library.modifiers.dynamic.ExtraModifier;
 import slimeknights.tconstruct.library.modifiers.dynamic.InventoryMenuModifier;
-import slimeknights.tconstruct.library.modifiers.dynamic.LootModifier;
-import slimeknights.tconstruct.library.modifiers.dynamic.MobDisguiseModifier;
-import slimeknights.tconstruct.library.modifiers.dynamic.MobEffectModifier;
-import slimeknights.tconstruct.library.modifiers.dynamic.StatBoostModifier;
-import slimeknights.tconstruct.library.modifiers.dynamic.SwappableExtraSlotModifier;
 import slimeknights.tconstruct.library.modifiers.impl.ScaledArmorLevelModifier;
 import slimeknights.tconstruct.library.modifiers.impl.SingleLevelModifier;
 import slimeknights.tconstruct.library.modifiers.impl.TankModifier;
@@ -142,7 +133,6 @@ import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.tools.data.EnchantmentToModifierProvider;
-import slimeknights.tconstruct.tools.data.ModifierIds;
 import slimeknights.tconstruct.tools.data.ModifierProvider;
 import slimeknights.tconstruct.tools.data.ModifierRecipeProvider;
 import slimeknights.tconstruct.tools.data.SpillingFluidProvider;
@@ -330,9 +320,6 @@ public final class TinkerModifiers extends TinkerModule {
    * Modifiers
    */
   // durability
-  /** @deprecated use {@link ModifierIds#reinforced} */
-  @Deprecated
-  public static final DynamicModifier<Modifier> reinforced = MODIFIERS.registerDynamic("reinforced");
   public static final StaticModifier<OverforcedModifier> overforced = MODIFIERS.register("overforced", OverforcedModifier::new);
   public static final StaticModifier<SoulboundModifier> soulbound = MODIFIERS.register("soulbound", SoulboundModifier::new);
   public static final StaticModifier<OverslimeModifier> overslime = MODIFIERS.register("overslime", OverslimeModifier::new);
@@ -346,15 +333,6 @@ public final class TinkerModifiers extends TinkerModule {
 
   // harvest
   public static final StaticModifier<HasteModifier> haste = MODIFIERS.register("haste", HasteModifier::new);
-  /** @deprecated use {@link ModifierIds#blasting} */
-  @Deprecated
-  public static final DynamicModifier<Modifier> blasting = MODIFIERS.registerDynamic("blasting");
-  /** @deprecated use {@link ModifierIds#hydraulic} */
-  @Deprecated
-  public static final DynamicModifier<Modifier> hydraulic = MODIFIERS.registerDynamic("hydraulic");
-  /** @deprecated use {@link ModifierIds#lightspeed} */
-  @Deprecated
-  public static final DynamicModifier<Modifier> lightspeed = MODIFIERS.registerDynamic("lightspeed");
 
   // weapon
   public static final DynamicModifier<Modifier> knockback = MODIFIERS.registerDynamic("knockback");
@@ -380,18 +358,10 @@ public final class TinkerModifiers extends TinkerModule {
 
   // armor
   // protection
-  /** @deprecated use {@link ModifierIds#protection} */
-  @Deprecated
-  public static final DynamicModifier<Modifier> protection = MODIFIERS.registerDynamic("protection");
   public static final StaticModifier<MeleeProtectionModifier> meleeProtection = MODIFIERS.register("melee_protection", MeleeProtectionModifier::new);
-  @Deprecated
-  public static final DynamicModifier<Modifier> fireProtection = MODIFIERS.registerDynamic("fire_protection");
   public static final StaticModifier<BlastProtectionModifier> blastProtection = MODIFIERS.register("blast_protection", BlastProtectionModifier::new);
   public static final StaticModifier<MagicProtectionModifier> magicProtection = MODIFIERS.register("magic_protection", MagicProtectionModifier::new);
   public static final StaticModifier<ProjectileProtectionModifier> projectileProtection = MODIFIERS.register("projectile_protection", ProjectileProtectionModifier::new);
-  /** @deprecated use {@link ModifierIds#turtleShell} */
-  @Deprecated
-  public static final DynamicModifier<Modifier> turtleShell = MODIFIERS.registerDynamic("turtle_shell");
   public static final StaticModifier<ShulkingModifier> shulking = MODIFIERS.register("shulking", ShulkingModifier::new);
   public static final StaticModifier<DragonbornModifier> dragonborn = MODIFIERS.register("dragonborn", DragonbornModifier::new);
   // general
@@ -409,37 +379,16 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<SlurpingModifier> slurping = MODIFIERS.register("slurping", SlurpingModifier::new);
   // chestplate
   public static final StaticModifier<UnarmedModifier> ambidextrous = MODIFIERS.register("ambidextrous", UnarmedModifier::new);
-  /** Renaming this but some addon is probably using it. You might want {@link #ambidextrous}, but you might simply want to update your logic */
-  @Deprecated
-  public static final StaticModifier<UnarmedModifier> unarmed = ambidextrous;
   // leggings
   public static final StaticModifier<LeapingModifier> leaping = MODIFIERS.register("leaping", LeapingModifier::new);
   public static final StaticModifier<ShieldStrapModifier> shieldStrap = MODIFIERS.register("shield_strap", ShieldStrapModifier::new);
   public static final StaticModifier<WettingModifier> wetting = MODIFIERS.register("wetting", WettingModifier::new);
 
   // boots
-  /** @deprecated use {@link ModifierIds#featherFalling} */
-  @Deprecated
-  public static final DynamicModifier<Modifier> featherFalling = MODIFIERS.registerDynamic("feather_falling");
-  /** @deprecated use {@link ModifierIds#longFall} */
-  @Deprecated
-  public static final DynamicModifier<Modifier> longFall = MODIFIERS.registerDynamic("long_fall");
   public static final StaticModifier<SoulSpeedModifier> soulspeed = MODIFIERS.register("soulspeed", SoulSpeedModifier::new);
   public static final StaticModifier<LightspeedArmorModifier> lightspeedArmor = MODIFIERS.register("lightspeed_armor", LightspeedArmorModifier::new);
   public static final StaticModifier<DoubleJumpModifier> doubleJump = MODIFIERS.register("double_jump", DoubleJumpModifier::new);
   public static final StaticModifier<Modifier> bouncy = MODIFIERS.register("bouncy", BouncyModifier::new);
-  /** @deprecated use {@link ModifierIds#frostWalker} */
-  @Deprecated
-  public static final DynamicModifier<Modifier> frostWalker = MODIFIERS.registerDynamic("frost_walker");
-  /** @deprecated use {@link ModifierIds#pathMaker} */
-  @Deprecated
-  public static final DynamicModifier<Modifier> pathMaker = MODIFIERS.registerDynamic("path_maker");
-  /** @deprecated use {@link ModifierIds#plowing} */
-  @Deprecated
-  public static final DynamicModifier<Modifier> plowing = MODIFIERS.registerDynamic("plowing");
-  /** @deprecated use {@link ModifierIds#snowdrift} */
-  @Deprecated
-  public static final DynamicModifier<Modifier> snowdrift = MODIFIERS.registerDynamic("snowdrift");
   public static final StaticModifier<FlamewakeModifier> flamewake = MODIFIERS.register("flamewake", FlamewakeModifier::new);
 
   // abilities
@@ -461,15 +410,6 @@ public final class TinkerModifiers extends TinkerModule {
   
   // right click abilities
   public static final StaticModifier<GlowingModifier> glowing = MODIFIERS.register("glowing", GlowingModifier::new);
-  /** @deprecated use {@link ModifierIds#pathing} */
-  @Deprecated
-  public static final DynamicModifier<Modifier> pathing = MODIFIERS.registerDynamic("pathing");
-  /** @deprecated use {@link ModifierIds#stripping} */
-  @Deprecated
-  public static final DynamicModifier<Modifier> stripping = MODIFIERS.registerDynamic("stripping");
-  /** @deprecated use {@link ModifierIds#tilling} */
-  @Deprecated
-  public static final DynamicModifier<Modifier> tilling = MODIFIERS.registerDynamic("tilling");
   public static final StaticModifier<FirestarterModifier> firestarter = MODIFIERS.register("firestarter", () -> new FirestarterModifier(Modifier.DEFAULT_PRIORITY));
   public static final StaticModifier<SingleLevelModifier> fireprimer = MODIFIERS.register("fireprimer", SingleLevelModifier::new);
   public static final StaticModifier<BlockingModifier> blocking = MODIFIERS.register("blocking", BlockingModifier::new);
@@ -482,13 +422,6 @@ public final class TinkerModifiers extends TinkerModule {
 
 
   // internal abilities
-  /** @deprecated use {@link ModifierIds#stripping} */
-  @Deprecated
-  public static final DynamicModifier<Modifier> axeScrape = stripping;
-  /** @deprecated use {@link ModifierIds#stripping} */
-  @Deprecated
-  public static final DynamicModifier<Modifier> axeWaxOff = stripping;
-
   public static final StaticModifier<ShearsAbilityModifier> shears = MODIFIERS.register("shears", () -> new ShearsAbilityModifier(0, 70));
   public static final StaticModifier<SilkyShearsAbilityModifier> silkyShears = MODIFIERS.register("silky_shears", () -> new SilkyShearsAbilityModifier(0, 70));
   public static final StaticModifier<SilkyShearsAbilityModifier> aoeSilkyShears = MODIFIERS.register("silky_aoe_shears", () -> new SilkyShearsAbilityModifier(1, 70));
@@ -513,12 +446,6 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<SearingModifier> searing = MODIFIERS.register("searing", SearingModifier::new);
   public static final StaticModifier<DwarvenModifier> dwarven = MODIFIERS.register("dwarven", DwarvenModifier::new);
   public static final StaticModifier<OvergrowthModifier> overgrowth = MODIFIERS.register("overgrowth", OvergrowthModifier::new);
-  /** @deprecated use {@link ModifierIds#raging} */
-  @Deprecated
-  public static final DynamicModifier<Modifier> raging = MODIFIERS.registerDynamic("raging");
-  /** @deprecated use {@link ModifierIds#airborne} */
-  @Deprecated
-  public static final DynamicModifier<Modifier> airborne = MODIFIERS.registerDynamic("airborne");
   // traits - tier 3
   public static final StaticModifier<OvercastModifier> overcast = MODIFIERS.register("overcast", OvercastModifier::new);
   public static final StaticModifier<LaceratingModifier> lacerating = MODIFIERS.register("lacerating", LaceratingModifier::new);
@@ -533,16 +460,10 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<EnderportingModifier> enderporting = MODIFIERS.register("enderporting", EnderportingModifier::new);
 
   // traits - mod compat tier 2
-  /** @deprecated use {@link ModifierIds#dense} */
-  @Deprecated
-  public static final DynamicModifier<Modifier> dense = MODIFIERS.registerDynamic("dense");
   public static final StaticModifier<StoneshieldModifier> stoneshield = MODIFIERS.register("stoneshield", StoneshieldModifier::new);
   public static final StaticModifier<HolyModifier> holy = MODIFIERS.register("holy", HolyModifier::new);
   public static final StaticModifier<OlympicModifier> olympic = MODIFIERS.register("olympic", OlympicModifier::new);
   // traits - mod compat tier 3
-  /** @deprecated use {@link ModifierIds#maintained} */
-  @Deprecated
-  public static final DynamicModifier<Modifier> maintained = MODIFIERS.registerDynamic("maintained");
   public static final StaticModifier<TemperateModifier> temperate = MODIFIERS.register("temperate", TemperateModifier::new);
   public static final StaticModifier<InvariantModifier> invariant = MODIFIERS.register("invariant", InvariantModifier::new);
   public static final StaticModifier<DecayModifier> decay = MODIFIERS.register("decay", DecayModifier::new);
@@ -564,11 +485,7 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<ChrysophiliteModifier> chrysophilite = MODIFIERS.register("chrysophilite", ChrysophiliteModifier::new);
   public static final StaticModifier<GoldGuardModifier> goldGuard = MODIFIERS.register("gold_guard", GoldGuardModifier::new);
   public static final StaticModifier<RevengeModifier> revenge = MODIFIERS.register("revenge", RevengeModifier::new);
-
-  // mod compat
-  /** @deprecated use {@link ModifierIds#theOneProbe} */
-  @Deprecated // using DynamicModifier directly as we don't want to mark the probe as required
-  public static final DynamicModifier<Modifier> theOneProbe = new DynamicModifier<>(ModifierIds.theOneProbe, Modifier.class);
+  
 
   /*
    * Internal effects
@@ -652,15 +569,6 @@ public final class TinkerModifiers extends TinkerModule {
     ISpillingEffect.LOADER.registerDeserializer(StrongBonesModifier.SPILLING_EFFECT_ID, StrongBonesModifier.SPILLING_EFFECT_LOADER);
     // modifier loaders
     ModifierManager.MODIFIER_LOADERS.register(getResource("default"), Modifier.DEFAULT_LOADER);
-    ModifierManager.MODIFIER_LOADERS.register(getResource("stat_boost"), StatBoostModifier.LOADER);
-    ModifierManager.MODIFIER_LOADERS.register(getResource("extra_slot"), ExtraModifier.LOADER);
-    ModifierManager.MODIFIER_LOADERS.register(getResource("swappable_extra_slot"), SwappableExtraSlotModifier.LOADER);
-    ModifierManager.MODIFIER_LOADERS.register(getResource("mob_disguise"), MobDisguiseModifier.LOADER);
-    ModifierManager.MODIFIER_LOADERS.register(getResource("conditional_damage"), ConditionalDamageModifier.LOADER);
-    ModifierManager.MODIFIER_LOADERS.register(getResource("conditional_mining_speed"), ConditionalMiningSpeedModifier.LOADER);
-    ModifierManager.MODIFIER_LOADERS.register(getResource("loot"), LootModifier.LOADER);
-    ModifierManager.MODIFIER_LOADERS.register(getResource("enchantment"), EnchantmentModifier.LOADER);
-    ModifierManager.MODIFIER_LOADERS.register(getResource("mob_effect"), MobEffectModifier.LOADER);
     ModifierManager.MODIFIER_LOADERS.register(getResource("inventory_with_menu"), InventoryMenuModifier.LOADER);
     ModifierManager.MODIFIER_LOADERS.register(getResource("composable"), ComposableModifier.LOADER);
     // specialized

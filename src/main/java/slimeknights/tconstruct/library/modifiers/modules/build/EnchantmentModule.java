@@ -198,6 +198,10 @@ public interface EnchantmentModule extends ModifierModule {
     private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.RAW_DATA);
     public static final Loader LOADER = new Loader(Constant::new);
 
+    public Constant(Enchantment enchantment, int level) {
+      this(enchantment, level, ModifierModuleCondition.ANY);
+    }
+
     @Override
     public void addRawData(IToolStackView tool, ModifierEntry modifier, RestrictedCompoundTag tag) {
       if (condition.matches(tool, modifier)) {

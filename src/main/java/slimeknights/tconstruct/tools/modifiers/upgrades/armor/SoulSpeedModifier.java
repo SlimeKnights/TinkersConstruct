@@ -10,16 +10,19 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import slimeknights.tconstruct.library.modifiers.dynamic.EnchantmentModifier;
-import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
+import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.modules.build.EnchantmentModule.Constant;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.TooltipKey;
 
 import javax.annotation.Nullable;
 import java.util.List;
-public class SoulSpeedModifier extends EnchantmentModifier {
-  public SoulSpeedModifier() {
-    super(Enchantments.SOUL_SPEED, 1, ModifierLevelDisplay.DEFAULT);
+public class SoulSpeedModifier extends Modifier {
+  @Override
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(new Constant(Enchantments.SOUL_SPEED, 1));
   }
 
   /** Gets the position this entity is standing on, cloned from protected living entity method */
