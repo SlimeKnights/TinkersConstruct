@@ -139,7 +139,7 @@ public class Modifier implements IHaveLoader<Modifier> {
 
   /** Creates a new instance using the hook builder */
   public Modifier() {
-    ModifierHookMap.Builder hookBuilder = new ModifierHookMap.Builder();
+    ModifierHookMap.Builder hookBuilder = ModifierHookMap.builder();
     registerHooks(hookBuilder);
     this.hooks = hookBuilder.build();
   }

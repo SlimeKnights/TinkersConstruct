@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.modifiers.util;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.LinkedHashMultimap;
 import lombok.RequiredArgsConstructor;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 
@@ -13,7 +14,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 /** Map working with modifier hooks that automatically maps the objects to the correct generics. */
-@SuppressWarnings("ClassCanBeRecord")
+@SuppressWarnings({"ClassCanBeRecord", "unused"}) // no record as we don't want the map to be public
 @RequiredArgsConstructor
 public class ModifierHookMap {
   /** Instance with no modifiers */
@@ -48,16 +49,22 @@ public class ModifierHookMap {
     return modules;
   }
 
+  /** Creates a new builder instance */
+  public static ModifierHookMap.Builder builder() {
+    return new ModifierHookMap.Builder();
+  }
+
   @SuppressWarnings("UnusedReturnValue")
   public static class Builder {
     /** Builder for the final map */
     private final LinkedHashMultimap<ModifierHook<?>,Object> modules = LinkedHashMultimap.create();
 
+    private Builder() {}
+
     /**
      * Adds a module to the builder, validating it at runtime. Used for JSON parsing
      * @throws IllegalArgumentException  if the hook type is invalid
      */
-    @SuppressWarnings("UnusedReturnValue")
     public Builder addHookChecked(Object object, ModifierHook<?> hook) {
       if (hook.isValid(object)) {
         modules.put(hook, object);
@@ -76,7 +83,6 @@ public class ModifierHookMap {
     }
 
     /** Adds a module to the builder */
-    @SuppressWarnings("UnusedReturnValue")
     public <H, T extends H> Builder addHook(T object, ModifierHook<H> hook) {
       modules.put(hook, object);
       return this;

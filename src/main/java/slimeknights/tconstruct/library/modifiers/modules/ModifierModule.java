@@ -125,7 +125,7 @@ public interface ModifierModule extends IHaveLoader<ModifierModule> {
    * @return  Modifier hook map
    */
   static ModifierHookMap createMap(List<ModuleWithHooks> modules) {
-    ModifierHookMap.Builder builder = new ModifierHookMap.Builder();
+    ModifierHookMap.Builder builder = ModifierHookMap.builder();
     for (ModuleWithHooks module : modules) {
       for (ModifierHook<?> hook : module.getModuleHooks()) {
         builder.addHookChecked(module.module(), hook);

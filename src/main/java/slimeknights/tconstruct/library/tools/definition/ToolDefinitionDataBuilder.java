@@ -45,7 +45,7 @@ public class ToolDefinitionDataBuilder {
   private final DefinitionModifierSlots.Builder slots = DefinitionModifierSlots.builder();
   private final ImmutableList.Builder<ModifierEntry> traits = ImmutableList.builder();
   private final ImmutableSet.Builder<ToolAction> actions = ImmutableSet.builder();
-  private final ModifierHookMap.Builder hookBuilder = new ModifierHookMap.Builder();
+  private final ModifierHookMap.Builder hookBuilder = ModifierHookMap.builder();
 
   /** Tool's harvest logic */
   @Nonnull @Setter

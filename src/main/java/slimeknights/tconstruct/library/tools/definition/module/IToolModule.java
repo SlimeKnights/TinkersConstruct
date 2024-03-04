@@ -32,7 +32,7 @@ public interface IToolModule extends IHaveLoader<IToolModule> {
   /** Reads the module map from the buffer */
   static ModifierHookMap read(FriendlyByteBuf buffer) {
     int size = buffer.readVarInt();
-    ModifierHookMap.Builder builder = new ModifierHookMap.Builder();
+    ModifierHookMap.Builder builder = ModifierHookMap.builder();
     for (int i = 0; i < size; i++) {
       ResourceLocation hookName = buffer.readResourceLocation();
       ModifierHook<?> hook = ModifierHooks.getHook(hookName);
@@ -63,7 +63,7 @@ public interface IToolModule extends IHaveLoader<IToolModule> {
     @Override
     public ModifierHookMap deserialize(JsonElement element, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
       JsonObject json = GsonHelper.convertToJsonObject(element, "modules");
-      ModifierHookMap.Builder builder = new ModifierHookMap.Builder();
+      ModifierHookMap.Builder builder = ModifierHookMap.builder();
       for (Entry<String,JsonElement> entry : json.entrySet()) {
         ResourceLocation hookName = ResourceLocation.tryParse(entry.getKey());
         if (hookName == null) {
