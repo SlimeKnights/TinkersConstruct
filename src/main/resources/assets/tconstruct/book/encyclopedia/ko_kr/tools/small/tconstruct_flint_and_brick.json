@@ -1,5 +1,5 @@
 {
-  "tool": "tconstruct:flint_and_bronze",
+  "tool": "tconstruct:flint_and_brick",
   "text": [
     { "text": "부싯돌과 청동은 불을 붙일 수 있는 휴대용 도구입니다." },
     { "text": "확장 수식어나 발화 수식어가 적용되면, 점화 반경이 증가합니다.", "paragraph": true }

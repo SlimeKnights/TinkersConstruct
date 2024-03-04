@@ -49,7 +49,7 @@ public record ConditionalStatFormula(ModifierFormula formula, List<ConditionalSt
     arguments[VALUE] = value;
     arguments[MULTIPLIER] = multiplier;
     for (int i = 0; i < size; i++) {
-      arguments[4+i] = variables.get(i).getValue(tool, entity);
+      arguments[3+i] = variables.get(i).getValue(tool, entity);
     }
     return arguments;
   }

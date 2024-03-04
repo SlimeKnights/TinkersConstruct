@@ -106,6 +106,22 @@
       "statType": "tconstruct:plate"
     },
     {
+      "path": "tconstruct:item/tool/staff/large_modifiers/sky/tconstruct_embellishment",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:item/tool/staff/large_modifiers/earth/tconstruct_embellishment",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:item/tool/staff/large_modifiers/ichor/tconstruct_embellishment",
+      "statType": "tconstruct:plate"
+    },
+    {
+      "path": "tconstruct:item/tool/staff/large_modifiers/ender/tconstruct_embellishment",
+      "statType": "tconstruct:plate"
+    },
+    {
       "path": "tconstruct:item/tool/armor/slime/skull_modifiers/tconstruct_embellishment",
       "statType": "tconstruct:slimesuit"
     },

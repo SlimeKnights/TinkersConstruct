@@ -3,12 +3,12 @@
     "name": "group_protection",
     "type": "mantle:text",
     "data": "defense/protection.json",
-    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:defense/protection", "path": "defense/protection" }}
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:defense/protection", "path": "defense/protection", "prefix": "protection" }}
   },
   {
     "name": "group_special",
     "type": "mantle:text",
     "data": "defense/special.json",
-    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:defense/special", "path": "defense/special" }}
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:defense/special", "path": "defense/special", "prefix": "special" }}
   }
 ]

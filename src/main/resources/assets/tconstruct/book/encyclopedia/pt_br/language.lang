@@ -22,7 +22,7 @@ upgrades.group_harvest=Coleta
 upgrades.group_melee=Arma
 upgrades.group_damage=Dano
 upgrades.group_armor=Armardura
-upgrades.feather_falling=Peso Pena
+upgrades.boots.tconstruct.feather_falling=Peso Pena
 
 defense=Defesa
 defense.subtext=Em vez de atributos materiais, a armadura incluirá slots de defesa para melhorar a proteção.

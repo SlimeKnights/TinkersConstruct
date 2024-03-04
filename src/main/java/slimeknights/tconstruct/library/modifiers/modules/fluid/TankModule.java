@@ -231,8 +231,8 @@ public class TankModule extends TankCapacityModule implements FluidModifierHook,
       int capacity = GsonHelper.getAsInt(json, "capacity");
       boolean scaleCapacity = GsonHelper.getAsBoolean(json, "scale_capacity");
       ResourceLocation capacityKey = JsonHelper.getResourceLocation(json, "capacity_key", DEFAULT_CAPACITY_KEY);
-      ResourceLocation fluidKey = JsonHelper.getResourceLocation(json, "fluid_key", DEFAULT_CAPACITY_KEY);
-      ResourceLocation ownerKey = JsonHelper.getResourceLocation(json, "owner_key", DEFAULT_CAPACITY_KEY);
+      ResourceLocation fluidKey = JsonHelper.getResourceLocation(json, "fluid_key", DEFAULT_FLUID_KEY);
+      ResourceLocation ownerKey = JsonHelper.getResourceLocation(json, "owner_key", DEFAULT_OWNER_KEY);
       return new TankModule(capacityKey, capacity, scaleCapacity, fluidKey, ownerKey);
     }
 

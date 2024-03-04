@@ -3,51 +3,51 @@
     "name": "group_general",
     "type": "mantle:text",
     "data": "upgrades/general.json",
-    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:upgrades/general", "path": "upgrades/general" }}
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:upgrades/general", "path": "upgrades/general", "prefix": "general" }}
   },
   {
     "name": "group_melee",
     "type": "mantle:text",
     "data": "upgrades/melee.json",
-    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:upgrades/melee", "path": "upgrades/melee" }}
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:upgrades/melee", "path": "upgrades/melee", "prefix": "melee" }}
   },
   {
     "name": "group_damage",
-    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:upgrades/damage", "path": "upgrades/damage" }}
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:upgrades/damage", "path": "upgrades/damage", "prefix": "damage" }}
   },
   {
     "name": "group_harvest",
     "type": "mantle:text",
     "data": "upgrades/harvest.json",
-    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:upgrades/harvest", "path": "upgrades/harvest" }}
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:upgrades/harvest", "path": "upgrades/harvest", "prefix": "harvest" }}
   },
   {
     "name": "group_ranged",
     "type": "mantle:text",
     "data": "upgrades/ranged.json",
-    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:upgrades/ranged", "path": "upgrades/ranged" }}
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:upgrades/ranged", "path": "upgrades/ranged", "prefix": "ranged" }}
   },
 
   {
     "name": "group_armor",
     "type": "mantle:text",
     "data": "upgrades/armor.json",
-    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:upgrades/armor/general", "path": "upgrades/armor/general" }}
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:upgrades/armor/general", "path": "upgrades/armor/general", "prefix": "armor" }}
   },
   {
     "name": "group_armor.helmet",
-    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:upgrades/armor/helmet", "path": "upgrades/armor/helmet" }}
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:upgrades/armor/helmet", "path": "upgrades/armor/helmet", "prefix": "helmet" }}
   },
   {
     "name": "group_armor.chestplate",
-    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:upgrades/armor/chestplate", "path": "upgrades/armor/chestplate" }}
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:upgrades/armor/chestplate", "path": "upgrades/armor/chestplate", "prefix": "chestplate" }}
   },
   {
     "name": "group_armor.leggings",
-    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:upgrades/armor/leggings", "path": "upgrades/armor/leggings" }}
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:upgrades/armor/leggings", "path": "upgrades/armor/leggings", "prefix": "leggings" }}
   },
   {
     "name": "group_armor.boots",
-    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:upgrades/armor/boots", "path": "upgrades/armor/boots" }}
+    "extraData": { "tconstruct:load_modifiers": { "tag": "tconstruct:upgrades/armor/boots", "path": "upgrades/armor/boots", "prefix": "boots" }}
   }
 ]

@@ -1,6 +1,6 @@
 {
   "type": "tconstruct:material_fluid",
-  "input": "tconstruct:iron",
+  "input": "tconstruct:iron#default",
   "fluid": {
     "tag": "mantle:water",
     "amount": 250
