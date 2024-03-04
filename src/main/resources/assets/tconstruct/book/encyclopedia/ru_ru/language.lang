@@ -29,7 +29,7 @@ upgrades.group_harvest=Для копания
 upgrades.group_melee=Для оружия
 upgrades.group_damage=Увелич. урон
 upgrades.group_armor=Для брони
-upgrades.feather_falling=Невесомость
+upgrades.boots.tconstruct.feather_falling=Невесомость
 
 defense=Защита
 defense.subtext=Вместо особенностей от материалов, броня будет иметь защитные слоты для усиления защиты.

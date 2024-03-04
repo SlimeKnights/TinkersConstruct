@@ -22,7 +22,7 @@ upgrades.group_harvest=수확
 upgrades.group_melee=무기
 upgrades.group_damage=추가 피해
 upgrades.group_armor=갑옷
-upgrades.feather_falling=가벼운 착지
+upgrades.boots.tconstruct.feather_falling=가벼운 착지
 
 defense=수비
 defense.subtext=갑옷에는 재료 특성 대신에 수비 슬롯이 있습니다.

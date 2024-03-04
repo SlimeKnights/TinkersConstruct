@@ -40,7 +40,7 @@
       }
     },
     "extraData": {
-      "tconstruct:load_tools": { "tag": "tconstruct:modifiable/small", "path": "armor" }
+      "tconstruct:load_tools": { "tag": "tconstruct:modifiable/small", "path": "tools" }
     }
   },
   {

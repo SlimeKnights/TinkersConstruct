@@ -1,6 +1,6 @@
 {
   "type": "tconstruct:material_fluid",
-  "input": "tconstruct:copper",
+  "input": "tconstruct:copper#default",
   "fluid": {
     "tag": "mantle:water",
     "amount": 250
