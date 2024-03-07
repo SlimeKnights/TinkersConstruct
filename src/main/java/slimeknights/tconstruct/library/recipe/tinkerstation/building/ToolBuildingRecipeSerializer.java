@@ -23,13 +23,13 @@ public class ToolBuildingRecipeSerializer extends LoggingRecipeSerializer<ToolBu
     String group = GsonHelper.getAsString(json, "group", "");
     // output fetch as a modifiable item, its an error if it does not implement that interface or does not have parts
     IModifiable item = RecipeHelper.deserializeItem(GsonHelper.getAsString(json, "result"), "result", IModifiable.class);
-    if (!item.getToolDefinition().isMultipart()) {
-      throw new JsonSyntaxException("Modifiable item must have tool parts to get a tool building recipe");
-    }
     int resultCount = GsonHelper.getAsInt(json, "result_count", 1);
     List<Ingredient> extraRequirements = Collections.emptyList();
     if (json.has("extra_requirements")) {
       extraRequirements = JsonHelper.parseList(json, "extra_requirements", Ingredient::fromJson);
+    }
+    if (!item.getToolDefinition().isMultipart() && extraRequirements.isEmpty()) {
+      throw new JsonSyntaxException("Modifiable item must have tool parts or extra requirements to use tool building recipes");
     }
     return new ToolBuildingRecipe(recipeId, group, item, resultCount, extraRequirements);
   }
