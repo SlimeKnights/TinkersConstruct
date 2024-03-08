@@ -9,7 +9,13 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.commons.lang3.mutable.MutableObject;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.ToolStatsModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -30,7 +36,7 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 /** Modifier to directly modify a tool's stats */
-public class StatOverrideModifier extends NoLevelsModifier {
+public class StatOverrideModifier extends NoLevelsModifier implements ToolStatsModifierHook, ModifierRemovalHook {
   /** Key of all stats added to the tool */
   private static final ResourceLocation KEY_BONUS = TConstruct.getResource("override_bonus");
   /** Key of all stats multiplied by the tool */
@@ -41,14 +47,22 @@ public class StatOverrideModifier extends NoLevelsModifier {
   private static final Component LANG_MULTIPLY = TConstruct.makeTranslation("modifier", "stat_override.multipliers").withStyle(ChatFormatting.UNDERLINE);
 
   @Override
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.TOOL_STATS, TinkerHooks.REMOVE);
+  }
+
+  @Override
   public boolean shouldDisplay(boolean advanced) {
     return advanced;
   }
 
+  @Nullable
   @Override
-  public void onRemoved(IToolStackView tool) {
+  public Component onRemoved(IToolStackView tool, Modifier modifier) {
     tool.getPersistentData().remove(KEY_BONUS);
     tool.getPersistentData().remove(KEY_MULTIPLY);
+    return null;
   }
 
   /** Processes the stats from Tag into the consumer */
@@ -76,7 +90,7 @@ public class StatOverrideModifier extends NoLevelsModifier {
   }
 
   @Override
-  public void addToolStats(ToolRebuildContext context, int level, ModifierStatsBuilder builder) {
+  public void addToolStats(ToolRebuildContext context, ModifierEntry modifier, ModifierStatsBuilder builder) {
     IModDataView persistentData = context.getPersistentData();
     processStats(persistentData, KEY_BONUS, (stat, tag) -> update(builder, stat, tag));
     processStats(persistentData, KEY_MULTIPLY, (stat, tag) -> {

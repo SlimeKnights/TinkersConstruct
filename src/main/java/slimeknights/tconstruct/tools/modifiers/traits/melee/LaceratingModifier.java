@@ -9,6 +9,7 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.ProjectileHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -18,12 +19,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 
-public class LaceratingModifier extends Modifier implements ProjectileHitModifierHook {
-  @Override
-  protected void registerHooks(Builder hookBuilder) {
-    hookBuilder.addHook(this, TinkerHooks.PROJECTILE_HIT);
-  }
-
+public class LaceratingModifier extends Modifier implements ProjectileHitModifierHook, MeleeHitModifierHook {
   /** Applies the effect to the target */
   private static void applyEffect(LivingEntity target, int level) {
     // potions are 0 indexed instead of 1 indexed
@@ -32,15 +28,19 @@ public class LaceratingModifier extends Modifier implements ProjectileHitModifie
   }
 
   @Override
-  public int afterEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damageDealt) {
+  protected void registerHooks(Builder hookBuilder) {
+    hookBuilder.addHook(this, TinkerHooks.PROJECTILE_HIT, TinkerHooks.MELEE_HIT);
+  }
+
+  @Override
+  public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt) {
     // 50% chance of applying
     LivingEntity target = context.getLivingTarget();
     if (target != null && context.isFullyCharged() && target.isAlive() && RANDOM.nextFloat() < 0.50f) {
       // set entity so the potion is attributed as a player kill
       target.setLastHurtMob(context.getAttacker());
-      applyEffect(target, level);
+      applyEffect(target, modifier.getLevel());
     }
-    return 0;
   }
 
   @Override

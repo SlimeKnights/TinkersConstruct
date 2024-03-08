@@ -15,6 +15,7 @@ import java.util.Collection;
 
 /**
  * Hook called when attacked while wearing armor with this modifier, ideal for counterattacks or buffing the attack target.
+ * TODO: rename to better distinguish from {@link ModifyDamageModifierHook}, perhaps old name of onAttacked is better
  */
 public interface DamageTakenModifierHook {
   /**

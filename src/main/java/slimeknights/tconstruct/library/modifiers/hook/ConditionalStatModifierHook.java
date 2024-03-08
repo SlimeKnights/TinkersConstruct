@@ -7,19 +7,12 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 
 import java.util.Collection;
-import java.util.function.Function;
 
 /**
  * Hook for modifying a stat conditioned on the holder.
  * TODO 1.19: move to {@link slimeknights.tconstruct.library.modifiers.hook.build}
  */
 public interface ConditionalStatModifierHook {
-  /** Default behavior */
-  ConditionalStatModifierHook EMPTY = (tool, modifier, living, stat, baseValue, multiplier) -> baseValue;
-
-  /** Constructor for a merger that runs all hooks from the children */
-  Function<Collection<ConditionalStatModifierHook>, ConditionalStatModifierHook> ALL_MERGER = AllMerger::new;
-
   /**
    * Method to modify a stat as the tool is being used
    * @param tool         Tool instance

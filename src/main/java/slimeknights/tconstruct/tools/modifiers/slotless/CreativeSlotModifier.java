@@ -6,7 +6,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.VolatileDataModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
@@ -17,17 +23,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /** Modifier that adds a variable number of slots to a tool. Could easily be done via Tag editing, but this makes it easier */
-public class CreativeSlotModifier extends NoLevelsModifier {
+public class CreativeSlotModifier extends NoLevelsModifier implements VolatileDataModifierHook, ModifierRemovalHook {
   /** Key representing the slots object in the modifier */
   public static final ResourceLocation KEY_SLOTS = TConstruct.getResource("creative");
 
   @Override
-  public void onRemoved(IToolStackView tool) {
-    tool.getPersistentData().remove(KEY_SLOTS);
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.VOLATILE_DATA, TinkerHooks.REMOVE);
   }
 
   @Override
-  public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {
+  public Component onRemoved(IToolStackView tool, Modifier modifier) {
+    tool.getPersistentData().remove(KEY_SLOTS);
+    return null;
+  }
+
+  @Override
+  public void addVolatileData(ToolRebuildContext context, ModifierEntry modifier, ModDataNBT volatileData) {
     IModDataView persistentData = context.getPersistentData();
     if (persistentData.contains(KEY_SLOTS, Tag.TAG_COMPOUND)) {
       CompoundTag slots = persistentData.getCompound(KEY_SLOTS);

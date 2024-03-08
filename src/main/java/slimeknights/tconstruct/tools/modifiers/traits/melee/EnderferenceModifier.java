@@ -22,6 +22,7 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.ProjectileHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -32,7 +33,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class EnderferenceModifier extends Modifier implements ProjectileHitModifierHook {
+public class EnderferenceModifier extends Modifier implements ProjectileHitModifierHook, MeleeHitModifierHook {
   private static final DamageSource FALLBACK = new DamageSource("arrow");
 
   public EnderferenceModifier() {
@@ -47,7 +48,7 @@ public class EnderferenceModifier extends Modifier implements ProjectileHitModif
 
   @Override
   protected void registerHooks(Builder hookBuilder) {
-    hookBuilder.addHook(this, TinkerHooks.PROJECTILE_HIT);
+    hookBuilder.addHook(this, TinkerHooks.PROJECTILE_HIT, TinkerHooks.MELEE_HIT);
   }
 
   @Override
@@ -56,7 +57,7 @@ public class EnderferenceModifier extends Modifier implements ProjectileHitModif
   }
 
   @Override
-  public float beforeEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
+  public float beforeMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
     LivingEntity entity = context.getLivingTarget();
     if (entity != null) {
       // hack: do not want them teleporting from this hit
@@ -66,7 +67,7 @@ public class EnderferenceModifier extends Modifier implements ProjectileHitModif
   }
 
   @Override
-  public void failedEntityHit(IToolStackView tool, int level, ToolAttackContext context) {
+  public void failedMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageAttempted) {
     LivingEntity entity = context.getLivingTarget();
     if (entity != null) {
       entity.removeEffect(TinkerModifiers.enderferenceEffect.get());
@@ -74,13 +75,12 @@ public class EnderferenceModifier extends Modifier implements ProjectileHitModif
   }
 
   @Override
-  public int afterEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damageDealt) {
+  public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt) {
     LivingEntity entity = context.getLivingTarget();
     if (entity != null) {
       // 5 seconds of interference per level, affect all entities as players may teleport too
-      entity.addEffect(new MobEffectInstance(TinkerModifiers.enderferenceEffect.get(), level * 100, 0, false, true, true));
+      entity.addEffect(new MobEffectInstance(TinkerModifiers.enderferenceEffect.get(), modifier.getLevel() * 100, 0, false, true, true));
     }
-    return 0;
   }
 
   @Override

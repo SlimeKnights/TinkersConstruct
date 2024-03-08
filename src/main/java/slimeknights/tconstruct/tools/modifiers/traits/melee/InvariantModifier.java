@@ -5,22 +5,24 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
+import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeDamageModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
-import slimeknights.tconstruct.library.utils.TooltipKey;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class InvariantModifier extends Modifier implements ConditionalStatModifierHook {
+public class InvariantModifier extends Modifier implements ConditionalStatModifierHook, MeleeDamageModifierHook, TooltipModifierHook {
   private static final float BASELINE_TEMPERATURE = 0.75f;
   private static final float MAX_TEMPERATURE = 1.25f;
   private static final float DAMAGE = 2.5f / MAX_TEMPERATURE;
@@ -36,12 +38,12 @@ public class InvariantModifier extends Modifier implements ConditionalStatModifi
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, TinkerHooks.CONDITIONAL_STAT);
+    hookBuilder.addHook(this, TinkerHooks.CONDITIONAL_STAT, TinkerHooks.MELEE_DAMAGE, TinkerHooks.TOOLTIP);
   }
 
   @Override
-  public float getEntityDamage(IToolStackView tool, int level, ToolAttackContext context, float baseDamage, float damage) {
-    return damage + getBonus(context.getAttacker(), level) * DAMAGE * tool.getMultiplier(ToolStats.ATTACK_DAMAGE);
+  public float getMeleeDamage(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float baseDamage, float damage) {
+    return damage + getBonus(context.getAttacker(), modifier.getLevel()) * DAMAGE * tool.getMultiplier(ToolStats.ATTACK_DAMAGE);
   }
 
   @Override
@@ -53,7 +55,8 @@ public class InvariantModifier extends Modifier implements ConditionalStatModifi
   }
 
   @Override
-  public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag flag) {
+  public void addTooltip(IToolStackView tool, ModifierEntry modifier, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag tooltipFlag) {
+    int level = modifier.getLevel();
     float bonus;
     if (player != null && key == TooltipKey.SHIFT) {
       bonus = getBonus(player, level);
@@ -62,9 +65,9 @@ public class InvariantModifier extends Modifier implements ConditionalStatModifi
     }
     if (bonus > 0.01f) {
       if (tool.hasTag(TinkerTags.Items.RANGED)) {
-        addStatTooltip(tool, ToolStats.ACCURACY, TinkerTags.Items.RANGED, bonus * ACCURACY, tooltip);
+        TooltipModifierHook.addStatBoost(tool, this, ToolStats.ACCURACY, TinkerTags.Items.RANGED, bonus * ACCURACY, tooltip);
       } else {
-        addDamageTooltip(tool, bonus * DAMAGE, tooltip);
+        TooltipModifierHook.addDamageBoost(tool, this, bonus * DAMAGE, tooltip);
       }
     }
   }

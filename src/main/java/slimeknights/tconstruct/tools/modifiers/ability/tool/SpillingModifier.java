@@ -14,6 +14,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.DamageTakenModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.spilling.SpillingFluid;
@@ -31,21 +32,21 @@ import slimeknights.tconstruct.tools.modifiers.ability.armor.UseFluidOnHitModifi
 import javax.annotation.Nullable;
 
 /** Modifier to handle spilling recipes */
-public class SpillingModifier extends UseFluidOnHitModifier implements EntityInteractionModifierHook, DamageTakenModifierHook {
+public class SpillingModifier extends UseFluidOnHitModifier implements EntityInteractionModifierHook, DamageTakenModifierHook, MeleeHitModifierHook {
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, TinkerHooks.ENTITY_INTERACT, TinkerHooks.DAMAGE_TAKEN);
+    hookBuilder.addHook(this, TinkerHooks.ENTITY_INTERACT, TinkerHooks.DAMAGE_TAKEN, TinkerHooks.MELEE_HIT);
   }
 
   @Override
-  public int afterEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damageDealt) {
+  public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt) {
     if (damageDealt > 0 && context.isFullyCharged()) {
       FluidStack fluid = tank.getFluid(tool);
       if (!fluid.isEmpty()) {
         SpillingFluid recipe = SpillingFluidManager.INSTANCE.find(fluid.getFluid());
         if (recipe.hasEffects()) {
-          FluidStack remaining = recipe.applyEffects(fluid, level, context);
+          FluidStack remaining = recipe.applyEffects(fluid, modifier.getLevel(), context);
           spawnParticles(context.getTarget(), fluid);
           Player player = context.getPlayerAttacker();
           if (player == null || !player.isCreative()) {
@@ -54,7 +55,6 @@ public class SpillingModifier extends UseFluidOnHitModifier implements EntityInt
         }
       }
     }
-    return 0;
   }
 
   @Override

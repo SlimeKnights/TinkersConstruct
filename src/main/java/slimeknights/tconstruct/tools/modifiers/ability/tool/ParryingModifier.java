@@ -9,12 +9,21 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolActionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
-public class ParryingModifier extends OffhandAttackModifier {
+public class ParryingModifier extends OffhandAttackModifier implements ToolActionModifierHook {
+  @Override
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.TOOL_ACTION);
+  }
+
   @Override
   public int getPriority() {
     return 100;
@@ -69,7 +78,7 @@ public class ParryingModifier extends OffhandAttackModifier {
   }
 
   @Override
-  public boolean canPerformAction(IToolStackView tool, int level, ToolAction toolAction) {
+  public boolean canPerformAction(IToolStackView tool, ModifierEntry modifier, ToolAction toolAction) {
     return toolAction == ToolActions.SHIELD_BLOCK;
   }
 }

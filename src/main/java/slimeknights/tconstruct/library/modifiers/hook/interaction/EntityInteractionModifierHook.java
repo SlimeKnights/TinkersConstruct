@@ -14,17 +14,11 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.function.Function;
 
 /**
  * Hooks for standard interaction logic though entities. See {@link GeneralInteractionModifierHook} for general interaction and {@link BlockInteractionModifierHook} for blocks.
  */
 public interface EntityInteractionModifierHook {
-  /** Default instance that performs no action */
-  EntityInteractionModifierHook EMPTY = new EntityInteractionModifierHook() {};
-  /** Merger that returns when the first hook succeeds */
-  Function<Collection<EntityInteractionModifierHook>, EntityInteractionModifierHook> FIRST_MERGER = FirstMerger::new;
-
   /**
 	 * Called when interacting with an entity before standard entity interaction.
    * In general, its better to use {@link #afterEntityUse(IToolStackView, ModifierEntry, Player, LivingEntity, InteractionHand, InteractionSource)} for behavior more consistent with vanilla.
@@ -80,27 +74,6 @@ public interface EntityInteractionModifierHook {
       return result;
     }
   }
-
-  /** Fallback logic calling old hooks, remove in 1.19 */
-  @SuppressWarnings("DeprecatedIsStillUsed")
-  @Deprecated
-  EntityInteractionModifierHook FALLBACK = new EntityInteractionModifierHook() {
-    @Override
-    public InteractionResult beforeEntityUse(IToolStackView tool, ModifierEntry modifier, Player player, Entity target, InteractionHand hand, InteractionSource source) {
-      if (source != InteractionSource.LEFT_CLICK) {
-        return modifier.getModifier().beforeEntityUse(tool, modifier.getLevel(), player, target, hand, source.getSlot(hand));
-      }
-      return InteractionResult.PASS;
-    }
-
-    @Override
-    public InteractionResult afterEntityUse(IToolStackView tool, ModifierEntry modifier, Player player, LivingEntity target, InteractionHand hand, InteractionSource source) {
-      if (source != InteractionSource.LEFT_CLICK) {
-        return modifier.getModifier().afterEntityUse(tool, modifier.getLevel(), player, target, hand, source.getSlot(hand));
-      }
-      return InteractionResult.PASS;
-    }
-  };
 
 
   /** Logic to left click an entity using interaction modifiers */

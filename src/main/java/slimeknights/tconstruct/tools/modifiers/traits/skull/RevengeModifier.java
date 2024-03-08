@@ -7,14 +7,25 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.DamageTakenModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
-public class RevengeModifier extends NoLevelsModifier {
+public class RevengeModifier extends NoLevelsModifier implements EquipmentChangeModifierHook, DamageTakenModifierHook {
   @Override
-  public void onAttacked(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.EQUIPMENT_CHANGE, TinkerHooks.DAMAGE_TAKEN);
+  }
+
+  @Override
+  public void onDamageTaken(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
     // must be attacked by entity
     Entity trueSource = source.getEntity();
     LivingEntity living = context.getEntity();
@@ -27,8 +38,7 @@ public class RevengeModifier extends NoLevelsModifier {
   }
 
   @Override
-  public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {
-    super.onUnequip(tool, level, context);
+  public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
     if (context.getChangedSlot() == EquipmentSlot.HEAD) {
       IToolStackView replacement = context.getReplacementTool();
       if (replacement == null || replacement.getModifierLevel(this) == 0) {

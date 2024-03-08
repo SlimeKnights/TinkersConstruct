@@ -10,19 +10,24 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.build.EnchantmentModule.Constant;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.utils.TooltipKey;
 
 import javax.annotation.Nullable;
 import java.util.List;
-public class SoulSpeedModifier extends Modifier {
+
+public class SoulSpeedModifier extends Modifier implements TooltipModifierHook {
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
     hookBuilder.addHook(new Constant(Enchantments.SOUL_SPEED, 1));
+    hookBuilder.addHook(this, TinkerHooks.TOOLTIP);
   }
 
   /** Gets the position this entity is standing on, cloned from protected living entity method */
@@ -44,12 +49,12 @@ public class SoulSpeedModifier extends Modifier {
   }
 
   @Override
-  public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag tooltipFlag) {
+  public void addTooltip(IToolStackView tool, ModifierEntry modifier, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag tooltipFlag) {
     // must either have no player or a player on soulsand
     if (player == null || key != TooltipKey.SHIFT || (!player.isFallFlying() && player.level.getBlockState(getOnPosition(player)).is(BlockTags.SOUL_SPEED_BLOCKS))) {
       // multiplies boost by 10 and displays as a percent as the players base movement speed is 0.1 and is in unknown units
       // percentages make sense
-      addPercentTooltip(getDisplayName(), 0.3f + level * 0.105f, tooltip);
+      TooltipModifierHook.addPercentBoost(this, getDisplayName(), 0.3f + modifier.getLevel() * 0.105f, tooltip);
     }
   }
 }

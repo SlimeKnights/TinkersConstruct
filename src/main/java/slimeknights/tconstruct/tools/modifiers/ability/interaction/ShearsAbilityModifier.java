@@ -19,6 +19,7 @@ import net.minecraftforge.eventbus.api.Event.Result;
 import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolShearEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolActionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.impl.InteractionModifier;
@@ -31,7 +32,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 @RequiredArgsConstructor
-public class ShearsAbilityModifier extends InteractionModifier.NoLevels implements EntityInteractionModifierHook {
+public class ShearsAbilityModifier extends InteractionModifier.NoLevels implements EntityInteractionModifierHook, ToolActionModifierHook {
   private final int range;
   @Getter
   private final int priority;
@@ -39,7 +40,7 @@ public class ShearsAbilityModifier extends InteractionModifier.NoLevels implemen
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, TinkerHooks.ENTITY_INTERACT);
+    hookBuilder.addHook(this, TinkerHooks.ENTITY_INTERACT, TinkerHooks.TOOL_ACTION);
   }
 
   @Override
@@ -64,7 +65,7 @@ public class ShearsAbilityModifier extends InteractionModifier.NoLevels implemen
   }
 
   @Override
-  public boolean canPerformAction(IToolStackView tool, int level, ToolAction toolAction) {
+  public boolean canPerformAction(IToolStackView tool, ModifierEntry modifier, ToolAction toolAction) {
     if (isShears(tool)) {
       return toolAction == ToolActions.SHEARS_DIG || toolAction == ToolActions.SHEARS_HARVEST || toolAction == ToolActions.SHEARS_CARVE || toolAction == ToolActions.SHEARS_DISARM;
     }

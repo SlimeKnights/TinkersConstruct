@@ -13,6 +13,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.KeybindInteractModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
@@ -22,8 +23,14 @@ import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
-public class ZoomModifier extends NoLevelsModifier implements KeybindInteractModifierHook, GeneralInteractionModifierHook {
+public class ZoomModifier extends NoLevelsModifier implements KeybindInteractModifierHook, GeneralInteractionModifierHook, EquipmentChangeModifierHook {
   private static final ResourceLocation ZOOM = TConstruct.getResource("zoom");
+
+  @Override
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.ARMOR_INTERACT, TinkerHooks.GENERAL_INTERACT, TinkerHooks.EQUIPMENT_CHANGE);
+  }
 
   @Override
   public int getPriority() {
@@ -31,7 +38,7 @@ public class ZoomModifier extends NoLevelsModifier implements KeybindInteractMod
   }
 
   @Override
-  public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {
+  public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
     if (context.getEntity().level.isClientSide) {
       IToolStackView replacement = context.getReplacementTool();
       if (replacement == null || replacement.getModifierLevel(this) == 0) {
@@ -100,11 +107,5 @@ public class ZoomModifier extends NoLevelsModifier implements KeybindInteractMod
   @Override
   public boolean onStoppedUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {
     return onFinishUsing(tool, modifier, entity);
-  }
-
-  @Override
-  protected void registerHooks(Builder hookBuilder) {
-    super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, TinkerHooks.ARMOR_INTERACT, TinkerHooks.GENERAL_INTERACT);
   }
 }

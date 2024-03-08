@@ -12,7 +12,11 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.ComputableDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
@@ -24,14 +28,20 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.Random;
 
-public class ChrysophiliteModifier extends NoLevelsModifier {
+public class ChrysophiliteModifier extends NoLevelsModifier implements EquipmentChangeModifierHook {
   public static final ComputableDataKey<TotalGold> TOTAL_GOLD = TConstruct.createKey("chrysophilite", TotalGold::new);
   public ChrysophiliteModifier() {
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, LivingDropsEvent.class, ChrysophiliteModifier::onLivingDrops);
   }
 
   @Override
-  public void onEquip(IToolStackView tool, int level, EquipmentChangeContext context) {
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.EQUIPMENT_CHANGE);
+  }
+
+  @Override
+  public void onEquip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
     // adding a helmet? activate bonus
     if (context.getChangedSlot() == EquipmentSlot.HEAD) {
       context.getTinkerData().ifPresent(data -> {
@@ -46,7 +56,7 @@ public class ChrysophiliteModifier extends NoLevelsModifier {
   }
 
   @Override
-  public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {
+  public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
     if (context.getChangedSlot() == EquipmentSlot.HEAD) {
       IToolStackView newTool = context.getReplacementTool();
       // when replacing with a helmet that lacks this modifier, remove bonus
@@ -57,7 +67,7 @@ public class ChrysophiliteModifier extends NoLevelsModifier {
   }
 
   @Override
-  public void onEquipmentChange(IToolStackView tool, int level, EquipmentChangeContext context, EquipmentSlot slotType) {
+  public void onEquipmentChange(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context, EquipmentSlot slotType) {
     // adding a helmet? activate bonus
     EquipmentSlot changed = context.getChangedSlot();
     if (slotType == EquipmentSlot.HEAD && changed.getType() == Type.ARMOR) {

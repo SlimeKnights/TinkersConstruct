@@ -27,6 +27,8 @@ import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.PlantHarvestModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ProjectileHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ProjectileLaunchModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.mining.FinishHarvestModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
@@ -39,9 +41,15 @@ import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
 import javax.annotation.Nullable;
 import java.util.Set;
 
-public class EnderportingModifier extends NoLevelsModifier implements PlantHarvestModifierHook, ProjectileHitModifierHook, ProjectileLaunchModifierHook {
+public class EnderportingModifier extends NoLevelsModifier implements PlantHarvestModifierHook, ProjectileHitModifierHook, ProjectileLaunchModifierHook, FinishHarvestModifierHook, MeleeHitModifierHook {
   private static final ResourceLocation PRIMARY_ARROW = TConstruct.getResource("enderporting_primary");
   private static final Set<RelativeArgument> PACKET_FLAGS = ImmutableSet.of(RelativeArgument.X, RelativeArgument.Y, RelativeArgument.Z);
+
+  @Override
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.PLANT_HARVEST, TinkerHooks.PROJECTILE_HIT, TinkerHooks.PROJECTILE_LAUNCH, TinkerHooks.FINISH_HARVEST, TinkerHooks.MELEE_HIT);
+  }
 
   @Override
   public int getPriority() {
@@ -96,7 +104,7 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
   }
 
   @Override
-  public int afterEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damageDealt) {
+  public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt) {
     if (!context.isExtraAttack()) {
       LivingEntity target = context.getLivingTarget();
       // if the entity is dead now
@@ -105,15 +113,14 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
         Vec3 oldPosition = attacker.position();
         if (tryTeleport(attacker, target.getX(), target.getY(), target.getZ())) {
           tryTeleport(target, oldPosition.x, oldPosition.y, oldPosition.z);
-          return 2;
+          ToolDamageUtil.damageAnimated(tool, 2, attacker, context.getSlotType());
         }
       }
     }
-    return 0;
   }
 
   @Override
-  public void finishBreakingBlocks(IToolStackView tool, int level, ToolHarvestContext context) {
+  public void finishHarvest(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context) {
     if (context.canHarvest()) {
       BlockPos pos = context.getPos();
       LivingEntity living = context.getLiving();
@@ -164,11 +171,5 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
       ToolDamageUtil.damageAnimated(tool, 10, shooter, shooter.getUsedItemHand());
       persistentData.putBoolean(PRIMARY_ARROW, true);
     }
-  }
-
-  @Override
-  protected void registerHooks(Builder hookBuilder) {
-    super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, TinkerHooks.PLANT_HARVEST, TinkerHooks.PROJECTILE_HIT, TinkerHooks.PROJECTILE_LAUNCH);
   }
 }

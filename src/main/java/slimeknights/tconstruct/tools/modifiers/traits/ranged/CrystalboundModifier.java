@@ -9,6 +9,7 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.ProjectileLaunchModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.ToolStatsModifierHook;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -18,15 +19,15 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 import javax.annotation.Nullable;
 
-public class CrystalboundModifier extends Modifier implements ProjectileLaunchModifierHook {
+public class CrystalboundModifier extends Modifier implements ProjectileLaunchModifierHook, ToolStatsModifierHook {
   @Override
   protected void registerHooks(Builder hookBuilder) {
-    hookBuilder.addHook(this, TinkerHooks.PROJECTILE_LAUNCH);
+    hookBuilder.addHook(this, TinkerHooks.PROJECTILE_LAUNCH, TinkerHooks.TOOL_STATS);
   }
 
   @Override
-  public void addToolStats(ToolRebuildContext context, int level, ModifierStatsBuilder builder) {
-    ToolStats.VELOCITY.add(builder, level * 0.1f);
+  public void addToolStats(ToolRebuildContext context, ModifierEntry modifier, ModifierStatsBuilder builder) {
+    ToolStats.VELOCITY.add(builder, modifier.getLevel() * 0.1f);
   }
 
   @SuppressWarnings("SuspiciousNameCombination") // mojang uses the angle between X and Z, but parchment named atan2 as the angle between Y and X, makes IDEA mad as it things parameters should swap

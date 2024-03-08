@@ -4,13 +4,25 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolDamageModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.ValidateModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.display.DurabilityDisplayModifierHook;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
 import javax.annotation.Nullable;
 
-public abstract class DurabilityShieldModifier extends Modifier {
+public abstract class DurabilityShieldModifier extends Modifier implements ToolDamageModifierHook, ValidateModifierHook, ModifierRemovalHook, DurabilityDisplayModifierHook {
+  @Override
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.TOOL_DAMAGE, TinkerHooks.VALIDATE, TinkerHooks.REMOVE, TinkerHooks.DURABILITY_DISPLAY);
+  }
+
   @Override
   public Component getDisplayName(IToolStackView tool, int level) {
     return getDisplayName(level).copy()
@@ -20,30 +32,32 @@ public abstract class DurabilityShieldModifier extends Modifier {
 
   /* Tool building */
 
+  @Nullable
   @Override
-  public ValidatedResult validate(IToolStackView tool, int level) {
+  public Component validate(IToolStackView tool, ModifierEntry modifier) {
     // clear excess overslime
-    if (level > 0) {
-      int cap = getShieldCapacity(tool, level);
-      if (getShield(tool) > cap) {
-        setShield(tool.getPersistentData(), cap);
-      }
+    int cap = getShieldCapacity(tool, modifier.getLevel());
+    if (getShield(tool) > cap) {
+      setShield(tool.getPersistentData(), cap);
     }
-    return ValidatedResult.PASS;
+    return null;
   }
 
+  @Nullable
   @Override
-  public void onRemoved(IToolStackView tool) {
+  public Component onRemoved(IToolStackView tool, Modifier modifier) {
     // remove all overslime on removal
     tool.getPersistentData().remove(getShieldKey());
+    return null;
   }
 
 
   /* Damaging */
 
   @Override
-  public int onDamageTool(IToolStackView tool, int level, int amount, @Nullable LivingEntity holder) {
+  public int onDamageTool(IToolStackView tool, ModifierEntry modifier, int amount, @Nullable LivingEntity holder) {
     int shield = getShield(tool);
+    int level = modifier.getLevel();
     if (shield > 0) {
       // if we have more overslime than amount, remove some overslime
       if (shield >= amount) {
@@ -58,16 +72,12 @@ public abstract class DurabilityShieldModifier extends Modifier {
   }
 
   @Override
-  public double getDamagePercentage(IToolStackView tool, int level) {
+  public int getDurabilityWidth(IToolStackView tool, ModifierEntry modifier) {
     int shield = getShield(tool);
     if (shield > 0) {
-      int cap = getShieldCapacity(tool, level);
-      if (shield > cap) {
-        return 0;
-      }
-      return ((double) (cap - shield) / cap);
+      return DurabilityDisplayModifierHook.getWidthFor(shield, getShieldCapacity(tool, modifier.getLevel()));
     }
-    return Double.NaN;
+    return 0;
   }
 
 

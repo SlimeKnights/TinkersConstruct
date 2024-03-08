@@ -14,20 +14,25 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
+import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.data.ModifierMaxLevel;
+import slimeknights.tconstruct.library.modifiers.hook.combat.ProtectionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.armor.ProtectionModule;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.tools.modifiers.defense.BlastProtectionModifier.BlastData;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class BlastProtectionModifier extends AbstractProtectionModifier<BlastData> {
+public class BlastProtectionModifier extends AbstractProtectionModifier<BlastData> implements TooltipModifierHook, ProtectionModifierHook {
   /** Entity data key for the data associated with this modifier */
   private static final TinkerDataKey<BlastData> BLAST_DATA = TConstruct.createKey("blast_protection");
   public BlastProtectionModifier() {
@@ -37,16 +42,22 @@ public class BlastProtectionModifier extends AbstractProtectionModifier<BlastDat
   }
 
   @Override
-  public float getProtectionModifier(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float modifierValue) {
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.TOOLTIP, TinkerHooks.PROTECTION);
+  }
+
+  @Override
+  public float getProtectionModifier(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float modifierValue) {
     if (!source.isBypassMagic() && !source.isBypassInvul() && source.isExplosion()) {
-      modifierValue += getEffectiveLevel(tool, level) * 2.5f;
+      modifierValue += modifier.getEffectiveLevel(tool) * 2.5f;
     }
     return modifierValue;
   }
 
   @Override
-  public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
-    ProtectionModule.addResistanceTooltip(tool, this, getEffectiveLevel(tool, level) * 2.5f, player, tooltip);
+  public void addTooltip(IToolStackView tool, ModifierEntry modifier, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+    ProtectionModule.addResistanceTooltip(tool, this, modifier.getEffectiveLevel(tool) * 2.5f, player, tooltip);
   }
 
   @Override

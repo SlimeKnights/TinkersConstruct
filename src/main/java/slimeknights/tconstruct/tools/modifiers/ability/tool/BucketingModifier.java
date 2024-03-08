@@ -38,6 +38,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
@@ -51,7 +52,7 @@ import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.item.ModifiableItem;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
-public class BucketingModifier extends Modifier implements BlockInteractionModifierHook, GeneralInteractionModifierHook {
+public class BucketingModifier extends Modifier implements BlockInteractionModifierHook, GeneralInteractionModifierHook, EquipmentChangeModifierHook {
   private TankModule tank;
 
   @Override
@@ -59,7 +60,7 @@ public class BucketingModifier extends Modifier implements BlockInteractionModif
     super.registerHooks(hookBuilder);
     tank = new TankModule(FluidAttributes.BUCKET_VOLUME, false);
     hookBuilder.addModule(tank);
-    hookBuilder.addHook(this, TinkerHooks.BLOCK_INTERACT, TinkerHooks.GENERAL_INTERACT);
+    hookBuilder.addHook(this, TinkerHooks.BLOCK_INTERACT, TinkerHooks.GENERAL_INTERACT, TinkerHooks.EQUIPMENT_CHANGE);
   }
 
   @Override
@@ -68,14 +69,14 @@ public class BucketingModifier extends Modifier implements BlockInteractionModif
   }
 
   @Override
-  public void onEquip(IToolStackView tool, int level, EquipmentChangeContext context) {
+  public void onEquip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
     if (context.getChangedSlot() == EquipmentSlot.CHEST) {
       ModifierUtil.addTotalArmorModifierLevel(tool, context, TinkerDataKeys.SHOW_EMPTY_OFFHAND, 1, true);
     }
   }
 
   @Override
-  public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {
+  public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
     if (context.getChangedSlot() == EquipmentSlot.CHEST) {
       ModifierUtil.addTotalArmorModifierLevel(tool, context, TinkerDataKeys.SHOW_EMPTY_OFFHAND, -1, true);
     }

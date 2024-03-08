@@ -4,13 +4,17 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.ValidateModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.VolatileDataModifierHook;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability.InventoryModifierHook;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
@@ -28,11 +32,11 @@ import java.util.function.BiFunction;
  * TODO: migrate to a modifier module
  */
 @RequiredArgsConstructor
-public class InventoryModifier extends Modifier implements InventoryModifierHook {
+public class InventoryModifier extends Modifier implements InventoryModifierHook, VolatileDataModifierHook, ValidateModifierHook, ModifierRemovalHook {
   /** Mod Data NBT mapper to get a compound list */
   protected static final BiFunction<CompoundTag,String,ListTag> GET_COMPOUND_LIST = (nbt, name) -> nbt.getList(name, Tag.TAG_COMPOUND);
   /** Error for if the container has items preventing modifier removal */
-  private static final ValidatedResult HAS_ITEMS = ValidatedResult.failure(TConstruct.makeTranslationKey("modifier", "inventory_cannot_remove"));
+  private static final Component HAS_ITEMS = TConstruct.makeTranslation("modifier", "inventory_cannot_remove");
   /** NBT key to store the slot for a stack */
   protected static final String TAG_SLOT = "Slot";
 
@@ -46,24 +50,31 @@ public class InventoryModifier extends Modifier implements InventoryModifierHook
     this(null, slotsPerLevel);
   }
 
+  @Override
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, ToolInventoryCapability.HOOK, TinkerHooks.VOLATILE_DATA, TinkerHooks.REMOVE);
+  }
+
   /** Gets the inventory key used for NBT serializing */
   protected ResourceLocation getInventoryKey() {
     return inventoryKey == null ? getId() : inventoryKey;
   }
 
   @Override
-  public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {
-    ToolInventoryCapability.addSlots(volatileData, getSlots(context, level));
+  public void addVolatileData(ToolRebuildContext context, ModifierEntry modifier, ModDataNBT volatileData) {
+    ToolInventoryCapability.addSlots(volatileData, getSlots(context, modifier.getLevel()));
   }
 
   /**
-   * Same as {@link #validate(IToolStackView, int)} but allows passing in a max slots count.
+   * Same as {@link ValidateModifierHook#validate(IToolStackView, ModifierEntry)} but allows passing in a max slots count.
    * Allows the subclass to validate on a different max slots if needed
    * @param tool      Tool to check
    * @param maxSlots  Max slots to use in the check
    * @return  True if the number of slots is valid
    */
-  protected ValidatedResult validateForMaxSlots(IToolStackView tool, int maxSlots) {
+  @Nullable
+  protected Component validateForMaxSlots(IToolStackView tool, int maxSlots) {
     IModDataView persistentData = tool.getPersistentData();
     ResourceLocation key = getInventoryKey();
     if (persistentData.contains(key, Tag.TAG_LIST)) {
@@ -92,17 +103,24 @@ public class InventoryModifier extends Modifier implements InventoryModifierHook
         }
       }
     }
-    return ValidatedResult.PASS;
+    return null;
   }
 
+  @Nullable
   @Override
-  public ValidatedResult validate(IToolStackView tool, int level) {
-    return validateForMaxSlots(tool, level == 0 ? 0 : getSlots(tool, level));
+  public Component validate(IToolStackView tool, ModifierEntry modifier) {
+    return validateForMaxSlots(tool, getSlots(tool, modifier.getLevel()));
   }
 
+  @Nullable
   @Override
-  public void onRemoved(IToolStackView tool) {
+  public Component onRemoved(IToolStackView tool, Modifier modifier) {
+    Component component = validateForMaxSlots(tool, 0);
+    if (component != null) {
+      return component;
+    }
     tool.getPersistentData().remove(getInventoryKey());
+    return null;
   }
 
   @Override
@@ -167,12 +185,6 @@ public class InventoryModifier extends Modifier implements InventoryModifierHook
   @Override
   public final int getSlots(IToolStackView tool, ModifierEntry modifier) {
     return getSlots(tool, modifier.getLevel());
-  }
-
-  @Override
-  protected void registerHooks(Builder hookBuilder) {
-    super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, ToolInventoryCapability.HOOK);
   }
 
   /** Writes a stack to NBT, including the slot */

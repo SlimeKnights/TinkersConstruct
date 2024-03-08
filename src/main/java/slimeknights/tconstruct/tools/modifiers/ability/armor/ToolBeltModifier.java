@@ -22,10 +22,12 @@ import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.dynamic.InventoryMenuModifier;
+import slimeknights.tconstruct.library.modifiers.hook.build.VolatileDataModifierHook;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
@@ -37,7 +39,7 @@ import javax.annotation.Nullable;
 
 import static slimeknights.tconstruct.library.tools.capability.ToolInventoryCapability.isBlacklisted;
 
-public class ToolBeltModifier extends InventoryMenuModifier {
+public class ToolBeltModifier extends InventoryMenuModifier implements VolatileDataModifierHook {
   private static final Pattern PATTERN = new Pattern(TConstruct.MOD_ID, "tool_belt");
   private static final ResourceLocation SLOT_OVERRIDE = TConstruct.getResource("tool_belt_override");
 
@@ -83,6 +85,12 @@ public class ToolBeltModifier extends InventoryMenuModifier {
   }
 
   @Override
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.VOLATILE_DATA);
+  }
+
+  @Override
   public IGenericLoader<? extends Modifier> getLoader() {
     return LOADER;
   }
@@ -110,8 +118,8 @@ public class ToolBeltModifier extends InventoryMenuModifier {
   }
 
   @Override
-  public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {
-    int properSlots = getProperSlots(level);
+  public void addVolatileData(ToolRebuildContext context, ModifierEntry modifier, ModDataNBT volatileData) {
+    int properSlots = getProperSlots(modifier.getLevel());
     int slots;
     // find the largest slot index and either add or update the override as needed
     // TODO: can probably remove this code for 1.19
@@ -149,9 +157,10 @@ public class ToolBeltModifier extends InventoryMenuModifier {
     return Mth.clamp(tool.getVolatileData().getInt(SLOT_OVERRIDE), properSlots, 9);
   }
 
+  @Nullable
   @Override
-  public ValidatedResult validate(IToolStackView tool, int level) {
-    return validateForMaxSlots(tool, getProperSlots(level));
+  public Component validate(IToolStackView tool, ModifierEntry modifier) {
+    return validateForMaxSlots(tool, getProperSlots(modifier.getLevel()));
   }
 
   @Override

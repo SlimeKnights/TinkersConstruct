@@ -8,6 +8,7 @@ import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolActionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
@@ -15,10 +16,10 @@ import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
-public class BlockingModifier extends NoLevelsModifier implements GeneralInteractionModifierHook {
+public class BlockingModifier extends NoLevelsModifier implements GeneralInteractionModifierHook, ToolActionModifierHook {
   @Override
   protected void registerHooks(Builder hookBuilder) {
-    hookBuilder.addHook(this, TinkerHooks.CHARGEABLE_INTERACT);
+    hookBuilder.addHook(this, TinkerHooks.CHARGEABLE_INTERACT, TinkerHooks.TOOL_ACTION);
   }
 
   @Override
@@ -41,7 +42,7 @@ public class BlockingModifier extends NoLevelsModifier implements GeneralInterac
   }
 
   @Override
-  public boolean canPerformAction(IToolStackView tool, int level, ToolAction toolAction) {
+  public boolean canPerformAction(IToolStackView tool, ModifierEntry entry, ToolAction toolAction) {
     return toolAction == ToolActions.SHIELD_BLOCK;
   }
 

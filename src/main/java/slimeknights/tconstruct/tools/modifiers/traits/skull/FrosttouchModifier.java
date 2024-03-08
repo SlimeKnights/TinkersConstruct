@@ -5,18 +5,28 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.combat.DamageDealtModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.TotalArmorLevelModifier;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
-public class FrosttouchModifier extends TotalArmorLevelModifier {
+public class FrosttouchModifier extends TotalArmorLevelModifier implements DamageDealtModifierHook {
   public FrosttouchModifier() {
     super(StrongBonesModifier.CALCIFIABLE, true);
   }
 
   @Override
-  public void attackWithArmor(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, LivingEntity target, DamageSource source, float amount, boolean isDirectDamage) {
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.DAMAGE_DEALT);
+  }
+
+  @Override
+  public void onDamageDealt(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, LivingEntity target, DamageSource source, float amount, boolean isDirectDamage) {
     // must drink milk to melee slowness. Always can range slowness
     if (isDirectDamage) {
       boolean isCalcified = context.getEntity().hasEffect(TinkerModifiers.calcifiedEffect.get());

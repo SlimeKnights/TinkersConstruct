@@ -14,6 +14,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.KeybindInteractModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
@@ -21,9 +22,15 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.effect.NoMilkEffect;
 
-public class SelfDestructiveModifier extends NoLevelsModifier implements KeybindInteractModifierHook {
+public class SelfDestructiveModifier extends NoLevelsModifier implements KeybindInteractModifierHook, EquipmentChangeModifierHook {
   /** Self damage source */
   private static final DamageSource SELF_DESTRUCT = (new DamageSource(TConstruct.prefix("self_destruct"))).bypassArmor().setExplosion();
+
+  @Override
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.ARMOR_INTERACT, TinkerHooks.EQUIPMENT_CHANGE);
+  }
 
   @Override
   public boolean startInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot slot, TooltipKey keyModifier) {
@@ -41,14 +48,8 @@ public class SelfDestructiveModifier extends NoLevelsModifier implements Keybind
   }
 
   @Override
-  public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {
+  public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
     context.getEntity().removeEffect(TinkerModifiers.selfDestructiveEffect.get());
-  }
-
-  @Override
-  protected void registerHooks(Builder hookBuilder) {
-    super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, TinkerHooks.ARMOR_INTERACT);
   }
 
   /** Internal potion effect handling the explosion */

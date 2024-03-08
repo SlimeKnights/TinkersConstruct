@@ -38,7 +38,7 @@ public interface MeleeHitModifierHook {
    * Alternatives:
    * <ul>
    *   <li>{@link slimeknights.tconstruct.library.modifiers.hook.build.ToolStatsModifierHook}: Adjusts the base tool stats that affect damage</li>
-   *   <li>{@link slimeknights.tconstruct.library.modifiers.Modifier#getEntityDamage(IToolStackView, int, ToolAttackContext, float, float)}: Change the amount of damage dealt with attacker context</li>
+   *   <li>{@link MeleeDamageModifierHook}: Change the amount of damage dealt with attacker context</li>
    *   <li>{@link #beforeMeleeHit(IToolStackView, ModifierEntry, ToolAttackContext, float, float, float)}: Change the amount of knockback dealt</li>
    *   <li>{@link #failedMeleeHit(IToolStackView, ModifierEntry, ToolAttackContext, float)}: Called after living hit when damage was not dealt</li>
    * </ul>

@@ -13,12 +13,22 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.common.network.UpdateNeighborsPacket;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.mining.RemoveBlockModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.Util;
 
-public class ExchangingModifier extends NoLevelsModifier {
+public class ExchangingModifier extends NoLevelsModifier implements RemoveBlockModifierHook {
+  @Override
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.REMOVE_BLOCK);
+  }
+
   @Override
   public int getPriority() {
     // super low because we need to run after the shears ability modifier, and any other similar hooks
@@ -26,7 +36,7 @@ public class ExchangingModifier extends NoLevelsModifier {
   }
 
   @Override
-  public Boolean removeBlock(IToolStackView tool, int level, ToolHarvestContext context) {
+  public Boolean removeBlock(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context) {
     // must have blocks in the offhand
     ItemStack offhand = context.getLiving().getOffhandItem();
     BlockState state = context.getState();

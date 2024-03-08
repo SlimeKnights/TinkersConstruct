@@ -33,9 +33,9 @@ public interface RawDataModifierHook {
    * <br>
    * Alternatives:
    * <ul>
-   *   <li>{@link Modifier#onRemoved(IToolStackView)}: Called after the modifier is removed and stat are rebuilt without it. Typically a better choice for working with persistent NBT</li>
+   *   <li>{@link ModifierRemovalHook}: Called after the modifier is removed and stat are rebuilt without it. Typically a better choice for working with persistent NBT</li>
    *   <li>{@link VolatileDataModifierHook}: Adds NBT that is automatically removed</li>
-   *   <li>{@link Modifier#validate(IToolStackView, int)}: Allows marking a new state invalid</li>
+   *   <li>{@link ValidateModifierHook}: Allows marking a new state invalid</li>
    * </ul>
    * @param tool      Tool instance
    * @param modifier  Modifier being removed

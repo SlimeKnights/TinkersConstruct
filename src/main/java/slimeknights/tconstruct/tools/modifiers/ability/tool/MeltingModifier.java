@@ -9,6 +9,9 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.modifiers.modules.fluid.TankModule;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
@@ -24,7 +27,7 @@ import slimeknights.tconstruct.smeltery.block.entity.module.EntityMeltingModule;
 import java.util.Iterator;
 import java.util.List;
 
-public class MeltingModifier extends NoLevelsModifier {
+public class MeltingModifier extends NoLevelsModifier implements MeleeHitModifierHook {
   /** Max temperature allowed for melting items */
   private static final int MAX_TEMPERATURE = 1000;
 
@@ -40,6 +43,7 @@ public class MeltingModifier extends NoLevelsModifier {
     super.registerHooks(hookBuilder);
     tank = new TankModule(FluidAttributes.BUCKET_VOLUME, true);
     hookBuilder.addModule(tank);
+    hookBuilder.addHook(this, TinkerHooks.MELEE_HIT);
   }
 
   /**
@@ -116,7 +120,7 @@ public class MeltingModifier extends NoLevelsModifier {
   }
 
   @Override
-  public int afterEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damageDealt) {
+  public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt) {
     // must have done damage, and must be fully charged
     if (damageDealt > 0 && context.isFullyCharged()) {
       // first, find the proper recipe
@@ -151,7 +155,6 @@ public class MeltingModifier extends NoLevelsModifier {
         tank.setFluid(tool, fluid);
       }
     }
-    return 0;
   }
 
   /** Helper for finding recipes in melting */

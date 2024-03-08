@@ -9,6 +9,7 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import net.minecraftforge.registries.RegistryObject;
+import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerEffect;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -17,24 +18,26 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ProjectileLaunchModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.mining.BlockBreakModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedModifierHook;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
-import slimeknights.tconstruct.library.utils.TooltipKey;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class MomentumModifier extends Modifier implements ProjectileLaunchModifierHook, ConditionalStatModifierHook {
+public class MomentumModifier extends Modifier implements ProjectileLaunchModifierHook, ConditionalStatModifierHook, BlockBreakModifierHook, BreakSpeedModifierHook, TooltipModifierHook {
   private static final Component SPEED = TConstruct.makeTranslation("modifier", "momentum.speed");
 
   @Override
   protected void registerHooks(Builder hookBuilder) {
-    hookBuilder.addHook(this, TinkerHooks.CONDITIONAL_STAT, TinkerHooks.PROJECTILE_LAUNCH);
+    hookBuilder.addHook(this, TinkerHooks.CONDITIONAL_STAT, TinkerHooks.PROJECTILE_LAUNCH, TinkerHooks.BLOCK_BREAK, TinkerHooks.BREAK_SPEED, TinkerHooks.TOOLTIP);
   }
 
   @Override
@@ -51,14 +54,14 @@ public class MomentumModifier extends Modifier implements ProjectileLaunchModifi
   }
 
   @Override
-  public void onBreakSpeed(IToolStackView tool, int level, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
+  public void onBreakSpeed(IToolStackView tool, ModifierEntry modifier, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
     if (isEffective) {
-      event.setNewSpeed(event.getNewSpeed() * (1 + getBonus(event.getEntityLiving(), TinkerModifiers.momentumEffect, level, 128f)));
+      event.setNewSpeed(event.getNewSpeed() * (1 + getBonus(event.getEntityLiving(), TinkerModifiers.momentumEffect, modifier.getLevel(), 128f)));
     }
   }
 
   @Override
-  public void afterBlockBreak(IToolStackView tool, int level, ToolHarvestContext context) {
+  public void afterBlockBreak(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context) {
     if (context.canHarvest() && context.isEffective() && !context.isAOE()) {
       // 32 blocks gets you to max, effect is stronger at higher levels
       LivingEntity living = context.getLiving();
@@ -87,10 +90,11 @@ public class MomentumModifier extends Modifier implements ProjectileLaunchModifi
   }
 
   @Override
-  public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag flag) {
+  public void addTooltip(IToolStackView tool, ModifierEntry modifier, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag tooltipFlag) {
     boolean harvest = tool.hasTag(TinkerTags.Items.HARVEST);
     if (harvest || tool.hasTag(TinkerTags.Items.RANGED)) {
       float bonus;
+      int level = modifier.getLevel();
       if (player != null && key == TooltipKey.SHIFT) {
         if (harvest) {
           bonus = getBonus(player, TinkerModifiers.momentumEffect, level, 128f);
@@ -101,7 +105,7 @@ public class MomentumModifier extends Modifier implements ProjectileLaunchModifi
         bonus = level * 0.25f;
       }
       if (bonus > 0) {
-        addPercentTooltip(SPEED, bonus, tooltip);
+        TooltipModifierHook.addPercentBoost(this, SPEED, bonus, tooltip);
       }
     }
   }

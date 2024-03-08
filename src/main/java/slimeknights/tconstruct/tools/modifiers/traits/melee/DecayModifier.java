@@ -11,6 +11,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.ProjectileHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ProjectileLaunchModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -19,7 +20,7 @@ import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
 
 import javax.annotation.Nullable;
 
-public class DecayModifier extends Modifier implements ProjectileLaunchModifierHook, ProjectileHitModifierHook {
+public class DecayModifier extends Modifier implements ProjectileLaunchModifierHook, ProjectileHitModifierHook, MeleeHitModifierHook {
   /* gets the effect for the given level, including a random time */
   private static MobEffectInstance makeDecayEffect(int level) {
     // potions are 0 indexed instead of 1 indexed
@@ -30,26 +31,25 @@ public class DecayModifier extends Modifier implements ProjectileLaunchModifierH
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, TinkerHooks.PROJECTILE_LAUNCH, TinkerHooks.PROJECTILE_HIT);
+    hookBuilder.addHook(this, TinkerHooks.PROJECTILE_LAUNCH, TinkerHooks.PROJECTILE_HIT, TinkerHooks.MELEE_HIT);
   }
 
   @Override
-  public int afterEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damageDealt) {
+  public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt) {
     if (context.isFullyCharged()) {
-      // note the time of each effect is calculated independantly
+      // note the time of each effect is calculated independently
 
       // 25% chance to poison yourself
       if (RANDOM.nextInt(3) == 0) {
-        context.getAttacker().addEffect(makeDecayEffect(level));
+        context.getAttacker().addEffect(makeDecayEffect(modifier.getLevel()));
       }
 
       // always poison the target, means it works twice as often as lacerating
       LivingEntity target = context.getLivingTarget();
       if (target != null && target.isAlive()) {
-        target.addEffect(makeDecayEffect(level));
+        target.addEffect(makeDecayEffect(modifier.getLevel()));
       }
     }
-    return 0;
   }
 
   @Override

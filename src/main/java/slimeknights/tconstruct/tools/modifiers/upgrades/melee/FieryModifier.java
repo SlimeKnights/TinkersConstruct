@@ -13,6 +13,7 @@ import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.ProjectileHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ProjectileLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.DamageTakenModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
@@ -24,14 +25,14 @@ import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
 
 import javax.annotation.Nullable;
 
-public class FieryModifier extends IncrementalModifier implements ProjectileLaunchModifierHook, ProjectileHitModifierHook, DamageTakenModifierHook {
+public class FieryModifier extends IncrementalModifier implements ProjectileLaunchModifierHook, ProjectileHitModifierHook, DamageTakenModifierHook, MeleeHitModifierHook {
   @Override
   protected void registerHooks(Builder hookBuilder) {
-    hookBuilder.addHook(this, TinkerHooks.PROJECTILE_LAUNCH, TinkerHooks.PROJECTILE_HIT, TinkerHooks.DAMAGE_TAKEN);
+    hookBuilder.addHook(this, TinkerHooks.PROJECTILE_LAUNCH, TinkerHooks.PROJECTILE_HIT, TinkerHooks.DAMAGE_TAKEN, TinkerHooks.MELEE_HIT);
   }
 
   @Override
-  public float beforeEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
+  public float beforeMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
     // vanilla hack: apply fire so the entity drops the proper items on instant kill
     LivingEntity target = context.getLivingTarget();
     if (target != null && !target.isOnFire()) {
@@ -41,7 +42,7 @@ public class FieryModifier extends IncrementalModifier implements ProjectileLaun
   }
 
   @Override
-  public void failedEntityHit(IToolStackView tool, int level, ToolAttackContext context) {
+  public void failedMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageAttempted) {
     // conclusion of vanilla hack: we don't want the target on fire if we did not hit them
     LivingEntity target = context.getLivingTarget();
     if (target != null && target.isOnFire()) {
@@ -50,12 +51,11 @@ public class FieryModifier extends IncrementalModifier implements ProjectileLaun
   }
 
   @Override
-  public int afterEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damageDealt) {
+  public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt) {
     LivingEntity target = context.getLivingTarget();
     if (target != null) {
-      target.setSecondsOnFire(Math.round(getEffectiveLevel(tool, level) * 5));
+      target.setSecondsOnFire(Math.round(getEffectiveLevel(tool, modifier.getLevel()) * 5));
     }
-    return 0;
   }
 
   @Override

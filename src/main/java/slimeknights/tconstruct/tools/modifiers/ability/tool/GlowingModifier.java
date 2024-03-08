@@ -12,6 +12,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
+import slimeknights.tconstruct.library.modifiers.hook.mining.RemoveBlockModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.InteractionModifier.NoLevels;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
@@ -23,11 +24,11 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 
 import javax.annotation.Nullable;
 
-public class GlowingModifier extends NoLevels implements BlockInteractionModifierHook {
+public class GlowingModifier extends NoLevels implements BlockInteractionModifierHook, RemoveBlockModifierHook {
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, TinkerHooks.BLOCK_INTERACT);
+    hookBuilder.addHook(this, TinkerHooks.BLOCK_INTERACT, TinkerHooks.REMOVE_BLOCK);
   }
 
   @Override
@@ -63,7 +64,7 @@ public class GlowingModifier extends NoLevels implements BlockInteractionModifie
 
   @Nullable
   @Override
-  public Boolean removeBlock(IToolStackView tool, int level, ToolHarvestContext context) {
+  public Boolean removeBlock(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context) {
     if (context.getState().is(TinkerCommons.glow.get()) && tool.getDefinitionData().getModule(ToolModuleHooks.INTERACTION).canInteract(tool, getId(), InteractionSource.LEFT_CLICK)) {
       return false;
     }

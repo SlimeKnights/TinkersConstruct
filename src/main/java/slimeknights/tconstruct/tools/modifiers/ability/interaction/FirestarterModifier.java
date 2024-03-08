@@ -29,9 +29,11 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.common.ToolAction;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolActionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
+import slimeknights.tconstruct.library.modifiers.hook.mining.RemoveBlockModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.InteractionModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
@@ -50,7 +52,7 @@ import java.util.Collections;
  * Modifier that starts a fire at the given position
  */
 @RequiredArgsConstructor
-public class FirestarterModifier extends InteractionModifier.NoLevels implements EntityInteractionModifierHook, BlockInteractionModifierHook {
+public class FirestarterModifier extends InteractionModifier.NoLevels implements EntityInteractionModifierHook, BlockInteractionModifierHook, ToolActionModifierHook, RemoveBlockModifierHook {
   /** Generic action for the sake of people who want compat but do not want to request a specific action */
   private static final ToolAction LIGHT_FIRE = ToolAction.get("light_fire");
   /** Compat with mods adding custom campfires */
@@ -62,7 +64,7 @@ public class FirestarterModifier extends InteractionModifier.NoLevels implements
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, TinkerHooks.ENTITY_INTERACT, TinkerHooks.BLOCK_INTERACT);
+    hookBuilder.addHook(this, TinkerHooks.ENTITY_INTERACT, TinkerHooks.BLOCK_INTERACT, TinkerHooks.TOOL_ACTION, TinkerHooks.REMOVE_BLOCK);
   }
 
   @Override
@@ -76,7 +78,7 @@ public class FirestarterModifier extends InteractionModifier.NoLevels implements
   }
 
   @Override
-  public boolean canPerformAction(IToolStackView tool, int level, ToolAction toolAction) {
+  public boolean canPerformAction(IToolStackView tool, ModifierEntry modifier, ToolAction toolAction) {
     return toolAction == LIGHT_CAMPFIRE || toolAction == LIGHT_FIRE;
   }
 
@@ -189,7 +191,7 @@ public class FirestarterModifier extends InteractionModifier.NoLevels implements
 
   @Nullable
   @Override
-  public Boolean removeBlock(IToolStackView tool, int level, ToolHarvestContext context) {
+  public Boolean removeBlock(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context) {
     if (context.getState().is(Blocks.FIRE) && tool.getDefinitionData().getModule(ToolModuleHooks.INTERACTION).canInteract(tool, getId(), InteractionSource.LEFT_CLICK)) {
       return false;
     }

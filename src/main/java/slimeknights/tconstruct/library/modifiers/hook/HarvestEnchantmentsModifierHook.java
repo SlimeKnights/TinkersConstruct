@@ -7,18 +7,12 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.Collection;
 import java.util.function.BiConsumer;
-import java.util.function.Function;
 
 /**
  * Modifier hook implementing bonus enchantments from a tool, applied directly before block break. Can implement separately for leggings and tools if desired via the different hooks
  * TODO 1.19: move into {@link slimeknights.tconstruct.library.modifiers.hook.mining}
  */
 public interface HarvestEnchantmentsModifierHook {
-  HarvestEnchantmentsModifierHook EMPTY = (tool, modifier, context, consumer) -> {};
-
-  /** Merger that runs all submodules */
-  Function<Collection<HarvestEnchantmentsModifierHook>,HarvestEnchantmentsModifierHook> ALL_MERGER = AllMerger::new;
-
   /**
    * Adds harvest loot table related enchantments from this modifier's effect to the tool, called before breaking a block.
    * Needed to add enchantments for silk touch and fortune. Can add conditionally if needed. Only affects tinker tools

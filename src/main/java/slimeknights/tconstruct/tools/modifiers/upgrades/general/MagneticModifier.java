@@ -17,6 +17,8 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.PlantHarvestModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ShearsModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.mining.BlockBreakModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.TotalArmorLevelModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
@@ -28,7 +30,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import java.util.List;
 
-public class MagneticModifier extends TotalArmorLevelModifier implements PlantHarvestModifierHook, ShearsModifierHook {
+public class MagneticModifier extends TotalArmorLevelModifier implements PlantHarvestModifierHook, ShearsModifierHook, BlockBreakModifierHook, MeleeHitModifierHook {
   /** Player modifier data key for haste */
   private static final TinkerDataKey<Integer> MAGNET = TConstruct.createKey("magnet");
 
@@ -38,18 +40,23 @@ public class MagneticModifier extends TotalArmorLevelModifier implements PlantHa
   }
 
   @Override
-  public void afterBlockBreak(IToolStackView tool, int level, ToolHarvestContext context) {
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.PLANT_HARVEST, TinkerHooks.SHEAR_ENTITY, TinkerHooks.BLOCK_BREAK, TinkerHooks.MELEE_HIT);
+  }
+
+  @Override
+  public void afterBlockBreak(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context) {
     if (!context.isAOE()) {
-      TinkerModifiers.magneticEffect.get().apply(context.getLiving(), 30, level - 1);
+      TinkerModifiers.magneticEffect.get().apply(context.getLiving(), 30, modifier.getLevel() - 1);
     }
   }
 
   @Override
-  public int afterEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damageDealt) {
+  public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt) {
     if (!context.isExtraAttack()) {
-      TinkerModifiers.magneticEffect.get().apply(context.getAttacker(), 30, level - 1);
+      TinkerModifiers.magneticEffect.get().apply(context.getAttacker(), 30, modifier.getLevel() - 1);
     }
-    return 0;
   }
 
   @Override
@@ -65,12 +72,6 @@ public class MagneticModifier extends TotalArmorLevelModifier implements PlantHa
     if (isTarget) {
       TinkerModifiers.magneticEffect.get().apply(player, 30, modifier.getLevel() - 1);
     }
-  }
-
-  @Override
-  protected void registerHooks(Builder hookBuilder) {
-    super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, TinkerHooks.PLANT_HARVEST, TinkerHooks.SHEAR_ENTITY);
   }
 
 

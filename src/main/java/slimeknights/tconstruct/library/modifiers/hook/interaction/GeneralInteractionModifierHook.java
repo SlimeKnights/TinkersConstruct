@@ -16,8 +16,6 @@ import java.util.function.Function;
  * Hooks for standard interaction logic post block/entity interaction. See {@link GeneralInteractionModifierHook} for general interaction and {@link EntityInteractionModifierHook} for entities.
  */
 public interface GeneralInteractionModifierHook {
-  /** Default instance that performs no action */
-  GeneralInteractionModifierHook EMPTY = (tool, modifier, player, hand, source) -> InteractionResult.PASS;
   /** Merger that returns when the first hook succeeds */
   Function<Collection<GeneralInteractionModifierHook>, GeneralInteractionModifierHook> FIRST_MERGER = FirstMerger::new;
 
@@ -158,37 +156,4 @@ public interface GeneralInteractionModifierHook {
       return UseAnim.NONE;
     }
   }
-
-  /** Fallback logic calling old hooks, remove in 1.19 */
-  @SuppressWarnings("DeprecatedIsStillUsed")
-  @Deprecated
-  GeneralInteractionModifierHook FALLBACK = new GeneralInteractionModifierHook() {
-    @Override
-    public InteractionResult onToolUse(IToolStackView tool, ModifierEntry modifier, Player player, InteractionHand hand, InteractionSource source) {
-      if (source != InteractionSource.LEFT_CLICK) {
-        return modifier.getModifier().onToolUse(tool, modifier.getLevel(), player.level, player, hand, source.getSlot(hand));
-      }
-      return InteractionResult.PASS;
-    }
-
-    @Override
-    public boolean onStoppedUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {
-      return modifier.getModifier().onStoppedUsing(tool, modifier.getLevel(), entity.level, entity, timeLeft);
-    }
-
-    @Override
-    public boolean onFinishUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity) {
-      return modifier.getModifier().onFinishUsing(tool, modifier.getLevel(), entity.level, entity);
-    }
-
-    @Override
-    public int getUseDuration(IToolStackView tool, ModifierEntry modifier) {
-      return modifier.getModifier().getUseDuration(tool, modifier.getLevel());
-    }
-
-    @Override
-    public UseAnim getUseAction(IToolStackView tool, ModifierEntry modifier) {
-      return modifier.getModifier().getUseAction(tool, modifier.getLevel());
-    }
-  };
 }

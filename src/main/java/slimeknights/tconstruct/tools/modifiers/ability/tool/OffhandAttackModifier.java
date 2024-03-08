@@ -10,6 +10,8 @@ import slimeknights.mantle.util.OffhandCooldownTracker;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.VolatileDataModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
@@ -22,13 +24,13 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
-public class OffhandAttackModifier extends NoLevelsModifier implements EntityInteractionModifierHook, GeneralInteractionModifierHook {
+public class OffhandAttackModifier extends NoLevelsModifier implements EntityInteractionModifierHook, GeneralInteractionModifierHook, EquipmentChangeModifierHook, VolatileDataModifierHook {
   public static final ResourceLocation DUEL_WIELDING = TConstruct.getResource("duel_wielding");
 
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, TinkerHooks.CHARGEABLE_INTERACT, TinkerHooks.ENTITY_INTERACT);
+    hookBuilder.addHook(this, TinkerHooks.CHARGEABLE_INTERACT, TinkerHooks.ENTITY_INTERACT, TinkerHooks.EQUIPMENT_CHANGE, TinkerHooks.VOLATILE_DATA);
   }
 
   @Override
@@ -42,7 +44,7 @@ public class OffhandAttackModifier extends NoLevelsModifier implements EntityInt
   }
 
   @Override
-  public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {
+  public void addVolatileData(ToolRebuildContext context, ModifierEntry modifier, ModDataNBT volatileData) {
     volatileData.putBoolean(DUEL_WIELDING, true);
   }
 
@@ -78,14 +80,14 @@ public class OffhandAttackModifier extends NoLevelsModifier implements EntityInt
   }
 
   @Override
-  public void onEquip(IToolStackView tool, int level, EquipmentChangeContext context) {
+  public void onEquip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
     if (!tool.isBroken() && context.getChangedSlot() == EquipmentSlot.OFFHAND) {
       context.getEntity().getCapability(OffhandCooldownTracker.CAPABILITY).ifPresent(cap -> cap.setEnabled(true));
     }
   }
 
   @Override
-  public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {
+  public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
     if (!tool.isBroken() && context.getChangedSlot() == EquipmentSlot.OFFHAND) {
       context.getEntity().getCapability(OffhandCooldownTracker.CAPABILITY).ifPresent(cap -> cap.setEnabled(false));
     }

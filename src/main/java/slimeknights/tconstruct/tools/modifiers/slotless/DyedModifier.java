@@ -5,12 +5,24 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
-public class DyedModifier extends NoLevelsModifier {
+import javax.annotation.Nullable;
+
+public class DyedModifier extends NoLevelsModifier implements ModifierRemovalHook {
   private static final String FORMAT_KEY = TConstruct.makeTranslationKey("modifier", "dyed.formatted");
+
+  @Override
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.REMOVE);
+  }
 
   @Override
   public Component getDisplayName(IToolStackView tool, int level) {
@@ -23,8 +35,10 @@ public class DyedModifier extends NoLevelsModifier {
     return super.getDisplayName();
   }
 
+  @Nullable
   @Override
-  public void onRemoved(IToolStackView tool) {
+  public Component onRemoved(IToolStackView tool, Modifier modifier) {
     tool.getPersistentData().remove(getId());
+    return null;
   }
 }

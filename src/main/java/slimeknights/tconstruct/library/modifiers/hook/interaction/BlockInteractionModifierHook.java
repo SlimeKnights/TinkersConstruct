@@ -6,17 +6,11 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.Collection;
-import java.util.function.Function;
 
 /**
  * Hooks for standard interaction logic though blocks. See {@link GeneralInteractionModifierHook} for general interaction and {@link EntityInteractionModifierHook} for entities.
  */
 public interface BlockInteractionModifierHook {
-  /** Default instance that performs no action */
-  BlockInteractionModifierHook EMPTY = new BlockInteractionModifierHook() {};
-  /** Merger that returns when the first hook succeeds */
-  Function<Collection<BlockInteractionModifierHook>, BlockInteractionModifierHook> FIRST_MERGER = FirstMerger::new;
-
 	/**
 	 * Called when interacting with a block before calling the block's interaction method.
    * In general, it's better to use {@link #afterBlockUse(IToolStackView, ModifierEntry, UseOnContext, InteractionSource)} for consistency with vanilla behavior.
@@ -68,25 +62,4 @@ public interface BlockInteractionModifierHook {
       return result;
     }
   }
-
-  /** Fallback logic calling old hooks, remove in 1.19 */
-  @SuppressWarnings("DeprecatedIsStillUsed")
-  @Deprecated
-  BlockInteractionModifierHook FALLBACK = new BlockInteractionModifierHook() {
-    @Override
-    public InteractionResult beforeBlockUse(IToolStackView tool, ModifierEntry modifier, UseOnContext context, InteractionSource source) {
-      if (source != InteractionSource.LEFT_CLICK) {
-        return modifier.getModifier().beforeBlockUse(tool, modifier.getLevel(), context, source.getSlot(context.getHand()));
-      }
-      return InteractionResult.PASS;
-    }
-
-    @Override
-    public InteractionResult afterBlockUse(IToolStackView tool, ModifierEntry modifier, UseOnContext context, InteractionSource source) {
-      if (source != InteractionSource.LEFT_CLICK) {
-        return modifier.getModifier().afterBlockUse(tool, modifier.getLevel(), context, source.getSlot(context.getHand()));
-      }
-      return InteractionResult.PASS;
-    }
-  };
 }

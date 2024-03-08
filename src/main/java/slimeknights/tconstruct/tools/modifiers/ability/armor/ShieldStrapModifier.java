@@ -35,8 +35,8 @@ public class ShieldStrapModifier extends InventoryMenuModifier {
   }
 
   @Override
-  public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {
-    super.addVolatileData(context, level, volatileData);
+  public void addVolatileData(ToolRebuildContext context, ModifierEntry modifier, ModDataNBT volatileData) {
+    super.addVolatileData(context, modifier, volatileData);
     volatileData.putBoolean(ToolInventoryCapability.INCLUDE_OFFHAND, true);
   }
 

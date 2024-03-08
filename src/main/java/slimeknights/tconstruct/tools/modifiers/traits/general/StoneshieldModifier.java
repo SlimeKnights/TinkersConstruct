@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools.modifiers.traits.general;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.impl.DurabilityShieldModifier;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -69,13 +70,13 @@ public class StoneshieldModifier extends DurabilityShieldModifier {
 
   @Nullable
   @Override
-  public Boolean showDurabilityBar(IToolStackView tool, int level) {
+  public Boolean showDurabilityBar(IToolStackView tool, ModifierEntry modifier) {
     // only show if we have any shield
     return getShield(tool) > 0 ? true : null;
   }
 
   @Override
-  public int getDurabilityRGB(IToolStackView tool, int level) {
+  public int getDurabilityRGB(IToolStackView tool, ModifierEntry modifier) {
     if (getShield(tool) > 0) {
       // stoneshield shows in light grey
       return 0x7F7F7F;

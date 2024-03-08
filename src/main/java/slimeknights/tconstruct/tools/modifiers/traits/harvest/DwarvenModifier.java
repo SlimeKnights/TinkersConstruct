@@ -8,22 +8,24 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
+import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedModifierHook;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
-import slimeknights.tconstruct.library.utils.TooltipKey;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class DwarvenModifier extends Modifier implements ConditionalStatModifierHook {
+public class DwarvenModifier extends Modifier implements ConditionalStatModifierHook, BreakSpeedModifierHook, TooltipModifierHook {
   private static final Component MINING_SPEED = TConstruct.makeTranslation("modifier", "dwarven.mining_speed");
   private static final Component VELOCITY = TConstruct.makeTranslation("modifier", "dwarven.velocity");
   /** Distance below sea level to get boost */
@@ -42,7 +44,7 @@ public class DwarvenModifier extends Modifier implements ConditionalStatModifier
 
   @Override
   protected void registerHooks(Builder hookBuilder) {
-    hookBuilder.addHook(this, TinkerHooks.CONDITIONAL_STAT);
+    hookBuilder.addHook(this, TinkerHooks.CONDITIONAL_STAT, TinkerHooks.BREAK_SPEED, TinkerHooks.TOOLTIP);
   }
 
   /** Gets the boost for the given level and height, can go negative */
@@ -72,11 +74,11 @@ public class DwarvenModifier extends Modifier implements ConditionalStatModifier
   }
 
   @Override
-  public void onBreakSpeed(IToolStackView tool, int level, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
+  public void onBreakSpeed(IToolStackView tool, ModifierEntry modifier, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
     if (!isEffective) {
       return;
     }
-    event.setNewSpeed(getBoost(event.getPlayer().level, event.getPos().getY(), level, event.getNewSpeed(), miningSpeedModifier * tool.getMultiplier(ToolStats.MINING_SPEED), MINING_BONUS));
+    event.setNewSpeed(getBoost(event.getPlayer().level, event.getPos().getY(), modifier.getLevel(), event.getNewSpeed(), miningSpeedModifier * tool.getMultiplier(ToolStats.MINING_SPEED), MINING_BONUS));
   }
 
   @Override
@@ -88,7 +90,7 @@ public class DwarvenModifier extends Modifier implements ConditionalStatModifier
   }
 
   @Override
-  public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag tooltipFlag) {
+  public void addTooltip(IToolStackView tool, ModifierEntry modifier, @Nullable Player player, List<Component> tooltip, TooltipKey key, TooltipFlag tooltipFlag) {
     boolean harvest = tool.hasTag(TinkerTags.Items.HARVEST);
     if (harvest || tool.hasTag(TinkerTags.Items.RANGED)) {
       Component prefix = harvest ? MINING_SPEED : VELOCITY;
@@ -97,19 +99,19 @@ public class DwarvenModifier extends Modifier implements ConditionalStatModifier
       if (player != null && key == TooltipKey.SHIFT) {
         // passing in 1 means greater than 1 is a boost, and less than 1 is a percentage
         // the -1 means for percentage, the range is now 0 to -75%, and for flat boost its properly 0 to baseBoost
-        boost = getBoost(player.level, (float)player.getY(), level, 1, 1f, baseBoost) - 1;
+        boost = getBoost(player.level, (float)player.getY(), modifier.getLevel(), 1, 1f, baseBoost) - 1;
         if (boost < 0) {
           // goes from 0 to -75%, don't show 0%
           if (boost <= -0.01) {
-            addPercentTooltip(prefix, boost, tooltip);
+            TooltipModifierHook.addPercentBoost(this, prefix, boost, tooltip);
           }
           return;
         }
       } else {
-        boost = baseBoost * level;
+        boost = baseBoost * modifier.getLevel();
       }
       if (boost >= 0.01) {
-        addFlatBoost(prefix, boost * tool.getMultiplier(harvest ? ToolStats.MINING_SPEED : ToolStats.VELOCITY), tooltip);
+        TooltipModifierHook.addFlatBoost(this, prefix, boost * tool.getMultiplier(harvest ? ToolStats.MINING_SPEED : ToolStats.VELOCITY), tooltip);
       }
     }
   }

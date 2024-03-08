@@ -9,26 +9,37 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
+import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.predicate.damage.DamageSourcePredicate;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.data.ModifierMaxLevel;
+import slimeknights.tconstruct.library.modifiers.hook.combat.ProtectionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.armor.ProtectionModule;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.utils.TooltipKey;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
-public class MeleeProtectionModifier extends AbstractProtectionModifier<ModifierMaxLevel> {
+public class MeleeProtectionModifier extends AbstractProtectionModifier<ModifierMaxLevel> implements ProtectionModifierHook, TooltipModifierHook {
   private static final UUID SPEED_UUID = UUID.fromString("6f030b1e-e9e1-11ec-8fea-0242ac120002");
   private static final TinkerDataKey<ModifierMaxLevel> KEY = TConstruct.createKey("melee_protection");
 
   public MeleeProtectionModifier() {
     super(KEY);
+  }
+
+  @Override
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.PROTECTION, TinkerHooks.TOOLTIP);
   }
 
   @Override
@@ -58,16 +69,16 @@ public class MeleeProtectionModifier extends AbstractProtectionModifier<Modifier
   }
 
   @Override
-  public float getProtectionModifier(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float modifierValue) {
+  public float getProtectionModifier(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float modifierValue) {
     if (DamageSourcePredicate.CAN_PROTECT.matches(source) && DamageSourcePredicate.MELEE.matches(source)) {
-      modifierValue += getEffectiveLevel(tool, level) * 2.5;
+      modifierValue += modifier.getEffectiveLevel(tool) * 2.5;
     }
     return modifierValue;
   }
 
   @Override
-  public void addInformation(IToolStackView tool, int level, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
-    ProtectionModule.addResistanceTooltip(tool, this, getEffectiveLevel(tool, level) * 2.5f, player, tooltip);
+  public void addTooltip(IToolStackView tool, ModifierEntry modifier, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
+    ProtectionModule.addResistanceTooltip(tool, this, modifier.getEffectiveLevel(tool) * 2.5f, player, tooltip);
   }
 
   @Override

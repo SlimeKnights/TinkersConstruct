@@ -6,9 +6,13 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.data.ModifierMaxLevel;
+import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;
 import slimeknights.tconstruct.library.modifiers.modules.armor.ProtectionModule;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
@@ -18,8 +22,14 @@ import java.util.List;
 
 /** Base class for protection modifiers that want to keep track of the largest level for a bonus */
 @RequiredArgsConstructor
-public abstract class AbstractProtectionModifier<T extends ModifierMaxLevel> extends IncrementalModifier {
+public abstract class AbstractProtectionModifier<T extends ModifierMaxLevel> extends IncrementalModifier implements EquipmentChangeModifierHook {
   private final TinkerDataKey<T> key;
+
+  @Override
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.EQUIPMENT_CHANGE);
+  }
 
   /** @deprecated use {@link #createData(EquipmentChangeContext)}*/
   @SuppressWarnings("DeprecatedIsStillUsed")
@@ -46,7 +56,7 @@ public abstract class AbstractProtectionModifier<T extends ModifierMaxLevel> ext
   }
 
   @Override
-  public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {
+  public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
     LivingEntity entity = context.getEntity();
     EquipmentSlot slot = context.getChangedSlot();
     if (ModifierUtil.validArmorSlot(tool, slot) && !entity.level.isClientSide) {
@@ -63,11 +73,11 @@ public abstract class AbstractProtectionModifier<T extends ModifierMaxLevel> ext
   }
 
   @Override
-  public void onEquip(IToolStackView tool, int level, EquipmentChangeContext context) {
+  public void onEquip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
     LivingEntity entity = context.getEntity();
     EquipmentSlot slot = context.getChangedSlot();
     if (!entity.level.isClientSide && ModifierUtil.validArmorSlot(tool, slot) && !tool.isBroken()) {
-      float scaledLevel = getScaledLevel(tool, level);
+      float scaledLevel = modifier.getEffectiveLevel(tool);
       context.getTinkerData().ifPresent(data -> {
         T modData = data.get(key);
         if (modData == null) {

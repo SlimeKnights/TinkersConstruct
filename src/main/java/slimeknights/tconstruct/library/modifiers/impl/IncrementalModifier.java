@@ -5,28 +5,36 @@ import net.minecraft.network.chat.Component;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
-import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.IncrementalModule;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 
-import java.util.List;
+import javax.annotation.Nullable;
 
 /**
  * Modifier which can take just part of an input instead of the whole input
  * TODO: consider moving incremental max to a field, serialized in JSON
  * TODO: consider removing this class in favor of {@link IncrementalModule}
  */
-public class IncrementalModifier extends Modifier {
+public class IncrementalModifier extends Modifier implements ModifierRemovalHook {
   /** Gets the display name for an incremental modifier */
   public static Component addAmountToName(int amount, int neededPerLevel, Component name) {
     if (amount < neededPerLevel) {
       return name.copy().append(": " + amount + " / " + neededPerLevel);
     }
     return name;
+  }
+
+  @Override
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.REMOVE);
   }
 
   @Override
@@ -39,10 +47,12 @@ public class IncrementalModifier extends Modifier {
     return name;
   }
 
+  @Nullable
   @Override
-  public void onRemoved(IToolStackView tool) {
+  public Component onRemoved(IToolStackView tool, Modifier modifier) {
     // remove current progress in incremental modifiers
     tool.getPersistentData().remove(getId());
+    return null;
   }
 
   /* Helpers */
@@ -140,11 +150,5 @@ public class IncrementalModifier extends Modifier {
    */
   public static void setAmount(ModDataNBT persistentData, ModifierId modifier, int amount) {
     persistentData.putInt(modifier, amount);
-  }
-
-  /** @deprecated use {@link TooltipModifierHook#addDamageBoost(IToolStackView, ModifierEntry, float, List)} */
-  @Deprecated
-  protected void addDamageTooltip(IToolStackView tool, int level, float levelAmount, List<Component> tooltip) {
-    addDamageTooltip(tool, getScaledLevel(tool, level) * levelAmount, tooltip);
   }
 }

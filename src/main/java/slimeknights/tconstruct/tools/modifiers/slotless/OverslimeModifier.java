@@ -5,7 +5,12 @@ import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.TinkerTags.Items;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.build.ToolStatsModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.VolatileDataModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.DurabilityShieldModifier;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -16,7 +21,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 
-public class OverslimeModifier extends DurabilityShieldModifier {
+public class OverslimeModifier extends DurabilityShieldModifier implements ToolStatsModifierHook, VolatileDataModifierHook {
   /** Key for max overslime on a tool */
   private static final ResourceLocation KEY_OVERSLIME_CAP = TConstruct.getResource("overslime_cap");
   /**
@@ -24,6 +29,12 @@ public class OverslimeModifier extends DurabilityShieldModifier {
    * Use {@link #getFriendKey()} when possible
    */
   public static final ResourceLocation KEY_OVERSLIME_FRIEND = TConstruct.getResource("overslime_friend");
+
+  @Override
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.TOOL_STATS, TinkerHooks.VOLATILE_DATA);
+  }
 
   @Override
   public Component getDisplayName(int level) {
@@ -35,13 +46,13 @@ public class OverslimeModifier extends DurabilityShieldModifier {
   /* Tool building */
 
   @Override
-  public void addVolatileData(ToolRebuildContext context, int level, ModDataNBT volatileData) {
+  public void addVolatileData(ToolRebuildContext context, ModifierEntry modifier, ModDataNBT volatileData) {
     // base cap
     addCapacity(volatileData, (int)(50 * context.getDefinition().getData().getMultiplier(ToolStats.DURABILITY)));
   }
 
   @Override
-  public void addToolStats(ToolRebuildContext context, int level, ModifierStatsBuilder builder) {
+  public void addToolStats(ToolRebuildContext context, ModifierEntry modifier, ModifierStatsBuilder builder) {
     if (!context.getVolatileData().getBoolean(KEY_OVERSLIME_FRIEND)) {
       if (context.hasTag(Items.MELEE)) {
         ToolStats.ATTACK_DAMAGE.multiply(builder, 0.9f);
@@ -72,13 +83,13 @@ public class OverslimeModifier extends DurabilityShieldModifier {
 
   @Nullable
   @Override
-  public Boolean showDurabilityBar(IToolStackView tool, int level) {
+  public Boolean showDurabilityBar(IToolStackView tool, ModifierEntry modifier) {
     // only show as fully repaired if overslime is full
     return getOverslime(tool) < getCapacity(tool) ? true : null;
   }
 
   @Override
-  public int getDurabilityRGB(IToolStackView tool, int level) {
+  public int getDurabilityRGB(IToolStackView tool, ModifierEntry modifier) {
     if (getOverslime(tool) > 0) {
       // just always display light blue, not much point in color changing really
       return 0x00D0FF;

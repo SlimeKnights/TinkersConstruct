@@ -8,6 +8,12 @@ import net.minecraft.world.entity.EquipmentSlot.Type;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.DamageTakenModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
@@ -20,11 +26,17 @@ import slimeknights.tconstruct.tools.logic.InteractionHandler;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-public class SpringyModifier extends Modifier {
+public class SpringyModifier extends Modifier implements EquipmentChangeModifierHook, MeleeHitModifierHook, DamageTakenModifierHook {
   private static final TinkerDataKey<SlotInCharge> SLOT_IN_CHARGE = TConstruct.createKey("springy");
 
   @Override
-  public void onAttacked(IToolStackView tool, int level, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(this, TinkerHooks.EQUIPMENT_CHANGE, TinkerHooks.MELEE_HIT, TinkerHooks.DAMAGE_TAKEN);
+  }
+
+  @Override
+  public void onDamageTaken(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
     LivingEntity user = context.getEntity();
     Entity attacker = source.getEntity();
     if (isDirectDamage && !user.level.isClientSide && attacker instanceof LivingEntity livingAttacker) {
@@ -37,6 +49,7 @@ public class SpringyModifier extends Modifier {
             IToolStackView bouncingTool = context.getToolInSlot(bouncingSlot);
             if (bouncingTool != null && !bouncingTool.isBroken()) {
               // 15% chance per level of it applying
+              int level = modifier.getLevel();
               if (RANDOM.nextFloat() < (level * 0.25f)) {
                 // does 0.5 base, plus up to 0.5f per level -- for comparison, 0.4 is normal knockback, 0.9 is with knockback 1
                 float newBonus = 0.5f * RANDOM.nextFloat() * level;
@@ -65,7 +78,7 @@ public class SpringyModifier extends Modifier {
   }
 
   @Override
-  public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {
+  public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
     // remove slot in charge if that is us
     EquipmentSlot slot = context.getChangedSlot();
     if (toolValid(tool, slot, context)) {
@@ -79,7 +92,7 @@ public class SpringyModifier extends Modifier {
   }
 
   @Override
-  public void onEquip(IToolStackView tool, int level, EquipmentChangeContext context) {
+  public void onEquip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
     EquipmentSlot slot = context.getChangedSlot();
     if (toolValid(tool, slot, context)) {
       context.getTinkerData().ifPresent(data -> {
@@ -92,10 +105,11 @@ public class SpringyModifier extends Modifier {
       });
     }
   }
+
   @Override
-  public float beforeEntityHit(IToolStackView tool, int level, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
+  public float beforeMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
     // unarmed bonus
-    return knockback + level * 0.5f;
+    return knockback + modifier.getLevel() * 0.5f;
   }
 
   /** Tracker to determine which slot should be in charge */
