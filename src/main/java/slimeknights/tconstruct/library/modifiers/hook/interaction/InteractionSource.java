@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.modifiers.hook.interaction;
 
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
-import slimeknights.tconstruct.library.modifiers.hook.KeybindInteractModifierHook;
 
 /**
  * Enum representing different sources of interaction

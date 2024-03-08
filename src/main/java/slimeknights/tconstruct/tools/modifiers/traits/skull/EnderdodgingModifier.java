@@ -7,8 +7,8 @@ import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.library.events.teleport.EnderdodgingTeleportEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
-import slimeknights.tconstruct.library.modifiers.hook.combat.DamageBlockModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.combat.DamageTakenModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.armor.DamageBlockModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.armor.OnAttackedModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
@@ -18,13 +18,13 @@ import slimeknights.tconstruct.library.utils.TeleportHelper;
 import slimeknights.tconstruct.library.utils.TeleportHelper.ITeleportEventFactory;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
-public class EnderdodgingModifier extends NoLevelsModifier implements DamageBlockModifierHook, DamageTakenModifierHook {
+public class EnderdodgingModifier extends NoLevelsModifier implements DamageBlockModifierHook, OnAttackedModifierHook {
   private static final ITeleportEventFactory FACTORY = EnderdodgingTeleportEvent::new;
 
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, TinkerHooks.DAMAGE_BLOCK, TinkerHooks.DAMAGE_TAKEN);
+    hookBuilder.addHook(this, TinkerHooks.DAMAGE_BLOCK, TinkerHooks.ON_ATTACKED);
   }
 
   @Override
@@ -43,7 +43,7 @@ public class EnderdodgingModifier extends NoLevelsModifier implements DamageBloc
   }
 
   @Override
-  public void onDamageTaken(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
+  public void onAttacked(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
     // teleport randomly from other damage
     LivingEntity self = context.getEntity();
     if (!self.hasEffect(TinkerModifiers.teleportCooldownEffect.get()) && source.getEntity() instanceof LivingEntity && RANDOM.nextInt(10) == 0) {

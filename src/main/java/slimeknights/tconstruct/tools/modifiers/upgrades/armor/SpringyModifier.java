@@ -11,7 +11,7 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.combat.DamageTakenModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.armor.OnAttackedModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
@@ -26,17 +26,17 @@ import slimeknights.tconstruct.tools.logic.InteractionHandler;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-public class SpringyModifier extends Modifier implements EquipmentChangeModifierHook, MeleeHitModifierHook, DamageTakenModifierHook {
+public class SpringyModifier extends Modifier implements EquipmentChangeModifierHook, MeleeHitModifierHook, OnAttackedModifierHook {
   private static final TinkerDataKey<SlotInCharge> SLOT_IN_CHARGE = TConstruct.createKey("springy");
 
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, TinkerHooks.EQUIPMENT_CHANGE, TinkerHooks.MELEE_HIT, TinkerHooks.DAMAGE_TAKEN);
+    hookBuilder.addHook(this, TinkerHooks.EQUIPMENT_CHANGE, TinkerHooks.MELEE_HIT, TinkerHooks.ON_ATTACKED);
   }
 
   @Override
-  public void onDamageTaken(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
+  public void onAttacked(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
     LivingEntity user = context.getEntity();
     Entity attacker = source.getEntity();
     if (isDirectDamage && !user.level.isClientSide && attacker instanceof LivingEntity livingAttacker) {

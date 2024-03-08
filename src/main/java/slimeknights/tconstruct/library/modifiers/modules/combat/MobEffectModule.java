@@ -24,10 +24,10 @@ import slimeknights.tconstruct.library.json.RandomLevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
-import slimeknights.tconstruct.library.modifiers.hook.ProjectileHitModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.ProjectileLaunchModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.combat.DamageTakenModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.armor.OnAttackedModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
@@ -52,8 +52,8 @@ public record MobEffectModule(
   RandomLevelingValue level,
   RandomLevelingValue time,
   ModifierModuleCondition condition
-) implements DamageTakenModifierHook, MeleeHitModifierHook, ProjectileLaunchModifierHook, ProjectileHitModifierHook, ModifierModule {
-  private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.DAMAGE_TAKEN, TinkerHooks.MELEE_HIT, TinkerHooks.PROJECTILE_LAUNCH, TinkerHooks.PROJECTILE_HIT);
+) implements OnAttackedModifierHook, MeleeHitModifierHook, ProjectileLaunchModifierHook, ProjectileHitModifierHook, ModifierModule {
+  private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.ON_ATTACKED, TinkerHooks.MELEE_HIT, TinkerHooks.PROJECTILE_LAUNCH, TinkerHooks.PROJECTILE_HIT);
 
   /** Creates a builder instance */
   public static MobEffectModule.Builder builder(MobEffect effect) {
@@ -76,7 +76,7 @@ public record MobEffectModule(
   }
 
   @Override
-  public void onDamageTaken(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
+  public void onAttacked(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
     Entity attacker = source.getEntity();
     if (isDirectDamage && attacker instanceof LivingEntity living) {
       // 15% chance of working per level

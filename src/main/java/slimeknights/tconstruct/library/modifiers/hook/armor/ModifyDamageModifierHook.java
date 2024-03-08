@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.modifiers.hook.combat;
+package slimeknights.tconstruct.library.modifiers.hook.armor;
 
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -17,12 +17,13 @@ import java.util.Collection;
  */
 public interface ModifyDamageModifierHook {
   /**
-   * Runs after an entity is attacked (and we know the attack will land). Note you can attack the entity here, but you are responsible for preventing infinite recursion if you do so (by detecting your own attack source for instance)
+   * Runs when an entity is about to take damage and allows modifying that damage. Note you can attack the entity here, but you are responsible for preventing infinite recursion if you do so (by detecting your own attack source for instance)
    * <br/>
    * Alternatives:
    * <ul>
    *   <li>{@link DamageBlockModifierHook}: Allows canceling the attack entirely, including the hurt animation.</li>
    *   <li>{@link ProtectionModifierHook}: Allows reducing the attack damage.</li>
+   *   <li>{@link OnAttackedModifierHook}: Allows responding to upcoming damage but not changing it.</li>
    * </ul>
    * @param tool             Tool being used
    * @param modifier         Level of the modifier

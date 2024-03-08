@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.modifiers.hook;
+package slimeknights.tconstruct.library.modifiers.hook.special;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -8,10 +8,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import java.util.Collection;
 import java.util.function.Function;
 
-/**
- * Interface that allows another modifier to hook into the shears modifier.
- * TODO 1.19: move to {@code slimeknights.tconstruct.library.modifiers.hook.special}
- */
+/** Interface that allows another modifier to hook into the shears modifier. */
 public interface ShearsModifierHook {
   /** Default behavior of no action */
   ShearsModifierHook EMPTY = (tool, modifier, player, entity, isTarget) -> {};

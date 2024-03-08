@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.modifiers.hook;
+package slimeknights.tconstruct.library.modifiers.hook.ranged;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -12,10 +12,7 @@ import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.function.Function;
 
-/**
- * Hook fired when an arrow hits an entity
- * TODO 1.19: move into {@link slimeknights.tconstruct.library.modifiers.hook.combat}
- */
+/** Hook fired when an arrow hits an entity */
 public interface ProjectileHitModifierHook {
   /** Default instance */
   ProjectileHitModifierHook EMPTY = new ProjectileHitModifierHook() {};

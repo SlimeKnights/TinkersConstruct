@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.modifiers.hook;
+package slimeknights.tconstruct.library.modifiers.hook.special;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -10,10 +10,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import java.util.Collection;
 import java.util.function.Function;
 
-/**
- * Modifier module to detect when the harvest modifier harvested a block.
- * TODO 1.19: move to {@code slimeknights.tconstruct.library.modifiers.hook.special}
- */
+/** Modifier module to detect when the harvest modifier harvested a block. */
 public interface PlantHarvestModifierHook {
   /** Default behavior for modifiers not using this hook */
   PlantHarvestModifierHook EMPTY = (tool, modifier, context, world, state, pos) -> {};

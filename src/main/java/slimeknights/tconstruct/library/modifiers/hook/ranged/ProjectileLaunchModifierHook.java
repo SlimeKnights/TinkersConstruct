@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.modifiers.hook;
+package slimeknights.tconstruct.library.modifiers.hook.ranged;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -11,10 +11,7 @@ import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.function.Function;
 
-/**
- * Hook for modifiers which wish to modify an arrow before its fired.
- * TODO 1.19: move into {@link slimeknights.tconstruct.library.modifiers.hook.combat}
- */
+/** Hook for modifiers which wish to modify an arrow before its fired. */
 public interface ProjectileLaunchModifierHook {
   /** Default instance */
   ProjectileLaunchModifierHook EMPTY = (tool, modifier, shooter, projectile, arrow, persistentData, primary) -> {};

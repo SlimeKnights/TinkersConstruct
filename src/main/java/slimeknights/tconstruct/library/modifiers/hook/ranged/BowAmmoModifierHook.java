@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.modifiers.hook;
+package slimeknights.tconstruct.library.modifiers.hook.ranged;
 
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
@@ -14,10 +14,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import java.util.function.Predicate;
 
-/**
- * Hook to find ammo on a bow.
- * TODO 1.19: move to {@link slimeknights.tconstruct.library.modifiers.hook.combat}
- */
+/** Hook to find ammo on a bow.*/
 public interface BowAmmoModifierHook {
   /** Default instance */
   BowAmmoModifierHook EMPTY = (tool, modifier, shooter, standardAmmo, ammoPredicate) -> ItemStack.EMPTY;

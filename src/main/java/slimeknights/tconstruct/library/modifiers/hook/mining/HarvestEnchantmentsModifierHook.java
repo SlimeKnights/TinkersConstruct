@@ -1,17 +1,15 @@
-package slimeknights.tconstruct.library.modifiers.hook;
+package slimeknights.tconstruct.library.modifiers.hook.mining;
 
 import net.minecraft.world.item.enchantment.Enchantment;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.hook.combat.LootingModifierHook;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.Collection;
 import java.util.function.BiConsumer;
 
-/**
- * Modifier hook implementing bonus enchantments from a tool, applied directly before block break. Can implement separately for leggings and tools if desired via the different hooks
- * TODO 1.19: move into {@link slimeknights.tconstruct.library.modifiers.hook.mining}
- */
+/** Modifier hook implementing bonus enchantments from a tool, applied directly before block break. Can implement separately for leggings and tools if desired via the different hooks */
 public interface HarvestEnchantmentsModifierHook {
   /**
    * Adds harvest loot table related enchantments from this modifier's effect to the tool, called before breaking a block.

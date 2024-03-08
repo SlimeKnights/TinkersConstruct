@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.modifiers.hook.combat;
+package slimeknights.tconstruct.library.modifiers.hook.armor;
 
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -22,7 +22,7 @@ public interface ProtectionModifierHook {
    * Alternatives:
    * <ul>
    *   <li>{@link DamageBlockModifierHook}: Allows canceling the attack entirely, including the hurt animation.</li>
-   *   <li>{@link DamageTakenModifierHook}: Allows running logic that should take place on attack, such as counterattacks.</li>
+   *   <li>{@link OnAttackedModifierHook}: Allows running logic that should take place on attack, such as counterattacks.</li>
    * </ul>
    * @param tool            Worn armor
    * @param modifier        Modifier level

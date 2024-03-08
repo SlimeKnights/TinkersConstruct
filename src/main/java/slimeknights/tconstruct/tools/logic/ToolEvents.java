@@ -51,9 +51,9 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.data.ModifierMaxLevel;
-import slimeknights.tconstruct.library.modifiers.hook.combat.DamageTakenModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.combat.ModifyDamageModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.combat.ProtectionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.armor.ModifyDamageModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.armor.OnAttackedModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.armor.ProtectionModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.armor.MobDisguiseModule;
 import slimeknights.tconstruct.library.tools.capability.EntityModifierCapability;
 import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
@@ -195,7 +195,7 @@ public class ToolEvents {
     }
 
     // a lot of counterattack hooks want to detect direct attacks, so save time by calculating once
-    boolean isDirectDamage = DamageTakenModifierHook.isDirectDamage(source);
+    boolean isDirectDamage = OnAttackedModifierHook.isDirectDamage(source);
 
     // determine if there is any modifiable armor, handles the target wearing modifiable armor
     EquipmentContext context = new EquipmentContext(entity);
@@ -217,7 +217,7 @@ public class ToolEvents {
       }
 
       // then we need to determine if any want to respond assuming its not canceled
-      DamageTakenModifierHook.handleDamageTaken(TinkerHooks.DAMAGE_TAKEN, context, source, amount, isDirectDamage);
+      OnAttackedModifierHook.handleAttack(TinkerHooks.ON_ATTACKED, context, source, amount, isDirectDamage);
     }
 
     // next, consider the attacker is wearing modifiable armor
@@ -265,7 +265,7 @@ public class ToolEvents {
     // for our own armor, we have boosts from modifiers to consider
     if (context.hasModifiableArmor()) {
       // first, allow modifiers to change the damage being dealt and respond to it happening
-      originalDamage = ModifyDamageModifierHook.modifyDamageTaken(TinkerHooks.MODIFY_HURT, context, source, originalDamage, DamageTakenModifierHook.isDirectDamage(source));
+      originalDamage = ModifyDamageModifierHook.modifyDamageTaken(TinkerHooks.MODIFY_HURT, context, source, originalDamage, OnAttackedModifierHook.isDirectDamage(source));
       event.setAmount(originalDamage);
       if (originalDamage <= 0) {
         event.setCanceled(true);
@@ -351,7 +351,7 @@ public class ToolEvents {
     // give modifiers a chance to respond to damage happening
     EquipmentContext context = new EquipmentContext(entity);
     if (context.hasModifiableArmor()) {
-      float amount = ModifyDamageModifierHook.modifyDamageTaken(TinkerHooks.MODIFY_DAMAGE, context, source, event.getAmount(), DamageTakenModifierHook.isDirectDamage(source));
+      float amount = ModifyDamageModifierHook.modifyDamageTaken(TinkerHooks.MODIFY_DAMAGE, context, source, event.getAmount(), OnAttackedModifierHook.isDirectDamage(source));
       event.setAmount(amount);
       if (amount <= 0) {
         event.setCanceled(true);

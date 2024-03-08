@@ -5,37 +5,29 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.hook.ArmorWalkModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.BlockTransformModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.BowAmmoModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.ElytraFlightModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.HarvestEnchantmentsModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.KeybindInteractModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.LootingModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.PlantHarvestModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.ProjectileHitModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.ProjectileLaunchModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.ShearsModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.armor.ArmorWalkModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.armor.DamageBlockModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.armor.ElytraFlightModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.armor.ModifyDamageModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.armor.OnAttackedModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.armor.ProtectionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.AttributesModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.EffectiveLevelModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.RepairFactorModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolActionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolDamageModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ModifierTraitHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.RawDataModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ToolStatsModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ValidateModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.VolatileDataModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.combat.DamageBlockModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.DamageDealtModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.combat.DamageTakenModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.LootingModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeDamageModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.combat.ModifyDamageModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.combat.ProtectionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.DisplayNameModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.DurabilityDisplayModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
@@ -43,10 +35,18 @@ import slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteracti
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InventoryTickModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.KeybindInteractModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BlockBreakModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.FinishHarvestModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.mining.HarvestEnchantmentsModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.RemoveBlockModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.ranged.BowAmmoModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileLaunchModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.special.BlockTransformModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.special.PlantHarvestModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.special.ShearsModifierHook;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
 
@@ -158,13 +158,10 @@ public class TinkerHooks {
 
   /** Hook called when taking damage wearing this armor to cancel the damage */
   public static final ModifierHook<DamageBlockModifierHook> DAMAGE_BLOCK = register("damage_block", DamageBlockModifierHook.class, DamageBlockModifierHook.AnyMerger::new, (tool, modifier, context, slotType, source, amount) -> false);
-  /**
-   * Hook called when taking damage to apply secondary effects such as counterattack or healing. Runs after {@link #DAMAGE_BLOCK} but before vanilla effects that cancel damage.
-   * TODO 1.19: rename hook to {@code ON_ATTACKED} to better represent the appropriate event and the fact that damage is still pending.
-   */
-  public static final ModifierHook<DamageTakenModifierHook> DAMAGE_TAKEN = register("damage_taken", DamageTakenModifierHook.class, DamageTakenModifierHook.AllMerger::new, (tool, modifier, context, slotType, source, amount, isDirectDamage) -> {});
+  /** Hook called when taking damage to apply secondary effects such as counterattack or healing. Runs after {@link #DAMAGE_BLOCK} but before vanilla effects that cancel damage. */
+  public static final ModifierHook<OnAttackedModifierHook> ON_ATTACKED = register("on_attacked", OnAttackedModifierHook.class, OnAttackedModifierHook.AllMerger::new, (tool, modifier, context, slotType, source, amount, isDirectDamage) -> {});
 
-  /** Hook allowing modifying damage taken or responding when damage is taken. Runs after {@link #DAMAGE_TAKEN} and any vanilla effects that cancel damage, but before armor reduction and {@link #PROTECTION}.  */
+  /** Hook allowing modifying damage taken or responding when damage is taken. Runs after {@link #ON_ATTACKED} and any vanilla effects that cancel damage, but before armor reduction and {@link #PROTECTION}.  */
   public static final ModifierHook<ModifyDamageModifierHook> MODIFY_HURT;
   /** Hook allowing modifying damage taken or responding when damage is taken. Runs after {@link #PROTECTION}, armor damage reduction, and absorption.  */
   public static final ModifierHook<ModifyDamageModifierHook> MODIFY_DAMAGE;

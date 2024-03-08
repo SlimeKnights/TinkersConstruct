@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.modifiers.hook;
+package slimeknights.tconstruct.library.modifiers.hook.armor;
 
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -7,10 +7,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import java.util.Collection;
 import java.util.function.Function;
 
-/**
- * Hook for chestplate modifiers to control eltyra flight behavior.
- * TODO 1.19: move to {@link slimeknights.tconstruct.library.modifiers.hook.armor}
- */
+/** Hook for chestplate modifiers to control eltyra flight behavior. */
 public interface ElytraFlightModifierHook {
   /** Default implementation */
   ElytraFlightModifierHook DEFAULT = (tool, modifier, entity, flightTicks) -> true;

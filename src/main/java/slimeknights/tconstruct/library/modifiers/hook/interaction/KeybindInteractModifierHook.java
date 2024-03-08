@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.modifiers.hook;
+package slimeknights.tconstruct.library.modifiers.hook.interaction;
 
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -12,7 +12,6 @@ import java.util.function.Function;
 /**
  * Hooks for interacting with a tool based on a keybind.
  * If you wish to use this hook for another slot, please discuss it with us, so we can implement a solution that will benefit all addons rather than having dupliate keybinds.
- * TODO 1.19: move into {@link slimeknights.tconstruct.library.modifiers.hook.interaction}
  */
 public interface KeybindInteractModifierHook {
   /** Empty implementation */

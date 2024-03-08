@@ -12,8 +12,8 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
-import slimeknights.tconstruct.library.modifiers.hook.ConditionalStatModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.combat.DamageTakenModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.armor.OnAttackedModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
@@ -32,11 +32,11 @@ import slimeknights.tconstruct.tools.modifiers.ability.armor.UseFluidOnHitModifi
 import javax.annotation.Nullable;
 
 /** Modifier to handle spilling recipes */
-public class SpillingModifier extends UseFluidOnHitModifier implements EntityInteractionModifierHook, DamageTakenModifierHook, MeleeHitModifierHook {
+public class SpillingModifier extends UseFluidOnHitModifier implements EntityInteractionModifierHook, OnAttackedModifierHook, MeleeHitModifierHook {
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, TinkerHooks.ENTITY_INTERACT, TinkerHooks.DAMAGE_TAKEN, TinkerHooks.MELEE_HIT);
+    hookBuilder.addHook(this, TinkerHooks.ENTITY_INTERACT, TinkerHooks.ON_ATTACKED, TinkerHooks.MELEE_HIT);
   }
 
   @Override
@@ -114,7 +114,7 @@ public class SpillingModifier extends UseFluidOnHitModifier implements EntityInt
   }
 
   @Override
-  public void onDamageTaken(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
+  public void onAttacked(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
     useFluid(tool, modifier, context, slotType, source, isDirectDamage);
   }
 }

@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.modifiers.hook;
+package slimeknights.tconstruct.library.modifiers.hook.build;
 
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -8,10 +8,7 @@ import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 
 import java.util.Collection;
 
-/**
- * Hook for modifying a stat conditioned on the holder.
- * TODO 1.19: move to {@link slimeknights.tconstruct.library.modifiers.hook.build}
- */
+/** Hook for modifying a stat conditioned on the holder. */
 public interface ConditionalStatModifierHook {
   /**
    * Method to modify a stat as the tool is being used

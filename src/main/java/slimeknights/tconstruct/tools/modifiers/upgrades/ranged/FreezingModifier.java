@@ -10,9 +10,9 @@ import net.minecraft.world.phys.EntityHitResult;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
-import slimeknights.tconstruct.library.modifiers.hook.ProjectileHitModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.combat.DamageTakenModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.armor.OnAttackedModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
@@ -23,10 +23,10 @@ import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
 
 import javax.annotation.Nullable;
 
-public class FreezingModifier extends Modifier implements ProjectileHitModifierHook, MeleeHitModifierHook, DamageTakenModifierHook {
+public class FreezingModifier extends Modifier implements ProjectileHitModifierHook, MeleeHitModifierHook, OnAttackedModifierHook {
   @Override
   protected void registerHooks(Builder hookBuilder) {
-    hookBuilder.addHook(this, TinkerHooks.MELEE_HIT, TinkerHooks.PROJECTILE_HIT, TinkerHooks.DAMAGE_TAKEN);
+    hookBuilder.addHook(this, TinkerHooks.MELEE_HIT, TinkerHooks.PROJECTILE_HIT, TinkerHooks.ON_ATTACKED);
   }
 
   /** Freezes the entity */
@@ -49,7 +49,7 @@ public class FreezingModifier extends Modifier implements ProjectileHitModifierH
   }
 
   @Override
-  public void onDamageTaken(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
+  public void onAttacked(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
     // this works like vanilla, damage is capped due to the hurt immunity mechanics, so if multiple pieces apply thorns between us and vanilla, damage is capped at 4
     Entity attacker = source.getEntity();
     if (isDirectDamage && attacker != null && attacker.canFreeze()) {

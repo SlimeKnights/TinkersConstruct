@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.modifiers.hook.combat;
+package slimeknights.tconstruct.library.modifiers.hook.armor;
 
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -18,7 +18,7 @@ public interface DamageBlockModifierHook {
    * Alternatives:
    * <ul>
    *   <li>{@link ProtectionModifierHook}: Allows reducing damage from a source rather than completely blocking it. Reduced damage will still play the attack animation.</li>
-   *   <li>{@link DamageTakenModifierHook}: Allows running logic that should take place on attack, such as counterattacks.</li>
+   *   <li>{@link OnAttackedModifierHook}: Allows running logic that should take place on attack, such as counterattacks.</li>
    * </ul>
    * @param tool       Tool being used
    * @param modifier   Level of the modifier

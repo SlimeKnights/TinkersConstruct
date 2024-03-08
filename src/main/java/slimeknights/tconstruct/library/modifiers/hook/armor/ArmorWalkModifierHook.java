@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.modifiers.hook;
+package slimeknights.tconstruct.library.modifiers.hook.armor;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
@@ -8,10 +8,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import java.util.Collection;
 import java.util.function.Function;
 
-/**
- * Modifier hook for boots when the player walks.
- * TODO 1.19: move to {@link slimeknights.tconstruct.library.modifiers.hook.armor}
- */
+/** Modifier hook for boots when the player walks. */
 public interface ArmorWalkModifierHook {
   /** Empty implementation for the sake of default behavior */
   ArmorWalkModifierHook EMPTY = (tool, modifier, living, prevPos, newPos) -> {};

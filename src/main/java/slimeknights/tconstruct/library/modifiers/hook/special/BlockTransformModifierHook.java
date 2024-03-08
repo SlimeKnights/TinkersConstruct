@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.modifiers.hook;
+package slimeknights.tconstruct.library.modifiers.hook.special;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.context.UseOnContext;
@@ -11,10 +11,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import java.util.Collection;
 import java.util.function.Function;
 
-/**
- * Interface that allows another modifier to hook into the block transform modifier.
- * TODO 1.19: move to {@code slimeknights.tconstruct.library.modifiers.hook.special}
- */
+/** Interface that allows another modifier to hook into the block transform modifier. */
 public interface BlockTransformModifierHook {
 
   /** Default behavior of no action */
