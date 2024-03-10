@@ -10,9 +10,11 @@ import net.minecraftforge.event.RegisterCommandsEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.shared.command.argument.MaterialArgument;
 import slimeknights.tconstruct.shared.command.argument.ModifierArgument;
+import slimeknights.tconstruct.shared.command.argument.ModifierHookArgument;
 import slimeknights.tconstruct.shared.command.argument.SlotTypeArgument;
 import slimeknights.tconstruct.shared.command.argument.ToolStatArgument;
 import slimeknights.tconstruct.shared.command.subcommand.GeneratePartTexturesCommand;
+import slimeknights.tconstruct.shared.command.subcommand.ModifierPriorityCommand;
 import slimeknights.tconstruct.shared.command.subcommand.ModifierUsageCommand;
 import slimeknights.tconstruct.shared.command.subcommand.ModifiersCommand;
 import slimeknights.tconstruct.shared.command.subcommand.SlotsCommand;
@@ -28,6 +30,7 @@ public class TConstructCommand {
     ArgumentTypes.register(TConstruct.resourceString("tool_stat"), ToolStatArgument.class, new EmptyArgumentSerializer<>(ToolStatArgument::stat));
     ArgumentTypes.register(TConstruct.resourceString("modifier"), ModifierArgument.class, new EmptyArgumentSerializer<>(ModifierArgument::modifier));
     ArgumentTypes.register(TConstruct.resourceString("material"), MaterialArgument.class, new EmptyArgumentSerializer<>(MaterialArgument::material));
+    ArgumentTypes.register(TConstruct.resourceString("modifier_hook"), ModifierHookArgument.class, new EmptyArgumentSerializer<>(ModifierHookArgument::modifierHook));
 
     // add command listener
     MinecraftForge.EVENT_BUS.addListener(TConstructCommand::registerCommand);
@@ -48,7 +51,10 @@ public class TConstructCommand {
     register(builder, "modifiers", ModifiersCommand::register);
     register(builder, "tool_stats", StatsCommand::register);
     register(builder, "slots", SlotsCommand::register);
-    register(builder, "modifier_usage", ModifierUsageCommand::register);
+    register(builder, "report", b -> {
+      register(b, "modifier_usage", ModifierUsageCommand::register);
+      register(b, "modifier_priority", ModifierPriorityCommand::register);
+    });
     register(builder, "generate_part_textures", GeneratePartTexturesCommand::register);
 
     // register final command

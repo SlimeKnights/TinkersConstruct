@@ -4,6 +4,7 @@ import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
@@ -14,6 +15,8 @@ public class ModifierHooks {
 
   /** Map of ID to hook */
   private static final Map<ResourceLocation,ModifierHook<?>> HOOKS = new ConcurrentHashMap<>();
+  /** Unmodifiable view of the hook map */
+  private static final Collection<ResourceLocation> HOOK_IDS = Collections.unmodifiableCollection(HOOKS.keySet());
 
 
   /* Registry */
@@ -66,5 +69,10 @@ public class ModifierHooks {
    */
   public static <T> ModifierHook<T> register(ResourceLocation name, Class<T> filter, T defaultInstance) {
     return register(name, filter, defaultInstance, null);
+  }
+
+  /** Gets an unmodifiable view of the list of all registered hooks */
+  public static Collection<ResourceLocation> listAllIDs() {
+    return HOOK_IDS;
   }
 }
