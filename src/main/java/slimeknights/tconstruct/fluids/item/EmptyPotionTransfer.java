@@ -11,9 +11,9 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.fluid.transfer.EmptyFluidWithNBTTransfer;
+import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.fluid.transfer.IFluidContainerTransfer;
 
 /** Fluid transfer info that empties a fluid from an item, copying the fluid's NBT to the stack */
 public class EmptyPotionTransfer extends EmptyFluidWithNBTTransfer implements IFluidContainerTransfer {

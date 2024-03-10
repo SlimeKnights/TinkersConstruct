@@ -107,7 +107,7 @@ public class AlloyerScreen extends AbstractContainerScreen<AlloyerContainerMenu>
 
   @Override
   protected void renderLabels(PoseStack matrices, int mouseX, int mouseY) {
-    GuiUtil.drawContainerNames(matrices, this, this.font, this.playerInventoryTitle);
+    super.renderLabels(matrices, mouseX, mouseY);
     int checkX = mouseX - this.leftPos;
     int checkY = mouseY - this.topPos;
 

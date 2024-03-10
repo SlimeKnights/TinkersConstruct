@@ -26,12 +26,6 @@ public class ExtractModifierRecipe extends ModifierRemovalRecipe {
   private static final Component DESCRIPTION = TConstruct.makeTranslation("recipe", "extract_modifier.description");
   private static final Component NO_MODIFIERS = TConstruct.makeTranslation("recipe", "extract_modifier.no_modifiers");
 
-  /** @deprecated use {#link #ExtractModifierRecipe(ResourceLocation, SizedIngredient, List, List, IJsonPredicate} */
-  @Deprecated
-  public ExtractModifierRecipe(ResourceLocation id, List<SizedIngredient> inputs, List<ItemStack> leftovers, IJsonPredicate<ModifierId> modifierPredicate) {
-    super(id, inputs, leftovers, modifierPredicate);
-  }
-
   public ExtractModifierRecipe(ResourceLocation id, SizedIngredient toolRequirements, List<SizedIngredient> inputs, List<ItemStack> leftovers, IJsonPredicate<ModifierId> modifierPredicate) {
     super(id,toolRequirements, inputs, leftovers, modifierPredicate);
   }
@@ -69,7 +63,7 @@ public class ExtractModifierRecipe extends ModifierRemovalRecipe {
 
   @Override
   public void updateInputs(IToolStackView result, Mutable inv, ModifierEntry selected, boolean isServer) {
-    super.updateInputs(result, inv, isServer);
+    super.updateInputs(result, inv, selected, isServer);
     if (isServer) {
       // just 1 crystal in this version as just 1 level was removed
       inv.giveItem(ModifierCrystalItem.withModifier(selected.getId()));

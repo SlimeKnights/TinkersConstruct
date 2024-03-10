@@ -65,23 +65,17 @@ public interface IModifierWorktableRecipe extends ICommonRecipe<ITinkerableConta
     return Math.min(inv.getTinkerableStack().getCount(), toolResultSize());
   }
 
-  /** @deprecated use {@link #updateInputs(IToolStackView, ITinkerableContainer.Mutable, ModifierEntry, boolean)} */
-  @Deprecated
-  default void updateInputs(IToolStackView result, ITinkerableContainer.Mutable inv, boolean isServer) {
+  /**
+   * Updates the input stacks upon crafting this recipe
+   * @param result    Result from {@link #getResult(ITinkerableContainer, ModifierEntry)}
+   * @param inv       Inventory instance to modify inputs
+   * @param isServer  If true, this is on the serverside. Use to handle randomness, {@link IMutableTinkerStationContainer#giveItem(ItemStack)} should handle being called serverside only
+   */
+  default void updateInputs(IToolStackView result, ITinkerableContainer.Mutable inv, ModifierEntry selected, boolean isServer) {
     // shrink all stacks by 1
     for (int index = 0; index < inv.getInputCount(); index++) {
       inv.shrinkInput(index, 1);
     }
-  }
-
-  /**
-   * Updates the input stacks upon crafting this recipe
-   * @param result  Result from {@link #getResult(ITinkerableContainer, ModifierEntry)}
-   * @param inv     Inventory instance to modify inputs
-   * @param isServer  If true, this is on the serverside. Use to handle randomness, {@link IMutableTinkerStationContainer#giveItem(ItemStack)} should handle being called serverside only
-   */
-  default void updateInputs(IToolStackView result, ITinkerableContainer.Mutable inv, ModifierEntry selected, boolean isServer) {
-    updateInputs(result, inv, isServer);
   }
 
   /** Gets input tool options, need not be rendered with the modifiers, simply be valid tools */

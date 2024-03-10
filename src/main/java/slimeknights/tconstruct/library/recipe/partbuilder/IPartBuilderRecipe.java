@@ -7,7 +7,6 @@ import slimeknights.mantle.recipe.ICommonRecipe;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.material.IMaterialValue;
 import slimeknights.tconstruct.tables.TinkerTables;
-import slimeknights.tconstruct.tables.block.entity.inventory.PartBuilderContainerWrapper;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -66,9 +65,8 @@ public interface IPartBuilderRecipe extends ICommonRecipe<IPartBuilderContainer>
     return new ItemStack(TinkerTables.partBuilder);
   }
 
-  /** @deprecated use {@link #getLeftover(PartBuilderContainerWrapper, Pattern)} */
-  @Deprecated
-  default ItemStack getLeftover(PartBuilderContainerWrapper inventoryWrapper) {
+  /** Gets the leftover from performing this recipe */
+  default ItemStack getLeftover(IPartBuilderContainer inventoryWrapper, Pattern pattern) {
     IMaterialValue recipe = inventoryWrapper.getMaterial();
     if (recipe != null) {
       int value = recipe.getValue();
@@ -85,14 +83,6 @@ public interface IPartBuilderRecipe extends ICommonRecipe<IPartBuilderContainer>
       }
     }
     return ItemStack.EMPTY;
-  }
-
-  /**
-   * Gets the leftover from performing this recipe
-   * TODO: switch to the interface for the parameter
-   */
-  default ItemStack getLeftover(PartBuilderContainerWrapper inventoryWrapper, Pattern pattern) {
-    return getLeftover(inventoryWrapper);
   }
 
   /** Gets the title to display on the part builder panel. If null, displays default info */

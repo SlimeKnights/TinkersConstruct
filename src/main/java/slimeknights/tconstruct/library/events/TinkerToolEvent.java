@@ -41,21 +41,6 @@ public abstract class TinkerToolEvent extends Event {
     private final BlockState state;
     private final BlockPos pos;
     private final InteractionSource source;
-    /** @deprecated use {@link #getSource()} */
-    @Deprecated
-    private final EquipmentSlot slotType;
-
-    /** @deprecated use {@link #ToolHarvestEvent(IToolStackView, UseOnContext, ServerLevel, BlockState, BlockPos, InteractionSource)} */
-    @Deprecated
-    public ToolHarvestEvent(IToolStackView tool, UseOnContext context, ServerLevel world, BlockState state, BlockPos pos, EquipmentSlot slotType) {
-      super(getItem(context, slotType), tool);
-      this.context = context;
-      this.world = world;
-      this.state = state;
-      this.pos = pos;
-      this.source = InteractionSource.fromEquipmentSlot(slotType);
-      this.slotType = slotType;
-    }
 
     public ToolHarvestEvent(IToolStackView tool, UseOnContext context, ServerLevel world, BlockState state, BlockPos pos, InteractionSource source) {
       super(getItem(context, source), tool);
@@ -64,7 +49,6 @@ public abstract class TinkerToolEvent extends Event {
       this.state = state;
       this.pos = pos;
       this.source = source;
-      this.slotType = source.getSlot(context.getHand());
     }
 
     /** Gets the item for the event */

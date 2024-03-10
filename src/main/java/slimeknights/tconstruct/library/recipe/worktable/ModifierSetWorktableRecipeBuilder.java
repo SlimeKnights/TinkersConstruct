@@ -15,8 +15,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.json.predicate.modifier.ModifierPredicate;
-import slimeknights.tconstruct.library.json.predicate.modifier.TagModifierPredicate;
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -33,18 +31,6 @@ public class ModifierSetWorktableRecipeBuilder extends AbstractSizedIngredientRe
   private final boolean addToSet;
   private Ingredient tools = Ingredient.EMPTY;
   private boolean allowTraits = false;
-
-  /** @deprecated use {@link #setAdding(ResourceLocation)} and {@link #modifierPredicate(IJsonPredicate)} */
-  @Deprecated
-  public static ModifierSetWorktableRecipeBuilder setAdding(ResourceLocation dataKey, TagKey<Modifier> blacklist) {
-    return new ModifierSetWorktableRecipeBuilder(dataKey, new TagModifierPredicate(blacklist).inverted(), true, Ingredient.EMPTY, false);
-  }
-
-  /** @deprecated use {@link #setRemoving(ResourceLocation)} and {@link #modifierPredicate(IJsonPredicate)} */
-  @Deprecated
-  public static ModifierSetWorktableRecipeBuilder setRemoving(ResourceLocation dataKey, TagKey<Modifier> blacklist) {
-    return new ModifierSetWorktableRecipeBuilder(dataKey, new TagModifierPredicate(blacklist).inverted(), false, Ingredient.EMPTY, false);
-  }
 
   /** Creates a new recipe for adding to a set */
   public static ModifierSetWorktableRecipeBuilder setAdding(ResourceLocation dataKey) {

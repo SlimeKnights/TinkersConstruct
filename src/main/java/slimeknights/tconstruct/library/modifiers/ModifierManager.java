@@ -123,7 +123,6 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
   }
 
   /** For internal use only */
-  @Deprecated
   public void init() {
     FMLJavaModLoadingContext.get().getModEventBus().addListener(EventPriority.NORMAL, false, FMLCommonSetupEvent.class, e -> e.enqueueWork(this::fireRegistryEvent));
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, AddReloadListenerEvent.class, this::addDataPackListeners);

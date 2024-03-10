@@ -82,13 +82,6 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
     ModifierRecipeLookup.addRequirements(toolRequirement, result, requirements, requirementsError);
   }
 
-  /** @deprecated use {@link #AbstractModifierRecipe(ResourceLocation, Ingredient, int, ModifierMatch, String, ModifierEntry, int, SlotCount, boolean)} */
-  @Deprecated
-  protected AbstractModifierRecipe(ResourceLocation id, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements,
-                                   String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
-    this(id, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots, true);
-  }
-
   @Override
   public abstract ValidatedResult getValidatedResult(ITinkerStationContainer inv);
 

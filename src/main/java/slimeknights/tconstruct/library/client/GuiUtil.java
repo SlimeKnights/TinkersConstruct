@@ -11,12 +11,10 @@ import com.mojang.math.Matrix4f;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraftforge.fluids.FluidStack;
@@ -34,21 +32,6 @@ public final class GuiUtil {
   public static void drawBackground(PoseStack matrices, AbstractContainerScreen<?> screen, ResourceLocation background) {
     RenderUtils.setup(background);
     screen.blit(matrices, screen.leftPos, screen.topPos, 0, 0, screen.imageWidth, screen.imageHeight);
-  }
-
-  /**
-   * Draws the container names
-   * @param matrices    Matrix context
-   * @param screen    Screen name
-   * @param font      Screen font
-   * @param invName   Name of the player inventory
-   * @deprecated  Switch to the vanilla method
-   */
-  @Deprecated
-  public static void drawContainerNames(PoseStack matrices, AbstractContainerScreen<?> screen, Font font, Component invName) {
-    String name = screen.getTitle().getString();
-    font.draw(matrices, name, (screen.imageWidth / 2f - font.width(name) / 2f), 6.0F, 0x404040);
-    font.draw(matrices, invName, 8.0F, (screen.imageHeight - 96 + 2), 0x404040);
   }
 
   /**

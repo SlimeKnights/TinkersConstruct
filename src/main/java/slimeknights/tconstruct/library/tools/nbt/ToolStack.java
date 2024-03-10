@@ -634,12 +634,6 @@ public class ToolStack implements IToolStackView {
     return ValidatedResult.PASS;
   }
 
-  /** @deprecated slot building has been moved to {@link #rebuildStats()} and safely builds from empty NBT, so this method is no longer needed. WIll be removed in 1.19 */
-  @Deprecated
-  public void ensureSlotsBuilt() {
-    // NO-OP: moved to #rebuildStats()
-  }
-
   /** Called on inventory tick to ensure the tool has all required data including materials and starting slots, prevents tools with no stats from existing */
   public void ensureHasData() {
     // if datapacks have loaded and the tool does not have stats, it needs to have stats built

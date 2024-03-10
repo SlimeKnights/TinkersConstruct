@@ -45,7 +45,7 @@ public interface IPartBuilderContainer extends ISingleStackContainer {
     return getStack().isEmpty() && getPatternStack().isEmpty();
   }
 
-  /** @deprecated always 1, not useful */
+  /** @deprecated always 2, not useful */
   @Deprecated
   @Override
   default int getContainerSize() {

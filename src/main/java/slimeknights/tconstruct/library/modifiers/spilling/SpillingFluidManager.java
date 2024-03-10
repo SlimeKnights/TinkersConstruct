@@ -64,7 +64,6 @@ public class SpillingFluidManager extends SimpleJsonResourceReloadListener {
   }
 
   /** For internal use only */
-  @Deprecated
   public void init() {
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, AddReloadListenerEvent.class, this::addDataPackListeners);
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, OnDatapackSyncEvent.class, e -> JsonUtils.syncPackets(e, new UpdateSpillingFluidsPacket(this.fluids)));

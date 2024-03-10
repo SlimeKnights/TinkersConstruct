@@ -18,7 +18,6 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.tables.TinkerTables;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -35,12 +34,6 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   protected final IModifiable output;
   protected final int outputCount;
   protected final List<Ingredient> ingredients;
-
-  /** @deprecated use {@link #ToolBuildingRecipe(ResourceLocation, String, IModifiable, int, List)} */
-  @Deprecated
-  public ToolBuildingRecipe(ResourceLocation id, String group, IModifiable output) {
-    this(id, group, output, 1, Collections.emptyList());
-  }
 
   /** Gets the additional recipe requirements beyond the tool parts */
   public List<Ingredient> getExtraRequirements() {

@@ -4,8 +4,8 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
+import slimeknights.mantle.recipe.data.IRecipeHelper;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.data.recipe.IRecipeHelper;
 
 import java.util.function.Consumer;
 

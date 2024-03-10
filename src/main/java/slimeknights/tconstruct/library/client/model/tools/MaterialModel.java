@@ -79,12 +79,6 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     return allTextures;
   }
 
-  /** @deprecated use {@link DynamicTextureLoader#getTextureAdder(Collection, boolean)} */
-  @Deprecated
-  public static Predicate<Material> getTextureAdder(Collection<Material> allTextures, boolean logMissingTextures) {
-    return DynamicTextureLoader.getTextureAdder(allTextures, logMissingTextures);
-  }
-
   /**
    * Gets the list of material textures for the given owner texture
    * @param allTextures  Collection of textures

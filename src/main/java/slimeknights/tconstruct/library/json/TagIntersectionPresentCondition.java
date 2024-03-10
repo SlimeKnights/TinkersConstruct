@@ -53,6 +53,7 @@ public class TagIntersectionPresentCondition<T> implements ICondition {
   @Deprecated
   @Override
   public boolean test() {
+    // TODO: consider adding support for contextless variant like TagNotEmptyLootCondition
     TConstruct.LOG.error("Calling TagIntersectionPresentCondition method with no context, unable to properly test");
     return false;
   }

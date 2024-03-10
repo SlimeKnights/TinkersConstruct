@@ -173,7 +173,7 @@ public final class SlotType {
         throw new JsonSyntaxException("Invalid slot type name '" + typeString + "'");
       }
       SlotType slotType = SlotType.getOrCreate(typeString);
-      int slots = JsonUtils.getIntMin(entry.getValue(), "count", 1);
+      int slots = JsonUtils.convertToIntMin(entry.getValue(), "count", 1);
       return new SlotCount(slotType, slots);
     }
 

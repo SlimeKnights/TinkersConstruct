@@ -70,18 +70,6 @@ public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
     this.entryPredicate = mod -> modifierPredicate.matches(mod.getId());
   }
 
-  /** @deprecated use {#link #ModifierRemovalRecipe(ResourceLocation, SizedIngredient, List, List, IJsonPredicate} */
-  @Deprecated
-  public ModifierRemovalRecipe(ResourceLocation id, List<SizedIngredient> inputs, List<ItemStack> leftovers, IJsonPredicate<ModifierId> modifierPredicate) {
-    this(id, SizedIngredient.fromTag(TinkerTags.Items.MODIFIABLE), inputs, leftovers, modifierPredicate);
-  }
-
-  /** @deprecated use {@link #ModifierRemovalRecipe(ResourceLocation, SizedIngredient, List, List, IJsonPredicate)} */
-  @Deprecated
-  public ModifierRemovalRecipe(ResourceLocation id, List<SizedIngredient> inputs, List<ItemStack> leftovers) {
-    this(id, inputs, leftovers, ModifierPredicate.ALWAYS);
-  }
-
   @Override
   public Component getTitle() {
     return TITLE;
@@ -175,8 +163,8 @@ public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
   }
 
   @Override
-  public void updateInputs(IToolStackView result, ITinkerableContainer.Mutable inv, boolean isServer) {
-    super.updateInputs(result, inv, isServer);
+  public void updateInputs(IToolStackView result, ITinkerableContainer.Mutable inv, ModifierEntry selected, boolean isServer) {
+    super.updateInputs(result, inv, selected, isServer);
     if (isServer) {
       for (ItemStack stack : leftovers) {
         inv.giveItem(stack.copy());
@@ -208,18 +196,6 @@ public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
     return tools;
   }
 
-  /** @deprecated use {@link Factory} */
-  @Deprecated
-  @FunctionalInterface
-  public interface ModifierRemovalRecipeFactory extends Factory {
-    ModifierRemovalRecipe create(ResourceLocation id, List<SizedIngredient> inputs, List<ItemStack> leftovers, IJsonPredicate<ModifierId> modifierPredicate);
-
-    @Override
-    default ModifierRemovalRecipe create(ResourceLocation id, SizedIngredient toolRequirement, List<SizedIngredient> inputs, List<ItemStack> leftovers, IJsonPredicate<ModifierId> modifierPredicate) {
-      return create(id, inputs, leftovers, modifierPredicate);
-    }
-  }
-
   /** Factory interface for modifier removal recipes */
   @FunctionalInterface
   public interface Factory {
@@ -229,12 +205,6 @@ public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
   @RequiredArgsConstructor
   public static class Serializer extends LoggingRecipeSerializer<ModifierRemovalRecipe> {
     private final Factory factory;
-
-    /** @deprecated use {@link #Serializer(Factory)} */
-    @Deprecated
-    public Serializer(ModifierRemovalRecipeFactory factory) {
-      this((Factory)factory);
-    }
 
     @Override
     public ModifierRemovalRecipe fromJson(ResourceLocation id, JsonObject json) {

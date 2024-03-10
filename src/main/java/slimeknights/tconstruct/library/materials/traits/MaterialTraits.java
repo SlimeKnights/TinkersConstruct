@@ -179,11 +179,5 @@ public class MaterialTraits {
       }
       return new MaterialTraits(defaultTraits, traitsPerStats);
     }
-
-    /** @deprecated use {@link #build(Map)} */
-    @Deprecated
-    public MaterialTraits build() {
-      return build(Collections.emptyMap());
-    }
   }
 }

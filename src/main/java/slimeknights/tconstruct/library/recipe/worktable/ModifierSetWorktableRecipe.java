@@ -11,7 +11,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -20,10 +19,8 @@ import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.json.predicate.modifier.ModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.modifier.TagModifierPredicate;
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
@@ -80,18 +77,6 @@ public class ModifierSetWorktableRecipe extends AbstractWorktableRecipe {
     this.modifierPredicate = modifierPredicate;
     this.entryFilter = entry -> modifierPredicate.matches(entry.getId());
     this.allowTraits = allowTraits;
-  }
-
-  /** @deprecated use {@link #ModifierSetWorktableRecipe(ResourceLocation, ResourceLocation, List, Ingredient, IJsonPredicate, boolean, boolean)} */
-  @Deprecated
-  public ModifierSetWorktableRecipe(ResourceLocation id, ResourceLocation dataKey, List<SizedIngredient> inputs, IJsonPredicate<ModifierId> modifierPredicate, boolean addToSet) {
-    this(id, dataKey, inputs, Ingredient.of(TinkerTags.Items.MODIFIABLE), modifierPredicate, addToSet, false);
-  }
-
-  /** @deprecated use {@link #ModifierSetWorktableRecipe(ResourceLocation, ResourceLocation, List, Ingredient, IJsonPredicate, boolean, boolean)} */
-  @Deprecated
-  public ModifierSetWorktableRecipe(ResourceLocation id, ResourceLocation dataKey, List<SizedIngredient> inputs, TagKey<Modifier> blacklist, boolean addToSet) {
-    this(id, dataKey, inputs, new TagModifierPredicate(blacklist).inverted(), addToSet);
   }
 
   /** Gets the modifiers from the container */

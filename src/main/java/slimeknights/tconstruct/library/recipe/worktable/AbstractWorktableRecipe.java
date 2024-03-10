@@ -56,7 +56,7 @@ public abstract class AbstractWorktableRecipe implements IModifierWorktableRecip
   }
 
   @Override
-  public void updateInputs(IToolStackView result, ITinkerableContainer.Mutable inv, boolean isServer) {
+  public void updateInputs(IToolStackView result, ITinkerableContainer.Mutable inv, ModifierEntry selected, boolean isServer) {
     ModifierRecipe.updateInputs(inv, inputs);
   }
 

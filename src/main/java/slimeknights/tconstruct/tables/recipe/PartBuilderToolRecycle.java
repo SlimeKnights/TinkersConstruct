@@ -30,7 +30,6 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tables.TinkerTables;
-import slimeknights.tconstruct.tables.block.entity.inventory.PartBuilderContainerWrapper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,12 +53,6 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe {
   private final ResourceLocation id;
   private final SizedIngredient toolRequirement;
   private final Ingredient pattern;
-
-  /** @deprecated use {@link #PartBuilderToolRecycle(ResourceLocation, SizedIngredient, Ingredient)} */
-  @Deprecated
-  public PartBuilderToolRecycle(ResourceLocation id, Ingredient pattern) {
-    this(id, SizedIngredient.fromTag(TinkerTags.Items.MULTIPART_TOOL), pattern);
-  }
 
   @Override
   public Pattern getPattern() {
@@ -120,7 +113,7 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe {
   }
 
   @Override
-  public ItemStack getLeftover(PartBuilderContainerWrapper inv, Pattern pattern) {
+  public ItemStack getLeftover(IPartBuilderContainer inv, Pattern pattern) {
     ToolStack tool = ToolStack.from(inv.getStack());
 
     // if the tool is damaged, it we only have a chance of a second tool part
@@ -210,12 +203,6 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe {
     private final ResourceLocation id;
     private final SizedIngredient tools;
     private final Ingredient pattern;
-
-    /** @deprecated use {@link #Finished(ResourceLocation, SizedIngredient, Ingredient)} */
-    @Deprecated
-    public Finished(ResourceLocation id, Ingredient pattern) {
-      this(id, SizedIngredient.fromTag(TinkerTags.Items.MULTIPART_TOOL), pattern);
-    }
 
     @Override
     public void serializeRecipeData(JsonObject json) {
