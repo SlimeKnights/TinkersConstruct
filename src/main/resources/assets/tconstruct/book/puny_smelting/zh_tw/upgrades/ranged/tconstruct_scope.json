@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:scope",
+  "text": [
+    {
+      "text": "360 no scope"
+    }
+  ],
+  "effects": [
+    "在拉動長弓時放大視角",
+  	"單個等級",
+  	"需要1個升級槽"
+  ]
+}

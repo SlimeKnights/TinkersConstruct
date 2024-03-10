@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:necrotic",
+  "text": [
+    {
+      "text": "收割敵人的生命以存活得更久。"
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/melee",
+  "effects": [
+    "暴擊會竊取敵人的生命來治癒你",
+    "多個等級，每級進一步增加竊取生命的量",
+    "每級需要1個升級槽"
+  ]
+}
