@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:double_jump",
+  "text": [
+    {
+      "text": "能夠在空中額外跳躍一次。多個等級可以進行多次跳躍，可以跳躍三次甚至四次。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "無等級上限",
+    "需要1個能力槽"
+  ]
+}

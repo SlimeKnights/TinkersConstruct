@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:strength",
+  "text": [
+    {
+      "text": "每級所有武器的攻擊力+10%。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "可以逐級強化",
+    "每級需要1個能力槽"
+  ]
+}

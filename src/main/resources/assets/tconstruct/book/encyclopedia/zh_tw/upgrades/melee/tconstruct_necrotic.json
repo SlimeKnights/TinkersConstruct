@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:necrotic",
+  "text": [
+    {
+      "text": "暴擊時，每級按造成的傷害的5%恢復自身生命值。每級額外消耗1點耐久度。"
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/melee",
+  "effects": [
+    "最高5級",
+    "每級需要1個升級槽"
+  ]
+}

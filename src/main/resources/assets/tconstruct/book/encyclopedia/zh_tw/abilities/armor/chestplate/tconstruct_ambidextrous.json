@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:ambidextrous",
+  "text": [
+    {
+      "text": "允許你使用副手攻擊。副手將會受到所有對主手的空手強化的加成。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最高1級",
+    "需要1個能力槽"
+  ]
+}

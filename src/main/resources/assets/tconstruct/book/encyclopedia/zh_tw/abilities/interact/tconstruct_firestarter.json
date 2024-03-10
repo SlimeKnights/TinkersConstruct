@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:firestarter",
+  "text": [
+    {
+      "text": "使用工具可以點燃火焰，每次耐久度-1。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最高1級",
+    "需要1個能力槽"
+  ]
+}

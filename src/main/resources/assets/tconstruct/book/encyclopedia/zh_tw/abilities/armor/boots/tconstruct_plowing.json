@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:plowing",
+  "text": [
+    {
+      "text": "將你踩過的泥土變為耕地。「延展」強化可以擴大其作用範圍。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最高1級",
+    "需要1個能力槽"
+  ]
+}

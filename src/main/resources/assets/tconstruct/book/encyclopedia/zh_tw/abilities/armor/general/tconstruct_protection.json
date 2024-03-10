@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:protection",
+  "text": [
+    {
+      "text": "每一件加持有此強化的盔甲能使對所有種類傷害的抗性+5%。所有盔甲的總上限為80%，其他種類的保護也計算在內。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最高1級",
+    "每級需要1個能力槽"
+  ]
+}

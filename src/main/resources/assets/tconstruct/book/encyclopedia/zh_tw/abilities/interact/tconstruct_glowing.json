@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:glowing",
+  "text": [
+    {
+      "text": "會在目標方塊的表面放置螢光球，發出螢光。每次放置螢光球消耗10點耐久度，且無視其他能減少耐久度消耗的強化。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最高1級",
+    "需要1個能力槽"
+  ]
+}
