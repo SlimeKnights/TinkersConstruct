@@ -1,0 +1,10 @@
+{
+  "title": "焦褐滑槽",
+  "item": "tconstruct:scorched_chute",
+  "text": [
+    {
+      "text": "焦褐滑槽是向熔鑄爐輸入或從熔鑄爐輸出物品的裝置。最好是放在能連上漏斗的地方。",
+      "paragraph": true
+    }
+	]
+}

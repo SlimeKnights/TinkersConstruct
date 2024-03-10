@@ -1,0 +1,14 @@
+{
+  "title": "焦褐排液孔",
+  "item": "tconstruct:scorched_drain",
+ "text": [
+    {
+      "text": "排液孔是熔鑄爐用於注入或排出流體的裝置。可以用澆注口或者其他模組的管道抽取流體。桶、銅罐和澆注道可用於注入或排出流體。",
+      "paragraph": true
+    },
+	{
+      "text": "在排液孔中間展示的流體就是接下來要排出的流體。",
+      "paragraph": true
+    }
+  ]
+}

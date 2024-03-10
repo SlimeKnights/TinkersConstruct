@@ -1,0 +1,14 @@
+{
+  "title": "熔鑄爐GUI",
+  "image": {
+    "file": "tconstruct:book/images/foundrygui.png",
+    "width": 161,
+    "height": 82
+  },
+  "text": [
+    {
+      "text": "最基礎的熔鑄爐GUI。不多也不少。",
+      "paragraph": true
+    }
+	]
+}

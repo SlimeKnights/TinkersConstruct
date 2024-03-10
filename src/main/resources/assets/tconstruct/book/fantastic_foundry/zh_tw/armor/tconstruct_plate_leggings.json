@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:plate_leggings",
+  "text": [
+    { "text": "啊，我的腿。" },
+	{
+      "text": "這條護腿能夠為你提供厚實防禦，滿足你的戰鬥需求！", "paragraph": true
+    }
+  ],
+  "properties": [
+    "高耐久度",
+    "高護甲值",
+    "1個升級槽",
+    "4個防禦槽",
+    "1個能力槽"
+  ]
+}

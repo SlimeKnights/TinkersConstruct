@@ -1,0 +1,14 @@
+{
+  "title": "肩馱",
+  "image": {
+    "file": "tconstruct:book/images/carry_blaze.png",
+    "width": 128,
+    "height": 73
+  },
+  "text": [
+    {
+      "text": "「但是Nemea，我要怎麼把烈焰使者放到熔鑄爐里呢？」要是Melvin那個呆子的話肯定會說「喝一瓶抗火藥水然後用肩馱架或者靈漿彈弓彈進去」。看我這爐子烤不烤你就完了。",
+      "paragraph": true
+    }
+  ]
+}
