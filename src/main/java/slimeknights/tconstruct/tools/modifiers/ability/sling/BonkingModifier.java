@@ -21,6 +21,7 @@ import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeDamageModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
@@ -28,7 +29,6 @@ import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.item.ModifiableItem;
-import slimeknights.tconstruct.library.tools.item.ModifiableLauncherItem;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -62,8 +62,8 @@ public class BonkingModifier extends SlingModifier implements MeleeHitModifierHo
       } else {
         speed = ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.DRAW_SPEED);
       }
-      tool.getPersistentData().putInt(ModifiableLauncherItem.KEY_DRAWTIME, (int)Math.ceil(30f / speed));
-      ModifierUtil.startUsingItem(tool, modifier.getId(), player, hand);
+      tool.getPersistentData().putInt(GeneralInteractionModifierHook.KEY_DRAWTIME, (int)Math.ceil(30f / speed));
+      GeneralInteractionModifierHook.startUsing(tool, modifier.getId(), player, hand);
     }
     return InteractionResult.SUCCESS;
   }
@@ -85,7 +85,7 @@ public class BonkingModifier extends SlingModifier implements MeleeHitModifierHo
   }
 
   @Override
-  public boolean onStoppedUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {
+  public void onStoppedUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {
     super.onStoppedUsing(tool, modifier, entity, timeLeft);
     if (!entity.level.isClientSide && (entity instanceof Player player)) {
       float f = getForce(tool, modifier, player, timeLeft, true);
@@ -127,12 +127,11 @@ public class BonkingModifier extends SlingModifier implements MeleeHitModifierHo
             player.causeFoodExhaustion(0.2F);
             player.getCooldowns().addCooldown(tool.getItem(), 3);
             ToolDamageUtil.damageAnimated(tool, 1, entity);
-            return true;
+            return;
           }
         }
       }
       player.level.playSound(null, player.getX(), player.getY(), player.getZ(), Sounds.BONK.getSound(), player.getSoundSource(), 1, 0.5f);
     }
-    return true;
   }
 }

@@ -11,9 +11,9 @@ import net.minecraftforge.common.ToolActions;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolActionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
-import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
@@ -39,7 +39,7 @@ public class ParryingModifier extends OffhandAttackModifier implements ToolActio
     if (source == InteractionSource.RIGHT_CLICK) {
       InteractionResult result = super.beforeEntityUse(tool, modifier, player, target, hand, source);
       if (result.consumesAction()) {
-        ModifierUtil.startUsingItem(tool, modifier.getId(), player, hand);
+        GeneralInteractionModifierHook.startUsing(tool, modifier.getId(), player, hand);
       }
       return result;
     }
@@ -52,7 +52,7 @@ public class ParryingModifier extends OffhandAttackModifier implements ToolActio
       InteractionResult result = super.onToolUse(tool, modifier, player, hand, source);
       // also allow just blocking when used in main hand
       if (result.consumesAction()) {
-        ModifierUtil.startUsingItem(tool, modifier.getId(), player, hand);
+        GeneralInteractionModifierHook.startUsing(tool, modifier.getId(), player, hand);
         return InteractionResult.CONSUME;
       }
     }
@@ -60,11 +60,10 @@ public class ParryingModifier extends OffhandAttackModifier implements ToolActio
   }
 
   @Override
-  public boolean onFinishUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity) {
+  public void onFinishUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity) {
     if (entity instanceof Player player) {
       player.getCooldowns().addCooldown(tool.getItem(), (int)(20 / tool.getStats().get(ToolStats.ATTACK_SPEED)));
     }
-    return true;
   }
 
   @Override

@@ -12,7 +12,6 @@ import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInterac
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
-import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -25,13 +24,13 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ScopeModifier;
 public abstract class SlingModifier extends NoLevelsModifier implements GeneralInteractionModifierHook {
   @Override
   protected void registerHooks(Builder builder) {
-    builder.addHook(this, TinkerHooks.CHARGEABLE_INTERACT);
+    builder.addHook(this, TinkerHooks.GENERAL_INTERACT);
   }
 
   @Override
   public InteractionResult onToolUse(IToolStackView tool, ModifierEntry modifier, Player player, InteractionHand hand, InteractionSource source) {
     if (!tool.isBroken() && source == InteractionSource.RIGHT_CLICK) {
-      ModifierUtil.startUsingItemWithDrawtime(tool, modifier.getId(), player, hand, 1.5f);
+      GeneralInteractionModifierHook.startUsingWithDrawtime(tool, modifier.getId(), player, hand, 1.5f);
       return InteractionResult.SUCCESS;
     }
     return InteractionResult.PASS;
@@ -44,9 +43,8 @@ public abstract class SlingModifier extends NoLevelsModifier implements GeneralI
   }
 
   @Override
-  public boolean onStoppedUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {
+  public void onStoppedUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {
     ScopeModifier.stopScoping(entity);
-    return false;
   }
 
   @Override
@@ -71,7 +69,7 @@ public abstract class SlingModifier extends NoLevelsModifier implements GeneralI
     if (applyKnockback) {
       knockback = tool.getModifierLevel(TinkerModifiers.knockback.getId()) / 2f;
     }
-    float force = ModifierUtil.getToolCharge(tool, chargeTime)
+    float force = GeneralInteractionModifierHook.getToolCharge(tool, chargeTime)
                   * (ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.PROJECTILE_DAMAGE) + knockback) / 2f
                   * ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.VELOCITY);
     // knockback also means we should apply padded, divide per level

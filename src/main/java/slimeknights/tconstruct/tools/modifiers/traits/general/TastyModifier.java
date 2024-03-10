@@ -35,20 +35,20 @@ public class TastyModifier extends Modifier implements GeneralInteractionModifie
 
   @Override
   protected void registerHooks(Builder hookBuilder) {
-    hookBuilder.addHook(this, TinkerHooks.CHARGEABLE_INTERACT);
+    hookBuilder.addHook(this, TinkerHooks.GENERAL_INTERACT);
   }
 
   @Override
   public InteractionResult onToolUse(IToolStackView tool, ModifierEntry modifier, Player player, InteractionHand hand, InteractionSource source) {
     if (source == InteractionSource.RIGHT_CLICK && !tool.isBroken() && player.canEat(false)) {
-      ModifierUtil.startUsingItem(tool, modifier.getId(), player, hand);
+      GeneralInteractionModifierHook.startUsing(tool, modifier.getId(), player, hand);
       return InteractionResult.CONSUME;
     }
     return InteractionResult.PASS;
   }
 
   @Override
-  public boolean onFinishUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity) {
+  public void onFinishUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity) {
     // remove is eating tag to prevent from messing with other modifiers
     ModDataNBT persistentData = tool.getPersistentData();
     if (!tool.isBroken() && entity instanceof Player player && player.canEat(false)) {
@@ -65,10 +65,7 @@ public class TastyModifier extends Modifier implements GeneralInteractionModifie
       if (ToolDamageUtil.directDamage(tool, 15 * level, player, player.getUseItem())) {
         player.broadcastBreakEvent(player.getUsedItemHand());
       }
-      // TODO - nutrition mod support
-      return true;
     }
-    return false;
   }
 
   @Override

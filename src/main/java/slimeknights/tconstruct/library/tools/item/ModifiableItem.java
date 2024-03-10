@@ -38,6 +38,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.AttributesModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.DurabilityDisplayModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InventoryTickModifierHook;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
@@ -341,7 +342,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
     ToolStack tool = ToolStack.from(stack);
     if (shouldInteract(playerIn, tool, hand)) {
       for (ModifierEntry entry : tool.getModifierList()) {
-        InteractionResult result = entry.getHook(TinkerHooks.CHARGEABLE_INTERACT).onToolUse(tool, entry, playerIn, hand, InteractionSource.RIGHT_CLICK);
+        InteractionResult result = entry.getHook(TinkerHooks.GENERAL_INTERACT).onToolUse(tool, entry, playerIn, hand, InteractionSource.RIGHT_CLICK);
         if (result.consumesAction()) {
           return new InteractionResultHolder<>(result, stack);
         }
@@ -358,9 +359,9 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
   @Override
   public void onUseTick(Level pLevel, LivingEntity entityLiving, ItemStack stack, int timeLeft) {
     ToolStack tool = ToolStack.from(stack);
-    ModifierEntry activeModifier = ModifierUtil.getActiveModifier(tool);
+    ModifierEntry activeModifier = GeneralInteractionModifierHook.getActiveModifier(tool);
     if (activeModifier != null) {
-      activeModifier.getHook(TinkerHooks.CHARGEABLE_INTERACT).onUsingTick(tool, activeModifier, entityLiving, timeLeft);
+      activeModifier.getHook(TinkerHooks.GENERAL_INTERACT).onUsingTick(tool, activeModifier, entityLiving, timeLeft);
     }
   }
 
@@ -368,7 +369,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
   public boolean canContinueUsing(ItemStack oldStack, ItemStack newStack) {
     if (super.canContinueUsing(oldStack, newStack)) {
       if (oldStack != newStack) {
-        ModifierUtil.finishUsingItem(ToolStack.from(oldStack));
+        GeneralInteractionModifierHook.finishUsing(ToolStack.from(oldStack));
       }
     }
     return super.canContinueUsing(oldStack, newStack);
@@ -377,51 +378,30 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
   @Override
   public ItemStack finishUsingItem(ItemStack stack, Level worldIn, LivingEntity entityLiving) {
     ToolStack tool = ToolStack.from(stack);
-    ModifierEntry activeModifier = ModifierUtil.getActiveModifier(tool);
+    ModifierEntry activeModifier = GeneralInteractionModifierHook.getActiveModifier(tool);
     if (activeModifier != null) {
-      activeModifier.getHook(TinkerHooks.CHARGEABLE_INTERACT).onFinishUsing(tool, activeModifier, entityLiving);
-    } else {
-      // TODO: legacy call to hook, remove in 1.19. All modifiers should use the new hook as its smarter
-      for (ModifierEntry entry : tool.getModifierList()) {
-        if (entry.getHook(TinkerHooks.GENERAL_INTERACT).onFinishUsing(tool, entry, entityLiving)) {
-          break;
-        }
-      }
+      activeModifier.getHook(TinkerHooks.GENERAL_INTERACT).onFinishUsing(tool, activeModifier, entityLiving);
     }
-    ModifierUtil.finishUsingItem(tool);
+    GeneralInteractionModifierHook.finishUsing(tool);
     return stack;
   }
 
   @Override
   public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
     ToolStack tool = ToolStack.from(stack);
-    ModifierEntry activeModifier = ModifierUtil.getActiveModifier(tool);
+    ModifierEntry activeModifier = GeneralInteractionModifierHook.getActiveModifier(tool);
     if (activeModifier != null) {
-      activeModifier.getHook(TinkerHooks.CHARGEABLE_INTERACT).onStoppedUsing(tool, activeModifier, entityLiving, timeLeft);
-    } else {
-      // TODO: legacy call to hook, remove in 1.19. All modifiers should use the new hook as its smarter
-      for (ModifierEntry entry : tool.getModifierList()) {
-        if (entry.getHook(TinkerHooks.GENERAL_INTERACT).onStoppedUsing(tool, entry, entityLiving, timeLeft)) {
-          break;
-        }
-      }
+      activeModifier.getHook(TinkerHooks.GENERAL_INTERACT).onStoppedUsing(tool, activeModifier, entityLiving, timeLeft);
     }
-    ModifierUtil.finishUsingItem(tool);
+    GeneralInteractionModifierHook.finishUsing(tool);
   }
 
   @Override
   public int getUseDuration(ItemStack stack) {
     ToolStack tool = ToolStack.from(stack);
-    ModifierEntry activeModifier = ModifierUtil.getActiveModifier(tool);
+    ModifierEntry activeModifier = GeneralInteractionModifierHook.getActiveModifier(tool);
     if (activeModifier != null) {
-      return activeModifier.getHook(TinkerHooks.CHARGEABLE_INTERACT).getUseDuration(tool, activeModifier);
-    }
-    // TODO: legacy call to hook, remove in 1.19. All modifiers should use the new hook as its smarter
-    for (ModifierEntry entry : tool.getModifierList()) {
-      int result = entry.getHook(TinkerHooks.GENERAL_INTERACT).getUseDuration(tool, entry);
-      if (result > 0) {
-        return result;
-      }
+      return activeModifier.getHook(TinkerHooks.GENERAL_INTERACT).getUseDuration(tool, activeModifier);
     }
     return 0;
   }
@@ -429,16 +409,9 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
   @Override
   public UseAnim getUseAnimation(ItemStack stack) {
     ToolStack tool = ToolStack.from(stack);
-    ModifierEntry activeModifier = ModifierUtil.getActiveModifier(tool);
+    ModifierEntry activeModifier = GeneralInteractionModifierHook.getActiveModifier(tool);
     if (activeModifier != null) {
-      return activeModifier.getHook(TinkerHooks.CHARGEABLE_INTERACT).getUseAction(tool, activeModifier);
-    }
-    // TODO: legacy call to hook, remove in 1.19. All modifiers should use the new hook as its smarter
-    for (ModifierEntry entry : tool.getModifierList()) {
-      UseAnim result = entry.getHook(TinkerHooks.GENERAL_INTERACT).getUseAction(tool, entry);
-      if (result != UseAnim.NONE) {
-        return result;
-      }
+      return activeModifier.getHook(TinkerHooks.GENERAL_INTERACT).getUseAction(tool, activeModifier);
     }
     return UseAnim.NONE;
   }

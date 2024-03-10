@@ -34,10 +34,10 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.BowAmmoModifierHook;
 import slimeknights.tconstruct.library.tools.capability.EntityModifierCapability;
 import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
-import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -58,6 +58,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
+
+import static slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook.KEY_DRAWTIME;
 
 public class ModifiableCrossbowItem extends ModifiableLauncherItem {
   /** Key containing the stored crossbow ammo */
@@ -130,11 +132,8 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
 
       // if we have ammo, start charging
       if (BowAmmoModifierHook.hasAmmo(tool, bow, player, getSupportedHeldProjectiles())) {
+        GeneralInteractionModifierHook.startDrawtime(tool, player, 1);
         player.startUsingItem(hand);
-        float drawspeed = ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.DRAW_SPEED) / 20f;
-        player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.put(DRAWSPEED, drawspeed));
-        // we want an int version to make sounds more precise
-        persistentData.putInt(KEY_DRAWTIME, (int)Math.ceil(1 / drawspeed));
         if (!level.isClientSide) {
           level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.CROSSBOW_QUICK_CHARGE_1, SoundSource.PLAYERS, 0.75F, 1.0F);
         }
@@ -270,10 +269,11 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
     }
 
     // did we charge enough?
-    if ((getUseDuration(bow) - chargeRemaining) < persistentData.getInt(KEY_DRAWTIME)) {
+    int drawtime = persistentData.getInt(KEY_DRAWTIME);
+    persistentData.remove(KEY_DRAWTIME);
+    if ((getUseDuration(bow) - chargeRemaining) < drawtime) {
       return;
     }
-    persistentData.remove(KEY_DRAWTIME);
 
     // find ammo and store it on the bow
     ItemStack ammo = BowAmmoModifierHook.findAmmo(tool, bow, player, getSupportedHeldProjectiles());

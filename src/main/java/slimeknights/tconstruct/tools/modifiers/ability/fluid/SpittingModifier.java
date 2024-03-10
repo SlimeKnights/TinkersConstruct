@@ -53,7 +53,7 @@ public class SpittingModifier extends Modifier implements GeneralInteractionModi
 
   @Override
   protected void registerHooks(Builder builder) {
-    builder.addHook(this, TinkerHooks.CHARGEABLE_INTERACT);
+    builder.addHook(this, TinkerHooks.GENERAL_INTERACT);
     tank = new TankModule(FluidAttributes.BUCKET_VOLUME, true);
     builder.addModule(tank);
   }
@@ -73,7 +73,7 @@ public class SpittingModifier extends Modifier implements GeneralInteractionModi
     if (!tool.isBroken() && source == InteractionSource.RIGHT_CLICK) {
       FluidStack fluid = tank.getFluid(tool);
       if (fluid.getAmount() >= (1 + 2 * (modifier.getLevel() - 1)) && SpillingFluidManager.INSTANCE.contains(fluid.getFluid())) {
-        ModifierUtil.startUsingItemWithDrawtime(tool, modifier.getId(), player, hand, 1.5f);
+        GeneralInteractionModifierHook.startUsingWithDrawtime(tool, modifier.getId(), player, hand, 1.5f);
         return InteractionResult.SUCCESS;
       }
     }
@@ -86,7 +86,7 @@ public class SpittingModifier extends Modifier implements GeneralInteractionModi
   }
 
   @Override
-  public boolean onStoppedUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {
+  public void onStoppedUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {
     ScopeModifier.stopScoping(entity);
     if (!entity.level.isClientSide) {
       int chargeTime = getUseDuration(tool, modifier) - timeLeft;
@@ -97,7 +97,7 @@ public class SpittingModifier extends Modifier implements GeneralInteractionModi
           SpillingFluid recipe = SpillingFluidManager.INSTANCE.find(fluid.getFluid());
           if (recipe.hasEffects()) {
             // projectile stats
-            float charge = ModifierUtil.getToolCharge(tool, chargeTime);
+            float charge = GeneralInteractionModifierHook.getToolCharge(tool, chargeTime);
             // power - size of each individual projectile
             float power = charge * ConditionalStatModifierHook.getModifiedStat(tool, entity, ToolStats.PROJECTILE_DAMAGE);
             // level acts like multishot level, meaning higher produces more projectiles
@@ -149,7 +149,6 @@ public class SpittingModifier extends Modifier implements GeneralInteractionModi
         }
       }
     }
-    return true;
   }
 
   /** Projectile entity for spitting */

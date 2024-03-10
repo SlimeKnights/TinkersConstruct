@@ -6,7 +6,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -18,7 +17,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraftforge.common.ToolAction;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
@@ -30,10 +28,7 @@ import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.Tin
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
-import slimeknights.tconstruct.library.tools.item.ModifiableLauncherItem;
-import slimeknights.tconstruct.library.tools.nbt.IModDataView;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -50,9 +45,6 @@ import java.util.function.BiConsumer;
 public final class ModifierUtil {
   /** Vanilla enchantments tag */
   public static final String TAG_ENCHANTMENTS = "Enchantments";
-
-  /** Key for marking a modifier in use */
-  private static final ResourceLocation ACTIVE_MODIFIER = TConstruct.getResource("active_modifier");
 
   /**
    * Adds all enchantments from tools. Separate method as tools don't have enchants all the time.
@@ -342,62 +334,6 @@ public final class ModifierUtil {
       }
     }
     return false;
-  }
-
-  /** Starts using the given hand with the given modifier, will allow filtering modifier hooks so only the one for the given modifier is called */
-  public static void startUsingItem(IToolStackView tool, ModifierId modifier, LivingEntity living, InteractionHand hand) {
-    tool.getPersistentData().putString(ACTIVE_MODIFIER, modifier.toString());
-    living.startUsingItem(hand);
-  }
-
-  /** Starts using the given hand with the given modifier, will allow filtering modifier hooks so only the one for the given modifier is called */
-  public static void startUsingItemWithDrawtime(IToolStackView tool, ModifierId modifier, LivingEntity living, InteractionHand hand, float speedFactor) {
-    tool.getPersistentData().putInt(ModifiableLauncherItem.KEY_DRAWTIME, (int)Math.ceil(20f * speedFactor / ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.DRAW_SPEED)));
-    startUsingItem(tool, modifier, living, hand);
-  }
-
-  /** Scales the drawtime from the persistent data like a bow */
-  public static float getToolCharge(IToolStackView tool, float chargeTime) {
-    float charge = chargeTime / tool.getPersistentData().getInt(ModifiableLauncherItem.KEY_DRAWTIME);
-    charge = (charge * charge + charge * 2) / 3;
-    if (charge > 1) {
-      charge = 1;
-    }
-    return charge;
-  }
-
-  /** Gets the currently active modifier, or null if none is active */
-  @Nullable
-  public static ModifierEntry getActiveModifier(IToolStackView tool) {
-    IModDataView persistentData = tool.getPersistentData();
-    if (persistentData.contains(ACTIVE_MODIFIER, Tag.TAG_STRING)) {
-      ModifierId modifier = ModifierId.tryParse(persistentData.getString(ACTIVE_MODIFIER));
-      if (modifier != null) {
-        return tool.getModifiers().getEntry(modifier);
-      }
-    }
-    return null;
-  }
-
-  /** @deprecated No longer needed, will be removed in 1.19. */
-  @Deprecated
-  public static void checkFastUsingItem(IToolStackView tool, LivingEntity living) {}
-
-  /** @deprecated No longer needed. Use {@link #finishUsingItem(IToolStackView)} when you stop using a modifier */
-  @Deprecated
-  public static void finishUsingItem(LivingEntity living) {}
-
-  /** @deprecated No longer needed. Use {@link #finishUsingItem(IToolStackView)} when you stop using a modifier */
-  @Deprecated
-  public static void finishUsingItem(LivingEntity living, IToolStackView tool) {
-    finishUsingItem(tool);
-  }
-
-  /** Called to clear any data modifiers set when usage starts */
-  public static void finishUsingItem(IToolStackView tool) {
-    ModDataNBT persistentData = tool.getPersistentData();
-    persistentData.remove(ACTIVE_MODIFIER);
-    persistentData.remove(ModifiableLauncherItem.KEY_DRAWTIME);
   }
 
   /** Calculates inaccuracy from the conditional tool stat. TODO: reconsidering velocity impacting inaccuracy, remove parameter in 1.19 */

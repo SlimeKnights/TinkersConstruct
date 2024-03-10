@@ -19,13 +19,13 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 public class BlockingModifier extends NoLevelsModifier implements GeneralInteractionModifierHook, ToolActionModifierHook {
   @Override
   protected void registerHooks(Builder hookBuilder) {
-    hookBuilder.addHook(this, TinkerHooks.CHARGEABLE_INTERACT, TinkerHooks.TOOL_ACTION);
+    hookBuilder.addHook(this, TinkerHooks.GENERAL_INTERACT, TinkerHooks.TOOL_ACTION);
   }
 
   @Override
   public InteractionResult onToolUse(IToolStackView tool, ModifierEntry modifier, Player player, InteractionHand hand, InteractionSource source) {
     if (source == InteractionSource.RIGHT_CLICK && !tool.isBroken()) {
-      ModifierUtil.startUsingItem(tool, modifier.getId(), player, hand);
+      GeneralInteractionModifierHook.startUsing(tool, modifier.getId(), player, hand);
       return InteractionResult.CONSUME;
     }
     return InteractionResult.PASS;

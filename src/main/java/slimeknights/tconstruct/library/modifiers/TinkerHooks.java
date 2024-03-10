@@ -233,25 +233,19 @@ public class TinkerHooks {
 
   /* Interaction */
 
-  /** @deprecated use {@link #CHARGEABLE_INTERACT} with {@link slimeknights.tconstruct.library.tools.helper.ModifierUtil#startUsingItem(IToolStackView, ModifierId, LivingEntity, InteractionHand)} for chargeable actions.
-   * For regular interactions, the two are interchangable, though eventually they will be merged into chargable. */
-  @Deprecated
-  public static final ModifierHook<GeneralInteractionModifierHook> GENERAL_INTERACT = register("general_interact", GeneralInteractionModifierHook.class, GeneralInteractionModifierHook.FIRST_MERGER, (tool, modifier, player, hand, source) -> InteractionResult.PASS);
-
-  /** Hook for interactions not targeting blocks or entities. Needed for charge attacks, but other hooks may be better for most interactions.
-   * Unlike {@link #GENERAL_INTERACT}, the charged interaction hooks will only fire for the modifier that called {@link slimeknights.tconstruct.library.tools.helper.ModifierUtil#startUsingItem(IToolStackView, ModifierId, LivingEntity, InteractionHand)},
-   * meaning there is no need to manually track that you were called. */
-  public static final ModifierHook<GeneralInteractionModifierHook> CHARGEABLE_INTERACT = register("chargable_interact", GeneralInteractionModifierHook.class, GeneralInteractionModifierHook.FIRST_MERGER, ((tool, modifier, player, hand, source) ->
-    modifier.getHook(GENERAL_INTERACT).onToolUse(tool, modifier, player, hand, source)));
-
+  /**
+   * Hook for regular interactions not targeting blocks or entities. Needed for charged interactions, while other hooks may be better for most interactions.
+   * Note the charged interaction hooks will only fire for the modifier that called {@link GeneralInteractionModifierHook#startUsing(IToolStackView, ModifierId, LivingEntity, InteractionHand)},
+   * meaning there is no need to manually track that you were called.
+   */
+  public static final ModifierHook<GeneralInteractionModifierHook> GENERAL_INTERACT = register("general_interact", GeneralInteractionModifierHook.class, GeneralInteractionModifierHook.FirstMerger::new, ((tool, modifier, player, hand, source) -> InteractionResult.PASS));
   /** Hook for interacting with blocks */
   public static final ModifierHook<BlockInteractionModifierHook> BLOCK_INTERACT = register("block_interact", BlockInteractionModifierHook.class, BlockInteractionModifierHook.FirstMerger::new, new BlockInteractionModifierHook() {});
-
   /** Hook for interacting with entities */
   public static final ModifierHook<EntityInteractionModifierHook> ENTITY_INTERACT = register("entity_interact", EntityInteractionModifierHook.class, EntityInteractionModifierHook.FirstMerger::new, new EntityInteractionModifierHook() {});
-
   /** Hook for when the player interacts with an armor slot. Currently, only implemented for helmets and leggings */
   public static final ModifierHook<KeybindInteractModifierHook> ARMOR_INTERACT = register("armor_interact", KeybindInteractModifierHook.class, KeybindInteractModifierHook.MERGER, new KeybindInteractModifierHook() {});
+
 
   /* Modifier sub-hooks */
 

@@ -29,7 +29,6 @@ import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
-import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -51,7 +50,7 @@ public class SlurpingModifier extends Modifier implements KeybindInteractModifie
     super.registerHooks(hookBuilder);
     tank = new TankModule(FluidAttributes.BUCKET_VOLUME, true);
     hookBuilder.addModule(tank);
-    hookBuilder.addHook(this, TinkerHooks.ARMOR_INTERACT, TinkerHooks.CHARGEABLE_INTERACT);
+    hookBuilder.addHook(this, TinkerHooks.ARMOR_INTERACT, TinkerHooks.GENERAL_INTERACT);
   }
 
   @Override
@@ -147,7 +146,7 @@ public class SlurpingModifier extends Modifier implements KeybindInteractModifie
     if (source == InteractionSource.RIGHT_CLICK) {
       FluidStack fluid = tank.getFluid(tool);
       if (!fluid.isEmpty() && SpillingFluidManager.INSTANCE.contains(fluid.getFluid())) {
-        ModifierUtil.startUsingItem(tool, modifier.getId(), player, hand);
+        GeneralInteractionModifierHook.startUsing(tool, modifier.getId(), player, hand);
         return InteractionResult.CONSUME;
       }
     }
@@ -175,11 +174,10 @@ public class SlurpingModifier extends Modifier implements KeybindInteractModifie
   }
 
   @Override
-  public boolean onFinishUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity) {
+  public void onFinishUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity) {
     if (entity instanceof Player player) {
       finishDrinking(tool, player, entity.getUsedItemHand());
     }
-    return true;
   }
 
   private record SlurpingInfo(FluidStack fluid, int finishTime) {}

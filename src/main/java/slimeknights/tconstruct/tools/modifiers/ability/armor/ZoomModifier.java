@@ -71,11 +71,10 @@ public class ZoomModifier extends NoLevelsModifier implements KeybindInteractMod
   public InteractionResult onToolUse(IToolStackView tool, ModifierEntry modifier, Player player, InteractionHand hand, InteractionSource source) {
     if (source == InteractionSource.RIGHT_CLICK) {
       player.playSound(SoundEvents.SPYGLASS_USE, 1.0F, 1.0F);
-      player.startUsingItem(hand);
       if (player.level.isClientSide) {
         player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).set(ZOOM, 0.1f));
       }
-      tool.getPersistentData().putBoolean(ZOOM, true);
+      GeneralInteractionModifierHook.startUsing(tool, modifier.getId(), player, hand);
       return InteractionResult.CONSUME;
     }
     return InteractionResult.PASS;
@@ -83,29 +82,24 @@ public class ZoomModifier extends NoLevelsModifier implements KeybindInteractMod
 
   @Override
   public UseAnim getUseAction(IToolStackView tool, ModifierEntry modifier) {
-    return tool.getPersistentData().getBoolean(ZOOM) ? UseAnim.SPYGLASS : UseAnim.NONE;
+    return UseAnim.SPYGLASS;
   }
 
   @Override
   public int getUseDuration(IToolStackView tool, ModifierEntry modifier) {
-    return tool.getPersistentData().getBoolean(ZOOM) ? 1200 : 0;
+    return 1200;
   }
 
   @Override
-  public boolean onFinishUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity) {
-    if (tool.getPersistentData().getBoolean(ZOOM)) {
-      entity.playSound(SoundEvents.SPYGLASS_STOP_USING, 1.0F, 1.0F);
-      if (entity.level.isClientSide) {
-        entity.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).remove(ZOOM));
-      }
-      tool.getPersistentData().remove(ZOOM);
-      return true;
+  public void onFinishUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity) {
+    entity.playSound(SoundEvents.SPYGLASS_STOP_USING, 1.0F, 1.0F);
+    if (entity.level.isClientSide) {
+      entity.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).remove(ZOOM));
     }
-    return false;
   }
 
   @Override
-  public boolean onStoppedUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {
-    return onFinishUsing(tool, modifier, entity);
+  public void onStoppedUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {
+    onFinishUsing(tool, modifier, entity);
   }
 }

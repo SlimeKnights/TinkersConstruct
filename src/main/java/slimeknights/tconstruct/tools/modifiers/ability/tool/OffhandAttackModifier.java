@@ -30,7 +30,7 @@ public class OffhandAttackModifier extends NoLevelsModifier implements EntityInt
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, TinkerHooks.CHARGEABLE_INTERACT, TinkerHooks.ENTITY_INTERACT, TinkerHooks.EQUIPMENT_CHANGE, TinkerHooks.VOLATILE_DATA);
+    hookBuilder.addHook(this, TinkerHooks.GENERAL_INTERACT, TinkerHooks.ENTITY_INTERACT, TinkerHooks.EQUIPMENT_CHANGE, TinkerHooks.VOLATILE_DATA);
   }
 
   @Override

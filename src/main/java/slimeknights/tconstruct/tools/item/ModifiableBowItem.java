@@ -20,10 +20,10 @@ import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.BowAmmoModifierHook;
 import slimeknights.tconstruct.library.tools.capability.EntityModifierCapability;
 import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
-import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -36,6 +36,8 @@ import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockingModif
 import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ScopeModifier;
 
 import java.util.function.Predicate;
+
+import static slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook.KEY_DRAWTIME;
 
 public class ModifiableBowItem extends ModifiableLauncherItem {
   public ModifiableBowItem(Properties properties, ToolDefinition toolDefinition) {
@@ -86,12 +88,8 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
       }
       return InteractionResultHolder.fail(bow);
     }
+    GeneralInteractionModifierHook.startDrawtime(tool, player, 1);
     player.startUsingItem(hand);
-    // property for scope, release, and item model
-    float drawspeed = ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.DRAW_SPEED) / 20f;
-    player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.put(DRAWSPEED, drawspeed));
-    // we want an int version to make sounds more precise
-    tool.getPersistentData().putInt(KEY_DRAWTIME, (int)Math.ceil(1 / drawspeed));
     if (!level.isClientSide) {
       level.playSound(null, player.getX(), player.getY(), player.getZ(), Sounds.LONGBOW_CHARGE.getSound(), SoundSource.PLAYERS, 0.75F, 1.0F);
     }
@@ -130,11 +128,7 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
     }
 
     // calculate arrow power
-    float charge = chargeTime * ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.DRAW_SPEED) / 20f;
-    charge = (charge * charge + charge * 2) / 3;
-    if (charge > 1) {
-      charge = 1;
-    }
+    float charge = GeneralInteractionModifierHook.getToolCharge(tool, chargeTime);
     float velocity = ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.VELOCITY);
     float power = charge * velocity;
     if (power < 0.1f) {

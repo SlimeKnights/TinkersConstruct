@@ -53,10 +53,9 @@ public class ReflectingModifier extends Modifier {
           // make sure we actually have the modifier
           int reflectingLevel = tool.getModifierLevel(this);
           if (reflectingLevel > 0) {
-            // only support the new hook for blocking, the old hook is a pain
-            ModifierEntry activeModifier = ModifierUtil.getActiveModifier(tool);
+            ModifierEntry activeModifier = GeneralInteractionModifierHook.getActiveModifier(tool);
             if (activeModifier != null) {
-              GeneralInteractionModifierHook hook = activeModifier.getHook(TinkerHooks.CHARGEABLE_INTERACT);
+              GeneralInteractionModifierHook hook = activeModifier.getHook(TinkerHooks.GENERAL_INTERACT);
               int time = hook.getUseDuration(tool, activeModifier) - living.getUseItemRemainingTicks();
               // must be blocking, started blocking within the last 2*level seconds, and be within the block angle
               if (hook.getUseAction(tool, activeModifier) == UseAnim.BLOCK

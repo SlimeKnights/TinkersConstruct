@@ -18,7 +18,7 @@ import java.util.Random;
 /** Teleport through blocks in the look direction */
 public class WarpingModifier extends SlingModifier {
   @Override
-  public boolean onStoppedUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {
+  public void onStoppedUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {
     super.onStoppedUsing(tool, modifier, entity, timeLeft);
     if (!entity.level.isClientSide && entity instanceof ServerPlayer player) {
       float f = getForce(tool, modifier, entity, timeLeft, false) * 6;
@@ -67,12 +67,11 @@ public class WarpingModifier extends SlingModifier {
             player.causeFoodExhaustion(0.2F);
             player.getCooldowns().addCooldown(tool.getItem(), 3);
             ToolDamageUtil.damageAnimated(tool, 1, entity);
-            return true;
+            return;
           }
         }
       }
       entity.level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), Sounds.SLIME_SLING_TELEPORT.getSound(), entity.getSoundSource(), 1, 0.5f);
     }
-    return true;
   }
 }

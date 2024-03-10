@@ -19,7 +19,7 @@ import java.util.Random;
 /** Add velocity opposite of the targeted block */
 public class FlingingModifier extends SlingModifier {
   @Override
-  public boolean onStoppedUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {
+  public void onStoppedUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {
     super.onStoppedUsing(tool, modifier, entity, timeLeft);
     if (entity.isOnGround() && entity instanceof Player player) {
       // check if player was targeting a block
@@ -41,11 +41,10 @@ public class FlingingModifier extends SlingModifier {
             player.getCooldowns().addCooldown(tool.getItem(), 3);
             ToolDamageUtil.damageAnimated(tool, 1, entity);
           }
-          return true;
+          return;
         }
       }
     }
     entity.level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), Sounds.SLIME_SLING.getSound(), entity.getSoundSource(), 1, 0.5f);
-    return true;
   }
 }
