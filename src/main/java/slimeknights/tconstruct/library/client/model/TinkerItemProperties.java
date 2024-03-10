@@ -17,14 +17,6 @@ import java.util.Objects;
 
 /** Properties for tinker tools */
 public class TinkerItemProperties {
-  /** @deprecated use {@link #CHARGE_ID} */
-  @Deprecated
-  private static final ResourceLocation PULL_ID = new ResourceLocation("pull");
-
-  /** @deprecated use {@link #CHARGING_ID} */
-  @Deprecated
-  private static final ResourceLocation PULLING_ID = new ResourceLocation("pulling");
-
   /** ID for ammo property */
   private static final ResourceLocation AMMO_ID = TConstruct.getResource("ammo");
   /** Int declaring ammo type */
@@ -68,24 +60,15 @@ public class TinkerItemProperties {
     return drawtime == -1 ? 0 : (float)(stack.getUseDuration() - holder.getUseItemRemainingTicks()) / drawtime;
   };
 
-  /**
-   * Registers properties for a bow
-   * TODO 1.19: switch IDs to charging IDs
-   */
-  public static void registerBowProperties(Item item) {
-    ItemProperties.register(item, PULL_ID, CHARGE);
-    ItemProperties.register(item, PULLING_ID, CHARGING);
+  /** Registers properties for a tool, including the option to have charge/block animations */
+  public static void registerToolProperties(Item item) {
+    ItemProperties.register(item, CHARGING_ID, CHARGING);
+    ItemProperties.register(item, CHARGE_ID, CHARGE);
   }
 
   /** Registers properties for a bow */
   public static void registerCrossbowProperties(Item item) {
-    registerBowProperties(item);
+    registerToolProperties(item);
     ItemProperties.register(item, AMMO_ID, AMMO);
-  }
-
-  /** Registers properties for a bow */
-  public static void registerToolProperties(Item item) {
-    ItemProperties.register(item, CHARGING_ID, CHARGING);
-    ItemProperties.register(item, CHARGE_ID, CHARGE);
   }
 }

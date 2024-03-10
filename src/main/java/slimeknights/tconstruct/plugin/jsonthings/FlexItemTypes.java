@@ -35,8 +35,6 @@ import java.util.List;
 public class FlexItemTypes {
   /** Standard tools that need standard properties */
   static final List<Item> TOOL_ITEMS = new ArrayList<>();
-  /** All bow items that need their predicate registered */
-  static final List<Item> BOW_ITEMS = new ArrayList<>();
   /** All crossbow items that need their predicate registered */
   static final List<Item> CROSSBOW_ITEMS = new ArrayList<>();
 
@@ -77,7 +75,7 @@ public class FlexItemTypes {
     /* Register a modifiable tool instance for bow like items (release on finish) */
     register("bow", data -> {
       IToolStatProvider statProvider = data.has("stat_provider") ? ToolStatProviders.REGISTRY.deserialize(data, "stat_provider") : ToolStatProviders.RANGED;
-      return (props, builder) -> add(BOW_ITEMS, new FlexModifiableBowItem(props, ToolDefinition.builder(builder.getRegistryName()).setStatsProvider(statProvider).build()));
+      return (props, builder) -> add(TOOL_ITEMS, new FlexModifiableBowItem(props, ToolDefinition.builder(builder.getRegistryName()).setStatsProvider(statProvider).build()));
     });
 
     /* Register a modifiable tool instance for crossbow like items (load on finish) */
