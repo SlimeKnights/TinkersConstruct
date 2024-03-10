@@ -18,7 +18,7 @@ import java.util.function.Consumer;
 public class CompositeCastingRecipeBuilder extends AbstractRecipeBuilder<CompositeCastingRecipeBuilder> {
   private final IMaterialItem result;
   private final int itemCost;
-  private final CompositeCastingRecipe.Serializer<?> serializer;
+  private final CompositeCastingRecipe.Serializer serializer;
 
   public static CompositeCastingRecipeBuilder basin(IMaterialItem result, int itemCost) {
     return composite(result, itemCost, TinkerSmeltery.basinCompositeSerializer.get());

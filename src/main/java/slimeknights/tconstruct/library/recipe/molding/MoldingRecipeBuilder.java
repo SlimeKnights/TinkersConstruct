@@ -21,7 +21,7 @@ import java.util.function.Consumer;
 @RequiredArgsConstructor(staticName = "molding")
 public class MoldingRecipeBuilder extends AbstractRecipeBuilder<MoldingRecipeBuilder> {
   private final ItemOutput output;
-  private final MoldingRecipe.Serializer<?> serializer;
+  private final MoldingRecipe.Serializer serializer;
   private Ingredient material = Ingredient.EMPTY;
   private Ingredient pattern = Ingredient.EMPTY;
   private boolean patternConsumed = false;

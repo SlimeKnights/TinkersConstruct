@@ -24,7 +24,7 @@ import java.util.function.Consumer;
 @RequiredArgsConstructor(staticName = "castingRecipe")
 public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<MaterialCastingRecipeBuilder> {
   private final IMaterialItem result;
-  private final Serializer<?> recipeSerializer;
+  private final Serializer recipeSerializer;
   private Ingredient cast = Ingredient.EMPTY;
   @Setter @Accessors(chain = true)
   private int itemCost = 0;

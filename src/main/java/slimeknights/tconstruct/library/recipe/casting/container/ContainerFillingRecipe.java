@@ -1,8 +1,12 @@
 package slimeknights.tconstruct.library.recipe.casting.container;
 
+import com.google.gson.JsonObject;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -17,30 +21,34 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.recipe.IMultiRecipe;
-import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
+import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
+import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.tconstruct.library.recipe.casting.DisplayCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
-import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * Casting recipe that takes an arbitrary fluid for a given amount and fills a container
  */
 @RequiredArgsConstructor
-public abstract class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<DisplayCastingRecipe> {
+public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<DisplayCastingRecipe> {
   @Getter
-  protected final RecipeType<?> type;
+  private final RecipeType<?> type;
   @Getter
-  protected final ResourceLocation id;
+  private final RecipeSerializer<?> serializer;
   @Getter
-  protected final String group;
+  private final ResourceLocation id;
   @Getter
-  protected final int fluidAmount;
+  private final String group;
   @Getter
-  protected final Item container;
+  private final int fluidAmount;
+  @Getter
+  private final Item container;
 
   @Override
   public int getFluidAmount(ICastingContainer inv) {
@@ -115,28 +123,33 @@ public abstract class ContainerFillingRecipe implements ICastingRecipe, IMultiRe
     return displayRecipes;
   }
 
-  /** Basin implementation */
-  public static class Basin extends ContainerFillingRecipe {
-    public Basin(ResourceLocation idIn, String groupIn, int fluidAmount, Item containerIn) {
-      super(TinkerRecipeTypes.CASTING_BASIN.get(), idIn, groupIn, fluidAmount, containerIn);
+  /** Serializer for {@link ContainerFillingRecipe} */
+  @AllArgsConstructor
+  public static class Serializer extends LoggingRecipeSerializer<ContainerFillingRecipe> {
+    private final Supplier<RecipeType<ICastingRecipe>> type;
+
+    @Override
+    public ContainerFillingRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+      String group = GsonHelper.getAsString(json, "group", "");
+      int fluidAmount = GsonHelper.getAsInt(json, "fluid_amount");
+      Item result = GsonHelper.getAsItem(json, "container");
+      return new ContainerFillingRecipe(type.get(), this, recipeId, group, fluidAmount, result);
+    }
+
+    @Nullable
+    @Override
+    protected ContainerFillingRecipe fromNetworkSafe(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+      String group = buffer.readUtf(Short.MAX_VALUE);
+      int fluidAmount = buffer.readInt();
+      Item result = RecipeHelper.readItem(buffer);
+      return new ContainerFillingRecipe(type.get(), this, recipeId, group, fluidAmount, result);
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
-      return TinkerSmeltery.basinFillingRecipeSerializer.get();
-    }
-  }
-
-  /** Table implementation */
-  public static class Table extends ContainerFillingRecipe {
-
-    public Table(ResourceLocation idIn, String groupIn, int fluidAmount, Item containerIn) {
-      super(TinkerRecipeTypes.CASTING_TABLE.get(), idIn, groupIn, fluidAmount, containerIn);
-    }
-
-    @Override
-    public RecipeSerializer<?> getSerializer() {
-      return TinkerSmeltery.tableFillingRecipeSerializer.get();
+    protected void toNetworkSafe(FriendlyByteBuf buffer, ContainerFillingRecipe recipe) {
+      buffer.writeUtf(recipe.group);
+      buffer.writeInt(recipe.fluidAmount);
+      RecipeHelper.writeItem(buffer, recipe.container);
     }
   }
 }

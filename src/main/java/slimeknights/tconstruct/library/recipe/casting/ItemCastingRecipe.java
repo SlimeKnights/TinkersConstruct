@@ -15,24 +15,24 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
-import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Supplier;
 
-/**
- * Casting recipe that takes a fluid and optional cast and outputs an item
- */
-public abstract class ItemCastingRecipe extends AbstractCastingRecipe implements IDisplayableCastingRecipe {
+/** Casting recipe that takes a fluid and optional cast and outputs an item. */
+public class ItemCastingRecipe extends AbstractCastingRecipe implements IDisplayableCastingRecipe {
+  @Getter
+  private final RecipeSerializer<?> serializer;
   @Getter
   protected final FluidIngredient fluid;
   protected final ItemOutput result;
   @Getter
   protected final int coolingTime;
-  public ItemCastingRecipe(RecipeType<?> type, ResourceLocation id, String group, Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
+  public ItemCastingRecipe(RecipeType<?> type, RecipeSerializer<? extends ItemCastingRecipe> serializer, ResourceLocation id, String group, @Nullable Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
     super(type, id, group, cast, consumed, switchSlots);
+    this.serializer = serializer;
     this.fluid = fluid;
     this.result = result;
     this.coolingTime = coolingTime;
@@ -85,65 +85,36 @@ public abstract class ItemCastingRecipe extends AbstractCastingRecipe implements
     return this.fluid.getFluids();
   }
 
-  /** Subclass for basin recipes */
-  public static class Basin extends ItemCastingRecipe {
-    public Basin(ResourceLocation id, String group, Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
-      super(TinkerRecipeTypes.CASTING_BASIN.get(), id, group, cast, fluid, result, coolingTime, consumed, switchSlots);
-    }
-
-    @Override
-    public RecipeSerializer<?> getSerializer() {
-      return TinkerSmeltery.basinRecipeSerializer.get();
-    }
-  }
-
-  /** Subclass for table recipes */
-  public static class Table extends ItemCastingRecipe {
-    public Table(ResourceLocation id, String group, Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
-      super(TinkerRecipeTypes.CASTING_TABLE.get(), id, group, cast, fluid, result, coolingTime, consumed, switchSlots);
-    }
-
-    @Override
-    public RecipeSerializer<?> getSerializer() {
-      return TinkerSmeltery.tableRecipeSerializer.get();
-    }
-  }
-
-  // TODO 1.19: migrate serializer to work like PotionCastingRecipe
   @AllArgsConstructor
-  public static class Serializer<T extends ItemCastingRecipe> extends AbstractCastingRecipe.Serializer<T> {
-    private final IFactory<T> factory;
+  public static class Serializer extends AbstractCastingRecipe.Serializer<ItemCastingRecipe> {
+    protected final Supplier<RecipeType<ICastingRecipe>> type;
+
+    /** Creates a recipe instance */
+    protected ItemCastingRecipe create(ResourceLocation id, String group, @Nullable Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
+      return new ItemCastingRecipe(type.get(), this, id, group, cast, fluid, result, coolingTime, consumed, switchSlots);
+    }
 
     @Override
-    protected T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, JsonObject json) {
+    protected ItemCastingRecipe create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, JsonObject json) {
       FluidIngredient fluid = FluidIngredient.deserialize(json, "fluid");
       ItemOutput output = ItemOutput.fromJson(JsonHelper.getElement(json, "result"));
       int coolingTime = GsonHelper.getAsInt(json, "cooling_time");
-      return factory.create(idIn, groupIn, cast, fluid, output, coolingTime, consumed, switchSlots);
+      return create(idIn, groupIn, cast, fluid, output, coolingTime, consumed, switchSlots);
     }
 
     @Override
-    protected T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, FriendlyByteBuf buffer) {
+    protected ItemCastingRecipe create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, FriendlyByteBuf buffer) {
       FluidIngredient fluid = FluidIngredient.read(buffer);
       ItemOutput result = ItemOutput.read(buffer);
       int coolingTime = buffer.readInt();
-      return factory.create(idIn, groupIn, cast, fluid, result, coolingTime, consumed, switchSlots);
+      return create(idIn, groupIn, cast, fluid, result, coolingTime, consumed, switchSlots);
     }
 
     @Override
-    public void writeExtra(FriendlyByteBuf buffer, T recipe) {
+    public void writeExtra(FriendlyByteBuf buffer, ItemCastingRecipe recipe) {
       recipe.fluid.write(buffer);
       recipe.result.write(buffer);
       buffer.writeInt(recipe.coolingTime);
     }
-  }
-
-  /**
-   * Interface representing a item casting recipe constructor
-   * @param <T>  Recipe class type
-   */
-  public interface IFactory<T extends AbstractCastingRecipe> {
-    /** Creates a new instance of this factory */
-    T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, FluidIngredient fluidIn, ItemOutput output, int coolingTime, boolean consumed, boolean switchSlots);
   }
 }

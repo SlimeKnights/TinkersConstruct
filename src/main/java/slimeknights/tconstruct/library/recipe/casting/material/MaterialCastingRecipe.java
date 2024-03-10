@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.recipe.casting.material;
 
 import com.google.gson.JsonObject;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -14,32 +15,34 @@ import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
-import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.casting.AbstractCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.DisplayCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
-import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
  * Casting recipe that takes an arbitrary fluid of a given amount and set the material on the output based on that fluid
  */
-public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implements IMultiRecipe<IDisplayableCastingRecipe> {
+public class MaterialCastingRecipe extends AbstractCastingRecipe implements IMultiRecipe<IDisplayableCastingRecipe> {
+  @Getter
+  private final RecipeSerializer<?> serializer;
   protected final int itemCost;
   protected final IMaterialItem result;
   @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
   protected Optional<MaterialFluidRecipe> cachedFluidRecipe = Optional.empty();
 
-  public MaterialCastingRecipe(RecipeType<?> type, ResourceLocation id, String group, Ingredient cast, int itemCost, IMaterialItem result, boolean consumed, boolean switchSlots) {
+  public MaterialCastingRecipe(RecipeType<?> type, RecipeSerializer<?> serializer, ResourceLocation id, String group, @Nullable Ingredient cast, int itemCost, IMaterialItem result, boolean consumed, boolean switchSlots) {
     super(type, id, group, cast, consumed, switchSlots);
+    this.serializer = serializer;
     this.itemCost = itemCost;
     this.result = result;
     MaterialCastingLookup.registerItemCost(result, itemCost);
@@ -130,55 +133,23 @@ public abstract class MaterialCastingRecipe extends AbstractCastingRecipe implem
     return multiRecipes;
   }
 
-  /** Basin implementation */
-  public static class Basin extends MaterialCastingRecipe {
-    public Basin(ResourceLocation id, String group, Ingredient cast, int itemCost, IMaterialItem result, boolean consumed, boolean switchSlots) {
-      super(TinkerRecipeTypes.CASTING_BASIN.get(), id, group, cast, itemCost, result, consumed, switchSlots);
-    }
-
-    @Override
-    public RecipeSerializer<?> getSerializer() {
-      return TinkerSmeltery.basinMaterialSerializer.get();
-    }
-  }
-
-  /** Table implementation */
-  public static class Table extends MaterialCastingRecipe {
-    public Table(ResourceLocation id, String group, Ingredient cast, int itemCost, IMaterialItem result, boolean consumed, boolean switchSlots) {
-      super(TinkerRecipeTypes.CASTING_TABLE.get(), id, group, cast, itemCost, result, consumed, switchSlots);
-    }
-
-    @Override
-    public RecipeSerializer<?> getSerializer() {
-      return TinkerSmeltery.tableMaterialSerializer.get();
-    }
-  }
-
-  /**
-   * Interface representing a material casting recipe constructor
-   * @param <T>  Recipe class type
-   */
-  public interface IFactory<T extends MaterialCastingRecipe> {
-    T create(ResourceLocation id, String group, @Nullable Ingredient cast, int itemCost, IMaterialItem result,
-             boolean consumed, boolean switchSlots);
-  }
-
   @RequiredArgsConstructor
-  public static class Serializer<T extends MaterialCastingRecipe> extends AbstractCastingRecipe.Serializer<T> {
-    private final IFactory<T> factory;
+  public static class Serializer extends AbstractCastingRecipe.Serializer<MaterialCastingRecipe> {
+    private final Supplier<RecipeType<ICastingRecipe>> type;
+
 
     @Override
-    protected T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, JsonObject json) {
+    protected MaterialCastingRecipe create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, JsonObject json) {
       int itemCost = GsonHelper.getAsInt(json, "item_cost");
       IMaterialItem result = RecipeHelper.deserializeItem(GsonHelper.getAsString(json, "result"), "result", IMaterialItem.class);
-      return this.factory.create(idIn, groupIn, cast, itemCost, result, consumed, switchSlots);
+      return new MaterialCastingRecipe(type.get(), this, idIn, groupIn, cast, itemCost, result, consumed, switchSlots);
     }
 
     @Override
-    protected T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, FriendlyByteBuf buffer) {
+    protected MaterialCastingRecipe create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, FriendlyByteBuf buffer) {
       int fluidAmount = buffer.readInt();
       IMaterialItem result = RecipeHelper.readItem(buffer, IMaterialItem.class);
-      return this.factory.create(idIn, groupIn, cast, fluidAmount, result, consumed, switchSlots);
+      return new MaterialCastingRecipe(type.get(), this, idIn, groupIn, cast, fluidAmount, result, consumed, switchSlots);
     }
 
     @Override

@@ -21,7 +21,7 @@ import java.util.function.Consumer;
 public class ContainerFillingRecipeBuilder extends AbstractRecipeBuilder<ContainerFillingRecipeBuilder> {
   private final ResourceLocation result;
   private final int fluidAmount;
-  private final ContainerFillingRecipeSerializer<?> recipeSerializer;
+  private final ContainerFillingRecipe.Serializer recipeSerializer;
 
   /**
    * Creates a new builder instance using the given result, amount, and serializer
@@ -30,7 +30,7 @@ public class ContainerFillingRecipeBuilder extends AbstractRecipeBuilder<Contain
    * @param recipeSerializer  Serializer
    * @return  Builder instance
    */
-  public static ContainerFillingRecipeBuilder castingRecipe(ItemLike result, int fluidAmount, ContainerFillingRecipeSerializer<?> recipeSerializer) {
+  public static ContainerFillingRecipeBuilder castingRecipe(ItemLike result, int fluidAmount, ContainerFillingRecipe.Serializer recipeSerializer) {
     return new ContainerFillingRecipeBuilder(Objects.requireNonNull(result.asItem().getRegistryName()), fluidAmount, recipeSerializer);
   }
 

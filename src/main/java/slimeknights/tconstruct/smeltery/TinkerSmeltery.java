@@ -43,7 +43,6 @@ import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.PotionCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.RetexturedCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.container.ContainerFillingRecipe;
-import slimeknights.tconstruct.library.recipe.casting.container.ContainerFillingRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.casting.material.CompositeCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialFluidRecipe;
@@ -334,23 +333,23 @@ public final class TinkerSmeltery extends TinkerModule {
    * Recipe
    */
   // casting
-  public static final RegistryObject<ItemCastingRecipe.Serializer<ItemCastingRecipe.Basin>> basinRecipeSerializer = RECIPE_SERIALIZERS.register("casting_basin", () -> new ItemCastingRecipe.Serializer<>(ItemCastingRecipe.Basin::new));
-  public static final RegistryObject<ItemCastingRecipe.Serializer<ItemCastingRecipe.Table>> tableRecipeSerializer = RECIPE_SERIALIZERS.register("casting_table", () -> new ItemCastingRecipe.Serializer<>(ItemCastingRecipe.Table::new));
-  public static final RegistryObject<ContainerFillingRecipeSerializer<ContainerFillingRecipe.Basin>> basinFillingRecipeSerializer = RECIPE_SERIALIZERS.register("basin_filling", () -> new ContainerFillingRecipeSerializer<>(ContainerFillingRecipe.Basin::new));
-  public static final RegistryObject<ContainerFillingRecipeSerializer<ContainerFillingRecipe.Table>> tableFillingRecipeSerializer = RECIPE_SERIALIZERS.register("table_filling", () -> new ContainerFillingRecipeSerializer<>(ContainerFillingRecipe.Table::new));
+  public static final RegistryObject<ItemCastingRecipe.Serializer> basinRecipeSerializer = RECIPE_SERIALIZERS.register("casting_basin", () -> new ItemCastingRecipe.Serializer(TinkerRecipeTypes.CASTING_BASIN));
+  public static final RegistryObject<ItemCastingRecipe.Serializer> tableRecipeSerializer = RECIPE_SERIALIZERS.register("casting_table", () -> new ItemCastingRecipe.Serializer(TinkerRecipeTypes.CASTING_TABLE));
+  public static final RegistryObject<ContainerFillingRecipe.Serializer> basinFillingRecipeSerializer = RECIPE_SERIALIZERS.register("basin_filling", () -> new ContainerFillingRecipe.Serializer(TinkerRecipeTypes.CASTING_BASIN));
+  public static final RegistryObject<ContainerFillingRecipe.Serializer> tableFillingRecipeSerializer = RECIPE_SERIALIZERS.register("table_filling", () -> new ContainerFillingRecipe.Serializer(TinkerRecipeTypes.CASTING_TABLE));
   public static final RegistryObject<PotionCastingRecipe.Serializer> basinPotionRecipeSerializer = RECIPE_SERIALIZERS.register("casting_basin_potion", () -> new PotionCastingRecipe.Serializer(TinkerRecipeTypes.CASTING_BASIN));
   public static final RegistryObject<PotionCastingRecipe.Serializer> tablePotionRecipeSerializer = RECIPE_SERIALIZERS.register("casting_table_potion", () -> new PotionCastingRecipe.Serializer(TinkerRecipeTypes.CASTING_TABLE));
-  public static final RegistryObject<ItemCastingRecipe.Serializer<RetexturedCastingRecipe.Basin>> retexturedBasinRecipeSerializer = RECIPE_SERIALIZERS.register("retextured_casting_basin", () -> new ItemCastingRecipe.Serializer<>(RetexturedCastingRecipe.Basin::new));
-  public static final RegistryObject<ItemCastingRecipe.Serializer<RetexturedCastingRecipe.Table>> retexturedTableRecipeSerializer = RECIPE_SERIALIZERS.register("retextured_casting_table", () -> new ItemCastingRecipe.Serializer<>(RetexturedCastingRecipe.Table::new));
+  public static final RegistryObject<RetexturedCastingRecipe.Serializer> retexturedBasinRecipeSerializer = RECIPE_SERIALIZERS.register("retextured_casting_basin", () -> new RetexturedCastingRecipe.Serializer(TinkerRecipeTypes.CASTING_BASIN));
+  public static final RegistryObject<RetexturedCastingRecipe.Serializer> retexturedTableRecipeSerializer = RECIPE_SERIALIZERS.register("retextured_casting_table", () -> new RetexturedCastingRecipe.Serializer(TinkerRecipeTypes.CASTING_TABLE));
   // material casting
-  public static final RegistryObject<MaterialCastingRecipe.Serializer<MaterialCastingRecipe.Basin>> basinMaterialSerializer = RECIPE_SERIALIZERS.register("basin_casting_material", () -> new MaterialCastingRecipe.Serializer<>(MaterialCastingRecipe.Basin::new));
-  public static final RegistryObject<MaterialCastingRecipe.Serializer<MaterialCastingRecipe.Table>> tableMaterialSerializer = RECIPE_SERIALIZERS.register("table_casting_material", () -> new MaterialCastingRecipe.Serializer<>(MaterialCastingRecipe.Table::new));
-  public static final RegistryObject<CompositeCastingRecipe.Serializer<CompositeCastingRecipe.Basin>> basinCompositeSerializer = RECIPE_SERIALIZERS.register("basin_casting_composite", () -> new CompositeCastingRecipe.Serializer<>(CompositeCastingRecipe.Basin::new));
-  public static final RegistryObject<CompositeCastingRecipe.Serializer<CompositeCastingRecipe.Table>> tableCompositeSerializer = RECIPE_SERIALIZERS.register("table_casting_composite", () -> new CompositeCastingRecipe.Serializer<>(CompositeCastingRecipe.Table::new));
+  public static final RegistryObject<MaterialCastingRecipe.Serializer> basinMaterialSerializer = RECIPE_SERIALIZERS.register("basin_casting_material", () -> new MaterialCastingRecipe.Serializer(TinkerRecipeTypes.CASTING_BASIN));
+  public static final RegistryObject<MaterialCastingRecipe.Serializer> tableMaterialSerializer = RECIPE_SERIALIZERS.register("table_casting_material", () -> new MaterialCastingRecipe.Serializer(TinkerRecipeTypes.CASTING_TABLE));
+  public static final RegistryObject<CompositeCastingRecipe.Serializer> basinCompositeSerializer = RECIPE_SERIALIZERS.register("basin_casting_composite", () -> new CompositeCastingRecipe.Serializer(TinkerRecipeTypes.CASTING_BASIN));
+  public static final RegistryObject<CompositeCastingRecipe.Serializer> tableCompositeSerializer = RECIPE_SERIALIZERS.register("table_casting_composite", () -> new CompositeCastingRecipe.Serializer(TinkerRecipeTypes.CASTING_TABLE));
   public static final RegistryObject<MaterialFluidRecipe.Serializer> materialFluidRecipe = RECIPE_SERIALIZERS.register("material_fluid", MaterialFluidRecipe.Serializer::new);
   // molding
-  public static final RegistryObject<MoldingRecipe.Serializer<MoldingRecipe.Table>> moldingTableSerializer = RECIPE_SERIALIZERS.register("molding_table", () -> new MoldingRecipe.Serializer<>(MoldingRecipe.Table::new));
-  public static final RegistryObject<MoldingRecipe.Serializer<MoldingRecipe.Basin>> moldingBasinSerializer = RECIPE_SERIALIZERS.register("molding_basin", () -> new MoldingRecipe.Serializer<>(MoldingRecipe.Basin::new));
+  public static final RegistryObject<MoldingRecipe.Serializer> moldingBasinSerializer = RECIPE_SERIALIZERS.register("molding_basin", () -> new MoldingRecipe.Serializer(TinkerRecipeTypes.MOLDING_BASIN));
+  public static final RegistryObject<MoldingRecipe.Serializer> moldingTableSerializer = RECIPE_SERIALIZERS.register("molding_table", () -> new MoldingRecipe.Serializer(TinkerRecipeTypes.MOLDING_TABLE));
   // melting
   public static final RegistryObject<RecipeSerializer<MeltingRecipe>> meltingSerializer = RECIPE_SERIALIZERS.register("melting", () -> new MeltingRecipe.Serializer<>(MeltingRecipe::new));
   public static final RegistryObject<RecipeSerializer<OreMeltingRecipe>> oreMeltingSerializer = RECIPE_SERIALIZERS.register("ore_melting", OreMeltingRecipe.Serializer::new);

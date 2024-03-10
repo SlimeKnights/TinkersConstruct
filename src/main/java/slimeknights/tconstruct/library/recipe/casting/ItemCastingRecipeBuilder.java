@@ -30,7 +30,7 @@ import java.util.function.Consumer;
 @RequiredArgsConstructor(staticName = "castingRecipe")
 public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingRecipeBuilder> {
   private final ItemOutput result;
-  private final ItemCastingRecipe.Serializer<?> recipeSerializer;
+  private final ItemCastingRecipe.Serializer recipeSerializer;
   private Ingredient cast = Ingredient.EMPTY;
   private FluidIngredient fluid = FluidIngredient.EMPTY;
   @Setter @Accessors(chain = true)

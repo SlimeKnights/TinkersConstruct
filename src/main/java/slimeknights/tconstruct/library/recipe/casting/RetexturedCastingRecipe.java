@@ -9,13 +9,14 @@ import net.minecraft.world.item.crafting.RecipeType;
 import slimeknights.mantle.item.RetexturedBlockItem;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
-import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
-import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+
+import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
 /** Extension of item recipe that sets the result block to the input block */
-public abstract class RetexturedCastingRecipe extends ItemCastingRecipe {
-  public RetexturedCastingRecipe(RecipeType<?> type, ResourceLocation id, String group, Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
-    super(type, id, group, cast, fluid, result, coolingTime, consumed, switchSlots);
+public class RetexturedCastingRecipe extends ItemCastingRecipe {
+  public RetexturedCastingRecipe(RecipeType<?> type, RecipeSerializer<? extends ItemCastingRecipe> serializer, ResourceLocation id, String group, @Nullable Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
+    super(type, serializer, id, group, cast, fluid, result, coolingTime, consumed, switchSlots);
   }
 
   @Override
@@ -27,27 +28,14 @@ public abstract class RetexturedCastingRecipe extends ItemCastingRecipe {
     return result;
   }
 
-  /** Subclass for basin recipes */
-  public static class Basin extends RetexturedCastingRecipe {
-    public Basin(ResourceLocation id, String group, Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
-      super(TinkerRecipeTypes.CASTING_BASIN.get(), id, group, cast, fluid, result, coolingTime, consumed, switchSlots);
+  public static class Serializer extends ItemCastingRecipe.Serializer {
+    public Serializer(Supplier<RecipeType<ICastingRecipe>> typeSupplier) {
+      super(typeSupplier);
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
-      return TinkerSmeltery.basinRecipeSerializer.get();
-    }
-  }
-
-  /** Subclass for table recipes */
-  public static class Table extends RetexturedCastingRecipe {
-    public Table(ResourceLocation id, String group, Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
-      super(TinkerRecipeTypes.CASTING_TABLE.get(), id, group, cast, fluid, result, coolingTime, consumed, switchSlots);
-    }
-
-    @Override
-    public RecipeSerializer<?> getSerializer() {
-      return TinkerSmeltery.tableRecipeSerializer.get();
+    protected ItemCastingRecipe create(ResourceLocation id, String group, @Nullable Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
+      return new RetexturedCastingRecipe(type.get(), this, id, group, cast, fluid, result, coolingTime, consumed, switchSlots);
     }
   }
 }
