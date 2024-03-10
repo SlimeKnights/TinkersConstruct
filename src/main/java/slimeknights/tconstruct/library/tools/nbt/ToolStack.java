@@ -8,7 +8,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -22,7 +21,6 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.ModifierTraitHook.TraitBuilder;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.definition.PartRequirement;
@@ -48,12 +46,6 @@ import java.util.Set;
 public class ToolStack implements IToolStackView {
   /** Error messages for when there are not enough remaining modifiers */
   private static final String KEY_VALIDATE_SLOTS = TConstruct.makeTranslationKey("recipe", "modifier.validate_slots");
-  /**
-   * flag to set in persistent data to mark a tool as needing persistent data, by default any tools with no persistent data are initialized
-   * @deprecated should no longer be needed with the new slot loading
-   */
-  @Deprecated
-  public static final ResourceLocation NEEDS_SLOTS_BUILT = TConstruct.getResource("needs_slots_built");
 
   // persistent NBT
   /** Tag for list of materials */
@@ -64,12 +56,6 @@ public class ToolStack implements IToolStackView {
   public static final String TAG_UPGRADES = "tic_upgrades";
   /** Tag marking a tool as broken */
   public static final String TAG_BROKEN = "tic_broken";
-  /**
-   * Old location of persistent data, used for migration. Will be removed in 1.19.
-   * @deprecated use {@link #TAG_PERSISTENT_MOD_DATA}
-   */
-  @Deprecated
-  protected static final String TAG_PERSISTENT_LEGACY_DATA = "tic_persistent_data";
 
   // volatile NBT
   /** Tag for calculated stats */
@@ -87,7 +73,7 @@ public class ToolStack implements IToolStackView {
   public static final String TAG_HIDE_FLAGS = "HideFlags";
 
   /** List of tags to disallow editing for the relevant modifier hooks, disallows all tags we touch. Ignores unbreakable as we only look at that tag for vanilla compat */
-  private static final Set<String> RESTRICTED_TAGS = ImmutableSet.of(TAG_MATERIALS, TAG_STATS, TAG_MULTIPLIERS, TAG_PERSISTENT_MOD_DATA, TAG_PERSISTENT_LEGACY_DATA, TAG_VOLATILE_MOD_DATA, TAG_UPGRADES, TAG_MODIFIERS, TAG_BROKEN, TAG_DAMAGE, TAG_HIDE_FLAGS);
+  private static final Set<String> RESTRICTED_TAGS = ImmutableSet.of(TAG_MATERIALS, TAG_STATS, TAG_MULTIPLIERS, TAG_PERSISTENT_MOD_DATA, TAG_VOLATILE_MOD_DATA, TAG_UPGRADES, TAG_MODIFIERS, TAG_BROKEN, TAG_DAMAGE, TAG_HIDE_FLAGS);
 
   /** Item representing this tool */
   @Getter
@@ -610,30 +596,6 @@ public class ToolStack implements IToolStackView {
     return null;
   }
 
-  /**
-   * Checks if this tool stack is in a valid state
-   * @return  Pass if the tool is valid, failure result if invalid
-   * @deprecated use {@link #tryValidate()}
-   */
-  @Deprecated
-  public ValidatedResult validate() {
-    // first check slot counts
-    for (SlotType slotType : SlotType.getAllSlotTypes()) {
-      if (getFreeSlots(slotType) < 0) {
-        return ValidatedResult.failure(KEY_VALIDATE_SLOTS, slotType.getDisplayName());
-      }
-    }
-    // next, ensure modifiers validate
-    Component result;
-    for (ModifierEntry entry : getModifierList()) {
-      result = entry.getHook(TinkerHooks.VALIDATE).validate(this, entry);
-      if (result != null) {
-        return ValidatedResult.failure(result);
-      }
-    }
-    return ValidatedResult.PASS;
-  }
-
   /** Called on inventory tick to ensure the tool has all required data including materials and starting slots, prevents tools with no stats from existing */
   public void ensureHasData() {
     // if datapacks have loaded and the tool does not have stats, it needs to have stats built
@@ -650,32 +612,11 @@ public class ToolStack implements IToolStackView {
    * Recalculates any relevant cached data. Called after either the materials or modifiers list changes
    */
   public void rebuildStats() {
-    // hide enchants and attributes, both are added ourself (filtered)
-    // TODO: remove this line in 1.19, for best compat
-    // will break old tools if we do not remove in 1.18
-    nbt.remove(TAG_HIDE_FLAGS);
-
     // add tool slots to volatile data, ensures it is there even from an empty tool, and properly updates on datapack update
     ToolDefinitionData toolData = getDefinitionData();
     ModDataNBT volatileData = new ModDataNBT();
     toolData.buildSlots(volatileData);
     ModDataNBT persistentData = getPersistentData();
-    // migrate from the legacy tag to the current tag
-    // TODO: remove this migration in 1.19
-    if (nbt.contains(TAG_PERSISTENT_LEGACY_DATA, Tag.TAG_COMPOUND)) {
-      // merge is a little overkill since non-legacy should be empty, but better safe than deleting new persistent data
-      persistentData.getData().merge(nbt.getCompound(TAG_PERSISTENT_LEGACY_DATA));
-      nbt.remove(TAG_PERSISTENT_LEGACY_DATA);
-
-      // if we had a legacy tag, we likely have  too many slots as the legacy tag put the slots in persistent data instead of volatile
-      if (persistentData.getBoolean(NEEDS_SLOTS_BUILT)) {
-        // an exception is if the legacy data set "needs slots built", which means it does not have slots and requests them added
-        persistentData.remove(NEEDS_SLOTS_BUILT);
-      } else {
-        // luckily, it's as simple as subtracting the slots from persistent data, new tools will not need this
-        toolData.migrateLegacySlots(persistentData);
-      }
-    }
 
     // after slots, time to build stats
     MaterialNBT materials = getMaterials();

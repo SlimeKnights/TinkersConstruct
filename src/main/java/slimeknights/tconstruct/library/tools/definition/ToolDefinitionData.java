@@ -162,20 +162,6 @@ public class ToolDefinitionData {
     }
   }
 
-  /**
-   * Subtracts all the given slots from the data
-   * @param persistentModData  Mod data
-   * @deprecated will be removed in 1.19
-   */
-  @Deprecated
-  public void migrateLegacySlots(ModDataNBT persistentModData) {
-    if (slots != null) {
-      for (SlotType type : slots.containedTypes()) {
-        persistentModData.addSlots(type, -slots.getSlots(type));
-      }
-    }
-  }
-
 
   /* Harvest */
 
