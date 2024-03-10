@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:dyed",
+  "text": [
+    {
+      "text": "有黑色的嗎？"
+    }
+  ],
+  "effects": [
+    "可以用染料改變工具的顏色",
+    "多次使用",
+    "無需槽位"
+  ]
+}

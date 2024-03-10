@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:draconic",
+  "text": [
+    {
+      "text": "我將帶§o頭§r衝鋒！"
+    },
+    {
+      "text": "怎麼了，工匠，你難道不知道能力槽為何物？那麼，是時候讀讀我的第二本書——《大師熔鍊術》了！", "paragraph": true
+    }
+  ],
+  "effects": [
+    "增加1個能力槽",
+    "單個等級"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "title": "鑄造",
+  "image": {
+    "file": "tconstruct:book/images/sandcast.png"
+  },
+  "text": [
+    {
+      "text": "好了工匠，你已經熔鍊了一些金屬並且知道了如何轉移它們。剩下的步驟就是把它們變成工具部件！"
+    }
+  ]
+}

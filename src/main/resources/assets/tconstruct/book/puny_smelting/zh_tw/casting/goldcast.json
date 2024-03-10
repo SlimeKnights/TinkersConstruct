@@ -1,0 +1,13 @@
+{
+  "title": "金質鑄模",
+  "image": {
+    "file": "tconstruct:book/images/gold_pick.png",
+    "width": 170,
+    "height": 90
+  },
+  "text": [
+    {
+      "text": "金質鑄模可重複使用。在鑄件臺上，將1錠量的熔融金澆注在任意工具部件上就能製作對應鑄模。該過程消耗工具部件。"
+    }
+  ]
+}
