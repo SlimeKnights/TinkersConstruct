@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:protection",
+  "text": [
+    {
+      "text": "經過這麼多年。終於，我把它們都弄到手了。"
+    }
+  ],
+  "effects": [
+    "增強對所有傷害的保護",
+    "每級需要1個能力槽"
+  ]
+}

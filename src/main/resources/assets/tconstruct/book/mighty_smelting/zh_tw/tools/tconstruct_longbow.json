@@ -1,0 +1,19 @@
+{
+  "tool": "tconstruct:longbow",
+  "text": [
+    {
+      "text": "長弓適用於那些做好堅守準備並奮力作戰的人。"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "比普通弓長，比長長弓短。",
+	  "paragraph": true
+    }
+  ],
+  "properties": [
+    "速度較慢但更為強力的弓",
+	  "專為高傷害設計"
+  ]
+}
