@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:blindshot",
+  "text": [
+    {
+      "text": "每級精確度-0.1。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "多次使用",
+    "無需槽位",
+    "沒有等級上限，不過精確度的下限為0.1"
+  ]
+}

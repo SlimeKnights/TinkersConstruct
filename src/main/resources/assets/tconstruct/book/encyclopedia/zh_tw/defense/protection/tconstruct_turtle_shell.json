@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:turtle_shell",
+  "text": [
+    {
+      "text": "在水下時抗性+10%。所有盔甲的總上限為80%，也就是8級強化。"
+    },
+    {
+      "text": "增加游泳速度，每級+5%。", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "可以逐級強化",
+    "需要1個防禦槽"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:shiny",
+  "text": [
+    {
+      "text": "讓工具獲得附魔一般的發光效果。僅此而已，只是裝飾。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "單次使用",
+    "無需槽位"
+  ]
+}
