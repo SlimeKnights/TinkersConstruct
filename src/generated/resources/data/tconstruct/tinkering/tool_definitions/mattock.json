@@ -43,18 +43,16 @@
         {
           "modifier": 2.0,
           "predicate": {
-            "type": "tconstruct:and",
+            "type": "mantle:and",
             "predicates": [
               {
-                "type": "tconstruct:tag",
+                "type": "mantle:tag",
                 "tag": "minecraft:mineable/axe"
               },
               {
-                "type": "tconstruct:inverted",
-                "predicate": {
-                  "type": "tconstruct:tag",
-                  "tag": "tconstruct:mineable/mattock"
-                }
+                "type": "mantle:inverted",
+                "inverted_type": "mantle:tag",
+                "tag": "tconstruct:mineable/mattock"
               }
             ]
           }

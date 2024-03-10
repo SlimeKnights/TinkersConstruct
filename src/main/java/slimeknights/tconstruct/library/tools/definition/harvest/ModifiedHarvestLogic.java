@@ -12,11 +12,11 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.predicate.IJsonPredicate;
+import slimeknights.mantle.data.predicate.block.BlockPredicate;
+import slimeknights.mantle.data.predicate.block.SetBlockPredicate;
+import slimeknights.mantle.data.predicate.block.TagBlockPredicate;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.library.json.predicate.IJsonPredicate;
-import slimeknights.tconstruct.library.json.predicate.block.BlockPredicate;
-import slimeknights.tconstruct.library.json.predicate.block.SetBlockPredicate;
-import slimeknights.tconstruct.library.json.predicate.block.TagBlockPredicate;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.ArrayList;

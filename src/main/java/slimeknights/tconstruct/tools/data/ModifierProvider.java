@@ -35,7 +35,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.data.tinkering.AbstractModifierProvider;
 import slimeknights.tconstruct.library.json.RandomLevelingValue;
-import slimeknights.tconstruct.library.json.predicate.entity.TinkerLivingEntityPredicate;
+import slimeknights.tconstruct.library.json.predicate.TinkerLivingEntityPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate.ModifierCheck;
 import slimeknights.tconstruct.library.json.predicate.tool.ItemToolPredicate;

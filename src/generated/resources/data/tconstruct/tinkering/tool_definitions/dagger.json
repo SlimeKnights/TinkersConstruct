@@ -50,7 +50,7 @@
         {
           "modifier": 7.5,
           "predicate": {
-            "type": "tconstruct:set",
+            "type": "mantle:set",
             "blocks": [
               "minecraft:cobweb"
             ]

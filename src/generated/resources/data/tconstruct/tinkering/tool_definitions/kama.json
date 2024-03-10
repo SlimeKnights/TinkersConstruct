@@ -48,14 +48,14 @@
         {
           "modifier": 0.3,
           "predicate": {
-            "type": "tconstruct:tag",
+            "type": "mantle:tag",
             "tag": "minecraft:wool"
           }
         },
         {
           "modifier": 0.1,
           "predicate": {
-            "type": "tconstruct:set",
+            "type": "mantle:set",
             "blocks": [
               "minecraft:vine",
               "minecraft:glow_lichen"

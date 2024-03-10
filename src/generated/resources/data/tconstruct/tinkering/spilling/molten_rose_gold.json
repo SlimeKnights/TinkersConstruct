@@ -7,7 +7,7 @@
     {
       "type": "tconstruct:conditional",
       "entity": {
-        "type": "tconstruct:mob_type",
+        "type": "mantle:mob_type",
         "mobs": "minecraft:undead"
       },
       "effect": {

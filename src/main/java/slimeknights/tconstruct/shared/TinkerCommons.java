@@ -3,8 +3,6 @@ package slimeknights.tconstruct.shared;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.MobType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.item.Items;
@@ -30,6 +28,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.registries.RegistryObject;
 import org.apache.logging.log4j.Logger;
+import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.mantle.item.EdibleItem;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.mantle.registration.object.EnumObject;
@@ -42,13 +41,7 @@ import slimeknights.tconstruct.library.json.TagDifferencePresentCondition;
 import slimeknights.tconstruct.library.json.TagIntersectionPresentCondition;
 import slimeknights.tconstruct.library.json.TagNotEmptyLootCondition;
 import slimeknights.tconstruct.library.json.TagPreferenceLootEntry;
-import slimeknights.tconstruct.library.json.predicate.block.BlockPredicate;
-import slimeknights.tconstruct.library.json.predicate.block.SetBlockPredicate;
-import slimeknights.tconstruct.library.json.predicate.block.TagBlockPredicate;
-import slimeknights.tconstruct.library.json.predicate.entity.LivingEntityPredicate;
-import slimeknights.tconstruct.library.json.predicate.entity.MobTypePredicate;
-import slimeknights.tconstruct.library.json.predicate.entity.TagEntityPredicate;
-import slimeknights.tconstruct.library.json.predicate.entity.TinkerLivingEntityPredicate;
+import slimeknights.tconstruct.library.json.predicate.TinkerLivingEntityPredicate;
 import slimeknights.tconstruct.library.recipe.ingredient.NoContainerIngredient;
 import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
 import slimeknights.tconstruct.library.utils.Util;
@@ -171,35 +164,8 @@ public final class TinkerCommons extends TinkerModule {
     CraftingHelper.register(TagIntersectionPresentCondition.SERIALIZER);
     CraftingHelper.register(TagDifferencePresentCondition.SERIALIZER);
     CraftingHelper.register(new TagNotEmptyLootCondition.ConditionSerializer());
-    // block predicates
-    BlockPredicate.LOADER.register(getResource("and"), BlockPredicate.AND);
-    BlockPredicate.LOADER.register(getResource("or"), BlockPredicate.OR);
-    BlockPredicate.LOADER.register(getResource("inverted"), BlockPredicate.INVERTED);
-    BlockPredicate.LOADER.register(getResource("requires_tool"), BlockPredicate.REQUIRES_TOOL.getLoader());
-    BlockPredicate.LOADER.register(getResource("set"), SetBlockPredicate.LOADER);
-    BlockPredicate.LOADER.register(getResource("tag"), TagBlockPredicate.LOADER);
-    // entity predicates
-    LivingEntityPredicate.LOADER.register(getResource("and"), LivingEntityPredicate.AND);
-    LivingEntityPredicate.LOADER.register(getResource("or"), LivingEntityPredicate.OR);
-    LivingEntityPredicate.LOADER.register(getResource("inverted"), LivingEntityPredicate.INVERTED);
-    LivingEntityPredicate.LOADER.register(getResource("any"), LivingEntityPredicate.ANY.getLoader());
-    LivingEntityPredicate.LOADER.register(getResource("airborne"), LivingEntityPredicate.AIRBORNE.getLoader());
-    LivingEntityPredicate.LOADER.register(getResource("crouching"), LivingEntityPredicate.CROUCHING.getLoader());
-    LivingEntityPredicate.LOADER.register(getResource("fire_immune"), LivingEntityPredicate.FIRE_IMMUNE.getLoader());
-    LivingEntityPredicate.LOADER.register(getResource("water_sensitive"), LivingEntityPredicate.WATER_SENSITIVE.getLoader());
-    LivingEntityPredicate.LOADER.register(getResource("on_fire"), LivingEntityPredicate.ON_FIRE.getLoader());
-    LivingEntityPredicate.LOADER.register(getResource("tag"), TagEntityPredicate.LOADER);
-    LivingEntityPredicate.LOADER.register(getResource("mob_type"), MobTypePredicate.LOADER);
-    LivingEntityPredicate.LOADER.register(getResource("eyes_in_water"), LivingEntityPredicate.EYES_IN_WATER.getLoader());
-    LivingEntityPredicate.LOADER.register(getResource("feet_in_water"), LivingEntityPredicate.FEET_IN_WATER.getLoader());
     // mantle
-    slimeknights.mantle.data.predicate.entity.LivingEntityPredicate.LOADER.register(getResource("airborne"), TinkerLivingEntityPredicate.AIRBORNE.getLoader());
-    // register mob types
-    MobTypePredicate.MOB_TYPES.register(new ResourceLocation("undefined"), MobType.UNDEFINED);
-    MobTypePredicate.MOB_TYPES.register(new ResourceLocation("undead"), MobType.UNDEAD);
-    MobTypePredicate.MOB_TYPES.register(new ResourceLocation("arthropod"), MobType.ARTHROPOD);
-    MobTypePredicate.MOB_TYPES.register(new ResourceLocation("illager"), MobType.ILLAGER);
-    MobTypePredicate.MOB_TYPES.register(new ResourceLocation("water"), MobType.WATER);
+    LivingEntityPredicate.LOADER.register(getResource("airborne"), TinkerLivingEntityPredicate.AIRBORNE.getLoader());
   }
 
   @SubscribeEvent

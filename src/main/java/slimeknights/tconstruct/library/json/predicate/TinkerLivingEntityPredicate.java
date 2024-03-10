@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.json.predicate.entity;
+package slimeknights.tconstruct.library.json.predicate;
 
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
