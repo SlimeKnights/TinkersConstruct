@@ -13,11 +13,11 @@ import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinitionData;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -34,7 +34,7 @@ import java.util.stream.IntStream;
 /** Recipe for repairing tools */
 @RequiredArgsConstructor
 public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
-  protected static final ValidatedResult FULLY_REPAIRED = ValidatedResult.failure(TConstruct.makeTranslationKey("recipe", "tool_repair.fully_repaired"));
+  protected static final RecipeResult<ItemStack> FULLY_REPAIRED = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "tool_repair.fully_repaired"));
   /** No action int consumer for recipe result */
   private static final IntConsumer NO_ACTION = i -> {};
 
@@ -160,10 +160,10 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
   }
 
   @Override
-  public ValidatedResult getValidatedResult(ITinkerStationContainer inv) {
+  public RecipeResult<ItemStack> getValidatedResult(ITinkerStationContainer inv) {
     ToolStack tool = ToolStack.from(inv.getTinkerableStack());
     if (tool.getDefinition() == ToolDefinition.EMPTY) {
-      return ValidatedResult.PASS;
+      return RecipeResult.pass();
     }
     // ensure input needs repair
     if (!tool.isBroken() && tool.getDamage() == 0) {
@@ -186,11 +186,11 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
       ToolDamageUtil.repair(tool, repairNeeded - repairRemaining);
 
       // repair remaining can be negative
-      return ValidatedResult.success(tool.createStack());
+      return RecipeResult.success(tool.createStack());
     }
 
     // for some odd reason, did not repair anything
-    return ValidatedResult.PASS;
+    return RecipeResult.pass();
   }
 
   /** Gets the primary material of the given tool */

@@ -19,12 +19,12 @@ import slimeknights.tconstruct.library.materials.stats.IRepairableMaterialStats;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingLookup;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.definition.PartRequirement;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
@@ -45,7 +45,7 @@ import java.util.stream.IntStream;
  */
 @AllArgsConstructor
 public class TinkerStationPartSwapping implements ITinkerStationRecipe {
-  private static final ValidatedResult TOO_MANY_PARTS = ValidatedResult.failure(TConstruct.makeTranslationKey("recipe", "part_swapping.too_many_parts"));
+  private static final RecipeResult<ItemStack> TOO_MANY_PARTS = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "part_swapping.too_many_parts"));
 
   @Getter
   protected final ResourceLocation id;
@@ -91,7 +91,7 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
   }
 
   @Override
-  public ValidatedResult getValidatedResult(ITinkerStationContainer inv) {
+  public RecipeResult<ItemStack> getValidatedResult(ITinkerStationContainer inv) {
     // copy the tool NBT to ensure the original tool is intact
     ItemStack tinkerable = inv.getTinkerableStack();
     ToolStack tool = ToolStack.from(tinkerable);
@@ -109,13 +109,13 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
         // not tool part, should never happen
         Item item = stack.getItem();
         if (!(item instanceof IToolPart part)) {
-          return ValidatedResult.PASS;
+          return RecipeResult.pass();
         }
 
         // ensure the part is valid
         MaterialVariantId partVariant = part.getMaterial(stack);
         if (partVariant.equals(IMaterial.UNKNOWN_ID)) {
-          return ValidatedResult.PASS;
+          return RecipeResult.pass();
         }
 
         // we have a part and its not at this index, find the first copy of this part
@@ -126,7 +126,7 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
                            .filter(pi -> parts.get(pi).matches(item))
                            .findFirst().orElse(-1);
           if (index == -1) {
-            return ValidatedResult.PASS;
+            return RecipeResult.pass();
           }
         }
 
@@ -136,7 +136,7 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
         IMaterialStats stats = MaterialRegistry.getInstance().getMaterialStats(partVariant.getId(), part.getStatType()).orElse(null);
         IRepairableMaterialStats repairable = stats instanceof IRepairableMaterialStats r ? r : null;
         if (!didChange && (tool.getDamage() == 0 || repairable == null)) {
-          return ValidatedResult.PASS;
+          return RecipeResult.pass();
         }
 
         // actual update
@@ -201,28 +201,28 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
         // ensure no modifier problems after removing
         // first check tool requirements
         ItemStack result = tool.createStack(Math.min(tinkerable.getCount(), shrinkToolSlotBy()));
-        ValidatedResult toolValidation = ModifierRecipeLookup.checkRequirements(result, tool);
-        if (toolValidation.hasError()) {
-          return toolValidation;
+        Component error = ModifierRecipeLookup.checkRequirements(result, tool);
+        if (error != null) {
+          return RecipeResult.failure(error);
         }
         // next, modifier validation
-        Component error = tool.tryValidate();
+        error = tool.tryValidate();
         if (error != null) {
-          return ValidatedResult.failure(error);
+          return RecipeResult.failure(error);
         }
         // finally, validate removed modifiers
         for (Modifier modifier : actuallyRemoved) {
           error = modifier.getHook(TinkerHooks.REMOVE).onRemoved(tool, modifier);
           if (error != null) {
-            return ValidatedResult.failure(error);
+            return RecipeResult.failure(error);
           }
         }
         // everything worked, so good to go
-        return ValidatedResult.success(result);
+        return RecipeResult.success(result);
       }
     }
     // no item found, should never happen
-    return ValidatedResult.PASS;
+    return RecipeResult.pass();
   }
 
   @Override

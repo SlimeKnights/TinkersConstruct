@@ -20,9 +20,9 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.SoundUtils;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
+import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.shared.inventory.ConfigurableInvWrapperCapability;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -52,8 +52,9 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
   /** Crafting inventory for the recipe calls */
   private final TinkerStationContainerWrapper inventoryWrapper;
 
+  @Nullable
   @Getter
-  private ValidatedResult currentError = ValidatedResult.PASS;
+  private Component currentError = null;
 
   @Getter
   private String itemName = "";
@@ -109,7 +110,7 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
 
     // assume empty unless we learn otherwise
     ItemStack result = ItemStack.EMPTY;
-    this.currentError = ValidatedResult.PASS;
+    this.currentError = null;
 
     if (!this.level.isClientSide && this.level.getServer() != null) {
       RecipeManager manager = this.level.getServer().getRecipeManager();
@@ -132,11 +133,11 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
         }
 
         // try for UI errors
-        ValidatedResult validatedResult = recipe.getValidatedResult(this.inventoryWrapper);
+        RecipeResult<ItemStack> validatedResult = recipe.getValidatedResult(this.inventoryWrapper);
         if (validatedResult.isSuccess()) {
           result = validatedResult.getResult();
         } else if (validatedResult.hasError()) {
-          this.currentError = validatedResult;
+          this.currentError = validatedResult.getMessage();
         }
       }
       // recipe will sync screen, so only need to call it when not syncing the recipe
@@ -146,11 +147,11 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
     }
     // client side only needs to update result, server syncs message elsewhere
     else if (this.lastRecipe != null && this.lastRecipe.matches(this.inventoryWrapper, level)) {
-      ValidatedResult validatedResult = this.lastRecipe.getValidatedResult(this.inventoryWrapper);
+      RecipeResult<ItemStack> validatedResult = this.lastRecipe.getValidatedResult(this.inventoryWrapper);
       if (validatedResult.isSuccess()) {
         result = validatedResult.getResult();
       } else if (validatedResult.hasError()) {
-        this.currentError = validatedResult;
+        this.currentError = validatedResult.getMessage();
       }
     }
 

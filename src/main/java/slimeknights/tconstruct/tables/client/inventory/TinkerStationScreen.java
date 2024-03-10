@@ -31,7 +31,6 @@ import slimeknights.tconstruct.library.client.RenderUtils;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.item.ITinkerStationDisplay;
 import slimeknights.tconstruct.library.tools.layout.LayoutIcon;
 import slimeknights.tconstruct.library.tools.layout.LayoutSlot;
@@ -314,9 +313,9 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     ItemStack toolStack = this.getMenu().getResult();
 
     // if we have a message, display instead of refreshing the tool
-    ValidatedResult currentError = tile.getCurrentError();
-    if (currentError.hasError()) {
-      error(currentError.getMessage());
+    Component currentError = tile.getCurrentError();
+    if (currentError != null) {
+      error(currentError);
       return;
     }
 

@@ -5,6 +5,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.recipe.ICommonRecipe;
+import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 
 /**
@@ -26,7 +27,7 @@ public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationContai
   boolean matches(ITinkerStationContainer inv, Level world);
 
   /**
-   * Gets the recipe result. Return {@link ItemStack#EMPTY) to represent {@link ValidatedResult#PASS}, or a non-empty stack to represent success.
+   * Gets the recipe result. Return {@link ItemStack#EMPTY) to represent {@link RecipeResult#PASS}, or a non-empty stack to represent success.
    * For more complex recipes, override {@link #getValidatedResult(ITinkerStationContainer)} instead.
    *
    * Do not call this method directly, but it is okay to override it.
@@ -41,12 +42,12 @@ public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationContai
    * Gets the recipe result, or an object containing an error message if the recipe matches but cannot be applied.
    * @return Validated result
    */
-  default ValidatedResult getValidatedResult(ITinkerStationContainer inv) {
+  default RecipeResult<ItemStack> getValidatedResult(ITinkerStationContainer inv) {
     ItemStack result = assemble(inv);
     if (result.isEmpty()) {
-      return ValidatedResult.PASS;
+      return RecipeResult.pass();
     }
-    return ValidatedResult.success(result);
+    return RecipeResult.success(result);
   }
 
   /** Gets the number to shrink the tool slot by, perfectly valid for this to be higher than the contained number of tools */

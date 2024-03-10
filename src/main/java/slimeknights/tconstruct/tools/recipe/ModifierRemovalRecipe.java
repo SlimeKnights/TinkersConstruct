@@ -33,7 +33,6 @@ import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierSalvage;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipe;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.recipe.worktable.AbstractSizedIngredientRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.worktable.AbstractWorktableRecipe;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
@@ -148,9 +147,9 @@ public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
     }
 
     // check the modifier requirements
-    ValidatedResult validated = ModifierRecipeLookup.checkRequirements(inv.getTinkerableStack(), tool);
-    if (validated.hasError()) {
-      return RecipeResult.failure(validated.getMessage());
+    Component validated = ModifierRecipeLookup.checkRequirements(inv.getTinkerableStack(), tool);
+    if (validated != null) {
+      return RecipeResult.failure(validated);
     }
 
     // successfully removed

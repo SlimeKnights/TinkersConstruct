@@ -5,6 +5,7 @@ import com.google.common.collect.Streams;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
@@ -17,10 +18,10 @@ import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -45,14 +46,14 @@ public class MultilevelModifierRecipe extends ModifierRecipe implements IMultiRe
   }
 
   @Override
-  public ValidatedResult getValidatedResult(ITinkerStationContainer inv) {
+  public RecipeResult<ItemStack> getValidatedResult(ITinkerStationContainer inv) {
     ItemStack tinkerable = inv.getTinkerableStack();
     ToolStack tool = ToolStack.from(tinkerable);
 
     // check requirements first, easy check
-    ValidatedResult requirements = validateRequirements(tool);
-    if (requirements.hasError()) {
-      return requirements;
+    Component requirements = validateRequirements(tool);
+    if (requirements != null) {
+      return RecipeResult.failure(requirements);
     }
 
     // next few checks depend on the current level to decide
@@ -68,16 +69,16 @@ public class MultilevelModifierRecipe extends ModifierRecipe implements IMultiRe
     if (levelEntry == null) {
       // if the level is below the minimum, then display a different error
       if (newLevel < levels.get(0).minLevel()) {
-        return ValidatedResult.failure(KEY_MIN_LEVEL, result.getModifier().getDisplayName(), levels.get(0).minLevel() - 1);
+        return RecipeResult.failure(KEY_MIN_LEVEL, result.getModifier().getDisplayName(), levels.get(0).minLevel() - 1);
       }
-      return ValidatedResult.failure(KEY_MAX_LEVEL, result.getModifier().getDisplayName(), levels.get(levels.size() - 1).maxLevel());
+      return RecipeResult.failure(KEY_MAX_LEVEL, result.getModifier().getDisplayName(), levels.get(levels.size() - 1).maxLevel());
     }
 
     // found our level entry, time to validate slots
     SlotCount slots = levelEntry.slots();
     requirements = checkSlots(tool, slots);
-    if (requirements.hasError()) {
-      return requirements;
+    if (requirements != null) {
+      return RecipeResult.failure(requirements);
     }
 
     // consume slots
@@ -91,12 +92,12 @@ public class MultilevelModifierRecipe extends ModifierRecipe implements IMultiRe
     tool.addModifier(result.getId(), result.getLevel());
 
     // ensure no modifier problems
-    ValidatedResult toolValidation = tool.validate();
-    if (toolValidation.hasError()) {
-      return toolValidation;
+    Component toolValidation = tool.tryValidate();
+    if (toolValidation != null) {
+      return RecipeResult.failure(toolValidation);
     }
 
-    return ValidatedResult.success(tool.createStack(Math.min(tinkerable.getCount(), shrinkToolSlotBy())));
+    return RecipeResult.success(tool.createStack(Math.min(tinkerable.getCount(), shrinkToolSlotBy())));
   }
 
 

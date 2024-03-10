@@ -22,7 +22,6 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRequirements;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.shared.command.HeldModifiableItemIterator;
 import slimeknights.tconstruct.shared.command.argument.ModifierArgument;
@@ -70,18 +69,18 @@ public class ModifiersCommand {
       int currentLevel = tool.getModifierLevel(modifier);
       List<ModifierEntry> modifiers = tool.getModifierList();
       for (ModifierRequirements requirements : ModifierRecipeLookup.getRequirements(modifier.getId())) {
-        ValidatedResult result = requirements.check(stack, level + currentLevel, modifiers);
-        if (result.hasError()) {
-          throw MODIFIER_ERROR.create(result.getMessage());
+        Component result = requirements.check(stack, level + currentLevel, modifiers);
+        if (result != null) {
+          throw MODIFIER_ERROR.create(result);
         }
       }
       tool = tool.copy();
       tool.addModifier(modifier.getId(), level);
 
       // ensure no modifier problems after adding
-      ValidatedResult toolValidation = tool.validate();
-      if (toolValidation.hasError()) {
-        throw MODIFIER_ERROR.create(toolValidation.getMessage());
+      Component toolValidation = tool.tryValidate();
+      if (toolValidation != null) {
+        throw MODIFIER_ERROR.create(toolValidation);
       }
 
       // if successful, update held item
@@ -143,9 +142,9 @@ public class ModifiersCommand {
       }
       // check the modifier requirements
       ItemStack resultStack = tool.createStack(stack.getCount()); // creating a stack to make it as accurate as possible, though the old stack should be sufficient
-      ValidatedResult result = ModifierRecipeLookup.checkRequirements(resultStack, tool);
-      if (result.hasError()) {
-        throw MODIFIER_ERROR.create(result.getMessage());
+      Component result = ModifierRecipeLookup.checkRequirements(resultStack, tool);
+      if (result != null) {
+        throw MODIFIER_ERROR.create(result);
       }
 
       // if successful, update held item

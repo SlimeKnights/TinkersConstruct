@@ -20,7 +20,6 @@ import net.minecraft.world.entity.LivingEntity;
 import slimeknights.mantle.command.MantleCommand;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.INumericToolStat;
@@ -102,9 +101,9 @@ public class StatsCommand {
       }
 
       // ensure the tool is still valid
-      ValidatedResult validated = tool.validate();
-      if (validated.hasError()) {
-        throw MODIFIER_ERROR.create(validated.getMessage());
+      Component validated = tool.tryValidate();
+      if (validated != null) {
+        throw MODIFIER_ERROR.create(validated);
       }
 
       // if successful, update held item

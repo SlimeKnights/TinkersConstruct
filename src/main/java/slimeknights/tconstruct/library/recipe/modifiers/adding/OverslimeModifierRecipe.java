@@ -17,11 +17,11 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
@@ -35,7 +35,7 @@ import java.util.List;
  * Recipe to add overslime to a tool
  */
 public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayModifierRecipe {
-  private static final ValidatedResult AT_CAPACITY = ValidatedResult.failure(TConstruct.makeTranslationKey("recipe", "overslime.at_capacity"));
+  private static final RecipeResult<ItemStack> AT_CAPACITY = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "overslime.at_capacity"));
 
   @Getter
   private final ResourceLocation id;
@@ -59,7 +59,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   }
 
   @Override
-  public ValidatedResult getValidatedResult(ITinkerStationContainer inv) {
+  public RecipeResult<ItemStack> getValidatedResult(ITinkerStationContainer inv) {
     ItemStack tinkerable = inv.getTinkerableStack();
     ToolStack tool = ToolStack.from(tinkerable);
     OverslimeModifier overslime = TinkerModifiers.overslime.get();
@@ -87,7 +87,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
     // see how much value is available, update overslime to the max possible
     int available = IncrementalModifierRecipe.getAvailableAmount(inv, ingredient, restoreAmount);
     overslime.addOverslime(tool, available);
-    return ValidatedResult.success(tool.createStack(Math.min(tinkerable.getCount(), shrinkToolSlotBy())));
+    return RecipeResult.success(tool.createStack(Math.min(tinkerable.getCount(), shrinkToolSlotBy())));
   }
 
   /**

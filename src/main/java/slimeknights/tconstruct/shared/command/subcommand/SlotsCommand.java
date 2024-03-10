@@ -15,7 +15,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.mantle.command.MantleCommand;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -78,9 +77,9 @@ public class SlotsCommand {
       tool.rebuildStats();
 
       // ensure no modifier problems after adding, mainly happens if we subtract slots
-      ValidatedResult toolValidation = tool.validate();
-      if (toolValidation.hasError()) {
-        throw VALIDATION_ERROR.create(toolValidation.getMessage());
+      Component toolValidation = tool.tryValidate();
+      if (toolValidation != null) {
+        throw VALIDATION_ERROR.create(toolValidation);
       }
 
       // if successful, update held item

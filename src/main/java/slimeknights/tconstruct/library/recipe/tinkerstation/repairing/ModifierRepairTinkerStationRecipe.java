@@ -11,11 +11,11 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IncrementalModifierRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRepairRecipeSerializer.IModifierRepairRecipe;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -46,11 +46,11 @@ public class ModifierRepairTinkerStationRecipe implements ITinkerStationRecipe, 
   }
 
   @Override
-  public ValidatedResult getValidatedResult(ITinkerStationContainer inv) {
+  public RecipeResult<ItemStack> getValidatedResult(ITinkerStationContainer inv) {
     ToolStack tool = ToolStack.from(inv.getTinkerableStack());
     int amountPerItem = tool.getModifierLevel(modifier) * repairAmount;
     if (amountPerItem <= 0) {
-      return ValidatedResult.PASS;
+      return RecipeResult.pass();
     }
 
     // apply modifiers to possibly boost it
@@ -58,7 +58,7 @@ public class ModifierRepairTinkerStationRecipe implements ITinkerStationRecipe, 
     for (ModifierEntry entry : tool.getModifierList()) {
       repairFactor = entry.getHook(TinkerHooks.REPAIR_FACTOR).getRepairFactor(tool, entry, repairFactor);
       if (repairFactor <= 0) {
-        return ValidatedResult.PASS;
+        return RecipeResult.pass();
       }
     }
     amountPerItem *= repairFactor;
@@ -66,12 +66,12 @@ public class ModifierRepairTinkerStationRecipe implements ITinkerStationRecipe, 
     // get the max amount we can repair
     int available = IncrementalModifierRecipe.getAvailableAmount(inv, ingredient, amountPerItem);
     if (available <= 0) {
-      return ValidatedResult.PASS;
+      return RecipeResult.pass();
     }
     // we will just repair the max possible here, no reason to try less
     tool = tool.copy();
     ToolDamageUtil.repair(tool, available);
-    return ValidatedResult.success(tool.createStack());
+    return RecipeResult.success(tool.createStack());
   }
 
   @Override

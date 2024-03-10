@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.recipe.modifiers.adding;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
@@ -13,9 +14,9 @@ import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -44,19 +45,15 @@ public class SwappableModifierRecipe extends ModifierRecipe {
     this(id, inputs, toolRequirement, maxToolSize, requirements, requirementsError, result, value, slots, false);
   }
 
-    /**
-     * Gets the recipe result, or an object containing an error message if the recipe matches but cannot be applied.
-     * @return Validated result
-     */
   @Override
-  public ValidatedResult getValidatedResult(ITinkerStationContainer inv) {
+  public RecipeResult<ItemStack> getValidatedResult(ITinkerStationContainer inv) {
     ItemStack tinkerable = inv.getTinkerableStack();
     ToolStack tool = ToolStack.from(tinkerable);
 
     // if the tool has the modifier already, can skip most requirements
     ModifierId modifier = result.getId();
 
-    ValidatedResult commonError;
+    Component commonError;
     boolean needsModifier;
     if (tool.getUpgrades().getLevel(modifier) == 0) {
       needsModifier = true;
@@ -65,14 +62,14 @@ public class SwappableModifierRecipe extends ModifierRecipe {
       needsModifier = false;
       commonError = validateRequirements(tool);
     }
-    if (commonError.hasError()) {
-      return commonError;
+    if (commonError != null) {
+      return RecipeResult.failure(commonError);
     }
 
     // do not allow adding the modifier if this variant is already present
     // TODO: include variant in name? need variant to be translatable for that probably
     if (tool.getPersistentData().getString(modifier).equals(value)) {
-      return ValidatedResult.failure(ALREADY_PRESENT, result.getModifier().getDisplayName());
+      return RecipeResult.failure(ALREADY_PRESENT, result.getModifier().getDisplayName());
     }
 
     // consume slots
@@ -96,12 +93,11 @@ public class SwappableModifierRecipe extends ModifierRecipe {
     }
 
     // ensure no modifier problems
-    ValidatedResult toolValidation = tool.validate();
-    if (toolValidation.hasError()) {
-      return toolValidation;
+    Component toolValidation = tool.tryValidate();
+    if (toolValidation != null) {
+      return RecipeResult.failure(toolValidation);
     }
-
-    return ValidatedResult.success(tool.createStack(Math.min(tinkerable.getCount(), shrinkToolSlotBy())));
+    return RecipeResult.success(tool.createStack(Math.min(tinkerable.getCount(), shrinkToolSlotBy())));
   }
 
   @Override

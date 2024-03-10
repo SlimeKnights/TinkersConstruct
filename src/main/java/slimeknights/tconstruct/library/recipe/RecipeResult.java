@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
  * <ul>
  *   <li>Success: returns the generic result</li>
  *   <li>Failure: error state displaying an error message</li>
- *   <li>Pass: acts like a non-recipe match</li>
+ *   <li>Pass: acts like a non-match recipe</li>
  * </ul>
  */
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)

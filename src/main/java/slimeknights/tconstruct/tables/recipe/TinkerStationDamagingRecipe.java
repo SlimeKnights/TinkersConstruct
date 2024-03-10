@@ -16,11 +16,11 @@ import slimeknights.mantle.recipe.helper.AbstractRecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IncrementalModifierRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -31,7 +31,7 @@ import java.util.function.Consumer;
 
 @RequiredArgsConstructor
 public class TinkerStationDamagingRecipe implements ITinkerStationRecipe {
-  private static final ValidatedResult BROKEN = ValidatedResult.failure(TConstruct.makeTranslationKey("recipe", "damaging.broken"));
+  private static final RecipeResult<ItemStack> BROKEN = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "damaging.broken"));
 
   @Getter
   private final ResourceLocation id;
@@ -48,7 +48,7 @@ public class TinkerStationDamagingRecipe implements ITinkerStationRecipe {
   }
 
   @Override
-  public ValidatedResult getValidatedResult(ITinkerStationContainer inv) {
+  public RecipeResult<ItemStack> getValidatedResult(ITinkerStationContainer inv) {
     if (ToolDamageUtil.isBroken(inv.getTinkerableStack())) {
       return BROKEN;
     }
@@ -56,7 +56,7 @@ public class TinkerStationDamagingRecipe implements ITinkerStationRecipe {
     ToolStack tool = ToolStack.copyFrom(inv.getTinkerableStack());
     int maxDamage = IncrementalModifierRecipe.getAvailableAmount(inv, ingredient, damageAmount);
     ToolDamageUtil.directDamage(tool, maxDamage, null, inv.getTinkerableStack());
-    return ValidatedResult.success(tool.createStack());
+    return RecipeResult.success(tool.createStack());
   }
 
   @Override

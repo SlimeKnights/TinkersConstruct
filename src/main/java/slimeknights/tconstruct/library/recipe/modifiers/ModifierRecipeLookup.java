@@ -4,6 +4,8 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -14,7 +16,6 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
@@ -30,7 +31,7 @@ public class ModifierRecipeLookup {
   /** Key of default error message, in case an error message for a modifier requirement is missing */
   public static final String DEFAULT_ERROR_KEY = TConstruct.makeTranslationKey("recipe", "modifier.requirements_error");
   /** Default requirements error, for if a proper error is missing */
-  public static final ValidatedResult DEFAULT_ERROR = ValidatedResult.failure(ModifierRecipeLookup.DEFAULT_ERROR_KEY);
+  public static final Component DEFAULT_ERROR = new TranslatableComponent(ModifierRecipeLookup.DEFAULT_ERROR_KEY);
 
   /** Map of requirements for each modifier */
   private static final Multimap<ModifierId,ModifierRequirements> REQUIREMENTS = HashMultimap.create();
@@ -78,11 +79,11 @@ public class ModifierRecipeLookup {
   public static void addRequirements(Ingredient ingredient, ModifierEntry entry, ModifierMatch requirements, String errorMessage) {
     if (requirements != ModifierMatch.ALWAYS) {
       // if the key is empty, use the default
-      ValidatedResult error;
+      Component error;
       if (errorMessage.isEmpty()) {
         error = DEFAULT_ERROR;
       } else {
-        error = ValidatedResult.failure(errorMessage);
+        error = new TranslatableComponent(errorMessage);
       }
       ModifierId modifier = entry.getId();
       addRequirements(new ModifierRequirements(ingredient, modifier, requirements.getMinLevel(modifier) + entry.getLevel(), requirements, error));
@@ -99,18 +100,20 @@ public class ModifierRecipeLookup {
    * @param stack  ItemStack containing the tool. Most of the time its just a tag check, so the correct item with any NBT is valid.
    *               However, if addons do really hacky things the actual stack corresponding to {@code tool} might matter.
    * @param tool   Tool instance to check
+   * @return  Error message if validation failed, null if it passes
    */
-  public static ValidatedResult checkRequirements(ItemStack stack, IToolStackView tool) {
+  @Nullable
+  public static Component checkRequirements(ItemStack stack, IToolStackView tool) {
     List<ModifierEntry> modifiers = tool.getModifierList();
     for (ModifierEntry entry : tool.getUpgrades().getModifiers()) {
       for (ModifierRequirements requirements : getRequirements(entry.getId())) {
-        ValidatedResult result = requirements.check(stack, entry.getLevel(), modifiers);
-        if (result.hasError()) {
+        Component result = requirements.check(stack, entry.getLevel(), modifiers);
+        if (result != null) {
           return result;
         }
       }
     }
-    return ValidatedResult.PASS;
+    return null;
   }
 
 

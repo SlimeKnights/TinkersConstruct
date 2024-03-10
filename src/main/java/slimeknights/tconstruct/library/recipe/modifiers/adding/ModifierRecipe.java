@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.recipe.modifiers.adding;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
@@ -14,10 +15,10 @@ import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.ITinkerableContainer;
+import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -132,14 +133,14 @@ public class ModifierRecipe extends AbstractModifierRecipe {
    * @return Validated result
    */
   @Override
-  public ValidatedResult getValidatedResult(ITinkerStationContainer inv) {
+  public RecipeResult<ItemStack> getValidatedResult(ITinkerStationContainer inv) {
     ItemStack tinkerable = inv.getTinkerableStack();
     ToolStack tool = ToolStack.from(tinkerable);
 
     // common errors
-    ValidatedResult commonError = validatePrerequisites(tool);
-    if (commonError.hasError()) {
-      return commonError;
+    Component commonError = validatePrerequisites(tool);
+    if (commonError != null) {
+      return RecipeResult.failure(commonError);
     }
 
     // consume slots
@@ -154,12 +155,12 @@ public class ModifierRecipe extends AbstractModifierRecipe {
     tool.addModifier(result.getId(), result.getLevel());
 
     // ensure no modifier problems
-    ValidatedResult toolValidation = tool.validate();
-    if (toolValidation.hasError()) {
-      return toolValidation;
+    Component toolValidation = tool.tryValidate();
+    if (toolValidation != null) {
+      return RecipeResult.failure(toolValidation);
     }
 
-    return ValidatedResult.success(tool.createStack(Math.min(tinkerable.getCount(), shrinkToolSlotBy())));
+    return RecipeResult.success(tool.createStack(Math.min(tinkerable.getCount(), shrinkToolSlotBy())));
   }
 
   /** Updates all inputs in the given container */

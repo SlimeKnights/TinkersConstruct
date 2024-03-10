@@ -6,6 +6,8 @@ import com.google.gson.JsonSyntaxException;
 import lombok.Getter;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
@@ -14,11 +16,11 @@ import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
-import slimeknights.tconstruct.library.recipe.tinkerstation.ValidatedResult;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
@@ -43,7 +45,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   /** Error for when the tool has too few upgrade slots from a single slot */
   protected static final String KEY_NOT_ENOUGH_SLOT = TConstruct.makeTranslationKey("recipe", "modifier.not_enough_slot");
   /** Generic requirements error, for if a proper error is missing */
-  protected static final ValidatedResult REQUIREMENTS_ERROR = ModifierRecipeLookup.DEFAULT_ERROR;
+  protected static final Component REQUIREMENTS_ERROR = ModifierRecipeLookup.DEFAULT_ERROR;
 
   @Getter
   private final ResourceLocation id;
@@ -83,7 +85,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   }
 
   @Override
-  public abstract ValidatedResult getValidatedResult(ITinkerStationContainer inv);
+  public abstract RecipeResult<ItemStack> getValidatedResult(ITinkerStationContainer inv);
 
   /** @deprecated use {@link #getValidatedResult(ITinkerStationContainer)} */
   @Override @Deprecated
@@ -222,47 +224,50 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   }
 
   /** Validates just the modifier requirements */
-  protected ValidatedResult validateRequirements(ToolStack tool) {
+  @Nullable
+  protected Component validateRequirements(ToolStack tool) {
     // validate modifier prereqs, skip building fancy list for always
     if (requirements != ModifierMatch.ALWAYS && !requirements.test(getModifiersIgnoringPartial(tool))) {
-      return requirementsError.isEmpty() ? REQUIREMENTS_ERROR : ValidatedResult.failure(requirementsError);
+      return requirementsError.isEmpty() ? REQUIREMENTS_ERROR : new TranslatableComponent(requirementsError);
     }
-    return ValidatedResult.PASS;
+    return null;
   }
 
   /**
    * Validate tool has the right number of slots, called internally by {@link #validatePrerequisites(ToolStack)}
    * @param tool   Tool instance
    * @param slots  Required slots
-   * @return  Validated result with error, or pass if no error
+   * @return  Error message, or null if no error
    */
-  protected static ValidatedResult checkSlots(IToolStackView tool, @Nullable SlotCount slots) {
+  @Nullable
+  protected static Component checkSlots(IToolStackView tool, @Nullable SlotCount slots) {
     if (slots != null) {
       int count = slots.getCount();
       if (tool.getFreeSlots(slots.getType()) < count) {
         if (count == 1) {
-          return ValidatedResult.failure(KEY_NOT_ENOUGH_SLOT, slots.getType().getDisplayName());
+          return new TranslatableComponent(KEY_NOT_ENOUGH_SLOT, slots.getType().getDisplayName());
         } else {
-          return ValidatedResult.failure(KEY_NOT_ENOUGH_SLOTS, count, slots.getType().getDisplayName());
+          return new TranslatableComponent(KEY_NOT_ENOUGH_SLOTS, count, slots.getType().getDisplayName());
         }
       }
     }
-    return ValidatedResult.PASS;
+    return null;
   }
 
   /**
    * Validates that this tool meets the modifier requirements, is not too high of a level, and has enough upgrade/ability slots
    * @param tool           Tool stack instance   TODO change type to view
-   * @return  Validated result with error, or pass if no error
+   * @return  Error message, or null if no error
    */
-  protected ValidatedResult validatePrerequisites(ToolStack tool) {
-    ValidatedResult requirements = validateRequirements(tool);
-    if (requirements.hasError()) {
+  @Nullable
+  protected Component validatePrerequisites(ToolStack tool) {
+    Component requirements = validateRequirements(tool);
+    if (requirements != null) {
       return requirements;
     }
     // max level of modifier
     if (maxLevel != 0 && tool.getUpgrades().getLevel(result.getId()) + result.getLevel() > maxLevel) {
-      return ValidatedResult.failure(KEY_MAX_LEVEL, result.getModifier().getDisplayName(), maxLevel);
+      return new TranslatableComponent(KEY_MAX_LEVEL, result.getModifier().getDisplayName(), maxLevel);
     }
     return checkSlots(tool, slots);
   }
