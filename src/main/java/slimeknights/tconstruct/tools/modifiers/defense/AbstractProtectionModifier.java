@@ -1,24 +1,18 @@
 package slimeknights.tconstruct.tools.modifiers.defense;
 
 import lombok.RequiredArgsConstructor;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.data.ModifierMaxLevel;
 import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;
-import slimeknights.tconstruct.library.modifiers.modules.armor.ProtectionModule;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-
-import java.util.List;
 
 /** Base class for protection modifiers that want to keep track of the largest level for a bonus */
 @RequiredArgsConstructor
@@ -31,24 +25,11 @@ public abstract class AbstractProtectionModifier<T extends ModifierMaxLevel> ext
     hookBuilder.addHook(this, TinkerHooks.EQUIPMENT_CHANGE);
   }
 
-  /** @deprecated use {@link #createData(EquipmentChangeContext)}*/
-  @SuppressWarnings("DeprecatedIsStillUsed")
-  @Deprecated
-  protected abstract T createData();
-
   /** Creates a new data instance */
-  protected T createData(EquipmentChangeContext context) {
-    return createData();
-  }
-
-  /** @deprecated use {@link #reset(ModifierMaxLevel, EquipmentChangeContext)} */
-  @Deprecated
-  protected void reset(T data) {}
+  protected abstract T createData(EquipmentChangeContext context);
 
   /** Called when the last piece of equipment is removed to reset the data */
-  protected void reset(T data, EquipmentChangeContext context) {
-    reset(data);
-  }
+  protected void reset(T data, EquipmentChangeContext context) {}
 
   /** Called to apply updates to the piece */
   protected void set(T data, EquipmentSlot slot, float scaledLevel, EquipmentChangeContext context) {
@@ -89,11 +70,5 @@ public abstract class AbstractProtectionModifier<T extends ModifierMaxLevel> ext
         set(modData, slot, scaledLevel, context);
       });
     }
-  }
-
-  /** @deprecated use {@link ProtectionModule#addResistanceTooltip(IToolStackView, Modifier, float, Player, List)} */
-  @Deprecated
-  public static void addResistanceTooltip(Modifier modifier, IToolStackView tool, int level, float multiplier, List<Component> tooltip) {
-    ProtectionModule.addResistanceTooltip(tool, modifier, modifier.getEffectiveLevel(tool, level) * multiplier, null, tooltip);
   }
 }

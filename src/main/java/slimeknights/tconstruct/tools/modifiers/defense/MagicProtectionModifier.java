@@ -21,6 +21,7 @@ import slimeknights.tconstruct.library.modifiers.modules.armor.ProtectionModule;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
+import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
@@ -55,7 +56,7 @@ public class MagicProtectionModifier extends AbstractProtectionModifier<Modifier
   }
 
   @Override
-  protected ModifierMaxLevel createData() {
+  protected ModifierMaxLevel createData(EquipmentChangeContext context) {
     return new ModifierMaxLevel();
   }
 

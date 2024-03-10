@@ -22,6 +22,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.mining.HarvestEnchantmentsModifierHook;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -246,7 +247,7 @@ public class ToolHarvestLogic {
                                                           isEffective(tool, state));
 
       // add enchants
-      ListTag originalEnchants = ModifierUtil.applyHarvestEnchantments(tool, stack, context);
+      ListTag originalEnchants = HarvestEnchantmentsModifierHook.applyHarvestEnchantments(tool, stack, context);
       // need to calculate the iterator before we break the block, as we need the reference hardness from the center
       Iterable<BlockPos> extraBlocks = context.isEffective() ? tool.getDefinition().getData().getAOE().getBlocks(tool, stack, player, state, world, pos, sideHit, IAreaOfEffectIterator.AOEMatchType.BREAKING) : Collections.emptyList();
 
@@ -268,7 +269,7 @@ public class ToolHarvestLogic {
 
       // blocks done being broken, clear extra enchants added
       if (originalEnchants != null) {
-        ModifierUtil.restoreEnchantments(stack, originalEnchants);
+        HarvestEnchantmentsModifierHook.restoreEnchantments(stack, originalEnchants);
       }
     }
 

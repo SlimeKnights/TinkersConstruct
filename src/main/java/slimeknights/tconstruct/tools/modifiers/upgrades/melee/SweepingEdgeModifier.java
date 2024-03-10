@@ -34,7 +34,7 @@ public class SweepingEdgeModifier extends IncrementalModifier implements Tooltip
       sweepingDamage = baseDamage;
     } else if (level > 0) {
       // gives 25% per level, cap at base damage
-      sweepingDamage = Math.min(baseDamage, getScaledLevel(toolStack, level) * 0.25f * baseDamage + 1);
+      sweepingDamage = Math.min(baseDamage, getEffectiveLevel(toolStack, level) * 0.25f * baseDamage + 1);
     }
     return sweepingDamage;
   }

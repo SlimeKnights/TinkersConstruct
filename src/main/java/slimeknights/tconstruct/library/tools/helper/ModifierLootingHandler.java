@@ -87,14 +87,14 @@ public class ModifierLootingHandler {
         ItemStack held = holder.getItemBySlot(slotType);
         if (held.is(TinkerTags.Items.MODIFIABLE)) {
           ToolStack tool = ToolStack.from(held);
-          level = ModifierUtil.getLootingLevel(tool, holder, event.getEntityLiving(), damageSource);
+          level = LootingModifierHook.getToolLooting(tool, holder, event.getEntityLiving(), damageSource);
           // ignore default looting if we are looting from another slot
         } else if (slotType != EquipmentSlot.MAINHAND) {
           level = 0;
         }
       }
       // boost looting with pants regardless, hopefully you did not switch your pants mid arrow firing
-      level = ModifierUtil.getLeggingsLootingLevel(holder, event.getEntityLiving(), damageSource, level);
+      level = LootingModifierHook.getLeggingsLooting(holder, event.getEntityLiving(), damageSource, level);
       event.setLootingLevel(level);
     }
   }

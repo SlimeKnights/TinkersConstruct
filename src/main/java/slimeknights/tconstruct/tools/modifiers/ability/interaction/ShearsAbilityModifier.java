@@ -20,6 +20,7 @@ import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolShearEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolActionModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.LootingModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.impl.InteractionModifier;
@@ -91,8 +92,8 @@ public class ShearsAbilityModifier extends InteractionModifier.NoLevels implemen
 
     // use looting instead of fortune, as that is our hook with entity access
     // modifier can always use tags or the nullable parameter to distinguish if needed
-    int looting = ModifierUtil.getLootingLevel(tool, player, target, null);
-    looting = ModifierUtil.getLeggingsLootingLevel(player, target, null, looting);
+    int looting = LootingModifierHook.getToolLooting(tool, player, target, null);
+    looting = LootingModifierHook.getLeggingsLooting(player, target, null, looting);
     Level world = player.getCommandSenderWorld();
     if (isShears(tool) && shearEntity(stack, tool, world, player, target, looting)) {
       boolean broken = ToolDamageUtil.damageAnimated(tool, 1, player, slotType);

@@ -82,7 +82,7 @@ public class MeleeProtectionModifier extends AbstractProtectionModifier<Modifier
   }
 
   @Override
-  protected ModifierMaxLevel createData() {
+  protected ModifierMaxLevel createData(EquipmentChangeContext context) {
     return new ModifierMaxLevel();
   }
 }

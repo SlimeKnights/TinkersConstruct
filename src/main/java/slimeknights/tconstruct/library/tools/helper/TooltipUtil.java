@@ -21,7 +21,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStack.TooltipPart;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.TooltipFlag.Default;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.mantle.client.TooltipKey;
@@ -247,22 +246,10 @@ public class TooltipUtil {
     return getCombinedItemName(baseName, nameMaterials);
   }
 
-  /** @deprecated use {@link #addInformation(IModifiableDisplay, ItemStack, Level, List, TooltipKey, TooltipFlag)} */
-  @Deprecated
-  public static void addInformation(IModifiableDisplay item, ItemStack stack, @Nullable Level world, List<Component> tooltip, slimeknights.tconstruct.library.utils.TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
-    addInformation(item, stack, world, tooltip, tooltipKey.asMantle(), tooltipFlag);
-  }
-
   /** Replaces the world argument with the local player */
   public static void addInformation(IModifiableDisplay item, ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     Player player = world == null ? null : SafeClientAccess.getPlayer();
     TooltipUtil.addInformation(item, stack, player, tooltip, tooltipKey, tooltipFlag);
-  }
-
-  /** @deprecated use {@link #addInformation(IModifiableDisplay, ItemStack, Player, List, TooltipKey, TooltipFlag)} */
-  @Deprecated
-  public static void addInformation(IModifiableDisplay item, ItemStack stack, @Nullable Player player, List<Component> tooltip, slimeknights.tconstruct.library.utils.TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
-    addInformation(item, stack, player, tooltip, tooltipKey.asMantle(), tooltipFlag);
   }
 
   /**
@@ -306,12 +293,6 @@ public class TooltipUtil {
     }
   }
 
-  /** @deprecated use {@link #addModifierNames(ItemStack, IToolStackView, List, TooltipFlag)} */
-  @Deprecated
-  public static void addModifierNames(ItemStack stack, IToolStackView tool, List<Component> tooltips) {
-    addModifierNames(stack, tool, tooltips, Default.NORMAL);
-  }
-
   /**
    * Adds modifier names to the tooltip
    * @param stack      Stack instance. If empty, skips adding enchantment names
@@ -349,18 +330,6 @@ public class TooltipUtil {
     }
   }
 
-  /** @deprecated use {@link #getDefaultInfo(ItemStack, IToolStackView, List, TooltipFlag)} */
-  @Deprecated
-  public static void getDefaultInfo(ItemStack stack, List<Component> tooltips) {
-    getDefaultInfo(stack, ToolStack.from(stack), tooltips);
-  }
-
-  /** @deprecated use {@link #getDefaultInfo(ItemStack, IToolStackView, List, TooltipFlag)} */
-  @Deprecated
-  public static void getDefaultInfo(ItemStack stack, IToolStackView tool, List<Component> tooltips) {
-    getDefaultInfo(stack, tool, tooltips, Default.NORMAL);
-  }
-
   /**
    * Adds information when holding neither control nor shift
    * @param tool      Tool stack instance
@@ -379,12 +348,6 @@ public class TooltipUtil {
     if (tool.getDefinition().isMultipart()) {
       tooltips.add(TOOLTIP_HOLD_CTRL);
     }
-  }
-
-  /** @deprecated use {@link #getDefaultStats(IToolStackView, Player, List, TooltipKey, TooltipFlag)} */
-  @Deprecated
-  public static List<Component> getDefaultStats(IToolStackView tool, @Nullable Player player, List<Component> tooltip, slimeknights.tconstruct.library.utils.TooltipKey key, TooltipFlag flag) {
-    return getDefaultStats(tool, player, tooltip, key.asMantle(), flag);
   }
 
   /**
@@ -435,12 +398,6 @@ public class TooltipUtil {
     return builder.getTooltips();
   }
 
-  /** @deprecated use {@link #getArmorStats(IToolStackView, Player, List, TooltipKey, TooltipFlag)} */
-  @Deprecated
-  public static List<Component> getArmorStats(IToolStackView tool, @Nullable Player player, List<Component> tooltip, slimeknights.tconstruct.library.utils.TooltipKey key, TooltipFlag flag) {
-    return getArmorStats(tool, player, tooltip, key.asMantle(), flag);
-  }
-
   /**
    * Gets the  default information for the given tool stack
    *
@@ -469,12 +426,6 @@ public class TooltipUtil {
       entry.getHook(TinkerHooks.TOOLTIP).addTooltip(tool, entry, player, tooltip, key, flag);
     }
     return builder.getTooltips();
-  }
-
-  /** @deprecated use {@link #getComponents(IModifiable, ItemStack, List, TooltipFlag)} */
-  @Deprecated
-  public static void getComponents(IModifiable item, ItemStack stack, List<Component> tooltips) {
-    getComponents(item, stack, tooltips, Default.NORMAL);
   }
 
   /**

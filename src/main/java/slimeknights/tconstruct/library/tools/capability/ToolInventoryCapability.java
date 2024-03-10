@@ -303,36 +303,6 @@ public class ToolInventoryCapability extends InventoryModifierHookIterator<Modif
     return result;
   }
 
-  /** @deprecated use {@link InventoryModifierHook} */
-  @SuppressWarnings({"unused", "DeprecatedIsStillUsed"})
-  @Deprecated
-  public interface IInventoryModifier {
-    /** Gets the number of item slots used by the given tool. The number returned here must also be added into volatile data under {@link #TOTAL_SLOTS} */
-    int getSlots(IToolStackView tool, int level);
-
-    /** Sets the stack in the given slot */
-    ItemStack getStack(IToolStackView tool, int level, int slot);
-
-    /** Sets the stack in the given slot */
-    void setStack(IToolStackView tool, int level, int slot, ItemStack stack);
-
-    /** Gets the max stack size for the given slot */
-    default int getSlotLimit(IToolStackView tool, int slot) {
-      return 64;
-    }
-
-    /** Checks if the item is valid for the given slot */
-    default boolean isItemValid(IToolStackView tool, int slot, ItemStack stack) {
-      return true;
-    }
-
-    /** Gets the pattern to render when the given slot is empty */
-    @Nullable
-		default Pattern getPattern(IToolStackView tool, int level, int slot, boolean hasStack) {
-      return null;
-    }
-	}
-
   /** Interface for an inventory modifier to use */
   @SuppressWarnings("unused")
   public interface InventoryModifierHook {

@@ -12,7 +12,7 @@ import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.EventPriority;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.json.predicate.entity.TinkerLivingEntityPredicate;
+import slimeknights.tconstruct.library.json.predicate.TinkerLivingEntityPredicate;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.data.ModifierMaxLevel;
@@ -22,6 +22,7 @@ import slimeknights.tconstruct.library.modifiers.modules.armor.ProtectionModule;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
+import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
@@ -42,7 +43,7 @@ public class DragonbornModifier extends AbstractProtectionModifier<ModifierMaxLe
   }
 
   @Override
-  protected ModifierMaxLevel createData() {
+  protected ModifierMaxLevel createData(EquipmentChangeContext context) {
     return new ModifierMaxLevel();
   }
 

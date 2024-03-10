@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.modifiers.impl;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
@@ -114,7 +113,7 @@ public class IncrementalModifier extends Modifier implements ModifierRemovalHook
    * @param level  Modifier level
    * @return  Level, possibly reduced by an incomplete level
    */
-  public float getScaledLevel(IModDataView persistentData, int level) {
+  public float getEffectiveLevel(IModDataView persistentData, int level) {
     if (level <= 0) {
       return 0;
     }
@@ -127,19 +126,7 @@ public class IncrementalModifier extends Modifier implements ModifierRemovalHook
 
   @Override
   public float getEffectiveLevel(IToolContext tool, int level) {
-    return getScaledLevel(tool.getPersistentData(), level);
-  }
-
-  /**
-   * Gets the level scaled based on the current amount into the level
-   * @param tool   Tool instance
-   * @param level  Modifier level
-   * @return  Level, possibly reduced by an incomplete level
-   * @deprecated use {@link #getEffectiveLevel(IToolContext, int)} or {@link ModifierEntry#getEffectiveLevel(IToolContext)}
-   */
-  @Deprecated
-  public float getScaledLevel(IToolContext tool, int level) {
-    return getScaledLevel(tool.getPersistentData(), level);
+    return getEffectiveLevel(tool.getPersistentData(), level);
   }
 
   /**

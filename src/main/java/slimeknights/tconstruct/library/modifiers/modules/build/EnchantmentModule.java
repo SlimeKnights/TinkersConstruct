@@ -24,7 +24,6 @@ import slimeknights.tconstruct.library.modifiers.hook.mining.HarvestEnchantments
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
-import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.JsonUtils;
 import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
@@ -164,12 +163,12 @@ public interface EnchantmentModule extends ModifierModule {
   static void setEnchantmentLevel(RestrictedCompoundTag tag, Enchantment enchantment, int level) {
     // first, find the enchantment tag
     ListTag enchantments;
-    if (tag.contains(ModifierUtil.TAG_ENCHANTMENTS, Tag.TAG_LIST)) {
-      enchantments = tag.getList(ModifierUtil.TAG_ENCHANTMENTS, Tag.TAG_COMPOUND);
+    if (tag.contains(HarvestEnchantmentsModifierHook.TAG_ENCHANTMENTS, Tag.TAG_LIST)) {
+      enchantments = tag.getList(HarvestEnchantmentsModifierHook.TAG_ENCHANTMENTS, Tag.TAG_COMPOUND);
       removeEnchantment(enchantments, enchantment);
     } else {
       enchantments = new ListTag();
-      tag.put(ModifierUtil.TAG_ENCHANTMENTS, enchantments);
+      tag.put(HarvestEnchantmentsModifierHook.TAG_ENCHANTMENTS, enchantments);
     }
     // add the enchantment
     enchantments.add(EnchantmentHelper.storeEnchantment(enchantment.getRegistryName(), level));
@@ -180,11 +179,11 @@ public interface EnchantmentModule extends ModifierModule {
    * Designed to be used in {@link RawDataModifierHook#removeRawData(IToolStackView, Modifier, RestrictedCompoundTag)}
    */
   static void removeEnchantment(RestrictedCompoundTag tag, Enchantment enchantment) {
-    if (tag.contains(ModifierUtil.TAG_ENCHANTMENTS, Tag.TAG_LIST)) {
-      ListTag enchantments = tag.getList(ModifierUtil.TAG_ENCHANTMENTS, Tag.TAG_COMPOUND);
+    if (tag.contains(HarvestEnchantmentsModifierHook.TAG_ENCHANTMENTS, Tag.TAG_LIST)) {
+      ListTag enchantments = tag.getList(HarvestEnchantmentsModifierHook.TAG_ENCHANTMENTS, Tag.TAG_COMPOUND);
       removeEnchantment(enchantments, enchantment);
       if (enchantments.isEmpty()) {
-        tag.remove(ModifierUtil.TAG_ENCHANTMENTS);
+        tag.remove(HarvestEnchantmentsModifierHook.TAG_ENCHANTMENTS);
       }
     }
   }

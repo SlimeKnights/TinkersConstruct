@@ -25,6 +25,7 @@ import slimeknights.tconstruct.library.modifiers.modules.armor.ProtectionModule;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
+import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.modifiers.defense.BlastProtectionModifier.BlastData;
@@ -61,12 +62,12 @@ public class BlastProtectionModifier extends AbstractProtectionModifier<BlastDat
   }
 
   @Override
-  protected BlastData createData() {
+  protected BlastData createData(EquipmentChangeContext context) {
     return new BlastData();
   }
 
   @Override
-  protected void reset(BlastData data) {
+  protected void reset(BlastData data, EquipmentChangeContext context) {
     data.wasKnockback = false;
   }
 

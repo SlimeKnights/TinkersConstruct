@@ -10,7 +10,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
-import slimeknights.tconstruct.library.modifiers.hook.display.DurabilityDisplayModifierHook;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -170,26 +169,5 @@ public class ToolDamageUtil {
     // ensure we never repair more than max durability
     int newDamage = damage - Math.min(amount, damage);
     tool.setDamage(newDamage);
-  }
-
-
-  /* Durability display. */
-
-  /** @deprecated use {@link DurabilityDisplayModifierHook#showDurabilityBar(ItemStack)} */
-  @Deprecated
-  public static boolean showDurabilityBar(ItemStack stack) {
-    return DurabilityDisplayModifierHook.showDurabilityBar(stack);
-  }
-
-  /** @deprecated use {@link DurabilityDisplayModifierHook#getDurabilityWidth(ItemStack)} */
-  @Deprecated
-  public static int getDamageForDisplay(ItemStack stack) {
-    return DurabilityDisplayModifierHook.getDurabilityWidth(stack);
-  }
-
-  /** @deprecated use {@link DurabilityDisplayModifierHook#getDurabilityRGB(ItemStack)} */
-  @Deprecated
-  public static int getRGBDurabilityForDisplay(ItemStack stack) {
-    return DurabilityDisplayModifierHook.getDurabilityRGB(stack);
   }
 }

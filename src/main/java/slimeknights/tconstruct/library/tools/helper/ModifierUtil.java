@@ -6,7 +6,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlot.Type;
@@ -14,133 +13,26 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraftforge.common.ToolAction;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.combat.LootingModifierHook;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
-import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
-import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
-import java.util.function.BiConsumer;
 
 /** Generic modifier hooks that don't quite fit elsewhere */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ModifierUtil {
-  /** Vanilla enchantments tag */
-  public static final String TAG_ENCHANTMENTS = "Enchantments";
-
-  /**
-   * Adds all enchantments from tools. Separate method as tools don't have enchants all the time.
-   * Typically called before actions which involve loot, such as breaking blocks or attacking mobs.
-   * @param tool     Tool instance
-   * @param stack    Base stack instance
-   * @param context  Tool harvest context
-   * @return  Old tag if enchants were applied
-   */
-  @Nullable
-  public static ListTag applyHarvestEnchantments(ToolStack tool, ItemStack stack, ToolHarvestContext context) {
-    ListTag originalEnchants = null;
-    Player player = context.getPlayer();
-    if (player == null || !player.isCreative()) {
-      Map<Enchantment, Integer> enchantments = new HashMap<>();
-      BiConsumer<Enchantment,Integer> enchantmentConsumer = (ench, add) -> {
-        if (ench != null && add != null) {
-          Integer level = enchantments.get(ench);
-          if (level != null) {
-            add += level;
-          }
-          enchantments.put(ench, add);
-        }
-      };
-      for (ModifierEntry entry : tool.getModifierList()) {
-        entry.getHook(TinkerHooks.TOOL_HARVEST_ENCHANTMENTS).applyHarvestEnchantments(tool, entry, context, enchantmentConsumer);
-      }
-      // lucky pants
-      if (player != null) {
-        ItemStack pants = player.getItemBySlot(EquipmentSlot.LEGS);
-        if (pants.is(TinkerTags.Items.LEGGINGS)) {
-          ToolStack pantsTool = ToolStack.from(pants);
-          for (ModifierEntry entry : pantsTool.getModifierList()) {
-            entry.getHook(TinkerHooks.LEGGINGS_HARVEST_ENCHANTMENTS).applyHarvestEnchantments(pantsTool, entry, context, enchantmentConsumer);
-          }
-        }
-      }
-      if (!enchantments.isEmpty()) {
-        // note this returns a new list if there is no tag, this is intentional as we need non-null to tell the tool to remove the tag
-        originalEnchants = stack.getEnchantmentTags();
-        EnchantmentHelper.setEnchantments(enchantments, stack);
-      }
-    }
-    return originalEnchants;
-  }
-
-  /**
-   * Restores the original enchants to the given stack
-   * @param stack        Stack to clear enchants
-   * @param originalTag  Original list of enchantments. If empty, will remove the tag
-   */
-  public static void restoreEnchantments(ItemStack stack, ListTag originalTag) {
-    CompoundTag nbt = stack.getTag();
-    if (nbt != null) {
-      if (originalTag.isEmpty()) {
-        nbt.remove(TAG_ENCHANTMENTS);
-      } else {
-        nbt.put(TAG_ENCHANTMENTS, originalTag);
-      }
-    }
-  }
-
-  /**
-   * Gets the looting value for the given tool
-   * @param tool           Tool used
-   * @param holder         Entity holding the tool
-   * @param target         Target being looted
-   * @param damageSource   Damage source for looting, may ben null if no attack
-   * @return  Looting value for the tool
-   */
-  public static int getLootingLevel(IToolStackView tool, LivingEntity holder, Entity target, @Nullable DamageSource damageSource) {
-    if (tool.isBroken()) {
-      return 0;
-    }
-    return LootingModifierHook.getLootingValue(TinkerHooks.TOOL_LOOTING, tool, holder, target, damageSource, 0);
-  }
-
-  /**
-   * Gets the looting value for the leggings
-   * @param holder         Entity holding the tool
-   * @param target         Target being looted
-   * @param damageSource   Damage source for looting, may ben null if no attack
-   * @param toolLooting    Looting from the tool
-   * @return  Looting value for the tool
-   */
-  public static int getLeggingsLootingLevel(LivingEntity holder, Entity target, @Nullable DamageSource damageSource, int toolLooting) {
-    ItemStack pants = holder.getItemBySlot(EquipmentSlot.LEGS);
-    if (!pants.isEmpty() && pants.is(TinkerTags.Items.LEGGINGS)) {
-      ToolStack pantsTool = ToolStack.from(pants);
-      if (!pantsTool.isBroken()) {
-        toolLooting = LootingModifierHook.getLootingValue(TinkerHooks.LEGGINGS_LOOTING, pantsTool, holder, target, damageSource, toolLooting);
-      }
-    }
-    return toolLooting;
-  }
-
   /** Drops an item at the entity position */
   public static void dropItem(Entity target, ItemStack stack) {
     if (!stack.isEmpty() && !target.level.isClientSide) {
@@ -268,16 +160,6 @@ public final class ModifierUtil {
    */
   public static float getTotalModifierFloat(LivingEntity living, TinkerDataKey<Float> key) {
     return living.getCapability(TinkerDataCapability.CAPABILITY).resolve().map(data -> data.get(key)).orElse(0f);
-  }
-
-  /**
-   * Checks if the entity has aqua affinity from either enchants or modifiers
-   * @deprecated will be replaced by {@link EnchantmentHelper#hasAquaAffinity(LivingEntity)} in 1.19, still used in 1.18 in case anyone used the old method.
-   */
-  @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-  @Deprecated
-  public static boolean hasAquaAffinity(LivingEntity living) {
-    return ModifierUtil.getTotalModifierLevel(living, TinkerDataKeys.AQUA_AFFINITY) > 0 || EnchantmentHelper.hasAquaAffinity(living);
   }
 
   /** Shortcut to get a volatile flag when the tool stack is not needed otherwise */
