@@ -369,7 +369,7 @@ public class TooltipUtil {
       builder.add(ToolStats.PROJECTILE_DAMAGE);
       builder.add(ToolStats.ACCURACY);
     }
-    if (tool.hasTag(TinkerTags.Items.MELEE)) {
+    if (tool.hasTag(TinkerTags.Items.MELEE_WEAPON)) {
       builder.addWithAttribute(ToolStats.ATTACK_DAMAGE, Attributes.ATTACK_DAMAGE);
       builder.add(ToolStats.ATTACK_SPEED);
     }

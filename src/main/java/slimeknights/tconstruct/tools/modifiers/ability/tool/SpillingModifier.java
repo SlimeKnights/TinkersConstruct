@@ -58,7 +58,9 @@ public class SpillingModifier extends UseFluidOnHitModifier implements EntityInt
   }
 
   @Override
-  public InteractionResult beforeEntityUse(IToolStackView tool, ModifierEntry modifier, Player player, Entity target, InteractionHand hand, InteractionSource source) {    // melee items get spilling via attack, non melee interact to use it
+  public InteractionResult beforeEntityUse(IToolStackView tool, ModifierEntry modifier, Player player, Entity target, InteractionHand hand, InteractionSource source) {
+    // melee items get spilling via attack, non melee interact to use it
+    // TODO: reconsider whether this shouldn't be a separate modifier
     if (source != InteractionSource.ARMOR && !tool.hasTag(TinkerTags.Items.MELEE) && tool.getDefinitionData().getModule(ToolModuleHooks.INTERACTION).canInteract(tool, modifier.getId(), source)) {
       FluidStack fluid = tank.getFluid(tool);
       if (!fluid.isEmpty()) {

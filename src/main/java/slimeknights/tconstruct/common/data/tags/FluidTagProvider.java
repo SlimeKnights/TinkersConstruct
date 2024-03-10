@@ -3,7 +3,6 @@ package slimeknights.tconstruct.common.data.tags;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.FluidTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import slimeknights.mantle.datagen.MantleTags;
 import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -127,7 +126,6 @@ public class FluidTagProvider extends FluidTagsProvider {
     this.tag(TinkerTags.Fluids.LARGE_GEM_TOOLTIPS).addTags(TinkerFluids.moltenEmerald.getLocalTag(), TinkerFluids.moltenDiamond.getLocalTag());
     this.tag(TinkerTags.Fluids.SMALL_GEM_TOOLTIPS).addTags(TinkerFluids.moltenQuartz.getLocalTag(), TinkerFluids.moltenAmethyst.getLocalTag());
     this.tag(TinkerTags.Fluids.SOUP_TOOLTIPS).addTags(TinkerFluids.beetrootSoup.getLocalTag(), TinkerFluids.mushroomStew.getLocalTag(), TinkerFluids.rabbitStew.getLocalTag());
-    this.tag(TinkerTags.Fluids.WATER_TOOLTIPS).addTag(MantleTags.Fluids.WATER);
 
     // spilling tags - reduces the number of recipes generated //
     this.tag(TinkerTags.Fluids.CLAY_SPILLING)

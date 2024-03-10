@@ -11,7 +11,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameType;
@@ -26,7 +25,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.Icons;
 import slimeknights.tconstruct.library.events.ToolEquipmentChangeEvent;
@@ -36,11 +34,8 @@ import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
-import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
-import slimeknights.tconstruct.library.tools.nbt.IModDataView;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.Orientation2D;
 import slimeknights.tconstruct.library.utils.Orientation2D.Orientation1D;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -75,37 +70,17 @@ public class ModifierClientEvents {
     if (hand != InteractionHand.OFF_HAND || player == null) {
       return;
     }
-    ItemStack mainhand = player.getMainHandItem();
-    ItemStack offhand = event.getItemStack();
-    if (mainhand.is(TinkerTags.Items.TWO_HANDED)) {
-      ToolStack tool = ToolStack.from(mainhand);
-      // special support for replacing modifier
-      IModDataView volatileData = tool.getVolatileData();
-      boolean noInteraction = volatileData.getBoolean(IModifiable.NO_INTERACTION);
-      if (!noInteraction && !volatileData.getBoolean(IModifiable.DEFER_OFFHAND)) {
-        if (!(offhand.getItem() instanceof BlockItem) || tool.getModifierLevel(TinkerModifiers.exchanging.getId()) == 0) {
-          event.setCanceled(true);
-          return;
-        }
-      }
-      // don't render empty offhand if main stack does not have upgraded offhanded
-      if (!noInteraction && offhand.isEmpty()) {
-        return;
-      }
-    }
 
     // if the data is set, render the empty offhand
+    ItemStack offhand = event.getItemStack();
     if (offhand.isEmpty()) {
-      if (!player.isInvisible() && mainhand.getItem() != Items.FILLED_MAP && ModifierUtil.getTotalModifierLevel(player, TinkerDataKeys.SHOW_EMPTY_OFFHAND) > 0) {
+      if (!player.isInvisible() && player.getMainHandItem().getItem() != Items.FILLED_MAP && ModifierUtil.getTotalModifierLevel(player, TinkerDataKeys.SHOW_EMPTY_OFFHAND) > 0) {
         PoseStack matrices = event.getPoseStack();
         matrices.pushPose();
         Minecraft.getInstance().getItemInHandRenderer().renderPlayerArm(matrices, event.getMultiBufferSource(), event.getPackedLight(), event.getEquipProgress(), event.getSwingProgress(), player.getMainArm().getOpposite());
         matrices.popPose();
         event.setCanceled(true);
       }
-      // if the offhand is two handed and is not upgraded to be used
-    } else if (offhand.is(TinkerTags.Items.TWO_HANDED) && !ModifierUtil.checkVolatileFlag(offhand, IModifiable.DEFER_OFFHAND)) {
-      event.setCanceled(true);
     }
   }
 

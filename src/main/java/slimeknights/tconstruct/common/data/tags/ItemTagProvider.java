@@ -64,14 +64,13 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE_LEFT;
 import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE_RIGHT;
 import static slimeknights.tconstruct.common.TinkerTags.Items.LEGGINGS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.LONGBOWS;
+import static slimeknights.tconstruct.common.TinkerTags.Items.LOOT_CAPABLE_TOOL;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE;
-import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE_OR_HARVEST;
-import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE_OR_UNARMED;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE_PRIMARY;
+import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE_WEAPON;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MIGHTY_ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MODIFIABLE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.MULTIPART_TOOL;
-import static slimeknights.tconstruct.common.TinkerTags.Items.ONE_HANDED;
 import static slimeknights.tconstruct.common.TinkerTags.Items.PARRY;
 import static slimeknights.tconstruct.common.TinkerTags.Items.PUNY_ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.RANGED;
@@ -81,7 +80,6 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.SPECIAL_TOOLS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.STAFFS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.STONE_HARVEST;
 import static slimeknights.tconstruct.common.TinkerTags.Items.SWORD;
-import static slimeknights.tconstruct.common.TinkerTags.Items.TWO_HANDED;
 import static slimeknights.tconstruct.common.TinkerTags.Items.UNARMED;
 import static slimeknights.tconstruct.common.TinkerTags.Items.UNSALVAGABLE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.WORN_ARMOR;
@@ -230,30 +228,29 @@ public class ItemTagProvider extends ItemTagsProvider {
 
 
   private void addTools() {
-    this.tag(TWO_HANDED);
     // stone
-    addToolTags(TinkerTools.pickaxe,      MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, STONE_HARVEST, MELEE,         ONE_HANDED, AOE, CLUSTER_MAX_HARVESTABLES, SMALL_TOOLS);
-    addToolTags(TinkerTools.sledgeHammer, MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, STONE_HARVEST, MELEE_PRIMARY, ONE_HANDED, AOE, CLUSTER_MAX_HARVESTABLES, BROAD_TOOLS);
-    addToolTags(TinkerTools.veinHammer,   MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, STONE_HARVEST, MELEE,         ONE_HANDED, AOE, CLUSTER_MAX_HARVESTABLES, BROAD_TOOLS);
+    addToolTags(TinkerTools.pickaxe,      MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, STONE_HARVEST, MELEE_WEAPON,  INTERACTABLE_RIGHT, AOE, CLUSTER_MAX_HARVESTABLES, SMALL_TOOLS);
+    addToolTags(TinkerTools.sledgeHammer, MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, STONE_HARVEST, MELEE_PRIMARY, INTERACTABLE_RIGHT, AOE, CLUSTER_MAX_HARVESTABLES, BROAD_TOOLS);
+    addToolTags(TinkerTools.veinHammer,   MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, STONE_HARVEST, MELEE_WEAPON,  INTERACTABLE_RIGHT, AOE, CLUSTER_MAX_HARVESTABLES, BROAD_TOOLS);
     // dirtD
-    addToolTags(TinkerTools.mattock,   MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, MELEE, ONE_HANDED, AOE, SMALL_TOOLS);
-    addToolTags(TinkerTools.pickadze,  MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, MELEE, ONE_HANDED, AOE, SMALL_TOOLS, STONE_HARVEST);
-    addToolTags(TinkerTools.excavator, MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, MELEE, ONE_HANDED, AOE, BROAD_TOOLS);
+    addToolTags(TinkerTools.mattock,   MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, MELEE_WEAPON, INTERACTABLE_RIGHT, AOE, SMALL_TOOLS);
+    addToolTags(TinkerTools.pickadze,  MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, MELEE_WEAPON, INTERACTABLE_RIGHT, AOE, SMALL_TOOLS, STONE_HARVEST);
+    addToolTags(TinkerTools.excavator, MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, MELEE_WEAPON, INTERACTABLE_RIGHT, AOE, BROAD_TOOLS);
     // wood
-    addToolTags(TinkerTools.handAxe,  MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, MELEE_PRIMARY, ONE_HANDED, AOE, SMALL_TOOLS);
-    addToolTags(TinkerTools.broadAxe, MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, MELEE_PRIMARY, ONE_HANDED, AOE, BROAD_TOOLS);
+    addToolTags(TinkerTools.handAxe,  MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, MELEE_PRIMARY, INTERACTABLE_RIGHT, AOE, SMALL_TOOLS);
+    addToolTags(TinkerTools.broadAxe, MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, MELEE_PRIMARY, INTERACTABLE_RIGHT, AOE, BROAD_TOOLS);
     // plants
-    addToolTags(TinkerTools.kama,   MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, MELEE,         ONE_HANDED, AOE, SMALL_TOOLS);
-    addToolTags(TinkerTools.scythe, MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, MELEE_PRIMARY, ONE_HANDED, AOE, BROAD_TOOLS);
+    addToolTags(TinkerTools.kama,   MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, MELEE_WEAPON,  INTERACTABLE_RIGHT, AOE, SMALL_TOOLS);
+    addToolTags(TinkerTools.scythe, MULTIPART_TOOL, DURABILITY, HARVEST_PRIMARY, MELEE_PRIMARY, INTERACTABLE_RIGHT, AOE, BROAD_TOOLS);
     // sword
-    addToolTags(TinkerTools.dagger,  MULTIPART_TOOL, DURABILITY, HARVEST, MELEE_PRIMARY, ONE_HANDED, PARRY, SMALL_TOOLS, UNSALVAGABLE);
-    addToolTags(TinkerTools.sword,   MULTIPART_TOOL, DURABILITY, HARVEST, MELEE_PRIMARY, ONE_HANDED, SWORD, SMALL_TOOLS, AOE);
-    addToolTags(TinkerTools.cleaver, MULTIPART_TOOL, DURABILITY, HARVEST, MELEE_PRIMARY, ONE_HANDED, SWORD, BROAD_TOOLS, AOE);
+    addToolTags(TinkerTools.dagger,  MULTIPART_TOOL, DURABILITY, HARVEST, MELEE_PRIMARY, INTERACTABLE_RIGHT, PARRY, SMALL_TOOLS, UNSALVAGABLE);
+    addToolTags(TinkerTools.sword,   MULTIPART_TOOL, DURABILITY, HARVEST, MELEE_PRIMARY, INTERACTABLE_RIGHT, SWORD, SMALL_TOOLS, AOE);
+    addToolTags(TinkerTools.cleaver, MULTIPART_TOOL, DURABILITY, HARVEST, MELEE_PRIMARY, INTERACTABLE_RIGHT, SWORD, BROAD_TOOLS, AOE);
     // bow
-    addToolTags(TinkerTools.crossbow, MULTIPART_TOOL, DURABILITY, MELEE, CROSSBOWS, INTERACTABLE_LEFT, SMALL_TOOLS);
-    addToolTags(TinkerTools.longbow,  MULTIPART_TOOL, DURABILITY, MELEE, LONGBOWS,  INTERACTABLE_LEFT, BROAD_TOOLS);
+    addToolTags(TinkerTools.crossbow, MULTIPART_TOOL, DURABILITY, MELEE_WEAPON, CROSSBOWS, INTERACTABLE_LEFT, SMALL_TOOLS);
+    addToolTags(TinkerTools.longbow,  MULTIPART_TOOL, DURABILITY, MELEE_WEAPON, LONGBOWS,  INTERACTABLE_LEFT, BROAD_TOOLS);
     // specialized
-    addToolTags(TinkerTools.flintAndBrick, DURABILITY, MELEE, ONE_HANDED, AOE, SMALL_TOOLS);
+    addToolTags(TinkerTools.flintAndBrick, DURABILITY, MELEE_WEAPON, INTERACTABLE_RIGHT, AOE, SMALL_TOOLS);
     addToolTags(TinkerTools.skyStaff,      DURABILITY, STAFFS, SPECIAL_TOOLS, HELD_ARMOR, INTERACTABLE_DUAL, AOE, DYEABLE, EMBELLISHMENT_METAL);
     addToolTags(TinkerTools.earthStaff,    DURABILITY, STAFFS, SPECIAL_TOOLS, HELD_ARMOR, INTERACTABLE_DUAL, AOE, DYEABLE, EMBELLISHMENT_METAL);
     addToolTags(TinkerTools.ichorStaff,    DURABILITY, STAFFS, SPECIAL_TOOLS, HELD_ARMOR, INTERACTABLE_DUAL, AOE, DYEABLE, EMBELLISHMENT_METAL);
@@ -291,15 +288,15 @@ public class ItemTagProvider extends ItemTagsProvider {
 
     // add tags to other tags
     // harvest primary and stone harvest are both automatically harvest
-    this.tag(TinkerTags.Items.HARVEST).addTag(HARVEST_PRIMARY).addTag(STONE_HARVEST);
-    // melee primary and swords
-    this.tag(MELEE).addTag(MELEE_PRIMARY).addTag(SWORD);
+    this.tag(TinkerTags.Items.HARVEST).addTags(HARVEST_PRIMARY, STONE_HARVEST);
+    // melee nesting - currently most all sub-tags are held exclusive as they revolve around tool damage or having an item in hand
+    this.tag(MELEE_WEAPON).addTags(MELEE_PRIMARY, SWORD, PARRY);
+    this.tag(MELEE).addTags(MELEE_WEAPON, UNARMED);
     // modifier helper tags
-    this.tag(MELEE_OR_HARVEST).addTag(MELEE).addTag(HARVEST);
-    this.tag(MELEE_OR_UNARMED).addTag(MELEE).addTag(UNARMED);
+    this.tag(LOOT_CAPABLE_TOOL).addTag(MELEE).addTag(HARVEST);
     this.tag(UNARMED).addTag(CHESTPLATES);
     // migrating one handed and two handed to interactable right
-    this.tag(INTERACTABLE_RIGHT).addTags(ONE_HANDED, TWO_HANDED, INTERACTABLE_DUAL);
+    this.tag(INTERACTABLE_RIGHT).addTags(INTERACTABLE_DUAL);
     this.tag(INTERACTABLE_LEFT).addTag(INTERACTABLE_DUAL);
     // interactable armor is mostly so some mod could disable all chestplate interactions in one swing
     this.tag(INTERACTABLE_ARMOR).addTag(CHESTPLATES);
@@ -314,10 +311,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(BOWS).addTags(LONGBOWS, CROSSBOWS);
 
     // general
-    this.tag(MODIFIABLE)
-        .addTag(MULTIPART_TOOL).addTag(DURABILITY)
-        .addTag(MELEE_OR_HARVEST).addTag(AOE)
-        .addTag(HELD);
+    this.tag(MODIFIABLE).addTags(MULTIPART_TOOL, DURABILITY, MELEE, HARVEST, AOE, HELD);
     // disable parry mod on our items, we have our own modifier for that
     this.tag(TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation("parry", "excluded_shields"))).addTag(HELD);
 

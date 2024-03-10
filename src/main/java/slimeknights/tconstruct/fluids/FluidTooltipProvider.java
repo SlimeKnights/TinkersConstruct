@@ -2,6 +2,7 @@ package slimeknights.tconstruct.fluids;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.fluids.FluidAttributes;
+import slimeknights.mantle.datagen.MantleTags;
 import slimeknights.mantle.fluid.tooltip.AbstractFluidTooltipProvider;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -17,7 +18,6 @@ import static slimeknights.tconstruct.common.TinkerTags.Fluids.METAL_TOOLTIPS;
 import static slimeknights.tconstruct.common.TinkerTags.Fluids.SLIME_TOOLTIPS;
 import static slimeknights.tconstruct.common.TinkerTags.Fluids.SMALL_GEM_TOOLTIPS;
 import static slimeknights.tconstruct.common.TinkerTags.Fluids.SOUP_TOOLTIPS;
-import static slimeknights.tconstruct.common.TinkerTags.Fluids.WATER_TOOLTIPS;
 
 public class FluidTooltipProvider extends AbstractFluidTooltipProvider {
   public FluidTooltipProvider(DataGenerator generator) {
@@ -57,7 +57,7 @@ public class FluidTooltipProvider extends AbstractFluidTooltipProvider {
       .addUnit("block", FluidValues.GLASS_BLOCK)
       .addUnit("pane", FluidValues.GLASS_PANE);
 
-    add("water", WATER_TOOLTIPS)
+    add("water", MantleTags.Fluids.WATER)
       .addUnit("kilobucket", "mantle", FluidAttributes.BUCKET_VOLUME * 1000)
       .addUnit("bucket",     "mantle", FluidAttributes.BUCKET_VOLUME)
       .addUnit("bottle", FluidValues.BOTTLE);

@@ -7,7 +7,7 @@
   "needed_per_level": 72,
   "leftover": "minecraft:amethyst_shard",
   "tools": {
-    "tag": "tconstruct:modifiable/melee"
+    "tag": "tconstruct:modifiable/melee/weapon"
   },
   "slots": {
     "upgrades": 1

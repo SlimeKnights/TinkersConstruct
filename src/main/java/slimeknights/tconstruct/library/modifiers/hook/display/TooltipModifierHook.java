@@ -87,7 +87,7 @@ public interface TooltipModifierHook {
    * @param tooltip  Tooltip
    */
   static void addDamageBoost(IToolStackView tool, Modifier modifier, float amount, List<Component> tooltip) {
-    addStatBoost(tool, modifier, ToolStats.ATTACK_DAMAGE, TinkerTags.Items.MELEE_OR_UNARMED, amount, tooltip);
+    addStatBoost(tool, modifier, ToolStats.ATTACK_DAMAGE, TinkerTags.Items.MELEE, amount, tooltip);
   }
 
   /**

@@ -28,9 +28,9 @@ public class ToolStats {
 
   // melee
   /** Tools attack damage for melee */
-  public static final FloatToolStat ATTACK_DAMAGE = register(new FloatToolStat(name("attack_damage"), 0xFFD76464, 0, 0, 2048f, TinkerTags.Items.MELEE_OR_UNARMED));
+  public static final FloatToolStat ATTACK_DAMAGE = register(new FloatToolStat(name("attack_damage"), 0xFFD76464, 0, 0, 2048f, TinkerTags.Items.MELEE));
   /** Equivalent to the vanilla attack speed, which is effectively number of attacks per second. 4 is equal to any standard item */
-  public static final FloatToolStat ATTACK_SPEED = register(new FloatToolStat(name("attack_speed"), 0xFF8547CC, 1, 0, 1024f, TinkerTags.Items.MELEE));
+  public static final FloatToolStat ATTACK_SPEED = register(new FloatToolStat(name("attack_speed"), 0xFF8547CC, 1, 0, 1024f, TinkerTags.Items.MELEE_WEAPON));
 
   // harvest
   /** How fast the tool breaks blocks */

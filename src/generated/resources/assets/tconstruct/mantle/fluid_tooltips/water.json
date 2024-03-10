@@ -1,5 +1,5 @@
 {
-  "tag": "tconstruct:tooltips/water",
+  "tag": "mantle:water",
   "units": [
     {
       "key": "gui.mantle.fluid.kilobucket",

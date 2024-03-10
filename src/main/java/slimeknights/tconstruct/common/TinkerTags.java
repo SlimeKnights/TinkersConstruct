@@ -9,12 +9,16 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.storage.loot.LootContext;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialManager;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+
+import java.util.List;
 
 public class TinkerTags {
   /** Called on mod construct to set up tags */
@@ -304,12 +308,6 @@ public class TinkerTags {
     public static final TagKey<Item> MULTIPART_TOOL = tag("modifiable/multipart");
     /** Modifiable items that can have range increased */
     public static final TagKey<Item> AOE = tag("modifiable/aoe");
-    /** @deprecated use {@link #HELD}, {@link #INTERACTABLE_RIGHT}, or {@link #SMALL_TOOLS} */
-    @Deprecated
-    public static final TagKey<Item> ONE_HANDED = tag("modifiable/one_handed");
-    /** @deprecated use {@link #HELD}, {@link #INTERACTABLE_RIGHT}, or {@link #BROAD_TOOLS} */
-    @Deprecated
-    public static final TagKey<Item> TWO_HANDED = tag("modifiable/two_handed");
     /** Tools that use durability and can be repaired. Items in this tag support the {@link ToolStats#DURABILITY} stat. */
     public static final TagKey<Item> DURABILITY = tag("modifiable/durability");
 
@@ -320,9 +318,8 @@ public class TinkerTags {
     /** Speciality tools that don't fit into either broad or small, notably includes staffs. Used in the books */
     public static final TagKey<Item> SPECIAL_TOOLS = tag("modifiable/special");
 
-    /** @deprecated This used to be common, but the melee unarmed combo ended up being more common, and a compound ingredient is pretty trivial */
-    @Deprecated
-    public static final TagKey<Item> MELEE_OR_HARVEST = tag("modifiable/melee_or_harvest");
+    /** Tools that can adjust the loot context for {@link Modifier#processLoot(IToolStackView, int, List, LootContext)} */
+    public static final TagKey<Item> LOOT_CAPABLE_TOOL = tag("modifiable/loot_capable_tool");
     /** Anything that is used in the player's hand, mostly tools that support interaction, but other tools can be added directly */
     public static final TagKey<Item> HELD = tag("modifiable/held");
     /** Anything that can use interaction modifiers */
@@ -336,19 +333,16 @@ public class TinkerTags {
     /** Tools that can interact on left click or right click */
     public static final TagKey<Item> INTERACTABLE_DUAL = tag("modifiable/interactable/dual");
 
-    /** Items in this tag support the @link ToolStats#ATTACK_DAMAGE} stat. Should not be added to directly typically, use {@link #MELEE} or {@link #CHESTPLATES}
-     * TODO 1.19: rename to "modifiable/melee" */
-    public static final TagKey<Item> MELEE_OR_UNARMED = tag("modifiable/melee_or_unarmed");
-    /** Modifiable items that support melee attacks. Items in this tag support the {@link ToolStats#ATTACK_SPEED} stat (plus those from {@link #MELEE_OR_UNARMED}).
-     * TODO 1.19: rename to "modifiable/melee/held" */
+    /** Items in this tag support the @link ToolStats#ATTACK_DAMAGE} stat. Should not be added to directly typically, use one of the below tags instead. */
     public static final TagKey<Item> MELEE = tag("modifiable/melee");
-    /** Modifiable items that specifically are designed for melee, removes melee penalties */
+    /** Modifiable items that support melee attacks. Items in this tag support the {@link ToolStats#ATTACK_SPEED} stat (plus those from {@link #MELEE}). */
+    public static final TagKey<Item> MELEE_WEAPON = tag("modifiable/melee/weapon");
+    /** Modifiable items that specifically are designed for melee, removes melee penalties. Primary melee items are assumed held. */
     public static final TagKey<Item> MELEE_PRIMARY = tag("modifiable/melee/primary");
-    /** Modifiable items that boost unarmed attack damage. By default this is just chestplates, but added as a tag to make it easier for adds to change
-     * TODO 1.19: rename to "modifiable/unarmed" */
-    public static final TagKey<Item> UNARMED = tag("modifiable/unarmed");
-    /** Modifiable items that are also swords, typically no use outside of combat */
+    /** Modifiable items that are also swords, typically no use outside of combat. Swords are assumed held.  */
     public static final TagKey<Item> SWORD = tag("modifiable/melee/sword");
+    /** Modifiable items that boost unarmed attack damage. By default this is just chestplates, but added as a tag to make it easier for adds to change. Unarmed tools cannot modify attack speed and typically don't take damage from melee. */
+    public static final TagKey<Item> UNARMED = tag("modifiable/melee/unarmed");
     /** Modifiable items that can parry, cannot receive blocking */
     public static final TagKey<Item> PARRY = tag("modifiable/melee/parry");
 
@@ -397,7 +391,7 @@ public class TinkerTags {
     public static final TagKey<Item> LONGBOWS = tag("modifiable/ranged/longbows");
     /** Any modifiable bows that store an arrow then fire on next use */
     public static final TagKey<Item> CROSSBOWS = tag("modifiable/ranged/crossbows");
-    /** Modifiable items support special staff modifiers, is a subtag of ranged. TODO 1.19: rename to modifiable/ranged/staffs */
+    /** Modifiable items support special staff modifiers, is a subtag of ranged. */
     public static final TagKey<Item> STAFFS = tag("modifiable/staffs");
 
     /** Tools that can receive metal based embellishments */
@@ -444,9 +438,6 @@ public class TinkerTags {
     public static final TagKey<Fluid> GLASS_TOOLTIPS = tag("tooltips/glass");
     /** Causes the fluid to be formatted like soup in tooltips, with bowls. Similar to slime, but no blocks */
     public static final TagKey<Fluid> SOUP_TOOLTIPS = tag("tooltips/soup");
-    /** @deprecated use {@link slimeknights.mantle.datagen.MantleTags.Fluids#WATER} or make a separate fluid transfer instance */
-    @Deprecated
-    public static final TagKey<Fluid> WATER_TOOLTIPS = tag("tooltips/water");
 
     // spilling tags - used to reduce the number of spilling recipes
     public static final TagKey<Fluid> CLAY_SPILLING = tag("spilling/clay");

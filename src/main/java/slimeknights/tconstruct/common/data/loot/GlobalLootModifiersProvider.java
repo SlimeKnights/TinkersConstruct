@@ -52,11 +52,11 @@ public class GlobalLootModifiersProvider extends GlobalLootModifierProvider {
                            .build("wither_bone", this);
 
     // generic modifier hook
-    ItemPredicate.Builder meleeHarvest = ItemPredicate.Builder.item().of(TinkerTags.Items.MELEE_OR_HARVEST);
+    ItemPredicate.Builder lootCapableTool = ItemPredicate.Builder.item().of(TinkerTags.Items.LOOT_CAPABLE_TOOL);
     ModifierLootModifier.builder()
                         .addCondition(BlockOrEntityCondition.INSTANCE)
-                        .addCondition(MatchTool.toolMatches(meleeHarvest)
-                                               .or(LootItemEntityPropertyCondition.hasProperties(EntityTarget.KILLER, EntityPredicate.Builder.entity().equipment(mainHand(meleeHarvest.build()))))
+                        .addCondition(MatchTool.toolMatches(lootCapableTool)
+                                               .or(LootItemEntityPropertyCondition.hasProperties(EntityTarget.KILLER, EntityPredicate.Builder.entity().equipment(mainHand(lootCapableTool.build()))))
                                                .build())
                         .build("modifier_hook", this);
 

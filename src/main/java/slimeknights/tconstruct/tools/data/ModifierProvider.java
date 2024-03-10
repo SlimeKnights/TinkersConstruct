@@ -264,8 +264,8 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
 
     /// attack
     buildModifier(TinkerModifiers.knockback)
-      // do not boost unarmed attacks twice, thats a bit too much knockback for the cost
-      .addModule(KnockbackModule.builder().tool(new ItemToolPredicate(new ItemTagPredicate(TinkerTags.Items.UNARMED)).inverted()).eachLevel(0.5f))
+      // do not boost chestplate attacks twice, thats a bit too much knockback for the cost
+      .addModule(KnockbackModule.builder().tool(new ItemToolPredicate(new ItemTagPredicate(TinkerTags.Items.CHESTPLATES)).inverted()).eachLevel(0.5f))
       .addModule(AttributeModule.builder(Attributes.ATTACK_KNOCKBACK, Operation.ADDITION).uniqueFrom(TinkerModifiers.knockback.getId()).slots(armorSlots).eachLevel(1));
     buildModifier(TinkerModifiers.padded)
       .priority(75) // run after knockback

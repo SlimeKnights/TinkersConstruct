@@ -19,7 +19,7 @@
   ],
   "tools": [
     {
-      "tag": "tconstruct:modifiable/melee"
+      "tag": "tconstruct:modifiable/melee/weapon"
     },
     {
       "tag": "tconstruct:modifiable/harvest"

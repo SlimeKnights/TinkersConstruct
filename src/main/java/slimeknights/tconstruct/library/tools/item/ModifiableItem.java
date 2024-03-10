@@ -33,7 +33,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import slimeknights.mantle.client.SafeClientAccess;
-import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.AttributesModifierHook;
@@ -281,15 +280,12 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
     if (volatileData.getBoolean(NO_INTERACTION)) {
       return false;
     }
-    boolean deferOffhand = volatileData.getBoolean(DEFER_OFFHAND);
-
-    // two handed tools cannot be used in the offhand without offhanded
+    // off hand always can interact
     if (hand == InteractionHand.OFF_HAND) {
-      return deferOffhand || !toolStack.hasTag(TinkerTags.Items.TWO_HANDED);
+      return true;
     }
-
-    // if mainhand is told to defer, offhand must be empty to run
-    return player == null || !deferOffhand || player.getOffhandItem().isEmpty();
+    // main hand may wish to defer to the offhand if it has a tool
+    return player == null || !volatileData.getBoolean(DEFER_OFFHAND) || player.getOffhandItem().isEmpty();
   }
   
   @Override
@@ -346,10 +342,6 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
         if (result.consumesAction()) {
           return new InteractionResultHolder<>(result, stack);
         }
-      }
-      // two handed tools consume action if nothing else ran
-      if (hand == InteractionHand.MAIN_HAND && stack.is(TinkerTags.Items.TWO_HANDED) && !tool.getVolatileData().getBoolean(DEFER_OFFHAND)) {
-        return InteractionResultHolder.consume(stack);
       }
     }
     InteractionResult result = ToolInventoryCapability.tryOpenContainer(stack, tool, playerIn, Util.getSlotType(hand));

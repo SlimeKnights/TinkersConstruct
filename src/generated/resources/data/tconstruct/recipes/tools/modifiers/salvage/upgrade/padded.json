@@ -1,13 +1,8 @@
 {
   "type": "tconstruct:modifier_salvage",
-  "tools": [
-    {
-      "tag": "tconstruct:modifiable/melee_or_unarmed"
-    },
-    {
-      "tag": "tconstruct:modifiable/staffs"
-    }
-  ],
+  "tools": {
+    "tag": "tconstruct:modifiable/melee"
+  },
   "slots": {
     "upgrades": 1
   },

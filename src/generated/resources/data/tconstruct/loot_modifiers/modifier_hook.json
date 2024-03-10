@@ -9,7 +9,7 @@
         {
           "condition": "minecraft:match_tool",
           "predicate": {
-            "tag": "tconstruct:modifiable/melee_or_harvest"
+            "tag": "tconstruct:modifiable/loot_capable_tool"
           }
         },
         {
@@ -17,7 +17,7 @@
           "predicate": {
             "equipment": {
               "mainhand": {
-                "tag": "tconstruct:modifiable/melee_or_harvest"
+                "tag": "tconstruct:modifiable/loot_capable_tool"
               }
             }
           },
