@@ -1,0 +1,25 @@
+{
+  "type": "tconstruct:showcase",
+  "title": "升級強化",
+  "item": {
+    "type": "forge:nbt",
+    "item": "tconstruct:creative_slot",
+    "nbt": {
+      "slot": "upgrades"
+    }
+  },
+  "tooltip": [ "升級槽圖示" ],
+  "text": [
+    {
+      "text": "「升級」是對工具的標準改進。它們通常是通過使用某個物品並「轉移」它的一些特有品質來做到的，比如紅石可以讓工具有更快的速度。"
+    },
+    {
+      "text": "「升級」需要使用升級槽。大多數工具初始擁有3到4個升級槽，可以通過其他強化可以獲得更多的升級槽。",
+      "paragraph": true
+    },
+    {
+      "text": "Thruul M'Gon所著的《入門熔鍊術》有著一整套 可用於工具的升級列表，《工匠大百科》也有 介紹。",
+      "paragraph": true
+    }
+  ]
+}

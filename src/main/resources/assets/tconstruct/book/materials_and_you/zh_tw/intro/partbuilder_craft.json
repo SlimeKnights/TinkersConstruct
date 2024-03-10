@@ -1,0 +1,8 @@
+{
+  "title": "合成部件製造臺",
+  "recipe": "tconstruct:tables/part_builder",
+  "grid_size": "small",
+  "description": [
+    { "text": "當你合成一些模具之後，接著合成部件製造臺以開始製作你的工具。" }
+  ]
+}
