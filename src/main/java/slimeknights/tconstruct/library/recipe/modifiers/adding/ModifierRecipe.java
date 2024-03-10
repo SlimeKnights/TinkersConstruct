@@ -5,7 +5,6 @@ import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -148,7 +147,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
     ModDataNBT persistentData = tool.getPersistentData();
     SlotCount slots = getSlots();
     if (slots != null) {
-      persistentData.addSlots(slots.getType(), -slots.getCount());
+      persistentData.addSlots(slots.type(), -slots.count());
     }
 
     // add modifier
@@ -213,21 +212,19 @@ public class ModifierRecipe extends AbstractModifierRecipe {
   public static class Serializer extends AbstractModifierRecipe.Serializer<ModifierRecipe> {
     @Override
     public ModifierRecipe fromJson(ResourceLocation id, JsonObject json, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements,
-                               String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
+                               String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots, boolean allowCrystal) {
       List<SizedIngredient> ingredients = JsonHelper.parseList(json, "inputs", SizedIngredient::deserialize);
-      boolean allowCrystal = GsonHelper.getAsBoolean(json, "allow_crystal", true);
       return new ModifierRecipe(id, ingredients, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots, allowCrystal);
     }
 
     @Override
     public ModifierRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buffer, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements,
-                               String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
+                               String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots, boolean allowCrystal) {
       int size = buffer.readVarInt();
       ImmutableList.Builder<SizedIngredient> builder = ImmutableList.builder();
       for (int i = 0; i < size; i++) {
         builder.add(SizedIngredient.read(buffer));
       }
-      boolean allowCrystal = buffer.readBoolean();
       return new ModifierRecipe(id, builder.build(), toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots, allowCrystal);
     }
 
@@ -238,7 +235,6 @@ public class ModifierRecipe extends AbstractModifierRecipe {
       for (SizedIngredient ingredient : recipe.inputs) {
         ingredient.write(buffer);
       }
-      buffer.writeBoolean(recipe.allowCrystal);
     }
   }
 }

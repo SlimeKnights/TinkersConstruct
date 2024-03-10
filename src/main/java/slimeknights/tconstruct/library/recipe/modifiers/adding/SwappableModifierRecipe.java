@@ -78,7 +78,7 @@ public class SwappableModifierRecipe extends ModifierRecipe {
     if (needsModifier) {
       SlotCount slots = getSlots();
       if (slots != null) {
-        persistentData.addSlots(slots.getType(), -slots.getCount());
+        persistentData.addSlots(slots.type(), -slots.count());
       }
     }
 
@@ -128,23 +128,21 @@ public class SwappableModifierRecipe extends ModifierRecipe {
 
     @Override
     public SwappableModifierRecipe fromJson(ResourceLocation id, JsonObject json, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements,
-																				String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
+																				String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots, boolean allowCrystal) {
       List<SizedIngredient> ingredients = JsonHelper.parseList(json, "inputs", SizedIngredient::deserialize);
       String value = GsonHelper.getAsString(GsonHelper.getAsJsonObject(json, "result"), "value");
-      boolean allowCrystal = GsonHelper.getAsBoolean(json, "allow_crystal", false);
       return new SwappableModifierRecipe(id, ingredients, toolRequirement, maxToolSize, requirements, requirementsError, result.getId(), value, slots, allowCrystal);
     }
 
     @Override
     public SwappableModifierRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buffer, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements,
-																				String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
+																				String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots, boolean allowCrystal) {
       int size = buffer.readVarInt();
       ImmutableList.Builder<SizedIngredient> builder = ImmutableList.builder();
       for (int i = 0; i < size; i++) {
         builder.add(SizedIngredient.read(buffer));
       }
       String value = buffer.readUtf();
-      boolean allowCrystal = buffer.readBoolean();
       return new SwappableModifierRecipe(id, builder.build(), toolRequirement, maxToolSize, requirements, requirementsError, result.getId(), value, slots, allowCrystal);
     }
 
@@ -156,7 +154,6 @@ public class SwappableModifierRecipe extends ModifierRecipe {
         ingredient.write(buffer);
       }
       buffer.writeUtf(recipe.value);
-      buffer.writeBoolean(recipe.allowCrystal);
     }
   }
 }

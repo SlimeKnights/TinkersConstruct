@@ -24,7 +24,7 @@ public class WarpingModifier extends SlingModifier {
       float f = getForce(tool, modifier, entity, timeLeft, false) * 6;
       if (f > 0) {
         Vec3 look = player.getLookAngle();
-        float inaccuracy = ModifierUtil.getInaccuracy(tool, player, 1) * 0.0075f;
+        float inaccuracy = ModifierUtil.getInaccuracy(tool, player) * 0.0075f;
         Random random = player.getRandom();
         double offX = (look.x + random.nextGaussian() * inaccuracy) * f;
         double offY = (look.y + random.nextGaussian() * inaccuracy) * f + 1; // add extra to help with bad collisions

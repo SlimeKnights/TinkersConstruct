@@ -218,9 +218,8 @@ public final class ModifierUtil {
     return false;
   }
 
-  /** Calculates inaccuracy from the conditional tool stat. TODO: reconsidering velocity impacting inaccuracy, remove parameter in 1.19 */
-  @SuppressWarnings("unused")
-  public static float getInaccuracy(IToolStackView tool, LivingEntity living, float velocity) {
+  /** Calculates inaccuracy from the conditional tool stat. */
+  public static float getInaccuracy(IToolStackView tool, LivingEntity living) {
     return 3 * (1 / ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.ACCURACY) - 1);
   }
 

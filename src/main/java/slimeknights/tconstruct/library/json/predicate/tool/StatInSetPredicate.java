@@ -19,7 +19,7 @@ import java.util.Set;
  * @param <T>     Stat type
  * @param stat    Stat to check
  * @param values  Set of values to match
- * @see slimeknights.tconstruct.library.tools.stat.StatPredicate
+ * @see StatInRangePredicate
  */
 public record StatInSetPredicate<T>(IToolStat<T> stat, Set<T> values) implements ToolContextPredicate {
   public StatInSetPredicate(IToolStat<T> stat, T value) {

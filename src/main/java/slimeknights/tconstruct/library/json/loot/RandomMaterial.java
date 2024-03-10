@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.json;
+package slimeknights.tconstruct.library.json.loot;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
@@ -28,10 +28,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-/**
- * Loot table object to get a randomized material.
- * TODO 1.19: move to {@code slimeknights.tconsturct.library.json.loot}
- */
+/** Loot table object to get a randomized material. */
 public abstract class RandomMaterial {
   /** Map of all types */
   private static final Map<ResourceLocation,Function<JsonObject,RandomMaterial>> DESERIALIZERS = new HashMap<>();

@@ -76,7 +76,7 @@ public class ModifierSalvage implements ICustomOutputRecipe<Container> {
    */
   public void updateTool(IToolStackView tool) {
     if (slots != null) {
-      tool.getPersistentData().addSlots(slots.getType(), slots.getCount());
+      tool.getPersistentData().addSlots(slots.type(), slots.count());
     }
   }
 

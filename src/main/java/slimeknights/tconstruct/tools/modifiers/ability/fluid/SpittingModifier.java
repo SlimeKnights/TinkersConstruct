@@ -109,7 +109,7 @@ public class SpittingModifier extends Modifier implements GeneralInteractionModi
               // other stats now that we know we are shooting
               // velocity determines how far it goes, does not impact damage unlike bows
               float velocity = ConditionalStatModifierHook.getModifiedStat(tool, entity, ToolStats.VELOCITY) * charge * 3.0f;
-              float inaccuracy = ModifierUtil.getInaccuracy(tool, entity, velocity);
+              float inaccuracy = ModifierUtil.getInaccuracy(tool, entity);
 
               // multishot stuff
               int shots = 1 + 2 * (level - 1);

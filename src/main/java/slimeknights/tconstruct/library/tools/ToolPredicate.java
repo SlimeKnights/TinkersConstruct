@@ -19,12 +19,12 @@ import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags.Items;
+import slimeknights.tconstruct.library.json.predicate.tool.StatInRangePredicate;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-import slimeknights.tconstruct.library.tools.stat.StatPredicate;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ public class ToolPredicate extends ItemPredicate {
   protected final boolean hasUpgrades;
   protected final ModifierMatch upgrades;
   protected final ModifierMatch modifiers;
-  protected final List<StatPredicate> stats;
+  protected final List<StatInRangePredicate> stats;
 
   @Override
   public boolean matches(ItemStack stack) {
@@ -88,7 +88,7 @@ public class ToolPredicate extends ItemPredicate {
     // stats
     if (!stats.isEmpty()) {
       StatsNBT toolStats = tool.getStats();
-      for (StatPredicate predicate : stats) {
+      for (StatInRangePredicate predicate : stats) {
         if (!predicate.test(toolStats)) {
           return false;
         }
@@ -130,7 +130,7 @@ public class ToolPredicate extends ItemPredicate {
       json.add("modifiers", modifiers.serialize());
     }
     if (!stats.isEmpty()) {
-      json.add("stats", toArray(stats, StatPredicate::serialize));
+      json.add("stats", toArray(stats, StatInRangePredicate::serialize));
     }
     return json;
   }
@@ -164,9 +164,9 @@ public class ToolPredicate extends ItemPredicate {
       modifiers = ModifierMatch.deserialize(GsonHelper.getAsJsonObject(json, "modifiers"));
     }
     // stats
-    List<StatPredicate> stats = Collections.emptyList();
+    List<StatInRangePredicate> stats = Collections.emptyList();
     if (json.has("stats")) {
-      stats = JsonHelper.parseList(json, "stats", StatPredicate::deserialize);
+      stats = JsonHelper.parseList(json, "stats", StatInRangePredicate::deserialize);
     }
     return new ToolPredicate(item, tag, materials, hasUpgrades, upgrades, modifiers, stats);
   }
@@ -207,7 +207,7 @@ public class ToolPredicate extends ItemPredicate {
     protected ModifierMatch upgrades = ModifierMatch.ALWAYS;
     /** List of modifiers that must exist in the tool */
     protected ModifierMatch modifiers = ModifierMatch.ALWAYS;
-    protected final List<StatPredicate> stats = new ArrayList<>();
+    protected final List<StatInRangePredicate> stats = new ArrayList<>();
 
     protected Builder(@Nullable Item item, @Nullable TagKey<Item> tag) {
       this.item = item;
@@ -221,7 +221,7 @@ public class ToolPredicate extends ItemPredicate {
     }
 
     /** Adds the given stat predicate as a requirement */
-    public Builder withStat(StatPredicate predicate) {
+    public Builder withStat(StatInRangePredicate predicate) {
       stats.add(predicate);
       return this;
     }

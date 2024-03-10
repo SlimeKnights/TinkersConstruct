@@ -71,7 +71,7 @@ public interface IDisplayModifierRecipe extends IModifierRecipe {
     if (count == null) {
       return null;
     }
-    return count.getType();
+    return count.type();
   }
 
   /** If true, this recipe has additional requirements */

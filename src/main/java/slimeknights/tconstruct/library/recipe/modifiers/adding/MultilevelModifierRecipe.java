@@ -85,7 +85,7 @@ public class MultilevelModifierRecipe extends ModifierRecipe implements IMultiRe
     tool = tool.copy();
     ModDataNBT persistentData = tool.getPersistentData();
     if (slots != null) {
-      persistentData.addSlots(slots.getType(), -slots.getCount());
+      persistentData.addSlots(slots.type(), -slots.count());
     }
 
     // add modifier
@@ -163,7 +163,7 @@ public class MultilevelModifierRecipe extends ModifierRecipe implements IMultiRe
       JsonObject json = new JsonObject();
       if (slots != null) {
         JsonObject slotJson = new JsonObject();
-        slotJson.addProperty(slots.getType().getName(), slots.getCount());
+        slotJson.addProperty(slots.type().getName(), slots.count());
         json.add("slots", slotJson);
       }
       if (minLevel == maxLevel) {

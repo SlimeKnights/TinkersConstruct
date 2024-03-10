@@ -50,6 +50,7 @@ import slimeknights.tconstruct.library.json.predicate.tool.HasMaterialPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate.ModifierCheck;
 import slimeknights.tconstruct.library.json.predicate.tool.ItemToolPredicate;
+import slimeknights.tconstruct.library.json.predicate.tool.StatInRangePredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.StatInSetPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolContextPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolStackItemPredicate;
@@ -57,7 +58,6 @@ import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
-import slimeknights.tconstruct.library.tools.stat.StatPredicate;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -118,10 +118,10 @@ public class AdvancementsProvider extends GenericDataProvider {
     Advancement harvestLevel = builder(Items.NETHERITE_INGOT, resource("tools/netherite_tier"), tinkerTool, FrameType.GOAL, builder ->
       builder.addCriterion("harvest_level", InventoryChangeTrigger.TriggerInstance.hasItems(new ToolStackItemPredicate(new StatInSetPredicate<>(ToolStats.HARVEST_TIER, Tiers.NETHERITE)))));
     builder(Items.TARGET, resource("tools/perfect_aim"), tinkerTool, FrameType.GOAL, builder ->
-      builder.addCriterion("accuracy", InventoryChangeTrigger.TriggerInstance.hasItems(new ToolStackItemPredicate(new StatPredicate(ToolStats.ACCURACY, 1, 1)))));
+      builder.addCriterion("accuracy", InventoryChangeTrigger.TriggerInstance.hasItems(new ToolStackItemPredicate(new StatInRangePredicate(ToolStats.ACCURACY, 1, 1)))));
     // note that attack damage gets +1 from player attributes, so 20 is actually 21 damage with the tool
     builder(Items.ZOMBIE_HEAD, resource("tools/one_shot"), tinkerTool, FrameType.GOAL, builder ->
-      builder.addCriterion("damage", InventoryChangeTrigger.TriggerInstance.hasItems(new ToolStackItemPredicate(new StatPredicate(ToolStats.ATTACK_DAMAGE, 20, Float.POSITIVE_INFINITY)))));
+      builder.addCriterion("damage", InventoryChangeTrigger.TriggerInstance.hasItems(new ToolStackItemPredicate(new StatInRangePredicate(ToolStats.ATTACK_DAMAGE, 20, Float.POSITIVE_INFINITY)))));
     builder(TinkerMaterials.manyullyn.getIngot(), resource("tools/material_master"), harvestLevel, FrameType.CHALLENGE, builder -> {
       Consumer<MaterialId> with = id -> builder.addCriterion(id.getPath(), InventoryChangeTrigger.TriggerInstance.hasItems(new ToolStackItemPredicate(new HasMaterialPredicate(id))));
       // tier 1

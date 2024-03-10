@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.json;
+package slimeknights.tconstruct.library.json.loot;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
@@ -18,10 +18,7 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 
 import java.util.function.Consumer;
 
-/**
- * Loot entry that returns an item from a tag
- * TODO 1.19: move to {@code slimeknights.tconsturct.library.json.loot}
- */
+/** Loot entry that returns an item from a tag */
 public class TagPreferenceLootEntry extends LootPoolSingletonContainer {
   private final TagKey<Item> tag;
   protected TagPreferenceLootEntry(TagKey<Item> tag, int weight, int quality, LootItemCondition[] conditions, LootItemFunction[] functions) {

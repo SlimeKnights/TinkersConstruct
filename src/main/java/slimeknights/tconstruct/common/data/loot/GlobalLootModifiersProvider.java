@@ -28,8 +28,8 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.json.BlockOrEntityCondition;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
-import slimeknights.tconstruct.library.json.TagNotEmptyLootCondition;
-import slimeknights.tconstruct.library.json.TagPreferenceLootEntry;
+import slimeknights.tconstruct.library.json.condition.TagNotEmptyCondition;
+import slimeknights.tconstruct.library.json.loot.TagPreferenceLootEntry;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.smeltery.data.SmelteryCompat;
 import slimeknights.tconstruct.tools.data.ModifierIds;
@@ -91,7 +91,7 @@ public class GlobalLootModifiersProvider extends GlobalLootModifierProvider {
     builder.addCondition(new BlockTagLootCondition(TagKey.create(Registry.BLOCK_REGISTRY, ores)))
            .addCondition(new ContainsItemModifierLootCondition(Ingredient.of(TagKey.create(Registry.ITEM_REGISTRY, ores))).inverted());
     if (optional) {
-      builder.addCondition(new TagNotEmptyLootCondition<>(nuggets));
+      builder.addCondition(new TagNotEmptyCondition<>(nuggets));
     }
     builder.addCondition(new HasModifierLootCondition(ModifierIds.lustrous))
            .addFunction(SetItemCountFunction.setCount(UniformGenerator.between(2, 4)).build())

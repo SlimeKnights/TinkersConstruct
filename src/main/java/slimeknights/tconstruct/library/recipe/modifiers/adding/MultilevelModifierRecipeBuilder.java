@@ -322,7 +322,7 @@ public class MultilevelModifierRecipeBuilder extends AbstractRecipeBuilder<Multi
     public void serializeRecipeData(JsonObject json) {
       writeCommon(json);
       JsonObject slotJson = new JsonObject();
-      slotJson.addProperty(slots.getType().getName(), slots.getCount());
+      slotJson.addProperty(slots.type().getName(), slots.count());
       json.add("slots", slotJson);
       json.addProperty("modifier", result.toString());
       json.addProperty("min_level", minLevel);

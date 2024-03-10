@@ -126,12 +126,10 @@ public final class ToolBuildHandler {
 
   /**
    * Adds all sub items to a tool
-   * TODO 1.19: remove fixed materials
    * @param item             item being created
    * @param itemList         List to fill with items
-   * @param fixedMaterials   Materials that should be forced
    */
-  public static void addDefaultSubItems(IModifiable item, List<ItemStack> itemList, MaterialVariantId... fixedMaterials) {
+  public static void addDefaultSubItems(IModifiable item, List<ItemStack> itemList) {
     ToolDefinition definition = item.getToolDefinition();
     boolean isMultipart = definition.isMultipart();
     if (!definition.isDataLoaded() || (isMultipart && !MaterialRegistry.isFullyLoaded())) {
@@ -148,7 +146,7 @@ public final class ToolBuildHandler {
         MaterialId materialId = MaterialId.tryParse(showOnlyId);
         if (materialId != null) {
           IMaterial material = MaterialRegistry.getMaterial(materialId);
-          if (material != IMaterial.UNKNOWN && addSubItem(item, itemList, material, fixedMaterials)) {
+          if (material != IMaterial.UNKNOWN && addSubItem(item, itemList, material)) {
             added = true;
           }
         }
@@ -157,7 +155,7 @@ public final class ToolBuildHandler {
       if (!added) {
         for (IMaterial material : MaterialRegistry.getInstance().getVisibleMaterials()) {
           // if we added it and we want a single material, we are done
-          if (addSubItem(item, itemList, material, fixedMaterials) && !showOnlyId.isEmpty()) {
+          if (addSubItem(item, itemList, material) && !showOnlyId.isEmpty()) {
             break;
           }
         }
@@ -166,22 +164,13 @@ public final class ToolBuildHandler {
   }
 
   /** Makes a single sub item for the given materials */
-  private static boolean addSubItem(IModifiable item, List<ItemStack> items, IMaterial material, MaterialVariantId[] fixedMaterials) {
+  private static boolean addSubItem(IModifiable item, List<ItemStack> items, IMaterial material) {
     List<PartRequirement> required = item.getToolDefinition().getData().getParts();
     MaterialNBT.Builder materials = MaterialNBT.builder();
     boolean useMaterial = false;
-    for (int i = 0; i < required.size(); i++) {
-      PartRequirement requirement = required.get(i);
-      // if fixed, used fixed
-      if (fixedMaterials.length > i && fixedMaterials[i] != null && requirement.canUseMaterial(fixedMaterials[i])) {
-        materials.add(fixedMaterials[i]);
-        // mark we used it even if fixed
-        if (fixedMaterials[i].getId().equals(material.getIdentifier())) {
-          useMaterial = true;
-        }
-      }
-      // if not fixed, try to use requested material
-      else if (requirement.canUseMaterial(material.getIdentifier())) {
+    for (PartRequirement requirement : required) {
+      // try to use requested material
+      if (requirement.canUseMaterial(material.getIdentifier())) {
         materials.add(material);
         useMaterial = true;
       } else {

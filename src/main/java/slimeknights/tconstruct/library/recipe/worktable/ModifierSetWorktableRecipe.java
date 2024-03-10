@@ -20,10 +20,8 @@ import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.json.predicate.modifier.ModifierPredicate;
-import slimeknights.tconstruct.library.json.predicate.modifier.TagModifierPredicate;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
-import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.recipe.ITinkerableContainer;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
@@ -170,10 +168,6 @@ public class ModifierSetWorktableRecipe extends AbstractWorktableRecipe {
       IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ALWAYS;
       if (json.has("modifier_predicate")) {
         modifierPredicate = ModifierPredicate.LOADER.getAndDeserialize(json, "modifier_predicate");
-      } else if (json.has("blacklist")) {
-        // TODO: drop backwards compat in 1.19
-        modifierPredicate = new TagModifierPredicate(ModifierManager.getTag(JsonHelper.getResourceLocation(json, "blacklist"))).inverted();
-        TConstruct.LOG.info("Recipe " + id + " is using deprecated blacklist key, this will be removed in 1.19");
       }
       boolean addToSet = GsonHelper.getAsBoolean(json, "add_to_set");
       boolean allowTraits = GsonHelper.getAsBoolean(json, "allow_traits", false);

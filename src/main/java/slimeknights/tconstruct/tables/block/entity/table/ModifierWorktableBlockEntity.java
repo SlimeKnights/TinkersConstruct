@@ -31,7 +31,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-// TODO: spend some time planning out data flow, its not currently doing it
 public class ModifierWorktableBlockEntity extends RetexturedTableBlockEntity implements ILazyCrafter {
   /** Index containing the tool */
   public static final int TINKER_SLOT = 0;

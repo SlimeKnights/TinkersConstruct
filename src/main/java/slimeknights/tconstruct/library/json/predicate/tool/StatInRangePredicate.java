@@ -1,31 +1,30 @@
-package slimeknights.tconstruct.library.tools.stat;
+package slimeknights.tconstruct.library.json.predicate.tool;
 
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
 import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
-import slimeknights.tconstruct.library.json.predicate.tool.ToolContextPredicate;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
+import slimeknights.tconstruct.library.tools.stat.INumericToolStat;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 import java.util.function.Predicate;
 
 /**
  * Predicate to check if a tool has the given stat within the range.
- * TODO 1.19: move to {@link slimeknights.tconstruct.library.json.predicate.tool} as {@code StatInRangePredicate}
  * @see slimeknights.tconstruct.library.json.predicate.tool.StatInSetPredicate
  */
-public record StatPredicate(INumericToolStat<?> stat, float min, float max) implements Predicate<StatsNBT>, ToolContextPredicate {
-
+public record StatInRangePredicate(INumericToolStat<?> stat, float min, float max) implements Predicate<StatsNBT>, ToolContextPredicate {
   /**
    * Creates a predicate matching the exact value
    * @param stat  Stat
    * @param value Value to match
    * @return Predicate
    */
-  public static StatPredicate match(INumericToolStat<?> stat, float value) {
-    return new StatPredicate(stat, value, value);
+  public static StatInRangePredicate match(INumericToolStat<?> stat, float value) {
+    return new StatInRangePredicate(stat, value, value);
   }
 
   /**
@@ -34,8 +33,8 @@ public record StatPredicate(INumericToolStat<?> stat, float min, float max) impl
    * @param min  Min value
    * @return Predicate
    */
-  public static StatPredicate min(INumericToolStat<?> stat, float min) {
-    return new StatPredicate(stat, min, Float.POSITIVE_INFINITY);
+  public static StatInRangePredicate min(INumericToolStat<?> stat, float min) {
+    return new StatInRangePredicate(stat, min, Float.POSITIVE_INFINITY);
   }
 
   /**
@@ -44,8 +43,8 @@ public record StatPredicate(INumericToolStat<?> stat, float min, float max) impl
    * @param max  Max value
    * @return Predicate
    */
-  public static StatPredicate max(INumericToolStat<?> stat, float max) {
-    return new StatPredicate(stat, Float.NEGATIVE_INFINITY, max);
+  public static StatInRangePredicate max(INumericToolStat<?> stat, float max) {
+    return new StatInRangePredicate(stat, Float.NEGATIVE_INFINITY, max);
   }
 
   @Override
@@ -64,8 +63,8 @@ public record StatPredicate(INumericToolStat<?> stat, float min, float max) impl
    * @param json JSON
    * @return Predicate
    */
-  public static StatPredicate deserialize(JsonObject json) {
-    return new StatPredicate(
+  public static StatInRangePredicate deserialize(JsonObject json) {
+    return new StatInRangePredicate(
       ToolStats.numericFromJson(GsonHelper.getAsString(json, "stat")),
       GsonHelper.getAsFloat(json, "min", Float.NEGATIVE_INFINITY),
       GsonHelper.getAsFloat(json, "max", Float.POSITIVE_INFINITY)
@@ -97,27 +96,27 @@ public record StatPredicate(INumericToolStat<?> stat, float min, float max) impl
     return LOADER;
   }
 
-  public static final IGenericLoader<StatPredicate> LOADER = new IGenericLoader<>() {
+  public static final IGenericLoader<StatInRangePredicate> LOADER = new IGenericLoader<>() {
     @Override
-    public StatPredicate deserialize(JsonObject json) {
-      return StatPredicate.deserialize(json);
+    public StatInRangePredicate deserialize(JsonObject json) {
+      return StatInRangePredicate.deserialize(json);
     }
 
     @Override
-    public void serialize(StatPredicate object, JsonObject json) {
+    public void serialize(StatInRangePredicate object, JsonObject json) {
       object.serialize(json);
     }
 
     @Override
-    public StatPredicate fromNetwork(FriendlyByteBuf buffer) {
+    public StatInRangePredicate fromNetwork(FriendlyByteBuf buffer) {
       INumericToolStat<?> stat = ToolStats.numericFromNetwork(buffer);
       float min = buffer.readFloat();
       float max = buffer.readFloat();
-      return new StatPredicate(stat, min, max);
+      return new StatInRangePredicate(stat, min, max);
     }
 
     @Override
-    public void toNetwork(StatPredicate object, FriendlyByteBuf buffer) {
+    public void toNetwork(StatInRangePredicate object, FriendlyByteBuf buffer) {
       buffer.writeUtf(object.stat.getName().toString());
       buffer.writeFloat(object.min);
       buffer.writeFloat(object.max);

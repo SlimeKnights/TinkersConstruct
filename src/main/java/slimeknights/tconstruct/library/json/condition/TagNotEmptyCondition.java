@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.json;
+package slimeknights.tconstruct.library.json.condition;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
@@ -22,10 +22,9 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 /**
  * Loot table condition to test if a tag has entries.
  * TODO: is this redundant to {@link slimeknights.mantle.recipe.helper.TagEmptyCondition}? Or worth keeping both?
- * TODO 1.19: move to {@code slimeknights.tconsturct.library.json.condition}
  */
 @RequiredArgsConstructor
-public class TagNotEmptyLootCondition<T> implements LootItemCondition, ICondition {
+public class TagNotEmptyCondition<T> implements LootItemCondition, ICondition {
   private static final ResourceLocation NAME = TConstruct.getResource("tag_not_empty");
   private final TagKey<T> tag;
 
@@ -61,7 +60,7 @@ public class TagNotEmptyLootCondition<T> implements LootItemCondition, IConditio
   }
 
 
-  public static class ConditionSerializer implements Serializer<TagNotEmptyLootCondition<?>>, IConditionSerializer<TagNotEmptyLootCondition<?>> {
+  public static class ConditionSerializer implements Serializer<TagNotEmptyCondition<?>>, IConditionSerializer<TagNotEmptyCondition<?>> {
     /** Helper to deal with generics */
     private static <T> TagKey<T> createKey(JsonObject json) {
       ResourceKey<? extends Registry<T>> registry = ResourceKey.createRegistryKey(JsonHelper.getResourceLocation(json, "registry"));
@@ -69,23 +68,23 @@ public class TagNotEmptyLootCondition<T> implements LootItemCondition, IConditio
     }
 
     @Override
-    public void write(JsonObject json, TagNotEmptyLootCondition<?> value) {
+    public void write(JsonObject json, TagNotEmptyCondition<?> value) {
       json.addProperty("registry", value.tag.registry().location().toString());
       json.addProperty("tag", value.tag.location().toString());
     }
 
     @Override
-    public void serialize(JsonObject json, TagNotEmptyLootCondition<?> value, JsonSerializationContext context) {
+    public void serialize(JsonObject json, TagNotEmptyCondition<?> value, JsonSerializationContext context) {
       write(json, value);
     }
 
     @Override
-    public TagNotEmptyLootCondition<?> read(JsonObject json) {
-      return new TagNotEmptyLootCondition<>(createKey(json));
+    public TagNotEmptyCondition<?> read(JsonObject json) {
+      return new TagNotEmptyCondition<>(createKey(json));
     }
 
     @Override
-    public TagNotEmptyLootCondition<?> deserialize(JsonObject json, JsonDeserializationContext context) {
+    public TagNotEmptyCondition<?> deserialize(JsonObject json, JsonDeserializationContext context) {
       return read(json);
     }
 

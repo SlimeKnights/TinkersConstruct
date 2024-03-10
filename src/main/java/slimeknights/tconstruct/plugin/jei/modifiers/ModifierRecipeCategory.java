@@ -171,8 +171,8 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     if (slots == null) {
       drawSlotType(matrices, null, 110, 58);
     } else {
-      drawSlotType(matrices, slots.getType(), 110, 58);
-      String text = Integer.toString(slots.getCount());
+      drawSlotType(matrices, slots.type(), 110, 58);
+      String text = Integer.toString(slots.count());
       int x = 111 - fontRenderer.width(text);
       fontRenderer.draw(matrices, text, x, 63, Color.GRAY.getRGB());
     }
@@ -190,11 +190,11 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
       // slot tooltip over icon
       SlotCount slots = recipe.getSlots();
       if (slots != null) {
-        int count = slots.getCount();
+        int count = slots.count();
         if (count == 1) {
-          return Collections.singletonList(new TranslatableComponent(KEY_SLOT, slots.getType().getDisplayName()));
+          return Collections.singletonList(new TranslatableComponent(KEY_SLOT, slots.type().getDisplayName()));
         } else if (count > 1) {
-          return Collections.singletonList(new TranslatableComponent(KEY_SLOTS, slots, slots.getType().getDisplayName()));
+          return Collections.singletonList(new TranslatableComponent(KEY_SLOTS, slots, slots.type().getDisplayName()));
         }
       } else {
         return TEXT_FREE;

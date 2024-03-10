@@ -21,13 +21,10 @@ import slimeknights.tconstruct.library.recipe.modifiers.ModifierMatch;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
-import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-import slimeknights.tconstruct.library.utils.JsonUtils;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.item.ModifierCrystalItem;
 
@@ -80,7 +77,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
     this.maxLevel = maxLevel;
     this.slots = slots;
     this.allowCrystal = allowCrystal;
-    ModifierRecipeLookup.addRecipeModifier(SlotCount.getType(slots), result.getLazyModifier());
+    ModifierRecipeLookup.addRecipeModifier(SlotCount.type(slots), result.getLazyModifier());
     ModifierRecipeLookup.addRequirements(toolRequirement, result, requirements, requirementsError);
   }
 
@@ -200,7 +197,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
 
 
   /** Gets the modifiers list for a tool, ignoring partial levels from incremental modifiers */
-  public static List<ModifierEntry> getModifiersIgnoringPartial(ToolStack toolStack) {
+  public static List<ModifierEntry> getModifiersIgnoringPartial(IToolStackView toolStack) {
     ImmutableList.Builder<ModifierEntry> finalList = ImmutableList.builder();
     IModDataView persistentData = toolStack.getPersistentData();
     for (ModifierEntry entry : toolStack.getModifierList()) {
@@ -225,7 +222,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
 
   /** Validates just the modifier requirements */
   @Nullable
-  protected Component validateRequirements(ToolStack tool) {
+  protected Component validateRequirements(IToolStackView tool) {
     // validate modifier prereqs, skip building fancy list for always
     if (requirements != ModifierMatch.ALWAYS && !requirements.test(getModifiersIgnoringPartial(tool))) {
       return requirementsError.isEmpty() ? REQUIREMENTS_ERROR : new TranslatableComponent(requirementsError);
@@ -234,7 +231,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   }
 
   /**
-   * Validate tool has the right number of slots, called internally by {@link #validatePrerequisites(ToolStack)}
+   * Validate tool has the right number of slots, called internally by {@link #validatePrerequisites(IToolStackView)}
    * @param tool   Tool instance
    * @param slots  Required slots
    * @return  Error message, or null if no error
@@ -242,12 +239,12 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   @Nullable
   protected static Component checkSlots(IToolStackView tool, @Nullable SlotCount slots) {
     if (slots != null) {
-      int count = slots.getCount();
-      if (tool.getFreeSlots(slots.getType()) < count) {
+      int count = slots.count();
+      if (tool.getFreeSlots(slots.type()) < count) {
         if (count == 1) {
-          return new TranslatableComponent(KEY_NOT_ENOUGH_SLOT, slots.getType().getDisplayName());
+          return new TranslatableComponent(KEY_NOT_ENOUGH_SLOT, slots.type().getDisplayName());
         } else {
-          return new TranslatableComponent(KEY_NOT_ENOUGH_SLOTS, count, slots.getType().getDisplayName());
+          return new TranslatableComponent(KEY_NOT_ENOUGH_SLOTS, count, slots.type().getDisplayName());
         }
       }
     }
@@ -256,11 +253,11 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
 
   /**
    * Validates that this tool meets the modifier requirements, is not too high of a level, and has enough upgrade/ability slots
-   * @param tool           Tool stack instance   TODO change type to view
+   * @param tool           Tool stack instance
    * @return  Error message, or null if no error
    */
   @Nullable
-  protected Component validatePrerequisites(ToolStack tool) {
+  protected Component validatePrerequisites(IToolStackView tool) {
     Component requirements = validateRequirements(tool);
     if (requirements != null) {
       return requirements;
@@ -276,18 +273,17 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   public static abstract class Serializer<T extends AbstractModifierRecipe> extends LoggingRecipeSerializer<T> {
     /**
      * Reads any remaining data from the modifier recipe
-     * TODO 1.19: add allowCrystal
      * @return  Full recipe instance
      */
     public abstract T fromJson(ResourceLocation id, JsonObject json, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements,
-                           String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots);
+                           String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots, boolean allowCrystal);
 
     /**
      * Reads any remaining data from the modifier recipe
      * @return  Full recipe instance
      */
     public abstract T fromNetwork(ResourceLocation id, FriendlyByteBuf buffer, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements,
-                  String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots);
+                  String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots, boolean allowCrystal);
 
     /** Reads the result from the object */
     protected ModifierEntry readResult(JsonObject json) {
@@ -313,21 +309,9 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
       SlotCount slots = null;
       if (json.has("slots")) {
         slots = SlotCount.fromJson(GsonHelper.getAsJsonObject(json, "slots"));
-      } else {
-        // legacy support
-        // TODO: remove in 1.19
-        if (json.has("upgrade_slots") && json.has("ability_slots")) {
-          throw new JsonSyntaxException("Cannot set both upgrade_slots and ability_slots");
-        }
-        if (json.has("upgrade_slots")) {
-          slots = new SlotCount(SlotType.UPGRADE, JsonUtils.getIntMin(json, "upgrade_slots", 0));
-          TConstruct.LOG.warn("Using deprecated modifier recipe key upgrade_slots for recipe " + id);
-        } else if (json.has("ability_slots")) {
-          slots = new SlotCount(SlotType.ABILITY, JsonUtils.getIntMin(json, "ability_slots", 0));
-          TConstruct.LOG.warn("Using deprecated modifier recipe key ability_slots for recipe " + id);
-        }
       }
-      return fromJson(id, json, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots);
+      boolean allowCrystal = GsonHelper.getAsBoolean(json, "allow_crystal", true);
+      return fromJson(id, json, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots, allowCrystal);
     }
 
     @Override
@@ -339,7 +323,8 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
       ModifierEntry result = ModifierEntry.read(buffer);
       int maxLevel = buffer.readVarInt();
       SlotCount slots = SlotCount.read(buffer);
-      return fromNetwork(id, buffer, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots);
+      boolean allowCrystal = buffer.readBoolean();
+      return fromNetwork(id, buffer, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots, allowCrystal);
     }
 
     /** Writes relevant packet data. When overriding, call super first for consistency with {@link #fromJson(ResourceLocation, JsonObject)} */
@@ -352,6 +337,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
       recipe.result.write(buffer);
       buffer.writeVarInt(recipe.getMaxLevel());
       SlotCount.write(recipe.getSlots(), buffer);
+      buffer.writeBoolean(recipe.allowCrystal);
     }
   }
 

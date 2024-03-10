@@ -112,7 +112,7 @@ public class BonkingModifier extends SlingModifier implements MeleeHitModifierHo
             }
 
             // send it flying
-            float inaccuracy = ModifierUtil.getInaccuracy(tool, player, 1) * 0.0075f;
+            float inaccuracy = ModifierUtil.getInaccuracy(tool, player) * 0.0075f;
             Random random = player.getRandom();
             target.knockback(f * 3, -look.x + random.nextGaussian() * inaccuracy, -look.z + random.nextGaussian() * inaccuracy);
 

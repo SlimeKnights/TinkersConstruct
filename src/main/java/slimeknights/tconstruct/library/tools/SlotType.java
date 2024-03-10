@@ -4,7 +4,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import lombok.AccessLevel;
-import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
@@ -142,26 +141,23 @@ public final class SlotType {
     return "SlotType{" + name + '}';
   }
 
-  /** Data object representing a slot type and count
-   * TODO: make a record */
-  @Data
-  public static class SlotCount {
-    private final SlotType type;
-    private final int count;
-
-    /** Gets the type for the given slot count */
+  /** Data object representing a slot type and count */
+  public record SlotCount(SlotType type, int count) {
+    /**
+     * Gets the type for the given slot count
+     */
     @Nullable
-    public static SlotType getType(@Nullable SlotCount count) {
+    public static SlotType type(@Nullable SlotCount count) {
       if (count == null) {
         return null;
       }
-      return count.getType();
+      return count.type();
     }
 
     /**
      * Parses the slot data from the given JSON
-     * @param json  JSON
-     * @return  Slot count data
+     * @param json JSON
+     * @return Slot count data
      */
     public static SlotCount fromJson(JsonObject json) {
       if (json.entrySet().size() != 1) {
@@ -190,8 +186,8 @@ public final class SlotType {
 
     /** Gets the given type of slots from the given slot count object */
     public static int get(@Nullable SlotCount slots, SlotType type) {
-      if (slots != null && slots.getType() == type) {
-        return slots.getCount();
+      if (slots != null && slots.type() == type) {
+        return slots.count();
       }
       return 0;
     }
@@ -201,8 +197,8 @@ public final class SlotType {
       if (slots == null) {
         buffer.writeVarInt(0);
       } else {
-        buffer.writeVarInt(slots.getCount());
-        slots.getType().write(buffer);
+        buffer.writeVarInt(slots.count());
+        slots.type().write(buffer);
       }
     }
 

@@ -37,10 +37,10 @@ import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.json.BlockOrEntityCondition;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
-import slimeknights.tconstruct.library.json.TagDifferencePresentCondition;
-import slimeknights.tconstruct.library.json.TagIntersectionPresentCondition;
-import slimeknights.tconstruct.library.json.TagNotEmptyLootCondition;
-import slimeknights.tconstruct.library.json.TagPreferenceLootEntry;
+import slimeknights.tconstruct.library.json.condition.TagDifferencePresentCondition;
+import slimeknights.tconstruct.library.json.condition.TagIntersectionPresentCondition;
+import slimeknights.tconstruct.library.json.condition.TagNotEmptyCondition;
+import slimeknights.tconstruct.library.json.loot.TagPreferenceLootEntry;
 import slimeknights.tconstruct.library.json.predicate.TinkerLivingEntityPredicate;
 import slimeknights.tconstruct.library.recipe.ingredient.NoContainerIngredient;
 import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
@@ -134,7 +134,7 @@ public final class TinkerCommons extends TinkerModule {
   /* Loot conditions */
   public static final RegistryObject<LootItemConditionType> lootConfig = LOOT_CONDITIONS.register(ConfigEnabledCondition.ID.getPath(), () -> new LootItemConditionType(ConfigEnabledCondition.SERIALIZER));
   public static final RegistryObject<LootItemConditionType> lootBlockOrEntity = LOOT_CONDITIONS.register("block_or_entity", () -> new LootItemConditionType(new BlockOrEntityCondition.ConditionSerializer()));
-  public static final RegistryObject<LootItemConditionType> lootTagNotEmptyCondition = LOOT_CONDITIONS.register("tag_not_empty", () -> new LootItemConditionType(new TagNotEmptyLootCondition.ConditionSerializer()));
+  public static final RegistryObject<LootItemConditionType> lootTagNotEmptyCondition = LOOT_CONDITIONS.register("tag_not_empty", () -> new LootItemConditionType(new TagNotEmptyCondition.ConditionSerializer()));
   public static final RegistryObject<LootPoolEntryType> lootTagPreference = LOOT_ENTRIES.register("tag_preference", () -> new LootPoolEntryType(new TagPreferenceLootEntry.Serializer()));
 
   /* Slime Balls are edible, believe it or not */
@@ -163,7 +163,7 @@ public final class TinkerCommons extends TinkerModule {
 
     CraftingHelper.register(TagIntersectionPresentCondition.SERIALIZER);
     CraftingHelper.register(TagDifferencePresentCondition.SERIALIZER);
-    CraftingHelper.register(new TagNotEmptyLootCondition.ConditionSerializer());
+    CraftingHelper.register(new TagNotEmptyCondition.ConditionSerializer());
     // mantle
     LivingEntityPredicate.LOADER.register(getResource("airborne"), TinkerLivingEntityPredicate.AIRBORNE.getLoader());
   }

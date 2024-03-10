@@ -6,7 +6,6 @@ import net.minecraftforge.common.extensions.IForgeBlockEntity;
 
 import javax.annotation.Nullable;
 
-// TODO: move back to Mantle after smeltery is updated
 public interface IServantLogic extends IForgeBlockEntity {
   /**
    * Gets the position of the master block

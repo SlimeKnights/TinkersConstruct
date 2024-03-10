@@ -102,7 +102,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
       // consume slots as we are adding a new level
       SlotCount slots = getSlots();
       if (slots != null) {
-        persistentData.addSlots(slots.getType(), -slots.getCount());
+        persistentData.addSlots(slots.type(), -slots.count());
       }
 
       int amount;
@@ -307,7 +307,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
   public static class Serializer extends AbstractModifierRecipe.Serializer<IncrementalModifierRecipe> {
     @Override
     public IncrementalModifierRecipe fromJson(ResourceLocation id, JsonObject json, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements,
-                                          String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
+                                          String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots, boolean allowCrystal) {
       Ingredient input = Ingredient.fromJson(JsonHelper.getElement(json, "input"));
       int amountPerInput = GsonHelper.getAsInt(json, "amount_per_item", 1);
       if (amountPerInput < 1) {
@@ -321,18 +321,16 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
       if (amountPerInput > 1 && json.has("leftover")) {
         leftover = deseralizeResultItem(json, "leftover");
       }
-      boolean allowCrystal = GsonHelper.getAsBoolean(json, "allow_crystal", true);
       return new IncrementalModifierRecipe(id, input, amountPerInput, neededPerLevel, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots, leftover, allowCrystal);
     }
 
     @Override
     public IncrementalModifierRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buffer, Ingredient toolRequirement, int maxToolSize, ModifierMatch requirements,
-                                          String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots) {
+                                          String requirementsError, ModifierEntry result, int maxLevel, @Nullable SlotCount slots, boolean allowCrystal) {
       Ingredient input = Ingredient.fromNetwork(buffer);
       int amountPerInput = buffer.readVarInt();
       int neededPerLevel = buffer.readVarInt();
       ItemStack leftover = buffer.readItem();
-      boolean allowCrystal = buffer.readBoolean();
       return new IncrementalModifierRecipe(id, input, amountPerInput, neededPerLevel, toolRequirement, maxToolSize, requirements, requirementsError, result, maxLevel, slots, leftover, allowCrystal);
     }
 
@@ -343,7 +341,6 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
       buffer.writeVarInt(recipe.amountPerInput);
       buffer.writeVarInt(recipe.neededPerLevel);
       buffer.writeItem(recipe.leftover);
-      buffer.writeBoolean(recipe.allowCrystal);
     }
   }
 }

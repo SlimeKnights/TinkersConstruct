@@ -3,12 +3,13 @@ package slimeknights.tconstruct.library.modifiers;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.resources.ResourceLocation;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.function.Function;
 
-/** Class implementing a modifier hook, used as a key for TODO method link */
+/** Class implementing a modifier hook, used as a key for {@link Modifier#registerHooks(Builder)} and {@link Modifier#getHook(ModifierHook)} */
 @RequiredArgsConstructor
 public class ModifierHook<T> {
   /** Unique name of this hook, used for serialization */

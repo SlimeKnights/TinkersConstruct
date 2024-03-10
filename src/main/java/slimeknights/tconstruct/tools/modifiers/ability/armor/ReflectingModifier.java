@@ -79,7 +79,7 @@ public class ReflectingModifier extends Modifier {
                 Vec3 reboundAngle = living.getLookAngle();
                 // use the shield accuracy and velocity stats when reflecting
                 float velocity = ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.VELOCITY) * 1.1f;
-                projectile.shoot(reboundAngle.x, reboundAngle.y, reboundAngle.z, velocity, ModifierUtil.getInaccuracy(tool, living, (float)(velocity * projectile.getDeltaMovement().length())));
+                projectile.shoot(reboundAngle.x, reboundAngle.y, reboundAngle.z, velocity, ModifierUtil.getInaccuracy(tool, living));
                 if (projectile instanceof AbstractHurtingProjectile hurting) {
                   hurting.xPower = reboundAngle.x * 0.1;
                   hurting.yPower = reboundAngle.y * 0.1;
