@@ -6,7 +6,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import io.netty.handler.codec.DecoderException;
 import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -19,9 +18,9 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.impl.BasicModifier;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule.ModuleWithHooks;
-import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -32,21 +31,19 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-/**
- * Modifier consisting of many composed hooks
- */
-public class ComposableModifier extends Modifier {
-  private final ModifierLevelDisplay levelDisplay;
-  private final TooltipDisplay tooltipDisplay;
-  /** If the priority is {@link Integer#MIN_VALUE}, assumed unset for datagen */
-  @Getter
-  private final int priority;
+/** Modifier consisting of many composed hooks, used in datagen as a serialized modifier. */
+public class ComposableModifier extends BasicModifier {
   private final List<ModuleWithHooks> modules;
+
+  /**
+   * Creates a new instance
+   * @param levelDisplay     Level display
+   * @param tooltipDisplay   Tooltip display
+   * @param priority         If the value is {@link Integer#MIN_VALUE}, assumed unset for datagen
+   * @param modules          Modules for this modifier
+   */
   protected ComposableModifier(ModifierLevelDisplay levelDisplay, TooltipDisplay tooltipDisplay, int priority, List<ModuleWithHooks> modules) {
-    super(ModifierModule.createMap(modules));
-    this.levelDisplay = levelDisplay;
-    this.tooltipDisplay = tooltipDisplay;
-    this.priority = priority;
+    super(ModifierModule.createMap(modules), levelDisplay, tooltipDisplay, priority);
     this.modules = modules;
   }
 
@@ -60,15 +57,6 @@ public class ComposableModifier extends Modifier {
     return LOADER;
   }
 
-  /** This method is final to prevent overrides as the constructor no longer calls it */
-  @Override
-  protected final void registerHooks(ModifierHookMap.Builder hookBuilder) {}
-
-  @Override
-  public Component getDisplayName(int level) {
-    return levelDisplay.nameForLevel(this, level);
-  }
-
   @Override
   public Component getDisplayName(IToolStackView tool, int level) {
     return getHook(TinkerHooks.DISPLAY_NAME).getDisplayName(tool, this, level, getDisplayName(level));
@@ -77,12 +65,6 @@ public class ComposableModifier extends Modifier {
   @Override
   public float getEffectiveLevel(IToolContext tool, int level) {
     return getHook(TinkerHooks.EFFECTIVE_LEVEL).getEffectiveLevel(tool, this, level);
-  }
-
-  @Override
-  public boolean shouldDisplay(boolean advanced) {
-    return advanced ? tooltipDisplay != TooltipDisplay.NEVER
-                    : tooltipDisplay == TooltipDisplay.ALWAYS;
   }
 
   /** Determines when this modifier shows in tooltips */
