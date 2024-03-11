@@ -15,7 +15,7 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.impl.TotalArmorLevelModifier;
+import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.modifiers.spilling.ISpillingEffect;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
@@ -25,12 +25,10 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.JsonUtils;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
-public class StrongBonesModifier extends TotalArmorLevelModifier {
-  private static final TinkerDataKey<Integer> STRONG_BONES = TConstruct.createKey("strong_bones");
+public class StrongBonesModifier extends NoLevelsModifier {
   /** Key for modifiers that are boosted by drinking milk */
   public static final TinkerDataKey<Integer> CALCIFIABLE = TConstruct.createKey("calcifable");
   public StrongBonesModifier() {
-    super(STRONG_BONES, true);
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, LivingEntityUseItemEvent.Finish.class, StrongBonesModifier::onItemFinishUse);
   }
 
@@ -39,7 +37,7 @@ public class StrongBonesModifier extends TotalArmorLevelModifier {
     super.onUnequip(tool, level, context);
     if (context.getChangedSlot() == EquipmentSlot.HEAD) {
       IToolStackView replacement = context.getReplacementTool();
-      if (replacement == null || replacement.getModifierLevel(this) == 0) {
+      if (replacement == null || replacement.getModifierLevel(this) == 0 || replacement.getItem() != tool.getItem()) {
         // cure effects using the helmet
         context.getEntity().curePotionEffects(new ItemStack(tool.getItem()));
       }
@@ -47,10 +45,13 @@ public class StrongBonesModifier extends TotalArmorLevelModifier {
   }
 
   private static void drinkMilk(LivingEntity living, int duration) {
-    if (ModifierUtil.getTotalModifierLevel(living, STRONG_BONES) > 0) {
+    // strong bones has to be the helmet as we use it for curing
+    // TODO 1.20: can use the new cure effects to make this work in any slot
+    ItemStack helmet = living.getItemBySlot(EquipmentSlot.HEAD);
+    if (ModifierUtil.getModifierLevel(helmet, TinkerModifiers.strongBones.getId()) > 0) {
       MobEffectInstance effect = new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, duration);
       effect.getCurativeItems().clear();
-      effect.getCurativeItems().add(new ItemStack(living.getItemBySlot(EquipmentSlot.HEAD).getItem()));
+      effect.getCurativeItems().add(new ItemStack(helmet.getItem()));
       living.addEffect(effect);
     }
     if (ModifierUtil.getTotalModifierLevel(living, CALCIFIABLE) > 0) {
