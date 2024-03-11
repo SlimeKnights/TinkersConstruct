@@ -2787,7 +2787,9 @@
   "command.tconstruct.stat_type.wrong_type": "无效的数据类型%s，必须从%s处继承",
   "command.tconstruct.material.not_found": "未知材料%s",
   "command.tconstruct.modifier.not_found": "未知强化%s",
+  "command.tconstruct.modifier_hook.not_found": "未知强化钩子%s",
   "command.tconstruct.modifier_usage": "已成功将强化说明打印至游戏日志中",
+  "command.tconstruct.modifier_priority": "已成功将强化排序优先级打印至游戏日志中",
 
   "command.tconstruct.modifiers.success.add.single": "为%2$s的物品添加%1$s强化",
   "command.tconstruct.modifiers.success.add.multiple": "为%2$s个实体添加%1$s强化",
