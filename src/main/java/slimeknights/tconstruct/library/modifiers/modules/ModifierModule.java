@@ -20,17 +20,10 @@ import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Interface for a module in a composable modifier
- */
-public interface ModifierModule extends IHaveLoader<ModifierModule> {
+/** Interface for a module in a composable modifier. This is the serializable version of {@link ModifierHookProvider}. */
+public interface ModifierModule extends IHaveLoader<ModifierModule>, ModifierHookProvider {
   /** Loader instance to register new modules. Note that loaders should not use the key "hooks" else composable modifiers will not parse */
   GenericLoaderRegistry<ModifierModule> LOADER = new GenericLoaderRegistry<>();
-
-  /**
-   * Gets the default list of hooks this module implements
-   */
-  List<ModifierHook<?>> getDefaultHooks();
 
   /**
    * Gets the priority for this module.
@@ -134,7 +127,10 @@ public interface ModifierModule extends IHaveLoader<ModifierModule> {
     return builder.build();
   }
 
-  /** Helper method to validate generics on the hooks when building a default hooks list. To use, make sure you set the generics instead of leaving it automatic. */
+  /**
+   * Helper method to validate generics on the hooks when building a default hooks list. To use, make sure you set the generics instead of leaving it automatic.
+   * TODO 1.19: move to {@link ModifierHookProvider}.
+   */
   @SafeVarargs
   static <T> List<ModifierHook<?>> defaultHooks(ModifierHook<? super T> ... hooks) {
     return List.of(hooks);

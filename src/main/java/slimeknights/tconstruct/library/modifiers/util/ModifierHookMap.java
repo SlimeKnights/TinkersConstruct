@@ -4,7 +4,8 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.LinkedHashMultimap;
 import lombok.RequiredArgsConstructor;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
-import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
+import slimeknights.tconstruct.library.modifiers.impl.BasicModifier;
+import slimeknights.tconstruct.library.modifiers.modules.ModifierHookProvider;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -67,8 +68,8 @@ public class ModifierHookMap {
       return this;
     }
 
-    /** Adds a modifier module to the builder, automatically adding all its hooks */
-    public Builder addModule(ModifierModule module) {
+    /** Adds a modifier module to the builder, automatically adding all its hooks. Use {@link #addHook(Object, ModifierHook)} to specify hooks. */
+    public Builder addModule(ModifierHookProvider module) {
       for (ModifierHook<?> hook : module.getDefaultHooks()) {
         addHookChecked(module, hook);
       }
@@ -126,6 +127,11 @@ public class ModifierHookMap {
         insert(builder, entry.getKey(), entry.getValue());
       }
       return new ModifierHookMap(builder.build());
+    }
+
+    /** Transitions this builder into a basic modifier builder */
+    public BasicModifier.Builder modifier() {
+      return BasicModifier.Builder.builder(build());
     }
   }
 }
