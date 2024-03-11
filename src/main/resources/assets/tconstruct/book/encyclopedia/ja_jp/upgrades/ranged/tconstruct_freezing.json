@@ -6,8 +6,9 @@
     }
   ],
   "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/ranged",
   "effects": [
-    "最大2レベル",
+    "最大3レベル",
     "「灼熱」と同時に発動しない",
     "レベルごとにアップグレードスロットが1つ必要"
   ]

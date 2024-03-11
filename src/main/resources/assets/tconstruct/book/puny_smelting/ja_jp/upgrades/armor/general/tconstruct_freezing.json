@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:freezing",
+  "text": [
+    {
+      "text": "エルザは嫉妬しているかも。"
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/armor",
+  "effects": [
+    "攻撃した相手を凍結させることがある",
+  	"複数回適用でき、レベルが上がると効果時間が伸びる",
+  	"レベルごとにアップグレードスロットが1つ必要"
+  ]
+}

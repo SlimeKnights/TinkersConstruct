@@ -193,6 +193,9 @@
   "item.tconstruct.ichor_slime_ball": "イコルボール",
 
   "item.tconstruct.bacon": "ベーコン",
+  "item.tconstruct.cheese_ingot": "チーズ",
+  "block.tconstruct.cheese_block": "チーズブロック",
+  "item.tconstruct.cheese.tooltip": "食べるとランダムで1つステータス効果が消える",
 
   "item.tconstruct.earth_slime_crystal": "アーススライムクリスタル",
   "block.tconstruct.earth_slime_crystal_block": "アーススライムクリスタルブロック",

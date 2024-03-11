@@ -1,9 +1,13 @@
 intro=はじめに
 
 tools=道具
-small_tools=小型道具
-large_tools=大型道具
+tools.small_tools=小型道具
+tools.large_tools=大型道具
 tools.group_staff=杖
+tools.tconstruct.earth_staff=アーススライム
+tools.tconstruct.sky_staff=スカイスライム
+tools.tconstruct.ichor_staff=イコル
+tools.tconstruct.ender_staff=エンダースライム
 armor=防具
 
 materials_harvest_1=Tier1 近接/収穫用素材
@@ -29,10 +33,15 @@ upgrades=アップグレード
 upgrades.subtext=各道具は有限個のアップグレードスロットを持っています。
 upgrades.group_general=一般
 upgrades.group_harvest=収穫
-upgrades.group_melee=近接
+upgrades.group_weapon=近接
 upgrades.group_ranged=遠距離
-upgrades.group_damage=攻撃力増加
+upgrades.group_damage=ダメージ増加
 upgrades.group_armor=防具
+upgrades.group_armor.helmet=ヘルメット
+upgrades.group_armor.chestplate=チェストプレート
+upgrades.group_armor.leggings=レギンス
+upgrades.group_armor.boots=ブーツ
+
 
 defense=防御
 defense.subtext=素材の能力の代わりに、防具は耐性を高めるための防御スロットを持っています。
@@ -52,4 +61,9 @@ abilities.group_melee=近接
 abilities.group_ranged=遠距離
 abilities.group_interact=アクション
 abilities.group_armor=防具
+abilities.group_armor.helmet=ヘルメット
+abilities.group_armor.chestplate=チェストプレート
+abilities.group_armor.leggings=レギンス
+abilities.group_armor.boots=ブーツ
+abilities.group_armor.shield=盾
 

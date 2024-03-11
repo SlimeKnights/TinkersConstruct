@@ -5,6 +5,7 @@
       "text": "ネザーの炎は敵を戒める。"
     }
   ],
+  "tool_filter": "tconstruct:modifiable/ranged",
   "effects": [
     "攻撃が当たった相手を炎上させる",
     "複数回適用でき、レベルが上がると炎上時間が伸びる",

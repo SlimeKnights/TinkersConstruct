@@ -9,16 +9,21 @@ ranged_materials.subtext=これらの素材を鋳造して弓のような遠距�
 
 further_reading=参考文献
 
-armor=旅行者の装備
-armor.subtext=旅行者の装備は改良作業台でクラフトします！これらの防具の防御力は高くはありませんが、防具をアップグレードする機会はまだたくさんあります。ああ、どんな素敵なものを作りますか？
+armor=初級防具
+armor.subtext=銅などの初歩的な資源を入手することにより、作業台で旅行者の防具などの基本的な防具を作成できるようになります。この防具の防御力は最高ではありませんが、防具をアップグレードする機会はまだたくさんあります。
 
 upgrades=アップグレード
 upgrades.subtext=道具はアップグレードで強化できますが、各道具に適用できるのは有限個のみです。
 upgrades.group_general=一般
 upgrades.group_harvest=収穫
 upgrades.group_melee=近接
+upgrades.group_ranged=遠距離
 upgrades.group_damage=攻撃力上昇
 upgrades.group_armor=防具
+upgrades.group_armor.helmet=ヘルメット
+upgrades.group_armor.chestplate=チェストプレート
+upgrades.group_armor.leggings=レギンス
+upgrades.group_armor.boots=ブーツ
 
 slotless=スロット不要の改造
 slotless.subtext=これらの改造は、適用するためにスロットは不要で、望むなら全てを適用できます。

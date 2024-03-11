@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:freezing",
+  "text": [
+    {
+      "text": "(15×レベル)%の確率で攻撃された相手を(レベル×4)秒間凍結させ、継続ダメージと移動速度低下を与えます。複数の部位に適用すると効果が重複します。"
+    },
+    {
+      "text": "盾の場合は効果が2倍になりますが、ブロック時にしか発動しません。", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/armor",
+  "effects": [
+    "最大3レベル",
+    "「灼熱」と同時に発動しない",
+    "レベルごとにアップグレードスロットが1つ必要"
+  ]
+}

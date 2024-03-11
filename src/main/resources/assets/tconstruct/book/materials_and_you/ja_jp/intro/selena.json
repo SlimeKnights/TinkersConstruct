@@ -1,0 +1,16 @@
+{
+  "title": "Selena",
+  "image": {
+	"file": "tconstruct:book/images/selena.png",
+    "width": 95,
+    "height": 105
+  },
+  "text": [
+    {
+      "text": "私はスライムクラフターギルドの司書で、特殊スライム軍隊長のSelena Arcadia Eodhan。"
+    },
+    {
+      "text": "皆さんが学業で素晴らしい技術を身につけることと、この分野で素晴らしい幸運があることを祈っています。"
+    }
+  ]
+}
