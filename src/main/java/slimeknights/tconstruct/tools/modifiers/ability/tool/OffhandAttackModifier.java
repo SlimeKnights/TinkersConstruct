@@ -16,6 +16,7 @@ import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteract
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
+import slimeknights.tconstruct.library.modifiers.modules.behavior.ShowOffhandModule;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
@@ -31,6 +32,7 @@ public class OffhandAttackModifier extends NoLevelsModifier implements EntityInt
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
     hookBuilder.addHook(this, TinkerHooks.GENERAL_INTERACT, TinkerHooks.ENTITY_INTERACT, TinkerHooks.EQUIPMENT_CHANGE, TinkerHooks.VOLATILE_DATA);
+    hookBuilder.addModule(ShowOffhandModule.DISALLOW_BROKEN);
   }
 
   @Override

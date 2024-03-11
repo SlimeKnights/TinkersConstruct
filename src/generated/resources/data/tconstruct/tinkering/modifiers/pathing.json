@@ -4,7 +4,8 @@
   "tooltip_display": "always",
   "modules": [
     {
-      "type": "tconstruct:show_offhand"
+      "type": "tconstruct:show_offhand",
+      "mode": "disallow_broken"
     },
     {
       "type": "tconstruct:campfire_extinguish"

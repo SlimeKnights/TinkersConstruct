@@ -23,7 +23,8 @@ import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolActionModifie
 import slimeknights.tconstruct.library.modifiers.hook.combat.LootingModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
-import slimeknights.tconstruct.library.modifiers.impl.InteractionModifier;
+import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
+import slimeknights.tconstruct.library.modifiers.modules.behavior.ShowOffhandModule;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.definition.module.ToolModuleHooks;
 import slimeknights.tconstruct.library.tools.definition.module.interaction.DualOptionInteraction;
@@ -33,7 +34,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 @RequiredArgsConstructor
-public class ShearsAbilityModifier extends InteractionModifier.NoLevels implements EntityInteractionModifierHook, ToolActionModifierHook {
+public class ShearsAbilityModifier extends NoLevelsModifier implements EntityInteractionModifierHook, ToolActionModifierHook {
   private final int range;
   @Getter
   private final int priority;
@@ -41,6 +42,7 @@ public class ShearsAbilityModifier extends InteractionModifier.NoLevels implemen
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
+    hookBuilder.addModule(ShowOffhandModule.DISALLOW_BROKEN);
     hookBuilder.addHook(this, TinkerHooks.ENTITY_INTERACT, TinkerHooks.TOOL_ACTION);
   }
 

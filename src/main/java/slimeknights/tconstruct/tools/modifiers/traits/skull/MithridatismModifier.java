@@ -6,20 +6,27 @@ import net.minecraftforge.event.entity.living.PotionEvent.PotionApplicableEvent;
 import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.EventPriority;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.impl.TotalArmorLevelModifier;
+import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
+import slimeknights.tconstruct.library.modifiers.modules.unserializable.ArmorLevelModule;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
-import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 
-public class MithridatismModifier extends TotalArmorLevelModifier {
+public class MithridatismModifier extends NoLevelsModifier {
   private static final TinkerDataKey<Integer> MITHRIDATISM = TConstruct.createKey("mithridatism");
   public MithridatismModifier() {
-    super(MITHRIDATISM, true);
+    // TODO: move this out of constructor to generalized logic
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, PotionApplicableEvent.class, MithridatismModifier::isPotionApplicable);
+  }
+
+  @Override
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addModule(new ArmorLevelModule(MITHRIDATISM, false));
   }
 
   /** Prevents poison on the entity */
   private static void isPotionApplicable(PotionApplicableEvent event) {
-    if (event.getPotionEffect().getEffect() == MobEffects.POISON && ModifierUtil.getTotalModifierLevel(event.getEntityLiving(), MITHRIDATISM) > 0) {
+    if (event.getPotionEffect().getEffect() == MobEffects.POISON && ArmorLevelModule.getLevel(event.getEntityLiving(), MITHRIDATISM) > 0) {
       event.setResult(Result.DENY);
     }
   }

@@ -34,7 +34,8 @@ import slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteracti
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.hook.mining.RemoveBlockModifierHook;
-import slimeknights.tconstruct.library.modifiers.impl.InteractionModifier;
+import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
+import slimeknights.tconstruct.library.modifiers.modules.behavior.ShowOffhandModule;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.definition.aoe.CircleAOEIterator;
@@ -52,7 +53,7 @@ import java.util.Collections;
  * Modifier that starts a fire at the given position
  */
 @RequiredArgsConstructor
-public class FirestarterModifier extends InteractionModifier.NoLevels implements EntityInteractionModifierHook, BlockInteractionModifierHook, ToolActionModifierHook, RemoveBlockModifierHook {
+public class FirestarterModifier extends NoLevelsModifier implements EntityInteractionModifierHook, BlockInteractionModifierHook, ToolActionModifierHook, RemoveBlockModifierHook {
   /** Generic action for the sake of people who want compat but do not want to request a specific action */
   private static final ToolAction LIGHT_FIRE = ToolAction.get("light_fire");
   /** Compat with mods adding custom campfires */
@@ -64,6 +65,7 @@ public class FirestarterModifier extends InteractionModifier.NoLevels implements
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
+    hookBuilder.addModule(ShowOffhandModule.DISALLOW_BROKEN);
     hookBuilder.addHook(this, TinkerHooks.ENTITY_INTERACT, TinkerHooks.BLOCK_INTERACT, TinkerHooks.TOOL_ACTION, TinkerHooks.REMOVE_BLOCK);
   }
 

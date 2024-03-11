@@ -8,16 +8,23 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
-import slimeknights.tconstruct.library.modifiers.impl.TotalArmorLevelModifier;
+import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
+import slimeknights.tconstruct.library.modifiers.modules.unserializable.ArmorLevelModule;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
-import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
 
-public class BouncyModifier extends TotalArmorLevelModifier {
+public class BouncyModifier extends NoLevelsModifier {
   private static final TinkerDataKey<Integer> BOUNCY = TConstruct.createKey("bouncy");
   public BouncyModifier() {
-    super(BOUNCY, true);
+    // TODO: move this out of constructor to generalized logic
     MinecraftForge.EVENT_BUS.addListener(BouncyModifier::onFall);
+  }
+
+  @Override
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addModule(new ArmorLevelModule(BOUNCY, false));
   }
 
   /** Called when an entity lands to handle the event */
@@ -28,7 +35,7 @@ public class BouncyModifier extends TotalArmorLevelModifier {
       return;
     }
     // can the entity bounce?
-    if (ModifierUtil.getTotalModifierLevel(living, BOUNCY) == 0) {
+    if (ArmorLevelModule.getLevel(living, BOUNCY) == 0) {
       return;
     }
 

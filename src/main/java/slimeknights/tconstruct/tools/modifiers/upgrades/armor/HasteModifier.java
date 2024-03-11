@@ -11,7 +11,8 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.ToolStatsModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
-import slimeknights.tconstruct.library.modifiers.impl.IncrementalArmorLevelModifier;
+import slimeknights.tconstruct.library.modifiers.impl.IncrementalModifier;
+import slimeknights.tconstruct.library.modifiers.modules.unserializable.ArmorStatModule;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay.UniqueForLevels;
@@ -25,20 +26,17 @@ import slimeknights.tconstruct.library.utils.Util;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class HasteModifier extends IncrementalArmorLevelModifier implements ToolStatsModifierHook, TooltipModifierHook {
+public class HasteModifier extends IncrementalModifier implements ToolStatsModifierHook, TooltipModifierHook {
   private static final Component MINING_SPEED = TConstruct.makeTranslation("modifier", "fake_attribute.mining_speed");
-  /** Player modifier data key for haste */
+  /** Player modifier data key for haste, represents an additive percentage boost on mining speed. */
   public static final TinkerDataKey<Float> HASTE = TConstruct.createKey("haste");
 
   private static final ModifierLevelDisplay NAME = new UniqueForLevels(5);
 
-  public HasteModifier() {
-    super(HASTE);
-  }
-
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
+    hookBuilder.addModule(new ArmorStatModule(HASTE, 0.1f, false));
     hookBuilder.addHook(this, TinkerHooks.TOOL_STATS, TinkerHooks.TOOLTIP);
   }
 

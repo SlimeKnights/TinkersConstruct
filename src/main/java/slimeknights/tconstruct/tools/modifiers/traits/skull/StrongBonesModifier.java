@@ -15,42 +15,32 @@ import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.TinkerHooks;
-import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
+import slimeknights.tconstruct.library.modifiers.modules.behavior.CureOnRemovalModule;
+import slimeknights.tconstruct.library.modifiers.modules.unserializable.ArmorLevelModule;
 import slimeknights.tconstruct.library.modifiers.spilling.ISpillingEffect;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
-import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
-import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.JsonUtils;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
-public class StrongBonesModifier extends NoLevelsModifier implements EquipmentChangeModifierHook {
+public class StrongBonesModifier extends NoLevelsModifier {
   /** Key for modifiers that are boosted by drinking milk */
   public static final TinkerDataKey<Integer> CALCIFIABLE = TConstruct.createKey("calcifable");
+  /** Module to add to any calcifiable modifiers */
+  public static final ArmorLevelModule CALCIFIABLE_MODULE = new ArmorLevelModule(CALCIFIABLE, false);
+
   public StrongBonesModifier() {
+    // TODO: move this out of constructor to generalized logic
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, LivingEntityUseItemEvent.Finish.class, StrongBonesModifier::onItemFinishUse);
   }
 
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, TinkerHooks.EQUIPMENT_CHANGE);
-  }
-
-  @Override
-  public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
-    if (context.getChangedSlot() == EquipmentSlot.HEAD) {
-      IToolStackView replacement = context.getReplacementTool();
-      if (replacement == null || replacement.getModifierLevel(this) == 0 || replacement.getItem() != tool.getItem()) {
-        // cure effects using the helmet
-        context.getEntity().curePotionEffects(new ItemStack(tool.getItem()));
-      }
-    }
+    hookBuilder.addModule(CureOnRemovalModule.HELMET);
   }
 
   private static void drinkMilk(LivingEntity living, int duration) {
@@ -63,7 +53,7 @@ public class StrongBonesModifier extends NoLevelsModifier implements EquipmentCh
       effect.getCurativeItems().add(new ItemStack(helmet.getItem()));
       living.addEffect(effect);
     }
-    if (ModifierUtil.getTotalModifierLevel(living, CALCIFIABLE) > 0) {
+    if (ArmorLevelModule.getLevel(living, CALCIFIABLE) > 0) {
       TinkerModifiers.calcifiedEffect.get().apply(living, duration, 0, true);
     }
   }

@@ -54,6 +54,7 @@ import slimeknights.tconstruct.library.modifiers.hook.armor.ModifyDamageModifier
 import slimeknights.tconstruct.library.modifiers.hook.armor.OnAttackedModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.armor.ProtectionModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.armor.MobDisguiseModule;
+import slimeknights.tconstruct.library.modifiers.modules.unserializable.ArmorStatModule;
 import slimeknights.tconstruct.library.tools.capability.EntityModifierCapability;
 import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
@@ -108,10 +109,10 @@ public class ToolEvents {
     }
 
     // next, add in armor haste
-    float armorHaste = ModifierUtil.getTotalModifierFloat(player, HasteModifier.HASTE);
+    float armorHaste = ArmorStatModule.getStat(player, HasteModifier.HASTE);
     if (armorHaste > 0) {
       // adds in 10% per level
-      event.setNewSpeed(event.getNewSpeed() * (1 + 0.1f * armorHaste));
+      event.setNewSpeed(event.getNewSpeed() * (1 + armorHaste));
     }
   }
 

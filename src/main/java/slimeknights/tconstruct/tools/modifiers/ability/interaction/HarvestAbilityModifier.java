@@ -28,7 +28,8 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
-import slimeknights.tconstruct.library.modifiers.impl.InteractionModifier;
+import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
+import slimeknights.tconstruct.library.modifiers.modules.behavior.ShowOffhandModule;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.definition.aoe.IAreaOfEffectIterator;
 import slimeknights.tconstruct.library.tools.definition.module.ToolModuleHooks;
@@ -42,13 +43,14 @@ import java.util.Iterator;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class HarvestAbilityModifier extends InteractionModifier.NoLevels implements BlockInteractionModifierHook {
+public class HarvestAbilityModifier extends NoLevelsModifier implements BlockInteractionModifierHook {
   @Getter
   private final int priority;
 
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
+    hookBuilder.addModule(ShowOffhandModule.DISALLOW_BROKEN);
     hookBuilder.addHook(this, TinkerHooks.BLOCK_INTERACT);
   }
 

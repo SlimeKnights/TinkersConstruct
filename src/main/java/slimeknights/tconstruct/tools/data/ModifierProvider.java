@@ -358,16 +358,16 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     // interaction
     buildModifier(ModifierIds.pathing)
       .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
-      .addModule(ShowOffhandModule.INSTANCE)
+      .addModule(ShowOffhandModule.DISALLOW_BROKEN)
       .addModule(ExtinguishCampfireModule.INSTANCE)
       .addModule(ToolActionTransformModule.builder(ToolActions.SHOVEL_FLATTEN, SoundEvents.SHOVEL_FLATTEN).requireGround().build());
     buildModifier(ModifierIds.stripping)
-      .addModule(ShowOffhandModule.INSTANCE)
+      .addModule(ShowOffhandModule.DISALLOW_BROKEN)
       .addModule(ToolActionTransformModule.builder(ToolActions.AXE_STRIP, SoundEvents.AXE_STRIP).build())
       .addModule(ToolActionTransformModule.builder(ToolActions.AXE_SCRAPE, SoundEvents.AXE_SCRAPE).eventId(3005).build())
       .addModule(ToolActionTransformModule.builder(ToolActions.AXE_WAX_OFF, SoundEvents.AXE_WAX_OFF).eventId(3004).build());
     buildModifier(ModifierIds.tilling)
-      .addModule(ShowOffhandModule.INSTANCE)
+      .addModule(ShowOffhandModule.DISALLOW_BROKEN)
       .addModule(ToolActionTransformModule.builder(ToolActions.HOE_TILL, SoundEvents.HOE_TILL).build());
     addRedirect(id("axe_scrape"), redirect(ModifierIds.stripping));
     addRedirect(id("axe_wax_off"), redirect(ModifierIds.stripping));

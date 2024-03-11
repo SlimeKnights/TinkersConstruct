@@ -19,9 +19,6 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
-import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
-import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
-import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -89,77 +86,6 @@ public final class ModifierUtil {
   /** Checks if the given slot may contain armor */
   public static boolean validArmorSlot(IToolStackView tool, EquipmentSlot slot) {
     return slot.getType() == Type.ARMOR || tool.hasTag(TinkerTags.Items.HELD);
-  }
-
-  /**
-   * Adds levels to the given key in entity modifier data for an armor modifier
-   * @param tool     Tool instance
-   * @param context  Equipment change context
-   * @param key      Key to modify
-   * @param amount   Amount to add
-   */
-  public static void addTotalArmorModifierLevel(IToolStackView tool, EquipmentChangeContext context, TinkerDataKey<Integer> key, int amount, boolean allowBroken) {
-    if (validArmorSlot(tool, context.getChangedSlot()) && (allowBroken || !tool.isBroken())) {
-      context.getTinkerData().ifPresent(data -> {
-        int totalLevels = data.get(key, 0) + amount;
-        if (totalLevels <= 0) {
-          data.remove(key);
-        } else {
-          data.put(key, totalLevels);
-        }
-      });
-    }
-  }
-
-  /**
-   * Adds levels to the given key in entity modifier data for an armor modifier
-   * @param tool     Tool instance
-   * @param context  Equipment change context
-   * @param key      Key to modify
-   * @param amount   Amount to add
-   */
-  public static void addTotalArmorModifierLevel(IToolStackView tool, EquipmentChangeContext context, TinkerDataKey<Integer> key, int amount) {
-    addTotalArmorModifierLevel(tool, context, key, amount, false);
-  }
-
-  /**
-   * Adds levels to the given key in entity modifier data for an armor modifier
-   * @param tool     Tool instance
-   * @param context  Equipment change context
-   * @param key      Key to modify
-   * @param amount   Amount to add
-   */
-  public static void addTotalArmorModifierFloat(IToolStackView tool, EquipmentChangeContext context, TinkerDataKey<Float> key, float amount) {
-    if (validArmorSlot(tool, context.getChangedSlot()) && !tool.isBroken()) {
-      context.getTinkerData().ifPresent(data -> {
-        float totalLevels = data.get(key, 0f) + amount;
-        if (totalLevels <= 0.005f) {
-          data.remove(key);
-        } else {
-          data.put(key, totalLevels);
-        }
-      });
-    }
-  }
-
-  /**
-   * Gets the total level from the key in the entity modifier data
-   * @param living  Living entity
-   * @param key     Key to get
-   * @return  Level from the key
-   */
-  public static int getTotalModifierLevel(LivingEntity living, TinkerDataKey<Integer> key) {
-    return living.getCapability(TinkerDataCapability.CAPABILITY).resolve().map(data -> data.get(key)).orElse(0);
-  }
-
-  /**
-   * Gets the total level from the key in the entity modifier data
-   * @param living  Living entity
-   * @param key     Key to get
-   * @return  Level from the key
-   */
-  public static float getTotalModifierFloat(LivingEntity living, TinkerDataKey<Float> key) {
-    return living.getCapability(TinkerDataCapability.CAPABILITY).resolve().map(data -> data.get(key)).orElse(0f);
   }
 
   /** Shortcut to get a volatile flag when the tool stack is not needed otherwise */

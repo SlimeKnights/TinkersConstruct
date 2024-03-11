@@ -13,7 +13,8 @@ import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.hook.mining.RemoveBlockModifierHook;
-import slimeknights.tconstruct.library.modifiers.impl.InteractionModifier.NoLevels;
+import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
+import slimeknights.tconstruct.library.modifiers.modules.behavior.ShowOffhandModule;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.definition.module.ToolModuleHooks;
@@ -24,10 +25,11 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 
 import javax.annotation.Nullable;
 
-public class GlowingModifier extends NoLevels implements BlockInteractionModifierHook, RemoveBlockModifierHook {
+public class GlowingModifier extends NoLevelsModifier implements BlockInteractionModifierHook, RemoveBlockModifierHook {
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
+    hookBuilder.addModule(ShowOffhandModule.DISALLOW_BROKEN);
     hookBuilder.addHook(this, TinkerHooks.BLOCK_INTERACT, TinkerHooks.REMOVE_BLOCK);
   }
 

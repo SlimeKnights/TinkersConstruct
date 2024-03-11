@@ -8,20 +8,17 @@ import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.combat.DamageDealtModifierHook;
-import slimeknights.tconstruct.library.modifiers.impl.TotalArmorLevelModifier;
+import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
-public class WitheredModifier extends TotalArmorLevelModifier implements DamageDealtModifierHook {
-  public WitheredModifier() {
-    super(StrongBonesModifier.CALCIFIABLE, true);
-  }
-
+public class WitheredModifier extends NoLevelsModifier implements DamageDealtModifierHook {
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
+    hookBuilder.addModule(StrongBonesModifier.CALCIFIABLE_MODULE);
     hookBuilder.addHook(this, TinkerHooks.DAMAGE_DEALT);
   }
 

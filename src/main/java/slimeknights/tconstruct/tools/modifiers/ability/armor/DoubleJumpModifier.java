@@ -10,14 +10,16 @@ import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
-import slimeknights.tconstruct.library.modifiers.impl.TotalArmorLevelModifier;
+import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.modules.unserializable.ArmorLevelModule;
+import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 
 import java.util.Random;
 
-public class DoubleJumpModifier extends TotalArmorLevelModifier {
+public class DoubleJumpModifier extends Modifier {
   private static final ResourceLocation JUMPS = TConstruct.getResource("jumps");
   private static final TinkerDataKey<Integer> EXTRA_JUMPS = TConstruct.createKey("extra_jumps");
 
@@ -25,8 +27,14 @@ public class DoubleJumpModifier extends TotalArmorLevelModifier {
   private Component levelTwoName = null;
 
   public DoubleJumpModifier() {
-    super(EXTRA_JUMPS);
+    // TODO: move this out of constructor to generalized logic
     MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, DoubleJumpModifier::onLand);
+  }
+
+  @Override
+  protected void registerHooks(Builder hookBuilder) {
+    super.registerHooks(hookBuilder);
+    hookBuilder.addHook(new ArmorLevelModule(EXTRA_JUMPS, false));
   }
 
   @Override
