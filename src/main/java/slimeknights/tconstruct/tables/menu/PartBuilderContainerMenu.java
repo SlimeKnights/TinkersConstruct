@@ -25,13 +25,13 @@ public class PartBuilderContainerMenu extends TabbedContainerMenu<PartBuilderBlo
   @Getter
   private final LazyResultSlot outputSlot;
 
-  public PartBuilderContainerMenu(int windowIdIn, Inventory playerInventoryIn, @Nullable PartBuilderBlockEntity partBuilderTileEntity) {
-    super(TinkerTables.partBuilderContainer.get(), windowIdIn, playerInventoryIn, partBuilderTileEntity);
+  public PartBuilderContainerMenu(int windowIdIn, Inventory inventory, @Nullable PartBuilderBlockEntity partBuilderTileEntity) {
+    super(TinkerTables.partBuilderContainer.get(), windowIdIn, inventory, partBuilderTileEntity);
 
     // unfortunately, nothing works with no tile
     if (tile != null) {
       // slots
-      this.addSlot(this.outputSlot = new LazyResultSlot(tile.getCraftingResult(), 148, 33));
+      this.addSlot(this.outputSlot = new LazyResultSlot(tile.getCraftingResult(), inventory.player, 148, 33));
       // inputs
       this.addSlot(this.patternSlot = new PatternSlot(tile, 8, 34));
       this.addSlot(this.inputSlot = new PartBuilderSlot(tile, PartBuilderBlockEntity.MATERIAL_SLOT, 29, 34));
