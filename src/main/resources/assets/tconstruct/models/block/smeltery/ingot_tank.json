@@ -1,0 +1,9 @@
+{
+  "parent": "tconstruct:block/template/tank_knob",
+  "textures": {
+    "in_bottom":  "tconstruct:block/smeltery/tank/tank_in_bottom",
+    "bottom":     "tconstruct:block/smeltery/tank/tank_bottom",
+    "top":        "tconstruct:block/smeltery/tank/tank_top",
+    "side":       "tconstruct:block/smeltery/tank/ingot_tank"
+  }
+}
