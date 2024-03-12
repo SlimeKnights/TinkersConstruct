@@ -1,7 +1,7 @@
 {
   "tool": "tconstruct:flint_and_brick",
   "text": [
-    { "text": "焦磚打火石是一種自帶「縱火」特性的手持工具。" },
+    { "text": "打火磚是一種自帶「縱火」特性的手持工具。" },
     { "text": "「延展」強化可以增加點火半徑，可以用「火種」強化進一步增加。", "paragraph": true }
   ],
   "properties": [
