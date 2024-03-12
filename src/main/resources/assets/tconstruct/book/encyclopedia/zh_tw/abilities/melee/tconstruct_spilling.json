@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:spilling",
+  "text": [
+    {
+      "text": "排出一小部分流體（一般在10mB到50mB之間），通過特殊效果提升攻擊力，例如點燃、額外傷害或藥水效果。"
+    },
+    {
+      "text": "有這個升級的工具還可以直接從儲罐方塊中盛出流體或將流體倒入儲罐方塊。"
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/held",
+  "effects": [
+    "無等級上限",
+    "需要1個能力槽",
+    "在流體儲罐上使用工具可以填充流體"
+  ]
+}
