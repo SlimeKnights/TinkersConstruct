@@ -3,11 +3,11 @@ intro=介紹
 tools=工具
 tools.group_small=小型工具
 tools.group_large=寬型工具
-tools.group_staff=黏液手杖
-tools.tconstruct.earth_staff=大地黏液手杖
-tools.tconstruct.sky_staff=碧空黏液手杖
+tools.group_staff=史萊姆手杖
+tools.tconstruct.earth_staff=大地史萊姆手杖
+tools.tconstruct.sky_staff=碧空史萊姆手杖
 tools.tconstruct.ichor_staff=靈漿手杖
-tools.tconstruct.ender_staff=終界黏液手杖
+tools.tconstruct.ender_staff=終界史萊姆手杖
 armor=盔甲
 
 materials_harvest_1=一級近程材料
@@ -26,8 +26,8 @@ materials_ranged_3=三級遠程材料
 materials_ranged_3.subtext=三級遠程材料用於製作遠程武器。
 materials_ranged_4=四級遠程材料
 materials_ranged_4.subtext=四級遠程材料用於製作遠程武器。
-materials_skull=黏液頭顱
-materials_skull.subtext=本章節介紹了所有型別的頭顱製成的黏液頭顱的效果。
+materials_skull=史萊姆頭顱
+materials_skull.subtext=本章節介紹了所有型別的頭顱製成的史萊姆頭顱的效果。
 
 upgrades=升級強化
 upgrades.subtext=每一把工具都有一些升級強化槽，不過數量有限。
