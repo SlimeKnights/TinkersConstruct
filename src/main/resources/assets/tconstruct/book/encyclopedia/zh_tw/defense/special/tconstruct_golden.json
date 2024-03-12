@@ -2,10 +2,10 @@
   "modifier_id": "tconstruct:golden",
   "text": [
     {
-      "text": "使豬靈不再與你敵對。只需穿一件具有該強化的盔甲即可。"
+      "text": "使豬布林不再與你敵對。只需穿一件具有該強化的盔甲即可。"
     },
     {
-      "text": "允許你使用金子修復盔甲耐久。", "paragraph": true
+      "text": "允許你使用金修復盔甲耐久。", "paragraph": true
     }
   ],
   "more_text_space": true,
