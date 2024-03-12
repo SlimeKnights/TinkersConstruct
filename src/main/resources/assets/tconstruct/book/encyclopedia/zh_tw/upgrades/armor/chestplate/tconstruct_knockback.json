@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:knockback",
   "text": [
     {
-      "text": "每級所有武器擊退效果+1，可以將生物擊飛大約2格距離。大部分工具自帶0.4點選退。"
+      "text": "每級所有武器擊退效果+1，可以將生物擊飛大約2格距離。大部分工具自帶0.4點擊退。"
     }
   ],
   "more_text_space": true,
