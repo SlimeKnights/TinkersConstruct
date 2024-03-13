@@ -6,53 +6,19 @@
  * Help from AbrarSyed
  */
 
-buildscript {
-    repositories {
-        mavenLocal()
-        maven { url = 'https://maven.minecraftforge.net/' }
-        maven { url = 'https://libraries.minecraft.net/' }
-        jcenter()
-        mavenCentral()
-        maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
-        }
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
-        maven {
-            name "Parchment"
-            url "https://maven.parchmentmc.org"
-        }
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-        classpath 'io.freefair.gradle:lombok-plugin:6.3.0'
-        classpath 'org.parchmentmc:librarian:1.+'
-    }
+plugins {
+    id 'eclipse'
+    id 'maven-publish'
+    id 'net.minecraftforge.gradle' version '5.1.+'
+    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+    id 'io.freefair.lombok' version '8.6'
 }
-
-apply plugin: 'net.minecraftforge.gradle'
 //apply plugin: 'maven'
-apply plugin: 'eclipse'
-apply plugin: 'maven-publish'
-apply plugin: "io.freefair.lombok"
-apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 //import net.minecraftforge.gradle.common.task.SignJar
 
 repositories {
-    mavenCentral()
-    mavenLocal()
-    maven { // Vanilla
-        name 'Vanilla'
-        url 'https://libraries.minecraft.net/'
-    }
-    maven { // Forge
-        name 'ForgeFS'
-        url 'https://maven.minecraftforge.net/'
-    }
-    maven { // Mantle and JEI
+    maven { // Mantle
         name 'DVS1 Maven FS'
         url 'https://dvs1.progwml6.com/files/maven'
     }
@@ -60,7 +26,7 @@ repositories {
         name 'tterrag maven'
         url "https://maven.tterrag.com/"
     }
-    maven { // CraftTweaker, Immersive Engineering
+    maven { // CraftTweaker, Immersive Engineering, JEI
         name 'BlameJared Maven'
         url 'https://maven.blamejared.com'
     }
@@ -74,10 +40,14 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+    // If you have mod jar dependencies in ./libs, you can declare them as a repository like so:
+    // flatDir {
+    //     dir 'libs'
+    // }
 }
 
 group = 'slimeknights.tconstruct'
-
+archivesBaseName = 'TinkersConstruct'
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 // sets version to the slimeKnights version format
@@ -110,6 +80,7 @@ if (System.getenv().ARTIFACT_VERSION != null) {
 }
 
 version = "${minecraft_version}-${artifact_version}"
+println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}, Version: ${version}"
 
 sourceSets {
     main {
@@ -229,21 +200,22 @@ dependencies {
     implementation fg.deobf("slimeknights.mantle:Mantle:${minecraft_version}-${mantle_version}")
 
     // compile against the JEI API but do not include it at runtime
-    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}:api")
+    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
     // at runtime, use the full JEI jar
-    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${jei_version}")
+    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 
     // implementation fg.deobf("mcjty.theoneprobe:TheOneProbe-${minecraft_base_version}:${minecraft_base_version}-${probe_version}")
 
     // compileOnly fg.deobf("com.blamejared.crafttweaker:CraftTweaker-${minecraft_version}:${crt_version}")
     compileOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${minecraft_version}-${ie_version}")
-    runtimeOnly fg.deobf("curse.maven:MmmMmmMmmMmm-225738:3820503")
-    runtimeOnly fg.deobf("curse.maven:lazy-dfu-forge-460819:3544496")
+    runtimeOnly fg.deobf("curse.maven:MmmMmmMmmMmm-225738:4410143")
+    runtimeOnly fg.deobf("curse.maven:lazy-dfu-forge-460819:4327266")
 
     // runtimeOnly fg.deobf("curse.maven:terrablender-563928:3619749")
     // runtimeOnly fg.deobf("curse.maven:biomes-o-plenty-220318:3616582")
     // runtimeOnly fg.deobf("curse.maven:terralith-513688:3606078")
-    compileOnly fg.deobf("curse.maven:diet-443570:4571116")
+    compileOnly fg.deobf("curse.maven:diet-443570:4813890")
 
     compileOnly fg.deobf("dev.gigaherz.jsonthings:JsonThings-${minecraft_version}:${json_things_version}")
 
@@ -269,7 +241,6 @@ def modsTomlSpec = copySpec{
             'forge_range': forge_range,
             'mantle_range': mantle_range,
             'jei_range': jei_range,
-            'crt_range': crt_range,
             'json_things_range': json_things_range
     }
 }
@@ -407,4 +378,8 @@ publishing {
             maven { url DEPLOY_DIR }
         }
     }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }
