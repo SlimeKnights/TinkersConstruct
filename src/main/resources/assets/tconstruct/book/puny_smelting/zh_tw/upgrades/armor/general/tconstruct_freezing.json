@@ -7,7 +7,7 @@
   ],
   "tool_filter": "tconstruct:modifiable/armor",
   "effects": [
-    "有概率冰凍攻擊者",
+    "有機率冰凍攻擊者",
     "多個等級，每級進一步增加冰凍時間",
 	  "每級需要1個升級槽"
   ]
