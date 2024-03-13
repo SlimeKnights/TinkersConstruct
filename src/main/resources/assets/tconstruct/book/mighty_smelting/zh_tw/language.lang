@@ -1,7 +1,7 @@
 intro=介紹
-entity_melting=實體熔鍊
+entity_melting=實體熔煉
 melee_harvest_materials=三級近程材料
-melee_harvest_materials.subtext=這些材料需要通過合金來獲得，然後鑄造成近戰武器或採掘工具的工具部件。
+melee_harvest_materials.subtext=這些材料需要通過合金來獲得，然後鑄造成近戰武器或挖掘用工具的工具部件。
 ranged_materials=三級遠程材料
 ranged_materials.subtext=這些材料需要通過合金來獲得，然後鑄造成像弓那樣的遠程武器的工具部件。
 
@@ -29,6 +29,6 @@ abilities.group_armor.shield=盾牌能力
 upgrades.subtext=工具可被升級強化，但同一把工具的升級次數是有限的。
 
 defense=防禦強化
-defense.subtext=防禦強化只能被應用於盔甲，並且消耗防禦槽。
+defense.subtext=防禦強化只能被附加於盔甲，並且消耗防禦槽。
 defense.group_protection=保護防禦
 defense.group_special=特殊防禦
