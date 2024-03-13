@@ -5,7 +5,7 @@
       "text": "工具漏液還挺噁心的。但也挺有用的！"
     },
     {
-      "text": "手持工具對著儲罐右擊可以填充。", "paragraph": true
+      "text": "手持工具對著儲罐點擊右鍵可以填充。", "paragraph": true
     }
   ],
   "tool_filter": "tconstruct:modifiable/armor",
