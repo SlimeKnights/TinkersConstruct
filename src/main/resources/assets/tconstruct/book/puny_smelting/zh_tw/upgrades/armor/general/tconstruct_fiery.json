@@ -7,7 +7,7 @@
   ],
   "tool_filter": "tconstruct:modifiable/armor",
   "effects": [
-    "有概率點燃攻擊者",
+    "有機率點燃攻擊者",
     "多個等級，每級進一步增加燃燒時間",
     "每級需要1個升級槽"
   ]
