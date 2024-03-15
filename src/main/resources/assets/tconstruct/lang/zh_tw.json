@@ -2965,7 +2965,9 @@
   "advancements.tconstruct.world.slime_sling.title": "彈弓高手",
   "advancements.tconstruct.world.slime_sling.description": "充分使用所有四種彈弓",
   "advancements.tconstruct.world.piggybackpack.title": "肩馱豬",
-  "advancements.tconstruct.world.piggybackpack.description": "用肩馱架馱起一隻豬"
-
+  "advancements.tconstruct.world.piggybackpack.description": "用肩馱架馱起一隻豬",
+  
+  "_comment": "所有繁體中文翻譯均以簡體中文譯名為基礎",
+  "_comment": "感謝全體參與簡體中文翻譯人員",
 }
 
