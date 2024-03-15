@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "ingredient": [
@@ -31,16 +32,15 @@
       "tag": "forge:ender_pearls"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/interactable"
+  "max_level": 1,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:bucketing"
   },
   "slots": {
     "abilities": 1
   },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:bucketing",
-    "level": 1
-  },
-  "max_level": 1
+  "tools": {
+    "tag": "tconstruct:modifiable/interactable"
+  }
 }

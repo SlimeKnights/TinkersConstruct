@@ -7,7 +7,6 @@ import lombok.Getter;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
@@ -225,7 +224,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   protected Component validateRequirements(IToolStackView tool) {
     // validate modifier prereqs, skip building fancy list for always
     if (requirements != ModifierMatch.ALWAYS && !requirements.test(getModifiersIgnoringPartial(tool))) {
-      return requirementsError.isEmpty() ? REQUIREMENTS_ERROR : new TranslatableComponent(requirementsError);
+      return requirementsError.isEmpty() ? REQUIREMENTS_ERROR : Component.translatable(requirementsError);
     }
     return null;
   }
@@ -242,9 +241,9 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
       int count = slots.count();
       if (tool.getFreeSlots(slots.type()) < count) {
         if (count == 1) {
-          return new TranslatableComponent(KEY_NOT_ENOUGH_SLOT, slots.type().getDisplayName());
+          return Component.translatable(KEY_NOT_ENOUGH_SLOT, slots.type().getDisplayName());
         } else {
-          return new TranslatableComponent(KEY_NOT_ENOUGH_SLOTS, count, slots.type().getDisplayName());
+          return Component.translatable(KEY_NOT_ENOUGH_SLOTS, count, slots.type().getDisplayName());
         }
       }
     }
@@ -264,13 +263,13 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
     }
     // max level of modifier
     if (maxLevel != 0 && tool.getUpgrades().getLevel(result.getId()) + result.getLevel() > maxLevel) {
-      return new TranslatableComponent(KEY_MAX_LEVEL, result.getModifier().getDisplayName(), maxLevel);
+      return Component.translatable(KEY_MAX_LEVEL, result.getModifier().getDisplayName(), maxLevel);
     }
     return checkSlots(tool, slots);
   }
 
   /** Shared serializer logic */
-  public static abstract class Serializer<T extends AbstractModifierRecipe> extends LoggingRecipeSerializer<T> {
+  public static abstract class Serializer<T extends AbstractModifierRecipe> implements LoggingRecipeSerializer<T> {
     /**
      * Reads any remaining data from the modifier recipe
      * @return  Full recipe instance
@@ -315,7 +314,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
     }
 
     @Override
-    protected final T fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    public final T fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       Ingredient toolRequirement = Ingredient.fromNetwork(buffer);
       int maxToolSize = buffer.readVarInt();
       ModifierMatch requirements = ModifierMatch.read(buffer);
@@ -329,7 +328,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
 
     /** Writes relevant packet data. When overriding, call super first for consistency with {@link #fromJson(ResourceLocation, JsonObject)} */
     @Override
-    protected void toNetworkSafe(FriendlyByteBuf buffer, T recipe) {
+    public void toNetworkSafe(FriendlyByteBuf buffer, T recipe) {
       recipe.toolRequirement.toNetwork(buffer);
       buffer.writeVarInt(recipe.maxToolSize);
       recipe.requirements.write(buffer);

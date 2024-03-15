@@ -4,10 +4,10 @@
     "tag": "tconstruct:casts/single_use/gem"
   },
   "cast_consumed": true,
+  "cooling_time": 68,
   "fluid": {
-    "tag": "tconstruct:molten_emerald",
-    "amount": 100
+    "amount": 100,
+    "tag": "tconstruct:molten_emerald"
   },
-  "result": "minecraft:emerald",
-  "cooling_time": 68
+  "result": "minecraft:emerald"
 }

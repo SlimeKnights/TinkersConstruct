@@ -14,6 +14,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.common.util.NonNullConsumer;
 import net.minecraftforge.common.util.NonNullFunction;
@@ -21,7 +22,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.block.entity.MantleBlockEntity;
@@ -171,7 +171,7 @@ public class FuelModule implements ContainerData {
             temperature = SOLID_TEMPERATURE;
             parent.setChangedFast();
             // return the container
-            ItemStack container = extracted.getContainerItem();
+            ItemStack container = extracted.getCraftingRemainingItem();
             if (!container.isEmpty()) {
               // if we cannot insert the container back, spit it on the ground
               ItemStack notInserted = ItemHandlerHelper.insertItem(handler, container, false);
@@ -252,7 +252,7 @@ public class FuelModule implements ContainerData {
     BlockEntity te = getLevel().getBlockEntity(pos);
     if (te != null) {
       // if we find a valid cap, try to consume fuel from it
-      LazyOptional<IFluidHandler> capability = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
+      LazyOptional<IFluidHandler> capability = te.getCapability(ForgeCapabilities.FLUID_HANDLER);
       Optional<Integer> temperature = capability.map(tryLiquidFuel(consume));
       if (temperature.isPresent()) {
         itemHandler = null;
@@ -263,7 +263,7 @@ public class FuelModule implements ContainerData {
         return temperature.get();
       } else {
         // if we find a valid item cap, consume fuel from that
-        LazyOptional<IItemHandler> itemCap = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
+        LazyOptional<IItemHandler> itemCap = te.getCapability(ForgeCapabilities.ITEM_HANDLER);
         temperature = itemCap.map(trySolidFuel(consume));
         if (temperature.isPresent()) {
           fluidHandler = null;
@@ -441,12 +441,12 @@ public class FuelModule implements ContainerData {
     if (fluidHandler == null && itemHandler == null) {
       BlockEntity te = getLevel().getBlockEntity(mainTank);
       if (te != null) {
-        LazyOptional<IFluidHandler> fluidCap = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY);
+        LazyOptional<IFluidHandler> fluidCap = te.getCapability(ForgeCapabilities.FLUID_HANDLER);
         if (fluidCap.isPresent()) {
           fluidHandler = fluidCap;
           fluidHandler.addListener(fluidListener);
         } else {
-          LazyOptional<IItemHandler> itemCap = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
+          LazyOptional<IItemHandler> itemCap = te.getCapability(ForgeCapabilities.ITEM_HANDLER);
           if (itemCap.isPresent()) {
             itemHandler = itemCap;
             itemHandler.addListener(itemListener);

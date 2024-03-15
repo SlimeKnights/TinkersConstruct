@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.json.variable.stat;
 
 import net.minecraft.world.entity.LivingEntity;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.json.variable.NestedFallbackLoader;
 import slimeknights.tconstruct.library.json.variable.NestedFallbackLoader.NestedFallback;
 import slimeknights.tconstruct.library.json.variable.entity.EntityVariable;

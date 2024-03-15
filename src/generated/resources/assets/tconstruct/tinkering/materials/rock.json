@@ -1,8 +1,8 @@
 {
-  "texture": "tconstruct:rock_stone",
+  "color": "B1AFAD",
   "fallbacks": [
     "rock"
   ],
-  "color": "B1AFAD",
-  "luminosity": 0
+  "luminosity": 0,
+  "texture": "tconstruct:rock_stone"
 }

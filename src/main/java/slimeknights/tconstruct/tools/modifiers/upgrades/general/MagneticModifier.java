@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -79,9 +79,9 @@ public class MagneticModifier extends Modifier implements PlantHarvestModifierHo
   // armor
 
   /** Called to perform the magnet for armor */
-  private static void onLivingTick(LivingUpdateEvent event) {
+  private static void onLivingTick(LivingTickEvent event) {
     // TOOD: this will run on any held armor that is also melee/harvest, is that a problem?
-    LivingEntity entity = event.getEntityLiving();
+    LivingEntity entity = event.getEntity();
     if (!entity.isSpectator() && (entity.tickCount & 1) == 0) {
       int level = ArmorLevelModule.getLevel(entity, MAGNET);
       if (level > 0) {

@@ -1,11 +1,11 @@
 {
   "type": "tconstruct:modifier_salvage",
-  "tools": {
-    "tag": "tconstruct:modifiable/durability"
-  },
+  "min_level": 1,
+  "modifier": "tconstruct:emerald",
   "slots": {
     "upgrades": 1
   },
-  "modifier": "tconstruct:emerald",
-  "min_level": 1
+  "tools": {
+    "tag": "tconstruct:modifiable/durability"
+  }
 }

@@ -1,10 +1,9 @@
 {
   "type": "tconstruct:tinker_station_damaging",
+  "damage_amount": 5,
   "ingredient": {
-    "type": "forge:nbt",
+    "type": "forge:partial_nbt",
     "item": "minecraft:potion",
-    "count": 1,
     "nbt": "{Potion:\"minecraft:thick\"}"
-  },
-  "damage_amount": 5
+  }
 }

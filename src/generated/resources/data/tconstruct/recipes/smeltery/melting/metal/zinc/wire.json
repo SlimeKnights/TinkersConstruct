@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:wires/zinc",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:wires/zinc"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:wires/zinc"
   },
   "result": {
-    "fluid": "tconstruct:molten_zinc",
-    "amount": 45
+    "amount": 45,
+    "fluid": "tconstruct:molten_zinc"
   },
   "temperature": 420,
   "time": 9

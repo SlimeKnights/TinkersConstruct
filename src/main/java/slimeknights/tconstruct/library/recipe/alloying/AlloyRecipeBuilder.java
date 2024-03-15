@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.recipe.alloying;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -17,7 +18,6 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Consumer;
 
 /** Builder for alloy recipes */
@@ -34,7 +34,7 @@ public class AlloyRecipeBuilder extends AbstractRecipeBuilder<AlloyRecipeBuilder
    * @return  Builder instance
    */
   public static AlloyRecipeBuilder alloy(FluidStack fluid) {
-    return alloy(fluid, fluid.getFluid().getAttributes().getTemperature(fluid) - 300);
+    return alloy(fluid, fluid.getFluid().getFluidType().getTemperature(fluid) - 300);
   }
 
   /**
@@ -94,7 +94,7 @@ public class AlloyRecipeBuilder extends AbstractRecipeBuilder<AlloyRecipeBuilder
 
   @Override
   public void save(Consumer<FinishedRecipe> consumer) {
-    save(consumer, Objects.requireNonNull(output.getFluid().getRegistryName()));
+    save(consumer, Registry.FLUID.getKey(output.getFluid()));
   }
 
   @Override

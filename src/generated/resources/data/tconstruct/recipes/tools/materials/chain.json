@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "minecraft:chain"
   },
-  "value": 1,
+  "material": "tconstruct:chain",
   "needed": 1,
-  "material": "tconstruct:chain"
+  "value": 1
 }

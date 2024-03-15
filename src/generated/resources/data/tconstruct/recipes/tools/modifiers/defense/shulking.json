@@ -1,19 +1,19 @@
 {
   "type": "tconstruct:incremental_modifier",
+  "allow_crystal": true,
+  "amount_per_item": 1,
   "input": {
     "item": "minecraft:shulker_shell"
   },
-  "amount_per_item": 1,
   "needed_per_level": 5,
-  "tools": {
-    "tag": "tconstruct:modifiable/armor"
+  "result": {
+    "level": 1,
+    "name": "tconstruct:shulking"
   },
   "slots": {
     "defense": 1
   },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:shulking",
-    "level": 1
+  "tools": {
+    "tag": "tconstruct:modifiable/armor"
   }
 }

@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:geore_clusters/tungsten",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:geore_clusters/tungsten"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:geore_clusters/tungsten"
   },
   "result": {
-    "fluid": "tconstruct:molten_tungsten",
-    "amount": 360
+    "amount": 360,
+    "fluid": "tconstruct:molten_tungsten"
   },
   "temperature": 950,
   "time": 162

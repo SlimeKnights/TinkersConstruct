@@ -1,49 +1,49 @@
 {
+  "color": "C3B9A1",
   "fallbacks": [
     "wood"
   ],
-  "color": "C3B9A1",
-  "luminosity": 0,
   "generator": {
+    "ignoreMaterialStats": false,
+    "supportedStats": [
+      "tconstruct:repair_kit"
+    ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",
       "color_mapping": {
         "type": "tconstruct:grey_to_color",
         "palette": [
           {
-            "grey": 0,
-            "color": "FF000000"
+            "color": "FF000000",
+            "grey": 0
           },
           {
-            "grey": 63,
-            "color": "FF6F516C"
+            "color": "FF6F516C",
+            "grey": 63
           },
           {
-            "grey": 102,
-            "color": "FF7E627B"
+            "color": "FF7E627B",
+            "grey": 102
           },
           {
-            "grey": 140,
-            "color": "FF958C79"
+            "color": "FF958C79",
+            "grey": 140
           },
           {
-            "grey": 178,
-            "color": "FFA99B87"
+            "color": "FFA99B87",
+            "grey": 178
           },
           {
-            "grey": 216,
-            "color": "FFC3B9A1"
+            "color": "FFC3B9A1",
+            "grey": 216
           },
           {
-            "grey": 255,
-            "color": "FFDCD9C0"
+            "color": "FFDCD9C0",
+            "grey": 255
           }
         ]
       }
-    },
-    "supportedStats": [
-      "tconstruct:repair_kit"
-    ],
-    "ignoreMaterialStats": false
-  }
+    }
+  },
+  "luminosity": 0
 }

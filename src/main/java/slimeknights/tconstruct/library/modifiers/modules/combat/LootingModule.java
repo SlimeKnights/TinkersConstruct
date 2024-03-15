@@ -3,8 +3,8 @@ package slimeknights.tconstruct.library.modifiers.modules.combat;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import slimeknights.mantle.data.GenericIntSerializer;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.loader.IntLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
@@ -21,7 +21,7 @@ import java.util.List;
  */
 public record LootingModule(int level) implements LootingModifierHook, ModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.TOOL_LOOTING, TinkerHooks.LEGGINGS_LOOTING, TinkerHooks.PROJECTILE_LOOTING);
-  public static IGenericLoader<LootingModule> LOADER = new GenericIntSerializer<>("level", LootingModule::new, LootingModule::level);
+  public static IGenericLoader<LootingModule> LOADER = new IntLoader<>("level", LootingModule::new, LootingModule::level);
 
   @Override
   public int getLootingValue(IToolStackView tool, ModifierEntry modifier, LivingEntity holder, Entity target, @Nullable DamageSource damageSource, int looting) {

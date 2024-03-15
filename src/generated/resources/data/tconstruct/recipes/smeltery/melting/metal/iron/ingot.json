@@ -4,8 +4,8 @@
     "tag": "forge:ingots/iron"
   },
   "result": {
-    "fluid": "tconstruct:molten_iron",
-    "amount": 90
+    "amount": 90,
+    "fluid": "tconstruct:molten_iron"
   },
   "temperature": 800,
   "time": 60

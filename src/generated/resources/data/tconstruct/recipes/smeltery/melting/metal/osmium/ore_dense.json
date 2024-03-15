@@ -1,16 +1,21 @@
 {
   "type": "tconstruct:ore_melting",
+  "byproducts": [
+    {
+      "amount": 540,
+      "fluid": "tconstruct:molten_iron"
+    }
+  ],
   "conditions": [
     {
+      "type": "tconstruct:tag_intersection_present",
       "registry": "minecraft:item",
       "tags": [
         "forge:ores/osmium",
         "forge:ore_rates/dense"
-      ],
-      "type": "tconstruct:tag_intersection_present"
+      ]
     }
   ],
-  "rate": "metal",
   "ingredient": {
     "type": "forge:intersection",
     "children": [
@@ -22,16 +27,11 @@
       }
     ]
   },
+  "rate": "metal",
   "result": {
-    "fluid": "tconstruct:molten_osmium",
-    "amount": 540
+    "amount": 540,
+    "fluid": "tconstruct:molten_osmium"
   },
   "temperature": 975,
-  "time": 295,
-  "byproducts": [
-    {
-      "fluid": "tconstruct:molten_iron",
-      "amount": 540
-    }
-  ]
+  "time": 295
 }

@@ -4,10 +4,10 @@
     "item": "minecraft:glass_bottle"
   },
   "cast_consumed": true,
+  "cooling_time": 1,
   "fluid": {
-    "tag": "forge:honey",
-    "amount": 250
+    "amount": 250,
+    "tag": "forge:honey"
   },
-  "result": "minecraft:honey_bottle",
-  "cooling_time": 1
+  "result": "minecraft:honey_bottle"
 }

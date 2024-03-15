@@ -1,5 +1,5 @@
 {
   "type": "tconstruct:table_casting_composite",
-  "result": "tconstruct:pick_head",
-  "item_cost": 2
+  "item_cost": 2,
+  "result": "tconstruct:pick_head"
 }

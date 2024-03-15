@@ -5,8 +5,8 @@ import net.minecraft.world.item.Items;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import slimeknights.tconstruct.TConstruct;
@@ -33,7 +33,7 @@ public class FluidEvents {
     if (event.getObject().is(Items.POWDER_SNOW_BUCKET)) {
       event.addCapability(
         TConstruct.getResource("powdered_snow"),
-        new ConstantFluidContainerWrapper(new FluidStack(TinkerFluids.powderedSnow.get(), FluidAttributes.BUCKET_VOLUME), stack, Items.BUCKET.getDefaultInstance()));
+        new ConstantFluidContainerWrapper(new FluidStack(TinkerFluids.powderedSnow.get(), FluidType.BUCKET_VOLUME), stack, Items.BUCKET.getDefaultInstance()));
     }
   }
 }

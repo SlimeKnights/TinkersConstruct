@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.library.json.predicate.tool;
 
 import net.minecraft.world.item.Item;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.loader.NestedLoader;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.item.ItemPredicate;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 
 /**

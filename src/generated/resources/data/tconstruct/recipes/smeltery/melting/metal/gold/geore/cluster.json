@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:geore_clusters/gold",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:geore_clusters/gold"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:geore_clusters/gold"
   },
   "result": {
-    "fluid": "tconstruct:molten_gold",
-    "amount": 360
+    "amount": 360,
+    "fluid": "tconstruct:molten_gold"
   },
   "temperature": 700,
   "time": 142

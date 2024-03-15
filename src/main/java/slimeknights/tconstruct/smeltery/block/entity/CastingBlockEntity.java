@@ -24,9 +24,9 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -124,7 +124,7 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
   @Override
   @Nonnull
   public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction facing) {
-    if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
+    if (capability == ForgeCapabilities.FLUID_HANDLER)
       return holder.cast();
     return super.getCapability(capability, facing);
   }

@@ -1,26 +1,26 @@
 {
   "parent": "tconstruct:smeltery/mighty_smelting",
+  "criteria": {
+    "open_smeltery": {
+      "conditions": {
+        "type": "tconstruct:smeltery"
+      },
+      "trigger": "tconstruct:block_container_opened"
+    }
+  },
   "display": {
-    "icon": {
-      "item": "tconstruct:smeltery_controller"
-    },
-    "title": {
-      "translate": "advancements.tconstruct.smeltery.structure.title"
-    },
+    "announce_to_chat": false,
     "description": {
       "translate": "advancements.tconstruct.smeltery.structure.description"
     },
     "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "tconstruct:smeltery_controller"
+    },
     "show_toast": true,
-    "announce_to_chat": false,
-    "hidden": false
-  },
-  "criteria": {
-    "open_smeltery": {
-      "trigger": "tconstruct:block_container_opened",
-      "conditions": {
-        "type": "tconstruct:smeltery"
-      }
+    "title": {
+      "translate": "advancements.tconstruct.smeltery.structure.title"
     }
   },
   "requirements": [

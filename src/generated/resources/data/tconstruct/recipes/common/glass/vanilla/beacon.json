@@ -2,26 +2,26 @@
   "type": "minecraft:crafting_shaped",
   "conditions": [
     {
-      "prop": "glass_recipe_fix",
-      "type": "tconstruct:config"
+      "type": "tconstruct:config",
+      "prop": "glass_recipe_fix"
     }
   ],
-  "pattern": [
-    "GGG",
-    "GSG",
-    "OOO"
-  ],
   "key": {
-    "S": {
-      "item": "minecraft:nether_star"
-    },
     "G": {
       "tag": "forge:glass/colorless"
     },
     "O": {
       "item": "minecraft:obsidian"
+    },
+    "S": {
+      "item": "minecraft:nether_star"
     }
   },
+  "pattern": [
+    "GGG",
+    "GSG",
+    "OOO"
+  ],
   "result": {
     "item": "minecraft:beacon"
   }

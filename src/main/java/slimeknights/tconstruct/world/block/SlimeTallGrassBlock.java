@@ -41,15 +41,6 @@ public class SlimeTallGrassBlock extends BushBlock implements IForgeShearable {
     return SHAPE;
   }
 
-  /**
-   * Get the OffsetType for this Block. Determines if the model is rendered slightly offset.
-   */
-  @Nonnull
-  @Override
-  public Block.OffsetType getOffsetType() {
-    return Block.OffsetType.XYZ;
-  }
-
   /* Forge/MC callbacks */
   @Nonnull
   @Override

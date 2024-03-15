@@ -1,4 +1,42 @@
 {
+  "actions": [
+    "axe_dig",
+    "shield_disable"
+  ],
+  "attack": {
+    "type": "tconstruct:particle",
+    "particle": "tconstruct:axe_attack"
+  },
+  "harvest": {
+    "aoe": {
+      "type": "tconstruct:fallback",
+      "fallback": {
+        "type": "tconstruct:box",
+        "bonus": {
+          "height": 5
+        },
+        "expansion_direction": "tconstruct:height",
+        "expansions": [
+          {
+            "width": 1
+          },
+          {
+            "depth": 1
+          }
+        ]
+      },
+      "if_matches": {
+        "type": "tconstruct:tree",
+        "depth_bonus": 0,
+        "width_bonus": 0
+      },
+      "tag": "tconstruct:tree_log"
+    },
+    "logic": {
+      "type": "tconstruct:effective_tag",
+      "effective": "minecraft:mineable/axe"
+    }
+  },
   "parts": [
     {
       "item": "tconstruct:broad_axe_head",
@@ -14,6 +52,10 @@
       "item": "tconstruct:tool_binding"
     }
   ],
+  "slots": {
+    "abilities": 1,
+    "upgrades": 2
+  },
   "stats": {
     "base": {
       "tconstruct:attack_damage": 5.0,
@@ -21,56 +63,14 @@
     },
     "multipliers": {
       "tconstruct:attack_damage": 1.65,
-      "tconstruct:mining_speed": 0.3,
-      "tconstruct:durability": 4.25
+      "tconstruct:durability": 4.25,
+      "tconstruct:mining_speed": 0.3
     }
-  },
-  "slots": {
-    "upgrades": 2,
-    "abilities": 1
   },
   "traits": [
     {
-      "name": "tconstruct:stripping",
-      "level": 1
+      "level": 1,
+      "name": "tconstruct:stripping"
     }
-  ],
-  "actions": [
-    "axe_dig",
-    "shield_disable"
-  ],
-  "harvest": {
-    "logic": {
-      "type": "tconstruct:effective_tag",
-      "effective": "minecraft:mineable/axe"
-    },
-    "aoe": {
-      "type": "tconstruct:fallback",
-      "tag": "tconstruct:tree_log",
-      "if_matches": {
-        "type": "tconstruct:tree",
-        "width_bonus": 0,
-        "depth_bonus": 0
-      },
-      "fallback": {
-        "type": "tconstruct:box",
-        "bonus": {
-          "height": 5
-        },
-        "expansions": [
-          {
-            "width": 1
-          },
-          {
-            "depth": 1
-          }
-        ],
-        "expansion_direction": "tconstruct:height"
-      }
-    }
-  },
-  "attack": {
-    "type": "tconstruct:particle",
-    "particle": "tconstruct:axe_attack"
-  }
+  ]
 }

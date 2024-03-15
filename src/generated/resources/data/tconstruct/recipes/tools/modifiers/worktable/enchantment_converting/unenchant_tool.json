@@ -1,18 +1,18 @@
 {
   "type": "tconstruct:enchantment_converting",
-  "name": "modifiers",
   "inputs": [
     {
       "item": "tconstruct:ender_slime_crystal"
     },
     {
-      "item": "minecraft:dragon_breath",
-      "amount_needed": 5
+      "amount_needed": 5,
+      "item": "minecraft:dragon_breath"
     }
   ],
   "match_book": false,
-  "return_unenchanted": true,
   "modifier_predicate": {
     "type": "tconstruct:always"
-  }
+  },
+  "name": "modifiers",
+  "return_unenchanted": true
 }

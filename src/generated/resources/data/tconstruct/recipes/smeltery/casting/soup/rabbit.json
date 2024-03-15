@@ -4,10 +4,10 @@
     "item": "minecraft:bowl"
   },
   "cast_consumed": true,
+  "cooling_time": 1,
   "fluid": {
-    "tag": "forge:rabbit_stew",
-    "amount": 250
+    "amount": 250,
+    "tag": "forge:rabbit_stew"
   },
-  "result": "minecraft:rabbit_stew",
-  "cooling_time": 1
+  "result": "minecraft:rabbit_stew"
 }

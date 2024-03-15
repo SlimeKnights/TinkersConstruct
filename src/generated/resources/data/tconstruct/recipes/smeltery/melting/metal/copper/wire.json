@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:wires/copper",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:wires/copper"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:wires/copper"
   },
   "result": {
-    "fluid": "tconstruct:molten_copper",
-    "amount": 45
+    "amount": 45,
+    "fluid": "tconstruct:molten_copper"
   },
   "temperature": 500,
   "time": 10

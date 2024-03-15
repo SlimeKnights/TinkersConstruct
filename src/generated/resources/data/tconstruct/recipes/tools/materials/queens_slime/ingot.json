@@ -3,7 +3,7 @@
   "ingredient": {
     "tag": "forge:ingots/queens_slime"
   },
-  "value": 1,
+  "material": "tconstruct:queens_slime",
   "needed": 1,
-  "material": "tconstruct:queens_slime"
+  "value": 1
 }

@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.mantle.fluid.tooltip.FluidTooltipHandler;
@@ -28,10 +27,10 @@ public class GuiFuelModule {
 
   // tooltips
   private static final String TOOLTIP_TEMPERATURE = TConstruct.makeTranslationKey("gui", "melting.fuel.temperature");
-  private static final List<Component> TOOLTIP_NO_TANK = Collections.singletonList(new TranslatableComponent(TConstruct.makeTranslationKey("gui", "melting.fuel.no_tank")));
-  private static final List<Component> TOOLTIP_NO_FUEL = Collections.singletonList(new TranslatableComponent(TConstruct.makeTranslationKey("gui", "melting.fuel.empty")));
-  private static final Component TOOLTIP_INVALID_FUEL = new TranslatableComponent(TConstruct.makeTranslationKey("gui", "melting.fuel.invalid")).withStyle(ChatFormatting.RED);
-  private static final Component TOOLTIP_SOLID_FUEL = new TranslatableComponent(TConstruct.makeTranslationKey("gui", "melting.fuel.solid"));
+  private static final List<Component> TOOLTIP_NO_TANK = Collections.singletonList(Component.translatable(TConstruct.makeTranslationKey("gui", "melting.fuel.no_tank")));
+  private static final List<Component> TOOLTIP_NO_FUEL = Collections.singletonList(Component.translatable(TConstruct.makeTranslationKey("gui", "melting.fuel.empty")));
+  private static final Component TOOLTIP_INVALID_FUEL = Component.translatable(TConstruct.makeTranslationKey("gui", "melting.fuel.invalid")).withStyle(ChatFormatting.RED);
+  private static final Component TOOLTIP_SOLID_FUEL = Component.translatable(TConstruct.makeTranslationKey("gui", "melting.fuel.solid"));
 
   private final AbstractContainerScreen<?> screen;
   private final FuelModule fuelModule;
@@ -116,7 +115,7 @@ public class GuiFuelModule {
             // no invalid fuel, we assume the slot is validated (hasFuelSlot is only true for the heater which validates)
             int temperature = fuelModule.getTemperature();
             if (temperature > 0) {
-              tooltip = Arrays.asList(TOOLTIP_SOLID_FUEL, new TranslatableComponent(TOOLTIP_TEMPERATURE, temperature).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+              tooltip = Arrays.asList(TOOLTIP_SOLID_FUEL, Component.translatable(TOOLTIP_TEMPERATURE, temperature).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
             } else {
               tooltip = TOOLTIP_NO_FUEL;
             }
@@ -131,7 +130,7 @@ public class GuiFuelModule {
         tooltip = FluidTooltipHandler.getFluidTooltip(fluid, fuelInfo.getTotalAmount());
         int temperature = fuelInfo.getTemperature();
         if (temperature > 0) {
-          tooltip.add(1, new TranslatableComponent(TOOLTIP_TEMPERATURE, temperature).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+          tooltip.add(1, Component.translatable(TOOLTIP_TEMPERATURE, temperature).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
         } else {
           tooltip.add(1, TOOLTIP_INVALID_FUEL);
         }

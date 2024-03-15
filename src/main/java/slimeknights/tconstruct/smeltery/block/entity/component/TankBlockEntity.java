@@ -11,14 +11,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.model.data.IModelData;
+import net.minecraftforge.client.model.data.ModelData;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import slimeknights.mantle.client.model.data.SinglePropertyData;
 import slimeknights.tconstruct.library.client.model.ModelProperties;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.utils.NBTTags;
@@ -32,7 +31,7 @@ import javax.annotation.Nullable;
 
 public class TankBlockEntity extends SmelteryComponentBlockEntity implements ITankBlockEntity {
   /** Max capacity for the tank */
-  public static final int DEFAULT_CAPACITY = FluidAttributes.BUCKET_VOLUME * 4;
+  public static final int DEFAULT_CAPACITY = FluidType.BUCKET_VOLUME * 4;
 
   /**
    * Gets the capacity for the given block
@@ -63,8 +62,6 @@ public class TankBlockEntity extends SmelteryComponentBlockEntity implements ITa
   protected final FluidTankAnimated tank;
   /** Capability holder for the tank */
   private final LazyOptional<IFluidHandler> holder;
-  /** Tank data for the model */
-  private final IModelData modelData;
   /** Last comparator strength to reduce block updates */
   @Getter @Setter
   private int lastStrength = -1;
@@ -86,7 +83,6 @@ public class TankBlockEntity extends SmelteryComponentBlockEntity implements ITa
     super(type, pos, state);
     tank = new FluidTankAnimated(block.getCapacity(), this);
     holder = LazyOptional.of(() -> tank);
-    modelData = new SinglePropertyData<>(ModelProperties.FLUID_TANK, tank);
   }
 
 
@@ -97,7 +93,7 @@ public class TankBlockEntity extends SmelteryComponentBlockEntity implements ITa
   @Override
   @Nonnull
   public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
-    if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+    if (capability == ForgeCapabilities.FLUID_HANDLER) {
       return holder.cast();
     }
     return super.getCapability(capability, facing);
@@ -111,8 +107,9 @@ public class TankBlockEntity extends SmelteryComponentBlockEntity implements ITa
 
   @Nonnull
   @Override
-  public IModelData getModelData() {
-    return modelData;
+  public ModelData getModelData() {
+    // TODO: switch to tank property and fluid property
+    return ModelData.builder().with(ModelProperties.FLUID_TANK, tank).build();
   }
 
   @Override
@@ -120,6 +117,7 @@ public class TankBlockEntity extends SmelteryComponentBlockEntity implements ITa
     ITankBlockEntity.super.onTankContentsChanged();
     if (this.level != null) {
       level.getLightEngine().checkBlock(this.worldPosition);
+      this.requestModelDataUpdate();
     }
   }
 

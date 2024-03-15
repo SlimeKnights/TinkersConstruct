@@ -1,24 +1,24 @@
 {
   "type": "tconstruct:casting_table",
-  "conditions": [
-    {
-      "value": {
-        "tag": "forge:rods/pig_iron",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
-    }
-  ],
   "cast": {
     "tag": "tconstruct:casts/single_use/rod"
   },
   "cast_consumed": true,
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:rods/pig_iron"
+      }
+    }
+  ],
+  "cooling_time": 43,
   "fluid": {
-    "tag": "tconstruct:molten_pig_iron",
-    "amount": 45
+    "amount": 45,
+    "tag": "tconstruct:molten_pig_iron"
   },
   "result": {
     "tag": "forge:rods/pig_iron"
-  },
-  "cooling_time": 43
+  }
 }

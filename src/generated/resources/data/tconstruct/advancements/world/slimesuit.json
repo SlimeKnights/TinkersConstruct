@@ -1,24 +1,7 @@
 {
-  "parent": "tconstruct:world/ender_island",
-  "display": {
-    "icon": {
-      "item": "tconstruct:slime_chestplate",
-      "nbt": "{Damage:0,tic_broken:0b,tic_display:1b}"
-    },
-    "title": {
-      "translate": "advancements.tconstruct.world.slimesuit.title"
-    },
-    "description": {
-      "translate": "advancements.tconstruct.world.slimesuit.description"
-    },
-    "frame": "goal",
-    "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
+  "parent": "tconstruct:world/tinkers_gadgetry",
   "criteria": {
     "crafted_boots": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -27,22 +10,10 @@
             ]
           }
         ]
-      }
-    },
-    "crafted_leggings": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "tconstruct:slime_leggings"
-            ]
-          }
-        ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "crafted_chestplate": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -51,10 +22,10 @@
             ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "crafted_helmet": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -63,7 +34,36 @@
             ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "crafted_leggings": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:slime_leggings"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.tconstruct.world.slimesuit.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "tconstruct:slime_chestplate",
+      "nbt": "{Damage:0,tic_broken:0b,tic_display:1b}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.tconstruct.world.slimesuit.title"
     }
   },
   "requirements": [

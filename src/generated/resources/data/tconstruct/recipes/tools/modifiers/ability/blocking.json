@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "tag": "minecraft:planks"
@@ -17,6 +18,14 @@
       "tag": "minecraft:planks"
     }
   ],
+  "max_level": 1,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:blocking"
+  },
+  "slots": {
+    "abilities": 1
+  },
   "tools": {
     "type": "forge:difference",
     "base": [
@@ -30,14 +39,5 @@
     "subtracted": {
       "tag": "tconstruct:modifiable/melee/parry"
     }
-  },
-  "slots": {
-    "abilities": 1
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:blocking",
-    "level": 1
-  },
-  "max_level": 1
+  }
 }

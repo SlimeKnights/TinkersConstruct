@@ -1,9 +1,9 @@
 {
   "type": "tconstruct:casting_table",
+  "cooling_time": 53,
   "fluid": {
-    "tag": "tconstruct:ender_slime",
-    "amount": 250
+    "amount": 250,
+    "tag": "tconstruct:ender_slime"
   },
-  "result": "tconstruct:ender_slime_ball",
-  "cooling_time": 53
+  "result": "tconstruct:ender_slime_ball"
 }

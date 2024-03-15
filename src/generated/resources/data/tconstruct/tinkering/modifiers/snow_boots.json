@@ -1,11 +1,11 @@
 {
   "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "tooltip_display": "never",
   "modules": [
     {
       "type": "tconstruct:volatile_flag",
       "flag": "tconstruct:snow_boots"
     }
-  ]
+  ],
+  "tooltip_display": "never"
 }

@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "ingredient": [
@@ -12,8 +13,8 @@
       ]
     },
     {
-      "tag": "tconstruct:tanks",
-      "type": "tconstruct:no_container"
+      "type": "tconstruct:no_container",
+      "tag": "tconstruct:tanks"
     },
     {
       "ingredient": [
@@ -32,6 +33,13 @@
       "tag": "forge:ingots/copper"
     }
   ],
+  "result": {
+    "level": 1,
+    "name": "tconstruct:spilling"
+  },
+  "slots": {
+    "abilities": 1
+  },
   "tools": [
     {
       "tag": "tconstruct:modifiable/melee"
@@ -45,13 +53,5 @@
     {
       "tag": "tconstruct:modifiable/shields"
     }
-  ],
-  "slots": {
-    "abilities": 1
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:spilling",
-    "level": 1
-  }
+  ]
 }

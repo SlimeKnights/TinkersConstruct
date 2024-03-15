@@ -115,7 +115,7 @@ public class PotionCastingRecipe implements ICastingRecipe, IMultiRecipe<Display
   }
 
   @RequiredArgsConstructor
-  public static class Serializer extends LoggingRecipeSerializer<PotionCastingRecipe> {
+  public static class Serializer implements LoggingRecipeSerializer<PotionCastingRecipe> {
     private final Supplier<RecipeType<ICastingRecipe>> type;
 
     @Override
@@ -130,7 +130,7 @@ public class PotionCastingRecipe implements ICastingRecipe, IMultiRecipe<Display
 
     @Nullable
     @Override
-    protected PotionCastingRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    public PotionCastingRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       String group = buffer.readUtf(Short.MAX_VALUE);
       Ingredient bottle = Ingredient.fromNetwork(buffer);
       FluidIngredient fluid = FluidIngredient.read(buffer);
@@ -140,7 +140,7 @@ public class PotionCastingRecipe implements ICastingRecipe, IMultiRecipe<Display
     }
 
     @Override
-    protected void toNetworkSafe(FriendlyByteBuf buffer, PotionCastingRecipe recipe) {
+    public void toNetworkSafe(FriendlyByteBuf buffer, PotionCastingRecipe recipe) {
       buffer.writeUtf(recipe.group);
       recipe.bottle.toNetwork(buffer);
       recipe.fluid.write(buffer);

@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "item": "minecraft:sticky_piston"
@@ -17,16 +18,15 @@
       "tag": "forge:ender_pearls"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/harvest"
+  "max_level": 1,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:exchanging"
   },
   "slots": {
     "abilities": 1
   },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:exchanging",
-    "level": 1
-  },
-  "max_level": 1
+  "tools": {
+    "tag": "tconstruct:modifiable/harvest"
+  }
 }

@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:sheetmetals/electrum",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:sheetmetals/electrum"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:sheetmetals/electrum"
   },
   "result": {
-    "fluid": "tconstruct:molten_electrum",
-    "amount": 90
+    "amount": 90,
+    "fluid": "tconstruct:molten_electrum"
   },
   "temperature": 760,
   "time": 59

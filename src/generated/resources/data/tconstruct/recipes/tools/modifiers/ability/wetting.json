@@ -1,12 +1,13 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "tag": "forge:dusts/redstone"
     },
     {
-      "tag": "tconstruct:tanks",
-      "type": "tconstruct:no_container"
+      "type": "tconstruct:no_container",
+      "tag": "tconstruct:tanks"
     },
     {
       "tag": "forge:dusts/redstone"
@@ -18,6 +19,13 @@
       "tag": "forge:ingots/copper"
     }
   ],
+  "result": {
+    "level": 1,
+    "name": "tconstruct:wetting"
+  },
+  "slots": {
+    "abilities": 1
+  },
   "tools": [
     {
       "tag": "tconstruct:modifiable/armor/leggings"
@@ -25,13 +33,5 @@
     {
       "tag": "tconstruct:modifiable/shields"
     }
-  ],
-  "slots": {
-    "abilities": 1
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:wetting",
-    "level": 1
-  }
+  ]
 }

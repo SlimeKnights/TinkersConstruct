@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "minecraft:acacia_planks"
   },
-  "value": 1,
+  "material": "tconstruct:wood#acacia",
   "needed": 1,
-  "material": "tconstruct:wood#acacia"
+  "value": 1
 }

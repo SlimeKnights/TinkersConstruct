@@ -5,6 +5,7 @@ import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -22,7 +23,6 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
-import java.util.Random;
 
 public class WeatheringPlatformBlock extends PlatformBlock implements WeatheringCopper {
   @Getter
@@ -38,7 +38,7 @@ public class WeatheringPlatformBlock extends PlatformBlock implements Weathering
   }
 
   @Override
-  public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRandom) {
+  public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
     this.onRandomTick(pState, pLevel, pPos, pRandom);
   }
 
@@ -75,22 +75,9 @@ public class WeatheringPlatformBlock extends PlatformBlock implements Weathering
     };
   }
 
-  @org.jetbrains.annotations.Nullable
+  @Nullable
   @Override
   public BlockState getToolModifiedState(BlockState state, UseOnContext context, ToolAction toolAction, boolean simulate) {
-    if (ToolActions.AXE_SCRAPE.equals(toolAction)) {
-      WeatherState prev = getPrevious(age);
-      if (prev != null) {
-        return TinkerCommons.copperPlatform.get(prev).withPropertiesOf(state);
-      }
-    }
-    return null;
-  }
-
-  @Deprecated
-  @SuppressWarnings("removal")
-  @Override
-  public BlockState getToolModifiedState(BlockState state, Level world, BlockPos pos, Player player, ItemStack stack, ToolAction toolAction) {
     if (ToolActions.AXE_SCRAPE.equals(toolAction)) {
       WeatherState prev = getPrevious(age);
       if (prev != null) {

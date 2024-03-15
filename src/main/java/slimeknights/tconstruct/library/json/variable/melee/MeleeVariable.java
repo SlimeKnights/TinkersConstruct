@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.library.json.variable.melee;
 
 import net.minecraft.world.entity.LivingEntity;
-import slimeknights.mantle.data.GenericLoaderRegistry;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.mantle.data.GenericLoaderRegistry.IHaveLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.library.json.variable.VariableLoaderRegistry;
 import slimeknights.tconstruct.library.json.variable.VariableLoaderRegistry.ConstantLoader;
 import slimeknights.tconstruct.library.modifiers.modules.combat.ConditionalMeleeDamageModule;

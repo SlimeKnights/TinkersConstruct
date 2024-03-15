@@ -1,9 +1,9 @@
 {
   "type": "tconstruct:material_fluid",
   "fluid": {
-    "tag": "forge:molten_copper",
-    "amount": 90
+    "amount": 90,
+    "tag": "forge:molten_copper"
   },
-  "temperature": 500,
-  "output": "tconstruct:copper"
+  "output": "tconstruct:copper",
+  "temperature": 500
 }

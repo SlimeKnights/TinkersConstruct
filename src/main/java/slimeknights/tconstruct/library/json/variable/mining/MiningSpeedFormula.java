@@ -5,7 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
-import slimeknights.mantle.data.GenericLoaderRegistry;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry;
 import slimeknights.tconstruct.library.json.math.ModifierFormula;
 import slimeknights.tconstruct.library.json.variable.VariableFormula;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;

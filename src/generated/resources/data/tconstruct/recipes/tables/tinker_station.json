@@ -1,10 +1,5 @@
 {
   "type": "mantle:crafting_shaped_retextured",
-  "pattern": [
-    "ppp",
-    "w w",
-    "w w"
-  ],
   "key": {
     "p": {
       "item": "tconstruct:pattern"
@@ -13,11 +8,16 @@
       "tag": "tconstruct:planklike"
     }
   },
+  "match_all": true,
+  "pattern": [
+    "ppp",
+    "w w",
+    "w w"
+  ],
   "result": {
     "item": "tconstruct:tinker_station"
   },
   "texture": {
     "tag": "tconstruct:planklike"
-  },
-  "match_all": true
+  }
 }

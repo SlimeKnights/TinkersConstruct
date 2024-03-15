@@ -4,8 +4,8 @@
     "item": "tconstruct:cobalt_platform"
   },
   "result": {
-    "fluid": "tconstruct:molten_cobalt",
-    "amount": 100
+    "amount": 100,
+    "fluid": "tconstruct:molten_cobalt"
   },
   "temperature": 950,
   "time": 68

@@ -4,10 +4,10 @@
     "item": "minecraft:glass_bottle"
   },
   "cast_consumed": true,
+  "cooling_time": 1,
   "fluid": {
-    "tag": "tconstruct:venom",
-    "amount": 250
+    "amount": 250,
+    "tag": "tconstruct:venom"
   },
-  "result": "tconstruct:venom_bottle",
-  "cooling_time": 1
+  "result": "tconstruct:venom_bottle"
 }

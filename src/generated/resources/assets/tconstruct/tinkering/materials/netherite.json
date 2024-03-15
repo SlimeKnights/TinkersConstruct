@@ -1,61 +1,61 @@
 {
+  "color": "4C4143",
   "fallbacks": [
     "metal"
   ],
-  "color": "4C4143",
-  "luminosity": 0,
   "generator": {
+    "ignoreMaterialStats": false,
+    "supportedStats": [
+      "tconstruct:plate"
+    ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",
       "color_mapping": {
         "type": "tconstruct:grey_to_color",
         "palette": [
           {
-            "grey": 0,
-            "color": "FF000000"
+            "color": "FF000000",
+            "grey": 0
           },
           {
-            "grey": 63,
-            "color": "FF0A0A0A"
+            "color": "FF0A0A0A",
+            "grey": 63
           },
           {
-            "grey": 102,
-            "color": "FF191616"
+            "color": "FF191616",
+            "grey": 102
           },
           {
-            "grey": 104,
-            "color": "FF241F20"
+            "color": "FF241F20",
+            "grey": 104
           },
           {
-            "grey": 153,
-            "color": "FF322727"
+            "color": "FF322727",
+            "grey": 153
           },
           {
-            "grey": 178,
-            "color": "FF3F303B"
+            "color": "FF3F303B",
+            "grey": 178
           },
           {
-            "grey": 196,
-            "color": "FF49393F"
+            "color": "FF49393F",
+            "grey": 196
           },
           {
-            "grey": 216,
-            "color": "FF51444E"
+            "color": "FF51444E",
+            "grey": 216
           },
           {
-            "grey": 235,
-            "color": "FF5D565D"
+            "color": "FF5D565D",
+            "grey": 235
           },
           {
-            "grey": 255,
-            "color": "FF766A76"
+            "color": "FF766A76",
+            "grey": 255
           }
         ]
       }
-    },
-    "supportedStats": [
-      "tconstruct:plate"
-    ],
-    "ignoreMaterialStats": false
-  }
+    }
+  },
+  "luminosity": 0
 }

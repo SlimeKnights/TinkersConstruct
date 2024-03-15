@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -13,7 +14,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraftforge.registries.ForgeRegistries;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -88,7 +89,7 @@ public interface EnchantmentModule extends ModifierModule {
     @Override
     public void serialize(EnchantmentModule object, JsonObject json) {
       object.condition().serializeInto(json);
-      json.addProperty("name", Objects.requireNonNull(object.enchantment().getRegistryName()).toString());
+      json.addProperty("name", Objects.requireNonNull(Registry.ENCHANTMENT.getKey(object.enchantment())).toString());
       json.addProperty("level", object.level());
     }
 
@@ -143,7 +144,7 @@ public interface EnchantmentModule extends ModifierModule {
    * @param enchantment   Enchantment to remove
    */
   private static void removeEnchantment(ListTag list, Enchantment enchantment) {
-    String id = Objects.requireNonNull(enchantment.getRegistryName()).toString();
+    String id = Objects.requireNonNull(Registry.ENCHANTMENT.getKey(enchantment)).toString();
     Iterator<Tag> iterator = list.iterator();
     while (iterator.hasNext()) {
       Tag iteratorTag = iterator.next();
@@ -171,7 +172,7 @@ public interface EnchantmentModule extends ModifierModule {
       tag.put(HarvestEnchantmentsModifierHook.TAG_ENCHANTMENTS, enchantments);
     }
     // add the enchantment
-    enchantments.add(EnchantmentHelper.storeEnchantment(enchantment.getRegistryName(), level));
+    enchantments.add(EnchantmentHelper.storeEnchantment(Registry.ENCHANTMENT.getKey(enchantment), level));
   }
 
   /**

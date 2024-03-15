@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:swappable_modifier",
+  "allow_crystal": false,
   "inputs": [
     {
       "item": "tconstruct:obsidian_pane"
@@ -11,12 +12,11 @@
       "item": "tconstruct:obsidian_pane"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/embellishment/metal"
-  },
-  "allow_crystal": false,
   "result": {
     "name": "tconstruct:embellishment",
     "value": "tconstruct:obsidian"
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/embellishment/metal"
   }
 }

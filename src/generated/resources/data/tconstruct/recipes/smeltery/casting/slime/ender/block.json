@@ -4,10 +4,10 @@
     "item": "tconstruct:ender_congealed_slime"
   },
   "cast_consumed": true,
+  "cooling_time": 119,
   "fluid": {
-    "tag": "tconstruct:ender_slime",
-    "amount": 1250
+    "amount": 1250,
+    "tag": "tconstruct:ender_slime"
   },
-  "result": "tconstruct:ender_slime",
-  "cooling_time": 119
+  "result": "tconstruct:ender_slime"
 }

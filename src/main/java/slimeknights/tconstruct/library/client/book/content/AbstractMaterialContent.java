@@ -9,8 +9,7 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.ComponentContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -231,7 +230,8 @@ public abstract class AbstractMaterialContent extends PageContent {
     List<TextComponentData> lineData = Lists.newArrayList();
     // add lines of tool information
     List<Component> localizedDescription = stats.get().getLocalizedDescriptions();
-    if (!localizedDescription.isEmpty() && (localizedDescription.size() > 1 || localizedDescription.get(0) != TextComponent.EMPTY)) {
+    // TODO: better way to check for empty components?
+    if (!localizedDescription.isEmpty() && (localizedDescription.size() > 1 || localizedDescription.get(0).getContents() != ComponentContents.EMPTY)) {
       lineData.addAll(getStatLines(stats.get()));
     }
     lineData.addAll(getTraitLines(traits));
@@ -304,7 +304,7 @@ public abstract class AbstractMaterialContent extends PageContent {
       FluidStack firstFluid = fluids.stream()
                                     .flatMap(recipe -> recipe.getFluids().stream())
                                     .findFirst().orElse(FluidStack.EMPTY);
-      elementItem.tooltip = ImmutableList.of(new TranslatableComponent(CAST_FROM, firstFluid.getFluid().getAttributes().getDisplayName(firstFluid)));
+      elementItem.tooltip = ImmutableList.of(Component.translatable(CAST_FROM, firstFluid.getDisplayName()));
       displayTools.add(elementItem);
     }
 
@@ -320,7 +320,7 @@ public abstract class AbstractMaterialContent extends PageContent {
                                                                                       .map(part -> part.withMaterial(inputId))
                                                                                       .collect(Collectors.toList()));
         FluidStack firstFluid = composite.getFluids().stream().findFirst().orElse(FluidStack.EMPTY);
-        elementItem.tooltip = ImmutableList.of(new TranslatableComponent(COMPOSITE_FROM, firstFluid.getFluid().getAttributes().getDisplayName(firstFluid), MaterialTooltipCache.getDisplayName(inputId)));
+        elementItem.tooltip = ImmutableList.of(Component.translatable(COMPOSITE_FROM, firstFluid.getDisplayName(), MaterialTooltipCache.getDisplayName(inputId)));
         displayTools.add(elementItem);
       }
     }

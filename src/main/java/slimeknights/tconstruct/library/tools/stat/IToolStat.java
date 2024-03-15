@@ -6,8 +6,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextColor;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.Item;
 import slimeknights.tconstruct.library.utils.Util;
@@ -92,12 +90,12 @@ public interface IToolStat<T> {
 
   /** Gets the prefix for this tool stat */
   default MutableComponent getPrefix() {
-    return new TranslatableComponent(Util.makeTranslationKey("tool_stat", getName()));
+    return Component.translatable(Util.makeTranslationKey("tool_stat", getName()));
   }
 
   /** Gets the description for this tool stat */
   default MutableComponent getDescription() {
-    return new TranslatableComponent(Util.makeTranslationKey("tool_stat", getName()) + ".description");
+    return Component.translatable(Util.makeTranslationKey("tool_stat", getName()) + ".description");
   }
 
   /** Formats the value using this tool stat */
@@ -125,8 +123,8 @@ public interface IToolStat<T> {
    * @return  Text component
    */
   static Component formatNumber(String loc, TextColor color, float number) {
-    return new TranslatableComponent(loc)
-      .append(new TextComponent(Util.COMMA_FORMAT.format(number)).withStyle(style -> style.withColor(color)));
+    return Component.translatable(loc)
+      .append(Component.literal(Util.COMMA_FORMAT.format(number)).withStyle(style -> style.withColor(color)));
   }
 
   /**
@@ -137,8 +135,8 @@ public interface IToolStat<T> {
    * @return  Text component
    */
   static Component formatNumberPercent(String loc, TextColor color, float number) {
-    return new TranslatableComponent(loc)
-      .append(new TextComponent(Util.PERCENT_FORMAT.format(number)).withStyle(style -> style.withColor(color)));
+    return Component.translatable(loc)
+      .append(Component.literal(Util.PERCENT_FORMAT.format(number)).withStyle(style -> style.withColor(color)));
   }
 
   /**
@@ -150,7 +148,7 @@ public interface IToolStat<T> {
   static Component formatColoredMultiplier(String loc, float number) {
     // 0.5 is red, 1.0 should be roughly green, 1.5 is blue
     float hue = Mth.positiveModulo(number - 0.5f, 2f);
-    return new TranslatableComponent(loc).append(new TextComponent(Util.MULTIPLIER_FORMAT.format(number)).withStyle(style -> style.withColor(TextColor.fromRgb(Mth.hsvToRgb(hue / 1.5f, 1.0f, 0.75f)))));
+    return Component.translatable(loc).append(Component.literal(Util.MULTIPLIER_FORMAT.format(number)).withStyle(style -> style.withColor(TextColor.fromRgb(Mth.hsvToRgb(hue / 1.5f, 1.0f, 0.75f)))));
   }
 
   /**
@@ -162,6 +160,6 @@ public interface IToolStat<T> {
   static Component formatColoredBonus(String loc, float number, float scale) {
     // 0.5 is red, 1.0 should be roughly green, 1.5 is blue
     float hue = Mth.positiveModulo(0.5f + number / (2*scale), 2f);
-    return new TranslatableComponent(loc).append(new TextComponent(Util.BONUS_FORMAT.format(number)).withStyle(style -> style.withColor(TextColor.fromRgb(Mth.hsvToRgb(hue / 1.5f, 1.0f, 0.75f)))));
+    return Component.translatable(loc).append(Component.literal(Util.BONUS_FORMAT.format(number)).withStyle(style -> style.withColor(TextColor.fromRgb(Mth.hsvToRgb(hue / 1.5f, 1.0f, 0.75f)))));
   }
 }

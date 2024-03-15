@@ -1,8 +1,6 @@
 package slimeknights.tconstruct.library.client.model.tools;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
@@ -12,11 +10,9 @@ import com.mojang.datafixers.util.Pair;
 import com.mojang.math.Transformation;
 import com.mojang.math.Vector3f;
 import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
@@ -25,18 +21,14 @@ import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec2;
-import net.minecraftforge.client.model.BakedItemModel;
-import net.minecraftforge.client.model.ForgeModelBakery;
-import net.minecraftforge.client.model.IModelConfiguration;
-import net.minecraftforge.client.model.IModelLoader;
-import net.minecraftforge.client.model.PerspectiveMapWrapper;
-import net.minecraftforge.client.model.geometry.IModelGeometry;
-import org.apache.commons.lang3.mutable.MutableObject;
+import net.minecraftforge.client.model.CompositeModel;
+import net.minecraftforge.client.model.geometry.IGeometryBakingContext;
+import net.minecraftforge.client.model.geometry.IGeometryLoader;
+import net.minecraftforge.client.model.geometry.IUnbakedGeometry;
 import slimeknights.mantle.client.model.util.MantleItemLayerModel;
 import slimeknights.mantle.util.ItemLayerPixels;
 import slimeknights.tconstruct.common.config.Config;
@@ -53,16 +45,16 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+/**
+ * Model for an item with material texture variants, such as tool parts. Used only for single material items, {@link ToolModel} is used for multi-material items.
+ */
 @AllArgsConstructor
-@Log4j2
-public class MaterialModel implements IModelGeometry<MaterialModel> {
-
+public class MaterialModel implements IUnbakedGeometry<MaterialModel> {
   /** Shared loader instance */
-  public static final Loader LOADER = new Loader();
+  public static final IGeometryLoader<MaterialModel> LOADER = MaterialModel::deserialize;
 
   /** If null, uses dynamic material */
   @Nullable
@@ -73,7 +65,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
   private final Vec2 offset;
 
   @Override
-  public Collection<Material> getTextures(IModelConfiguration owner, Function<ResourceLocation,UnbakedModel> modelGetter, Set<Pair<String,String>> missingTextureErrors) {
+  public Collection<Material> getMaterials(IGeometryBakingContext owner, Function<ResourceLocation,UnbakedModel> modelGetter, Set<Pair<String,String>> missingTextureErrors) {
     Set<Material> allTextures = Sets.newHashSet();
     getMaterialTextures(allTextures, owner, "texture", material);
     return allTextures;
@@ -86,8 +78,8 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
    * @param textureName  Texture name to add
    * @param material     List of materials
    */
-  public static void getMaterialTextures(Collection<Material> allTextures, IModelConfiguration owner, String textureName, @Nullable MaterialVariantId material) {
-    Material texture = owner.resolveTexture(textureName);
+  public static void getMaterialTextures(Collection<Material> allTextures, IGeometryBakingContext owner, String textureName, @Nullable MaterialVariantId material) {
+    Material texture = owner.getMaterial(textureName);
     allTextures.add(texture);
 
     // if the texture is missing, stop here
@@ -104,76 +96,41 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
   }
 
   /**
-   * Gets the quads for a material for the given texture
-   * @param owner         Model owner
-   * @param spriteGetter  Sprite getter
-   * @param transform     Model transform
-   * @param name          Sprite name
-   * @param index         Sprite tint index
-   * @param material      Material to use
-   * @return  Model quads
-   */
-  public static TextureAtlasSprite getPartQuads(Consumer<ImmutableList<BakedQuad>> quadConsumer, IModelConfiguration owner, Function<Material, TextureAtlasSprite> spriteGetter, Transformation transform, String name, int index, @Nullable MaterialVariantId material) {
-    return getPartQuads(quadConsumer, owner, spriteGetter, transform, name, index, material, null);
-  }
-
-  /**
-   * Gets the quads for a material for the given texture
-   * @param owner         Model owner
-   * @param spriteGetter  Sprite getter
-   * @param transform     Model transform
-   * @param name          Sprite name
-   * @param index         Sprite tint index
-   * @param material      Material to use
-   * @param pixels        Pixels for the z-fighting fix. See {@link MantleItemLayerModel} for more information
-   * @return  Model quads
-   */
-  public static TextureAtlasSprite getPartQuads(Consumer<ImmutableList<BakedQuad>> quadConsumer, IModelConfiguration owner, Function<Material, TextureAtlasSprite> spriteGetter, Transformation transform, String name, int index, @Nullable MaterialVariantId material, @Nullable ItemLayerPixels pixels) {
-    return getPartQuads(quadConsumer, owner.resolveTexture(name), spriteGetter, transform, index, material, pixels);
-  }
-
-  /**
-   * Gets the quads for a material for the given texture
+   * Gets the tinted sprite info for the given material
+   * @param spriteGetter  Sprite getter instance
    * @param texture       Base texture
-   * @param spriteGetter  Sprite getter
-   * @param transform     Model transform
-   * @param index         Sprite tint index
-   * @param material      Material to use
-   * @param pixels        Pixels for the z-fighting fix. See {@link MantleItemLayerModel} for more information
-   * @return  Model quads
+   * @param material      Material variant
+   * @return  Tinted sprite or fallback
    */
-  public static TextureAtlasSprite getPartQuads(Consumer<ImmutableList<BakedQuad>> quadConsumer, Material texture, Function<Material, TextureAtlasSprite> spriteGetter, Transformation transform, int index, @Nullable MaterialVariantId material, @Nullable ItemLayerPixels pixels) {
-    int color = -1;
-    int light = 0;
-    TextureAtlasSprite finalSprite = null;
+  public static TintedSprite getMaterialSprite(Function<Material, TextureAtlasSprite> spriteGetter, Material texture, @Nullable MaterialVariantId material) {
     // if the base material is non-null, try to find the sprite for that material
     if (material != null) {
       // first, find a render info
       Optional<MaterialRenderInfo> optional = MaterialRenderInfoLoader.INSTANCE.getRenderInfo(material);
       if (optional.isPresent()) {
-        // determine the texture to use and whether or not to tint it
-        MaterialRenderInfo info = optional.get();
-        TintedSprite sprite = info.getSprite(texture, spriteGetter);
-        finalSprite = sprite.sprite();
-        color = sprite.color();
-        light = info.getLuminosity();
+        return optional.get().getSprite(texture, spriteGetter);
       }
     }
-
-    // if we have no material, or the material failed to fetch, use the default sprite and tint index
-    if (finalSprite == null) {
-      finalSprite = spriteGetter.apply(texture);
-    }
-
-    // get quads
-    quadConsumer.accept(MantleItemLayerModel.getQuadsForSprite(color, index, finalSprite, transform, light, pixels));
-
-    // return sprite
-    return finalSprite;
+    return new TintedSprite(spriteGetter.apply(texture), -1, 0);
   }
 
   /**
-   * Same as {@link #bake(IModelConfiguration, ModelBakery, Function, ModelState, ItemOverrides, ResourceLocation)} , but uses fewer arguments and does not require an instance
+   * Gets quads for the given material variant of the texture
+   * @param spriteGetter    Sprite getter instance
+   * @param texture         Base texture
+   * @param material        Material variant
+   * @param tintIndex       Tint index for quads
+   * @param transformation  Transformation to apply
+   * @param pixels          Pixels to prevent z-fighting for multiple layers
+   * @return  Quad list
+   */
+  public static ImmutableList<BakedQuad> getQuadsForMaterial(Function<Material, TextureAtlasSprite> spriteGetter, Material texture, @Nullable MaterialVariantId material, int tintIndex, Transformation transformation, @Nullable ItemLayerPixels pixels) {
+    TintedSprite sprite = getMaterialSprite(spriteGetter, texture, material);
+    return MantleItemLayerModel.getQuadsForSprite(sprite.color(), tintIndex, sprite.sprite(), transformation, sprite.emissivity(), pixels);
+  }
+
+  /**
+   * Same as {@link #bake(IGeometryBakingContext, ModelBakery, Function, ModelState, ItemOverrides, ResourceLocation)} , but uses fewer arguments and does not require an instance
    * @param owner          Model configuration
    * @param spriteGetter   Sprite getter function
    * @param transform      Transform to apply to the quad fetching. Should not include rotation or it will look wrong in UIs
@@ -182,19 +139,18 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
    * @param overrides      Override instance to use, will either be empty or {@link MaterialOverrideHandler}
    * @return  Baked model
    */
-  private static BakedModel bakeInternal(IModelConfiguration owner, Function<Material, TextureAtlasSprite> spriteGetter, Transformation transform, @Nullable MaterialVariantId material, int index, ItemOverrides overrides) {
-    // small hack to reduce the need to create a second immutable list
-    MutableObject<ImmutableList<BakedQuad>> mutableList = new MutableObject<>();
-    TextureAtlasSprite particle = getPartQuads(mutableList::setValue, owner, spriteGetter, transform, "texture", index, material);
-
-    // bake model - while the transform may not be identity, it never has rotation so its safe to say untransformed
-    ImmutableMap<ItemTransforms.TransformType, Transformation> transformMap = PerspectiveMapWrapper.getTransforms(owner.getCombinedTransform());
-    return new BakedItemModel(mutableList.getValue(), particle, Maps.immutableEnumMap(transformMap), overrides, true, owner.isSideLit());
+  private static BakedModel bakeInternal(IGeometryBakingContext owner, Function<Material, TextureAtlasSprite> spriteGetter, Transformation transform, @Nullable MaterialVariantId material, int index, ItemOverrides overrides) {
+    TintedSprite materialSprite = getMaterialSprite(spriteGetter, owner.getMaterial("texture"), material);
+    CompositeModel.Baked.Builder builder = CompositeModel.Baked.builder(owner, materialSprite.sprite(), overrides, owner.getTransforms());
+    // TODO: let material choose its render type
+    builder.addQuads(MantleItemLayerModel.getDefaultRenderType(owner), MantleItemLayerModel.getQuadsForSprite(materialSprite.color(), index, materialSprite.sprite(), transform, materialSprite.emissivity()));
+    return builder.build();
   }
 
   @Override
-  public BakedModel bake(IModelConfiguration owner, ModelBakery bakery, Function<Material, TextureAtlasSprite> spriteGetter, ModelState modelTransform, ItemOverrides vanillaOverrides, ResourceLocation modelLocation) {
+  public BakedModel bake(IGeometryBakingContext owner, ModelBakery bakery, Function<Material, TextureAtlasSprite> spriteGetter, ModelState modelTransform, ItemOverrides vanillaOverrides, ResourceLocation modelLocation) {
     // create transforms from offset
+    // TODO: figure out forge transforms, can I use them here?
     Transformation transforms;
     if (Vec2.ZERO.equals(offset)) {
       transforms = Transformation.identity();
@@ -222,10 +178,10 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     private final Map<MaterialVariantId, BakedModel> cache = new ConcurrentHashMap<>();
 
     // parameters needed for rebaking
-    private final IModelConfiguration owner;
+    private final IGeometryBakingContext owner;
     private final int index;
     private final Transformation itemTransform;
-    private MaterialOverrideHandler(IModelConfiguration owner, int index, Transformation itemTransform) {
+    private MaterialOverrideHandler(IGeometryBakingContext owner, int index, Transformation itemTransform) {
       this.owner = owner;
       this.index = index;
       this.itemTransform = itemTransform;
@@ -247,39 +203,31 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
     private BakedModel bakeDynamic(MaterialVariantId material) {
       // bake internal does not require an instance to bake, we can pass in whatever material we want
       // use empty override list as the sub model never calls overrides, and already has a material
-      return bakeInternal(owner, ForgeModelBakery.defaultTextureGetter(), itemTransform, material, index, ItemOverrides.EMPTY);
-    }
-  }
-
-  /**
-   * Model loader logic, use {@link #LOADER} to access instance
-   */
-  private static class Loader implements IModelLoader<MaterialModel> {
-    @Override
-    public void onResourceManagerReload(ResourceManager resourceManager) {}
-
-    @Override
-    public MaterialModel read(JsonDeserializationContext deserializationContext, JsonObject modelContents) {
-      // need tint index for tool models, doubles as part index
-      int index = GsonHelper.getAsInt(modelContents, "index", 0);
-
-      // static material can be defined, if unset uses dynamic material
-      MaterialVariantId material = null;
-      if (modelContents.has("material")) {
-        material = MaterialVariantId.fromJson(modelContents, "material");
-      }
-
-      Vec2 offset = Vec2.ZERO;
-      if (modelContents.has("offset")) {
-        offset = arrayToObject(modelContents, "offset");
-      }
-
-      return new MaterialModel(material, index, offset);
+      return bakeInternal(owner, Material::sprite, itemTransform, material, index, ItemOverrides.EMPTY);
     }
   }
 
 
   /* Helpers */
+
+  /** Loads a material model from JSON */
+  public static MaterialModel deserialize(JsonObject json, JsonDeserializationContext context) {
+    // need tint index for tool models, doubles as part index
+    int index = GsonHelper.getAsInt(json, "index", 0);
+
+    // static material can be defined, if unset uses dynamic material
+    MaterialVariantId material = null;
+    if (json.has("material")) {
+      material = MaterialVariantId.fromJson(json, "material");
+    }
+
+    Vec2 offset = Vec2.ZERO;
+    if (json.has("offset")) {
+      offset = getVec2(json, "offset");
+    }
+
+    return new MaterialModel(material, index, offset);
+  }
 
   /**
    * Converts a JSON float array to the specified object
@@ -288,7 +236,7 @@ public class MaterialModel implements IModelGeometry<MaterialModel> {
    * @return  Vector3f of data
    * @throws JsonParseException  If there is no array or the length is wrong
    */
-  public static Vec2 arrayToObject(JsonObject json, String name) {
+  public static Vec2 getVec2(JsonObject json, String name) {
     JsonArray array = GsonHelper.getAsJsonArray(json, name);
     if (array.size() != 2) {
       throw new JsonParseException("Expected " + 2 + " " + name + " values, found: " + array.size());

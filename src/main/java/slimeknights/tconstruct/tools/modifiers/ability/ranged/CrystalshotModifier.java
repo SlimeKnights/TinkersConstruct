@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.ability.ranged;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.client.ResourceColorManager;
@@ -34,7 +33,7 @@ public class CrystalshotModifier extends NoLevelsModifier implements BowAmmoModi
     String variant = tool.getPersistentData().getString(getId());
     if (!variant.isEmpty()) {
       String key = getTranslationKey();
-      return new TranslatableComponent(getTranslationKey())
+      return Component.translatable(getTranslationKey())
         .withStyle(style -> style.withColor(ResourceColorManager.getTextColor(key + "." + variant)));
     }
     return super.getDisplayName();

@@ -4,8 +4,8 @@
     "item": "tconstruct:blank_red_sand_cast"
   },
   "pattern": {
-    "item": "tconstruct:hammer_head",
-    "type": "tconstruct:material"
+    "type": "tconstruct:material",
+    "item": "tconstruct:hammer_head"
   },
   "result": "tconstruct:hammer_head_red_sand_cast"
 }

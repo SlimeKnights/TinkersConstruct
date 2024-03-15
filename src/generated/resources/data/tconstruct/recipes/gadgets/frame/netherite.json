@@ -1,19 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "tconstruct:fancy_item_frame",
+  "key": {
+    "M": {
+      "item": "tconstruct:obsidian_pane"
+    },
+    "e": {
+      "tag": "forge:nuggets/netherite"
+    }
+  },
   "pattern": [
     " e ",
     "eMe",
     " e "
   ],
-  "key": {
-    "e": {
-      "tag": "forge:nuggets/netherite"
-    },
-    "M": {
-      "item": "tconstruct:obsidian_pane"
-    }
-  },
   "result": {
     "item": "tconstruct:netherite_item_frame"
   }

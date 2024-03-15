@@ -1,5 +1,11 @@
 {
   "type": "tconstruct:melting",
+  "byproducts": [
+    {
+      "amount": 1000,
+      "fluid": "tconstruct:scorched_stone"
+    }
+  ],
   "ingredient": [
     {
       "item": "tconstruct:scorched_drain"
@@ -9,15 +15,9 @@
     }
   ],
   "result": {
-    "fluid": "tconstruct:molten_obsidian",
-    "amount": 500
+    "amount": 500,
+    "fluid": "tconstruct:molten_obsidian"
   },
   "temperature": 1000,
-  "time": 166,
-  "byproducts": [
-    {
-      "fluid": "tconstruct:scorched_stone",
-      "amount": 1000
-    }
-  ]
+  "time": 166
 }

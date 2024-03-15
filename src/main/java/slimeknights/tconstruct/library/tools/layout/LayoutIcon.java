@@ -11,16 +11,16 @@ import com.google.gson.JsonSerializer;
 import com.google.gson.JsonSyntaxException;
 import io.netty.handler.codec.DecoderException;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 
 import javax.annotation.Nullable;
-import java.util.Objects;
 
 /** Data holder for a button icon, currently supports item stack icons and pattern icons */
 public abstract class LayoutIcon {
@@ -106,7 +106,7 @@ public abstract class LayoutIcon {
     @Override
     public JsonObject toJson() {
       JsonObject json = new JsonObject();
-      json.addProperty("item", Objects.requireNonNull(stack.getItem().getRegistryName()).toString());
+      json.addProperty("item", Registry.ITEM.getKey(stack.getItem()).toString());
       CompoundTag tag = stack.getTag();
       if (tag != null) {
         json.addProperty("nbt", tag.toString());

@@ -2,17 +2,17 @@
   "type": "tconstruct:material_melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:ingots/tungsten",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/tungsten"
+      }
     }
   ],
   "input": "tconstruct:tungsten",
-  "temperature": 950,
   "result": {
-    "fluid": "tconstruct:molten_tungsten",
-    "amount": 90
-  }
+    "amount": 90,
+    "fluid": "tconstruct:molten_tungsten"
+  },
+  "temperature": 950
 }

@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "item": "tconstruct:necrotic_bone"
@@ -11,6 +12,14 @@
       "item": "minecraft:ghast_tear"
     }
   ],
+  "max_level": 5,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:necrotic"
+  },
+  "slots": {
+    "upgrades": 1
+  },
   "tools": [
     {
       "tag": "tconstruct:modifiable/melee"
@@ -18,14 +27,5 @@
     {
       "tag": "tconstruct:modifiable/ranged/bows"
     }
-  ],
-  "slots": {
-    "upgrades": 1
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:necrotic",
-    "level": 1
-  },
-  "max_level": 5
+  ]
 }

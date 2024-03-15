@@ -4,8 +4,8 @@
     "item": "minecraft:diamond_helmet"
   },
   "result": {
-    "fluid": "tconstruct:molten_diamond",
     "amount": 500,
+    "fluid": "tconstruct:molten_diamond",
     "unit_size": 25
   },
   "temperature": 1450,

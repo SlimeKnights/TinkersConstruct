@@ -1,37 +1,37 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
-      "item": "tconstruct:gold_reinforcement",
-      "amount_needed": 4
+      "amount_needed": 4,
+      "item": "tconstruct:gold_reinforcement"
     },
     {
-      "item": "tconstruct:seared_reinforcement",
-      "amount_needed": 4
+      "amount_needed": 4,
+      "item": "tconstruct:seared_reinforcement"
     },
     {
-      "item": "tconstruct:bronze_reinforcement",
-      "amount_needed": 4
+      "amount_needed": 4,
+      "item": "tconstruct:bronze_reinforcement"
     },
     {
-      "item": "tconstruct:emerald_reinforcement",
-      "amount_needed": 4
+      "amount_needed": 4,
+      "item": "tconstruct:emerald_reinforcement"
     },
     {
-      "item": "tconstruct:cobalt_reinforcement",
-      "amount_needed": 4
+      "amount_needed": 4,
+      "item": "tconstruct:cobalt_reinforcement"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/armor"
+  "max_level": 1,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:protection"
   },
   "slots": {
     "abilities": 1
   },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:protection",
-    "level": 1
-  },
-  "max_level": 1
+  "tools": {
+    "tag": "tconstruct:modifiable/armor"
+  }
 }

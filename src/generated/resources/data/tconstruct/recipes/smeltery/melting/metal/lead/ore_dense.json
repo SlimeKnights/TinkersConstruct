@@ -2,28 +2,33 @@
   "type": "forge:conditional",
   "conditions": [
     {
+      "type": "tconstruct:tag_intersection_present",
       "registry": "minecraft:item",
       "tags": [
         "forge:ores/lead",
         "forge:ore_rates/dense"
-      ],
-      "type": "tconstruct:tag_intersection_present"
+      ]
     }
   ],
   "recipes": [
     {
       "conditions": [
         {
+          "type": "forge:not",
           "value": {
-            "tag": "forge:ingots/silver",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
+            "type": "forge:tag_empty",
+            "tag": "forge:ingots/silver"
+          }
         }
       ],
       "recipe": {
         "type": "tconstruct:ore_melting",
-        "rate": "metal",
+        "byproducts": [
+          {
+            "amount": 540,
+            "fluid": "tconstruct:molten_silver"
+          }
+        ],
         "ingredient": {
           "type": "forge:intersection",
           "children": [
@@ -35,18 +40,13 @@
             }
           ]
         },
+        "rate": "metal",
         "result": {
-          "fluid": "tconstruct:molten_lead",
-          "amount": 540
+          "amount": 540,
+          "fluid": "tconstruct:molten_lead"
         },
         "temperature": 330,
-        "time": 195,
-        "byproducts": [
-          {
-            "fluid": "tconstruct:molten_silver",
-            "amount": 540
-          }
-        ]
+        "time": 195
       }
     },
     {
@@ -57,7 +57,12 @@
       ],
       "recipe": {
         "type": "tconstruct:ore_melting",
-        "rate": "metal",
+        "byproducts": [
+          {
+            "amount": 540,
+            "fluid": "tconstruct:molten_gold"
+          }
+        ],
         "ingredient": {
           "type": "forge:intersection",
           "children": [
@@ -69,18 +74,13 @@
             }
           ]
         },
+        "rate": "metal",
         "result": {
-          "fluid": "tconstruct:molten_lead",
-          "amount": 540
+          "amount": 540,
+          "fluid": "tconstruct:molten_lead"
         },
         "temperature": 330,
-        "time": 195,
-        "byproducts": [
-          {
-            "fluid": "tconstruct:molten_gold",
-            "amount": 540
-          }
-        ]
+        "time": 195
       }
     }
   ]

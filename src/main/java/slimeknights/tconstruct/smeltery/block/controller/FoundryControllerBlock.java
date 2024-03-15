@@ -2,6 +2,7 @@ package slimeknights.tconstruct.smeltery.block.controller;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -17,7 +18,6 @@ import slimeknights.tconstruct.smeltery.block.entity.controller.FoundryBlockEnti
 import slimeknights.tconstruct.smeltery.block.entity.controller.HeatingStructureBlockEntity;
 
 import javax.annotation.Nullable;
-import java.util.Random;
 
 public class FoundryControllerBlock extends HeatingControllerBlock {
   public FoundryControllerBlock(Properties builder) {
@@ -53,7 +53,7 @@ public class FoundryControllerBlock extends HeatingControllerBlock {
   }
 
   @Override
-  public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
+  public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
     if (state.getValue(ACTIVE)) {
       double x = pos.getX() + 0.5D;
       double y = (double) pos.getY() + (rand.nextFloat() * 6F + 2F) / 16F;

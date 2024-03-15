@@ -1,5 +1,10 @@
 {
   "type": "tconstruct:modifier_salvage",
+  "min_level": 1,
+  "modifier": "tconstruct:firestarter",
+  "slots": {
+    "abilities": 1
+  },
   "tools": {
     "type": "forge:difference",
     "base": {
@@ -16,10 +21,5 @@
     "subtracted": {
       "item": "tconstruct:flint_and_brick"
     }
-  },
-  "slots": {
-    "abilities": 1
-  },
-  "modifier": "tconstruct:firestarter",
-  "min_level": 1
+  }
 }

@@ -12,11 +12,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.client.model.data.ModelData;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import slimeknights.mantle.util.RetexturedHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryInputOutputBlockEntity.SmelteryFluidIO;
@@ -67,7 +69,7 @@ public class DuctBlockEntity extends SmelteryFluidIO implements MenuProvider {
   @Nonnull
   @Override
   public <C> LazyOptional<C> getCapability(Capability<C> capability, @Nullable Direction facing) {
-    if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+    if (capability == ForgeCapabilities.ITEM_HANDLER) {
       return itemCapability.cast();
     }
     return super.getCapability(capability, facing);
@@ -84,9 +86,14 @@ public class DuctBlockEntity extends SmelteryFluidIO implements MenuProvider {
     return LazyOptional.of(() -> new DuctTankWrapper(capability.orElse(emptyInstance), itemHandler));
   }
 
+  @Nonnull
+  @Override
+  public ModelData getModelData() {
+    return RetexturedHelper.getModelDataBuilder(getTexture()).with(IDisplayFluidListener.PROPERTY, IDisplayFluidListener.normalizeFluid(itemHandler.getFluid())).build();
+  }
+
   /** Updates the fluid in model data */
   public void updateFluid() {
-    getModelData().setData(IDisplayFluidListener.PROPERTY, IDisplayFluidListener.normalizeFluid(itemHandler.getFluid()));
     requestModelDataUpdate();
     assert level != null;
     BlockState state = getBlockState();

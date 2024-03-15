@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:rods/amethyst_bronze",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:rods/amethyst_bronze"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:rods/amethyst_bronze"
   },
   "result": {
-    "fluid": "tconstruct:molten_amethyst_bronze",
-    "amount": 45
+    "amount": 45,
+    "fluid": "tconstruct:molten_amethyst_bronze"
   },
   "temperature": 820,
   "time": 12

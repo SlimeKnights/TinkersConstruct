@@ -2,14 +2,14 @@ package slimeknights.tconstruct.smeltery.block.entity.tank;
 
 import net.minecraft.core.BlockPos;
 import net.minecraftforge.client.model.data.ModelProperty;
-import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidType;
 
 /**
  * Interface for blocks to be notified when the smeltery has a new bottommost fluid
  */
 public interface IDisplayFluidListener {
-  /** Property for fluid models */
+  /** Property for fluid models TODO: move to {@link slimeknights.tconstruct.library.client.model.ModelProperties} */
   ModelProperty<FluidStack> PROPERTY = new ModelProperty<>();
 
   /**
@@ -30,7 +30,7 @@ public interface IDisplayFluidListener {
       return FluidStack.EMPTY;
     }
     fluid = fluid.copy();
-    fluid.setAmount(FluidAttributes.BUCKET_VOLUME);
+    fluid.setAmount(FluidType.BUCKET_VOLUME);
     return fluid;
   }
 }

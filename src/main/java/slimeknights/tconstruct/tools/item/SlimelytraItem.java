@@ -5,7 +5,7 @@ import net.minecraft.client.model.Model;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.IItemRenderProperties;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.tools.client.SlimelytraArmorModel;
 
@@ -18,11 +18,11 @@ public class SlimelytraItem extends SlimesuitItem {
   }
 
   @Override
-  public void initializeClient(Consumer<IItemRenderProperties> consumer) {
-    consumer.accept(new IItemRenderProperties() {
+  public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+    consumer.accept(new IClientItemExtensions() {
       @Nonnull
       @Override
-      public Model getBaseArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> _default) {
+      public Model getGenericArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> _default) {
         return SlimelytraArmorModel.getModel(entityLiving, itemStack, _default);
       }
     });

@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.smeltery.client.screen;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -37,7 +38,7 @@ public class HeatingStructureScreen extends MultiModuleScreen<HeatingStructureCo
     HeatingStructureBlockEntity te = container.getTile();
     if (te != null) {
       this.te = te;
-      this.tank = new GuiSmelteryTank(this, te.getTank(), 8, 16, SCALA.w, SCALA.h, Objects.requireNonNull(te.getType().getRegistryName()));
+      this.tank = new GuiSmelteryTank(this, te.getTank(), 8, 16, SCALA.w, SCALA.h, Objects.requireNonNull(Registry.BLOCK_ENTITY_TYPE.getKey(te.getType())));
       int slots = te.getMeltingInventory().getSlots();
       this.sideInventory = new HeatingStructureSideInventoryScreen(this, container.getSideInventory(), playerInventory, slots, HeatingStructureContainerMenu.calcColumns(slots));
       addModule(sideInventory);

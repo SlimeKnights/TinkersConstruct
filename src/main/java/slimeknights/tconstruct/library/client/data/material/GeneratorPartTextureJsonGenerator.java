@@ -6,12 +6,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.HashCache;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import slimeknights.mantle.data.GenericDataProvider;
-import slimeknights.mantle.data.ResourceLocationSerializer;
+import slimeknights.mantle.data.gson.ResourceLocationSerializer;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.data.material.AbstractPartSpriteProvider.PartSpriteInfo;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
@@ -50,7 +50,7 @@ public class GeneratorPartTextureJsonGenerator extends GenericDataProvider {
   }
 
   @Override
-  public void run(HashCache cache) throws IOException {
+  public void run(CachedOutput cache) throws IOException {
     JsonObject json = new JsonObject();
     json.addProperty("replace", false);
     JsonArray parts = new JsonArray();
@@ -61,7 +61,7 @@ public class GeneratorPartTextureJsonGenerator extends GenericDataProvider {
     if (!overrides.overrides.isEmpty()) {
       json.add("overrides", overrides.serialize());
     }
-    saveThing(cache, new ResourceLocation(modId, "generator_part_textures"), json);
+    saveJson(cache, new ResourceLocation(modId, "generator_part_textures"), json);
   }
 
   @Override

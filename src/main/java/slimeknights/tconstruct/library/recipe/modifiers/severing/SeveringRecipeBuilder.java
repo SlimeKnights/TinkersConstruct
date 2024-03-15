@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.recipe.modifiers.severing;
 
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -12,7 +13,6 @@ import slimeknights.mantle.recipe.ingredient.EntityIngredient;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
-import java.util.Objects;
 import java.util.function.Consumer;
 
 /** Builder for entity melting recipes */
@@ -41,7 +41,7 @@ public class SeveringRecipeBuilder extends AbstractRecipeBuilder<SeveringRecipeB
 
   @Override
   public void save(Consumer<FinishedRecipe> consumer) {
-    save(consumer, Objects.requireNonNull(output.get().getItem().getRegistryName()));
+    save(consumer, Registry.ITEM.getKey(output.get().getItem()));
   }
 
   @Override

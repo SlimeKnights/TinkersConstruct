@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "ingredient": [
@@ -15,16 +16,15 @@
       ]
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/armor"
+  "max_level": 1,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:knockback_resistance"
   },
   "slots": {
     "defense": 1
   },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:knockback_resistance",
-    "level": 1
-  },
-  "max_level": 1
+  "tools": {
+    "tag": "tconstruct:modifiable/armor"
+  }
 }

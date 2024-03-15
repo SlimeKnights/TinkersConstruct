@@ -1,12 +1,12 @@
 package slimeknights.tconstruct.shared;
 
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.GlassBlock;
@@ -22,10 +22,10 @@ import net.minecraft.world.level.storage.loot.entries.LootPoolEntryType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
+import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.registries.RegistryObject;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
@@ -139,40 +139,40 @@ public final class TinkerCommons extends TinkerModule {
 
   /* Slime Balls are edible, believe it or not */
   public static final EnumObject<SlimeType, Item> slimeball = new EnumObject.Builder<SlimeType, Item>(SlimeType.class)
-    .put(SlimeType.EARTH, Items.SLIME_BALL.delegate)
+    .put(SlimeType.EARTH, () -> Items.SLIME_BALL)
     .putAll(ITEMS.registerEnum(SlimeType.TINKER, "slime_ball", type -> new Item(GENERAL_PROPS)))
     .build();
 
   public static final BlockContainerOpenedTrigger CONTAINER_OPENED_TRIGGER = new BlockContainerOpenedTrigger();
 
   public TinkerCommons() {
+    TConstructCommand.init();
     MinecraftForge.EVENT_BUS.addListener(RecipeCacheInvalidator::onReloadListenerReload);
   }
 
   @SubscribeEvent
   void commonSetupEvent(FMLCommonSetupEvent event) {
-    TConstructCommand.init();
     SlimeBounceHandler.init();
   }
 
   @SubscribeEvent
-  void registerRecipeSerializers(RegistryEvent.Register<RecipeSerializer<?>> event) {
-    CraftingHelper.register(NoContainerIngredient.ID, NoContainerIngredient.Serializer.INSTANCE);
-    CraftingHelper.register(ConfigEnabledCondition.SERIALIZER);
-    CriteriaTriggers.register(CONTAINER_OPENED_TRIGGER);
+  void registerRecipeSerializers(RegisterEvent event) {
+    if (event.getRegistryKey() == Registry.RECIPE_SERIALIZER_REGISTRY) {
+      CraftingHelper.register(NoContainerIngredient.ID, NoContainerIngredient.Serializer.INSTANCE);
+      CraftingHelper.register(ConfigEnabledCondition.SERIALIZER);
+      CriteriaTriggers.register(CONTAINER_OPENED_TRIGGER);
 
-    CraftingHelper.register(TagIntersectionPresentCondition.SERIALIZER);
-    CraftingHelper.register(TagDifferencePresentCondition.SERIALIZER);
-    CraftingHelper.register(new TagNotEmptyCondition.ConditionSerializer());
-    // mantle
-    LivingEntityPredicate.LOADER.register(getResource("airborne"), TinkerLivingEntityPredicate.AIRBORNE.getLoader());
+      CraftingHelper.register(TagIntersectionPresentCondition.SERIALIZER);
+      CraftingHelper.register(TagDifferencePresentCondition.SERIALIZER);
+      CraftingHelper.register(new TagNotEmptyCondition.ConditionSerializer());
+      // mantle
+      LivingEntityPredicate.LOADER.register(getResource("airborne"), TinkerLivingEntityPredicate.AIRBORNE.getLoader());
+    }
   }
 
   @SubscribeEvent
   void gatherData(final GatherDataEvent event) {
-    if (event.includeServer()) {
-      DataGenerator datagenerator = event.getGenerator();
-      datagenerator.addProvider(new CommonRecipeProvider(datagenerator));
-    }
+    DataGenerator datagenerator = event.getGenerator();
+    datagenerator.addProvider(event.includeServer(), new CommonRecipeProvider(datagenerator));
   }
 }

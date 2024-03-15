@@ -1,26 +1,26 @@
 {
   "parent": "tconstruct:foundry/alloyer",
+  "criteria": {
+    "open_foundry": {
+      "conditions": {
+        "type": "tconstruct:foundry"
+      },
+      "trigger": "tconstruct:block_container_opened"
+    }
+  },
   "display": {
-    "icon": {
-      "item": "tconstruct:foundry_controller"
-    },
-    "title": {
-      "translate": "advancements.tconstruct.foundry.structure.title"
-    },
+    "announce_to_chat": false,
     "description": {
       "translate": "advancements.tconstruct.foundry.structure.description"
     },
     "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "tconstruct:foundry_controller"
+    },
     "show_toast": true,
-    "announce_to_chat": false,
-    "hidden": false
-  },
-  "criteria": {
-    "open_foundry": {
-      "trigger": "tconstruct:block_container_opened",
-      "conditions": {
-        "type": "tconstruct:foundry"
-      }
+    "title": {
+      "translate": "advancements.tconstruct.foundry.structure.title"
     }
   },
   "requirements": [

@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:geore_large_buds/zinc",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:geore_large_buds/zinc"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:geore_large_buds/zinc"
   },
   "result": {
-    "fluid": "tconstruct:molten_zinc",
-    "amount": 270
+    "amount": 270,
+    "fluid": "tconstruct:molten_zinc"
   },
   "temperature": 420,
   "time": 94

@@ -6,9 +6,9 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -19,7 +19,6 @@ import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 import static java.util.Objects.requireNonNullElse;
 
@@ -147,7 +146,7 @@ public class StationSlotLayout {
   /** Gets the display name from the unlocalized name of {@link #getTranslationKey()} */
   public Component getDisplayName() {
     if (displayName == null) {
-      displayName = new TranslatableComponent(getTranslationKey());
+      displayName = Component.translatable(getTranslationKey());
     }
     return displayName;
   }
@@ -155,7 +154,7 @@ public class StationSlotLayout {
   /** Gets the description from the unlocalized name of {@link #getTranslationKey()} */
   public Component getDescription() {
     if (description == null) {
-      description = new TranslatableComponent(getTranslationKey() + ".description");
+      description = Component.translatable(getTranslationKey() + ".description");
     }
     return description;
   }
@@ -242,7 +241,7 @@ public class StationSlotLayout {
 
     /** Adds an input as the given item */
     public Builder addInputItem(ItemLike item, int x, int y) {
-      return addInputItem(new Pattern(Objects.requireNonNull(item.asItem().getRegistryName())), item, x, y);
+      return addInputItem(new Pattern(Registry.ITEM.getKey(item.asItem())), item, x, y);
     }
 
     /** Builds a station slot layout */

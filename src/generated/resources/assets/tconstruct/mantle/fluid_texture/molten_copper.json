@@ -1,0 +1,5 @@
+{
+  "color": "FFFFFFFF",
+  "flowing": "tconstruct:fluid/molten/ore/copper/flowing",
+  "still": "tconstruct:fluid/molten/ore/copper/still"
+}

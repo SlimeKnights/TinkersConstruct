@@ -1,14 +1,14 @@
 {
-  "fluid": {
-    "tag": "forge:rabbit_stew",
-    "amount": 50
-  },
   "effects": [
     {
       "type": "tconstruct:restore_hunger",
       "hunger": 2,
-      "saturation": 0.1,
-      "representative_item": "minecraft:rabbit_stew"
+      "representative_item": "minecraft:rabbit_stew",
+      "saturation": 0.1
     }
-  ]
+  ],
+  "fluid": {
+    "amount": 50,
+    "tag": "forge:rabbit_stew"
+  }
 }

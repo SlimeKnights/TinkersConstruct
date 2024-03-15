@@ -1,4 +1,5 @@
 {
+  "type": "tconstruct:modifier_hook",
   "conditions": [
     {
       "condition": "tconstruct:block_or_entity"
@@ -14,17 +15,16 @@
         },
         {
           "condition": "minecraft:entity_properties",
+          "entity": "killer",
           "predicate": {
             "equipment": {
               "mainhand": {
                 "tag": "tconstruct:modifiable/loot_capable_tool"
               }
             }
-          },
-          "entity": "killer"
+          }
         }
       ]
     }
-  ],
-  "type": "tconstruct:modifier_hook"
+  ]
 }

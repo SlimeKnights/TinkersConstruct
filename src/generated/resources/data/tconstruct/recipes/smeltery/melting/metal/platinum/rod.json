@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:rods/platinum",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:rods/platinum"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:rods/platinum"
   },
   "result": {
-    "fluid": "tconstruct:molten_platinum",
-    "amount": 45
+    "amount": 45,
+    "fluid": "tconstruct:molten_platinum"
   },
   "temperature": 970,
   "time": 13

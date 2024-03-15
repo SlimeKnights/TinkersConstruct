@@ -1,46 +1,46 @@
 {
-  "translation_key": "item.tconstruct.cleaver",
   "icon": {
     "item": "tconstruct:cleaver",
     "nbt": "{Damage:0,tic_broken:0b,tic_display:1b,tic_materials:[\"tconstruct:ui_render#head\",\"tconstruct:ui_render#handle\",\"tconstruct:ui_render#extra\",\"tconstruct:ui_render#large\",\"tconstruct:ui_render#extra_large\"]}"
   },
-  "sortIndex": 9,
   "input_slots": [
     {
+      "filter": {
+        "item": "tconstruct:broad_blade"
+      },
       "icon": "tconstruct:broad_blade",
       "translation_key": "item.tconstruct.broad_blade",
       "x": 45,
-      "y": 26,
-      "filter": {
-        "item": "tconstruct:broad_blade"
-      }
+      "y": 26
     },
     {
+      "filter": {
+        "item": "tconstruct:tough_handle"
+      },
       "icon": "tconstruct:tough_handle",
       "translation_key": "item.tconstruct.tough_handle",
       "x": 7,
-      "y": 62,
-      "filter": {
-        "item": "tconstruct:tough_handle"
-      }
+      "y": 62
     },
     {
+      "filter": {
+        "item": "tconstruct:tough_handle"
+      },
       "icon": "tconstruct:tough_handle",
       "translation_key": "item.tconstruct.tough_handle",
       "x": 25,
-      "y": 46,
-      "filter": {
-        "item": "tconstruct:tough_handle"
-      }
+      "y": 46
     },
     {
+      "filter": {
+        "item": "tconstruct:large_plate"
+      },
       "icon": "tconstruct:large_plate",
       "translation_key": "item.tconstruct.large_plate",
       "x": 45,
-      "y": 46,
-      "filter": {
-        "item": "tconstruct:large_plate"
-      }
+      "y": 46
     }
-  ]
+  ],
+  "sortIndex": 9,
+  "translation_key": "item.tconstruct.cleaver"
 }

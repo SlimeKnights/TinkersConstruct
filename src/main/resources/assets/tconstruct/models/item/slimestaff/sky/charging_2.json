@@ -4,8 +4,8 @@
   "textures": {
     "tool":         "tconstruct:item/tool/staff/sky_2",
     "broken":       "tconstruct:item/tool/staff/sky_broken",
-    "tool_large":   "tconstruct:item/tool/staff/sky_large_2",
-    "broken_large": "tconstruct:item/tool/staff/sky_large_broken"
+    "large_tool":   "tconstruct:item/tool/staff/sky_large_2",
+    "large_broken": "tconstruct:item/tool/staff/sky_large_broken"
   },
   "large": true,
   "modifier_roots": {

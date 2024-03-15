@@ -1,10 +1,10 @@
 {
   "type": "tconstruct:material_fluid",
-  "input": "tconstruct:wood",
   "fluid": {
-    "tag": "tconstruct:molten_obsidian",
-    "amount": 1000
+    "amount": 1000,
+    "tag": "tconstruct:molten_obsidian"
   },
-  "temperature": 1000,
-  "output": "tconstruct:nahuatl"
+  "input": "tconstruct:wood",
+  "output": "tconstruct:nahuatl",
+  "temperature": 1000
 }

@@ -1,9 +1,9 @@
 {
   "type": "tconstruct:casting_basin",
+  "cooling_time": 160,
   "fluid": {
-    "tag": "tconstruct:molten_clay",
-    "amount": 1000
+    "amount": 1000,
+    "tag": "tconstruct:molten_clay"
   },
-  "result": "minecraft:terracotta",
-  "cooling_time": 160
+  "result": "minecraft:terracotta"
 }

@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:entity_melting",
+  "damage": 2,
   "entity": {
     "types": [
       "minecraft:enderman",
@@ -8,8 +9,7 @@
     ]
   },
   "result": {
-    "fluid": "tconstruct:molten_ender",
-    "amount": 25
-  },
-  "damage": 2
+    "amount": 25,
+    "fluid": "tconstruct:molten_ender"
+  }
 }

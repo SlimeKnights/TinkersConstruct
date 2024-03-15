@@ -1,9 +1,9 @@
 {
   "type": "tconstruct:material_melting",
   "input": "tconstruct:darkthread",
-  "temperature": 1000,
   "result": {
-    "fluid": "tconstruct:molten_obsidian",
-    "amount": 250
-  }
+    "amount": 250,
+    "fluid": "tconstruct:molten_obsidian"
+  },
+  "temperature": 1000
 }

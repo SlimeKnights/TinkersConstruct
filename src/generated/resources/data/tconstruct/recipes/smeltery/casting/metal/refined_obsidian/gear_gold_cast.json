@@ -1,23 +1,23 @@
 {
   "type": "tconstruct:casting_table",
-  "conditions": [
-    {
-      "value": {
-        "tag": "forge:gears/refined_obsidian",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
-    }
-  ],
   "cast": {
     "tag": "tconstruct:casts/multi_use/gear"
   },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:gears/refined_obsidian"
+      }
+    }
+  ],
+  "cooling_time": 159,
   "fluid": {
-    "tag": "forge:molten_refined_obsidian",
-    "amount": 360
+    "amount": 360,
+    "tag": "forge:molten_refined_obsidian"
   },
   "result": {
     "tag": "forge:gears/refined_obsidian"
-  },
-  "cooling_time": 159
+  }
 }

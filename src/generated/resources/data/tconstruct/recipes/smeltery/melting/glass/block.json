@@ -4,8 +4,8 @@
     "tag": "forge:glass/silica"
   },
   "result": {
-    "fluid": "tconstruct:molten_glass",
-    "amount": 1000
+    "amount": 1000,
+    "fluid": "tconstruct:molten_glass"
   },
   "temperature": 750,
   "time": 59

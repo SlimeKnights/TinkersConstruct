@@ -111,7 +111,7 @@ public class SeveringRecipe implements ICustomOutputRecipe<IEmptyContainer> {
   }
 
   /** Serializer for this recipe */
-  public static class Serializer extends LoggingRecipeSerializer<SeveringRecipe> {
+  public static class Serializer implements LoggingRecipeSerializer<SeveringRecipe> {
     @Override
     public SeveringRecipe fromJson(ResourceLocation id, JsonObject json) {
       EntityIngredient ingredient = EntityIngredient.deserialize(JsonHelper.getElement(json, "entity"));
@@ -121,14 +121,14 @@ public class SeveringRecipe implements ICustomOutputRecipe<IEmptyContainer> {
 
     @Nullable
     @Override
-    protected SeveringRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    public SeveringRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       EntityIngredient ingredient = EntityIngredient.read(buffer);
       ItemOutput output = ItemOutput.read(buffer);
       return new SeveringRecipe(id, ingredient, output);
     }
 
     @Override
-    protected void toNetworkSafe(FriendlyByteBuf buffer, SeveringRecipe recipe) {
+    public void toNetworkSafe(FriendlyByteBuf buffer, SeveringRecipe recipe) {
       recipe.ingredient.write(buffer);
       recipe.output.write(buffer);
     }

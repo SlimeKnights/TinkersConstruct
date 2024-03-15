@@ -5,7 +5,6 @@ import com.google.common.collect.Multimap;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -31,7 +30,7 @@ public class ModifierRecipeLookup {
   /** Key of default error message, in case an error message for a modifier requirement is missing */
   public static final String DEFAULT_ERROR_KEY = TConstruct.makeTranslationKey("recipe", "modifier.requirements_error");
   /** Default requirements error, for if a proper error is missing */
-  public static final Component DEFAULT_ERROR = new TranslatableComponent(ModifierRecipeLookup.DEFAULT_ERROR_KEY);
+  public static final Component DEFAULT_ERROR = Component.translatable(ModifierRecipeLookup.DEFAULT_ERROR_KEY);
 
   /** Map of requirements for each modifier */
   private static final Multimap<ModifierId,ModifierRequirements> REQUIREMENTS = HashMultimap.create();
@@ -83,7 +82,7 @@ public class ModifierRecipeLookup {
       if (errorMessage.isEmpty()) {
         error = DEFAULT_ERROR;
       } else {
-        error = new TranslatableComponent(errorMessage);
+        error = Component.translatable(errorMessage);
       }
       ModifierId modifier = entry.getId();
       addRequirements(new ModifierRequirements(ingredient, modifier, requirements.getMinLevel(modifier) + entry.getLevel(), requirements, error));

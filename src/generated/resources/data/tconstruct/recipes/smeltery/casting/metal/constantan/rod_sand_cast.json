@@ -1,24 +1,24 @@
 {
   "type": "tconstruct:casting_table",
-  "conditions": [
-    {
-      "value": {
-        "tag": "forge:rods/constantan",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
-    }
-  ],
   "cast": {
     "tag": "tconstruct:casts/single_use/rod"
   },
   "cast_consumed": true,
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:rods/constantan"
+      }
+    }
+  ],
+  "cooling_time": 45,
   "fluid": {
-    "tag": "forge:molten_constantan",
-    "amount": 45
+    "amount": 45,
+    "tag": "forge:molten_constantan"
   },
   "result": {
     "tag": "forge:rods/constantan"
-  },
-  "cooling_time": 45
+  }
 }

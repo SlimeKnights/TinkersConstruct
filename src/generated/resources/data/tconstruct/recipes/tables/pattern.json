@@ -1,19 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "p": {
+      "tag": "minecraft:planks"
+    },
+    "s": {
+      "tag": "forge:rods/wooden"
+    }
+  },
   "pattern": [
     "ps",
     "sp"
   ],
-  "key": {
-    "s": {
-      "tag": "forge:rods/wooden"
-    },
-    "p": {
-      "tag": "minecraft:planks"
-    }
-  },
   "result": {
-    "item": "tconstruct:pattern",
-    "count": 3
+    "count": 3,
+    "item": "tconstruct:pattern"
   }
 }

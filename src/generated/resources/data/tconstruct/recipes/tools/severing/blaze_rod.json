@@ -4,7 +4,7 @@
     "type": "minecraft:blaze"
   },
   "result": {
-    "item": "minecraft:blaze_rod",
-    "count": 2
+    "count": 2,
+    "item": "minecraft:blaze_rod"
   }
 }

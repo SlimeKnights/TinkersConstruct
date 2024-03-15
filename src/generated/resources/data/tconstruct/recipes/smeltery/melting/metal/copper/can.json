@@ -1,12 +1,12 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "item": "tconstruct:copper_can",
-    "type": "tconstruct:no_container"
+    "type": "tconstruct:no_container",
+    "item": "tconstruct:copper_can"
   },
   "result": {
-    "fluid": "tconstruct:molten_copper",
-    "amount": 90
+    "amount": 90,
+    "fluid": "tconstruct:molten_copper"
   },
   "temperature": 500,
   "time": 50

@@ -20,8 +20,8 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidType;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -54,7 +54,7 @@ public class SpittingModifier extends Modifier implements GeneralInteractionModi
   @Override
   protected void registerHooks(Builder builder) {
     builder.addHook(this, TinkerHooks.GENERAL_INTERACT);
-    tank = new TankModule(FluidAttributes.BUCKET_VOLUME, true);
+    tank = new TankModule(FluidType.BUCKET_VOLUME, true);
     builder.addModule(tank);
   }
 

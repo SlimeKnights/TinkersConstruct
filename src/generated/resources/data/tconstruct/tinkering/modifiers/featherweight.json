@@ -1,19 +1,19 @@
 {
   "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "tooltip_display": "always",
   "modules": [
     {
       "type": "tconstruct:stat_boost",
-      "stat": "tconstruct:draw_speed",
+      "each_level": 0.07,
       "operation": "multiply_base",
-      "each_level": 0.07
+      "stat": "tconstruct:draw_speed"
     },
     {
       "type": "tconstruct:stat_boost",
-      "stat": "tconstruct:accuracy",
+      "each_level": 0.07,
       "operation": "multiply_base",
-      "each_level": 0.07
+      "stat": "tconstruct:accuracy"
     }
-  ]
+  ],
+  "tooltip_display": "always"
 }

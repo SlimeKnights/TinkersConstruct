@@ -1,11 +1,11 @@
 {
   "type": "tconstruct:modifier_salvage",
-  "tools": {
-    "tag": "tconstruct:modifiable/harvest"
-  },
+  "min_level": 1,
+  "modifier": "tconstruct:autosmelt",
   "slots": {
     "abilities": 1
   },
-  "modifier": "tconstruct:autosmelt",
-  "min_level": 1
+  "tools": {
+    "tag": "tconstruct:modifiable/harvest"
+  }
 }

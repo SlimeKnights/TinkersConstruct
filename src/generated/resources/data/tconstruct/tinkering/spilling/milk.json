@@ -1,8 +1,4 @@
 {
-  "fluid": {
-    "tag": "forge:milk",
-    "amount": 100
-  },
   "effects": [
     {
       "type": "tconstruct:cure_effects",
@@ -11,5 +7,9 @@
     {
       "type": "tconstruct:calcified"
     }
-  ]
+  ],
+  "fluid": {
+    "amount": 100,
+    "tag": "forge:milk"
+  }
 }

@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:specialized_repair_kit",
+  "repair_material": "tconstruct:leather",
   "tool": {
     "item": "tconstruct:slime_boots"
-  },
-  "repair_material": "tconstruct:leather"
+  }
 }

@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "tag": "minecraft:fishes"
@@ -17,16 +18,15 @@
       "item": "minecraft:kelp"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/armor/helmets"
+  "max_level": 3,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:respiration"
   },
   "slots": {
     "upgrades": 1
   },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:respiration",
-    "level": 1
-  },
-  "max_level": 3
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/helmets"
+  }
 }

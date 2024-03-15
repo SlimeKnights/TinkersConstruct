@@ -1,38 +1,11 @@
 {
-  "parts": [
-    {
-      "item": "tconstruct:small_blade"
-    },
-    {
-      "item": "tconstruct:tool_handle"
-    },
-    {
-      "item": "tconstruct:tool_handle"
-    }
-  ],
-  "stats": {
-    "base": {
-      "tconstruct:attack_damage": 3.0,
-      "tconstruct:attack_speed": 1.6
-    },
-    "multipliers": {
-      "tconstruct:mining_speed": 0.5,
-      "tconstruct:durability": 1.1
-    }
-  },
-  "slots": {
-    "upgrades": 3,
-    "abilities": 1
-  },
-  "traits": [
-    {
-      "name": "tconstruct:silky_shears",
-      "level": 1
-    }
-  ],
   "actions": [
     "sword_dig"
   ],
+  "attack": {
+    "type": "tconstruct:sweep",
+    "range": 1.0
+  },
   "harvest": {
     "logic": {
       "type": "tconstruct:modified_tag",
@@ -60,8 +33,35 @@
       ]
     }
   },
-  "attack": {
-    "type": "tconstruct:sweep",
-    "range": 1.0
-  }
+  "parts": [
+    {
+      "item": "tconstruct:small_blade"
+    },
+    {
+      "item": "tconstruct:tool_handle"
+    },
+    {
+      "item": "tconstruct:tool_handle"
+    }
+  ],
+  "slots": {
+    "abilities": 1,
+    "upgrades": 3
+  },
+  "stats": {
+    "base": {
+      "tconstruct:attack_damage": 3.0,
+      "tconstruct:attack_speed": 1.6
+    },
+    "multipliers": {
+      "tconstruct:durability": 1.1,
+      "tconstruct:mining_speed": 0.5
+    }
+  },
+  "traits": [
+    {
+      "level": 1,
+      "name": "tconstruct:silky_shears"
+    }
+  ]
 }

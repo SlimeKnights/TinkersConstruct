@@ -4,10 +4,10 @@
     "item": "minecraft:glass_bottle"
   },
   "cast_consumed": true,
+  "cooling_time": 1,
   "fluid": {
-    "tag": "forge:slime",
-    "amount": 250
+    "amount": 250,
+    "tag": "forge:slime"
   },
-  "result": "tconstruct:earth_slime_bottle",
-  "cooling_time": 1
+  "result": "tconstruct:earth_slime_bottle"
 }

@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -18,7 +19,6 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Consumer;
 
 /**
@@ -60,7 +60,7 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
    * @return  Builder instance
    */
   public static MeltingRecipeBuilder melting(Ingredient input, FluidStack output, float timeFactor) {
-    int temperature = output.getFluid().getAttributes().getTemperature(output) - 300;
+    int temperature = output.getFluid().getFluidType().getTemperature(output) - 300;
     return melting(input, output, temperature, IMeltingRecipe.calcTime(temperature, timeFactor));
   }
 
@@ -118,7 +118,7 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
 
   @Override
   public void save(Consumer<FinishedRecipe> consumer) {
-    save(consumer, Objects.requireNonNull(output.getFluid().getRegistryName()));
+    save(consumer, Registry.FLUID.getKey(output.getFluid()));
   }
 
   @Override

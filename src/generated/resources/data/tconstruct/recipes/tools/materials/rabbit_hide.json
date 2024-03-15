@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "minecraft:rabbit_hide"
   },
-  "value": 1,
+  "material": "tconstruct:leather",
   "needed": 2,
-  "material": "tconstruct:leather"
+  "value": 1
 }

@@ -1,11 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "tconstruct:pig_iron_ingot",
-  "pattern": [
-    "###",
-    "#*#",
-    "###"
-  ],
   "key": {
     "#": {
       "tag": "forge:nuggets/pig_iron"
@@ -14,6 +9,11 @@
       "item": "tconstruct:pig_iron_nugget"
     }
   },
+  "pattern": [
+    "###",
+    "#*#",
+    "###"
+  ],
   "result": {
     "item": "tconstruct:pig_iron_ingot"
   }

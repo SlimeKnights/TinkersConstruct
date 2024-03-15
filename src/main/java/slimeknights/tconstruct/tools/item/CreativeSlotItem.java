@@ -5,7 +5,6 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -61,7 +60,7 @@ public class CreativeSlotItem extends Item {
   public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
     SlotType slot = getSlot(stack);
     if (slot != null) {
-      tooltip.add(new TranslatableComponent(TOOLTIP, slot.getDisplayName()).withStyle(ChatFormatting.GRAY));
+      tooltip.add(Component.translatable(TOOLTIP, slot.getDisplayName()).withStyle(ChatFormatting.GRAY));
     } else {
       tooltip.add(TOOLTIP_MISSING);
     }
@@ -69,7 +68,7 @@ public class CreativeSlotItem extends Item {
 
   @Override
   public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
-    if (allowdedIn(group)) {
+    if (allowedIn(group)) {
       Collection<SlotType> allTypes = SlotType.getAllSlotTypes();
       if (allTypes.isEmpty()) {
         items.add(new ItemStack(this));

@@ -1,5 +1,5 @@
 {
   "type": "tconstruct:table_filling",
-  "fluid_amount": 1000,
-  "container": "minecraft:bucket"
+  "container": "minecraft:bucket",
+  "fluid_amount": 1000
 }

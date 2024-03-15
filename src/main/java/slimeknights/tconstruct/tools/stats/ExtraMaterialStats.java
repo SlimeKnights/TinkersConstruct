@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.stats.BaseMaterialStats;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
@@ -23,7 +22,7 @@ public class ExtraMaterialStats extends BaseMaterialStats {
   public static final ExtraMaterialStats DEFAULT = new ExtraMaterialStats();
   private static final Component NO_STATS = makeTooltip(TConstruct.getResource("extra.no_stats"));
   private static final List<Component> LOCALIZED = Collections.singletonList(NO_STATS);
-  private static final List<Component> DESCRIPTION = Collections.singletonList(TextComponent.EMPTY);
+  private static final List<Component> DESCRIPTION = Collections.singletonList(Component.empty());
 
   // no stats
 

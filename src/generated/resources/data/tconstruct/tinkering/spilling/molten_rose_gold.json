@@ -1,26 +1,26 @@
 {
-  "fluid": {
-    "tag": "forge:molten_rose_gold",
-    "amount": 10
-  },
   "effects": [
     {
       "type": "tconstruct:conditional",
+      "effect": {
+        "type": "tconstruct:damage",
+        "damage_amount": 2.0,
+        "damage_type": "magic"
+      },
       "entity": {
         "type": "mantle:mob_type",
         "mobs": "minecraft:undead"
-      },
-      "effect": {
-        "type": "tconstruct:damage",
-        "damage_type": "magic",
-        "damage_amount": 2.0
       }
     },
     {
       "type": "tconstruct:effect",
+      "level": 1,
       "name": "minecraft:health_boost",
-      "time": 15,
-      "level": 1
+      "time": 15
     }
-  ]
+  ],
+  "fluid": {
+    "amount": 10,
+    "tag": "forge:molten_rose_gold"
+  }
 }

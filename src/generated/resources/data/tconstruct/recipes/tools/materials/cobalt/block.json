@@ -3,10 +3,10 @@
   "ingredient": {
     "tag": "forge:storage_blocks/cobalt"
   },
-  "value": 9,
-  "needed": 1,
-  "material": "tconstruct:cobalt",
   "leftover": {
     "tag": "forge:ingots/cobalt"
-  }
+  },
+  "material": "tconstruct:cobalt",
+  "needed": 1,
+  "value": 9
 }

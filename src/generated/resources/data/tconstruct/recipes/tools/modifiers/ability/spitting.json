@@ -1,16 +1,17 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
-      "tag": "tconstruct:tanks",
-      "type": "tconstruct:no_container"
+      "type": "tconstruct:no_container",
+      "tag": "tconstruct:tanks"
     },
     {
       "item": "minecraft:dispenser"
     },
     {
-      "tag": "tconstruct:tanks",
-      "type": "tconstruct:no_container"
+      "type": "tconstruct:no_container",
+      "tag": "tconstruct:tanks"
     },
     {
       "tag": "forge:ingots/copper"
@@ -19,6 +20,13 @@
       "tag": "forge:ingots/copper"
     }
   ],
+  "result": {
+    "level": 1,
+    "name": "tconstruct:spitting"
+  },
+  "slots": {
+    "abilities": 1
+  },
   "tools": {
     "type": "forge:intersection",
     "children": [
@@ -29,13 +37,5 @@
         "tag": "tconstruct:modifiable/interactable/right"
       }
     ]
-  },
-  "slots": {
-    "abilities": 1
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:spitting",
-    "level": 1
   }
 }

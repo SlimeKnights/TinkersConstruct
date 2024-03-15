@@ -69,7 +69,7 @@ public class OreMeltingRecipe extends MeltingRecipe {
     }
 
     @Override
-    protected void toNetworkSafe(FriendlyByteBuf buffer, OreMeltingRecipe recipe) {
+    public void toNetworkSafe(FriendlyByteBuf buffer, OreMeltingRecipe recipe) {
       super.toNetworkSafe(buffer, recipe);
       buffer.writeEnum(recipe.oreType);
     }

@@ -1,26 +1,35 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
-      "item": "tconstruct:small_blade",
-      "type": "tconstruct:material"
+      "type": "tconstruct:material",
+      "item": "tconstruct:small_blade"
     },
     {
       "tag": "forge:ingots/netherite_scrap"
     },
     {
-      "item": "tconstruct:tool_binding",
-      "type": "tconstruct:material"
+      "type": "tconstruct:material",
+      "item": "tconstruct:tool_binding"
     },
     {
-      "item": "tconstruct:small_blade",
-      "type": "tconstruct:material"
+      "type": "tconstruct:material",
+      "item": "tconstruct:small_blade"
     },
     {
-      "item": "tconstruct:tool_binding",
-      "type": "tconstruct:material"
+      "type": "tconstruct:material",
+      "item": "tconstruct:tool_binding"
     }
   ],
+  "max_level": 1,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:plowing"
+  },
+  "slots": {
+    "abilities": 1
+  },
   "tools": {
     "type": "forge:intersection",
     "children": [
@@ -31,14 +40,5 @@
         "tag": "tconstruct:modifiable/durability"
       }
     ]
-  },
-  "slots": {
-    "abilities": 1
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:plowing",
-    "level": 1
-  },
-  "max_level": 1
+  }
 }

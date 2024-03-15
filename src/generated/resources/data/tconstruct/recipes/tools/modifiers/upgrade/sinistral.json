@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "tag": "forge:ingots/manyullyn"
@@ -17,6 +18,14 @@
       "tag": "forge:slimeball/sky"
     }
   ],
+  "max_level": 1,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:sinistral"
+  },
+  "slots": {
+    "upgrades": 1
+  },
   "tools": {
     "type": "forge:intersection",
     "children": [
@@ -27,14 +36,5 @@
         "tag": "tconstruct:modifiable/interactable/left"
       }
     ]
-  },
-  "slots": {
-    "upgrades": 1
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:sinistral",
-    "level": 1
-  },
-  "max_level": 1
+  }
 }

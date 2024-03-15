@@ -4,8 +4,8 @@
     "item": "minecraft:magma_cream"
   },
   "result": {
-    "fluid": "tconstruct:magma",
-    "amount": 250
+    "amount": 250,
+    "fluid": "tconstruct:magma"
   },
   "temperature": 300,
   "time": 42

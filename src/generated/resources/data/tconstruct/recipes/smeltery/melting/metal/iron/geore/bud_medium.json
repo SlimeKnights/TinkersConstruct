@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:geore_medium_buds/iron",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:geore_medium_buds/iron"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:geore_medium_buds/iron"
   },
   "result": {
-    "fluid": "tconstruct:molten_iron",
-    "amount": 180
+    "amount": 180,
+    "fluid": "tconstruct:molten_iron"
   },
   "temperature": 800,
   "time": 90

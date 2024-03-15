@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:wires/pewter",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:wires/pewter"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:wires/pewter"
   },
   "result": {
-    "fluid": "tconstruct:molten_pewter",
-    "amount": 45
+    "amount": 45,
+    "fluid": "tconstruct:molten_pewter"
   },
   "temperature": 400,
   "time": 9

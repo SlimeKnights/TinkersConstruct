@@ -1,0 +1,5 @@
+{
+  "color": "FFFFFFFF",
+  "flowing": "tconstruct:fluid/molten/compat_ore/platinum/flowing",
+  "still": "tconstruct:fluid/molten/compat_ore/platinum/still"
+}

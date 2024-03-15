@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "tconstruct:sky_slime_vine"
   },
-  "value": 1,
+  "material": "tconstruct:skyslime_vine",
   "needed": 1,
-  "material": "tconstruct:skyslime_vine"
+  "value": 1
 }

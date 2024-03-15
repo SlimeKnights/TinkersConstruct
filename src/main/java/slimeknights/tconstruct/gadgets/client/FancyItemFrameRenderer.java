@@ -2,9 +2,9 @@ package slimeknights.tconstruct.gadgets.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
-import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemFrameRenderer;
@@ -17,8 +17,7 @@ import net.minecraft.world.item.MapItem;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.event.RenderItemInFrameEvent;
-import net.minecraftforge.client.event.RenderNameplateEvent;
-import net.minecraftforge.client.model.data.EmptyModelData;
+import net.minecraftforge.client.event.RenderNameTagEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.Event.Result;
 import slimeknights.tconstruct.TConstruct;
@@ -49,12 +48,13 @@ public class FancyItemFrameRenderer<T extends FancyItemFrameEntity> extends Item
     return frame.getFrameType() == FrameType.MANYULLYN ? Math.max(7, baseLight) : baseLight;
   }
 
+  @SuppressWarnings("UnstableApiUsage")  // seriously forge, how am I supposed to implement something like vanilla if I cannot create events?
   @Override
   public void render(T frame, float entityYaw, float partialTicks, PoseStack matrices, MultiBufferSource bufferIn, int packedLight) {
     FrameType frameType = frame.getFrameType();
 
     // base entity rendering logic, since calling super gives us the item frame renderer
-    RenderNameplateEvent renderNameplate = new RenderNameplateEvent(frame, frame.getDisplayName(), this, matrices, bufferIn, packedLight, partialTicks);
+    RenderNameTagEvent renderNameplate = new RenderNameTagEvent(frame, frame.getDisplayName(), this, matrices, bufferIn, packedLight, partialTicks);
     MinecraftForge.EVENT_BUS.post(renderNameplate);
     if (renderNameplate.getResult() == Result.ALLOW || (renderNameplate.getResult() != Result.DENY && this.shouldShowName(frame))) {
       this.renderNameTag(frame, renderNameplate.getContent(), matrices, bufferIn, packedLight);
@@ -76,11 +76,10 @@ public class FancyItemFrameRenderer<T extends FancyItemFrameEntity> extends Item
     if (frameVisible) {
       matrices.pushPose();
       matrices.translate(-0.5D, -0.5D, -0.5D);
-      BlockRenderDispatcher blockRenderer = this.minecraft.getBlockRenderer();
       blockRenderer.getModelRenderer().renderModel(
         matrices.last(), bufferIn.getBuffer(Sheets.cutoutBlockSheet()), null,
         blockRenderer.getBlockModelShaper().getModelManager().getModel(isMap ? LOCATIONS_MODEL_MAP.get(frameType) : LOCATIONS_MODEL.get(frameType)),
-        1.0F, 1.0F, 1.0F, packedLight, OverlayTexture.NO_OVERLAY, EmptyModelData.INSTANCE);
+        1.0F, 1.0F, 1.0F, packedLight, OverlayTexture.NO_OVERLAY);
       matrices.popPose();
     }
 
@@ -110,7 +109,7 @@ public class FancyItemFrameRenderer<T extends FancyItemFrameEntity> extends Item
           int light = frameType == FrameType.MANYULLYN ? 0x00F000F0 : packedLight;
           Integer mapId = MapItem.getMapId(stack);
           assert mapId != null;
-          this.minecraft.gameRenderer.getMapRenderer().render(matrices, bufferIn, mapId, mapdata, true, light);
+          Minecraft.getInstance().gameRenderer.getMapRenderer().render(matrices, bufferIn, mapId, mapdata, true, light);
         } else {
           float scale = frameType == FrameType.CLEAR ? 0.75f : 0.5f;
           matrices.scale(scale, scale, scale);

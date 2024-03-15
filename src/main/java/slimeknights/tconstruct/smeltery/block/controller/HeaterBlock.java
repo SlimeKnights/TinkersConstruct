@@ -2,6 +2,7 @@ package slimeknights.tconstruct.smeltery.block.controller;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -11,7 +12,6 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.smeltery.block.entity.HeaterBlockEntity;
 
 import javax.annotation.Nullable;
-import java.util.Random;
 
 /**
  * Class for solid fuel heater for the melter
@@ -50,7 +50,7 @@ public class HeaterBlock extends ControllerBlock {
   }
 
   @Override
-  public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
+  public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
     if (state.getValue(ACTIVE)) {
       double x = pos.getX() + 0.5D;
       double y = (double) pos.getY() + (rand.nextFloat() * 14F) / 16F;

@@ -4,10 +4,10 @@
     "tag": "tconstruct:casts/single_use/ingot"
   },
   "cast_consumed": true,
+  "cooling_time": 70,
   "fluid": {
-    "tag": "tconstruct:molten_knightslime",
-    "amount": 90
+    "amount": 90,
+    "tag": "tconstruct:molten_knightslime"
   },
-  "result": "tconstruct:knightslime_ingot",
-  "cooling_time": 70
+  "result": "tconstruct:knightslime_ingot"
 }

@@ -1,0 +1,5 @@
+{
+  "color": "FFFFFFFF",
+  "flowing": "tconstruct:fluid/molten/compat_ore/osmium/flowing",
+  "still": "tconstruct:fluid/molten/compat_ore/osmium/still"
+}

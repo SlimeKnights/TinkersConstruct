@@ -1,17 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "c": {
+      "item": "minecraft:chain"
+    },
+    "m": {
+      "tag": "forge:ingots/cobalt"
+    }
+  },
   "pattern": [
     "mmm",
     "ccc"
   ],
-  "key": {
-    "m": {
-      "tag": "forge:ingots/cobalt"
-    },
-    "c": {
-      "item": "minecraft:chain"
-    }
-  },
   "result": {
     "item": "tconstruct:plate_helmet"
   }

@@ -1,19 +1,19 @@
 {
   "default": [
     {
-      "name": "tconstruct:tasty",
-      "level": 1
+      "level": 1,
+      "name": "tconstruct:tasty"
     }
   ],
   "perStat": {
     "tconstruct:skull": [
       {
-        "name": "tconstruct:revenge",
-        "level": 1
+        "level": 1,
+        "name": "tconstruct:revenge"
       },
       {
-        "name": "tconstruct:zombified_piglin_disguise",
-        "level": 1
+        "level": 1,
+        "name": "tconstruct:zombified_piglin_disguise"
       }
     ]
   }

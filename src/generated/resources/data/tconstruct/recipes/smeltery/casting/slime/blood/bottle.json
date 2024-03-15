@@ -4,10 +4,10 @@
     "item": "minecraft:glass_bottle"
   },
   "cast_consumed": true,
+  "cooling_time": 1,
   "fluid": {
-    "tag": "tconstruct:blood",
-    "amount": 250
+    "amount": 250,
+    "tag": "tconstruct:blood"
   },
-  "result": "tconstruct:blood_bottle",
-  "cooling_time": 1
+  "result": "tconstruct:blood_bottle"
 }

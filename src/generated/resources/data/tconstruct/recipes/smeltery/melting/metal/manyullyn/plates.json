@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:plates/manyullyn",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:plates/manyullyn"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:plates/manyullyn"
   },
   "result": {
-    "fluid": "tconstruct:molten_manyullyn",
-    "amount": 90
+    "amount": 90,
+    "fluid": "tconstruct:molten_manyullyn"
   },
   "temperature": 1200,
   "time": 72

@@ -117,7 +117,7 @@ public interface ITinkerableContainer extends IRecipeContainer {
     default void shrinkInput(int slot, int amount) {
       ItemStack stack = getInput(slot);
       if (!stack.isEmpty()) {
-        ItemStack container = stack.getContainerItem();
+        ItemStack container = stack.getCraftingRemainingItem();
         if (container.isEmpty() && stack.getItem() == Items.POTION) {
           container = new ItemStack(Items.GLASS_BOTTLE);
         }

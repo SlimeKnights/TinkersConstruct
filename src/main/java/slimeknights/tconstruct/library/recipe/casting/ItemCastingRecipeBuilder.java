@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -20,7 +21,6 @@ import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
-import java.util.Objects;
 import java.util.function.Consumer;
 
 /**
@@ -167,34 +167,14 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
 
   /**
    * Sets the fluid for this recipe, and cooling time
-   * @param tagIn        Tag<Fluid> instance
-   * @param temperature  fluid temperature
-   * @param amount       amount of fluid
-   */
-  public ItemCastingRecipeBuilder setFluidAndTime(int temperature, TagKey<Fluid> tagIn, int amount) {
-    setFluid(tagIn, amount);
-    setCoolingTime(temperature, amount);
-    return this;
-  }
-
-  /**
-   * Sets the fluid for this recipe, and cooling time
-   * @param fluid        Fluid for time calculations
-   * @param tag          Tag<Fluid> instance
-   * @param amount       amount of fluid
-   */
-  public ItemCastingRecipeBuilder setFluidAndTime(Fluid fluid, TagKey<Fluid> tag, int amount) {
-    return setFluidAndTime(fluid.getAttributes().getTemperature() - 300, tag, amount);
-  }
-
-  /**
-   * Sets the fluid for this recipe, and cooling time
    * @param fluid      Fluid object instance
    * @param forgeTag   If true, uses the forge tag
    * @param amount     amount of fluid
    */
   public ItemCastingRecipeBuilder setFluidAndTime(FluidObject<?> fluid, boolean forgeTag, int amount) {
-    return setFluidAndTime(fluid.get(), forgeTag ? fluid.getForgeTag() : fluid.getLocalTag(), amount);
+    setFluid(fluid.ingredient(amount, forgeTag));
+    setCoolingTime(fluid.getType().getTemperature() - 300, amount);
+    return this;
   }
 
   /**
@@ -256,7 +236,7 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
    */
   @Override
   public void save(Consumer<FinishedRecipe> consumerIn) {
-    this.save(consumerIn, Objects.requireNonNull(this.result.get().getItem().getRegistryName()));
+    this.save(consumerIn, Registry.ITEM.getKey(this.result.get().getItem()));
   }
 
   @Override

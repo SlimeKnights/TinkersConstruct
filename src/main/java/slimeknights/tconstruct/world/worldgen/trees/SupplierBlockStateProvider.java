@@ -2,13 +2,13 @@ package slimeknights.tconstruct.world.worldgen.trees;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProviderType;
 import slimeknights.tconstruct.world.TinkerStructures;
 
-import java.util.Random;
 import java.util.function.Supplier;
 
 public class SupplierBlockStateProvider extends BlockStateProvider {
@@ -43,7 +43,7 @@ public class SupplierBlockStateProvider extends BlockStateProvider {
   }
 
   @Override
-  public BlockState getState(Random randomIn, BlockPos blockPosIn) {
+  public BlockState getState(RandomSource randomIn, BlockPos blockPosIn) {
     return this.supplier.get();
   }
 }

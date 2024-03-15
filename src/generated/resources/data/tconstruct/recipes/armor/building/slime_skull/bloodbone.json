@@ -4,13 +4,13 @@
     "item": "tconstruct:stray_head"
   },
   "cast_consumed": true,
+  "cooling_time": 237,
   "fluid": {
-    "tag": "tconstruct:ender_slime",
-    "amount": 5000
+    "amount": 5000,
+    "tag": "tconstruct:ender_slime"
   },
   "result": {
     "item": "tconstruct:slime_helmet",
     "nbt": "{Damage:0,tic_broken:0b,tic_materials:[\"tconstruct:bloodbone\"]}"
-  },
-  "cooling_time": 237
+  }
 }

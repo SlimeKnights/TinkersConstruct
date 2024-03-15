@@ -4,10 +4,10 @@
     "item": "minecraft:glass_bottle"
   },
   "cast_consumed": true,
+  "cooling_time": 1,
   "fluid": {
-    "tag": "forge:magma",
-    "amount": 250
+    "amount": 250,
+    "tag": "forge:magma"
   },
-  "result": "tconstruct:magma_bottle",
-  "cooling_time": 1
+  "result": "tconstruct:magma_bottle"
 }

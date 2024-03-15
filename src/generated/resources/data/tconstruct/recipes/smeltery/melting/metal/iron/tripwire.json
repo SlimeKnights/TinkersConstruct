@@ -4,8 +4,8 @@
     "item": "minecraft:tripwire_hook"
   },
   "result": {
-    "fluid": "tconstruct:molten_iron",
-    "amount": 40
+    "amount": 40,
+    "fluid": "tconstruct:molten_iron"
   },
   "temperature": 800,
   "time": 40

@@ -4,10 +4,10 @@
     "tag": "forge:wither_bones"
   },
   "cast_consumed": true,
+  "cooling_time": 120,
   "fluid": {
-    "tag": "tconstruct:blazing_blood",
-    "amount": 200
+    "amount": 200,
+    "tag": "tconstruct:blazing_blood"
   },
-  "result": "tconstruct:blazing_bone",
-  "cooling_time": 120
+  "result": "tconstruct:blazing_bone"
 }

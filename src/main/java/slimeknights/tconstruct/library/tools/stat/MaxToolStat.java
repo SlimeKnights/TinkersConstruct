@@ -9,7 +9,6 @@ import net.minecraft.nbt.NumericTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.Mth;
@@ -109,7 +108,7 @@ public class MaxToolStat implements IToolStat<Integer> {
 
   @Override
   public Component formatValue(Integer number) {
-    return new TranslatableComponent(Util.makeTranslationKey("tool_stat", getName())).append(displayName.apply(number));
+    return Component.translatable(Util.makeTranslationKey("tool_stat", getName())).append(displayName.apply(number));
   }
 
   @Override

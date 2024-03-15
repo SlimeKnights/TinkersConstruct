@@ -4,8 +4,8 @@
     "item": "minecraft:golden_apple"
   },
   "result": {
-    "fluid": "tconstruct:molten_gold",
-    "amount": 720
+    "amount": 720,
+    "fluid": "tconstruct:molten_gold"
   },
   "temperature": 700,
   "time": 161

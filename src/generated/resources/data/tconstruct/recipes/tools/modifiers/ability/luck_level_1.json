@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": false,
   "inputs": [
     {
       "tag": "forge:ingots/copper"
@@ -24,6 +25,14 @@
       "tag": "forge:storage_blocks/lapis"
     }
   ],
+  "max_level": 1,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:luck"
+  },
+  "slots": {
+    "abilities": 1
+  },
   "tools": [
     {
       "tag": "tconstruct:modifiable/melee/weapon"
@@ -34,14 +43,5 @@
     {
       "tag": "tconstruct:modifiable/ranged/bows"
     }
-  ],
-  "slots": {
-    "abilities": 1
-  },
-  "allow_crystal": false,
-  "result": {
-    "name": "tconstruct:luck",
-    "level": 1
-  },
-  "max_level": 1
+  ]
 }

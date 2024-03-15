@@ -2,17 +2,17 @@
   "type": "tconstruct:material_fluid",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:ingots/silver",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/silver"
+      }
     }
   ],
   "fluid": {
-    "tag": "forge:molten_silver",
-    "amount": 90
+    "amount": 90,
+    "tag": "forge:molten_silver"
   },
-  "temperature": 790,
-  "output": "tconstruct:silver"
+  "output": "tconstruct:silver",
+  "temperature": 790
 }

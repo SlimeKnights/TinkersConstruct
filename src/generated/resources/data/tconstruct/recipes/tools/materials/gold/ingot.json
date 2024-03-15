@@ -3,7 +3,7 @@
   "ingredient": {
     "tag": "forge:ingots/gold"
   },
-  "value": 1,
+  "material": "tconstruct:gold",
   "needed": 1,
-  "material": "tconstruct:gold"
+  "value": 1
 }

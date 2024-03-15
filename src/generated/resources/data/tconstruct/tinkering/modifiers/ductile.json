@@ -1,37 +1,37 @@
 {
   "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "tooltip_display": "always",
   "modules": [
     {
       "type": "tconstruct:stat_boost",
-      "stat": "tconstruct:durability",
+      "each_level": 0.04,
       "operation": "multiply_base",
-      "each_level": 0.04
+      "stat": "tconstruct:durability"
     },
     {
       "type": "tconstruct:stat_boost",
-      "stat": "tconstruct:attack_damage",
+      "each_level": 0.04,
       "operation": "multiply_base",
-      "each_level": 0.04
+      "stat": "tconstruct:attack_damage"
     },
     {
       "type": "tconstruct:stat_boost",
-      "stat": "tconstruct:mining_speed",
+      "each_level": 0.04,
       "operation": "multiply_base",
-      "each_level": 0.04
+      "stat": "tconstruct:mining_speed"
     },
     {
       "type": "tconstruct:stat_boost",
-      "stat": "tconstruct:velocity",
+      "each_level": 0.03,
       "operation": "multiply_base",
-      "each_level": 0.03
+      "stat": "tconstruct:velocity"
     },
     {
       "type": "tconstruct:stat_boost",
-      "stat": "tconstruct:projectile_damage",
+      "each_level": 0.03,
       "operation": "multiply_base",
-      "each_level": 0.03
+      "stat": "tconstruct:projectile_damage"
     }
-  ]
+  ],
+  "tooltip_display": "always"
 }

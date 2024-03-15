@@ -1,5 +1,10 @@
 {
   "type": "tconstruct:modifier_salvage",
+  "min_level": 1,
+  "modifier": "tconstruct:fiery",
+  "slots": {
+    "upgrades": 1
+  },
   "tools": [
     {
       "tag": "tconstruct:modifiable/melee"
@@ -13,10 +18,5 @@
     {
       "tag": "tconstruct:modifiable/shields"
     }
-  ],
-  "slots": {
-    "upgrades": 1
-  },
-  "modifier": "tconstruct:fiery",
-  "min_level": 1
+  ]
 }

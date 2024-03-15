@@ -1,20 +1,20 @@
 {
-  "fluid": {
-    "tag": "tconstruct:sky_slime",
-    "amount": 50
-  },
   "effects": [
     {
       "type": "tconstruct:effect",
+      "level": 1,
       "name": "minecraft:jump_boost",
-      "time": 20,
-      "level": 1
+      "time": 20
     },
     {
       "type": "tconstruct:effect",
+      "level": 1,
       "name": "minecraft:slowness",
-      "time": 15,
-      "level": 1
+      "time": 15
     }
-  ]
+  ],
+  "fluid": {
+    "amount": 50,
+    "tag": "tconstruct:sky_slime"
+  }
 }

@@ -2,17 +2,17 @@
   "type": "tconstruct:material",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:nuggets/osmium",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:nuggets/osmium"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:nuggets/osmium"
   },
-  "value": 1,
+  "material": "tconstruct:osmium",
   "needed": 9,
-  "material": "tconstruct:osmium"
+  "value": 1
 }

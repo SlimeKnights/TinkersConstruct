@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -14,7 +15,6 @@ import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 import javax.annotation.Nullable;
-import java.util.Objects;
 import java.util.function.Consumer;
 
 @RequiredArgsConstructor(staticName = "item")
@@ -28,7 +28,7 @@ public class ItemPartRecipeBuilder extends AbstractRecipeBuilder<ItemPartRecipeB
 
   @Override
   public void save(Consumer<FinishedRecipe> consumer) {
-    save(consumer, Objects.requireNonNull(result.get().getItem().getRegistryName()));
+    save(consumer, Registry.ITEM.getKey(result.get().getItem()));
   }
 
   @Override

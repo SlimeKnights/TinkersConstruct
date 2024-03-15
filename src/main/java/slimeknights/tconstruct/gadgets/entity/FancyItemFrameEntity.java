@@ -5,7 +5,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -246,6 +245,6 @@ public class FancyItemFrameEntity extends ItemFrame implements IEntityAdditional
 
   @Override
   protected Component getTypeName() {
-    return new TranslatableComponent(getFrameItem().getDescriptionId());
+    return Component.translatable(getFrameItem().getDescriptionId());
   }
 }

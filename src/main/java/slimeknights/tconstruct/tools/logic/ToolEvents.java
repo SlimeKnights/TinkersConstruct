@@ -33,7 +33,7 @@ import net.minecraftforge.event.GrindstoneEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -84,7 +84,7 @@ import java.util.Objects;
 public class ToolEvents {
   @SubscribeEvent
   static void onBreakSpeed(PlayerEvent.BreakSpeed event) {
-    Player player = event.getPlayer();
+    Player player = event.getEntity();
 
     // tool break speed hook
     ItemStack stack = player.getMainHandItem();
@@ -177,7 +177,7 @@ public class ToolEvents {
 
   @SubscribeEvent(priority = EventPriority.LOW)
   static void livingAttack(LivingAttackEvent event) {
-    LivingEntity entity = event.getEntityLiving();
+    LivingEntity entity = event.getEntity();
     // client side always returns false, so this should be fine?
     if (entity.level.isClientSide() || entity.isDeadOrDying()) {
       return;
@@ -247,7 +247,7 @@ public class ToolEvents {
   // low priority to minimize conflict as we apply reduction as if we are the final change to damage before vanilla
   @SubscribeEvent(priority = EventPriority.LOW)
   static void livingHurt(LivingHurtEvent event) {
-    LivingEntity entity = event.getEntityLiving();
+    LivingEntity entity = event.getEntity();
 
     // determine if there is any modifiable armor, if not nothing to do
     DamageSource source = event.getSource();
@@ -339,7 +339,7 @@ public class ToolEvents {
 
   @SubscribeEvent
   static void livingDamage(LivingDamageEvent event) {
-    LivingEntity entity = event.getEntityLiving();
+    LivingEntity entity = event.getEntity();
     DamageSource source = event.getSource();
 
     // give modifiers a chance to respond to damage happening
@@ -363,8 +363,8 @@ public class ToolEvents {
 
   /** Called the modifier hook when an entity's position changes */
   @SubscribeEvent
-  static void livingWalk(LivingUpdateEvent event) {
-    LivingEntity living = event.getEntityLiving();
+  static void livingWalk(LivingTickEvent event) {
+    LivingEntity living = event.getEntity();
     // this event runs before vanilla updates prevBlockPos
     BlockPos pos = living.blockPosition();
     if (!living.isSpectator() && !living.level.isClientSide() && living.isAlive() && !Objects.equals(living.lastPos, pos)) {
@@ -386,7 +386,7 @@ public class ToolEvents {
     if (lookingEntity == null) {
       return;
     }
-    LivingEntity living = event.getEntityLiving();
+    LivingEntity living = event.getEntity();
     living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
       // mob disguise
       Multiset<EntityType<?>> disguises = data.get(MobDisguiseModule.DISGUISES);
@@ -446,7 +446,7 @@ public class ToolEvents {
   }
 
   @SubscribeEvent
-  static void onGrindstoneChange(GrindstoneEvent.OnPlaceItem event) {
+  static void onGrindstoneChange(GrindstoneEvent.OnplaceItem event) {
     // no removing enchantments from tools, you must use the modifier to remove them
     if (event.getTopItem().is(TinkerTags.Items.MODIFIABLE) || event.getBottomItem().is(TinkerTags.Items.MODIFIABLE)) {
       event.setCanceled(true);

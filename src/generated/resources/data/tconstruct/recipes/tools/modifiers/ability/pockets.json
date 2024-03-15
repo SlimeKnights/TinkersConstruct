@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "item": "minecraft:shulker_shell"
@@ -17,15 +18,14 @@
       "item": "minecraft:leather"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/armor/leggings"
+  "result": {
+    "level": 1,
+    "name": "tconstruct:pockets"
   },
   "slots": {
     "abilities": 1
   },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:pockets",
-    "level": 1
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/leggings"
   }
 }

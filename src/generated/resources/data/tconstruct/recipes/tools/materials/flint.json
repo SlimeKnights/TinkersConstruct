@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "minecraft:flint"
   },
-  "value": 1,
+  "material": "tconstruct:flint",
   "needed": 1,
-  "material": "tconstruct:flint"
+  "value": 1
 }

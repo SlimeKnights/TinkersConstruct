@@ -1,23 +1,23 @@
 {
   "type": "tconstruct:casting_table",
-  "conditions": [
-    {
-      "value": {
-        "tag": "forge:gears/zinc",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
-    }
-  ],
   "cast": {
     "tag": "tconstruct:casts/multi_use/gear"
   },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:gears/zinc"
+      }
+    }
+  ],
+  "cooling_time": 94,
   "fluid": {
-    "tag": "forge:molten_zinc",
-    "amount": 360
+    "amount": 360,
+    "tag": "forge:molten_zinc"
   },
   "result": {
     "tag": "forge:gears/zinc"
-  },
-  "cooling_time": 94
+  }
 }

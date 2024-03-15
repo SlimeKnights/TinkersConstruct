@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:geore_large_buds/platinum",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:geore_large_buds/platinum"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:geore_large_buds/platinum"
   },
   "result": {
-    "fluid": "tconstruct:molten_platinum",
-    "amount": 270
+    "amount": 270,
+    "fluid": "tconstruct:molten_platinum"
   },
   "temperature": 970,
   "time": 131

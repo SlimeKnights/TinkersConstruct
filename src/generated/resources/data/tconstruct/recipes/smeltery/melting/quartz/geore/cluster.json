@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:geore_clusters/quartz",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:geore_clusters/quartz"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:geore_clusters/quartz"
   },
   "result": {
-    "fluid": "tconstruct:molten_quartz",
-    "amount": 400
+    "amount": 400,
+    "fluid": "tconstruct:molten_quartz"
   },
   "temperature": 637,
   "time": 137

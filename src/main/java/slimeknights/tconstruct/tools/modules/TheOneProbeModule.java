@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tools.modules;
 
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.mantle.data.GenericLoaderRegistry.SingletonLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.SingletonLoader;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;

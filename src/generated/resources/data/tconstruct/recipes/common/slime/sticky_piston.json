@@ -2,13 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "conditions": [
     {
-      "prop": "slime_recipe_fix",
-      "type": "tconstruct:config"
+      "type": "tconstruct:config",
+      "prop": "slime_recipe_fix"
     }
-  ],
-  "pattern": [
-    "#",
-    "P"
   ],
   "key": {
     "#": {
@@ -18,6 +14,10 @@
       "item": "minecraft:piston"
     }
   },
+  "pattern": [
+    "#",
+    "P"
+  ],
   "result": {
     "item": "minecraft:sticky_piston"
   }

@@ -3,8 +3,8 @@
   "ingredient": {
     "tag": "minecraft:jungle_logs"
   },
-  "value": 4,
-  "needed": 1,
+  "leftover": "minecraft:jungle_planks",
   "material": "tconstruct:wood#jungle",
-  "leftover": "minecraft:jungle_planks"
+  "needed": 1,
+  "value": 4
 }

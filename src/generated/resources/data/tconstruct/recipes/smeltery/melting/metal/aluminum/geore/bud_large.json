@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:geore_large_buds/aluminum",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:geore_large_buds/aluminum"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:geore_large_buds/aluminum"
   },
   "result": {
-    "fluid": "tconstruct:molten_aluminum",
-    "amount": 270
+    "amount": 270,
+    "fluid": "tconstruct:molten_aluminum"
   },
   "temperature": 425,
   "time": 94

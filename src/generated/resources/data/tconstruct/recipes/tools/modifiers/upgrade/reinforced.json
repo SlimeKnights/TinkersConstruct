@@ -1,20 +1,20 @@
 {
   "type": "tconstruct:incremental_modifier",
+  "allow_crystal": true,
+  "amount_per_item": 1,
   "input": {
     "item": "tconstruct:iron_reinforcement"
   },
-  "amount_per_item": 1,
+  "max_level": 5,
   "needed_per_level": 20,
-  "tools": {
-    "tag": "tconstruct:modifiable/durability"
+  "result": {
+    "level": 1,
+    "name": "tconstruct:reinforced"
   },
   "slots": {
     "upgrades": 1
   },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:reinforced",
-    "level": 1
-  },
-  "max_level": 5
+  "tools": {
+    "tag": "tconstruct:modifiable/durability"
+  }
 }

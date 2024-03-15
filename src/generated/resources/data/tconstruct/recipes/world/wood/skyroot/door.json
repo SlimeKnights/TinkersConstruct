@@ -1,18 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "wooden_door",
-  "pattern": [
-    "##",
-    "##",
-    "##"
-  ],
   "key": {
     "#": {
       "item": "tconstruct:skyroot_planks"
     }
   },
+  "pattern": [
+    "##",
+    "##",
+    "##"
+  ],
   "result": {
-    "item": "tconstruct:skyroot_door",
-    "count": 3
+    "count": 3,
+    "item": "tconstruct:skyroot_door"
   }
 }

@@ -1,26 +1,26 @@
 {
-  "fluid": {
-    "tag": "forge:molten_lead",
-    "amount": 10
-  },
   "effects": [
     {
       "type": "tconstruct:conditional",
+      "effect": {
+        "type": "tconstruct:damage",
+        "damage_amount": 1.5,
+        "damage_type": "fire"
+      },
       "entity": {
         "type": "mantle:inverted",
         "inverted_type": "mantle:fire_immune"
-      },
-      "effect": {
-        "type": "tconstruct:damage",
-        "damage_type": "fire",
-        "damage_amount": 1.5
       }
     },
     {
       "type": "tconstruct:effect",
+      "level": 1,
       "name": "minecraft:slowness",
-      "time": 6,
-      "level": 1
+      "time": 6
     }
-  ]
+  ],
+  "fluid": {
+    "amount": 10,
+    "tag": "forge:molten_lead"
+  }
 }

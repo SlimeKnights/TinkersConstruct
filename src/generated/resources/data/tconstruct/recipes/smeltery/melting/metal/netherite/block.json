@@ -4,8 +4,8 @@
     "tag": "forge:storage_blocks/netherite"
   },
   "result": {
-    "fluid": "tconstruct:molten_netherite",
-    "amount": 810
+    "amount": 810,
+    "fluid": "tconstruct:molten_netherite"
   },
   "temperature": 1250,
   "time": 221

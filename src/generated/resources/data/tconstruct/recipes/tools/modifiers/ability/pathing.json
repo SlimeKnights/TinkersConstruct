@@ -1,18 +1,27 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
-      "item": "tconstruct:round_plate",
-      "type": "tconstruct:material"
+      "type": "tconstruct:material",
+      "item": "tconstruct:round_plate"
     },
     {
       "tag": "forge:ingots/cobalt"
     },
     {
-      "item": "tconstruct:tool_binding",
-      "type": "tconstruct:material"
+      "type": "tconstruct:material",
+      "item": "tconstruct:tool_binding"
     }
   ],
+  "max_level": 1,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:pathing"
+  },
+  "slots": {
+    "abilities": 1
+  },
   "tools": {
     "type": "forge:difference",
     "base": {
@@ -34,14 +43,5 @@
         "item": "tconstruct:excavator"
       }
     ]
-  },
-  "slots": {
-    "abilities": 1
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:pathing",
-    "level": 1
-  },
-  "max_level": 1
+  }
 }

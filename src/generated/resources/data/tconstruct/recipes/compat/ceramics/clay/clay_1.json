@@ -2,16 +2,16 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
-      "modid": "ceramics",
-      "type": "forge:mod_loaded"
+      "type": "forge:mod_loaded",
+      "modid": "ceramics"
     }
   ],
   "ingredient": {
     "item": "ceramics:unfired_clay_plate"
   },
   "result": {
-    "fluid": "tconstruct:molten_clay",
-    "amount": 250
+    "amount": 250,
+    "fluid": "tconstruct:molten_clay"
   },
   "temperature": 450,
   "time": 24

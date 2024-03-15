@@ -9,7 +9,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.DifferenceIngredient;
-import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.fluids.FluidType;
 import slimeknights.mantle.datagen.MantleTags;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -180,12 +180,12 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
                               .setInputId(MaterialVariantId.create(MaterialIds.iron, MaterialVariantId.DEFAULT_VARIANT))
                               .setFluid(MantleTags.Fluids.WATER, FluidValues.BOTTLE)
                               .setTemperature(1)
-                              .save(consumer, modResource(folder + "composite/iron_oxidized"));
+                              .save(consumer, location(folder + "composite/iron_oxidized"));
     MaterialFluidRecipeBuilder.material(MaterialIds.oxidizedCopper)
                               .setInputId(MaterialVariantId.create(MaterialIds.copper, MaterialVariantId.DEFAULT_VARIANT))
                               .setFluid(MantleTags.Fluids.WATER, FluidValues.BOTTLE)
                               .setTemperature(1)
-                              .save(consumer, modResource(folder + "composite/copper_oxidized"));
+                              .save(consumer, location(folder + "composite/copper_oxidized"));
 
     // tier 3
     materialMeltingCasting(consumer, MaterialIds.slimesteel,     TinkerFluids.moltenSlimesteel,     false, folder);
@@ -200,7 +200,7 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialMeltingCasting(consumer, MaterialIds.queensSlime, TinkerFluids.moltenQueensSlime, false, folder);
     materialMeltingCasting(consumer, MaterialIds.hepatizon,   TinkerFluids.moltenHepatizon,   true,  folder);
     materialMeltingCasting(consumer, MaterialIds.manyullyn,   TinkerFluids.moltenManyullyn,   true,  folder);
-    materialComposite(consumer, MaterialIds.necroticBone, MaterialIds.blazingBone, TinkerFluids.blazingBlood, false, FluidAttributes.BUCKET_VOLUME / 5, folder);
+    materialComposite(consumer, MaterialIds.necroticBone, MaterialIds.blazingBone, TinkerFluids.blazingBlood, false, FluidType.BUCKET_VOLUME / 5, folder);
     materialMeltingComposite(consumer, MaterialIds.leather, MaterialIds.ancientHide, TinkerFluids.moltenDebris, false, FluidValues.INGOT, folder);
 
     // tier 2 compat

@@ -1,15 +1,6 @@
 {
-  "translation_key": "gui.tconstruct.tinker_station.repair",
   "icon": {
     "pattern": "tconstruct:button_repair"
-  },
-  "tool_slot": {
-    "icon": "tconstruct:pickaxe",
-    "x": 33,
-    "y": 41,
-    "filter": {
-      "tag": "tconstruct:modifiable"
-    }
   },
   "input_slots": [
     {
@@ -37,5 +28,14 @@
       "x": 51,
       "y": 62
     }
-  ]
+  ],
+  "tool_slot": {
+    "filter": {
+      "tag": "tconstruct:modifiable"
+    },
+    "icon": "tconstruct:pickaxe",
+    "x": 33,
+    "y": 41
+  },
+  "translation_key": "gui.tconstruct.tinker_station.repair"
 }

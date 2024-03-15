@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -582,7 +581,7 @@ public class ToolStack implements IToolStackView {
     // first check slot counts
     for (SlotType slotType : SlotType.getAllSlotTypes()) {
       if (getFreeSlots(slotType) < 0) {
-        return new TranslatableComponent(KEY_VALIDATE_SLOTS, slotType.getDisplayName());
+        return Component.translatable(KEY_VALIDATE_SLOTS, slotType.getDisplayName());
       }
     }
     // next, ensure modifiers validate

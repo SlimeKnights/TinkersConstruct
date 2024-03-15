@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:nuggets/tungsten",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:nuggets/tungsten"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:nuggets/tungsten"
   },
   "result": {
-    "fluid": "tconstruct:molten_tungsten",
-    "amount": 10
+    "amount": 10,
+    "fluid": "tconstruct:molten_tungsten"
   },
   "temperature": 950,
   "time": 22

@@ -2,18 +2,18 @@
   "type": "tconstruct:material_fluid",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:ingots/tin",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/tin"
+      }
     }
   ],
-  "input": "tconstruct:rock",
   "fluid": {
-    "tag": "forge:molten_tin",
-    "amount": 90
+    "amount": 90,
+    "tag": "forge:molten_tin"
   },
-  "temperature": 225,
-  "output": "tconstruct:whitestone"
+  "input": "tconstruct:rock",
+  "output": "tconstruct:whitestone",
+  "temperature": 225
 }

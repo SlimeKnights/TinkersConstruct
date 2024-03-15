@@ -3,6 +3,7 @@ package slimeknights.tconstruct.smeltery.block.entity.tank;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
@@ -14,7 +15,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.tconstruct.smeltery.block.entity.CastingBlockEntity;
 
 import javax.annotation.Nonnull;
-import java.util.Objects;
 
 @RequiredArgsConstructor
 public class CastingFluidHandler implements IFluidHandler {
@@ -192,7 +192,7 @@ public class CastingFluidHandler implements IFluidHandler {
       nbt.put(TAG_FLUID, fluid.writeToNBT(new CompoundTag()));
     }
     if (filter != Fluids.EMPTY) {
-      nbt.putString(TAG_FILTER, Objects.requireNonNull(filter.getRegistryName()).toString());
+      nbt.putString(TAG_FILTER, Registry.FLUID.getKey(filter).toString());
     }
     return nbt;
   }

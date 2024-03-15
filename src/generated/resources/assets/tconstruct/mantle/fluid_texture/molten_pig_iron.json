@@ -1,0 +1,5 @@
+{
+  "color": "FFFFFFFF",
+  "flowing": "tconstruct:fluid/molten/alloy/pig_iron/flowing",
+  "still": "tconstruct:fluid/molten/alloy/pig_iron/still"
+}

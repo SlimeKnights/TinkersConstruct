@@ -3,7 +3,7 @@
   "ingredient": {
     "tag": "forge:bones"
   },
-  "value": 1,
+  "material": "tconstruct:bone",
   "needed": 1,
-  "material": "tconstruct:bone"
+  "value": 1
 }

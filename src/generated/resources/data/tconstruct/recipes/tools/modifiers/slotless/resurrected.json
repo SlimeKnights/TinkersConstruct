@@ -1,17 +1,17 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "item": "minecraft:end_crystal"
     }
   ],
+  "max_level": 1,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:resurrected"
+  },
   "tools": {
     "tag": "tconstruct:modifiable"
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:resurrected",
-    "level": 1
-  },
-  "max_level": 1
+  }
 }

@@ -1,19 +1,18 @@
 package slimeknights.tconstruct.world.entity;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Slime;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import slimeknights.tconstruct.world.TinkerWorld;
-
-import java.util.Random;
 
 /**
  * Clay based slime cube
@@ -26,7 +25,7 @@ public class TerracubeEntity extends Slime {
   /**
    * Checks if a slime can spawn at the given location
    */
-  public static boolean canSpawnHere(EntityType<? extends Slime> entityType, ServerLevelAccessor world, MobSpawnType reason, BlockPos pos, Random random) {
+  public static boolean canSpawnHere(EntityType<? extends Slime> entityType, ServerLevelAccessor world, MobSpawnType reason, BlockPos pos, RandomSource random) {
     if (world.getDifficulty() == Difficulty.PEACEFUL) {
       return false;
     }

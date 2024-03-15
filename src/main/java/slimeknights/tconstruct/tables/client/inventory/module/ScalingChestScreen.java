@@ -5,7 +5,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 import slimeknights.mantle.client.screen.MultiModuleScreen;
 import slimeknights.mantle.inventory.BaseContainerMenu;
@@ -20,7 +20,7 @@ public class ScalingChestScreen<T extends BlockEntity> extends DynamicContainerS
     super(parent, container, playerInventory, title);
     BlockEntity tile = container.getTile();
     IItemHandler handler = Optional.ofNullable(tile)
-                                   .flatMap(t -> t.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).resolve())
+                                   .flatMap(t -> t.getCapability(ForgeCapabilities.ITEM_HANDLER).resolve())
                                    .orElse(EmptyItemHandler.INSTANCE);
     this.scaling = handler instanceof IScalingContainer ? (IScalingContainer) handler : handler::getSlots;
     this.slotCount = scaling.getVisualSize();

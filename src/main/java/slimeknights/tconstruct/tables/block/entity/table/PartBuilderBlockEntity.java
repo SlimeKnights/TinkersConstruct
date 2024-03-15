@@ -244,7 +244,7 @@ public class PartBuilderBlockEntity extends RetexturedTableBlockEntity implement
   private void shrinkSlot(int slot, int amount, Player player) {
     ItemStack stack = getItem(slot);
     if (!stack.isEmpty()) {
-      ItemStack container = stack.getContainerItem().copy();
+      ItemStack container = stack.getCraftingRemainingItem().copy();
       if (amount > 0) {
         container.setCount(container.getCount() * amount);
       }

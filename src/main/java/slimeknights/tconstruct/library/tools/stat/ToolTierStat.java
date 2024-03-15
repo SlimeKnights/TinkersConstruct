@@ -11,7 +11,6 @@ import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tier;
@@ -115,7 +114,7 @@ public class ToolTierStat implements IToolStat<Tier> {
 
   @Override
   public Component formatValue(Tier value) {
-    return new TranslatableComponent(Util.makeTranslationKey("tool_stat", getName())).append(HarvestTiers.getName(value));
+    return Component.translatable(Util.makeTranslationKey("tool_stat", getName())).append(HarvestTiers.getName(value));
   }
 
   @Override

@@ -1,11 +1,11 @@
 {
   "type": "tconstruct:modifier_salvage",
-  "tools": {
-    "tag": "tconstruct:modifiable/armor/boots"
-  },
+  "min_level": 1,
+  "modifier": "tconstruct:lightspeed_armor",
   "slots": {
     "upgrades": 1
   },
-  "modifier": "tconstruct:lightspeed_armor",
-  "min_level": 1
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/boots"
+  }
 }

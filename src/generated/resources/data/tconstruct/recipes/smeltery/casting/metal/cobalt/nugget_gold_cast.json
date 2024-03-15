@@ -3,12 +3,12 @@
   "cast": {
     "tag": "tconstruct:casts/multi_use/nugget"
   },
+  "cooling_time": 22,
   "fluid": {
-    "tag": "forge:molten_cobalt",
-    "amount": 10
+    "amount": 10,
+    "tag": "forge:molten_cobalt"
   },
   "result": {
     "tag": "forge:nuggets/cobalt"
-  },
-  "cooling_time": 22
+  }
 }

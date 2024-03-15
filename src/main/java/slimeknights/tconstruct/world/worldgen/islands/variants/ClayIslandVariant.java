@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -11,7 +12,6 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import slimeknights.tconstruct.TConstruct;
 
 import javax.annotation.Nullable;
-import java.util.Random;
 
 @RequiredArgsConstructor
 public class ClayIslandVariant implements IIslandVariant {
@@ -34,20 +34,20 @@ public class ClayIslandVariant implements IIslandVariant {
   }
 
   @Override
-  public BlockState getCongealedSlime(Random random) {
+  public BlockState getCongealedSlime(RandomSource random) {
     return Blocks.SAND.defaultBlockState();
   }
 
   @Nullable
   @Override
-  public BlockState getPlant(Random random) {
+  public BlockState getPlant(RandomSource random) {
     Block block = random.nextInt(8) == 0 ? Blocks.FERN : Blocks.GRASS;
     return block.defaultBlockState();
   }
 
   @Nullable
   @Override
-  public ConfiguredFeature<?,?> getTreeFeature(Random random) {
+  public ConfiguredFeature<?,?> getTreeFeature(RandomSource random) {
     return switch (random.nextInt(10)) {
       // 40% oak
       case 0, 1, 2, 3 -> TreeFeatures.OAK.value();

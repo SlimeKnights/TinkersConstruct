@@ -2,42 +2,42 @@
   "type": "forge:conditional",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:storage_blocks/raw_tungsten",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:storage_blocks/raw_tungsten"
+      }
     }
   ],
   "recipes": [
     {
       "conditions": [
         {
+          "type": "forge:not",
           "value": {
-            "tag": "forge:ingots/platinum",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
+            "type": "forge:tag_empty",
+            "tag": "forge:ingots/platinum"
+          }
         }
       ],
       "recipe": {
         "type": "tconstruct:ore_melting",
-        "rate": "metal",
+        "byproducts": [
+          {
+            "amount": 270,
+            "fluid": "tconstruct:molten_platinum"
+          }
+        ],
         "ingredient": {
           "tag": "forge:storage_blocks/raw_tungsten"
         },
+        "rate": "metal",
         "result": {
-          "fluid": "tconstruct:molten_tungsten",
-          "amount": 810
+          "amount": 810,
+          "fluid": "tconstruct:molten_tungsten"
         },
         "temperature": 950,
-        "time": 389,
-        "byproducts": [
-          {
-            "fluid": "tconstruct:molten_platinum",
-            "amount": 270
-          }
-        ]
+        "time": 389
       }
     },
     {
@@ -48,22 +48,22 @@
       ],
       "recipe": {
         "type": "tconstruct:ore_melting",
-        "rate": "metal",
+        "byproducts": [
+          {
+            "amount": 810,
+            "fluid": "tconstruct:molten_gold"
+          }
+        ],
         "ingredient": {
           "tag": "forge:storage_blocks/raw_tungsten"
         },
+        "rate": "metal",
         "result": {
-          "fluid": "tconstruct:molten_tungsten",
-          "amount": 810
+          "amount": 810,
+          "fluid": "tconstruct:molten_tungsten"
         },
         "temperature": 950,
-        "time": 389,
-        "byproducts": [
-          {
-            "fluid": "tconstruct:molten_gold",
-            "amount": 810
-          }
-        ]
+        "time": 389
       }
     }
   ]

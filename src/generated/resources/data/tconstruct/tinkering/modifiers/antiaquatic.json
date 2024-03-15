@@ -1,19 +1,19 @@
 {
   "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "tooltip_display": "always",
   "modules": [
     {
       "type": "tconstruct:incremental"
     },
     {
       "type": "tconstruct:conditional_melee_damage",
+      "each_level": 2.0,
+      "percent": false,
       "target": {
         "type": "mantle:mob_type",
         "mobs": "minecraft:water"
-      },
-      "percent": false,
-      "each_level": 2.0
+      }
     }
-  ]
+  ],
+  "tooltip_display": "always"
 }

@@ -4,8 +4,8 @@
     "item": "tconstruct:blank_red_sand_cast"
   },
   "pattern": {
-    "item": "tconstruct:bow_limb",
-    "type": "tconstruct:material"
+    "type": "tconstruct:material",
+    "item": "tconstruct:bow_limb"
   },
   "result": "tconstruct:bow_limb_red_sand_cast"
 }

@@ -1,11 +1,11 @@
 {
   "type": "tconstruct:modifier_salvage",
-  "tools": {
-    "tag": "tconstruct:modifiable/armor/helmets"
-  },
+  "min_level": 1,
+  "modifier": "tconstruct:respiration",
   "slots": {
     "upgrades": 1
   },
-  "modifier": "tconstruct:respiration",
-  "min_level": 1
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/helmets"
+  }
 }

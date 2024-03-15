@@ -12,8 +12,8 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent.PlayerTickEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidType;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -48,7 +48,7 @@ public class SlurpingModifier extends Modifier implements KeybindInteractModifie
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
-    tank = new TankModule(FluidAttributes.BUCKET_VOLUME, true);
+    tank = new TankModule(FluidType.BUCKET_VOLUME, true);
     hookBuilder.addModule(tank);
     hookBuilder.addHook(this, TinkerHooks.ARMOR_INTERACT, TinkerHooks.GENERAL_INTERACT);
   }

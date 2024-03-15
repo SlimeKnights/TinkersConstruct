@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:wires/knightslime",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:wires/knightslime"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:wires/knightslime"
   },
   "result": {
-    "fluid": "tconstruct:molten_knightslime",
-    "amount": 45
+    "amount": 45,
+    "fluid": "tconstruct:molten_knightslime"
   },
   "temperature": 1125,
   "time": 14

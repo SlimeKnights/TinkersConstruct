@@ -8,10 +8,9 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.renderer.Rect2i;
+import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.InventoryMenu;
@@ -51,7 +50,6 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static slimeknights.tconstruct.tables.block.entity.table.TinkerStationBlockEntity.INPUT_SLOT;
@@ -64,7 +62,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
   private static final Component UPGRADES_TEXT = TConstruct.makeTranslation("gui", "tinker_station.upgrades");
   private static final Component TRAITS_TEXT = TConstruct.makeTranslation("gui", "tinker_station.traits");
   // fallback text for crafting with no named slots
-  private static final Component ASCII_ANVIL = new TextComponent("\n\n")
+  private static final Component ASCII_ANVIL = Component.literal("\n\n")
     .append("       .\n")
     .append("     /( _________\n")
     .append("     |  >:=========`\n")
@@ -162,7 +160,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     if (te == null) {
       this.defaultLayout = StationSlotLayout.EMPTY;
     } else {
-      this.defaultLayout = StationSlotLayoutLoader.getInstance().get(Objects.requireNonNull(te.getBlockState().getBlock().getRegistryName()));
+      this.defaultLayout = StationSlotLayoutLoader.getInstance().get(Registry.BLOCK.getKey(te.getBlockState().getBlock()));
     }
     this.currentLayout = this.defaultLayout;
     this.activeInputs = Math.min(defaultLayout.getInputCount(), max);
@@ -191,7 +189,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
 
     int x = (this.width - this.imageWidth) / 2;
     int y = (this.height - this.imageHeight) / 2;
-    textField = new EditBox(this.font, x + 80, y + 5, 82, 9, TextComponent.EMPTY);
+    textField = new EditBox(this.font, x + 80, y + 5, 82, 9, Component.empty());
     textField.setCanLoseFocus(true);
     textField.setTextColor(-1);
     textField.setTextColorUneditable(-1);
@@ -352,19 +350,19 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
 
       // for each named slot, color the slot if the slot is filled
       // typically all input slots should be named, or none of them
-      MutableComponent fullText = new TextComponent("");
+      MutableComponent fullText = Component.literal("");
       boolean hasComponents = false;
       for (int i = 0; i <= activeInputs; i++) {
         LayoutSlot layout = currentLayout.getSlot(i);
         String key = layout.getTranslationKey();
         if (!layout.isHidden() && !key.isEmpty()) {
           hasComponents = true;
-          MutableComponent textComponent = new TextComponent(" * ");
+          MutableComponent textComponent = Component.literal(" * ");
           ItemStack slotStack = this.getMenu().getSlot(i).getItem();
           if (!layout.isValid(slotStack)) {
             textComponent.withStyle(ChatFormatting.RED);
           }
-          textComponent.append(new TranslatableComponent(key)).append("\n");
+          textComponent.append(Component.translatable(key)).append("\n");
           fullText.append(textComponent);
         }
       }
@@ -373,7 +371,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
         this.modifierInfo.setCaption(COMPONENTS_TEXT);
         this.modifierInfo.setText(fullText);
       } else {
-        this.modifierInfo.setCaption(TextComponent.EMPTY);
+        this.modifierInfo.setCaption(Component.empty());
         this.modifierInfo.setText(ASCII_ANVIL);
       }
     }
@@ -648,16 +646,16 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
   public void error(Component message) {
     this.tinkerInfo.setCaption(COMPONENT_ERROR);
     this.tinkerInfo.setText(message);
-    this.modifierInfo.setCaption(TextComponent.EMPTY);
-    this.modifierInfo.setText(TextComponent.EMPTY);
+    this.modifierInfo.setCaption(Component.empty());
+    this.modifierInfo.setText(Component.empty());
   }
 
   @Override
   public void warning(Component message) {
     this.tinkerInfo.setCaption(COMPONENT_WARNING);
     this.tinkerInfo.setText(message);
-    this.modifierInfo.setCaption(TextComponent.EMPTY);
-    this.modifierInfo.setText(TextComponent.EMPTY);
+    this.modifierInfo.setCaption(Component.empty());
+    this.modifierInfo.setText(Component.empty());
   }
 
   /**

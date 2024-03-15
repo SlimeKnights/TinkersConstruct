@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.item;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -25,10 +26,8 @@ public abstract class ToolItemTest extends BaseMcTest {
   synchronized static void beforeAllToolCore() {
     MaterialItemFixture.init();
     if (tool == null) {
-      Item.Properties properties = new Item.Properties().stacksTo(1);
-      tool = new ModifiableItem(properties, ToolDefinitionFixture.getStandardToolDefinition());
-      tool.setRegistryName("test:toolcore");
-      ForgeRegistries.ITEMS.register(tool);
+      tool = new ModifiableItem(new Item.Properties().stacksTo(1), ToolDefinitionFixture.getStandardToolDefinition());
+      ForgeRegistries.ITEMS.register(new ResourceLocation("test", "toolcore"), tool);
     }
   }
 

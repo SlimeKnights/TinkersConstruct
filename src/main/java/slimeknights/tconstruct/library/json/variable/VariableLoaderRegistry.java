@@ -5,8 +5,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
-import slimeknights.mantle.data.GenericLoaderRegistry;
-import slimeknights.mantle.data.GenericLoaderRegistry.IHaveLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 
 /**
  * Generic loader registry for variables, has special handling for constant float values to a custom float type

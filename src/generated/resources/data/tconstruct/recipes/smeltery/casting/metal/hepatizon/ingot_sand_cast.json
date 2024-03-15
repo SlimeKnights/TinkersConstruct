@@ -4,12 +4,12 @@
     "tag": "tconstruct:casts/single_use/ingot"
   },
   "cast_consumed": true,
+  "cooling_time": 78,
   "fluid": {
-    "tag": "forge:molten_hepatizon",
-    "amount": 90
+    "amount": 90,
+    "tag": "forge:molten_hepatizon"
   },
   "result": {
     "tag": "forge:ingots/hepatizon"
-  },
-  "cooling_time": 78
+  }
 }

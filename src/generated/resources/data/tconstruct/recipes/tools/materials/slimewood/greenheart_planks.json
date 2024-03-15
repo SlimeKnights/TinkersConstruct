@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "tconstruct:greenheart_planks"
   },
-  "value": 1,
+  "material": "tconstruct:slimewood#greenheart",
   "needed": 1,
-  "material": "tconstruct:slimewood#greenheart"
+  "value": 1
 }

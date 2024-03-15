@@ -3,7 +3,7 @@
   "ingredient": {
     "tag": "forge:ingots/slimesteel"
   },
-  "value": 1,
+  "material": "tconstruct:slimesteel",
   "needed": 1,
-  "material": "tconstruct:slimesteel"
+  "value": 1
 }

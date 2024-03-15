@@ -6,7 +6,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.item.TooltipFlag;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
@@ -40,7 +39,7 @@ public record ModifierIngredientRenderer(int width, int height) implements IIngr
     List<Component> tooltip = entry.getModifier().getDescriptionList(entry.getLevel());
     if (flag.isAdvanced()) {
       tooltip = new ArrayList<>(tooltip);
-      tooltip.add((new TextComponent(entry.getId().toString())).withStyle(ChatFormatting.DARK_GRAY));
+      tooltip.add((Component.literal(entry.getId().toString())).withStyle(ChatFormatting.DARK_GRAY));
     }
     return tooltip;
   }

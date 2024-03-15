@@ -4,8 +4,8 @@
     "tag": "forge:nuggets/pig_iron"
   },
   "result": {
-    "fluid": "tconstruct:molten_pig_iron",
-    "amount": 10
+    "amount": 10,
+    "fluid": "tconstruct:molten_pig_iron"
   },
   "temperature": 811,
   "time": 20

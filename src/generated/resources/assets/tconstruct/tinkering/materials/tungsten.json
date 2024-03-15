@@ -1,46 +1,10 @@
 {
+  "color": "6F6F62",
   "fallbacks": [
     "metal"
   ],
-  "color": "6F6F62",
-  "luminosity": 0,
   "generator": {
-    "transformer": {
-      "type": "tconstruct:recolor_sprite",
-      "color_mapping": {
-        "type": "tconstruct:grey_to_color",
-        "palette": [
-          {
-            "grey": 0,
-            "color": "FF000000"
-          },
-          {
-            "grey": 63,
-            "color": "FF211F19"
-          },
-          {
-            "grey": 102,
-            "color": "FF33312C"
-          },
-          {
-            "grey": 140,
-            "color": "FF424039"
-          },
-          {
-            "grey": 178,
-            "color": "FF514F46"
-          },
-          {
-            "grey": 216,
-            "color": "FF5B5950"
-          },
-          {
-            "grey": 255,
-            "color": "FF707063"
-          }
-        ]
-      }
-    },
+    "ignoreMaterialStats": false,
     "supportedStats": [
       "tconstruct:head",
       "tconstruct:handle",
@@ -50,6 +14,42 @@
       "tconstruct:grip",
       "tconstruct:plate"
     ],
-    "ignoreMaterialStats": false
-  }
+    "transformer": {
+      "type": "tconstruct:recolor_sprite",
+      "color_mapping": {
+        "type": "tconstruct:grey_to_color",
+        "palette": [
+          {
+            "color": "FF000000",
+            "grey": 0
+          },
+          {
+            "color": "FF211F19",
+            "grey": 63
+          },
+          {
+            "color": "FF33312C",
+            "grey": 102
+          },
+          {
+            "color": "FF424039",
+            "grey": 140
+          },
+          {
+            "color": "FF514F46",
+            "grey": 178
+          },
+          {
+            "color": "FF5B5950",
+            "grey": 216
+          },
+          {
+            "color": "FF707063",
+            "grey": 255
+          }
+        ]
+      }
+    }
+  },
+  "luminosity": 0
 }

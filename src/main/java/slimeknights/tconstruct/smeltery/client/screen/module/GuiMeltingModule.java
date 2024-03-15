@@ -3,9 +3,8 @@ package slimeknights.tconstruct.smeltery.client.screen.module;
 import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.AllArgsConstructor;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.world.inventory.Slot;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.inventory.Slot;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.GuiUtil;
@@ -23,9 +22,9 @@ public class GuiMeltingModule {
   private static final ScalableElementScreen UNMELTABLE_BAR = new ScalableElementScreen(185, 150, 3, 16, 256, 256);
 
   // progress bar tooltips
-  private static final Component TOOLTIP_NO_HEAT = new TranslatableComponent(TConstruct.makeTranslationKey("gui", "melting.no_heat"));
-  private static final Component TOOLTIP_NO_SPACE = new TranslatableComponent(TConstruct.makeTranslationKey("gui", "melting.no_space"));
-  private static final Component TOOLTIP_UNMELTABLE = new TranslatableComponent(TConstruct.makeTranslationKey("gui", "melting.no_recipe"));
+  private static final Component TOOLTIP_NO_HEAT = Component.translatable(TConstruct.makeTranslationKey("gui", "melting.no_heat"));
+  private static final Component TOOLTIP_NO_SPACE = Component.translatable(TConstruct.makeTranslationKey("gui", "melting.no_space"));
+  private static final Component TOOLTIP_UNMELTABLE = Component.translatable(TConstruct.makeTranslationKey("gui", "melting.no_recipe"));
 
   private final AbstractContainerScreen<?> screen;
   private final MeltingModuleInventory inventory;

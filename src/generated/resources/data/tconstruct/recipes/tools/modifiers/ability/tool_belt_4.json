@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": false,
   "inputs": [
     {
       "item": "minecraft:leather"
@@ -11,18 +12,17 @@
       "item": "minecraft:leather"
     }
   ],
+  "max_level": 4,
+  "requirements": {
+    "error": "recipe.tconstruct.modifier.tool_belt",
+    "level": 3,
+    "name": "tconstruct:tool_belt"
+  },
+  "result": {
+    "level": 1,
+    "name": "tconstruct:tool_belt"
+  },
   "tools": {
     "tag": "tconstruct:modifiable/armor/leggings"
-  },
-  "requirements": {
-    "name": "tconstruct:tool_belt",
-    "level": 3,
-    "error": "recipe.tconstruct.modifier.tool_belt"
-  },
-  "allow_crystal": false,
-  "result": {
-    "name": "tconstruct:tool_belt",
-    "level": 1
-  },
-  "max_level": 4
+  }
 }

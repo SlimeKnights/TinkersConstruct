@@ -1,24 +1,24 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "MMM",
-    "SES",
-    "WWW"
-  ],
   "key": {
+    "E": {
+      "item": "minecraft:egg"
+    },
     "M": {
       "item": "tconstruct:ender_slime_bucket"
     },
     "S": {
       "item": "minecraft:sugar"
     },
-    "E": {
-      "item": "minecraft:egg"
-    },
     "W": {
       "item": "tconstruct:ender_slime_tall_grass"
     }
   },
+  "pattern": [
+    "MMM",
+    "SES",
+    "WWW"
+  ],
   "result": {
     "item": "tconstruct:ender_cake"
   }

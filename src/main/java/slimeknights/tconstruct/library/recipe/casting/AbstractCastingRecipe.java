@@ -47,7 +47,7 @@ public abstract class AbstractCastingRecipe implements ICastingRecipe {
    * @param <T>  Casting recipe class type
    */
   @AllArgsConstructor
-  public abstract static class Serializer<T extends AbstractCastingRecipe> extends LoggingRecipeSerializer<T> {
+  public abstract static class Serializer<T extends AbstractCastingRecipe> implements LoggingRecipeSerializer<T> {
     /** Creates a new instance from JSON */
     protected abstract T create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, JsonObject json);
 
@@ -72,7 +72,7 @@ public abstract class AbstractCastingRecipe implements ICastingRecipe {
 
     @Nullable
     @Override
-    protected T fromNetworkSafe(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+    public T fromNetworkSafe(ResourceLocation recipeId, FriendlyByteBuf buffer) {
       String group = buffer.readUtf(Short.MAX_VALUE);
       Ingredient cast = Ingredient.fromNetwork(buffer);
       boolean consumed = buffer.readBoolean();
@@ -81,7 +81,7 @@ public abstract class AbstractCastingRecipe implements ICastingRecipe {
     }
 
     @Override
-    protected void toNetworkSafe(FriendlyByteBuf buffer, T recipe) {
+    public void toNetworkSafe(FriendlyByteBuf buffer, T recipe) {
       buffer.writeUtf(recipe.group);
       recipe.cast.toNetwork(buffer);
       buffer.writeBoolean(recipe.consumed);

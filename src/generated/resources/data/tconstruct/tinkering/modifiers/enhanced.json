@@ -1,13 +1,13 @@
 {
   "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "tooltip_display": "always",
-  "priority": 60,
   "modules": [
     {
       "type": "tconstruct:modifier_slot",
-      "name": "upgrades",
-      "count": 1
+      "count": 1,
+      "name": "upgrades"
     }
-  ]
+  ],
+  "priority": 60,
+  "tooltip_display": "always"
 }

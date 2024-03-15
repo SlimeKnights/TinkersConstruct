@@ -1,24 +1,21 @@
 package slimeknights.tconstruct.world.block;
 
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.lighting.LayerLightEngine;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.lighting.LayerLightEngine;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.shared.block.SlimeType;
-
-import java.util.Random;
-
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 /**
  * Slimy variant of nylium, mostly changes the way it bonemeals
@@ -45,7 +42,7 @@ public class SlimeNyliumBlock extends Block implements BonemealableBlock {
   }
 
   @Override
-  public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, Random random) {
+  public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, RandomSource random) {
     if (!isDarkEnough(state, worldIn, pos)) {
       worldIn.setBlockAndUpdate(pos, SlimeGrassBlock.getDirtState(state));
     }
@@ -57,12 +54,12 @@ public class SlimeNyliumBlock extends Block implements BonemealableBlock {
   }
 
   @Override
-  public boolean isBonemealSuccess(Level worldIn, Random rand, BlockPos pos, BlockState state) {
+  public boolean isBonemealSuccess(Level worldIn, RandomSource rand, BlockPos pos, BlockState state) {
     return true;
   }
 
   @Override
-  public void performBonemeal(ServerLevel world, Random rand, BlockPos pos, BlockState state) {
+  public void performBonemeal(ServerLevel world, RandomSource rand, BlockPos pos, BlockState state) {
     SlimeGrassBlock.growGrass(world, rand, pos, TinkerTags.Blocks.SLIMY_NYLIUM, foliageType, true, true);
   }
 }

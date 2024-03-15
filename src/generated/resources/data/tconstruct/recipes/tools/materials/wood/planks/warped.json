@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "minecraft:warped_planks"
   },
-  "value": 1,
+  "material": "tconstruct:wood#warped",
   "needed": 1,
-  "material": "tconstruct:wood#warped"
+  "value": 1
 }

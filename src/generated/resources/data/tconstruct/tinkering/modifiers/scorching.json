@@ -1,13 +1,13 @@
 {
   "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "tooltip_display": "always",
   "modules": [
     {
       "type": "tconstruct:conditional_melee_damage",
-      "target": "mantle:on_fire",
+      "each_level": 2.0,
       "percent": false,
-      "each_level": 2.0
+      "target": "mantle:on_fire"
     }
-  ]
+  ],
+  "tooltip_display": "always"
 }

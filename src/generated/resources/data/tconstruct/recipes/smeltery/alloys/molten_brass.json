@@ -2,33 +2,33 @@
   "type": "tconstruct:alloy",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:ingots/brass",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/brass"
+      }
     },
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:ingots/zinc",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/zinc"
+      }
     }
   ],
   "inputs": [
     {
-      "tag": "forge:molten_copper",
-      "amount": 90
+      "amount": 90,
+      "tag": "forge:molten_copper"
     },
     {
-      "tag": "forge:molten_zinc",
-      "amount": 90
+      "amount": 90,
+      "tag": "forge:molten_zinc"
     }
   ],
   "result": {
-    "fluid": "tconstruct:molten_brass",
-    "amount": 180
+    "amount": 180,
+    "fluid": "tconstruct:molten_brass"
   },
   "temperature": 605
 }

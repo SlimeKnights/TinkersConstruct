@@ -39,7 +39,7 @@ public class ClientInteractionHandler {
       return;
     }
     // figure out if we have a chestplate making us care
-    Player player = event.getPlayer();
+    Player player = event.getEntity();
     ItemStack chestplate = player.getItemBySlot(EquipmentSlot.CHEST);
     if (!player.isSpectator() && chestplate.is(TinkerTags.Items.INTERACTABLE_ARMOR)) {
       // found an interaction, time to notify the server and run logic for the client
@@ -62,7 +62,7 @@ public class ClientInteractionHandler {
 
   /** Prevents an empty right click from running the offhand */
   @SubscribeEvent(priority = EventPriority.HIGH)
-  static void preventDoubleInteract(InputEvent.ClickInputEvent event) {
+  static void preventDoubleInteract(InputEvent.InteractionKeyMappingTriggered event) {
     if (cancelNextOffhand) {
       cancelNextOffhand = false;
       if (event.getHand() == InteractionHand.OFF_HAND) {
@@ -80,7 +80,7 @@ public class ClientInteractionHandler {
       return;
     }
     // figure out if we have a chestplate making us care
-    Player player = event.getPlayer();
+    Player player = event.getEntity();
     ItemStack tool = event.getItemStack();
     if (!player.isSpectator() && tool.is(TinkerTags.Items.INTERACTABLE_LEFT)) {
       // found an interaction, time to notify the server and run logic for the client

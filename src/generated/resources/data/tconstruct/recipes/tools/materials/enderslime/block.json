@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "tconstruct:ender_slime"
   },
-  "value": 9,
+  "material": "tconstruct:enderslime",
   "needed": 1,
-  "material": "tconstruct:enderslime"
+  "value": 9
 }

@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools.recipe;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -29,7 +30,6 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.stream.IntStream;
 
@@ -103,7 +103,7 @@ public class ModifierSortingRecipe extends AbstractWorktableRecipe {
     return TinkerModifiers.modifierSortingSerializer.get();
   }
 
-  public static class Serializer extends LoggingRecipeSerializer<ModifierSortingRecipe> {
+  public static class Serializer implements LoggingRecipeSerializer<ModifierSortingRecipe> {
     @Override
     public ModifierSortingRecipe fromJson(ResourceLocation id, JsonObject json) {
       List<SizedIngredient> ingredients = JsonHelper.parseList(json, "inputs", SizedIngredient::deserialize);
@@ -134,7 +134,7 @@ public class ModifierSortingRecipe extends AbstractWorktableRecipe {
   public static class Builder extends AbstractSizedIngredientRecipeBuilder<Builder> {
     @Override
     public void save(Consumer<FinishedRecipe> consumer) {
-      save(consumer, Objects.requireNonNull(inputs.get(0).getMatchingStacks().get(0).getItem().getRegistryName()));
+      save(consumer, Registry.ITEM.getKey((inputs.get(0).getMatchingStacks().get(0).getItem())));
     }
 
     @Override

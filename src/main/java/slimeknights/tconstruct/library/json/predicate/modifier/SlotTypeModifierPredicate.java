@@ -1,22 +1,15 @@
 package slimeknights.tconstruct.library.json.predicate.modifier;
 
 import com.google.gson.JsonObject;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.tools.SlotType;
 
-import javax.annotation.Nullable;
-
 /** Predicate that matches any modifiers with recipes requiring a slot */
-@RequiredArgsConstructor
-public class SlotTypeModifierPredicate implements ModifierPredicate {
-  @Nullable
-  private final SlotType slotType;
-
+public record SlotTypeModifierPredicate(SlotType slotType) implements ModifierPredicate {
   @Override
   public boolean matches(ModifierId input) {
     return ModifierRecipeLookup.isRecipeModifier(slotType, input);

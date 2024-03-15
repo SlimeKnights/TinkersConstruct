@@ -100,7 +100,7 @@ public class ModifierSalvage implements ICustomOutputRecipe<Container> {
   /**
    * Serializer instance
    */
-  public static class Serializer extends LoggingRecipeSerializer<ModifierSalvage> {
+  public static class Serializer implements LoggingRecipeSerializer<ModifierSalvage> {
     @Override
     public ModifierSalvage fromJson(ResourceLocation id, JsonObject json) {
       Ingredient toolIngredient = Ingredient.fromJson(JsonHelper.getElement(json, "tools"));
@@ -120,7 +120,7 @@ public class ModifierSalvage implements ICustomOutputRecipe<Container> {
 
     @Nullable
     @Override
-    protected ModifierSalvage fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    public ModifierSalvage fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       Ingredient toolIngredient = Ingredient.fromNetwork(buffer);
       int maxToolSize = buffer.readVarInt();
       ModifierId modifier = ModifierId.fromNetwork(buffer);
@@ -131,7 +131,7 @@ public class ModifierSalvage implements ICustomOutputRecipe<Container> {
     }
 
     @Override
-    protected void toNetworkSafe(FriendlyByteBuf buffer, ModifierSalvage recipe) {
+    public void toNetworkSafe(FriendlyByteBuf buffer, ModifierSalvage recipe) {
       recipe.toolIngredient.toNetwork(buffer);
       buffer.writeVarInt(recipe.getMaxToolSize());
       recipe.modifier.toNetwork(buffer);

@@ -39,8 +39,8 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.tags.ITag;
@@ -285,7 +285,7 @@ public class JEIPlugin implements IModPlugin {
     registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerSmeltery.scorchedDrain.asItem(), tables);
     registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerSmeltery.scorchedDuct.asItem(), tables);
     registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerSmeltery.scorchedChute.asItem(), tables);
-    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerFluids.potionBucket.asItem(), (stack, context) -> {
+    registry.registerSubtypeInterpreter(VanillaTypes.ITEM_STACK, TinkerFluids.potion.asItem(), (stack, context) -> {
       if (!stack.hasTag()) {
         return IIngredientSubtypeInterpreter.NONE;
       }
@@ -354,7 +354,7 @@ public class JEIPlugin implements IModPlugin {
    * @param bucket   Fluid bucket to remove
    */
   private static void removeFluid(IIngredientManager manager, Fluid fluid, Item bucket) {
-    manager.removeIngredientsAtRuntime(ForgeTypes.FLUID_STACK, Collections.singleton(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME)));
+    manager.removeIngredientsAtRuntime(ForgeTypes.FLUID_STACK, Collections.singleton(new FluidStack(fluid, FluidType.BUCKET_VOLUME)));
     manager.removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, Collections.singleton(new ItemStack(bucket)));
   }
 

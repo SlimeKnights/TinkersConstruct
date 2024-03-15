@@ -1,17 +1,17 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "tag": "forge:ingots/netherite_scrap"
     }
   ],
+  "max_level": 1,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:worldbound"
+  },
   "tools": {
     "tag": "tconstruct:modifiable"
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:worldbound",
-    "level": 1
-  },
-  "max_level": 1
+  }
 }

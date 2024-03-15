@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "tag": "forge:string"
@@ -17,6 +18,14 @@
       "tag": "forge:dusts/redstone"
     }
   ],
+  "max_level": 1,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:scope"
+  },
+  "slots": {
+    "upgrades": 1
+  },
   "tools": [
     {
       "tag": "tconstruct:modifiable/ranged/bows"
@@ -24,14 +33,5 @@
     {
       "tag": "tconstruct:modifiable/staffs"
     }
-  ],
-  "slots": {
-    "upgrades": 1
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:scope",
-    "level": 1
-  },
-  "max_level": 1
+  ]
 }

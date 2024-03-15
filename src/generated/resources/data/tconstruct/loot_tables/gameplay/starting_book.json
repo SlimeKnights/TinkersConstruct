@@ -2,14 +2,14 @@
   "type": "minecraft:advancement_reward",
   "pools": [
     {
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
           "name": "tconstruct:materials_and_you"
         }
-      ]
+      ],
+      "rolls": 1.0
     }
   ]
 }

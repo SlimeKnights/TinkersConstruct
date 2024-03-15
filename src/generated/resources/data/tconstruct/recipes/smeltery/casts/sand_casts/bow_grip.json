@@ -4,8 +4,8 @@
     "item": "tconstruct:blank_sand_cast"
   },
   "pattern": {
-    "item": "tconstruct:bow_grip",
-    "type": "tconstruct:material"
+    "type": "tconstruct:material",
+    "item": "tconstruct:bow_grip"
   },
   "result": "tconstruct:bow_grip_sand_cast"
 }

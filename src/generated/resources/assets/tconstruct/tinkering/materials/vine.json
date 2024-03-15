@@ -1,50 +1,50 @@
 {
+  "color": "48B518",
   "fallbacks": [
     "vine"
   ],
-  "color": "48B518",
-  "luminosity": 0,
   "generator": {
+    "ignoreMaterialStats": false,
+    "supportedStats": [
+      "tconstruct:extra",
+      "tconstruct:bowstring"
+    ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",
       "color_mapping": {
         "type": "tconstruct:grey_to_color",
         "palette": [
           {
-            "grey": 0,
-            "color": "FF000000"
+            "color": "FF000000",
+            "grey": 0
           },
           {
-            "grey": 63,
-            "color": "FF143306"
+            "color": "FF143306",
+            "grey": 63
           },
           {
-            "grey": 102,
-            "color": "FF183D08"
+            "color": "FF183D08",
+            "grey": 102
           },
           {
-            "grey": 140,
-            "color": "FF1F4E0A"
+            "color": "FF1F4E0A",
+            "grey": 140
           },
           {
-            "grey": 178,
-            "color": "FF265F0D"
+            "color": "FF265F0D",
+            "grey": 178
           },
           {
-            "grey": 216,
-            "color": "FF2E730F"
+            "color": "FF2E730F",
+            "grey": 216
           },
           {
-            "grey": 255,
-            "color": "FF3A9313"
+            "color": "FF3A9313",
+            "grey": 255
           }
         ]
       }
-    },
-    "supportedStats": [
-      "tconstruct:extra",
-      "tconstruct:bowstring"
-    ],
-    "ignoreMaterialStats": false
-  }
+    }
+  },
+  "luminosity": 0
 }

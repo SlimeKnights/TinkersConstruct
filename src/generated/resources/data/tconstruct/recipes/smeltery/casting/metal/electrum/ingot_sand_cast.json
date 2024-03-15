@@ -1,24 +1,24 @@
 {
   "type": "tconstruct:casting_table",
-  "conditions": [
-    {
-      "value": {
-        "tag": "forge:ingots/electrum",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
-    }
-  ],
   "cast": {
     "tag": "tconstruct:casts/single_use/ingot"
   },
   "cast_consumed": true,
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/electrum"
+      }
+    }
+  ],
+  "cooling_time": 59,
   "fluid": {
-    "tag": "forge:molten_electrum",
-    "amount": 90
+    "amount": 90,
+    "tag": "forge:molten_electrum"
   },
   "result": {
     "tag": "forge:ingots/electrum"
-  },
-  "cooling_time": 59
+  }
 }

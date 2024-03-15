@@ -1,16 +1,21 @@
 {
   "type": "tconstruct:ore_melting",
+  "byproducts": [
+    {
+      "amount": 540,
+      "fluid": "tconstruct:molten_copper"
+    }
+  ],
   "conditions": [
     {
+      "type": "tconstruct:tag_intersection_present",
       "registry": "minecraft:item",
       "tags": [
         "forge:ores/tin",
         "forge:ore_rates/dense"
-      ],
-      "type": "tconstruct:tag_intersection_present"
+      ]
     }
   ],
-  "rate": "metal",
   "ingredient": {
     "type": "forge:intersection",
     "children": [
@@ -22,16 +27,11 @@
       }
     ]
   },
+  "rate": "metal",
   "result": {
-    "fluid": "tconstruct:molten_tin",
-    "amount": 540
+    "amount": 540,
+    "fluid": "tconstruct:molten_tin"
   },
   "temperature": 225,
-  "time": 176,
-  "byproducts": [
-    {
-      "fluid": "tconstruct:molten_copper",
-      "amount": 540
-    }
-  ]
+  "time": 176
 }

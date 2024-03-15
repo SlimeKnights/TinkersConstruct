@@ -1,37 +1,24 @@
 package slimeknights.tconstruct.world;
 
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biome.BiomeCategory;
-import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.block.SkullBlock;
-import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeDictionary.Type;
-import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
-import net.minecraftforge.common.world.MobSpawnSettingsBuilder;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.common.Mod;
@@ -49,13 +36,13 @@ import slimeknights.tconstruct.tools.stats.ExtraMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 
-import javax.annotation.Nullable;
 import java.util.Arrays;
 
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = TConstruct.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class WorldEvents {
-  /** Checks if the biome matches the given categories */
+  /* TODO: migrate to biome modifiers
+  /** Checks if the biome matches the given categories * /
   private static boolean matches(boolean hasNoTypes, @Nullable ResourceKey<Biome> key, BiomeCategory given, @Nullable BiomeCategory check, Type type) {
     if (hasNoTypes || key == null) {
       // check of null means not none, the nether/end checks were done earlier
@@ -123,7 +110,7 @@ public class WorldEvents {
       }
     }
   }
-
+*/
 
   /* Loot injection */
 
@@ -233,7 +220,7 @@ public class WorldEvents {
     if (lookingEntity == null) {
       return;
     }
-    LivingEntity entity = event.getEntityLiving();
+    LivingEntity entity = event.getEntity();
     ItemStack helmet = entity.getItemBySlot(EquipmentSlot.HEAD);
     Item item = helmet.getItem();
     if (item != Items.AIR && TinkerWorld.headItems.contains(item)) {
@@ -250,7 +237,7 @@ public class WorldEvents {
       Entity entity = source.getEntity();
       if (entity instanceof Creeper creeper) {
         if (creeper.canDropMobsSkull()) {
-          LivingEntity dying = event.getEntityLiving();
+          LivingEntity dying = event.getEntity();
           TinkerHeadType headType = TinkerHeadType.fromEntityType(dying.getType());
           if (headType != null && Config.COMMON.headDrops.get(headType).get()) {
             creeper.increaseDroppedSkulls();

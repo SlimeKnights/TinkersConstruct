@@ -3,8 +3,8 @@
   "ingredient": {
     "tag": "tconstruct:scorched_blocks"
   },
-  "value": 2,
-  "needed": 1,
+  "leftover": "tconstruct:scorched_brick",
   "material": "tconstruct:scorched_stone",
-  "leftover": "tconstruct:scorched_brick"
+  "needed": 1,
+  "value": 2
 }

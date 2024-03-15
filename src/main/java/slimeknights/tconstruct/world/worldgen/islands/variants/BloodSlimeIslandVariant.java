@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Plane;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -18,7 +19,6 @@ import slimeknights.tconstruct.world.TinkerStructures;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
-import java.util.Random;
 
 /**
  * Nether slime island variant that spawns in lava oceans
@@ -34,7 +34,7 @@ public class BloodSlimeIslandVariant extends AbstractSlimeIslandVariant {
   }
 
   @Override
-  protected SlimeType getCongealedSlimeType(Random random) {
+  protected SlimeType getCongealedSlimeType(RandomSource random) {
     return random.nextBoolean() ? SlimeType.BLOOD : SlimeType.ICHOR;
   }
 
@@ -45,7 +45,7 @@ public class BloodSlimeIslandVariant extends AbstractSlimeIslandVariant {
 
   @Nullable
   @Override
-  public ConfiguredFeature<?,?> getTreeFeature(Random random) {
+  public ConfiguredFeature<?,?> getTreeFeature(RandomSource random) {
     return TinkerStructures.bloodSlimeIslandFungus.get();
   }
 

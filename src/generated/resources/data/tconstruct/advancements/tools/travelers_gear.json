@@ -1,24 +1,7 @@
 {
   "parent": "tconstruct:tools/tinker_station",
-  "display": {
-    "icon": {
-      "item": "tconstruct:travelers_helmet",
-      "nbt": "{Damage:0,tic_broken:0b,tic_display:1b}"
-    },
-    "title": {
-      "translate": "advancements.tconstruct.tools.travelers_gear.title"
-    },
-    "description": {
-      "translate": "advancements.tconstruct.tools.travelers_gear.description"
-    },
-    "frame": "task",
-    "show_toast": true,
-    "announce_to_chat": false,
-    "hidden": false
-  },
   "criteria": {
     "crafted_boots": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -27,22 +10,10 @@
             ]
           }
         ]
-      }
-    },
-    "crafted_leggings": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "tconstruct:travelers_leggings"
-            ]
-          }
-        ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "crafted_chestplate": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -51,10 +22,10 @@
             ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "crafted_helmet": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -63,7 +34,36 @@
             ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "crafted_leggings": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:travelers_leggings"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.tconstruct.tools.travelers_gear.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "tconstruct:travelers_helmet",
+      "nbt": "{Damage:0,tic_broken:0b,tic_display:1b}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.tconstruct.tools.travelers_gear.title"
     }
   },
   "requirements": [

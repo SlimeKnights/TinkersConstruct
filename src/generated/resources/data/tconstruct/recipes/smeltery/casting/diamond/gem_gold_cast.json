@@ -3,10 +3,10 @@
   "cast": {
     "tag": "tconstruct:casts/multi_use/gem"
   },
+  "cooling_time": 83,
   "fluid": {
-    "tag": "tconstruct:molten_diamond",
-    "amount": 100
+    "amount": 100,
+    "tag": "tconstruct:molten_diamond"
   },
-  "result": "minecraft:diamond",
-  "cooling_time": 83
+  "result": "minecraft:diamond"
 }

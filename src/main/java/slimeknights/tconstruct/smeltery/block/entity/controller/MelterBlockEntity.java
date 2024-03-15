@@ -14,15 +14,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.model.data.IModelData;
+import net.minecraftforge.client.model.data.ModelData;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import org.jetbrains.annotations.NotNull;
 import slimeknights.mantle.block.entity.NameableBlockEntity;
-import slimeknights.mantle.client.model.data.SinglePropertyData;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
@@ -59,9 +58,6 @@ public class MelterBlockEntity extends NameableBlockEntity implements ITankBlock
   protected final FluidTankAnimated tank = new FluidTankAnimated(TANK_CAPACITY, this);
   /** Capability holder for the tank */
   private final LazyOptional<IFluidHandler> tankHolder = LazyOptional.of(() -> tank);
-  /** Tank data for the model */
-  @Getter
-  private final IModelData modelData = new SinglePropertyData<>(ModelProperties.FLUID_TANK, tank);
   /** Last comparator strength to reduce block updates */
   @Getter @Setter
   private int lastStrength = -1;
@@ -101,13 +97,19 @@ public class MelterBlockEntity extends NameableBlockEntity implements ITankBlock
    * Tank methods
    */
 
+  @Override
+  public @NotNull ModelData getModelData() {
+    // TODO: switch to tank property and fluid property
+    return ModelData.builder().with(ModelProperties.FLUID_TANK, tank).build();
+  }
+
   @Nonnull
   @Override
   public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
-    if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+    if (capability == ForgeCapabilities.FLUID_HANDLER) {
       return tankHolder.cast();
     }
-    if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+    if (capability == ForgeCapabilities.ITEM_HANDLER) {
       return inventoryHolder.cast();
     }
     return super.getCapability(capability, facing);

@@ -2,17 +2,17 @@
   "type": "tconstruct:material_fluid",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:ingots/invar",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/invar"
+      }
     }
   ],
   "fluid": {
-    "tag": "forge:molten_invar",
-    "amount": 90
+    "amount": 90,
+    "tag": "forge:molten_invar"
   },
-  "temperature": 900,
-  "output": "tconstruct:invar"
+  "output": "tconstruct:invar",
+  "temperature": 900
 }

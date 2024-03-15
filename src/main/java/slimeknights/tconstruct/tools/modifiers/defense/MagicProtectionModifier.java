@@ -8,7 +8,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.living.PotionEvent;
+import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
@@ -33,7 +33,7 @@ public class MagicProtectionModifier extends AbstractProtectionModifier<Modifier
   private static final TinkerDataKey<ModifierMaxLevel> MAGIC_DATA = TConstruct.createKey("magic_protection");
   public MagicProtectionModifier() {
     super(MAGIC_DATA);
-    MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, PotionEvent.PotionAddedEvent.class, MagicProtectionModifier::onPotionStart);
+    MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, MobEffectEvent.Added.class, MagicProtectionModifier::onPotionStart);
   }
 
   @Override
@@ -60,10 +60,10 @@ public class MagicProtectionModifier extends AbstractProtectionModifier<Modifier
     return new ModifierMaxLevel();
   }
 
-  private static void onPotionStart(PotionEvent.PotionAddedEvent event) {
-    MobEffectInstance newEffect = event.getPotionEffect();
+  private static void onPotionStart(MobEffectEvent.Added event) {
+    MobEffectInstance newEffect = event.getEffectInstance();
     if (!newEffect.getEffect().isBeneficial() && !newEffect.getCurativeItems().isEmpty()) {
-      LivingEntity living = event.getEntityLiving();
+      LivingEntity living = event.getEntity();
       living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
         ModifierMaxLevel magicData = data.get(MAGIC_DATA);
         if (magicData != null) {

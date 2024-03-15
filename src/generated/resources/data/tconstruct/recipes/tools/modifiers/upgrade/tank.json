@@ -1,11 +1,19 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
-      "tag": "tconstruct:tanks",
-      "type": "tconstruct:no_container"
+      "type": "tconstruct:no_container",
+      "tag": "tconstruct:tanks"
     }
   ],
+  "result": {
+    "level": 1,
+    "name": "tconstruct:tank"
+  },
+  "slots": {
+    "upgrades": 1
+  },
   "tools": [
     {
       "tag": "tconstruct:modifiable/interactable"
@@ -22,13 +30,5 @@
     {
       "tag": "tconstruct:modifiable/shields"
     }
-  ],
-  "slots": {
-    "upgrades": 1
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:tank",
-    "level": 1
-  }
+  ]
 }

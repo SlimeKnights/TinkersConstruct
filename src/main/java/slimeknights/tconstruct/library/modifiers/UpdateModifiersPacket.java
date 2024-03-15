@@ -6,8 +6,6 @@ import io.netty.handler.codec.DecoderException;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.Tag;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.network.NetworkEvent.Context;
@@ -17,6 +15,7 @@ import slimeknights.tconstruct.library.utils.GenericTagUtil;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -26,7 +25,7 @@ public class UpdateModifiersPacket implements IThreadsafePacket {
   /** Collection of all modifiers */
   private final Map<ModifierId,Modifier> allModifiers;
   /** Map of all modifier tags */
-  private final Map<ResourceLocation,Tag<Modifier>> tags;
+  private final Map<TagKey<Modifier>,List<Modifier>> tags;
   /** Collection of non-redirect modifiers */
   private Collection<Modifier> modifiers;
   /** Map of modifier redirect ID pairs */
@@ -84,7 +83,7 @@ public class UpdateModifiersPacket implements IThreadsafePacket {
       modifiers.put(from, getModifier(modifiers, new ModifierId(buffer.readUtf(Short.MAX_VALUE))));
     }
     this.allModifiers = modifiers;
-    this.tags = GenericTagUtil.decodeTags(buffer, id -> getModifier(modifiers, new ModifierId(id)));
+    this.tags = GenericTagUtil.decodeTags(buffer, ModifierManager.REGISTRY_KEY, id -> getModifier(modifiers, new ModifierId(id)));
 
     // read in enchantment to modifier mapping
     ImmutableMap.Builder<Enchantment,Modifier> enchantmentBuilder = ImmutableMap.builder();

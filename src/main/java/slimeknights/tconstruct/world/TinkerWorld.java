@@ -56,10 +56,12 @@ import net.minecraft.world.level.levelgen.placement.RarityFilter;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.common.PlantType;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
+import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent.Operation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.registries.RegistryObject;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.item.BlockTooltipItem;
@@ -136,7 +138,7 @@ public final class TinkerWorld extends TinkerModule {
   public static final EnumObject<SlimeType, SlimeBlock> slime = Util.make(() -> {
     Function<SlimeType,BlockBehaviour.Properties> slimeProps = type -> builder(Material.CLAY, type.getMapColor(), SoundType.SLIME_BLOCK).friction(0.8F).sound(SoundType.SLIME_BLOCK).noOcclusion();
     return new EnumObject.Builder<SlimeType, SlimeBlock>(SlimeType.class)
-      .putDelegate(SlimeType.EARTH, Blocks.SLIME_BLOCK.delegate)
+      .put(SlimeType.EARTH, () -> (SlimeBlock)Blocks.SLIME_BLOCK)
       // sky slime: sticks to anything, but will not pull back
       .put(SlimeType.SKY,   BLOCKS.register("sky_slime", () -> new StickySlimeBlock(slimeProps.apply(SlimeType.SKY), (state, other) -> true), TOOLTIP_BLOCK_ITEM))
       // ichor: does not stick to self, but sticks to anything else
@@ -160,7 +162,7 @@ public final class TinkerWorld extends TinkerModule {
     };
     return BLOCKS.registerEnum(SlimeType.TRUE_SLIME, "slime_dirt", (type) -> new SlimeDirtBlock(builder(Material.DIRT, color.apply(type), SoundType.SLIME_BLOCK).strength(1.9f)), TOOLTIP_BLOCK_ITEM);
   });
-  public static final EnumObject<SlimeType, Block> allDirt = new EnumObject.Builder<SlimeType, Block>(SlimeType.class).put(SlimeType.BLOOD, Blocks.DIRT.delegate).putAll(slimeDirt).build();
+  public static final EnumObject<SlimeType, Block> allDirt = new EnumObject.Builder<SlimeType, Block>(SlimeType.class).put(SlimeType.BLOOD, () -> Blocks.DIRT).putAll(slimeDirt).build();
 
   // grass variants
   public static final EnumObject<SlimeType, Block> vanillaSlimeGrass, earthSlimeGrass, skySlimeGrass, enderSlimeGrass, ichorSlimeGrass;
@@ -208,7 +210,7 @@ public final class TinkerWorld extends TinkerModule {
       } else {
         properties = builder(Material.REPLACEABLE_PLANT, type.getMapColor(), SoundType.GRASS);
       }
-      return properties.instabreak().noCollission();
+      return properties.instabreak().noCollission().offsetType(Block.OffsetType.XYZ);
     };
     slimeFern = BLOCKS.registerEnum(SlimeType.values(), "slime_fern", type -> new SlimeTallGrassBlock(props.apply(type), type), DEFAULT_BLOCK_ITEM);
     slimeTallGrass = BLOCKS.registerEnum(SlimeType.values(), "slime_tall_grass", type -> new SlimeTallGrassBlock(props.apply(type), type), DEFAULT_BLOCK_ITEM);
@@ -346,12 +348,17 @@ public final class TinkerWorld extends TinkerModule {
   }
 
   @SubscribeEvent
-  void commonSetup(final FMLCommonSetupEvent event) {
-    SpawnPlacements.register(earthSlimeEntity.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new SlimePlacementPredicate<>(TinkerTags.Blocks.EARTH_SLIME_SPAWN));
-    SpawnPlacements.register(skySlimeEntity.get(),   SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new SlimePlacementPredicate<>(TinkerTags.Blocks.SKY_SLIME_SPAWN));
-    SpawnPlacements.register(enderSlimeEntity.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new SlimePlacementPredicate<>(TinkerTags.Blocks.ENDER_SLIME_SPAWN));
-    SpawnPlacements.register(terracubeEntity.get(),  SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TerracubeEntity::canSpawnHere);
+  void registerSpawnPlacement(SpawnPlacementRegisterEvent event) {
+    // TODO: seems we can add to vanilla predicates now, can we ditch earth slimes?
+    event.register(earthSlimeEntity.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new SlimePlacementPredicate<>(TinkerTags.Blocks.EARTH_SLIME_SPAWN), Operation.OR);
+    event.register(skySlimeEntity.get(),   SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new SlimePlacementPredicate<>(TinkerTags.Blocks.SKY_SLIME_SPAWN), Operation.OR);
+    event.register(enderSlimeEntity.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new SlimePlacementPredicate<>(TinkerTags.Blocks.ENDER_SLIME_SPAWN), Operation.OR);
+    event.register(terracubeEntity.get(),  SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TerracubeEntity::canSpawnHere, Operation.OR);
 
+  }
+
+  @SubscribeEvent
+  void commonSetup(final FMLCommonSetupEvent event) {
     // compostables
     event.enqueueWork(() -> {
       slimeLeaves.forEach((type, block) -> ComposterBlock.add(type.isNether() ? 0.85f : 0.35f, block));
@@ -403,10 +410,8 @@ public final class TinkerWorld extends TinkerModule {
 
   @SubscribeEvent
   void gatherData(final GatherDataEvent event) {
-    if (event.includeServer()) {
-      DataGenerator datagenerator = event.getGenerator();
-      datagenerator.addProvider(new WorldRecipeProvider(datagenerator));
-    }
+    DataGenerator datagenerator = event.getGenerator();
+    datagenerator.addProvider(event.includeServer(), new WorldRecipeProvider(datagenerator));
   }
 
 

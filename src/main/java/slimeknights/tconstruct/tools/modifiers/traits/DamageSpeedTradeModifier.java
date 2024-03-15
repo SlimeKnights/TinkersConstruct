@@ -2,7 +2,6 @@ package slimeknights.tconstruct.tools.modifiers.traits;
 
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -67,7 +66,7 @@ public class DamageSpeedTradeModifier extends Modifier implements AttributesModi
   public void addTooltip(IToolStackView tool, ModifierEntry modifier, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     double boost = getMultiplier(tool, modifier.getLevel());
     if (boost != 0 && tool.hasTag(TinkerTags.Items.HARVEST)) {
-      tooltip.add(applyStyle(new TextComponent(Util.PERCENT_BOOST_FORMAT.format(-boost)).append(" ").append(MINING_SPEED)));
+      tooltip.add(applyStyle(Component.literal(Util.PERCENT_BOOST_FORMAT.format(-boost)).append(" ").append(MINING_SPEED)));
     }
   }
 

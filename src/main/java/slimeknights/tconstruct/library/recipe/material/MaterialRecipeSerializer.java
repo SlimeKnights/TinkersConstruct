@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 /**
  * Serializer for {@link MaterialRecipe}
  */
-public class MaterialRecipeSerializer extends LoggingRecipeSerializer<MaterialRecipe> {
+public class MaterialRecipeSerializer implements LoggingRecipeSerializer<MaterialRecipe> {
   private static final ItemOutput EMPTY = ItemOutput.fromStack(ItemStack.EMPTY);
 
   @Override
@@ -35,7 +35,7 @@ public class MaterialRecipeSerializer extends LoggingRecipeSerializer<MaterialRe
 
   @Nullable
   @Override
-  protected MaterialRecipe fromNetworkSafe(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+  public MaterialRecipe fromNetworkSafe(ResourceLocation recipeId, FriendlyByteBuf buffer) {
     String group = buffer.readUtf(Short.MAX_VALUE);
     Ingredient ingredient = Ingredient.fromNetwork(buffer);
     int value = buffer.readInt();
@@ -46,7 +46,7 @@ public class MaterialRecipeSerializer extends LoggingRecipeSerializer<MaterialRe
   }
 
   @Override
-  protected void toNetworkSafe(FriendlyByteBuf buffer, MaterialRecipe recipe) {
+  public void toNetworkSafe(FriendlyByteBuf buffer, MaterialRecipe recipe) {
     buffer.writeUtf(recipe.group);
     recipe.ingredient.toNetwork(buffer);
     buffer.writeInt(recipe.value);

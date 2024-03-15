@@ -2,26 +2,26 @@
   "type": "minecraft:crafting_shaped",
   "conditions": [
     {
-      "prop": "glass_recipe_fix",
-      "type": "tconstruct:config"
+      "type": "tconstruct:config",
+      "prop": "glass_recipe_fix"
     }
   ],
-  "pattern": [
-    "GGG",
-    "GEG",
-    "GTG"
-  ],
   "key": {
-    "T": {
-      "item": "minecraft:ghast_tear"
-    },
     "E": {
       "item": "minecraft:ender_eye"
     },
     "G": {
       "tag": "forge:glass/colorless"
+    },
+    "T": {
+      "item": "minecraft:ghast_tear"
     }
   },
+  "pattern": [
+    "GGG",
+    "GEG",
+    "GTG"
+  ],
   "result": {
     "item": "minecraft:end_crystal"
   }

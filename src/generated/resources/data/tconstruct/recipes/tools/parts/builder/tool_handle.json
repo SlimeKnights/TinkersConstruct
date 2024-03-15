@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:part_builder",
+  "cost": 1,
   "pattern": "tconstruct:tool_handle",
   "pattern_item": [
     {
@@ -9,7 +10,6 @@
       "item": "tconstruct:tool_handle_cast"
     }
   ],
-  "cost": 1,
   "result": {
     "item": "tconstruct:tool_handle"
   }

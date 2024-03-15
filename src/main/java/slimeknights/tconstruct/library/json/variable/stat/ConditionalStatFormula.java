@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library.json.variable.stat;
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.LivingEntity;
-import slimeknights.mantle.data.GenericLoaderRegistry;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry;
 import slimeknights.tconstruct.library.json.math.ModifierFormula;
 import slimeknights.tconstruct.library.json.math.ModifierFormula.FallbackFormula;
 import slimeknights.tconstruct.library.json.variable.VariableFormula;

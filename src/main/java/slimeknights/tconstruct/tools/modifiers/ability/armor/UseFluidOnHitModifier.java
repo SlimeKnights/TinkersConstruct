@@ -7,8 +7,8 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlot.Type;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidType;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.modules.fluid.TankModule;
@@ -30,7 +30,7 @@ public abstract class UseFluidOnHitModifier extends Modifier {
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
-    tank = new TankModule(FluidAttributes.BUCKET_VOLUME, true);
+    tank = new TankModule(FluidType.BUCKET_VOLUME, true);
     hookBuilder.addModule(tank);
   }
 

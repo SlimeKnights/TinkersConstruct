@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:specialized_station_repair",
+  "repair_material": "tconstruct:slimewood",
   "tool": [
     {
       "item": "tconstruct:sky_staff"
@@ -10,6 +11,5 @@
     {
       "item": "tconstruct:ichor_staff"
     }
-  ],
-  "repair_material": "tconstruct:slimewood"
+  ]
 }

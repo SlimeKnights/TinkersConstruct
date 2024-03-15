@@ -54,7 +54,7 @@ public class MoldingRecipe implements ICommonRecipe<IMoldingContainer> {
 
   /** Generic serializer to both types */
   @RequiredArgsConstructor
-  public static class Serializer extends LoggingRecipeSerializer<MoldingRecipe> {
+  public static class Serializer implements LoggingRecipeSerializer<MoldingRecipe> {
     private final Supplier<RecipeType<MoldingRecipe>> type;
 
     @Override
@@ -72,7 +72,7 @@ public class MoldingRecipe implements ICommonRecipe<IMoldingContainer> {
 
     @Nullable
     @Override
-    protected MoldingRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    public MoldingRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       Ingredient material = Ingredient.fromNetwork(buffer);
       Ingredient mold = Ingredient.fromNetwork(buffer);
       boolean moldConsumed = buffer.readBoolean();
@@ -81,7 +81,7 @@ public class MoldingRecipe implements ICommonRecipe<IMoldingContainer> {
     }
 
     @Override
-    protected void toNetworkSafe(FriendlyByteBuf buffer, MoldingRecipe recipe) {
+    public void toNetworkSafe(FriendlyByteBuf buffer, MoldingRecipe recipe) {
       recipe.material.toNetwork(buffer);
       recipe.pattern.toNetwork(buffer);
       buffer.writeBoolean(recipe.patternConsumed);

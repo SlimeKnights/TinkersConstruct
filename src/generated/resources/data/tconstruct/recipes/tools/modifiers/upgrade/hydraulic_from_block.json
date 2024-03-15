@@ -1,21 +1,21 @@
 {
   "type": "tconstruct:incremental_modifier",
+  "allow_crystal": false,
+  "amount_per_item": 4,
   "input": {
     "item": "minecraft:prismarine"
   },
-  "amount_per_item": 4,
-  "needed_per_level": 36,
   "leftover": "minecraft:prismarine_shard",
-  "tools": {
-    "tag": "tconstruct:modifiable/harvest"
+  "max_level": 5,
+  "needed_per_level": 36,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:hydraulic"
   },
   "slots": {
     "upgrades": 1
   },
-  "allow_crystal": false,
-  "result": {
-    "name": "tconstruct:hydraulic",
-    "level": 1
-  },
-  "max_level": 5
+  "tools": {
+    "tag": "tconstruct:modifiable/harvest"
+  }
 }

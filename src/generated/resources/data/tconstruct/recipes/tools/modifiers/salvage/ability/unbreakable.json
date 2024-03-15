@@ -1,11 +1,11 @@
 {
   "type": "tconstruct:modifier_salvage",
-  "tools": {
-    "tag": "tconstruct:modifiable/durability"
-  },
+  "min_level": 1,
+  "modifier": "tconstruct:unbreakable",
   "slots": {
     "abilities": 1
   },
-  "modifier": "tconstruct:unbreakable",
-  "min_level": 1
+  "tools": {
+    "tag": "tconstruct:modifiable/durability"
+  }
 }

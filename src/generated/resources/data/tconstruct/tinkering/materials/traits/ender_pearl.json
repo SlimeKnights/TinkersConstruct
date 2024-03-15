@@ -2,12 +2,12 @@
   "perStat": {
     "tconstruct:skull": [
       {
-        "name": "tconstruct:enderdodging",
-        "level": 1
+        "level": 1,
+        "name": "tconstruct:enderdodging"
       },
       {
-        "name": "tconstruct:enderman_disguise",
-        "level": 1
+        "level": 1,
+        "name": "tconstruct:enderman_disguise"
       }
     ]
   }

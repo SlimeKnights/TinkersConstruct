@@ -4,8 +4,8 @@
     "item": "minecraft:iron_horse_armor"
   },
   "result": {
-    "fluid": "tconstruct:molten_iron",
-    "amount": 630
+    "amount": 630,
+    "fluid": "tconstruct:molten_iron"
   },
   "temperature": 800,
   "time": 159

@@ -1,23 +1,23 @@
 {
   "type": "tconstruct:casting_table",
-  "conditions": [
-    {
-      "value": {
-        "tag": "forge:plates/tungsten",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
-    }
-  ],
   "cast": {
     "tag": "tconstruct:casts/multi_use/plate"
   },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:plates/tungsten"
+      }
+    }
+  ],
+  "cooling_time": 65,
   "fluid": {
-    "tag": "forge:molten_tungsten",
-    "amount": 90
+    "amount": 90,
+    "tag": "forge:molten_tungsten"
   },
   "result": {
     "tag": "forge:plates/tungsten"
-  },
-  "cooling_time": 65
+  }
 }

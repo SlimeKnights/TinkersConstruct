@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:swappable_modifier",
+  "allow_crystal": false,
   "inputs": [
     {
       "item": "minecraft:honey_block"
@@ -11,12 +12,11 @@
       "item": "minecraft:honey_block"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/embellishment/slime"
-  },
-  "allow_crystal": false,
   "result": {
     "name": "tconstruct:embellishment",
     "value": "tconstruct:honey"
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/embellishment/slime"
   }
 }

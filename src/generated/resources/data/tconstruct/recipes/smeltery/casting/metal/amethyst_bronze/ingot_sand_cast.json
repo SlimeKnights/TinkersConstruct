@@ -4,12 +4,12 @@
     "tag": "tconstruct:casts/single_use/ingot"
   },
   "cast_consumed": true,
+  "cooling_time": 61,
   "fluid": {
-    "tag": "forge:molten_amethyst_bronze",
-    "amount": 90
+    "amount": 90,
+    "tag": "forge:molten_amethyst_bronze"
   },
   "result": {
     "tag": "forge:ingots/amethyst_bronze"
-  },
-  "cooling_time": 61
+  }
 }

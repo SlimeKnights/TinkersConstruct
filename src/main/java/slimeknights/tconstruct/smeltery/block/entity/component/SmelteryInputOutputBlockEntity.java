@@ -10,23 +10,19 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.model.data.IModelData;
-import net.minecraftforge.client.model.data.ModelDataMap;
+import net.minecraftforge.client.model.data.ModelData;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.common.util.NonNullConsumer;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import slimeknights.mantle.block.entity.IRetexturedBlockEntity;
-import slimeknights.mantle.client.model.data.SinglePropertyData;
 import slimeknights.mantle.inventory.EmptyItemHandler;
 import slimeknights.mantle.util.RetexturedHelper;
 import slimeknights.mantle.util.WeakConsumerWrapper;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.smeltery.block.entity.tank.IDisplayFluidListener;
 import slimeknights.tconstruct.smeltery.block.entity.tank.ISmelteryTankHandler;
 
 import javax.annotation.Nonnull;
@@ -49,8 +45,6 @@ public abstract class SmelteryInputOutputBlockEntity<T> extends SmelteryComponen
   private LazyOptional<T> capabilityHolder = null;
 
   /* Retexturing */
-  @Getter
-  private final IModelData modelData = getRetexturedModelData();
   @Nonnull
   @Getter
   private Block texture = Blocks.AIR;
@@ -140,8 +134,9 @@ public abstract class SmelteryInputOutputBlockEntity<T> extends SmelteryComponen
   /* Retexturing */
 
   @Override
-  public IModelData getRetexturedModelData() {
-    return new SinglePropertyData<>(RetexturedHelper.BLOCK_PROPERTY);
+  @Nonnull
+  public ModelData getModelData() {
+    return RetexturedHelper.getModelData(getTexture());
   }
 
   @Override
@@ -188,7 +183,7 @@ public abstract class SmelteryInputOutputBlockEntity<T> extends SmelteryComponen
   /** Fluid implementation of smeltery IO */
   public static abstract class SmelteryFluidIO extends SmelteryInputOutputBlockEntity<IFluidHandler> {
     protected SmelteryFluidIO(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-      super(type, pos, state, CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, EmptyFluidHandler.INSTANCE);
+      super(type, pos, state, ForgeCapabilities.FLUID_HANDLER, EmptyFluidHandler.INSTANCE);
     }
 
     /** Wraps the given capability */
@@ -208,11 +203,6 @@ public abstract class SmelteryInputOutputBlockEntity<T> extends SmelteryComponen
       }
       return LazyOptional.empty();
     }
-
-    @Override
-    public IModelData getRetexturedModelData() {
-      return new ModelDataMap.Builder().withProperty(RetexturedHelper.BLOCK_PROPERTY).withProperty(IDisplayFluidListener.PROPERTY).build();
-    }
   }
 
   /** Item implementation of smeltery IO */
@@ -222,7 +212,7 @@ public abstract class SmelteryInputOutputBlockEntity<T> extends SmelteryComponen
     }
 
     protected ChuteBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-      super(type, pos, state, CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EmptyItemHandler.INSTANCE);
+      super(type, pos, state, ForgeCapabilities.ITEM_HANDLER, EmptyItemHandler.INSTANCE);
     }
   }
 

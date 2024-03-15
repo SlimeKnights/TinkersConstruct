@@ -5,17 +5,17 @@
       "item": "tconstruct:ender_slime_crystal"
     },
     {
-      "item": "minecraft:dragon_breath",
-      "amount_needed": 5
+      "amount_needed": 5,
+      "item": "minecraft:dragon_breath"
     }
   ],
-  "tools": {
-    "item": "tconstruct:dagger",
-    "amount_needed": 2
-  },
   "modifier_predicate": {
     "type": "tconstruct:inverted",
     "inverted_type": "tconstruct:tag",
     "tag": "tconstruct:extract_blacklist/tools"
+  },
+  "tools": {
+    "amount_needed": 2,
+    "item": "tconstruct:dagger"
   }
 }

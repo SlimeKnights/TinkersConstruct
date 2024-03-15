@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:swappable_modifier",
+  "allow_crystal": false,
   "inputs": [
     {
       "ingredient": [
@@ -31,6 +32,10 @@
       "item": "tconstruct:earth_slime_crystal_block"
     }
   ],
+  "result": {
+    "name": "tconstruct:rebalanced",
+    "value": "defense"
+  },
   "tools": [
     {
       "tag": "tconstruct:modifiable/armor"
@@ -38,10 +43,5 @@
     {
       "tag": "tconstruct:modifiable/held"
     }
-  ],
-  "allow_crystal": false,
-  "result": {
-    "name": "tconstruct:rebalanced",
-    "value": "defense"
-  }
+  ]
 }

@@ -1,19 +1,19 @@
 {
   "default": [
     {
-      "name": "tconstruct:looting",
-      "level": 1
+      "level": 1,
+      "name": "tconstruct:looting"
     }
   ],
   "perStat": {
     "tconstruct:skull": [
       {
-        "name": "tconstruct:mithridatism",
-        "level": 1
+        "level": 1,
+        "name": "tconstruct:mithridatism"
       },
       {
-        "name": "tconstruct:cave_spider_disguise",
-        "level": 1
+        "level": 1,
+        "name": "tconstruct:cave_spider_disguise"
       }
     ]
   }

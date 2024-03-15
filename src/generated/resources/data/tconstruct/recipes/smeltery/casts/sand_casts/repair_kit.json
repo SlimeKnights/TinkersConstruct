@@ -4,8 +4,8 @@
     "item": "tconstruct:blank_sand_cast"
   },
   "pattern": {
-    "item": "tconstruct:repair_kit",
-    "type": "tconstruct:material"
+    "type": "tconstruct:material",
+    "item": "tconstruct:repair_kit"
   },
   "result": "tconstruct:repair_kit_sand_cast"
 }

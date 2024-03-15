@@ -19,7 +19,7 @@ public class ModifiableDaggerItem extends ModifiableSwordItem {
   }
 
   @Override
-  public int getItemStackLimit(ItemStack stack) {
+  public int getMaxStackSize(ItemStack stack) {
     return getDamage(stack) == 0 ? 2 : 1;
   }
 

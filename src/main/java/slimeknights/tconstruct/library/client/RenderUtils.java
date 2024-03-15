@@ -8,8 +8,9 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidType;
 import slimeknights.mantle.client.model.fluid.FluidCuboid;
 import slimeknights.mantle.client.render.FluidRenderer;
 import slimeknights.mantle.client.render.MantleRenderTypes;
@@ -62,14 +63,15 @@ public final class RenderUtils {
       return;
     }
 
-    FluidAttributes attributes = fluid.getFluid().getAttributes();
+    IClientFluidTypeExtensions attributes = IClientFluidTypeExtensions.of(fluid.getFluid());
     TextureAtlasSprite still = FluidRenderer.getBlockSprite(attributes.getStillTexture(fluid));
     TextureAtlasSprite flowing = FluidRenderer.getBlockSprite(attributes.getFlowingTexture(fluid));
-    boolean isGas = attributes.isGaseous(fluid);
-    light = FluidRenderer.withBlockLight(light, attributes.getLuminosity(fluid));
+    FluidType fluidType = fluid.getFluid().getFluidType();
+    boolean isGas = fluidType.isLighterThanAir();
+    light = FluidRenderer.withBlockLight(light, fluidType.getLightLevel(fluid));
 
     // add in fluid opacity if given
-    int color = attributes.getColor(fluid);
+    int color = attributes.getTintColor(fluid);
     if (opacity < 0xFF) {
       // alpha is top 8 bits, multiply by opacity and divide out remainder
       int alpha = ((color >> 24) & 0xFF) * opacity / 0xFF;

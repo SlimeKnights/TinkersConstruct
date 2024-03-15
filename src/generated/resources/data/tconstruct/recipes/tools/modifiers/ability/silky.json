@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "item": "tconstruct:silky_cloth"
@@ -17,16 +18,15 @@
       "item": "tconstruct:silky_cloth"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/harvest"
+  "max_level": 1,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:silky"
   },
   "slots": {
     "abilities": 1
   },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:silky",
-    "level": 1
-  },
-  "max_level": 1
+  "tools": {
+    "tag": "tconstruct:modifiable/harvest"
+  }
 }

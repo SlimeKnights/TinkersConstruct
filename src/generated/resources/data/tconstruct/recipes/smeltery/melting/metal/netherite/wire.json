@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:wires/netherite",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:wires/netherite"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:wires/netherite"
   },
   "result": {
-    "fluid": "tconstruct:molten_netherite",
-    "amount": 45
+    "amount": 45,
+    "fluid": "tconstruct:molten_netherite"
   },
   "temperature": 1250,
   "time": 15

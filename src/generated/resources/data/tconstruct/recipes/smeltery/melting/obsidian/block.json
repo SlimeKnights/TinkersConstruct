@@ -4,8 +4,8 @@
     "tag": "forge:obsidian"
   },
   "result": {
-    "fluid": "tconstruct:molten_obsidian",
-    "amount": 1000
+    "amount": 1000,
+    "fluid": "tconstruct:molten_obsidian"
   },
   "temperature": 1000,
   "time": 133

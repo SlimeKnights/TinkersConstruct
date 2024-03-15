@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "item": "minecraft:leather"
@@ -17,16 +18,15 @@
       "tag": "forge:string"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/melee/unarmed"
+  "max_level": 1,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:ambidextrous"
   },
   "slots": {
     "abilities": 1
   },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:ambidextrous",
-    "level": 1
-  },
-  "max_level": 1
+  "tools": {
+    "tag": "tconstruct:modifiable/melee/unarmed"
+  }
 }

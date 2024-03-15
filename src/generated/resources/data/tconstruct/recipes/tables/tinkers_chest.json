@@ -1,24 +1,24 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " p ",
-    "lCl",
-    "lwl"
-  ],
   "key": {
+    "C": {
+      "tag": "forge:chests/wooden"
+    },
+    "l": {
+      "tag": "forge:gems/lapis"
+    },
     "p": {
       "item": "tconstruct:pattern"
     },
     "w": {
       "tag": "minecraft:planks"
-    },
-    "l": {
-      "tag": "forge:gems/lapis"
-    },
-    "C": {
-      "tag": "forge:chests/wooden"
     }
   },
+  "pattern": [
+    " p ",
+    "lCl",
+    "lwl"
+  ],
   "result": {
     "item": "tconstruct:tinkers_chest"
   }

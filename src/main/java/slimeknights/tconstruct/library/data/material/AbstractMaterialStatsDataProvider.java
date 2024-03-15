@@ -1,9 +1,10 @@
 package slimeknights.tconstruct.library.data.material;
 
 import lombok.AllArgsConstructor;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.HashCache;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
 import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.json.MaterialStatJson;
@@ -26,7 +27,7 @@ public abstract class AbstractMaterialStatsDataProvider extends GenericDataProvi
   private final AbstractMaterialDataProvider materials;
 
   public AbstractMaterialStatsDataProvider(DataGenerator gen, AbstractMaterialDataProvider materials) {
-    super(gen, MaterialStatsManager.FOLDER);
+    super(gen, PackType.SERVER_DATA, MaterialStatsManager.FOLDER);
     this.materials = materials;
   }
 
@@ -34,7 +35,7 @@ public abstract class AbstractMaterialStatsDataProvider extends GenericDataProvi
   protected abstract void addMaterialStats();
 
   @Override
-  public void run(HashCache cache) {
+  public void run(CachedOutput cache) {
     addMaterialStats();
 
     // ensure we have stats for all materials
@@ -46,7 +47,7 @@ public abstract class AbstractMaterialStatsDataProvider extends GenericDataProvi
     }
     // does not ensure we have materials for all stats, we may be adding stats for another mod
     // generate finally
-    allMaterialStats.forEach((materialId, materialStats) -> saveThing(cache, materialId, convert(materialStats)));
+    allMaterialStats.forEach((materialId, materialStats) -> saveJson(cache, materialId, convert(materialStats)));
   }
 
 

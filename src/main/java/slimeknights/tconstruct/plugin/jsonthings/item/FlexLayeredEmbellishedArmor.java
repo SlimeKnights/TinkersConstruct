@@ -11,7 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.IItemRenderProperties;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.item.ModifiableArmorItem;
 import slimeknights.tconstruct.tools.client.PlateArmorModel;
@@ -35,11 +35,11 @@ public class FlexLayeredEmbellishedArmor extends ModifiableArmorItem implements 
   }
 
   @Override
-  public void initializeClient(Consumer<IItemRenderProperties> consumer) {
-    consumer.accept(new IItemRenderProperties() {
+  public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+    consumer.accept(new IClientItemExtensions() {
       @Nonnull
       @Override
-      public Model getBaseArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> _default) {
+      public Model getGenericArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> _default) {
         return PlateArmorModel.getModel(itemStack, armorSlot, _default, name);
       }
     });
@@ -56,7 +56,7 @@ public class FlexLayeredEmbellishedArmor extends ModifiableArmorItem implements 
   }
 
   @Override
-  protected boolean allowdedIn(CreativeModeTab category) {
+  protected boolean allowedIn(CreativeModeTab category) {
     return this.tabs.contains(category);
   }
 

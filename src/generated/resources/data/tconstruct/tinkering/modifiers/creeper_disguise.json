@@ -1,11 +1,11 @@
 {
   "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "tooltip_display": "always",
   "modules": [
     {
       "type": "tconstruct:mob_disguise",
       "entity": "minecraft:creeper"
     }
-  ]
+  ],
+  "tooltip_display": "always"
 }

@@ -16,9 +16,9 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
 
 public class AutosmeltModifier extends NoLevelsModifier {
   /** Cache of relevant smelting recipes */
@@ -92,14 +92,17 @@ public class AutosmeltModifier extends NoLevelsModifier {
   }
 
   @Override
-  public List<ItemStack> processLoot(IToolStackView tool, int level, List<ItemStack> generatedLoot, LootContext context) {
+  public void processLoot(IToolStackView tool, int level, List<ItemStack> generatedLoot, LootContext context) {
     Level world = context.getLevel();
     if (!generatedLoot.isEmpty()) {
-      return generatedLoot.stream()
-                          .map(stack -> smeltItem(stack, world))
-                          .filter(stack -> !stack.isEmpty())
-                          .collect(Collectors.toList());
+      ListIterator<ItemStack> iterator = generatedLoot.listIterator();
+      while (iterator.hasNext()) {
+        ItemStack stack = iterator.next();
+        ItemStack smelted = smeltItem(stack, world);
+        if (stack != smelted) {
+          iterator.set(smelted);
+        }
+      }
     }
-    return generatedLoot;
   }
 }

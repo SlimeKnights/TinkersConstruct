@@ -15,11 +15,11 @@ import java.util.List;
 
 public class SeveringModifier extends Modifier {
   @Override
-  public List<ItemStack> processLoot(IToolStackView tool, int level, List<ItemStack> generatedLoot, LootContext context) {
+  public void processLoot(IToolStackView tool, int level, List<ItemStack> generatedLoot, LootContext context) {
     // if no damage source, probably not a mob
     // otherwise blocks breaking (where THIS_ENTITY is the player) start dropping player heads
     if (!context.hasParam(LootContextParams.DAMAGE_SOURCE)) {
-      return generatedLoot;
+      return;
     }
 
     // must have an entity
@@ -49,6 +49,5 @@ public class SeveringModifier extends Modifier {
         }
       }
     }
-    return generatedLoot;
   }
 }

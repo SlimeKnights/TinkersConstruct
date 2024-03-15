@@ -1,11 +1,11 @@
 {
   "type": "tconstruct:entity_melting",
+  "damage": 2,
   "entity": {
     "type": "tconstruct:ender_slime"
   },
   "result": {
-    "fluid": "tconstruct:ender_slime",
-    "amount": 25
-  },
-  "damage": 2
+    "amount": 25,
+    "fluid": "tconstruct:ender_slime"
+  }
 }

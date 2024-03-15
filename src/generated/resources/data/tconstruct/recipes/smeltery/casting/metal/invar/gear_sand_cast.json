@@ -1,24 +1,24 @@
 {
   "type": "tconstruct:casting_table",
-  "conditions": [
-    {
-      "value": {
-        "tag": "forge:gears/invar",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
-    }
-  ],
   "cast": {
     "tag": "tconstruct:casts/single_use/gear"
   },
   "cast_consumed": true,
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:gears/invar"
+      }
+    }
+  ],
+  "cooling_time": 127,
   "fluid": {
-    "tag": "forge:molten_invar",
-    "amount": 360
+    "amount": 360,
+    "tag": "forge:molten_invar"
   },
   "result": {
     "tag": "forge:gears/invar"
-  },
-  "cooling_time": 127
+  }
 }

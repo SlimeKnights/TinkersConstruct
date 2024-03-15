@@ -1,24 +1,24 @@
 {
+  "slots": {
+    "upgrades": 1
+  },
   "stats": {
     "base": {
       "tconstruct:durability": 100.0
     }
   },
-  "slots": {
-    "upgrades": 1
-  },
   "traits": [
     {
-      "name": "tconstruct:firestarter",
-      "level": 1
+      "level": 1,
+      "name": "tconstruct:firestarter"
     },
     {
-      "name": "tconstruct:fiery",
-      "level": 1
+      "level": 1,
+      "name": "tconstruct:fiery"
     },
     {
-      "name": "tconstruct:scorching",
-      "level": 1
+      "level": 1,
+      "name": "tconstruct:scorching"
     }
   ]
 }

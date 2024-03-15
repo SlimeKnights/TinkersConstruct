@@ -21,7 +21,7 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 
 /**
  * Loot table condition to test if a tag has entries.
- * TODO: is this redundant to {@link slimeknights.mantle.recipe.helper.TagEmptyCondition}? Or worth keeping both?
+ * TODO: the non-loot condition form is redundant to {@link slimeknights.mantle.recipe.helper.TagEmptyCondition}
  */
 @RequiredArgsConstructor
 public class TagNotEmptyCondition<T> implements LootItemCondition, ICondition {
@@ -39,26 +39,15 @@ public class TagNotEmptyCondition<T> implements LootItemCondition, ICondition {
   }
 
   @Override
-  public boolean test() {
-    Registry<T> registry = RegistryHelper.getRegistry(tag.registry());
-    return registry != null && registry.getTagOrEmpty(tag).iterator().hasNext();
-  }
-
-  @Override
   public boolean test(IContext context) {
-    // if the context has no tags, fallback to registry test
-    // helps using this in book conditions
-    if (context.getAllTags(tag.registry()).isEmpty()) {
-      return test();
-    }
-    return !context.getTag(tag).getValues().isEmpty();
+    return !context.getTag(tag).isEmpty();
   }
 
   @Override
   public boolean test(LootContext context) {
-    return test();
+    Registry<T> registry = RegistryHelper.getRegistry(tag.registry());
+    return registry != null && registry.getTagOrEmpty(tag).iterator().hasNext();
   }
-
 
   public static class ConditionSerializer implements Serializer<TagNotEmptyCondition<?>>, IConditionSerializer<TagNotEmptyCondition<?>> {
     /** Helper to deal with generics */

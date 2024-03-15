@@ -1,15 +1,15 @@
 {
   "type": "tconstruct:casting_table",
   "cast": {
-    "item": "tconstruct:bow_limb",
-    "type": "tconstruct:material"
+    "type": "tconstruct:material",
+    "item": "tconstruct:bow_limb"
   },
   "cast_consumed": true,
-  "switch_slots": true,
+  "cooling_time": 57,
   "fluid": {
-    "tag": "forge:molten_gold",
-    "amount": 90
+    "amount": 90,
+    "tag": "forge:molten_gold"
   },
   "result": "tconstruct:bow_limb_cast",
-  "cooling_time": 57
+  "switch_slots": true
 }

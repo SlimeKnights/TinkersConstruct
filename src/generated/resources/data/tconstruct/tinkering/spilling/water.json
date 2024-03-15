@@ -1,20 +1,20 @@
 {
-  "fluid": {
-    "name": "minecraft:water",
-    "amount": 50
-  },
   "effects": [
     {
       "type": "tconstruct:conditional",
-      "entity": "mantle:water_sensitive",
       "effect": {
         "type": "tconstruct:damage",
-        "damage_type": "piercing",
-        "damage_amount": 2.0
-      }
+        "damage_amount": 2.0,
+        "damage_type": "piercing"
+      },
+      "entity": "mantle:water_sensitive"
     },
     {
       "type": "tconstruct:extinguish"
     }
-  ]
+  ],
+  "fluid": {
+    "amount": 50,
+    "name": "minecraft:water"
+  }
 }

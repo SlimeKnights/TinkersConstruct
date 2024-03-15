@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
@@ -16,9 +17,9 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraftforge.registries.ForgeRegistries;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.json.RandomLevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -146,7 +147,7 @@ public record MobEffectModule(
     public void serialize(MobEffectModule object, JsonObject json) {
       object.condition.serializeInto(json);
       json.add("entity", LivingEntityPredicate.LOADER.serialize(object.target));
-      json.addProperty("effect", Objects.requireNonNull(object.effect.getRegistryName()).toString());
+      json.addProperty("effect", Objects.requireNonNull(Registry.MOB_EFFECT.getKey(object.effect)).toString());
       json.add("level", object.level.serialize());
       json.add("time", object.time.serialize());
     }

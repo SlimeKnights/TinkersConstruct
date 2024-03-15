@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:specialized_repair_kit",
+  "repair_material": "tconstruct:leather",
   "tool": [
     {
       "item": "tconstruct:travelers_boots"
@@ -13,6 +14,5 @@
     {
       "item": "tconstruct:travelers_helmet"
     }
-  ],
-  "repair_material": "tconstruct:leather"
+  ]
 }

@@ -4,8 +4,8 @@
     "item": "tconstruct:blank_sand_cast"
   },
   "pattern": {
-    "item": "tconstruct:broad_blade",
-    "type": "tconstruct:material"
+    "type": "tconstruct:material",
+    "item": "tconstruct:broad_blade"
   },
   "result": "tconstruct:broad_blade_sand_cast"
 }

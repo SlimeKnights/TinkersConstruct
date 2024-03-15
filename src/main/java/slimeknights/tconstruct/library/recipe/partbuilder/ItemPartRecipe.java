@@ -86,7 +86,7 @@ public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
     return Arrays.asList(patternItem.getItems());
   }
 
-  public static class Serializer extends LoggingRecipeSerializer<ItemPartRecipe> {
+  public static class Serializer implements LoggingRecipeSerializer<ItemPartRecipe> {
     @Override
     public ItemPartRecipe fromJson(ResourceLocation id, JsonObject json) {
       MaterialVariantId materialId = MaterialVariantId.fromJson(json, "material");
@@ -104,7 +104,7 @@ public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
 
     @Nullable
     @Override
-    protected ItemPartRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    public ItemPartRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       MaterialVariantId materialId = MaterialVariantId.parse(buffer.readUtf(Short.MAX_VALUE));
       Pattern pattern = new Pattern(buffer.readUtf(Short.MAX_VALUE));
       Ingredient patternItem = Ingredient.fromNetwork(buffer);
@@ -114,7 +114,7 @@ public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
     }
 
     @Override
-    protected void toNetworkSafe(FriendlyByteBuf buffer, ItemPartRecipe recipe) {
+    public void toNetworkSafe(FriendlyByteBuf buffer, ItemPartRecipe recipe) {
       buffer.writeUtf(recipe.material.getVariant().toString());
       buffer.writeUtf(recipe.pattern.toString());
       recipe.patternItem.toNetwork(buffer);

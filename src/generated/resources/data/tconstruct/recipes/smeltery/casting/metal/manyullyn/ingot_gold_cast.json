@@ -3,12 +3,12 @@
   "cast": {
     "tag": "tconstruct:casts/multi_use/ingot"
   },
+  "cooling_time": 72,
   "fluid": {
-    "tag": "forge:molten_manyullyn",
-    "amount": 90
+    "amount": 90,
+    "tag": "forge:molten_manyullyn"
   },
   "result": {
     "tag": "forge:ingots/manyullyn"
-  },
-  "cooling_time": 72
+  }
 }

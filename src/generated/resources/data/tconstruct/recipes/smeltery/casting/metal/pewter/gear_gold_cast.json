@@ -1,23 +1,23 @@
 {
   "type": "tconstruct:casting_table",
-  "conditions": [
-    {
-      "value": {
-        "tag": "forge:gears/pewter",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
-    }
-  ],
   "cast": {
     "tag": "tconstruct:casts/multi_use/gear"
   },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:gears/pewter"
+      }
+    }
+  ],
+  "cooling_time": 92,
   "fluid": {
-    "tag": "forge:molten_pewter",
-    "amount": 360
+    "amount": 360,
+    "tag": "forge:molten_pewter"
   },
   "result": {
     "tag": "forge:gears/pewter"
-  },
-  "cooling_time": 92
+  }
 }

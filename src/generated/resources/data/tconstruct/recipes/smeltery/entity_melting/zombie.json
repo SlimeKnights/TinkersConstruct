@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:entity_melting",
+  "damage": 2,
   "entity": {
     "types": [
       "minecraft:zombie",
@@ -10,8 +11,7 @@
     ]
   },
   "result": {
-    "fluid": "tconstruct:blood",
-    "amount": 25
-  },
-  "damage": 2
+    "amount": 25,
+    "fluid": "tconstruct:blood"
+  }
 }

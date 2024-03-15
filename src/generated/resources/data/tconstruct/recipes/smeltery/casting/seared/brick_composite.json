@@ -4,10 +4,10 @@
     "item": "minecraft:stone_button"
   },
   "cast_consumed": true,
+  "cooling_time": 57,
   "fluid": {
-    "tag": "tconstruct:molten_clay",
-    "amount": 125
+    "amount": 125,
+    "tag": "tconstruct:molten_clay"
   },
-  "result": "tconstruct:seared_brick",
-  "cooling_time": 57
+  "result": "tconstruct:seared_brick"
 }

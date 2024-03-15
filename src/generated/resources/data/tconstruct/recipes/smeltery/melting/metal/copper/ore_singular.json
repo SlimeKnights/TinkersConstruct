@@ -1,17 +1,22 @@
 {
   "type": "tconstruct:ore_melting",
+  "byproducts": [
+    {
+      "amount": 60,
+      "fluid": "tconstruct:molten_gold"
+    }
+  ],
   "conditions": [
     {
-      "registry": "minecraft:item",
+      "type": "tconstruct:tag_difference_present",
       "base": "forge:ores/copper",
+      "registry": "minecraft:item",
       "subtracted": [
         "forge:ore_rates/sparse",
         "forge:ore_rates/dense"
-      ],
-      "type": "tconstruct:tag_difference_present"
+      ]
     }
   ],
-  "rate": "metal",
   "ingredient": {
     "type": "forge:difference",
     "base": {
@@ -26,16 +31,11 @@
       }
     ]
   },
+  "rate": "metal",
   "result": {
-    "fluid": "tconstruct:molten_copper",
-    "amount": 180
+    "amount": 180,
+    "fluid": "tconstruct:molten_copper"
   },
   "temperature": 500,
-  "time": 125,
-  "byproducts": [
-    {
-      "fluid": "tconstruct:molten_gold",
-      "amount": 60
-    }
-  ]
+  "time": 125
 }

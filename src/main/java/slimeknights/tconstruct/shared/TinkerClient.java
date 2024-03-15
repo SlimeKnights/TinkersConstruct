@@ -9,15 +9,17 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.math.Matrix4f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RecipesUpdatedEvent;
-import net.minecraftforge.client.event.RenderBlockOverlayEvent;
+import net.minecraftforge.client.event.RenderBlockScreenEffectEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -61,7 +63,7 @@ public class TinkerClient {
   }
 
   @SubscribeEvent
-  static void renderBlockOverlay(RenderBlockOverlayEvent event) {
+  static void renderBlockOverlay(RenderBlockScreenEffectEvent event) {
     BlockState state = event.getBlockState();
     if (state.is(TinkerTags.Blocks.TRANSPARENT_OVERLAY)) {
       Minecraft minecraft = Minecraft.getInstance();
@@ -80,7 +82,9 @@ public class TinkerClient {
         BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
 
         // change: handle brightness based on renderWater, and enable blend
-        float brightness = minecraft.player.getBrightness();
+        Player player = minecraft.player;
+        BlockPos blockpos = new BlockPos(player.getX(), player.getEyeY(), player.getZ());
+        float brightness = LightTexture.getBrightness(player.level.dimensionType(), player.level.getMaxLocalRawBrightness(blockpos));
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.setShaderColor(brightness, brightness, brightness, 1.0f);
@@ -97,8 +101,7 @@ public class TinkerClient {
         bufferbuilder.vertex(matrix4f, 1, -1, -0.5f).uv(u0, v1).endVertex();
         bufferbuilder.vertex(matrix4f, 1, 1, -0.5f).uv(u0, v0).endVertex();
         bufferbuilder.vertex(matrix4f, -1, 1, -0.5f).uv(u1, v0).endVertex();
-        bufferbuilder.end();
-        BufferUploader.end(bufferbuilder);
+        BufferUploader.drawWithShader(bufferbuilder.end());
         // changed: disable blend
         RenderSystem.disableBlend();
       }

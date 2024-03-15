@@ -10,13 +10,13 @@ import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.GsonHelper;
-import net.minecraftforge.client.model.IModelConfiguration;
-import net.minecraftforge.client.model.IModelLoader;
+import net.minecraftforge.client.model.geometry.IGeometryBakingContext;
+import net.minecraftforge.client.model.geometry.IGeometryLoader;
 import slimeknights.mantle.client.model.fluid.FluidCuboid;
 import slimeknights.mantle.client.model.inventory.InventoryModel;
 import slimeknights.mantle.client.model.inventory.ModelItem;
+import slimeknights.mantle.client.model.util.ColoredBlockModel;
 import slimeknights.mantle.client.model.util.SimpleBlockModel;
 
 import java.util.List;
@@ -27,7 +27,7 @@ import java.util.function.Function;
  */
 public class CastingModel extends InventoryModel {
   /** Shared loader instance */
-  public static final Loader LOADER = new Loader();
+  public static final IGeometryLoader<InventoryModel> LOADER = CastingModel::deserialize;
 
   private final FluidCuboid fluid;
 
@@ -38,8 +38,8 @@ public class CastingModel extends InventoryModel {
   }
 
   @Override
-  public BakedModel bake(IModelConfiguration owner, ModelBakery bakery, Function<Material,TextureAtlasSprite> spriteGetter, ModelState transform, ItemOverrides overrides, ResourceLocation location) {
-    BakedModel baked = model.bakeModel(owner, transform, overrides, spriteGetter, location);
+  public BakedModel bake(IGeometryBakingContext owner, ModelBakery bakery, Function<Material,TextureAtlasSprite> spriteGetter, ModelState transform, ItemOverrides overrides, ResourceLocation location) {
+    BakedModel baked = model.bake(owner, bakery, spriteGetter, transform, overrides, location);
     return new Baked(baked, items, fluid);
   }
 
@@ -53,17 +53,11 @@ public class CastingModel extends InventoryModel {
     }
   }
 
-  /** Loader for this model */
-  public static class Loader implements IModelLoader<InventoryModel> {
-    @Override
-    public void onResourceManagerReload(ResourceManager resourceManager) {}
-
-    @Override
-    public InventoryModel read(JsonDeserializationContext deserializationContext, JsonObject modelContents) {
-      SimpleBlockModel model = SimpleBlockModel.deserialize(deserializationContext, modelContents);
-      List<ModelItem> items = ModelItem.listFromJson(modelContents, "items");
-      FluidCuboid fluid = FluidCuboid.fromJson(GsonHelper.getAsJsonObject(modelContents, "fluid"));
-      return new CastingModel(model, items, fluid);
-    }
+  /** Deserializes this model from JSON */
+  public static InventoryModel deserialize(JsonObject json, JsonDeserializationContext context) {
+    SimpleBlockModel model = ColoredBlockModel.deserialize(json, context);
+    List<ModelItem> items = ModelItem.listFromJson(json, "items");
+    FluidCuboid fluid = FluidCuboid.fromJson(GsonHelper.getAsJsonObject(json, "fluid"));
+    return new CastingModel(model, items, fluid);
   }
 }

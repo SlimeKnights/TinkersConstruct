@@ -14,14 +14,13 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.ClientRegistry;
-import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.event.ModelEvent.RegisterGeometryLoaders;
 import net.minecraftforge.client.event.MovementInputUpdateEvent;
-import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent.Phase;
@@ -34,7 +33,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.mantle.client.ResourceColorManager;
 import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.mantle.client.TooltipKey;
-import slimeknights.mantle.data.ISafeManagerReloadListener;
+import slimeknights.mantle.data.listener.ISafeManagerReloadListener;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -100,9 +99,9 @@ public class ToolClientEvents extends ClientEventBase {
   }
 
   @SubscribeEvent
-  static void registerModelLoaders(ModelRegistryEvent event) {
-    ModelLoaderRegistry.registerLoader(TConstruct.getResource("material"), MaterialModel.LOADER);
-    ModelLoaderRegistry.registerLoader(TConstruct.getResource("tool"), ToolModel.LOADER);
+  static void registerModelLoaders(RegisterGeometryLoaders event) {
+    event.register("material", MaterialModel.LOADER);
+    event.register("tool", ToolModel.LOADER);
   }
 
   @SubscribeEvent
@@ -124,6 +123,12 @@ public class ToolClientEvents extends ClientEventBase {
   }
 
   @SubscribeEvent
+  static void registerKeyBinding(RegisterKeyMappingsEvent event) {
+    event.register(HELMET_INTERACT);
+    event.register(LEGGINGS_INTERACT);
+  }
+
+  @SubscribeEvent
   static void clientSetupEvent(FMLClientSetupEvent event) {
     MinecraftForge.EVENT_BUS.addListener(ToolClientEvents::handleKeyBindings);
     MinecraftForge.EVENT_BUS.addListener(ToolClientEvents::handleInput);
@@ -131,9 +136,6 @@ public class ToolClientEvents extends ClientEventBase {
 
     // keybinds
     event.enqueueWork(() -> {
-      ClientRegistry.registerKeyBinding(HELMET_INTERACT);
-      ClientRegistry.registerKeyBinding(LEGGINGS_INTERACT);
-
       // screens
       MenuScreens.register(TinkerTools.toolContainer.get(), ToolContainerScreen::new);
 
@@ -171,15 +173,15 @@ public class ToolClientEvents extends ClientEventBase {
   }
 
   @SubscribeEvent
-  static void registerParticleFactories(ParticleFactoryRegisterEvent event) {
+  static void registerParticleFactories(RegisterParticleProvidersEvent event) {
     ParticleEngine.SpriteParticleRegistration<SimpleParticleType> factory = AttackParticle.Factory::new;
-    Minecraft.getInstance().particleEngine.register(TinkerTools.hammerAttackParticle.get(), factory);
-    Minecraft.getInstance().particleEngine.register(TinkerTools.axeAttackParticle.get(), factory);
-    Minecraft.getInstance().particleEngine.register(TinkerTools.bonkAttackParticle.get(), factory);
+    event.register(TinkerTools.hammerAttackParticle.get(), factory);
+    event.register(TinkerTools.axeAttackParticle.get(), factory);
+    event.register(TinkerTools.bonkAttackParticle.get(), factory);
   }
 
   @SubscribeEvent
-  static void itemColors(ColorHandlerEvent.Item event) {
+  static void itemColors(RegisterColorHandlersEvent.Item event) {
     final ItemColors colors = event.getItemColors();
 
     // tint tool textures for fallback
@@ -205,7 +207,7 @@ public class ToolClientEvents extends ClientEventBase {
     registerItemColors(colors, TinkerTools.longbow);
 
     // modifier crystal
-    colors.register((stack, index) -> {
+    event.register((stack, index) -> {
       ModifierId modifier = ModifierCrystalItem.getModifier(stack);
       if (modifier != null) {
         return ResourceColorManager.getColor(Util.makeTranslationKey("modifier", modifier));
@@ -271,7 +273,7 @@ public class ToolClientEvents extends ClientEventBase {
   }
 
   private static void handleInput(MovementInputUpdateEvent event) {
-    Player player = event.getPlayer();
+    Player player = event.getEntity();
     if (player.isUsingItem() && !player.isPassenger()) {
       ItemStack using = player.getUseItem();
       if (using.is(TinkerTags.Items.HELD)) {

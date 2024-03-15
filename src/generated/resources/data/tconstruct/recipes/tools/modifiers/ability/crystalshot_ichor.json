@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:swappable_modifier",
+  "allow_crystal": false,
   "inputs": [
     {
       "item": "tconstruct:ichor_slime_crystal_cluster"
@@ -17,15 +18,14 @@
       "tag": "forge:ingots/manyullyn"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/ranged/bows"
+  "result": {
+    "name": "tconstruct:crystalshot",
+    "value": "ichor"
   },
   "slots": {
     "abilities": 1
   },
-  "allow_crystal": false,
-  "result": {
-    "name": "tconstruct:crystalshot",
-    "value": "ichor"
+  "tools": {
+    "tag": "tconstruct:modifiable/ranged/bows"
   }
 }

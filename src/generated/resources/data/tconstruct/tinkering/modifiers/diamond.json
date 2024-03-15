@@ -1,7 +1,6 @@
 {
   "type": "tconstruct:composable",
   "level_display": "tconstruct:no_levels",
-  "tooltip_display": "always",
   "modules": [
     {
       "type": "tconstruct:rarity",
@@ -9,38 +8,38 @@
     },
     {
       "type": "tconstruct:stat_boost",
-      "stat": "tconstruct:durability",
+      "flat": 500.0,
       "operation": "add",
-      "flat": 500.0
+      "stat": "tconstruct:durability"
     },
     {
       "type": "tconstruct:stat_boost",
+      "flat": -250.0,
+      "operation": "add",
+      "stat": "tconstruct:durability",
       "tool": {
         "type": "tconstruct:item",
         "item_type": "mantle:tag",
         "tag": "tconstruct:modifiable/armor"
-      },
-      "stat": "tconstruct:durability",
-      "operation": "add",
-      "flat": -250.0
+      }
     },
     {
       "type": "tconstruct:stat_boost",
-      "stat": "tconstruct:armor",
+      "flat": 1.0,
       "operation": "add",
-      "flat": 1.0
+      "stat": "tconstruct:armor"
     },
     {
       "type": "tconstruct:stat_boost",
-      "stat": "tconstruct:attack_damage",
+      "flat": 0.5,
       "operation": "add",
-      "flat": 0.5
+      "stat": "tconstruct:attack_damage"
     },
     {
       "type": "tconstruct:stat_boost",
-      "stat": "tconstruct:mining_speed",
+      "flat": 2.0,
       "operation": "add",
-      "flat": 2.0
+      "stat": "tconstruct:mining_speed"
     },
     {
       "type": "tconstruct:set_stat",
@@ -49,9 +48,10 @@
     },
     {
       "type": "tconstruct:stat_boost",
-      "stat": "tconstruct:projectile_damage",
+      "flat": 0.5,
       "operation": "add",
-      "flat": 0.5
+      "stat": "tconstruct:projectile_damage"
     }
-  ]
+  ],
+  "tooltip_display": "always"
 }

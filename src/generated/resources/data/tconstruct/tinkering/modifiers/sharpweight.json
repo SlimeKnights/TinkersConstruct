@@ -1,30 +1,30 @@
 {
   "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "tooltip_display": "always",
   "modules": [
     {
       "type": "tconstruct:stat_boost",
-      "stat": "tconstruct:mining_speed",
+      "each_level": 0.1,
       "operation": "multiply_base",
-      "each_level": 0.1
+      "stat": "tconstruct:mining_speed"
     },
     {
       "type": "tconstruct:stat_boost",
-      "stat": "tconstruct:draw_speed",
+      "each_level": 0.15,
       "operation": "multiply_base",
-      "each_level": 0.15
+      "stat": "tconstruct:draw_speed"
     },
     {
       "type": "tconstruct:attribute",
-      "unique": "tconstruct.modifier.sharpweight",
       "attribute": "minecraft:generic.movement_speed",
-      "operation": "multiply_base",
       "each_level": -0.1,
+      "operation": "multiply_base",
       "slots": [
         "mainhand",
         "offhand"
-      ]
+      ],
+      "unique": "tconstruct.modifier.sharpweight"
     }
-  ]
+  ],
+  "tooltip_display": "always"
 }

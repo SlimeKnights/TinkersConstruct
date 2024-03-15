@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.modifiers.ability.sling;
 
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -32,8 +33,6 @@ import slimeknights.tconstruct.library.tools.item.ModifiableItem;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerTools;
-
-import java.util.Random;
 
 /** Add velocity to the target away from yourself */
 public class BonkingModifier extends SlingModifier implements MeleeHitModifierHook, MeleeDamageModifierHook {
@@ -113,7 +112,7 @@ public class BonkingModifier extends SlingModifier implements MeleeHitModifierHo
 
             // send it flying
             float inaccuracy = ModifierUtil.getInaccuracy(tool, player) * 0.0075f;
-            Random random = player.getRandom();
+            RandomSource random = player.getRandom();
             target.knockback(f * 3, -look.x + random.nextGaussian() * inaccuracy, -look.z + random.nextGaussian() * inaccuracy);
 
             // spawn the bonk particle

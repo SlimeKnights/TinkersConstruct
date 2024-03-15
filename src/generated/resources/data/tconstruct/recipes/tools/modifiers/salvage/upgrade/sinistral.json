@@ -1,5 +1,10 @@
 {
   "type": "tconstruct:modifier_salvage",
+  "min_level": 1,
+  "modifier": "tconstruct:sinistral",
+  "slots": {
+    "upgrades": 1
+  },
   "tools": {
     "type": "forge:intersection",
     "children": [
@@ -10,10 +15,5 @@
         "tag": "tconstruct:modifiable/interactable/left"
       }
     ]
-  },
-  "slots": {
-    "upgrades": 1
-  },
-  "modifier": "tconstruct:sinistral",
-  "min_level": 1
+  }
 }

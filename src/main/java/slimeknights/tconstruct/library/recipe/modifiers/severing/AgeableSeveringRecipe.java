@@ -30,7 +30,7 @@ public class AgeableSeveringRecipe extends SeveringRecipe {
   }
 
   /** Serializer for this recipe */
-  public static class Serializer extends LoggingRecipeSerializer<AgeableSeveringRecipe> {
+  public static class Serializer implements LoggingRecipeSerializer<AgeableSeveringRecipe> {
     @Override
     public AgeableSeveringRecipe fromJson(ResourceLocation id, JsonObject json) {
       EntityIngredient ingredient = EntityIngredient.deserialize(JsonHelper.getElement(json, "entity"));
@@ -44,7 +44,7 @@ public class AgeableSeveringRecipe extends SeveringRecipe {
 
     @Nullable
     @Override
-    protected AgeableSeveringRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    public AgeableSeveringRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       EntityIngredient ingredient = EntityIngredient.read(buffer);
       ItemOutput adult = ItemOutput.read(buffer);
       ItemOutput child = null;
@@ -55,7 +55,7 @@ public class AgeableSeveringRecipe extends SeveringRecipe {
     }
 
     @Override
-    protected void toNetworkSafe(FriendlyByteBuf buffer, AgeableSeveringRecipe recipe) {
+    public void toNetworkSafe(FriendlyByteBuf buffer, AgeableSeveringRecipe recipe) {
       recipe.ingredient.write(buffer);
       recipe.output.write(buffer);
       if (recipe.childOutput == null) {

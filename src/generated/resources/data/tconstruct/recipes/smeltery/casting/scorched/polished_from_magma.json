@@ -4,10 +4,10 @@
     "item": "minecraft:polished_basalt"
   },
   "cast_consumed": true,
+  "cooling_time": 99,
   "fluid": {
-    "tag": "forge:magma",
-    "amount": 500
+    "amount": 500,
+    "tag": "forge:magma"
   },
-  "result": "tconstruct:polished_scorched_stone",
-  "cooling_time": 99
+  "result": "tconstruct:polished_scorched_stone"
 }

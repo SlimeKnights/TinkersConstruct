@@ -2,19 +2,19 @@
   "type": "tconstruct:casting_basin",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:storage_blocks/signalum",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:storage_blocks/signalum"
+      }
     }
   ],
+  "cooling_time": 210,
   "fluid": {
-    "tag": "forge:molten_signalum",
-    "amount": 810
+    "amount": 810,
+    "tag": "forge:molten_signalum"
   },
   "result": {
     "tag": "forge:storage_blocks/signalum"
-  },
-  "cooling_time": 210
+  }
 }

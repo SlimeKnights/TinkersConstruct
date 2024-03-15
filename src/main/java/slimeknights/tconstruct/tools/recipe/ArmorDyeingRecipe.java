@@ -171,16 +171,16 @@ public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDi
   }
 
   /** Serializer logic */
-  public static class Serializer extends LoggingRecipeSerializer<ArmorDyeingRecipe> {
+  public static class Serializer implements LoggingRecipeSerializer<ArmorDyeingRecipe> {
     @Nullable
     @Override
-    protected ArmorDyeingRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    public ArmorDyeingRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       Ingredient toolRequirement = Ingredient.fromNetwork(buffer);
       return new ArmorDyeingRecipe(id, toolRequirement);
     }
 
     @Override
-    protected void toNetworkSafe(FriendlyByteBuf buffer, ArmorDyeingRecipe recipe) {
+    public void toNetworkSafe(FriendlyByteBuf buffer, ArmorDyeingRecipe recipe) {
       recipe.toolRequirement.toNetwork(buffer);
     }
 

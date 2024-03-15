@@ -1,7 +1,6 @@
 {
   "type": "tconstruct:composable",
   "level_display": "tconstruct:no_levels",
-  "tooltip_display": "always",
   "modules": [
     {
       "type": "tconstruct:show_offhand",
@@ -12,9 +11,10 @@
     },
     {
       "type": "tconstruct:tool_action_transform",
-      "tool_action": "shovel_flatten",
+      "require_ground": true,
       "sound": "minecraft:item.shovel.flatten",
-      "require_ground": true
+      "tool_action": "shovel_flatten"
     }
-  ]
+  ],
+  "tooltip_display": "always"
 }

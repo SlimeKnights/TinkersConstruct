@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "item": "minecraft:piston"
@@ -8,6 +9,14 @@
       "item": "tconstruct:sky_slime"
     }
   ],
+  "max_level": 2,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:ricochet"
+  },
+  "slots": {
+    "upgrades": 1
+  },
   "tools": [
     {
       "tag": "tconstruct:modifiable/armor/worn"
@@ -15,14 +24,5 @@
     {
       "tag": "tconstruct:modifiable/shields"
     }
-  ],
-  "slots": {
-    "upgrades": 1
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:ricochet",
-    "level": 1
-  },
-  "max_level": 2
+  ]
 }

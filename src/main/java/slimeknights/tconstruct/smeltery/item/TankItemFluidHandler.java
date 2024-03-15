@@ -5,10 +5,10 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import slimeknights.tconstruct.smeltery.block.entity.component.TankBlockEntity;
@@ -35,9 +35,10 @@ public class TankItemFluidHandler implements IFluidHandlerItem, ICapabilityProvi
     TankItem.setTank(container, tank);
   }
 
+  @Nonnull
   @Override
   public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
-    return CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY.orEmpty(cap, holder);
+    return ForgeCapabilities.FLUID_HANDLER_ITEM.orEmpty(cap, holder);
   }
 
   @Override

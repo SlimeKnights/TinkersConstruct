@@ -7,13 +7,16 @@ import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.client.model.data.ModelData;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.util.BlockEntityHelper;
+import slimeknights.mantle.util.RetexturedHelper;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryInputOutputBlockEntity.SmelteryFluidIO;
 import slimeknights.tconstruct.smeltery.block.entity.tank.IDisplayFluidListener;
 import slimeknights.tconstruct.smeltery.block.entity.tank.ISmelteryTankHandler;
 
+import javax.annotation.Nonnull;
 import java.util.Objects;
 
 /**
@@ -31,12 +34,17 @@ public class DrainBlockEntity extends SmelteryFluidIO implements IDisplayFluidLi
     super(type, pos, state);
   }
 
+  @Nonnull
+  @Override
+  public ModelData getModelData() {
+    return RetexturedHelper.getModelDataBuilder(getTexture()).with(IDisplayFluidListener.PROPERTY, displayFluid).build();
+  }
+
   @Override
   public void notifyDisplayFluidUpdated(FluidStack fluid) {
     if (!fluid.isFluidEqual(displayFluid)) {
       // no need to copy as the fluid was copied by the caller
       displayFluid = fluid;
-      getModelData().setData(IDisplayFluidListener.PROPERTY, displayFluid);
       requestModelDataUpdate();
       assert level != null;
       BlockState state = getBlockState();

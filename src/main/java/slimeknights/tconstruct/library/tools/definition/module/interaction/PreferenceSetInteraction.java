@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.tools.definition.module.interaction;
 
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.json.predicate.modifier.ModifierPredicate;

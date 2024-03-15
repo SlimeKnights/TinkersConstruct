@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "ingredient": [
@@ -12,16 +13,15 @@
       ]
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable"
+  "max_level": 1,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:soulbound"
   },
   "slots": {
     "upgrades": 1
   },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:soulbound",
-    "level": 1
-  },
-  "max_level": 1
+  "tools": {
+    "tag": "tconstruct:modifiable"
+  }
 }

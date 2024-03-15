@@ -78,7 +78,7 @@ public class DwarvenModifier extends Modifier implements ConditionalStatModifier
     if (!isEffective) {
       return;
     }
-    event.setNewSpeed(getBoost(event.getPlayer().level, event.getPos().getY(), modifier.getLevel(), event.getNewSpeed(), miningSpeedModifier * tool.getMultiplier(ToolStats.MINING_SPEED), MINING_BONUS));
+    event.setNewSpeed(getBoost(event.getEntity().level, event.getPos().getY(), modifier.getLevel(), event.getNewSpeed(), miningSpeedModifier * tool.getMultiplier(ToolStats.MINING_SPEED), MINING_BONUS));
   }
 
   @Override

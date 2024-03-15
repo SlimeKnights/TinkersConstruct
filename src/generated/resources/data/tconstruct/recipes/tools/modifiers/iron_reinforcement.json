@@ -4,10 +4,10 @@
     "item": "tconstruct:obsidian_pane"
   },
   "cast_consumed": true,
+  "cooling_time": 35,
   "fluid": {
-    "tag": "forge:molten_iron",
-    "amount": 30
+    "amount": 30,
+    "tag": "forge:molten_iron"
   },
-  "result": "tconstruct:iron_reinforcement",
-  "cooling_time": 35
+  "result": "tconstruct:iron_reinforcement"
 }

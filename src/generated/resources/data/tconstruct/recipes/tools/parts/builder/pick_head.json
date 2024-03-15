@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:part_builder",
+  "cost": 2,
   "pattern": "tconstruct:pick_head",
   "pattern_item": [
     {
@@ -9,7 +10,6 @@
       "item": "tconstruct:pick_head_cast"
     }
   ],
-  "cost": 2,
   "result": {
     "item": "tconstruct:pick_head"
   }

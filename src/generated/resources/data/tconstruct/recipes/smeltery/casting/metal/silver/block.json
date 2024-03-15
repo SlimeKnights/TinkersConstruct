@@ -2,19 +2,19 @@
   "type": "tconstruct:casting_basin",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:storage_blocks/silver",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:storage_blocks/silver"
+      }
     }
   ],
+  "cooling_time": 179,
   "fluid": {
-    "tag": "forge:molten_silver",
-    "amount": 810
+    "amount": 810,
+    "tag": "forge:molten_silver"
   },
   "result": {
     "tag": "forge:storage_blocks/silver"
-  },
-  "cooling_time": 179
+  }
 }

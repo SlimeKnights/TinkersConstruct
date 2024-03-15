@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "item": "minecraft:leather"
@@ -11,13 +12,12 @@
       "tag": "forge:slimeball/ichor"
     }
   ],
+  "max_level": 2,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:offhanded"
+  },
   "tools": {
     "tag": "tconstruct:modifiable/interactable/right"
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:offhanded",
-    "level": 1
-  },
-  "max_level": 2
+  }
 }

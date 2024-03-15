@@ -1,24 +1,24 @@
 {
   "type": "tconstruct:casting_table",
-  "conditions": [
-    {
-      "value": {
-        "tag": "forge:wires/platinum",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
-    }
-  ],
   "cast": {
     "tag": "tconstruct:casts/single_use/wire"
   },
   "cast_consumed": true,
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:wires/platinum"
+      }
+    }
+  ],
+  "cooling_time": 46,
   "fluid": {
-    "tag": "forge:molten_platinum",
-    "amount": 45
+    "amount": 45,
+    "tag": "forge:molten_platinum"
   },
   "result": {
     "tag": "forge:wires/platinum"
-  },
-  "cooling_time": 46
+  }
 }

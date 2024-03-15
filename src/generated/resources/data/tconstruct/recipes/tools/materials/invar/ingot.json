@@ -2,17 +2,17 @@
   "type": "tconstruct:material",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:ingots/invar",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/invar"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:ingots/invar"
   },
-  "value": 1,
+  "material": "tconstruct:invar",
   "needed": 1,
-  "material": "tconstruct:invar"
+  "value": 1
 }

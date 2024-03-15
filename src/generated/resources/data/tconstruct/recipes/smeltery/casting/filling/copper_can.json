@@ -1,5 +1,5 @@
 {
   "type": "tconstruct:table_filling",
-  "fluid_amount": 90,
-  "container": "tconstruct:copper_can"
+  "container": "tconstruct:copper_can",
+  "fluid_amount": 90
 }

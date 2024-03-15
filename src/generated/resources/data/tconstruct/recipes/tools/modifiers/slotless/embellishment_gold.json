@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:swappable_modifier",
+  "allow_crystal": false,
   "inputs": [
     {
       "tag": "forge:ingots/gold"
@@ -11,6 +12,10 @@
       "tag": "forge:ingots/gold"
     }
   ],
+  "result": {
+    "name": "tconstruct:embellishment",
+    "value": "tconstruct:gold"
+  },
   "tools": {
     "type": "forge:difference",
     "base": {
@@ -19,10 +24,5 @@
     "subtracted": {
       "tag": "tconstruct:modifiable/armor/worn"
     }
-  },
-  "allow_crystal": false,
-  "result": {
-    "name": "tconstruct:embellishment",
-    "value": "tconstruct:gold"
   }
 }

@@ -4,7 +4,7 @@ import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.common.ForgeI18n;
 import net.minecraftforge.fml.ModList;
 import org.apache.commons.lang3.text.WordUtils;
-import slimeknights.mantle.data.ISafeManagerReloadListener;
+import slimeknights.mantle.data.listener.ISafeManagerReloadListener;
 
 import java.util.HashMap;
 import java.util.Map;

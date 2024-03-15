@@ -1,14 +1,14 @@
 package slimeknights.tconstruct.library.json.variable.tool;
 
-import net.minecraft.util.ToFloatFunction;
-import slimeknights.mantle.data.GenericLoaderRegistry;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.mantle.data.GenericLoaderRegistry.IHaveLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
+import slimeknights.tconstruct.library.json.variable.ToFloatFunction;
 import slimeknights.tconstruct.library.json.variable.VariableLoaderRegistry;
 import slimeknights.tconstruct.library.json.variable.VariableLoaderRegistry.ConstantLoader;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
-import static slimeknights.mantle.data.GenericLoaderRegistry.SingletonLoader.singleton;
+import static slimeknights.mantle.data.registry.GenericLoaderRegistry.SingletonLoader.singleton;
 
 /** Variable that fetches a value from a tool instance */
 public interface ToolVariable extends IHaveLoader<ToolVariable> {
@@ -21,7 +21,7 @@ public interface ToolVariable extends IHaveLoader<ToolVariable> {
   /* Singletons */
 
   /** Creates a new singleton variable getter */
-  private static ToolVariable simple(ToFloatFunction<IToolStackView> getter) {
+  static ToolVariable simple(ToFloatFunction<IToolStackView> getter) {
     return singleton(loader -> new ToolVariable() {
       @Override
       public float getValue(IToolStackView tool) {

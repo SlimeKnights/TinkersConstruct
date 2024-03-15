@@ -3,7 +3,7 @@
   "ingredient": {
     "tag": "forge:end_stones"
   },
-  "value": 1,
+  "material": "tconstruct:whitestone#end",
   "needed": 2,
-  "material": "tconstruct:whitestone#end"
+  "value": 1
 }

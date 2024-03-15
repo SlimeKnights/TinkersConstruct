@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:geore_medium_buds/osmium",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:geore_medium_buds/osmium"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:geore_medium_buds/osmium"
   },
   "result": {
-    "fluid": "tconstruct:molten_osmium",
-    "amount": 180
+    "amount": 180,
+    "fluid": "tconstruct:molten_osmium"
   },
   "temperature": 975,
   "time": 98

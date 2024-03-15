@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "item": "minecraft:blaze_rod"
@@ -27,6 +28,14 @@
       "item": "minecraft:lava_bucket"
     }
   ],
+  "max_level": 1,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:melting"
+  },
+  "slots": {
+    "abilities": 1
+  },
   "tools": [
     {
       "tag": "tconstruct:modifiable/melee"
@@ -34,14 +43,5 @@
     {
       "tag": "tconstruct:modifiable/harvest"
     }
-  ],
-  "slots": {
-    "abilities": 1
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:melting",
-    "level": 1
-  },
-  "max_level": 1
+  ]
 }

@@ -2,8 +2,8 @@ package slimeknights.tconstruct.library.data.tinkering;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.HashCache;
 import net.minecraft.server.packs.PackType;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.conditions.ICondition;
@@ -108,10 +108,10 @@ public abstract class AbstractModifierProvider extends GenericDataProvider {
   }
 
   @Override
-  public void run(HashCache cache) throws IOException {
+  public void run(CachedOutput cache) throws IOException {
     addModifiers();
-    allModifiers.forEach((id, data) -> saveThing(cache, id, data.serialize()));
-    composableModifiers.forEach((id, data) -> saveThing(cache, id, data.serialize()));
+    allModifiers.forEach((id, data) -> saveJson(cache, id, data.serialize()));
+    composableModifiers.forEach((id, data) -> saveJson(cache, id, data.serialize()));
   }
 
   /** Serializes the given modifier with its condition and redirects */

@@ -4,28 +4,28 @@
     {
       "ingredient": [
         {
-          "tag": "tconstruct:venom",
-          "amount": 1000,
           "type": "mantle:fluid_container",
+          "amount": 1000,
           "display": {
             "item": "tconstruct:venom_bucket"
-          }
+          },
+          "tag": "tconstruct:venom"
         },
         {
-          "tag": "tconstruct:venom",
-          "amount": 250,
           "type": "mantle:fluid_container",
+          "amount": 250,
           "display": {
             "item": "tconstruct:venom_bottle"
-          }
+          },
+          "tag": "tconstruct:venom"
         }
       ]
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable"
-  },
   "modifier_predicate": {
     "type": "tconstruct:always"
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable"
   }
 }

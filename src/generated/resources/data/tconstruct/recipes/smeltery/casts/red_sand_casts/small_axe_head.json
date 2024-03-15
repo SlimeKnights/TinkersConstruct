@@ -4,8 +4,8 @@
     "item": "tconstruct:blank_red_sand_cast"
   },
   "pattern": {
-    "item": "tconstruct:small_axe_head",
-    "type": "tconstruct:material"
+    "type": "tconstruct:material",
+    "item": "tconstruct:small_axe_head"
   },
   "result": "tconstruct:small_axe_head_red_sand_cast"
 }

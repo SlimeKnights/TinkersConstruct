@@ -1,23 +1,24 @@
 {
   "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "tooltip_display": "always",
   "modules": [
     {
       "type": "tconstruct:attribute",
-      "unique": "tconstruct.modifier.turtle_shell",
       "attribute": "forge:swim_speed",
-      "operation": "multiply_total",
       "each_level": 0.05,
+      "operation": "multiply_total",
       "slots": [
         "feet",
         "legs",
         "chest",
         "head"
-      ]
+      ],
+      "unique": "tconstruct.modifier.turtle_shell"
     },
     {
       "type": "tconstruct:protection",
+      "damage_source": "mantle:can_protect",
+      "each_level": 2.5,
       "tool": {
         "type": "tconstruct:item",
         "item_type": "mantle:or",
@@ -32,12 +33,12 @@
           }
         ]
       },
-      "damage_source": "mantle:can_protect",
-      "wearing_entity": "mantle:eyes_in_water",
-      "each_level": 2.5
+      "wearing_entity": "mantle:eyes_in_water"
     },
     {
       "type": "tconstruct:protection",
+      "damage_source": "mantle:can_protect",
+      "each_level": 2.5,
       "tool": {
         "type": "tconstruct:item",
         "item_type": "mantle:or",
@@ -52,9 +53,8 @@
           }
         ]
       },
-      "damage_source": "mantle:can_protect",
-      "wearing_entity": "mantle:feet_in_water",
-      "each_level": 2.5
+      "wearing_entity": "mantle:feet_in_water"
     }
-  ]
+  ],
+  "tooltip_display": "always"
 }

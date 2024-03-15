@@ -1,5 +1,4 @@
 {
-  "replace": false,
   "parts": [
     {
       "path": "tconstruct:item/tool/parts/round_plate",
@@ -673,5 +672,6 @@
       "path": "tconstruct:item/tool/longbow/large/bowstring_2",
       "statType": "tconstruct:bowstring"
     }
-  ]
+  ],
+  "replace": false
 }

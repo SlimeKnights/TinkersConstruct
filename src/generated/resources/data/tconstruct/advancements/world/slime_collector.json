@@ -1,73 +1,47 @@
 {
   "parent": "tconstruct:world/tinkers_gadgetry",
-  "display": {
-    "icon": {
-      "item": "tconstruct:ichor_slime_ball"
-    },
-    "title": {
-      "translate": "advancements.tconstruct.world.slime_collector.title"
-    },
-    "description": {
-      "translate": "advancements.tconstruct.world.slime_collector.description"
-    },
-    "frame": "task",
-    "show_toast": true,
-    "announce_to_chat": false,
-    "hidden": false
-  },
   "criteria": {
-    "earth": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "tag": "forge:slimeball/earth"
-          }
-        ]
-      }
-    },
-    "sky": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "tag": "forge:slimeball/sky"
-          }
-        ]
-      }
-    },
-    "ichor": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "tag": "forge:slimeball/ichor"
-          }
-        ]
-      }
-    },
-    "ender": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "tag": "forge:slimeball/ender"
-          }
-        ]
-      }
-    },
     "blood": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "tag": "forge:slimeball/blood"
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "earth": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:slimeball/earth"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "ender": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:slimeball/ender"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "ichor": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:slimeball/ichor"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "magma_cream": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -76,7 +50,33 @@
             ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "sky": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:slimeball/sky"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "translate": "advancements.tconstruct.world.slime_collector.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "tconstruct:ichor_slime_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.tconstruct.world.slime_collector.title"
     }
   },
   "requirements": [

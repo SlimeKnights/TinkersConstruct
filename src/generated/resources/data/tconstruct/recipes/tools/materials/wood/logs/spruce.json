@@ -3,8 +3,8 @@
   "ingredient": {
     "tag": "minecraft:spruce_logs"
   },
-  "value": 4,
-  "needed": 1,
+  "leftover": "minecraft:spruce_planks",
   "material": "tconstruct:wood#spruce",
-  "leftover": "minecraft:spruce_planks"
+  "needed": 1,
+  "value": 4
 }

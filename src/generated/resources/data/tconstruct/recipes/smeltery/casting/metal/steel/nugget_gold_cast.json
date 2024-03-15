@@ -1,23 +1,23 @@
 {
   "type": "tconstruct:casting_table",
-  "conditions": [
-    {
-      "value": {
-        "tag": "forge:nuggets/steel",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
-    }
-  ],
   "cast": {
     "tag": "tconstruct:casts/multi_use/nugget"
   },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:nuggets/steel"
+      }
+    }
+  ],
+  "cooling_time": 22,
   "fluid": {
-    "tag": "forge:molten_steel",
-    "amount": 10
+    "amount": 10,
+    "tag": "forge:molten_steel"
   },
   "result": {
     "tag": "forge:nuggets/steel"
-  },
-  "cooling_time": 22
+  }
 }

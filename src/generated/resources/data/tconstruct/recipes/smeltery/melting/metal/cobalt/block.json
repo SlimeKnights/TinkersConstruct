@@ -4,8 +4,8 @@
     "tag": "forge:storage_blocks/cobalt"
   },
   "result": {
-    "fluid": "tconstruct:molten_cobalt",
-    "amount": 810
+    "amount": 810,
+    "fluid": "tconstruct:molten_cobalt"
   },
   "temperature": 950,
   "time": 194

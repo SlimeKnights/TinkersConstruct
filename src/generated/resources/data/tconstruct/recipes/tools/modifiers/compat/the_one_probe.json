@@ -1,9 +1,10 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "conditions": [
     {
-      "modid": "theoneprobe",
-      "type": "forge:mod_loaded"
+      "type": "forge:mod_loaded",
+      "modid": "theoneprobe"
     }
   ],
   "inputs": [
@@ -11,6 +12,14 @@
       "item": "theoneprobe:probe"
     }
   ],
+  "max_level": 1,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:the_one_probe"
+  },
+  "slots": {
+    "upgrades": 1
+  },
   "tools": [
     {
       "tag": "tconstruct:modifiable/armor/helmets"
@@ -18,14 +27,5 @@
     {
       "tag": "tconstruct:modifiable/held"
     }
-  ],
-  "slots": {
-    "upgrades": 1
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:the_one_probe",
-    "level": 1
-  },
-  "max_level": 1
+  ]
 }

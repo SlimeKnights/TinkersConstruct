@@ -1,31 +1,31 @@
 {
   "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "tooltip_display": "always",
   "modules": [
     {
       "type": "tconstruct:knockback",
+      "each_level": 0.5,
+      "entity": "mantle:any",
       "tool": {
         "type": "tconstruct:inverted",
         "inverted_type": "tconstruct:item",
         "item_type": "mantle:tag",
         "tag": "tconstruct:modifiable/armor/chestplate"
-      },
-      "entity": "mantle:any",
-      "each_level": 0.5
+      }
     },
     {
       "type": "tconstruct:attribute",
-      "unique": "tconstruct.modifier.knockback",
       "attribute": "minecraft:generic.attack_knockback",
-      "operation": "addition",
       "each_level": 1.0,
+      "operation": "addition",
       "slots": [
         "feet",
         "legs",
         "chest",
         "head"
-      ]
+      ],
+      "unique": "tconstruct.modifier.knockback"
     }
-  ]
+  ],
+  "tooltip_display": "always"
 }

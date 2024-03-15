@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:wires/lead",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:wires/lead"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:wires/lead"
   },
   "result": {
-    "fluid": "tconstruct:molten_lead",
-    "amount": 45
+    "amount": 45,
+    "fluid": "tconstruct:molten_lead"
   },
   "temperature": 330,
   "time": 9

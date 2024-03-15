@@ -4,10 +4,10 @@
     "tag": "minecraft:planks"
   },
   "cast_consumed": true,
+  "cooling_time": 70,
   "fluid": {
-    "name": "minecraft:lava",
-    "amount": 100
+    "amount": 100,
+    "name": "minecraft:lava"
   },
-  "result": "tconstruct:lavawood",
-  "cooling_time": 70
+  "result": "tconstruct:lavawood"
 }

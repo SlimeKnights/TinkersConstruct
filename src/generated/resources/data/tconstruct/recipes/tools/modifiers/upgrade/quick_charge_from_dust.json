@@ -1,10 +1,19 @@
 {
   "type": "tconstruct:incremental_modifier",
+  "allow_crystal": true,
+  "amount_per_item": 1,
   "input": {
     "tag": "forge:dusts/redstone"
   },
-  "amount_per_item": 1,
+  "max_level": 4,
   "needed_per_level": 45,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:quick_charge"
+  },
+  "slots": {
+    "upgrades": 1
+  },
   "tools": [
     {
       "tag": "tconstruct:modifiable/ranged/crossbows"
@@ -12,14 +21,5 @@
     {
       "tag": "tconstruct:modifiable/staffs"
     }
-  ],
-  "slots": {
-    "upgrades": 1
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:quick_charge",
-    "level": 1
-  },
-  "max_level": 4
+  ]
 }

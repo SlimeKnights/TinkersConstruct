@@ -9,8 +9,8 @@
     }
   ],
   "result": {
-    "fluid": "tconstruct:molten_diamond",
     "amount": 200,
+    "fluid": "tconstruct:molten_diamond",
     "unit_size": 25
   },
   "temperature": 1450,

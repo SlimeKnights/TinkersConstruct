@@ -1,18 +1,18 @@
 {
   "type": "tconstruct:melting",
+  "byproducts": [
+    {
+      "amount": 25,
+      "fluid": "tconstruct:molten_quartz"
+    }
+  ],
   "ingredient": {
     "item": "tconstruct:scorched_glass_pane"
   },
   "result": {
-    "fluid": "tconstruct:scorched_stone",
-    "amount": 250
+    "amount": 250,
+    "fluid": "tconstruct:scorched_stone"
   },
   "temperature": 500,
-  "time": 50,
-  "byproducts": [
-    {
-      "fluid": "tconstruct:molten_quartz",
-      "amount": 25
-    }
-  ]
+  "time": 50
 }

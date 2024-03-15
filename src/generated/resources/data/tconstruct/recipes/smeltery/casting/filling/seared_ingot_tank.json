@@ -1,5 +1,5 @@
 {
   "type": "tconstruct:basin_filling",
-  "fluid_amount": 90,
-  "container": "tconstruct:seared_ingot_tank"
+  "container": "tconstruct:seared_ingot_tank",
+  "fluid_amount": 90
 }

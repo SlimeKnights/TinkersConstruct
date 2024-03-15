@@ -1,10 +1,10 @@
 {
   "type": "tconstruct:material_fluid",
-  "input": "tconstruct:leather",
   "fluid": {
-    "tag": "tconstruct:molten_debris",
-    "amount": 90
+    "amount": 90,
+    "tag": "tconstruct:molten_debris"
   },
-  "temperature": 1175,
-  "output": "tconstruct:ancient_hide"
+  "input": "tconstruct:leather",
+  "output": "tconstruct:ancient_hide",
+  "temperature": 1175
 }

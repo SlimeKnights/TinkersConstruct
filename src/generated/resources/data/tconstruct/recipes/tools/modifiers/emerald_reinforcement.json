@@ -4,10 +4,10 @@
     "item": "tconstruct:obsidian_pane"
   },
   "cast_consumed": true,
+  "cooling_time": 34,
   "fluid": {
-    "tag": "tconstruct:molten_emerald",
-    "amount": 25
+    "amount": 25,
+    "tag": "tconstruct:molten_emerald"
   },
-  "result": "tconstruct:emerald_reinforcement",
-  "cooling_time": 34
+  "result": "tconstruct:emerald_reinforcement"
 }

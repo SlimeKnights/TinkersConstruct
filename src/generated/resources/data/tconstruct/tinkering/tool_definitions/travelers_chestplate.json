@@ -1,16 +1,16 @@
 {
+  "slots": {
+    "abilities": 1,
+    "defense": 2,
+    "upgrades": 3
+  },
   "stats": {
     "base": {
-      "tconstruct:durability": 160.0,
-      "tconstruct:armor": 5.0
+      "tconstruct:armor": 5.0,
+      "tconstruct:durability": 160.0
     },
     "multipliers": {
       "tconstruct:attack_damage": 0.55
     }
-  },
-  "slots": {
-    "upgrades": 3,
-    "defense": 2,
-    "abilities": 1
   }
 }

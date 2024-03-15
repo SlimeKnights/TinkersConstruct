@@ -14,7 +14,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import slimeknights.mantle.data.ISafeManagerReloadListener;
+import slimeknights.mantle.data.listener.ISafeManagerReloadListener;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;

@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.modifiers.modules.behavior;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -10,7 +11,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraftforge.registries.ForgeRegistries;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -89,7 +90,7 @@ public record AttributeModule(String unique, Attribute attribute, Operation oper
     public void serialize(AttributeModule object, JsonObject json) {
       object.condition.serializeInto(json);
       json.addProperty("unique", object.unique);
-      json.addProperty("attribute", Objects.requireNonNull(object.attribute.getRegistryName()).toString());
+      json.addProperty("attribute", Objects.requireNonNull(Registry.ATTRIBUTE.getKey(object.attribute)).toString());
       json.addProperty("operation", object.operation.name().toLowerCase(Locale.ROOT));
       object.amount.serialize(json);
       JsonArray array = new JsonArray();

@@ -114,8 +114,8 @@ public class Exploder {
   }
 
   @SubscribeEvent
-  public void onTick(TickEvent.WorldTickEvent event) {
-    if (event.world == this.world && event.phase == TickEvent.Phase.END) {
+  public void onTick(TickEvent.LevelTickEvent event) {
+    if (event.level == this.world && event.phase == TickEvent.Phase.END) {
       if (!this.iteration()) {
         // goodbye world, we're done exploding
         this.finish();

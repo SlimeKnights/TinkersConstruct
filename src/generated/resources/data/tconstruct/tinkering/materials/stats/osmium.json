@@ -2,16 +2,16 @@
   "stats": {
     "tconstruct:extra": {},
     "tconstruct:handle": {
-      "durability": 1.2,
-      "miningSpeed": 0.9,
+      "attackDamage": 1.0,
       "attackSpeed": 0.9,
-      "attackDamage": 1.0
+      "durability": 1.2,
+      "miningSpeed": 0.9
     },
     "tconstruct:head": {
+      "attack": 2.0,
       "durability": 500,
-      "miningSpeed": 4.5,
       "harvestTier": "minecraft:iron",
-      "attack": 2.0
+      "miningSpeed": 4.5
     }
   }
 }

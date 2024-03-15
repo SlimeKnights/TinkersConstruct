@@ -3,7 +3,7 @@
   "ingredient": {
     "tag": "forge:ender_pearls"
   },
-  "value": 1,
+  "material": "tconstruct:ender_pearl",
   "needed": 1,
-  "material": "tconstruct:ender_pearl"
+  "value": 1
 }

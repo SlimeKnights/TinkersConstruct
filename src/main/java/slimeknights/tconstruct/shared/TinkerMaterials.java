@@ -1,13 +1,13 @@
 package slimeknights.tconstruct.shared;
 
+import net.minecraft.core.Registry;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.registries.RegisterEvent;
 import slimeknights.mantle.registration.object.FenceBuildingBlockObject;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.mantle.registration.object.MetalItemObject;
@@ -50,7 +50,9 @@ public final class TinkerMaterials extends TinkerModule {
    * Serializers
    */
   @SubscribeEvent
-  void registerSerializers(RegistryEvent<RecipeSerializer<?>> event) {
-    CraftingHelper.register(MaterialIngredient.Serializer.ID, MaterialIngredient.Serializer.INSTANCE);
+  void registerSerializers(RegisterEvent event) {
+    if (event.getRegistryKey() == Registry.RECIPE_SERIALIZER_REGISTRY) {
+      CraftingHelper.register(MaterialIngredient.Serializer.ID, MaterialIngredient.Serializer.INSTANCE);
+    }
   }
 }

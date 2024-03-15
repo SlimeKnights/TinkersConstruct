@@ -1,8 +1,8 @@
 {
   "stats": {
     "tconstruct:skull": {
-      "durability": 90,
-      "armor": 0
+      "armor": 0,
+      "durability": 90
     }
   }
 }

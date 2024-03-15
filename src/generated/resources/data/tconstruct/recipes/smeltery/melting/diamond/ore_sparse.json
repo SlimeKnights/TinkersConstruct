@@ -1,16 +1,21 @@
 {
   "type": "tconstruct:ore_melting",
+  "byproducts": [
+    {
+      "amount": 50,
+      "fluid": "tconstruct:molten_quartz"
+    }
+  ],
   "conditions": [
     {
+      "type": "tconstruct:tag_intersection_present",
       "registry": "minecraft:item",
       "tags": [
         "forge:ores/diamond",
         "forge:ore_rates/sparse"
-      ],
-      "type": "tconstruct:tag_intersection_present"
+      ]
     }
   ],
-  "rate": "gem",
   "ingredient": {
     "type": "forge:intersection",
     "children": [
@@ -22,16 +27,11 @@
       }
     ]
   },
+  "rate": "gem",
   "result": {
-    "fluid": "tconstruct:molten_diamond",
-    "amount": 50
+    "amount": 50,
+    "fluid": "tconstruct:molten_diamond"
   },
   "temperature": 1450,
-  "time": 79,
-  "byproducts": [
-    {
-      "fluid": "tconstruct:molten_quartz",
-      "amount": 50
-    }
-  ]
+  "time": 79
 }

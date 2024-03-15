@@ -1,10 +1,19 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "item": "minecraft:powder_snow_bucket"
     }
   ],
+  "max_level": 3,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:freezing"
+  },
+  "slots": {
+    "upgrades": 1
+  },
   "tools": [
     {
       "tag": "tconstruct:modifiable/melee"
@@ -18,14 +27,5 @@
     {
       "tag": "tconstruct:modifiable/shields"
     }
-  ],
-  "slots": {
-    "upgrades": 1
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:freezing",
-    "level": 1
-  },
-  "max_level": 3
+  ]
 }

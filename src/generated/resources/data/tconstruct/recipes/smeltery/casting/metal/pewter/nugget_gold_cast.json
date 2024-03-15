@@ -1,23 +1,23 @@
 {
   "type": "tconstruct:casting_table",
-  "conditions": [
-    {
-      "value": {
-        "tag": "forge:nuggets/pewter",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
-    }
-  ],
   "cast": {
     "tag": "tconstruct:casts/multi_use/nugget"
   },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:nuggets/pewter"
+      }
+    }
+  ],
+  "cooling_time": 15,
   "fluid": {
-    "tag": "forge:molten_pewter",
-    "amount": 10
+    "amount": 10,
+    "tag": "forge:molten_pewter"
   },
   "result": {
     "tag": "forge:nuggets/pewter"
-  },
-  "cooling_time": 15
+  }
 }

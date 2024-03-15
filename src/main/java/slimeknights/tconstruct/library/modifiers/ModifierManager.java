@@ -17,7 +17,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
-import net.minecraft.tags.Tag;
 import net.minecraft.tags.TagKey;
 import net.minecraft.tags.TagLoader;
 import net.minecraft.util.GsonHelper;
@@ -37,7 +36,7 @@ import net.minecraftforge.fml.event.IModBusEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
-import slimeknights.mantle.data.GenericLoaderRegistry;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.mantle.util.RegistryHelper;
 import slimeknights.tconstruct.TConstruct;
@@ -46,7 +45,6 @@ import slimeknights.tconstruct.library.utils.GenericTagUtil;
 import slimeknights.tconstruct.library.utils.JsonUtils;
 
 import javax.annotation.Nullable;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -100,7 +98,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
   /** Modifiers loaded from JSON */
   private Map<ModifierId,Modifier> dynamicModifiers = Collections.emptyMap();
   /** Modifier tags loaded from JSON */
-  private Map<ResourceLocation,Tag<Modifier>> tags = Collections.emptyMap();
+  private Map<TagKey<Modifier>,List<Modifier>> tags = Collections.emptyMap();
   /** Map from modifier to tags on the modifier */
   private Map<ModifierId,Set<TagKey<Modifier>>> reverseTags = Collections.emptyMap();
 
@@ -190,51 +188,47 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
       }
       return Optional.of(modifier);
     }, TAG_FOLDER);
-    this.tags = tagLoader.loadAndBuild(pResourceManager);
-    this.reverseTags = GenericTagUtil.reverseTags(REGISTRY_KEY, Modifier::getId, tags);
+    this.tags = GenericTagUtil.mapLoaderResults(REGISTRY_KEY, tagLoader.loadAndBuild(pResourceManager));
+    this.reverseTags = GenericTagUtil.reverseTags(Modifier::getId, tags);
     timeStep = System.nanoTime();
     log.info("Loaded {} modifier tags for {} modifiers in {} ms", tags.size(), this.reverseTags.size(), (timeStep - time) / 1000000f);
 
     // load modifier to enchantment mapping
     enchantmentMap = new HashMap<>();
     this.enchantmentTagMap = new LinkedHashMap<>();
-    try {
-      for (Resource resource : pResourceManager.getResources(ENCHANTMENT_MAP)) {
-        JsonObject enchantmentJson = JsonHelper.getJson(resource);
-        if (enchantmentJson != null) {
-          for (Entry<String,JsonElement> entry : enchantmentJson.entrySet()) {
-            try {
-              // parse the modifier first, its the same in both cases
-              String key = entry.getKey();
-              ModifierId modifierId = new ModifierId(JsonHelper.convertToResourceLocation(entry.getValue(), "modifier"));
-              Modifier modifier = get(modifierId);
-              if (modifier == defaultValue) {
-                throw new JsonSyntaxException("Unknown modifier " + modifierId + " for enchantment " + key);
-              }
-
-              // if it starts with #, it's a tag
-              if (key.startsWith("#")) {
-                ResourceLocation tagId = ResourceLocation.tryParse(key.substring(1));
-                if (tagId == null) {
-                  throw new JsonSyntaxException("Invalid enchantment tag ID " + key.substring(1));
-                }
-                this.enchantmentTagMap.put(TagKey.create(Registry.ENCHANTMENT_REGISTRY, tagId), modifier);
-              } else {
-                // assume its an ID
-                ResourceLocation enchantId = ResourceLocation.tryParse(key);
-                if (enchantId == null || !ForgeRegistries.ENCHANTMENTS.containsKey(enchantId)) {
-                  throw new JsonSyntaxException("Invalid enchantment ID " + key);
-                }
-                enchantmentMap.put(ForgeRegistries.ENCHANTMENTS.getValue(enchantId), modifier);
-              }
-            } catch (JsonSyntaxException e) {
-              log.info("Invalid enchantment to modifier mapping", e);
+    for (Resource resource : pResourceManager.getResourceStack(ENCHANTMENT_MAP)) {
+      JsonObject enchantmentJson = JsonHelper.getJson(resource, ENCHANTMENT_MAP);
+      if (enchantmentJson != null) {
+        for (Entry<String,JsonElement> entry : enchantmentJson.entrySet()) {
+          try {
+            // parse the modifier first, its the same in both cases
+            String key = entry.getKey();
+            ModifierId modifierId = new ModifierId(JsonHelper.convertToResourceLocation(entry.getValue(), "modifier"));
+            Modifier modifier = get(modifierId);
+            if (modifier == defaultValue) {
+              throw new JsonSyntaxException("Unknown modifier " + modifierId + " for enchantment " + key);
             }
+
+            // if it starts with #, it's a tag
+            if (key.startsWith("#")) {
+              ResourceLocation tagId = ResourceLocation.tryParse(key.substring(1));
+              if (tagId == null) {
+                throw new JsonSyntaxException("Invalid enchantment tag ID " + key.substring(1));
+              }
+              this.enchantmentTagMap.put(TagKey.create(Registry.ENCHANTMENT_REGISTRY, tagId), modifier);
+            } else {
+              // assume its an ID
+              ResourceLocation enchantId = ResourceLocation.tryParse(key);
+              if (enchantId == null || !ForgeRegistries.ENCHANTMENTS.containsKey(enchantId)) {
+                throw new JsonSyntaxException("Invalid enchantment ID " + key);
+              }
+              enchantmentMap.put(ForgeRegistries.ENCHANTMENTS.getValue(enchantId), modifier);
+            }
+          } catch (JsonSyntaxException e) {
+            log.info("Invalid enchantment to modifier mapping", e);
           }
         }
       }
-    } catch (IOException e) {
-      log.info("Failed to get enchantment map from {}", enchantmentMap);
     }
     log.info("Loaded {} enchantment to modifier mappings in {} ms", enchantmentMap.size() + enchantmentTagMap.size(), (System.nanoTime() - timeStep) / 1000000f);
 
@@ -276,11 +270,11 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
   }
 
   /** Updates the modifiers from the server */
-  void updateModifiersFromServer(Map<ModifierId,Modifier> modifiers, Map<ResourceLocation,Tag<Modifier>> tags, Map<Enchantment,Modifier> enchantmentMap, Map<TagKey<Enchantment>,Modifier> enchantmentTagMappings) {
+  void updateModifiersFromServer(Map<ModifierId,Modifier> modifiers, Map<TagKey<Modifier>,List<Modifier>> tags, Map<Enchantment,Modifier> enchantmentMap, Map<TagKey<Enchantment>,Modifier> enchantmentTagMappings) {
     this.dynamicModifiers = modifiers;
     this.dynamicModifiersLoaded = true;
     this.tags = tags;
-    this.reverseTags = GenericTagUtil.reverseTags(REGISTRY_KEY, Modifier::getId, tags);
+    this.reverseTags = GenericTagUtil.reverseTags(Modifier::getId, tags);
     this.enchantmentMap = enchantmentMap;
     this.enchantmentTagMap = enchantmentTagMappings;
     MinecraftForge.EVENT_BUS.post(new ModifiersLoadedEvent());
@@ -341,7 +335,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
     return Stream.concat(
       enchantmentMap.entrySet().stream().filter(predicate).map(Entry::getKey),
       enchantmentTagMap.entrySet().stream().filter(predicate).flatMap(entry -> RegistryHelper.getTagValueStream(Registry.ENCHANTMENT, entry.getKey()))
-    ).distinct().sorted(Comparator.comparing(enchantment -> Objects.requireNonNull(enchantment.getRegistryName())));
+    ).distinct().sorted(Comparator.comparing(enchantment -> Objects.requireNonNull(Registry.ENCHANTMENT.getKey(enchantment))));
   }
 
   /** Gets a list of all modifier IDs */
@@ -431,7 +425,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
    * @return  Contained values
    */
   public static List<Modifier> getTagValues(TagKey<Modifier> tag) {
-    return INSTANCE.tags.getOrDefault(tag.location(), Tag.empty()).getValues();
+    return INSTANCE.tags.getOrDefault(tag, List.of());
   }
 
 

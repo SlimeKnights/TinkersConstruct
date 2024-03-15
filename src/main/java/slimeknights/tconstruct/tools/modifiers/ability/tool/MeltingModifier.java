@@ -6,8 +6,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidType;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
@@ -41,7 +41,7 @@ public class MeltingModifier extends NoLevelsModifier implements MeleeHitModifie
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
-    tank = new TankModule(FluidAttributes.BUCKET_VOLUME, true);
+    tank = new TankModule(FluidType.BUCKET_VOLUME, true);
     hookBuilder.addModule(tank);
     hookBuilder.addHook(this, TinkerHooks.MELEE_HIT);
   }
@@ -74,12 +74,12 @@ public class MeltingModifier extends NoLevelsModifier implements MeleeHitModifie
   }
 
   @Override
-  public List<ItemStack> processLoot(IToolStackView tool, int level, List<ItemStack> generatedLoot, LootContext context) {
+  public void processLoot(IToolStackView tool, int level, List<ItemStack> generatedLoot, LootContext context) {
     // if tank is full, nothing to do
     FluidStack current = tank.getFluid(tool);
     int capacity = tank.getCapacity(tool);
     if (current.getAmount() >= capacity) {
-      return generatedLoot;
+      return;
     }
 
     // try melting each item dropped
@@ -116,7 +116,6 @@ public class MeltingModifier extends NoLevelsModifier implements MeleeHitModifie
     if (isDirty) {
       tank.setFluid(tool, current);
     }
-    return generatedLoot;
   }
 
   @Override

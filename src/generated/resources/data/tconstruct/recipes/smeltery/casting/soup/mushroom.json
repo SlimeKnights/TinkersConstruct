@@ -4,10 +4,10 @@
     "item": "minecraft:bowl"
   },
   "cast_consumed": true,
+  "cooling_time": 1,
   "fluid": {
-    "tag": "forge:mushroom_stew",
-    "amount": 250
+    "amount": 250,
+    "tag": "forge:mushroom_stew"
   },
-  "result": "minecraft:mushroom_stew",
-  "cooling_time": 1
+  "result": "minecraft:mushroom_stew"
 }

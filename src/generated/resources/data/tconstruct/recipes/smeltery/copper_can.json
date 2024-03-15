@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "c c",
-    " c "
-  ],
   "key": {
     "c": {
       "tag": "forge:ingots/copper"
     }
   },
+  "pattern": [
+    "c c",
+    " c "
+  ],
   "result": {
-    "item": "tconstruct:copper_can",
-    "count": 3
+    "count": 3,
+    "item": "tconstruct:copper_can"
   }
 }

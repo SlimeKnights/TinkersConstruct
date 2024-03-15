@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": false,
   "inputs": [
     {
       "item": "minecraft:wither_rose"
@@ -17,13 +18,12 @@
       "item": "tconstruct:dragon_scale"
     }
   ],
+  "max_level": 1,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:draconic"
+  },
   "tools": {
     "tag": "tconstruct:modifiable"
-  },
-  "allow_crystal": false,
-  "result": {
-    "name": "tconstruct:draconic",
-    "level": 1
-  },
-  "max_level": 1
+  }
 }

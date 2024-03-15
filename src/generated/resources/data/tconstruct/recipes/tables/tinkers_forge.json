@@ -1,10 +1,5 @@
 {
   "type": "mantle:crafting_shaped_retextured",
-  "pattern": [
-    "mmm",
-    "sts",
-    "s s"
-  ],
   "key": {
     "m": {
       "tag": "tconstruct:anvil_metal"
@@ -16,11 +11,16 @@
       "item": "tconstruct:tinker_station"
     }
   },
+  "match_all": true,
+  "pattern": [
+    "mmm",
+    "sts",
+    "s s"
+  ],
   "result": {
     "item": "tconstruct:tinkers_anvil"
   },
   "texture": {
     "tag": "tconstruct:anvil_metal"
-  },
-  "match_all": true
+  }
 }

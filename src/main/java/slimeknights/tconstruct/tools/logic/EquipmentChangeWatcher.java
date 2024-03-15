@@ -66,7 +66,7 @@ public class EquipmentChangeWatcher {
 
   /** Serverside modifier hooks */
   private static void onEquipmentChange(LivingEquipmentChangeEvent event) {
-    runModifierHooks(event.getEntityLiving(), event.getSlot(), event.getFrom(), event.getTo());
+    runModifierHooks(event.getEntity(), event.getSlot(), event.getFrom(), event.getTo());
   }
 
   /** Event listener to attach the capability */

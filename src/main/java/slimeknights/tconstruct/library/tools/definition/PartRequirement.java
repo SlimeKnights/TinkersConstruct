@@ -10,6 +10,7 @@ import com.google.gson.JsonSerializer;
 import com.google.gson.JsonSyntaxException;
 import lombok.Data;
 import lombok.Getter;
+import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -155,7 +156,7 @@ public abstract class PartRequirement {
     @Override
     public JsonObject serialize() {
       JsonObject jsonObject = new JsonObject();
-      jsonObject.addProperty("item", Objects.requireNonNull(part.asItem().getRegistryName()).toString());
+      jsonObject.addProperty("item", Registry.ITEM.getKey(part.asItem()).toString());
       if (getWeight() != 1) {
         jsonObject.addProperty("weight", getWeight());
       }

@@ -8,8 +8,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -24,7 +24,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -85,7 +84,7 @@ public class EntityIngredientRenderer implements IIngredientRenderer<EntityType>
             RenderSystem.applyModelViewMatrix();
             return;
           } catch (Exception e) {
-            TConstruct.LOG.error("Error drawing entity " + type.getRegistryName(), e);
+            TConstruct.LOG.error("Error drawing entity " + Registry.ENTITY_TYPE.getKey(type), e);
             IGNORED_ENTITIES.add(type);
             ENTITY_MAP.remove(type);
           }
@@ -108,7 +107,7 @@ public class EntityIngredientRenderer implements IIngredientRenderer<EntityType>
     List<Component> tooltip = new ArrayList<>();
     tooltip.add(type.getDescription());
     if (flag.isAdvanced()) {
-      tooltip.add((new TextComponent(Objects.requireNonNull(type.getRegistryName()).toString())).withStyle(ChatFormatting.DARK_GRAY));
+      tooltip.add((Component.literal(Registry.ENTITY_TYPE.getKey(type).toString())).withStyle(ChatFormatting.DARK_GRAY));
     }
     return tooltip;
   }

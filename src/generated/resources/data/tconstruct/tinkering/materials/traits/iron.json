@@ -1,19 +1,19 @@
 {
   "default": [
     {
-      "name": "tconstruct:magnetic",
-      "level": 1
+      "level": 1,
+      "name": "tconstruct:magnetic"
     }
   ],
   "perStat": {
     "tconstruct:skull": [
       {
-        "name": "tconstruct:plague",
-        "level": 1
+        "level": 1,
+        "name": "tconstruct:plague"
       },
       {
-        "name": "tconstruct:husk_disguise",
-        "level": 1
+        "level": 1,
+        "name": "tconstruct:husk_disguise"
       }
     ]
   }

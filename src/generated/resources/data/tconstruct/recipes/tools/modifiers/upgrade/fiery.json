@@ -1,10 +1,19 @@
 {
   "type": "tconstruct:incremental_modifier",
+  "allow_crystal": true,
+  "amount_per_item": 1,
   "input": {
     "item": "minecraft:blaze_powder"
   },
-  "amount_per_item": 1,
+  "max_level": 5,
   "needed_per_level": 25,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:fiery"
+  },
+  "slots": {
+    "upgrades": 1
+  },
   "tools": [
     {
       "tag": "tconstruct:modifiable/melee"
@@ -18,14 +27,5 @@
     {
       "tag": "tconstruct:modifiable/shields"
     }
-  ],
-  "slots": {
-    "upgrades": 1
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:fiery",
-    "level": 1
-  },
-  "max_level": 5
+  ]
 }

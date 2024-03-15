@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:coins/copper",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:coins/copper"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:coins/copper"
   },
   "result": {
-    "fluid": "tconstruct:molten_copper",
-    "amount": 30
+    "amount": 30,
+    "fluid": "tconstruct:molten_copper"
   },
   "temperature": 500,
   "time": 33

@@ -4,8 +4,8 @@
   "textures": {
     "tool":         "tconstruct:item/tool/staff/earth_1",
     "broken":       "tconstruct:item/tool/staff/earth_broken",
-    "tool_large":   "tconstruct:item/tool/staff/earth_large_1",
-    "broken_large": "tconstruct:item/tool/staff/earth_large_broken"
+    "large_tool":   "tconstruct:item/tool/staff/earth_large_1",
+    "large_broken": "tconstruct:item/tool/staff/earth_large_broken"
   },
   "large": true,
   "modifier_roots": {

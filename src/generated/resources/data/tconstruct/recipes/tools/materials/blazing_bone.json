@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "tconstruct:blazing_bone"
   },
-  "value": 1,
+  "material": "tconstruct:blazing_bone",
   "needed": 1,
-  "material": "tconstruct:blazing_bone"
+  "value": 1
 }

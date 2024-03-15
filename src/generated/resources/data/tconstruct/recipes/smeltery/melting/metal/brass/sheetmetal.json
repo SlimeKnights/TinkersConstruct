@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:sheetmetals/brass",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:sheetmetals/brass"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:sheetmetals/brass"
   },
   "result": {
-    "fluid": "tconstruct:molten_brass",
-    "amount": 90
+    "amount": 90,
+    "fluid": "tconstruct:molten_brass"
   },
   "temperature": 605,
   "time": 54

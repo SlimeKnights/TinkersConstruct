@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.recipe.casting.material;
 
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -10,7 +11,6 @@ import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
-import java.util.Objects;
 import java.util.function.Consumer;
 
 /** Builder for a composite part recipe, should exist for each part */
@@ -30,7 +30,7 @@ public class CompositeCastingRecipeBuilder extends AbstractRecipeBuilder<Composi
 
   @Override
   public void save(Consumer<FinishedRecipe> consumer) {
-    save(consumer, Objects.requireNonNull(result.asItem().getRegistryName()));
+    save(consumer, Registry.ITEM.getKey(result.asItem()));
   }
 
   @Override
@@ -49,7 +49,7 @@ public class CompositeCastingRecipeBuilder extends AbstractRecipeBuilder<Composi
       if (!group.isEmpty()) {
         json.addProperty("group", group);
       }
-      json.addProperty("result", Objects.requireNonNull(result.asItem().getRegistryName()).toString());
+      json.addProperty("result", Registry.ITEM.getKey(result.asItem()).toString());
       json.addProperty("item_cost", itemCost);
     }
 

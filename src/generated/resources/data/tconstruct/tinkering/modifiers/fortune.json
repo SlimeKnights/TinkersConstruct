@@ -1,12 +1,12 @@
 {
   "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "tooltip_display": "always",
   "modules": [
     {
       "type": "tconstruct:harvest_enchantment",
-      "name": "minecraft:fortune",
-      "level": 1
+      "level": 1,
+      "name": "minecraft:fortune"
     }
-  ]
+  ],
+  "tooltip_display": "always"
 }

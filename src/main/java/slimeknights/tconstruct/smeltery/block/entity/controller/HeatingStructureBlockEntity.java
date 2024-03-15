@@ -22,13 +22,12 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.client.model.data.IModelData;
-import net.minecraftforge.client.model.data.ModelDataMap;
+import net.minecraftforge.client.model.data.ModelData;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.block.entity.IRetexturedBlockEntity;
@@ -131,13 +130,13 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
   private Block texture = Blocks.AIR;
 
   /* Client display */
-  @Getter
-  private final IModelData modelData = new ModelDataMap.Builder().withProperty(RetexturedHelper.BLOCK_PROPERTY).withProperty(IDisplayFluidListener.PROPERTY).build();
   private final List<WeakReference<IDisplayFluidListener>> fluidDisplayListeners = new ArrayList<>();
 
   /* Misc helpers */
   /** Function to drop an item */
   protected final Consumer<ItemStack> dropItem = this::dropItem;
+  /** Fluid being displayed in the block model */
+  private FluidStack displayFluid = FluidStack.EMPTY;
 
   protected HeatingStructureBlockEntity(BlockEntityType<? extends HeatingStructureBlockEntity> type, BlockPos pos, BlockState state, Component name) {
     super(type, pos, state, name);
@@ -277,7 +276,7 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
   @Nonnull
   @Override
   public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
-    if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+    if (capability == ForgeCapabilities.ITEM_HANDLER) {
       return itemCapability.cast();
     }
     return super.getCapability(capability, facing);
@@ -402,6 +401,12 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
     }
   }
 
+  @Nonnull
+  @Override
+  public ModelData getModelData() {
+    return RetexturedHelper.getModelDataBuilder(getTexture()).with(IDisplayFluidListener.PROPERTY, displayFluid).build();
+  }
+
   /**
    * Updates the fluid displayed in the block, only used client side
    * @param fluid  Fluid
@@ -409,12 +414,11 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
   private void updateDisplayFluid(FluidStack fluid) {
     if (level != null && level.isClientSide) {
       // update ourself
-      fluid = IDisplayFluidListener.normalizeFluid(fluid);
-      modelData.setData(IDisplayFluidListener.PROPERTY, fluid);
+      this.displayFluid = IDisplayFluidListener.normalizeFluid(fluid);
       this.requestModelDataUpdate();
       BlockState state = getBlockState();
       level.sendBlockUpdated(worldPosition, state, state, 48);
-      updateListeners(fluid);
+      updateListeners(displayFluid);
     }
   }
 

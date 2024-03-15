@@ -4,10 +4,10 @@
     "item": "minecraft:dirt"
   },
   "cast_consumed": true,
+  "cooling_time": 106,
   "fluid": {
-    "tag": "tconstruct:ender_slime",
-    "amount": 1000
+    "amount": 1000,
+    "tag": "tconstruct:ender_slime"
   },
-  "result": "tconstruct:ender_slime_dirt",
-  "cooling_time": 106
+  "result": "tconstruct:ender_slime_dirt"
 }

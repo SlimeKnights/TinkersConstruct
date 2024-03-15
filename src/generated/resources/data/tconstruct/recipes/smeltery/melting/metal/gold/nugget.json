@@ -4,8 +4,8 @@
     "tag": "forge:nuggets/gold"
   },
   "result": {
-    "fluid": "tconstruct:molten_gold",
-    "amount": 10
+    "amount": 10,
+    "fluid": "tconstruct:molten_gold"
   },
   "temperature": 700,
   "time": 19

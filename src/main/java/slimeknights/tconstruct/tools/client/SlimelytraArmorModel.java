@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import slimeknights.mantle.data.ISafeManagerReloadListener;
+import slimeknights.mantle.data.listener.ISafeManagerReloadListener;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
 import slimeknights.tconstruct.tools.item.SlimesuitItem;
 

@@ -1,23 +1,23 @@
 {
   "type": "tconstruct:casting_table",
-  "conditions": [
-    {
-      "value": {
-        "tag": "forge:gears/rose_gold",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
-    }
-  ],
   "cast": {
     "tag": "tconstruct:casts/multi_use/gear"
   },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:gears/rose_gold"
+      }
+    }
+  ],
+  "cooling_time": 103,
   "fluid": {
-    "tag": "forge:molten_rose_gold",
-    "amount": 360
+    "amount": 360,
+    "tag": "forge:molten_rose_gold"
   },
   "result": {
     "tag": "forge:gears/rose_gold"
-  },
-  "cooling_time": 103
+  }
 }

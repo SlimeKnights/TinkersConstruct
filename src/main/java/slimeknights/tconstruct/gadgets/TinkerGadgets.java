@@ -13,9 +13,9 @@ import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.registries.RegistryObject;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.item.BlockTooltipItem;
@@ -165,9 +165,7 @@ public final class TinkerGadgets extends TinkerModule {
 
   @SubscribeEvent
   void gatherData(final GatherDataEvent event) {
-    if (event.includeServer()) {
-      DataGenerator datagenerator = event.getGenerator();
-      datagenerator.addProvider(new GadgetRecipeProvider(datagenerator));
-    }
+    DataGenerator datagenerator = event.getGenerator();
+    datagenerator.addProvider(event.includeServer(), new GadgetRecipeProvider(datagenerator));
   }
 }

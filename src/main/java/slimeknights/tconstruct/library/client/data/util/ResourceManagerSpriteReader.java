@@ -7,6 +7,7 @@ import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import slimeknights.tconstruct.library.client.model.DynamicTextureLoader;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /** Sprite reader pulling from a datapack resource manager */
@@ -26,8 +27,8 @@ public class ResourceManagerSpriteReader extends AbstractSpriteReader {
 
   @Override
   public NativeImage read(ResourceLocation path) throws IOException {
-    Resource resource = manager.getResource(getLocation(path));
-    NativeImage image = NativeImage.read(resource.getInputStream());
+    Resource resource = manager.getResource(getLocation(path)).orElseThrow(FileNotFoundException::new);
+    NativeImage image = NativeImage.read(resource.open());
     openedImages.add(image);
     return image;
   }

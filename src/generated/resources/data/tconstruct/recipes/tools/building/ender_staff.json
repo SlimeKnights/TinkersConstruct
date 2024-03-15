@@ -1,21 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
+  "key": {
+    "C": {
+      "item": "tconstruct:ender_slime_crystal"
+    },
+    "I": {
+      "tag": "forge:ingots/netherite"
+    },
+    "W": {
+      "item": "tconstruct:nahuatl"
+    }
+  },
   "pattern": [
     "CWC",
     " I ",
     " W "
   ],
-  "key": {
-    "C": {
-      "item": "tconstruct:ender_slime_crystal"
-    },
-    "W": {
-      "item": "tconstruct:nahuatl"
-    },
-    "I": {
-      "tag": "forge:ingots/netherite"
-    }
-  },
   "result": {
     "item": "tconstruct:ender_staff"
   }

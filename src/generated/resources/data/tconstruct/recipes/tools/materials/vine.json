@@ -11,7 +11,7 @@
       "item": "minecraft:weeping_vines"
     }
   ],
-  "value": 1,
+  "material": "tconstruct:vine",
   "needed": 1,
-  "material": "tconstruct:vine"
+  "value": 1
 }

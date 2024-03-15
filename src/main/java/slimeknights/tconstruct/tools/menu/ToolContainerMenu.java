@@ -9,7 +9,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import slimeknights.mantle.inventory.EmptyItemHandler;
@@ -52,7 +52,7 @@ public class ToolContainerMenu extends AbstractContainerMenu {
   public static ToolContainerMenu forClient(int id, Inventory inventory, FriendlyByteBuf buffer) {
     EquipmentSlot slotType = buffer.readEnum(EquipmentSlot.class);
     ItemStack stack = inventory.player.getItemBySlot(slotType);
-    IItemHandler handler = stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).filter(cap -> cap instanceof IItemHandlerModifiable).orElse(EmptyItemHandler.INSTANCE);
+    IItemHandler handler = stack.getCapability(ForgeCapabilities.ITEM_HANDLER).filter(cap -> cap instanceof IItemHandlerModifiable).orElse(EmptyItemHandler.INSTANCE);
     return new ToolContainerMenu(TinkerTools.toolContainer.get(), id, inventory, stack, handler, slotType);
   }
 

@@ -38,7 +38,7 @@ public class SoulboundModifier extends NoLevelsModifier {
     }
     // this is the latest we can add slot markers to the items so we can return them to slots
     // for simplicity, only care about held items
-    if (event.getEntityLiving() instanceof Player player && !(player instanceof FakePlayer)) {
+    if (event.getEntity() instanceof Player player && !(player instanceof FakePlayer)) {
       for (EquipmentSlot slot : EquipmentSlot.values()) {
         if (slot != EquipmentSlot.MAINHAND) {
           ItemStack stack = player.getItemBySlot(slot);
@@ -59,7 +59,7 @@ public class SoulboundModifier extends NoLevelsModifier {
       return;
     }
     // only care about real players with keep inventory off
-    LivingEntity entity = event.getEntityLiving();
+    LivingEntity entity = event.getEntity();
     if (!entity.getCommandSenderWorld().getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY) && entity instanceof Player player && !(entity instanceof FakePlayer)) {
       Iterator<ItemEntity> iter = event.getDrops().iterator();
       Inventory inventory = player.getInventory();
@@ -97,7 +97,7 @@ public class SoulboundModifier extends NoLevelsModifier {
       return;
     }
     Player original = event.getOriginal();
-    Player clone = event.getPlayer();
+    Player clone = event.getEntity();
     // inventory already copied
     if (clone.getCommandSenderWorld().getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY) || original.isSpectator()) {
       return;

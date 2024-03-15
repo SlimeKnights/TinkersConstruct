@@ -4,8 +4,8 @@
     "tag": "forge:nuggets/slimesteel"
   },
   "result": {
-    "fluid": "tconstruct:molten_slimesteel",
-    "amount": 10
+    "amount": 10,
+    "fluid": "tconstruct:molten_slimesteel"
   },
   "temperature": 900,
   "time": 21

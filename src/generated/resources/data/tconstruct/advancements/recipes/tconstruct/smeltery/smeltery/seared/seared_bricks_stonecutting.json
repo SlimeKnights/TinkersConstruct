@@ -1,13 +1,17 @@
 {
   "parent": "minecraft:recipes/root",
-  "rewards": {
-    "recipes": [
-      "tconstruct:smeltery/seared/seared_bricks_stonecutting"
-    ]
-  },
   "criteria": {
+    "has_bricks": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "tconstruct:seared_bricks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "has_stone": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -16,23 +20,14 @@
             ]
           }
         ]
-      }
-    },
-    "has_bricks": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "tag": "tconstruct:seared_bricks"
-          }
-        ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "has_the_recipe": {
-      "trigger": "minecraft:recipe_unlocked",
       "conditions": {
         "recipe": "tconstruct:smeltery/seared/seared_bricks_stonecutting"
-      }
+      },
+      "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
@@ -41,5 +36,10 @@
       "has_bricks",
       "has_the_recipe"
     ]
-  ]
+  ],
+  "rewards": {
+    "recipes": [
+      "tconstruct:smeltery/seared/seared_bricks_stonecutting"
+    ]
+  }
 }

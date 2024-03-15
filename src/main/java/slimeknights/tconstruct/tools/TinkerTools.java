@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools;
 
 import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.core.Registry;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.entity.EntityType;
@@ -9,13 +10,12 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
+import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.registries.RegistryObject;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.ItemObject;
@@ -195,63 +195,63 @@ public final class TinkerTools extends TinkerModule {
   }
 
   @SubscribeEvent
-  void registerRecipeSerializers(RegistryEvent.Register<RecipeSerializer<?>> event) {
-    ItemPredicate.register(ToolPredicate.ID, ToolPredicate::deserialize);
-    ItemPredicate.register(ToolStackItemPredicate.ID, ToolStackItemPredicate::deserialize);
+  void registerRecipeSerializers(RegisterEvent event) {
+    if (event.getRegistryKey() == Registry.RECIPE_SERIALIZER_REGISTRY) {
+      ItemPredicate.register(ToolPredicate.ID, ToolPredicate::deserialize);
+      ItemPredicate.register(ToolStackItemPredicate.ID, ToolStackItemPredicate::deserialize);
 
-    // tool definition components
-    // harvest
-    IHarvestLogic.LOADER.register(TConstruct.getResource("effective_tag"), TagHarvestLogic.LOADER);
-    IHarvestLogic.LOADER.register(TConstruct.getResource("modified_tag"), ModifiedHarvestLogic.LOADER);
-    IHarvestLogic.LOADER.register(TConstruct.getResource("fixed_tier"), FixedTierHarvestLogic.LOADER);
-    // aoe
-    IAreaOfEffectIterator.LOADER.register(TConstruct.getResource("box"), BoxAOEIterator.LOADER);
-    IAreaOfEffectIterator.LOADER.register(TConstruct.getResource("circle"), CircleAOEIterator.LOADER);
-    IAreaOfEffectIterator.LOADER.register(TConstruct.getResource("tree"), TreeAOEIterator.LOADER);
-    IAreaOfEffectIterator.LOADER.register(TConstruct.getResource("vein"), VeiningAOEIterator.LOADER);
-    IAreaOfEffectIterator.LOADER.register(TConstruct.getResource("fallback"), FallbackAOEIterator.LOADER);
-    // attack
-    IWeaponAttack.LOADER.register(TConstruct.getResource("sweep"), SweepWeaponAttack.LOADER);
-    IWeaponAttack.LOADER.register(TConstruct.getResource("circle"), CircleWeaponAttack.LOADER);
-    IWeaponAttack.LOADER.register(TConstruct.getResource("particle"), ParticleWeaponAttack.LOADER);
-    // generic tool modules
-    IToolModule.LOADER.register(TConstruct.getResource("dual_option_interaction"), DualOptionInteraction.LOADER);
-    IToolModule.LOADER.register(TConstruct.getResource("preference_set_interaction"), PreferenceSetInteraction.LOADER);
-    // tool predicates
-    ToolContextPredicate.LOADER.register(TConstruct.getResource("and"), ToolContextPredicate.AND);
-    ToolContextPredicate.LOADER.register(TConstruct.getResource("or"), ToolContextPredicate.OR);
-    ToolContextPredicate.LOADER.register(TConstruct.getResource("inverted"), ToolContextPredicate.INVERTED);
-    ToolContextPredicate.LOADER.register(TConstruct.getResource("any"), ToolContextPredicate.ANY.getLoader());
-    ToolContextPredicate.LOADER.register(TConstruct.getResource("item"), ItemToolPredicate.LOADER);
-    ToolContextPredicate.LOADER.register(TConstruct.getResource("has_upgrades"), ToolContextPredicate.HAS_UPGRADES.getLoader());
-    ToolContextPredicate.LOADER.register(TConstruct.getResource("has_modifier"), HasModifierPredicate.LOADER);
-    ToolContextPredicate.LOADER.register(TConstruct.getResource("stat_in_range"), StatInRangePredicate.LOADER);
-    ToolContextPredicate.LOADER.register(TConstruct.getResource("stat_in_set"), StatInSetPredicate.LOADER);
-    ToolContextPredicate.LOADER.register(TConstruct.getResource("has_material"), HasMaterialPredicate.LOADER);
-    ToolContextPredicate.LOADER.register(TConstruct.getResource("has_stat_type"), HasStatTypePredicate.LOADER);
+      // tool definition components
+      // harvest
+      IHarvestLogic.LOADER.register(TConstruct.getResource("effective_tag"), TagHarvestLogic.LOADER);
+      IHarvestLogic.LOADER.register(TConstruct.getResource("modified_tag"), ModifiedHarvestLogic.LOADER);
+      IHarvestLogic.LOADER.register(TConstruct.getResource("fixed_tier"), FixedTierHarvestLogic.LOADER);
+      // aoe
+      IAreaOfEffectIterator.LOADER.register(TConstruct.getResource("box"), BoxAOEIterator.LOADER);
+      IAreaOfEffectIterator.LOADER.register(TConstruct.getResource("circle"), CircleAOEIterator.LOADER);
+      IAreaOfEffectIterator.LOADER.register(TConstruct.getResource("tree"), TreeAOEIterator.LOADER);
+      IAreaOfEffectIterator.LOADER.register(TConstruct.getResource("vein"), VeiningAOEIterator.LOADER);
+      IAreaOfEffectIterator.LOADER.register(TConstruct.getResource("fallback"), FallbackAOEIterator.LOADER);
+      // attack
+      IWeaponAttack.LOADER.register(TConstruct.getResource("sweep"), SweepWeaponAttack.LOADER);
+      IWeaponAttack.LOADER.register(TConstruct.getResource("circle"), CircleWeaponAttack.LOADER);
+      IWeaponAttack.LOADER.register(TConstruct.getResource("particle"), ParticleWeaponAttack.LOADER);
+      // generic tool modules
+      IToolModule.LOADER.register(TConstruct.getResource("dual_option_interaction"), DualOptionInteraction.LOADER);
+      IToolModule.LOADER.register(TConstruct.getResource("preference_set_interaction"), PreferenceSetInteraction.LOADER);
+      // tool predicates
+      ToolContextPredicate.LOADER.register(TConstruct.getResource("and"), ToolContextPredicate.AND);
+      ToolContextPredicate.LOADER.register(TConstruct.getResource("or"), ToolContextPredicate.OR);
+      ToolContextPredicate.LOADER.register(TConstruct.getResource("inverted"), ToolContextPredicate.INVERTED);
+      ToolContextPredicate.LOADER.register(TConstruct.getResource("any"), ToolContextPredicate.ANY.getLoader());
+      ToolContextPredicate.LOADER.register(TConstruct.getResource("item"), ItemToolPredicate.LOADER);
+      ToolContextPredicate.LOADER.register(TConstruct.getResource("has_upgrades"), ToolContextPredicate.HAS_UPGRADES.getLoader());
+      ToolContextPredicate.LOADER.register(TConstruct.getResource("has_modifier"), HasModifierPredicate.LOADER);
+      ToolContextPredicate.LOADER.register(TConstruct.getResource("stat_in_range"), StatInRangePredicate.LOADER);
+      ToolContextPredicate.LOADER.register(TConstruct.getResource("stat_in_set"), StatInSetPredicate.LOADER);
+      ToolContextPredicate.LOADER.register(TConstruct.getResource("has_material"), HasMaterialPredicate.LOADER);
+      ToolContextPredicate.LOADER.register(TConstruct.getResource("has_stat_type"), HasStatTypePredicate.LOADER);
+    }
   }
 
   @SubscribeEvent
   void gatherData(final GatherDataEvent event) {
     DataGenerator generator = event.getGenerator();
     ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
-    if (event.includeServer()) {
-      generator.addProvider(new ToolsRecipeProvider(generator));
-      generator.addProvider(new MaterialRecipeProvider(generator));
-      MaterialDataProvider materials = new MaterialDataProvider(generator);
-      generator.addProvider(materials);
-      generator.addProvider(new MaterialStatsDataProvider(generator, materials));
-      generator.addProvider(new MaterialTraitsDataProvider(generator, materials));
-      generator.addProvider(new ToolDefinitionDataProvider(generator));
-      generator.addProvider(new StationSlotLayoutProvider(generator));
-      generator.addProvider(new MaterialTagProvider(generator, existingFileHelper));
-    }
-    if (event.includeClient()) {
-      TinkerMaterialSpriteProvider materialSprites = new TinkerMaterialSpriteProvider();
-      TinkerPartSpriteProvider partSprites = new TinkerPartSpriteProvider();
-      generator.addProvider(new MaterialRenderInfoProvider(generator, materialSprites));
-      generator.addProvider(new GeneratorPartTextureJsonGenerator(generator, TConstruct.MOD_ID, partSprites));
-      generator.addProvider(new MaterialPartTextureGenerator(generator, existingFileHelper, partSprites, materialSprites));
-    }
+    boolean server = event.includeServer();
+    boolean client = event.includeClient();
+    generator.addProvider(server, new ToolsRecipeProvider(generator));
+    generator.addProvider(server, new MaterialRecipeProvider(generator));
+    MaterialDataProvider materials = new MaterialDataProvider(generator);
+    generator.addProvider(server, materials);
+    generator.addProvider(server, new MaterialStatsDataProvider(generator, materials));
+    generator.addProvider(server, new MaterialTraitsDataProvider(generator, materials));
+    generator.addProvider(server, new ToolDefinitionDataProvider(generator));
+    generator.addProvider(server, new StationSlotLayoutProvider(generator));
+    generator.addProvider(server, new MaterialTagProvider(generator, existingFileHelper));
+    TinkerMaterialSpriteProvider materialSprites = new TinkerMaterialSpriteProvider();
+    TinkerPartSpriteProvider partSprites = new TinkerPartSpriteProvider();
+    generator.addProvider(client, new MaterialRenderInfoProvider(generator, materialSprites));
+    generator.addProvider(client, new GeneratorPartTextureJsonGenerator(generator, TConstruct.MOD_ID, partSprites));
+    generator.addProvider(client, new MaterialPartTextureGenerator(generator, existingFileHelper, partSprites, materialSprites));
   }
 }

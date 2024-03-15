@@ -7,7 +7,7 @@
     }
   ],
   "result": {
-    "item": "minecraft:slime_ball",
-    "count": 4
+    "count": 4,
+    "item": "minecraft:slime_ball"
   }
 }

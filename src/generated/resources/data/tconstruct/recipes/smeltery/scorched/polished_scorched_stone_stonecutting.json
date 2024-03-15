@@ -1,5 +1,6 @@
 {
   "type": "minecraft:stonecutting",
+  "count": 1,
   "ingredient": {
     "type": "forge:difference",
     "base": {
@@ -9,6 +10,5 @@
       "item": "tconstruct:polished_scorched_stone"
     }
   },
-  "result": "tconstruct:polished_scorched_stone",
-  "count": 1
+  "result": "tconstruct:polished_scorched_stone"
 }

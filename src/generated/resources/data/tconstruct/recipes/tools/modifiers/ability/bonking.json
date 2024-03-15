@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "tag": "forge:ingots/iron"
@@ -17,6 +18,14 @@
       "item": "tconstruct:ichor_congealed_slime"
     }
   ],
+  "max_level": 1,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:bonking"
+  },
+  "slots": {
+    "abilities": 1
+  },
   "tools": {
     "type": "forge:intersection",
     "children": [
@@ -27,14 +36,5 @@
         "tag": "tconstruct:modifiable/interactable/right"
       }
     ]
-  },
-  "slots": {
-    "abilities": 1
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:bonking",
-    "level": 1
-  },
-  "max_level": 1
+  }
 }

@@ -25,7 +25,7 @@ public class StoneshieldModifier extends DurabilityShieldModifier {
   }
 
   @Override
-  public List<ItemStack> processLoot(IToolStackView tool, int level, List<ItemStack> generatedLoot, LootContext context) {
+  public void processLoot(IToolStackView tool, int level, List<ItemStack> generatedLoot, LootContext context) {
     Iterator<ItemStack> iterator = generatedLoot.iterator();
     int addedShield = 0;
     // 20% chance per level of consuming each stone
@@ -62,8 +62,6 @@ public class StoneshieldModifier extends DurabilityShieldModifier {
       // 3 stoneshield per stone eaten
       addShield(tool, level, addedShield * 3);
     }
-
-    return generatedLoot;
   }
 
   /* Display */

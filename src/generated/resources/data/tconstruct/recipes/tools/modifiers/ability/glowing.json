@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "item": "minecraft:glowstone"
@@ -11,6 +12,14 @@
       "item": "minecraft:shroomlight"
     }
   ],
+  "max_level": 1,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:glowing"
+  },
+  "slots": {
+    "abilities": 1
+  },
   "tools": {
     "type": "forge:intersection",
     "children": [
@@ -21,14 +30,5 @@
         "tag": "tconstruct:modifiable/interactable"
       }
     ]
-  },
-  "slots": {
-    "abilities": 1
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:glowing",
-    "level": 1
-  },
-  "max_level": 1
+  }
 }

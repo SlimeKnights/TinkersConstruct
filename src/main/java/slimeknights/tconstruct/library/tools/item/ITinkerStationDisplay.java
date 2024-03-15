@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.tools.item;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -25,7 +24,7 @@ public interface ITinkerStationDisplay extends ItemLike {
    * The "title" displayed in the GUI
    */
   default Component getLocalizedName() {
-    return new TranslatableComponent(asItem().getDescriptionId());
+    return Component.translatable(asItem().getDescriptionId());
   }
 
   /**

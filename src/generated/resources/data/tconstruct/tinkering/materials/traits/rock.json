@@ -1,8 +1,8 @@
 {
   "default": [
     {
-      "name": "tconstruct:stonebound",
-      "level": 1
+      "level": 1,
+      "name": "tconstruct:stonebound"
     }
   ]
 }

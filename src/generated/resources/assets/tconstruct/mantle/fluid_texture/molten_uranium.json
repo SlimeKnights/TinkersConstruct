@@ -1,0 +1,5 @@
+{
+  "color": "FFFFFFFF",
+  "flowing": "tconstruct:fluid/molten/compat_ore/uranium/flowing",
+  "still": "tconstruct:fluid/molten/compat_ore/uranium/still"
+}

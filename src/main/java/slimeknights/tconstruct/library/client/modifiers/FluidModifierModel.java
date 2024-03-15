@@ -3,28 +3,38 @@ package slimeknights.tconstruct.library.client.modifiers;
 import com.google.common.collect.ImmutableList;
 import com.mojang.math.Transformation;
 import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.BlockElement;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.Material;
-import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.client.ForgeHooksClient;
-import net.minecraftforge.client.model.ItemTextureQuadConverter;
-import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
+import net.minecraftforge.client.model.QuadTransformers;
+import net.minecraftforge.client.model.SimpleModelState;
+import net.minecraftforge.client.model.geometry.UnbakedGeometryHelper;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.client.model.util.ColoredBlockModel;
 import slimeknights.mantle.util.ItemLayerPixels;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.capability.ToolFluidCapability;
 import slimeknights.tconstruct.library.tools.capability.ToolFluidCapability.FluidModifierHook;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.client.model.FluidContainerModel;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.function.Function;
 
 /**
  * Model for tank modifiers, also displays the fluid
  */
 public class FluidModifierModel extends NormalModifierModel {
+  /** Location used for baking dynamic models, name does not matter so just using a constant */
+  private static final ResourceLocation BAKE_LOCATION = TConstruct.getResource("dynamic_fluid_model");
+
   /** Constant unbaked model instance, as they are all the same */
   public static final IUnbakedModifierModel UNBAKED_INSTANCE = (smallGetter, largeGetter) -> {
     Material smallTexture = smallGetter.apply("");
@@ -79,17 +89,24 @@ public class FluidModifierModel extends NormalModifierModel {
       // must have texture for the proper state
       Material template = getTemplate(tank, tool, entry, fluid, isLarge);
       if (template != null) {
-        // finally, build (mostly based on bucket model)
-        ImmutableList.Builder<BakedQuad> builder = ImmutableList.builder();
-        builder.addAll(quads);
-        FluidAttributes attributes = fluid.getFluid().getAttributes();
-        TextureAtlasSprite fluidSprite = spriteGetter.apply(ForgeHooksClient.getBlockMaterial(attributes.getStillTexture(fluid)));
-        int color = attributes.getColor(fluid);
-        int luminosity = attributes.getLuminosity(fluid);
-        TextureAtlasSprite templateSprite = spriteGetter.apply(template);
-        builder.addAll(ItemTextureQuadConverter.convertTexture(transforms, templateSprite, fluidSprite, 7.498f / 16f, Direction.NORTH, color, -1, luminosity));
-        builder.addAll(ItemTextureQuadConverter.convertTexture(transforms, templateSprite, fluidSprite, 8.502f / 16f, Direction.SOUTH, color, -1, luminosity));
-        quads = builder.build();
+        // fluid properties
+        IClientFluidTypeExtensions attributes = IClientFluidTypeExtensions.of(fluid.getFluid());
+        TextureAtlasSprite fluidSprite = spriteGetter.apply(new Material(InventoryMenu.BLOCK_ATLAS, attributes.getStillTexture(fluid)));
+
+        // build fluid like the forge dynamic container model
+        List<BlockElement> unbaked = UnbakedGeometryHelper.createUnbakedItemMaskElements(1, spriteGetter.apply(template)); // Use template as mask
+        List<BakedQuad> fluidQuads = UnbakedGeometryHelper.bakeElements(unbaked, mat -> fluidSprite, new SimpleModelState(transforms.compose(FluidContainerModel.FLUID_TRANSFORM), false), BAKE_LOCATION); // Bake with fluid texture
+
+        // apply brightness and color
+        int luminosity = fluid.getFluid().getFluidType().getLightLevel(fluid);
+        if (luminosity > 0) {
+          QuadTransformers.settingEmissivity(luminosity).processInPlace(fluidQuads);
+        }
+        int color = attributes.getTintColor(fluid);
+        if (color != -1) {
+          ColoredBlockModel.applyColorQuadTransformer(color).processInPlace(fluidQuads);
+        }
+        quads = ImmutableList.copyOf(fluidQuads);
       }
     }
     return quads;

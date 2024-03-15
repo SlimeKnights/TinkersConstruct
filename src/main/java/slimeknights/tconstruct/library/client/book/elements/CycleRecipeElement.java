@@ -5,7 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.sounds.SoundManager;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.screen.book.ArrowButton;
@@ -37,7 +37,7 @@ public class CycleRecipeElement extends ArrowElement {
   @Override
   public void drawOverlay(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks, Font fontRenderer) {
     if (this.isHovered(mouseX, mouseY)) {
-      this.drawTooltip(matrixStack, Collections.singletonList(new TranslatableComponent("gui.tconstruct.manual.cycle.recipes")), mouseX, mouseY, fontRenderer);
+      this.drawTooltip(matrixStack, Collections.singletonList(Component.translatable("gui.tconstruct.manual.cycle.recipes")), mouseX, mouseY, fontRenderer);
     }
   }
 }

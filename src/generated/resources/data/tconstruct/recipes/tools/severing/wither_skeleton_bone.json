@@ -4,7 +4,7 @@
     "type": "minecraft:wither_skeleton"
   },
   "result": {
-    "item": "tconstruct:necrotic_bone",
-    "count": 2
+    "count": 2,
+    "item": "tconstruct:necrotic_bone"
   }
 }

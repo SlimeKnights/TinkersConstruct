@@ -1,8 +1,5 @@
 {
   "type": "mantle:crafting_shaped_retextured",
-  "pattern": [
-    "C#C"
-  ],
   "key": {
     "#": {
       "tag": "tconstruct:smeltery_bricks"
@@ -11,11 +8,14 @@
       "tag": "forge:ingots/cobalt"
     }
   },
+  "match_all": false,
+  "pattern": [
+    "C#C"
+  ],
   "result": {
     "item": "tconstruct:seared_duct"
   },
   "texture": {
     "tag": "tconstruct:smeltery_bricks"
-  },
-  "match_all": false
+  }
 }

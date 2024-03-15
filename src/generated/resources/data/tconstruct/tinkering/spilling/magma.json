@@ -1,14 +1,14 @@
 {
-  "fluid": {
-    "tag": "forge:magma",
-    "amount": 50
-  },
   "effects": [
     {
       "type": "tconstruct:effect",
+      "level": 1,
       "name": "minecraft:fire_resistance",
-      "time": 25,
-      "level": 1
+      "time": 25
     }
-  ]
+  ],
+  "fluid": {
+    "amount": 50,
+    "tag": "forge:magma"
+  }
 }

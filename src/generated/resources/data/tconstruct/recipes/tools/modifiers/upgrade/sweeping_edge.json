@@ -1,20 +1,20 @@
 {
   "type": "tconstruct:incremental_modifier",
+  "allow_crystal": true,
+  "amount_per_item": 1,
   "input": {
     "item": "minecraft:chain"
   },
-  "amount_per_item": 1,
+  "max_level": 3,
   "needed_per_level": 18,
-  "tools": {
-    "tag": "tconstruct:modifiable/melee/sword"
+  "result": {
+    "level": 1,
+    "name": "tconstruct:sweeping_edge"
   },
   "slots": {
     "upgrades": 1
   },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:sweeping_edge",
-    "level": 1
-  },
-  "max_level": 3
+  "tools": {
+    "tag": "tconstruct:modifiable/melee/sword"
+  }
 }

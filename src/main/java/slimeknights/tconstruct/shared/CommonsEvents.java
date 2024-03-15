@@ -3,6 +3,7 @@ package slimeknights.tconstruct.shared;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
@@ -20,8 +21,6 @@ import slimeknights.mantle.inventory.BaseContainerMenu;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.world.TinkerWorld;
-
-import java.util.Objects;
 
 @SuppressWarnings("unused")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -53,18 +52,18 @@ public class CommonsEvents {
   /** Handles opening our containers as the vanilla logic does not grant TE access */
   @SubscribeEvent
   static void openSpectatorMenu(RightClickBlock event) {
-    Player player = event.getPlayer();
+    Player player = event.getEntity();
     if (player.isSpectator()) {
       BlockPos pos = event.getPos();
-      Level world = event.getWorld();
+      Level world = event.getLevel();
       BlockState state = world.getBlockState(pos);
       // only handle our blocks, no guarantee this will work with other mods
-      if (TConstruct.MOD_ID.equals(Objects.requireNonNull(state.getBlock().getRegistryName()).getNamespace())) {
+      if (TConstruct.MOD_ID.equals(Registry.BLOCK.getKey(state.getBlock()).getNamespace())) {
         MenuProvider provider = state.getMenuProvider(world, pos);
         event.setCanceled(true);
         if (provider != null) {
           if (player instanceof ServerPlayer serverPlayer) {
-            NetworkHooks.openGui(serverPlayer, provider, pos);
+            NetworkHooks.openScreen(serverPlayer, provider, pos);
             if (player.containerMenu instanceof BaseContainerMenu<?> menu) {
               menu.syncOnOpen(serverPlayer);
             }

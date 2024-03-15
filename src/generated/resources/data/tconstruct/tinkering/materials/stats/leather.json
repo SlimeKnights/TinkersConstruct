@@ -1,8 +1,8 @@
 {
   "stats": {
+    "tconstruct:extra": {},
     "tconstruct:repair_kit": {
       "durability": 150
-    },
-    "tconstruct:extra": {}
+    }
   }
 }

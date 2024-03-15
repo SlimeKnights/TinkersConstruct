@@ -1,5 +1,5 @@
 {
   "type": "tconstruct:basin_filling",
-  "fluid_amount": 90,
-  "container": "tconstruct:scorched_ingot_gauge"
+  "container": "tconstruct:scorched_ingot_gauge",
+  "fluid_amount": 90
 }

@@ -9,8 +9,8 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
@@ -103,7 +103,7 @@ public class ToolInventoryCapability extends InventoryModifierHookIterator<Modif
 
   /** If true, the given stack is blacklisted from being stored in a tool */
   public static boolean isBlacklisted(ItemStack stack) {
-    return !stack.getItem().canFitInsideContainerItems() || stack.is(TinkerTags.Items.TOOL_INVENTORY_BLACKLIST) || stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).isPresent();
+    return !stack.getItem().canFitInsideContainerItems() || stack.is(TinkerTags.Items.TOOL_INVENTORY_BLACKLIST) || stack.getCapability(ForgeCapabilities.ITEM_HANDLER).isPresent();
   }
 
   @Override
@@ -419,7 +419,7 @@ public class ToolInventoryCapability extends InventoryModifierHookIterator<Modif
 
     @Override
     public <T> LazyOptional<T> getCapability(IToolStackView tool, Capability<T> cap) {
-      if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && tool.getVolatileData().getInt(TOTAL_SLOTS) > 0) {
+      if (cap == ForgeCapabilities.ITEM_HANDLER && tool.getVolatileData().getInt(TOTAL_SLOTS) > 0) {
         return handler.cast();
       }
       return LazyOptional.empty();
@@ -447,10 +447,10 @@ public class ToolInventoryCapability extends InventoryModifierHookIterator<Modif
 
   /** Opens the tool inventory container if an inventory is present on the given tool */
   public static InteractionResult tryOpenContainer(ItemStack stack, @Nullable IToolStackView tool, ToolDefinition definition, Player player, EquipmentSlot slotType) {
-    IItemHandler handler = stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).filter(cap -> cap instanceof IItemHandlerModifiable).orElse(null);
+    IItemHandler handler = stack.getCapability(ForgeCapabilities.ITEM_HANDLER).filter(cap -> cap instanceof IItemHandlerModifiable).orElse(null);
     if (handler != null) {
       if (player instanceof ServerPlayer serverPlayer) {
-        NetworkHooks.openGui(serverPlayer, new SimpleMenuProvider(
+        NetworkHooks.openScreen(serverPlayer, new SimpleMenuProvider(
           (id, inventory, p) -> new ToolContainerMenu(id, inventory, stack, (IItemHandlerModifiable)handler, slotType),
           TooltipUtil.getDisplayName(stack, tool, definition)
         ), buf -> buf.writeEnum(slotType));

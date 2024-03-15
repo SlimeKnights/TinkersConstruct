@@ -145,8 +145,8 @@ public class ModifierRepairCraftingRecipe extends CustomRecipe implements IModif
         }
         repairNeeded -= repairPerItem;
       }
-      if (stack.hasContainerItem()) {
-        list.set(i, stack.getContainerItem());
+      if (stack.hasCraftingRemainingItem()) {
+        list.set(i, stack.getCraftingRemainingItem());
       }
     }
 

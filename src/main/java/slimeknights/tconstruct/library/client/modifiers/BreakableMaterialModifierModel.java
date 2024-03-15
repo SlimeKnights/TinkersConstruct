@@ -83,7 +83,7 @@ public class BreakableMaterialModifierModel implements IBakedModifierModel {
     }
     if (texture != null) {
       MutableObject<ImmutableList<BakedQuad>> mutable = new MutableObject<>();
-      MaterialModel.getPartQuads(mutable::setValue, texture, spriteGetter, transforms, -1, getMaterial(tool, modifier.getModifier()), pixels);
+      mutable.setValue(MaterialModel.getQuadsForMaterial(spriteGetter, texture, getMaterial(tool, modifier.getModifier()), -1, transforms, null));
       return mutable.getValue();
     }
     return ImmutableList.of();

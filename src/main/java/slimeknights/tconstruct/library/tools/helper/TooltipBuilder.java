@@ -7,7 +7,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -142,10 +141,10 @@ public class TooltipBuilder {
    * @return  Formatted amount
    */
   public static Component formatPartialAmount(int value, int max) {
-    return new TextComponent(Util.COMMA_FORMAT.format(value))
+    return Component.literal(Util.COMMA_FORMAT.format(value))
       .withStyle(style -> style.withColor(valueToColor(value, max)))
-      .append(new TextComponent(" / ").withStyle(ChatFormatting.GRAY))
-      .append(new TextComponent(Util.COMMA_FORMAT.format(max)).withStyle(APPLY_MAX));
+      .append(Component.literal(" / ").withStyle(ChatFormatting.GRAY))
+      .append(Component.literal(Util.COMMA_FORMAT.format(max)).withStyle(APPLY_MAX));
   }
 
   /**

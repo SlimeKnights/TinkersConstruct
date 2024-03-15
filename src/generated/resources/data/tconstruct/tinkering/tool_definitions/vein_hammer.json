@@ -1,4 +1,21 @@
 {
+  "actions": [
+    "pickaxe_dig"
+  ],
+  "attack": {
+    "type": "tconstruct:particle",
+    "particle": "tconstruct:hammer_attack"
+  },
+  "harvest": {
+    "aoe": {
+      "type": "tconstruct:vein",
+      "max_distance": 2
+    },
+    "logic": {
+      "type": "tconstruct:effective_tag",
+      "effective": "minecraft:mineable/pickaxe"
+    }
+  },
   "parts": [
     {
       "item": "tconstruct:hammer_head",
@@ -14,6 +31,10 @@
       "item": "tconstruct:large_plate"
     }
   ],
+  "slots": {
+    "abilities": 1,
+    "upgrades": 2
+  },
   "stats": {
     "base": {
       "tconstruct:attack_damage": 3.0,
@@ -21,35 +42,14 @@
     },
     "multipliers": {
       "tconstruct:attack_damage": 1.25,
-      "tconstruct:mining_speed": 0.3,
-      "tconstruct:durability": 5.0
+      "tconstruct:durability": 5.0,
+      "tconstruct:mining_speed": 0.3
     }
-  },
-  "slots": {
-    "upgrades": 2,
-    "abilities": 1
   },
   "traits": [
     {
-      "name": "tconstruct:pierce",
-      "level": 2
+      "level": 2,
+      "name": "tconstruct:pierce"
     }
-  ],
-  "actions": [
-    "pickaxe_dig"
-  ],
-  "harvest": {
-    "logic": {
-      "type": "tconstruct:effective_tag",
-      "effective": "minecraft:mineable/pickaxe"
-    },
-    "aoe": {
-      "type": "tconstruct:vein",
-      "max_distance": 2
-    }
-  },
-  "attack": {
-    "type": "tconstruct:particle",
-    "particle": "tconstruct:hammer_attack"
-  }
+  ]
 }

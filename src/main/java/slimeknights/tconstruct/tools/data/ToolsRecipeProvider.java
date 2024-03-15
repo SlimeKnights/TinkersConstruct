@@ -137,11 +137,11 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                        .unlockedBy("has_wood", has(TinkerWorld.bloodshroom.getLogItemTag()))
                        .save(consumer, prefix(TinkerTools.enderStaff, folder));
     SpecializedRepairRecipeBuilder.repair(Ingredient.of(TinkerTools.skyStaff, TinkerTools.earthStaff, TinkerTools.ichorStaff), MaterialIds.slimewood)
-                                  .buildRepairKit(consumer, modResource(repairFolder + "staff_repair_kit"))
-                                  .save(consumer, modResource(repairFolder + "staff_station"));
+                                  .buildRepairKit(consumer, location(repairFolder + "staff_repair_kit"))
+                                  .save(consumer, location(repairFolder + "staff_station"));
     SpecializedRepairRecipeBuilder.repair(Ingredient.of(TinkerTools.enderStaff), MaterialIds.nahuatl)
-                                  .buildRepairKit(consumer, modResource(repairFolder + "staff_ender_repair_kit"))
-                                  .save(consumer, modResource(repairFolder + "staff_ender_station"));
+                                  .buildRepairKit(consumer, location(repairFolder + "staff_ender_repair_kit"))
+                                  .save(consumer, location(repairFolder + "staff_ender_station"));
 
     // travelers gear
     ShapedRecipeBuilder.shaped(TinkerTools.travelersGear.get(ArmorSlotType.HELMET))
@@ -152,7 +152,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                        .define('l', Tags.Items.LEATHER)
                        .define('g', Tags.Items.GLASS_PANES_COLORLESS)
                        .unlockedBy("has_item", has(Tags.Items.INGOTS_COPPER))
-                       .save(consumer, modResource(armorFolder + "travelers_goggles"));
+                       .save(consumer, location(armorFolder + "travelers_goggles"));
     ShapedRecipeBuilder.shaped(TinkerTools.travelersGear.get(ArmorSlotType.CHESTPLATE))
                        .pattern("l l")
                        .pattern("lcl")
@@ -160,7 +160,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                        .define('c', Tags.Items.INGOTS_COPPER)
                        .define('l', Tags.Items.LEATHER)
                        .unlockedBy("has_item", has(Tags.Items.INGOTS_COPPER))
-                       .save(consumer, modResource(armorFolder + "travelers_chestplate"));
+                       .save(consumer, location(armorFolder + "travelers_chestplate"));
     ShapedRecipeBuilder.shaped(TinkerTools.travelersGear.get(ArmorSlotType.LEGGINGS))
                        .pattern("lll")
                        .pattern("c c")
@@ -168,14 +168,14 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                        .define('c', Tags.Items.INGOTS_COPPER)
                        .define('l', Tags.Items.LEATHER)
                        .unlockedBy("has_item", has(Tags.Items.INGOTS_COPPER))
-                       .save(consumer, modResource(armorFolder + "travelers_pants"));
+                       .save(consumer, location(armorFolder + "travelers_pants"));
     ShapedRecipeBuilder.shaped(TinkerTools.travelersGear.get(ArmorSlotType.BOOTS))
                        .pattern("c c")
                        .pattern("l l")
                        .define('c', Tags.Items.INGOTS_COPPER)
                        .define('l', Tags.Items.LEATHER)
                        .unlockedBy("has_item", has(Tags.Items.INGOTS_COPPER))
-                       .save(consumer, modResource(armorFolder + "travelers_boots"));
+                       .save(consumer, location(armorFolder + "travelers_boots"));
     ShapedRecipeBuilder.shaped(TinkerTools.travelersShield)
                        .pattern(" c ")
                        .pattern("cwc")
@@ -183,16 +183,16 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                        .define('c', Tags.Items.INGOTS_COPPER)
                        .define('w', DifferenceIngredient.of(Ingredient.of(ItemTags.PLANKS), Ingredient.of(TinkerTags.Items.SLIMY_PLANKS)))
                        .unlockedBy("has_item", has(Tags.Items.INGOTS_COPPER))
-                       .save(consumer, modResource(armorFolder + "travelers_shield"));
+                       .save(consumer, location(armorFolder + "travelers_shield"));
     SpecializedRepairRecipeBuilder.repair(Ingredient.of(Streams.concat(TinkerTools.travelersGear.values().stream(), Stream.of(TinkerTools.travelersShield.get())).map(ItemStack::new)), MaterialIds.copper)
-                                  .buildRepairKit(consumer, modResource(armorRepairFolder + "travelers_copper_repair_kit"))
-                                  .save(consumer, modResource(armorRepairFolder + "travelers_copper_station"));
+                                  .buildRepairKit(consumer, location(armorRepairFolder + "travelers_copper_repair_kit"))
+                                  .save(consumer, location(armorRepairFolder + "travelers_copper_station"));
     SpecializedRepairRecipeBuilder.repair(Ingredient.of(TinkerTools.travelersGear.values().stream().map(ItemStack::new)), MaterialIds.leather)
-                                  .buildRepairKit(consumer, modResource(armorRepairFolder + "travelers_leather_repair_kit"))
-                                  .save(consumer, modResource(armorRepairFolder + "travelers_leather_station"));
+                                  .buildRepairKit(consumer, location(armorRepairFolder + "travelers_leather_repair_kit"))
+                                  .save(consumer, location(armorRepairFolder + "travelers_leather_station"));
     SpecializedRepairRecipeBuilder.repair(Ingredient.of(TinkerTools.travelersShield, TinkerTools.plateShield), MaterialIds.wood)
-                                  .buildRepairKit(consumer, modResource(armorRepairFolder + "wood_repair_kit"))
-                                  .save(consumer, modResource(armorRepairFolder + "wood_station"));
+                                  .buildRepairKit(consumer, location(armorRepairFolder + "wood_repair_kit"))
+                                  .save(consumer, location(armorRepairFolder + "wood_station"));
 
     // plate armor
     ShapedRecipeBuilder.shaped(TinkerTools.plateArmor.get(ArmorSlotType.HELMET))
@@ -201,7 +201,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                        .define('m', TinkerMaterials.cobalt.getIngotTag())
                        .define('c', Items.CHAIN)
                        .unlockedBy("has_item", has(TinkerMaterials.cobalt.getIngotTag()))
-                       .save(consumer, modResource(armorFolder + "plate_helmet"));
+                       .save(consumer, location(armorFolder + "plate_helmet"));
     ShapedRecipeBuilder.shaped(TinkerTools.plateArmor.get(ArmorSlotType.CHESTPLATE))
                        .pattern("m m")
                        .pattern("mmm")
@@ -209,7 +209,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                        .define('m', TinkerMaterials.cobalt.getIngotTag())
                        .define('c', Items.CHAIN)
                        .unlockedBy("has_item", has(TinkerMaterials.cobalt.getIngotTag()))
-                       .save(consumer, modResource(armorFolder + "plate_chestplate"));
+                       .save(consumer, location(armorFolder + "plate_chestplate"));
     ShapedRecipeBuilder.shaped(TinkerTools.plateArmor.get(ArmorSlotType.LEGGINGS))
                        .pattern("mmm")
                        .pattern("m m")
@@ -217,13 +217,13 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                        .define('m', TinkerMaterials.cobalt.getIngotTag())
                        .define('c', Items.CHAIN)
                        .unlockedBy("has_item", has(TinkerMaterials.cobalt.getIngotTag()))
-                       .save(consumer, modResource(armorFolder + "plate_leggings"));
+                       .save(consumer, location(armorFolder + "plate_leggings"));
     ShapedRecipeBuilder.shaped(TinkerTools.plateArmor.get(ArmorSlotType.BOOTS))
                        .pattern("m m")
                        .pattern("m m")
                        .define('m', TinkerMaterials.cobalt.getIngotTag())
                        .unlockedBy("has_item", has(TinkerMaterials.cobalt.getIngotTag()))
-                       .save(consumer, modResource(armorFolder + "plate_boots"));
+                       .save(consumer, location(armorFolder + "plate_boots"));
     ShapedRecipeBuilder.shaped(TinkerTools.plateShield)
                        .pattern("ww")
                        .pattern("cc")
@@ -231,10 +231,10 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
                        .define('c', TinkerMaterials.cobalt.getIngotTag())
                        .define('w', DifferenceIngredient.of(IntersectionIngredient.of(Ingredient.of(ItemTags.PLANKS), Ingredient.of(ItemTags.NON_FLAMMABLE_WOOD)), Ingredient.of(TinkerTags.Items.SLIMY_PLANKS)))
                        .unlockedBy("has_item", has(TinkerMaterials.cobalt.getIngotTag()))
-                       .save(consumer, modResource(armorFolder + "plate_shield"));
+                       .save(consumer, location(armorFolder + "plate_shield"));
     SpecializedRepairRecipeBuilder.repair(Ingredient.of(Streams.concat(TinkerTools.plateArmor.values().stream(), Stream.of(TinkerTools.plateShield.asItem())).map(ItemStack::new)), MaterialIds.cobalt)
-                                  .buildRepairKit(consumer, modResource(armorRepairFolder + "plate_repair_kit"))
-                                  .save(consumer, modResource(armorRepairFolder + "plate_station"));
+                                  .buildRepairKit(consumer, location(armorRepairFolder + "plate_repair_kit"))
+                                  .save(consumer, location(armorRepairFolder + "plate_station"));
 
     // slimeskull
     slimeskullCasting(consumer, MaterialIds.glass,        Items.CREEPER_HEAD,          armorFolder);
@@ -256,33 +256,33 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     ItemCastingRecipeBuilder.basinRecipe(TinkerTools.slimesuit.get(ArmorSlotType.CHESTPLATE))
                             .setCast(Items.ELYTRA, true)
                             .setFluidAndTime(TinkerFluids.enderSlime, FluidValues.SLIME_CONGEALED * 8)
-                            .save(consumer, modResource(armorFolder + "slimelytra"));
+                            .save(consumer, location(armorFolder + "slimelytra"));
     SpecializedRepairRecipeBuilder.repair(Ingredient.of(TinkerTools.slimesuit.get(ArmorSlotType.CHESTPLATE)), MaterialIds.phantom)
-                                  .buildRepairKit(consumer, modResource(armorRepairFolder + "slimelytra_repair_kit"))
-                                  .save(consumer, modResource(armorRepairFolder + "slimelytra_station"));
+                                  .buildRepairKit(consumer, location(armorRepairFolder + "slimelytra_repair_kit"))
+                                  .save(consumer, location(armorRepairFolder + "slimelytra_station"));
 
     // slimeshell
     ItemCastingRecipeBuilder.basinRecipe(TinkerTools.slimesuit.get(ArmorSlotType.LEGGINGS))
                             .setCast(Items.SHULKER_SHELL, true)
                             .setFluidAndTime(TinkerFluids.enderSlime, FluidValues.SLIME_CONGEALED * 7)
-                            .save(consumer, modResource(armorFolder + "slimeshell"));
+                            .save(consumer, location(armorFolder + "slimeshell"));
     SpecializedRepairRecipeBuilder.repair(Ingredient.of(TinkerTools.slimesuit.get(ArmorSlotType.LEGGINGS)), MaterialIds.chorus)
-                                  .buildRepairKit(consumer, modResource(armorRepairFolder + "slimeshell_repair_kit"))
-                                  .save(consumer, modResource(armorRepairFolder + "slimeshell_station"));
+                                  .buildRepairKit(consumer, location(armorRepairFolder + "slimeshell_repair_kit"))
+                                  .save(consumer, location(armorRepairFolder + "slimeshell_station"));
 
     // boots
     ItemCastingRecipeBuilder.basinRecipe(TinkerTools.slimesuit.get(ArmorSlotType.BOOTS))
                             .setCast(Items.RABBIT_FOOT, true)
                             .setFluidAndTime(TinkerFluids.enderSlime, FluidValues.SLIME_CONGEALED * 4)
-                            .save(consumer, modResource(armorFolder + "slime_boots"));
+                            .save(consumer, location(armorFolder + "slime_boots"));
     SpecializedRepairRecipeBuilder.repair(Ingredient.of(TinkerTools.slimesuit.get(ArmorSlotType.BOOTS)), MaterialIds.leather)
-                                  .buildRepairKit(consumer, modResource(armorRepairFolder + "slime_boots_repair_kit"))
-                                  .save(consumer, modResource(armorRepairFolder + "slime_boots_station"));
+                                  .buildRepairKit(consumer, location(armorRepairFolder + "slime_boots_repair_kit"))
+                                  .save(consumer, location(armorRepairFolder + "slime_boots_station"));
 
     // general repair with enderslime
     SpecializedRepairRecipeBuilder.repair(Ingredient.of(TinkerTools.slimesuit.values().stream().map(ItemStack::new)), MaterialIds.enderslime)
-                                  .buildRepairKit(consumer, modResource(armorRepairFolder + "slimesuit_repair_kit"))
-                                  .save(consumer, modResource(armorRepairFolder + "slimesuit_station"));
+                                  .buildRepairKit(consumer, location(armorRepairFolder + "slimesuit_repair_kit"))
+                                  .save(consumer, location(armorRepairFolder + "slimesuit_station"));
   }
 
   private void addPartRecipes(Consumer<FinishedRecipe> consumer) {
@@ -307,12 +307,12 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
 
     // bowstrings are not castable, part builder exclusive
     PartRecipeBuilder.partRecipe(TinkerToolParts.bowstring.get())
-                     .setPattern(modResource("bowstring"))
+                     .setPattern(location("bowstring"))
                      .setPatternItem(Ingredient.of(TinkerTags.Items.DEFAULT_PATTERNS))
                      .setCost(1)
-                     .save(consumer, modResource(partFolder + "builder/bowstring"));
+                     .save(consumer, location(partFolder + "builder/bowstring"));
     CompositeCastingRecipeBuilder.table(TinkerToolParts.bowstring.get(), 1)
-                                 .save(consumer, modResource(partFolder + "casting//bowstring_composite"));
+                                 .save(consumer, location(partFolder + "casting//bowstring_composite"));
   }
 
   /** Helper to create a casting recipe for a slimeskull variant */
@@ -321,6 +321,6 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
     ItemCastingRecipeBuilder.basinRecipe(ItemOutput.fromStack(nbt.updateStack(new ItemStack(TinkerTools.slimesuit.get(ArmorSlotType.HELMET)))))
                             .setCast(skull, true)
                             .setFluidAndTime(TinkerFluids.enderSlime, FluidValues.SLIME_CONGEALED * 5)
-                            .save(consumer, modResource(folder + "slime_skull/" + material.getPath()));
+                            .save(consumer, location(folder + "slime_skull/" + material.getPath()));
   }
 }

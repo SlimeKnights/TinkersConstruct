@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "item": "minecraft:leather"
@@ -17,15 +18,14 @@
       "item": "tconstruct:sky_slime_vine"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/ranged/bows"
+  "result": {
+    "level": 1,
+    "name": "tconstruct:bulk_quiver"
   },
   "slots": {
     "abilities": 1
   },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:bulk_quiver",
-    "level": 1
+  "tools": {
+    "tag": "tconstruct:modifiable/ranged/bows"
   }
 }

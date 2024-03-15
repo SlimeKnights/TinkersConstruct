@@ -4,10 +4,10 @@
     "item": "minecraft:redstone"
   },
   "cast_consumed": true,
+  "cooling_time": 114,
   "fluid": {
-    "tag": "forge:molten_gold",
-    "amount": 360
+    "amount": 360,
+    "tag": "forge:molten_gold"
   },
-  "result": "minecraft:clock",
-  "cooling_time": 114
+  "result": "minecraft:clock"
 }

@@ -3,7 +3,6 @@ package slimeknights.tconstruct.plugin.jei.casting;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
 import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
@@ -13,12 +12,6 @@ public class CastingBasinCategory extends AbstractCastingCategory {
   private static final Component TITLE = TConstruct.makeTranslation("jei", "casting.basin");
   public CastingBasinCategory(IGuiHelper guiHelper) {
     super(guiHelper, TinkerSmeltery.searedBasin.get(), guiHelper.createDrawable(BACKGROUND_LOC, 117, 16, 16, 16));
-  }
-
-  @SuppressWarnings("removal")
-  @Override
-  public ResourceLocation getUid() {
-    return TConstructJEIConstants.CASTING_BASIN.getUid();
   }
 
   @Override

@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -15,11 +15,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameType;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.FOVModifierEvent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.ComputeFovModifierEvent;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.event.RenderHandEvent;
-import net.minecraftforge.client.gui.ForgeIngameGui;
-import net.minecraftforge.client.gui.IIngameOverlay;
+import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -54,8 +53,9 @@ public class ModifierClientEvents {
     // suppress durability from advanced, we display our own
     if (event.getItemStack().getItem() instanceof IModifiableDisplay) {
       event.getToolTip().removeIf(text -> {
-        if (text instanceof TranslatableComponent) {
-          return ((TranslatableComponent)text).getKey().equals("item.durability");
+
+        if (text.getContents() instanceof TranslatableContents translatable) {
+          return translatable.getKey().equals("item.durability");
         }
         return false;
       });
@@ -77,7 +77,7 @@ public class ModifierClientEvents {
       if (!player.isInvisible() && player.getMainHandItem().getItem() != Items.FILLED_MAP && ArmorLevelModule.getLevel(player, TinkerDataKeys.SHOW_EMPTY_OFFHAND) > 0) {
         PoseStack matrices = event.getPoseStack();
         matrices.pushPose();
-        Minecraft.getInstance().getItemInHandRenderer().renderPlayerArm(matrices, event.getMultiBufferSource(), event.getPackedLight(), event.getEquipProgress(), event.getSwingProgress(), player.getMainArm().getOpposite());
+        Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer().renderPlayerArm(matrices, event.getMultiBufferSource(), event.getPackedLight(), event.getEquipProgress(), event.getSwingProgress(), player.getMainArm().getOpposite());
         matrices.popPose();
         event.setCanceled(true);
       }
@@ -86,12 +86,12 @@ public class ModifierClientEvents {
 
   /** Handles the zoom modifier zooming */
   @SubscribeEvent
-  static void handleZoom(FOVModifierEvent event) {
-    event.getEntity().getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
-      float newFov = event.getNewfov();
+  static void handleZoom(ComputeFovModifierEvent event) {
+    event.getPlayer().getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
+      float newFov = event.getNewFovModifier();
 
       // scaled effects only apply if we have FOV scaling, nothing to do if 0
-      float effectScale = Minecraft.getInstance().options.fovEffectScale;
+      float effectScale = Minecraft.getInstance().options.fovEffectScale().get().floatValue();
       if (effectScale > 0) {
         FloatMultiplier scaledZoom = data.get(TinkerDataKeys.SCALED_FOV_MODIFIER);
         if (scaledZoom != null) {
@@ -101,7 +101,7 @@ public class ModifierClientEvents {
           } else {
             // unlerp the fov before multiplitying to make sure we apply the proper amount
             // we could use the original FOV, but someone else may have modified it
-            float original = event.getFov();
+            float original = event.getFovModifier();
             newFov *= Mth.lerp(effectScale, 1.0F, scaledZoom.getValue() * original) / original;
           }
         }
@@ -112,7 +112,7 @@ public class ModifierClientEvents {
       if (constZoom != null) {
         newFov *= constZoom.getValue();
       }
-      event.setNewfov(newFov);
+      event.setNewFovModifier(newFov);
     });
   }
 
@@ -133,7 +133,7 @@ public class ModifierClientEvents {
   static void equipmentChange(ToolEquipmentChangeEvent event) {
     EquipmentChangeContext context = event.getContext();
     if (Config.CLIENT.renderShieldSlotItem.get()) {
-      if (event.getEntityLiving() == Minecraft.getInstance().player && context.getChangedSlot() == EquipmentSlot.LEGS) {
+      if (event.getEntity() == Minecraft.getInstance().player && context.getChangedSlot() == EquipmentSlot.LEGS) {
         IToolStackView tool = context.getToolInSlot(EquipmentSlot.LEGS);
         if (tool != null) {
           ShieldStrapModifier modifier = TinkerModifiers.shieldStrap.get();
@@ -148,7 +148,7 @@ public class ModifierClientEvents {
     }
 
     if (Config.CLIENT.renderItemFrame.get()) {
-      if (event.getEntityLiving() == Minecraft.getInstance().player && context.getChangedSlot() == EquipmentSlot.HEAD) {
+      if (event.getEntity() == Minecraft.getInstance().player && context.getChangedSlot() == EquipmentSlot.HEAD) {
         itemFrames.clear();
         IToolStackView tool = context.getToolInSlot(EquipmentSlot.HEAD);
         if (tool != null) {
@@ -164,13 +164,12 @@ public class ModifierClientEvents {
 
   /** Render the item in the first shield slot */
   @SubscribeEvent
-  static void renderHotbar(RenderGameOverlayEvent.PostLayer event) {
+  static void renderHotbar(RenderGuiOverlayEvent.Post event) {
     Minecraft mc = Minecraft.getInstance();
     if (mc.options.hideGui) {
       return;
     }
-    IIngameOverlay overlay = event.getOverlay();
-    if (overlay != ForgeIngameGui.HOTBAR_ELEMENT) {
+    if (event.getOverlay() != VanillaGuiOverlay.HOTBAR.type()) {
       return;
     }
     boolean renderShield = Config.CLIENT.renderShieldSlotItem.get() && !nextOffhand.isEmpty();
@@ -187,8 +186,8 @@ public class ModifierClientEvents {
 
         int scaledWidth = mc.getWindow().getGuiScaledWidth();
         int scaledHeight = mc.getWindow().getGuiScaledHeight();
-        PoseStack matrixStack = event.getMatrixStack();
-        float partialTicks = event.getPartialTicks();
+        PoseStack matrixStack = event.getPoseStack();
+        float partialTicks = event.getPartialTick();
 
         // want just above the normal hotbar item
         if (renderShield) {

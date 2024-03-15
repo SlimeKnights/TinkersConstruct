@@ -48,7 +48,7 @@ public class StationTabPacket implements IThreadsafePacket {
       } else {
         MenuProvider provider = state.getMenuProvider(sender.getCommandSenderWorld(), pos);
         if (provider != null) {
-          NetworkHooks.openGui(sender, provider, pos);
+          NetworkHooks.openScreen(sender, provider, pos);
         }
       }
 

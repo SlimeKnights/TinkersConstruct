@@ -1,8 +1,9 @@
 package slimeknights.tconstruct.library.data.tinkering;
 
 import com.google.common.collect.ImmutableList;
+import net.minecraft.core.Registry;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.HashCache;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.world.level.ItemLike;
@@ -27,7 +28,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -57,7 +57,7 @@ public abstract class AbstractToolDefinitionDataProvider extends GenericDataProv
 
   /** Defines the given ID as a tool definition */
   protected ToolDefinitionDataBuilder define(ItemLike item) {
-    return define(Objects.requireNonNull(item.asItem().getRegistryName()));
+    return define(Registry.ITEM.getKey(item.asItem()));
   }
 
   /** Defines the given ID as a tool definition */
@@ -71,7 +71,7 @@ public abstract class AbstractToolDefinitionDataProvider extends GenericDataProv
   }
 
   @Override
-  public void run(HashCache cache) throws IOException {
+  public void run(CachedOutput cache) throws IOException {
     addToolDefinitions();
     Map<ResourceLocation,ToolDefinition> relevantDefinitions = ToolDefinitionLoader.getInstance().getRegisteredToolDefinitions().stream()
                                                                                    .filter(def -> def.getId().getNamespace().equals(modId))
@@ -92,7 +92,7 @@ public abstract class AbstractToolDefinitionDataProvider extends GenericDataProv
       }
       ToolDefinitionData data = entry.getValue().build();
       definition.validate(data);
-      saveThing(cache, id, data);
+      saveJson(cache, id, data);
     }
   }
 

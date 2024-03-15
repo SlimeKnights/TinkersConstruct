@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:rods/hepatizon",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:rods/hepatizon"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:rods/hepatizon"
   },
   "result": {
-    "fluid": "tconstruct:molten_hepatizon",
-    "amount": 45
+    "amount": 45,
+    "fluid": "tconstruct:molten_hepatizon"
   },
   "temperature": 1400,
   "time": 16

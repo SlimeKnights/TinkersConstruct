@@ -1,14 +1,14 @@
 {
-  "fluid": {
-    "tag": "forge:beetroot_soup",
-    "amount": 50
-  },
   "effects": [
     {
       "type": "tconstruct:restore_hunger",
       "hunger": 1,
-      "saturation": 0.15,
-      "representative_item": "minecraft:beetroot_soup"
+      "representative_item": "minecraft:beetroot_soup",
+      "saturation": 0.15
     }
-  ]
+  ],
+  "fluid": {
+    "amount": 50,
+    "tag": "forge:beetroot_soup"
+  }
 }

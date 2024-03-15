@@ -1,11 +1,11 @@
 {
   "type": "mantle:fill_item",
-  "input": {
-    "item": "minecraft:glass_bottle"
-  },
   "filled": "minecraft:honey_bottle",
   "fluid": {
-    "tag": "forge:honey",
-    "amount": 250
+    "amount": 250,
+    "tag": "forge:honey"
+  },
+  "input": {
+    "item": "minecraft:glass_bottle"
   }
 }

@@ -6,11 +6,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.HugeFungusConfiguration;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProviderType;
 import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride;
 import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride.BoundingBoxType;
@@ -29,11 +26,6 @@ import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.block.SlimeVineBlock;
 import slimeknights.tconstruct.world.block.SlimeVineBlock.VineStage;
-import slimeknights.tconstruct.world.worldgen.islands.BloodSlimeIslandStructure;
-import slimeknights.tconstruct.world.worldgen.islands.ClayIslandStructure;
-import slimeknights.tconstruct.world.worldgen.islands.EarthSlimeIslandStructure;
-import slimeknights.tconstruct.world.worldgen.islands.EnderSlimeIslandStructure;
-import slimeknights.tconstruct.world.worldgen.islands.SkySlimeIslandStructure;
 import slimeknights.tconstruct.world.worldgen.islands.SlimeIslandPiece;
 import slimeknights.tconstruct.world.worldgen.trees.SupplierBlockStateProvider;
 import slimeknights.tconstruct.world.worldgen.trees.config.SlimeFungusConfig;
@@ -50,17 +42,17 @@ import java.util.Map;
 public final class TinkerStructures extends TinkerModule {
   static final Logger log = Util.getLogger("tinker_structures");
   private static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, TConstruct.MOD_ID);
-  private static final DeferredRegister<StructureFeature<?>> STRUCTURE_FEATURES = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, TConstruct.MOD_ID);
-  private static final DeferredRegister<ConfiguredStructureFeature<?,?>> CONFIGURED_STRUCTURE_FEATURES = DeferredRegister.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY, TConstruct.MOD_ID);
+//  private static final DeferredRegister<StructureFeature<?>> STRUCTURE_FEATURES = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, TConstruct.MOD_ID);
+//  private static final DeferredRegister<ConfiguredStructureFeature<?,?>> CONFIGURED_STRUCTURE_FEATURES = DeferredRegister.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY, TConstruct.MOD_ID);
   private static final DeferredRegister<StructurePieceType> STRUCTURE_PIECE = DeferredRegister.create(Registry.STRUCTURE_PIECE_REGISTRY, TConstruct.MOD_ID);
   private static final DeferredRegister<BlockStateProviderType<?>> BLOCK_STATE_PROVIDER_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_STATE_PROVIDER_TYPES, TConstruct.MOD_ID);
 
   public TinkerStructures() {
     IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
     FEATURES.register(bus);
-    STRUCTURE_FEATURES.register(bus);
+//    STRUCTURE_FEATURES.register(bus);
     STRUCTURE_PIECE.register(bus);
-    CONFIGURED_STRUCTURE_FEATURES.register(bus);
+//    CONFIGURED_STRUCTURE_FEATURES.register(bus);
     BLOCK_STATE_PROVIDER_TYPES.register(bus);
   }
 
@@ -163,7 +155,8 @@ public final class TinkerStructures extends TinkerModule {
    * Structures
    */
   public static final RegistryObject<StructurePieceType> slimeIslandPiece = STRUCTURE_PIECE.register("slime_island_piece", () -> (StructureTemplateType)SlimeIslandPiece::new);
-  // earthslime)
+  /*
+  // earthslime
   public static final RegistryObject<StructureFeature<NoneFeatureConfiguration>> earthSlimeIsland = STRUCTURE_FEATURES.register("earth_slime_island", EarthSlimeIslandStructure::new);
   public static final RegistryObject<ConfiguredStructureFeature<?,?>> configuredEarthSlimeIsland = CONFIGURED_STRUCTURE_FEATURES.register("earth_slime_island", () -> earthSlimeIsland.get().configured(NoneFeatureConfiguration.INSTANCE, TinkerTags.Biomes.EARTHSLIME_ISLANDS, false, monsterOverride(TinkerWorld.earthSlimeEntity.get(), 4, 4)));
   // skyslime
@@ -178,6 +171,7 @@ public final class TinkerStructures extends TinkerModule {
   // end
   public static final RegistryObject<StructureFeature<NoneFeatureConfiguration>> endSlimeIsland = STRUCTURE_FEATURES.register("end_slime_island", EnderSlimeIslandStructure::new);
   public static final RegistryObject<ConfiguredStructureFeature<?,?>> configuredEndSlimeIsland = CONFIGURED_STRUCTURE_FEATURES.register("end_slime_island", () -> endSlimeIsland.get().configured(NoneFeatureConfiguration.INSTANCE, TinkerTags.Biomes.ENDERSLIME_ISLANDS, false, monsterOverride(TinkerWorld.enderSlimeEntity.get(), 4, 4)));
+  */
 
   /** Creates a spawn override for a single mob */
   private static Map<MobCategory,StructureSpawnOverride> monsterOverride(EntityType<?> entity, int min, int max) {

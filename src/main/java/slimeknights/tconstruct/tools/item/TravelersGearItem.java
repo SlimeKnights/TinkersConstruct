@@ -6,7 +6,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.IItemRenderProperties;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
@@ -38,11 +38,11 @@ public class TravelersGearItem extends ModifiableArmorItem {
   }
 
   @Override
-  public void initializeClient(Consumer<IItemRenderProperties> consumer) {
-    consumer.accept(new IItemRenderProperties() {
+  public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+    consumer.accept(new IClientItemExtensions() {
       @Nonnull
       @Override
-      public Model getBaseArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> _default) {
+      public Model getGenericArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> _default) {
         return TravelersGearModel.getModel(itemStack, armorSlot, _default);
       }
     });

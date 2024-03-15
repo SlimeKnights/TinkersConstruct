@@ -4,16 +4,16 @@
     "type": "tconstruct:unique",
     "unique_until": 5
   },
-  "tooltip_display": "always",
   "modules": [
     {
       "type": "tconstruct:incremental"
     },
     {
       "type": "tconstruct:stat_boost",
-      "stat": "tconstruct:attack_speed",
+      "each_level": 0.05,
       "operation": "multiply_base",
-      "each_level": 0.05
+      "stat": "tconstruct:attack_speed"
     }
-  ]
+  ],
+  "tooltip_display": "always"
 }

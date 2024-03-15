@@ -1,12 +1,13 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "item": "minecraft:glass_bottle"
     },
     {
-      "tag": "tconstruct:tanks",
-      "type": "tconstruct:no_container"
+      "type": "tconstruct:no_container",
+      "tag": "tconstruct:tanks"
     },
     {
       "item": "minecraft:glass_bottle"
@@ -18,6 +19,13 @@
       "tag": "forge:ingots/copper"
     }
   ],
+  "result": {
+    "level": 1,
+    "name": "tconstruct:slurping"
+  },
+  "slots": {
+    "abilities": 1
+  },
   "tools": [
     {
       "tag": "tconstruct:modifiable/armor/helmets"
@@ -25,13 +33,5 @@
     {
       "tag": "tconstruct:modifiable/staffs"
     }
-  ],
-  "slots": {
-    "abilities": 1
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:slurping",
-    "level": 1
-  }
+  ]
 }

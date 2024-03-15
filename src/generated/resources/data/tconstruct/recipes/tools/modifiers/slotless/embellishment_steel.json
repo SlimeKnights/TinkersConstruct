@@ -1,12 +1,13 @@
 {
   "type": "tconstruct:swappable_modifier",
+  "allow_crystal": false,
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:ingots/steel",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/steel"
+      }
     }
   ],
   "inputs": [
@@ -20,12 +21,11 @@
       "tag": "forge:ingots/steel"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/embellishment/metal"
-  },
-  "allow_crystal": false,
   "result": {
     "name": "tconstruct:embellishment",
     "value": "tconstruct:steel"
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/embellishment/metal"
   }
 }

@@ -1,21 +1,21 @@
 {
   "type": "tconstruct:incremental_modifier",
+  "allow_crystal": false,
+  "amount_per_item": 4,
   "input": {
     "item": "minecraft:glowstone"
   },
-  "amount_per_item": 4,
-  "needed_per_level": 64,
   "leftover": "minecraft:glowstone_dust",
-  "tools": {
-    "tag": "tconstruct:modifiable/armor/boots"
+  "max_level": 3,
+  "needed_per_level": 64,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:lightspeed_armor"
   },
   "slots": {
     "upgrades": 1
   },
-  "allow_crystal": false,
-  "result": {
-    "name": "tconstruct:lightspeed_armor",
-    "level": 1
-  },
-  "max_level": 3
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/boots"
+  }
 }

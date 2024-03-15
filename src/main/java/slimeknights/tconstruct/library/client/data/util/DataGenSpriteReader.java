@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.library.client.data.util;
 
+import com.mojang.blaze3d.platform.NativeImage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import com.mojang.blaze3d.platform.NativeImage;
-import net.minecraft.server.packs.resources.Resource;
-import net.minecraft.server.packs.PackType;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.resources.Resource;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 import java.io.IOException;
@@ -28,7 +28,7 @@ public class DataGenSpriteReader extends AbstractSpriteReader {
   public NativeImage read(ResourceLocation path) throws IOException {
     try {
       Resource resource = existingFileHelper.getResource(path, PackType.CLIENT_RESOURCES, ".png", folder);
-      NativeImage image = NativeImage.read(resource.getInputStream());
+      NativeImage image = NativeImage.read(resource.open());
       openedImages.add(image);
       return image;
     } catch (IOException e) {

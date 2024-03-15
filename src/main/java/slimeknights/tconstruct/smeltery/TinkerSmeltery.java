@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.smeltery;
 
+import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
@@ -16,10 +17,10 @@ import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.level.material.PushReaction;
-import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
+import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.registries.RegistryObject;
 import org.apache.logging.log4j.Logger;
 import slimeknights.mantle.fluid.transfer.FluidContainerTransferManager;
@@ -378,16 +379,17 @@ public final class TinkerSmeltery extends TinkerModule {
   }
 
   @SubscribeEvent
-  void registerSerializers(RegistryEvent.Register<RecipeSerializer<?>> event) {
-    FluidContainerTransferManager.TRANSFER_LOADERS.registerDeserializer(EmptyPotionTransfer.ID, EmptyPotionTransfer.DESERIALIZER);
+  void registerSerializers(RegisterEvent event) {
+    if (event.getRegistryKey() == Registry.RECIPE_SERIALIZER_REGISTRY) {
+      FluidContainerTransferManager.TRANSFER_LOADERS.registerDeserializer(EmptyPotionTransfer.ID, EmptyPotionTransfer.DESERIALIZER);
+    }
   }
 
   @SubscribeEvent
   void gatherData(final GatherDataEvent event) {
-    if (event.includeServer()) {
-      DataGenerator datagenerator = event.getGenerator();
-      datagenerator.addProvider(new SmelteryRecipeProvider(datagenerator));
-      datagenerator.addProvider(new FluidContainerTransferProvider(datagenerator));
-    }
+    boolean server = event.includeServer();
+    DataGenerator datagenerator = event.getGenerator();
+    datagenerator.addProvider(server, new SmelteryRecipeProvider(datagenerator));
+    datagenerator.addProvider(server, new FluidContainerTransferProvider(datagenerator));
   }
 }

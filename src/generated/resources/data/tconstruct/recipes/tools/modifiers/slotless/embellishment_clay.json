@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:swappable_modifier",
+  "allow_crystal": false,
   "inputs": [
     {
       "item": "minecraft:clay"
@@ -11,12 +12,11 @@
       "item": "minecraft:clay"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/embellishment/slime"
-  },
-  "allow_crystal": false,
   "result": {
     "name": "tconstruct:embellishment",
     "value": "tconstruct:clay"
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/embellishment/slime"
   }
 }

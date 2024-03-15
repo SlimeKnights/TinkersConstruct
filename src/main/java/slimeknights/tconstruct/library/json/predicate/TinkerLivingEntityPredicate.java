@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.library.json.predicate;
 
 import net.minecraft.world.entity.LivingEntity;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.mantle.data.GenericLoaderRegistry.SingletonLoader;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.SingletonLoader;
 
 import java.util.function.Predicate;
 

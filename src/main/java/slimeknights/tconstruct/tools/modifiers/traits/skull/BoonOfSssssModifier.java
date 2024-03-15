@@ -5,7 +5,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.living.PotionEvent;
+import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
@@ -18,7 +18,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 public class BoonOfSssssModifier extends NoLevelsModifier implements EquipmentChangeModifierHook {
   public BoonOfSssssModifier() {
-    MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, PotionEvent.PotionAddedEvent.class, this::onPotionStart);
+    MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, MobEffectEvent.Added.class, this::onPotionStart);
   }
 
   @Override
@@ -39,10 +39,10 @@ public class BoonOfSssssModifier extends NoLevelsModifier implements EquipmentCh
   }
 
   /** Called when the potion effects start to apply this effect */
-  private void onPotionStart(PotionEvent.PotionAddedEvent event) {
-    MobEffectInstance newEffect = event.getPotionEffect();
+  private void onPotionStart(MobEffectEvent.Added event) {
+    MobEffectInstance newEffect = event.getEffectInstance();
     if (newEffect.getEffect().isBeneficial() && !newEffect.getCurativeItems().isEmpty()) {
-      LivingEntity living = event.getEntityLiving();
+      LivingEntity living = event.getEntity();
       // strong bones has to be the helmet as we use it for curing
       // TODO 1.20: can use the new cure effects to make this work in any slot
       ItemStack helmet = living.getItemBySlot(EquipmentSlot.HEAD);

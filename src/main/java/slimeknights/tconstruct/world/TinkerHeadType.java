@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.world;
 
 import lombok.RequiredArgsConstructor;
-import net.minecraft.world.level.block.SkullBlock.Type;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.block.SkullBlock.Type;
 
 import javax.annotation.Nullable;
 import java.util.Locale;
@@ -12,19 +12,19 @@ import java.util.function.Supplier;
 /** Enum representing all heads provided by Tinkers */
 @RequiredArgsConstructor
 public enum TinkerHeadType implements Type, StringRepresentable {
-  BLAZE(EntityType.BLAZE.delegate),
-  ENDERMAN(EntityType.ENDERMAN.delegate),
-  STRAY(EntityType.STRAY.delegate),
+  BLAZE(() -> EntityType.BLAZE),
+  ENDERMAN(() -> EntityType.ENDERMAN),
+  STRAY(() -> EntityType.STRAY),
   // zombies
-  HUSK(EntityType.HUSK.delegate),
-  DROWNED(EntityType.DROWNED.delegate),
+  HUSK(() -> EntityType.HUSK),
+  DROWNED(() -> EntityType.DROWNED),
   // spider
-  SPIDER(EntityType.SPIDER.delegate),
-  CAVE_SPIDER(EntityType.CAVE_SPIDER.delegate),
+  SPIDER(() -> EntityType.SPIDER),
+  CAVE_SPIDER(() -> EntityType.CAVE_SPIDER),
   // piglin
-  PIGLIN(EntityType.PIGLIN.delegate),
-  PIGLIN_BRUTE(EntityType.PIGLIN_BRUTE.delegate),
-  ZOMBIFIED_PIGLIN(EntityType.ZOMBIFIED_PIGLIN.delegate);
+  PIGLIN(() -> EntityType.PIGLIN),
+  PIGLIN_BRUTE(() -> EntityType.PIGLIN_BRUTE),
+  ZOMBIFIED_PIGLIN(() -> EntityType.ZOMBIFIED_PIGLIN);
 
   private final Supplier<EntityType<?>> type;
 

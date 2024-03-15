@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:gears/tungsten",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:gears/tungsten"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:gears/tungsten"
   },
   "result": {
-    "fluid": "tconstruct:molten_tungsten",
-    "amount": 360
+    "amount": 360,
+    "fluid": "tconstruct:molten_tungsten"
   },
   "temperature": 950,
   "time": 130

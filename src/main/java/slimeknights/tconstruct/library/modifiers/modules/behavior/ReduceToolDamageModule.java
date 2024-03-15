@@ -1,12 +1,11 @@
 package slimeknights.tconstruct.library.modifiers.modules.behavior;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
 import slimeknights.mantle.client.TooltipKey;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.json.math.ModifierFormula;
 import slimeknights.tconstruct.library.json.math.ModifierFormula.FallbackFormula;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -88,7 +87,7 @@ public record ReduceToolDamageModule(ModifierFormula formula, ModifierModuleCond
   @Override
   public void addTooltip(IToolStackView tool, ModifierEntry modifier, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     if (this.condition.matches(tool, modifier)) {
-      tooltip.add(modifier.getModifier().applyStyle(new TextComponent(Util.PERCENT_FORMAT.format(getPercent(tool, modifier)) + " ").append(modifier.getModifier().getDisplayName())));
+      tooltip.add(modifier.getModifier().applyStyle(Component.literal(Util.PERCENT_FORMAT.format(getPercent(tool, modifier)) + " ").append(modifier.getModifier().getDisplayName())));
     }
   }
 

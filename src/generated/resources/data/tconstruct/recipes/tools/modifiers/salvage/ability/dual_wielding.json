@@ -1,5 +1,10 @@
 {
   "type": "tconstruct:modifier_salvage",
+  "min_level": 1,
+  "modifier": "tconstruct:dual_wielding",
+  "slots": {
+    "abilities": 1
+  },
   "tools": {
     "type": "forge:difference",
     "base": {
@@ -16,10 +21,5 @@
     "subtracted": {
       "item": "tconstruct:dagger"
     }
-  },
-  "slots": {
-    "abilities": 1
-  },
-  "modifier": "tconstruct:dual_wielding",
-  "min_level": 1
+  }
 }

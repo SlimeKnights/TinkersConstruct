@@ -3,7 +3,6 @@ package slimeknights.tconstruct.tools.modifiers.traits.harvest;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
@@ -76,7 +75,7 @@ public class TemperateModifier extends Modifier implements ConditionalStatModifi
   public void onBreakSpeed(IToolStackView tool, ModifierEntry modifier, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
     // break faster in the cold
     if (isEffective) {
-      float bonus = getBonus(event.getPlayer(), event.getPos(), modifier.getLevel());
+      float bonus = getBonus(event.getEntity(), event.getPos(), modifier.getLevel());
       if (bonus < 0) {
         // temperature ranges from 0 to 1.25. Division makes it 0 to 0.125 per level
         event.setNewSpeed(event.getNewSpeed() - (bonus * MAX_MINING_BOOST * tool.getMultiplier(ToolStats.MINING_SPEED) * miningSpeedModifier));
@@ -117,7 +116,7 @@ public class TemperateModifier extends Modifier implements ConditionalStatModifi
         TooltipModifierHook.addFlatBoost(entry.getModifier(), SPEED, value, tooltip);
       }
       if (bonus > 0.01f) {
-        tooltip.add(applyStyle(new TextComponent(Util.PERCENT_FORMAT.format(diminishingPercent(bonus * 2)) + " ").append(REINFORCED)));
+        tooltip.add(applyStyle(Component.literal(Util.PERCENT_FORMAT.format(diminishingPercent(bonus * 2)) + " ").append(REINFORCED)));
       }
     }
   }

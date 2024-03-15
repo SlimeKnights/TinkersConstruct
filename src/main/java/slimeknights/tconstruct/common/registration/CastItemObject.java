@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 
+import static slimeknights.mantle.util.RegistryHelper.getHolder;
+
 /**
  * Deferred wrapper holding gold, sand, and red sand casts
  */
@@ -26,10 +28,10 @@ public class CastItemObject extends ItemObject<Item> {
   private final TagKey<Item> multiUseTag;
 
   public CastItemObject(ResourceLocation name, Item gold, Item sand, Item redSand) {
-    super(gold);
+    super(Registry.ITEM, gold);
     this.name = name;
-    this.sand = sand.delegate;
-    this.redSand = redSand.delegate;
+    this.sand = getHolder(Registry.ITEM, sand);
+    this.redSand = getHolder(Registry.ITEM, redSand);
     this.singleUseTag = makeTag("single_use");
     this.multiUseTag = makeTag("multi_use");
   }

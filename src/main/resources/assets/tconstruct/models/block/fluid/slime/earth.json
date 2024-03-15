@@ -1,8 +1,0 @@
-{
-  "loader": "mantle:fluid_texture",
-  "textures": {
-    "still": "tconstruct:block/fluid/earth_slime/still",
-    "flowing": "tconstruct:block/fluid/earth_slime/flowing"
-  }
-}
-

@@ -1,10 +1,9 @@
 package slimeknights.tconstruct.library.tools.definition.module.interaction;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.mantle.data.GenericLoaderRegistry.SingletonLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.SingletonLoader;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
@@ -39,7 +38,7 @@ public class DualOptionInteraction implements InteractionToolModule, IToolModule
   /** Adds the format string to the modifier name */
   public static Component formatModifierName(IToolStackView tool, Modifier modifier, Component originalName) {
     if (ModifierSetWorktableRecipe.isInSet(tool.getPersistentData(), KEY, modifier.getId())) {
-      return modifier.applyStyle(new TranslatableComponent(MODIFIER_FORMAT, originalName));
+      return modifier.applyStyle(Component.translatable(MODIFIER_FORMAT, originalName));
     }
     return originalName;
   }

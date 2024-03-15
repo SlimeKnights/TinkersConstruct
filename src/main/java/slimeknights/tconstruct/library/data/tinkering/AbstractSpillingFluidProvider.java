@@ -4,8 +4,9 @@ import com.google.common.collect.ImmutableList;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.minecraft.core.Registry;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.HashCache;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.tags.TagKey;
@@ -31,7 +32,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 /** Data provider for spilling fluids */
 public abstract class AbstractSpillingFluidProvider extends GenericDataProvider {
@@ -47,9 +47,9 @@ public abstract class AbstractSpillingFluidProvider extends GenericDataProvider 
   protected abstract void addFluids();
 
   @Override
-  public void run(HashCache cache) throws IOException {
+  public void run(CachedOutput cache) throws IOException {
     addFluids();
-    entries.forEach((id, data) -> saveThing(cache, id, data.build()));
+    entries.forEach((id, data) -> saveJson(cache, id, data.build()));
   }
 
   /* Helpers */
@@ -71,12 +71,12 @@ public abstract class AbstractSpillingFluidProvider extends GenericDataProvider 
 
   /** Creates a builder for a fluid stack */
   protected Builder addFluid(FluidStack fluid) {
-    return addFluid(Objects.requireNonNull(fluid.getFluid().getRegistryName()).getPath(), FluidIngredient.of(fluid));
+    return addFluid(Registry.FLUID.getKey(fluid.getFluid()).getPath(), FluidIngredient.of(fluid));
   }
 
   /** Creates a builder for a fluid and amount */
   protected Builder addFluid(Fluid fluid, int amount) {
-    return addFluid(Objects.requireNonNull(fluid.getRegistryName()).getPath(), FluidIngredient.of(fluid, amount));
+    return addFluid(Registry.FLUID.getKey(fluid).getPath(), FluidIngredient.of(fluid, amount));
   }
 
   /** Creates a builder for a tag and amount */
@@ -90,8 +90,8 @@ public abstract class AbstractSpillingFluidProvider extends GenericDataProvider 
   }
 
   /** Creates a builder for a fluid object */
-  protected Builder addFluid(FluidObject<?> fluid, boolean forgeTag, int amount) {
-    return addFluid(forgeTag ? fluid.getForgeTag() : fluid.getLocalTag(), amount);
+  protected Builder addFluid(FluidObject<?> fluid, boolean commonTag, int amount) {
+    return addFluid(fluid.getId().getPath(), fluid.ingredient(amount, commonTag));
   }
 
   /** Adds a builder for burning with a nugget amount */

@@ -1,5 +1,11 @@
 {
   "type": "tconstruct:modifier_salvage",
+  "max_level": 1,
+  "min_level": 1,
+  "modifier": "tconstruct:luck",
+  "slots": {
+    "abilities": 1
+  },
   "tools": [
     {
       "tag": "tconstruct:modifiable/melee"
@@ -10,11 +16,5 @@
     {
       "tag": "tconstruct:modifiable/ranged/bows"
     }
-  ],
-  "slots": {
-    "abilities": 1
-  },
-  "modifier": "tconstruct:luck",
-  "min_level": 1,
-  "max_level": 1
+  ]
 }

@@ -14,7 +14,6 @@ import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.commands.arguments.NbtTagArgument;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.mantle.command.MantleCommand;
@@ -157,9 +156,9 @@ public class StatsCommand {
     int size = successes.size();
     String successKey = SUCCESS_KEY_PREFIX + type.key + "." + op.key + ".";
     if (size == 1) {
-      source.sendSuccess(new TranslatableComponent(successKey + "single", stat.getPrefix(), display, successes.get(0).getDisplayName()), true);
+      source.sendSuccess(Component.translatable(successKey + "single", stat.getPrefix(), display, successes.get(0).getDisplayName()), true);
     } else {
-      source.sendSuccess(new TranslatableComponent(successKey + "multiple", stat.getPrefix(), display, size), true);
+      source.sendSuccess(Component.translatable(successKey + "multiple", stat.getPrefix(), display, size), true);
     }
     return size;
   }
@@ -178,9 +177,9 @@ public class StatsCommand {
     CommandSourceStack source = context.getSource();
     int size = successes.size();
     if (size == 1) {
-      source.sendSuccess(new TranslatableComponent(RESET_STAT_SINGLE, stat.getPrefix(), successes.get(0).getDisplayName()), true);
+      source.sendSuccess(Component.translatable(RESET_STAT_SINGLE, stat.getPrefix(), successes.get(0).getDisplayName()), true);
     } else {
-      source.sendSuccess(new TranslatableComponent(RESET_STAT_MULTIPLE, stat.getPrefix(), size), true);
+      source.sendSuccess(Component.translatable(RESET_STAT_MULTIPLE, stat.getPrefix(), size), true);
     }
     return size;
   }
@@ -216,9 +215,9 @@ public class StatsCommand {
     CommandSourceStack source = context.getSource();
     int size = successes.size();
     if (size == 1) {
-      source.sendSuccess(new TranslatableComponent(RESET_ALL_SINGLE, successes.get(0).getDisplayName()), true);
+      source.sendSuccess(Component.translatable(RESET_ALL_SINGLE, successes.get(0).getDisplayName()), true);
     } else {
-      source.sendSuccess(new TranslatableComponent(RESET_ALL_MULTIPLE, size), true);
+      source.sendSuccess(Component.translatable(RESET_ALL_MULTIPLE, size), true);
     }
     return size;
   }

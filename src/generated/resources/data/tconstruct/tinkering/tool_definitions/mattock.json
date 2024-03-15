@@ -1,41 +1,13 @@
 {
-  "parts": [
-    {
-      "item": "tconstruct:small_axe_head"
-    },
-    {
-      "item": "tconstruct:tool_handle"
-    },
-    {
-      "item": "tconstruct:round_plate"
-    }
-  ],
-  "stats": {
-    "base": {
-      "tconstruct:attack_damage": 1.5,
-      "tconstruct:attack_speed": 0.9
-    },
-    "multipliers": {
-      "tconstruct:durability": 1.25,
-      "tconstruct:mining_speed": 1.1,
-      "tconstruct:attack_damage": 1.1
-    }
-  },
-  "slots": {
-    "upgrades": 3,
-    "abilities": 1
-  },
-  "traits": [
-    {
-      "name": "tconstruct:tilling",
-      "level": 1
-    }
-  ],
   "actions": [
     "axe_dig",
     "shovel_dig"
   ],
   "harvest": {
+    "aoe": {
+      "type": "tconstruct:vein",
+      "max_distance": 0
+    },
     "logic": {
       "type": "tconstruct:modified_tag",
       "effective": "tconstruct:mineable/mattock",
@@ -58,10 +30,38 @@
           }
         }
       ]
-    },
-    "aoe": {
-      "type": "tconstruct:vein",
-      "max_distance": 0
     }
-  }
+  },
+  "parts": [
+    {
+      "item": "tconstruct:small_axe_head"
+    },
+    {
+      "item": "tconstruct:tool_handle"
+    },
+    {
+      "item": "tconstruct:round_plate"
+    }
+  ],
+  "slots": {
+    "abilities": 1,
+    "upgrades": 3
+  },
+  "stats": {
+    "base": {
+      "tconstruct:attack_damage": 1.5,
+      "tconstruct:attack_speed": 0.9
+    },
+    "multipliers": {
+      "tconstruct:attack_damage": 1.1,
+      "tconstruct:durability": 1.25,
+      "tconstruct:mining_speed": 1.1
+    }
+  },
+  "traits": [
+    {
+      "level": 1,
+      "name": "tconstruct:tilling"
+    }
+  ]
 }

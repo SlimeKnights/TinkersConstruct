@@ -1,7 +1,8 @@
 package slimeknights.tconstruct.library.data.tinkering;
 
+import net.minecraft.core.Registry;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.HashCache;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.world.level.ItemLike;
@@ -13,7 +14,6 @@ import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.function.Supplier;
 
 /** Base data generator to generate station slot layouts */
@@ -46,12 +46,12 @@ public abstract class AbstractStationSlotLayoutProvider extends GenericDataProvi
 
   /** Defines the given ID as a item layout */
   protected StationSlotLayout.Builder define(ItemLike item) {
-    return define(Objects.requireNonNull(item.asItem().getRegistryName()));
+    return define(Registry.ITEM.getKey(item.asItem()));
   }
 
   /** Defines the given ID as a tool layout, sets icon and name */
   protected StationSlotLayout.Builder defineModifiable(IModifiableDisplay item) {
-    return define(Objects.requireNonNull(item.asItem().getRegistryName()))
+    return define(Registry.ITEM.getKey(item.asItem()))
       .translationKey(item.asItem().getDescriptionId())
       .icon(item.getRenderTool());
   }
@@ -62,8 +62,8 @@ public abstract class AbstractStationSlotLayoutProvider extends GenericDataProvi
   }
 
   @Override
-  public void run(HashCache cache) throws IOException {
+  public void run(CachedOutput cache) throws IOException {
     addLayouts();
-    allLayouts.forEach((id, builder) -> saveThing(cache, id, builder.build()));
+    allLayouts.forEach((id, builder) -> saveJson(cache, id, builder.build()));
   }
 }

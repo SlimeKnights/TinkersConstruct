@@ -1,11 +1,11 @@
 {
   "type": "mantle:empty_item",
-  "input": {
-    "item": "minecraft:rabbit_stew"
-  },
   "filled": "minecraft:bowl",
   "fluid": {
-    "fluid": "tconstruct:rabbit_stew",
-    "amount": 250
+    "amount": 250,
+    "fluid": "tconstruct:rabbit_stew"
+  },
+  "input": {
+    "item": "minecraft:rabbit_stew"
   }
 }

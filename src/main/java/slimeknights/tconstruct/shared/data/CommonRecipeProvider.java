@@ -5,6 +5,7 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -60,7 +61,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
                        .pattern("WWW").pattern("WWW")
                        .define('W', TinkerMaterials.nahuatl)
                        .unlockedBy("has_planks", has(TinkerMaterials.nahuatl))
-                       .save(consumer, modResource(folder + "nahuatl_fence"));
+                       .save(consumer, location(folder + "nahuatl_fence"));
 
     // mud bricks
     slabStairsCrafting(consumer, TinkerCommons.mudBricks, "common/", false);
@@ -71,7 +72,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
                        .pattern("###")
                        .pattern("###")
                        .unlockedBy("has_ingot", has(Tags.Items.INGOTS_GOLD))
-                       .save(consumer, modResource("common/gold_bars"));
+                       .save(consumer, location("common/gold_bars"));
     ShapedRecipeBuilder.shaped(TinkerCommons.goldPlatform, 4)
                        .define('#', Tags.Items.INGOTS_GOLD)
                        .define('.', Tags.Items.NUGGETS_GOLD)
@@ -79,7 +80,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
                        .pattern(". .")
                        .pattern("#.#")
                        .unlockedBy("has_gold", has(Tags.Items.INGOTS_GOLD))
-                       .save(consumer, modResource("common/gold_platform"));
+                       .save(consumer, location("common/gold_platform"));
     ShapedRecipeBuilder.shaped(TinkerCommons.ironPlatform, 4)
                        .define('#', Tags.Items.INGOTS_IRON)
                        .define('.', Tags.Items.NUGGETS_IRON)
@@ -87,7 +88,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
                        .pattern(". .")
                        .pattern("#.#")
                        .unlockedBy("has_bars", has(Tags.Items.INGOTS_IRON))
-                       .save(consumer, modResource("common/iron_platform"));
+                       .save(consumer, location("common/iron_platform"));
     ShapedRecipeBuilder.shaped(TinkerCommons.copperPlatform.get(WeatherState.UNAFFECTED), 4)
                        .define('#', Tags.Items.INGOTS_COPPER)
                        .define('.', TinkerTags.Items.NUGGETS_COPPER)
@@ -95,7 +96,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
                        .pattern(". .")
                        .pattern("#.#")
                        .unlockedBy("has_bars", has(Tags.Items.INGOTS_COPPER))
-                       .save(consumer, modResource("common/copper_platform"));
+                       .save(consumer, location("common/copper_platform"));
     ShapedRecipeBuilder.shaped(TinkerCommons.cobaltPlatform, 4)
                        .define('#', TinkerMaterials.cobalt.getIngotTag())
                        .define('.', TinkerMaterials.cobalt.getNuggetTag())
@@ -103,7 +104,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
                        .pattern(". .")
                        .pattern("#.#")
                        .unlockedBy("has_bars", has(TinkerMaterials.cobalt.getIngotTag()))
-                       .save(consumer, modResource("common/cobalt_platform"));
+                       .save(consumer, location("common/cobalt_platform"));
     TinkerCommons.waxedCopperPlatform.forEach((age, block) -> {
       Block unwaxed = TinkerCommons.copperPlatform.get(age);
       ShapelessRecipeBuilder.shapeless(block)
@@ -111,7 +112,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
                             .requires(Items.HONEYCOMB)
                             .group("tconstruct:wax_copper_platform")
                             .unlockedBy("has_block", has(unwaxed))
-                            .save(consumer, modResource("common/copper_platform_waxing_" + age.toString().toLowerCase(Locale.ROOT)));
+                            .save(consumer, location("common/copper_platform_waxing_" + age.toString().toLowerCase(Locale.ROOT)));
     });
 
 
@@ -162,26 +163,27 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
                          .pattern("###")
                          .pattern("#X#")
                          .pattern("###")
-                         .group(modPrefix("stained_clear_glass"))
+                         .group(prefix("stained_clear_glass"))
                          .unlockedBy("has_clear_glass", has(TinkerCommons.clearGlass))
-                         .save(consumer, prefix(block, folder));
+                         .save(consumer, prefix(id(block), folder));
       Block pane = TinkerCommons.clearStainedGlassPane.get(color);
+      ResourceLocation paneId = id(pane);
       ShapedRecipeBuilder.shaped(pane, 16)
                          .define('#', block)
                          .pattern("###")
                          .pattern("###")
-                         .group(modPrefix("stained_clear_glass_pane"))
+                         .group(prefix("stained_clear_glass_pane"))
                          .unlockedBy("has_block", has(block))
-                         .save(consumer, prefix(pane, folder));
+                         .save(consumer, prefix(paneId, folder));
       ShapedRecipeBuilder.shaped(pane, 8)
                          .define('#', TinkerCommons.clearGlassPane)
                          .define('X', color.getDye().getTag())
                          .pattern("###")
                          .pattern("#X#")
                          .pattern("###")
-                         .group(modPrefix("stained_clear_glass_pane"))
+                         .group(prefix("stained_clear_glass_pane"))
                          .unlockedBy("has_clear_glass", has(TinkerCommons.clearGlassPane))
-                         .save(consumer, wrap(pane, folder, "_from_panes"));
+                         .save(consumer, wrap(paneId, folder, "_from_panes"));
     }
     // fix vanilla recipes not using tinkers glass
     String glassVanillaFolder = folder + "vanilla/";
@@ -194,7 +196,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
                        .pattern("GSG")
                        .pattern("OOO")
                        .unlockedBy("has_nether_star", has(Items.NETHER_STAR))
-                       .save(vanillaGlassConsumer, prefix(Blocks.BEACON, glassVanillaFolder));
+                       .save(vanillaGlassConsumer, prefix(id(Blocks.BEACON), glassVanillaFolder));
     ShapedRecipeBuilder.shaped(Blocks.DAYLIGHT_DETECTOR)
                        .define('Q', Items.QUARTZ)
                        .define('G', Tags.Items.GLASS_COLORLESS)
@@ -203,7 +205,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
                        .pattern("QQQ")
                        .pattern("WWW")
                        .unlockedBy("has_quartz", has(Items.QUARTZ))
-                       .save(vanillaGlassConsumer, prefix(Blocks.DAYLIGHT_DETECTOR, glassVanillaFolder));
+                       .save(vanillaGlassConsumer, prefix(id(Blocks.DAYLIGHT_DETECTOR), glassVanillaFolder));
     ShapedRecipeBuilder.shaped(Items.END_CRYSTAL)
                        .define('T', Items.GHAST_TEAR)
                        .define('E', Items.ENDER_EYE)
@@ -212,13 +214,13 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
                        .pattern("GEG")
                        .pattern("GTG")
                        .unlockedBy("has_ender_eye", has(Items.ENDER_EYE))
-                       .save(vanillaGlassConsumer, prefix(Items.END_CRYSTAL, glassVanillaFolder));
+                       .save(vanillaGlassConsumer, prefix(id(Items.END_CRYSTAL), glassVanillaFolder));
     ShapedRecipeBuilder.shaped(Items.GLASS_BOTTLE, 3)
                        .define('#', Tags.Items.GLASS_COLORLESS)
                        .pattern("# #")
                        .pattern(" # ")
                        .unlockedBy("has_glass", has(Tags.Items.GLASS_COLORLESS))
-                       .save(vanillaGlassConsumer, prefix(Items.GLASS_BOTTLE, glassVanillaFolder));
+                       .save(vanillaGlassConsumer, prefix(id(Items.GLASS_BOTTLE), glassVanillaFolder));
 
 
     // vanilla recipes
@@ -231,7 +233,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
                             ConsumerWrapperBuilder.wrap()
                                                   .addCondition(ConfigEnabledCondition.GRAVEL_TO_FLINT)
                                                   .build(consumer),
-                            modResource("common/flint"));
+                            location("common/flint"));
 
     // allow crafting the blast furnace in the nether
     ShapedRecipeBuilder.shaped(Blocks.BLAST_FURNACE)
@@ -242,18 +244,18 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
                        .pattern("IXI")
                        .pattern("###")
                        .unlockedBy("has_smooth_stone", has(Blocks.SMOOTH_BASALT))
-                       .save(consumer, modResource("common/basalt_blast_furnace"));
+                       .save(consumer, location("common/basalt_blast_furnace"));
 
     // cheese
     ShapedRecipeBuilder.shaped(TinkerCommons.cheeseBlock)
                        .define('#', TinkerCommons.cheeseIngot)
                        .pattern("##").pattern("##")
                        .unlockedBy("has_cheese", has(TinkerCommons.cheeseIngot))
-                       .save(consumer, modResource("common/cheese_block_from_ingot"));
+                       .save(consumer, location("common/cheese_block_from_ingot"));
     ShapelessRecipeBuilder.shapeless(TinkerCommons.cheeseIngot, 4)
                           .requires(TinkerCommons.cheeseBlock)
                           .unlockedBy("has_cheese", has(TinkerCommons.cheeseBlock))
-                          .save(consumer, modResource("common/cheese_ingot_from_block"));
+                          .save(consumer, location("common/cheese_ingot_from_block"));
   }
 
   private void addMaterialRecipes(Consumer<FinishedRecipe> consumer) {
@@ -280,7 +282,7 @@ public class CommonRecipeProvider extends BaseRecipeProvider implements ICommonR
     Item cobaltIngot = TinkerMaterials.cobalt.getIngot();
     SimpleCookingRecipeBuilder.blasting(Ingredient.of(TinkerWorld.rawCobalt, TinkerWorld.cobaltOre), cobaltIngot, 1.5f, 200)
                               .unlockedBy("has_item", has(TinkerWorld.rawCobalt))
-                              .save(consumer, wrap(cobaltIngot, folder, "_smelting"));
+                              .save(consumer, wrap(id(cobaltIngot), folder, "_smelting"));
     // pack raw cobalt
     packingRecipe(consumer, "raw_block", TinkerWorld.rawCobaltBlock, "raw", TinkerWorld.rawCobalt, TinkerTags.Items.RAW_COBALT, folder);
   }

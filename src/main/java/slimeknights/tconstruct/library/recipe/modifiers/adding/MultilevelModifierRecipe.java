@@ -193,7 +193,7 @@ public class MultilevelModifierRecipe extends ModifierRecipe implements IMultiRe
     }
   }
 
-  public static class Serializer extends LoggingRecipeSerializer<MultilevelModifierRecipe> {
+  public static class Serializer implements LoggingRecipeSerializer<MultilevelModifierRecipe> {
     @Override
     public MultilevelModifierRecipe fromJson(ResourceLocation id, JsonObject json) {
       Ingredient toolRequirement = Ingredient.fromJson(json.get("tools"));
@@ -229,7 +229,7 @@ public class MultilevelModifierRecipe extends ModifierRecipe implements IMultiRe
 
     @Nullable
     @Override
-    protected MultilevelModifierRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    public MultilevelModifierRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       Ingredient toolRequirement = Ingredient.fromNetwork(buffer);
       int maxToolSize = buffer.readVarInt();
       ModifierMatch requirements = ModifierMatch.read(buffer);
@@ -250,7 +250,7 @@ public class MultilevelModifierRecipe extends ModifierRecipe implements IMultiRe
     }
 
     @Override
-    protected void toNetworkSafe(FriendlyByteBuf buffer, MultilevelModifierRecipe recipe) {
+    public void toNetworkSafe(FriendlyByteBuf buffer, MultilevelModifierRecipe recipe) {
       recipe.toolRequirement.toNetwork(buffer);
       buffer.writeVarInt(recipe.maxToolSize);
       recipe.requirements.write(buffer);

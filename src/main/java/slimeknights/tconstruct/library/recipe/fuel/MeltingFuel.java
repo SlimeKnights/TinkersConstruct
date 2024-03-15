@@ -109,7 +109,7 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidContainer> {
   /**
    * Serializer for {@link MeltingFuel}
    */
-  public static class Serializer extends LoggingRecipeSerializer<MeltingFuel> {
+  public static class Serializer implements LoggingRecipeSerializer<MeltingFuel> {
     @Override
     public MeltingFuel fromJson(ResourceLocation id, JsonObject json) {
       String group = GsonHelper.getAsString(json, "group", "");
@@ -120,7 +120,7 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidContainer> {
     }
 
     @Override
-    protected void toNetworkSafe(FriendlyByteBuf buffer, MeltingFuel recipe) {
+    public void toNetworkSafe(FriendlyByteBuf buffer, MeltingFuel recipe) {
       buffer.writeUtf(recipe.group);
       recipe.input.write(buffer);
       buffer.writeInt(recipe.duration);
@@ -129,7 +129,7 @@ public class MeltingFuel implements ICustomOutputRecipe<IFluidContainer> {
 
     @Nullable
     @Override
-    protected MeltingFuel fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    public MeltingFuel fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       String group = buffer.readUtf(Short.MAX_VALUE);
       FluidIngredient input = FluidIngredient.read(buffer);
       int duration = buffer.readInt();

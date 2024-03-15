@@ -1,19 +1,19 @@
 {
   "type": "tconstruct:casting_basin",
-  "conditions": [
-    {
-      "modid": "immersiveengineering",
-      "type": "forge:mod_loaded"
-    }
-  ],
   "cast": {
     "tag": "minecraft:planks"
   },
   "cast_consumed": true,
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "immersiveengineering"
+    }
+  ],
+  "cooling_time": 100,
   "fluid": {
-    "tag": "forge:creosote",
-    "amount": 125
+    "amount": 125,
+    "tag": "forge:creosote"
   },
-  "result": "immersiveengineering:treated_wood_horizontal",
-  "cooling_time": 100
+  "result": "immersiveengineering:treated_wood_horizontal"
 }

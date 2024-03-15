@@ -1,14 +1,14 @@
 {
   "type": "mantle:fill_item",
-  "input": {
-    "item": "minecraft:glass_bottle"
-  },
   "filled": {
     "item": "minecraft:potion",
     "nbt": "{Potion:\"minecraft:water\"}"
   },
   "fluid": {
-    "tag": "mantle:water",
-    "amount": 500
+    "amount": 500,
+    "tag": "mantle:water"
+  },
+  "input": {
+    "item": "minecraft:glass_bottle"
   }
 }

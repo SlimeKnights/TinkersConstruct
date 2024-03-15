@@ -2,17 +2,17 @@
   "type": "tconstruct:material",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:ingots/lead",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/lead"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:ingots/lead"
   },
-  "value": 1,
+  "material": "tconstruct:lead",
   "needed": 1,
-  "material": "tconstruct:lead"
+  "value": 1
 }

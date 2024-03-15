@@ -1,17 +1,17 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "tag": "minecraft:music_discs"
     }
   ],
+  "max_level": 1,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:harmonious"
+  },
   "tools": {
     "tag": "tconstruct:modifiable"
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:harmonious",
-    "level": 1
-  },
-  "max_level": 1
+  }
 }

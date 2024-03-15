@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:entity_melting",
+  "damage": 2,
   "entity": [
     {
       "tag": "minecraft:skeletons"
@@ -9,8 +10,7 @@
     }
   ],
   "result": {
-    "fluid": "minecraft:milk",
-    "amount": 100
-  },
-  "damage": 2
+    "amount": 100,
+    "fluid": "minecraft:milk"
+  }
 }

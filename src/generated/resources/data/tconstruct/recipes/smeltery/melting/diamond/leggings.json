@@ -4,8 +4,8 @@
     "item": "minecraft:diamond_leggings"
   },
   "result": {
-    "fluid": "tconstruct:molten_diamond",
     "amount": 700,
+    "fluid": "tconstruct:molten_diamond",
     "unit_size": 25
   },
   "temperature": 1450,

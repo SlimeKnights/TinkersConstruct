@@ -1,10 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "#.#",
-    ". .",
-    "#.#"
-  ],
   "key": {
     "#": {
       "tag": "forge:ingots/cobalt"
@@ -13,8 +8,13 @@
       "tag": "forge:nuggets/cobalt"
     }
   },
+  "pattern": [
+    "#.#",
+    ". .",
+    "#.#"
+  ],
   "result": {
-    "item": "tconstruct:cobalt_platform",
-    "count": 4
+    "count": 4,
+    "item": "tconstruct:cobalt_platform"
   }
 }

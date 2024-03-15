@@ -56,7 +56,7 @@ public class MomentumModifier extends Modifier implements ProjectileLaunchModifi
   @Override
   public void onBreakSpeed(IToolStackView tool, ModifierEntry modifier, BreakSpeed event, Direction sideHit, boolean isEffective, float miningSpeedModifier) {
     if (isEffective) {
-      event.setNewSpeed(event.getNewSpeed() * (1 + getBonus(event.getEntityLiving(), TinkerModifiers.momentumEffect, modifier.getLevel(), 128f)));
+      event.setNewSpeed(event.getNewSpeed() * (1 + getBonus(event.getEntity(), TinkerModifiers.momentumEffect, modifier.getLevel(), 128f)));
     }
   }
 

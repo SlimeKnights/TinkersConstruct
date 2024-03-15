@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "WWW",
-    "WWW"
-  ],
   "key": {
     "W": {
       "item": "tconstruct:nahuatl"
     }
   },
+  "pattern": [
+    "WWW",
+    "WWW"
+  ],
   "result": {
-    "item": "tconstruct:nahuatl_fence",
-    "count": 6
+    "count": 6,
+    "item": "tconstruct:nahuatl_fence"
   }
 }

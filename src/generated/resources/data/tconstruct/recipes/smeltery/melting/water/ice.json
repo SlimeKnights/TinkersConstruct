@@ -4,8 +4,8 @@
     "item": "minecraft:ice"
   },
   "result": {
-    "fluid": "minecraft:water",
-    "amount": 1000
+    "amount": 1000,
+    "fluid": "minecraft:water"
   },
   "temperature": 0,
   "time": 28

@@ -13,7 +13,6 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -30,7 +29,7 @@ import java.util.List;
 public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
   private static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/casting.png");
   private static final Component TITLE = TConstruct.makeTranslation("jei", "molding.title");
-  private static final Component TOOLTIP_PATTERN_CONSUMED = new TranslatableComponent(TConstruct.makeTranslationKey("jei", "molding.pattern_consumed"));
+  private static final Component TOOLTIP_PATTERN_CONSUMED = Component.translatable(TConstruct.makeTranslationKey("jei", "molding.pattern_consumed"));
 
   @Getter
   private final IDrawable background;
@@ -44,18 +43,6 @@ public class MoldingRecipeCategory implements IRecipeCategory<MoldingRecipe> {
     this.basin = helper.createDrawable(BACKGROUND_LOC, 117, 16, 16, 16);
     this.downArrow = helper.createDrawable(BACKGROUND_LOC, 70, 55, 6, 6);
     this.upArrow = helper.createDrawable(BACKGROUND_LOC, 76, 55, 6, 6);
-  }
-
-  @SuppressWarnings("removal")
-  @Override
-  public ResourceLocation getUid() {
-    return TConstructJEIConstants.MOLDING.getUid();
-  }
-
-  @SuppressWarnings("removal")
-  @Override
-  public Class<? extends MoldingRecipe> getRecipeClass() {
-    return MoldingRecipe.class;
   }
 
   @Override

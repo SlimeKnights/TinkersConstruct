@@ -1,13 +1,13 @@
 package slimeknights.tconstruct.shared.client;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.ParticleRenderType;
-import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.TextureSheetParticle;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.inventory.InventoryMenu;
-import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.client.render.FluidRenderer;
 import slimeknights.tconstruct.shared.particle.FluidParticleData;
@@ -20,10 +20,10 @@ public class FluidParticle extends TextureSheetParticle {
   protected FluidParticle(ClientLevel world, double x, double y, double z, double motionX, double motionY, double motionZ, FluidStack fluid) {
     super(world, x, y, z, motionX, motionY, motionZ);
     this.fluid = fluid;
-    FluidAttributes attributes = fluid.getFluid().getAttributes();
+    IClientFluidTypeExtensions attributes = IClientFluidTypeExtensions.of(fluid.getFluid());
     this.setSprite(Minecraft.getInstance().getModelManager().getAtlas(InventoryMenu.BLOCK_ATLAS).getSprite(attributes.getStillTexture(fluid)));
     this.gravity = 1.0F;
-    int color = attributes.getColor(fluid);
+    int color = attributes.getTintColor(fluid);
     this.alpha = ((color >> 24) & 0xFF) / 255f;
     this.rCol   = ((color >> 16) & 0xFF) / 255f;
     this.gCol = ((color >>  8) & 0xFF) / 255f;
@@ -60,7 +60,7 @@ public class FluidParticle extends TextureSheetParticle {
 
   @Override
   public int getLightColor(float partialTick) {
-    return FluidRenderer.withBlockLight(super.getLightColor(partialTick), fluid.getFluid().getAttributes().getLuminosity(fluid));
+    return FluidRenderer.withBlockLight(super.getLightColor(partialTick), fluid.getFluid().getFluidType().getLightLevel(fluid));
   }
 
   /** Factory to create a fluid particle */

@@ -2,8 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "conditions": [
     {
-      "prop": "slime_recipe_fix",
-      "type": "tconstruct:config"
+      "type": "tconstruct:config",
+      "prop": "slime_recipe_fix"
     }
   ],
   "ingredients": [

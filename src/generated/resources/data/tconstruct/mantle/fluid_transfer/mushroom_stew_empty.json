@@ -1,11 +1,11 @@
 {
   "type": "mantle:empty_item",
-  "input": {
-    "item": "minecraft:mushroom_stew"
-  },
   "filled": "minecraft:bowl",
   "fluid": {
-    "fluid": "tconstruct:mushroom_stew",
-    "amount": 250
+    "amount": 250,
+    "fluid": "tconstruct:mushroom_stew"
+  },
+  "input": {
+    "item": "minecraft:mushroom_stew"
   }
 }

@@ -1,4 +1,5 @@
 {
+  "type": "mantle:replace_item",
   "conditions": [
     {
       "condition": "forge:loot_table_id",
@@ -9,9 +10,9 @@
       "prop": "wither_bone_drop"
     }
   ],
+  "functions": [],
   "original": {
     "item": "minecraft:bone"
   },
-  "replacement": "tconstruct:necrotic_bone",
-  "type": "mantle:replace_item"
+  "replacement": "tconstruct:necrotic_bone"
 }

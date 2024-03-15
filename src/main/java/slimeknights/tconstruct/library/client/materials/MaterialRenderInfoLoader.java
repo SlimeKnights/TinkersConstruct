@@ -9,8 +9,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
-import slimeknights.mantle.data.IEarlySafeManagerReloadListener;
-import slimeknights.mantle.data.ResourceLocationSerializer;
+import slimeknights.mantle.data.gson.ResourceLocationSerializer;
+import slimeknights.mantle.data.listener.IEarlySafeManagerReloadListener;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.data.spritetransformer.IColorMapping;
@@ -19,15 +19,12 @@ import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.utils.Util;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.Reader;
-import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 
 /**
@@ -95,8 +92,9 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
     // first, we need to fetch all relevant JSON files
     int trim = FOLDER.length() + 1;
     Map<MaterialVariantId,MaterialRenderInfo> map = new HashMap<>();
-    for(ResourceLocation location : manager.listResources(FOLDER, (loc) -> loc.endsWith(".json"))) {
+    for(Entry<ResourceLocation, Resource> entry : manager.listResources(FOLDER, (loc) -> loc.getPath().endsWith(".json")).entrySet()) {
       // clean up ID by trimming off the extension and folder
+      ResourceLocation location = entry.getKey();
       String path = location.getPath();
       String localPath = path.substring(trim, path.length() - 5);
 
@@ -110,11 +108,7 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
       MaterialVariantId id = MaterialVariantId.create(location.getNamespace(), localPath, variant);
 
       // read in the JSON data
-      try (
-        Resource resource = manager.getResource(location);
-        InputStream inputstream = resource.getInputStream();
-        Reader reader = new BufferedReader(new InputStreamReader(inputstream, StandardCharsets.UTF_8))
-      ) {
+      try (Reader reader = entry.getValue().openAsReader()) {
         MaterialRenderInfoJson json = GSON.fromJson(reader, MaterialRenderInfoJson.class);
         if (json == null) {
           log.error("Couldn't load data file {} from {} as it's null or empty", id, location);

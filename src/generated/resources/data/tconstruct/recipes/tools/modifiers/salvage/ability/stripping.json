@@ -1,5 +1,10 @@
 {
   "type": "tconstruct:modifier_salvage",
+  "min_level": 1,
+  "modifier": "tconstruct:stripping",
+  "slots": {
+    "abilities": 1
+  },
   "tools": {
     "type": "forge:difference",
     "base": {
@@ -21,10 +26,5 @@
         "item": "tconstruct:broad_axe"
       }
     ]
-  },
-  "slots": {
-    "abilities": 1
-  },
-  "modifier": "tconstruct:stripping",
-  "min_level": 1
+  }
 }

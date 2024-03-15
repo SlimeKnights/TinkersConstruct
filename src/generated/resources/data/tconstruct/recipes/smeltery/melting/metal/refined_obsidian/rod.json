@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:rods/refined_obsidian",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:rods/refined_obsidian"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:rods/refined_obsidian"
   },
   "result": {
-    "fluid": "tconstruct:molten_refined_obsidian",
-    "amount": 45
+    "amount": 45,
+    "fluid": "tconstruct:molten_refined_obsidian"
   },
   "temperature": 1475,
   "time": 16

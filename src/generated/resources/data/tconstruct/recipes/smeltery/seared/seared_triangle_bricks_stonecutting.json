@@ -1,5 +1,6 @@
 {
   "type": "minecraft:stonecutting",
+  "count": 1,
   "ingredient": [
     {
       "type": "forge:difference",
@@ -14,6 +15,5 @@
       "item": "tconstruct:seared_stone"
     }
   ],
-  "result": "tconstruct:seared_triangle_bricks",
-  "count": 1
+  "result": "tconstruct:seared_triangle_bricks"
 }

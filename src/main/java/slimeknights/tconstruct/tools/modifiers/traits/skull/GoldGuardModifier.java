@@ -1,8 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.traits.skull;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlot.Type;
 import net.minecraft.world.entity.LivingEntity;
@@ -88,8 +86,8 @@ public class GoldGuardModifier extends NoLevelsModifier implements EquipmentChan
       if (instance != null) {
         AttributeModifier modifier = instance.getModifier(GOLD_GUARD_UUID);
         if (modifier != null) {
-          tooltip.add(applyStyle(new TextComponent(Util.BONUS_FORMAT.format(modifier.getAmount()) + " ")
-                                   .append(new TranslatableComponent(getTranslationKey() + "." + "health"))));
+          tooltip.add(applyStyle(Component.literal(Util.BONUS_FORMAT.format(modifier.getAmount()) + " ")
+                                   .append(Component.translatable(getTranslationKey() + "." + "health"))));
         }
       }
     }

@@ -2,18 +2,18 @@
   "type": "tconstruct:material_fluid",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:ingots/brass",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/brass"
+      }
     }
   ],
-  "input": "tconstruct:slimewood",
   "fluid": {
-    "tag": "forge:molten_brass",
-    "amount": 90
+    "amount": 90,
+    "tag": "forge:molten_brass"
   },
-  "temperature": 605,
-  "output": "tconstruct:plated_slimewood"
+  "input": "tconstruct:slimewood",
+  "output": "tconstruct:plated_slimewood",
+  "temperature": 605
 }

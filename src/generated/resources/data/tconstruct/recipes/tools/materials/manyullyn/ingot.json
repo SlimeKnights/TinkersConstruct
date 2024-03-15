@@ -3,7 +3,7 @@
   "ingredient": {
     "tag": "forge:ingots/manyullyn"
   },
-  "value": 1,
+  "material": "tconstruct:manyullyn",
   "needed": 1,
-  "material": "tconstruct:manyullyn"
+  "value": 1
 }

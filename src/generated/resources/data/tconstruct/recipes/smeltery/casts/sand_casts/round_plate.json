@@ -4,8 +4,8 @@
     "item": "tconstruct:blank_sand_cast"
   },
   "pattern": {
-    "item": "tconstruct:round_plate",
-    "type": "tconstruct:material"
+    "type": "tconstruct:material",
+    "item": "tconstruct:round_plate"
   },
   "result": "tconstruct:round_plate_sand_cast"
 }

@@ -1,12 +1,12 @@
 {
   "type": "tconstruct:ore_melting",
-  "rate": "gem",
   "ingredient": {
     "item": "tconstruct:earth_slime_crystal_cluster"
   },
+  "rate": "gem",
   "result": {
-    "fluid": "tconstruct:earth_slime",
-    "amount": 1000
+    "amount": 1000,
+    "fluid": "tconstruct:earth_slime"
   },
   "temperature": 50,
   "time": 77

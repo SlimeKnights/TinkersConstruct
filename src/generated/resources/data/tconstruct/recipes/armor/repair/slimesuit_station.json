@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:specialized_station_repair",
+  "repair_material": "tconstruct:enderslime",
   "tool": [
     {
       "item": "tconstruct:slime_boots"
@@ -13,6 +14,5 @@
     {
       "item": "tconstruct:slime_helmet"
     }
-  ],
-  "repair_material": "tconstruct:enderslime"
+  ]
 }

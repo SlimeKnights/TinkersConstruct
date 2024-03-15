@@ -1,11 +1,11 @@
 {
   "type": "tconstruct:modifier_salvage",
-  "tools": {
-    "item": "tconstruct:flint_and_brick"
-  },
+  "min_level": 1,
+  "modifier": "tconstruct:fireprimer",
   "slots": {
     "upgrades": 1
   },
-  "modifier": "tconstruct:fireprimer",
-  "min_level": 1
+  "tools": {
+    "item": "tconstruct:flint_and_brick"
+  }
 }

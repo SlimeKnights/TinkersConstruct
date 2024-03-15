@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "# #",
-    "###"
-  ],
   "key": {
     "#": {
       "item": "tconstruct:seared_brick"
     }
   },
+  "pattern": [
+    "# #",
+    "###"
+  ],
   "result": {
-    "item": "tconstruct:seared_channel",
-    "count": 5
+    "count": 5,
+    "item": "tconstruct:seared_channel"
   }
 }

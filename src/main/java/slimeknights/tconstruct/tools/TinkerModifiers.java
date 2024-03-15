@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.tools;
 
+import com.mojang.serialization.Codec;
+import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.EntityType;
@@ -9,17 +11,16 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
-import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
+import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.registries.RegistryObject;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.TConstruct;
@@ -540,7 +541,7 @@ public final class TinkerModifiers extends TinkerModule {
   /**
    * Loot
    */
-  public static final RegistryObject<ModifierLootModifier.Serializer> modifierLootModifier = GLOBAL_LOOT_MODIFIERS.register("modifier_hook", ModifierLootModifier.Serializer::new);
+  public static final RegistryObject<Codec<ModifierLootModifier>> modifierLootModifier = GLOBAL_LOOT_MODIFIERS.register("modifier_hook", () -> ModifierLootModifier.CODEC);
   public static final RegistryObject<LootItemConditionType> hasModifierLootCondition = LOOT_CONDITIONS.register("has_modifier", () -> new LootItemConditionType(new HasModifierLootCondition.ConditionSerializer()));
   public static final RegistryObject<LootItemFunctionType> modifierBonusFunction = LOOT_FUNCTIONS.register("modifier_bonus", () -> new LootItemFunctionType(new ModifierBonusLootFunction.Serializer()));
   public static final RegistryObject<LootItemConditionType> chrysophiliteLootCondition = LOOT_CONDITIONS.register("has_chrysophilite", () -> new LootItemConditionType(ChrysophiliteLootCondition.SERIALIZER));
@@ -551,122 +552,124 @@ public final class TinkerModifiers extends TinkerModule {
    */
 
   @SubscribeEvent
-  void registerSerializers(RegistryEvent.Register<RecipeSerializer<?>> event) {
-    ISpillingEffect.LOADER.registerDeserializer(ConditionalSpillingEffect.ID,   ConditionalSpillingEffect.LOADER);
-    ISpillingEffect.LOADER.registerDeserializer(CureEffectsSpillingEffect.ID,   CureEffectsSpillingEffect.LOADER);
-    ISpillingEffect.LOADER.registerDeserializer(RemoveEffectSpillingEffect.ID,  RemoveEffectSpillingEffect.LOADER);
-    ISpillingEffect.LOADER.registerDeserializer(DamageSpillingEffect.ID,        DamageSpillingEffect.LOADER);
-    ISpillingEffect.LOADER.registerDeserializer(EffectSpillingEffect.ID,        EffectSpillingEffect.LOADER);
-    ISpillingEffect.LOADER.registerDeserializer(ExtinguishSpillingEffect.ID,    ExtinguishSpillingEffect.LOADER);
-    ISpillingEffect.LOADER.registerDeserializer(PotionFluidEffect.ID,           PotionFluidEffect.LOADER);
-    ISpillingEffect.LOADER.registerDeserializer(RestoreHungerSpillingEffect.ID, RestoreHungerSpillingEffect.LOADER);
-    ISpillingEffect.LOADER.registerDeserializer(SetFireSpillingEffect.ID,       SetFireSpillingEffect.LOADER);
-    ISpillingEffect.LOADER.registerDeserializer(SetFreezeSpillingEffect.ID,     SetFreezeSpillingEffect.LOADER);
-    ISpillingEffect.LOADER.registerDeserializer(TeleportSpillingEffect.ID,      TeleportSpillingEffect.LOADER);
-    ISpillingEffect.LOADER.registerDeserializer(AddInsomniaSpillingEffect.ID,   AddInsomniaSpillingEffect.LOADER);
-    ISpillingEffect.LOADER.registerDeserializer(AddBreathSpillingEffect.ID,     AddBreathSpillingEffect.LOADER);
-    ISpillingEffect.LOADER.registerDeserializer(StrongBonesModifier.SPILLING_EFFECT_ID, StrongBonesModifier.SPILLING_EFFECT_LOADER);
-    // modifier loaders
-    ModifierManager.MODIFIER_LOADERS.register(getResource("default"), Modifier.DEFAULT_LOADER);
-    ModifierManager.MODIFIER_LOADERS.register(getResource("inventory_with_menu"), InventoryMenuModifier.LOADER);
-    ModifierManager.MODIFIER_LOADERS.register(getResource("composable"), ComposableModifier.LOADER);
-    // specialized
-    ModifierManager.MODIFIER_LOADERS.register(getResource("tool_belt"), ToolBeltModifier.LOADER);
-    // modifier names, sometimes I wonder if I have too many registries for tiny JSON pieces
-    ModifierLevelDisplay.LOADER.register(getResource("default"), ModifierLevelDisplay.DEFAULT.getLoader());
-    ModifierLevelDisplay.LOADER.register(getResource("single_level"), ModifierLevelDisplay.SINGLE_LEVEL.getLoader());
-    ModifierLevelDisplay.LOADER.register(getResource("no_levels"), ModifierLevelDisplay.NO_LEVELS.getLoader());
-    ModifierLevelDisplay.LOADER.register(getResource("pluses"), ModifierLevelDisplay.PLUSES.getLoader());
-    ModifierLevelDisplay.LOADER.register(getResource("unique"), UniqueForLevels.LOADER);
+  void registerSerializers(RegisterEvent event) {
+    if (event.getRegistryKey() == Registry.RECIPE_SERIALIZER_REGISTRY) {
+      ISpillingEffect.LOADER.registerDeserializer(ConditionalSpillingEffect.ID, ConditionalSpillingEffect.LOADER);
+      ISpillingEffect.LOADER.registerDeserializer(CureEffectsSpillingEffect.ID, CureEffectsSpillingEffect.LOADER);
+      ISpillingEffect.LOADER.registerDeserializer(RemoveEffectSpillingEffect.ID, RemoveEffectSpillingEffect.LOADER);
+      ISpillingEffect.LOADER.registerDeserializer(DamageSpillingEffect.ID, DamageSpillingEffect.LOADER);
+      ISpillingEffect.LOADER.registerDeserializer(EffectSpillingEffect.ID, EffectSpillingEffect.LOADER);
+      ISpillingEffect.LOADER.registerDeserializer(ExtinguishSpillingEffect.ID, ExtinguishSpillingEffect.LOADER);
+      ISpillingEffect.LOADER.registerDeserializer(PotionFluidEffect.ID, PotionFluidEffect.LOADER);
+      ISpillingEffect.LOADER.registerDeserializer(RestoreHungerSpillingEffect.ID, RestoreHungerSpillingEffect.LOADER);
+      ISpillingEffect.LOADER.registerDeserializer(SetFireSpillingEffect.ID, SetFireSpillingEffect.LOADER);
+      ISpillingEffect.LOADER.registerDeserializer(SetFreezeSpillingEffect.ID, SetFreezeSpillingEffect.LOADER);
+      ISpillingEffect.LOADER.registerDeserializer(TeleportSpillingEffect.ID, TeleportSpillingEffect.LOADER);
+      ISpillingEffect.LOADER.registerDeserializer(AddInsomniaSpillingEffect.ID, AddInsomniaSpillingEffect.LOADER);
+      ISpillingEffect.LOADER.registerDeserializer(AddBreathSpillingEffect.ID, AddBreathSpillingEffect.LOADER);
+      ISpillingEffect.LOADER.registerDeserializer(StrongBonesModifier.SPILLING_EFFECT_ID, StrongBonesModifier.SPILLING_EFFECT_LOADER);
+      // modifier loaders
+      ModifierManager.MODIFIER_LOADERS.register(getResource("default"), Modifier.DEFAULT_LOADER);
+      ModifierManager.MODIFIER_LOADERS.register(getResource("inventory_with_menu"), InventoryMenuModifier.LOADER);
+      ModifierManager.MODIFIER_LOADERS.register(getResource("composable"), ComposableModifier.LOADER);
+      // specialized
+      ModifierManager.MODIFIER_LOADERS.register(getResource("tool_belt"), ToolBeltModifier.LOADER);
+      // modifier names, sometimes I wonder if I have too many registries for tiny JSON pieces
+      ModifierLevelDisplay.LOADER.register(getResource("default"), ModifierLevelDisplay.DEFAULT.getLoader());
+      ModifierLevelDisplay.LOADER.register(getResource("single_level"), ModifierLevelDisplay.SINGLE_LEVEL.getLoader());
+      ModifierLevelDisplay.LOADER.register(getResource("no_levels"), ModifierLevelDisplay.NO_LEVELS.getLoader());
+      ModifierLevelDisplay.LOADER.register(getResource("pluses"), ModifierLevelDisplay.PLUSES.getLoader());
+      ModifierLevelDisplay.LOADER.register(getResource("unique"), UniqueForLevels.LOADER);
 
-    // modifier modules //
-    // armor
-    ModifierModule.LOADER.register(getResource("mob_disguise"), MobDisguiseModule.LOADER);
-    ModifierModule.LOADER.register(getResource("block_damage"), BlockDamageSourceModule.LOADER);
-    ModifierModule.LOADER.register(getResource("cover_ground"), CoverGroundWalkerModule.LOADER);
-    ModifierModule.LOADER.register(getResource("protection"), ProtectionModule.LOADER);
-    ModifierModule.LOADER.register(getResource("replace_fluid"), ReplaceBlockWalkerModule.LOADER);
-    ModifierModule.LOADER.register(getResource("tool_action_walk_transform"), ToolActionWalkerTransformModule.LOADER);
-    // behavior
-    ModifierModule.LOADER.register(getResource("attribute"), AttributeModule.LOADER);
-    ModifierModule.LOADER.register(getResource("campfire_extinguish"), ExtinguishCampfireModule.LOADER);
-    ModifierModule.LOADER.register(getResource("incremental"), IncrementalModule.LOADER);
-    ModifierModule.LOADER.register(getResource("reduce_tool_damage"), ReduceToolDamageModule.LOADER);
-    ModifierModule.LOADER.register(getResource("repair"), RepairModule.LOADER);
-    ModifierModule.LOADER.register(getResource("show_offhand"), ShowOffhandModule.LOADER);
-    ModifierModule.LOADER.register(getResource("tool_actions"), ToolActionsModule.LOADER);
-    ModifierModule.LOADER.register(getResource("tool_action_transform"), ToolActionTransformModule.LOADER);
-    // build
-    ModifierModule.LOADER.register(getResource("conditional_stat"), ConditionalStatModule.LOADER);
-    ModifierModule.LOADER.register(getResource("constant_enchantment"), EnchantmentModule.Constant.LOADER);
-    ModifierModule.LOADER.register(getResource("modifier_slot"), ModifierSlotModule.LOADER);
-    ModifierModule.LOADER.register(getResource("rarity"), RarityModule.LOADER);
-    ModifierModule.LOADER.register(getResource("swappable_slot"), SwappableSlotModule.LOADER);
-    ModifierModule.LOADER.register(getResource("swappable_bonus_slot"), SwappableSlotModule.BonusSlot.LOADER);
-    ModifierModule.LOADER.register(getResource("stat_boost"), StatBoostModule.LOADER);
-    ModifierModule.LOADER.register(getResource("set_stat"), SetStatModule.LOADER);
-    ModifierModule.LOADER.register(getResource("trait"), ModifierTraitModule.LOADER);
-    ModifierModule.LOADER.register(getResource("volatile_flag"), VolatileFlagModule.LOADER);
-    // combat
-    ModifierModule.LOADER.register(getResource("conditional_melee_damage"), ConditionalMeleeDamageModule.LOADER);
-    ModifierModule.LOADER.register(getResource("knockback"), KnockbackModule.LOADER);
-    ModifierModule.LOADER.register(getResource("looting"), LootingModule.LOADER);
-    ModifierModule.LOADER.register(getResource("melee_attribute"), MeleeAttributeModule.LOADER);
-    ModifierModule.LOADER.register(getResource("mob_effect"), MobEffectModule.LOADER);
-    // display
-    ModifierModule.LOADER.register(getResource("durability_color"), DurabilityBarColorModule.LOADER);
-    // mining
-    ModifierModule.LOADER.register(getResource("conditional_mining_speed"), ConditionalMiningSpeedModule.LOADER);
-    ModifierModule.LOADER.register(getResource("harvest_enchantment"), EnchantmentModule.Harvest.LOADER);
-    // fluid
-    ModifierModule.LOADER.register(getResource("tank_capacity"), TankCapacityModule.LOADER);
-    ModifierModule.LOADER.register(getResource("tank"), TankModule.LOADER);
-    // special
-    ModifierModule.LOADER.register(getResource("the_one_probe"), TheOneProbeModule.INSTANCE.getLoader());
+      // modifier modules //
+      // armor
+      ModifierModule.LOADER.register(getResource("mob_disguise"), MobDisguiseModule.LOADER);
+      ModifierModule.LOADER.register(getResource("block_damage"), BlockDamageSourceModule.LOADER);
+      ModifierModule.LOADER.register(getResource("cover_ground"), CoverGroundWalkerModule.LOADER);
+      ModifierModule.LOADER.register(getResource("protection"), ProtectionModule.LOADER);
+      ModifierModule.LOADER.register(getResource("replace_fluid"), ReplaceBlockWalkerModule.LOADER);
+      ModifierModule.LOADER.register(getResource("tool_action_walk_transform"), ToolActionWalkerTransformModule.LOADER);
+      // behavior
+      ModifierModule.LOADER.register(getResource("attribute"), AttributeModule.LOADER);
+      ModifierModule.LOADER.register(getResource("campfire_extinguish"), ExtinguishCampfireModule.LOADER);
+      ModifierModule.LOADER.register(getResource("incremental"), IncrementalModule.LOADER);
+      ModifierModule.LOADER.register(getResource("reduce_tool_damage"), ReduceToolDamageModule.LOADER);
+      ModifierModule.LOADER.register(getResource("repair"), RepairModule.LOADER);
+      ModifierModule.LOADER.register(getResource("show_offhand"), ShowOffhandModule.LOADER);
+      ModifierModule.LOADER.register(getResource("tool_actions"), ToolActionsModule.LOADER);
+      ModifierModule.LOADER.register(getResource("tool_action_transform"), ToolActionTransformModule.LOADER);
+      // build
+      ModifierModule.LOADER.register(getResource("conditional_stat"), ConditionalStatModule.LOADER);
+      ModifierModule.LOADER.register(getResource("constant_enchantment"), EnchantmentModule.Constant.LOADER);
+      ModifierModule.LOADER.register(getResource("modifier_slot"), ModifierSlotModule.LOADER);
+      ModifierModule.LOADER.register(getResource("rarity"), RarityModule.LOADER);
+      ModifierModule.LOADER.register(getResource("swappable_slot"), SwappableSlotModule.LOADER);
+      ModifierModule.LOADER.register(getResource("swappable_bonus_slot"), SwappableSlotModule.BonusSlot.LOADER);
+      ModifierModule.LOADER.register(getResource("stat_boost"), StatBoostModule.LOADER);
+      ModifierModule.LOADER.register(getResource("set_stat"), SetStatModule.LOADER);
+      ModifierModule.LOADER.register(getResource("trait"), ModifierTraitModule.LOADER);
+      ModifierModule.LOADER.register(getResource("volatile_flag"), VolatileFlagModule.LOADER);
+      // combat
+      ModifierModule.LOADER.register(getResource("conditional_melee_damage"), ConditionalMeleeDamageModule.LOADER);
+      ModifierModule.LOADER.register(getResource("knockback"), KnockbackModule.LOADER);
+      ModifierModule.LOADER.register(getResource("looting"), LootingModule.LOADER);
+      ModifierModule.LOADER.register(getResource("melee_attribute"), MeleeAttributeModule.LOADER);
+      ModifierModule.LOADER.register(getResource("mob_effect"), MobEffectModule.LOADER);
+      // display
+      ModifierModule.LOADER.register(getResource("durability_color"), DurabilityBarColorModule.LOADER);
+      // mining
+      ModifierModule.LOADER.register(getResource("conditional_mining_speed"), ConditionalMiningSpeedModule.LOADER);
+      ModifierModule.LOADER.register(getResource("harvest_enchantment"), EnchantmentModule.Harvest.LOADER);
+      // fluid
+      ModifierModule.LOADER.register(getResource("tank_capacity"), TankCapacityModule.LOADER);
+      ModifierModule.LOADER.register(getResource("tank"), TankModule.LOADER);
+      // special
+      ModifierModule.LOADER.register(getResource("the_one_probe"), TheOneProbeModule.INSTANCE.getLoader());
 
-    ModifierPredicate.LOADER.register(getResource("and"), ModifierPredicate.AND);
-    ModifierPredicate.LOADER.register(getResource("or"), ModifierPredicate.OR);
-    ModifierPredicate.LOADER.register(getResource("inverted"), ModifierPredicate.INVERTED);
-    ModifierPredicate.LOADER.register(getResource("always"), ModifierPredicate.ALWAYS.getLoader());
-    ModifierPredicate.LOADER.register(getResource("single"), SingleModifierPredicate.LOADER);
-    ModifierPredicate.LOADER.register(getResource("tag"), TagModifierPredicate.LOADER);
-    ModifierPredicate.LOADER.register(getResource("slot_type"), SlotTypeModifierPredicate.LOADER);
+      ModifierPredicate.LOADER.register(getResource("and"), ModifierPredicate.AND);
+      ModifierPredicate.LOADER.register(getResource("or"), ModifierPredicate.OR);
+      ModifierPredicate.LOADER.register(getResource("inverted"), ModifierPredicate.INVERTED);
+      ModifierPredicate.LOADER.register(getResource("always"), ModifierPredicate.ALWAYS.getLoader());
+      ModifierPredicate.LOADER.register(getResource("single"), SingleModifierPredicate.LOADER);
+      ModifierPredicate.LOADER.register(getResource("tag"), TagModifierPredicate.LOADER);
+      ModifierPredicate.LOADER.register(getResource("slot_type"), SlotTypeModifierPredicate.LOADER);
 
 
-    // variables
-    // block
-    BlockVariable.LOADER.register(getResource("constant"), BlockVariable.Constant.LOADER);
-    BlockVariable.LOADER.register(getResource("conditional"), ConditionalBlockVariable.LOADER);
-    BlockVariable.LOADER.register(getResource("blast_resistance"), BlockVariable.BLAST_RESISTANCE.getLoader());
-    BlockVariable.LOADER.register(getResource("hardness"), BlockVariable.HARDNESS.getLoader());
-    BlockVariable.LOADER.register(getResource("state_property"), StatePropertyVariable.LOADER);
-    // entity
-    EntityVariable.LOADER.register(getResource("constant"), EntityVariable.Constant.LOADER);
-    EntityVariable.LOADER.register(getResource("conditional"), ConditionalEntityVariable.LOADER);
-    EntityVariable.LOADER.register(getResource("health"), EntityVariable.HEALTH.getLoader());
-    EntityVariable.LOADER.register(getResource("height"), EntityVariable.HEIGHT.getLoader());
-    EntityVariable.LOADER.register(getResource("attribute"), AttributeEntityVariable.LOADER);
-    EntityVariable.LOADER.register(getResource("effect_level"), EntityEffectLevelVariable.LOADER);
-    EntityVariable.LOADER.register(getResource("light"), EntityLightVariable.LOADER);
-    // tool
-    ToolVariable.LOADER.register(getResource("constant"), ToolVariable.Constant.LOADER);
-    ToolVariable.LOADER.register(getResource("conditional"), ConditionalToolVariable.LOADER);
-    ToolVariable.LOADER.register(getResource("current_durability"), ToolVariable.CURRENT_DURABILITY.getLoader());
-    ToolVariable.LOADER.register(getResource("stat"), ToolStatVariable.LOADER);
-    // stat
-    ConditionalStatVariable.LOADER.register(getResource("constant"), ConditionalStatVariable.Constant.LOADER);
-    ConditionalStatVariable.LOADER.register(getResource("entity"), EntityConditionalStatVariable.LOADER);
-    ConditionalStatVariable.LOADER.register(getResource("tool"), ToolConditionalStatVariable.LOADER);
-    // melee
-    MeleeVariable.LOADER.register(getResource("constant"), MeleeVariable.Constant.LOADER);
-    MeleeVariable.LOADER.register(getResource("entity"), EntityMeleeVariable.LOADER);
-    MeleeVariable.LOADER.register(getResource("tool"), ToolMeleeVariable.LOADER);
-    // mining speed
-    MiningSpeedVariable.LOADER.register(getResource("constant"), MiningSpeedVariable.Constant.LOADER);
-    MiningSpeedVariable.LOADER.register(getResource("block"), BlockMiningSpeedVariable.LOADER);
-    MiningSpeedVariable.LOADER.register(getResource("entity"), EntityMiningSpeedVariable.LOADER);
-    MiningSpeedVariable.LOADER.register(getResource("tool"), ToolMiningSpeedVariable.LOADER);
-    MiningSpeedVariable.LOADER.register(getResource("block_light"), BlockLightVariable.LOADER);
+      // variables
+      // block
+      BlockVariable.LOADER.register(getResource("constant"), BlockVariable.Constant.LOADER);
+      BlockVariable.LOADER.register(getResource("conditional"), ConditionalBlockVariable.LOADER);
+      BlockVariable.LOADER.register(getResource("blast_resistance"), BlockVariable.BLAST_RESISTANCE.getLoader());
+      BlockVariable.LOADER.register(getResource("hardness"), BlockVariable.HARDNESS.getLoader());
+      BlockVariable.LOADER.register(getResource("state_property"), StatePropertyVariable.LOADER);
+      // entity
+      EntityVariable.LOADER.register(getResource("constant"), EntityVariable.Constant.LOADER);
+      EntityVariable.LOADER.register(getResource("conditional"), ConditionalEntityVariable.LOADER);
+      EntityVariable.LOADER.register(getResource("health"), EntityVariable.HEALTH.getLoader());
+      EntityVariable.LOADER.register(getResource("height"), EntityVariable.HEIGHT.getLoader());
+      EntityVariable.LOADER.register(getResource("attribute"), AttributeEntityVariable.LOADER);
+      EntityVariable.LOADER.register(getResource("effect_level"), EntityEffectLevelVariable.LOADER);
+      EntityVariable.LOADER.register(getResource("light"), EntityLightVariable.LOADER);
+      // tool
+      ToolVariable.LOADER.register(getResource("constant"), ToolVariable.Constant.LOADER);
+      ToolVariable.LOADER.register(getResource("conditional"), ConditionalToolVariable.LOADER);
+      ToolVariable.LOADER.register(getResource("current_durability"), ToolVariable.CURRENT_DURABILITY.getLoader());
+      ToolVariable.LOADER.register(getResource("stat"), ToolStatVariable.LOADER);
+      // stat
+      ConditionalStatVariable.LOADER.register(getResource("constant"), ConditionalStatVariable.Constant.LOADER);
+      ConditionalStatVariable.LOADER.register(getResource("entity"), EntityConditionalStatVariable.LOADER);
+      ConditionalStatVariable.LOADER.register(getResource("tool"), ToolConditionalStatVariable.LOADER);
+      // melee
+      MeleeVariable.LOADER.register(getResource("constant"), MeleeVariable.Constant.LOADER);
+      MeleeVariable.LOADER.register(getResource("entity"), EntityMeleeVariable.LOADER);
+      MeleeVariable.LOADER.register(getResource("tool"), ToolMeleeVariable.LOADER);
+      // mining speed
+      MiningSpeedVariable.LOADER.register(getResource("constant"), MiningSpeedVariable.Constant.LOADER);
+      MiningSpeedVariable.LOADER.register(getResource("block"), BlockMiningSpeedVariable.LOADER);
+      MiningSpeedVariable.LOADER.register(getResource("entity"), EntityMiningSpeedVariable.LOADER);
+      MiningSpeedVariable.LOADER.register(getResource("tool"), ToolMiningSpeedVariable.LOADER);
+      MiningSpeedVariable.LOADER.register(getResource("block_light"), BlockLightVariable.LOADER);
+    }
   }
 
   @SubscribeEvent
@@ -681,12 +684,11 @@ public final class TinkerModifiers extends TinkerModule {
   @SubscribeEvent
   void gatherData(final GatherDataEvent event) {
     DataGenerator generator = event.getGenerator();
-    if (event.includeServer()) {
-      generator.addProvider(new ModifierProvider(generator));
-      generator.addProvider(new ModifierRecipeProvider(generator));
-      generator.addProvider(new SpillingFluidProvider(generator));
-      generator.addProvider(new ModifierTagProvider(generator, event.getExistingFileHelper()));
-      generator.addProvider(new EnchantmentToModifierProvider(generator));
-    }
+    boolean server = event.includeServer();
+    generator.addProvider(server, new ModifierProvider(generator));
+    generator.addProvider(server, new ModifierRecipeProvider(generator));
+    generator.addProvider(server, new SpillingFluidProvider(generator));
+    generator.addProvider(server, new ModifierTagProvider(generator, event.getExistingFileHelper()));
+    generator.addProvider(server, new EnchantmentToModifierProvider(generator));
   }
 }

@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -17,7 +18,6 @@ import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
-import java.util.Objects;
 import java.util.function.Consumer;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
@@ -92,7 +92,7 @@ public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<Material
 
   @Override
   public void save(Consumer<FinishedRecipe> consumer) {
-    this.save(consumer, Objects.requireNonNull(this.result.asItem().getRegistryName()));
+    this.save(consumer, Registry.ITEM.getKey(this.result.asItem()));
   }
 
   @Override
@@ -129,7 +129,7 @@ public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<Material
         json.addProperty("switch_slots", true);
       }
       json.addProperty("item_cost", itemCost);
-      json.addProperty("result", Objects.requireNonNull(result.asItem().getRegistryName()).toString());
+      json.addProperty("result", Registry.ITEM.getKey(result.asItem()).toString());
     }
   }
 }

@@ -4,13 +4,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.registries.ForgeRegistries;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import slimeknights.tconstruct.fixture.MaterialItemFixture;
 import slimeknights.tconstruct.fixture.MaterialStatsFixture;
 import slimeknights.tconstruct.fixture.ToolDefinitionFixture;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinitionDataBuilder;
-import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.ModifiableItem;
 import slimeknights.tconstruct.library.tools.item.ToolItemTest;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -19,10 +20,16 @@ import slimeknights.tconstruct.test.BlockHarvestLogic;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ToolHarvestLogicTest extends ToolItemTest {
+  private static ModifiableItem pickaxeTool;
 
-  private final ModifiableItem pickaxeTool = new ModifiableItem(
-    new Item.Properties(),
-    ToolDefinitionFixture.getStandardToolDefinition());
+  @BeforeAll
+  synchronized static void beforeAllToolLogic() {
+    MaterialItemFixture.init();
+    if (pickaxeTool == null) {
+      pickaxeTool = new ModifiableItem(new Item.Properties().stacksTo(1), ToolDefinitionFixture.getStandardToolDefinition());
+      ForgeRegistries.ITEMS.register(new ResourceLocation("test", "pickaxe"), pickaxeTool);
+    }
+  }
 
   @Test
   void calcSpeed_dirt_notEffective() {
@@ -76,7 +83,8 @@ class ToolHarvestLogicTest extends ToolItemTest {
                          .multiplier(ToolStats.MINING_SPEED, modifier)
                          .build());
 
-    IModifiable toolWithMiningModifier = new ModifiableItem(new Item.Properties(), definition);
+    ModifiableItem toolWithMiningModifier = new ModifiableItem(new Item.Properties(), definition);
+    ForgeRegistries.ITEMS.register(new ResourceLocation("test", "tool_with_mining_modifier"), toolWithMiningModifier);
     ItemStack tool = buildTestTool(toolWithMiningModifier);
 
     // boosted by correct block

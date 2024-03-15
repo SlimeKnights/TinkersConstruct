@@ -6,7 +6,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.Tag;
 import net.minecraft.tags.TagKey;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
@@ -14,6 +13,7 @@ import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 /** Condition requiring that items exist in the intersection of all required item tags. */
@@ -46,36 +46,27 @@ public class TagIntersectionPresentCondition<T> implements ICondition {
     return NAME;
   }
 
-  @SuppressWarnings("removal")
-  @Deprecated
-  @Override
-  public boolean test() {
-    // TODO: consider adding support for contextless variant like TagNotEmptyLootCondition
-    TConstruct.LOG.error("Calling TagIntersectionPresentCondition method with no context, unable to properly test");
-    return false;
-  }
-
   @Override
   public boolean test(IContext context) {
     // if there is just one tag, just needs to be filled
-    List<Tag<Holder<T>>> tags = names.stream().map(context::getTag).toList();
+    List<Collection<Holder<T>>> tags = names.stream().map(context::getTag).toList();
     if (tags.size() == 1) {
-      return !tags.get(0).getValues().isEmpty();
+      return !tags.get(0).isEmpty();
     }
     // if any remaining tag is empty, give up
     int count = tags.size();
     for (int i = 1; i < count; i++) {
-      if (tags.get(i).getValues().isEmpty()) {
+      if (tags.get(i).isEmpty()) {
         return false;
       }
     }
 
     // all tags have something, so find the first item that is in all tags
     itemLoop:
-    for (Holder<T> entry : tags.get(0).getValues()) {
+    for (Holder<T> entry : tags.get(0)) {
       // find the first item contained in all other intersection tags
       for (int i = 1; i < count; i++) {
-        if (!tags.get(i).getValues().contains(entry)) {
+        if (!tags.get(i).contains(entry)) {
           continue itemLoop;
         }
       }

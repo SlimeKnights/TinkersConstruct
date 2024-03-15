@@ -1,23 +1,23 @@
 {
   "type": "tconstruct:casting_table",
-  "conditions": [
-    {
-      "value": {
-        "tag": "forge:wires/signalum",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
-    }
-  ],
   "cast": {
     "tag": "tconstruct:casts/multi_use/wire"
   },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:wires/signalum"
+      }
+    }
+  ],
+  "cooling_time": 49,
   "fluid": {
-    "tag": "forge:molten_signalum",
-    "amount": 45
+    "amount": 45,
+    "tag": "forge:molten_signalum"
   },
   "result": {
     "tag": "forge:wires/signalum"
-  },
-  "cooling_time": 49
+  }
 }

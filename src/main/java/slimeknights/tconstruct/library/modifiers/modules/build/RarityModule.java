@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.modifiers.modules.build;
 
 import net.minecraft.world.item.Rarity;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.loader.EnumLoader;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;

@@ -1,5 +1,5 @@
 {
   "type": "tconstruct:basin_filling",
-  "fluid_amount": 250,
-  "container": "tconstruct:scorched_fuel_gauge"
+  "container": "tconstruct:scorched_fuel_gauge",
+  "fluid_amount": 250
 }

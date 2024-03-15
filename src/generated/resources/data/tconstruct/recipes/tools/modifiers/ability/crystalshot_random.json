@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:swappable_modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "ingredient": [
@@ -38,15 +39,14 @@
       "tag": "forge:ingots/manyullyn"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/ranged/bows"
+  "result": {
+    "name": "tconstruct:crystalshot",
+    "value": "random"
   },
   "slots": {
     "abilities": 1
   },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:crystalshot",
-    "value": "random"
+  "tools": {
+    "tag": "tconstruct:modifiable/ranged/bows"
   }
 }

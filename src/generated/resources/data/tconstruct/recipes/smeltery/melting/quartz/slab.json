@@ -9,8 +9,8 @@
     }
   ],
   "result": {
-    "fluid": "tconstruct:molten_quartz",
-    "amount": 200
+    "amount": 200,
+    "fluid": "tconstruct:molten_quartz"
   },
   "temperature": 637,
   "time": 82

@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:wires/lumium",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:wires/lumium"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:wires/lumium"
   },
   "result": {
-    "fluid": "tconstruct:molten_lumium",
-    "amount": 45
+    "amount": 45,
+    "fluid": "tconstruct:molten_lumium"
   },
   "temperature": 1050,
   "time": 14

@@ -1,23 +1,23 @@
 {
   "type": "tconstruct:casting_table",
-  "conditions": [
-    {
-      "value": {
-        "tag": "forge:rods/platinum",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
-    }
-  ],
   "cast": {
     "tag": "tconstruct:casts/multi_use/rod"
   },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:rods/platinum"
+      }
+    }
+  ],
+  "cooling_time": 46,
   "fluid": {
-    "tag": "forge:molten_platinum",
-    "amount": 45
+    "amount": 45,
+    "tag": "forge:molten_platinum"
   },
   "result": {
     "tag": "forge:rods/platinum"
-  },
-  "cooling_time": 46
+  }
 }

@@ -29,12 +29,12 @@ public class BlockSideHitListener {
 
   /** Called when the player left clicks a block to store the face */
   private static void onLeftClickBlock(LeftClickBlock event) {
-    HIT_FACE.put(event.getPlayer().getUUID(), event.getFace());
+    HIT_FACE.put(event.getEntity().getUUID(), event.getFace());
   }
 
   /** Called when a player leaves the server to clear the face */
   private static void onLeaveServer(PlayerLoggedOutEvent event) {
-    HIT_FACE.remove(event.getPlayer().getUUID());
+    HIT_FACE.remove(event.getEntity().getUUID());
   }
 
   /**

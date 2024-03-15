@@ -446,15 +446,8 @@ public class TinkerTags {
     public static final TagKey<Fluid> AVERAGE_METAL_SPILLING = tag("spilling/metal/average");
     public static final TagKey<Fluid> EXPENSIVE_METAL_SPILLING = tag("spilling/metal/expensive");
 
-    public static final TagKey<Fluid> POTION = forgeTag("potion");
-    public static final TagKey<Fluid> POWDERED_SNOW = forgeTag("powdered_snow");
-
     private static TagKey<Fluid> tag(String name) {
       return TagKey.create(Registry.FLUID_REGISTRY, TConstruct.getResource(name));
-    }
-
-    private static TagKey<Fluid> forgeTag(String name) {
-      return TagKey.create(Registry.FLUID_REGISTRY, new ResourceLocation("forge", name));
     }
   }
 

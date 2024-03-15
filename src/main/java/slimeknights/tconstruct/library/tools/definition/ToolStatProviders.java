@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.tools.definition;
 
 import com.google.common.collect.ImmutableSet;
-import slimeknights.mantle.data.NamedComponentRegistry;
+import slimeknights.mantle.data.registry.NamedComponentRegistry;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;

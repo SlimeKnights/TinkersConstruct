@@ -4,10 +4,10 @@
     "item": "tconstruct:obsidian_pane"
   },
   "cast_consumed": true,
+  "cooling_time": 37,
   "fluid": {
-    "tag": "tconstruct:molten_slimesteel",
-    "amount": 30
+    "amount": 30,
+    "tag": "tconstruct:molten_slimesteel"
   },
-  "result": "tconstruct:slimesteel_reinforcement",
-  "cooling_time": 37
+  "result": "tconstruct:slimesteel_reinforcement"
 }

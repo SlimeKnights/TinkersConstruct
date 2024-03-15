@@ -1,15 +1,15 @@
 {
   "type": "tconstruct:casting_table",
   "cast": {
-    "item": "tconstruct:round_plate",
-    "type": "tconstruct:material"
+    "type": "tconstruct:material",
+    "item": "tconstruct:round_plate"
   },
   "cast_consumed": true,
-  "switch_slots": true,
+  "cooling_time": 57,
   "fluid": {
-    "tag": "forge:molten_gold",
-    "amount": 90
+    "amount": 90,
+    "tag": "forge:molten_gold"
   },
   "result": "tconstruct:round_plate_cast",
-  "cooling_time": 57
+  "switch_slots": true
 }

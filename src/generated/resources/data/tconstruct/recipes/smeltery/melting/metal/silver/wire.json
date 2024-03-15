@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:wires/silver",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:wires/silver"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:wires/silver"
   },
   "result": {
-    "fluid": "tconstruct:molten_silver",
-    "amount": 45
+    "amount": 45,
+    "fluid": "tconstruct:molten_silver"
   },
   "temperature": 790,
   "time": 12

@@ -44,7 +44,7 @@ public class MaterialFluidRecipeBuilder extends AbstractRecipeBuilder<MaterialFl
   public MaterialFluidRecipeBuilder setFluidAndTemp(FluidStack fluidStack) {
     this.fluid = FluidIngredient.of(fluidStack);
     if (this.temperature == -1) {
-      this.temperature = fluidStack.getFluid().getAttributes().getTemperature(fluidStack) - 300;
+      this.temperature = fluidStack.getFluid().getFluidType().getTemperature(fluidStack) - 300;
     }
     return this;
   }

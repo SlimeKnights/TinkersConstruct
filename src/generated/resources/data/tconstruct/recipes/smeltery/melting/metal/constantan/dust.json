@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:dusts/constantan",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:dusts/constantan"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:dusts/constantan"
   },
   "result": {
-    "fluid": "tconstruct:molten_constantan",
-    "amount": 90
+    "amount": 90,
+    "fluid": "tconstruct:molten_constantan"
   },
   "temperature": 920,
   "time": 48

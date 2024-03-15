@@ -144,7 +144,7 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<ItemPartReci
     return multiRecipes;
   }
 
-  public static class Serializer extends LoggingRecipeSerializer<PartRecipe> {
+  public static class Serializer implements LoggingRecipeSerializer<PartRecipe> {
     @Override
     public PartRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
       String group = GsonHelper.getAsString(json, "group", "");
@@ -167,7 +167,7 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<ItemPartReci
 
     @Nullable
     @Override
-    protected PartRecipe fromNetworkSafe(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+    public PartRecipe fromNetworkSafe(ResourceLocation recipeId, FriendlyByteBuf buffer) {
       String group = buffer.readUtf(Short.MAX_VALUE);
       Pattern pattern = new Pattern(buffer.readUtf(Short.MAX_VALUE));
       Ingredient patternItem = Ingredient.fromNetwork(buffer);
@@ -179,7 +179,7 @@ public class PartRecipe implements IPartBuilderRecipe, IMultiRecipe<ItemPartReci
     }
 
     @Override
-    protected void toNetworkSafe(FriendlyByteBuf buffer, PartRecipe recipe) {
+    public void toNetworkSafe(FriendlyByteBuf buffer, PartRecipe recipe) {
       buffer.writeUtf(recipe.group);
       buffer.writeUtf(recipe.pattern.toString());
       recipe.patternItem.toNetwork(buffer);

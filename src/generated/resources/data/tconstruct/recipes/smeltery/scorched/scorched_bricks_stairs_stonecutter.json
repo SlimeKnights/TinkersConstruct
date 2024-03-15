@@ -1,8 +1,8 @@
 {
   "type": "minecraft:stonecutting",
+  "count": 1,
   "ingredient": {
     "item": "tconstruct:scorched_bricks"
   },
-  "result": "tconstruct:scorched_bricks_stairs",
-  "count": 1
+  "result": "tconstruct:scorched_bricks_stairs"
 }

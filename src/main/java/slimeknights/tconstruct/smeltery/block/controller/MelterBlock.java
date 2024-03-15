@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.smeltery.block.controller;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -12,7 +13,6 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.entity.controller.MelterBlockEntity;
 
 import javax.annotation.Nullable;
-import java.util.Random;
 
 public class MelterBlock extends TinyMultiblockControllerBlock {
   public MelterBlock(Properties props) {
@@ -49,7 +49,7 @@ public class MelterBlock extends TinyMultiblockControllerBlock {
 
 
   @Override
-  public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
+  public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource rand) {
     if (state.getValue(ACTIVE)) {
       double x = pos.getX() + 0.5D;
       double y = (double) pos.getY() + (rand.nextFloat() * 6F) / 16F;

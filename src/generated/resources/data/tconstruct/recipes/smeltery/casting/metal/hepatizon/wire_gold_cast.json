@@ -1,23 +1,23 @@
 {
   "type": "tconstruct:casting_table",
-  "conditions": [
-    {
-      "value": {
-        "tag": "forge:wires/hepatizon",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
-    }
-  ],
   "cast": {
     "tag": "tconstruct:casts/multi_use/wire"
   },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:wires/hepatizon"
+      }
+    }
+  ],
+  "cooling_time": 55,
   "fluid": {
-    "tag": "forge:molten_hepatizon",
-    "amount": 45
+    "amount": 45,
+    "tag": "forge:molten_hepatizon"
   },
   "result": {
     "tag": "forge:wires/hepatizon"
-  },
-  "cooling_time": 55
+  }
 }

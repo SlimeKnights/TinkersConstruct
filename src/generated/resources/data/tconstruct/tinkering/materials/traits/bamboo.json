@@ -2,8 +2,8 @@
   "perStat": {
     "tconstruct:ranged": [
       {
-        "name": "tconstruct:flexible",
-        "level": 1
+        "level": 1,
+        "name": "tconstruct:flexible"
       }
     ]
   }

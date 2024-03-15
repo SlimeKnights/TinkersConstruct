@@ -4,8 +4,8 @@
     "item": "minecraft:slime_block"
   },
   "result": {
-    "fluid": "tconstruct:earth_slime",
-    "amount": 2250
+    "amount": 2250,
+    "fluid": "tconstruct:earth_slime"
   },
   "temperature": 50,
   "time": 92

@@ -61,7 +61,7 @@ public class SearingModifier extends Modifier implements BreakSpeedModifierHook,
       BlockState state = event.getState();
       Item item = state.getBlock().asItem();
       if (item != Items.AIR) {
-        Level world = event.getPlayer().level;
+        Level world = event.getEntity().level;
         // +7 per level if it has a melting recipe, cache to save lookup time
         // TODO: consider whether we should use getCloneItemStack, problem is I don't want a position based logic and its possible the result is BE based
         if (BOOSTED_BLOCKS.computeIfAbsent(item, i -> isEffective(world, i)) == Boolean.TRUE) {

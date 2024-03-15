@@ -2,21 +2,21 @@
   "type": "tconstruct:alloy",
   "inputs": [
     {
-      "tag": "forge:molten_iron",
-      "amount": 90
+      "amount": 90,
+      "tag": "forge:molten_iron"
     },
     {
-      "tag": "tconstruct:blood",
-      "amount": 500
+      "amount": 500,
+      "tag": "tconstruct:blood"
     },
     {
-      "tag": "forge:honey",
-      "amount": 250
+      "amount": 250,
+      "tag": "forge:honey"
     }
   ],
   "result": {
-    "fluid": "tconstruct:molten_pig_iron",
-    "amount": 180
+    "amount": 180,
+    "fluid": "tconstruct:molten_pig_iron"
   },
   "temperature": 811
 }

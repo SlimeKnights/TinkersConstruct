@@ -2,12 +2,12 @@
   "type": "tconstruct:material",
   "conditions": [
     {
-      "registry": "minecraft:item",
+      "type": "tconstruct:tag_difference_present",
       "base": "minecraft:planks",
+      "registry": "minecraft:item",
       "subtracted": [
         "tconstruct:wood_variants/planks"
-      ],
-      "type": "tconstruct:tag_difference_present"
+      ]
     }
   ],
   "ingredient": {
@@ -19,7 +19,7 @@
       "tag": "tconstruct:wood_variants/planks"
     }
   },
-  "value": 1,
+  "material": "tconstruct:wood",
   "needed": 1,
-  "material": "tconstruct:wood"
+  "value": 1
 }

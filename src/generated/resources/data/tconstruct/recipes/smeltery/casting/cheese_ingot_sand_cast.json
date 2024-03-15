@@ -4,10 +4,10 @@
     "tag": "tconstruct:casts/single_use/ingot"
   },
   "cast_consumed": true,
+  "cooling_time": 2400,
   "fluid": {
-    "name": "minecraft:milk",
-    "amount": 250
+    "amount": 250,
+    "name": "minecraft:milk"
   },
-  "result": "tconstruct:cheese_ingot",
-  "cooling_time": 2400
+  "result": "tconstruct:cheese_ingot"
 }

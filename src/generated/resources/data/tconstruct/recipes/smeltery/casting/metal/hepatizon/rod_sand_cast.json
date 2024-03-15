@@ -1,24 +1,24 @@
 {
   "type": "tconstruct:casting_table",
-  "conditions": [
-    {
-      "value": {
-        "tag": "forge:rods/hepatizon",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
-    }
-  ],
   "cast": {
     "tag": "tconstruct:casts/single_use/rod"
   },
   "cast_consumed": true,
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:rods/hepatizon"
+      }
+    }
+  ],
+  "cooling_time": 55,
   "fluid": {
-    "tag": "forge:molten_hepatizon",
-    "amount": 45
+    "amount": 45,
+    "tag": "forge:molten_hepatizon"
   },
   "result": {
     "tag": "forge:rods/hepatizon"
-  },
-  "cooling_time": 55
+  }
 }

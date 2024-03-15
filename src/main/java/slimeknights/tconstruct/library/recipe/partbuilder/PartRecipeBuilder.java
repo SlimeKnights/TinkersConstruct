@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -13,7 +14,6 @@ import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 import javax.annotation.Nullable;
-import java.util.Objects;
 import java.util.function.Consumer;
 
 /**
@@ -42,7 +42,7 @@ public class PartRecipeBuilder extends AbstractRecipeBuilder<PartRecipeBuilder> 
 
   @Override
   public void save(Consumer<FinishedRecipe> consumerIn) {
-    this.save(consumerIn, Objects.requireNonNull(this.output.asItem().getRegistryName()));
+    this.save(consumerIn, Registry.ITEM.getKey(this.output.asItem()));
   }
 
   @Override
@@ -77,7 +77,7 @@ public class PartRecipeBuilder extends AbstractRecipeBuilder<PartRecipeBuilder> 
       json.addProperty("cost", cost);
 
       JsonObject jsonOutput = new JsonObject();
-      jsonOutput.addProperty("item", Objects.requireNonNull(output.asItem().getRegistryName()).toString());
+      jsonOutput.addProperty("item", Registry.ITEM.getKey(output.asItem()).toString());
       if (outputAmount > 1) {
         jsonOutput.addProperty("count", outputAmount);
       }

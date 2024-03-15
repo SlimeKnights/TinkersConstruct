@@ -115,7 +115,7 @@ public class MeltingRecipe implements IMeltingRecipe {
     T create(ResourceLocation id, String group, Ingredient input, FluidStack output, int temperature, int time, List<FluidStack> byproducts);
   }
 
-  protected abstract static class AbstractSerializer<T extends MeltingRecipe> extends LoggingRecipeSerializer<T> {
+  protected abstract static class AbstractSerializer<T extends MeltingRecipe> implements LoggingRecipeSerializer<T> {
     /** Creates a new recipe instance from Json */
     protected abstract T createFromJson(ResourceLocation id, String group, Ingredient input, FluidStack output, int temperature, int time, List<FluidStack> byproducts, JsonObject json);
 
@@ -144,7 +144,7 @@ public class MeltingRecipe implements IMeltingRecipe {
 
     @Nullable
     @Override
-    protected T fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    public T fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       String group = buffer.readUtf(Short.MAX_VALUE);
       Ingredient input = Ingredient.fromNetwork(buffer);
       FluidStack output = FluidStack.readFromPacket(buffer);
@@ -159,7 +159,7 @@ public class MeltingRecipe implements IMeltingRecipe {
     }
 
     @Override
-    protected void toNetworkSafe(FriendlyByteBuf buffer, T recipe) {
+    public void toNetworkSafe(FriendlyByteBuf buffer, T recipe) {
       buffer.writeUtf(recipe.group);
       recipe.input.toNetwork(buffer);
       recipe.output.writeToPacket(buffer);

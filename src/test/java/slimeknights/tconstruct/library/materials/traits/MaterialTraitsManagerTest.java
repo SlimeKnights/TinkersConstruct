@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.materials.traits;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import slimeknights.mantle.data.MergingJsonFileLoader;
+import slimeknights.mantle.data.listener.MergingJsonFileLoader;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.fixture.MaterialStatsFixture;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;

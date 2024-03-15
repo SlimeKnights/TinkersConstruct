@@ -1,9 +1,8 @@
 package slimeknights.tconstruct.library.materials.stats;
 
 import lombok.EqualsAndHashCode;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.library.utils.Util;
 
 /**
@@ -27,6 +26,6 @@ public abstract class BaseMaterialStats implements IMaterialStats {
    * @return  Text component
    */
   protected static Component makeTooltip(ResourceLocation name) {
-    return new TranslatableComponent(makeTooltipKey(name));
+    return Component.translatable(makeTooltipKey(name));
   }
 }

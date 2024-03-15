@@ -2,25 +2,25 @@
   "type": "minecraft:crafting_shaped",
   "conditions": [
     {
-      "prop": "slime_recipe_fix",
-      "type": "tconstruct:config"
+      "type": "tconstruct:config",
+      "prop": "slime_recipe_fix"
     }
   ],
+  "key": {
+    "O": {
+      "tag": "forge:slimeballs"
+    },
+    "~": {
+      "item": "minecraft:string"
+    }
+  },
   "pattern": [
     "~~ ",
     "~O ",
     "  ~"
   ],
-  "key": {
-    "~": {
-      "item": "minecraft:string"
-    },
-    "O": {
-      "tag": "forge:slimeballs"
-    }
-  },
   "result": {
-    "item": "minecraft:lead",
-    "count": 2
+    "count": 2,
+    "item": "minecraft:lead"
   }
 }

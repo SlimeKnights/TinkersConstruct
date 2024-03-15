@@ -1,19 +1,19 @@
 {
   "default": [
     {
-      "name": "tconstruct:raging",
-      "level": 1
+      "level": 1,
+      "name": "tconstruct:raging"
     }
   ],
   "perStat": {
     "tconstruct:skull": [
       {
-        "name": "tconstruct:frosttouch",
-        "level": 1
+        "level": 1,
+        "name": "tconstruct:frosttouch"
       },
       {
-        "name": "tconstruct:stray_disguise",
-        "level": 1
+        "level": 1,
+        "name": "tconstruct:stray_disguise"
       }
     ]
   }

@@ -1,16 +1,16 @@
 {
-  "fluid": {
-    "tag": "forge:ender",
-    "amount": 50
-  },
   "effects": [
     {
       "type": "tconstruct:damage",
-      "damage_type": "magic",
-      "damage_amount": 1.0
+      "damage_amount": 1.0,
+      "damage_type": "magic"
     },
     {
       "type": "tconstruct:teleport"
     }
-  ]
+  ],
+  "fluid": {
+    "amount": 50,
+    "tag": "forge:ender"
+  }
 }

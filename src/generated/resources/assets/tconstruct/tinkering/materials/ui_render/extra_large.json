@@ -1,8 +1,8 @@
 {
-  "texture": "tconstruct:copper",
+  "color": "F98648",
   "fallbacks": [
     "metal"
   ],
-  "color": "F98648",
-  "luminosity": 0
+  "luminosity": 0,
+  "texture": "tconstruct:copper"
 }

@@ -1,23 +1,23 @@
 {
   "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "tooltip_display": "always",
   "modules": [
     {
       "type": "tconstruct:incremental"
     },
     {
       "type": "tconstruct:attribute",
-      "unique": "tconstruct.modifier.revitalizing",
       "attribute": "minecraft:generic.max_health",
-      "operation": "addition",
       "each_level": 2.0,
+      "operation": "addition",
       "slots": [
         "feet",
         "legs",
         "chest",
         "head"
-      ]
+      ],
+      "unique": "tconstruct.modifier.revitalizing"
     }
-  ]
+  ],
+  "tooltip_display": "always"
 }

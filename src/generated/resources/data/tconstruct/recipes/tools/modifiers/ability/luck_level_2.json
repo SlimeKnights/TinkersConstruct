@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": false,
   "inputs": [
     {
       "tag": "forge:ingots/gold"
@@ -17,6 +18,16 @@
       "tag": "forge:ender_pearls"
     }
   ],
+  "max_level": 2,
+  "requirements": {
+    "error": "recipe.tconstruct.modifier.luck.level_2",
+    "level": 1,
+    "name": "tconstruct:luck"
+  },
+  "result": {
+    "level": 1,
+    "name": "tconstruct:luck"
+  },
   "tools": [
     {
       "tag": "tconstruct:modifiable/melee/weapon"
@@ -27,16 +38,5 @@
     {
       "tag": "tconstruct:modifiable/ranged/bows"
     }
-  ],
-  "requirements": {
-    "name": "tconstruct:luck",
-    "level": 1,
-    "error": "recipe.tconstruct.modifier.luck.level_2"
-  },
-  "allow_crystal": false,
-  "result": {
-    "name": "tconstruct:luck",
-    "level": 1
-  },
-  "max_level": 2
+  ]
 }

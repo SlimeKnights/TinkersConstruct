@@ -4,10 +4,10 @@
     "item": "tconstruct:obsidian_pane"
   },
   "cast_consumed": true,
+  "cooling_time": 35,
   "fluid": {
-    "tag": "forge:molten_amethyst_bronze",
-    "amount": 30
+    "amount": 30,
+    "tag": "forge:molten_amethyst_bronze"
   },
-  "result": "tconstruct:bronze_reinforcement",
-  "cooling_time": 35
+  "result": "tconstruct:bronze_reinforcement"
 }

@@ -2,17 +2,17 @@
   "type": "tconstruct:material_fluid",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:ingots/osmium",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/osmium"
+      }
     }
   ],
   "fluid": {
-    "tag": "forge:molten_osmium",
-    "amount": 90
+    "amount": 90,
+    "tag": "forge:molten_osmium"
   },
-  "temperature": 975,
-  "output": "tconstruct:osmium"
+  "output": "tconstruct:osmium",
+  "temperature": 975
 }

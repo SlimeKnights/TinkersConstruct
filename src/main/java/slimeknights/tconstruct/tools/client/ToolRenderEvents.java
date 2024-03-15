@@ -24,7 +24,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.HitResult.Type;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.DrawSelectionEvent;
+import net.minecraftforge.client.event.RenderHighlightEvent;
 import net.minecraftforge.client.event.RenderLevelLastEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -48,7 +48,7 @@ public class ToolRenderEvents {
    * @param event the highlight event
    */
   @SubscribeEvent
-  static void renderBlockHighlights(DrawSelectionEvent.HighlightBlock event) {
+  static void renderBlockHighlights(RenderHighlightEvent.Block event) {
     Level world = Minecraft.getInstance().level;
     Player player = Minecraft.getInstance().player;
     if (world == null || player == null) {

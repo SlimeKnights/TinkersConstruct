@@ -1,10 +1,18 @@
 {
   "type": "tconstruct:incremental_modifier",
+  "allow_crystal": true,
+  "amount_per_item": 1,
   "input": {
     "item": "tconstruct:seared_reinforcement"
   },
-  "amount_per_item": 1,
   "needed_per_level": 20,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:fire_protection"
+  },
+  "slots": {
+    "defense": 1
+  },
   "tools": [
     {
       "tag": "tconstruct:modifiable/armor"
@@ -12,13 +20,5 @@
     {
       "tag": "tconstruct:modifiable/held"
     }
-  ],
-  "slots": {
-    "defense": 1
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:fire_protection",
-    "level": 1
-  }
+  ]
 }

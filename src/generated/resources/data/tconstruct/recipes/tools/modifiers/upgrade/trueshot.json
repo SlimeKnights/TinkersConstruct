@@ -1,20 +1,20 @@
 {
   "type": "tconstruct:incremental_modifier",
+  "allow_crystal": true,
+  "amount_per_item": 1,
   "input": {
     "item": "minecraft:target"
   },
-  "amount_per_item": 1,
+  "max_level": 3,
   "needed_per_level": 10,
-  "tools": {
-    "tag": "tconstruct:modifiable/ranged"
+  "result": {
+    "level": 1,
+    "name": "tconstruct:trueshot"
   },
   "slots": {
     "upgrades": 1
   },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:trueshot",
-    "level": 1
-  },
-  "max_level": 3
+  "tools": {
+    "tag": "tconstruct:modifiable/ranged"
+  }
 }

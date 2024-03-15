@@ -3,10 +3,10 @@
   "bottle": {
     "tag": "forge:bottles/lingering"
   },
+  "cooling_time": 0,
   "fluid": {
-    "tag": "forge:potion",
-    "amount": 250
+    "amount": 250,
+    "name": "tconstruct:potion"
   },
-  "result": "minecraft:lingering_potion",
-  "cooling_time": 0
+  "result": "minecraft:lingering_potion"
 }

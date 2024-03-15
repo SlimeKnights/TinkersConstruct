@@ -4,8 +4,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.ingredients.IIngredientRenderer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.TooltipFlag;
 import slimeknights.tconstruct.library.client.modifiers.ModifierIconManager;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -31,9 +29,9 @@ public enum ModifierBookmarkIngredientRenderer implements IIngredientRenderer<Mo
   public List<Component> getTooltip(ModifierEntry entry, TooltipFlag flag) {
     List<Component> list = new ArrayList<>();
     // not using the main method as that applies color
-    list.add(new TranslatableComponent(WRAPPER_KEY, new TranslatableComponent(entry.getModifier().getTranslationKey())));
+    list.add(Component.translatable(WRAPPER_KEY, Component.translatable(entry.getModifier().getTranslationKey())));
     if (flag.isAdvanced()) {
-      list.add((new TextComponent(entry.getId().toString())).withStyle(ChatFormatting.DARK_GRAY));
+      list.add((Component.literal(entry.getId().toString())).withStyle(ChatFormatting.DARK_GRAY));
     }
     return list;
   }

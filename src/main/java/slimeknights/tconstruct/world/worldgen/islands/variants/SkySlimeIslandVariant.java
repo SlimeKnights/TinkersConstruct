@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.world.worldgen.islands.variants;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import slimeknights.tconstruct.TConstruct;
@@ -11,7 +12,6 @@ import slimeknights.tconstruct.world.TinkerWorld;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
-import java.util.Random;
 
 /**
  * Island variant for sky slime islands
@@ -27,7 +27,7 @@ public class SkySlimeIslandVariant extends AbstractSlimeIslandVariant {
   }
 
   @Override
-  protected SlimeType getCongealedSlimeType(Random random) {
+  protected SlimeType getCongealedSlimeType(RandomSource random) {
     return random.nextBoolean() ? SlimeType.SKY : SlimeType.EARTH;
   }
 
@@ -44,7 +44,7 @@ public class SkySlimeIslandVariant extends AbstractSlimeIslandVariant {
 
   @Nullable
   @Override
-  public ConfiguredFeature<?,?> getTreeFeature(Random random) {
+  public ConfiguredFeature<?,?> getTreeFeature(RandomSource random) {
     return TinkerStructures.skySlimeIslandTree.get();
   }
 }

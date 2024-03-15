@@ -1,23 +1,23 @@
 {
   "type": "tconstruct:casting_table",
-  "conditions": [
-    {
-      "value": {
-        "tag": "forge:gears/knightslime",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
-    }
-  ],
   "cast": {
     "tag": "tconstruct:casts/multi_use/gear"
   },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:gears/knightslime"
+      }
+    }
+  ],
+  "cooling_time": 140,
   "fluid": {
-    "tag": "tconstruct:molten_knightslime",
-    "amount": 360
+    "amount": 360,
+    "tag": "tconstruct:molten_knightslime"
   },
   "result": {
     "tag": "forge:gears/knightslime"
-  },
-  "cooling_time": 140
+  }
 }

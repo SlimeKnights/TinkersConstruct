@@ -1,15 +1,14 @@
 {
   "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "tooltip_display": "always",
   "modules": [
     {
       "type": "tconstruct:incremental"
     },
     {
       "type": "tconstruct:mob_effect",
-      "entity": "mantle:any",
       "effect": "minecraft:slowness",
+      "entity": "mantle:any",
       "level": {
         "per_level": 0.5
       },
@@ -18,5 +17,6 @@
         "random": 10.0
       }
     }
-  ]
+  ],
+  "tooltip_display": "always"
 }

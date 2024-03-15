@@ -2,17 +2,17 @@
   "type": "tconstruct:material",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:ingots/tungsten",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/tungsten"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:ingots/tungsten"
   },
-  "value": 1,
+  "material": "tconstruct:tungsten",
   "needed": 1,
-  "material": "tconstruct:tungsten"
+  "value": 1
 }

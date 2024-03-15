@@ -4,8 +4,8 @@
     "item": "minecraft:diamond_horse_armor"
   },
   "result": {
-    "fluid": "tconstruct:molten_diamond",
-    "amount": 700
+    "amount": 700,
+    "fluid": "tconstruct:molten_diamond"
   },
   "temperature": 1450,
   "time": 220

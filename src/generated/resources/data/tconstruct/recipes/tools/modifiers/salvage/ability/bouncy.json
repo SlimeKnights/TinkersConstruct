@@ -1,5 +1,10 @@
 {
   "type": "tconstruct:modifier_salvage",
+  "min_level": 1,
+  "modifier": "tconstruct:bouncy",
+  "slots": {
+    "abilities": 1
+  },
   "tools": {
     "type": "forge:difference",
     "base": {
@@ -8,10 +13,5 @@
     "subtracted": {
       "item": "tconstruct:slime_boots"
     }
-  },
-  "slots": {
-    "abilities": 1
-  },
-  "modifier": "tconstruct:bouncy",
-  "min_level": 1
+  }
 }

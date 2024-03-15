@@ -4,8 +4,8 @@
   "textures": {
     "tool":         "tconstruct:item/tool/staff/ichor_3",
     "broken":       "tconstruct:item/tool/staff/ichor_broken",
-    "tool_large":   "tconstruct:item/tool/staff/ichor_large_3",
-    "broken_large": "tconstruct:item/tool/staff/ichor_large_broken"
+    "large_tool":   "tconstruct:item/tool/staff/ichor_large_3",
+    "large_broken": "tconstruct:item/tool/staff/ichor_large_broken"
   },
   "large": true,
   "modifier_roots": {

@@ -84,24 +84,24 @@ public class PersistentDataCapability {
     event.getOriginal().getCapability(CAPABILITY).ifPresent(oldData -> {
       CompoundTag nbt = oldData.getCopy();
       if (!nbt.isEmpty()) {
-        event.getPlayer().getCapability(CAPABILITY).ifPresent(newData -> newData.copyFrom(nbt));
+        event.getEntity().getCapability(CAPABILITY).ifPresent(newData -> newData.copyFrom(nbt));
       }
     });
   }
 
   /** sync caps when the player respawns/returns from the end */
   private static void playerRespawn(PlayerEvent.PlayerRespawnEvent event) {
-    sync(event.getPlayer());
+    sync(event.getEntity());
   }
 
   /** sync caps when the player changes dimensions */
   private static void playerChangeDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
-    sync(event.getPlayer());
+    sync(event.getEntity());
   }
 
   /** sync caps when the player logs in */
   private static void playerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
-    sync(event.getPlayer());
+    sync(event.getEntity());
   }
 
   /** Capability provider instance */

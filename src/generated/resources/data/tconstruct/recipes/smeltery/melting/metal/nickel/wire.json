@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:wires/nickel",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:wires/nickel"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:wires/nickel"
   },
   "result": {
-    "fluid": "tconstruct:molten_nickel",
-    "amount": 45
+    "amount": 45,
+    "fluid": "tconstruct:molten_nickel"
   },
   "temperature": 950,
   "time": 13

@@ -4,8 +4,8 @@
     "tag": "forge:mushrooms"
   },
   "result": {
-    "fluid": "tconstruct:mushroom_stew",
-    "amount": 125
+    "amount": 125,
+    "fluid": "tconstruct:mushroom_stew"
   },
   "temperature": 100,
   "time": 33

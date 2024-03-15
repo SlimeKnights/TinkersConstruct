@@ -3,8 +3,8 @@
   "ingredient": {
     "tag": "minecraft:acacia_logs"
   },
-  "value": 4,
-  "needed": 1,
+  "leftover": "minecraft:acacia_planks",
   "material": "tconstruct:wood#acacia",
-  "leftover": "minecraft:acacia_planks"
+  "needed": 1,
+  "value": 4
 }

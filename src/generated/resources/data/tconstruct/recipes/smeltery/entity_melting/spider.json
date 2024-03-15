@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:entity_melting",
+  "damage": 2,
   "entity": {
     "types": [
       "minecraft:spider",
@@ -7,8 +8,7 @@
     ]
   },
   "result": {
-    "fluid": "tconstruct:venom",
-    "amount": 25
-  },
-  "damage": 2
+    "amount": 25,
+    "fluid": "tconstruct:venom"
+  }
 }

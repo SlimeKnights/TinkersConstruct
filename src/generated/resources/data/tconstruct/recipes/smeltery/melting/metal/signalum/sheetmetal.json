@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:sheetmetals/signalum",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:sheetmetals/signalum"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:sheetmetals/signalum"
   },
   "result": {
-    "fluid": "tconstruct:molten_signalum",
-    "amount": 90
+    "amount": 90,
+    "fluid": "tconstruct:molten_signalum"
   },
   "temperature": 1125,
   "time": 70

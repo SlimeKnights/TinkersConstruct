@@ -2,17 +2,17 @@
   "type": "tconstruct:material_fluid",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:ingots/lead",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/lead"
+      }
     }
   ],
   "fluid": {
-    "tag": "forge:molten_lead",
-    "amount": 90
+    "amount": 90,
+    "tag": "forge:molten_lead"
   },
-  "temperature": 330,
-  "output": "tconstruct:lead"
+  "output": "tconstruct:lead",
+  "temperature": 330
 }

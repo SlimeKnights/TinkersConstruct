@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -16,7 +17,6 @@ import slimeknights.tconstruct.tables.TinkerTables;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Consumer;
 
 /**
@@ -38,7 +38,7 @@ public class ToolBuildingRecipeBuilder extends AbstractRecipeBuilder<ToolBuildin
 
   @Override
   public void save(Consumer<FinishedRecipe> consumerIn) {
-    this.save(consumerIn, Objects.requireNonNull(this.output.asItem().getRegistryName()));
+    this.save(consumerIn, Registry.ITEM.getKey(this.output.asItem()));
   }
 
   @Override
@@ -57,7 +57,7 @@ public class ToolBuildingRecipeBuilder extends AbstractRecipeBuilder<ToolBuildin
       if (!group.isEmpty()) {
         json.addProperty("group", group);
       }
-      json.addProperty("result", Objects.requireNonNull(output.asItem().getRegistryName()).toString());
+      json.addProperty("result", Registry.ITEM.getKey(output.asItem()).toString());
       json.addProperty("result_count", outputSize);
       if (!extraRequirements.isEmpty()) {
         JsonArray array = new JsonArray();

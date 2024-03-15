@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.materials.stats;
 
 import org.assertj.core.data.Offset;
 import org.junit.jupiter.api.Test;
-import slimeknights.mantle.data.MergingJsonFileLoader;
+import slimeknights.mantle.data.listener.MergingJsonFileLoader;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.test.BaseMcTest;

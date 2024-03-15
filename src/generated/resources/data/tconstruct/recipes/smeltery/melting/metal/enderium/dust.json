@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:dusts/enderium",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:dusts/enderium"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:dusts/enderium"
   },
   "result": {
-    "fluid": "tconstruct:molten_enderium",
-    "amount": 90
+    "amount": 90,
+    "fluid": "tconstruct:molten_enderium"
   },
   "temperature": 1350,
   "time": 57

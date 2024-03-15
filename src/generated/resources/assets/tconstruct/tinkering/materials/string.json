@@ -1,51 +1,51 @@
 {
+  "color": "FFFFFF",
   "fallbacks": [
     "primitive"
   ],
-  "color": "FFFFFF",
-  "luminosity": 0,
   "generator": {
+    "ignoreMaterialStats": false,
+    "supportedStats": [
+      "tconstruct:extra",
+      "tconstruct:bowstring",
+      "tconstruct:repair_kit"
+    ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",
       "color_mapping": {
         "type": "tconstruct:grey_to_color",
         "palette": [
           {
-            "grey": 0,
-            "color": "FF000000"
+            "color": "FF000000",
+            "grey": 0
           },
           {
-            "grey": 63,
-            "color": "FF2F4547"
+            "color": "FF2F4547",
+            "grey": 63
           },
           {
-            "grey": 102,
-            "color": "FF4D5859"
+            "color": "FF4D5859",
+            "grey": 102
           },
           {
-            "grey": 140,
-            "color": "FF838B8C"
+            "color": "FF838B8C",
+            "grey": 140
           },
           {
-            "grey": 178,
-            "color": "FFAFB3B5"
+            "color": "FFAFB3B5",
+            "grey": 178
           },
           {
-            "grey": 216,
-            "color": "FFDBDBDB"
+            "color": "FFDBDBDB",
+            "grey": 216
           },
           {
-            "grey": 255,
-            "color": "FFF7F7F7"
+            "color": "FFF7F7F7",
+            "grey": 255
           }
         ]
       }
-    },
-    "supportedStats": [
-      "tconstruct:extra",
-      "tconstruct:bowstring",
-      "tconstruct:repair_kit"
-    ],
-    "ignoreMaterialStats": false
-  }
+    }
+  },
+  "luminosity": 0
 }

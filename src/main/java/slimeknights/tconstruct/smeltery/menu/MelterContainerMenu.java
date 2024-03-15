@@ -9,7 +9,7 @@ import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import slimeknights.mantle.inventory.SmartItemHandlerSlot;
 import slimeknights.mantle.util.sync.ValidZeroDataSlot;
 import slimeknights.tconstruct.TConstruct;
@@ -47,7 +47,7 @@ public class MelterContainerMenu extends TriggeringBaseContainerMenu<MelterBlock
       if (world != null && world.getBlockState(down).is(TinkerTags.Blocks.FUEL_TANKS)) {
         BlockEntity te = world.getBlockEntity(down);
         if (te != null) {
-          hasFuelSlot = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).filter(handler -> {
+          hasFuelSlot = te.getCapability(ForgeCapabilities.ITEM_HANDLER).filter(handler -> {
             this.addSlot(new SmartItemHandlerSlot(handler, 0, 151, 32));
             return true;
           }).isPresent();

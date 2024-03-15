@@ -1,18 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "wooden_door",
-  "pattern": [
-    "##",
-    "##",
-    "##"
-  ],
   "key": {
     "#": {
       "item": "tconstruct:bloodshroom_planks"
     }
   },
+  "pattern": [
+    "##",
+    "##",
+    "##"
+  ],
   "result": {
-    "item": "tconstruct:bloodshroom_door",
-    "count": 3
+    "count": 3,
+    "item": "tconstruct:bloodshroom_door"
   }
 }

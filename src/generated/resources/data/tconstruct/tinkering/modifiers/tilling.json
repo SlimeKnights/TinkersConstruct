@@ -1,7 +1,6 @@
 {
   "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "tooltip_display": "always",
   "modules": [
     {
       "type": "tconstruct:show_offhand",
@@ -9,9 +8,10 @@
     },
     {
       "type": "tconstruct:tool_action_transform",
-      "tool_action": "till",
+      "require_ground": false,
       "sound": "minecraft:item.hoe.till",
-      "require_ground": false
+      "tool_action": "till"
     }
-  ]
+  ],
+  "tooltip_display": "always"
 }

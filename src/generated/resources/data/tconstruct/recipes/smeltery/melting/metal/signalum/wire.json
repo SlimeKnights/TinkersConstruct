@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:wires/signalum",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:wires/signalum"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:wires/signalum"
   },
   "result": {
-    "fluid": "tconstruct:molten_signalum",
-    "amount": 45
+    "amount": 45,
+    "fluid": "tconstruct:molten_signalum"
   },
   "temperature": 1125,
   "time": 14

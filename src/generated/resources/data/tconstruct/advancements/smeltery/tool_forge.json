@@ -1,60 +1,7 @@
 {
   "parent": "tconstruct:smeltery/tinkers_anvil",
-  "display": {
-    "icon": {
-      "item": "tconstruct:vein_hammer",
-      "nbt": "{Damage:0,tic_broken:0b,tic_display:1b,tic_materials:[\"tconstruct:ui_render#head\",\"tconstruct:ui_render#handle\",\"tconstruct:ui_render#extra\",\"tconstruct:ui_render#large\",\"tconstruct:ui_render#extra_large\"]}"
-    },
-    "title": {
-      "translate": "advancements.tconstruct.smeltery.tool_forge.title"
-    },
-    "description": {
-      "translate": "advancements.tconstruct.smeltery.tool_forge.description"
-    },
-    "frame": "challenge",
-    "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
   "criteria": {
-    "sledge_hammer": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "tconstruct:sledge_hammer"
-            ]
-          }
-        ]
-      }
-    },
-    "vein_hammer": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "tconstruct:vein_hammer"
-            ]
-          }
-        ]
-      }
-    },
-    "excavator": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "tconstruct:excavator"
-            ]
-          }
-        ]
-      }
-    },
     "broad_axe": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -63,22 +10,10 @@
             ]
           }
         ]
-      }
-    },
-    "scythe": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "tconstruct:scythe"
-            ]
-          }
-        ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "cleaver": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -87,10 +22,22 @@
             ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "excavator": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:excavator"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "longbow": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -99,7 +46,60 @@
             ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "scythe": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:scythe"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "sledge_hammer": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:sledge_hammer"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "vein_hammer": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:vein_hammer"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.tconstruct.smeltery.tool_forge.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "tconstruct:vein_hammer",
+      "nbt": "{Damage:0,tic_broken:0b,tic_display:1b,tic_materials:[\"tconstruct:ui_render#head\",\"tconstruct:ui_render#handle\",\"tconstruct:ui_render#extra\",\"tconstruct:ui_render#large\",\"tconstruct:ui_render#extra_large\"]}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.tconstruct.smeltery.tool_forge.title"
     }
   },
   "requirements": [

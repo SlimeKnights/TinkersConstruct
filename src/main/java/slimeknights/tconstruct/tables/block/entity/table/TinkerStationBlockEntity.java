@@ -3,7 +3,6 @@ package slimeknights.tconstruct.tables.block.entity.table;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
@@ -77,7 +76,7 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
     if (this.level == null) {
       return super.getDefaultName();
     }
-    return new TranslatableComponent(this.getBlockState().getBlock().getDescriptionId());
+    return Component.translatable(this.getBlockState().getBlock().getDescriptionId());
   }
 
   /**

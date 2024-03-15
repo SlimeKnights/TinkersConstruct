@@ -1,16 +1,16 @@
 {
   "type": "tconstruct:composable",
   "level_display": "tconstruct:no_levels",
-  "tooltip_display": "always",
   "modules": [
     {
       "type": "tconstruct:tool_action_walk_transform",
-      "tool_action": "till",
-      "sound": "minecraft:item.hoe.till",
       "radius": {
-        "flat": 0.5,
-        "each_level": 1.0
-      }
+        "each_level": 1.0,
+        "flat": 0.5
+      },
+      "sound": "minecraft:item.hoe.till",
+      "tool_action": "till"
     }
-  ]
+  ],
+  "tooltip_display": "always"
 }

@@ -103,7 +103,7 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
     return multiRecipes;
   }
 
-  public static class Serializer extends LoggingRecipeSerializer<MaterialMeltingRecipe> {
+  public static class Serializer implements LoggingRecipeSerializer<MaterialMeltingRecipe> {
     @Override
     public MaterialMeltingRecipe fromJson(ResourceLocation id, JsonObject json) {
       MaterialVariantId inputId = MaterialVariantId.fromJson(json, "input");
@@ -114,7 +114,7 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
 
     @Nullable
     @Override
-    protected MaterialMeltingRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    public MaterialMeltingRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       MaterialVariantId inputId = MaterialVariantId.parse(buffer.readUtf(Short.MAX_VALUE));
       int temperature = buffer.readInt();
       FluidStack output = FluidStack.readFromPacket(buffer);
@@ -122,7 +122,7 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
     }
 
     @Override
-    protected void toNetworkSafe(FriendlyByteBuf buffer, MaterialMeltingRecipe recipe) {
+    public void toNetworkSafe(FriendlyByteBuf buffer, MaterialMeltingRecipe recipe) {
       buffer.writeUtf(recipe.input.getVariant().toString());
       buffer.writeInt(recipe.temperature);
       recipe.result.writeToPacket(buffer);

@@ -1,7 +1,6 @@
 {
   "type": "tconstruct:composable",
   "level_display": "tconstruct:no_levels",
-  "tooltip_display": "tinker_station",
   "modules": [
     {
       "type": "tconstruct:swappable_slot",
@@ -9,9 +8,10 @@
     },
     {
       "type": "tconstruct:swappable_bonus_slot",
-      "match": "abilities",
       "bonus": "upgrades",
+      "match": "abilities",
       "slots": -1
     }
-  ]
+  ],
+  "tooltip_display": "tinker_station"
 }

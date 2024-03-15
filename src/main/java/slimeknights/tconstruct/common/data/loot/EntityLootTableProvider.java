@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.common.data.loot;
 
+import net.minecraft.core.Registry;
 import net.minecraft.data.loot.EntityLoot;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Items;
@@ -19,16 +20,15 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class EntityLootTableProvider extends EntityLoot {
 
   @Override
   protected Iterable<EntityType<?>> getKnownEntities() {
-    return ForgeRegistries.ENTITIES.getValues().stream()
+    return ForgeRegistries.ENTITY_TYPES.getValues().stream()
                                    // remove earth slime entity, we redirect to the vanilla loot table
-                                   .filter((entity) -> TConstruct.MOD_ID.equals(Objects.requireNonNull(entity.getRegistryName()).getNamespace())
+                                   .filter((entity) -> TConstruct.MOD_ID.equals(Registry.ENTITY_TYPE.getKey(entity).getNamespace())
                                                        && entity != TinkerWorld.earthSlimeEntity.get())
                                    .collect(Collectors.toList());
   }

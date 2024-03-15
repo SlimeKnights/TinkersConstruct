@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.traits.melee;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -87,7 +86,7 @@ public class ConductingModifier extends Modifier implements ConditionalStatModif
       if (player != null && key == TooltipKey.SHIFT && player.getRemainingFireTicks() == 0) {
         bonus = 0;
       }
-      tooltip.add(applyStyle(new TextComponent(Util.PERCENT_BOOST_FORMAT.format(bonus) + " ").append(ATTACK_DAMAGE)));
+      tooltip.add(applyStyle(Component.literal(Util.PERCENT_BOOST_FORMAT.format(bonus) + " ").append(ATTACK_DAMAGE)));
     }
   }
 }

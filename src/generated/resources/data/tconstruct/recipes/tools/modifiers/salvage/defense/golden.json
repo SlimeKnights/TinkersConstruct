@@ -1,11 +1,11 @@
 {
   "type": "tconstruct:modifier_salvage",
-  "tools": {
-    "tag": "tconstruct:modifiable/armor/worn"
-  },
+  "min_level": 1,
+  "modifier": "tconstruct:golden",
   "slots": {
     "defense": 1
   },
-  "modifier": "tconstruct:golden",
-  "min_level": 1
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/worn"
+  }
 }

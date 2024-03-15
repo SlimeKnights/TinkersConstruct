@@ -1,11 +1,11 @@
 {
   "type": "tconstruct:entity_melting",
+  "damage": 2,
   "entity": {
     "type": "minecraft:silverfish"
   },
   "result": {
-    "fluid": "tconstruct:seared_stone",
-    "amount": 50
-  },
-  "damage": 2
+    "amount": 50,
+    "fluid": "tconstruct:seared_stone"
+  }
 }

@@ -1,19 +1,19 @@
 {
   "type": "tconstruct:incremental_modifier",
+  "allow_crystal": true,
+  "amount_per_item": 1,
   "input": {
     "item": "tconstruct:ichor_slime_crystal"
   },
-  "amount_per_item": 1,
   "needed_per_level": 72,
-  "tools": {
-    "tag": "tconstruct:modifiable/armor/chestplate"
+  "result": {
+    "level": 1,
+    "name": "tconstruct:strength"
   },
   "slots": {
     "abilities": 1
   },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:strength",
-    "level": 1
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/chestplate"
   }
 }

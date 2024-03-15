@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.materials.stats;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import slimeknights.tconstruct.library.utils.Util;
 
 import java.util.List;
@@ -23,7 +22,7 @@ public interface IMaterialStats {
    * Returns the name of the stat type, to be displayed to the player.
    */
   default MutableComponent getLocalizedName() {
-    return new TranslatableComponent(Util.makeTranslationKey("stat", getIdentifier()));
+    return Component.translatable(Util.makeTranslationKey("stat", getIdentifier()));
   }
 
   /**

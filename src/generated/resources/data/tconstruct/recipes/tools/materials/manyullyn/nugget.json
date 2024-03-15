@@ -3,7 +3,7 @@
   "ingredient": {
     "tag": "forge:nuggets/manyullyn"
   },
-  "value": 1,
+  "material": "tconstruct:manyullyn",
   "needed": 9,
-  "material": "tconstruct:manyullyn"
+  "value": 1
 }

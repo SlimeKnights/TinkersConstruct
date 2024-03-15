@@ -1,5 +1,12 @@
 {
   "type": "tconstruct:damagable_melting",
+  "byproducts": [
+    {
+      "amount": 200,
+      "fluid": "tconstruct:molten_diamond",
+      "unit_size": 25
+    }
+  ],
   "ingredient": [
     {
       "item": "minecraft:netherite_sword"
@@ -9,17 +16,10 @@
     }
   ],
   "result": {
-    "fluid": "tconstruct:molten_netherite",
     "amount": 90,
+    "fluid": "tconstruct:molten_netherite",
     "unit_size": 10
   },
   "temperature": 1250,
-  "time": 74,
-  "byproducts": [
-    {
-      "fluid": "tconstruct:molten_diamond",
-      "amount": 200,
-      "unit_size": 25
-    }
-  ]
+  "time": 74
 }

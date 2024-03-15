@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:wires/queens_slime",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:wires/queens_slime"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:wires/queens_slime"
   },
   "result": {
-    "fluid": "tconstruct:molten_queens_slime",
-    "amount": 45
+    "amount": 45,
+    "fluid": "tconstruct:molten_queens_slime"
   },
   "temperature": 1150,
   "time": 14

@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.data.recipe;
 
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.crafting.CompoundIngredient;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -13,7 +14,6 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildin
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 
-import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -30,7 +30,7 @@ public interface IToolRecipeHelper extends ICastCreationHelper {
    */
   default void toolBuilding(Consumer<FinishedRecipe> consumer, IModifiable tool, String folder) {
     ToolBuildingRecipeBuilder.toolBuildingRecipe(tool)
-                             .save(consumer, modResource(folder + Objects.requireNonNull(tool.asItem().getRegistryName()).getPath()));
+                             .save(consumer, prefix(id(tool), folder));
   }
 
   /**
@@ -52,31 +52,32 @@ public interface IToolRecipeHelper extends ICastCreationHelper {
    * @param partFolder   Folder for recipes
    */
   default void partRecipes(Consumer<FinishedRecipe> consumer, IMaterialItem part, CastItemObject cast, int cost, String partFolder, String castFolder) {
-    String name = Objects.requireNonNull(part.asItem().getRegistryName()).getPath();
+    ResourceLocation id = id(part);
+    String name = id.getPath();
 
     // Part Builder
     PartRecipeBuilder.partRecipe(part)
-                     .setPattern(modResource(name))
+                     .setPattern(id)
                      .setPatternItem(CompoundIngredient.of(Ingredient.of(TinkerTags.Items.DEFAULT_PATTERNS), Ingredient.of(cast.get())))
                      .setCost(cost)
-                     .save(consumer, modResource(partFolder + "builder/" + name));
+                     .save(consumer, location(partFolder + "builder/" + name));
 
     // Material Casting
     String castingFolder = partFolder + "casting/";
     MaterialCastingRecipeBuilder.tableRecipe(part)
                                 .setItemCost(cost)
                                 .setCast(cast.getMultiUseTag(), false)
-                                .save(consumer, modResource(castingFolder + name + "_gold_cast"));
+                                .save(consumer, location(castingFolder + name + "_gold_cast"));
     MaterialCastingRecipeBuilder.tableRecipe(part)
                                 .setItemCost(cost)
                                 .setCast(cast.getSingleUseTag(), true)
-                                .save(consumer, modResource(castingFolder + name + "_sand_cast"));
+                                .save(consumer, location(castingFolder + name + "_sand_cast"));
     CompositeCastingRecipeBuilder.table(part, cost)
-                                 .save(consumer, modResource(castingFolder + name + "_composite"));
+                                 .save(consumer, location(castingFolder + name + "_composite"));
 
     // Cast Casting
     MaterialIngredient ingredient = MaterialIngredient.fromItem(part);
-    castCreation(consumer, ingredient, cast, castFolder, Objects.requireNonNull(part.asItem().getRegistryName()).getPath());
+    castCreation(consumer, ingredient, cast, castFolder, name);
   }
 
   /**

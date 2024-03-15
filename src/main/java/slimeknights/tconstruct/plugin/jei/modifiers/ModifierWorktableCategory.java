@@ -48,18 +48,6 @@ public class ModifierWorktableCategory implements IRecipeCategory<IModifierWorkt
     return TITLE;
   }
 
-  @SuppressWarnings("removal")
-  @Override
-  public ResourceLocation getUid() {
-    return TConstructJEIConstants.MODIFIER_WORKTABLE.getUid();
-  }
-
-  @SuppressWarnings("removal")
-  @Override
-  public Class<? extends IModifierWorktableRecipe> getRecipeClass() {
-    return TConstructJEIConstants.MODIFIER_WORKTABLE.getRecipeClass();
-  }
-
   @Override
   public RecipeType<IModifierWorktableRecipe> getRecipeType() {
     return TConstructJEIConstants.MODIFIER_WORKTABLE;

@@ -3,7 +3,6 @@ package slimeknights.tconstruct.tables.block.entity.table;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -64,7 +63,7 @@ public class ModifierWorktableBlockEntity extends RetexturedTableBlockEntity imp
   private ToolStack result = null;
   /** Current message displayed on the screen */
   @Getter
-  private Component currentMessage = TextComponent.EMPTY;
+  private Component currentMessage = Component.empty();
 
   public ModifierWorktableBlockEntity(BlockPos pos, BlockState state) {
     super(TinkerTables.modifierWorktableTile.get(), pos, state, NAME, 3);
@@ -92,7 +91,7 @@ public class ModifierWorktableBlockEntity extends RetexturedTableBlockEntity imp
         RecipeResult<ToolStack> recipeResult = lastRecipe.getResult(inventoryWrapper, entry);
         if (recipeResult.isSuccess()) {
           result = recipeResult.getResult();
-          currentMessage = TextComponent.EMPTY;
+          currentMessage = Component.empty();
         } else if (recipeResult.hasError()) {
           currentMessage = recipeResult.getMessage();
         } else {
@@ -105,7 +104,7 @@ public class ModifierWorktableBlockEntity extends RetexturedTableBlockEntity imp
     selectedModifierIndex = -1;
     currentMessage = recipeValid == Boolean.TRUE && lastRecipe != null
                      ? lastRecipe.getDescription(inventoryWrapper)
-                     : TextComponent.EMPTY;
+                     : Component.empty();
   }
 
   /** Gets the index of the selected pattern */
@@ -151,7 +150,7 @@ public class ModifierWorktableBlockEntity extends RetexturedTableBlockEntity imp
         return updateRecipe(recipe.get());
       }
       recipeValid = false;
-      currentMessage = TextComponent.EMPTY;
+      currentMessage = Component.empty();
       buttons = Collections.emptyList();
       selectModifier(-1);
     }

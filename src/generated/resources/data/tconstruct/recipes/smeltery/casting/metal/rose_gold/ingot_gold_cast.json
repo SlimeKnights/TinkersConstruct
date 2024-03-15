@@ -3,12 +3,12 @@
   "cast": {
     "tag": "tconstruct:casts/multi_use/ingot"
   },
+  "cooling_time": 52,
   "fluid": {
-    "tag": "forge:molten_rose_gold",
-    "amount": 90
+    "amount": 90,
+    "tag": "forge:molten_rose_gold"
   },
   "result": {
     "tag": "forge:ingots/rose_gold"
-  },
-  "cooling_time": 52
+  }
 }

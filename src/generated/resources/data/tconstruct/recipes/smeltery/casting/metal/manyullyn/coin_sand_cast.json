@@ -1,24 +1,24 @@
 {
   "type": "tconstruct:casting_table",
-  "conditions": [
-    {
-      "value": {
-        "tag": "forge:coins/manyullyn",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
-    }
-  ],
   "cast": {
     "tag": "tconstruct:casts/single_use/coin"
   },
   "cast_consumed": true,
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:coins/manyullyn"
+      }
+    }
+  ],
+  "cooling_time": 42,
   "fluid": {
-    "tag": "forge:molten_manyullyn",
-    "amount": 30
+    "amount": 30,
+    "tag": "forge:molten_manyullyn"
   },
   "result": {
     "tag": "forge:coins/manyullyn"
-  },
-  "cooling_time": 42
+  }
 }

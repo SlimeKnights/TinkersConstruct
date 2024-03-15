@@ -1,23 +1,23 @@
 {
   "type": "tconstruct:casting_table",
-  "conditions": [
-    {
-      "value": {
-        "tag": "forge:plates/brick",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
-    }
-  ],
   "cast": {
     "tag": "tconstruct:casts/multi_use/plate"
   },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:plates/brick"
+      }
+    }
+  ],
+  "cooling_time": 80,
   "fluid": {
-    "tag": "tconstruct:molten_clay",
-    "amount": 250
+    "amount": 250,
+    "tag": "tconstruct:molten_clay"
   },
   "result": {
     "tag": "forge:plates/brick"
-  },
-  "cooling_time": 80
+  }
 }

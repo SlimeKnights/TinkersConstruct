@@ -2,10 +2,15 @@
   "type": "tconstruct:modifier_salvage",
   "conditions": [
     {
-      "modid": "theoneprobe",
-      "type": "forge:mod_loaded"
+      "type": "forge:mod_loaded",
+      "modid": "theoneprobe"
     }
   ],
+  "min_level": 1,
+  "modifier": "tconstruct:the_one_probe",
+  "slots": {
+    "upgrades": 1
+  },
   "tools": [
     {
       "tag": "tconstruct:modifiable/armor/helmets"
@@ -13,10 +18,5 @@
     {
       "tag": "tconstruct:modifiable/held"
     }
-  ],
-  "slots": {
-    "upgrades": 1
-  },
-  "modifier": "tconstruct:the_one_probe",
-  "min_level": 1
+  ]
 }

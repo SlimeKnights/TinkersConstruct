@@ -1,5 +1,4 @@
 {
-  "replace": false,
   "values": [
     "#tconstruct:casts/single_use/blank",
     "#tconstruct:casts/single_use/ingot",

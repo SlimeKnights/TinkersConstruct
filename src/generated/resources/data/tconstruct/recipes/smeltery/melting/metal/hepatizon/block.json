@@ -4,8 +4,8 @@
     "tag": "forge:storage_blocks/hepatizon"
   },
   "result": {
-    "fluid": "tconstruct:molten_hepatizon",
-    "amount": 810
+    "amount": 810,
+    "fluid": "tconstruct:molten_hepatizon"
   },
   "temperature": 1400,
   "time": 233

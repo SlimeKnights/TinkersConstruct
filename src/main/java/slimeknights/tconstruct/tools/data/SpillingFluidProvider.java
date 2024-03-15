@@ -12,7 +12,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
-import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.fluids.FluidType;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.mantle.data.predicate.entity.MobTypePredicate;
 import slimeknights.mantle.recipe.data.FluidNameIngredient;
@@ -51,20 +51,20 @@ public class SpillingFluidProvider extends AbstractSpillingFluidProvider {
   @Override
   protected void addFluids() {
     // vanilla
-    addFluid(Fluids.WATER, FluidAttributes.BUCKET_VOLUME / 20)
+    addFluid(Fluids.WATER, FluidType.BUCKET_VOLUME / 20)
       .addEffect(LivingEntityPredicate.WATER_SENSITIVE, new DamageSpillingEffect(DamageType.PIERCING, 2f))
       .addEffect(ExtinguishSpillingEffect.INSTANCE);
-    addFluid(Fluids.LAVA, FluidAttributes.BUCKET_VOLUME / 20)
+    addFluid(Fluids.LAVA, FluidType.BUCKET_VOLUME / 20)
       .addEffect(LivingEntityPredicate.FIRE_IMMUNE.inverted(), new DamageSpillingEffect(DamageType.FIRE, 2f))
       .addEffect(new SetFireSpillingEffect(10));
-    addFluid(Tags.Fluids.MILK, FluidAttributes.BUCKET_VOLUME / 10)
+    addFluid(Tags.Fluids.MILK, FluidType.BUCKET_VOLUME / 10)
       .addEffect(new CureEffectsSpillingEffect(new ItemStack(Items.MILK_BUCKET)))
       .addEffect(StrongBonesModifier.SPILLING_EFFECT);
-    addFluid(TinkerTags.Fluids.POWDERED_SNOW, FluidAttributes.BUCKET_VOLUME / 10)
+    addFluid(TinkerFluids.powderedSnow.getForgeTag(), FluidType.BUCKET_VOLUME / 10)
       .addEffect(new SetFreezeSpillingEffect(160));
 
     // blaze - more damage, less fire
-    burningFluid("blazing_blood", TinkerFluids.blazingBlood.getLocalTag(), FluidAttributes.BUCKET_VOLUME / 20, 3f, 5);
+    burningFluid("blazing_blood", TinkerFluids.blazingBlood.getLocalTag(), FluidType.BUCKET_VOLUME / 20, 3f, 5);
 
     // slime
     int slimeballPiece = FluidValues.SLIMEBALL / 5;
@@ -93,11 +93,11 @@ public class SpillingFluidProvider extends AbstractSpillingFluidProvider {
     addFluid(TinkerFluids.magma.getForgeTag(), slimeballPiece)
       .addEffect(new EffectSpillingEffect(MobEffects.FIRE_RESISTANCE, 25, 1));
     // soul - slowness and blindness
-    addFluid(TinkerFluids.liquidSoul.getLocalTag(), FluidAttributes.BUCKET_VOLUME / 20)
+    addFluid(TinkerFluids.liquidSoul.getLocalTag(), FluidType.BUCKET_VOLUME / 20)
       .addEffect(new EffectSpillingEffect(MobEffects.MOVEMENT_SLOWDOWN, 25, 2))
       .addEffect(new EffectSpillingEffect(MobEffects.BLINDNESS, 5, 1));
     // ender - teleporting
-    addFluid(TinkerFluids.moltenEnder.getForgeTag(), FluidAttributes.BUCKET_VOLUME / 20)
+    addFluid(TinkerFluids.moltenEnder.getForgeTag(), FluidType.BUCKET_VOLUME / 20)
       .addEffect(new DamageSpillingEffect(DamageType.MAGIC, 1f))
       .addEffect(TeleportSpillingEffect.INSTANCE);
 
@@ -157,16 +157,16 @@ public class SpillingFluidProvider extends AbstractSpillingFluidProvider {
     metalborn(TinkerFluids.moltenQueensSlime.getLocalTag(), 1f).addEffect(new EffectSpillingEffect(MobEffects.LEVITATION, 5, 1));
 
     // multi-recipes
-    burningFluid("glass",           TinkerTags.Fluids.GLASS_SPILLING,           FluidAttributes.BUCKET_VOLUME / 10, 1f,   3);
-    burningFluid("clay",            TinkerTags.Fluids.CLAY_SPILLING,            FluidValues.BRICK / 5,              1.5f, 3);
-    burningFluid("metal_cheap",     TinkerTags.Fluids.CHEAP_METAL_SPILLING,     FluidValues.NUGGET,                 1.5f, 7);
-    burningFluid("metal_average",   TinkerTags.Fluids.AVERAGE_METAL_SPILLING,   FluidValues.NUGGET,                 2f,   7);
-    burningFluid("metal_expensive", TinkerTags.Fluids.EXPENSIVE_METAL_SPILLING, FluidValues.NUGGET,                 3f,   7);
+    burningFluid("glass",           TinkerTags.Fluids.GLASS_SPILLING,           FluidType.BUCKET_VOLUME / 10, 1f,   3);
+    burningFluid("clay",            TinkerTags.Fluids.CLAY_SPILLING,            FluidValues.BRICK / 5,        1.5f, 3);
+    burningFluid("metal_cheap",     TinkerTags.Fluids.CHEAP_METAL_SPILLING,     FluidValues.NUGGET,           1.5f, 7);
+    burningFluid("metal_average",   TinkerTags.Fluids.AVERAGE_METAL_SPILLING,   FluidValues.NUGGET,           2f,   7);
+    burningFluid("metal_expensive", TinkerTags.Fluids.EXPENSIVE_METAL_SPILLING, FluidValues.NUGGET,           3f,   7);
 
     // potion fluid compat
     // standard potion is 250 mb, but we want a smaller number. divide into 5 pieces at 25% a piece (so healing is 1 health), means you gain 25% per potion
     int bottleSip = FluidValues.BOTTLE / 5;
-    addFluid("potion_fluid", TinkerTags.Fluids.POTION, bottleSip).addEffect(new PotionFluidEffect(0.25f, TagPredicate.ANY));
+    addFluid("potion_fluid", TinkerFluids.potion.getForgeTag(), bottleSip).addEffect(new PotionFluidEffect(0.25f, TagPredicate.ANY));
 
     // create has three types of bottles stored on their fluid, react to it to boost
     Function<String,TagPredicate> createBottle = value -> {

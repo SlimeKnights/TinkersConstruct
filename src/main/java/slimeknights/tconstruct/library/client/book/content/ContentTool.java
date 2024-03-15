@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -43,7 +44,6 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -106,12 +106,12 @@ public class ContentTool extends PageContent {
 
   public ContentTool(IModifiableDisplay tool) {
     this.tool = tool;
-    this.toolName = Objects.requireNonNull(tool.asItem().getRegistryName()).toString();
+    this.toolName = Registry.ITEM.getKey(tool.asItem()).toString();
     this.text = new TextData[] { new TextData(ForgeI18n.getPattern(tool.asItem().getDescriptionId() + ".description"))};
   }
 
   public ContentTool(Item item) {
-    this.toolName = Objects.requireNonNull(item.asItem().getRegistryName()).toString();
+    this.toolName = Registry.ITEM.getKey(item.asItem()).toString();
     if (item instanceof IModifiableDisplay tool) {
       this.tool = tool;
     } else {

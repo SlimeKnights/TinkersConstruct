@@ -16,12 +16,12 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraftforge.client.model.data.EmptyModelData;
-import slimeknights.tconstruct.TConstruct;
+import net.minecraftforge.client.model.data.ModelData;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.TinkerRenderTypes;
 import slimeknights.tconstruct.smeltery.block.controller.ControllerBlock;
@@ -114,11 +114,12 @@ public class HeatingStructureBlockEntityRenderer implements BlockEntityRenderer<
             if (model.isCustomRenderer()) {
               quadsRendered += 100;
             } else {
+              RandomSource random = smeltery.getLevel().getRandom();
               // not setting the seed on the random and ignoring the forge layered model stuff means this is just an estimate, but since this is for the sake of performance its not a huge deal for it to be exact
               for (Direction direction : Direction.values()) {
-                quadsRendered += model.getQuads(null, direction, TConstruct.RANDOM, EmptyModelData.INSTANCE).size();
+                quadsRendered += model.getQuads(null, direction, random, ModelData.EMPTY, null).size();
               }
-              quadsRendered += model.getQuads(null, null, TConstruct.RANDOM, EmptyModelData.INSTANCE).size();
+              quadsRendered += model.getQuads(null, null, random, ModelData.EMPTY, null).size();
             }
             if (quadsRendered > max) {
               break;

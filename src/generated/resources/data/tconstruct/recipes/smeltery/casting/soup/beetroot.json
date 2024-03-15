@@ -4,10 +4,10 @@
     "item": "minecraft:bowl"
   },
   "cast_consumed": true,
+  "cooling_time": 1,
   "fluid": {
-    "tag": "forge:beetroot_soup",
-    "amount": 250
+    "amount": 250,
+    "tag": "forge:beetroot_soup"
   },
-  "result": "minecraft:beetroot_soup",
-  "cooling_time": 1
+  "result": "minecraft:beetroot_soup"
 }

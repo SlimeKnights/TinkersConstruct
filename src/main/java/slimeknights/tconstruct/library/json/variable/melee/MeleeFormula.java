@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library.json.variable.melee;
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.LivingEntity;
-import slimeknights.mantle.data.GenericLoaderRegistry;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry;
 import slimeknights.tconstruct.library.json.math.ModifierFormula;
 import slimeknights.tconstruct.library.json.variable.VariableFormula;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;

@@ -41,7 +41,7 @@ public class FlexModifiableCrossbowItem extends ModifiableCrossbowItem implement
   }
 
   @Override
-  protected boolean allowdedIn(CreativeModeTab category) {
+  protected boolean allowedIn(CreativeModeTab category) {
     return this.tabs.contains(category);
   }
 

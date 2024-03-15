@@ -2,6 +2,7 @@ package slimeknights.tconstruct.world.entity;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -26,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
 
-public class ArmoredSlimeEntity extends Slime {
+public abstract class ArmoredSlimeEntity extends Slime {
   public ArmoredSlimeEntity(EntityType<? extends Slime> type, Level world) {
     super(type, world);
     if (!world.isClientSide) {
@@ -50,7 +51,7 @@ public class ArmoredSlimeEntity extends Slime {
     SpawnGroupData spawnData = super.finalizeSpawn(pLevel, difficulty, pReason, pSpawnData, pDataTag);
     this.setCanPickUpLoot(this.random.nextFloat() < (0.55f * difficulty.getSpecialMultiplier()));
 
-    this.populateDefaultEquipmentSlots(difficulty);
+    this.populateDefaultEquipmentSlots(random, difficulty);
 
     // pumpkins on halloween
     if (this.getItemBySlot(EquipmentSlot.HEAD).isEmpty()) {
@@ -65,12 +66,10 @@ public class ArmoredSlimeEntity extends Slime {
   }
 
   @Override
-  protected void populateDefaultEquipmentSlots(DifficultyInstance difficulty) {
-    // no-op, let each slime type choose how to implement
-  }
+  protected abstract void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty);
 
   @Override
-  protected void populateDefaultEquipmentEnchantments(DifficultyInstance difficulty) {
+  protected void populateDefaultEquipmentEnchantments(RandomSource random, DifficultyInstance difficulty) {
     // no-op, unused
   }
 
@@ -147,7 +146,7 @@ public class ArmoredSlimeEntity extends Slime {
     // calling supper does the split reason again, but we need to transfer armor
     this.setRemoved(reason);
     if (reason == Entity.RemovalReason.KILLED) {
-      this.gameEvent(GameEvent.ENTITY_KILLED);
+      this.gameEvent(GameEvent.ENTITY_DIE);
     }
     this.invalidateCaps();
   }

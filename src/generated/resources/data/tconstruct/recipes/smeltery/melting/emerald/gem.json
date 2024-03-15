@@ -4,8 +4,8 @@
     "tag": "forge:gems/emerald"
   },
   "result": {
-    "fluid": "tconstruct:molten_emerald",
-    "amount": 100
+    "amount": 100,
+    "fluid": "tconstruct:molten_emerald"
   },
   "temperature": 934,
   "time": 64

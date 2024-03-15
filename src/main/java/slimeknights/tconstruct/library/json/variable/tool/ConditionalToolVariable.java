@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.json.variable.tool;
 
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolContextPredicate;
 import slimeknights.tconstruct.library.json.variable.ConditionalVariableLoader;
 import slimeknights.tconstruct.library.json.variable.ConditionalVariableLoader.ConditionalVariable;

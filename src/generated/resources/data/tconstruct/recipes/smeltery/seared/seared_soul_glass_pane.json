@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "###",
-    "###"
-  ],
   "key": {
     "#": {
       "item": "tconstruct:seared_soul_glass"
     }
   },
+  "pattern": [
+    "###",
+    "###"
+  ],
   "result": {
-    "item": "tconstruct:seared_soul_glass_pane",
-    "count": 16
+    "count": 16,
+    "item": "tconstruct:seared_soul_glass_pane"
   }
 }

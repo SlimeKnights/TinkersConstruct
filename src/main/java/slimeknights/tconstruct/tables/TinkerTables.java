@@ -10,9 +10,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.material.Material;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.registries.RegistryObject;
 import slimeknights.mantle.item.RetexturedBlockItem;
 import slimeknights.mantle.registration.object.ItemObject;
@@ -137,17 +137,15 @@ public final class TinkerTables extends TinkerModule {
   void commonSetup(final FMLCommonSetupEvent event) {
     event.enqueueWork(() -> {
       StationSlotLayoutLoader loader = StationSlotLayoutLoader.getInstance();
-      loader.registerRequiredLayout(tinkerStation.getRegistryName());
-      loader.registerRequiredLayout(tinkersAnvil.getRegistryName());
-      loader.registerRequiredLayout(scorchedAnvil.getRegistryName());
+      loader.registerRequiredLayout(tinkerStation.getId());
+      loader.registerRequiredLayout(tinkersAnvil.getId());
+      loader.registerRequiredLayout(scorchedAnvil.getId());
     });
   }
 
   @SubscribeEvent
   void gatherData(final GatherDataEvent event) {
-    if (event.includeServer()) {
-      DataGenerator datagenerator = event.getGenerator();
-      datagenerator.addProvider(new TableRecipeProvider(datagenerator));
-    }
+    DataGenerator datagenerator = event.getGenerator();
+    datagenerator.addProvider(event.includeServer(), new TableRecipeProvider(datagenerator));
   }
 }

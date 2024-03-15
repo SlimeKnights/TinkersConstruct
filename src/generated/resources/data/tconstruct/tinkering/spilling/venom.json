@@ -1,20 +1,20 @@
 {
-  "fluid": {
-    "tag": "tconstruct:venom",
-    "amount": 50
-  },
   "effects": [
     {
       "type": "tconstruct:effect",
+      "level": 1,
       "name": "minecraft:poison",
-      "time": 5,
-      "level": 1
+      "time": 5
     },
     {
       "type": "tconstruct:effect",
+      "level": 1,
       "name": "minecraft:strength",
-      "time": 10,
-      "level": 1
+      "time": 10
     }
-  ]
+  ],
+  "fluid": {
+    "amount": 50,
+    "tag": "tconstruct:venom"
+  }
 }

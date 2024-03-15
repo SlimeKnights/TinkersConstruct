@@ -30,7 +30,7 @@ public final class AchievementEvents {
 
   @SubscribeEvent
   public static void onCraft(PlayerEvent.ItemCraftedEvent event) {
-    if (event.getPlayer() == null || event.getPlayer() instanceof FakePlayer || !(event.getPlayer() instanceof ServerPlayer playerMP) || event.getCrafting().isEmpty()) {
+    if (event.getEntity() == null || event.getEntity() instanceof FakePlayer || !(event.getEntity() instanceof ServerPlayer playerMP) || event.getCrafting().isEmpty()) {
       return;
     }
     Item item = event.getCrafting().getItem();

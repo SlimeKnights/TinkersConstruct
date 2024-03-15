@@ -4,10 +4,10 @@
     "item": "minecraft:yellow_concrete_powder"
   },
   "cast_consumed": true,
+  "cooling_time": 30,
   "fluid": {
-    "name": "minecraft:water",
-    "amount": 100
+    "amount": 100,
+    "name": "minecraft:water"
   },
-  "result": "minecraft:yellow_concrete",
-  "cooling_time": 30
+  "result": "minecraft:yellow_concrete"
 }

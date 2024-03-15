@@ -1,20 +1,20 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "item": "minecraft:compass"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/armor/worn"
+  "max_level": 1,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:magnetic"
   },
   "slots": {
     "upgrades": 1
   },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:magnetic",
-    "level": 1
-  },
-  "max_level": 1
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/worn"
+  }
 }

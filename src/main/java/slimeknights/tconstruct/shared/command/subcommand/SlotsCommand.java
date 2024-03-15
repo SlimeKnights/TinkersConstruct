@@ -10,7 +10,6 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.mantle.command.MantleCommand;
@@ -92,15 +91,15 @@ public class SlotsCommand {
     int size = successes.size();
     if (op == Operation.ADD) {
       if (size == 1) {
-        source.sendSuccess(new TranslatableComponent(ADD_SUCCESS, count, slotType.getDisplayName(), successes.get(0).getDisplayName()), true);
+        source.sendSuccess(Component.translatable(ADD_SUCCESS, count, slotType.getDisplayName(), successes.get(0).getDisplayName()), true);
       } else {
-        source.sendSuccess(new TranslatableComponent(ADD_SUCCESS_MULTIPLE, count, slotType.getDisplayName(), size), true);
+        source.sendSuccess(Component.translatable(ADD_SUCCESS_MULTIPLE, count, slotType.getDisplayName(), size), true);
       }
     } else {
       if (size == 1) {
-        source.sendSuccess(new TranslatableComponent(SET_SUCCESS, slotType.getDisplayName(), count, successes.get(0).getDisplayName()), true);
+        source.sendSuccess(Component.translatable(SET_SUCCESS, slotType.getDisplayName(), count, successes.get(0).getDisplayName()), true);
       } else {
-        source.sendSuccess(new TranslatableComponent(SET_SUCCESS_MULTIPLE, slotType.getDisplayName(), count, size), true);
+        source.sendSuccess(Component.translatable(SET_SUCCESS_MULTIPLE, slotType.getDisplayName(), count, size), true);
       }
     }
     return size;

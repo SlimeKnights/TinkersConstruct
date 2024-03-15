@@ -46,29 +46,30 @@ public class GlobalLootModifiersProvider extends GlobalLootModifierProvider {
 
   @Override
   protected void start() {
-    ReplaceItemLootModifier.builder(Ingredient.of(Items.BONE), ItemOutput.fromItem(TinkerMaterials.necroticBone))
-                           .addCondition(LootTableIdCondition.builder(new ResourceLocation("entities/wither_skeleton")).build())
-                           .addCondition(ConfigEnabledCondition.WITHER_BONE_DROP)
-                           .build("wither_bone", this);
+    add("wither_bone", ReplaceItemLootModifier.builder(Ingredient.of(Items.BONE), ItemOutput.fromItem(TinkerMaterials.necroticBone))
+      .addCondition(LootTableIdCondition.builder(new ResourceLocation("entities/wither_skeleton")).build())
+      .addCondition(ConfigEnabledCondition.WITHER_BONE_DROP)
+      .build());
 
     // generic modifier hook
+    // TODO: look into migrating this fully to loot tables
     ItemPredicate.Builder lootCapableTool = ItemPredicate.Builder.item().of(TinkerTags.Items.LOOT_CAPABLE_TOOL);
-    ModifierLootModifier.builder()
-                        .addCondition(BlockOrEntityCondition.INSTANCE)
-                        .addCondition(MatchTool.toolMatches(lootCapableTool)
-                                               .or(LootItemEntityPropertyCondition.hasProperties(EntityTarget.KILLER, EntityPredicate.Builder.entity().equipment(mainHand(lootCapableTool.build()))))
-                                               .build())
-                        .build("modifier_hook", this);
+    add("modifier_hook", ModifierLootModifier.builder()
+      .addCondition(BlockOrEntityCondition.INSTANCE)
+      .addCondition(MatchTool.toolMatches(lootCapableTool)
+                             .or(LootItemEntityPropertyCondition.hasProperties(EntityTarget.KILLER, EntityPredicate.Builder.entity().equipment(mainHand(lootCapableTool.build()))))
+                             .build())
+      .build());
 
     // chrysophilite modifier hook
-    AddEntryLootModifier.builder(LootItem.lootTableItem(Items.GOLD_NUGGET))
-                        .addCondition(new BlockTagLootCondition(TinkerTags.Blocks.CHRYSOPHILITE_ORES))
-                        .addCondition(new ContainsItemModifierLootCondition(Ingredient.of(TinkerTags.Items.CHRYSOPHILITE_ORES)).inverted())
-                        .addCondition(ChrysophiliteLootCondition.INSTANCE)
-                        .addFunction(SetItemCountFunction.setCount(UniformGenerator.between(2, 6)).build())
-                        .addFunction(ChrysophiliteBonusFunction.oreDrops(false).build())
-                        .addFunction(ApplyExplosionDecay.explosionDecay().build())
-                        .build("chrysophilite_modifier", this);
+    add("chrysophilite_modifier", AddEntryLootModifier.builder(LootItem.lootTableItem(Items.GOLD_NUGGET))
+      .addCondition(new BlockTagLootCondition(TinkerTags.Blocks.CHRYSOPHILITE_ORES))
+      .addCondition(new ContainsItemModifierLootCondition(Ingredient.of(TinkerTags.Items.CHRYSOPHILITE_ORES)).inverted())
+      .addCondition(ChrysophiliteLootCondition.INSTANCE)
+      .addFunction(SetItemCountFunction.setCount(UniformGenerator.between(2, 6)).build())
+      .addFunction(ChrysophiliteBonusFunction.oreDrops(false).build())
+      .addFunction(ApplyExplosionDecay.explosionDecay().build())
+      .build());
 
     // lustrous implementation
     addLustrous("iron", false);
@@ -93,11 +94,11 @@ public class GlobalLootModifiersProvider extends GlobalLootModifierProvider {
     if (optional) {
       builder.addCondition(new TagNotEmptyCondition<>(nuggets));
     }
-    builder.addCondition(new HasModifierLootCondition(ModifierIds.lustrous))
-           .addFunction(SetItemCountFunction.setCount(UniformGenerator.between(2, 4)).build())
-           .addFunction(ModifierBonusLootFunction.oreDrops(ModifierIds.lustrous, false).build())
-           .addFunction(ApplyExplosionDecay.explosionDecay().build())
-           .build("lustrous/" + name, this);
+    add("lustrous/" + name, builder.addCondition(new HasModifierLootCondition(ModifierIds.lustrous))
+      .addFunction(SetItemCountFunction.setCount(UniformGenerator.between(2, 4)).build())
+      .addFunction(ModifierBonusLootFunction.oreDrops(ModifierIds.lustrous, false).build())
+      .addFunction(ApplyExplosionDecay.explosionDecay().build())
+      .build());
   }
 
   /** Creates an equipment predicate for mainhand */

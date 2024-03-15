@@ -12,8 +12,8 @@
     }
   ],
   "result": {
-    "fluid": "minecraft:milk",
-    "amount": 250
+    "amount": 250,
+    "fluid": "minecraft:milk"
   },
   "temperature": 0,
   "time": 47

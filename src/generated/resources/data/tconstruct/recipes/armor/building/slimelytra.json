@@ -4,10 +4,10 @@
     "item": "minecraft:elytra"
   },
   "cast_consumed": true,
+  "cooling_time": 300,
   "fluid": {
-    "tag": "tconstruct:ender_slime",
-    "amount": 8000
+    "amount": 8000,
+    "tag": "tconstruct:ender_slime"
   },
-  "result": "tconstruct:slime_chestplate",
-  "cooling_time": 300
+  "result": "tconstruct:slime_chestplate"
 }

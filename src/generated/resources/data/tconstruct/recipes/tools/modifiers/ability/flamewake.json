@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "item": "minecraft:flint"
@@ -17,6 +18,14 @@
       "item": "minecraft:flint"
     }
   ],
+  "max_level": 1,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:flamewake"
+  },
+  "slots": {
+    "abilities": 1
+  },
   "tools": {
     "type": "forge:intersection",
     "children": [
@@ -27,14 +36,5 @@
         "tag": "tconstruct:modifiable/durability"
       }
     ]
-  },
-  "slots": {
-    "abilities": 1
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:flamewake",
-    "level": 1
-  },
-  "max_level": 1
+  }
 }

@@ -4,8 +4,8 @@
     "item": "minecraft:snowball"
   },
   "result": {
-    "fluid": "minecraft:water",
-    "amount": 125
+    "amount": 125,
+    "fluid": "minecraft:water"
   },
   "temperature": 0,
   "time": 14

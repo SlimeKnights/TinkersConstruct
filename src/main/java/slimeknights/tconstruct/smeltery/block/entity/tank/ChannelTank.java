@@ -5,6 +5,8 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import slimeknights.tconstruct.smeltery.block.entity.ChannelBlockEntity;
 
+import javax.annotation.Nonnull;
+
 /** Tank for channel contents */
 public class ChannelTank extends FluidTank {
 	private static final String TAG_LOCKED = "locked";
@@ -20,7 +22,7 @@ public class ChannelTank extends FluidTank {
 	private final ChannelBlockEntity parent;
 
 	public ChannelTank(int capacity, ChannelBlockEntity parent) {
-		super(capacity, fluid -> !fluid.getFluid().getAttributes().isGaseous(fluid));
+		super(capacity, fluid -> !fluid.getFluid().getFluidType().isLighterThanAir());
 		this.parent = parent;
 	}
 
@@ -53,6 +55,7 @@ public class ChannelTank extends FluidTank {
 		return amount;
 	}
 
+	@Nonnull
 	@Override
 	public FluidStack drain(int maxDrain, FluidAction action) {
 		boolean wasEmpty = isEmpty();

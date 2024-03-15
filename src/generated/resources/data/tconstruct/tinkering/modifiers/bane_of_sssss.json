@@ -1,13 +1,14 @@
 {
   "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "tooltip_display": "always",
   "modules": [
     {
       "type": "tconstruct:incremental"
     },
     {
       "type": "tconstruct:conditional_melee_damage",
+      "each_level": 2.0,
+      "percent": false,
       "target": {
         "type": "mantle:or",
         "predicates": [
@@ -20,12 +21,11 @@
             "tag": "forge:creepers"
           }
         ]
-      },
-      "percent": false,
-      "each_level": 2.0
+      }
     },
     {
       "type": "tconstruct:mob_effect",
+      "effect": "minecraft:slowness",
       "entity": {
         "type": "mantle:or",
         "predicates": [
@@ -39,17 +39,17 @@
           }
         ]
       },
-      "effect": "minecraft:slowness",
+      "hooks": [
+        "tconstruct:melee_hit"
+      ],
       "level": {
         "flat": 4.0
       },
       "time": {
         "flat": 20.0,
         "random": 10.0
-      },
-      "hooks": [
-        "tconstruct:melee_hit"
-      ]
+      }
     }
-  ]
+  ],
+  "tooltip_display": "always"
 }

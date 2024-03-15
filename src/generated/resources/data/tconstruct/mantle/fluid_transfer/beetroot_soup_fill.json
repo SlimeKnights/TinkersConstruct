@@ -1,11 +1,11 @@
 {
   "type": "mantle:fill_item",
-  "input": {
-    "item": "minecraft:bowl"
-  },
   "filled": "minecraft:beetroot_soup",
   "fluid": {
-    "tag": "forge:beetroot_soup",
-    "amount": 250
+    "amount": 250,
+    "tag": "forge:beetroot_soup"
+  },
+  "input": {
+    "item": "minecraft:bowl"
   }
 }

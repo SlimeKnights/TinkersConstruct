@@ -4,10 +4,10 @@
     "tag": "minecraft:planks"
   },
   "cast_consumed": true,
+  "cooling_time": 221,
   "fluid": {
-    "tag": "tconstruct:molten_obsidian",
-    "amount": 1000
+    "amount": 1000,
+    "tag": "tconstruct:molten_obsidian"
   },
-  "result": "tconstruct:nahuatl",
-  "cooling_time": 221
+  "result": "tconstruct:nahuatl"
 }

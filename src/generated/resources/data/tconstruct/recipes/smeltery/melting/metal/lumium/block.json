@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:storage_blocks/lumium",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:storage_blocks/lumium"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:storage_blocks/lumium"
   },
   "result": {
-    "fluid": "tconstruct:molten_lumium",
-    "amount": 810
+    "amount": 810,
+    "fluid": "tconstruct:molten_lumium"
   },
   "temperature": 1050,
   "time": 203

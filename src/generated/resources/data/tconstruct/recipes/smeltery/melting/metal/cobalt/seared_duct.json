@@ -1,18 +1,18 @@
 {
   "type": "tconstruct:melting",
+  "byproducts": [
+    {
+      "amount": 1000,
+      "fluid": "tconstruct:seared_stone"
+    }
+  ],
   "ingredient": {
     "item": "tconstruct:seared_duct"
   },
   "result": {
-    "fluid": "tconstruct:molten_cobalt",
-    "amount": 180
+    "amount": 180,
+    "fluid": "tconstruct:molten_cobalt"
   },
   "temperature": 950,
-  "time": 162,
-  "byproducts": [
-    {
-      "fluid": "tconstruct:seared_stone",
-      "amount": 1000
-    }
-  ]
+  "time": 162
 }

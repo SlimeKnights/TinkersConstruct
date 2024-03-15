@@ -15,9 +15,9 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.recipe.IMultiRecipe;
@@ -53,7 +53,7 @@ public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<Disp
   @Override
   public int getFluidAmount(ICastingContainer inv) {
     Fluid fluid = inv.getFluid();
-    return inv.getStack().getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
+    return inv.getStack().getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM)
               .map(handler -> handler.fill(new FluidStack(fluid, this.fluidAmount), FluidAction.SIMULATE))
               .orElse(0);
   }
@@ -78,7 +78,7 @@ public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<Disp
     ItemStack stack = inv.getStack();
     Fluid fluid = inv.getFluid();
     return stack.getItem() == this.container.asItem()
-           && stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
+           && stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM)
                    .filter(handler -> handler.fill(new FluidStack(fluid, this.fluidAmount), FluidAction.SIMULATE) > 0)
                    .isPresent();
   }
@@ -93,7 +93,7 @@ public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<Disp
   @Override
   public ItemStack assemble(ICastingContainer inv) {
     ItemStack stack = inv.getStack().copy();
-    return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).map(handler -> {
+    return stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).map(handler -> {
       handler.fill(new FluidStack(inv.getFluid(), this.fluidAmount, inv.getFluidTag()), FluidAction.EXECUTE);
       return handler.getContainer();
     }).orElse(stack);
@@ -125,7 +125,7 @@ public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<Disp
 
   /** Serializer for {@link ContainerFillingRecipe} */
   @AllArgsConstructor
-  public static class Serializer extends LoggingRecipeSerializer<ContainerFillingRecipe> {
+  public static class Serializer implements LoggingRecipeSerializer<ContainerFillingRecipe> {
     private final Supplier<RecipeType<ICastingRecipe>> type;
 
     @Override
@@ -138,7 +138,7 @@ public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<Disp
 
     @Nullable
     @Override
-    protected ContainerFillingRecipe fromNetworkSafe(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+    public ContainerFillingRecipe fromNetworkSafe(ResourceLocation recipeId, FriendlyByteBuf buffer) {
       String group = buffer.readUtf(Short.MAX_VALUE);
       int fluidAmount = buffer.readInt();
       Item result = RecipeHelper.readItem(buffer);
@@ -146,7 +146,7 @@ public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<Disp
     }
 
     @Override
-    protected void toNetworkSafe(FriendlyByteBuf buffer, ContainerFillingRecipe recipe) {
+    public void toNetworkSafe(FriendlyByteBuf buffer, ContainerFillingRecipe recipe) {
       buffer.writeUtf(recipe.group);
       buffer.writeInt(recipe.fluidAmount);
       RecipeHelper.writeItem(buffer, recipe.container);

@@ -3,7 +3,7 @@
   "ingredient": {
     "tag": "forge:nuggets/cobalt"
   },
-  "value": 1,
+  "material": "tconstruct:cobalt",
   "needed": 9,
-  "material": "tconstruct:cobalt"
+  "value": 1
 }

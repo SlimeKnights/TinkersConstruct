@@ -12,8 +12,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidType;
 import slimeknights.mantle.client.model.FaucetFluidLoader;
 import slimeknights.mantle.client.model.fluid.FluidCuboid;
 import slimeknights.mantle.client.model.fluid.FluidsModel;
@@ -51,13 +52,14 @@ public class FaucetBlockEntityRenderer implements BlockEntityRenderer<FaucetBloc
       boolean isRotated = RenderingHelper.applyRotation(matrices, direction);
 
       // fluid props
-      FluidAttributes attributes = renderFluid.getFluid().getAttributes();
-      int color = attributes.getColor(renderFluid);
+      IClientFluidTypeExtensions attributes = IClientFluidTypeExtensions.of(renderFluid.getFluid());
+      int color = attributes.getTintColor(renderFluid);
       Function<ResourceLocation, TextureAtlasSprite> spriteGetter = Minecraft.getInstance().getTextureAtlas(InventoryMenu.BLOCK_ATLAS);
       TextureAtlasSprite still = spriteGetter.apply(attributes.getStillTexture(renderFluid));
       TextureAtlasSprite flowing = spriteGetter.apply(attributes.getFlowingTexture(renderFluid));
-      boolean isGas = attributes.isGaseous(renderFluid);
-      combinedLightIn = FluidRenderer.withBlockLight(combinedLightIn, attributes.getLuminosity(renderFluid));
+      FluidType fluidType = renderFluid.getFluid().getFluidType();
+      boolean isGas = fluidType.isLighterThanAir();
+      combinedLightIn = FluidRenderer.withBlockLight(combinedLightIn, fluidType.getLightLevel(renderFluid));
 
       // render all cubes in the model
       VertexConsumer buffer = bufferIn.getBuffer(MantleRenderTypes.FLUID);

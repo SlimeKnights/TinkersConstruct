@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.modifiers.traits.skull;
 
 import lombok.Getter;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -26,7 +27,6 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
-import java.util.Random;
 
 public class ChrysophiliteModifier extends NoLevelsModifier implements EquipmentChangeModifierHook {
   public static final ComputableDataKey<TotalGold> TOTAL_GOLD = TConstruct.createKey("chrysophilite", TotalGold::new);
@@ -103,11 +103,11 @@ public class ChrysophiliteModifier extends NoLevelsModifier implements Equipment
       int gold = getTotalGold(source.getEntity());
       if (gold > 0) {
         float extraChance = 0.04f * gold;
-        LivingEntity target = event.getEntityLiving();
+        LivingEntity target = event.getEntity();
         // check each slot for gold
         for (EquipmentSlot slot : EquipmentSlot.values()) {
           ItemStack stack = target.getItemBySlot(slot);
-          Random random = target.getRandom();
+          RandomSource random = target.getRandom();
           // if the stack is gold, and it drops, we get it
           // don't have to worry about checking if it already dropped, the stacks are removed on drop
           if (!stack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(stack) && stack.makesPiglinsNeutral(target) && random.nextFloat() < extraChance) {

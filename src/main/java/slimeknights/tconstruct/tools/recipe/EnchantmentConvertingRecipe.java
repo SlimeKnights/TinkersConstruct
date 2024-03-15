@@ -9,7 +9,6 @@ import lombok.experimental.Accessors;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.EnchantedBookItem;
@@ -78,7 +77,7 @@ public class EnchantmentConvertingRecipe extends AbstractWorktableRecipe {
   public EnchantmentConvertingRecipe(ResourceLocation id, String name, List<SizedIngredient> inputs, boolean matchBook, boolean returnInput, IJsonPredicate<ModifierId> modifierPredicate) {
     super(id, inputs);
     this.name = name;
-    this.title = new TranslatableComponent(BASE_KEY + "." + name + ".title");
+    this.title = Component.translatable(BASE_KEY + "." + name + ".title");
     this.matchBook = matchBook;
     this.returnInput = returnInput;
     this.modifierPredicate = modifierPredicate;
@@ -225,7 +224,7 @@ public class EnchantmentConvertingRecipe extends AbstractWorktableRecipe {
     return tools;
   }
 
-  public static class Serializer extends LoggingRecipeSerializer<EnchantmentConvertingRecipe> {
+  public static class Serializer implements LoggingRecipeSerializer<EnchantmentConvertingRecipe> {
     @Override
     public EnchantmentConvertingRecipe fromJson(ResourceLocation id, JsonObject json) {
       String name = GsonHelper.getAsString(json, "name");

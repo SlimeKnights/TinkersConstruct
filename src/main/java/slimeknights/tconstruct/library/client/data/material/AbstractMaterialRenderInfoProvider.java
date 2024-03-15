@@ -2,8 +2,8 @@ package slimeknights.tconstruct.library.client.data.material;
 
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.HashCache;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import slimeknights.mantle.data.GenericDataProvider;
@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /** Base data generator for use in addons */
+@SuppressWarnings("unused")  // API
 public abstract class AbstractMaterialRenderInfoProvider extends GenericDataProvider {
   /** Map of material ID to builder, there is at most one builder for each ID */
   private final Map<MaterialVariantId,RenderInfoBuilder> allRenderInfo = new HashMap<>();
@@ -37,10 +38,10 @@ public abstract class AbstractMaterialRenderInfoProvider extends GenericDataProv
   protected abstract void addMaterialRenderInfo();
 
   @Override
-  public void run(HashCache cache) {
+  public void run(CachedOutput cache) {
     addMaterialRenderInfo();
     // generate
-    allRenderInfo.forEach((materialId, info) -> saveThing(cache, materialId.getLocation('/'), info.build()));
+    allRenderInfo.forEach((materialId, info) -> saveJson(cache, materialId.getLocation('/'), info.build()));
   }
 
 

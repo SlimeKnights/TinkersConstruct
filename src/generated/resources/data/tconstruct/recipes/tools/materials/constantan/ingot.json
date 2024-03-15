@@ -2,17 +2,17 @@
   "type": "tconstruct:material",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:ingots/constantan",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/constantan"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:ingots/constantan"
   },
-  "value": 1,
+  "material": "tconstruct:constantan",
   "needed": 1,
-  "material": "tconstruct:constantan"
+  "value": 1
 }

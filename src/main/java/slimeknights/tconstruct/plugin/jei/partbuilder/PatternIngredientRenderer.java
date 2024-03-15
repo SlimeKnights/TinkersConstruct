@@ -8,7 +8,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.TooltipFlag;
 import slimeknights.tconstruct.library.client.RenderUtils;
@@ -35,7 +34,7 @@ public class PatternIngredientRenderer implements IIngredientRenderer<Pattern> {
   @Override
   public List<Component> getTooltip(Pattern pattern, TooltipFlag flag) {
     if (flag.isAdvanced()) {
-      return Arrays.asList(pattern.getDisplayName(), new TextComponent(pattern.toString()).withStyle(ChatFormatting.DARK_GRAY));
+      return Arrays.asList(pattern.getDisplayName(), Component.literal(pattern.toString()).withStyle(ChatFormatting.DARK_GRAY));
     } else {
       return Collections.singletonList(pattern.getDisplayName());
     }

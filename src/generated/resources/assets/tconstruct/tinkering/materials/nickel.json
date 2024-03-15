@@ -1,49 +1,49 @@
 {
+  "color": "C6CAB8",
   "fallbacks": [
     "metal"
   ],
-  "color": "C6CAB8",
-  "luminosity": 0,
   "generator": {
+    "ignoreMaterialStats": false,
+    "supportedStats": [
+      "tconstruct:plate"
+    ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",
       "color_mapping": {
         "type": "tconstruct:grey_to_color",
         "palette": [
           {
-            "grey": 0,
-            "color": "FF000000"
+            "color": "FF000000",
+            "grey": 0
           },
           {
-            "grey": 63,
-            "color": "FF54564F"
+            "color": "FF54564F",
+            "grey": 63
           },
           {
-            "grey": 102,
-            "color": "FF656A60"
+            "color": "FF656A60",
+            "grey": 102
           },
           {
-            "grey": 140,
-            "color": "FF83887A"
+            "color": "FF83887A",
+            "grey": 140
           },
           {
-            "grey": 178,
-            "color": "FF969C8B"
+            "color": "FF969C8B",
+            "grey": 178
           },
           {
-            "grey": 216,
-            "color": "FFC6CAB8"
+            "color": "FFC6CAB8",
+            "grey": 216
           },
           {
-            "grey": 255,
-            "color": "FFEBF1DE"
+            "color": "FFEBF1DE",
+            "grey": 255
           }
         ]
       }
-    },
-    "supportedStats": [
-      "tconstruct:plate"
-    ],
-    "ignoreMaterialStats": false
-  }
+    }
+  },
+  "luminosity": 0
 }

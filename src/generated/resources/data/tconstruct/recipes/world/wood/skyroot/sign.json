@@ -1,11 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "sign",
-  "pattern": [
-    "###",
-    "###",
-    " X "
-  ],
   "key": {
     "#": {
       "item": "tconstruct:skyroot_planks"
@@ -14,8 +9,13 @@
       "tag": "forge:rods/wooden"
     }
   },
+  "pattern": [
+    "###",
+    "###",
+    " X "
+  ],
   "result": {
-    "item": "tconstruct:skyroot_sign",
-    "count": 3
+    "count": 3,
+    "item": "tconstruct:skyroot_sign"
   }
 }

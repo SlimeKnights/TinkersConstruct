@@ -4,10 +4,10 @@
     "item": "minecraft:melon_slice"
   },
   "cast_consumed": true,
+  "cooling_time": 54,
   "fluid": {
-    "tag": "forge:molten_gold",
-    "amount": 80
+    "amount": 80,
+    "tag": "forge:molten_gold"
   },
-  "result": "minecraft:glistering_melon_slice",
-  "cooling_time": 54
+  "result": "minecraft:glistering_melon_slice"
 }

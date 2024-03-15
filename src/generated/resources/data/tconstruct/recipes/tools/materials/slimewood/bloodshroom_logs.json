@@ -3,8 +3,8 @@
   "ingredient": {
     "tag": "tconstruct:bloodshroom_logs"
   },
-  "value": 4,
-  "needed": 1,
+  "leftover": "tconstruct:bloodshroom_planks",
   "material": "tconstruct:slimewood#bloodshroom",
-  "leftover": "tconstruct:bloodshroom_planks"
+  "needed": 1,
+  "value": 4
 }

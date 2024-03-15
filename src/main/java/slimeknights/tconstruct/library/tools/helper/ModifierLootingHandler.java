@@ -72,7 +72,7 @@ public class ModifierLootingHandler {
     if (source instanceof LivingEntity holder) {
       Entity direct = damageSource.getDirectEntity();
       int level = event.getLootingLevel();
-      LivingEntity target = event.getEntityLiving();
+      LivingEntity target = event.getEntity();
       if (direct instanceof AbstractArrow) {
         // need to build a context from the relevant capabilities to use the modifier
         ModifierNBT modifiers = EntityModifierCapability.getOrEmpty(direct);
@@ -87,20 +87,20 @@ public class ModifierLootingHandler {
         ItemStack held = holder.getItemBySlot(slotType);
         if (held.is(TinkerTags.Items.MODIFIABLE)) {
           ToolStack tool = ToolStack.from(held);
-          level = LootingModifierHook.getToolLooting(tool, holder, event.getEntityLiving(), damageSource);
+          level = LootingModifierHook.getToolLooting(tool, holder, event.getEntity(), damageSource);
           // ignore default looting if we are looting from another slot
         } else if (slotType != EquipmentSlot.MAINHAND) {
           level = 0;
         }
       }
       // boost looting with pants regardless, hopefully you did not switch your pants mid arrow firing
-      level = LootingModifierHook.getLeggingsLooting(holder, event.getEntityLiving(), damageSource, level);
+      level = LootingModifierHook.getLeggingsLooting(holder, event.getEntity(), damageSource, level);
       event.setLootingLevel(level);
     }
   }
 
   /** Called when a player leaves the server to clear the face */
   private static void onLeaveServer(PlayerLoggedOutEvent event) {
-    LOOTING_OFFHAND.remove(event.getPlayer().getUUID());
+    LOOTING_OFFHAND.remove(event.getEntity().getUUID());
   }
 }

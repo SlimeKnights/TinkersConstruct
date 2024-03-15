@@ -2,17 +2,17 @@
   "type": "tconstruct:material",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:ingots/uranium",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/uranium"
+      }
     }
   ],
   "ingredient": {
     "item": "tconstruct:necronium_bone"
   },
-  "value": 1,
+  "material": "tconstruct:necronium",
   "needed": 1,
-  "material": "tconstruct:necronium"
+  "value": 1
 }

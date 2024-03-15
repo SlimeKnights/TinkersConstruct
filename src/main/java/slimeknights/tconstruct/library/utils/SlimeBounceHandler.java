@@ -6,7 +6,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent;
 import net.minecraftforge.event.server.ServerStoppingEvent;
 import slimeknights.tconstruct.common.Sounds;
 
@@ -58,8 +58,8 @@ public class SlimeBounceHandler {
   }
 
   /** Called on living tick to preserve momentum and bounce */
-  private static void onLivingTick(LivingUpdateEvent event) {
-    LivingEntity entity = event.getEntityLiving();
+  private static void onLivingTick(LivingTickEvent event) {
+    LivingEntity entity = event.getEntity();
     BounceInfo info = BOUNCING_ENTITIES.get(entity);
 
     // if we have info for this entity, time to work

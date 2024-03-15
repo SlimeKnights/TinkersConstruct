@@ -4,8 +4,8 @@
     "item": "tconstruct:iron_platform"
   },
   "result": {
-    "fluid": "tconstruct:molten_iron",
-    "amount": 100
+    "amount": 100,
+    "fluid": "tconstruct:molten_iron"
   },
   "temperature": 800,
   "time": 63

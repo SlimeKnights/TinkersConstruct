@@ -4,10 +4,10 @@
     "item": "minecraft:carrot"
   },
   "cast_consumed": true,
+  "cooling_time": 54,
   "fluid": {
-    "tag": "forge:molten_gold",
-    "amount": 80
+    "amount": 80,
+    "tag": "forge:molten_gold"
   },
-  "result": "minecraft:golden_carrot",
-  "cooling_time": 54
+  "result": "minecraft:golden_carrot"
 }

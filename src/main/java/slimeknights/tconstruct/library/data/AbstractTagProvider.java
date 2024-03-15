@@ -1,16 +1,18 @@
 package slimeknights.tconstruct.library.data;
 
 import com.google.common.collect.Maps;
-import lombok.extern.log4j.Log4j2;
+import com.mojang.serialization.JsonOps;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.HashCache;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
-import net.minecraft.tags.Tag;
-import net.minecraft.tags.Tag.BuilderEntry;
+import net.minecraft.tags.TagBuilder;
+import net.minecraft.tags.TagEntry;
+import net.minecraft.tags.TagFile;
 import net.minecraft.tags.TagKey;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.mantle.data.GenericDataProvider;
+import slimeknights.tconstruct.TConstruct;
 
 import java.io.IOException;
 import java.util.List;
@@ -22,7 +24,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /** Generic class for generating tags at any location even for non-registries */
-@Log4j2
 public abstract class AbstractTagProvider<T> extends GenericDataProvider {
   /** Data generator instance */
   protected final DataGenerator generator;
@@ -37,7 +38,7 @@ public abstract class AbstractTagProvider<T> extends GenericDataProvider {
   /** Resource type for the existing file helper */
   private final ExistingFileHelper.IResourceType resourceType;
 
-  protected final Map<ResourceLocation, Tag.Builder> builders = Maps.newLinkedHashMap();
+  protected final Map<ResourceLocation, TagBuilder> builders = Maps.newLinkedHashMap();
 
   protected AbstractTagProvider(DataGenerator generator, String modId, String folder, Function<T,ResourceLocation> keyGetter, Predicate<ResourceLocation> staticValuePredicate, ExistingFileHelper existingFileHelper) {
     super(generator, PackType.SERVER_DATA, folder);
@@ -53,30 +54,29 @@ public abstract class AbstractTagProvider<T> extends GenericDataProvider {
   protected abstract void addTags();
 
   @Override
-  public void run(HashCache cache) throws IOException {
+  public void run(CachedOutput cache) throws IOException {
     this.builders.clear();
     this.addTags();
     this.builders.forEach((id, builder) -> {
-      List<BuilderEntry> list = builder.getEntries()
-                                       .filter((value) -> !value.entry().verifyIfPresent(staticValuePredicate, this.builders::containsKey))
-                                       .filter(this::missing)
-                                       .toList();
-      if (!list.isEmpty()) {
-        throw new IllegalArgumentException(String.format("Couldn't define tag %s as it is missing following references: %s", id, list.stream().map(Objects::toString).collect(Collectors.joining(","))));
+      List<TagEntry> tagEntries = builder.build();
+      List<TagEntry> invalidEntries = tagEntries.stream()
+                                                .filter((value) -> !value.verifyIfPresent(staticValuePredicate, this.builders::containsKey))
+                                                .filter(this::missing)
+                                                .toList();
+      if (!invalidEntries.isEmpty()) {
+        throw new IllegalArgumentException(String.format("Couldn't define tag %s as it is missing following references: %s", id, invalidEntries.stream().map(Objects::toString).collect(Collectors.joining(","))));
       } else {
-        saveThing(cache, id, builder.serializeToJson());
+        // TODO: replace does not work, but that is a forge bug. Fix whenever forge adds the getter
+        saveJson(cache, id, TagFile.CODEC.encodeStart(JsonOps.INSTANCE, new TagFile(tagEntries, false)).getOrThrow(false, TConstruct.LOG::error));
       }
     });
   }
 
   /** Checks if a given reference exists in another data pack */
-  private boolean missing(Tag.BuilderEntry reference) {
-    Tag.Entry entry = reference.entry();
-    // We only care about non-optional tag entries, this is the only type that can reference a resource and needs validation
-    // Optional tags should not be validated
-
-    if (entry instanceof Tag.TagEntry nonOptionalEntry) {
-      return !existingFileHelper.exists(nonOptionalEntry.getId(), resourceType);
+  private boolean missing(TagEntry reference) {
+    if (reference.isRequired()) {
+      // forge has a separate element resource type here to allow generating tags to non-static values. We don't currently handle non-static tag value validation but its worth considering
+      return existingFileHelper == null || !existingFileHelper.exists(reference.getId(), resourceType);
     }
     return false;
   }
@@ -90,32 +90,33 @@ public abstract class AbstractTagProvider<T> extends GenericDataProvider {
   }
 
   /** Raw method to make a builder */
-  protected Tag.Builder getOrCreateRawBuilder(TagKey<T> pTag) {
+  protected TagBuilder getOrCreateRawBuilder(TagKey<T> pTag) {
     return this.builders.computeIfAbsent(pTag.location(), location -> {
       existingFileHelper.trackGenerated(location, resourceType);
-      return new Tag.Builder();
+      return TagBuilder.create();
     });
   }
 
   /** Vanillas tag appender does not let us easily replace the key getter, so replace it */
-  public record TagAppender<T>(String modID, Tag.Builder internalBuilder, Function<T,ResourceLocation> keyGetter) {
+  @SuppressWarnings({"UnusedReturnValue", "unused"})  // API
+  public record TagAppender<T>(String modID, TagBuilder internalBuilder, Function<T,ResourceLocation> keyGetter) {
     /** Adds a value to the tag */
     public TagAppender<T> add(T value) {
-      this.internalBuilder.addElement(keyGetter.apply(value), this.modID);
+      this.internalBuilder.addElement(keyGetter.apply(value));
       return this;
     }
 
     /** Adds a list of values to the tag */
     @SafeVarargs
     public final TagAppender<T> add(T... values) {
-      Stream.of(values).map(keyGetter).forEach(tagId -> this.internalBuilder.addElement(tagId, this.modID));
+      Stream.of(values).map(keyGetter).forEach(this.internalBuilder::addElement);
       return this;
     }
 
     /** Adds a resource location to the tag */
     public TagAppender<T> add(ResourceLocation... ids) {
       for (ResourceLocation id : ids) {
-        this.internalBuilder.addElement(id, this.modID);
+        this.internalBuilder.addElement(id);
       }
       return this;
     }
@@ -123,7 +124,7 @@ public abstract class AbstractTagProvider<T> extends GenericDataProvider {
     /** Adds an optional ID to the tag */
     public TagAppender<T> addOptional(ResourceLocation... ids) {
       for (ResourceLocation id : ids) {
-        this.internalBuilder.addOptionalElement(id, this.modID);
+        this.internalBuilder.addOptionalElement(id);
       }
       return this;
     }
@@ -132,7 +133,7 @@ public abstract class AbstractTagProvider<T> extends GenericDataProvider {
     @SafeVarargs
     public final TagAppender<T> addTag(TagKey<T>... tags) {
       for (TagKey<T> tag : tags) {
-        this.internalBuilder.addTag(tag.location(), this.modID);
+        this.internalBuilder.addTag(tag.location());
       }
       return this;
     }
@@ -140,7 +141,7 @@ public abstract class AbstractTagProvider<T> extends GenericDataProvider {
     /** Adds an optional tag to the tag */
     public TagAppender<T> addOptionalTag(ResourceLocation... tags) {
       for (ResourceLocation tag : tags) {
-        this.internalBuilder.addOptionalTag(tag, this.modID);
+        this.internalBuilder.addOptionalTag(tag);
       }
       return this;
     }

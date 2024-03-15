@@ -11,7 +11,6 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.registries.RegistryObject;
-import slimeknights.mantle.registration.RegistrationHelper;
 import slimeknights.mantle.registration.deferred.BlockDeferredRegister;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.EnumObject.Builder;
@@ -49,9 +48,8 @@ public class BlockDeferredRegisterExtension extends BlockDeferredRegister {
    * @return  Potted block instance
    */
   public RegistryObject<FlowerPotBlock> registerPotted(String name, Supplier<? extends Block> block) {
-    Supplier<FlowerPotBlock> flowerPot = RegistrationHelper.castDelegate(Blocks.FLOWER_POT.delegate);
-    RegistryObject<FlowerPotBlock> potted = registerNoItem("potted_" + name, () -> new FlowerPotBlock(flowerPot, block, POTTED_PROPS));
-    flowerPot.get().addPlant(resource(name), potted);
+    RegistryObject<FlowerPotBlock> potted = registerNoItem("potted_" + name, () -> new FlowerPotBlock(() -> (FlowerPotBlock)Blocks.FLOWER_POT, block, POTTED_PROPS));
+    ((FlowerPotBlock)Blocks.FLOWER_POT).addPlant(resource(name), potted);
     return potted;
   }
 
@@ -62,7 +60,7 @@ public class BlockDeferredRegisterExtension extends BlockDeferredRegister {
 
   /** Registers a potted form of the given block using the vanilla pot */
   public RegistryObject<FlowerPotBlock> registerPotted(ItemObject<? extends Block> block) {
-    return registerPotted(block.getRegistryName().getPath(), block);
+    return registerPotted(block.getId().getPath(), block);
   }
 
   /** Registers a potted form of the given block using the vanilla pot */

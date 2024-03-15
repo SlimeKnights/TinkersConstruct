@@ -4,14 +4,16 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.client.event.ModelEvent.RegisterGeometryLoaders;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import slimeknights.mantle.registration.object.FluidObject;
+import slimeknights.mantle.registration.object.FlowingFluidObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
+import slimeknights.tconstruct.library.client.model.FluidContainerModel;
 
 @EventBusSubscriber(modid = TConstruct.MOD_ID, value = Dist.CLIENT, bus = Bus.MOD)
 public class FluidClientEvents extends ClientEventBase {
@@ -34,11 +36,16 @@ public class FluidClientEvents extends ClientEventBase {
   }
 
   @SubscribeEvent
-  static void itemColors(final ColorHandlerEvent.Item event) {
-    event.getItemColors().register((stack, index) -> index > 0 ? -1 : PotionUtils.getColor(stack), TinkerFluids.potionBucket.asItem());
+  static void itemColors(final RegisterColorHandlersEvent.Item event) {
+    event.register((stack, index) -> index > 0 ? -1 : PotionUtils.getColor(stack), TinkerFluids.potion.asItem());
   }
 
-  private static void setTranslucent(FluidObject<?> fluid) {
+  @SubscribeEvent
+  static void registerModelLoaders(RegisterGeometryLoaders event) {
+    event.register("fluid_container", FluidContainerModel.LOADER);
+  }
+
+  private static void setTranslucent(FlowingFluidObject<?> fluid) {
     ItemBlockRenderTypes.setRenderLayer(fluid.getStill(), RenderType.translucent());
     ItemBlockRenderTypes.setRenderLayer(fluid.getFlowing(), RenderType.translucent());
   }

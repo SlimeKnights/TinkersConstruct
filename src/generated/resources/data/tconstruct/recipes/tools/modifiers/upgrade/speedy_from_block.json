@@ -1,21 +1,21 @@
 {
   "type": "tconstruct:incremental_modifier",
+  "allow_crystal": false,
+  "amount_per_item": 9,
   "input": {
     "tag": "forge:storage_blocks/redstone"
   },
-  "amount_per_item": 9,
-  "needed_per_level": 45,
   "leftover": "minecraft:redstone",
-  "tools": {
-    "tag": "tconstruct:modifiable/armor/leggings"
+  "max_level": 3,
+  "needed_per_level": 45,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:speedy"
   },
   "slots": {
     "upgrades": 1
   },
-  "allow_crystal": false,
-  "result": {
-    "name": "tconstruct:speedy",
-    "level": 1
-  },
-  "max_level": 3
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/leggings"
+  }
 }

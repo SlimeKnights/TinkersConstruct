@@ -2,9 +2,9 @@ package slimeknights.tconstruct.library.tools.definition.harvest;
 
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.level.block.state.BlockState;
-import slimeknights.mantle.data.GenericLoaderRegistry;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.mantle.data.GenericLoaderRegistry.IHaveLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 

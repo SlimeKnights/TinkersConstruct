@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools.modifiers.ability.sling;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
@@ -12,8 +13,6 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-
-import java.util.Random;
 
 /** Teleport through blocks in the look direction */
 public class WarpingModifier extends SlingModifier {
@@ -25,7 +24,7 @@ public class WarpingModifier extends SlingModifier {
       if (f > 0) {
         Vec3 look = player.getLookAngle();
         float inaccuracy = ModifierUtil.getInaccuracy(tool, player) * 0.0075f;
-        Random random = player.getRandom();
+        RandomSource random = player.getRandom();
         double offX = (look.x + random.nextGaussian() * inaccuracy) * f;
         double offY = (look.y + random.nextGaussian() * inaccuracy) * f + 1; // add extra to help with bad collisions
         double offZ = (look.z + random.nextGaussian() * inaccuracy) * f;

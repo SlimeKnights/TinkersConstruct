@@ -2,8 +2,6 @@ package slimeknights.tconstruct.library.tools.part;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -55,13 +53,13 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
     MaterialId id = materialVariant.getId();
     if (!materialVariant.equals(IMaterial.UNKNOWN_ID)) {
       if (flag.isAdvanced()) {
-        tooltip.add((new TranslatableComponent(MATERIAL_KEY, materialVariant.toString())).withStyle(ChatFormatting.DARK_GRAY));
+        tooltip.add((Component.translatable(MATERIAL_KEY, materialVariant.toString())).withStyle(ChatFormatting.DARK_GRAY));
       }
       if (canUseMaterial(id)) {
         for (ModifierEntry entry : MaterialRegistry.getInstance().getTraits(id, getStatType())) {
           Component name = entry.getModifier().getDisplayName(entry.getLevel());
           if (flag.isAdvanced() && Config.CLIENT.modifiersIDsInAdvancedTooltips.get()) {
-            tooltip.add(new TranslatableComponent(TooltipUtil.KEY_ID_FORMAT, name, new TextComponent(entry.getModifier().getId().toString())).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.add(Component.translatable(TooltipUtil.KEY_ID_FORMAT, name, Component.literal(entry.getModifier().getId().toString())).withStyle(ChatFormatting.DARK_GRAY));
           } else {
             tooltip.add(name);
           }
@@ -73,7 +71,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
             this.addStatInfoTooltip(id, tooltip);
           } else {
             // info tooltip for detailed and component info
-            tooltip.add(TextComponent.EMPTY);
+            tooltip.add(Component.empty());
             tooltip.add(TooltipUtil.TOOLTIP_HOLD_SHIFT);
           }
         }
@@ -81,9 +79,9 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
         // is the material missing, or is it not valid for this stat type?
         IMaterial material = MaterialRegistry.getMaterial(id);
         if (material == IMaterial.UNKNOWN) {
-          tooltip.add(new TranslatableComponent(MISSING_MATERIAL_KEY, id));
+          tooltip.add(Component.translatable(MISSING_MATERIAL_KEY, id));
         } else {
-          tooltip.add(new TranslatableComponent(MISSING_STATS_KEY, materialStatId).withStyle(ChatFormatting.GRAY));
+          tooltip.add(Component.translatable(MISSING_STATS_KEY, materialStatId).withStyle(ChatFormatting.GRAY));
         }
       }
     }
@@ -99,7 +97,7 @@ public class ToolPartItem extends MaterialItem implements IToolPart {
     MaterialRegistry.getInstance().getMaterialStats(material, this.materialStatId).ifPresent((stat) -> {
       List<Component> text = stat.getLocalizedInfo();
       if (!text.isEmpty()) {
-        tooltip.add(TextComponent.EMPTY);
+        tooltip.add(Component.empty());
         tooltip.add(stat.getLocalizedName().withStyle(ChatFormatting.WHITE, ChatFormatting.UNDERLINE));
         tooltip.addAll(stat.getLocalizedInfo());
       }

@@ -4,8 +4,8 @@
     "item": "tconstruct:soul_glass_pane"
   },
   "result": {
-    "fluid": "tconstruct:liquid_soul",
-    "amount": 250
+    "amount": 250,
+    "fluid": "tconstruct:liquid_soul"
   },
   "temperature": 400,
   "time": 23

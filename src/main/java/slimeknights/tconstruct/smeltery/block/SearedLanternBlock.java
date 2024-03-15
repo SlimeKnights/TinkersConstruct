@@ -40,9 +40,9 @@ public class SearedLanternBlock extends LanternBlock implements ITankBlock, Enti
   @Override
   public int getLightEmission(BlockState state, BlockGetter world, BlockPos pos) {
     BlockEntity te = world.getBlockEntity(pos);
-    if (te instanceof TankBlockEntity) {
-      FluidStack fluid = ((TankBlockEntity) te).getTank().getFluid();
-      return fluid.getFluid().getAttributes().getLuminosity(fluid);
+    if (te instanceof TankBlockEntity tank) {
+      FluidStack fluid = tank.getTank().getFluid();
+      return fluid.getFluid().getFluidType().getLightLevel(fluid);
     }
     return 0;
   }

@@ -1,21 +1,21 @@
 {
   "type": "tconstruct:incremental_modifier",
+  "allow_crystal": false,
+  "amount_per_item": 4,
   "input": {
     "item": "minecraft:amethyst_block"
   },
-  "amount_per_item": 4,
-  "needed_per_level": 72,
   "leftover": "minecraft:amethyst_shard",
-  "tools": {
-    "tag": "tconstruct:modifiable/melee/weapon"
+  "max_level": 5,
+  "needed_per_level": 72,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:swiftstrike"
   },
   "slots": {
     "upgrades": 1
   },
-  "allow_crystal": false,
-  "result": {
-    "name": "tconstruct:swiftstrike",
-    "level": 1
-  },
-  "max_level": 5
+  "tools": {
+    "tag": "tconstruct:modifiable/melee/weapon"
+  }
 }

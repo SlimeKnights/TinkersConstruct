@@ -27,7 +27,7 @@ public class DefaultEntityMeltingRecipe extends EntityMeltingRecipe {
   private static List<EntityType> getEntityList(List<EntityMeltingRecipe> recipes) {
     List<EntityType> unusedTypes = new ArrayList<>();
     typeLoop:
-    for (EntityType<?> type : ForgeRegistries.ENTITIES) {
+    for (EntityType<?> type : ForgeRegistries.ENTITY_TYPES) {
       // use tag overrides for default recipe
       if (type.is(TinkerTags.EntityTypes.MELTING_HIDE)) continue;
       if (type.getCategory() == MobCategory.MISC && !type.is(TinkerTags.EntityTypes.MELTING_SHOW)) continue;

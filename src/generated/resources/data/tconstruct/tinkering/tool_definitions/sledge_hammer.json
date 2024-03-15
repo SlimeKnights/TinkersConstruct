@@ -1,4 +1,33 @@
 {
+  "actions": [
+    "pickaxe_dig"
+  ],
+  "attack": {
+    "type": "tconstruct:particle",
+    "particle": "tconstruct:hammer_attack"
+  },
+  "harvest": {
+    "aoe": {
+      "type": "tconstruct:box",
+      "bonus": {
+        "height": 1,
+        "width": 1
+      },
+      "expansion_direction": "tconstruct:side_hit",
+      "expansions": [
+        {
+          "width": 1
+        },
+        {
+          "height": 1
+        }
+      ]
+    },
+    "logic": {
+      "type": "tconstruct:effective_tag",
+      "effective": "minecraft:mineable/pickaxe"
+    }
+  },
   "parts": [
     {
       "item": "tconstruct:hammer_head",
@@ -14,6 +43,10 @@
       "item": "tconstruct:large_plate"
     }
   ],
+  "slots": {
+    "abilities": 1,
+    "upgrades": 2
+  },
   "stats": {
     "base": {
       "tconstruct:attack_damage": 3.0,
@@ -21,47 +54,14 @@
     },
     "multipliers": {
       "tconstruct:attack_damage": 1.35,
-      "tconstruct:mining_speed": 0.4,
-      "tconstruct:durability": 4.0
+      "tconstruct:durability": 4.0,
+      "tconstruct:mining_speed": 0.4
     }
-  },
-  "slots": {
-    "upgrades": 2,
-    "abilities": 1
   },
   "traits": [
     {
-      "name": "tconstruct:smite",
-      "level": 2
+      "level": 2,
+      "name": "tconstruct:smite"
     }
-  ],
-  "actions": [
-    "pickaxe_dig"
-  ],
-  "harvest": {
-    "logic": {
-      "type": "tconstruct:effective_tag",
-      "effective": "minecraft:mineable/pickaxe"
-    },
-    "aoe": {
-      "type": "tconstruct:box",
-      "bonus": {
-        "width": 1,
-        "height": 1
-      },
-      "expansions": [
-        {
-          "width": 1
-        },
-        {
-          "height": 1
-        }
-      ],
-      "expansion_direction": "tconstruct:side_hit"
-    }
-  },
-  "attack": {
-    "type": "tconstruct:particle",
-    "particle": "tconstruct:hammer_attack"
-  }
+  ]
 }

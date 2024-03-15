@@ -3,7 +3,7 @@ package slimeknights.tconstruct.gadgets.item;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
 import net.minecraft.network.protocol.game.ClientboundSetPassengersPacket;
 import net.minecraft.server.level.ServerPlayer;
@@ -20,7 +20,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.client.EffectRenderer;
+import net.minecraftforge.client.extensions.common.IClientMobEffectExtensions;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.item.TooltipItem;
@@ -176,15 +176,9 @@ public class PiggyBackPackItem extends TooltipItem {
 
     // TODO: proper sprite sheet for effect icons?
     @Override
-    public void initializeClient(Consumer<EffectRenderer> consumer) {
-      consumer.accept(new EffectRenderer() {
-        @Override
-        public void renderInventoryEffect(MobEffectInstance effect, EffectRenderingInventoryScreen<?> gui, PoseStack matrices, int x, int y, float z) {
-          this.renderHUDEffect(effect, gui, matrices, x, y, z, 1f);
-        }
-
-        @Override
-        public void renderHUDEffect(MobEffectInstance effect, GuiComponent gui, PoseStack matrices, int x, int y, float z, float alpha) {
+    public void initializeClient(Consumer<IClientMobEffectExtensions> consumer) {
+      consumer.accept(new IClientMobEffectExtensions() {
+        private void renderIcon(MobEffectInstance effect, PoseStack matrices, int x, int y) {
           RenderUtils.setup(Icons.ICONS);
           ElementScreen element = switch (effect.getAmplifier()) {
             case 0 -> Icons.PIGGYBACK_1;
@@ -193,6 +187,18 @@ public class PiggyBackPackItem extends TooltipItem {
           };
 
           element.draw(matrices, x + 6, y + 7);
+        }
+
+        @Override
+        public boolean renderInventoryIcon(MobEffectInstance effect, EffectRenderingInventoryScreen<?> gui, PoseStack matrices, int x, int y, int z) {
+          renderIcon(effect, matrices, x, y);
+          return true;
+        }
+
+        @Override
+        public boolean renderGuiIcon(MobEffectInstance effect, Gui gui, PoseStack matrices, int x, int y, float z, float alpha) {
+          renderIcon(effect, matrices, x, y);
+          return true;
         }
       });
     }

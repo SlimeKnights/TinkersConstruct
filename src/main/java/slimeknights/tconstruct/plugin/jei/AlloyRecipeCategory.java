@@ -19,7 +19,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
@@ -49,7 +48,7 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
     //noinspection SimplifyOptionalCallChains  Not for int streams
     slot.getDisplayedIngredient(ForgeTypes.FLUID_STACK)
         .ifPresent(stack -> MeltingFuelHandler.getTemperature(stack.getFluid())
-                                              .ifPresent(temperature -> tooltip.add(new TranslatableComponent(KEY_TEMPERATURE, temperature).withStyle(ChatFormatting.GRAY))));
+                                              .ifPresent(temperature -> tooltip.add(Component.translatable(KEY_TEMPERATURE, temperature).withStyle(ChatFormatting.GRAY))));
   };
 
   @Getter
@@ -64,18 +63,6 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
     this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(TinkerSmeltery.smelteryController));
     this.arrow = helper.drawableBuilder(BACKGROUND_LOC, 172, 0, 24, 17).buildAnimated(200, StartDirection.LEFT, false);
     this.tank = helper.createDrawable(BACKGROUND_LOC, 172, 17, 16, 16);
-  }
-
-  @SuppressWarnings("removal")
-  @Override
-  public ResourceLocation getUid() {
-    return TConstructJEIConstants.ALLOY.getUid();
-  }
-
-  @SuppressWarnings("removal")
-  @Override
-  public Class<? extends AlloyRecipe> getRecipeClass() {
-    return AlloyRecipe.class;
   }
 
   @Override

@@ -1,26 +1,26 @@
 {
-  "fluid": {
-    "tag": "forge:molten_iron",
-    "amount": 10
-  },
   "effects": [
     {
       "type": "tconstruct:conditional",
+      "effect": {
+        "type": "tconstruct:damage",
+        "damage_amount": 2.0,
+        "damage_type": "fire"
+      },
       "entity": {
         "type": "mantle:inverted",
         "inverted_type": "mantle:fire_immune"
-      },
-      "effect": {
-        "type": "tconstruct:damage",
-        "damage_type": "fire",
-        "damage_amount": 2.0
       }
     },
     {
       "type": "tconstruct:effect",
+      "level": 2,
       "name": "tconstruct:magnetic",
-      "time": 4,
-      "level": 2
+      "time": 4
     }
-  ]
+  ],
+  "fluid": {
+    "amount": 10,
+    "tag": "forge:molten_iron"
+  }
 }

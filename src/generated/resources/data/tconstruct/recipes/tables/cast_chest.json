@@ -1,24 +1,24 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " c ",
-    "bCb",
-    "bBb"
-  ],
   "key": {
-    "c": {
-      "tag": "tconstruct:casts/gold"
-    },
-    "b": {
-      "item": "tconstruct:seared_brick"
-    },
     "B": {
       "item": "tconstruct:seared_bricks"
     },
     "C": {
       "tag": "forge:chests/wooden"
+    },
+    "b": {
+      "item": "tconstruct:seared_brick"
+    },
+    "c": {
+      "tag": "tconstruct:casts/gold"
     }
   },
+  "pattern": [
+    " c ",
+    "bCb",
+    "bBb"
+  ],
   "result": {
     "item": "tconstruct:cast_chest"
   }

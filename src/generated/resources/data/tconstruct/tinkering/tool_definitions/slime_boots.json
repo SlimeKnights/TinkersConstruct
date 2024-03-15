@@ -1,27 +1,27 @@
 {
+  "slots": {
+    "abilities": 1,
+    "defense": 0,
+    "upgrades": 5
+  },
   "stats": {
     "base": {
-      "tconstruct:durability": 546.0,
-      "tconstruct:armor": 0.0
+      "tconstruct:armor": 0.0,
+      "tconstruct:durability": 546.0
     }
-  },
-  "slots": {
-    "upgrades": 5,
-    "defense": 0,
-    "abilities": 1
   },
   "traits": [
     {
-      "name": "tconstruct:overslime_friend",
-      "level": 1
+      "level": 1,
+      "name": "tconstruct:overslime_friend"
     },
     {
-      "name": "tconstruct:bouncy",
-      "level": 1
+      "level": 1,
+      "name": "tconstruct:bouncy"
     },
     {
-      "name": "tconstruct:leaping",
-      "level": 1
+      "level": 1,
+      "name": "tconstruct:leaping"
     }
   ]
 }

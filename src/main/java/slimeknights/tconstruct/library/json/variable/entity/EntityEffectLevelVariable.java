@@ -4,8 +4,8 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.registries.ForgeRegistries;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.loader.RegistryEntryLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 
 /** Gets the level of the mob effect on an entity */
 public record EntityEffectLevelVariable(MobEffect effect) implements EntityVariable {

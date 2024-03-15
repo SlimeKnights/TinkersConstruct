@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.ability.sling;
 
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ClipContext;
@@ -13,8 +14,6 @@ import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.item.ModifiableItem;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
-
-import java.util.Random;
 
 /** Add velocity opposite of the targeted block */
 public class FlingingModifier extends SlingModifier {
@@ -30,7 +29,7 @@ public class FlingingModifier extends SlingModifier {
         if (f > 0) {
           Vec3 vec = player.getLookAngle().normalize();
           float inaccuracy = ModifierUtil.getInaccuracy(tool, player) * 0.0075f;
-          Random random = player.getRandom();
+          RandomSource random = player.getRandom();
           player.push((vec.x + random.nextGaussian() * inaccuracy) * -f,
                       (vec.y + random.nextGaussian() * inaccuracy) * -f / 3f,
                       (vec.z + random.nextGaussian() * inaccuracy) * -f);

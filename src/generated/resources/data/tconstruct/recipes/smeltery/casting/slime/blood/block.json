@@ -4,10 +4,10 @@
     "item": "tconstruct:blood_congealed_slime"
   },
   "cast_consumed": true,
+  "cooling_time": 112,
   "fluid": {
-    "tag": "tconstruct:blood",
-    "amount": 1250
+    "amount": 1250,
+    "tag": "tconstruct:blood"
   },
-  "result": "tconstruct:blood_slime",
-  "cooling_time": 112
+  "result": "tconstruct:blood_slime"
 }

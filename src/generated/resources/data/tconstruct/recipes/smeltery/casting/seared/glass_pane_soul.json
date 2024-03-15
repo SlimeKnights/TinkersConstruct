@@ -4,10 +4,10 @@
     "item": "tconstruct:soul_glass_pane"
   },
   "cast_consumed": true,
+  "cooling_time": 89,
   "fluid": {
-    "tag": "tconstruct:seared_stone",
-    "amount": 250
+    "amount": 250,
+    "tag": "tconstruct:seared_stone"
   },
-  "result": "tconstruct:seared_soul_glass_pane",
-  "cooling_time": 89
+  "result": "tconstruct:seared_soul_glass_pane"
 }

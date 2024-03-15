@@ -9,7 +9,6 @@ import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -70,8 +69,8 @@ public class ModifierSetWorktableRecipe extends AbstractWorktableRecipe {
     this.dataKey = dataKey;
     this.addToSet = addToSet;
     String rootKey = Util.makeTranslationKey("recipe", dataKey) + (addToSet ? ".adding" : ".removing");
-    this.title = new TranslatableComponent(rootKey + ".title");
-    this.description = new TranslatableComponent(rootKey + ".description");
+    this.title = Component.translatable(rootKey + ".title");
+    this.description = Component.translatable(rootKey + ".description");
     this.modifierPredicate = modifierPredicate;
     this.entryFilter = entry -> modifierPredicate.matches(entry.getId());
     this.allowTraits = allowTraits;
@@ -159,7 +158,7 @@ public class ModifierSetWorktableRecipe extends AbstractWorktableRecipe {
     return false;
   }
 
-  public static class Serializer extends LoggingRecipeSerializer<ModifierSetWorktableRecipe> {
+  public static class Serializer implements LoggingRecipeSerializer<ModifierSetWorktableRecipe> {
     @Override
     public ModifierSetWorktableRecipe fromJson(ResourceLocation id, JsonObject json) {
       ResourceLocation dataKey = JsonHelper.getResourceLocation(json, "data_key");
@@ -176,7 +175,7 @@ public class ModifierSetWorktableRecipe extends AbstractWorktableRecipe {
 
     @Nullable
     @Override
-    protected ModifierSetWorktableRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    public ModifierSetWorktableRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       ResourceLocation dataKey = buffer.readResourceLocation();
       Ingredient ingredient = Ingredient.fromNetwork(buffer);
       int size = buffer.readVarInt();
@@ -191,7 +190,7 @@ public class ModifierSetWorktableRecipe extends AbstractWorktableRecipe {
     }
 
     @Override
-    protected void toNetworkSafe(FriendlyByteBuf buffer, ModifierSetWorktableRecipe recipe) {
+    public void toNetworkSafe(FriendlyByteBuf buffer, ModifierSetWorktableRecipe recipe) {
       buffer.writeResourceLocation(recipe.dataKey);
       recipe.toolRequirement.toNetwork(buffer);
       buffer.writeVarInt(recipe.inputs.size());

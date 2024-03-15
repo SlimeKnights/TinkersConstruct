@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "tag": "forge:ingots/cobalt"
@@ -8,6 +9,14 @@
       "item": "minecraft:flint"
     }
   ],
+  "max_level": 1,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:firestarter"
+  },
+  "slots": {
+    "abilities": 1
+  },
   "tools": {
     "type": "forge:difference",
     "base": {
@@ -24,14 +33,5 @@
     "subtracted": {
       "item": "tconstruct:flint_and_brick"
     }
-  },
-  "slots": {
-    "abilities": 1
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:firestarter",
-    "level": 1
-  },
-  "max_level": 1
+  }
 }

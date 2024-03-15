@@ -3,7 +3,6 @@ package slimeknights.tconstruct.tools.modifiers.slotless;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -55,7 +54,7 @@ public class CreativeSlotModifier extends NoLevelsModifier implements VolatileDa
 
   /** Formats the given slot type as a count */
   private static Component formatCount(SlotType slotType, int count) {
-    return new TextComponent((count > 0 ? "+" : "") + count + " ")
+    return Component.literal((count > 0 ? "+" : "") + count + " ")
       .append(slotType.getDisplayName())
       .withStyle(style -> style.withColor(slotType.getColor()));
   }

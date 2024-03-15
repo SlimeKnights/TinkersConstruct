@@ -1,37 +1,37 @@
 {
-  "translation_key": "item.tconstruct.pickadze",
   "icon": {
     "item": "tconstruct:pickadze",
     "nbt": "{Damage:0,tic_broken:0b,tic_display:1b,tic_materials:[\"tconstruct:ui_render#head\",\"tconstruct:ui_render#handle\",\"tconstruct:ui_render#extra\",\"tconstruct:ui_render#large\",\"tconstruct:ui_render#extra_large\"]}"
   },
-  "sortIndex": 6,
   "input_slots": [
     {
+      "filter": {
+        "item": "tconstruct:pick_head"
+      },
       "icon": "tconstruct:pick_head",
       "translation_key": "item.tconstruct.pick_head",
       "x": 31,
-      "y": 22,
-      "filter": {
-        "item": "tconstruct:pick_head"
-      }
+      "y": 22
     },
     {
+      "filter": {
+        "item": "tconstruct:tool_handle"
+      },
       "icon": "tconstruct:tool_handle",
       "translation_key": "item.tconstruct.tool_handle",
       "x": 22,
-      "y": 53,
-      "filter": {
-        "item": "tconstruct:tool_handle"
-      }
+      "y": 53
     },
     {
+      "filter": {
+        "item": "tconstruct:round_plate"
+      },
       "icon": "tconstruct:round_plate",
       "translation_key": "item.tconstruct.round_plate",
       "x": 51,
-      "y": 34,
-      "filter": {
-        "item": "tconstruct:round_plate"
-      }
+      "y": 34
     }
-  ]
+  ],
+  "sortIndex": 6,
+  "translation_key": "item.tconstruct.pickadze"
 }

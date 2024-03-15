@@ -1,22 +1,22 @@
 {
   "type": "tconstruct:casting_table",
-  "conditions": [
-    {
-      "value": {
-        "tag": "forge:ingots/uranium",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
-    }
-  ],
   "cast": {
     "tag": "forge:wither_bones"
   },
   "cast_consumed": true,
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/uranium"
+      }
+    }
+  ],
+  "cooling_time": 61,
   "fluid": {
-    "tag": "forge:molten_uranium",
-    "amount": 90
+    "amount": 90,
+    "tag": "forge:molten_uranium"
   },
-  "result": "tconstruct:necronium_bone",
-  "cooling_time": 61
+  "result": "tconstruct:necronium_bone"
 }

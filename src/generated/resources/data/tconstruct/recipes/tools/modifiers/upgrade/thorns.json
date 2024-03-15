@@ -1,10 +1,19 @@
 {
   "type": "tconstruct:incremental_modifier",
+  "allow_crystal": true,
+  "amount_per_item": 1,
   "input": {
     "item": "minecraft:cactus"
   },
-  "amount_per_item": 1,
+  "max_level": 3,
   "needed_per_level": 25,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:thorns"
+  },
+  "slots": {
+    "upgrades": 1
+  },
   "tools": [
     {
       "tag": "tconstruct:modifiable/armor/worn"
@@ -12,14 +21,5 @@
     {
       "tag": "tconstruct:modifiable/shields"
     }
-  ],
-  "slots": {
-    "upgrades": 1
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:thorns",
-    "level": 1
-  },
-  "max_level": 3
+  ]
 }

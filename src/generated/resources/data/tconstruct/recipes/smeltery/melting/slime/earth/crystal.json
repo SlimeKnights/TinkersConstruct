@@ -4,8 +4,8 @@
     "item": "tconstruct:earth_slime_crystal"
   },
   "result": {
-    "fluid": "tconstruct:earth_slime",
-    "amount": 250
+    "amount": 250,
+    "fluid": "tconstruct:earth_slime"
   },
   "temperature": 50,
   "time": 31

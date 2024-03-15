@@ -1,0 +1,7 @@
+{
+  "__comment": "This file just exists to silence missing model warnings, it does not serve any functional purpose. See 'assets/tconstruct/mantle//fluid_textures' for the files controlling fluid textures",
+  "textures": {
+    "particle": "tconstruct:fluid/liquid/still"
+  }
+}
+

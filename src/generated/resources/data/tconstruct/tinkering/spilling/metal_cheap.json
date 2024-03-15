@@ -1,24 +1,24 @@
 {
-  "fluid": {
-    "tag": "tconstruct:spilling/metal/cheap",
-    "amount": 10
-  },
   "effects": [
     {
       "type": "tconstruct:conditional",
+      "effect": {
+        "type": "tconstruct:damage",
+        "damage_amount": 1.5,
+        "damage_type": "fire"
+      },
       "entity": {
         "type": "mantle:inverted",
         "inverted_type": "mantle:fire_immune"
-      },
-      "effect": {
-        "type": "tconstruct:damage",
-        "damage_type": "fire",
-        "damage_amount": 1.5
       }
     },
     {
       "type": "tconstruct:set_fire",
       "time": 7
     }
-  ]
+  ],
+  "fluid": {
+    "amount": 10,
+    "tag": "tconstruct:spilling/metal/cheap"
+  }
 }

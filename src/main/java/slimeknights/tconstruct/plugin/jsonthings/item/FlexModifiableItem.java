@@ -43,7 +43,7 @@ public class FlexModifiableItem extends ModifiableItem implements IFlexItem {
   }
 
   @Override
-  protected boolean allowdedIn(CreativeModeTab category) {
+  protected boolean allowedIn(CreativeModeTab category) {
     return this.tabs.contains(category);
   }
 

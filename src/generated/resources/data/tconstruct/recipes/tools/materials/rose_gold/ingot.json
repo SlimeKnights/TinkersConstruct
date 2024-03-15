@@ -3,7 +3,7 @@
   "ingredient": {
     "tag": "forge:ingots/rose_gold"
   },
-  "value": 1,
+  "material": "tconstruct:rose_gold",
   "needed": 1,
-  "material": "tconstruct:rose_gold"
+  "value": 1
 }

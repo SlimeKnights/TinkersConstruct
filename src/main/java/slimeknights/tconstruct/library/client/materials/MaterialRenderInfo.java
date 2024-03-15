@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraft.world.inventory.InventoryMenu;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 
 import javax.annotation.Nullable;
@@ -30,7 +30,7 @@ public class MaterialRenderInfo {
   private final int vertexColor;
   /** Extra light to add to the material, allows some materials to appear to glow slightly */
   @Getter
-  private final int luminosity;
+  private final int luminosity; // TODO: rename to emissivity
 
   /**
    * Tries to get a sprite for the given texture
@@ -59,16 +59,16 @@ public class MaterialRenderInfo {
     if (texture != null) {
       sprite = trySprite(base, getSuffix(texture), spriteGetter);
       if (sprite != null) {
-        return new TintedSprite(sprite, -1);
+        return new TintedSprite(sprite, -1, getLuminosity());
       }
     }
     for (String fallback : fallbacks) {
       sprite = trySprite(base, fallback, spriteGetter);
       if (sprite != null) {
-        return new TintedSprite(sprite, vertexColor);
+        return new TintedSprite(sprite, vertexColor, getLuminosity());
       }
     }
-    return new TintedSprite(spriteGetter.apply(base), vertexColor);
+    return new TintedSprite(spriteGetter.apply(base), vertexColor, getLuminosity());
   }
 
   /**
@@ -105,11 +105,11 @@ public class MaterialRenderInfo {
    * @return  Material instance
    */
   private static Material getMaterial(ResourceLocation texture, String suffix) {
-    return ModelLoaderRegistry.blockMaterial(new ResourceLocation(texture.getNamespace(), texture.getPath() + "_" + suffix));
+    return new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(texture.getNamespace(), texture.getPath() + "_" + suffix));
   }
 
   /**
    * Data class for a sprite that may be tinted
    */
-  public record TintedSprite(TextureAtlasSprite sprite, int color) {}
+  public record TintedSprite(TextureAtlasSprite sprite, int color, int emissivity) {}
 }

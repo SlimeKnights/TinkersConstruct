@@ -3,7 +3,6 @@ package slimeknights.tconstruct.fluids.item;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -20,8 +19,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.capability.wrappers.FluidBucketWrapper;
 import slimeknights.tconstruct.library.utils.Util;
 
@@ -56,10 +55,10 @@ public class PotionBucketItem extends PotionItem {
     Potion potion = PotionUtils.getPotion(stack.getTag());
     String bucketKey = potion.getName(getDescriptionId() + ".effect.");
     if (Util.canTranslate(bucketKey)) {
-      return new TranslatableComponent(bucketKey);
+      return Component.translatable(bucketKey);
     }
     // default to filling with the contents
-    return new TranslatableComponent(getDescriptionId() + ".contents", new TranslatableComponent(potion.getName("item.minecraft.potion.effect.")));
+    return Component.translatable(getDescriptionId() + ".contents", Component.translatable(potion.getName("item.minecraft.potion.effect.")));
   }
 
   @Override
@@ -102,7 +101,7 @@ public class PotionBucketItem extends PotionItem {
         player.getInventory().add(new ItemStack(Items.BUCKET));
       }
     }
-    level.gameEvent(living, GameEvent.DRINKING_FINISH, living.eyeBlockPosition());
+    living.gameEvent(GameEvent.DRINK);
     return stack;
   }
 
@@ -130,7 +129,7 @@ public class PotionBucketItem extends PotionItem {
     @Override
     public FluidStack getFluid() {
       return new FluidStack(((PotionBucketItem)container.getItem()).getFluid(),
-                            FluidAttributes.BUCKET_VOLUME, container.getTag());
+                            FluidType.BUCKET_VOLUME, container.getTag());
     }
   }
 }

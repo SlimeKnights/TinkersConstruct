@@ -1,12 +1,13 @@
 package slimeknights.tconstruct.library.modifiers.spilling;
 
 import net.minecraftforge.fluids.FluidStack;
-import slimeknights.mantle.data.GenericRegisteredSerializer;
-import slimeknights.mantle.data.GenericRegisteredSerializer.IJsonSerializable;
+import slimeknights.mantle.data.gson.GenericRegisteredSerializer;
+import slimeknights.mantle.data.gson.GenericRegisteredSerializer.IJsonSerializable;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 
 /**
- * Interface to allow multiple effects for a spilling recipe
+ * Interface to allow multiple effects for a spilling recipe.
+ * TODO: redesign spilling effect context
  */
 public interface ISpillingEffect extends IJsonSerializable {
   /** Registry for spilling effect loaders */

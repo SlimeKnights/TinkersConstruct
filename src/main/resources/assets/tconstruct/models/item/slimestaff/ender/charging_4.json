@@ -4,8 +4,8 @@
   "textures": {
     "tool":         "tconstruct:item/tool/staff/ender_4",
     "broken":       "tconstruct:item/tool/staff/ender_broken",
-    "tool_large":   "tconstruct:item/tool/staff/ender_large_4",
-    "broken_large": "tconstruct:item/tool/staff/ender_large_broken"
+    "large_tool":   "tconstruct:item/tool/staff/ender_large_4",
+    "large_broken": "tconstruct:item/tool/staff/ender_large_broken"
   },
   "large": true,
   "modifier_roots": {

@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.library.client.data.spritetransformer;
 
 import com.mojang.blaze3d.platform.NativeImage;
-import slimeknights.mantle.data.GenericRegisteredSerializer;
-import slimeknights.mantle.data.GenericRegisteredSerializer.IJsonSerializable;
+import slimeknights.mantle.data.gson.GenericRegisteredSerializer;
+import slimeknights.mantle.data.gson.GenericRegisteredSerializer.IJsonSerializable;
 
 /**
  * Interface for a function that transforms a sprite into another sprite

@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:sheetmetals/aluminum",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:sheetmetals/aluminum"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:sheetmetals/aluminum"
   },
   "result": {
-    "fluid": "tconstruct:molten_aluminum",
-    "amount": 90
+    "amount": 90,
+    "fluid": "tconstruct:molten_aluminum"
   },
   "temperature": 425,
   "time": 47

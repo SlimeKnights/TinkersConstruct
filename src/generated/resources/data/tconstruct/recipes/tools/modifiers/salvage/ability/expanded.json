@@ -1,11 +1,11 @@
 {
   "type": "tconstruct:modifier_salvage",
-  "tools": {
-    "tag": "tconstruct:modifiable/aoe"
-  },
+  "min_level": 1,
+  "modifier": "tconstruct:expanded",
   "slots": {
     "abilities": 1
   },
-  "modifier": "tconstruct:expanded",
-  "min_level": 1
+  "tools": {
+    "tag": "tconstruct:modifiable/aoe"
+  }
 }

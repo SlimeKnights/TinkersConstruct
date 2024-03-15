@@ -53,7 +53,7 @@ public interface IMaterialRecipeHelper extends IRecipeHelper {
     if (leftover != null) {
       builder.setLeftover(leftover);
     }
-    builder.save(consumer, modResource(saveName));
+    builder.save(consumer, location(saveName));
   }
 
   /**
@@ -79,15 +79,15 @@ public interface IMaterialRecipeHelper extends IRecipeHelper {
   /** Adds recipes to melt a material */
   default void materialMelting(Consumer<FinishedRecipe> consumer, MaterialVariantId material, Fluid fluid, int fluidAmount, String folder) {
     MaterialMeltingRecipeBuilder.material(material, new FluidStack(fluid, fluidAmount))
-                                .save(consumer, modResource(folder + "melting/" + material.getLocation('_').getPath()));
+                                .save(consumer, location(folder + "melting/" + material.getLocation('_').getPath()));
   }
 
   /** Adds recipes to melt and cast a material */
   default void materialMeltingCasting(Consumer<FinishedRecipe> consumer, MaterialVariantId material, FluidObject<?> fluid, boolean forgeTag, int fluidAmount, String folder) {
     MaterialFluidRecipeBuilder.material(material)
-                              .setFluid(forgeTag ? fluid.getForgeTag() : fluid.getLocalTag(), fluidAmount)
-                              .setTemperature(fluid.get().getAttributes().getTemperature() - 300)
-                              .save(consumer, modResource(folder + "casting/" + material.getLocation('_').getPath()));
+                              .setFluid(fluid.ingredient(fluidAmount, forgeTag))
+                              .setTemperature(fluid.getType().getTemperature() - 300)
+                              .save(consumer, location(folder + "casting/" + material.getLocation('_').getPath()));
     materialMelting(consumer, material, fluid.get(), fluidAmount, folder);
   }
 
@@ -121,9 +121,9 @@ public interface IMaterialRecipeHelper extends IRecipeHelper {
   default void materialComposite(Consumer<FinishedRecipe> consumer, MaterialVariantId input, MaterialVariantId output, FluidObject<?> fluid, boolean forgeTag, int amount, String folder, String name) {
     MaterialFluidRecipeBuilder.material(output)
                               .setInputId(input)
-                              .setFluid(forgeTag ? fluid.getForgeTag() : fluid.getLocalTag(), amount)
-                              .setTemperature(fluid.get().getAttributes().getTemperature() - 300)
-                              .save(consumer, modResource(folder + "composite/" + name));
+                              .setFluid(fluid.ingredient(amount, forgeTag))
+                              .setTemperature(fluid.getType().getTemperature() - 300)
+                              .save(consumer, location(folder + "composite/" + name));
   }
 
   /** Adds recipes to melt and cast a material of ingot size */

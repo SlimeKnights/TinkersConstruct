@@ -1,21 +1,21 @@
 {
   "type": "tconstruct:incremental_modifier",
+  "allow_crystal": false,
+  "amount_per_item": 4,
   "input": {
     "item": "minecraft:glowstone"
   },
-  "amount_per_item": 4,
-  "needed_per_level": 64,
   "leftover": "minecraft:glowstone_dust",
-  "tools": {
-    "tag": "tconstruct:modifiable/harvest"
+  "max_level": 5,
+  "needed_per_level": 64,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:lightspeed"
   },
   "slots": {
     "upgrades": 1
   },
-  "allow_crystal": false,
-  "result": {
-    "name": "tconstruct:lightspeed",
-    "level": 1
-  },
-  "max_level": 5
+  "tools": {
+    "tag": "tconstruct:modifiable/harvest"
+  }
 }

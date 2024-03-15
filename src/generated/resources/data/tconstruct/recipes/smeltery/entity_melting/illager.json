@@ -1,11 +1,11 @@
 {
   "type": "tconstruct:entity_melting",
+  "damage": 2,
   "entity": {
     "tag": "forge:illagers"
   },
   "result": {
-    "fluid": "tconstruct:molten_emerald",
-    "amount": 25
-  },
-  "damage": 2
+    "amount": 25,
+    "fluid": "tconstruct:molten_emerald"
+  }
 }

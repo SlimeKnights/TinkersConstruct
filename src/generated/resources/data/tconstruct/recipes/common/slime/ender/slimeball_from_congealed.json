@@ -7,7 +7,7 @@
     }
   ],
   "result": {
-    "item": "tconstruct:ender_slime_ball",
-    "count": 4
+    "count": 4,
+    "item": "tconstruct:ender_slime_ball"
   }
 }

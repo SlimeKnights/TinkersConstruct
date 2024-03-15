@@ -17,7 +17,7 @@ import javax.annotation.Nullable;
  * Serializer for the recipe
  */
 @RequiredArgsConstructor
-public class SpecializedRepairRecipeSerializer<T extends Recipe<?> & ISpecializedRepairRecipe> extends LoggingRecipeSerializer<T> {
+public class SpecializedRepairRecipeSerializer<T extends Recipe<?> & ISpecializedRepairRecipe> implements LoggingRecipeSerializer<T> {
   private final IFactory<T> factory;
 
   @Override
@@ -29,14 +29,14 @@ public class SpecializedRepairRecipeSerializer<T extends Recipe<?> & ISpecialize
 
   @Nullable
   @Override
-  protected T fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+  public T fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
     Ingredient tool = Ingredient.fromNetwork(buffer);
     MaterialId repairMaterial = new MaterialId(buffer.readUtf(Short.MAX_VALUE));
     return factory.create(id, tool, repairMaterial);
   }
 
   @Override
-  protected void toNetworkSafe(FriendlyByteBuf buffer, T recipe) {
+  public void toNetworkSafe(FriendlyByteBuf buffer, T recipe) {
     recipe.getTool().toNetwork(buffer);
     buffer.writeUtf(recipe.getRepairMaterial().toString());
   }

@@ -2,42 +2,42 @@
   "type": "forge:conditional",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:raw_materials/zinc",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:raw_materials/zinc"
+      }
     }
   ],
   "recipes": [
     {
       "conditions": [
         {
+          "type": "forge:not",
           "value": {
-            "tag": "forge:ingots/tin",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
+            "type": "forge:tag_empty",
+            "tag": "forge:ingots/tin"
+          }
         }
       ],
       "recipe": {
         "type": "tconstruct:ore_melting",
-        "rate": "metal",
+        "byproducts": [
+          {
+            "amount": 90,
+            "fluid": "tconstruct:molten_tin"
+          }
+        ],
         "ingredient": {
           "tag": "forge:raw_materials/zinc"
         },
+        "rate": "metal",
         "result": {
-          "fluid": "tconstruct:molten_zinc",
-          "amount": 90
+          "amount": 90,
+          "fluid": "tconstruct:molten_zinc"
         },
         "temperature": 420,
-        "time": 70,
-        "byproducts": [
-          {
-            "fluid": "tconstruct:molten_tin",
-            "amount": 90
-          }
-        ]
+        "time": 70
       }
     },
     {
@@ -48,22 +48,22 @@
       ],
       "recipe": {
         "type": "tconstruct:ore_melting",
-        "rate": "metal",
+        "byproducts": [
+          {
+            "amount": 90,
+            "fluid": "tconstruct:molten_copper"
+          }
+        ],
         "ingredient": {
           "tag": "forge:raw_materials/zinc"
         },
+        "rate": "metal",
         "result": {
-          "fluid": "tconstruct:molten_zinc",
-          "amount": 90
+          "amount": 90,
+          "fluid": "tconstruct:molten_zinc"
         },
         "temperature": 420,
-        "time": 70,
-        "byproducts": [
-          {
-            "fluid": "tconstruct:molten_copper",
-            "amount": 90
-          }
-        ]
+        "time": 70
       }
     }
   ]

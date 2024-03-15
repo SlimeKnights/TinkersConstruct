@@ -1,51 +1,51 @@
 {
+  "color": "FDF55F",
   "fallbacks": [
     "metal"
   ],
-  "color": "FDF55F",
-  "luminosity": 0,
   "generator": {
+    "ignoreMaterialStats": false,
+    "supportedStats": [
+      "tconstruct:repair_kit",
+      "tconstruct:plate",
+      "tconstruct:slimesuit"
+    ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",
       "color_mapping": {
         "type": "tconstruct:grey_to_color",
         "palette": [
           {
-            "grey": 0,
-            "color": "FF000000"
+            "color": "FF000000",
+            "grey": 0
           },
           {
-            "grey": 63,
-            "color": "FFB26411"
+            "color": "FFB26411",
+            "grey": 63
           },
           {
-            "grey": 102,
-            "color": "FFB26411"
+            "color": "FFB26411",
+            "grey": 102
           },
           {
-            "grey": 140,
-            "color": "FFE9B115"
+            "color": "FFE9B115",
+            "grey": 140
           },
           {
-            "grey": 178,
-            "color": "FFFAD64A"
+            "color": "FFFAD64A",
+            "grey": 178
           },
           {
-            "grey": 216,
-            "color": "FFFDF55F"
+            "color": "FFFDF55F",
+            "grey": 216
           },
           {
-            "grey": 255,
-            "color": "FFFFFDE0"
+            "color": "FFFFFDE0",
+            "grey": 255
           }
         ]
       }
-    },
-    "supportedStats": [
-      "tconstruct:repair_kit",
-      "tconstruct:plate",
-      "tconstruct:slimesuit"
-    ],
-    "ignoreMaterialStats": false
-  }
+    }
+  },
+  "luminosity": 0
 }

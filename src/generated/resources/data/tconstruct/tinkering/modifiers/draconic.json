@@ -1,12 +1,12 @@
 {
   "type": "tconstruct:composable",
   "level_display": "tconstruct:single_level",
-  "tooltip_display": "tinker_station",
   "modules": [
     {
       "type": "tconstruct:modifier_slot",
-      "name": "abilities",
-      "count": 1
+      "count": 1,
+      "name": "abilities"
     }
-  ]
+  ],
+  "tooltip_display": "tinker_station"
 }

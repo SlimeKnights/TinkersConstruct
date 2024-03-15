@@ -1,19 +1,19 @@
 {
   "default": [
     {
-      "name": "tconstruct:enhanced",
-      "level": 1
+      "level": 1,
+      "name": "tconstruct:enhanced"
     }
   ],
   "perStat": {
     "tconstruct:skull": [
       {
-        "name": "tconstruct:gold_guard",
-        "level": 1
+        "level": 1,
+        "name": "tconstruct:gold_guard"
       },
       {
-        "name": "tconstruct:piglin_brute_disguise",
-        "level": 1
+        "level": 1,
+        "name": "tconstruct:piglin_brute_disguise"
       }
     ]
   }

@@ -1,12 +1,12 @@
 {
   "type": "tconstruct:ore_melting",
-  "rate": "gem",
   "ingredient": {
     "item": "tconstruct:sky_slime_crystal_cluster"
   },
+  "rate": "gem",
   "result": {
-    "fluid": "tconstruct:sky_slime",
-    "amount": 1000
+    "amount": 1000,
+    "fluid": "tconstruct:sky_slime"
   },
   "temperature": 10,
   "time": 72

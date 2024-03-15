@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "tag": "forge:ingots/manyullyn"
@@ -17,6 +18,14 @@
       "tag": "forge:slimeball/sky"
     }
   ],
+  "max_level": 1,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:dual_wielding"
+  },
+  "slots": {
+    "abilities": 1
+  },
   "tools": {
     "type": "forge:difference",
     "base": {
@@ -33,14 +42,5 @@
     "subtracted": {
       "item": "tconstruct:dagger"
     }
-  },
-  "slots": {
-    "abilities": 1
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:dual_wielding",
-    "level": 1
-  },
-  "max_level": 1
+  }
 }

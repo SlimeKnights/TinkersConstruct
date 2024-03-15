@@ -1,21 +1,21 @@
 {
   "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "tooltip_display": "always",
   "modules": [
     {
       "type": "tconstruct:attribute",
-      "unique": "tconstruct.modifier.speedy",
       "attribute": "minecraft:generic.movement_speed",
-      "operation": "multiply_total",
       "each_level": 0.1,
+      "operation": "multiply_total",
       "slots": [
         "mainhand",
         "feet",
         "legs",
         "chest",
         "head"
-      ]
+      ],
+      "unique": "tconstruct.modifier.speedy"
     }
-  ]
+  ],
+  "tooltip_display": "always"
 }

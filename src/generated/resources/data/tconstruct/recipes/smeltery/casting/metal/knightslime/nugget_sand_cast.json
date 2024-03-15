@@ -4,10 +4,10 @@
     "tag": "tconstruct:casts/single_use/nugget"
   },
   "cast_consumed": true,
+  "cooling_time": 23,
   "fluid": {
-    "tag": "tconstruct:molten_knightslime",
-    "amount": 10
+    "amount": 10,
+    "tag": "tconstruct:molten_knightslime"
   },
-  "result": "tconstruct:knightslime_nugget",
-  "cooling_time": 23
+  "result": "tconstruct:knightslime_nugget"
 }

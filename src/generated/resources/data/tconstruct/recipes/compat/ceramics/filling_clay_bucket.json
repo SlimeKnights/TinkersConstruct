@@ -2,10 +2,10 @@
   "type": "tconstruct:table_filling",
   "conditions": [
     {
-      "modid": "ceramics",
-      "type": "forge:mod_loaded"
+      "type": "forge:mod_loaded",
+      "modid": "ceramics"
     }
   ],
-  "fluid_amount": 1000,
-  "container": "ceramics:clay_bucket"
+  "container": "ceramics:clay_bucket",
+  "fluid_amount": 1000
 }

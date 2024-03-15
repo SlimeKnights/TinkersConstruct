@@ -4,8 +4,8 @@
     "item": "tconstruct:blaze_head"
   },
   "result": {
-    "fluid": "tconstruct:blazing_blood",
-    "amount": 100
+    "amount": 100,
+    "fluid": "tconstruct:blazing_blood"
   },
   "temperature": 1000,
   "time": 80

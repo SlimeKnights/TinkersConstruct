@@ -1,32 +1,32 @@
 {
-  "fluid": {
-    "tag": "forge:molten_cobalt",
-    "amount": 10
-  },
   "effects": [
     {
       "type": "tconstruct:conditional",
+      "effect": {
+        "type": "tconstruct:damage",
+        "damage_amount": 1.0,
+        "damage_type": "fire"
+      },
       "entity": {
         "type": "mantle:inverted",
         "inverted_type": "mantle:fire_immune"
-      },
-      "effect": {
-        "type": "tconstruct:damage",
-        "damage_type": "fire",
-        "damage_amount": 1.0
       }
     },
     {
       "type": "tconstruct:effect",
+      "level": 1,
       "name": "minecraft:haste",
-      "time": 7,
-      "level": 1
+      "time": 7
     },
     {
       "type": "tconstruct:effect",
+      "level": 1,
       "name": "minecraft:speed",
-      "time": 7,
-      "level": 1
+      "time": 7
     }
-  ]
+  ],
+  "fluid": {
+    "amount": 10,
+    "tag": "forge:molten_cobalt"
+  }
 }

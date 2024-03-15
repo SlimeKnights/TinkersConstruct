@@ -1,0 +1,5 @@
+{
+  "color": "FFFFFFFF",
+  "flowing": "tconstruct:fluid/molten/compat_alloy/invar/flowing",
+  "still": "tconstruct:fluid/molten/compat_alloy/invar/still"
+}

@@ -2,16 +2,16 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
-      "modid": "ceramics",
-      "type": "forge:mod_loaded"
+      "type": "forge:mod_loaded",
+      "modid": "ceramics"
     }
   ],
   "ingredient": {
     "tag": "ceramics:porcelain_cisterns"
   },
   "result": {
-    "fluid": "tconstruct:molten_porcelain",
-    "amount": 750
+    "amount": 750,
+    "fluid": "tconstruct:molten_porcelain"
   },
   "temperature": 700,
   "time": 95

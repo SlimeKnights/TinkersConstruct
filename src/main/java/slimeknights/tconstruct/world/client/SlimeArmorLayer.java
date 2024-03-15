@@ -38,7 +38,7 @@ import net.minecraftforge.client.ForgeHooksClient;
 
 import java.util.Map;
 
-/** Generics do not match to use the vanilla armor layer */
+/** Generics do not match to use the vanilla armor layer, so this is a reimplementation of some of {@link HumanoidArmorLayer} */
 public class SlimeArmorLayer<T extends Slime, M extends HierarchicalModel<T>, A extends HumanoidModel<T>> extends RenderLayer<T,M> {
   private final A armorModel;
   public final Map<Type,SkullModelBase> skullModels;
@@ -63,6 +63,7 @@ public class SlimeArmorLayer<T extends Slime, M extends HierarchicalModel<T>, A 
         armorModel.setAllVisible(false);
         armorModel.head.visible = true;
         armorModel.hat.visible = true;
+        //noinspection UnstableApiUsage  I am reimplementing vanilla stuff, I will call vanilla hooks
         Model model = ForgeHooksClient.getArmorModel(entity, helmet, EquipmentSlot.HEAD, armorModel);
         boolean enchanted = helmet.hasFoil();
         if (armor instanceof DyeableLeatherItem dyeable) {
@@ -94,7 +95,7 @@ public class SlimeArmorLayer<T extends Slime, M extends HierarchicalModel<T>, A 
         } else {
           // standard rendering
           CustomHeadLayer.translateToHead(matrices, false);
-          Minecraft.getInstance().getItemInHandRenderer().renderItem(entity, helmet, ItemTransforms.TransformType.HEAD, false, matrices, buffer, packedLight);
+          Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer().renderItem(entity, helmet, ItemTransforms.TransformType.HEAD, false, matrices, buffer, packedLight);
         }
       }
       matrices.popPose();

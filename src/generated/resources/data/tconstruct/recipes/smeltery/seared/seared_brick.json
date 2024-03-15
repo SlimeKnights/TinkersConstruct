@@ -1,9 +1,9 @@
 {
   "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.3,
   "ingredient": {
     "item": "tconstruct:grout"
   },
-  "result": "tconstruct:seared_brick",
-  "experience": 0.3,
-  "cookingtime": 200
+  "result": "tconstruct:seared_brick"
 }

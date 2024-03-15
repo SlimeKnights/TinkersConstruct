@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:part_builder",
+  "cost": 2,
   "pattern": "tconstruct:round_plate",
   "pattern_item": [
     {
@@ -9,7 +10,6 @@
       "item": "tconstruct:round_plate_cast"
     }
   ],
-  "cost": 2,
   "result": {
     "item": "tconstruct:round_plate"
   }

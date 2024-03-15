@@ -1,23 +1,23 @@
 {
   "type": "tconstruct:casting_table",
-  "conditions": [
-    {
-      "value": {
-        "tag": "forge:coins/enderium",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
-    }
-  ],
   "cast": {
     "tag": "tconstruct:casts/multi_use/coin"
   },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:coins/enderium"
+      }
+    }
+  ],
+  "cooling_time": 44,
   "fluid": {
-    "tag": "forge:molten_enderium",
-    "amount": 30
+    "amount": 30,
+    "tag": "forge:molten_enderium"
   },
   "result": {
     "tag": "forge:coins/enderium"
-  },
-  "cooling_time": 44
+  }
 }

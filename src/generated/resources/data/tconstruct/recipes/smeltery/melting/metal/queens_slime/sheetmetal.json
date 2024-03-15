@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:sheetmetals/queens_slime",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:sheetmetals/queens_slime"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:sheetmetals/queens_slime"
   },
   "result": {
-    "fluid": "tconstruct:molten_queens_slime",
-    "amount": 90
+    "amount": 90,
+    "fluid": "tconstruct:molten_queens_slime"
   },
   "temperature": 1150,
   "time": 71

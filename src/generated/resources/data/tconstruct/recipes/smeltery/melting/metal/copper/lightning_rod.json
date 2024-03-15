@@ -4,8 +4,8 @@
     "item": "minecraft:lightning_rod"
   },
   "result": {
-    "fluid": "tconstruct:molten_copper",
-    "amount": 270
+    "amount": 270,
+    "fluid": "tconstruct:molten_copper"
   },
   "temperature": 500,
   "time": 86

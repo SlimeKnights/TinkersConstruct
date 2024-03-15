@@ -1,11 +1,11 @@
 {
   "type": "tconstruct:modifier_salvage",
-  "tools": {
-    "tag": "tconstruct:modifiable/durability"
-  },
+  "min_level": 1,
+  "modifier": "tconstruct:netherite",
   "slots": {
     "upgrades": 1
   },
-  "modifier": "tconstruct:netherite",
-  "min_level": 1
+  "tools": {
+    "tag": "tconstruct:modifiable/durability"
+  }
 }

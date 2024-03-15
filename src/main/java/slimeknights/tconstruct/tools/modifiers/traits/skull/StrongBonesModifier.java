@@ -60,7 +60,7 @@ public class StrongBonesModifier extends NoLevelsModifier {
 
   /** Called when you finish drinking milk */
   private static void onItemFinishUse(LivingEntityUseItemEvent.Finish event) {
-    LivingEntity living = event.getEntityLiving();
+    LivingEntity living = event.getEntity();
     if (event.getItem().getItem() == Items.MILK_BUCKET) {
       drinkMilk(living, 1200);
     }

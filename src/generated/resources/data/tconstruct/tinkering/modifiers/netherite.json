@@ -1,7 +1,6 @@
 {
   "type": "tconstruct:composable",
   "level_display": "tconstruct:no_levels",
-  "tooltip_display": "always",
   "modules": [
     {
       "type": "tconstruct:rarity",
@@ -13,33 +12,33 @@
     },
     {
       "type": "tconstruct:stat_boost",
-      "stat": "tconstruct:durability",
+      "flat": 0.2,
       "operation": "multiply_base",
-      "flat": 0.2
+      "stat": "tconstruct:durability"
     },
     {
       "type": "tconstruct:stat_boost",
-      "stat": "tconstruct:armor_toughness",
+      "flat": 1.0,
       "operation": "add",
-      "flat": 1.0
+      "stat": "tconstruct:armor_toughness"
     },
     {
       "type": "tconstruct:stat_boost",
-      "stat": "tconstruct:knockback_resistance",
+      "flat": 0.05,
       "operation": "add",
-      "flat": 0.05
+      "stat": "tconstruct:knockback_resistance"
     },
     {
       "type": "tconstruct:stat_boost",
-      "stat": "tconstruct:attack_damage",
+      "flat": 0.2,
       "operation": "multiply_base",
-      "flat": 0.2
+      "stat": "tconstruct:attack_damage"
     },
     {
       "type": "tconstruct:stat_boost",
-      "stat": "tconstruct:mining_speed",
+      "flat": 0.25,
       "operation": "multiply_base",
-      "flat": 0.25
+      "stat": "tconstruct:mining_speed"
     },
     {
       "type": "tconstruct:set_stat",
@@ -48,9 +47,10 @@
     },
     {
       "type": "tconstruct:stat_boost",
-      "stat": "tconstruct:velocity",
+      "flat": 0.1,
       "operation": "multiply_base",
-      "flat": 0.1
+      "stat": "tconstruct:velocity"
     }
-  ]
+  ],
+  "tooltip_display": "always"
 }

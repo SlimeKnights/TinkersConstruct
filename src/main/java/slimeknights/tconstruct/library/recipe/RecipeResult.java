@@ -4,7 +4,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 
 import javax.annotation.Nullable;
 
@@ -58,7 +57,7 @@ public class RecipeResult<T> {
    * @return  Validation result with the given message
    */
   public static <T> RecipeResult<T> failure(String translationKey, Object... params) {
-    return failure(new TranslatableComponent(translationKey, params));
+    return failure(Component.translatable(translationKey, params));
   }
 
   /** If true, this recipe passed and can be crafted for the given input */

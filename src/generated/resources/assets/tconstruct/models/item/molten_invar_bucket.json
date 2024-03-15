@@ -1,0 +1,6 @@
+{
+  "parent": "forge:item/bucket_drip",
+  "flip_gas": false,
+  "fluid": "tconstruct:molten_invar",
+  "loader": "tconstruct:fluid_container"
+}

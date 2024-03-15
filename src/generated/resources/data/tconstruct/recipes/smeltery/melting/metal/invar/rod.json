@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:rods/invar",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:rods/invar"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:rods/invar"
   },
   "result": {
-    "fluid": "tconstruct:molten_invar",
-    "amount": 45
+    "amount": 45,
+    "fluid": "tconstruct:molten_invar"
   },
   "temperature": 900,
   "time": 13

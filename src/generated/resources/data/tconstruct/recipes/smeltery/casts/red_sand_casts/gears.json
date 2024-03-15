@@ -2,11 +2,11 @@
   "type": "tconstruct:molding_table",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:gears",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:gears"
+      }
     }
   ],
   "material": {

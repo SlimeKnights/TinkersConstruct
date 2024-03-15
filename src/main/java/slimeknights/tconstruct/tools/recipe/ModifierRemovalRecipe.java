@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -45,7 +46,6 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -202,7 +202,7 @@ public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
   }
 
   @RequiredArgsConstructor
-  public static class Serializer extends LoggingRecipeSerializer<ModifierRemovalRecipe> {
+  public static class Serializer implements LoggingRecipeSerializer<ModifierRemovalRecipe> {
     private final Factory factory;
 
     @Override
@@ -294,7 +294,7 @@ public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
 
     @Override
     public void save(Consumer<FinishedRecipe> consumer) {
-      save(consumer, Objects.requireNonNull(leftovers.get(0).getItem().getRegistryName()));
+      save(consumer, Registry.ITEM.getKey(leftovers.get(0).getItem()));
     }
 
     @Override

@@ -4,10 +4,10 @@
     "item": "minecraft:diorite"
   },
   "cast_consumed": true,
+  "cooling_time": 58,
   "fluid": {
-    "tag": "tconstruct:molten_quartz",
-    "amount": 100
+    "amount": 100,
+    "tag": "tconstruct:molten_quartz"
   },
-  "result": "minecraft:granite",
-  "cooling_time": 58
+  "result": "minecraft:granite"
 }

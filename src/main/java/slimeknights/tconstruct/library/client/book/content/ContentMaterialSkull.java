@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.client.book.content;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -118,7 +117,7 @@ public class ContentMaterialSkull extends AbstractMaterialContent {
       List<ItemStack> casts = skullRecipe.getCastItems();
       if (!casts.isEmpty()) {
         ItemElement elementItem = new TinkerItemElement(0, 0, 1, casts);
-        elementItem.tooltip = ImmutableList.of(new TranslatableComponent(SKULL_FROM, casts.get(0).getHoverName()));
+        elementItem.tooltip = ImmutableList.of(Component.translatable(SKULL_FROM, casts.get(0).getHoverName()));
         displayTools.add(elementItem);
       }
     }

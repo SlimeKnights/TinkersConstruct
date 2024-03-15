@@ -2,19 +2,19 @@
   "type": "tconstruct:casting_basin",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:storage_blocks/bronze",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:storage_blocks/bronze"
+      }
     }
   ],
+  "cooling_time": 171,
   "fluid": {
-    "tag": "forge:molten_bronze",
-    "amount": 810
+    "amount": 810,
+    "tag": "forge:molten_bronze"
   },
   "result": {
     "tag": "forge:storage_blocks/bronze"
-  },
-  "cooling_time": 171
+  }
 }

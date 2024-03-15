@@ -1,15 +1,15 @@
 package slimeknights.tconstruct.library.json.predicate.tool;
 
-import slimeknights.mantle.data.GenericLoaderRegistry;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.predicate.AndJsonPredicate;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.InvertedJsonPredicate;
 import slimeknights.mantle.data.predicate.NestedJsonPredicateLoader;
 import slimeknights.mantle.data.predicate.OrJsonPredicate;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 
-import static slimeknights.mantle.data.GenericLoaderRegistry.SingletonLoader.singleton;
+import static slimeknights.mantle.data.registry.GenericLoaderRegistry.SingletonLoader.singleton;
 
 /** Simple serializable tool predicate */
 public interface ToolContextPredicate extends IJsonPredicate<IToolContext> {

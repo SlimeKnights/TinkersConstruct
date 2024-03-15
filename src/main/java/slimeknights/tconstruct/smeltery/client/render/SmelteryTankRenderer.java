@@ -8,12 +8,13 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidType;
 import slimeknights.mantle.client.render.FluidRenderer;
 import slimeknights.tconstruct.library.client.TinkerRenderTypes;
-import slimeknights.tconstruct.smeltery.client.screen.module.GuiSmelteryTank;
 import slimeknights.tconstruct.smeltery.block.entity.tank.SmelteryTank;
+import slimeknights.tconstruct.smeltery.client.screen.module.GuiSmelteryTank;
 
 import java.util.List;
 
@@ -108,11 +109,12 @@ public class SmelteryTankRenderer {
       return;
     }
     // fluid attributes
-    FluidAttributes attributes = fluid.getFluid().getAttributes();
+    IClientFluidTypeExtensions attributes = IClientFluidTypeExtensions.of(fluid.getFluid());
     TextureAtlasSprite still = FluidRenderer.getBlockSprite(attributes.getStillTexture(fluid));
-    int color = attributes.getColor(fluid);
-    brightness = FluidRenderer.withBlockLight(brightness, attributes.getLuminosity(fluid));
-    boolean upsideDown = attributes.isGaseous(fluid);
+    int color = attributes.getTintColor(fluid);
+    FluidType fluidType = fluid.getFluid().getFluidType();
+    brightness = FluidRenderer.withBlockLight(brightness, fluidType.getLightLevel(fluid));
+    boolean upsideDown = fluidType.isLighterThanAir();
 
     // the liquid can stretch over more blocks than the subtracted height is if yMin's decimal is bigger than yMax's decimal (causing UV over 1)
     // ignoring the decimals prevents this, as yd then equals exactly how many ints are between the two

@@ -4,7 +4,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -201,8 +200,8 @@ public class ModifierWorktableScreen extends BaseTabbedScreen<ModifierWorktableB
       ItemStack resultStack = getMenu().getOutputSlot().getItem();
       TinkerStationScreen.updateToolPanel(tinkerInfo, result, resultStack);
 
-      this.modifierInfo.setCaption(TextComponent.EMPTY);
-      this.modifierInfo.setText(TextComponent.EMPTY);
+      this.modifierInfo.setCaption(Component.empty());
+      this.modifierInfo.setText(Component.empty());
       if (result.hasTag(TinkerTags.Items.MODIFIABLE)) {
         TinkerStationScreen.updateModifierPanel(modifierInfo, result);
       } else {
@@ -304,16 +303,16 @@ public class ModifierWorktableScreen extends BaseTabbedScreen<ModifierWorktableB
   public void error(Component message) {
     this.tinkerInfo.setCaption(COMPONENT_ERROR);
     this.tinkerInfo.setText(message);
-    this.modifierInfo.setCaption(TextComponent.EMPTY);
-    this.modifierInfo.setText(TextComponent.EMPTY);
+    this.modifierInfo.setCaption(Component.empty());
+    this.modifierInfo.setText(Component.empty());
   }
 
   @Override
   public void warning(Component message) {
     this.tinkerInfo.setCaption(COMPONENT_WARNING);
     this.tinkerInfo.setText(message);
-    this.modifierInfo.setCaption(TextComponent.EMPTY);
-    this.modifierInfo.setText(TextComponent.EMPTY);
+    this.modifierInfo.setCaption(Component.empty());
+    this.modifierInfo.setText(Component.empty());
   }
 
   private Component getInfoTitle() {
@@ -330,8 +329,8 @@ public class ModifierWorktableScreen extends BaseTabbedScreen<ModifierWorktableB
   public void message(Component message) {
     this.tinkerInfo.setCaption(getInfoTitle());
     this.tinkerInfo.setText(message);
-    this.modifierInfo.setCaption(TextComponent.EMPTY);
-    this.modifierInfo.setText(TextComponent.EMPTY);
+    this.modifierInfo.setCaption(Component.empty());
+    this.modifierInfo.setText(Component.empty());
   }
 
   @Override

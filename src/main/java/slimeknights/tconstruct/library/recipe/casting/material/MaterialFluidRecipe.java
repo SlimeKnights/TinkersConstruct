@@ -86,7 +86,7 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContaine
     return TinkerRecipeTypes.DATA.get();
   }
 
-  public static class Serializer extends LoggingRecipeSerializer<MaterialFluidRecipe> {
+  public static class Serializer implements LoggingRecipeSerializer<MaterialFluidRecipe> {
     @Override
     public MaterialFluidRecipe fromJson(ResourceLocation id, JsonObject json) {
       FluidIngredient fluid = FluidIngredient.deserialize(json, "fluid");
@@ -101,7 +101,7 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContaine
 
     @Nullable
     @Override
-    protected MaterialFluidRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    public MaterialFluidRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       FluidIngredient fluid = FluidIngredient.read(buffer);
       int temperature = buffer.readInt();
       MaterialVariantId input = null;
@@ -113,7 +113,7 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContaine
     }
 
     @Override
-    protected void toNetworkSafe(FriendlyByteBuf buffer, MaterialFluidRecipe recipe) {
+    public void toNetworkSafe(FriendlyByteBuf buffer, MaterialFluidRecipe recipe) {
       recipe.fluid.write(buffer);
       buffer.writeInt(recipe.temperature);
       if (recipe.input != null) {

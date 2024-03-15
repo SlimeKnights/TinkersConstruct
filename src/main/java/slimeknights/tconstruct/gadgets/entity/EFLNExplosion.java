@@ -22,6 +22,7 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
+import slimeknights.tconstruct.TConstruct;
 
 import javax.annotation.Nullable;
 import java.util.Collections;
@@ -89,7 +90,7 @@ public class EFLNExplosion extends Explosion {
     this.level.addParticle(ParticleTypes.EXPLOSION, this.x, this.y, this.z, 1.0D, 0.0D, 0.0D);
 
     ObjectArrayList<Pair<ItemStack, BlockPos>> arrayList = new ObjectArrayList<>();
-    Collections.shuffle(this.toBlow, this.level.random);
+    Collections.shuffle(this.toBlow, TConstruct.RANDOM);
 
     for (BlockPos blockpos : this.toBlow) {
       BlockState blockstate = this.level.getBlockState(blockpos);

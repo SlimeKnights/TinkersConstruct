@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:wires/tin",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:wires/tin"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:wires/tin"
   },
   "result": {
-    "fluid": "tconstruct:molten_tin",
-    "amount": 45
+    "amount": 45,
+    "fluid": "tconstruct:molten_tin"
   },
   "temperature": 225,
   "time": 8

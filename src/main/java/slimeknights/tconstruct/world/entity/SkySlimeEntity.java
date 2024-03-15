@@ -2,6 +2,7 @@ package slimeknights.tconstruct.world.entity;
 
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -26,7 +27,6 @@ import slimeknights.tconstruct.tools.item.ArmorSlotType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.List;
-import java.util.Random;
 
 public class SkySlimeEntity extends ArmoredSlimeEntity {
   private double bounceAmount = 0f;
@@ -78,7 +78,7 @@ public class SkySlimeEntity extends ArmoredSlimeEntity {
   }
 
   @Override
-  protected void populateDefaultEquipmentSlots(DifficultyInstance difficulty) {
+  protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
     // sky slime spawns with tinkers armor, high chance of travelers, low chance of plate
     // vanilla logic but simplified down to just helmets
     float multiplier = difficulty.getSpecialMultiplier();
@@ -102,16 +102,16 @@ public class SkySlimeEntity extends ArmoredSlimeEntity {
       // add some random defense modifiers
       int max = tool.getFreeSlots(SlotType.DEFENSE);
       for (int i = 0; i < max; i++) {
-        if (random.nextFloat() > 0.5f * multiplier) {
+        if (this.random.nextFloat() > 0.5f * multiplier) {
           break;
         }
         persistentData.addSlots(SlotType.DEFENSE, -1);
-        modifiers = modifiers.withModifier(randomModifier(random, TinkerTags.Modifiers.SLIME_DEFENSE), 1);
+        modifiers = modifiers.withModifier(randomModifier(this.random, TinkerTags.Modifiers.SLIME_DEFENSE), 1);
       }
       // chance of diamond or emerald
-      if (tool.getFreeSlots(SlotType.UPGRADE) > 0 && random.nextFloat() < 0.5f * multiplier) {
+      if (tool.getFreeSlots(SlotType.UPGRADE) > 0 && this.random.nextFloat() < 0.5f * multiplier) {
         persistentData.addSlots(SlotType.UPGRADE, -1);
-        modifiers = modifiers.withModifier(randomModifier(random, TinkerTags.Modifiers.GEMS), 1);
+        modifiers = modifiers.withModifier(randomModifier(this.random, TinkerTags.Modifiers.GEMS), 1);
       }
 
       // triggers stat rebuild
@@ -123,11 +123,8 @@ public class SkySlimeEntity extends ArmoredSlimeEntity {
   }
 
   /** Gets a random defense modifier from the tag */
-  private static ModifierId randomModifier(Random random, TagKey<Modifier> tag) {
+  private static ModifierId randomModifier(RandomSource random, TagKey<Modifier> tag) {
     List<Modifier> options = ModifierManager.getTagValues(tag);
     return options.get(random.nextInt(options.size())).getId();
   }
-
-  @Override
-  protected void populateDefaultEquipmentEnchantments(DifficultyInstance difficulty) {}
 }

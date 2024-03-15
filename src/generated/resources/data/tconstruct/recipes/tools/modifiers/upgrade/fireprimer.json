@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "tag": "forge:ingots/cobalt"
@@ -8,16 +9,15 @@
       "item": "minecraft:flint"
     }
   ],
-  "tools": {
-    "item": "tconstruct:flint_and_brick"
+  "max_level": 1,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:fireprimer"
   },
   "slots": {
     "upgrades": 1
   },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:fireprimer",
-    "level": 1
-  },
-  "max_level": 1
+  "tools": {
+    "item": "tconstruct:flint_and_brick"
+  }
 }

@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:sheetmetals/lumium",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:sheetmetals/lumium"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:sheetmetals/lumium"
   },
   "result": {
-    "fluid": "tconstruct:molten_lumium",
-    "amount": 90
+    "amount": 90,
+    "fluid": "tconstruct:molten_lumium"
   },
   "temperature": 1050,
   "time": 68

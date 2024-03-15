@@ -5,10 +5,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.StructureFeatureManager;
+import net.minecraft.world.level.StructureManager;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.Mirror;
@@ -20,8 +21,8 @@ import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.TemplateStructurePiece;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSerializationContext;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockIgnoreProcessor;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureManager;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.block.SlimeVineBlock;
 import slimeknights.tconstruct.world.worldgen.islands.variants.IIslandVariant;
@@ -29,7 +30,6 @@ import slimeknights.tconstruct.world.worldgen.islands.variants.IslandVariants;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
-import java.util.Random;
 
 public class SlimeIslandPiece extends TemplateStructurePiece {
   @Nullable
@@ -39,18 +39,18 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
   private ChunkGenerator chunkGenerator;
 
 
-  private SlimeIslandPiece(StructureManager manager, IIslandVariant variant, ResourceLocation templateName, BlockPos templatePos, @Nullable ConfiguredFeature<?,?> tree, Rotation rotation, Mirror mirror) {
+  private SlimeIslandPiece(StructureTemplateManager manager, IIslandVariant variant, ResourceLocation templateName, BlockPos templatePos, @Nullable ConfiguredFeature<?,?> tree, Rotation rotation, Mirror mirror) {
     super(TinkerStructures.slimeIslandPiece.get(), 0, manager, templateName, templateName.toString(), makeSettings(rotation, mirror), templatePos);
     this.variant = variant;
     this.numberOfTreesPlaced = 0;
     this.tree = tree;
   }
 
-  public SlimeIslandPiece(StructureManager manager, IIslandVariant variant, String templateName, BlockPos templatePos, @Nullable ConfiguredFeature<?,?> tree, Rotation rotation, Mirror mirror) {
+  public SlimeIslandPiece(StructureTemplateManager manager, IIslandVariant variant, String templateName, BlockPos templatePos, @Nullable ConfiguredFeature<?,?> tree, Rotation rotation, Mirror mirror) {
     this(manager, variant, variant.getStructureName(templateName), templatePos, tree, rotation, mirror);
   }
 
-  public SlimeIslandPiece(StructureManager templateManager, CompoundTag nbt) {
+  public SlimeIslandPiece(StructureTemplateManager templateManager, CompoundTag nbt) {
     super(TinkerStructures.slimeIslandPiece.get(), nbt, templateManager, context -> makeSettings(Rotation.valueOf(nbt.getString("Rot")), Mirror.valueOf(nbt.getString("Mi"))));
     this.variant = IslandVariants.getVariantFromIndex(nbt.getInt("Variant"));
     this.numberOfTreesPlaced = nbt.getInt("NumberOfTreesPlaced");
@@ -81,7 +81,7 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
   }
 
   @Override
-  protected void handleDataMarker(String function, BlockPos pos, ServerLevelAccessor level, Random rand, BoundingBox sbb) {
+  protected void handleDataMarker(String function, BlockPos pos, ServerLevelAccessor level, RandomSource rand, BoundingBox sbb) {
     switch (function) {
       case "tconstruct:lake_bottom" -> level.setBlock(pos, this.variant.getLakeBottom(), 2);
       case "tconstruct:slime_fluid" -> level.setBlock(pos, this.variant.getLakeFluid(), 2);
@@ -110,7 +110,7 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
     }
   }
 
-  private static void placeVine(LevelAccessor worldIn, BlockPos pos, Random random, BlockState vineToPlace) {
+  private static void placeVine(LevelAccessor worldIn, BlockPos pos, RandomSource random, BlockState vineToPlace) {
     for (Direction direction : Direction.values()) {
       if (direction != Direction.DOWN && SlimeVineBlock.isAcceptableNeighbour(worldIn, pos.relative(direction), direction)) {
         worldIn.setBlock(pos, vineToPlace.setValue(SlimeVineBlock.getPropertyForFace(direction), Boolean.TRUE), 2);
@@ -131,7 +131,7 @@ public class SlimeIslandPiece extends TemplateStructurePiece {
   }
 
   @Override
-  public void postProcess(WorldGenLevel world, StructureFeatureManager manager, ChunkGenerator generator, Random rand, BoundingBox bounds, ChunkPos chunk, BlockPos pos) {
+  public void postProcess(WorldGenLevel world, StructureManager manager, ChunkGenerator generator, RandomSource rand, BoundingBox bounds, ChunkPos chunk, BlockPos pos) {
     this.chunkGenerator = generator;
 
     if (this.variant.isPositionValid(world, this.templatePosition, generator)) {

@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.utils.JsonUtils;
@@ -126,7 +125,7 @@ public final class SlotType {
   /** Gets the display name for display in a sentence */
   public Component getDisplayName() {
     if (displayName == null) {
-      displayName = new TranslatableComponent(KEY_DISPLAY + name);
+      displayName = Component.translatable(KEY_DISPLAY + name);
     }
     return displayName;
   }

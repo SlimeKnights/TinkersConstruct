@@ -165,7 +165,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
     return RESULT;
   }
 
-  public static class Serializer extends LoggingRecipeSerializer<OverslimeModifierRecipe> {
+  public static class Serializer implements LoggingRecipeSerializer<OverslimeModifierRecipe> {
     @Override
     public OverslimeModifierRecipe fromJson(ResourceLocation id, JsonObject json) {
       Ingredient ingredient = Ingredient.fromJson(JsonHelper.getElement(json, "ingredient"));
@@ -175,14 +175,14 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
 
     @Nullable
     @Override
-    protected OverslimeModifierRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    public OverslimeModifierRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       Ingredient ingredient = Ingredient.fromNetwork(buffer);
       int restoreAmount = buffer.readVarInt();
       return new OverslimeModifierRecipe(id, ingredient, restoreAmount);
     }
 
     @Override
-    protected void toNetworkSafe(FriendlyByteBuf buffer, OverslimeModifierRecipe recipe) {
+    public void toNetworkSafe(FriendlyByteBuf buffer, OverslimeModifierRecipe recipe) {
       recipe.ingredient.toNetwork(buffer);
       buffer.writeVarInt(recipe.restoreAmount);
     }

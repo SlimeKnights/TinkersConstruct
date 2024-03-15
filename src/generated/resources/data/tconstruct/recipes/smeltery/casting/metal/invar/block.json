@@ -2,19 +2,19 @@
   "type": "tconstruct:casting_basin",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:storage_blocks/invar",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:storage_blocks/invar"
+      }
     }
   ],
+  "cooling_time": 190,
   "fluid": {
-    "tag": "forge:molten_invar",
-    "amount": 810
+    "amount": 810,
+    "tag": "forge:molten_invar"
   },
   "result": {
     "tag": "forge:storage_blocks/invar"
-  },
-  "cooling_time": 190
+  }
 }

@@ -18,7 +18,7 @@ import javax.annotation.Nullable;
  * Serializer for the recipe
  */
 @RequiredArgsConstructor
-public class ModifierRepairRecipeSerializer<T extends Recipe<?> & IModifierRepairRecipe> extends LoggingRecipeSerializer<T> {
+public class ModifierRepairRecipeSerializer<T extends Recipe<?> & IModifierRepairRecipe> implements LoggingRecipeSerializer<T> {
   private final IFactory<T> factory;
 
   @Override
@@ -31,7 +31,7 @@ public class ModifierRepairRecipeSerializer<T extends Recipe<?> & IModifierRepai
 
   @Nullable
   @Override
-  protected T fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+  public T fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
     ModifierId modifier = ModifierId.fromNetwork(buffer);
     Ingredient ingredient = Ingredient.fromNetwork(buffer);
     int repairAmount = buffer.readVarInt();
@@ -39,7 +39,7 @@ public class ModifierRepairRecipeSerializer<T extends Recipe<?> & IModifierRepai
   }
 
   @Override
-  protected void toNetworkSafe(FriendlyByteBuf buffer, T recipe) {
+  public void toNetworkSafe(FriendlyByteBuf buffer, T recipe) {
     recipe.getModifier().toNetwork(buffer);
     recipe.getIngredient().toNetwork(buffer);
     buffer.writeVarInt(recipe.getRepairAmount());

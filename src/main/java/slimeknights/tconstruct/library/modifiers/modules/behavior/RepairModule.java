@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.modifiers.modules.behavior;
 
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.json.math.ModifierFormula;
 import slimeknights.tconstruct.library.json.math.ModifierFormula.FallbackFormula;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;

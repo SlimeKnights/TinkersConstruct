@@ -11,10 +11,10 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.common.util.NonNullConsumer;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
@@ -83,7 +83,7 @@ public class FaucetBlockEntity extends MantleBlockEntity {
     assert level != null;
     BlockEntity te = level.getBlockEntity(worldPosition.relative(side));
     if (te != null) {
-      LazyOptional<IFluidHandler> handler = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, side.getOpposite());
+      LazyOptional<IFluidHandler> handler = te.getCapability(ForgeCapabilities.FLUID_HANDLER, side.getOpposite());
       if (handler.isPresent()) {
         return handler;
       }
@@ -226,7 +226,7 @@ public class FaucetBlockEntity extends MantleBlockEntity {
       // can we drain?
       IFluidHandler input = inputOptional.orElse(EmptyFluidHandler.INSTANCE);
       FluidStack drained = input.drain(PACKET_SIZE, FluidAction.SIMULATE);
-      if (!drained.isEmpty() && !drained.getFluid().getAttributes().isGaseous(drained)) {
+      if (!drained.isEmpty() && !drained.getFluid().getFluidType().isLighterThanAir()) {
         // can we fill
         IFluidHandler output = outputOptional.orElse(EmptyFluidHandler.INSTANCE);
         int filled = output.fill(drained, FluidAction.SIMULATE);

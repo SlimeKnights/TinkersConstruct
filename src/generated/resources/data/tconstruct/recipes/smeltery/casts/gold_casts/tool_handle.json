@@ -1,15 +1,15 @@
 {
   "type": "tconstruct:casting_table",
   "cast": {
-    "item": "tconstruct:tool_handle",
-    "type": "tconstruct:material"
+    "type": "tconstruct:material",
+    "item": "tconstruct:tool_handle"
   },
   "cast_consumed": true,
-  "switch_slots": true,
+  "cooling_time": 57,
   "fluid": {
-    "tag": "forge:molten_gold",
-    "amount": 90
+    "amount": 90,
+    "tag": "forge:molten_gold"
   },
   "result": "tconstruct:tool_handle_cast",
-  "cooling_time": 57
+  "switch_slots": true
 }

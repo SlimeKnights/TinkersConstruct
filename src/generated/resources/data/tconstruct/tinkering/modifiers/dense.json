@@ -1,13 +1,9 @@
 {
   "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "tooltip_display": "always",
   "modules": [
     {
       "type": "tconstruct:repair",
-      "modifier_level": {
-        "max": 5
-      },
       "formula": [
         "$factor",
         1.0,
@@ -20,15 +16,18 @@
         "*",
         "-",
         "*"
-      ]
+      ],
+      "modifier_level": {
+        "max": 5
+      }
     },
     {
       "type": "tconstruct:repair",
+      "each_level": -0.05,
+      "flat": -0.5,
       "modifier_level": {
         "min": 6
-      },
-      "flat": -0.5,
-      "each_level": -0.05
+      }
     },
     {
       "type": "tconstruct:reduce_tool_damage",
@@ -42,5 +41,6 @@
         "-"
       ]
     }
-  ]
+  ],
+  "tooltip_display": "always"
 }

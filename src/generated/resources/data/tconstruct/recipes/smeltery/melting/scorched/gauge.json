@@ -1,5 +1,11 @@
 {
   "type": "tconstruct:melting",
+  "byproducts": [
+    {
+      "amount": 500,
+      "fluid": "tconstruct:molten_quartz"
+    }
+  ],
   "ingredient": {
     "type": "tconstruct:no_container",
     "match": [
@@ -12,15 +18,9 @@
     ]
   },
   "result": {
-    "fluid": "tconstruct:scorched_stone",
-    "amount": 1000
+    "amount": 1000,
+    "fluid": "tconstruct:scorched_stone"
   },
   "temperature": 500,
-  "time": 100,
-  "byproducts": [
-    {
-      "fluid": "tconstruct:molten_quartz",
-      "amount": 500
-    }
-  ]
+  "time": 100
 }

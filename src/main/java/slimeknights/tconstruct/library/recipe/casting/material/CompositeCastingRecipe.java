@@ -65,7 +65,7 @@ public class CompositeCastingRecipe extends MaterialCastingRecipe {
 
   /** Shared serializer logic */
   @RequiredArgsConstructor
-  public static class Serializer extends LoggingRecipeSerializer<CompositeCastingRecipe> {
+  public static class Serializer implements LoggingRecipeSerializer<CompositeCastingRecipe> {
     private final Supplier<RecipeType<ICastingRecipe>> type;
 
     @Override
@@ -78,7 +78,7 @@ public class CompositeCastingRecipe extends MaterialCastingRecipe {
 
     @Nullable
     @Override
-    protected CompositeCastingRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
+    public CompositeCastingRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       String group = buffer.readUtf(Short.MAX_VALUE);
       IMaterialItem result = RecipeHelper.readItem(buffer, IMaterialItem.class);
       int itemCost = buffer.readVarInt();
@@ -86,7 +86,7 @@ public class CompositeCastingRecipe extends MaterialCastingRecipe {
     }
 
     @Override
-    protected void toNetworkSafe(FriendlyByteBuf buffer, CompositeCastingRecipe recipe) {
+    public void toNetworkSafe(FriendlyByteBuf buffer, CompositeCastingRecipe recipe) {
       buffer.writeUtf(recipe.group);
       RecipeHelper.writeItem(buffer, recipe.result);
       buffer.writeVarInt(recipe.itemCost);

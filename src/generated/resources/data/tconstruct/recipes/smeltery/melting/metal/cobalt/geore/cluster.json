@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:geore_clusters/cobalt",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:geore_clusters/cobalt"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:geore_clusters/cobalt"
   },
   "result": {
-    "fluid": "tconstruct:molten_cobalt",
-    "amount": 360
+    "amount": 360,
+    "fluid": "tconstruct:molten_cobalt"
   },
   "temperature": 950,
   "time": 162

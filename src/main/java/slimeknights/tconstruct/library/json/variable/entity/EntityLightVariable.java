@@ -2,8 +2,8 @@ package slimeknights.tconstruct.library.json.variable.entity;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.LightLayer;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.loader.EnumLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 
 /** Gets the light level at the entity position */
 public record EntityLightVariable(LightLayer lightLayer) implements EntityVariable {

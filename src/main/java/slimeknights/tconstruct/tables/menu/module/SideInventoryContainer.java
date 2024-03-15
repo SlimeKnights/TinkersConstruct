@@ -6,8 +6,8 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.EmptyHandler;
 import slimeknights.mantle.inventory.BaseContainerMenu;
@@ -34,7 +34,7 @@ public class SideInventoryContainer<TILE extends BlockEntity> extends BaseContai
     if (tile == null) {
       this.itemHandler = LazyOptional.of(() -> EmptyHandler.INSTANCE);
     } else {
-      this.itemHandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inventoryDirection);
+      this.itemHandler = tile.getCapability(ForgeCapabilities.ITEM_HANDLER, inventoryDirection);
     }
 
     // slot properties

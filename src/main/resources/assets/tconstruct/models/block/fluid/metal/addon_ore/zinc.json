@@ -1,8 +1,0 @@
-{
-  "loader": "mantle:fluid_texture",
-  "textures": {
-    "still": "tconstruct:block/fluid/zinc/still",
-    "flowing": "tconstruct:block/fluid/zinc/flowing"
-  }
-}
-

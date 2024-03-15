@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "ingredient": [
@@ -21,15 +22,14 @@
       ]
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/armor/helmets"
+  "result": {
+    "level": 1,
+    "name": "tconstruct:item_frame"
   },
   "slots": {
     "upgrades": 1
   },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:item_frame",
-    "level": 1
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/helmets"
   }
 }

@@ -2,7 +2,6 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
         {
@@ -42,14 +41,14 @@
                   ],
                   "functions": [
                     {
-                      "function": "minecraft:set_count",
+                      "add": false,
                       "count": 4.0,
-                      "add": false
+                      "function": "minecraft:set_count"
                     },
                     {
-                      "function": "minecraft:apply_bonus",
                       "enchantment": "minecraft:fortune",
-                      "formula": "minecraft:ore_drops"
+                      "formula": "minecraft:ore_drops",
+                      "function": "minecraft:apply_bonus"
                     }
                   ],
                   "name": "tconstruct:sky_slime_crystal"
@@ -58,9 +57,9 @@
                   "type": "minecraft:item",
                   "functions": [
                     {
-                      "function": "minecraft:set_count",
+                      "add": false,
                       "count": 2.0,
-                      "add": false
+                      "function": "minecraft:set_count"
                     },
                     {
                       "function": "minecraft:explosion_decay"
@@ -72,7 +71,8 @@
             }
           ]
         }
-      ]
+      ],
+      "rolls": 1.0
     }
   ]
 }

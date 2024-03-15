@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.library.client.data.material;
 
 import com.mojang.blaze3d.platform.NativeImage;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.HashCache;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -70,7 +70,7 @@ public class MaterialPartTextureGenerator extends GenericTextureGenerator {
 
 
   @Override
-  public void run(HashCache cache) throws IOException {
+  public void run(CachedOutput cache) throws IOException {
     runCallbacks(existingFileHelper, null);
     
     // ensure we have parts

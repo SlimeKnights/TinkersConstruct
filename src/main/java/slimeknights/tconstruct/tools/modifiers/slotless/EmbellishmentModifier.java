@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.slotless;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
@@ -27,7 +26,7 @@ public class EmbellishmentModifier extends NoLevelsModifier implements ModifierR
   public Component getDisplayName(IToolStackView tool, int level) {
     MaterialVariantId materialVariant = MaterialVariantId.tryParse(tool.getPersistentData().getString(getId()));
     if (materialVariant != null) {
-      return new TranslatableComponent(FORMAT_KEY, MaterialTooltipCache.getDisplayName(materialVariant)).withStyle(style -> style.withColor(MaterialTooltipCache.getColor(materialVariant)));
+      return Component.translatable(FORMAT_KEY, MaterialTooltipCache.getDisplayName(materialVariant)).withStyle(style -> style.withColor(MaterialTooltipCache.getColor(materialVariant)));
     }
     return super.getDisplayName();
   }

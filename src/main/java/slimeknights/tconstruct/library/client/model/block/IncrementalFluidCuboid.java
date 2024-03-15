@@ -15,6 +15,7 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+/** Extension of {@link FluidCuboid} which supports being scaled by the fluid amount, used in tank models. */
 @Getter
 public class IncrementalFluidCuboid extends FluidCuboid {
   private final int increments;
@@ -75,32 +76,31 @@ public class IncrementalFluidCuboid extends FluidCuboid {
   private static BlockFaceUV getFaceUvs(Vector3f from, Vector3f to, Direction side, int rotation, float scale) {
     // first, translate from and to into texture coords
     float u1, u2, v1, v2;
-    switch(side) {
-      case DOWN:
+    switch (side) {
+      case DOWN -> {
         u1 = from.x(); v1 = 16f - to.z();
-        u2 = to.x(); v2 = 16f - from.z();
-        break;
-      case UP:
+        u2 = to.x();   v2 = 16f - from.z();
+      }
+      case UP -> {
         u1 = from.x(); v1 = from.z();
-        u2 = to.x(); v2 = to.z();
-        break;
-      case NORTH:
-      default:
-        u1 = 16f - to.x(); v1 =  16f - to.y();
+        u2 = to.x();   v2 = to.z();
+      }
+      default -> {
+        u1 = 16f - to.x();   v1 = 16f - to.y();
         u2 = 16f - from.x(); v2 = 16f - from.y();
-        break;
-      case SOUTH:
-        u1 = from.x(); v1 =  16f - to.y();
-        u2 = to.x(); v2 = 16f - from.y();
-        break;
-      case WEST:
-        u1 = from.z(); v1 =  16f - to.y();
-        u2 = to.z(); v2 = 16f - from.y();
-        break;
-      case EAST:
-        u1 = 16f - to.z(); v1 = 16f - to.y();
+      }
+      case SOUTH -> {
+        u1 = from.x(); v1 = 16f - to.y();
+        u2 = to.x();   v2 = 16f - from.y();
+      }
+      case WEST -> {
+        u1 = from.z(); v1 = 16f - to.y();
+        u2 = to.z();   v2 = 16f - from.y();
+      }
+      case EAST -> {
+        u1 = 16f - to.z();   v1 = 16f - to.y();
         u2 = 16f - from.z(); v2 = 16f - from.y();
-        break;
+      }
     }
     // cycle coords so they line up with the relevant block part
     // 0:   u1, v1, u2, v2

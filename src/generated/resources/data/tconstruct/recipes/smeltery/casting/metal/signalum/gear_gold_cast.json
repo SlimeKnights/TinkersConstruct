@@ -1,23 +1,23 @@
 {
   "type": "tconstruct:casting_table",
-  "conditions": [
-    {
-      "value": {
-        "tag": "forge:gears/signalum",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
-    }
-  ],
   "cast": {
     "tag": "tconstruct:casts/multi_use/gear"
   },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:gears/signalum"
+      }
+    }
+  ],
+  "cooling_time": 140,
   "fluid": {
-    "tag": "forge:molten_signalum",
-    "amount": 360
+    "amount": 360,
+    "tag": "forge:molten_signalum"
   },
   "result": {
     "tag": "forge:gears/signalum"
-  },
-  "cooling_time": 140
+  }
 }

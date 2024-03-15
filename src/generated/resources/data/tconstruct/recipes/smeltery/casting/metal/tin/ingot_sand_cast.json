@@ -1,24 +1,24 @@
 {
   "type": "tconstruct:casting_table",
-  "conditions": [
-    {
-      "value": {
-        "tag": "forge:ingots/tin",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
-    }
-  ],
   "cast": {
     "tag": "tconstruct:casts/single_use/ingot"
   },
   "cast_consumed": true,
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/tin"
+      }
+    }
+  ],
+  "cooling_time": 39,
   "fluid": {
-    "tag": "forge:molten_tin",
-    "amount": 90
+    "amount": 90,
+    "tag": "forge:molten_tin"
   },
   "result": {
     "tag": "forge:ingots/tin"
-  },
-  "cooling_time": 39
+  }
 }

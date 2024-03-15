@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:sheetmetals/netherite",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:sheetmetals/netherite"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:sheetmetals/netherite"
   },
   "result": {
-    "fluid": "tconstruct:molten_netherite",
-    "amount": 90
+    "amount": 90,
+    "fluid": "tconstruct:molten_netherite"
   },
   "temperature": 1250,
   "time": 74

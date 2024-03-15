@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -17,7 +18,6 @@ import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
-import java.util.Objects;
 import java.util.function.Consumer;
 
 /**
@@ -111,7 +111,7 @@ public class PotionCastingRecipeBuilder extends AbstractRecipeBuilder<PotionCast
    */
   @Override
   public void save(Consumer<FinishedRecipe> consumerIn) {
-    this.save(consumerIn, Objects.requireNonNull(this.result.getRegistryName()));
+    this.save(consumerIn, Registry.ITEM.getKey(this.result));
   }
 
   @Override
@@ -145,7 +145,7 @@ public class PotionCastingRecipeBuilder extends AbstractRecipeBuilder<PotionCast
         json.add("bottle", bottle.toJson());
       }
       json.add("fluid", fluid.serialize());
-      json.addProperty("result", Objects.requireNonNull(result.getRegistryName()).toString());
+      json.addProperty("result", Registry.ITEM.getKey(result).toString());
       json.addProperty("cooling_time", coolingTime);
     }
   }

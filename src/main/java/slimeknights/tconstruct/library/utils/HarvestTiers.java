@@ -8,7 +8,7 @@ import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.Tiers;
 import net.minecraftforge.common.TierSortingRegistry;
 import slimeknights.mantle.client.ResourceColorManager;
-import slimeknights.mantle.data.ISafeManagerReloadListener;
+import slimeknights.mantle.data.listener.ISafeManagerReloadListener;
 import slimeknights.tconstruct.TConstruct;
 
 import java.util.List;

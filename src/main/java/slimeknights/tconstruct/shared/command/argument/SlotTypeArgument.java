@@ -10,7 +10,7 @@ import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.SharedSuggestionProvider;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.shared.command.argument.SlotTypeArgument.OptionalSlotType;
 
@@ -24,7 +24,7 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor(staticName = "slotType")
 public class SlotTypeArgument implements ArgumentType<OptionalSlotType> {
   private static final Collection<String> EXAMPLES = Arrays.asList("upgrades", "abilities");
-  private static final DynamicCommandExceptionType SLOT_TYPE_NOT_FOUND = new DynamicCommandExceptionType(name -> new TranslatableComponent("command.tconstruct.slot_type.not_found", name));
+  private static final DynamicCommandExceptionType SLOT_TYPE_NOT_FOUND = new DynamicCommandExceptionType(name -> Component.translatable("command.tconstruct.slot_type.not_found", name));
 
   /** If true, slotless is allowed, producing null for a filter */
   private final boolean allowSlotless;

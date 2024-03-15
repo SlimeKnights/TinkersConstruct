@@ -4,7 +4,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -43,19 +42,19 @@ public class TankItem extends BlockTooltipItem {
   }
 
   @Override
-  public boolean hasContainerItem(ItemStack stack) {
+  public boolean hasCraftingRemainingItem(ItemStack stack) {
     return isFilled(stack);
   }
 
   @Override
-  public ItemStack getContainerItem(ItemStack stack) {
+  public ItemStack getCraftingRemainingItem(ItemStack stack) {
     return isFilled(stack) ? new ItemStack(this) : ItemStack.EMPTY;
   }
 
   @Override
-  public int getItemStackLimit(ItemStack stack) {
+  public int getMaxStackSize(ItemStack stack) {
     if (!limitStackSize) {
-      return super.getItemStackLimit(stack);
+      return super.getMaxStackSize(stack);
     }
     return isFilled(stack) ? 16: 64;
   }
@@ -66,18 +65,18 @@ public class TankItem extends BlockTooltipItem {
       FluidTank tank = getFluidTank(stack);
       if (tank.getFluidAmount() > 0) {
         // TODO: migrate to a fluid tooltip JSON?
-        tooltip.add(new TranslatableComponent(KEY_FLUID, tank.getFluid().getDisplayName()).withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable(KEY_FLUID, tank.getFluid().getDisplayName()).withStyle(ChatFormatting.GRAY));
         int amount = tank.getFluidAmount();
         TooltipKey key = SafeClientAccess.getTooltipKey();
         if (tank.getCapacity() % FluidValues.INGOT != 0 || key == TooltipKey.SHIFT) {
-          tooltip.add(new TranslatableComponent(KEY_MB, amount).withStyle(ChatFormatting.GRAY));
+          tooltip.add(Component.translatable(KEY_MB, amount).withStyle(ChatFormatting.GRAY));
         } else {
           int ingots = amount / FluidValues.INGOT;
           int mb = amount % FluidValues.INGOT;
           if (mb == 0) {
-            tooltip.add(new TranslatableComponent(KEY_INGOTS, ingots).withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable(KEY_INGOTS, ingots).withStyle(ChatFormatting.GRAY));
           } else {
-            tooltip.add(new TranslatableComponent(KEY_MIXED, ingots, mb).withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatable(KEY_MIXED, ingots, mb).withStyle(ChatFormatting.GRAY));
           }
           if (key != TooltipKey.UNKNOWN) {
             tooltip.add(FluidTooltipHandler.HOLD_SHIFT);

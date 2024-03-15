@@ -2,52 +2,52 @@
   "type": "tconstruct:alloy",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:ingots/lumium",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/lumium"
+      }
     },
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:ingots/tin",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/tin"
+      }
     },
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:ingots/silver",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/silver"
+      }
     },
     {
+      "type": "forge:not",
       "value": {
+        "type": "mantle:tag_empty",
         "registry": "minecraft:fluid",
-        "tag": "forge:glowstone",
-        "type": "mantle:tag_empty"
-      },
-      "type": "forge:not"
+        "tag": "forge:glowstone"
+      }
     }
   ],
   "inputs": [
     {
-      "tag": "forge:molten_tin",
-      "amount": 270
+      "amount": 270,
+      "tag": "forge:molten_tin"
     },
     {
-      "tag": "forge:molten_silver",
-      "amount": 90
+      "amount": 90,
+      "tag": "forge:molten_silver"
     },
     {
-      "tag": "forge:glowstone",
-      "amount": 500
+      "amount": 500,
+      "tag": "forge:glowstone"
     }
   ],
   "result": {
-    "fluid": "tconstruct:molten_lumium",
-    "amount": 360
+    "amount": 360,
+    "fluid": "tconstruct:molten_lumium"
   },
   "temperature": 1050
 }

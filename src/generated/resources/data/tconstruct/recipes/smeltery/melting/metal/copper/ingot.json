@@ -4,8 +4,8 @@
     "tag": "forge:ingots/copper"
   },
   "result": {
-    "fluid": "tconstruct:molten_copper",
-    "amount": 90
+    "amount": 90,
+    "fluid": "tconstruct:molten_copper"
   },
   "temperature": 500,
   "time": 50

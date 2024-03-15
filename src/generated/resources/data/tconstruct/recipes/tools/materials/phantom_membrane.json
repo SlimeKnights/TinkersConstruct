@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "minecraft:phantom_membrane"
   },
-  "value": 1,
+  "material": "tconstruct:phantom",
   "needed": 1,
-  "material": "tconstruct:phantom"
+  "value": 1
 }

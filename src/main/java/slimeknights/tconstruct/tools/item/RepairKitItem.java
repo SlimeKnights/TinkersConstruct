@@ -2,7 +2,6 @@ package slimeknights.tconstruct.tools.item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -38,7 +37,7 @@ public class RepairKitItem extends MaterialItem implements IRepairKitItem {
     if (flag.isAdvanced() && !TooltipUtil.isDisplay(stack)) {
       MaterialVariantId materialVariant = this.getMaterial(stack);
       if (!materialVariant.equals(IMaterial.UNKNOWN_ID)) {
-        tooltip.add((new TranslatableComponent(ToolPartItem.MATERIAL_KEY, materialVariant.toString())).withStyle(ChatFormatting.DARK_GRAY));
+        tooltip.add((Component.translatable(ToolPartItem.MATERIAL_KEY, materialVariant.toString())).withStyle(ChatFormatting.DARK_GRAY));
       }
     }
   }

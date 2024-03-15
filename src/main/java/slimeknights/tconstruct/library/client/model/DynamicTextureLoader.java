@@ -44,7 +44,7 @@ public class DynamicTextureLoader {
   public static boolean textureExists(ResourceManager manager, ResourceLocation location) {
     Boolean found = EXISTING_TEXTURES.get(location);
     if (found == null) {
-      found = manager.hasResource(new ResourceLocation(location.getNamespace(), "textures/" + location.getPath() + ".png"));
+      found = manager.getResource(new ResourceLocation(location.getNamespace(), "textures/" + location.getPath() + ".png")).isPresent();
       EXISTING_TEXTURES.put(location, found);
     }
     return found;

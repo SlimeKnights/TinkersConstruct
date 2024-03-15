@@ -5,8 +5,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Setter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
@@ -202,7 +200,7 @@ public class InfoPanelScreen extends ModuleScreen {
       this.tooltipLines.add(lines.size());
 
       if (textComponent.getString().isEmpty()) {
-        lines.add(TextComponent.EMPTY.getVisualOrderText());
+        lines.add(Component.empty().getVisualOrderText());
         continue;
       }
 
@@ -261,7 +259,7 @@ public class InfoPanelScreen extends ModuleScreen {
     int scaledFontHeight = this.getScaledFontHeight();
     if (this.hasTooltips() && mouseX >= this.guiRight() - this.border.w - this.font.width("?") / 2 && mouseX < this.guiRight()
         && mouseY > this.topPos + 5 && mouseY < this.topPos + 5 + scaledFontHeight) {
-      this.renderTooltip(matrices, this.font.split(new TranslatableComponent("gui.tconstruct.general.hover"), 150), mouseX - 155, mouseY);
+      this.renderTooltip(matrices, this.font.split(Component.translatable("gui.tconstruct.general.hover"), 150), mouseX - 155, mouseY);
     }
 
     // are we hovering over an entry?

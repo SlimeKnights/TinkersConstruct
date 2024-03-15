@@ -1,9 +1,9 @@
 {
   "type": "tconstruct:casting_basin",
+  "cooling_time": 150,
   "fluid": {
-    "tag": "forge:molten_copper",
-    "amount": 810
+    "amount": 810,
+    "tag": "forge:molten_copper"
   },
-  "result": "minecraft:copper_block",
-  "cooling_time": 150
+  "result": "minecraft:copper_block"
 }

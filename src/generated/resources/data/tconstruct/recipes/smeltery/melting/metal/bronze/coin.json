@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:coins/bronze",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:coins/bronze"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:coins/bronze"
   },
   "result": {
-    "fluid": "tconstruct:molten_bronze",
-    "amount": 30
+    "amount": 30,
+    "fluid": "tconstruct:molten_bronze"
   },
   "temperature": 700,
   "time": 38

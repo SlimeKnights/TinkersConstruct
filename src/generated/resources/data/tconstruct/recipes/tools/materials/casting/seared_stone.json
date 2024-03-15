@@ -1,9 +1,9 @@
 {
   "type": "tconstruct:material_fluid",
   "fluid": {
-    "tag": "tconstruct:seared_stone",
-    "amount": 500
+    "amount": 500,
+    "tag": "tconstruct:seared_stone"
   },
-  "temperature": 600,
-  "output": "tconstruct:seared_stone"
+  "output": "tconstruct:seared_stone",
+  "temperature": 600
 }

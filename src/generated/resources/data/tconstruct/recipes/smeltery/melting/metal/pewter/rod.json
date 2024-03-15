@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:rods/pewter",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:rods/pewter"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:rods/pewter"
   },
   "result": {
-    "fluid": "tconstruct:molten_pewter",
-    "amount": 45
+    "amount": 45,
+    "fluid": "tconstruct:molten_pewter"
   },
   "temperature": 400,
   "time": 9

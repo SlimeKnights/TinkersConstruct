@@ -24,7 +24,7 @@ public class RicochetModifier extends Modifier {
 
   /** Called on knockback to adjust player knockback */
   private void livingKnockback(LivingKnockBackEvent event) {
-    event.getEntityLiving().getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
+    event.getEntity().getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
       int levels = data.get(LEVELS, 0);
       if (levels > 0) {
         // adds +20% knockback per level

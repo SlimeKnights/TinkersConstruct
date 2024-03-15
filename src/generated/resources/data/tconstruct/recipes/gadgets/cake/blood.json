@@ -1,24 +1,24 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "MMM",
-    "SES",
-    "WWW"
-  ],
   "key": {
+    "E": {
+      "item": "minecraft:egg"
+    },
     "M": {
       "item": "tconstruct:blood_bucket"
     },
     "S": {
       "tag": "forge:dusts/glowstone"
     },
-    "E": {
-      "item": "minecraft:egg"
-    },
     "W": {
       "item": "tconstruct:blood_slime_tall_grass"
     }
   },
+  "pattern": [
+    "MMM",
+    "SES",
+    "WWW"
+  ],
   "result": {
     "item": "tconstruct:blood_cake"
   }

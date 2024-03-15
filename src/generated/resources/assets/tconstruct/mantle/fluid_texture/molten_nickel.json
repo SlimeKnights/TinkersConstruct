@@ -1,0 +1,5 @@
+{
+  "color": "FFFFFFFF",
+  "flowing": "tconstruct:fluid/molten/compat_ore/nickel/flowing",
+  "still": "tconstruct:fluid/molten/compat_ore/nickel/still"
+}

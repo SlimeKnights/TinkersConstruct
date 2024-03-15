@@ -1,20 +1,20 @@
 {
-  "fluid": {
-    "tag": "tconstruct:ender_slime",
-    "amount": 50
-  },
   "effects": [
     {
       "type": "tconstruct:effect",
+      "level": 1,
       "name": "minecraft:levitation",
-      "time": 5,
-      "level": 1
+      "time": 5
     },
     {
       "type": "tconstruct:effect",
+      "level": 1,
       "name": "minecraft:slowness",
-      "time": 15,
-      "level": 1
+      "time": 15
     }
-  ]
+  ],
+  "fluid": {
+    "amount": 50,
+    "tag": "tconstruct:ender_slime"
+  }
 }

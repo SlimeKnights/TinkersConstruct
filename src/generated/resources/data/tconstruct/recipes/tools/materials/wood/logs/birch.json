@@ -3,8 +3,8 @@
   "ingredient": {
     "tag": "minecraft:birch_logs"
   },
-  "value": 4,
-  "needed": 1,
+  "leftover": "minecraft:birch_planks",
   "material": "tconstruct:wood#birch",
-  "leftover": "minecraft:birch_planks"
+  "needed": 1,
+  "value": 4
 }

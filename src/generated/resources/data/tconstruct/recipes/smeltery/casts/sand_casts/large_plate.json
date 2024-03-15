@@ -4,8 +4,8 @@
     "item": "tconstruct:blank_sand_cast"
   },
   "pattern": {
-    "item": "tconstruct:large_plate",
-    "type": "tconstruct:material"
+    "type": "tconstruct:material",
+    "item": "tconstruct:large_plate"
   },
   "result": "tconstruct:large_plate_sand_cast"
 }

@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:plates/zinc",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:plates/zinc"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:plates/zinc"
   },
   "result": {
-    "fluid": "tconstruct:molten_zinc",
-    "amount": 90
+    "amount": 90,
+    "fluid": "tconstruct:molten_zinc"
   },
   "temperature": 420,
   "time": 47

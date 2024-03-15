@@ -1,317 +1,7 @@
 {
   "parent": "tconstruct:tools/netherite_tier",
-  "display": {
-    "icon": {
-      "item": "tconstruct:manyullyn_ingot"
-    },
-    "title": {
-      "translate": "advancements.tconstruct.tools.material_master.title"
-    },
-    "description": {
-      "translate": "advancements.tconstruct.tools.material_master.description"
-    },
-    "frame": "challenge",
-    "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
   "criteria": {
-    "wood": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_material",
-              "material": "tconstruct:wood"
-            }
-          }
-        ]
-      }
-    },
-    "flint": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_material",
-              "material": "tconstruct:flint"
-            }
-          }
-        ]
-      }
-    },
-    "rock": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_material",
-              "material": "tconstruct:rock"
-            }
-          }
-        ]
-      }
-    },
-    "bone": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_material",
-              "material": "tconstruct:bone"
-            }
-          }
-        ]
-      }
-    },
-    "necrotic_bone": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_material",
-              "material": "tconstruct:necrotic_bone"
-            }
-          }
-        ]
-      }
-    },
-    "leather": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_material",
-              "material": "tconstruct:leather"
-            }
-          }
-        ]
-      }
-    },
-    "string": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_material",
-              "material": "tconstruct:string"
-            }
-          }
-        ]
-      }
-    },
-    "vine": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_material",
-              "material": "tconstruct:vine"
-            }
-          }
-        ]
-      }
-    },
-    "bamboo": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_material",
-              "material": "tconstruct:bamboo"
-            }
-          }
-        ]
-      }
-    },
-    "chorus": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_material",
-              "material": "tconstruct:chorus"
-            }
-          }
-        ]
-      }
-    },
-    "iron": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_material",
-              "material": "tconstruct:iron"
-            }
-          }
-        ]
-      }
-    },
-    "seared_stone": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_material",
-              "material": "tconstruct:seared_stone"
-            }
-          }
-        ]
-      }
-    },
-    "scorched_stone": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_material",
-              "material": "tconstruct:scorched_stone"
-            }
-          }
-        ]
-      }
-    },
-    "copper": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_material",
-              "material": "tconstruct:copper"
-            }
-          }
-        ]
-      }
-    },
-    "slimewood": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_material",
-              "material": "tconstruct:slimewood"
-            }
-          }
-        ]
-      }
-    },
-    "chain": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_material",
-              "material": "tconstruct:chain"
-            }
-          }
-        ]
-      }
-    },
-    "skyslime_vine": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_material",
-              "material": "tconstruct:skyslime_vine"
-            }
-          }
-        ]
-      }
-    },
-    "whitestone": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_material",
-              "material": "tconstruct:whitestone"
-            }
-          }
-        ]
-      }
-    },
-    "rose_gold": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_material",
-              "material": "tconstruct:rose_gold"
-            }
-          }
-        ]
-      }
-    },
-    "slimesteel": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_material",
-              "material": "tconstruct:slimesteel"
-            }
-          }
-        ]
-      }
-    },
-    "nahuatl": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_material",
-              "material": "tconstruct:nahuatl"
-            }
-          }
-        ]
-      }
-    },
     "amethyst_bronze": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -322,108 +12,10 @@
             }
           }
         ]
-      }
-    },
-    "pig_iron": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_material",
-              "material": "tconstruct:pig_iron"
-            }
-          }
-        ]
-      }
-    },
-    "cobalt": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_material",
-              "material": "tconstruct:cobalt"
-            }
-          }
-        ]
-      }
-    },
-    "darkthread": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_material",
-              "material": "tconstruct:darkthread"
-            }
-          }
-        ]
-      }
-    },
-    "manyullyn": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_material",
-              "material": "tconstruct:manyullyn"
-            }
-          }
-        ]
-      }
-    },
-    "hepatizon": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_material",
-              "material": "tconstruct:hepatizon"
-            }
-          }
-        ]
-      }
-    },
-    "queens_slime": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_material",
-              "material": "tconstruct:queens_slime"
-            }
-          }
-        ]
-      }
-    },
-    "blazing_bone": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_material",
-              "material": "tconstruct:blazing_bone"
-            }
-          }
-        ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "ancient_hide": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -434,10 +26,122 @@
             }
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "bamboo": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:bamboo"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "blazing_bone": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:blazing_bone"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "bone": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:bone"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "chain": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:chain"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "chorus": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:chorus"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "cobalt": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:cobalt"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "copper": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:copper"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "darkthread": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:darkthread"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "enderslime_vine": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -448,7 +152,303 @@
             }
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "flint": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:flint"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "hepatizon": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:hepatizon"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "iron": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:iron"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "leather": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:leather"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "manyullyn": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:manyullyn"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "nahuatl": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:nahuatl"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "necrotic_bone": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:necrotic_bone"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "pig_iron": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:pig_iron"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "queens_slime": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:queens_slime"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "rock": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:rock"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "rose_gold": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:rose_gold"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "scorched_stone": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:scorched_stone"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "seared_stone": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:seared_stone"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "skyslime_vine": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:skyslime_vine"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "slimesteel": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:slimesteel"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "slimewood": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:slimewood"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "string": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:string"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "vine": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:vine"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "whitestone": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:whitestone"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "wood": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:wood"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.tconstruct.tools.material_master.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "tconstruct:manyullyn_ingot"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.tconstruct.tools.material_master.title"
     }
   },
   "requirements": [

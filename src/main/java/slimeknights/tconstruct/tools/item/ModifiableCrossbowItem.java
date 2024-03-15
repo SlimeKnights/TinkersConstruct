@@ -8,13 +8,12 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
@@ -56,7 +55,6 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ScopeModifier;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.function.Predicate;
 
 import static slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook.KEY_DRAWTIME;
@@ -102,7 +100,7 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
   /* Arrow launching */
 
   /** Gets the arrow pitch */
-  private static float getRandomShotPitch(float angle, Random pRandom) {
+  private static float getRandomShotPitch(float angle, RandomSource pRandom) {
     if (angle == 0) {
       return 1.0f;
     }
@@ -300,7 +298,7 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
       ItemStack heldStack = ItemStack.of(heldAmmo);
       if (!heldStack.isEmpty()) {
         // basic info: item and count
-        MutableComponent component = new TranslatableComponent(PROJECTILE_KEY);
+        MutableComponent component = Component.translatable(PROJECTILE_KEY);
         int count = heldStack.getCount();
         if (count > 1) {
           component.append(" " + count + " ");
@@ -314,7 +312,7 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
           List<Component> nestedTooltip = new ArrayList<>();
           heldStack.getItem().appendHoverText(heldStack, player.level, nestedTooltip, tooltipFlag);
           for (Component nested : nestedTooltip) {
-            tooltips.add(new TextComponent("  ").append(nested).withStyle(ChatFormatting.GRAY));
+            tooltips.add(Component.literal("  ").append(nested).withStyle(ChatFormatting.GRAY));
           }
         }
       }

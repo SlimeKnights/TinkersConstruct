@@ -1,11 +1,11 @@
 {
   "type": "tconstruct:modifier_salvage",
-  "tools": {
-    "tag": "tconstruct:modifiable/armor/boots"
-  },
+  "min_level": 1,
+  "modifier": "tconstruct:double_jump",
   "slots": {
     "abilities": 1
   },
-  "modifier": "tconstruct:double_jump",
-  "min_level": 1
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/boots"
+  }
 }

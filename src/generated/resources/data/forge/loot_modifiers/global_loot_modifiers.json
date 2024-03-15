@@ -1,5 +1,4 @@
 {
-  "replace": false,
   "entries": [
     "tconstruct:lustrous/platinum",
     "tconstruct:wither_bone",
@@ -19,5 +18,6 @@
     "tconstruct:lustrous/gold",
     "tconstruct:chrysophilite_modifier",
     "tconstruct:lustrous/osmium"
-  ]
+  ],
+  "replace": false
 }

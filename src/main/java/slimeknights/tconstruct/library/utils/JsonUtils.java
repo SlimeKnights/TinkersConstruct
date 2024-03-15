@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSyntaxException;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
@@ -64,7 +65,7 @@ public class JsonUtils {
     return json;
   }
 
-  /** Creates a JSON object with the given type set, makes using {@link slimeknights.mantle.data.GenericRegisteredSerializer} eaiser */
+  /** Creates a JSON object with the given type set, makes using {@link slimeknights.mantle.data.gson.GenericRegisteredSerializer} easier */
   public static JsonObject withType(ResourceLocation type) {
     return withLocation("type", type);
   }
@@ -102,7 +103,7 @@ public class JsonUtils {
    */
   public static JsonElement serializeItemStack(ItemStack result) {
     // if the item has NBT, write both, else write just the name
-    String itemName = Objects.requireNonNull(result.getItem().getRegistryName()).toString();
+    String itemName = Registry.ITEM.getKey(result.getItem()).toString();
     if (result.hasTag()) {
       JsonObject jsonResult = new JsonObject();
       jsonResult.addProperty("item", itemName);

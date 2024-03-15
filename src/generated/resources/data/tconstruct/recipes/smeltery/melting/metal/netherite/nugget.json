@@ -4,8 +4,8 @@
     "tag": "forge:nuggets/netherite"
   },
   "result": {
-    "fluid": "tconstruct:molten_netherite",
-    "amount": 10
+    "amount": 10,
+    "fluid": "tconstruct:molten_netherite"
   },
   "temperature": 1250,
   "time": 25

@@ -2,6 +2,7 @@ package slimeknights.tconstruct.common.multiblock;
 
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
@@ -14,7 +15,6 @@ import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.library.utils.TagUtil;
 
 import javax.annotation.Nullable;
-import java.util.Objects;
 
 public class ServantTileEntity extends MantleBlockEntity implements IServantLogic {
   private static final String TAG_MASTER_POS = "masterPos";
@@ -140,7 +140,7 @@ public class ServantTileEntity extends MantleBlockEntity implements IServantLogi
   protected CompoundTag writeMaster(CompoundTag tags) {
     if (masterPos != null && masterBlock != null) {
       tags.put(TAG_MASTER_POS, TagUtil.writePos(masterPos));
-      tags.putString(TAG_MASTER_BLOCK, Objects.requireNonNull(masterBlock.getRegistryName()).toString());
+      tags.putString(TAG_MASTER_BLOCK, Registry.BLOCK.getKey(masterBlock).toString());
     }
     return tags;
   }

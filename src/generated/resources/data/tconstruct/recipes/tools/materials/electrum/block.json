@@ -2,20 +2,20 @@
   "type": "tconstruct:material",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:storage_blocks/electrum",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:storage_blocks/electrum"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:storage_blocks/electrum"
   },
-  "value": 9,
-  "needed": 1,
-  "material": "tconstruct:electrum",
   "leftover": {
     "tag": "forge:ingots/electrum"
-  }
+  },
+  "material": "tconstruct:electrum",
+  "needed": 1,
+  "value": 9
 }

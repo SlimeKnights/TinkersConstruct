@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "tconstruct:seared_brick"
   },
-  "value": 1,
+  "material": "tconstruct:seared_stone",
   "needed": 2,
-  "material": "tconstruct:seared_stone"
+  "value": 1
 }

@@ -3,12 +3,12 @@
   "cast": {
     "tag": "tconstruct:casts/multi_use/nugget"
   },
+  "cooling_time": 17,
   "fluid": {
-    "tag": "forge:molten_rose_gold",
-    "amount": 10
+    "amount": 10,
+    "tag": "forge:molten_rose_gold"
   },
   "result": {
     "tag": "forge:nuggets/rose_gold"
-  },
-  "cooling_time": 17
+  }
 }

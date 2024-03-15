@@ -2,26 +2,26 @@
   "type": "minecraft:crafting_shaped",
   "conditions": [
     {
-      "prop": "glass_recipe_fix",
-      "type": "tconstruct:config"
+      "type": "tconstruct:config",
+      "prop": "glass_recipe_fix"
     }
   ],
-  "pattern": [
-    "GGG",
-    "QQQ",
-    "WWW"
-  ],
   "key": {
-    "Q": {
-      "item": "minecraft:quartz"
-    },
     "G": {
       "tag": "forge:glass/colorless"
+    },
+    "Q": {
+      "item": "minecraft:quartz"
     },
     "W": {
       "tag": "minecraft:wooden_slabs"
     }
   },
+  "pattern": [
+    "GGG",
+    "QQQ",
+    "WWW"
+  ],
   "result": {
     "item": "minecraft:daylight_detector"
   }

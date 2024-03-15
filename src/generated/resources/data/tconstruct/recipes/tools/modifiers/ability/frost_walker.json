@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "item": "minecraft:blue_ice"
@@ -17,16 +18,15 @@
       "item": "minecraft:blue_ice"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/armor/boots"
+  "max_level": 1,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:frost_walker"
   },
   "slots": {
     "abilities": 1
   },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:frost_walker",
-    "level": 1
-  },
-  "max_level": 1
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/boots"
+  }
 }

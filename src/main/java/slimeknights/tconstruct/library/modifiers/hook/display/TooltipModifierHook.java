@@ -1,8 +1,6 @@
 package slimeknights.tconstruct.library.modifiers.hook.display;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -51,17 +49,17 @@ public interface TooltipModifierHook {
 
   /** Gets the name of the stat to display, uses a translation key built from the tool and the stat */
   static Component statName(Modifier modifier, IToolStat<?> stat) {
-    return new TranslatableComponent(modifier.getTranslationKey() + "." + stat.getName().getPath());
+    return Component.translatable(modifier.getTranslationKey() + "." + stat.getName().getPath());
   }
 
   /** Adds a flat bonus tooltip */
   static void addFlatBoost(Modifier modifier, Component name, double bonus, List<Component> tooltip) {
-    tooltip.add(modifier.applyStyle(new TextComponent(Util.BONUS_FORMAT.format(bonus) + " ").append(name)));
+    tooltip.add(modifier.applyStyle(Component.literal(Util.BONUS_FORMAT.format(bonus) + " ").append(name)));
   }
 
   /** Adds a percentage boost tooltip */
   static void addPercentBoost(Modifier modifier, Component name, double bonus, List<Component> tooltip) {
-    tooltip.add(modifier.applyStyle(new TextComponent(Util.PERCENT_BOOST_FORMAT.format(bonus) + " ").append(name)));
+    tooltip.add(modifier.applyStyle(Component.literal(Util.PERCENT_BOOST_FORMAT.format(bonus) + " ").append(name)));
   }
 
   /**

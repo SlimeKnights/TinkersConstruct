@@ -2,16 +2,15 @@ package slimeknights.tconstruct.test;
 
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.registries.ForgeRegistries;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.tools.definition.harvest.IHarvestLogic;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-
-import java.util.Objects;
 
 /** Block based harvest logic implementation. Included here rather than in library as block harvest logic use is discouraged, its just easy for testing */
 @RequiredArgsConstructor
@@ -43,7 +42,7 @@ public class BlockHarvestLogic implements IHarvestLogic {
 
     @Override
     public void serialize(BlockHarvestLogic object, JsonObject json) {
-      json.addProperty("block", Objects.requireNonNull(object.block.getRegistryName()).toString());
+      json.addProperty("block", Registry.BLOCK.getKey(object.block).toString());
     }
 
     @Override

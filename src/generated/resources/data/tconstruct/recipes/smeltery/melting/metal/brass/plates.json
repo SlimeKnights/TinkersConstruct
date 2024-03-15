@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:plates/brass",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:plates/brass"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:plates/brass"
   },
   "result": {
-    "fluid": "tconstruct:molten_brass",
-    "amount": 90
+    "amount": 90,
+    "fluid": "tconstruct:molten_brass"
   },
   "temperature": 605,
   "time": 54

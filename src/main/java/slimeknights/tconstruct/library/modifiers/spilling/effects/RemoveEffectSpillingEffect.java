@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.modifiers.spilling.effects;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.LivingEntity;
@@ -31,7 +32,7 @@ public record RemoveEffectSpillingEffect(MobEffect effect) implements ISpillingE
   @Override
   public JsonObject serialize(JsonSerializationContext context) {
     JsonObject json = JsonUtils.withType(ID);
-    json.addProperty("effect", Objects.requireNonNull(effect.getRegistryName()).toString());
+    json.addProperty("effect", Objects.requireNonNull(Registry.MOB_EFFECT.getKey(effect)).toString());
     return json;
   }
 

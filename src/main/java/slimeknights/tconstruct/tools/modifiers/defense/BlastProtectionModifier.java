@@ -11,8 +11,8 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-import net.minecraftforge.event.world.ExplosionEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent;
+import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
@@ -39,7 +39,7 @@ public class BlastProtectionModifier extends AbstractProtectionModifier<BlastDat
   public BlastProtectionModifier() {
     super(BLAST_DATA);
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, ExplosionEvent.Detonate.class, BlastProtectionModifier::onExplosionDetonate);
-    MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, LivingUpdateEvent.class, BlastProtectionModifier::livingTick);
+    MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, LivingTickEvent.class, BlastProtectionModifier::livingTick);
   }
 
   @Override
@@ -101,8 +101,8 @@ public class BlastProtectionModifier extends AbstractProtectionModifier<BlastDat
   }
 
   /** If the entity is marked for knockback update, adjust velocity */
-  private static void livingTick(LivingUpdateEvent event) {
-    LivingEntity living = event.getEntityLiving();
+  private static void livingTick(LivingTickEvent event) {
+    LivingEntity living = event.getEntity();
     if (!living.level.isClientSide && !living.isSpectator()) {
       living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
         BlastData blastData = data.get(BLAST_DATA);

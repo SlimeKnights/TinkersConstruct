@@ -9,9 +9,9 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ColorHandlerEvent;
-import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -72,7 +72,7 @@ public class CommonsClientEvents extends ClientEventBase {
   }
 
   @SubscribeEvent
-  static void registerColorHandlers(ColorHandlerEvent.Item event) {
+  static void registerColorHandlers(RegisterColorHandlersEvent.Item event) {
     // colors apply a constant tint to make models easier
     BlockColors blockColors = event.getBlockColors();
     ItemColors itemColors = event.getItemColors();
@@ -86,7 +86,7 @@ public class CommonsClientEvents extends ClientEventBase {
   }
 
   @SubscribeEvent
-  static void registerParticleFactories(ParticleFactoryRegisterEvent event) {
+  static void registerParticleFactories(RegisterParticleProvidersEvent event) {
     Minecraft.getInstance().particleEngine.register(TinkerCommons.fluidParticle.get(), new FluidParticle.Factory());
   }
 
@@ -98,7 +98,7 @@ public class CommonsClientEvents extends ClientEventBase {
       unicodeRenderer = new Font(rl -> {
         FontManager resourceManager = Minecraft.getInstance().fontManager;
         return resourceManager.fontSets.get(Minecraft.UNIFORM_FONT);
-      });
+      }, false);
 
     return unicodeRenderer;
   }

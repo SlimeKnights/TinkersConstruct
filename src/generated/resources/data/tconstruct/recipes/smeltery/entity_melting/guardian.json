@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:entity_melting",
+  "damage": 4,
   "entity": {
     "types": [
       "minecraft:guardian",
@@ -7,8 +8,7 @@
     ]
   },
   "result": {
-    "fluid": "tconstruct:seared_stone",
-    "amount": 50
-  },
-  "damage": 4
+    "amount": 50,
+    "fluid": "tconstruct:seared_stone"
+  }
 }

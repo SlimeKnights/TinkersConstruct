@@ -1,20 +1,20 @@
 {
   "type": "tconstruct:composable",
   "level_display": "tconstruct:default",
-  "tooltip_display": "always",
   "modules": [
     {
       "type": "tconstruct:attribute",
-      "unique": "tconstruct.modifier.step_up",
       "attribute": "forge:step_height_addition",
-      "operation": "addition",
       "each_level": 0.5,
+      "operation": "addition",
       "slots": [
         "feet",
         "legs",
         "chest",
         "head"
-      ]
+      ],
+      "unique": "tconstruct.modifier.step_up"
     }
-  ]
+  ],
+  "tooltip_display": "always"
 }

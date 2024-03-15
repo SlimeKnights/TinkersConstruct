@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:swappable_modifier",
+  "allow_crystal": false,
   "inputs": [
     {
       "item": "minecraft:amethyst_cluster"
@@ -17,15 +18,14 @@
       "tag": "forge:ingots/manyullyn"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/ranged/bows"
+  "result": {
+    "name": "tconstruct:crystalshot",
+    "value": "amethyst"
   },
   "slots": {
     "abilities": 1
   },
-  "allow_crystal": false,
-  "result": {
-    "name": "tconstruct:crystalshot",
-    "value": "amethyst"
+  "tools": {
+    "tag": "tconstruct:modifiable/ranged/bows"
   }
 }

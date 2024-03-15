@@ -3,6 +3,7 @@ package slimeknights.tconstruct.common.data.tags;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.FluidTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import slimeknights.mantle.registration.object.FlowingFluidObject;
 import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -97,8 +98,8 @@ public class FluidTagProvider extends FluidTagsProvider {
         .addTag(TinkerFluids.skySlime.getLocalTag())
         .addTag(TinkerFluids.enderSlime.getLocalTag());
 
-    this.tag(TinkerTags.Fluids.POTION).add(TinkerFluids.potion.get());
-    this.tag(TinkerTags.Fluids.POWDERED_SNOW).add(TinkerFluids.powderedSnow.get());
+    this.tagForge(TinkerFluids.potion);
+    this.tagForge(TinkerFluids.powderedSnow);
 
     // tooltips //
     this.tag(TinkerTags.Fluids.GLASS_TOOLTIPS).addTags(TinkerFluids.moltenGlass.getLocalTag(), TinkerFluids.liquidSoul.getLocalTag(), TinkerFluids.moltenObsidian.getLocalTag());
@@ -160,13 +161,18 @@ public class FluidTagProvider extends FluidTagsProvider {
   }
 
   /** Tags this fluid using local tags */
-  private void tagLocal(FluidObject<?> fluid) {
+  private void tagLocal(FlowingFluidObject<?> fluid) {
     tag(fluid.getLocalTag()).add(fluid.getStill(), fluid.getFlowing());
   }
 
   /** Tags this fluid with local and forge tags */
-  private void tagAll(FluidObject<?> fluid) {
+  private void tagAll(FlowingFluidObject<?> fluid) {
     tagLocal(fluid);
     tag(fluid.getForgeTag()).addTag(fluid.getLocalTag());
+  }
+
+  /** Tags this fluid with local and forge tags */
+  private void tagForge(FluidObject<?> fluid) {
+    tag(fluid.getForgeTag()).add(fluid.get());
   }
 }

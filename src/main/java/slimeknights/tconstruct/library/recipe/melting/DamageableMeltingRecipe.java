@@ -100,7 +100,7 @@ public class DamageableMeltingRecipe extends MeltingRecipe {
     }
 
     @Override
-    protected void toNetworkSafe(FriendlyByteBuf buffer, DamageableMeltingRecipe recipe) {
+    public void toNetworkSafe(FriendlyByteBuf buffer, DamageableMeltingRecipe recipe) {
       super.toNetworkSafe(buffer, recipe);
       buffer.writeVarInt(recipe.unitSize);
       buffer.writeVarIntArray(recipe.byproductSizes);

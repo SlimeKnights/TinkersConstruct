@@ -3,8 +3,8 @@
   "ingredient": {
     "tag": "tconstruct:skyroot_logs"
   },
-  "value": 4,
-  "needed": 1,
+  "leftover": "tconstruct:skyroot_planks",
   "material": "tconstruct:slimewood#skyroot",
-  "leftover": "tconstruct:skyroot_planks"
+  "needed": 1,
+  "value": 4
 }

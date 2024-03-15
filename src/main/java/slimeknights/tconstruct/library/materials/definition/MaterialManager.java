@@ -12,13 +12,12 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
-import net.minecraft.tags.Tag;
 import net.minecraft.tags.TagKey;
 import net.minecraft.tags.TagLoader;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.ICondition.IContext;
-import slimeknights.mantle.data.ConditionSerializer;
+import slimeknights.mantle.data.gson.ConditionSerializer;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.exception.TinkerJSONException;
 import slimeknights.tconstruct.library.json.JsonRedirect;
@@ -56,8 +55,8 @@ public class MaterialManager extends SimpleJsonResourceReloadListener {
   public static final String FOLDER = "tinkering/materials/definition";
   /** Location of material tags */
   public static final String TAG_FOLDER = "tinkering/tags/materials";
-  /** Registry key to make tag keys */
-  private static final ResourceKey<? extends Registry<IMaterial>> REGISTRY_KEY = ResourceKey.createRegistryKey(TConstruct.getResource("materials"));
+  /** Registry key to make tag keys, will not work on actual registry lookup */
+  public static final ResourceKey<? extends Registry<IMaterial>> REGISTRY_KEY = ResourceKey.createRegistryKey(TConstruct.getResource("materials"));
 
   /** GSON for loading materials */
   public static final Gson GSON = (new GsonBuilder())
@@ -77,7 +76,7 @@ public class MaterialManager extends SimpleJsonResourceReloadListener {
   private List<IMaterial> sortedMaterials = Collections.emptyList();
 
   /** Modifier tags loaded from JSON */
-  private Map<ResourceLocation,Tag<IMaterial>> tags = Collections.emptyMap();
+  private Map<TagKey<IMaterial>,List<IMaterial>> tags = Collections.emptyMap();
   /** Map from modifier to tags on the modifier */
   private Map<MaterialId,Set<TagKey<IMaterial>>> reverseTags = Collections.emptyMap();
   /** Context for conditions */
@@ -150,7 +149,7 @@ public class MaterialManager extends SimpleJsonResourceReloadListener {
    * @return  Contained values
    */
   public List<IMaterial> getValues(TagKey<Modifier> tag) {
-    return tags.getOrDefault(tag.location(), Tag.empty()).getValues();
+    return tags.getOrDefault(tag, List.of());
   }
 
 
@@ -167,11 +166,11 @@ public class MaterialManager extends SimpleJsonResourceReloadListener {
   /**
    * Updates the material list from the server.list. Should only be called client side
    */
-  public void updateMaterialsFromServer(Map<MaterialId,IMaterial> materials, Map<MaterialId,MaterialId> redirects, Map<ResourceLocation,Tag<IMaterial>> tags) {
+  public void updateMaterialsFromServer(Map<MaterialId,IMaterial> materials, Map<MaterialId,MaterialId> redirects, Map<TagKey<IMaterial>,List<IMaterial>> tags) {
     this.materials = materials;
     this.redirects = redirects;
     this.tags = tags;
-    this.reverseTags = GenericTagUtil.reverseTags(REGISTRY_KEY, IMaterial::getIdentifier, tags);
+    this.reverseTags = GenericTagUtil.reverseTags(IMaterial::getIdentifier, tags);
     onMaterialUpdate();
   }
 
@@ -207,8 +206,8 @@ public class MaterialManager extends SimpleJsonResourceReloadListener {
 
     // load modifier tags
     TagLoader<IMaterial> tagLoader = new TagLoader<>(id -> getMaterial(new MaterialId(id)), TAG_FOLDER);
-    this.tags = tagLoader.loadAndBuild(resourceManagerIn);
-    this.reverseTags = GenericTagUtil.reverseTags(REGISTRY_KEY, IMaterial::getIdentifier, tags);
+    this.tags = GenericTagUtil.mapLoaderResults(REGISTRY_KEY, tagLoader.loadAndBuild(resourceManagerIn));
+    this.reverseTags = GenericTagUtil.reverseTags(IMaterial::getIdentifier, tags);
     log.info("Loaded {} material tags for {} materials in {} ms", tags.size(), reverseTags.size(), (System.nanoTime() - timeStep) / 1000000f);
   }
 

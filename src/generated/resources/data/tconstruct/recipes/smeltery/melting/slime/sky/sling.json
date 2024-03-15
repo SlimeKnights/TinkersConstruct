@@ -4,8 +4,8 @@
     "item": "tconstruct:sky_slime_sling"
   },
   "result": {
-    "fluid": "tconstruct:sky_slime",
     "amount": 1750,
+    "fluid": "tconstruct:sky_slime",
     "unit_size": 50
   },
   "temperature": 10,

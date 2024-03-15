@@ -29,7 +29,7 @@ public class BouncyModifier extends NoLevelsModifier {
 
   /** Called when an entity lands to handle the event */
   private static void onFall(LivingFallEvent event) {
-    LivingEntity living = event.getEntityLiving();
+    LivingEntity living = event.getEntity();
     // using fall distance as the event distance could be reduced by jump boost
     if (living == null || (living.getDeltaMovement().y > -0.3 && living.fallDistance < 3)) {
       return;

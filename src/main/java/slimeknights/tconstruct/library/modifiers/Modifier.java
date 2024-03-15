@@ -7,8 +7,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextColor;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
@@ -22,8 +20,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.storage.loot.LootContext;
 import slimeknights.mantle.client.ResourceColorManager;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.mantle.data.GenericLoaderRegistry.IHaveLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierManager.ModifierRegistrationEvent;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap;
@@ -201,7 +199,7 @@ public class Modifier implements IHaveLoader<Modifier> {
    * @return  Display name
    */
   protected Component makeDisplayName() {
-    return new TranslatableComponent(getTranslationKey());
+    return Component.translatable(getTranslationKey());
   }
 
   /**
@@ -219,7 +217,7 @@ public class Modifier implements IHaveLoader<Modifier> {
    */
   public Component getDisplayName() {
     if (displayName == null) {
-      displayName = new TranslatableComponent(getTranslationKey()).withStyle(style -> style.withColor(getTextColor()));
+      displayName = Component.translatable(getTranslationKey()).withStyle(style -> style.withColor(getTextColor()));
     }
     return displayName;
   }
@@ -250,8 +248,8 @@ public class Modifier implements IHaveLoader<Modifier> {
   public List<Component> getDescriptionList() {
     if (descriptionList == null) {
       descriptionList = Arrays.asList(
-        new TranslatableComponent(getTranslationKey() + ".flavor").withStyle(ChatFormatting.ITALIC),
-        new TranslatableComponent(getTranslationKey() + ".description"));
+        Component.translatable(getTranslationKey() + ".flavor").withStyle(ChatFormatting.ITALIC),
+        Component.translatable(getTranslationKey() + ".description"));
     }
     return descriptionList;
   }
@@ -278,9 +276,9 @@ public class Modifier implements IHaveLoader<Modifier> {
   /** Converts a list of text components to a single text component, newline separated */
   private static Component listToComponent(List<Component> list) {
     if (list.isEmpty()) {
-      return TextComponent.EMPTY;
+      return Component.empty();
     }
-    MutableComponent textComponent = new TextComponent("");
+    MutableComponent textComponent = Component.literal("");
     Iterator<Component> iterator = list.iterator();
     textComponent.append(iterator.next());
     while (iterator.hasNext()) {
@@ -361,9 +359,7 @@ public class Modifier implements IHaveLoader<Modifier> {
    * @return  Loot replacement
    * TODO: can we ditch this hook in favor of just using GLMs? Just need a loot condition to detect a modifier, and it gives us a lot more flexability
    */
-  public List<ItemStack> processLoot(IToolStackView tool, int level, List<ItemStack> generatedLoot, LootContext context) {
-    return generatedLoot;
-  }
+  public void processLoot(IToolStackView tool, int level, List<ItemStack> generatedLoot, LootContext context) {}
 
 
   /* Modules */

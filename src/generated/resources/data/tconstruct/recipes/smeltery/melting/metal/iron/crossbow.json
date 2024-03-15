@@ -4,8 +4,8 @@
     "item": "minecraft:crossbow"
   },
   "result": {
-    "fluid": "tconstruct:molten_iron",
     "amount": 130,
+    "fluid": "tconstruct:molten_iron",
     "unit_size": 10
   },
   "temperature": 800,

@@ -6,7 +6,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.player.Player;
@@ -14,7 +13,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.mantle.client.TooltipKey;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -72,9 +71,9 @@ public class TankModule extends TankCapacityModule implements FluidModifierHook,
     if (isOwner(tool, modifier.getId())) {
       FluidStack current = getFluid(tool);
       if (!current.isEmpty()) {
-        tooltip.add(new TranslatableComponent(FILLED_KEY, current.getAmount(), current.getDisplayName()));
+        tooltip.add(Component.translatable(FILLED_KEY, current.getAmount(), current.getDisplayName()));
       }
-      tooltip.add(new TranslatableComponent(CAPACITY_KEY, getCapacity(tool)));
+      tooltip.add(Component.translatable(CAPACITY_KEY, getCapacity(tool)));
     }
   }
 

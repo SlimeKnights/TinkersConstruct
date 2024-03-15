@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.modifiers.modules;
 
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.json.math.ModifierFormula;
 import slimeknights.tconstruct.library.json.math.ModifierFormula.FallbackFormula;
 import slimeknights.tconstruct.library.modifiers.modules.FormulaModuleLoader.FormulaModule;

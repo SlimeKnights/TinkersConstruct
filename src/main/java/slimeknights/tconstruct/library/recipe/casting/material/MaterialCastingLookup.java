@@ -5,6 +5,7 @@ import it.unimi.dsi.fastutil.objects.Object2IntMap.Entry;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import net.minecraft.core.Registry;
 import net.minecraft.world.item.Item;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
@@ -46,7 +47,7 @@ public class MaterialCastingLookup {
     if (ITEM_COST_LOOKUP.containsKey(item)) {
       int original = ITEM_COST_LOOKUP.getInt(item);
       if (cost != original) {
-        TConstruct.LOG.error("Inconsistent cost for item {}", item.asItem().getRegistryName());
+        TConstruct.LOG.error("Inconsistent cost for item {}", Registry.ITEM.getKey(item.asItem()));
         ITEM_COST_LOOKUP.put(item, Math.min(cost, original));
       }
     } else {

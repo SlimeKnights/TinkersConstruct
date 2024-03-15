@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.ability.sling;
 
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -13,8 +14,6 @@ import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
-
-import java.util.Random;
 
 /** Add velocity in the direction you face */
 public class SpringingModifier extends SlingModifier {
@@ -37,7 +36,7 @@ public class SpringingModifier extends SlingModifier {
       if (f > 0) {
         Vec3 look = player.getLookAngle().add(0, 1, 0).normalize();
         float inaccuracy = ModifierUtil.getInaccuracy(tool, player) * 0.0075f;
-        Random random = player.getRandom();
+        RandomSource random = player.getRandom();
         player.push(
           (look.x + random.nextGaussian() * inaccuracy) * f,
           (look.y + random.nextGaussian() * inaccuracy) * f / 2f,

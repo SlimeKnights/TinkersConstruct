@@ -4,8 +4,8 @@
     "item": "tconstruct:drowned_head"
   },
   "result": {
-    "fluid": "minecraft:water",
-    "amount": 250
+    "amount": 250,
+    "fluid": "minecraft:water"
   },
   "temperature": 0,
   "time": 47

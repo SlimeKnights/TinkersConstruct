@@ -1,9 +1,9 @@
 {
   "type": "tconstruct:casting_table",
+  "cooling_time": 51,
   "fluid": {
-    "tag": "forge:slime",
-    "amount": 250
+    "amount": 250,
+    "tag": "forge:slime"
   },
-  "result": "minecraft:slime_ball",
-  "cooling_time": 51
+  "result": "minecraft:slime_ball"
 }

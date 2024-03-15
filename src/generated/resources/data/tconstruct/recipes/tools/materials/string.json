@@ -3,7 +3,7 @@
   "ingredient": {
     "tag": "forge:string"
   },
-  "value": 1,
+  "material": "tconstruct:string",
   "needed": 4,
-  "material": "tconstruct:string"
+  "value": 1
 }

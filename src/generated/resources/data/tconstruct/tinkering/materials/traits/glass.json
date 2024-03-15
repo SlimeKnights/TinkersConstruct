@@ -2,12 +2,12 @@
   "perStat": {
     "tconstruct:skull": [
       {
-        "name": "tconstruct:self_destructive",
-        "level": 1
+        "level": 1,
+        "name": "tconstruct:self_destructive"
       },
       {
-        "name": "tconstruct:creeper_disguise",
-        "level": 1
+        "level": 1,
+        "name": "tconstruct:creeper_disguise"
       }
     ]
   }

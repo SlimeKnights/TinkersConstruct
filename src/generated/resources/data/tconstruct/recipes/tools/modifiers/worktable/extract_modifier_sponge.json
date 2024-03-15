@@ -8,6 +8,14 @@
       "item": "minecraft:wet_sponge"
     }
   ],
+  "leftovers": [
+    "minecraft:sponge"
+  ],
+  "modifier_predicate": {
+    "type": "tconstruct:inverted",
+    "inverted_type": "tconstruct:tag",
+    "tag": "tconstruct:extract_blacklist/tools"
+  },
   "tools": {
     "type": "forge:difference",
     "base": {
@@ -16,13 +24,5 @@
     "subtracted": {
       "tag": "tconstruct:modifiable/unsalvageable"
     }
-  },
-  "leftovers": [
-    "minecraft:sponge"
-  ],
-  "modifier_predicate": {
-    "type": "tconstruct:inverted",
-    "inverted_type": "tconstruct:tag",
-    "tag": "tconstruct:extract_blacklist/tools"
   }
 }

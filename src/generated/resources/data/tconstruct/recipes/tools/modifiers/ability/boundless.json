@@ -1,36 +1,36 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
-      "item": "tconstruct:obsidian_pane",
-      "amount_needed": 4
+      "amount_needed": 4,
+      "item": "tconstruct:obsidian_pane"
     },
     {
       "item": "minecraft:writable_book"
     },
     {
-      "item": "tconstruct:obsidian_pane",
-      "amount_needed": 4
+      "amount_needed": 4,
+      "item": "tconstruct:obsidian_pane"
     },
     {
-      "item": "tconstruct:ichor_slime_crystal",
-      "amount_needed": 2
+      "amount_needed": 2,
+      "item": "tconstruct:ichor_slime_crystal"
     },
     {
-      "item": "tconstruct:ichor_slime_crystal",
-      "amount_needed": 2
+      "amount_needed": 2,
+      "item": "tconstruct:ichor_slime_crystal"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/shields"
+  "max_level": 1,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:boundless"
   },
   "slots": {
     "abilities": 1
   },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:boundless",
-    "level": 1
-  },
-  "max_level": 1
+  "tools": {
+    "tag": "tconstruct:modifiable/shields"
+  }
 }

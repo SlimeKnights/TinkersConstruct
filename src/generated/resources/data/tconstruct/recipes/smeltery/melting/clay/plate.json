@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:plates/brick",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:plates/brick"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:plates/brick"
   },
   "result": {
-    "fluid": "tconstruct:molten_clay",
-    "amount": 250
+    "amount": 250,
+    "fluid": "tconstruct:molten_clay"
   },
   "temperature": 450,
   "time": 48

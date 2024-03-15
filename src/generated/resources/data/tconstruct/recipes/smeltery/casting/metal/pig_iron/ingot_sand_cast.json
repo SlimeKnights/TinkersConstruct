@@ -4,10 +4,10 @@
     "tag": "tconstruct:casts/single_use/ingot"
   },
   "cast_consumed": true,
+  "cooling_time": 60,
   "fluid": {
-    "tag": "tconstruct:molten_pig_iron",
-    "amount": 90
+    "amount": 90,
+    "tag": "tconstruct:molten_pig_iron"
   },
-  "result": "tconstruct:pig_iron_ingot",
-  "cooling_time": 60
+  "result": "tconstruct:pig_iron_ingot"
 }

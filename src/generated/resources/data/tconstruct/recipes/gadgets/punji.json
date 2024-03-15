@@ -1,14 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " b ",
-    "bbb"
-  ],
   "key": {
     "b": {
       "item": "minecraft:bamboo"
     }
   },
+  "pattern": [
+    " b ",
+    "bbb"
+  ],
   "result": {
     "item": "tconstruct:punji"
   }

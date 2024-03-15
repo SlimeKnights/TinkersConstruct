@@ -1,19 +1,19 @@
 {
   "type": "tconstruct:melting",
-  "ingredient": {
-    "item": "tconstruct:scorched_ingot_tank",
-    "type": "tconstruct:no_container"
-  },
-  "result": {
-    "fluid": "tconstruct:scorched_stone",
-    "amount": 1500
-  },
-  "temperature": 500,
-  "time": 125,
   "byproducts": [
     {
-      "fluid": "tconstruct:molten_quartz",
-      "amount": 300
+      "amount": 300,
+      "fluid": "tconstruct:molten_quartz"
     }
-  ]
+  ],
+  "ingredient": {
+    "type": "tconstruct:no_container",
+    "item": "tconstruct:scorched_ingot_tank"
+  },
+  "result": {
+    "amount": 1500,
+    "fluid": "tconstruct:scorched_stone"
+  },
+  "temperature": 500,
+  "time": 125
 }

@@ -1,51 +1,51 @@
 {
+  "color": "3E4453",
   "fallbacks": [
     "chain",
     "metal"
   ],
-  "color": "3E4453",
-  "luminosity": 0,
   "generator": {
+    "ignoreMaterialStats": false,
+    "supportedStats": [
+      "tconstruct:extra",
+      "tconstruct:bowstring"
+    ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",
       "color_mapping": {
         "type": "tconstruct:grey_to_color",
         "palette": [
           {
-            "grey": 0,
-            "color": "FF000000"
+            "color": "FF000000",
+            "grey": 0
           },
           {
-            "grey": 63,
-            "color": "FF1B202D"
+            "color": "FF1B202D",
+            "grey": 63
           },
           {
-            "grey": 102,
-            "color": "FF252C3D"
+            "color": "FF252C3D",
+            "grey": 102
           },
           {
-            "grey": 140,
-            "color": "FF323847"
+            "color": "FF323847",
+            "grey": 140
           },
           {
-            "grey": 178,
-            "color": "FF3E4453"
+            "color": "FF3E4453",
+            "grey": 178
           },
           {
-            "grey": 216,
-            "color": "FF495065"
+            "color": "FF495065",
+            "grey": 216
           },
           {
-            "grey": 255,
-            "color": "FF545C72"
+            "color": "FF545C72",
+            "grey": 255
           }
         ]
       }
-    },
-    "supportedStats": [
-      "tconstruct:extra",
-      "tconstruct:bowstring"
-    ],
-    "ignoreMaterialStats": false
-  }
+    }
+  },
+  "luminosity": 0
 }

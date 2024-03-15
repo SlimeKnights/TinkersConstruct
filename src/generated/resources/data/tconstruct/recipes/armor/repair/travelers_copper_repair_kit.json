@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:specialized_repair_kit",
+  "repair_material": "tconstruct:copper",
   "tool": [
     {
       "item": "tconstruct:travelers_boots"
@@ -16,6 +17,5 @@
     {
       "item": "tconstruct:travelers_shield"
     }
-  ],
-  "repair_material": "tconstruct:copper"
+  ]
 }

@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
-public class ToolBuildingRecipeSerializer extends LoggingRecipeSerializer<ToolBuildingRecipe> {
+public class ToolBuildingRecipeSerializer implements LoggingRecipeSerializer<ToolBuildingRecipe> {
 
   @Override
   public ToolBuildingRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
@@ -36,7 +36,7 @@ public class ToolBuildingRecipeSerializer extends LoggingRecipeSerializer<ToolBu
 
   @Nullable
   @Override
-  protected ToolBuildingRecipe fromNetworkSafe(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+  public ToolBuildingRecipe fromNetworkSafe(ResourceLocation recipeId, FriendlyByteBuf buffer) {
     String group = buffer.readUtf(Short.MAX_VALUE);
     IModifiable result = RecipeHelper.readItem(buffer, IModifiable.class);
     int resultSize = buffer.readVarInt();
@@ -49,7 +49,7 @@ public class ToolBuildingRecipeSerializer extends LoggingRecipeSerializer<ToolBu
   }
 
   @Override
-  protected void toNetworkSafe(FriendlyByteBuf buffer, ToolBuildingRecipe recipe) {
+  public void toNetworkSafe(FriendlyByteBuf buffer, ToolBuildingRecipe recipe) {
     buffer.writeUtf(recipe.group);
     RecipeHelper.writeItem(buffer, recipe.output);
     buffer.writeVarInt(recipe.outputCount);

@@ -1,19 +1,19 @@
 {
   "type": "tconstruct:incremental_modifier",
+  "allow_crystal": true,
+  "amount_per_item": 1,
   "input": {
     "item": "tconstruct:dragon_scale"
   },
-  "amount_per_item": 1,
   "needed_per_level": 10,
-  "tools": {
-    "tag": "tconstruct:modifiable/armor"
+  "result": {
+    "level": 1,
+    "name": "tconstruct:dragonborn"
   },
   "slots": {
     "defense": 1
   },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:dragonborn",
-    "level": 1
+  "tools": {
+    "tag": "tconstruct:modifiable/armor"
   }
 }

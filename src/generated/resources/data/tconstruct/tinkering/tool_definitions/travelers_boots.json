@@ -1,19 +1,19 @@
 {
+  "slots": {
+    "abilities": 1,
+    "defense": 2,
+    "upgrades": 3
+  },
   "stats": {
     "base": {
-      "tconstruct:durability": 130.0,
-      "tconstruct:armor": 1.0
+      "tconstruct:armor": 1.0,
+      "tconstruct:durability": 130.0
     }
-  },
-  "slots": {
-    "upgrades": 3,
-    "defense": 2,
-    "abilities": 1
   },
   "traits": [
     {
-      "name": "tconstruct:snow_boots",
-      "level": 1
+      "level": 1,
+      "name": "tconstruct:snow_boots"
     }
   ]
 }

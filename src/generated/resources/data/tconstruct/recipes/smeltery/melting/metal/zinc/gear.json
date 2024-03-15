@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:gears/zinc",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:gears/zinc"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:gears/zinc"
   },
   "result": {
-    "fluid": "tconstruct:molten_zinc",
-    "amount": 360
+    "amount": 360,
+    "fluid": "tconstruct:molten_zinc"
   },
   "temperature": 420,
   "time": 94

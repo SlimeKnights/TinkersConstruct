@@ -1,14 +1,14 @@
 package slimeknights.tconstruct.library.json.variable.block;
 
-import net.minecraft.util.ToFloatFunction;
 import net.minecraft.world.level.block.state.BlockState;
-import slimeknights.mantle.data.GenericLoaderRegistry;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.mantle.data.GenericLoaderRegistry.IHaveLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
+import slimeknights.tconstruct.library.json.variable.ToFloatFunction;
 import slimeknights.tconstruct.library.json.variable.VariableLoaderRegistry;
 import slimeknights.tconstruct.library.json.variable.VariableLoaderRegistry.ConstantLoader;
 
-import static slimeknights.mantle.data.GenericLoaderRegistry.SingletonLoader.singleton;
+import static slimeknights.mantle.data.registry.GenericLoaderRegistry.SingletonLoader.singleton;
 
 /** Variable that fetches a property from a block state */
 public interface BlockVariable extends IHaveLoader<BlockVariable> {
@@ -21,7 +21,7 @@ public interface BlockVariable extends IHaveLoader<BlockVariable> {
   /* Singletons */
 
   /** Creates a new singleton variable getter */
-  private static BlockVariable simple(ToFloatFunction<BlockState> getter) {
+  static BlockVariable simple(ToFloatFunction<BlockState> getter) {
     return singleton(loader -> new BlockVariable() {
       @Override
       public float getValue(BlockState state) {

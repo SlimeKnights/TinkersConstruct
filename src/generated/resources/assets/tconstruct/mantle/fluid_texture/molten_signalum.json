@@ -1,0 +1,5 @@
+{
+  "color": "FFFFFFFF",
+  "flowing": "tconstruct:fluid/molten/compat_alloy/signalum/flowing",
+  "still": "tconstruct:fluid/molten/compat_alloy/signalum/still"
+}

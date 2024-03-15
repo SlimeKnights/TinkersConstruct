@@ -1,9 +1,9 @@
 {
   "type": "tconstruct:casting_table",
+  "cooling_time": 77,
   "fluid": {
-    "tag": "tconstruct:liquid_soul",
-    "amount": 250
+    "amount": 250,
+    "tag": "tconstruct:liquid_soul"
   },
-  "result": "tconstruct:soul_glass_pane",
-  "cooling_time": 77
+  "result": "tconstruct:soul_glass_pane"
 }

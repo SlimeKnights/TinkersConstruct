@@ -3,8 +3,8 @@
   "ingredient": {
     "tag": "minecraft:dark_oak_logs"
   },
-  "value": 4,
-  "needed": 1,
+  "leftover": "minecraft:dark_oak_planks",
   "material": "tconstruct:wood#dark_oak",
-  "leftover": "minecraft:dark_oak_planks"
+  "needed": 1,
+  "value": 4
 }

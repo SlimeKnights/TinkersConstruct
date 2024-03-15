@@ -2,8 +2,8 @@ package slimeknights.tconstruct.tools.modifiers.ability.armor;
 
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
@@ -16,8 +16,6 @@ import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
-
-import java.util.Random;
 
 public class DoubleJumpModifier extends Modifier {
   private static final ResourceLocation JUMPS = TConstruct.getResource("jumps");
@@ -41,13 +39,13 @@ public class DoubleJumpModifier extends Modifier {
   public Component getDisplayName(int level) {
     if (level == 1) {
       if (levelOneName == null) {
-        levelOneName = applyStyle(new TranslatableComponent(getTranslationKey() + ".double"));
+        levelOneName = applyStyle(Component.translatable(getTranslationKey() + ".double"));
       }
       return levelOneName;
     }
     if (level == 2) {
       if (levelTwoName == null) {
-        levelTwoName = applyStyle(new TranslatableComponent(getTranslationKey() + ".triple"));
+        levelTwoName = applyStyle(Component.translatable(getTranslationKey() + ".triple"));
       }
       return levelTwoName;
     }
@@ -69,7 +67,7 @@ public class DoubleJumpModifier extends Modifier {
           int jumps = data.getInt(JUMPS);
           if (jumps < maxJumps) {
             entity.jumpFromGround();
-            Random random = entity.getCommandSenderWorld().getRandom();
+            RandomSource random = entity.getCommandSenderWorld().getRandom();
             for (int i = 0; i < 4; i++) {
               entity.getCommandSenderWorld().addParticle(ParticleTypes.HAPPY_VILLAGER, entity.getX() - 0.25f + random.nextFloat() * 0.5f, entity.getY(), entity.getZ() - 0.25f + random.nextFloat() * 0.5f, 0, 0, 0);
             }

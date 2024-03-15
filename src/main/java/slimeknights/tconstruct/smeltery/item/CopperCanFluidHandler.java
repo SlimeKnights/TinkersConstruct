@@ -8,10 +8,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 
@@ -29,7 +29,7 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
   @Nonnull
   @Override
   public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
-    return CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY.orEmpty(cap, holder);
+    return ForgeCapabilities.FLUID_HANDLER_ITEM.orEmpty(cap, holder);
   }
 
 

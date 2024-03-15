@@ -1,11 +1,11 @@
 {
   "type": "tconstruct:modifier_salvage",
-  "tools": {
-    "tag": "tconstruct:modifiable"
-  },
+  "min_level": 1,
+  "modifier": "tconstruct:soulbound",
   "slots": {
     "upgrades": 1
   },
-  "modifier": "tconstruct:soulbound",
-  "min_level": 1
+  "tools": {
+    "tag": "tconstruct:modifiable"
+  }
 }

@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:wires/aluminum",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:wires/aluminum"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:wires/aluminum"
   },
   "result": {
-    "fluid": "tconstruct:molten_aluminum",
-    "amount": 45
+    "amount": 45,
+    "fluid": "tconstruct:molten_aluminum"
   },
   "temperature": 425,
   "time": 9

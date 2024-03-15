@@ -3,10 +3,10 @@
   "cast": {
     "tag": "tconstruct:casts/multi_use/nugget"
   },
+  "cooling_time": 21,
   "fluid": {
-    "tag": "tconstruct:molten_slimesteel",
-    "amount": 10
+    "amount": 10,
+    "tag": "tconstruct:molten_slimesteel"
   },
-  "result": "tconstruct:slimesteel_nugget",
-  "cooling_time": 21
+  "result": "tconstruct:slimesteel_nugget"
 }

@@ -3,7 +3,7 @@
   "ingredient": {
     "tag": "forge:ingots/amethyst_bronze"
   },
-  "value": 1,
+  "material": "tconstruct:amethyst_bronze",
   "needed": 1,
-  "material": "tconstruct:amethyst_bronze"
+  "value": 1
 }

@@ -4,10 +4,10 @@
     "tag": "forge:glass/tinted"
   },
   "cast_consumed": true,
+  "cooling_time": 166,
   "fluid": {
-    "tag": "tconstruct:scorched_stone",
-    "amount": 1000
+    "amount": 1000,
+    "tag": "tconstruct:scorched_stone"
   },
-  "result": "tconstruct:scorched_tinted_glass",
-  "cooling_time": 166
+  "result": "tconstruct:scorched_tinted_glass"
 }

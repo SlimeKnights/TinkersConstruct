@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tables.recipe;
 import com.google.gson.JsonObject;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -12,7 +13,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
-import slimeknights.mantle.recipe.helper.AbstractRecipeSerializer;
+import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -26,7 +27,6 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 import javax.annotation.Nullable;
-import java.util.Objects;
 import java.util.function.Consumer;
 
 @RequiredArgsConstructor
@@ -84,7 +84,7 @@ public class TinkerStationDamagingRecipe implements ITinkerStationRecipe {
   }
 
   /** Serializer logic */
-  public static class Serializer extends AbstractRecipeSerializer<TinkerStationDamagingRecipe> {
+  public static class Serializer implements LoggingRecipeSerializer<TinkerStationDamagingRecipe> {
     @Override
     public TinkerStationDamagingRecipe fromJson(ResourceLocation id, JsonObject json) {
       Ingredient ingredient = Ingredient.fromJson(JsonHelper.getElement(json, "ingredient"));
@@ -94,14 +94,14 @@ public class TinkerStationDamagingRecipe implements ITinkerStationRecipe {
 
     @Nullable
     @Override
-    public TinkerStationDamagingRecipe fromNetwork(ResourceLocation id, FriendlyByteBuf buffer) {
+    public TinkerStationDamagingRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       Ingredient ingredient = Ingredient.fromNetwork(buffer);
       int damageAmount = buffer.readVarInt();
       return new TinkerStationDamagingRecipe(id, ingredient, damageAmount);
     }
 
     @Override
-    public void toNetwork(FriendlyByteBuf buffer, TinkerStationDamagingRecipe recipe) {
+    public void toNetworkSafe(FriendlyByteBuf buffer, TinkerStationDamagingRecipe recipe) {
       recipe.ingredient.toNetwork(buffer);
       buffer.writeVarInt(recipe.damageAmount);
     }
@@ -119,7 +119,7 @@ public class TinkerStationDamagingRecipe implements ITinkerStationRecipe {
       if (stacks.length == 0) {
         throw new IllegalStateException("Empty ingredient not allowed");
       }
-      save(consumer, Objects.requireNonNull(stacks[0].getItem().getRegistryName()));
+      save(consumer, Registry.ITEM.getKey(stacks[0].getItem()));
     }
 
     @Override

@@ -1,28 +1,28 @@
 {
   "type": "tconstruct:ore_melting",
-  "conditions": [
+  "byproducts": [
     {
-      "value": {
-        "tag": "forge:raw_materials/osmium",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+      "amount": 90,
+      "fluid": "tconstruct:molten_iron"
     }
   ],
-  "rate": "metal",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:raw_materials/osmium"
+      }
+    }
+  ],
   "ingredient": {
     "tag": "forge:raw_materials/osmium"
   },
+  "rate": "metal",
   "result": {
-    "fluid": "tconstruct:molten_osmium",
-    "amount": 90
+    "amount": 90,
+    "fluid": "tconstruct:molten_osmium"
   },
   "temperature": 975,
-  "time": 98,
-  "byproducts": [
-    {
-      "fluid": "tconstruct:molten_iron",
-      "amount": 90
-    }
-  ]
+  "time": 98
 }

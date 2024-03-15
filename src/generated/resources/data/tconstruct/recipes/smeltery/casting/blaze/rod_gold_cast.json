@@ -3,10 +3,10 @@
   "cast": {
     "tag": "tconstruct:casts/multi_use/rod"
   },
+  "cooling_time": 85,
   "fluid": {
-    "tag": "tconstruct:blazing_blood",
-    "amount": 100
+    "amount": 100,
+    "tag": "tconstruct:blazing_blood"
   },
-  "result": "minecraft:blaze_rod",
-  "cooling_time": 85
+  "result": "minecraft:blaze_rod"
 }

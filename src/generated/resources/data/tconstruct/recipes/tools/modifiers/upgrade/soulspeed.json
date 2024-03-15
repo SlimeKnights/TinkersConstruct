@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "item": "minecraft:magma_block"
@@ -11,16 +12,15 @@
       "item": "minecraft:magma_block"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/armor/boots"
+  "max_level": 3,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:soulspeed"
   },
   "slots": {
     "upgrades": 1
   },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:soulspeed",
-    "level": 1
-  },
-  "max_level": 3
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/boots"
+  }
 }

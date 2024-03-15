@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:geore_small_buds/copper",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:geore_small_buds/copper"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:geore_small_buds/copper"
   },
   "result": {
-    "fluid": "tconstruct:molten_copper",
-    "amount": 90
+    "amount": 90,
+    "fluid": "tconstruct:molten_copper"
   },
   "temperature": 500,
   "time": 50

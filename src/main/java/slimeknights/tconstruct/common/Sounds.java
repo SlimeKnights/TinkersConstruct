@@ -1,13 +1,15 @@
 package slimeknights.tconstruct.common;
 
 import lombok.Getter;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegisterEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.registration.GeodeItemObject.BudSize;
 
@@ -75,19 +77,21 @@ public enum Sounds {
 
   Sounds(String name) {
     ResourceLocation registryName = TConstruct.getResource(name);
-    sound = new SoundEvent(registryName).setRegistryName(registryName);
+    sound = new SoundEvent(registryName);
   }
 
   Sounds() {
     String name = name().toLowerCase(Locale.US);
     ResourceLocation registryName = TConstruct.getResource(name);
-    sound = new SoundEvent(registryName).setRegistryName(registryName);
+    sound = new SoundEvent(registryName);
   }
 
   @SubscribeEvent
-  public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {
-    for (Sounds sound : values()) {
-      event.getRegistry().register(sound.getSound());
+  public static void registerSounds(RegisterEvent event) {
+    if (event.getRegistryKey() == Registry.SOUND_EVENT_REGISTRY) {
+      for (Sounds sound : values()) {
+        ForgeRegistries.SOUND_EVENTS.register(sound.sound.getLocation(), sound.getSound());
+      }
     }
   }
 

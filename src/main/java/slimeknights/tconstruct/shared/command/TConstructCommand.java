@@ -3,11 +3,11 @@ package slimeknights.tconstruct.shared.command;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.commands.synchronization.ArgumentTypes;
-import net.minecraft.commands.synchronization.EmptyArgumentSerializer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.registration.ArgumentTypeDeferredRegister;
 import slimeknights.tconstruct.shared.command.argument.MaterialArgument;
 import slimeknights.tconstruct.shared.command.argument.ModifierArgument;
 import slimeknights.tconstruct.shared.command.argument.ModifierHookArgument;
@@ -23,14 +23,16 @@ import slimeknights.tconstruct.shared.command.subcommand.StatsCommand;
 import java.util.function.Consumer;
 
 public class TConstructCommand {
+  private static final ArgumentTypeDeferredRegister ARGUMENT_TYPE = new ArgumentTypeDeferredRegister(TConstruct.MOD_ID);
 
   /** Registers all TConstruct command related content */
   public static void init() {
-    ArgumentTypes.register(TConstruct.resourceString("slot_type"), SlotTypeArgument.class, new EmptyArgumentSerializer<>(SlotTypeArgument::slotType));
-    ArgumentTypes.register(TConstruct.resourceString("tool_stat"), ToolStatArgument.class, new EmptyArgumentSerializer<>(ToolStatArgument::stat));
-    ArgumentTypes.register(TConstruct.resourceString("modifier"), ModifierArgument.class, new EmptyArgumentSerializer<>(ModifierArgument::modifier));
-    ArgumentTypes.register(TConstruct.resourceString("material"), MaterialArgument.class, new EmptyArgumentSerializer<>(MaterialArgument::material));
-    ArgumentTypes.register(TConstruct.resourceString("modifier_hook"), ModifierHookArgument.class, new EmptyArgumentSerializer<>(ModifierHookArgument::modifierHook));
+    ARGUMENT_TYPE.register(FMLJavaModLoadingContext.get().getModEventBus());
+    ARGUMENT_TYPE.registerSingleton("slot_type", SlotTypeArgument.class, SlotTypeArgument::slotType);
+    ARGUMENT_TYPE.registerSingleton("tool_stat", ToolStatArgument.class, ToolStatArgument::stat);
+    ARGUMENT_TYPE.registerSingleton("modifier", ModifierArgument.class, ModifierArgument::modifier);
+    ARGUMENT_TYPE.registerSingleton("material", MaterialArgument.class, MaterialArgument::material);
+    ARGUMENT_TYPE.registerSingleton("modifier_hook", ModifierHookArgument.class, ModifierHookArgument::modifierHook);
 
     // add command listener
     MinecraftForge.EVENT_BUS.addListener(TConstructCommand::registerCommand);

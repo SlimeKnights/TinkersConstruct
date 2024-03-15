@@ -1,9 +1,9 @@
 {
   "type": "tconstruct:material_melting",
   "input": "tconstruct:rose_gold",
-  "temperature": 550,
   "result": {
-    "fluid": "tconstruct:molten_rose_gold",
-    "amount": 90
-  }
+    "amount": 90,
+    "fluid": "tconstruct:molten_rose_gold"
+  },
+  "temperature": 550
 }

@@ -16,9 +16,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -53,7 +53,7 @@ public class WorldClientEvents extends ClientEventBase {
   }
 
   @SubscribeEvent
-  static void registerParticleFactories(ParticleFactoryRegisterEvent event) {
+  static void registerParticleFactories(RegisterParticleProvidersEvent event) {
     ParticleEngine engine = Minecraft.getInstance().particleEngine;
     engine.register(TinkerWorld.skySlimeParticle.get(), new SlimeParticle.Factory(SlimeType.SKY));
     engine.register(TinkerWorld.enderSlimeParticle.get(), new SlimeParticle.Factory(SlimeType.ENDER));
@@ -168,7 +168,7 @@ public class WorldClientEvents extends ClientEventBase {
   }
 
   @SubscribeEvent
-  static void registerBlockColorHandlers(ColorHandlerEvent.Block event) {
+  static void registerBlockColorHandlers(RegisterColorHandlersEvent.Block event) {
     BlockColors blockColors = event.getBlockColors();
 
     // slime plants - blocks
@@ -195,7 +195,7 @@ public class WorldClientEvents extends ClientEventBase {
   }
 
   @SubscribeEvent
-  static void registerItemColorHandlers(ColorHandlerEvent.Item event) {
+  static void registerItemColorHandlers(RegisterColorHandlersEvent.Item event) {
     BlockColors blockColors = event.getBlockColors();
     ItemColors itemColors = event.getItemColors();
     // slime grass items

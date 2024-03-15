@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:part_builder",
+  "cost": 8,
   "pattern": "tconstruct:broad_axe_head",
   "pattern_item": [
     {
@@ -9,7 +10,6 @@
       "item": "tconstruct:broad_axe_head_cast"
     }
   ],
-  "cost": 8,
   "result": {
     "item": "tconstruct:broad_axe_head"
   }

@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:ingots/refined_obsidian",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/refined_obsidian"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:ingots/refined_obsidian"
   },
   "result": {
-    "fluid": "tconstruct:molten_refined_obsidian",
-    "amount": 90
+    "amount": 90,
+    "fluid": "tconstruct:molten_refined_obsidian"
   },
   "temperature": 1475,
   "time": 80

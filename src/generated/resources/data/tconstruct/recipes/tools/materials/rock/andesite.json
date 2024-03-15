@@ -3,7 +3,7 @@
   "ingredient": {
     "tag": "forge:andesite"
   },
-  "value": 1,
+  "material": "tconstruct:rock#andesite",
   "needed": 1,
-  "material": "tconstruct:rock#andesite"
+  "value": 1
 }

@@ -1,16 +1,21 @@
 {
   "type": "tconstruct:ore_melting",
+  "byproducts": [
+    {
+      "amount": 300,
+      "fluid": "tconstruct:molten_amethyst"
+    }
+  ],
   "conditions": [
     {
+      "type": "tconstruct:tag_intersection_present",
       "registry": "minecraft:item",
       "tags": [
         "forge:ores/quartz",
         "forge:ore_rates/dense"
-      ],
-      "type": "tconstruct:tag_intersection_present"
+      ]
     }
   ],
-  "rate": "gem",
   "ingredient": {
     "type": "forge:intersection",
     "children": [
@@ -22,16 +27,11 @@
       }
     ]
   },
+  "rate": "gem",
   "result": {
-    "fluid": "tconstruct:molten_quartz",
-    "amount": 300
+    "amount": 300,
+    "fluid": "tconstruct:molten_quartz"
   },
   "temperature": 637,
-  "time": 246,
-  "byproducts": [
-    {
-      "fluid": "tconstruct:molten_amethyst",
-      "amount": 300
-    }
-  ]
+  "time": 246
 }

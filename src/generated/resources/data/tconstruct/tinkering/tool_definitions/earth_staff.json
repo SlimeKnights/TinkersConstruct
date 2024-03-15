@@ -1,34 +1,34 @@
 {
-  "stats": {
-    "base": {
-      "tconstruct:durability": 800.0,
-      "tconstruct:block_amount": 35.0,
-      "tconstruct:use_item_speed": 0.4,
-      "tconstruct:projectile_damage": 1.5,
-      "tconstruct:accuracy": 0.9
-    }
-  },
-  "slots": {
-    "upgrades": 2,
-    "defense": 3,
-    "abilities": 2
-  },
-  "traits": [
-    {
-      "name": "tconstruct:overslime_friend",
-      "level": 1
-    }
-  ],
   "harvest": {
     "aoe": {
       "type": "tconstruct:circle",
-      "diameter": 1,
-      "3D": false
+      "3D": false,
+      "diameter": 1
     }
   },
   "modules": {
     "tconstruct:tool_interaction": {
       "type": "tconstruct:dual_option_interaction"
     }
-  }
+  },
+  "slots": {
+    "abilities": 2,
+    "defense": 3,
+    "upgrades": 2
+  },
+  "stats": {
+    "base": {
+      "tconstruct:accuracy": 0.9,
+      "tconstruct:block_amount": 35.0,
+      "tconstruct:durability": 800.0,
+      "tconstruct:projectile_damage": 1.5,
+      "tconstruct:use_item_speed": 0.4
+    }
+  },
+  "traits": [
+    {
+      "level": 1,
+      "name": "tconstruct:overslime_friend"
+    }
+  ]
 }

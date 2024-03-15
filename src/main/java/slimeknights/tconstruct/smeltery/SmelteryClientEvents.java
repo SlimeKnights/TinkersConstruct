@@ -5,9 +5,8 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.event.ModelEvent.RegisterGeometryLoaders;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -20,7 +19,6 @@ import slimeknights.tconstruct.library.client.model.block.ChannelModel;
 import slimeknights.tconstruct.library.client.model.block.FluidTextureModel;
 import slimeknights.tconstruct.library.client.model.block.MelterModel;
 import slimeknights.tconstruct.library.client.model.block.TankModel;
-import slimeknights.tconstruct.smeltery.client.CopperCanModel;
 import slimeknights.tconstruct.smeltery.client.render.CastingBlockEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.ChannelBlockEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.FaucetBlockEntityRenderer;
@@ -60,6 +58,7 @@ public class SmelteryClientEvents extends ClientEventBase {
     RenderType translucent = RenderType.translucent();
     // seared
     // casting
+    // TODO: migrate
     ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedFaucet.get(), cutout);
     ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedBasin.get(), cutout);
     ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedTable.get(), cutout);
@@ -103,12 +102,11 @@ public class SmelteryClientEvents extends ClientEventBase {
   }
 
   @SubscribeEvent
-  static void registerModelLoaders(ModelRegistryEvent event) {
-    ModelLoaderRegistry.registerLoader(TConstruct.getResource("tank"), TankModel.LOADER);
-    ModelLoaderRegistry.registerLoader(TConstruct.getResource("casting"), CastingModel.LOADER);
-    ModelLoaderRegistry.registerLoader(TConstruct.getResource("melter"), MelterModel.LOADER);
-    ModelLoaderRegistry.registerLoader(TConstruct.getResource("channel"), ChannelModel.LOADER);
-    ModelLoaderRegistry.registerLoader(TConstruct.getResource("fluid_texture"), FluidTextureModel.LOADER);
-    ModelLoaderRegistry.registerLoader(TConstruct.getResource("copper_can"), CopperCanModel.LOADER);
+  static void registerModelLoaders(RegisterGeometryLoaders event) {
+    event.register("tank", TankModel.LOADER);
+    event.register("casting", CastingModel.LOADER);
+    event.register("melter", MelterModel.LOADER);
+    event.register("channel", ChannelModel.LOADER);
+    event.register("fluid_texture", FluidTextureModel.LOADER);
   }
 }

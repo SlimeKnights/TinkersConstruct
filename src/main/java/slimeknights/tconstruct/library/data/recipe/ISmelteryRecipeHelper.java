@@ -49,7 +49,7 @@ public interface ISmelteryRecipeHelper extends ICastCreationHelper {
   default void tagMelting(Consumer<FinishedRecipe> consumer, Fluid fluid, int amount, String tagName, float factor, String recipePath, boolean isOptional) {
     Consumer<FinishedRecipe> wrapped = isOptional ? withCondition(consumer, tagCondition(tagName)) : consumer;
     MeltingRecipeBuilder.melting(Ingredient.of(getItemTag("forge", tagName)), fluid, amount, factor)
-                        .save(wrapped, modResource(recipePath));
+                        .save(wrapped, location(recipePath));
   }
 
   /**
@@ -82,7 +82,7 @@ public interface ISmelteryRecipeHelper extends ICastCreationHelper {
       wrapped = isOptional ? withCondition(consumer, tagCondition(tagName)) : consumer;
     }
     Supplier<MeltingRecipeBuilder> supplier = () -> MeltingRecipeBuilder.melting(ingredient, fluid, amount, factor).setOre(oreRate);
-    ResourceLocation location = modResource(recipePath);
+    ResourceLocation location = location(recipePath);
 
     // if no byproducts, just build directly
     if (byproducts.length == 0) {
@@ -229,11 +229,11 @@ public interface ISmelteryRecipeHelper extends ICastCreationHelper {
     ItemCastingRecipeBuilder.tableRecipe(output)
                             .setFluidAndTime(fluid, forgeTag, amount)
                             .setCast(cast.getMultiUseTag(), false)
-                            .save(consumer, modResource(location + "_gold_cast"));
+                            .save(consumer, location(location + "_gold_cast"));
     ItemCastingRecipeBuilder.tableRecipe(output)
                             .setFluidAndTime(fluid, forgeTag, amount)
                             .setCast(cast.getSingleUseTag(), true)
-                            .save(consumer, modResource(location + "_sand_cast"));
+                            .save(consumer, location(location + "_sand_cast"));
   }
 
   /**
@@ -406,7 +406,7 @@ public interface ISmelteryRecipeHelper extends ICastCreationHelper {
     if (block != null) {
       ItemCastingRecipeBuilder.basinRecipe(block)
                               .setFluidAndTime(fluid, forgeTag, FluidValues.METAL_BLOCK)
-                              .save(consumer, modResource(metalFolder + "block"));
+                              .save(consumer, location(metalFolder + "block"));
     }
     if (ingot != null) {
       ingotCasting(consumer, fluid, forgeTag, ingot, metalFolder + "ingot");
@@ -468,6 +468,6 @@ public interface ISmelteryRecipeHelper extends ICastCreationHelper {
     Consumer<FinishedRecipe> wrapped = forceStandard ? consumer : withCondition(consumer, tagCondition("storage_blocks/" + name));
     ItemCastingRecipeBuilder.basinRecipe(block)
                             .setFluidAndTime(fluid, true, FluidValues.METAL_BLOCK)
-                            .save(wrapped, modResource(folder + name + "/block"));
+                            .save(wrapped, location(folder + name + "/block"));
   }
 }

@@ -1,10 +1,19 @@
 {
   "type": "tconstruct:incremental_modifier",
+  "allow_crystal": true,
+  "amount_per_item": 1,
   "input": {
     "item": "minecraft:pointed_dripstone"
   },
-  "amount_per_item": 1,
+  "max_level": 3,
   "needed_per_level": 10,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:pierce"
+  },
+  "slots": {
+    "upgrades": 1
+  },
   "tools": [
     {
       "tag": "tconstruct:modifiable/melee"
@@ -12,14 +21,5 @@
     {
       "tag": "tconstruct:modifiable/ranged"
     }
-  ],
-  "slots": {
-    "upgrades": 1
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:pierce",
-    "level": 1
-  },
-  "max_level": 3
+  ]
 }

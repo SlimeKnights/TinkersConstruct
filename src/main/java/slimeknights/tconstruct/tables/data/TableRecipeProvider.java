@@ -1,20 +1,22 @@
 package slimeknights.tconstruct.tables.data;
 
+import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.data.recipes.SpecialRecipeBuilder;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.CompoundIngredient;
 import net.minecraftforge.common.crafting.DifferenceIngredient;
-import net.minecraftforge.common.crafting.NBTIngredient;
+import net.minecraftforge.common.crafting.PartialNBTIngredient;
 import slimeknights.mantle.recipe.crafting.ShapedRetexturedRecipeBuilder;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -25,6 +27,7 @@ import slimeknights.tconstruct.tables.recipe.PartBuilderToolRecycle;
 import slimeknights.tconstruct.tables.recipe.TinkerStationDamagingRecipe;
 import slimeknights.tconstruct.tools.TinkerTools;
 
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 
 public class TableRecipeProvider extends BaseRecipeProvider {
@@ -59,7 +62,7 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                           .requires(TinkerTables.pattern)
                           .requires(TinkerTables.pattern)
                           .unlockedBy("has_item", has(TinkerTables.pattern))
-                          .save(consumer, modResource(folder + "book_substitute"));
+                          .save(consumer, location(folder + "book_substitute"));
 
     // crafting station -> crafting table upgrade
     ShapedRecipeBuilder.shaped(TinkerTables.craftingStation)
@@ -176,7 +179,7 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                          .unlockedBy("has_item", has(TinkerTags.Items.ANVIL_METAL)))
                                  .setSource(TinkerTags.Items.ANVIL_METAL)
                                  .setMatchAll()
-                                 .build(consumer, modResource(folder + "tinkers_forge"));
+                                 .build(consumer, location(folder + "tinkers_forge"));
     ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shaped(TinkerTables.scorchedAnvil)
                          .define('m', TinkerTags.Items.ANVIL_METAL)
@@ -199,44 +202,49 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                          .unlockedBy("has_item", has(TinkerTags.Items.ANVIL_METAL)))
                                  .setSource(TinkerTags.Items.ANVIL_METAL)
                                  .setMatchAll()
-                                 .build(consumer, modResource(folder + "scorched_forge"));
+                                 .build(consumer, location(folder + "scorched_forge"));
 
     // recycling singleton
     consumer.accept(new PartBuilderToolRecycle.Finished(
-      modResource(folder + "tool_recycling"),
-      SizedIngredient.of(DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.MULTIPART_TOOL), Ingredient.of(TinkerTags.Items.UNSALVAGABLE))),
-      Ingredient.of(TinkerTags.Items.PATTERNS)
+        location(folder + "tool_recycling"),
+        SizedIngredient.of(DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.MULTIPART_TOOL), Ingredient.of(TinkerTags.Items.UNSALVAGABLE))),
+        Ingredient.of(TinkerTags.Items.PATTERNS)
     ));
     consumer.accept(new PartBuilderToolRecycle.Finished(
-      modResource(folder + "dagger_recycling"),
-      SizedIngredient.fromItems(2, TinkerTools.dagger),
-      Ingredient.of(TinkerTags.Items.PATTERNS)
+        location(folder + "dagger_recycling"),
+        SizedIngredient.fromItems(2, TinkerTools.dagger),
+        Ingredient.of(TinkerTags.Items.PATTERNS)
     ));
 
     // tool repair recipe
     SpecialRecipeBuilder.special(TinkerTables.tinkerStationRepairSerializer.get())
-                       .save(consumer, modPrefix(folder + "tinker_station_repair"));
+                       .save(consumer, prefix(folder + "tinker_station_repair"));
     SpecialRecipeBuilder.special(TinkerTables.tinkerStationPartSwappingSerializer.get())
-                       .save(consumer, modPrefix(folder + "tinker_station_part_swapping"));
+                       .save(consumer, prefix(folder + "tinker_station_part_swapping"));
     SpecialRecipeBuilder.special(TinkerTables.craftingTableRepairSerializer.get())
-                       .save(consumer, modPrefix(folder + "crafting_table_repair"));
+                       .save(consumer, prefix(folder + "crafting_table_repair"));
     // tool damaging
     String damageFolder = folder + "tinker_station_damaging/";
-    TinkerStationDamagingRecipe.Builder.damage(NBTIngredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.MUNDANE)), 1)
-                                       .save(consumer, modResource(damageFolder + "base_one"));
-    TinkerStationDamagingRecipe.Builder.damage(NBTIngredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.THICK)), 5)
-                                       .save(consumer, modResource(damageFolder + "base_two"));
-    TinkerStationDamagingRecipe.Builder.damage(NBTIngredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.HARMING)), 25)
-                                       .save(consumer, modResource(damageFolder + "potion_one"));
-    TinkerStationDamagingRecipe.Builder.damage(NBTIngredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.STRONG_HARMING)), 75)
-                                       .save(consumer, modResource(damageFolder + "potion_two"));
-    TinkerStationDamagingRecipe.Builder.damage(NBTIngredient.of(PotionUtils.setPotion(new ItemStack(Items.SPLASH_POTION), Potions.HARMING)), 150)
-                                       .save(consumer, modResource(damageFolder + "splash_one"));
-    TinkerStationDamagingRecipe.Builder.damage(NBTIngredient.of(PotionUtils.setPotion(new ItemStack(Items.SPLASH_POTION), Potions.STRONG_HARMING)), 400)
-                                       .save(consumer, modResource(damageFolder + "splash_two"));
-    TinkerStationDamagingRecipe.Builder.damage(NBTIngredient.of(PotionUtils.setPotion(new ItemStack(Items.LINGERING_POTION), Potions.HARMING)), 1000)
-                                       .save(consumer, modResource(damageFolder + "lingering_one"));
-    TinkerStationDamagingRecipe.Builder.damage(NBTIngredient.of(PotionUtils.setPotion(new ItemStack(Items.LINGERING_POTION), Potions.STRONG_HARMING)), 2500)
-                                       .save(consumer, modResource(damageFolder + "lingering_two"));
+    BiFunction<Item,Potion,PartialNBTIngredient> potionIngredient = (item, potion) -> {
+      CompoundTag tag = new CompoundTag();
+      tag.putString("Potion", Registry.POTION.getKey(potion).toString());
+      return PartialNBTIngredient.of(item, tag);
+    };
+    TinkerStationDamagingRecipe.Builder.damage(potionIngredient.apply(Items.POTION, Potions.MUNDANE), 1)
+                                       .save(consumer, location(damageFolder + "base_one"));
+    TinkerStationDamagingRecipe.Builder.damage(potionIngredient.apply(Items.POTION, Potions.THICK), 5)
+                                       .save(consumer, location(damageFolder + "base_two"));
+    TinkerStationDamagingRecipe.Builder.damage(potionIngredient.apply(Items.POTION, Potions.HARMING), 25)
+                                       .save(consumer, location(damageFolder + "potion_one"));
+    TinkerStationDamagingRecipe.Builder.damage(potionIngredient.apply(Items.POTION, Potions.STRONG_HARMING), 75)
+                                       .save(consumer, location(damageFolder + "potion_two"));
+    TinkerStationDamagingRecipe.Builder.damage(potionIngredient.apply(Items.SPLASH_POTION, Potions.HARMING), 150)
+                                       .save(consumer, location(damageFolder + "splash_one"));
+    TinkerStationDamagingRecipe.Builder.damage(potionIngredient.apply(Items.SPLASH_POTION, Potions.STRONG_HARMING), 400)
+                                       .save(consumer, location(damageFolder + "splash_two"));
+    TinkerStationDamagingRecipe.Builder.damage(potionIngredient.apply(Items.LINGERING_POTION, Potions.HARMING), 1000)
+                                       .save(consumer, location(damageFolder + "lingering_one"));
+    TinkerStationDamagingRecipe.Builder.damage(potionIngredient.apply(Items.LINGERING_POTION, Potions.STRONG_HARMING), 2500)
+                                       .save(consumer, location(damageFolder + "lingering_two"));
   }
 }

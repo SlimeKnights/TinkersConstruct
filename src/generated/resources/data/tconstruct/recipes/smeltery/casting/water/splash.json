@@ -4,13 +4,13 @@
     "tag": "forge:bottles/splash"
   },
   "cast_consumed": true,
+  "cooling_time": 1,
   "fluid": {
-    "tag": "mantle:water",
-    "amount": 500
+    "amount": 500,
+    "tag": "mantle:water"
   },
   "result": {
     "item": "minecraft:splash_potion",
     "nbt": "{Potion:\"minecraft:water\"}"
-  },
-  "cooling_time": 1
+  }
 }

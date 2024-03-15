@@ -13,18 +13,18 @@
       "item": "tconstruct:bowstring"
     }
   ],
+  "slots": {
+    "abilities": 1,
+    "upgrades": 2
+  },
   "stats": {
     "base": {
-      "tconstruct:durability": 120.0,
       "tconstruct:attack_damage": 0.0,
-      "tconstruct:attack_speed": 1.0
+      "tconstruct:attack_speed": 1.0,
+      "tconstruct:durability": 120.0
     },
     "multipliers": {
       "tconstruct:durability": 1.5
     }
-  },
-  "slots": {
-    "upgrades": 2,
-    "abilities": 1
   }
 }

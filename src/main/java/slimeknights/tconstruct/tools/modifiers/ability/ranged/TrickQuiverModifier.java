@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.ability.ranged;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -105,9 +104,9 @@ public class TrickQuiverModifier extends InventoryMenuModifier implements BowAmm
         } else {
           ItemStack selectedStack = getStack(tool, modifier, newSelected);
           if (selectedStack.isEmpty()) {
-            player.displayClientMessage(new TranslatableComponent(EMPTY, newSelected + 1), true);
+            player.displayClientMessage(Component.translatable(EMPTY, newSelected + 1), true);
           } else {
-            player.displayClientMessage(new TranslatableComponent(SELECTED, selectedStack.getHoverName(), newSelected + 1), true);
+            player.displayClientMessage(Component.translatable(SELECTED, selectedStack.getHoverName(), newSelected + 1), true);
           }
         }
       }

@@ -4,10 +4,10 @@
     "tag": "forge:glass/colorless"
   },
   "cast_consumed": true,
+  "cooling_time": 178,
   "fluid": {
-    "tag": "tconstruct:seared_stone",
-    "amount": 1000
+    "amount": 1000,
+    "tag": "tconstruct:seared_stone"
   },
-  "result": "tconstruct:seared_glass",
-  "cooling_time": 178
+  "result": "tconstruct:seared_glass"
 }

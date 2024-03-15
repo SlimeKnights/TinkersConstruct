@@ -18,18 +18,6 @@ public class PatternIngredientHelper implements IIngredientHelper<Pattern> {
     return TConstructJEIConstants.PATTERN_TYPE;
   }
 
-  @SuppressWarnings("removal")
-  @Nullable
-  @Override
-  public Pattern getMatch(Iterable<Pattern> iterable, Pattern match, UidContext context) {
-    for (Pattern check : iterable) {
-      if (match.equals(check)) {
-        return check;
-      }
-    }
-    return null;
-  }
-
   @Override
   public String getDisplayName(Pattern pattern) {
     return pattern.getDisplayName().getString();
@@ -38,20 +26,6 @@ public class PatternIngredientHelper implements IIngredientHelper<Pattern> {
   @Override
   public String getUniqueId(Pattern pattern, UidContext context) {
     return pattern.toString();
-  }
-
-  @SuppressWarnings("removal")
-  @Deprecated
-  @Override
-  public String getModId(Pattern pattern) {
-    return pattern.getNamespace();
-  }
-
-  @SuppressWarnings("removal")
-  @Deprecated
-  @Override
-  public String getResourceId(Pattern pattern) {
-    return pattern.getPath();
   }
 
   @Override

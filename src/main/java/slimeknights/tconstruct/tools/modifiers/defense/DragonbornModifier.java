@@ -68,7 +68,7 @@ public class DragonbornModifier extends AbstractProtectionModifier<ModifierMaxLe
   private static void onCritical(CriticalHitEvent event) {
     if (event.getResult() != Result.DENY) {
       // force critical if not already critical and in the air
-      LivingEntity living = event.getEntityLiving();
+      LivingEntity living = event.getEntity();
 
       // check dragonborn first, faster check
       living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {

@@ -3,7 +3,7 @@
   "ingredient": {
     "tag": "forge:diorite"
   },
-  "value": 1,
+  "material": "tconstruct:rock#diorite",
   "needed": 1,
-  "material": "tconstruct:rock#diorite"
+  "value": 1
 }

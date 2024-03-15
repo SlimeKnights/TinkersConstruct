@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.registries.RegistryObject;
-import slimeknights.mantle.registration.object.ItemObject;
+import slimeknights.mantle.registration.object.IdAwareObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
@@ -81,8 +81,8 @@ public class ToolDefinition {
    * @param item  Tool item
    * @return Definition builder
    */
-  public static ToolDefinition.Builder builder(ItemObject<? extends ItemLike> item) {
-    return builder(item.getRegistryName());
+  public static ToolDefinition.Builder builder(IdAwareObject item) {
+    return builder(item.getId());
   }
 
   /** Checks if the tool uses multipart stats, may not match {@link #getData()} if the JSON file was invalid*/

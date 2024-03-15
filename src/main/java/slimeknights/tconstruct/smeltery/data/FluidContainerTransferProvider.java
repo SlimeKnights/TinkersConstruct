@@ -55,7 +55,7 @@ public class FluidContainerTransferProvider extends AbstractFluidContainerTransf
     // water bottles are 1/3 of a bucket, to prevent water dupes we round up on fill and down on empty
     addTransfer(prefix + "empty",  new EmptyPotionTransfer(Ingredient.of(filled), ItemOutput.fromItem(containerItem), new FluidStack(TinkerFluids.potion.get(), FluidValues.BOTTLE)));
     Ingredient container = containerTag == null ? Ingredient.of(containerItem) : Ingredient.of(containerTag);
-    addTransfer(prefix + "fill", new FillFluidWithNBTTransfer(container, ItemOutput.fromItem(filled), FluidIngredient.of(TinkerTags.Fluids.POTION, FluidValues.BOTTLE)));
+    addTransfer(prefix + "fill", new FillFluidWithNBTTransfer(container, ItemOutput.fromItem(filled), TinkerFluids.potion.ingredient(FluidValues.BOTTLE, true)));
     addTransfer(prefix + "water", new FillFluidContainerTransfer(
       container,
       ItemOutput.fromStack(PotionUtils.setPotion(new ItemStack(filled), Potions.WATER)),

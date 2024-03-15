@@ -1,19 +1,19 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "item": "minecraft:golden_apple"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable"
+  "result": {
+    "level": 1,
+    "name": "tconstruct:gilded"
   },
   "slots": {
     "abilities": 1
   },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:gilded",
-    "level": 1
+  "tools": {
+    "tag": "tconstruct:modifiable"
   }
 }

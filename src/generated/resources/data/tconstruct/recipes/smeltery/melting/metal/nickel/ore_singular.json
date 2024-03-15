@@ -2,29 +2,34 @@
   "type": "forge:conditional",
   "conditions": [
     {
-      "registry": "minecraft:item",
+      "type": "tconstruct:tag_difference_present",
       "base": "forge:ores/nickel",
+      "registry": "minecraft:item",
       "subtracted": [
         "forge:ore_rates/sparse",
         "forge:ore_rates/dense"
-      ],
-      "type": "tconstruct:tag_difference_present"
+      ]
     }
   ],
   "recipes": [
     {
       "conditions": [
         {
+          "type": "forge:not",
           "value": {
-            "tag": "forge:ingots/platinum",
-            "type": "forge:tag_empty"
-          },
-          "type": "forge:not"
+            "type": "forge:tag_empty",
+            "tag": "forge:ingots/platinum"
+          }
         }
       ],
       "recipe": {
         "type": "tconstruct:ore_melting",
-        "rate": "metal",
+        "byproducts": [
+          {
+            "amount": 60,
+            "fluid": "tconstruct:molten_platinum"
+          }
+        ],
         "ingredient": {
           "type": "forge:difference",
           "base": {
@@ -39,18 +44,13 @@
             }
           ]
         },
+        "rate": "metal",
         "result": {
-          "fluid": "tconstruct:molten_nickel",
-          "amount": 180
+          "amount": 180,
+          "fluid": "tconstruct:molten_nickel"
         },
         "temperature": 950,
-        "time": 162,
-        "byproducts": [
-          {
-            "fluid": "tconstruct:molten_platinum",
-            "amount": 60
-          }
-        ]
+        "time": 162
       }
     },
     {
@@ -61,7 +61,12 @@
       ],
       "recipe": {
         "type": "tconstruct:ore_melting",
-        "rate": "metal",
+        "byproducts": [
+          {
+            "amount": 180,
+            "fluid": "tconstruct:molten_iron"
+          }
+        ],
         "ingredient": {
           "type": "forge:difference",
           "base": {
@@ -76,18 +81,13 @@
             }
           ]
         },
+        "rate": "metal",
         "result": {
-          "fluid": "tconstruct:molten_nickel",
-          "amount": 180
+          "amount": 180,
+          "fluid": "tconstruct:molten_nickel"
         },
         "temperature": 950,
-        "time": 162,
-        "byproducts": [
-          {
-            "fluid": "tconstruct:molten_iron",
-            "amount": 180
-          }
-        ]
+        "time": 162
       }
     }
   ]

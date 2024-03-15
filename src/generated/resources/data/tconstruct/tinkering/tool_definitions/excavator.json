@@ -1,4 +1,33 @@
 {
+  "actions": [
+    "shovel_dig"
+  ],
+  "attack": {
+    "type": "tconstruct:particle",
+    "particle": "tconstruct:bonk"
+  },
+  "harvest": {
+    "aoe": {
+      "type": "tconstruct:box",
+      "bonus": {
+        "height": 1,
+        "width": 1
+      },
+      "expansion_direction": "tconstruct:side_hit",
+      "expansions": [
+        {
+          "width": 1
+        },
+        {
+          "height": 1
+        }
+      ]
+    },
+    "logic": {
+      "type": "tconstruct:effective_tag",
+      "effective": "minecraft:mineable/shovel"
+    }
+  },
   "parts": [
     {
       "item": "tconstruct:large_plate"
@@ -13,6 +42,10 @@
       "item": "tconstruct:tough_handle"
     }
   ],
+  "slots": {
+    "abilities": 1,
+    "upgrades": 2
+  },
   "stats": {
     "base": {
       "tconstruct:attack_damage": 1.5,
@@ -20,51 +53,18 @@
     },
     "multipliers": {
       "tconstruct:attack_damage": 1.2,
-      "tconstruct:mining_speed": 0.3,
-      "tconstruct:durability": 3.75
+      "tconstruct:durability": 3.75,
+      "tconstruct:mining_speed": 0.3
     }
-  },
-  "slots": {
-    "upgrades": 2,
-    "abilities": 1
   },
   "traits": [
     {
-      "name": "tconstruct:knockback",
-      "level": 2
+      "level": 2,
+      "name": "tconstruct:knockback"
     },
     {
-      "name": "tconstruct:pathing",
-      "level": 1
+      "level": 1,
+      "name": "tconstruct:pathing"
     }
-  ],
-  "actions": [
-    "shovel_dig"
-  ],
-  "harvest": {
-    "logic": {
-      "type": "tconstruct:effective_tag",
-      "effective": "minecraft:mineable/shovel"
-    },
-    "aoe": {
-      "type": "tconstruct:box",
-      "bonus": {
-        "width": 1,
-        "height": 1
-      },
-      "expansions": [
-        {
-          "width": 1
-        },
-        {
-          "height": 1
-        }
-      ],
-      "expansion_direction": "tconstruct:side_hit"
-    }
-  },
-  "attack": {
-    "type": "tconstruct:particle",
-    "particle": "tconstruct:bonk"
-  }
+  ]
 }

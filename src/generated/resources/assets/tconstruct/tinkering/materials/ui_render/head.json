@@ -1,8 +1,8 @@
 {
-  "texture": "tconstruct:iron",
+  "color": "D8D8D8",
   "fallbacks": [
     "metal"
   ],
-  "color": "D8D8D8",
-  "luminosity": 0
+  "luminosity": 0,
+  "texture": "tconstruct:iron"
 }

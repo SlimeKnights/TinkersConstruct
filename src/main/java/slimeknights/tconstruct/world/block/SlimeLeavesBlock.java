@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -13,8 +14,6 @@ import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.shared.block.SlimeType;
-
-import java.util.Random;
 
 public class SlimeLeavesBlock extends LeavesBlock {
   @Getter
@@ -41,7 +40,7 @@ public class SlimeLeavesBlock extends LeavesBlock {
   }
 
   @Override
-  public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, Random random) {
+  public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, RandomSource random) {
     worldIn.setBlock(pos, updateDistance(state, worldIn, pos), 3);
   }
 

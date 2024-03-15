@@ -1,9 +1,9 @@
 {
   "type": "tconstruct:material_fluid",
   "fluid": {
-    "tag": "tconstruct:molten_queens_slime",
-    "amount": 90
+    "amount": 90,
+    "tag": "tconstruct:molten_queens_slime"
   },
-  "temperature": 1150,
-  "output": "tconstruct:queens_slime"
+  "output": "tconstruct:queens_slime",
+  "temperature": 1150
 }

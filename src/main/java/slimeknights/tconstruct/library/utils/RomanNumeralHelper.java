@@ -3,8 +3,6 @@ package slimeknights.tconstruct.library.utils;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 
 public class RomanNumeralHelper {
   private static final String TRANSLATION_KEY_PREFIX = "roman_numeral.value.";
@@ -101,9 +99,9 @@ public class RomanNumeralHelper {
     String key = TRANSLATION_KEY_PREFIX + value;
     Component component;
     if (Util.canTranslate(key)) {
-      component = new TranslatableComponent(key);
+      component = Component.translatable(key);
     } else {
-      component = new TextComponent(intToRomanNumeral(value));
+      component = Component.literal(intToRomanNumeral(value));
     }
     NUMERAL_CACHE.put(value, component);
     return component;

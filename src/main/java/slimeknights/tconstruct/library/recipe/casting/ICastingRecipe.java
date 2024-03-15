@@ -57,6 +57,6 @@ public interface ICastingRecipe extends ICommonRecipe<ICastingContainer> {
    * @return  Time for the recipe
    */
   static int calcCoolingTime(FluidStack fluid) {
-    return calcCoolingTime(fluid.getFluid().getAttributes().getTemperature(fluid) - 300, fluid.getAmount());
+    return calcCoolingTime(fluid.getFluid().getFluidType().getTemperature(fluid) - 300, fluid.getAmount());
   }
 }

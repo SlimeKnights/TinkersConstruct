@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.library.json.variable.block;
 
 import net.minecraft.world.level.block.state.BlockState;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.block.BlockPredicate;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.json.variable.ConditionalVariableLoader;
 import slimeknights.tconstruct.library.json.variable.ConditionalVariableLoader.ConditionalVariable;
 

@@ -1,25 +1,25 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "tag": "forge:ingots/netherite"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/durability"
+  "max_level": 1,
+  "requirements": {
+    "error": "recipe.tconstruct.modifier.netherite_requirements",
+    "level": 1,
+    "tag": "tconstruct:gems"
+  },
+  "result": {
+    "level": 1,
+    "name": "tconstruct:netherite"
   },
   "slots": {
     "upgrades": 1
   },
-  "requirements": {
-    "tag": "tconstruct:gems",
-    "level": 1,
-    "error": "recipe.tconstruct.modifier.netherite_requirements"
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:netherite",
-    "level": 1
-  },
-  "max_level": 1
+  "tools": {
+    "tag": "tconstruct:modifiable/durability"
+  }
 }

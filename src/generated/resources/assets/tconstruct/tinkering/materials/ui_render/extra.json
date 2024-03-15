@@ -1,8 +1,8 @@
 {
-  "texture": "tconstruct:cobalt",
+  "color": "2376DD",
   "fallbacks": [
     "metal"
   ],
-  "color": "2376DD",
-  "luminosity": 0
+  "luminosity": 0,
+  "texture": "tconstruct:cobalt"
 }

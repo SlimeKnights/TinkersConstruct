@@ -4,10 +4,10 @@
     "item": "tconstruct:soul_glass_pane"
   },
   "cast_consumed": true,
+  "cooling_time": 83,
   "fluid": {
-    "tag": "tconstruct:scorched_stone",
-    "amount": 250
+    "amount": 250,
+    "tag": "tconstruct:scorched_stone"
   },
-  "result": "tconstruct:scorched_soul_glass_pane",
-  "cooling_time": 83
+  "result": "tconstruct:scorched_soul_glass_pane"
 }

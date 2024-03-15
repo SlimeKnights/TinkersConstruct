@@ -3,6 +3,7 @@ package slimeknights.tconstruct.smeltery.block;
 import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
@@ -15,8 +16,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.shared.block.TableBlock;
 import slimeknights.tconstruct.smeltery.block.entity.CastingBlockEntity;
-
-import java.util.Random;
 
 public abstract class AbstractCastingBlock extends TableBlock {
   @Getter
@@ -59,7 +58,7 @@ public abstract class AbstractCastingBlock extends TableBlock {
   @SuppressWarnings("deprecation")
   @Deprecated
   @Override
-  public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, Random rand) {
+  public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, RandomSource rand) {
     BlockEntityHelper.get(CastingBlockEntity.class, worldIn, pos).ifPresent(CastingBlockEntity::swap);
   }
 
@@ -75,6 +74,6 @@ public abstract class AbstractCastingBlock extends TableBlock {
 
   @Override
   public int getAnalogOutputSignal(BlockState blockState, Level worldIn, BlockPos pos) {
-    return BlockEntityHelper.get(CastingBlockEntity.class, worldIn, pos).map(te -> te.getAnalogSignal()).orElse(0);
+    return BlockEntityHelper.get(CastingBlockEntity.class, worldIn, pos).map(CastingBlockEntity::getAnalogSignal).orElse(0);
   }
 }

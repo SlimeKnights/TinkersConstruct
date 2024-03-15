@@ -1,0 +1,5 @@
+{
+  "color": "FFFFFFFF",
+  "flowing": "tconstruct:fluid/powdered_snow/flowing",
+  "still": "tconstruct:fluid/powdered_snow/still"
+}

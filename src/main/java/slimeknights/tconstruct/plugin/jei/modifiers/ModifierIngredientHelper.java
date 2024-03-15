@@ -17,18 +17,6 @@ public class ModifierIngredientHelper implements IIngredientHelper<ModifierEntry
     return TConstructJEIConstants.MODIFIER_TYPE;
   }
 
-  @SuppressWarnings("removal")
-  @Nullable
-  @Override
-  public ModifierEntry getMatch(Iterable<ModifierEntry> iterable, ModifierEntry check, UidContext context) {
-    for (ModifierEntry entry : iterable) {
-      if (entry.matches(check.getId())) {
-        return entry;
-      }
-    }
-    return null;
-  }
-
   @Override
   public String getDisplayName(ModifierEntry entry) {
     return entry.getModifier().getDisplayName(entry.getLevel()).getString();
@@ -37,20 +25,6 @@ public class ModifierIngredientHelper implements IIngredientHelper<ModifierEntry
   @Override
   public String getUniqueId(ModifierEntry entry, UidContext context) {
     return entry.getId().toString();
-  }
-
-  @SuppressWarnings("removal")
-  @Deprecated
-  @Override
-  public String getModId(ModifierEntry entry) {
-    return entry.getId().getNamespace();
-  }
-
-  @SuppressWarnings("removal")
-  @Deprecated
-  @Override
-  public String getResourceId(ModifierEntry entry) {
-    return entry.getId().getPath();
   }
 
   @Override

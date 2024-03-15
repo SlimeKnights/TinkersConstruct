@@ -3,8 +3,8 @@ package slimeknights.tconstruct.library.json.variable.entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraftforge.registries.ForgeRegistries;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.loader.RegistryEntryLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 
 /** Variable that fetches an attribute value */
 public record AttributeEntityVariable(Attribute attribute) implements EntityVariable {

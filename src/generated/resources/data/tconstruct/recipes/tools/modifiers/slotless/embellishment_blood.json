@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:swappable_modifier",
+  "allow_crystal": false,
   "inputs": [
     {
       "item": "tconstruct:blood_congealed_slime"
@@ -11,12 +12,11 @@
       "item": "tconstruct:blood_congealed_slime"
     }
   ],
-  "tools": {
-    "tag": "tconstruct:modifiable/embellishment/slime"
-  },
-  "allow_crystal": false,
   "result": {
     "name": "tconstruct:embellishment",
     "value": "tconstruct:blood"
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/embellishment/slime"
   }
 }

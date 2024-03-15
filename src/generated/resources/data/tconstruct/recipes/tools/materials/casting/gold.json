@@ -1,9 +1,9 @@
 {
   "type": "tconstruct:material_fluid",
   "fluid": {
-    "tag": "forge:molten_gold",
-    "amount": 90
+    "amount": 90,
+    "tag": "forge:molten_gold"
   },
-  "temperature": 700,
-  "output": "tconstruct:gold"
+  "output": "tconstruct:gold",
+  "temperature": 700
 }

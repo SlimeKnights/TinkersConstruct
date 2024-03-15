@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:gears/rose_gold",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:gears/rose_gold"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:gears/rose_gold"
   },
   "result": {
-    "fluid": "tconstruct:molten_rose_gold",
-    "amount": 360
+    "amount": 360,
+    "fluid": "tconstruct:molten_rose_gold"
   },
   "temperature": 550,
   "time": 103

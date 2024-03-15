@@ -1,23 +1,23 @@
 {
   "type": "tconstruct:casting_table",
-  "conditions": [
-    {
-      "value": {
-        "tag": "forge:coins/brass",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
-    }
-  ],
   "cast": {
     "tag": "tconstruct:casts/multi_use/coin"
   },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:coins/brass"
+      }
+    }
+  ],
+  "cooling_time": 31,
   "fluid": {
-    "tag": "forge:molten_brass",
-    "amount": 30
+    "amount": 30,
+    "tag": "forge:molten_brass"
   },
   "result": {
     "tag": "forge:coins/brass"
-  },
-  "cooling_time": 31
+  }
 }

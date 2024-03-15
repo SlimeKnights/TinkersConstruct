@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.plugin;
 
+import com.illusivesoulworks.diet.common.capability.DietCapability;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
-import top.theillusivec4.diet.api.DietCapability;
 
 /** Plugin to enable compat with the Diet mod */
 public class DietPlugin {

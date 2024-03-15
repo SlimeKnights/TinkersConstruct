@@ -5,7 +5,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NumericTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.commons.lang3.mutable.MutableObject;
 import slimeknights.tconstruct.TConstruct;
@@ -126,11 +125,11 @@ public class StatOverrideModifier extends NoLevelsModifier implements ToolStatsM
             }
             // add stat
             if (stat instanceof INumericToolStat<?>) {
-              consumer.accept(new TextComponent("* ").append(stat.getPrefix()).append(format.format(stats.getFloat(key))));
+              consumer.accept(Component.literal("* ").append(stat.getPrefix()).append(format.format(stats.getFloat(key))));
             } else {
               Component formatted = format(stat, Objects.requireNonNull(stats.get(key)));
               if (formatted != null) {
-                consumer.accept(new TextComponent("* ").append(formatted));
+                consumer.accept(Component.literal("* ").append(formatted));
               }
             }
           }

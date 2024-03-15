@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -20,7 +21,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.registries.ForgeRegistries;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -113,7 +114,7 @@ public record ToolActionWalkerTransformModule(ToolAction action, SoundEvent soun
     public void serialize(ToolActionWalkerTransformModule object, JsonObject json) {
       object.condition.serializeInto(json);
       json.addProperty("tool_action", object.action.name());
-      json.addProperty("sound", Objects.requireNonNull(object.sound.getRegistryName()).toString());
+      json.addProperty("sound", Objects.requireNonNull(Registry.SOUND_EVENT.getKey(object.sound)).toString());
       json.add("radius", object.radius.serialize(new JsonObject()));
     }
 

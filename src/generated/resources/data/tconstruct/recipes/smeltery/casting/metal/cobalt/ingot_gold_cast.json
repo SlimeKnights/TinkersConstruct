@@ -3,12 +3,12 @@
   "cast": {
     "tag": "tconstruct:casts/multi_use/ingot"
   },
+  "cooling_time": 65,
   "fluid": {
-    "tag": "forge:molten_cobalt",
-    "amount": 90
+    "amount": 90,
+    "tag": "forge:molten_cobalt"
   },
   "result": {
     "tag": "forge:ingots/cobalt"
-  },
-  "cooling_time": 65
+  }
 }

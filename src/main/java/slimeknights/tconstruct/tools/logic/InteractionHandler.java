@@ -61,7 +61,7 @@ public class InteractionHandler {
   @SubscribeEvent
   static void beforeEntityInteract(EntityInteract event) {
     ItemStack stack = event.getItemStack();
-    Player player = event.getPlayer();
+    Player player = event.getEntity();
     InteractionHand hand = event.getHand();
     InteractionSource source = InteractionSource.RIGHT_CLICK;
     if (!stack.is(TinkerTags.Items.HELD)) {
@@ -96,7 +96,7 @@ public class InteractionHandler {
   /** Implements {@link EntityInteractionModifierHook#afterEntityUse(IToolStackView, ModifierEntry, Player, LivingEntity, InteractionHand, InteractionSource)} for chestplates */
   @SubscribeEvent(priority = EventPriority.LOWEST)
   static void afterEntityInteract(EntityInteract event) {
-    Player player = event.getPlayer();
+    Player player = event.getEntity();
     if (event.getItemStack().isEmpty() && !player.isSpectator()) {
       ItemStack chestplate = player.getItemBySlot(EquipmentSlot.CHEST);
       if (chestplate.is(TinkerTags.Items.INTERACTABLE_ARMOR) && !player.getCooldowns().isOnCooldown(chestplate.getItem())) {
@@ -161,7 +161,7 @@ public class InteractionHandler {
   @SubscribeEvent(priority = EventPriority.LOWEST)
   static void chestplateInteractWithBlock(PlayerInteractEvent.RightClickBlock event) {
     // only handle chestplate interacts if the current hand is empty
-    Player player = event.getPlayer();
+    Player player = event.getEntity();
     if (event.getItemStack().isEmpty() && !player.isSpectator()) {
       // item must be a chestplate
       ItemStack chestplate = player.getItemBySlot(EquipmentSlot.CHEST);
@@ -249,7 +249,7 @@ public class InteractionHandler {
     // Carry On is dumb and fires the attack entity event when they are not attacking entities, causing us to punch instead
     // they should not be doing that, but the author has not done anything to fix it, so just use a hacky check
     if (event.getClass() == AttackEntityEvent.class) {
-      Player attacker = event.getPlayer();
+      Player attacker = event.getEntity();
       if (attacker.getMainHandItem().isEmpty()) {
         ItemStack chestplate = attacker.getItemBySlot(EquipmentSlot.CHEST);
         if (chestplate.is(TinkerTags.Items.UNARMED)) {
@@ -327,12 +327,12 @@ public class InteractionHandler {
     if (result.consumesAction()) {
       // success means swing hand
       if (result == InteractionResult.SUCCESS) {
-        event.getPlayer().swing(event.getHand());
+        event.getEntity().swing(event.getHand());
       }
       event.setCancellationResult(result);
       // don't cancel the result in survival as it does not actually prevent breaking the block, just causes really weird desyncs
       // leaving uncanceled lets us still do blocky stuff but if you hold click it digs
-      if (event.getPlayer().getAbilities().instabuild) {
+      if (event.getEntity().getAbilities().instabuild) {
         event.setCanceled(true);
       }
     }
@@ -361,7 +361,7 @@ public class InteractionHandler {
   @SubscribeEvent
   static void leftClickBlock(LeftClickBlock event) {
     // ensure we have not fired this tick
-    Player player = event.getPlayer();
+    Player player = event.getEntity();
     if (player.getCapability(TinkerDataCapability.CAPABILITY).filter(data -> data.computeIfAbsent(LAST_TICK).update(player)).isEmpty()) {
       return;
     }
@@ -438,12 +438,12 @@ public class InteractionHandler {
   /** Implements shield stats */
   @SubscribeEvent
   static void onBlock(ShieldBlockEvent event) {
-    LivingEntity entity = event.getEntityLiving();
+    LivingEntity entity = event.getEntity();
     ItemStack activeStack = entity.getUseItem();
     if (!activeStack.isEmpty() && activeStack.is(TinkerTags.Items.MODIFIABLE)) {
       ToolStack tool = ToolStack.from(activeStack);
       // first check block angle
-      if (!tool.isBroken() && canBlock(event.getEntityLiving(), event.getDamageSource().getSourcePosition(), tool)) {
+      if (!tool.isBroken() && canBlock(event.getEntity(), event.getDamageSource().getSourcePosition(), tool)) {
         // TODO: hook for conditioning block amount based on on damage type
         event.setBlockedDamage(Math.min(event.getBlockedDamage(), tool.getStats().get(ToolStats.BLOCK_AMOUNT)));
         // TODO: consider handling the item damage ourself

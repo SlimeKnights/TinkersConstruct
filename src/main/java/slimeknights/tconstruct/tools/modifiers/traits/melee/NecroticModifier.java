@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.traits.melee;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -73,7 +72,7 @@ public class NecroticModifier extends Modifier implements ProjectileHitModifierH
   public void addTooltip(IToolStackView tool, ModifierEntry modifier, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     float lifesteal = 0.05f * modifier.getLevel();
     if (lifesteal > 0) {
-      tooltip.add(applyStyle(new TextComponent(Util.PERCENT_FORMAT.format(lifesteal) + " ").append(LIFE_STEAL)));
+      tooltip.add(applyStyle(Component.literal(Util.PERCENT_FORMAT.format(lifesteal) + " ").append(LIFE_STEAL)));
     }
   }
 }

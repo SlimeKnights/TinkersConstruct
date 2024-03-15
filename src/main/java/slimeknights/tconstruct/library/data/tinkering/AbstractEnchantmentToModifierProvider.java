@@ -2,8 +2,8 @@ package slimeknights.tconstruct.library.data.tinkering;
 
 import com.google.gson.JsonObject;
 import net.minecraft.core.Registry;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.HashCache;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.tags.TagKey;
@@ -28,17 +28,17 @@ public abstract class AbstractEnchantmentToModifierProvider extends GenericDataP
   protected abstract void addEnchantmentMappings();
 
   @Override
-  public void run(HashCache pCache) throws IOException {
+  public void run(CachedOutput pCache) throws IOException {
     enchantmentMap.entrySet().clear();
     addEnchantmentMappings();
-    saveThing(pCache, TConstruct.getResource("enchantments_to_modifiers"), enchantmentMap);
+    saveJson(pCache, TConstruct.getResource("enchantments_to_modifiers"), enchantmentMap);
   }
 
   /* Helpers */
 
   /** Adds the given enchantment */
   protected void add(Enchantment enchantment, ModifierId modifierId) {
-    String key = Objects.requireNonNull(enchantment.getRegistryName()).toString();
+    String key = Objects.requireNonNull(Registry.ENCHANTMENT.getKey(enchantment)).toString();
     if (enchantmentMap.has(key)) {
       throw new IllegalArgumentException("Duplicate enchantment " + key);
     }

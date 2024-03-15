@@ -32,18 +32,6 @@ public class SeveringCategory implements IRecipeCategory<SeveringRecipe> {
     this.icon = helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, TinkerTools.cleaver.get().getRenderTool());
   }
 
-  @SuppressWarnings("removal")
-  @Override
-  public ResourceLocation getUid() {
-    return TConstructJEIConstants.SEVERING.getUid();
-  }
-
-  @SuppressWarnings("removal")
-  @Override
-  public Class<? extends SeveringRecipe> getRecipeClass() {
-    return SeveringRecipe.class;
-  }
-
   @Override
   public RecipeType<SeveringRecipe> getRecipeType() {
     return TConstructJEIConstants.SEVERING;

@@ -44,7 +44,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
     // slime
     String folder = "gadgets/slimesling/";
     for (SlimeType slime : SlimeType.TRUE_SLIME) {
-      ResourceLocation name = modResource(folder + slime.getSerializedName());
+      ResourceLocation name = location(folder + slime.getSerializedName());
       ShapedRecipeBuilder.shaped(TinkerGadgets.slimeSling.get(slime))
                          .group("tconstruct:slimesling")
                          .define('#', Items.STRING)
@@ -118,8 +118,8 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                        .pattern("eMe")
                        .pattern(" e ")
                        .unlockedBy("has_item", has(Tags.Items.GEMS_DIAMOND))
-                       .group(modPrefix("fancy_item_frame"))
-                       .save(consumer, modResource("gadgets/frame/" + FrameType.DIAMOND.getSerializedName()));
+                       .group(prefix("fancy_item_frame"))
+                       .save(consumer, location("gadgets/frame/" + FrameType.DIAMOND.getSerializedName()));
     ShapedRecipeBuilder.shaped(TinkerGadgets.itemFrame.get(FrameType.CLEAR))
                        .define('e', Tags.Items.GLASS_PANES_COLORLESS)
                        .define('M', Tags.Items.GLASS_COLORLESS)
@@ -127,22 +127,22 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                        .pattern("eMe")
                        .pattern(" e ")
                        .unlockedBy("has_item", has(Tags.Items.GLASS_PANES_COLORLESS))
-                       .group(modPrefix("fancy_item_frame"))
-                       .save(consumer, modResource(folder + FrameType.CLEAR.getSerializedName()));
+                       .group(prefix("fancy_item_frame"))
+                       .save(consumer, location(folder + FrameType.CLEAR.getSerializedName()));
     Item goldFrame = TinkerGadgets.itemFrame.get(FrameType.GOLD);
     Item reversedFrame = TinkerGadgets.itemFrame.get(FrameType.REVERSED_GOLD);
     ShapelessRecipeBuilder.shapeless(reversedFrame)
                           .requires(goldFrame)
                           .requires(Items.REDSTONE_TORCH)
                           .unlockedBy("has_item", has(goldFrame))
-                          .group(modPrefix("reverse_fancy_item_frame"))
-                          .save(consumer, modResource(folder + FrameType.REVERSED_GOLD.getSerializedName()));
+                          .group(prefix("reverse_fancy_item_frame"))
+                          .save(consumer, location(folder + FrameType.REVERSED_GOLD.getSerializedName()));
     ShapelessRecipeBuilder.shapeless(goldFrame)
                           .requires(reversedFrame)
                           .requires(Items.REDSTONE_TORCH)
                           .unlockedBy("has_item", has(reversedFrame))
-                          .group(modPrefix("reverse_fancy_item_frame"))
-                          .save(consumer, modResource(folder + "reversed_reversed_gold"));
+                          .group(prefix("reverse_fancy_item_frame"))
+                          .save(consumer, location(folder + "reversed_reversed_gold"));
 
     String cakeFolder = "gadgets/cake/";
     TinkerGadgets.cake.forEach((slime, cake) -> {
@@ -154,7 +154,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                          .define('W', TinkerWorld.slimeTallGrass.get(slime))
                          .pattern("MMM").pattern("SES").pattern("WWW")
                          .unlockedBy("has_slime", has(bucket))
-                         .save(consumer, modResource(cakeFolder + slime.getSerializedName()));
+                         .save(consumer, location(cakeFolder + slime.getSerializedName()));
     });
     Item bucket = TinkerFluids.magma.asItem();
     ShapedRecipeBuilder.shaped(TinkerGadgets.magmaCake)
@@ -164,7 +164,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                        .define('W', Blocks.CRIMSON_ROOTS)
                        .pattern("MMM").pattern("SES").pattern("WWW")
                        .unlockedBy("has_slime", has(bucket))
-                       .save(consumer, modResource(cakeFolder + "magma"));
+                       .save(consumer, location(cakeFolder + "magma"));
   }
 
 
@@ -181,7 +181,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
   private void campfireCooking(Consumer<FinishedRecipe> consumer, ItemLike input, ItemLike output, float experience, String folder) {
     SimpleCookingRecipeBuilder.cooking(Ingredient.of(input), output, experience, 600, RecipeSerializer.CAMPFIRE_COOKING_RECIPE)
                               .unlockedBy("has_item", has(input))
-                              .save(consumer, wrap(output.asItem(), folder, "_campfire"));
+                              .save(consumer, wrap(id(output), folder, "_campfire"));
   }
 
   /**
@@ -195,14 +195,15 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
   private void foodCooking(Consumer<FinishedRecipe> consumer, ItemLike input, ItemLike output, float experience, String folder) {
     campfireCooking(consumer, input, output, experience, folder);
     // furnace is 200 ticks
+    ResourceLocation outputId = id(output);
     InventoryChangeTrigger.TriggerInstance criteria = has(input);
     SimpleCookingRecipeBuilder.smelting(Ingredient.of(input), output, experience, 200)
                               .unlockedBy("has_item", criteria)
-                              .save(consumer, wrap(output.asItem(), folder, "_furnace"));
+                              .save(consumer, wrap(outputId, folder, "_furnace"));
     // smoker 100 ticks
     SimpleCookingRecipeBuilder.cooking(Ingredient.of(input), output, experience, 100, RecipeSerializer.SMOKING_RECIPE)
                               .unlockedBy("has_item", criteria)
-                              .save(consumer, wrap(output.asItem(), folder, "_smoker"));
+                              .save(consumer, wrap(outputId, folder, "_smoker"));
   }
 
   /**
@@ -219,7 +220,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                        .pattern("eMe")
                        .pattern(" e ")
                        .unlockedBy("has_item", has(edges))
-                       .group(modPrefix("fancy_item_frame"))
-                       .save(consumer, modResource("gadgets/frame/" + type.getSerializedName()));
+                       .group(prefix("fancy_item_frame"))
+                       .save(consumer, location("gadgets/frame/" + type.getSerializedName()));
   }
 }

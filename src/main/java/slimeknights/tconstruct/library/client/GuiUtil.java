@@ -17,6 +17,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
@@ -117,9 +118,10 @@ public final class GuiUtil {
    */
   public static void renderTiledFluid(PoseStack matrices, AbstractContainerScreen<?> screen, FluidStack stack, int x, int y, int width, int height, int depth) {
     if (!stack.isEmpty()) {
-      TextureAtlasSprite fluidSprite = screen.getMinecraft().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(stack.getFluid().getAttributes().getStillTexture(stack));
-      RenderUtils.setColorRGBA(stack.getFluid().getAttributes().getColor(stack));
-      renderTiledTextureAtlas(matrices, screen, fluidSprite, x, y, width, height, depth, stack.getFluid().getAttributes().isGaseous(stack));
+      IClientFluidTypeExtensions clientFluid = IClientFluidTypeExtensions.of(stack.getFluid());
+      TextureAtlasSprite fluidSprite = screen.getMinecraft().getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(clientFluid.getStillTexture(stack));
+      RenderUtils.setColorRGBA(clientFluid.getTintColor(stack));
+      renderTiledTextureAtlas(matrices, screen, fluidSprite, x, y, width, height, depth, stack.getFluid().getFluidType().isLighterThanAir());
       RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
   }
@@ -177,10 +179,9 @@ public final class GuiUtil {
     } while(height > 0);
 
     // finish drawing sprites
-    builder.end();
+    BufferUploader.drawWithShader(builder.end());
     // RenderSystem.enableAlphaTest();
     RenderSystem.enableDepthTest();
-    BufferUploader.end(builder);
   }
 
   /**

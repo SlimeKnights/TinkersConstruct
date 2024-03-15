@@ -30,7 +30,6 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Function;
 
 /** @deprecated use {@link slimeknights.tconstruct.library.json.predicate.tool.ToolStackItemPredicate} */
@@ -112,7 +111,7 @@ public class ToolPredicate extends ItemPredicate {
     JsonObject json = new JsonObject();
     json.addProperty("type", ID.toString());
     if (this.item != null) {
-      json.addProperty("item", Objects.requireNonNull(item.getRegistryName()).toString());
+      json.addProperty("item", Registry.ITEM.getKey(item).toString());
     }
     if (this.tag != null) {
       json.addProperty("tag", this.tag.location().toString());

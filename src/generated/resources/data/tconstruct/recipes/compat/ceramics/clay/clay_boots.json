@@ -2,16 +2,16 @@
   "type": "tconstruct:damagable_melting",
   "conditions": [
     {
-      "modid": "ceramics",
-      "type": "forge:mod_loaded"
+      "type": "forge:mod_loaded",
+      "modid": "ceramics"
     }
   ],
   "ingredient": {
     "item": "ceramics:clay_boots"
   },
   "result": {
-    "fluid": "tconstruct:molten_clay",
     "amount": 1000,
+    "fluid": "tconstruct:molten_clay",
     "unit_size": 50
   },
   "temperature": 450,

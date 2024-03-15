@@ -1,16 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "group": "tconstruct:seared_cobble_slab",
-  "pattern": [
-    "BBB"
-  ],
   "key": {
     "B": {
       "item": "tconstruct:seared_cobble"
     }
   },
+  "pattern": [
+    "BBB"
+  ],
   "result": {
-    "item": "tconstruct:seared_cobble_slab",
-    "count": 6
+    "count": 6,
+    "item": "tconstruct:seared_cobble_slab"
   }
 }

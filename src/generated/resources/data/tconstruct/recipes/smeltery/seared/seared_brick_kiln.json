@@ -4,18 +4,18 @@
     {
       "conditions": [
         {
-          "modid": "ceramics",
-          "type": "forge:mod_loaded"
+          "type": "forge:mod_loaded",
+          "modid": "ceramics"
         }
       ],
       "recipe": {
         "type": "ceramics:kiln",
+        "cookingtime": 100,
+        "experience": 0.3,
         "ingredient": {
           "item": "tconstruct:grout"
         },
-        "result": "tconstruct:seared_brick",
-        "experience": 0.3,
-        "cookingtime": 100
+        "result": "tconstruct:seared_brick"
       }
     },
     {
@@ -26,12 +26,12 @@
       ],
       "recipe": {
         "type": "minecraft:blasting",
+        "cookingtime": 100,
+        "experience": 0.3,
         "ingredient": {
           "item": "tconstruct:grout"
         },
-        "result": "tconstruct:seared_brick",
-        "experience": 0.3,
-        "cookingtime": 100
+        "result": "tconstruct:seared_brick"
       }
     }
   ]

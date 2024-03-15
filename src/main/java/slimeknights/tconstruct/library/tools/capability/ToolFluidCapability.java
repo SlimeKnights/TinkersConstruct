@@ -5,9 +5,9 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -303,7 +303,7 @@ public class ToolFluidCapability extends FluidModifierHookIterator<ModifierEntry
 
     @Override
     public <T> LazyOptional<T> getCapability(IToolStackView tool, Capability<T> cap) {
-      if (cap == CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY && tool.getVolatileData().getInt(TOTAL_TANKS) > 0) {
+      if (cap == ForgeCapabilities.FLUID_HANDLER_ITEM && tool.getVolatileData().getInt(TOTAL_TANKS) > 0) {
         return fluidCap.cast();
       }
       return LazyOptional.empty();

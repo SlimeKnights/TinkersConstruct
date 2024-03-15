@@ -4,8 +4,8 @@
     "tag": "forge:slimeball/sky"
   },
   "result": {
-    "fluid": "tconstruct:sky_slime",
-    "amount": 250
+    "amount": 250,
+    "fluid": "tconstruct:sky_slime"
   },
   "temperature": 10,
   "time": 29

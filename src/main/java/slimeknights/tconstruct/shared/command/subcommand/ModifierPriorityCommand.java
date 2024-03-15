@@ -5,7 +5,6 @@ import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.util.TablePrinter;
 import slimeknights.mantle.command.MantleCommand;
@@ -22,7 +21,7 @@ import java.util.stream.Stream;
 
 /** Command to list priorities for all modifiers */
 public class ModifierPriorityCommand {
-  private static final Component SUCCESS = new TranslatableComponent("command.tconstruct.modifier_priority");
+  private static final Component SUCCESS = Component.translatable("command.tconstruct.modifier_priority");
 
   /**
    * Registers this sub command with the root command

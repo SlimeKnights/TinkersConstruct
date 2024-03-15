@@ -75,7 +75,7 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
   /* Basic properties */
 
   @Override
-  public int getItemStackLimit(ItemStack stack) {
+  public int getMaxStackSize(ItemStack stack) {
     return 1;
   }
 
@@ -312,7 +312,7 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
 
   @Override
   public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
-    if (this.allowdedIn(group)) {
+    if (this.allowedIn(group)) {
       ToolBuildHandler.addDefaultSubItems(this, items);
     }
   }

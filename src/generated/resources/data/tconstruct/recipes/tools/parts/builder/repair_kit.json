@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:part_builder",
+  "cost": 2,
   "pattern": "tconstruct:repair_kit",
   "pattern_item": [
     {
@@ -9,7 +10,6 @@
       "item": "tconstruct:repair_kit_cast"
     }
   ],
-  "cost": 2,
   "result": {
     "item": "tconstruct:repair_kit"
   }

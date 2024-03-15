@@ -15,7 +15,7 @@ import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.fml.ModLoader;
 import net.minecraftforge.fml.event.IModBusEvent;
-import slimeknights.mantle.data.IEarlySafeManagerReloadListener;
+import slimeknights.mantle.data.listener.IEarlySafeManagerReloadListener;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.model.DynamicTextureLoader;

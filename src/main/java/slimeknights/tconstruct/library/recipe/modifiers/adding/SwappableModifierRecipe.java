@@ -147,7 +147,7 @@ public class SwappableModifierRecipe extends ModifierRecipe {
     }
 
     @Override
-    protected void toNetworkSafe(FriendlyByteBuf buffer, SwappableModifierRecipe recipe) {
+    public void toNetworkSafe(FriendlyByteBuf buffer, SwappableModifierRecipe recipe) {
       super.toNetworkSafe(buffer, recipe);
       buffer.writeVarInt(recipe.inputs.size());
       for (SizedIngredient ingredient : recipe.inputs) {

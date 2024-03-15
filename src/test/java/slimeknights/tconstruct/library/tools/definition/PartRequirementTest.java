@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import io.netty.buffer.Unpooled;
+import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,8 +14,6 @@ import slimeknights.tconstruct.fixture.MaterialItemFixture;
 import slimeknights.tconstruct.test.BaseMcTest;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
-
-import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -43,7 +42,7 @@ class PartRequirementTest extends BaseMcTest {
     JsonElement json = PartRequirement.SERIALIZER.serialize(requirement, PartRequirement.class, mock(JsonSerializationContext.class));
     assertThat(json.isJsonObject()).isTrue();
     JsonObject object = json.getAsJsonObject();
-    assertThat(GsonHelper.getAsString(object, "item")).isEqualTo(Objects.requireNonNull(MaterialItemFixture.MATERIAL_ITEM_2.getRegistryName()).toString());
+    assertThat(GsonHelper.getAsString(object, "item")).isEqualTo(Registry.ITEM.getKey(MaterialItemFixture.MATERIAL_ITEM_2).toString());
     assertThat(object.has("stat")).isFalse();
     assertThat(GsonHelper.getAsInt(object, "weight")).isEqualTo(5);
 
@@ -52,7 +51,7 @@ class PartRequirementTest extends BaseMcTest {
     json = PartRequirement.SERIALIZER.serialize(requirement, PartRequirement.class, mock(JsonSerializationContext.class));
     assertThat(json.isJsonObject()).isTrue();
     object = json.getAsJsonObject();
-    assertThat(GsonHelper.getAsString(object, "item")).isEqualTo(Objects.requireNonNull(MaterialItemFixture.MATERIAL_ITEM.getRegistryName()).toString());
+    assertThat(GsonHelper.getAsString(object, "item")).isEqualTo(Registry.ITEM.getKey(MaterialItemFixture.MATERIAL_ITEM).toString());
     assertThat(object.has("stat")).isFalse();
     assertThat(object.has("weight")).isFalse();
   }
@@ -60,7 +59,7 @@ class PartRequirementTest extends BaseMcTest {
   @Test
   void deserializeJson_part() {
     JsonObject json = new JsonObject();
-    json.addProperty("item", Objects.requireNonNull(MaterialItemFixture.MATERIAL_ITEM_HEAD.getRegistryName()).toString());
+    json.addProperty("item", Registry.ITEM.getKey(MaterialItemFixture.MATERIAL_ITEM_HEAD).toString());
     json.addProperty("weight", 4);
     PartRequirement requirement = PartRequirement.SERIALIZER.deserialize(json, PartRequirement.class, mock(JsonDeserializationContext.class));
     assertThat(requirement.getPart()).isEqualTo(MaterialItemFixture.MATERIAL_ITEM_HEAD);
@@ -68,7 +67,7 @@ class PartRequirementTest extends BaseMcTest {
 
     // no weight defaults to 1
     json = new JsonObject();
-    json.addProperty("item", Objects.requireNonNull(MaterialItemFixture.MATERIAL_ITEM_HANDLE.getRegistryName()).toString());
+    json.addProperty("item", Registry.ITEM.getKey(MaterialItemFixture.MATERIAL_ITEM_HANDLE).toString());
     requirement = PartRequirement.SERIALIZER.deserialize(json, PartRequirement.class, mock(JsonDeserializationContext.class));
     assertThat(requirement.getPart()).isEqualTo(MaterialItemFixture.MATERIAL_ITEM_HANDLE);
     assertThat(requirement.getWeight()).isEqualTo(1);

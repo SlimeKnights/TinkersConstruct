@@ -1,17 +1,13 @@
 package slimeknights.tconstruct.smeltery.block.entity;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fml.DistExecutor;
-import slimeknights.mantle.client.model.util.ModelHelper;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.library.client.model.block.TankModel.Baked;
+import slimeknights.tconstruct.library.client.SafeClient;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.fluid.IFluidTankUpdater;
 import slimeknights.tconstruct.smeltery.network.FluidUpdatePacket;
@@ -71,7 +67,6 @@ public interface ITankBlockEntity extends IFluidTankUpdater, FluidUpdatePacket.I
     return Config.CLIENT.tankFluidModel.get();
   }
 
-  @SuppressWarnings("ConstantConditions")
   @Override
   default void updateFluidTo(FluidStack fluid) {
     // update tank fluid
@@ -84,18 +79,11 @@ public interface ITankBlockEntity extends IFluidTankUpdater, FluidUpdatePacket.I
     tank.setRenderOffset(tank.getRenderOffset() + newAmount - oldAmount);
 
     // update the block model
-    DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-      if (isFluidInModel()) {
-        // if the amount change is bigger than a single increment, or we changed whether we have a fluid, update the world renderer
-        BlockEntity te = getTE();
-        Baked<?> model = ModelHelper.getBakedModel(te.getBlockState(), Baked.class);
-        if (model != null && (Math.abs(newAmount - oldAmount) >= (tank.getCapacity() / model.getFluid().getIncrements()) || (oldAmount == 0) != (newAmount == 0))) {
-          //this.requestModelDataUpdate();
-          Minecraft.getInstance().levelRenderer.blockChanged(null, te.getBlockPos(), null, null, 3);
-        }
-      }
-    });
+    if (isFluidInModel()) {
+      SafeClient.updateFluidModel(getTE(), tank, oldAmount, newAmount);
+    }
   }
+
 
   /*
    * Tile entity methods

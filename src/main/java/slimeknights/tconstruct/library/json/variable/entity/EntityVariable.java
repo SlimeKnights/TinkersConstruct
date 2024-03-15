@@ -1,14 +1,14 @@
 package slimeknights.tconstruct.library.json.variable.entity;
 
-import net.minecraft.util.ToFloatFunction;
 import net.minecraft.world.entity.LivingEntity;
-import slimeknights.mantle.data.GenericLoaderRegistry;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.mantle.data.GenericLoaderRegistry.IHaveLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
+import slimeknights.tconstruct.library.json.variable.ToFloatFunction;
 import slimeknights.tconstruct.library.json.variable.VariableLoaderRegistry;
 import slimeknights.tconstruct.library.json.variable.VariableLoaderRegistry.ConstantLoader;
 
-import static slimeknights.mantle.data.GenericLoaderRegistry.SingletonLoader.singleton;
+import static slimeknights.mantle.data.registry.GenericLoaderRegistry.SingletonLoader.singleton;
 
 /** Variable that fetches a property from an entity */
 public interface EntityVariable extends IHaveLoader<EntityVariable> {
@@ -21,7 +21,7 @@ public interface EntityVariable extends IHaveLoader<EntityVariable> {
   /* Singletons */
 
   /** Creates a new singleton variable getter */
-  private static EntityVariable simple(ToFloatFunction<LivingEntity> getter) {
+  static EntityVariable simple(ToFloatFunction<LivingEntity> getter) {
     return singleton(loader -> new EntityVariable() {
       @Override
       public float getValue(LivingEntity entity) {

@@ -23,7 +23,6 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.Item;
@@ -87,12 +86,6 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     this.incremental = helper.createDrawable(BACKGROUND_LOC, 128, 33, 16, 16);
   }
 
-  @SuppressWarnings("removal")
-  @Override
-  public ResourceLocation getUid() {
-    return TConstructJEIConstants.MODIFIERS.getUid();
-  }
-
   @Override
   public RecipeType<IDisplayModifierRecipe> getRecipeType() {
     return TConstructJEIConstants.MODIFIERS;
@@ -101,12 +94,6 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
   @Override
   public Component getTitle() {
     return TITLE;
-  }
-
-  @SuppressWarnings("removal")
-  @Override
-  public Class<? extends IDisplayModifierRecipe> getRecipeClass() {
-    return IDisplayModifierRecipe.class;
   }
 
   /** Draws a single slot icon */
@@ -183,7 +170,7 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
     int checkX = (int) mouseX;
     int checkY = (int) mouseY;
     if (recipe.hasRequirements() && GuiUtil.isHovered(checkX, checkY, 66, 58, 16, 16)) {
-      return Collections.singletonList(new TranslatableComponent(recipe.getRequirementsError()));
+      return Collections.singletonList(Component.translatable(recipe.getRequirementsError()));
     } else if (recipe.isIncremental() && GuiUtil.isHovered(checkX, checkY, 83, 59, 16, 16)) {
       return TEXT_INCREMENTAL;
     } else if (GuiUtil.isHovered(checkX, checkY, 98, 58, 24, 16)) {
@@ -192,9 +179,9 @@ public class ModifierRecipeCategory implements IRecipeCategory<IDisplayModifierR
       if (slots != null) {
         int count = slots.count();
         if (count == 1) {
-          return Collections.singletonList(new TranslatableComponent(KEY_SLOT, slots.type().getDisplayName()));
+          return Collections.singletonList(Component.translatable(KEY_SLOT, slots.type().getDisplayName()));
         } else if (count > 1) {
-          return Collections.singletonList(new TranslatableComponent(KEY_SLOTS, slots, slots.type().getDisplayName()));
+          return Collections.singletonList(Component.translatable(KEY_SLOTS, slots, slots.type().getDisplayName()));
         }
       } else {
         return TEXT_FREE;

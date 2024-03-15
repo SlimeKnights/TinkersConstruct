@@ -4,8 +4,8 @@
     "item": "minecraft:bucket"
   },
   "result": {
-    "fluid": "tconstruct:molten_iron",
-    "amount": 270
+    "amount": 270,
+    "fluid": "tconstruct:molten_iron"
   },
   "temperature": 800,
   "time": 104

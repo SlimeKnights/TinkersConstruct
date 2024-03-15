@@ -1,26 +1,26 @@
 {
-  "fluid": {
-    "tag": "tconstruct:molten_slimesteel",
-    "amount": 10
-  },
   "effects": [
     {
       "type": "tconstruct:conditional",
+      "effect": {
+        "type": "tconstruct:damage",
+        "damage_amount": 1.0,
+        "damage_type": "fire"
+      },
       "entity": {
         "type": "mantle:inverted",
         "inverted_type": "mantle:fire_immune"
-      },
-      "effect": {
-        "type": "tconstruct:damage",
-        "damage_type": "fire",
-        "damage_amount": 1.0
       }
     },
     {
       "type": "tconstruct:effect",
+      "level": 1,
       "name": "minecraft:slow_falling",
-      "time": 5,
-      "level": 1
+      "time": 5
     }
-  ]
+  ],
+  "fluid": {
+    "amount": 10,
+    "tag": "tconstruct:molten_slimesteel"
+  }
 }

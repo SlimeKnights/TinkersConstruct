@@ -20,7 +20,7 @@ public class TableBlockItem extends RetexturedBlockItem {
 
   @Override
   public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
-    if (this.allowdedIn(group)) {
+    if (this.allowedIn(group)) {
       if (showAllCondition.getAsBoolean()) {
         addTagVariants(this.getBlock(), this.textureTag, items, true);
       } else {

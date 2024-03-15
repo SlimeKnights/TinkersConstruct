@@ -4,12 +4,13 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import io.netty.handler.codec.DecoderException;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
@@ -63,7 +64,7 @@ public class ParticleWeaponAttack implements IWeaponAttack {
 
     @Override
     public void serialize(ParticleWeaponAttack object, JsonObject json) {
-      json.addProperty("particle", Objects.requireNonNull(object.particle.getRegistryName()).toString());
+      json.addProperty("particle", Objects.requireNonNull(Registry.PARTICLE_TYPE.getKey(object.particle)).toString());
     }
 
     @Override

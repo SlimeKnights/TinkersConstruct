@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.world.entity;
 
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -48,7 +49,7 @@ public class EnderSlimeEntity extends ArmoredSlimeEntity {
   }
 
   @Override
-  protected void populateDefaultEquipmentSlots(DifficultyInstance difficulty) {
+  protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
     // ender slime spawns with slimeskulls with a random material
     // vanilla logic but simplified down to just helmets
     float multiplier = difficulty.getSpecialMultiplier();

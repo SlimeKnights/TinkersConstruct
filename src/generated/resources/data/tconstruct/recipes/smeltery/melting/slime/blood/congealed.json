@@ -4,8 +4,8 @@
     "item": "tconstruct:blood_congealed_slime"
   },
   "result": {
-    "fluid": "tconstruct:blood",
-    "amount": 1000
+    "amount": 1000,
+    "fluid": "tconstruct:blood"
   },
   "temperature": 36,
   "time": 60

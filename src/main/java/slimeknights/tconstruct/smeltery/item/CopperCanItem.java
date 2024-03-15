@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.smeltery.item;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -20,7 +20,6 @@ import slimeknights.tconstruct.library.recipe.FluidValues;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Fluid container holding 1 ingot of fluid
@@ -39,13 +38,13 @@ public class CopperCanItem extends Item {
   }
 
   @Override
-  public boolean hasContainerItem(ItemStack stack) {
+  public boolean hasCraftingRemainingItem(ItemStack stack) {
     return getFluid(stack) != Fluids.EMPTY;
   }
 
   @Override
-  public ItemStack getContainerItem(ItemStack stack) {
-    if (hasContainerItem(stack)) {
+  public ItemStack getCraftingRemainingItem(ItemStack stack) {
+    if (hasCraftingRemainingItem(stack)) {
       return new ItemStack(this);
     }
     return ItemStack.EMPTY;
@@ -61,11 +60,11 @@ public class CopperCanItem extends Item {
         FluidStack displayFluid = new FluidStack(fluid, FluidValues.INGOT, fluidTag);
         text = displayFluid.getDisplayName().plainCopy();
       } else {
-        text = new TranslatableComponent(fluid.getAttributes().getTranslationKey());
+        text = Component.translatable(fluid.getFluidType().getDescriptionId());
       }
-      tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".contents", text).withStyle(ChatFormatting.GRAY));
+      tooltip.add(Component.translatable(this.getDescriptionId() + ".contents", text).withStyle(ChatFormatting.GRAY));
     } else {
-      tooltip.add(new TranslatableComponent(this.getDescriptionId() + ".tooltip").withStyle(ChatFormatting.GRAY));
+      tooltip.add(Component.translatable(this.getDescriptionId() + ".tooltip").withStyle(ChatFormatting.GRAY));
     }
   }
 
@@ -83,7 +82,7 @@ public class CopperCanItem extends Item {
       }
     } else {
       CompoundTag nbt = stack.getOrCreateTag();
-      nbt.putString(TAG_FLUID, Objects.requireNonNull(fluid.getFluid().getRegistryName()).toString());
+      nbt.putString(TAG_FLUID, Registry.FLUID.getKey(fluid.getFluid()).toString());
       CompoundTag fluidTag = fluid.getTag();
       if (fluidTag != null) {
         nbt.put(TAG_FLUID_TAG, fluidTag.copy());

@@ -1,35 +1,7 @@
 {
   "parent": "tconstruct:smeltery/structure",
-  "display": {
-    "icon": {
-      "item": "tconstruct:tinkers_anvil"
-    },
-    "title": {
-      "translate": "advancements.tconstruct.smeltery.tinkers_anvil.title"
-    },
-    "description": {
-      "translate": "advancements.tconstruct.smeltery.tinkers_anvil.description"
-    },
-    "frame": "goal",
-    "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
   "criteria": {
-    "crafted_overworld": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "tconstruct:tinkers_anvil"
-            ]
-          }
-        ]
-      }
-    },
     "crafted_nether": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -38,7 +10,35 @@
             ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "crafted_overworld": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:tinkers_anvil"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.tconstruct.smeltery.tinkers_anvil.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "tconstruct:tinkers_anvil"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.tconstruct.smeltery.tinkers_anvil.title"
     }
   },
   "requirements": [

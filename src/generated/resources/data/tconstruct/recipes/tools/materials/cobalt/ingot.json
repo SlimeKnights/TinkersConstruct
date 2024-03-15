@@ -3,7 +3,7 @@
   "ingredient": {
     "tag": "forge:ingots/cobalt"
   },
-  "value": 1,
+  "material": "tconstruct:cobalt",
   "needed": 1,
-  "material": "tconstruct:cobalt"
+  "value": 1
 }

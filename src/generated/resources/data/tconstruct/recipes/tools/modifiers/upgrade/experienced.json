@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:modifier",
+  "allow_crystal": true,
   "inputs": [
     {
       "item": "minecraft:experience_bottle"
@@ -11,6 +12,14 @@
       "item": "minecraft:experience_bottle"
     }
   ],
+  "max_level": 5,
+  "result": {
+    "level": 1,
+    "name": "tconstruct:experienced"
+  },
+  "slots": {
+    "upgrades": 1
+  },
   "tools": [
     {
       "tag": "tconstruct:modifiable/melee"
@@ -24,14 +33,5 @@
     {
       "tag": "tconstruct:modifiable/armor/leggings"
     }
-  ],
-  "slots": {
-    "upgrades": 1
-  },
-  "allow_crystal": true,
-  "result": {
-    "name": "tconstruct:experienced",
-    "level": 1
-  },
-  "max_level": 5
+  ]
 }

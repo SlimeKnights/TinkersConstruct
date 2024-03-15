@@ -3,7 +3,7 @@
   "ingredient": {
     "tag": "forge:glass_panes"
   },
-  "value": 1,
+  "material": "tconstruct:glass",
   "needed": 4,
-  "material": "tconstruct:glass"
+  "value": 1
 }

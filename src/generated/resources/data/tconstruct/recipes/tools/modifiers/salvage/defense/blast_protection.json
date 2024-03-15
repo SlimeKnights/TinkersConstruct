@@ -1,5 +1,10 @@
 {
   "type": "tconstruct:modifier_salvage",
+  "min_level": 1,
+  "modifier": "tconstruct:blast_protection",
+  "slots": {
+    "defense": 1
+  },
   "tools": [
     {
       "tag": "tconstruct:modifiable/armor"
@@ -7,10 +12,5 @@
     {
       "tag": "tconstruct:modifiable/held"
     }
-  ],
-  "slots": {
-    "defense": 1
-  },
-  "modifier": "tconstruct:blast_protection",
-  "min_level": 1
+  ]
 }

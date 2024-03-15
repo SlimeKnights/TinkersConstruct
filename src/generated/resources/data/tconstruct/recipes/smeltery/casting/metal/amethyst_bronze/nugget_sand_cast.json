@@ -4,12 +4,12 @@
     "tag": "tconstruct:casts/single_use/nugget"
   },
   "cast_consumed": true,
+  "cooling_time": 20,
   "fluid": {
-    "tag": "forge:molten_amethyst_bronze",
-    "amount": 10
+    "amount": 10,
+    "tag": "forge:molten_amethyst_bronze"
   },
   "result": {
     "tag": "forge:nuggets/amethyst_bronze"
-  },
-  "cooling_time": 20
+  }
 }

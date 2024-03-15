@@ -4,8 +4,8 @@
     "item": "minecraft:beetroot"
   },
   "result": {
-    "fluid": "tconstruct:beetroot_soup",
-    "amount": 50
+    "amount": 50,
+    "fluid": "tconstruct:beetroot_soup"
   },
   "temperature": 100,
   "time": 33

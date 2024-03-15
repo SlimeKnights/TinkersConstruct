@@ -1,11 +1,11 @@
 {
   "type": "tconstruct:modifier_salvage",
-  "tools": {
-    "tag": "tconstruct:modifiable/melee"
-  },
+  "min_level": 1,
+  "modifier": "tconstruct:padded",
   "slots": {
     "upgrades": 1
   },
-  "modifier": "tconstruct:padded",
-  "min_level": 1
+  "tools": {
+    "tag": "tconstruct:modifiable/melee"
+  }
 }

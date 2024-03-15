@@ -1,28 +1,28 @@
 {
   "type": "tconstruct:ore_melting",
-  "conditions": [
+  "byproducts": [
     {
-      "value": {
-        "tag": "forge:storage_blocks/raw_aluminum",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+      "amount": 810,
+      "fluid": "tconstruct:molten_iron"
     }
   ],
-  "rate": "metal",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:storage_blocks/raw_aluminum"
+      }
+    }
+  ],
   "ingredient": {
     "tag": "forge:storage_blocks/raw_aluminum"
   },
+  "rate": "metal",
   "result": {
-    "fluid": "tconstruct:molten_aluminum",
-    "amount": 810
+    "amount": 810,
+    "fluid": "tconstruct:molten_aluminum"
   },
   "temperature": 425,
-  "time": 283,
-  "byproducts": [
-    {
-      "fluid": "tconstruct:molten_iron",
-      "amount": 810
-    }
-  ]
+  "time": 283
 }

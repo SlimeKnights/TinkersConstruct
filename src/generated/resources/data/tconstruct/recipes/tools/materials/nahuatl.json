@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "tconstruct:nahuatl"
   },
-  "value": 1,
+  "material": "tconstruct:nahuatl",
   "needed": 1,
-  "material": "tconstruct:nahuatl"
+  "value": 1
 }

@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 
 import javax.annotation.Nullable;
 
@@ -17,7 +15,7 @@ import javax.annotation.Nullable;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public final class MultiblockResult {
   /** Successful result, used when no error */
-  public static final MultiblockResult SUCCESS = new MultiblockResult(true, null, TextComponent.EMPTY);
+  public static final MultiblockResult SUCCESS = new MultiblockResult(true, null, Component.empty());
 
   /** If true, this result was successful */
   private final boolean success;
@@ -44,6 +42,6 @@ public final class MultiblockResult {
    * @return  Multiblock result
    */
   public static MultiblockResult error(@Nullable BlockPos pos, String key, Object... params) {
-    return error(pos, new TranslatableComponent(key, params));
+    return error(pos, Component.translatable(key, params));
   }
 }

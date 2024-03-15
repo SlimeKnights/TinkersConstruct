@@ -1,23 +1,23 @@
 {
   "type": "tconstruct:casting_table",
-  "conditions": [
-    {
-      "value": {
-        "tag": "forge:wires/knightslime",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
-    }
-  ],
   "cast": {
     "tag": "tconstruct:casts/multi_use/wire"
   },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:wires/knightslime"
+      }
+    }
+  ],
+  "cooling_time": 49,
   "fluid": {
-    "tag": "tconstruct:molten_knightslime",
-    "amount": 45
+    "amount": 45,
+    "tag": "tconstruct:molten_knightslime"
   },
   "result": {
     "tag": "forge:wires/knightslime"
-  },
-  "cooling_time": 49
+  }
 }

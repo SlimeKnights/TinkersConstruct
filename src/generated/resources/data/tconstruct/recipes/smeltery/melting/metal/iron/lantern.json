@@ -9,8 +9,8 @@
     }
   ],
   "result": {
-    "fluid": "tconstruct:molten_iron",
-    "amount": 80
+    "amount": 80,
+    "fluid": "tconstruct:molten_iron"
   },
   "temperature": 800,
   "time": 57

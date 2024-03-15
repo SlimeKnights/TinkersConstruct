@@ -2,19 +2,19 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:plates/cobalt",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:plates/cobalt"
+      }
     }
   ],
   "ingredient": {
     "tag": "forge:plates/cobalt"
   },
   "result": {
-    "fluid": "tconstruct:molten_cobalt",
-    "amount": 90
+    "amount": 90,
+    "fluid": "tconstruct:molten_cobalt"
   },
   "temperature": 950,
   "time": 65

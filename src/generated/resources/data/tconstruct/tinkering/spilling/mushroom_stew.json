@@ -1,14 +1,14 @@
 {
-  "fluid": {
-    "tag": "forge:mushroom_stew",
-    "amount": 50
-  },
   "effects": [
     {
       "type": "tconstruct:restore_hunger",
       "hunger": 1,
-      "saturation": 0.15,
-      "representative_item": "minecraft:mushroom_stew"
+      "representative_item": "minecraft:mushroom_stew",
+      "saturation": 0.15
     }
-  ]
+  ],
+  "fluid": {
+    "amount": 50,
+    "tag": "forge:mushroom_stew"
+  }
 }

@@ -4,10 +4,10 @@
     "item": "tconstruct:scorched_bricks"
   },
   "cast_consumed": true,
+  "cooling_time": 58,
   "fluid": {
-    "tag": "tconstruct:molten_quartz",
-    "amount": 100
+    "amount": 100,
+    "tag": "tconstruct:molten_quartz"
   },
-  "result": "tconstruct:scorched_glass",
-  "cooling_time": 58
+  "result": "tconstruct:scorched_glass"
 }

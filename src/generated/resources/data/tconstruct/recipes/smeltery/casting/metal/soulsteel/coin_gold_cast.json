@@ -1,23 +1,23 @@
 {
   "type": "tconstruct:casting_table",
-  "conditions": [
-    {
-      "value": {
-        "tag": "forge:coins/soulsteel",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
-    }
-  ],
   "cast": {
     "tag": "tconstruct:casts/multi_use/coin"
   },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:coins/soulsteel"
+      }
+    }
+  ],
+  "cooling_time": 42,
   "fluid": {
-    "tag": "tconstruct:molten_soulsteel",
-    "amount": 30
+    "amount": 30,
+    "tag": "tconstruct:molten_soulsteel"
   },
   "result": {
     "tag": "forge:coins/soulsteel"
-  },
-  "cooling_time": 42
+  }
 }

@@ -11,7 +11,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Plane;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.client.model.FaucetFluidLoader;
 import slimeknights.mantle.client.model.fluid.FluidCuboid;
@@ -47,12 +47,12 @@ public class ChannelBlockEntityRenderer implements BlockEntityRenderer<ChannelBl
 		}
 
 		// fluid attributes
-		FluidAttributes attributes = fluid.getFluid().getAttributes();
+		IClientFluidTypeExtensions attributes = IClientFluidTypeExtensions.of(fluid.getFluid());
 		TextureAtlasSprite still = FluidRenderer.getBlockSprite(attributes.getStillTexture(fluid));
 		TextureAtlasSprite flowing = FluidRenderer.getBlockSprite(attributes.getFlowingTexture(fluid));
 		VertexConsumer builder = buffer.getBuffer(MantleRenderTypes.FLUID);
-		int color = attributes.getColor(fluid);
-		light = FluidRenderer.withBlockLight(light, attributes.getLuminosity(fluid));
+		int color = attributes.getTintColor(fluid);
+		light = FluidRenderer.withBlockLight(light, fluid.getFluid().getFluidType().getLightLevel(fluid));
 
 		// render sides first, while doing so we will determine center "flow"
 		FluidCuboid cube;

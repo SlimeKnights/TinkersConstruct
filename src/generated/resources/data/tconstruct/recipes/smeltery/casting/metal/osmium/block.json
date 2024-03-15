@@ -2,19 +2,19 @@
   "type": "tconstruct:casting_basin",
   "conditions": [
     {
+      "type": "forge:not",
       "value": {
-        "tag": "forge:storage_blocks/osmium",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+        "type": "forge:tag_empty",
+        "tag": "forge:storage_blocks/osmium"
+      }
     }
   ],
+  "cooling_time": 197,
   "fluid": {
-    "tag": "forge:molten_osmium",
-    "amount": 810
+    "amount": 810,
+    "tag": "forge:molten_osmium"
   },
   "result": {
     "tag": "forge:storage_blocks/osmium"
-  },
-  "cooling_time": 197
+  }
 }

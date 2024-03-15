@@ -2,7 +2,6 @@ package slimeknights.tconstruct.tools.modifiers.slotless;
 
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -30,7 +29,7 @@ public class DyedModifier extends NoLevelsModifier implements ModifierRemovalHoo
     ResourceLocation key = getId();
     if (persistentData.contains(key, Tag.TAG_INT)) {
       int color = persistentData.getInt(key);
-      return applyStyle(new TranslatableComponent(FORMAT_KEY, String.format("%06X", color)));
+      return applyStyle(Component.translatable(FORMAT_KEY, String.format("%06X", color)));
     }
     return super.getDisplayName();
   }

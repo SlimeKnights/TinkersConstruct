@@ -3,22 +3,21 @@ package slimeknights.tconstruct.library.modifiers.util;
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.GsonHelper;
-import slimeknights.mantle.data.GenericLoaderRegistry;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.mantle.data.GenericLoaderRegistry.IHaveLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.utils.RomanNumeralHelper;
 
-import static slimeknights.mantle.data.GenericLoaderRegistry.SingletonLoader.singleton;
+import static slimeknights.mantle.data.registry.GenericLoaderRegistry.SingletonLoader.singleton;
 
 public interface ModifierLevelDisplay extends IHaveLoader<ModifierLevelDisplay> {
   /** Default display, listing name followed by a roman numeral for level */
   ModifierLevelDisplay DEFAULT = singleton(loader -> new ModifierLevelDisplay() {
     @Override
     public Component nameForLevel(Modifier modifier, int level) {
-      return modifier.applyStyle(new TranslatableComponent(modifier.getTranslationKey())
+      return modifier.applyStyle(Component.translatable(modifier.getTranslationKey())
                                    .append(" ")
                                    .append(RomanNumeralHelper.getNumeral(level)));
     }
@@ -72,7 +71,7 @@ public interface ModifierLevelDisplay extends IHaveLoader<ModifierLevelDisplay> 
     @Override
     public Component nameForLevel(Modifier modifier, int level) {
       if (level > 1) {
-        return modifier.applyStyle(new TranslatableComponent(modifier.getTranslationKey()).append("+".repeat(level - 1)));
+        return modifier.applyStyle(Component.translatable(modifier.getTranslationKey()).append("+".repeat(level - 1)));
       }
       return modifier.getDisplayName();
     }
@@ -90,7 +89,7 @@ public interface ModifierLevelDisplay extends IHaveLoader<ModifierLevelDisplay> 
     @Override
     public Component nameForLevel(Modifier modifier, int level) {
       if (level <= unique) {
-        return modifier.applyStyle(new TranslatableComponent(modifier.getTranslationKey() + "." + level));
+        return modifier.applyStyle(Component.translatable(modifier.getTranslationKey() + "." + level));
       }
       return DEFAULT.nameForLevel(modifier, level);
     }

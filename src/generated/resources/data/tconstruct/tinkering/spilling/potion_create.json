@@ -1,27 +1,27 @@
 {
   "condition": {
-    "modid": "create",
-    "type": "forge:mod_loaded"
-  },
-  "fluid": {
-    "name": "create:potion",
-    "amount": 50
+    "type": "forge:mod_loaded",
+    "modid": "create"
   },
   "effects": [
     {
       "type": "tconstruct:potion_fluid",
-      "scale": 0.25,
-      "predicate": "{Bottle:\"REGULAR\"}"
+      "predicate": "{Bottle:\"REGULAR\"}",
+      "scale": 0.25
     },
     {
       "type": "tconstruct:potion_fluid",
-      "scale": 0.5,
-      "predicate": "{Bottle:\"SPLASH\"}"
+      "predicate": "{Bottle:\"SPLASH\"}",
+      "scale": 0.5
     },
     {
       "type": "tconstruct:potion_fluid",
-      "scale": 0.75,
-      "predicate": "{Bottle:\"LINGERING\"}"
+      "predicate": "{Bottle:\"LINGERING\"}",
+      "scale": 0.75
     }
-  ]
+  ],
+  "fluid": {
+    "amount": 50,
+    "name": "create:potion"
+  }
 }

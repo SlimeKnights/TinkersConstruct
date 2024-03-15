@@ -3,6 +3,7 @@ package slimeknights.tconstruct.common.data.loot;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
+import net.minecraft.core.Registry;
 import net.minecraft.data.loot.BlockLoot;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -46,7 +47,6 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import javax.annotation.Nonnull;
-import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -55,7 +55,7 @@ public class BlockLootTableProvider extends BlockLoot {
   @Override
   protected Iterable<Block> getKnownBlocks() {
     return ForgeRegistries.BLOCKS.getValues().stream()
-                                 .filter((block) -> TConstruct.MOD_ID.equals(Objects.requireNonNull(block.getRegistryName()).getNamespace()))
+                                 .filter((block) -> TConstruct.MOD_ID.equals(Registry.BLOCK.getKey(block).getNamespace()))
                                  .collect(Collectors.toList());
   }
 

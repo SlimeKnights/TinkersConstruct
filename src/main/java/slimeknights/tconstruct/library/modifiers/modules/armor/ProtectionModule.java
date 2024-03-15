@@ -5,10 +5,9 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -18,10 +17,10 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.client.TooltipKey;
-import slimeknights.mantle.data.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.damage.DamageSourcePredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.mantle.util.LogicHelper;
 import slimeknights.tconstruct.library.json.LevelingValue;
@@ -83,8 +82,8 @@ public record ProtectionModule(IJsonPredicate<DamageSource> source, IJsonPredica
       cap = Math.min(20f + tool.getModifierLevel(TinkerModifiers.boundless.getId()) * 2.5f, 20 * 0.95f);
     }
     tooltip.add(modifier.applyStyle(
-      new TextComponent(Util.PERCENT_BOOST_FORMAT.format(Math.min(amount, cap) / 25f))
-        .append(" ").append(new TranslatableComponent(modifier.getTranslationKey() + ".resistance"))));
+      Component.literal(Util.PERCENT_BOOST_FORMAT.format(Math.min(amount, cap) / 25f))
+        .append(" ").append(Component.translatable(modifier.getTranslationKey() + ".resistance"))));
   }
 
   @Override
@@ -119,7 +118,7 @@ public record ProtectionModule(IJsonPredicate<DamageSource> source, IJsonPredica
       json.add("wearing_entity", LivingEntityPredicate.LOADER.serialize(object.entity));
       object.amount.serialize(json);
       if (object.subtract != null) {
-        json.addProperty("subtract_enchantment", Objects.requireNonNull(object.subtract.getRegistryName()).toString());
+        json.addProperty("subtract_enchantment", Objects.requireNonNull(Registry.ENCHANTMENT.getKey(object.subtract)).toString());
       }
     }
 

@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:part_builder",
+  "cost": 2,
   "pattern": "tconstruct:bow_limb",
   "pattern_item": [
     {
@@ -9,7 +10,6 @@
       "item": "tconstruct:bow_limb_cast"
     }
   ],
-  "cost": 2,
   "result": {
     "item": "tconstruct:bow_limb"
   }

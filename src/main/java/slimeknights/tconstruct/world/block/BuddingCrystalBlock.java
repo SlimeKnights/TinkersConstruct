@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.AmethystClusterBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BuddingAmethystBlock;
@@ -12,8 +13,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
 import slimeknights.tconstruct.common.registration.GeodeItemObject;
 import slimeknights.tconstruct.common.registration.GeodeItemObject.BudSize;
-
-import java.util.Random;
 
 public class BuddingCrystalBlock extends CrystalBlock {
   private static final Direction[] DIRECTIONS = Direction.values();
@@ -30,7 +29,7 @@ public class BuddingCrystalBlock extends CrystalBlock {
   }
 
   @Override
-  public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRandom) {
+  public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
     if (pRandom.nextInt(5) == 0) {
       Direction direction = DIRECTIONS[pRandom.nextInt(DIRECTIONS.length)];
       BlockPos blockpos = pPos.relative(direction);

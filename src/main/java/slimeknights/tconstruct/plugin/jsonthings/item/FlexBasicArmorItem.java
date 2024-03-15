@@ -12,7 +12,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.client.IItemRenderProperties;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.item.ModifiableArmorItem;
@@ -56,15 +56,15 @@ public class FlexBasicArmorItem extends ModifiableArmorItem implements IFlexItem
   }
 
   @Override
-  public void initializeClient(Consumer<IItemRenderProperties> consumer) {
-    consumer.accept(new IItemRenderProperties() {
+  public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+    consumer.accept(new IClientItemExtensions() {
       @Nonnull
       @Override
-      public Model getBaseArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> _default) {
+      public Model getGenericArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
         if (dyeable) {
-          return TravelersGearModel.getModel(itemStack, armorSlot, _default, name, true);
+          return TravelersGearModel.getModel(itemStack, equipmentSlot, original, name, true);
         }
-        return _default;
+        return original;
       }
     });
   }
@@ -80,7 +80,7 @@ public class FlexBasicArmorItem extends ModifiableArmorItem implements IFlexItem
   }
 
   @Override
-  protected boolean allowdedIn(CreativeModeTab category) {
+  protected boolean allowedIn(CreativeModeTab category) {
     return this.tabs.contains(category);
   }
 
