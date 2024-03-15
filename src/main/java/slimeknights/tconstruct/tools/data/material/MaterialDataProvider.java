@@ -1,9 +1,7 @@
 package slimeknights.tconstruct.tools.data.material;
 
 import net.minecraft.data.DataGenerator;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.data.material.AbstractMaterialDataProvider;
-import slimeknights.tconstruct.library.materials.definition.MaterialId;
 
 public class MaterialDataProvider extends AbstractMaterialDataProvider {
   public MaterialDataProvider(DataGenerator gen) {
@@ -112,13 +110,5 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     //addMaterial(MaterialIds.venom,      3, ORDER_REPAIR, true);
     // slimesuit - repair
     addMaterial(MaterialIds.phantom,    1, ORDER_REPAIR, true);
-
-    // legacy
-    addRedirect(new MaterialId(TConstruct.MOD_ID, "stone"),     redirect(MaterialIds.rock));
-    addRedirect(new MaterialId(TConstruct.MOD_ID, "gunpowder"), redirect(MaterialIds.glass));
-    addRedirect(new MaterialId(TConstruct.MOD_ID, "spider"),    redirect(MaterialIds.string));
-    addRedirect(new MaterialId(TConstruct.MOD_ID, "venom"),     redirect(MaterialIds.darkthread));
-    addRedirect(new MaterialId(TConstruct.MOD_ID, "rabbit"),    redirect(MaterialIds.leather));
-    addRedirect(new MaterialId(TConstruct.MOD_ID, "tinkers_bronze"), conditionalRedirect(MaterialIds.bronze, tagExistsCondition("ingots/bronze")), redirect(MaterialIds.copper));
   }
 }

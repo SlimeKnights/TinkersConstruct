@@ -1,14 +1,9 @@
 package slimeknights.tconstruct;
 
-import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -20,10 +15,8 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.MissingMappingsEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import slimeknights.mantle.registration.RegistrationHelper;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
@@ -61,7 +54,6 @@ import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.TinkerWorld;
 
-import javax.annotation.Nullable;
 import java.util.Locale;
 import java.util.Random;
 import java.util.function.Supplier;
@@ -158,50 +150,6 @@ public class TConstruct {
       datagenerator.addProvider(new StructureUpdater(datagenerator, existingFileHelper, MOD_ID, PackType.CLIENT_RESOURCES, "book/structures"));
     }
     */
-  }
-
-  @Nullable
-  private static Block missingBlock(String name) {
-    return switch (name) {
-      case "copper_block" -> Blocks.COPPER_BLOCK;
-      case "copper_ore" -> Blocks.COPPER_ORE;
-      // tinker bronze -> amethyst bronze
-      case "tinkers_bronze_block" -> TinkerMaterials.amethystBronze.get();
-      case "molten_tinkers_bronze_fluid" -> TinkerFluids.moltenAmethystBronze.getBlock();
-      default -> null;
-    };
-  }
-
-  @SubscribeEvent
-  void missingMappings(MissingMappingsEvent event) {
-    // TODO: remove these as not needed anymore
-    // items
-    RegistrationHelper.handleMissingMappings(event, MOD_ID, Registry.ITEM_REGISTRY, name -> {
-      switch(name) {
-        case "copper_ingot": return Items.COPPER_INGOT;
-        case "blank_cast": return Items.GOLD_INGOT;
-        case "pickaxe_head": return TinkerToolParts.pickHead.get();
-        case "pickaxe_head_cast": return TinkerSmeltery.pickHeadCast.get();
-        case "pickaxe_head_sand_cast": return TinkerSmeltery.pickHeadCast.getSand();
-        case "pickaxe_head_red_sand_cast": return TinkerSmeltery.pickHeadCast.getRedSand();
-        // tinker bronze -> amethyst bronze
-        case "tinkers_bronze_ingot": TinkerMaterials.amethystBronze.getIngot();
-        case "tinkers_bronze_nugget": TinkerMaterials.amethystBronze.getNugget();
-        case "molten_tinkers_bronze_bucket": return TinkerFluids.moltenAmethystBronze.asItem();
-        case "flint_and_bronze": TinkerTools.flintAndBrick.get();
-      }
-      ItemLike block = missingBlock(name);
-      return block == null ? null : block.asItem();
-    });
-    // blocks
-    RegistrationHelper.handleMissingMappings(event, MOD_ID, Registry.BLOCK_REGISTRY, TConstruct::missingBlock);
-    // fluids
-    RegistrationHelper.handleMissingMappings(event, MOD_ID, Registry.FLUID_REGISTRY, name -> switch (name) {
-      // tinker bronze -> amethyst bronze
-      case "molten_tinkers_bronze" -> TinkerFluids.moltenAmethystBronze.get();
-      case "flowing_molten_tinkers_bronze" -> TinkerFluids.moltenAmethystBronze.getFlowing();
-      default -> null;
-    });
   }
 
 

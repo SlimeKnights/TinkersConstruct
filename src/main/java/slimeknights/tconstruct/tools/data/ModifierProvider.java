@@ -128,23 +128,6 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.rebalanced)
       .tooltipDisplay(TooltipDisplay.TINKER_STATION).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
       .addModule(new SwappableSlotModule(1)).addModule(new SwappableSlotModule.BonusSlot(SlotType.ABILITY, SlotType.UPGRADE, -1));
-    addRedirect(id("red_extra_upgrade"),   redirect(ModifierIds.writable));
-    addRedirect(id("green_extra_upgrade"), redirect(ModifierIds.recapitated));
-    addRedirect(id("blue_extra_upgrade"),  redirect(ModifierIds.harmonious));
-    addRedirect(id("extra_ability"),       redirect(ModifierIds.draconic));
-
-    // internal modifier migration
-    addRedirect(id("shovel_flatten"), redirect(ModifierIds.pathing));
-    addRedirect(id("axe_strip"), redirect(ModifierIds.stripping));
-    addRedirect(id("hoe_till"), redirect(ModifierIds.tilling));
-    addRedirect(id("firestarter_hidden"), redirect(TinkerModifiers.firestarter.getId()));
-
-    // merged some armor modifiers
-    addRedirect(id("haste_armor"), redirect(TinkerModifiers.haste.getId()));
-    addRedirect(id("knockback_armor"), redirect(TinkerModifiers.knockback.getId()));
-
-    // unarmed rework
-    addRedirect(id("unarmed"), redirect(TinkerModifiers.ambidextrous.getId()));
 
     // tier upgrades
     // emerald
@@ -294,7 +277,6 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.killager).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ConditionalMeleeDamageModule.builder().target(LivingEntityPredicate.OR.create(
       new MobTypePredicate(MobType.ILLAGER),
       new TagEntityPredicate(TinkerTags.EntityTypes.VILLAGERS))).eachLevel(2.0f));
-    addRedirect(id("fractured"), redirect(ModifierIds.sharpness));
     buildModifier(ModifierIds.pierce)
       // less than sharpness, but pierces 1 armor
       .addModule(StatBoostModule.add(ToolStats.ATTACK_DAMAGE).eachLevel(0.5f))
@@ -336,11 +318,9 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.strength)
       .addModule(IncrementalModule.RECIPE_CONTROLLED)
       .addModule(AttributeModule.builder(Attributes.ATTACK_DAMAGE, Operation.MULTIPLY_TOTAL).uniqueFrom(ModifierIds.strength).slots(armorSlots).eachLevel(0.1f));
-    addRedirect(id("armor_power"), redirect(ModifierIds.strength));
     // leggings
     addModifier(ModifierIds.pockets, new InventoryMenuModifier(18));
     addModifier(ModifierIds.toolBelt, new ToolBeltModifier(new int[] {4, 5, 6, 7, 8, 9}));
-    addRedirect(id("pocket_chain"), redirect(TinkerModifiers.shieldStrap.getId()));
     buildModifier(ModifierIds.stepUp).addModule(AttributeModule.builder(ForgeMod.STEP_HEIGHT_ADDITION.get(), Operation.ADDITION).uniqueFrom(ModifierIds.stepUp).slots(armorSlots).eachLevel(0.5f));
     buildModifier(ModifierIds.speedy).addModule(AttributeModule.builder(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL).uniqueFrom(ModifierIds.speedy).slots(armorMainHand).eachLevel(0.1f));
     // boots
@@ -369,8 +349,6 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.tilling)
       .addModule(ShowOffhandModule.DISALLOW_BROKEN)
       .addModule(ToolActionTransformModule.builder(ToolActions.HOE_TILL, SoundEvents.HOE_TILL).build());
-    addRedirect(id("axe_scrape"), redirect(ModifierIds.stripping));
-    addRedirect(id("axe_wax_off"), redirect(ModifierIds.stripping));
 
     // internal
     buildModifier(ModifierIds.overslimeFriend).addModule(new VolatileFlagModule(OverslimeModifier.KEY_OVERSLIME_FRIEND)).tooltipDisplay(TooltipDisplay.NEVER);
@@ -454,7 +432,6 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     // traits - tier 3
     buildModifier(ModifierIds.crumbling).addModule(ConditionalMiningSpeedModule.builder().blocks(BlockPredicate.REQUIRES_TOOL.inverted()).allowIneffective().eachLevel(0.5f));
     buildModifier(ModifierIds.enhanced).priority(60).addModule(UPGRADE);
-    addRedirect(id("maintained_2"), redirect(ModifierIds.maintained));
     // traits - tier 3 nether
     buildModifier(ModifierIds.lightweight)
       .addModule(StatBoostModule.multiplyBase(ToolStats.ATTACK_SPEED).eachLevel(0.07f))
