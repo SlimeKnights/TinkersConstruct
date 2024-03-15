@@ -2,7 +2,7 @@
   "multipart": [
     {
       "apply": {
-        "model": "tconstruct:block/wood/greenheart/fence_post"
+        "model": "tconstruct:block/wood/greenheart/fence/post"
       }
     },
     {
@@ -10,7 +10,7 @@
         "north": "true"
       },
       "apply": {
-        "model": "tconstruct:block/wood/greenheart/fence_side",
+        "model": "tconstruct:block/wood/greenheart/fence/side",
         "uvlock": true
       }
     },
@@ -19,7 +19,7 @@
         "east": "true"
       },
       "apply": {
-        "model": "tconstruct:block/wood/greenheart/fence_side",
+        "model": "tconstruct:block/wood/greenheart/fence/side",
         "y": 90,
         "uvlock": true
       }
@@ -29,7 +29,7 @@
         "south": "true"
       },
       "apply": {
-        "model": "tconstruct:block/wood/greenheart/fence_side",
+        "model": "tconstruct:block/wood/greenheart/fence/side",
         "y": 180,
         "uvlock": true
       }
@@ -39,7 +39,7 @@
         "west": "true"
       },
       "apply": {
-        "model": "tconstruct:block/wood/greenheart/fence_side",
+        "model": "tconstruct:block/wood/greenheart/fence/side",
         "y": 270,
         "uvlock": true
       }

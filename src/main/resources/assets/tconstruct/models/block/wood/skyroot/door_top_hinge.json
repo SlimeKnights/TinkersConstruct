@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/door_top_rh",
-  "textures": {
-    "top": "tconstruct:block/wood/skyroot/door_top",
-    "bottom": "tconstruct:block/wood/skyroot/door_bottom"
-  }
-}

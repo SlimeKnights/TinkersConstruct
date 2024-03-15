@@ -1,5 +1,7 @@
 {
-  "": {
-    "model": "tconstruct:block/fluid"
+  "variants": {
+    "": {
+      "model": "tconstruct:block/fluid"
+    }
   }
 }

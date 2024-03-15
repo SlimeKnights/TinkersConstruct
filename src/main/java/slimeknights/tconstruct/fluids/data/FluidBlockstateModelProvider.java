@@ -36,7 +36,7 @@ public class FluidBlockstateModelProvider extends GenericDataProvider {
     for (Entry<ResourceKey<Block>,Block> entry : Registry.BLOCK.entrySet()) {
       ResourceLocation id = entry.getKey().location();
       if (id.getNamespace().equals(modId) && entry.getValue() instanceof LiquidBlock) {
-        saveJson(cache, id, variants);
+        saveJson(cache, id, blockstate);
       }
     }
   }
