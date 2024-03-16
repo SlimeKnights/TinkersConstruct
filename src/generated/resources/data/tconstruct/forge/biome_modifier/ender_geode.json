@@ -1,0 +1,15 @@
+{
+  "type": "forge:add_features",
+  "biomes": {
+    "type": "forge:and",
+    "values": [
+      "#minecraft:is_end",
+      {
+        "type": "forge:not",
+        "value": "minecraft:the_end"
+      }
+    ]
+  },
+  "features": "tconstruct:ender_geode",
+  "step": "local_modifications"
+}

@@ -14,11 +14,15 @@ import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.random.WeightedRandomList;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.world.level.biome.MobSpawnSettings.SpawnerData;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep.Decoration;
 import net.minecraft.world.level.levelgen.structure.Structure;
@@ -33,7 +37,14 @@ import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
 import net.minecraft.world.level.levelgen.structure.placement.StructurePlacement;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.JsonCodecProvider;
+import net.minecraftforge.common.world.BiomeModifier;
+import net.minecraftforge.common.world.ForgeBiomeModifiers.AddFeaturesBiomeModifier;
+import net.minecraftforge.common.world.ForgeBiomeModifiers.AddSpawnsBiomeModifier;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+import net.minecraftforge.registries.holdersets.AndHolderSet;
+import net.minecraftforge.registries.holdersets.NotHolderSet;
+import net.minecraftforge.registries.holdersets.OrHolderSet;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.shared.block.SlimeType;
@@ -48,6 +59,7 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static net.minecraft.core.HolderSet.direct;
 import static slimeknights.tconstruct.TConstruct.getResource;
 import static slimeknights.tconstruct.world.TinkerStructures.bloodIsland;
 import static slimeknights.tconstruct.world.TinkerStructures.bloodSlimeIslandFungus;
@@ -113,9 +125,26 @@ public class WorldgenDatapackRegistryProvider implements DataProvider {
     structureSets.put("nether_ocean_island",    structureSet(new RandomSpreadStructurePlacement(15, 10, RandomSpreadType.LINEAR, 65245622),  entry(bloodIsland,      1)));
     structureSets.put("end_sky_island",         structureSet(new RandomSpreadStructurePlacement(25, 12, RandomSpreadType.LINEAR, 368963602), entry(endSlimeIsland,   1)));
 
+    // biome modifiers
+    Map<String,BiomeModifier> biomeModifiers = new LinkedHashMap<>();
+    HolderSet<Biome> overworld = tag(BiomeTags.IS_OVERWORLD);
+    HolderSet<Biome> nether = tag(BiomeTags.IS_NETHER);
+    HolderSet<Biome> end = tag(BiomeTags.IS_END);
+
+    biomeModifiers.put("cobalt_ore", new AddFeaturesBiomeModifier(nether, direct(reference(TinkerWorld.placedSmallCobaltOre), reference(TinkerWorld.placedLargeCobaltOre)), Decoration.UNDERGROUND_DECORATION));
+    // geodes
+    biomeModifiers.put("earth_geode", new AddFeaturesBiomeModifier(overworld, direct(reference(TinkerWorld.placedEarthGeode)), Decoration.LOCAL_MODIFICATIONS));
+    biomeModifiers.put("sky_geode", new AddFeaturesBiomeModifier(and(overworld, not(Registry.BIOME_REGISTRY, or(tag(BiomeTags.IS_OCEAN), tag(BiomeTags.IS_DEEP_OCEAN), tag(BiomeTags.IS_BEACH), tag(BiomeTags.IS_RIVER)))), direct(reference(TinkerWorld.placedSkyGeode)), Decoration.LOCAL_MODIFICATIONS));
+    biomeModifiers.put("ichor_geode", new AddFeaturesBiomeModifier(nether, direct(reference(TinkerWorld.placedIchorGeode)), Decoration.LOCAL_MODIFICATIONS));
+    biomeModifiers.put("ender_geode", new AddFeaturesBiomeModifier(and(end, not(Registry.BIOME_REGISTRY, direct(reference(Biomes.THE_END)))), direct(reference(TinkerWorld.placedEnderGeode)), Decoration.LOCAL_MODIFICATIONS));
+    // spawns
+    biomeModifiers.put("spawn_overworld_slime", new AddSpawnsBiomeModifier(overworld, List.of(new SpawnerData(TinkerWorld.earthSlimeEntity.get(), 100, 2, 4), new SpawnerData(TinkerWorld.skySlimeEntity.get(), 100, 2, 4))));
+    biomeModifiers.put("spawn_end_slime", new AddSpawnsBiomeModifier(end, List.of(new SpawnerData(TinkerWorld.enderSlimeEntity.get(), 10, 2, 4))));
+
     // run final loading
     registryName(Registry.STRUCTURE_SET_REGISTRY, structureSets).run(cache);
     registryKey(Registry.STRUCTURE_REGISTRY, structures).run(cache);
+    registryName(ForgeRegistries.Keys.BIOME_MODIFIERS, biomeModifiers).run(cache);
   }
 
   @Override
@@ -142,9 +171,28 @@ public class WorldgenDatapackRegistryProvider implements DataProvider {
     return reference(Objects.requireNonNull(object.getKey()));
   }
 
+
+  /* Holder sets */
+
   /** Creates a holder set tag for the given registry */
   private <T> HolderSet<T> tag(TagKey<T> key) {
     return registryAccess.registryOrThrow(key.registry()).getOrCreateTag(key);
+  }
+
+  /** Ands the holder sets together */
+  @SafeVarargs
+  private <T> AndHolderSet<T> and(HolderSet<T>... sets) {
+    return new AndHolderSet<>(List.of(sets));
+  }
+
+  /** Ors the holder sets together */
+  @SafeVarargs
+  private <T> OrHolderSet<T> or(HolderSet<T>... sets) {
+    return new OrHolderSet<>(List.of(sets));
+  }
+
+  private <T> NotHolderSet<T> not(ResourceKey<Registry<T>> key, HolderSet<T> set) {
+    return new NotHolderSet<>(registryAccess.registryOrThrow(key), set);
   }
 
 

@@ -53,16 +53,7 @@ public class Config {
     public final OreRate smelteryOreRate;
     public final OreRate foundryOreRate, foundryByproductRate;
 
-    public final BooleanValue generateCobalt;
-    public final ConfigValue<Integer> veinCountCobalt;
-
     // overworld
-    public final BooleanValue forceGeodeRecipes;
-    public final BooleanValue earthGeodes;
-    public final BooleanValue skyGeodes;
-    public final BooleanValue ichorGeodes;
-    public final BooleanValue enderGeodes;
-
     public final ConfigValue<String> showOnlyToolMaterial;
     public final ConfigValue<String> showOnlyPartMaterial;
     public final BooleanValue showAllTableVariants;
@@ -228,39 +219,6 @@ public class Config {
         .comment("If true, ender dragons will drop scales when damaged by explosions")
         .define("drop_dragon_Scales", true);
 
-      builder.pop();
-
-      builder.comment("Everything to do with world generation").push("worldgen");
-      {
-        this.generateCobalt = builder
-          .comment("Generate Cobalt")
-          .translation("tconstruct.configgui.generateCobalt")
-          .worldRestart()
-          .define("generateCobalt", true);
-        this.veinCountCobalt = builder
-          .comment("Approx Ores per Chunk")
-          .translation("tconstruct.configgui.veinCountCobalt")
-          .worldRestart()
-          .define("veinCountCobalt", 8);
-
-        builder.comment("Options related to slime geodes").push("geodes");
-        this.forceGeodeRecipes = builder
-          .comment("If true, recipes using slime crystals will ignore the other geode configs, useful if you add other ways to get the slime crystals. When false (default), recipes using slime crystals will be substituted for an alternative if the geode is disabled.")
-          .define("forceRecipes", false);
-        this.earthGeodes = builder
-          .comment("If true, earthslime geodes generate deep in the world as another way to get slime")
-            .define("earth", true);
-        this.skyGeodes = builder
-          .comment("If true, skyslime geodes generate above amethyst as another way to get skyslime")
-          .define("sky", true);
-        this.ichorGeodes = builder
-          .comment("If true, ichor geodes generate high in the nether. Strongly encouraged to keep enabled even if you disable the other geodes, as ichor crystals have some unique recipes and the fallbacks kinda suck for gameplay.")
-          .define("ichor", true);
-        this.enderGeodes = builder
-          .comment("If true, enderslime geodes generate as additional islands in the end")
-          .define("ender", true);
-        builder.pop();
-      }
       builder.pop();
 
       builder.comment("Features to use in debugging gameplay and mechanics, generally should not be enabled in packs").push("debug");
