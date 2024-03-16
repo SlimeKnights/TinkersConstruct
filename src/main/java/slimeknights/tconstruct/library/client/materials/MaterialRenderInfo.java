@@ -78,10 +78,14 @@ public class MaterialRenderInfo {
    */
   public void getTextureDependencies(Predicate<Material> textures, Material base) {
     if (texture != null) {
-      textures.test(getMaterial(base.texture(), getSuffix(texture)));
+      if (textures.test(getMaterial(base.texture(), getSuffix(texture)))) {
+        return;
+      }
     }
     for (String fallback : fallbacks) {
-      textures.test(getMaterial(base.texture(), fallback));
+      if (textures.test(getMaterial(base.texture(), fallback))) {
+        break;
+      }
     }
   }
 
