@@ -7,7 +7,7 @@
   "cooling_time": 30,
   "fluid": {
     "amount": 100,
-    "name": "minecraft:water"
+    "fluid": "minecraft:water"
   },
   "result": "minecraft:purple_concrete"
 }

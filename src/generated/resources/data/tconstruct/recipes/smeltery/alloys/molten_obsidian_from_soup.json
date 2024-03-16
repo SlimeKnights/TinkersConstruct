@@ -7,7 +7,7 @@
     },
     {
       "amount": 250,
-      "name": "minecraft:lava"
+      "fluid": "minecraft:lava"
     }
   ],
   "result": {

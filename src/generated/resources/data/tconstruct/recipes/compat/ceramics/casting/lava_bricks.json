@@ -13,7 +13,7 @@
   "cooling_time": 70,
   "fluid": {
     "amount": 100,
-    "name": "minecraft:lava"
+    "fluid": "minecraft:lava"
   },
   "result": "ceramics:lava_bricks"
 }

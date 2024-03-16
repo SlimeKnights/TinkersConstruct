@@ -3,7 +3,7 @@
   "cooling_time": 6000,
   "fluid": {
     "amount": 1000,
-    "name": "minecraft:milk"
+    "fluid": "minecraft:milk"
   },
   "result": "tconstruct:cheese_block"
 }

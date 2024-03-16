@@ -6,7 +6,7 @@
   "cooling_time": 0,
   "fluid": {
     "amount": 250,
-    "name": "tconstruct:potion"
+    "fluid": "tconstruct:potion"
   },
   "result": "minecraft:potion"
 }

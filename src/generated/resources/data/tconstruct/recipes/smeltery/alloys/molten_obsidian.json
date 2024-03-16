@@ -3,11 +3,11 @@
   "inputs": [
     {
       "amount": 50,
-      "name": "minecraft:water"
+      "fluid": "minecraft:water"
     },
     {
       "amount": 100,
-      "name": "minecraft:lava"
+      "fluid": "minecraft:lava"
     }
   ],
   "result": {

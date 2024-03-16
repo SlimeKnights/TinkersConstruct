@@ -3,7 +3,7 @@
   "duration": 150,
   "fluid": {
     "amount": 50,
-    "name": "tconstruct:blazing_blood"
+    "fluid": "tconstruct:blazing_blood"
   },
   "temperature": 1500
 }

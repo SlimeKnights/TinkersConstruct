@@ -3,7 +3,7 @@
   "filled": "minecraft:potion",
   "fluid": {
     "amount": 250,
-    "name": "tconstruct:potion"
+    "fluid": "tconstruct:potion"
   },
   "input": {
     "item": "minecraft:glass_bottle"

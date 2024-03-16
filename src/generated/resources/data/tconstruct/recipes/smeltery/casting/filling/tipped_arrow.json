@@ -6,7 +6,7 @@
   "cooling_time": 20,
   "fluid": {
     "amount": 25,
-    "name": "tconstruct:potion"
+    "fluid": "tconstruct:potion"
   },
   "result": "minecraft:tipped_arrow"
 }

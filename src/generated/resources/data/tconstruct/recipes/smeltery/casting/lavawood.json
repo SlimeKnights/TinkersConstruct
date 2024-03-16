@@ -7,7 +7,7 @@
   "cooling_time": 70,
   "fluid": {
     "amount": 100,
-    "name": "minecraft:lava"
+    "fluid": "minecraft:lava"
   },
   "result": "tconstruct:lavawood"
 }

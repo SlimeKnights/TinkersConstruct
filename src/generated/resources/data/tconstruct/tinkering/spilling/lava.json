@@ -19,6 +19,6 @@
   ],
   "fluid": {
     "amount": 50,
-    "name": "minecraft:lava"
+    "fluid": "minecraft:lava"
   }
 }
