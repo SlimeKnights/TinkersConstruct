@@ -190,7 +190,12 @@ public class TConstruct {
    * namespace.
    */
   public static String prefix(String name) {
-    return String.format("%s.%s", MOD_ID, name.toLowerCase(Locale.US));
+    return MOD_ID + "." + name.toLowerCase(Locale.US);
+  }
+
+  /** Makes a Tinker's description ID */
+  public static String makeDescriptionId(String type, String name) {
+    return type + "." + MOD_ID + "." + name;
   }
 
   /**

@@ -71,8 +71,8 @@ public final class TinkerFluids extends TinkerModule {
   }
 
   // basic
-  public static final FlowingFluidObject<ForgeFlowingFluid> blood = FLUIDS.register("blood").type(slime().temperature(336)).bucket().block(Material.WATER).flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> venom = FLUIDS.register("venom").type(slime().temperature(310)).bucket().block(Material.WATER).flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> blood = FLUIDS.register("blood").type(slime("blood").temperature(336)).bucket().block(Material.WATER).flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> venom = FLUIDS.register("venom").type(slime("venom").temperature(310)).bucket().block(Material.WATER).flowing();
   public static final ItemObject<Item> venomBottle = ITEMS.register("venom_bottle", () -> new FluidContainerFoodItem(
     new Item.Properties().food(new FoodProperties.Builder().alwaysEat()
                                  .effect(() -> new MobEffectInstance(MobEffects.DAMAGE_BOOST, 1800), 1.0f)
@@ -80,13 +80,13 @@ public final class TinkerFluids extends TinkerModule {
                                  .build()).tab(TAB_GENERAL).stacksTo(1).craftRemainder(Items.GLASS_BOTTLE),
     () -> new FluidStack(venom.get(), FluidValues.BOTTLE))
   );
-  public static final FluidObject<UnplaceableFluid> powderedSnow = FLUIDS.register("powdered_snow").bucket(() -> Items.POWDER_SNOW_BUCKET).type(powder().temperature(270)).unplacable();
+  public static final FluidObject<UnplaceableFluid> powderedSnow = FLUIDS.register("powdered_snow").bucket(() -> Items.POWDER_SNOW_BUCKET).type(powder("powdered_snow").temperature(270)).unplacable();
 
   // slime -  note second name parameter is forge tag name
-  public static final FlowingFluidObject<SlimeFluid> earthSlime = FLUIDS.register("earth_slime").type(slime().temperature(350)).bucket().block(Material.WATER).tagName("slime").flowing(SlimeFluid.Source::new, SlimeFluid.Flowing::new);
-  public static final FlowingFluidObject<SlimeFluid> skySlime   = FLUIDS.register("sky_slime"  ).type(slime().temperature(310)).bucket().block(Material.WATER).flowing(SlimeFluid.Source::new, SlimeFluid.Flowing::new);
-  public static final FlowingFluidObject<SlimeFluid> enderSlime = FLUIDS.register("ender_slime").type(slime().temperature(370)).bucket().block(Material.WATER).flowing(SlimeFluid.Source::new, SlimeFluid.Flowing::new);
-  public static final FlowingFluidObject<SlimeFluid> magma      = FLUIDS.register("magma"      ).type(slime().temperature(600).lightLevel(3)).bucket().block(Material.WATER, 3).flowing(SlimeFluid.Source::new, SlimeFluid.Flowing::new);
+  public static final FlowingFluidObject<SlimeFluid> earthSlime = FLUIDS.register("earth_slime").type(slime("earth_slime").temperature(350)).bucket().block(Material.WATER).tagName("slime").flowing(SlimeFluid.Source::new, SlimeFluid.Flowing::new);
+  public static final FlowingFluidObject<SlimeFluid> skySlime   = FLUIDS.register("sky_slime"  ).type(slime("sky_slime"  ).temperature(310)).bucket().block(Material.WATER).flowing(SlimeFluid.Source::new, SlimeFluid.Flowing::new);
+  public static final FlowingFluidObject<SlimeFluid> enderSlime = FLUIDS.register("ender_slime").type(slime("ender_slime").temperature(370)).bucket().block(Material.WATER).flowing(SlimeFluid.Source::new, SlimeFluid.Flowing::new);
+  public static final FlowingFluidObject<SlimeFluid> magma      = FLUIDS.register("magma"      ).type(slime("magma"      ).temperature(600).lightLevel(3)).bucket().block(Material.WATER, 3).flowing(SlimeFluid.Source::new, SlimeFluid.Flowing::new);
   public static final Map<SlimeType, FlowingFluidObject<? extends ForgeFlowingFluid>> slime;
   static {
     slime = new EnumMap<>(SlimeType.class);
@@ -134,10 +134,10 @@ public final class TinkerFluids extends TinkerModule {
     () -> new FluidStack(magma.get(), FluidValues.BOTTLE)));
 
   // foods
-  public static FlowingFluidObject<ForgeFlowingFluid> honey        = FLUIDS.register("honey").type(slime().temperature(301)).bucket().block(Material.WATER).flowing();
-  public static FlowingFluidObject<ForgeFlowingFluid> beetrootSoup = FLUIDS.register("beetroot_soup").type(cool().temperature(400)).bucket().block(Material.WATER).flowing();
-  public static FlowingFluidObject<ForgeFlowingFluid> mushroomStew = FLUIDS.register("mushroom_stew").type(cool().temperature(400)).bucket().block(Material.WATER).flowing();
-  public static FlowingFluidObject<ForgeFlowingFluid> rabbitStew   = FLUIDS.register("rabbit_stew").type(cool().temperature(400)).bucket().block(Material.WATER).flowing();
+  public static FlowingFluidObject<ForgeFlowingFluid> honey        = FLUIDS.register("honey").type(slime("honey").temperature(301)).bucket().block(Material.WATER).flowing();
+  public static FlowingFluidObject<ForgeFlowingFluid> beetrootSoup = FLUIDS.register("beetroot_soup").type(cool("beetroot_soup").temperature(400)).bucket().block(Material.WATER).flowing();
+  public static FlowingFluidObject<ForgeFlowingFluid> mushroomStew = FLUIDS.register("mushroom_stew").type(cool("mushroom_stew").temperature(400)).bucket().block(Material.WATER).flowing();
+  public static FlowingFluidObject<ForgeFlowingFluid> rabbitStew   = FLUIDS.register("rabbit_stew").type(cool("rabbit_stew").temperature(400)).bucket().block(Material.WATER).flowing();
 
   // potion
   public static final FluidObject<UnplaceableFluid> potion = FLUIDS.register("potion").type(() -> new PotionFluidType(cool().descriptionId("item.minecraft.potion.effect.empty").density(1100).viscosity(1100).temperature(315))).bucket(fluid -> new PotionBucketItem(fluid, ItemProperties.BUCKET_PROPS)).unplacable();
@@ -145,98 +145,107 @@ public final class TinkerFluids extends TinkerModule {
   public static final ItemObject<Item> lingeringBottle = ITEMS.register("lingering_bottle", () -> new BottleItem(Items.LINGERING_POTION, GENERAL_PROPS));
 
   // base molten fluids
-  public static final FlowingFluidObject<ForgeFlowingFluid> searedStone   = FLUIDS.register("seared_stone"  ).type(hot().temperature( 900).lightLevel(6)).block(Material.LAVA, 6).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> scorchedStone = FLUIDS.register("scorched_stone").type(hot().temperature( 800).lightLevel(4)).block(Material.LAVA, 4).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenClay    = FLUIDS.register("molten_clay"   ).type(hot().temperature( 750).lightLevel(3)).block(Material.LAVA, 3).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenGlass   = FLUIDS.register("molten_glass"  ).type(hot().temperature(1050).lightLevel(1)).block(Material.LAVA, 1).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> liquidSoul    = FLUIDS.register("liquid_soul"   ).type(hot().temperature( 700).lightLevel(2)).block(Material.LAVA, 2).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> searedStone   = FLUIDS.register("seared_stone"  ).type(hot("seared_stone"  ).temperature( 900).lightLevel(6)).block(Material.LAVA, 6).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> scorchedStone = FLUIDS.register("scorched_stone").type(hot("scorched_stone").temperature( 800).lightLevel(4)).block(Material.LAVA, 4).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenClay    = FLUIDS.register("molten_clay"   ).type(hot("molten_clay"   ).temperature( 750).lightLevel(3)).block(Material.LAVA, 3).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenGlass   = FLUIDS.register("molten_glass"  ).type(hot("molten_glass"  ).temperature(1050).lightLevel(1)).block(Material.LAVA, 1).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> liquidSoul    = FLUIDS.register("liquid_soul"   ).type(hot("liquid_soul"   ).temperature( 700).lightLevel(2)).block(Material.LAVA, 2).bucket().flowing();
   // ceramics compat
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenPorcelain = FLUIDS.register("molten_porcelain").type(hot().temperature(1000).lightLevel(2)).block(Material.LAVA, 2).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenPorcelain = FLUIDS.register("molten_porcelain").type(hot("molten_porcelain").temperature(1000).lightLevel(2)).block(Material.LAVA, 2).bucket().flowing();
   // fancy molten fluids
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenObsidian = FLUIDS.register("molten_obsidian").type(hot().temperature(1300).lightLevel(3)).block(Material.LAVA, 3).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenEnder    = FLUIDS.register("molten_ender"   ).type(hot().temperature( 777).lightLevel(5)).block(Material.LAVA, 5).bucket().tagName("ender").flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> blazingBlood   = FLUIDS.register("blazing_blood"  ).type(hot().temperature(1800).lightLevel(15).density(3500)).block(Material.LAVA, 15).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenObsidian = FLUIDS.register("molten_obsidian").type(hot("molten_obsidian").temperature(1300).lightLevel(3)).block(Material.LAVA, 3).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenEnder    = FLUIDS.register("molten_ender"   ).type(hot("molten_ender"   ).temperature( 777).lightLevel(5)).block(Material.LAVA, 5).bucket().tagName("ender").flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> blazingBlood   = FLUIDS.register("blazing_blood"  ).type(hot("blazing_blood"  ).temperature(1800).lightLevel(15).density(3500)).block(Material.LAVA, 15).bucket().flowing();
 
   // ores
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenEmerald  = FLUIDS.register("molten_emerald" ).type(hot().temperature(1234).lightLevel( 9)).block(Material.LAVA,  9).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenQuartz   = FLUIDS.register("molten_quartz"  ).type(hot().temperature( 937).lightLevel( 6)).block(Material.LAVA,  6).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenAmethyst = FLUIDS.register("molten_amethyst").type(hot().temperature(1250).lightLevel(11)).block(Material.LAVA, 11).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenDiamond  = FLUIDS.register("molten_diamond" ).type(hot().temperature(1750).lightLevel(13)).block(Material.LAVA, 13).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenDebris   = FLUIDS.register("molten_debris"  ).type(hot().temperature(1475).lightLevel(14)).block(Material.LAVA, 14).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenEmerald  = FLUIDS.register("molten_emerald" ).type(hot("molten_emerald" ).temperature(1234).lightLevel( 9)).block(Material.LAVA,  9).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenQuartz   = FLUIDS.register("molten_quartz"  ).type(hot("molten_quartz"  ).temperature( 937).lightLevel( 6)).block(Material.LAVA,  6).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenAmethyst = FLUIDS.register("molten_amethyst").type(hot("molten_amethyst").temperature(1250).lightLevel(11)).block(Material.LAVA, 11).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenDiamond  = FLUIDS.register("molten_diamond" ).type(hot("molten_diamond" ).temperature(1750).lightLevel(13)).block(Material.LAVA, 13).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenDebris   = FLUIDS.register("molten_debris"  ).type(hot("molten_debris"  ).temperature(1475).lightLevel(14)).block(Material.LAVA, 14).bucket().flowing();
   // metal ores
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenIron   = FLUIDS.register("molten_iron"  ).type(hot().temperature(1100).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenGold   = FLUIDS.register("molten_gold"  ).type(hot().temperature(1000).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenCopper = FLUIDS.register("molten_copper").type(hot().temperature( 800).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenCobalt = FLUIDS.register("molten_cobalt").type(hot().temperature(1250).lightLevel( 8)).block(Material.LAVA,  8).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenIron   = FLUIDS.register("molten_iron"  ).type(hot("molten_iron"  ).temperature(1100).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenGold   = FLUIDS.register("molten_gold"  ).type(hot("molten_gold"  ).temperature(1000).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenCopper = FLUIDS.register("molten_copper").type(hot("molten_copper").temperature( 800).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenCobalt = FLUIDS.register("molten_cobalt").type(hot("molten_cobalt").temperature(1250).lightLevel( 8)).block(Material.LAVA,  8).bucket().flowing();
   // alloys
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenSlimesteel     = FLUIDS.register("molten_slimesteel"     ).type(hot().temperature(1200).lightLevel(10)).block(Material.LAVA, 10).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenAmethystBronze = FLUIDS.register("molten_amethyst_bronze").type(hot().temperature(1120).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenRoseGold       = FLUIDS.register("molten_rose_gold"      ).type(hot().temperature( 850).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenPigIron        = FLUIDS.register("molten_pig_iron"       ).type(hot().temperature(1111).lightLevel(10)).block(Material.LAVA, 10).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenSlimesteel     = FLUIDS.register("molten_slimesteel"     ).type(hot("molten_slimesteel"     ).temperature(1200).lightLevel(10)).block(Material.LAVA, 10).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenAmethystBronze = FLUIDS.register("molten_amethyst_bronze").type(hot("molten_amethyst_bronze").temperature(1120).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenRoseGold       = FLUIDS.register("molten_rose_gold"      ).type(hot("molten_rose_gold"      ).temperature( 850).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenPigIron        = FLUIDS.register("molten_pig_iron"       ).type(hot("molten_pig_iron"       ).temperature(1111).lightLevel(10)).block(Material.LAVA, 10).bucket().flowing();
 
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenManyullyn   = FLUIDS.register("molten_manyullyn"   ).type(hot().temperature(1500).lightLevel(11)).block(Material.LAVA, 11).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenHepatizon   = FLUIDS.register("molten_hepatizon"   ).type(hot().temperature(1700).lightLevel( 8)).block(Material.LAVA,  8).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenQueensSlime = FLUIDS.register("molten_queens_slime").type(hot().temperature(1450).lightLevel( 9)).block(Material.LAVA,  9).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenSoulsteel   = FLUIDS.register("molten_soulsteel"   ).type(hot().temperature(1500).lightLevel( 6)).block(Material.LAVA,  6).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenNetherite   = FLUIDS.register("molten_netherite"   ).type(hot().temperature(1550).lightLevel(14)).block(Material.LAVA, 14).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenKnightslime = FLUIDS.register("molten_knightslime" ).type(hot().temperature(1425).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenManyullyn   = FLUIDS.register("molten_manyullyn"   ).type(hot("molten_manyullyn"   ).temperature(1500).lightLevel(11)).block(Material.LAVA, 11).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenHepatizon   = FLUIDS.register("molten_hepatizon"   ).type(hot("molten_hepatizon"   ).temperature(1700).lightLevel( 8)).block(Material.LAVA,  8).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenQueensSlime = FLUIDS.register("molten_queens_slime").type(hot("molten_queens_slime").temperature(1450).lightLevel( 9)).block(Material.LAVA,  9).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenSoulsteel   = FLUIDS.register("molten_soulsteel"   ).type(hot("molten_soulsteel"   ).temperature(1500).lightLevel( 6)).block(Material.LAVA,  6).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenNetherite   = FLUIDS.register("molten_netherite"   ).type(hot("molten_netherite"   ).temperature(1550).lightLevel(14)).block(Material.LAVA, 14).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenKnightslime = FLUIDS.register("molten_knightslime" ).type(hot("molten_knightslime" ).temperature(1425).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
 
   // compat ores
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenTin      = FLUIDS.register("molten_tin"     ).type(hot().temperature( 525).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenAluminum = FLUIDS.register("molten_aluminum").type(hot().temperature( 725).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenLead     = FLUIDS.register("molten_lead"    ).type(hot().temperature( 630).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenSilver   = FLUIDS.register("molten_silver"  ).type(hot().temperature(1090).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenNickel   = FLUIDS.register("molten_nickel"  ).type(hot().temperature(1250).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenZinc     = FLUIDS.register("molten_zinc"    ).type(hot().temperature( 720).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenPlatinum = FLUIDS.register("molten_platinum").type(hot().temperature(1270).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenTungsten = FLUIDS.register("molten_tungsten").type(hot().temperature(1250).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenOsmium   = FLUIDS.register("molten_osmium"  ).type(hot().temperature(1275).lightLevel( 4)).block(Material.LAVA,  4).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenUranium  = FLUIDS.register("molten_uranium" ).type(hot().temperature(1130).lightLevel(15)).block(Material.LAVA, 15).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenTin      = FLUIDS.register("molten_tin"     ).type(hot("molten_tin"     ).temperature( 525).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenAluminum = FLUIDS.register("molten_aluminum").type(hot("molten_aluminum").temperature( 725).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenLead     = FLUIDS.register("molten_lead"    ).type(hot("molten_lead"    ).temperature( 630).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenSilver   = FLUIDS.register("molten_silver"  ).type(hot("molten_silver"  ).temperature(1090).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenNickel   = FLUIDS.register("molten_nickel"  ).type(hot("molten_nickel"  ).temperature(1250).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenZinc     = FLUIDS.register("molten_zinc"    ).type(hot("molten_zinc"    ).temperature( 720).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenPlatinum = FLUIDS.register("molten_platinum").type(hot("molten_platinum").temperature(1270).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenTungsten = FLUIDS.register("molten_tungsten").type(hot("molten_tungsten").temperature(1250).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenOsmium   = FLUIDS.register("molten_osmium"  ).type(hot("molten_osmium"  ).temperature(1275).lightLevel( 4)).block(Material.LAVA,  4).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenUranium  = FLUIDS.register("molten_uranium" ).type(hot("molten_uranium" ).temperature(1130).lightLevel(15)).block(Material.LAVA, 15).bucket().flowing();
 
   // compat alloys
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenBronze     = FLUIDS.register("molten_bronze"    ).type(hot().temperature(1000).lightLevel(10)).block(Material.LAVA, 10).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenBrass      = FLUIDS.register("molten_brass"     ).type(hot().temperature( 905).lightLevel(10)).block(Material.LAVA, 10).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenElectrum   = FLUIDS.register("molten_electrum"  ).type(hot().temperature(1060).lightLevel(10)).block(Material.LAVA, 10).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenInvar      = FLUIDS.register("molten_invar"     ).type(hot().temperature(1200).lightLevel(10)).block(Material.LAVA, 10).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenConstantan = FLUIDS.register("molten_constantan").type(hot().temperature(1220).lightLevel(10)).block(Material.LAVA, 10).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenPewter     = FLUIDS.register("molten_pewter"    ).type(hot().temperature( 700).lightLevel(10)).block(Material.LAVA, 10).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenSteel      = FLUIDS.register("molten_steel"     ).type(hot().temperature(1250).lightLevel(13)).block(Material.LAVA, 13).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenBronze     = FLUIDS.register("molten_bronze"    ).type(hot("molten_bronze"    ).temperature(1000).lightLevel(10)).block(Material.LAVA, 10).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenBrass      = FLUIDS.register("molten_brass"     ).type(hot("molten_brass"     ).temperature( 905).lightLevel(10)).block(Material.LAVA, 10).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenElectrum   = FLUIDS.register("molten_electrum"  ).type(hot("molten_electrum"  ).temperature(1060).lightLevel(10)).block(Material.LAVA, 10).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenInvar      = FLUIDS.register("molten_invar"     ).type(hot("molten_invar"     ).temperature(1200).lightLevel(10)).block(Material.LAVA, 10).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenConstantan = FLUIDS.register("molten_constantan").type(hot("molten_constantan").temperature(1220).lightLevel(10)).block(Material.LAVA, 10).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenPewter     = FLUIDS.register("molten_pewter"    ).type(hot("molten_pewter"    ).temperature( 700).lightLevel(10)).block(Material.LAVA, 10).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenSteel      = FLUIDS.register("molten_steel"     ).type(hot("molten_steel"     ).temperature(1250).lightLevel(13)).block(Material.LAVA, 13).bucket().flowing();
 
   // mod-specific compat alloys
   // thermal
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenEnderium = FLUIDS.register("molten_enderium").type(hot().temperature(1650).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenLumium   = FLUIDS.register("molten_lumium"  ).type(hot().temperature(1350).lightLevel(15)).block(Material.LAVA, 15).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenSignalum = FLUIDS.register("molten_signalum").type(hot().temperature(1425).lightLevel(13)).block(Material.LAVA, 13).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenEnderium = FLUIDS.register("molten_enderium").type(hot("molten_enderium").temperature(1650).lightLevel(12)).block(Material.LAVA, 12).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenLumium   = FLUIDS.register("molten_lumium"  ).type(hot("molten_lumium"  ).temperature(1350).lightLevel(15)).block(Material.LAVA, 15).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenSignalum = FLUIDS.register("molten_signalum").type(hot("molten_signalum").temperature(1425).lightLevel(13)).block(Material.LAVA, 13).bucket().flowing();
   // mekanism
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenRefinedGlowstone = FLUIDS.register("molten_refined_glowstone").type(hot().temperature(1125).lightLevel(15)).block(Material.LAVA, 15).bucket().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenRefinedObsidian  = FLUIDS.register("molten_refined_obsidian" ).type(hot().temperature(1775).lightLevel( 7)).block(Material.LAVA,  7).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenRefinedGlowstone = FLUIDS.register("molten_refined_glowstone").type(hot("molten_refined_glowstone").temperature(1125).lightLevel(15)).block(Material.LAVA, 15).bucket().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenRefinedObsidian  = FLUIDS.register("molten_refined_obsidian" ).type(hot("molten_refined_obsidian" ).temperature(1775).lightLevel( 7)).block(Material.LAVA,  7).bucket().flowing();
 
   // fluid data serializer
   public static final FluidDataSerializer FLUID_DATA_SERIALIZER = new FluidDataSerializer();
   public static final RegistryObject<EntityDataSerializer<?>> FLUID_DATA_SERIALIZER_REGISTRY = DATA_SERIALIZERS.register("fluid", () -> FLUID_DATA_SERIALIZER);
 
-  /** Creates a builder for a cool fluid with textures */
+  /** Creates a builder for a cool fluid with sounds */
   private static FluidType.Properties cool() {
     return FluidType.Properties.create()
                                .sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL)
                                .sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY);
   }
 
-  /** Creates a builder for a cool fluid with textures */
-  private static FluidType.Properties slime() {
-    return cool().density(1600).viscosity(1600);
+  /** Creates a builder for a cool fluid with sounds and description */
+  private static FluidType.Properties cool(String name) {
+    return cool().descriptionId(TConstruct.makeDescriptionId("fluid", name))
+                 .sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL)
+                 .sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY);
   }
 
-  /** Creates a builder for a cool fluid with textures */
-  private static FluidType.Properties powder() {
-    return FluidType.Properties.create()
+  /** Creates a builder for a cool fluid with sounds and description */
+  private static FluidType.Properties slime(String name) {
+    return cool(name).density(1600).viscosity(1600);
+  }
+
+  /** Creates a builder for a cool fluid with sounds and description */
+  @SuppressWarnings("SameParameterValue")
+  private static FluidType.Properties powder(String name) {
+    return FluidType.Properties.create().descriptionId(TConstruct.makeDescriptionId("fluid", name))
                                .sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_POWDER_SNOW)
                                .sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_POWDER_SNOW);
   }
 
-  /** Creates a builder for a hot fluid */
-  private static FluidType.Properties hot() {
+  /** Creates a builder for a hot with sounds and description */
+  private static FluidType.Properties hot(String name) {
     return FluidType.Properties.create().density(2000).viscosity(10000).temperature(1000)
+                               .descriptionId(TConstruct.makeDescriptionId("fluid", name))
                                .sound(SoundActions.BUCKET_FILL, SoundEvents.BUCKET_FILL_LAVA)
                                .sound(SoundActions.BUCKET_EMPTY, SoundEvents.BUCKET_EMPTY_LAVA);
   }
