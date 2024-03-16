@@ -1,11 +1,9 @@
 package slimeknights.tconstruct.common.data;
 
-import com.google.common.hash.Hashing;
 import com.mojang.datafixers.DataFixer;
 import com.mojang.datafixers.DataFixerUpper;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DataProvider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.nbt.NbtUtils;
@@ -17,25 +15,24 @@ import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.util.datafix.DataFixers;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.data.GenericNBTProvider;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.nio.file.Path;
 import java.util.Map.Entry;
 
 /**
  * Data provider to update structures to a newer data fixer upper version
  * Based on https://github.com/BluSunrize/ImmersiveEngineering/blob/1.19.2/src/datagen/java/blusunrize/immersiveengineering/data/StructureUpdater.java
  */
-public class StructureUpdater implements DataProvider {
+public class StructureUpdater extends GenericNBTProvider {
   private final String basePath;
   private final String modId;
-  private final DataGenerator gen;
   private final MultiPackResourceManager resources;
 
-  public StructureUpdater(DataGenerator gen, ExistingFileHelper helper, String modId, PackType packType, String basePath) {
-    this.gen = gen;
+  public StructureUpdater(DataGenerator generator, ExistingFileHelper helper, String modId, PackType packType, String basePath) {
+    super(generator, packType, basePath);
     this.modId = modId;
     this.basePath = basePath;
     try {
@@ -48,30 +45,27 @@ public class StructureUpdater implements DataProvider {
   }
 
   @Override
-  public void run(CachedOutput cache) throws IOException {
+  public void run(CachedOutput cache) {
     for(Entry<ResourceLocation,Resource> entry : resources.listResources(basePath, file -> file.getNamespace().equals(modId) && file.getPath().endsWith(".nbt")).entrySet()) {
-      process(entry.getKey(), entry.getValue(), cache);
+      process(localize(entry.getKey()), entry.getValue(), cache);
     }
   }
 
-  private void process(ResourceLocation location, Resource resource, CachedOutput cache) throws IOException {
-    CompoundTag inputNBT = NbtIo.readCompressed(resource.open());
-    CompoundTag converted = updateNBT(inputNBT);
-    if (!converted.equals(inputNBT)) {
-      Class<? extends DataFixer> fixerClass = DataFixers.getDataFixer().getClass();
-      if (!fixerClass.equals(DataFixerUpper.class)) {
-        throw new RuntimeException("Structures are not up to date, but unknown data fixer is in use: " + fixerClass.getName());
+  /** Updates the given structure */
+  private void process(ResourceLocation location, Resource resource, CachedOutput cache) {
+    try {
+      CompoundTag inputNBT = NbtIo.readCompressed(resource.open());
+      CompoundTag converted = updateNBT(inputNBT);
+      if (!converted.equals(inputNBT)) {
+        Class<? extends DataFixer> fixerClass = DataFixers.getDataFixer().getClass();
+        if (!fixerClass.equals(DataFixerUpper.class)) {
+          throw new RuntimeException("Structures are not up to date, but unknown data fixer is in use: " + fixerClass.getName());
+        }
+        saveNBT(cache, location, converted);
       }
-      writeNBTTo(location, converted, cache);
+    } catch (IOException e) {
+      TConstruct.LOG.error("Couldn't read NBT for {}", location, e);
     }
-  }
-
-  private void writeNBTTo(ResourceLocation loc, CompoundTag data, CachedOutput cache) throws IOException {
-    ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
-    NbtIo.writeCompressed(data, bytearrayoutputstream);
-    byte[] bytes = bytearrayoutputstream.toByteArray();
-    Path outputPath = gen.getOutputFolder().resolve("data/"+loc.getNamespace()+"/"+loc.getPath());
-    cache.writeIfNeeded(outputPath, bytes, Hashing.sha1().hashBytes(bytes));
   }
 
   private static CompoundTag updateNBT(CompoundTag nbt) {

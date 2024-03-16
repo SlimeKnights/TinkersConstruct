@@ -1,5 +1,5 @@
 {
-  "parent": "tconstruct:world/tinkers_gadgetry",
+  "parent": "tconstruct:world/ender_island",
   "criteria": {
     "crafted_boots": {
       "conditions": {

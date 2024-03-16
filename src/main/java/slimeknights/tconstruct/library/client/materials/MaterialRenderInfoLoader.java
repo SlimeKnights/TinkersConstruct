@@ -95,8 +95,7 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
     for(Entry<ResourceLocation, Resource> entry : manager.listResources(FOLDER, (loc) -> loc.getPath().endsWith(".json")).entrySet()) {
       // clean up ID by trimming off the extension and folder
       ResourceLocation location = entry.getKey();
-      String path = location.getPath();
-      String localPath = path.substring(trim, path.length() - 5);
+      String localPath = JsonHelper.localize(location.getPath(), FOLDER, ".json");
 
       // locate variant as a subfolder, and create final ID
       String variant = "";

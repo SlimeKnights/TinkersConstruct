@@ -237,12 +237,10 @@ public class ClientGeneratePartTexturesCommand {
   private static List<MaterialSpriteInfo> loadMaterialRenderInfoGenerators(ResourceManager manager, Predicate<MaterialVariantId> validMaterialId) {
     ImmutableList.Builder<MaterialSpriteInfo> builder = ImmutableList.builder();
 
-    int trim = MaterialRenderInfoLoader.FOLDER.length() + 1;
     for(Entry<ResourceLocation,Resource> entry : manager.listResources(MaterialRenderInfoLoader.FOLDER, loc -> loc.getPath().endsWith(".json")).entrySet()) {
       // clean up ID by trimming off the extension
       ResourceLocation location = entry.getKey();
-      String path = location.getPath();
-      String localPath = path.substring(trim, path.length() - 5);
+      String localPath = JsonHelper.localize(location.getPath(), MaterialRenderInfoLoader.FOLDER, ".json");
 
       // locate variant as a subfolder, and create final ID
       String variant = "";
