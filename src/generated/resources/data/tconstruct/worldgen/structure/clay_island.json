@@ -1,0 +1,73 @@
+{
+  "type": "tconstruct:island",
+  "biomes": "#tconstruct:islands/clay",
+  "grasses": [
+    {
+      "data": "minecraft:grass",
+      "weight": 7
+    },
+    {
+      "data": "minecraft:fern",
+      "weight": 1
+    }
+  ],
+  "placement": "sky",
+  "spawn_overrides": {
+    "monster": {
+      "bounding_box": "full",
+      "spawns": [
+        {
+          "type": "tconstruct:terracube",
+          "maxCount": 4,
+          "minCount": 2,
+          "weight": 1
+        }
+      ]
+    }
+  },
+  "step": "surface_structures",
+  "templates": [
+    {
+      "data": "tconstruct:islands/dirt/0x1x0",
+      "weight": 1
+    },
+    {
+      "data": "tconstruct:islands/dirt/2x2x4",
+      "weight": 1
+    },
+    {
+      "data": "tconstruct:islands/dirt/4x1x6",
+      "weight": 1
+    },
+    {
+      "data": "tconstruct:islands/dirt/8x1x11",
+      "weight": 1
+    },
+    {
+      "data": "tconstruct:islands/dirt/11x1x11",
+      "weight": 1
+    }
+  ],
+  "trees": [
+    {
+      "data": "minecraft:oak",
+      "weight": 4
+    },
+    {
+      "data": "minecraft:birch",
+      "weight": 3
+    },
+    {
+      "data": "minecraft:spruce",
+      "weight": 2
+    },
+    {
+      "data": "minecraft:acacia",
+      "weight": 1
+    },
+    {
+      "data": "minecraft:jungle_tree_no_vine",
+      "weight": 1
+    }
+  ]
+}

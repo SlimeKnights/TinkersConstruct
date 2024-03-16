@@ -1,0 +1,58 @@
+{
+  "type": "tconstruct:island",
+  "biomes": "#tconstruct:islands/skyslime",
+  "grasses": [
+    {
+      "data": "tconstruct:sky_slime_tall_grass",
+      "weight": 7
+    },
+    {
+      "data": "tconstruct:sky_slime_fern",
+      "weight": 1
+    }
+  ],
+  "placement": "sky",
+  "spawn_overrides": {
+    "monster": {
+      "bounding_box": "full",
+      "spawns": [
+        {
+          "type": "tconstruct:sky_slime",
+          "maxCount": 4,
+          "minCount": 3,
+          "weight": 1
+        }
+      ]
+    }
+  },
+  "step": "surface_structures",
+  "templates": [
+    {
+      "data": "tconstruct:islands/sky/0x1x0",
+      "weight": 1
+    },
+    {
+      "data": "tconstruct:islands/sky/2x2x4",
+      "weight": 1
+    },
+    {
+      "data": "tconstruct:islands/sky/4x1x6",
+      "weight": 1
+    },
+    {
+      "data": "tconstruct:islands/sky/8x1x11",
+      "weight": 1
+    },
+    {
+      "data": "tconstruct:islands/sky/11x1x11",
+      "weight": 1
+    }
+  ],
+  "trees": [
+    {
+      "data": "tconstruct:sky_slime_island_tree",
+      "weight": 1
+    }
+  ],
+  "vines": "tconstruct:sky_slime_vine"
+}

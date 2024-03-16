@@ -1,0 +1,57 @@
+{
+  "type": "tconstruct:island",
+  "biomes": "#tconstruct:islands/blood",
+  "grasses": [
+    {
+      "data": "tconstruct:blood_slime_tall_grass",
+      "weight": 7
+    },
+    {
+      "data": "tconstruct:blood_slime_fern",
+      "weight": 1
+    }
+  ],
+  "placement": "sea",
+  "spawn_overrides": {
+    "monster": {
+      "bounding_box": "full",
+      "spawns": [
+        {
+          "type": "minecraft:magma_cube",
+          "maxCount": 6,
+          "minCount": 4,
+          "weight": 1
+        }
+      ]
+    }
+  },
+  "step": "underground_decoration",
+  "templates": [
+    {
+      "data": "tconstruct:islands/blood/0x1x0",
+      "weight": 1
+    },
+    {
+      "data": "tconstruct:islands/blood/2x2x4",
+      "weight": 1
+    },
+    {
+      "data": "tconstruct:islands/blood/4x1x6",
+      "weight": 1
+    },
+    {
+      "data": "tconstruct:islands/blood/8x1x11",
+      "weight": 1
+    },
+    {
+      "data": "tconstruct:islands/blood/11x1x11",
+      "weight": 1
+    }
+  ],
+  "trees": [
+    {
+      "data": "tconstruct:blood_slime_island_fungus",
+      "weight": 1
+    }
+  ]
+}

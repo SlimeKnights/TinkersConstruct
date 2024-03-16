@@ -365,15 +365,15 @@ public class AdvancementsProvider extends GenericDataProvider {
     Advancement tinkersGadgetry = builder(TinkerCommons.tinkersGadgetry, resource("world/tinkers_gadgetry"), materialsAndYou, FrameType.TASK, builder ->
       builder.addCriterion("crafted_book", hasItem(TinkerCommons.tinkersGadgetry)));
     builder(TinkerWorld.slimeSapling.get(SlimeType.EARTH), resource("world/earth_island"), tinkersGadgetry, FrameType.GOAL, builder ->
-      builder.addCriterion("found_island", PlayerTrigger.TriggerInstance.located(LocationPredicate.inStructure(Objects.requireNonNull(TinkerStructures.earthSlimeIsland.getKey())))));
+      builder.addCriterion("found_island", PlayerTrigger.TriggerInstance.located(LocationPredicate.inStructure(Objects.requireNonNull(TinkerStructures.earthSlimeIsland)))));
     builder(TinkerWorld.slimeSapling.get(SlimeType.SKY), resource("world/sky_island"), tinkersGadgetry, FrameType.GOAL, builder ->
-      builder.addCriterion("found_island", PlayerTrigger.TriggerInstance.located(LocationPredicate.inStructure(Objects.requireNonNull(TinkerStructures.skySlimeIsland.getKey())))));
+      builder.addCriterion("found_island", PlayerTrigger.TriggerInstance.located(LocationPredicate.inStructure(Objects.requireNonNull(TinkerStructures.skySlimeIsland)))));
     builder(TinkerWorld.slimeSapling.get(SlimeType.BLOOD), resource("world/blood_island"), tinkersGadgetry, FrameType.GOAL, builder ->
-      builder.addCriterion("found_island", PlayerTrigger.TriggerInstance.located(LocationPredicate.inStructure(Objects.requireNonNull(TinkerStructures.bloodIsland.getKey())))));
+      builder.addCriterion("found_island", PlayerTrigger.TriggerInstance.located(LocationPredicate.inStructure(Objects.requireNonNull(TinkerStructures.bloodIsland)))));
     Advancement enderslimeIsland = builder(TinkerWorld.slimeSapling.get(SlimeType.ENDER), resource("world/ender_island"), tinkersGadgetry, FrameType.GOAL, builder ->
-      builder.addCriterion("found_island", PlayerTrigger.TriggerInstance.located(LocationPredicate.inStructure(Objects.requireNonNull(TinkerStructures.endSlimeIsland.getKey())))));
+      builder.addCriterion("found_island", PlayerTrigger.TriggerInstance.located(LocationPredicate.inStructure(Objects.requireNonNull(TinkerStructures.endSlimeIsland)))));
     builder(Items.CLAY_BALL, resource("world/clay_island"), tinkersGadgetry, FrameType.GOAL, builder ->
-      builder.addCriterion("found_island", PlayerTrigger.TriggerInstance.located(LocationPredicate.inStructure(Objects.requireNonNull(TinkerStructures.clayIsland.getKey())))));
+      builder.addCriterion("found_island", PlayerTrigger.TriggerInstance.located(LocationPredicate.inStructure(Objects.requireNonNull(TinkerStructures.clayIsland)))));
     Advancement slimes = builder(TinkerCommons.slimeball.get(SlimeType.ICHOR), resource("world/slime_collector"), tinkersGadgetry, FrameType.TASK, builder -> {
       for (SlimeType type : SlimeType.values()) {
         builder.addCriterion(type.getSerializedName(), hasTag(type.getSlimeballTag()));
