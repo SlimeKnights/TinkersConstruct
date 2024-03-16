@@ -340,7 +340,7 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
         // same drill as above, large means more quad fetching but we can use a simplier variant for small
         if (largeTransforms != null) {
           guiQuads.add(List.of(MantleItemLayerModel.getQuadForGui(materialSprite.color(), -1, particle, smallTransforms, materialSprite.emissivity())));
-          fullQuads.add(MaterialModel.getQuadsForMaterial(spriteGetter, owner.getMaterial(part.getName(isBroken, true)), material, -1, smallTransforms, pixels));
+          fullQuads.add(MaterialModel.getQuadsForMaterial(spriteGetter, owner.getMaterial(part.getName(isBroken, true)), material, -1, largeTransforms, pixels));
         } else {
           List<BakedQuad> quads = MantleItemLayerModel.getQuadsForSprite(materialSprite.color(), -1, particle, smallTransforms, 0, pixels);
           guiQuads.add(filterToGuiQuads(quads));
