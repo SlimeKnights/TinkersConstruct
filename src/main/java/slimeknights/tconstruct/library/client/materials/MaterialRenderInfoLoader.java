@@ -5,10 +5,14 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
 import lombok.extern.log4j.Log4j2;
+import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
+import net.minecraftforge.client.event.ModelEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.fml.ModLoader;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import slimeknights.mantle.data.gson.ResourceLocationSerializer;
 import slimeknights.mantle.data.listener.IEarlySafeManagerReloadListener;
 import slimeknights.mantle.util.JsonHelper;
@@ -53,8 +57,15 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
   /**
    * Called on mod construct to register the resource listener
    */
-  public static void addResourceListener(RegisterClientReloadListenersEvent manager)  {
-    manager.registerReloadListener(INSTANCE);
+  public static void init()  {
+    // bit of a hack: instead of registering our resource listener to the list as we should, we use the additional model registration event
+    // we do this as we need to guarantee we run before models are baked, which happens in the first stage of listeners in the bakery constructor
+    // the other option would be to wait until the atlas stitch event, though that would make it more difficult to know which sprites we need
+    FMLJavaModLoadingContext.get().getModEventBus().addListener(EventPriority.NORMAL, false, ModelEvent.RegisterAdditional.class, event -> {
+      if(ModLoader.isLoadingStateValid()) {
+        INSTANCE.onReloadSafe(Minecraft.getInstance().getResourceManager());
+      }
+    });
   }
 
   /** Map of all loaded materials */
@@ -90,7 +101,6 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
   @Override
   public void onReloadSafe(ResourceManager manager) {
     // first, we need to fetch all relevant JSON files
-    int trim = FOLDER.length() + 1;
     Map<MaterialVariantId,MaterialRenderInfo> map = new HashMap<>();
     for(Entry<ResourceLocation, Resource> entry : manager.listResources(FOLDER, (loc) -> loc.getPath().endsWith(".json")).entrySet()) {
       // clean up ID by trimming off the extension and folder
