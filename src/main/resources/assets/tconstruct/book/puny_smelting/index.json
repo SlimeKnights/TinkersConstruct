@@ -29,6 +29,7 @@
   },
   {
     "name": "melee_harvest_materials",
+    "data": "no-load",
     "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tier": 2 } },
     "icon": {
       "item": "tconstruct:seared_brick"
@@ -36,6 +37,7 @@
   },
   {
     "name": "ranged_materials",
+    "data": "no-load",
     "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tier": 2 } },
     "icon": {
       "item": "minecraft:iron_ingot"
@@ -58,6 +60,7 @@
       "registry": "minecraft:item",
       "tag": "tconstruct:modifiable/book_armor/puny_smelting"
     },
+    "data": "no-load",
     "extraData": {
       "tconstruct:load_tools": { "tag": "tconstruct:modifiable/book_armor/puny_smelting", "path": "armor", "sort": false }
     }

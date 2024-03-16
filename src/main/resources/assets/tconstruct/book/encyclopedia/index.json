@@ -102,6 +102,7 @@
   },
   {
     "name": "materials_harvest_1",
+    "data": "no-load",
     "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tier": 1, "detailed": true }},
     "requirements": [ "tconstruct:tools/materials_and_you" ],
     "hideWhenLocked": true,
@@ -111,6 +112,7 @@
   },
   {
     "name": "materials_harvest_2",
+    "data": "no-load",
     "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tier": 2, "detailed": true }},
     "requirements": [ "tconstruct:smeltery/puny_smelting" ],
     "hideWhenLocked": true,
@@ -120,6 +122,7 @@
   },
   {
     "name": "materials_harvest_3",
+    "data": "no-load",
     "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tier": 3, "detailed": true }},
     "requirements": [ "tconstruct:smeltery/mighty_smelting" ],
     "hideWhenLocked": true,
@@ -129,6 +132,7 @@
   },
   {
     "name": "materials_harvest_4",
+    "data": "no-load",
     "extraData": { "tconstruct:material_tier": { "type": "tconstruct:melee_harvest", "tier": 4, "detailed": true }},
     "requirements": [ "tconstruct:foundry/fantastic_foundry" ],
     "hideWhenLocked": true,
@@ -138,6 +142,7 @@
   },
   {
     "name": "materials_ranged_1",
+    "data": "no-load",
     "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tier": 1, "detailed": true }},
     "requirements": [ "tconstruct:tools/materials_and_you" ],
     "hideWhenLocked": true,
@@ -147,6 +152,7 @@
   },
   {
     "name": "materials_ranged_2",
+    "data": "no-load",
     "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tier": 2, "detailed": true }},
     "requirements": [ "tconstruct:smeltery/puny_smelting" ],
     "hideWhenLocked": true,
@@ -156,6 +162,7 @@
   },
   {
     "name": "materials_ranged_3",
+    "data": "no-load",
     "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tier": 3, "detailed": true }},
     "requirements": [ "tconstruct:smeltery/mighty_smelting" ],
     "hideWhenLocked": true,
@@ -165,6 +172,7 @@
   },
   {
     "name": "materials_ranged_4",
+    "data": "no-load",
     "extraData": { "tconstruct:material_tier": { "type": "tconstruct:ranged", "tier": 4, "detailed": true }},
     "requirements": [ "tconstruct:foundry/fantastic_foundry" ],
     "hideWhenLocked": true,
@@ -175,6 +183,7 @@
   {
     "name": "materials_skull",
     "requirements": [ "tconstruct:world/tinkers_gadgetry" ],
+    "data": "no-load",
     "extraData": { "tconstruct:material_tier": { "type": "tconstruct:skull", "detailed": true } },
     "icon": {
       "item": "minecraft:skeleton_skull"

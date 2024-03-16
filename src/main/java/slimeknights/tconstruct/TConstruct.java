@@ -144,12 +144,6 @@ public class TConstruct {
     datagenerator.addProvider(server, new TConstructLootTableProvider(datagenerator));
     datagenerator.addProvider(server, new AdvancementsProvider(datagenerator));
     datagenerator.addProvider(server, new GlobalLootModifiersProvider(datagenerator));
-    //datagenerator.addProvider(new StructureUpdater(datagenerator, existingFileHelper, MOD_ID, PackType.SERVER_DATA, "structures"));
-    /*
-    if (event.includeClient()) {
-      datagenerator.addProvider(new StructureUpdater(datagenerator, existingFileHelper, MOD_ID, PackType.CLIENT_RESOURCES, "book/structures"));
-    }
-    */
   }
 
 

@@ -32,6 +32,7 @@
     "icon": {
       "item": "tconstruct:sky_staff"
     },
+    "data": "no-load",
     "extraData": { "tconstruct:load_tools": { "tag": "tconstruct:modifiable/special", "path": "staffs", "sort": false }}
   },
   {
@@ -44,12 +45,14 @@
       "registry": "minecraft:item",
       "tag": "tconstruct:modifiable/book_armor/tinkers_gadgetry"
     },
+    "data": "no-load",
     "extraData": {
       "tconstruct:load_tools": { "tag": "tconstruct:modifiable/book_armor/tinkers_gadgetry", "path": "armor", "sort": false }
     }
   },
   {
     "name": "materials",
+    "data": "no-load",
     "extraData": { "tconstruct:material_tier": { "type": "tconstruct:skull" } },
     "icon": {
       "item": "minecraft:skeleton_skull"
