@@ -19,8 +19,8 @@
   ],
   "result": {
     "amount": 500,
-    "fluid": "tconstruct:blood"
+    "fluid": "tconstruct:liquid_soul"
   },
-  "temperature": 36,
-  "time": 71
+  "temperature": 400,
+  "time": 109
 }

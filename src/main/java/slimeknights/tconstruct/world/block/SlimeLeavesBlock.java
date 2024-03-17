@@ -13,12 +13,11 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.shared.block.SlimeType;
 
 public class SlimeLeavesBlock extends LeavesBlock {
   @Getter
-  private final SlimeType foliageType;
-  public SlimeLeavesBlock(Properties properties, SlimeType foliageType) {
+  private final FoliageType foliageType;
+  public SlimeLeavesBlock(Properties properties, FoliageType foliageType) {
     super(properties);
     this.foliageType = foliageType;
   }
@@ -80,7 +79,7 @@ public class SlimeLeavesBlock extends LeavesBlock {
 
   @Override
   public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
-    if (this.foliageType != SlimeType.ICHOR) {
+    if (this.foliageType != FoliageType.ICHOR) {
       super.fillItemCategory(group, items);
     }
   }

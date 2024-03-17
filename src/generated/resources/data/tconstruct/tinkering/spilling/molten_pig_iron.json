@@ -4,7 +4,7 @@
       "type": "tconstruct:restore_hunger",
       "hunger": 2,
       "representative_item": "tconstruct:bacon",
-      "saturation": 0.3
+      "saturation": 0.7
     },
     {
       "type": "tconstruct:set_fire",

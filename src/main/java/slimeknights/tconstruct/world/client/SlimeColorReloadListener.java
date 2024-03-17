@@ -1,13 +1,13 @@
 package slimeknights.tconstruct.world.client;
 
 import net.minecraft.client.resources.LegacyStuffWrapper;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
-import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fml.ModLoader;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.shared.block.SlimeType;
+import slimeknights.tconstruct.world.block.FoliageType;
 
 import java.io.IOException;
 
@@ -15,9 +15,9 @@ import java.io.IOException;
  * Color reload listener for all slime foliage types
  */
 public class SlimeColorReloadListener extends SimplePreparableReloadListener<int[]> {
-  private final SlimeType color;
+  private final FoliageType color;
   private final ResourceLocation path;
-  public SlimeColorReloadListener(SlimeType color) {
+  public SlimeColorReloadListener(FoliageType color) {
     this.color = color;
     this.path = TConstruct.getResource("textures/colormap/" + color.getSerializedName() + "_grass_color.png");
   }

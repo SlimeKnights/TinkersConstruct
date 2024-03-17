@@ -7,6 +7,8 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -51,6 +53,7 @@ import slimeknights.tconstruct.plugin.jsonthings.JsonThingsPlugin;
 import slimeknights.tconstruct.shared.TinkerClient;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
+import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -59,6 +62,7 @@ import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.TinkerWorld;
 
+import javax.annotation.Nullable;
 import java.util.Locale;
 import java.util.Random;
 import java.util.function.Supplier;
@@ -151,15 +155,51 @@ public class TConstruct {
     datagenerator.addProvider(server, new GlobalLootModifiersProvider(datagenerator));
   }
 
+  /** Shared behavior between item and block missing mappings */
+  @Nullable
+  private static Block missingBlock(String name) {
+    return switch(name) {
+      // blood removal
+      case "blood_slime" -> Blocks.SLIME_BLOCK;
+      case "blood_congealed_slime" -> TinkerWorld.congealedSlime.get(SlimeType.EARTH);
+      case "blood_fluid" -> TinkerFluids.earthSlime.getBlock();
+      default -> null;
+    };
+  }
+
   /** Handles missing mappings of all types */
   private static void missingMappings(MissingMappingsEvent event) {
+    RegistrationHelper.handleMissingMappings(event, MOD_ID, Registry.BLOCK_REGISTRY, name -> {
+      // no item form so we handle it directly
+      if (name.equals("blood_fluid")) {
+        return TinkerFluids.earthSlime.getBlock();
+      }
+      return missingBlock(name);
+    });
     RegistrationHelper.handleMissingMappings(event, MOD_ID, Registry.ITEM_REGISTRY, name -> switch (name) {
+      // slings are modifiers now
       case "earth_slime_sling" -> TinkerTools.earthStaff.get();
       case "sky_slime_sling" -> TinkerTools.skyStaff.get();
       case "ichor_slime_sling" -> TinkerTools.ichorStaff.get();
       case "ender_slime_sling" -> TinkerTools.enderStaff.get();
+      // earthslime no longer needed due to forge feature
       case "earth_slime_spawn_egg" -> Items.SLIME_SPAWN_EGG;
+      // blood removal
       case "bloodbone" -> TinkerMaterials.venombone.get();
+      case "blood_slime_ball" -> Items.SLIME_BALL;
+      case "blood_bucket" -> TinkerFluids.earthSlime.asItem();
+      case "blood_bottle" -> TinkerFluids.slimeBottle.get(SlimeType.EARTH);
+      // ID switched from non-generated to generated
+      case "ichor_bottle" -> TinkerFluids.slimeBottle.get(SlimeType.ICHOR);
+      // fallback to blocks to reduce duplication of listings
+      default -> {
+        Block block = missingBlock(name);
+        yield block == null ? null : block.asItem();
+      }
+    });
+    RegistrationHelper.handleMissingMappings(event, MOD_ID, Registry.FLUID_REGISTRY, name -> switch (name) {
+      case "blood" -> TinkerFluids.earthSlime.getStill();
+      case "flowing_blood" -> TinkerFluids.earthSlime.getFlowing();
       default -> null;
     });
     RegistrationHelper.handleMissingMappings(event, MOD_ID, Registry.ENTITY_TYPE_REGISTRY, name -> name.equals("earth_slime") ? EntityType.SLIME : null);

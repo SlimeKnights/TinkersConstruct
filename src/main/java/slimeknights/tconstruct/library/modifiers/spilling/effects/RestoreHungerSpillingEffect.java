@@ -32,10 +32,9 @@ public record RestoreHungerSpillingEffect(int hunger, float saturation, @Nullabl
     if (target instanceof Player player) {
       if (player.canEat(false)) {
         int finalHunger = (int)(hunger * scale);
-        float finalSaturation = saturation * scale;
-        player.getFoodData().eat(finalHunger, finalSaturation);
+        player.getFoodData().eat(finalHunger, saturation);
         if (representative != null) {
-          ModifierUtil.foodConsumer.onConsume(player, representative.get(), finalHunger, finalSaturation);
+          ModifierUtil.foodConsumer.onConsume(player, representative.get(), finalHunger, saturation);
         }
       }
     }

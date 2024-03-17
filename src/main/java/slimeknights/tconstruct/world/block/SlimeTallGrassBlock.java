@@ -16,7 +16,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.IForgeShearable;
 import net.minecraftforge.common.PlantType;
-import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import javax.annotation.Nonnull;
@@ -28,9 +27,8 @@ public class SlimeTallGrassBlock extends BushBlock implements IForgeShearable {
   private static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
 
   @Getter
-  private final SlimeType foliageType;
-
-  public SlimeTallGrassBlock(Properties properties, SlimeType foliageType) {
+  private final FoliageType foliageType;
+  public SlimeTallGrassBlock(Properties properties, FoliageType foliageType) {
     super(properties);
     this.foliageType = foliageType;
   }
@@ -62,7 +60,7 @@ public class SlimeTallGrassBlock extends BushBlock implements IForgeShearable {
 
   @Override
   public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
-    if (this.foliageType != SlimeType.ICHOR) {
+    if (this.foliageType != FoliageType.ICHOR) {
       super.fillItemCategory(group, items);
     }
   }

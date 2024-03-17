@@ -1,7 +1,8 @@
 {
   "values": [
-    "#tconstruct:beetroot_soup",
-    "#tconstruct:mushroom_stew",
-    "#tconstruct:rabbit_stew"
+    "#forge:beetroot_soup",
+    "#forge:mushroom_stew",
+    "#forge:rabbit_stew",
+    "#tconstruct:meat_soup"
   ]
 }

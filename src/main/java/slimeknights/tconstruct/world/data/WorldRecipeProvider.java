@@ -126,7 +126,7 @@ public class WorldRecipeProvider extends BaseRecipeProvider implements ICommonRe
                               .unlockedBy("has_crystal", has(geode))
                               .group("tconstruct:slime_crystal")
                               .save(consumer, location(folder + "crystal_smelting"));
-    ItemLike dirt = TinkerWorld.slimeDirt.get(slime);
+    ItemLike dirt = TinkerWorld.slimeDirt.get(slime.asDirt());
     SimpleCookingRecipeBuilder.blasting(Ingredient.of(dirt), geode, 0.2f, 400)
                               .unlockedBy("has_dirt", has(dirt))
                               .group("tconstruct:slime_dirt")

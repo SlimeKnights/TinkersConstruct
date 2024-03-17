@@ -1,13 +1,13 @@
 {
   "type": "tconstruct:casting_table",
   "cast": {
-    "item": "minecraft:glass_bottle"
+    "item": "minecraft:bowl"
   },
   "cast_consumed": true,
   "cooling_time": 1,
   "fluid": {
     "amount": 250,
-    "tag": "tconstruct:blood"
+    "tag": "tconstruct:meat_soup"
   },
-  "result": "tconstruct:blood_bottle"
+  "result": "tconstruct:meat_soup"
 }

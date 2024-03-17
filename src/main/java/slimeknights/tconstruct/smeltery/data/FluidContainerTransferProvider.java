@@ -33,10 +33,11 @@ public class FluidContainerTransferProvider extends AbstractFluidContainerTransf
 
   @Override
   protected void addTransfers() {
-    addFillEmpty("honey_bottle_",  Items.HONEY_BOTTLE,     Items.GLASS_BOTTLE,           TinkerFluids.honey.get(),        TinkerFluids.honey.getForgeTag(),        FluidValues.BOTTLE);
-    addFillEmpty("beetroot_soup_", Items.BEETROOT_SOUP,    Items.BOWL,                   TinkerFluids.beetrootSoup.get(), TinkerFluids.beetrootSoup.getForgeTag(), FluidValues.BOWL);
-    addFillEmpty("mushroom_stew_", Items.MUSHROOM_STEW,    Items.BOWL,                   TinkerFluids.mushroomStew.get(), TinkerFluids.mushroomStew.getForgeTag(), FluidValues.BOWL);
-    addFillEmpty("rabbit_stew_",   Items.RABBIT_STEW,      Items.BOWL,                   TinkerFluids.rabbitStew.get(),   TinkerFluids.rabbitStew.getForgeTag(),   FluidValues.BOWL);
+    addFillEmpty("honey_bottle_",  Items.HONEY_BOTTLE,        Items.GLASS_BOTTLE, TinkerFluids.honey.get(),        TinkerFluids.honey.getForgeTag(),        FluidValues.BOTTLE);
+    addFillEmpty("beetroot_soup_", Items.BEETROOT_SOUP,       Items.BOWL,         TinkerFluids.beetrootSoup.get(), TinkerFluids.beetrootSoup.getForgeTag(), FluidValues.BOWL);
+    addFillEmpty("mushroom_stew_", Items.MUSHROOM_STEW,       Items.BOWL,         TinkerFluids.mushroomStew.get(), TinkerFluids.mushroomStew.getForgeTag(), FluidValues.BOWL);
+    addFillEmpty("rabbit_stew_",   Items.RABBIT_STEW,         Items.BOWL,         TinkerFluids.rabbitStew.get(),   TinkerFluids.rabbitStew.getForgeTag(),   FluidValues.BOWL);
+    addFillEmpty("meat_soup_",     TinkerFluids.meatSoupBowl, Items.BOWL,         TinkerFluids.meatSoup.get(),     TinkerFluids.meatSoup.getLocalTag(),     FluidValues.BOWL);
     // potions
     addPotion("potion_",           Items.POTION,           Items.GLASS_BOTTLE,           null);
     addPotion("potion_splash_",    Items.SPLASH_POTION,    TinkerFluids.splashBottle,    TinkerTags.Items.SPLASH_BOTTLE);
@@ -46,7 +47,6 @@ public class FluidContainerTransferProvider extends AbstractFluidContainerTransf
     addBottleFill("earth_slime_bottle_fill", TinkerFluids.slimeBottle.get(SlimeType.EARTH), TinkerFluids.earthSlime.getForgeTag());
     addBottleFill("sky_slime_bottle_fill",   TinkerFluids.slimeBottle.get(SlimeType.SKY),   TinkerFluids.skySlime.getLocalTag());
     addBottleFill("ender_slime_bottle_fill", TinkerFluids.slimeBottle.get(SlimeType.ENDER), TinkerFluids.enderSlime.getLocalTag());
-    addBottleFill("blood_bottle_fill",       TinkerFluids.slimeBottle.get(SlimeType.BLOOD), TinkerFluids.blood.getLocalTag());
     addBottleFill("magma_bottle_fill",       TinkerFluids.magmaBottle, TinkerFluids.magma.getForgeTag());
   }
 

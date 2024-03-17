@@ -24,7 +24,6 @@ public class FluidClientEvents extends ClientEventBase {
     setTranslucent(TinkerFluids.earthSlime);
     setTranslucent(TinkerFluids.skySlime);
     setTranslucent(TinkerFluids.enderSlime);
-    setTranslucent(TinkerFluids.blood);
     // molten
     setTranslucent(TinkerFluids.moltenDiamond);
     setTranslucent(TinkerFluids.moltenEmerald);

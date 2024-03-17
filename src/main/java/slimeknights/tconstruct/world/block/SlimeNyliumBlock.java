@@ -15,21 +15,20 @@ import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.lighting.LayerLightEngine;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.shared.block.SlimeType;
 
 /**
  * Slimy variant of nylium, mostly changes the way it bonemeals
  */
 public class SlimeNyliumBlock extends Block implements BonemealableBlock {
-  private final SlimeType foliageType;
-  public SlimeNyliumBlock(Properties properties, SlimeType foliageType) {
+  private final FoliageType foliageType;
+  public SlimeNyliumBlock(Properties properties, FoliageType foliageType) {
     super(properties);
     this.foliageType = foliageType;
   }
 
   @Override
   public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
-    if (this.foliageType != SlimeType.ICHOR) {
+    if (this.foliageType != FoliageType.ICHOR) {
       super.fillItemCategory(group, items);
     }
   }

@@ -3,7 +3,6 @@
     "#forge:slimeball/earth",
     "#forge:slimeball/sky",
     "#forge:slimeball/ichor",
-    "#forge:slimeball/ender",
-    "#forge:slimeball/blood"
+    "#forge:slimeball/ender"
   ]
 }

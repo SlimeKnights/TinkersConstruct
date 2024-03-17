@@ -4,7 +4,7 @@
       "type": "tconstruct:restore_hunger",
       "hunger": 1,
       "representative_item": "minecraft:mushroom_stew",
-      "saturation": 0.15
+      "saturation": 0.72
     }
   ],
   "fluid": {

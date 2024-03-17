@@ -1,27 +1,23 @@
 package slimeknights.tconstruct.world.block;
 
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.SaplingBlock;
-import net.minecraft.world.level.block.grower.AbstractTreeGrower;
-import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.core.NonNullList;
-import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.grower.AbstractTreeGrower;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.PlantType;
-import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import javax.annotation.Nonnull;
 
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-
 public class SlimeSaplingBlock extends SaplingBlock {
-
-  private final SlimeType foliageType;
-  public SlimeSaplingBlock(AbstractTreeGrower treeIn, SlimeType foliageType, Properties properties) {
+  private final FoliageType foliageType;
+  public SlimeSaplingBlock(AbstractTreeGrower treeIn, FoliageType foliageType, Properties properties) {
     super(treeIn, properties);
     this.foliageType = foliageType;
   }
@@ -46,7 +42,7 @@ public class SlimeSaplingBlock extends SaplingBlock {
 
   @Override
   public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
-    if (this.foliageType != SlimeType.ICHOR) {
+    if (this.foliageType != FoliageType.ICHOR) {
       super.fillItemCategory(group, items);
     }
   }

@@ -75,6 +75,7 @@ import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerHeadType;
 import slimeknights.tconstruct.world.TinkerWorld;
+import slimeknights.tconstruct.world.block.FoliageType;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -960,7 +961,6 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
 
     // Slime
     String slimeFolder = folder + "slime/";
-    this.slimeCasting(consumer, TinkerFluids.blood, false, SlimeType.BLOOD, slimeFolder);
     this.slimeCasting(consumer, TinkerFluids.earthSlime, true, SlimeType.EARTH, slimeFolder);
     this.slimeCasting(consumer, TinkerFluids.skySlime, false, SlimeType.SKY, slimeFolder);
     this.slimeCasting(consumer, TinkerFluids.enderSlime, false, SlimeType.ENDER, slimeFolder);
@@ -1166,6 +1166,11 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                             .setCast(Items.BOWL, true)
                             .setCoolingTime(1)
                             .save(consumer, location(folder + "soup/rabbit"));
+    ItemCastingRecipeBuilder.tableRecipe(TinkerFluids.meatSoupBowl)
+                            .setFluid(TinkerFluids.meatSoup.getLocalTag(), FluidValues.BOWL)
+                            .setCast(Items.BOWL, true)
+                            .setCoolingTime(1)
+                            .save(consumer, location(folder + "soup/meat"));
     // venom
     ItemCastingRecipeBuilder.tableRecipe(TinkerFluids.venomBottle)
                             .setFluid(TinkerFluids.venom.getLocalTag(), FluidValues.BOTTLE)
@@ -1319,9 +1324,6 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
       this.metalMelting(consumer, compat.getFluid().get(), compat.getName(), compat.isOre(), compat.hasDust(), metalFolder, true, compat.getByproducts());
     }
 
-    // blood
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.ROTTEN_FLESH), TinkerFluids.blood.get(), FluidValues.SLIMEBALL / 5, 1.0f)
-                        .save(consumer, location(folder + "slime/blood/flesh"));
     // venom
     MeltingRecipeBuilder.melting(Ingredient.of(Items.SPIDER_EYE), TinkerFluids.venom.get(), FluidValues.BOTTLE / 5, 1.0f)
                         .save(consumer, location(folder + "venom/eye"));
@@ -1382,7 +1384,6 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     slimeMelting(consumer, TinkerFluids.earthSlime, SlimeType.EARTH, slimeFolder);
     slimeMelting(consumer, TinkerFluids.skySlime, SlimeType.SKY, slimeFolder);
     slimeMelting(consumer, TinkerFluids.enderSlime, SlimeType.ENDER, slimeFolder);
-    slimeMelting(consumer, TinkerFluids.blood, SlimeType.BLOOD, slimeFolder);
     // magma cream
     MeltingRecipeBuilder.melting(Ingredient.of(Items.MAGMA_CREAM), TinkerFluids.magma.get(), FluidValues.SLIMEBALL, 1.0f)
                         .save(consumer, location(slimeFolder + "magma/ball"));
@@ -1701,11 +1702,11 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     crystalMelting(consumer, TinkerWorld.enderGeode, TinkerFluids.enderSlime.get(), slimeFolder + "ender/");
 
     // recycle saplings
-    MeltingRecipeBuilder.melting(Ingredient.of(TinkerWorld.slimeSapling.get(SlimeType.EARTH)), TinkerFluids.earthSlime.get(), FluidValues.SLIMEBALL)
+    MeltingRecipeBuilder.melting(Ingredient.of(TinkerWorld.slimeSapling.get(FoliageType.EARTH)), TinkerFluids.earthSlime.get(), FluidValues.SLIMEBALL)
                         .save(consumer, location(slimeFolder + "earth/sapling"));
-    MeltingRecipeBuilder.melting(Ingredient.of(TinkerWorld.slimeSapling.get(SlimeType.SKY)), TinkerFluids.skySlime.get(), FluidValues.SLIMEBALL)
+    MeltingRecipeBuilder.melting(Ingredient.of(TinkerWorld.slimeSapling.get(FoliageType.SKY)), TinkerFluids.skySlime.get(), FluidValues.SLIMEBALL)
                         .save(consumer, location(slimeFolder + "sky/sapling"));
-    MeltingRecipeBuilder.melting(Ingredient.of(TinkerWorld.slimeSapling.get(SlimeType.ENDER)), TinkerFluids.enderSlime.get(), FluidValues.SLIMEBALL)
+    MeltingRecipeBuilder.melting(Ingredient.of(TinkerWorld.slimeSapling.get(FoliageType.ENDER)), TinkerFluids.enderSlime.get(), FluidValues.SLIMEBALL)
                         .save(consumer, location(slimeFolder + "ender/sapling"));
 
     // honey
@@ -1753,7 +1754,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // pig iron: 1 iron + 2 blood + 1 honey = 2
     AlloyRecipeBuilder.alloy(TinkerFluids.moltenPigIron.get(), FluidValues.INGOT * 2)
                       .addInput(TinkerFluids.moltenIron.getForgeTag(), FluidValues.INGOT)
-                      .addInput(TinkerFluids.blood.getLocalTag(), FluidValues.SLIMEBALL * 2)
+                      .addInput(TinkerFluids.meatSoup.getLocalTag(), FluidValues.SLIMEBALL * 2)
                       .addInput(TinkerFluids.honey.getForgeTag(), FluidValues.BOTTLE)
                       .save(consumer, prefix(TinkerFluids.moltenPigIron, folder));
     // obsidian: 1 water + 1 lava = 2
@@ -1900,12 +1901,17 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     String folder = "smeltery/entity_melting/";
     String headFolder = "smeltery/entity_melting/heads/";
 
-    // zombies give less blood, they lost a lot already
+    // meat soup just comes from edible creatures
+    EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.CHICKEN, EntityType.COW, EntityType.MOOSHROOM, EntityType.PIG, EntityType.RABBIT, EntityType.SHEEP, EntityType.GOAT, EntityType.COD, EntityType.HOGLIN, EntityType.SALMON, EntityType.TROPICAL_FISH),
+                                       new FluidStack(TinkerFluids.meatSoup.get(), FluidValues.BOWL / 5)).save(consumer, location(folder + "meat_soup"));
+
+    // zombies give less soul as they barely still have one
     EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.ZOMBIE, EntityType.HUSK, EntityType.ZOMBIFIED_PIGLIN, EntityType.ZOGLIN, EntityType.ZOMBIE_HORSE),
-                                       new FluidStack(TinkerFluids.blood.get(), FluidValues.SLIMEBALL / 10), 2)
+                                       new FluidStack(TinkerFluids.liquidSoul.get(), FluidValues.GLASS_PANE / 10), 2)
                               .save(consumer, location(folder + "zombie"));
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.ZOMBIE_HEAD, TinkerWorld.heads.get(TinkerHeadType.HUSK), TinkerWorld.heads.get(TinkerHeadType.PIGLIN), TinkerWorld.heads.get(TinkerHeadType.PIGLIN_BRUTE), TinkerWorld.heads.get(TinkerHeadType.ZOMBIFIED_PIGLIN)), TinkerFluids.blood.get(), FluidValues.SLIMEBALL * 2)
-                        .save(consumer, location(headFolder + "zombie"));
+    MeltingRecipeBuilder.melting(
+      Ingredient.of(Items.ZOMBIE_HEAD, TinkerWorld.heads.get(TinkerHeadType.HUSK), TinkerWorld.heads.get(TinkerHeadType.PIGLIN), TinkerWorld.heads.get(TinkerHeadType.PIGLIN_BRUTE), TinkerWorld.heads.get(TinkerHeadType.ZOMBIFIED_PIGLIN)),
+      TinkerFluids.liquidSoul.get(), FluidValues.SLIMEBALL * 2).save(consumer, location(headFolder + "zombie"));
     // drowned are weird, there is water flowing through their veins
     EntityMeltingRecipeBuilder.melting(EntityIngredient.of(EntityType.DROWNED),
                                        new FluidStack(Fluids.WATER, FluidType.BUCKET_VOLUME / 50), 2)
@@ -2342,12 +2348,10 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                             .setCoolingTime(1)
                             .setCast(Items.GLASS_BOTTLE, true)
                             .save(consumer, location(colorFolder + "bottle"));
-    if (slimeType != SlimeType.BLOOD) {
-      ItemCastingRecipeBuilder.basinRecipe(TinkerWorld.slimeDirt.get(slimeType))
-                              .setFluidAndTime(fluid, commonTag, FluidValues.SLIME_CONGEALED)
-                              .setCast(Blocks.DIRT, true)
-                              .save(consumer, location(colorFolder + "dirt"));
-    }
+    ItemCastingRecipeBuilder.basinRecipe(TinkerWorld.slimeDirt.get(slimeType.asDirt()))
+                            .setFluidAndTime(fluid, commonTag, FluidValues.SLIME_CONGEALED)
+                            .setCast(Blocks.DIRT, true)
+                            .save(consumer, location(colorFolder + "dirt"));
   }
 
   /** Adds recipes for melting slime crystals */

@@ -1,19 +1,9 @@
 package slimeknights.tconstruct.fluids.fluids;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
-import slimeknights.tconstruct.shared.block.SlimeType;
-import slimeknights.tconstruct.world.TinkerWorld;
-import slimeknights.tconstruct.world.block.SlimeGrassBlock;
 
 public abstract class SlimeFluid extends ForgeFlowingFluid {
 
@@ -21,6 +11,7 @@ public abstract class SlimeFluid extends ForgeFlowingFluid {
     super(properties);
   }
 
+  /* TODO: no idea what this logic is supposed to be doig, it needs rethinking
   @Override
   public void randomTick(Level world, BlockPos pos, FluidState state, RandomSource random) {
     int oldLevel = getLegacyLevel(state);
@@ -41,7 +32,7 @@ public abstract class SlimeFluid extends ForgeFlowingFluid {
                 // we got a block we flowed from and the block we flowed from has slimedirt below
                 // change the dirt below us to slimedirt too
                 world.setBlockAndUpdate(pos.below(), dirt);
-              } else if (dirt.getBlock() == TinkerWorld.earthSlimeGrass.get(SlimeType.SKY)) {
+              } else if (dirt.getBlock() == TinkerWorld.earthSlimeGrass.get(FoliageType.SKY)) {
                 world.setBlockAndUpdate(pos.below(), SlimeGrassBlock.getDirtState(dirt));
               }
             }
@@ -51,7 +42,9 @@ public abstract class SlimeFluid extends ForgeFlowingFluid {
 
       //world.scheduleBlockUpdate(pos, this, 400 + rand.nextInt(200), 0);
     }
+
   }
+   */
 
   public static class Flowing extends SlimeFluid {
 

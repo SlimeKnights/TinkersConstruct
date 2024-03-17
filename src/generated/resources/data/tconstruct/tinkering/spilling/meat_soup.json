@@ -3,12 +3,12 @@
     {
       "type": "tconstruct:restore_hunger",
       "hunger": 2,
-      "representative_item": "minecraft:rabbit_stew",
-      "saturation": 0.6
+      "representative_item": "tconstruct:meat_soup",
+      "saturation": 0.48
     }
   ],
   "fluid": {
     "amount": 50,
-    "tag": "forge:rabbit_stew"
+    "tag": "tconstruct:meat_soup"
   }
 }

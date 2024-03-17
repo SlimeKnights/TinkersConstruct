@@ -2,7 +2,7 @@ package slimeknights.tconstruct.world.client;
 
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
-import slimeknights.tconstruct.shared.block.SlimeType;
+import slimeknights.tconstruct.world.block.FoliageType;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -12,8 +12,8 @@ import java.util.Map;
  */
 public class SlimeColorizer {
   /** Map of slime foliage type to color */
-  private static final Map<SlimeType,int[]> COLOR_MAP = Util.make(new EnumMap<>(SlimeType.class), map -> {
-    for (SlimeType type : SlimeType.values()) {
+  private static final Map<FoliageType,int[]> COLOR_MAP = Util.make(new EnumMap<>(FoliageType.class), map -> {
+    for (FoliageType type : FoliageType.values()) {
       map.put(type, new int[65536]);
     }
   });
@@ -26,7 +26,7 @@ public class SlimeColorizer {
    * @param type    Type to update
    * @param colors  New colors
    */
-  public static void setGrassColor(SlimeType type, int[] colors) {
+  public static void setGrassColor(FoliageType type, int[] colors) {
     COLOR_MAP.put(type, colors);
   }
 
@@ -37,14 +37,14 @@ public class SlimeColorizer {
    * @param z     Z position
    * @return      Color
    */
-  public static int getColor(SlimeType type, int x, int z) {
+  public static int getColor(FoliageType type, int x, int z) {
     return getColor(COLOR_MAP.get(type), x, z);
   }
 
   /**
    * Position dependant Slime foliage color
    */
-  public static int getColorForPos(BlockPos pos, SlimeType type) {
+  public static int getColorForPos(BlockPos pos, FoliageType type) {
     return getColor(type, pos.getX(), pos.getZ());
   }
 
@@ -66,12 +66,5 @@ public class SlimeColorizer {
     }
 
     return buffer[(int) (x * 255f) << 8 | (int) (z * 255f)];
-  }
-
-  /**
-   * Gets the position independent slime foliage color
-   */
-  public static int getColorStatic(SlimeType type) {
-    return type.getDefaultFoliageColor();
   }
 }

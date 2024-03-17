@@ -24,6 +24,7 @@ import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.shared.block.SlimeType;
+import slimeknights.tconstruct.world.block.FoliageType;
 import slimeknights.tconstruct.world.block.SlimeVineBlock;
 import slimeknights.tconstruct.world.block.SlimeVineBlock.VineStage;
 import slimeknights.tconstruct.world.data.StructureRepalleter;
@@ -77,7 +78,7 @@ public final class TinkerStructures extends TinkerModule {
     new SlimeTreeConfig.Builder()
       .planted()
       .trunk(() -> TinkerWorld.greenheart.getLog().defaultBlockState())
-      .leaves(() -> TinkerWorld.slimeLeaves.get(SlimeType.EARTH).defaultBlockState())
+      .leaves(() -> TinkerWorld.slimeLeaves.get(FoliageType.EARTH).defaultBlockState())
       .baseHeight(4).randomHeight(3)
       .build());
   /** Greenheart tree variant on islands */
@@ -85,7 +86,7 @@ public final class TinkerStructures extends TinkerModule {
     "earth_slime_island_tree", slimeTree,
     new SlimeTreeConfig.Builder()
       .trunk(() -> TinkerWorld.greenheart.getLog().defaultBlockState())
-      .leaves(() -> TinkerWorld.slimeLeaves.get(SlimeType.EARTH).defaultBlockState())
+      .leaves(() -> TinkerWorld.slimeLeaves.get(FoliageType.EARTH).defaultBlockState())
       .baseHeight(4).randomHeight(3)
       .build());
 
@@ -95,7 +96,7 @@ public final class TinkerStructures extends TinkerModule {
     new SlimeTreeConfig.Builder()
       .planted().canDoubleHeight()
       .trunk(() -> TinkerWorld.skyroot.getLog().defaultBlockState())
-      .leaves(() -> TinkerWorld.slimeLeaves.get(SlimeType.SKY).defaultBlockState())
+      .leaves(() -> TinkerWorld.slimeLeaves.get(FoliageType.SKY).defaultBlockState())
       .build());
   /** Skyroot tree variant on islands */
   public static final RegistryObject<ConfiguredFeature<SlimeTreeConfig,SlimeTreeFeature>> skySlimeIslandTree = CONFIGURED_FEATURES.registerStatic(
@@ -103,7 +104,7 @@ public final class TinkerStructures extends TinkerModule {
     new SlimeTreeConfig.Builder()
       .canDoubleHeight()
       .trunk(() -> TinkerWorld.skyroot.getLog().defaultBlockState())
-      .leaves(() -> TinkerWorld.slimeLeaves.get(SlimeType.SKY).defaultBlockState())
+      .leaves(() -> TinkerWorld.slimeLeaves.get(FoliageType.SKY).defaultBlockState())
       .vines(() -> TinkerWorld.skySlimeVine.get().defaultBlockState().setValue(SlimeVineBlock.STAGE, VineStage.MIDDLE))
       .build());
 
@@ -113,14 +114,14 @@ public final class TinkerStructures extends TinkerModule {
     new SlimeTreeConfig.Builder()
       .planted()
       .trunk(() -> TinkerWorld.greenheart.getLog().defaultBlockState()) // TODO: temporary until we have proper green trees and ender shrooms
-      .leaves(() -> TinkerWorld.slimeLeaves.get(SlimeType.ENDER).defaultBlockState())
+      .leaves(() -> TinkerWorld.slimeLeaves.get(FoliageType.ENDER).defaultBlockState())
       .build());
   /** Enderslime island tree variant on islands */
   public static final RegistryObject<ConfiguredFeature<SlimeTreeConfig,SlimeTreeFeature>> enderSlimeIslandTree = CONFIGURED_FEATURES.registerStatic(
     "ender_slime_island_tree", slimeTree,
     new SlimeTreeConfig.Builder()
       .trunk(() -> TinkerWorld.greenheart.getLog().defaultBlockState()) // TODO: temporary until we have proper green trees and ender shrooms
-      .leaves(() -> TinkerWorld.slimeLeaves.get(SlimeType.ENDER).defaultBlockState())
+      .leaves(() -> TinkerWorld.slimeLeaves.get(FoliageType.ENDER).defaultBlockState())
       .vines(() -> TinkerWorld.enderSlimeVine.get().defaultBlockState().setValue(SlimeVineBlock.STAGE, VineStage.MIDDLE))
       .build());
 
@@ -130,7 +131,7 @@ public final class TinkerStructures extends TinkerModule {
     () -> new SlimeFungusConfig(
       TinkerTags.Blocks.SLIMY_SOIL,
       TinkerWorld.bloodshroom.getLog().defaultBlockState(),
-      TinkerWorld.slimeLeaves.get(SlimeType.BLOOD).defaultBlockState(),
+      TinkerWorld.slimeLeaves.get(FoliageType.BLOOD).defaultBlockState(),
       TinkerWorld.congealedSlime.get(SlimeType.ICHOR).defaultBlockState(),
       true));
   /** Bloodshroom island tree variant */
@@ -139,7 +140,7 @@ public final class TinkerStructures extends TinkerModule {
     () -> new SlimeFungusConfig(
       TinkerTags.Blocks.SLIMY_NYLIUM,
       TinkerWorld.bloodshroom.getLog().defaultBlockState(),
-      TinkerWorld.slimeLeaves.get(SlimeType.BLOOD).defaultBlockState(),
+      TinkerWorld.slimeLeaves.get(FoliageType.BLOOD).defaultBlockState(),
       TinkerWorld.congealedSlime.get(SlimeType.ICHOR).defaultBlockState(),
       false));
   /* Deprecated ichor tree */
@@ -148,7 +149,7 @@ public final class TinkerStructures extends TinkerModule {
     () -> new SlimeFungusConfig(
       TinkerTags.Blocks.SLIMY_SOIL,
       TinkerWorld.bloodshroom.getLog().defaultBlockState(),
-      TinkerWorld.slimeLeaves.get(SlimeType.ICHOR).defaultBlockState(),
+      TinkerWorld.slimeLeaves.get(FoliageType.ICHOR).defaultBlockState(),
       TinkerWorld.congealedSlime.get(SlimeType.ICHOR).defaultBlockState(),
       false));
 

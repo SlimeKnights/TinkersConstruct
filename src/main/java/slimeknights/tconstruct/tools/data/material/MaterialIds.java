@@ -94,7 +94,6 @@ public final class MaterialIds {
   // slimesuit - textures
   public static final MaterialId earthslime = id("earthslime");
   public static final MaterialId skyslime = id("skyslime");
-  public static final MaterialId blood = id("blood");
   public static final MaterialId ichor = id("ichor");
   public static final MaterialId clay = id("clay");
   public static final MaterialId honey = id("honey");

@@ -8,6 +8,8 @@ import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.data.AbstractStructureRepalleter;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerWorld;
+import slimeknights.tconstruct.world.block.DirtType;
+import slimeknights.tconstruct.world.block.FoliageType;
 
 import java.util.Objects;
 
@@ -24,37 +26,37 @@ public class StructureRepalleter extends AbstractStructureRepalleter {
     // slime islands have 2 blocks to replace: minecraft:grass_block and minecraft:dirt
 
     // earth foliage with earth or sky dirt
-    Replacement earth = replacement().addMapping(Blocks.CLAY, TinkerWorld.slimeDirt.get(SlimeType.EARTH))
+    Replacement earth = replacement().addMapping(Blocks.CLAY, TinkerWorld.slimeDirt.get(DirtType.EARTH))
                                      .addMapping(Blocks.SAND, TinkerWorld.congealedSlime.get(SlimeType.EARTH))
                                      .addMapping(Blocks.WATER, Objects.requireNonNull(TinkerFluids.earthSlime.getBlock()));
     repalette(sizes, "islands/earth/", false,
-              earth.copy().addMapping(Blocks.DIRT, TinkerWorld.slimeDirt.get(SlimeType.EARTH))
-                          .addMapping(Blocks.GRASS_BLOCK, TinkerWorld.earthSlimeGrass.get(SlimeType.EARTH)),
-              earth.copy().addMapping(Blocks.DIRT, TinkerWorld.slimeDirt.get(SlimeType.SKY))
-                          .addMapping(Blocks.GRASS_BLOCK, TinkerWorld.skySlimeGrass.get(SlimeType.EARTH)));
+              earth.copy().addMapping(Blocks.DIRT, TinkerWorld.slimeDirt.get(DirtType.EARTH))
+                          .addMapping(Blocks.GRASS_BLOCK, TinkerWorld.earthSlimeGrass.get(FoliageType.EARTH)),
+              earth.copy().addMapping(Blocks.DIRT, TinkerWorld.slimeDirt.get(DirtType.SKY))
+                          .addMapping(Blocks.GRASS_BLOCK, TinkerWorld.skySlimeGrass.get(FoliageType.EARTH)));
     // sky foliage with earth or sky dirt
-    Replacement sky = replacement().addMapping(Blocks.CLAY, TinkerWorld.slimeDirt.get(SlimeType.SKY))
+    Replacement sky = replacement().addMapping(Blocks.CLAY, TinkerWorld.slimeDirt.get(DirtType.SKY))
                                    .addMapping(Blocks.SAND, TinkerWorld.congealedSlime.get(SlimeType.SKY))
                                    .addMapping(Blocks.WATER, Objects.requireNonNull(TinkerFluids.skySlime.getBlock()));
     repalette(sizes, "islands/sky/", false,
-              sky.copy().addMapping(Blocks.DIRT, TinkerWorld.slimeDirt.get(SlimeType.EARTH))
-                        .addMapping(Blocks.GRASS_BLOCK, TinkerWorld.earthSlimeGrass.get(SlimeType.SKY)),
-              sky.copy().addMapping(Blocks.DIRT, TinkerWorld.slimeDirt.get(SlimeType.SKY))
-                        .addMapping(Blocks.GRASS_BLOCK, TinkerWorld.skySlimeGrass.get(SlimeType.SKY)));
+              sky.copy().addMapping(Blocks.DIRT, TinkerWorld.slimeDirt.get(DirtType.EARTH))
+                        .addMapping(Blocks.GRASS_BLOCK, TinkerWorld.earthSlimeGrass.get(FoliageType.SKY)),
+              sky.copy().addMapping(Blocks.DIRT, TinkerWorld.slimeDirt.get(DirtType.SKY))
+                        .addMapping(Blocks.GRASS_BLOCK, TinkerWorld.skySlimeGrass.get(FoliageType.SKY)));
     // blood
     repalette(sizes, "islands/blood/", false, replacement()
       .addMapping(Blocks.CLAY, Blocks.MAGMA_BLOCK)
       .addMapping(Blocks.SAND, TinkerWorld.congealedSlime.get(SlimeType.ICHOR))
       .addMapping(Blocks.WATER, Objects.requireNonNull(TinkerFluids.magma.getBlock()))
-      .addMapping(Blocks.DIRT, TinkerWorld.slimeDirt.get(SlimeType.ICHOR))
-      .addMapping(Blocks.GRASS_BLOCK, TinkerWorld.ichorSlimeGrass.get(SlimeType.BLOOD)));
+      .addMapping(Blocks.DIRT, TinkerWorld.slimeDirt.get(DirtType.ICHOR))
+      .addMapping(Blocks.GRASS_BLOCK, TinkerWorld.ichorSlimeGrass.get(FoliageType.BLOOD)));
     // ender
     repalette(sizes, "islands/ender/", true, replacement()
-      .addMapping(Blocks.CLAY, TinkerWorld.slimeDirt.get(SlimeType.ENDER))
+      .addMapping(Blocks.CLAY, TinkerWorld.slimeDirt.get(DirtType.ENDER))
       .addMapping(Blocks.SAND, TinkerWorld.congealedSlime.get(SlimeType.ENDER))
       .addMapping(Blocks.WATER, Objects.requireNonNull(TinkerFluids.enderSlime.getBlock()))
-      .addMapping(Blocks.DIRT, TinkerWorld.slimeDirt.get(SlimeType.ENDER))
-      .addMapping(Blocks.GRASS_BLOCK, TinkerWorld.enderSlimeGrass.get(SlimeType.ENDER)));
+      .addMapping(Blocks.DIRT, TinkerWorld.slimeDirt.get(DirtType.ENDER))
+      .addMapping(Blocks.GRASS_BLOCK, TinkerWorld.enderSlimeGrass.get(FoliageType.ENDER)));
   }
 
   /** Replaettes all sizes from the given list */

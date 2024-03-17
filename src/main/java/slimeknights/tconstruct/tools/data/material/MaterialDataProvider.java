@@ -106,7 +106,6 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     // slimesuit - textures
     addMaterial(MaterialIds.earthslime, 1, ORDER_REPAIR, true);
     addMaterial(MaterialIds.skyslime,   1, ORDER_REPAIR, true);
-    addMaterial(MaterialIds.blood,      2, ORDER_REPAIR, true);
     addMaterial(MaterialIds.ichor,      3, ORDER_REPAIR, true);
     addMaterial(MaterialIds.enderslime, 4, ORDER_REPAIR, true);
     addMaterial(MaterialIds.clay,       1, ORDER_REPAIR, true);
@@ -114,5 +113,7 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     //addMaterial(MaterialIds.venom,      3, ORDER_REPAIR, true);
     // slimesuit - repair
     addMaterial(MaterialIds.phantom,    1, ORDER_REPAIR, true);
+
+    addRedirect(new MaterialId(TConstruct.MOD_ID, "blood"), redirect(MaterialIds.ichor));
   }
 }

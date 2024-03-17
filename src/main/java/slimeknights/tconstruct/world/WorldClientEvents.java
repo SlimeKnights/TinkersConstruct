@@ -33,6 +33,7 @@ import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.tools.client.SlimeskullArmorModel;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
+import slimeknights.tconstruct.world.block.FoliageType;
 import slimeknights.tconstruct.world.client.SkullModelHelper;
 import slimeknights.tconstruct.world.client.SlimeColorReloadListener;
 import slimeknights.tconstruct.world.client.SlimeColorizer;
@@ -47,7 +48,7 @@ import java.util.function.Supplier;
 public class WorldClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void addResourceListener(RegisterClientReloadListenersEvent event) {
-    for (SlimeType type : SlimeType.values()) {
+    for (FoliageType type : FoliageType.values()) {
       event.registerReloadListener(new SlimeColorReloadListener(type));
     }
   }
@@ -103,8 +104,8 @@ public class WorldClientEvents extends ClientEventBase {
     RenderType cutoutMipped = RenderType.cutoutMipped();
 
     // render types - slime plants
-    for (SlimeType type : SlimeType.values()) {
-      if (type != SlimeType.BLOOD) {
+    for (FoliageType type : FoliageType.values()) {
+      if (type != FoliageType.BLOOD) {
         ItemBlockRenderTypes.setRenderLayer(TinkerWorld.slimeLeaves.get(type), cutoutMipped);
       }
       ItemBlockRenderTypes.setRenderLayer(TinkerWorld.vanillaSlimeGrass.get(type), cutoutMipped);
@@ -168,28 +169,26 @@ public class WorldClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void registerBlockColorHandlers(RegisterColorHandlersEvent.Block event) {
-    BlockColors blockColors = event.getBlockColors();
-
     // slime plants - blocks
-    for (SlimeType type : SlimeType.values()) {
-      blockColors.register(
+    for (FoliageType type : FoliageType.values()) {
+      event.register(
         (state, reader, pos, index) -> getSlimeColorByPos(pos, type, null),
         TinkerWorld.vanillaSlimeGrass.get(type), TinkerWorld.earthSlimeGrass.get(type), TinkerWorld.skySlimeGrass.get(type),
         TinkerWorld.enderSlimeGrass.get(type), TinkerWorld.ichorSlimeGrass.get(type));
-      blockColors.register(
+      event.register(
         (state, reader, pos, index) -> getSlimeColorByPos(pos, type, SlimeColorizer.LOOP_OFFSET),
         TinkerWorld.slimeLeaves.get(type));
-      blockColors.register(
+      event.register(
         (state, reader, pos, index) -> getSlimeColorByPos(pos, type, null),
         TinkerWorld.slimeFern.get(type), TinkerWorld.slimeTallGrass.get(type), TinkerWorld.pottedSlimeFern.get(type));
     }
 
     // vines
-    blockColors.register(
-      (state, reader, pos, index) -> getSlimeColorByPos(pos, SlimeType.SKY, SlimeColorizer.LOOP_OFFSET),
+    event.register(
+      (state, reader, pos, index) -> getSlimeColorByPos(pos, FoliageType.SKY, SlimeColorizer.LOOP_OFFSET),
       TinkerWorld.skySlimeVine.get());
-    blockColors.register(
-      (state, reader, pos, index) -> getSlimeColorByPos(pos, SlimeType.ENDER, SlimeColorizer.LOOP_OFFSET),
+    event.register(
+      (state, reader, pos, index) -> getSlimeColorByPos(pos, FoliageType.ENDER, SlimeColorizer.LOOP_OFFSET),
       TinkerWorld.enderSlimeVine.get());
   }
 
@@ -218,9 +217,9 @@ public class WorldClientEvents extends ClientEventBase {
    * @param add   Offset position
    * @return  Color for the given position, or the default if position is null
    */
-  private static int getSlimeColorByPos(@Nullable BlockPos pos, SlimeType type, @Nullable BlockPos add) {
+  private static int getSlimeColorByPos(@Nullable BlockPos pos, FoliageType type, @Nullable BlockPos add) {
     if (pos == null) {
-      return SlimeColorizer.getColorStatic(type);
+      return type.getColor();
     }
     if (add != null) {
       pos = pos.offset(add);

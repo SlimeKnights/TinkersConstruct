@@ -47,8 +47,8 @@ import net.minecraftforge.registries.holdersets.NotHolderSet;
 import net.minecraftforge.registries.holdersets.OrHolderSet;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerWorld;
+import slimeknights.tconstruct.world.block.FoliageType;
 import slimeknights.tconstruct.world.worldgen.islands.IslandStructure;
 
 import java.io.IOException;
@@ -87,13 +87,13 @@ public class WorldgenDatapackRegistryProvider implements DataProvider {
     structures.put(earthSlimeIsland, IslandStructure.seaBuilder()
       .addDefaultTemplates(getResource("islands/earth/"))
       .addTree(reference(earthSlimeIslandTree), 1)
-      .addSlimyGrass(SlimeType.EARTH)
+      .addSlimyGrass(FoliageType.EARTH)
       .build(new StructureSettings(tag(TinkerTags.Biomes.EARTHSLIME_ISLANDS), monsterOverride(EntityType.SLIME, 4, 4), Decoration.SURFACE_STRUCTURES, TerrainAdjustment.NONE)));
     // skyslime island
     structures.put(skySlimeIsland, IslandStructure.skyBuilder()
       .addDefaultTemplates(getResource("islands/sky/"))
       .addTree(reference(skySlimeIslandTree), 1)
-      .addSlimyGrass(SlimeType.SKY)
+      .addSlimyGrass(FoliageType.SKY)
       .vines(TinkerWorld.skySlimeVine.get())
       .build(new StructureSettings(tag(TinkerTags.Biomes.SKYSLIME_ISLANDS), monsterOverride(TinkerWorld.skySlimeEntity.get(), 3, 4), Decoration.SURFACE_STRUCTURES, TerrainAdjustment.NONE)));
     // clay island
@@ -109,12 +109,12 @@ public class WorldgenDatapackRegistryProvider implements DataProvider {
     // blood island
     structures.put(bloodIsland, IslandStructure.seaBuilder().addDefaultTemplates(getResource("islands/blood/"))
       .addTree(reference(bloodSlimeIslandFungus), 1)
-      .addSlimyGrass(SlimeType.BLOOD)
+      .addSlimyGrass(FoliageType.BLOOD)
       .build(new StructureSettings(tag(TinkerTags.Biomes.BLOOD_ISLANDS), monsterOverride(EntityType.MAGMA_CUBE, 4, 6), Decoration.UNDERGROUND_DECORATION, TerrainAdjustment.NONE)));
     // enderslime
     structures.put(endSlimeIsland, IslandStructure.skyBuilder().addDefaultTemplates(getResource("islands/ender/"))
       .addTree(reference(enderSlimeIslandTree), 1)
-      .addSlimyGrass(SlimeType.ENDER)
+      .addSlimyGrass(FoliageType.ENDER)
       .vines(TinkerWorld.enderSlimeVine.get())
       .build(new StructureSettings(tag(TinkerTags.Biomes.ENDERSLIME_ISLANDS), monsterOverride(TinkerWorld.enderSlimeEntity.get(), 4, 4), Decoration.SURFACE_STRUCTURES, TerrainAdjustment.NONE)));
 

@@ -23,9 +23,9 @@ import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilder;
 import net.minecraftforge.registries.RegistryObject;
 import slimeknights.mantle.util.IdExtender.LocationExtender;
-import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.TinkerWorld;
+import slimeknights.tconstruct.world.block.FoliageType;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -171,9 +171,9 @@ public class IslandStructure extends Structure {
     }
 
     /** Adds slimy grass of the given type to the builder */
-    public Builder addSlimyGrass(SlimeType slimeType) {
-      addGrass(TinkerWorld.slimeTallGrass.get(slimeType), 7);
-      addGrass(TinkerWorld.slimeFern.get(slimeType), 1);
+    public Builder addSlimyGrass(FoliageType foliage) {
+      addGrass(TinkerWorld.slimeTallGrass.get(foliage), 7);
+      addGrass(TinkerWorld.slimeFern.get(foliage), 1);
       return this;
     }
 

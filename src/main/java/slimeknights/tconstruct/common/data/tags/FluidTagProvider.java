@@ -20,7 +20,6 @@ public class FluidTagProvider extends FluidTagsProvider {
   public void addTags() {
     // first, register common tags
     // slime
-    tagLocal(TinkerFluids.blood);
     tagAll(TinkerFluids.earthSlime);
     tagLocal(TinkerFluids.skySlime);
     tagLocal(TinkerFluids.enderSlime);
@@ -91,6 +90,7 @@ public class FluidTagProvider extends FluidTagsProvider {
     tagAll(TinkerFluids.beetrootSoup);
     tagAll(TinkerFluids.mushroomStew);
     tagAll(TinkerFluids.rabbitStew);
+    tagLocal(TinkerFluids.meatSoup);
 
     /* Normal tags */
     this.tag(TinkerTags.Fluids.SLIME)
@@ -103,7 +103,7 @@ public class FluidTagProvider extends FluidTagsProvider {
 
     // tooltips //
     this.tag(TinkerTags.Fluids.GLASS_TOOLTIPS).addTags(TinkerFluids.moltenGlass.getLocalTag(), TinkerFluids.liquidSoul.getLocalTag(), TinkerFluids.moltenObsidian.getLocalTag());
-    this.tag(TinkerTags.Fluids.SLIME_TOOLTIPS).addTags(TinkerFluids.magma.getForgeTag(), TinkerFluids.blood.getLocalTag(), TinkerFluids.moltenEnder.getForgeTag(), TinkerTags.Fluids.SLIME);
+    this.tag(TinkerTags.Fluids.SLIME_TOOLTIPS).addTags(TinkerFluids.magma.getForgeTag(), TinkerFluids.moltenEnder.getForgeTag(), TinkerTags.Fluids.SLIME);
     this.tag(TinkerTags.Fluids.CLAY_TOOLTIPS).addTags(TinkerFluids.moltenClay.getLocalTag(), TinkerFluids.moltenPorcelain.getLocalTag(), TinkerFluids.searedStone.getLocalTag(), TinkerFluids.scorchedStone.getLocalTag());
     this.tag(TinkerTags.Fluids.METAL_TOOLTIPS).addTags(
         // vanilla ores
@@ -126,7 +126,7 @@ public class FluidTagProvider extends FluidTagsProvider {
 
     this.tag(TinkerTags.Fluids.LARGE_GEM_TOOLTIPS).addTags(TinkerFluids.moltenEmerald.getLocalTag(), TinkerFluids.moltenDiamond.getLocalTag());
     this.tag(TinkerTags.Fluids.SMALL_GEM_TOOLTIPS).addTags(TinkerFluids.moltenQuartz.getLocalTag(), TinkerFluids.moltenAmethyst.getLocalTag());
-    this.tag(TinkerTags.Fluids.SOUP_TOOLTIPS).addTags(TinkerFluids.beetrootSoup.getLocalTag(), TinkerFluids.mushroomStew.getLocalTag(), TinkerFluids.rabbitStew.getLocalTag());
+    this.tag(TinkerTags.Fluids.SOUP_TOOLTIPS).addTags(TinkerFluids.beetrootSoup.getForgeTag(), TinkerFluids.mushroomStew.getForgeTag(), TinkerFluids.rabbitStew.getForgeTag(), TinkerFluids.meatSoup.getLocalTag());
 
     // spilling tags - reduces the number of recipes generated //
     this.tag(TinkerTags.Fluids.CLAY_SPILLING)

@@ -1,16 +1,6 @@
 {
   "parent": "tconstruct:world/tinkers_gadgetry",
   "criteria": {
-    "blood": {
-      "conditions": {
-        "items": [
-          {
-            "tag": "forge:slimeball/blood"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "earth": {
       "conditions": {
         "items": [
@@ -91,9 +81,6 @@
     ],
     [
       "ender"
-    ],
-    [
-      "blood"
     ],
     [
       "magma_cream"

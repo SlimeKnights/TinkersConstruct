@@ -26,6 +26,7 @@ import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerWorld;
+import slimeknights.tconstruct.world.block.FoliageType;
 
 import java.util.function.Consumer;
 
@@ -81,7 +82,7 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
     folder = "gadgets/";
     ItemCastingRecipeBuilder.tableRecipe(TinkerGadgets.piggyBackpack)
                             .setCast(Items.SADDLE, true)
-                            .setFluidAndTime(TinkerFluids.blood, false, FluidValues.SLIME_CONGEALED)
+                            .setFluidAndTime(TinkerFluids.skySlime, false, FluidValues.SLIMEBALL * 4)
                             .save(consumer, prefix(TinkerGadgets.piggyBackpack, folder));
     ShapedRecipeBuilder.shaped(TinkerGadgets.punji)
                        .define('b', Items.BAMBOO)
@@ -129,16 +130,19 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                           .save(consumer, location(folder + "reversed_reversed_gold"));
 
     String cakeFolder = "gadgets/cake/";
-    TinkerGadgets.cake.forEach((slime, cake) -> {
-      Item bucket = TinkerFluids.slime.get(slime).asItem();
-      ShapedRecipeBuilder.shaped(cake)
-                         .define('M', bucket)
-                         .define('S', slime == SlimeType.BLOOD ? Ingredient.of(Tags.Items.DUSTS_GLOWSTONE) : Ingredient.of(Items.SUGAR))
-                         .define('E', Items.EGG)
-                         .define('W', TinkerWorld.slimeTallGrass.get(slime))
-                         .pattern("MMM").pattern("SES").pattern("WWW")
-                         .unlockedBy("has_slime", has(bucket))
-                         .save(consumer, location(cakeFolder + slime.getSerializedName()));
+    TinkerGadgets.cake.forEach((foliage, cake) -> {
+      if (foliage != FoliageType.ICHOR) {
+        SlimeType slime = foliage.asSlime();
+        ItemLike grass = TinkerWorld.slimeTallGrass.get(foliage);
+        ShapedRecipeBuilder.shaped(cake)
+                           .define('M', slime != null ? TinkerFluids.slime.get(slime).getBucket() : TinkerFluids.honey.asItem())
+                           .define('S', foliage.isNether() ? Ingredient.of(Tags.Items.DUSTS_GLOWSTONE) : Ingredient.of(Items.SUGAR))
+                           .define('E', Items.EGG)
+                           .define('W', TinkerWorld.slimeTallGrass.get(foliage))
+                           .pattern("MMM").pattern("SES").pattern("WWW")
+                           .unlockedBy("has_slime", has(grass))
+                           .save(consumer, location(cakeFolder + foliage.getSerializedName()));
+      }
     });
     Item bucket = TinkerFluids.magma.asItem();
     ShapedRecipeBuilder.shaped(TinkerGadgets.magmaCake)

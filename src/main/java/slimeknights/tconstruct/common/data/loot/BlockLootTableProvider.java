@@ -45,6 +45,8 @@ import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.block.entity.chest.TinkersChestBlockEntity;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.world.TinkerWorld;
+import slimeknights.tconstruct.world.block.DirtType;
+import slimeknights.tconstruct.world.block.FoliageType;
 
 import javax.annotation.Nonnull;
 import java.util.function.Function;
@@ -155,10 +157,10 @@ public class BlockLootTableProvider extends BlockLoot {
     // slime dirt and grass
     TinkerWorld.slimeDirt.forEach(this::dropSelf);
     TinkerWorld.vanillaSlimeGrass.forEach(block -> this.add(block, createSingleItemTableWithSilkTouch(block, Blocks.DIRT)));
-    TinkerWorld.earthSlimeGrass.forEach(block -> this.add(block, createSingleItemTableWithSilkTouch(block, TinkerWorld.slimeDirt.get(SlimeType.EARTH))));
-    TinkerWorld.skySlimeGrass.forEach(block -> this.add(block, createSingleItemTableWithSilkTouch(block, TinkerWorld.slimeDirt.get(SlimeType.SKY))));
-    TinkerWorld.enderSlimeGrass.forEach(block -> this.add(block, createSingleItemTableWithSilkTouch(block, TinkerWorld.slimeDirt.get(SlimeType.ENDER))));
-    TinkerWorld.ichorSlimeGrass.forEach(block -> this.add(block, createSingleItemTableWithSilkTouch(block, TinkerWorld.slimeDirt.get(SlimeType.ICHOR))));
+    TinkerWorld.earthSlimeGrass.forEach(block -> this.add(block, createSingleItemTableWithSilkTouch(block, TinkerWorld.slimeDirt.get(DirtType.EARTH))));
+    TinkerWorld.skySlimeGrass.forEach(block -> this.add(block, createSingleItemTableWithSilkTouch(block, TinkerWorld.slimeDirt.get(DirtType.SKY))));
+    TinkerWorld.enderSlimeGrass.forEach(block -> this.add(block, createSingleItemTableWithSilkTouch(block, TinkerWorld.slimeDirt.get(DirtType.ENDER))));
+    TinkerWorld.ichorSlimeGrass.forEach(block -> this.add(block, createSingleItemTableWithSilkTouch(block, TinkerWorld.slimeDirt.get(DirtType.ICHOR))));
 
     // saplings
     TinkerWorld.slimeSapling.forEach(this::dropSelf);
@@ -167,12 +169,12 @@ public class BlockLootTableProvider extends BlockLoot {
 
     // foliage
     TinkerWorld.slimeTallGrass.forEach(block -> this.add(block, BlockLootTableProvider::onlyShears));
-    for (SlimeType type : SlimeType.OVERWORLD) {
+    for (FoliageType type : FoliageType.OVERWORLD) {
       // overworld leaves, drops with leaves and slimeballs
       this.add(TinkerWorld.slimeLeaves.get(type), block -> randomDropSlimeBallOrSapling(type, block, TinkerWorld.slimeSapling.get(type), NORMAL_LEAVES_SAPLING_CHANCES));
       this.add(TinkerWorld.slimeFern.get(type), BlockLootTableProvider::onlyShears);
     }
-    for (SlimeType type : SlimeType.NETHER) {
+    for (FoliageType type : FoliageType.NETHER) {
       // nether leaves drop self
       this.dropSelf(TinkerWorld.slimeLeaves.get(type));
       this.dropSelf(TinkerWorld.slimeFern.get(type));
@@ -298,14 +300,17 @@ public class BlockLootTableProvider extends BlockLoot {
     return droppingSilkOrShears(blockIn, applyExplosionCondition(blockIn, LootItem.lootTableItem(saplingIn)).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, fortuneIn)));
   }
 
-  private static LootTable.Builder randomDropSlimeBallOrSapling(SlimeType foliageType, Block blockIn, Block sapling, float... fortuneIn) {
-    return dropSapling(blockIn, sapling, fortuneIn)
-      .withPool(LootPool.lootPool()
-                           .setRolls(ConstantValue.exactly(1))
-                           .when(HAS_NO_SHEARS_OR_SILK_TOUCH)
-                           .add(applyExplosionCondition(blockIn, LootItem.lootTableItem(TinkerCommons.slimeball.get(foliageType)))
-                                       .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 1/50f, 1/45f, 1/40f, 1/30f, 1/20f))));
-
+  private static LootTable.Builder randomDropSlimeBallOrSapling(FoliageType foliageType, Block blockIn, Block sapling, float... fortuneIn) {
+    LootTable.Builder builder = dropSapling(blockIn, sapling, fortuneIn);
+    SlimeType slime = foliageType.asSlime();
+    if (slime != null) {
+      return builder.withPool(
+        LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                .when(HAS_NO_SHEARS_OR_SILK_TOUCH)
+                .add(applyExplosionCondition(blockIn, LootItem.lootTableItem(TinkerCommons.slimeball.get(slime)))
+                       .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 1 / 50f, 1 / 45f, 1 / 40f, 1 / 30f, 1 / 20f))));
+    }
+    return builder;
   }
 
   private static LootTable.Builder droppingWithFunctions(Block block, Function<LootItem.Builder<?>,LootItem.Builder<?>> mapping) {

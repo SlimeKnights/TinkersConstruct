@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:entity_melting",
+  "damage": 2,
+  "entity": {
+    "types": [
+      "minecraft:chicken",
+      "minecraft:cow",
+      "minecraft:mooshroom",
+      "minecraft:pig",
+      "minecraft:rabbit",
+      "minecraft:sheep",
+      "minecraft:goat",
+      "minecraft:cod",
+      "minecraft:hoglin",
+      "minecraft:salmon",
+      "minecraft:tropical_fish"
+    ]
+  },
+  "result": {
+    "amount": 50,
+    "fluid": "tconstruct:meat_soup"
+  }
+}

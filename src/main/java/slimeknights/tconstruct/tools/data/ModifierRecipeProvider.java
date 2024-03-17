@@ -400,7 +400,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .save(consumer, prefix(TinkerModifiers.fiery, upgradeFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.necrotic)
                          .addInput(TinkerMaterials.necroticBone)
-                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.BLOOD))
+                         .addInput(TinkerWorld.congealedSlime.get(SlimeType.ICHOR))
                          .addInput(Items.GHAST_TEAR)
                          .setMaxLevel(5) // +50% chance of heal, combine with +40% from traits for +90% total
                          .setSlots(SlotType.UPGRADE, 1)
@@ -1640,7 +1640,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // slimesuit //
     slimeTexture(consumer, MaterialIds.earthslime, SlimeType.EARTH, folder);
     slimeTexture(consumer, MaterialIds.skyslime,   SlimeType.SKY, folder);
-    slimeTexture(consumer, MaterialIds.blood,      SlimeType.BLOOD, folder);
     slimeTexture(consumer, MaterialIds.ichor,      SlimeType.ICHOR, folder);
     slimeTexture(consumer, MaterialIds.enderslime, SlimeType.ENDER, folder);
     SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment, MaterialIds.clay.toString())

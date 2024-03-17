@@ -9,16 +9,16 @@ import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.world.TinkerStructures;
+import slimeknights.tconstruct.world.block.FoliageType;
 
 import javax.annotation.Nullable;
 
 public class SlimeTree extends AbstractTreeGrower {
 
-  private final SlimeType foliageType;
+  private final FoliageType foliageType;
 
-  public SlimeTree(SlimeType foliageType) {
+  public SlimeTree(FoliageType foliageType) {
     this.foliageType = foliageType;
   }
 

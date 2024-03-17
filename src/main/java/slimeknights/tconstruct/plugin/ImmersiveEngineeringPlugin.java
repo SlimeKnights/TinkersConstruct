@@ -19,7 +19,6 @@ public class ImmersiveEngineeringPlugin {
     registerChemEffect(TinkerFluids.earthSlime.getForgeTag(), MobEffects.MOVEMENT_SLOWDOWN, 140);
     registerChemEffect(TinkerFluids.skySlime.getLocalTag(), MobEffects.JUMP, 200);
     registerChemEffect(TinkerFluids.enderSlime.getLocalTag(), MobEffects.LEVITATION, 100);
-    registerChemEffect(TinkerFluids.blood.getLocalTag(), MobEffects.DIG_SLOWDOWN, 100);
     registerChemEffect(TinkerFluids.venom.getLocalTag(), MobEffects.POISON, 300);
     registerChemEffect(TinkerFluids.magma.getForgeTag(), MobEffects.FIRE_RESISTANCE, 200);
     registerChemEffect(TinkerFluids.liquidSoul.getForgeTag(), MobEffects.BLINDNESS, 100);

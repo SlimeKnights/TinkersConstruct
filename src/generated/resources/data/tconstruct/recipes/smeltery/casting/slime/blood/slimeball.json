@@ -1,9 +1,0 @@
-{
-  "type": "tconstruct:casting_table",
-  "cooling_time": 50,
-  "fluid": {
-    "amount": 250,
-    "tag": "tconstruct:blood"
-  },
-  "result": "tconstruct:blood_slime_ball"
-}

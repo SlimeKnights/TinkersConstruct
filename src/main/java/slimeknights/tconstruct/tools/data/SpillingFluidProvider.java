@@ -37,7 +37,6 @@ import slimeknights.tconstruct.library.modifiers.spilling.effects.TeleportSpilli
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.TagPredicate;
 import slimeknights.tconstruct.shared.TinkerCommons;
-import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.StrongBonesModifier;
 
@@ -81,10 +80,6 @@ public class SpillingFluidProvider extends AbstractSpillingFluidProvider {
       .addEffect(new EffectSpillingEffect(MobEffects.LEVITATION, 5, 1))
       .addEffect(new EffectSpillingEffect(MobEffects.MOVEMENT_SLOWDOWN, 15, 1));
     // slimelike
-    // blood - food
-    addFluid(TinkerFluids.blood.getLocalTag(), slimeballPiece)
-      .addEffect(new RestoreHungerSpillingEffect(1, 0.2f, ItemOutput.fromItem(TinkerFluids.slimeBottle.get(SlimeType.BLOOD))))
-      .addEffect(new EffectSpillingEffect(MobEffects.DIG_SLOWDOWN, 10, 1));
     // venom - poison & strength
     addFluid(TinkerFluids.venom.getLocalTag(), slimeballPiece)
       .addEffect(new EffectSpillingEffect(MobEffects.POISON, 5, 1))
@@ -101,19 +96,23 @@ public class SpillingFluidProvider extends AbstractSpillingFluidProvider {
       .addEffect(new DamageSpillingEffect(DamageType.MAGIC, 1f))
       .addEffect(TeleportSpillingEffect.INSTANCE);
 
-    // foods
+    // foods - setup to give equivelent saturation on a full bowl/bottle to their food counterparts, though hunger may be slightly different
     addFluid(TinkerFluids.honey.getForgeTag(), slimeballPiece)
-      .addEffect(new RestoreHungerSpillingEffect(1, 0.02f, ItemOutput.fromItem(Items.HONEY_BOTTLE)))
+      .addEffect(new RestoreHungerSpillingEffect(1, 0.12f, ItemOutput.fromItem(Items.HONEY_BOTTLE)))
       .addEffect(new RemoveEffectSpillingEffect(MobEffects.POISON));
-    addFluid(TinkerFluids.beetrootSoup.getForgeTag(), slimeballPiece)
-      .addEffect(new RestoreHungerSpillingEffect(1, 0.15f, ItemOutput.fromItem(Items.BEETROOT_SOUP)));
-    addFluid(TinkerFluids.mushroomStew.getForgeTag(), slimeballPiece)
-      .addEffect(new RestoreHungerSpillingEffect(1, 0.15f, ItemOutput.fromItem(Items.MUSHROOM_STEW)));
-    addFluid(TinkerFluids.rabbitStew.getForgeTag(), slimeballPiece)
-      .addEffect(new RestoreHungerSpillingEffect(2, 0.10f, ItemOutput.fromItem(Items.RABBIT_STEW)));
+    // soups
+    int bowlSip = FluidValues.BOWL / 5;
+    addFluid(TinkerFluids.beetrootSoup.getForgeTag(), bowlSip)
+      .addEffect(new RestoreHungerSpillingEffect(1, 0.72f, ItemOutput.fromItem(Items.BEETROOT_SOUP)));
+    addFluid(TinkerFluids.mushroomStew.getForgeTag(), bowlSip)
+      .addEffect(new RestoreHungerSpillingEffect(1, 0.72f, ItemOutput.fromItem(Items.MUSHROOM_STEW)));
+    addFluid(TinkerFluids.rabbitStew.getForgeTag(), bowlSip)
+      .addEffect(new RestoreHungerSpillingEffect(2, 0.6f, ItemOutput.fromItem(Items.RABBIT_STEW)));
+    addFluid(TinkerFluids.meatSoup.getLocalTag(), bowlSip)
+      .addEffect(new RestoreHungerSpillingEffect(2, 0.48f, ItemOutput.fromItem(TinkerFluids.meatSoupBowl)));
     // pig iron fills you up food, but still hurts
     addFluid(TinkerFluids.moltenPigIron.getLocalTag(), FluidValues.NUGGET)
-      .addEffect(new RestoreHungerSpillingEffect(2, 0.3f, ItemOutput.fromItem(TinkerCommons.bacon)))
+      .addEffect(new RestoreHungerSpillingEffect(2, 0.7f, ItemOutput.fromItem(TinkerCommons.bacon)))
       .addEffect(new SetFireSpillingEffect(2));
 
     // metals, lose reference to mistborn (though a true fan would probably get angry at how much I stray from the source)
