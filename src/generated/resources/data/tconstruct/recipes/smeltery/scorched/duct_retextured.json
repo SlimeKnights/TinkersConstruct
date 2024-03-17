@@ -5,7 +5,7 @@
       "tag": "tconstruct:foundry_bricks"
     },
     "C": {
-      "tag": "forge:ingots/cobalt"
+      "tag": "forge:ingots/gold"
     }
   },
   "match_all": false,

@@ -366,7 +366,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                                  .build(consumer, location(folder + "chute_retextured"));
     ShapedRecipeBuilder.shaped(TinkerSmeltery.searedDuct)
                        .define('#', TinkerSmeltery.searedBrick)
-                       .define('C', TinkerMaterials.cobalt.getIngotTag())
+                       .define('C', Tags.Items.INGOTS_GOLD)
                        .pattern("# #")
                        .pattern("C C")
                        .pattern("# #")
@@ -375,7 +375,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shaped(TinkerSmeltery.searedDuct)
                          .define('#', TinkerTags.Items.SMELTERY_BRICKS)
-                         .define('C', TinkerMaterials.cobalt.getIngotTag())
+                         .define('C', Tags.Items.INGOTS_GOLD)
                          .pattern("C#C")
                          .unlockedBy("has_item", has(TinkerTags.Items.SMELTERY_BRICKS)))
                                  .setSource(TinkerTags.Items.SMELTERY_BRICKS)
@@ -525,7 +525,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.searedDrain, TinkerSmeltery.searedChute), TinkerFluids.moltenCopper.get(), FluidValues.INGOT * 2, 2.5f)
                         .addByproduct(new FluidStack(TinkerFluids.searedStone.get(), FluidValues.BRICK * 4))
                         .save(consumer, location("smeltery/melting/metal/copper/smeltery_io"));
-    MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.searedDuct), TinkerFluids.moltenCobalt.get(), FluidValues.INGOT * 2, 2.5f)
+    MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.searedDuct), TinkerFluids.moltenGold.get(), FluidValues.INGOT * 2, 2.5f)
                         .addByproduct(new FluidStack(TinkerFluids.searedStone.get(), FluidValues.BRICK * 4))
                         .save(consumer, location("smeltery/melting/metal/cobalt/seared_duct"));
     // reinforcement - no seared stone as it can also be casted from scorched
@@ -765,7 +765,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                                  .build(consumer, location(folder + "chute_retextured"));
     ShapedRecipeBuilder.shaped(TinkerSmeltery.scorchedDuct)
                        .define('#', TinkerSmeltery.scorchedBrick)
-                       .define('C', TinkerMaterials.cobalt.getIngotTag())
+                       .define('C', Tags.Items.INGOTS_GOLD)
                        .pattern("# #")
                        .pattern("C C")
                        .pattern("# #")
@@ -774,7 +774,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shaped(TinkerSmeltery.scorchedDuct)
                          .define('#', TinkerTags.Items.FOUNDRY_BRICKS)
-                         .define('C', TinkerMaterials.cobalt.getIngotTag())
+                         .define('C', Tags.Items.INGOTS_GOLD)
                          .pattern("C#C")
                          .unlockedBy("has_item", has(TinkerTags.Items.FOUNDRY_BRICKS)))
                                  .setSource(TinkerTags.Items.FOUNDRY_BRICKS)
@@ -899,7 +899,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.scorchedDrain, TinkerSmeltery.scorchedChute), TinkerFluids.moltenObsidian.get(), FluidValues.GLASS_PANE * 2, 2.5f)
                         .addByproduct(new FluidStack(TinkerFluids.scorchedStone.get(), FluidValues.BRICK * 4))
                         .save(consumer, location("smeltery/melting/obsidian/foundry_io"));
-    MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.scorchedDuct), TinkerFluids.moltenCobalt.get(), FluidValues.INGOT * 2, 2.5f)
+    MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.scorchedDuct), TinkerFluids.moltenGold.get(), FluidValues.INGOT * 2, 2.5f)
                         .addByproduct(new FluidStack(TinkerFluids.scorchedStone.get(), FluidValues.BRICK * 4))
                         .save(consumer, location("smeltery/melting/metal/cobalt/scorched_duct"));
   }
