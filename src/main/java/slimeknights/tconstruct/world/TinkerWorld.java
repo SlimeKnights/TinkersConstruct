@@ -92,7 +92,6 @@ import slimeknights.tconstruct.world.block.SlimeVineBlock;
 import slimeknights.tconstruct.world.block.SlimeWartBlock;
 import slimeknights.tconstruct.world.block.StickySlimeBlock;
 import slimeknights.tconstruct.world.data.WorldRecipeProvider;
-import slimeknights.tconstruct.world.entity.EarthSlimeEntity;
 import slimeknights.tconstruct.world.entity.EnderSlimeEntity;
 import slimeknights.tconstruct.world.entity.SkySlimeEntity;
 import slimeknights.tconstruct.world.entity.SlimePlacementPredicate;
@@ -277,12 +276,6 @@ public final class TinkerWorld extends TinkerModule {
    * Entities
    */
   // our own copy of the slime to make spawning a bit easier
-  public static final RegistryObject<EntityType<EarthSlimeEntity>> earthSlimeEntity = ENTITIES.registerWithEgg("earth_slime", () ->
-    EntityType.Builder.of(EarthSlimeEntity::new, MobCategory.MONSTER)
-                      .setShouldReceiveVelocityUpdates(true)
-                      .setTrackingRange(10)
-                      .sized(2.04F, 2.04F)
-                      .setCustomClientFactory((spawnEntity, world) -> TinkerWorld.earthSlimeEntity.get().create(world)), 0x51a03e, 0x7ebf6e);
   public static final RegistryObject<EntityType<SkySlimeEntity>> skySlimeEntity = ENTITIES.registerWithEgg("sky_slime", () ->
     EntityType.Builder.of(SkySlimeEntity::new, MobCategory.MONSTER)
                       .setShouldReceiveVelocityUpdates(true)
@@ -326,7 +319,6 @@ public final class TinkerWorld extends TinkerModule {
 
   @SubscribeEvent
   void entityAttributes(EntityAttributeCreationEvent event) {
-    event.put(earthSlimeEntity.get(), Monster.createMonsterAttributes().build());
     event.put(skySlimeEntity.get(), Monster.createMonsterAttributes().build());
     event.put(enderSlimeEntity.get(), Monster.createMonsterAttributes().build());
     event.put(terracubeEntity.get(), Monster.createMonsterAttributes().build());
@@ -349,8 +341,7 @@ public final class TinkerWorld extends TinkerModule {
 
   @SubscribeEvent
   void registerSpawnPlacement(SpawnPlacementRegisterEvent event) {
-    // TODO: seems we can add to vanilla predicates now, can we ditch earth slimes?
-    event.register(earthSlimeEntity.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new SlimePlacementPredicate<>(TinkerTags.Blocks.EARTH_SLIME_SPAWN), Operation.OR);
+    event.register(EntityType.SLIME, null, null, new SlimePlacementPredicate<>(TinkerTags.Blocks.EARTH_SLIME_SPAWN), Operation.OR);
     event.register(skySlimeEntity.get(),   SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new SlimePlacementPredicate<>(TinkerTags.Blocks.SKY_SLIME_SPAWN), Operation.OR);
     event.register(enderSlimeEntity.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, new SlimePlacementPredicate<>(TinkerTags.Blocks.ENDER_SLIME_SPAWN), Operation.OR);
     event.register(terracubeEntity.get(),  SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TerracubeEntity::canSpawnHere, Operation.OR);

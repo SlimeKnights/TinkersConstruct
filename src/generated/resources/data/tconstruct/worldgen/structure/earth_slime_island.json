@@ -17,7 +17,7 @@
       "bounding_box": "full",
       "spawns": [
         {
-          "type": "tconstruct:earth_slime",
+          "type": "minecraft:slime",
           "maxCount": 4,
           "minCount": 4,
           "weight": 1

@@ -88,7 +88,7 @@ public class WorldgenDatapackRegistryProvider implements DataProvider {
       .addDefaultTemplates(getResource("islands/earth/"))
       .addTree(reference(earthSlimeIslandTree), 1)
       .addSlimyGrass(SlimeType.EARTH)
-      .build(new StructureSettings(tag(TinkerTags.Biomes.EARTHSLIME_ISLANDS), monsterOverride(TinkerWorld.earthSlimeEntity.get(), 4, 4), Decoration.SURFACE_STRUCTURES, TerrainAdjustment.NONE)));
+      .build(new StructureSettings(tag(TinkerTags.Biomes.EARTHSLIME_ISLANDS), monsterOverride(EntityType.SLIME, 4, 4), Decoration.SURFACE_STRUCTURES, TerrainAdjustment.NONE)));
     // skyslime island
     structures.put(skySlimeIsland, IslandStructure.skyBuilder()
       .addDefaultTemplates(getResource("islands/sky/"))
@@ -138,7 +138,7 @@ public class WorldgenDatapackRegistryProvider implements DataProvider {
     biomeModifiers.put("ichor_geode", new AddFeaturesBiomeModifier(nether, direct(reference(TinkerWorld.placedIchorGeode)), Decoration.LOCAL_MODIFICATIONS));
     biomeModifiers.put("ender_geode", new AddFeaturesBiomeModifier(and(end, not(Registry.BIOME_REGISTRY, direct(reference(Biomes.THE_END)))), direct(reference(TinkerWorld.placedEnderGeode)), Decoration.LOCAL_MODIFICATIONS));
     // spawns
-    biomeModifiers.put("spawn_overworld_slime", new AddSpawnsBiomeModifier(overworld, List.of(new SpawnerData(TinkerWorld.earthSlimeEntity.get(), 100, 2, 4), new SpawnerData(TinkerWorld.skySlimeEntity.get(), 100, 2, 4))));
+    biomeModifiers.put("spawn_overworld_slime", new AddSpawnsBiomeModifier(overworld, List.of(new SpawnerData(TinkerWorld.skySlimeEntity.get(), 100, 2, 4))));
     biomeModifiers.put("spawn_end_slime", new AddSpawnsBiomeModifier(end, List.of(new SpawnerData(TinkerWorld.enderSlimeEntity.get(), 10, 2, 4))));
 
     // run final loading

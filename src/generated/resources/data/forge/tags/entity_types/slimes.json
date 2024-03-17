@@ -1,7 +1,6 @@
 {
   "values": [
     "minecraft:slime",
-    "tconstruct:earth_slime",
     "tconstruct:sky_slime",
     "tconstruct:ender_slime",
     "tconstruct:terracube"

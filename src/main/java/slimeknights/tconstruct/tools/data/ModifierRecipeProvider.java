@@ -1696,7 +1696,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.BLAZE), ItemOutput.fromStack(new ItemStack(Items.BLAZE_ROD, 2)))
                          .save(consumer, location(folder + "blaze_rod"));
     // desliming (you cut off a chunk of slime)
-    SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.SLIME, TinkerWorld.earthSlimeEntity.get()), Items.SLIME_BALL)
+    SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.SLIME), Items.SLIME_BALL)
                          .save(consumer, location(folder + "earthslime_ball"));
     SeveringRecipeBuilder.severing(EntityIngredient.of(TinkerWorld.skySlimeEntity.get()), TinkerCommons.slimeball.get(SlimeType.SKY))
                          .save(consumer, location(folder + "skyslime_ball"));

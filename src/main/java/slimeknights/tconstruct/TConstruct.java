@@ -5,6 +5,8 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -156,8 +158,10 @@ public class TConstruct {
       case "sky_slime_sling" -> TinkerTools.skyStaff.get();
       case "ichor_slime_sling" -> TinkerTools.ichorStaff.get();
       case "ender_slime_sling" -> TinkerTools.enderStaff.get();
+      case "earth_slime_spawn_egg" -> Items.SLIME_SPAWN_EGG;
       default -> null;
     });
+    RegistrationHelper.handleMissingMappings(event, MOD_ID, Registry.ENTITY_TYPE_REGISTRY, name -> name.equals("earth_slime") ? EntityType.SLIME : null);
   }
 
 

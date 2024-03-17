@@ -5,11 +5,16 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Slime;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import slimeknights.tconstruct.world.TinkerWorld;
@@ -17,7 +22,7 @@ import slimeknights.tconstruct.world.TinkerWorld;
 /**
  * Clay based slime cube
  */
-public class TerracubeEntity extends Slime {
+public class TerracubeEntity extends ArmoredSlimeEntity {
   public TerracubeEntity(EntityType<? extends TerracubeEntity> type, Level worldIn) {
     super(type, worldIn);
   }
@@ -41,7 +46,7 @@ public class TerracubeEntity extends Slime {
 
   @Override
   protected float getJumpPower() {
-    return 0.2f * this.getBlockJumpFactor();
+    return 0.5f * this.getBlockJumpFactor();
   }
 
   @Override
@@ -57,5 +62,33 @@ public class TerracubeEntity extends Slime {
   @Override
   protected int calculateFallDamage(float distance, float damageMultiplier) {
     return 0;
+  }
+
+  @Override
+  protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
+    // earth slime spawns with vanilla armor, but unlike zombies turtle shells are fair game
+    // vanilla logic but simplified down to just helmets
+    float multiplier = difficulty.getSpecialMultiplier();
+    if (this.random.nextFloat() < 0.15F * multiplier) {
+      int armorQuality = this.random.nextInt(3);
+      if (this.random.nextFloat() < 0.25F) {
+        ++armorQuality;
+      }
+      if (this.random.nextFloat() < 0.25F) {
+        ++armorQuality;
+      }
+      if (this.random.nextFloat() < 0.25F) {
+        ++armorQuality;
+      }
+
+      ItemStack current = this.getItemBySlot(EquipmentSlot.HEAD);
+      if (current.isEmpty()) {
+        Item item = armorQuality == 5 ? Items.TURTLE_HELMET : getEquipmentForSlot(EquipmentSlot.HEAD, armorQuality);
+        if (item != null) {
+          this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(item));
+          this.enchantSpawnedArmor(random, multiplier, EquipmentSlot.HEAD);
+        }
+      }
+    }
   }
 }

@@ -23,6 +23,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.monster.Slime;
@@ -42,10 +43,12 @@ import java.util.Map;
 public class SlimeArmorLayer<T extends Slime, M extends HierarchicalModel<T>, A extends HumanoidModel<T>> extends RenderLayer<T,M> {
   private final A armorModel;
   public final Map<Type,SkullModelBase> skullModels;
-  public SlimeArmorLayer(RenderLayerParent<T,M> pRenderer, A armorModel, EntityModelSet modelSet) {
+  private final boolean lavaSlime;
+  public SlimeArmorLayer(RenderLayerParent<T,M> pRenderer, A armorModel, EntityModelSet modelSet, boolean lavaSlime) {
     super(pRenderer);
     this.armorModel = armorModel;
     this.skullModels = SkullBlockRenderer.createSkullRenderers(modelSet);
+    this.lavaSlime = lavaSlime;
   }
 
   @Override
@@ -53,7 +56,15 @@ public class SlimeArmorLayer<T extends Slime, M extends HierarchicalModel<T>, A 
     ItemStack helmet = entity.getItemBySlot(EquipmentSlot.HEAD);
     if (!helmet.isEmpty()) {
       matrices.pushPose();
-      matrices.translate(0, 1.5, 0);
+      if (lavaSlime) {
+        float squish = Mth.lerp(partialTicks, entity.oSquish, entity.squish);
+        if (squish < 0) {
+          squish = 0;
+        }
+        matrices.translate(0, 1.5 - 0.425 * squish, 0);
+      } else {
+        matrices.translate(0, 1.5, 0);
+      }
       matrices.scale(0.9f, 0.9f, 0.9f);
 
       Item item = helmet.getItem();
