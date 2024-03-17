@@ -1273,7 +1273,7 @@
   "item.tconstruct.earth_slime_grass_seeds.tooltip": "Plant on dirt or slimy dirt to make slimy grass",
   "item.tconstruct.sky_slime_grass_seeds": "Slimy Seeds",
   "item.tconstruct.sky_slime_grass_seeds.tooltip": "Plant on dirt or slimy dirt to make slimy grass, or on vines to get slimy vines",
-  "item.tconstruct.blood_slime_grass_seeds": "Slimy Seeds",
+  "item.tconstruct.blood_slime_grass_seeds": "Bloody Seeds",
   "item.tconstruct.blood_slime_grass_seeds.tooltip": "Plant on dirt or slimy dirt to make slimy nylium",
   "item.tconstruct.ichor_slime_grass_seeds": "Slimy Seeds",
   "item.tconstruct.ichor_slime_grass_seeds.tooltip": "Plant on dirt or slimy dirt to make slimy nylium",
@@ -1282,25 +1282,25 @@
 
   "block.tconstruct.earth_slime_leaves": "Slimy Leaves",
   "block.tconstruct.sky_slime_leaves": "Slimy Leaves",
-  "block.tconstruct.blood_slime_leaves": "Slimy Wart",
+  "block.tconstruct.blood_slime_leaves": "Bloody Wart",
   "block.tconstruct.ichor_slime_leaves": "Slimy Wart",
   "block.tconstruct.ender_slime_leaves": "Slimy Leaves",
 
   "block.tconstruct.earth_slime_tall_grass": "Tall Slimy Grass",
   "block.tconstruct.sky_slime_tall_grass": "Tall Slimy Grass",
-  "block.tconstruct.blood_slime_tall_grass": "Tall Slimy Grass",
+  "block.tconstruct.blood_slime_tall_grass": "Tall Bloody Grass",
   "block.tconstruct.ichor_slime_tall_grass": "Tall Slimy Grass",
   "block.tconstruct.ender_slime_tall_grass": "Tall Slimy Grass",
 
   "block.tconstruct.earth_slime_fern": "Slimy Fern",
   "block.tconstruct.sky_slime_fern": "Slimy Fern",
-  "block.tconstruct.blood_slime_fern": "Slimy Roots",
+  "block.tconstruct.blood_slime_fern": "Bloody Roots",
   "block.tconstruct.ichor_slime_fern": "Slimy Roots",
   "block.tconstruct.ender_slime_fern": "Slimy Fern",
 
   "block.tconstruct.potted_earth_slime_fern": "Potted Slimy Fern",
   "block.tconstruct.potted_sky_slime_fern": "Potted Slimy Fern",
-  "block.tconstruct.potted_blood_slime_fern": "Potted Slimy Roots",
+  "block.tconstruct.potted_blood_slime_fern": "Potted Bloody Roots",
   "block.tconstruct.potted_ichor_slime_fern": "Potted Slimy Roots",
   "block.tconstruct.potted_ender_slime_fern": "Potted Slimy Fern",
 
