@@ -1646,6 +1646,10 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                   .setTools(TinkerTags.Items.EMBELLISHMENT_SLIME)
                                   .addInput(Blocks.CLAY).addInput(Items.CLAY_BALL).addInput(Blocks.CLAY)
                                   .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_clay"));
+    SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment, MaterialIds.magma.toString())
+                                  .setTools(TinkerTags.Items.EMBELLISHMENT_SLIME)
+                                  .addInput(Blocks.MAGMA_BLOCK).addInput(Items.MAGMA_CREAM).addInput(Blocks.MAGMA_BLOCK)
+                                  .save(consumer, wrap(TinkerModifiers.embellishment, folder, "_magma"));
     SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment, MaterialIds.honey.toString())
                                   .setTools(TinkerTags.Items.EMBELLISHMENT_SLIME)
                                   .addInput(Blocks.HONEY_BLOCK).addInput(Items.HONEY_BOTTLE).addInput(Blocks.HONEY_BLOCK)

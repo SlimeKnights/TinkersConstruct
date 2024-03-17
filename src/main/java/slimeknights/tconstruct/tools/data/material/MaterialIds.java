@@ -95,6 +95,7 @@ public final class MaterialIds {
   public static final MaterialId earthslime = id("earthslime");
   public static final MaterialId skyslime = id("skyslime");
   public static final MaterialId ichor = id("ichor");
+  public static final MaterialId magma = id("magma");
   public static final MaterialId clay = id("clay");
   public static final MaterialId honey = id("honey");
   //public static final MaterialId venom = id("venom");

@@ -1593,6 +1593,7 @@
   "material.tconstruct.netherite":  "Netherite",
   "material.tconstruct.earthslime": "Earthslime",
   "material.tconstruct.skyslime":   "Skyslime",
+  "material.tconstruct.magma":      "Magma",
   "material.tconstruct.ichor":      "Ichor",
   "material.tconstruct.enderslime": "Enderslime",
   "material.tconstruct.clay":       "Clay",

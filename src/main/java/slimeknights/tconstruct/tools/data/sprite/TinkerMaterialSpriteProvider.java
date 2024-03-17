@@ -356,6 +356,9 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
     buildMaterial(MaterialIds.skyslime)
       .statType(TinkerPartSpriteProvider.SLIMESUIT)
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF2F5351).addARGB(102, 0xFF3B6D6D).addARGB(140, 0xFF49807E).addARGB(178, 0xFF63ACAB).addARGB(216, 0xFF82D7D5).addARGB(255, 0xFFFFFFFF).build());
+    buildMaterial(MaterialIds.magma) // note the non-standard grey values, as we are targeting the slime armor directly
+      .statType(TinkerPartSpriteProvider.SLIMESUIT)
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(140, 0xFFCA4E06).addARGB(155, 0xFFE66410).addARGB(170, 0xFF411616).addARGB(193, 0xFF501B1B).addARGB(216, 0xFF652828).addARGB(236, 0xFF411616).build());
     buildMaterial(MaterialIds.ichor)
       .statType(TinkerPartSpriteProvider.SLIMESUIT)
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFFB04000).addARGB(102, 0xFFD35200).addARGB(140, 0xFFEC5E00).addARGB(178, 0xFFFF8324).addARGB(216, 0xFFFFB97C).addARGB(255, 0xFFFFFFFF).build());

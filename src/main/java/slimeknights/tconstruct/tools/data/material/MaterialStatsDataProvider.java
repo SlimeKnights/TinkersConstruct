@@ -359,6 +359,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.netherite);
     addMaterialStats(MaterialIds.earthslime);
     addMaterialStats(MaterialIds.skyslime);
+    addMaterialStats(MaterialIds.magma);
     addMaterialStats(MaterialIds.ichor);
     addMaterialStats(MaterialIds.clay);
     addMaterialStats(MaterialIds.honey);
