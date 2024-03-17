@@ -41,24 +41,8 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
 
   @Override
   protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
-    // slime
-    String folder = "gadgets/slimesling/";
-    for (SlimeType slime : SlimeType.TRUE_SLIME) {
-      ResourceLocation name = location(folder + slime.getSerializedName());
-      ShapedRecipeBuilder.shaped(TinkerGadgets.slimeSling.get(slime))
-                         .group("tconstruct:slimesling")
-                         .define('#', Items.STRING)
-                         .define('X', TinkerWorld.congealedSlime.get(slime))
-                         .define('L', slime.getSlimeballTag())
-                         .pattern("#X#")
-                         .pattern("L L")
-                         .pattern(" L ")
-                         .unlockedBy("has_item", has(slime.getSlimeballTag()))
-                         .save(consumer, name);
-    }
-
     // throw balls
-    folder = "gadgets/throwball/";
+    String folder = "gadgets/throwball/";
     ShapedRecipeBuilder.shaped(TinkerGadgets.efln.get())
                        .define('#', Tags.Items.GUNPOWDER)
                        .define('X', Items.FLINT)

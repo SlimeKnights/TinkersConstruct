@@ -1695,15 +1695,6 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerCommons.cobaltPlatform), TinkerFluids.moltenCobalt.get(), FluidValues.NUGGET * 10)
                         .save(consumer, location(metalFolder + "cobalt/platform"));
 
-    // slime
-    TinkerGadgets.slimeSling.forEach((type, sling) -> {
-      if (type != SlimeType.ICHOR) { // no ichor fluid
-        MeltingRecipeBuilder.melting(Ingredient.of(sling), TinkerFluids.slime.get(type).get(), FluidValues.SLIMEBALL * 3 + FluidValues.SLIME_CONGEALED)
-                            .setDamagable(FluidValues.SLIMEBALL / 5)
-                            .save(consumer, location(slimeFolder + type.getSerializedName() + "/sling"));
-      }
-    });
-
     // geode stuff
     crystalMelting(consumer, TinkerWorld.earthGeode, TinkerFluids.earthSlime.get(), slimeFolder + "earth/");
     crystalMelting(consumer, TinkerWorld.skyGeode,   TinkerFluids.skySlime.get(),   slimeFolder + "sky/");

@@ -5,11 +5,6 @@
     "data": "gadgets/index.json"
   },
   {
-    "name": "slimesling",
-    "type": "mantle:showcase",
-    "data": "gadgets/slimesling.json"
-  },
-  {
     "name": "cake",
     "type": "mantle:image_text",
     "data": "gadgets/cake.json"

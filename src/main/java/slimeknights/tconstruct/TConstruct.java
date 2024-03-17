@@ -1,5 +1,6 @@
 package slimeknights.tconstruct;
 
+import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -15,8 +16,10 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.MissingMappingsEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import slimeknights.mantle.registration.RegistrationHelper;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
@@ -82,6 +85,7 @@ public class TConstruct {
     Config.init();
 
     // initialize modules, done this way rather than with annotations to give us control over the order
+    MinecraftForge.EVENT_BUS.addListener(TConstruct::missingMappings);
     IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
     // base
     bus.register(new TinkerCommons());
@@ -106,7 +110,6 @@ public class TConstruct {
     // init client logic
     TinkerBookIDs.registerCommandSuggestion();
     DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> TinkerClient::onConstruct);
-    MinecraftForge.EVENT_BUS.register(this);
 
     // compat
     ModList modList = ModList.get();
@@ -144,6 +147,17 @@ public class TConstruct {
     datagenerator.addProvider(server, new TConstructLootTableProvider(datagenerator));
     datagenerator.addProvider(server, new AdvancementsProvider(datagenerator));
     datagenerator.addProvider(server, new GlobalLootModifiersProvider(datagenerator));
+  }
+
+  /** Handles missing mappings of all types */
+  private static void missingMappings(MissingMappingsEvent event) {
+    RegistrationHelper.handleMissingMappings(event, MOD_ID, Registry.ITEM_REGISTRY, name -> switch (name) {
+      case "earth_slime_sling" -> TinkerTools.earthStaff.get();
+      case "sky_slime_sling" -> TinkerTools.skyStaff.get();
+      case "ichor_slime_sling" -> TinkerTools.ichorStaff.get();
+      case "ender_slime_sling" -> TinkerTools.enderStaff.get();
+      default -> null;
+    });
   }
 
 

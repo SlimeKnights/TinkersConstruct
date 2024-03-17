@@ -161,9 +161,6 @@ public class ItemTagProvider extends ItemTagsProvider {
     copy(TinkerTags.Blocks.ANVIL_METAL, TinkerTags.Items.ANVIL_METAL);
     copy(TinkerTags.Blocks.PLANKLIKE, TinkerTags.Items.PLANKLIKE);
 
-    TagAppender<Item> slimeslings = this.tag(TinkerTags.Items.SLIMESLINGS);
-    TinkerGadgets.slimeSling.values().forEach(slimeslings::add);
-
     // piglins like gold and dislike zombie piglin heads
     this.tag(ItemTags.PIGLIN_LOVED)
         .add(TinkerModifiers.goldReinforcement.get(), TinkerGadgets.itemFrame.get(FrameType.GOLD), TinkerGadgets.itemFrame.get(FrameType.REVERSED_GOLD), TinkerFluids.moltenGold.asItem(), TinkerCommons.goldBars.asItem(), TinkerCommons.goldPlatform.asItem())

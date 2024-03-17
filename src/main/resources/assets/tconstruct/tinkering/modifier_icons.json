@@ -28,10 +28,10 @@
   "tconstruct:tilling":     "tconstruct:gui/modifiers/held/tilling",
   "tconstruct:offhanded":   "tconstruct:gui/modifiers/held/offhanded",
 
-  "tconstruct:flinging":  ["tconstruct:item/gadgets/earth_slime_sling", "tconstruct:gui/modifiers/book"],
-  "tconstruct:springing": ["tconstruct:item/gadgets/sky_slime_sling",   "tconstruct:gui/modifiers/book"],
-  "tconstruct:bonking":   ["tconstruct:item/gadgets/ichor_slime_sling", "tconstruct:gui/modifiers/book"],
-  "tconstruct:warping":   ["tconstruct:item/gadgets/ender_slime_sling", "tconstruct:gui/modifiers/book"],
+  "tconstruct:flinging":  "tconstruct:gui/modifiers/held/flinging",
+  "tconstruct:springing": "tconstruct:gui/modifiers/held/springing",
+  "tconstruct:bonking":   "tconstruct:gui/modifiers/held/bonking",
+  "tconstruct:warping":   "tconstruct:gui/modifiers/held/warping",
 
   "tconstruct:exchanging":  "tconstruct:gui/modifiers/harvest/exchanging",
   "tconstruct:expanded":    "tconstruct:gui/modifiers/harvest/expanded",

@@ -283,8 +283,6 @@ public class TinkerTags {
 
     /** Seeds that produce slimy grass */
     public static final TagKey<Item> SLIMY_SEEDS = tag("slimy_grass_seeds");
-    /** Anything that works as a slimesling, flinging the player or mobs on use */
-    public static final TagKey<Item> SLIMESLINGS = tag("slimeslings");
 
     /** Stones that can be used for stoneshield */
     public static final TagKey<Item> STONESHIELDS = tag("stoneshields");
