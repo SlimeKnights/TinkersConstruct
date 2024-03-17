@@ -159,6 +159,7 @@ public class TConstruct {
       case "ichor_slime_sling" -> TinkerTools.ichorStaff.get();
       case "ender_slime_sling" -> TinkerTools.enderStaff.get();
       case "earth_slime_spawn_egg" -> Items.SLIME_SPAWN_EGG;
+      case "bloodbone" -> TinkerMaterials.venombone.get();
       default -> null;
     });
     RegistrationHelper.handleMissingMappings(event, MOD_ID, Registry.ENTITY_TYPE_REGISTRY, name -> name.equals("earth_slime") ? EntityType.SLIME : null);

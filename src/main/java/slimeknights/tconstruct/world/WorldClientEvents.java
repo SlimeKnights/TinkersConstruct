@@ -151,7 +151,7 @@ public class WorldClientEvents extends ClientEventBase {
       // skeleton
       SlimeskullArmorModel.registerHeadModel(MaterialIds.bone, ModelLayers.SKELETON_SKULL, new ResourceLocation("textures/entity/skeleton/skeleton.png"));
       SlimeskullArmorModel.registerHeadModel(MaterialIds.necroticBone, ModelLayers.WITHER_SKELETON_SKULL, new ResourceLocation("textures/entity/skeleton/wither_skeleton.png"));
-      registerHeadModel(TinkerHeadType.STRAY, MaterialIds.bloodbone, TConstruct.getResource("textures/entity/skull/stray.png"));
+      registerHeadModel(TinkerHeadType.STRAY, MaterialIds.venombone, TConstruct.getResource("textures/entity/skull/stray.png"));
       // zombies
       SlimeskullArmorModel.registerHeadModel(MaterialIds.rottenFlesh, ModelLayers.ZOMBIE_HEAD, new ResourceLocation("textures/entity/zombie/zombie.png"));
       registerHeadModel(TinkerHeadType.HUSK, MaterialIds.iron, new ResourceLocation("textures/entity/zombie/husk.png"));

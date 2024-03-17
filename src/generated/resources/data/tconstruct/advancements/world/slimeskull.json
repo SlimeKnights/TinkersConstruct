@@ -27,32 +27,6 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "bloodbone": {
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:and",
-              "predicates": [
-                {
-                  "type": "tconstruct:item",
-                  "item_type": "mantle:set",
-                  "items": [
-                    "tconstruct:slime_helmet"
-                  ]
-                },
-                {
-                  "type": "tconstruct:has_material",
-                  "material": "tconstruct:bloodbone"
-                }
-              ]
-            }
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "bone": {
       "conditions": {
         "items": [
@@ -364,6 +338,32 @@
         ]
       },
       "trigger": "minecraft:inventory_changed"
+    },
+    "venombone": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:and",
+              "predicates": [
+                {
+                  "type": "tconstruct:item",
+                  "item_type": "mantle:set",
+                  "items": [
+                    "tconstruct:slime_helmet"
+                  ]
+                },
+                {
+                  "type": "tconstruct:has_material",
+                  "material": "tconstruct:venombone"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
   "display": {
@@ -399,7 +399,7 @@
       "ender_pearl"
     ],
     [
-      "bloodbone"
+      "venombone"
     ],
     [
       "string"

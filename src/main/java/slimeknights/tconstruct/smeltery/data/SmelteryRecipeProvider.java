@@ -961,10 +961,6 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // Slime
     String slimeFolder = folder + "slime/";
     this.slimeCasting(consumer, TinkerFluids.blood, false, SlimeType.BLOOD, slimeFolder);
-    ItemCastingRecipeBuilder.tableRecipe(TinkerMaterials.bloodbone)
-                            .setFluidAndTime(TinkerFluids.blood, false, FluidValues.SLIMEBALL)
-                            .setCast(Tags.Items.BONES, true)
-                            .save(consumer, location(slimeFolder + "blood/bone"));
     this.slimeCasting(consumer, TinkerFluids.earthSlime, true, SlimeType.EARTH, slimeFolder);
     this.slimeCasting(consumer, TinkerFluids.skySlime, false, SlimeType.SKY, slimeFolder);
     this.slimeCasting(consumer, TinkerFluids.enderSlime, false, SlimeType.ENDER, slimeFolder);
@@ -1176,6 +1172,10 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                             .setCoolingTime(1)
                             .setCast(Items.GLASS_BOTTLE, true)
                             .save(consumer, location(folder + "venom_bottle"));
+    ItemCastingRecipeBuilder.tableRecipe(TinkerMaterials.venombone)
+                            .setFluidAndTime(TinkerFluids.venom, false, FluidValues.SLIMEBALL)
+                            .setCast(Tags.Items.BONES, true)
+                            .save(consumer, location(slimeFolder + "venombone"));
 
     // cheese
     ItemCastingRecipeBuilder.tableRecipe(TinkerCommons.cheeseIngot)

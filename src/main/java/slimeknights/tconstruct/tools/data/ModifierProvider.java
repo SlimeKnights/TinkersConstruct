@@ -42,6 +42,7 @@ import slimeknights.tconstruct.library.json.predicate.tool.ItemToolPredicate;
 import slimeknights.tconstruct.library.json.variable.block.BlockVariable;
 import slimeknights.tconstruct.library.json.variable.entity.AttributeEntityVariable;
 import slimeknights.tconstruct.library.json.variable.entity.ConditionalEntityVariable;
+import slimeknights.tconstruct.library.json.variable.entity.EntityEffectLevelVariable;
 import slimeknights.tconstruct.library.json.variable.entity.EntityVariable;
 import slimeknights.tconstruct.library.json.variable.melee.EntityMeleeVariable;
 import slimeknights.tconstruct.library.json.variable.melee.EntityMeleeVariable.WhichEntity;
@@ -367,6 +368,21 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(ConditionalMiningSpeedModule.builder().holder(LivingEntityPredicate.ON_GROUND.inverted()).percent().allowIneffective().flat(4), TinkerHooks.BREAK_SPEED)
       // accuracy gets a 0.5 boost under the stricter version of in air (no boost just for being on a ladder)
       .addModule(ConditionalStatModule.stat(ToolStats.ACCURACY).holder(TinkerLivingEntityPredicate.AIRBORNE).flat(0.5f));
+    buildModifier(ModifierIds.antitoxin)
+      .addModule(ConditionalMeleeDamageModule.builder()
+        .customVariable("poison", new EntityMeleeVariable(new EntityEffectLevelVariable(MobEffects.POISON), WhichEntity.ATTACKER, 0))
+        .formula()
+         // gives 1.5 bonus per level at poison 1, 2.5 at poison 2
+        .customVariable("poison").constant(0.5f).add().variable(LEVEL).multiply().variable(MULTIPLIER).multiply()
+        // finally, add in base damage
+        .variable(VALUE).add().build())
+      .addModule(ConditionalStatModule.stat(ToolStats.DRAW_SPEED)
+        .customVariable("poison", new EntityConditionalStatVariable(new EntityEffectLevelVariable(MobEffects.POISON), 0))
+        .formula()
+        // gives 0.15 bonus per level at poison 1, .25 at poison 2
+        .customVariable("poison").constant(0.5f).add().constant(0.1f).multiply().variable(LEVEL).multiply().variable(MULTIPLIER).multiply()
+        // finally, add in base damage
+        .variable(VALUE).add().build());
     buildModifier(ModifierIds.raging)
       .addModule(ConditionalMeleeDamageModule.builder()
         .customVariable("health", new EntityMeleeVariable(EntityVariable.HEALTH, WhichEntity.ATTACKER, 0))
@@ -377,8 +393,8 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
         .constant(10).customVariable("max_health").subtract().nonNegative().add()
         // linear bonus from 2 to 8, max bonus below 2, no bonus above 8
         .constant(10).subtractFlipped().constant(8).divide().percentClamp()
-        // get 4 bonus per level, bring in standard multiplier
-        .variable(LEVEL).multiply().constant(4).multiply().variable(MULTIPLIER).multiply()
+        // get 3 bonus per level, bring in standard multiplier
+        .variable(LEVEL).multiply().constant(3).multiply().variable(MULTIPLIER).multiply()
         // finally, add in base damage
         .variable(VALUE).add().build())
       .addModule(ConditionalStatModule.stat(ToolStats.DRAW_SPEED)

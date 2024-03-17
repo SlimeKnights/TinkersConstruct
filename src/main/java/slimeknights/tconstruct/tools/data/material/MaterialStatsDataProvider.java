@@ -81,7 +81,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      new HeadMaterialStats(225, 6.5f, IRON, 1.5f),
                      HandleMaterialStats.DEFAULT.withDurability(0.85f).withMiningSpeed(1.10f).withAttackDamage(1.05f),
                      ExtraMaterialStats.DEFAULT);
-    addMaterialStats(MaterialIds.bloodbone,
+    addMaterialStats(MaterialIds.venombone,
                      new HeadMaterialStats(175, 4.5f, IRON, 2.25f),
                      HandleMaterialStats.DEFAULT.withDurability(0.9f).withAttackSpeed(1.1f).withAttackDamage(1.05f),
                      ExtraMaterialStats.DEFAULT);
@@ -242,7 +242,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.slimewood,
                      new LimbMaterialStats(375, 0, -0.05f, 0.1f),
                      new GripMaterialStats(1.4f, -0.2f, 1f));
-    addMaterialStats(MaterialIds.bloodbone,
+    addMaterialStats(MaterialIds.venombone,
                      new LimbMaterialStats(175, 0.1f, -0.1f, 0.05f),
                      new GripMaterialStats(0.9f, -0.1f, 2.25f));
     addMaterialStats(MaterialIds.iron,
@@ -339,7 +339,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.glass,        new SkullStats( 90, 0));
     addMaterialStats(MaterialIds.enderPearl,   new SkullStats(180, 0));
     addMaterialStats(MaterialIds.bone,         new SkullStats(100, 0));
-    addMaterialStats(MaterialIds.bloodbone,    new SkullStats(175, 1));
+    addMaterialStats(MaterialIds.venombone,    new SkullStats(175, 1));
     addMaterialStats(MaterialIds.necroticBone, new SkullStats(125, 0));
     addMaterialStats(MaterialIds.string,       new SkullStats(140, 0));
     addMaterialStats(MaterialIds.darkthread,   new SkullStats(200, 1));

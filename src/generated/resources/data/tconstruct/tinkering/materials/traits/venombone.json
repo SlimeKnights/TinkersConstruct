@@ -1,0 +1,20 @@
+{
+  "default": [
+    {
+      "level": 1,
+      "name": "tconstruct:antitoxin"
+    }
+  ],
+  "perStat": {
+    "tconstruct:skull": [
+      {
+        "level": 1,
+        "name": "tconstruct:frosttouch"
+      },
+      {
+        "level": 1,
+        "name": "tconstruct:stray_disguise"
+      }
+    ]
+  }
+}

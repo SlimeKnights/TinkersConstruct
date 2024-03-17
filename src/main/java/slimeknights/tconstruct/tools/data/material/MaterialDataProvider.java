@@ -1,7 +1,9 @@
 package slimeknights.tconstruct.tools.data.material;
 
 import net.minecraft.data.DataGenerator;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.data.material.AbstractMaterialDataProvider;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 
 public class MaterialDataProvider extends AbstractMaterialDataProvider {
   public MaterialDataProvider(DataGenerator gen) {
@@ -32,7 +34,7 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     // tier 2
     addMaterial(MaterialIds.iron,        2, ORDER_GENERAL, false);
     addMaterial(MaterialIds.searedStone, 2, ORDER_HARVEST, false);
-    addMaterial(MaterialIds.bloodbone,   2, ORDER_WEAPON,  true);
+    addMaterial(MaterialIds.venombone,   2, ORDER_WEAPON,  true);
     addMaterial(MaterialIds.slimewood,   2, ORDER_SPECIAL, true);
     // tier 2 - nether
     addMaterial(MaterialIds.scorchedStone, 2, ORDER_NETHER, false);
@@ -42,6 +44,8 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     // tier 2 - binding
     addMaterial(MaterialIds.chain,        2, ORDER_BINDING, true);
     addMaterial(MaterialIds.skyslimeVine, 2, ORDER_BINDING, true);
+    // bloodbone reworked into venombone
+    addRedirect(new MaterialId(TConstruct.MOD_ID, "bloodbone"), redirect(MaterialIds.venombone));
 
     // tier 3
     addMaterial(MaterialIds.slimesteel,     3, ORDER_GENERAL, false);

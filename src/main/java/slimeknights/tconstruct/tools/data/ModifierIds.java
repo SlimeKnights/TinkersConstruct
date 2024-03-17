@@ -102,7 +102,7 @@ public class ModifierIds {
   // traits - tier 2
   public static final ModifierId sturdy = id("sturdy");
   public static final ModifierId scorching = id("scorching");
-  public static final ModifierId raging = id("raging");
+  public static final ModifierId antitoxin = id("antitoxin");
   public static final ModifierId airborne = id("airborne");
   // traits - tier 2 compat
   public static final ModifierId dense = id("dense");
@@ -117,6 +117,9 @@ public class ModifierIds {
   // traits - tier 3 compat
   public static final ModifierId maintained = id("maintained");
   public static final ModifierId ductile = id("ductile");
+
+  // unused for now, will be reassigned later
+  public static final ModifierId raging = id("raging");
 
   // mob disguises
   public static final ModifierId creeperDisguise         = id("creeper_disguise");

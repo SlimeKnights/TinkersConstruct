@@ -47,7 +47,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.oxidizedCopper).color(0x4FAB90).fallbacks("metal");
     buildRenderInfo(MaterialIds.searedStone).color(0x4F4A47).fallbacks("rock");
     buildRenderInfo(MaterialIds.scorchedStone).color(0x5B4C43).fallbacks("rock");
-    buildRenderInfo(MaterialIds.bloodbone).color(0xE52323).fallbacks("bone", "rock");
+    buildRenderInfo(MaterialIds.venombone).color(0xA2935E).fallbacks("bone", "rock");
     buildRenderInfo(MaterialIds.necroticBone).color(0x2A2A2A).fallbacks("bone", "rock");
     buildRenderInfo(MaterialIds.endstone);
     buildRenderInfo(MaterialIds.chain).color(0x3E4453).fallbacks("chain", "metal");
@@ -117,7 +117,6 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.enderslime);
     buildRenderInfo(MaterialIds.clay);
     buildRenderInfo(MaterialIds.honey);
-    //buildRenderInfo(MaterialIds.venom);
 
     buildRenderInfo(MaterialIds.phantom);
 
