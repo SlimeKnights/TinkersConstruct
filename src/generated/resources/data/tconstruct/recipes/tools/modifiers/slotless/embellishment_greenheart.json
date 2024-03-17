@@ -3,18 +3,18 @@
   "allow_crystal": false,
   "inputs": [
     {
-      "item": "tconstruct:ender_congealed_slime"
+      "item": "tconstruct:greenheart_planks"
     },
     {
-      "item": "tconstruct:ender_slime_ball"
+      "item": "tconstruct:earth_slime_sapling"
     },
     {
-      "item": "tconstruct:ender_congealed_slime"
+      "item": "tconstruct:greenheart_planks"
     }
   ],
   "result": {
     "name": "tconstruct:embellishment",
-    "value": "tconstruct:enderslime"
+    "value": "tconstruct:earthslime"
   },
   "tools": {
     "tag": "tconstruct:modifiable/embellishment/slime"

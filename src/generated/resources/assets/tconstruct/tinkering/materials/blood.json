@@ -1,0 +1,46 @@
+{
+  "color": "B80000",
+  "generator": {
+    "ignoreMaterialStats": false,
+    "supportedStats": [
+      "tconstruct:slimesuit"
+    ],
+    "transformer": {
+      "type": "tconstruct:recolor_sprite",
+      "color_mapping": {
+        "type": "tconstruct:grey_to_color",
+        "palette": [
+          {
+            "color": "FF000000",
+            "grey": 0
+          },
+          {
+            "color": "FF5D0000",
+            "grey": 63
+          },
+          {
+            "color": "FF750000",
+            "grey": 102
+          },
+          {
+            "color": "FF820000",
+            "grey": 140
+          },
+          {
+            "color": "FFA00000",
+            "grey": 178
+          },
+          {
+            "color": "FFB80000",
+            "grey": 216
+          },
+          {
+            "color": "FFE82323",
+            "grey": 255
+          }
+        ]
+      }
+    }
+  },
+  "luminosity": 0
+}

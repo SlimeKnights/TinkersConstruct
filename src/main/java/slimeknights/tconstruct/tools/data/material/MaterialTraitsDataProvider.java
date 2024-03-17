@@ -113,6 +113,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     // slimesuit
     noTraits(MaterialIds.earthslime);
     noTraits(MaterialIds.skyslime);
+    noTraits(MaterialIds.blood);
     noTraits(MaterialIds.magma);
     noTraits(MaterialIds.ichor);
     noTraits(MaterialIds.enderslime);

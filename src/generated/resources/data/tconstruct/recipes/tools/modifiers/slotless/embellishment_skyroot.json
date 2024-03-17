@@ -3,18 +3,18 @@
   "allow_crystal": false,
   "inputs": [
     {
-      "item": "tconstruct:ender_congealed_slime"
+      "item": "tconstruct:skyroot_planks"
     },
     {
-      "item": "tconstruct:ender_slime_ball"
+      "item": "tconstruct:sky_slime_sapling"
     },
     {
-      "item": "tconstruct:ender_congealed_slime"
+      "item": "tconstruct:skyroot_planks"
     }
   ],
   "result": {
     "name": "tconstruct:embellishment",
-    "value": "tconstruct:enderslime"
+    "value": "tconstruct:skyslime"
   },
   "tools": {
     "tag": "tconstruct:modifiable/embellishment/slime"

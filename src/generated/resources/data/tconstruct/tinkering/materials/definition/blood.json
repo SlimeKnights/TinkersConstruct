@@ -1,7 +1,6 @@
 {
-  "redirect": [
-    {
-      "id": "tconstruct:magma"
-    }
-  ]
+  "craftable": true,
+  "hidden": false,
+  "sortOrder": 25,
+  "tier": 2
 }

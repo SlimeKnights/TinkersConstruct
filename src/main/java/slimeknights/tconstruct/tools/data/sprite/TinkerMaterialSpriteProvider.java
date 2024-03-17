@@ -26,7 +26,6 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
   protected void addAllMaterials() {
     // TODO: this is a lovely red palette, reuse it for something in the future
     // GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF4A0000).addARGB(102, 0xFF5D0000).addARGB(140, 0xFF820000).addARGB(178, 0xFFA00000).addARGB(216, 0xFFB80000).addARGB(255, 0xFFE82323).build()
-    // GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF5D0000).addARGB(102, 0xFF750000).addARGB(140, 0xFF820000).addARGB(178, 0xFFA00000).addARGB(216, 0xFFB80000).addARGB(255, 0xFFE82323).build())
 
     // tier 1
     buildMaterial(MaterialIds.flint)
@@ -356,6 +355,9 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
     buildMaterial(MaterialIds.skyslime)
       .statType(TinkerPartSpriteProvider.SLIMESUIT)
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF2F5351).addARGB(102, 0xFF3B6D6D).addARGB(140, 0xFF49807E).addARGB(178, 0xFF63ACAB).addARGB(216, 0xFF82D7D5).addARGB(255, 0xFFFFFFFF).build());
+    buildMaterial(MaterialIds.blood)
+      .statType(TinkerPartSpriteProvider.SLIMESUIT)
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF5D0000).addARGB(102, 0xFF750000).addARGB(140, 0xFF820000).addARGB(178, 0xFFA00000).addARGB(216, 0xFFB80000).addARGB(255, 0xFFE82323).build());
     buildMaterial(MaterialIds.magma) // note the non-standard grey values, as we are targeting the slime armor directly
       .statType(TinkerPartSpriteProvider.SLIMESUIT)
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(140, 0xFFCA4E06).addARGB(155, 0xFFE66410).addARGB(170, 0xFF411616).addARGB(193, 0xFF501B1B).addARGB(216, 0xFF652828).addARGB(236, 0xFF411616).build());
