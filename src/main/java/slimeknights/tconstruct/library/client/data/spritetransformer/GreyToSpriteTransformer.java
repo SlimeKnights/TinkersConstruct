@@ -35,7 +35,7 @@ import java.util.function.ToIntFunction;
 import static com.mojang.blaze3d.platform.NativeImage.getA;
 
 /**
- * Extcom.mojang.blaze3d.platform.NativeImagepports including sprites as "part of the palette"
+ * Supports including sprites as "part of the palette"
  */
 @RequiredArgsConstructor
 public class GreyToSpriteTransformer implements ISpriteTransformer {

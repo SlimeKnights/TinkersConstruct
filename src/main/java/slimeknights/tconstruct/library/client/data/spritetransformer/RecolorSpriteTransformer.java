@@ -6,8 +6,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
-import lombok.RequiredArgsConstructor;
 import com.mojang.blaze3d.platform.NativeImage;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
@@ -21,6 +22,7 @@ public class RecolorSpriteTransformer implements ISpriteTransformer {
   public static final Deserializer DESERIALIZER = new Deserializer();
 
   /** Color mapping to apply */
+  @Getter
   private final IColorMapping colorMapping;
 
   @Override

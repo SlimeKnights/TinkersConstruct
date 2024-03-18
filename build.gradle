@@ -88,6 +88,8 @@ sourceSets {
             srcDirs "src/generated/resources"
             //But exclude the cache of the generated data from what gets built
             exclude '.cache'
+            // exclude debug resources, they are for heling us make the mod, not for the actual mod
+            exclude 'assets/tconstruct/debug'
         }
     }
 }
