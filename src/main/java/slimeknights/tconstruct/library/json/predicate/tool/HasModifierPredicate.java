@@ -73,7 +73,7 @@ public record HasModifierPredicate(ModifierId modifier, IntRange level, Modifier
   public static final IGenericLoader<HasModifierPredicate> LOADER = new IGenericLoader<>() {
     @Override
     public HasModifierPredicate deserialize(JsonObject json) {
-      ModifierId modifier = ModifierId.getFromJson(json, "modifier");
+      ModifierId modifier = ModifierId.PARSER.getFromJson(json, "modifier");
       IntRange level = DEFAULT_RANGE;
       if (json.has("level")) {
         level = MAX_RANGE.getAndDeserialize(json, "level");
@@ -91,7 +91,7 @@ public record HasModifierPredicate(ModifierId modifier, IntRange level, Modifier
 
     @Override
     public HasModifierPredicate fromNetwork(FriendlyByteBuf buffer) {
-      ModifierId modifier = ModifierId.fromNetwork(buffer);
+      ModifierId modifier = ModifierId.PARSER.fromNetwork(buffer);
       IntRange level = IntRange.fromNetwork(buffer);
       ModifierCheck check = buffer.readEnum(ModifierCheck.class);
       return new HasModifierPredicate(modifier, level, check);
@@ -99,7 +99,7 @@ public record HasModifierPredicate(ModifierId modifier, IntRange level, Modifier
 
     @Override
     public void toNetwork(HasModifierPredicate object, FriendlyByteBuf buffer) {
-      object.modifier.toNetwork(buffer);
+      buffer.writeResourceLocation(object.modifier);
       object.level.toNetwork(buffer);
       buffer.writeEnum(object.check);
     }

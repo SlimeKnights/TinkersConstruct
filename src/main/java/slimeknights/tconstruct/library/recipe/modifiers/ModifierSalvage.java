@@ -105,7 +105,7 @@ public class ModifierSalvage implements ICustomOutputRecipe<Container> {
     public ModifierSalvage fromJson(ResourceLocation id, JsonObject json) {
       Ingredient toolIngredient = Ingredient.fromJson(JsonHelper.getElement(json, "tools"));
       int maxToolSize = GsonHelper.getAsInt(json, "max_tool_size", ITinkerStationRecipe.DEFAULT_TOOL_STACK_SIZE);
-      ModifierId modifier = ModifierId.getFromJson(json, "modifier");
+      ModifierId modifier = ModifierId.PARSER.getFromJson(json, "modifier");
       int minLevel = JsonUtils.getIntMin(json, "min_level", 1);
       int maxLevel = GsonHelper.getAsInt(json, "max_level", Integer.MAX_VALUE);
       if (maxLevel < minLevel) {
@@ -123,7 +123,7 @@ public class ModifierSalvage implements ICustomOutputRecipe<Container> {
     public ModifierSalvage fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       Ingredient toolIngredient = Ingredient.fromNetwork(buffer);
       int maxToolSize = buffer.readVarInt();
-      ModifierId modifier = ModifierId.fromNetwork(buffer);
+      ModifierId modifier = ModifierId.PARSER.fromNetwork(buffer);
       int minLevel = buffer.readVarInt();
       int maxLevel = buffer.readVarInt();
       SlotCount slots = SlotCount.read(buffer);
@@ -134,7 +134,7 @@ public class ModifierSalvage implements ICustomOutputRecipe<Container> {
     public void toNetworkSafe(FriendlyByteBuf buffer, ModifierSalvage recipe) {
       recipe.toolIngredient.toNetwork(buffer);
       buffer.writeVarInt(recipe.getMaxToolSize());
-      recipe.modifier.toNetwork(buffer);
+      buffer.writeResourceLocation(recipe.modifier);
       buffer.writeVarInt(recipe.minLevel);
       buffer.writeVarInt(recipe.maxLevel);
       SlotCount.write(recipe.slots, buffer);

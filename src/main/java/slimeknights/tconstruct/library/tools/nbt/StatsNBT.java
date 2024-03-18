@@ -94,7 +94,7 @@ public class StatsNBT {
   /** Reads a tool stat ID from a NBT string */
   @Nullable
   static IToolStat<?> readStatIdFromNBT(String name) {
-    ToolStatId statName = ToolStatId.tryCreate(name);
+    ToolStatId statName = ToolStatId.tryParse(name);
     if (statName != null) {
       IToolStat<?> stat = ToolStats.getToolStat(statName);
       if (stat != null) {

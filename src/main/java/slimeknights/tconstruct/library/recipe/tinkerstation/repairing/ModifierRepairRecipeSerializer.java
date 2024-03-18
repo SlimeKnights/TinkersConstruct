@@ -23,7 +23,7 @@ public class ModifierRepairRecipeSerializer<T extends Recipe<?> & IModifierRepai
 
   @Override
   public T fromJson(ResourceLocation id, JsonObject json) {
-    ModifierId modifier = ModifierId.getFromJson(json, "modifier");
+    ModifierId modifier = ModifierId.PARSER.getFromJson(json, "modifier");
     Ingredient ingredient = Ingredient.fromJson(JsonHelper.getElement(json, "ingredient"));
     int repairAmount = GsonHelper.getAsInt(json, "repair_amount");
     return factory.create(id, modifier, ingredient, repairAmount);
@@ -32,7 +32,7 @@ public class ModifierRepairRecipeSerializer<T extends Recipe<?> & IModifierRepai
   @Nullable
   @Override
   public T fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
-    ModifierId modifier = ModifierId.fromNetwork(buffer);
+    ModifierId modifier = ModifierId.PARSER.fromNetwork(buffer);
     Ingredient ingredient = Ingredient.fromNetwork(buffer);
     int repairAmount = buffer.readVarInt();
     return factory.create(id, modifier, ingredient, repairAmount);
@@ -40,7 +40,7 @@ public class ModifierRepairRecipeSerializer<T extends Recipe<?> & IModifierRepai
 
   @Override
   public void toNetworkSafe(FriendlyByteBuf buffer, T recipe) {
-    recipe.getModifier().toNetwork(buffer);
+    buffer.writeResourceLocation(recipe.getModifier());
     recipe.getIngredient().toNetwork(buffer);
     buffer.writeVarInt(recipe.getRepairAmount());
   }

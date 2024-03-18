@@ -123,7 +123,7 @@ public class SwappableModifierRecipe extends ModifierRecipe {
     @Override
     protected ModifierEntry readResult(JsonObject json) {
       JsonObject result = GsonHelper.getAsJsonObject(json, "result");
-      return new ModifierEntry(ModifierId.getFromJson(result, "name"), 1);
+      return new ModifierEntry(ModifierId.PARSER.getFromJson(result, "name"), 1);
     }
 
     @Override

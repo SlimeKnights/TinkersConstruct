@@ -69,7 +69,7 @@ public class StatOverrideModifier extends NoLevelsModifier implements ToolStatsM
     if (persistentData.contains(key, Tag.TAG_COMPOUND)) {
       CompoundTag nbt = persistentData.getCompound(key);
       for (String name : nbt.getAllKeys()) {
-        ToolStatId id = ToolStatId.tryCreate(name);
+        ToolStatId id = ToolStatId.tryParse(name);
         if (id != null) {
           IToolStat<?> stat = ToolStats.getToolStat(id);
           if (stat != null) {
@@ -114,7 +114,7 @@ public class StatOverrideModifier extends NoLevelsModifier implements ToolStatsM
       boolean first = true;
       for (String key : stats.getAllKeys()) {
         // ignore invalid stat names
-        ToolStatId id = ToolStatId.tryCreate(key);
+        ToolStatId id = ToolStatId.tryParse(key);
         if (id != null) {
           IToolStat<?> stat = ToolStats.getToolStat(id);
           if (stat != null) {

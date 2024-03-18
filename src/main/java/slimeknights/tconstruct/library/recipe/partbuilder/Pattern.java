@@ -6,6 +6,8 @@ import slimeknights.mantle.data.gson.ResourceLocationSerializer;
 import slimeknights.tconstruct.library.utils.IdParser;
 import slimeknights.tconstruct.library.utils.Util;
 
+import javax.annotation.Nullable;
+
 /**
  * This is a copy of resource location with a couple extra helpers
  */
@@ -39,5 +41,15 @@ public class Pattern extends ResourceLocation {
    */
   public ResourceLocation getTexture() {
     return new ResourceLocation(getNamespace(), "gui/tinker_pattern/" + getPath());
+  }
+
+  /**
+   * Tries to create a pattern from the given string, for NBT parsing
+   * @param string  String
+   * @return  Tool stat ID, or null of invalid
+   */
+  @Nullable
+  public static Pattern tryParse(String string) {
+    return PARSER.tryParse(string);
   }
 }

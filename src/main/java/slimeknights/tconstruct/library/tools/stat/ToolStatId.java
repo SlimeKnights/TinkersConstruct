@@ -29,7 +29,7 @@ public class ToolStatId extends ResourceLocation {
    * @return  Tool stat ID, or null of invalid
    */
   @Nullable
-  public static ToolStatId tryCreate(String string) {
+  public static ToolStatId tryParse(String string) {
     return PARSER.tryParse(string);
   }
 }

@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.library.materials.definition;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
@@ -72,25 +70,5 @@ public final class MaterialId extends ResourceLocation implements MaterialVarian
   @Nullable
   public static MaterialId tryParse(String string) {
     return PARSER.tryParse(string);
-  }
-
-  /**
-   * Gets a resource location from JSON, throwing a nice exception if invalid
-   * @param json  JSON object
-   * @param key   Key to fetch
-   * @return  Resource location parsed
-   */
-  public static MaterialId fromJson(JsonObject json, String key) {
-    return PARSER.getFromJson(json, key);
-  }
-
-  /**
-   * Gets a resource location from JSON, throwing a nice exception if invalid
-   * @param json  JSON object
-   * @param key   Key to fetch
-   * @return  Resource location parsed
-   */
-  public static MaterialId convertJson(JsonElement json, String key) {
-    return PARSER.convertFromJson(json, key);
   }
 }

@@ -109,7 +109,7 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
    * @return  Parsed JSON
    */
   public static ModifierEntry fromJson(JsonObject json) {
-    return new ModifierEntry(ModifierId.getFromJson(json, "name"), GsonHelper.getAsInt(json, "level", 1));
+    return new ModifierEntry(ModifierId.PARSER.getFromJson(json, "name"), GsonHelper.getAsInt(json, "level", 1));
   }
 
   /**
@@ -137,7 +137,7 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
    * @return  Read entry
    */
   public static ModifierEntry read(FriendlyByteBuf buffer) {
-    return new ModifierEntry(ModifierId.fromNetwork(buffer), buffer.readVarInt());
+    return new ModifierEntry(ModifierId.PARSER.fromNetwork(buffer), buffer.readVarInt());
   }
 
   /**
@@ -145,7 +145,7 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
    * @param buffer  Buffer instance
    */
   public void write(FriendlyByteBuf buffer) {
-    getId().toNetwork(buffer);
+    buffer.writeResourceLocation(getId());
     buffer.writeVarInt(level);
   }
 
