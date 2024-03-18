@@ -4,11 +4,11 @@
   "block.tconstruct.sky_slime": "Gök Balçığı Bloğu",
   "block.tconstruct.sky_slime.tooltip": "Hem balçığa hem de bala yapışır",
   "block.tconstruct.ichor_slime": "Od Bloğu",
-  "block.tconstruct.ichor_slime.tooltip": "Od dışında bütün yapışkan bloklara yapışır",
+  "block.tconstruct.ichor_slime.tooltip": "Od dışındaki bütün yapışkan bloklara yapışır",
   "block.tconstruct.ender_slime": "Ender Balçığı Bloğu",
   "block.tconstruct.ender_slime.tooltip": "Bitişiğinde yapışkan blok olmadıkça itince yapışır",
   "block.tconstruct.blood_slime": "Kan Bloğu",
-  "block.tconstruct.blood_slime.tooltip": "Zıplatır ama yapışkan değil",
+  "block.tconstruct.blood_slime.tooltip": "Sektirgen ama yapışkan değil",
 
   "block.tconstruct.earth_congealed_slime": "Katılaşmış Balçık Bloğu",
   "block.tconstruct.earth_congealed_slime.tooltip": "Aşırı yükseğe zıplatır",
