@@ -14,7 +14,7 @@ public interface BlockBreakModifierHook {
    * Alternatives:
    * <ul>
    *   <li>{@link RemoveBlockModifierHook}: Called before the block is set to air.</li>
-   *   <li>{@link FinishHarvestModifierHook}: Called after all blocks are broken instead of per block.</li>
+   *   <li>{@link BlockHarvestModifierHook}: Called before and after all blocks are broken instead of per block.</li>
    * </ul>
    * @param tool      Tool used
    * @param modifier  Modifier level

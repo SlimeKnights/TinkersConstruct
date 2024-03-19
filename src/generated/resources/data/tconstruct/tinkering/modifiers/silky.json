@@ -3,9 +3,34 @@
   "level_display": "tconstruct:no_levels",
   "modules": [
     {
-      "type": "tconstruct:harvest_enchantment",
+      "type": "tconstruct:constant_enchantment",
       "level": 1,
-      "name": "minecraft:silk_touch"
+      "name": "minecraft:silk_touch",
+      "tool": {
+        "type": "tconstruct:item",
+        "item_type": "mantle:tag",
+        "tag": "tconstruct:modifiable/harvest"
+      }
+    },
+    {
+      "type": "tconstruct:armor_harvest_enchantment",
+      "block": "mantle:any",
+      "holder": "mantle:any",
+      "level": 1,
+      "name": "minecraft:silk_touch",
+      "slots": [
+        "offhand",
+        "head",
+        "chest",
+        "legs",
+        "feet"
+      ],
+      "tool": {
+        "type": "tconstruct:item",
+        "inverted_type": "mantle:tag",
+        "item_type": "mantle:inverted",
+        "tag": "tconstruct:modifiable/harvest"
+      }
     }
   ],
   "tooltip_display": "always"

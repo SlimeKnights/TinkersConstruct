@@ -33,6 +33,7 @@ import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.behavior.EnchantmentModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.DurabilityDisplayModifierHook;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
@@ -52,6 +53,7 @@ import slimeknights.tconstruct.tools.item.ArmorSlotType;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.function.BiConsumer;
@@ -113,6 +115,16 @@ public class ModifiableArmorItem extends ArmorItem implements IModifiableDisplay
   @Override
   public boolean canPerformAction(ItemStack stack, ToolAction toolAction) {
     return ModifierUtil.canPerformAction(ToolStack.from(stack), toolAction);
+  }
+
+  @Override
+  public int getEnchantmentLevel(ItemStack stack, Enchantment enchantment) {
+    return EnchantmentModifierHook.getEnchantmentLevel(stack, enchantment);
+  }
+
+  @Override
+  public Map<Enchantment,Integer> getAllEnchantments(ItemStack stack) {
+    return EnchantmentModifierHook.getAllEnchantments(stack);
   }
 
 

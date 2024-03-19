@@ -7,32 +7,41 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
+import slimeknights.tconstruct.library.modifiers.hook.behavior.EnchantmentModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.LootingModifierHook;
+import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
+import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiConsumer;
 
-/** Modifier hook implementing bonus enchantments from a tool, applied directly before block break. Can implement separately for leggings and tools if desired via the different hooks */
+/**
+ * Modifier hook implementing bonus enchantments from a tool, applied directly before block break.
+ * Does not run on the main hand as there is a more efficient approach, see {@link EnchantmentModifierHook.SingleHarvestEnchantment} for an example of how to do that.
+ * @see LootingModifierHook
+ */
 public interface HarvestEnchantmentsModifierHook {
+  /** Slots that can use this hook, for mainhand its more efficient to instead use {@link BlockHarvestModifierHook} and {@link slimeknights.tconstruct.library.modifiers.hook.behavior.EnchantmentModifierHook} */
+  EquipmentSlot[] APPLICABLE_SLOTS = { EquipmentSlot.OFFHAND, EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET };
+
   /**
    * Adds harvest loot table related enchantments from this modifier's effect to the tool, called before breaking a block.
    * Needed to add enchantments for silk touch and fortune. Can add conditionally if needed. Only affects tinker tools
-   * For looting, see {@link LootingModifierHook}
-   * @param tool      Tool used
-   * @param modifier  Modifier used
-   * @param context   Harvest context
-   * @param consumer  Consumer accepting any enchantments
+   * @param tool       Tool used
+   * @param modifier   Modifier used
+   * @param context    Harvest context
+   * @param equipment  Context for other equipment on the player
+   * @param slot       Slot being checked for harvest enchantments
+   * @param map        A mutable map to add enchantments from this modifier. May contain negatives.
+   * @see EnchantmentModifierHook#addEnchantment(Map, Enchantment, int)
+   * @see EnchantmentModifierHook.SingleHarvestEnchantment
    */
-  void applyHarvestEnchantments(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context, BiConsumer<Enchantment,Integer> consumer);
+  void updateHarvestEnchantments(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context, EquipmentContext equipment,EquipmentSlot slot, Map<Enchantment,Integer> map);
 
 
   /* Helpers */
@@ -43,46 +52,48 @@ public interface HarvestEnchantmentsModifierHook {
   /**
    * Adds all enchantments from tools. Separate method as tools don't have enchants all the time.
    * Typically called before actions which involve loot, such as breaking blocks or attacking mobs.
-   * @param tool     Tool instance
+   * @param tool     Tool in the main hand
    * @param stack    Base stack instance
    * @param context  Tool harvest context
    * @return  Old tag if enchants were applied
    */
   @Nullable
-  static ListTag applyHarvestEnchantments(ToolStack tool, ItemStack stack, ToolHarvestContext context) {
-    ListTag originalEnchants = null;
+  static ListTag updateHarvestEnchantments(IToolStackView tool, ItemStack stack, ToolHarvestContext context) {
     Player player = context.getPlayer();
     if (player == null || !player.isCreative()) {
-      Map<Enchantment, Integer> enchantments = new HashMap<>();
-      BiConsumer<Enchantment,Integer> enchantmentConsumer = (ench, add) -> {
-        if (ench != null && add != null) {
-          Integer level = enchantments.get(ench);
-          if (level != null) {
-            add += level;
+      // assuming we have a modifiable tool, we iterate all tools other than the main hand (since the main hand is in charge of harvesting the blocks)
+      EquipmentContext equipmentContext = EquipmentContext.withTool(context.getLiving(), tool, EquipmentSlot.MAINHAND);
+      // lazily parse the enchantment map, wait until someone has a hook
+      ListTag originalEnchants = null;
+      Map<Enchantment,Integer> enchantments = null;
+      for (EquipmentSlot slot : APPLICABLE_SLOTS) {
+        // tool must be modifiable and must be in an appropriate slot, or we don't care
+        // we also disallow harvest tools, this means no pickaxe in the offhand granting you pickaxe stuff in the main hand, but something like a shield fine
+        IToolStackView armor = equipmentContext.getToolInSlot(slot);
+        if (armor != null && ModifierUtil.validArmorSlot(armor, slot)) {
+          for (ModifierEntry entry : armor.getModifierList()) {
+            // skip processing if we lack the hook, saves us parsing if none of the modifiers use it
+            HarvestEnchantmentsModifierHook hook = entry.getModifier().getHooks().getOrNull(TinkerHooks.HARVEST_ENCHANTMENTS);
+            if (hook != null) {
+              // if we have not yet parsed the enchantments, time to do so
+              if (enchantments == null) {
+                originalEnchants = stack.getEnchantmentTags();
+                enchantments = EnchantmentHelper.deserializeEnchantments(originalEnchants);
+              }
+              hook.updateHarvestEnchantments(armor, entry, context, equipmentContext, slot, enchantments);
+            }
           }
-          enchantments.put(ench, add);
-        }
-      };
-      for (ModifierEntry entry : tool.getModifierList()) {
-        entry.getHook(TinkerHooks.TOOL_HARVEST_ENCHANTMENTS).applyHarvestEnchantments(tool, entry, context, enchantmentConsumer);
-      }
-      // lucky pants
-      if (player != null) {
-        ItemStack pants = player.getItemBySlot(EquipmentSlot.LEGS);
-        if (pants.is(TinkerTags.Items.LEGGINGS)) {
-          ToolStack pantsTool = ToolStack.from(pants);
-          for (ModifierEntry entry : pantsTool.getModifierList()) {
-            entry.getHook(TinkerHooks.LEGGINGS_HARVEST_ENCHANTMENTS).applyHarvestEnchantments(pantsTool, entry, context, enchantmentConsumer);
-          }
         }
       }
-      if (!enchantments.isEmpty()) {
-        // note this returns a new list if there is no tag, this is intentional as we need non-null to tell the tool to remove the tag
-        originalEnchants = stack.getEnchantmentTags();
+      // if the enchantments is null, no hooks ran so the enchantments are unchanged
+      if (enchantments != null) {
+        // we allow 0 values for enchantments in the hook
+        enchantments.values().removeIf(EnchantmentModifierHook.VALUE_REMOVER);
         EnchantmentHelper.setEnchantments(enchantments, stack);
+        return originalEnchants;
       }
     }
-    return originalEnchants;
+    return null;
   }
 
   /**
@@ -105,9 +116,9 @@ public interface HarvestEnchantmentsModifierHook {
   /** Merger that runs all submodules */
   record AllMerger(Collection<HarvestEnchantmentsModifierHook> modules) implements HarvestEnchantmentsModifierHook {
     @Override
-    public void applyHarvestEnchantments(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context, BiConsumer<Enchantment,Integer> consumer) {
+    public void updateHarvestEnchantments(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context, EquipmentContext equipment, EquipmentSlot slot, Map<Enchantment,Integer> map) {
       for (HarvestEnchantmentsModifierHook module : modules) {
-        module.applyHarvestEnchantments(tool, modifier, context, consumer);
+        module.updateHarvestEnchantments(tool, modifier, context, equipment, slot, map);
       }
     }
   }

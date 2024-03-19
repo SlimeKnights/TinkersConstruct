@@ -15,6 +15,7 @@ import javax.annotation.Nullable;
 
 import static slimeknights.tconstruct.common.TinkerTags.Items.MODIFIABLE;
 
+/** Context for a modifier hook that runs on multiple equipment slots */
 @RequiredArgsConstructor
 public class EquipmentContext {
   /** Entity who changed equipment */
@@ -26,6 +27,15 @@ public class EquipmentContext {
   protected final IToolStackView[] toolsInSlots = new IToolStackView[6];
   /** Cached tinker data capability, saves capability lookup times slightly */
   private LazyOptional<TinkerDataCapability.Holder> tinkerData = null;
+
+  /** Creates a context with an existing tool instance */
+  public static EquipmentContext withTool(LivingEntity living, IToolStackView tool, EquipmentSlot slot) {
+    EquipmentContext context = new EquipmentContext(living);
+    int index = slot.getFilterFlag();
+    context.toolsInSlots[index] = tool;
+    context.fetchedTool[index] = true;
+    return context;
+  }
 
   /** Gets a tool stack if the stack is modifiable, null otherwise */
   @Nullable
@@ -51,14 +61,19 @@ public class EquipmentContext {
     return toolsInSlots[index];
   }
 
-  /** Checks if any of the armor items are modifiable */
-  public boolean hasModifiableArmor() {
-    for (EquipmentSlot slotType : EquipmentSlot.values()) {
+  /** Checks if any of the armor items are modifiable, limiting to the passed slots. Filters out holding armor to get its effects. */
+  public boolean hasModifiableArmor(EquipmentSlot... slots) {
+    for (EquipmentSlot slotType : slots) {
       if (ModifierUtil.validArmorSlot(entity, slotType) && getToolInSlot(slotType) != null) {
         return true;
       }
     }
     return false;
+  }
+
+  /** Checks if any of the armor items are modifiable. Filters out holding armor to get its effects. */
+  public boolean hasModifiableArmor() {
+    return hasModifiableArmor(EquipmentSlot.values());
   }
 
   /** Gets the tinker data capability */

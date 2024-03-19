@@ -3,9 +3,34 @@
   "level_display": "tconstruct:default",
   "modules": [
     {
-      "type": "tconstruct:harvest_enchantment",
+      "type": "tconstruct:constant_enchantment",
       "level": 1,
-      "name": "minecraft:fortune"
+      "name": "minecraft:fortune",
+      "tool": {
+        "type": "tconstruct:item",
+        "item_type": "mantle:tag",
+        "tag": "tconstruct:modifiable/harvest"
+      }
+    },
+    {
+      "type": "tconstruct:armor_harvest_enchantment",
+      "block": "mantle:any",
+      "holder": "mantle:any",
+      "level": 1,
+      "name": "minecraft:fortune",
+      "slots": [
+        "offhand",
+        "head",
+        "chest",
+        "legs",
+        "feet"
+      ],
+      "tool": {
+        "type": "tconstruct:item",
+        "inverted_type": "mantle:tag",
+        "item_type": "mantle:inverted",
+        "tag": "tconstruct:modifiable/harvest"
+      }
     }
   ],
   "tooltip_display": "always"

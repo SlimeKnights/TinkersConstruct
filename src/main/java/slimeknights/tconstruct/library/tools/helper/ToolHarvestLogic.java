@@ -245,14 +245,19 @@ public class ToolHarvestLogic {
       ToolHarvestContext context = new ToolHarvestContext(world, serverPlayer, state, pos, sideHit,
                                                           !player.isCreative() && state.canHarvestBlock(world, pos, player),
                                                           isEffective(tool, state));
-
-      // add enchants
-      ListTag originalEnchants = HarvestEnchantmentsModifierHook.applyHarvestEnchantments(tool, stack, context);
+      // tell modifiers we are about to harvest, lets them add for instance modifiers conditioned on harvesting
+      for (ModifierEntry entry : tool.getModifierList()) {
+        entry.getHook(TinkerHooks.BLOCK_HARVEST).startHarvest(tool, entry, context);
+      }
+      // let armor change enchantments
+      // TODO: should we have a hook for non-enchantment armor responses?
+      ListTag originalEnchantments = HarvestEnchantmentsModifierHook.updateHarvestEnchantments(tool, stack, context);
       // need to calculate the iterator before we break the block, as we need the reference hardness from the center
       Iterable<BlockPos> extraBlocks = context.isEffective() ? tool.getDefinition().getData().getAOE().getBlocks(tool, stack, player, state, world, pos, sideHit, IAreaOfEffectIterator.AOEMatchType.BREAKING) : Collections.emptyList();
 
       // actually break the block, run AOE if successful
-      if (breakBlock(tool, stack, context)) {
+      boolean didHarvest = breakBlock(tool, stack, context);
+      if (didHarvest) {
         for (BlockPos extraPos : extraBlocks) {
           BlockState extraState = world.getBlockState(extraPos);
           // prevent calling that stuff for air blocks, could lead to unexpected behaviour since it fires events
@@ -262,14 +267,14 @@ public class ToolHarvestLogic {
             breakExtraBlock(tool, stack, context.forPosition(extraPos.immutable(), extraState));
           }
         }
-        for (ModifierEntry entry : tool.getModifierList()) {
-          entry.getHook(TinkerHooks.FINISH_HARVEST).finishHarvest(tool, entry, context);
-        }
       }
-
-      // blocks done being broken, clear extra enchants added
-      if (originalEnchants != null) {
-        HarvestEnchantmentsModifierHook.restoreEnchantments(stack, originalEnchants);
+      // restore the enchantments harvest changed
+      if (originalEnchantments != null) {
+        HarvestEnchantmentsModifierHook.restoreEnchantments(stack, originalEnchantments);
+      }
+      // alert modifiers we finished harvesting
+      for (ModifierEntry entry : tool.getModifierList()) {
+        entry.getHook(TinkerHooks.BLOCK_HARVEST).finishHarvest(tool, entry, context, didHarvest);
       }
     }
 

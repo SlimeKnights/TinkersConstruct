@@ -36,6 +36,7 @@ import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.AttributesModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.behavior.EnchantmentModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.DurabilityDisplayModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
@@ -60,6 +61,7 @@ import slimeknights.tconstruct.tools.TinkerToolActions;
 import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
 /**
@@ -100,6 +102,16 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
   @Override
   public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
     return enchantment.isCurse() && super.canApplyAtEnchantingTable(stack, enchantment);
+  }
+
+  @Override
+  public int getEnchantmentLevel(ItemStack stack, Enchantment enchantment) {
+    return EnchantmentModifierHook.getEnchantmentLevel(stack, enchantment);
+  }
+
+  @Override
+  public Map<Enchantment,Integer> getAllEnchantments(ItemStack stack) {
+    return EnchantmentModifierHook.getAllEnchantments(stack);
   }
 
 

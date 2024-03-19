@@ -30,6 +30,7 @@ import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.AttributesModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.behavior.EnchantmentModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.DurabilityDisplayModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InventoryTickModifierHook;
@@ -52,6 +53,7 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ScopeModifier;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
 import static slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook.KEY_DRAWTIME;
@@ -97,6 +99,16 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
   @Override
   public int getEnchantmentValue() {
     return 0;
+  }
+
+  @Override
+  public int getEnchantmentLevel(ItemStack stack, Enchantment enchantment) {
+    return EnchantmentModifierHook.getEnchantmentLevel(stack, enchantment);
+  }
+
+  @Override
+  public Map<Enchantment,Integer> getAllEnchantments(ItemStack stack) {
+    return EnchantmentModifierHook.getAllEnchantments(stack);
   }
 
 

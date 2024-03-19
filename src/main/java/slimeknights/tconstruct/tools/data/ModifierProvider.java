@@ -10,6 +10,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -238,11 +239,18 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
 
 
     // loot
-    buildModifier(TinkerModifiers.silky).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(EnchantmentModule.harvest(Enchantments.SILK_TOUCH).build());
-    EnchantmentModule FORTUNE = EnchantmentModule.harvest(Enchantments.BLOCK_FORTUNE).build();
+    // constant enchants are harvest exclusive as we want to avoid non-harvest acting oddly with armor variant
+    // if it has a constant enchant, we don't want it to have a harvest enchant, no offhand pickaxe granting fortune to main hand
+    ItemPredicate harvest = new ItemTagPredicate(TinkerTags.Items.HARVEST);
+    IJsonPredicate<Item> notHarvest = new ItemTagPredicate(TinkerTags.Items.HARVEST).inverted();
+    buildModifier(TinkerModifiers.silky).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
+                                        .addModule(EnchantmentModule.builder(Enchantments.SILK_TOUCH).toolItem(harvest).constant())
+                                        .addModule(EnchantmentModule.builder(Enchantments.SILK_TOUCH).toolItem(notHarvest).armorHarvest());
+    EnchantmentModule CONSTANT_FORTUNE = EnchantmentModule.builder(Enchantments.BLOCK_FORTUNE).toolItem(harvest).constant();
+    EnchantmentModule ARMOR_FORTUNE = EnchantmentModule.builder(Enchantments.BLOCK_FORTUNE).toolItem(notHarvest).armorHarvest();
     LootingModule LOOTING = new LootingModule(1);
-    buildModifier(ModifierIds.luck).levelDisplay(new UniqueForLevels(3)).addModule(FORTUNE).addModule(LOOTING);
-    buildModifier(ModifierIds.fortune).addModule(FORTUNE);
+    buildModifier(ModifierIds.luck).levelDisplay(new UniqueForLevels(3)).addModule(CONSTANT_FORTUNE).addModule(ARMOR_FORTUNE).addModule(LOOTING);
+    buildModifier(ModifierIds.fortune).addModule(CONSTANT_FORTUNE).addModule(ARMOR_FORTUNE);
     buildModifier(ModifierIds.looting).addModule(LOOTING);
 
 
@@ -302,7 +310,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     // protection
     buildModifier(ModifierIds.protection).addModule(ProtectionModule.source(DamageSourcePredicate.CAN_PROTECT).eachLevel(1.25f));
     buildModifier(ModifierIds.fireProtection)
-      .addModule(EnchantmentModule.constant(Enchantments.FIRE_PROTECTION).build())
+      .addModule(EnchantmentModule.builder(Enchantments.FIRE_PROTECTION).constant())
       .addModule(ProtectionModule.source(DamageSourcePredicate.AND.create(DamageSourcePredicate.CAN_PROTECT, DamageSourcePredicate.FIRE)).subtract(Enchantments.FIRE_PROTECTION).eachLevel(2.5f));
     buildModifier(ModifierIds.turtleShell)
       .addModule(AttributeModule.builder(ForgeMod.SWIM_SPEED.get(), Operation.MULTIPLY_TOTAL).uniqueFrom(ModifierIds.turtleShell).slots(armorSlots).eachLevel(0.05f))
@@ -313,8 +321,8 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
                                  .tool(new ItemToolPredicate(ItemPredicate.OR.create(new ItemTagPredicate(TinkerTags.Items.LEGGINGS), new ItemTagPredicate(TinkerTags.Items.BOOTS))))
                                  .entity(LivingEntityPredicate.FEET_IN_WATER).eachLevel(2.5f));
     // helmet
-    buildModifier(ModifierIds.respiration).addModule(EnchantmentModule.constant(Enchantments.RESPIRATION).build());
-    buildModifier(ModifierIds.aquaAffinity).addModule(EnchantmentModule.constant(Enchantments.AQUA_AFFINITY).build()).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
+    buildModifier(ModifierIds.respiration).addModule(EnchantmentModule.builder(Enchantments.RESPIRATION).constant());
+    buildModifier(ModifierIds.aquaAffinity).addModule(EnchantmentModule.builder(Enchantments.AQUA_AFFINITY).constant()).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
     // chestplate
     buildModifier(ModifierIds.strength)
       .addModule(IncrementalModule.RECIPE_CONTROLLED)
@@ -325,7 +333,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.stepUp).addModule(AttributeModule.builder(ForgeMod.STEP_HEIGHT_ADDITION.get(), Operation.ADDITION).uniqueFrom(ModifierIds.stepUp).slots(armorSlots).eachLevel(0.5f));
     buildModifier(ModifierIds.speedy).addModule(AttributeModule.builder(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL).uniqueFrom(ModifierIds.speedy).slots(armorMainHand).eachLevel(0.1f));
     // boots
-    buildModifier(ModifierIds.depthStrider).addModule(EnchantmentModule.constant(Enchantments.DEPTH_STRIDER).build());
+    buildModifier(ModifierIds.depthStrider).addModule(EnchantmentModule.builder(Enchantments.DEPTH_STRIDER).constant());
     buildModifier(ModifierIds.featherFalling).addModule(ProtectionModule.source(DamageSourcePredicate.FALL).eachLevel(3.75f));
     buildModifier(ModifierIds.longFall).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(BlockDamageSourceModule.source(DamageSourcePredicate.FALL).build());
     buildModifier(ModifierIds.frostWalker)

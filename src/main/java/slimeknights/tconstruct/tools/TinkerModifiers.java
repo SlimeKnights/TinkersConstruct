@@ -600,7 +600,6 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierModule.LOADER.register(getResource("tool_action_transform"), ToolActionTransformModule.LOADER);
       // build
       ModifierModule.LOADER.register(getResource("conditional_stat"), ConditionalStatModule.LOADER);
-      ModifierModule.LOADER.register(getResource("constant_enchantment"), EnchantmentModule.Constant.LOADER);
       ModifierModule.LOADER.register(getResource("modifier_slot"), ModifierSlotModule.LOADER);
       ModifierModule.LOADER.register(getResource("rarity"), RarityModule.LOADER);
       ModifierModule.LOADER.register(getResource("swappable_slot"), SwappableSlotModule.LOADER);
@@ -617,9 +616,12 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierModule.LOADER.register(getResource("mob_effect"), MobEffectModule.LOADER);
       // display
       ModifierModule.LOADER.register(getResource("durability_color"), DurabilityBarColorModule.LOADER);
+      // enchantment
+      ModifierModule.LOADER.register(getResource("constant_enchantment"), EnchantmentModule.Constant.LOADER);
+      ModifierModule.LOADER.register(getResource("main_hand_harvest_enchantment"), EnchantmentModule.MainHandHarvest.LOADER);
+      ModifierModule.LOADER.register(getResource("armor_harvest_enchantment"), EnchantmentModule.ArmorHarvest.LOADER);
       // mining
       ModifierModule.LOADER.register(getResource("conditional_mining_speed"), ConditionalMiningSpeedModule.LOADER);
-      ModifierModule.LOADER.register(getResource("harvest_enchantment"), EnchantmentModule.Harvest.LOADER);
       // fluid
       ModifierModule.LOADER.register(getResource("tank_capacity"), TankCapacityModule.LOADER);
       ModifierModule.LOADER.register(getResource("tank"), TankModule.LOADER);

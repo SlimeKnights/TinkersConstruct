@@ -317,13 +317,9 @@ public class TooltipUtil {
         ListTag enchantments = tag.getList("Enchantments", Tag.TAG_COMPOUND);
         for (int i = 0; i < enchantments.size(); ++i) {
           CompoundTag enchantmentTag = enchantments.getCompound(i);
-          // TODO: remove in 1.19, as the new enchantment hooks mean any enchants that end up on the tool are desired
+          // TODO: is this the best place for this, or should we let vanilla run?
           Registry.ENCHANTMENT.getOptional(ResourceLocation.tryParse(enchantmentTag.getString("id")))
-                              .ifPresent(enchantment -> {
-                                if (enchantment.isCurse()) {
-                                  tooltips.add(enchantment.getFullname(enchantmentTag.getInt("lvl")));
-                                }
-                              });
+                              .ifPresent(enchantment -> tooltips.add(enchantment.getFullname(enchantmentTag.getInt("lvl"))));
         }
       }
     }
