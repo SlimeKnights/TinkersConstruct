@@ -21,9 +21,9 @@
   "block.tconstruct.ichor_congealed_slime": "Katılaşmış Od",
   "block.tconstruct.ichor_congealed_slime.tooltip": "Aşırı yükseğe zıplamanızı sağlar",
 
-  "block.tconstruct.mud_bricks": "Çamur Tuğlası",
-  "block.tconstruct.mud_bricks_slab": "Çamur Tuğlası Basamak",
-  "block.tconstruct.mud_bricks_stairs": "Çamur Tuğlası Merdiven",
+  "block.tconstruct.mud_bricks": "Kerpiç",
+  "block.tconstruct.mud_bricks_slab": "Kerpiç Basamak",
+  "block.tconstruct.mud_bricks_stairs": "Kerpiç Merdiven",
 
   "block.tconstruct.lavawood": "Lavodunu",
   "block.tconstruct.lavawood_slab": "Lavodunu Basamak",
@@ -271,7 +271,7 @@
 
   "item.tconstruct.copper_can": "Bakır Teneke Kutu",
   "item.tconstruct.copper_can.tooltip": "Yığınlanabilir, 1 külçelik sıvı tutabilen kap",
-  "item.tconstruct.copper_can.contents": "İçeriği: 1 külçe %s",
+  "item.tconstruct.copper_can.contents": "İçindeki: 1 külçe %s",
 
 
   "_comment": "Onarıcının Taslakları",
@@ -315,7 +315,7 @@
   "item.tconstruct.rod_cast": "Çubuk Altın Kalıbı",
 
   "item.tconstruct.gear_cast": "Dişli Altın Kalıbı",
-  "item.tconstruct.plate_cast": "Küçük Saç Altın Kalıbı",
+  "item.tconstruct.plate_cast": "Küçük Sac Altın Kalıbı",
   "item.tconstruct.coin_cast": "Akça Altın Kalıbı",
   "item.tconstruct.wire_cast": "Kablo Altın Kalıbı",
 
@@ -482,7 +482,7 @@
   "fluid.tconstruct.blood": "Kan",
   "fluid.tconstruct.flowing_blood": "Akan Kan",
   "item.tconstruct.blood_bucket": "Kova Dolusu Kan",
-  "item.tconstruct.blood_bottle": "Kova Dolusu Kan",
+  "item.tconstruct.blood_bottle": "Şişe Dolusu Kan",
 
   "block.tconstruct.earth_slime_fluid": "Balçık",
   "fluid.tconstruct.earth_slime": "Balçık",
@@ -738,10 +738,10 @@
   "fluid.tconstruct.flowing_molten_constantan": "Akan Ergimiş Konstantan",
   "item.tconstruct.molten_constantan_bucket": "Ergimiş Konstantan Kovası",
 
-  "block.tconstruct.molten_pewter_fluid": "Ergimiş Pivtır",
-  "fluid.tconstruct.molten_pewter": "Ergimiş Pivtır",
-  "fluid.tconstruct.flowing_molten_pewter": "Akan Ergimiş Pivtır",
-  "item.tconstruct.molten_pewter_bucket": "Ergimiş Pivtır Kovası",
+  "block.tconstruct.molten_pewter_fluid": "Ergimiş Püta",
+  "fluid.tconstruct.molten_pewter": "Ergimiş Püta",
+  "fluid.tconstruct.flowing_molten_pewter": "Akan Ergimiş Püta",
+  "item.tconstruct.molten_pewter_bucket": "Ergimiş Püta Kovası",
 
   "block.tconstruct.molten_steel_fluid": "Ergimiş Çelik",
   "fluid.tconstruct.molten_steel": "Ergimiş Çelik",
@@ -816,9 +816,9 @@
   "item.tconstruct.ichor_slime_sling": "Od Sapanı",
   "item.tconstruct.ichor_slime_sling.tooltip": "Yüklen, yaratığa doğrult, uçmaya yolla!",
 
-  "item.tconstruct.piggy_backpack": "Omuzda Taşıyıcı",
+  "item.tconstruct.piggy_backpack": "Sırtlama Çantası",
   "item.tconstruct.piggy_backpack.tooltip": "Yaratığı almak için üzerine kullanın",
-  "effect.tconstruct.carry": "Taşıma",
+  "effect.tconstruct.carry": "Taşıyor",
   
   "block.tconstruct.blaze_head":            "Blaze Kafası",
   "block.tconstruct.enderman_head":         "Enderman Kafası",
@@ -844,7 +844,7 @@
   "block.tconstruct.modifier_worktable": "Değiştirici Çalışma Masası",
 
   "block.tconstruct.part_chest": "Parça Sandığı",
-  "block.tconstruct.part_chest.tooltip": "256'ya kadar farklı araç parçası tutabilir",
+  "block.tconstruct.part_chest.tooltip": "256'ya kadar farklı araç parçasını tutabilir",
 
   "block.tconstruct.tinkers_chest": "Onarıcının Sandığı",
   "block.tconstruct.tinkers_chest.tooltip": "16 eşyadan oluşan 64 yığına kadar tutabilir",
@@ -882,7 +882,7 @@
   "item.tconstruct.crossbow": "Tatar Yayı",
   "item.tconstruct.longbow": "Uzun Yay",
 
-  "item.tconstruct.flint_and_brick": "Çakıl Taşı ve Tuğla",
+  "item.tconstruct.flint_and_brick": "Çakmak Taşı ve Tuğla",
   "item.tconstruct.sky_staff": "Gökbalçığı Asası",
   "item.tconstruct.earth_staff": "Karabalçığı Asası",
   "item.tconstruct.ichor_staff": "Od Asası",
@@ -973,12 +973,12 @@
   "_comment": "Kallama Ocağı Paylaşılan",
 
   "block.tconstruct.tank.fluid": "Sıvı %s",
-  "block.tconstruct.tank.mb": "%d mb",
+  "block.tconstruct.tank.mb": "%d mk",
   "block.tconstruct.tank.ingots": "%d külçe",
-  "block.tconstruct.tank.mixed": "%d külçe, %d mb",
+  "block.tconstruct.tank.mixed": "%d külçe, %d mk",
 
-  "block.tconstruct.tank.drained": "Çekilmiş %s mb %s",
-  "block.tconstruct.tank.filled": "Dolmuş %s mb %s",
+  "block.tconstruct.tank.drained": "Çekilmiş %s mk %s",
+  "block.tconstruct.tank.filled": "Dolmuş %s mk %s",
 
   "block.tconstruct.channel.side.in": "Yüzden içe doğru akması için ayarlandı",
   "block.tconstruct.channel.side.out": "Yüzden dışa doğru akması için ayarlandı",
@@ -1016,7 +1016,7 @@
   "multiblock.tconstruct.generic.invalid_ceiling_block": "Yapı tavanında geçersiz blok",
   "multiblock.tconstruct.generic.invalid_wall_frame": "Yapı duvarındaki ayrıtlarda geçersiz blok",
   "multiblock.tconstruct.generic.invalid_floor_frame": "Yapı tabanındaki ayrıtlarda geçersiz blok",
-  "multiblock.tconstruct.generic.invalid_ceiling_frame": "Yapı tavanındaki ayrıtlarda geçersiz blok",
+  "multiblock.tconstruct.generic.invalid_ceiling_frame": "Yapı tavanındaki ayrıolarak bilinen üçüncütlarda geçersiz blok",
 
   "multiblock.tconstruct.tiny.no_fuel_tank": "Çalışabilmesi için üstüne yakıt tankı ya da ısıtıcı konulması gerekiyor",
 
@@ -1035,7 +1035,7 @@
   "block.tconstruct.seared_cobble.tooltip": "Kallama Ocağı parçası.",
   "block.tconstruct.seared_cobble_slab": "Kararmış Kırık Taş Basamak",
   "block.tconstruct.seared_cobble_stairs": "Kararmış Kırık Taş Merdiven",
-  "block.tconstruct.seared_cobble_wall": "Kararmış Kırık Taş Wall",
+  "block.tconstruct.seared_cobble_wall": "Kararmış Kırık Taş Duvar",
 
   "item.tconstruct.seared_brick": "Kararmış Tuğla",
   "block.tconstruct.seared_bricks": "Kararmış Tuğla",
@@ -1051,9 +1051,9 @@
 
   "block.tconstruct.seared_cracked_bricks": "Çatlak Kararmış Tuğla",
   "block.tconstruct.seared_cracked_bricks.tooltip": "Kallama Ocağı parçası.",
-  "block.tconstruct.seared_fancy_bricks": "Süslü Kararmış Bricks",
+  "block.tconstruct.seared_fancy_bricks": "Süslü Kararmış Tuğla",
   "block.tconstruct.seared_fancy_bricks.tooltip": "Kallama Ocağı parçası.",
-  "block.tconstruct.seared_triangle_bricks": "Üçgen Kararmış Bricks",
+  "block.tconstruct.seared_triangle_bricks": "Üçgen Kararmış Tuğla",
   "block.tconstruct.seared_triangle_bricks.tooltip": "Kallama Ocağı parçası.",
 
   "block.tconstruct.seared_glass": "Kararmış Cam",
@@ -1079,7 +1079,7 @@
   "block.tconstruct.seared_ingot_gauge": "Kararmış Göstergeli Külçe Tankı",
   "block.tconstruct.seared_ingot_gauge.tooltip": "Metaller için ülküseldir, 48 külçelik sıvı tutabilir.\nSıvıyı kırılınca aklında tutar.",
   "block.tconstruct.seared_lantern": "Kararmış Fener",
-  "block.tconstruct.seared_lantern.tooltip": "Süsleme için ülküseldir, 50mb sıvı tutabilir.\nSıvıyı kırılınca aklında tutar.",
+  "block.tconstruct.seared_lantern.tooltip": "Süsleme için ülküseldir, 50 mk sıvı tutabilir.\nSıvıyı kırılınca aklında tutar.",
 
   "block.tconstruct.seared_faucet": "Kararmış Musluk",
   "block.tconstruct.seared_faucet.tooltip": "Kallama Ocağından ve Tanklardan sıvı akıtır",
@@ -1136,7 +1136,7 @@
   "block.tconstruct.scorched_road_slab": "Kavrulmuş Yol Basamak",
   "block.tconstruct.scorched_road_stairs": "Kavrulmuş Yol Merdiven",
 
-  "block.tconstruct.chiseled_scorched_bricks": "Oyma Kavrulmuş Bricks",
+  "block.tconstruct.chiseled_scorched_bricks": "Oyma Kavrulmuş Tuğla",
   "block.tconstruct.chiseled_scorched_bricks.tooltip": "Dökümevi parçası.",
 
   "block.tconstruct.scorched_glass": "Kavrulmuş Cam",
@@ -1190,9 +1190,9 @@
   "block.tconstruct.scorched_chute.tooltip": "Dökümevi eşya girişi ve çıkışı",
 
 
-  "gui.tconstruct.fluid.kilobucket": "%s kb",
-  "gui.tconstruct.fluid.bucket": "%s b",
-  "gui.tconstruct.fluid.millibucket": "%s mb",
+  "gui.tconstruct.fluid.kilobucket": "%s kk",
+  "gui.tconstruct.fluid.bucket": "%s k",
+  "gui.tconstruct.fluid.millibucket": "%s mk",
 
   "gui.tconstruct.fluid.block": "%s Blok",
   "gui.tconstruct.fluid.ingot": "%s Külçe",
@@ -1205,7 +1205,7 @@
   "gui.tconstruct.fluid.bowl": "%s Kase",
   "gui.tconstruct.fluid.bottle": "%s Şişe",
 
-  "gui.tconstruct.fluid.hold_shift": "Kova birimi (kb, mb...) için §e§oShift§r§7 basın",
+  "gui.tconstruct.fluid.hold_shift": "Kova birimi (kk, mk...) için §e§oShift§r§7 basın",
 
 
   "_comment": "Onarıcının Dünyası",
@@ -1411,7 +1411,7 @@
 
   "material.tconstruct.bamboo": "Bambu",
   "material.tconstruct.bamboo.flavor": "Bambulanmak!",
-  "material.tconstruct.bamboo.ranged": "Oklar %110 hızlı ancak %90 hasarı var. Etkinlikte daha uzağa gideriken aynı hasarı uygular",
+  "material.tconstruct.bamboo.ranged": "Oklar %110 hızlı ancak %90 hasarı var. Etkinlikte daha uzağa giderken aynı hasarı uygular",
 
   "material.tconstruct.rock": "Kaya",
   "material.tconstruct.rock.stone":      "Taş",
@@ -1442,7 +1442,7 @@
   "material.tconstruct.necrotic_bone.skull_flavor": "Ürkütücü Korkunç İskelet!",
   "material.tconstruct.necrotic_bone.skull_encyclopedia": "Yakın mesafeli saldırılar wither etkisi bırakır. Süt içtikten sonra etkisi hızlanır",
 
-  "material.tconstruct.chorus":              "Nakarat",
+  "material.tconstruct.chorus":              "Koro",
   "material.tconstruct.chorus.flavor":       "Yalnızca ender erkekleri değil ayrıca ender kadınları ve ender çocukları",
   "material.tconstruct.chorus.encyclopedia": "Hedefin seviye başına 5 saniye boyunca ışınlanmasına engel olur",
   "material.tconstruct.chorus.ranged": "Hedefin seviye başına 5 saniye boyunca ışınlanmasına engel olur ve endermane okla vurulmasına izin verir",
@@ -2172,7 +2172,7 @@
   "modifier.tconstruct.melting.flavor": "Ergiticinin gücü bir çubukta!",
   "modifier.tconstruct.melting.description": "Saldırılmış varlıkları ve düşen eşyaları ergitir!",
   "modifier.tconstruct.tank": "Tank",
-  "modifier.tconstruct.tank.filled": "Tank: %s mb %s",
+  "modifier.tconstruct.tank.filled": "Tank: %s mk %s",
   "modifier.tconstruct.tank.capacity": "Tank Sığası: %s mb",
   "modifier.tconstruct.tank.flavor": "Daha büyük her zaman daha iyidir!",
   "modifier.tconstruct.tank.description": "Aracın sıvı taşımasını sağlayan sıvı tankı vardır",
@@ -2309,7 +2309,7 @@
   "modifier.tconstruct.crumbling": "Kırıntı",
   "modifier.tconstruct.crumbling.flavor": "Kendini bir arada tut!",
   "modifier.tconstruct.crumbling.description": "Araç, çıkarılırken bir araca gerek duymayan blokları daha hızlı çıkarır",
-  "modifier.tconstruct.crumbling.mining_speed": pewter"Kırınıtı Hızı",
+  "modifier.tconstruct.crumbling.mining_speed": "Kırınıtı Hızı",
   "modifier.tconstruct.crystalbound": "Kristal Bağı",
   "modifier.tconstruct.crystalbound.flavor": "Kristalin yolu düzdür",
   "modifier.tconstruct.crystalbound.description": "Araç fazladan ok hızı kazanır ancak ok açısı sınırlanır",
