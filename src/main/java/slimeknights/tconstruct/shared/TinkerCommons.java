@@ -41,7 +41,7 @@ import slimeknights.tconstruct.library.json.condition.TagDifferencePresentCondit
 import slimeknights.tconstruct.library.json.condition.TagIntersectionPresentCondition;
 import slimeknights.tconstruct.library.json.condition.TagNotEmptyCondition;
 import slimeknights.tconstruct.library.json.loot.TagPreferenceLootEntry;
-import slimeknights.tconstruct.library.json.predicate.TinkerLivingEntityPredicate;
+import slimeknights.tconstruct.library.json.predicate.TinkerPredicate;
 import slimeknights.tconstruct.library.recipe.ingredient.NoContainerIngredient;
 import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
 import slimeknights.tconstruct.library.utils.Util;
@@ -166,7 +166,7 @@ public final class TinkerCommons extends TinkerModule {
       CraftingHelper.register(TagDifferencePresentCondition.SERIALIZER);
       CraftingHelper.register(new TagNotEmptyCondition.ConditionSerializer());
       // mantle
-      LivingEntityPredicate.LOADER.register(getResource("airborne"), TinkerLivingEntityPredicate.AIRBORNE.getLoader());
+      LivingEntityPredicate.LOADER.register(getResource("airborne"), TinkerPredicate.AIRBORNE.getLoader());
     }
   }
 

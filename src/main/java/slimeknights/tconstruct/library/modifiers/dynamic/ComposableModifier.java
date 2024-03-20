@@ -167,6 +167,7 @@ public class ComposableModifier extends BasicModifier {
   };
 
   /** Builder for a composable modifier instance */
+  @SuppressWarnings("UnusedReturnValue")  // it's a builder
   @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   @Accessors(fluent = true)
   public static class Builder {
@@ -180,8 +181,16 @@ public class ComposableModifier extends BasicModifier {
     private final ImmutableList.Builder<ModuleWithHooks> modules = ImmutableList.builder();
 
     /** Adds a module to the builder */
-    public final <T extends ModifierModule> Builder addModule(T object) {
-      modules.add(new ModuleWithHooks(object, Collections.emptyList()));
+    public final Builder addModule(ModifierModule module) {
+      modules.add(new ModuleWithHooks(module, Collections.emptyList()));
+      return this;
+    }
+
+    /** Adds a module to the builder */
+    public final Builder addModules(ModifierModule... modules) {
+      for (ModifierModule module : modules) {
+        addModule(module);
+      }
       return this;
     }
 

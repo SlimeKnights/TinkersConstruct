@@ -13,7 +13,6 @@ import slimeknights.tconstruct.library.modifiers.hook.behavior.EnchantmentModifi
 import slimeknights.tconstruct.library.modifiers.hook.combat.LootingModifierHook;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
-import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
@@ -41,7 +40,7 @@ public interface HarvestEnchantmentsModifierHook {
    * @see EnchantmentModifierHook#addEnchantment(Map, Enchantment, int)
    * @see EnchantmentModifierHook.SingleHarvestEnchantment
    */
-  void updateHarvestEnchantments(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context, EquipmentContext equipment,EquipmentSlot slot, Map<Enchantment,Integer> map);
+  void updateHarvestEnchantments(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context, EquipmentContext equipment, EquipmentSlot slot, Map<Enchantment,Integer> map);
 
 
   /* Helpers */
@@ -69,8 +68,8 @@ public interface HarvestEnchantmentsModifierHook {
       for (EquipmentSlot slot : APPLICABLE_SLOTS) {
         // tool must be modifiable and must be in an appropriate slot, or we don't care
         // we also disallow harvest tools, this means no pickaxe in the offhand granting you pickaxe stuff in the main hand, but something like a shield fine
-        IToolStackView armor = equipmentContext.getToolInSlot(slot);
-        if (armor != null && ModifierUtil.validArmorSlot(armor, slot)) {
+        IToolStackView armor = equipmentContext.getValidTool(slot);
+        if (armor != null) {
           for (ModifierEntry entry : armor.getModifierList()) {
             // skip processing if we lack the hook, saves us parsing if none of the modifiers use it
             HarvestEnchantmentsModifierHook hook = entry.getModifier().getHooks().getOrNull(TinkerHooks.HARVEST_ENCHANTMENTS);

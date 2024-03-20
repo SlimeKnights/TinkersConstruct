@@ -11,6 +11,7 @@ import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -31,12 +32,13 @@ import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.mantle.data.predicate.entity.MobTypePredicate;
 import slimeknights.mantle.data.predicate.entity.TagEntityPredicate;
 import slimeknights.mantle.data.predicate.item.ItemPredicate;
+import slimeknights.mantle.data.predicate.item.ItemSetPredicate;
 import slimeknights.mantle.data.predicate.item.ItemTagPredicate;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.data.tinkering.AbstractModifierProvider;
 import slimeknights.tconstruct.library.json.RandomLevelingValue;
-import slimeknights.tconstruct.library.json.predicate.TinkerLivingEntityPredicate;
+import slimeknights.tconstruct.library.json.predicate.TinkerPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate.ModifierCheck;
 import slimeknights.tconstruct.library.json.predicate.tool.ItemToolPredicate;
@@ -92,7 +94,6 @@ import slimeknights.tconstruct.library.modifiers.modules.mining.ConditionalMinin
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay.UniqueForLevels;
 import slimeknights.tconstruct.library.tools.SlotType;
-import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.ModifiableArmorItem;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
@@ -103,10 +104,14 @@ import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
 import slimeknights.tconstruct.tools.modules.TheOneProbeModule;
 
 import static slimeknights.tconstruct.common.TinkerTags.Items.ARMOR;
+import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST;
+import static slimeknights.tconstruct.common.TinkerTags.Items.MELEE;
+import static slimeknights.tconstruct.common.TinkerTags.Items.WORN_ARMOR;
 import static slimeknights.tconstruct.library.json.math.ModifierFormula.LEVEL;
 import static slimeknights.tconstruct.library.json.math.ModifierFormula.MULTIPLIER;
 import static slimeknights.tconstruct.library.json.math.ModifierFormula.VALUE;
 import static slimeknights.tconstruct.library.modifiers.modules.behavior.RepairModule.FACTOR;
+import static slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial.ARMOR_SLOTS;
 
 public class ModifierProvider extends AbstractModifierProvider implements IConditionBuilder {
   public ModifierProvider(DataGenerator generator) {
@@ -116,7 +121,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
   @Override
   protected void addModifiers() {
     EquipmentSlot[] handSlots = {EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND};
-    EquipmentSlot[] armorSlots = ModifiableArmorMaterial.ARMOR_SLOTS;
+    EquipmentSlot[] armorSlots = ARMOR_SLOTS;
     EquipmentSlot[] armorMainHand = {EquipmentSlot.MAINHAND, EquipmentSlot.FEET, EquipmentSlot.LEGS, EquipmentSlot.CHEST, EquipmentSlot.HEAD};
 
     // extra modifier slots
@@ -240,18 +245,20 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
 
     // loot
     // constant enchants are harvest exclusive as we want to avoid non-harvest acting oddly with armor variant
-    // if it has a constant enchant, we don't want it to have a harvest enchant, no offhand pickaxe granting fortune to main hand
-    ItemPredicate harvest = new ItemTagPredicate(TinkerTags.Items.HARVEST);
-    IJsonPredicate<Item> notHarvest = new ItemTagPredicate(TinkerTags.Items.HARVEST).inverted();
+    ItemPredicate harvest = new ItemTagPredicate(HARVEST);
+    IJsonPredicate<Item> armor = new ItemTagPredicate(WORN_ARMOR);
     buildModifier(TinkerModifiers.silky).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
                                         .addModule(EnchantmentModule.builder(Enchantments.SILK_TOUCH).toolItem(harvest).constant())
-                                        .addModule(EnchantmentModule.builder(Enchantments.SILK_TOUCH).toolItem(notHarvest).armorHarvest());
+                                        .addModule(EnchantmentModule.builder(Enchantments.SILK_TOUCH).toolItem(armor).armorHarvest(ARMOR_SLOTS));
     EnchantmentModule CONSTANT_FORTUNE = EnchantmentModule.builder(Enchantments.BLOCK_FORTUNE).toolItem(harvest).constant();
-    EnchantmentModule ARMOR_FORTUNE = EnchantmentModule.builder(Enchantments.BLOCK_FORTUNE).toolItem(notHarvest).armorHarvest();
-    LootingModule LOOTING = new LootingModule(1);
-    buildModifier(ModifierIds.luck).levelDisplay(new UniqueForLevels(3)).addModule(CONSTANT_FORTUNE).addModule(ARMOR_FORTUNE).addModule(LOOTING);
-    buildModifier(ModifierIds.fortune).addModule(CONSTANT_FORTUNE).addModule(ARMOR_FORTUNE);
-    buildModifier(ModifierIds.looting).addModule(LOOTING);
+    EnchantmentModule ARMOR_FORTUNE = EnchantmentModule.builder(Enchantments.BLOCK_FORTUNE).toolItem(armor).armorHarvest(ARMOR_SLOTS);
+    // note chestplates will have both modules, but will get ignored due to setting the looting slot
+    // the air check on weapon looting is for projectiles which use an item of air in their tool context
+    LootingModule WEAPON_LOOTING = LootingModule.builder().toolItem(ItemPredicate.OR.create(new ItemSetPredicate(Items.AIR), new ItemTagPredicate(MELEE))).weapon();
+    LootingModule ARMOR_LOOTING = LootingModule.builder().toolItem(armor).armor(ARMOR_SLOTS);
+    buildModifier(ModifierIds.luck).levelDisplay(new UniqueForLevels(3)).addModules(CONSTANT_FORTUNE, ARMOR_FORTUNE, WEAPON_LOOTING, ARMOR_LOOTING);
+    buildModifier(ModifierIds.fortune).addModules(CONSTANT_FORTUNE, ARMOR_FORTUNE);
+    buildModifier(ModifierIds.looting).addModules(WEAPON_LOOTING, ARMOR_LOOTING);
 
 
     /// attack
@@ -375,7 +382,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       // 400% boost means 5x mining speed
       .addModule(ConditionalMiningSpeedModule.builder().holder(LivingEntityPredicate.ON_GROUND.inverted()).percent().allowIneffective().flat(4), TinkerHooks.BREAK_SPEED)
       // accuracy gets a 0.5 boost under the stricter version of in air (no boost just for being on a ladder)
-      .addModule(ConditionalStatModule.stat(ToolStats.ACCURACY).holder(TinkerLivingEntityPredicate.AIRBORNE).flat(0.5f));
+      .addModule(ConditionalStatModule.stat(ToolStats.ACCURACY).holder(TinkerPredicate.AIRBORNE).flat(0.5f));
     buildModifier(ModifierIds.antitoxin)
       .addModule(ConditionalMeleeDamageModule.builder()
         .customVariable("poison", new EntityMeleeVariable(new EntityEffectLevelVariable(MobEffects.POISON), WhichEntity.ATTACKER, 0))

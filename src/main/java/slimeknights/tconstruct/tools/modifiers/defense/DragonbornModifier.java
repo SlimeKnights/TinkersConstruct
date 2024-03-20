@@ -12,7 +12,7 @@ import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.EventPriority;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.json.predicate.TinkerLivingEntityPredicate;
+import slimeknights.tconstruct.library.json.predicate.TinkerPredicate;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.data.ModifierMaxLevel;
@@ -48,7 +48,7 @@ public class DragonbornModifier extends AbstractProtectionModifier<ModifierMaxLe
   }
 
   private static boolean isAirborne(LivingEntity living) {
-    return TinkerLivingEntityPredicate.AIRBORNE.matches(living);
+    return TinkerPredicate.AIRBORNE.matches(living);
   }
 
   @Override

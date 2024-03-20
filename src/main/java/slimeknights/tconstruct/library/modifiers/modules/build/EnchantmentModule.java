@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.modifiers.modules.build;
 
 import com.google.common.collect.ImmutableSet;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +9,6 @@ import lombok.experimental.Accessors;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -27,6 +25,7 @@ import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.EnchantmentModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BlockHarvestModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.HarvestEnchantmentsModifierHook;
+import slimeknights.tconstruct.library.modifiers.modules.IntLevelModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
@@ -40,13 +39,10 @@ import java.util.Objects;
 import java.util.Set;
 
 /** Modules that add enchantments to a tool. */
-public interface EnchantmentModule extends ModifierModule {
+public interface EnchantmentModule extends ModifierModule, IntLevelModule {
 
   /** Gets the enchantment for this module */
   Enchantment enchantment();
-
-  /** Gets the level for this module */
-  int level();
 
   /** Gets the block predicate, will be {@link BlockPredicate#ANY} for {@link Constant} */
   default IJsonPredicate<BlockState> block() {
@@ -60,11 +56,6 @@ public interface EnchantmentModule extends ModifierModule {
 
   /** Gets the modifier conditions */
   ModifierModuleCondition condition();
-
-  /** Simple helper to get the level for the enchantment since its reused a bunch */
-  default int getEnchantmentLevel(IToolStackView tool, ModifierEntry modifier) {
-    return Mth.floor(modifier.getEffectiveLevel(tool)) * this.level();
-  }
 
   /**
    * Creates a builder for a constant enchantment
@@ -207,7 +198,7 @@ public interface EnchantmentModule extends ModifierModule {
     @Override
     public int updateEnchantmentLevel(IToolStackView tool, ModifierEntry modifier, Enchantment enchantment, int level) {
       if (enchantment == this.enchantment() && condition().matches(tool, modifier)) {
-        level += getEnchantmentLevel(tool, modifier);
+        level += getLevel(tool, modifier);
       }
       return level;
     }
@@ -215,7 +206,7 @@ public interface EnchantmentModule extends ModifierModule {
     @Override
     public void updateEnchantments(IToolStackView tool, ModifierEntry modifier, Map<Enchantment,Integer> map) {
       if (condition().matches(tool, modifier)) {
-        EnchantmentModifierHook.addEnchantment(map, this.enchantment(), getEnchantmentLevel(tool, modifier));
+        EnchantmentModifierHook.addEnchantment(map, this.enchantment(), getLevel(tool, modifier));
       }
     }
 
@@ -273,7 +264,7 @@ public interface EnchantmentModule extends ModifierModule {
     @Override
     public int updateEnchantmentLevel(IToolStackView tool, ModifierEntry modifier, Enchantment enchantment, int level) {
       if (enchantment == this.enchantment() && tool.getPersistentData().getBoolean(conditionFlag)) {
-        level += getEnchantmentLevel(tool, modifier);
+        level += getLevel(tool, modifier);
       }
       return level;
     }
@@ -281,7 +272,7 @@ public interface EnchantmentModule extends ModifierModule {
     @Override
     public void updateEnchantments(IToolStackView tool, ModifierEntry modifier, Map<Enchantment,Integer> map) {
       if (tool.getPersistentData().getBoolean(conditionFlag)) {
-        EnchantmentModifierHook.addEnchantment(map, this.enchantment(), getEnchantmentLevel(tool, modifier));
+        EnchantmentModifierHook.addEnchantment(map, this.enchantment(), getLevel(tool, modifier));
       }
     }
 
@@ -302,43 +293,31 @@ public interface EnchantmentModule extends ModifierModule {
     public static final IGenericLoader<ArmorHarvest> LOADER = new EnchantmentModule.Loader<>(true) {
       @Override
       protected ArmorHarvest deserialize(Enchantment enchantment, int level, ModifierModuleCondition conditions, IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder, JsonObject json) {
-        return new ArmorHarvest(enchantment, level, conditions, Set.copyOf(JsonHelper.parseList(json, "slots", (element, key) -> JsonHelper.convertToEnum(element, key, EquipmentSlot.class))), block, holder);
+        return new ArmorHarvest(enchantment, level, conditions, JsonUtils.deserializeEnumSet(json, "slots", EquipmentSlot.class), block, holder);
       }
 
       @Override
       public void serialize(ArmorHarvest object, JsonObject json) {
         super.serialize(object, json);
-        JsonArray slots = new JsonArray();
-        for (EquipmentSlot slot : object.slots) {
-          slots.add(slot.getName());
-        }
-        json.add("slots", slots);
+        json.add("slots", JsonUtils.serializeEnumCollection(object.slots));
       }
 
       @Override
       protected ArmorHarvest fromNetwork(Enchantment enchantment, int level, ModifierModuleCondition conditions, IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder, FriendlyByteBuf buffer) {
-        int size = buffer.readVarInt();
-        ImmutableSet.Builder<EquipmentSlot> builder = ImmutableSet.builder();
-        for (int i = 0; i < size; i++) {
-          builder.add(buffer.readEnum(EquipmentSlot.class));
-        }
-        return new ArmorHarvest(enchantment, level, conditions, builder.build(), block, holder);
+        return new ArmorHarvest(enchantment, level, conditions, JsonUtils.readEnumSet(buffer, EquipmentSlot.class), block, holder);
       }
 
       @Override
       public void toNetwork(ArmorHarvest object, FriendlyByteBuf buffer) {
         super.toNetwork(object, buffer);
-        buffer.writeVarInt(object.slots.size());
-        for (EquipmentSlot slot : object.slots) {
-          buffer.writeEnum(slot);
-        }
+        JsonUtils.writeEnumCollection(buffer, object.slots);
       }
     };
 
     @Override
     public void updateHarvestEnchantments(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context, EquipmentContext equipment, EquipmentSlot slot, Map<Enchantment,Integer> map) {
       if (slots.contains(slot) && condition.matches(tool, modifier) && block.matches(context.getState()) && holder.matches(context.getLiving())) {
-        EnchantmentModifierHook.addEnchantment(map, enchantment, getEnchantmentLevel(tool, modifier));
+        EnchantmentModifierHook.addEnchantment(map, enchantment, getLevel(tool, modifier));
       }
     }
 

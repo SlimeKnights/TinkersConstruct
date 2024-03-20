@@ -26,6 +26,7 @@ import slimeknights.tconstruct.library.modifiers.hook.build.RawDataModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ToolStatsModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ValidateModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.VolatileDataModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.combat.ArmorLootingModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.DamageDealtModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.LootingModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeDamageModifierHook;
@@ -192,15 +193,10 @@ public class TinkerHooks {
   /* Loot */
 
   /** Hook for a tool boosting the looting value */
-  public static final ModifierHook<LootingModifierHook> TOOL_LOOTING = register("tool_looting", LootingModifierHook.class, LootingModifierHook.SUM_MERGER, (tool, modifier, holder, target, damageSource, looting) -> looting);
-
+  public static final ModifierHook<LootingModifierHook> WEAPON_LOOTING = register("weapon_looting", LootingModifierHook.class, LootingModifierHook.ComposeMerger::new, (tool, modifier, context, looting) -> looting);
   /** Hook for leggings boosting the tool's looting level */
-  public static final ModifierHook<LootingModifierHook> LEGGINGS_LOOTING = register("leggings_looting", LootingModifierHook.class, LootingModifierHook.SUM_MERGER, (tool, modifier, holder, target, damageSource, looting) -> looting);
-
-  /** Hook for looting values on a projectile, will receive {@link slimeknights.tconstruct.library.tools.nbt.DummyToolStack} for the tool */
-  public static final ModifierHook<LootingModifierHook> PROJECTILE_LOOTING = register("projectile_looting", LootingModifierHook.class, LootingModifierHook.SUM_MERGER, LootingModifierHook.DEFAULT);
-
-  /** Hook for adding harvest enchantments to a held tool based on the tool's modifiers */
+  public static final ModifierHook<ArmorLootingModifierHook> ARMOR_LOOTING = register("armor_looting", ArmorLootingModifierHook.class, ArmorLootingModifierHook.ComposeMerger::new, (tool, modifier, context, equipment, slot, looting) -> looting);
+  /** Hook for armor adding harvest enchantments to a held tool based on the tool's modifiers */
   public static final ModifierHook<HarvestEnchantmentsModifierHook> HARVEST_ENCHANTMENTS = register("harvest_enchantments", HarvestEnchantmentsModifierHook.class, HarvestEnchantmentsModifierHook.AllMerger::new, (tool, modifier, context, equipment, slot, map) -> {});
 
 

@@ -61,6 +61,12 @@ public class EquipmentContext {
     return toolsInSlots[index];
   }
 
+  /** Same as {@link #getToolInSlot(EquipmentSlot)}, but validates that the tool can be used in this slot */
+  @Nullable
+  public IToolStackView getValidTool(EquipmentSlot slotType) {
+    return ModifierUtil.validArmorSlot(entity, slotType) ? getToolInSlot(slotType) : null;
+  }
+
   /** Checks if any of the armor items are modifiable, limiting to the passed slots. Filters out holding armor to get its effects. */
   public boolean hasModifiableArmor(EquipmentSlot... slots) {
     for (EquipmentSlot slotType : slots) {

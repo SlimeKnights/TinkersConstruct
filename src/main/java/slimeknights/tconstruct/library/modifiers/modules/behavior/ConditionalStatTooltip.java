@@ -6,7 +6,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
-import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
+import slimeknights.tconstruct.library.json.predicate.TinkerPredicate;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
@@ -36,7 +36,7 @@ public interface ConditionalStatTooltip extends TooltipModifierHook {
     // if holding shift, or we have no attacker condition, then we don't need the player to show the tooltip
     INumericToolStat<?> stat = stat();
     IJsonPredicate<LivingEntity> holder = holder();
-    if (stat.supports(tool.getItem()) && condition().matches(tool, entry) && (tooltipKey != TooltipKey.SHIFT || holder == LivingEntityPredicate.ANY || player != null && holder.matches(player))) {
+    if (stat.supports(tool.getItem()) && condition().matches(tool, entry) && (tooltipKey != TooltipKey.SHIFT || TinkerPredicate.matches(holder, player))) {
       // it's hard to display a good tooltip value without knowing the details of the formula, best we can do is guess based on the boolean
       // if this is inaccurate, just add this module without the tooltip hook to ignore
       Modifier modifier = entry.getModifier();

@@ -5,11 +5,12 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.LivingEntity;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.json.math.ModifierFormula;
 import slimeknights.tconstruct.library.json.math.ModifierFormula.FallbackFormula;
+import slimeknights.tconstruct.library.json.predicate.TinkerPredicate;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
@@ -42,8 +43,7 @@ public record KnockbackModule(IJsonPredicate<LivingEntity> entity, ModifierFormu
   public float beforeMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damage, float baseKnockback, float knockback) {
     if (this.condition.matches(tool, modifier)) {
       // might want to consider an entity predicate here, this special casing is a bit odd
-      LivingEntity target = context.getLivingTarget();
-      if (target == null ? entity == LivingEntityPredicate.ANY : entity.matches(target)) {
+      if (TinkerPredicate.matches(entity, context.getLivingTarget())) {
         return formula.apply(formula.computeLevel(tool, modifier), knockback);
       }
     }

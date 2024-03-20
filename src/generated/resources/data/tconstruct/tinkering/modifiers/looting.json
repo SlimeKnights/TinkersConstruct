@@ -3,8 +3,45 @@
   "level_display": "tconstruct:default",
   "modules": [
     {
-      "type": "tconstruct:looting",
-      "level": 1
+      "type": "tconstruct:weapon_looting",
+      "damage_source": "mantle:any",
+      "holder": "mantle:any",
+      "level": 1,
+      "target": "mantle:any",
+      "tool": {
+        "type": "tconstruct:item",
+        "item_type": "mantle:or",
+        "predicates": [
+          {
+            "type": "mantle:set",
+            "items": [
+              "minecraft:air"
+            ]
+          },
+          {
+            "type": "mantle:tag",
+            "tag": "tconstruct:modifiable/melee"
+          }
+        ]
+      }
+    },
+    {
+      "type": "tconstruct:armor_looting",
+      "damage_source": "mantle:any",
+      "holder": "mantle:any",
+      "level": 1,
+      "slots": [
+        "feet",
+        "legs",
+        "chest",
+        "head"
+      ],
+      "target": "mantle:any",
+      "tool": {
+        "type": "tconstruct:item",
+        "item_type": "mantle:tag",
+        "tag": "tconstruct:modifiable/armor/worn"
+      }
     }
   ],
   "tooltip_display": "always"

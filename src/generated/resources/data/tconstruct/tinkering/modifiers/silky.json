@@ -19,17 +19,15 @@
       "level": 1,
       "name": "minecraft:silk_touch",
       "slots": [
-        "offhand",
-        "head",
-        "chest",
+        "feet",
         "legs",
-        "feet"
+        "chest",
+        "head"
       ],
       "tool": {
         "type": "tconstruct:item",
-        "inverted_type": "mantle:tag",
-        "item_type": "mantle:inverted",
-        "tag": "tconstruct:modifiable/harvest"
+        "item_type": "mantle:tag",
+        "tag": "tconstruct:modifiable/armor/worn"
       }
     }
   ],
