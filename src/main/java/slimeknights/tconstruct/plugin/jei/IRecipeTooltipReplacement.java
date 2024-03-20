@@ -15,14 +15,9 @@ public interface IRecipeTooltipReplacement extends IRecipeSlotTooltipCallback {
   @Override
   default void onTooltip(IRecipeSlotView recipeSlotView, List<Component> tooltip) {
     Component name = tooltip.get(0);
-    Component modId = tooltip.get(tooltip.size() - 1);
     tooltip.clear();
     tooltip.add(name);
     addMiddleLines(recipeSlotView, tooltip);
-    // only add last line if we actually have mod IDs
-    if (JEIPlugin.modIdHelper != null && JEIPlugin.modIdHelper.isDisplayingModNameEnabled()) {
-      tooltip.add(modId);
-    }
   }
 
   /** Adds the lines between the name and mod ID */
