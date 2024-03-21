@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:harmonious",
+  "text": [
+    {
+      "text": "音樂對身心有好處，對工具也是，也許你的工具有靈魂？"
+    }
+  ],
+  "effects": [
+    "增加1個升級槽",
+    "單次使用"
+  ]
+}

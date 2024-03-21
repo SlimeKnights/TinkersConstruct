@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:aqua_affinity",
+  "text": [
+    {
+      "text": "反制潛水夫症。"
+    }
+  ],
+  "effects": [
+    "增加水下挖掘速度",
+    "單個等級",
+    "需要1個能力槽"
+  ]
+}

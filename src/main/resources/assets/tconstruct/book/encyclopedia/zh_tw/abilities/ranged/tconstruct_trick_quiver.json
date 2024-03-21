@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:trick_quiver",
+  "text": [
+    {
+      "text": "給予弓3個裝填戲法箭矢的槽位，每個槽位能裝填32根箭（2級時則為64根）。"
+    },
+    {
+      "text": "手持弓攻擊可在3個槽位和不使用槽位之間切換。潛行攻擊可打開箭袋槽位。",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最高2級",
+    "每級需要1個能力槽"
+  ]
+}

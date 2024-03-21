@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:the_one_probe",
+  "text": [
+    {
+      "text": "把它扔進火裡！毀掉它！"
+    },
+    {
+      "text": "但是我拒絕。",
+      "paragraph": true
+    }
+  ],
+  "effects": [
+    "在持有工具或穿戴盔甲時提供有關方塊和實體的詳細資訊",
+    "單個等級",
+    "需要1個升級槽"
+  ]
+}

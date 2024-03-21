@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:freezing",
+  "text": [
+    {
+      "text": "冰凍任何被箭擊中的實體4秒（每級+4秒），施加緩速效果並且造成傷害。"
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/ranged",
+  "effects": [
+    "最高3級",
+    "與「怒火」強化相容性不佳",
+    "每級需要1個升級槽"
+  ]
+}

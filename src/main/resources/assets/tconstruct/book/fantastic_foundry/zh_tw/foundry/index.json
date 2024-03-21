@@ -1,0 +1,10 @@
+{
+  "title": "熔鑄爐",
+  "subText": "再沒有什麼東西能比這熔鑄爐更加「奇異」了。",
+  "hidden": ["structurereq", "fgui2"],
+  "operations": [
+    { "before": "features",       "action": "add_group", "data": "詳細資訊" },
+    { "before": "scorched_tanks", "action": "column_break" },
+    { "before": "scorched_tanks", "action": "add_group", "data": "方塊" }
+  ]
+}

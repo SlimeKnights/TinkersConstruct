@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:expanded",
+  "text": [
+    {
+      "text": "擴大工具的作用範圍。在不同工具上的具體效果參見工具頁面。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "無等級上限",
+    "每級需要1個能力槽"
+  ]
+}

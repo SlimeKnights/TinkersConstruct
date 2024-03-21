@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:knockback",
+  "text": [
+    {
+      "text": "不必費勁跑去找你的敵人，而是讓你的敵人費勁跑來找你。"
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/melee",
+  "effects": [
+    "擊中目標時擊退它們",
+    "多個等級，每級進一步增加擊退力度",
+    "每級需要1個升級槽"
+  ]
+}

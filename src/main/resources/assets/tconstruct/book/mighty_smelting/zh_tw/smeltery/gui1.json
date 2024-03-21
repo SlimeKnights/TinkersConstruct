@@ -1,0 +1,14 @@
+{
+  "title": "冶煉爐GUI",
+  "image": {
+    "file": "tconstruct:book/images/smeltergui.png",
+    "width": 179,
+    "height": 74
+  },
+  "text": [
+    {
+      "text": "最為基礎的冶煉爐GUI。不多也不少。",
+      "paragraph": true
+    }
+	]
+}

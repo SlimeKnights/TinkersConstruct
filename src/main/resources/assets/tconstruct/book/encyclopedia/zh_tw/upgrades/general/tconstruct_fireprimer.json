@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:fireprimer",
+  "text": [
+    {
+      "text": "使打火磚的作用範圍增加1格。效果等同於1級「延展」強化，但是只需要1個升級槽。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最高1級",
+    "需要1個升級槽"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "title": "防禦能力提取",
+  "image": {
+    "file": "tconstruct:book/images/worktable/extract_defense.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "從附魔書或附魔工具上提取防禦能力強化需要終界史萊姆水晶和金。這一過程同樣較不穩定，也會導致工具的損失。"
+    }
+  ]
+}

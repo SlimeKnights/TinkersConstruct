@@ -1,0 +1,15 @@
+intro=介紹
+
+alloyer=合金爐
+
+foundry=熔鑄爐
+
+blazing_blood=烈焰血
+
+armor=奇異盔甲
+armor.subtext=使用來自地獄的材料，你便能製造出更高階的的盔甲。強大的鑲板盔甲能夠提供很高的防禦，不過相對地，它的升級槽就沒那麼多。但有了這麼高的防禦力，還要亂七八糟的特性做什麼？
+
+melee_harvest_materials=四級近程材料
+melee_harvest_materials.subtext=這些材料需要烈焰血合成，用於製造近戰武器和採掘工具的工具部件。
+ranged_materials=四級遠程材料
+ranged_materials.subtext=這些材料需要烈焰血合成，用於製造像弓那樣的遠程武器的工具部件。

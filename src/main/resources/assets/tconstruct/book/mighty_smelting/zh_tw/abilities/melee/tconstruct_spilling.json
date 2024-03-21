@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:spilling",
+  "text": [
+    {
+      "text": "工具漏液還挺噁心的。但也挺有用的！"
+    },
+    {
+      "text": "手持工具對著儲罐點擊右鍵可以填充。", "paragraph": true
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/held",
+  "effects": [
+    "攻擊時消耗儲罐內液體",
+    "可通過液體達成多種效果，包括著火與中毒",
+    "每級需要1個能力槽"
+  ]
+}

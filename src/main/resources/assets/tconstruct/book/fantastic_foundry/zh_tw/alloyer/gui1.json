@@ -1,0 +1,14 @@
+{
+  "title": "合金爐GUI",
+  "image": {
+    "file": "tconstruct:book/images/alloyergui.png",
+    "width": 166,
+    "height": 78
+  },
+  "text": [
+    {
+      "text": "最基本的合金爐GUI，不過槽位（格子）數量可能會多少有些出入。",
+      "paragraph": true
+    }
+	]
+}

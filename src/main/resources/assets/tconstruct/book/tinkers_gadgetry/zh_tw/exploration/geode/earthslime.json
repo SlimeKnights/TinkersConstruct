@@ -1,0 +1,13 @@
+{
+  "title": "大地史萊姆水晶洞",
+  "image": {
+	"file": "tconstruct:book/images/geodes/earthslime.png",
+    "width": 180,
+    "height": 90
+  },
+  "text": [
+    {
+      "text": "大地史萊姆水晶洞位於地底深處，而且可能是我見過的最大的水晶洞之一。你可以通過其外部包裹的黏土來辨認它們。"
+    }
+  ]
+}

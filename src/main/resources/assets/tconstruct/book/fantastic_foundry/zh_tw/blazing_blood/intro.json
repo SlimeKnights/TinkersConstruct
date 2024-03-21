@@ -1,0 +1,14 @@
+{
+  "title": "烈焰血",
+  "image": {
+    "file": "tconstruct:book/images/manyullyn_alloy.png",
+    "width": 179,
+    "height": 69
+  },
+  "text": [
+    {
+      "text": "那麼，工匠，你是不是正在嘗試製作更好的合金，結果發現熔岩不太夠用了？何不把烈焰使者的精華液化，來點燃你躁動的創造慾望？",
+      "paragraph": true
+    }
+  ]
+}

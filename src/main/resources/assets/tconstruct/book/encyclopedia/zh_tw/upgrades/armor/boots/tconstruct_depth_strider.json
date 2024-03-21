@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:depth_strider",
+  "text": [
+    {
+      "text": "每級水中移速減益-33%。第3級時，抵消在水中的移速減益。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最高3級",
+    "每級需要1個升級槽"
+  ]
+}

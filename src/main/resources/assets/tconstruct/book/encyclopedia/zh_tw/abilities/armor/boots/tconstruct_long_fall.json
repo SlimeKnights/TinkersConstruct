@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:long_fall",
+  "text": [
+    {
+      "text": "抵消所有摔落傷害。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最高1級",
+    "需要「摔落保護 IV」作為前置",
+    "需要1個能力槽"
+  ]
+}

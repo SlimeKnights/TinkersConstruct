@@ -1,0 +1,13 @@
+{
+  "title": "顯形墨水",
+  "image": {
+    "file": "tconstruct:book/images/worktable/visible_ink.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "在若干次用海綿讓強化顯形的失敗嘗試後，我猛然想起鮮奶在中和藥水方面極為有效。實際也確實如此，只需要一點點奶就能讓強化重新可見。"
+    }
+  ]
+}

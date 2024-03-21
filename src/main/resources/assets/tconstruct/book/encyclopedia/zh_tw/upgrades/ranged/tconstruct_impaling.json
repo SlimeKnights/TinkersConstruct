@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:impaling",
+  "text": [
+    {
+      "text": "允許箭矢在擊中第一個目標後繼續移動，擊中多個目標。每級可以多擊穿一個目標。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最高4級",
+    "每級需要1個升級槽"
+  ]
+}

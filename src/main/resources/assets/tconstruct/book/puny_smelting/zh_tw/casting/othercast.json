@@ -1,0 +1,17 @@
+{
+  "title": "合成鑄造",
+  "image": {
+    "file": "tconstruct:book/images/compositecast.png",
+    "width": 177,
+    "height": 50
+  },
+  "text": [
+    {
+      "text": "合成鑄造使你能在鑄件臺或鑄造盆中向工具部件或方塊上倒入流體來製造全新的材料。"
+    },
+    {
+      "text": "值得一提的材料有史萊姆木和納瓦特爾木，分別是往木部件上澆注史萊姆和熔融黑曜石製成的。",
+      "paragraph": true
+    }
+  ]
+}

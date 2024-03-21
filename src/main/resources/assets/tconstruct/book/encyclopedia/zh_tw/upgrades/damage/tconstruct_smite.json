@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:smite",
+  "text": [
+    {
+      "text": "每級對不死生物傷害+2.5。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "可以逐級強化",
+    "最高5級",
+    "每級需要1個升級槽"
+  ]
+}

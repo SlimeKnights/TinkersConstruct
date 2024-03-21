@@ -1,0 +1,25 @@
+{
+  "type": "tconstruct:showcase",
+  "title": "能力強化",
+  "item": {
+    "type": "forge:nbt",
+    "item": "tconstruct:creative_slot",
+    "nbt": {
+      "slot": "abilities"
+    }
+  },
+  "tooltip": [ "能力槽圖示" ],
+  "text": [
+    {
+      "text": "「能力」是一種非常強大的工具強化，它甚至可以徹底改變一個工具。諸如「絲綢之觸」和「自動燒煉」這樣的能力非常矚目，它們徹底改變了開採礦物的效果，而「雙持」則讓工具更便於使用。"
+    },
+    {
+      "text": "「能力」需要附加進能力槽中。幾乎所有的工具初始都會攜帶一個能力槽，且「能力」最多只能施加一個，所以最好在選擇「能力」時明智一些。",
+      "paragraph": true
+    },
+    {
+      "text": "Thruul M'Gon所著的《大師熔鍊術》有著一整套 可用於工具的能力強化列表，《工匠大百科》 也有介紹。",
+      "paragraph": true
+    }
+  ]
+}

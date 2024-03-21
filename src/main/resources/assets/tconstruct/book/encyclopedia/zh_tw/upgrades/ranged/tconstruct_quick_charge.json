@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:quick_charge",
+  "text": [
+    {
+      "text": "每級工具的拉弓速度+25%。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "可以逐級強化",
+    "最高4級",
+    "每級需要1個升級槽"
+  ]
+}

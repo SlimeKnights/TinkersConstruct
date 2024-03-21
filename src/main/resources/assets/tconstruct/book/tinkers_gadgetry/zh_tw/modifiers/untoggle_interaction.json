@@ -1,0 +1,13 @@
+{
+  "title": "互動逆切換",
+  "image": {
+    "file": "tconstruct:book/images/worktable/untoggle_interaction.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "當然，強化切換過後還能切換回來，但說來奇怪，這麼做需要再加一個控制桿。"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:cleaver",
+  "text": [
+    {
+      "text": "大砍刀是一種高傷害，低攻速的武器。"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "砍掉它們的頭！",
+	    "paragraph": true
+    }
+  ],
+  "properties": [
+    "強力武器",
+    "揮動速度慢",
+    "自帶肢解 II"
+  ]
+}

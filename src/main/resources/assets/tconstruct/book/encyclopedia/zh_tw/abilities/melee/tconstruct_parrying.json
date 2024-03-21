@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:parrying",
+  "text": [
+    {
+      "text": "允許在攻擊後短時間內將工具用作盾牌。"
+    },
+    {
+      "text": "大多數匕首能格擋最多10點傷害，且不會在格檔時減緩移動速度。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "單個等級",
+    "需要1個能力槽"
+  ]
+}

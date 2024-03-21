@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:fiery",
+  "text": [
+    {
+      "text": "使用來自地獄的烈焰懲罰你的敵人。"
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/ranged",
+  "effects": [
+    "箭矢命中目標時點燃它們",
+    "多個等級，每級進一步增加燃燒時間",
+    "每級需要1個升級槽"
+  ]
+}

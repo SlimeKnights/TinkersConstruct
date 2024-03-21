@@ -1,0 +1,13 @@
+{
+  "title": "鑄模",
+  "image": {
+    "file": "tconstruct:book/images/scorched_casting.png",
+    "width": 109,
+    "height": 75
+  },
+  "text": [
+    {
+      "text": "真正的工匠總是使用鑄件來防止意外澆注錯東西，所以焦褐鑄造臺總是需要一個鑄模才能工作。金平臺和金欄杆則作為空白鑄模的替代品。"
+    }
+	]
+}

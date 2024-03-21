@@ -1,0 +1,16 @@
+{
+  "title": "焦褐儲罐",
+  "item": {
+    "tag": "tconstruct:scorched_tanks"
+  },
+  "text": [
+     {
+      "text": "儲罐是儲存熔融流體和燃料的絕佳容器。如果你想要在熔鑄爐中熔鍊金屬的話，它們不可或缺！如果你想儲存材料以備日後使用，也可以從熔鑄爐倒入儲罐。",
+      "paragraph": true
+    },
+    {
+      "text": "儲罐不能用於搭建熔鑄爐底板。",
+      "paragraph": true
+    }
+  ]
+}

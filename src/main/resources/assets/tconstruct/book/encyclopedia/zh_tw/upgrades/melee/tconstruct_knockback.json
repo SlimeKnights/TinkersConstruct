@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:knockback",
+  "text": [
+    {
+      "text": "每級擊退效果+1，可以將生物擊飛大約2格距離。大部分工具自帶0.4點選退。"
+    },
+    {
+      "text": "每級使「騰躍」、「飛躍」、「重擊」效果增強25%", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/melee",
+  "effects": [
+    "最高5級",
+    "每級需要1個升級槽"
+  ]
+}

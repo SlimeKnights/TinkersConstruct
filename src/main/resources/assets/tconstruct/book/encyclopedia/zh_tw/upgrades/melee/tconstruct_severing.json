@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:severing",
+  "text": [
+    {
+      "text": "增加生物掉落頭或者其他身體部位的機率，每級+5%。每級「幸運」強化額外增加（1%*肢解等級）的概率。稀有生物（如Boss生物）掉落機率翻倍。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最高3級",
+    "每級需要1個升級槽"
+  ]
+}

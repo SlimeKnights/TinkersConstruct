@@ -1,0 +1,13 @@
+{
+  "title": "冶煉爐控制器",
+  "image": {
+    "file": "tconstruct:book/images/scontroller.png",
+    "width": 128,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "用你的小熔化爐往焦黑磚塊上澆注4錠量的熔融銅，就能獲得冶煉爐控制器了。"
+    }
+  ]
+}

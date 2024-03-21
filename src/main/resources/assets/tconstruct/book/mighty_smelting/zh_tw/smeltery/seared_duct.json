@@ -1,0 +1,14 @@
+{
+  "title": "焦黑輸導孔",
+  "item": "tconstruct:seared_duct",
+  "text": [
+    {
+      "text": "焦黑輸導孔是限定某種流體排出的裝置。將裝滿特定流體的銅罐或桶放入其過濾槽以限定流體。",
+      "paragraph": true
+    },
+	{
+      "text": "限定的流體會顯示在輸導孔的中央。",
+      "paragraph": true
+    }
+	]
+}

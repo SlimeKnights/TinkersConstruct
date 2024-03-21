@@ -1,0 +1,7 @@
+{
+  "title": "合成部件箱",
+  "recipe": "tconstruct:tables/part_chest",
+  "description": [
+    { "text": "永遠說不準什麼時候就能用上這些沒用到的工具部件。" }
+  ]
+}

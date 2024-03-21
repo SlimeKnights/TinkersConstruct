@@ -1,0 +1,10 @@
+{
+  "title": "燧石飛鏢",
+  "item": "tconstruct:flint_shuriken",
+  "text": [
+    {
+      "text": "把燧石磨成四角星狀，就可以做出十分好用的遠程武器。儘管比不上弓箭，但它也能造成可觀的擊退效果和傷害，幫你逃離怪物的追殺。",
+      "paragraph": true
+    }
+  ]
+}

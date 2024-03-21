@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:frost_walker",
+  "text": [
+    {
+      "text": "凍結你走過的水面。「延展」強化可以擴大其作用範圍。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最高1級",
+    "需要1個能力槽"
+  ]
+}

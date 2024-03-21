@@ -1,0 +1,17 @@
+{
+  "title": "自動化",
+  "image": {
+    "file": "tconstruct:book/images/cast_automation.png",
+    "width": 88,
+    "height": 75
+  },
+  "text": [
+    {
+      "text": "鑄件臺和鑄造盆能和漏斗互動，從而提供了放入物品和抽出冷卻的部件的便捷方式。"
+    },
+    {
+      "text": "在連接到鑄件臺或鑄造盆時，紅石比較器能發出紅石訊號。紅石脈衝能切換它們的輸入或輸出模式。",
+      "paragraph": true
+    }
+  ]
+}

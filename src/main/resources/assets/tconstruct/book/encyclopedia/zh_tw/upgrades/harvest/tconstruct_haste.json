@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:haste",
+  "text": [
+    {
+      "text": "附加於採掘工具上時，每級挖掘速度+4。"
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/harvest",
+  "effects": [
+    "可以逐級強化",
+    "最高5級",
+    "每級需要1個升級槽"
+  ]
+}

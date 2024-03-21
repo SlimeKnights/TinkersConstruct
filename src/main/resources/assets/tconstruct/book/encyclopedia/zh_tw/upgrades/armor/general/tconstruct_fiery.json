@@ -1,0 +1,18 @@
+{
+    "modifier_id": "tconstruct:fiery",
+    "text": [
+      {
+        "text": "每級有15%的機率對攻擊者造成5秒的燃燒效果。多件盔甲的效果將會堆疊。"
+      },
+      {
+        "text": "盾牌在格擋時造成的效果將翻倍。", "paragraph": true
+      }
+    ],
+    "more_text_space": true,
+    "tool_filter": "tconstruct:modifiable/armor",
+    "effects": [
+      "可以逐級強化",
+      "最高5級",
+      "每級需要1個升級槽"
+    ]
+  }

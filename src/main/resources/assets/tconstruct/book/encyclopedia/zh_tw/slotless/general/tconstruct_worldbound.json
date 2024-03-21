@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:worldbound",
+  "text": [
+    {
+      "text": "「獄髓」的替代品，使工具在掉落物狀態下無敵，無需升級槽。不提供任何數值強度加成。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "單次使用",
+    "無需槽位"
+  ]
+}

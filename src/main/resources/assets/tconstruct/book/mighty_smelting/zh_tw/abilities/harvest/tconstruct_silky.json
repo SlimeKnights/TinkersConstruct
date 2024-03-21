@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:silky",
+  "text": [
+    {
+      "text": "縱享絲滑。"
+    }
+  ],
+  "effects": [
+    "挖掘的方塊掉落其自身",
+    "單個等級",
+    "需要1個能力槽"
+  ]
+}

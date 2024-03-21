@@ -1,0 +1,14 @@
+{
+  "title": "焦褐遮光玻璃",
+  "item": "tconstruct:scorched_tinted_glass",
+  "text": [
+    {
+      "text": "想要讓你的熔鑄爐中產生更多的烈焰使者嗎？不如將普通的遮光玻璃換成焦褐遮光玻璃，它不僅完全透明還不會透光。",
+      "paragraph": true
+    },
+	{
+      "text": "焦褐遮光玻璃不能用於搭建熔鑄爐底板。",
+      "paragraph": true
+    }
+  ]
+}

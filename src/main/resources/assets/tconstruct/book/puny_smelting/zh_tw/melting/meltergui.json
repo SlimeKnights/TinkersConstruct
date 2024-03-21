@@ -1,0 +1,13 @@
+{
+  "title": "熔化爐GUI",
+  "image": {
+    "file": "tconstruct:book/images/meltergui.png",
+    "width": 172,
+    "height": 81
+  },
+  "text": [
+    {
+      "text": "最為基礎的熔化爐GUI，不多也不少。"
+    }
+  ]
+}

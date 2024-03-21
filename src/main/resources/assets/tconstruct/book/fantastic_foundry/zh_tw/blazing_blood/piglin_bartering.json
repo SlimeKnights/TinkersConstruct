@@ -1,0 +1,14 @@
+{
+  "title": "豬布林以物易物",
+  "image": {
+    "file": "tconstruct:book/images/bartering.png",
+    "width": 128,
+    "height": 82
+  },
+  "text": [
+    {
+      "text": "哦，你是和平主義者？這樣的話，我看到過一些豬布林提著裝有烈焰血的燈籠，我覺得是拿來照明用的。有可能牠們會拿這個跟你交換呢。",
+      "paragraph": true
+    }
+  ]
+}

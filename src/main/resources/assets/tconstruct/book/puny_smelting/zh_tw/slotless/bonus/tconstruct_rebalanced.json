@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:rebalanced",
+  "text": [
+    {
+      "text": "「和平的天平取決於力量的均衡。」——湯馬斯·潘恩"
+    },
+    {
+      "text": "「均衡的力量則取自龍之鱗，古老的鑲金黑石也出奇的相似。」——Thruul M'Gon", "paragraph": true
+    }
+  ],
+  "effects": [
+    "增加1個強化槽",
+    "槽位的類別由配方決定",
+    "貪婪終有報應",
+    "單次使用"
+  ]
+}

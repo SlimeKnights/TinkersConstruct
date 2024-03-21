@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:freezing",
+  "text": [
+    {
+      "text": "艾莎會嫉妒的。"
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/ranged",
+  "effects": [
+    "命中目標時使其緩速，彈射物造成額外傷害",
+    "多個等級，每級進一步增加冰凍時間",
+	  "每級需要1個升級槽"
+  ]
+}

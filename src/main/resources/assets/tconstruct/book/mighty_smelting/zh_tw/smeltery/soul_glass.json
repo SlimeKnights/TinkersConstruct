@@ -1,0 +1,14 @@
+{
+  "title": "焦黑靈魂玻璃",
+  "item": "tconstruct:seared_soul_glass",
+  "text": [
+    {
+      "text": "不滿足於站著欣賞，有時你也想過要去感受冶煉爐中的流體。靈魂玻璃則為你提供了一層透明的隔斷，你可以從中穿過到達冶煉爐中。",
+      "paragraph": true
+    },
+	{
+      "text": "焦黑靈魂玻璃不能用於搭建冶煉爐底板。",
+      "paragraph": true
+    }
+  ]
+}

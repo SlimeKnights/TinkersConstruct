@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:springing",
+  "text": [
+    {
+      "text": "蓄力後將你發射至目標方向，消耗1點耐久。"
+    },
+    {
+      "text": "可通過附加「強力」或「擊退」每級增強25%擊飛效果；附加「護墊」每級減弱50%；附加「快速上弦」縮短蓄力時間。", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最高1級",
+    "需要1個能力槽"
+  ]
+}

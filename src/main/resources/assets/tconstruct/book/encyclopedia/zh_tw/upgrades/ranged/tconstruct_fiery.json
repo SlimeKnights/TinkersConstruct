@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:fiery",
+  "text": [
+    {
+      "text": "使射出的箭矢著火，點燃擊中的目標。"
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/ranged",
+  "effects": [
+    "可以逐級強化",
+    "最高5級",
+    "和「冰凍」強化相容性不佳",
+    "每級需要1個升級槽"
+  ]
+}

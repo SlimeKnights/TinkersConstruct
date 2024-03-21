@@ -1,0 +1,11 @@
+{
+  "title": "實體熔鍊",
+  "image": {
+    "file": "tconstruct:book/images/entitymelting.png"
+  },
+  "text": [
+    {
+      "text": "冶煉爐可用於熔盡實體無用部分並收集其中精華。"
+    }
+  ]
+}

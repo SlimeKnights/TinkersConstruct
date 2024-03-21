@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:melee_protection",
+  "text": [
+    {
+      "text": "可移動的沙袋。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "減少來自劍、空手和其他物理近戰來源的傷害",
+    "多個等級，每級進一步減少傷害",
+    "需要1個防禦槽"
+  ]
+}

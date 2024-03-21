@@ -1,0 +1,14 @@
+intro=介紹
+
+melee_harvest_materials=一級近程材料
+melee_harvest_materials.subtext=這些材料可以放在部件製造臺中，用於製造近戰武器或採掘工具的工具部件。
+ranged_materials=一級遠程材料
+ranged_materials.subtext=這些材料可以放在部件製造臺中，用於製造像弓那樣的遠程武器的工具部件。
+
+tools=工具
+
+armor=基礎盔甲
+armor.subtext=基礎盔甲無需通過獵殺獲取資源或是建造任何機械即可製作。這套盔甲雖然只能提供有限的防禦，但它卻擁有很多升級功能。你會創造出什麼有趣的東西來呢？
+
+modifiers=強化
+further_reading=延伸閱讀

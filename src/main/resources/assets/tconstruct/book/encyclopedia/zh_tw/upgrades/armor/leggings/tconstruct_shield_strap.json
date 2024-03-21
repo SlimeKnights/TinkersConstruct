@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:shield_strap",
+  "text": [
+    {
+      "text": "每級增加1個副手槽位，可以按下「護腿互動」鍵切換副手物品。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "需要1個升級槽"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:nearsighted",
+  "text": [
+    {
+      "text": "當穿戴該盔甲或手持該工具時，每級視角+5%。"
+    },
+    {
+      "text": "這個升級可以用來抵消重型工具帶來的視場角變化，不過你可能可以發現一些別的用途。",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "多次使用",
+    "無需槽位"
+  ]
+}

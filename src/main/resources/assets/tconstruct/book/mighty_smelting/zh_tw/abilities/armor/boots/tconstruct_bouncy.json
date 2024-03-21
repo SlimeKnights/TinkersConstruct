@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:bouncy",
+  "text": [
+    {
+      "text": "世界就是你的彈跳床。"
+    }
+  ],
+  "effects": [
+    "著陸時彈跳",
+    "單個等級",
+    "需要1個能力槽"
+  ]
+}

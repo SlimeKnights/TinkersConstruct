@@ -1,0 +1,25 @@
+{
+  "type": "tconstruct:showcase",
+  "title": "無槽位強化",
+  "item": {
+    "type": "forge:nbt",
+    "item": "tconstruct:creative_slot",
+    "nbt": {
+      "slot": "slotless"
+    }
+  },
+  "tooltip": [ "無槽位強化圖示" ],
+  "text": [
+    {
+      "text": "無槽位強化不像其他強化一樣需要強化槽。但這也意味著這些強化有些折衷的屬性，或是效果不明顯。"
+    },
+    {
+      "text": "值得注意的是，「額外強化」雖是一種無槽位強化，但是它能給予更多強化槽。許多東西都能給予升級槽，我還聽說有些東西還能提供更多的能力槽。",
+      "paragraph": true
+    },
+    {
+      "text": "Thruul M'Gon所著的《入門熔鍊術》有著一整套 可用於工具的無槽位強化列表，《工匠大百科》 也有介紹。",
+      "paragraph": true
+    }
+  ]
+}

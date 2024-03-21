@@ -1,0 +1,13 @@
+{
+  "title": "能力強化提取",
+  "image": {
+    "file": "tconstruct:book/images/worktable/extract_ability.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "從附魔工具上提取能力強化的過程相當費材料，不止需要靈漿水晶，還需要鑽石來輔助提取。就算有靈漿的力量支援，工具還是沒有辦法保留下來，似乎只有終界史萊姆才能讓你保住工具了。"
+    }
+  ]
+}

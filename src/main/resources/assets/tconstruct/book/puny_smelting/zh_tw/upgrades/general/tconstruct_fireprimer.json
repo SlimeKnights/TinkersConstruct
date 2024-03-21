@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:fireprimer",
+  "text": [
+    {
+      "text": "「這是好的。」"
+    }
+  ],
+  "effects": [
+    "增加打火磚的作用範圍",
+    "最高1級",
+    "需要1個升級槽"
+  ]
+}

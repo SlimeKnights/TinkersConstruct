@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:unbreakable",
+  "text": [
+    {
+      "text": "使工具不消耗耐久度，不過不能抵消特殊的耐久度消耗，例如「美味」。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最高1級",
+    "需要「獄髓」和「加固 V」作為前置",
+    "需要1個能力槽"
+  ]
+}

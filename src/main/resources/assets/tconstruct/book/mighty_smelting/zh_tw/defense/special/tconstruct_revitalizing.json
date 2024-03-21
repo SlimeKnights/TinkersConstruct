@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:revitalizing",
+  "text": [
+    {
+      "text": "寶鑽蘋果，回歸本源。"
+    }
+  ],
+  "effects": [
+    "可以逐級強化",
+    "最高5級",
+    "需要1個防禦槽"
+  ]
+}

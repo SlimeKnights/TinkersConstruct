@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:silky",
+  "text": [
+    {
+	"text": "工具所挖掘的方塊將掉落其自身。也可以應用於劍、劈刀、鐮刀和匕首，使上述工具可用於修剪生物。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最高1級",
+    "需要1個能力槽"
+  ]
+}

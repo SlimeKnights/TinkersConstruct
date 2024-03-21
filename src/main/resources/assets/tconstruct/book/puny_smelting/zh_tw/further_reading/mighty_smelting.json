@@ -1,0 +1,13 @@
+{
+  "title": "大師熔煉術",
+  "image": {
+    "file": "tconstruct:book/images/book_mighty_smelting.png",
+    "width": 128,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "精彩內容太多，一本書實在寫不下，所以我只能把這些內容寫進第二本書裡。掌握了冶煉爐的使用之後，你可以熔煉一些焦黑熔石，然後倒在一本書上，製作本書的續作。"
+    }
+  ]
+}

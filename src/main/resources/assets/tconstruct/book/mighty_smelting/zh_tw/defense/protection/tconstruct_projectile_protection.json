@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:projectile_protection",
+  "text": [
+    {
+      "text": "對「我膝蓋中了一箭」這種遠程傷害不具防護能力。"
+    }
+  ],
+  "effects": [
+    "減少來自彈射物的傷害",
+    "多個等級，每級進一步增加防禦能力",
+    "需要1個防禦槽"
+  ]
+}

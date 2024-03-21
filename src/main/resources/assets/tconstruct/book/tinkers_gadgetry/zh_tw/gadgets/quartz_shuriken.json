@@ -1,0 +1,10 @@
+{
+  "title": "石英飛鏢",
+  "item": "tconstruct:quartz_shuriken",
+  "text": [
+    {
+      "text": "石英比燧石更輕盈，也更鋒利。石英製成的飛鏢可以對怪物造成更多傷害，不過擊退效果會稍微變小。",
+      "paragraph": true
+    }
+  ]
+}

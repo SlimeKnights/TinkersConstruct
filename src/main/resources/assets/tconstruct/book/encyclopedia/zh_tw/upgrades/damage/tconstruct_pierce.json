@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:pierce",
+  "text": [
+    {
+      "text": "每級近戰傷害+0.5，抵消護甲值+1。"
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/melee",
+  "effects": [
+    "可以逐級強化",
+    "最高3級",
+    "每級需要1個升級槽"
+  ]
+}

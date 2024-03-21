@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:sinistral",
+  "text": [
+    {
+      "text": "使得弩在攻擊而非互動時發射，且不會在蹲下時裝填。從而允許在使用弩時同時使用副手物品。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "單個等級",
+    "需要1個升級槽"
+  ]
+}

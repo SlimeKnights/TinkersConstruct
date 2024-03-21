@@ -1,0 +1,19 @@
+{
+  "modifier_id": "tconstruct:pierce",
+  "text": [
+    {
+      "text": "工具現在擁有了仙人掌的力量：穿刺傷害。"
+    },
+    {
+      "text": "別和「貫穿」搞混了",
+        "paragraph": true	  
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/ranged",
+  "effects": [
+    "抵消少部分護甲值",
+    "同時略微增加工具傷害",
+    "多個等級，每個等級進一步提升作用效果",
+    "每級需要1個升級槽"
+  ]
+}

@@ -1,0 +1,47 @@
+{
+    "title": "修理",
+    "grid_size": "small",
+    "grid": [
+      [
+        {
+          "type": "forge:nbt",
+          "item": "tconstruct:pickaxe",
+          "nbt": {
+            "tic_broken": false,
+            "tic_display": true,
+            "Damage": 70,
+            "tic_materials": [
+              "tconstruct:ui_render_head",
+              "tconstruct:ui_render_handle",
+              "tconstruct:ui_render_extra"
+            ],
+            "tic_stats": {
+              "tconstruct:durability": 100
+            }
+          }
+        },
+        "tconstruct:repair_kit"
+      ]
+    ],
+    "result": {
+      "type": "forge:nbt",
+      "item": "tconstruct:pickaxe",
+      "nbt": {
+        "tic_broken": false,
+        "tic_display": true,
+        "Damage": 10,
+        "tic_materials": [
+          "tconstruct:ui_render_head",
+          "tconstruct:ui_render_handle",
+          "tconstruct:ui_render_extra"
+        ],
+        "tic_stats": { "tconstruct:durability": 100 }
+      }
+    },
+    "description": [
+      {
+        "text": "除非你眼睜睜看著工具損壞，否則修理工具就是重中之重。在工匠站或者工匠砧中放置工具以及與其頂端或大板相匹配的材料即可修復。或者，你可以使用修補件，它在工作臺中就能使用！",
+        "paragraph": true
+      }
+    ]
+}

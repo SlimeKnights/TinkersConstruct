@@ -1,0 +1,13 @@
+{
+  "title": "靈漿水晶洞",
+  "image": {
+	"file": "tconstruct:book/images/geodes/ichor.png",
+    "width": 180,
+    "height": 106
+  },
+  "text": [
+    {
+      "text": "靈漿水晶洞是稀有橙色史萊姆的最佳來源之一。它們出現在地獄的高海拔地區，並且這些水晶似乎還會發光。"
+    }
+  ]
+}

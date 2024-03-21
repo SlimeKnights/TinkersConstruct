@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:boundless",
+  "text": [
+    {
+      "text": "將部分強化（如「保護」「龍裔」「界伏殼」等）的加成上限從80%提升至90%。如果加持於兩件裝備，則進一步從90%提升至95%。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "最高1級",
+    "每級需要1個能力槽"
+  ]
+}
