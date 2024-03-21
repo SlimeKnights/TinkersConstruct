@@ -21,7 +21,7 @@
   "block.tconstruct.ichor_congealed_slime": "Katılaşmış Od",
   "block.tconstruct.ichor_congealed_slime.tooltip": "Aşırı yükseğe zıplamanızı sağlar",
 
-  "block.tconstruct.mud_bricks": "Kerpiç",
+  "block.tconstruct.mud_bricks": "Kerpiç Bloğu",
   "block.tconstruct.mud_bricks_slab": "Kerpiç Basamak",
   "block.tconstruct.mud_bricks_stairs": "Kerpiç Merdiven",
 
@@ -967,7 +967,7 @@
   "item.tconstruct.cleaver.description": "Satır kallama ocağının ustaları için bir silahtır. Yüksek menzilli saldırılar düşmanları boylu boyunca kesip durur.",
 
   "item.tconstruct.crossbow.description": "Tatar yayı hafif bir menzilli silahtır, okları ve havai fişekleri hızlıca ateşleyebilir.",
-  "item.tconstruct.longbow.description": "Uzun yay koca bir menzilli silahtır, okları uzak mesafelere kesinlik ile ateşleyebilir.",
+  "item.tconstruct.longbow.description": "Uzun yay koca bir menzilli silahtır, okları uzak menzillere kesinlik ile ateşleyebilir.",
 
 
   "_comment": "Kallama Ocağı Paylaşılan",
@@ -1016,7 +1016,7 @@
   "multiblock.tconstruct.generic.invalid_ceiling_block": "Yapı tavanında geçersiz blok",
   "multiblock.tconstruct.generic.invalid_wall_frame": "Yapı duvarındaki ayrıtlarda geçersiz blok",
   "multiblock.tconstruct.generic.invalid_floor_frame": "Yapı tabanındaki ayrıtlarda geçersiz blok",
-  "multiblock.tconstruct.generic.invalid_ceiling_frame": "Yapı tavanındaki ayrıolarak bilinen üçüncütlarda geçersiz blok",
+  "multiblock.tconstruct.generic.invalid_ceiling_frame": "Yapı tavanındaki ayrıtlarda geçersiz blok",
 
   "multiblock.tconstruct.tiny.no_fuel_tank": "Çalışabilmesi için üstüne yakıt tankı ya da ısıtıcı konulması gerekiyor",
 
@@ -1430,8 +1430,8 @@
 
   "material.tconstruct.bone": "Kemik",
   "material.tconstruct.bone.flavor": "Ben kılıcımın kemiğiyim",
-  "material.tconstruct.bone.encyclopedia": "Seviye başına yakın mesafeli hasarını 0.5 artırır ve zırh delmeye 1 verir",
-  "material.tconstruct.bone.ranged": "Seviye başına yakın mesafeli hasarını 0.5 artırır ve zırh delmeye 1 verir",
+  "material.tconstruct.bone.encyclopedia": "Seviye başına yakın menzilli hasarını 0.5 artırır ve zırh delmeye 1 verir",
+  "material.tconstruct.bone.ranged": "Seviye başına yakın menzilli hasarını 0.5 artırır ve zırh delmeye 1 verir",
   "material.tconstruct.bone.skull_flavor": "Sütün var mı?",
   "material.tconstruct.bone.skull_encyclopedia": "Süt içtikten sonra 1 dakikalığına direnç sağlar",
 
@@ -1440,7 +1440,7 @@
   "material.tconstruct.necrotic_bone.encyclopedia": "Başarılı krititk vuruşlarında vurulan hasarın belirli bir yüzdesi kadar iyileştirir",
   "material.tconstruct.necrotic_bone.ranged": "Başarılı ok vuruşlarında vurulan hasarın belirli bir yüzdesi kadar iyileştirir",
   "material.tconstruct.necrotic_bone.skull_flavor": "Ürkütücü Korkunç İskelet!",
-  "material.tconstruct.necrotic_bone.skull_encyclopedia": "Yakın mesafeli saldırılar wither etkisi bırakır. Süt içtikten sonra etkisi hızlanır",
+  "material.tconstruct.necrotic_bone.skull_encyclopedia": "Yakın menzilli saldırılar wither etkisi bırakır. Süt içtikten sonra etkisi hızlanır",
 
   "material.tconstruct.chorus":              "Koro",
   "material.tconstruct.chorus.flavor":       "Yalnızca ender erkekleri değil ayrıca ender kadınları ve ender çocukları",
@@ -1468,7 +1468,7 @@
   "material.tconstruct.iron.flavor": "Alaycı demir. Başkalarını ölümden kurtabilir ancak kendini değil.",
   "material.tconstruct.iron.encyclopedia": "Blok çıkarmak ve canlıya vurmak yakındaki eşyalırı çekmesine neden olur",
   "material.tconstruct.iron.skull_flavor": "Sıkıyalıtımı bozma",
-  "material.tconstruct.iron.skull_encyclopedia": "Yakın mesafeli saldırılar giyen kişideki bütün olumsuz etkileri hedefe yöneltir",
+  "material.tconstruct.iron.skull_encyclopedia": "Yakın menzilli saldırılar giyen kişideki bütün olumsuz etkileri hedefe yöneltir",
 
   "material.tconstruct.seared_stone": "Kararmış Taş",
   "material.tconstruct.seared_stone.flavor": "Daha sıcak harç.",
@@ -1484,7 +1484,7 @@
   "material.tconstruct.copper.encyclopedia": "Derine indikçe çıkarım hızı artar, 64'üncü bloktan derinde her 64 blokta bir +6 çıkarım hızı sağlar",
   "material.tconstruct.copper.ranged": "Derine indikçe fazladan ok hızı verir, 64'üncü bloktan derinde her 64 blokta bir +0.05 çıkarım hızı sağlar",
   "material.tconstruct.copper.skull_flavor": "Rüzgarı onlardan uzağa vurar",
-  "material.tconstruct.copper.skull_encyclopedia": "Yakın mesafeli salıdırılar hedeften 3 saniye boyunca havasını çalar",
+  "material.tconstruct.copper.skull_encyclopedia": "Yakın menzilli salıdırılar hedeften 3 saniye boyunca havasını çalar",
 
   "material.tconstruct.slimewood": "Balçıkodunu",
   "material.tconstruct.slimewood.greenheart":  "Yeşilkalp",
@@ -1498,7 +1498,7 @@
   "material.tconstruct.bloodbone.encyclopedia": "Düşük canda hasarı artırır, 1 kalpte seviye başına +4 hasara kadar verir",
   "material.tconstruct.bloodbone.ranged": "Düşük canda çekme hızını artırır, 1 kalpte seviye başına +0.25 çekme hızına kadar verir",
   "material.tconstruct.bloodbone.skull_flavor": "Kemiğin dibine kadar ürpertir",
-  "material.tconstruct.bloodbone.skull_encyclopedia": "Uzun menzilli saldırılar hedefe yavaşlık verir. Süt içtikten sonra yakın mesafeli saldırılar yavaşlık verir ve seviyesi daha güçlüdür.",
+  "material.tconstruct.bloodbone.skull_encyclopedia": "Uzun menzilli saldırılar hedefe yavaşlık verir. Süt içtikten sonra yakın menzilli saldırılar yavaşlık verir ve seviyesi daha güçlüdür.",
 
   "material.tconstruct.rose_gold": "Pembe Altın",
   "material.tconstruct.rose_gold.flavor": "Sorumluluk Reddi: Gerçekte güllerle yapılmamıştır.",
@@ -1540,8 +1540,8 @@
   "material.tconstruct.darkthread.flavor": "Karanlık tarafa gel, bizde ekim var",
   "material.tconstruct.darkthread.encyclopedia": "Yaratıklardan eşya düşme şansını artırır, şans ile yığılır",
   "material.tconstruct.darkthread.ranged": "Ok ile öldürülen yaratıklardan eşya düşme şansını artırır",
-  "material.tconstruct.darkthread.skull_flavor": "Akıllı yaratıklarla savaşmak için kusursuz, eğer kimin doğru söylediğini anlamak için içmen gerekiyorsa.",
-  "material.tconstruct.darkthread.skull_encyclopedia": "Giyeni zehire bağışıklı kılıyor, ancak üstündeki zehirleri kaldırmaz",
+  "material.tconstruct.darkthread.skull_flavor": "Kimin doğru söylediğini anlamak için karar vermen ve içmen gerekiyorsa akıl savaşı için kusursuz.",
+  "material.tconstruct.darkthread.skull_encyclopedia": "Giyeni zehire bağışıklı kılıyor ancak üstündeki zehirleri kaldırmaz",
 
 
   "__comment": "Nether Aşaması Malzemeleri",
@@ -1553,7 +1553,7 @@
   "material.tconstruct.manyullyn": "Menyullen",
   "material.tconstruct.manyullyn.flavor": "Çoğu Onarıcının doğru söyleyemeyeceği metal. Aynı zamanda yıldız kesen malzeme.",
   "material.tconstruct.manyullyn.encyclopedia": "Ardışık olarak 8 vuruş yapınca seviye başına 2 hasar verir",
-  "material.tconstruct.manyullyn.ranged": "Oklar ardışık olarak 8 ok vuruş yapınca seviye başına 1 hasar (ok hızı öncesi) verir",
+  "material.tconstruct.manyullyn.ranged": "Oklar ardışık olarak 8 ok vuruşu yapınca seviye başına 1 hasar (ok hızı öncesi) verir",
 
   "material.tconstruct.hepatizon": "Hepatizon",
   "material.tconstruct.hepatizon.flavor": "He-pa-ti-zon - kaynat, püre yap, yahni yap.",
@@ -1581,22 +1581,22 @@
   "material.tconstruct.knightslime": "Şövalyebalçığı",
 
   "material.tconstruct.enderslime_vine": "Balçığımsı Sarmaşık",
-  "material.tconstruct.enderslime_vine.flavor": "Son?",
+  "material.tconstruct.enderslime_vine.flavor": "Son mu?",
   "material.tconstruct.enderslime_vine.encyclopedia": "Çıkarılan bloğun konumuna ışınlanırsın ya da saldırılan canavarla yerlerini değiştirirsin",
   "material.tconstruct.enderslime_vine.ranged": "Düşen okun bulunduğu bloğun konuma ışınlarsın ya da okun değdiği canavarla yerlerini değiştirirsin",
 
   "__comment": "Balçıklı Takım Malzemeleri",
   "material.tconstruct.glass": "Cam",
   "material.tconstruct.glass.skull_flavor": "Şimdi kimin güzel şeyleri yok oluyor, creeper?",
-  "material.tconstruct.glass.skull_encyclopedia": "Kaskın etkileşim tuşuna basılması giyenin patlatır",
+  "material.tconstruct.glass.skull_encyclopedia": "Kaskın etkileşim tuşuna basılması giyeni patlatır",
 
   "material.tconstruct.ender_pearl": "Ender İncisi",
-  "material.tconstruct.ender_pearl.skull_flavor": "Endermanler zarardan uzakta kalmayı biliyorlar, ve bilim insanlarından. Benim görüşme isteklerimi haftalardır kabul etmiyorlar!",
-  "material.tconstruct.ender_pearl.skull_encyclopedia": "Uzun mesafeli saldırılardan kendiliğinden ve yakın mesafeli saldırılarda rastgele ışınlar. 15 saniye bekleme süresi var",
+  "material.tconstruct.ender_pearl.skull_flavor": "Endermanler zarardan uzakta kalmayı biliyorlar ve bilim insanlarından. Benim görüşme isteklerimi haftalardır kabul etmiyorlar!",
+  "material.tconstruct.ender_pearl.skull_encyclopedia": "Uzun menzilli saldırılardan kendiliğinden ve yakın menzilli saldırılarda rastgele ışınlar. 15 saniye bekleme süresi var",
 
   "material.tconstruct.rotten_flesh": "Çürük Et",
   "material.tconstruct.rotten_flesh.skull_flavor": "Bu iyi",
-  "material.tconstruct.rotten_flesh.skull_encyclopedia": "Yakın mesafeli saldırılar hedefleri yanma süresini giyenin yanma süresine bağlı olarak artırır",
+  "material.tconstruct.rotten_flesh.skull_encyclopedia": "Yakın menzilli saldırılar hedefleri yanma süresini giyenin yanma süresine bağlı olarak artırır",
 
   "material.tconstruct.gold": "Altın",
   "material.tconstruct.gold.skull_flavor": "Çok parlak",
@@ -1613,7 +1613,7 @@
   "material.tconstruct.clay":       "Kil",
   "material.tconstruct.honey":      "Bal",
   "material.tconstruct.venom":      "Ağı",
-  "material.tconstruct.phantom":    "Hayali Zar",
+  "material.tconstruct.phantom":    "Kabus Zarı",
 
   "material.tconstruct.nickel":   "Nikel",
   "material.tconstruct.tin":      "Kalay",
@@ -1649,11 +1649,11 @@
 
   "material.tconstruct.whitestone": "Aktaş",
   "material.tconstruct.whitestone.end": "End Taşı",
-  "material.tconstruct.whitestone.flavor": "İşe yaramaz ak metal ya da taşları işe yarar araçlar yap",
+  "material.tconstruct.whitestone.flavor": "İşe yaramaz ak metalleri ya da taşları işe yarar araçlar yap",
   "material.tconstruct.whitestone.encyclopedia": "Taşları kazmak seviye başına %20 şansla +3 taş kalkanı sağlar",
 
   "material.tconstruct.aluminum": "Alüminyum",
-  "material.tconstruct.aluminum.flavor": "Kül yığınlarında en çok bulunur.",
+  "material.tconstruct.aluminum.flavor": "En çok kül yığınlarında bulunur.",
   "material.tconstruct.aluminum.ranged": "Çekme hızı ve doğruluğu %7 artış sağlar",
 
 
@@ -1779,16 +1779,16 @@
   "_comment": "Silah",
   "modifier.tconstruct.knockback": "Savurma",
   "modifier.tconstruct.knockback.flavor": "Hop!",
-  "modifier.tconstruct.knockback.description": "Yakın mesafeli saldırılarda bir şeylere vurmak onları uzaklara uçurur!",
+  "modifier.tconstruct.knockback.description": "Yakın menzilli saldırılarda bir şeylere vurmak onları uzaklara uçurur!",
   "modifier.tconstruct.padded": "Yastığımsı",
   "modifier.tconstruct.padded.flavor": "Puf!",
   "modifier.tconstruct.padded.description": "Düşmanların kaçmasını engellemek için aracın savurmasını azaltır",
   "modifier.tconstruct.severing": "Koparma",
   "modifier.tconstruct.severing.flavor": "Yalnızca kafaları değil ayrıca ayakları ve tüyleri!",
-  "modifier.tconstruct.severing.description": "Anında yakın mesafeli saldırıyla hedefin muhtemelen kafalarını ya da öbür parçalarını patlatır!",
+  "modifier.tconstruct.severing.description": "Anında yakın menzilli saldırıyla hedefin muhtemelen kafalarını ya da öbür parçalarını patlatır!",
   "modifier.tconstruct.fiery": "Ateşli",
   "modifier.tconstruct.fiery.flavor": "Cehennemin ateşlerinde demlenmiş!",
-  "modifier.tconstruct.fiery.description": "Yakın mesafeli saldırılarda ve atılan oklarda hedefleri yakar",
+  "modifier.tconstruct.fiery.description": "Yakın menzilli saldırılarda ve atılan oklarda hedefleri yakar",
   "modifier.tconstruct.necrotic": "Ölük",
   "modifier.tconstruct.necrotic.flavor": "Vampir gibi!",
   "modifier.tconstruct.necrotic.description": "Düşmanlara yapılan kritik vuruşlar onların canını çalıp seni iyileştirir",
@@ -1810,13 +1810,13 @@
   "modifier.tconstruct.bane_of_sssss.flavor": "Orada iyi bir sssörümceğin varsss!",
   "modifier.tconstruct.bane_of_sssss.description": "Araç örümcek, creeper ve öbür tıslayan ürpertici şeyylere karşı fazladan hasar verir!",
   "modifier.tconstruct.bane_of_sssss.attack_damage": "Sssssss Hasar",
-  "modifier.tconstruct.antiaquatic": "Sucul Karşıtı",
+  "modifier.tconstruct.antiaquatic": "Suculsuz",
   "modifier.tconstruct.antiaquatic.flavor": "Aslında bir Balık Oltası!",
   "modifier.tconstruct.antiaquatic.description": "Araç deniz yaratıklarına fazladan hasar verir!",
-  "modifier.tconstruct.antiaquatic.attack_damage": "Sucul Karşıtı Hasar",
+  "modifier.tconstruct.antiaquatic.attack_damage": "Suculsuz Hasar",
   "modifier.tconstruct.killager": "Burun Katili",
   "modifier.tconstruct.killager.flavor": "Uzun burunlular senden nefret eder!",
-  "modifier.tconstruct.killager.description": "Köylülere, yağmacılara ve öbür uzunlu yaratıklara kalrşı hasarı artırır!",
+  "modifier.tconstruct.killager.description": "Köylülere, yağmacılara ve öbür uzun burunlu yaratıklara karşı hasarı artırır!",
   "modifier.tconstruct.killager.attack_damage": "Burun Kaltili Hasarı",
   "modifier.tconstruct.cooling": "Soğutucu",
   "modifier.tconstruct.cooling.flavor": "Donmuş!",
@@ -1845,7 +1845,7 @@
   "modifier.tconstruct.swiftstrike.description": "Büyülü mor değerli taşlar silahı daha yeğni yapar böylece sallaması daha kolaydır!",
 
 
-  "_comment": "Uzun Mesafeli",
+  "_comment": "Uzun Menzilli",
 
   "modifier.tconstruct.power": "Güç",
   "modifier.tconstruct.power.flavor": "İçindeki güç dışındaki güç oluyor",
@@ -1894,7 +1894,7 @@
   "modifier.tconstruct.knockback_resistance": "Savurma Direnci",
   "modifier.tconstruct.knockback_resistance.flavor": "Ağır bir özne",
   "modifier.tconstruct.knockback_resistance.description": "Örsler ağırdır yani senin geriye savrulmanı engelleyecektir, değil mi?",
-  "modifier.tconstruct.golden": "Altın",
+  "modifier.tconstruct.golden": "Altından",
   "modifier.tconstruct.golden.flavor": "Altın kadar iyi",
   "modifier.tconstruct.golden.description": "Zırhlarınıza ek altın gösterişi katar, onarım için farklı bir seçenek sunar ve piglinler bayılırlar!",
   "modifier.tconstruct.ricochet": "Sekme",
@@ -1918,10 +1918,10 @@
   "modifier.tconstruct.protection.flavor": "Her tarakta bezi var!",
   "modifier.tconstruct.protection.description": "Bütün hasar türlerine karşı korumayı arıtırır",
   "modifier.tconstruct.protection.resistance": "Direnç",
-  "modifier.tconstruct.melee_protection": "Yakın Mesafeli Hasar Koruması",
+  "modifier.tconstruct.melee_protection": "Yakın Menzilli Hasar Koruması",
   "modifier.tconstruct.melee_protection.flavor": "Küt!",
   "modifier.tconstruct.melee_protection.description": "Fiziksel saldırılara karşı korumayı artırır",
-  "modifier.tconstruct.melee_protection.resistance": "Yakın Mesafeli Hasar Direnci",
+  "modifier.tconstruct.melee_protection.resistance": "Yakın Menzilli Hasar Direnci",
   "modifier.tconstruct.fire_protection": "Ateş Koruması",
   "modifier.tconstruct.fire_protection.flavor": "Kallama ocağı ol!",
   "modifier.tconstruct.fire_protection.description": "Ateşten gelen hasara karşı korur ve ateş zamanını azaltır",
@@ -1960,7 +1960,7 @@
   "modifier.tconstruct.thorns.description": "Gardiyanın gücünü ellerine al, bazen saldıranların hasar almasını neden olur",
   "modifier.tconstruct.thorns.attack_damage": "Delme Hasarı",
   "modifier.tconstruct.sticky": "Yapışkan",
-  "modifier.tconstruct.sticky.flavor": "Cadılar Bayramı Gibi",
+  "modifier.tconstruct.sticky.flavor": "Cadılar bayramı Gibi",
   "modifier.tconstruct.sticky.description": "Saldıranlar bir yerde takılabilir ya da en azından yavaşlayabilirler",
   "modifier.tconstruct.springy": "Yay gibi",
   "modifier.tconstruct.springy.flavor": "Ya-hop!",
@@ -1974,7 +1974,7 @@
   "modifier.tconstruct.zoom.flavor": "Gözlerini daha hızlı yapar!",
   "modifier.tconstruct.zoom.description": "Eğilirken etkikeşme durumunda uzaktaki nesneleri görebilmene izin verir",
   "modifier.tconstruct.slurping": "Höpür Höpür",
-  "modifier.tconstruct.slurping.flavor": "Höööööpüüüürtüüüüü!",
+  "modifier.tconstruct.slurping.flavor": "Höööööpüüüürrrrtttt!",
   "modifier.tconstruct.slurping.description": "Allows drinking the fluid in a helmet when interacting",
   "modifier.tconstruct.aqua_affinity": "Su Adaptasyonu",
   "modifier.tconstruct.aqua_affinity.flavor": "Su ile bir olur!",
@@ -2027,7 +2027,7 @@
 
   "_comment": "Zırh - Bot",
   "modifier.tconstruct.feather_falling": "Tüy Düşüşü",
-  "modifier.tconstruct.feather_falling.flavor": "TüYer",
+  "modifier.tconstruct.feather_falling.flavor": "Tüyer",
   "modifier.tconstruct.feather_falling.description": "Düşüşü yavaşlatarak azaltılmış hasara neden olur",
   "modifier.tconstruct.feather_falling.resistance": "Düşüş Direnci",
   "modifier.tconstruct.long_fall": "Uzun Düşüş",
@@ -2187,13 +2187,13 @@
   "modifier.tconstruct.wetting.description": "Hasar alınca kendini ıslatırsın ayrıca tutulan sıvının etkileri uygulanır",
   "modifier.tconstruct.spitting": "Tükürme",
   "modifier.tconstruct.spitting.flavor": "Daha iyi lama ol",
-  "modifier.tconstruct.spitting.description": "Aracı tanktan uzun mesafeli sıvılar ateşlemek için yükleyebilir ve etkileri hedefe uygular. Yay istatistiklerinden etkilenir.",
+  "modifier.tconstruct.spitting.description": "Aracı tanktan uzun menzilli sıvılar ateşlemek için yükleyebilir ve etkileri hedefe uygular. Yay istatistiklerinden etkilenir.",
 
   "_comment": "Fazladan değiştirici yuvaları",
   "modifier.tconstruct.creative_slot": "Yaratıcı Yuva",
   "modifier.tconstruct.creative_slot.flavor": "Kirli Hileci!",
   "modifier.tconstruct.creative_slot.description": "Fazladan değiştirici yuvası alarak hile yaptı",
-  "modifier.tconstruct.stat_override": "İstatistik Geçersiz Kılma",
+  "modifier.tconstruct.stat_override": "İstatistik Çiğneme",
   "modifier.tconstruct.stat_override.flavor": "Bilgisayarcı Korsan!",
   "modifier.tconstruct.stat_override.description": "Araç istatikleri komutlarla değiştirildi",
   "modifier.tconstruct.stat_override.bonuses": "Fazlalıklar:",
@@ -2342,7 +2342,7 @@
 
   "__comment": "5. Düzey Kişisel Özellikler",
   "modifier.tconstruct.enderporting": "Ender Geçişimi",
-  "modifier.tconstruct.enderporting.flavor": "Ender balçığının gücünü ellerine al",
+  "modifier.tconstruct.enderporting.flavor": "Enderbalçığının gücünü ellerine al",
   "modifier.tconstruct.enderporting.description": "Araç tutucusunu çıkarılan bloğun veya öldürülen varlığın yerine ışınlar",
 
 
@@ -2414,7 +2414,7 @@
   "modifier.tconstruct.strong_bones.description": "Süt içmek direnci geçici olarak artırır",
   "modifier.tconstruct.frosttouch": "Don Dokunuşu",
   "modifier.tconstruct.frosttouch.flavor": "Buzul dokunuş düşmanları uzak tutuyor",
-  "modifier.tconstruct.frosttouch.description": "Okların yavaşlık vermesini sağlar ayrıca süt içmek yakın mesafeli saldırılarda da yavaşlık verir",
+  "modifier.tconstruct.frosttouch.description": "Okların yavaşlık vermesini sağlar ayrıca süt içmek yakın menzilli saldırılarda da yavaşlık verir",
   "modifier.tconstruct.withered": "Witherlı",
   "modifier.tconstruct.withered.flavor": "Çürümenin sırrı",
   "modifier.tconstruct.withered.description": "Saldırdığı hedefi witherlar, süt içince wither etkisi hızlanır",
@@ -2426,13 +2426,13 @@
   "modifier.tconstruct.mithridatism.description": "Zehirlere karşı bağışıklı olmaya başla, keşke geçerli zehirlere etkili olsaydı...",
   "modifier.tconstruct.wildfire": "Vahşi Ateş",
   "modifier.tconstruct.wildfire.flavor": "Ateş yayılıp duruyor!",
-  "modifier.tconstruct.wildfire.description": "Eğer yanııyorsan hedefin yanma süresini artırırsın",
+  "modifier.tconstruct.wildfire.description": "Eğer yanılıyorsan hedefin yanma süresini artırırsın",
   "modifier.tconstruct.plague": "Salgın",
   "modifier.tconstruct.plague.flavor": "Çok bulaşıcı",
-  "modifier.tconstruct.plague.description": "Yakın mesafeli saldırıların hedefe üzerindeki bütün olumsuz etkileri bulaştırır",
+  "modifier.tconstruct.plague.description": "Yakın menzilli saldırıların hedefe üzerindeki bütün olumsuz etkileri bulaştırır",
   "modifier.tconstruct.breathtaking": "Soluk Kesici",
   "modifier.tconstruct.breathtaking.flavor": "Tek kelimeyle muhteşem",
-  "modifier.tconstruct.breathtaking.description": "Yakın mesafeli saldırılar düşmanların havasını alır",
+  "modifier.tconstruct.breathtaking.description": "Yakın menzilli saldırılar düşmanların havasını alır",
   "modifier.tconstruct.firebreath": "Ateş Soluğu",
   "modifier.tconstruct.firebreath.flavor": "Oldukça acılı",
   "modifier.tconstruct.firebreath.description": "Kaskınla etkileşim kurarak ateş topu fırlatırsın",
@@ -2540,8 +2540,8 @@
 
   "_comment": "İstatistik",
 
-  "tool_stat.tconstruct.attack_speed": "Yakın Mesafeli Hızı: ",
-  "tool_stat.tconstruct.attack_speed.description": "Hesaplamalarda ana yakın mesafeli saldırı hızı değeridir.\nYaklaşık olarak saniye başı tüm güçle yapılan saldırıların sayısıdır.",
+  "tool_stat.tconstruct.attack_speed": "Yakın Menzilli Hızı: ",
+  "tool_stat.tconstruct.attack_speed.description": "Hesaplamalarda ana yakın menzilli saldırı hızı değeridir.\nYaklaşık olarak saniye başı tüm güçle yapılan saldırıların sayısıdır.",
   "tool_stat.tconstruct.durability": "Dayanaklılık: ",
   "tool_stat.tconstruct.durability.description": "Hesaplamalarda ana dayanıklılık değeridir.\nGenelde aracın genel dayanıklılığının ayrılmaz bir parçasıdır.",
   "tool_stat.tconstruct.use_item_speed": "Eşya Kullanma Hızı: ",
@@ -2552,8 +2552,8 @@
   "tool_stat.tconstruct.mining_speed.description": "Bu malzemeden yapılan araç başının ne kadar hızlı blok çıkarabileceğidir.\nAracın başka parçaları tarafından etkilenebilir.",
   "tool_stat.tconstruct.harvest_tier": "Çıkarım Düzeyi: ",
   "tool_stat.tconstruct.harvest_tier.description": "Bu malzemeden yapılan araç başının hangi aralıkta blok çıkarabileceğidir.",
-  "tool_stat.tconstruct.attack_damage": "Yakın Mesafeli Hasarı: ",
-  "tool_stat.tconstruct.attack_damage.description": "Hesaplamalarda ana yakın mesafeli saldırı hasarı değeridir.\nSon sonuç araca ve araçta kullanılan öbür bileşenlere bağlıdır.",
+  "tool_stat.tconstruct.attack_damage": "Yakın Menzilli Hasarı: ",
+  "tool_stat.tconstruct.attack_damage.description": "Hesaplamalarda ana yakın menzilli saldırı hasarı değeridir.\nSon sonuç araca ve araçta kullanılan öbür bileşenlere bağlıdır.",
 
   "tool_stat.tconstruct.armor": "Zırh: ",
   "tool_stat.tconstruct.armor.description": "Giyilidiğinde ne kadar koruduğudur.",
@@ -2769,12 +2769,12 @@
   "subtitles.tconstruct.block.ender_crystal.chime": "Ender Parçacığı Çınladı",
 
 
-  "_comment": "Kitap Dizileri ???? Çevirmen: Bu Bölüme Yeniden Bakın ????",
+  "_comment": "Kitap Dizileri",
 
   "book.tconstruct.material.part_builder": "Parça yapıcıda yapılabilir",
   "book.tconstruct.material.cast_from": "Kalıba %s dökümleyerek yapılabilir",
-  "book.tconstruct.material.composite_from": "%s yapmak için %s parçasının üzerine dökümlenebilir",
-  "book.tconstruct.material.skull_from": "Enderbalçığını %s dökümleme çanağında dökümlenerek yapılabilir",
+  "book.tconstruct.material.composite_from": "%s ergimişini %s parçasının üzerine dökümleyerek yapılabilir",
+  "book.tconstruct.material.skull_from": "Enderbalçığını %s üzerine döküm çanağında dökümleyerek yapılabilir",
   "book.tconstruct.modifiers.effect": "Etkileri:",
   "book.tconstruct.tool.properties": "Özellikleri:",
 
@@ -2901,7 +2901,7 @@
   "advancements.tconstruct.tools.perfect_aim.title": "Kusursuz Nişan",
   "advancements.tconstruct.tools.perfect_aim.description": "Doğruluğu 1.0 olan bir yay üret",
   "advancements.tconstruct.tools.one_shot.title": "Bir Vuruş",
-  "advancements.tconstruct.tools.one_shot.description": "Bir kritik olmayan vuruşta koşulsuz olarak herhangi bir sıradan yaratığı öldürebilen yakın mesafeli silah üret (21 düz hasar veya fazlası)",
+  "advancements.tconstruct.tools.one_shot.description": "Bir kritik olmayan vuruşta koşulsuz olarak herhangi bir sıradan yaratığı öldürebilen yakın menzilli silah üret (21 düz hasar veya fazlası)",
   "advancements.tconstruct.tools.material_master.title": "Malzeme Ustası",
   "advancements.tconstruct.tools.material_master.description": "Varsayılan tüm malzemeleri en az bir kez kullan",
 
@@ -2964,8 +2964,8 @@
   "advancements.tconstruct.world.slime_collector.description": "Tüm 6 balçık türünü elde et",
   "advancements.tconstruct.world.slime_sling.title": "Sapan Uzmanı",
   "advancements.tconstruct.world.slime_sling.description": "Yeterince her 4 balçık sapanı türünü kullan",
-  "advancements.tconstruct.world.piggybackpack.title": "Domuz Omuzda Taşıyıcısı",
-  "advancements.tconstruct.world.piggybackpack.description": "Omuzda taşıyıcı ile bir domuz kaldır"
+  "advancements.tconstruct.world.piggybackpack.title": "Domuzu Sırtla",
+  "advancements.tconstruct.world.piggybackpack.description": "Sırlama çantası ile bir domuz kaldır"
 
 }
 
