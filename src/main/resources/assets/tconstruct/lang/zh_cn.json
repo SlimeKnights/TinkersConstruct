@@ -1513,7 +1513,7 @@
   "material.tconstruct.skyslime_vine": "黏液藤蔓",
   "material.tconstruct.skyslime_vine.flavor": "掠翅若蝶，蛰刺似蜂",
   "material.tconstruct.skyslime_vine.encyclopedia": "取消不站在地面时的挖掘速度削减。",
-  "material.tconstruct.skyslime_vine.ranged": "不站在地面或拉着梯子时使精确度+0.5。",
+  "material.tconstruct.skyslime_vine.ranged": "不站在地面或拉着梯子时精确度+0.5。",
 
 
   "__comment": "Tier 3 Materials",
