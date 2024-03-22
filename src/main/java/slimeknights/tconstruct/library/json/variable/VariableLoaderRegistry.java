@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.json.variable;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSyntaxException;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry;
@@ -23,6 +24,17 @@ public class VariableLoaderRegistry<T extends IHaveLoader<T>> extends GenericLoa
   public VariableLoaderRegistry(FloatFunction<? extends T> constantConstructor) {
     super(true);
     this.constantConstructor = constantConstructor;
+  }
+
+  @Override
+  public T convert(JsonElement element, String key) throws JsonSyntaxException {
+    if (element.isJsonPrimitive()) {
+      JsonPrimitive primitive = element.getAsJsonPrimitive();
+      if (primitive.isNumber()) {
+        return constantConstructor.apply(primitive.getAsFloat());
+      }
+    }
+    return super.convert(element, key);
   }
 
   @Override

@@ -4,7 +4,6 @@ import com.google.gson.JsonObject;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.GsonHelper;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -47,8 +46,7 @@ public record SetStatModule<T>(IToolStat<T> stat, T value, ModifierModuleConditi
   public static final IGenericLoader<SetStatModule<?>> LOADER = new IGenericLoader<>() {
     @Override
     public SetStatModule<?> deserialize(JsonObject json) {
-      IToolStat<?> stat = ToolStats.fromJson(GsonHelper.getAsString(json, "stat"));
-      return deserialize(json, stat);
+      return deserialize(json, ToolStats.LOADER.getAndDeserialize(json, "stat"));
     }
 
     /** Handles generics for deserializing the value */
@@ -61,7 +59,7 @@ public record SetStatModule<T>(IToolStat<T> stat, T value, ModifierModuleConditi
     @Override
     public void serialize(SetStatModule<?> object, JsonObject json) {
       object.condition.serializeInto(json);
-      json.addProperty("stat", object.stat.getName().toString());
+      json.add("stat", ToolStats.LOADER.serialize(object.stat));
       serializeValue(object, json);
     }
 
@@ -72,8 +70,7 @@ public record SetStatModule<T>(IToolStat<T> stat, T value, ModifierModuleConditi
 
     @Override
     public SetStatModule<?> fromNetwork(FriendlyByteBuf buffer) {
-      IToolStat<?> stat = ToolStats.fromNetwork(buffer);
-      return fromNetwork(buffer, stat);
+      return fromNetwork(buffer, ToolStats.LOADER.fromNetwork(buffer));
     }
 
     /** Handles generics for reading the value from network */
@@ -85,7 +82,7 @@ public record SetStatModule<T>(IToolStat<T> stat, T value, ModifierModuleConditi
 
     @Override
     public void toNetwork(SetStatModule<?> object, FriendlyByteBuf buffer) {
-      buffer.writeUtf(object.stat.getName().toString());
+      ToolStats.LOADER.toNetwork(object.stat, buffer);
       writeValue(object, buffer);
       object.condition.toNetwork(buffer);
     }

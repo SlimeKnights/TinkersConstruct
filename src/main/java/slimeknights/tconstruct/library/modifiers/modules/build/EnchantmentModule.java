@@ -1,24 +1,23 @@
 package slimeknights.tconstruct.library.modifiers.modules.build;
 
 import com.google.common.collect.ImmutableSet;
-import com.google.gson.JsonObject;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minecraft.core.Registry;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.registries.ForgeRegistries;
+import slimeknights.mantle.data.loadable.Loadables;
+import slimeknights.mantle.data.loadable.field.LoadableField;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.block.BlockPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
@@ -28,18 +27,21 @@ import slimeknights.tconstruct.library.modifiers.hook.mining.HarvestEnchantments
 import slimeknights.tconstruct.library.modifiers.modules.IntLevelModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition;
+import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition.ConditionalModifierModule;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.utils.JsonUtils;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 /** Modules that add enchantments to a tool. */
-public interface EnchantmentModule extends ModifierModule, IntLevelModule {
+public interface EnchantmentModule extends ModifierModule, IntLevelModule, ConditionalModifierModule {
+  /* Common fields */
+  LoadableField<Enchantment,EnchantmentModule> ENCHANTMENT = Loadables.ENCHANTMENT.field("name", EnchantmentModule::enchantment);
+  LoadableField<IJsonPredicate<BlockState>,EnchantmentModule> BLOCK = BlockPredicate.LOADER.field("block", EnchantmentModule::block);
+  LoadableField<IJsonPredicate<LivingEntity>,EnchantmentModule> HOLDER = LivingEntityPredicate.LOADER.field("holder", EnchantmentModule::holder);
 
   /** Gets the enchantment for this module */
   Enchantment enchantment();
@@ -53,9 +55,6 @@ public interface EnchantmentModule extends ModifierModule, IntLevelModule {
   default IJsonPredicate<LivingEntity> holder() {
     return LivingEntityPredicate.ANY;
   }
-
-  /** Gets the modifier conditions */
-  ModifierModuleCondition condition();
 
   /**
    * Creates a builder for a constant enchantment
@@ -117,79 +116,10 @@ public interface EnchantmentModule extends ModifierModule, IntLevelModule {
     }
   }
 
-  /**
-   * Loader shared logic for enchantment modules
-   */
-  @RequiredArgsConstructor
-  abstract class Loader<T extends EnchantmentModule> implements IGenericLoader<T> {
-    private final boolean harvest;
-
-    /** Creates a module instance for JSON */
-    protected abstract T deserialize(Enchantment enchantment, int level, ModifierModuleCondition conditions, IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder, JsonObject json);
-    /** Creates a module instance for the buffer */
-    protected abstract T fromNetwork(Enchantment enchantment, int level, ModifierModuleCondition conditions, IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder, FriendlyByteBuf buffer);
-
-    @Override
-    public T deserialize(JsonObject json) {
-      Enchantment enchantment = JsonHelper.getAsEntry(ForgeRegistries.ENCHANTMENTS, json, "name");
-      int level = JsonUtils.getIntMin(json, "level", 1);
-      ModifierModuleCondition condition = ModifierModuleCondition.deserializeFrom(json);
-      if (harvest) {
-        return deserialize(enchantment, level, condition, BlockPredicate.LOADER.getAndDeserialize(json, "block"), LivingEntityPredicate.LOADER.getAndDeserialize(json, "holder"), json);
-      } else {
-        return deserialize(enchantment, level, condition, BlockPredicate.ANY, LivingEntityPredicate.ANY, json);
-      }
-    }
-
-    @Override
-    public void serialize(T object, JsonObject json) {
-      object.condition().serializeInto(json);
-      json.addProperty("name", Objects.requireNonNull(Registry.ENCHANTMENT.getKey(object.enchantment())).toString());
-      json.addProperty("level", object.level());
-      if (harvest) {
-        json.add("block", BlockPredicate.LOADER.serialize(object.block()));
-        json.add("holder", LivingEntityPredicate.LOADER.serialize(object.holder()));
-      }
-    }
-
-    @Override
-    public T fromNetwork(FriendlyByteBuf buffer) {
-      Enchantment enchantment = buffer.readRegistryIdUnsafe(ForgeRegistries.ENCHANTMENTS);
-      int level = buffer.readVarInt();
-      ModifierModuleCondition condition = ModifierModuleCondition.fromNetwork(buffer);
-      if (harvest) {
-        return fromNetwork(enchantment, level, condition, BlockPredicate.LOADER.fromNetwork(buffer), LivingEntityPredicate.LOADER.fromNetwork(buffer), buffer);
-      } else {
-        return fromNetwork(enchantment, level, condition, BlockPredicate.ANY, LivingEntityPredicate.ANY, buffer);
-      }
-    }
-
-    @Override
-    public void toNetwork(T object, FriendlyByteBuf buffer) {
-      buffer.writeRegistryIdUnsafe(ForgeRegistries.ENCHANTMENTS, object.enchantment());
-      buffer.writeVarInt(object.level());
-      object.condition().toNetwork(buffer);
-      if (harvest) {
-        BlockPredicate.LOADER.toNetwork(object.block(), buffer);
-        LivingEntityPredicate.LOADER.toNetwork(object.holder(), buffer);
-      }
-    }
-  }
-
   /** Implementation of a simple constant enchantment for the current tool */
   record Constant(Enchantment enchantment, int level, ModifierModuleCondition condition) implements EnchantmentModule, EnchantmentModifierHook {
     private static final List<ModifierHook<?>> DEFAULT_HOOKS = ModifierModule.<Constant>defaultHooks(TinkerHooks.ENCHANTMENTS);
-    public static final IGenericLoader<Constant> LOADER = new EnchantmentModule.Loader<>(false) {
-      @Override
-      protected Constant deserialize(Enchantment enchantment, int level, ModifierModuleCondition conditions, IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder, JsonObject json) {
-        return new Constant(enchantment, level, conditions);
-      }
-
-      @Override
-      protected Constant fromNetwork(Enchantment enchantment, int level, ModifierModuleCondition conditions, IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder, FriendlyByteBuf buffer) {
-        return new Constant(enchantment, level, conditions);
-      }
-    };
+    public static final RecordLoadable<Constant> LOADER = RecordLoadable.create(ENCHANTMENT, IntLevelModule.FIELD, ModifierModuleCondition.FIELD, Constant::new);
 
     public Constant(Enchantment enchantment, int level) {
       this(enchantment, level, ModifierModuleCondition.ANY);
@@ -224,29 +154,7 @@ public interface EnchantmentModule extends ModifierModule, IntLevelModule {
   /** Enchantment module that can condition on the block mined or the entity mining. */
   record MainHandHarvest(Enchantment enchantment, int level, ModifierModuleCondition condition, ResourceLocation conditionFlag, IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder) implements EnchantmentModule, EnchantmentModifierHook, BlockHarvestModifierHook {
     private static final List<ModifierHook<?>> DEFAULT_HOOKS = ModifierModule.<MainHandHarvest>defaultHooks(TinkerHooks.ENCHANTMENTS, TinkerHooks.BLOCK_HARVEST);
-    public static final IGenericLoader<MainHandHarvest> LOADER = new EnchantmentModule.Loader<>(true) {
-      @Override
-      protected MainHandHarvest deserialize(Enchantment enchantment, int level, ModifierModuleCondition conditions, IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder, JsonObject json) {
-        return new MainHandHarvest(enchantment, level, conditions, JsonHelper.getResourceLocation(json, "condition_flag"), block, holder);
-      }
-
-      @Override
-      public void serialize(MainHandHarvest object, JsonObject json) {
-        super.serialize(object, json);
-        json.addProperty("condition_flag", object.conditionFlag.toString());
-      }
-
-      @Override
-      protected MainHandHarvest fromNetwork(Enchantment enchantment, int level, ModifierModuleCondition conditions, IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder, FriendlyByteBuf buffer) {
-        return new MainHandHarvest(enchantment, level, conditions, buffer.readResourceLocation(), block, holder);
-      }
-
-      @Override
-      public void toNetwork(MainHandHarvest object, FriendlyByteBuf buffer) {
-        super.toNetwork(object, buffer);
-        buffer.writeResourceLocation(object.conditionFlag);
-      }
-    };
+    public static final RecordLoadable<MainHandHarvest> LOADER = RecordLoadable.create(ENCHANTMENT, IntLevelModule.FIELD, ModifierModuleCondition.FIELD, Loadables.RESOURCE_LOCATION.field("condition_flag", MainHandHarvest::conditionFlag), BLOCK, HOLDER, MainHandHarvest::new);
 
     @Override
     public void startHarvest(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context) {
@@ -290,29 +198,7 @@ public interface EnchantmentModule extends ModifierModule, IntLevelModule {
   /** Enchantment module that can condition on the block mined or the entity mining on armor. Requires the harvesting be done with a tinker tool. */
   record ArmorHarvest(Enchantment enchantment, int level, ModifierModuleCondition condition, Set<EquipmentSlot> slots, IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder) implements EnchantmentModule, HarvestEnchantmentsModifierHook {
     private static final List<ModifierHook<?>> DEFAULT_HOOKS = ModifierModule.<ArmorHarvest>defaultHooks(TinkerHooks.HARVEST_ENCHANTMENTS);
-    public static final IGenericLoader<ArmorHarvest> LOADER = new EnchantmentModule.Loader<>(true) {
-      @Override
-      protected ArmorHarvest deserialize(Enchantment enchantment, int level, ModifierModuleCondition conditions, IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder, JsonObject json) {
-        return new ArmorHarvest(enchantment, level, conditions, JsonUtils.deserializeEnumSet(json, "slots", EquipmentSlot.class), block, holder);
-      }
-
-      @Override
-      public void serialize(ArmorHarvest object, JsonObject json) {
-        super.serialize(object, json);
-        json.add("slots", JsonUtils.serializeEnumCollection(object.slots));
-      }
-
-      @Override
-      protected ArmorHarvest fromNetwork(Enchantment enchantment, int level, ModifierModuleCondition conditions, IJsonPredicate<BlockState> block, IJsonPredicate<LivingEntity> holder, FriendlyByteBuf buffer) {
-        return new ArmorHarvest(enchantment, level, conditions, JsonUtils.readEnumSet(buffer, EquipmentSlot.class), block, holder);
-      }
-
-      @Override
-      public void toNetwork(ArmorHarvest object, FriendlyByteBuf buffer) {
-        super.toNetwork(object, buffer);
-        JsonUtils.writeEnumCollection(buffer, object.slots);
-      }
-    };
+    public static final RecordLoadable<ArmorHarvest> LOADER = RecordLoadable.create(ENCHANTMENT, IntLevelModule.FIELD, ModifierModuleCondition.FIELD, TinkerLoadables.EQUIPMENT_SLOT_SET.field("slots", ArmorHarvest::slots), BLOCK, HOLDER, ArmorHarvest::new);
 
     @Override
     public void updateHarvestEnchantments(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context, EquipmentContext equipment, EquipmentSlot slot, Map<Enchantment,Integer> map) {

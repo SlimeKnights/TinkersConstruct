@@ -1,16 +1,12 @@
 package slimeknights.tconstruct.library.modifiers.modules.behavior;
 
-import com.google.gson.JsonObject;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -18,9 +14,11 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.common.ToolAction;
-import net.minecraftforge.registries.ForgeRegistries;
+import slimeknights.mantle.data.loadable.Loadables;
+import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
+import slimeknights.mantle.data.loadable.primitive.IntLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
@@ -28,16 +26,23 @@ import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolActionModifie
 import slimeknights.tconstruct.library.modifiers.hook.special.BlockTransformModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition;
+import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition.ConditionalModifierModule;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Module which transforms a block using a tool action
  */
-public record ToolActionTransformModule(ToolAction action, SoundEvent sound, boolean requireGround, int eventId, ModifierModuleCondition condition) implements BlockTransformModule, ToolActionModifierHook {
+public record ToolActionTransformModule(ToolAction action, SoundEvent sound, boolean requireGround, int eventId, ModifierModuleCondition condition) implements BlockTransformModule, ToolActionModifierHook, ConditionalModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.BLOCK_INTERACT, TinkerHooks.TOOL_ACTION);
+  public static final RecordLoadable<ToolActionTransformModule> LOADER = RecordLoadable.create(
+    Loadables.TOOL_ACTION.field("tool_action", ToolActionTransformModule::action),
+    Loadables.SOUND_EVENT.field("sound", ToolActionTransformModule::sound),
+    BooleanLoadable.INSTANCE.field("require_ground", ToolActionTransformModule::requireGround),
+    IntLoadable.FROM_MINUS_ONE.defaultField("event_id", -1, ToolActionTransformModule::eventId),
+    ModifierModuleCondition.FIELD,
+    ToolActionTransformModule::new);
 
   @Override
   public List<ModifierHook<?>> getDefaultHooks() {
@@ -89,50 +94,6 @@ public record ToolActionTransformModule(ToolAction action, SoundEvent sound, boo
   public IGenericLoader<? extends ModifierModule> getLoader() {
     return LOADER;
   }
-
-  public static final IGenericLoader<ToolActionTransformModule> LOADER = new IGenericLoader<>() {
-    @Override
-    public ToolActionTransformModule deserialize(JsonObject json) {
-      return new ToolActionTransformModule(
-        ToolAction.get(GsonHelper.getAsString(json, "tool_action")),
-        JsonHelper.getAsEntry(ForgeRegistries.SOUND_EVENTS, json, "sound"),
-        GsonHelper.getAsBoolean(json, "require_ground"),
-        GsonHelper.getAsInt(json, "event_id", -1),
-        ModifierModuleCondition.deserializeFrom(json)
-      );
-    }
-
-    @Override
-    public void serialize(ToolActionTransformModule object, JsonObject json) {
-      object.condition.serializeInto(json);
-      json.addProperty("tool_action", object.action.name());
-      json.addProperty("sound", Objects.requireNonNull(Registry.SOUND_EVENT.getKey(object.sound)).toString());
-      json.addProperty("require_ground", object.requireGround);
-      if (object.eventId != -1) {
-        json.addProperty("event_id", object.eventId);
-      }
-    }
-
-    @Override
-    public ToolActionTransformModule fromNetwork(FriendlyByteBuf buffer) {
-      return new ToolActionTransformModule(
-        ToolAction.get(buffer.readUtf(Short.MAX_VALUE)),
-        buffer.readRegistryIdUnsafe(ForgeRegistries.SOUND_EVENTS),
-        buffer.readBoolean(),
-        buffer.readShort(),
-        ModifierModuleCondition.fromNetwork(buffer)
-      );
-    }
-
-    @Override
-    public void toNetwork(ToolActionTransformModule object, FriendlyByteBuf buffer) {
-      buffer.writeUtf(object.action.name());
-      buffer.writeRegistryIdUnsafe(ForgeRegistries.SOUND_EVENTS, object.sound);
-      buffer.writeBoolean(object.requireGround);
-      buffer.writeShort(object.eventId);
-      object.condition.toNetwork(buffer);
-    }
-  };
 
 
   /* Builder */

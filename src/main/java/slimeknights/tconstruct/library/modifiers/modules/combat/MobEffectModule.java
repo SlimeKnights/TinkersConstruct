@@ -1,12 +1,9 @@
 package slimeknights.tconstruct.library.modifiers.modules.combat;
 
-import com.google.gson.JsonObject;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minecraft.core.Registry;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -16,11 +13,11 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.phys.EntityHitResult;
-import net.minecraftforge.registries.ForgeRegistries;
+import slimeknights.mantle.data.loadable.Loadables;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.json.RandomLevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
@@ -31,6 +28,7 @@ import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileHitModifi
 import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileLaunchModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition;
+import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition.ConditionalModifierModule;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
@@ -40,7 +38,6 @@ import slimeknights.tconstruct.library.tools.nbt.NamespacedNBT;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Objects;
 
 import static slimeknights.tconstruct.TConstruct.RANDOM;
 
@@ -53,8 +50,15 @@ public record MobEffectModule(
   RandomLevelingValue level,
   RandomLevelingValue time,
   ModifierModuleCondition condition
-) implements OnAttackedModifierHook, MeleeHitModifierHook, ProjectileLaunchModifierHook, ProjectileHitModifierHook, ModifierModule {
+) implements OnAttackedModifierHook, MeleeHitModifierHook, ProjectileLaunchModifierHook, ProjectileHitModifierHook, ModifierModule, ConditionalModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.ON_ATTACKED, TinkerHooks.MELEE_HIT, TinkerHooks.PROJECTILE_LAUNCH, TinkerHooks.PROJECTILE_HIT);
+  public static final RecordLoadable<MobEffectModule> LOADER = RecordLoadable.create(
+    LivingEntityPredicate.LOADER.field("target", MobEffectModule::target),
+    Loadables.MOB_EFFECT.field("effect", MobEffectModule::effect),
+    RandomLevelingValue.LOADABLE.field("level", MobEffectModule::level),
+    RandomLevelingValue.LOADABLE.field("time", MobEffectModule::time),
+    ModifierModuleCondition.FIELD,
+    MobEffectModule::new);
 
   /** Creates a builder instance */
   public static MobEffectModule.Builder builder(MobEffect effect) {
@@ -130,46 +134,4 @@ public record MobEffectModule(
       return new MobEffectModule(target, effect, level, time, condition);
     }
   }
-
-  public static final IGenericLoader<MobEffectModule> LOADER = new IGenericLoader<>() {
-    @Override
-    public MobEffectModule deserialize(JsonObject json) {
-      return new MobEffectModule(
-        LivingEntityPredicate.LOADER.getAndDeserialize(json, "target"),
-        JsonHelper.getAsEntry(ForgeRegistries.MOB_EFFECTS, json, "effect"),
-        RandomLevelingValue.get(json, "level"),
-        RandomLevelingValue.get(json, "time"),
-        ModifierModuleCondition.deserializeFrom(json)
-      );
-    }
-
-    @Override
-    public void serialize(MobEffectModule object, JsonObject json) {
-      object.condition.serializeInto(json);
-      json.add("entity", LivingEntityPredicate.LOADER.serialize(object.target));
-      json.addProperty("effect", Objects.requireNonNull(Registry.MOB_EFFECT.getKey(object.effect)).toString());
-      json.add("level", object.level.serialize());
-      json.add("time", object.time.serialize());
-    }
-
-    @Override
-    public MobEffectModule fromNetwork(FriendlyByteBuf buffer) {
-      return new MobEffectModule(
-        LivingEntityPredicate.LOADER.fromNetwork(buffer),
-        buffer.readRegistryIdUnsafe(ForgeRegistries.MOB_EFFECTS),
-        RandomLevelingValue.fromNetwork(buffer),
-        RandomLevelingValue.fromNetwork(buffer),
-        ModifierModuleCondition.fromNetwork(buffer)
-      );
-    }
-
-    @Override
-    public void toNetwork(MobEffectModule object, FriendlyByteBuf buffer) {
-      LivingEntityPredicate.LOADER.toNetwork(object.target, buffer);
-      buffer.writeRegistryIdUnsafe(ForgeRegistries.MOB_EFFECTS, object.effect);
-      object.level.toNetwork(buffer);
-      object.time.toNetwork(buffer);
-      object.condition.toNetwork(buffer);
-    }
-  };
 }

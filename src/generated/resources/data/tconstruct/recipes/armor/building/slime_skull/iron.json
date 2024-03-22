@@ -10,7 +10,14 @@
     "tag": "tconstruct:ender_slime"
   },
   "result": {
+    "count": 1,
     "item": "tconstruct:slime_helmet",
-    "nbt": "{Damage:0,tic_broken:0b,tic_materials:[\"tconstruct:iron\"]}"
+    "nbt": {
+      "Damage": 0,
+      "tic_broken": 0,
+      "tic_materials": [
+        "tconstruct:iron"
+      ]
+    }
   }
 }

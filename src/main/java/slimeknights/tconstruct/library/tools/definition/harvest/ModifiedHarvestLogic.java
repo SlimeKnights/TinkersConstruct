@@ -11,11 +11,11 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.block.BlockPredicate;
 import slimeknights.mantle.data.predicate.block.SetBlockPredicate;
 import slimeknights.mantle.data.predicate.block.TagBlockPredicate;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
@@ -153,7 +153,7 @@ public class ModifiedHarvestLogic extends TagHarvestLogic {
     /** Parses a speed modifier from JSON */
     private static SpeedModifier fromJson(JsonObject json) {
       float modifier = GsonHelper.getAsFloat(json, "modifier");
-      IJsonPredicate<BlockState> predicate = BlockPredicate.LOADER.deserialize(GsonHelper.getAsJsonObject(json, "predicate"));
+      IJsonPredicate<BlockState> predicate = BlockPredicate.LOADER.getAndDeserialize(json, "predicate");
       return new SpeedModifier(modifier, predicate);
     }
 

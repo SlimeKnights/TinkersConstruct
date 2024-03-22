@@ -1,22 +1,16 @@
 package slimeknights.tconstruct.library.modifiers;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.With;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.GsonHelper;
+import slimeknights.mantle.data.loadable.primitive.IntLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 
-import java.lang.reflect.Type;
 import java.util.Objects;
 
 /**
@@ -24,8 +18,11 @@ import java.util.Objects;
  */
 @RequiredArgsConstructor
 public class ModifierEntry implements Comparable<ModifierEntry> {
-  /** JSON serializer instance for GSON */
-  public static final Serializer SERIALIZER = new Serializer();
+  /** Loadable instance for parsing */
+  public static final RecordLoadable<ModifierEntry> LOADABLE = RecordLoadable.create(
+    ModifierId.PARSER.field("name", ModifierEntry::getId),
+    IntLoadable.FROM_ONE.defaultField("level", 1, true, ModifierEntry::getLevel),
+    ModifierEntry::new);
 
   /** Modifier instance */
   private final LazyModifier modifier;
@@ -109,7 +106,7 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
    * @return  Parsed JSON
    */
   public static ModifierEntry fromJson(JsonObject json) {
-    return new ModifierEntry(ModifierId.PARSER.getFromJson(json, "name"), GsonHelper.getAsInt(json, "level", 1));
+    return LOADABLE.deserialize(json);
   }
 
   /**
@@ -118,8 +115,7 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
    * @return  Json object of entry
    */
   public JsonObject toJson(JsonObject json) {
-    json.addProperty("name", getId().toString());
-    json.addProperty("level", level);
+    LOADABLE.serialize(this, json);
     return json;
   }
 
@@ -137,7 +133,7 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
    * @return  Read entry
    */
   public static ModifierEntry read(FriendlyByteBuf buffer) {
-    return new ModifierEntry(ModifierId.PARSER.fromNetwork(buffer), buffer.readVarInt());
+    return LOADABLE.fromNetwork(buffer);
   }
 
   /**
@@ -145,8 +141,7 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
    * @param buffer  Buffer instance
    */
   public void write(FriendlyByteBuf buffer) {
-    buffer.writeResourceLocation(getId());
-    buffer.writeVarInt(level);
+    LOADABLE.toNetwork(this, buffer);
   }
 
   @Override
@@ -165,17 +160,5 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
   @Override
   public String toString() {
     return "ModifierEntry{" + modifier.getId() + ",level=" + level + '}';
-  }
-
-  private static class Serializer implements JsonDeserializer<ModifierEntry>, JsonSerializer<ModifierEntry> {
-    @Override
-    public ModifierEntry deserialize(JsonElement json, Type type, JsonDeserializationContext context) throws JsonParseException {
-      return fromJson(GsonHelper.convertToJsonObject(json, "modifier"));
-    }
-
-    @Override
-    public JsonElement serialize(ModifierEntry entry, Type type, JsonSerializationContext context) {
-      return entry.toJson();
-    }
   }
 }

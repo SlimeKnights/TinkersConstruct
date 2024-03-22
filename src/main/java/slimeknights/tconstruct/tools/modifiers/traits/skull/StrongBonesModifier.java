@@ -16,7 +16,7 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
-import slimeknights.tconstruct.library.modifiers.modules.behavior.CureOnRemovalModule;
+import slimeknights.tconstruct.library.modifiers.modules.unserializable.CureOnRemovalModule;
 import slimeknights.tconstruct.library.modifiers.modules.unserializable.ArmorLevelModule;
 import slimeknights.tconstruct.library.modifiers.spilling.ISpillingEffect;
 import slimeknights.tconstruct.library.modifiers.util.ModifierHookMap.Builder;

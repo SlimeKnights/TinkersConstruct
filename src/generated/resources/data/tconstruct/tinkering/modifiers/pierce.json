@@ -18,7 +18,6 @@
     {
       "type": "tconstruct:mob_effect",
       "effect": "tconstruct:pierce",
-      "entity": "mantle:any",
       "hooks": [
         "tconstruct:projectile_launch",
         "tconstruct:projectile_hit"
@@ -26,6 +25,7 @@
       "level": {
         "per_level": 1.0
       },
+      "target": "mantle:any",
       "time": {
         "flat": 2.0
       }

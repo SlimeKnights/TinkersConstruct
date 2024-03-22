@@ -47,7 +47,7 @@ public class ToolDefinitionLoader extends SimpleJsonResourceReloadListener {
     .registerTypeAdapter(MultiplierNBT.class, MultiplierNBT.SERIALIZER)
     .registerTypeAdapter(PartRequirement.class, PartRequirement.SERIALIZER)
     .registerTypeAdapter(DefinitionModifierSlots.class, DefinitionModifierSlots.SERIALIZER)
-    .registerTypeAdapter(ModifierEntry.class, ModifierEntry.SERIALIZER)
+    .registerTypeAdapter(ModifierEntry.class, ModifierEntry.LOADABLE)
     .registerTypeAdapter(ToolAction.class, ToolActionSerializer.INSTANCE)
     .registerTypeHierarchyAdapter(IAreaOfEffectIterator.class, IAreaOfEffectIterator.LOADER)
     .registerTypeHierarchyAdapter(IHarvestLogic.class, IHarvestLogic.LOADER)

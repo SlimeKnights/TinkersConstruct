@@ -2,7 +2,8 @@ package slimeknights.tconstruct.library.json;
 
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.GsonHelper;
+import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 
@@ -13,6 +14,12 @@ import slimeknights.tconstruct.library.tools.nbt.IToolContext;
  * @see RandomLevelingValue
  */
 public record LevelingValue(float flat, float eachLevel) {
+  /** Loadable instance for parsing */
+  public static final RecordLoadable<LevelingValue> LOADABLE = RecordLoadable.create(
+    FloatLoadable.ANY.defaultField("flat", 0f, LevelingValue::flat),
+    FloatLoadable.ANY.defaultField("each_level", 0f, LevelingValue::eachLevel),
+    LevelingValue::new);
+
   /** Computes the value for the given level */
   public float compute(float level) {
     return this.flat + this.eachLevel * level;
@@ -32,20 +39,13 @@ public record LevelingValue(float flat, float eachLevel) {
 
   /** Serializes this to JSON */
   public JsonObject serialize(JsonObject json) {
-    if (flat != 0) {
-      json.addProperty("flat", flat);
-    }
-    if (eachLevel != 0) {
-      json.addProperty("each_level", eachLevel);
-    }
+    LOADABLE.serialize(this, json);
     return json;
   }
 
   /** Deserializes this from JSON */
   public static LevelingValue deserialize(JsonObject json) {
-    float flat = GsonHelper.getAsFloat(json, "flat", 0);
-    float leveling = GsonHelper.getAsFloat(json, "each_level", 0);
-    return new LevelingValue(flat, leveling);
+    return LOADABLE.deserialize(json);
   }
 
 
@@ -53,15 +53,12 @@ public record LevelingValue(float flat, float eachLevel) {
 
   /** Writes this to the network */
   public void toNetwork(FriendlyByteBuf buffer) {
-    buffer.writeFloat(flat);
-    buffer.writeFloat(eachLevel);
+    LOADABLE.toNetwork(this, buffer);
   }
 
   /** Reads this from teh network */
   public static LevelingValue fromNetwork(FriendlyByteBuf buffer) {
-    float flat = buffer.readFloat();
-    float leveling = buffer.readFloat();
-    return new LevelingValue(flat, leveling);
+    return LOADABLE.fromNetwork(buffer);
   }
 
 

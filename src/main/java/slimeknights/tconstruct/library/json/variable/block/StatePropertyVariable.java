@@ -2,12 +2,13 @@ package slimeknights.tconstruct.library.json.variable.block;
 
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
-import slimeknights.mantle.data.loader.StringLoader;
+import slimeknights.mantle.data.loadable.primitive.StringLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 
 /** Fetches a value of an integer property */
 public record StatePropertyVariable(String name) implements BlockVariable {
-  public static final IGenericLoader<StatePropertyVariable> LOADER = new StringLoader<>("name", StatePropertyVariable::new, StatePropertyVariable::name);
+  public static final RecordLoadable<StatePropertyVariable> LOADER = RecordLoadable.create(StringLoadable.DEFAULT.field("name", StatePropertyVariable::name), StatePropertyVariable::new);
 
   @Override
   public float getValue(BlockState state) {

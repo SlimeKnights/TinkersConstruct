@@ -18,6 +18,7 @@
                 },
                 {
                   "type": "tconstruct:has_material",
+                  "index": 0,
                   "material": "tconstruct:blazing_bone"
                 }
               ]
@@ -44,6 +45,7 @@
                 },
                 {
                   "type": "tconstruct:has_material",
+                  "index": 0,
                   "material": "tconstruct:bone"
                 }
               ]
@@ -70,6 +72,7 @@
                 },
                 {
                   "type": "tconstruct:has_material",
+                  "index": 0,
                   "material": "tconstruct:copper"
                 }
               ]
@@ -96,6 +99,7 @@
                 },
                 {
                   "type": "tconstruct:has_material",
+                  "index": 0,
                   "material": "tconstruct:darkthread"
                 }
               ]
@@ -122,6 +126,7 @@
                 },
                 {
                   "type": "tconstruct:has_material",
+                  "index": 0,
                   "material": "tconstruct:ender_pearl"
                 }
               ]
@@ -148,6 +153,7 @@
                 },
                 {
                   "type": "tconstruct:has_material",
+                  "index": 0,
                   "material": "tconstruct:glass"
                 }
               ]
@@ -174,6 +180,7 @@
                 },
                 {
                   "type": "tconstruct:has_material",
+                  "index": 0,
                   "material": "tconstruct:gold"
                 }
               ]
@@ -200,6 +207,7 @@
                 },
                 {
                   "type": "tconstruct:has_material",
+                  "index": 0,
                   "material": "tconstruct:iron"
                 }
               ]
@@ -226,6 +234,7 @@
                 },
                 {
                   "type": "tconstruct:has_material",
+                  "index": 0,
                   "material": "tconstruct:necrotic_bone"
                 }
               ]
@@ -252,6 +261,7 @@
                 },
                 {
                   "type": "tconstruct:has_material",
+                  "index": 0,
                   "material": "tconstruct:pig_iron"
                 }
               ]
@@ -278,6 +288,7 @@
                 },
                 {
                   "type": "tconstruct:has_material",
+                  "index": 0,
                   "material": "tconstruct:rose_gold"
                 }
               ]
@@ -304,6 +315,7 @@
                 },
                 {
                   "type": "tconstruct:has_material",
+                  "index": 0,
                   "material": "tconstruct:rotten_flesh"
                 }
               ]
@@ -330,6 +342,7 @@
                 },
                 {
                   "type": "tconstruct:has_material",
+                  "index": 0,
                   "material": "tconstruct:string"
                 }
               ]
@@ -356,6 +369,7 @@
                 },
                 {
                   "type": "tconstruct:has_material",
+                  "index": 0,
                   "material": "tconstruct:venombone"
                 }
               ]

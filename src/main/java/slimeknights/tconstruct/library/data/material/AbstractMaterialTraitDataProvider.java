@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @SuppressWarnings({"unused", "SameParameterValue"})  // API
 public abstract class AbstractMaterialTraitDataProvider extends GenericDataProvider {
   private static final Gson GSON = (new GsonBuilder())
-    .registerTypeAdapter(ModifierEntry.class, ModifierEntry.SERIALIZER)
+    .registerTypeAdapter(ModifierEntry.class, ModifierEntry.LOADABLE)
     .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
     .setPrettyPrinting()
     .disableHtmlEscaping()

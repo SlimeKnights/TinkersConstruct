@@ -6,14 +6,22 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSyntaxException;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
+import slimeknights.mantle.data.loadable.Loadable;
+import slimeknights.mantle.data.loadable.field.DefaultingField;
+import slimeknights.mantle.data.loadable.field.LoadableField;
+import slimeknights.mantle.data.loadable.primitive.IntLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 
+import java.util.function.Function;
 import java.util.function.IntPredicate;
 
 /**
  * Predicate for checking if an integer is between the given values, inclusive.
  * This object is setup to simplify JSON parsing by creating an instance representing the minimum and maximum range values, then using that object to parse from JSON.
  */
-public record IntRange(int min, int max) implements IntPredicate {
+public record IntRange(int min, int max) implements IntPredicate, Loadable<IntRange> {
+  public static final RecordLoadable<IntRange> LOADABLE = RecordLoadable.create(IntLoadable.ANY_FULL.field("min", IntRange::min), IntLoadable.ANY_FULL.field("max", IntRange::max), IntRange::new);
+
   @Override
   public boolean test(int value) {
     return min <= value && value <= max;
@@ -75,13 +83,8 @@ public record IntRange(int min, int max) implements IntPredicate {
     }
   }
 
-  /**
-   * Reads an int range from JSON, the current object is used as minimum and maximum ranges.
-   * @param element  Json element to parse
-   * @return new instance parsed
-   * @throws JsonSyntaxException if unable to parse
-   */
-  public IntRange deserialize(JsonElement element) {
+  @Override
+  public IntRange convert(JsonElement element, String key) {
     // if an object, find min and max
     if (element.isJsonObject()) {
       JsonObject json = element.getAsJsonObject();
@@ -95,29 +98,20 @@ public record IntRange(int min, int max) implements IntPredicate {
       return new IntRange(min, max);
     }
     // if an int, treat as a single value
-    int value = GsonHelper.convertToInt(element, "integer");
-    validateJsonInt("integer", value);
+    int value = GsonHelper.convertToInt(element, key);
+    validateJsonInt(key, value);
     return new IntRange(value, value);
   }
 
-  /**
-   * Reads an int range from JSON, the current object is used as minimum and maximum ranges.
-   * @param parent    Object containing the int range
-   * @param key       Key in the object for the int range
-   * @throws JsonSyntaxException if unable to parse
-   */
+  @Override
   public IntRange getAndDeserialize(JsonObject parent, String key) {
     if (parent.has(key)) {
-      return deserialize(parent.get(key));
+      return convert(parent.get(key), key);
     }
     return this;
   }
 
-  /**
-   * Serializes the passed range, using this range as bounds to skip setting unneeded fields.
-   * @param range  Range to serialize
-   * @return  Serialized object
-   */
+  @Override
   public JsonElement serialize(IntRange range) {
     // if the range is exact, return an integer
     if (range.min == range.max) {
@@ -147,7 +141,13 @@ public record IntRange(int min, int max) implements IntPredicate {
   /* Network */
 
   /** Reads a range from the buffer */
-  public static IntRange fromNetwork(FriendlyByteBuf buffer) {
+  @Override
+  public IntRange fromNetwork(FriendlyByteBuf buffer) {
+    return readFromNetwork(buffer);
+  }
+
+  /** Reads a range from the buffer */
+  public static IntRange readFromNetwork(FriendlyByteBuf buffer) {
     int min = buffer.readVarInt();
     int max = buffer.readVarInt();
     return new IntRange(min, max);
@@ -157,5 +157,15 @@ public record IntRange(int min, int max) implements IntPredicate {
   public void toNetwork(FriendlyByteBuf buffer) {
     buffer.writeVarInt(min);
     buffer.writeVarInt(max);
+  }
+
+  @Override
+  public void toNetwork(IntRange object, FriendlyByteBuf buffer) {
+    object.toNetwork(buffer);
+  }
+
+  /** Creates a default field using this as the default, skipping serializing if its default. */
+  public <P> LoadableField<IntRange,P> defaultField(String key, Function<P,IntRange> getter) {
+    return new DefaultingField<>(this, key, this, false, getter);
   }
 }

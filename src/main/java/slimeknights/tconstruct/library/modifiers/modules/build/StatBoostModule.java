@@ -1,13 +1,11 @@
 package slimeknights.tconstruct.library.modifiers.modules.build;
 
-import com.google.gson.JsonObject;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.GsonHelper;
+import slimeknights.mantle.data.loadable.primitive.EnumLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
@@ -15,6 +13,7 @@ import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.ToolStatsModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition;
+import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition.ConditionalModifierModule;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.stat.INumericToolStat;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
@@ -24,8 +23,14 @@ import java.util.List;
 import java.util.Locale;
 
 /** Module that boosts a tool stat */
-public record StatBoostModule(INumericToolStat<?> stat, StatOperation operation, LevelingValue amount, ModifierModuleCondition condition) implements ToolStatsModifierHook, ModifierModule {
+public record StatBoostModule(INumericToolStat<?> stat, StatOperation operation, LevelingValue amount, ModifierModuleCondition condition) implements ToolStatsModifierHook, ModifierModule, ConditionalModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.TOOL_STATS);
+  public static RecordLoadable<StatBoostModule> LOADER = RecordLoadable.create(
+    ToolStats.NUMERIC_LOADER.field("stat", StatBoostModule::stat),
+    new EnumLoadable<>(StatOperation.class).field("operation", StatBoostModule::operation),
+    LevelingValue.LOADABLE.directField(StatBoostModule::amount),
+    ModifierModuleCondition.FIELD,
+    StatBoostModule::new);
 
   @Override
   public void addToolStats(ToolRebuildContext context, ModifierEntry modifier, ModifierStatsBuilder builder) {
@@ -43,42 +48,6 @@ public record StatBoostModule(INumericToolStat<?> stat, StatOperation operation,
   public IGenericLoader<? extends ModifierModule> getLoader() {
     return LOADER;
   }
-
-  public static IGenericLoader<StatBoostModule> LOADER = new IGenericLoader<>() {
-    @Override
-    public StatBoostModule deserialize(JsonObject json) {
-      INumericToolStat<?> stat = ToolStats.numericFromJson(GsonHelper.getAsString(json, "stat"));
-      StatOperation statOperation = JsonHelper.getAsEnum(json, "operation", StatOperation.class);
-      LevelingValue amount = LevelingValue.deserialize(json);
-      ModifierModuleCondition condition = ModifierModuleCondition.deserializeFrom(json);
-      return new StatBoostModule(stat, statOperation, amount, condition);
-    }
-
-    @Override
-    public void serialize(StatBoostModule object, JsonObject json) {
-      object.condition.serializeInto(json);
-      json.addProperty("stat", object.stat.getName().toString());
-      json.addProperty("operation", object.operation.getName());
-      object.amount.serialize(json);
-    }
-
-    @Override
-    public StatBoostModule fromNetwork(FriendlyByteBuf buffer) {
-      INumericToolStat<?> stat = ToolStats.numericFromNetwork(buffer);
-      StatOperation operation = buffer.readEnum(StatOperation.class);
-      LevelingValue amount = LevelingValue.fromNetwork(buffer);
-      ModifierModuleCondition condition = ModifierModuleCondition.fromNetwork(buffer);
-      return new StatBoostModule(stat, operation, amount, condition);
-    }
-
-    @Override
-    public void toNetwork(StatBoostModule object, FriendlyByteBuf buffer) {
-      buffer.writeUtf(object.stat.getName().toString());
-      buffer.writeEnum(object.operation);
-      object.amount.toNetwork(buffer);
-      object.condition.toNetwork(buffer);
-    }
-  };
 
 
   /* Builder */

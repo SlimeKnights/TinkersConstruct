@@ -1,18 +1,15 @@
 package slimeknights.tconstruct.library.json.variable.melee;
 
-import com.google.gson.JsonObject;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.LivingEntity;
-import slimeknights.mantle.data.loader.NestedLoader;
+import slimeknights.mantle.data.loadable.primitive.EnumLoadable;
+import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.json.variable.entity.EntityVariable;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
-import java.util.Locale;
 
 /**
  * Reads an entity variable from melee content
@@ -21,6 +18,12 @@ import java.util.Locale;
  * @param fallback Fallback if the entity is not found
  */
 public record EntityMeleeVariable(EntityVariable entity, WhichEntity which, float fallback) implements MeleeVariable {
+  public static final RecordLoadable<EntityMeleeVariable> LOADER = RecordLoadable.create(
+    EntityVariable.LOADER.directField("entity_type", EntityMeleeVariable::entity),
+    new EnumLoadable<>(WhichEntity.class).field("which", EntityMeleeVariable::which),
+    FloatLoadable.ANY.field("fallback", EntityMeleeVariable::fallback),
+    EntityMeleeVariable::new);
+
   @Override
   public float getValue(IToolStackView tool, @Nullable ToolAttackContext context, @Nullable LivingEntity attacker) {
     LivingEntity entity = null;
@@ -41,35 +44,4 @@ public record EntityMeleeVariable(EntityVariable entity, WhichEntity which, floa
   }
 
   public enum WhichEntity { ATTACKER, TARGET }
-
-  public static final IGenericLoader<EntityMeleeVariable> LOADER = new IGenericLoader<>() {
-    @Override
-    public EntityMeleeVariable deserialize(JsonObject json) {
-      NestedLoader.mapType(json, "entity_type");
-      return new EntityMeleeVariable(
-        EntityVariable.LOADER.deserialize(json),
-        JsonHelper.getAsEnum(json, "which", WhichEntity.class),
-        GsonHelper.getAsFloat(json, "fallback")
-      );
-    }
-
-    @Override
-    public void serialize(EntityMeleeVariable object, JsonObject json) {
-      NestedLoader.serializeInto(json, "entity_type", EntityVariable.LOADER, object.entity);
-      json.addProperty("which", object.which.toString().toLowerCase(Locale.ROOT));
-      json.addProperty("fallback", object.fallback);
-    }
-
-    @Override
-    public EntityMeleeVariable fromNetwork(FriendlyByteBuf buffer) {
-      return new EntityMeleeVariable(EntityVariable.LOADER.fromNetwork(buffer), buffer.readEnum(WhichEntity.class), buffer.readFloat());
-    }
-
-    @Override
-    public void toNetwork(EntityMeleeVariable object, FriendlyByteBuf buffer) {
-      EntityVariable.LOADER.toNetwork(object.entity, buffer);
-      buffer.writeEnum(object.which);
-      buffer.writeFloat(object.fallback);
-    }
-  };
 }

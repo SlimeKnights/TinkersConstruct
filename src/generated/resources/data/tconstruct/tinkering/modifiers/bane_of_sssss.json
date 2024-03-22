@@ -7,6 +7,7 @@
     },
     {
       "type": "tconstruct:conditional_melee_damage",
+      "attacker": "mantle:any",
       "each_level": 2.0,
       "percent": false,
       "target": {
@@ -26,7 +27,13 @@
     {
       "type": "tconstruct:mob_effect",
       "effect": "minecraft:slowness",
-      "entity": {
+      "hooks": [
+        "tconstruct:melee_hit"
+      ],
+      "level": {
+        "flat": 4.0
+      },
+      "target": {
         "type": "mantle:or",
         "predicates": [
           {
@@ -38,12 +45,6 @@
             "tag": "forge:creepers"
           }
         ]
-      },
-      "hooks": [
-        "tconstruct:melee_hit"
-      ],
-      "level": {
-        "flat": 4.0
       },
       "time": {
         "flat": 20.0,

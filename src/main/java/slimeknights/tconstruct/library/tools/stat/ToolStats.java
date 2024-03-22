@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.library.tools.stat;
 
 import com.google.gson.JsonSyntaxException;
-import io.netty.handler.codec.DecoderException;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import slimeknights.mantle.data.loadable.Loadable;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 
@@ -18,6 +18,23 @@ import java.util.Map;
  * Custom stat types need to be initialized before item registration for most uses, and need to be registered before worldload. Safe to statically register as done for TConstruct stat types
  */
 public class ToolStats {
+  /** Loader for general tool stats */
+  public static final Loadable<IToolStat<?>> LOADER = ToolStatId.PARSER.comapFlatMap((id, error) -> {
+    IToolStat<?> stat = ToolStats.getToolStat(id);
+    if (stat != null) {
+      return stat;
+    }
+    throw error.create("Unknown stat type " + id);
+  }, IToolStat::getName);
+  /** Loader that filters to only numeric tool stats */
+  public static final Loadable<INumericToolStat<?>> NUMERIC_LOADER = LOADER.comapFlatMap((stat, error) -> {
+    if (stat instanceof INumericToolStat<?> numeric) {
+      return numeric;
+    }
+    throw error.create("Invalid tool stat " + stat.getName() + ", must be a numeric stat");
+  }, stat -> stat);
+
+
   /** Map of ID to stat */
   private static final Map<ToolStatId,IToolStat<?>> ALL_STATS = new HashMap<>();
 
@@ -101,12 +118,7 @@ public class ToolStats {
 
   /** Reads a stat from the network */
   public static IToolStat<?> fromNetwork(FriendlyByteBuf buffer) {
-    ToolStatId id = new ToolStatId(buffer.readUtf(Short.MAX_VALUE));
-    IToolStat<?> stat = ToolStats.getToolStat(id);
-    if (stat == null) {
-      throw new DecoderException("Invalid stat type name " + id);
-    }
-    return stat;
+    return LOADER.fromNetwork(buffer);
   }
 
   /**
@@ -114,11 +126,7 @@ public class ToolStats {
    * @throws JsonSyntaxException if invalid
    */
   public static INumericToolStat<?> numericFromNetwork(FriendlyByteBuf buffer) {
-    IToolStat<?> stat = fromNetwork(buffer);
-    if (stat instanceof INumericToolStat<?> numeric) {
-      return numeric;
-    }
-    throw new DecoderException("Invalid tool stat " + stat.getName() + ", must be a numeric stat");
+    return NUMERIC_LOADER.fromNetwork(buffer);
   }
 
   /**

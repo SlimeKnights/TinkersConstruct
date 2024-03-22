@@ -45,7 +45,7 @@ public class MaterialTraitsManager extends MergingJsonDataLoader<MaterialTraits.
   public static final String FOLDER = "tinkering/materials/traits";
   private static final Gson GSON = (new GsonBuilder())
     .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
-    .registerTypeAdapter(ModifierEntry.class, ModifierEntry.SERIALIZER)
+    .registerTypeAdapter(ModifierEntry.class, ModifierEntry.LOADABLE)
     .setPrettyPrinting()
     .disableHtmlEscaping()
     .create();

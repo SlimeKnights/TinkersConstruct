@@ -8,12 +8,22 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
+import slimeknights.mantle.data.loadable.Loadable;
+import slimeknights.mantle.data.loadable.primitive.StringLoadable;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 
 import javax.annotation.Nullable;
 
 /** Represents a material that possibly has a variant. Variants are simply a different texture with the same material properties */
 public sealed interface MaterialVariantId permits MaterialId, MaterialVariantIdImpl {
+  Loadable<MaterialVariantId> LOADABLE = StringLoadable.DEFAULT.comapFlatMap((text, error) -> {
+    MaterialVariantId location = tryParse(text);
+    if (location == null) {
+      throw error.create("Expected a material variant ID, was '" + text + "'");
+    }
+    return location;
+  }, MaterialVariantId::toString);
+
   /** Variant ID that will match normal {@link MaterialId} with no variant, to allow checking for non-variant materials specifically. */
   String DEFAULT_VARIANT = "default";
 

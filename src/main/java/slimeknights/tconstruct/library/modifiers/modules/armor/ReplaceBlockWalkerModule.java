@@ -1,27 +1,23 @@
 package slimeknights.tconstruct.library.modifiers.modules.armor;
 
 import com.google.common.collect.ImmutableList;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.event.ForgeEventFactory;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.mantle.data.loadable.common.BlockStateLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.block.BlockPredicate;
-import slimeknights.mantle.util.JsonHelper;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.json.IntRange;
 import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolContextPredicate;
@@ -32,7 +28,6 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import java.util.List;
-import java.util.function.Function;
 
 import static slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition.MODIFIER_LEVEL;
 
@@ -43,6 +38,12 @@ import static slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCo
  * @param tool          Tool condition
  */
 public record ReplaceBlockWalkerModule(List<BlockReplacement> replacements, LevelingValue radius, IJsonPredicate<IToolContext> tool) implements ArmorWalkRadiusModule<Void>, ModifierModule {
+  public static final RecordLoadable<ReplaceBlockWalkerModule> LOADER = RecordLoadable.create(
+    BlockReplacement.LOADABLE.list().field("replace", ReplaceBlockWalkerModule::replacements),
+    LevelingValue.LOADABLE.field("radius", ReplaceBlockWalkerModule::radius),
+    ToolContextPredicate.LOADER.defaultField("tool", false, ReplaceBlockWalkerModule::tool),
+    ReplaceBlockWalkerModule::new);
+
   @Override
   public float getRadius(IToolStackView tool, ModifierEntry modifier) {
     return radius.compute(modifier.getLevel() + tool.getModifierLevel(TinkerModifiers.expanded.getId()));
@@ -80,87 +81,17 @@ public record ReplaceBlockWalkerModule(List<BlockReplacement> replacements, Leve
 
   /** Represents a single replacement handled by this module */
   private record BlockReplacement(IJsonPredicate<BlockState> target, BlockState state, IntRange level) {
-    /** Deserializes this replacement from JSON */
-    public static BlockReplacement deserialize(JsonObject json) {
-      return new BlockReplacement(
-        BlockPredicate.LOADER.getAndDeserialize(json, "target"),
-        JsonHelper.convertToBlockState(json), // pulling from this object directly means the keys used are block and properties
-        MODIFIER_LEVEL.getAndDeserialize(json, "modifier_level")
-      );
-    }
-
-    /** Serializes this object to JSON */
-    public JsonObject serialize() {
-      JsonObject json = new JsonObject();
-      json.add("target", BlockPredicate.LOADER.serialize(target));
-      JsonHelper.serializeBlockState(state, json);
-      MODIFIER_LEVEL.serializeInto(json, "modifier_level", level);
-      return json;
-    }
-
-    /** Reads from the network */
-    public static BlockReplacement fromNetwork(FriendlyByteBuf buffer) {
-      return new BlockReplacement(BlockPredicate.LOADER.fromNetwork(buffer), Block.stateById(buffer.readVarInt()), IntRange.fromNetwork(buffer));
-    }
-
-    /** Writes this to the network */
-    public void toNetwork(FriendlyByteBuf buffer) {
-      BlockPredicate.LOADER.toNetwork(target, buffer);
-      buffer.writeVarInt(Block.getId(state));
-      level.toNetwork(buffer);
-    }
+    public static final RecordLoadable<BlockReplacement> LOADABLE = RecordLoadable.create(
+      BlockPredicate.LOADER.field("target", BlockReplacement::target),
+      BlockStateLoadable.DIFFERENCE.directField(BlockReplacement::state), // pulling from this object directly means the keys used are block and properties
+      MODIFIER_LEVEL.defaultField("modifier_level", BlockReplacement::level),
+      BlockReplacement::new);
   }
 
   @Override
   public IGenericLoader<? extends ModifierModule> getLoader() {
     return LOADER;
   }
-
-  public static final IGenericLoader<ReplaceBlockWalkerModule> LOADER = new IGenericLoader<>() {
-    private static final Function<JsonObject, BlockReplacement> REPLACEMENT_PARSER = BlockReplacement::deserialize;
-
-    @Override
-    public ReplaceBlockWalkerModule deserialize(JsonObject json) {
-      return new ReplaceBlockWalkerModule(
-        JsonHelper.parseList(json, "replace", REPLACEMENT_PARSER),
-        LevelingValue.deserialize(GsonHelper.getAsJsonObject(json, "radius")),
-        ToolContextPredicate.LOADER.getAndDeserialize(json, "tool")
-      );
-    }
-
-    @Override
-    public void serialize(ReplaceBlockWalkerModule object, JsonObject json) {
-      if (object.tool != ToolContextPredicate.ANY) {
-        json.add("tool", ToolContextPredicate.LOADER.serialize(object.tool));
-      }
-      JsonArray array = new JsonArray();
-      for (BlockReplacement replacement : object.replacements) {
-        array.add(replacement.serialize());
-      }
-      json.add("replace", array);
-      json.add("radius", object.radius.serialize(new JsonObject()));
-    }
-
-    @Override
-    public ReplaceBlockWalkerModule fromNetwork(FriendlyByteBuf buffer) {
-      int max = buffer.readVarInt();
-      ImmutableList.Builder<BlockReplacement> builder = ImmutableList.builder();
-      for (int i = 0; i < max; i++) {
-        builder.add(BlockReplacement.fromNetwork(buffer));
-      }
-      return new ReplaceBlockWalkerModule(builder.build(), LevelingValue.fromNetwork(buffer), ToolContextPredicate.LOADER.fromNetwork(buffer));
-    }
-
-    @Override
-    public void toNetwork(ReplaceBlockWalkerModule object, FriendlyByteBuf buffer) {
-      buffer.writeVarInt(object.replacements.size());
-      for (BlockReplacement replacement : object.replacements) {
-        replacement.toNetwork(buffer);
-      }
-      object.radius.toNetwork(buffer);
-      ToolContextPredicate.LOADER.toNetwork(object.tool, buffer);
-    }
-  };
 
 
   /* Builder */
@@ -169,6 +100,7 @@ public record ReplaceBlockWalkerModule(List<BlockReplacement> replacements, Leve
     return new Builder();
   }
 
+  @SuppressWarnings("unused")  // API
   public static class Builder implements LevelingValue.Builder<ReplaceBlockWalkerModule> {
     private final ImmutableList.Builder<BlockReplacement> replacements = ImmutableList.builder();
     @Setter

@@ -1,27 +1,22 @@
 package slimeknights.tconstruct.library.utils;
 
-import com.google.common.collect.ImmutableSet;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSyntaxException;
 import net.minecraft.core.Registry;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.OnDatapackSyncEvent;
+import slimeknights.mantle.data.loadable.common.ColorLoadable;
 import slimeknights.mantle.network.packet.ISimplePacket;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 
 import javax.annotation.Nullable;
-import java.util.Collection;
-import java.util.Locale;
 import java.util.Objects;
-import java.util.Set;
 
 /** Helpers for a few JSON related tasks */
 public class JsonUtils {
@@ -133,68 +128,11 @@ public class JsonUtils {
     if (color == null || color.isEmpty()) {
       return -1;
     }
-    // only support 6 character colors here, simplified over the mantle version
-    int length = color.length();
-    if (length == 6) {
-      try {
-        return Integer.parseInt(color, 16);
-      } catch (NumberFormatException ex) {
-        // NO-OP
-      }
-    }
-    throw new JsonSyntaxException("Invalid color '" + color + "'");
+    return ColorLoadable.NO_ALPHA.parseColor(color);
   }
 
   /** Writes the color as a 6 character string */
   public static String colorToString(int color) {
-    return String.format("%06X", color);
-  }
-
-
-  /* Enum set helpers */
-
-  /**
-   * Parses a set from the given parent object
-   * @param parent      Parent object
-   * @param key         Key to fetch
-   * @param enumClass  Enum class
-   * @param <E>  Enum type
-   * @return  Set of elements
-   */
-  public static <E extends Enum<E>> Set<E> deserializeEnumSet(JsonObject parent, String key, Class<E> enumClass) {
-    return Set.copyOf(JsonHelper.parseList(parent, key, (e, k) -> JsonHelper.convertToEnum(e, k, enumClass)));
-  }
-
-  /** Writes an enum collection to a JSON array */
-  public static <E extends Enum<E>> JsonArray serializeEnumCollection(Collection<E> elements) {
-    JsonArray list = new JsonArray();
-    for (E element : elements) {
-      list.add(element.name().toLowerCase(Locale.ROOT));
-    }
-    return list;
-  }
-
-  /**
-   * Reads a set of enums from the buffer
-   * @param buffer     Buffer instance
-   * @param enumClass  Enum class
-   * @param <E>  Enum type
-   * @return  Set of elements
-   */
-  public static <E extends Enum<E>> Set<E> readEnumSet(FriendlyByteBuf buffer, Class<E> enumClass) {
-    int size = buffer.readVarInt();
-    ImmutableSet.Builder<E> builder = ImmutableSet.builder();
-    for (int i = 0; i < size; i++) {
-      builder.add(buffer.readEnum(enumClass));
-    }
-    return builder.build();
-  }
-
-  /** Writes a collection of enums to the buffer */
-  public static <E extends Enum<E>> void writeEnumCollection(FriendlyByteBuf buffer, Collection<E> collection) {
-    buffer.writeVarInt(collection.size());
-    for (E element : collection) {
-      buffer.writeEnum(element);
-    }
+    return ColorLoadable.NO_ALPHA.colorString(color);
   }
 }

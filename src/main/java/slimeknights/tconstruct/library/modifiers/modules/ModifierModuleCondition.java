@@ -3,9 +3,9 @@ package slimeknights.tconstruct.library.modifiers.modules;
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.Item;
+import slimeknights.mantle.data.loadable.field.LoadableField;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.library.json.IntRange;
 import slimeknights.tconstruct.library.json.predicate.tool.ItemToolPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolContextPredicate;
@@ -22,6 +22,14 @@ public record ModifierModuleCondition(IJsonPredicate<IToolContext> tool, IntRang
   public static final IntRange MODIFIER_LEVEL = new IntRange(1, Short.MAX_VALUE);
   /** Instance matching any tool context predicate and any modifier level */
   public static final ModifierModuleCondition ANY = new ModifierModuleCondition(ToolContextPredicate.ANY, MODIFIER_LEVEL);
+
+  /** Loadable for modifier module conditions, typically used with {@link RecordLoadable#directField(Function)} */
+  public static final RecordLoadable<ModifierModuleCondition> LOADABLE = RecordLoadable.create(
+    ToolContextPredicate.LOADER.defaultField("tool", false, ModifierModuleCondition::tool),
+    MODIFIER_LEVEL.defaultField("modifier_level", ModifierModuleCondition::modifierLevel),
+    ModifierModuleCondition::new);
+  /** Generic field instance used for most modules with conditions */
+  public static final LoadableField<ModifierModuleCondition,ConditionalModifierModule> FIELD = LOADABLE.directField(ConditionalModifierModule::condition);
 
   /** Swaps the tool condition for the passed condition */
   public ModifierModuleCondition with(IJsonPredicate<IToolContext> tool) {
@@ -68,35 +76,15 @@ public record ModifierModuleCondition(IJsonPredicate<IToolContext> tool, IntRang
   /** Reads this object from the network */
   public static ModifierModuleCondition fromNetwork(FriendlyByteBuf buffer) {
     IJsonPredicate<IToolContext> tool = ToolContextPredicate.LOADER.fromNetwork(buffer);
-    IntRange modifierLevel = IntRange.fromNetwork(buffer);
+    IntRange modifierLevel = IntRange.readFromNetwork(buffer);
     return new ModifierModuleCondition(tool, modifierLevel);
   }
 
-  /**
-   * Generic loader for modules with only the module conditions
-   */
-  public record Loader<T extends IHaveLoader<?>>(Function<ModifierModuleCondition,T> constructor, Function<T,ModifierModuleCondition> getter) implements IGenericLoader<T> {
-    @Override
-    public T deserialize(JsonObject json) {
-      return constructor.apply(deserializeFrom(json));
-    }
 
-    @Override
-    public void serialize(T object, JsonObject json) {
-      getter.apply(object).serializeInto(json);
-    }
-
-    @Override
-    public T fromNetwork(FriendlyByteBuf buffer) {
-      return constructor.apply(ModifierModuleCondition.fromNetwork(buffer));
-    }
-
-    @Override
-    public void toNetwork(T object, FriendlyByteBuf buffer) {
-      getter.apply(object).toNetwork(buffer);
-    }
+  /** Simple interface to allow a module to use  */
+  public interface ConditionalModifierModule {
+    ModifierModuleCondition condition();
   }
-
 
   /* Builder */
 

@@ -1,19 +1,15 @@
 package slimeknights.tconstruct.library.modifiers.modules.behavior;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import net.minecraft.core.Registry;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
-import net.minecraftforge.registries.ForgeRegistries;
+import slimeknights.mantle.data.loadable.Loadables;
+import slimeknights.mantle.data.loadable.primitive.StringLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.json.LevelingValue;
+import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
@@ -21,21 +17,29 @@ import slimeknights.tconstruct.library.modifiers.hook.behavior.AttributesModifie
 import slimeknights.tconstruct.library.modifiers.modules.AttributeModuleBuilder;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition;
+import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition.ConditionalModifierModule;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import java.util.Collection;
+import java.util.EnumSet;
 import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
 
 /**
  * Module to add an attribute to a tool
  */
-public record AttributeModule(String unique, Attribute attribute, Operation operation, LevelingValue amount, UUID[] slotUUIDs, ModifierModuleCondition condition) implements AttributesModifierHook, ModifierModule {
+public record AttributeModule(String unique, Attribute attribute, Operation operation, LevelingValue amount, UUID[] slotUUIDs, ModifierModuleCondition condition) implements AttributesModifierHook, ModifierModule, ConditionalModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.ATTRIBUTES);
+  public static final RecordLoadable<AttributeModule> LOADER = RecordLoadable.create(
+    StringLoadable.DEFAULT.field("unique", AttributeModule::unique),
+    Loadables.ATTRIBUTE.field("attribute", AttributeModule::attribute),
+    TinkerLoadables.OPERATION.field("operation", AttributeModule::operation),
+    LevelingValue.LOADABLE.directField(AttributeModule::amount),
+    TinkerLoadables.EQUIPMENT_SLOT_SET.field("slots", m -> uuidsToSlots(m.slotUUIDs)),
+    ModifierModuleCondition.FIELD,
+    (unique, attribute, operation, amount, slots, condition) -> new AttributeModule(unique, attribute, operation, amount, slotsToUUIDs(unique, slots), condition));
 
   /** Gets the UUID from a name */
   public static UUID getUUID(String name, EquipmentSlot slot) {
@@ -49,6 +53,17 @@ public record AttributeModule(String unique, Attribute attribute, Operation oper
       slotUUIDs[slot.getFilterFlag()] = getUUID(name, slot);
     }
     return slotUUIDs;
+  }
+
+  /** Maps the UUID array to a set for serializing */
+  public static Set<EquipmentSlot> uuidsToSlots(UUID[] uuids) {
+    Set<EquipmentSlot> set = EnumSet.noneOf(EquipmentSlot.class);
+    for (EquipmentSlot slot : EquipmentSlot.values()) {
+      if (uuids[slot.getFilterFlag()] != null) {
+        set.add(slot);
+      }
+    }
+    return set;
   }
 
   @Override
@@ -70,73 +85,6 @@ public record AttributeModule(String unique, Attribute attribute, Operation oper
   public IGenericLoader<? extends ModifierModule> getLoader() {
     return LOADER;
   }
-
-  public static final IGenericLoader<AttributeModule> LOADER = new IGenericLoader<>() {
-    private static final BiFunction<JsonElement, String, EquipmentSlot> SLOT_PARSER = (element, string) -> EquipmentSlot.byName(GsonHelper.convertToString(element, string));
-
-    @Override
-    public AttributeModule deserialize(JsonObject json) {
-      String unique = GsonHelper.getAsString(json, "unique");
-      return new AttributeModule(unique,
-        JsonHelper.getAsEntry(ForgeRegistries.ATTRIBUTES, json, "attribute"),
-        JsonHelper.getAsEnum(json, "operation", Operation.class),
-        LevelingValue.deserialize(json),
-        slotsToUUIDs(unique, JsonHelper.parseList(json, "slots", SLOT_PARSER)),
-        ModifierModuleCondition.deserializeFrom(json)
-      );
-    }
-
-    @Override
-    public void serialize(AttributeModule object, JsonObject json) {
-      object.condition.serializeInto(json);
-      json.addProperty("unique", object.unique);
-      json.addProperty("attribute", Objects.requireNonNull(Registry.ATTRIBUTE.getKey(object.attribute)).toString());
-      json.addProperty("operation", object.operation.name().toLowerCase(Locale.ROOT));
-      object.amount.serialize(json);
-      JsonArray array = new JsonArray();
-      for (EquipmentSlot slot : EquipmentSlot.values()) {
-        if (object.slotUUIDs[slot.getFilterFlag()] != null) {
-          array.add(slot.getName());
-        }
-      }
-      json.add("slots", array);
-    }
-
-    @Override
-    public AttributeModule fromNetwork(FriendlyByteBuf buffer) {
-      String name = buffer.readUtf(Short.MAX_VALUE);
-      int packed = buffer.readByte();
-      UUID[] slotUUIDs = new UUID[6];
-      for (EquipmentSlot slot : EquipmentSlot.values()) {
-        if ((packed & (1 << slot.getFilterFlag())) > 0) {
-          slotUUIDs[slot.getFilterFlag()] = getUUID(name, slot);
-        }
-      }
-      return new AttributeModule(name,
-        buffer.readRegistryIdUnsafe(ForgeRegistries.ATTRIBUTES),
-        buffer.readEnum(Operation.class),
-        LevelingValue.fromNetwork(buffer),
-        slotUUIDs,
-        ModifierModuleCondition.fromNetwork(buffer)
-      );
-    }
-
-    @Override
-    public void toNetwork(AttributeModule object, FriendlyByteBuf buffer) {
-      buffer.writeUtf(object.unique);
-      int packed = 0;
-      for (EquipmentSlot slot : EquipmentSlot.values()) {
-        if (object.slotUUIDs[slot.getFilterFlag()] != null) {
-          packed |= (1 << slot.getFilterFlag());
-        }
-      }
-      buffer.writeByte(packed);
-      buffer.writeRegistryIdUnsafe(ForgeRegistries.ATTRIBUTES, object.attribute);
-      buffer.writeEnum(object.operation);
-      object.amount.toNetwork(buffer);
-      object.condition.toNetwork(buffer);
-    }
-  };
 
 
   /** Creates a new builder instance */

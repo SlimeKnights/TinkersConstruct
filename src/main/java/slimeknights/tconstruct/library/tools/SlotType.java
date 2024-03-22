@@ -10,6 +10,8 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
+import slimeknights.mantle.data.loadable.Loadable;
+import slimeknights.mantle.data.loadable.primitive.StringLoadable;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.utils.JsonUtils;
 
@@ -27,6 +29,14 @@ import java.util.regex.Pattern;
  */
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public final class SlotType {
+  /** Loadable for a slot type */
+  public static final Loadable<SlotType> LOADABLE = StringLoadable.DEFAULT.comapFlatMap((name, error) -> {
+    if (!isValidName(name)) {
+      throw error.create("Invalid slot type name '" + name + '\'');
+    }
+    return SlotType.getOrCreate(name);
+  }, SlotType::getName);
+
   /** Key for uppercase slot name */
   private static final String KEY_PREFIX = TConstruct.makeTranslationKey("stat", "slot.prefix.");
   /** Key for lowercase slot name */

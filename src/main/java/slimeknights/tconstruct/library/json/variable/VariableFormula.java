@@ -1,27 +1,16 @@
 package slimeknights.tconstruct.library.json.variable;
 
-import com.google.common.collect.ImmutableList;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSyntaxException;
 import it.unimi.dsi.fastutil.floats.FloatStack;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.GsonHelper;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.mantle.util.LogicHelper;
 import slimeknights.tconstruct.library.json.math.ModifierFormula;
-import slimeknights.tconstruct.library.json.math.ModifierFormula.FallbackFormula;
-import slimeknights.tconstruct.library.json.math.PostFixFormula;
 import slimeknights.tconstruct.library.json.math.StackOperation;
 
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.function.BiFunction;
 
 import static slimeknights.tconstruct.library.json.math.ModifierFormula.BASE_VALUE;
 import static slimeknights.tconstruct.library.json.math.ModifierFormula.LEVEL;
@@ -33,16 +22,14 @@ public interface VariableFormula<T extends IHaveLoader<T>> {
   /** used client side to satisfy the variable name parameter */
   String[] EMPTY_STRINGS = new String[0];
 
-  /** Gets the loader registry for this context */
-  GenericLoaderRegistry<T> loader();
   /** Gets the formula instance */
   ModifierFormula formula();
   /** Gets the list of variables in this context */
   List<T> variables();
   /** Gets the names of variables in this context */
   String[] variableNames();
-  /** Gets the names of default variables */
-  String[] defaultVariableNames();
+  /** If true, this formula behaves as a multiplier, if false it behaves as a boost. Used for display mainly */
+  boolean percent();
 
 
   /** Adds the level, base value, value, and multiplier into the array at their common locations */
@@ -58,73 +45,6 @@ public interface VariableFormula<T extends IHaveLoader<T>> {
 
   /* JSON */
 
-  /** Serializes this object to JSON */
-  default JsonObject serialize(JsonObject json) {
-    List<T> variables = variables();
-    if (!variables.isEmpty()) {
-      JsonObject variablesObject = new JsonObject();
-      GenericLoaderRegistry<T> loader = loader();
-      String[] variableNames = variableNames();
-      for (int i = 0; i < variableNames.length; i++) {
-        variablesObject.add(variableNames[i], loader.serialize(variables.get(i)));
-      }
-      json.add("variables", variablesObject);
-    }
-    formula().serialize(json, defaultVariableNames());
-    return json;
-  }
-
-  /** Deserializes a variable context from JSON */
-  static <C extends VariableFormula<T>, T extends IHaveLoader<T>> C deserialize(GenericLoaderRegistry<T> loader, BiFunction<ModifierFormula,List<T>,C> constructor, JsonObject json, String[] defaultNames, FallbackFormula fallback) {
-    if (json.has("variables")) {
-      if (!json.has("formula")) {
-        throw new JsonSyntaxException("Cannot set variables when not using formula");
-      }
-      ImmutableList.Builder<T> variables = ImmutableList.builder();
-      int index = defaultNames.length;
-      JsonObject variableObj = GsonHelper.getAsJsonObject(json, "variables");
-      String[] newNames = Arrays.copyOf(defaultNames, index + variableObj.size());
-      for (Entry<String,JsonElement> entry : variableObj.entrySet()) {
-        String key = entry.getKey();
-        if (LogicHelper.isInList(defaultNames, key)) {
-          throw new JsonSyntaxException("Variable " + key + " is already defined for this module");
-        }
-        newNames[index] = key;
-        variables.add(loader.deserialize(entry.getValue()));
-        index++;
-      }
-      // we only store the variable names in the VariableFormula during datagen, any other time its an empty list as we don't need it at runtime
-      // we do need them to parse the post fix formula though
-      return constructor.apply(PostFixFormula.deserialize(json, newNames), variables.build());
-    }
-    // no variables? use the standard loading logic
-    return constructor.apply(ModifierFormula.deserialize(json, defaultNames, fallback), List.of());
-  }
-
-
-  /* Network */
-
-  /** Writes this context to the network */
-  default void toNetwork(FriendlyByteBuf buffer) {
-    List<T> variables = variables();
-    GenericLoaderRegistry<T> loader = loader();
-    buffer.writeVarInt(variables.size());
-    for (T variable : variables) {
-      loader.toNetwork(variable, buffer);
-    }
-    formula().toNetwork(buffer);
-  }
-
-  /** Reads a variable context from the network */
-  static <C extends VariableFormula<T>, T extends IHaveLoader<T>> C fromNetwork(GenericLoaderRegistry<T> loader, BiFunction<ModifierFormula, List<T>, C> constructor, FriendlyByteBuf buffer, int defaultVariables, FallbackFormula fallback) {
-    ImmutableList.Builder<T> builder = ImmutableList.builder();
-    int size = buffer.readVarInt();
-    for (int i = 0; i < size; i++) {
-      builder.add(loader.fromNetwork(buffer));
-    }
-    List<T> variables = builder.build();
-    return constructor.apply(ModifierFormula.fromNetwork(buffer, defaultVariables + variables.size(), fallback), variables);
-  }
 
   /** Gets the variable names from the given map */
   static String[] getNames(Map<String,?> variables) {
@@ -133,10 +53,19 @@ public interface VariableFormula<T extends IHaveLoader<T>> {
 
   /** Shared builder logic for modifiers using custom variables and formulas */
   abstract class Builder<T extends Builder<T,M,V>,M,V> extends ModifierFormula.Builder<T,M> {
+    /** If true, using a percent formula. If false, using a boost formula */
+    protected boolean percent = false;
     /** Map of variable names to variable objects */
     protected final Map<String,V> variables = new LinkedHashMap<>();
     public Builder(String[] variables) {
       super(variables);
+    }
+
+    /** Sets this to a percent boost formula */
+    @SuppressWarnings("unchecked")
+    public T percent() {
+      this.percent = true;
+      return (T) this;
     }
 
     /** Adds a variable to the builder */

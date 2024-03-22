@@ -1,8 +1,9 @@
 package slimeknights.tconstruct.library.modifiers.modules.behavior;
 
 import net.minecraft.world.entity.EquipmentSlot;
+import slimeknights.mantle.data.loadable.primitive.EnumLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.mantle.data.loader.EnumLoader;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
@@ -24,7 +25,7 @@ public enum ShowOffhandModule implements ModifierModule, EquipmentChangeModifier
   DISALLOW_BROKEN;
 
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = ModifierModule.<ShowOffhandModule>defaultHooks(TinkerHooks.EQUIPMENT_CHANGE);
-  public static final IGenericLoader<ShowOffhandModule> LOADER = new EnumLoader<>("mode", ShowOffhandModule.class, Function.identity(), Function.identity());
+  public static final RecordLoadable<ShowOffhandModule> LOADER = RecordLoadable.create(new EnumLoadable<>(ShowOffhandModule.class).field("mode", Function.identity()), Function.identity());
 
   @Override
   public List<ModifierHook<?>> getDefaultHooks() {

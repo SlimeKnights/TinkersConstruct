@@ -1,13 +1,13 @@
 package slimeknights.tconstruct.library.modifiers.modules.fluid;
 
-import com.google.gson.JsonObject;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
+import slimeknights.mantle.data.loadable.Loadables;
+import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
+import slimeknights.mantle.data.loadable.primitive.IntLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
@@ -27,6 +27,12 @@ public class TankCapacityModule implements ModifierModule, VolatileDataModifierH
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.VOLATILE_DATA);
   /** Default key for capacity */
   public static final ResourceLocation DEFAULT_CAPACITY_KEY = TConstruct.getResource("tank_capacity");
+  /** Loader instance */
+  public static final RecordLoadable<TankCapacityModule> LOADER = RecordLoadable.create(
+    Loadables.RESOURCE_LOCATION.defaultField("capacity_key", DEFAULT_CAPACITY_KEY, TankCapacityModule::getCapacityKey),
+    IntLoadable.FROM_ZERO.field("capacity", TankCapacityModule::getCapacity),
+    BooleanLoadable.INSTANCE.field("scale_capacity", TankCapacityModule::isScaleCapacity),
+    TankCapacityModule::new);
 
   /** Volatile NBT integer indicating the tank's max capacity */
   private final ResourceLocation capacityKey;
@@ -59,38 +65,4 @@ public class TankCapacityModule implements ModifierModule, VolatileDataModifierH
   public IGenericLoader<? extends ModifierModule> getLoader() {
     return LOADER;
   }
-
-  public static final IGenericLoader<TankCapacityModule> LOADER = new IGenericLoader<>() {
-    @Override
-    public TankCapacityModule deserialize(JsonObject json) {
-      int capacity = GsonHelper.getAsInt(json, "capacity");
-      boolean scaleCapacity = GsonHelper.getAsBoolean(json, "scale_capacity");
-      ResourceLocation capacityKey = JsonHelper.getResourceLocation(json, "capacity_key", DEFAULT_CAPACITY_KEY);
-      return new TankCapacityModule(capacityKey, capacity, scaleCapacity);
-    }
-
-    @Override
-    public void serialize(TankCapacityModule object, JsonObject json) {
-      json.addProperty("capacity", object.capacity);
-      json.addProperty("scale_capacity", object.scaleCapacity);
-      if (object.capacityKey != DEFAULT_CAPACITY_KEY) {
-        json.addProperty("capacity_key", object.capacityKey.toString());
-      }
-    }
-
-    @Override
-    public TankCapacityModule fromNetwork(FriendlyByteBuf buffer) {
-      ResourceLocation capacityKey = buffer.readResourceLocation();
-      int capacity = buffer.readVarInt();
-      boolean scaleCapacity = buffer.readBoolean();
-      return new TankCapacityModule(capacityKey, capacity, scaleCapacity);
-    }
-
-    @Override
-    public void toNetwork(TankCapacityModule object, FriendlyByteBuf buffer) {
-      buffer.writeResourceLocation(object.capacityKey);
-      buffer.writeVarInt(object.capacity);
-      buffer.writeBoolean(object.scaleCapacity);
-    }
-  };
 }

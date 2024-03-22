@@ -1,13 +1,13 @@
 package slimeknights.tconstruct.library.modifiers.modules.combat;
 
-import com.google.gson.JsonObject;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.LivingEntity;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.tconstruct.library.json.math.FormulaLoadable;
 import slimeknights.tconstruct.library.json.math.ModifierFormula;
 import slimeknights.tconstruct.library.json.math.ModifierFormula.FallbackFormula;
 import slimeknights.tconstruct.library.json.predicate.TinkerPredicate;
@@ -17,6 +17,7 @@ import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition;
+import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition.ConditionalModifierModule;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
@@ -27,12 +28,16 @@ import java.util.List;
  * @param entity     Filter on entities to receive knockback
  * @param formula    Formula to compute the knockback amount
  */
-public record KnockbackModule(IJsonPredicate<LivingEntity> entity, ModifierFormula formula, ModifierModuleCondition condition) implements MeleeHitModifierHook, ModifierModule {
+public record KnockbackModule(IJsonPredicate<LivingEntity> entity, ModifierFormula formula, ModifierModuleCondition condition) implements MeleeHitModifierHook, ModifierModule, ConditionalModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.MELEE_HIT);
-  /** Variables for the modifier formula */
-  private static final String[] VARIABLES = { "level", "knockback" };
-  /** Fallback for the modifier formula */
-  private static final FallbackFormula FALLBACK_FORMULA = FallbackFormula.ADD;
+  /** Setup for the formula */
+  private static final FormulaLoadable FORMULA = new FormulaLoadable(FallbackFormula.ADD, "level", "knockback");
+  /** Loader instance */
+  public static final RecordLoadable<KnockbackModule> LOADER = RecordLoadable.create(
+    LivingEntityPredicate.LOADER.field("entity", KnockbackModule::entity),
+    FORMULA.directField(KnockbackModule::formula),
+    ModifierModuleCondition.FIELD,
+    KnockbackModule::new);
 
   @Override
   public List<ModifierHook<?>> getDefaultHooks() {
@@ -56,40 +61,6 @@ public record KnockbackModule(IJsonPredicate<LivingEntity> entity, ModifierFormu
     return LOADER;
   }
 
-  public static final IGenericLoader<KnockbackModule> LOADER = new IGenericLoader<>() {
-    @Override
-    public KnockbackModule deserialize(JsonObject json) {
-      return new KnockbackModule(
-        LivingEntityPredicate.LOADER.getAndDeserialize(json, "entity"),
-        ModifierFormula.deserialize(json, VARIABLES, FALLBACK_FORMULA),
-        ModifierModuleCondition.deserializeFrom(json)
-      );
-    }
-
-    @Override
-    public void serialize(KnockbackModule object, JsonObject json) {
-      object.condition.serializeInto(json);
-      json.add("entity", LivingEntityPredicate.LOADER.serialize(object.entity));
-      object.formula.serialize(json, VARIABLES);
-    }
-
-    @Override
-    public KnockbackModule fromNetwork(FriendlyByteBuf buffer) {
-      return new KnockbackModule(
-        LivingEntityPredicate.LOADER.fromNetwork(buffer),
-        ModifierFormula.fromNetwork(buffer, VARIABLES.length, FALLBACK_FORMULA),
-        ModifierModuleCondition.fromNetwork(buffer)
-      );
-    }
-
-    @Override
-    public void toNetwork(KnockbackModule object, FriendlyByteBuf buffer) {
-      LivingEntityPredicate.LOADER.toNetwork(object.entity, buffer);
-      object.formula.toNetwork(buffer);
-      object.condition.toNetwork(buffer);
-    }
-  };
-
 
   /* Builder */
 
@@ -105,7 +76,7 @@ public record KnockbackModule(IJsonPredicate<LivingEntity> entity, ModifierFormu
     private IJsonPredicate<LivingEntity> entity = LivingEntityPredicate.ANY;
 
     private Builder() {
-      super(VARIABLES);
+      super(FORMULA.variables());
     }
 
     @Override

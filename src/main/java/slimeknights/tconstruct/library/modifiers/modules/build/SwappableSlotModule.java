@@ -1,10 +1,9 @@
 package slimeknights.tconstruct.library.modifiers.modules.build;
 
-import com.google.gson.JsonObject;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
+import slimeknights.mantle.data.loadable.primitive.IntLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -34,6 +33,10 @@ public record SwappableSlotModule(@Nullable ResourceLocation key, int slotCount)
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.VOLATILE_DATA, TinkerHooks.DISPLAY_NAME, TinkerHooks.REMOVE);
   /** Format key for swappable variant */
   private static final String FORMAT = TConstruct.makeTranslationKey("modifier", "extra_modifier.type_format");
+  public static final RecordLoadable<SwappableSlotModule> LOADER = RecordLoadable.create(
+    ModuleWithKey.FIELD,
+    IntLoadable.ANY_SHORT.field("slots", SwappableSlotModule::slotCount),
+    SwappableSlotModule::new);
 
   public SwappableSlotModule(int slotCount) {
     this(null, slotCount);
@@ -85,40 +88,15 @@ public record SwappableSlotModule(@Nullable ResourceLocation key, int slotCount)
     return LOADER;
   }
 
-  /** Loader instance */
-  public static final IGenericLoader<SwappableSlotModule> LOADER = new IGenericLoader<>() {
-    @Override
-    public SwappableSlotModule deserialize(JsonObject json) {
-      ResourceLocation key = ModuleWithKey.parseKey(json);
-      int slotCount = GsonHelper.getAsInt(json, "slots");
-      return new SwappableSlotModule(key, slotCount);
-    }
-
-    @Override
-    public void serialize(SwappableSlotModule object, JsonObject json) {
-      if (object.key != null) {
-        json.addProperty("key", object.key.toString());
-      }
-      json.addProperty("slots", object.slotCount);
-    }
-
-    @Override
-    public SwappableSlotModule fromNetwork(FriendlyByteBuf buffer) {
-      ResourceLocation key = ModuleWithKey.fromNetwork(buffer);
-      int slotCount = buffer.readInt();
-      return new SwappableSlotModule(key, slotCount);
-    }
-
-    @Override
-    public void toNetwork(SwappableSlotModule object, FriendlyByteBuf buffer) {
-      ModuleWithKey.toNetwork(object.key, buffer);
-      buffer.writeInt(object.slotCount);
-    }
-  };
-
   /** Module to add (or remove) additional slots based on the given swappable slot type */
   public record BonusSlot(@Nullable ResourceLocation key, SlotType match, SlotType bonus, int slotCount) implements VolatileDataModifierHook, ModifierModule, ModuleWithKey {
     private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.VOLATILE_DATA);
+    public static final RecordLoadable<BonusSlot> LOADER = RecordLoadable.create(
+      ModuleWithKey.FIELD,
+      SlotType.LOADABLE.field("match", BonusSlot::match),
+      SlotType.LOADABLE.field("bonus", BonusSlot::bonus),
+      IntLoadable.ANY_SHORT.field("slots", BonusSlot::slotCount),
+      BonusSlot::new);
 
     public BonusSlot(SlotType match, SlotType penalty, int slotCount) {
       this(null, match, penalty, slotCount);
@@ -141,43 +119,5 @@ public record SwappableSlotModule(@Nullable ResourceLocation key, int slotCount)
     public IGenericLoader<? extends ModifierModule> getLoader() {
       return LOADER;
     }
-
-    public static final IGenericLoader<BonusSlot> LOADER = new IGenericLoader<>() {
-      @Override
-      public BonusSlot deserialize(JsonObject json) {
-        ResourceLocation key = ModuleWithKey.parseKey(json);
-        SlotType match = SlotType.getOrCreate(GsonHelper.getAsString(json, "match"));
-        SlotType bonus = SlotType.getOrCreate(GsonHelper.getAsString(json, "bonus"));
-        int slotCount = GsonHelper.getAsInt(json, "slots");
-        return new BonusSlot(key, match, bonus, slotCount);
-      }
-
-      @Override
-      public void serialize(BonusSlot object, JsonObject json) {
-        if (object.key != null) {
-          json.addProperty("key", object.key.toString());
-        }
-        json.addProperty("match", object.match.getName());
-        json.addProperty("bonus", object.bonus.getName());
-        json.addProperty("slots", object.slotCount);
-      }
-
-      @Override
-      public BonusSlot fromNetwork(FriendlyByteBuf buffer) {
-        ResourceLocation key = ModuleWithKey.fromNetwork(buffer);
-        SlotType match = SlotType.read(buffer);
-        SlotType bonus = SlotType.read(buffer);
-        int slots = buffer.readInt();
-        return new BonusSlot(key, match, bonus, slots);
-      }
-
-      @Override
-      public void toNetwork(BonusSlot object, FriendlyByteBuf buffer) {
-        ModuleWithKey.toNetwork(object.key, buffer);
-        object.match.write(buffer);
-        object.bonus.write(buffer);
-        buffer.writeInt(object.slotCount);
-      }
-    };
   }
 }

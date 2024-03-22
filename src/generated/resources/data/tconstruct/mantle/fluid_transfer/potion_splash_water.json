@@ -1,8 +1,11 @@
 {
   "type": "mantle:fill_item",
   "filled": {
+    "count": 1,
     "item": "minecraft:splash_potion",
-    "nbt": "{Potion:\"minecraft:water\"}"
+    "nbt": {
+      "Potion": "minecraft:water"
+    }
   },
   "fluid": {
     "amount": 500,

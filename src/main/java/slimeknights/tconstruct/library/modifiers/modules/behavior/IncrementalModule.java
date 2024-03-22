@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.library.modifiers.modules.behavior;
 
-import com.google.gson.JsonObject;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import slimeknights.mantle.data.loadable.primitive.IntLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
@@ -19,7 +19,6 @@ import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.tools.nbt.INamespacedNBTView;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.utils.JsonUtils;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -33,6 +32,7 @@ import java.util.List;
  */
 public record IncrementalModule(@Nullable ResourceLocation key, int neededPerLevel) implements EffectiveLevelModifierHook, DisplayNameModifierHook, ModifierRemovalHook, ModifierModule, ModuleWithKey {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.EFFECTIVE_LEVEL, TinkerHooks.DISPLAY_NAME, TinkerHooks.REMOVE);
+  public static RecordLoadable<IncrementalModule> LOADER = RecordLoadable.create(ModuleWithKey.FIELD, IntLoadable.FROM_ZERO.defaultField("needed_per_level", 0, IncrementalModule::neededPerLevel), IncrementalModule::new);
 
   /** Recipe controlled incremental modifier with no extra settings */
   public static IncrementalModule RECIPE_CONTROLLED = new IncrementalModule(null, 0);
@@ -101,36 +101,4 @@ public record IncrementalModule(@Nullable ResourceLocation key, int neededPerLev
   public IGenericLoader<? extends ModifierModule> getLoader() {
     return LOADER;
   }
-
-  public static final IGenericLoader<IncrementalModule> LOADER = new IGenericLoader<>() {
-    @Override
-    public IncrementalModule deserialize(JsonObject json) {
-      ResourceLocation key = ModuleWithKey.parseKey(json);
-      int neededPerLevel = JsonUtils.getIntMin(json, "needed_per_level", 0);
-      return IncrementalModule.create(key, neededPerLevel);
-    }
-
-    @Override
-    public void serialize(IncrementalModule object, JsonObject json) {
-      if (object.key != null) {
-        json.addProperty("key", object.key.toString());
-      }
-      if (object.neededPerLevel > 0) {
-        json.addProperty("needed_per_level", object.neededPerLevel);
-      }
-    }
-
-    @Override
-    public IncrementalModule fromNetwork(FriendlyByteBuf buffer) {
-      ResourceLocation key = ModuleWithKey.fromNetwork(buffer);
-      int neededPerLevel = buffer.readVarInt();
-      return IncrementalModule.create(key, neededPerLevel);
-    }
-
-    @Override
-    public void toNetwork(IncrementalModule object, FriendlyByteBuf buffer) {
-      ModuleWithKey.toNetwork(object.key, buffer);
-      buffer.writeVarInt(object.neededPerLevel);
-    }
-  };
 }

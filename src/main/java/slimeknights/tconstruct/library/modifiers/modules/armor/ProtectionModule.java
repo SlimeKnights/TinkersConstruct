@@ -1,12 +1,9 @@
 package slimeknights.tconstruct.library.modifiers.modules.armor;
 
-import com.google.gson.JsonObject;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minecraft.core.Registry;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -15,13 +12,13 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.client.TooltipKey;
+import slimeknights.mantle.data.loadable.Loadables;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.damage.DamageSourcePredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.mantle.util.JsonHelper;
 import slimeknights.mantle.util.LogicHelper;
 import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -32,6 +29,7 @@ import slimeknights.tconstruct.library.modifiers.hook.armor.ProtectionModifierHo
 import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition;
+import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition.ConditionalModifierModule;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -40,7 +38,6 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Module to increase protection against the given source
@@ -50,8 +47,15 @@ import java.util.Objects;
  * @param subtract  Enchantment also part of this modifier, subtracted from the protection amount to prevent redundancies
  * @param condition Modifier module conditions
  */
-public record ProtectionModule(IJsonPredicate<DamageSource> source, IJsonPredicate<LivingEntity> entity, LevelingValue amount, @Nullable Enchantment subtract, ModifierModuleCondition condition) implements ProtectionModifierHook, TooltipModifierHook, ModifierModule {
+public record ProtectionModule(IJsonPredicate<DamageSource> source, IJsonPredicate<LivingEntity> entity, LevelingValue amount, @Nullable Enchantment subtract, ModifierModuleCondition condition) implements ProtectionModifierHook, TooltipModifierHook, ModifierModule, ConditionalModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.PROTECTION, TinkerHooks.TOOLTIP);
+  public static final RecordLoadable<ProtectionModule> LOADER = RecordLoadable.create(
+    DamageSourcePredicate.LOADER.field("damage_source", ProtectionModule::source),
+    LivingEntityPredicate.LOADER.field("wearing_entity", ProtectionModule::entity),
+    LevelingValue.LOADABLE.directField(ProtectionModule::amount),
+    Loadables.ENCHANTMENT.nullableField("subtract_enchantment", ProtectionModule::subtract),
+    ModifierModuleCondition.FIELD,
+    ProtectionModule::new);
 
   @Override
   public List<ModifierHook<?>> getDefaultHooks() {
@@ -97,56 +101,6 @@ public record ProtectionModule(IJsonPredicate<DamageSource> source, IJsonPredica
   public IGenericLoader<? extends ModifierModule> getLoader() {
     return LOADER;
   }
-
-  public static final IGenericLoader<ProtectionModule> LOADER = new IGenericLoader<>() {
-    @Override
-    public ProtectionModule deserialize(JsonObject json) {
-      Enchantment enchantment = null;
-      if (json.has("subtract_enchantment")) {
-        enchantment = JsonHelper.getAsEntry(ForgeRegistries.ENCHANTMENTS, json, "subtract_enchantment");
-      }
-      return new ProtectionModule(
-        DamageSourcePredicate.LOADER.getAndDeserialize(json, "damage_source"),
-        LivingEntityPredicate.LOADER.getAndDeserialize(json, "wearing_entity"),
-        LevelingValue.deserialize(json), enchantment, ModifierModuleCondition.deserializeFrom(json));
-    }
-
-    @Override
-    public void serialize(ProtectionModule object, JsonObject json) {
-      object.condition.serializeInto(json);
-      json.add("damage_source", DamageSourcePredicate.LOADER.serialize(object.source));
-      json.add("wearing_entity", LivingEntityPredicate.LOADER.serialize(object.entity));
-      object.amount.serialize(json);
-      if (object.subtract != null) {
-        json.addProperty("subtract_enchantment", Objects.requireNonNull(Registry.ENCHANTMENT.getKey(object.subtract)).toString());
-      }
-    }
-
-    @Override
-    public ProtectionModule fromNetwork(FriendlyByteBuf buffer) {
-      Enchantment enchantment = null;
-      if (buffer.readBoolean()) {
-        enchantment = buffer.readRegistryIdUnsafe(ForgeRegistries.ENCHANTMENTS);
-      }
-      return new ProtectionModule(
-        DamageSourcePredicate.LOADER.fromNetwork(buffer), LivingEntityPredicate.LOADER.fromNetwork(buffer),
-        LevelingValue.fromNetwork(buffer), enchantment, ModifierModuleCondition.fromNetwork(buffer));
-    }
-
-    @Override
-    public void toNetwork(ProtectionModule object, FriendlyByteBuf buffer) {
-      if (object.subtract != null) {
-        buffer.writeBoolean(true);
-        buffer.writeRegistryIdUnsafe(ForgeRegistries.ENCHANTMENTS, object.subtract);
-      } else {
-        buffer.writeBoolean(false);
-      }
-      DamageSourcePredicate.LOADER.toNetwork(object.source, buffer);
-      LivingEntityPredicate.LOADER.toNetwork(object.entity, buffer);
-      object.amount.toNetwork(buffer);
-      object.condition.toNetwork(buffer);
-    }
-  };
 
 
   /* Builder */

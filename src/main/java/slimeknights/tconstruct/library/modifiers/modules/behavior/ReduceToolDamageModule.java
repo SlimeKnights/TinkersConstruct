@@ -5,7 +5,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
 import slimeknights.mantle.client.TooltipKey;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.tconstruct.library.json.math.FormulaLoadable;
 import slimeknights.tconstruct.library.json.math.ModifierFormula;
 import slimeknights.tconstruct.library.json.math.ModifierFormula.FallbackFormula;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -13,10 +15,9 @@ import slimeknights.tconstruct.library.modifiers.ModifierHook;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolDamageModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
-import slimeknights.tconstruct.library.modifiers.modules.FormulaModuleLoader;
-import slimeknights.tconstruct.library.modifiers.modules.FormulaModuleLoader.FormulaModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition;
+import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition.ConditionalModifierModule;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.Util;
@@ -31,14 +32,16 @@ import static slimeknights.tconstruct.TConstruct.RANDOM;
  * @param formula    Formula to use
  * @param condition  Condition for this module to run
  */
-public record ReduceToolDamageModule(ModifierFormula formula, ModifierModuleCondition condition) implements ModifierModule, ToolDamageModifierHook, TooltipModifierHook, FormulaModule {
+public record ReduceToolDamageModule(ModifierFormula formula, ModifierModuleCondition condition) implements ModifierModule, ToolDamageModifierHook, TooltipModifierHook, ConditionalModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.TOOL_DAMAGE, TinkerHooks.TOOLTIP);
-  /** Loader instance and builder creator */
-  public static final FormulaModuleLoader<ReduceToolDamageModule> LOADER = new FormulaModuleLoader<>(ReduceToolDamageModule::new, FallbackFormula.IDENTITY, "level");
+  /** Formula instance for the loader */
+  private static final FormulaLoadable FORMULA = new FormulaLoadable(FallbackFormula.IDENTITY, "level");
+  /** Loader instance */
+  public static final RecordLoadable<ReduceToolDamageModule> LOADER = RecordLoadable.create(FORMULA.directField(ReduceToolDamageModule::formula), ModifierModuleCondition.FIELD, ReduceToolDamageModule::new);
 
   /** Creates a builder instance */
-  public static FormulaModuleLoader<ReduceToolDamageModule>.Builder builder() {
-    return LOADER.builder();
+  public static FormulaLoadable.Builder<ReduceToolDamageModule> builder() {
+    return FORMULA.builder(ReduceToolDamageModule::new);
   }
 
   @Override

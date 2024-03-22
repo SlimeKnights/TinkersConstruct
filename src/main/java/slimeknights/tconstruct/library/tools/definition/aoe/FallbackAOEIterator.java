@@ -7,7 +7,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -44,8 +43,8 @@ public class FallbackAOEIterator implements IAreaOfEffectIterator {
     @Override
     public FallbackAOEIterator deserialize(JsonObject json) {
       TagKey<Block> tag = TagKey.create(Registry.BLOCK_REGISTRY, JsonHelper.getResourceLocation(json, "tag"));
-      IAreaOfEffectIterator tagged = IAreaOfEffectIterator.LOADER.deserialize(GsonHelper.getAsJsonObject(json, "if_matches"));
-      IAreaOfEffectIterator fallback = IAreaOfEffectIterator.LOADER.deserialize(GsonHelper.getAsJsonObject(json, "fallback"));
+      IAreaOfEffectIterator tagged = IAreaOfEffectIterator.LOADER.getAndDeserialize(json, "if_matches");
+      IAreaOfEffectIterator fallback = IAreaOfEffectIterator.LOADER.getAndDeserialize(json, "fallback");
       return new FallbackAOEIterator(tag, tagged, fallback);
     }
 

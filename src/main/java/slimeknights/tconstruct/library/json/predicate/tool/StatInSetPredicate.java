@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.GsonHelper;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
@@ -39,7 +38,7 @@ public record StatInSetPredicate<T>(IToolStat<T> stat, Set<T> values) implements
   public static final IGenericLoader<StatInSetPredicate<?>> LOADER = new IGenericLoader<>() {
     @Override
     public StatInSetPredicate<?> deserialize(JsonObject json) {
-      return deserialize(json, ToolStats.fromJson(GsonHelper.getAsString(json, "stat")));
+      return deserialize(json, ToolStats.LOADER.getAndDeserialize(json, "stat"));
     }
 
     /** Handles generics for the set parsing */
@@ -50,7 +49,7 @@ public record StatInSetPredicate<T>(IToolStat<T> stat, Set<T> values) implements
 
     @Override
     public void serialize(StatInSetPredicate<?> object, JsonObject json) {
-      json.addProperty("stat", object.stat.getName().toString());
+      json.add("stat", ToolStats.LOADER.serialize(object.stat));
       serializeSet(object, json);
     }
 
@@ -65,7 +64,7 @@ public record StatInSetPredicate<T>(IToolStat<T> stat, Set<T> values) implements
 
     @Override
     public StatInSetPredicate<?> fromNetwork(FriendlyByteBuf buffer) {
-      return fromNetwork(buffer, ToolStats.fromNetwork(buffer));
+      return fromNetwork(buffer, ToolStats.LOADER.fromNetwork(buffer));
     }
 
     /** Handles generics for the set reading */
@@ -80,7 +79,7 @@ public record StatInSetPredicate<T>(IToolStat<T> stat, Set<T> values) implements
 
     @Override
     public void toNetwork(StatInSetPredicate<?> object, FriendlyByteBuf buffer) {
-      buffer.writeUtf(object.stat.toString());
+      ToolStats.LOADER.toNetwork(object.stat, buffer);
       setToNetwork(object, buffer);
     }
 

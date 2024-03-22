@@ -1,16 +1,13 @@
 package slimeknights.tconstruct.library.json.predicate.tool;
 
-import com.google.gson.JsonObject;
-import net.minecraft.network.FriendlyByteBuf;
+import slimeknights.mantle.data.loadable.primitive.EnumLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.json.IntRange;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
-
-import java.util.Locale;
 
 /**
  * Predicate that checks a tool for the given modifier.
@@ -23,6 +20,12 @@ public record HasModifierPredicate(ModifierId modifier, IntRange level, Modifier
   public static final IntRange MAX_RANGE = new IntRange(0, Short.MAX_VALUE);
   /** Default bounds of the modifier level */
   public static final IntRange DEFAULT_RANGE = MAX_RANGE.min(1);
+
+  public static final RecordLoadable<HasModifierPredicate> LOADER = RecordLoadable.create(
+    ModifierId.PARSER.field("modifier", HasModifierPredicate::modifier),
+    MAX_RANGE.defaultField("level", DEFAULT_RANGE, true, HasModifierPredicate::level),
+    new EnumLoadable<>(ModifierCheck.class).field("check", HasModifierPredicate::check),
+    HasModifierPredicate::new);
 
   public HasModifierPredicate(ModifierId modifier, ModifierCheck check) {
     this(modifier, DEFAULT_RANGE, check);
@@ -69,39 +72,4 @@ public record HasModifierPredicate(ModifierId modifier, IntRange level, Modifier
 
     public abstract ModifierNBT getModifiers(IToolContext tool);
   }
-
-  public static final IGenericLoader<HasModifierPredicate> LOADER = new IGenericLoader<>() {
-    @Override
-    public HasModifierPredicate deserialize(JsonObject json) {
-      ModifierId modifier = ModifierId.PARSER.getFromJson(json, "modifier");
-      IntRange level = DEFAULT_RANGE;
-      if (json.has("level")) {
-        level = MAX_RANGE.getAndDeserialize(json, "level");
-      }
-      ModifierCheck check = JsonHelper.getAsEnum(json, "check", ModifierCheck.class);
-      return new HasModifierPredicate(modifier, level, check);
-    }
-
-    @Override
-    public void serialize(HasModifierPredicate object, JsonObject json) {
-      json.addProperty("modifier", object.modifier.toString());
-      json.add("level", MAX_RANGE.serialize(object.level));
-      json.addProperty("check", object.check.name().toLowerCase(Locale.ROOT));
-    }
-
-    @Override
-    public HasModifierPredicate fromNetwork(FriendlyByteBuf buffer) {
-      ModifierId modifier = ModifierId.PARSER.fromNetwork(buffer);
-      IntRange level = IntRange.fromNetwork(buffer);
-      ModifierCheck check = buffer.readEnum(ModifierCheck.class);
-      return new HasModifierPredicate(modifier, level, check);
-    }
-
-    @Override
-    public void toNetwork(HasModifierPredicate object, FriendlyByteBuf buffer) {
-      buffer.writeResourceLocation(object.modifier);
-      object.level.toNetwork(buffer);
-      buffer.writeEnum(object.check);
-    }
-  };
 }

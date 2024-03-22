@@ -1,18 +1,20 @@
 package slimeknights.tconstruct.library.utils;
 
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSyntaxException;
+import io.netty.handler.codec.EncoderException;
 import net.minecraft.ResourceLocationException;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+import slimeknights.mantle.data.loadable.Loadable;
 
 import javax.annotation.Nullable;
 import java.util.function.Function;
 
-/** Helper to parse variants of resource locations */
-public record IdParser<T extends ResourceLocation>(Function<String, T> constructor, String name) {
+/** Helper to parse variants of resource locations, doubles as a loadable. */
+public record IdParser<T extends ResourceLocation>(Function<String, T> constructor, String name) implements Loadable<T> {
   /**
    * Creates a new ID from the given string
    * @param string  String
@@ -27,28 +29,8 @@ public record IdParser<T extends ResourceLocation>(Function<String, T> construct
     }
   }
 
-  /**
-   * Gets an ID from JSON, throwing a nice exception if invalid
-   * @param json  JSON object
-   * @param key   Key to fetch
-   * @return  Resource location parsed
-   */
-  public T getFromJson(JsonObject json, String key) {
-    String text = GsonHelper.getAsString(json, key);
-    T location = tryParse(text);
-    if (location == null) {
-      throw new JsonSyntaxException("Expected " + key + " to be a " + name + " ID, was '" + text + "'");
-    }
-    return location;
-  }
-
-  /**
-   * Gets an ID from JSON, throwing a nice exception if invalid
-   * @param json  JSON object
-   * @param key   Key to fetch
-   * @return  Resource location parsed
-   */
-  public T convertFromJson(JsonElement json, String key) {
+  @Override
+  public T convert(JsonElement json, String key) {
     String text = GsonHelper.convertToString(json, key);
     T location = tryParse(text);
     if (location == null) {
@@ -57,8 +39,18 @@ public record IdParser<T extends ResourceLocation>(Function<String, T> construct
     return location;
   }
 
-  /** Reads an ID from the packet buffer */
+  @Override
+  public JsonElement serialize(T object) throws RuntimeException {
+    return new JsonPrimitive(object.toString());
+  }
+
+  @Override
   public T fromNetwork(FriendlyByteBuf buf) {
     return constructor.apply(buf.readUtf(Short.MAX_VALUE));
+  }
+
+  @Override
+  public void toNetwork(T object, FriendlyByteBuf buffer) throws EncoderException {
+    buffer.writeResourceLocation(object);
   }
 }

@@ -65,15 +65,16 @@ public interface IToolModule extends IHaveLoader<IToolModule> {
       JsonObject json = GsonHelper.convertToJsonObject(element, "modules");
       ModifierHookMap.Builder builder = ModifierHookMap.builder();
       for (Entry<String,JsonElement> entry : json.entrySet()) {
-        ResourceLocation hookName = ResourceLocation.tryParse(entry.getKey());
+        String key = entry.getKey();
+        ResourceLocation hookName = ResourceLocation.tryParse(key);
         if (hookName == null) {
-          throw new JsonSyntaxException("Invalid hook name " + entry.getKey());
+          throw new JsonSyntaxException("Invalid hook name " + key);
         }
         ModifierHook<?> hook = ModifierHooks.getHook(hookName);
         if (hook == null) {
           throw new JsonSyntaxException("Unknown hook name " + hookName);
         }
-        builder.addHookChecked(LOADER.deserialize(entry.getValue()), hook);
+        builder.addHookChecked(LOADER.convert(entry.getValue(), key), hook);
       }
       return builder.build();
     }

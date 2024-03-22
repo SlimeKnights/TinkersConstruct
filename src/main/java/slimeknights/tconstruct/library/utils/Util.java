@@ -166,15 +166,4 @@ public class Util {
   public static <B extends BlockEntity> ClientboundBlockEntityDataPacket createBEPacket(B be, Function<? super B,CompoundTag> tagFunction) {
     return new ClientboundBlockEntityDataPacket(be.getBlockPos(), be.getType(), tagFunction.apply(be));
   }
-
-  /**
-   * Localizes the given resource location to one within the folder
-   * @param path        Path to localize
-   * @param folder      Folder to trim (without trailing /), it is not validated so make sure you call correctly
-   * @param extension   Extension to trim
-   * @return  Localized location
-   */
-  public static String localize(String path, String folder, String extension) {
-    return path.substring(folder.length() + 1, path.length() - extension.length());
-  }
 }

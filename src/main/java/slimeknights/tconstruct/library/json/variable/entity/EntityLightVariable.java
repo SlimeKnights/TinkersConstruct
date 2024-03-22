@@ -2,12 +2,13 @@ package slimeknights.tconstruct.library.json.variable.entity;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.LightLayer;
-import slimeknights.mantle.data.loader.EnumLoader;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
+import slimeknights.tconstruct.library.json.TinkerLoadables;
 
 /** Gets the light level at the entity position */
 public record EntityLightVariable(LightLayer lightLayer) implements EntityVariable {
-  public static final IGenericLoader<EntityLightVariable> LOADER = new EnumLoader<>("light_layer", LightLayer.class, EntityLightVariable::new, EntityLightVariable::lightLayer);
+  public static final RecordLoadable<EntityLightVariable> LOADER = RecordLoadable.create(TinkerLoadables.LIGHT_LAYER.field("light_layer", EntityLightVariable::lightLayer), EntityLightVariable::new);
 
   @Override
   public float getValue(LivingEntity entity) {

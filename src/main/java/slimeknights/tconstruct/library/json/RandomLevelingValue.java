@@ -2,7 +2,8 @@ package slimeknights.tconstruct.library.json;
 
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.GsonHelper;
+import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.TConstruct;
 
 /**
@@ -13,6 +14,13 @@ import slimeknights.tconstruct.TConstruct;
  * @see LevelingValue
  */
 public record RandomLevelingValue(float flat, float perLevel, float randomBonus) {
+  /** Loadable instance for parsing */
+  public static final RecordLoadable<RandomLevelingValue> LOADABLE = RecordLoadable.create(
+    FloatLoadable.ANY.defaultField("flat", 0f, RandomLevelingValue::flat),
+    FloatLoadable.ANY.defaultField("per_level", 0f, RandomLevelingValue::perLevel),
+    FloatLoadable.ANY.defaultField("random", 0f, RandomLevelingValue::randomBonus),
+    RandomLevelingValue::new);
+
   /** Gets the value at the given level. Due to the random nature, value may change each time. */
   public float computeValue(float level) {
     float value = this.flat + this.perLevel * level;
@@ -25,44 +33,28 @@ public record RandomLevelingValue(float flat, float perLevel, float randomBonus)
   /** Serializes this to JSON */
   public JsonObject serialize() {
     JsonObject json = new JsonObject();
-    if (flat != 0) {
-      json.addProperty("flat", flat);
-    }
-    if (perLevel != 0) {
-      json.addProperty("per_level", perLevel);
-    }
-    if (randomBonus != 0) {
-      json.addProperty("random", randomBonus);
-    }
+    LOADABLE.serialize(this, json);
     return json;
   }
 
   /** Deserializes this from JSON */
   public static RandomLevelingValue deserialize(JsonObject json) {
-    float flat = GsonHelper.getAsFloat(json, "flat", 0);
-    float leveling = GsonHelper.getAsFloat(json, "per_level", 0);
-    float random = GsonHelper.getAsFloat(json, "random", 0);
-    return new RandomLevelingValue(flat, leveling, random);
+    return LOADABLE.deserialize(json);
   }
 
   /** Gets and deserializes this from a parent JSON */
   public static RandomLevelingValue get(JsonObject parent, String key) {
-    return deserialize(GsonHelper.getAsJsonObject(parent, key));
+    return LOADABLE.getAndDeserialize(parent, key);
   }
 
   /** Writes this to the network */
   public void toNetwork(FriendlyByteBuf buffer) {
-    buffer.writeFloat(flat);
-    buffer.writeFloat(perLevel);
-    buffer.writeFloat(randomBonus);
+    LOADABLE.toNetwork(this, buffer);
   }
 
   /** Reads this from teh network */
   public static RandomLevelingValue fromNetwork(FriendlyByteBuf buffer) {
-    float flat = buffer.readFloat();
-    float leveling = buffer.readFloat();
-    float random = buffer.readFloat();
-    return new RandomLevelingValue(flat, leveling, random);
+    return LOADABLE.fromNetwork(buffer);
   }
 
 

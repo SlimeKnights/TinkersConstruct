@@ -1,8 +1,9 @@
 package slimeknights.tconstruct.library.modifiers.modules.build;
 
 import net.minecraft.resources.ResourceLocation;
+import slimeknights.mantle.data.loadable.Loadables;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.mantle.data.loader.ResourceLocationLoader;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHook;
 import slimeknights.tconstruct.library.modifiers.TinkerHooks;
@@ -18,7 +19,7 @@ import java.util.List;
  */
 public record VolatileFlagModule(ResourceLocation flag) implements VolatileDataModifierHook, ModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.VOLATILE_DATA);
-  public static final IGenericLoader<VolatileFlagModule> LOADER = new ResourceLocationLoader<>("flag", VolatileFlagModule::new, VolatileFlagModule::flag);
+  public static final RecordLoadable<VolatileFlagModule> LOADER = RecordLoadable.create(Loadables.RESOURCE_LOCATION.field("flag", VolatileFlagModule::flag), VolatileFlagModule::new);
 
   @Override
   public void addVolatileData(ToolRebuildContext context, ModifierEntry modifier, ModDataNBT volatileData) {

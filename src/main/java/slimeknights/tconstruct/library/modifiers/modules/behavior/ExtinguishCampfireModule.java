@@ -9,19 +9,21 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition;
+import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition.ConditionalModifierModule;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 /**
  * Module which performs AOE removing of campfires
  */
-public record ExtinguishCampfireModule(ModifierModuleCondition condition) implements BlockTransformModule {
+public record ExtinguishCampfireModule(ModifierModuleCondition condition) implements BlockTransformModule, ConditionalModifierModule {
   public static final ExtinguishCampfireModule INSTANCE = new ExtinguishCampfireModule(ModifierModuleCondition.ANY);
-  public static final IGenericLoader<ExtinguishCampfireModule> LOADER = new ModifierModuleCondition.Loader<>(ExtinguishCampfireModule::new, ExtinguishCampfireModule::condition);
+  public static final RecordLoadable<ExtinguishCampfireModule> LOADER = RecordLoadable.create(ModifierModuleCondition.FIELD, ExtinguishCampfireModule::new);
 
   @Override
   public IGenericLoader<? extends ModifierModule> getLoader() {

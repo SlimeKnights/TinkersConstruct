@@ -4,6 +4,7 @@
   "modules": [
     {
       "type": "tconstruct:conditional_melee_damage",
+      "attacker": "mantle:any",
       "formula": [
         "$poison",
         0.5,

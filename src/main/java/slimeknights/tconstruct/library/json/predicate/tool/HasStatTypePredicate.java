@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.json.predicate.tool;
 
-import com.google.gson.JsonObject;
-import net.minecraft.network.FriendlyByteBuf;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
@@ -18,6 +17,11 @@ import java.util.List;
  * @param material    If non-null, requires the given material in that stat type. If null, materials are ignored.
  */
 public record HasStatTypePredicate(MaterialStatsId statType, @Nullable MaterialVariantId material) implements ToolContextPredicate {
+  public static final RecordLoadable<HasStatTypePredicate> LOADER = RecordLoadable.create(
+    MaterialStatsId.PARSER.field("stat_type", HasStatTypePredicate::statType),
+    MaterialVariantId.LOADABLE.nullableField("material", HasStatTypePredicate::material),
+    HasStatTypePredicate::new);
+
   public HasStatTypePredicate(MaterialStatsId statType) {
     this(statType, null);
   }
@@ -37,45 +41,4 @@ public record HasStatTypePredicate(MaterialStatsId statType, @Nullable MaterialV
   public IGenericLoader<? extends IJsonPredicate<IToolContext>> getLoader() {
     return LOADER;
   }
-
-  public static final IGenericLoader<HasStatTypePredicate> LOADER = new IGenericLoader<>() {
-    @Override
-    public HasStatTypePredicate deserialize(JsonObject json) {
-      MaterialStatsId statType = MaterialStatsId.PARSER.getFromJson(json, "stat_type");
-      MaterialVariantId material = null;
-      if (json.has("material")) {
-        material = MaterialVariantId.fromJson(json, "material");
-      }
-      return new HasStatTypePredicate(statType, material);
-    }
-
-    @Override
-    public void serialize(HasStatTypePredicate object, JsonObject json) {
-      json.addProperty("stat_type", object.statType.toString());
-      if (object.material != null) {
-        json.addProperty("material", object.material.toString());
-      }
-    }
-
-    @Override
-    public HasStatTypePredicate fromNetwork(FriendlyByteBuf buffer) {
-      MaterialStatsId statType = MaterialStatsId.PARSER.fromNetwork(buffer);
-      MaterialVariantId material = null;
-      if (buffer.readBoolean()) {
-        material = MaterialVariantId.fromNetwork(buffer);
-      }
-      return new HasStatTypePredicate(statType, material);
-    }
-
-    @Override
-    public void toNetwork(HasStatTypePredicate object, FriendlyByteBuf buffer) {
-      buffer.writeResourceLocation(object.statType);
-      if (object.material != null) {
-        buffer.writeBoolean(true);
-        object.material.toNetwork(buffer);
-      } else {
-        buffer.writeBoolean(false);
-      }
-    }
-  };
 }

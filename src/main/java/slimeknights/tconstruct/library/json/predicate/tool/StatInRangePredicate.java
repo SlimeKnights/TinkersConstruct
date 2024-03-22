@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.library.json.predicate.tool;
 
 import com.google.gson.JsonObject;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.GsonHelper;
+import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
@@ -17,6 +17,12 @@ import java.util.function.Predicate;
  * @see slimeknights.tconstruct.library.json.predicate.tool.StatInSetPredicate
  */
 public record StatInRangePredicate(INumericToolStat<?> stat, float min, float max) implements Predicate<StatsNBT>, ToolContextPredicate {
+  public static final RecordLoadable<StatInRangePredicate> LOADER = RecordLoadable.create(
+    ToolStats.NUMERIC_LOADER.field("stat", StatInRangePredicate::stat),
+    FloatLoadable.ANY.defaultField("min", Float.NEGATIVE_INFINITY, StatInRangePredicate::min),
+    FloatLoadable.ANY.defaultField("max", Float.POSITIVE_INFINITY, StatInRangePredicate::max),
+    StatInRangePredicate::new);
+
   /**
    * Creates a predicate matching the exact value
    * @param stat  Stat
@@ -64,11 +70,7 @@ public record StatInRangePredicate(INumericToolStat<?> stat, float min, float ma
    * @return Predicate
    */
   public static StatInRangePredicate deserialize(JsonObject json) {
-    return new StatInRangePredicate(
-      ToolStats.numericFromJson(GsonHelper.getAsString(json, "stat")),
-      GsonHelper.getAsFloat(json, "min", Float.NEGATIVE_INFINITY),
-      GsonHelper.getAsFloat(json, "max", Float.POSITIVE_INFINITY)
-    );
+    return LOADER.deserialize(json);
   }
 
   /**
@@ -76,13 +78,7 @@ public record StatInRangePredicate(INumericToolStat<?> stat, float min, float ma
    * @param json  Json instance to fill
    */
   public JsonObject serialize(JsonObject json) {
-    json.addProperty("stat", stat.getName().toString());
-    if (min > Float.NEGATIVE_INFINITY) {
-      json.addProperty("min", min);
-    }
-    if (max < Float.POSITIVE_INFINITY) {
-      json.addProperty("max", max);
-    }
+    LOADER.serialize(this, json);
     return json;
   }
 
@@ -96,30 +92,4 @@ public record StatInRangePredicate(INumericToolStat<?> stat, float min, float ma
     return LOADER;
   }
 
-  public static final IGenericLoader<StatInRangePredicate> LOADER = new IGenericLoader<>() {
-    @Override
-    public StatInRangePredicate deserialize(JsonObject json) {
-      return StatInRangePredicate.deserialize(json);
-    }
-
-    @Override
-    public void serialize(StatInRangePredicate object, JsonObject json) {
-      object.serialize(json);
-    }
-
-    @Override
-    public StatInRangePredicate fromNetwork(FriendlyByteBuf buffer) {
-      INumericToolStat<?> stat = ToolStats.numericFromNetwork(buffer);
-      float min = buffer.readFloat();
-      float max = buffer.readFloat();
-      return new StatInRangePredicate(stat, min, max);
-    }
-
-    @Override
-    public void toNetwork(StatInRangePredicate object, FriendlyByteBuf buffer) {
-      buffer.writeUtf(object.stat.getName().toString());
-      buffer.writeFloat(object.min);
-      buffer.writeFloat(object.max);
-    }
-  };
 }

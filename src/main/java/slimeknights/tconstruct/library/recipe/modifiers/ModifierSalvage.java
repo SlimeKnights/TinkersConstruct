@@ -105,7 +105,7 @@ public class ModifierSalvage implements ICustomOutputRecipe<Container> {
     public ModifierSalvage fromJson(ResourceLocation id, JsonObject json) {
       Ingredient toolIngredient = Ingredient.fromJson(JsonHelper.getElement(json, "tools"));
       int maxToolSize = GsonHelper.getAsInt(json, "max_tool_size", ITinkerStationRecipe.DEFAULT_TOOL_STACK_SIZE);
-      ModifierId modifier = ModifierId.PARSER.getFromJson(json, "modifier");
+      ModifierId modifier = ModifierId.PARSER.getAndDeserialize(json, "modifier");
       int minLevel = JsonUtils.getIntMin(json, "min_level", 1);
       int maxLevel = GsonHelper.getAsInt(json, "max_level", Integer.MAX_VALUE);
       if (maxLevel < minLevel) {

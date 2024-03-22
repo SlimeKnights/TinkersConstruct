@@ -1,20 +1,20 @@
 package slimeknights.tconstruct.library.modifiers.modules.fluid;
 
-import com.google.gson.JsonObject;
 import lombok.Getter;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.mantle.client.TooltipKey;
+import slimeknights.mantle.data.loadable.Loadables;
+import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
+import slimeknights.mantle.data.loadable.primitive.IntLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -35,7 +35,8 @@ import java.util.List;
 import java.util.function.BiFunction;
 
 /**
- * Module granting a tool a tank
+ * Module granting a tool a tank.
+ * TODO: cleanup fluid keys, ideally JSON only would specify one key
  */
 public class TankModule extends TankCapacityModule implements FluidModifierHook, TooltipModifierHook {
   private static final String FILLED_KEY = TConstruct.makeTranslationKey("modifier", "tank.filled");
@@ -45,6 +46,14 @@ public class TankModule extends TankCapacityModule implements FluidModifierHook,
   public static final ResourceLocation DEFAULT_OWNER_KEY = TConstruct.getResource("tank_owner");
   /** Default key for fluid */
   public static final ResourceLocation DEFAULT_FLUID_KEY = TConstruct.getResource("tank_fluid");
+  /** Loader instance */
+  public static final RecordLoadable<TankModule> LOADER = RecordLoadable.create(
+    Loadables.RESOURCE_LOCATION.defaultField("capacity_key", DEFAULT_CAPACITY_KEY, TankCapacityModule::getCapacityKey),
+    IntLoadable.FROM_ZERO.field("capacity", TankCapacityModule::getCapacity),
+    BooleanLoadable.INSTANCE.field("scale_capacity", TankCapacityModule::isScaleCapacity),
+    Loadables.RESOURCE_LOCATION.defaultField("fluid_key", DEFAULT_FLUID_KEY, TankModule::getFluidKey),
+    Loadables.RESOURCE_LOCATION.defaultField("owner_key", DEFAULT_OWNER_KEY, TankModule::getOwnerKey),
+    TankModule::new);
 
   /** Helper function to parse a fluid from NBT */
   public static final BiFunction<CompoundTag, String, FluidStack> PARSE_FLUID = (nbt, key) -> FluidStack.loadFluidStackFromNBT(nbt.getCompound(key));
@@ -224,51 +233,4 @@ public class TankModule extends TankCapacityModule implements FluidModifierHook,
   public IGenericLoader<? extends ModifierModule> getLoader() {
     return LOADER;
   }
-
-  public static final IGenericLoader<TankModule> LOADER = new IGenericLoader<>() {
-    @Override
-    public TankModule deserialize(JsonObject json) {
-      int capacity = GsonHelper.getAsInt(json, "capacity");
-      boolean scaleCapacity = GsonHelper.getAsBoolean(json, "scale_capacity");
-      ResourceLocation capacityKey = JsonHelper.getResourceLocation(json, "capacity_key", DEFAULT_CAPACITY_KEY);
-      ResourceLocation fluidKey = JsonHelper.getResourceLocation(json, "fluid_key", DEFAULT_FLUID_KEY);
-      ResourceLocation ownerKey = JsonHelper.getResourceLocation(json, "owner_key", DEFAULT_OWNER_KEY);
-      return new TankModule(capacityKey, capacity, scaleCapacity, fluidKey, ownerKey);
-    }
-
-    @Override
-    public void serialize(TankModule object, JsonObject json) {
-      json.addProperty("capacity", object.getCapacity());
-      json.addProperty("scale_capacity", object.isScaleCapacity());
-      ResourceLocation capacityKey = object.getCapacityKey();
-      if (capacityKey != DEFAULT_CAPACITY_KEY) {
-        json.addProperty("capacity_key", capacityKey.toString());
-      }
-      if (object.fluidKey != DEFAULT_FLUID_KEY) {
-        json.addProperty("fluid_key", object.fluidKey.toString());
-      }
-      if (object.ownerKey != DEFAULT_OWNER_KEY) {
-        json.addProperty("owner_key", object.ownerKey.toString());
-      }
-    }
-
-    @Override
-    public TankModule fromNetwork(FriendlyByteBuf buffer) {
-      ResourceLocation capacityKey = buffer.readResourceLocation();
-      int capacity = buffer.readVarInt();
-      boolean scaleCapacity = buffer.readBoolean();
-      ResourceLocation fluidKey = buffer.readResourceLocation();
-      ResourceLocation ownerKey = buffer.readResourceLocation();
-      return new TankModule(capacityKey, capacity, scaleCapacity, fluidKey, ownerKey);
-    }
-
-    @Override
-    public void toNetwork(TankModule object, FriendlyByteBuf buffer) {
-      buffer.writeResourceLocation(object.getCapacityKey());
-      buffer.writeVarInt(object.getCapacity());
-      buffer.writeBoolean(object.isScaleCapacity());
-      buffer.writeResourceLocation(object.fluidKey);
-      buffer.writeResourceLocation(object.ownerKey);
-    }
-  };
 }

@@ -23,7 +23,7 @@ public class ModifierMaterialRepairSerializer<T extends Recipe<?> & IModifierMat
   @Override
   public T fromJson(ResourceLocation id, JsonObject json) {
     ModifierId modifier = new ModifierId(JsonHelper.getResourceLocation(json, "modifier"));
-    MaterialId repairMaterial = MaterialId.PARSER.getFromJson(json, "repair_material");
+    MaterialId repairMaterial = MaterialId.PARSER.getAndDeserialize(json, "repair_material");
     return factory.create(id, modifier, repairMaterial);
   }
 

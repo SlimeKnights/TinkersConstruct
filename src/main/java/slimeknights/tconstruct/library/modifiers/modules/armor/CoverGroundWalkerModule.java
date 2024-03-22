@@ -1,22 +1,21 @@
 package slimeknights.tconstruct.library.modifiers.modules.armor;
 
-import com.google.gson.JsonObject;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import slimeknights.mantle.data.loadable.common.BlockStateLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition;
+import slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCondition.ConditionalModifierModule;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -26,7 +25,13 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
  * @param radius     Radius to cover
  * @param condition  Standard module condition
  */
-public record CoverGroundWalkerModule(BlockState state, LevelingValue radius, ModifierModuleCondition condition) implements ModifierModule, ArmorWalkRadiusModule<Void> {
+public record CoverGroundWalkerModule(BlockState state, LevelingValue radius, ModifierModuleCondition condition) implements ModifierModule, ArmorWalkRadiusModule<Void>, ConditionalModifierModule {
+  public static final RecordLoadable<CoverGroundWalkerModule> LOADER = RecordLoadable.create(
+    BlockStateLoadable.DIFFERENCE.directField(CoverGroundWalkerModule::state),
+    LevelingValue.LOADABLE.field("radius", CoverGroundWalkerModule::radius),
+    ModifierModuleCondition.FIELD,
+    CoverGroundWalkerModule::new);
+
   @Override
   public float getRadius(IToolStackView tool, ModifierEntry modifier) {
     return radius.compute(modifier.getLevel() + tool.getModifierLevel(TinkerModifiers.expanded.getId()));
@@ -50,40 +55,6 @@ public record CoverGroundWalkerModule(BlockState state, LevelingValue radius, Mo
   public IGenericLoader<? extends ModifierModule> getLoader() {
     return LOADER;
   }
-
-  public static final IGenericLoader<CoverGroundWalkerModule> LOADER = new IGenericLoader<>() {
-    @Override
-    public CoverGroundWalkerModule deserialize(JsonObject json) {
-      return new CoverGroundWalkerModule(
-        JsonHelper.convertToBlockState(json),
-        LevelingValue.deserialize(GsonHelper.getAsJsonObject(json, "radius")),
-        ModifierModuleCondition.deserializeFrom(json)
-      );
-    }
-
-    @Override
-    public void serialize(CoverGroundWalkerModule object, JsonObject json) {
-      object.condition.serializeInto(json);
-      JsonHelper.serializeBlockState(object.state, json);
-      json.add("radius", object.radius.serialize(new JsonObject()));
-    }
-
-    @Override
-    public CoverGroundWalkerModule fromNetwork(FriendlyByteBuf buffer) {
-      return new CoverGroundWalkerModule(
-        Block.stateById(buffer.readVarInt()),
-        LevelingValue.fromNetwork(buffer),
-        ModifierModuleCondition.fromNetwork(buffer)
-      );
-    }
-
-    @Override
-    public void toNetwork(CoverGroundWalkerModule object, FriendlyByteBuf buffer) {
-      buffer.writeVarInt(Block.getId(object.state));
-      object.radius.toNetwork(buffer);
-      object.condition.toNetwork(buffer);
-    }
-  };
 
 
   /* Builder */

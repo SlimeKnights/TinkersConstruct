@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.modifiers.modules.behavior;
+package slimeknights.tconstruct.library.modifiers.modules.unserializable;
 
 import lombok.RequiredArgsConstructor;
 import net.minecraft.world.entity.EquipmentSlot;

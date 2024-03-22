@@ -23,7 +23,7 @@ public class SpecializedRepairRecipeSerializer<T extends Recipe<?> & ISpecialize
   @Override
   public T fromJson(ResourceLocation id, JsonObject json) {
     Ingredient tool = Ingredient.fromJson(JsonHelper.getElement(json, "tool"));
-    MaterialId repairMaterial = MaterialId.PARSER.getFromJson(json, "repair_material");
+    MaterialId repairMaterial = MaterialId.PARSER.getAndDeserialize(json, "repair_material");
     return factory.create(id, tool, repairMaterial);
   }
 

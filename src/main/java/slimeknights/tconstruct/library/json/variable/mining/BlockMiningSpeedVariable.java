@@ -3,9 +3,9 @@ package slimeknights.tconstruct.library.json.variable.mining;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
+import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.tconstruct.library.json.variable.NestedFallbackLoader;
-import slimeknights.tconstruct.library.json.variable.NestedFallbackLoader.NestedFallback;
 import slimeknights.tconstruct.library.json.variable.block.BlockVariable;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
@@ -16,8 +16,11 @@ import javax.annotation.Nullable;
  * @param block     Block variable logic
  * @param fallback  Fallback value if the event is null
  */
-public record BlockMiningSpeedVariable(BlockVariable block, float fallback) implements MiningSpeedVariable, NestedFallback<BlockVariable> {
-  public static final IGenericLoader<BlockMiningSpeedVariable> LOADER = new NestedFallbackLoader<>("block_type", BlockVariable.LOADER, BlockMiningSpeedVariable::new);
+public record BlockMiningSpeedVariable(BlockVariable block, float fallback) implements MiningSpeedVariable {
+  public static final RecordLoadable<BlockMiningSpeedVariable> LOADER = RecordLoadable.create(
+    BlockVariable.LOADER.directField("block_type", BlockMiningSpeedVariable::block),
+    FloatLoadable.ANY.field("fallback", BlockMiningSpeedVariable::fallback),
+    BlockMiningSpeedVariable::new);
 
   @Override
   public float getValue(IToolStackView tool, @Nullable BreakSpeed event, @Nullable Player player, @Nullable Direction sideHit) {
@@ -25,11 +28,6 @@ public record BlockMiningSpeedVariable(BlockVariable block, float fallback) impl
       return block.getValue(event.getState());
     }
     return fallback;
-  }
-
-  @Override
-  public BlockVariable nested() {
-    return block;
   }
 
   @Override

@@ -10,7 +10,10 @@
     "tag": "mantle:water"
   },
   "result": {
+    "count": 1,
     "item": "minecraft:lingering_potion",
-    "nbt": "{Potion:\"minecraft:water\"}"
+    "nbt": {
+      "Potion": "minecraft:water"
+    }
   }
 }

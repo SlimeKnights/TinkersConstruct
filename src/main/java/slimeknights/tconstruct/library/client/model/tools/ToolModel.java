@@ -145,7 +145,7 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
     // modifiers first
     List<ModifierId> firstModifiers = Collections.emptyList();
     if (json.has("first_modifiers")) {
-      firstModifiers = JsonHelper.parseList(json, "first_modifiers", ModifierId.PARSER::convertFromJson);
+      firstModifiers = JsonHelper.parseList(json, "first_modifiers", ModifierId.PARSER::convert);
     }
     return new ToolModel(parts, isLarge, offset, smallModifierRoots, largeModifierRoots, firstModifiers);
   }
