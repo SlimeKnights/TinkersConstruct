@@ -19,7 +19,7 @@ public record ItemToolPredicate(IJsonPredicate<Item> predicate) implements ToolC
   }
 
   @Override
-  public IGenericLoader<? extends IJsonPredicate<IToolContext>> getLoader() {
+  public IGenericLoader<? extends ToolContextPredicate> getLoader() {
     return LOADER;
   }
 }

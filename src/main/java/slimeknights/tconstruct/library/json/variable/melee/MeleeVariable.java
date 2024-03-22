@@ -13,7 +13,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import javax.annotation.Nullable;
 
 /** Variable for use in {@link ConditionalMeleeDamageModule} */
-public interface MeleeVariable extends IHaveLoader<MeleeVariable> {
+public interface MeleeVariable extends IHaveLoader {
   GenericLoaderRegistry<MeleeVariable> LOADER = new VariableLoaderRegistry<>(Constant.LOADER.constructor());
 
   /**

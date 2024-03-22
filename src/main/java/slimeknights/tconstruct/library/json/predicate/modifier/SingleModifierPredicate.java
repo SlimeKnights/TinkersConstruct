@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.json.predicate.modifier;
 
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 
@@ -15,7 +14,7 @@ public record SingleModifierPredicate(ModifierId modifier) implements ModifierPr
   }
 
   @Override
-  public IGenericLoader<? extends IJsonPredicate<ModifierId>> getLoader() {
+  public IGenericLoader<? extends ModifierPredicate> getLoader() {
     return LOADER;
   }
 }

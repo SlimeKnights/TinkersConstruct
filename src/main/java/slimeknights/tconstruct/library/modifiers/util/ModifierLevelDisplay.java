@@ -12,7 +12,7 @@ import slimeknights.tconstruct.library.utils.RomanNumeralHelper;
 
 import static slimeknights.mantle.data.registry.GenericLoaderRegistry.SingletonLoader.singleton;
 
-public interface ModifierLevelDisplay extends IHaveLoader<ModifierLevelDisplay> {
+public interface ModifierLevelDisplay extends IHaveLoader {
   /** Default display, listing name followed by a roman numeral for level */
   ModifierLevelDisplay DEFAULT = singleton(loader -> new ModifierLevelDisplay() {
     @Override
@@ -33,6 +33,9 @@ public interface ModifierLevelDisplay extends IHaveLoader<ModifierLevelDisplay> 
 
   /** Gets the name for a modifier for the given level */
   Component nameForLevel(Modifier modifier, int level);
+
+  @Override
+  IGenericLoader<? extends ModifierLevelDisplay> getLoader();
 
 
   /* Non-default implementations */

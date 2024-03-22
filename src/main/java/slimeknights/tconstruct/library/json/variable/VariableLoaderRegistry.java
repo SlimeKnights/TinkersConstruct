@@ -13,7 +13,7 @@ import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
  * Generic loader registry for variables, has special handling for constant float values to a custom float type
  * @param <T>  Object in registry
  */
-public class VariableLoaderRegistry<T extends IHaveLoader<T>> extends GenericLoaderRegistry<T> {
+public class VariableLoaderRegistry<T extends IHaveLoader> extends GenericLoaderRegistry<T> {
   /** Constructor for constant values */
   private final FloatFunction<? extends T> constantConstructor;
 
@@ -72,7 +72,7 @@ public class VariableLoaderRegistry<T extends IHaveLoader<T>> extends GenericLoa
   }
 
   /** Loader for a constant float */
-  public record ConstantLoader<T extends ConstantFloat & IHaveLoader<?>>(FloatFunction<T> constructor) implements IGenericLoader<T> {
+  public record ConstantLoader<T extends ConstantFloat & IHaveLoader>(FloatFunction<T> constructor) implements IGenericLoader<T> {
     @Override
     public T deserialize(JsonObject json) {
       return constructor.apply(GsonHelper.getAsFloat(json, "value"));

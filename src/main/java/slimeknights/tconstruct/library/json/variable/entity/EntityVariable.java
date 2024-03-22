@@ -11,12 +11,14 @@ import slimeknights.tconstruct.library.json.variable.VariableLoaderRegistry.Cons
 import static slimeknights.mantle.data.registry.GenericLoaderRegistry.SingletonLoader.singleton;
 
 /** Variable that fetches a property from an entity */
-public interface EntityVariable extends IHaveLoader<EntityVariable> {
+public interface EntityVariable extends IHaveLoader {
   GenericLoaderRegistry<EntityVariable> LOADER = new VariableLoaderRegistry<>(Constant.LOADER.constructor());
 
   /** Gets a value from the given entity */
   float getValue(LivingEntity entity);
 
+  @Override
+  IGenericLoader<? extends EntityVariable> getLoader();
 
   /* Singletons */
 

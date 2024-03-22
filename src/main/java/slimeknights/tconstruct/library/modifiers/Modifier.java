@@ -45,7 +45,7 @@ import java.util.Random;
  * @see #registerHooks(Builder)
  */
 @SuppressWarnings("unused")
-public class Modifier implements IHaveLoader<Modifier> {
+public class Modifier implements IHaveLoader {
   /** Default loader instance for a modifier with no properties */
   public static final IGenericLoader<Modifier> DEFAULT_LOADER = new IGenericLoader<>() {
     @Override

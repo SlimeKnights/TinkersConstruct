@@ -11,7 +11,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import javax.annotation.Nullable;
 
 /** Variable for use in {@link slimeknights.tconstruct.library.modifiers.modules.behavior.ConditionalStatModule} */
-public interface ConditionalStatVariable extends IHaveLoader<ConditionalStatVariable> {
+public interface ConditionalStatVariable extends IHaveLoader {
   GenericLoaderRegistry<ConditionalStatVariable> LOADER = new VariableLoaderRegistry<>(Constant.LOADER.constructor());
 
   /**

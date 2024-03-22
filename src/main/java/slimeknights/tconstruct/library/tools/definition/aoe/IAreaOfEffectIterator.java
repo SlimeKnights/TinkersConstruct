@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.function.Predicate;
 
 /** Logic for iterating over a set of blocks */
-public interface IAreaOfEffectIterator extends IHaveLoader<IAreaOfEffectIterator> {
+public interface IAreaOfEffectIterator extends IHaveLoader {
   /** Default iterator, no blocks */
   IAreaOfEffectIterator DEFAULT = new IAreaOfEffectIterator() {
     @Override

@@ -20,7 +20,7 @@ public interface ModifierPredicate extends IJsonPredicate<ModifierId> {
     }
 
     @Override
-    public IGenericLoader<? extends IJsonPredicate<ModifierId>> getLoader() {
+    public IGenericLoader<? extends ModifierPredicate> getLoader() {
       return loader;
     }
   });
@@ -38,4 +38,7 @@ public interface ModifierPredicate extends IJsonPredicate<ModifierId> {
   default IJsonPredicate<ModifierId> inverted() {
     return INVERTED.create(this);
   }
+
+  @Override
+  IGenericLoader<? extends ModifierPredicate> getLoader();
 }

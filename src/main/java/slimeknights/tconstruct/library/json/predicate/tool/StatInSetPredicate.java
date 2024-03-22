@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
-import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
@@ -31,7 +30,7 @@ public record StatInSetPredicate<T>(IToolStat<T> stat, Set<T> values) implements
   }
 
   @Override
-  public IGenericLoader<? extends IJsonPredicate<IToolContext>> getLoader() {
+  public IGenericLoader<? extends ToolContextPredicate> getLoader() {
     return LOADER;
   }
 

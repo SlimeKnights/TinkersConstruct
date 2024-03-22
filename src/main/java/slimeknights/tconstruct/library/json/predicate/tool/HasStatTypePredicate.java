@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.json.predicate.tool;
 
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
@@ -38,7 +37,7 @@ public record HasStatTypePredicate(MaterialStatsId statType, @Nullable MaterialV
   }
 
   @Override
-  public IGenericLoader<? extends IJsonPredicate<IToolContext>> getLoader() {
+  public IGenericLoader<? extends ToolContextPredicate> getLoader() {
     return LOADER;
   }
 }

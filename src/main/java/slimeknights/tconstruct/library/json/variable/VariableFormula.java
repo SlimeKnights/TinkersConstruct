@@ -18,7 +18,7 @@ import static slimeknights.tconstruct.library.json.math.ModifierFormula.MULTIPLI
 import static slimeknights.tconstruct.library.json.math.ModifierFormula.VALUE;
 
 /** Shared logic for various variable formulas */
-public interface VariableFormula<T extends IHaveLoader<T>> {
+public interface VariableFormula<T extends IHaveLoader> {
   /** used client side to satisfy the variable name parameter */
   String[] EMPTY_STRINGS = new String[0];
 

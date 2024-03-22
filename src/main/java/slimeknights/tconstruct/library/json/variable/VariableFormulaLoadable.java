@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map.Entry;
 
 /** Loadable for a variable formula */
-public record VariableFormulaLoadable<V extends IHaveLoader<V>, F extends VariableFormula<V>>(
+public record VariableFormulaLoadable<V extends IHaveLoader, F extends VariableFormula<V>>(
   GenericLoaderRegistry<V> variableLoader, String[] defaultNames,
   FallbackFormula boostFallback, FallbackFormula percentFallback,
   Function3<ModifierFormula,List<V>,Boolean,F> constructor

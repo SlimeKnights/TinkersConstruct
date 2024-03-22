@@ -51,7 +51,7 @@ public record HasModifierPredicate(ModifierId modifier, IntRange level, Modifier
   }
 
   @Override
-  public IGenericLoader<? extends IJsonPredicate<IToolContext>> getLoader() {
+  public IGenericLoader<? extends ToolContextPredicate> getLoader() {
     return LOADER;
   }
 

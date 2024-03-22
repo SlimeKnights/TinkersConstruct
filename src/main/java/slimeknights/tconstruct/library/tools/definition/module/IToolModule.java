@@ -25,7 +25,7 @@ import java.util.Map.Entry;
 /**
  * Base interface for modules within the tool definition data
  */
-public interface IToolModule extends IHaveLoader<IToolModule> {
+public interface IToolModule extends IHaveLoader {
   /** Loader instance for any modules loadable in tools */
   GenericLoaderRegistry<IToolModule> LOADER = new GenericLoaderRegistry<>();
 

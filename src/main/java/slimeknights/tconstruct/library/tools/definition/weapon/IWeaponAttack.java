@@ -8,7 +8,7 @@ import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 /** Attack logic for a modifiable weapon */
-public interface IWeaponAttack extends IHaveLoader<IWeaponAttack> {
+public interface IWeaponAttack extends IHaveLoader {
   /** Default weapon attack */
   IWeaponAttack DEFAULT = new IWeaponAttack() {
     @Override

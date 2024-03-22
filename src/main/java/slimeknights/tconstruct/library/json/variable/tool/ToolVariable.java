@@ -11,11 +11,14 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import static slimeknights.mantle.data.registry.GenericLoaderRegistry.SingletonLoader.singleton;
 
 /** Variable that fetches a value from a tool instance */
-public interface ToolVariable extends IHaveLoader<ToolVariable> {
+public interface ToolVariable extends IHaveLoader {
   GenericLoaderRegistry<ToolVariable> LOADER = new VariableLoaderRegistry<>(Constant.LOADER.constructor());
 
   /** Gets a value from the given block state */
   float getValue(IToolStackView tool);
+
+  @Override
+  IGenericLoader<? extends ToolVariable> getLoader();
 
 
   /* Singletons */

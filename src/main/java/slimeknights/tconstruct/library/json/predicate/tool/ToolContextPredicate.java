@@ -21,7 +21,7 @@ public interface ToolContextPredicate extends IJsonPredicate<IToolContext> {
     }
 
     @Override
-    public IGenericLoader<? extends IJsonPredicate<IToolContext>> getLoader() {
+    public IGenericLoader<? extends ToolContextPredicate> getLoader() {
       return loader;
     }
   });
@@ -35,6 +35,8 @@ public interface ToolContextPredicate extends IJsonPredicate<IToolContext> {
   /** Loader for or conditions */
   NestedJsonPredicateLoader<IToolContext,OrJsonPredicate<IToolContext>> OR = OrJsonPredicate.createLoader(LOADER, INVERTED);
 
+  @Override
+  IGenericLoader<? extends ToolContextPredicate> getLoader();
 
   /** Predicate checking for a tool having any upgrades */
   ToolContextPredicate HAS_UPGRADES = singleton(loader -> new ToolContextPredicate() {
@@ -44,7 +46,7 @@ public interface ToolContextPredicate extends IJsonPredicate<IToolContext> {
     }
 
     @Override
-    public IGenericLoader<? extends IJsonPredicate<IToolContext>> getLoader() {
+    public IGenericLoader<? extends ToolContextPredicate> getLoader() {
       return loader;
     }
   });
