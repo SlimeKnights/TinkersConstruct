@@ -966,8 +966,8 @@
   "item.tconstruct.sword.description": "Kılıç evrensel bir silahtır. Süpüren saldırılar düşman kalabalığını uzakta tutuyor.\nAyrıca örümcek ağlarına karşı iyi!",
   "item.tconstruct.cleaver.description": "Satır kallama ocağının ustaları için bir silahtır. Yüksek menzilli saldırılar düşmanları boylu boyunca kesip durur.",
 
-  "item.tconstruct.crossbow.description": "Tatar yayı hafif bir menzilli silahtır, okları ve havai fişekleri hızlıca ateşleyebilir.",
-  "item.tconstruct.longbow.description": "Uzun yay koca bir menzilli silahtır, okları uzak menzillere kesinlik ile ateşleyebilir.",
+  "item.tconstruct.crossbow.description": "Tatar yayı hafif bir uzun menzilli silahtır, okları ve havai fişekleri hızlıca ateşleyebilir.",
+  "item.tconstruct.longbow.description": "Uzun yay koca bir uzun menzilli silahtır, okları uzak menzillere kesinlik ile ateşleyebilir.",
 
 
   "_comment": "Kallama Ocağı Paylaşılan",
@@ -2774,7 +2774,7 @@
   "book.tconstruct.material.part_builder": "Parça yapıcıda yapılabilir",
   "book.tconstruct.material.cast_from": "Kalıba %s dökümleyerek yapılabilir",
   "book.tconstruct.material.composite_from": "%s ergimişini %s parçasının üzerine dökümleyerek yapılabilir",
-  "book.tconstruct.material.skull_from": "Enderbalçığını %s üzerine döküm çanağında dökümleyerek yapılabilir",
+  "book.tconstruct.material.skull_from": "Enderbalçığını %s üzerine döküm çanağında dökümleyerek oluşturulabilir",
   "book.tconstruct.modifiers.effect": "Etkileri:",
   "book.tconstruct.tool.properties": "Özellikleri:",
 
