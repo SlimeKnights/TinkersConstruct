@@ -1,0 +1,7 @@
+{
+  "title": "Onarıcının Sandığı Üretimi",
+  "recipe": "tconstruct:tables/tinkers_chest",
+  "description": [
+    { "text": "Ürettikten sonra sandığı istediğin renge boyayabilirsin." }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "title": "Parça Yapıcı Üretimi",
+  "recipe": "tconstruct:tables/part_builder",
+  "grid_size": "small",
+  "description": [
+    { "text": "Biraz taslak oluşturduğunda araç yapımına başlamak için parça yapıcıyı oluştur." }
+  ]
+}

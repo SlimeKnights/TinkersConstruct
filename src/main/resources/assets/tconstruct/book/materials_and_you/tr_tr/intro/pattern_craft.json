@@ -1,0 +1,8 @@
+{
+  "title": "Taslak Üretimi",
+  "recipe": "tconstruct:tables/pattern",
+  "grid_size": "small",
+  "description": [
+    { "text": "Araç oluştururken, hem araç parçaları hem de çalışma masaları için, birçok taslak gerekecek." }
+  ]
+}

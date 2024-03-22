@@ -1,0 +1,16 @@
+intro=Tanıtım
+
+melee_harvest_materials=1. Düzey Yakın Menzilli Çıkarım Malzemeleri 
+melee_harvest_materials.subtext=Bu malzemeler parça yapıcıya konularak yakın menzilli silahların veya çıkarım araçlarının araç parçaları üretilebilir.
+ranged_materials=1. Düzey Uzun Menzilli Malzemeleri 
+ranged_materials.subtext=Bu malzemeler parça yapıcıya konularak yay gibi uzun menzilli silahların araç parçaları üretilebilir.
+
+
+tools=Araçlar
+
+armor=Yalın Zırh
+armor.subtext=Yalın zırh kaynak avlamaya veya herhangi bir makine düzeneği yapmaya gerektirmeden yalın koruma sağlar. Bu sınırlı savunma verir ancak zırh takımını yükseltmek için daha çok fırsat var! Ah, ne eğlenceli şeyler yaratacaksın? 
+
+
+modifiers=Değiştiriciler
+further_reading=İleri Okumalar
