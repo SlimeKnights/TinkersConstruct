@@ -47,10 +47,7 @@ import slimeknights.tconstruct.library.json.variable.melee.EntityMeleeVariable;
 import slimeknights.tconstruct.library.json.variable.melee.EntityMeleeVariable.WhichEntity;
 import slimeknights.tconstruct.library.json.variable.mining.BlockLightVariable;
 import slimeknights.tconstruct.library.json.variable.mining.BlockMiningSpeedVariable;
-import slimeknights.tconstruct.library.json.variable.mining.EntityMiningSpeedVariable;
-import slimeknights.tconstruct.library.json.variable.mining.ToolMiningSpeedVariable;
 import slimeknights.tconstruct.library.json.variable.stat.EntityConditionalStatVariable;
-import slimeknights.tconstruct.library.json.variable.stat.ToolConditionalStatVariable;
 import slimeknights.tconstruct.library.json.variable.tool.ToolStatVariable;
 import slimeknights.tconstruct.library.json.variable.tool.ToolVariable;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -217,7 +214,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
         .build());
     buildModifier(ModifierIds.hydraulic).addModule(
       ConditionalMiningSpeedModule.builder()
-        .customVariable("bonus", new EntityMiningSpeedVariable(new ConditionalEntityVariable(
+        .customVariable("bonus", new EntityConditionalStatVariable(new ConditionalEntityVariable(
           LivingEntityPredicate.EYES_IN_WATER,
           new ConditionalEntityVariable(new HasEnchantmentEntityPredicate(Enchantments.AQUA_AFFINITY), 8, 40),
           new ConditionalEntityVariable(LivingEntityPredicate.RAINING, 4, 0)
@@ -388,7 +385,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
         // finally, add in base damage
         .variable(VALUE).add().build())
       .addModule(ConditionalStatModule.stat(ToolStats.DRAW_SPEED)
-        .customVariable("poison", new EntityConditionalStatVariable(new EntityEffectLevelVariable(MobEffects.POISON), 0))
+        .customVariable("poison", new slimeknights.tconstruct.library.json.variable.stat.EntityConditionalStatVariable(new EntityEffectLevelVariable(MobEffects.POISON), 0))
         .formula()
         // gives 0.15 bonus per level at poison 1, .25 at poison 2
         .customVariable("poison").constant(0.5f).add().constant(0.1f).multiply().variable(LEVEL).multiply().variable(MULTIPLIER).multiply()
@@ -409,8 +406,8 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
         // finally, add in base damage
         .variable(VALUE).add().build())
       .addModule(ConditionalStatModule.stat(ToolStats.DRAW_SPEED)
-        .customVariable("health", new EntityConditionalStatVariable(EntityVariable.HEALTH, 0))
-        .customVariable("max", new EntityConditionalStatVariable(new AttributeEntityVariable(Attributes.MAX_HEALTH), 20))
+        .customVariable("health", new slimeknights.tconstruct.library.json.variable.stat.EntityConditionalStatVariable(EntityVariable.HEALTH, 0))
+        .customVariable("max", new slimeknights.tconstruct.library.json.variable.stat.EntityConditionalStatVariable(new AttributeEntityVariable(Attributes.MAX_HEALTH), 20))
         .formula()
         .customVariable("health")
         // add (10 - max_health) to health, at minimum 0, to account for low max health
@@ -474,8 +471,8 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(StatBoostModule.multiplyBase(ToolStats.PROJECTILE_DAMAGE).eachLevel(0.03f));
     buildModifier(ModifierIds.maintained)
       .addModule(ConditionalMiningSpeedModule.builder()
-        .customVariable("durability", new ToolMiningSpeedVariable(ToolVariable.CURRENT_DURABILITY))
-        .customVariable("max_durability", new ToolMiningSpeedVariable(new ToolStatVariable(ToolStats.DURABILITY)))
+        .customVariable("durability", ToolVariable.CURRENT_DURABILITY)
+        .customVariable("max_durability", new ToolStatVariable(ToolStats.DURABILITY))
         .formula()
         .customVariable("max_durability").constant(0.5f).multiply().duplicate()
         .customVariable("durability").subtractFlipped()
@@ -485,8 +482,8 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
         .variable(MULTIPLIER).multiply()
         .variable(VALUE).add().build())
       .addModule(ConditionalStatModule.stat(ToolStats.VELOCITY)
-        .customVariable("durability", new ToolConditionalStatVariable(ToolVariable.CURRENT_DURABILITY))
-        .customVariable("max_durability", new ToolConditionalStatVariable(new ToolStatVariable(ToolStats.DURABILITY)))
+        .customVariable("durability", ToolVariable.CURRENT_DURABILITY)
+        .customVariable("max_durability", new ToolStatVariable(ToolStats.DURABILITY))
         .formula()
         .customVariable("max_durability").constant(0.5f).multiply().duplicate()
         .customVariable("durability").subtractFlipped()

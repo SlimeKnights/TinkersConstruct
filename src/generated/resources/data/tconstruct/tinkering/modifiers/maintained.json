@@ -27,14 +27,10 @@
       "percent": false,
       "require_effective": true,
       "variables": {
-        "durability": {
-          "type": "tconstruct:tool",
-          "tool_type": "tconstruct:current_durability"
-        },
+        "durability": "tconstruct:tool_durability",
         "max_durability": {
-          "type": "tconstruct:tool",
-          "stat": "tconstruct:durability",
-          "tool_type": "tconstruct:stat"
+          "type": "tconstruct:tool_stat",
+          "stat": "tconstruct:durability"
         }
       }
     },
@@ -62,14 +58,10 @@
       "percent": false,
       "stat": "tconstruct:velocity",
       "variables": {
-        "durability": {
-          "type": "tconstruct:tool",
-          "tool_type": "tconstruct:current_durability"
-        },
+        "durability": "tconstruct:tool_durability",
         "max_durability": {
-          "type": "tconstruct:tool",
-          "stat": "tconstruct:durability",
-          "tool_type": "tconstruct:stat"
+          "type": "tconstruct:tool_stat",
+          "stat": "tconstruct:durability"
         }
       }
     }

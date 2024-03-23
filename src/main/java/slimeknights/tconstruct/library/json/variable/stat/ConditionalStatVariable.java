@@ -1,18 +1,26 @@
 package slimeknights.tconstruct.library.json.variable.stat;
 
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.library.json.variable.VariableLoaderRegistry;
 import slimeknights.tconstruct.library.json.variable.VariableLoaderRegistry.ConstantLoader;
+import slimeknights.tconstruct.library.json.variable.mining.MiningSpeedVariable;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 
-/** Variable for use in {@link slimeknights.tconstruct.library.modifiers.modules.behavior.ConditionalStatModule} */
-public interface ConditionalStatVariable extends IHaveLoader {
-  GenericLoaderRegistry<ConditionalStatVariable> LOADER = new VariableLoaderRegistry<>("Conditional Stat Variable", Constant.LOADER.constructor());
+/**
+ * Variable for use in {@link slimeknights.tconstruct.library.modifiers.modules.behavior.ConditionalStatModule}.
+ * All conditional stat variables automatically work as mining speed variables due to the superset parameter space.
+ */
+public interface ConditionalStatVariable extends IHaveLoader, MiningSpeedVariable {
+  GenericLoaderRegistry<ConditionalStatVariable> LOADER = new VariableLoaderRegistry<>("Conditional Stat Variable", ConditionalStatVariable.Constant.LOADER.constructor());
 
   /**
    * Gets the value for the given content
@@ -22,9 +30,22 @@ public interface ConditionalStatVariable extends IHaveLoader {
    */
   float getValue(IToolStackView tool, @Nullable LivingEntity entity);
 
+  @Override
+  default float getValue(IToolStackView tool, @Nullable BreakSpeed event, @Nullable Player player, @Nullable Direction sideHit) {
+    return getValue(tool, player);
+  }
+
+
+  /** Registers a variable with conditional stat and mining speed */
+  static void register(ResourceLocation name, IGenericLoader<? extends ConditionalStatVariable> loader) {
+    LOADER.register(name, loader);
+    MiningSpeedVariable.LOADER.register(name, loader);
+  }
+
+
   /** Constant value instance for this object */
   record Constant(float value) implements VariableLoaderRegistry.ConstantFloat, ConditionalStatVariable {
-    public static final ConstantLoader<Constant> LOADER = new ConstantLoader<>(Constant::new);
+    public static final ConstantLoader<ConditionalStatVariable.Constant> LOADER = new ConstantLoader<>(ConditionalStatVariable.Constant::new);
 
     @Override
     public float getValue(IToolStackView tool, @Nullable LivingEntity entity) {

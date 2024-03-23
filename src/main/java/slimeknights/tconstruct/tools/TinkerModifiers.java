@@ -41,15 +41,11 @@ import slimeknights.tconstruct.library.json.variable.entity.EntityLightVariable;
 import slimeknights.tconstruct.library.json.variable.entity.EntityVariable;
 import slimeknights.tconstruct.library.json.variable.melee.EntityMeleeVariable;
 import slimeknights.tconstruct.library.json.variable.melee.MeleeVariable;
-import slimeknights.tconstruct.library.json.variable.melee.ToolMeleeVariable;
 import slimeknights.tconstruct.library.json.variable.mining.BlockLightVariable;
 import slimeknights.tconstruct.library.json.variable.mining.BlockMiningSpeedVariable;
-import slimeknights.tconstruct.library.json.variable.mining.EntityMiningSpeedVariable;
 import slimeknights.tconstruct.library.json.variable.mining.MiningSpeedVariable;
-import slimeknights.tconstruct.library.json.variable.mining.ToolMiningSpeedVariable;
 import slimeknights.tconstruct.library.json.variable.stat.ConditionalStatVariable;
 import slimeknights.tconstruct.library.json.variable.stat.EntityConditionalStatVariable;
-import slimeknights.tconstruct.library.json.variable.stat.ToolConditionalStatVariable;
 import slimeknights.tconstruct.library.json.variable.tool.ConditionalToolVariable;
 import slimeknights.tconstruct.library.json.variable.tool.ToolStatVariable;
 import slimeknights.tconstruct.library.json.variable.tool.ToolVariable;
@@ -652,22 +648,18 @@ public final class TinkerModifiers extends TinkerModule {
       EntityVariable.LOADER.register(getResource("light"), EntityLightVariable.LOADER);
       // tool
       ToolVariable.LOADER.register(getResource("constant"), ToolVariable.Constant.LOADER);
-      ToolVariable.LOADER.register(getResource("conditional"), ConditionalToolVariable.LOADER);
-      ToolVariable.LOADER.register(getResource("current_durability"), ToolVariable.CURRENT_DURABILITY.getLoader());
-      ToolVariable.LOADER.register(getResource("stat"), ToolStatVariable.LOADER);
+      ToolVariable.register(getResource("tool_conditional"), ConditionalToolVariable.LOADER);
+      ToolVariable.register(getResource("tool_durability"), ToolVariable.CURRENT_DURABILITY.getLoader());
+      ToolVariable.register(getResource("tool_stat"), ToolStatVariable.LOADER);
       // stat
       ConditionalStatVariable.LOADER.register(getResource("constant"), ConditionalStatVariable.Constant.LOADER);
-      ConditionalStatVariable.LOADER.register(getResource("entity"), EntityConditionalStatVariable.LOADER);
-      ConditionalStatVariable.LOADER.register(getResource("tool"), ToolConditionalStatVariable.LOADER);
+      ConditionalStatVariable.register(getResource("entity"), EntityConditionalStatVariable.LOADER);
       // melee
       MeleeVariable.LOADER.register(getResource("constant"), MeleeVariable.Constant.LOADER);
       MeleeVariable.LOADER.register(getResource("entity"), EntityMeleeVariable.LOADER);
-      MeleeVariable.LOADER.register(getResource("tool"), ToolMeleeVariable.LOADER);
       // mining speed
       MiningSpeedVariable.LOADER.register(getResource("constant"), MiningSpeedVariable.Constant.LOADER);
       MiningSpeedVariable.LOADER.register(getResource("block"), BlockMiningSpeedVariable.LOADER);
-      MiningSpeedVariable.LOADER.register(getResource("entity"), EntityMiningSpeedVariable.LOADER);
-      MiningSpeedVariable.LOADER.register(getResource("tool"), ToolMiningSpeedVariable.LOADER);
       MiningSpeedVariable.LOADER.register(getResource("block_light"), BlockLightVariable.LOADER);
     }
   }
