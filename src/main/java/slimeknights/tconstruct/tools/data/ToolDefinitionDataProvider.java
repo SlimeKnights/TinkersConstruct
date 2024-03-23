@@ -6,7 +6,6 @@ import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.ToolActions;
 import slimeknights.mantle.data.predicate.block.BlockPredicate;
-import slimeknights.mantle.data.predicate.block.TagBlockPredicate;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.data.tinkering.AbstractToolDefinitionDataProvider;
@@ -141,8 +140,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .harvestLogic(ModifiedHarvestLogic
                       .builder(TinkerTags.Blocks.MINABLE_WITH_MATTOCK)
                       // 200% hand speed on any axe block we do not directly target
-                      .addModifier(2f, BlockPredicate.AND.create(new TagBlockPredicate(BlockTags.MINEABLE_WITH_AXE),
-                                                                 new TagBlockPredicate(TinkerTags.Blocks.MINABLE_WITH_MATTOCK).inverted()))
+                      .addModifier(2f, BlockPredicate.and(BlockPredicate.tag(BlockTags.MINEABLE_WITH_AXE),
+                                                          BlockPredicate.tag(TinkerTags.Blocks.MINABLE_WITH_MATTOCK).inverted()))
                       .build())
       .aoe(new VeiningAOEIterator(0));
 

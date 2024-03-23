@@ -8,9 +8,7 @@
   "leftovers": [
     "minecraft:sponge"
   ],
-  "modifier_predicate": {
-    "type": "tconstruct:always"
-  },
+  "modifier_predicate": "mantle:any",
   "tools": {
     "tag": "tconstruct:modifiable"
   }

@@ -164,7 +164,7 @@ public class ModifierSetWorktableRecipe extends AbstractWorktableRecipe {
       ResourceLocation dataKey = JsonHelper.getResourceLocation(json, "data_key");
       Ingredient tool = Ingredient.fromJson(JsonHelper.getElement(json, "tools"));
       List<SizedIngredient> ingredients = JsonHelper.parseList(json, "inputs", SizedIngredient::deserialize);
-      IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ALWAYS;
+      IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ANY;
       if (json.has("modifier_predicate")) {
         modifierPredicate = ModifierPredicate.LOADER.getAndDeserialize(json, "modifier_predicate");
       }

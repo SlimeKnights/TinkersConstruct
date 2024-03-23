@@ -7,9 +7,8 @@
       "each_level": 0.5,
       "entity": "mantle:any",
       "tool": {
-        "type": "tconstruct:inverted",
-        "inverted_type": "tconstruct:item",
-        "item_type": "mantle:tag",
+        "type": "mantle:inverted",
+        "inverted_type": "mantle:tag",
         "tag": "tconstruct:modifiable/armor/chestplate"
       }
     },

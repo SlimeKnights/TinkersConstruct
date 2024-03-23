@@ -11,7 +11,7 @@
     }
   ],
   "modifier_predicate": {
-    "type": "tconstruct:inverted",
+    "type": "mantle:inverted",
     "inverted_type": "tconstruct:tag",
     "tag": "tconstruct:invisible_ink_blacklist"
   },

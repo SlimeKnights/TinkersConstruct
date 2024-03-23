@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.tools.definition.harvest;
 
-import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import lombok.AccessLevel;
@@ -13,8 +12,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.block.BlockPredicate;
-import slimeknights.mantle.data.predicate.block.SetBlockPredicate;
-import slimeknights.mantle.data.predicate.block.TagBlockPredicate;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -68,22 +65,22 @@ public class ModifiedHarvestLogic extends TagHarvestLogic {
 
     /** Adds a modifier when the block matches a tag */
     public Builder tagModifier(TagKey<Block> tag, float modifier) {
-      return addModifier(modifier, new TagBlockPredicate(tag));
+      return addModifier(modifier, BlockPredicate.tag(tag));
     }
 
     /** Adds a modifier when the block does not match a tag */
     public Builder notTagModifier(TagKey<Block> tag, float modifier) {
-      return addModifier(modifier, new TagBlockPredicate(tag).inverted());
+      return addModifier(modifier, BlockPredicate.tag(tag).inverted());
     }
 
     /** Adds a modifier when the block matches a tag */
     public Builder blockModifier(float modifier, Block... blocks) {
-      return addModifier(modifier, new SetBlockPredicate(ImmutableSet.copyOf(blocks)));
+      return addModifier(modifier, BlockPredicate.set(blocks));
     }
 
     /** Adds a modifier when the block matches a tag */
     public Builder notBlockModifier(float modifier, Block... blocks) {
-      return addModifier(modifier, new SetBlockPredicate(ImmutableSet.copyOf(blocks)).inverted());
+      return addModifier(modifier, BlockPredicate.set(blocks).inverted());
     }
 
     /** Builds the modifier */

@@ -39,7 +39,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import slimeknights.mantle.data.GenericDataProvider;
-import slimeknights.mantle.data.predicate.item.ItemSetPredicate;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
@@ -49,7 +48,6 @@ import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.json.predicate.tool.HasMaterialPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate.ModifierCheck;
-import slimeknights.tconstruct.library.json.predicate.tool.ItemToolPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.StatInRangePredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.StatInSetPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolContextPredicate;
@@ -182,7 +180,7 @@ public class AdvancementsProvider extends GenericDataProvider {
     //                                                                                                  .build())));
     builder(Items.WRITABLE_BOOK, resource("tools/upgrade_slots"), modified, FrameType.CHALLENGE, builder ->
       builder.addCriterion("has_modified", InventoryChangeTrigger.TriggerInstance.hasItems(new ToolStackItemPredicate(
-        ToolContextPredicate.AND.create(
+        ToolContextPredicate.and(
           new HasModifierPredicate(ModifierIds.writable, ModifierCheck.UPGRADES),
           new HasModifierPredicate(ModifierIds.recapitated, ModifierCheck.UPGRADES),
           new HasModifierPredicate(ModifierIds.harmonious, ModifierCheck.UPGRADES),
@@ -387,7 +385,7 @@ public class AdvancementsProvider extends GenericDataProvider {
             resource("world/slimeskull"), slimesuit, FrameType.CHALLENGE, builder -> {
       Item helmet = TinkerTools.slimesuit.get(ArmorSlotType.HELMET);
       Consumer<MaterialId> with = mat -> builder.addCriterion(mat.getPath(), InventoryChangeTrigger.TriggerInstance.hasItems(new ToolStackItemPredicate(
-        ToolContextPredicate.AND.create(new ItemToolPredicate(new ItemSetPredicate(helmet)), new HasMaterialPredicate(mat, 0)))));
+        ToolContextPredicate.and(ToolContextPredicate.set(helmet), new HasMaterialPredicate(mat, 0)))));
       with.accept(MaterialIds.glass);
       with.accept(MaterialIds.bone);
       with.accept(MaterialIds.necroticBone);

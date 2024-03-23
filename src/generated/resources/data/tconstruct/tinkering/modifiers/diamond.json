@@ -18,8 +18,7 @@
       "operation": "add",
       "stat": "tconstruct:durability",
       "tool": {
-        "type": "tconstruct:item",
-        "item_type": "mantle:tag",
+        "type": "mantle:tag",
         "tag": "tconstruct:modifiable/armor"
       }
     },

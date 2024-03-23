@@ -1,19 +1,17 @@
 package slimeknights.tconstruct.library.json.predicate.modifier;
 
-import slimeknights.mantle.data.predicate.AndJsonPredicate;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
-import slimeknights.mantle.data.predicate.InvertedJsonPredicate;
-import slimeknights.mantle.data.predicate.NestedJsonPredicateLoader;
-import slimeknights.mantle.data.predicate.OrJsonPredicate;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry;
+import slimeknights.mantle.data.predicate.PredicateRegistry;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.SingletonLoader;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 
+import java.util.List;
+
 /** Predicate that checks against a modifier */
 public interface ModifierPredicate extends IJsonPredicate<ModifierId> {
   /** Instance that always returns true */
-  ModifierPredicate ALWAYS = SingletonLoader.singleton(loader -> new ModifierPredicate() {
+  ModifierPredicate ANY = SingletonLoader.singleton(loader -> new ModifierPredicate() {
     @Override
     public boolean matches(ModifierId input) {
       return true;
@@ -25,20 +23,29 @@ public interface ModifierPredicate extends IJsonPredicate<ModifierId> {
     }
   });
   /** Loader for block state predicates */
-  GenericLoaderRegistry<IJsonPredicate<ModifierId>> LOADER = new GenericLoaderRegistry<>(ALWAYS, false);
-  /** Loader for inverted conditions */
-  InvertedJsonPredicate.Loader<ModifierId> INVERTED = new InvertedJsonPredicate.Loader<>(LOADER);
-  /** Loader for and conditions */
-  NestedJsonPredicateLoader<ModifierId,AndJsonPredicate<ModifierId>> AND = AndJsonPredicate.createLoader(LOADER, INVERTED);
-  /** Loader for or conditions */
-  NestedJsonPredicateLoader<ModifierId,OrJsonPredicate<ModifierId>> OR = OrJsonPredicate.createLoader(LOADER, INVERTED);
+  PredicateRegistry<ModifierId> LOADER = new PredicateRegistry<>(ANY);
 
   /** Gets an inverted condition */
   @Override
   default IJsonPredicate<ModifierId> inverted() {
-    return INVERTED.create(this);
+    return LOADER.invert(this);
   }
 
   @Override
   IGenericLoader<? extends ModifierPredicate> getLoader();
+
+
+  /* Helper methods */
+
+  /** Creates an and predicate */
+  @SafeVarargs
+  static IJsonPredicate<ModifierId> and(IJsonPredicate<ModifierId>... predicates) {
+    return LOADER.and(List.of(predicates));
+  }
+
+  /** Creates an or predicate */
+  @SafeVarargs
+  static IJsonPredicate<ModifierId> or(IJsonPredicate<ModifierId>... predicates) {
+    return LOADER.or(List.of(predicates));
+  }
 }

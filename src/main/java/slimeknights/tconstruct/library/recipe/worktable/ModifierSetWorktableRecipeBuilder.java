@@ -27,7 +27,7 @@ import java.util.function.Consumer;
 public class ModifierSetWorktableRecipeBuilder extends AbstractSizedIngredientRecipeBuilder<ModifierSetWorktableRecipeBuilder> {
   private final ResourceLocation dataKey;
   @Setter @Accessors(fluent = true)
-  private IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ALWAYS;
+  private IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ANY;
   private final boolean addToSet;
   private Ingredient tools = Ingredient.EMPTY;
   private boolean allowTraits = false;

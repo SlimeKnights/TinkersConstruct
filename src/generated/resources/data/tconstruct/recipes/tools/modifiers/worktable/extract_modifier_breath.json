@@ -10,7 +10,7 @@
     }
   ],
   "modifier_predicate": {
-    "type": "tconstruct:inverted",
+    "type": "mantle:inverted",
     "inverted_type": "tconstruct:tag",
     "tag": "tconstruct:extract_blacklist/tools"
   },

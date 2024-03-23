@@ -10,9 +10,7 @@
     }
   ],
   "match_book": false,
-  "modifier_predicate": {
-    "type": "tconstruct:always"
-  },
+  "modifier_predicate": "mantle:any",
   "name": "modifiers",
   "return_unenchanted": true
 }

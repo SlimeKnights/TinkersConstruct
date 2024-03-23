@@ -7,7 +7,7 @@
           {
             "type": "tconstruct:tool_stack",
             "predicate": {
-              "type": "tconstruct:and",
+              "type": "mantle:and",
               "predicates": [
                 {
                   "type": "tconstruct:has_modifier",

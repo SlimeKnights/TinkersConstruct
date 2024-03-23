@@ -269,7 +269,7 @@ public class EnchantmentConvertingRecipe extends AbstractWorktableRecipe {
     private final boolean matchBook;
     private boolean returnInput = false;
     @Setter @Accessors(fluent = true)
-    private IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ALWAYS;
+    private IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ANY;
 
     /** If true, returns the unenchanted form of the item as an extra result */
     public Builder returnInput() {

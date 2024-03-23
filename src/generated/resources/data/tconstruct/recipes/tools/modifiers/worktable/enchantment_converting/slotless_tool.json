@@ -7,13 +7,11 @@
   ],
   "match_book": false,
   "modifier_predicate": {
-    "type": "tconstruct:and",
+    "type": "mantle:and",
     "predicates": [
+      "tconstruct:slot_type",
       {
-        "type": "tconstruct:slot_type"
-      },
-      {
-        "type": "tconstruct:inverted",
+        "type": "mantle:inverted",
         "inverted_type": "tconstruct:tag",
         "tag": "tconstruct:extract_blacklist/slotless"
       }

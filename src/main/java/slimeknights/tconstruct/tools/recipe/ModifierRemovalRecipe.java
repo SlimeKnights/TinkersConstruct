@@ -84,7 +84,7 @@ public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
 
   /** Filters the given modifier list */
   protected List<ModifierEntry> filter(@Nullable IToolStackView tool, List<ModifierEntry> modifiers) {
-    if (modifierPredicate != ModifierPredicate.ALWAYS) {
+    if (modifierPredicate != ModifierPredicate.ANY) {
       return modifiers.stream().filter(entryPredicate).toList();
     }
     return modifiers;
@@ -218,7 +218,7 @@ public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
       if (json.has("leftovers")) {
         leftovers = JsonHelper.parseList(json, "leftovers", JsonUtils::convertToItemStack);
       }
-      IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ALWAYS;
+      IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ANY;
       if (json.has("modifier_predicate")) {
         modifierPredicate = ModifierPredicate.LOADER.getAndDeserialize(json, "modifier_predicate");
       }
@@ -264,7 +264,7 @@ public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
     private final List<ItemStack> leftovers = new ArrayList<>();
     private SizedIngredient tools = SizedIngredient.EMPTY;
     @Setter @Accessors(fluent = true)
-    private IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ALWAYS;
+    private IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ANY;
 
     public static Builder removal() {
       return removal(TinkerModifiers.removeModifierSerializer.get());

@@ -629,10 +629,7 @@ public final class TinkerModifiers extends TinkerModule {
       // special
       ModifierModule.LOADER.register(getResource("the_one_probe"), TheOneProbeModule.INSTANCE.getLoader());
 
-      ModifierPredicate.LOADER.register(getResource("and"), ModifierPredicate.AND);
-      ModifierPredicate.LOADER.register(getResource("or"), ModifierPredicate.OR);
-      ModifierPredicate.LOADER.register(getResource("inverted"), ModifierPredicate.INVERTED);
-      ModifierPredicate.LOADER.register(getResource("always"), ModifierPredicate.ALWAYS.getLoader());
+      // modifier predicates
       ModifierPredicate.LOADER.register(getResource("single"), SingleModifierPredicate.LOADER);
       ModifierPredicate.LOADER.register(getResource("tag"), TagModifierPredicate.LOADER);
       ModifierPredicate.LOADER.register(getResource("slot_type"), SlotTypeModifierPredicate.LOADER);

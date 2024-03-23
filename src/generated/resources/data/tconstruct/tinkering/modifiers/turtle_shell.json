@@ -20,8 +20,7 @@
       "damage_source": "mantle:can_protect",
       "each_level": 2.5,
       "tool": {
-        "type": "tconstruct:item",
-        "item_type": "mantle:or",
+        "type": "mantle:or",
         "predicates": [
           {
             "type": "mantle:tag",
@@ -40,8 +39,7 @@
       "damage_source": "mantle:can_protect",
       "each_level": 2.5,
       "tool": {
-        "type": "tconstruct:item",
-        "item_type": "mantle:or",
+        "type": "mantle:or",
         "predicates": [
           {
             "type": "mantle:tag",

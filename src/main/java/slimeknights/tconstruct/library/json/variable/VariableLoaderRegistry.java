@@ -38,17 +38,6 @@ public class VariableLoaderRegistry<T extends IHaveLoader> extends GenericLoader
   }
 
   @Override
-  public T deserialize(JsonElement element) {
-    if (element.isJsonPrimitive()) {
-      JsonPrimitive primitive = element.getAsJsonPrimitive();
-      if (primitive.isNumber()) {
-        return constantConstructor.apply(primitive.getAsFloat());
-      }
-    }
-    return super.deserialize(element);
-  }
-
-  @Override
   public JsonElement serialize(T src) {
     if (src instanceof ConstantFloat constant) {
       return new JsonPrimitive(constant.value());

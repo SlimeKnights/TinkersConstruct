@@ -7,7 +7,6 @@ import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.tconstruct.library.json.IntRange;
-import slimeknights.tconstruct.library.json.predicate.tool.ItemToolPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolContextPredicate;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
@@ -110,7 +109,7 @@ public record ModifierModuleCondition(IJsonPredicate<IToolContext> tool, IntRang
 
     /** Sets the tool condition for this module */
     public T toolItem(IJsonPredicate<Item> tool) {
-      return tool(new ItemToolPredicate(tool));
+      return tool(ToolContextPredicate.fallback(tool));
     }
 
 

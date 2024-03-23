@@ -1543,8 +1543,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
       String suffix = matchBook ? "_book" : "_tool";
       EnchantmentConvertingRecipe.Builder.converting("slotless", matchBook)
                                          .addInput(Items.AMETHYST_SHARD)
-                                         .modifierPredicate(ModifierPredicate.AND.create(new SlotTypeModifierPredicate(null),
-                                                                                         new TagModifierPredicate(TinkerTags.Modifiers.EXTRACT_SLOTLESS_BLACKLIST).inverted()))
+                                         .modifierPredicate(ModifierPredicate.and(new SlotTypeModifierPredicate(null),
+                                                                                  new TagModifierPredicate(TinkerTags.Modifiers.EXTRACT_SLOTLESS_BLACKLIST).inverted()))
                                          .save(consumer, location(worktableFolder + "enchantment_converting/slotless" + suffix));
       EnchantmentConvertingRecipe.Builder.converting("upgrades", matchBook)
                                          .addInput(TinkerWorld.skyGeode.asItem())

@@ -33,7 +33,6 @@ import slimeknights.tconstruct.library.json.loot.RandomMaterial;
 import slimeknights.tconstruct.library.json.predicate.tool.HasMaterialPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.HasStatTypePredicate;
-import slimeknights.tconstruct.library.json.predicate.tool.ItemToolPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.StatInRangePredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.StatInSetPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolContextPredicate;
@@ -220,11 +219,6 @@ public final class TinkerTools extends TinkerModule {
       IToolModule.LOADER.register(TConstruct.getResource("dual_option_interaction"), DualOptionInteraction.LOADER);
       IToolModule.LOADER.register(TConstruct.getResource("preference_set_interaction"), PreferenceSetInteraction.LOADER);
       // tool predicates
-      ToolContextPredicate.LOADER.register(TConstruct.getResource("and"), ToolContextPredicate.AND);
-      ToolContextPredicate.LOADER.register(TConstruct.getResource("or"), ToolContextPredicate.OR);
-      ToolContextPredicate.LOADER.register(TConstruct.getResource("inverted"), ToolContextPredicate.INVERTED);
-      ToolContextPredicate.LOADER.register(TConstruct.getResource("any"), ToolContextPredicate.ANY.getLoader());
-      ToolContextPredicate.LOADER.register(TConstruct.getResource("item"), ItemToolPredicate.LOADER);
       ToolContextPredicate.LOADER.register(TConstruct.getResource("has_upgrades"), ToolContextPredicate.HAS_UPGRADES.getLoader());
       ToolContextPredicate.LOADER.register(TConstruct.getResource("has_modifier"), HasModifierPredicate.LOADER);
       ToolContextPredicate.LOADER.register(TConstruct.getResource("stat_in_range"), StatInRangePredicate.LOADER);

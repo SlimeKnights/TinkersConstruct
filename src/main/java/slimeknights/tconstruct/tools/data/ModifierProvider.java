@@ -30,10 +30,7 @@ import slimeknights.mantle.data.predicate.damage.SourceMessagePredicate;
 import slimeknights.mantle.data.predicate.entity.HasEnchantmentEntityPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.mantle.data.predicate.entity.MobTypePredicate;
-import slimeknights.mantle.data.predicate.entity.TagEntityPredicate;
 import slimeknights.mantle.data.predicate.item.ItemPredicate;
-import slimeknights.mantle.data.predicate.item.ItemSetPredicate;
-import slimeknights.mantle.data.predicate.item.ItemTagPredicate;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.data.tinkering.AbstractModifierProvider;
@@ -41,7 +38,6 @@ import slimeknights.tconstruct.library.json.RandomLevelingValue;
 import slimeknights.tconstruct.library.json.predicate.TinkerPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate.ModifierCheck;
-import slimeknights.tconstruct.library.json.predicate.tool.ItemToolPredicate;
 import slimeknights.tconstruct.library.json.variable.block.BlockVariable;
 import slimeknights.tconstruct.library.json.variable.entity.AttributeEntityVariable;
 import slimeknights.tconstruct.library.json.variable.entity.ConditionalEntityVariable;
@@ -157,7 +153,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(new RarityModule(Rarity.UNCOMMON))
       .addModule(StatBoostModule.add(ToolStats.DURABILITY).flat(500))
       // armor grants less durability boost
-      .addModule(StatBoostModule.add(ToolStats.DURABILITY).tool(new ItemToolPredicate(new ItemTagPredicate(ARMOR))).flat(-250))
+      .addModule(StatBoostModule.add(ToolStats.DURABILITY).toolItem(ItemPredicate.tag(ARMOR)).flat(-250))
       .addModule(StatBoostModule.add(ToolStats.ARMOR).flat(1))
       // melee harvest
       .addModule(StatBoostModule.add(ToolStats.ATTACK_DAMAGE).flat(0.5f))
@@ -245,8 +241,8 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
 
     // loot
     // constant enchants are harvest exclusive as we want to avoid non-harvest acting oddly with armor variant
-    ItemPredicate harvest = new ItemTagPredicate(HARVEST);
-    IJsonPredicate<Item> armor = new ItemTagPredicate(WORN_ARMOR);
+    IJsonPredicate<Item> harvest = ItemPredicate.tag(HARVEST);
+    IJsonPredicate<Item> armor = ItemPredicate.tag(WORN_ARMOR);
     buildModifier(TinkerModifiers.silky).levelDisplay(ModifierLevelDisplay.NO_LEVELS)
                                         .addModule(EnchantmentModule.builder(Enchantments.SILK_TOUCH).toolItem(harvest).constant())
                                         .addModule(EnchantmentModule.builder(Enchantments.SILK_TOUCH).toolItem(armor).armorHarvest(ARMOR_SLOTS));
@@ -254,7 +250,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     EnchantmentModule ARMOR_FORTUNE = EnchantmentModule.builder(Enchantments.BLOCK_FORTUNE).toolItem(armor).armorHarvest(ARMOR_SLOTS);
     // note chestplates will have both modules, but will get ignored due to setting the looting slot
     // the air check on weapon looting is for projectiles which use an item of air in their tool context
-    LootingModule WEAPON_LOOTING = LootingModule.builder().toolItem(ItemPredicate.OR.create(new ItemSetPredicate(Items.AIR), new ItemTagPredicate(MELEE))).weapon();
+    LootingModule WEAPON_LOOTING = LootingModule.builder().toolItem(ItemPredicate.or(ItemPredicate.set(Items.AIR), ItemPredicate.tag(MELEE))).weapon();
     LootingModule ARMOR_LOOTING = LootingModule.builder().toolItem(armor).armor(ARMOR_SLOTS);
     buildModifier(ModifierIds.luck).levelDisplay(new UniqueForLevels(3)).addModules(CONSTANT_FORTUNE, ARMOR_FORTUNE, WEAPON_LOOTING, ARMOR_LOOTING);
     buildModifier(ModifierIds.fortune).addModules(CONSTANT_FORTUNE, ARMOR_FORTUNE);
@@ -264,7 +260,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     /// attack
     buildModifier(TinkerModifiers.knockback)
       // do not boost chestplate attacks twice, thats a bit too much knockback for the cost
-      .addModule(KnockbackModule.builder().tool(new ItemToolPredicate(new ItemTagPredicate(TinkerTags.Items.CHESTPLATES)).inverted()).eachLevel(0.5f))
+      .addModule(KnockbackModule.builder().toolItem(ItemPredicate.tag(TinkerTags.Items.CHESTPLATES).inverted()).eachLevel(0.5f))
       .addModule(AttributeModule.builder(Attributes.ATTACK_KNOCKBACK, Operation.ADDITION).uniqueFrom(TinkerModifiers.knockback.getId()).slots(armorSlots).eachLevel(1));
     buildModifier(TinkerModifiers.padded)
       .priority(75) // run after knockback
@@ -285,14 +281,14 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.smite).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ConditionalMeleeDamageModule.builder().target(new MobTypePredicate(MobType.UNDEAD)).eachLevel(2.0f));
     buildModifier(ModifierIds.antiaquatic).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ConditionalMeleeDamageModule.builder().target(new MobTypePredicate(MobType.WATER)).eachLevel(2.0f));
     buildModifier(ModifierIds.cooling).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ConditionalMeleeDamageModule.builder().target(LivingEntityPredicate.FIRE_IMMUNE).eachLevel(1.6f));
-    IJsonPredicate<LivingEntity> baneSssssPredicate = LivingEntityPredicate.OR.create(new MobTypePredicate(MobType.ARTHROPOD), new TagEntityPredicate(TinkerTags.EntityTypes.CREEPERS));
+    IJsonPredicate<LivingEntity> baneSssssPredicate = LivingEntityPredicate.or(new MobTypePredicate(MobType.ARTHROPOD), LivingEntityPredicate.tag(TinkerTags.EntityTypes.CREEPERS));
     buildModifier(ModifierIds.baneOfSssss)
       .addModule(IncrementalModule.RECIPE_CONTROLLED)
       .addModule(ConditionalMeleeDamageModule.builder().target(baneSssssPredicate).eachLevel(2.0f))
       .addModule(MobEffectModule.builder(MobEffects.MOVEMENT_SLOWDOWN).level(RandomLevelingValue.flat(4)).time(RandomLevelingValue.random(20, 10)).target(baneSssssPredicate).build(), TinkerHooks.MELEE_HIT);
-    buildModifier(ModifierIds.killager).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ConditionalMeleeDamageModule.builder().target(LivingEntityPredicate.OR.create(
+    buildModifier(ModifierIds.killager).addModule(IncrementalModule.RECIPE_CONTROLLED).addModule(ConditionalMeleeDamageModule.builder().target(LivingEntityPredicate.or(
       new MobTypePredicate(MobType.ILLAGER),
-      new TagEntityPredicate(TinkerTags.EntityTypes.VILLAGERS))).eachLevel(2.0f));
+      LivingEntityPredicate.LOADER.tag(TinkerTags.EntityTypes.VILLAGERS))).eachLevel(2.0f));
     buildModifier(ModifierIds.pierce)
       // less than sharpness, but pierces 1 armor
       .addModule(StatBoostModule.add(ToolStats.ATTACK_DAMAGE).eachLevel(0.5f))
@@ -318,14 +314,14 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.protection).addModule(ProtectionModule.source(DamageSourcePredicate.CAN_PROTECT).eachLevel(1.25f));
     buildModifier(ModifierIds.fireProtection)
       .addModule(EnchantmentModule.builder(Enchantments.FIRE_PROTECTION).constant())
-      .addModule(ProtectionModule.source(DamageSourcePredicate.AND.create(DamageSourcePredicate.CAN_PROTECT, DamageSourcePredicate.FIRE)).subtract(Enchantments.FIRE_PROTECTION).eachLevel(2.5f));
+      .addModule(ProtectionModule.source(DamageSourcePredicate.and(DamageSourcePredicate.CAN_PROTECT, DamageSourcePredicate.FIRE)).subtract(Enchantments.FIRE_PROTECTION).eachLevel(2.5f));
     buildModifier(ModifierIds.turtleShell)
       .addModule(AttributeModule.builder(ForgeMod.SWIM_SPEED.get(), Operation.MULTIPLY_TOTAL).uniqueFrom(ModifierIds.turtleShell).slots(armorSlots).eachLevel(0.05f))
       .addModule(ProtectionModule.source(DamageSourcePredicate.CAN_PROTECT)
-                                 .tool(new ItemToolPredicate(ItemPredicate.OR.create(new ItemTagPredicate(TinkerTags.Items.HELMETS), new ItemTagPredicate(TinkerTags.Items.CHESTPLATES))))
+                                 .toolItem(ItemPredicate.or(ItemPredicate.tag(TinkerTags.Items.HELMETS), ItemPredicate.tag(TinkerTags.Items.CHESTPLATES)))
                                  .entity(LivingEntityPredicate.EYES_IN_WATER).eachLevel(2.5f))
       .addModule(ProtectionModule.source(DamageSourcePredicate.CAN_PROTECT)
-                                 .tool(new ItemToolPredicate(ItemPredicate.OR.create(new ItemTagPredicate(TinkerTags.Items.LEGGINGS), new ItemTagPredicate(TinkerTags.Items.BOOTS))))
+                                 .toolItem(ItemPredicate.or(ItemPredicate.tag(TinkerTags.Items.LEGGINGS), ItemPredicate.tag(TinkerTags.Items.BOOTS)))
                                  .entity(LivingEntityPredicate.FEET_IN_WATER).eachLevel(2.5f));
     // helmet
     buildModifier(ModifierIds.respiration).addModule(EnchantmentModule.builder(Enchantments.RESPIRATION).constant());

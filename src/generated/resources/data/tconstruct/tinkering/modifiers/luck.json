@@ -10,8 +10,7 @@
       "level": 1,
       "name": "minecraft:fortune",
       "tool": {
-        "type": "tconstruct:item",
-        "item_type": "mantle:tag",
+        "type": "mantle:tag",
         "tag": "tconstruct:modifiable/harvest"
       }
     },
@@ -28,8 +27,7 @@
         "head"
       ],
       "tool": {
-        "type": "tconstruct:item",
-        "item_type": "mantle:tag",
+        "type": "mantle:tag",
         "tag": "tconstruct:modifiable/armor/worn"
       }
     },
@@ -40,8 +38,7 @@
       "level": 1,
       "target": "mantle:any",
       "tool": {
-        "type": "tconstruct:item",
-        "item_type": "mantle:or",
+        "type": "mantle:or",
         "predicates": [
           {
             "type": "mantle:set",
@@ -69,8 +66,7 @@
       ],
       "target": "mantle:any",
       "tool": {
-        "type": "tconstruct:item",
-        "item_type": "mantle:tag",
+        "type": "mantle:tag",
         "tag": "tconstruct:modifiable/armor/worn"
       }
     }
