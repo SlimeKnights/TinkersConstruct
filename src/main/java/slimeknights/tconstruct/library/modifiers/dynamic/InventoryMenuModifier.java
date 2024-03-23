@@ -7,7 +7,8 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import slimeknights.mantle.client.TooltipKey;
-import slimeknights.mantle.data.loader.IntLoader;
+import slimeknights.mantle.data.loadable.primitive.IntLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -25,7 +26,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 // TODO: migrate to a modifier module
 public class InventoryMenuModifier extends InventoryModifier implements KeybindInteractModifierHook, GeneralInteractionModifierHook {
   /** Loader instance */
-  public static final IntLoader<InventoryMenuModifier> LOADER = new IntLoader<>("size", InventoryMenuModifier::new, t -> t.slotsPerLevel);
+  public static final RecordLoadable<InventoryMenuModifier> LOADER = RecordLoadable.create(IntLoadable.FROM_ONE.field("size", m -> m.slotsPerLevel), InventoryMenuModifier::new);
 
   public InventoryMenuModifier(int size) {
     super(size);
