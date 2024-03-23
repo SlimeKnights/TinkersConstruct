@@ -12,7 +12,7 @@ import static slimeknights.mantle.data.registry.GenericLoaderRegistry.SingletonL
 
 /** Variable that fetches a property from a block state */
 public interface BlockVariable extends IHaveLoader {
-  GenericLoaderRegistry<BlockVariable> LOADER = new VariableLoaderRegistry<>(Constant.LOADER.constructor());
+  GenericLoaderRegistry<BlockVariable> LOADER = new VariableLoaderRegistry<>("Block Variable", Constant.LOADER.constructor());
 
   /** Gets a value from the given block state */
   float getValue(BlockState state);

@@ -23,7 +23,7 @@ public interface IHarvestLogic extends IHaveLoader {
     }
   };
   /** Harvest logic loader registry */
-  GenericLoaderRegistry<IHarvestLogic> LOADER = new GenericLoaderRegistry<>(DEFAULT);
+  GenericLoaderRegistry<IHarvestLogic> LOADER = new GenericLoaderRegistry<>("Harvest Logic", DEFAULT, false);
 
   /** Determines if the tool is effective against the given block */
   boolean isEffective(IToolStackView tool, BlockState state);

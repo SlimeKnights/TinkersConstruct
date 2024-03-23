@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
 
 /** Variable for use in {@link ConditionalMeleeDamageModule} */
 public interface MeleeVariable extends IHaveLoader {
-  GenericLoaderRegistry<MeleeVariable> LOADER = new VariableLoaderRegistry<>(Constant.LOADER.constructor());
+  GenericLoaderRegistry<MeleeVariable> LOADER = new VariableLoaderRegistry<>("Melee Variable", Constant.LOADER.constructor());
 
   /**
    * Gets the value of the variable

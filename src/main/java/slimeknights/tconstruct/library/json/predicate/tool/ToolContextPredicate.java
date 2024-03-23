@@ -17,7 +17,7 @@ public interface ToolContextPredicate extends IJsonPredicate<IToolContext> {
   /** Predicate that matches all tools */
   ToolContextPredicate ANY = simple(tool -> true);
   /** Loader for tool predicates */
-  FallbackPredicateRegistry<IToolContext,Item> LOADER = new FallbackPredicateRegistry<>(ANY, ItemPredicate.LOADER, IToolContext::getItem, "item");
+  FallbackPredicateRegistry<IToolContext,Item> LOADER = new FallbackPredicateRegistry<>("Tool Predicate", ANY, ItemPredicate.LOADER, IToolContext::getItem, "item");
 
   @Override
   default IJsonPredicate<IToolContext> inverted() {

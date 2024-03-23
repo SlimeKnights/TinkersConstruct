@@ -23,7 +23,7 @@ public interface ModifierPredicate extends IJsonPredicate<ModifierId> {
     }
   });
   /** Loader for block state predicates */
-  PredicateRegistry<ModifierId> LOADER = new PredicateRegistry<>(ANY);
+  PredicateRegistry<ModifierId> LOADER = new PredicateRegistry<>("Modifier Predicate", ANY);
 
   /** Gets an inverted condition */
   @Override

@@ -23,7 +23,7 @@ public interface IWeaponAttack extends IHaveLoader {
   };
 
   /** Registry of all weapon attack loaders */
-  GenericLoaderRegistry<IWeaponAttack> LOADER = new GenericLoaderRegistry<>(DEFAULT);
+  GenericLoaderRegistry<IWeaponAttack> LOADER = new GenericLoaderRegistry<>("Weapon Attack", false);
 
   /**
    * Deals damage using the tool

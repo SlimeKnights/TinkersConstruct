@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
 
 /** Variable used for {@link slimeknights.tconstruct.library.modifiers.modules.mining.ConditionalMiningSpeedModule} */
 public interface MiningSpeedVariable extends IHaveLoader {
-  GenericLoaderRegistry<MiningSpeedVariable> LOADER = new VariableLoaderRegistry<>(Constant.LOADER.constructor());
+  GenericLoaderRegistry<MiningSpeedVariable> LOADER = new VariableLoaderRegistry<>("Mining Speed Variable", Constant.LOADER.constructor());
 
   /**
    * Gets the value of this variable

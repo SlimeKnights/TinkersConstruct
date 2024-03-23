@@ -29,7 +29,7 @@ public interface ModifierLevelDisplay extends IHaveLoader {
   });
 
   /** Loader instance */
-  GenericLoaderRegistry<ModifierLevelDisplay> LOADER = new GenericLoaderRegistry<>(DEFAULT, true);
+  GenericLoaderRegistry<ModifierLevelDisplay> LOADER = new GenericLoaderRegistry<>("Modifier Level Display", DEFAULT, true);
 
   /** Gets the name for a modifier for the given level */
   Component nameForLevel(Modifier modifier, int level);

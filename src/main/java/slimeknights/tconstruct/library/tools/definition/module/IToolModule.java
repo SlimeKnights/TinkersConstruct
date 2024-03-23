@@ -27,7 +27,7 @@ import java.util.Map.Entry;
  */
 public interface IToolModule extends IHaveLoader {
   /** Loader instance for any modules loadable in tools */
-  GenericLoaderRegistry<IToolModule> LOADER = new GenericLoaderRegistry<>();
+  GenericLoaderRegistry<IToolModule> LOADER = new GenericLoaderRegistry<>("Tool Module", false);
 
   /** Reads the module map from the buffer */
   static ModifierHookMap read(FriendlyByteBuf buffer) {

@@ -31,7 +31,7 @@ public interface IAreaOfEffectIterator extends IHaveLoader {
   };
 
   /** Registry of all AOE loaders */
-  GenericLoaderRegistry<IAreaOfEffectIterator> LOADER = new GenericLoaderRegistry<>(DEFAULT);
+  GenericLoaderRegistry<IAreaOfEffectIterator> LOADER = new GenericLoaderRegistry<>("AOE Iterator", DEFAULT, false);
 
   /**
    * Gets a list of blocks that the tool can affect.

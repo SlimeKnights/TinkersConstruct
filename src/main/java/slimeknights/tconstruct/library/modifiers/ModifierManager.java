@@ -93,7 +93,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
   /** Map of all modifier types that are expected to load in datapacks */
   private final Map<ModifierId,Class<?>> expectedDynamicModifiers = new HashMap<>();
   /** Map of all modifier types that are expected to load in datapacks */
-  public static final GenericLoaderRegistry<Modifier> MODIFIER_LOADERS = new GenericLoaderRegistry<>();
+  public static final GenericLoaderRegistry<Modifier> MODIFIER_LOADERS = new GenericLoaderRegistry<>("Modifier", false);
 
   /** Modifiers loaded from JSON */
   private Map<ModifierId,Modifier> dynamicModifiers = Collections.emptyMap();

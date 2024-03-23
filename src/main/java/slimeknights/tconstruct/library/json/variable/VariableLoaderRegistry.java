@@ -21,8 +21,8 @@ public class VariableLoaderRegistry<T extends IHaveLoader> extends GenericLoader
    * Creates a new instance with the given constructor
    * @param constantConstructor  Constructor for constant values, should extend {@link ConstantFloat}
    */
-  public VariableLoaderRegistry(FloatFunction<? extends T> constantConstructor) {
-    super(true);
+  public VariableLoaderRegistry(String name, FloatFunction<? extends T> constantConstructor) {
+    super(name, null, true);
     this.constantConstructor = constantConstructor;
   }
 

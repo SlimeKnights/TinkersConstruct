@@ -12,7 +12,7 @@ import javax.annotation.Nullable;
 
 /** Variable for use in {@link slimeknights.tconstruct.library.modifiers.modules.behavior.ConditionalStatModule} */
 public interface ConditionalStatVariable extends IHaveLoader {
-  GenericLoaderRegistry<ConditionalStatVariable> LOADER = new VariableLoaderRegistry<>(Constant.LOADER.constructor());
+  GenericLoaderRegistry<ConditionalStatVariable> LOADER = new VariableLoaderRegistry<>("Conditional Stat Variable", Constant.LOADER.constructor());
 
   /**
    * Gets the value for the given content

@@ -12,7 +12,7 @@ import static slimeknights.mantle.data.registry.GenericLoaderRegistry.SingletonL
 
 /** Variable that fetches a property from an entity */
 public interface EntityVariable extends IHaveLoader {
-  GenericLoaderRegistry<EntityVariable> LOADER = new VariableLoaderRegistry<>(Constant.LOADER.constructor());
+  GenericLoaderRegistry<EntityVariable> LOADER = new VariableLoaderRegistry<>("Entity Variable", Constant.LOADER.constructor());
 
   /** Gets a value from the given entity */
   float getValue(LivingEntity entity);

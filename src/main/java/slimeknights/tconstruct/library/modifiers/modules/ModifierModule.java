@@ -23,7 +23,7 @@ import java.util.List;
 /** Interface for a module in a composable modifier. This is the serializable version of {@link ModifierHookProvider}. */
 public interface ModifierModule extends IHaveLoader, ModifierHookProvider {
   /** Loader instance to register new modules. Note that loaders should not use the key "hooks" else composable modifiers will not parse */
-  GenericLoaderRegistry<ModifierModule> LOADER = new GenericLoaderRegistry<>();
+  GenericLoaderRegistry<ModifierModule> LOADER = new GenericLoaderRegistry<>("Modifier Module", false);
 
   /**
    * Gets the priority for this module.
