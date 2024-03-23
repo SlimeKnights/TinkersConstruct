@@ -1,11 +1,11 @@
 intro=介绍
 melter=熔化炉
-moving_fluids=流体的转移
+moving_fluids=流体转移
 casting=铸造
 melee_harvest_materials=二级近程材料
-melee_harvest_materials.subtext=这些材料可以铸造成近战武器或采掘工具的工具部件。
+melee_harvest_materials.subtext=这些材料可以铸造成近程武器或采掘工具的工具部件。
 ranged_materials=二级远程材料
-ranged_materials.subtext=这些材料可以铸造成像弓那样的远程工具的工具部件。
+ranged_materials.subtext=这些材料可以铸造成像弓那样的远程武器的工具部件。
 
 further_reading=延伸阅读
 
@@ -16,7 +16,7 @@ armor=旅行者套装
 armor.subtext=你可以在工作站中合成旅行者套装！这套装备虽然不能提供最好的防御，但它却拥有很多升 级功能。你会创造出什么有趣的东西来呢？
 
 upgrades=升级强化
-upgrades.subtext=工具可应用升级强化，不过一把工具能应用的升级强化的数量是有限的。
+upgrades.subtext=工具可加持升级强化，不过一把工具能加持的升级强化的数量是有限的。
 upgrades.group_general=通用升级
 upgrades.group_harvest=采掘升级
 upgrades.group_melee=近战升级
@@ -28,6 +28,6 @@ upgrades.group_armor.leggings=护腿升级
 upgrades.group_armor.boots=靴子升级
 
 slotless=无槽位强化
-slotless.subtext=这些强化不需要任何槽位就能应用，你愿意的话可以都加上。
+slotless.subtext=这些强化不需要任何槽位就能加持，如果你愿意的话可以都加上。
 slotless.group_slotless=无槽位强化
 slotless.group_bonus_upgrades=额外槽位强化
