@@ -7,17 +7,16 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.network.NetworkEvent.Context;
-import slimeknights.mantle.network.packet.ISimplePacket;
+import slimeknights.mantle.network.packet.IThreadsafePacket;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Supplier;
 
 /** Packet to sync fluid predicates to the client */
 @RequiredArgsConstructor
-public class UpdateSpillingFluidsPacket implements ISimplePacket {
+public class UpdateSpillingFluidsPacket implements IThreadsafePacket {
   private final List<SpillingFluid> fluids;
 
   /** Clientside constructor, sets ingredients */
@@ -40,7 +39,7 @@ public class UpdateSpillingFluidsPacket implements ISimplePacket {
   }
 
   @Override
-  public void handle(Supplier<Context> context) {
+  public void handleThreadsafe(Context context) {
     SpillingFluidManager.INSTANCE.updateFromServer(fluids);
   }
 
