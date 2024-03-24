@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.json.predicate.tool;
 
-import com.google.gson.JsonObject;
 import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
@@ -61,29 +60,6 @@ public record StatInRangePredicate(INumericToolStat<?> stat, float min, float ma
   @Override
   public boolean matches(IToolContext tool) {
     return test(tool.getStats());
-  }
-
-  /**
-   * Deserializes the predicate from JSON
-   * @param json JSON
-   * @return Predicate
-   */
-  public static StatInRangePredicate deserialize(JsonObject json) {
-    return LOADER.deserialize(json);
-  }
-
-  /**
-   * Serializes this to JSON
-   * @param json  Json instance to fill
-   */
-  public JsonObject serialize(JsonObject json) {
-    LOADER.serialize(this, json);
-    return json;
-  }
-
-  /** Serializes this to JSON */
-  public JsonObject serialize() {
-    return serialize(new JsonObject());
   }
 
   @Override
