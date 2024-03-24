@@ -957,16 +957,16 @@
   "item.tconstruct.excavator.description": "Kazaratar koca bir küreme aracıdır. Geniş alanda büyük bölgelerde toprak ve karı kürer.\nYeryüzünü biçimlendirme!",
 
   "item.tconstruct.hand_axe.description": "El Baltası odunu keser ve yaprakları bir çırpıda bitirtir. Ayrıca etkili bir silahtır.\nKes kes!",
-  "item.tconstruct.broad_axe.description": "Savaş Baltası tek savurmada küçük bir ağacı yere serer ve büyük ağaçları hızlıca bitirtir. Güçlü bir ağır silahtır.\nKereste!",
+  "item.tconstruct.broad_axe.description": "Savaş Baltası tek savurmada küçük bir ağacı yere serer ve büyük ağaçları çabukca bitirtir. Güçlü bir ağır silahtır.\nKereste!",
 
   "item.tconstruct.kama.description": "Kama eksiksiz bir biçme aracıdır, bitkileri biçer ve hayvanları kırpar.\nSağ Tıklama: Ürünleri biç ve geri dik",
   "item.tconstruct.scythe.description": "Tırpan koca bir biçme aracıdır, geniş alanda bitkileri biçer.\nSağ Tıklama: Ürünleri biç ve geri dik",
 
-  "item.tconstruct.dagger.description": "Hançer hafif bir silahtır, iki elden de vurabilir.",
+  "item.tconstruct.dagger.description": "Hançer hafif bir silahtır, iki elden de çabuk vuruşlar yapabilir.",
   "item.tconstruct.sword.description": "Kılıç evrensel bir silahtır. Süpüren saldırılar düşman kalabalığını uzakta tutuyor.\nAyrıca örümcek ağlarına karşı iyi!",
   "item.tconstruct.cleaver.description": "Satır kallama ocağının ustaları için bir silahtır. Yüksek menzilli saldırılar düşmanları boylu boyunca kesip durur.",
 
-  "item.tconstruct.crossbow.description": "Tatar yayı hafif bir uzun menzilli silahtır, okları ve havai fişekleri hızlıca ateşleyebilir.",
+  "item.tconstruct.crossbow.description": "Tatar yayı hafif bir uzun menzilli silahtır, okları ve havai fişekleri çabukca ateşleyebilir.",
   "item.tconstruct.longbow.description": "Uzun yay koca bir uzun menzilli silahtır, okları uzak menzillere kesinlik ile ateşleyebilir.",
 
 
@@ -1850,7 +1850,7 @@
   "modifier.tconstruct.power": "Güç",
   "modifier.tconstruct.power.flavor": "İçindeki güç dışındaki güç oluyor",
   "modifier.tconstruct.power.description": "Okların hasarını artırır",
-  "modifier.tconstruct.quick_charge": "Hızlı Çekiş",
+  "modifier.tconstruct.quick_charge": "Çabuk Çekiş",
   "modifier.tconstruct.quick_charge.flavor": "Bütün fazladan harçlardan sıkılmaya başladığın zamanlar için",
   "modifier.tconstruct.quick_charge.description": "Uzun menzilli silahların çekme hızını artırır",
   "modifier.tconstruct.punch": "Yumruk",
@@ -2132,7 +2132,7 @@
   "modifier.tconstruct.exchanging.description": "Aracın kırdığı bloklar eğer olasıysa öbür eldeki blok ile değiştirilir",
   "modifier.tconstruct.firestarter": "Ateşleyici",
   "modifier.tconstruct.firestarter.flavor": "Kalbimdeki yanan ateş!",
-  "modifier.tconstruct.firestarter.description": "Araç kullanımda ateş yaratabilir",
+  "modifier.tconstruct.firestarter.description": "Araç kullanımda ateş oluşturabilir",
   "modifier.tconstruct.fireprimer": "Ateş Fitili",
   "modifier.tconstruct.fireprimer.flavor": "Alevleri körüklemek!",
   "modifier.tconstruct.fireprimer.description": "Aracın ateş alanını artırır",
@@ -2761,7 +2761,7 @@
 
   "subtitles.tconstruct.equip.slime": "Balçığımsı zırh çınladı",
   "subtitles.tconstruct.equip.travelers": "Gezginin zırhı hışırdadı",
-  "subtitles.tconstruct.equip.plate": "Saç zırhı tınladı",
+  "subtitles.tconstruct.equip.plate": "Sac zırhı tınladı",
 
   "subtitles.tconstruct.block.earth_crystal.chime": "Kara Parçacığı Çınladı",
   "subtitles.tconstruct.block.sky_crystal.chime":   "Gök Parçacığı Çınladı",
@@ -2879,7 +2879,7 @@
   "advancements.tconstruct.tools.materials_and_you.title": "Onarıcı Eğitimde",
   "advancements.tconstruct.tools.materials_and_you.description": "Malzemeler ve Sen'i üret, Onarıcının Yapımı'nın tanıtım kitabı",
   "advancements.tconstruct.tools.part_builder.title": "Parça Yapıcı",
-  "advancements.tconstruct.tools.part_builder.description": "Parça yapıcıyı üret, araç yapımındaki ilk adımların",
+  "advancements.tconstruct.tools.part_builder.description": "Parça yapıcıyı yap, araç yapımındaki ilk adımların",
   "advancements.tconstruct.tools.make_part.title": "Araç Parçaları",
   "advancements.tconstruct.tools.make_part.description": "Parça yapıcıda ilk araç parçalarını taslak kullanarak yap",
   "advancements.tconstruct.tools.tinker_station.title": "Onarıcı İstasyonu",
@@ -2901,7 +2901,7 @@
   "advancements.tconstruct.tools.perfect_aim.title": "Kusursuz Nişan",
   "advancements.tconstruct.tools.perfect_aim.description": "Doğruluğu 1.0 olan bir yay üret",
   "advancements.tconstruct.tools.one_shot.title": "Bir Vuruş",
-  "advancements.tconstruct.tools.one_shot.description": "Bir kritik olmayan vuruşta koşulsuz olarak herhangi bir sıradan yaratığı öldürebilen yakın menzilli silah üret (21 düz hasar veya fazlası)",
+  "advancements.tconstruct.tools.one_shot.description": "Bir kritik olmayan vuruşta koşulsuz olarak herhangi bir sıradan yaratığı öldürebilen yakın menzilli silah yap (21 düz hasar veya fazlası)",
   "advancements.tconstruct.tools.material_master.title": "Malzeme Ustası",
   "advancements.tconstruct.tools.material_master.description": "Varsayılan tüm malzemeleri en az bir kez kullan",
 
@@ -2929,7 +2929,7 @@
 
   "_comment": "Dökümevi Başarımları",
   "advancements.tconstruct.foundry.fantastic_foundry.title": "Nether Kallama",
-  "advancements.tconstruct.foundry.fantastic_foundry.description": "Düşlemsel dökümevini üret, nether kallama kılavuz kitabı",
+  "advancements.tconstruct.foundry.fantastic_foundry.description": "Düşlemsel dökümevini yap, nether kallama kılavuz kitabı",
   "advancements.tconstruct.foundry.alloyer.title": "Yalın Alaşımlayıcı",
   "advancements.tconstruct.foundry.alloyer.description": "Yalın alaşımlama kurulumunu bir alaşımlayıcı, bir yakıt tankı, biraz külçe tankı, bir döküm masası, bir döküm çanağı ve bir musluk ile yap",
   "advancements.tconstruct.foundry.structure.title": "Olağanüstü Dökümevi",
@@ -2937,9 +2937,9 @@
   "advancements.tconstruct.foundry.blaze.title": "Alazlı Kan",
   "advancements.tconstruct.foundry.blaze.description": "Bir tankı alazlı kan ile doldur",
   "advancements.tconstruct.foundry.plate_armor.title": "Sac Zırhı",
-  "advancements.tconstruct.foundry.plate_armor.description": "Bütün sac zırhını üret",
+  "advancements.tconstruct.foundry.plate_armor.description": "Bütün sac zırhını yap",
   "advancements.tconstruct.foundry.manyullyn_lanterns.title": "Zengin Aydınlatması",
-  "advancements.tconstruct.foundry.manyullyn_lanterns.description": "Bütün yığın dolusu içi ergimiş menyullen dolu kararmış veya kavrulmuş fener üretin",
+  "advancements.tconstruct.foundry.manyullyn_lanterns.description": "Bütün yığın dolusu içi ergimiş menyullen dolu kararmış veya kavrulmuş fener yap",
   "advancements.tconstruct.foundry.encyclopedia.title": "Bilgilik",
   "advancements.tconstruct.foundry.encyclopedia.description": "Bütün kitaplardan bilginle malzemelerin bilgiliğini üret",
 
@@ -2955,7 +2955,7 @@
   "advancements.tconstruct.world.ender_island.title": "Enderbalçığı Adası",
   "advancements.tconstruct.world.ender_island.description": "End dış adalarında enderbalçığı adasını bul",
   "advancements.tconstruct.world.slimesuit.title": "Balçıklı Takım",
-  "advancements.tconstruct.world.slimesuit.description": "Bütün balçıklı takım üret",
+  "advancements.tconstruct.world.slimesuit.description": "Bütün balçıklı takım yap",
   "advancements.tconstruct.world.slimeskull.title": "Kafatası Derlemcisi",
   "advancements.tconstruct.world.slimeskull.description": "Balçıklı kafataslarının bütün türlerini üret",
   "advancements.tconstruct.world.clay_island.title": "Kil Adası",
