@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:showcase",
+  "title": "Savunma Değiştiricileri",
+  "item": {
+    "type": "forge:nbt",
+    "item": "tconstruct:creative_slot",
+    "nbt": {
+      "slot": "defense"
+    }
+  },
+  "tooltip": [ "Savunma Yuva İmgesi" ],
+  "text": [
+    {
+      "text": "Savunma, ateş ve savrulma gibi belirli tehditlere karşı koruma artışı sağlayan zırhlara özel bir tür değiştiricidir. Çoğu zırh türü malzeme niteliğinden eksik kalmasından dolayı zırh özelleştirmeleri için farklı bir yol sunar. "
+    },
+    {
+      "text": "Sıklıkla, savunma yuvası sayısı fazla olan zırhlar daha az yükseltme yuvasıyla başlar yani işlevsellik koruma için kıyılmıştır."
+    },
+    {
+      "text": "Yavuz Kallama kitabı, Onarıcılığın Bilgiliği kitabı ile birlikte araçlar için kullanılabilir savunma değiştiricilerin tümü sıralanmış biçimde bulunmaktadır.",
+      "paragraph": true
+    }
+  ]
+}
