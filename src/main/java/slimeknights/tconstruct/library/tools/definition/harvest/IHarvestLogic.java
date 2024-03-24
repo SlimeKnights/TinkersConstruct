@@ -2,7 +2,7 @@ package slimeknights.tconstruct.library.tools.definition.harvest;
 
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.level.block.state.BlockState;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry;
+import slimeknights.mantle.data.registry.DefaultingLoaderRegistry;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -23,7 +23,7 @@ public interface IHarvestLogic extends IHaveLoader {
     }
   };
   /** Harvest logic loader registry */
-  GenericLoaderRegistry<IHarvestLogic> LOADER = new GenericLoaderRegistry<>("Harvest Logic", DEFAULT, false);
+  DefaultingLoaderRegistry<IHarvestLogic> LOADER = new DefaultingLoaderRegistry<>("Harvest Logic", DEFAULT, false);
 
   /** Determines if the tool is effective against the given block */
   boolean isEffective(IToolStackView tool, BlockState state);

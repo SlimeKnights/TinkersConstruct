@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.tools.definition.weapon;
 
-import slimeknights.mantle.data.registry.GenericLoaderRegistry;
+import slimeknights.mantle.data.registry.DefaultingLoaderRegistry;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
@@ -23,7 +23,7 @@ public interface IWeaponAttack extends IHaveLoader {
   };
 
   /** Registry of all weapon attack loaders */
-  GenericLoaderRegistry<IWeaponAttack> LOADER = new GenericLoaderRegistry<>("Weapon Attack", false);
+  DefaultingLoaderRegistry<IWeaponAttack> LOADER = new DefaultingLoaderRegistry<>("Weapon Attack", DEFAULT, false);
 
   /**
    * Deals damage using the tool

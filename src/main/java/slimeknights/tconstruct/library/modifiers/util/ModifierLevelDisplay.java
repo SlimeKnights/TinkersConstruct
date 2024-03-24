@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.GsonHelper;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry;
+import slimeknights.mantle.data.registry.DefaultingLoaderRegistry;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -29,7 +29,7 @@ public interface ModifierLevelDisplay extends IHaveLoader {
   });
 
   /** Loader instance */
-  GenericLoaderRegistry<ModifierLevelDisplay> LOADER = new GenericLoaderRegistry<>("Modifier Level Display", DEFAULT, true);
+  DefaultingLoaderRegistry<ModifierLevelDisplay> LOADER = new DefaultingLoaderRegistry<>("Modifier Level Display", DEFAULT, true);
 
   /** Gets the name for a modifier for the given level */
   Component nameForLevel(Modifier modifier, int level);

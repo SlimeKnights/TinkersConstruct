@@ -22,7 +22,7 @@ public class VariableLoaderRegistry<T extends IHaveLoader> extends GenericLoader
    * @param constantConstructor  Constructor for constant values, should extend {@link ConstantFloat}
    */
   public VariableLoaderRegistry(String name, FloatFunction<? extends T> constantConstructor) {
-    super(name, null, true);
+    super(name, true);
     this.constantConstructor = constantConstructor;
   }
 
