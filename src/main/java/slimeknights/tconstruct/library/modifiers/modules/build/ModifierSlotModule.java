@@ -22,7 +22,7 @@ import java.util.List;
 public record ModifierSlotModule(SlotType type, int count, ModifierModuleCondition condition) implements VolatileDataModifierHook, ModifierModule, ConditionalModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.VOLATILE_DATA);
   public static final RecordLoadable<ModifierSlotModule> LOADER = RecordLoadable.create(
-    SlotType.LOADABLE.field("name", ModifierSlotModule::type),
+    SlotType.LOADABLE.requiredField("name", ModifierSlotModule::type),
     IntLoadable.ANY_SHORT.defaultField("count", 1, true, ModifierSlotModule::count),
     ModifierModuleCondition.FIELD,
     ModifierSlotModule::new);

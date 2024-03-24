@@ -36,9 +36,9 @@ import java.util.Set;
  */
 public interface LootingModule extends ModifierModule, IntLevelModule, ConditionalModifierModule {
   /* Common fields */
-  LoadableField<IJsonPredicate<LivingEntity>,LootingModule> HOLDER = LivingEntityPredicate.LOADER.field("holder", LootingModule::holder);
-  LoadableField<IJsonPredicate<LivingEntity>,LootingModule> TARGET = LivingEntityPredicate.LOADER.field("target", LootingModule::target);
-  LoadableField<IJsonPredicate<DamageSource>,LootingModule> DAMAGE_SOURCE = DamageSourcePredicate.LOADER.field("damage_source", LootingModule::damageSource);
+  LoadableField<IJsonPredicate<LivingEntity>,LootingModule> HOLDER = LivingEntityPredicate.LOADER.defaultField("holder", LootingModule::holder);
+  LoadableField<IJsonPredicate<LivingEntity>,LootingModule> TARGET = LivingEntityPredicate.LOADER.defaultField("target", LootingModule::target);
+  LoadableField<IJsonPredicate<DamageSource>,LootingModule> DAMAGE_SOURCE = DamageSourcePredicate.LOADER.defaultField("damage_source", LootingModule::damageSource);
 
   /** Condition on the entity attacking */
   IJsonPredicate<LivingEntity> holder();
@@ -120,7 +120,7 @@ public interface LootingModule extends ModifierModule, IntLevelModule, Condition
   /** Implementation for armor looting */
   record Armor(int level, IJsonPredicate<LivingEntity> holder, IJsonPredicate<LivingEntity> target, IJsonPredicate<DamageSource> damageSource, ModifierModuleCondition condition, Set<EquipmentSlot> slots) implements LootingModule, ArmorLootingModifierHook {
     private static final List<ModifierHook<?>> DEFAULT_HOOKS = ModifierModule.<Armor>defaultHooks(TinkerHooks.ARMOR_LOOTING);
-    public static final RecordLoadable<Armor> LOADER = RecordLoadable.create(IntLevelModule.FIELD, HOLDER, TARGET, DAMAGE_SOURCE, ModifierModuleCondition.FIELD, TinkerLoadables.EQUIPMENT_SLOT_SET.field("slots", Armor::slots), Armor::new);
+    public static final RecordLoadable<Armor> LOADER = RecordLoadable.create(IntLevelModule.FIELD, HOLDER, TARGET, DAMAGE_SOURCE, ModifierModuleCondition.FIELD, TinkerLoadables.EQUIPMENT_SLOT_SET.requiredField("slots", Armor::slots), Armor::new);
 
     @Override
     public int updateArmorLooting(IToolStackView tool, ModifierEntry modifier, LootingContext context, EquipmentContext equipment, EquipmentSlot slot, int looting) {

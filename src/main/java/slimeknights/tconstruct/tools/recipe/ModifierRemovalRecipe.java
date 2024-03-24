@@ -220,7 +220,7 @@ public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
       }
       IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ANY;
       if (json.has("modifier_predicate")) {
-        modifierPredicate = ModifierPredicate.LOADER.getAndDeserialize(json, "modifier_predicate");
+        modifierPredicate = ModifierPredicate.LOADER.getIfPresent(json, "modifier_predicate");
       }
       return factory.create(id, tool, ingredients, leftovers, modifierPredicate);
     }

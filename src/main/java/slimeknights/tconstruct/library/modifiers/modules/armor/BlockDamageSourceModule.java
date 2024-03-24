@@ -27,7 +27,7 @@ import java.util.List;
 public record BlockDamageSourceModule(IJsonPredicate<DamageSource> source, ModifierModuleCondition condition) implements DamageBlockModifierHook, ModifierModule, ConditionalModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.DAMAGE_BLOCK);
   public static final RecordLoadable<BlockDamageSourceModule> LOADER = RecordLoadable.create(
-    DamageSourcePredicate.LOADER.field("damage_source", BlockDamageSourceModule::source),
+    DamageSourcePredicate.LOADER.defaultField("damage_source", BlockDamageSourceModule::source),
     ModifierModuleCondition.FIELD,
     BlockDamageSourceModule::new);
 

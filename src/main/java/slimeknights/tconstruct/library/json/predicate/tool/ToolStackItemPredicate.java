@@ -35,6 +35,6 @@ public class ToolStackItemPredicate extends ItemPredicate {
 
   /** Deserializes the tool predicate from JSON */
   public static ToolStackItemPredicate deserialize(JsonObject json) {
-    return new ToolStackItemPredicate(ToolContextPredicate.LOADER.getAndDeserialize(json, "predicate"));
+    return new ToolStackItemPredicate(ToolContextPredicate.LOADER.getIfPresent(json, "predicate"));
   }
 }

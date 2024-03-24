@@ -28,7 +28,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 public record CoverGroundWalkerModule(BlockState state, LevelingValue radius, ModifierModuleCondition condition) implements ModifierModule, ArmorWalkRadiusModule<Void>, ConditionalModifierModule {
   public static final RecordLoadable<CoverGroundWalkerModule> LOADER = RecordLoadable.create(
     BlockStateLoadable.DIFFERENCE.directField(CoverGroundWalkerModule::state),
-    LevelingValue.LOADABLE.field("radius", CoverGroundWalkerModule::radius),
+    LevelingValue.LOADABLE.requiredField("radius", CoverGroundWalkerModule::radius),
     ModifierModuleCondition.FIELD,
     CoverGroundWalkerModule::new);
 

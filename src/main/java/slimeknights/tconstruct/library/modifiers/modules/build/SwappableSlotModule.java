@@ -35,7 +35,7 @@ public record SwappableSlotModule(@Nullable ResourceLocation key, int slotCount)
   private static final String FORMAT = TConstruct.makeTranslationKey("modifier", "extra_modifier.type_format");
   public static final RecordLoadable<SwappableSlotModule> LOADER = RecordLoadable.create(
     ModuleWithKey.FIELD,
-    IntLoadable.ANY_SHORT.field("slots", SwappableSlotModule::slotCount),
+    IntLoadable.ANY_SHORT.requiredField("slots", SwappableSlotModule::slotCount),
     SwappableSlotModule::new);
 
   public SwappableSlotModule(int slotCount) {
@@ -93,9 +93,9 @@ public record SwappableSlotModule(@Nullable ResourceLocation key, int slotCount)
     private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.VOLATILE_DATA);
     public static final RecordLoadable<BonusSlot> LOADER = RecordLoadable.create(
       ModuleWithKey.FIELD,
-      SlotType.LOADABLE.field("match", BonusSlot::match),
-      SlotType.LOADABLE.field("bonus", BonusSlot::bonus),
-      IntLoadable.ANY_SHORT.field("slots", BonusSlot::slotCount),
+      SlotType.LOADABLE.requiredField("match", BonusSlot::match),
+      SlotType.LOADABLE.requiredField("bonus", BonusSlot::bonus),
+      IntLoadable.ANY_SHORT.requiredField("slots", BonusSlot::slotCount),
       BonusSlot::new);
 
     public BonusSlot(SlotType match, SlotType penalty, int slotCount) {

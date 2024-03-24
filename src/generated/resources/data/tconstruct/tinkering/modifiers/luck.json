@@ -16,8 +16,6 @@
     },
     {
       "type": "tconstruct:armor_harvest_enchantment",
-      "block": "mantle:any",
-      "holder": "mantle:any",
       "level": 1,
       "name": "minecraft:fortune",
       "slots": [
@@ -33,10 +31,7 @@
     },
     {
       "type": "tconstruct:weapon_looting",
-      "damage_source": "mantle:any",
-      "holder": "mantle:any",
       "level": 1,
-      "target": "mantle:any",
       "tool": {
         "type": "mantle:or",
         "predicates": [
@@ -55,8 +50,6 @@
     },
     {
       "type": "tconstruct:armor_looting",
-      "damage_source": "mantle:any",
-      "holder": "mantle:any",
       "level": 1,
       "slots": [
         "feet",
@@ -64,7 +57,6 @@
         "chest",
         "head"
       ],
-      "target": "mantle:any",
       "tool": {
         "type": "mantle:tag",
         "tag": "tconstruct:modifiable/armor/worn"

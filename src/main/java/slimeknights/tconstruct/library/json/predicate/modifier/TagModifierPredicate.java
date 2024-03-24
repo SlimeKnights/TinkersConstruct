@@ -12,7 +12,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierManager;
  * Predicate matching an entity tag
  */
 public record TagModifierPredicate(TagKey<Modifier> tag) implements ModifierPredicate {
-  public static final RecordLoadable<TagModifierPredicate> LOADER = RecordLoadable.create(TinkerLoadables.MODIFIER_TAGS.field("tag", TagModifierPredicate::tag), TagModifierPredicate::new);
+  public static final RecordLoadable<TagModifierPredicate> LOADER = RecordLoadable.create(TinkerLoadables.MODIFIER_TAGS.requiredField("tag", TagModifierPredicate::tag), TagModifierPredicate::new);
 
   @Override
   public boolean matches(ModifierId modifier) {

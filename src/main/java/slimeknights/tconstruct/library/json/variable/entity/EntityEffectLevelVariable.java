@@ -9,7 +9,7 @@ import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 
 /** Gets the level of the mob effect on an entity */
 public record EntityEffectLevelVariable(MobEffect effect) implements EntityVariable {
-  public static final RecordLoadable<EntityEffectLevelVariable> LOADER = RecordLoadable.create(Loadables.MOB_EFFECT.field("effect", EntityEffectLevelVariable::effect), EntityEffectLevelVariable::new);
+  public static final RecordLoadable<EntityEffectLevelVariable> LOADER = RecordLoadable.create(Loadables.MOB_EFFECT.requiredField("effect", EntityEffectLevelVariable::effect), EntityEffectLevelVariable::new);
 
   @Override
   public float getValue(LivingEntity entity) {

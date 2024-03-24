@@ -39,9 +39,9 @@ import static slimeknights.tconstruct.library.modifiers.modules.ModifierModuleCo
  */
 public record ReplaceBlockWalkerModule(List<BlockReplacement> replacements, LevelingValue radius, IJsonPredicate<IToolContext> tool) implements ArmorWalkRadiusModule<Void>, ModifierModule {
   public static final RecordLoadable<ReplaceBlockWalkerModule> LOADER = RecordLoadable.create(
-    BlockReplacement.LOADABLE.list().field("replace", ReplaceBlockWalkerModule::replacements),
-    LevelingValue.LOADABLE.field("radius", ReplaceBlockWalkerModule::radius),
-    ToolContextPredicate.LOADER.defaultField("tool", false, ReplaceBlockWalkerModule::tool),
+    BlockReplacement.LOADABLE.list().requiredField("replace", ReplaceBlockWalkerModule::replacements),
+    LevelingValue.LOADABLE.requiredField("radius", ReplaceBlockWalkerModule::radius),
+    ToolContextPredicate.LOADER.defaultField("tool", ReplaceBlockWalkerModule::tool),
     ReplaceBlockWalkerModule::new);
 
   @Override
@@ -82,7 +82,7 @@ public record ReplaceBlockWalkerModule(List<BlockReplacement> replacements, Leve
   /** Represents a single replacement handled by this module */
   private record BlockReplacement(IJsonPredicate<BlockState> target, BlockState state, IntRange level) {
     public static final RecordLoadable<BlockReplacement> LOADABLE = RecordLoadable.create(
-      BlockPredicate.LOADER.field("target", BlockReplacement::target),
+      BlockPredicate.LOADER.defaultField("target", BlockReplacement::target),
       BlockStateLoadable.DIFFERENCE.directField(BlockReplacement::state), // pulling from this object directly means the keys used are block and properties
       MODIFIER_LEVEL.defaultField("modifier_level", BlockReplacement::level),
       BlockReplacement::new);

@@ -25,7 +25,7 @@ public enum ShowOffhandModule implements ModifierModule, EquipmentChangeModifier
   DISALLOW_BROKEN;
 
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = ModifierModule.<ShowOffhandModule>defaultHooks(TinkerHooks.EQUIPMENT_CHANGE);
-  public static final RecordLoadable<ShowOffhandModule> LOADER = RecordLoadable.create(new EnumLoadable<>(ShowOffhandModule.class).field("mode", Function.identity()), Function.identity());
+  public static final RecordLoadable<ShowOffhandModule> LOADER = RecordLoadable.create(new EnumLoadable<>(ShowOffhandModule.class).requiredField("mode", Function.identity()), Function.identity());
 
   @Override
   public List<ModifierHook<?>> getDefaultHooks() {

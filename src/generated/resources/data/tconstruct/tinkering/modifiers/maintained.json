@@ -4,8 +4,6 @@
   "modules": [
     {
       "type": "tconstruct:conditional_mining_speed",
-      "blocks": "mantle:any",
-      "entity": "mantle:any",
       "formula": [
         "$max_durability",
         0.5,
@@ -36,7 +34,6 @@
     },
     {
       "type": "tconstruct:conditional_stat",
-      "entity": "mantle:any",
       "formula": [
         "$max_durability",
         0.5,

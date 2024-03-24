@@ -22,9 +22,9 @@ public record HasModifierPredicate(ModifierId modifier, IntRange level, Modifier
   public static final IntRange DEFAULT_RANGE = MAX_RANGE.min(1);
 
   public static final RecordLoadable<HasModifierPredicate> LOADER = RecordLoadable.create(
-    ModifierId.PARSER.field("modifier", HasModifierPredicate::modifier),
+    ModifierId.PARSER.requiredField("modifier", HasModifierPredicate::modifier),
     MAX_RANGE.defaultField("level", DEFAULT_RANGE, true, HasModifierPredicate::level),
-    new EnumLoadable<>(ModifierCheck.class).field("check", HasModifierPredicate::check),
+    new EnumLoadable<>(ModifierCheck.class).requiredField("check", HasModifierPredicate::check),
     HasModifierPredicate::new);
 
   public HasModifierPredicate(ModifierId modifier, ModifierCheck check) {

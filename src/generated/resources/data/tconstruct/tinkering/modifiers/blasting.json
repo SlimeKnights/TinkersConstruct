@@ -4,8 +4,6 @@
   "modules": [
     {
       "type": "tconstruct:conditional_mining_speed",
-      "blocks": "mantle:any",
-      "entity": "mantle:any",
       "formula": [
         3.0,
         6.0,

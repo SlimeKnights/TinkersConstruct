@@ -26,7 +26,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 // TODO: migrate to a modifier module
 public class InventoryMenuModifier extends InventoryModifier implements KeybindInteractModifierHook, GeneralInteractionModifierHook {
   /** Loader instance */
-  public static final RecordLoadable<InventoryMenuModifier> LOADER = RecordLoadable.create(IntLoadable.FROM_ONE.field("size", m -> m.slotsPerLevel), InventoryMenuModifier::new);
+  public static final RecordLoadable<InventoryMenuModifier> LOADER = RecordLoadable.create(IntLoadable.FROM_ONE.requiredField("size", m -> m.slotsPerLevel), InventoryMenuModifier::new);
 
   public InventoryMenuModifier(int size) {
     super(size);

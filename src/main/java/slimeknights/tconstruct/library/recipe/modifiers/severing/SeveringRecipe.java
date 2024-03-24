@@ -115,7 +115,7 @@ public class SeveringRecipe implements ICustomOutputRecipe<IEmptyContainer> {
     @Override
     public SeveringRecipe fromJson(ResourceLocation id, JsonObject json) {
       EntityIngredient ingredient = EntityIngredient.deserialize(JsonHelper.getElement(json, "entity"));
-      ItemOutput output = ItemOutput.fromJson(JsonHelper.getElement(json, "result"));
+      ItemOutput output = ItemOutput.Loadable.REQUIRED_STACK.getIfPresent(json, "result");
       return new SeveringRecipe(id, ingredient, output);
     }
 

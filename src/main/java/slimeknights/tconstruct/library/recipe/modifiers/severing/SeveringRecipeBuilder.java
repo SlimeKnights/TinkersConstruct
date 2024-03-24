@@ -21,7 +21,7 @@ public class SeveringRecipeBuilder extends AbstractRecipeBuilder<SeveringRecipeB
   private final EntityIngredient ingredient;
   private final ItemOutput output;
   private boolean isAgeable = false;
-  private ItemOutput childOutput = null;
+  private ItemOutput childOutput = ItemOutput.EMPTY;
 
   /** Creates a new builder from an item */
   public static SeveringRecipeBuilder severing(EntityIngredient ingredient, ItemLike output) {
@@ -30,13 +30,21 @@ public class SeveringRecipeBuilder extends AbstractRecipeBuilder<SeveringRecipeB
 
   /**
    * Makes this an ageable severing recipe
-   * @param childOutput  Output when a child, if null just does no output for children
+   * @param childOutput  Output when a child, if empty just does no output for children
    * @return  Builder instance
    */
-  public SeveringRecipeBuilder setChildOutput(@Nullable ItemOutput childOutput) {
+  public SeveringRecipeBuilder setChildOutput(ItemOutput childOutput) {
     this.isAgeable = true;
     this.childOutput = childOutput;
     return this;
+  }
+
+  /**
+   * Makes this an ageable severing recipe with no child output
+   * @return  Builder instance
+   */
+  public SeveringRecipeBuilder noChildOutput() {
+    return setChildOutput(ItemOutput.EMPTY);
   }
 
   @Override
@@ -59,12 +67,12 @@ public class SeveringRecipeBuilder extends AbstractRecipeBuilder<SeveringRecipeB
     public void serializeRecipeData(JsonObject json) {
       json.add("entity", ingredient.serialize());
       if (isAgeable) {
-        json.add("adult_result", output.serialize());
-        if (childOutput != null) {
-          json.add("child_result", childOutput.serialize());
+        json.add("adult_result", output.serialize(true));
+        if (childOutput != ItemOutput.EMPTY) {
+          json.add("child_result", childOutput.serialize(true));
         }
       } else {
-        json.add("result", output.serialize());
+        json.add("result", output.serialize(true));
       }
     }
 

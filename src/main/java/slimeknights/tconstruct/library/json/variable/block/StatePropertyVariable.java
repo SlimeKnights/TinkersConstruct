@@ -8,7 +8,7 @@ import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 
 /** Fetches a value of an integer property */
 public record StatePropertyVariable(String name) implements BlockVariable {
-  public static final RecordLoadable<StatePropertyVariable> LOADER = RecordLoadable.create(StringLoadable.DEFAULT.field("name", StatePropertyVariable::name), StatePropertyVariable::new);
+  public static final RecordLoadable<StatePropertyVariable> LOADER = RecordLoadable.create(StringLoadable.DEFAULT.requiredField("name", StatePropertyVariable::name), StatePropertyVariable::new);
 
   @Override
   public float getValue(BlockState state) {

@@ -23,7 +23,7 @@ import java.util.Set;
 public record ToolActionsModule(Set<ToolAction> actions, ModifierModuleCondition condition) implements ToolActionModifierHook, ModifierModule, ConditionalModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.TOOL_ACTION);
   public static final RecordLoadable<ToolActionsModule> LOADER = RecordLoadable.create(
-    Loadables.TOOL_ACTION.set().field("tool_actions", ToolActionsModule::actions),
+    Loadables.TOOL_ACTION.set().requiredField("tool_actions", ToolActionsModule::actions),
     ModifierModuleCondition.FIELD,
     ToolActionsModule::new);
 

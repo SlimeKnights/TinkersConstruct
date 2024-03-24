@@ -9,7 +9,6 @@
         "inverted_type": "mantle:requires_tool"
       },
       "each_level": 0.5,
-      "entity": "mantle:any",
       "percent": false,
       "require_effective": false
     }

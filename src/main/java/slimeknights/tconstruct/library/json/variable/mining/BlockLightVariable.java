@@ -19,8 +19,8 @@ import javax.annotation.Nullable;
  */
 public record BlockLightVariable(LightLayer lightLayer, float fallback) implements MiningSpeedVariable {
   public static final RecordLoadable<BlockLightVariable> LOADER = RecordLoadable.create(
-    TinkerLoadables.LIGHT_LAYER.field("light_layer", BlockLightVariable::lightLayer),
-    FloatLoadable.ANY.field("fallback", BlockLightVariable::fallback),
+    TinkerLoadables.LIGHT_LAYER.requiredField("light_layer", BlockLightVariable::lightLayer),
+    FloatLoadable.ANY.requiredField("fallback", BlockLightVariable::fallback),
     BlockLightVariable::new);
 
   @Override

@@ -20,7 +20,7 @@ public record ModifierTraitModule(ModifierEntry modifier, boolean fixedLevel) im
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.MODIFIER_TRAITS);
   public static final RecordLoadable<ModifierTraitModule> LOADER = RecordLoadable.create(
     ModifierEntry.LOADABLE.directField(ModifierTraitModule::modifier),
-    BooleanLoadable.INSTANCE.field("fixed_level", ModifierTraitModule::fixedLevel),
+    BooleanLoadable.INSTANCE.requiredField("fixed_level", ModifierTraitModule::fixedLevel),
     ModifierTraitModule::new);
 
   public ModifierTraitModule(ModifierId id, int level, boolean fixedLevel) {

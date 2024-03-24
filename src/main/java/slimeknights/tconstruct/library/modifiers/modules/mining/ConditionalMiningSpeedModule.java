@@ -45,9 +45,9 @@ public record ConditionalMiningSpeedModule(
 ) implements BreakSpeedModifierHook, ConditionalStatTooltip, ModifierModule, ConditionalModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.BREAK_SPEED, TinkerHooks.TOOLTIP);
   public static final RecordLoadable<ConditionalMiningSpeedModule> LOADER = RecordLoadable.create(
-    BlockPredicate.LOADER.field("blocks", ConditionalMiningSpeedModule::block),
-    LivingEntityPredicate.LOADER.field("entity", ConditionalMiningSpeedModule::holder),
-    BooleanLoadable.INSTANCE.defaultField("require_effective", true, true, ConditionalMiningSpeedModule::requireEffective),
+    BlockPredicate.LOADER.defaultField("blocks", ConditionalMiningSpeedModule::block),
+    LivingEntityPredicate.LOADER.defaultField("entity", ConditionalMiningSpeedModule::holder),
+    BooleanLoadable.INSTANCE.defaultField("require_effective", true, ConditionalMiningSpeedModule::requireEffective),
     MiningSpeedFormula.LOADER.directField(ConditionalMiningSpeedModule::formula),
     ModifierModuleCondition.FIELD,
     ConditionalMiningSpeedModule::new);

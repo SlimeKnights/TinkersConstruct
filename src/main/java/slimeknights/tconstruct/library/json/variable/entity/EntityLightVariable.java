@@ -8,7 +8,7 @@ import slimeknights.tconstruct.library.json.TinkerLoadables;
 
 /** Gets the light level at the entity position */
 public record EntityLightVariable(LightLayer lightLayer) implements EntityVariable {
-  public static final RecordLoadable<EntityLightVariable> LOADER = RecordLoadable.create(TinkerLoadables.LIGHT_LAYER.field("light_layer", EntityLightVariable::lightLayer), EntityLightVariable::new);
+  public static final RecordLoadable<EntityLightVariable> LOADER = RecordLoadable.create(TinkerLoadables.LIGHT_LAYER.requiredField("light_layer", EntityLightVariable::lightLayer), EntityLightVariable::new);
 
   @Override
   public float getValue(LivingEntity entity) {

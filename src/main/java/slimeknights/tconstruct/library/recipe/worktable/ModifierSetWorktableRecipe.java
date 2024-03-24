@@ -166,7 +166,7 @@ public class ModifierSetWorktableRecipe extends AbstractWorktableRecipe {
       List<SizedIngredient> ingredients = JsonHelper.parseList(json, "inputs", SizedIngredient::deserialize);
       IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ANY;
       if (json.has("modifier_predicate")) {
-        modifierPredicate = ModifierPredicate.LOADER.getAndDeserialize(json, "modifier_predicate");
+        modifierPredicate = ModifierPredicate.LOADER.getIfPresent(json, "modifier_predicate");
       }
       boolean addToSet = GsonHelper.getAsBoolean(json, "add_to_set");
       boolean allowTraits = GsonHelper.getAsBoolean(json, "allow_traits", false);

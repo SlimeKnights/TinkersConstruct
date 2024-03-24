@@ -37,8 +37,8 @@ import java.util.List;
 public record ConditionalStatModule(INumericToolStat<?> stat, IJsonPredicate<LivingEntity> holder, ConditionalStatFormula formula, ModifierModuleCondition condition) implements ModifierModule, ConditionalStatModifierHook, ConditionalStatTooltip, ConditionalModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.CONDITIONAL_STAT, TinkerHooks.TOOLTIP);
   public static final RecordLoadable<ConditionalStatModule> LOADER = RecordLoadable.create(
-    ToolStats.NUMERIC_LOADER.field("stat", ConditionalStatModule::stat),
-    LivingEntityPredicate.LOADER.field("entity", ConditionalStatModule::holder),
+    ToolStats.NUMERIC_LOADER.requiredField("stat", ConditionalStatModule::stat),
+    LivingEntityPredicate.LOADER.defaultField("entity", ConditionalStatModule::holder),
     ConditionalStatFormula.LOADER.directField(ConditionalStatModule::formula),
     ModifierModuleCondition.FIELD,
     ConditionalStatModule::new);

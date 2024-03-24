@@ -19,7 +19,7 @@ import java.util.List;
  */
 public record DurabilityBarColorModule(int color) implements DurabilityDisplayModifierHook, ModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.DURABILITY_DISPLAY);
-  public static final RecordLoadable<DurabilityBarColorModule> LOADER = RecordLoadable.create(ColorLoadable.NO_ALPHA.field("color", DurabilityBarColorModule::color), DurabilityBarColorModule::new);
+  public static final RecordLoadable<DurabilityBarColorModule> LOADER = RecordLoadable.create(ColorLoadable.NO_ALPHA.requiredField("color", DurabilityBarColorModule::color), DurabilityBarColorModule::new);
 
   @Override
   public List<ModifierHook<?>> getDefaultHooks() {

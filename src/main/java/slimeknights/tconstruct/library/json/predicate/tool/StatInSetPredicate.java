@@ -37,7 +37,7 @@ public record StatInSetPredicate<T>(IToolStat<T> stat, Set<T> values) implements
   public static final IGenericLoader<StatInSetPredicate<?>> LOADER = new IGenericLoader<>() {
     @Override
     public StatInSetPredicate<?> deserialize(JsonObject json) {
-      return deserialize(json, ToolStats.LOADER.getAndDeserialize(json, "stat"));
+      return deserialize(json, ToolStats.LOADER.getIfPresent(json, "stat"));
     }
 
     /** Handles generics for the set parsing */

@@ -20,7 +20,7 @@ import java.util.Objects;
 public class ModifierEntry implements Comparable<ModifierEntry> {
   /** Loadable instance for parsing */
   public static final RecordLoadable<ModifierEntry> LOADABLE = RecordLoadable.create(
-    ModifierId.PARSER.field("name", ModifierEntry::getId),
+    ModifierId.PARSER.requiredField("name", ModifierEntry::getId),
     IntLoadable.FROM_ONE.defaultField("level", 1, true, ModifierEntry::getLevel),
     ModifierEntry::new);
 

@@ -45,9 +45,9 @@ import java.util.List;
 public record ToolActionWalkerTransformModule(ToolAction action, SoundEvent sound, LevelingValue radius, ModifierModuleCondition condition) implements ModifierModule, ArmorWalkRadiusModule<MutableUseOnContext>, ToolActionModifierHook, ConditionalModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.BOOT_WALK, TinkerHooks.TOOL_ACTION);
   public static final RecordLoadable<ToolActionWalkerTransformModule> LOADER = RecordLoadable.create(
-    Loadables.TOOL_ACTION.field("tool_action", ToolActionWalkerTransformModule::action),
-    Loadables.SOUND_EVENT.field("sound", ToolActionWalkerTransformModule::sound),
-    LevelingValue.LOADABLE.field("radius", ToolActionWalkerTransformModule::radius),
+    Loadables.TOOL_ACTION.requiredField("tool_action", ToolActionWalkerTransformModule::action),
+    Loadables.SOUND_EVENT.requiredField("sound", ToolActionWalkerTransformModule::sound),
+    LevelingValue.LOADABLE.requiredField("radius", ToolActionWalkerTransformModule::radius),
     ModifierModuleCondition.FIELD,
     ToolActionWalkerTransformModule::new);
 

@@ -19,7 +19,7 @@ import javax.annotation.Nullable;
 public record BlockMiningSpeedVariable(BlockVariable block, float fallback) implements MiningSpeedVariable {
   public static final RecordLoadable<BlockMiningSpeedVariable> LOADER = RecordLoadable.create(
     BlockVariable.LOADER.directField("block_type", BlockMiningSpeedVariable::block),
-    FloatLoadable.ANY.field("fallback", BlockMiningSpeedVariable::fallback),
+    FloatLoadable.ANY.requiredField("fallback", BlockMiningSpeedVariable::fallback),
     BlockMiningSpeedVariable::new);
 
   @Override

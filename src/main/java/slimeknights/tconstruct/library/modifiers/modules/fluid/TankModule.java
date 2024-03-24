@@ -11,8 +11,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.loadable.Loadables;
-import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
-import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.TConstruct;
@@ -48,9 +46,7 @@ public class TankModule extends TankCapacityModule implements FluidModifierHook,
   public static final ResourceLocation DEFAULT_FLUID_KEY = TConstruct.getResource("tank_fluid");
   /** Loader instance */
   public static final RecordLoadable<TankModule> LOADER = RecordLoadable.create(
-    Loadables.RESOURCE_LOCATION.defaultField("capacity_key", DEFAULT_CAPACITY_KEY, TankCapacityModule::getCapacityKey),
-    IntLoadable.FROM_ZERO.field("capacity", TankCapacityModule::getCapacity),
-    BooleanLoadable.INSTANCE.field("scale_capacity", TankCapacityModule::isScaleCapacity),
+    CAPACITY_KEY_FIELD, CAPACITY_FIELD, SCALE_CAPACITY_FIELD,
     Loadables.RESOURCE_LOCATION.defaultField("fluid_key", DEFAULT_FLUID_KEY, TankModule::getFluidKey),
     Loadables.RESOURCE_LOCATION.defaultField("owner_key", DEFAULT_OWNER_KEY, TankModule::getOwnerKey),
     TankModule::new);

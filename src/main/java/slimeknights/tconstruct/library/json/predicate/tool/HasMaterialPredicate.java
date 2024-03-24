@@ -14,7 +14,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolContext;
  */
 public record HasMaterialPredicate(MaterialVariantId material, int index) implements ToolContextPredicate {
   public static final RecordLoadable<HasMaterialPredicate> LOADER = RecordLoadable.create(
-    MaterialVariantId.LOADABLE.field("material", HasMaterialPredicate::material),
+    MaterialVariantId.LOADABLE.requiredField("material", HasMaterialPredicate::material),
     IntLoadable.FROM_MINUS_ONE.defaultField("index", -1, HasMaterialPredicate::index),
     HasMaterialPredicate::new);
 

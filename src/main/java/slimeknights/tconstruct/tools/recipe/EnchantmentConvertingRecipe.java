@@ -231,7 +231,7 @@ public class EnchantmentConvertingRecipe extends AbstractWorktableRecipe {
       List<SizedIngredient> ingredients = JsonHelper.parseList(json, "inputs", SizedIngredient::deserialize);
       boolean matchBook = GsonHelper.getAsBoolean(json, "match_book");
       boolean returnInput = GsonHelper.getAsBoolean(json, "return_unenchanted");
-      IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.LOADER.getAndDeserialize(json, "modifier_predicate");
+      IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.LOADER.getIfPresent(json, "modifier_predicate");
       return new EnchantmentConvertingRecipe(id, name, ingredients, matchBook, returnInput, modifierPredicate);
     }
 

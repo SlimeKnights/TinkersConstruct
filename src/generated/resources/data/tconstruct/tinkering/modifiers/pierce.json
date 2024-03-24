@@ -25,7 +25,6 @@
       "level": {
         "per_level": 1.0
       },
-      "target": "mantle:any",
       "time": {
         "flat": 2.0
       }

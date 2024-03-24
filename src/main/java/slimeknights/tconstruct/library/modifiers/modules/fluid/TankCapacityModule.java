@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.mantle.data.loadable.Loadables;
+import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
@@ -27,12 +28,12 @@ public class TankCapacityModule implements ModifierModule, VolatileDataModifierH
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.VOLATILE_DATA);
   /** Default key for capacity */
   public static final ResourceLocation DEFAULT_CAPACITY_KEY = TConstruct.getResource("tank_capacity");
+  /* Fields */
+  protected static final LoadableField<ResourceLocation,TankCapacityModule> CAPACITY_KEY_FIELD = Loadables.RESOURCE_LOCATION.defaultField("capacity_key", DEFAULT_CAPACITY_KEY, TankCapacityModule::getCapacityKey);
+  protected static final LoadableField<Integer,TankCapacityModule> CAPACITY_FIELD = IntLoadable.FROM_ZERO.requiredField("capacity", TankCapacityModule::getCapacity);
+  protected static final LoadableField<Boolean,TankCapacityModule> SCALE_CAPACITY_FIELD = BooleanLoadable.INSTANCE.requiredField("scale_capacity", TankCapacityModule::isScaleCapacity);
   /** Loader instance */
-  public static final RecordLoadable<TankCapacityModule> LOADER = RecordLoadable.create(
-    Loadables.RESOURCE_LOCATION.defaultField("capacity_key", DEFAULT_CAPACITY_KEY, TankCapacityModule::getCapacityKey),
-    IntLoadable.FROM_ZERO.field("capacity", TankCapacityModule::getCapacity),
-    BooleanLoadable.INSTANCE.field("scale_capacity", TankCapacityModule::isScaleCapacity),
-    TankCapacityModule::new);
+  public static final RecordLoadable<TankCapacityModule> LOADER = RecordLoadable.create(CAPACITY_KEY_FIELD, CAPACITY_FIELD, SCALE_CAPACITY_FIELD, TankCapacityModule::new);
 
   /** Volatile NBT integer indicating the tank's max capacity */
   private final ResourceLocation capacityKey;

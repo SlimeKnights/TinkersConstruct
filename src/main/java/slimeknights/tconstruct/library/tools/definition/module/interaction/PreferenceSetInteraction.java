@@ -2,8 +2,8 @@ package slimeknights.tconstruct.library.tools.definition.module.interaction;
 
 import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
+import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.json.predicate.modifier.ModifierPredicate;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
@@ -32,7 +32,7 @@ public record PreferenceSetInteraction(InteractionSource preferredSource, IJsonP
     @Override
     public PreferenceSetInteraction deserialize(JsonObject json) {
       InteractionSource preferredSource = JsonHelper.getAsEnum(json, "preferred_source", InteractionSource.class);
-      IJsonPredicate<ModifierId> preferenceModifiers = ModifierPredicate.LOADER.getAndDeserialize(json, "preferred_modifiers");
+      IJsonPredicate<ModifierId> preferenceModifiers = ModifierPredicate.LOADER.getIfPresent(json, "preferred_modifiers");
       return new PreferenceSetInteraction(preferredSource, preferenceModifiers);
     }
 

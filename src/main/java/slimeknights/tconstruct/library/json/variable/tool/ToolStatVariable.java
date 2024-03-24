@@ -10,7 +10,7 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
  * Variable to get a stat from the tool
  */
 public record ToolStatVariable(INumericToolStat<?> stat) implements ToolVariable {
-  public static final RecordLoadable<ToolStatVariable> LOADER = RecordLoadable.create(ToolStats.NUMERIC_LOADER.field("stat", ToolStatVariable::stat), ToolStatVariable::new);
+  public static final RecordLoadable<ToolStatVariable> LOADER = RecordLoadable.create(ToolStats.NUMERIC_LOADER.requiredField("stat", ToolStatVariable::stat), ToolStatVariable::new);
 
   @Override
   public float getValue(IToolStackView tool) {

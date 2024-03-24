@@ -102,7 +102,7 @@ public class ComposableModifier extends BasicModifier {
   public static IGenericLoader<ComposableModifier> LOADER = new IGenericLoader<>() {
     @Override
     public ComposableModifier deserialize(JsonObject json) {
-      ModifierLevelDisplay level_display = ModifierLevelDisplay.LOADER.getAndDeserialize(json, "level_display");
+      ModifierLevelDisplay level_display = ModifierLevelDisplay.LOADER.getIfPresent(json, "level_display");
       TooltipDisplay tooltipDisplay = TooltipDisplay.ALWAYS;
       if (json.has("tooltip_display")) {
         tooltipDisplay = JsonHelper.getAsEnum(json, "tooltip_display", TooltipDisplay.class);

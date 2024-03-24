@@ -150,7 +150,7 @@ public class ModifiedHarvestLogic extends TagHarvestLogic {
     /** Parses a speed modifier from JSON */
     private static SpeedModifier fromJson(JsonObject json) {
       float modifier = GsonHelper.getAsFloat(json, "modifier");
-      IJsonPredicate<BlockState> predicate = BlockPredicate.LOADER.getAndDeserialize(json, "predicate");
+      IJsonPredicate<BlockState> predicate = BlockPredicate.LOADER.getIfPresent(json, "predicate");
       return new SpeedModifier(modifier, predicate);
     }
 

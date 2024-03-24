@@ -6,7 +6,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierId;
 
 /** Predicate matching a single modifier */
 public record SingleModifierPredicate(ModifierId modifier) implements ModifierPredicate {
-  public static final RecordLoadable<SingleModifierPredicate> LOADER = RecordLoadable.create(ModifierId.PARSER.field("modifier", SingleModifierPredicate::modifier), SingleModifierPredicate::new);
+  public static final RecordLoadable<SingleModifierPredicate> LOADER = RecordLoadable.create(ModifierId.PARSER.requiredField("modifier", SingleModifierPredicate::modifier), SingleModifierPredicate::new);
 
   @Override
   public boolean matches(ModifierId input) {

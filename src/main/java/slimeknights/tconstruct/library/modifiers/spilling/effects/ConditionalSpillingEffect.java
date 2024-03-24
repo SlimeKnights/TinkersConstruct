@@ -37,7 +37,7 @@ public record ConditionalSpillingEffect(IJsonPredicate<LivingEntity> predicate, 
   /** Loader instance */
   public static final JsonDeserializer<ConditionalSpillingEffect> LOADER = (element, type, context) -> {
     JsonObject json = element.getAsJsonObject();
-    IJsonPredicate<LivingEntity> predicate = LivingEntityPredicate.LOADER.getAndDeserialize(json, "entity");
+    IJsonPredicate<LivingEntity> predicate = LivingEntityPredicate.LOADER.getIfPresent(json, "entity");
     ISpillingEffect effect = context.deserialize(GsonHelper.getAsJsonObject(json, "effect"), ISpillingEffect.class);
     return new ConditionalSpillingEffect(predicate, effect);
   };

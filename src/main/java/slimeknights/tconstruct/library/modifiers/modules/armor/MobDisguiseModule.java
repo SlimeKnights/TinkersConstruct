@@ -24,7 +24,7 @@ import java.util.List;
  */
 public record MobDisguiseModule(EntityType<?> entity) implements EquipmentChangeModifierHook, ModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.EQUIPMENT_CHANGE);
-  public static final RecordLoadable<MobDisguiseModule> LOADER = RecordLoadable.create(Loadables.ENTITY_TYPE.field("entity", MobDisguiseModule::entity), MobDisguiseModule::new);
+  public static final RecordLoadable<MobDisguiseModule> LOADER = RecordLoadable.create(Loadables.ENTITY_TYPE.requiredField("entity", MobDisguiseModule::entity), MobDisguiseModule::new);
 
   /**
    * Data key for all disguises on an entity

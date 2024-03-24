@@ -33,11 +33,11 @@ import java.util.function.BiConsumer;
 public record AttributeModule(String unique, Attribute attribute, Operation operation, LevelingValue amount, UUID[] slotUUIDs, ModifierModuleCondition condition) implements AttributesModifierHook, ModifierModule, ConditionalModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.ATTRIBUTES);
   public static final RecordLoadable<AttributeModule> LOADER = RecordLoadable.create(
-    StringLoadable.DEFAULT.field("unique", AttributeModule::unique),
-    Loadables.ATTRIBUTE.field("attribute", AttributeModule::attribute),
-    TinkerLoadables.OPERATION.field("operation", AttributeModule::operation),
+    StringLoadable.DEFAULT.requiredField("unique", AttributeModule::unique),
+    Loadables.ATTRIBUTE.requiredField("attribute", AttributeModule::attribute),
+    TinkerLoadables.OPERATION.requiredField("operation", AttributeModule::operation),
     LevelingValue.LOADABLE.directField(AttributeModule::amount),
-    TinkerLoadables.EQUIPMENT_SLOT_SET.field("slots", m -> uuidsToSlots(m.slotUUIDs)),
+    TinkerLoadables.EQUIPMENT_SLOT_SET.requiredField("slots", m -> uuidsToSlots(m.slotUUIDs)),
     ModifierModuleCondition.FIELD,
     (unique, attribute, operation, amount, slots, condition) -> new AttributeModule(unique, attribute, operation, amount, slotsToUUIDs(unique, slots), condition));
 

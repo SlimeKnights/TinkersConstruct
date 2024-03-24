@@ -20,8 +20,8 @@ import javax.annotation.Nullable;
 public record EntityMeleeVariable(EntityVariable entity, WhichEntity which, float fallback) implements MeleeVariable {
   public static final RecordLoadable<EntityMeleeVariable> LOADER = RecordLoadable.create(
     EntityVariable.LOADER.directField("entity_type", EntityMeleeVariable::entity),
-    new EnumLoadable<>(WhichEntity.class).field("which", EntityMeleeVariable::which),
-    FloatLoadable.ANY.field("fallback", EntityMeleeVariable::fallback),
+    new EnumLoadable<>(WhichEntity.class).requiredField("which", EntityMeleeVariable::which),
+    FloatLoadable.ANY.requiredField("fallback", EntityMeleeVariable::fallback),
     EntityMeleeVariable::new);
 
   @Override

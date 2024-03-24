@@ -43,8 +43,8 @@ public class FallbackAOEIterator implements IAreaOfEffectIterator {
     @Override
     public FallbackAOEIterator deserialize(JsonObject json) {
       TagKey<Block> tag = TagKey.create(Registry.BLOCK_REGISTRY, JsonHelper.getResourceLocation(json, "tag"));
-      IAreaOfEffectIterator tagged = IAreaOfEffectIterator.LOADER.getAndDeserialize(json, "if_matches");
-      IAreaOfEffectIterator fallback = IAreaOfEffectIterator.LOADER.getAndDeserialize(json, "fallback");
+      IAreaOfEffectIterator tagged = IAreaOfEffectIterator.LOADER.getIfPresent(json, "if_matches");
+      IAreaOfEffectIterator fallback = IAreaOfEffectIterator.LOADER.getIfPresent(json, "fallback");
       return new FallbackAOEIterator(tag, tagged, fallback);
     }
 

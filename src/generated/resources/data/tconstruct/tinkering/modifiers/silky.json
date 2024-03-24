@@ -13,8 +13,6 @@
     },
     {
       "type": "tconstruct:armor_harvest_enchantment",
-      "block": "mantle:any",
-      "holder": "mantle:any",
       "level": 1,
       "name": "minecraft:silk_touch",
       "slots": [

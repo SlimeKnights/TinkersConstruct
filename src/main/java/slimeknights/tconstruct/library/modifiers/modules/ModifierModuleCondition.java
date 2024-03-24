@@ -24,7 +24,7 @@ public record ModifierModuleCondition(IJsonPredicate<IToolContext> tool, IntRang
 
   /** Loadable for modifier module conditions, typically used with {@link RecordLoadable#directField(Function)} */
   public static final RecordLoadable<ModifierModuleCondition> LOADABLE = RecordLoadable.create(
-    ToolContextPredicate.LOADER.defaultField("tool", false, ModifierModuleCondition::tool),
+    ToolContextPredicate.LOADER.defaultField("tool", ModifierModuleCondition::tool),
     MODIFIER_LEVEL.defaultField("modifier_level", ModifierModuleCondition::modifierLevel),
     ModifierModuleCondition::new);
   /** Generic field instance used for most modules with conditions */
@@ -58,8 +58,8 @@ public record ModifierModuleCondition(IJsonPredicate<IToolContext> tool, IntRang
 
   /** Deserializes these objects from the given parent object */
   public static ModifierModuleCondition deserializeFrom(JsonObject parent) {
-    IJsonPredicate<IToolContext> tool = ToolContextPredicate.LOADER.getAndDeserialize(parent, "tool");
-    IntRange modifierLevel = MODIFIER_LEVEL.getAndDeserialize(parent, "modifier_level");
+    IJsonPredicate<IToolContext> tool = ToolContextPredicate.LOADER.getOrDefault(parent, "tool");
+    IntRange modifierLevel = MODIFIER_LEVEL.getOrDefault(parent, "modifier_level");
     return new ModifierModuleCondition(tool, modifierLevel);
   }
 

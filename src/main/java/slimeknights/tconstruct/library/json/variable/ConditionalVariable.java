@@ -21,6 +21,6 @@ public interface ConditionalVariable<C, V> {
 
   /** Creates a loadable instance for a conditional variable */
   static <C extends IHaveLoader, V extends IHaveLoader, CV extends ConditionalVariable<C,V>> RecordLoadable<CV> loadable(GenericLoaderRegistry<C> conditionLoader, GenericLoaderRegistry<V> variableLoader, Function3<C,V,V,CV> constructor) {
-    return RecordLoadable.create(conditionLoader.directField("condition_type", ConditionalVariable::condition), variableLoader.field("if_true", ConditionalVariable::ifTrue), variableLoader.field("if_false", ConditionalVariable::ifFalse), constructor);
+    return RecordLoadable.create(conditionLoader.directField("condition_type", ConditionalVariable::condition), variableLoader.requiredField("if_true", ConditionalVariable::ifTrue), variableLoader.requiredField("if_false", ConditionalVariable::ifFalse), constructor);
   }
 }

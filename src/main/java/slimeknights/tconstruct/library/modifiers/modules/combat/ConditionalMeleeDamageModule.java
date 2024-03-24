@@ -38,8 +38,8 @@ import java.util.List;
 public record ConditionalMeleeDamageModule(IJsonPredicate<LivingEntity> target, IJsonPredicate<LivingEntity> attacker, MeleeFormula formula, ModifierModuleCondition condition) implements MeleeDamageModifierHook, ConditionalStatTooltip, ModifierModule, ConditionalModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.MELEE_DAMAGE, TinkerHooks.TOOLTIP);
   public static final RecordLoadable<ConditionalMeleeDamageModule> LOADER = RecordLoadable.create(
-    LivingEntityPredicate.LOADER.field("target", ConditionalMeleeDamageModule::target),
-    LivingEntityPredicate.LOADER.field("attacker", ConditionalMeleeDamageModule::attacker),
+    LivingEntityPredicate.LOADER.defaultField("target", ConditionalMeleeDamageModule::target),
+    LivingEntityPredicate.LOADER.defaultField("attacker", ConditionalMeleeDamageModule::attacker),
     MeleeFormula.LOADER.directField(ConditionalMeleeDamageModule::formula),
     ModifierModuleCondition.FIELD,
     ConditionalMeleeDamageModule::new);

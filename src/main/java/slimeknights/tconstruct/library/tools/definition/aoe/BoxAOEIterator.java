@@ -319,7 +319,7 @@ public class BoxAOEIterator implements IAreaOfEffectIterator {
       } else {
         expansions = new BoxSize[0];
       }
-      IBoxExpansion direction = IBoxExpansion.REGISTRY.getAndDeserialize(json, "expansion_direction");
+      IBoxExpansion direction = IBoxExpansion.REGISTRY.getIfPresent(json, "expansion_direction");
       return new BoxAOEIterator(base, expansions, direction);
     }
 

@@ -4,7 +4,6 @@
   "modules": [
     {
       "type": "tconstruct:knockback",
-      "entity": "mantle:any",
       "formula": [
         "$knockback",
         2.0,

@@ -34,7 +34,7 @@ public record KnockbackModule(IJsonPredicate<LivingEntity> entity, ModifierFormu
   private static final FormulaLoadable FORMULA = new FormulaLoadable(FallbackFormula.ADD, "level", "knockback");
   /** Loader instance */
   public static final RecordLoadable<KnockbackModule> LOADER = RecordLoadable.create(
-    LivingEntityPredicate.LOADER.field("entity", KnockbackModule::entity),
+    LivingEntityPredicate.LOADER.defaultField("entity", KnockbackModule::entity),
     FORMULA.directField(KnockbackModule::formula),
     ModifierModuleCondition.FIELD,
     KnockbackModule::new);

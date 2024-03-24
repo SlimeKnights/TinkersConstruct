@@ -5,7 +5,6 @@
     {
       "type": "tconstruct:knockback",
       "each_level": 0.5,
-      "entity": "mantle:any",
       "tool": {
         "type": "mantle:inverted",
         "inverted_type": "mantle:tag",

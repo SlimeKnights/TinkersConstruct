@@ -17,7 +17,7 @@ import java.util.function.Predicate;
  */
 public record StatInRangePredicate(INumericToolStat<?> stat, float min, float max) implements Predicate<StatsNBT>, ToolContextPredicate {
   public static final RecordLoadable<StatInRangePredicate> LOADER = RecordLoadable.create(
-    ToolStats.NUMERIC_LOADER.field("stat", StatInRangePredicate::stat),
+    ToolStats.NUMERIC_LOADER.requiredField("stat", StatInRangePredicate::stat),
     FloatLoadable.ANY.defaultField("min", Float.NEGATIVE_INFINITY, StatInRangePredicate::min),
     FloatLoadable.ANY.defaultField("max", Float.POSITIVE_INFINITY, StatInRangePredicate::max),
     StatInRangePredicate::new);

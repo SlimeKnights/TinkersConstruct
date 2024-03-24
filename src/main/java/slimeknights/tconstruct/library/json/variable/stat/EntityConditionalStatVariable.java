@@ -17,7 +17,7 @@ import javax.annotation.Nullable;
 public record EntityConditionalStatVariable(EntityVariable entity, float fallback) implements ConditionalStatVariable {
   public static final RecordLoadable<EntityConditionalStatVariable> LOADER = RecordLoadable.create(
     EntityVariable.LOADER.directField("entity_type", EntityConditionalStatVariable::entity),
-    FloatLoadable.ANY.field("fallback", EntityConditionalStatVariable::fallback),
+    FloatLoadable.ANY.requiredField("fallback", EntityConditionalStatVariable::fallback),
     EntityConditionalStatVariable::new);
 
   @Override

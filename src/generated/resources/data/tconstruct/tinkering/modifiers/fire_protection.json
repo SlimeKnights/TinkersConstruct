@@ -17,8 +17,7 @@
         ]
       },
       "each_level": 2.5,
-      "subtract_enchantment": "minecraft:fire_protection",
-      "wearing_entity": "mantle:any"
+      "subtract_enchantment": "minecraft:fire_protection"
     }
   ],
   "tooltip_display": "always"

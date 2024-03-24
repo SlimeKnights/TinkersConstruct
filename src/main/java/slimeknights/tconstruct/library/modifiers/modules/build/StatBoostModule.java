@@ -26,8 +26,8 @@ import java.util.Locale;
 public record StatBoostModule(INumericToolStat<?> stat, StatOperation operation, LevelingValue amount, ModifierModuleCondition condition) implements ToolStatsModifierHook, ModifierModule, ConditionalModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.TOOL_STATS);
   public static RecordLoadable<StatBoostModule> LOADER = RecordLoadable.create(
-    ToolStats.NUMERIC_LOADER.field("stat", StatBoostModule::stat),
-    new EnumLoadable<>(StatOperation.class).field("operation", StatBoostModule::operation),
+    ToolStats.NUMERIC_LOADER.requiredField("stat", StatBoostModule::stat),
+    new EnumLoadable<>(StatOperation.class).requiredField("operation", StatBoostModule::operation),
     LevelingValue.LOADABLE.directField(StatBoostModule::amount),
     ModifierModuleCondition.FIELD,
     StatBoostModule::new);

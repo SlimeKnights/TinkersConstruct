@@ -4,7 +4,6 @@
   "modules": [
     {
       "type": "tconstruct:conditional_mining_speed",
-      "blocks": "mantle:any",
       "entity": {
         "type": "mantle:inverted",
         "inverted_type": "mantle:on_ground"

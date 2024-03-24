@@ -18,7 +18,7 @@ import java.util.List;
 /** Module for setting tool's display name rarity */
 public record RarityModule(Rarity rarity) implements VolatileDataModifierHook, ModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.VOLATILE_DATA);
-  public static final RecordLoadable<RarityModule> LOADER = RecordLoadable.create(new EnumLoadable<>(Rarity.class).field("rarity", RarityModule::rarity), RarityModule::new);
+  public static final RecordLoadable<RarityModule> LOADER = RecordLoadable.create(new EnumLoadable<>(Rarity.class).requiredField("rarity", RarityModule::rarity), RarityModule::new);
 
   @Override
   public void addVolatileData(ToolRebuildContext context, ModifierEntry modifier, ModDataNBT volatileData) {

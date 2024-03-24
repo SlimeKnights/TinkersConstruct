@@ -19,7 +19,7 @@ import java.util.List;
  */
 public record VolatileFlagModule(ResourceLocation flag) implements VolatileDataModifierHook, ModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.VOLATILE_DATA);
-  public static final RecordLoadable<VolatileFlagModule> LOADER = RecordLoadable.create(Loadables.RESOURCE_LOCATION.field("flag", VolatileFlagModule::flag), VolatileFlagModule::new);
+  public static final RecordLoadable<VolatileFlagModule> LOADER = RecordLoadable.create(Loadables.RESOURCE_LOCATION.requiredField("flag", VolatileFlagModule::flag), VolatileFlagModule::new);
 
   @Override
   public void addVolatileData(ToolRebuildContext context, ModifierEntry modifier, ModDataNBT volatileData) {

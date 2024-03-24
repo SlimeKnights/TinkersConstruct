@@ -44,7 +44,7 @@ public record RandomLevelingValue(float flat, float perLevel, float randomBonus)
 
   /** Gets and deserializes this from a parent JSON */
   public static RandomLevelingValue get(JsonObject parent, String key) {
-    return LOADABLE.getAndDeserialize(parent, key);
+    return LOADABLE.getIfPresent(parent, key);
   }
 
   /** Writes this to the network */

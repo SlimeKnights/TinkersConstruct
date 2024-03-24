@@ -7,10 +7,7 @@ import com.google.gson.JsonSyntaxException;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
 import slimeknights.mantle.data.loadable.Loadable;
-import slimeknights.mantle.data.loadable.field.DefaultingField;
 import slimeknights.mantle.data.loadable.field.LoadableField;
-import slimeknights.mantle.data.loadable.primitive.IntLoadable;
-import slimeknights.mantle.data.loadable.record.RecordLoadable;
 
 import java.util.function.Function;
 import java.util.function.IntPredicate;
@@ -20,8 +17,6 @@ import java.util.function.IntPredicate;
  * This object is setup to simplify JSON parsing by creating an instance representing the minimum and maximum range values, then using that object to parse from JSON.
  */
 public record IntRange(int min, int max) implements IntPredicate, Loadable<IntRange> {
-  public static final RecordLoadable<IntRange> LOADABLE = RecordLoadable.create(IntLoadable.ANY_FULL.field("min", IntRange::min), IntLoadable.ANY_FULL.field("max", IntRange::max), IntRange::new);
-
   @Override
   public boolean test(int value) {
     return min <= value && value <= max;
@@ -104,14 +99,6 @@ public record IntRange(int min, int max) implements IntPredicate, Loadable<IntRa
   }
 
   @Override
-  public IntRange getAndDeserialize(JsonObject parent, String key) {
-    if (parent.has(key)) {
-      return convert(parent.get(key), key);
-    }
-    return this;
-  }
-
-  @Override
   public JsonElement serialize(IntRange range) {
     // if the range is exact, return an integer
     if (range.min == range.max) {
@@ -164,8 +151,26 @@ public record IntRange(int min, int max) implements IntPredicate, Loadable<IntRa
     object.toNetwork(buffer);
   }
 
+
+  /* Fields */
+
+  /**
+   * Gets the value from the given parent, or returns this if missing
+   * @param parent  Parent instance
+   * @param key     Key to fetch
+   * @return  Valid int range
+   */
+  public IntRange getOrDefault(JsonObject parent, String key) {
+    return Loadable.super.getOrDefault(parent, key, this);
+  }
+
+  /** Creates a default field using this as the default. */
+  public <P> LoadableField<IntRange,P> defaultField(String key, boolean serializeDefault, Function<P,IntRange> getter) {
+    return defaultField(key, this, serializeDefault, getter);
+  }
+
   /** Creates a default field using this as the default, skipping serializing if its default. */
   public <P> LoadableField<IntRange,P> defaultField(String key, Function<P,IntRange> getter) {
-    return new DefaultingField<>(this, key, this, false, getter);
+    return defaultField(key, false, getter);
   }
 }

@@ -38,9 +38,9 @@ import java.util.UUID;
 public record MeleeAttributeModule(String unique, Attribute attribute, UUID uuid, Operation operation, LevelingValue amount, ModifierModuleCondition condition) implements ModifierModule, MeleeHitModifierHook, ConditionalModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.MELEE_HIT);
   public static final RecordLoadable<MeleeAttributeModule> LOADER = RecordLoadable.create(
-    StringLoadable.DEFAULT.field("unique", MeleeAttributeModule::unique),
-    Loadables.ATTRIBUTE.field("attribute", MeleeAttributeModule::attribute),
-    TinkerLoadables.OPERATION.field("operation", MeleeAttributeModule::operation),
+    StringLoadable.DEFAULT.requiredField("unique", MeleeAttributeModule::unique),
+    Loadables.ATTRIBUTE.requiredField("attribute", MeleeAttributeModule::attribute),
+    TinkerLoadables.OPERATION.requiredField("operation", MeleeAttributeModule::operation),
     LevelingValue.LOADABLE.directField(MeleeAttributeModule::amount),
     ModifierModuleCondition.FIELD,
     MeleeAttributeModule::new);

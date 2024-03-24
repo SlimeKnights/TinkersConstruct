@@ -46,7 +46,7 @@ public record SetStatModule<T>(IToolStat<T> stat, T value, ModifierModuleConditi
   public static final IGenericLoader<SetStatModule<?>> LOADER = new IGenericLoader<>() {
     @Override
     public SetStatModule<?> deserialize(JsonObject json) {
-      return deserialize(json, ToolStats.LOADER.getAndDeserialize(json, "stat"));
+      return deserialize(json, ToolStats.LOADER.getIfPresent(json, "stat"));
     }
 
     /** Handles generics for deserializing the value */

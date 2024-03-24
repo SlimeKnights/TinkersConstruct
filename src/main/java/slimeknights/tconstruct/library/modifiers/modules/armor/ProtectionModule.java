@@ -50,8 +50,8 @@ import java.util.List;
 public record ProtectionModule(IJsonPredicate<DamageSource> source, IJsonPredicate<LivingEntity> entity, LevelingValue amount, @Nullable Enchantment subtract, ModifierModuleCondition condition) implements ProtectionModifierHook, TooltipModifierHook, ModifierModule, ConditionalModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.PROTECTION, TinkerHooks.TOOLTIP);
   public static final RecordLoadable<ProtectionModule> LOADER = RecordLoadable.create(
-    DamageSourcePredicate.LOADER.field("damage_source", ProtectionModule::source),
-    LivingEntityPredicate.LOADER.field("wearing_entity", ProtectionModule::entity),
+    DamageSourcePredicate.LOADER.defaultField("damage_source", ProtectionModule::source),
+    LivingEntityPredicate.LOADER.defaultField("wearing_entity", ProtectionModule::entity),
     LevelingValue.LOADABLE.directField(ProtectionModule::amount),
     Loadables.ENCHANTMENT.nullableField("subtract_enchantment", ProtectionModule::subtract),
     ModifierModuleCondition.FIELD,

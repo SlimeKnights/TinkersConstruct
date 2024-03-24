@@ -8,7 +8,7 @@ import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 
 /** Variable that fetches an attribute value */
 public record AttributeEntityVariable(Attribute attribute) implements EntityVariable {
-  public static final RecordLoadable<AttributeEntityVariable> LOADER = RecordLoadable.create(Loadables.ATTRIBUTE.field("attribute", AttributeEntityVariable::attribute), AttributeEntityVariable::new);
+  public static final RecordLoadable<AttributeEntityVariable> LOADER = RecordLoadable.create(Loadables.ATTRIBUTE.requiredField("attribute", AttributeEntityVariable::attribute), AttributeEntityVariable::new);
 
   @Override
   public float getValue(LivingEntity entity) {

@@ -53,10 +53,10 @@ public record MobEffectModule(
 ) implements OnAttackedModifierHook, MeleeHitModifierHook, ProjectileLaunchModifierHook, ProjectileHitModifierHook, ModifierModule, ConditionalModifierModule {
   private static final List<ModifierHook<?>> DEFAULT_HOOKS = List.of(TinkerHooks.ON_ATTACKED, TinkerHooks.MELEE_HIT, TinkerHooks.PROJECTILE_LAUNCH, TinkerHooks.PROJECTILE_HIT);
   public static final RecordLoadable<MobEffectModule> LOADER = RecordLoadable.create(
-    LivingEntityPredicate.LOADER.field("target", MobEffectModule::target),
-    Loadables.MOB_EFFECT.field("effect", MobEffectModule::effect),
-    RandomLevelingValue.LOADABLE.field("level", MobEffectModule::level),
-    RandomLevelingValue.LOADABLE.field("time", MobEffectModule::time),
+    LivingEntityPredicate.LOADER.defaultField("target", MobEffectModule::target),
+    Loadables.MOB_EFFECT.requiredField("effect", MobEffectModule::effect),
+    RandomLevelingValue.LOADABLE.requiredField("level", MobEffectModule::level),
+    RandomLevelingValue.LOADABLE.requiredField("time", MobEffectModule::time),
     ModifierModuleCondition.FIELD,
     MobEffectModule::new);
 
