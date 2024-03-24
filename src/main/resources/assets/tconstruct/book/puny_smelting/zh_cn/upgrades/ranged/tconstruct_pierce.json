@@ -6,13 +6,12 @@
     },
     {
       "text": "别和“穿透”搞混了",
-        "paragraph": true	  
+      "paragraph": true
     }
   ],
   "tool_filter": "tconstruct:modifiable/ranged",
   "effects": [
-    "抵消少部分护甲值",
-    "同时略微增加工具伤害",
+    "箭矢抵消少部分护甲值",
     "多个等级，每个等级进一步提升作用效果",
     "每级需要1个升级槽"
   ]
