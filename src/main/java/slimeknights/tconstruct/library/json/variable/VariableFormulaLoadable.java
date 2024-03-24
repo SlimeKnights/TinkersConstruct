@@ -12,6 +12,7 @@ import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.mantle.util.LogicHelper;
+import slimeknights.mantle.util.typed.TypedMap;
 import slimeknights.tconstruct.library.json.math.ModifierFormula;
 import slimeknights.tconstruct.library.json.math.ModifierFormula.FallbackFormula;
 import slimeknights.tconstruct.library.json.math.PostFixFormula;
@@ -36,7 +37,7 @@ public record VariableFormulaLoadable<V extends IHaveLoader, F extends VariableF
   }
 
   @Override
-  public F deserialize(JsonObject json) {
+  public F deserialize(JsonObject json, TypedMap<Object> context) {
     boolean percent = GsonHelper.getAsBoolean(json, "percent", false);
     if (json.has("variables")) {
       if (!json.has("formula")) {
@@ -80,7 +81,7 @@ public record VariableFormulaLoadable<V extends IHaveLoader, F extends VariableF
   }
 
   @Override
-  public F fromNetwork(FriendlyByteBuf buffer) {
+  public F fromNetwork(FriendlyByteBuf buffer, TypedMap<Object> context) {
     boolean percent = buffer.readBoolean();
     ImmutableList.Builder<V> builder = ImmutableList.builder();
     int size = buffer.readVarInt();
