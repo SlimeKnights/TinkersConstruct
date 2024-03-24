@@ -1,7 +1,7 @@
 intro=介绍
 entity_melting=实体熔炼
 melee_harvest_materials=三级近程材料
-melee_harvest_materials.subtext=这些材料需要通过合金来获得，然后铸造成近战武器或采掘工具的工具部件。
+melee_harvest_materials.subtext=这些材料需要通过合金来获得，然后铸造成近程武器或采掘工具的工具部件。
 ranged_materials=三级远程材料
 ranged_materials.subtext=这些材料需要通过合金来获得，然后铸造成像弓那样的远程武器的工具部件。
 
