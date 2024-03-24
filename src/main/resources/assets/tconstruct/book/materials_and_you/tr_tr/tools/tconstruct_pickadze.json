@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:pickadze",
+  "text": [
+    {
+      "text": "Bu aracın gerçeğe uygun adı kazı keser çapası olurdu ama insanlar tanıdık olanı severler."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Görkeme yolak oluşturabilir."
+    }
+  ],
+  "properties": [
+    "Yolak oluşturur",
+    "Taş bloklarını ve benzerlerini kazar",
+    "Yumuşak toprakları ve çakılları kürer",
+    "Çıkarım düzeyi odunla sınırlıdır"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "title": "Araçları Geri Dönüştürme",
+  "image": {
+    "file": "tconstruct:book/images/recycling.png",
+    "width": 170,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Bir araç hakkında düşüncelerin değiştiyse onu her zaman parça yapıcıda araç parçalarının birini kurtarmak için parçalara ayırabilirsin. Onarılmış araçlarda daha yüksek şans ile ikinci bir parçayı kurtarabilirsin. Hançerlerin geri dönüştürülmesi için 2ye yığınlanmaları gerekiyor.",
+      "paragraph": true
+    }
+  ]
+}

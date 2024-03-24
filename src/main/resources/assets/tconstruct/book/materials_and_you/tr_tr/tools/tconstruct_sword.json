@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:sword",
+  "text": [
+    {
+      "text": "Kılıç çok amaçlı bir silahtır. Ortalama bir hasarı vardır ve öbür elini boşta tutarken süpücürücü bir saldırıyla çok sayıda düşmanı savurmanı sağlar."
+    },
+    {
+      "text": "\n"
+    }
+  ],
+  "properties": [
+    "Orta Hasar",
+    "Süpürücü saldırı"
+  ]
+}

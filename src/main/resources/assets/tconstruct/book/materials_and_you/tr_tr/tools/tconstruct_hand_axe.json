@@ -1,0 +1,17 @@
+{
+  "tool": "tconstruct:hand_axe",
+  "text": [
+    {
+      "text": "El baltası yalın bir kesme aracıdır. Odunlarda ve yapraklarda etkilidir. Silah veya araç veya ikisi de olarak kullanılabiliyor. İstediğini yeğleyebilirsin."
+    },
+    {
+      "text": "\n"
+    }
+  ],
+  "properties": [
+    "Yalın çıkarım aracı",
+    "Odunlarda etkilidir",
+    "Yaprakları çık hızlı kırar",
+    "Odunları ve kütükleri kolayca soyar"
+  ]
+}
