@@ -2238,7 +2238,7 @@
   "modifier.tconstruct.extra_ability.description": "Mod paketi yapıcından bu daha iyi göreneği içeren bir kaynak paketi sağlamasını isteyin",
 
 
-  "__comment": "1. Düzey Kişisel Özellikler",
+  "__comment": "1. Düzey Nitelikler",
   "modifier.tconstruct.fake_attribute.mining_speed": "Çıkarım Hızı",
 
   "modifier.tconstruct.cultivated": "Bayındır",
@@ -2266,7 +2266,7 @@
   "modifier.tconstruct.solar_powered.flavor": "Çevre için iyi",
   "modifier.tconstruct.solar_powered.description": "Araç gün ışığında hasara karşı dirençli",
 
-  "__comment": "2. Düzey Kişisel Özellikler",
+  "__comment": "2. Düzey Nitelikler",
   "modifier.tconstruct.sturdy": "Sağlam",
   "modifier.tconstruct.sturdy.flavor": "İyi Yapılmış!",
   "modifier.tconstruct.sturdy.description": "En güçlü demirden yapılmış",
@@ -2299,7 +2299,7 @@
   "modifier.tconstruct.airborne.description": "Araç artık havada çıkarırken ceza almıyor ayrıca uzun menzilli doğruluğu kazanıyor",
   "modifier.tconstruct.airborne.accuracy": "Havalı Doğruluğu",
 
-  "__comment": "3. Düzey Kişisel Özellikler",
+  "__comment": "3. Düzey Nitelikler",
   "modifier.tconstruct.overcast": "Kapalı",
   "modifier.tconstruct.overcast.flavor": "Kalın Kaplama!",
   "modifier.tconstruct.overcast.description": "Balçık aşımı bu araçta daha kalın yapılabilir",
@@ -2323,7 +2323,7 @@
   "death.attack.tconstruct.bleed": "%1$s kanayarak öldü",
   "death.attack.tconstruct.bleed.item": "%2$s yüzünden kaynaklanan yaralardan %1$s kanayarak öldü",
 
-  "__comment": "4. Düzey Kişisel Özellikler",
+  "__comment": "4. Düzey Nitelikler",
   "modifier.tconstruct.overlord": "Derebeyi",
   "modifier.tconstruct.overlord.flavor": "Krallık!",
   "modifier.tconstruct.overlord.description": "Araç bazı dayanıklılığını yeni balçık aşımı nesneleri olarak kullanır",
@@ -2340,13 +2340,13 @@
   "modifier.tconstruct.conducting.description": "Araç sen ateşteyken katlanmış hasar verir",
   "modifier.tconstruct.conducting.attack_damage": "Ateşteyken Hasar Dorukta",
 
-  "__comment": "5. Düzey Kişisel Özellikler",
+  "__comment": "5. Düzey Nitelikler",
   "modifier.tconstruct.enderporting": "Ender Geçişimi",
   "modifier.tconstruct.enderporting.flavor": "Enderbalçığının gücünü ellerine al",
   "modifier.tconstruct.enderporting.description": "Araç tutucusunu çıkarılan bloğun veya öldürülen varlığın yerine ışınlar",
 
 
-  "__comment": "2. Düzey Mod Çatışma Özellikleri",
+  "__comment": "2. Düzey Mod Çatışma Nitelikleri",
   "modifier.tconstruct.dense": "Yoğun",
   "modifier.tconstruct.dense.flavor": "Biçimini zorca kaybeder",
   "modifier.tconstruct.dense.description": "Araç uzun süre dayanır ancak onarması daha zordur",
@@ -2373,7 +2373,7 @@
   "modifier.tconstruct.holy.description": "Oklar yaşayan ölülere karşı fazladan hasar vurur",
 
 
-  "__comment": "3. Düzey Mod Çatışma Özellikleri",
+  "__comment": "3. Düzey Mod Çatışma Nitelikleri",
   "modifier.tconstruct.ductile": "Tellenme",
   "modifier.tconstruct.ductile.flavor": "İyi yeniden biçimlendirilebilir!",
   "modifier.tconstruct.ductile.description": "Araç daha uzun dayanır, daha hızlı çıkarır ve daha fazla hasar verir",
@@ -2402,7 +2402,7 @@
   "modifier.tconstruct.overworked.flavor": "Az Maaşlı",
   "modifier.tconstruct.overworked.description": "Bütün kaynaklardan balçık aşımı yenilenmesi artırır",
 
-  "_comment": "Balçıklı Kafatası Özellikleri",
+  "_comment": "Balçıklı Kafatası Nitelikleri",
   "modifier.tconstruct.self_destructive": "Kendini Yok Edici",
   "modifier.tconstruct.self_destructive.flavor": "Fazla sağlıklı değil",
   "modifier.tconstruct.self_destructive.description": "Çömelirken kask ile etkileşime girilirse patlayabilir",
@@ -2644,7 +2644,7 @@
   "gui.tconstruct.part_builder.info": "Burada kendi onarıcı düşkülerini bitirmek için aracının parçalarını üretebilirsin.\n\nParça üretmek için düz taslağı sol yuvaya koyun ve istediğin parçayı seçin. Geriye kalan yuva parçayı üretmek için kullanılan malzemeyi tutar.",
   "gui.tconstruct.part_builder.material_value": "Malzeme değeri: %s",
   "gui.tconstruct.part_builder.cost": "Taslak gideri: %s",
-  "gui.tconstruct.part_builder.trait": "Kişisel Özellikleri",
+  "gui.tconstruct.part_builder.trait": "Nitelik",
   "gui.tconstruct.part_builder.uncraftable": "Biçimlendirilemez",
   "gui.tconstruct.part_builder.uncraftable.tooltip": "Malzeme parça yapıcıda biçimlendirilemez. Dökümleme gibi öbür yöntemler gereklidir.",
 
@@ -2659,7 +2659,7 @@
   "gui.tconstruct.tinker_station.repair.description": "Küçük ve koca araçların ikisine de yapılabilir ve var olan araçlarına değişlik yapılabilir, böylece düşlerini bitirebilirsin! Başlamak için soldaki düğmelerden bir düzen seçin.",
   "gui.tconstruct.tinker_station.modifiers": "Değiştiriciler",
   "gui.tconstruct.tinker_station.upgrades": "Yükseltmeler ve Yetenekler",
-  "gui.tconstruct.tinker_station.traits": "Kişisel Özellikler",
+  "gui.tconstruct.tinker_station.traits": "Nitelikler",
   "gui.tconstruct.tinker_station.components": "Bileşenler",
   "gui.tconstruct.tinker_station.info": "Araçlarını onarmanın veya değiştirmenin ana yoludur. Sola aracı ve malzemeyi koyarak başla.",
   "gui.tconstruct.tinker_station.no_traits": "Yok :[",
