@@ -4,7 +4,6 @@ import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
@@ -17,8 +16,6 @@ import javax.annotation.Nullable;
  * Serializer for {@link MaterialRecipe}
  */
 public class MaterialRecipeSerializer implements LoggingRecipeSerializer<MaterialRecipe> {
-  private static final ItemOutput EMPTY = ItemOutput.fromStack(ItemStack.EMPTY);
-
   @Override
   public MaterialRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
     String group = GsonHelper.getAsString(json, "group", "");
@@ -26,9 +23,9 @@ public class MaterialRecipeSerializer implements LoggingRecipeSerializer<Materia
     int value = GsonHelper.getAsInt(json, "value", 1);
     int needed = GsonHelper.getAsInt(json, "needed", 1);
     MaterialVariantId materialId = MaterialVariantId.fromJson(json, "material");
-    ItemOutput leftover = EMPTY;
-    if (value > 1 && json.has("leftover")) {
-      leftover = ItemOutput.fromJson(json.get("leftover"));
+    ItemOutput leftover = ItemOutput.EMPTY;
+    if (value > 1) {
+      leftover = ItemOutput.Loadable.OPTIONAL_STACK.getOrEmpty(json, "leftover");
     }
     return new MaterialRecipe(recipeId, group, ingredient, value, needed, materialId, leftover);
   }

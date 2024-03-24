@@ -4,6 +4,7 @@
     "tag": "forge:storage_blocks/pig_iron"
   },
   "leftover": {
+    "count": 1,
     "tag": "forge:ingots/pig_iron"
   },
   "material": "tconstruct:pig_iron",

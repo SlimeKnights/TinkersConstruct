@@ -13,6 +13,7 @@
     "tag": "forge:storage_blocks/constantan"
   },
   "leftover": {
+    "count": 1,
     "tag": "forge:ingots/constantan"
   },
   "material": "tconstruct:constantan",

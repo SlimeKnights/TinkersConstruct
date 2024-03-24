@@ -32,7 +32,7 @@ public class MaterialRecipeBuilder extends AbstractRecipeBuilder<MaterialRecipeB
   @Setter
   private int needed = 1;
   @Setter
-  private ItemOutput leftover = null;
+  private ItemOutput leftover = ItemOutput.EMPTY;
 
   /**
    * Sets the input ingredient for this material recipe
@@ -99,8 +99,8 @@ public class MaterialRecipeBuilder extends AbstractRecipeBuilder<MaterialRecipeB
       json.addProperty("value", value);
       json.addProperty("needed", needed);
       json.addProperty("material", material.toString());
-      if (value > 1 && leftover != null) {
-        json.add("leftover", leftover.serialize());
+      if (value > 1 && leftover != ItemOutput.EMPTY) {
+        json.add("leftover", leftover.serialize(true));
       }
     }
 

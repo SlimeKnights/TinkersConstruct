@@ -13,6 +13,7 @@
     "tag": "forge:storage_blocks/steel"
   },
   "leftover": {
+    "count": 1,
     "tag": "forge:ingots/steel"
   },
   "material": "tconstruct:steel",

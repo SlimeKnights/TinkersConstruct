@@ -37,7 +37,7 @@ public class SheepShearingRecipe extends SeveringRecipe {
   });
 
   public SheepShearingRecipe(ResourceLocation id) {
-    super(id, EntityIngredient.of(EntityType.SHEEP), ItemOutput.fromStack(new ItemStack(Blocks.WHITE_WOOL, 2)));
+    super(id, EntityIngredient.of(EntityType.SHEEP), ItemOutput.fromItem(Blocks.WHITE_WOOL, 2));
   }
 
   @Override

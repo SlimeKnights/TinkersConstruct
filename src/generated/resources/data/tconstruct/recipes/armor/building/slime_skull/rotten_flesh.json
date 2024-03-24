@@ -10,7 +10,6 @@
     "tag": "tconstruct:ender_slime"
   },
   "result": {
-    "count": 1,
     "item": "tconstruct:slime_helmet",
     "nbt": {
       "Damage": 0,

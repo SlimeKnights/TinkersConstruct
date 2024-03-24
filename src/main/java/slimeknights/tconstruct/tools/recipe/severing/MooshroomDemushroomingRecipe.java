@@ -16,7 +16,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
  */
 public class MooshroomDemushroomingRecipe extends SeveringRecipe {
   public MooshroomDemushroomingRecipe(ResourceLocation id) {
-    super(id, EntityIngredient.of(EntityType.MOOSHROOM), ItemOutput.fromStack(new ItemStack(Items.RED_MUSHROOM, 5)));
+    super(id, EntityIngredient.of(EntityType.MOOSHROOM), ItemOutput.fromItem(Items.RED_MUSHROOM, 5));
   }
 
   @Override

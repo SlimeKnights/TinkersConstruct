@@ -4,6 +4,7 @@
     "tag": "forge:storage_blocks/slimesteel"
   },
   "leftover": {
+    "count": 1,
     "tag": "forge:ingots/slimesteel"
   },
   "material": "tconstruct:slimesteel",

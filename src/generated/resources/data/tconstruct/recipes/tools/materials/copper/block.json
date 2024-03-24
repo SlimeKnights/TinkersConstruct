@@ -4,6 +4,7 @@
     "tag": "forge:storage_blocks/copper"
   },
   "leftover": {
+    "count": 1,
     "tag": "forge:ingots/copper"
   },
   "material": "tconstruct:copper",

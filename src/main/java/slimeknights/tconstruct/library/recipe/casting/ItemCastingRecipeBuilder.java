@@ -71,7 +71,7 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
    * @return  Builder instance
    */
   public static ItemCastingRecipeBuilder basinRecipe(TagKey<Item> result) {
-    return basinRecipe(ItemOutput.fromTag(result, 1));
+    return basinRecipe(ItemOutput.fromTag(result));
   }
 
   /**
@@ -107,7 +107,7 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
    * @return  Builder instance
    */
   public static ItemCastingRecipeBuilder tableRecipe(TagKey<Item> result) {
-    return tableRecipe(ItemOutput.fromTag(result, 1));
+    return tableRecipe(ItemOutput.fromTag(result));
   }
 
 
@@ -276,7 +276,7 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
         json.addProperty("switch_slots", true);
       }
       json.add("fluid", fluid.serialize());
-      json.add("result", result.serialize());
+      json.add("result", result.serialize(false));
       json.addProperty("cooling_time", coolingTime);
     }
   }

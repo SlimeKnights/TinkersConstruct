@@ -66,7 +66,7 @@ public class MoldingRecipe implements ICommonRecipe<IMoldingContainer> {
         pattern = Ingredient.fromJson(json.get("pattern"));
         patternConsumed = GsonHelper.getAsBoolean(json, "pattern_consumed", false);
       }
-      ItemOutput output = ItemOutput.fromJson(json.get("result"));
+      ItemOutput output = ItemOutput.Loadable.REQUIRED_ITEM.getIfPresent(json, "result");
       return new MoldingRecipe(type.get(), this, id, material, pattern, patternConsumed, output);
     }
 

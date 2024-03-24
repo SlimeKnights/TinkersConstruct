@@ -14,7 +14,6 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
-import slimeknights.mantle.util.JsonHelper;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
@@ -97,7 +96,7 @@ public class ItemCastingRecipe extends AbstractCastingRecipe implements IDisplay
     @Override
     protected ItemCastingRecipe create(ResourceLocation idIn, String groupIn, @Nullable Ingredient cast, boolean consumed, boolean switchSlots, JsonObject json) {
       FluidIngredient fluid = FluidIngredient.deserialize(json, "fluid");
-      ItemOutput output = ItemOutput.fromJson(JsonHelper.getElement(json, "result"));
+      ItemOutput output = ItemOutput.Loadable.REQUIRED_ITEM.getIfPresent(json, "result");
       int coolingTime = GsonHelper.getAsInt(json, "cooling_time");
       return create(idIn, groupIn, cast, fluid, output, coolingTime, consumed, switchSlots);
     }

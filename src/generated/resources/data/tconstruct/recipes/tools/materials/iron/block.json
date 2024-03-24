@@ -4,6 +4,7 @@
     "tag": "forge:storage_blocks/iron"
   },
   "leftover": {
+    "count": 1,
     "tag": "forge:ingots/iron"
   },
   "material": "tconstruct:iron",

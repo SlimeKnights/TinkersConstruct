@@ -50,7 +50,7 @@ public class ItemPartRecipeBuilder extends AbstractRecipeBuilder<ItemPartRecipeB
         json.add("pattern_item", patternItem.toJson());
       }
       json.addProperty("cost", cost);
-      json.add("result", result.serialize());
+      json.add("result", result.serialize(true));
     }
 
     @Override

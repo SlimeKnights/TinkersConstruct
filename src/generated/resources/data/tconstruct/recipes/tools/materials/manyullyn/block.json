@@ -4,6 +4,7 @@
     "tag": "forge:storage_blocks/manyullyn"
   },
   "leftover": {
+    "count": 1,
     "tag": "forge:ingots/manyullyn"
   },
   "material": "tconstruct:manyullyn",

@@ -4,6 +4,7 @@
     "tag": "forge:storage_blocks/amethyst_bronze"
   },
   "leftover": {
+    "count": 1,
     "tag": "forge:ingots/amethyst_bronze"
   },
   "material": "tconstruct:amethyst_bronze",

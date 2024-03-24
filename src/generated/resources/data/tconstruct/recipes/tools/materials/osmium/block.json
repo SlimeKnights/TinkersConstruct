@@ -13,6 +13,7 @@
     "tag": "forge:storage_blocks/osmium"
   },
   "leftover": {
+    "count": 1,
     "tag": "forge:ingots/osmium"
   },
   "material": "tconstruct:osmium",

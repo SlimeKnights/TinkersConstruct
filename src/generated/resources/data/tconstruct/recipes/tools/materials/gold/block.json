@@ -4,6 +4,7 @@
     "tag": "forge:storage_blocks/gold"
   },
   "leftover": {
+    "count": 1,
     "tag": "forge:ingots/gold"
   },
   "material": "tconstruct:gold",

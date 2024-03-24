@@ -13,6 +13,7 @@
     "tag": "forge:storage_blocks/electrum"
   },
   "leftover": {
+    "count": 1,
     "tag": "forge:ingots/electrum"
   },
   "material": "tconstruct:electrum",

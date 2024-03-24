@@ -1,7 +1,6 @@
 {
   "type": "mantle:fill_item",
   "filled": {
-    "count": 1,
     "item": "minecraft:lingering_potion",
     "nbt": {
       "Potion": "minecraft:water"

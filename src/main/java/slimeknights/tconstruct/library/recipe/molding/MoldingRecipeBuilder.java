@@ -110,7 +110,7 @@ public class MoldingRecipeBuilder extends AbstractRecipeBuilder<MoldingRecipeBui
           json.addProperty("pattern_consumed", true);
         }
       }
-      json.add("result", output.serialize());
+      json.add("result", output.serialize(false));
     }
 
     @Override

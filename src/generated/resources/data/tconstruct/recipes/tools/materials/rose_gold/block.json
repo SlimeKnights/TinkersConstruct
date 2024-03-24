@@ -4,6 +4,7 @@
     "tag": "forge:storage_blocks/rose_gold"
   },
   "leftover": {
+    "count": 1,
     "tag": "forge:ingots/rose_gold"
   },
   "material": "tconstruct:rose_gold",

@@ -10,7 +10,6 @@
     "tag": "mantle:water"
   },
   "result": {
-    "count": 1,
     "item": "minecraft:potion",
     "nbt": {
       "Potion": "minecraft:water"

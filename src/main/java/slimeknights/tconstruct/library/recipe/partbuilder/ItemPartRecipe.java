@@ -11,7 +11,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
-import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
@@ -98,7 +97,7 @@ public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
         patternItem = Ingredient.of(TinkerTags.Items.DEFAULT_PATTERNS);
       }
       int cost = GsonHelper.getAsInt(json, "cost");
-      ItemOutput result = ItemOutput.fromJson(JsonHelper.getElement(json, "result"));
+      ItemOutput result = ItemOutput.Loadable.REQUIRED_STACK.getIfPresent(json, "result");
       return new ItemPartRecipe(id, materialId, pattern, patternItem, cost, result);
     }
 

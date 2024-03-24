@@ -291,7 +291,7 @@ public interface ISmelteryRecipeHelper extends ICastCreationHelper {
     if (optional) {
       consumer = withCondition(consumer, tagCondition(tagName));
     }
-    castingWithCast(consumer, fluid, forgeTag, amount, cast, ItemOutput.fromTag(getItemTag("forge", tagName), 1), recipeName);
+    castingWithCast(consumer, fluid, forgeTag, amount, cast, ItemOutput.fromTag(getItemTag("forge", tagName)), recipeName);
   }
 
   /**

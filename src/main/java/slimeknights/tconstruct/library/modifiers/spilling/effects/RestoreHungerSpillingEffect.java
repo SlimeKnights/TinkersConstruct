@@ -9,17 +9,14 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.helper.ItemOutput;
-import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.spilling.ISpillingEffect;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.utils.JsonUtils;
 
-import javax.annotation.Nullable;
-
 /** Effect to restore hunger to the target */
-public record RestoreHungerSpillingEffect(int hunger, float saturation, @Nullable ItemOutput representative) implements ISpillingEffect {
+public record RestoreHungerSpillingEffect(int hunger, float saturation, ItemOutput representative) implements ISpillingEffect {
   public static final ResourceLocation ID = TConstruct.getResource("restore_hunger");
 
   public RestoreHungerSpillingEffect(int hunger, float saturation) {
@@ -45,8 +42,8 @@ public record RestoreHungerSpillingEffect(int hunger, float saturation, @Nullabl
     JsonObject json = JsonUtils.withType(ID);
     json.addProperty("hunger", hunger);
     json.addProperty("saturation", saturation);
-    if (representative != null) {
-      json.add("representative_item", representative.serialize());
+    if (representative != ItemOutput.EMPTY) {
+      json.add("representative_item", representative.serialize(false));
     }
     return json;
   }
@@ -55,10 +52,7 @@ public record RestoreHungerSpillingEffect(int hunger, float saturation, @Nullabl
     JsonObject json = element.getAsJsonObject();
     int hunger = GsonHelper.getAsInt(json, "hunger");
     float saturation = GsonHelper.getAsFloat(json, "saturation");
-    ItemOutput representative = null;
-    if (json.has("representative_item")) {
-      representative = ItemOutput.fromJson(JsonHelper.getElement(json, "representative_item"));
-    }
+    ItemOutput representative = ItemOutput.Loadable.OPTIONAL_ITEM.getOrEmpty(json, "representative_item");
     return new RestoreHungerSpillingEffect(hunger, saturation, representative);
   };
 }

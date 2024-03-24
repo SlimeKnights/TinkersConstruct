@@ -4,6 +4,7 @@
     "tag": "forge:storage_blocks/cobalt"
   },
   "leftover": {
+    "count": 1,
     "tag": "forge:ingots/cobalt"
   },
   "material": "tconstruct:cobalt",

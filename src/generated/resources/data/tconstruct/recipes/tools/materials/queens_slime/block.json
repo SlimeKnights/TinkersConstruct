@@ -4,6 +4,7 @@
     "tag": "forge:storage_blocks/queens_slime"
   },
   "leftover": {
+    "count": 1,
     "tag": "forge:ingots/queens_slime"
   },
   "material": "tconstruct:queens_slime",

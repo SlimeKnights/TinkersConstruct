@@ -13,6 +13,7 @@
     "tag": "forge:storage_blocks/lead"
   },
   "leftover": {
+    "count": 1,
     "tag": "forge:ingots/lead"
   },
   "material": "tconstruct:lead",
