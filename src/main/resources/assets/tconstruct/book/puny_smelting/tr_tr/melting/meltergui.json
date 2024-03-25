@@ -1,0 +1,13 @@
+{
+  "title": "Ergitici Grafiksel Kullanıcı Arayüzü",
+  "image": {
+    "file": "tconstruct:book/images/meltergui.png",
+    "width": 172,
+    "height": 81
+  },
+  "text": [
+    {
+      "text": "Senin yalın ergitici grafiksel kullanıcı arayüzün. Ne çok, ne az."
+    }
+	]
+}
