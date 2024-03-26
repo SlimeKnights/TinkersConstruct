@@ -1,7 +1,9 @@
 {
   "type": "tconstruct:severing",
   "entity": {
-    "type": "minecraft:enderman"
+    "types": [
+      "minecraft:enderman"
+    ]
   },
   "result": "tconstruct:enderman_head"
 }

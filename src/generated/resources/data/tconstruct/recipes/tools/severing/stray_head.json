@@ -1,7 +1,9 @@
 {
   "type": "tconstruct:severing",
   "entity": {
-    "type": "minecraft:stray"
+    "types": [
+      "minecraft:stray"
+    ]
   },
   "result": "tconstruct:stray_head"
 }

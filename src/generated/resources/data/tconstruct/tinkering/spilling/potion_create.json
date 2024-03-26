@@ -22,6 +22,6 @@
   ],
   "fluid": {
     "amount": 50,
-    "name": "create:potion"
+    "fluid": "create:potion"
   }
 }

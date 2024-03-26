@@ -2,7 +2,9 @@
   "type": "tconstruct:entity_melting",
   "damage": 2,
   "entity": {
-    "type": "minecraft:slime"
+    "types": [
+      "minecraft:slime"
+    ]
   },
   "result": {
     "amount": 25,

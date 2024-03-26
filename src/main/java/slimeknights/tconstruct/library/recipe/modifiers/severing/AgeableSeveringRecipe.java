@@ -9,7 +9,6 @@ import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.ingredient.EntityIngredient;
-import slimeknights.mantle.util.JsonHelper;
 
 import javax.annotation.Nullable;
 
@@ -32,7 +31,7 @@ public class AgeableSeveringRecipe extends SeveringRecipe {
   public static class Serializer implements LoggingRecipeSerializer<AgeableSeveringRecipe> {
     @Override
     public AgeableSeveringRecipe fromJson(ResourceLocation id, JsonObject json) {
-      EntityIngredient ingredient = EntityIngredient.deserialize(JsonHelper.getElement(json, "entity"));
+      EntityIngredient ingredient = EntityIngredient.LOADABLE.getIfPresent(json, "entity");
       ItemOutput adult = ItemOutput.Loadable.REQUIRED_STACK.getIfPresent(json, "adult_result");
       ItemOutput child = ItemOutput.Loadable.OPTIONAL_STACK.getOrEmpty(json, "child_result");
       return new AgeableSeveringRecipe(id, ingredient, adult, child);

@@ -2,7 +2,9 @@
   "type": "tconstruct:entity_melting",
   "damage": 2,
   "entity": {
-    "type": "tconstruct:sky_slime"
+    "types": [
+      "tconstruct:sky_slime"
+    ]
   },
   "result": {
     "amount": 25,

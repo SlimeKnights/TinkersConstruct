@@ -1,7 +1,9 @@
 {
   "type": "tconstruct:severing",
   "entity": {
-    "type": "minecraft:cave_spider"
+    "types": [
+      "minecraft:cave_spider"
+    ]
   },
   "result": "tconstruct:cave_spider_head"
 }

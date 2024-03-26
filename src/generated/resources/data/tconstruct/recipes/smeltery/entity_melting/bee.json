@@ -2,7 +2,9 @@
   "type": "tconstruct:entity_melting",
   "damage": 2,
   "entity": {
-    "type": "minecraft:bee"
+    "types": [
+      "minecraft:bee"
+    ]
   },
   "result": {
     "amount": 25,

@@ -40,7 +40,7 @@ public class SpillingFluidManager extends SimpleJsonResourceReloadListener {
   public static final Gson GSON = (new GsonBuilder())
     .registerTypeAdapter(ICondition.class, ConditionSerializer.INSTANCE)
     .registerTypeHierarchyAdapter(ISpillingEffect.class, ISpillingEffect.LOADER)
-    .registerTypeAdapter(FluidIngredient.class, FluidIngredient.SERIALIZER)
+    .registerTypeAdapter(FluidIngredient.class, FluidIngredient.LOADABLE)
     .setPrettyPrinting()
     .disableHtmlEscaping()
     .create();

@@ -20,7 +20,6 @@ import slimeknights.mantle.recipe.container.IEmptyContainer;
 import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.recipe.ingredient.EntityIngredient;
-import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
@@ -120,7 +119,7 @@ public class EntityMeltingRecipe implements ICustomOutputRecipe<IEmptyContainer>
   public static class Serializer implements LoggingRecipeSerializer<EntityMeltingRecipe> {
     @Override
     public EntityMeltingRecipe fromJson(ResourceLocation id, JsonObject json) {
-      EntityIngredient ingredient = EntityIngredient.deserialize(JsonHelper.getElement(json, "entity"));
+      EntityIngredient ingredient = EntityIngredient.LOADABLE.getIfPresent(json, "entity");
       FluidStack output = RecipeHelper.deserializeFluidStack(GsonHelper.getAsJsonObject(json, "result"));
       int damage = GsonHelper.getAsInt(json, "damage", 2);
       return new EntityMeltingRecipe(id, ingredient, output, damage);

@@ -2,7 +2,9 @@
   "type": "tconstruct:entity_melting",
   "damage": 2,
   "entity": {
-    "type": "minecraft:blaze"
+    "types": [
+      "minecraft:blaze"
+    ]
   },
   "result": {
     "amount": 20,

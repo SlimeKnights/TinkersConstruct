@@ -2,7 +2,9 @@
   "type": "tconstruct:entity_melting",
   "damage": 2,
   "entity": {
-    "type": "minecraft:drowned"
+    "types": [
+      "minecraft:drowned"
+    ]
   },
   "result": {
     "amount": 20,

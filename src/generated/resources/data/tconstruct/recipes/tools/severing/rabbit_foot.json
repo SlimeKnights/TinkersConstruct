@@ -2,6 +2,8 @@
   "type": "tconstruct:ageable_severing",
   "adult_result": "minecraft:rabbit_foot",
   "entity": {
-    "type": "minecraft:rabbit"
+    "types": [
+      "minecraft:rabbit"
+    ]
   }
 }

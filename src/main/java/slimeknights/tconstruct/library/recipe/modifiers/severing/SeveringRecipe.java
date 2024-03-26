@@ -18,7 +18,6 @@ import slimeknights.mantle.recipe.container.IEmptyContainer;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.ingredient.EntityIngredient;
-import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -114,7 +113,7 @@ public class SeveringRecipe implements ICustomOutputRecipe<IEmptyContainer> {
   public static class Serializer implements LoggingRecipeSerializer<SeveringRecipe> {
     @Override
     public SeveringRecipe fromJson(ResourceLocation id, JsonObject json) {
-      EntityIngredient ingredient = EntityIngredient.deserialize(JsonHelper.getElement(json, "entity"));
+      EntityIngredient ingredient = EntityIngredient.LOADABLE.getIfPresent(json, "entity");
       ItemOutput output = ItemOutput.Loadable.REQUIRED_STACK.getIfPresent(json, "result");
       return new SeveringRecipe(id, ingredient, output);
     }

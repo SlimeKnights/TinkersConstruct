@@ -2,7 +2,9 @@
   "type": "tconstruct:entity_melting",
   "damage": 2,
   "entity": {
-    "type": "tconstruct:terracube"
+    "types": [
+      "tconstruct:terracube"
+    ]
   },
   "result": {
     "amount": 25,

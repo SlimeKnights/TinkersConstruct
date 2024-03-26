@@ -2,7 +2,9 @@
   "type": "tconstruct:entity_melting",
   "damage": 4,
   "entity": {
-    "type": "minecraft:iron_golem"
+    "types": [
+      "minecraft:iron_golem"
+    ]
   },
   "result": {
     "amount": 10,

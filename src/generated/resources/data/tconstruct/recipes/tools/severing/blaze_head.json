@@ -1,7 +1,9 @@
 {
   "type": "tconstruct:severing",
   "entity": {
-    "type": "minecraft:blaze"
+    "types": [
+      "minecraft:blaze"
+    ]
   },
   "result": "tconstruct:blaze_head"
 }
