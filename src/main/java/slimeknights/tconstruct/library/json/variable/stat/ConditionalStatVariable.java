@@ -5,11 +5,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.library.json.variable.VariableLoaderRegistry;
-import slimeknights.tconstruct.library.json.variable.VariableLoaderRegistry.ConstantLoader;
 import slimeknights.tconstruct.library.json.variable.mining.MiningSpeedVariable;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
@@ -20,7 +20,7 @@ import javax.annotation.Nullable;
  * All conditional stat variables automatically work as mining speed variables due to the superset parameter space.
  */
 public interface ConditionalStatVariable extends IHaveLoader, MiningSpeedVariable {
-  GenericLoaderRegistry<ConditionalStatVariable> LOADER = new VariableLoaderRegistry<>("Conditional Stat Variable", ConditionalStatVariable.Constant.LOADER.constructor());
+  GenericLoaderRegistry<ConditionalStatVariable> LOADER = new VariableLoaderRegistry<>("Conditional Stat Variable", ConditionalStatVariable.Constant::new);
 
   /**
    * Gets the value for the given content
@@ -45,7 +45,7 @@ public interface ConditionalStatVariable extends IHaveLoader, MiningSpeedVariabl
 
   /** Constant value instance for this object */
   record Constant(float value) implements VariableLoaderRegistry.ConstantFloat, ConditionalStatVariable {
-    public static final ConstantLoader<ConditionalStatVariable.Constant> LOADER = new ConstantLoader<>(ConditionalStatVariable.Constant::new);
+    public static final RecordLoadable<ConditionalStatVariable.Constant> LOADER = VariableLoaderRegistry.constantLoader(ConditionalStatVariable.Constant::new);
 
     @Override
     public float getValue(IToolStackView tool, @Nullable LivingEntity entity) {

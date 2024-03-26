@@ -3,18 +3,18 @@ package slimeknights.tconstruct.library.json.variable.mining;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.library.json.variable.VariableLoaderRegistry;
-import slimeknights.tconstruct.library.json.variable.VariableLoaderRegistry.ConstantLoader;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 
 /** Variable used for {@link slimeknights.tconstruct.library.modifiers.modules.mining.ConditionalMiningSpeedModule} */
 public interface MiningSpeedVariable extends IHaveLoader {
-  GenericLoaderRegistry<MiningSpeedVariable> LOADER = new VariableLoaderRegistry<>("Mining Speed Variable", Constant.LOADER.constructor());
+  GenericLoaderRegistry<MiningSpeedVariable> LOADER = new VariableLoaderRegistry<>("Mining Speed Variable", Constant::new);
 
   /**
    * Gets the value of this variable
@@ -28,7 +28,7 @@ public interface MiningSpeedVariable extends IHaveLoader {
 
   /** Constant value instance for this object */
   record Constant(float value) implements VariableLoaderRegistry.ConstantFloat, MiningSpeedVariable {
-    public static final ConstantLoader<Constant> LOADER = new ConstantLoader<>(Constant::new);
+    public static final RecordLoadable<Constant> LOADER = VariableLoaderRegistry.constantLoader(Constant::new);
 
     @Override
     public float getValue(IToolStackView tool, @Nullable BreakSpeed event, @Nullable Player player, @Nullable Direction sideHit) {

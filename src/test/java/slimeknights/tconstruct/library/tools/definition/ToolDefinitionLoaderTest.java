@@ -97,12 +97,12 @@ class ToolDefinitionLoaderTest extends BaseMcTest {
     // aoe
     IAreaOfEffectIterator aoe = data.getAOE();
     assertThat(aoe).isInstanceOf(CircleAOEIterator.class);
-    assertThat(((CircleAOEIterator)aoe).getDiameter()).isEqualTo(3);
+    assertThat(((CircleAOEIterator)aoe).diameter()).isEqualTo(3);
     assertThat(((CircleAOEIterator)aoe).is3D()).isTrue();
     // weapon
     IWeaponAttack attack = data.getAttack();
     assertThat(attack).isInstanceOf(SweepWeaponAttack.class);
-    assertThat(((SweepWeaponAttack)attack).getRange()).isEqualTo(5);
+    assertThat(((SweepWeaponAttack)attack).range()).isEqualTo(5);
   }
 
   @BeforeAll

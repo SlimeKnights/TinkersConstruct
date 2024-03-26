@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.library.json.variable.melee;
 
 import net.minecraft.world.entity.LivingEntity;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.library.json.variable.VariableLoaderRegistry;
-import slimeknights.tconstruct.library.json.variable.VariableLoaderRegistry.ConstantLoader;
 import slimeknights.tconstruct.library.modifiers.modules.combat.ConditionalMeleeDamageModule;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
 
 /** Variable for use in {@link ConditionalMeleeDamageModule} */
 public interface MeleeVariable extends IHaveLoader {
-  GenericLoaderRegistry<MeleeVariable> LOADER = new VariableLoaderRegistry<>("Melee Variable", Constant.LOADER.constructor());
+  GenericLoaderRegistry<MeleeVariable> LOADER = new VariableLoaderRegistry<>("Melee Variable", Constant::new);
 
   /**
    * Gets the value of the variable
@@ -28,7 +28,7 @@ public interface MeleeVariable extends IHaveLoader {
   
   /** Constant value instance for this object */
   record Constant(float value) implements VariableLoaderRegistry.ConstantFloat, MeleeVariable {
-    public static final ConstantLoader<Constant> LOADER = new ConstantLoader<>(Constant::new);
+    public static final RecordLoadable<Constant> LOADER = VariableLoaderRegistry.constantLoader(Constant::new);
 
     @Override
     public float getValue(IToolStackView tool, @Nullable ToolAttackContext context, @Nullable LivingEntity attacker) {

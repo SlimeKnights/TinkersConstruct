@@ -1,38 +1,33 @@
 package slimeknights.tconstruct.library.tools.definition.aoe;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.gson.JsonObject;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
+import slimeknights.mantle.data.loadable.primitive.IntLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.tools.definition.aoe.BoxAOEIterator.RectangleIterator;
 import slimeknights.tconstruct.library.tools.definition.aoe.IBoxExpansion.ExpansionDirections;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.utils.JsonUtils;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import java.util.Collections;
 import java.util.function.Predicate;
 
-/** AOE harvest logic that mines blocks in a circle */
-@RequiredArgsConstructor
-public class CircleAOEIterator implements IAreaOfEffectIterator {
-  public static final Loader LOADER = new Loader();
-
-  /** Diameter of the circle, starting from 1 */
-  @Getter @VisibleForTesting
-  protected final int diameter;
-  /** If true, calculates AOE blocks in 3D instead of 2D */
-  @Getter @VisibleForTesting
-  protected final boolean is3D;
+/**
+ * AOE harvest logic that mines blocks in a circle
+ * @param diameter  Diameter of the circle, starting from 1
+ * @param is3D      If true, calculates AOE blocks in 3D instead of 2D
+ */
+public record CircleAOEIterator(int diameter, boolean is3D) implements IAreaOfEffectIterator {
+  public static final RecordLoadable<CircleAOEIterator> LOADER = RecordLoadable.create(
+    IntLoadable.FROM_ONE.defaultField("diameter", 1, true, CircleAOEIterator::diameter),
+    BooleanLoadable.INSTANCE.defaultField("3D", false, CircleAOEIterator::is3D),
+    CircleAOEIterator::new);
 
   @Override
   public IGenericLoader<? extends IAreaOfEffectIterator> getLoader() {
@@ -107,34 +102,6 @@ public class CircleAOEIterator implements IAreaOfEffectIterator {
         }
       }
       return endOfData();
-    }
-  }
-
-  private static class Loader implements IGenericLoader<CircleAOEIterator> {
-    @Override
-    public CircleAOEIterator deserialize(JsonObject json) {
-      int diameter = JsonUtils.getIntMin(json, "diameter", 1);
-      boolean is3D = GsonHelper.getAsBoolean(json, "3D", false);
-      return new CircleAOEIterator(diameter, is3D);
-    }
-
-    @Override
-    public CircleAOEIterator fromNetwork(FriendlyByteBuf buffer) {
-      int diameter = buffer.readVarInt();
-      boolean is3D = buffer.readBoolean();
-      return new CircleAOEIterator(diameter, is3D);
-    }
-
-    @Override
-    public void serialize(CircleAOEIterator object, JsonObject json) {
-      json.addProperty("diameter", object.diameter);
-      json.addProperty("3D", object.is3D);
-    }
-
-    @Override
-    public void toNetwork(CircleAOEIterator object, FriendlyByteBuf buffer) {
-      buffer.writeVarInt(object.diameter);
-      buffer.writeBoolean(object.is3D);
     }
   }
 }

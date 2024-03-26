@@ -1,29 +1,23 @@
 package slimeknights.tconstruct.library.tools.definition.weapon;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
-import io.netty.handler.codec.DecoderException;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.core.Registry;
-import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.registries.ForgeRegistries;
+import slimeknights.mantle.data.loadable.Loadables;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
-import java.util.Objects;
-
 /** Weapon attack that just spawns an extra particle */
-@RequiredArgsConstructor
-public class ParticleWeaponAttack implements IWeaponAttack {
-  public static final Loader LOADER = new Loader();
-
-  private final SimpleParticleType particle;
+public record ParticleWeaponAttack(SimpleParticleType particle) implements IWeaponAttack {
+  public static final RecordLoadable<ParticleWeaponAttack> LOADER = RecordLoadable.create(
+    Loadables.PARTICLE_TYPE.comapFlatMap((type, error) -> {
+      if (type instanceof SimpleParticleType simple) {
+        return simple;
+      }
+      throw error.create("Expected particle " + Registry.PARTICLE_TYPE.getKey(type) + " be a simple particle, got " + type);
+    }, type -> type).requiredField("particle", ParticleWeaponAttack::particle), ParticleWeaponAttack::new);
 
   @Override
   public boolean dealDamage(IToolStackView tool, ToolAttackContext context, float damage) {
@@ -37,39 +31,5 @@ public class ParticleWeaponAttack implements IWeaponAttack {
   @Override
   public IGenericLoader<? extends IWeaponAttack> getLoader() {
     return LOADER;
-  }
-
-  private static class Loader implements IGenericLoader<ParticleWeaponAttack> {
-    @Override
-    public ParticleWeaponAttack deserialize(JsonObject json) {
-      ResourceLocation location = JsonHelper.getResourceLocation(json, "particle");
-      if (!ForgeRegistries.PARTICLE_TYPES.containsKey(location)) {
-        throw new JsonSyntaxException("Unknown particle ID " + location);
-      }
-      ParticleType<?> type = Objects.requireNonNull(ForgeRegistries.PARTICLE_TYPES.getValue(location));
-      if (type instanceof SimpleParticleType simple) {
-        return new ParticleWeaponAttack(simple);
-      }
-      throw new JsonSyntaxException("Particle " + type + " be a simple particle, got " + type);
-    }
-
-    @Override
-    public ParticleWeaponAttack fromNetwork(FriendlyByteBuf buffer) {
-      ParticleType<?> type = buffer.readRegistryIdUnsafe(ForgeRegistries.PARTICLE_TYPES);
-      if (type instanceof SimpleParticleType simple) {
-        return new ParticleWeaponAttack(simple);
-      }
-      throw new DecoderException("Particle " + type + " be a simple particle, got " + type);
-    }
-
-    @Override
-    public void serialize(ParticleWeaponAttack object, JsonObject json) {
-      json.addProperty("particle", Objects.requireNonNull(Registry.PARTICLE_TYPE.getKey(object.particle)).toString());
-    }
-
-    @Override
-    public void toNetwork(ParticleWeaponAttack object, FriendlyByteBuf buffer) {
-      buffer.writeRegistryIdUnsafe(ForgeRegistries.PARTICLE_TYPES, object.particle);
-    }
   }
 }

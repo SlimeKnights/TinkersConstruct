@@ -156,12 +156,12 @@ class UpdateToolDefinitionDataPacketTest extends BaseMcTest {
     // aoe
     IAreaOfEffectIterator aoe = parsed.getAOE();
     assertThat(aoe).isInstanceOf(CircleAOEIterator.class);
-    assertThat(((CircleAOEIterator)aoe).getDiameter()).isEqualTo(7);
+    assertThat(((CircleAOEIterator)aoe).diameter()).isEqualTo(7);
     assertThat(((CircleAOEIterator)aoe).is3D()).isTrue();
 
     // weapon
     IWeaponAttack attack = parsed.getAttack();
     assertThat(attack).isInstanceOf(SweepWeaponAttack.class);
-    assertThat(((SweepWeaponAttack)attack).getRange()).isEqualTo(4);
+    assertThat(((SweepWeaponAttack)attack).range()).isEqualTo(4);
   }
 }

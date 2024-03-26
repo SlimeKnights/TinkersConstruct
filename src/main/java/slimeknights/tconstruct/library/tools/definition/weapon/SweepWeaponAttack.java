@@ -1,17 +1,13 @@
 package slimeknights.tconstruct.library.tools.definition.weapon;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.gson.JsonObject;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
+import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
@@ -19,12 +15,8 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 /** Attack logic for a sweep attack, similar to a sword */
-@RequiredArgsConstructor
-public class SweepWeaponAttack implements IWeaponAttack {
-  public static final Loader LOADER = new Loader();
-
-  @Getter @VisibleForTesting
-  private final float range;
+public record SweepWeaponAttack(float range) implements IWeaponAttack {
+  public static final RecordLoadable<SweepWeaponAttack> LOADER = RecordLoadable.create(FloatLoadable.FROM_ZERO.defaultField("range", 0f, true, SweepWeaponAttack::range), SweepWeaponAttack::new);
 
   @Override
   public boolean dealDamage(IToolStackView tool, ToolAttackContext context, float damage) {
@@ -37,7 +29,7 @@ public class SweepWeaponAttack implements IWeaponAttack {
     if (hit && context.isFullyCharged() && !attacker.isSprinting() && !context.isCritical() && attacker.isOnGround() && (attacker.walkDist - attacker.walkDistO) < attacker.getSpeed()) {
       // loop through all nearby entities
       double range = this.range + tool.getModifierLevel(TinkerModifiers.expanded.getId());
-      double rangeSq = (2 + range);
+      double rangeSq = (2 + range); // TODO: why do we add 2 here? should that not be defined in the datagen?
       rangeSq *= rangeSq;
       // if the modifier is missing, sweeping damage will be 0, so easiest to let it fully control this
       float sweepDamage = TinkerModifiers.sweeping.get().getSweepingDamage(tool, damage);
@@ -63,27 +55,5 @@ public class SweepWeaponAttack implements IWeaponAttack {
   @Override
   public IGenericLoader<? extends IWeaponAttack> getLoader() {
     return LOADER;
-  }
-
-  private static class Loader implements IGenericLoader<SweepWeaponAttack> {
-    @Override
-    public SweepWeaponAttack deserialize(JsonObject json) {
-      return new SweepWeaponAttack(GsonHelper.getAsFloat(json, "range"));
-    }
-
-    @Override
-    public SweepWeaponAttack fromNetwork(FriendlyByteBuf buffer) {
-      return new SweepWeaponAttack(buffer.readFloat());
-    }
-
-    @Override
-    public void serialize(SweepWeaponAttack object, JsonObject json) {
-      json.addProperty("range", object.range);
-    }
-
-    @Override
-    public void toNetwork(SweepWeaponAttack object, FriendlyByteBuf buffer) {
-      buffer.writeFloat(object.range);
-    }
   }
 }

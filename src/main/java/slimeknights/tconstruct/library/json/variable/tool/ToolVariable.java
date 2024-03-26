@@ -2,12 +2,12 @@ package slimeknights.tconstruct.library.json.variable.tool;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.library.json.variable.ToFloatFunction;
 import slimeknights.tconstruct.library.json.variable.VariableLoaderRegistry;
-import slimeknights.tconstruct.library.json.variable.VariableLoaderRegistry.ConstantLoader;
 import slimeknights.tconstruct.library.json.variable.melee.MeleeVariable;
 import slimeknights.tconstruct.library.json.variable.stat.ConditionalStatVariable;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
@@ -22,7 +22,7 @@ import static slimeknights.mantle.data.registry.GenericLoaderRegistry.SingletonL
  * All tool variables automatically work as melee, mining speed, and conditional stat variables due to the superset parameter space.
  */
 public interface ToolVariable extends IHaveLoader, MeleeVariable, ConditionalStatVariable {
-  GenericLoaderRegistry<ToolVariable> LOADER = new VariableLoaderRegistry<>("Tool Variable", ToolVariable.Constant.LOADER.constructor());
+  GenericLoaderRegistry<ToolVariable> LOADER = new VariableLoaderRegistry<>("Tool Variable", ToolVariable.Constant::new);
 
   /** Gets a value from the given tool */
   float getValue(IToolStackView tool);
@@ -75,7 +75,7 @@ public interface ToolVariable extends IHaveLoader, MeleeVariable, ConditionalSta
   
   /** Constant value instance for this object */
   record Constant(float value) implements VariableLoaderRegistry.ConstantFloat, ToolVariable {
-    public static final ConstantLoader<ToolVariable.Constant> LOADER = new ConstantLoader<>(ToolVariable.Constant::new);
+    public static final RecordLoadable<ToolVariable.Constant> LOADER = VariableLoaderRegistry.constantLoader(ToolVariable.Constant::new);
 
     @Override
     public float getValue(IToolStackView tool) {

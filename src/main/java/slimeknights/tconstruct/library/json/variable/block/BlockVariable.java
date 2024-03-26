@@ -1,18 +1,18 @@
 package slimeknights.tconstruct.library.json.variable.block;
 
 import net.minecraft.world.level.block.state.BlockState;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.library.json.variable.ToFloatFunction;
 import slimeknights.tconstruct.library.json.variable.VariableLoaderRegistry;
-import slimeknights.tconstruct.library.json.variable.VariableLoaderRegistry.ConstantLoader;
 
 import static slimeknights.mantle.data.registry.GenericLoaderRegistry.SingletonLoader.singleton;
 
 /** Variable that fetches a property from a block state */
 public interface BlockVariable extends IHaveLoader {
-  GenericLoaderRegistry<BlockVariable> LOADER = new VariableLoaderRegistry<>("Block Variable", Constant.LOADER.constructor());
+  GenericLoaderRegistry<BlockVariable> LOADER = new VariableLoaderRegistry<>("Block Variable", Constant::new);
 
   /** Gets a value from the given block state */
   float getValue(BlockState state);
@@ -45,7 +45,7 @@ public interface BlockVariable extends IHaveLoader {
 
   /** Constant value instance for this object */
   record Constant(float value) implements VariableLoaderRegistry.ConstantFloat, BlockVariable {
-    public static final ConstantLoader<Constant> LOADER = new ConstantLoader<>(Constant::new);
+    public static final RecordLoadable<Constant> LOADER = VariableLoaderRegistry.constantLoader(Constant::new);
 
     @Override
     public float getValue(BlockState state) {

@@ -1,19 +1,17 @@
 package slimeknights.tconstruct.library.tools.definition.aoe;
 
 import com.google.common.collect.AbstractIterator;
-import com.google.gson.JsonObject;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import slimeknights.mantle.data.loadable.primitive.IntLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.utils.JsonUtils;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import java.util.ArrayDeque;
@@ -23,13 +21,10 @@ import java.util.Set;
 
 /**
  * Harvest logic that breaks a block plus neighbors of the same type
+ * @param maxDistance  Maximum distance from the starting block to vein, min of 0
  */
-@RequiredArgsConstructor
-public class VeiningAOEIterator implements IAreaOfEffectIterator {
-  public static final Loader LOADER = new Loader();
-
-  /** Max distance from the starting block to vein, min of 0 */
-  private final int maxDistance;
+public record VeiningAOEIterator(int maxDistance) implements IAreaOfEffectIterator {
+  public static final RecordLoadable<VeiningAOEIterator> LOADER = RecordLoadable.create(IntLoadable.FROM_ZERO.defaultField("max_distance", 0, true, VeiningAOEIterator::maxDistance), VeiningAOEIterator::new);
 
   @Override
   public IGenericLoader<? extends IAreaOfEffectIterator> getLoader() {
@@ -114,28 +109,4 @@ public class VeiningAOEIterator implements IAreaOfEffectIterator {
 
   /** Helper data class */
   private record DistancePos(BlockPos pos, int distance) {}
-
-  private static class Loader implements IGenericLoader<VeiningAOEIterator> {
-    @Override
-    public VeiningAOEIterator deserialize(JsonObject json) {
-      int maxDistance = JsonUtils.getIntMin(json, "max_distance", 0);
-      return new VeiningAOEIterator(maxDistance);
-    }
-
-    @Override
-    public VeiningAOEIterator fromNetwork(FriendlyByteBuf buffer) {
-      int maxDistance = buffer.readVarInt();
-      return new VeiningAOEIterator(maxDistance);
-    }
-
-    @Override
-    public void serialize(VeiningAOEIterator object, JsonObject json) {
-      json.addProperty("max_distance", object.maxDistance);
-    }
-
-    @Override
-    public void toNetwork(VeiningAOEIterator object, FriendlyByteBuf buffer) {
-      buffer.writeVarInt(object.maxDistance);
-    }
-  }
 }

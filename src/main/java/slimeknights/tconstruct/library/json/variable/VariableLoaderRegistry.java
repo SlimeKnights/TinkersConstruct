@@ -1,13 +1,16 @@
 package slimeknights.tconstruct.library.json.variable;
 
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSyntaxException;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.GsonHelper;
+import slimeknights.mantle.data.loadable.field.LoadableField;
+import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
+
+import java.util.function.Function;
 
 /**
  * Generic loader registry for variables, has special handling for constant float values to a custom float type
@@ -60,26 +63,10 @@ public class VariableLoaderRegistry<T extends IHaveLoader> extends GenericLoader
     float value();
   }
 
-  /** Loader for a constant float */
-  public record ConstantLoader<T extends ConstantFloat & IHaveLoader>(FloatFunction<T> constructor) implements IGenericLoader<T> {
-    @Override
-    public T deserialize(JsonObject json) {
-      return constructor.apply(GsonHelper.getAsFloat(json, "value"));
-    }
+  private static final LoadableField<Float,ConstantFloat> VALUE_FIELD = FloatLoadable.ANY.requiredField("value", ConstantFloat::value);
 
-    @Override
-    public void serialize(T object, JsonObject json) {
-      json.addProperty("value", object.value());
-    }
-
-    @Override
-    public T fromNetwork(FriendlyByteBuf buffer) {
-      return constructor.apply(buffer.readFloat());
-    }
-
-    @Override
-    public void toNetwork(T object, FriendlyByteBuf buffer) {
-      buffer.writeFloat(object.value());
-    }
+  /** Creates a new constant loader */
+  public static <T extends ConstantFloat & IHaveLoader> RecordLoadable<T> constantLoader(Function<Float,T> constructor) {
+    return RecordLoadable.create(VALUE_FIELD, constructor);
   }
 }

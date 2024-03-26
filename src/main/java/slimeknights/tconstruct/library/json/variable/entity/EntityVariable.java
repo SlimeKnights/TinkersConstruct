@@ -1,18 +1,18 @@
 package slimeknights.tconstruct.library.json.variable.entity;
 
 import net.minecraft.world.entity.LivingEntity;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.library.json.variable.ToFloatFunction;
 import slimeknights.tconstruct.library.json.variable.VariableLoaderRegistry;
-import slimeknights.tconstruct.library.json.variable.VariableLoaderRegistry.ConstantLoader;
 
 import static slimeknights.mantle.data.registry.GenericLoaderRegistry.SingletonLoader.singleton;
 
 /** Variable that fetches a property from an entity */
 public interface EntityVariable extends IHaveLoader {
-  GenericLoaderRegistry<EntityVariable> LOADER = new VariableLoaderRegistry<>("Entity Variable", Constant.LOADER.constructor());
+  GenericLoaderRegistry<EntityVariable> LOADER = new VariableLoaderRegistry<>("Entity Variable", Constant::new);
 
   /** Gets a value from the given entity */
   float getValue(LivingEntity entity);
@@ -45,7 +45,7 @@ public interface EntityVariable extends IHaveLoader {
 
   /** Constant value instance for this object */
   record Constant(float value) implements VariableLoaderRegistry.ConstantFloat, EntityVariable {
-    public static final ConstantLoader<Constant> LOADER = new ConstantLoader<>(Constant::new);
+    public static final RecordLoadable<Constant> LOADER = VariableLoaderRegistry.constantLoader(Constant::new);
 
     @Override
     public float getValue(LivingEntity entity) {

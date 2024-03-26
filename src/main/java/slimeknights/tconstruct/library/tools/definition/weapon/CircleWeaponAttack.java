@@ -1,15 +1,13 @@
 package slimeknights.tconstruct.library.tools.definition.weapon;
 
-import com.google.gson.JsonObject;
-import lombok.RequiredArgsConstructor;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
+import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
@@ -17,11 +15,8 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 /** Deals damage in a circle around the primary target */
-@RequiredArgsConstructor
-public class CircleWeaponAttack implements IWeaponAttack {
-  public static final Loader LOADER = new Loader();
-
-  private final float radius;
+public record CircleWeaponAttack(float diameter) implements IWeaponAttack {
+  public static final RecordLoadable<CircleWeaponAttack> LOADER = RecordLoadable.create(FloatLoadable.ANY.defaultField("diameter", 0f, true, CircleWeaponAttack::diameter), CircleWeaponAttack::new);
 
   @Override
   public boolean dealDamage(IToolStackView tool, ToolAttackContext context, float damage) {
@@ -29,9 +24,9 @@ public class CircleWeaponAttack implements IWeaponAttack {
     // only need fully charged for scythe sweep, easier than sword sweep
     if (context.isFullyCharged()) {
       // basically sword sweep logic, just deals full damage to all entities
-      double range = radius + tool.getModifierLevel(TinkerModifiers.expanded.getId());
+      double range = diameter + tool.getModifierLevel(TinkerModifiers.expanded.getId());
       // allow having no range until modified with range
-      if (radius > 0) {
+      if (range > 0) {
         double rangeSq = range * range;
         LivingEntity attacker = context.getAttacker();
         Entity target = context.getTarget();
@@ -57,27 +52,5 @@ public class CircleWeaponAttack implements IWeaponAttack {
   @Override
   public IGenericLoader<? extends IWeaponAttack> getLoader() {
     return LOADER;
-  }
-
-  private static class Loader implements IGenericLoader<CircleWeaponAttack> {
-    @Override
-    public CircleWeaponAttack deserialize(JsonObject json) {
-      return new CircleWeaponAttack(GsonHelper.getAsFloat(json, "diameter"));
-    }
-
-    @Override
-    public CircleWeaponAttack fromNetwork(FriendlyByteBuf buffer) {
-      return new CircleWeaponAttack(buffer.readFloat());
-    }
-
-    @Override
-    public void serialize(CircleWeaponAttack object, JsonObject json) {
-      json.addProperty("diameter", object.radius);
-    }
-
-    @Override
-    public void toNetwork(CircleWeaponAttack object, FriendlyByteBuf buffer) {
-      buffer.writeFloat(object.radius);
-    }
   }
 }

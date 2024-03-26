@@ -1,20 +1,18 @@
 package slimeknights.tconstruct.library.tools.definition.aoe;
 
 import com.google.common.collect.AbstractIterator;
-import com.google.gson.JsonObject;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Plane;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import slimeknights.mantle.data.loadable.primitive.IntLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.utils.JsonUtils;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import java.util.ArrayDeque;
@@ -22,17 +20,19 @@ import java.util.HashSet;
 import java.util.Queue;
 import java.util.Set;
 
-/** Tree harvest logic that destroys a tree */
-@RequiredArgsConstructor
-public class TreeAOEIterator implements IAreaOfEffectIterator {
-  public static final Loader LOADER = new Loader();
+/**
+ * Tree harvest logic that destroys a tree
+ * @param width  Absolute distance to the left or right to mine, 0 or more
+ * @param depth  How far back to mine into the tree beyond the first block, 0 or more
+ */
+public record TreeAOEIterator(int width, int depth) implements IAreaOfEffectIterator {
+  public static final RecordLoadable<TreeAOEIterator> LOADER = RecordLoadable.create(
+    IntLoadable.FROM_ZERO.defaultField("width_bonus", 0, true, TreeAOEIterator::width),
+    IntLoadable.FROM_ZERO.defaultField("depth_bonus", 0, true, TreeAOEIterator::depth),
+    TreeAOEIterator::new);
 
   /** Max distance between the branch and the trunk */
   private static final int MAX_BRANCH_DISTANCE = 10;
-  /** Absolute distance to the left or right to mine, 0 or more */
-  private final int width;
-  /** How far back to mine into the tree beyond the first block, 0 or more */
-  private final int depth;
 
   @Override
   public IGenericLoader<? extends IAreaOfEffectIterator> getLoader() {
@@ -304,34 +304,6 @@ public class TreeAOEIterator implements IAreaOfEffectIterator {
       pos.move(direction);
       isChecked = false;
       return this;
-    }
-  }
-
-  private static class Loader implements IGenericLoader<TreeAOEIterator> {
-    @Override
-    public TreeAOEIterator deserialize(JsonObject json) {
-      int width = JsonUtils.getIntMin(json, "width_bonus", 0);
-      int depth = JsonUtils.getIntMin(json, "depth_bonus", 0);
-      return new TreeAOEIterator(width, depth);
-    }
-
-    @Override
-    public TreeAOEIterator fromNetwork(FriendlyByteBuf buffer) {
-      int width = buffer.readVarInt();
-      int depth = buffer.readVarInt();
-      return new TreeAOEIterator(width, depth);
-    }
-
-    @Override
-    public void serialize(TreeAOEIterator object, JsonObject json) {
-      json.addProperty("width_bonus", object.width);
-      json.addProperty("depth_bonus", object.depth);
-    }
-
-    @Override
-    public void toNetwork(TreeAOEIterator object, FriendlyByteBuf buffer) {
-      buffer.writeVarInt(object.width);
-      buffer.writeVarInt(object.depth);
     }
   }
 }
