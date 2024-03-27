@@ -1,16 +1,8 @@
 package slimeknights.tconstruct.tools.recipe;
 
-import com.google.common.collect.ImmutableList;
-import com.google.gson.JsonObject;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.Accessors;
-import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -20,10 +12,12 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistries;
+import slimeknights.mantle.data.loadable.field.ContextKey;
+import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
+import slimeknights.mantle.data.loadable.primitive.StringLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
-import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
-import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.json.predicate.modifier.ModifierPredicate;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -34,7 +28,6 @@ import slimeknights.tconstruct.library.recipe.ITinkerableContainer;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipe;
-import slimeknights.tconstruct.library.recipe.worktable.AbstractSizedIngredientRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.worktable.AbstractWorktableRecipe;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -47,7 +40,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -58,6 +50,15 @@ public class EnchantmentConvertingRecipe extends AbstractWorktableRecipe {
   private static final Component DESCRIPTION_KEEP = TConstruct.makeTranslation("recipe", "enchantment_converting.description.keep");
   private static final Component NO_ENCHANTMENT = TConstruct.makeTranslation("recipe", "enchantment_converting.no_enchantments");
   private static final RecipeResult<ToolStack> TOO_FEW = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "enchantment_converting.too_few"));
+  /** Loader instance */
+  public static final RecordLoadable<EnchantmentConvertingRecipe> LOADER = RecordLoadable.create(
+    ContextKey.ID.requiredField(),
+    StringLoadable.DEFAULT.requiredField("name", r -> r.name),
+    INPUTS_FIELD,
+    BooleanLoadable.INSTANCE.requiredField("match_book", r -> r.matchBook),
+    BooleanLoadable.INSTANCE.requiredField("return_unenchanted", r -> r.returnInput),
+    ModifierPredicate.LOADER.defaultField("modifier_predicate", false, r -> r.modifierPredicate),
+    EnchantmentConvertingRecipe::new);
 
   /** Name of recipe, used for title */
   private final String name;
@@ -224,93 +225,6 @@ public class EnchantmentConvertingRecipe extends AbstractWorktableRecipe {
     return tools;
   }
 
-  public static class Serializer implements LoggingRecipeSerializer<EnchantmentConvertingRecipe> {
-    @Override
-    public EnchantmentConvertingRecipe fromJson(ResourceLocation id, JsonObject json) {
-      String name = GsonHelper.getAsString(json, "name");
-      List<SizedIngredient> ingredients = JsonHelper.parseList(json, "inputs", SizedIngredient::deserialize);
-      boolean matchBook = GsonHelper.getAsBoolean(json, "match_book");
-      boolean returnInput = GsonHelper.getAsBoolean(json, "return_unenchanted");
-      IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.LOADER.getIfPresent(json, "modifier_predicate");
-      return new EnchantmentConvertingRecipe(id, name, ingredients, matchBook, returnInput, modifierPredicate);
-    }
-
-    @Nullable
-    @Override
-    public EnchantmentConvertingRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
-      String name = buffer.readUtf(Short.MAX_VALUE);
-      int size = buffer.readVarInt();
-      ImmutableList.Builder<SizedIngredient> ingredients = ImmutableList.builder();
-      for (int i = 0; i < size; i++) {
-        ingredients.add(SizedIngredient.read(buffer));
-      }
-      boolean matchBook = buffer.readBoolean();
-      boolean returnInput = buffer.readBoolean();
-      IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.LOADER.fromNetwork(buffer);
-      return new EnchantmentConvertingRecipe(id, name, ingredients.build(), matchBook, returnInput, modifierPredicate);
-    }
-
-    @Override
-    public void toNetworkSafe(FriendlyByteBuf buffer, EnchantmentConvertingRecipe recipe) {
-      buffer.writeUtf(recipe.name);
-      buffer.writeVarInt(recipe.inputs.size());
-      for (SizedIngredient ingredient : recipe.inputs) {
-        ingredient.write(buffer);
-      }
-      buffer.writeBoolean(recipe.matchBook);
-      buffer.writeBoolean(recipe.returnInput);
-      ModifierPredicate.LOADER.toNetwork(recipe.modifierPredicate, buffer);
-    }
-  }
-
-  @RequiredArgsConstructor(staticName = "converting")
-  public static class Builder extends AbstractSizedIngredientRecipeBuilder<Builder> {
-    private final String name;
-    private final boolean matchBook;
-    private boolean returnInput = false;
-    @Setter @Accessors(fluent = true)
-    private IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ANY;
-
-    /** If true, returns the unenchanted form of the item as an extra result */
-    public Builder returnInput() {
-      returnInput = true;
-      return this;
-    }
-
-    @Override
-    public void save(Consumer<FinishedRecipe> consumer) {
-      save(consumer, TConstruct.getResource(name));
-    }
-
-    @Override
-    public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
-      if (inputs.isEmpty()) {
-        throw new IllegalStateException("Must have at least one input");
-      }
-      ResourceLocation advancementId = buildOptionalAdvancement(id, "modifiers");
-      consumer.accept(new Finished(id, advancementId));
-    }
-
-    private class Finished extends SizedFinishedRecipe {
-      public Finished(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
-        super(ID, advancementID);
-      }
-
-      @Override
-      public void serializeRecipeData(JsonObject json) {
-        json.addProperty("name", name);
-        super.serializeRecipeData(json);
-        json.addProperty("match_book", matchBook);
-        json.addProperty("return_unenchanted", returnInput);
-        json.add("modifier_predicate", ModifierPredicate.LOADER.serialize(modifierPredicate));
-      }
-
-      @Override
-      public RecipeSerializer<?> getType() {
-        return TinkerModifiers.enchantmentConvertingSerializer.get();
-      }
-    }
-  }
 
   /* Helpers */
 

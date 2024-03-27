@@ -1,36 +1,45 @@
 package slimeknights.tconstruct.library.recipe.alloying;
 
-import com.google.common.collect.ImmutableList;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.data.loadable.common.FluidStackLoadable;
+import slimeknights.mantle.data.loadable.field.ContextKey;
+import slimeknights.mantle.data.loadable.primitive.IntLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
-import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
-import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
-import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
-import javax.annotation.Nullable;
 import java.util.BitSet;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
  * Base class for alloying recipes
  */
-@RequiredArgsConstructor
 public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
+  public static final RecordLoadable<AlloyRecipe> LOADER = RecordLoadable.create(
+    ContextKey.ID.requiredField(),
+    FluidIngredient.LOADABLE.list(2).requiredField("inputs", r -> r.inputs),
+    FluidStackLoadable.REQUIRED_STACK.requiredField("result", r -> r.output),
+    IntLoadable.FROM_ONE.requiredField("temperature", r -> r.temperature),
+    AlloyRecipe::new).comapFlatMap((recipe, error) -> {
+    for (FluidIngredient input : recipe.inputs) {
+      if (input.test(recipe.output)) {
+        throw new JsonSyntaxException("Result fluid contained in input in alloy recipe " + recipe.id);
+      }
+    }
+    return recipe;
+  }, Function.identity());
+
   @Getter
   private final ResourceLocation id;
   /**
@@ -45,10 +54,15 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
   /** Required temperature to craft this */
   @Getter
   private final int temperature;
-
-
   /** Cache of recipe input list */
   private List<List<FluidStack>> displayInputs;
+
+  public AlloyRecipe(ResourceLocation id, List<FluidIngredient> inputs, FluidStack output, int temperature) {
+    this.id = id;
+    this.inputs = inputs;
+    this.output = output;
+    this.temperature = temperature;
+  }
 
   /**
    * Gets the list of inputs for display in JEI
@@ -206,48 +220,5 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
   @Override
   public RecipeSerializer<?> getSerializer() {
     return TinkerSmeltery.alloyingSerializer.get();
-  }
-
-  public static class Serializer implements LoggingRecipeSerializer<AlloyRecipe> {
-    @Override
-    public AlloyRecipe fromJson(ResourceLocation id, JsonObject json) {
-      FluidStack result = RecipeHelper.deserializeFluidStack(GsonHelper.getAsJsonObject(json, "result"));
-      List<FluidIngredient> inputs = JsonHelper.parseList(json, "inputs", FluidIngredient::deserialize);
-
-      // ensure result is not part of any inputs, that would be bad and not clear to the user whats happening
-      if (inputs.size() < 2) {
-        throw new JsonSyntaxException("Too few inputs to alloy recipe " + id);
-      }
-      for (FluidIngredient input : inputs) {
-        if (input.test(result)) {
-          throw new JsonSyntaxException("Result fluid contained in input in alloy recipe " + id);
-        }
-      }
-      int temperature = GsonHelper.getAsInt(json, "temperature");
-      return new AlloyRecipe(id, inputs, result, temperature);
-    }
-
-    @Override
-    public void toNetworkSafe(FriendlyByteBuf buffer, AlloyRecipe recipe) {
-      buffer.writeFluidStack(recipe.output);
-      buffer.writeVarInt(recipe.inputs.size());
-      for (FluidIngredient input : recipe.inputs) {
-        input.write(buffer);
-      }
-      buffer.writeVarInt(recipe.temperature);
-    }
-
-    @Nullable
-    @Override
-    public AlloyRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
-      FluidStack output = buffer.readFluidStack();
-      int inputCount = buffer.readVarInt();
-      ImmutableList.Builder<FluidIngredient> builder = ImmutableList.builder();
-      for (int i = 0; i < inputCount; i++) {
-        builder.add(FluidIngredient.read(buffer));
-      }
-      int temperature = buffer.readVarInt();
-      return new AlloyRecipe(id, builder.build(), output, temperature);
-    }
   }
 }

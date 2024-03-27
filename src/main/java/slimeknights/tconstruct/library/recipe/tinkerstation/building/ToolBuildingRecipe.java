@@ -7,7 +7,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
+import slimeknights.mantle.data.loadable.common.IngredientLoadable;
+import slimeknights.mantle.data.loadable.field.ContextKey;
+import slimeknights.mantle.data.loadable.primitive.IntLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
 import slimeknights.mantle.util.LogicHelper;
+import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
@@ -19,6 +25,7 @@ import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.IntStream;
 
 /**
@@ -26,6 +33,19 @@ import java.util.stream.IntStream;
  */
 @AllArgsConstructor
 public class ToolBuildingRecipe implements ITinkerStationRecipe {
+  public static final RecordLoadable<ToolBuildingRecipe> LOADER = RecordLoadable.create(
+    ContextKey.ID.requiredField(),
+    LoadableRecipeSerializer.RECIPE_GROUP,
+    TinkerLoadables.MODIFIABLE_ITEM.requiredField("result", r -> r.output),
+    IntLoadable.FROM_ONE.defaultField("result_count", 1, true, r -> r.outputCount),
+    IngredientLoadable.DISALLOW_EMPTY.list(0).defaultField("extra_requirements", List.of(), r -> r.ingredients),
+    ToolBuildingRecipe::new).comapFlatMap((recipe, error) -> {
+    if (!recipe.output.getToolDefinition().isMultipart() && recipe.ingredients.isEmpty()) {
+      throw error.create("Modifiable item must have tool parts or extra requirements to use tool building recipes in " + recipe.id);
+    }
+    return recipe;
+  }, Function.identity());
+
   @Getter
   protected final ResourceLocation id;
   @Getter

@@ -1,11 +1,5 @@
 {
   "type": "tconstruct:melting",
-  "byproducts": [
-    {
-      "amount": 0,
-      "fluid": "minecraft:empty"
-    }
-  ],
   "conditions": [
     {
       "type": "forge:mod_loaded",

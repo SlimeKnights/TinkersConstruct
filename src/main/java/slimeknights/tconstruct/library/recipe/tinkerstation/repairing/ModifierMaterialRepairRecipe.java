@@ -5,12 +5,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
+import slimeknights.mantle.data.loadable.field.ContextKey;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.materials.definition.LazyMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
-import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierMaterialRepairSerializer.IModifierMaterialRepairRecipe;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -21,6 +22,8 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
  * Recipe to repair a specialized tool in the tinker station
  */
 public class ModifierMaterialRepairRecipe extends TinkerStationRepairRecipe implements IModifierMaterialRepairRecipe {
+  public static final RecordLoadable<ModifierMaterialRepairRecipe> LOADER = RecordLoadable.create(ContextKey.ID.requiredField(), MODIFIER_FIELD, REPAIR_MATERIAL_FIELD, ModifierMaterialRepairRecipe::new);
+
   /** Tool that can be repaired with this recipe */
   @Getter
   private final ModifierId modifier;

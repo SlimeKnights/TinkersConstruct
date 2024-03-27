@@ -22,7 +22,6 @@
       ]
     }
   ],
-  "modifier_predicate": "mantle:any",
   "tools": {
     "tag": "tconstruct:modifiable"
   }

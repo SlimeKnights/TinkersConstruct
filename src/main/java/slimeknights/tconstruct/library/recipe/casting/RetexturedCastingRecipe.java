@@ -4,19 +4,24 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
+import slimeknights.mantle.data.loadable.field.ContextKey;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.item.RetexturedBlockItem;
 import slimeknights.mantle.recipe.helper.ItemOutput;
+import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
+import slimeknights.mantle.recipe.helper.TypeAwareRecipeSerializer;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
-
-import javax.annotation.Nullable;
-import java.util.function.Supplier;
 
 /** Extension of item recipe that sets the result block to the input block */
 public class RetexturedCastingRecipe extends ItemCastingRecipe {
-  public RetexturedCastingRecipe(RecipeType<?> type, RecipeSerializer<? extends ItemCastingRecipe> serializer, ResourceLocation id, String group, @Nullable Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
-    super(type, serializer, id, group, cast, fluid, result, coolingTime, consumed, switchSlots);
+  /** Loader instance */
+  public static final RecordLoadable<RetexturedCastingRecipe> LOADER = RecordLoadable.create(
+    LoadableRecipeSerializer.TYPED_SERIALIZER.requiredField(), ContextKey.ID.requiredField(),
+    LoadableRecipeSerializer.RECIPE_GROUP, CAST_FIELD, FLUID_FIELD, RESULT_FIELD, COOLING_TIME_FIELD, CAST_CONSUMED_FIELD, SWITCH_SLOTS_FIELD,
+    RetexturedCastingRecipe::new);
+
+  public RetexturedCastingRecipe(TypeAwareRecipeSerializer<?> serializer, ResourceLocation id, String group, Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
+    super(serializer, id, group, cast, fluid, result, coolingTime, consumed, switchSlots);
   }
 
   @Override
@@ -26,16 +31,5 @@ public class RetexturedCastingRecipe extends ItemCastingRecipe {
       return RetexturedBlockItem.setTexture(result, blockItem.getBlock());
     }
     return result;
-  }
-
-  public static class Serializer extends ItemCastingRecipe.Serializer {
-    public Serializer(Supplier<RecipeType<ICastingRecipe>> typeSupplier) {
-      super(typeSupplier);
-    }
-
-    @Override
-    protected ItemCastingRecipe create(ResourceLocation id, String group, @Nullable Ingredient cast, FluidIngredient fluid, ItemOutput result, int coolingTime, boolean consumed, boolean switchSlots) {
-      return new RetexturedCastingRecipe(type.get(), this, id, group, cast, fluid, result, coolingTime, consumed, switchSlots);
-    }
   }
 }

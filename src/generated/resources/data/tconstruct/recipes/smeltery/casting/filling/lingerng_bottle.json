@@ -3,7 +3,6 @@
   "bottle": {
     "tag": "forge:bottles/splash"
   },
-  "cooling_time": 0,
   "fluid": {
     "amount": 250,
     "fluid": "tconstruct:potion"

@@ -44,7 +44,7 @@ public class StationSlotLayoutLoader extends SimpleJsonResourceReloadListener {
   public static final Gson GSON = (new GsonBuilder())
     .registerTypeHierarchyAdapter(Ingredient.class, new IngredientSerializer())
     .registerTypeHierarchyAdapter(LayoutIcon.class, LayoutIcon.SERIALIZER)
-    .registerTypeAdapter(Pattern.class, Pattern.SERIALIZER)
+    .registerTypeAdapter(Pattern.class, Pattern.PARSER)
     .setPrettyPrinting()
     .disableHtmlEscaping()
     .create();

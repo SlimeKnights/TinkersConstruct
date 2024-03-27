@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
+import slimeknights.mantle.recipe.helper.TypeAwareRecipeSerializer;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
@@ -21,7 +22,7 @@ import java.util.function.Consumer;
 public class ContainerFillingRecipeBuilder extends AbstractRecipeBuilder<ContainerFillingRecipeBuilder> {
   private final ResourceLocation result;
   private final int fluidAmount;
-  private final ContainerFillingRecipe.Serializer recipeSerializer;
+  private final TypeAwareRecipeSerializer<? extends ContainerFillingRecipe> recipeSerializer;
 
   /**
    * Creates a new builder instance using the given result, amount, and serializer
@@ -30,7 +31,7 @@ public class ContainerFillingRecipeBuilder extends AbstractRecipeBuilder<Contain
    * @param recipeSerializer  Serializer
    * @return  Builder instance
    */
-  public static ContainerFillingRecipeBuilder castingRecipe(ItemLike result, int fluidAmount, ContainerFillingRecipe.Serializer recipeSerializer) {
+  public static ContainerFillingRecipeBuilder castingRecipe(ItemLike result, int fluidAmount, TypeAwareRecipeSerializer<? extends ContainerFillingRecipe> recipeSerializer) {
     return new ContainerFillingRecipeBuilder(Registry.ITEM.getKey(result.asItem()), fluidAmount, recipeSerializer);
   }
 
@@ -101,6 +102,7 @@ public class ContainerFillingRecipeBuilder extends AbstractRecipeBuilder<Contain
         json.addProperty("group", group);
       }
       json.addProperty("fluid_amount", fluidAmount);
+      // TODO: consider another way to spoof this for datagen?
       json.addProperty("container", result.toString());
     }
   }

@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.recipe.partbuilder;
 
-import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -8,12 +7,9 @@ import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
-import slimeknights.tconstruct.tables.TinkerTables;
 
-import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 /**
@@ -29,7 +25,7 @@ public class PartRecipeBuilder extends AbstractRecipeBuilder<PartRecipeBuilder> 
   @Setter
   private ResourceLocation pattern = null;
   @Setter
-  private Ingredient patternItem;
+  private Ingredient patternItem = IPartBuilderRecipe.DEFAULT_PATTERNS;
 
   /**
    * Creates a new part recipe that outputs a single item
@@ -57,36 +53,6 @@ public class PartRecipeBuilder extends AbstractRecipeBuilder<PartRecipeBuilder> 
       throw new IllegalStateException("recipe " + id + " has no pattern associated with it");
     }
     ResourceLocation advancementId = this.buildOptionalAdvancement(id, "parts");
-    consumerIn.accept(new Result(id, advancementId));
-  }
-
-  private class Result extends AbstractFinishedRecipe {
-    public Result(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
-      super(ID, advancementID);
-    }
-
-    @Override
-    public void serializeRecipeData(JsonObject json) {
-      if (!group.isEmpty()) {
-        json.addProperty("group", group);
-      }
-      json.addProperty("pattern", pattern.toString());
-      if (patternItem != null) {
-        json.add("pattern_item", patternItem.toJson());
-      }
-      json.addProperty("cost", cost);
-
-      JsonObject jsonOutput = new JsonObject();
-      jsonOutput.addProperty("item", Registry.ITEM.getKey(output.asItem()).toString());
-      if (outputAmount > 1) {
-        jsonOutput.addProperty("count", outputAmount);
-      }
-      json.add("result", jsonOutput);
-    }
-
-    @Override
-    public RecipeSerializer<?> getType() {
-      return TinkerTables.partRecipeSerializer.get();
-    }
+    consumerIn.accept(new LoadableFinishedRecipe<>(new PartRecipe(id, group, new Pattern(pattern), patternItem, cost, output, outputAmount), PartRecipe.LOADER, advancementId));
   }
 }

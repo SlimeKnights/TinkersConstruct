@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
@@ -14,8 +13,10 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.Tags.Items;
+import slimeknights.mantle.data.loadable.common.IngredientLoadable;
+import slimeknights.mantle.data.loadable.field.ContextKey;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.IMultiRecipe;
-import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.util.RegistryHelper;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
@@ -36,6 +37,8 @@ import java.util.stream.Collectors;
 
 /** Recipe to dye travelers gear */
 public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDisplayModifierRecipe> {
+  public static final RecordLoadable<ArmorDyeingRecipe> LOADER = RecordLoadable.create(ContextKey.ID.requiredField(), IngredientLoadable.DISALLOW_EMPTY.requiredField("tools", r -> r.toolRequirement), ArmorDyeingRecipe::new);
+
   @Getter
   private final ResourceLocation id;
   private final Ingredient toolRequirement;
@@ -168,27 +171,6 @@ public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDi
   @Override
   public ItemStack getResultItem() {
     return ItemStack.EMPTY;
-  }
-
-  /** Serializer logic */
-  public static class Serializer implements LoggingRecipeSerializer<ArmorDyeingRecipe> {
-    @Nullable
-    @Override
-    public ArmorDyeingRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
-      Ingredient toolRequirement = Ingredient.fromNetwork(buffer);
-      return new ArmorDyeingRecipe(id, toolRequirement);
-    }
-
-    @Override
-    public void toNetworkSafe(FriendlyByteBuf buffer, ArmorDyeingRecipe recipe) {
-      recipe.toolRequirement.toNetwork(buffer);
-    }
-
-    @Override
-    public ArmorDyeingRecipe fromJson(ResourceLocation id, JsonObject json) {
-      Ingredient toolRequirement = Ingredient.fromJson(json.get("tools"));
-      return new ArmorDyeingRecipe(id, toolRequirement);
-    }
   }
 
   /** Finished recipe */

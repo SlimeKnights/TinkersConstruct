@@ -73,9 +73,9 @@ import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
 import slimeknights.tconstruct.tools.recipe.ArmorDyeingRecipe;
-import slimeknights.tconstruct.tools.recipe.EnchantmentConvertingRecipe;
-import slimeknights.tconstruct.tools.recipe.ModifierRemovalRecipe;
-import slimeknights.tconstruct.tools.recipe.ModifierSortingRecipe;
+import slimeknights.tconstruct.tools.recipe.EnchantmentConvertingRecipeBuilder;
+import slimeknights.tconstruct.tools.recipe.ModifierRemovalRecipeBuilder;
+import slimeknights.tconstruct.tools.recipe.ModifierSortingRecipeBuilder;
 import slimeknights.tconstruct.world.TinkerHeadType;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.FoliageType;
@@ -1471,46 +1471,46 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     SpecialRecipeBuilder.special(TinkerModifiers.creativeSlotSerializer.get()).save(consumer, prefix(slotlessFolder + "creative_slot"));
 
     // removal
-    ModifierRemovalRecipe.Builder.removal()
-                                 .addInput(Blocks.WET_SPONGE)
-                                 .addLeftover(Blocks.SPONGE)
-                                 .save(consumer, location(worktableFolder + "remove_modifier_sponge"));
-    ModifierRemovalRecipe.Builder.removal()
-                                 .addInput(CompoundIngredient.of(FluidContainerIngredient.fromFluid(TinkerFluids.venom, false),
+    ModifierRemovalRecipeBuilder.removal()
+                                .addInput(Blocks.WET_SPONGE)
+                                .addLeftover(Blocks.SPONGE)
+                                .save(consumer, location(worktableFolder + "remove_modifier_sponge"));
+    ModifierRemovalRecipeBuilder.removal()
+                                .addInput(CompoundIngredient.of(FluidContainerIngredient.fromFluid(TinkerFluids.venom, false),
                                                                  FluidContainerIngredient.fromIngredient(FluidIngredient.of(TinkerFluids.venom.getLocalTag(), FluidValues.BOTTLE),
                                                                                                          Ingredient.of(TinkerFluids.venomBottle))))
-                                 .save(consumer, location(worktableFolder + "remove_modifier_venom"));
+                                .save(consumer, location(worktableFolder + "remove_modifier_venom"));
     // non-dagger extracting
-    ModifierRemovalRecipe.Builder.removal(TinkerModifiers.extractModifierSerializer.get())
-                                 .setTools(DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.MODIFIABLE), Ingredient.of(TinkerTags.Items.UNSALVAGABLE)))
-                                 .addInput(TinkerWorld.enderGeode)
-                                 .addInput(Items.DRAGON_BREATH, 5)
-                                 .modifierPredicate(new TagModifierPredicate(TinkerTags.Modifiers.EXTRACT_MODIFIER_BLACKLIST).inverted())
-                                 .save(consumer, location(worktableFolder + "extract_modifier_breath"));
-    ModifierRemovalRecipe.Builder.removal(TinkerModifiers.extractModifierSerializer.get())
-                                 .setTools(DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.MODIFIABLE), Ingredient.of(TinkerTags.Items.UNSALVAGABLE)))
-                                 .addInput(TinkerWorld.enderGeode)
-                                 .addInput(Items.WET_SPONGE)
-                                 .addLeftover(Items.SPONGE)
-                                 .modifierPredicate(new TagModifierPredicate(TinkerTags.Modifiers.EXTRACT_MODIFIER_BLACKLIST).inverted())
-                                 .save(consumer, location(worktableFolder + "extract_modifier_sponge"));
+    ModifierRemovalRecipeBuilder.extract()
+                                .setTools(DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.MODIFIABLE), Ingredient.of(TinkerTags.Items.UNSALVAGABLE)))
+                                .addInput(TinkerWorld.enderGeode)
+                                .addInput(Items.DRAGON_BREATH, 5)
+                                .modifierPredicate(new TagModifierPredicate(TinkerTags.Modifiers.EXTRACT_MODIFIER_BLACKLIST).inverted())
+                                .save(consumer, location(worktableFolder + "extract_modifier_breath"));
+    ModifierRemovalRecipeBuilder.extract()
+                                .setTools(DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.MODIFIABLE), Ingredient.of(TinkerTags.Items.UNSALVAGABLE)))
+                                .addInput(TinkerWorld.enderGeode)
+                                .addInput(Items.WET_SPONGE)
+                                .addLeftover(Items.SPONGE)
+                                .modifierPredicate(new TagModifierPredicate(TinkerTags.Modifiers.EXTRACT_MODIFIER_BLACKLIST).inverted())
+                                .save(consumer, location(worktableFolder + "extract_modifier_sponge"));
     // dagger extracting
-    ModifierRemovalRecipe.Builder.removal(TinkerModifiers.extractModifierSerializer.get())
-                                 .setTools(SizedIngredient.fromItems(2, TinkerTools.dagger))
-                                 .addInput(TinkerWorld.enderGeode)
-                                 .addInput(Items.DRAGON_BREATH, 5)
-                                 .modifierPredicate(new TagModifierPredicate(TinkerTags.Modifiers.EXTRACT_MODIFIER_BLACKLIST).inverted())
-                                 .save(consumer, location(worktableFolder + "extract_dagger_modifier_breath"));
-    ModifierRemovalRecipe.Builder.removal(TinkerModifiers.extractModifierSerializer.get())
-                                 .setTools(SizedIngredient.fromItems(2, TinkerTools.dagger))
-                                 .addInput(TinkerWorld.enderGeode)
-                                 .addInput(Items.WET_SPONGE)
-                                 .addLeftover(Items.SPONGE)
-                                 .modifierPredicate(new TagModifierPredicate(TinkerTags.Modifiers.EXTRACT_MODIFIER_BLACKLIST).inverted())
-                                 .save(consumer, location(worktableFolder + "extract_dagger_modifier_sponge"));
-    ModifierSortingRecipe.Builder.sorting()
-                                 .addInput(Items.COMPASS)
-                                 .save(consumer, location(worktableFolder + "modifier_sorting"));
+    ModifierRemovalRecipeBuilder.extract()
+                                .setTools(SizedIngredient.fromItems(2, TinkerTools.dagger))
+                                .addInput(TinkerWorld.enderGeode)
+                                .addInput(Items.DRAGON_BREATH, 5)
+                                .modifierPredicate(new TagModifierPredicate(TinkerTags.Modifiers.EXTRACT_MODIFIER_BLACKLIST).inverted())
+                                .save(consumer, location(worktableFolder + "extract_dagger_modifier_breath"));
+    ModifierRemovalRecipeBuilder.extract()
+                                .setTools(SizedIngredient.fromItems(2, TinkerTools.dagger))
+                                .addInput(TinkerWorld.enderGeode)
+                                .addInput(Items.WET_SPONGE)
+                                .addLeftover(Items.SPONGE)
+                                .modifierPredicate(new TagModifierPredicate(TinkerTags.Modifiers.EXTRACT_MODIFIER_BLACKLIST).inverted())
+                                .save(consumer, location(worktableFolder + "extract_dagger_modifier_sponge"));
+    ModifierSortingRecipeBuilder.sorting()
+                                .addInput(Items.COMPASS)
+                                .save(consumer, location(worktableFolder + "modifier_sorting"));
 
     // invisible ink
     ResourceLocation hiddenModifiers = TConstruct.getResource("invisible_modifiers");
@@ -1541,31 +1541,31 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // conversion
     for (boolean matchBook : new boolean[]{false, true}) {
       String suffix = matchBook ? "_book" : "_tool";
-      EnchantmentConvertingRecipe.Builder.converting("slotless", matchBook)
-                                         .addInput(Items.AMETHYST_SHARD)
-                                         .modifierPredicate(ModifierPredicate.and(new SlotTypeModifierPredicate(null),
+      EnchantmentConvertingRecipeBuilder.converting("slotless", matchBook)
+                                        .addInput(Items.AMETHYST_SHARD)
+                                        .modifierPredicate(ModifierPredicate.and(new SlotTypeModifierPredicate(null),
                                                                                   new TagModifierPredicate(TinkerTags.Modifiers.EXTRACT_SLOTLESS_BLACKLIST).inverted()))
-                                         .save(consumer, location(worktableFolder + "enchantment_converting/slotless" + suffix));
-      EnchantmentConvertingRecipe.Builder.converting("upgrades", matchBook)
-                                         .addInput(TinkerWorld.skyGeode.asItem())
-                                         .addInput(Tags.Items.GEMS_LAPIS, 3)
-                                         .modifierPredicate(new SlotTypeModifierPredicate(SlotType.UPGRADE))
-                                         .save(consumer, location(worktableFolder + "enchantment_converting/upgrade" + suffix));
-      EnchantmentConvertingRecipe.Builder.converting("defense", matchBook)
-                                         .addInput(TinkerWorld.earthGeode.asItem())
-                                         .addInput(Tags.Items.INGOTS_GOLD, 1)
-                                         .modifierPredicate(new SlotTypeModifierPredicate(SlotType.DEFENSE))
-                                         .save(consumer, location(worktableFolder + "enchantment_converting/defense" + suffix));
-      EnchantmentConvertingRecipe.Builder.converting("abilities", matchBook)
-                                         .addInput(TinkerWorld.ichorGeode.asItem())
-                                         .addInput(Tags.Items.GEMS_DIAMOND)
-                                         .modifierPredicate(new SlotTypeModifierPredicate(SlotType.ABILITY))
-                                         .save(consumer, location(worktableFolder + "enchantment_converting/ability" + suffix));
-      EnchantmentConvertingRecipe.Builder.converting("modifiers", matchBook)
-                                         .addInput(TinkerWorld.enderGeode)
-                                         .addInput(Items.DRAGON_BREATH, 5)
-                                         .returnInput()
-                                         .save(consumer, location(worktableFolder + "enchantment_converting/unenchant" + suffix));
+                                        .save(consumer, location(worktableFolder + "enchantment_converting/slotless" + suffix));
+      EnchantmentConvertingRecipeBuilder.converting("upgrades", matchBook)
+                                        .addInput(TinkerWorld.skyGeode.asItem())
+                                        .addInput(Tags.Items.GEMS_LAPIS, 3)
+                                        .modifierPredicate(new SlotTypeModifierPredicate(SlotType.UPGRADE))
+                                        .save(consumer, location(worktableFolder + "enchantment_converting/upgrade" + suffix));
+      EnchantmentConvertingRecipeBuilder.converting("defense", matchBook)
+                                        .addInput(TinkerWorld.earthGeode.asItem())
+                                        .addInput(Tags.Items.INGOTS_GOLD, 1)
+                                        .modifierPredicate(new SlotTypeModifierPredicate(SlotType.DEFENSE))
+                                        .save(consumer, location(worktableFolder + "enchantment_converting/defense" + suffix));
+      EnchantmentConvertingRecipeBuilder.converting("abilities", matchBook)
+                                        .addInput(TinkerWorld.ichorGeode.asItem())
+                                        .addInput(Tags.Items.GEMS_DIAMOND)
+                                        .modifierPredicate(new SlotTypeModifierPredicate(SlotType.ABILITY))
+                                        .save(consumer, location(worktableFolder + "enchantment_converting/ability" + suffix));
+      EnchantmentConvertingRecipeBuilder.converting("modifiers", matchBook)
+                                        .addInput(TinkerWorld.enderGeode)
+                                        .addInput(Items.DRAGON_BREATH, 5)
+                                        .returnInput()
+                                        .save(consumer, location(worktableFolder + "enchantment_converting/unenchant" + suffix));
     }
 
     // compatability

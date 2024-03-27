@@ -5,6 +5,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
@@ -15,17 +16,17 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.RegistryObject;
 import slimeknights.mantle.item.RetexturedBlockItem;
+import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
 import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.library.recipe.material.MaterialRecipeSerializer;
+import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.ItemPartRecipe;
 import slimeknights.tconstruct.library.recipe.partbuilder.PartRecipe;
-import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipeSerializer;
+import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.SpecializedRepairKitRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.SpecializedRepairRecipe;
-import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.SpecializedRepairRecipeSerializer;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
 import slimeknights.tconstruct.shared.block.TableBlock;
 import slimeknights.tconstruct.tables.block.ChestBlock;
@@ -118,20 +119,20 @@ public final class TinkerTables extends TinkerModule {
   /*
    * Recipes
    */
-  public static final RegistryObject<MaterialRecipeSerializer> materialRecipeSerializer = RECIPE_SERIALIZERS.register("material", MaterialRecipeSerializer::new);
-  public static final RegistryObject<ToolBuildingRecipeSerializer> toolBuildingRecipeSerializer = RECIPE_SERIALIZERS.register("tool_building", ToolBuildingRecipeSerializer::new);
+  public static final RegistryObject<RecipeSerializer<MaterialRecipe>> materialRecipeSerializer = RECIPE_SERIALIZERS.register("material", () -> LoadableRecipeSerializer.of(MaterialRecipe.LOADER));
+  public static final RegistryObject<RecipeSerializer<ToolBuildingRecipe>> toolBuildingRecipeSerializer = RECIPE_SERIALIZERS.register("tool_building", () -> LoadableRecipeSerializer.of(ToolBuildingRecipe.LOADER));
   public static final RegistryObject<SimpleRecipeSerializer<TinkerStationPartSwapping>> tinkerStationPartSwappingSerializer = RECIPE_SERIALIZERS.register("tinker_station_part_swapping", () -> new SimpleRecipeSerializer<>(TinkerStationPartSwapping::new));
-  public static final RegistryObject<TinkerStationDamagingRecipe.Serializer> tinkerStationDamagingSerializer = RECIPE_SERIALIZERS.register("tinker_station_damaging", TinkerStationDamagingRecipe.Serializer::new);
+  public static final RegistryObject<RecipeSerializer<TinkerStationDamagingRecipe>> tinkerStationDamagingSerializer = RECIPE_SERIALIZERS.register("tinker_station_damaging", () -> LoadableRecipeSerializer.of(TinkerStationDamagingRecipe.LOADER));
   // part builder
-  public static final RegistryObject<PartRecipe.Serializer> partRecipeSerializer = RECIPE_SERIALIZERS.register("part_builder", PartRecipe.Serializer::new);
-  public static final RegistryObject<ItemPartRecipe.Serializer> itemPartBuilderSerializer = RECIPE_SERIALIZERS.register("item_part_builder", ItemPartRecipe.Serializer::new);
-  public static final RegistryObject<PartBuilderToolRecycle.Serializer> partBuilderToolRecycling = RECIPE_SERIALIZERS.register("part_builder_tool_recycling", PartBuilderToolRecycle.Serializer::new);
+  public static final RegistryObject<RecipeSerializer<PartRecipe>> partRecipeSerializer = RECIPE_SERIALIZERS.register("part_builder", () -> LoadableRecipeSerializer.of(PartRecipe.LOADER));
+  public static final RegistryObject<RecipeSerializer<ItemPartRecipe>> itemPartBuilderSerializer = RECIPE_SERIALIZERS.register("item_part_builder", () -> LoadableRecipeSerializer.of(ItemPartRecipe.LOADER));
+  public static final RegistryObject<RecipeSerializer<PartBuilderToolRecycle>> partBuilderToolRecycling = RECIPE_SERIALIZERS.register("part_builder_tool_recycling", () -> LoadableRecipeSerializer.of(PartBuilderToolRecycle.LOADER));
   // repair - standard
   public static final RegistryObject<SimpleRecipeSerializer<TinkerStationRepairRecipe>> tinkerStationRepairSerializer = RECIPE_SERIALIZERS.register("tinker_station_repair", () -> new SimpleRecipeSerializer<>(TinkerStationRepairRecipe::new));
   public static final RegistryObject<SimpleRecipeSerializer<CraftingTableRepairKitRecipe>> craftingTableRepairSerializer = RECIPE_SERIALIZERS.register("crafting_table_repair", () -> new SimpleRecipeSerializer<>(CraftingTableRepairKitRecipe::new));
   // repair - specialized
-  public static final RegistryObject<SpecializedRepairRecipeSerializer<?>> specializedRepairSerializer = RECIPE_SERIALIZERS.register("specialized_station_repair", () -> new SpecializedRepairRecipeSerializer<>(SpecializedRepairRecipe::new));
-  public static final RegistryObject<SpecializedRepairRecipeSerializer<?>> specializedRepairKitSerializer = RECIPE_SERIALIZERS.register("specialized_repair_kit", () -> new SpecializedRepairRecipeSerializer<>(SpecializedRepairKitRecipe::new));
+  public static final RegistryObject<RecipeSerializer<SpecializedRepairRecipe>> specializedRepairSerializer = RECIPE_SERIALIZERS.register("specialized_station_repair", () -> LoadableRecipeSerializer.of(SpecializedRepairRecipe.LOADER));
+  public static final RegistryObject<RecipeSerializer<SpecializedRepairKitRecipe>> specializedRepairKitSerializer = RECIPE_SERIALIZERS.register("specialized_repair_kit", () -> LoadableRecipeSerializer.of(SpecializedRepairKitRecipe.LOADER));
 
   @SubscribeEvent
   void commonSetup(final FMLCommonSetupEvent event) {

@@ -15,6 +15,13 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import slimeknights.mantle.data.loadable.common.FluidStackLoadable;
+import slimeknights.mantle.data.loadable.common.IngredientLoadable;
+import slimeknights.mantle.data.loadable.field.ContextKey;
+import slimeknights.mantle.data.loadable.field.LoadableField;
+import slimeknights.mantle.data.loadable.primitive.IntLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
 import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.util.JsonHelper;
@@ -33,6 +40,15 @@ import java.util.stream.Stream;
  */
 @RequiredArgsConstructor
 public class MeltingRecipe implements IMeltingRecipe {
+  /* Reusable fields */
+  protected static final LoadableField<Ingredient, MeltingRecipe> INPUT = IngredientLoadable.DISALLOW_EMPTY.requiredField("ingredient", MeltingRecipe::getInput);
+  protected static final LoadableField<FluidStack, MeltingRecipe> OUTPUT = FluidStackLoadable.REQUIRED_STACK.requiredField("result", MeltingRecipe::getOutput);
+  protected static final LoadableField<Integer, MeltingRecipe> TEMPERATURE = IntLoadable.FROM_ONE.requiredField("temperature", MeltingRecipe::getTemperature);
+  protected static final LoadableField<Integer, MeltingRecipe> TIME = IntLoadable.FROM_ONE.requiredField("time", MeltingRecipe::getTime);
+  protected static final LoadableField<List<FluidStack>, MeltingRecipe> BYPRODUCTS = FluidStackLoadable.REQUIRED_STACK.list(0).defaultField("byproducts", List.of(), r -> r.byproducts);
+  /** Loader instance */
+  public static final RecordLoadable<MeltingRecipe> LOADER = RecordLoadable.create(ContextKey.ID.requiredField(), LoadableRecipeSerializer.RECIPE_GROUP, INPUT, OUTPUT, TEMPERATURE, TIME, BYPRODUCTS, MeltingRecipe::new);
+
   @Getter
   private final ResourceLocation id;
   @Getter
@@ -169,24 +185,6 @@ public class MeltingRecipe implements IMeltingRecipe {
       for (FluidStack fluidStack : recipe.byproducts) {
         fluidStack.writeToPacket(buffer);
       }
-    }
-  }
-
-  /**
-   * Serializer for {@link MeltingRecipe}
-   */
-  @RequiredArgsConstructor
-  public static class Serializer<T extends MeltingRecipe> extends AbstractSerializer<T> {
-    private final IFactory<T> factory;
-
-    @Override
-    protected T createFromJson(ResourceLocation id, String group, Ingredient input, FluidStack output, int temperature, int time, List<FluidStack> byproducts, JsonObject json) {
-      return factory.create(id, group, input, output, temperature, time, byproducts);
-    }
-
-    @Override
-    protected T createFromNetwork(ResourceLocation id, String group, Ingredient input, FluidStack output, int temperature, int time, List<FluidStack> byproducts, FriendlyByteBuf buffer) {
-      return factory.create(id, group, input, output, temperature, time, byproducts);
     }
   }
 }

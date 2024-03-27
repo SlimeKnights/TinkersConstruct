@@ -1,19 +1,16 @@
 package slimeknights.tconstruct.library.recipe.casting.material;
 
-import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
-import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
@@ -73,27 +70,6 @@ public class MaterialFluidRecipeBuilder extends AbstractRecipeBuilder<MaterialFl
       throw new IllegalStateException("Temperature is too low, must be at least 0");
     }
     ResourceLocation advancementId = this.buildOptionalAdvancement(id, "materials");
-    consumer.accept(new Result(id, advancementId));
-  }
-
-  private class Result extends AbstractFinishedRecipe {
-    public Result(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
-      super(ID, advancementID);
-    }
-
-    @Override
-    public void serializeRecipeData(JsonObject json) {
-      if (inputId != null) {
-        json.addProperty("input", inputId.toString());
-      }
-      json.add("fluid", fluid.serialize());
-      json.addProperty("temperature", temperature);
-      json.addProperty("output", outputId.toString());
-    }
-
-    @Override
-    public RecipeSerializer<?> getType() {
-      return TinkerSmeltery.materialFluidRecipe.get();
-    }
+    consumer.accept(new LoadableFinishedRecipe<>(new MaterialFluidRecipe(id, fluid, temperature, inputId, outputId), MaterialFluidRecipe.LOADER, advancementId));
   }
 }

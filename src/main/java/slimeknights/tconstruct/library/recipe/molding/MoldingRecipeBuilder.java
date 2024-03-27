@@ -12,6 +12,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.mantle.recipe.helper.ItemOutput;
+import slimeknights.mantle.recipe.helper.TypeAwareRecipeSerializer;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
@@ -21,7 +22,7 @@ import java.util.function.Consumer;
 @RequiredArgsConstructor(staticName = "molding")
 public class MoldingRecipeBuilder extends AbstractRecipeBuilder<MoldingRecipeBuilder> {
   private final ItemOutput output;
-  private final MoldingRecipe.Serializer serializer;
+  private final TypeAwareRecipeSerializer<MoldingRecipe> serializer;
   private Ingredient material = Ingredient.EMPTY;
   private Ingredient pattern = Ingredient.EMPTY;
   private boolean patternConsumed = false;
@@ -93,7 +94,7 @@ public class MoldingRecipeBuilder extends AbstractRecipeBuilder<MoldingRecipeBui
       throw new IllegalStateException("Missing material for molding recipe");
     }
     ResourceLocation advancementId = buildOptionalAdvancement(id, "molding");
-    consumer.accept(new Finished(id, advancementId));
+    consumer.accept(new LoadableFinishedRecipe<>(new MoldingRecipe(serializer, id, material, pattern, patternConsumed, output), MoldingRecipe.LOADER, advancementId));
   }
 
   private class Finished extends AbstractFinishedRecipe {

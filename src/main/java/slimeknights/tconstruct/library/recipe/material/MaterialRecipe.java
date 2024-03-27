@@ -9,9 +9,13 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.items.ItemHandlerHelper;
+import slimeknights.mantle.data.loadable.common.IngredientLoadable;
+import slimeknights.mantle.data.loadable.field.ContextKey;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.mantle.recipe.container.ISingleStackContainer;
 import slimeknights.mantle.recipe.helper.ItemOutput;
+import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
@@ -34,6 +38,16 @@ import java.util.stream.Collectors;
  * Recipe to get the material from an ingredient
  */
 public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer>, IMaterialValue {
+  public static final RecordLoadable<MaterialRecipe> LOADER = RecordLoadable.create(
+    ContextKey.ID.requiredField(),
+    LoadableRecipeSerializer.RECIPE_GROUP,
+    IngredientLoadable.DISALLOW_EMPTY.requiredField("ingredient", MaterialRecipe::getIngredient),
+    IMaterialValue.VALUE_FIELD,
+    IMaterialValue.NEEDED_FIELD,
+    MaterialVariantId.LOADABLE.requiredField("material", r -> r.getMaterial().getVariant()),
+    ItemOutput.Loadable.OPTIONAL_STACK.emptyField("leftover", r -> r.leftover),
+    MaterialRecipe::new);
+
   /** Vanilla requires 4 ingots for full repair, we drop it down to 3 to mesh better with nuggets and blocks and to fit small head costs better */
   public static final float INGOTS_PER_REPAIR = 3f;
 
@@ -70,7 +84,8 @@ public class MaterialRecipe implements ICustomOutputRecipe<ISingleStackContainer
     this.value = value;
     this.needed = needed;
     this.material = MaterialVariant.of(materialId);
-    this.leftover = leftover;
+    // ignore leftover if the value is 1, its useless to us
+    this.leftover = value > 1 ? leftover : ItemOutput.EMPTY;
   }
 
   /* Basic */

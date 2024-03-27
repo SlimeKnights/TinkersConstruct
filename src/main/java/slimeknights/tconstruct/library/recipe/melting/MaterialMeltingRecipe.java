@@ -1,17 +1,16 @@
 package slimeknights.tconstruct.library.recipe.melting;
 
-import com.google.gson.JsonObject;
 import lombok.Getter;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.data.loadable.common.FluidStackLoadable;
+import slimeknights.mantle.data.loadable.field.ContextKey;
+import slimeknights.mantle.data.loadable.primitive.IntLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.IMultiRecipe;
-import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
-import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
@@ -19,7 +18,6 @@ import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingLo
 import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
-import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +26,13 @@ import java.util.stream.Collectors;
  * Recipe to melt all castable tool parts of a given material
  */
 public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<MeltingRecipe> {
+  public static final RecordLoadable<MaterialMeltingRecipe> LOADER = RecordLoadable.create(
+    ContextKey.ID.requiredField(),
+    MaterialVariantId.LOADABLE.requiredField("input", r -> r.input.getVariant()),
+    IntLoadable.FROM_ONE.requiredField("temperature", r -> r.temperature),
+    FluidStackLoadable.REQUIRED_STACK.requiredField("result", r -> r.result),
+    MaterialMeltingRecipe::new);
+
   @Getter
   private final ResourceLocation id;
   private final MaterialVariant input;
@@ -101,31 +106,5 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
       }
     }
     return multiRecipes;
-  }
-
-  public static class Serializer implements LoggingRecipeSerializer<MaterialMeltingRecipe> {
-    @Override
-    public MaterialMeltingRecipe fromJson(ResourceLocation id, JsonObject json) {
-      MaterialVariantId inputId = MaterialVariantId.fromJson(json, "input");
-      int temperature = GsonHelper.getAsInt(json, "temperature");
-      FluidStack output = RecipeHelper.deserializeFluidStack(GsonHelper.getAsJsonObject(json, "result"));
-      return new MaterialMeltingRecipe(id, inputId, temperature, output);
-    }
-
-    @Nullable
-    @Override
-    public MaterialMeltingRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
-      MaterialVariantId inputId = MaterialVariantId.parse(buffer.readUtf(Short.MAX_VALUE));
-      int temperature = buffer.readInt();
-      FluidStack output = FluidStack.readFromPacket(buffer);
-      return new MaterialMeltingRecipe(id, inputId, temperature, output);
-    }
-
-    @Override
-    public void toNetworkSafe(FriendlyByteBuf buffer, MaterialMeltingRecipe recipe) {
-      buffer.writeUtf(recipe.input.getVariant().toString());
-      buffer.writeInt(recipe.temperature);
-      recipe.result.writeToPacket(buffer);
-    }
   }
 }

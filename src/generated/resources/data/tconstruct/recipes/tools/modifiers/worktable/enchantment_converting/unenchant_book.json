@@ -10,7 +10,6 @@
     }
   ],
   "match_book": true,
-  "modifier_predicate": "mantle:any",
   "name": "modifiers",
   "return_unenchanted": true
 }

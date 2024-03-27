@@ -1,10 +1,8 @@
 package slimeknights.tconstruct.library.recipe.modifiers.severing;
 
 import com.google.common.collect.ImmutableList;
-import com.google.gson.JsonObject;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -13,15 +11,16 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeSpawnEggItem;
+import slimeknights.mantle.data.loadable.field.ContextKey;
+import slimeknights.mantle.data.loadable.field.LoadableField;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
 import slimeknights.mantle.recipe.container.IEmptyContainer;
 import slimeknights.mantle.recipe.helper.ItemOutput;
-import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.ingredient.EntityIngredient;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,6 +29,13 @@ import java.util.Objects;
  */
 @RequiredArgsConstructor
 public class SeveringRecipe implements ICustomOutputRecipe<IEmptyContainer> {
+  protected static LoadableField<EntityIngredient,SeveringRecipe> ENTITY_FIELD = EntityIngredient.LOADABLE.requiredField("entity", r -> r.ingredient);
+  /** Loader instance */
+  public static final RecordLoadable<SeveringRecipe> LOADER = RecordLoadable.create(
+    ContextKey.ID.requiredField(), ENTITY_FIELD,
+    ItemOutput.Loadable.REQUIRED_STACK.requiredField("result", r -> r.output),
+    SeveringRecipe::new);
+
   @Getter
   private final ResourceLocation id;
   protected final EntityIngredient ingredient;
@@ -107,29 +113,5 @@ public class SeveringRecipe implements ICustomOutputRecipe<IEmptyContainer> {
   @Override
   public boolean matches(IEmptyContainer inv, Level worldIn) {
     return false;
-  }
-
-  /** Serializer for this recipe */
-  public static class Serializer implements LoggingRecipeSerializer<SeveringRecipe> {
-    @Override
-    public SeveringRecipe fromJson(ResourceLocation id, JsonObject json) {
-      EntityIngredient ingredient = EntityIngredient.LOADABLE.getIfPresent(json, "entity");
-      ItemOutput output = ItemOutput.Loadable.REQUIRED_STACK.getIfPresent(json, "result");
-      return new SeveringRecipe(id, ingredient, output);
-    }
-
-    @Nullable
-    @Override
-    public SeveringRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
-      EntityIngredient ingredient = EntityIngredient.read(buffer);
-      ItemOutput output = ItemOutput.read(buffer);
-      return new SeveringRecipe(id, ingredient, output);
-    }
-
-    @Override
-    public void toNetworkSafe(FriendlyByteBuf buffer, SeveringRecipe recipe) {
-      recipe.ingredient.write(buffer);
-      recipe.output.write(buffer);
-    }
   }
 }

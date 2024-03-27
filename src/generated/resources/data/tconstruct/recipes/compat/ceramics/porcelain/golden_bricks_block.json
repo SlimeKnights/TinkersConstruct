@@ -1,11 +1,5 @@
 {
   "type": "tconstruct:melting",
-  "byproducts": [
-    {
-      "amount": 1,
-      "fluid": "tconstruct:molten_gold"
-    }
-  ],
   "conditions": [
     {
       "type": "forge:mod_loaded",

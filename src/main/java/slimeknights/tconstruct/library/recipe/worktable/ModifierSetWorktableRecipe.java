@@ -1,22 +1,20 @@
 package slimeknights.tconstruct.library.recipe.worktable;
 
-import com.google.common.collect.ImmutableList;
-import com.google.gson.JsonObject;
 import lombok.Getter;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import slimeknights.mantle.data.loadable.Loadables;
+import slimeknights.mantle.data.loadable.field.ContextKey;
+import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
-import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
-import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.json.predicate.modifier.ModifierPredicate;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -45,6 +43,16 @@ public class ModifierSetWorktableRecipe extends AbstractWorktableRecipe {
   private static final Component NO_MATCHES = TConstruct.makeTranslation("recipe", "modifier_set_worktable.empty");
   /** Logic to fetch a list of strings from the persistent data */
   private static final BiFunction<CompoundTag, String, ListTag> LIST_GETTER = (tag, name) -> tag.getList(name, Tag.TAG_STRING);
+  /** Loader instance */
+  public static final RecordLoadable<ModifierSetWorktableRecipe> LOADER = RecordLoadable.create(
+    ContextKey.ID.requiredField(),
+    Loadables.RESOURCE_LOCATION.requiredField("data_key", r -> r.dataKey),
+    INPUTS_FIELD, TOOL_FIELD,
+    // TODO: move modifier predicate to base recipe
+    ModifierPredicate.LOADER.defaultField("modifier_predicate", false, r -> r.modifierPredicate),
+    BooleanLoadable.INSTANCE.requiredField("add_to_set", r -> r.addToSet),
+    BooleanLoadable.INSTANCE.defaultField("allow_traits", false, r -> r.allowTraits),
+    ModifierSetWorktableRecipe::new);
 
   /** Title to display in the UI and JEI */
   @Getter
@@ -156,50 +164,5 @@ public class ModifierSetWorktableRecipe extends AbstractWorktableRecipe {
       }
     }
     return false;
-  }
-
-  public static class Serializer implements LoggingRecipeSerializer<ModifierSetWorktableRecipe> {
-    @Override
-    public ModifierSetWorktableRecipe fromJson(ResourceLocation id, JsonObject json) {
-      ResourceLocation dataKey = JsonHelper.getResourceLocation(json, "data_key");
-      Ingredient tool = Ingredient.fromJson(JsonHelper.getElement(json, "tools"));
-      List<SizedIngredient> ingredients = JsonHelper.parseList(json, "inputs", SizedIngredient::deserialize);
-      IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ANY;
-      if (json.has("modifier_predicate")) {
-        modifierPredicate = ModifierPredicate.LOADER.getIfPresent(json, "modifier_predicate");
-      }
-      boolean addToSet = GsonHelper.getAsBoolean(json, "add_to_set");
-      boolean allowTraits = GsonHelper.getAsBoolean(json, "allow_traits", false);
-      return new ModifierSetWorktableRecipe(id, dataKey, ingredients, tool, modifierPredicate, addToSet, allowTraits);
-    }
-
-    @Nullable
-    @Override
-    public ModifierSetWorktableRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
-      ResourceLocation dataKey = buffer.readResourceLocation();
-      Ingredient ingredient = Ingredient.fromNetwork(buffer);
-      int size = buffer.readVarInt();
-      ImmutableList.Builder<SizedIngredient> ingredients = ImmutableList.builder();
-      for (int i = 0; i < size; i++) {
-        ingredients.add(SizedIngredient.read(buffer));
-      }
-      IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.LOADER.fromNetwork(buffer);
-      boolean addToSet = buffer.readBoolean();
-      boolean allowTraits = buffer.readBoolean();
-      return new ModifierSetWorktableRecipe(id, dataKey, ingredients.build(), ingredient, modifierPredicate, addToSet, allowTraits);
-    }
-
-    @Override
-    public void toNetworkSafe(FriendlyByteBuf buffer, ModifierSetWorktableRecipe recipe) {
-      buffer.writeResourceLocation(recipe.dataKey);
-      recipe.toolRequirement.toNetwork(buffer);
-      buffer.writeVarInt(recipe.inputs.size());
-      for (SizedIngredient ingredient : recipe.inputs) {
-        ingredient.write(buffer);
-      }
-      ModifierPredicate.LOADER.toNetwork(recipe.modifierPredicate, buffer);
-      buffer.writeBoolean(recipe.addToSet);
-      buffer.writeBoolean(recipe.allowTraits);
-    }
   }
 }

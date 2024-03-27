@@ -6,6 +6,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
+import slimeknights.mantle.data.loadable.common.IngredientLoadable;
+import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -25,6 +27,10 @@ import java.util.List;
  */
 @RequiredArgsConstructor
 public abstract class AbstractWorktableRecipe implements IModifierWorktableRecipe {
+  public static final Ingredient DEFAULT_TOOLS = Ingredient.of(TinkerTags.Items.MODIFIABLE);
+  protected static final LoadableField<Ingredient,AbstractWorktableRecipe> TOOL_FIELD = IngredientLoadable.DISALLOW_EMPTY.defaultField("tools", DEFAULT_TOOLS, true, r -> r.toolRequirement);
+  protected static final LoadableField<List<SizedIngredient>,AbstractWorktableRecipe> INPUTS_FIELD = SizedIngredient.LOADABLE.list(1).requiredField("inputs", r -> r.inputs);
+
   @Getter
   private final ResourceLocation id;
   protected final Ingredient toolRequirement;

@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.recipe.casting;
 
-import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -10,17 +9,16 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.mantle.recipe.helper.ItemOutput;
+import slimeknights.mantle.recipe.helper.TypeAwareRecipeSerializer;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
-import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 /**
@@ -30,7 +28,7 @@ import java.util.function.Consumer;
 @RequiredArgsConstructor(staticName = "castingRecipe")
 public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingRecipeBuilder> {
   private final ItemOutput result;
-  private final ItemCastingRecipe.Serializer recipeSerializer;
+  private final TypeAwareRecipeSerializer<? extends ItemCastingRecipe> recipeSerializer;
   private Ingredient cast = Ingredient.EMPTY;
   private FluidIngredient fluid = FluidIngredient.EMPTY;
   @Setter @Accessors(chain = true)
@@ -248,36 +246,8 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
       throw new IllegalStateException("Cooling time is too low, must be at least 0");
     }
     ResourceLocation advancementId = this.buildOptionalAdvancement(id, "casting");
-    consumer.accept(new ItemCastingRecipeBuilder.Result(id, advancementId));
-  }
-
-  private class Result extends AbstractFinishedRecipe {
-    public Result(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
-      super(ID, advancementID);
-    }
-
-    @Override
-    public RecipeSerializer<?> getType() {
-      return recipeSerializer;
-    }
-
-    @Override
-    public void serializeRecipeData(JsonObject json) {
-      if (!group.isEmpty()) {
-        json.addProperty("group", group);
-      }
-      if (cast != Ingredient.EMPTY) {
-        json.add("cast", cast.toJson());
-        if (consumed) {
-          json.addProperty("cast_consumed", true);
-        }
-      }
-      if (switchSlots) {
-        json.addProperty("switch_slots", true);
-      }
-      json.add("fluid", fluid.serialize());
-      json.add("result", result.serialize(false));
-      json.addProperty("cooling_time", coolingTime);
-    }
+    // yeah, retextured recipes have their own constructor, does not matter as long as we pass the right serializer in
+    // you can use this for your custom recipe extensions too if you don't change the JSON :)
+    consumer.accept(new LoadableFinishedRecipe<>(new ItemCastingRecipe(recipeSerializer, id, group, cast, fluid, result, coolingTime, consumed, switchSlots), ItemCastingRecipe.LOADER, advancementId));
   }
 }

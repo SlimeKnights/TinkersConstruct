@@ -2131,14 +2131,12 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
         ceramicsId.apply("rainbow_bricks"), ceramicsId.apply("rainbow_bricks_stairs"), ceramicsId.apply("rainbow_bricks_wall")
       )), new FluidStack(TinkerFluids.moltenPorcelain.get(), FluidValues.SLIMEBALL * 4), 2.0f)
                         .save(ceramicsConsumer, location(porcelainFolder + "blocks"));
-    // gold bricks, gold byproduct
+    // gold bricks, skipping gold byproduct as its so small and does not divide nicely
     MeltingRecipeBuilder.melting(ItemNameIngredient.from(ceramicsId.apply("golden_bricks_slab")), new FluidStack(TinkerFluids.moltenPorcelain.get(), FluidValues.SLIMEBALL * 2), 1.33f)
-                        .addByproduct(new FluidStack(TinkerFluids.moltenGold.get(), FluidValues.NUGGET / 16)) // yep, exactly 1mb, such recycling
                         .save(ceramicsConsumer, location(porcelainFolder + "golden_bricks_slab"));
     MeltingRecipeBuilder.melting(ItemNameIngredient.from(
       ceramicsId.apply("golden_bricks"), ceramicsId.apply("golden_bricks_stairs"), ceramicsId.apply("golden_bricks_wall")
     ), new FluidStack(TinkerFluids.moltenPorcelain.get(), FluidValues.SLIMEBALL * 4), 2f)
-                        .addByproduct(new FluidStack(TinkerFluids.moltenGold.get(), FluidValues.NUGGET / 8)) // 2mb is slightly better, but still not great
                         .save(ceramicsConsumer, location(porcelainFolder + "golden_bricks_block"));
     // gauge, partially glass
     MeltingRecipeBuilder.melting(ItemNameIngredient.from(ceramicsId.apply("porcelain_gauge")), new FluidStack(TinkerFluids.moltenPorcelain.get(), FluidValues.SLIMEBALL), 1f)

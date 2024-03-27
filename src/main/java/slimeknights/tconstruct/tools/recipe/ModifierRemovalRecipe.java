@@ -1,29 +1,18 @@
 package slimeknights.tconstruct.tools.recipe;
 
-import com.google.common.collect.ImmutableList;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.Accessors;
-import net.minecraft.core.Registry;
-import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.items.ItemHandlerHelper;
+import slimeknights.mantle.data.loadable.common.ItemStackLoadable;
+import slimeknights.mantle.data.loadable.field.ContextKey;
+import slimeknights.mantle.data.loadable.field.LoadableField;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
-import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
-import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.json.predicate.modifier.ModifierPredicate;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -34,25 +23,28 @@ import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierSalvage;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipe;
-import slimeknights.tconstruct.library.recipe.worktable.AbstractSizedIngredientRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.worktable.AbstractWorktableRecipe;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-import slimeknights.tconstruct.library.utils.JsonUtils;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
   private static final Component TITLE = TConstruct.makeTranslation("recipe", "remove_modifier.title");
   private static final Component DESCRIPTION = TConstruct.makeTranslation("recipe", "remove_modifier.description");
   private static final Component NO_MODIFIERS = TConstruct.makeTranslation("recipe", "remove_modifier.no_modifiers");
+  public static final SizedIngredient DEFAULT_TOOLS = SizedIngredient.of(AbstractWorktableRecipe.DEFAULT_TOOLS);
+
+  protected static final LoadableField<SizedIngredient,ModifierRemovalRecipe> TOOLS_FIELD = SizedIngredient.LOADABLE.defaultField("tools", DEFAULT_TOOLS, true, r -> r.sizedTool);
+  protected static final LoadableField<List<ItemStack>,ModifierRemovalRecipe> LEFTOVERS_FIELD = ItemStackLoadable.REQUIRED_STACK_NBT.list(0).defaultField("leftovers", List.of(), r -> r.leftovers);
+  protected static final LoadableField<IJsonPredicate<ModifierId>,ModifierRemovalRecipe> MODIFIER_PREDICATE_FIELD = ModifierPredicate.LOADER.defaultField("modifier_predicate", false, r -> r.modifierPredicate);
+
+  /** Recipe loadable */
+  public static final RecordLoadable<ModifierRemovalRecipe> LOADER = RecordLoadable.create(ContextKey.ID.requiredField(), TOOLS_FIELD, INPUTS_FIELD, LEFTOVERS_FIELD, MODIFIER_PREDICATE_FIELD, ModifierRemovalRecipe::new);
 
   private final SizedIngredient sizedTool;
   private final List<ItemStack> leftovers;
@@ -62,7 +54,7 @@ public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
   private List<ModifierEntry> displayModifiers;
 
   public ModifierRemovalRecipe(ResourceLocation id, SizedIngredient toolRequirement, List<SizedIngredient> inputs, List<ItemStack> leftovers, IJsonPredicate<ModifierId> modifierPredicate) {
-    super(id, Ingredient.EMPTY, inputs);
+    super(id, toolRequirement.getIngredient(), inputs);
     this.sizedTool = toolRequirement;
     this.leftovers = leftovers;
     this.modifierPredicate = modifierPredicate;
@@ -193,146 +185,5 @@ public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
       }).toList();
     }
     return tools;
-  }
-
-  /** Factory interface for modifier removal recipes */
-  @FunctionalInterface
-  public interface Factory {
-    ModifierRemovalRecipe create(ResourceLocation id, SizedIngredient toolRequirement, List<SizedIngredient> inputs, List<ItemStack> leftovers, IJsonPredicate<ModifierId> modifierPredicate);
-  }
-
-  @RequiredArgsConstructor
-  public static class Serializer implements LoggingRecipeSerializer<ModifierRemovalRecipe> {
-    private final Factory factory;
-
-    @Override
-    public ModifierRemovalRecipe fromJson(ResourceLocation id, JsonObject json) {
-      SizedIngredient tool;
-      if (json.has("tools")) {
-        tool = SizedIngredient.deserialize(GsonHelper.getAsJsonObject(json, "tools"));
-      } else {
-        tool = SizedIngredient.fromTag(TinkerTags.Items.MODIFIABLE);
-      }
-      List<SizedIngredient> ingredients = JsonHelper.parseList(json, "inputs", SizedIngredient::deserialize);
-      List<ItemStack> leftovers = Collections.emptyList();
-      if (json.has("leftovers")) {
-        leftovers = JsonHelper.parseList(json, "leftovers", JsonUtils::convertToItemStack);
-      }
-      IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ANY;
-      if (json.has("modifier_predicate")) {
-        modifierPredicate = ModifierPredicate.LOADER.getIfPresent(json, "modifier_predicate");
-      }
-      return factory.create(id, tool, ingredients, leftovers, modifierPredicate);
-    }
-
-    @Nullable
-    @Override
-    public ModifierRemovalRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
-      SizedIngredient tool = SizedIngredient.read(buffer);
-      int size = buffer.readVarInt();
-      ImmutableList.Builder<SizedIngredient> ingredients = ImmutableList.builder();
-      for (int i = 0; i < size; i++) {
-        ingredients.add(SizedIngredient.read(buffer));
-      }
-      size = buffer.readVarInt();
-      ImmutableList.Builder<ItemStack> leftovers = ImmutableList.builder();
-      for (int i = 0; i < size; i++) {
-        leftovers.add(buffer.readItem());
-      }
-      IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.LOADER.fromNetwork(buffer);
-      return factory.create(id, tool, ingredients.build(), leftovers.build(), modifierPredicate);
-    }
-
-    @Override
-    public void toNetworkSafe(FriendlyByteBuf buffer, ModifierRemovalRecipe recipe) {
-      recipe.sizedTool.write(buffer);
-      buffer.writeVarInt(recipe.inputs.size());
-      for (SizedIngredient ingredient : recipe.inputs) {
-        ingredient.write(buffer);
-      }
-      buffer.writeVarInt(recipe.leftovers.size());
-      for (ItemStack itemStack : recipe.leftovers) {
-        buffer.writeItem(itemStack);
-      }
-      ModifierPredicate.LOADER.toNetwork(recipe.modifierPredicate, buffer);
-    }
-  }
-
-  @RequiredArgsConstructor(staticName = "removal")
-  public static class Builder extends AbstractSizedIngredientRecipeBuilder<Builder> {
-    private final RecipeSerializer<? extends ModifierRemovalRecipe> serializer;
-    private final List<ItemStack> leftovers = new ArrayList<>();
-    private SizedIngredient tools = SizedIngredient.EMPTY;
-    @Setter @Accessors(fluent = true)
-    private IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ANY;
-
-    public static Builder removal() {
-      return removal(TinkerModifiers.removeModifierSerializer.get());
-    }
-
-    /** Sets the tool requirement for this recipe */
-    public Builder setTools(SizedIngredient ingredient) {
-      this.tools = ingredient;
-      return this;
-    }
-
-    /** Sets the tool requirement for this recipe */
-    public Builder setTools(Ingredient ingredient) {
-      return setTools(SizedIngredient.of(ingredient));
-    }
-
-    /** Adds a leftover stack to the recipe */
-    public Builder addLeftover(ItemStack stack) {
-      leftovers.add(stack);
-      return this;
-    }
-
-    /** Adds a leftover stack to the recipe */
-    public Builder addLeftover(ItemLike item) {
-      return addLeftover(new ItemStack(item));
-    }
-
-    @Override
-    public void save(Consumer<FinishedRecipe> consumer) {
-      save(consumer, Registry.ITEM.getKey(leftovers.get(0).getItem()));
-    }
-
-    @Override
-    public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
-      if (inputs.isEmpty()) {
-        throw new IllegalStateException("Must have at least one input");
-      }
-      ResourceLocation advancementId = buildOptionalAdvancement(id, "modifiers");
-      consumer.accept(new Finished(id, advancementId));
-    }
-
-    private class Finished extends SizedFinishedRecipe {
-      public Finished(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
-        super(ID, advancementID);
-      }
-
-      @Override
-      public void serializeRecipeData(JsonObject json) {
-        super.serializeRecipeData(json);
-        SizedIngredient ingredient = tools;
-        if (ingredient == SizedIngredient.EMPTY) {
-          ingredient = SizedIngredient.fromTag(TinkerTags.Items.MODIFIABLE);
-        }
-        json.add("tools", ingredient.serialize());
-        if (!leftovers.isEmpty()) {
-          JsonArray array = new JsonArray();
-          for (ItemStack stack : leftovers) {
-            array.add(JsonUtils.serializeItemStack(stack));
-          }
-          json.add("leftovers", array);
-        }
-        json.add("modifier_predicate", ModifierPredicate.LOADER.serialize(modifierPredicate));
-      }
-
-      @Override
-      public RecipeSerializer<?> getType() {
-        return serializer;
-      }
-    }
   }
 }

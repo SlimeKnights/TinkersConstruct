@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.recipe.modifiers.adding;
+package slimeknights.tconstruct.tables.recipe;
 
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.Registry;
@@ -6,23 +6,16 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.ItemLike;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 
 import java.util.function.Consumer;
 
-/**
- * Builder for overslime recipes
- */
-@RequiredArgsConstructor(staticName = "modifier")
-public class OverslimeModifierRecipeBuilder extends AbstractRecipeBuilder<OverslimeModifierRecipeBuilder> {
-  private final Ingredient ingredient;
-  private final int restoreAmount;
+/** Builder for tinker station damaging recipes */
+@RequiredArgsConstructor(staticName = "damage")
+public class TinkerStationDamagingRecipeBuilder extends AbstractRecipeBuilder<TinkerStationDamagingRecipeBuilder> {
 
-  /** Creates a new builder for the given item */
-  public static OverslimeModifierRecipeBuilder modifier(ItemLike item, int restoreAmount) {
-    return modifier(Ingredient.of(item), restoreAmount);
-  }
+  private final Ingredient ingredient;
+  private final int damageAmount;
 
   @Override
   public void save(Consumer<FinishedRecipe> consumer) {
@@ -38,7 +31,7 @@ public class OverslimeModifierRecipeBuilder extends AbstractRecipeBuilder<Oversl
     if (ingredient == Ingredient.EMPTY) {
       throw new IllegalStateException("Empty ingredient not allowed");
     }
-    ResourceLocation advancementId = buildOptionalAdvancement(id, "modifiers");
-    consumer.accept(new LoadableFinishedRecipe<>(new OverslimeModifierRecipe(id, ingredient, restoreAmount), OverslimeModifierRecipe.LOADER, advancementId));
+    ResourceLocation advancementId = buildOptionalAdvancement(id, "tinker_station");
+    consumer.accept(new LoadableFinishedRecipe<>(new TinkerStationDamagingRecipe(id, ingredient, damageAmount), TinkerStationDamagingRecipe.LOADER, advancementId));
   }
 }

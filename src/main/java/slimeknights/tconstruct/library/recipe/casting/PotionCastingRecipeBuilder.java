@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.recipe.casting;
 
-import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -10,14 +9,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
+import slimeknights.mantle.recipe.helper.TypeAwareRecipeSerializer;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
-import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 /**
@@ -27,11 +25,11 @@ import java.util.function.Consumer;
 @RequiredArgsConstructor(staticName = "castingRecipe")
 public class PotionCastingRecipeBuilder extends AbstractRecipeBuilder<PotionCastingRecipeBuilder> {
   private final Item result;
-  private final PotionCastingRecipe.Serializer recipeSerializer;
+  private final TypeAwareRecipeSerializer<PotionCastingRecipe> recipeSerializer;
   private Ingredient bottle = Ingredient.EMPTY;
   private FluidIngredient fluid = FluidIngredient.EMPTY;
   @Setter @Accessors(chain = true)
-  private int coolingTime = 0;
+  private int coolingTime = 5;
 
   /**
    * Creates a new casting basin recipe
@@ -123,30 +121,6 @@ public class PotionCastingRecipeBuilder extends AbstractRecipeBuilder<PotionCast
       throw new IllegalStateException("Cooling time is too low, must be at least 0");
     }
     ResourceLocation advancementId = this.buildOptionalAdvancement(id, "casting");
-    consumer.accept(new PotionCastingRecipeBuilder.Result(id, advancementId));
-  }
-
-  private class Result extends AbstractFinishedRecipe {
-    public Result(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
-      super(ID, advancementID);
-    }
-
-    @Override
-    public RecipeSerializer<?> getType() {
-      return recipeSerializer;
-    }
-
-    @Override
-    public void serializeRecipeData(JsonObject json) {
-      if (!group.isEmpty()) {
-        json.addProperty("group", group);
-      }
-      if (bottle != Ingredient.EMPTY) {
-        json.add("bottle", bottle.toJson());
-      }
-      json.add("fluid", fluid.serialize());
-      json.addProperty("result", Registry.ITEM.getKey(result).toString());
-      json.addProperty("cooling_time", coolingTime);
-    }
+    consumer.accept(new LoadableFinishedRecipe<>(new PotionCastingRecipe(recipeSerializer, id, group, bottle, fluid, result, coolingTime), PotionCastingRecipe.LOADER, advancementId));
   }
 }

@@ -1,17 +1,16 @@
 package slimeknights.tconstruct.library.recipe.casting.material;
 
-import com.google.gson.JsonObject;
 import lombok.Getter;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.data.loadable.field.ContextKey;
+import slimeknights.mantle.data.loadable.primitive.IntLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
-import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
@@ -24,6 +23,14 @@ import java.util.List;
 
 /** Recipe defining casting and composite fluids for a given input */
 public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContainer> {
+  public static final RecordLoadable<MaterialFluidRecipe> LOADER = RecordLoadable.create(
+    ContextKey.ID.requiredField(),
+    FluidIngredient.LOADABLE.requiredField("fluid", r -> r.fluid),
+    IntLoadable.FROM_ONE.requiredField("temperature", r -> r.temperature),
+    MaterialVariantId.LOADABLE.nullableField("input", r -> r.input != null ? r.input.getVariant() : null),
+    MaterialVariantId.LOADABLE.nullableField("output", r -> r.output.getVariant()),
+    MaterialFluidRecipe::new);
+
   @Getter
   private final ResourceLocation id;
   private final FluidIngredient fluid;
@@ -84,45 +91,5 @@ public class MaterialFluidRecipe implements ICustomOutputRecipe<ICastingContaine
   @Override
   public RecipeType<?> getType() {
     return TinkerRecipeTypes.DATA.get();
-  }
-
-  public static class Serializer implements LoggingRecipeSerializer<MaterialFluidRecipe> {
-    @Override
-    public MaterialFluidRecipe fromJson(ResourceLocation id, JsonObject json) {
-      FluidIngredient fluid = FluidIngredient.deserialize(json, "fluid");
-      int temperature = GsonHelper.getAsInt(json, "temperature");
-      MaterialVariantId input = null;
-      if (json.has("input")) {
-        input = MaterialVariantId.fromJson(json, "input");
-      }
-      MaterialVariantId output = MaterialVariantId.fromJson(json, "output");
-      return new MaterialFluidRecipe(id, fluid, temperature, input, output);
-    }
-
-    @Nullable
-    @Override
-    public MaterialFluidRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
-      FluidIngredient fluid = FluidIngredient.read(buffer);
-      int temperature = buffer.readInt();
-      MaterialVariantId input = null;
-      if (buffer.readBoolean()) {
-        input = MaterialVariantId.parse(buffer.readUtf(Short.MAX_VALUE));
-      }
-      MaterialVariantId output = MaterialVariantId.parse(buffer.readUtf(Short.MAX_VALUE));
-      return new MaterialFluidRecipe(id, fluid, temperature, input, output);
-    }
-
-    @Override
-    public void toNetworkSafe(FriendlyByteBuf buffer, MaterialFluidRecipe recipe) {
-      recipe.fluid.write(buffer);
-      buffer.writeInt(recipe.temperature);
-      if (recipe.input != null) {
-        buffer.writeBoolean(true);
-        buffer.writeUtf(recipe.input.getVariant().toString());
-      } else {
-        buffer.writeBoolean(false);
-      }
-      buffer.writeUtf(recipe.output.getVariant().toString());
-    }
   }
 }

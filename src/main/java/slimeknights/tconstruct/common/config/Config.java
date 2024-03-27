@@ -379,6 +379,7 @@ public class Config {
       return switch (rate) {
         case METAL -> amount * nuggetsPerMetal.get() / 9;
         case GEM -> amount * shardsPerGem.get() / 4;
+        default -> amount;
       };
     }
   }

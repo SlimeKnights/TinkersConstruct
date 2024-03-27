@@ -1,21 +1,15 @@
 package slimeknights.tconstruct.library.recipe.alloying;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
-import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
-import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -102,30 +96,10 @@ public class AlloyRecipeBuilder extends AbstractRecipeBuilder<AlloyRecipeBuilder
     if (inputs.size() < 2) {
       throw new IllegalStateException("Invalid alloying recipe " + id + ", must have at least two inputs");
     }
-    ResourceLocation advancementId = this.buildOptionalAdvancement(id, "alloys");
-    consumer.accept(new Result(id, advancementId));
-  }
-
-  /** Result class for the builder */
-  private class Result extends AbstractFinishedRecipe {
-    public Result(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
-      super(ID, advancementID);
-    }
-
-    @Override
-    public void serializeRecipeData(JsonObject json) {
-      JsonArray inputArray = new JsonArray();
-      for (FluidIngredient input : inputs) {
-        inputArray.add(input.serialize());
-      }
-      json.add("inputs", inputArray);
-      json.add("result", RecipeHelper.serializeFluidStack(output));
-      json.addProperty("temperature", temperature);
-    }
-
-    @Override
-    public RecipeSerializer<?> getType() {
-      return TinkerSmeltery.alloyingSerializer.get();
-    }
+    consumer.accept(new LoadableFinishedRecipe<>(
+      new AlloyRecipe(id, inputs, output, temperature),
+      AlloyRecipe.LOADER,
+      this.buildOptionalAdvancement(id, "alloys")
+    ));
   }
 }

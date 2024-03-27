@@ -1,18 +1,13 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.repairing;
 
-import com.google.gson.JsonObject;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
-import slimeknights.tconstruct.tools.TinkerModifiers;
 
-import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 /** Builds a recipe to repair a tool using a modifier */
@@ -34,30 +29,13 @@ public class ModifierRepairRecipeBuilder extends AbstractRecipeBuilder<ModifierR
   /** Builds the recipe for the crafting table using a repair kit */
   public ModifierRepairRecipeBuilder buildCraftingTable(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
     ResourceLocation advancementId = buildOptionalAdvancement(id, "tinker_station");
-    consumer.accept(new Finished(id, advancementId, TinkerModifiers.craftingModifierRepair.get()));
+    consumer.accept(new LoadableFinishedRecipe<>(new ModifierRepairCraftingRecipe(id, modifier, ingredient, repairAmount), ModifierRepairCraftingRecipe.LOADER, advancementId));
     return this;
   }
 
   @Override
   public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
     ResourceLocation advancementId = buildOptionalAdvancement(id, "tinker_station");
-    consumer.accept(new Finished(id, advancementId, TinkerModifiers.modifierRepair.get()));
-  }
-
-  private class Finished extends AbstractFinishedRecipe {
-    @Getter
-    private final RecipeSerializer<?> type;
-
-    public Finished(ResourceLocation ID, @Nullable ResourceLocation advancementID, RecipeSerializer<?> type) {
-      super(ID, advancementID);
-      this.type = type;
-    }
-
-    @Override
-    public void serializeRecipeData(JsonObject json) {
-      json.addProperty("modifier", modifier.toString());
-      json.add("ingredient", ingredient.toJson());
-      json.addProperty("repair_amount", repairAmount);
-    }
+    consumer.accept(new LoadableFinishedRecipe<>(new ModifierRepairTinkerStationRecipe(id, modifier, ingredient, repairAmount), ModifierRepairTinkerStationRecipe.LOADER, advancementId));
   }
 }

@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.library.recipe.material;
 
 import net.minecraft.world.item.ItemStack;
+import slimeknights.mantle.data.loadable.field.LoadableField;
+import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.recipe.container.ISingleStackContainer;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 
@@ -8,6 +10,11 @@ import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
  * Represents a material with an amount and a cost
  */
 public interface IMaterialValue {
+  /** Field for a material value in JSON */
+  LoadableField<Integer,IMaterialValue> VALUE_FIELD = IntLoadable.FROM_ONE.defaultField("value", 1, true, IMaterialValue::getValue);
+  /** Field for a needed amount in JSON */
+  LoadableField<Integer,IMaterialValue> NEEDED_FIELD = IntLoadable.FROM_ONE.defaultField("needed", 1, true, IMaterialValue::getNeeded);
+
   /** Gets the material represented in this cost */
   MaterialVariant getMaterial();
 

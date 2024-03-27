@@ -1,17 +1,12 @@
 package slimeknights.tconstruct.library.recipe.casting.container;
 
-import com.google.gson.JsonObject;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
@@ -20,35 +15,44 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.registries.ForgeRegistries;
+import slimeknights.mantle.data.loadable.Loadables;
+import slimeknights.mantle.data.loadable.field.ContextKey;
+import slimeknights.mantle.data.loadable.primitive.IntLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.IMultiRecipe;
-import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
-import slimeknights.mantle.recipe.helper.RecipeHelper;
+import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
+import slimeknights.mantle.recipe.helper.TypeAwareRecipeSerializer;
 import slimeknights.tconstruct.library.recipe.casting.DisplayCastingRecipe;
 import slimeknights.tconstruct.library.recipe.casting.ICastingContainer;
 import slimeknights.tconstruct.library.recipe.casting.ICastingRecipe;
 
-import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.Supplier;
 
 /**
  * Casting recipe that takes an arbitrary fluid for a given amount and fills a container
  */
 @RequiredArgsConstructor
 public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<DisplayCastingRecipe> {
+  public static final RecordLoadable<ContainerFillingRecipe> LOADER = RecordLoadable.create(
+    LoadableRecipeSerializer.TYPED_SERIALIZER.requiredField(), ContextKey.ID.requiredField(), LoadableRecipeSerializer.RECIPE_GROUP,
+    IntLoadable.FROM_ONE.requiredField("fluid_amount", r -> r.fluidAmount),
+    Loadables.ITEM.requiredField("container", r -> r.container),
+    ContainerFillingRecipe::new);
+
   @Getter
-  private final RecipeType<?> type;
-  @Getter
-  private final RecipeSerializer<?> serializer;
+  private final TypeAwareRecipeSerializer<?> serializer;
   @Getter
   private final ResourceLocation id;
   @Getter
   private final String group;
-  @Getter
   private final int fluidAmount;
-  @Getter
   private final Item container;
+
+  @Override
+  public RecipeType<?> getType() {
+    return serializer.getType();
+  }
 
   @Override
   public int getFluidAmount(ICastingContainer inv) {
@@ -121,35 +125,5 @@ public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<Disp
                                              .toList();
     }
     return displayRecipes;
-  }
-
-  /** Serializer for {@link ContainerFillingRecipe} */
-  @AllArgsConstructor
-  public static class Serializer implements LoggingRecipeSerializer<ContainerFillingRecipe> {
-    private final Supplier<RecipeType<ICastingRecipe>> type;
-
-    @Override
-    public ContainerFillingRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-      String group = GsonHelper.getAsString(json, "group", "");
-      int fluidAmount = GsonHelper.getAsInt(json, "fluid_amount");
-      Item result = GsonHelper.getAsItem(json, "container");
-      return new ContainerFillingRecipe(type.get(), this, recipeId, group, fluidAmount, result);
-    }
-
-    @Nullable
-    @Override
-    public ContainerFillingRecipe fromNetworkSafe(ResourceLocation recipeId, FriendlyByteBuf buffer) {
-      String group = buffer.readUtf(Short.MAX_VALUE);
-      int fluidAmount = buffer.readInt();
-      Item result = RecipeHelper.readItem(buffer);
-      return new ContainerFillingRecipe(type.get(), this, recipeId, group, fluidAmount, result);
-    }
-
-    @Override
-    public void toNetworkSafe(FriendlyByteBuf buffer, ContainerFillingRecipe recipe) {
-      buffer.writeUtf(recipe.group);
-      buffer.writeInt(recipe.fluidAmount);
-      RecipeHelper.writeItem(buffer, recipe.container);
-    }
   }
 }

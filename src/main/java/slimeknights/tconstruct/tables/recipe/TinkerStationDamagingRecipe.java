@@ -1,20 +1,16 @@
 package slimeknights.tconstruct.tables.recipe;
 
-import com.google.gson.JsonObject;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.core.Registry;
-import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
-import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
-import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
-import slimeknights.mantle.util.JsonHelper;
+import slimeknights.mantle.data.loadable.common.IngredientLoadable;
+import slimeknights.mantle.data.loadable.field.ContextKey;
+import slimeknights.mantle.data.loadable.primitive.IntLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
@@ -26,11 +22,13 @@ import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tables.TinkerTables;
 
-import javax.annotation.Nullable;
-import java.util.function.Consumer;
-
 @RequiredArgsConstructor
 public class TinkerStationDamagingRecipe implements ITinkerStationRecipe {
+  public static final RecordLoadable<TinkerStationDamagingRecipe> LOADER = RecordLoadable.create(
+    ContextKey.ID.requiredField(),
+    IngredientLoadable.DISALLOW_EMPTY.requiredField("ingredient", r -> r.ingredient),
+    IntLoadable.FROM_ONE.requiredField("damage_amount", r -> r.damageAmount),
+    TinkerStationDamagingRecipe::new);
   private static final RecipeResult<ItemStack> BROKEN = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "damaging.broken"));
 
   @Getter
@@ -81,71 +79,5 @@ public class TinkerStationDamagingRecipe implements ITinkerStationRecipe {
   @Override
   public RecipeSerializer<?> getSerializer() {
     return TinkerTables.tinkerStationDamagingSerializer.get();
-  }
-
-  /** Serializer logic */
-  public static class Serializer implements LoggingRecipeSerializer<TinkerStationDamagingRecipe> {
-    @Override
-    public TinkerStationDamagingRecipe fromJson(ResourceLocation id, JsonObject json) {
-      Ingredient ingredient = Ingredient.fromJson(JsonHelper.getElement(json, "ingredient"));
-      int restoreAmount = GsonHelper.getAsInt(json, "damage_amount");
-      return new TinkerStationDamagingRecipe(id, ingredient, restoreAmount);
-    }
-
-    @Nullable
-    @Override
-    public TinkerStationDamagingRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
-      Ingredient ingredient = Ingredient.fromNetwork(buffer);
-      int damageAmount = buffer.readVarInt();
-      return new TinkerStationDamagingRecipe(id, ingredient, damageAmount);
-    }
-
-    @Override
-    public void toNetworkSafe(FriendlyByteBuf buffer, TinkerStationDamagingRecipe recipe) {
-      recipe.ingredient.toNetwork(buffer);
-      buffer.writeVarInt(recipe.damageAmount);
-    }
-  }
-
-  /** Builder for datagen */
-  @RequiredArgsConstructor(staticName = "damage")
-  public static class Builder extends AbstractRecipeBuilder<Builder> {
-    private final Ingredient ingredient;
-    private final int damageAmount;
-
-    @Override
-    public void save(Consumer<FinishedRecipe> consumer) {
-      ItemStack[] stacks = ingredient.getItems();
-      if (stacks.length == 0) {
-        throw new IllegalStateException("Empty ingredient not allowed");
-      }
-      save(consumer, Registry.ITEM.getKey(stacks[0].getItem()));
-    }
-
-    @Override
-    public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
-      if (ingredient == Ingredient.EMPTY) {
-        throw new IllegalStateException("Empty ingredient not allowed");
-      }
-      ResourceLocation advancementId = buildOptionalAdvancement(id, "tinker_station");
-      consumer.accept(new Finished(id, advancementId));
-    }
-
-    private class Finished extends AbstractFinishedRecipe {
-      public Finished(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
-        super(ID, advancementID);
-      }
-
-      @Override
-      public void serializeRecipeData(JsonObject json) {
-        json.add("ingredient", ingredient.toJson());
-        json.addProperty("damage_amount", damageAmount);
-      }
-
-      @Override
-      public RecipeSerializer<?> getType() {
-        return TinkerTables.tinkerStationDamagingSerializer.get();
-      }
-    }
   }
 }

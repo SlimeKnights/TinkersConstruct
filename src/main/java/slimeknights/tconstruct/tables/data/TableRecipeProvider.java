@@ -24,7 +24,7 @@ import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.recipe.PartBuilderToolRecycle;
-import slimeknights.tconstruct.tables.recipe.TinkerStationDamagingRecipe;
+import slimeknights.tconstruct.tables.recipe.TinkerStationDamagingRecipeBuilder;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 import java.util.function.BiFunction;
@@ -230,21 +230,21 @@ public class TableRecipeProvider extends BaseRecipeProvider {
       tag.putString("Potion", Registry.POTION.getKey(potion).toString());
       return PartialNBTIngredient.of(item, tag);
     };
-    TinkerStationDamagingRecipe.Builder.damage(potionIngredient.apply(Items.POTION, Potions.MUNDANE), 1)
-                                       .save(consumer, location(damageFolder + "base_one"));
-    TinkerStationDamagingRecipe.Builder.damage(potionIngredient.apply(Items.POTION, Potions.THICK), 5)
-                                       .save(consumer, location(damageFolder + "base_two"));
-    TinkerStationDamagingRecipe.Builder.damage(potionIngredient.apply(Items.POTION, Potions.HARMING), 25)
-                                       .save(consumer, location(damageFolder + "potion_one"));
-    TinkerStationDamagingRecipe.Builder.damage(potionIngredient.apply(Items.POTION, Potions.STRONG_HARMING), 75)
-                                       .save(consumer, location(damageFolder + "potion_two"));
-    TinkerStationDamagingRecipe.Builder.damage(potionIngredient.apply(Items.SPLASH_POTION, Potions.HARMING), 150)
-                                       .save(consumer, location(damageFolder + "splash_one"));
-    TinkerStationDamagingRecipe.Builder.damage(potionIngredient.apply(Items.SPLASH_POTION, Potions.STRONG_HARMING), 400)
-                                       .save(consumer, location(damageFolder + "splash_two"));
-    TinkerStationDamagingRecipe.Builder.damage(potionIngredient.apply(Items.LINGERING_POTION, Potions.HARMING), 1000)
-                                       .save(consumer, location(damageFolder + "lingering_one"));
-    TinkerStationDamagingRecipe.Builder.damage(potionIngredient.apply(Items.LINGERING_POTION, Potions.STRONG_HARMING), 2500)
-                                       .save(consumer, location(damageFolder + "lingering_two"));
+    TinkerStationDamagingRecipeBuilder.damage(potionIngredient.apply(Items.POTION, Potions.MUNDANE), 1)
+                                      .save(consumer, location(damageFolder + "base_one"));
+    TinkerStationDamagingRecipeBuilder.damage(potionIngredient.apply(Items.POTION, Potions.THICK), 5)
+                                      .save(consumer, location(damageFolder + "base_two"));
+    TinkerStationDamagingRecipeBuilder.damage(potionIngredient.apply(Items.POTION, Potions.HARMING), 25)
+                                      .save(consumer, location(damageFolder + "potion_one"));
+    TinkerStationDamagingRecipeBuilder.damage(potionIngredient.apply(Items.POTION, Potions.STRONG_HARMING), 75)
+                                      .save(consumer, location(damageFolder + "potion_two"));
+    TinkerStationDamagingRecipeBuilder.damage(potionIngredient.apply(Items.SPLASH_POTION, Potions.HARMING), 150)
+                                      .save(consumer, location(damageFolder + "splash_one"));
+    TinkerStationDamagingRecipeBuilder.damage(potionIngredient.apply(Items.SPLASH_POTION, Potions.STRONG_HARMING), 400)
+                                      .save(consumer, location(damageFolder + "splash_two"));
+    TinkerStationDamagingRecipeBuilder.damage(potionIngredient.apply(Items.LINGERING_POTION, Potions.HARMING), 1000)
+                                      .save(consumer, location(damageFolder + "lingering_one"));
+    TinkerStationDamagingRecipeBuilder.damage(potionIngredient.apply(Items.LINGERING_POTION, Potions.STRONG_HARMING), 2500)
+                                      .save(consumer, location(damageFolder + "lingering_two"));
   }
 }

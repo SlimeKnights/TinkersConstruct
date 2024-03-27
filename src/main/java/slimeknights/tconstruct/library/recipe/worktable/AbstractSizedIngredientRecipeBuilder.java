@@ -1,8 +1,5 @@
 package slimeknights.tconstruct.library.recipe.worktable;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -10,11 +7,13 @@ import net.minecraft.world.level.ItemLike;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Builder for a recipe that uses sized ingredients */
+/**
+ * Builder for a recipe that uses sized ingredients.
+ * TODO: transform into an interface that works for any recipe builder.
+ */
 public abstract class AbstractSizedIngredientRecipeBuilder<T extends AbstractSizedIngredientRecipeBuilder<T>> extends AbstractRecipeBuilder<T> {
   protected final List<SizedIngredient> inputs = new ArrayList<>();
 
@@ -74,21 +73,5 @@ public abstract class AbstractSizedIngredientRecipeBuilder<T extends AbstractSiz
    */
   public T addInput(TagKey<Item> tag) {
     return addInput(tag, 1);
-  }
-
-  /** Serializes the ingredients by default */
-  protected abstract class SizedFinishedRecipe extends AbstractFinishedRecipe {
-    public SizedFinishedRecipe(ResourceLocation id, @Nullable ResourceLocation advancementId) {
-      super(id, advancementId);
-    }
-
-    @Override
-    public void serializeRecipeData(JsonObject json) {
-      JsonArray array = new JsonArray();
-      for (SizedIngredient ingredient : inputs) {
-        array.add(ingredient.serialize());
-      }
-      json.add("inputs", array);
-    }
   }
 }

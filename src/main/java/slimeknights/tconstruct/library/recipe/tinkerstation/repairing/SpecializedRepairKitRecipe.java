@@ -8,8 +8,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
+import slimeknights.mantle.data.loadable.field.ContextKey;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
-import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.SpecializedRepairRecipeSerializer.ISpecializedRepairRecipe;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -17,6 +18,8 @@ import slimeknights.tconstruct.tables.recipe.CraftingTableRepairKitRecipe;
 
 /** Recipe for using a repair kit in a crafting station for a specialized tool */
 public class SpecializedRepairKitRecipe extends CraftingTableRepairKitRecipe implements ISpecializedRepairRecipe {
+  public static final RecordLoadable<SpecializedRepairKitRecipe> LOADER =RecordLoadable.create(ContextKey.ID.requiredField(), TOOL_FIELD, REPAIR_MATERIAL_FIELD, SpecializedRepairKitRecipe::new);
+
   /** Tool that can be repaired with this recipe */
   @Getter
   private final Ingredient tool;

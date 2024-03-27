@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.recipe.material;
 
-import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -9,14 +8,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
-import slimeknights.tconstruct.tables.TinkerTables;
 
-import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 /**
@@ -82,31 +78,6 @@ public class MaterialRecipeBuilder extends AbstractRecipeBuilder<MaterialRecipeB
       throw new IllegalStateException("recipe " + id + " has no needed associated with it");
     }
     ResourceLocation advancementId = this.buildOptionalAdvancement(id, "materials");
-    consumerIn.accept(new Result(id, advancementId));
-  }
-
-  private class Result extends AbstractFinishedRecipe {
-    public Result(ResourceLocation ID, @Nullable ResourceLocation advancementID) {
-      super(ID, advancementID);
-    }
-
-    @Override
-    public void serializeRecipeData(JsonObject json) {
-      if (!group.isEmpty()) {
-        json.addProperty("group", group);
-      }
-      json.add("ingredient", ingredient.toJson());
-      json.addProperty("value", value);
-      json.addProperty("needed", needed);
-      json.addProperty("material", material.toString());
-      if (value > 1 && leftover != ItemOutput.EMPTY) {
-        json.add("leftover", leftover.serialize(true));
-      }
-    }
-
-    @Override
-    public RecipeSerializer<?> getType() {
-      return TinkerTables.materialRecipeSerializer.get();
-    }
+    consumerIn.accept(new LoadableFinishedRecipe<>(new MaterialRecipe(id, group, ingredient, value, needed, material, leftover), MaterialRecipe.LOADER, advancementId));
   }
 }

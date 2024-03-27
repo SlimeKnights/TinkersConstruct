@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.recipe.worktable;
 
-import com.google.gson.JsonObject;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -11,14 +10,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
-import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.json.predicate.modifier.ModifierPredicate;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
-import slimeknights.tconstruct.tools.TinkerModifiers;
 
-import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 /** Builder for recipes to add or remove a modifier from a set in persistent data */
@@ -29,7 +24,7 @@ public class ModifierSetWorktableRecipeBuilder extends AbstractSizedIngredientRe
   @Setter @Accessors(fluent = true)
   private IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ANY;
   private final boolean addToSet;
-  private Ingredient tools = Ingredient.EMPTY;
+  private Ingredient tools = AbstractWorktableRecipe.DEFAULT_TOOLS;
   private boolean allowTraits = false;
 
   /** Creates a new recipe for adding to a set */
@@ -69,33 +64,10 @@ public class ModifierSetWorktableRecipeBuilder extends AbstractSizedIngredientRe
     if (inputs.isEmpty()) {
       throw new IllegalStateException("Must have at least one ingredient");
     }
+    if (tools == Ingredient.EMPTY) {
+      throw new IllegalStateException("Tools cannot be empty");
+    }
     ResourceLocation advancementId = buildOptionalAdvancement(id, "modifiers");
-    consumer.accept(new Finished(id, advancementId));
-  }
-
-  private class Finished extends SizedFinishedRecipe {
-    public Finished(ResourceLocation id, @Nullable ResourceLocation advancementId) {
-      super(id, advancementId);
-    }
-
-
-    @Override
-    public void serializeRecipeData(JsonObject json) {
-      json.addProperty("data_key", dataKey.toString());
-      Ingredient ingredient = tools;
-      if (ingredient == Ingredient.EMPTY) {
-        ingredient = Ingredient.of(TinkerTags.Items.MODIFIABLE);
-      }
-      json.add("tools", ingredient.toJson());
-      super.serializeRecipeData(json);
-      json.add("modifier_predicate", ModifierPredicate.LOADER.serialize(modifierPredicate));
-      json.addProperty("add_to_set", addToSet);
-      json.addProperty("allow_traits", allowTraits);
-    }
-
-    @Override
-    public RecipeSerializer<?> getType() {
-      return TinkerModifiers.modifierSetWorktableSerializer.get();
-    }
+    consumer.accept(new LoadableFinishedRecipe<>(new ModifierSetWorktableRecipe(id, dataKey, inputs, tools, modifierPredicate, addToSet, allowTraits), ModifierSetWorktableRecipe.LOADER, advancementId));
   }
 }

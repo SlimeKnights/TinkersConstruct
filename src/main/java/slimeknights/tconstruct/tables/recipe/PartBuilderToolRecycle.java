@@ -8,18 +8,17 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Registry;
 import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
-import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
+import slimeknights.mantle.data.loadable.common.IngredientLoadable;
+import slimeknights.mantle.data.loadable.field.ContextKey;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
-import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.recipe.partbuilder.IPartBuilderContainer;
@@ -39,6 +38,7 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 /** Recipe to break a tool into tool parts */
+@SuppressWarnings("deprecation")  // Forge is dumb
 @RequiredArgsConstructor
 public class PartBuilderToolRecycle implements IPartBuilderRecipe {
   /** Title for the screen */
@@ -47,6 +47,14 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe {
   private static final List<Component> INSTRUCTIONS = Collections.singletonList(TConstruct.makeTranslation("recipe", "tool_recycling.info"));
   /** Error for trying to recycle a tool that cannot be */
   private static final List<Component> NO_MODIFIERS = Collections.singletonList(TConstruct.makeTranslation("recipe", "tool_recycling.no_modifiers").withStyle(ChatFormatting.RED));
+  /** Default tool field */
+  public static final SizedIngredient DEFAULT_TOOLS = SizedIngredient.fromTag(TinkerTags.Items.MULTIPART_TOOL);
+  /** Loader instance */
+  public static final RecordLoadable<PartBuilderToolRecycle> LOADER = RecordLoadable.create(
+    ContextKey.ID.requiredField(),
+    SizedIngredient.LOADABLE.defaultField("tools", DEFAULT_TOOLS, true, r -> r.toolRequirement),
+    IngredientLoadable.DISALLOW_EMPTY.requiredField("pattern", r -> r.pattern),
+    PartBuilderToolRecycle::new);
 
   /** Should never be needed, but just in case better than null */
   private static final Pattern ERROR = new Pattern(TConstruct.MOD_ID, "missingno");
@@ -169,32 +177,6 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe {
   @Override
   public List<Component> getText(IPartBuilderContainer inv) {
     return ModifierUtil.hasUpgrades(inv.getStack()) ? NO_MODIFIERS : INSTRUCTIONS;
-  }
-
-  /** Serializer instance */
-  public static class Serializer implements LoggingRecipeSerializer<PartBuilderToolRecycle> {
-    @Override
-    public PartBuilderToolRecycle fromJson(ResourceLocation id, JsonObject json) {
-      SizedIngredient tools;
-      if (json.has("tools")) {
-        tools = SizedIngredient.deserialize(GsonHelper.getAsJsonObject(json, "tools"));
-      } else {
-        tools = SizedIngredient.fromTag(TinkerTags.Items.MULTIPART_TOOL);
-      }
-      return new PartBuilderToolRecycle(id, tools, Ingredient.fromJson(JsonHelper.getElement(json, "pattern")));
-    }
-
-    @Override
-    public void toNetworkSafe(FriendlyByteBuf buffer, PartBuilderToolRecycle recipe) {
-      recipe.toolRequirement.write(buffer);
-      recipe.pattern.toNetwork(buffer);
-    }
-
-    @Nullable
-    @Override
-    public PartBuilderToolRecycle fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
-      return new PartBuilderToolRecycle(id, SizedIngredient.read(buffer), Ingredient.fromNetwork(buffer));
-    }
   }
 
   @RequiredArgsConstructor

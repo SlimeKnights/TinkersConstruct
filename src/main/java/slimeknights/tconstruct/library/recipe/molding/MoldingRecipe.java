@@ -1,30 +1,35 @@
 package slimeknights.tconstruct.library.recipe.molding;
 
-import com.google.gson.JsonObject;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.core.NonNullList;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import slimeknights.mantle.data.loadable.common.IngredientLoadable;
+import slimeknights.mantle.data.loadable.field.ContextKey;
+import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.ICommonRecipe;
 import slimeknights.mantle.recipe.helper.ItemOutput;
-import slimeknights.mantle.recipe.helper.LoggingRecipeSerializer;
-import slimeknights.mantle.util.JsonHelper;
-
-import javax.annotation.Nullable;
-import java.util.function.Supplier;
+import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
+import slimeknights.mantle.recipe.helper.TypeAwareRecipeSerializer;
 
 /** Recipe to combine two items on the top of a casting table, changing the first */
-@RequiredArgsConstructor
 public class MoldingRecipe implements ICommonRecipe<IMoldingContainer> {
+  public static final RecordLoadable<MoldingRecipe> LOADER = RecordLoadable.create(
+    LoadableRecipeSerializer.TYPED_SERIALIZER.requiredField(),
+    ContextKey.ID.requiredField(),
+    IngredientLoadable.DISALLOW_EMPTY.requiredField("material", MoldingRecipe::getMaterial),
+    IngredientLoadable.ALLOW_EMPTY.defaultField("pattern", Ingredient.EMPTY, MoldingRecipe::getPattern),
+    BooleanLoadable.INSTANCE.defaultField("pattern_consumed", false, false, MoldingRecipe::isPatternConsumed),
+    ItemOutput.Loadable.REQUIRED_STACK.requiredField("result", r -> r.recipeOutput),
+    MoldingRecipe::new);
+
   @Getter
-  private final RecipeType<MoldingRecipe> type;
+  private final RecipeType<?> type;
   @Getter
   private final RecipeSerializer<?> serializer;
   @Getter
@@ -37,7 +42,17 @@ public class MoldingRecipe implements ICommonRecipe<IMoldingContainer> {
   private final boolean patternConsumed;
   private final ItemOutput recipeOutput;
 
-	@Override
+  public MoldingRecipe(TypeAwareRecipeSerializer<?> serializer, ResourceLocation id, Ingredient material, Ingredient pattern, boolean patternConsumed, ItemOutput recipeOutput) {
+    this.type = serializer.getType();
+    this.serializer = serializer;
+    this.id = id;
+    this.material = material;
+    this.pattern = pattern;
+    this.patternConsumed = pattern != Ingredient.EMPTY && patternConsumed;
+    this.recipeOutput = recipeOutput;
+  }
+
+  @Override
   public boolean matches(IMoldingContainer inv, Level worldIn) {
     return material.test(inv.getMaterial()) && pattern.test(inv.getPattern());
   }
@@ -50,42 +65,5 @@ public class MoldingRecipe implements ICommonRecipe<IMoldingContainer> {
   @Override
   public ItemStack getResultItem() {
     return recipeOutput.get();
-  }
-
-  /** Generic serializer to both types */
-  @RequiredArgsConstructor
-  public static class Serializer implements LoggingRecipeSerializer<MoldingRecipe> {
-    private final Supplier<RecipeType<MoldingRecipe>> type;
-
-    @Override
-    public MoldingRecipe fromJson(ResourceLocation id, JsonObject json) {
-      Ingredient material = Ingredient.fromJson(JsonHelper.getElement(json, "material"));
-      Ingredient pattern = Ingredient.EMPTY;
-      boolean patternConsumed = false;
-      if (json.has("pattern")) {
-        pattern = Ingredient.fromJson(json.get("pattern"));
-        patternConsumed = GsonHelper.getAsBoolean(json, "pattern_consumed", false);
-      }
-      ItemOutput output = ItemOutput.Loadable.REQUIRED_ITEM.getIfPresent(json, "result");
-      return new MoldingRecipe(type.get(), this, id, material, pattern, patternConsumed, output);
-    }
-
-    @Nullable
-    @Override
-    public MoldingRecipe fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
-      Ingredient material = Ingredient.fromNetwork(buffer);
-      Ingredient mold = Ingredient.fromNetwork(buffer);
-      boolean moldConsumed = buffer.readBoolean();
-      ItemOutput output = ItemOutput.read(buffer);
-      return new MoldingRecipe(type.get(), this, id, material, mold, moldConsumed, output);
-    }
-
-    @Override
-    public void toNetworkSafe(FriendlyByteBuf buffer, MoldingRecipe recipe) {
-      recipe.material.toNetwork(buffer);
-      recipe.pattern.toNetwork(buffer);
-      buffer.writeBoolean(recipe.patternConsumed);
-      recipe.recipeOutput.write(buffer);
-    }
   }
 }

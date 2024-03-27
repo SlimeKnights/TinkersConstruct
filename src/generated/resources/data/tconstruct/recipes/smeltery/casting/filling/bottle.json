@@ -3,7 +3,6 @@
   "bottle": {
     "item": "minecraft:glass_bottle"
   },
-  "cooling_time": 0,
   "fluid": {
     "amount": 250,
     "fluid": "tconstruct:potion"

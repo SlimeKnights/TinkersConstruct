@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.recipe.partbuilder;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import slimeknights.mantle.data.gson.ResourceLocationSerializer;
 import slimeknights.tconstruct.library.utils.IdParser;
 import slimeknights.tconstruct.library.utils.Util;
 
@@ -13,7 +12,6 @@ import javax.annotation.Nullable;
  */
 public class Pattern extends ResourceLocation {
   public static final IdParser<Pattern> PARSER = new IdParser<>(Pattern::new, "Pattern");
-  public static final ResourceLocationSerializer<Pattern> SERIALIZER = new ResourceLocationSerializer<>(Pattern::new, "minecraft");
 
   public Pattern(String resourceName) {
     super(resourceName);
