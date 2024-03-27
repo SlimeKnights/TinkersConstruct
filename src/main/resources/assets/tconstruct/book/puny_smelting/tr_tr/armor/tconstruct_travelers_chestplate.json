@@ -1,0 +1,17 @@
+{
+  "tool": "tconstruct:travelers_chestplate",
+  "text": [
+    { "text": "Etiketi içeriye sokmayı unutma, onunla dışarıda dolanırken gözükmek istemezsin." },
+	{
+      "text": "Göğüslük, göğüs organlarınızı koruma için önemlidir. Ve bunu yaparken kudretli gözükürsün.", "paragraph": true
+    }
+  ],
+  "properties": [
+    "Düşük Zırh",
+    "Düşük Dayanıklılık",
+    "Karda muhteşemdir",
+    "3 Yükseltme Yuvası",
+    "2 Savunma Yuvası",
+    "1 Yetenek Yuvası"
+  ]
+}

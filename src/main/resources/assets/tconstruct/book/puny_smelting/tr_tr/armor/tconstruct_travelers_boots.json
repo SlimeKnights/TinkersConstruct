@@ -1,0 +1,17 @@
+{
+  "tool": "tconstruct:travelers_boots",
+  "text": [
+    { "text": "Bu bot yürümek için yapıldı ve öylede yapacaklar." },
+	{
+      "text": "Her maceracı yolculuklarına başlamak için güzel biçimli ve özelleştirilebilir bota gereksinim duyar", "paragraph": true
+    }
+  ],
+  "properties": [
+    "Düşük Zırh",
+    "Düşük Dayanıklılık",
+    "Karda mükemmeldir",
+    "3 Yükseltme Yuvası",
+    "2 Savunma Yuvası",
+    "1 Yetenek Yuvası"
+  ]
+}

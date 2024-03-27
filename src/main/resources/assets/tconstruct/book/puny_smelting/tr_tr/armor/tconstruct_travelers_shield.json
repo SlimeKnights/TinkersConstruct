@@ -1,0 +1,17 @@
+{
+  "tool": "tconstruct:travelers_shield",
+  "text": [
+    { "text": "Ne yazıkki kötü bir frizbi oluyor." },
+    {
+      "text": "Kalkanlar dünyada saldırılara karşı kendini korumada önemlidir, en iyisi gezmeye gideriken yanına bir tane almak", "paragraph": true
+    }
+  ],
+  "properties": [
+    "Düşük Dayanıklılık",
+    "Düşük Engelleme Olasılığı",
+    "Kalkanla korunurken yüksek hız",
+    "3 Yükseltme Yuvası",
+    "2 Savunma Yuvası",
+    "1 Yetenek Yuvası"
+  ]
+}
