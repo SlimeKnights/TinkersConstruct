@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:pickaxe",
+  "text": [
+    {
+      "text": "Kazma eksiksiz bir madencilik aracıdır. Taşlarda ve cevherlerde etkilidir."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Blokları kırar, TAMAM mı?"
+    }
+  ],
+  "properties": [
+    "Yalın madencilik aracı",
+    "Bu bir kazma",
+    "Taş ve benzerlerini kazar",
+    "Fazladan delme hasarı"
+  ]
+}

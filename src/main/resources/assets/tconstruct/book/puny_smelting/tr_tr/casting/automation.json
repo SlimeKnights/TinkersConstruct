@@ -1,0 +1,17 @@
+{
+  "title": "Özişler",
+  "image": {
+    "file": "tconstruct:book/images/cast_automation.png",
+    "width": 88,
+    "height": 75
+  },
+  "text": [
+    {
+      "text": "Döküm çanağı ve masaları huni ile etkişimdedirler, böylece eşyaların kolayca eklenmesini ve şoğuyan eşyaların çıkarılmasını sağlar."
+    },
+    {
+      "text": "Redstone karşılaştırıcılar çanağa veya masaya bağlandıklarında redstone'u eğlenceli renklere dönüştürürler ve bir redstone atımı girdi ve çıktıyı değiştirmek için kullanılabilir.",
+      "paragraph": true
+    }
+  ]
+}

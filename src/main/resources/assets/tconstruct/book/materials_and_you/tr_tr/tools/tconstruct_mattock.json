@@ -1,0 +1,18 @@
+{
+  "tool": "tconstruct:mattock",
+  "text": [
+    {
+      "text": "Keser Çapası çok amaçlı bir araçtır. Kütüklerde ve toprakta etkilidir."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Düşlerinizdeki çiftliği yaratabilir."
+    }
+  ],
+  "properties": [
+    "Toprağı sürer",
+    "Toprak ve kütüklerde etkilidir"
+  ]
+}

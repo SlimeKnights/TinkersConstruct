@@ -1,0 +1,30 @@
+intro=Tanıtım
+melter=Ergitici
+moving_fluids=Sıvıları Taşıma
+casting=Döküm
+melee_harvest_materials=2. Düzey Yakın Menzilli Çıkarım Malzemeleri
+melee_harvest_materials.subtext=Bu malzemeler yakın menzilli silahların veya çıkarım araçlarının araç parçalarına dökümlenebilir.
+ranged_materials=2. Düzey Uzun Menzilli Malzemeleri
+ranged_materials.subtext=Bu malzemeler yay gibi uzun menzilli silahların araç parçalarına dökümlenebilir.
+
+further_reading=İleri Okumalar
+
+armor=Cılız Zırh
+armor.subtext=Bakır gibi erken kaynaklara erişerek çalışma istasyonunda Onarıcının Donanımını gibi yalın zırhları oluştur! Bu takım en iyi savunmayı sunmaz ama hala zırh takımını yükseltmek için çokca fırsat var!
+
+upgrades=Yükseltmeler
+upgrades.subtext=Araçlar yükseltmeler ile iyileştirilebilirlerdir, gerçi araç başına yalnızca sınırlı sayıda uygulanabilir.
+upgrades.group_general=Genel
+upgrades.group_harvest=Çıkarım
+upgrades.group_melee=Yakın Menzilli
+upgrades.group_damage=Fazladan Hasar
+upgrades.group_armor=Zırh
+upgrades.group_armor.helmet=Kask
+upgrades.group_armor.chestplate=Göğüslük
+upgrades.group_armor.leggings=Pantolon
+upgrades.group_armor.boots=Bot
+
+slotless=Yuvasız Değiştiriciler
+slotless.subtext=Bu değiştiriciler uygulanması için herhangi bir yuva gerekmez, istersen hepsine sahip olabilirsin.
+slotless.group_slotless=Yuvasız
+slotless.group_bonus_upgrades=Yuva++

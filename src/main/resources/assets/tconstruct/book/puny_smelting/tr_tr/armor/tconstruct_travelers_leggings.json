@@ -1,0 +1,17 @@
+{
+  "tool": "tconstruct:travelers_leggings",
+  "text": [
+    { "text": "Balım, paaaaaaaantoooooooolooooooonnlaaaaaaarııııım nerede?" },
+	{
+      "text": "Dünyaya pantolonsuz çıkmak pek iyi bir düşünce değil, neden seni sıcak tutacak ve gezinde sana yardımcı olacak pantolon almayasın!", "paragraph": true
+    }
+  ],
+  "properties": [
+    "Düşük Zırh",
+    "Düşük Dayanıklılık",
+    "Karda muhteşemdir",
+    "3 Yükseltme Yuvası",
+    "2 Savunma Yuvası",
+    "1 Yetenek Yuvası"
+  ]
+}

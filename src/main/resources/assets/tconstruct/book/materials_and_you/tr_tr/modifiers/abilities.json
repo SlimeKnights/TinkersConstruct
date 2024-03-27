@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:showcase",
+  "title": "Yetenekler",
+  "item": {
+    "type": "forge:nbt",
+    "item": "tconstruct:creative_slot",
+    "nbt": {
+      "slot": "abilities"
+    }
+  },
+  "tooltip": [ "Yetenek Yuvası İmgesi" ],
+  "text": [
+    {
+      "text": "Yetenekler aracı gözle görülür bir biçimde değiştiren güçlü değiştiricilerdir. Çifte kullanma araçları tutmasını kolaylaştırırken ipeksi ve kendiliğinden ergitme gibi değiştiriciler blokları çıkarma etkilerini gözle görülür biçimde değiştirir. "
+    },
+    {
+      "text": "Neredeyse bütün araçlar bir yetenek yuvasıyla başlar ve yalnızca 1 kez daha alabiliyorsun yani yeteneğini akıllıca seç."
+    },
+    {
+      "text": "Thruul M'Gon'un Yavuz Kallama kitabı, Onarıcının Bilgiliği kitabı ile birlikte araçlar için kullanılabilir yeteneklerin tümü sıralanmış biçimde bulunmaktadır.",
+      "paragraph": true
+    }
+  ]
+}

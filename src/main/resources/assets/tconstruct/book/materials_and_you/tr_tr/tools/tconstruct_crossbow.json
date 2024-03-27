@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:crossbow",
+  "text": [
+    {
+      "text": "Tatar yayı, çabuk ve savaşa hazır olmak isteyenler için kullanışlıdır"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Oku yaydan çıkarmamalısın",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "Yayın çabuk ve çevik türü",
+    "Oku ateşlemek için hazırda tutabilir",
+    "Havai fişeklerle parti yapmayı sever"
+  ]
+}

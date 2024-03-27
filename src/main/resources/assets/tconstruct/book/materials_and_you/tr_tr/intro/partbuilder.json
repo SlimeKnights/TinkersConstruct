@@ -1,0 +1,14 @@
+{
+  "title": "Parça Yapıcı",
+  "image": {
+    "file": "tconstruct:book/images/partbuilder.png",
+    "width": 170,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Parça yapmak için: başitçe düz bir taslak alın, taslak yuvasıma koyun, hangi araç parçasını yapmak istediğinizi seçin, elinizle biçimlendirilebilir bir yumuşak malzeme ekleyin ve parçanızı alın. Öncesinde yaptığın yumuşak parçayı da yeniden biçimlendirebilirsin.",
+      "paragraph": true
+    }
+	]
+}

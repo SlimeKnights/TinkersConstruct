@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:kama",
+  "text": [
+    {
+      "text": "Kama eksiksiz bir biçme aracıdır, bitkileri biçmede ve hayvanları kırpmada düşlemseldir."
+    }
+  ],
+  "properties": [
+    "Toprağı sürer",
+    "Ekinlerle etkileşim kurarak onları biç",
+    "Blokları ve hayvanları kırpar",
+    "Bitkiler üzerinde etkilidir",
+    "Alan etki saldırı yetenekleri"
+  ]
+}
