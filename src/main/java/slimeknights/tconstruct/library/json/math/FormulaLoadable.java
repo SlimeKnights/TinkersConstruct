@@ -24,12 +24,12 @@ public record FormulaLoadable(FallbackFormula fallback, String... variables) imp
   }
 
   @Override
-  public ModifierFormula fromNetwork(FriendlyByteBuf buffer, TypedMap<Object> context) throws DecoderException {
+  public ModifierFormula decode(FriendlyByteBuf buffer, TypedMap<Object> context) throws DecoderException {
     return ModifierFormula.fromNetwork(buffer, variables.length, fallback);
   }
 
   @Override
-  public void toNetwork(ModifierFormula object, FriendlyByteBuf buffer) throws EncoderException {
+  public void encode(FriendlyByteBuf buffer, ModifierFormula object) throws EncoderException {
     object.toNetwork(buffer);
   }
 

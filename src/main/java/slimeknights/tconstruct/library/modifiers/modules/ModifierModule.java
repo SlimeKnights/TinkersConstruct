@@ -92,7 +92,7 @@ public interface ModifierModule extends IHaveLoader, ModifierHookProvider {
       for (ModifierHook<?> hook : hooks) {
         buffer.writeResourceLocation(hook.getName());
       }
-      LOADER.toNetwork(module, buffer);
+      LOADER.encode(buffer, module);
     }
 
     /** Reads this module from the buffer */
@@ -107,7 +107,7 @@ public interface ModifierModule extends IHaveLoader, ModifierHookProvider {
         }
         hooks.add(hook);
       }
-      ModifierModule module = LOADER.fromNetwork(buffer);
+      ModifierModule module = LOADER.decode(buffer);
       return new ModuleWithHooks(module, hooks.build());
     }
   }

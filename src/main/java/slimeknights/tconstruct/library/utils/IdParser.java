@@ -45,12 +45,12 @@ public record IdParser<T extends ResourceLocation>(Function<String, T> construct
   }
 
   @Override
-  public T fromNetwork(FriendlyByteBuf buf) {
+  public T decode(FriendlyByteBuf buf) {
     return constructor.apply(buf.readUtf(Short.MAX_VALUE));
   }
 
   @Override
-  public void toNetwork(T object, FriendlyByteBuf buffer) throws EncoderException {
+  public void encode(FriendlyByteBuf buffer, T object) throws EncoderException {
     buffer.writeResourceLocation(object);
   }
 }

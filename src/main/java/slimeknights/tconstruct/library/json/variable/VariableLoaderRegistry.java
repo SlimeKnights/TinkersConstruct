@@ -49,8 +49,8 @@ public class VariableLoaderRegistry<T extends IHaveLoader> extends GenericLoader
   }
 
   @Override
-  public T fromNetwork(FriendlyByteBuf buffer) {
-    return super.fromNetwork(buffer);
+  public T decode(FriendlyByteBuf buffer) {
+    return super.decode(buffer);
   }
 
   /** Interface for a float constructor */

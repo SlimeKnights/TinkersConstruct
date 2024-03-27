@@ -129,12 +129,12 @@ public record IntRange(int min, int max) implements IntPredicate, Loadable<IntRa
 
   /** Reads a range from the buffer */
   @Override
-  public IntRange fromNetwork(FriendlyByteBuf buffer) {
-    return readFromNetwork(buffer);
+  public IntRange decode(FriendlyByteBuf buffer) {
+    return fromNetwork(buffer);
   }
 
   /** Reads a range from the buffer */
-  public static IntRange readFromNetwork(FriendlyByteBuf buffer) {
+  public static IntRange fromNetwork(FriendlyByteBuf buffer) {
     int min = buffer.readVarInt();
     int max = buffer.readVarInt();
     return new IntRange(min, max);
@@ -147,7 +147,7 @@ public record IntRange(int min, int max) implements IntPredicate, Loadable<IntRa
   }
 
   @Override
-  public void toNetwork(IntRange object, FriendlyByteBuf buffer) {
+  public void encode(FriendlyByteBuf buffer, IntRange object) {
     object.toNetwork(buffer);
   }
 

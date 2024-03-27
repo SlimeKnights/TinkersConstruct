@@ -331,7 +331,7 @@ public class BoxAOEIterator implements IAreaOfEffectIterator {
       for (int i = 0; i < count; i++) {
         expansions[i] = BoxSize.fromNetwork(buffer);
       }
-      IBoxExpansion direction = IBoxExpansion.REGISTRY.fromNetwork(buffer);
+      IBoxExpansion direction = IBoxExpansion.REGISTRY.decode(buffer);
       return new BoxAOEIterator(base, expansions, direction);
     }
 
@@ -355,7 +355,7 @@ public class BoxAOEIterator implements IAreaOfEffectIterator {
       for (BoxSize box : object.expansions) {
         box.toNetwork(buffer);
       }
-      IBoxExpansion.REGISTRY.toNetwork(object.direction, buffer);
+      IBoxExpansion.REGISTRY.encode(buffer, object.direction);
     }
   }
 }

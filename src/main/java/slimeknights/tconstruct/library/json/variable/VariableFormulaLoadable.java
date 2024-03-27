@@ -81,24 +81,24 @@ public record VariableFormulaLoadable<V extends IHaveLoader, F extends VariableF
   }
 
   @Override
-  public F fromNetwork(FriendlyByteBuf buffer, TypedMap<Object> context) {
+  public F decode(FriendlyByteBuf buffer, TypedMap<Object> context) {
     boolean percent = buffer.readBoolean();
     ImmutableList.Builder<V> builder = ImmutableList.builder();
     int size = buffer.readVarInt();
     for (int i = 0; i < size; i++) {
-      builder.add(variableLoader.fromNetwork(buffer));
+      builder.add(variableLoader.decode(buffer));
     }
     List<V> variables = builder.build();
     return constructor.apply(ModifierFormula.fromNetwork(buffer, defaultNames.length + variables.size(), fallback(percent)), variables, percent);
   }
 
   @Override
-  public void toNetwork(F object, FriendlyByteBuf buffer) throws EncoderException {
+  public void encode(FriendlyByteBuf buffer, F object) throws EncoderException {
     buffer.writeBoolean(object.percent());
     List<V> variables = object.variables();
     buffer.writeVarInt(variables.size());
     for (V variable : variables) {
-      variableLoader.toNetwork(variable, buffer);
+      variableLoader.encode(buffer, variable);
     }
     object.formula().toNetwork(buffer);
   }

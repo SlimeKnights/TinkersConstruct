@@ -39,7 +39,7 @@ public interface IToolModule extends IHaveLoader {
       if (hook == null) {
         throw new DecoderException("Unknown hook from network, this likely indicates a broken or outdated mod: " + hookName);
       }
-      IToolModule module = LOADER.fromNetwork(buffer);
+      IToolModule module = LOADER.decode(buffer);
       builder.addHookChecked(module, hook);
     }
     return builder.build();
@@ -52,7 +52,7 @@ public interface IToolModule extends IHaveLoader {
     buffer.writeVarInt(entries.size());
     for (Entry<ModifierHook<?>, Object> entry : entries) {
       buffer.writeResourceLocation(entry.getKey().getName());
-      LOADER.toNetwork((IToolModule) entry.getValue(), buffer);
+      LOADER.encode(buffer, (IToolModule) entry.getValue());
     }
   }
 

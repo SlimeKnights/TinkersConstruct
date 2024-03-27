@@ -64,8 +64,8 @@ public record StatInSetPredicate<T>(IToolStat<T> stat, Set<T> values) implements
     }
 
     @Override
-    public StatInSetPredicate<?> fromNetwork(FriendlyByteBuf buffer, TypedMap<Object> context) {
-      return fromNetwork(buffer, ToolStats.LOADER.fromNetwork(buffer));
+    public StatInSetPredicate<?> decode(FriendlyByteBuf buffer, TypedMap<Object> context) {
+      return fromNetwork(buffer, ToolStats.LOADER.decode(buffer));
     }
 
     /** Handles generics for the set reading */
@@ -79,8 +79,8 @@ public record StatInSetPredicate<T>(IToolStat<T> stat, Set<T> values) implements
     }
 
     @Override
-    public void toNetwork(StatInSetPredicate<?> object, FriendlyByteBuf buffer) {
-      ToolStats.LOADER.toNetwork(object.stat, buffer);
+    public void encode(FriendlyByteBuf buffer, StatInSetPredicate<?> object) {
+      ToolStats.LOADER.encode(buffer, object.stat);
       setToNetwork(object, buffer);
     }
 

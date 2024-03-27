@@ -59,21 +59,21 @@ public record MergingListField<T,P>(LoadableField<T,T> field, String key, Functi
   }
 
   @Override
-  public List<T> fromNetwork(FriendlyByteBuf buffer) {
+  public List<T> decode(FriendlyByteBuf buffer) {
     ImmutableList.Builder<T> builder = ImmutableList.builder();
     int size = buffer.readVarInt();
     for (int i = 0; i < size; i++) {
-      builder.add(field.fromNetwork(buffer));
+      builder.add(field.decode(buffer));
     }
     return builder.build();
   }
 
   @Override
-  public void toNetwork(P parent, FriendlyByteBuf buffer) {
+  public void encode(FriendlyByteBuf buffer, P parent) {
     List<T> list = getter.apply(parent);
     buffer.writeVarInt(list.size());
     for (T value : list) {
-      field.toNetwork(value, buffer);
+      field.encode(buffer, value);
     }
   }
 }

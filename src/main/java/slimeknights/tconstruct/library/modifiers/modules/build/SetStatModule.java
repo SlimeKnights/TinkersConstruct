@@ -70,7 +70,7 @@ public record SetStatModule<T>(IToolStat<T> stat, T value, ModifierModuleConditi
 
     @Override
     public SetStatModule<?> fromNetwork(FriendlyByteBuf buffer) {
-      return fromNetwork(buffer, ToolStats.LOADER.fromNetwork(buffer));
+      return fromNetwork(buffer, ToolStats.LOADER.decode(buffer));
     }
 
     /** Handles generics for reading the value from network */
@@ -82,7 +82,7 @@ public record SetStatModule<T>(IToolStat<T> stat, T value, ModifierModuleConditi
 
     @Override
     public void toNetwork(SetStatModule<?> object, FriendlyByteBuf buffer) {
-      ToolStats.LOADER.toNetwork(object.stat, buffer);
+      ToolStats.LOADER.encode(buffer, object.stat);
       writeValue(object, buffer);
       object.condition.toNetwork(buffer);
     }

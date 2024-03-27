@@ -144,7 +144,7 @@ public class ModifiedHarvestLogic extends TagHarvestLogic {
     /** Writes this object to the network */
     public void toNetwork(FriendlyByteBuf buffer) {
       buffer.writeFloat(modifier);
-      BlockPredicate.LOADER.toNetwork(predicate, buffer);
+      BlockPredicate.LOADER.encode(buffer, predicate);
     }
 
     /** Parses a speed modifier from JSON */
@@ -157,7 +157,7 @@ public class ModifiedHarvestLogic extends TagHarvestLogic {
     /** Parses a speed modifier from the packet buffer */
     private static SpeedModifier fromNetwork(FriendlyByteBuf buffer) {
       float modifier = buffer.readFloat();
-      IJsonPredicate<BlockState> predicate = BlockPredicate.LOADER.fromNetwork(buffer);
+      IJsonPredicate<BlockState> predicate = BlockPredicate.LOADER.decode(buffer);
       return new SpeedModifier(modifier, predicate);
     }
   }

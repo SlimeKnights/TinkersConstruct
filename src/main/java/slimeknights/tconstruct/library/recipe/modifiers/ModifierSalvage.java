@@ -123,7 +123,7 @@ public class ModifierSalvage implements ICustomOutputRecipe<Container> {
     public ModifierSalvage fromNetworkSafe(ResourceLocation id, FriendlyByteBuf buffer) {
       Ingredient toolIngredient = Ingredient.fromNetwork(buffer);
       int maxToolSize = buffer.readVarInt();
-      ModifierId modifier = ModifierId.PARSER.fromNetwork(buffer);
+      ModifierId modifier = ModifierId.PARSER.decode(buffer);
       int minLevel = buffer.readVarInt();
       int maxLevel = buffer.readVarInt();
       SlotCount slots = SlotCount.read(buffer);

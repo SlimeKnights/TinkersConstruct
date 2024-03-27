@@ -118,7 +118,7 @@ public class ToolStats {
 
   /** Reads a stat from the network */
   public static IToolStat<?> fromNetwork(FriendlyByteBuf buffer) {
-    return LOADER.fromNetwork(buffer);
+    return LOADER.decode(buffer);
   }
 
   /**
@@ -126,7 +126,7 @@ public class ToolStats {
    * @throws JsonSyntaxException if invalid
    */
   public static INumericToolStat<?> numericFromNetwork(FriendlyByteBuf buffer) {
-    return NUMERIC_LOADER.fromNetwork(buffer);
+    return NUMERIC_LOADER.decode(buffer);
   }
 
   /**

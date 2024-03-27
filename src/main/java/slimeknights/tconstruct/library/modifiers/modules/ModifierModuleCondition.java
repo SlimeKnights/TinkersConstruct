@@ -68,14 +68,14 @@ public record ModifierModuleCondition(IJsonPredicate<IToolContext> tool, IntRang
 
   /** Writes this object to the network */
   public void toNetwork(FriendlyByteBuf buffer) {
-    ToolContextPredicate.LOADER.toNetwork(this.tool, buffer);
+    ToolContextPredicate.LOADER.encode(buffer, this.tool);
     this.modifierLevel.toNetwork(buffer);
   }
 
   /** Reads this object from the network */
   public static ModifierModuleCondition fromNetwork(FriendlyByteBuf buffer) {
-    IJsonPredicate<IToolContext> tool = ToolContextPredicate.LOADER.fromNetwork(buffer);
-    IntRange modifierLevel = IntRange.readFromNetwork(buffer);
+    IJsonPredicate<IToolContext> tool = ToolContextPredicate.LOADER.decode(buffer);
+    IntRange modifierLevel = IntRange.fromNetwork(buffer);
     return new ModifierModuleCondition(tool, modifierLevel);
   }
 

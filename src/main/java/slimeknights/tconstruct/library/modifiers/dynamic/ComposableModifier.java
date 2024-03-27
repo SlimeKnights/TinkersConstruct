@@ -139,7 +139,7 @@ public class ComposableModifier extends BasicModifier {
 
     @Override
     public ComposableModifier fromNetwork(FriendlyByteBuf buffer) {
-      ModifierLevelDisplay levelDisplay = ModifierLevelDisplay.LOADER.fromNetwork(buffer);
+      ModifierLevelDisplay levelDisplay = ModifierLevelDisplay.LOADER.decode(buffer);
       TooltipDisplay tooltipDisplay = buffer.readEnum(TooltipDisplay.class);
       int priority = buffer.readInt();
       int moduleCount = buffer.readVarInt();
@@ -156,7 +156,7 @@ public class ComposableModifier extends BasicModifier {
 
     @Override
     public void toNetwork(ComposableModifier object, FriendlyByteBuf buffer) {
-      ModifierLevelDisplay.LOADER.toNetwork(object.levelDisplay, buffer);
+      ModifierLevelDisplay.LOADER.encode(buffer, object.levelDisplay);
       buffer.writeEnum(object.tooltipDisplay);
       buffer.writeInt(object.priority);
       buffer.writeVarInt(object.modules.size());

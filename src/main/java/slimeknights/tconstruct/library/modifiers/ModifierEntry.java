@@ -133,7 +133,7 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
    * @return  Read entry
    */
   public static ModifierEntry read(FriendlyByteBuf buffer) {
-    return LOADABLE.fromNetwork(buffer);
+    return LOADABLE.decode(buffer);
   }
 
   /**
@@ -141,7 +141,7 @@ public class ModifierEntry implements Comparable<ModifierEntry> {
    * @param buffer  Buffer instance
    */
   public void write(FriendlyByteBuf buffer) {
-    LOADABLE.toNetwork(this, buffer);
+    LOADABLE.encode(buffer, this);
   }
 
   @Override

@@ -49,12 +49,12 @@ public record RandomLevelingValue(float flat, float perLevel, float randomBonus)
 
   /** Writes this to the network */
   public void toNetwork(FriendlyByteBuf buffer) {
-    LOADABLE.toNetwork(this, buffer);
+    LOADABLE.encode(buffer, this);
   }
 
   /** Reads this from teh network */
   public static RandomLevelingValue fromNetwork(FriendlyByteBuf buffer) {
-    return LOADABLE.fromNetwork(buffer);
+    return LOADABLE.decode(buffer);
   }
 
 

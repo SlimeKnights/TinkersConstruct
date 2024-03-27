@@ -72,7 +72,7 @@ public class UpdateModifiersPacket implements IThreadsafePacket {
     Map<ModifierId,Modifier> modifiers = new HashMap<>();
     for (int i = 0; i < size; i++) {
       ModifierId id = new ModifierId(buffer.readUtf(Short.MAX_VALUE));
-      Modifier modifier = ModifierManager.MODIFIER_LOADERS.fromNetwork(buffer);
+      Modifier modifier = ModifierManager.MODIFIER_LOADERS.decode(buffer);
       modifier.setId(id);
       modifiers.put(id, modifier);
     }
@@ -111,7 +111,7 @@ public class UpdateModifiersPacket implements IThreadsafePacket {
     buffer.writeVarInt(modifiers.size());
     for (Modifier modifier : modifiers) {
       buffer.writeResourceLocation(modifier.getId());
-      ModifierManager.MODIFIER_LOADERS.toNetwork(modifier, buffer);
+      ModifierManager.MODIFIER_LOADERS.encode(buffer, modifier);
     }
     // write redirects
     buffer.writeVarInt(redirects.size());

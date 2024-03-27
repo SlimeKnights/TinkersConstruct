@@ -47,12 +47,12 @@ public record MergingField<T,P>(LoadableField<T,P> field, String key, MissingMod
   }
 
   @Override
-  public T fromNetwork(FriendlyByteBuf buffer) {
-    return field.fromNetwork(buffer);
+  public T decode(FriendlyByteBuf buffer) {
+    return field.decode(buffer);
   }
 
   @Override
-  public void toNetwork(P parent, FriendlyByteBuf buffer) {
-    field.toNetwork(parent, buffer);
+  public void encode(FriendlyByteBuf buffer, P parent) {
+    field.encode(buffer, parent);
   }
 }

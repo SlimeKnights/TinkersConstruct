@@ -220,9 +220,9 @@ public class ToolDefinitionData {
         buffer.writeUtf(action.name());
       }
     }
-    IHarvestLogic.LOADER.toNetwork(getHarvestLogic(), buffer);
-    IAreaOfEffectIterator.LOADER.toNetwork(getAOE(), buffer);
-    IWeaponAttack.LOADER.toNetwork(getAttack(), buffer);
+    IHarvestLogic.LOADER.encode(buffer, getHarvestLogic());
+    IAreaOfEffectIterator.LOADER.encode(buffer, getAOE());
+    IWeaponAttack.LOADER.encode(buffer, getAttack());
     IToolModule.write(getModules(), buffer);
   }
 
@@ -246,9 +246,9 @@ public class ToolDefinitionData {
     for (int i = 0; i < size; i++) {
       actions.add(ToolAction.get(buffer.readUtf()));
     }
-    IHarvestLogic harvestLogic = IHarvestLogic.LOADER.fromNetwork(buffer);
-    IAreaOfEffectIterator aoe = IAreaOfEffectIterator.LOADER.fromNetwork(buffer);
-    IWeaponAttack attack = IWeaponAttack.LOADER.fromNetwork(buffer);
+    IHarvestLogic harvestLogic = IHarvestLogic.LOADER.decode(buffer);
+    IAreaOfEffectIterator aoe = IAreaOfEffectIterator.LOADER.decode(buffer);
+    IWeaponAttack attack = IWeaponAttack.LOADER.decode(buffer);
     ModifierHookMap modules = IToolModule.read(buffer);
     return new ToolDefinitionData(parts.build(), new Stats(bonuses, multipliers), slots, traits.build(), actions.build(), new Harvest(harvestLogic, aoe), attack, modules);
   }

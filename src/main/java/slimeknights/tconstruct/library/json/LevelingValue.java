@@ -53,12 +53,12 @@ public record LevelingValue(float flat, float eachLevel) {
 
   /** Writes this to the network */
   public void toNetwork(FriendlyByteBuf buffer) {
-    LOADABLE.toNetwork(this, buffer);
+    LOADABLE.encode(buffer, this);
   }
 
   /** Reads this from teh network */
   public static LevelingValue fromNetwork(FriendlyByteBuf buffer) {
-    return LOADABLE.fromNetwork(buffer);
+    return LOADABLE.decode(buffer);
   }
 
 
