@@ -1002,8 +1002,8 @@
 "block.tconstruct.seared_melter.tooltip": "Erste Schmelzerei.\nPlatzieren Sie sie über einem Tank oder einer Heizung, um Kraftstoff zu tanken.",
 "gui.tconstruct.melter": "Schmelzgerät",
 "gui.tconstruct.melting.capacity": "Kapazität:",
-"gui.tconstruct.melting.available": "Kostenlos:",
-"gui.tconstruct.melting.used": "Gebraucht:",
+"gui.tconstruct.melting.available": "Verbleibend:",
+"gui.tconstruct.melting.used": "Verbraucht:",
 
 "block.tconstruct.seared_heater": "Versengte Heizung",
 "block.tconstruct.seared_heater.tooltip": "Feste Brennstoffquelle für den Schmelzer.",
