@@ -1,7 +1,9 @@
 package slimeknights.tconstruct.tools.data;
 
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.modifiers.util.DynamicModifier;
 
 /**
  * This class contains the IDs of any dynamic modifiers that are not required.
@@ -65,6 +67,8 @@ public class ModifierIds {
 
   // armor
   public static final ModifierId protection = id("protection");
+  public static final ModifierId meleeProtection = id("melee_protection");
+
   public static final ModifierId fireProtection = id("fire_protection");
   public static final ModifierId turtleShell = id("turtle_shell");
   public static final ModifierId wings = id("wings");

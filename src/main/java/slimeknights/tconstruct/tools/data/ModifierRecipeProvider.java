@@ -642,12 +642,12 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // protection
     // all held tools can receive defense slots, so give them something to use it for
     Ingredient protectableTools = ingredientFromTags(TinkerTags.Items.ARMOR, TinkerTags.Items.HELD);
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.meleeProtection)
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.meleeProtection)
                                     .setInput(TinkerModifiers.cobaltReinforcement, 1, 5)
                                     .setSlots(SlotType.DEFENSE, 1)
                                     .setTools(protectableTools)
-                                    .saveSalvage(consumer, prefix(TinkerModifiers.meleeProtection, defenseSalvage))
-                                    .save(consumer, prefix(TinkerModifiers.meleeProtection, defenseFolder));
+                                    .saveSalvage(consumer, prefix(ModifierIds.meleeProtection, defenseSalvage))
+                                    .save(consumer, prefix(ModifierIds.meleeProtection, defenseFolder));
     IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.projectileProtection)
                                     .setInput(TinkerModifiers.ironReinforcement, 1, 5)
                                     .setSlots(SlotType.DEFENSE, 1)

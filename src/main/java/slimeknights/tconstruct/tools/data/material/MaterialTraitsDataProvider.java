@@ -70,7 +70,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.obsidian, ARMOR, TinkerModifiers.blastProtection);
     // tier 3 - nether
     addDefaultTraits(MaterialIds.cobalt, ModifierIds.lightweight);
-    addTraits(MaterialIds.cobalt, ARMOR, TinkerModifiers.meleeProtection);
+    addTraits(MaterialIds.cobalt, ARMOR, ModifierIds.meleeProtection);
     // tier 3 - binding
     addDefaultTraits(MaterialIds.darkthread, ModifierIds.looting);
 

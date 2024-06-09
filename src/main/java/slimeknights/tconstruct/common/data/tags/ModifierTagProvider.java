@@ -70,7 +70,7 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
            TinkerModifiers.shears.getId(), TinkerModifiers.harvest.getId())
       .addOptional(ModifierIds.pockets);
     tag(SLIME_DEFENSE)
-      .add(TinkerModifiers.meleeProtection.getId(), TinkerModifiers.projectileProtection.getId(),
+      .add(ModifierIds.meleeProtection, TinkerModifiers.projectileProtection.getId(),
            ModifierIds.fireProtection, TinkerModifiers.magicProtection.getId(),
            TinkerModifiers.blastProtection.getId(), TinkerModifiers.golden.getId());
     tag(OVERSLIME_FRIEND)
@@ -146,7 +146,7 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
     // defense
     this.tag(PROTECTION_DEFENSE).add(
       TinkerModifiers.blastProtection.getId(), ModifierIds.fireProtection, TinkerModifiers.magicProtection.getId(),
-      TinkerModifiers.meleeProtection.getId(), TinkerModifiers.projectileProtection.getId(),
+      ModifierIds.meleeProtection, TinkerModifiers.projectileProtection.getId(),
       TinkerModifiers.dragonborn.getId(), TinkerModifiers.shulking.getId(), ModifierIds.turtleShell);
     this.tag(SPECIAL_DEFENSE).add(TinkerModifiers.golden.getId(), ModifierIds.knockbackResistance, ModifierIds.revitalizing);
 

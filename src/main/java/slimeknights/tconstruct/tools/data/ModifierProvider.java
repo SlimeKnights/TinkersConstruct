@@ -90,6 +90,7 @@ import slimeknights.tconstruct.library.modifiers.modules.mining.ConditionalMinin
 import slimeknights.tconstruct.library.modifiers.modules.technical.ArmorLevelModule;
 import slimeknights.tconstruct.library.modifiers.modules.technical.ArmorStatModule;
 import slimeknights.tconstruct.library.modifiers.modules.technical.ArmorStatModule.TooltipStyle;
+import slimeknights.tconstruct.library.modifiers.modules.technical.MaxArmorStatModule;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay.UniqueForLevels;
@@ -340,6 +341,9 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.revitalizing).addModule(AttributeModule.builder(Attributes.MAX_HEALTH, Operation.ADDITION).uniqueFrom(ModifierIds.revitalizing).slots(armorSlots).eachLevel(2));
     // protection
     buildModifier(ModifierIds.protection).addModule(ProtectionModule.builder().eachLevel(1.25f));
+    buildModifier(ModifierIds.meleeProtection)
+      .addModule(MaxArmorStatModule.builder(TinkerDataKeys.USE_ITEM_SPEED, TinkerDataKeys.MELEE_PROTECTION).eachLevel(0.005f))
+      .addModule(ProtectionModule.builder().sources(DamageSourcePredicate.CAN_PROTECT, DamageSourcePredicate.MELEE).eachLevel(2.5f));
     buildModifier(ModifierIds.fireProtection)
       .addModule(EnchantmentModule.builder(Enchantments.FIRE_PROTECTION).protection())
       .addModule(ProtectionModule.builder().sources(DamageSourcePredicate.CAN_PROTECT, DamageSourcePredicate.FIRE).eachLevel(2.5f));
