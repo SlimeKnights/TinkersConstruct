@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.modifiers.modules.technical;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlot.Type;
@@ -14,9 +15,9 @@ import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
-import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.utils.IdParser;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -29,7 +30,7 @@ import java.util.List;
 public record MaxArmorLevelModule(TinkerDataKey<Float> key, boolean allowBroken, @Nullable TagKey<Item> heldTag) implements HookProvider, EquipmentChangeModifierHook, ModifierModule {
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<MaxArmorLevelModule>defaultHooks(ModifierHooks.EQUIPMENT_CHANGE);
   public static final RecordLoadable<MaxArmorLevelModule> LOADER = RecordLoadable.create(
-    TinkerDataKeys.FLOAT_REGISTRY.requiredField("data_key", MaxArmorLevelModule::key),
+    new IdParser<>(ResourceLocation::new, "Stat").xmap((location, factory) -> TinkerDataKey.<Float>of(location), (tinkerDataKey, errorFactory) -> tinkerDataKey.getId()).requiredField("key", MaxArmorLevelModule::key),
     BooleanLoadable.INSTANCE.defaultField("allow_broken", false, MaxArmorLevelModule::allowBroken),
     Loadables.ITEM_TAG.nullableField("held_tag", MaxArmorLevelModule::heldTag),
     MaxArmorLevelModule::new);
