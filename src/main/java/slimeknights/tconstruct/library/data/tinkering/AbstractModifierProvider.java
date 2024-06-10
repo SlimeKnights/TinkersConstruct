@@ -122,11 +122,7 @@ public abstract class AbstractModifierProvider extends GenericDataProvider {
   private static JsonObject serializeModifier(@Nullable Modifier modifier, @Nullable ICondition condition, JsonRedirect[] redirects) {
     JsonObject json;
     if (modifier != null) {
-      try {
-        json = ModifierManager.MODIFIER_LOADERS.serialize(modifier).getAsJsonObject();
-      } catch (Exception e) {
-        throw e;
-      }
+      json = ModifierManager.MODIFIER_LOADERS.serialize(modifier).getAsJsonObject();
     } else {
       json = new JsonObject();
     }
