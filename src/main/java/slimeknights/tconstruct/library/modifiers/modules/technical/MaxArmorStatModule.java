@@ -6,7 +6,6 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
@@ -15,6 +14,7 @@ import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
 import slimeknights.mantle.data.loadable.primitive.EnumLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -36,27 +36,30 @@ import slimeknights.tconstruct.library.utils.Util;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public record MaxArmorStatModule(TinkerDataCapability.TinkerDataKey<Float> key, LevelingValue amount, TinkerDataCapability.TinkerDataKey<Integer> key2, boolean allowBroken, @Nullable TagKey<Item> heldTag, ArmorStatModule.TooltipStyle tooltipStyle, ModifierCondition<IToolStackView> condition) implements HookProvider, EquipmentChangeModifierHook, ModifierModule, TooltipModifierHook, ModifierCondition.ConditionalModule<IToolStackView> {
+public record MaxArmorStatModule(TinkerDataCapability.TinkerDataKey<Float> statKey, LevelingValue amount, TinkerDataCapability.TinkerDataKey<Float> key, boolean allowBroken, @Nullable TagKey<Item> heldTag, ArmorStatModule.TooltipStyle tooltipStyle, ModifierCondition<IToolStackView> condition) implements HookProvider, EquipmentChangeModifierHook, ModifierModule, TooltipModifierHook, ModifierCondition.ConditionalModule<IToolStackView> {
   private static final List<ModuleHook<?>> TOOLTIP_HOOKS = HookProvider.<ArmorStatModule>defaultHooks(ModifierHooks.EQUIPMENT_CHANGE, ModifierHooks.TOOLTIP);
   private static final List<ModuleHook<?>> NO_TOOLTIP_HOOKS = HookProvider.<ArmorStatModule>defaultHooks(ModifierHooks.EQUIPMENT_CHANGE);
   public static final RecordLoadable<MaxArmorStatModule> LOADER = RecordLoadable.create(
-    TinkerDataKeys.FLOAT_REGISTRY.requiredField("key", MaxArmorStatModule::key),
+    TinkerDataKeys.FLOAT_REGISTRY.requiredField("stat_key", MaxArmorStatModule::statKey),
     LevelingValue.LOADABLE.directField(MaxArmorStatModule::amount),
-    TinkerDataKeys.INTEGER_REGISTRY.requiredField("key2", MaxArmorStatModule::key2),
     BooleanLoadable.INSTANCE.defaultField("allow_broken", false, MaxArmorStatModule::allowBroken),
     Loadables.ITEM_TAG.nullableField("held_tag", MaxArmorStatModule::heldTag),
     new EnumLoadable<>(ArmorStatModule.TooltipStyle.class).defaultField("tooltip_style", ArmorStatModule.TooltipStyle.NONE, MaxArmorStatModule::tooltipStyle),
     ModifierCondition.TOOL_FIELD,
     MaxArmorStatModule::new);
 
-  @Override
+  public MaxArmorStatModule(TinkerDataCapability.TinkerDataKey<Float> statKey, LevelingValue amount, boolean allowBroken, @Nullable TagKey<Item> heldTag, ArmorStatModule.TooltipStyle tooltipStyle, ModifierCondition<IToolStackView> condition) {
+    this(statKey, amount, TConstruct.createKey(statKey.getId().getNamespace() + "_data"), allowBroken, heldTag, tooltipStyle, condition);
+  }
+
+    @Override
   public RecordLoadable<MaxArmorStatModule> getLoader() {
     return LOADER;
   }
 
   @Override
   public void addModules(ModuleHookMap.Builder builder) {
-    builder.addModule(new MaxArmorLevelModule(key2, allowBroken, heldTag));
+    builder.addModule(new MaxArmorLevelModule(key, allowBroken, heldTag));
   }
 
   @Override
@@ -68,7 +71,7 @@ public record MaxArmorStatModule(TinkerDataCapability.TinkerDataKey<Float> key, 
   public void onEquip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
     if (condition.matches(tool, modifier)) {
       context.getTinkerData().ifPresent(data -> {
-        addStatIfArmor(tool, context, key, amount.compute(data.get(key2, 0)), allowBroken, heldTag);
+        addStatIfArmor(tool, context, statKey, amount.compute(data.get(key, 0f)), allowBroken, heldTag);
       });
 
     }
@@ -78,39 +81,27 @@ public record MaxArmorStatModule(TinkerDataCapability.TinkerDataKey<Float> key, 
   public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
     if (condition.matches(tool, modifier)) {
       context.getTinkerData().ifPresent(data -> {
-        addStatIfArmor(tool, context, key, amount.compute(data.get(key2, 0)), allowBroken, heldTag);
-      });    }
+        addStatIfArmor(tool, context, statKey, amount.compute(data.get(key, 0f)), allowBroken, heldTag);
+      });
+    }
   }
 
   @Override
   public void addTooltip(IToolStackView tool, ModifierEntry modifier, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     if (condition.matches(tool, modifier) && (tool.hasTag(TinkerTags.Items.WORN_ARMOR) || heldTag != null && tool.hasTag(heldTag)) && (!tool.isBroken() || allowBroken)) {
-      float value = amount.compute(modifier.getEffectiveLevel());
-      if (value != 0) {
-        Component name = Component.translatable(Util.makeTranslationKey("armor_stat", key.getId()));
-        switch (tooltipStyle) {
-          case BOOST -> TooltipModifierHook.addFlatBoost(modifier.getModifier(), name, value, tooltip);
-          case PERCENT -> TooltipModifierHook.addPercentBoost(modifier.getModifier(), name, value, tooltip);
-        }
+      if (player != null) {
+        player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
+          float value = amount.compute(modifier.getEffectiveLevel());
+          if (value != 0) {
+            Component name = Component.translatable(Util.makeTranslationKey("armor_stat", statKey.getId()));
+            switch (tooltipStyle) {
+              case BOOST -> TooltipModifierHook.addFlatBoost(modifier.getModifier(), name, value, tooltip);
+              case PERCENT -> TooltipModifierHook.addPercentBoost(modifier.getModifier(), name, value, tooltip);
+            }
+          }
+        });
       }
     }
-  }
-
-  /**
-   * Adds to the armor stat for the given key. Make sure to subtract on unequip if you add on equip, it will not automatically be removed.
-   * @param context  Equipment change context
-   * @param key      Key to modify
-   * @param amount   Amount to add
-   */
-  public static void addStat(EquipmentChangeContext context, TinkerDataCapability.TinkerDataKey<Float> key, float amount) {
-    context.getTinkerData().ifPresent(data -> {
-      float totalLevels = data.get(key, 0f) + amount;
-      if (totalLevels <= 0.005f) {
-        data.remove(key);
-      } else {
-        data.put(key, totalLevels);
-      }
-    });
   }
 
   /**
@@ -123,33 +114,28 @@ public record MaxArmorStatModule(TinkerDataCapability.TinkerDataKey<Float> key, 
    */
   public static void addStatIfArmor(IToolStackView tool, EquipmentChangeContext context, TinkerDataCapability.TinkerDataKey<Float> key, float amount, boolean allowBroken, @Nullable TagKey<Item> heldTag) {
     if (ArmorLevelModule.validSlot(tool, context.getChangedSlot(), heldTag) && (!tool.isBroken() || allowBroken)) {
-      addStat(context, key, amount);
+      context.getTinkerData().ifPresent(data -> {
+        float totalLevels = data.get(key, 0f) + amount;
+        if (totalLevels <= 0.005f) {
+          data.remove(key);
+        } else {
+          data.put(key, totalLevels);
+        }
+      });
     }
-  }
-
-  /**
-   * Gets the total level from the key in the entity modifier data
-   * @param living  Living entity
-   * @param key     Key to get
-   * @return  Level from the key
-   */
-  public static float getStat(LivingEntity living, TinkerDataCapability.TinkerDataKey<Float> key) {
-    return living.getCapability(TinkerDataCapability.CAPABILITY).resolve().map(data -> data.get(key)).orElse(0f);
   }
 
 
   /* Builder */
-
-  public static MaxArmorStatModule.Builder builder(TinkerDataCapability.TinkerDataKey<Float> key, TinkerDataCapability.TinkerDataKey<Integer> key2) {
-    return new MaxArmorStatModule.Builder(key, key2);
+  public static MaxArmorStatModule.Builder builder(TinkerDataCapability.TinkerDataKey<Float> statKey) {
+    return new MaxArmorStatModule.Builder(statKey);
   }
 
   @Setter
   @Accessors(fluent = true)
   @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   public static class Builder extends ModuleBuilder.Stack<MaxArmorStatModule.Builder> implements LevelingValue.Builder<MaxArmorStatModule> {
-    private final TinkerDataCapability.TinkerDataKey<Float> key;
-    private final TinkerDataCapability.TinkerDataKey<Integer> key2;
+    private final TinkerDataCapability.TinkerDataKey<Float> statKey;
     private boolean allowBroken = false;
     @Nullable
     private TagKey<Item> heldTag;
@@ -162,7 +148,7 @@ public record MaxArmorStatModule(TinkerDataCapability.TinkerDataKey<Float> key, 
 
     @Override
     public MaxArmorStatModule amount(float flat, float eachLevel) {
-      return new MaxArmorStatModule(key, new LevelingValue(flat, eachLevel), key2, allowBroken, heldTag, tooltipStyle, condition);
+      return new MaxArmorStatModule(statKey, new LevelingValue(flat, eachLevel), allowBroken, heldTag, tooltipStyle, condition);
     }
   }
 }

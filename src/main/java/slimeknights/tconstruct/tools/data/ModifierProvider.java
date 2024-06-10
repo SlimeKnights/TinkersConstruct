@@ -342,7 +342,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     // protection
     buildModifier(ModifierIds.protection).addModule(ProtectionModule.builder().eachLevel(1.25f));
     buildModifier(ModifierIds.meleeProtection)
-      .addModule(MaxArmorStatModule.builder(TinkerDataKeys.USE_ITEM_SPEED, TinkerDataKeys.MELEE_PROTECTION).eachLevel(0.005f))
+      .addModule(MaxArmorStatModule.builder(TinkerDataKeys.USE_ITEM_SPEED).eachLevel(0.005f))
       .addModule(ProtectionModule.builder().sources(DamageSourcePredicate.CAN_PROTECT, DamageSourcePredicate.MELEE).eachLevel(2.5f));
     buildModifier(ModifierIds.fireProtection)
       .addModule(EnchantmentModule.builder(Enchantments.FIRE_PROTECTION).protection())

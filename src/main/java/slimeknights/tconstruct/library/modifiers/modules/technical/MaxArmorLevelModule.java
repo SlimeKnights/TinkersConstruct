@@ -3,9 +3,7 @@ package slimeknights.tconstruct.library.modifiers.modules.technical;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlot.Type;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.common.util.LazyOptional;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
@@ -15,7 +13,6 @@ import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModif
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
-import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
@@ -25,15 +22,14 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 /**
- * Module for keeping track of the total level of a modifier across all pieces of equipment. Does not support incremental, use {@link ArmorStatModule} for that.
- * @see ArmorStatModule
+ * Module for keeping track of the max level of a modifier across all pieces of equipment.
  * @see TinkerDataKey
  * @see slimeknights.tconstruct.library.modifiers.modules.behavior.ShowOffhandModule
  */
-public record MaxArmorLevelModule(TinkerDataKey<Integer> key, boolean allowBroken, @Nullable TagKey<Item> heldTag) implements HookProvider, EquipmentChangeModifierHook, ModifierModule {
+public record MaxArmorLevelModule(TinkerDataKey<Float> key, boolean allowBroken, @Nullable TagKey<Item> heldTag) implements HookProvider, EquipmentChangeModifierHook, ModifierModule {
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<MaxArmorLevelModule>defaultHooks(ModifierHooks.EQUIPMENT_CHANGE);
   public static final RecordLoadable<MaxArmorLevelModule> LOADER = RecordLoadable.create(
-    TinkerDataKeys.INTEGER_REGISTRY.requiredField("key", MaxArmorLevelModule::key),
+    TinkerDataKeys.FLOAT_REGISTRY.requiredField("data_key", MaxArmorLevelModule::key),
     BooleanLoadable.INSTANCE.defaultField("allow_broken", false, MaxArmorLevelModule::allowBroken),
     Loadables.ITEM_TAG.nullableField("held_tag", MaxArmorLevelModule::heldTag),
     MaxArmorLevelModule::new);
@@ -50,12 +46,12 @@ public record MaxArmorLevelModule(TinkerDataKey<Integer> key, boolean allowBroke
 
   @Override
   public void onEquip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
-    findMaxLevelIfArmor(tool, context, key, modifier.intEffectiveLevel(), allowBroken, heldTag);
+    updateMaxLevelIfArmor(tool, context, key, modifier.intEffectiveLevel(), allowBroken, heldTag);
   }
 
   @Override
   public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
-    findMaxLevelIfArmor(tool, context, key, -modifier.intEffectiveLevel(), allowBroken, heldTag);
+    updateMaxLevelIfArmor(tool, context, key, -modifier.intEffectiveLevel(), allowBroken, heldTag);
   }
 
 
@@ -67,9 +63,9 @@ public record MaxArmorLevelModule(TinkerDataKey<Integer> key, boolean allowBroke
    * @param key      Key to modify
    * @param amount   Amount to add
    */
-  public static void findMaxLevel(EquipmentChangeContext context, TinkerDataKey<Integer> key, int amount) {
+  public static void updateMaxLevel(EquipmentChangeContext context, TinkerDataKey<Float> key, int amount) {
     context.getTinkerData().ifPresent(data -> {
-      int maxLevel = Math.max(data.get(key, 0), amount);
+      float maxLevel = Math.max(data.get(key, 0f), amount);
       if (maxLevel <= 0) {
         data.remove(key);
       } else {
@@ -91,29 +87,9 @@ public record MaxArmorLevelModule(TinkerDataKey<Integer> key, boolean allowBroke
    * @param amount   Amount to add
    * @param heldTag  Tag to check to validate held items, if null held items are considered to never be valid
    */
-  public static void findMaxLevelIfArmor(IToolStackView tool, EquipmentChangeContext context, TinkerDataKey<Integer> key, int amount, boolean allowBroken, @Nullable TagKey<Item> heldTag) {
+  public static void updateMaxLevelIfArmor(IToolStackView tool, EquipmentChangeContext context, TinkerDataKey<Float> key, int amount, boolean allowBroken, @Nullable TagKey<Item> heldTag) {
     if (validSlot(tool, context.getChangedSlot(), heldTag) && (allowBroken || !tool.isBroken())) {
-      findMaxLevel(context, key, amount);
+      updateMaxLevel(context, key, amount);
     }
-  }
-
-  /**
-   * Gets the total level from the key in the entity modifier data
-   * @param living  Living entity
-   * @param key     Key to get
-   * @return  Level from the key
-   */
-  public static int getLevel(LivingEntity living, TinkerDataKey<Integer> key) {
-    return getLevel(living.getCapability(TinkerDataCapability.CAPABILITY), key);
-  }
-
-  /**
-   * Gets the total level from the key in the entity modifier data
-   * @param cap    Capability instance
-   * @param key    Key to get
-   * @return  Level from the key
-   */
-  public static int getLevel(LazyOptional<TinkerDataCapability.Holder> cap, TinkerDataKey<Integer> key) {
-    return cap.resolve().map(data -> data.get(key)).orElse(0);
   }
 }

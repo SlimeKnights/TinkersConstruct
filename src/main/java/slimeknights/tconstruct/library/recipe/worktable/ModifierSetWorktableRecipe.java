@@ -47,7 +47,7 @@ public class ModifierSetWorktableRecipe extends AbstractWorktableRecipe {
   /** Loader instance */
   public static final RecordLoadable<ModifierSetWorktableRecipe> LOADER = RecordLoadable.create(
     ContextKey.ID.requiredField(),
-    Loadables.RESOURCE_LOCATION.requiredField("data_key", r -> r.dataKey),
+    Loadables.RESOURCE_LOCATION.requiredField("data_key", r -> r.key),
     INPUTS_FIELD, TOOL_FIELD,
     // TODO: move modifier predicate to base recipe
     ModifierPredicate.LOADER.defaultField("modifier_predicate", false, r -> r.modifierPredicate),
@@ -61,7 +61,7 @@ public class ModifierSetWorktableRecipe extends AbstractWorktableRecipe {
   /** Description to display when valid */
   private final Component description;
   /** Key of the set to fill with modifier names */
-  private final ResourceLocation dataKey;
+  private final ResourceLocation key;
   /** Predicate of modifiers to support in this recipe */
   private final IJsonPredicate<ModifierId> modifierPredicate;
   /** Filter of modifiers to display */
@@ -73,11 +73,11 @@ public class ModifierSetWorktableRecipe extends AbstractWorktableRecipe {
   /** Cached list of modifiers shown in JEI */
   private List<ModifierEntry> filteredModifiers = null;
 
-  public ModifierSetWorktableRecipe(ResourceLocation id, ResourceLocation dataKey, List<SizedIngredient> inputs, Ingredient toolRequirement, IJsonPredicate<ModifierId> modifierPredicate, boolean addToSet, boolean allowTraits) {
+  public ModifierSetWorktableRecipe(ResourceLocation id, ResourceLocation key, List<SizedIngredient> inputs, Ingredient toolRequirement, IJsonPredicate<ModifierId> modifierPredicate, boolean addToSet, boolean allowTraits) {
     super(id, toolRequirement, inputs);
-    this.dataKey = dataKey;
+    this.key = key;
     this.addToSet = addToSet;
-    String rootKey = Util.makeTranslationKey("recipe", dataKey) + (addToSet ? ".adding" : ".removing");
+    String rootKey = Util.makeTranslationKey("recipe", key) + (addToSet ? ".adding" : ".removing");
     this.title = Component.translatable(rootKey + ".title");
     this.description = Component.translatable(rootKey + ".description");
     this.modifierPredicate = modifierPredicate;
@@ -110,7 +110,7 @@ public class ModifierSetWorktableRecipe extends AbstractWorktableRecipe {
       return filteredModifiers;
     }
     IToolStackView tool = inv.getTinkerable();
-    Set<ModifierId> existing = getModifierSet(tool.getPersistentData(), dataKey);
+    Set<ModifierId> existing = getModifierSet(tool.getPersistentData(), key);
     Predicate<ModifierEntry> applicable = entry -> existing.contains(entry.getId()) != addToSet;
     return getModifiers(inv).stream().filter(this.entryFilter).filter(applicable).toList();
   }
@@ -120,11 +120,11 @@ public class ModifierSetWorktableRecipe extends AbstractWorktableRecipe {
     ToolStack tool = inv.getTinkerable().copy();
     ModDataNBT persistentData = tool.getPersistentData();
     ListTag tagList;
-    if (persistentData.contains(dataKey, Tag.TAG_LIST)) {
-      tagList = persistentData.get(dataKey, LIST_GETTER);
+    if (persistentData.contains(key, Tag.TAG_LIST)) {
+      tagList = persistentData.get(key, LIST_GETTER);
     } else {
       tagList = new ListTag();
-      persistentData.put(dataKey, tagList);
+      persistentData.put(key, tagList);
     }
     String value = modifier.getId().toString();
     boolean found = false;

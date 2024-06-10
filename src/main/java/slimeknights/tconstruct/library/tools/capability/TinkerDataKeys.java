@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.tools.capability;
 import slimeknights.mantle.data.registry.IdAwareComponentRegistry;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.data.FloatMultiplier;
-import slimeknights.tconstruct.library.modifiers.data.ModifierMaxLevel;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.ComputableDataKey;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
 
@@ -42,9 +41,6 @@ public interface TinkerDataKeys {
 
   /** Soul belt level for hotbar preservation */
   TinkerDataKey<Integer> SOUL_BELT = intKey("soul_belt");
-
-  TinkerDataKey<Integer> MELEE_PROTECTION = intKey("melee_protection");
-
 
 
   /** Creates and registers an integer key */
