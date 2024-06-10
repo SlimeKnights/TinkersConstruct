@@ -96,12 +96,6 @@ public record MaxArmorStatModule(TinkerDataCapability.TinkerDataKey<Float> key, 
     }
   }
 
-  @Override
-  public ModifierCondition<IToolStackView> condition() {
-    return null;
-  }
-
-
   /**
    * Adds to the armor stat for the given key. Make sure to subtract on unequip if you add on equip, it will not automatically be removed.
    * @param context  Equipment change context
