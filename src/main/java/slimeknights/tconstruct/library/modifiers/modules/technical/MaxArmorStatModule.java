@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -28,9 +29,9 @@ import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
-import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.utils.IdParser;
 import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nullable;
@@ -40,7 +41,7 @@ public record MaxArmorStatModule(TinkerDataCapability.TinkerDataKey<Float> statK
   private static final List<ModuleHook<?>> TOOLTIP_HOOKS = HookProvider.<ArmorStatModule>defaultHooks(ModifierHooks.EQUIPMENT_CHANGE, ModifierHooks.TOOLTIP);
   private static final List<ModuleHook<?>> NO_TOOLTIP_HOOKS = HookProvider.<ArmorStatModule>defaultHooks(ModifierHooks.EQUIPMENT_CHANGE);
   public static final RecordLoadable<MaxArmorStatModule> LOADER = RecordLoadable.create(
-    TinkerDataKeys.FLOAT_REGISTRY.requiredField("stat_key", MaxArmorStatModule::statKey),
+    new IdParser<>(ResourceLocation::new, "Stat").xmap((location, factory) -> TinkerDataCapability.TinkerDataKey.<Float>of(location), (tinkerDataKey, errorFactory) -> tinkerDataKey.getId()).requiredField("key", MaxArmorStatModule::key),
     LevelingValue.LOADABLE.directField(MaxArmorStatModule::amount),
     BooleanLoadable.INSTANCE.defaultField("allow_broken", false, MaxArmorStatModule::allowBroken),
     Loadables.ITEM_TAG.nullableField("held_tag", MaxArmorStatModule::heldTag),
