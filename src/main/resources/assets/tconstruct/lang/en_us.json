@@ -3031,6 +3031,7 @@
   "jei.tconstruct.modifiers.level.exact": "For level: %s",
 
   "jei.tconstruct.severing.title": "Severing",
+  "jei.tconstruct.tinkering.tool_recipes": "Tool Recipes",
 
   "jei.tconstruct.part_builder.title": "Part Builder",
   "jei.tconstruct.part_builder.cost": "Cost: %s",
