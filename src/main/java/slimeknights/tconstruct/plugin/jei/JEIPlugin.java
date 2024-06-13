@@ -207,10 +207,7 @@ public class JEIPlugin implements IModPlugin {
     register.addRecipes(TConstructJEIConstants.SEVERING, severingRecipes);
 
     // tool building
-    List<ToolBuildingRecipe> toolBuilding = manager.byType(TinkerRecipeTypes.TINKER_STATION.get()).values().stream()
-      .filter(r -> r instanceof ToolBuildingRecipe toolRecipe)
-      .map(r -> (ToolBuildingRecipe) r)
-      .toList();
+    List<ToolBuildingRecipe> toolBuilding = RecipeHelper.getJEIRecipes(manager, TinkerRecipeTypes.TINKER_STATION.get(), ToolBuildingRecipe.class);
     register.addRecipes(TConstructJEIConstants.TOOL_BUILDING, toolBuilding);
 
     // part builder
