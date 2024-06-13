@@ -1,5 +1,6 @@
 {
   "type": "tconstruct:tool_building",
   "result": "tconstruct:plate_boots",
-  "result_count": 1
+  "result_count": 1,
+  "slot_id": "tconstruct:plate_armor"
 }

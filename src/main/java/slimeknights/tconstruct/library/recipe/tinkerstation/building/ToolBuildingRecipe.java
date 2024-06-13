@@ -10,6 +10,7 @@ import net.minecraft.world.level.Level;
 import slimeknights.mantle.data.loadable.common.IngredientLoadable;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
+import slimeknights.mantle.data.loadable.primitive.ResourceLocationLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
 import slimeknights.mantle.util.LogicHelper;
@@ -38,6 +39,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
     LoadableRecipeSerializer.RECIPE_GROUP,
     TinkerLoadables.MODIFIABLE_ITEM.requiredField("result", r -> r.output),
     IntLoadable.FROM_ONE.defaultField("result_count", 1, true, r -> r.outputCount),
+    ResourceLocationLoadable.DEFAULT.defaultField("slot_id", r -> r.getId, r -> r.slotId),
     IngredientLoadable.DISALLOW_EMPTY.list(0).defaultField("extra_requirements", List.of(), r -> r.ingredients),
     ToolBuildingRecipe::new);
 
@@ -48,6 +50,8 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   @Getter
   protected final IModifiable output;
   protected final int outputCount;
+  @Getter
+  protected final ResourceLocation slotId;
   protected final List<Ingredient> ingredients;
 
   /** Gets the additional recipe requirements beyond the tool parts */
