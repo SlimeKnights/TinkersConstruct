@@ -20,7 +20,7 @@ import java.util.function.Consumer;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ModifierSetWorktableRecipeBuilder extends AbstractSizedIngredientRecipeBuilder<ModifierSetWorktableRecipeBuilder> {
-  private final ResourceLocation key;
+  private final ResourceLocation dataKey;
   @Setter @Accessors(fluent = true)
   private IJsonPredicate<ModifierId> modifierPredicate = ModifierPredicate.ANY;
   private final boolean addToSet;
@@ -56,7 +56,7 @@ public class ModifierSetWorktableRecipeBuilder extends AbstractSizedIngredientRe
 
   @Override
   public void save(Consumer<FinishedRecipe> consumer) {
-    save(consumer, key);
+    save(consumer, dataKey);
   }
 
   @Override
@@ -68,6 +68,6 @@ public class ModifierSetWorktableRecipeBuilder extends AbstractSizedIngredientRe
       throw new IllegalStateException("Tools cannot be empty");
     }
     ResourceLocation advancementId = buildOptionalAdvancement(id, "modifiers");
-    consumer.accept(new LoadableFinishedRecipe<>(new ModifierSetWorktableRecipe(id, key, inputs, tools, modifierPredicate, addToSet, allowTraits), ModifierSetWorktableRecipe.LOADER, advancementId));
+    consumer.accept(new LoadableFinishedRecipe<>(new ModifierSetWorktableRecipe(id, dataKey, inputs, tools, modifierPredicate, addToSet, allowTraits), ModifierSetWorktableRecipe.LOADER, advancementId));
   }
 }
