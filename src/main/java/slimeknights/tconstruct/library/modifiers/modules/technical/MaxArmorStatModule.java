@@ -42,7 +42,7 @@ public record MaxArmorStatModule(TinkerDataKey<Float> statKey, LevelingValue amo
   private static final List<ModuleHook<?>> TOOLTIP_HOOKS = HookProvider.<ArmorStatModule>defaultHooks(ModifierHooks.EQUIPMENT_CHANGE, ModifierHooks.TOOLTIP);
   private static final List<ModuleHook<?>> NO_TOOLTIP_HOOKS = HookProvider.<ArmorStatModule>defaultHooks(ModifierHooks.EQUIPMENT_CHANGE);
   public static final RecordLoadable<MaxArmorStatModule> LOADER = RecordLoadable.create(
-    new IdParser<>(ResourceLocation::new, "stat").xmap((location, factory) -> TinkerDataKey.<Float>of(location), (tinkerDataKey, errorFactory) -> tinkerDataKey.getId()).requiredField("maxLevel", MaxArmorStatModule::statKey),
+    new IdParser<>(ResourceLocation::new, "stat").xmap((location, factory) -> TinkerDataKey.<Float>of(location), (tinkerDataKey, errorFactory) -> tinkerDataKey.getId()).requiredField("key", MaxArmorStatModule::statKey),
     LevelingValue.LOADABLE.directField(MaxArmorStatModule::amount),
     BooleanLoadable.INSTANCE.defaultField("allow_broken", false, MaxArmorStatModule::allowBroken),
     Loadables.ITEM_TAG.nullableField("held_tag", MaxArmorStatModule::heldTag),
@@ -74,17 +74,15 @@ public record MaxArmorStatModule(TinkerDataKey<Float> statKey, LevelingValue amo
   @Override
   public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
     if (condition.matches(tool, modifier)) {
-      context.getTinkerData().ifPresent(data -> {
-        addStatIfArmor(tool, context, statKey, maxLevel, amount, modifier, allowBroken, heldTag);
-      });
+      addStatIfArmor(tool, context, statKey, maxLevel, amount, modifier, allowBroken, heldTag);
     }
   }
 
   @Override
   public void addTooltip(IToolStackView tool, ModifierEntry modifier, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
     if (condition.matches(tool, modifier) && (tool.hasTag(TinkerTags.Items.WORN_ARMOR) || heldTag != null && tool.hasTag(heldTag)) && (!tool.isBroken() || allowBroken)) {
-      float value = player != null ? ArmorStatModule.getStat(player, statKey) : modifier.getEffectiveLevel();
-      if (value != 0) {
+      float value = player != null ? ModifierMaxLevel.getStat(player, maxLevel) : modifier.getEffectiveLevel();
+      if (value > 0) {
         Component name = Component.translatable(Util.makeTranslationKey("armor_stat", statKey.getId()));
         switch (tooltipStyle) {
           case BOOST -> TooltipModifierHook.addFlatBoost(modifier.getModifier(), name, value, tooltip);

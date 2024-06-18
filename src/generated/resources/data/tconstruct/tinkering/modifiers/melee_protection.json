@@ -6,7 +6,7 @@
       "type": "tconstruct:max_armor_stat",
       "allow_broken": false,
       "each_level": 0.005,
-      "stat_key": "tconstruct:use_item_speed"
+      "key": "tconstruct:use_item_speed"
     },
     {
       "type": "tconstruct:protection",

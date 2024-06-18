@@ -110,7 +110,6 @@ import slimeknights.tconstruct.library.modifiers.modules.display.DurabilityBarCo
 import slimeknights.tconstruct.library.modifiers.modules.mining.ConditionalMiningSpeedModule;
 import slimeknights.tconstruct.library.modifiers.modules.technical.ArmorLevelModule;
 import slimeknights.tconstruct.library.modifiers.modules.technical.ArmorStatModule;
-import slimeknights.tconstruct.library.modifiers.modules.technical.MaxArmorLevelModule;
 import slimeknights.tconstruct.library.modifiers.modules.technical.MaxArmorStatModule;
 import slimeknights.tconstruct.library.modifiers.util.DynamicModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierDeferredRegister;
@@ -626,7 +625,6 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierModule.LOADER.register(getResource("conditional_mining_speed"), ConditionalMiningSpeedModule.LOADER);
       // technical
       ModifierModule.LOADER.register(getResource("armor_level"), ArmorLevelModule.LOADER);
-      ModifierModule.LOADER.register(getResource("max_armor_level"), MaxArmorLevelModule.LOADER);
       ModifierModule.LOADER.register(getResource("max_armor_stat"), MaxArmorStatModule.LOADER);
       ModifierModule.LOADER.register(getResource("armor_stat"), ArmorStatModule.LOADER);
 
