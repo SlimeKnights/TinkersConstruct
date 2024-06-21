@@ -10,6 +10,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -23,8 +24,14 @@ public class ToolBuildingRecipeBuilder extends AbstractRecipeBuilder<ToolBuildin
   private final IModifiable output;
   @Setter
   private int outputSize = 1;
-  private ResourceLocation slotId;
+  @Nullable
+  private ResourceLocation layoutSlot = null;
   private final List<Ingredient> extraRequirements = new ArrayList<>();
+
+  public ToolBuildingRecipeBuilder setLayoutSlot(ResourceLocation layoutSlot) {
+    this.layoutSlot = layoutSlot;
+    return this;
+  }
 
   /** Adds an extra ingredient requirement */
   public ToolBuildingRecipeBuilder addExtraRequirement(Ingredient ingredient) {
@@ -40,7 +47,6 @@ public class ToolBuildingRecipeBuilder extends AbstractRecipeBuilder<ToolBuildin
   @Override
   public void save(Consumer<FinishedRecipe> consumerIn, ResourceLocation id) {
     ResourceLocation advancementId = this.buildOptionalAdvancement(id, "parts");
-    slotId = id;
-    consumerIn.accept(new LoadableFinishedRecipe<>(new ToolBuildingRecipe(id, group, output, outputSize, slotId, extraRequirements), ToolBuildingRecipe.LOADER, advancementId));
+    consumerIn.accept(new LoadableFinishedRecipe<>(new ToolBuildingRecipe(id, group, output, outputSize, layoutSlot, extraRequirements), ToolBuildingRecipe.LOADER, advancementId));
   }
 }

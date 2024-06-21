@@ -1,16 +1,15 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
+import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.common.IngredientLoadable;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
-import slimeknights.mantle.data.loadable.primitive.ResourceLocationLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
 import slimeknights.mantle.util.LogicHelper;
@@ -20,26 +19,29 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContai
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.tools.definition.module.material.ToolPartsHook;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
+import slimeknights.tconstruct.library.tools.layout.LayoutSlot;
+import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.tables.TinkerTables;
 
+import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.IntStream;
 
 /**
  * This recipe is used for crafting a set of parts into a tool
  */
-@AllArgsConstructor
 public class ToolBuildingRecipe implements ITinkerStationRecipe {
   public static final RecordLoadable<ToolBuildingRecipe> LOADER = RecordLoadable.create(
     ContextKey.ID.requiredField(),
     LoadableRecipeSerializer.RECIPE_GROUP,
     TinkerLoadables.MODIFIABLE_ITEM.requiredField("result", r -> r.output),
     IntLoadable.FROM_ONE.defaultField("result_count", 1, true, r -> r.outputCount),
-    ResourceLocationLoadable.DEFAULT.defaultField("slot_id", r -> r.getId, r -> r.slotId),
+    Loadables.RESOURCE_LOCATION.nullableField("slot_layout",  r -> r.layoutSlot),
     IngredientLoadable.DISALLOW_EMPTY.list(0).defaultField("extra_requirements", List.of(), r -> r.ingredients),
     ToolBuildingRecipe::new);
 
@@ -50,13 +52,42 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   @Getter
   protected final IModifiable output;
   protected final int outputCount;
-  @Getter
-  protected final ResourceLocation slotId;
+  @Nullable
+  protected ResourceLocation layoutSlot;
   protected final List<Ingredient> ingredients;
+
+  /** @deprecated Use {@link #ToolBuildingRecipe(ResourceLocation, String, IModifiable, int, ResourceLocation, List)} */
+  @Deprecated
+  public ToolBuildingRecipe(ResourceLocation id, String group, IModifiable output, int outputCount, List<Ingredient> ingredients) {
+    this(id, group, output, outputCount, null, ingredients);
+  }
+
+  public ToolBuildingRecipe(ResourceLocation id, String group, IModifiable output, int outputCount, ResourceLocation layoutSlot, List<Ingredient> ingredients) {
+    this.id = id;
+    this.group = group;
+    this.output = output;
+    this.outputCount = outputCount;
+    this.layoutSlot = layoutSlot;
+    this.ingredients = ingredients;
+  }
+
+  public ResourceLocation getLayoutSlotId() {
+    return Objects.requireNonNullElse(layoutSlot, getOutput().getToolDefinition().getId());
+  }
+
+  public List<IToolPart> getToolParts() { return ToolPartsHook.parts(getOutput().getToolDefinition()); }
 
   /** Gets the additional recipe requirements beyond the tool parts */
   public List<Ingredient> getExtraRequirements() {
     return ingredients;
+  }
+
+  public List<LayoutSlot> getLayoutSlots() {
+    return StationSlotLayoutLoader.getInstance().get(getLayoutSlotId()).getInputSlots();
+  }
+
+  public boolean isBroadTool() {
+    return getToolParts().size() >= 4;
   }
 
   @Override
@@ -69,7 +100,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
     if (!inv.getTinkerableStack().isEmpty()) {
       return false;
     }
-    List<IToolPart> parts = ToolPartsHook.parts(output.getToolDefinition());
+    List<IToolPart> parts = getToolParts();
     int requiredInputs = parts.size() + ingredients.size();
     int maxInputs = inv.getInputCount();
     // disallow if we have no inputs, or if we have too few slots

@@ -16,14 +16,19 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec2;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.GuiUtil;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipe;
+import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
+import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
+import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.layout.LayoutSlot;
-import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
+import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class ToolBuildingCategory implements IRecipeCategory<ToolBuildingRecipe> {
   private static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/tinker_station.png");
@@ -47,32 +52,47 @@ public class ToolBuildingCategory implements IRecipeCategory<ToolBuildingRecipe>
 
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, ToolBuildingRecipe recipe, IFocusGroup focuses) {
-    recipe.getIngredients().forEach(ingredient -> builder.addInvisibleIngredients(RecipeIngredientRole.INPUT).addIngredients(ingredient));
-    recipe.getExtraRequirements().forEach(ingredient -> builder.addSlot(RecipeIngredientRole.INPUT, 0, 0).addIngredients(ingredient));
+    List<IToolPart> parts = recipe.getToolParts();
+    List<ItemStack> extraItems = recipe.getIngredients().stream().flatMap(ingredient -> Arrays.stream(ingredient.getItems())).toList();
+    List<LayoutSlot> layoutSlots = recipe.getLayoutSlots();
 
-    List<LayoutSlot> slots = StationSlotLayoutLoader.getInstance().get(recipe.getSlotId()).getInputSlots();
-    List<ItemStack> items = recipe.getIngredients().stream().flatMap(ingredient -> Arrays.stream(ingredient.getItems())).toList();
+    // every part and its material variants
+    List<ItemStack> allInputParts = parts.stream()
+        .flatMap(part -> MaterialRegistry.getInstance().getVisibleMaterials().stream()
+          .filter(part::canUseMaterial)
+          .flatMap(mat -> Stream.of(part.withMaterial(mat.getIdentifier()))))
+        .toList();
 
-    if (items.size() != slots.size()) {
-      TConstruct.LOG.error("Part count and slot count for %s do not match!", recipe.getId().toString());
+    if (parts.size() + extraItems.size() != layoutSlots.size()) {
+      TConstruct.LOG.error(String.format("Tool part count and layout slot count for %s do not match!", recipe.getId()));
+      return;
     }
 
-    Vec2 offsets = getOffsets(slots);
-    for (int i = 0; i < items.size(); i++) {
-      builder.addSlot(RecipeIngredientRole.INPUT, (int) (slots.get(i).getX() + offsets.x), (int) (slots.get(i).getY() + offsets.y)).addItemStack(items.get(i));
+    builder.addInvisibleIngredients(RecipeIngredientRole.INPUT).addItemStacks(allInputParts);
+    builder.addInvisibleIngredients(RecipeIngredientRole.INPUT).addItemStacks(extraItems);
+
+    Vec2 offsets = getOffsets(layoutSlots);
+    for (int i = 0; i < parts.size(); i++) {
+      builder.addSlot(RecipeIngredientRole.INPUT, (int) (layoutSlots.get(i).getX() + offsets.x), (int) (layoutSlots.get(i).getY() + offsets.y))
+             .addItemStack(getDisplayPart(parts.get(i), i));
     }
 
-    builder.addSlot(RecipeIngredientRole.OUTPUT, WIDTH - 23, 23).addItemStack(recipe.getOutput().asItem().getDefaultInstance());
+    if (recipe.getOutput() instanceof IModifiableDisplay modifiable) {
+      builder.addSlot(RecipeIngredientRole.OUTPUT, WIDTH - 23, 23)
+        .addItemStack(modifiable.getRenderTool());
+    }
   }
 
   @Override
   public void draw(ToolBuildingRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY) {
-    if (isBroadTool(recipe)) {
+    if (recipe.isBroadTool()) {
       this.anvil.draw(stack, 73, 42);
     }
-    List<LayoutSlot> slots = StationSlotLayoutLoader.getInstance().get(recipe.getId()).getInputSlots();
-    Vec2 offsets = getOffsets(slots);
-    for (LayoutSlot slot : slots) {
+
+    List<LayoutSlot> layoutSlots = recipe.getLayoutSlots();
+    Vec2 offsets = getOffsets(layoutSlots);
+
+    for (LayoutSlot slot : layoutSlots) {
       // need to offset by 1 because the inventory slot icons are 18x18
       this.slot.draw(stack, (int) (slot.getX() + offsets.x - 1), (int) (slot.getY() + offsets.y - 1));
     }
@@ -80,21 +100,23 @@ public class ToolBuildingCategory implements IRecipeCategory<ToolBuildingRecipe>
 
   @Override
   public List<Component> getTooltipStrings(ToolBuildingRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
-    return isBroadTool(recipe) && GuiUtil.isHovered((int) mouseX, (int) mouseY, 73, 42, ITEM_SIZE, ITEM_SIZE) ?
-      List.of(TConstruct.makeTranslation("jei", "tinkering.tool_recipes.anvil")) :
+    return recipe.isBroadTool() && GuiUtil.isHovered((int) mouseX, (int) mouseY, 73, 42, ITEM_SIZE, ITEM_SIZE) ?
+      List.of(TConstruct.makeTranslation("jei", "tinkering.tool_building.anvil")) :
       List.of();
   }
 
-  private boolean isBroadTool(ToolBuildingRecipe recipe) {
-    return recipe.getIngredients().size() >= 4;
+  // use display parts to be more consistent
+  private ItemStack getDisplayPart(IToolPart toolPart, int i) {
+      ItemStack item = toolPart.withMaterialForDisplay(ToolBuildHandler.getRenderMaterial(i));
+      item.getOrCreateTag().putBoolean(TooltipUtil.KEY_DISPLAY, true);
+      return item;
   }
 
   private Vec2 getOffsets(List<LayoutSlot> slots) {
-    int minX, maxX, minY, maxY;
-    minX = slots.get(0).getX();
-    maxX = slots.get(0).getX();
-    minY = slots.get(0).getY();
-    maxY = slots.get(0).getY();
+    int minX = slots.get(0).getX();
+    int maxX = slots.get(0).getX();
+    int minY = slots.get(0).getY();
+    int maxY = slots.get(0).getY();
 
     for (int i = 1; i < slots.size(); i++) {
       minX = Math.min(slots.get(i).getX(), minX);

@@ -3033,7 +3033,7 @@
   "jei.tconstruct.severing.title": "Severing",
 
   "jei.tconstruct.tinkering.tool_building": "Tool Building",
-  "jei.tconstruct.tinkering.tool_building.anvil": "Broad tools require the Tinker's Anvil to be created, and to swap parts!",
+  "jei.tconstruct.tinkering.tool_building.anvil": "Broad tools require the Tinker's Anvil to be created or swap parts",
 
   "jei.tconstruct.part_builder.title": "Part Builder",
   "jei.tconstruct.part_builder.cost": "Cost: %s",

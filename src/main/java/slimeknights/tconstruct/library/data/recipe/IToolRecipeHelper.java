@@ -37,6 +37,19 @@ public interface IToolRecipeHelper extends ICastCreationHelper {
 
   /**
    * Registers recipe for tool building
+   * @param consumer   Recipe consumer
+   * @param tool       Tool
+   * @param folder     Folder for recipe
+   * @param layoutSlot Layout slot ID
+   */
+  default void toolBuilding(Consumer<FinishedRecipe> consumer, IModifiable tool, String folder, ResourceLocation layoutSlot) {
+    ToolBuildingRecipeBuilder.toolBuildingRecipe(tool)
+      .setLayoutSlot(layoutSlot)
+      .save(consumer, prefix(id(tool), folder));
+  }
+
+  /**
+   * Registers recipe for tool building
    * @param consumer Recipe consumer
    * @param tool     Tool supplier
    * @param folder   Folder for recipe
