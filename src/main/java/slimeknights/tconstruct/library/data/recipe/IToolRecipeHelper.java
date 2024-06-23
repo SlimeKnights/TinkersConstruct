@@ -40,7 +40,7 @@ public interface IToolRecipeHelper extends ICastCreationHelper {
    * @param consumer   Recipe consumer
    * @param tool       Tool
    * @param folder     Folder for recipe
-   * @param layoutSlot Layout slot ID
+   * @param layoutSlot StationLayoutSlot id
    */
   default void toolBuilding(Consumer<FinishedRecipe> consumer, IModifiable tool, String folder, ResourceLocation layoutSlot) {
     ToolBuildingRecipeBuilder.toolBuildingRecipe(tool)

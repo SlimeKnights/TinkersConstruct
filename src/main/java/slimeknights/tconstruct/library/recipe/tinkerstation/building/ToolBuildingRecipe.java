@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -14,6 +15,7 @@ import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
 import slimeknights.mantle.util.LogicHelper;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
@@ -31,10 +33,13 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * This recipe is used for crafting a set of parts into a tool
  */
+
+@AllArgsConstructor
 public class ToolBuildingRecipe implements ITinkerStationRecipe {
   public static final RecordLoadable<ToolBuildingRecipe> LOADER = RecordLoadable.create(
     ContextKey.ID.requiredField(),
@@ -62,32 +67,46 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
     this(id, group, output, outputCount, null, ingredients);
   }
 
-  public ToolBuildingRecipe(ResourceLocation id, String group, IModifiable output, int outputCount, ResourceLocation layoutSlot, List<Ingredient> ingredients) {
-    this.id = id;
-    this.group = group;
-    this.output = output;
-    this.outputCount = outputCount;
-    this.layoutSlot = layoutSlot;
-    this.ingredients = ingredients;
-  }
-
+  /**
+   * Station slot layout ids and tool definition ids are not always the same
+   * layoutSlot specified in the tool recipe JSON is potentially null,
+   * so we should fallback to the tool definition id
+   * @return StationSlotLayout id
+   */
   public ResourceLocation getLayoutSlotId() {
     return Objects.requireNonNullElse(layoutSlot, getOutput().getToolDefinition().getId());
   }
 
-  public List<IToolPart> getToolParts() { return ToolPartsHook.parts(getOutput().getToolDefinition()); }
+  /** Gets the layout slots so we know where go position item slots for guis */
+  public List<LayoutSlot> getLayoutSlots() {
+    return StationSlotLayoutLoader.getInstance().get(getLayoutSlotId()).getInputSlots();
+  }
+
+  /** Gets the tool parts for this tool */
+  public List<IToolPart> getToolParts() {
+    return ToolPartsHook.parts(getOutput().getToolDefinition());
+  }
+
+  /**
+   * Gets all tool parts as and all its variants for invisible JEI inputs.
+   * Visible inputs are handled by getDisplayParts()
+   */
+  public List<ItemStack> getAllInputParts() {
+    return getToolParts().stream()
+      .flatMap(part -> MaterialRegistry.getInstance().getVisibleMaterials().stream()
+        .filter(part::canUseMaterial)
+        .flatMap(mat -> Stream.of(part.withMaterial(mat.getIdentifier()))))
+      .toList();
+  }
 
   /** Gets the additional recipe requirements beyond the tool parts */
   public List<Ingredient> getExtraRequirements() {
     return ingredients;
   }
 
-  public List<LayoutSlot> getLayoutSlots() {
-    return StationSlotLayoutLoader.getInstance().get(getLayoutSlotId()).getInputSlots();
-  }
-
-  public boolean isBroadTool() {
-    return getToolParts().size() >= 4;
+  /** Helper to determine if an anvil is required */
+  public boolean requiresAnvil() {
+    return getToolParts().size() + getExtraRequirements().size() >= 4;
   }
 
   @Override

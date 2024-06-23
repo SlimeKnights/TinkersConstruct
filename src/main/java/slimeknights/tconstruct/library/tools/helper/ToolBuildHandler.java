@@ -16,6 +16,7 @@ import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.part.IToolPart;
 
 import java.util.Arrays;
 import java.util.List;
@@ -137,4 +138,19 @@ public final class ToolBuildHandler {
     }
     return false;
   }
+
+
+  /**
+   * Gets display tool part
+   * @param toolPart tool part
+   * @param i determines material color
+   * @return ItemStack of part for display
+   */
+  public static ItemStack getDisplayPart(IToolPart toolPart, int i) {
+    // mark the part as display to suppress the invalid material tooltip
+    ItemStack item = toolPart.withMaterialForDisplay(ToolBuildHandler.getRenderMaterial(i));
+    item.getOrCreateTag().putBoolean(TooltipUtil.KEY_DISPLAY, true);
+    return item;
+  }
+
 }
