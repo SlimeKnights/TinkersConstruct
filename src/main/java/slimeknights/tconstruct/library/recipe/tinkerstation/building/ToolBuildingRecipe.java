@@ -91,7 +91,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
    * Gets all tool parts as and all its variants for invisible JEI inputs.
    * Visible inputs are handled by getDisplayParts()
    */
-  public List<ItemStack> getAllInputParts() {
+  public List<ItemStack> getAllToolParts() {
     return getToolParts().stream()
       .flatMap(part -> MaterialRegistry.getInstance().getVisibleMaterials().stream()
         .filter(part::canUseMaterial)

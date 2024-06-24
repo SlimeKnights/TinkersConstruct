@@ -14,6 +14,7 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipe;
@@ -24,6 +25,7 @@ import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -55,12 +57,25 @@ public class ToolBuildingCategory implements IRecipeCategory<ToolBuildingRecipe>
     List<List<ItemStack>> extras = recipe.getExtraRequirements().stream().map(ingredient -> Arrays.asList(ingredient.getItems())).toList();
     List<LayoutSlot> layoutSlots = recipe.getLayoutSlots();
 
-    if (parts.size() + extras.size() != layoutSlots.size()) {
-      TConstruct.LOG.error(String.format("Tool part count and layout slot count for %s do not match!", recipe.getId()));
-      return;
+    if (parts.size() + extras.size() > layoutSlots.size()) {
+      TConstruct.LOG.error(String.format("Tool part count is greater than layout slot count for %s!", recipe.getId()));
+      int additionalSlots = 0;
+      layoutSlots = new ArrayList<>(layoutSlots);
+      while (parts.size() + extras.size() > layoutSlots.size()) {
+        layoutSlots.add(new LayoutSlot(null, null, additionalSlots * SLOT_SIZE, 0, null));
+        additionalSlots++;
+      }
     }
 
-    builder.addInvisibleIngredients(RecipeIngredientRole.INPUT).addItemStacks(recipe.getAllInputParts());
+    if (parts.size() + extras.size() < layoutSlots.size()) {
+      TConstruct.LOG.error(String.format("Tool part count is less than layout slot count for %s!", recipe.getId()));
+      extras = new ArrayList<>(extras);
+      while (parts.size() + extras.size() < layoutSlots.size()) {
+        extras.add(List.of(Items.BARRIER.getDefaultInstance()));
+      }
+    }
+
+    builder.addInvisibleIngredients(RecipeIngredientRole.INPUT).addItemStacks(recipe.getAllToolParts());
 
     for (int i = 0; i < layoutSlots.size(); i++) {
       IRecipeSlotBuilder slotBuilder = builder.addSlot(RecipeIngredientRole.INPUT, layoutSlots.get(i).getX() + X_OFFSET, layoutSlots.get(i).getY() + Y_OFFSET);
@@ -79,7 +94,7 @@ public class ToolBuildingCategory implements IRecipeCategory<ToolBuildingRecipe>
   @Override
   public void draw(ToolBuildingRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY) {
     if (recipe.requiresAnvil()) {
-      this.anvil.draw(stack, 76, 42);
+      this.anvil.draw(stack, 76, 44);
     }
 
     for (LayoutSlot layoutSlot : recipe.getLayoutSlots()) {
@@ -90,7 +105,7 @@ public class ToolBuildingCategory implements IRecipeCategory<ToolBuildingRecipe>
 
   @Override
   public List<Component> getTooltipStrings(ToolBuildingRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX, double mouseY) {
-    return recipe.requiresAnvil() && GuiUtil.isHovered((int) mouseX, (int) mouseY, 76, 42, ITEM_SIZE, ITEM_SIZE) ?
+    return recipe.requiresAnvil() && GuiUtil.isHovered((int) mouseX, (int) mouseY, 76, 44, ITEM_SIZE, ITEM_SIZE) ?
       List.of(TConstruct.makeTranslation("jei", "tinkering.tool_building.anvil")) :
       List.of();
   }

@@ -139,7 +139,6 @@ public final class ToolBuildHandler {
     return false;
   }
 
-
   /**
    * Gets display tool part
    * @param toolPart tool part
