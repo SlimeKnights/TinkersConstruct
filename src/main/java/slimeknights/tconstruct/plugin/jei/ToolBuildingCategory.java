@@ -54,6 +54,7 @@ public class ToolBuildingCategory implements IRecipeCategory<ToolBuildingRecipe>
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, ToolBuildingRecipe recipe, IFocusGroup focuses) {
     List<IToolPart> parts = recipe.getToolParts();
+    List<List<ItemStack>> allParts = recipe.getAllToolParts();
     List<List<ItemStack>> extras = recipe.getExtraRequirements().stream().map(ingredient -> Arrays.asList(ingredient.getItems())).toList();
     List<LayoutSlot> layoutSlots = recipe.getLayoutSlots();
 
@@ -75,15 +76,9 @@ public class ToolBuildingCategory implements IRecipeCategory<ToolBuildingRecipe>
       }
     }
 
-    builder.addInvisibleIngredients(RecipeIngredientRole.INPUT).addItemStacks(recipe.getAllToolParts());
-
     for (int i = 0; i < layoutSlots.size(); i++) {
-      IRecipeSlotBuilder slotBuilder = builder.addSlot(RecipeIngredientRole.INPUT, layoutSlots.get(i).getX() + X_OFFSET, layoutSlots.get(i).getY() + Y_OFFSET);
-      if (i < parts.size()) {
-        slotBuilder.addItemStack(ToolBuildHandler.getDisplayPart(parts.get(i), i));
-      } else {
-        slotBuilder.addItemStacks(extras.get(i - parts.size()));
-      }
+      builder.addSlot(RecipeIngredientRole.INPUT, layoutSlots.get(i).getX() + X_OFFSET, layoutSlots.get(i).getY() + Y_OFFSET)
+             .addItemStacks(allParts.get(i < parts.size() ? i : i - parts.size()));
     }
 
     ItemStack outputStack = recipe.getOutput() instanceof IModifiableDisplay modifiable ? modifiable.getRenderTool() : recipe.getOutput().asItem().getDefaultInstance();

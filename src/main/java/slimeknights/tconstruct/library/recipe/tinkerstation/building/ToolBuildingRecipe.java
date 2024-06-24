@@ -33,7 +33,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 /**
  * This recipe is used for crafting a set of parts into a tool
@@ -88,14 +87,14 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   }
 
   /**
-   * Gets all tool parts as and all its variants for invisible JEI inputs.
-   * Visible inputs are handled by getDisplayParts()
+   * Gets all tool parts as and all its variants for JEI input lookups.
    */
-  public List<ItemStack> getAllToolParts() {
+  public List<List<ItemStack>> getAllToolParts() {
     return getToolParts().stream()
-      .flatMap(part -> MaterialRegistry.getInstance().getVisibleMaterials().stream()
+      .map(part -> MaterialRegistry.getInstance().getVisibleMaterials().stream()
         .filter(part::canUseMaterial)
-        .flatMap(mat -> Stream.of(part.withMaterial(mat.getIdentifier()))))
+        .map(mat -> part.withMaterial(mat.getIdentifier()))
+        .toList())
       .toList();
   }
 
