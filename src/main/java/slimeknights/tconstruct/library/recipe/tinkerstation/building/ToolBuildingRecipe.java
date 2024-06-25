@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -38,7 +37,6 @@ import java.util.stream.IntStream;
  * This recipe is used for crafting a set of parts into a tool
  */
 
-@AllArgsConstructor
 public class ToolBuildingRecipe implements ITinkerStationRecipe {
   public static final RecordLoadable<ToolBuildingRecipe> LOADER = RecordLoadable.create(
     ContextKey.ID.requiredField(),
@@ -59,6 +57,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   @Nullable
   protected ResourceLocation layoutSlot;
   protected final List<Ingredient> ingredients;
+  protected List<List<ItemStack>> allToolParts;
 
   /** @deprecated Use {@link #ToolBuildingRecipe(ResourceLocation, String, IModifiable, int, ResourceLocation, List)} */
   @Deprecated
@@ -66,11 +65,18 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
     this(id, group, output, outputCount, null, ingredients);
   }
 
+  public ToolBuildingRecipe(ResourceLocation id, String group, IModifiable output, int outputCount, @Nullable ResourceLocation layoutSlot, List<Ingredient> ingredients) {
+    this.id = id;
+    this.group = group;
+    this.output = output;
+    this.outputCount = outputCount;
+    this.layoutSlot = layoutSlot;
+    this.ingredients = ingredients;
+  }
+
   /**
-   * Station slot layout ids and tool definition ids are not always the same
-   * layoutSlot specified in the tool recipe JSON is potentially null,
-   * so we should fallback to the tool definition id
-   * @return StationSlotLayout id
+   * Gets the ID of the station slot layout for displaying this recipe.
+   * Typically matches the output definition ID, but some tool recipes share a single layout.
    */
   public ResourceLocation getLayoutSlotId() {
     return Objects.requireNonNullElse(layoutSlot, getOutput().getToolDefinition().getId());
@@ -90,12 +96,15 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
    * Gets all tool parts as and all its variants for JEI input lookups.
    */
   public List<List<ItemStack>> getAllToolParts() {
-    return getToolParts().stream()
-      .map(part -> MaterialRegistry.getInstance().getVisibleMaterials().stream()
-        .filter(part::canUseMaterial)
-        .map(mat -> part.withMaterial(mat.getIdentifier()))
-        .toList())
-      .toList();
+    if (allToolParts == null) {
+      allToolParts = getToolParts().stream()
+        .map(part -> MaterialRegistry.getInstance().getVisibleMaterials().stream()
+          .filter(part::canUseMaterial)
+          .map(mat -> part.withMaterial(mat.getIdentifier()))
+          .toList())
+        .toList();
+    }
+    return allToolParts;
   }
 
   /** Gets the additional recipe requirements beyond the tool parts */

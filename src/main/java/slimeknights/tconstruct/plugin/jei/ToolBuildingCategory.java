@@ -3,7 +3,6 @@ package slimeknights.tconstruct.plugin.jei;
 import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
-import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -14,20 +13,18 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipe;
-import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.layout.LayoutSlot;
-import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.tools.TinkerTools;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class ToolBuildingCategory implements IRecipeCategory<ToolBuildingRecipe> {
   private static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/tinker_station.png");
@@ -53,32 +50,31 @@ public class ToolBuildingCategory implements IRecipeCategory<ToolBuildingRecipe>
 
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, ToolBuildingRecipe recipe, IFocusGroup focuses) {
-    List<IToolPart> parts = recipe.getToolParts();
-    List<List<ItemStack>> allParts = recipe.getAllToolParts();
-    List<List<ItemStack>> extras = recipe.getExtraRequirements().stream().map(ingredient -> Arrays.asList(ingredient.getItems())).toList();
+    List<List<ItemStack>> partsAndExtras = Stream.concat(recipe.getAllToolParts().stream(),
+      recipe.getExtraRequirements().stream().map(ingredient -> Arrays.asList(ingredient.getItems()))).toList();
     List<LayoutSlot> layoutSlots = recipe.getLayoutSlots();
 
-    if (parts.size() + extras.size() > layoutSlots.size()) {
+    int missingSlots = partsAndExtras.size() - layoutSlots.size();
+
+    if (missingSlots > 0) {
       TConstruct.LOG.error(String.format("Tool part count is greater than layout slot count for %s!", recipe.getId()));
-      int additionalSlots = 0;
       layoutSlots = new ArrayList<>(layoutSlots);
-      while (parts.size() + extras.size() > layoutSlots.size()) {
-        layoutSlots.add(new LayoutSlot(null, null, additionalSlots * SLOT_SIZE, 0, null));
-        additionalSlots++;
+      for (int additionalSlot = 0; additionalSlot < missingSlots; additionalSlot++) {
+        layoutSlots.add(new LayoutSlot(null, null, additionalSlot * SLOT_SIZE, 0, null));
       }
     }
 
-    if (parts.size() + extras.size() < layoutSlots.size()) {
+    if (missingSlots < 0) {
       TConstruct.LOG.error(String.format("Tool part count is less than layout slot count for %s!", recipe.getId()));
-      extras = new ArrayList<>(extras);
-      while (parts.size() + extras.size() < layoutSlots.size()) {
-        extras.add(List.of(Items.BARRIER.getDefaultInstance()));
+      partsAndExtras = new ArrayList<>(partsAndExtras);
+      for (int additionalItem = 0; additionalItem > missingSlots; additionalItem--){
+        partsAndExtras.add(List.of(ItemStack.EMPTY));
       }
     }
 
     for (int i = 0; i < layoutSlots.size(); i++) {
       builder.addSlot(RecipeIngredientRole.INPUT, layoutSlots.get(i).getX() + X_OFFSET, layoutSlots.get(i).getY() + Y_OFFSET)
-             .addItemStacks(allParts.get(i < parts.size() ? i : i - parts.size()));
+             .addItemStacks(partsAndExtras.get(i));
     }
 
     ItemStack outputStack = recipe.getOutput() instanceof IModifiableDisplay modifiable ? modifiable.getRenderTool() : recipe.getOutput().asItem().getDefaultInstance();
