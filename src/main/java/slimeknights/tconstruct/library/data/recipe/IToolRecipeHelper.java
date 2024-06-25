@@ -44,7 +44,7 @@ public interface IToolRecipeHelper extends ICastCreationHelper {
    */
   default void toolBuilding(Consumer<FinishedRecipe> consumer, IModifiable tool, String folder, ResourceLocation layoutSlot) {
     ToolBuildingRecipeBuilder.toolBuildingRecipe(tool)
-      .setLayoutSlot(layoutSlot)
+      .layoutSlot(layoutSlot)
       .save(consumer, prefix(id(tool), folder));
   }
 
