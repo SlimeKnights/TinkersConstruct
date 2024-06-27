@@ -60,7 +60,7 @@ public class ToolBuildingCategory implements IRecipeCategory<ToolBuildingRecipe>
       TConstruct.LOG.error(String.format("Tool part count is greater than layout slot count for %s!", recipe.getId()));
       layoutSlots = new ArrayList<>(layoutSlots);
       for (int additionalSlot = 0; additionalSlot < missingSlots; additionalSlot++) {
-        layoutSlots.add(new LayoutSlot(null, null, additionalSlot * SLOT_SIZE, 0, null));
+        layoutSlots.add(new LayoutSlot(null, null, additionalSlot * SLOT_SIZE -X_OFFSET, -Y_OFFSET, null));
       }
     }
 

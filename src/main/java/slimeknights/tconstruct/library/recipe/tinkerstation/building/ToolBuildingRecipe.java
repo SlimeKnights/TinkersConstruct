@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.building;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -37,6 +38,7 @@ import java.util.stream.IntStream;
  * This recipe is used for crafting a set of parts into a tool
  */
 
+@RequiredArgsConstructor
 public class ToolBuildingRecipe implements ITinkerStationRecipe {
   public static final RecordLoadable<ToolBuildingRecipe> LOADER = RecordLoadable.create(
     ContextKey.ID.requiredField(),
@@ -55,7 +57,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   protected final IModifiable output;
   protected final int outputCount;
   @Nullable
-  protected ResourceLocation layoutSlot;
+  protected final ResourceLocation layoutSlot;
   protected final List<Ingredient> ingredients;
   protected List<List<ItemStack>> allToolParts;
 
@@ -63,15 +65,6 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   @Deprecated
   public ToolBuildingRecipe(ResourceLocation id, String group, IModifiable output, int outputCount, List<Ingredient> ingredients) {
     this(id, group, output, outputCount, null, ingredients);
-  }
-
-  public ToolBuildingRecipe(ResourceLocation id, String group, IModifiable output, int outputCount, @Nullable ResourceLocation layoutSlot, List<Ingredient> ingredients) {
-    this.id = id;
-    this.group = group;
-    this.output = output;
-    this.outputCount = outputCount;
-    this.layoutSlot = layoutSlot;
-    this.ingredients = ingredients;
   }
 
   /**
