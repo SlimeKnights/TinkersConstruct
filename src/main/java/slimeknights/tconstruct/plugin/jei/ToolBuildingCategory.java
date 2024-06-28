@@ -56,16 +56,14 @@ public class ToolBuildingCategory implements IRecipeCategory<ToolBuildingRecipe>
 
     int missingSlots = partsAndExtras.size() - layoutSlots.size();
 
+    // check layout slots for issues
     if (missingSlots > 0) {
       TConstruct.LOG.error(String.format("Tool part count is greater than layout slot count for %s!", recipe.getId()));
       layoutSlots = new ArrayList<>(layoutSlots);
       for (int additionalSlot = 0; additionalSlot < missingSlots; additionalSlot++) {
         layoutSlots.add(new LayoutSlot(null, null, additionalSlot * SLOT_SIZE -X_OFFSET, -Y_OFFSET, null));
       }
-    }
-
-    if (missingSlots < 0) {
-      TConstruct.LOG.error(String.format("Tool part count is less than layout slot count for %s!", recipe.getId()));
+    } else if (missingSlots < 0) {
       partsAndExtras = new ArrayList<>(partsAndExtras);
       for (int additionalItem = 0; additionalItem > missingSlots; additionalItem--){
         partsAndExtras.add(List.of(ItemStack.EMPTY));
@@ -88,7 +86,20 @@ public class ToolBuildingCategory implements IRecipeCategory<ToolBuildingRecipe>
       this.anvil.draw(stack, 76, 44);
     }
 
-    for (LayoutSlot layoutSlot : recipe.getLayoutSlots()) {
+    List<LayoutSlot> layoutSlots = recipe.getLayoutSlots();
+
+    int missingSlots = recipe.getAllToolParts().size() + recipe.getExtraRequirements().size() - layoutSlots.size();
+
+    // check layout slots for issues
+    if (missingSlots > 0) {
+      TConstruct.LOG.error(String.format("Tool part count is greater than layout slot count for %s!", recipe.getId()));
+      layoutSlots = new ArrayList<>(layoutSlots);
+      for (int additionalSlot = 0; additionalSlot < missingSlots; additionalSlot++) {
+        layoutSlots.add(new LayoutSlot(null, null, additionalSlot * SLOT_SIZE - X_OFFSET, -Y_OFFSET, null));
+      }
+    }
+
+    for (LayoutSlot layoutSlot : layoutSlots) {
       // need to offset by 1 because the inventory slot icons are 18x18
       this.slot.draw(stack, layoutSlot.getX() + X_OFFSET - 1, layoutSlot.getY() + Y_OFFSET - 1);
     }

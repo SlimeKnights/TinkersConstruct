@@ -14,6 +14,7 @@ import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
 import slimeknights.mantle.util.LogicHelper;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
@@ -59,6 +60,7 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   @Nullable
   protected final ResourceLocation layoutSlot;
   protected final List<Ingredient> ingredients;
+  protected List<LayoutSlot> layoutSlots;
   protected List<List<ItemStack>> allToolParts;
 
   /** @deprecated Use {@link #ToolBuildingRecipe(ResourceLocation, String, IModifiable, int, ResourceLocation, List)} */
@@ -77,7 +79,14 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
 
   /** Gets the layout slots so we know where go position item slots for guis */
   public List<LayoutSlot> getLayoutSlots() {
-    return StationSlotLayoutLoader.getInstance().get(getLayoutSlotId()).getInputSlots();
+    if (layoutSlots == null) {
+      layoutSlots = StationSlotLayoutLoader.getInstance().get(getLayoutSlotId()).getInputSlots();
+      if (layoutSlots.isEmpty()) {
+        // fallback to tinker station or anvil
+        layoutSlots = StationSlotLayoutLoader.getInstance().get(TConstruct.getResource(requiresAnvil() ? "tinkers_anvil" : "tinker_station")).getInputSlots();
+      }
+    }
+    return layoutSlots;
   }
 
   /** Gets the tool parts for this tool */
