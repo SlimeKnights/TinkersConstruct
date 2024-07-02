@@ -26,6 +26,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipe.SLOT_SIZE;
+import static slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipe.X_OFFSET;
+import static slimeknights.tconstruct.library.recipe.tinkerstation.building.ToolBuildingRecipe.Y_OFFSET;
+
 public class ToolBuildingCategory implements IRecipeCategory<ToolBuildingRecipe> {
   private static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/tinker_station.png");
   private static final Component TITLE = TConstruct.makeTranslation("jei", "tinkering.tool_building");
@@ -36,9 +40,6 @@ public class ToolBuildingCategory implements IRecipeCategory<ToolBuildingRecipe>
   private final IDrawable anvil, slot;
   private static final int WIDTH = 134;
   private static final int HEIGHT = 66;
-  private static final int X_OFFSET = -6;
-  private static final int Y_OFFSET = -15;
-  private static final int SLOT_SIZE = 18;
   private static final int ITEM_SIZE = 16;
 
   public ToolBuildingCategory(IGuiHelper guiHelper) {
@@ -56,16 +57,10 @@ public class ToolBuildingCategory implements IRecipeCategory<ToolBuildingRecipe>
 
     int missingSlots = partsAndExtras.size() - layoutSlots.size();
 
-    // check layout slots for issues
-    if (missingSlots > 0) {
-      TConstruct.LOG.error(String.format("Tool part count is greater than layout slot count for %s!", recipe.getId()));
-      layoutSlots = new ArrayList<>(layoutSlots);
-      for (int additionalSlot = 0; additionalSlot < missingSlots; additionalSlot++) {
-        layoutSlots.add(new LayoutSlot(null, null, additionalSlot * SLOT_SIZE -X_OFFSET, -Y_OFFSET, null));
-      }
-    } else if (missingSlots < 0) {
+    if (missingSlots < 0) {
       partsAndExtras = new ArrayList<>(partsAndExtras);
       for (int additionalItem = 0; additionalItem > missingSlots; additionalItem--){
+        // just add nothing to fill the empty slots
         partsAndExtras.add(List.of(ItemStack.EMPTY));
       }
     }
@@ -76,8 +71,8 @@ public class ToolBuildingCategory implements IRecipeCategory<ToolBuildingRecipe>
     }
 
     ItemStack outputStack = recipe.getOutput() instanceof IModifiableDisplay modifiable ? modifiable.getRenderTool() : recipe.getOutput().asItem().getDefaultInstance();
-      builder.addSlot(RecipeIngredientRole.OUTPUT, WIDTH - 26, 23)
-        .addItemStack(outputStack);
+    builder.addSlot(RecipeIngredientRole.OUTPUT, WIDTH - 26, 23)
+      .addItemStack(outputStack);
   }
 
   @Override
@@ -86,20 +81,7 @@ public class ToolBuildingCategory implements IRecipeCategory<ToolBuildingRecipe>
       this.anvil.draw(stack, 76, 44);
     }
 
-    List<LayoutSlot> layoutSlots = recipe.getLayoutSlots();
-
-    int missingSlots = recipe.getAllToolParts().size() + recipe.getExtraRequirements().size() - layoutSlots.size();
-
-    // check layout slots for issues
-    if (missingSlots > 0) {
-      TConstruct.LOG.error(String.format("Tool part count is greater than layout slot count for %s!", recipe.getId()));
-      layoutSlots = new ArrayList<>(layoutSlots);
-      for (int additionalSlot = 0; additionalSlot < missingSlots; additionalSlot++) {
-        layoutSlots.add(new LayoutSlot(null, null, additionalSlot * SLOT_SIZE - X_OFFSET, -Y_OFFSET, null));
-      }
-    }
-
-    for (LayoutSlot layoutSlot : layoutSlots) {
+    for (LayoutSlot layoutSlot : recipe.getLayoutSlots()) {
       // need to offset by 1 because the inventory slot icons are 18x18
       this.slot.draw(stack, layoutSlot.getX() + X_OFFSET - 1, layoutSlot.getY() + Y_OFFSET - 1);
     }

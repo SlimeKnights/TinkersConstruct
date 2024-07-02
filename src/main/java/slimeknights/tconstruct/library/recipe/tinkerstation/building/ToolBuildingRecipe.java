@@ -31,6 +31,7 @@ import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.IntStream;
@@ -62,6 +63,9 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   protected final List<Ingredient> ingredients;
   protected List<LayoutSlot> layoutSlots;
   protected List<List<ItemStack>> allToolParts;
+  public static final int X_OFFSET = -6;
+  public static final int Y_OFFSET = -15;
+  public static final int SLOT_SIZE = 18;
 
   /** @deprecated Use {@link #ToolBuildingRecipe(ResourceLocation, String, IModifiable, int, ResourceLocation, List)} */
   @Deprecated
@@ -84,6 +88,15 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
       if (layoutSlots.isEmpty()) {
         // fallback to tinker station or anvil
         layoutSlots = StationSlotLayoutLoader.getInstance().get(TConstruct.getResource(requiresAnvil() ? "tinkers_anvil" : "tinker_station")).getInputSlots();
+      }
+      int missingSlots = getAllToolParts().size() + getExtraRequirements().size() - layoutSlots.size();
+      // check layout slots if its too small
+      if (missingSlots > 0) {
+        TConstruct.LOG.error(String.format("Tool part count is greater than layout slot count for %s!", getId()));
+        layoutSlots = new ArrayList<>(layoutSlots);
+        for (int additionalSlot = 0; additionalSlot < missingSlots; additionalSlot++) {
+          layoutSlots.add(new LayoutSlot(null, null, additionalSlot * SLOT_SIZE - X_OFFSET, -Y_OFFSET, null));
+        }
       }
     }
     return layoutSlots;
