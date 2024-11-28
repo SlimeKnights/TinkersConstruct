@@ -1,5 +1,5 @@
 {
-  "render_type": "cutout",
+  "render_type": "minecraft:cutout",
   "parent": "minecraft:block/tinted_flower_pot_cross",
   "textures": {
     "plant": "minecraft:block/fern"

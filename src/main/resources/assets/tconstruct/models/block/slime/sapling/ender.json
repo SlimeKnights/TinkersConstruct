@@ -1,5 +1,5 @@
 {
-    "render_type": "cutout",
+    "render_type": "minecraft:cutout",
     "parent": "block/cross",
     "textures": {
         "cross": "tconstruct:block/slime/sapling/ender"
