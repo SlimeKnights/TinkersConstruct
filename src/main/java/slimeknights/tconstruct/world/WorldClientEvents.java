@@ -104,23 +104,6 @@ public class WorldClientEvents extends ClientEventBase {
     RenderType cutoutMipped = RenderType.cutoutMipped();
 
     // render types - slime plants
-    for (FoliageType type : FoliageType.values()) {
-      if (type != FoliageType.BLOOD) {
-        ItemBlockRenderTypes.setRenderLayer(TinkerWorld.slimeLeaves.get(type), cutoutMipped);
-      }
-      ItemBlockRenderTypes.setRenderLayer(TinkerWorld.vanillaSlimeGrass.get(type), cutoutMipped);
-      ItemBlockRenderTypes.setRenderLayer(TinkerWorld.earthSlimeGrass.get(type), cutoutMipped);
-      ItemBlockRenderTypes.setRenderLayer(TinkerWorld.skySlimeGrass.get(type), cutoutMipped);
-      ItemBlockRenderTypes.setRenderLayer(TinkerWorld.enderSlimeGrass.get(type), cutoutMipped);
-      ItemBlockRenderTypes.setRenderLayer(TinkerWorld.ichorSlimeGrass.get(type), cutoutMipped);
-      ItemBlockRenderTypes.setRenderLayer(TinkerWorld.slimeFern.get(type), cutout);
-      ItemBlockRenderTypes.setRenderLayer(TinkerWorld.pottedSlimeFern.get(type), cutout);
-      ItemBlockRenderTypes.setRenderLayer(TinkerWorld.slimeTallGrass.get(type), cutout);
-      ItemBlockRenderTypes.setRenderLayer(TinkerWorld.slimeSapling.get(type), cutout);
-      ItemBlockRenderTypes.setRenderLayer(TinkerWorld.pottedSlimeSapling.get(type), cutout);
-    }
-    ItemBlockRenderTypes.setRenderLayer(TinkerWorld.enderSlimeVine.get(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerWorld.skySlimeVine.get(), cutout);
     ItemBlockRenderTypes.setRenderLayer(TinkerWorld.enderbarkRoots.get(), cutout);
 
     // render types - slime blocks
