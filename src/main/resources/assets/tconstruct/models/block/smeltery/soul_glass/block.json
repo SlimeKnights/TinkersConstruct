@@ -1,4 +1,5 @@
 {
+  "render_type": "minecraft:translucent",
   "loader": "mantle:connected",
   "parent": "block/cube_all",
   "textures": {
