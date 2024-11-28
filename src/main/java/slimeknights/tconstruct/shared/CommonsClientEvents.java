@@ -5,8 +5,6 @@ import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.font.FontManager;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
@@ -23,8 +21,6 @@ import slimeknights.tconstruct.library.utils.DomainDisplayName;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
 import slimeknights.tconstruct.shared.client.FluidParticle;
 
-import java.util.function.Consumer;
-
 @EventBusSubscriber(modid = TConstruct.MOD_ID, value = Dist.CLIENT, bus = Bus.MOD)
 public class CommonsClientEvents extends ClientEventBase {
   @SubscribeEvent
@@ -34,20 +30,6 @@ public class CommonsClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void clientSetup(final FMLClientSetupEvent event) {
-    // glass
-    ItemBlockRenderTypes.setRenderLayer(TinkerCommons.clearGlass.get(), RenderType.cutout());
-    ItemBlockRenderTypes.setRenderLayer(TinkerCommons.clearGlassPane.get(), RenderType.cutout());
-
-    RenderType cutout = RenderType.cutout();
-    ItemBlockRenderTypes.setRenderLayer(TinkerCommons.cheeseBlock.get(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerCommons.goldBars.get(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerCommons.goldPlatform.get(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerCommons.ironPlatform.get(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerCommons.cobaltPlatform.get(), cutout);
-    Consumer<Block> setCutout = block -> ItemBlockRenderTypes.setRenderLayer(block, cutout);
-    TinkerCommons.copperPlatform.forEach(setCutout);
-    TinkerCommons.waxedCopperPlatform.forEach(setCutout);
-
     Font unicode = unicodeFontRender();
     TinkerBook.MATERIALS_AND_YOU.fontRenderer = unicode;
     TinkerBook.TINKERS_GADGETRY.fontRenderer = unicode;

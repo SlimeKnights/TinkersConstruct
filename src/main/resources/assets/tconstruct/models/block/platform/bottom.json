@@ -1,5 +1,6 @@
 {
-    "parent": "block/block",
+  "render_type": "minecraft:cutout",
+  "parent": "block/block",
 	"textures": {
 		"particle": "#top"
 	},
