@@ -56,16 +56,9 @@ public class SmelteryClientEvents extends ClientEventBase {
     // render layers
     RenderType cutout = RenderType.cutout();
     RenderType translucent = RenderType.translucent();
+
     // seared
-    // casting
     // TODO: migrate
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedFaucet.get(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedBasin.get(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedTable.get(), cutout);
-    // controller
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedMelter.get(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.smelteryController.get(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.foundryController.get(), cutout);
     // peripherals
     ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedDrain.get(), cutout);
     ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedDuct.get(), cutout);
@@ -76,13 +69,8 @@ public class SmelteryClientEvents extends ClientEventBase {
     ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedTintedGlass.get(), translucent);
     ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedGlassPane.get(), cutout);
     ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedSoulGlassPane.get(), translucent);
+
     // scorched
-    // casting
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.scorchedFaucet.get(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.scorchedBasin.get(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.scorchedTable.get(), cutout);
-    // controller
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.scorchedAlloyer.get(), cutout);
     // peripherals
     ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.scorchedDrain.get(), cutout);
     ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.scorchedDuct.get(), cutout);

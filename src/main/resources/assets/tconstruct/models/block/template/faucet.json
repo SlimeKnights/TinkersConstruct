@@ -1,4 +1,5 @@
 {
+  "render_type": "minecraft:cutout",
   "loader": "mantle:fluids",
   "comment": "Model is facing South (as in: the block it's connected to is south of it)",
   "parent": "minecraft:block/block",
