@@ -1,4 +1,5 @@
 {
+  "render_type": "minecraft:translucent",
   "parent": "tconstruct:block/template/pane/noside_edge",
   "textures": {
     "pane": "tconstruct:block/foundry/soul_glass",

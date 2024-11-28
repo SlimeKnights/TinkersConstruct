@@ -1,4 +1,5 @@
 {
+    "render_type": "minecraft:translucent",
     "parent": "block/cube_all",
     "textures": {
         "all": "tconstruct:block/storage/soulsteel"

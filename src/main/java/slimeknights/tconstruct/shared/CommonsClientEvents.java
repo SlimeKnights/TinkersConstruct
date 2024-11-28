@@ -20,7 +20,6 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.client.book.TinkerBook;
 import slimeknights.tconstruct.library.utils.DomainDisplayName;
-import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock;
 import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
 import slimeknights.tconstruct.shared.client.FluidParticle;
 
@@ -35,20 +34,9 @@ public class CommonsClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void clientSetup(final FMLClientSetupEvent event) {
-    ItemBlockRenderTypes.setRenderLayer(TinkerCommons.glow.get(), RenderType.translucent());
-
     // glass
     ItemBlockRenderTypes.setRenderLayer(TinkerCommons.clearGlass.get(), RenderType.cutout());
     ItemBlockRenderTypes.setRenderLayer(TinkerCommons.clearGlassPane.get(), RenderType.cutout());
-    ItemBlockRenderTypes.setRenderLayer(TinkerCommons.clearTintedGlass.get(), RenderType.translucent());
-    for (ClearStainedGlassBlock.GlassColor color : ClearStainedGlassBlock.GlassColor.values()) {
-      ItemBlockRenderTypes.setRenderLayer(TinkerCommons.clearStainedGlass.get(color), RenderType.translucent());
-      ItemBlockRenderTypes.setRenderLayer(TinkerCommons.clearStainedGlassPane.get(color), RenderType.translucent());
-    }
-    ItemBlockRenderTypes.setRenderLayer(TinkerCommons.soulGlass.get(), RenderType.translucent());
-    ItemBlockRenderTypes.setRenderLayer(TinkerCommons.soulGlassPane.get(), RenderType.translucent());
-    ItemBlockRenderTypes.setRenderLayer(TinkerMaterials.soulsteel.get(), RenderType.translucent());
-    ItemBlockRenderTypes.setRenderLayer(TinkerMaterials.slimesteel.get(), RenderType.translucent());
 
     RenderType cutout = RenderType.cutout();
     ItemBlockRenderTypes.setRenderLayer(TinkerCommons.cheeseBlock.get(), cutout);
