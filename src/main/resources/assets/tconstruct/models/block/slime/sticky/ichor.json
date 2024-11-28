@@ -1,4 +1,5 @@
 {
+  "render_type": "minecraft:translucent",
   "parent": "block/block",
   "textures": {
     "particle": "tconstruct:block/slime/storage/ichor",

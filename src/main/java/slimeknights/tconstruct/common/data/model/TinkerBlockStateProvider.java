@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.common.data.model;
 
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -43,11 +44,12 @@ public class TinkerBlockStateProvider extends BlockStateProvider {
   protected void registerStatesAndModels() {
     addFenceBuildingBlock(TinkerMaterials.blazewood, "block/wood/blazewood/", "planks", blockTexture("wood/blazewood"));
     addFenceBuildingBlock(TinkerMaterials.nahuatl, "block/wood/nahuatl/", "planks", blockTexture("wood/nahuatl"));
-    addWood(TinkerWorld.greenheart, false);
-    addWood(TinkerWorld.skyroot, true);
-    addWood(TinkerWorld.bloodshroom, true);
-    addWood(TinkerWorld.enderbark, true);
+    addWood(TinkerWorld.greenheart, false, RenderType.cutout());
+    addWood(TinkerWorld.skyroot, true, RenderType.cutout());
+    addWood(TinkerWorld.bloodshroom, true, RenderType.cutout());
+    addWood(TinkerWorld.enderbark, true, RenderType.solid());
     basicBlock(TinkerWorld.enderbarkRoots.get(), models().withExistingParent("block/wood/enderbark/roots/empty", "block/mangrove_roots")
+                                                         .renderType(RenderType.cutout().name)
                                                          .texture("side", blockTexture("wood/enderbark/roots"))
                                                          .texture("top", blockTexture("wood/enderbark/roots_top")));
     TinkerWorld.slimyEnderbarkRoots.forEach((type, block) -> {
@@ -83,7 +85,7 @@ public class TinkerBlockStateProvider extends BlockStateProvider {
   }
 
   /** Creates all models for the given wood block object */
-  protected void addWood(WoodBlockObject wood, boolean trapdoorOrientable) {
+  protected void addWood(WoodBlockObject wood, boolean trapdoorOrientable, RenderType doorRenderType) {
     String plankPath = wood.getId().getPath();
     String name = plankPath.substring(0, plankPath.length() - "_planks".length());
     String folder = "block/wood/" + name + "/"; // forge model providers do not prefix with block if you have / in the path
@@ -100,7 +102,7 @@ public class TinkerBlockStateProvider extends BlockStateProvider {
     axisBlock(wood.getWood(),         folder + "log/wood",          texture.apply("log"), false);
     axisBlock(wood.getStrippedWood(), folder + "log/wood_stripped", texture.apply("stripped_log"), false);
     // doors
-    door(wood.getDoor(), folder, texture.apply("door_bottom"), texture.apply("door_top"));
+    door(wood.getDoor(), folder, doorRenderType, texture.apply("door_bottom"), texture.apply("door_top"));
     basicItem(wood.getDoor(), "wood/");
     trapdoor(wood.getTrapdoor(), folder + "trapdoor_", texture.apply("trapdoor"), trapdoorOrientable);
     // redstone
@@ -259,20 +261,30 @@ public class TinkerBlockStateProvider extends BlockStateProvider {
    * Adds a door block without an item model
    * @param block           Door block
    * @param prefix          Prefix for model files
+   * @param doorRenderType  Render type to use for door models
    * @param bottomTexture   Bottom door texture
    * @param topTexture      Top door texture
    */
-  public void door(DoorBlock block, String prefix, ResourceLocation bottomTexture, ResourceLocation topTexture) {
+  public void door(DoorBlock block, String prefix, RenderType doorRenderType, ResourceLocation bottomTexture, ResourceLocation topTexture) {
     doorBlock(
       block,
-      models().doorBottomLeft(     prefix + "door/bottom_left",       bottomTexture, topTexture),
-      models().doorBottomLeftOpen( prefix + "door/bottom_left_open",  bottomTexture, topTexture),
-      models().doorBottomRight(    prefix + "door/bottom_right",      bottomTexture, topTexture),
-      models().doorBottomRightOpen(prefix + "door/bottom_right_open", bottomTexture, topTexture),
-      models().doorTopLeft(        prefix + "door/top_left",          bottomTexture, topTexture),
-      models().doorTopLeftOpen(    prefix + "door/top_left_open",     bottomTexture, topTexture),
-      models().doorTopRight(       prefix + "door/top_right",         bottomTexture, topTexture),
-      models().doorTopRightOpen(   prefix + "door/top_right_open",    bottomTexture, topTexture));
+      models().doorBottomLeft(     prefix + "door/bottom_left",       bottomTexture, topTexture)
+              .renderType(doorRenderType.name),
+      models().doorBottomLeftOpen( prefix + "door/bottom_left_open",  bottomTexture, topTexture)
+              .renderType(doorRenderType.name),
+      models().doorBottomRight(    prefix + "door/bottom_right",      bottomTexture, topTexture)
+              .renderType(doorRenderType.name),
+      models().doorBottomRightOpen(prefix + "door/bottom_right_open", bottomTexture, topTexture)
+              .renderType(doorRenderType.name),
+      models().doorTopLeft(        prefix + "door/top_left",          bottomTexture, topTexture)
+              .renderType(doorRenderType.name),
+      models().doorTopLeftOpen(    prefix + "door/top_left_open",     bottomTexture, topTexture)
+              .renderType(doorRenderType.name),
+      models().doorTopRight(       prefix + "door/top_right",         bottomTexture, topTexture)
+              .renderType(doorRenderType.name),
+      models().doorTopRightOpen(   prefix + "door/top_right_open",    bottomTexture, topTexture)
+              .renderType(doorRenderType.name)
+    );
   }
 
   /**
@@ -280,15 +292,22 @@ public class TinkerBlockStateProvider extends BlockStateProvider {
    * @param block    Trapdoor block
    * @param prefix   Model location prefix
    * @param texture  Trapdoor texture
-   * @param orientable  If true, its an oriented model.
+   * @param orientable  If true, it's an oriented model.
    */
   public void trapdoor(TrapDoorBlock block, String prefix, ResourceLocation texture, boolean orientable) {
-    ModelFile bottom = orientable ? models().trapdoorOrientableBottom(prefix + "bottom", texture) : models().trapdoorBottom(prefix + "bottom", texture);
-    trapdoorBlock(
-      block, bottom,
-      orientable ? models().trapdoorOrientableTop(prefix + "top", texture) : models().trapdoorTop(prefix + "top", texture),
-      orientable ? models().trapdoorOrientableOpen(prefix + "open", texture) : models().trapdoorOpen(prefix + "open", texture),
-      orientable);
+    ModelFile bottom, top, open;
+
+    if (orientable) {
+      bottom = models().trapdoorOrientableBottom(prefix + "bottom", texture).renderType(RenderType.cutout().name);
+      top = models().trapdoorOrientableTop(prefix + "top", texture).renderType(RenderType.cutout().name);
+      open = models().trapdoorOrientableOpen(prefix + "open", texture).renderType(RenderType.cutout().name);
+    } else {
+      bottom = models().trapdoorBottom(prefix + "bottom", texture).renderType(RenderType.cutout().name);
+      top = models().trapdoorTop(prefix + "top", texture).renderType(RenderType.cutout().name);
+      open = models().trapdoorOpen(prefix + "open", texture).renderType(RenderType.cutout().name);
+    }
+
+    trapdoorBlock(block, bottom, top, open, orientable);
     simpleBlockItem(block, bottom);
   }
 

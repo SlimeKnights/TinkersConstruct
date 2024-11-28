@@ -9,8 +9,6 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.particle.ParticleEngine;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -27,7 +25,6 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
-import slimeknights.tconstruct.common.registration.GeodeItemObject.BudSize;
 import slimeknights.tconstruct.library.client.particle.SlimeParticle;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.shared.block.SlimeType;
@@ -100,35 +97,6 @@ public class WorldClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void clientSetup(FMLClientSetupEvent event) {
-    RenderType cutout = RenderType.cutout();
-    RenderType cutoutMipped = RenderType.cutoutMipped();
-
-    // render types - slime plants
-    ItemBlockRenderTypes.setRenderLayer(TinkerWorld.enderbarkRoots.get(), cutout);
-
-    // render types - slime blocks
-    RenderType translucent = RenderType.translucent();
-    for (SlimeType type : SlimeType.TINKER) {
-      ItemBlockRenderTypes.setRenderLayer(TinkerWorld.slime.get(type), translucent);
-    }
-
-    // doors
-    ItemBlockRenderTypes.setRenderLayer(TinkerWorld.greenheart.getDoor(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerWorld.greenheart.getTrapdoor(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerWorld.skyroot.getDoor(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerWorld.skyroot.getTrapdoor(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerWorld.bloodshroom.getDoor(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerWorld.bloodshroom.getTrapdoor(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerWorld.enderbark.getTrapdoor(), cutout);
-
-    // geodes
-    for (BudSize size : BudSize.values()) {
-      ItemBlockRenderTypes.setRenderLayer(TinkerWorld.earthGeode.getBud(size), cutout);
-      ItemBlockRenderTypes.setRenderLayer(TinkerWorld.skyGeode.getBud(size),   cutout);
-      ItemBlockRenderTypes.setRenderLayer(TinkerWorld.ichorGeode.getBud(size), cutout);
-      ItemBlockRenderTypes.setRenderLayer(TinkerWorld.enderGeode.getBud(size), cutout);
-    }
-
     // skull textures
     event.enqueueWork(() -> {
       registerHeadModel(TinkerHeadType.BLAZE, MaterialIds.blazingBone, new ResourceLocation("textures/entity/blaze.png"));

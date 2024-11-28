@@ -1,5 +1,6 @@
 {
   "parent": "minecraft:block/door_top_right_open",
+  "render_type": "minecraft:cutout",
   "textures": {
     "bottom": "tconstruct:block/wood/bloodshroom/door_bottom",
     "top": "tconstruct:block/wood/bloodshroom/door_top"
