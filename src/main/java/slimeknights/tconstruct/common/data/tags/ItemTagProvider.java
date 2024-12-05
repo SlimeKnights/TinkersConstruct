@@ -37,6 +37,7 @@ import slimeknights.tconstruct.world.TinkerWorld;
 import java.util.function.Consumer;
 
 import static net.minecraft.tags.ItemTags.CLUSTER_MAX_HARVESTABLES;
+import static slimeknights.tconstruct.common.TinkerTags.Items.ANCIENT_TOOLS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.AOE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.BASIC_ARMOR;
@@ -257,6 +258,9 @@ public class ItemTagProvider extends ItemTagsProvider {
     addToolTags(TinkerTools.earthStaff,    DURABILITY, STAFFS, SPECIAL_TOOLS, HELD_ARMOR, INTERACTABLE_DUAL, AOE, DYEABLE, EMBELLISHMENT_WOOD, BONUS_SLOTS);
     addToolTags(TinkerTools.ichorStaff,    DURABILITY, STAFFS, SPECIAL_TOOLS, HELD_ARMOR, INTERACTABLE_DUAL, AOE, DYEABLE, EMBELLISHMENT_WOOD, BONUS_SLOTS);
     addToolTags(TinkerTools.enderStaff,    DURABILITY, STAFFS, SPECIAL_TOOLS, HELD_ARMOR, INTERACTABLE_DUAL, AOE, DYEABLE, EMBELLISHMENT_WOOD, BONUS_SLOTS);
+    // ancient
+    addToolTags(TinkerTools.warPick,    MULTIPART_TOOL, DURABILITY, ANCIENT_TOOLS, HARVEST_PRIMARY, STONE_HARVEST, MELEE_WEAPON, AOE, CLUSTER_MAX_HARVESTABLES, CROSSBOWS, BONUS_SLOTS);
+    addToolTags(TinkerTools.battlesign, MULTIPART_TOOL, DURABILITY, ANCIENT_TOOLS, MELEE_PRIMARY, SHIELDS, BONUS_SLOTS);
 
     // armor
     addArmorTags(TinkerTools.travelersGear, DURABILITY, BONUS_SLOTS, GOLDEN_ARMOR, DYEABLE, ItemTags.FREEZE_IMMUNE_WEARABLES);

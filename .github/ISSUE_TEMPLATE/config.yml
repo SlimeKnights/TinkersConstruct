@@ -7,11 +7,11 @@ contact_links:
    url: https://discord.gg/njGrvuh
    about: Join our discord to discuss new features or to discuss behavior that may not be a bug.
  - name: FAQ
-   url: https://github.com/SlimeKnights/TinkersConstruct/wiki/Tinkers%27-Construct-3-FAQ
+   url: https://slimeknights.github.io/faq/
    about: Answers to frequently asked questions about 1.16+
  - name: Roadmap
-   url: https://github.com/SlimeKnights/TinkersConstruct/wiki/Tinkers%27-Construct-3-Roadmap
+   url: https://slimeknights.github.io/docs/roadmap/
    about: Read about plans for later 1.16 & 1.18 versions
  - name: What's New in Tinkers' Construct 3?
-   url: https://github.com/SlimeKnights/TinkersConstruct/wiki/New-in-Tinkers%27-Construct-3
+   url: https://slimeknights.github.io/docs/whats-new/
    about: Read about what recent versions of the mod have or will change overall

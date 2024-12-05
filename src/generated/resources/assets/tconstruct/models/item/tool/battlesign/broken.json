@@ -1,0 +1,22 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "forge:item/default-tool",
+  "textures": {
+    "head": "tconstruct:item/tool/battlesign/head_broken",
+    "handle": "tconstruct:item/tool/battlesign/handle"
+  },
+  "modifier_roots": [
+    "tconstruct:item/tool/dagger/modifiers/broken/",
+    "tconstruct:item/tool/dagger/modifiers/"
+  ],
+  "parts": [
+    {
+      "name": "head",
+      "index": 0
+    },
+    {
+      "name": "handle",
+      "index": 1
+    }
+  ]
+}

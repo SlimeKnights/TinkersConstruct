@@ -11,7 +11,9 @@
       "tconstruct:wood"
     ],
     "transformer": {
-      "type": "tconstruct:grey_to_sprite",
+      "type": "tconstruct:animated_sprite",
+      "frames": 7,
+      "meta": "tconstruct:block/wood/blazewood",
       "palette": [
         {
           "color": "FF000000",

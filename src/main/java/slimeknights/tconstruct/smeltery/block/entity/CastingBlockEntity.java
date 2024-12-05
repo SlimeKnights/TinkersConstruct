@@ -231,7 +231,7 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
         }
         moldingInventory.setPattern(ItemStack.EMPTY);
         return;
-      } else {
+      } else if (!held.isEmpty()) {
         // if no recipe was found using the held item, try to find a mold-less recipe to perform
         // this ensures that if a recipe happens "on pickup" you get consistent behavior, without this it would fall though to pick up normally
         moldingInventory.setPattern(ItemStack.EMPTY);

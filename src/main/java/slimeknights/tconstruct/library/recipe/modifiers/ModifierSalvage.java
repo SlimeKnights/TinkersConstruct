@@ -31,10 +31,11 @@ public class ModifierSalvage implements ICustomOutputRecipe<Container> {
   public static final RecordLoadable<ModifierSalvage> LOADER = RecordLoadable.create(
     ContextKey.ID.requiredField(),
     IngredientLoadable.DISALLOW_EMPTY.requiredField("tools", r -> r.toolIngredient),
-    IntLoadable.FROM_ONE.defaultField("max_tool_size", ITinkerStationRecipe.DEFAULT_TOOL_STACK_SIZE, r -> r.maxToolSize),
+    IntLoadable.FROM_ONE.defaultField("max_tool_size", ITinkerStationRecipe.DEFAULT_TOOL_STACK_SIZE, r -> r.maxToolSize), // TODO 1.20: max tool size is unused, remove it
     ModifierId.PARSER.requiredField("modifier", r -> r.modifier),
     ModifierEntry.VALID_LEVEL.defaultField("level", r -> r.level),
-    SlotCount.LOADABLE.nullableField("slots", r -> r.slots),
+    SlotCount.LOADABLE.nullableField("slots", r -> r.slots), // TODO 1.20: make non-nullable
+    // TODO: should this have check_trait_level?
     ModifierSalvage::new);
 
   @Getter
@@ -60,7 +61,9 @@ public class ModifierSalvage implements ICustomOutputRecipe<Container> {
     this.modifier = modifier;
     this.level = level;
     this.slots = slots;
-    ModifierRecipeLookup.addSalvage(this);
+    if (slots != null) {
+      ModifierRecipeLookup.addSalvage(this);
+    }
   }
 
   /**

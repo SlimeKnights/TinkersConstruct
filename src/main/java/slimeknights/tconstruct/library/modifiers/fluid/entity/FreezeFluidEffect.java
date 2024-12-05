@@ -43,7 +43,7 @@ public record FreezeFluidEffect(TimeAction action, int time) implements FluidEff
     } else {
       int freezeTicks = target.getTicksRequiredToFreeze();
       int frozen = target.getTicksFrozen();
-      float existing = frozen < freezeTicks ? 0 : frozen / (float) time;
+      float existing = frozen < freezeTicks ? 0 : (frozen - freezeTicks) / (float) time;
       float effective = level.effective(existing);
       if (action.execute()) {
         target.setTicksFrozen(freezeTicks + Math.round(time * effective));

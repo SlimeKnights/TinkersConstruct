@@ -137,7 +137,6 @@ public class MaterialTraitsManager extends MergingJsonDataLoader<MaterialTraits.
     for (Entry<MaterialStatsId,List<ModifierEntry>> entry : json.getPerStat().entrySet()) {
       builder.setTraits(entry.getKey(), entry.getValue());
     }
-    builder.setDefaultTraits(json.getDefaultTraits());
   }
 
   @Override

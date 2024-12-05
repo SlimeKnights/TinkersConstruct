@@ -1,8 +1,12 @@
 package slimeknights.tconstruct.library.client.data.spritetransformer;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
 import com.mojang.blaze3d.platform.NativeImage;
 import net.minecraft.resources.ResourceLocation;
+import slimeknights.mantle.data.loadable.primitive.IntLoadable;
+import slimeknights.mantle.util.JsonHelper;
+import slimeknights.tconstruct.TConstruct;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
@@ -14,6 +18,11 @@ import static com.mojang.blaze3d.platform.NativeImage.getA;
  * Supports including sprites as "part of the palette" which can produce animated textures.
  */
 public class AnimatedGreyToSpriteTransformer extends GreyToSpriteTransformer {
+  public static final ResourceLocation NAME = TConstruct.getResource("animated_sprite");
+  /** Serializer instance */
+  public static Deserializer<AnimatedGreyToSpriteTransformer> DESERIALIZER = new Deserializer<>((builder, json) ->
+    builder.animated(JsonHelper.getResourceLocation(json, "meta"), IntLoadable.FROM_ONE.getIfPresent(json, "frames")));
+
   private final ResourceLocation metaPath;
   private final int frames;
   private JsonObject meta;
@@ -79,5 +88,16 @@ public class AnimatedGreyToSpriteTransformer extends GreyToSpriteTransformer {
       }
     }
     return meta;
+  }
+
+  /* Serializing */
+
+  @Override
+  public JsonObject serialize(JsonSerializationContext context) {
+    JsonObject object = super.serialize(context);
+    object.addProperty("type", NAME.toString());
+    object.addProperty("meta", metaPath.toString());
+    object.addProperty("frames", frames);
+    return object;
   }
 }

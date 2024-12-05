@@ -7,10 +7,36 @@
       "slots": 1
     },
     {
+      "type": "tconstruct:swappable_slot",
+      "hooks": [
+        "tconstruct:volatile_data"
+      ],
+      "slots": 1,
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/ancient"
+      }
+    },
+    {
       "type": "tconstruct:swappable_bonus_slot",
       "bonus": "upgrades",
       "match": "abilities",
-      "slots": -1
+      "slots": -1,
+      "tool": {
+        "type": "mantle:inverted",
+        "inverted_type": "mantle:tag",
+        "tag": "tconstruct:modifiable/ancient"
+      }
+    },
+    {
+      "type": "tconstruct:swappable_bonus_slot",
+      "bonus": "abilities",
+      "match": "abilities",
+      "slots": -1,
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/ancient"
+      }
     },
     {
       "type": "tconstruct:swappable_tool_traits",

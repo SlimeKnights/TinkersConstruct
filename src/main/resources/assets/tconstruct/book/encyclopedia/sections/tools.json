@@ -16,5 +16,11 @@
     "type": "mantle:text",
     "data": "tools/staff.json",
     "extraData": { "tconstruct:load_tools": { "tag": "tconstruct:modifiable/special", "path": "tools/staff", "sort": false }}
+  },
+  {
+    "name": "group_ancient",
+    "type": "mantle:text",
+    "data": "tools/ancient.json",
+    "extraData": { "tconstruct:load_tools": { "tag": "tconstruct:modifiable/ancient", "path": "tools/ancient" }}
   }
 ]

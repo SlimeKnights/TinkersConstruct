@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:war_pick",
+  "text": [
+    { "text": "The war pick is a hybrid mining tool, effective on stone, metal, and ores while also functioning as a crossbow." },
+    { "text": "Expanders increase the circular radius of the pick.", "paragraph": true }
+  ],
+  "properties": [
+    "+0 Attack Damage",
+    "1.2 Attack Speed",
+    "1.0 Attack Speed",
+    "1.0 Draw Speed",
+    "1.00 Arrow Velocity",
+    "0.75 Accuracy"
+  ]
+}

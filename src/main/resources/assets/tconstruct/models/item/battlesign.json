@@ -1,0 +1,23 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "forge:item/default-tool",
+  "textures": {
+    "head":   "tconstruct:item/tool/battlesign/head",
+    "handle": "tconstruct:item/tool/battlesign/handle"
+  },
+  "modifier_roots": [ "tconstruct:item/tool/dagger/modifiers/" ],
+  "parts": [
+    { "name": "head",   "index": 0 },
+    { "name": "handle", "index": 1 }
+  ],
+  "overrides": [
+    {
+      "predicate": { "tconstruct:charging": 2 },
+      "model": "tconstruct:item/tool/battlesign/blocking"
+    },
+    {
+      "predicate": { "tconstruct:broken": 1 },
+      "model": "tconstruct:item/tool/battlesign/broken"
+    }
+  ]
+}

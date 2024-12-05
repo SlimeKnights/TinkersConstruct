@@ -39,6 +39,11 @@ public record MobEffectFluidEffect(FluidMobEffect effect, TimeAction action) imp
       // add and set both have distinct behavior under an existing effect, same otherwise
       MobEffectInstance existingInstance = target.getEffect(effect.effect());
       if (existingInstance != null && existingInstance.getAmplifier() >= effect.amplifier()) {
+        // if the existing level is larger, just skip, would be a cheese to increase said level
+        // lower levels we treat as not having the effect, must be exact match to extend
+        if (existingInstance.getAmplifier() > effect.amplifier()) {
+          return 0;
+        }
         if (this.action == TimeAction.ADD) {
           int extraTime = (int)(effect.time() * scale.value());
           if (extraTime <= 0) {

@@ -9,6 +9,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierSalvage;
@@ -174,6 +175,10 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
   public T saveSalvage(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
     if (maxLevel < minLevel) {
       throw new IllegalStateException("Max level must be greater than min level");
+    }
+    if (slots == null) {
+      TConstruct.LOG.warn("Salvage for {} has no modifier slots. This is useless and will throw an exception in a future version.", id);
+      return (T) this;
     }
     ResourceLocation advancementId = buildOptionalAdvancement(id, "modifiers");
     consumer.accept(new LoadableFinishedRecipe<>(makeSalvage(id), ModifierSalvage.LOADER, advancementId));

@@ -29,7 +29,7 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
   public static final RecordLoadable<AlloyRecipe> LOADER = RecordLoadable.create(
     ContextKey.ID.requiredField(),
     FluidIngredient.LOADABLE.list(2).requiredField("inputs", r -> r.inputs),
-    FluidStackLoadable.REQUIRED_STACK.requiredField("result", r -> r.output),
+    FluidStackLoadable.REQUIRED_STACK_NBT.requiredField("result", r -> r.output),
     IntLoadable.FROM_ONE.requiredField("temperature", r -> r.temperature),
     AlloyRecipe::new).comapFlatMap((recipe, error) -> {
     for (FluidIngredient input : recipe.inputs) {

@@ -25,7 +25,7 @@ public class MoldingRecipe implements ICommonRecipe<IMoldingContainer> {
     IngredientLoadable.DISALLOW_EMPTY.requiredField("material", MoldingRecipe::getMaterial),
     IngredientLoadable.ALLOW_EMPTY.defaultField("pattern", Ingredient.EMPTY, MoldingRecipe::getPattern),
     BooleanLoadable.INSTANCE.defaultField("pattern_consumed", false, false, MoldingRecipe::isPatternConsumed),
-    ItemOutput.Loadable.REQUIRED_STACK.requiredField("result", r -> r.recipeOutput),
+    ItemOutput.Loadable.REQUIRED_ITEM.requiredField("result", r -> r.recipeOutput),
     MoldingRecipe::new);
 
   @Getter

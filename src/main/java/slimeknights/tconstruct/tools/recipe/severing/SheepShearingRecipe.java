@@ -8,11 +8,13 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.ingredient.EntityIngredient;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipe;
+import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import java.util.Map;
 
@@ -38,6 +40,11 @@ public class SheepShearingRecipe extends SeveringRecipe {
 
   public SheepShearingRecipe(ResourceLocation id) {
     super(id, EntityIngredient.of(EntityType.SHEEP), ItemOutput.fromItem(Blocks.WHITE_WOOL, 2));
+  }
+
+  @Override
+  public RecipeSerializer<?> getSerializer() {
+    return TinkerModifiers.sheepShearing.get();
   }
 
   @Override

@@ -1,0 +1,65 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "forge:item/default-tool",
+  "textures": {
+    "limb":      "tconstruct:item/tool/war_pick/limb",
+    "body":      "tconstruct:item/tool/war_pick/body",
+    "bowstring": "tconstruct:item/tool/war_pick/bowstring"
+  },
+  "modifier_roots": [ "tconstruct:item/tool/war_pick/modifiers/" ],
+  "parts": [
+    { "name": "body",      "index": 1 },
+    { "name": "bowstring" },
+    { "name": "limb",      "index": 0 }
+  ],
+  "overrides": [
+    {
+      "predicate": { "tconstruct:charging": 1 },
+      "model": "tconstruct:item/tool/war_pick/pulling_1"
+    },
+    {
+      "predicate": { "tconstruct:charging": 1, "tconstruct:charge": 0.58 },
+      "model": "tconstruct:item/tool/war_pick/pulling_2"
+    },
+    {
+      "predicate": { "tconstruct:charging": 1, "tconstruct:charge": 1.0 },
+      "model": "tconstruct:item/tool/war_pick/pulling_3"
+    },
+    {
+      "predicate": { "tconstruct:charging": 2 },
+      "model": "tconstruct:item/tool/war_pick/blocking"
+    },
+    {
+      "predicate": { "tconstruct:charging": 2, "tconstruct:charge": 0.05 },
+      "model": "tconstruct:item/tool/war_pick/blocking_1"
+    },
+    {
+      "predicate": { "tconstruct:charging": 2, "tconstruct:charge": 0.58 },
+      "model": "tconstruct:item/tool/war_pick/blocking_2"
+    },
+    {
+      "predicate": { "tconstruct:charging": 2, "tconstruct:charge": 1.0 },
+      "model": "tconstruct:item/tool/war_pick/blocking_3"
+    },
+    {
+      "predicate": { "tconstruct:ammo": 1 },
+      "model": "tconstruct:item/tool/war_pick/arrow"
+    },
+    {
+      "predicate": { "tconstruct:ammo": 1, "tconstruct:charging": 2 },
+      "model": "tconstruct:item/tool/war_pick/arrow_blocking"
+    },
+    {
+      "predicate": { "tconstruct:ammo": 2 },
+      "model": "tconstruct:item/tool/war_pick/firework"
+    },
+    {
+      "predicate": { "tconstruct:ammo": 2, "tconstruct:charging": 2 },
+      "model": "tconstruct:item/tool/war_pick/firework_blocking"
+    },
+    {
+      "predicate": { "tconstruct:broken": 1 },
+      "model": "tconstruct:item/tool/war_pick/broken"
+    }
+  ]
+}

@@ -109,5 +109,9 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
       .addLimb("limb_top").addLimb("limb_top_1").addLimb("limb_top_2").addLimb("limb_top_3")
       .addGrip("grip")
       .addBreakableBowstring("bowstring").addBowstring("bowstring_1").addBowstring("bowstring_2").addBowstring("bowstring_3");
+
+    // ancient tools
+    buildTool("war_pick").addHead("limb").addLimb("body");
+    buildTool("battlesign").addBreakableHead("head").addPart("handle", PlatingMaterialStats.SHIELD.getId());
   }
 }

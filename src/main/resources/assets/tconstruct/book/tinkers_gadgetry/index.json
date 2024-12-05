@@ -36,6 +36,26 @@
     "extraData": { "tconstruct:load_tools": { "tag": "tconstruct:modifiable/special", "path": "staffs", "sort": false }}
   },
   {
+    "name": "ancient_tools",
+    "icon": {
+      "item": {
+        "type": "forge:nbt",
+        "item": "tconstruct:battlesign",
+        "nbt": {
+          "tic_broken": false,
+          "tic_display": true,
+          "Damage": 0,
+          "tic_materials": [
+            "tconstruct:ui_render#head",
+            "tconstruct:ui_render#handle"
+          ]
+        }
+      }
+    },
+    "data": "no-load",
+    "extraData": { "tconstruct:load_tools": { "tag": "tconstruct:modifiable/ancient", "path": "ancient", "sort": false }}
+  },
+  {
     "name": "armor",
     "icon": {
       "item": "tconstruct:slime_boots"

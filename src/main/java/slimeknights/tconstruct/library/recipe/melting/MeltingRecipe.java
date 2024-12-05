@@ -42,10 +42,10 @@ import java.util.stream.Stream;
 public class MeltingRecipe implements IMeltingRecipe {
   /* Reusable fields */
   protected static final LoadableField<Ingredient, MeltingRecipe> INPUT = IngredientLoadable.DISALLOW_EMPTY.requiredField("ingredient", MeltingRecipe::getInput);
-  protected static final LoadableField<FluidStack, MeltingRecipe> OUTPUT = FluidStackLoadable.REQUIRED_STACK.requiredField("result", MeltingRecipe::getOutput);
+  protected static final LoadableField<FluidStack, MeltingRecipe> OUTPUT = FluidStackLoadable.REQUIRED_STACK_NBT.requiredField("result", MeltingRecipe::getOutput);
   protected static final LoadableField<Integer, MeltingRecipe> TEMPERATURE = IntLoadable.FROM_ZERO.requiredField("temperature", MeltingRecipe::getTemperature);
   protected static final LoadableField<Integer, MeltingRecipe> TIME = IntLoadable.FROM_ONE.requiredField("time", MeltingRecipe::getTime);
-  protected static final LoadableField<List<FluidStack>, MeltingRecipe> BYPRODUCTS = FluidStackLoadable.REQUIRED_STACK.list(0).defaultField("byproducts", List.of(), r -> r.byproducts);
+  protected static final LoadableField<List<FluidStack>, MeltingRecipe> BYPRODUCTS = FluidStackLoadable.REQUIRED_STACK_NBT.list(0).defaultField("byproducts", List.of(), r -> r.byproducts);
   /** Loader instance */
   public static final RecordLoadable<MeltingRecipe> LOADER = RecordLoadable.create(ContextKey.ID.requiredField(), LoadableRecipeSerializer.RECIPE_GROUP, INPUT, OUTPUT, TEMPERATURE, TIME, BYPRODUCTS, MeltingRecipe::new);
 
@@ -59,7 +59,7 @@ public class MeltingRecipe implements IMeltingRecipe {
   protected final FluidStack output;
   @Getter
   protected final int temperature;
-  /** Number of "steps" needed to melt this, by default lava increases steps by 5 every 4 ticks (25 a second) */
+  /** Number of "steps" needed to melt this, by default lava increases steps by 1 every 4 ticks (5 a second) */
   @Getter
   protected final int time;
   protected final List<FluidStack> byproducts;
@@ -131,6 +131,7 @@ public class MeltingRecipe implements IMeltingRecipe {
     T create(ResourceLocation id, String group, Ingredient input, FluidStack output, int temperature, int time, List<FluidStack> byproducts);
   }
 
+  @Deprecated(forRemoval = true)
   protected abstract static class AbstractSerializer<T extends MeltingRecipe> implements LoggingRecipeSerializer<T> {
     /** Creates a new recipe instance from Json */
     protected abstract T createFromJson(ResourceLocation id, String group, Ingredient input, FluidStack output, int temperature, int time, List<FluidStack> byproducts, JsonObject json);

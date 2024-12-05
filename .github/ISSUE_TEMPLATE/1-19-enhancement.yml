@@ -8,9 +8,9 @@ body:
         If your idea requires discussion or is complicated, [join our discord](https://discord.gg/njGrvuh) instead of posting a new issue.
         Please search the following links to make sure your enhancement is not covered:
         
-        * **[Roadmap](/SlimeKnights/TinkersConstruct/wiki/Tinkers%27-Construct-3-Roadmap)**: Discusses unimplemented features and planned new changes
-        * **[What's New](/SlimeKnights/TinkersConstruct/wiki/New-in-Tinkers%27-Construct-3)**: Discusses many of the major changes in Tinkers' Construct 3
-        * **[FAQ](/SlimeKnights/TinkersConstruct/wiki/Tinkers%27-Construct-3-FAQ)**: Answers to many frequently asked questions about the Tinkers' Construct 3 versions
+        * **[Roadmap](https://slimeknights.github.io/docs/roadmap/)**: Discusses unimplemented features and planned new changes
+        * **[What's New](https://slimeknights.github.io/docs/whats-new/)**: Discusses many of the major changes in Tinkers' Construct 3
+        * **[FAQ](https://slimeknights.github.io/faq/)**: Answers to many frequently asked questions about the Tinkers' Construct 3 versions
   
   - type: markdown
     attributes:
@@ -95,7 +95,7 @@ body:
     id: searched
     attributes:
       label: "Searched for existing enhancement?"
-      description: "Select all that apply. Please check the [search bar](/SlimeKnights/TinkersConstruct/issues), and [the FAQ](/SlimeKnights/TinkersConstruct/wiki/Tinkers%27-Construct-3-FAQ) to see if your enhancement is covered."
+      description: "Select all that apply. Please check the [search bar](/SlimeKnights/TinkersConstruct/issues), and [the FAQ](https://slimeknights.github.io/faq/) to see if your enhancement is covered."
       multiple: true
       options:
         - 'Used the search bar'

@@ -2213,24 +2213,6 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                             .setFluidAndTime(new FluidStack(Fluids.LAVA, FluidType.BUCKET_VOLUME / 10))
                             .save(ceramicsConsumer, location(castingFolder + "lava_bricks_wall"));
 
-    // golden bricks
-    ItemCastingRecipeBuilder.basinRecipe(ItemNameOutput.fromName(ceramicsId.apply("golden_bricks")))
-                            .setCast(ItemNameIngredient.from(ceramicsId.apply("porcelain_bricks")), true)
-                            .setFluidAndTime(TinkerFluids.moltenGold, true, FluidValues.NUGGET / 8)
-                            .save(ceramicsConsumer, location(castingFolder + "golden_bricks"));
-    ItemCastingRecipeBuilder.basinRecipe(ItemNameOutput.fromName(ceramicsId.apply("golden_bricks_slab")))
-                            .setCast(ItemNameIngredient.from(ceramicsId.apply("porcelain_bricks_slab")), true)
-                            .setFluidAndTime(TinkerFluids.moltenGold, true, FluidValues.NUGGET / 16)
-                            .save(ceramicsConsumer, location(castingFolder + "golden_bricks_slab"));
-    ItemCastingRecipeBuilder.basinRecipe(ItemNameOutput.fromName(ceramicsId.apply("golden_bricks_stairs")))
-                            .setCast(ItemNameIngredient.from(ceramicsId.apply("porcelain_bricks_stairs")), true)
-                            .setFluidAndTime(TinkerFluids.moltenGold, true, FluidValues.NUGGET / 8)
-                            .save(ceramicsConsumer, location(castingFolder + "golden_bricks_stairs"));
-    ItemCastingRecipeBuilder.basinRecipe(ItemNameOutput.fromName(ceramicsId.apply("golden_bricks_wall")))
-                            .setCast(ItemNameIngredient.from(ceramicsId.apply("porcelain_bricks_wall")), true)
-                            .setFluidAndTime(TinkerFluids.moltenGold, true, FluidValues.NUGGET / 8)
-                            .save(ceramicsConsumer, location(castingFolder + "golden_bricks_wall"));
-
     // refined glowstone composite
     Consumer<FinishedRecipe> wrapped = withCondition(consumer, tagCondition("ingots/refined_glowstone"), tagCondition("ingots/osmium"));
     ItemCastingRecipeBuilder.tableRecipe(ItemOutput.fromTag(getItemTag("forge", "ingots/refined_glowstone")))

@@ -9,6 +9,7 @@
     "tconstruct:crossbow",
     "tconstruct:longbow",
     "tconstruct:flint_and_brick",
+    "tconstruct:war_pick",
     "#tconstruct:modifiable/melee/primary",
     "#tconstruct:modifiable/melee/sword",
     "#tconstruct:modifiable/melee/parry"

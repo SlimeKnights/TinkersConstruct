@@ -8,9 +8,9 @@ body:
         Before submitting an issue, please search the following links to make sure your issue is not covered:
         
         * **[Pinned Issues](/SlimeKnights/TinkersConstruct/issues)**: Some commonly reported issues are pinned
-        * **[Roadmap](/SlimeKnights/TinkersConstruct/wiki/Tinkers%27-Construct-3-Roadmap)**: Discusses unimplemented features and planned new changes
-        * **[What's New](/SlimeKnights/TinkersConstruct/wiki/New-in-Tinkers%27-Construct-3)**: Discusses many of the major changes in the 1.18 alphas
-        * **[FAQ](/SlimeKnights/TinkersConstruct/wiki/Tinkers%27-Construct-3-FAQ)**: Answers to many frequently asked questions about the 1.18 versions
+        * **[Roadmap](https://slimeknights.github.io/docs/roadmap/)**: Discusses unimplemented features and planned new changes
+        * **[What's New](https://slimeknights.github.io/docs/whats-new/)**: Discusses many of the major changes in the 1.18 alphas
+        * **[FAQ](https://slimeknights.github.io/faq/)**: Answers to many frequently asked questions about the 1.18 versions
         
         Please fill in the following template to report your issue.
         
@@ -110,7 +110,7 @@ body:
     id: searched
     attributes:
       label: "Searched for known issues?"
-      description: "Select all that apply. Please check [pinned issues](/SlimeKnights/TinkersConstruct/issues), the [search bar](/SlimeKnights/TinkersConstruct/issues), and [the FAQ](/SlimeKnights/TinkersConstruct/wiki/Tinkers%27-Construct-3-FAQ) to see if your issue is covered."
+      description: "Select all that apply. Please check [pinned issues](/SlimeKnights/TinkersConstruct/issues), the [search bar](/SlimeKnights/TinkersConstruct/issues), and [the FAQ](https://slimeknights.github.io/faq/) to see if your issue is covered."
       multiple: true
       options:
         - 'Checked pinned issues'

@@ -9,16 +9,12 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.storage.loot.LootContext;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialManager;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
-import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
-
-import java.util.List;
 
 public class TinkerTags {
   /** Called on mod construct to set up tags */
@@ -329,8 +325,10 @@ public class TinkerTags {
     public static final TagKey<Item> BROAD_TOOLS = tag("modifiable/broad");
     /** Speciality tools that don't fit into either broad or small, notably includes staffs. Used in the books */
     public static final TagKey<Item> SPECIAL_TOOLS = tag("modifiable/special");
+    /** Tools found through loot. Used in books and some modifiers */
+    public static final TagKey<Item> ANCIENT_TOOLS = tag("modifiable/ancient");
 
-    /** Tools that can adjust the loot context for {@link Modifier#processLoot(IToolStackView, slimeknights.tconstruct.library.modifiers.ModifierEntry, List, LootContext)} */
+    /** Tools that can adjust the loot context for {@link slimeknights.tconstruct.library.modifiers.hook.behavior.ProcessLootModifierHook} */
     public static final TagKey<Item> LOOT_CAPABLE_TOOL = tag("modifiable/loot_capable_tool");
     /** Anything that is used in the player's hand, mostly tools that support interaction, but other tools can be added directly */
     public static final TagKey<Item> HELD = tag("modifiable/held");

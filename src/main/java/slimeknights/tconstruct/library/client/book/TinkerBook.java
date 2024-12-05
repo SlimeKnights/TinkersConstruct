@@ -83,6 +83,7 @@ public class TinkerBook extends BookData {
     MATERIALS_AND_YOU.addTransformer(ToolSectionTransformer.INSTANCE);
     MIGHTY_SMELTING.addTransformer(ToolSectionTransformer.INSTANCE);
     TINKERS_GADGETRY.addTransformer(new ToolSectionTransformer("staffs"));
+    TINKERS_GADGETRY.addTransformer(new ToolSectionTransformer("ancient_tools"));
     ENCYCLOPEDIA.addTransformer(ToolSectionTransformer.INSTANCE);
 
     // modifier transformers

@@ -54,6 +54,11 @@ public record PotionFluidEffect(float scale, TagPredicate predicate) implements 
             MobEffectInstance existingEffect = target.getEffect(effect);
             int duration;
             if (existingEffect != null && existingEffect.getAmplifier() >= instance.getAmplifier()) {
+              // if the existing level is larger, just skip, would be a cheese to increase said level
+              // lower levels we treat as not having the effect, must be exact match to extend
+              if (existingEffect.getAmplifier() > instance.getAmplifier()) {
+                continue;
+              }
               float existingLevel = existingEffect.getDuration() / scale / instance.getDuration();
               float effective = level.effective(existingLevel);
               // no potion to add? just save effort and stop here

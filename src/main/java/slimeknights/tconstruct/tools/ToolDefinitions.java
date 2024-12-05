@@ -38,4 +38,8 @@ public final class ToolDefinitions {
   public static final ToolDefinition EARTH_STAFF = ToolDefinition.create(TinkerTools.earthStaff);
   public static final ToolDefinition ICHOR_STAFF = ToolDefinition.create(TinkerTools.ichorStaff);
   public static final ToolDefinition ENDER_STAFF = ToolDefinition.create(TinkerTools.enderStaff);
+
+  // ancient
+  public static final ToolDefinition WAR_PICK = ToolDefinition.create(TinkerTools.warPick);
+  public static final ToolDefinition BATTLESIGN = ToolDefinition.create(TinkerTools.battlesign);
 }

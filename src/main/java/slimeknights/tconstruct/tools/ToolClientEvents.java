@@ -169,6 +169,9 @@ public class ToolClientEvents extends ClientEventBase {
       TinkerItemProperties.registerToolProperties(TinkerTools.earthStaff.asItem());
       TinkerItemProperties.registerToolProperties(TinkerTools.ichorStaff.asItem());
       TinkerItemProperties.registerToolProperties(TinkerTools.enderStaff.asItem());
+      // ancient
+      TinkerItemProperties.registerCrossbowProperties(TinkerTools.warPick.asItem());
+      TinkerItemProperties.registerToolProperties(TinkerTools.battlesign.asItem());
       // armor
       TinkerItemProperties.registerToolProperties(TinkerTools.travelersShield.asItem());
       TinkerItemProperties.registerToolProperties(TinkerTools.plateShield.asItem());
@@ -191,7 +194,7 @@ public class ToolClientEvents extends ClientEventBase {
   static void itemColors(RegisterColorHandlersEvent.Item event) {
     final ItemColors colors = event.getItemColors();
 
-    // tint tool textures for fallback
+    // tint modifiers
     // rock
     registerItemColors(colors, TinkerTools.pickaxe);
     registerItemColors(colors, TinkerTools.sledgeHammer);
@@ -211,7 +214,18 @@ public class ToolClientEvents extends ClientEventBase {
     registerItemColors(colors, TinkerTools.sword);
     registerItemColors(colors, TinkerTools.cleaver);
     // bow
+    registerItemColors(colors, TinkerTools.crossbow);
     registerItemColors(colors, TinkerTools.longbow);
+    // ancient
+    registerItemColors(colors, TinkerTools.warPick);
+    registerItemColors(colors, TinkerTools.battlesign);
+    // armor
+    registerItemColors(colors, TinkerTools.travelersShield);
+    registerItemColors(colors, TinkerTools.plateShield);
+    Consumer<Item> brokenConsumer = item -> event.register(ToolModel.COLOR_HANDLER, item);
+    TinkerTools.travelersGear.forEach(brokenConsumer);
+    TinkerTools.plateArmor.forEach(brokenConsumer);
+    TinkerTools.slimesuit.forEach(brokenConsumer);
 
     // modifier crystal
     event.register((stack, index) -> {

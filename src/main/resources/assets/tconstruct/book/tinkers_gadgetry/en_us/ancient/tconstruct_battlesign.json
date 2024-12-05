@@ -1,0 +1,12 @@
+{
+  "tool": "tconstruct:battlesign",
+  "text": [
+    { "text": "The battlesign is a combination of a melee weapon and a shield. It can typically be located in nether fortresses and bastions." }
+  ],
+  "properties": [
+    "Medium Damage",
+    "Medium Block Potential",
+    "3 Defense Slots",
+    "1 Ability Slot"
+  ]
+}

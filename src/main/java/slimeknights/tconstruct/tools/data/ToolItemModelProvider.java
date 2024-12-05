@@ -57,6 +57,9 @@ public class ToolItemModelProvider extends AbstractToolItemModelProvider {
     staff(TinkerTools.earthStaff, toolBlocking);
     staff(TinkerTools.ichorStaff, toolBlocking);
     staff(TinkerTools.enderStaff, toolBlocking);
+    // ancient
+    bow(TinkerTools.warPick, toolBlocking, true, "bowstring");
+    tool(TinkerTools.battlesign, toolBlocking, "head");
   }
 
   @Override

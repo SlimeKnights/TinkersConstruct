@@ -24,5 +24,8 @@ armor.subtext=Mixing slime with various mob parts produces an interesting set of
 staffs=Staffs
 staffs.subtext=Combining slime crystals and slime wood aids in creation of very flexible tools. Just need a bit of metal to hold the whole thing together.
 
+ancient_tools=Ancient Tools
+ancient_tools.subtext=Ancient tools are tools rarely found in loot chests throughout the world. Their material construction appears to be random and cannot be altared, but they may be modified like any other tool.
+
 materials=Skull Materials
 materials.subtext=Placing one of these skulls in a casting basin and adding enderslime can enhance their ability as a helmet.

@@ -1,0 +1,26 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "forge:item/default-tool",
+  "textures": {
+    "limb": "tconstruct:item/tool/war_pick/limb",
+    "body": "tconstruct:item/tool/war_pick/body",
+    "bowstring": "tconstruct:item/tool/war_pick/bowstring_3"
+  },
+  "modifier_roots": [
+    "tconstruct:item/tool/war_pick/modifiers/3/",
+    "tconstruct:item/tool/war_pick/modifiers/"
+  ],
+  "parts": [
+    {
+      "name": "body",
+      "index": 1
+    },
+    {
+      "name": "bowstring"
+    },
+    {
+      "name": "limb",
+      "index": 0
+    }
+  ]
+}

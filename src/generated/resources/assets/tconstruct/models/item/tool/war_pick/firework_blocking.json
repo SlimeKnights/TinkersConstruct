@@ -1,0 +1,39 @@
+{
+  "parent": "tconstruct:item/tool/war_pick/firework",
+  "display": {
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        180,
+        -5
+      ],
+      "translation": [
+        -5,
+        -2,
+        -0.2
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        0,
+        0,
+        5
+      ],
+      "translation": [
+        -5,
+        -2,
+        -0.2
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  }
+}

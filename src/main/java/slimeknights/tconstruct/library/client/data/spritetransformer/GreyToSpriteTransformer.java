@@ -32,6 +32,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.BiFunction;
 import java.util.function.ToIntFunction;
 
 import static com.mojang.blaze3d.platform.NativeImage.getA;
@@ -42,7 +43,7 @@ import static com.mojang.blaze3d.platform.NativeImage.getA;
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class GreyToSpriteTransformer implements ISpriteTransformer {
   public static final ResourceLocation NAME = TConstruct.getResource("grey_to_sprite");
-  public static final Deserializer DESERIALIZER = new Deserializer();
+  public static final Deserializer<GreyToSpriteTransformer> DESERIALIZER = new Deserializer<>((builder, json) -> builder.build());
 
   /** Base folder for texture backgrounds */
   private static final String TEXTURE_FOLDER = "textures";
@@ -122,9 +123,9 @@ public class GreyToSpriteTransformer implements ISpriteTransformer {
   }
 
   /** Serializer for a recolor sprite transformer */
-  protected static class Deserializer implements JsonDeserializer<GreyToSpriteTransformer> {
+  protected record Deserializer<T extends GreyToSpriteTransformer>(BiFunction<GreyToSpriteTransformer.Builder, JsonObject, T> constructor) implements JsonDeserializer<T> {
     @Override
-    public GreyToSpriteTransformer deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public T deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
       JsonObject object = json.getAsJsonObject();
       JsonArray palette = GsonHelper.getAsJsonArray(object, "palette");
       GreyToSpriteTransformer.Builder paletteBuilder = GreyToSpriteTransformer.builder();
@@ -142,7 +143,7 @@ public class GreyToSpriteTransformer implements ISpriteTransformer {
           paletteBuilder.addARGB(grey, color);
         }
       }
-      return paletteBuilder.build();
+      return constructor.apply(paletteBuilder, object);
     }
   }
 
@@ -368,6 +369,7 @@ public class GreyToSpriteTransformer implements ISpriteTransformer {
     if (!init) {
       init = true;
       ISpriteTransformer.SERIALIZER.registerDeserializer(NAME, DESERIALIZER);
+      ISpriteTransformer.SERIALIZER.registerDeserializer(AnimatedGreyToSpriteTransformer.NAME, AnimatedGreyToSpriteTransformer.DESERIALIZER);
       MaterialPartTextureGenerator.registerCallback(GreyToSpriteTransformer::textureCallback);
     }
   }

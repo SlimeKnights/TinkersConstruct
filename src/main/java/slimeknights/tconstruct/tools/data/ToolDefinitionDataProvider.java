@@ -32,6 +32,7 @@ import slimeknights.tconstruct.library.tools.definition.module.interaction.Prefe
 import slimeknights.tconstruct.library.tools.definition.module.material.DefaultMaterialsModule;
 import slimeknights.tconstruct.library.tools.definition.module.material.MaterialRepairModule;
 import slimeknights.tconstruct.library.tools.definition.module.material.MaterialStatsModule;
+import slimeknights.tconstruct.library.tools.definition.module.material.MaterialTraitsModule;
 import slimeknights.tconstruct.library.tools.definition.module.material.PartStatsModule;
 import slimeknights.tconstruct.library.tools.definition.module.material.PartsModule;
 import slimeknights.tconstruct.library.tools.definition.module.mining.IsEffectiveModule;
@@ -82,6 +83,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
   @Override
   protected void addToolDefinitions() {
     RandomMaterial tier1Material = RandomMaterial.random().tier(1).build();
+    DefaultMaterialsModule defaultTwoParts = DefaultMaterialsModule.builder().material(tier1Material, tier1Material).build();
     DefaultMaterialsModule defaultThreeParts = DefaultMaterialsModule.builder().material(tier1Material, tier1Material, tier1Material).build();
     DefaultMaterialsModule defaultFourParts = DefaultMaterialsModule.builder().material(tier1Material, tier1Material, tier1Material, tier1Material).build();
 
@@ -624,6 +626,47 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
         .trait(TinkerModifiers.bouncy)
         .trait(ModifierIds.leaping, 1).build())
       .module(ArmorSlotType.BOOTS, ToolTraitsModule.builder().trait(ModifierIds.leaping, 1).build(), ToolHooks.REBALANCED_TRAIT);
+
+    // ancient
+    // war pick
+    define(ToolDefinitions.WAR_PICK)
+      // parts
+      .module(MaterialStatsModule.stats()
+        .stat(HeadMaterialStats.ID)
+        .stat(LimbMaterialStats.ID)
+        .primaryPart(-1).build())
+      .module(defaultTwoParts)
+      // ancient tools add a second copy of traits, and add both traits to rebalanced
+      .module(new MaterialTraitsModule(HeadMaterialStats.ID, 0), ToolHooks.TOOL_TRAITS, ToolHooks.REBALANCED_TRAIT)
+      .module(new MaterialTraitsModule(LimbMaterialStats.ID, 1), ToolHooks.TOOL_TRAITS, ToolHooks.REBALANCED_TRAIT)
+      // stats
+      .module(new SetStatsModule(StatsNBT.builder().set(ToolStats.ATTACK_SPEED, 1.2f).build()))
+      .smallToolStartingSlots()
+      // harvest
+      .module(ToolActionsModule.of(ToolActions.PICKAXE_DIG))
+      .module(IsEffectiveModule.tag(BlockTags.MINEABLE_WITH_PICKAXE))
+      .module(new CircleAOEIterator(1, false));
+    // battlesign
+    define(ToolDefinitions.BATTLESIGN)
+      .module(MaterialStatsModule.stats()
+        .stat(HeadMaterialStats.ID)
+        .stat(PlatingMaterialStats.SHIELD.getId())
+        .primaryPart(-1).build())
+      .module(defaultTwoParts)
+      // ancient tools add a second copy of traits, and add both traits to rebalanced
+      .module(new MaterialTraitsModule(HeadMaterialStats.ID,                0), ToolHooks.TOOL_TRAITS, ToolHooks.REBALANCED_TRAIT)
+      .module(new MaterialTraitsModule(PlatingMaterialStats.SHIELD.getId(), 1), ToolHooks.TOOL_TRAITS, ToolHooks.REBALANCED_TRAIT)
+      // stats
+      .module(new SetStatsModule(StatsNBT.builder()
+        .set(ToolStats.ATTACK_DAMAGE, 2f)
+        .set(ToolStats.ATTACK_SPEED, 1.4f)
+        .set(ToolStats.BLOCK_AMOUNT, 50)
+        .set(ToolStats.BLOCK_ANGLE, 120).build()))
+      .module(ToolSlotsModule.builder()
+        .slots(SlotType.DEFENSE, 3)
+        .slots(SlotType.ABILITY, 1).build())
+      // traits
+      .module(ToolTraitsModule.builder().trait(TinkerModifiers.blocking).build());
   }
 
   @Override
