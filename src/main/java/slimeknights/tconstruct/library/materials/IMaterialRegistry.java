@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.materials;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import slimeknights.mantle.data.loadable.Loadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
@@ -12,6 +13,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -83,6 +85,11 @@ public interface IMaterialRegistry {
 
   /** Gets the loader for material stat types */
   Loadable<MaterialStatType<?>> getStatTypeLoader();
+
+  /** Gets a lit of all material stat IDs */
+  default Collection<ResourceLocation> getAllStatTypeIds() {
+    return Collections.emptyList();
+  }
 
   /**
    * Gets the stat type for the given stat ID, which handles the default instance, serializing, and deserializing.

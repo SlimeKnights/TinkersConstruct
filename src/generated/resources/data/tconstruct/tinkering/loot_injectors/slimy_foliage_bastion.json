@@ -1,0 +1,20 @@
+{
+  "conditions": [
+    {
+      "type": "tconstruct:config",
+      "prop": "slimy_loot_chests"
+    }
+  ],
+  "name": "minecraft:chests/bastion_bridge",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "tconstruct:blood_slime_sapling"
+        }
+      ],
+      "name": "main"
+    }
+  ]
+}

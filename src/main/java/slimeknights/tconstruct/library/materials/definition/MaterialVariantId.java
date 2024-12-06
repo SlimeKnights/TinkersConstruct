@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.materials.definition;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import com.mojang.brigadier.StringReader;
 import net.minecraft.ResourceLocationException;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
@@ -105,6 +106,31 @@ public sealed interface MaterialVariantId permits MaterialId, MaterialVariantIdI
       return null;
     }
     return create(materialId, variant);
+  }
+
+  /** Checks if the given character is valid */
+  private static boolean isAllowed(char ch) {
+    return ch == '#' || ResourceLocation.isAllowedInResourceLocation(ch);
+  }
+
+  /**
+   * Attempts to parse the variant ID from the given string reader.
+   * @param reader  Reader to parse. Will set the position to after the material variant, or leave it unchanged if invalid.
+   * @return Variant ID, or null if invalid
+   */
+  @Nullable
+  static MaterialVariantId tryParse(StringReader reader) {
+    int start = reader.getCursor();
+    while(reader.canRead() && isAllowed(reader.peek())) {
+      reader.skip();
+    }
+    String substring = reader.getString().substring(start, reader.getCursor());
+    MaterialVariantId variant = MaterialVariantId.tryParse(substring);
+    if (variant == null) {
+      reader.setCursor(start);
+      return null;
+    }
+    return variant;
   }
 
   /**

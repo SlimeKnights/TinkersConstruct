@@ -1,0 +1,61 @@
+{
+  "name": "minecraft:chests/spawn_bonus_chest",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "tconstruct:add_tool_data",
+              "materials": [
+                {
+                  "type": "tconstruct:random",
+                  "tier": 1
+                },
+                {
+                  "type": "tconstruct:first"
+                },
+                {
+                  "type": "tconstruct:random",
+                  "tier": 1
+                }
+              ]
+            }
+          ],
+          "name": "tconstruct:hand_axe",
+          "weight": 2
+        }
+      ],
+      "name": "main"
+    },
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "tconstruct:add_tool_data",
+              "materials": [
+                {
+                  "type": "tconstruct:random",
+                  "tier": 1
+                },
+                {
+                  "type": "tconstruct:first"
+                },
+                {
+                  "type": "tconstruct:random",
+                  "tier": 1
+                }
+              ]
+            }
+          ],
+          "name": "tconstruct:pickaxe",
+          "weight": 2
+        }
+      ],
+      "name": "pool1"
+    }
+  ]
+}

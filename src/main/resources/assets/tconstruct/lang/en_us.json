@@ -2952,8 +2952,9 @@
 
   "command.tconstruct.slot_type.not_found": "Unknown slot type %s",
   "command.tconstruct.fluid.not_found": "Unknown fluid %s",
-  "command.tconstruct.stat_type.not_found": "Unknown stat type %s",
-  "command.tconstruct.stat_type.wrong_type": "Invalid stat type %s, must inherit from %s",
+  "command.tconstruct.stat_type.not_found": "Unknown tool stat %s",
+  "command.tconstruct.material_stat.not_found": "Unknown material stat %s",
+  "command.tconstruct.stat_type.wrong_type": "Invalid tool stat %s, must inherit from %s",
   "command.tconstruct.material.not_found": "Unknown material %s",
   "command.tconstruct.modifier.not_found": "Unknown modifier %s",
   "command.tconstruct.modifier_hook.not_found": "Unknown modifier hook %s",
@@ -2965,6 +2966,16 @@
   "command.tconstruct.modifiers.success.remove.single": "Removed modifier %s from %s's item",
   "command.tconstruct.modifiers.success.remove.multiple": "Removed modifier %s from %s entities",
   "command.tconstruct.modifiers.failure.too_few_levels": "Cannot remove modifier %s from to %s's item",
+
+  "command.tconstruct.materials.success.set.single": "Set material %s to %s on %s's item",
+  "command.tconstruct.materials.success.set.multiple": "Set material %s to %s on %s entities",
+  "command.tconstruct.materials.failure.invalid_index": "Index %s is too large for %s's item",
+  "command.tconstruct.materials.success.stats.default": "Default stats for %s:",
+  "command.tconstruct.materials.success.stats.material": "%s stats for %s:",
+  "command.tconstruct.materials.failure.invalid_stats": "No %s stats registered for %s",
+  "command.tconstruct.materials.success.traits.default": "Default traits for %s:",
+  "command.tconstruct.materials.success.traits.stat": "%s traits for %s:",
+  "command.tconstruct.materials.failure.no_traits": "No traits",
 
   "command.tconstruct.slots.success.add.single": "Applied %s %s slots to %s's item",
   "command.tconstruct.slots.success.add.multiple": "Applied %s %s slots to %s entities",

@@ -45,6 +45,7 @@ import slimeknights.tconstruct.library.json.condition.TagIntersectionPresentCond
 import slimeknights.tconstruct.library.json.condition.TagNotEmptyCondition;
 import slimeknights.tconstruct.library.json.loot.TagPreferenceLootEntry;
 import slimeknights.tconstruct.library.json.predicate.TinkerPredicate;
+import slimeknights.tconstruct.library.loot.LootTableInjector;
 import slimeknights.tconstruct.library.recipe.ingredient.BlockTagIngredient;
 import slimeknights.tconstruct.library.recipe.ingredient.NoContainerIngredient;
 import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
@@ -148,6 +149,7 @@ public final class TinkerCommons extends TinkerModule {
   public TinkerCommons() {
     TConstructCommand.init();
     MinecraftForge.EVENT_BUS.addListener(RecipeCacheInvalidator::onReloadListenerReload);
+    LootTableInjector.init();
   }
 
   @SubscribeEvent

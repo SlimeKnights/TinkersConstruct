@@ -71,6 +71,11 @@ public class MaterialStatsManager extends MergingJsonDataLoader<Map<ResourceLoca
     statTypes.register(type);
   }
 
+  /** Gets a lit of all material stat IDs */
+  public Collection<ResourceLocation> getAllStatTypeIds() {
+    return statTypes.getKeys();
+  }
+
   /**
    * Gets the stat type for the given ID
    * @param id  Material stat ID

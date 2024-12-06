@@ -5,7 +5,6 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.Dynamic2CommandExceptionType;
-import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
@@ -20,6 +19,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.shared.command.HeldModifiableItemIterator;
+import slimeknights.tconstruct.shared.command.TConstructCommand;
 import slimeknights.tconstruct.shared.command.argument.ModifierArgument;
 
 import java.util.List;
@@ -30,7 +30,6 @@ public class ModifiersCommand {
   private static final String ADD_SUCCESS_MULTIPLE = TConstruct.makeTranslationKey("command", "modifiers.success.add.multiple");
   private static final String REMOVE_SUCCESS = TConstruct.makeTranslationKey("command", "modifiers.success.remove.single");
   private static final String REMOVE_SUCCESS_MULTIPLE = TConstruct.makeTranslationKey("command", "modifiers.success.remove.multiple");
-  private static final DynamicCommandExceptionType MODIFIER_ERROR = new DynamicCommandExceptionType(error -> (Component)error);
   private static final Dynamic2CommandExceptionType CANNOT_REMOVE = new Dynamic2CommandExceptionType((name, entity) -> TConstruct.makeTranslation("command", "modifiers.failure.too_few_levels", name, entity));
 
   /**
@@ -65,7 +64,7 @@ public class ModifiersCommand {
       // ensure no modifier problems after adding
       Component toolValidation = tool.tryValidate();
       if (toolValidation != null) {
-        throw MODIFIER_ERROR.create(toolValidation);
+        throw TConstructCommand.COMPONENT_ERROR.create(toolValidation);
       }
 
       // if successful, update held item
@@ -115,13 +114,13 @@ public class ModifiersCommand {
       // ensure the tool is still valid
       Component validated = tool.tryValidate();
       if (validated != null) {
-        throw MODIFIER_ERROR.create(validated);
+        throw TConstructCommand.COMPONENT_ERROR.create(validated);
       }
 
       // ask modifiers if it's okay to remove them
       validated = ModifierRemovalHook.onRemoved(original, tool);
       if (validated != null) {
-        throw MODIFIER_ERROR.create(validated);
+        throw TConstructCommand.COMPONENT_ERROR.create(validated);
       }
 
       // if successful, update held item

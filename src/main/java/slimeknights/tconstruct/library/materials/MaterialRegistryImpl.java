@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.materials;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import slimeknights.mantle.data.loadable.Loadable;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
@@ -78,6 +79,11 @@ public class MaterialRegistryImpl implements IMaterialRegistry {
   @Override
   public Loadable<MaterialStatType<?>> getStatTypeLoader() {
     return materialStatsManager.getStatTypes();
+  }
+
+  @Override
+  public Collection<ResourceLocation> getAllStatTypeIds() {
+    return materialStatsManager.getAllStatTypeIds();
   }
 
   @Nullable
