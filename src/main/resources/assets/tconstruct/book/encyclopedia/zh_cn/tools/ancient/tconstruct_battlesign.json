@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:battlesign",
+  "text": [
+    { "text": "The battlesign is a cross between a shield and a sword, found in bastions, from bartering, or in the hands of piglins of all varieties." }
+  ],
+  "properties": [
+    "+2 Attack Damage",
+    "1.4 Attack Speed",
+    "Blocks 50 damage",
+    "120° block angle",
+    "20% block speed",
+    "3 Defense Slots",
+    "1 Ability Slot"
+  ]
+}
