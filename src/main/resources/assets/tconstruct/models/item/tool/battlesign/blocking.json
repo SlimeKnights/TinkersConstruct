@@ -1,0 +1,25 @@
+{
+  "parent": "tconstruct:item/battlesign",
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [ 20, -25, 0 ],
+      "translation": [ -0.5, 5.0, 3.5 ],
+      "scale": [ 1, 1, 1 ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [ 20, -25, 0 ],
+      "translation": [ 0.5, 5.0, 3.5 ],
+      "scale": [ 1, 1, 1 ]
+    },
+    "firstperson_righthand": {
+      "rotation": [ 0, 0, 5 ],
+      "translation": [ -5, -2, -0.2 ],
+      "scale": [ 1, 1, 1 ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [ 0, 0, 5 ],
+      "translation": [ -5, -2, -0.2 ],
+      "scale": [ 1, 1, 1 ]
+    }
+  }
+}

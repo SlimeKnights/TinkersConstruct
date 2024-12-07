@@ -1,0 +1,28 @@
+{
+  "name": "minecraft:chests/abandoned_mineshaft",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "tconstruct:add_tool_data",
+              "materials": [
+                {
+                  "type": "tconstruct:random"
+                },
+                {
+                  "type": "tconstruct:random"
+                }
+              ]
+            }
+          ],
+          "name": "tconstruct:war_pick",
+          "weight": 5
+        }
+      ],
+      "name": "main"
+    }
+  ]
+}

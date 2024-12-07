@@ -22,6 +22,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.context.UseOnContext;
@@ -70,7 +71,7 @@ import java.util.function.Consumer;
  * A standard modifiable item which implements melee hooks
  * This class handles how all the modifier hooks and display data for items made out of different materials
  */
-public class ModifiableItem extends Item implements IModifiableDisplay {
+public class ModifiableItem extends TieredItem implements IModifiableDisplay {
   /** Tool definition for the given tool */
   @Getter
   private final ToolDefinition toolDefinition;
@@ -79,7 +80,7 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
   private ItemStack toolForRendering;
 
   public ModifiableItem(Properties properties, ToolDefinition toolDefinition) {
-    super(properties);
+    super(TinkerTier.INSTANCE, properties);
     this.toolDefinition = toolDefinition;
   }
 
@@ -173,6 +174,11 @@ public class ModifiableItem extends Item implements IModifiableDisplay {
   @Override
   public boolean isRepairable(ItemStack stack) {
     // handle in the tinker station
+    return false;
+  }
+
+  @Override
+  public boolean isValidRepairItem(ItemStack pToRepair, ItemStack pRepair) {
     return false;
   }
 

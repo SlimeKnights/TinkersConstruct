@@ -1,0 +1,37 @@
+{
+  "name": "minecraft:chests/bastion_other",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "tconstruct:add_tool_data",
+              "materials": [
+                {
+                  "type": "tconstruct:random"
+                },
+                {
+                  "type": "tconstruct:random"
+                }
+              ]
+            },
+            {
+              "add": false,
+              "damage": {
+                "type": "minecraft:uniform",
+                "max": 0.9,
+                "min": 0.1
+              },
+              "function": "minecraft:set_damage"
+            }
+          ],
+          "name": "tconstruct:battlesign",
+          "weight": 3
+        }
+      ],
+      "name": "pool1"
+    }
+  ]
+}

@@ -59,7 +59,8 @@ public class ToolItemModelProvider extends AbstractToolItemModelProvider {
     staff(TinkerTools.enderStaff, toolBlocking);
     // ancient
     bow(TinkerTools.warPick, toolBlocking, true, "bowstring");
-    tool(TinkerTools.battlesign, toolBlocking, "head");
+    // battlesign has custom properties for blocking, so that is just written directly
+    transformTool("tool/battlesign/broken", readJson(TinkerTools.battlesign.getId()), "", false, "broken", "head");
   }
 
   @Override

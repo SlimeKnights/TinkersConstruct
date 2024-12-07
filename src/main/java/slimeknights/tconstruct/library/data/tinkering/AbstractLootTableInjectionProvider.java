@@ -53,6 +53,16 @@ public abstract class AbstractLootTableInjectionProvider extends GenericDataProv
     return inject(path, new ResourceLocation(name), conditions);
   }
 
+  /** Creates a new injection for the Minecraft domain */
+  protected LootTableInjection.Builder injectChest(String name, ICondition... conditions) {
+    return inject(name, new ResourceLocation("chests/" + name), conditions);
+  }
+
+  /** Creates a new injection for the Minecraft domain */
+  protected LootTableInjection.Builder injectGameplay(String name, ICondition... conditions) {
+    return inject(name, new ResourceLocation("gameplay/" + name), conditions);
+  }
+
   /** Internal builder tuple */
   private record Builder(String path, ResourceLocation name, LootTableInjection.Builder builder, ICondition[] conditions) {
     public LootTableInjection build() {

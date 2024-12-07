@@ -1,6 +1,6 @@
 {
   "loader": "tconstruct:tool",
-  "parent": "forge:item/default-tool",
+  "parent": "tconstruct:item/base/battlesign",
   "textures": {
     "head":   "tconstruct:item/tool/battlesign/head",
     "handle": "tconstruct:item/tool/battlesign/handle"

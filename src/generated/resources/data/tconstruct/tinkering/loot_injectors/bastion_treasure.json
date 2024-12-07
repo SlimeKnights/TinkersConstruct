@@ -1,0 +1,132 @@
+{
+  "name": "minecraft:chests/bastion_treasure",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "tconstruct:add_tool_data",
+              "materials": [
+                {
+                  "type": "tconstruct:random"
+                },
+                {
+                  "type": "tconstruct:random"
+                }
+              ]
+            }
+          ],
+          "name": "tconstruct:battlesign",
+          "weight": 12
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "tconstruct:add_tool_data",
+              "materials": [
+                {
+                  "type": "tconstruct:random",
+                  "tier": {
+                    "max": 4,
+                    "min": 3
+                  }
+                },
+                {
+                  "type": "tconstruct:random",
+                  "tier": {
+                    "max": 4,
+                    "min": 3
+                  }
+                }
+              ]
+            }
+          ],
+          "name": "tconstruct:plate_boots",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "tconstruct:add_tool_data",
+              "materials": [
+                {
+                  "type": "tconstruct:random",
+                  "tier": {
+                    "max": 4,
+                    "min": 3
+                  }
+                },
+                {
+                  "type": "tconstruct:random",
+                  "tier": {
+                    "max": 4,
+                    "min": 3
+                  }
+                }
+              ]
+            }
+          ],
+          "name": "tconstruct:plate_leggings",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "tconstruct:add_tool_data",
+              "materials": [
+                {
+                  "type": "tconstruct:random",
+                  "tier": {
+                    "max": 4,
+                    "min": 3
+                  }
+                },
+                {
+                  "type": "tconstruct:random",
+                  "tier": {
+                    "max": 4,
+                    "min": 3
+                  }
+                }
+              ]
+            }
+          ],
+          "name": "tconstruct:plate_chestplate",
+          "weight": 6
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "tconstruct:add_tool_data",
+              "materials": [
+                {
+                  "type": "tconstruct:random",
+                  "tier": {
+                    "max": 4,
+                    "min": 3
+                  }
+                },
+                {
+                  "type": "tconstruct:random",
+                  "tier": {
+                    "max": 4,
+                    "min": 3
+                  }
+                }
+              ]
+            }
+          ],
+          "name": "tconstruct:plate_helmet",
+          "weight": 6
+        }
+      ],
+      "name": "main"
+    }
+  ]
+}
