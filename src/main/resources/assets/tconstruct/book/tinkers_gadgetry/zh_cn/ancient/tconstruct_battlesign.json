@@ -1,12 +1,12 @@
 {
   "tool": "tconstruct:battlesign",
   "text": [
-    { "text": "The battlesign is a combination of a melee weapon and a shield. It will typically be located in bastions, and can be obtained from piglins." }
+    { "text": "战斗牌子是近战武器和盾牌的结合体。通常在堡垒遗迹中生成，同时也可以在猪灵身上获得。" }
   ],
   "properties": [
-    "Medium Damage",
-    "Medium Block Potential",
-    "3 Defense Slots",
-    "1 Ability Slot"
+    "中等伤害",
+    "中等格挡潜力",
+    "3 防御槽",
+    "1 能力槽"
   ]
 }

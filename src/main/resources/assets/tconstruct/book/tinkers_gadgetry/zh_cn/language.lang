@@ -24,8 +24,8 @@ armor.subtext=把黏液和各种生物的身体部位混合在一起，可以制
 staffs=黏液手杖
 staffs.subtext=将黏液水晶和黏木结合就能创造出非常灵活的工具。接着只需要再加点金属就能把两者固定在一起了。
 
-ancient_tools=Ancient Tools
-ancient_tools.subtext=Ancient tools are tools rarely found in loot chests throughout the world. Their material construction appears to be random and cannot be altared, but they may be modified like any other tool.
+ancient_tools=远古工具
+ancient_tools.subtext=古代工具是战利品箱中的罕见战利品。它们的材料组合是随机的且无法更改，但是能像正常工具一样加持强化。
 
 materials=头颅材料
 materials.subtext=在铸造盆中放一个头颅并浇注末影黏液，可以增强它们作为头盔的能力。

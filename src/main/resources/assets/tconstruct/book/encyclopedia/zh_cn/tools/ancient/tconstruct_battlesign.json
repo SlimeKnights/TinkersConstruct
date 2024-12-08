@@ -1,15 +1,15 @@
 {
   "tool": "tconstruct:battlesign",
   "text": [
-    { "text": "The battlesign is a cross between a shield and a sword, found in bastions, from bartering, or in the hands of piglins of all varieties." }
+    { "text": "战斗牌子是近战武器和盾牌的结合体，可通过探索堡垒遗迹，猪灵以物易物，或是抢夺猪灵手上的战斗牌子获得所有变种。" }
   ],
   "properties": [
-    "+2 Attack Damage",
-    "1.4 Attack Speed",
-    "Blocks 50 damage",
-    "120° block angle",
-    "20% block speed",
-    "3 Defense Slots",
-    "1 Ability Slot"
+    "+2 攻击伤害",
+    "1.4 攻击速度",
+    "50 格挡值",
+    "120° 格挡角度",
+    "20% 格挡时移速",
+    "3 防御槽",
+    "1 能力槽"
   ]
 }

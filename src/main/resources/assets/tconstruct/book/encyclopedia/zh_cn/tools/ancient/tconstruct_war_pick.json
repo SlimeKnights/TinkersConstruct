@@ -1,15 +1,16 @@
 {
   "tool": "tconstruct:war_pick",
   "text": [
-    { "text": "The war pick is a hybrid mining tool, effective on stone, metal, and ores while also functioning as a crossbow." },
-    { "text": "Expanders increase the circular radius of the pick.", "paragraph": true }
+    { "text": "战镐是一种复合型采掘工具，能有效挖掘石头，金属，矿石；也可作为弩使用。" },
+    { "text": "“延展”增加圆形采掘半径。", "paragraph": true }
   ],
   "properties": [
-    "+0 Attack Damage",
-    "1.2 Attack Speed",
-    "1.0 Attack Speed",
-    "1.0 Draw Speed",
-    "1.00 Arrow Velocity",
-    "0.75 Accuracy"
+    "+0 攻击伤害",
+    "1.2 攻击速度",
+    "1.0 拉弓速度",
+    "1.00 箭矢初速度",
+    "0.75 精准度",
+    "3 升级槽",
+    "1 能力槽"
   ]
 }

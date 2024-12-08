@@ -1,12 +1,12 @@
 {
   "tool": "tconstruct:war_pick",
   "text": [
-    { "text": "The war pick is a combination of pickaxe and a crossbow. It can be found in mineshafts and in pillager outposts." }
+    { "text": "战镐是镐和弩的结合体。可以在废弃矿井和掠夺者前哨站中找到、" }
   ],
   "properties": [
-    "Mines stone blocks and similar",
-    "Able to keep an arrow prepared to fire",
-    "3 Upgrade Slots",
-    "1 Ability Slot"
+    "挖掘石质方块",
+    "能够装填一支箭稍后发射",
+    "3 升级槽",
+    "1 能力槽"
   ]
 }
