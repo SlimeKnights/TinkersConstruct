@@ -63,6 +63,9 @@ public abstract class RandomMaterial implements IHaveLoader {
   /** Gets a random material */
   public abstract MaterialVariantId getMaterial(MaterialStatsId statType, RandomSource random);
 
+  /** Clears any cache associated with the random material */
+  public void clearCache() {}
+
   /** Builds the material list from the given random materials and stat types */
   public static MaterialNBT build(List<MaterialStatsId> statTypes, List<RandomMaterial> materials, RandomSource random) {
     MaterialNBT.Builder builder = MaterialNBT.builder();
@@ -154,6 +157,11 @@ public abstract class RandomMaterial implements IHaveLoader {
         TConstruct.LOG.warn("Random material found no options for statType={}, tier={}, allowHidden={}", statType, tier, allowHidden);
       }
       return choices;
+    }
+
+    @Override
+    public void clearCache() {
+      this.materialChoices.clear();
     }
 
     @Override

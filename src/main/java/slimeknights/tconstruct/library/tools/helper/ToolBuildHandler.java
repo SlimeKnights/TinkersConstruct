@@ -1,10 +1,13 @@
 package slimeknights.tconstruct.library.tools.helper;
 
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
+import slimeknights.tconstruct.library.materials.RandomMaterial;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
@@ -19,6 +22,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -28,6 +32,16 @@ public final class ToolBuildHandler {
   private ToolBuildHandler() {}
 
   private static final MaterialId RENDER_MATERIAL = new MaterialId(TConstruct.MOD_ID, "ui_render");
+
+  /** Fully random material instance, used for ancient tools mainly */
+  public static final RandomMaterial RANDOM = RandomMaterial.random().build();
+  static {
+    RecipeCacheInvalidator.addReloadListener(client -> {
+      if (!client) {
+        RANDOM.clearCache();
+      }
+    });
+  }
 
   /** Materials for use in multipart tool rendering */
   private static final List<MaterialVariantId> RENDER_MATERIALS = Arrays.asList(
@@ -45,6 +59,18 @@ public final class ToolBuildHandler {
    */
   public static ItemStack buildItemFromMaterials(IModifiable tool, MaterialNBT materials) {
     return ToolStack.createTool(tool.asItem(), tool.getToolDefinition(), materials).createStack();
+  }
+
+  /** Method to build an ancient tool with random materials */
+  public static ToolStack buildToolRandomMaterials(IModifiable tool, RandomSource randomSource) {
+    ToolDefinition definition = tool.getToolDefinition();
+    List<MaterialStatsId> stats = ToolMaterialHook.stats(definition);
+    return ToolStack.createTool(tool.asItem(), definition, RandomMaterial.build(stats, Collections.nCopies(stats.size(), RANDOM), randomSource));
+  }
+
+  /** Method to build an ancient tool with random materials */
+  public static ItemStack buildItemRandomMaterials(IModifiable tool, RandomSource randomSource) {
+    return buildToolRandomMaterials(tool, randomSource).createStack();
   }
 
   /**

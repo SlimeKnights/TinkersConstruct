@@ -9,6 +9,7 @@ import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
 import net.minecraftforge.common.ForgeConfigSpec.EnumValue;
+import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
@@ -45,6 +46,7 @@ public class Config {
     // loot
     public final BooleanValue slimyLootChests;
     public final BooleanValue dropDragonScales;
+    public final IntValue wandererAncientToolWeight;
 
     public final OreRate melterOreRate;
     public final OreRate smelteryOreRate;
@@ -206,6 +208,9 @@ public class Config {
       dropDragonScales = builder
         .comment("If true, ender dragons will drop scales when damaged by explosions")
         .define("drop_dragon_Scales", true);
+      wandererAncientToolWeight = builder
+        .comment("Weight of the ancient tool trade for the wandering trader. All traders randomly choose 1 rare trade, so this is roughly the chance the trade occurs compared to the vanilla options (of which there are 6).")
+        .defineInRange("wanderer_ancient_tool_weight", 6, 0, 100);
 
       builder.pop();
 

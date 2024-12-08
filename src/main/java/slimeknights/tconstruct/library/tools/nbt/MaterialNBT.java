@@ -12,11 +12,15 @@ import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.Spliterator;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
@@ -24,7 +28,7 @@ import java.util.stream.Collectors;
  */
 @EqualsAndHashCode
 @ToString
-public class MaterialNBT {
+public class MaterialNBT implements Iterable<MaterialVariant> {
   /** Instance containing no materials, for errors with parsing NBT */
   public final static MaterialNBT EMPTY = new MaterialNBT(ImmutableList.of());
 
@@ -130,6 +134,25 @@ public class MaterialNBT {
     return list.stream()
                .map(lazy -> StringTag.valueOf(lazy.getVariant().toString()))
                .collect(Collectors.toCollection(ListTag::new));
+  }
+
+
+  /* Iterator */
+
+  @Nonnull
+  @Override
+  public Iterator<MaterialVariant> iterator() {
+    return list.iterator();
+  }
+
+  @Override
+  public void forEach(Consumer<? super MaterialVariant> action) {
+    list.forEach(action);
+  }
+
+  @Override
+  public Spliterator<MaterialVariant> spliterator() {
+    return list.spliterator();
   }
 
   /** Builder for material NBT */

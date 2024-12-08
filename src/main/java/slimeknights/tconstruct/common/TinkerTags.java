@@ -327,6 +327,8 @@ public class TinkerTags {
     public static final TagKey<Item> SPECIAL_TOOLS = tag("modifiable/special");
     /** Tools found through loot. Used in books and some modifiers */
     public static final TagKey<Item> ANCIENT_TOOLS = tag("modifiable/ancient");
+    /** Tools traded by the wandering trader. By default, just ancient, but you can add other stuff. Just remember recycling exists. */
+    public static final TagKey<Item> TRADER_TOOLS = tag("modifiable/wandering_trader");
 
     /** Tools that can adjust the loot context for {@link slimeknights.tconstruct.library.modifiers.hook.behavior.ProcessLootModifierHook} */
     public static final TagKey<Item> LOOT_CAPABLE_TOOL = tag("modifiable/loot_capable_tool");

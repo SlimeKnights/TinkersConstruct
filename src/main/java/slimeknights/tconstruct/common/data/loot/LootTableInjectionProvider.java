@@ -98,6 +98,16 @@ public class LootTableInjectionProvider extends AbstractLootTableInjectionProvid
                                  .setWeight(5) // about as often as both diamond swords
                                  .apply(ancientToolData)
                                  .build());
+    injectChest("woodland_mansion")
+      .addToPool("main", LootItem.lootTableItem(TinkerTools.warPick.get())
+                                 .setWeight(10) // about as often as both diamond swords
+                                 .apply(ancientToolData)
+                                 .build());
+    inject("hero_of_the_toolsmith", "gameplay/hero_of_the_village/toolsmith")
+      .addToPool("main", LootItem.lootTableItem(TinkerTools.warPick.get())
+                                 .setWeight(2) // makes it a 33% chance of war pick as opposed to a stone tool
+                                 .apply(ancientToolData)
+                                 .build());
 
     LootTableInjection.Builder bastion = injectChest("bastion_treasure")
       .addToPool("main", LootItem.lootTableItem(TinkerTools.battlesign.get())

@@ -17,18 +17,16 @@ import net.minecraft.world.level.block.SkullBlock;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent.SpecialSpawn;
+import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.library.materials.RandomMaterial;
-import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
-import slimeknights.tconstruct.library.tools.definition.module.material.ToolMaterialHook;
-import slimeknights.tconstruct.library.tools.item.ModifiableItem;
-import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.world.logic.AncientToolItemListing;
 
-import java.util.List;
+import java.util.Collections;
 
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = TConstruct.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -69,16 +67,15 @@ public class WorldEvents {
     }
   }
 
-  private static final RandomMaterial RANDOM_MATERIAL = RandomMaterial.random().build();
-  private static final List<RandomMaterial> ANCIENT_MATERIALS = List.of(RANDOM_MATERIAL, RANDOM_MATERIAL);
-
   // ancient tool equipment
   @SubscribeEvent
   static void livingSpawn(SpecialSpawn event) {
+    // TODO: this feels like it should be JSON controlled
+    // do I want a more generalized system that works for our slime types too?
     Mob mob = event.getEntity();
     EntityType<?> type = mob.getType();
     // 5% chance for a zombie piglin to spawn with a battle sign, doesn't mean they drop it though
-    if ((type == EntityType.ZOMBIFIED_PIGLIN || type == EntityType.PIGLIN || type == EntityType.PIGLIN_BRUTE)
+    if ((type == EntityType.ZOMBIFIED_PIGLIN || type == EntityType.PIGLIN || type == EntityType.PIGLIN_BRUTE || type == EntityType.VINDICATOR)
         && event.getLevel() instanceof ServerLevelAccessor level && level.getRandom().nextFloat() < 0.05f) {
       // forge event runs before finalize spawn so we can't just set our item now or it may get overwritten
       // instead, we cancel the event (which blocks vanilla finalize), then finalize ourself, then can set our item after
@@ -87,13 +84,22 @@ public class WorldEvents {
 
       // only replace golden sword or golden axes with our item, if they are holding nothing or a crossbow do nothing
       Item item = mob.getMainHandItem().getItem();
-      if (item == Items.GOLDEN_SWORD || item == Items.GOLDEN_AXE) {
-        // build ancient tool with random materials
-        ModifiableItem weapon = TinkerTools.battlesign.get();
-        ToolDefinition definition = weapon.getToolDefinition();
-        ToolStack tool = ToolStack.createTool(weapon, definition, RandomMaterial.build(ToolMaterialHook.stats(definition), ANCIENT_MATERIALS, level.getRandom()));
-        mob.setItemInHand(InteractionHand.MAIN_HAND, tool.createStack());
+      if (type == EntityType.VINDICATOR) {
+        if (item == Items.IRON_AXE) {
+          mob.setItemInHand(InteractionHand.MAIN_HAND, ToolBuildHandler.buildItemRandomMaterials(TinkerTools.warPick.get(), level.getRandom()));
+        }
+      } else if (item == Items.GOLDEN_SWORD || item == Items.GOLDEN_AXE) {
+        mob.setItemInHand(InteractionHand.MAIN_HAND, ToolBuildHandler.buildItemRandomMaterials(TinkerTools.battlesign.get(), level.getRandom()));
       }
+    }
+  }
+
+  @SubscribeEvent
+  static void wanderingTrades(WandererTradesEvent event) {
+    // add ancient tools to the wandering trader table
+    int weight = Config.COMMON.wandererAncientToolWeight.get();
+    if (weight > 0) {
+      event.getRareTrades().addAll(Collections.nCopies(weight, AncientToolItemListing.INSTANCE));
     }
   }
 }

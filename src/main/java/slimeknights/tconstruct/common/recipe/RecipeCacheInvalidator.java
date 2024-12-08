@@ -21,7 +21,7 @@ public class RecipeCacheInvalidator implements IEarlySafeManagerReloadListener {
 
   /**
    * Adds a new listener that runs every time the recipes are reloaded
-   * @param runnable  Runnable
+   * @param runnable  Runnable accepting a boolean representing if this is client side
    */
   public static void addReloadListener(BooleanConsumer runnable) {
     listeners.add(runnable);

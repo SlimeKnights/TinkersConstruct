@@ -1,7 +1,7 @@
 {
   "tool": "tconstruct:war_pick",
   "text": [
-    { "text": "The war pick is a combination of pickaxe and a crossbow. It can be found in mineshafts and in pillager outposts." }
+    { "text": "The war pick is a combination of pickaxe and a crossbow. It can be found in mineshafts and obtained from illagers." }
   ],
   "properties": [
     "Mines stone blocks and similar",

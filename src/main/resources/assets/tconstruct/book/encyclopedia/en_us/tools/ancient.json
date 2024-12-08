@@ -1,7 +1,7 @@
 {
   "title": "Ancient Tools",
   "text": [
-    { "text": "Ancient tools cannot be crafted, instead they are found in the world in various loot chests. Their materials are random, and cannot be changed through part swapping. " },
+    { "text": "Ancient tools cannot be crafted, instead they are found in the world in loot or bought from wandering traders. Their materials are random, and cannot be changed through part swapping. " },
     { "text": "Ancient tools typically have 2 materials from two different classes of tools (for instance, melee and ranged), each of which counts it's trait twice. In addition, they get stronger effects from the rebalanced modifier.", "paragraph": true }
   ]
 }
