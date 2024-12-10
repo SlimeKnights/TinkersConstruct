@@ -1,0 +1,15 @@
+{
+  "parent": "minecraft:item/generated",
+  "layers": [
+    {
+      "color": "FFE5E533",
+      "luminosity": 0,
+      "no_tint": false
+    }
+  ],
+  "loader": "mantle:item_layer",
+  "render_type": "minecraft:translucent",
+  "textures": {
+    "layer0": "tconstruct:block/clear_stained_glass"
+  }
+}

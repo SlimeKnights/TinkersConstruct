@@ -1,5 +1,8 @@
 package slimeknights.tconstruct.common.data.model;
 
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -9,26 +12,38 @@ import net.minecraft.world.level.block.ButtonBlock;
 import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.FenceGateBlock;
+import net.minecraft.world.level.block.IronBarsBlock;
+import net.minecraft.world.level.block.PipeBlock;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.TrapDoorBlock;
+import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile;
 import net.minecraftforge.client.model.generators.ModelProvider;
+import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import slimeknights.mantle.client.model.builder.ColoredModelBuilder;
+import slimeknights.mantle.client.model.builder.ConnectedModelBuilder;
+import slimeknights.mantle.client.model.builder.MantleItemLayerBuilder;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.mantle.registration.object.FenceBuildingBlockObject;
 import slimeknights.mantle.registration.object.WoodBlockObject;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
+import slimeknights.tconstruct.shared.block.ClearStainedGlassBlock.GlassColor;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.world.TinkerWorld;
 
+import javax.annotation.Nullable;
 import java.util.function.Function;
 
+import static net.minecraftforge.client.model.generators.ModelProvider.BLOCK_FOLDER;
 import static slimeknights.mantle.util.IdExtender.INSTANCE;
 
 @SuppressWarnings({"UnusedReturnValue", "SameParameterValue"})
@@ -43,17 +58,37 @@ public class TinkerBlockStateProvider extends BlockStateProvider {
   protected void registerStatesAndModels() {
     addFenceBuildingBlock(TinkerMaterials.blazewood, "block/wood/blazewood/", "planks", blockTexture("wood/blazewood"));
     addFenceBuildingBlock(TinkerMaterials.nahuatl, "block/wood/nahuatl/", "planks", blockTexture("wood/nahuatl"));
-    addWood(TinkerWorld.greenheart, false);
-    addWood(TinkerWorld.skyroot, true);
-    addWood(TinkerWorld.bloodshroom, true);
-    addWood(TinkerWorld.enderbark, true);
+    addWood(TinkerWorld.greenheart, false, RenderType.cutout());
+    addWood(TinkerWorld.skyroot, true, RenderType.cutout());
+    addWood(TinkerWorld.bloodshroom, true, RenderType.cutout());
+    addWood(TinkerWorld.enderbark, true, RenderType.solid());
     basicBlock(TinkerWorld.enderbarkRoots.get(), models().withExistingParent("block/wood/enderbark/roots/empty", "block/mangrove_roots")
+                                                         .renderType(RenderType.cutout().name)
                                                          .texture("side", blockTexture("wood/enderbark/roots"))
                                                          .texture("top", blockTexture("wood/enderbark/roots_top")));
     TinkerWorld.slimyEnderbarkRoots.forEach((type, block) -> {
       String name = type.getSerializedName();
       cubeColumn(block, "block/wood/enderbark/roots/" + name, blockTexture("wood/enderbark/roots/" + name), blockTexture("wood/enderbark/roots/" + name + "_top"));
     });
+
+    // clear glass
+    glassBlock(TinkerCommons.clearGlass.get(), TinkerCommons.clearGlassPane.get(), "clear_glass/", TConstruct.getResource("block/clear_glass"), -1, true, null);
+    ResourceLocation clearStainedGlass = TConstruct.getResource("block/clear_stained_glass");
+    RenderType translucent = RenderType.translucent();
+    for (GlassColor color : GlassColor.values()) {
+      glassBlock(TinkerCommons.clearStainedGlass.get(color), TinkerCommons.clearStainedGlassPane.get(color), "clear_glass/" + color.getSerializedName() + "/", clearStainedGlass, 0xFF000000 | color.getColor(), false, translucent);
+    }
+    glassBlock(TinkerCommons.soulGlass.get(), TinkerCommons.soulGlassPane.get(), "soul_glass/", TConstruct.getResource("block/soul_glass"), -1, false, translucent);
+    // smeltery glass - share a common top texture
+    glassBlock(TinkerSmeltery.searedGlass.get(),     TinkerSmeltery.searedGlassPane.get(),     "smeltery/glass/", TConstruct.getResource("block/smeltery/seared_glass"), -1, true, null);
+    glassBlock(TinkerSmeltery.searedSoulGlass.get(), TinkerSmeltery.searedSoulGlassPane.get(), "smeltery/soul_glass/",
+               TConstruct.getResource("block/smeltery/soul_glass"), TConstruct.getResource("block/smeltery/seared_glass_top"), -1, true, translucent);
+    glassBlock(TinkerSmeltery.scorchedGlass.get(),     TinkerSmeltery.scorchedGlassPane.get(),     "foundry/glass/", TConstruct.getResource("block/foundry/glass"), -1, true, null);
+    glassBlock(TinkerSmeltery.scorchedSoulGlass.get(), TinkerSmeltery.scorchedSoulGlassPane.get(), "foundry/soul_glass/",
+               TConstruct.getResource("block/foundry/soul_glass"), TConstruct.getResource("block/foundry/glass_top"), -1, true, translucent);
+    // obsidian pane
+    ResourceLocation obsidian = new ResourceLocation("block/obsidian");
+    paneBlock(TinkerCommons.obsidianPane.get(), "obsidian_pane/", obsidian, obsidian, false, -1, false, RenderType.solid());
   }
 
 
@@ -61,7 +96,7 @@ public class TinkerBlockStateProvider extends BlockStateProvider {
 
   /** Creates a texture in the block folder */
   protected ResourceLocation blockTexture(String path) {
-    return new ResourceLocation(TConstruct.MOD_ID, ModelProvider.BLOCK_FOLDER + "/" + path);
+    return new ResourceLocation(TConstruct.MOD_ID, BLOCK_FOLDER + "/" + path);
   }
 
   /** Creates a texture in the block folder */
@@ -83,7 +118,7 @@ public class TinkerBlockStateProvider extends BlockStateProvider {
   }
 
   /** Creates all models for the given wood block object */
-  protected void addWood(WoodBlockObject wood, boolean trapdoorOrientable) {
+  protected void addWood(WoodBlockObject wood, boolean trapdoorOrientable, RenderType doorRenderType) {
     String plankPath = wood.getId().getPath();
     String name = plankPath.substring(0, plankPath.length() - "_planks".length());
     String folder = "block/wood/" + name + "/"; // forge model providers do not prefix with block if you have / in the path
@@ -100,7 +135,7 @@ public class TinkerBlockStateProvider extends BlockStateProvider {
     axisBlock(wood.getWood(),         folder + "log/wood",          texture.apply("log"), false);
     axisBlock(wood.getStrippedWood(), folder + "log/wood_stripped", texture.apply("stripped_log"), false);
     // doors
-    door(wood.getDoor(), folder, texture.apply("door_bottom"), texture.apply("door_top"));
+    door(wood.getDoor(), folder, doorRenderType, texture.apply("door_bottom"), texture.apply("door_top"));
     basicItem(wood.getDoor(), "wood/");
     trapdoor(wood.getTrapdoor(), folder + "trapdoor_", texture.apply("trapdoor"), trapdoorOrientable);
     // redstone
@@ -259,20 +294,30 @@ public class TinkerBlockStateProvider extends BlockStateProvider {
    * Adds a door block without an item model
    * @param block           Door block
    * @param prefix          Prefix for model files
+   * @param doorRenderType  Render type to use for door models
    * @param bottomTexture   Bottom door texture
    * @param topTexture      Top door texture
    */
-  public void door(DoorBlock block, String prefix, ResourceLocation bottomTexture, ResourceLocation topTexture) {
+  public void door(DoorBlock block, String prefix, RenderType doorRenderType, ResourceLocation bottomTexture, ResourceLocation topTexture) {
     doorBlock(
       block,
-      models().doorBottomLeft(     prefix + "door/bottom_left",       bottomTexture, topTexture),
-      models().doorBottomLeftOpen( prefix + "door/bottom_left_open",  bottomTexture, topTexture),
-      models().doorBottomRight(    prefix + "door/bottom_right",      bottomTexture, topTexture),
-      models().doorBottomRightOpen(prefix + "door/bottom_right_open", bottomTexture, topTexture),
-      models().doorTopLeft(        prefix + "door/top_left",          bottomTexture, topTexture),
-      models().doorTopLeftOpen(    prefix + "door/top_left_open",     bottomTexture, topTexture),
-      models().doorTopRight(       prefix + "door/top_right",         bottomTexture, topTexture),
-      models().doorTopRightOpen(   prefix + "door/top_right_open",    bottomTexture, topTexture));
+      models().doorBottomLeft(     prefix + "door/bottom_left",       bottomTexture, topTexture)
+              .renderType(doorRenderType.name),
+      models().doorBottomLeftOpen( prefix + "door/bottom_left_open",  bottomTexture, topTexture)
+              .renderType(doorRenderType.name),
+      models().doorBottomRight(    prefix + "door/bottom_right",      bottomTexture, topTexture)
+              .renderType(doorRenderType.name),
+      models().doorBottomRightOpen(prefix + "door/bottom_right_open", bottomTexture, topTexture)
+              .renderType(doorRenderType.name),
+      models().doorTopLeft(        prefix + "door/top_left",          bottomTexture, topTexture)
+              .renderType(doorRenderType.name),
+      models().doorTopLeftOpen(    prefix + "door/top_left_open",     bottomTexture, topTexture)
+              .renderType(doorRenderType.name),
+      models().doorTopRight(       prefix + "door/top_right",         bottomTexture, topTexture)
+              .renderType(doorRenderType.name),
+      models().doorTopRightOpen(   prefix + "door/top_right_open",    bottomTexture, topTexture)
+              .renderType(doorRenderType.name)
+    );
   }
 
   /**
@@ -280,15 +325,22 @@ public class TinkerBlockStateProvider extends BlockStateProvider {
    * @param block    Trapdoor block
    * @param prefix   Model location prefix
    * @param texture  Trapdoor texture
-   * @param orientable  If true, its an oriented model.
+   * @param orientable  If true, it's an oriented model.
    */
   public void trapdoor(TrapDoorBlock block, String prefix, ResourceLocation texture, boolean orientable) {
-    ModelFile bottom = orientable ? models().trapdoorOrientableBottom(prefix + "bottom", texture) : models().trapdoorBottom(prefix + "bottom", texture);
-    trapdoorBlock(
-      block, bottom,
-      orientable ? models().trapdoorOrientableTop(prefix + "top", texture) : models().trapdoorTop(prefix + "top", texture),
-      orientable ? models().trapdoorOrientableOpen(prefix + "open", texture) : models().trapdoorOpen(prefix + "open", texture),
-      orientable);
+    ModelFile bottom, top, open;
+
+    if (orientable) {
+      bottom = models().trapdoorOrientableBottom(prefix + "bottom", texture).renderType(RenderType.cutout().name);
+      top = models().trapdoorOrientableTop(prefix + "top", texture).renderType(RenderType.cutout().name);
+      open = models().trapdoorOrientableOpen(prefix + "open", texture).renderType(RenderType.cutout().name);
+    } else {
+      bottom = models().trapdoorBottom(prefix + "bottom", texture).renderType(RenderType.cutout().name);
+      top = models().trapdoorTop(prefix + "top", texture).renderType(RenderType.cutout().name);
+      open = models().trapdoorOpen(prefix + "open", texture).renderType(RenderType.cutout().name);
+    }
+
+    trapdoorBlock(block, bottom, top, open, orientable);
     simpleBlockItem(block, bottom);
   }
 
@@ -314,5 +366,98 @@ public class TinkerBlockStateProvider extends BlockStateProvider {
     ModelFile button = models().button(location, texture);
     buttonBlock(block, button, models().buttonPressed(location + "_pressed", texture));
     itemModels().withExistingParent(itemName(block), "minecraft:block/button_inventory").texture("texture", texture);
+  }
+
+
+  /* Panes and glass */
+
+  /** Creates a pane model using the TConstruct templates */
+  private BlockModelBuilder paneModel(String baseName, String variant, ResourceLocation pane, @Nullable ResourceLocation edge, @Nullable RenderType renderType, boolean connected, int tint) {
+    BlockModelBuilder builder = models().withExistingParent(BLOCK_FOLDER + "/" + baseName + variant, TConstruct.getResource("block/template/pane/" + variant));
+    builder.texture("pane", pane);
+    if (edge != null) {
+      builder.texture("edge", edge);
+    }
+    if (renderType != null) {
+      builder.renderType(renderType.name);
+    }
+    if (connected) {
+      ConnectedModelBuilder<BlockModelBuilder> cBuilder = builder.customLoader(ConnectedModelBuilder::new);
+      cBuilder.connected("pane", "cornerless_full").setPredicate("pane");
+      if (tint != -1) {
+        cBuilder.color(tint);
+      }
+    } else if (tint != -1) {
+      builder.customLoader(ColoredModelBuilder::new).color(tint);
+    }
+    return builder;
+  }
+
+  /** Creates a new pane block state */
+  private void paneBlockWithEdge(IronBarsBlock block, ModelFile post, ModelFile side, ModelFile sideAlt, ModelFile noSide, ModelFile noSideAlt, ModelFile noSideEdge) {
+    MultiPartBlockStateBuilder builder = getMultipartBuilder(block)
+      .part().modelFile(post).addModel().end();
+    PipeBlock.PROPERTY_BY_DIRECTION.forEach((dir, value) -> {
+      if (dir.getAxis().isHorizontal()) {
+        boolean alt = dir == Direction.SOUTH;
+        builder.part().modelFile(alt || dir == Direction.WEST ? sideAlt : side).rotationY(dir.getAxis() == Axis.X ? 90 : 0).addModel()
+               .condition(value, true).end()
+               .part().modelFile(alt || dir == Direction.EAST ? noSideAlt : noSide).rotationY(dir == Direction.WEST ? 270 : dir == Direction.SOUTH ? 90 : 0).addModel()
+               .condition(value, false).end()
+               .part().modelFile(noSideEdge).rotationY((int)dir.getOpposite().toYRot()).addModel()
+               .condition(value, false)
+               .condition(PipeBlock.PROPERTY_BY_DIRECTION.get(dir.getClockWise()), false)
+               .condition(PipeBlock.PROPERTY_BY_DIRECTION.get(dir.getCounterClockWise()), false).end();
+      }
+    });
+  }
+
+  /** Creates a new pane block with all relevant models */
+  public void paneBlock(IronBarsBlock block, String baseName, ResourceLocation pane, ResourceLocation edge, boolean connected, int tint, boolean solidEdge, @Nullable RenderType renderType) {
+    // build block models
+    ModelFile post      = paneModel(baseName, "post",       pane, edge, renderType, connected, tint);
+    ModelFile side      = paneModel(baseName, "side",       pane, edge, renderType, connected, tint);
+    ModelFile sideAlt   = paneModel(baseName, "side_alt",   pane, edge, renderType, connected, tint);
+    ModelFile noSide    = paneModel(baseName, "noside",     pane, null, renderType, connected, tint);
+    ModelFile noSideAlt = paneModel(baseName, "noside_alt", pane, null, renderType, connected, tint);
+    if (solidEdge && !pane.equals(edge)) {
+      ModelFile noSideEdge = paneModel(baseName, "noside_edge", pane, edge, renderType, false, tint);
+      paneBlockWithEdge(block, post, side, sideAlt, noSide, noSideAlt, noSideEdge);
+    } else {
+      paneBlock(block, post, side, sideAlt, noSide, noSideAlt);
+    }
+    // build item model
+    ItemModelBuilder item = itemModels().getBuilder(itemKey(block).toString()).parent(GENERATED).texture("layer0", pane);
+    if (tint != -1) {
+      item.customLoader(MantleItemLayerBuilder::new).color(tint);
+    }
+    if (renderType != null) {
+      item.renderType(renderType.name);
+    }
+  }
+
+  /** Adds models for a glass block with a glass pane */
+  public void glassBlock(Block glass, IronBarsBlock pane, String baseName, ResourceLocation front, int tint, boolean solidEdge, @Nullable RenderType renderType) {
+    glassBlock(glass, pane, baseName, front, INSTANCE.suffix(front, "_top"), tint, solidEdge, renderType);
+  }
+
+  /** Adds models for a glass block with a glass pane */
+  public void glassBlock(Block glass, IronBarsBlock pane, String baseName, ResourceLocation front, ResourceLocation edge, int tint, boolean solidEdge, @Nullable RenderType renderType) {
+    // make block model
+    BlockModelBuilder block = models().cubeAll(BLOCK_FOLDER + "/" + baseName + "block", front);
+    ConnectedModelBuilder<BlockModelBuilder> cBuilder = block.customLoader(ConnectedModelBuilder::new);
+    cBuilder.connected("all", "cornerless_full");
+    if (tint != -1) {
+      cBuilder.color(tint);
+    }
+    if (renderType != null) {
+      block.renderType(renderType.name);
+    } else {
+      // glass generally wants cutout
+      block.renderType(RenderType.cutout().name);
+    }
+    basicBlock(glass, block);
+    // make pane models
+    paneBlock(pane, baseName + "pane_", front, edge, true, tint, solidEdge, renderType);
   }
 }

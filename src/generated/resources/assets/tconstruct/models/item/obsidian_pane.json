@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "render_type": "minecraft:solid",
+  "textures": {
+    "layer0": "minecraft:block/obsidian"
+  }
+}

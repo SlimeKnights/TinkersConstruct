@@ -7,13 +7,13 @@ import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemDamageFunction;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.loot.AbstractLootTableInjectionProvider;
+import slimeknights.mantle.loot.LootTableInjection;
 import slimeknights.mantle.loot.function.SetFluidLootFunction;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.fluids.TinkerFluids;
-import slimeknights.tconstruct.library.data.tinkering.AbstractLootTableInjectionProvider;
 import slimeknights.tconstruct.library.json.loot.AddToolDataFunction;
-import slimeknights.tconstruct.library.loot.LootTableInjection;
 import slimeknights.tconstruct.library.materials.RandomMaterial;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
@@ -103,7 +103,7 @@ public class LootTableInjectionProvider extends AbstractLootTableInjectionProvid
                                  .setWeight(10) // about as often as both diamond swords
                                  .apply(ancientToolData)
                                  .build());
-    inject("hero_of_the_toolsmith", "gameplay/hero_of_the_village/toolsmith")
+    inject("hero_of_the_toolsmith", "gameplay/hero_of_the_village/toolsmith_gift")
       .addToPool("main", LootItem.lootTableItem(TinkerTools.warPick.get())
                                  .setWeight(2) // makes it a 33% chance of war pick as opposed to a stone tool
                                  .apply(ancientToolData)

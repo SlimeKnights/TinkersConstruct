@@ -1,4 +1,6 @@
-{   "parent": "block/block",
+{
+    "render_type": "minecraft:translucent",
+    "parent": "block/block",
     "textures": {
         "particle": "tconstruct:block/storage/slimesteel",
         "slime": "tconstruct:block/storage/slimesteel_slime",

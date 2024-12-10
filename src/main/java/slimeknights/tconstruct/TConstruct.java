@@ -50,6 +50,7 @@ import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.plugin.DietPlugin;
 import slimeknights.tconstruct.plugin.ImmersiveEngineeringPlugin;
+import slimeknights.tconstruct.plugin.craftingtweaks.CraftingTweaksPlugin;
 import slimeknights.tconstruct.plugin.jsonthings.JsonThingsPlugin;
 import slimeknights.tconstruct.shared.TinkerClient;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -129,6 +130,9 @@ public class TConstruct {
     }
     if (modList.isLoaded("diet")) {
       DietPlugin.onConstruct();
+    }
+    if (modList.isLoaded("craftingtweaks")) {
+      CraftingTweaksPlugin.onConstruct();
     }
   }
 

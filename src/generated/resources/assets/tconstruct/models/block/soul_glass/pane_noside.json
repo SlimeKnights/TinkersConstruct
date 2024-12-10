@@ -1,0 +1,14 @@
+{
+  "parent": "tconstruct:block/template/pane/noside",
+  "connection": {
+    "predicate": "pane",
+    "textures": {
+      "pane": "cornerless_full"
+    }
+  },
+  "loader": "mantle:connected",
+  "render_type": "minecraft:translucent",
+  "textures": {
+    "pane": "tconstruct:block/soul_glass"
+  }
+}

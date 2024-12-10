@@ -1,5 +1,6 @@
 {
   "parent": "minecraft:block/template_orientable_trapdoor_top",
+  "render_type": "minecraft:cutout",
   "textures": {
     "texture": "tconstruct:block/wood/enderbark/trapdoor"
   }

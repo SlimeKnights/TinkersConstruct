@@ -1,4 +1,5 @@
 {
+  "render_type": "minecraft:cutout",
   "loader": "tconstruct:tank",
   "parent": "block/block",
   "textures": {

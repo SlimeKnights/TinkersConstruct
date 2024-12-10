@@ -1,0 +1,19 @@
+{
+  "parent": "tconstruct:block/template/pane/noside",
+  "colors": [
+    {
+      "color": "FF6699D8"
+    }
+  ],
+  "connection": {
+    "predicate": "pane",
+    "textures": {
+      "pane": "cornerless_full"
+    }
+  },
+  "loader": "mantle:connected",
+  "render_type": "minecraft:translucent",
+  "textures": {
+    "pane": "tconstruct:block/clear_stained_glass"
+  }
+}

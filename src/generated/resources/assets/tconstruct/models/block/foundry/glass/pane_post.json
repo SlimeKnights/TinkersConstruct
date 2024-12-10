@@ -1,0 +1,14 @@
+{
+  "parent": "tconstruct:block/template/pane/post",
+  "connection": {
+    "predicate": "pane",
+    "textures": {
+      "pane": "cornerless_full"
+    }
+  },
+  "loader": "mantle:connected",
+  "textures": {
+    "edge": "tconstruct:block/foundry/glass_top",
+    "pane": "tconstruct:block/foundry/glass"
+  }
+}

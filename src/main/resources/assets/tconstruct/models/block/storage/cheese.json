@@ -1,4 +1,5 @@
 {
+  "render_type": "minecraft:cutout",
 	"parent": "block/block",
 	"textures": {
 		"inner": "tconstruct:block/storage/cheese_block_inner",

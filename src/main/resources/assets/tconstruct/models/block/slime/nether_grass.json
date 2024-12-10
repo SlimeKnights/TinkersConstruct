@@ -1,4 +1,5 @@
 {
+    "render_type": "minecraft:cutout",
     "parent": "block/tinted_cross",
     "textures": {
         "cross": "tconstruct:block/slime/foliage/nether_grass"

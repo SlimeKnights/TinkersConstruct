@@ -1,0 +1,13 @@
+{
+  "parent": "tconstruct:block/template/pane/noside",
+  "connection": {
+    "predicate": "pane",
+    "textures": {
+      "pane": "cornerless_full"
+    }
+  },
+  "loader": "mantle:connected",
+  "textures": {
+    "pane": "tconstruct:block/clear_glass"
+  }
+}

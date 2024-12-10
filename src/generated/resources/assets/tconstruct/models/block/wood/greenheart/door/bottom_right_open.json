@@ -1,5 +1,6 @@
 {
   "parent": "minecraft:block/door_bottom_right_open",
+  "render_type": "minecraft:cutout",
   "textures": {
     "bottom": "tconstruct:block/wood/greenheart/door_bottom",
     "top": "tconstruct:block/wood/greenheart/door_top"

@@ -1,7 +1,0 @@
-{
-  "parent": "tconstruct:block/template/pane/side_alt",
-  "textures": {
-    "edge": "minecraft:block/obsidian",
-    "pane": "minecraft:block/obsidian"
-  }
-}

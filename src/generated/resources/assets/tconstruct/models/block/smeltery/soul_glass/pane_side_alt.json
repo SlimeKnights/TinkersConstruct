@@ -1,0 +1,15 @@
+{
+  "parent": "tconstruct:block/template/pane/side_alt",
+  "connection": {
+    "predicate": "pane",
+    "textures": {
+      "pane": "cornerless_full"
+    }
+  },
+  "loader": "mantle:connected",
+  "render_type": "minecraft:translucent",
+  "textures": {
+    "edge": "tconstruct:block/smeltery/seared_glass_top",
+    "pane": "tconstruct:block/smeltery/soul_glass"
+  }
+}

@@ -223,6 +223,9 @@ dependencies {
 
     compileOnly fg.deobf("dev.gigaherz.jsonthings:JsonThings-${minecraft_version}:${json_things_version}")
 
+    compileOnly fg.deobf("curse.maven:balm-531761:4751735")
+    compileOnly fg.deobf("curse.maven:crafting-tweaks-233071:4939198")
+
     deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'

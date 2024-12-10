@@ -1,7 +1,0 @@
-{
-  "parent": "tconstruct:block/template/pane/post",
-  "textures": {
-    "edge": "minecraft:block/obsidian",
-    "pane": "minecraft:block/obsidian"
-  }
-}

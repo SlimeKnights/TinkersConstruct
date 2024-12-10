@@ -1,0 +1,13 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "connection": {
+    "textures": {
+      "all": "cornerless_full"
+    }
+  },
+  "loader": "mantle:connected",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "all": "tconstruct:block/clear_glass"
+  }
+}

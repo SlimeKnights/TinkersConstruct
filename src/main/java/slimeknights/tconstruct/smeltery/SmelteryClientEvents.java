@@ -1,8 +1,6 @@
 package slimeknights.tconstruct.smeltery;
 
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ModelEvent.RegisterGeometryLoaders;
@@ -53,48 +51,6 @@ public class SmelteryClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void clientSetup(final FMLClientSetupEvent event) {
-    // render layers
-    RenderType cutout = RenderType.cutout();
-    RenderType translucent = RenderType.translucent();
-    // seared
-    // casting
-    // TODO: migrate
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedFaucet.get(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedBasin.get(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedTable.get(), cutout);
-    // controller
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedMelter.get(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.smelteryController.get(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.foundryController.get(), cutout);
-    // peripherals
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedDrain.get(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedDuct.get(), cutout);
-    TinkerSmeltery.searedTank.forEach(tank -> ItemBlockRenderTypes.setRenderLayer(tank, cutout));
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedLantern.get(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedGlass.get(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedSoulGlass.get(), translucent);
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedTintedGlass.get(), translucent);
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedGlassPane.get(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.searedSoulGlassPane.get(), translucent);
-    // scorched
-    // casting
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.scorchedFaucet.get(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.scorchedBasin.get(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.scorchedTable.get(), cutout);
-    // controller
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.scorchedAlloyer.get(), cutout);
-    // peripherals
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.scorchedDrain.get(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.scorchedDuct.get(), cutout);
-    TinkerSmeltery.scorchedTank.forEach(tank -> ItemBlockRenderTypes.setRenderLayer(tank, cutout));
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.scorchedLantern.get(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.scorchedGlass.get(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.scorchedSoulGlass.get(), translucent);
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.scorchedTintedGlass.get(), translucent);
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.scorchedGlassPane.get(), cutout);
-    ItemBlockRenderTypes.setRenderLayer(TinkerSmeltery.scorchedSoulGlassPane.get(), translucent);
-
-    // screens
     MenuScreens.register(TinkerSmeltery.melterContainer.get(), MelterScreen::new);
     MenuScreens.register(TinkerSmeltery.smelteryContainer.get(), HeatingStructureScreen::new);
     MenuScreens.register(TinkerSmeltery.singleItemContainer.get(), new SingleItemScreenFactory());

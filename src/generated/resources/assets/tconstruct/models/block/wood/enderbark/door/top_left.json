@@ -1,5 +1,6 @@
 {
   "parent": "minecraft:block/door_top_left",
+  "render_type": "minecraft:solid",
   "textures": {
     "bottom": "tconstruct:block/wood/enderbark/door_bottom",
     "top": "tconstruct:block/wood/enderbark/door_top"

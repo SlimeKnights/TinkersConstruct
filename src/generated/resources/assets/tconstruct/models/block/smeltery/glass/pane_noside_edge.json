@@ -1,0 +1,7 @@
+{
+  "parent": "tconstruct:block/template/pane/noside_edge",
+  "textures": {
+    "edge": "tconstruct:block/smeltery/seared_glass_top",
+    "pane": "tconstruct:block/smeltery/seared_glass"
+  }
+}

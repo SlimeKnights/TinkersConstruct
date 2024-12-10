@@ -1,0 +1,8 @@
+{
+  "parent": "tconstruct:block/template/pane/noside_edge",
+  "render_type": "minecraft:translucent",
+  "textures": {
+    "edge": "tconstruct:block/smeltery/seared_glass_top",
+    "pane": "tconstruct:block/smeltery/soul_glass"
+  }
+}

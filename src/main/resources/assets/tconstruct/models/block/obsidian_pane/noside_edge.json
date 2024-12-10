@@ -1,7 +1,0 @@
-{
-  "parent": "tconstruct:block/template/pane/noside_edge",
-  "textures": {
-    "edge": "minecraft:block/obsidian",
-    "pane": "minecraft:block/obsidian"
-  }
-}

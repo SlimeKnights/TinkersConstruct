@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "tconstruct:block/smeltery/glass/block"
+    }
+  }
+}
