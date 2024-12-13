@@ -66,7 +66,6 @@ public class ModifierIds {
   // armor
   public static final ModifierId protection = id("protection");
   public static final ModifierId meleeProtection = id("melee_protection");
-
   public static final ModifierId fireProtection = id("fire_protection");
   public static final ModifierId turtleShell = id("turtle_shell");
   public static final ModifierId wings = id("wings");
