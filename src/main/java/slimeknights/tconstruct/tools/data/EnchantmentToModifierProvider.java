@@ -20,8 +20,8 @@ public class EnchantmentToModifierProvider extends AbstractEnchantmentToModifier
     // protection
     add(Enchantments.ALL_DAMAGE_PROTECTION, ModifierIds.protection);
     add(Enchantments.FIRE_PROTECTION, ModifierIds.fireProtection);
-    add(Enchantments.BLAST_PROTECTION, TinkerModifiers.blastProtection.getId());
-    add(Enchantments.PROJECTILE_PROTECTION, TinkerModifiers.projectileProtection.getId());
+    add(Enchantments.BLAST_PROTECTION, ModifierIds.blastProtection);
+    add(Enchantments.PROJECTILE_PROTECTION, ModifierIds.projectileProtection);
     add(Enchantments.FALL_PROTECTION, ModifierIds.featherFalling);
     // misc armor
     add(Enchantments.RESPIRATION, ModifierIds.respiration);
@@ -69,7 +69,7 @@ public class EnchantmentToModifierProvider extends AbstractEnchantmentToModifier
 
     // defense
     addCompat(ModifierIds.knockbackResistance);
-    addCompat(TinkerModifiers.magicProtection.getId());
+    addCompat(ModifierIds.magicProtection);
     addCompat(ModifierIds.revitalizing);
 
     // ability

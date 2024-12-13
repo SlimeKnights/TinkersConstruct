@@ -32,7 +32,7 @@ public class EnchantmentTagProvider extends TagsProvider<Enchantment> {
 
     // defense
     modifierTag(ModifierIds.knockbackResistance, "cyclic:steady");
-    modifierTag(TinkerModifiers.magicProtection.getId(), "ensorcellation:magic_protection");
+    modifierTag(ModifierIds.magicProtection, "ensorcellation:magic_protection");
     modifierTag(ModifierIds.revitalizing, "ensorcellation:vitality");
 
     // ability

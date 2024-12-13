@@ -2,6 +2,8 @@ package slimeknights.tconstruct.library.modifiers.data;
 
 import lombok.Getter;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial;
 
 import javax.annotation.Nullable;
@@ -39,5 +41,10 @@ public class ModifierMaxLevel {
         }
       }
     }
+  }
+
+  /** Fetches the max stat level from the given living entity */
+  public static float getStat(LivingEntity living, TinkerDataCapability.ComputableDataKey<ModifierMaxLevel> key) {
+    return living.getCapability(TinkerDataCapability.CAPABILITY).resolve().map(data -> data.get(key)).map(ModifierMaxLevel::getMax).orElse(0f);
   }
 }

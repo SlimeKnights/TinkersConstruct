@@ -1,51 +1,21 @@
 package slimeknights.tconstruct.tools.modifiers.defense;
 
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.living.MobEffectEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
 import slimeknights.mantle.data.predicate.damage.DamageSourcePredicate;
-import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.modifiers.data.ModifierMaxLevel;
+import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.modules.armor.ProtectionModule;
+import slimeknights.tconstruct.library.modifiers.modules.technical.ArmorStatModule.TooltipStyle;
+import slimeknights.tconstruct.library.modifiers.modules.technical.MaxArmorStatModule;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
-import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
-import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.ComputableDataKey;
+import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 
-public class MagicProtectionModifier extends AbstractProtectionModifier<ModifierMaxLevel> {
-  /** Entity data key for the data associated with this modifier */
-  private static final ComputableDataKey<ModifierMaxLevel> MAGIC_DATA = TConstruct.createKey("magic_protection", ModifierMaxLevel::new);
-  public MagicProtectionModifier() {
-    super(MAGIC_DATA);
-    // TODO: extract to data key module using ModifierEvents
-    MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, MobEffectEvent.Added.class, MagicProtectionModifier::onPotionStart);
-  }
-
+/** @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.technical.MaxArmorStatModule}, {@link slimeknights.tconstruct.library.tools.capability.TinkerDataKeys#BAD_EFFECT_DURATION}, and {@link ProtectionModule} */
+@Deprecated(forRemoval = true)
+public class MagicProtectionModifier extends Modifier {
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
+    hookBuilder.addModule(MaxArmorStatModule.builder(TinkerDataKeys.BAD_EFFECT_DURATION).heldTag(TinkerTags.Items.HELD).tooltipStyle(TooltipStyle.PERCENT).eachLevel(-0.05f));
     hookBuilder.addModule(ProtectionModule.builder().sources(DamageSourcePredicate.CAN_PROTECT, DamageSourcePredicate.MAGIC).eachLevel(2.5f));
-  }
-
-  private static void onPotionStart(MobEffectEvent.Added event) {
-    MobEffectInstance newEffect = event.getEffectInstance();
-    if (!newEffect.getEffect().isBeneficial() && !newEffect.getCurativeItems().isEmpty()) {
-      LivingEntity living = event.getEntity();
-      living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
-        ModifierMaxLevel magicData = data.get(MAGIC_DATA);
-        if (magicData != null) {
-          float max = magicData.getMax();
-          if (max > 0) {
-            // decrease duration by 5% per level
-            int duration = (int)(newEffect.getDuration() * (1 - (max * 0.05f)));
-            if (duration < 0) {
-              duration = 0;
-            }
-            newEffect.duration = duration;
-          }
-        }
-      });
-    }
   }
 }

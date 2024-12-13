@@ -13,7 +13,11 @@ import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
-/** Base class for protection modifiers that want to keep track of the largest level for a bonus */
+/**
+ * Base class for protection modifiers that want to keep track of the largest level for a bonus
+ * @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.technical.MaxArmorLevelModule} and {@link slimeknights.tconstruct.library.modifiers.modules.armor.ProtectionModule}
+ */
+@Deprecated(forRemoval = true)
 @RequiredArgsConstructor
 public abstract class AbstractProtectionModifier<T extends ModifierMaxLevel> extends Modifier implements EquipmentChangeModifierHook {
   private final ComputableDataKey<T> key;
@@ -40,7 +44,7 @@ public abstract class AbstractProtectionModifier<T extends ModifierMaxLevel> ext
   @Override
   public void onUnequip(IToolStackView tool, ModifierEntry modifier, EquipmentChangeContext context) {
     EquipmentSlot slot = context.getChangedSlot();
-    if ((allowClient || !context.getEntity().level.isClientSide) && ModifierUtil.validArmorSlot(tool, slot)) {
+    if ((allowClient || !context.getEntity().level.isClientSide) && ModifierUtil.validArmorSlot(tool, slot) && !tool.isBroken()) {
       context.getTinkerData().ifPresent(data -> {
         T modData = data.get(key);
         if (modData != null) {

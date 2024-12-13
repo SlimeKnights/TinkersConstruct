@@ -25,7 +25,7 @@ public interface TinkerDataKeys {
 	/** Cap modifier. Cap defaults to 20, but can be increased up to 23.75 and decreased down to 0 */
 	TinkerDataKey<Float> PROTECTION_CAP = floatKey("protection_cap");
 
-	/** Bonus to add to movement speed when using items, used in {@link slimeknights.tconstruct.tools.TinkerModifiers#projectileProtection} */
+	/** Bonus to add to movement speed when using items, used in {@link slimeknights.tconstruct.tools.data.ModifierIds#meleeProtection} */
 	TinkerDataKey<Float> USE_ITEM_SPEED = floatKey("use_item_speed");
 	/** Knockback bonus */
 	TinkerDataKey<Float> KNOCKBACK = floatKey("knockback");
@@ -35,6 +35,16 @@ public interface TinkerDataKeys {
   TinkerDataKey<Float> MINING_SPEED = floatKey("mining_speed");
   /** Multiplier for experience drops from events */
   TinkerDataKey<Float> EXPERIENCE = floatKey("experience");
+  /** Percentage boost to critial hits for any airborne attacker, used for {@link slimeknights.tconstruct.tools.data.ModifierIds#dragonborn} */
+  TinkerDataKey<Float> CRITICAL_DAMAGE = floatKey("critical_damage");
+  /** Percentage boost to negative potion effects, used for {@link slimeknights.tconstruct.tools.data.ModifierIds#magicProtection} */
+  TinkerDataKey<Float> BAD_EFFECT_DURATION = floatKey("bad_effect_duration");
+  /** Percentage boost to positive potion effects */
+  TinkerDataKey<Float> GOOD_EFFECT_DURATION = floatKey("good_effect_duration");
+  /** Percentage boost to damage while crouching, used by {@link slimeknights.tconstruct.tools.data.ModifierIds#shulking} */
+  TinkerDataKey<Float> CROUCH_DAMAGE = floatKey("crouch_damage");
+  /** Percentage boost to explosion knockback, used by {@link slimeknights.tconstruct.tools.data.ModifierIds#blastProtection} */
+  TinkerDataKey<Float> EXPLOSION_KNOCKBACK = floatKey("explosion_knockback");
 
   /** Crystalstrike level for knockback restriction */
   TinkerDataKey<Integer> CRYSTALSTRIKE = intKey("crystalstrike_knockback");

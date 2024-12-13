@@ -254,6 +254,15 @@ public class ToolEvents {
     float modifierValue = 0;
     float originalDamage = event.getAmount();
 
+    // run shulking global damage "boost", its a bit hardcoded Java wise to make it softcoded in JSON
+    Entity attacker = event.getSource().getEntity();
+    if (attacker != null && attacker.isCrouching()) {
+      float crouchDamage = ArmorStatModule.getStat(attacker, TinkerDataKeys.CROUCH_DAMAGE);
+      if (crouchDamage != 0) {
+        originalDamage = originalDamage * (1 + crouchDamage);
+      }
+    }
+
     // for our own armor, we have boosts from modifiers to consider
     if (context.hasModifiableArmor()) {
       // first, allow modifiers to change the damage being dealt and respond to it happening

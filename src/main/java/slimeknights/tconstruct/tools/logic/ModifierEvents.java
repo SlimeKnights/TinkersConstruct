@@ -3,29 +3,38 @@ package slimeknights.tconstruct.tools.logic;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.GameRules;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.living.LivingKnockBackEvent;
 import net.minecraftforge.event.entity.living.MobEffectEvent;
+import net.minecraftforge.event.entity.player.CriticalHitEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.level.BlockEvent.BreakEvent;
+import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.json.predicate.TinkerPredicate;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.modules.armor.EffectImmunityModule;
 import slimeknights.tconstruct.library.modifiers.modules.technical.ArmorLevelModule;
@@ -263,6 +272,108 @@ public class ModifierEvents {
           }
         }
       }
+    }
+  }
+
+  /** Boosts critical hit damage */
+  @SubscribeEvent
+  static void onCritical(CriticalHitEvent event) {
+    if (event.getResult() != Result.DENY) {
+      // force critical if not already critical and in the air
+      LivingEntity living = event.getEntity();
+
+      // boost critical hits based on the armor stat
+      float criticalBoost = ArmorStatModule.getStat(living, TinkerDataKeys.CRITICAL_DAMAGE);
+      if (criticalBoost > 0) {
+        // make it critical if we meet our simpler conditions, note this does not boost attack damage
+        boolean isCritical = event.isVanillaCritical() || event.getResult() == Result.ALLOW;
+        if (!isCritical && TinkerPredicate.AIRBORNE.matches(living)) {
+          isCritical = true;
+          event.setResult(Result.ALLOW);
+        }
+
+        // if we either were or became critical, time to boost
+        if (isCritical) {
+          // adds +5% critical hit per level
+          event.setDamageModifier(event.getDamageModifier() + criticalBoost);
+        }
+      }
+    }
+  }
+
+  @SubscribeEvent
+  static void onPotionStart(MobEffectEvent.Added event) {
+    MobEffectInstance newEffect = event.getEffectInstance();
+    if (!newEffect.getCurativeItems().isEmpty()) {
+      LivingEntity living = event.getEntity();
+
+      // use two different stats based on whether the effect is beneficial
+      float boost = ArmorStatModule.getStat(event.getEntity(), newEffect.getEffect().isBeneficial() ? TinkerDataKeys.GOOD_EFFECT_DURATION : TinkerDataKeys.BAD_EFFECT_DURATION);
+      if (boost != 0) {
+        // adjust duration as requested
+        int duration = (int)(newEffect.getDuration() * (1 + boost));
+        if (duration < 0) {
+          duration = 0;
+        }
+        newEffect.duration = duration;
+      }
+    }
+  }
+
+  /** Key to mark entities that were knocked back by an explosion, so we know to adjust their velocity */
+  private final static TinkerDataKey<Boolean> WAS_KNOCKBACK = TConstruct.createKey("was_knockback");
+
+  /** On explosion, checks if any blast protected entity is involved, if so marks them for knockback update next tick */
+  @SubscribeEvent
+  static void onExplosionDetonate(ExplosionEvent.Detonate event) {
+    // TODO 1.20: this should no longer be needed
+    Explosion explosion = event.getExplosion();
+    Vec3 center = explosion.getPosition();
+    float diameter = explosion.radius * 2;
+    // search the entities for someone protection by blast protection
+    for (Entity entity : event.getAffectedEntities()) {
+      // explosion is valid as long as the entity's eye is not directly on the explosion
+      double x = entity.getX() - center.x;
+      double z = entity.getZ() - center.z;
+      if (!entity.ignoreExplosion() && x != 0 || z != 0 || (entity.getEyeY() - center.y) != 0) {
+        entity.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
+          // if the entity has blast protection and the blast protection level is bigger than vanilla, time to process
+          float explosionKnockback = data.get(TinkerDataKeys.EXPLOSION_KNOCKBACK, 0f);
+          if (explosionKnockback != 0) {
+            // we need two numbers to calculate the knockback: distance to explosion and block density
+            double y = entity.getY() - center.y;
+            double distance = Mth.sqrt((float)(x * x + y * y + z * z)) / diameter;
+            if (distance <= 1) {
+              data.put(WAS_KNOCKBACK, true);
+            }
+          }
+        });
+      }
+    }
+  }
+
+  /** If the entity is marked for knockback update, adjust velocity */
+  @SubscribeEvent
+  static void livingTick(LivingTickEvent event) {
+    LivingEntity living = event.getEntity();
+    if (!living.level.isClientSide && !living.isSpectator()) {
+      living.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> {
+        if (data.get(WAS_KNOCKBACK, false)) {
+          data.remove(WAS_KNOCKBACK);
+          float explosionKnockback = data.get(TinkerDataKeys.EXPLOSION_KNOCKBACK, 0f);
+          if (explosionKnockback != 0) {
+            // due to MC-198809, vanilla does not actually reduce the knockback except on levels higher than obtainable in survival (blast prot VII)
+            // thus, we only care about our own level for reducing
+            double scale = 1 + explosionKnockback;
+            if (scale <= 0) {
+              living.setDeltaMovement(Vec3.ZERO);
+            } else {
+              living.setDeltaMovement(living.getDeltaMovement().multiply(scale, scale, scale));
+            }
+            living.hurtMarked = true;
+          }
+        }
+      });
     }
   }
 }

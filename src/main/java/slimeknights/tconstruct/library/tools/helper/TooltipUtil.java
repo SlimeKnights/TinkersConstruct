@@ -54,6 +54,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.UUID;
 import java.util.function.BiPredicate;
 
 /** Helper functions for adding tooltips to tools */
@@ -502,45 +503,57 @@ public class TooltipUtil {
           if (!showAttribute.test(attribute, operation)) {
             continue;
           }
-          // find value
-          double amount = modifier.getAmount();
-          boolean showEquals = false;
-          if (player != null) {
-            if (modifier.getId() == Item.BASE_ATTACK_DAMAGE_UUID) {
-              amount += player.getAttributeBaseValue(Attributes.ATTACK_DAMAGE);
-              showEquals = true;
-            } else if (modifier.getId() == Item.BASE_ATTACK_SPEED_UUID) {
-              amount += player.getAttributeBaseValue(Attributes.ATTACK_SPEED);
-              showEquals = true;
-            }
-          }
-          // some numbers display a bit different
-          double displayValue = amount;
-          if (modifier.getOperation() == Operation.ADDITION) {
-            // vanilla multiplies knockback resist by 10 for some odd reason
-            if (attribute.equals(Attributes.KNOCKBACK_RESISTANCE)) {
-              displayValue *= 10;
-            }
-          } else {
-            // display multiply as percentage
-            displayValue *= 100;
-          }
-          // final tooltip addition
-          Component name = Component.translatable(attribute.getDescriptionId());
-          if (showEquals) {
-            tooltip.add(Component.literal(" ")
-                          .append(Component.translatable("attribute.modifier.equals." + operation.toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(displayValue), name))
-                          .withStyle(ChatFormatting.DARK_GREEN));
-          } else if (amount > 0.0D) {
-            tooltip.add((Component.translatable("attribute.modifier.plus." + operation.toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(displayValue), name))
-                          .withStyle(ChatFormatting.BLUE));
-          } else if (amount < 0.0D) {
-            displayValue *= -1;
-            tooltip.add((Component.translatable("attribute.modifier.take." + operation.toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(displayValue), name))
-                          .withStyle(ChatFormatting.RED));
-          }
+          addAttribute(attribute, operation, modifier.getAmount(), modifier.getId(), player, tooltip);
         }
       }
+    }
+  }
+
+  /**
+   * Adds a single attribute to the tooltip
+   * @param attribute  Attribute type
+   * @param operation  Attribute operationm
+   * @param amount     Attribute amount
+   * @param uuid       Attribute UUID
+   * @param player     Player instance
+   * @param tooltip    Tooltip list
+   */
+  public static void addAttribute(Attribute attribute, Operation operation, double amount, @Nullable UUID uuid, @Nullable Player player, List<Component> tooltip) {
+    // find value
+    boolean showEquals = false;
+    if (player != null) {
+      if (uuid == Item.BASE_ATTACK_DAMAGE_UUID) {
+        amount += player.getAttributeBaseValue(Attributes.ATTACK_DAMAGE);
+        showEquals = true;
+      } else if (uuid == Item.BASE_ATTACK_SPEED_UUID) {
+        amount += player.getAttributeBaseValue(Attributes.ATTACK_SPEED);
+        showEquals = true;
+      }
+    }
+    // some numbers display a bit different
+    double displayValue = amount;
+    if (operation == Operation.ADDITION) {
+      // vanilla multiplies knockback resist by 10 for some odd reason
+      if (attribute.equals(Attributes.KNOCKBACK_RESISTANCE)) {
+        displayValue *= 10;
+      }
+    } else {
+      // display multiply as percentage
+      displayValue *= 100;
+    }
+    // final tooltip addition
+    Component name = Component.translatable(attribute.getDescriptionId());
+    if (showEquals) {
+      tooltip.add(Component.literal(" ")
+                           .append(Component.translatable("attribute.modifier.equals." + operation.toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(displayValue), name))
+                           .withStyle(ChatFormatting.DARK_GREEN));
+    } else if (amount > 0.0D) {
+      tooltip.add((Component.translatable("attribute.modifier.plus." + operation.toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(displayValue), name))
+                    .withStyle(ChatFormatting.BLUE));
+    } else if (amount < 0.0D) {
+      displayValue *= -1;
+      tooltip.add((Component.translatable("attribute.modifier.take." + operation.toValue(), ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(displayValue), name))
+                    .withStyle(ChatFormatting.RED));
     }
   }
 

@@ -37,12 +37,12 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.string, ModifierIds.stringy);
     addDefaultTraits(MaterialIds.leather, TinkerModifiers.tanned);
     addDefaultTraits(MaterialIds.vine, TinkerModifiers.solarPowered);
-    addTraits(MaterialIds.gold, ARMOR, TinkerModifiers.golden, TinkerModifiers.magicProtection);
-    addTraits(MaterialIds.gold, PlatingMaterialStats.SHIELD.getId(), TinkerModifiers.magicProtection);
+    addTraits(MaterialIds.gold, ARMOR, TinkerModifiers.golden.getId(), ModifierIds.magicProtection);
+    addTraits(MaterialIds.gold, PlatingMaterialStats.SHIELD.getId(), ModifierIds.magicProtection);
 
     // tier 2
     addDefaultTraits(MaterialIds.iron, TinkerModifiers.magnetic);
-    addTraits(MaterialIds.iron, ARMOR, TinkerModifiers.projectileProtection);
+    addTraits(MaterialIds.iron, ARMOR, ModifierIds.projectileProtection);
     addDefaultTraits(MaterialIds.copper, TinkerModifiers.dwarven);
     addTraits(MaterialIds.copper, ARMOR, ModifierIds.depthProtection);
     addDefaultTraits(MaterialIds.searedStone, TinkerModifiers.searing);
@@ -67,10 +67,10 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.nahuatl, TinkerModifiers.lacerating);
     addDefaultTraits(MaterialIds.roseGold, ModifierIds.enhanced);
     addDefaultTraits(MaterialIds.pigIron, TinkerModifiers.tasty);
-    addTraits(MaterialIds.obsidian, ARMOR, TinkerModifiers.blastProtection);
+    addTraits(MaterialIds.obsidian, ARMOR, ModifierIds.blastProtection);
     // tier 3 - nether
     addDefaultTraits(MaterialIds.cobalt, ModifierIds.lightweight);
-    addTraits(MaterialIds.cobalt, ARMOR, TinkerModifiers.meleeProtection);
+    addTraits(MaterialIds.cobalt, ARMOR, ModifierIds.meleeProtection);
     // tier 3 - binding
     addDefaultTraits(MaterialIds.darkthread, ModifierIds.looting);
 

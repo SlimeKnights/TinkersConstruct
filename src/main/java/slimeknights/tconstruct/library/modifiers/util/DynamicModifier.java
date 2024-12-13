@@ -9,7 +9,10 @@ import slimeknights.tconstruct.library.modifiers.ModifierManager.ModifiersLoaded
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-/** Supplier that will return a modifier from a datapack, automatically updating to the new instance when datapacks reload */
+/**
+ * Supplier that will return a modifier from a datapack, automatically updating to the new instance when datapacks reload
+ * TODO 1.20: remove type bound.
+ */
 public class DynamicModifier<T> extends LazyModifier {
   /** List of all dynamic modifiers, to clear cache when modifiers reload */
   private static final AtomicInteger INVALIDATION_COUNTER = new AtomicInteger(0);

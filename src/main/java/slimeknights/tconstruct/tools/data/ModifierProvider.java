@@ -60,6 +60,7 @@ import slimeknights.tconstruct.library.modifiers.impl.BasicModifier.TooltipDispl
 import slimeknights.tconstruct.library.modifiers.modules.armor.BlockDamageSourceModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.CoverGroundWalkerModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.EffectImmunityModule;
+import slimeknights.tconstruct.library.modifiers.modules.armor.MaxArmorAttributeModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.MobDisguiseModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.ProtectionModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.ReplaceBlockWalkerModule;
@@ -90,6 +91,7 @@ import slimeknights.tconstruct.library.modifiers.modules.mining.ConditionalMinin
 import slimeknights.tconstruct.library.modifiers.modules.technical.ArmorLevelModule;
 import slimeknights.tconstruct.library.modifiers.modules.technical.ArmorStatModule;
 import slimeknights.tconstruct.library.modifiers.modules.technical.ArmorStatModule.TooltipStyle;
+import slimeknights.tconstruct.library.modifiers.modules.technical.MaxArmorStatModule;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay.UniqueForLevels;
@@ -343,9 +345,21 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.revitalizing).addModule(AttributeModule.builder(Attributes.MAX_HEALTH, Operation.ADDITION).uniqueFrom(ModifierIds.revitalizing).slots(armorSlots).eachLevel(2));
     // protection
     buildModifier(ModifierIds.protection).addModule(ProtectionModule.builder().eachLevel(1.25f));
+    buildModifier(ModifierIds.meleeProtection)
+      .addModule(MaxArmorStatModule.builder(TinkerDataKeys.USE_ITEM_SPEED).heldTag(TinkerTags.Items.HELD).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.05f))
+      .addModule(ProtectionModule.builder().sources(DamageSourcePredicate.CAN_PROTECT, DamageSourcePredicate.MELEE).eachLevel(2.5f));
+    buildModifier(ModifierIds.projectileProtection)
+      .addModule(MaxArmorAttributeModule.builder(Attributes.KNOCKBACK_RESISTANCE, Operation.ADDITION).heldTag(TinkerTags.Items.HELD).uniqueFrom(ModifierIds.projectileProtection).eachLevel(0.05f))
+      .addModule(ProtectionModule.builder().sources(DamageSourcePredicate.CAN_PROTECT, DamageSourcePredicate.PROJECTILE).eachLevel(2.5f));
     buildModifier(ModifierIds.fireProtection)
       .addModule(EnchantmentModule.builder(Enchantments.FIRE_PROTECTION).protection())
       .addModule(ProtectionModule.builder().sources(DamageSourcePredicate.CAN_PROTECT, DamageSourcePredicate.FIRE).eachLevel(2.5f));
+    buildModifier(ModifierIds.blastProtection)
+      .addModule(MaxArmorStatModule.builder(TinkerDataKeys.EXPLOSION_KNOCKBACK).heldTag(TinkerTags.Items.HELD).tooltipStyle(TooltipStyle.PERCENT).eachLevel(-0.15f))
+      .addModule(ProtectionModule.builder().sources(DamageSourcePredicate.CAN_PROTECT, DamageSourcePredicate.EXPLOSION).eachLevel(2.5f));
+    buildModifier(ModifierIds.magicProtection)
+      .addModule(MaxArmorStatModule.builder(TinkerDataKeys.BAD_EFFECT_DURATION).heldTag(TinkerTags.Items.HELD).tooltipStyle(TooltipStyle.PERCENT).eachLevel(-0.05f))
+      .addModule(ProtectionModule.builder().sources(DamageSourcePredicate.CAN_PROTECT, DamageSourcePredicate.MAGIC).eachLevel(2.5f));
     buildModifier(ModifierIds.turtleShell)
       .addModule(AttributeModule.builder(ForgeMod.SWIM_SPEED.get(), Operation.MULTIPLY_TOTAL).uniqueFrom(ModifierIds.turtleShell).slots(armorSlots).eachLevel(0.05f))
       .addModule(ProtectionModule.builder()
@@ -354,6 +368,12 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(ProtectionModule.builder()
                                  .toolItem(ItemPredicate.or(ItemPredicate.tag(TinkerTags.Items.LEGGINGS), ItemPredicate.tag(TinkerTags.Items.BOOTS)))
                                  .entity(LivingEntityPredicate.FEET_IN_WATER).eachLevel(2.5f));
+    buildModifier(ModifierIds.shulking)
+      .addModule(MaxArmorStatModule.builder(TinkerDataKeys.CROUCH_DAMAGE).heldTag(TinkerTags.Items.HELD).tooltipStyle(TooltipStyle.PERCENT).eachLevel(-0.1f))
+      .addModule(ProtectionModule.builder().eachLevel(2.5f));
+    buildModifier(ModifierIds.dragonborn)
+      .addModule(MaxArmorStatModule.builder(TinkerDataKeys.CRITICAL_DAMAGE).heldTag(TinkerTags.Items.HELD).tooltipStyle(TooltipStyle.PERCENT).eachLevel(0.05f))
+      .addModule(ProtectionModule.builder().entity(TinkerPredicate.AIRBORNE).eachLevel(2.5f));
     // helmet
     buildModifier(ModifierIds.respiration).addModule(EnchantmentModule.builder(Enchantments.RESPIRATION).constant());
     buildModifier(ModifierIds.aquaAffinity).addModule(EnchantmentModule.builder(Enchantments.AQUA_AFFINITY).constant()).levelDisplay(ModifierLevelDisplay.NO_LEVELS);

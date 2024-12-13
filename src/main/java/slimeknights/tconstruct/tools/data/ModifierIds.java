@@ -65,8 +65,14 @@ public class ModifierIds {
 
   // armor
   public static final ModifierId protection = id("protection");
+  public static final ModifierId meleeProtection = id("melee_protection");
   public static final ModifierId fireProtection = id("fire_protection");
+  public static final ModifierId projectileProtection = id("projectile_protection");
+  public static final ModifierId blastProtection = id("blast_protection");
+  public static final ModifierId magicProtection = id("magic_protection");
   public static final ModifierId turtleShell = id("turtle_shell");
+  public static final ModifierId shulking = id("shulking");
+  public static final ModifierId dragonborn = id("dragonborn");
   public static final ModifierId wings = id("wings");
   public static final ModifierId knockbackResistance = id("knockback_resistance");
   // counter

@@ -23,6 +23,11 @@ public record LevelingValue(float flat, float eachLevel) {
     return this.flat + this.eachLevel * level;
   }
 
+  /** Computes the value for the given level but returns 0 if level is 0 */
+  public float computeForLevel(float level) {
+    return level > 0 ? compute(level) : 0;
+  }
+
 
   /* JSON */
 

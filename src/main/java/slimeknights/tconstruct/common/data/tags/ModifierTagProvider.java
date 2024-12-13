@@ -70,9 +70,9 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
            TinkerModifiers.shears.getId(), TinkerModifiers.harvest.getId())
       .addOptional(ModifierIds.pockets);
     tag(SLIME_DEFENSE)
-      .add(TinkerModifiers.meleeProtection.getId(), TinkerModifiers.projectileProtection.getId(),
-           ModifierIds.fireProtection, TinkerModifiers.magicProtection.getId(),
-           TinkerModifiers.blastProtection.getId(), TinkerModifiers.golden.getId());
+      .add(ModifierIds.meleeProtection, ModifierIds.projectileProtection,
+           ModifierIds.fireProtection, ModifierIds.magicProtection,
+           ModifierIds.blastProtection, TinkerModifiers.golden.getId());
     tag(OVERSLIME_FRIEND)
       .add(TinkerModifiers.overgrowth.getId(), ModifierIds.overcast, TinkerModifiers.overlord.getId(),
            ModifierIds.overforced, ModifierIds.overslimeFriend, TinkerModifiers.overworked.getId());
@@ -145,9 +145,9 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
 
     // defense
     this.tag(PROTECTION_DEFENSE).add(
-      TinkerModifiers.blastProtection.getId(), ModifierIds.fireProtection, TinkerModifiers.magicProtection.getId(),
-      TinkerModifiers.meleeProtection.getId(), TinkerModifiers.projectileProtection.getId(),
-      TinkerModifiers.dragonborn.getId(), TinkerModifiers.shulking.getId(), ModifierIds.turtleShell);
+      ModifierIds.blastProtection, ModifierIds.fireProtection, ModifierIds.magicProtection,
+      ModifierIds.meleeProtection, ModifierIds.projectileProtection,
+      ModifierIds.dragonborn, ModifierIds.shulking, ModifierIds.turtleShell);
     this.tag(SPECIAL_DEFENSE).add(TinkerModifiers.golden.getId(), ModifierIds.knockbackResistance, ModifierIds.revitalizing);
 
     // slotless

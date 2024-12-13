@@ -1,0 +1,20 @@
+{
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:max_armor_stat",
+      "allow_broken": false,
+      "each_level": -0.1,
+      "held_tag": "tconstruct:modifiable/held",
+      "key": "tconstruct:crouch_damage",
+      "tooltip_style": "percent"
+    },
+    {
+      "type": "tconstruct:protection",
+      "damage_source": "mantle:can_protect",
+      "each_level": 2.5
+    }
+  ],
+  "tooltip_display": "always"
+}

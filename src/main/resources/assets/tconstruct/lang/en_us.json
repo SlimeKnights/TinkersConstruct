@@ -2776,6 +2776,11 @@
   "armor_stat.tconstruct.mining_speed": "Mining Speed",
   "armor_stat.tconstruct.use_item_speed": "Use Item Speed",
   "armor_stat.tconstruct.experience": "Experience",
+  "armor_stat.tconstruct.critical_damage": "Critical Damage",
+  "armor_stat.tconstruct.good_effect_duration": "Good Potion Time",
+  "armor_stat.tconstruct.bad_effect_duration": "Bad Potion Time",
+  "armor_stat.tconstruct.crouch_damage": "Crouch Damage",
+  "armor_stat.tconstruct.explosion_knockback": "Explosion Knockback",
 
 
   "_comment": "Tooltips",

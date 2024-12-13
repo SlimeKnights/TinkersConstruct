@@ -642,30 +642,30 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // protection
     // all held tools can receive defense slots, so give them something to use it for
     Ingredient protectableTools = ingredientFromTags(TinkerTags.Items.ARMOR, TinkerTags.Items.HELD);
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.meleeProtection)
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.meleeProtection)
                                     .setInput(TinkerModifiers.cobaltReinforcement, 1, 5)
                                     .setSlots(SlotType.DEFENSE, 1)
                                     .setTools(protectableTools)
-                                    .saveSalvage(consumer, prefix(TinkerModifiers.meleeProtection, defenseSalvage))
-                                    .save(consumer, prefix(TinkerModifiers.meleeProtection, defenseFolder));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.projectileProtection)
+                                    .saveSalvage(consumer, prefix(ModifierIds.meleeProtection, defenseSalvage))
+                                    .save(consumer, prefix(ModifierIds.meleeProtection, defenseFolder));
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.projectileProtection)
                                     .setInput(TinkerModifiers.ironReinforcement, 1, 5)
                                     .setSlots(SlotType.DEFENSE, 1)
                                     .setTools(protectableTools)
-                                    .saveSalvage(consumer, prefix(TinkerModifiers.projectileProtection, defenseSalvage))
-                                    .save(consumer, prefix(TinkerModifiers.projectileProtection, defenseFolder));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.blastProtection)
+                                    .saveSalvage(consumer, prefix(ModifierIds.projectileProtection, defenseSalvage))
+                                    .save(consumer, prefix(ModifierIds.projectileProtection, defenseFolder));
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.blastProtection)
                                     .setInput(TinkerModifiers.obsidianReinforcement, 1, 5)
                                     .setSlots(SlotType.DEFENSE, 1)
                                     .setTools(protectableTools)
-                                    .saveSalvage(consumer, prefix(TinkerModifiers.blastProtection, defenseSalvage))
-                                    .save(consumer, prefix(TinkerModifiers.blastProtection, defenseFolder));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.magicProtection)
+                                    .saveSalvage(consumer, prefix(ModifierIds.blastProtection, defenseSalvage))
+                                    .save(consumer, prefix(ModifierIds.blastProtection, defenseFolder));
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.magicProtection)
                                     .setInput(TinkerModifiers.goldReinforcement, 1, 5)
                                     .setSlots(SlotType.DEFENSE, 1)
                                     .setTools(protectableTools)
-                                    .saveSalvage(consumer, prefix(TinkerModifiers.magicProtection, defenseSalvage))
-                                    .save(consumer, prefix(TinkerModifiers.magicProtection, defenseFolder));
+                                    .saveSalvage(consumer, prefix(ModifierIds.magicProtection, defenseSalvage))
+                                    .save(consumer, prefix(ModifierIds.magicProtection, defenseFolder));
     IncrementalModifierRecipeBuilder.modifier(ModifierIds.fireProtection)
                                     .setInput(TinkerModifiers.searedReinforcement, 1, 5)
                                     .setSlots(SlotType.DEFENSE, 1)
@@ -717,18 +717,18 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setTools(TinkerTags.Items.ARMOR)
                                     .saveSalvage(consumer, prefix(ModifierIds.turtleShell, defenseSalvage))
                                     .save(consumer, prefix(ModifierIds.turtleShell, defenseFolder));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.shulking)
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.shulking)
                                     .setInput(Items.SHULKER_SHELL, 1, 5)
                                     .setSlots(SlotType.DEFENSE, 1)
                                     .setTools(TinkerTags.Items.ARMOR)
-                                    .saveSalvage(consumer, prefix(TinkerModifiers.shulking, defenseSalvage))
-                                    .save(consumer, prefix(TinkerModifiers.shulking, defenseFolder));
-    IncrementalModifierRecipeBuilder.modifier(TinkerModifiers.dragonborn)
+                                    .saveSalvage(consumer, prefix(ModifierIds.shulking, defenseSalvage))
+                                    .save(consumer, prefix(ModifierIds.shulking, defenseFolder));
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.dragonborn)
                                     .setInput(TinkerModifiers.dragonScale, 1, 10)
                                     .setSlots(SlotType.DEFENSE, 1)
                                     .setTools(TinkerTags.Items.ARMOR)
-                                    .saveSalvage(consumer, prefix(TinkerModifiers.dragonScale, defenseSalvage))
-                                    .save(consumer, prefix(TinkerModifiers.dragonScale, defenseFolder));
+                                    .saveSalvage(consumer, prefix(ModifierIds.dragonborn, defenseSalvage))
+                                    .save(consumer, prefix(ModifierIds.dragonborn, defenseFolder));
     // 3 each for chest and legs, 2 each for boots and helmet, leads to 10 total
     IncrementalModifierRecipeBuilder.modifier(ModifierIds.revitalizing)
                                     .setTools(ingredientFromTags(TinkerTags.Items.WORN_ARMOR)) // revitalizing would suck on an item you constantly change

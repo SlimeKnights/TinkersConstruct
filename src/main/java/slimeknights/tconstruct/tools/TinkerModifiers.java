@@ -79,6 +79,7 @@ import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.BlockDamageSourceModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.CoverGroundWalkerModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.EffectImmunityModule;
+import slimeknights.tconstruct.library.modifiers.modules.armor.MaxArmorAttributeModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.MobDisguiseModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.ProtectionModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.ReplaceBlockWalkerModule;
@@ -110,6 +111,7 @@ import slimeknights.tconstruct.library.modifiers.modules.display.DurabilityBarCo
 import slimeknights.tconstruct.library.modifiers.modules.mining.ConditionalMiningSpeedModule;
 import slimeknights.tconstruct.library.modifiers.modules.technical.ArmorLevelModule;
 import slimeknights.tconstruct.library.modifiers.modules.technical.ArmorStatModule;
+import slimeknights.tconstruct.library.modifiers.modules.technical.MaxArmorStatModule;
 import slimeknights.tconstruct.library.modifiers.util.DynamicModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierDeferredRegister;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
@@ -178,12 +180,6 @@ import slimeknights.tconstruct.tools.modifiers.ability.tool.GlowingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.MeltingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.OffhandAttackModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.tool.ParryingModifier;
-import slimeknights.tconstruct.tools.modifiers.defense.BlastProtectionModifier;
-import slimeknights.tconstruct.tools.modifiers.defense.DragonbornModifier;
-import slimeknights.tconstruct.tools.modifiers.defense.MagicProtectionModifier;
-import slimeknights.tconstruct.tools.modifiers.defense.MeleeProtectionModifier;
-import slimeknights.tconstruct.tools.modifiers.defense.ProjectileProtectionModifier;
-import slimeknights.tconstruct.tools.modifiers.defense.ShulkingModifier;
 import slimeknights.tconstruct.tools.modifiers.effect.BleedingEffect;
 import slimeknights.tconstruct.tools.modifiers.effect.MagneticEffect;
 import slimeknights.tconstruct.tools.modifiers.effect.NoMilkEffect;
@@ -347,12 +343,24 @@ public final class TinkerModifiers extends TinkerModule {
 
   // armor
   // protection
-  public static final StaticModifier<MeleeProtectionModifier> meleeProtection = MODIFIERS.register("melee_protection", MeleeProtectionModifier::new);
-  public static final StaticModifier<BlastProtectionModifier> blastProtection = MODIFIERS.register("blast_protection", BlastProtectionModifier::new);
-  public static final StaticModifier<MagicProtectionModifier> magicProtection = MODIFIERS.register("magic_protection", MagicProtectionModifier::new);
-  public static final StaticModifier<ProjectileProtectionModifier> projectileProtection = MODIFIERS.register("projectile_protection", ProjectileProtectionModifier::new);
-  public static final StaticModifier<ShulkingModifier> shulking = MODIFIERS.register("shulking", ShulkingModifier::new);
-  public static final StaticModifier<DragonbornModifier> dragonborn = MODIFIERS.register("dragonborn", DragonbornModifier::new);
+  /** @deprecated use {@link slimeknights.tconstruct.tools.data.ModifierIds#meleeProtection} */
+  @Deprecated(forRemoval = true)
+  public static final DynamicModifier<Modifier> meleeProtection = MODIFIERS.registerDynamic("melee_protection");
+  /** @deprecated use {@link slimeknights.tconstruct.tools.data.ModifierIds#blastProtection} */
+  @Deprecated(forRemoval = true)
+  public static final DynamicModifier<Modifier> blastProtection = MODIFIERS.registerDynamic("blast_protection");
+  /** @deprecated use {@link slimeknights.tconstruct.tools.data.ModifierIds#magicProtection} */
+  @Deprecated(forRemoval = true)
+  public static final DynamicModifier<Modifier> magicProtection = MODIFIERS.registerDynamic("magic_protection");
+  /** @deprecated use {@link slimeknights.tconstruct.tools.data.ModifierIds#projectileProtection} */
+  @Deprecated(forRemoval = true)
+  public static final DynamicModifier<Modifier> projectileProtection = MODIFIERS.registerDynamic("projectile_protection");
+  /** @deprecated use {@link slimeknights.tconstruct.tools.data.ModifierIds#shulking} */
+  @Deprecated(forRemoval = true)
+  public static final DynamicModifier<Modifier> shulking = MODIFIERS.registerDynamic("shulking");
+  /** @deprecated use {@link slimeknights.tconstruct.tools.data.ModifierIds#dragonborn} */
+  @Deprecated(forRemoval = true)
+  public static final DynamicModifier<Modifier> dragonborn = MODIFIERS.registerDynamic("dragonborn");
   // general
   public static final DynamicModifier<Modifier> golden = MODIFIERS.registerDynamic("golden", Modifier.class);
   public static final StaticModifier<EmbellishmentModifier> embellishment = MODIFIERS.register("embellishment", EmbellishmentModifier::new);
@@ -581,6 +589,7 @@ public final class TinkerModifiers extends TinkerModule {
 
       // modifier modules //
       // armor
+      ModifierModule.LOADER.register(getResource("max_armor_attribute"), MaxArmorAttributeModule.LOADER);
       ModifierModule.LOADER.register(getResource("effect_immunity"), EffectImmunityModule.LOADER);
       ModifierModule.LOADER.register(getResource("mob_disguise"), MobDisguiseModule.LOADER);
       ModifierModule.LOADER.register(getResource("block_damage"), BlockDamageSourceModule.LOADER);
@@ -626,6 +635,7 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierModule.LOADER.register(getResource("conditional_mining_speed"), ConditionalMiningSpeedModule.LOADER);
       // technical
       ModifierModule.LOADER.register(getResource("armor_level"), ArmorLevelModule.LOADER);
+      ModifierModule.LOADER.register(getResource("max_armor_stat"), MaxArmorStatModule.LOADER);
       ModifierModule.LOADER.register(getResource("armor_stat"), ArmorStatModule.LOADER);
 
       // special
