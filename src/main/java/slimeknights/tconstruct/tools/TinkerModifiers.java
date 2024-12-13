@@ -347,6 +347,9 @@ public final class TinkerModifiers extends TinkerModule {
 
   // armor
   // protection
+  /** @deprecated use {@link slimeknights.tconstruct.tools.data.ModifierIds#meleeProtection} */
+  @Deprecated
+  public static final DynamicModifier<Modifier> meleeProtection = MODIFIERS.registerDynamic("melee_protection");
   public static final StaticModifier<BlastProtectionModifier> blastProtection = MODIFIERS.register("blast_protection", BlastProtectionModifier::new);
   public static final StaticModifier<MagicProtectionModifier> magicProtection = MODIFIERS.register("magic_protection", MagicProtectionModifier::new);
   public static final StaticModifier<ProjectileProtectionModifier> projectileProtection = MODIFIERS.register("projectile_protection", ProjectileProtectionModifier::new);

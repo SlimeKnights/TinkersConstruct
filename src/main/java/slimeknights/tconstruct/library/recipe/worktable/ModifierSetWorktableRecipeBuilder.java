@@ -28,13 +28,13 @@ public class ModifierSetWorktableRecipeBuilder extends AbstractSizedIngredientRe
   private boolean allowTraits = false;
 
   /** Creates a new recipe for adding to a set */
-  public static ModifierSetWorktableRecipeBuilder setAdding(ResourceLocation key) {
-    return new ModifierSetWorktableRecipeBuilder(key, true);
+  public static ModifierSetWorktableRecipeBuilder setAdding(ResourceLocation dataKey) {
+    return new ModifierSetWorktableRecipeBuilder(dataKey, true);
   }
 
   /** Creates a new recipe for removing from a set */
-  public static ModifierSetWorktableRecipeBuilder setRemoving(ResourceLocation key) {
-    return new ModifierSetWorktableRecipeBuilder(key, false);
+  public static ModifierSetWorktableRecipeBuilder setRemoving(ResourceLocation dataKey) {
+    return new ModifierSetWorktableRecipeBuilder(dataKey, false);
   }
 
   /** Sets the tool requirement for this recipe */

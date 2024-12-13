@@ -23,7 +23,6 @@ import java.util.Optional;
 /**
  * Module for keeping track of the max level of a modifier across all pieces of equipment.
  * @see TinkerDataKey
- * @see slimeknights.tconstruct.library.modifiers.modules.behavior.ShowOffhandModule
  */
 public record MaxArmorLevelModule(ComputableDataKey<ModifierMaxLevel> key, boolean allowBroken, @Nullable TagKey<Item> heldTag) implements HookProvider, EquipmentChangeModifierHook {
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<MaxArmorLevelModule>defaultHooks(ModifierHooks.EQUIPMENT_CHANGE);
