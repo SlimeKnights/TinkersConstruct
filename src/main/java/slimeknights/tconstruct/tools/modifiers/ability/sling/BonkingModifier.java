@@ -47,19 +47,13 @@ public class BonkingModifier extends SlingModifier implements MeleeHitModifierHo
   }
 
   @Override
-  public int getPriority() {
-    return 90;
-  }
-
-  @Override
   public InteractionResult onToolUse(IToolStackView tool, ModifierEntry modifier, Player player, InteractionHand hand, InteractionSource source) {
     if (!tool.isBroken() && source == InteractionSource.RIGHT_CLICK) {
-      // melee tools use attack speed for bonk, since this is also an attack
-      float speed;
+      // apply use item speed always
+      float speed = ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.DRAW_SPEED);
+      // for melee weapons, also multiply in attack speed
       if (tool.hasTag(TinkerTags.Items.MELEE_WEAPON)) {
-        speed = tool.getStats().get(ToolStats.ATTACK_SPEED);
-      } else {
-        speed = ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.DRAW_SPEED);
+        speed *= tool.getStats().get(ToolStats.ATTACK_SPEED);
       }
       tool.getPersistentData().putInt(GeneralInteractionModifierHook.KEY_DRAWTIME, (int)Math.ceil(30f / speed));
       GeneralInteractionModifierHook.startUsing(tool, modifier.getId(), player, hand);

@@ -1,0 +1,29 @@
+{
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:inventory",
+      "pattern": "tconstruct:shield_plus",
+      "slots": {
+        "each_level": 1
+      }
+    },
+    {
+      "type": "tconstruct:shield_strap",
+      "on_key": [
+        "normal"
+      ]
+    },
+    {
+      "type": "tconstruct:inventory_menu",
+      "on_key": "shift"
+    },
+    {
+      "type": "tconstruct:volatile_flag",
+      "flag": "tconstruct:inventory_show_offhand"
+    }
+  ],
+  "priority": 95,
+  "tooltip_display": "always"
+}

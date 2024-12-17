@@ -14,6 +14,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.Tiers;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Blocks;
@@ -22,6 +23,7 @@ import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.minecraftforge.fluids.FluidType;
+import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.block.BlockPredicate;
 import slimeknights.mantle.data.predicate.block.BlockPropertiesPredicate;
@@ -55,7 +57,6 @@ import slimeknights.tconstruct.library.json.variable.tool.ToolVariable;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
-import slimeknights.tconstruct.library.modifiers.dynamic.InventoryMenuModifier;
 import slimeknights.tconstruct.library.modifiers.impl.BasicModifier.TooltipDisplay;
 import slimeknights.tconstruct.library.modifiers.modules.armor.BlockDamageSourceModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.CoverGroundWalkerModule;
@@ -95,9 +96,13 @@ import slimeknights.tconstruct.library.modifiers.modules.technical.MaxArmorStatM
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay.UniqueForLevels;
+import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.capability.fluid.ToolTankHelper;
+import slimeknights.tconstruct.library.tools.capability.inventory.InventoryMenuModule;
+import slimeknights.tconstruct.library.tools.capability.inventory.InventoryModule;
+import slimeknights.tconstruct.library.tools.capability.inventory.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.item.armor.ModifiableArmorItem;
@@ -105,15 +110,19 @@ import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.logic.ModifierEvents;
-import slimeknights.tconstruct.tools.modifiers.ability.armor.ToolBeltModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
+import slimeknights.tconstruct.tools.modules.MeleeSmeltingModule;
 import slimeknights.tconstruct.tools.modules.TheOneProbeModule;
 import slimeknights.tconstruct.tools.modules.armor.DepthProtectionModule;
 import slimeknights.tconstruct.tools.modules.armor.EnderclearanceModule;
 import slimeknights.tconstruct.tools.modules.armor.FlameBarrierModule;
 import slimeknights.tconstruct.tools.modules.armor.KineticModule;
 import slimeknights.tconstruct.tools.modules.armor.RecurrentProtectionModule;
+import slimeknights.tconstruct.tools.modules.armor.ShieldStrapModule;
+import slimeknights.tconstruct.tools.modules.armor.ToolBeltModule;
+import slimeknights.tconstruct.tools.modules.ranged.BulkQuiverModule;
 import slimeknights.tconstruct.tools.modules.ranged.RestrictAngleModule;
+import slimeknights.tconstruct.tools.modules.ranged.TrickQuiverModule;
 
 import static slimeknights.tconstruct.common.TinkerTags.Items.ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HARVEST;
@@ -334,6 +343,28 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.quickCharge).addModule(StatBoostModule.multiplyBase(ToolStats.DRAW_SPEED).eachLevel(0.25f));
     buildModifier(ModifierIds.trueshot).addModule(StatBoostModule.add(ToolStats.ACCURACY).eachLevel(0.1f));
     buildModifier(ModifierIds.blindshot).addModule(StatBoostModule.add(ToolStats.ACCURACY).eachLevel(-0.1f));
+    buildModifier(ModifierIds.trickQuiver).priority(70) // before bulk quiver
+      .addModule(InventoryModule.builder().pattern(pattern("tipped_arrow"))
+                                .toolItem(ItemPredicate.tag(TinkerTags.Items.CROSSBOWS).inverted())
+                                .filter(TinkerPredicate.ARROW)
+                                .limitPerLevel(32).flatSlots(3))
+      .addModule(InventoryModule.builder().pattern(pattern("tipped_arrow"))
+                                .toolItem(ItemPredicate.tag(TinkerTags.Items.CROSSBOWS))
+                                .filter(ItemPredicate.or(TinkerPredicate.ARROW, ItemPredicate.set(Items.FIREWORK_ROCKET)))
+                                .limitPerLevel(32).flatSlots(3))
+      .addModule(TrickQuiverModule.INSTANCE)
+      .addModule(InventoryMenuModule.ANY);
+    buildModifier(ModifierIds.bulkQuiver).priority(50) // after crystalshot as bulk prioritizes "inventory ammo"
+      .addModule(InventoryModule.builder().pattern(pattern("arrow"))
+                                .toolItem(ItemPredicate.tag(TinkerTags.Items.CROSSBOWS).inverted())
+                                .filter(TinkerPredicate.ARROW)
+                                .flatSlots(2))
+      .addModule(InventoryModule.builder().pattern(pattern("arrow"))
+                                .toolItem(ItemPredicate.tag(TinkerTags.Items.CROSSBOWS))
+                                .filter(ItemPredicate.or(TinkerPredicate.ARROW, ItemPredicate.set(Items.FIREWORK_ROCKET)))
+                                .flatSlots(2))
+      .addModule(BulkQuiverModule.INSTANCE)
+      .addModule(InventoryMenuModule.ANY);
 
     // armor
     buildModifier(TinkerModifiers.golden).addModule(new VolatileFlagModule(ModifiableArmorItem.PIGLIN_NEUTRAL)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
@@ -377,11 +408,23 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     // helmet
     buildModifier(ModifierIds.respiration).addModule(EnchantmentModule.builder(Enchantments.RESPIRATION).constant());
     buildModifier(ModifierIds.aquaAffinity).addModule(EnchantmentModule.builder(Enchantments.AQUA_AFFINITY).constant()).levelDisplay(ModifierLevelDisplay.NO_LEVELS);
+    buildModifier(TinkerModifiers.itemFrame).addModule(InventoryModule.builder().pattern(pattern("item_frame")).flatLimit(1).slotsPerLevel(1));
     // chestplate
     buildModifier(ModifierIds.strength).addModule(AttributeModule.builder(Attributes.ATTACK_DAMAGE, Operation.MULTIPLY_TOTAL).uniqueFrom(ModifierIds.strength).slots(armorSlots).eachLevel(0.1f));
     // leggings
-    addModifier(ModifierIds.pockets, new InventoryMenuModifier(18));
-    addModifier(ModifierIds.toolBelt, new ToolBeltModifier(new int[] {4, 5, 6, 7, 8, 9}));
+    buildModifier(ModifierIds.pockets)
+      .addModule(InventoryModule.builder().slotsPerLevel(18))
+      .addModule(InventoryMenuModule.ANY);
+    buildModifier(ModifierIds.toolBelt).priority(85)
+      .levelDisplay(ModifierLevelDisplay.PLUSES)
+      .addModule(InventoryModule.builder().pattern(pattern("tool_belt")).slots(3, 1))
+      .addModule(new ToolBeltModule(TooltipKey.NORMAL, TooltipKey.CONTROL))
+      .addModule(InventoryMenuModule.SHIFT);
+    buildModifier(TinkerModifiers.shieldStrap).priority(95)
+      .addModule(InventoryModule.builder().pattern(pattern("shield_plus")).slotsPerLevel(1))
+      .addModule(new ShieldStrapModule(TooltipKey.NORMAL))
+      .addModule(InventoryMenuModule.SHIFT)
+      .addModule(new VolatileFlagModule(ToolInventoryCapability.INCLUDE_OFFHAND));
     buildModifier(ModifierIds.stepUp).addModule(AttributeModule.builder(ForgeMod.STEP_HEIGHT_ADDITION.get(), Operation.ADDITION).uniqueFrom(ModifierIds.stepUp).slots(armorSlots).eachLevel(0.5f));
     buildModifier(ModifierIds.speedy).addModule(AttributeModule.builder(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL).uniqueFrom(ModifierIds.speedy).slots(armorMainHand).eachLevel(0.1f));
     buildModifier(ModifierIds.leaping).addModule(ArmorStatModule.builder(TinkerDataKeys.JUMP_BOOST).eachLevel(1));
@@ -421,6 +464,13 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.tilling)
       .addModule(ShowOffhandModule.DISALLOW_BROKEN)
       .addModule(ToolActionTransformModule.builder(ToolActions.HOE_TILL, SoundEvents.HOE_TILL).build());
+
+    // traits
+    buildModifier(ModifierIds.frying)
+      .priority(110) // want to be higher than bonking and alike
+      .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
+      .addModule(InventoryMenuModule.SHIFT)
+      .addModule(new MeleeSmeltingModule(RecipeType.CAMPFIRE_COOKING, 20, InventoryModule.builder().pattern(pattern("fire")).flatLimit(1).slotsPerLevel(3)));
 
     // internal
     buildModifier(ModifierIds.overslimeFriend).tooltipDisplay(TooltipDisplay.NEVER);
@@ -620,5 +670,10 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
   /** Short helper to get a modifier ID */
   private static ModifierId id(String name) {
     return new ModifierId(TConstruct.MOD_ID, name);
+  }
+
+  /** Short helper to get a modifier ID */
+  private static Pattern pattern(String name) {
+    return new Pattern(TConstruct.MOD_ID, name);
   }
 }

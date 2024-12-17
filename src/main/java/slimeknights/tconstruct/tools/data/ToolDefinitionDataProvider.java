@@ -83,9 +83,11 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
   @Override
   protected void addToolDefinitions() {
     RandomMaterial tier1Material = RandomMaterial.random().tier(1).build();
+    RandomMaterial randomMaterial = RandomMaterial.random().build();
     DefaultMaterialsModule defaultTwoParts = DefaultMaterialsModule.builder().material(tier1Material, tier1Material).build();
     DefaultMaterialsModule defaultThreeParts = DefaultMaterialsModule.builder().material(tier1Material, tier1Material, tier1Material).build();
     DefaultMaterialsModule defaultFourParts = DefaultMaterialsModule.builder().material(tier1Material, tier1Material, tier1Material, tier1Material).build();
+    DefaultMaterialsModule defaultAncient = DefaultMaterialsModule.builder().material(randomMaterial, randomMaterial).build();
 
     // pickaxes
     define(ToolDefinitions.PICKAXE)
@@ -614,7 +616,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .module(ArmorSlotType.BOOTS, MaterialRepairModule.of(MaterialIds.leather, ArmorSlotType.BOOTS, 42))
       // stats
       .module(ArmorSlotType.HELMET, MaterialStatsModule.stats().stat(SkullStats.ID, 1).build())
-      .module(ArmorSlotType.HELMET, DefaultMaterialsModule.builder().material(RandomMaterial.random().build()).build())
+      .module(ArmorSlotType.HELMET, DefaultMaterialsModule.builder().material(randomMaterial).build())
       .module(ArmorSlotType.HELMET, slimeTraits.build())
       // traits
       .module(ArmorSlotType.CHESTPLATE, slimeTraits.copy().trait(ModifierIds.wings).build())
@@ -635,7 +637,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
         .stat(HeadMaterialStats.ID)
         .stat(LimbMaterialStats.ID)
         .primaryPart(-1).build())
-      .module(defaultTwoParts)
+      .module(defaultAncient)
       // ancient tools add a second copy of traits, and add both traits to rebalanced
       .module(new MaterialTraitsModule(HeadMaterialStats.ID, 0), ToolHooks.TOOL_TRAITS, ToolHooks.REBALANCED_TRAIT)
       .module(new MaterialTraitsModule(LimbMaterialStats.ID, 1), ToolHooks.TOOL_TRAITS, ToolHooks.REBALANCED_TRAIT)
@@ -652,7 +654,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
         .stat(HeadMaterialStats.ID)
         .stat(PlatingMaterialStats.SHIELD.getId())
         .primaryPart(-1).build())
-      .module(defaultTwoParts)
+      .module(defaultAncient)
       // ancient tools add a second copy of traits, and add both traits to rebalanced
       .module(new MaterialTraitsModule(HeadMaterialStats.ID,                0), ToolHooks.TOOL_TRAITS, ToolHooks.REBALANCED_TRAIT)
       .module(new MaterialTraitsModule(PlatingMaterialStats.SHIELD.getId(), 1), ToolHooks.TOOL_TRAITS, ToolHooks.REBALANCED_TRAIT)

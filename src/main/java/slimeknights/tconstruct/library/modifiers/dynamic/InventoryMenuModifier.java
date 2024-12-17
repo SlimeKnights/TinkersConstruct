@@ -23,7 +23,8 @@ import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
 import slimeknights.tconstruct.library.tools.definition.module.interaction.DualOptionInteraction;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
-// TODO: migrate to a modifier module
+/** @deprecated use {@link slimeknights.tconstruct.library.tools.capability.inventory.InventoryMenuModule} and {@link slimeknights.tconstruct.library.tools.capability.inventory.InventoryModule} */
+@Deprecated(forRemoval = true)
 public class InventoryMenuModifier extends InventoryModifier implements KeybindInteractModifierHook, GeneralInteractionModifierHook {
   /** Loader instance */
   public static final RecordLoadable<InventoryMenuModifier> LOADER = RecordLoadable.create(IntLoadable.FROM_ONE.requiredField("size", m -> m.slotsPerLevel), InventoryMenuModifier::new);

@@ -71,7 +71,11 @@ public class DynamicModifier<T> extends LazyModifier {
     return result;
   }
 
-  /** Same as {@link #get()}, but fetches the modifier as the expected type. Separate to allow the expected type to be an interface */
+  /**
+   * Same as {@link #get()}, but fetches the modifier as the expected type. Separate to allow the expected type to be an interface
+   * @deprecated use {@link #get()}, class specific modifier serializers are being phased out.
+   */
+  @Deprecated(forRemoval = true)
   public T asType() {
     return classFilter.cast(get());
   }

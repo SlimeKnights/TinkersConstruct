@@ -58,7 +58,9 @@ public class ModifierDeferredRegister {
    * @param classFilter  Class filter, if the modifier does not match this type in datapacks a warning will be logged
    * @param <T>  Class type
    * @return  Dynamic modifier instance
+   * @deprecated use {@link #registerDynamic(String)}, class specific modifier serializers are being phased out.
    */
+  @Deprecated(forRemoval = true)
   public <T extends Modifier> DynamicModifier<T> registerDynamic(String name, Class<T> classFilter) {
     if (seenRegisterEvent) {
       throw new IllegalStateException("Cannot register new entries to DeferredRegister after ModifierRegistrationEvent has been fired.");

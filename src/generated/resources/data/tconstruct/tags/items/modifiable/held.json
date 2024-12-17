@@ -1,6 +1,8 @@
 {
   "values": [
+    "tconstruct:war_pick",
     "#tconstruct:modifiable/interactable/right",
-    "#tconstruct:modifiable/interactable/left"
+    "#tconstruct:modifiable/interactable/left",
+    "#tconstruct:modifiable/armor/held"
   ]
 }

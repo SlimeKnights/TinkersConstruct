@@ -23,6 +23,11 @@ public class BlockingModifier extends NoLevelsModifier implements GeneralInterac
   }
 
   @Override
+  public int getPriority() {
+    return 50; // late as many modifiers have special blocking interactions
+  }
+
+  @Override
   public InteractionResult onToolUse(IToolStackView tool, ModifierEntry modifier, Player player, InteractionHand hand, InteractionSource source) {
     if (source == InteractionSource.RIGHT_CLICK && !tool.isBroken()) {
       GeneralInteractionModifierHook.startUsing(tool, modifier.getId(), player, hand);

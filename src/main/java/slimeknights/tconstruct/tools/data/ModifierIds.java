@@ -62,6 +62,8 @@ public class ModifierIds {
   public static final ModifierId quickCharge = id("quick_charge");
   public static final ModifierId trueshot = id("trueshot");
   public static final ModifierId blindshot = id("blindshot");
+  public static final ModifierId bulkQuiver = id("bulk_quiver");
+  public static final ModifierId trickQuiver = id("trick_quiver");
 
   // armor
   public static final ModifierId protection = id("protection");
@@ -113,7 +115,8 @@ public class ModifierIds {
   public static final ModifierId overslimeFriend = id("overslime_friend");
   public static final ModifierId snowBoots = id("snow_boots");
 
-
+  // traits
+  public static final ModifierId frying = id("frying");
   // traits - tier 1
   public static final ModifierId cultivated = id("cultivated");
   public static final ModifierId stringy = id("stringy");

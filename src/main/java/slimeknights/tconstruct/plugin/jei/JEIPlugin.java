@@ -423,6 +423,13 @@ public class JEIPlugin implements IModPlugin {
     for (SmelteryCompat compat : SmelteryCompat.values()) {
       ITag<Item> ingot = getTag(new ResourceLocation("forge", "ingots/" + compat.getName()));
       if (ingot.isEmpty()) {
+        // if the alt tag exists then still show the fluid
+        if (!compat.getAltTag().isEmpty()) {
+          ingot = getTag(new ResourceLocation("forge", "ingots/" + compat.getAltTag()));
+          if (!ingot.isEmpty()) {
+            continue;
+          }
+        }
         removeFluid(manager, compat.getFluid().get(), compat.getBucket());
       }
     }

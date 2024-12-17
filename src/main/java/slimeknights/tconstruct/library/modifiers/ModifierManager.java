@@ -366,7 +366,9 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
    * @param key       Json key
    * @return  Registry value
    * @throws JsonSyntaxException  If something failed to parse
+   * @deprecated use {@link ModifierId} or {@link slimeknights.tconstruct.library.modifiers.util.LazyModifier}
    */
+  @Deprecated(forRemoval = true)
   public static Modifier convertToModifier(JsonElement element, String key) {
     ModifierId name = new ModifierId(JsonHelper.convertToResourceLocation(element, key));
     if (INSTANCE.contains(name)) {
@@ -381,7 +383,9 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
    * @param key       Json key
    * @return  Registry value
    * @throws JsonSyntaxException  If something failed to parse
+   * @deprecated use {@link ModifierId} or {@link slimeknights.tconstruct.library.modifiers.util.LazyModifier}
    */
+  @Deprecated(forRemoval = true)
   public static Modifier deserializeModifier(JsonObject parent, String key) {
     return convertToModifier(JsonHelper.getElement(parent, key), key);
   }
@@ -390,7 +394,9 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
    * Reads a modifier from the buffer
    * @param buffer  Buffer instance
    * @return  Modifier instance
+   * @deprecated use {@link ModifierId} or {@link slimeknights.tconstruct.library.modifiers.util.LazyModifier}
    */
+  @Deprecated(forRemoval = true)
   public static Modifier fromNetwork(FriendlyByteBuf buffer) {
     return INSTANCE.get(new ModifierId(buffer.readUtf(Short.MAX_VALUE)));
   }
@@ -399,7 +405,9 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
    * Reads a modifier from the buffer
    * @param modifier  Modifier instance
    * @param buffer    Buffer instance
+   * @deprecated use {@link ModifierId} or {@link slimeknights.tconstruct.library.modifiers.util.LazyModifier}
    */
+  @Deprecated(forRemoval = true)
   public static void toNetwork(Modifier modifier, FriendlyByteBuf buffer) {
     buffer.writeUtf(modifier.getId().toString());
   }
@@ -470,10 +478,20 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
     }
 
     /**
+     * Registers that the given modifier is expected to be loaded in datapacks, without a class type check
+     * @param name  Modifier name
+     */
+    public void registerExpected(ModifierId name) {
+      registerExpected(name, Modifier.class);
+    }
+
+    /**
      * Registers that the given modifier is expected to be loaded in datapacks
      * @param name         Modifier name
      * @param classFilter  Class type the modifier is expected to have. Can be an interface
+     * @deprecated use {@link #registerExpected(ModifierId)}, class specific modifier serializers are being phased out.
      */
+    @Deprecated
     public void registerExpected(ModifierId name, Class<?> classFilter) {
       checkModNamespace(name);
 

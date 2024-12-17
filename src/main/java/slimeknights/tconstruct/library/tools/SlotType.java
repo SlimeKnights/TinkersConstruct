@@ -13,9 +13,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import slimeknights.mantle.data.loadable.Loadable;
 import slimeknights.mantle.data.loadable.field.LoadableField;
+import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.primitive.StringLoadable;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.utils.JsonUtils;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -168,7 +168,7 @@ public final class SlotType {
           throw new JsonSyntaxException("Invalid slot type name '" + typeString + "'");
         }
         SlotType slotType = SlotType.getOrCreate(typeString);
-        int slots = JsonUtils.convertToIntMin(entry.getValue(), "count", 1);
+        int slots = IntLoadable.FROM_ONE.convert(entry.getValue(), "count");
         return new SlotCount(slotType, slots);
       }
 

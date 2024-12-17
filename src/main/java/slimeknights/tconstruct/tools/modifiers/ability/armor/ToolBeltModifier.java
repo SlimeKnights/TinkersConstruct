@@ -3,43 +3,39 @@ package slimeknights.tconstruct.tools.modifiers.ability.armor;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
-import slimeknights.tconstruct.library.modifiers.dynamic.InventoryMenuModifier;
 import slimeknights.tconstruct.library.modifiers.hook.build.VolatileDataModifierHook;
+import slimeknights.tconstruct.library.modifiers.impl.InventoryModifier;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
+import slimeknights.tconstruct.library.tools.capability.inventory.InventoryMenuModule;
 import slimeknights.tconstruct.library.tools.capability.inventory.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
 import slimeknights.tconstruct.library.tools.nbt.INamespacedNBTView;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
+import slimeknights.tconstruct.tools.modules.armor.ToolBeltModule;
 
 import javax.annotation.Nullable;
+import java.util.Set;
 
-import static slimeknights.tconstruct.library.tools.capability.inventory.ToolInventoryCapability.isBlacklisted;
-
-public class ToolBeltModifier extends InventoryMenuModifier implements VolatileDataModifierHook {
+/** @deprecated use {@link ToolBeltModule}, {@link slimeknights.tconstruct.library.tools.capability.inventory.InventoryModule}, and {@link InventoryMenuModule} */
+@Deprecated(forRemoval = true)
+public class ToolBeltModifier extends InventoryModifier implements VolatileDataModifierHook {
   private static final Pattern PATTERN = new Pattern(TConstruct.MOD_ID, "tool_belt");
   private static final ResourceLocation SLOT_OVERRIDE = TConstruct.getResource("tool_belt_override");
 
@@ -87,8 +83,10 @@ public class ToolBeltModifier extends InventoryMenuModifier implements VolatileD
 
   @Override
   protected void registerHooks(Builder hookBuilder) {
+    hookBuilder.addModule(new ToolBeltModule(Set.of(TooltipKey.NORMAL, TooltipKey.CONTROL)));
     super.registerHooks(hookBuilder);
     hookBuilder.addHook(this, ModifierHooks.VOLATILE_DATA);
+    hookBuilder.addModule(InventoryMenuModule.SHIFT);
   }
 
   @Override
@@ -163,72 +161,6 @@ public class ToolBeltModifier extends InventoryMenuModifier implements VolatileD
   @Override
   public Component validate(IToolStackView tool, ModifierEntry modifier) {
     return validateForMaxSlots(tool, getProperSlots(modifier));
-  }
-
-  @Override
-  public boolean startInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot equipmentSlot, TooltipKey keyModifier) {
-    if (keyModifier == TooltipKey.SHIFT) {
-      return super.startInteract(tool, modifier, player, equipmentSlot, keyModifier);
-    }
-    if (keyModifier == TooltipKey.NORMAL || keyModifier == TooltipKey.CONTROL) {
-      if (player.level.isClientSide) {
-        return true;
-      }
-
-      boolean didChange = false;
-      int slots = getSlots(tool, modifier);
-      ModDataNBT persistentData = tool.getPersistentData();
-      ListTag list = new ListTag();
-      boolean[] swapped = new boolean[slots];
-      // if we have existing items, swap stacks at each index
-      Inventory inventory = player.getInventory();
-      ResourceLocation key = getInventoryKey();
-      if (persistentData.contains(key, Tag.TAG_LIST)) {
-        ListTag original = persistentData.get(key, GET_COMPOUND_LIST);
-        if (!original.isEmpty()) {
-          for (int i = 0; i < original.size(); i++) {
-            CompoundTag compoundNBT = original.getCompound(i);
-            int slot = compoundNBT.getInt(TAG_SLOT);
-            if (slot < slots) {
-              // ensure we can store the hotbar item
-              ItemStack hotbar = inventory.getItem(slot);
-              if (hotbar.isEmpty() || !isBlacklisted(hotbar)) {
-                // swap the two items
-                ItemStack parsed = ItemStack.of(compoundNBT);
-                inventory.setItem(slot, parsed);
-                if (!hotbar.isEmpty()) {
-                  list.add(write(hotbar, slot));
-                }
-                didChange = true;
-              } else {
-                list.add(compoundNBT);
-              }
-              swapped[slot] = true;
-            }
-          }
-        }
-      }
-
-      // list is empty, makes loop simplier
-      for (int i = 0; i < slots; i++) {
-        if (!swapped[i]) {
-          ItemStack hotbar = player.getInventory().getItem(i);
-          if (!hotbar.isEmpty() && !isBlacklisted(hotbar)) {
-            list.add(write(hotbar, i));
-            inventory.setItem(i, ItemStack.EMPTY);
-            didChange = true;
-          }
-        }
-      }
-
-      // sound effect
-      if (didChange) {
-        persistentData.put(key, list);
-        player.level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.PLAYERS, 1.0f, 1.0f);
-      }
-      return true;
-    }
-    return false;
   }
 
   @Nullable

@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:single_level",
+  "modules": [
+    {
+      "type": "tconstruct:inventory_menu",
+      "on_key": "shift"
+    },
+    {
+      "type": "tconstruct:melee_smelting",
+      "limit": {
+        "flat": 1
+      },
+      "multiplier": 20.0,
+      "pattern": "tconstruct:fire",
+      "recipe_type": "minecraft:campfire_cooking",
+      "slots": {
+        "each_level": 3
+      }
+    }
+  ],
+  "priority": 110,
+  "tooltip_display": "always"
+}

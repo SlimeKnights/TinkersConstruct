@@ -15,6 +15,7 @@ import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ValidateModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.VolatileDataModifierHook;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
+import slimeknights.tconstruct.library.tools.capability.inventory.InventoryModule;
 import slimeknights.tconstruct.library.tools.capability.inventory.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.capability.inventory.ToolInventoryCapability.InventoryModifierHook;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
@@ -27,18 +28,18 @@ import javax.annotation.Nullable;
 import java.util.BitSet;
 import java.util.function.BiFunction;
 
-/**
- * Modifier that has an inventory
- * TODO: migrate to a modifier module
- */
+/** @deprecated use {@link InventoryModule} */
+@Deprecated(forRemoval = true)
 @RequiredArgsConstructor
 public class InventoryModifier extends Modifier implements InventoryModifierHook, VolatileDataModifierHook, ValidateModifierHook, ModifierRemovalHook {
-  /** Mod Data NBT mapper to get a compound list */
-  protected static final BiFunction<CompoundTag,String,ListTag> GET_COMPOUND_LIST = (nbt, name) -> nbt.getList(name, Tag.TAG_COMPOUND);
+  /** @deprecated use {@link InventoryModule#GET_COMPOUND_LIST} */
+  @Deprecated(forRemoval = true)
+  protected static final BiFunction<CompoundTag,String,ListTag> GET_COMPOUND_LIST = InventoryModule.GET_COMPOUND_LIST;
   /** Error for if the container has items preventing modifier removal */
   private static final Component HAS_ITEMS = TConstruct.makeTranslation("modifier", "inventory_cannot_remove");
-  /** NBT key to store the slot for a stack */
-  protected static final String TAG_SLOT = "Slot";
+  /** @deprecated use {@link InventoryModule#TAG_SLOT} */
+  @Deprecated(forRemoval = true)
+  protected static final String TAG_SLOT = InventoryModule.TAG_SLOT;
 
   /** Persistent data key for the inventory storage, if null uses the modifier ID */
   @Nullable
@@ -53,7 +54,7 @@ public class InventoryModifier extends Modifier implements InventoryModifierHook
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, ToolInventoryCapability.HOOK, ModifierHooks.VOLATILE_DATA, ModifierHooks.REMOVE);
+    hookBuilder.addHook(this, ToolInventoryCapability.HOOK, ModifierHooks.VOLATILE_DATA, ModifierHooks.VALIDATE, ModifierHooks.REMOVE);
   }
 
   /** Gets the inventory key used for NBT serializing */
@@ -85,7 +86,7 @@ public class InventoryModifier extends Modifier implements InventoryModifierHook
         }
         // first, see whether we have any available slots
         BitSet freeSlots = new BitSet(maxSlots);
-        freeSlots.set(0, maxSlots-1, true);
+        freeSlots.set(0, maxSlots, true);
         for (int i = 0; i < listNBT.size(); i++) {
           freeSlots.set(listNBT.getCompound(i).getInt(TAG_SLOT), false);
         }
@@ -187,11 +188,9 @@ public class InventoryModifier extends Modifier implements InventoryModifierHook
     return getSlots(tool.getVolatileData(), modifier);
   }
 
-  /** Writes a stack to NBT, including the slot */
+  /** @deprecated use {@link InventoryModule#writeStack(ItemStack, int, CompoundTag)} */
+  @Deprecated
   protected static CompoundTag write(ItemStack stack, int slot) {
-    CompoundTag compound = new CompoundTag();
-    stack.save(compound);
-    compound.putInt(TAG_SLOT, slot);
-    return compound;
+    return InventoryModule.writeStack(stack, slot, new CompoundTag());
   }
 }

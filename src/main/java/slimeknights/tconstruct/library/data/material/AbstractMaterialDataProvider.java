@@ -17,11 +17,13 @@ import slimeknights.tconstruct.library.materials.definition.MaterialManager;
 import slimeknights.tconstruct.library.materials.json.MaterialJson;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Extendable material provider, useful for addons
@@ -128,14 +130,23 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
   }
 
   /** Creates a new compat material */
-  protected void addCompatMaterial(MaterialId location, int tier, int order, String tagName, boolean craftable) {
-    ICondition condition = new OrCondition(ConfigEnabledCondition.FORCE_INTEGRATION_MATERIALS, tagExistsCondition(tagName));
+  protected void addCompatMaterial(MaterialId location, int tier, int order, boolean craftable, String... tagNames) {
+    ICondition condition = new OrCondition(Stream.concat(
+      Stream.of(ConfigEnabledCondition.FORCE_INTEGRATION_MATERIALS),
+      Arrays.stream(tagNames).map(AbstractMaterialDataProvider::tagExistsCondition)
+    ).toArray(ICondition[]::new));
     addMaterial(location, tier, order, craftable, false, condition);
   }
 
+  /** @deprecated use {@link #addCompatMaterial(MaterialId, int, int, boolean, String...)} */
+  @Deprecated(forRemoval = true)
+  protected void addCompatMaterial(MaterialId location, int tier, int order, String tagName, boolean craftable) {
+    addCompatMaterial(location, tier, order, craftable, tagName);
+  }
+
   /** Creates a new compat material */
-  protected void addCompatMetalMaterial(MaterialId location, int tier, int order, String ingotName) {
-    addCompatMaterial(location, tier, order, "ingots/" + ingotName, false);
+  protected void addCompatMetalMaterial(MaterialId location, int tier, int order, String... ingotNames) {
+    addCompatMaterial(location, tier, order, false, Arrays.stream(ingotNames).map(name -> "ingots/" + name).toArray(String[]::new));
   }
 
   /** Creates a new compat material */

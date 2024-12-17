@@ -29,7 +29,9 @@ public class JsonUtils {
    * @param min   Minimum and default value
    * @return  Read int
    * @throws JsonSyntaxException if the key is not an int or below the min
+   * @deprecated use {@link slimeknights.mantle.data.loadable.primitive.IntLoadable}
    */
+  @Deprecated(forRemoval = true)
   public static int getIntMin(JsonObject json, String key, int min) {
     int value = GsonHelper.getAsInt(json, key, min);
     if (value < min) {
@@ -45,7 +47,9 @@ public class JsonUtils {
    * @param min   Minimum
    * @return  Read int
    * @throws JsonSyntaxException if the key is not an int or below the min
+   * @deprecated use {@link slimeknights.mantle.data.loadable.primitive.IntLoadable}
    */
+  @Deprecated(forRemoval = true)
   public static int convertToIntMin(JsonElement json, String key, int min) {
     int value = GsonHelper.convertToInt(json, key);
     if (value < min) {
@@ -77,7 +81,9 @@ public class JsonUtils {
    * @param name    Tag name
    * @return  Item stack result
    * @throws com.google.gson.JsonSyntaxException If the syntax is invalid
+   * @deprecated use {@link slimeknights.mantle.data.loadable.common.ItemStackLoadable#REQUIRED_STACK_NBT}
    */
+  @Deprecated(forRemoval = true)
   public static ItemStack convertToItemStack(JsonElement element, String name) {
     if (element.isJsonPrimitive()) {
       return new ItemStack(GsonHelper.convertToItem(element, name));
@@ -92,7 +98,9 @@ public class JsonUtils {
    * @param name    Tag name
    * @return  Item stack result
    * @throws com.google.gson.JsonSyntaxException If the syntax is invalid
+   * @deprecated use {@link slimeknights.mantle.data.loadable.common.ItemStackLoadable#REQUIRED_STACK_NBT}
    */
+  @Deprecated(forRemoval = true)
   public static ItemStack getAsItemStack(JsonObject parent, String name) {
     return convertToItemStack(JsonHelper.getElement(parent, name), name);
   }
@@ -101,7 +109,9 @@ public class JsonUtils {
    * Serializes the given result to JSON
    * @param result  Result
    * @return  JSON element
+   * @deprecated use {@link slimeknights.mantle.data.loadable.common.ItemStackLoadable#REQUIRED_STACK_NBT}
    */
+  @Deprecated(forRemoval = true)
   public static JsonElement serializeItemStack(ItemStack result) {
     // if the item has NBT, write both, else write just the name
     String itemName = Registry.ITEM.getKey(result.getItem()).toString();
@@ -133,7 +143,11 @@ public class JsonUtils {
     return ColorLoadable.NO_ALPHA.parseString(color, "[unknown]");
   }
 
-  /** Writes the color as a 6 character string */
+  /**
+   * Writes the color as a 6 character string
+   * @deprecated use {@link ColorLoadable#getString(Object)}
+   */
+  @Deprecated(forRemoval = true)
   public static String colorToString(int color) {
     return ColorLoadable.NO_ALPHA.getString(color);
   }

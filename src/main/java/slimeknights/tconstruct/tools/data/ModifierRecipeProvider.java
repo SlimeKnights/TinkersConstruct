@@ -551,7 +551,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setTools(ingredientFromTags(TinkerTags.Items.MELEE, TinkerTags.Items.BOWS, TinkerTags.Items.WORN_ARMOR, TinkerTags.Items.SHIELDS))
                          .saveSalvage(consumer, prefix(TinkerModifiers.freezing, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.freezing, upgradeFolder));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.bulkQuiver)
+    ModifierRecipeBuilder.modifier(ModifierIds.bulkQuiver)
                          .addInput(Items.LEATHER)
                          .addInput(TinkerWorld.skySlimeVine)
                          .addInput(Items.LEATHER)
@@ -559,9 +559,9 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(TinkerWorld.skySlimeVine)
                          .setSlots(SlotType.ABILITY, 1)
                          .setTools(TinkerTags.Items.BOWS)
-                         .saveSalvage(consumer, prefix(TinkerModifiers.bulkQuiver, abilitySalvage))
-                         .save(consumer, prefix(TinkerModifiers.bulkQuiver, abilityFolder));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.trickQuiver)
+                         .saveSalvage(consumer, prefix(ModifierIds.bulkQuiver, abilitySalvage))
+                         .save(consumer, prefix(ModifierIds.bulkQuiver, abilityFolder));
+    ModifierRecipeBuilder.modifier(ModifierIds.trickQuiver)
                          .addInput(TinkerModifiers.silkyCloth)
                          .addInput(TinkerWorld.skySlimeVine)
                          .addInput(TinkerModifiers.silkyCloth)
@@ -570,8 +570,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.ABILITY, 1)
                          .setTools(TinkerTags.Items.BOWS)
                          .setMaxLevel(2)
-                         .saveSalvage(consumer, prefix(TinkerModifiers.trickQuiver, abilitySalvage))
-                         .save(consumer, prefix(TinkerModifiers.trickQuiver, abilityFolder));
+                         .saveSalvage(consumer, prefix(ModifierIds.trickQuiver, abilitySalvage))
+                         .save(consumer, prefix(ModifierIds.trickQuiver, abilityFolder));
     BiConsumer<ItemLike,String> crystalshotRecipe = (item, variant) -> {
       SwappableModifierRecipeBuilder.modifier(TinkerModifiers.crystalshot, variant)
                                     .addInput(item)

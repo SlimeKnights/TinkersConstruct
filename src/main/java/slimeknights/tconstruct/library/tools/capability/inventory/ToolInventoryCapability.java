@@ -33,14 +33,15 @@ import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /** Capability for a tool with an inventory */
 @RequiredArgsConstructor
 public class ToolInventoryCapability extends InventoryModifierHookIterator<ModifierEntry> implements IItemHandlerModifiable {
-  /** Boolean key to set in volatile mod data to enable the fluid capability */
+  /** Boolean key to set in volatile mod data for the total slot count across all modifiers */
   public static final ResourceLocation TOTAL_SLOTS = TConstruct.getResource("total_item_slots");
-  /** Boolean key to set in volatile mod data to enable the fluid capability */
+  /** Boolean key to set in volatile mod data to show the offand in the inventory menu */
   public static final ResourceLocation INCLUDE_OFFHAND = TConstruct.getResource("inventory_show_offhand");
 
   /** Modifier hook instance to make an inventory modifier */
@@ -329,6 +330,42 @@ public class ToolInventoryCapability extends InventoryModifierHookIterator<Modif
     default Pattern getPattern(IToolStackView tool, ModifierEntry modifier, int slot, boolean hasStack) {
       return null;
     }
+
+    /**
+     * Finds a matching stack in the inventory
+     * @param predicate  Predicate to test
+     * @return Match containing slot and stack, or {@link StackMatch#EMPTY} if not found.
+     */
+    default StackMatch findStack(IToolStackView tool, ModifierEntry modifier, Predicate<ItemStack> predicate) {
+      for (int i = 0; i < getSlots(tool, modifier); i++) {
+        ItemStack stack = getStack(tool, modifier, i);
+        if (!stack.isEmpty() && predicate.test(stack)) {
+          return new StackMatch(stack, i);
+        }
+      }
+      return StackMatch.EMPTY;
+    }
+
+    /** Parses all stacks in NBT into the passed list */
+    default List<ItemStack> getAllStacks(IToolStackView tool, ModifierEntry modifier, List<ItemStack> stackList) {
+      for (int i = 0; i < getSlots(tool, modifier); i++) {
+        ItemStack stack = getStack(tool, modifier, i);
+        if (!stack.isEmpty()) {
+          stackList.add(stack);
+        }
+      }
+      return stackList;
+    }
+  }
+
+  /** Result of searching the inventory */
+  public record StackMatch(ItemStack stack, int slot) {
+    public static final StackMatch EMPTY = new StackMatch(ItemStack.EMPTY, -1);
+
+    /** Checks if this match is empty */
+    public boolean isEmpty() {
+      return slot == -1;
+    }
   }
 
   /** Merger for inventory modifier hooks */
@@ -405,6 +442,27 @@ public class ToolInventoryCapability extends InventoryModifierHookIterator<Modif
         return module.getPattern(tool, modifier, slot - startIndex, hasStack);
       }
       return null;
+    }
+
+    @Override
+    public StackMatch findStack(IToolStackView tool, ModifierEntry modifier, Predicate<ItemStack> predicate) {
+      int start = 0;
+      for (InventoryModifierHook module : modules) {
+        StackMatch match = module.findStack(tool, modifier, predicate);
+        if (!match.isEmpty()) {
+          return start == 0 ? match : new StackMatch(match.stack, match.slot + start);
+        }
+        start += module.getSlots(tool, modifier);
+      }
+      return StackMatch.EMPTY;
+    }
+
+    @Override
+    public List<ItemStack> getAllStacks(IToolStackView tool, ModifierEntry modifier, List<ItemStack> stackList) {
+      for (InventoryModifierHook module : modules) {
+        module.getAllStacks(tool, modifier, stackList);
+      }
+      return stackList;
     }
   }
 

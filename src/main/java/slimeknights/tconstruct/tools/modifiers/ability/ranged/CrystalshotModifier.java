@@ -24,7 +24,8 @@ public class CrystalshotModifier extends NoLevelsModifier implements BowAmmoModi
 
   @Override
   public int getPriority() {
-    return 60; // before bulk quiver, after
+    // TODO: rethink ordering of ammo modifiers
+    return 60; // after trick quiver, before bulk quiver, can't go after bulk due to desire to use inventory
   }
 
   @Override

@@ -4,13 +4,13 @@
   "modules": [
     {
       "type": "tconstruct:inventory",
+      "limit": {
+        "flat": 1
+      },
+      "pattern": "tconstruct:item_frame",
       "slots": {
-        "each_level": 18
+        "each_level": 1
       }
-    },
-    {
-      "type": "tconstruct:inventory_menu",
-      "on_key": "any"
     }
   ],
   "tooltip_display": "always"

@@ -2,11 +2,23 @@
   "type": "tconstruct:material_fluid",
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:ingots/brass"
-      }
+      "type": "forge:or",
+      "values": [
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:tag_empty",
+            "tag": "forge:ingots/brass"
+          }
+        },
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:tag_empty",
+            "tag": "forge:ingots/zinc"
+          }
+        }
+      ]
     }
   ],
   "fluid": {

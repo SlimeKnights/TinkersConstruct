@@ -1,0 +1,57 @@
+{
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:inventory",
+      "filter": "tconstruct:arrow",
+      "limit": {
+        "each_level": 32
+      },
+      "pattern": "tconstruct:tipped_arrow",
+      "slots": {
+        "flat": 3
+      },
+      "tool": {
+        "type": "mantle:inverted",
+        "inverted_type": "mantle:tag",
+        "tag": "tconstruct:modifiable/ranged/crossbows"
+      }
+    },
+    {
+      "type": "tconstruct:inventory",
+      "filter": {
+        "type": "mantle:or",
+        "predicates": [
+          "tconstruct:arrow",
+          {
+            "type": "mantle:set",
+            "items": [
+              "minecraft:firework_rocket"
+            ]
+          }
+        ]
+      },
+      "limit": {
+        "each_level": 32
+      },
+      "pattern": "tconstruct:tipped_arrow",
+      "slots": {
+        "flat": 3
+      },
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/ranged/crossbows"
+      }
+    },
+    {
+      "type": "tconstruct:trick_quiver"
+    },
+    {
+      "type": "tconstruct:inventory_menu",
+      "on_key": "any"
+    }
+  ],
+  "priority": 70,
+  "tooltip_display": "always"
+}

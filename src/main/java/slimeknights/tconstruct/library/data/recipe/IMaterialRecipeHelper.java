@@ -5,6 +5,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.common.crafting.conditions.OrCondition;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.recipe.data.IRecipeHelper;
 import slimeknights.mantle.recipe.helper.ItemOutput;
@@ -91,9 +92,14 @@ public interface IMaterialRecipeHelper extends IRecipeHelper {
     materialMelting(consumer, material, fluid.get(), fluidAmount, folder);
   }
 
-  /** Adds recipes to melt and cast a material of ingot size */
+  /** Adds recipes to melt and cast a compat material of ingot size */
   default void materialMeltingCasting(Consumer<FinishedRecipe> consumer, MaterialVariantId material, FluidObject<?> fluid, boolean forgeTag, String folder) {
     materialMeltingCasting(consumer, material, fluid, forgeTag, FluidValues.INGOT, folder);
+  }
+
+  /** Adds recipes to melt and cast a compat material of ingot size with a second tag allowed to make the material exist */
+  default void compatMeltingCasting(Consumer<FinishedRecipe> consumer, MaterialId material, FluidObject<?> fluid, String altTag, String folder) {
+    materialMeltingCasting(withCondition(consumer, new OrCondition(tagCondition("ingots/" + material.getPath()), tagCondition("ingots/" + altTag))), material, fluid, true, folder);
   }
 
   /** Adds recipes to melt and cast a material of ingot size */

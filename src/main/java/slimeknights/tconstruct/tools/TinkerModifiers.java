@@ -137,6 +137,8 @@ import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.capability.fluid.TankModule;
 import slimeknights.tconstruct.library.tools.capability.fluid.ToolTankHelper;
+import slimeknights.tconstruct.library.tools.capability.inventory.InventoryMenuModule;
+import slimeknights.tconstruct.library.tools.capability.inventory.InventoryModule;
 import slimeknights.tconstruct.tools.data.EnchantmentToModifierProvider;
 import slimeknights.tconstruct.tools.data.FluidEffectProvider;
 import slimeknights.tconstruct.tools.data.ModifierProvider;
@@ -150,7 +152,6 @@ import slimeknights.tconstruct.tools.modifiers.ability.armor.AmbidextrousModifie
 import slimeknights.tconstruct.tools.modifiers.ability.armor.BouncyModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.DoubleJumpModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.ReflectingModifier;
-import slimeknights.tconstruct.tools.modifiers.ability.armor.ShieldStrapModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.ToolBeltModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.ZoomModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.walker.FlamewakeModifier;
@@ -165,9 +166,7 @@ import slimeknights.tconstruct.tools.modifiers.ability.interaction.FirestarterMo
 import slimeknights.tconstruct.tools.modifiers.ability.interaction.HarvestAbilityModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.interaction.ShearsAbilityModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.interaction.SilkyShearsAbilityModifier;
-import slimeknights.tconstruct.tools.modifiers.ability.ranged.BulkQuiverModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.ranged.CrystalshotModifier;
-import slimeknights.tconstruct.tools.modifiers.ability.ranged.TrickQuiverModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.sling.BonkingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.sling.FlingingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.sling.SpringingModifier;
@@ -230,7 +229,6 @@ import slimeknights.tconstruct.tools.modifiers.traits.skull.SelfDestructiveModif
 import slimeknights.tconstruct.tools.modifiers.traits.skull.StrongBonesModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.WildfireModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.WitheredModifier;
-import slimeknights.tconstruct.tools.modifiers.upgrades.armor.ItemFrameModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.LightspeedArmorModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.SoulSpeedModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.armor.SpringyModifier;
@@ -245,13 +243,18 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ImpalingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.PunchModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ScopeModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.SinistralModifier;
+import slimeknights.tconstruct.tools.modules.MeleeSmeltingModule;
 import slimeknights.tconstruct.tools.modules.TheOneProbeModule;
 import slimeknights.tconstruct.tools.modules.armor.DepthProtectionModule;
 import slimeknights.tconstruct.tools.modules.armor.EnderclearanceModule;
 import slimeknights.tconstruct.tools.modules.armor.FlameBarrierModule;
 import slimeknights.tconstruct.tools.modules.armor.KineticModule;
 import slimeknights.tconstruct.tools.modules.armor.RecurrentProtectionModule;
+import slimeknights.tconstruct.tools.modules.armor.ShieldStrapModule;
+import slimeknights.tconstruct.tools.modules.armor.ToolBeltModule;
+import slimeknights.tconstruct.tools.modules.ranged.BulkQuiverModule;
 import slimeknights.tconstruct.tools.modules.ranged.RestrictAngleModule;
+import slimeknights.tconstruct.tools.modules.ranged.TrickQuiverModule;
 import slimeknights.tconstruct.tools.recipe.ArmorDyeingRecipe;
 import slimeknights.tconstruct.tools.recipe.CreativeSlotRecipe;
 import slimeknights.tconstruct.tools.recipe.EnchantmentConvertingRecipe;
@@ -334,8 +337,12 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<PunchModifier> punch = MODIFIERS.register("punch", PunchModifier::new);
   public static final StaticModifier<ImpalingModifier> impaling = MODIFIERS.register("impaling", ImpalingModifier::new);
   public static final StaticModifier<FreezingModifier> freezing = MODIFIERS.register("freezing", FreezingModifier::new);
-  public static final StaticModifier<BulkQuiverModifier> bulkQuiver = MODIFIERS.register("bulk_quiver", BulkQuiverModifier::new);
-  public static final StaticModifier<TrickQuiverModifier> trickQuiver = MODIFIERS.register("trick_quiver", TrickQuiverModifier::new);
+  /** @deprecated use {@link slimeknights.tconstruct.tools.data.ModifierIds#bulkQuiver} */
+  @Deprecated(forRemoval = true)
+  public static final DynamicModifier<Modifier> bulkQuiver = MODIFIERS.registerDynamic("bulk_quiver");
+  /** @deprecated use {@link slimeknights.tconstruct.tools.data.ModifierIds#trickQuiver} */
+  @Deprecated(forRemoval = true)
+  public static final DynamicModifier<Modifier> trickQuiver = MODIFIERS.registerDynamic("trick_quiver");
   public static final StaticModifier<CrystalshotModifier> crystalshot = MODIFIERS.register("crystalshot", CrystalshotModifier::new);
   public static final StaticModifier<Modifier> multishot = MODIFIERS.register("multishot", Modifier::new);
   public static final StaticModifier<SinistralModifier> sinistral = MODIFIERS.register("sinistral", SinistralModifier::new);
@@ -362,20 +369,20 @@ public final class TinkerModifiers extends TinkerModule {
   @Deprecated(forRemoval = true)
   public static final DynamicModifier<Modifier> dragonborn = MODIFIERS.registerDynamic("dragonborn");
   // general
-  public static final DynamicModifier<Modifier> golden = MODIFIERS.registerDynamic("golden", Modifier.class);
+  public static final DynamicModifier<Modifier> golden = MODIFIERS.registerDynamic("golden");
   public static final StaticModifier<EmbellishmentModifier> embellishment = MODIFIERS.register("embellishment", EmbellishmentModifier::new);
   public static final StaticModifier<DyedModifier> dyed = MODIFIERS.register("dyed", DyedModifier::new);
   // counterattack
   public static final StaticModifier<ThornsModifier> thorns = MODIFIERS.register("thorns", ThornsModifier::new);
   public static final StaticModifier<SpringyModifier> springy = MODIFIERS.register("springy", SpringyModifier::new);
   // helmet
-  public static final StaticModifier<ItemFrameModifier> itemFrame = MODIFIERS.register("item_frame", ItemFrameModifier::new);
+  public static final DynamicModifier<Modifier> itemFrame = MODIFIERS.registerDynamic("item_frame");
   public static final StaticModifier<ZoomModifier> zoom = MODIFIERS.register("zoom", ZoomModifier::new);
   public static final StaticModifier<SlurpingModifier> slurping = MODIFIERS.register("slurping", SlurpingModifier::new);
   // chestplate
   public static final StaticModifier<AmbidextrousModifier> ambidextrous = MODIFIERS.register("ambidextrous", AmbidextrousModifier::new);
   // leggings
-  public static final StaticModifier<ShieldStrapModifier> shieldStrap = MODIFIERS.register("shield_strap", ShieldStrapModifier::new);
+  public static final DynamicModifier<Modifier> shieldStrap = MODIFIERS.registerDynamic("shield_strap");
   public static final StaticModifier<WettingModifier> wetting = MODIFIERS.register("wetting", WettingModifier::new);
 
   // boots
@@ -390,7 +397,7 @@ public final class TinkerModifiers extends TinkerModule {
   // weapon
   public static final StaticModifier<DuelWieldingModifier> dualWielding = MODIFIERS.register("dual_wielding", DuelWieldingModifier::new);
   // harvest
-  public static final DynamicModifier<Modifier> silky = MODIFIERS.registerDynamic("silky", Modifier.class);
+  public static final DynamicModifier<Modifier> silky = MODIFIERS.registerDynamic("silky");
   public static final StaticModifier<AutosmeltModifier> autosmelt = MODIFIERS.register("autosmelt", AutosmeltModifier::new);
   public static final StaticModifier<Modifier> expanded = MODIFIERS.register("expanded", Modifier::new);
   public static final StaticModifier<ExchangingModifier> exchanging = MODIFIERS.register("exchanging", ExchangingModifier::new);
@@ -547,6 +554,7 @@ public final class TinkerModifiers extends TinkerModule {
    * Events
    */
 
+  @SuppressWarnings("removal")
   @SubscribeEvent
   void registerSerializers(RegisterEvent event) {
     if (event.getRegistryKey() == Registry.RECIPE_SERIALIZER_REGISTRY) {
@@ -637,17 +645,24 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierModule.LOADER.register(getResource("armor_level"), ArmorLevelModule.LOADER);
       ModifierModule.LOADER.register(getResource("max_armor_stat"), MaxArmorStatModule.LOADER);
       ModifierModule.LOADER.register(getResource("armor_stat"), ArmorStatModule.LOADER);
+      ModifierModule.LOADER.register(getResource("inventory"), InventoryModule.LOADER);
+      ModifierModule.LOADER.register(getResource("inventory_menu"), InventoryMenuModule.LOADER);
 
       // special
       ModifierModule.LOADER.register(getResource("the_one_probe"), TheOneProbeModule.INSTANCE.getLoader());
       ModifierModule.LOADER.register(getResource("enderclearance"), EnderclearanceModule.INSTANCE.getLoader());
+      ModifierModule.LOADER.register(getResource("melee_smelting"), MeleeSmeltingModule.LOADER);
       // armor
       ModifierModule.LOADER.register(getResource("depth_protection"), DepthProtectionModule.LOADER);
       ModifierModule.LOADER.register(getResource("flame_barrier"), FlameBarrierModule.LOADER);
       ModifierModule.LOADER.register(getResource("kinetic"), KineticModule.LOADER);
       ModifierModule.LOADER.register(getResource("recurrent_protection"), RecurrentProtectionModule.LOADER);
+      ModifierModule.LOADER.register(getResource("shield_strap"), ShieldStrapModule.LOADER);
+      ModifierModule.LOADER.register(getResource("tool_belt"), ToolBeltModule.LOADER);
       // ranged
       ModifierModule.LOADER.register(getResource("restrict_projectile_angle"), RestrictAngleModule.LOADER);
+      ModifierModule.LOADER.register(getResource("bulk_quiver"), BulkQuiverModule.LOADER);
+      ModifierModule.LOADER.register(getResource("trick_quiver"), TrickQuiverModule.LOADER);
 
       // modifier predicates
       ModifierPredicate.LOADER.register(getResource("single"), SingleModifierPredicate.LOADER);

@@ -2348,6 +2348,9 @@
   "modifier.tconstruct.extra_ability.flavor": "For modpacks!",
   "modifier.tconstruct.extra_ability.description": "Ask your modpack maker to provide a resource pack giving this better lore",
 
+  "modifier.tconstruct.frying": "Frying",
+  "modifier.tconstruct.frying.flavor": "Nice crispy bacon",
+  "modifier.tconstruct.frying.description": "Hitting monsters cooks the food inside the tool",
 
   "__comment": "Tier 1 Traits",
 

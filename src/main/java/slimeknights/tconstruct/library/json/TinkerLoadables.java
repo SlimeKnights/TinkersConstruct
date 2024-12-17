@@ -6,10 +6,12 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraftforge.common.TierSortingRegistry;
 import net.minecraftforge.common.loot.LootModifierManager;
+import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.loadable.Loadable;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.common.RegistryLoadable;
@@ -28,6 +30,7 @@ import slimeknights.tconstruct.library.utils.GsonLoadable;
 
 import java.util.Set;
 
+@SuppressWarnings("deprecation")
 public class TinkerLoadables {
   /* Enums */
   public static final StringLoadable<Operation> OPERATION = new EnumLoadable<>(Operation.class);
@@ -36,9 +39,11 @@ public class TinkerLoadables {
   public static final StringLoadable<LightLayer> LIGHT_LAYER = new EnumLoadable<>(LightLayer.class);
   public static final StringLoadable<InteractionSource> INTERACTION_SOURCE = new EnumLoadable<>(InteractionSource.class);
   public static final StringLoadable<OreRateType> ORE_RATE_TYPE = new EnumLoadable<>(OreRateType.class);
+  public static final StringLoadable<TooltipKey> TOOLTIP_KEY = new EnumLoadable<>(TooltipKey.class);
 
   /* Registries */
   public static final StringLoadable<ResourceLocation> CUSTOM_STAT = new RegistryLoadable<>(Registry.CUSTOM_STAT);
+  public static final StringLoadable<RecipeType<?>> RECIPE_TYPE = new RegistryLoadable<>(Registry.RECIPE_TYPE);
 
   /* Tag keys */
   public static final StringLoadable<TagKey<Modifier>> MODIFIER_TAGS = Loadables.tagKey(ModifierManager.REGISTRY_KEY);

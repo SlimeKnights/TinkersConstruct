@@ -32,14 +32,13 @@ import slimeknights.tconstruct.library.modifiers.data.FloatMultiplier;
 import slimeknights.tconstruct.library.modifiers.modules.technical.ArmorLevelModule;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
+import slimeknights.tconstruct.library.tools.capability.inventory.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.Orientation2D;
 import slimeknights.tconstruct.library.utils.Orientation2D.Orientation1D;
 import slimeknights.tconstruct.tools.TinkerModifiers;
-import slimeknights.tconstruct.tools.modifiers.ability.armor.ShieldStrapModifier;
-import slimeknights.tconstruct.tools.modifiers.upgrades.armor.ItemFrameModifier;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -136,10 +135,9 @@ public class ModifierClientEvents {
       if (event.getEntity() == Minecraft.getInstance().player && context.getChangedSlot() == EquipmentSlot.LEGS) {
         IToolStackView tool = context.getToolInSlot(EquipmentSlot.LEGS);
         if (tool != null) {
-          ShieldStrapModifier modifier = TinkerModifiers.shieldStrap.get();
-          ModifierEntry entry = tool.getModifiers().getEntry(modifier.getId());
+          ModifierEntry entry = tool.getModifiers().getEntry(TinkerModifiers.shieldStrap.getId());
           if (entry != ModifierEntry.EMPTY) {
-            nextOffhand = modifier.getStack(tool, entry, 0);
+            nextOffhand = entry.getHook(ToolInventoryCapability.HOOK).getStack(tool, entry, 0);
             return;
           }
         }
@@ -152,10 +150,9 @@ public class ModifierClientEvents {
         itemFrames.clear();
         IToolStackView tool = context.getToolInSlot(EquipmentSlot.HEAD);
         if (tool != null) {
-          ItemFrameModifier modifier = TinkerModifiers.itemFrame.get();
-          ModifierEntry entry = tool.getModifier(modifier);
+          ModifierEntry entry = tool.getModifier(TinkerModifiers.itemFrame.getId());
           if (entry.intEffectiveLevel() > 0) {
-            modifier.getAllStacks(tool, entry, itemFrames);
+            entry.getHook(ToolInventoryCapability.HOOK).getAllStacks(tool, entry, itemFrames);
           }
         }
       }

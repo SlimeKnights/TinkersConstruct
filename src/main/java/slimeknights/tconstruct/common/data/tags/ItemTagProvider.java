@@ -260,7 +260,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     addToolTags(TinkerTools.ichorStaff,    DURABILITY, STAFFS, SPECIAL_TOOLS, HELD_ARMOR, INTERACTABLE_DUAL, AOE, DYEABLE, EMBELLISHMENT_WOOD, BONUS_SLOTS);
     addToolTags(TinkerTools.enderStaff,    DURABILITY, STAFFS, SPECIAL_TOOLS, HELD_ARMOR, INTERACTABLE_DUAL, AOE, DYEABLE, EMBELLISHMENT_WOOD, BONUS_SLOTS);
     // ancient
-    addToolTags(TinkerTools.warPick,    MULTIPART_TOOL, DURABILITY, ANCIENT_TOOLS, HARVEST_PRIMARY, STONE_HARVEST, MELEE_WEAPON, AOE, CLUSTER_MAX_HARVESTABLES, CROSSBOWS, BONUS_SLOTS);
+    addToolTags(TinkerTools.warPick,    MULTIPART_TOOL, DURABILITY, ANCIENT_TOOLS, HARVEST_PRIMARY, STONE_HARVEST, MELEE_WEAPON, HELD, AOE, CLUSTER_MAX_HARVESTABLES, CROSSBOWS, BONUS_SLOTS);
     addToolTags(TinkerTools.battlesign, MULTIPART_TOOL, DURABILITY, ANCIENT_TOOLS, MELEE_PRIMARY, SHIELDS, BONUS_SLOTS);
 
     // armor
@@ -313,7 +313,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     // interactable armor is mostly so some mod could disable all chestplate interactions in one swing
     this.tag(INTERACTABLE_ARMOR).addTag(CHESTPLATES);
     // left and right handed are held, but not armor
-    this.tag(HELD).addTags(INTERACTABLE_RIGHT, INTERACTABLE_LEFT);
+    this.tag(HELD).addTags(INTERACTABLE_RIGHT, INTERACTABLE_LEFT, HELD_ARMOR);
     this.tag(INTERACTABLE).addTags(INTERACTABLE_LEFT, INTERACTABLE_RIGHT, INTERACTABLE_ARMOR);
     this.tag(WORN_ARMOR).addTags(BOOTS, LEGGINGS, CHESTPLATES, HELMETS);
     this.tag(HELD_ARMOR).addTag(SHIELDS);
