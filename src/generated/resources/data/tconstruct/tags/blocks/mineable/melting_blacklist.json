@@ -1,0 +1,17 @@
+{
+  "values": [
+    "tconstruct:seared_melter",
+    "tconstruct:smeltery_controller",
+    "tconstruct:foundry_controller",
+    "tconstruct:seared_lantern",
+    "tconstruct:scorched_lantern",
+    "tconstruct:seared_fuel_tank",
+    "tconstruct:seared_fuel_gauge",
+    "tconstruct:seared_ingot_tank",
+    "tconstruct:seared_ingot_gauge",
+    "tconstruct:scorched_fuel_tank",
+    "tconstruct:scorched_fuel_gauge",
+    "tconstruct:scorched_ingot_tank",
+    "tconstruct:scorched_ingot_gauge"
+  ]
+}

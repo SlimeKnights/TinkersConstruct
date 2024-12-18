@@ -380,7 +380,7 @@ public class TooltipUtil {
     }
     // slimestaffs and shields are holdable armor, so show armor stats
     if (tool.hasTag(TinkerTags.Items.ARMOR)) {
-      builder.add(ToolStats.ARMOR);
+      builder.addOptional(ToolStats.ARMOR);
       builder.addOptional(ToolStats.ARMOR_TOUGHNESS);
       builder.addOptional(ToolStats.KNOCKBACK_RESISTANCE, 10f);
     }

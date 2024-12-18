@@ -7,15 +7,15 @@
       "on_key": "shift"
     },
     {
-      "type": "tconstruct:melee_smelting",
+      "type": "tconstruct:smelting",
       "limit": {
         "flat": 1
       },
-      "multiplier": 20.0,
+      "multiplier": 10.0,
       "pattern": "tconstruct:fire",
-      "recipe_type": "minecraft:campfire_cooking",
+      "recipe_type": "minecraft:smelting",
       "slots": {
-        "each_level": 3
+        "each_level": 1
       }
     }
   ],

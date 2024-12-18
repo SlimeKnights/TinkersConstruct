@@ -86,27 +86,44 @@ public class LootTableInjectionProvider extends AbstractLootTableInjectionProvid
                                                            .apply(buildData)
                                                            .setWeight(5).build());
 
+    // frypans just show up in some assorted locations
+    injectChest("simple_dungeon")
+      .addToPool("main", LootItem.lootTableItem(TinkerTools.meltingPan.get())
+                                 .setWeight(10) // about as often as both diamond swords
+                                 .apply(ancientToolData)
+                                 .build());
+    injectChest("igloo_chest")
+      .addToPool("main", LootItem.lootTableItem(TinkerTools.meltingPan.get())
+                                 .setWeight(2) // common as a stone axe
+                                 .apply(ancientToolData)
+                                 .build());
+    inject("hero_of_the_toolsmith", "gameplay/hero_of_the_village/toolsmith_gift")
+      .addToPool("main", LootItem.lootTableItem(TinkerTools.meltingPan.get())
+                                 .setWeight(2) // makes it a 40% chance of frypan as opposed to an axe variant
+                                 .apply(ancientToolData)
+                                 .build());
 
     // find warpicks in pillager outputs, 50% chance to replace the crossbow
+    AddToolDataFunction.Builder warPickData = AddToolDataFunction.builder().addMaterial(random).addMaterial(random).addMaterial(random);
     injectChest("pillager_outpost")
       .addToPool("main", LootItem.lootTableItem(TinkerTools.warPick.get())
-                                 .apply(ancientToolData)
+                                 .apply(warPickData)
                                  .build());
     // also find them in mineshafts, same pool as iron picks
     injectChest("abandoned_mineshaft")
       .addToPool("main", LootItem.lootTableItem(TinkerTools.warPick.get())
                                  .setWeight(5) // about as often as both diamond swords
-                                 .apply(ancientToolData)
+                                 .apply(warPickData)
                                  .build());
     injectChest("woodland_mansion")
       .addToPool("main", LootItem.lootTableItem(TinkerTools.warPick.get())
                                  .setWeight(10) // about as often as both diamond swords
-                                 .apply(ancientToolData)
+                                 .apply(warPickData)
                                  .build());
-    inject("hero_of_the_toolsmith", "gameplay/hero_of_the_village/toolsmith_gift")
+    inject("hero_of_the_weaponsmith", "gameplay/hero_of_the_village/weaponsmith_gift")
       .addToPool("main", LootItem.lootTableItem(TinkerTools.warPick.get())
                                  .setWeight(2) // makes it a 33% chance of war pick as opposed to a stone tool
-                                 .apply(ancientToolData)
+                                 .apply(warPickData)
                                  .build());
 
     LootTableInjection.Builder bastion = injectChest("bastion_treasure")

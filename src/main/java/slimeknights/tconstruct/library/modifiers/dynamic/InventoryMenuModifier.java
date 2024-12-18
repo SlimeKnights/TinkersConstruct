@@ -24,6 +24,7 @@ import slimeknights.tconstruct.library.tools.definition.module.interaction.DualO
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 /** @deprecated use {@link slimeknights.tconstruct.library.tools.capability.inventory.InventoryMenuModule} and {@link slimeknights.tconstruct.library.tools.capability.inventory.InventoryModule} */
+@SuppressWarnings({"DeprecatedIsStillUsed", "removal"})
 @Deprecated(forRemoval = true)
 public class InventoryMenuModifier extends InventoryModifier implements KeybindInteractModifierHook, GeneralInteractionModifierHook {
   /** Loader instance */

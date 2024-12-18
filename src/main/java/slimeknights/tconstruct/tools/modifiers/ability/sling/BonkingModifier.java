@@ -116,7 +116,7 @@ public class BonkingModifier extends SlingModifier implements MeleeHitModifierHo
             }
 
             // cooldowns and stuff
-            player.level.playSound(null, player.getX(), player.getY(), player.getZ(), Sounds.BONK.getSound(), player.getSoundSource(), 1, 1);
+            player.level.playSound(null, player.getX(), player.getY(), player.getZ(), Sounds.BONK.getSound(), player.getSoundSource(), 1, 0.5f);
             player.causeFoodExhaustion(0.2F);
             player.getCooldowns().addCooldown(tool.getItem(), 3);
             ToolDamageUtil.damageAnimated(tool, 1, entity);
@@ -124,7 +124,7 @@ public class BonkingModifier extends SlingModifier implements MeleeHitModifierHo
           }
         }
       }
-      player.level.playSound(null, player.getX(), player.getY(), player.getZ(), Sounds.BONK.getSound(), player.getSoundSource(), 1, 0.5f);
+      player.level.playSound(null, player.getX(), player.getY(), player.getZ(), Sounds.BONK.getSound(), player.getSoundSource(), 1, 1f);
     }
   }
 }

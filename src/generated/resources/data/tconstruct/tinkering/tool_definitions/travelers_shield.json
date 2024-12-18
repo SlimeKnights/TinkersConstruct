@@ -43,8 +43,17 @@
     {
       "type": "tconstruct:preference_set_interaction",
       "preferred_modifiers": {
-        "type": "tconstruct:single",
-        "modifier": "tconstruct:blocking"
+        "type": "mantle:or",
+        "predicates": [
+          {
+            "type": "tconstruct:single",
+            "modifier": "tconstruct:blocking"
+          },
+          {
+            "type": "tconstruct:tag",
+            "tag": "tconstruct:block_while_charging"
+          }
+        ]
       },
       "preferred_source": "right_click"
     }

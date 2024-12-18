@@ -152,7 +152,7 @@ public class ToolHarvestLogic {
    * @param stack     Stack instance for vanilla functions
    * @param context   Tool harvest context
    */
-  public static void breakExtraBlock(ToolStack tool, ItemStack stack, ToolHarvestContext context) {
+  public static boolean breakExtraBlock(ToolStack tool, ItemStack stack, ToolHarvestContext context) {
     // break the actual block
     if (breakBlock(tool, stack, context)) {
       Level world = context.getWorld();
@@ -163,7 +163,9 @@ public class ToolHarvestLogic {
       // TODO: in theory, we can use this to reduce the number of sounds playing on breaking a lot of blocks, would require sending a custom packet if we want the particles still
       world.levelEvent(2001, pos, Block.getId(context.getState()));
       TinkerNetwork.getInstance().sendVanillaPacket(Objects.requireNonNull(context.getPlayer()), new ClientboundBlockUpdatePacket(world, pos));
+      return true;
     }
+    return false;
   }
 
   /**
@@ -230,15 +232,20 @@ public class ToolHarvestLogic {
       Iterable<BlockPos> extraBlocks = context.isEffective() ? tool.getHook(ToolHooks.AOE_ITERATOR).getBlocks(tool, stack, player, state, world, pos, sideHit, AreaOfEffectIterator.AOEMatchType.BREAKING) : Collections.emptyList();
 
       // actually break the block, run AOE if successful
-      boolean didHarvest = breakBlock(tool, stack, context);
-      if (didHarvest) {
+      int harvested = 0;
+      if (breakBlock(tool, stack, context)) {
+        harvested += 1;
+      }
+      if (harvested > 0) {
         for (BlockPos extraPos : extraBlocks) {
           BlockState extraState = world.getBlockState(extraPos);
           // prevent calling that stuff for air blocks, could lead to unexpected behaviour since it fires events
           // this should never actually happen, but just in case some AOE is odd
           if (!extraState.isAir()) {
             // prevent mutable position leak, breakBlock has a few places wanting immutable
-            breakExtraBlock(tool, stack, context.forPosition(extraPos.immutable(), extraState));
+            if (breakExtraBlock(tool, stack, context.forPosition(extraPos.immutable(), extraState))) {
+              harvested += 1;
+            }
           }
         }
       }
@@ -248,7 +255,7 @@ public class ToolHarvestLogic {
       }
       // alert modifiers we finished harvesting
       for (ModifierEntry entry : tool.getModifierList()) {
-        entry.getHook(ModifierHooks.BLOCK_HARVEST).finishHarvest(tool, entry, context, didHarvest);
+        entry.getHook(ModifierHooks.BLOCK_HARVEST).finishHarvest(tool, entry, context, harvested);
       }
     }
 

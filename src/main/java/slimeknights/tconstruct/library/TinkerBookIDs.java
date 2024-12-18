@@ -13,7 +13,9 @@ public class TinkerBookIDs {
   public static final ResourceLocation FANTASTIC_FOUNDRY_ID = TConstruct.getResource("fantastic_foundry");
   public static final ResourceLocation ENCYCLOPEDIA_ID = TConstruct.getResource("encyclopedia");
 
-  /** Regsiters suggestions with the mantle command */
+  /** Registers suggestions with the mantle command */
+  @SuppressWarnings({"removal", "DeprecatedIsStillUsed"})
+  @Deprecated(forRemoval = true) // TODO 1.20: remove
   public static void registerCommandSuggestion() {
     BookTestCommand.addBookSuggestion(MATERIALS_BOOK_ID);
     BookTestCommand.addBookSuggestion(MIGHTY_SMELTING_ID);

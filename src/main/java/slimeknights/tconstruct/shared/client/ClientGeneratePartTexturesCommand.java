@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.shared.client;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Streams;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -42,11 +43,15 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /** Actual logic to generate tool textures */
 @Log4j2
@@ -125,8 +130,11 @@ public class ClientGeneratePartTexturesCommand {
     // at this point in time we have all our materials, time to generate our sprites
     for (MaterialSpriteInfo material : materialSprites) {
       for (PartSpriteInfo part : generatorConfig.sprites) {
-        if (material.supportStatType(part.getStatType()) || generatorConfig.statOverrides.hasOverride(part.getStatType(), material.getTexture())) {
-          MaterialPartTextureGenerator.generateSprite(spriteReader, material, part, shouldGenerate, saver, metaSaver);
+        for (MaterialStatsId statType : part.getStatTypes()) {
+          if (material.supportStatType(statType) || generatorConfig.statOverrides.hasOverride(statType, material.getTexture())) {
+            MaterialPartTextureGenerator.generateSprite(spriteReader, material, part, shouldGenerate, saver, metaSaver);
+            break;
+          }
         }
       }
     }
@@ -191,11 +199,11 @@ public class ClientGeneratePartTexturesCommand {
   }
 
   /** Record holding config from the generator JSON file */
-  private record GeneratorConfiguration(List<PartSpriteInfo> sprites, StatOverride statOverrides) {}
+  private record GeneratorConfiguration(Collection<PartSpriteInfo> sprites, StatOverride statOverrides) {}
 
   /** Loads all part sprites file */
   private static GeneratorConfiguration loadGeneratorConfig(ResourceManager manager) {
-    ImmutableList.Builder<PartSpriteInfo> builder = ImmutableList.builder();
+    Map<ResourceLocation,PartSpriteInfo> builder = new HashMap<>();
     StatOverride.Builder stats = new StatOverride.Builder();
 
     // each namespace loads separately
@@ -209,8 +217,21 @@ public class ClientGeneratePartTexturesCommand {
           Resource resource = resources.get(r);
           try (BufferedReader reader = resource.openAsReader()) {
             JsonObject object = GsonHelper.parse(reader);
-            List<PartSpriteInfo> parts = PartSpriteInfo.LIST_LOADABLE.getIfPresent(object, "parts");
-            builder.addAll(parts);
+            for (PartSpriteInfo part : PartSpriteInfo.LIST_LOADABLE.getIfPresent(object, "parts")) {
+              // if the element already exists, merge it. We already know the path matches
+              builder.merge(part.getPath(), part, (part1, part2) -> {
+                // allow animated should match, if not default to not animated as they probably had a good reason to disallow
+                boolean allowAnimated = part1.isAllowAnimated();
+                if (allowAnimated != part2.isAllowAnimated()) {
+                  TConstruct.LOG.error("Texture {} has mismatching allowAnimated, forcing allow animated to false", part1.getPath());
+                }
+                // merge stat types together
+                return new PartSpriteInfo(
+                  part1.getPath(),
+                  Streams.concat(part1.getStatTypes().stream(), part2.getStatTypes().stream()).collect(Collectors.toSet()),
+                  allowAnimated);
+              });
+            }
             if (object.has("overrides")) {
               for (Entry<String,JsonElement> entry : GsonHelper.getAsJsonObject(object, "overrides").entrySet()) {
                 String key = entry.getKey();
@@ -236,7 +257,7 @@ public class ClientGeneratePartTexturesCommand {
         }
       }
     }
-    return new GeneratorConfiguration(builder.build(), stats.build());
+    return new GeneratorConfiguration(builder.values(), stats.build());
   }
 
   /**

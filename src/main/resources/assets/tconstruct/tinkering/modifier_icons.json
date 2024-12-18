@@ -4,6 +4,7 @@
   "tconstruct:overforced":  ["tconstruct:item/materials/reinforcement/slimesteel", "tconstruct:gui/modifiers/book"],
   "tconstruct:overslime":   ["minecraft:item/slime_ball", "tconstruct:gui/modifiers/book"],
   "tconstruct:soulbound":   ["minecraft:item/echo_shard", "tconstruct:gui/modifiers/book"],
+  "tconstruct:smelting":    ["minecraft:item/campfire", "tconstruct:gui/modifiers/book"],
   "tconstruct:tank":        "tconstruct:gui/modifiers/tank",
   
   "tconstruct:emerald":     ["minecraft:item/emerald", "tconstruct:gui/modifiers/tier"],

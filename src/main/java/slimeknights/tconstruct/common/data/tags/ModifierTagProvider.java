@@ -10,6 +10,7 @@ import slimeknights.tconstruct.tools.data.ModifierIds;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.ABILITIES;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.ARMOR_ABILITIES;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.ARMOR_UPGRADES;
+import static slimeknights.tconstruct.common.TinkerTags.Modifiers.BLOCK_WHILE_CHARGING;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.BONUS_SLOTLESS;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.BOOT_ABILITIES;
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.BOOT_UPGRADES;
@@ -69,6 +70,9 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
            ModifierIds.stripping, ModifierIds.tilling, ModifierIds.pathing,
            TinkerModifiers.shears.getId(), TinkerModifiers.harvest.getId())
       .addOptional(ModifierIds.pockets);
+    tag(BLOCK_WHILE_CHARGING)
+      .add(TinkerModifiers.flinging.getId(), TinkerModifiers.springing.getId(), TinkerModifiers.bonking.getId(), TinkerModifiers.warping.getId(),
+           TinkerModifiers.spitting.getId(), TinkerModifiers.zoom.getId());
     tag(SLIME_DEFENSE)
       .add(ModifierIds.meleeProtection, ModifierIds.projectileProtection,
            ModifierIds.fireProtection, ModifierIds.magicProtection,
@@ -90,7 +94,7 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
       ModifierIds.diamond, ModifierIds.emerald, ModifierIds.netherite,
       ModifierIds.reinforced, ModifierIds.overforced, ModifierIds.soulbound,
       ModifierIds.experienced, TinkerModifiers.magnetic.getId(), TinkerModifiers.zoom.getId(),
-      ModifierIds.tank, TinkerModifiers.fireprimer.getId())
+      ModifierIds.tank, ModifierIds.smelting, TinkerModifiers.fireprimer.getId())
         .addOptional(ModifierIds.theOneProbe);
 
     this.tag(MELEE_UPGRADES).add(

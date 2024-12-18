@@ -1,0 +1,31 @@
+{
+  "name": "minecraft:gameplay/hero_of_the_village/weaponsmith_gift",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "tconstruct:add_tool_data",
+              "materials": [
+                {
+                  "type": "tconstruct:random"
+                },
+                {
+                  "type": "tconstruct:random"
+                },
+                {
+                  "type": "tconstruct:random"
+                }
+              ]
+            }
+          ],
+          "name": "tconstruct:war_pick",
+          "weight": 2
+        }
+      ],
+      "name": "main"
+    }
+  ]
+}

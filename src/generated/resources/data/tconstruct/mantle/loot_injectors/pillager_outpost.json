@@ -14,6 +14,9 @@
                 },
                 {
                   "type": "tconstruct:random"
+                },
+                {
+                  "type": "tconstruct:random"
                 }
               ]
             }

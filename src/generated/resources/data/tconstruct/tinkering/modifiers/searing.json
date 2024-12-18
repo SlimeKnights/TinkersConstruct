@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:composable",
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:conditional_mining_speed",
+      "blocks": "tconstruct:can_melt",
+      "each_level": 6.0,
+      "percent": false,
+      "require_effective": true
+    }
+  ],
+  "tooltip_display": "always"
+}

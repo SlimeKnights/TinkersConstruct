@@ -1,0 +1,28 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "forge:item/default-tool",
+  "textures": {
+    "head": "tconstruct:item/tool/melting_pan/head_broken",
+    "handle": "tconstruct:item/tool/pickaxe/handle"
+  },
+  "modifier_roots": [
+    "tconstruct:item/tool/melting_pan/modifiers/broken/",
+    "tconstruct:item/tool/melting_pan/modifiers/"
+  ],
+  "parts": [
+    {
+      "name": "handle",
+      "index": 1
+    },
+    {
+      "name": "head",
+      "index": 0
+    }
+  ],
+  "first_modifiers": [
+    {
+      "name": "tconstruct:tank",
+      "forced": true
+    }
+  ]
+}

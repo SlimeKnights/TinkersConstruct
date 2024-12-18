@@ -1,0 +1,28 @@
+{
+  "name": "minecraft:chests/igloo_chest",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "tconstruct:add_tool_data",
+              "materials": [
+                {
+                  "type": "tconstruct:random"
+                },
+                {
+                  "type": "tconstruct:random"
+                }
+              ]
+            }
+          ],
+          "name": "tconstruct:melting_pan",
+          "weight": 2
+        }
+      ],
+      "name": "main"
+    }
+  ]
+}

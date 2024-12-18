@@ -59,6 +59,7 @@ import slimeknights.tconstruct.library.tools.definition.module.build.SetStatsMod
 import slimeknights.tconstruct.library.tools.definition.module.build.ToolActionsModule;
 import slimeknights.tconstruct.library.tools.definition.module.build.ToolSlotsModule;
 import slimeknights.tconstruct.library.tools.definition.module.build.ToolTraitsModule;
+import slimeknights.tconstruct.library.tools.definition.module.build.VolatileFlagModule;
 import slimeknights.tconstruct.library.tools.definition.module.interaction.DualOptionInteraction;
 import slimeknights.tconstruct.library.tools.definition.module.interaction.PreferenceSetInteraction;
 import slimeknights.tconstruct.library.tools.definition.module.material.DefaultMaterialsModule;
@@ -100,6 +101,7 @@ import slimeknights.tconstruct.tools.item.ModifiableSwordItem;
 import slimeknights.tconstruct.tools.item.SlimeskullItem;
 import slimeknights.tconstruct.tools.logic.EquipmentChangeWatcher;
 import slimeknights.tconstruct.tools.menu.ToolContainerMenu;
+import slimeknights.tconstruct.tools.modules.MeltingFluidEffectiveModule;
 
 import static slimeknights.tconstruct.TConstruct.getResource;
 
@@ -153,6 +155,7 @@ public final class TinkerTools extends TinkerModule {
   public static final ItemObject<ModifiableItem> enderStaff = ITEMS.register("ender_staff", () -> new ModifiableItem(TOOL, ToolDefinitions.ENDER_STAFF));
 
   // ancient
+  public static final ItemObject<ModifiableItem> meltingPan = ITEMS.register("melting_pan", () -> new ModifiableItem(TOOL, ToolDefinitions.MELTING_PAN));
   public static final ItemObject<ModifiableCrossbowItem> warPick = ITEMS.register("war_pick", () -> new ModifiableCrossbowItem(TOOL, ToolDefinitions.WAR_PICK));
   public static final ItemObject<ModifiableItem> battlesign = ITEMS.register("battlesign", () -> new ModifiableItem(TOOL, ToolDefinitions.BATTLESIGN));
 
@@ -220,6 +223,7 @@ public final class TinkerTools extends TinkerModule {
       ToolModule.LOADER.register(getResource("tool_actions"), ToolActionsModule.LOADER);
       ToolModule.LOADER.register(getResource("traits"), ToolTraitsModule.LOADER);
       ToolModule.LOADER.register(getResource("modifier_slots"), ToolSlotsModule.LOADER);
+      ToolModule.LOADER.register(getResource("volatile_flag"), VolatileFlagModule.LOADER);
       // harvest
       ToolModule.LOADER.register(getResource("is_effective"), IsEffectiveModule.LOADER);
       ToolModule.LOADER.register(getResource("mining_speed_modifier"), MiningSpeedModifierModule.LOADER);
@@ -245,6 +249,8 @@ public final class TinkerTools extends TinkerModule {
       // generic tool modules
       ToolModule.LOADER.register(getResource("dual_option_interaction"), DualOptionInteraction.LOADER);
       ToolModule.LOADER.register(getResource("preference_set_interaction"), PreferenceSetInteraction.LOADER);
+      // special tool modules
+      ToolModule.LOADER.register(getResource("melting_fluid_effective"), MeltingFluidEffectiveModule.LOADER);
       // tool predicates
       ToolContextPredicate.LOADER.register(getResource("has_upgrades"), ToolContextPredicate.HAS_UPGRADES.getLoader());
       ToolContextPredicate.LOADER.register(getResource("has_modifier"), HasModifierPredicate.LOADER);

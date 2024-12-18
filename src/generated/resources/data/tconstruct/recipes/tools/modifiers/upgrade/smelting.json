@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:modifier",
+  "allow_crystal": true,
+  "inputs": [
+    {
+      "item": "minecraft:campfire"
+    }
+  ],
+  "result": "tconstruct:smelting",
+  "slots": {
+    "upgrades": 1
+  },
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/interactable"
+    },
+    {
+      "tag": "tconstruct:modifiable/armor/worn"
+    }
+  ]
+}

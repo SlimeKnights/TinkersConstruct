@@ -34,6 +34,7 @@ import javax.annotation.Nullable;
 import java.util.Set;
 
 /** @deprecated use {@link ToolBeltModule}, {@link slimeknights.tconstruct.library.tools.capability.inventory.InventoryModule}, and {@link InventoryMenuModule} */
+@SuppressWarnings({"DeprecatedIsStillUsed", "removal"})
 @Deprecated(forRemoval = true)
 public class ToolBeltModifier extends InventoryModifier implements VolatileDataModifierHook {
   private static final Pattern PATTERN = new Pattern(TConstruct.MOD_ID, "tool_belt");

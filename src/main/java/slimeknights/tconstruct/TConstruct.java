@@ -88,6 +88,7 @@ public class TConstruct {
   /* Instance of this mod, used for grabbing prototype fields */
   public static TConstruct instance;
 
+  @SuppressWarnings("removal")
   public TConstruct() {
     instance = this;
 
@@ -116,8 +117,8 @@ public class TConstruct {
     TinkerModule.initRegisters();
     TinkerNetwork.setup();
     TinkerTags.init();
-    // init client logic
     TinkerBookIDs.registerCommandSuggestion();
+    // init client logic
     DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> TinkerClient::onConstruct);
 
     // compat

@@ -27,11 +27,24 @@ public interface BlockHarvestModifierHook {
 
   /**
    * Called after all blocks are broken on the target block. Use to perform effects or to cleanup changes from {@link #startHarvest(IToolStackView, ModifierEntry, ToolHarvestContext)}.
+   * @param tool       Tool used
+   * @param modifier   Modifier level
+   * @param context    Harvest context
+   * @param harvested  Number of blocks harvested
+   */
+  default void finishHarvest(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context, int harvested) {
+    finishHarvest(tool, modifier, context, harvested > 0);
+  }
+
+  /**
+   * Called after all blocks are broken on the target block. Use to perform effects or to cleanup changes from {@link #startHarvest(IToolStackView, ModifierEntry, ToolHarvestContext)}.
    * @param tool        Tool used
    * @param modifier    Modifier level
    * @param context     Harvest context
    * @param didHarvest  If true, the block was actually broken.
+   * @deprecated use {@link #finishHarvest(IToolStackView, ModifierEntry, ToolHarvestContext, int)}
    */
+  @Deprecated
   void finishHarvest(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context, boolean didHarvest);
 
   /** Merger that runs all submodules */

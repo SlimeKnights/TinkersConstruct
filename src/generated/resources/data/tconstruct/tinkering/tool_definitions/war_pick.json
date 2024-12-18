@@ -2,15 +2,19 @@
   "modules": [
     {
       "type": "tconstruct:material_stats",
-      "primary_part": -1,
+      "primary_part": 0,
       "stat_types": [
         "tconstruct:head",
-        "tconstruct:limb"
+        "tconstruct:limb",
+        "tconstruct:bowstring"
       ]
     },
     {
       "type": "tconstruct:default_materials",
       "materials": [
+        {
+          "type": "tconstruct:random"
+        },
         {
           "type": "tconstruct:random"
         },
@@ -22,16 +26,6 @@
     {
       "type": "tconstruct:material_traits",
       "hooks": [
-        "tconstruct:tool_traits",
-        "tconstruct:rebalanced_trait"
-      ],
-      "material_index": 0,
-      "stat_type": "tconstruct:head"
-    },
-    {
-      "type": "tconstruct:material_traits",
-      "hooks": [
-        "tconstruct:tool_traits",
         "tconstruct:rebalanced_trait"
       ],
       "material_index": 1,
