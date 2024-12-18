@@ -21,6 +21,7 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.item.ModifierCrystalItem;
 
@@ -89,7 +90,7 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   }
 
   @Override
-  public abstract RecipeResult<ItemStack> getValidatedResult(ITinkerStationContainer inv);
+  public abstract RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv);
 
   /** @deprecated use {@link #getValidatedResult(ITinkerStationContainer)} */
   @Override @Deprecated

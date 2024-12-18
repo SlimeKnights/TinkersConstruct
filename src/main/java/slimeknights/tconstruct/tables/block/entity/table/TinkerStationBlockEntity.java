@@ -23,6 +23,7 @@ import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
+import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.shared.inventory.ConfigurableInvWrapperCapability;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.block.TinkerStationBlock;
@@ -132,9 +133,9 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
         }
 
         // try for UI errors
-        RecipeResult<ItemStack> validatedResult = recipe.getValidatedResult(this.inventoryWrapper);
+        RecipeResult<LazyToolStack> validatedResult = recipe.getValidatedResult(this.inventoryWrapper);
         if (validatedResult.isSuccess()) {
-          result = validatedResult.getResult();
+          result = validatedResult.getResult().getStack();
         } else if (validatedResult.hasError()) {
           this.currentError = validatedResult.getMessage();
         }
@@ -146,9 +147,9 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
     }
     // client side only needs to update result, server syncs message elsewhere
     else if (this.lastRecipe != null && this.lastRecipe.matches(this.inventoryWrapper, level)) {
-      RecipeResult<ItemStack> validatedResult = this.lastRecipe.getValidatedResult(this.inventoryWrapper);
+      RecipeResult<LazyToolStack> validatedResult = this.lastRecipe.getValidatedResult(this.inventoryWrapper);
       if (validatedResult.isSuccess()) {
-        result = validatedResult.getResult();
+        result = validatedResult.getResult().getStack();
       } else if (validatedResult.hasError()) {
         this.currentError = validatedResult.getMessage();
       }

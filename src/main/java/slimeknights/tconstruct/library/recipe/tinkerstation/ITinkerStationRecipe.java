@@ -7,6 +7,7 @@ import net.minecraft.world.level.Level;
 import slimeknights.mantle.recipe.ICommonRecipe;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.TinkerRecipeTypes;
+import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 
 /**
  * Main interface for all recipes in the Tinker Station
@@ -40,12 +41,11 @@ public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationContai
 
   /**
    * Gets the recipe result, or an object containing an error message if the recipe matches but cannot be applied.
-   * TODO 1.20: switch return type to {@code RecipeResult<LazyToolStack>}
    * @return Validated result
    */
-  default RecipeResult<ItemStack> getValidatedResult(ITinkerStationContainer inv) {
-    ItemStack result = assemble(inv);
-    if (result.isEmpty()) {
+  default RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv) {
+    LazyToolStack result = LazyToolStack.from(assemble(inv));
+    if (result.getStack().isEmpty()) {
       return RecipeResult.pass();
     }
     return RecipeResult.success(result);

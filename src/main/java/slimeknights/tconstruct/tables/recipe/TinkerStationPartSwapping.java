@@ -25,6 +25,7 @@ import slimeknights.tconstruct.library.tools.definition.module.material.Material
 import slimeknights.tconstruct.library.tools.definition.module.material.ToolPartsHook;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiable;
+import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -37,7 +38,7 @@ import java.util.stream.IntStream;
  */
 @AllArgsConstructor
 public class TinkerStationPartSwapping implements ITinkerStationRecipe {
-  private static final RecipeResult<ItemStack> TOO_MANY_PARTS = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "part_swapping.too_many_parts"));
+  private static final RecipeResult<LazyToolStack> TOO_MANY_PARTS = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "part_swapping.too_many_parts"));
 
   @Getter
   protected final ResourceLocation id;
@@ -83,7 +84,7 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
   }
 
   @Override
-  public RecipeResult<ItemStack> getValidatedResult(ITinkerStationContainer inv) {
+  public RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv) {
     // copy the tool NBT to ensure the original tool is intact
     ToolStack original = inv.getTinkerable();
     List<IToolPart> parts = ToolPartsHook.parts(original.getDefinition());
@@ -173,7 +174,8 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
           }
         }
         // everything worked, so good to go
-        return RecipeResult.success(tool.createStack(Math.min(inv.getTinkerableSize(), shrinkToolSlotBy())));
+        LazyToolStack lazyToolStack = LazyToolStack.from(tool, Math.min(inv.getTinkerableSize(), shrinkToolSlotBy()));
+        return RecipeResult.success(lazyToolStack);
       }
     }
     // no item found, should never happen

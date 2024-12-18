@@ -18,6 +18,7 @@ import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
+import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -128,7 +129,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
    * @return Validated result
    */
   @Override
-  public RecipeResult<ItemStack> getValidatedResult(ITinkerStationContainer inv) {
+  public RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv) {
     ToolStack tool = inv.getTinkerable();
 
     // common errors
@@ -154,7 +155,8 @@ public class ModifierRecipe extends AbstractModifierRecipe {
       return RecipeResult.failure(toolValidation);
     }
 
-    return RecipeResult.success(tool.createStack(Math.min(inv.getTinkerableSize(), shrinkToolSlotBy())));
+    LazyToolStack lazyToolStack = LazyToolStack.from(tool, Math.min(inv.getTinkerableSize(), shrinkToolSlotBy()));
+    return RecipeResult.success(lazyToolStack);
   }
 
   /** Updates all inputs in the given container */
