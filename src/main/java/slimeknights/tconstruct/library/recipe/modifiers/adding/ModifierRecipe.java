@@ -155,8 +155,7 @@ public class ModifierRecipe extends AbstractModifierRecipe {
       return RecipeResult.failure(toolValidation);
     }
 
-    LazyToolStack lazyToolStack = LazyToolStack.from(tool, Math.min(inv.getTinkerableSize(), shrinkToolSlotBy()));
-    return RecipeResult.success(lazyToolStack);
+    return RecipeResult.success(LazyToolStack.from(tool, Math.min(inv.getTinkerableSize(), shrinkToolSlotBy())));
   }
 
   /** Updates all inputs in the given container */

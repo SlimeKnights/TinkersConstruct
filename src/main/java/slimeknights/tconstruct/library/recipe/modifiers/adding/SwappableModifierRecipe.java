@@ -23,6 +23,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
+import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.Util;
@@ -68,7 +69,7 @@ public class SwappableModifierRecipe extends ModifierRecipe {
   }
 
   @Override
-  public RecipeResult<ItemStack> getValidatedResult(ITinkerStationContainer inv) {
+  public RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv) {
     ToolStack tool = inv.getTinkerable();
 
     // if the tool has the modifier already, can skip most requirements
@@ -115,7 +116,7 @@ public class SwappableModifierRecipe extends ModifierRecipe {
     if (toolValidation != null) {
       return RecipeResult.failure(toolValidation);
     }
-    return RecipeResult.success(tool.createStack(Math.min(inv.getTinkerableSize(), shrinkToolSlotBy())));
+    return RecipeResult.success(LazyToolStack.from(tool, Math.min(inv.getTinkerableSize(), shrinkToolSlotBy())));
   }
 
   @Override

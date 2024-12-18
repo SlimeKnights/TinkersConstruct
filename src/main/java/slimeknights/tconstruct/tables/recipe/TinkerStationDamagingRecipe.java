@@ -19,6 +19,7 @@ import slimeknights.tconstruct.library.recipe.tinkerstation.IMutableTinkerStatio
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
+import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tables.TinkerTables;
 
@@ -29,7 +30,7 @@ public class TinkerStationDamagingRecipe implements ITinkerStationRecipe {
     IngredientLoadable.DISALLOW_EMPTY.requiredField("ingredient", r -> r.ingredient),
     IntLoadable.FROM_ONE.requiredField("damage_amount", r -> r.damageAmount),
     TinkerStationDamagingRecipe::new);
-  private static final RecipeResult<ItemStack> BROKEN = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "damaging.broken"));
+  private static final RecipeResult<LazyToolStack> BROKEN = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "damaging.broken"));
 
   @Getter
   private final ResourceLocation id;
@@ -46,7 +47,7 @@ public class TinkerStationDamagingRecipe implements ITinkerStationRecipe {
   }
 
   @Override
-  public RecipeResult<ItemStack> getValidatedResult(ITinkerStationContainer inv) {
+  public RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv) {
     ToolStack tool = inv.getTinkerable();
     if (tool.isBroken()) {
       return BROKEN;
@@ -55,7 +56,7 @@ public class TinkerStationDamagingRecipe implements ITinkerStationRecipe {
     tool = tool.copy();
     int maxDamage = IncrementalModifierRecipe.getAvailableAmount(inv, ingredient, damageAmount);
     ToolDamageUtil.directDamage(tool, maxDamage, null, inv.getTinkerableStack());
-    return RecipeResult.success(tool.createStack());
+    return RecipeResult.success(LazyToolStack.from(tool));
   }
 
   @Override
@@ -64,9 +65,9 @@ public class TinkerStationDamagingRecipe implements ITinkerStationRecipe {
   }
 
   @Override
-  public void updateInputs(ItemStack result, IMutableTinkerStationContainer inv, boolean isServer) {
+  public void updateInputs(LazyToolStack result, IMutableTinkerStationContainer inv, boolean isServer) {
     // how much did we actually consume?
-    int damageTaken = ToolStack.from(result).getDamage() - inv.getTinkerable().getDamage();
+    int damageTaken = result.getTool().getDamage() - inv.getTinkerable().getDamage();
     IncrementalModifierRecipe.updateInputs(inv, ingredient, damageTaken, damageAmount, ItemStack.EMPTY);
   }
 

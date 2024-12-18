@@ -58,11 +58,11 @@ public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationContai
 
   /**
    * Updates the input stacks upon crafting this recipe
-   * @param result  Result from {@link #assemble(ITinkerStationContainer)}. Generally should not be modified. TODO: switch parameter to LazyToolStack.
+   * @param result  Result from {@link #assemble(ITinkerStationContainer)}. Generally should not be modified.
    * @param inv     Inventory instance to modify inputs
-   * @param isServer  If true, this is on the serverside. Use to handle randomness, {@link IMutableTinkerStationContainer#giveItem(ItemStack)} should handle being called serverside only
+   * @param isServer  If true, this is on the serverside. Use to handle randomness, {@link IMutableTinkerStationContainer#giveItem(ItemStack)} should handle being called serverside onlys
    */
-  default void updateInputs(ItemStack result, IMutableTinkerStationContainer inv, boolean isServer) {
+  default void updateInputs(LazyToolStack result, IMutableTinkerStationContainer inv, boolean isServer) {
     // shrink all stacks by 1
     for (int index = 0; index < inv.getInputCount(); index++) {
       inv.shrinkInput(index, 1);
@@ -72,7 +72,7 @@ public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationContai
 
   /* Deprecated */
 
-  /** @deprecated use {@link #updateInputs(ItemStack, IMutableTinkerStationContainer, boolean)} */
+  /** @deprecated use {@link #updateInputs(LazyToolStack, IMutableTinkerStationContainer, boolean)} */
   @Override
   @Deprecated
   default NonNullList<ItemStack> getRemainingItems(ITinkerStationContainer inv) {

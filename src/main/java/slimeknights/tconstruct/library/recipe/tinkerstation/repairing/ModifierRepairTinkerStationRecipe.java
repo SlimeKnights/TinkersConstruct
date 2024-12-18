@@ -84,7 +84,7 @@ public class ModifierRepairTinkerStationRecipe implements ITinkerStationRecipe, 
   }
 
   @Override
-  public void updateInputs(ItemStack result, IMutableTinkerStationContainer inv, boolean isServer) {
+  public void updateInputs(LazyToolStack result, IMutableTinkerStationContainer inv, boolean isServer) {
     ToolStack tool = inv.getTinkerable();
 
     // rescale the amount based on modifiers
@@ -101,7 +101,7 @@ public class ModifierRepairTinkerStationRecipe implements ITinkerStationRecipe, 
       return;
     }
     // how much do we need to subtract from our inputs still
-    int repairRemaining = tool.getDamage() - ToolStack.from(result).getDamage();
+    int repairRemaining = tool.getDamage() - result.getTool().getDamage();
     IncrementalModifierRecipe.updateInputs(inv, ingredient, repairRemaining, amountPerItem, ItemStack.EMPTY);
   }
 

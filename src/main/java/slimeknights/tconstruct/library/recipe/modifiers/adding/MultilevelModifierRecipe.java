@@ -16,6 +16,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
+import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -49,7 +50,7 @@ public class MultilevelModifierRecipe extends ModifierRecipe implements IMultiRe
   }
 
   @Override
-  public RecipeResult<ItemStack> getValidatedResult(ITinkerStationContainer inv) {
+  public RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv) {
     ToolStack tool = inv.getTinkerable();
 
     // next few checks depend on the current level to decide
@@ -94,7 +95,7 @@ public class MultilevelModifierRecipe extends ModifierRecipe implements IMultiRe
       return RecipeResult.failure(toolValidation);
     }
 
-    return RecipeResult.success(tool.createStack(Math.min(inv.getTinkerableSize(), shrinkToolSlotBy())));
+    return RecipeResult.success(LazyToolStack.from(tool, Math.min(inv.getTinkerableSize(), shrinkToolSlotBy())));
   }
 
 

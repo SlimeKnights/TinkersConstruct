@@ -174,8 +174,7 @@ public class TinkerStationPartSwapping implements ITinkerStationRecipe {
           }
         }
         // everything worked, so good to go
-        LazyToolStack lazyToolStack = LazyToolStack.from(tool, Math.min(inv.getTinkerableSize(), shrinkToolSlotBy()));
-        return RecipeResult.success(lazyToolStack);
+        return RecipeResult.success(LazyToolStack.from(tool, Math.min(inv.getTinkerableSize(), shrinkToolSlotBy())));
       }
     }
     // no item found, should never happen

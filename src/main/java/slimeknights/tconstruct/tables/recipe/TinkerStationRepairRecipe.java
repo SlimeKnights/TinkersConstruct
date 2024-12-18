@@ -21,6 +21,7 @@ import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.definition.module.material.MaterialRepairToolHook;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IRepairKitItem;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -30,7 +31,7 @@ import java.util.function.IntConsumer;
 /** Recipe for repairing tools */
 @RequiredArgsConstructor
 public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
-  protected static final RecipeResult<ItemStack> FULLY_REPAIRED = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "tool_repair.fully_repaired"));
+  protected static final RecipeResult<LazyToolStack> FULLY_REPAIRED = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "tool_repair.fully_repaired"));
   /** No action int consumer for recipe result */
   private static final IntConsumer NO_ACTION = i -> {};
 
@@ -130,7 +131,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
   }
 
   @Override
-  public RecipeResult<ItemStack> getValidatedResult(ITinkerStationContainer inv) {
+  public RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv) {
     ToolStack tool = inv.getTinkerable();
     if (tool.getDefinition() == ToolDefinition.EMPTY) {
       return RecipeResult.pass();
@@ -155,7 +156,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
       ToolDamageUtil.repair(tool, repairNeeded - repairRemaining);
 
       // repair remaining can be negative
-      return RecipeResult.success(tool.createStack());
+      return RecipeResult.success(LazyToolStack.from(tool));
     }
 
     // for some odd reason, did not repair anything
@@ -163,12 +164,11 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
   }
 
   @Override
-  public void updateInputs(ItemStack result, IMutableTinkerStationContainer inv, boolean isServer) {
+  public void updateInputs(LazyToolStack result, IMutableTinkerStationContainer inv, boolean isServer) {
     ToolStack inputTool = ToolStack.from(inv.getTinkerableStack());
-    ToolStack resultTool = ToolStack.from(result);
 
     // iterate stacks, removing items as we repair
-    int repairRemaining = inputTool.getDamage() - resultTool.getDamage();
+    int repairRemaining = inputTool.getDamage() - result.getTool().getDamage();
     for (int i = 0; i < inv.getInputCount() && repairRemaining > 0; i++) {
       final int slot = i;
       repairRemaining -= repairFromSlot(inputTool, inv, repairRemaining, i, count -> inv.shrinkInput(slot, count));

@@ -108,8 +108,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
     }
 
     // successfully added the modifier
-    LazyToolStack lazyToolStack = LazyToolStack.from(tool, Math.min(inv.getTinkerableSize(), shrinkToolSlotBy()));
-    return RecipeResult.success(lazyToolStack);
+    return RecipeResult.success(LazyToolStack.from(tool, Math.min(inv.getTinkerableSize(), shrinkToolSlotBy())));
   }
 
   /**
@@ -118,7 +117,7 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
    * @param inv     Inventory instance to modify inputs
    */
   @Override
-  public void updateInputs(ItemStack result, IMutableTinkerStationContainer inv, boolean isServer) {
+  public void updateInputs(LazyToolStack result, IMutableTinkerStationContainer inv, boolean isServer) {
     // if its a crystal, just shrink the crystal
     if (matchesCrystal(inv)) {
       super.updateInputs(result, inv, isServer);
@@ -127,10 +126,9 @@ public class IncrementalModifierRecipe extends AbstractModifierRecipe {
 
     // fetch the differences
     ToolStack inputTool = inv.getTinkerable();
-    ToolStack resultTool = ToolStack.from(result);
     ModifierId modifier = this.result.getId();
     ModifierEntry inputEntry = inputTool.getUpgrades().getEntry(modifier);
-    ModifierEntry resultEntry = resultTool.getUpgrades().getEntry(modifier);
+    ModifierEntry resultEntry = result.getTool().getUpgrades().getEntry(modifier);
 
     // if we had no partial level before, we just need to consume what we saw on the result
     int inputNeed = inputEntry.getNeeded();
