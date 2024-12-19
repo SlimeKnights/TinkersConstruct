@@ -175,8 +175,8 @@ public class ModifierRecipe extends AbstractModifierRecipe {
   }
 
   @Override
-  public void updateInputs(ItemStack result, IMutableTinkerStationContainer inv, boolean isServer) {
-    // if its a crystal, just shrink the crystal
+  public void updateInputs(LazyToolStack result, IMutableTinkerStationContainer inv, boolean isServer) {
+    // if it's a crystal, just shrink the crystal
     if (matchesCrystal(inv)) {
       super.updateInputs(result, inv, isServer);
     } else {
