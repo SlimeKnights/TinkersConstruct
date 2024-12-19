@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.world.item.ItemStack;
+import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 
 import javax.annotation.Nullable;
 
@@ -48,5 +49,14 @@ public class LazyToolStack {
       stack = tool.createStack(size);
     }
     return stack;
+  }
+
+  public void setDisplayName(String name) {
+    if (stack != null) {
+      TooltipUtil.setDisplayName(stack, name);
+    } else {
+      assert tool != null;
+      TooltipUtil.setDisplayName(tool, name);
+    }
   }
 }

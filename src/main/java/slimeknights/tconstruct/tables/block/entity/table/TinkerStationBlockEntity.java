@@ -52,6 +52,10 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
   /** Crafting inventory for the recipe calls */
   private final TinkerStationContainerWrapper inventoryWrapper;
 
+  /** Current result, may be modified again later */
+  @Nullable @Getter
+  private LazyToolStack result = null;
+
   @Nullable
   @Getter
   private Component currentError = null;
@@ -109,7 +113,7 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
     }
 
     // assume empty unless we learn otherwise
-    ItemStack result = ItemStack.EMPTY;
+    result = null;
     this.currentError = null;
 
     if (!this.level.isClientSide && this.level.getServer() != null) {
@@ -135,7 +139,7 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
         // try for UI errors
         RecipeResult<LazyToolStack> validatedResult = recipe.getValidatedResult(this.inventoryWrapper);
         if (validatedResult.isSuccess()) {
-          result = validatedResult.getResult().getStack();
+          result = validatedResult.getResult();
         } else if (validatedResult.hasError()) {
           this.currentError = validatedResult.getMessage();
         }
@@ -149,29 +153,31 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
     else if (this.lastRecipe != null && this.lastRecipe.matches(this.inventoryWrapper, level)) {
       RecipeResult<LazyToolStack> validatedResult = this.lastRecipe.getValidatedResult(this.inventoryWrapper);
       if (validatedResult.isSuccess()) {
-        result = validatedResult.getResult().getStack();
+        result = validatedResult.getResult();
       } else if (validatedResult.hasError()) {
         this.currentError = validatedResult.getMessage();
       }
     }
 
     // set name if we have one
-    if (!result.isEmpty() && !itemName.isEmpty()) {
-      TooltipUtil.setDisplayName(result, itemName);
+    if (result != null && !itemName.isEmpty()) {
+      result.setDisplayName(itemName);
     }
 
-    return result;
+    return result != null ? result.getStack() : ItemStack.EMPTY;
   }
 
   @Override
-  public void onCraft(Player player, ItemStack result, int amount) {
-    if (amount == 0 || this.lastRecipe == null || this.level == null) {
+  public void onCraft(Player player, ItemStack resultItem, int amount) {
+    // the recipe should match if we got this far, but being null is a problem
+    LazyToolStack result = this.result;  // result is going to get cleared as we update things
+    if (amount == 0 || this.level == null || this.lastRecipe == null || result == null) {
       return;
     }
 
     // fire crafting events
-    result.onCraftedBy(this.level, player, amount);
-    ForgeEventFactory.firePlayerCraftingEvent(player, result, this.inventoryWrapper);
+    resultItem.onCraftedBy(this.level, player, amount);
+    ForgeEventFactory.firePlayerCraftingEvent(player, resultItem, this.inventoryWrapper);
     this.playCraftSound(player);
 
     // run the recipe, will shrink inputs

@@ -45,6 +45,7 @@ import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IToolPart;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.utils.RestrictedCompoundTag;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -180,6 +181,24 @@ public class TooltipUtil {
       tool.getOrCreateTag().putString(KEY_NAME, name);
     }
     tool.resetHoverName();
+  }
+
+  /** Sets the tool name in a way that will not be italic */
+  public static void setDisplayName(ToolStack tool, String name) {
+    RestrictedCompoundTag tag = tool.getRestrictedNBT();
+    if (name.isEmpty()) {
+      tag.remove(KEY_NAME);
+    } else {
+      tag.putString(KEY_NAME, name);
+    }
+
+    if (tag.contains("display", 10)) {
+      CompoundTag compoundtag = tag.getCompound("display");
+      compoundtag.remove("Name");
+      if (compoundtag.isEmpty()) {
+        tag.remove("display");
+      }
+    }
   }
 
   /** Gets the display name from the given tool */
