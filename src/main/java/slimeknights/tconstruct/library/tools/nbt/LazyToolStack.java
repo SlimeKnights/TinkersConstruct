@@ -4,7 +4,6 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
@@ -34,7 +33,6 @@ public class LazyToolStack {
   }
 
   /** Gets the tool for this instance */
-  @NotNull
   public ToolStack getTool() {
     if (tool == null) {
       assert stack != null;
@@ -44,7 +42,6 @@ public class LazyToolStack {
   }
 
   /** Gets the item stack for this instance */
-  @NotNull
   public ItemStack getStack() {
     if (stack == null) {
       assert tool != null;
