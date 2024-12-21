@@ -10,7 +10,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.client.modifiers.ModifierIconManager;
@@ -198,8 +197,7 @@ public class ModifierWorktableScreen extends BaseTabbedScreen<ModifierWorktableB
 
       // reuse logic from tinker station for final result
       ToolStack result = lazyResult.getTool();
-      ItemStack resultStack = lazyResult.getStack();
-      TinkerStationScreen.updateToolPanel(tinkerInfo, result, resultStack);
+      TinkerStationScreen.updateToolPanel(tinkerInfo, lazyResult);
 
       this.modifierInfo.setCaption(Component.empty());
       this.modifierInfo.setText(Component.empty());
@@ -207,7 +205,7 @@ public class ModifierWorktableScreen extends BaseTabbedScreen<ModifierWorktableB
         TinkerStationScreen.updateModifierPanel(modifierInfo, result);
       } else {
         // modifier crystals can show their modifier, along with anything else with a modifier there
-        ModifierId modifierId = ModifierCrystalItem.getModifier(resultStack);
+        ModifierId modifierId = ModifierCrystalItem.getModifier(lazyResult.getStack());
         if (modifierId != null) {
           Modifier modifier = ModifierManager.getValue(modifierId);
           modifierInfo.setCaption(TConstruct.makeTranslation("gui", "tinker_station.modifiers"));

@@ -159,12 +159,16 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
       }
     }
 
-    // set name if we have one
-    if (result != null && !itemName.isEmpty()) {
-      result.setDisplayName(itemName);
-    }
+      if (result != null) {
+        // set name if we have one
+        if (!itemName.isEmpty()) {
+          TooltipUtil.setDisplayName(result.getStack(), itemName);
+        }
 
-    return result != null ? result.getStack() : ItemStack.EMPTY;
+        return result.getStack();
+      } else {
+        return ItemStack.EMPTY;
+      }
   }
 
   @Override

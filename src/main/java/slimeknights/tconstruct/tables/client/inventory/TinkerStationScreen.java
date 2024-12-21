@@ -35,6 +35,7 @@ import slimeknights.tconstruct.library.tools.layout.LayoutIcon;
 import slimeknights.tconstruct.library.tools.layout.LayoutSlot;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayout;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
+import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.TinkerTooltipFlags;
 import slimeknights.tconstruct.tables.block.entity.table.TinkerStationBlockEntity;
@@ -245,15 +246,17 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
   }
 
   /** Updates the tool panel area */
-  static void updateToolPanel(InfoPanelScreen tinkerInfo, ToolStack tool, ItemStack result) {
+  static void updateToolPanel(InfoPanelScreen tinkerInfo, LazyToolStack lazyResult) {
+    ToolStack tool = lazyResult.getTool();
     if (tool.getItem() instanceof ITinkerStationDisplay display) {
       tinkerInfo.setCaption(display.getLocalizedName());
       tinkerInfo.setText(display.getStatInformation(tool, Minecraft.getInstance().player, new ArrayList<>(), SafeClientAccess.getTooltipKey(), TinkerTooltipFlags.TINKER_STATION));
     }
     else {
-      tinkerInfo.setCaption(result.getHoverName());
+      ItemStack stack = lazyResult.getStack();
+      tinkerInfo.setCaption(stack.getHoverName());
       List<Component> list = new ArrayList<>();
-      result.getItem().appendHoverText(result, Minecraft.getInstance().level, list, Default.NORMAL);
+      stack.getItem().appendHoverText(stack, Minecraft.getInstance().level, list, Default.NORMAL);
       tinkerInfo.setText(list);
     }
   }
@@ -308,7 +311,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
       return;
     }
 
-    ItemStack toolStack = this.getMenu().getResult();
+    LazyToolStack lazyResult = tile.getResult();
 
     // if we have a message, display instead of refreshing the tool
     Component currentError = tile.getCurrentError();
@@ -319,7 +322,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
 
     // only get to rename new tool in the station
     // anvil can rename on any tool change
-    if (toolStack.isEmpty() || (tile.getInputCount() <= 4 && this.getMenu().getSlot(TINKER_SLOT).hasItem())) {
+    if (lazyResult == null || (tile.getInputCount() <= 4 && this.getMenu().getSlot(TINKER_SLOT).hasItem())) {
       textField.setEditable(false);
       textField.setValue("");
       textField.visible = false;
@@ -332,15 +335,10 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
       textField.setValue(tile.getItemName());
     }
 
-    // normal refresh
-    if (toolStack.isEmpty()) {
-      toolStack = this.getMenu().getSlot(TINKER_SLOT).getItem();
-    }
-
     // if the contained stack is modifiable, display some information
-    if (toolStack.is(TinkerTags.Items.MODIFIABLE)) {
-      ToolStack tool = ToolStack.from(toolStack);
-      updateToolPanel(tinkerInfo, tool, toolStack);
+    if (lazyResult != null && lazyResult.getTool().hasTag(TinkerTags.Items.MODIFIABLE)) {
+      ToolStack tool = lazyResult.getTool();
+      updateToolPanel(tinkerInfo, lazyResult);
       updateModifierPanel(modifierInfo, tool);
     }
     // tool build info

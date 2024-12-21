@@ -44,11 +44,11 @@ public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationContai
    * @return Validated result
    */
   default RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv) {
-    LazyToolStack result = LazyToolStack.from(assemble(inv));
-    if (result.getStack().isEmpty()) {
+    ItemStack resultItem = assemble(inv);
+    if (resultItem.isEmpty()) {
       return RecipeResult.pass();
     }
-    return RecipeResult.success(result);
+    return RecipeResult.success(LazyToolStack.from(resultItem));
   }
 
   /** Gets the number to shrink the tool slot by, perfectly valid for this to be higher than the contained number of tools */
