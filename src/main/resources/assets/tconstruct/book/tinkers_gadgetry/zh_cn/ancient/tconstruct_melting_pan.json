@@ -1,13 +1,13 @@
 {
   "tool": "tconstruct:melting_pan",
   "text": [
-    { "text": "The melting pan will melt your blocks and hold fluid for your staffly goals. It can be found in dungeons, igloos, and as a gift from villagers." }
+    { "text": "熔炼锅可以熔炼方块并盛装流体用于特殊目的。可以在地牢、雪屋找到；也可从击退袭击后村民的礼物中获得。" }
   ],
   "properties": [
-    "Mines meltable blocks",
-    "Melting+",
-    "1 Defense Slot",
-    "1 Upgrade Slot",
-    "2 Ability Slots"
+    "挖掘可熔炼的方块",
+    "烧炼+",
+    "1 防御槽",
+    "1 升级槽",
+    "2 能力槽"
   ]
 }

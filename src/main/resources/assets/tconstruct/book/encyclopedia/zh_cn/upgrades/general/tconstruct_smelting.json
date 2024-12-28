@@ -2,15 +2,15 @@
   "modifier_id": "tconstruct:smelting",
   "text": [
     {
-      "text": "Cooks the items inside the tool when the tool is used to deal melee damage, mine blocks, fire arrows, or block damage. Cooks 1 item at a time."
+      "text": "当工具造成伤害、挖掘方块、发射箭矢或格挡伤害时烧炼其中物品。单次烧炼1个物品。"
     },
     {
-      "text": "Inventory can be opened by sneaking while interacting.",
+      "text": "交互时按下潜行",
       "paragraph": true
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Requires 1 upgrade slot per level"
+    "每级需要1个升级槽"
   ]
 }

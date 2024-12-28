@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:smelting",
   "text": [
     {
-      "text": "How hard must you slap a chicken to cook it?"
+      "text": "你得费多大的力气才能拍熟一只鸡？"
     }
   ],
   "effects": [
-    "Sneak while interacting to fill tool with items",
-    "Using the tool cooks the items",
-    "Multiple levels, each level adds another slot",
-    "Requires 1 upgrade slot per level"
+    "按下潜行交互并向工具中装入物品",
+    "借助工具烧炼物品",
+    "多个等级，每级增加1个槽位",
+    "每级需要1个升级槽"
   ]
 }
