@@ -75,7 +75,7 @@ public class WorldEvents {
     Mob mob = event.getEntity();
     EntityType<?> type = mob.getType();
     // 5% chance for a zombie piglin to spawn with a battle sign, doesn't mean they drop it though
-    if ((type == EntityType.ZOMBIFIED_PIGLIN || type == EntityType.PIGLIN || type == EntityType.PIGLIN_BRUTE || type == EntityType.VINDICATOR || type == EntityType.ZOMBIE_VILLAGER)
+    if ((type == EntityType.ZOMBIFIED_PIGLIN || type == EntityType.PIGLIN || type == EntityType.PIGLIN_BRUTE || type == EntityType.HUSK || type == EntityType.ZOMBIE_VILLAGER)
         && event.getLevel() instanceof ServerLevelAccessor level && level.getRandom().nextFloat() < 0.05f) {
       // forge event runs before finalize spawn so we can't just set our item now or it may get overwritten
       // instead, we cancel the event (which blocks vanilla finalize), then finalize ourself, then can set our item after
@@ -83,14 +83,11 @@ public class WorldEvents {
       mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), event.getSpawnReason(), null, null);
 
       Item item = mob.getMainHandItem().getItem();
-      // zombie villagers just always get it if the chance is met
-      if (type == EntityType.ZOMBIE_VILLAGER) {
+      // zombie villagers/husks just always get it if the chance is met
+      if (type == EntityType.HUSK) {
         mob.setItemInHand(InteractionHand.MAIN_HAND, ToolBuildHandler.buildItemRandomMaterials(TinkerTools.meltingPan.get(), level.getRandom()));
-      } else if (type == EntityType.VINDICATOR) {
-        // vindicators spawning without an axe might be from raids, leave alone
-        if (item == Items.IRON_AXE) {
-          mob.setItemInHand(InteractionHand.MAIN_HAND, ToolBuildHandler.buildItemRandomMaterials(TinkerTools.warPick.get(), level.getRandom()));
-        }
+      } else if (type == EntityType.ZOMBIE_VILLAGER) {
+        mob.setItemInHand(InteractionHand.MAIN_HAND, ToolBuildHandler.buildItemRandomMaterials(TinkerTools.warPick.get(), level.getRandom()));
         // only replace golden sword or golden axes with our item, if they are holding nothing or a crossbow do nothing
       } else if (item == Items.GOLDEN_SWORD || item == Items.GOLDEN_AXE) {
         mob.setItemInHand(InteractionHand.MAIN_HAND, ToolBuildHandler.buildItemRandomMaterials(TinkerTools.battlesign.get(), level.getRandom()));

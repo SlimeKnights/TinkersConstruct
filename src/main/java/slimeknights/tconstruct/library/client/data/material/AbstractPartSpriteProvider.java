@@ -8,10 +8,10 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.mantle.data.loadable.Loadable;
 import slimeknights.mantle.data.loadable.Loadables;
+import slimeknights.mantle.data.loadable.mapping.CollectionLoadable;
 import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.client.data.util.AbstractSpriteReader;
-import slimeknights.tconstruct.library.json.field.CompactSetLoadable;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.tools.stats.GripMaterialStats;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
@@ -194,7 +194,7 @@ public abstract class AbstractPartSpriteProvider {
     /** Loadable instance */
     public static final RecordLoadable<PartSpriteInfo> LOADABLE = RecordLoadable.create(
       Loadables.RESOURCE_LOCATION.requiredField("path", i -> i.path),
-      new CompactSetLoadable<>(MaterialStatsId.PARSER, false).requiredField("stat_type", i -> i.statTypes),
+      MaterialStatsId.PARSER.set(CollectionLoadable.COMPACT).requiredField("stat_type", i -> i.statTypes),
       BooleanLoadable.INSTANCE.defaultField("allow_animated", true, false, i -> i.allowAnimated),
       PartSpriteInfo::new);
     /** Loadable for a list, since its the main usage of this */

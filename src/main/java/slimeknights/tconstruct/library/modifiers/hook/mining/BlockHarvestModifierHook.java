@@ -57,6 +57,13 @@ public interface BlockHarvestModifierHook {
     }
 
     @Override
+    public void finishHarvest(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context, int harvested) {
+      for (BlockHarvestModifierHook module : modules) {
+        module.finishHarvest(tool, modifier, context, harvested);
+      }
+    }
+
+    @Override
     public void finishHarvest(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context, boolean didHarvest) {
       for (BlockHarvestModifierHook module : modules) {
         module.finishHarvest(tool, modifier, context, didHarvest);

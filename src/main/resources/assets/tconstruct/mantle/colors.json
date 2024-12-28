@@ -126,10 +126,11 @@
     "offhanded":     "#7E627B",
     "overforced":    "#2759C4",
     "reinforced":    "#41f384",
+    "smelting":      "#FFBC5E",
     "soulbound":     "#009295",
     "tank":          "#3f3f3f",
     "the_one_probe": "#7FF2FF",
-    "zoom":         "#DE923A",
+    "zoom":          "#DE923A",
 
     "__upgrade_harvest__": null,
     "blasting":   "#8A8A8A",
