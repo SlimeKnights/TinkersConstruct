@@ -1,7 +1,7 @@
 {
   "tool": "tconstruct:melting_pan",
   "text": [
-    { "text": "The melting pan will melt your blocks and hold fluid for your staffly goals. It can be found in dungeons, igloos, and as a gift from villagers." }
+    { "text": "The melting pan will melt your blocks and hold fluid for your staffly goals. It can be found from dungeons, igloos, husks, and as a gift from villagers." }
   ],
   "properties": [
     "Mines meltable blocks",
