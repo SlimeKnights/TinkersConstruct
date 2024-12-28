@@ -914,6 +914,7 @@
   "item.tconstruct.ichor_staff": "灵浆手杖",
   "item.tconstruct.ender_staff": "末影黏液手杖",
 
+  "item.tconstruct.melting_pan": "熔炼锅",
   "item.tconstruct.battlesign": "战斗牌子",
   "item.tconstruct.war_pick": "战镐",
   
@@ -2348,6 +2349,9 @@
   "modifier.tconstruct.extra_ability.flavor": "整合包专用！",
   "modifier.tconstruct.extra_ability.description": "请咨询该整合包的作者，使用资源包完善该描述语",
 
+  "modifier.tconstruct.smelting": "烧炼",
+  "modifier.tconstruct.smelting.flavor": "美味的酥脆培根",
+  "modifier.tconstruct.smelting.description": "使用工具时烧炼其中的物品！潜行与其交互放入物品。",
 
   "__comment": "Tier 1 Traits",
 
@@ -2781,6 +2785,7 @@
   "armor_stat.tconstruct.bad_effect_duration": "负面药水效果时间",
   "armor_stat.tconstruct.crouch_damage": "潜行伤害",
   "armor_stat.tconstruct.explosion_knockback": "爆炸击退",
+  
 
   "_comment": "Tooltips",
 
