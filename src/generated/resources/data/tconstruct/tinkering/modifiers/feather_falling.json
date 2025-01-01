@@ -3,7 +3,10 @@
   "modules": [
     {
       "type": "tconstruct:protection",
-      "damage_source": "mantle:fall",
+      "damage_source": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:protection/fall"
+      },
       "each_level": 3.75
     }
   ],

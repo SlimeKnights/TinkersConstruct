@@ -31,13 +31,15 @@ public record LevelingValue(float flat, float eachLevel) {
 
   /* JSON */
 
-  /** Serializes this to JSON */
+  /** @deprecated use {@link #LOADABLE} with {@link RecordLoadable#serialize(Object, JsonObject)} (JsonObject)} */
+  @Deprecated(forRemoval = true)
   public JsonObject serialize(JsonObject json) {
     LOADABLE.serialize(this, json);
     return json;
   }
 
-  /** Deserializes this from JSON */
+  /** @deprecated use {@link #LOADABLE} with {@link RecordLoadable#deserialize(JsonObject)} */
+  @Deprecated(forRemoval = true)
   public static LevelingValue deserialize(JsonObject json) {
     return LOADABLE.deserialize(json);
   }
@@ -45,12 +47,14 @@ public record LevelingValue(float flat, float eachLevel) {
 
   /* Network */
 
-  /** Writes this to the network */
+  /** @deprecated use {@link #LOADABLE} with {@link slimeknights.mantle.data.loadable.Loadable#encode(FriendlyByteBuf, Object)} */
+  @Deprecated(forRemoval = true)
   public void toNetwork(FriendlyByteBuf buffer) {
     LOADABLE.encode(buffer, this);
   }
 
-  /** Reads this from teh network */
+  /** @deprecated use {@link #LOADABLE} with {@link slimeknights.mantle.data.loadable.Loadable#decode(FriendlyByteBuf)} */
+  @Deprecated(forRemoval = true)
   public static LevelingValue fromNetwork(FriendlyByteBuf buffer) {
     return LOADABLE.decode(buffer);
   }

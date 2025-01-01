@@ -32,5 +32,6 @@
 
   "tconstruct:golden":        "tconstruct:normal",
   "tconstruct:embellishment": "tconstruct:material",
-  "tconstruct:dyed":          "tconstruct:dyed"
+  "tconstruct:dyed":          "tconstruct:dyed",
+  "tconstruct:trim":          "tconstruct:trim"
 }

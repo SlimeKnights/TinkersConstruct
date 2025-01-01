@@ -38,8 +38,8 @@ public abstract class UseFluidOnHitModifier extends Modifier {
 
   /** Spawns particles at the given entity */
   public static void spawnParticles(Entity target, FluidStack fluid) {
-    if (target.level instanceof ServerLevel) {
-      ((ServerLevel)target.level).sendParticles(new FluidParticleData(TinkerCommons.fluidParticle.get(), fluid), target.getX(), target.getY(0.5), target.getZ(), 10, 0.1, 0.2, 0.1, 0.2);
+    if (target.level() instanceof ServerLevel serverLevel) {
+      serverLevel.sendParticles(new FluidParticleData(TinkerCommons.fluidParticle.get(), fluid), target.getX(), target.getY(0.5), target.getZ(), 10, 0.1, 0.2, 0.1, 0.2);
     }
   }
 

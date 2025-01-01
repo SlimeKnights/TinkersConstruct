@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "group": "tconstruct:pig_iron_ingot",
   "key": {
     "#": {
@@ -16,5 +17,6 @@
   ],
   "result": {
     "item": "tconstruct:pig_iron_ingot"
-  }
+  },
+  "show_notification": true
 }

@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "group": "tconstruct:cobalt_ingot",
   "key": {
     "#": {
@@ -16,5 +17,6 @@
   ],
   "result": {
     "item": "tconstruct:cobalt_ingot"
-  }
+  },
+  "show_notification": true
 }

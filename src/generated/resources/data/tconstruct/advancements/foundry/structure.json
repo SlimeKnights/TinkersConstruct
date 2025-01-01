@@ -27,5 +27,6 @@
     [
       "open_foundry"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

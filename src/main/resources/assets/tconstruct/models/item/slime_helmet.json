@@ -10,7 +10,7 @@
     { "name": "skull",  "index": 0 },
     { "name": "tool" }
   ],
-  "first_modifiers": [ "tconstruct:embellishment", "tconstruct:golden" ],
+  "first_modifiers": [ "tconstruct:embellishment", "tconstruct:golden", "tconstruct:trim" ],
   "overrides": [
     {
       "predicate": { "tconstruct:broken": 1 },

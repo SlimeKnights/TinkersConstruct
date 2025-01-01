@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.recipe.tinkerstation.repairing;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -50,7 +51,7 @@ public class ModifierRepairTinkerStationRecipe implements ITinkerStationRecipe, 
   }
 
   @Override
-  public RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv) {
+  public RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv, RegistryAccess access) {
     ToolStack tool = inv.getTinkerable();
     int amountPerItem = tool.getModifierLevel(modifier) * repairAmount;
     if (amountPerItem <= 0) {
@@ -108,10 +109,5 @@ public class ModifierRepairTinkerStationRecipe implements ITinkerStationRecipe, 
   @Override
   public RecipeSerializer<?> getSerializer() {
     return TinkerModifiers.modifierRepair.get();
-  }
-
-  @Override
-  public ItemStack getResultItem() {
-    return ItemStack.EMPTY;
   }
 }

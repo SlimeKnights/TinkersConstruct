@@ -1,9 +1,8 @@
 package slimeknights.tconstruct.tables.client.inventory;
 
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
@@ -65,19 +64,19 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
   }
 
   @Override
-  protected void renderBg(PoseStack matrices, float partialTicks, int mouseX, int mouseY) {
-    this.drawBackground(matrices, BACKGROUND);
+  protected void renderBg(GuiGraphics graphics, float partialTicks, int mouseX, int mouseY) {
+    this.drawBackground(graphics, BACKGROUND);
 
     // draw scrollbar
-    this.blit(matrices, this.cornerX + 126, this.cornerY + 15 + (int) (41.0F * this.sliderProgress), 176 + (this.canScroll() ? 0 : 12), 0, 12, 15);
-    this.drawRecipesBackground(matrices, mouseX, mouseY, this.cornerX + 51, this.cornerY + 15);
+    graphics.blit(BACKGROUND, this.cornerX + 126, this.cornerY + 15 + (int) (41.0F * this.sliderProgress), 176 + (this.canScroll() ? 0 : 12), 0, 12, 15);
+    this.drawRecipesBackground(graphics, mouseX, mouseY, this.cornerX + 51, this.cornerY + 15);
 
     // draw slot icons
-    this.drawIconEmpty(matrices, this.getMenu().getPatternSlot(), Icons.PATTERN);
-    this.drawIconEmpty(matrices, this.getMenu().getInputSlot(), Icons.INGOT);
-    this.drawRecipesItems(matrices, this.cornerX + 51, this.cornerY + 15);
+    this.drawIconEmpty(graphics, this.getMenu().getPatternSlot(), Icons.PATTERN);
+    this.drawIconEmpty(graphics, this.getMenu().getInputSlot(), Icons.INGOT);
+    this.drawRecipesItems(graphics, this.cornerX + 51, this.cornerY + 15);
 
-    super.renderBg(matrices, partialTicks, mouseX, mouseY);
+    super.renderBg(graphics, partialTicks, mouseX, mouseY);
   }
 
   /**
@@ -87,17 +86,19 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
    * @return  Button index, or -1 if none
    */
   private int getButtonAt(int mouseX, int mouseY) {
-    List<Pattern> buttons = tile.getSortedButtons();
-    if (!buttons.isEmpty()) {
-      int x = this.cornerX + 51;
-      int y = this.cornerY + 15;
-      int maxIndex = Math.min((this.recipeIndexOffset + 12), buttons.size());
-      for (int l = this.recipeIndexOffset; l < maxIndex; ++l) {
-        int relative = l - this.recipeIndexOffset;
-        double buttonX = mouseX - (double) (x + relative % 4 * 18);
-        double buttonY = mouseY - (double) (y + relative / 4 * 18);
-        if (buttonX >= 0.0D && buttonY >= 0.0D && buttonX < 18.0D && buttonY < 18.0D) {
-          return l;
+    if (tile != null) {
+      List<Pattern> buttons = tile.getSortedButtons();
+      if (!buttons.isEmpty()) {
+        int x = this.cornerX + 51;
+        int y = this.cornerY + 15;
+        int maxIndex = Math.min((this.recipeIndexOffset + 12), buttons.size());
+        for (int l = this.recipeIndexOffset; l < maxIndex; ++l) {
+          int relative = l - this.recipeIndexOffset;
+          double buttonX = mouseX - (double)(x + relative % 4 * 18);
+          double buttonY = mouseY - (double)(y + relative / 4 * 18);
+          if (buttonX >= 0.0D && buttonY >= 0.0D && buttonX < 18.0D && buttonY < 18.0D) {
+            return l;
+          }
         }
       }
     }
@@ -105,21 +106,26 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
   }
 
   @Override
-  protected void renderTooltip(PoseStack matrixStack, int mouseX, int mouseY) {
-    super.renderTooltip(matrixStack, mouseX, mouseY);
+  protected void renderTooltip(GuiGraphics graphics, int mouseX, int mouseY) {
+    super.renderTooltip(graphics, mouseX, mouseY);
 
     // determime which button we are hovering
-    List<Pattern> buttons = tile.getSortedButtons();
-    if (!buttons.isEmpty()) {
-      int index = getButtonAt(mouseX, mouseY);
-      if (index >= 0) {
-        renderTooltip(matrixStack, buttons.get(index).getDisplayName(), mouseX, mouseY);
+    if (tile != null) {
+      List<Pattern> buttons = tile.getSortedButtons();
+      if (!buttons.isEmpty()) {
+        int index = getButtonAt(mouseX, mouseY);
+        if (index >= 0) {
+          graphics.renderTooltip(this.font, buttons.get(index).getDisplayName(), mouseX, mouseY);
+        }
       }
     }
   }
 
   /** Draw backgrounds for all patterns */
-  private void drawRecipesBackground(PoseStack matrices, int mouseX, int mouseY, int left, int top) {
+  private void drawRecipesBackground(GuiGraphics graphics, int mouseX, int mouseY, int left, int top) {
+    if (tile == null) {
+      return;
+    }
     int max = Math.min(this.recipeIndexOffset + 12, this.getPartRecipeCount());
     for (int i = this.recipeIndexOffset; i < max; ++i) {
       int relative = i - this.recipeIndexOffset;
@@ -131,15 +137,15 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
       } else if (mouseX >= x && mouseY >= y && mouseX < x + 18 && mouseY < y + 18) {
         u += 36;
       }
-      this.blit(matrices, x, y, 0, u, 18, 18);
+      graphics.blit(BACKGROUND, x, y, 0, u, 18, 18);
     }
   }
 
   /** Draw slot icons for all patterns */
-  private void drawRecipesItems(PoseStack matrices, int left, int top) {
+  private void drawRecipesItems(GuiGraphics graphics, int left, int top) {
     // use block texture list
     assert this.minecraft != null;
-    RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
+    assert this.tile != null;
     Function<ResourceLocation, TextureAtlasSprite> spriteGetter = this.minecraft.getTextureAtlas(InventoryMenu.BLOCK_ATLAS);
     // iterate all recipes
     List<Pattern> list = this.tile.getSortedButtons();
@@ -150,8 +156,7 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
       int y = top + (relative / 4) * 18 + 1;
       // get the sprite for the pattern and draw
       Pattern pattern = list.get(i);
-      TextureAtlasSprite sprite = spriteGetter.apply(pattern.getTexture());
-      blit(matrices, x, y, 100, 16, 16, sprite);
+      graphics.blit(x, y, 100, 16, 16, spriteGetter.apply(pattern.getTexture()));
     }
   }
 
@@ -206,6 +211,9 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
    * @param materialRecipe  New material recipe
    */
   private void setDisplayForMaterial(IMaterialValue materialRecipe) {
+    if (this.tile == null) {
+      return;
+    }
     MaterialVariant materialVariant = materialRecipe.getMaterial();
     this.infoPanelScreen.setCaption(MaterialTooltipCache.getColoredDisplayName(materialVariant.getVariant()));
 
@@ -274,7 +282,7 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
   public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
     this.clickedOnScrollBar = false;
 
-    if (this.infoPanelScreen.handleMouseClicked(mouseX, mouseY, mouseButton)) {
+    if (this.infoPanelScreen.handleMouseClicked(mouseX, mouseY, mouseButton) || this.tile == null) {
       return false;
     }
 
@@ -366,7 +374,7 @@ public class PartBuilderScreen extends BaseTabbedScreen<PartBuilderBlockEntity,P
 
   /** Gets the number of part recipes */
   private int getPartRecipeCount() {
-    return tile.getSortedButtons().size();
+    return tile == null ? 0 : tile.getSortedButtons().size();
   }
 
   /** If true, we can scroll */

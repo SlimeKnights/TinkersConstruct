@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "key": {
     "b": {
       "item": "tconstruct:seared_brick"
@@ -11,5 +12,6 @@
   ],
   "result": {
     "item": "tconstruct:seared_bricks"
-  }
+  },
+  "show_notification": true
 }

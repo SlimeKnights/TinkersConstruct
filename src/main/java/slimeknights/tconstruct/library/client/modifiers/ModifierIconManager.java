@@ -4,18 +4,16 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
-import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import slimeknights.mantle.data.listener.IEarlySafeManagerReloadListener;
@@ -30,7 +28,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.function.Consumer;
 
 /**
  * Class handling the loading of modifier UI icons
@@ -55,27 +52,12 @@ public class ModifierIconManager implements IEarlySafeManagerReloadListener {
    */
   public static void init() {
     IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-    bus.addListener(ModifierIconManager::textureStitch);
     bus.addListener(ModifierIconManager::onResourceManagerRegister);
   }
 
   /** Called on resource manager build to add the manager */
   private static void onResourceManagerRegister(RegisterClientReloadListenersEvent manager) {
     manager.registerReloadListener(INSTANCE);
-  }
-
-  /** Called on texture stitch to add the new textures */
-  private static void textureStitch(TextureStitchEvent.Pre event) {
-    if (event.getAtlas().location().equals(InventoryMenu.BLOCK_ATLAS)) {
-      // temporary workaround to the fact that texture stitching might run before the resource loader
-      if (modifierIcons.isEmpty()) {
-        INSTANCE.onReloadSafe(Minecraft.getInstance().getResourceManager());
-      }
-      Consumer<ResourceLocation> spriteAdder = event::addSprite;
-      modifierIcons.values().forEach(list -> list.forEach(spriteAdder));
-      event.addSprite(DEFAULT_COVER);
-      event.addSprite(DEFAULT_PAGES);
-    }
   }
 
   @Override
@@ -129,26 +111,25 @@ public class ModifierIconManager implements IEarlySafeManagerReloadListener {
 
   /**
    * Renders a modifier icon at the given location
-   * @param matrices  Matrix stack instance
+   * @param graphics  GuiGraphics instance
    * @param modifier  Modifier to draw
    * @param x         X offset
    * @param y         Y offset
    * @param z         Render depth offset, typically 100 is good
    * @param size      Size to render, 16 is default
    */
-  public static void renderIcon(PoseStack matrices, Modifier modifier, int x, int y, int z, int size) {
-    RenderUtils.setup(InventoryMenu.BLOCK_ATLAS);
+  public static void renderIcon(GuiGraphics graphics, Modifier modifier, int x, int y, int z, int size) {
     TextureAtlas atlas = Minecraft.getInstance().getModelManager().getAtlas(InventoryMenu.BLOCK_ATLAS);
 
     List<ResourceLocation> icons = modifierIcons.getOrDefault(modifier.getId(), Collections.emptyList());
     if (!icons.isEmpty()) {
       for (ResourceLocation icon : icons) {
-        Screen.blit(matrices, x, y, z, size, size, atlas.getSprite(icon));
+        graphics.blit(x, y, z, size, size, atlas.getSprite(icon));
       }
     } else {
-      Screen.blit(matrices, x, y, z, size, size, atlas.getSprite(DEFAULT_PAGES));
+      graphics.blit(x, y, z, size, size, atlas.getSprite(DEFAULT_PAGES));
       RenderUtils.setColorRGBA(0xFF000000 | modifier.getColor());
-      Screen.blit(matrices, x, y, z, size, size, atlas.getSprite(DEFAULT_COVER));
+      graphics.blit(x, y, z, size, size, atlas.getSprite(DEFAULT_COVER));
       RenderUtils.setColorRGBA(-1);
     }
   }

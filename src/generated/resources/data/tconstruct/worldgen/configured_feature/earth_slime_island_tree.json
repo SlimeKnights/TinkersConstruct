@@ -1,0 +1,36 @@
+{
+  "type": "tconstruct:slime_tree",
+  "config": {
+    "base_height": 4,
+    "can_double_height": false,
+    "has_vines": false,
+    "leaves_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "tconstruct:earth_slime_leaves",
+        "Properties": {
+          "distance": "7",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      }
+    },
+    "planted": false,
+    "random_height": 3,
+    "trunk_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "tconstruct:greenheart_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    },
+    "vines_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:air"
+      }
+    }
+  }
+}

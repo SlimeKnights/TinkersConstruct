@@ -74,5 +74,6 @@
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "tconstruct:blocks/ender_slime_crystal_cluster"
 }

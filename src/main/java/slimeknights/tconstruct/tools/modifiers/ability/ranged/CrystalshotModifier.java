@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.ability.ranged;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -13,6 +14,7 @@ import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.item.CrystalshotItem;
 
+import javax.annotation.Nullable;
 import java.util.function.Predicate;
 
 public class CrystalshotModifier extends NoLevelsModifier implements BowAmmoModifierHook {
@@ -29,7 +31,7 @@ public class CrystalshotModifier extends NoLevelsModifier implements BowAmmoModi
   }
 
   @Override
-  public Component getDisplayName(IToolStackView tool, ModifierEntry entry) {
+  public Component getDisplayName(IToolStackView tool, ModifierEntry entry, @Nullable RegistryAccess access) {
     // color the display name for the variant
     String variant = tool.getPersistentData().getString(getId());
     if (!variant.isEmpty()) {

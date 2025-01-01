@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.util.LazyOptional;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
@@ -44,6 +45,11 @@ public class EquipmentContext {
       return ToolStack.from(stack);
     }
     return null;
+  }
+
+  /** Gets the level for this context */
+  public Level getLevel() {
+    return entity.level();
   }
 
   /**

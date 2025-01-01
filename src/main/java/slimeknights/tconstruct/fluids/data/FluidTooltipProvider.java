@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.fluids.data;
 
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraftforge.fluids.FluidType;
 import slimeknights.mantle.datagen.MantleTags;
 import slimeknights.mantle.fluid.tooltip.AbstractFluidTooltipProvider;
@@ -20,8 +20,8 @@ import static slimeknights.tconstruct.common.TinkerTags.Fluids.SMALL_GEM_TOOLTIP
 import static slimeknights.tconstruct.common.TinkerTags.Fluids.SOUP_TOOLTIPS;
 
 public class FluidTooltipProvider extends AbstractFluidTooltipProvider {
-  public FluidTooltipProvider(DataGenerator generator) {
-    super(generator, TConstruct.MOD_ID);
+  public FluidTooltipProvider(PackOutput packOutput) {
+    super(packOutput, TConstruct.MOD_ID);
   }
 
   @Override

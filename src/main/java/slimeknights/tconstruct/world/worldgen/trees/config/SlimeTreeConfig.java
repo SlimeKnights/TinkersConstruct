@@ -5,13 +5,11 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
-import slimeknights.tconstruct.world.worldgen.trees.SupplierBlockStateProvider;
-
-import java.util.function.Supplier;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 
 public class SlimeTreeConfig implements FeatureConfiguration {
 
@@ -49,7 +47,7 @@ public class SlimeTreeConfig implements FeatureConfiguration {
   @NoArgsConstructor
   @Accessors(fluent = true)
   public static class Builder {
-    private static final SupplierBlockStateProvider AIR_PROVIDER = new SupplierBlockStateProvider(Blocks.AIR::defaultBlockState);
+    private static final BlockStateProvider AIR_PROVIDER = BlockStateProvider.simple(Blocks.AIR);
 
     @Setter
     private BlockStateProvider trunkProvider = AIR_PROVIDER;
@@ -71,25 +69,25 @@ public class SlimeTreeConfig implements FeatureConfiguration {
     }
 
     /** Sets the trunk */
-    public Builder trunk(Supplier<BlockState> supplier) {
-      return trunkProvider(new SupplierBlockStateProvider(supplier));
+    public Builder trunk(Block block) {
+      return trunkProvider(BlockStateProvider.simple(block));
     }
 
     /** Sets the leaves */
-    public Builder leaves(Supplier<BlockState> supplier) {
-      return leavesProvider(new SupplierBlockStateProvider(supplier));
+    public Builder leaves(Block block) {
+      return leavesProvider(BlockStateProvider.simple(block));
     }
 
     /** Sets the vines */
-    public Builder vinesProvider(SupplierBlockStateProvider supplier) {
+    public Builder vinesProvider(BlockStateProvider supplier) {
       this.vinesProvider = supplier;
       this.hasVines = true;
       return this;
     }
 
     /** Sets the vines */
-    public Builder vines(Supplier<BlockState> supplier) {
-      return vinesProvider(new SupplierBlockStateProvider(supplier));
+    public Builder vines(BlockState block) {
+      return vinesProvider(BlockStateProvider.simple(block));
     }
 
     /** Sets the tree as a planted tree */

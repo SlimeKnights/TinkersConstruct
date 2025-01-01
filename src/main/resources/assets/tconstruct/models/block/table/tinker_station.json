@@ -1,5 +1,5 @@
 {
-  "loader": "tconstruct:table",
+  "loader": "mantle:retextured",
   "parent": "tconstruct:block/table/table",
   "textures": {
     "particle": "tconstruct:block/table/tinker_station_top",
@@ -9,11 +9,5 @@
     "bottom": "tconstruct:block/table/bottom",
     "legBottom": "tconstruct:block/table/bottom"
   },
-  "retextured": [ "leg", "legBottom" ],
-  "items": [
-    { "center": [ 11,   16.25, 8   ], "transform": "tconstruct:table", "size": 7.5, "x": 270 },
-    { "center": [  2.5, 17.5,  8   ], "transform": "tconstruct:table", "size": 3 },
-    { "center": [  4.5, 17.5,  3.5 ], "transform": "tconstruct:table", "size": 3 },
-    { "center": [  4.5, 17.5, 12.5 ], "transform": "tconstruct:table", "size": 3 }
-  ]
+  "retextured": [ "leg", "legBottom" ]
 }

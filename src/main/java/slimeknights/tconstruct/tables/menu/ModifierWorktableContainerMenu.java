@@ -7,13 +7,13 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.util.sync.LambdaDataSlot;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.block.entity.table.ModifierWorktableBlockEntity;
 import slimeknights.tconstruct.tables.menu.slot.ArmorSlot;
 import slimeknights.tconstruct.tables.menu.slot.LazyResultSlot;
-import slimeknights.tconstruct.tools.item.ArmorSlotType;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -35,13 +35,14 @@ public class ModifierWorktableContainerMenu extends TabbedContainerMenu<Modifier
       // send the player the current recipe, as we only sync to open containers
 //      tile.syncRecipe(inv.player);
       // slots
-      this.addSlot(this.outputSlot = new LazyResultSlot(tile.getCraftingResult(), 125, 33));
       // inputs
       inputSlots = new ArrayList<>();
       inputSlots.add(this.addSlot(new WorktableSlot(this, tile, ModifierWorktableBlockEntity.TINKER_SLOT, 8, 15)));
       for (int index = 0; index < tile.getContainerSize() - 1; index++) {
         inputSlots.add(this.addSlot(new WorktableSlot(this, tile, index + ModifierWorktableBlockEntity.INPUT_START, 8, 35 + 18*index)));
       }
+      // result
+      this.addSlot(this.outputSlot = new LazyResultSlot(tile.getCraftingResult(), 125, 33));
 
       // listen for the button to change in the tile
       this.addDataSlot(new LambdaDataSlot(-1, tile::getSelectedIndex, i -> {
@@ -56,9 +57,8 @@ public class ModifierWorktableContainerMenu extends TabbedContainerMenu<Modifier
     }
 
     // add armor and offhand slots, for convenience
-    for (ArmorSlotType slotType : ArmorSlotType.values()) {
-      int index = slotType.getIndex();
-      this.addSlot(new ArmorSlot(inv, slotType.getEquipmentSlot(), 152, 8 + (3 - index) * 18));
+    for (ArmorItem.Type slotType : ArmorItem.Type.values()) {
+      this.addSlot(new ArmorSlot(inv, slotType.getSlot(), 152, 8 + slotType.ordinal() * 18));
     }
     this.addSlot(new Slot(inv, 40, 132, 62).setBackground(InventoryMenu.BLOCK_ATLAS, InventoryMenu.EMPTY_ARMOR_SLOT_SHIELD));
 

@@ -6,9 +6,9 @@ import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.serialization.Codec;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.TagParser;
 import net.minecraft.network.FriendlyByteBuf;
@@ -23,12 +23,13 @@ import net.minecraftforge.fluids.FluidType;
 public class FluidParticleData implements ParticleOptions {
   private static final DynamicCommandExceptionType UNKNOWN_FLUID = new DynamicCommandExceptionType(arg -> Component.translatable("command.tconstruct.fluid.not_found", arg));
   private static final ParticleOptions.Deserializer<FluidParticleData> DESERIALIZER = new ParticleOptions.Deserializer<>() {
+    @SuppressWarnings("deprecation")
     @Override
     public FluidParticleData fromCommand(ParticleType<FluidParticleData> type, StringReader reader) throws CommandSyntaxException {
       reader.expect(' ');
       int i = reader.getCursor();
       ResourceLocation id = ResourceLocation.read(reader);
-      Fluid fluid = Registry.FLUID.getOptional(id).orElseThrow(() -> {
+      Fluid fluid = BuiltInRegistries.FLUID.getOptional(id).orElseThrow(() -> {
         reader.setCursor(i);
         return UNKNOWN_FLUID.createWithContext(reader, id.toString());
       });
@@ -55,12 +56,13 @@ public class FluidParticleData implements ParticleOptions {
     fluid.writeToPacket(buffer);
   }
 
+  @SuppressWarnings("deprecation")
   @Override
   public String writeToString() {
     StringBuilder builder = new StringBuilder();
-    builder.append(Registry.PARTICLE_TYPE.getKey(getType()));
+    builder.append(BuiltInRegistries.PARTICLE_TYPE.getKey(getType()));
     builder.append(" ");
-    builder.append(Registry.FLUID.getKey(fluid.getFluid()));
+    builder.append(BuiltInRegistries.FLUID.getKey(fluid.getFluid()));
     CompoundTag nbt = fluid.getTag();
     if (nbt != null) {
       builder.append(nbt);

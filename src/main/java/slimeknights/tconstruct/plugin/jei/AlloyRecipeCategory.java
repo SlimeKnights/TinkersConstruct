@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.plugin.jei;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.forge.ForgeTypes;
@@ -17,6 +16,7 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -26,6 +26,7 @@ import slimeknights.mantle.fluid.tooltip.FluidTooltipHandler;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe;
 import slimeknights.tconstruct.plugin.jei.melting.MeltingFuelHandler;
+import slimeknights.tconstruct.plugin.jei.util.IRecipeTooltipReplacement;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import java.awt.Color;
@@ -76,13 +77,13 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
   }
 
   @Override
-  public void draw(AlloyRecipe recipe, IRecipeSlotsView slots, PoseStack matrices, double mouseX, double mouseY) {
-    arrow.draw(matrices, 90, 21);
+  public void draw(AlloyRecipe recipe, IRecipeSlotsView slots, GuiGraphics graphics, double mouseX, double mouseY) {
+    arrow.draw(graphics, 90, 21);
     // temperature info
     Font fontRenderer = Minecraft.getInstance().font;
     String tempString = I18n.get(KEY_TEMPERATURE, recipe.getTemperature());
     int x = 102 - (fontRenderer.width(tempString) / 2);
-    fontRenderer.draw(matrices, tempString, x, 5, Color.GRAY.getRGB());
+    graphics.drawString(fontRenderer, tempString, x, 5, Color.GRAY.getRGB(), false);
   }
 
   /**

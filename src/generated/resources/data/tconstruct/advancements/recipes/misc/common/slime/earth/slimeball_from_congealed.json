@@ -30,5 +30,6 @@
     "recipes": [
       "tconstruct:common/slime/earth/slimeball_from_congealed"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.recipe.partbuilder;
 
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.util.RegistryHelper;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -20,6 +20,6 @@ public interface IDisplayPartBuilderRecipe extends IPartBuilderRecipe {
    * @return  Pattern items
    */
   default List<ItemStack> getPatternItems() {
-    return RegistryHelper.getTagValueStream(Registry.ITEM, TinkerTags.Items.DEFAULT_PATTERNS).map(ItemStack::new).toList();
+    return RegistryHelper.getTagValueStream(BuiltInRegistries.ITEM, TinkerTags.Items.DEFAULT_PATTERNS).map(ItemStack::new).toList();
   }
 }

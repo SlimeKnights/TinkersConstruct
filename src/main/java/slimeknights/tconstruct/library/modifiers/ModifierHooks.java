@@ -96,7 +96,7 @@ public class ModifierHooks {
   /* Composable only  */
 
   /** Hook for supporting modifiers to change the modifier display name */
-  public static final ModuleHook<DisplayNameModifierHook> DISPLAY_NAME = register("display_name", DisplayNameModifierHook.class, DisplayNameModifierHook.ComposeMerger::new, (tool, entry, name) -> name);
+  public static final ModuleHook<DisplayNameModifierHook> DISPLAY_NAME = register("display_name", DisplayNameModifierHook.class, DisplayNameModifierHook.ComposeMerger::new, (tool, entry, name, access) -> name);
 
 
   /* Display */

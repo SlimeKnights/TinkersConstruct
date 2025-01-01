@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "key": {
     "s": {
       "item": "tconstruct:seared_bricks_slab"
@@ -11,5 +12,6 @@
   ],
   "result": {
     "item": "tconstruct:seared_fancy_bricks"
-  }
+  },
+  "show_notification": true
 }

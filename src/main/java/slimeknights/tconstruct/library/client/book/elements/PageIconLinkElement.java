@@ -2,8 +2,8 @@ package slimeknights.tconstruct.library.client.book.elements;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import slimeknights.mantle.client.book.action.StringActionProcessor;
 import slimeknights.mantle.client.book.data.PageData;
@@ -33,21 +33,21 @@ public class PageIconLinkElement extends SizedBookElement {
   }
 
   @Override
-  public void draw(PoseStack matrices, int mouseX, int mouseY, float partialTicks, Font fontRenderer) {
+  public void draw(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks, Font fontRenderer) {
     boolean hover = this.isHovered(mouseX, mouseY);
     RenderSystem.setShaderColor(1F, 1F, 1F, hover ? 1F : 0.5F);
 
     if (this.isHovered(mouseX, mouseY)) {
-      fill(matrices, this.x, this.y, this.x + this.width, this.y + this.height, this.parent.book.appearance.hoverColor | (0x77 << 24));
+      graphics.fill(this.x, this.y, this.x + this.width, this.y + this.height, this.parent.book.appearance.hoverColor | (0x77 << 24));
     }
 
-    this.displayElement.draw(matrices, mouseX, mouseY, partialTicks, fontRenderer);
+    this.displayElement.draw(graphics, mouseX, mouseY, partialTicks, fontRenderer);
   }
 
   @Override
-  public void drawOverlay(PoseStack matrices, int mouseX, int mouseY, float partialTicks, Font fontRenderer) {
+  public void drawOverlay(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks, Font fontRenderer) {
     if (this.name != null && !this.name.getString().isEmpty() && this.isHovered(mouseX, mouseY)) {
-      this.drawTooltip(matrices, ImmutableList.of(name), mouseX, mouseY, fontRenderer);
+      this.drawTooltip(graphics, ImmutableList.of(name), mouseX, mouseY, fontRenderer);
     }
   }
 

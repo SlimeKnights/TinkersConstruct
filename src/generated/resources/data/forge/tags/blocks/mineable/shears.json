@@ -6,6 +6,7 @@
     "minecraft:glow_lichen",
     "minecraft:lily_pad",
     "minecraft:redstone_wire",
+    "minecraft:hanging_roots",
     "minecraft:tripwire",
     "minecraft:twisting_vines_plant",
     "minecraft:twisting_vines",
@@ -17,7 +18,6 @@
     "#minecraft:wool",
     "#minecraft:saplings",
     "#minecraft:flowers",
-    "#minecraft:replaceable_plants",
     "#minecraft:coral_plants"
   ]
 }

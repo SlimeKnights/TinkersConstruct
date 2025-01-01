@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "key": {
     "B": {
       "tag": "tconstruct:scorched_blocks"
@@ -16,5 +17,6 @@
   "result": {
     "count": 4,
     "item": "tconstruct:scorched_ladder"
-  }
+  },
+  "show_notification": true
 }

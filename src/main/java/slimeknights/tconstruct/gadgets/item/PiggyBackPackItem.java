@@ -2,8 +2,8 @@ package slimeknights.tconstruct.gadgets.item;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
 import net.minecraft.network.protocol.game.ClientboundSetPassengersPacket;
 import net.minecraft.server.level.ServerPlayer;
@@ -31,7 +31,6 @@ import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.capability.PiggybackCapability;
 import slimeknights.tconstruct.gadgets.capability.PiggybackHandler;
 import slimeknights.tconstruct.library.client.Icons;
-import slimeknights.tconstruct.library.client.RenderUtils;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
@@ -178,26 +177,25 @@ public class PiggyBackPackItem extends TooltipItem {
     @Override
     public void initializeClient(Consumer<IClientMobEffectExtensions> consumer) {
       consumer.accept(new IClientMobEffectExtensions() {
-        private void renderIcon(MobEffectInstance effect, PoseStack matrices, int x, int y) {
-          RenderUtils.setup(Icons.ICONS);
+        private void renderIcon(MobEffectInstance effect, GuiGraphics graphics, int x, int y) {
           ElementScreen element = switch (effect.getAmplifier()) {
             case 0 -> Icons.PIGGYBACK_1;
             case 1 -> Icons.PIGGYBACK_2;
             default -> Icons.PIGGYBACK_3;
           };
 
-          element.draw(matrices, x + 6, y + 7);
+          element.draw(graphics, x + 6, y + 7);
         }
 
         @Override
-        public boolean renderInventoryIcon(MobEffectInstance effect, EffectRenderingInventoryScreen<?> gui, PoseStack matrices, int x, int y, int z) {
-          renderIcon(effect, matrices, x, y);
+        public boolean renderInventoryIcon(MobEffectInstance effect, EffectRenderingInventoryScreen<?> gui, GuiGraphics graphics, int x, int y, int z) {
+          renderIcon(effect, graphics, x, y);
           return true;
         }
 
         @Override
-        public boolean renderGuiIcon(MobEffectInstance effect, Gui gui, PoseStack matrices, int x, int y, float z, float alpha) {
-          renderIcon(effect, matrices, x, y);
+        public boolean renderGuiIcon(MobEffectInstance effect, Gui gui, GuiGraphics graphics, int x, int y, float z, float alpha) {
+          renderIcon(effect, graphics, x, y);
           return true;
         }
       });

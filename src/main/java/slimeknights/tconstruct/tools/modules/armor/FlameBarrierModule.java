@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.tools.modules.armor;
 
 import net.minecraft.network.chat.Component;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -41,7 +42,7 @@ public record FlameBarrierModule(LevelingValue amount) implements ModifierModule
 
   @Override
   public float getProtectionModifier(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float modifierValue) {
-    if (!source.isFire() && DamageSourcePredicate.CAN_PROTECT.matches(source)) {
+    if (!source.is(DamageTypeTags.IS_FIRE) && DamageSourcePredicate.CAN_PROTECT.matches(source)) {
       float amount = this.amount.compute(modifier.getEffectiveLevel());
       if (amount != 0) {
         modifierValue += ConductingModifier.bonusScale(context.getEntity()) * amount;

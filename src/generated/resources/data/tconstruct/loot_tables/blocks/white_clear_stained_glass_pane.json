@@ -16,5 +16,6 @@
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "tconstruct:blocks/white_clear_stained_glass_pane"
 }

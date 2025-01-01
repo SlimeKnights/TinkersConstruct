@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.modifiers.modules.build;
 
 import lombok.Getter;
 import lombok.experimental.Accessors;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.mantle.data.loadable.primitive.StringLoadable;
@@ -68,7 +69,7 @@ public class SwappableToolTraitsModule implements ModifierModule, ModifierTraitH
   }
 
   @Override
-  public Component getDisplayName(IToolStackView tool, ModifierEntry entry, Component name) {
+  public Component getDisplayName(IToolStackView tool, ModifierEntry entry, Component name, @Nullable RegistryAccess access) {
     if (match.equals(tool.getPersistentData().getString(getKey(entry.getModifier())))) {
       return Component.translatable(FORMAT, name.plainCopy(), component).withStyle(name.getStyle());
     }

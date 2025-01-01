@@ -1,10 +1,6 @@
 {
   "parts": [
     {
-      "path": "tconstruct:item/tool/parts/round_plate",
-      "stat_type": "tconstruct:head"
-    },
-    {
       "path": "tconstruct:item/tool/parts/large_plate",
       "stat_type": "tconstruct:head"
     },
@@ -26,6 +22,10 @@
     },
     {
       "path": "tconstruct:item/tool/parts/tool_binding",
+      "stat_type": "tconstruct:binding"
+    },
+    {
+      "path": "tconstruct:item/tool/parts/tough_binding",
       "stat_type": "tconstruct:binding"
     },
     {
@@ -125,35 +125,19 @@
       "stat_type": "tconstruct:slimesuit"
     },
     {
-      "path": "tconstruct:item/tool/armor/plate/boots/plating",
-      "stat_type": "tconstruct:plating_boots"
+      "path": "tconstruct:item/tool/armor/plate/helmet/plating",
+      "stat_type": "tconstruct:plating_helmet"
     },
     {
-      "path": "tconstruct:item/tool/armor/plate/boots/plating_broken",
-      "stat_type": "tconstruct:plating_boots"
+      "path": "tconstruct:item/tool/armor/plate/helmet/plating_broken",
+      "stat_type": "tconstruct:plating_helmet"
     },
     {
-      "path": "tconstruct:item/tool/armor/plate/boots/maille",
+      "path": "tconstruct:item/tool/armor/plate/helmet/maille",
       "stat_type": "tconstruct:maille"
     },
     {
-      "path": "tconstruct:item/tool/armor/plate/boots/maille_broken",
-      "stat_type": "tconstruct:maille"
-    },
-    {
-      "path": "tconstruct:item/tool/armor/plate/leggings/plating",
-      "stat_type": "tconstruct:plating_leggings"
-    },
-    {
-      "path": "tconstruct:item/tool/armor/plate/leggings/plating_broken",
-      "stat_type": "tconstruct:plating_leggings"
-    },
-    {
-      "path": "tconstruct:item/tool/armor/plate/leggings/maille",
-      "stat_type": "tconstruct:maille"
-    },
-    {
-      "path": "tconstruct:item/tool/armor/plate/leggings/maille_broken",
+      "path": "tconstruct:item/tool/armor/plate/helmet/maille_broken",
       "stat_type": "tconstruct:maille"
     },
     {
@@ -173,19 +157,35 @@
       "stat_type": "tconstruct:maille"
     },
     {
-      "path": "tconstruct:item/tool/armor/plate/helmet/plating",
-      "stat_type": "tconstruct:plating_helmet"
+      "path": "tconstruct:item/tool/armor/plate/leggings/plating",
+      "stat_type": "tconstruct:plating_leggings"
     },
     {
-      "path": "tconstruct:item/tool/armor/plate/helmet/plating_broken",
-      "stat_type": "tconstruct:plating_helmet"
+      "path": "tconstruct:item/tool/armor/plate/leggings/plating_broken",
+      "stat_type": "tconstruct:plating_leggings"
     },
     {
-      "path": "tconstruct:item/tool/armor/plate/helmet/maille",
+      "path": "tconstruct:item/tool/armor/plate/leggings/maille",
       "stat_type": "tconstruct:maille"
     },
     {
-      "path": "tconstruct:item/tool/armor/plate/helmet/maille_broken",
+      "path": "tconstruct:item/tool/armor/plate/leggings/maille_broken",
+      "stat_type": "tconstruct:maille"
+    },
+    {
+      "path": "tconstruct:item/tool/armor/plate/boots/plating",
+      "stat_type": "tconstruct:plating_boots"
+    },
+    {
+      "path": "tconstruct:item/tool/armor/plate/boots/plating_broken",
+      "stat_type": "tconstruct:plating_boots"
+    },
+    {
+      "path": "tconstruct:item/tool/armor/plate/boots/maille",
+      "stat_type": "tconstruct:maille"
+    },
+    {
+      "path": "tconstruct:item/tool/armor/plate/boots/maille_broken",
       "stat_type": "tconstruct:maille"
     },
     {
@@ -304,8 +304,8 @@
       "stat_type": "tconstruct:head"
     },
     {
-      "path": "tconstruct:item/tool/vein_hammer/back",
-      "stat_type": "tconstruct:head"
+      "path": "tconstruct:item/tool/vein_hammer/grip",
+      "stat_type": "tconstruct:binding"
     },
     {
       "path": "tconstruct:item/tool/vein_hammer/front",
@@ -328,8 +328,8 @@
       "stat_type": "tconstruct:head"
     },
     {
-      "path": "tconstruct:item/tool/vein_hammer/large/back",
-      "stat_type": "tconstruct:head"
+      "path": "tconstruct:item/tool/vein_hammer/large/grip",
+      "stat_type": "tconstruct:binding"
     },
     {
       "path": "tconstruct:item/tool/vein_hammer/large/front",
@@ -360,11 +360,15 @@
       "stat_type": "tconstruct:head"
     },
     {
-      "path": "tconstruct:item/tool/pickadze/axe",
+      "path": "tconstruct:item/tool/pickadze/pick",
       "stat_type": "tconstruct:head"
     },
     {
-      "path": "tconstruct:item/tool/pickadze/axe_broken",
+      "path": "tconstruct:item/tool/pickadze/pick_broken",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/pickadze/adze",
       "stat_type": "tconstruct:head"
     },
     {
@@ -377,7 +381,7 @@
     },
     {
       "path": "tconstruct:item/tool/excavator/binding",
-      "stat_type": "tconstruct:head"
+      "stat_type": "tconstruct:binding"
     },
     {
       "path": "tconstruct:item/tool/excavator/handle",
@@ -397,7 +401,7 @@
     },
     {
       "path": "tconstruct:item/tool/excavator/large/binding",
-      "stat_type": "tconstruct:head"
+      "stat_type": "tconstruct:binding"
     },
     {
       "path": "tconstruct:item/tool/excavator/large/handle",
@@ -608,6 +612,10 @@
       "stat_type": "tconstruct:bowstring"
     },
     {
+      "path": "tconstruct:item/tool/crossbow/bowstring_broken",
+      "stat_type": "tconstruct:bowstring"
+    },
+    {
       "path": "tconstruct:item/tool/crossbow/bowstring_1",
       "stat_type": "tconstruct:bowstring"
     },
@@ -749,6 +757,10 @@
     },
     {
       "path": "tconstruct:item/tool/war_pick/bowstring",
+      "stat_type": "tconstruct:bowstring"
+    },
+    {
+      "path": "tconstruct:item/tool/war_pick/bowstring_broken",
       "stat_type": "tconstruct:bowstring"
     },
     {

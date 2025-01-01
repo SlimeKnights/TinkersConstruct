@@ -1,13 +1,13 @@
 package slimeknights.tconstruct.tools.data.material;
 
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.data.material.AbstractMaterialDataProvider;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 
 public class MaterialDataProvider extends AbstractMaterialDataProvider {
-  public MaterialDataProvider(DataGenerator gen) {
-    super(gen);
+  public MaterialDataProvider(PackOutput packOutput) {
+    super(packOutput);
   }
 
   @Override

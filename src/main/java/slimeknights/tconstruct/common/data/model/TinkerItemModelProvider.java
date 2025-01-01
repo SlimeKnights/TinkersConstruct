@@ -1,8 +1,9 @@
 package slimeknights.tconstruct.common.data.model;
 
-import net.minecraft.core.Registry;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
@@ -15,15 +16,14 @@ import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.library.tools.part.MaterialItem;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tools.TinkerToolParts;
-import slimeknights.tconstruct.tools.item.ArmorSlotType;
 
 import static slimeknights.tconstruct.TConstruct.getResource;
 
 @SuppressWarnings("UnusedReturnValue")
 public class TinkerItemModelProvider extends ItemModelProvider {
   private final UncheckedModelFile GENERATED = new UncheckedModelFile("item/generated");
-  public TinkerItemModelProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-    super(generator, TConstruct.MOD_ID, existingFileHelper);
+  public TinkerItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
+    super(output, TConstruct.MOD_ID, existingFileHelper);
   }
 
   @Override
@@ -39,7 +39,7 @@ public class TinkerItemModelProvider extends ItemModelProvider {
     part(TinkerToolParts.smallBlade);
     part(TinkerToolParts.broadBlade, "cleaver/head").offset(-1, 1);
     // plates
-    part(TinkerToolParts.roundPlate);
+    part(TinkerToolParts.adzeHead, "pickadze/adze").offset(-5, 1);
     part(TinkerToolParts.largePlate);
     // bows
     part(TinkerToolParts.bowLimb, "longbow/limb_bottom").offset(5, -2);
@@ -49,13 +49,14 @@ public class TinkerItemModelProvider extends ItemModelProvider {
     part(TinkerToolParts.toolBinding);
     part(TinkerToolParts.toolHandle);
     part(TinkerToolParts.toughHandle);
+    part(TinkerToolParts.toughBinding);
     part(TinkerToolParts.repairKit);
     // armor
     TinkerToolParts.plating.forEach((slot, item) -> {
-      MaterialModelBuilder<ItemModelBuilder> b = this.part(item, "armor/plate/" + slot.getSerializedName() + "/plating");
-      if (slot == ArmorSlotType.HELMET) {
+      MaterialModelBuilder<ItemModelBuilder> b = this.part(item, "armor/plate/" + slot.getName() + "/plating");
+      if (slot == ArmorItem.Type.HELMET) {
         b.offset(0, 2);
-      } else if (slot == ArmorSlotType.LEGGINGS) {
+      } else if (slot == ArmorItem.Type.LEGGINGS) {
         b.offset(0, 1);
       }
     });
@@ -80,14 +81,15 @@ public class TinkerItemModelProvider extends ItemModelProvider {
     cast(TinkerSmeltery.pickHeadCast);
     cast(TinkerSmeltery.smallAxeHeadCast);
     cast(TinkerSmeltery.smallBladeCast);
+    cast(TinkerSmeltery.adzeHeadCast);
     // large heads
     cast(TinkerSmeltery.hammerHeadCast);
     cast(TinkerSmeltery.broadBladeCast);
     cast(TinkerSmeltery.broadAxeHeadCast);
+    cast(TinkerSmeltery.largePlateCast);
     // bindings
     cast(TinkerSmeltery.toolBindingCast);
-    cast(TinkerSmeltery.roundPlateCast);
-    cast(TinkerSmeltery.largePlateCast);
+    cast(TinkerSmeltery.toughBindingCast);
     // tool rods
     cast(TinkerSmeltery.toolHandleCast);
     cast(TinkerSmeltery.toughHandleCast);
@@ -101,13 +103,12 @@ public class TinkerItemModelProvider extends ItemModelProvider {
     cast(TinkerSmeltery.bootsPlatingCast);
     cast(TinkerSmeltery.mailleCast);
     // dummy parts
-    TinkerSmeltery.dummyPlating.forEach((type, item) -> {
-      basicItem(item, "tool/parts/plating_" + type.getSerializedName());
-    });
+    TinkerSmeltery.dummyPlating.forEach((type, item) -> basicItem(item, "tool/parts/plating_" + type.getName()));
   }
 
+  @SuppressWarnings("deprecation") // no its not
   private ResourceLocation id(ItemLike item) {
-    return Registry.ITEM.getKey(item.asItem());
+    return BuiltInRegistries.ITEM.getKey(item.asItem());
   }
 
   /** Generated item with a texture */

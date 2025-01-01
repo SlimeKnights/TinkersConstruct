@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.traits.skull;
 
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -27,7 +28,7 @@ public class FrosttouchModifier extends NoLevelsModifier implements DamageDealtM
     // must drink milk to melee slowness. Always can range slowness
     if (isDirectDamage) {
       boolean isCalcified = context.getEntity().hasEffect(TinkerModifiers.calcifiedEffect.get());
-      if (isCalcified || source.isProjectile()) {
+      if (isCalcified || source.is(DamageTypeTags.IS_PROJECTILE)) {
         target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 300, isCalcified ? 1 : 0));
       }
     }

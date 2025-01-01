@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.slotless;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
@@ -26,11 +27,11 @@ public class EmbellishmentModifier extends NoLevelsModifier implements ModifierR
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
-    hookBuilder.addHook(this, ModifierHooks.REMOVE);
+    hookBuilder.addHook(this, ModifierHooks.REMOVE, ModifierHooks.RAW_DATA);
   }
 
   @Override
-  public Component getDisplayName(IToolStackView tool, ModifierEntry entry) {
+  public Component getDisplayName(IToolStackView tool, ModifierEntry entry, @Nullable RegistryAccess access) {
     MaterialVariantId materialVariant = MaterialVariantId.tryParse(tool.getPersistentData().getString(getId()));
     if (materialVariant != null) {
       return Component.translatable(FORMAT_KEY, MaterialTooltipCache.getDisplayName(materialVariant)).withStyle(style -> style.withColor(MaterialTooltipCache.getColor(materialVariant)));

@@ -5,10 +5,10 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.mantle.data.loadable.record.SingletonLoader;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.SingletonLoader;
 import slimeknights.tconstruct.library.events.teleport.FluidEffectTeleportEvent;
 import slimeknights.tconstruct.library.utils.TeleportHelper;
 
@@ -20,13 +20,13 @@ public interface FluidEffect<C extends FluidEffectContext> extends IHaveLoader, 
   GenericLoaderRegistry<FluidEffect<? super FluidEffectContext.Entity>> ENTITY_EFFECTS = new GenericLoaderRegistry<>("Fluid entity effect", false);
 
   /** Registers an effect to both blocks and entities */
-  static void registerGeneral(ResourceLocation id, IGenericLoader<? extends FluidEffect<FluidEffectContext>> loader) {
+  static void registerGeneral(ResourceLocation id, RecordLoadable<? extends FluidEffect<FluidEffectContext>> loader) {
     BLOCK_EFFECTS.register(id, loader);
     ENTITY_EFFECTS.register(id, loader);
   }
 
   @Override
-  IGenericLoader<? extends FluidEffect<C>> getLoader();
+  RecordLoadable<? extends FluidEffect<C>> getLoader();
 
 
   /* Singletons */
@@ -57,9 +57,9 @@ public interface FluidEffect<C extends FluidEffectContext> extends IHaveLoader, 
 
   /** Creates a simple fluid effect with no JSON parameters */
   static <C extends FluidEffectContext> FluidEffect<C> simple(UnloadableFluidEffect<C> effect) {
-    return SingletonLoader.singleton(loader -> new FluidEffect<C>() {
+    return SingletonLoader.<FluidEffect<C>>singleton(loader -> new FluidEffect<>() {
       @Override
-      public IGenericLoader<? extends FluidEffect<C>> getLoader() {
+      public RecordLoadable<? extends FluidEffect<C>> getLoader() {
         return loader;
       }
 

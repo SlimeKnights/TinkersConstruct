@@ -30,7 +30,7 @@ public class MooshroomDemushroomingRecipe extends SeveringRecipe {
   public ItemStack getOutput(Entity entity) {
     if (entity instanceof MushroomCow mooshroom) {
       if (!mooshroom.isBaby()) {
-        return new ItemStack(mooshroom.getMushroomType() == MushroomType.BROWN ? Items.BROWN_MUSHROOM : Items.RED_MUSHROOM, 5);
+        return new ItemStack(mooshroom.getVariant() == MushroomType.BROWN ? Items.BROWN_MUSHROOM : Items.RED_MUSHROOM, 5);
       }
     }
     return ItemStack.EMPTY;

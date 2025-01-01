@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.json.variable.entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.LightLayer;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
 
 /** Gets the light level at the entity position */
@@ -12,11 +11,11 @@ public record EntityLightVariable(LightLayer lightLayer) implements EntityVariab
 
   @Override
   public float getValue(LivingEntity entity) {
-    return entity.level.getBrightness(lightLayer, entity.blockPosition());
+    return entity.level().getBrightness(lightLayer, entity.blockPosition());
   }
 
   @Override
-  public IGenericLoader<? extends EntityVariable> getLoader() {
+  public RecordLoadable<EntityLightVariable> getLoader() {
     return LOADER;
   }
 }

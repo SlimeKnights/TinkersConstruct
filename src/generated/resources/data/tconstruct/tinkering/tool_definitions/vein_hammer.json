@@ -5,13 +5,10 @@
       "parts": [
         {
           "item": "tconstruct:hammer_head",
-          "scale": 0.5
+          "scale": 0.75
         },
         "tconstruct:tough_handle",
-        {
-          "item": "tconstruct:pick_head",
-          "scale": 0.25
-        },
+        "tconstruct:tough_binding",
         {
           "item": "tconstruct:large_plate",
           "scale": 0.25

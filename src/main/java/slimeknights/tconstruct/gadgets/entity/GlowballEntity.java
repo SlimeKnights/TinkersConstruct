@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
@@ -38,9 +39,11 @@ public class GlowballEntity extends ThrowableItemProjectile implements IEntityAd
     return TinkerGadgets.glowBall.get();
   }
 
+  @SuppressWarnings("ConstantConditions")  // getType() enforces the class type
   @Override
   protected void onHit(HitResult result) {
-    if (!this.level.isClientSide) {
+    Level level = level();
+    if (!level.isClientSide) {
       BlockPos position = null;
       Direction direction = Direction.DOWN;
 
@@ -49,18 +52,18 @@ public class GlowballEntity extends ThrowableItemProjectile implements IEntityAd
       }
 
       if (result.getType() == HitResult.Type.BLOCK) {
-        BlockHitResult blockraytraceresult = (BlockHitResult) result;
-        position = blockraytraceresult.getBlockPos().relative(blockraytraceresult.getDirection());
-        direction = blockraytraceresult.getDirection().getOpposite();
+        BlockHitResult blockHit = (BlockHitResult) result;
+        position = blockHit.getBlockPos().relative(blockHit.getDirection());
+        direction = blockHit.getDirection().getOpposite();
       }
 
       if (position != null) {
-        TinkerCommons.glow.get().addGlow(this.level, position, direction);
+        TinkerCommons.glow.get().addGlow(level, position, direction);
       }
     }
 
-    if (!this.level.isClientSide) {
-      this.level.broadcastEntityEvent(this, (byte) 3);
+    if (!level.isClientSide) {
+      level.broadcastEntityEvent(this, (byte) 3);
       this.discard();
     }
   }
@@ -77,7 +80,7 @@ public class GlowballEntity extends ThrowableItemProjectile implements IEntityAd
 
   @Nonnull
   @Override
-  public Packet<?> getAddEntityPacket() {
+  public Packet<ClientGamePacketListener> getAddEntityPacket() {
     return NetworkHooks.getEntitySpawningPacket(this);
   }
 }

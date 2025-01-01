@@ -14,7 +14,8 @@
           "mantle:can_protect",
           {
             "type": "mantle:attacker",
-            "entity_type": "mantle:fire_immune"
+            "entity_type": "mantle:fire_immune",
+            "which": "causing"
           }
         ]
       },

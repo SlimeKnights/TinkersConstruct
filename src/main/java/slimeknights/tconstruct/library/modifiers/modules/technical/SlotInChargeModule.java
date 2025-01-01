@@ -28,7 +28,7 @@ public record SlotInChargeModule(TinkerDataKey<SlotInCharge> key) implements Hoo
 
   /** Checks if the given tool cares about this modifier */
   private static boolean toolValid(IToolStackView tool, EquipmentSlot slot, EquipmentChangeContext context) {
-    if (!tool.isBroken() && !context.getEntity().level.isClientSide) {
+    if (!tool.isBroken() && !context.getEntity().level().isClientSide) {
       return ModifierUtil.validArmorSlot(tool, slot);
     }
     return false;

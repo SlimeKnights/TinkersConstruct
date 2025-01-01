@@ -8,6 +8,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.library.events.teleport.EnderSlimeTeleportEvent;
@@ -15,7 +16,6 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.TeleportHelper;
 import slimeknights.tconstruct.library.utils.TeleportHelper.ITeleportEventFactory;
 import slimeknights.tconstruct.tools.TinkerTools;
-import slimeknights.tconstruct.tools.item.ArmorSlotType;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 public class EnderSlimeEntity extends ArmoredSlimeEntity {
@@ -55,7 +55,7 @@ public class EnderSlimeEntity extends ArmoredSlimeEntity {
     float multiplier = difficulty.getSpecialMultiplier();
     if (this.random.nextFloat() < 0.15F * difficulty.getSpecialMultiplier()) {
       // 2.5% chance of plate
-      ItemStack helmet = new ItemStack(TinkerTools.slimesuit.get(ArmorSlotType.HELMET));
+      ItemStack helmet = new ItemStack(TinkerTools.slimesuit.get(ArmorItem.Type.HELMET));
       // just init stats, will set random material
       ToolStack.from(helmet).ensureHasData();
       // finally, give the slime the helmet

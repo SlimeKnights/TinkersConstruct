@@ -291,7 +291,7 @@
   "pattern.tconstruct.pick_head": "Pick Head",
   "pattern.tconstruct.small_axe_head": "Small Axe Head",
   "pattern.tconstruct.small_blade": "Small Blade",
-  "pattern.tconstruct.sign_head": "Sign Head",
+  "pattern.tconstruct.adze_head": "Adze Head",
   "pattern.tconstruct.bow_limb": "Bow Limb",
 
   "_comment": "Large Head Patterns",
@@ -299,12 +299,12 @@
   "pattern.tconstruct.hammer_head": "Hammer Head",
   "pattern.tconstruct.broad_axe_head": "Broad Axe Head",
   "pattern.tconstruct.broad_blade": "Broad Blade",
+  "pattern.tconstruct.large_plate": "Large Plate",
 
   "_comment": "Binding Patterns",
 
   "pattern.tconstruct.tool_binding": "Tool Binding",
-  "pattern.tconstruct.round_plate": "Round Plate",
-  "pattern.tconstruct.large_plate": "Large Plate",
+  "pattern.tconstruct.tough_binding": "Tough Collar",
   "pattern.tconstruct.bowstring": "Bowstring",
   "pattern.tconstruct.maille": "Maille",
   "pattern.tconstruct.shield_core": "Shield Core",
@@ -338,21 +338,21 @@
   "item.tconstruct.pick_head_cast": "Pick Head Gold Cast",
   "item.tconstruct.small_axe_head_cast": "Small Axe Head Gold Cast",
   "item.tconstruct.small_blade_cast": "Small Blade Gold Cast",
-  "item.tconstruct.sign_head_cast": "Sign Head Gold Cast",
   "item.tconstruct.bow_limb_cast": "Bow Limb Gold Cast",
   "item.tconstruct.bow_grip_cast": "Bow Grip Gold Cast",
+  "item.tconstruct.adze_head_cast": "Adze Head Gold Cast",
 
   "_comment": "Large Head Gold Casts",
 
   "item.tconstruct.hammer_head_cast": "Hammer Head Gold Cast",
   "item.tconstruct.broad_axe_head_cast": "Broad Axe Head Gold Cast",
   "item.tconstruct.broad_blade_cast": "Broad Blade Gold Cast",
+  "item.tconstruct.large_plate_cast": "Large Plate Gold Cast",
 
   "_comment": "Binding Gold Casts",
 
   "item.tconstruct.tool_binding_cast": "Tool Binding Gold Cast",
-  "item.tconstruct.round_plate_cast": "Round Plate Gold Cast",
-  "item.tconstruct.large_plate_cast": "Large Plate Gold Cast",
+  "item.tconstruct.tough_binding_cast": "Tough Collar Gold Cast",
 
   "_comment": "Tool Handle Gold Casts",
 
@@ -387,21 +387,21 @@
   "item.tconstruct.pick_head_sand_cast": "Pick Head Sand Cast",
   "item.tconstruct.small_axe_head_sand_cast": "Small Axe Head Sand Cast",
   "item.tconstruct.small_blade_sand_cast": "Small Blade Sand Cast",
-  "item.tconstruct.sign_head_sand_cast": "Sign Head Sand Cast",
   "item.tconstruct.bow_limb_sand_cast": "Bow Limb Sand Cast",
   "item.tconstruct.bow_grip_sand_cast": "Bow Grip Sand Cast",
+  "item.tconstruct.adze_head_sand_cast": "Adze Head Sand Cast",
 
   "_comment": "Large Head Sand Casts",
 
   "item.tconstruct.hammer_head_sand_cast": "Hammer Head Sand Cast",
   "item.tconstruct.broad_axe_head_sand_cast": "Broad Axe Head Sand Cast",
   "item.tconstruct.broad_blade_sand_cast": "Broad Blade Sand Cast",
+  "item.tconstruct.large_plate_sand_cast": "Large Plate Sand Cast",
 
   "_comment": "Binding Sand Casts",
 
   "item.tconstruct.tool_binding_sand_cast": "Tool Binding Sand Cast",
-  "item.tconstruct.round_plate_sand_cast": "Round Plate Sand Cast",
-  "item.tconstruct.large_plate_sand_cast": "Large Plate Sand Cast",
+  "item.tconstruct.tough_binding_sand_cast": "Tough Collar Sand Cast",
 
   "_comment": "Tool Handle Sand Casts",
 
@@ -437,21 +437,21 @@
   "item.tconstruct.pick_head_red_sand_cast": "Pick Head Red Sand Cast",
   "item.tconstruct.small_axe_head_red_sand_cast": "Small Axe Head Red Sand Cast",
   "item.tconstruct.small_blade_red_sand_cast": "Small Blade Red Sand Cast",
-  "item.tconstruct.sign_head_red_sand_cast": "Sign Head Red Sand Cast",
   "item.tconstruct.bow_limb_red_sand_cast": "Bow Limb Red Sand Cast",
   "item.tconstruct.bow_grip_red_sand_cast": "Bow Grip Red Sand Cast",
+  "item.tconstruct.adze_head_red_sand_cast": "Adze Head Red Sand Cast",
 
   "_comment": "Large Head Red Sand Casts",
 
   "item.tconstruct.hammer_head_red_sand_cast": "Hammer Head Red Sand Cast",
   "item.tconstruct.broad_axe_head_red_sand_cast": "Broad Axe Head Red Sand Cast",
   "item.tconstruct.broad_blade_red_sand_cast": "Broad Blade Red Sand Cast",
+  "item.tconstruct.large_plate_red_sand_cast": "Large Plate Red Sand Cast",
 
   "_comment": "Binding Red Sand Casts",
 
   "item.tconstruct.tool_binding_red_sand_cast": "Tool Binding Red Sand Cast",
-  "item.tconstruct.round_plate_red_sand_cast": "Round Plate Red Sand Cast",
-  "item.tconstruct.large_plate_red_sand_cast": "Large Plate Red Sand Cast",
+  "item.tconstruct.tough_binding_red_sand_cast": "Tough Collar Red Sand Cast",
 
   "_comment": "Tool Handle Red Sand Casts",
 
@@ -853,7 +853,6 @@
   "block.tconstruct.drowned_head":          "Drowned Head",
   "block.tconstruct.spider_head":           "Spider Head",
   "block.tconstruct.cave_spider_head":      "Cave Spider Head",
-  "block.tconstruct.piglin_head":           "Piglin Head",
   "block.tconstruct.piglin_brute_head":     "Piglin Brute Head",
   "block.tconstruct.zombified_piglin_head": "Zombified Piglin Head",
 
@@ -970,7 +969,8 @@
   "item.tconstruct.tool_handle": "Tool Handle",
   "item.tconstruct.tough_handle": "Tough Handle",
   "item.tconstruct.tool_binding": "Tool Binding",
-  "item.tconstruct.round_plate": "Round Plate",
+  "item.tconstruct.tough_binding": "Tough Collar",
+  "item.tconstruct.adze_head": "Adze Head",
   "item.tconstruct.large_plate": "Large Plate",
   
   "item.tconstruct.bow_limb": "Bow Limb",
@@ -1037,6 +1037,15 @@
   "death.attack.tconstruct.smeltery_magic.player": "%1$s has become one with the smeltery whilst fighting %2$s",
   "death.attack.tconstruct.self_destruct": "%1$s self destructed",
   "death.attack.tconstruct.self_destruct.player": "%1$s self destructed whilst fighting %2$s",
+  "death.attack.tconstruct.piercing": "%1$s was pierced by %2$s",
+  "death.attack.tconstruct.piercing.item": "%1$s was pierced by %2$s using %3$s",
+
+  "death.attack.tconstruct.fluid.fire": "%1$s was burned by %2$s",
+  "death.attack.tconstruct.fluid.fire.item": "%1$s was burned by %2$s using %3$s",
+  "death.attack.tconstruct.fluid.magic": "%1$s was smite by %2$s",
+  "death.attack.tconstruct.fluid.magic.item": "%1$s was smite by %2$s using %3$s",
+  "death.attack.tconstruct.fluid.water": "%1$s was drowned by %2$s",
+  "death.attack.tconstruct.fluid.water.item": "%1$s was drowned by %2$s using %3$s",
 
   "gui.tconstruct.melting.no_recipe": "Item cannot be molten.",
   "gui.tconstruct.melting.no_heat": "Not enough heat to melt this item.",
@@ -1402,6 +1411,8 @@
   "block.tconstruct.greenheart_button":         "Greenheart Button",
   "block.tconstruct.greenheart_sign":           "Greenheart Sign",
   "block.tconstruct.greenheart_wall_sign":      "Greenheart Sign",
+  "block.tconstruct.greenheart_hanging_sign":   "Greenheart Hanging Sign",
+  "block.tconstruct.greenheart_wall_hanging_sign": "Greenheart Hanging Sign",
 
   "block.tconstruct.skyroot_planks":        "Skyroot Planks",
   "block.tconstruct.skyroot_planks_slab":   "Skyroot Slab",
@@ -1419,6 +1430,8 @@
   "block.tconstruct.skyroot_button":         "Skyroot Button",
   "block.tconstruct.skyroot_sign":           "Skyroot Sign",
   "block.tconstruct.skyroot_wall_sign":      "Skyroot Sign",
+  "block.tconstruct.skyroot_hanging_sign":   "Skyroot Hanging Sign",
+  "block.tconstruct.skyroot_wall_hanging_sign": "Skyroot Hanging Sign",
 
   "block.tconstruct.bloodshroom_planks":        "Bloodshroom Planks",
   "block.tconstruct.bloodshroom_planks_slab":   "Bloodshroom Slab",
@@ -1436,6 +1449,8 @@
   "block.tconstruct.bloodshroom_button":         "Bloodshroom Button",
   "block.tconstruct.bloodshroom_sign":           "Bloodshroom Sign",
   "block.tconstruct.bloodshroom_wall_sign":      "Bloodshroom Sign",
+  "block.tconstruct.bloodshroom_hanging_sign":   "Bloodshroom Hanging Sign",
+  "block.tconstruct.bloodshroom_wall_hanging_sign": "Bloodshroom Hanging Sign",
 
   "block.tconstruct.enderbark_planks":        "Enderbark Planks",
   "block.tconstruct.enderbark_planks_slab":   "Enderbark Slab",
@@ -1459,6 +1474,8 @@
   "block.tconstruct.enderbark_button":         "Enderbark Button",
   "block.tconstruct.enderbark_sign":           "Enderbark Sign",
   "block.tconstruct.enderbark_wall_sign":      "Enderbark Sign",
+  "block.tconstruct.enderbark_hanging_sign":   "Enderbark Hanging Sign",
+  "block.tconstruct.enderbark_wall_hanging_sign": "Enderbark Hanging Sign",
 
 
   "material.tconstruct.unknown": "Unknown",
@@ -1472,6 +1489,7 @@
   "material.tconstruct.wood.acacia":   "Acacia Wood",
   "material.tconstruct.wood.dark_oak": "Dark Oak Wood",
   "material.tconstruct.wood.mangrove": "Mangrove Wood",
+  "material.tconstruct.wood.cherry":   "Cherry Wood",
   "material.tconstruct.wood.crimson":  "Crimson Hyphae",
   "material.tconstruct.wood.warped":   "Warped Hyphae",
   "material.tconstruct.wood.format": "Wooden %s",
@@ -2014,6 +2032,10 @@
   "modifier.tconstruct.dyed.formatted": "Dyed #%s",
   "modifier.tconstruct.dyed.flavor": "Redecorate!",
   "modifier.tconstruct.dyed.description": "Armor appearance changed to match a different material",
+  "modifier.tconstruct.trim": "Armor Trim",
+  "modifier.tconstruct.trim.formatted": "%s (%s)",
+  "modifier.tconstruct.trim.flavor": "Complex detailing!",
+  "modifier.tconstruct.trim.description": "Additional armor detailing using expensive patterns",
 
   "_comment": "Armor - Protection",
   "modifier.tconstruct.protection": "Protection",
@@ -2809,11 +2831,12 @@
   "_comment": "GUIs",
 
   "itemGroup.tconstruct.general": "Tinkers' General Items",
+  "itemGroup.tconstruct.tables": "Tinkers' Tables",
   "itemGroup.tconstruct.tools": "Tinkers' Tools",
-  "itemGroup.tconstruct.tool_parts": "Tinkers' Toolparts",
+  "itemGroup.tconstruct.tool_parts": "Tinkers' Parts",
   "itemGroup.tconstruct.smeltery": "Tinkers' Smeltery",
+  "itemGroup.tconstruct.fluids": "Tinkers' Fluids",
   "itemGroup.tconstruct.world": "Tinkers' World",
-  "itemGroup.tconstruct.gadgets": "Tinkers' Gadgets",
 
   "gui.tconstruct.crafting_station": "Crafting Station",
   "gui.tconstruct.crafting_station.uncraftable": "This item is not currently craftable by the player",
@@ -2896,6 +2919,9 @@
   "recipe.tconstruct.modifier.max_level": "This recipe cannot increase %s above level %s (ignoring traits)",
   "recipe.tconstruct.modifier.min_level.traits": "This recipe requires the tool to have at least %s to apply (including traits)",
   "recipe.tconstruct.modifier.max_level.traits": "This recipe cannot increase %s above level %s (including traits)",
+
+  "recipe.tconstruct.modifier.armor_trim.invalid_material": "%s is not a valid trim material, this usually indicates an invalid tag",
+  "recipe.tconstruct.modifier.armor_trim.invalid_pattern": "%s is not a valid trim pattern, this usually indicates an invalid tag",
 
   "recipe.tconstruct.tool_recycling": "Tool Recycling",
   "recipe.tconstruct.tool_recycling.info": "Select which part to salvage from this tool. There is a chance based on the tool's remaining durability to salvage a second part.",

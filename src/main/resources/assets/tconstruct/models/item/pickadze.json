@@ -2,15 +2,15 @@
   "loader": "tconstruct:tool",
   "parent": "forge:item/default-tool",
   "textures": {
-    "axe":    "tconstruct:item/tool/pickadze/axe",
-    "pick":   "tconstruct:item/tool/mattock/pick",
+    "adze":   "tconstruct:item/tool/pickadze/adze",
+    "pick":   "tconstruct:item/tool/pickadze/pick",
     "handle": "tconstruct:item/tool/pickaxe/handle"
   },
   "modifier_roots": [ "tconstruct:item/tool/pickadze/modifiers/" ],
   "parts": [
     { "name": "handle", "index": 1 },
-    { "name": "axe",    "index": 0 },
-    { "name": "pick",   "index": 2 }
+    { "name": "pick",   "index": 0 },
+    { "name": "adze",   "index": 2 }
   ],
   "overrides": [
     {

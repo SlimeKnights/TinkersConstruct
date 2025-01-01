@@ -6,6 +6,7 @@
     "maille":  "tconstruct:item/tool/armor/plate/helmet/maille"
   },
   "modifier_roots": [ "tconstruct:item/tool/armor/plate/helmet/modifiers/" ],
+  "first_modifiers": [ "tconstruct:trim" ],
   "parts": [
     { "name": "plating", "index": 0 },
     { "name": "maille",  "index": 1 }

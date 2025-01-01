@@ -5,7 +5,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
@@ -15,11 +15,11 @@ import java.util.Locale;
 /** Variants of slimy dirt */
 @Getter
 public enum DirtType implements StringRepresentable {
-  EARTH  (Tiers.STONE,   MaterialColor.GRASS),
-  SKY    (Tiers.GOLD,    MaterialColor.WARPED_STEM),
-  ICHOR  (Tiers.IRON,    MaterialColor.TERRACOTTA_LIGHT_BLUE),
-  ENDER  (Tiers.DIAMOND, MaterialColor.TERRACOTTA_ORANGE),
-  VANILLA(Tiers.WOOD,    MaterialColor.DIRT);
+  EARTH  (Tiers.STONE,   MapColor.GRASS),
+  SKY    (Tiers.GOLD,    MapColor.WARPED_STEM),
+  ICHOR  (Tiers.IRON,    MapColor.TERRACOTTA_LIGHT_BLUE),
+  ENDER  (Tiers.DIAMOND, MapColor.TERRACOTTA_ORANGE),
+  VANILLA(Tiers.WOOD,    MapColor.DIRT);
 
   /** Dirt types added by the mod */
   public static final DirtType[] TINKER = {EARTH, SKY, ICHOR, ENDER};
@@ -27,7 +27,7 @@ public enum DirtType implements StringRepresentable {
   /** Tier needed to harvest dirt blocks of this type */
   private final Tiers harvestTier;
   /** Color for this block on maps */
-  private final MaterialColor mapColor;
+  private final MapColor mapColor;
   @Getter
   private final String serializedName = this.name().toLowerCase(Locale.ROOT);
 
@@ -35,7 +35,7 @@ public enum DirtType implements StringRepresentable {
   /** Tag for dirt blocks of this type, including blocks with grass on top */
   private final TagKey<Block> blockTag;
 
-  DirtType(Tiers harvestTier, MaterialColor mapColor) {
+  DirtType(Tiers harvestTier, MapColor mapColor) {
     this.harvestTier = harvestTier;
     this.mapColor = mapColor;
     this.blockTag = TinkerTags.Blocks.tag("slimy_soil/" + this.getSerializedName());

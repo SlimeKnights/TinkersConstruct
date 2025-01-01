@@ -1,0 +1,10 @@
+{
+  "values": [
+    "#tconstruct:protection/fall",
+    "minecraft:player_attack",
+    "minecraft:mob_attack",
+    "minecraft:mob_attack_no_aggro",
+    "minecraft:cramming",
+    "minecraft:sting"
+  ]
+}

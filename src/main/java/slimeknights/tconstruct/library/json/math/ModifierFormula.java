@@ -47,7 +47,7 @@ public sealed interface ModifierFormula permits PostFixFormula, SimpleLevelingFo
     if (json.has("formula")) {
       return PostFixFormula.deserialize(json, variableNames);
     }
-    LevelingValue leveling = LevelingValue.deserialize(json);
+    LevelingValue leveling = LevelingValue.LOADABLE.deserialize(json);
     return new SimpleLevelingFormula(leveling, fallback);
   }
 
@@ -61,7 +61,7 @@ public sealed interface ModifierFormula permits PostFixFormula, SimpleLevelingFo
   static ModifierFormula fromNetwork(FriendlyByteBuf buffer, int numArguments, FallbackFormula fallback) {
     short size = buffer.readShort();
     if (size == -1) {
-      LevelingValue leveling = LevelingValue.fromNetwork(buffer);
+      LevelingValue leveling = LevelingValue.LOADABLE.decode(buffer);
       return new SimpleLevelingFormula(leveling, fallback);
     }
     return PostFixFormula.fromNetwork(buffer, size, numArguments);

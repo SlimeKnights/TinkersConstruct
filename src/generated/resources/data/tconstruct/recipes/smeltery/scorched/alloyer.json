@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "B": {
       "item": "tconstruct:scorched_brick"
@@ -22,5 +23,6 @@
   ],
   "result": {
     "item": "tconstruct:scorched_alloyer"
-  }
+  },
+  "show_notification": true
 }

@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.tools.client;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
@@ -12,7 +11,6 @@ import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.Slot;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.client.RenderUtils;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 import slimeknights.tconstruct.library.tools.capability.inventory.ToolInventoryCapability;
@@ -86,51 +84,50 @@ public class ToolContainerScreen extends AbstractContainerScreen<ToolContainerMe
   }
 
   @Override
-  public void render(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-    this.renderBackground(matrixStack);
-    super.render(matrixStack, mouseX, mouseY, partialTicks);
-    this.renderTooltip(matrixStack, mouseX, mouseY);
+  public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+    this.renderBackground(graphics);
+    super.render(graphics, mouseX, mouseY, partialTicks);
+    this.renderTooltip(graphics, mouseX, mouseY);
   }
 
   @Override
-  protected void renderBg(PoseStack matrixStack, float partialTicks, int x, int y) {
-    RenderUtils.setup(TEXTURE);
+  protected void renderBg(GuiGraphics graphics, float partialTicks, int x, int y) {
     int xStart = (this.width - this.imageWidth) / 2;
     int yStart = (this.height - this.imageHeight) / 2;
 
     int yOffset; // after ifs, will be the height of the final element
     if (inventoryRows <= REPEAT_BACKGROUND_ROWS) {
       yOffset = inventoryRows * SLOT_SIZE + REPEAT_BACKGROUND_START;
-      this.blit(matrixStack, xStart, yStart, 0, 0, this.imageWidth, yOffset);
+      graphics.blit(TEXTURE, xStart, yStart, 0, 0, this.imageWidth, yOffset);
     } else {
       // draw top area with first 6 rows
       yOffset = REPEAT_BACKGROUND_ROWS * SLOT_SIZE + REPEAT_BACKGROUND_START;
-      this.blit(matrixStack, xStart, yStart, 0, 0, this.imageWidth, yOffset);
+      graphics.blit(TEXTURE, xStart, yStart, 0, 0, this.imageWidth, yOffset);
 
       // draw each next group of 6
       int remaining = inventoryRows - REPEAT_BACKGROUND_ROWS;
       int height = REPEAT_BACKGROUND_ROWS * SLOT_SIZE;
       for (; remaining > REPEAT_BACKGROUND_ROWS; remaining -= REPEAT_BACKGROUND_ROWS) {
-        this.blit(matrixStack, xStart, yStart + yOffset, 0, REPEAT_BACKGROUND_START, this.imageWidth, height);
+        graphics.blit(TEXTURE, xStart, yStart + yOffset, 0, REPEAT_BACKGROUND_START, this.imageWidth, height);
         yOffset += height;
       }
 
       // draw final set of up to 6
       height = remaining * SLOT_SIZE;
-      this.blit(matrixStack, xStart, yStart + yOffset, 0, REPEAT_BACKGROUND_START, this.imageWidth, height);
+      graphics.blit(TEXTURE, xStart, yStart + yOffset, 0, REPEAT_BACKGROUND_START, this.imageWidth, height);
       yOffset += height;
     }
     // draw the player inventory background
-    this.blit(matrixStack, xStart, yStart + yOffset, 0, PLAYER_INVENTORY_START, this.imageWidth, PLAYER_INVENTORY_HEIGHT);
+    graphics.blit(TEXTURE, xStart, yStart + yOffset, 0, PLAYER_INVENTORY_START, this.imageWidth, PLAYER_INVENTORY_HEIGHT);
 
     // draw slot background
     int rowLeft = xStart + 7;
     int rowStart = yStart + REPEAT_BACKGROUND_START - SLOT_SIZE;
     for (int i = 1; i < inventoryRows; i++) {
-      this.blit(matrixStack, rowLeft, rowStart + i * SLOT_SIZE, 0, SLOTS_START, 9 * SLOT_SIZE, SLOT_SIZE);
+      graphics.blit(TEXTURE, rowLeft, rowStart + i * SLOT_SIZE, 0, SLOTS_START, 9 * SLOT_SIZE, SLOT_SIZE);
     }
     // last row may not have all slots
-    this.blit(matrixStack, rowLeft, rowStart + inventoryRows * SLOT_SIZE, 0, SLOTS_START, slotsInLastRow * SLOT_SIZE, SLOT_SIZE);
+    graphics.blit(TEXTURE, rowLeft, rowStart + inventoryRows * SLOT_SIZE, 0, SLOTS_START, slotsInLastRow * SLOT_SIZE, SLOT_SIZE);
 
     // draw a background on the selected slot index
     int selectedSlot = menu.getSelectedHotbarSlot();
@@ -141,13 +138,12 @@ public class ToolContainerScreen extends AbstractContainerScreen<ToolContainerMe
       }
       if (slotIndex < menu.slots.size()) {
         Slot slot = menu.getSlot(slotIndex);
-        this.blit(matrixStack, xStart + slot.x - 2, yStart + slot.y - 2, SELECTED_X, 0, SLOT_SIZE + 2, SLOT_SIZE + 2);
+        graphics.blit(TEXTURE, xStart + slot.x - 2, yStart + slot.y - 2, SELECTED_X, 0, SLOT_SIZE + 2, SLOT_SIZE + 2);
       }
     }
 
 
     // prepare pattern drawing
-    RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
     assert this.minecraft != null;
     Function<ResourceLocation,TextureAtlasSprite> spriteGetter = this.minecraft.getTextureAtlas(InventoryMenu.BLOCK_ATLAS);
 
@@ -169,7 +165,7 @@ public class ToolContainerScreen extends AbstractContainerScreen<ToolContainerMe
         Pattern pattern = inventory.getPattern(tool, entry, i, slot.hasItem());
         if (pattern != null) {
           TextureAtlasSprite sprite = spriteGetter.apply(pattern.getTexture());
-          blit(matrixStack, xStart + slot.x, yStart + slot.y, 100, 16, 16, sprite);
+          graphics.blit(xStart + slot.x, yStart + slot.y, 100, 16, 16, sprite);
         }
       }
       start += size;
@@ -180,7 +176,7 @@ public class ToolContainerScreen extends AbstractContainerScreen<ToolContainerMe
       Slot slot = menu.getSlot(slots - 1);
       if (!slot.hasItem()) {
         TextureAtlasSprite sprite = spriteGetter.apply(Patterns.SHIELD.getTexture());
-        blit(matrixStack, xStart + slot.x, yStart + slot.y, 100, 16, 16, sprite);
+        graphics.blit(xStart + slot.x, yStart + slot.y, 100, 16, 16, sprite);
       }
     }
   }

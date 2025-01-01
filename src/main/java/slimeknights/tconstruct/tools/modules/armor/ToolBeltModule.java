@@ -7,6 +7,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
@@ -47,7 +48,8 @@ public record ToolBeltModule(Set<TooltipKey> keys) implements ModifierModule, Ke
   @Override
   public boolean startInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot equipmentSlot, TooltipKey keyModifier) {
     if (keys.contains(keyModifier)) {
-      if (player.level.isClientSide) {
+      Level level = player.level();
+      if (level.isClientSide) {
         return true;
       }
 
@@ -68,7 +70,7 @@ public record ToolBeltModule(Set<TooltipKey> keys) implements ModifierModule, Ke
 
       // sound effect
       if (didChange) {
-        player.level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.PLAYERS, 1.0f, 1.0f);
+        level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.PLAYERS, 1.0f, 1.0f);
       }
       return true;
     }

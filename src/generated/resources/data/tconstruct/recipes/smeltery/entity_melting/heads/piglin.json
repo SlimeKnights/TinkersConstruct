@@ -2,7 +2,7 @@
   "type": "tconstruct:melting",
   "ingredient": [
     {
-      "item": "tconstruct:piglin_head"
+      "item": "minecraft:piglin_head"
     },
     {
       "item": "tconstruct:piglin_brute_head"

@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.recipe.casting.container;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.Item;
@@ -87,15 +88,15 @@ public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<Disp
                    .isPresent();
   }
 
-  /** @deprecated use {@link ICastingRecipe#assemble(Container)} */
+  /** @deprecated use {@link ICastingRecipe#assemble(Container, RegistryAccess)} */
   @Override
   @Deprecated
-  public ItemStack getResultItem() {
+  public ItemStack getResultItem(RegistryAccess access) {
     return new ItemStack(this.container);
   }
 
   @Override
-  public ItemStack assemble(ICastingContainer inv) {
+  public ItemStack assemble(ICastingContainer inv, RegistryAccess access) {
     ItemStack stack = inv.getStack().copy();
     return stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).map(handler -> {
       handler.fill(new FluidStack(inv.getFluid(), this.fluidAmount, inv.getFluidTag()), FluidAction.EXECUTE);
@@ -108,7 +109,7 @@ public class ContainerFillingRecipe implements ICastingRecipe, IMultiRecipe<Disp
   private List<DisplayCastingRecipe> displayRecipes = null;
 
   @Override
-  public List<DisplayCastingRecipe> getRecipes() {
+  public List<DisplayCastingRecipe> getRecipes(RegistryAccess access) {
     if (displayRecipes == null) {
       List<ItemStack> casts = Collections.singletonList(new ItemStack(container));
       displayRecipes = ForgeRegistries.FLUIDS.getValues().stream()

@@ -63,7 +63,7 @@ public class NoContainerIngredient extends NestedIngredient {
       // if we have match, parse as a nested object. Without match, just parse the object as vanilla
       Ingredient ingredient;
       if (json.has("match")) {
-        ingredient = CraftingHelper.getIngredient(json.get("match"));
+        ingredient = CraftingHelper.getIngredient(json.get("match"), false);
       } else {
         ingredient = VanillaIngredientSerializer.INSTANCE.parse(json);
       }

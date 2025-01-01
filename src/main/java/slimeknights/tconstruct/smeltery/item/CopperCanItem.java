@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.smeltery.item;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
@@ -16,10 +16,13 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.recipe.FluidValues;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Fluid container holding 1 ingot of fluid
@@ -68,10 +71,12 @@ public class CopperCanItem extends Item {
     }
   }
 
+
   /** Sets the fluid on the given stack */
-  public static ItemStack setFluid(ItemStack stack, FluidStack fluid) {
+  @SuppressWarnings("deprecation")
+  public static ItemStack setFluid(ItemStack stack, Fluid fluid, @Nullable CompoundTag fluidTag) {
     // if empty, try to remove the NBT, helps with recipes
-    if (fluid.isEmpty()) {
+    if (fluid == Fluids.EMPTY) {
       CompoundTag nbt = stack.getTag();
       if (nbt != null) {
         nbt.remove(TAG_FLUID);
@@ -82,8 +87,7 @@ public class CopperCanItem extends Item {
       }
     } else {
       CompoundTag nbt = stack.getOrCreateTag();
-      nbt.putString(TAG_FLUID, Registry.FLUID.getKey(fluid.getFluid()).toString());
-      CompoundTag fluidTag = fluid.getTag();
+      nbt.putString(TAG_FLUID, BuiltInRegistries.FLUID.getKey(fluid).toString());
       if (fluidTag != null) {
         nbt.put(TAG_FLUID_TAG, fluidTag.copy());
       } else {
@@ -91,6 +95,11 @@ public class CopperCanItem extends Item {
       }
     }
     return stack;
+  }
+
+  /** Sets the fluid on the given stack */
+  public static ItemStack setFluid(ItemStack stack, FluidStack fluid) {
+    return setFluid(stack, fluid.getFluid(), fluid.getTag());
   }
 
   /** Gets the fluid from the given stack */
@@ -106,6 +115,16 @@ public class CopperCanItem extends Item {
       }
     }
     return Fluids.EMPTY;
+  }
+
+  /** Adds filled variants of the copper can to the given consumer */
+  @SuppressWarnings("deprecation")
+  public static void addFilledVariants(Consumer<ItemStack> output) {
+    for (Fluid fluid : BuiltInRegistries.FLUID) {
+      if (fluid.isSource(fluid.defaultFluidState()) && !fluid.is(TinkerTags.Fluids.HIDE_IN_CREATIVE)) {
+        output.accept(CopperCanItem.setFluid(new ItemStack(TinkerSmeltery.copperCan), fluid, null));
+      }
+    }
   }
 
   /** Gets the fluid NBT from the given stack */

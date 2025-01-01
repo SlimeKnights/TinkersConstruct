@@ -3,9 +3,10 @@
     {
       "type": "tconstruct:damage",
       "damage": 1.0,
-      "modifier": [
-        "tconstruct:magic"
-      ]
+      "damage_type": {
+        "melee": "tconstruct:fluid_magic_melee",
+        "ranged": "tconstruct:fluid_magic_ranged"
+      }
     },
     {
       "type": "tconstruct:teleport"

@@ -4,7 +4,6 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.recipe.RecipeCacheInvalidator;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.RandomMaterial;
@@ -24,6 +23,7 @@ import slimeknights.tconstruct.library.tools.part.IToolPart;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Logic to help in creating new tools
@@ -37,9 +37,7 @@ public final class ToolBuildHandler {
   public static final RandomMaterial RANDOM = RandomMaterial.random().build();
   static {
     RecipeCacheInvalidator.addReloadListener(client -> {
-      if (!client) {
-        RANDOM.clearCache();
-      }
+      RANDOM.clearCache();
     });
   }
 
@@ -105,45 +103,58 @@ public final class ToolBuildHandler {
 
   /**
    * Adds all sub items to a tool
-   * @param item             item being created
-   * @param itemList         List to fill with items
+   * @param tab    Tab being filled
+   * @param item   item being created
    */
-  public static void addDefaultSubItems(IModifiable item, List<ItemStack> itemList) {
+  public static void addVariants(Consumer<ItemStack> tab, IModifiable item, String showOnlyMaterial) {
     ToolDefinition definition = item.getToolDefinition();
     boolean hasMaterials = definition.hasMaterials();
     if (!definition.isDataLoaded() || (hasMaterials && !MaterialRegistry.isFullyLoaded())) {
       // not loaded? cannot properly build it
-      itemList.add(new ItemStack(item));
+      tab.accept(new ItemStack(item));
     } else if (!hasMaterials) {
       // no parts? just add this item
-      itemList.add(buildItemFromMaterials(item, MaterialNBT.EMPTY));
+      tab.accept(buildItemFromMaterials(item, MaterialNBT.EMPTY));
     } else {
-      // if a specific material is set, show just that
-      String showOnlyId = Config.COMMON.showOnlyToolMaterial.get();
+      // if a specific material is set, show just that in search
       boolean added = false;
-      if (!showOnlyId.isEmpty()) {
-        MaterialId materialId = MaterialId.tryParse(showOnlyId);
+      if (!showOnlyMaterial.isEmpty()) {
+        MaterialId materialId = MaterialId.tryParse(showOnlyMaterial);
         if (materialId != null) {
           IMaterial material = MaterialRegistry.getMaterial(materialId);
-          if (material != IMaterial.UNKNOWN && addSubItem(item, itemList, MaterialVariant.of(material))) {
-            added = true;
+          if (material != IMaterial.UNKNOWN) {
+            ItemStack tool = createSingleMaterial(item, MaterialVariant.of(material));
+            if (!tool.isEmpty()) {
+              tab.accept(tool);
+              added = true;
+            }
           }
         }
       }
-      // if the material was not applicable or we do not have a filter set, search the rest
+      // add all materials to the parent, conditionally to search
       if (!added) {
         for (IMaterial material : MaterialRegistry.getInstance().getVisibleMaterials()) {
           // if we added it and we want a single material, we are done
-          if (addSubItem(item, itemList, MaterialVariant.of(material)) && !showOnlyId.isEmpty()) {
-            break;
+          ItemStack tool = createSingleMaterial(item, MaterialVariant.of(material));
+          if (!tool.isEmpty()) {
+            tab.accept(tool);
+            // if filter is set we wanted just the 1 item
+            if (!showOnlyMaterial.isEmpty()) {
+              break;
+            }
           }
         }
       }
     }
   }
 
-  /** Makes a single sub item for the given materials */
-  public static boolean addSubItem(IModifiable item, List<ItemStack> items, MaterialVariant material) {
+  /**
+   * Makes a tool with a single material.
+   * @param item      Tool to create
+   * @param material  Material to be used for applicable parts. Any parts that disallow the material will be set to first of their type
+   * @return Built tool stack, or empty if no part allowed this material
+   */
+  public static ItemStack createSingleMaterial(IModifiable item, MaterialVariant material) {
     List<MaterialStatsId> required = ToolMaterialHook.stats(item.getToolDefinition());
     MaterialNBT.Builder materials = MaterialNBT.builder();
     boolean useMaterial = false;
@@ -159,10 +170,9 @@ public final class ToolBuildHandler {
     }
     // only report success if we actually used the material somewhere
     if (useMaterial) {
-      items.add(buildItemFromMaterials(item, materials.build()));
-      return true;
+      return buildItemFromMaterials(item, materials.build());
     }
-    return false;
+    return ItemStack.EMPTY;
   }
 
   /**

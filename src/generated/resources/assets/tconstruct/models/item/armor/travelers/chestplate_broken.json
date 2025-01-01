@@ -10,6 +10,7 @@
   ],
   "first_modifiers": [
     "tconstruct:dyed",
-    "tconstruct:golden"
+    "tconstruct:golden",
+    "tconstruct:trim"
   ]
 }

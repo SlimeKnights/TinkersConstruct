@@ -14,6 +14,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ToolAction;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -33,14 +34,15 @@ import javax.annotation.Nullable;
 public final class ModifierUtil {
   /** Drops an item at the entity position */
   public static void dropItem(Entity target, ItemStack stack) {
-    if (!stack.isEmpty() && !target.level.isClientSide) {
-      ItemEntity ent = new ItemEntity(target.level, target.getX(), target.getY() + 1, target.getZ(), stack);
+    Level level = target.level();
+    if (!stack.isEmpty() && !level.isClientSide) {
+      ItemEntity ent = new ItemEntity(level, target.getX(), target.getY() + 1, target.getZ(), stack);
       ent.setDefaultPickUpDelay();
-      RandomSource rand = target.level.random;
+      RandomSource rand = level.random;
       ent.setDeltaMovement(ent.getDeltaMovement().add((rand.nextFloat() - rand.nextFloat()) * 0.1F,
                                                       rand.nextFloat() * 0.05F,
                                                       (rand.nextFloat() - rand.nextFloat()) * 0.1F));
-      target.level.addFreshEntity(ent);
+      level.addFreshEntity(ent);
     }
   }
 

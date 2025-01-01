@@ -18,12 +18,12 @@
       "type": "tconstruct:default_materials",
       "materials": [
         {
-          "type": "tconstruct:fixed",
-          "material": "tconstruct:wood"
+          "type": "tconstruct:random",
+          "tier": 1
         },
         {
-          "type": "tconstruct:fixed",
-          "material": "tconstruct:cobalt"
+          "type": "tconstruct:random",
+          "tier": 1
         }
       ]
     },

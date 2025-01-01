@@ -68,16 +68,17 @@
   },
   "requirements": [
     [
-      "crafted_boots"
-    ],
-    [
-      "crafted_leggings"
+      "crafted_helmet"
     ],
     [
       "crafted_chestplate"
     ],
     [
-      "crafted_helmet"
+      "crafted_leggings"
+    ],
+    [
+      "crafted_boots"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

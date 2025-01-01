@@ -53,7 +53,7 @@ public class OffhandAttackModifier extends NoLevelsModifier implements EntityInt
   @Override
   public InteractionResult beforeEntityUse(IToolStackView tool, ModifierEntry modifier, Player player, Entity target, InteractionHand hand, InteractionSource source) {
     if (canAttack(tool, player, hand)) {
-      if (!player.level.isClientSide()) {
+      if (!player.level().isClientSide()) {
         ToolAttackUtil.attackEntity(tool, player, InteractionHand.OFF_HAND, target, ToolAttackUtil.getCooldownFunction(player, InteractionHand.OFF_HAND), false, source.getSlot(hand));
       }
       // for armor, always assume attack speed is 4.0, we cannot change the attack speed of the main hand and we want them to match

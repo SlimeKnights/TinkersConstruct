@@ -6,7 +6,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
-import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.block.entity.inventory.ScalingChestItemHandler;
 
@@ -31,12 +30,11 @@ public class PartChestBlockEntity extends AbstractChestBlockEntity {
       // check if there is no other slot containing that item
       for (int i = 0; i < this.getSlots(); i++) {
         // don't compare count
-        if (ItemStack.isSame(stack, this.getStackInSlot(i)) && ItemStack.tagMatches(stack, this.getStackInSlot(i))) {
+        if (ItemStack.isSameItemSameTags(stack, this.getStackInSlot(i))) {
           return i == slot; // only allowed in the same slot
         }
       }
-      // TODO 1.20: ditch material item check in favor of the tag
-      return stack.is(TinkerTags.Items.CHEST_PARTS) || stack.getItem() instanceof IMaterialItem;
+      return stack.is(TinkerTags.Items.CHEST_PARTS);
     }
   }
 }

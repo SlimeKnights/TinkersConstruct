@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "equipment",
   "key": {
     "c": {
       "tag": "forge:ingots/copper"
@@ -14,5 +15,6 @@
   ],
   "result": {
     "item": "tconstruct:travelers_boots"
-  }
+  },
+  "show_notification": true
 }

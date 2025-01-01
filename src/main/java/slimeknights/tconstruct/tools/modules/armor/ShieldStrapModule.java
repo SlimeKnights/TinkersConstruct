@@ -7,6 +7,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
@@ -45,7 +46,8 @@ public record ShieldStrapModule(Set<TooltipKey> keys) implements ModifierModule,
   @Override
   public boolean startInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot equipmentSlot, TooltipKey keyModifier) {
     if (keys.contains(keyModifier)) {
-      if (player.level.isClientSide) {
+      Level level = player.level();
+      if (level.isClientSide) {
         return true;
       }
       // offhand must be able to go in the pants
@@ -66,7 +68,7 @@ public record ShieldStrapModule(Set<TooltipKey> keys) implements ModifierModule,
 
         // sound effect
         if (!newOffhand.isEmpty() || !offhand.isEmpty()) {
-          player.level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.PLAYERS, 1.0f, 1.0f);
+          level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARMOR_EQUIP_GENERIC, SoundSource.PLAYERS, 1.0f, 1.0f);
         }
         return true;
       }

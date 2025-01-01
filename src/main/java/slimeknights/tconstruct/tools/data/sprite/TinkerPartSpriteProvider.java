@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.tools.data.sprite;
 
+import net.minecraft.world.item.ArmorItem;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.data.material.AbstractPartSpriteProvider;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
-import slimeknights.tconstruct.tools.item.ArmorSlotType;
 import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.LimbMaterialStats;
 import slimeknights.tconstruct.tools.stats.PlatingMaterialStats;
@@ -31,7 +31,6 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
   @Override
   protected void addAllSpites() {
     // heads
-    addHead("round_plate");
     addHead("large_plate");
     addHead("small_blade");
     // handles
@@ -41,13 +40,14 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
     addBowstring("bowstring");
     // misc
     addBinding("tool_binding");
+    addBinding("tough_binding");
     addPart("repair_kit", StatlessMaterialStats.REPAIR_KIT.getIdentifier());
 
     // plate textures
     addPart("maille", StatlessMaterialStats.MAILLE.getIdentifier());
-    for (ArmorSlotType slot : ArmorSlotType.values()) {
-      buildTool("armor/plate/" + slot.getSerializedName())
-        .addBreakablePart("plating", PlatingMaterialStats.TYPES.get(slot.getIndex()).getId())
+    for (ArmorItem.Type slot : ArmorItem.Type.values()) {
+      buildTool("armor/plate/" + slot.getName())
+        .addBreakablePart("plating", PlatingMaterialStats.TYPES.get(slot.ordinal()).getId())
         .addBreakablePart("maille", StatlessMaterialStats.MAILLE.getIdentifier());
     }
     addTexture("tinker_armor/plate/plating_armor", false, ARMOR_PLATING);
@@ -87,11 +87,11 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
     // pickaxe - regular variant uses handle on frypans as a grip so generate those too
     buildTool("pickaxe").addBreakableHead("head").addPart("handle", HandleMaterialStats.ID, LimbMaterialStats.ID).addBinding("binding");
     buildTool("sledge_hammer").withLarge().addBreakableHead("head").addBreakableHead("back").addBreakableHead("front").addHandle("handle");
-    buildTool("vein_hammer").withLarge().addBreakableHead("head").addHead("back").addBreakableHead("front").addHandle("handle");
+    buildTool("vein_hammer").withLarge().addBreakableHead("head").addBinding("grip").addBreakableHead("front").addHandle("handle");
     // shovel
     buildTool("mattock").addBreakableHead("axe").addBreakableHead("pick"); // handle provided by pickaxe
-    buildTool("pickadze").addBreakableHead("axe"); // handle and "pick" head provided by other tools
-    buildTool("excavator").withLarge().addBreakableHead("head").addHead("binding").addHandle("handle").addHandle("grip");
+    buildTool("pickadze").addBreakableHead("pick").addHead("adze"); // handle provided by pickaxe
+    buildTool("excavator").withLarge().addBreakableHead("head").addBinding("binding").addHandle("handle").addHandle("grip");
     // axe
     buildTool("hand_axe").addBreakableHead("head").addBinding("binding"); // handle provided by pickaxe
     buildTool("broad_axe").withLarge().addBreakableHead("blade").addBreakableHead("back").addHandle("handle").addBinding("binding");
@@ -105,7 +105,7 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
     // bow
     buildTool("crossbow")
       .addLimb("limb").addGrip("body")
-      .addBowstring("bowstring").addBowstring("bowstring_1").addBowstring("bowstring_2").addBowstring("bowstring_3");
+      .addBreakableBowstring("bowstring").addBowstring("bowstring_1").addBowstring("bowstring_2").addBowstring("bowstring_3");
     buildTool("longbow").withLarge()
       .addLimb("limb_bottom").addLimb("limb_bottom_1").addLimb("limb_bottom_2").addLimb("limb_bottom_3")
       .addLimb("limb_top").addLimb("limb_top_1").addLimb("limb_top_2").addLimb("limb_top_3")
@@ -115,7 +115,7 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
     // ancient tools
     buildTool("melting_pan").addBreakablePart("head", PlatingMaterialStats.SHIELD.getId());
     buildTool("war_pick").addHead("limb").addLimb("body")
-                         .addBowstring("bowstring").addBowstring("bowstring_1").addBowstring("bowstring_2").addBowstring("bowstring_3");
+                         .addBreakableBowstring("bowstring").addBowstring("bowstring_1").addBowstring("bowstring_2").addBowstring("bowstring_3");
     buildTool("battlesign").addBreakableHead("head").addPart("handle", PlatingMaterialStats.SHIELD.getId());
   }
 }

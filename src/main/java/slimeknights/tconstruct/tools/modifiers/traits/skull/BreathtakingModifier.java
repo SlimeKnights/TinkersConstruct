@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.traits.skull;
 
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -20,7 +21,7 @@ public class BreathtakingModifier extends NoLevelsModifier implements DamageDeal
 
   @Override
   public void onDamageDealt(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, LivingEntity target, DamageSource source, float amount, boolean isDirectDamage) {
-    if (isDirectDamage && !source.isProjectile()) {
+    if (isDirectDamage && !source.is(DamageTypeTags.IS_PROJECTILE)) {
       LivingEntity attacker = context.getEntity();
       int attackerAir = attacker.getAirSupply();
       int maxAir = attacker.getMaxAirSupply();

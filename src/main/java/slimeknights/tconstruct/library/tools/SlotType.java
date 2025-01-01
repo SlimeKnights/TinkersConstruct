@@ -11,10 +11,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+import slimeknights.mantle.client.ResourceColorManager;
 import slimeknights.mantle.data.loadable.Loadable;
 import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.primitive.StringLoadable;
+import slimeknights.mantle.util.typed.TypedMap;
 import slimeknights.tconstruct.TConstruct;
 
 import javax.annotation.Nullable;
@@ -41,9 +43,11 @@ public final class SlotType {
   }, SlotType::getName);
 
   /** Key for uppercase slot name */
-  private static final String KEY_PREFIX = TConstruct.makeTranslationKey("stat", "slot.prefix.");
+  private static final String KEY_SLOT = TConstruct.makeTranslationKey("stat", "slot.");
+  /** Key for uppercase slot name */
+  private static final String KEY_PREFIX = KEY_SLOT + "prefix.";
   /** Key for lowercase slot name */
-  public static final String KEY_DISPLAY = TConstruct.makeTranslationKey("stat", "slot.display.");
+  public static final String KEY_DISPLAY = KEY_SLOT + "display.";
   /** Map of instances for each name */
   private static final Map<String,SlotType> SLOT_TYPES = new HashMap<>();
   /** List of all slots in the order they were added */
@@ -53,13 +57,13 @@ public final class SlotType {
   private static final Pattern VALIDATOR = Pattern.compile("^[a-z0-9_]*$");
 
   /** Common slot type for modifiers with many levels */
-  public static final SlotType UPGRADE = create("upgrades", 0xFFCCBA47);
+  public static final SlotType UPGRADE = getOrCreate("upgrades");
   /** Slot type for protection based modifiers on armor */
-  public static final SlotType DEFENSE = create("defense", 0xFFA8FFA0);
+  public static final SlotType DEFENSE = getOrCreate("defense");
   /** Rare slot type for powerful and rather exclusive modifiers */
-  public static final SlotType ABILITY = create("abilities", 0xFFB8A0FF);
+  public static final SlotType ABILITY = getOrCreate("abilities");
   /** Slot type used in the soul forge */
-  public static final SlotType SOUL = create("souls", -1);
+  public static final SlotType SOUL = getOrCreate("souls");
 
   /** Just makes sure static initialization is done early enough */
   public static void init() {}
@@ -71,30 +75,23 @@ public final class SlotType {
   }
 
   /**
-   * Registers the given slot type.
+   * Gets an existing slot type, or creates it if missing.
    * Note that you will also want to define a texture for the creative modifier and JEI using {@link slimeknights.mantle.client.model.NBTKeyModel#registerExtraTexture(ResourceLocation, String, ResourceLocation)}
    * @param name     Name of the slot type
-   * @param color    Color of the slot
    * @return  Slot type instance for the name, only once instance for each name
-   * @apiNote
    * @throws IllegalArgumentException  Error if a name is invalid
    */
-  public static SlotType create(String name, int color) {
+  public static SlotType getOrCreate(String name) {
     if (SLOT_TYPES.containsKey(name)) {
       return SLOT_TYPES.get(name);
     }
     if (!isValidName(name)) {
       throw new IllegalArgumentException("Non [a-z0-9_] character in slot name: " + name);
     }
-    SlotType type = new SlotType(name, TextColor.fromRgb(color));
+    SlotType type = new SlotType(name);
     SLOT_TYPES.put(name, type);
     ALL_SLOTS.add(type);
     return type;
-  }
-
-  /** Gets an existing slot type, or creates it if missing */
-  public static SlotType getOrCreate(String name) {
-    return create(name, -1);
   }
 
   /**
@@ -123,9 +120,8 @@ public final class SlotType {
   /** Name of this slot type, used for serialization */
   @Getter
   private final String name;
-  /** Gets the color of this slot type */
-  @Getter
-  private final TextColor color;
+  /** Cached color of this slot type */
+  private TextColor color = null;
 
   /** Cached text component display names */
   private Component displayName = null;
@@ -143,6 +139,14 @@ public final class SlotType {
     return displayName;
   }
 
+  /** Gets the color of this slot type */
+  public TextColor getColor() {
+    if (color == null) {
+      color = ResourceColorManager.getTextColor(KEY_SLOT + name);
+    }
+    return color;
+  }
+
   /** Writes this slot type to the packet buffer */
   public void write(FriendlyByteBuf buffer) {
     buffer.writeUtf(name);
@@ -157,7 +161,7 @@ public final class SlotType {
   public record SlotCount(SlotType type, int count) {
     public static final Loadable<SlotCount> LOADABLE = new Loadable<>() {
       @Override
-      public SlotCount convert(JsonElement element, String key) {
+      public SlotCount convert(JsonElement element, String key, TypedMap context) {
         JsonObject json = GsonHelper.convertToJsonObject(element, key);
         if (json.entrySet().size() != 1) {
           throw new JsonSyntaxException("Cannot set multiple slot types");
@@ -168,7 +172,7 @@ public final class SlotType {
           throw new JsonSyntaxException("Invalid slot type name '" + typeString + "'");
         }
         SlotType slotType = SlotType.getOrCreate(typeString);
-        int slots = IntLoadable.FROM_ONE.convert(entry.getValue(), "count");
+        int slots = IntLoadable.FROM_ONE.convert(entry.getValue(), "count", context);
         return new SlotCount(slotType, slots);
       }
 
@@ -180,14 +184,14 @@ public final class SlotType {
       }
 
       @Override
-      public SlotCount decode(FriendlyByteBuf buffer) {
+      public SlotCount decode(FriendlyByteBuf buffer, TypedMap context) {
         return new SlotCount(SlotType.read(buffer), buffer.readVarInt());
       }
 
       @Override
       public void encode(FriendlyByteBuf buffer, SlotCount slots) {
-        buffer.writeVarInt(slots.count());
         slots.type().write(buffer);
+        buffer.writeVarInt(slots.count());
       }
 
       @Override
@@ -200,8 +204,8 @@ public final class SlotType {
     private record NullableSlotCountField<P>(String key, Function<P,SlotCount> getter) implements LoadableField<SlotCount,P> {
       @Nullable
       @Override
-      public SlotCount get(JsonObject json) {
-        return LOADABLE.getOrDefault(json, key, null);
+      public SlotCount get(JsonObject json, TypedMap context) {
+        return LOADABLE.getOrDefault(json, key, null, context);
       }
 
       @Override
@@ -214,7 +218,7 @@ public final class SlotType {
 
       @Nullable
       @Override
-      public SlotCount decode(FriendlyByteBuf buffer) {
+      public SlotCount decode(FriendlyByteBuf buffer, TypedMap context) {
         int count = buffer.readVarInt();
         if (count == 0) {
           return null;

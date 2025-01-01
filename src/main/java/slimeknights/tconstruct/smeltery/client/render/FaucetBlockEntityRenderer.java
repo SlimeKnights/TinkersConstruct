@@ -15,16 +15,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
-import slimeknights.mantle.client.model.FaucetFluidLoader;
-import slimeknights.mantle.client.model.fluid.FluidCuboid;
-import slimeknights.mantle.client.model.fluid.FluidsModel;
-import slimeknights.mantle.client.model.util.ModelHelper;
+import slimeknights.mantle.client.render.FluidCuboid;
 import slimeknights.mantle.client.render.FluidRenderer;
 import slimeknights.mantle.client.render.MantleRenderTypes;
 import slimeknights.mantle.client.render.RenderingHelper;
 import slimeknights.tconstruct.smeltery.block.FaucetBlock;
 import slimeknights.tconstruct.smeltery.block.entity.FaucetBlockEntity;
 
+import java.util.List;
 import java.util.function.Function;
 
 public class FaucetBlockEntityRenderer implements BlockEntityRenderer<FaucetBlockEntity> {
@@ -45,8 +43,8 @@ public class FaucetBlockEntityRenderer implements BlockEntityRenderer<FaucetBloc
 
     // fetch faucet model to determine where to render fluids
     BlockState state = tileEntity.getBlockState();
-    FluidsModel.Baked model = ModelHelper.getBakedModel(state, FluidsModel.Baked.class);
-    if (model != null) {
+    List<FluidCuboid> fluids = FluidCuboid.REGISTRY.get(state, List.of());
+    if (!fluids.isEmpty()) {
       // if side, rotate fluid model
       Direction direction = state.getValue(FaucetBlock.FACING);
       boolean isRotated = RenderingHelper.applyRotation(matrices, direction);
@@ -63,12 +61,12 @@ public class FaucetBlockEntityRenderer implements BlockEntityRenderer<FaucetBloc
 
       // render all cubes in the model
       VertexConsumer buffer = bufferIn.getBuffer(MantleRenderTypes.FLUID);
-      for (FluidCuboid cube : model.getFluids()) {
+      for (FluidCuboid cube : fluids) {
         FluidRenderer.renderCuboid(matrices, buffer, cube, 0, still, flowing, color, combinedLightIn, isGas);
       }
 
       // render into the block(s) below
-      FaucetFluidLoader.renderFaucetFluids(world, tileEntity.getBlockPos(), direction, matrices, buffer, still, flowing, color, combinedLightIn);
+      RenderingHelper.renderFaucetFluids(world, tileEntity.getBlockPos(), direction, matrices, buffer, still, flowing, color, combinedLightIn);
 
       // if rotated, pop back rotation
       if(isRotated) {

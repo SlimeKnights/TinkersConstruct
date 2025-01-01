@@ -9,6 +9,7 @@
       "type": "tconstruct:material",
       "index": 1,
       "prefix": "tconstruct:plate/maille_"
-    }
+    },
+    "tconstruct:trim"
   ]
 }

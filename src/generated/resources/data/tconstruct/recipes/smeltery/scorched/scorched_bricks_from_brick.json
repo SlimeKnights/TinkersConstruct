@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "key": {
     "b": {
       "item": "tconstruct:scorched_brick"
@@ -11,5 +12,6 @@
   ],
   "result": {
     "item": "tconstruct:scorched_bricks"
-  }
+  },
+  "show_notification": true
 }

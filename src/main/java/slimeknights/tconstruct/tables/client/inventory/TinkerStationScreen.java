@@ -6,19 +6,17 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.renderer.Rect2i;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag.Default;
 import org.lwjgl.glfw.GLFW;
-import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
@@ -27,19 +25,14 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.client.RenderUtils;
-import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
-import slimeknights.tconstruct.library.tools.item.ITinkerStationDisplay;
 import slimeknights.tconstruct.library.tools.layout.LayoutIcon;
 import slimeknights.tconstruct.library.tools.layout.LayoutSlot;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayout;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
 import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-import slimeknights.tconstruct.library.utils.TinkerTooltipFlags;
 import slimeknights.tconstruct.tables.block.entity.table.TinkerStationBlockEntity;
-import slimeknights.tconstruct.tables.client.inventory.module.InfoPanelScreen;
 import slimeknights.tconstruct.tables.client.inventory.widget.SlotButtonItem;
 import slimeknights.tconstruct.tables.client.inventory.widget.TinkerStationButtonsWidget;
 import slimeknights.tconstruct.tables.menu.TinkerStationContainerMenu;
@@ -48,21 +41,15 @@ import slimeknights.tconstruct.tables.network.TinkerStationRenamePacket;
 import slimeknights.tconstruct.tables.network.TinkerStationSelectionPacket;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import static slimeknights.tconstruct.tables.block.entity.table.TinkerStationBlockEntity.INPUT_SLOT;
 import static slimeknights.tconstruct.tables.block.entity.table.TinkerStationBlockEntity.TINKER_SLOT;
 
-public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEntity,TinkerStationContainerMenu> {
+public class TinkerStationScreen extends ToolTableScreen<TinkerStationBlockEntity,TinkerStationContainerMenu> {
   // titles to display
   private static final Component COMPONENTS_TEXT = TConstruct.makeTranslation("gui", "tinker_station.components");
-  private static final Component MODIFIERS_TEXT = TConstruct.makeTranslation("gui", "tinker_station.modifiers");
-  private static final Component UPGRADES_TEXT = TConstruct.makeTranslation("gui", "tinker_station.upgrades");
-  private static final Component TRAITS_TEXT = TConstruct.makeTranslation("gui", "tinker_station.traits");
-  // fallback text for crafting with no named slots
+ // fallback text for crafting with no named slots
   private static final Component ASCII_ANVIL = Component.literal("\n\n")
     .append("       .\n")
     .append("     /( _________\n")
@@ -79,21 +66,21 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
   // texture
   private static final ResourceLocation TINKER_STATION_TEXTURE = TConstruct.getResource("textures/gui/tinker_station.png");
   // texture elements
-  private static final ElementScreen ACTIVE_TEXT_FIELD = new ElementScreen(0, 210, 91, 12, 256, 256);
-  private static final ElementScreen ITEM_COVER = new ElementScreen(176, 18, 70, 64);
+  private static final ElementScreen ACTIVE_TEXT_FIELD = new ElementScreen(TINKER_STATION_TEXTURE, 0, 210, 91, 12, 256, 256);
+  private static final ElementScreen ITEM_COVER = ACTIVE_TEXT_FIELD.move(176, 18, 70, 64);
   // slots
-  private static final ElementScreen SLOT_BACKGROUND = new ElementScreen(176, 0, 18, 18);
-  private static final ElementScreen SLOT_BORDER = new ElementScreen(194, 0, 18, 18);
-  private static final ElementScreen SLOT_SPACE_TOP = new ElementScreen(0, 174 + 2, 18, 2);
-  private static final ElementScreen SLOT_SPACE_BOTTOM = new ElementScreen(0, 174, 18, 2);
+  private static final ElementScreen SLOT_BACKGROUND = ACTIVE_TEXT_FIELD.move(176, 0, 18, 18);
+  private static final ElementScreen SLOT_BORDER = ACTIVE_TEXT_FIELD.move(194, 0, 18, 18);
+  private static final ElementScreen SLOT_SPACE_TOP = ACTIVE_TEXT_FIELD.move(0, 174 + 2, 18, 2);
+  private static final ElementScreen SLOT_SPACE_BOTTOM = ACTIVE_TEXT_FIELD.move(0, 174, 18, 2);
   // panel
-  private static final ElementScreen PANEL_SPACE_LEFT = new ElementScreen(0, 174, 5, 4);
-  private static final ElementScreen PANEL_SPACE_RIGHT = new ElementScreen(9, 174, 9, 4);
-  private static final ElementScreen LEFT_BEAM = new ElementScreen(0, 180, 2, 7);
-  private static final ElementScreen RIGHT_BEAM = new ElementScreen(131, 180, 2, 7);
-  private static final ScalableElementScreen CENTER_BEAM = new ScalableElementScreen(2, 180, 129, 7);
+  private static final ElementScreen PANEL_SPACE_LEFT = ACTIVE_TEXT_FIELD.move(0, 174, 5, 4);
+  private static final ElementScreen PANEL_SPACE_RIGHT = ACTIVE_TEXT_FIELD.move(9, 174, 9, 4);
+  private static final ElementScreen LEFT_BEAM = ACTIVE_TEXT_FIELD.move(0, 180, 2, 7);
+  private static final ElementScreen RIGHT_BEAM = ACTIVE_TEXT_FIELD.move(131, 180, 2, 7);
+  private static final ScalableElementScreen CENTER_BEAM = new ScalableElementScreen(TINKER_STATION_TEXTURE, 2, 180, 129, 7, 256, 256);
   // text boxes
-  private static final ElementScreen TEXT_BOX = new ElementScreen(0, 222, 90, 12);
+  private static final ElementScreen TEXT_BOX = ACTIVE_TEXT_FIELD.move(0, 222, 90, 12);
 
   /** Number of button columns in the UI */
   public static final int COLUMN_COUNT = 5;
@@ -104,9 +91,9 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
   protected ElementScreen panelDecorationL = PANEL_SPACE_LEFT;
   protected ElementScreen panelDecorationR = PANEL_SPACE_RIGHT;
 
-  protected ElementScreen leftBeam = new ElementScreen(0, 0, 0, 0);
-  protected ElementScreen rightBeam = new ElementScreen(0, 0, 0, 0);
-  protected ScalableElementScreen centerBeam = new ScalableElementScreen(0, 0, 0, 0);
+  protected ElementScreen leftBeam = ACTIVE_TEXT_FIELD.move(0, 0, 0, 0);
+  protected ElementScreen rightBeam = ACTIVE_TEXT_FIELD.move(0, 0, 0, 0);
+  protected ScalableElementScreen centerBeam = CENTER_BEAM.move(0, 0, 0, 0);
 
   /** Gets the default layout to apply, the "repair" button */
   @Nonnull @Getter
@@ -117,8 +104,6 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
 
   // components
   protected EditBox textField;
-  protected InfoPanelScreen tinkerInfo;
-  protected InfoPanelScreen modifierInfo;
   protected TinkerStationButtonsWidget buttonsScreen;
 
   /** Maximum available slots */
@@ -127,16 +112,10 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
   /** How many of the available input slots are active */
   protected int activeInputs;
 
+
+  @SuppressWarnings("deprecation")
   public TinkerStationScreen(TinkerStationContainerMenu container, Inventory playerInventory, Component title) {
     super(container, playerInventory, title);
-
-    this.tinkerInfo = new InfoPanelScreen(this, container, playerInventory, title);
-    this.tinkerInfo.setTextScale(8/9f);
-    this.addModule(this.tinkerInfo);
-
-    this.modifierInfo = new InfoPanelScreen(this, container, playerInventory, title);
-    this.modifierInfo.setTextScale(7/9f);
-    this.addModule(this.modifierInfo);
 
     this.tinkerInfo.yOffset = 5;
     this.modifierInfo.yOffset = this.tinkerInfo.imageHeight + 9;
@@ -161,19 +140,16 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     if (te == null) {
       this.defaultLayout = StationSlotLayout.EMPTY;
     } else {
-      this.defaultLayout = StationSlotLayoutLoader.getInstance().get(Registry.BLOCK.getKey(te.getBlockState().getBlock()));
+      this.defaultLayout = StationSlotLayoutLoader.getInstance().get(BuiltInRegistries.BLOCK.getKey(te.getBlockState().getBlock()));
     }
     this.currentLayout = this.defaultLayout;
     this.activeInputs = Math.min(defaultLayout.getInputCount(), max);
-    this.passEvents = false;
   }
 
   @Override
   public void init() {
 
     assert this.minecraft != null;
-    // TODO: pretty sure we don't need this unless we add back the renaming slot
-    this.minecraft.keyboardHandler.setSendRepeatsToGui(true);
 
     // workaround to line up the tabs on switching even though the GUI is a tad higher
     this.topPos += 4;
@@ -245,66 +221,6 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     this.updateDisplay();
   }
 
-  /** Updates the tool panel area */
-  static void updateToolPanel(InfoPanelScreen tinkerInfo, LazyToolStack lazyResult) {
-    ToolStack tool = lazyResult.getTool();
-    if (tool.getItem() instanceof ITinkerStationDisplay display) {
-      tinkerInfo.setCaption(display.getLocalizedName());
-      tinkerInfo.setText(display.getStatInformation(tool, Minecraft.getInstance().player, new ArrayList<>(), SafeClientAccess.getTooltipKey(), TinkerTooltipFlags.TINKER_STATION));
-    }
-    else {
-      ItemStack stack = lazyResult.getStack();
-      tinkerInfo.setCaption(stack.getHoverName());
-      List<Component> list = new ArrayList<>();
-      stack.getItem().appendHoverText(stack, Minecraft.getInstance().level, list, Default.NORMAL);
-      tinkerInfo.setText(list);
-    }
-  }
-
-  /** Updates the modifier panel with relevant info */
-  static void updateModifierPanel(InfoPanelScreen modifierInfo, ToolStack tool) {
-    List<Component> modifierNames = new ArrayList<>();
-    List<Component> modifierTooltip = new ArrayList<>();
-    Component title;
-    // control displays just traits, bit trickier to do
-    if (hasControlDown()) {
-      title = TRAITS_TEXT;
-      Map<Modifier,Integer> upgrades = tool.getUpgrades().getModifiers().stream()
-                                           .collect(Collectors.toMap(ModifierEntry::getModifier, ModifierEntry::getLevel));
-      for (ModifierEntry entry : tool.getModifierList()) {
-        Modifier mod = entry.getModifier();
-        if (mod.shouldDisplay(true)) {
-          int level = entry.getLevel() - upgrades.getOrDefault(mod, 0);
-          if (level > 0) {
-            ModifierEntry trait = new ModifierEntry(entry.getModifier(), level);
-            modifierNames.add(mod.getDisplayName(tool, trait));
-            modifierTooltip.add(mod.getDescription(tool, trait));
-          }
-        }
-      }
-    } else {
-      // shift is just upgrades/abilities, otherwise all
-      List<ModifierEntry> modifiers;
-      if (hasShiftDown()) {
-        modifiers = tool.getUpgrades().getModifiers();
-        title = UPGRADES_TEXT;
-      } else {
-        modifiers = tool.getModifierList();
-        title = MODIFIERS_TEXT;
-      }
-      for (ModifierEntry entry : modifiers) {
-        Modifier mod = entry.getModifier();
-        if (mod.shouldDisplay(true)) {
-          modifierNames.add(mod.getDisplayName(tool, entry));
-          modifierTooltip.add(mod.getDescription(tool, entry));
-        }
-      }
-    }
-
-    modifierInfo.setCaption(title);
-    modifierInfo.setText(modifierNames, modifierTooltip);
-  }
-
   @Override
   public void updateDisplay() {
     if (this.tile == null) {
@@ -335,11 +251,13 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
       textField.setValue(tile.getItemName());
     }
 
+    updateArmorStandPreview(toolStack);
+
     // if the contained stack is modifiable, display some information
     if (lazyResult != null && lazyResult.getTool().hasTag(TinkerTags.Items.MODIFIABLE)) {
       ToolStack tool = lazyResult.getTool();
-      updateToolPanel(tinkerInfo, lazyResult);
-      updateModifierPanel(modifierInfo, tool);
+      updateToolPanel(lazyResult);
+      updateModifierPanel(tool);
     }
     // tool build info
     else {
@@ -376,30 +294,27 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
   }
 
   @Override
-  protected void drawContainerName(PoseStack matrixStack) {
-    this.font.draw(matrixStack, this.getTitle(), 8.0F, 8.0F, 4210752);
+  protected void drawContainerName(GuiGraphics graphics) {
+    graphics.drawString(this.font, this.getTitle(), 8, 8, 4210752, false);
   }
 
-  public static void renderIcon(PoseStack matrices, LayoutIcon icon, int x, int y) {
+  public static void renderIcon(GuiGraphics graphics, LayoutIcon icon, int x, int y) {
     Pattern pattern = icon.getValue(Pattern.class);
-    Minecraft minecraft = Minecraft.getInstance();
     if (pattern != null) {
       // draw pattern sprite
-      RenderUtils.setup(InventoryMenu.BLOCK_ATLAS);
-      RenderSystem.applyModelViewMatrix();
-      GuiUtil.renderPattern(matrices, pattern, x, y);
+      GuiUtil.renderPattern(graphics, pattern, x, y);
       return;
     }
 
     ItemStack stack = icon.getValue(ItemStack.class);
     if (stack != null) {
-      minecraft.getItemRenderer().renderGuiItem(stack, x, y);
+      graphics.renderItem(stack, x, y);
     }
   }
 
   @Override
-  protected void renderBg(PoseStack matrices, float partialTicks, int mouseX, int mouseY) {
-    this.drawBackground(matrices, TINKER_STATION_TEXTURE);
+  protected void renderBg(GuiGraphics graphics, float partialTicks, int mouseX, int mouseY) {
+    this.drawBackground(graphics, TINKER_STATION_TEXTURE);
 
     int x = 0;
     int y = 0;
@@ -410,13 +325,12 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     final float yOff = 22f;
 
     // render the background icon
-    PoseStack renderPose = RenderSystem.getModelViewStack();
+    PoseStack renderPose = graphics.pose();
     renderPose.pushPose();
     renderPose.translate(xOff, yOff, 0.0F);
     renderPose.scale(scale, scale, 1.0f);
-    renderIcon(matrices, currentLayout.getIcon(), (int) (this.cornerX / scale), (int) (this.cornerY / scale));
+    renderIcon(graphics, currentLayout.getIcon(), (int) (this.cornerX / scale), (int) (this.cornerY / scale));
     renderPose.popPose();
-    RenderSystem.applyModelViewMatrix();
 
     // rebind gui texture since itemstack drawing sets it to something else
     RenderUtils.setup(TINKER_STATION_TEXTURE, 1.0f, 1.0f, 1.0f, 0.82f);
@@ -424,17 +338,17 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     //RenderSystem.enableAlphaTest();
     //RenderHelper.turnOff();
     RenderSystem.disableDepthTest();
-    ITEM_COVER.draw(matrices, this.cornerX + 7, this.cornerY + 18);
+    ITEM_COVER.draw(graphics, this.cornerX + 7, this.cornerY + 18);
 
     // slot backgrounds, are transparent
     RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 0.28f);
     if (!this.currentLayout.getToolSlot().isHidden()) {
       Slot slot = this.getMenu().getSlot(TINKER_SLOT);
-      SLOT_BACKGROUND.draw(matrices, x + this.cornerX + slot.x - 1, y + this.cornerY + slot.y - 1);
+      SLOT_BACKGROUND.draw(graphics, x + this.cornerX + slot.x - 1, y + this.cornerY + slot.y - 1);
     }
     for (int i = 0; i < this.activeInputs; i++) {
       Slot slot = this.getMenu().getSlot(i + INPUT_SLOT);
-      SLOT_BACKGROUND.draw(matrices, x + this.cornerX + slot.x - 1, y + this.cornerY + slot.y - 1);
+      SLOT_BACKGROUND.draw(graphics, x + this.cornerX + slot.x - 1, y + this.cornerY + slot.y - 1);
     }
 
     // slot borders, are opaque
@@ -442,7 +356,7 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     for (int i = 0; i <= maxInputs; i++) {
       Slot slot = this.getMenu().getSlot(i);
       if ((slot instanceof TinkerStationSlot && (!((TinkerStationSlot) slot).isDormant() || slot.hasItem()))) {
-        SLOT_BORDER.draw(matrices, x + this.cornerX + slot.x - 1, y + this.cornerY + slot.y - 1);
+        SLOT_BORDER.draw(graphics, x + this.cornerX + slot.x - 1, y + this.cornerY + slot.y - 1);
       }
     }
 
@@ -450,54 +364,57 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     x = this.buttonsScreen.getLeftPos() - this.leftBeam.w;
     y = this.cornerY;
     // draw the beams at the top
-    x += this.leftBeam.draw(matrices, x, y);
-    x += this.centerBeam.drawScaledX(matrices, x, y, this.buttonsScreen.getImageWidth());
-    this.rightBeam.draw(matrices, x, y);
+    this.leftBeam.draw(graphics, x, y);
+    x += this.leftBeam.w;
+    x += this.centerBeam.drawScaledX(graphics, x, y, this.buttonsScreen.getImageWidth());
+    this.rightBeam.draw(graphics, x, y);
 
     x = tinkerInfo.leftPos - this.leftBeam.w;
-    x += this.leftBeam.draw(matrices, x, y);
-    x += this.centerBeam.drawScaledX(matrices, x, y, this.tinkerInfo.imageWidth);
-    this.rightBeam.draw(matrices, x, y);
+    this.leftBeam.draw(graphics, x, y);
+    x += this.leftBeam.w;
+    x += this.centerBeam.drawScaledX(graphics, x, y, this.tinkerInfo.imageWidth);
+    this.rightBeam.draw(graphics, x, y);
 
     // draw the decoration for the buttons
     for (SlotButtonItem button : this.buttonsScreen.getButtons()) {
-      this.buttonDecorationTop.draw(matrices, button.x, button.y - this.buttonDecorationTop.h);
+      this.buttonDecorationTop.draw(graphics, button.getX(), button.getY() - this.buttonDecorationTop.h);
       // don't draw the bottom for the buttons in the last row
       if (button.buttonId < this.buttonsScreen.getButtons().size() - COLUMN_COUNT) {
-        this.buttonDecorationBot.draw(matrices, button.x, button.y + button.getHeight());
+        this.buttonDecorationBot.draw(graphics, button.getX(), button.getY() + button.getHeight());
       }
     }
 
     // draw the decorations for the panels
-    this.panelDecorationL.draw(matrices, this.tinkerInfo.leftPos + 5, this.tinkerInfo.topPos - this.panelDecorationL.h);
-    this.panelDecorationR.draw(matrices, this.tinkerInfo.guiRight() - 5 - this.panelDecorationR.w, this.tinkerInfo.topPos - this.panelDecorationR.h);
-    this.panelDecorationL.draw(matrices, this.modifierInfo.leftPos + 5, this.modifierInfo.topPos - this.panelDecorationL.h);
-    this.panelDecorationR.draw(matrices, this.modifierInfo.guiRight() - 5 - this.panelDecorationR.w, this.modifierInfo.topPos - this.panelDecorationR.h);
+    this.panelDecorationL.draw(graphics, this.tinkerInfo.leftPos + 5, this.tinkerInfo.topPos - this.panelDecorationL.h);
+    this.panelDecorationR.draw(graphics, this.tinkerInfo.guiRight() - 5 - this.panelDecorationR.w, this.tinkerInfo.topPos - this.panelDecorationR.h);
+    this.panelDecorationL.draw(graphics, this.modifierInfo.leftPos + 5, this.modifierInfo.topPos - this.panelDecorationL.h);
+    this.panelDecorationR.draw(graphics, this.modifierInfo.guiRight() - 5 - this.panelDecorationR.w, this.modifierInfo.topPos - this.panelDecorationR.h);
 
     // render slot background icons
-    RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
     for (int i = 0; i <= maxInputs; i++) {
       Slot slot = this.getMenu().getSlot(i);
       if (!slot.hasItem()) {
         Pattern icon = currentLayout.getSlot(i).getIcon();
         if (icon != null) {
-          GuiUtil.renderPattern(matrices, icon, this.cornerX + slot.x, this.cornerY + slot.y);
+          GuiUtil.renderPattern(graphics, icon, this.cornerX + slot.x, this.cornerY + slot.y);
         }
       }
     }
 
     RenderSystem.enableDepthTest();
 
-    super.renderBg(matrices, partialTicks, mouseX, mouseY);
+    super.renderBg(graphics, partialTicks, mouseX, mouseY);
 
-    this.buttonsScreen.render(matrices, mouseX, mouseY, partialTicks);
+    this.buttonsScreen.render(graphics, mouseX, mouseY, partialTicks);
 
     // text field
     if (textField != null && textField.visible) {
       RenderUtils.setup(TINKER_STATION_TEXTURE, 1.0f, 1.0f, 1.0f, 1.0f);
-      TEXT_BOX.draw(matrices, this.cornerX + 79, this.cornerY + 3);
-      this.textField.render(matrices, mouseX, mouseY, partialTicks);
+      TEXT_BOX.draw(graphics, this.cornerX + 79, this.cornerY + 3);
+      this.textField.render(graphics, mouseX, mouseY, partialTicks);
     }
+
+    renderArmorStand(graphics, -55, 190, 35);
   }
 
   @Override
@@ -596,12 +513,12 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
   }
 
   @Override
-  public void renderSlot(PoseStack matrixStack, Slot slotIn) {
+  public void renderSlot(GuiGraphics graphics, Slot slotIn) {
     // don't draw dormant slots with no item
     if (slotIn instanceof TinkerStationSlot && ((TinkerStationSlot) slotIn).isDormant() && !slotIn.hasItem()) {
       return;
     }
-    super.renderSlot(matrixStack, slotIn);
+    super.renderSlot(graphics, slotIn);
   }
 
   @Override
@@ -710,7 +627,6 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
   public void removed() {
     super.removed();
     assert this.minecraft != null;
-    this.minecraft.keyboardHandler.setSendRepeatsToGui(false);
   }
 
   @Override
@@ -718,6 +634,5 @@ public class TinkerStationScreen extends BaseTabbedScreen<TinkerStationBlockEnti
     super.onClose();
 
     assert this.minecraft != null;
-    this.minecraft.keyboardHandler.setSendRepeatsToGui(false);
   }
 }

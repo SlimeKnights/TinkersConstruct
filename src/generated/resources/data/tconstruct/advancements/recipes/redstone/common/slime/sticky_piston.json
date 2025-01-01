@@ -28,5 +28,6 @@
     "recipes": [
       "tconstruct:common/slime/sticky_piston"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

@@ -4,8 +4,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.mantle.data.loadable.record.SingletonLoader;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.json.SingletonRecordLoadable;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.BowAmmoModifierHook;
@@ -23,7 +23,7 @@ import java.util.function.Predicate;
 public enum BulkQuiverModule implements ModifierModule, BowAmmoModifierHook {
   INSTANCE;
 
-  public static final SingletonRecordLoadable<BulkQuiverModule> LOADER = new SingletonRecordLoadable<>(INSTANCE);
+  public static final SingletonLoader<BulkQuiverModule> LOADER = new SingletonLoader<>(INSTANCE);
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<BulkQuiverModule>defaultHooks(ModifierHooks.BOW_AMMO);
   private static final ResourceLocation LAST_SLOT = TConstruct.getResource("quiver_last_selected");
 

@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.smeltery.data;
 
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -27,8 +27,8 @@ import slimeknights.tconstruct.shared.block.SlimeType;
 import javax.annotation.Nullable;
 
 public class FluidContainerTransferProvider extends AbstractFluidContainerTransferProvider {
-  public FluidContainerTransferProvider(DataGenerator generator) {
-    super(generator, TConstruct.MOD_ID);
+  public FluidContainerTransferProvider(PackOutput packOutput) {
+    super(packOutput, TConstruct.MOD_ID);
   }
 
   @Override

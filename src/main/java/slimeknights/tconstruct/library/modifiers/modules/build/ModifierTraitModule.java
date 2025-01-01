@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.modifiers.modules.build;
 
 import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
@@ -47,7 +46,7 @@ public record ModifierTraitModule(ModifierEntry modifier, boolean fixedLevel) im
   }
 
   @Override
-  public IGenericLoader<? extends ModifierTraitModule> getLoader() {
+  public RecordLoadable<ModifierTraitModule> getLoader() {
     return LOADER;
   }
 }

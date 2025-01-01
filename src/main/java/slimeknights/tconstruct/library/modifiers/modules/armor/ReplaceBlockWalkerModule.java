@@ -17,7 +17,6 @@ import slimeknights.mantle.data.loadable.common.BlockStateLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.block.BlockPredicate;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.json.IntRange;
 import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolContextPredicate;
@@ -89,7 +88,7 @@ public record ReplaceBlockWalkerModule(List<BlockReplacement> replacements, Leve
   }
 
   @Override
-  public IGenericLoader<? extends ModifierModule> getLoader() {
+  public RecordLoadable<ReplaceBlockWalkerModule> getLoader() {
     return LOADER;
   }
 

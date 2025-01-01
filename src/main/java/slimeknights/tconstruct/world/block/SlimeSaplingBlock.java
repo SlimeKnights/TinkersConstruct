@@ -1,9 +1,6 @@
 package slimeknights.tconstruct.world.block;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
@@ -34,16 +31,10 @@ public class SlimeSaplingBlock extends SaplingBlock {
     return TinkerWorld.SLIME_PLANT_TYPE;
   }
 
+  @SuppressWarnings("deprecation")
   @Override
   @Deprecated
   public boolean canBeReplaced(BlockState state, BlockPlaceContext useContext) {
     return false;
-  }
-
-  @Override
-  public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
-    if (this.foliageType != FoliageType.ICHOR) {
-      super.fillItemCategory(group, items);
-    }
   }
 }

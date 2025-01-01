@@ -5,6 +5,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -29,6 +30,7 @@ public class SpringingModifier extends SlingModifier {
   @Override
   public void onStoppedUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {
     super.onStoppedUsing(tool, modifier, entity, timeLeft);
+    Level level = entity.level();
     if (entity instanceof Player player && !player.isFallFlying()) {
       player.causeFoodExhaustion(0.2F);
 
@@ -43,8 +45,8 @@ public class SpringingModifier extends SlingModifier {
           (look.z + random.nextGaussian() * inaccuracy) * f);
 
         SlimeBounceHandler.addBounceHandler(player);
-        if (!entity.level.isClientSide) {
-          player.level.playSound(null, player.getX(), player.getY(), player.getZ(), Sounds.SLIME_SLING.getSound(), player.getSoundSource(), 1, 1);
+        if (!level.isClientSide) {
+          level.playSound(null, player.getX(), player.getY(), player.getZ(), Sounds.SLIME_SLING.getSound(), player.getSoundSource(), 1, 1);
           player.causeFoodExhaustion(0.2F);
           player.getCooldowns().addCooldown(tool.getItem(), 3);
           ToolDamageUtil.damageAnimated(tool, 1, entity);
@@ -52,6 +54,6 @@ public class SpringingModifier extends SlingModifier {
         return;
       }
     }
-    entity.level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), Sounds.SLIME_SLING.getSound(), entity.getSoundSource(), 1, 0.5f);
+    level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), Sounds.SLIME_SLING.getSound(), entity.getSoundSource(), 1, 0.5f);
   }
 }

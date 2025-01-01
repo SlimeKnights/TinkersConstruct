@@ -16,7 +16,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.SkullBlock;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingVisibilityEvent;
-import net.minecraftforge.event.entity.living.LivingSpawnEvent.SpecialSpawn;
+import net.minecraftforge.event.entity.living.MobSpawnEvent.FinalizeSpawn;
 import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -68,19 +68,21 @@ public class WorldEvents {
   }
 
   // ancient tool equipment
+  @SuppressWarnings({"deprecation", "OverrideOnly"})  // in that event, I can't call the event method or I'll get a stack overflow
   @SubscribeEvent
-  static void livingSpawn(SpecialSpawn event) {
+  static void livingSpawn(FinalizeSpawn event) {
     // TODO: this feels like it should be JSON controlled
     // do I want a more generalized system that works for our slime types too?
     Mob mob = event.getEntity();
     EntityType<?> type = mob.getType();
     // 5% chance for a zombie piglin to spawn with a battle sign, doesn't mean they drop it though
+    ServerLevelAccessor level = event.getLevel();
     if ((type == EntityType.ZOMBIFIED_PIGLIN || type == EntityType.PIGLIN || type == EntityType.PIGLIN_BRUTE || type == EntityType.HUSK || type == EntityType.ZOMBIE_VILLAGER)
-        && event.getLevel() instanceof ServerLevelAccessor level && level.getRandom().nextFloat() < 0.05f) {
+        && level.getRandom().nextFloat() < 0.05f) {
       // forge event runs before finalize spawn so we can't just set our item now or it may get overwritten
       // instead, we cancel the event (which blocks vanilla finalize), then finalize ourself, then can set our item after
       event.setCanceled(true);
-      mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), event.getSpawnReason(), null, null);
+      mob.finalizeSpawn(level, level.getCurrentDifficultyAt(mob.blockPosition()), event.getSpawnType(), event.getSpawnData(), event.getSpawnTag());
 
       Item item = mob.getMainHandItem().getItem();
       // zombie villagers/husks just always get it if the chance is met

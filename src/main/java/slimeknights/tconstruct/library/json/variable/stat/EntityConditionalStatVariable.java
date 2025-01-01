@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.json.variable.stat;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.json.variable.entity.EntityVariable;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
@@ -29,7 +28,7 @@ public record EntityConditionalStatVariable(EntityVariable entity, float fallbac
   }
 
   @Override
-  public IGenericLoader<? extends EntityConditionalStatVariable> getLoader() {
+  public RecordLoadable<? extends EntityConditionalStatVariable> getLoader() {
     return LOADER;
   }
 }

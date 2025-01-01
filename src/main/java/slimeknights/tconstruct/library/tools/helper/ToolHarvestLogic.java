@@ -197,12 +197,12 @@ public class ToolHarvestLogic {
     //return this.breakBlock(stack, pos, player);
 
     // client can run normal block breaking
-    if (player.level.isClientSide || !(player instanceof ServerPlayer serverPlayer)) {
+    if (player.level().isClientSide || !(player instanceof ServerPlayer serverPlayer)) {
       return false;
     }
 
     // create contexts
-    ServerLevel world = serverPlayer.getLevel();
+    ServerLevel world = serverPlayer.serverLevel();
     ToolStack tool = ToolStack.from(stack);
     BlockState state = world.getBlockState(pos);
     Direction sideHit = BlockSideHitListener.getSideHit(player);

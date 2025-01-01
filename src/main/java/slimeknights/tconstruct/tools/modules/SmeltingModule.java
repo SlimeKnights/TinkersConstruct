@@ -115,7 +115,7 @@ public record SmeltingModule(RecipeType<? extends AbstractCookingRecipe> recipeT
 
   /** Redirect to {@link #cookItems(IToolStackView, ModifierEntry, Level, LivingEntity, float)} that fetches level from an entity. */
   private void cookItems(IToolStackView tool, ModifierEntry modifier, LivingEntity holder, float amount) {
-    cookItems(tool, modifier, holder.getLevel(), holder, amount);
+    cookItems(tool, modifier, holder.level(), holder, amount);
   }
 
   /** Logic to actually cook the items */
@@ -171,7 +171,7 @@ public record SmeltingModule(RecipeType<? extends AbstractCookingRecipe> recipeT
               // attempt to assemble the recipe, use a try/catch in case their assemble logic is bad
               CONTAINER.setStack(stack);
               try {
-                ItemStack result = recipe.assemble(CONTAINER);
+                ItemStack result = recipe.assemble(CONTAINER, level.registryAccess());
                 // cooked to nothing? just gotta give up
                 if (result.isEmpty()) {
                   list.remove(i);

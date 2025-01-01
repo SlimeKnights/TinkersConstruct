@@ -3,8 +3,8 @@ package slimeknights.tconstruct.library.data.tinkering;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.server.packs.PackType;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.PackOutput.Target;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import slimeknights.mantle.data.GenericDataProvider;
@@ -15,17 +15,17 @@ import slimeknights.tconstruct.library.modifiers.impl.ComposableModifier;
 import slimeknights.tconstruct.library.modifiers.util.DynamicModifier;
 
 import javax.annotation.Nullable;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 /** Datagen for dynamic modifiers */
 @SuppressWarnings("SameParameterValue")
 public abstract class AbstractModifierProvider extends GenericDataProvider {
   private final Map<ModifierId,Composable> composableModifiers = new HashMap<>();
 
-  public AbstractModifierProvider(DataGenerator generator) {
-    super(generator, PackType.SERVER_DATA, ModifierManager.FOLDER, ModifierManager.GSON);
+  public AbstractModifierProvider(PackOutput packOutput) {
+    super(packOutput, Target.DATA_PACK, ModifierManager.FOLDER, ModifierManager.GSON);
   }
 
   /**
@@ -89,9 +89,9 @@ public abstract class AbstractModifierProvider extends GenericDataProvider {
   }
 
   @Override
-  public void run(CachedOutput cache) throws IOException {
+  public CompletableFuture<?> run(CachedOutput cache) {
     addModifiers();
-    composableModifiers.forEach((id, data) -> saveJson(cache, id, data.serialize()));
+    return allOf(composableModifiers.entrySet().stream().map(entry -> saveJson(cache, entry.getKey(), entry.getValue().serialize())));
   }
 
   /** Result for composable too */

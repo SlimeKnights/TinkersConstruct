@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.gadgets.entity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -43,7 +44,7 @@ public class EFLNExplosion extends Explosion {
           int distance = x * x + y * y + z * z;
           // inside the sphere?
           if (distance <= radius) {
-            BlockPos blockpos = new BlockPos(x, y, z).offset(this.x, this.y, this.z);
+            BlockPos blockpos = new BlockPos(x, y, z).offset(Mth.floor(this.x), Mth.floor(this.y), Mth.floor(this.z));
             // no air blocks
             if (this.level.isEmptyBlock(blockpos)) {
               continue;

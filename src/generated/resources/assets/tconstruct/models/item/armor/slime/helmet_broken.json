@@ -20,6 +20,7 @@
   ],
   "first_modifiers": [
     "tconstruct:embellishment",
-    "tconstruct:golden"
+    "tconstruct:golden",
+    "tconstruct:trim"
   ]
 }

@@ -79,7 +79,7 @@ public class SlimeBounceHandler {
         info.bounceTick = 0;
       }
 
-      boolean isInAir = !entity.isOnGround() && !entity.isInWater() && !entity.onClimbable();
+      boolean isInAir = !entity.onGround() && !entity.isInWater() && !entity.onClimbable();
 
       // preserve motion
       if (isInAir && info.lastMagSq > 0) {

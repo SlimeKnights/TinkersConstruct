@@ -17,7 +17,8 @@
           "loot": [
             "tconstruct:gameplay/starting_book"
           ]
-        }
+        },
+        "sends_telemetry_event": true
       },
       "conditions": [
         {

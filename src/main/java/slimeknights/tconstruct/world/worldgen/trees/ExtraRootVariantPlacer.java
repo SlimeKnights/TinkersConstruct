@@ -8,8 +8,9 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryCodecs;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
@@ -65,7 +66,7 @@ public class ExtraRootVariantPlacer extends MangroveRootPlacer {
   /** Variant of roots to replace in the tree */
   public record RootVariant(HolderSet<Block> holder, BlockStateProvider state) implements Predicate<BlockState> {
     public static final Codec<RootVariant> CODEC = RecordCodecBuilder.create(inst -> inst.group(
-      RegistryCodecs.homogeneousList(Registry.BLOCK_REGISTRY).fieldOf("matches").forGetter(RootVariant::holder),
+      RegistryCodecs.homogeneousList(Registries.BLOCK).fieldOf("matches").forGetter(RootVariant::holder),
       BlockStateProvider.CODEC.fieldOf("state_provider").forGetter(RootVariant::state)).apply(inst, RootVariant::new));
 
     @Override
@@ -120,6 +121,7 @@ public class ExtraRootVariantPlacer extends MangroveRootPlacer {
      * @param replace      Block to replace
      * @return  Builder instance
      */
+    @SuppressWarnings("deprecation")  // no idea why mojang deprecates the one API for that thing
     @CanIgnoreReturnValue
     public Builder rootVariant(Block rootVariant, Block... replace) {
       return rootVariant(HolderSet.direct(Block::builtInRegistryHolder, replace), BlockStateProvider.simple(rootVariant));
@@ -137,9 +139,10 @@ public class ExtraRootVariantPlacer extends MangroveRootPlacer {
     }
 
     /** Sets the blocks that the roots can grow though */
+    @SuppressWarnings("deprecation")
     @CanIgnoreReturnValue
     public Builder canGrowThroughTag(TagKey<Block> tag) {
-      return canGrowThrough(Registry.BLOCK.getOrCreateTag(tag));
+      return canGrowThrough(BuiltInRegistries.BLOCK.getOrCreateTag(tag));
     }
 
     /** Builds the final placer */

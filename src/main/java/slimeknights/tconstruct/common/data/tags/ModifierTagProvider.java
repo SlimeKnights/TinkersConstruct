@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.common.data.tags;
 
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.data.tinkering.AbstractModifierTagProvider;
@@ -48,18 +48,18 @@ import static slimeknights.tconstruct.common.TinkerTags.Modifiers.SPECIAL_DEFENS
 import static slimeknights.tconstruct.common.TinkerTags.Modifiers.UPGRADES;
 
 public class ModifierTagProvider extends AbstractModifierTagProvider {
-  public ModifierTagProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-    super(generator, TConstruct.MOD_ID, existingFileHelper);
+  public ModifierTagProvider(PackOutput packOutput, ExistingFileHelper existingFileHelper) {
+    super(packOutput, TConstruct.MOD_ID, existingFileHelper);
   }
 
   @Override
   protected void addTags() {
     tag(GEMS).addOptional(ModifierIds.diamond, ModifierIds.emerald);
     tag(INVISIBLE_INK_BLACKLIST)
-      .add(TinkerModifiers.embellishment.getId(), TinkerModifiers.dyed.getId(), TinkerModifiers.creativeSlot.getId(), TinkerModifiers.statOverride.getId())
+      .add(TinkerModifiers.embellishment.getId(), TinkerModifiers.dyed.getId(), TinkerModifiers.trim.getId(), TinkerModifiers.creativeSlot.getId(), TinkerModifiers.statOverride.getId())
       .addOptional(ModifierIds.shiny, TinkerModifiers.golden.getId());
     tag(EXTRACT_MODIFIER_BLACKLIST)
-      .add(TinkerModifiers.embellishment.getId(), TinkerModifiers.dyed.getId(), TinkerModifiers.creativeSlot.getId(), TinkerModifiers.statOverride.getId());
+      .add(TinkerModifiers.embellishment.getId(), TinkerModifiers.dyed.getId(), TinkerModifiers.trim.getId(), TinkerModifiers.creativeSlot.getId(), TinkerModifiers.statOverride.getId(), ModifierIds.rebalanced);
     // blacklist modifiers that are not really slotless, they just have a slotless recipe
     tag(EXTRACT_SLOTLESS_BLACKLIST).add(ModifierIds.luck, ModifierIds.toolBelt);
 
@@ -159,7 +159,7 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
       TinkerModifiers.overslime.getId(), ModifierIds.shiny, ModifierIds.worldbound,
       ModifierIds.offhanded, ModifierIds.blindshot,
       TinkerModifiers.farsighted.getId(), TinkerModifiers.nearsighted.getId(),
-      TinkerModifiers.dyed.getId(), TinkerModifiers.embellishment.getId());
+      TinkerModifiers.dyed.getId(), TinkerModifiers.embellishment.getId(), TinkerModifiers.trim.getId());
     this.tag(BONUS_SLOTLESS).add(
       ModifierIds.draconic, ModifierIds.rebalanced,
       ModifierIds.harmonious, ModifierIds.recapitated, ModifierIds.resurrected, ModifierIds.writable);

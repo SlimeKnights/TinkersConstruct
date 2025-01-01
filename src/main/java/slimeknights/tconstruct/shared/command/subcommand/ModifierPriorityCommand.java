@@ -66,7 +66,7 @@ public class ModifierPriorityCommand {
 
     table.build(builder);
     TConstruct.LOG.info(builder.toString());
-    context.getSource().sendSuccess(SUCCESS, true);
+    context.getSource().sendSuccess(() -> SUCCESS, true);
     return list.size();
   }
 }

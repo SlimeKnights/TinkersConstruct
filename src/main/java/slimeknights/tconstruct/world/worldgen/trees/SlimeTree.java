@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.world.worldgen.trees;
 
-import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
@@ -16,13 +16,13 @@ public class SlimeTree extends AbstractTreeGrower {
   }
 
   @Override
-  protected Holder<? extends ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean largeHive) {
-    return (switch (this.foliageType) {
+  protected ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean largeHive) {
+    return switch (this.foliageType) {
       case EARTH -> TinkerStructures.earthSlimeTree;
       case SKY -> TinkerStructures.skySlimeTree;
       case ENDER -> random.nextFloat() < 0.85f ? TinkerStructures.enderSlimeTreeTall : TinkerStructures.enderSlimeTree;
       case BLOOD -> TinkerStructures.bloodSlimeFungus;
       case ICHOR -> TinkerStructures.ichorSlimeFungus;
-    }).getHolder().orElseThrow();
+    };
   }
 }

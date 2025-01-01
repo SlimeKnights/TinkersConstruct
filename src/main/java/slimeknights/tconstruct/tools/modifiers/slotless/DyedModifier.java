@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.slotless;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -25,7 +26,7 @@ public class DyedModifier extends NoLevelsModifier implements ModifierRemovalHoo
   }
 
   @Override
-  public Component getDisplayName(IToolStackView tool, ModifierEntry entry) {
+  public Component getDisplayName(IToolStackView tool, ModifierEntry entry, @Nullable RegistryAccess access) {
     ModDataNBT persistentData = tool.getPersistentData();
     ResourceLocation key = getId();
     if (persistentData.contains(key, Tag.TAG_INT)) {

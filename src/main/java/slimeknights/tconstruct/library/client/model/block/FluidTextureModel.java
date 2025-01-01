@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.client.model.block;
 import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
-import com.mojang.datafixers.util.Pair;
 import lombok.AllArgsConstructor;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.RenderType;
@@ -13,7 +12,7 @@ import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.Material;
-import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.client.resources.model.ModelBaker;
 import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.client.resources.model.SimpleBakedModel;
 import net.minecraft.client.resources.model.UnbakedModel;
@@ -40,7 +39,6 @@ import slimeknights.mantle.client.model.util.ColoredBlockModel.ColorData;
 import slimeknights.mantle.client.model.util.DynamicBakedWrapper;
 import slimeknights.mantle.client.model.util.ModelHelper;
 import slimeknights.mantle.client.model.util.SimpleBlockModel;
-import slimeknights.mantle.item.RetexturedBlockItem;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.mantle.util.LogicHelper;
 import slimeknights.mantle.util.RetexturedHelper;
@@ -50,7 +48,6 @@ import slimeknights.tconstruct.smeltery.block.entity.tank.IDisplayFluidListener;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.BitSet;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -71,8 +68,8 @@ public class FluidTextureModel implements IUnbakedGeometry<FluidTextureModel> {
   private final Set<String> retextured;
 
   @Override
-  public Collection<Material> getMaterials(IGeometryBakingContext owner, Function<ResourceLocation,UnbakedModel> modelGetter, Set<Pair<String,String>> missingTextureErrors) {
-    return model.getMaterials(owner, modelGetter, missingTextureErrors);
+  public void resolveParents(Function<ResourceLocation, UnbakedModel> modelGetter, IGeometryBakingContext context) {
+    model.resolveParents(modelGetter, context);
   }
 
   /** Trims the # character off the beginning of a texture name (if present) */
@@ -84,9 +81,9 @@ public class FluidTextureModel implements IUnbakedGeometry<FluidTextureModel> {
   }
 
   @Override
-  public BakedModel bake(IGeometryBakingContext owner, ModelBakery bakery, Function<Material,TextureAtlasSprite> spriteGetter, ModelState transform, ItemOverrides overrides, ResourceLocation modelLocation) {
+  public BakedModel bake(IGeometryBakingContext owner, ModelBaker baker, Function<Material,TextureAtlasSprite> spriteGetter, ModelState transform, ItemOverrides overrides, ResourceLocation modelLocation) {
     // start by baking the model, handing UV lock
-    BakedModel baked = model.bake(owner, bakery, spriteGetter, transform, overrides, modelLocation);
+    BakedModel baked = model.bake(owner, baker, spriteGetter, transform, overrides, modelLocation);
 
     // determine which block parts are fluids
     Set<String> fluidTextures = this.fluids.isEmpty() ? Collections.emptySet() : RetexturedModel.getAllRetextured(owner, model, this.fluids);
@@ -125,6 +122,7 @@ public class FluidTextureModel implements IUnbakedGeometry<FluidTextureModel> {
     private final Set<String> fluids;
     private final BitSet fluidParts;
     private final Set<String> retextured;
+    private final ItemOverrides overrides = new RetexturedOverride();
 
     protected Baked(BakedModel originalModel, List<BlockElement> elements, List<ColorData> colorData, IGeometryBakingContext owner, ModelState transform, Set<String> fluids, BitSet fluidParts, Set<String> retextured) {
       super(originalModel);
@@ -206,7 +204,27 @@ public class FluidTextureModel implements IUnbakedGeometry<FluidTextureModel> {
 
     @Override
     public ItemOverrides getOverrides() {
-      return RetexturedOverride.INSTANCE;
+      return overrides;
+    }
+
+    /** Override list to swap the texture in from NBT */
+    private class RetexturedOverride extends ItemOverrides {
+      @Nullable
+      @Override
+      public BakedModel resolve(BakedModel originalModel, ItemStack stack, @Nullable ClientLevel world, @Nullable LivingEntity entity, int pSeed) {
+        if (stack.isEmpty() || !stack.hasTag()) {
+          return originalModel;
+        }
+
+        // get the block first, ensuring its valid
+        Block block = RetexturedHelper.getTexture(stack);
+        if (block == Blocks.AIR) {
+          return originalModel;
+        }
+
+        // if valid, use the block
+        return getCachedModel(new BakedCacheKey(FluidStack.EMPTY, ModelHelper.getParticleTexture(block)));
+      }
     }
   }
 
@@ -222,27 +240,5 @@ public class FluidTextureModel implements IUnbakedGeometry<FluidTextureModel> {
       retextured = ImmutableSet.copyOf(JsonHelper.parseList(json, "retextured", GsonHelper::convertToString));
     }
     return new FluidTextureModel(model, fluids, retextured);
-  }
-
-  /** Override list to swap the texture in from NBT */
-  private static class RetexturedOverride extends ItemOverrides {
-    private static final RetexturedOverride INSTANCE = new RetexturedOverride();
-
-    @Nullable
-    @Override
-    public BakedModel resolve(BakedModel originalModel, ItemStack stack, @Nullable ClientLevel world, @Nullable LivingEntity entity, int pSeed) {
-      if (stack.isEmpty() || !stack.hasTag()) {
-        return originalModel;
-      }
-
-      // get the block first, ensuring its valid
-      Block block = RetexturedBlockItem.getTexture(stack);
-      if (block == Blocks.AIR) {
-        return originalModel;
-      }
-
-      // if valid, use the block
-      return ((Baked)originalModel).getCachedModel(new BakedCacheKey(FluidStack.EMPTY, ModelHelper.getParticleTexture(block)));
-    }
   }
 }

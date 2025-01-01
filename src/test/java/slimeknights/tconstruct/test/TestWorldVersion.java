@@ -2,6 +2,7 @@ package slimeknights.tconstruct.test;
 
 import net.minecraft.SharedConstants;
 import net.minecraft.WorldVersion;
+import net.minecraft.server.packs.PackType;
 import net.minecraft.world.level.storage.DataVersion;
 
 import java.util.Date;
@@ -26,13 +27,13 @@ public class TestWorldVersion implements WorldVersion {
   }
 
   @Override
-  public String getReleaseTarget() {
-    return "1.18.1";
+  public int getProtocolVersion() {
+    return SharedConstants.getProtocolVersion();
   }
 
   @Override
-  public int getProtocolVersion() {
-    return SharedConstants.getProtocolVersion();
+  public int getPackVersion(PackType pPackType) {
+    return 0;
   }
 
   @Override

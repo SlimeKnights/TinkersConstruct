@@ -45,7 +45,7 @@ public class NecroticModifier extends Modifier implements ProjectileHitModifierH
       if (percent > 0) {
         LivingEntity attacker = context.getAttacker();
         attacker.heal(percent * damageDealt);
-        attacker.level.playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), Sounds.NECROTIC_HEAL.getSound(), SoundSource.PLAYERS, 1.0f, 1.0f);
+        attacker.level().playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), Sounds.NECROTIC_HEAL.getSound(), SoundSource.PLAYERS, 1.0f, 1.0f);
         // take a bit of extra damage to heal
         ToolDamageUtil.damageAnimated(tool, level, attacker, context.getSlotType());
       }
@@ -61,7 +61,7 @@ public class NecroticModifier extends Modifier implements ProjectileHitModifierH
           // we don't actually know how much damage will be dealt, so just guess by using the standard formula
           // to prevent healing too much, limit by the target's health. Will let you life steal ignoring armor, but eh, only so much we can do efficiently
           attacker.heal((float)(percent * Math.min(target.getHealth(), arrow.getBaseDamage() * arrow.getDeltaMovement().length())));
-          attacker.level.playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), Sounds.NECROTIC_HEAL.getSound(), SoundSource.PLAYERS, 1.0f, 1.0f);
+          attacker.level().playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), Sounds.NECROTIC_HEAL.getSound(), SoundSource.PLAYERS, 1.0f, 1.0f);
         }
       }
     }

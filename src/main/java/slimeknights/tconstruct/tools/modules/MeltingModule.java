@@ -201,7 +201,7 @@ public record MeltingModule(LevelingInt temperature, LevelingInt nuggetsPerMetal
       // first, find the proper recipe
       LivingEntity target = context.getLivingTarget();
       if (target != null) {
-        EntityMeltingRecipe recipe = EntityMeltingRecipeCache.findRecipe(context.getAttacker().level.getRecipeManager(), target.getType());
+        EntityMeltingRecipe recipe = EntityMeltingRecipeCache.findRecipe(context.getLevel().getRecipeManager(), target.getType());
         FluidStack output;
         int damagePerOutput;
         if (recipe != null) {

@@ -6,7 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.Container;
@@ -130,7 +130,6 @@ public class TabbedContainerMenu<TILE extends BlockEntity> extends TriggeringMul
           // try internal access first
           if (hasItemHandler(te, null)) {
             inventoryTE = te;
-            accessDir = null;
             break;
           }
 
@@ -158,9 +157,10 @@ public class TabbedContainerMenu<TILE extends BlockEntity> extends TriggeringMul
    * @param tileEntity  Tile to check
    * @return  True if blacklisted
    */
+  @SuppressWarnings("deprecation")  // your tag utils are overkill
   private static boolean isUsable(BlockEntity tileEntity, Player player) {
     // must not be blacklisted and be usable
-    return !RegistryHelper.contains(Registry.BLOCK_ENTITY_TYPE, TinkerTags.TileEntityTypes.CRAFTING_STATION_BLACKLIST, tileEntity.getType())
+    return !RegistryHelper.contains(BuiltInRegistries.BLOCK_ENTITY_TYPE, TinkerTags.TileEntityTypes.CRAFTING_STATION_BLACKLIST, tileEntity.getType())
            && (!(tileEntity instanceof Container) || ((Container)tileEntity).stillValid(player));
   }
 

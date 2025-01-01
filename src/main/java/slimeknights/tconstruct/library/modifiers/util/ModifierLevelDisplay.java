@@ -4,10 +4,9 @@ import net.minecraft.network.chat.Component;
 import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.mantle.data.loadable.record.SingletonLoader;
 import slimeknights.mantle.data.registry.DefaultingLoaderRegistry;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.SingletonLoader;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.utils.RomanNumeralHelper;
 
@@ -27,7 +26,7 @@ public interface ModifierLevelDisplay extends IHaveLoader {
   Component nameForLevel(Modifier modifier, int level);
 
   @Override
-  IGenericLoader<? extends ModifierLevelDisplay> getLoader();
+  RecordLoadable<? extends ModifierLevelDisplay> getLoader();
 
 
   /* Non-default implementations */
@@ -60,7 +59,7 @@ public interface ModifierLevelDisplay extends IHaveLoader {
       }
 
       @Override
-      public IGenericLoader<? extends ModifierLevelDisplay> getLoader() {
+      public RecordLoadable<? extends ModifierLevelDisplay> getLoader() {
         return loader;
       }
     });
@@ -93,7 +92,7 @@ public interface ModifierLevelDisplay extends IHaveLoader {
     }
 
     @Override
-    public IGenericLoader<? extends ModifierLevelDisplay> getLoader() {
+    public RecordLoadable<UniqueForLevels> getLoader() {
       return LOADER;
     }
   }

@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "group": "tconstruct:scorched_bricks_stairs",
   "key": {
     "B": {
@@ -14,5 +15,6 @@
   "result": {
     "count": 4,
     "item": "tconstruct:scorched_bricks_stairs"
-  }
+  },
+  "show_notification": true
 }

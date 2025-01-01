@@ -1,9 +1,11 @@
 package slimeknights.tconstruct.tables.recipe;
 
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
@@ -28,7 +30,7 @@ import javax.annotation.Nullable;
 /** Recipe using repair kits in the crafting table */
 public class CraftingTableRepairKitRecipe extends CustomRecipe {
   public CraftingTableRepairKitRecipe(ResourceLocation id) {
-    super(id);
+    super(id, CraftingBookCategory.EQUIPMENT);
   }
 
   /**
@@ -99,7 +101,7 @@ public class CraftingTableRepairKitRecipe extends CustomRecipe {
   }
 
   @Override
-  public ItemStack assemble(CraftingContainer inv) {
+  public ItemStack assemble(CraftingContainer inv, RegistryAccess access) {
     Pair<ToolStack, ItemStack> inputs = getRelevantInputs(inv);
     if (inputs == null) {
       TConstruct.LOG.error("Recipe repair on {} failed to find items after matching", getId());

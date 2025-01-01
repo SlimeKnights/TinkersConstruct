@@ -21,7 +21,6 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.shapes.BitSetDiscreteVoxelShape;
 import net.minecraft.world.phys.shapes.DiscreteVoxelShape;
 import slimeknights.tconstruct.common.TinkerTags;
@@ -250,14 +249,6 @@ public class SlimeTreeFeature extends Feature<SlimeTreeConfig> {
     return isReplaceableAt(reader, blockPos) || reader.isStateAtPosition(blockPos, state -> state.is(BlockTags.LOGS));
   }
 
-  private static boolean isVineAt(LevelSimulatedReader reader, BlockPos blockPos) {
-    return reader.isStateAtPosition(blockPos, (state) -> state.is(Blocks.VINE));
-  }
-
-  private static boolean isWaterAt(LevelSimulatedReader reader, BlockPos blockPos) {
-    return reader.isStateAtPosition(blockPos, state -> state.is(Blocks.WATER));
-  }
-
   public static boolean isAirOrLeavesAt(LevelSimulatedReader reader, BlockPos blockPos) {
     return reader.isStateAtPosition(blockPos, state -> state.isAir() || state.is(BlockTags.LEAVES));
   }
@@ -266,12 +257,8 @@ public class SlimeTreeFeature extends Feature<SlimeTreeConfig> {
     return reader.isStateAtPosition(blockPos, state -> state.is(TinkerTags.Blocks.SLIMY_SOIL));
   }
 
-  private static boolean isTallPlantAt(LevelSimulatedReader reader, BlockPos blockPos) {
-    return reader.isStateAtPosition(blockPos, state -> state.getMaterial() == Material.REPLACEABLE_PLANT);
-  }
-
   public static boolean isReplaceableAt(LevelSimulatedReader reader, BlockPos blockPos) {
-    return isAirOrLeavesAt(reader, blockPos) || isTallPlantAt(reader, blockPos) || isWaterAt(reader, blockPos);
+    return reader.isStateAtPosition(blockPos, state -> state.isAir() || state.canBeReplaced() || state.is(BlockTags.LEAVES));
   }
 
   public static void setBlockStateAt(LevelWriter writer, BlockPos blockPos, BlockState state) {

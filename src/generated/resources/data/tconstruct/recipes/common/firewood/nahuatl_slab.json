@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "group": "tconstruct:nahuatl_slab",
   "key": {
     "B": {
@@ -12,5 +13,6 @@
   "result": {
     "count": 6,
     "item": "tconstruct:nahuatl_slab"
-  }
+  },
+  "show_notification": true
 }

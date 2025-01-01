@@ -2,11 +2,12 @@ package slimeknights.tconstruct.library.tools.context;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.InteractionHand;
+import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.library.utils.Util;
 
 import javax.annotation.Nonnull;
@@ -47,5 +48,10 @@ public class ToolAttackContext {
   /** Returns true if this attack is fully charged */
   public boolean isFullyCharged() {
     return getCooldown() > 0.9f;
+  }
+
+  /** Gets the level for this context */
+  public Level getLevel() {
+    return attacker.level();
   }
 }

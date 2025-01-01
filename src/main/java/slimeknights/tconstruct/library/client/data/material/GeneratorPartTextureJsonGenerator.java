@@ -7,9 +7,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.PackOutput.Target;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.PackType;
 import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.mantle.data.gson.ResourceLocationSerializer;
 import slimeknights.tconstruct.TConstruct;
@@ -17,12 +17,12 @@ import slimeknights.tconstruct.library.client.data.material.AbstractPartSpritePr
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
 /** Generates the file that tells the part generator command which parts are needed for your tools */
 public class GeneratorPartTextureJsonGenerator extends GenericDataProvider {
@@ -38,26 +38,26 @@ public class GeneratorPartTextureJsonGenerator extends GenericDataProvider {
   private final AbstractPartSpriteProvider spriteProvider;
   private final StatOverride overrides;
   
-  public GeneratorPartTextureJsonGenerator(DataGenerator generator, String modId, AbstractPartSpriteProvider spriteProvider) {
-    this(generator, modId, spriteProvider, StatOverride.EMPTY);
+  public GeneratorPartTextureJsonGenerator(PackOutput packOutput, String modId, AbstractPartSpriteProvider spriteProvider) {
+    this(packOutput, modId, spriteProvider, StatOverride.EMPTY);
   }
 
-  public GeneratorPartTextureJsonGenerator(DataGenerator generator, String modId, AbstractPartSpriteProvider spriteProvider, StatOverride overrides) {
-    super(generator, PackType.CLIENT_RESOURCES, "tinkering", GSON);
+  public GeneratorPartTextureJsonGenerator(PackOutput packOutput, String modId, AbstractPartSpriteProvider spriteProvider, StatOverride overrides) {
+    super(packOutput, Target.RESOURCE_PACK, "tinkering", GSON);
     this.modId = modId;
     this.spriteProvider = spriteProvider;
     this.overrides = overrides;
   }
 
   @Override
-  public void run(CachedOutput cache) throws IOException {
+  public CompletableFuture<?> run(CachedOutput cache) {
     JsonObject json = new JsonObject();
     json.addProperty("replace", false);
     json.add("parts", PartSpriteInfo.LIST_LOADABLE.serialize(spriteProvider.getSprites()));
     if (!overrides.overrides.isEmpty()) {
       json.add("overrides", overrides.serialize());
     }
-    saveJson(cache, new ResourceLocation(modId, "generator_part_textures"), json);
+    return saveJson(cache, new ResourceLocation(modId, "generator_part_textures"), json);
   }
 
   @Override
@@ -87,6 +87,7 @@ public class GeneratorPartTextureJsonGenerator extends GenericDataProvider {
       return json;
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     public static class Builder {
       private final Map<MaterialStatsId,ImmutableSet.Builder<ResourceLocation>> builder = new LinkedHashMap<>();
 

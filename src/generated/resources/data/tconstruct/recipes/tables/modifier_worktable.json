@@ -1,5 +1,6 @@
 {
   "type": "mantle:crafting_shaped_retextured",
+  "category": "misc",
   "key": {
     "r": {
       "tag": "tconstruct:workstation_rock"
@@ -17,6 +18,7 @@
   "result": {
     "item": "tconstruct:modifier_worktable"
   },
+  "show_notification": true,
   "texture": {
     "tag": "tconstruct:workstation_rock"
   }

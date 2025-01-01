@@ -3,7 +3,7 @@ package slimeknights.tconstruct.tools.client;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.util.Mth;
@@ -183,16 +183,15 @@ public class ModifierClientEvents {
 
         int scaledWidth = mc.getWindow().getGuiScaledWidth();
         int scaledHeight = mc.getWindow().getGuiScaledHeight();
-        PoseStack matrixStack = event.getPoseStack();
+        GuiGraphics graphics = event.getGuiGraphics();
         float partialTicks = event.getPartialTick();
 
         // want just above the normal hotbar item
         if (renderShield) {
-          RenderSystem.setShaderTexture(0, Icons.ICONS);
           int x = scaledWidth / 2 + (player.getMainArm().getOpposite() == HumanoidArm.LEFT ? -117 : 101);
           int y = scaledHeight - 38;
-          Screen.blit(matrixStack, x - 3, y - 3, player.getOffhandItem().isEmpty() ? 211 : 189, 0, SLOT_BACKGROUND_SIZE, SLOT_BACKGROUND_SIZE, 256, 256);
-          mc.gui.renderSlot(x, y, partialTicks, player, nextOffhand, 11);
+          graphics.blit(Icons.ICONS, x - 3, y - 3, player.getOffhandItem().isEmpty() ? 211 : 189, 0, SLOT_BACKGROUND_SIZE, SLOT_BACKGROUND_SIZE, 256, 256);
+          mc.gui.renderSlot(graphics, x, y, partialTicks, player, nextOffhand, 11);
         }
 
         if (renderItemFrame) {
@@ -221,13 +220,13 @@ public class ModifierClientEvents {
           int lastRow = rows - 1;
           for (int r = 0; r < lastRow; r++) {
             for (int c = 0; c < columns; c++) {
-              Screen.blit(matrixStack, xStart + c * SLOT_BACKGROUND_SIZE, yStart + r * SLOT_BACKGROUND_SIZE, 167, 0, SLOT_BACKGROUND_SIZE, SLOT_BACKGROUND_SIZE, 256, 256);
+              graphics.blit(Icons.ICONS, xStart + c * SLOT_BACKGROUND_SIZE, yStart + r * SLOT_BACKGROUND_SIZE, 167, 0, SLOT_BACKGROUND_SIZE, SLOT_BACKGROUND_SIZE, 256, 256);
             }
           }
           // last row will be aligned in the direction of x orientation (center, left, or right)
           int lastRowOffset = xOrientation.align((columns - inLastRow) * 2) * SLOT_BACKGROUND_SIZE / 2;
           for (int c = 0; c < inLastRow; c++) {
-            Screen.blit(matrixStack, xStart + c * SLOT_BACKGROUND_SIZE + lastRowOffset, yStart + lastRow * SLOT_BACKGROUND_SIZE, 167, 0, SLOT_BACKGROUND_SIZE, SLOT_BACKGROUND_SIZE, 256, 256);
+            graphics.blit(Icons.ICONS, xStart + c * SLOT_BACKGROUND_SIZE + lastRowOffset, yStart + lastRow * SLOT_BACKGROUND_SIZE, 167, 0, SLOT_BACKGROUND_SIZE, SLOT_BACKGROUND_SIZE, 256, 256);
           }
 
           // draw items
@@ -235,13 +234,13 @@ public class ModifierClientEvents {
           xStart += 3; yStart += 3; // offset from item start instead of frame start
           for (int r = 0; r < lastRow; r++) {
             for (int c = 0; c < columns; c++) {
-              mc.gui.renderSlot(xStart + c * SLOT_BACKGROUND_SIZE, yStart + r * SLOT_BACKGROUND_SIZE, partialTicks, player, itemFrames.get(i), i);
+              mc.gui.renderSlot(graphics, xStart + c * SLOT_BACKGROUND_SIZE, yStart + r * SLOT_BACKGROUND_SIZE, partialTicks, player, itemFrames.get(i), i);
               i++;
             }
           }
           // align last row
           for (int c = 0; c < inLastRow; c++) {
-            mc.gui.renderSlot(xStart + c * SLOT_BACKGROUND_SIZE + lastRowOffset, yStart + lastRow * SLOT_BACKGROUND_SIZE, partialTicks, player, itemFrames.get(i), i);
+            mc.gui.renderSlot(graphics, xStart + c * SLOT_BACKGROUND_SIZE + lastRowOffset, yStart + lastRow * SLOT_BACKGROUND_SIZE, partialTicks, player, itemFrames.get(i), i);
             i++;
           }
         }

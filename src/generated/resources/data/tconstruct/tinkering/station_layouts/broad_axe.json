@@ -33,10 +33,10 @@
     },
     {
       "filter": {
-        "item": "tconstruct:tool_binding"
+        "item": "tconstruct:tough_binding"
       },
-      "icon": "tconstruct:tool_binding",
-      "translation_key": "item.tconstruct.tool_binding",
+      "icon": "tconstruct:tough_binding",
+      "translation_key": "item.tconstruct.tough_binding",
       "x": 44,
       "y": 29
     }

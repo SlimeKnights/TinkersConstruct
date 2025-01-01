@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "p": {
       "item": "tconstruct:pattern"
@@ -25,5 +26,6 @@
   ],
   "result": {
     "item": "tconstruct:crafting_station"
-  }
+  },
+  "show_notification": true
 }

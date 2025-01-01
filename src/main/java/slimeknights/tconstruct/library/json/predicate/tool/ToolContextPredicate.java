@@ -2,11 +2,11 @@ package slimeknights.tconstruct.library.json.predicate.tool;
 
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.mantle.data.loadable.record.SingletonLoader;
 import slimeknights.mantle.data.predicate.FallbackPredicateRegistry;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.item.ItemPredicate;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.SingletonLoader;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 
 import java.util.List;
@@ -39,7 +39,7 @@ public interface ToolContextPredicate extends IJsonPredicate<IToolContext> {
       }
 
       @Override
-      public IGenericLoader<? extends ToolContextPredicate> getLoader() {
+      public RecordLoadable<? extends ToolContextPredicate> getLoader() {
         return loader;
       }
     });

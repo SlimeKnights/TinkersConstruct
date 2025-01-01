@@ -51,15 +51,15 @@ public record SetStatModule<T>(IToolStat<T> stat, T value, ModifierCondition<ITo
   public static final RecordLoadable<SetStatModule<?>> LOADER = new RecordLoadable<>() {
     @Override
     public SetStatModule<?> deserialize(JsonObject json, TypedMap context) {
-      return deserialize(json, ToolStats.LOADER.getIfPresent(json, "stat"));
+      return deserialize(json, ToolStats.LOADER.getIfPresent(json, "stat", context), context);
     }
 
     /** Handles generics for deserializing the value */
-    private static <T> SetStatModule<T> deserialize(JsonObject json, IToolStat<T> stat) {
+    private static <T> SetStatModule<T> deserialize(JsonObject json, IToolStat<T> stat, TypedMap context) {
       return new SetStatModule<>(
         stat,
         stat.deserialize(JsonHelper.getElement(json, "value")),
-        ModifierCondition.CONTEXT_FIELD.get(json)
+        ModifierCondition.CONTEXT_FIELD.get(json, context)
       );
     }
 
@@ -77,14 +77,14 @@ public record SetStatModule<T>(IToolStat<T> stat, T value, ModifierCondition<ITo
 
     @Override
     public SetStatModule<?> decode(FriendlyByteBuf buffer, TypedMap context) {
-      return decode(buffer, ToolStats.LOADER.decode(buffer));
+      return decode(buffer, ToolStats.LOADER.decode(buffer, context), context);
     }
 
     /** Handles generics for reading the value from network */
-    private static <T> SetStatModule<T> decode(FriendlyByteBuf buffer, IToolStat<T> stat) {
+    private static <T> SetStatModule<T> decode(FriendlyByteBuf buffer, IToolStat<T> stat, TypedMap context) {
       return new SetStatModule<>(
         stat, stat.fromNetwork(buffer),
-        ModifierCondition.CONTEXT_FIELD.decode(buffer)
+        ModifierCondition.CONTEXT_FIELD.decode(buffer, context)
       );
     }
 

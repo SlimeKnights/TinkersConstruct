@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library.client.data.material;
 import com.google.gson.JsonObject;
 import com.mojang.blaze3d.platform.NativeImage;
 import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -17,12 +17,11 @@ import slimeknights.tconstruct.library.client.data.util.DataGenSpriteReader;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 
 import javax.annotation.Nullable;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
-import java.util.function.Predicate;
 
 /**
  * Texture generator to generate textures for materials, supports adding a set of sprites to recolor, alongside a set of materials
@@ -45,12 +44,12 @@ public class MaterialPartTextureGenerator extends GenericTextureGenerator {
   private final AbstractMaterialSpriteProvider[] materialProviders;
   private final StatOverride overrides;
 
-  public MaterialPartTextureGenerator(DataGenerator generator, ExistingFileHelper existingFileHelper, AbstractPartSpriteProvider spriteProvider, AbstractMaterialSpriteProvider... materialProviders) {
-    this(generator, existingFileHelper, spriteProvider, StatOverride.EMPTY, materialProviders);
+  public MaterialPartTextureGenerator(PackOutput packOutput, ExistingFileHelper existingFileHelper, AbstractPartSpriteProvider spriteProvider, AbstractMaterialSpriteProvider... materialProviders) {
+    this(packOutput, existingFileHelper, spriteProvider, StatOverride.EMPTY, materialProviders);
   }
 
-  public MaterialPartTextureGenerator(DataGenerator generator, ExistingFileHelper existingFileHelper, AbstractPartSpriteProvider spriteProvider, StatOverride overrides, AbstractMaterialSpriteProvider... materialProviders) {
-    super(generator, FOLDER);
+  public MaterialPartTextureGenerator(PackOutput packOutput, ExistingFileHelper existingFileHelper, AbstractPartSpriteProvider spriteProvider, StatOverride overrides, AbstractMaterialSpriteProvider... materialProviders) {
+    super(packOutput, FOLDER);
     this.spriteReader = new DataGenSpriteReader(existingFileHelper, FOLDER);
     this.existingFileHelper = existingFileHelper;
     this.partProvider = spriteProvider;
@@ -73,7 +72,7 @@ public class MaterialPartTextureGenerator extends GenericTextureGenerator {
 
 
   @Override
-  public void run(CachedOutput cache) throws IOException {
+  public CompletableFuture<?> run(CachedOutput cache) {
     runCallbacks(existingFileHelper, null);
     
     // ensure we have parts
@@ -83,29 +82,42 @@ public class MaterialPartTextureGenerator extends GenericTextureGenerator {
     }
 
     // for each material list, generate sprites
-    BiConsumer<ResourceLocation, NativeImage> saver = (path, image) -> saveImage(cache, path, image);
-    BiConsumer<ResourceLocation, JsonObject> metaSaver = (path, meta) -> saveMetadata(cache, path, meta);
+    List<CompletableFuture<?>> tasks = new ArrayList<>();
+    BiConsumer<ResourceLocation, NativeImage> saver = (path, image) -> tasks.add(saveImage(cache, path, image));
+    BiConsumer<ResourceLocation, JsonObject> metaSaver = (path, meta) -> tasks.add(saveMetadata(cache, path, meta));
     for (AbstractMaterialSpriteProvider materialProvider : materialProviders) {
       Collection<MaterialSpriteInfo> materials = materialProvider.getMaterials().values();
       if (materials.isEmpty()) {
         throw new IllegalStateException(materialProvider.getName() + " has no materials, must have at least one material to generate");
       }
       // want cross product of textures
-      Predicate<ResourceLocation> shouldGenerate = path -> !spriteReader.exists(path);
       for (MaterialSpriteInfo material : materials) {
         for (PartSpriteInfo part : parts) {
           // if any stat type matches, generate it
           for (MaterialStatsId statType : part.getStatTypes()) {
             if (material.supportStatType(statType) || overrides.hasOverride(statType, material.getTexture())) {
-              generateSprite(spriteReader, material, part, shouldGenerate, saver, metaSaver);
+              ResourceLocation spritePath = outputPath(part, material);
+              if (!spriteReader.exists(spritePath)) {
+                generateSprite(spriteReader, material, part, spritePath, saver, metaSaver);
+              }
+              break;
             }
           }
         }
       }
     }
-    spriteReader.closeAll();
-    partProvider.cleanCache();
-    runCallbacks(null, null);
+    return allOf(tasks).thenRunAsync(() -> {
+      spriteReader.closeAll();
+      partProvider.cleanCache();
+      runCallbacks(null, null);
+    });
+  }
+
+  /** Gets the output path for a given sprite */
+  public static ResourceLocation outputPath(PartSpriteInfo part, MaterialSpriteInfo material) {
+    // path format: pNamespace:pPath_mNamespace_mPath
+    ResourceLocation materialTexture = material.getTexture();
+    return part.getPath().withSuffix("_" + materialTexture.getNamespace() + "_" + materialTexture.getPath());
   }
 
   /**
@@ -113,44 +125,34 @@ public class MaterialPartTextureGenerator extends GenericTextureGenerator {
    * @param spriteReader    Reader to find existing sprites
    * @param material        Material for the sprite
    * @param part            Part for the sprites
-   * @param shouldGenerate  Predicate to determine if the sprite should generate, given the local path to the sprite
    * @param saver           Function to save the images
    * @param metaSaver       Function to save the animation metadata
    */
-  public static void generateSprite(AbstractSpriteReader spriteReader, MaterialSpriteInfo material, PartSpriteInfo part, Predicate<ResourceLocation> shouldGenerate, BiConsumer<ResourceLocation, NativeImage> saver, BiConsumer<ResourceLocation,JsonObject> metaSaver) {
-    // first step: see if this sprite has already been generated, if so nothing to do
-    // path format: pNamespace:pPath_mNamespace_mPath
-    ResourceLocation partPath = part.getPath();
-    ResourceLocation materialTexture = material.getTexture();
-    ResourceLocation spritePath = new ResourceLocation(partPath.getNamespace(),
-      partPath.getPath() + "_" + materialTexture.getNamespace() + "_" + materialTexture.getPath());
-
+  public static void generateSprite(AbstractSpriteReader spriteReader, MaterialSpriteInfo material, PartSpriteInfo part, ResourceLocation spritePath, BiConsumer<ResourceLocation, NativeImage> saver, BiConsumer<ResourceLocation,JsonObject> metaSaver) {
     // image does not exist? first step is to find a base image
-    if (shouldGenerate.test(spritePath)) {
-      NativeImage base = null;
-      for (String fallback : material.getFallbacks()) {
-        base = part.getTexture(spriteReader, fallback);
-        if (base != null) {
-          break;
-        }
+    NativeImage base = null;
+    for (String fallback : material.getFallbacks()) {
+      base = part.getTexture(spriteReader, fallback);
+      if (base != null) {
+        break;
       }
-      // no fallback existed, try the main one
-      if (base == null) {
-        base = part.getTexture(spriteReader, "");
-      }
-      if (base == null) {
-        throw new IllegalStateException("Missing sprite at " + partPath + ".png, cannot generate textures");
-      }
-      // successfully found a texture, now transform and save
-      ISpriteTransformer transformer = material.getTransformer();
-      NativeImage transformed = transformer.transformCopy(base, part.isAllowAnimated());
-      spriteReader.track(transformed);
-      saver.accept(spritePath, transformed);
-      if (part.isAllowAnimated()) {
-        JsonObject meta = transformer.animationMeta(base);
-        if (meta != null) {
-          metaSaver.accept(spritePath, meta);
-        }
+    }
+    // no fallback existed, try the main one
+    if (base == null) {
+      base = part.getTexture(spriteReader, "");
+    }
+    if (base == null) {
+      throw new IllegalStateException("Missing sprite at " + part.getPath() + ".png, cannot generate textures");
+    }
+    // successfully found a texture, now transform and save
+    ISpriteTransformer transformer = material.getTransformer();
+    NativeImage transformed = transformer.transformCopy(base, part.isAllowAnimated());
+    spriteReader.track(transformed);
+    saver.accept(spritePath, transformed);
+    if (part.isAllowAnimated()) {
+      JsonObject meta = transformer.animationMeta(base);
+      if (meta != null) {
+        metaSaver.accept(spritePath, meta);
       }
     }
   }

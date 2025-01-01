@@ -1,0 +1,11 @@
+{
+  "type": "tconstruct:molding_table",
+  "material": {
+    "tag": "tconstruct:casts/red_sand"
+  },
+  "pattern": {
+    "type": "tconstruct:material",
+    "item": "tconstruct:adze_head"
+  },
+  "result": "tconstruct:adze_head_red_sand_cast"
+}

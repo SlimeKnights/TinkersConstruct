@@ -4,7 +4,6 @@ import net.minecraft.world.entity.LivingEntity;
 import slimeknights.mantle.data.loadable.primitive.EnumLoadable;
 import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.json.variable.entity.EntityVariable;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -39,7 +38,7 @@ public record EntityMeleeVariable(EntityVariable entity, WhichEntity which, floa
   }
 
   @Override
-  public IGenericLoader<? extends MeleeVariable> getLoader() {
+  public RecordLoadable<EntityMeleeVariable> getLoader() {
     return LOADER;
   }
 

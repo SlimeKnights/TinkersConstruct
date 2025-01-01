@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "equipment",
   "key": {
     "C": {
       "item": "tconstruct:ichor_slime_crystal"
@@ -18,5 +19,6 @@
   ],
   "result": {
     "item": "tconstruct:ichor_staff"
-  }
+  },
+  "show_notification": true
 }

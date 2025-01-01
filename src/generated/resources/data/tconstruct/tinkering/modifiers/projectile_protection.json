@@ -16,7 +16,10 @@
         "type": "mantle:and",
         "predicates": [
           "mantle:can_protect",
-          "mantle:projectile"
+          {
+            "type": "mantle:tag",
+            "tag": "tconstruct:protection/projectile"
+          }
         ]
       },
       "each_level": 2.5

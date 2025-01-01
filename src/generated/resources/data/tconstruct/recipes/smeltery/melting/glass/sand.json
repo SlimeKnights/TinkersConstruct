@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:melting",
   "ingredient": {
-    "tag": "forge:sand"
+    "tag": "minecraft:smelts_to_glass"
   },
   "result": {
     "amount": 1000,

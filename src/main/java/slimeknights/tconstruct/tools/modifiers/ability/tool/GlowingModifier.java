@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.modifiers.ability.tool;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
@@ -39,8 +40,8 @@ public class GlowingModifier extends NoLevelsModifier implements BlockInteractio
   }
 
   @Override
-  public Component getDisplayName(IToolStackView tool, ModifierEntry entry) {
-    return DualOptionInteraction.formatModifierName(tool, this, super.getDisplayName(tool, entry));
+  public Component getDisplayName(IToolStackView tool, ModifierEntry entry, @Nullable RegistryAccess access) {
+    return DualOptionInteraction.formatModifierName(tool, this, super.getDisplayName(tool, entry, access));
   }
   
   @Override

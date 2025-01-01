@@ -1,17 +1,16 @@
 package slimeknights.tconstruct.plugin.jsonthings;
 
-import dev.gigaherz.jsonthings.things.IFlexItem;
 import dev.gigaherz.jsonthings.things.serializers.FlexItemType;
 import dev.gigaherz.jsonthings.things.serializers.IItemSerializer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.util.Lazy;
 import slimeknights.mantle.data.loadable.Loadable;
 import slimeknights.mantle.data.loadable.Loadables;
-import slimeknights.mantle.data.loadable.primitive.ResourceLocationLoadable;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.armor.texture.ArmorTextureSupplier;
@@ -26,7 +25,6 @@ import slimeknights.tconstruct.plugin.jsonthings.item.FlexRepairKitItem;
 import slimeknights.tconstruct.plugin.jsonthings.item.FlexToolPartItem;
 import slimeknights.tconstruct.plugin.jsonthings.item.armor.FlexModifiableArmorItem;
 import slimeknights.tconstruct.plugin.jsonthings.item.armor.FlexMultilayerArmorModel;
-import slimeknights.tconstruct.tools.item.ArmorSlotType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +77,7 @@ public class FlexItemTypes {
     /* Registries a cast item that shows a part cost in the tooltip */
     register("part_cast", data -> {
       ResourceLocation partId = JsonHelper.getResourceLocation(data, "part");
-      return (props, builder) -> new FlexPartCastItem(props, builder, Lazy.of(() -> ((ResourceLocationLoadable<Item>)Loadables.ITEM).fromKey(partId, "part")));
+      return (props, builder) -> new FlexPartCastItem(props, builder, Lazy.of(() -> Loadables.ITEM.fromKey(partId, "part")));
     });
 
 
@@ -89,8 +87,8 @@ public class FlexItemTypes {
     register("basic_armor", data -> {
       ResourceLocation name = JsonHelper.getResourceLocation(data, "texture_name");
       SoundEvent sound = Loadables.SOUND_EVENT.getOrDefault(data, "equip_sound", SoundEvents.ARMOR_EQUIP_GENERIC);
-      ArmorSlotType slot = JsonHelper.getAsEnum(data, "slot", ArmorSlotType.class);
-      return (props, builder) -> add(ARMOR_ITEMS, new FlexModifiableArmorItem(new DummyArmorMaterial(name, sound), slot.getEquipmentSlot(), props, ToolDefinition.create(builder.getRegistryName())));
+      ArmorItem.Type slot = JsonHelper.getAsEnum(data, "slot", ArmorItem.Type.class);
+      return (props, builder) -> add(ARMOR_ITEMS, new FlexModifiableArmorItem(new DummyArmorMaterial(name, sound), slot, props, ToolDefinition.create(builder.getRegistryName())));
     });
 
     /* Layered armor type, used for golden, dyeable, etc */
@@ -98,13 +96,13 @@ public class FlexItemTypes {
     register("multilayer_armor", data -> {
       ResourceLocation name = JsonHelper.getResourceLocation(data, "model_name");
       SoundEvent sound = Loadables.SOUND_EVENT.getOrDefault(data, "equip_sound", SoundEvents.ARMOR_EQUIP_GENERIC);
-      ArmorSlotType slot = JsonHelper.getAsEnum(data, "slot", ArmorSlotType.class);
-      return (props, builder) -> add(ARMOR_ITEMS, new FlexMultilayerArmorModel(new DummyArmorMaterial(name, sound), slot.getEquipmentSlot(), props, ToolDefinition.create(builder.getRegistryName())));
+      ArmorItem.Type slot = JsonHelper.getAsEnum(data, "slot", ArmorItem.Type.class);
+      return (props, builder) -> add(ARMOR_ITEMS, new FlexMultilayerArmorModel(new DummyArmorMaterial(name, sound), slot, props, ToolDefinition.create(builder.getRegistryName())));
     });
   }
 
   /** Local helper to register our stuff */
-  private static <T extends Item & IFlexItem> void register(String name, IItemSerializer<T> factory) {
+  private static <T extends Item> void register(String name, IItemSerializer<T> factory) {
     FlexItemType.register(TConstruct.resourceString(name), factory);
   }
 }

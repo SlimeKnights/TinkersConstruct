@@ -1,10 +1,10 @@
 {
   "values": [
+    "minecraft:nether_wart",
     "#minecraft:crops",
     {
       "id": "#forge:crops",
       "required": false
-    },
-    "minecraft:nether_wart"
+    }
   ]
 }

@@ -6,16 +6,16 @@
     {
       "filter": [
         {
-          "item": "tconstruct:boots_plating"
-        },
-        {
-          "item": "tconstruct:leggings_plating"
+          "item": "tconstruct:helmet_plating"
         },
         {
           "item": "tconstruct:chestplate_plating"
         },
         {
-          "item": "tconstruct:helmet_plating"
+          "item": "tconstruct:leggings_plating"
+        },
+        {
+          "item": "tconstruct:boots_plating"
         }
       ],
       "icon": "tconstruct:plating",

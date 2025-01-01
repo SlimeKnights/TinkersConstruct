@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.library.recipe.casting;
 
 import lombok.Getter;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.data.loadable.field.ContextKey;
@@ -32,7 +32,7 @@ public class ItemCastingRecipe extends AbstractCastingRecipe implements IDisplay
     ItemCastingRecipe::new);
 
   @Getter
-  private final RecipeSerializer<?> serializer;
+  private final TypeAwareRecipeSerializer<?> serializer;
   @Getter
   protected final FluidIngredient fluid;
   protected final ItemOutput result;
@@ -57,7 +57,7 @@ public class ItemCastingRecipe extends AbstractCastingRecipe implements IDisplay
   }
 
   @Override
-  public ItemStack getResultItem() {
+  public ItemStack getResultItem(RegistryAccess access) {
     return this.result.get();
   }
 

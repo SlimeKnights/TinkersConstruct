@@ -11,4 +11,9 @@ public enum TinkerTooltipFlags implements TooltipFlag {
   public boolean isAdvanced() {
     return true;
   }
+
+  @Override
+  public boolean isCreative() {
+    return false;
+  }
 }

@@ -3,12 +3,11 @@ package slimeknights.tconstruct.library.json.variable.block;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.library.json.variable.ToFloatFunction;
 import slimeknights.tconstruct.library.json.variable.VariableLoaderRegistry;
 
-import static slimeknights.mantle.data.registry.GenericLoaderRegistry.SingletonLoader.singleton;
+import static slimeknights.mantle.data.loadable.record.SingletonLoader.singleton;
 
 /** Variable that fetches a property from a block state */
 public interface BlockVariable extends IHaveLoader {
@@ -18,7 +17,7 @@ public interface BlockVariable extends IHaveLoader {
   float getValue(BlockState state);
 
   @Override
-  IGenericLoader<? extends BlockVariable> getLoader();
+  RecordLoadable<? extends BlockVariable> getLoader();
 
   /* Singletons */
 
@@ -31,7 +30,7 @@ public interface BlockVariable extends IHaveLoader {
       }
 
       @Override
-      public IGenericLoader<? extends BlockVariable> getLoader() {
+      public RecordLoadable<? extends BlockVariable> getLoader() {
         return loader;
       }
     });
@@ -53,7 +52,7 @@ public interface BlockVariable extends IHaveLoader {
     }
 
     @Override
-    public IGenericLoader<? extends BlockVariable> getLoader() {
+    public RecordLoadable<Constant> getLoader() {
       return LOADER;
     }
   }

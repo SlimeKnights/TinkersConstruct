@@ -1,11 +1,7 @@
 package slimeknights.tconstruct.shared.block;
 
-import com.google.common.collect.ImmutableMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.NonNullList;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -21,6 +17,8 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class GlowBlock extends Block {
@@ -33,43 +31,35 @@ public class GlowBlock extends Block {
     this.drops = BuiltInLootTables.EMPTY;
   }
 
-  @Override
-  public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
-  }
-
-  private static final ImmutableMap<Direction, VoxelShape> BOUNDS;
-
+  private static final Map<Direction, VoxelShape> BOUNDS = new EnumMap<>(Direction.class);
   static {
-    ImmutableMap.Builder<Direction, VoxelShape> builder = ImmutableMap.builder();
-    builder.put(Direction.UP, Block.box(0.0D, 15.0D, 0.0D, 16.0D, 16.0D, 16.0D));
-    builder.put(Direction.DOWN, Block.box(0.0D, 0.0D, 0.0D, 16.0D, 1.0D, 16.0D));
-    builder.put(Direction.NORTH, Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 1.0D));
-    builder.put(Direction.SOUTH, Block.box(0.0D, 0.0D, 15.0D, 16.0D, 16.0D, 16.0D));
-    builder.put(Direction.EAST, Block.box(15.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D));
-    builder.put(Direction.WEST, Block.box(0.0D, 0.0D, 0.0D, 1.0D, 16.0D, 16.0D));
-
-    BOUNDS = builder.build();
+    BOUNDS.put(Direction.UP,    Block.box( 0.0D, 15.0D,  0.0D, 16.0D, 16.0D, 16.0D));
+    BOUNDS.put(Direction.DOWN,  Block.box( 0.0D,  0.0D,  0.0D, 16.0D,  1.0D, 16.0D));
+    BOUNDS.put(Direction.NORTH, Block.box( 0.0D,  0.0D,  0.0D, 16.0D, 16.0D,  1.0D));
+    BOUNDS.put(Direction.SOUTH, Block.box( 0.0D,  0.0D, 15.0D, 16.0D, 16.0D, 16.0D));
+    BOUNDS.put(Direction.EAST,  Block.box(15.0D,  0.0D,  0.0D, 16.0D, 16.0D, 16.0D));
+    BOUNDS.put(Direction.WEST,  Block.box( 0.0D,  0.0D,  0.0D,  1.0D, 16.0D, 16.0D));
   }
 
-  @Deprecated
+  @SuppressWarnings("deprecation")
   @Override
   public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
     return Objects.requireNonNull(BOUNDS.get(state.getValue(FACING)));
   }
 
+  @SuppressWarnings("deprecation")
   @Override
-  @Deprecated
   public VoxelShape getCollisionShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
     return Shapes.empty();
   }
 
-  @Deprecated
+  @SuppressWarnings("deprecation")
   @Override
   public BlockState rotate(BlockState state, Rotation rot) {
     return state.setValue(FACING, rot.rotate(state.getValue(FACING)));
   }
 
-  @Deprecated
+  @SuppressWarnings("deprecation")
   @Override
   public BlockState mirror(BlockState state, Mirror mirrorIn) {
     return state.rotate(mirrorIn.getRotation(state.getValue(FACING)));
@@ -80,7 +70,7 @@ public class GlowBlock extends Block {
     builder.add(FACING);
   }
 
-  @Deprecated
+  @SuppressWarnings("deprecation")
   @Override
   public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean p_220069_6_) {
     if (!this.canBlockStay(worldIn, pos, state.getValue(FACING))) {
@@ -116,7 +106,7 @@ public class GlowBlock extends Block {
   public boolean addGlow(Level world, BlockPos pos, Direction direction) {
     // only place the block if the current block at the location is replaceable (eg, air, tall grass, etc.)
     BlockState state = world.getBlockState(pos);
-    if (state.getBlock() != this && state.getMaterial().isReplaceable()) {
+    if (state.getBlock() != this && state.canBeReplaced()) {
       // if the location is valid, place the block directly
       if (this.canBlockStay(world, pos, direction)) {
         if (!world.isClientSide) {

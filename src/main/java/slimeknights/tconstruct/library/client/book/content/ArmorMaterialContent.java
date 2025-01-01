@@ -5,6 +5,7 @@ import joptsimple.internal.Strings;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.client.book.data.BookData;
 import slimeknights.mantle.client.book.data.element.TextComponentData;
@@ -29,7 +30,6 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
-import slimeknights.tconstruct.tools.item.ArmorSlotType;
 import slimeknights.tconstruct.tools.stats.PlatingMaterialStats;
 import slimeknights.tconstruct.tools.stats.StatlessMaterialStats;
 
@@ -103,14 +103,17 @@ public class ArmorMaterialContent extends AbstractMaterialContent {
 
   /** Gets the tool to display for the given stat type, just hardcoding to plate armor for simplicity */
   private static void addPlatingItem(MaterialStatsId statType, List<ItemStack> stacks, MaterialVariantId variant) {
-    for (ArmorSlotType slotType : ArmorSlotType.values()) {
-      if (statType.equals(PlatingMaterialStats.TYPES.get(slotType.getIndex()).getId())) {
+    for (ArmorItem.Type slotType : ArmorItem.Type.values()) {
+      if (statType.equals(PlatingMaterialStats.TYPES.get(slotType.ordinal()).getId())) {
         stacks.add(TinkerToolParts.plating.get(slotType).withMaterialForDisplay(variant));
         return;
       }
     }
     // gotta have something, so just fallback to shield
-    if (!ToolBuildHandler.addSubItem(TinkerTools.plateShield.get(), stacks, MaterialVariant.of(variant))) {
+    ItemStack tool = ToolBuildHandler.createSingleMaterial(TinkerTools.plateShield.get(), MaterialVariant.of(variant));
+    if (!tool.isEmpty()) {
+      stacks.add(tool);
+    } else {
       stacks.add(TinkerTools.plateShield.get().getRenderTool());
     }
   }

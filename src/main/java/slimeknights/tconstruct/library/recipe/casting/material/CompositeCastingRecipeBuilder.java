@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -37,7 +37,7 @@ public class CompositeCastingRecipeBuilder extends AbstractRecipeBuilder<Composi
 
   @Override
   public void save(Consumer<FinishedRecipe> consumer) {
-    save(consumer, Registry.ITEM.getKey(result.asItem()));
+    save(consumer, BuiltInRegistries.ITEM.getKey(result.asItem()));
   }
 
   @Override
@@ -56,7 +56,7 @@ public class CompositeCastingRecipeBuilder extends AbstractRecipeBuilder<Composi
       if (!group.isEmpty()) {
         json.addProperty("group", group);
       }
-      json.addProperty("result", Registry.ITEM.getKey(result.asItem()).toString());
+      json.addProperty("result", BuiltInRegistries.ITEM.getKey(result.asItem()).toString());
       json.addProperty("item_cost", itemCost);
     }
 

@@ -12,14 +12,15 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlot.Type;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityTeleportEvent;
+import slimeknights.tconstruct.common.TinkerDamageTypes;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -38,8 +39,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class EnderferenceModifier extends Modifier implements ProjectileHitModifierHook, MeleeHitModifierHook, OnAttackedModifierHook {
-  private static final DamageSource FALLBACK = new DamageSource("arrow");
-
   public EnderferenceModifier() {
     MinecraftForge.EVENT_BUS.addListener(EnderferenceModifier::onTeleport);
   }
@@ -132,14 +131,7 @@ public class EnderferenceModifier extends Modifier implements ProjectileHitModif
 
         // create damage source, don't use projectile sources as that makes endermen ignore it
         Entity owner = arrow.getOwner();
-        DamageSource damageSource;
-        if (attacker instanceof Player player) {
-          damageSource = DamageSource.playerAttack(player);
-        } else if (attacker != null) {
-          damageSource = DamageSource.mobAttack(attacker);
-        } else {
-          damageSource = FALLBACK;
-        }
+        DamageSource damageSource = TinkerDamageTypes.source(projectile.level().registryAccess(), TinkerDamageTypes.MELEE_ARROW, projectile, attacker);
         if (attacker != null) {
           attacker.setLastHurtMob(target);
         }
@@ -150,8 +142,9 @@ public class EnderferenceModifier extends Modifier implements ProjectileHitModif
           target.setSecondsOnFire(5);
         }
 
+        Level level = arrow.level();
         if (target.hurt(damageSource, (float)damage)) {
-          if (!arrow.level.isClientSide && arrow.getPierceLevel() <= 0) {
+          if (!level.isClientSide && arrow.getPierceLevel() <= 0) {
             target.setArrowCount(target.getArrowCount() + 1);
           }
 
@@ -164,7 +157,7 @@ public class EnderferenceModifier extends Modifier implements ProjectileHitModif
             }
           }
 
-          if (!arrow.level.isClientSide && attacker != null) {
+          if (!level.isClientSide && attacker != null) {
             EnchantmentHelper.doPostHurtEffects(target, attacker);
             EnchantmentHelper.doPostDamageEffects(attacker, target);
           }
@@ -175,7 +168,7 @@ public class EnderferenceModifier extends Modifier implements ProjectileHitModif
             arrow.piercedAndKilledEntities.add(target);
           }
 
-          if (!arrow.level.isClientSide && arrow.shotFromCrossbow() && owner instanceof ServerPlayer player) {
+          if (!level.isClientSide && arrow.shotFromCrossbow() && owner instanceof ServerPlayer player) {
             if (arrow.piercedAndKilledEntities != null) {
               CriteriaTriggers.KILLED_BY_CROSSBOW.trigger(player, arrow.piercedAndKilledEntities);
             } else if (!target.isAlive()) {
@@ -193,7 +186,7 @@ public class EnderferenceModifier extends Modifier implements ProjectileHitModif
           arrow.setDeltaMovement(arrow.getDeltaMovement().scale(-0.1D));
           arrow.setYRot(arrow.getYRot() + 180.0F);
           arrow.yRotO += 180.0F;
-          if (!arrow.level.isClientSide && arrow.getDeltaMovement().lengthSqr() < 1.0E-7D) {
+          if (!level.isClientSide && arrow.getDeltaMovement().lengthSqr() < 1.0E-7D) {
             if (arrow.pickup == AbstractArrow.Pickup.ALLOWED) {
               arrow.spawnAtLocation(arrow.getPickupItem(), 0.1F);
             }

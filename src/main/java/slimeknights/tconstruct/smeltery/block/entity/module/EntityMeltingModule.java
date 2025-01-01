@@ -15,7 +15,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.mantle.block.entity.MantleBlockEntity;
-import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerDamageTypes;
 import slimeknights.tconstruct.common.TinkerTags.EntityTypes;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.recipe.FluidValues;
@@ -33,11 +33,7 @@ import java.util.function.Supplier;
  */
 @RequiredArgsConstructor
 public class EntityMeltingModule {
-  /** Standard damage source for melting most mobs */
-  public static final DamageSource SMELTERY_DAMAGE = new DamageSource(TConstruct.prefix("smeltery_heat")).setIsFire();
-  /** Special damage source for "absorbing" hot entities */
-  public static final DamageSource SMELTERY_MAGIC = new DamageSource(TConstruct.prefix("smeltery_magic")).setMagic();
-
+  // TODO: migrate to whatever mojang is doing
   private final MantleBlockEntity parent;
   private final IFluidHandler tank;
   /** Supplier that returns true if the tank has space */
@@ -47,12 +43,36 @@ public class EntityMeltingModule {
   /** Function that returns the bounds to check for entities */
   private final Supplier<AABB> bounds;
 
+
   @Nullable
   private EntityMeltingRecipe lastRecipe;
 
   /** Gets a nonnull world instance from the parent */
   private Level getLevel() {
     return Objects.requireNonNull(parent.getLevel(), "Parent tile entity has null world");
+  }
+
+
+  /* Damage sources */
+
+  @Nullable
+  private DamageSource smelteryMagic = null;
+  /** Damage source for attacking fire immune mobs */
+  private DamageSource smelteryMagic() {
+    if (smelteryMagic == null) {
+      smelteryMagic = TinkerDamageTypes.source(getLevel().registryAccess(), TinkerDamageTypes.SMELTERY_MAGIC);
+    }
+    return smelteryMagic;
+  }
+
+  @Nullable
+  private DamageSource smelteryHeat = null;
+  /** Damage source for attacking regular mobs */
+  private DamageSource smelteryHeat() {
+    if (smelteryHeat == null) {
+      smelteryHeat = TinkerDamageTypes.source(getLevel().registryAccess(), TinkerDamageTypes.SMELTERY_HEAT);
+    }
+    return smelteryHeat;
   }
 
   /**
@@ -89,7 +109,7 @@ public class EntityMeltingModule {
    */
   private boolean canMeltEntity(LivingEntity entity) {
     // fire based mobs are absorbed instead of damaged
-    return !entity.isInvulnerableTo(entity.fireImmune() ? SMELTERY_MAGIC : SMELTERY_DAMAGE)
+    return !entity.isInvulnerableTo(entity.fireImmune() ? smelteryMagic() : smelteryHeat())
            // have to special case players because for some dumb reason creative players do not return true to invulnerable to
            && !(entity instanceof Player && ((Player)entity).getAbilities().invulnerable)
            // also have to special case fire resistance, so a blaze with fire resistance is immune to the smeltery
@@ -147,7 +167,7 @@ public class EntityMeltingModule {
           }
 
           // if the entity is successfully damaged, fill the tank with fluid
-          if (entity.hurt(entity.fireImmune() ? SMELTERY_MAGIC : SMELTERY_DAMAGE, damage)) {
+          if (entity.hurt(entity.fireImmune() ? smelteryMagic() : smelteryHeat(), damage)) {
             // its fine if we don't fill it all, leftover fluid is just lost
             tank.fill(fluid, FluidAction.EXECUTE);
             melted = true;

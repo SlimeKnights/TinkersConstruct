@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "redstone",
   "group": "wooden_pressure_plate",
   "key": {
     "#": {
@@ -11,5 +12,6 @@
   ],
   "result": {
     "item": "tconstruct:enderbark_pressure_plate"
-  }
+  },
+  "show_notification": true
 }

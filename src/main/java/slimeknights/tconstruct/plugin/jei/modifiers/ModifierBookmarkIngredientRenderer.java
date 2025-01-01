@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.plugin.jei.modifiers;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.ingredients.IIngredientRenderer;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.TooltipFlag;
 import slimeknights.tconstruct.library.client.modifiers.ModifierIconManager;
@@ -19,9 +19,9 @@ public enum ModifierBookmarkIngredientRenderer implements IIngredientRenderer<Mo
   private static final String WRAPPER_KEY = "jei.tconstruct.modifier_ingredient";
 
   @Override
-  public void render(PoseStack matrixStack, @Nullable ModifierEntry entry) {
+  public void render(GuiGraphics graphics, @Nullable ModifierEntry entry) {
     if (entry != null) {
-      ModifierIconManager.renderIcon(matrixStack, entry.getModifier(), 0, 0, 100, 16);
+      ModifierIconManager.renderIcon(graphics, entry.getModifier(), 0, 0, 100, 16);
     }
   }
 

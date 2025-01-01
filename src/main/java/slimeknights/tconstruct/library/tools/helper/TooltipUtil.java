@@ -3,7 +3,8 @@ package slimeknights.tconstruct.library.tools.helper;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -263,7 +264,7 @@ public class TooltipUtil {
     ToolDefinition definition = item.getToolDefinition();
     if (isDisplay(stack)) {
       ToolStack tool = ToolStack.from(stack);
-      addModifierNames(stack, tool, tooltip, tooltipFlag);
+      addModifierNames(stack, tool, player, tooltip, tooltipFlag);
       // No definition?
     } else if (!definition.isDataLoaded()) {
       tooltip.add(NO_DATA);
@@ -290,7 +291,7 @@ public class TooltipUtil {
           // intentional fallthrough
         default:
           ToolStack tool = ToolStack.from(stack);
-          getDefaultInfo(stack, tool, tooltip, tooltipFlag);
+          getDefaultInfo(stack, tool, player, tooltip, tooltipFlag);
           break;
       }
     }
@@ -300,14 +301,16 @@ public class TooltipUtil {
    * Adds modifier names to the tooltip
    * @param stack      Stack instance. If empty, skips adding enchantment names
    * @param tool       Tool instance
+   * @param player     Player holding the tool
    * @param tooltips   Tooltip list
-   * @param flag      Tooltip flag
+   * @param flag       Tooltip flag
    */
   @SuppressWarnings("deprecation")
-  public static void addModifierNames(ItemStack stack, IToolStackView tool, List<Component> tooltips, TooltipFlag flag) {
+  public static void addModifierNames(ItemStack stack, IToolStackView tool, @Nullable Player player, List<Component> tooltips, TooltipFlag flag) {
+    RegistryAccess access = player == null ? null : player.level().registryAccess();
     for (ModifierEntry entry : tool.getModifierList()) {
       if (entry.getModifier().shouldDisplay(false)) {
-        Component name = entry.getModifier().getDisplayName(tool, entry);
+        Component name = entry.getModifier().getDisplayName(tool, entry, access);
         if (flag.isAdvanced() && Config.CLIENT.modifiersIDsInAdvancedTooltips.get()) {
           tooltips.add(Component.translatable(KEY_ID_FORMAT, name, Component.literal(entry.getModifier().getId().toString())).withStyle(ChatFormatting.DARK_GRAY));
         } else {
@@ -322,8 +325,8 @@ public class TooltipUtil {
         for (int i = 0; i < enchantments.size(); ++i) {
           CompoundTag enchantmentTag = enchantments.getCompound(i);
           // TODO: is this the best place for this, or should we let vanilla run?
-          Registry.ENCHANTMENT.getOptional(ResourceLocation.tryParse(enchantmentTag.getString("id")))
-                              .ifPresent(enchantment -> tooltips.add(enchantment.getFullname(enchantmentTag.getInt("lvl"))));
+          BuiltInRegistries.ENCHANTMENT.getOptional(ResourceLocation.tryParse(enchantmentTag.getString("id")))
+                                       .ifPresent(enchantment -> tooltips.add(enchantment.getFullname(enchantmentTag.getInt("lvl"))));
         }
       }
     }
@@ -332,16 +335,17 @@ public class TooltipUtil {
   /**
    * Adds information when holding neither control nor shift
    * @param tool      Tool stack instance
+   * @param player    Player holding the tool
    * @param tooltips  Tooltip list
    * @param flag      Tooltip flag
    */
-  public static void getDefaultInfo(ItemStack stack, IToolStackView tool, List<Component> tooltips, TooltipFlag flag) {
+  public static void getDefaultInfo(ItemStack stack, IToolStackView tool, @Nullable Player player, List<Component> tooltips, TooltipFlag flag) {
     // shows as broken when broken, hold shift for proper durability
     if (tool.getItem().canBeDepleted() && !tool.isUnbreakable() && tool.hasTag(TinkerTags.Items.DURABILITY)) {
       tooltips.add(TooltipBuilder.formatDurability(tool.getCurrentDurability(), tool.getStats().getInt(ToolStats.DURABILITY), true));
     }
     // modifier tooltip
-    addModifierNames(stack, tool, tooltips, flag);
+    addModifierNames(stack, tool, player, tooltips, flag);
     tooltips.add(Component.empty());
     tooltips.add(TOOLTIP_HOLD_SHIFT);
     if (tool.getDefinition().hasMaterials()) {

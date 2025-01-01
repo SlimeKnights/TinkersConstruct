@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Plane;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.VineBlock;
@@ -23,7 +23,7 @@ import slimeknights.tconstruct.world.TinkerStructures;
 public class LeaveVineDecorator extends TreeDecorator {
   public static final Codec<LeaveVineDecorator> CODEC = RecordCodecBuilder.create(inst ->
     inst.group(
-      Registry.BLOCK.byNameCodec().fieldOf("vines").forGetter(d -> d.vines),
+      BuiltInRegistries.BLOCK.byNameCodec().fieldOf("vines").forGetter(d -> d.vines),
       Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter(d -> d.probability)
     ).apply(inst, LeaveVineDecorator::new));
 

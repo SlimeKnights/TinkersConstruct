@@ -24,7 +24,10 @@
     },
     {
       "type": "tconstruct:block_damage",
-      "damage_source": "mantle:fall"
+      "damage_source": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:protection/fall"
+      }
     }
   ],
   "tooltip_display": "always"

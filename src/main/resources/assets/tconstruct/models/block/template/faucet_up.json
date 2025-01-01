@@ -1,6 +1,5 @@
 {
   "render_type": "minecraft:cutout",
-  "loader": "mantle:fluids",
   "textures": {
     "particle": "#tex"
   },
@@ -53,16 +52,5 @@
         "west":  { "uv": [  6, 10, 10, 16 ], "texture": "#tex", "rotation": 180}
       }
     }
-  ],
-  "fluids": {
-    "from": [  6,  0, 6 ],
-    "to":   [ 10, 16, 10 ],
-    "faces": {
-      "up":    {},
-      "north": { "flowing": true },
-      "east":  { "flowing": true },
-      "south": { "flowing": true },
-      "west":  { "flowing": true }
-    }
-  }
+  ]
 }

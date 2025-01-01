@@ -1,32 +1,31 @@
 package slimeknights.tconstruct.library.data;
 
 import com.google.common.collect.Maps;
-import com.mojang.serialization.JsonOps;
 import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.PackOutput.Target;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.PackType;
 import net.minecraft.tags.TagBuilder;
 import net.minecraft.tags.TagEntry;
 import net.minecraft.tags.TagFile;
 import net.minecraft.tags.TagKey;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.mantle.data.GenericDataProvider;
-import slimeknights.tconstruct.TConstruct;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-/** Generic class for generating tags at any location even for non-registries */
+/**
+ * Generic class for generating tags at any location even for non-registries.
+ * TODO: make updates based on {@link net.minecraft.data.tags.TagsProvider} changes, if any.
+ */
 public abstract class AbstractTagProvider<T> extends GenericDataProvider {
-  /** Data generator instance */
-  protected final DataGenerator generator;
   /** Mod ID for the tags */
   private final String modId;
   /** Predicate to validate non-optional values. If the contents only exist in datapacks, they should be defined as optional */
@@ -40,9 +39,8 @@ public abstract class AbstractTagProvider<T> extends GenericDataProvider {
 
   protected final Map<ResourceLocation, TagBuilder> builders = Maps.newLinkedHashMap();
 
-  protected AbstractTagProvider(DataGenerator generator, String modId, String folder, Function<T,ResourceLocation> keyGetter, Predicate<ResourceLocation> staticValuePredicate, ExistingFileHelper existingFileHelper) {
-    super(generator, PackType.SERVER_DATA, folder);
-    this.generator = generator;
+  protected AbstractTagProvider(PackOutput packOutput, String modId, String folder, Function<T,ResourceLocation> keyGetter, Predicate<ResourceLocation> staticValuePredicate, ExistingFileHelper existingFileHelper) {
+    super(packOutput, Target.DATA_PACK, folder);
     this.modId = modId;
     this.keyGetter = keyGetter;
     this.staticValuePredicate = staticValuePredicate;
@@ -54,22 +52,22 @@ public abstract class AbstractTagProvider<T> extends GenericDataProvider {
   protected abstract void addTags();
 
   @Override
-  public void run(CachedOutput cache) throws IOException {
+  public CompletableFuture<?> run(CachedOutput cache) {
     this.builders.clear();
     this.addTags();
-    this.builders.forEach((id, builder) -> {
-      List<TagEntry> tagEntries = builder.build();
+    return allOf(this.builders.entrySet().stream().map(entry -> {
+      List<TagEntry> tagEntries = entry.getValue().build();
       List<TagEntry> invalidEntries = tagEntries.stream()
                                                 .filter((value) -> !value.verifyIfPresent(staticValuePredicate, this.builders::containsKey))
                                                 .filter(this::missing)
                                                 .toList();
+      ResourceLocation id = entry.getKey();
       if (!invalidEntries.isEmpty()) {
-        throw new IllegalArgumentException(String.format("Couldn't define tag %s as it is missing following references: %s", id, invalidEntries.stream().map(Objects::toString).collect(Collectors.joining(","))));
+        return CompletableFuture.failedFuture(new IllegalArgumentException(String.format("Couldn't define tag %s as it is missing following references: %s", id, invalidEntries.stream().map(Objects::toString).collect(Collectors.joining(",")))));
       } else {
-        // TODO: replace does not work, but that is a forge bug. Fix whenever forge adds the getter
-        saveJson(cache, id, TagFile.CODEC.encodeStart(JsonOps.INSTANCE, new TagFile(tagEntries, false)).getOrThrow(false, TConstruct.LOG::error));
+        return saveJson(cache, id, TagFile.CODEC, new TagFile(tagEntries, entry.getValue().isReplace()));
       }
-    });
+    }));
   }
 
   /** Checks if a given reference exists in another data pack */

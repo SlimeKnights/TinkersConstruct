@@ -12,7 +12,10 @@
         "type": "mantle:and",
         "predicates": [
           "mantle:can_protect",
-          "mantle:fire"
+          {
+            "type": "mantle:tag",
+            "tag": "tconstruct:protection/fire"
+          }
         ]
       },
       "each_level": 2.5

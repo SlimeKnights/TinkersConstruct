@@ -1,11 +1,12 @@
 package slimeknights.tconstruct.tables.menu;
 
 import lombok.Getter;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.library.tools.layout.LayoutSlot;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayout;
@@ -15,7 +16,6 @@ import slimeknights.tconstruct.tables.block.entity.table.TinkerStationBlockEntit
 import slimeknights.tconstruct.tables.menu.slot.ArmorSlot;
 import slimeknights.tconstruct.tables.menu.slot.LazyResultSlot;
 import slimeknights.tconstruct.tables.menu.slot.TinkerStationSlot;
-import slimeknights.tconstruct.tools.item.ArmorSlotType;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -33,6 +33,7 @@ public class TinkerStationContainerMenu extends TabbedContainerMenu<TinkerStatio
    * @param inv   Player inventory
    * @param tile  Relevant tile entity
    */
+  @SuppressWarnings("deprecation")
   public TinkerStationContainerMenu(int id, Inventory inv, @Nullable TinkerStationBlockEntity tile) {
     super(TinkerTables.tinkerStationContainer.get(), id, inv, tile);
 
@@ -52,7 +53,7 @@ public class TinkerStationContainerMenu extends TabbedContainerMenu<TinkerStatio
       // add result slot, will fetch result cache
       this.addSlot(this.resultSlot = new LazyResultSlot(tile.getCraftingResult(), 114, 38));
       // set initial slot filters and activations
-      setToolSelection(StationSlotLayoutLoader.getInstance().get(Registry.BLOCK.getKey(tile.getBlockState().getBlock())));
+      setToolSelection(StationSlotLayoutLoader.getInstance().get(BuiltInRegistries.BLOCK.getKey(tile.getBlockState().getBlock())));
     }
     else {
       // requirement for final variable
@@ -61,9 +62,8 @@ public class TinkerStationContainerMenu extends TabbedContainerMenu<TinkerStatio
     }
 
     // add armor and offhand slots, for convenience
-    for (ArmorSlotType slotType : ArmorSlotType.values()) {
-      int index = slotType.getIndex();
-      this.addSlot(new ArmorSlot(inv, slotType.getEquipmentSlot(), 152, 16 + (3 - index) * 18));
+    for (ArmorItem.Type slotType : ArmorItem.Type.values()) {
+      this.addSlot(new ArmorSlot(inv, slotType.getSlot(), 152, 16 + slotType.ordinal() * 18));
     }
     this.addSlot(new Slot(inv, 40, 132, 70).setBackground(InventoryMenu.BLOCK_ATLAS, InventoryMenu.EMPTY_ARMOR_SLOT_SHIELD));
 

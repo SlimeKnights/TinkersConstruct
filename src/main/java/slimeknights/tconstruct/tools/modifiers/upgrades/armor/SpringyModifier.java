@@ -34,7 +34,7 @@ public class SpringyModifier extends Modifier implements MeleeHitModifierHook, O
   public void onAttacked(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, DamageSource source, float amount, boolean isDirectDamage) {
     LivingEntity user = context.getEntity();
     Entity attacker = source.getEntity();
-    if (isDirectDamage && !user.level.isClientSide && attacker instanceof LivingEntity livingAttacker && SlotInChargeModule.isInCharge(context.getTinkerData(), SLOT_IN_CHARGE, slotType)) {
+    if (isDirectDamage && !user.level().isClientSide && attacker instanceof LivingEntity livingAttacker && SlotInChargeModule.isInCharge(context.getTinkerData(), SLOT_IN_CHARGE, slotType)) {
       // each slot attempts to apply, we keep the largest one, consistent with other counter attack modifiers
       float bestBonus = 0;
       for (EquipmentSlot bouncingSlot : ModifiableArmorMaterial.ARMOR_SLOTS) {

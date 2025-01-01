@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "": "tconstruct:templates/faucet",
+    "facing=down": "tconstruct:templates/faucet_up"
+  }
+}

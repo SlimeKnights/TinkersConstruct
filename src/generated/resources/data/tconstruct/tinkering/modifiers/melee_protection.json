@@ -15,7 +15,14 @@
         "type": "mantle:and",
         "predicates": [
           "mantle:can_protect",
-          "mantle:melee"
+          {
+            "type": "mantle:tag",
+            "tag": "tconstruct:protection/melee"
+          },
+          {
+            "type": "mantle:inverted",
+            "inverted_type": "mantle:is_indirect"
+          }
         ]
       },
       "each_level": 2.5

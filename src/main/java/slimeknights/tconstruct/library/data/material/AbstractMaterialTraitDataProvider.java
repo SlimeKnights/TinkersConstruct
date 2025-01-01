@@ -3,9 +3,9 @@ package slimeknights.tconstruct.library.data.material;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.PackOutput.Target;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.PackType;
 import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 /** Base data generator for use in addons */
@@ -36,8 +37,8 @@ public abstract class AbstractMaterialTraitDataProvider extends GenericDataProvi
   /* Materials data provider for validation */
   private final AbstractMaterialDataProvider materials;
 
-  public AbstractMaterialTraitDataProvider(DataGenerator gen, AbstractMaterialDataProvider materials) {
-    super(gen, PackType.SERVER_DATA, MaterialTraitsManager.FOLDER, GSON);
+  public AbstractMaterialTraitDataProvider(PackOutput packOutput, AbstractMaterialDataProvider materials) {
+    super(packOutput, Target.DATA_PACK, MaterialTraitsManager.FOLDER, GSON);
     this.materials = materials;
   }
 
@@ -45,7 +46,7 @@ public abstract class AbstractMaterialTraitDataProvider extends GenericDataProvi
   protected abstract void addMaterialTraits();
 
   @Override
-  public void run(CachedOutput cache) {
+  public CompletableFuture<?> run(CachedOutput cache) {
     addMaterialTraits();
 
     // ensure we have traits for all materials
@@ -58,7 +59,7 @@ public abstract class AbstractMaterialTraitDataProvider extends GenericDataProvi
     }
 
     // generate
-    allMaterialTraits.forEach((materialId, traits) -> saveJson(cache, materialId, traits.serialize()));
+    return allOf(allMaterialTraits.entrySet().stream().map(entry -> saveJson(cache, entry.getKey(), entry.getValue().serialize())));
   }
 
 

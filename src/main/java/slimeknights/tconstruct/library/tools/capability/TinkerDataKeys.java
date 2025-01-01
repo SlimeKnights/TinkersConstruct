@@ -43,8 +43,6 @@ public interface TinkerDataKeys {
   TinkerDataKey<Float> GOOD_EFFECT_DURATION = floatKey("good_effect_duration");
   /** Percentage boost to damage while crouching, used by {@link slimeknights.tconstruct.tools.data.ModifierIds#shulking} */
   TinkerDataKey<Float> CROUCH_DAMAGE = floatKey("crouch_damage");
-  /** Percentage boost to explosion knockback, used by {@link slimeknights.tconstruct.tools.data.ModifierIds#blastProtection} */
-  TinkerDataKey<Float> EXPLOSION_KNOCKBACK = floatKey("explosion_knockback");
 
   /** Crystalstrike level for knockback restriction */
   TinkerDataKey<Integer> CRYSTALSTRIKE = intKey("crystalstrike_knockback");

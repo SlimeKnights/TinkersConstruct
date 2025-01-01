@@ -1,8 +1,9 @@
 package slimeknights.tconstruct.common;
 
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
@@ -19,6 +20,7 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 public class TinkerTags {
   /** Called on mod construct to set up tags */
   public static void init() {
+    // TODO: is this really needed anymore?
     Blocks.init();
     Items.init();
     Fluids.init();
@@ -27,6 +29,7 @@ public class TinkerTags {
     Biomes.init();
     Modifiers.init();
     Materials.init();
+    DamageTypes.init();
   }
 
   public static class Blocks {
@@ -98,6 +101,8 @@ public class TinkerTags {
     public static final TagKey<Block> ENDERBARK_LOGS_CAN_GROW_THROUGH = tag("enderbark/logs_can_grow_through");
     /** Blocks enderbark roots can replace */
     public static final TagKey<Block> ENDERBARK_ROOTS_CAN_GROW_THROUGH = tag("enderbark/roots_can_grow_through");
+    /** Blocks slimy fungus (any of the three types) can replace */
+    public static final TagKey<Block> SLIMY_FUNGUS_CAN_GROW_THROUGH = tag("slimy_fungus_can_grow_through");
 
     public static final TagKey<Block> ORES_COBALT = forgeTag("ores/cobalt");
     public static final TagKey<Block> RAW_BLOCK_COBALT = forgeTag("storage_blocks/raw_cobalt");
@@ -166,15 +171,15 @@ public class TinkerTags {
     public static final TagKey<Block> CHRYSOPHILITE_ORES = tag("chrysophilite_ores");
 
     // ceramics compat
-    public static final TagKey<Block> CISTERN_CONNECTIONS = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("ceramics", "cistern_connections"));
+    public static final TagKey<Block> CISTERN_CONNECTIONS = TagKey.create(Registries.BLOCK, new ResourceLocation("ceramics", "cistern_connections"));
 
     /** Makes a tag in the tinkers domain */
     public static TagKey<Block> tag(String name) {
-      return TagKey.create(Registry.BLOCK_REGISTRY, TConstruct.getResource(name));
+      return TagKey.create(Registries.BLOCK, TConstruct.getResource(name));
     }
 
     private static TagKey<Block> forgeTag(String name) {
-      return TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("forge", name));
+      return TagKey.create(Registries.BLOCK, new ResourceLocation("forge", name));
     }
   }
 
@@ -417,6 +422,8 @@ public class TinkerTags {
     public static final TagKey<Item> EMBELLISHMENT_SLIME = tag("modifiable/embellishment/slime");
     /** Tools that can be dyed */
     public static final TagKey<Item> DYEABLE = tag("modifiable/dyeable");
+    /** Armor items that support trim */
+    public static final TagKey<Item> TRIM = tag("modifiable/armor/trim");
     /** Tools to blacklist from default salvage recipes. May still be salvagable in other recipes */
     public static final TagKey<Item> UNSALVAGABLE = tag("modifiable/unsalvageable");
 
@@ -427,14 +434,18 @@ public class TinkerTags {
     public static final TagKey<Item> SPLASH_BOTTLE = forgeTag("bottles/splash");
     public static final TagKey<Item> LINGERING_BOTTLE = forgeTag("bottles/lingering");
 
+    // compat tags
+    /** Tag meaning necronium is available */
+    public static final TagKey<Item> URANIUM_INGOTS = forgeTag("ingots/uranium");
+
     /** Makes a tag in the tinkers domain */
     private static TagKey<Item> tag(String name) {
-      return TagKey.create(Registry.ITEM_REGISTRY, TConstruct.getResource(name));
+      return TagKey.create(Registries.ITEM, TConstruct.getResource(name));
     }
 
     /** Makes a tag in the forge domain */
     public static TagKey<Item> forgeTag(String name) {
-      return TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation("forge", name));
+      return TagKey.create(Registries.ITEM, new ResourceLocation("forge", name));
     }
   }
 
@@ -463,8 +474,11 @@ public class TinkerTags {
     public static final TagKey<Fluid> AVERAGE_METAL_SPILLING = tag("spilling/metal/average");
     public static final TagKey<Fluid> EXPENSIVE_METAL_SPILLING = tag("spilling/metal/expensive");
 
+    /** Fluids in this tag won't show in the creative filled tanks */
+    public static final TagKey<Fluid> HIDE_IN_CREATIVE = tag("hide_in_creative");
+
     private static TagKey<Fluid> tag(String name) {
-      return TagKey.create(Registry.FLUID_REGISTRY, TConstruct.getResource(name));
+      return TagKey.create(Registries.FLUID, TConstruct.getResource(name));
     }
   }
 
@@ -494,11 +508,11 @@ public class TinkerTags {
     public static final TagKey<EntityType<?>> REFLECTING_PRESERVE_OWNER = forgeTag("reflecting/preserve_owner");
 
     private static TagKey<EntityType<?>> tag(String name) {
-      return TagKey.create(Registry.ENTITY_TYPE_REGISTRY, TConstruct.getResource(name));
+      return TagKey.create(Registries.ENTITY_TYPE, TConstruct.getResource(name));
     }
 
     private static TagKey<EntityType<?>> forgeTag(String name) {
-      return TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation("forge", name));
+      return TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation("forge", name));
     }
   }
 
@@ -506,8 +520,9 @@ public class TinkerTags {
     private static void init() {}
     public static final TagKey<BlockEntityType<?>> CRAFTING_STATION_BLACKLIST = tag("crafting_station_blacklist");
 
+    @SuppressWarnings("SameParameterValue")  // may want more tags later
     private static TagKey<BlockEntityType<?>> tag(String name) {
-      return TagKey.create(Registry.BLOCK_ENTITY_TYPE_REGISTRY, TConstruct.getResource(name));
+      return TagKey.create(Registries.BLOCK_ENTITY_TYPE, TConstruct.getResource(name));
     }
   }
 
@@ -526,7 +541,7 @@ public class TinkerTags {
     public static final TagKey<Biome> ENDERSLIME_ISLANDS = tag("islands/enderslime");
 
     private static TagKey<Biome> tag(String name) {
-      return TagKey.create(Registry.BIOME_REGISTRY, TConstruct.getResource(name));
+      return TagKey.create(Registries.BIOME, TConstruct.getResource(name));
     }
   }
 
@@ -600,8 +615,29 @@ public class TinkerTags {
     /** Materials available in nether */
     public static final TagKey<IMaterial> NETHER = tag("nether");
 
+    @SuppressWarnings("SameParameterValue")  // may want more tags later
     private static TagKey<IMaterial> tag(String name) {
       return MaterialManager.getTag(TConstruct.getResource(name));
+    }
+  }
+
+  public static class DamageTypes {
+    private static void init() {}
+    /** Damage types reduced by the melee protection modifier */
+    public static final TagKey<DamageType> MELEE_PROTECTION = tag("protection/melee");
+    /** Damage types reduced by the projectile protection modifier */
+    public static final TagKey<DamageType> PROJECTILE_PROTECTION = tag("protection/projectile");
+    /** Damage types reduced by the fire protection modifier */
+    public static final TagKey<DamageType> FIRE_PROTECTION = tag("protection/fire");
+    /** Damage types reduced by the blast protection modifier */
+    public static final TagKey<DamageType> BLAST_PROTECTION = tag("protection/blast");
+    /** Damage types reduced by the magic protection modifier */
+    public static final TagKey<DamageType> MAGIC_PROTECTION = tag("protection/magic");
+    /** Damage types reduced by the feather falling modifier */
+    public static final TagKey<DamageType> FALL_PROTECTION = tag("protection/fall");
+
+    private static TagKey<DamageType> tag(String name) {
+      return TagKey.create(Registries.DAMAGE_TYPE, TConstruct.getResource(name));
     }
   }
 }

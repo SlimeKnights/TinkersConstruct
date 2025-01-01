@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.traits.skull;
 
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -25,7 +26,7 @@ public class WitheredModifier extends NoLevelsModifier implements DamageDealtMod
   @Override
   public void onDamageDealt(IToolStackView tool, ModifierEntry modifier, EquipmentContext context, EquipmentSlot slotType, LivingEntity target, DamageSource source, float amount, boolean isDirectDamage) {
     // drink milk for more power, but less duration
-    if (isDirectDamage && !source.isProjectile()) {
+    if (isDirectDamage && !source.is(DamageTypeTags.IS_PROJECTILE)) {
       boolean isCalcified = context.getEntity().hasEffect(TinkerModifiers.calcifiedEffect.get());
       target.addEffect(new MobEffectInstance(MobEffects.WITHER, isCalcified ? 100 : 200, isCalcified ? 1 : 0));
     }

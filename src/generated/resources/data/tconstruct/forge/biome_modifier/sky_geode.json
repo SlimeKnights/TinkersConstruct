@@ -3,7 +3,12 @@
   "biomes": {
     "type": "forge:and",
     "values": [
-      "#minecraft:is_overworld",
+      {
+        "type": "forge:or",
+        "values": [
+          "#minecraft:is_overworld"
+        ]
+      },
       {
         "type": "forge:not",
         "value": {

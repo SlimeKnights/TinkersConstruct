@@ -24,10 +24,10 @@
     },
     {
       "filter": {
-        "item": "tconstruct:large_plate"
+        "item": "tconstruct:tough_binding"
       },
-      "icon": "tconstruct:large_plate",
-      "translation_key": "item.tconstruct.large_plate",
+      "icon": "tconstruct:tough_binding",
+      "translation_key": "item.tconstruct.tough_binding",
       "x": 25,
       "y": 26
     },

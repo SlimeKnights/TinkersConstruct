@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "redstone",
   "conditions": [
     {
       "type": "tconstruct:config",
@@ -20,5 +21,6 @@
   ],
   "result": {
     "item": "minecraft:sticky_piston"
-  }
+  },
+  "show_notification": true
 }

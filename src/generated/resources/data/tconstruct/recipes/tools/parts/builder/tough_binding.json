@@ -1,0 +1,16 @@
+{
+  "type": "tconstruct:part_builder",
+  "cost": 3,
+  "pattern": "tconstruct:tough_binding",
+  "pattern_item": [
+    {
+      "tag": "tconstruct:patterns/default"
+    },
+    {
+      "item": "tconstruct:tough_binding_cast"
+    }
+  ],
+  "result": {
+    "item": "tconstruct:tough_binding"
+  }
+}

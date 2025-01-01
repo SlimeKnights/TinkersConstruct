@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.tables.client.inventory.module;
 
-import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.Slot;
@@ -14,7 +14,7 @@ import slimeknights.tconstruct.tables.block.entity.inventory.IScalingContainer;
 
 import java.util.Optional;
 
-public class ScalingChestScreen<T extends BlockEntity> extends DynamicContainerScreen {
+public class ScalingChestScreen<T extends BlockEntity> extends DynamicContainerScreen<MultiModuleScreen<?>,BaseContainerMenu<T>> {
   private final IScalingContainer scaling;
   public ScalingChestScreen(MultiModuleScreen<?> parent, BaseContainerMenu<T> container, Inventory playerInventory, Component title) {
     super(parent, container, playerInventory, title);
@@ -65,5 +65,5 @@ public class ScalingChestScreen<T extends BlockEntity> extends DynamicContainerS
   }
 
   @Override
-  protected void renderLabels(PoseStack matrixStack, int x, int y) {}
+  protected void renderLabels(GuiGraphics graphics, int x, int y) {}
 }

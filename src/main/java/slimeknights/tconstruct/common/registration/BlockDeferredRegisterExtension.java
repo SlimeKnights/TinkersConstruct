@@ -8,8 +8,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.registries.RegistryObject;
 import slimeknights.mantle.registration.deferred.BlockDeferredRegister;
 import slimeknights.mantle.registration.object.EnumObject;
@@ -23,7 +23,7 @@ import java.util.function.Supplier;
 /** Additional methods in deferred register extension */
 @SuppressWarnings("UnusedReturnValue")
 public class BlockDeferredRegisterExtension extends BlockDeferredRegister {
-  private static final BlockBehaviour.Properties POTTED_PROPS = BlockBehaviour.Properties.of(Material.DECORATION).instabreak().noOcclusion();
+  private static final BlockBehaviour.Properties POTTED_PROPS = BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY);
   public BlockDeferredRegisterExtension(String modID) {
     super(modID);
   }
@@ -36,7 +36,7 @@ public class BlockDeferredRegisterExtension extends BlockDeferredRegister {
    * @param props        Item props
    * @return The geode block
    */
-  public GeodeItemObject registerGeode(String name, MaterialColor color, SoundType blockSound, SoundEvent chimeSound, Map<BudSize,SoundType> clusterSounds, int baseLight, Item.Properties props) {
+  public GeodeItemObject registerGeode(String name, MapColor color, SoundType blockSound, SoundEvent chimeSound, Map<BudSize,SoundType> clusterSounds, int baseLight, Item.Properties props) {
     RegistryObject<Item> shard = itemRegister.register(name, () -> new Item(props));
     return new GeodeItemObject(shard, this, color, blockSound, chimeSound, clusterSounds, baseLight, props);
   }

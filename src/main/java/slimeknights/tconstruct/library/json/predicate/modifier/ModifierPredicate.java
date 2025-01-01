@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.library.json.predicate.modifier;
 
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.mantle.data.loadable.record.SingletonLoader;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.PredicateRegistry;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.SingletonLoader;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 
 import java.util.List;
@@ -18,7 +18,7 @@ public interface ModifierPredicate extends IJsonPredicate<ModifierId> {
     }
 
     @Override
-    public IGenericLoader<? extends ModifierPredicate> getLoader() {
+    public RecordLoadable<? extends ModifierPredicate> getLoader() {
       return loader;
     }
   });
@@ -32,7 +32,7 @@ public interface ModifierPredicate extends IJsonPredicate<ModifierId> {
   }
 
   @Override
-  IGenericLoader<? extends ModifierPredicate> getLoader();
+  RecordLoadable<? extends ModifierPredicate> getLoader();
 
 
   /* Helper methods */

@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "c": {
       "tag": "forge:ingots/copper"
@@ -12,5 +13,6 @@
   "result": {
     "count": 3,
     "item": "tconstruct:copper_can"
-  }
+  },
+  "show_notification": true
 }

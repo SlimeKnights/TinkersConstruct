@@ -1,8 +1,8 @@
 package slimeknights.tconstruct.library.client.book.elements;
 
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import slimeknights.mantle.client.book.data.element.TextData;
 import slimeknights.mantle.client.screen.book.element.TextElement;
 
@@ -22,7 +22,7 @@ public class ListingCenteredElement extends TextElement {
   }
 
   @Override
-  public void draw(PoseStack matrices, int mouseX, int mouseY, float partialTicks, Font fontRenderer) {
+  public void draw(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks, Font fontRenderer) {
     if (this.isHovered(mouseX, mouseY)) {
       this.text[0].text = "> ";
       this.text[this.text.length - 1].text = " <";
@@ -42,6 +42,6 @@ public class ListingCenteredElement extends TextElement {
 
       this.x = this.originalX;
     }
-    super.draw(matrices, mouseX, mouseY, partialTicks, fontRenderer);
+    super.draw(graphics, mouseX, mouseY, partialTicks, fontRenderer);
   }
 }

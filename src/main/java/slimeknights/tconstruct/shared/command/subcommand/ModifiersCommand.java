@@ -76,9 +76,9 @@ public class ModifiersCommand {
     CommandSourceStack source = context.getSource();
     int size = successes.size();
     if (size == 1) {
-      source.sendSuccess(Component.translatable(ADD_SUCCESS, modifier.getDisplayName(level), successes.get(0).getDisplayName()), true);
+      source.sendSuccess(() -> Component.translatable(ADD_SUCCESS, modifier.getDisplayName(level), successes.get(0).getDisplayName()), true);
     } else {
-      source.sendSuccess(Component.translatable(ADD_SUCCESS_MULTIPLE, modifier.getDisplayName(level), size), true);
+      source.sendSuccess(() -> Component.translatable(ADD_SUCCESS_MULTIPLE, modifier.getDisplayName(level), size), true);
     }
     return size;
   }
@@ -132,9 +132,9 @@ public class ModifiersCommand {
     CommandSourceStack source = context.getSource();
     int size = successes.size();
     if (size == 1) {
-      source.sendSuccess(Component.translatable(REMOVE_SUCCESS, modifier.getDisplayName(maxRemove.intValue()), successes.get(0).getDisplayName()), true);
+      source.sendSuccess(() -> Component.translatable(REMOVE_SUCCESS, modifier.getDisplayName(maxRemove.intValue()), successes.get(0).getDisplayName()), true);
     } else {
-      source.sendSuccess(Component.translatable(REMOVE_SUCCESS_MULTIPLE, modifier.getDisplayName(maxRemove.intValue()), size), true);
+      source.sendSuccess(() -> Component.translatable(REMOVE_SUCCESS_MULTIPLE, modifier.getDisplayName(maxRemove.intValue()), size), true);
     }
     return size;
   }

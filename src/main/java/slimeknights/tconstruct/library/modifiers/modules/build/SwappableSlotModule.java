@@ -1,10 +1,10 @@
 package slimeknights.tconstruct.library.modifiers.modules.build;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -51,7 +51,7 @@ public record SwappableSlotModule(@Nullable ResourceLocation key, int slotCount,
   }
 
   @Override
-  public Component getDisplayName(IToolStackView tool, ModifierEntry entry, Component name) {
+  public Component getDisplayName(IToolStackView tool, ModifierEntry entry, Component name, @Nullable RegistryAccess access) {
     String slotName = tool.getPersistentData().getString(getKey(entry.getModifier()));
     if (!slotName.isEmpty()) {
       SlotType type = SlotType.getIfPresent(slotName);
@@ -94,7 +94,7 @@ public record SwappableSlotModule(@Nullable ResourceLocation key, int slotCount,
   }
 
   @Override
-  public IGenericLoader<? extends ModifierModule> getLoader() {
+  public RecordLoadable<SwappableSlotModule> getLoader() {
     return LOADER;
   }
 
@@ -133,7 +133,7 @@ public record SwappableSlotModule(@Nullable ResourceLocation key, int slotCount,
     }
 
     @Override
-    public IGenericLoader<? extends ModifierModule> getLoader() {
+    public RecordLoadable<BonusSlot> getLoader() {
       return LOADER;
     }
   }

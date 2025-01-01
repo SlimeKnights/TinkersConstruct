@@ -6,7 +6,7 @@ import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntComparators;
 import it.unimi.dsi.fastutil.ints.IntList;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -60,7 +60,7 @@ public class BlockTagIngredient extends AbstractIngredient {
   private Set<Item> getMatchingItems() {
     if (matchingItems == null || checkInvalidation()) {
       markValid();
-      matchingItems = RegistryHelper.getTagValueStream(Registry.BLOCK, tag)
+      matchingItems = RegistryHelper.getTagValueStream(BuiltInRegistries.BLOCK, tag)
                                     .map(Block::asItem)
                                     .filter(item -> item != Items.AIR)
                                     .collect(Collectors.toCollection(LinkedHashSet::new));
@@ -84,7 +84,7 @@ public class BlockTagIngredient extends AbstractIngredient {
       Set<Item> items = getMatchingItems();
       stackingIds = new IntArrayList(items.size());
       for (Item item : items) {
-        stackingIds.add(Registry.ITEM.getId(item));
+        stackingIds.add(BuiltInRegistries.ITEM.getId(item));
       }
       stackingIds.sort(IntComparators.NATURAL_COMPARATOR);
     }

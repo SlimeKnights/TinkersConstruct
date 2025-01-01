@@ -14,6 +14,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.util.FastColor;
+import net.minecraft.util.FastColor.ABGR32;
 import net.minecraft.util.GsonHelper;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.mantle.data.loadable.common.ColorLoadable;
@@ -34,8 +36,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.ToIntFunction;
-
-import static com.mojang.blaze3d.platform.NativeImage.getA;
 
 /**
  * Supports including sprites as "part of the palette"
@@ -76,7 +76,7 @@ public class GreyToSpriteTransformer implements ISpriteTransformer {
   private int getNewColor(int color, int x, int y) {
     // if fully transparent, just return fully transparent
     // we do not do 0 alpha RGB values to save effort
-    if (getA(color) == 0) {
+    if (FastColor.ABGR32.alpha(color) == 0) {
       return 0x00000000;
     }
     int grey = GreyToColorMapping.getGrey(color);
@@ -136,7 +136,7 @@ public class GreyToSpriteTransformer implements ISpriteTransformer {
           paletteBuilder.addABGR(0, 0xFF000000);
         }
         // get the proper type
-        int color = ColorLoadable.ALPHA.getOrDefault(palettePair, "color", -1);
+        int color = ColorLoadable.ALPHA.getOrWhite(palettePair, "color");
         if (palettePair.has("path")) {
           paletteBuilder.addTexture(grey, JsonHelper.getResourceLocation(palettePair, "path"), color);
         } else {
@@ -291,14 +291,14 @@ public class GreyToSpriteTransformer implements ISpriteTransformer {
           for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
               int color = image.getPixelRGBA(x, y);
-              red   += NativeImage.getR(color);
-              green += NativeImage.getG(color);
-              blue  += NativeImage.getB(color);
-              alpha += NativeImage.getA(color);
+              red   += ABGR32.red(color);
+              green += ABGR32.green(color);
+              blue  += ABGR32.blue(color);
+              alpha += ABGR32.alpha(color);
             }
           }
           int pixels = image.getWidth() * image.getHeight();
-          int spriteColor = NativeImage.combine(alpha / pixels, blue / pixels, green / pixels, red / pixels);
+          int spriteColor = ABGR32.color(alpha / pixels, blue / pixels, green / pixels, red / pixels);
           // if we have a color set, treat it as a tint
           if (color != -1) {
             spriteColor = GreyToColorMapping.scaleColor(spriteColor, color, 255);

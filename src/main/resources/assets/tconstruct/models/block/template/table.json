@@ -1,6 +1,5 @@
 {
   "render_type": "minecraft:cutout",
-  "loader": "tconstruct:casting",
   "parent": "block/block",
   "textures": {
     "particle": "#side"
@@ -102,14 +101,5 @@
       "to": [ 15, 16, 16 ],
       "faces": { "up": { "texture": "#top", "cullface": "up" }}
     }
-  ],
-  "fluid": {
-    "from": [ 1, 15, 1 ],
-    "to": [ 15, 15.9, 15 ],
-    "faces": { "up": {} }
-  },
-  "items": [
-    { "center": [ 8, 15.5, 8 ], "size": 14,   "x": 270, "y": 180, "transform": "tconstruct:casting_table" },
-    { "center": [ 8, 15.5, 8 ], "size": 14.1, "x": 270, "y": 180, "transform": "tconstruct:casting_table" }
   ]
 }

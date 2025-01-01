@@ -10,11 +10,12 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import slimeknights.mantle.data.loadable.Loadable;
+import slimeknights.mantle.util.typed.TypedMap;
 
 /** Simple loadable mapping GSON to loadable. Uses NBT for networking */
 public record GsonLoadable<T>(Gson gson, Class<T> classType) implements Loadable<T> {
   @Override
-  public T convert(JsonElement json, String s) {
+  public T convert(JsonElement json, String s, TypedMap context) {
     return gson.fromJson(json, classType);
   }
 
@@ -24,7 +25,7 @@ public record GsonLoadable<T>(Gson gson, Class<T> classType) implements Loadable
   }
 
   @Override
-  public T decode(FriendlyByteBuf buffer) {
+  public T decode(FriendlyByteBuf buffer, TypedMap context) {
     CompoundTag tag = buffer.readAnySizeNbt();
     if (tag != null) {
       return gson.fromJson(NbtOps.INSTANCE.convertTo(JsonOps.INSTANCE, tag), classType);

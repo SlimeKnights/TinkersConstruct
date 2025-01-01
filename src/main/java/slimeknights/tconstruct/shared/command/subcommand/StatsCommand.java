@@ -156,9 +156,9 @@ public class StatsCommand {
     int size = successes.size();
     String successKey = SUCCESS_KEY_PREFIX + type.key + "." + op.key + ".";
     if (size == 1) {
-      source.sendSuccess(Component.translatable(successKey + "single", stat.getPrefix(), display, successes.get(0).getDisplayName()), true);
+      source.sendSuccess(() -> Component.translatable(successKey + "single", stat.getPrefix(), display, successes.get(0).getDisplayName()), true);
     } else {
-      source.sendSuccess(Component.translatable(successKey + "multiple", stat.getPrefix(), display, size), true);
+      source.sendSuccess(() -> Component.translatable(successKey + "multiple", stat.getPrefix(), display, size), true);
     }
     return size;
   }
@@ -177,9 +177,9 @@ public class StatsCommand {
     CommandSourceStack source = context.getSource();
     int size = successes.size();
     if (size == 1) {
-      source.sendSuccess(Component.translatable(RESET_STAT_SINGLE, stat.getPrefix(), successes.get(0).getDisplayName()), true);
+      source.sendSuccess(() -> Component.translatable(RESET_STAT_SINGLE, stat.getPrefix(), successes.get(0).getDisplayName()), true);
     } else {
-      source.sendSuccess(Component.translatable(RESET_STAT_MULTIPLE, stat.getPrefix(), size), true);
+      source.sendSuccess(() -> Component.translatable(RESET_STAT_MULTIPLE, stat.getPrefix(), size), true);
     }
     return size;
   }
@@ -215,9 +215,9 @@ public class StatsCommand {
     CommandSourceStack source = context.getSource();
     int size = successes.size();
     if (size == 1) {
-      source.sendSuccess(Component.translatable(RESET_ALL_SINGLE, successes.get(0).getDisplayName()), true);
+      source.sendSuccess(() -> Component.translatable(RESET_ALL_SINGLE, successes.get(0).getDisplayName()), true);
     } else {
-      source.sendSuccess(Component.translatable(RESET_ALL_MULTIPLE, size), true);
+      source.sendSuccess(() -> Component.translatable(RESET_ALL_MULTIPLE, size), true);
     }
     return size;
   }

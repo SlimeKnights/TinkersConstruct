@@ -3,11 +3,11 @@ package slimeknights.tconstruct.library.data.tinkering;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.PackOutput.Target;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.PackType;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.Blocks;
@@ -21,6 +21,7 @@ import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.mantle.registration.object.FluidObject;
+import slimeknights.tconstruct.common.TinkerDamageTypes;
 import slimeknights.tconstruct.library.modifiers.fluid.ConditionalFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext;
@@ -34,19 +35,20 @@ import slimeknights.tconstruct.library.modifiers.fluid.entity.FireFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.MobEffectFluidEffect;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 /** Data provider for spilling fluids */
+@SuppressWarnings("deprecation")  // fluid registry is ours to use, not yours forge
 public abstract class AbstractFluidEffectProvider extends GenericDataProvider {
   private final String modId;
   private final Map<ResourceLocation,Builder> entries = new HashMap<>();
 
-  public AbstractFluidEffectProvider(DataGenerator generator, String modId) {
-    super(generator, PackType.SERVER_DATA, FluidEffectManager.FOLDER);
+  public AbstractFluidEffectProvider(PackOutput packOutput, String modId) {
+    super(packOutput, Target.DATA_PACK, FluidEffectManager.FOLDER);
     this.modId = modId;
   }
 
@@ -54,9 +56,9 @@ public abstract class AbstractFluidEffectProvider extends GenericDataProvider {
   protected abstract void addFluids();
 
   @Override
-  public void run(CachedOutput cache) throws IOException {
+  public CompletableFuture<?> run(CachedOutput cache) {
     addFluids();
-    entries.forEach((id, data) -> saveJson(cache, id, data.build()));
+    return allOf(entries.entrySet().stream().map(entry -> saveJson(cache, entry.getKey(), entry.getValue().build())));
   }
 
   /* Helpers */
@@ -78,12 +80,12 @@ public abstract class AbstractFluidEffectProvider extends GenericDataProvider {
 
   /** Creates a builder for a fluid stack */
   protected Builder addFluid(FluidStack fluid) {
-    return addFluid(Registry.FLUID.getKey(fluid.getFluid()).getPath(), FluidIngredient.of(fluid));
+    return addFluid(BuiltInRegistries.FLUID.getKey(fluid.getFluid()).getPath(), FluidIngredient.of(fluid));
   }
 
   /** Creates a builder for a fluid and amount */
   protected Builder addFluid(Fluid fluid, int amount) {
-    return addFluid(Registry.FLUID.getKey(fluid).getPath(), FluidIngredient.of(fluid, amount));
+    return addFluid(BuiltInRegistries.FLUID.getKey(fluid).getPath(), FluidIngredient.of(fluid, amount));
   }
 
   /** Creates a builder for a tag and amount */
@@ -108,7 +110,7 @@ public abstract class AbstractFluidEffectProvider extends GenericDataProvider {
 
   /** Adds a builder for burning */
   protected Builder burningFluid(String name, TagKey<Fluid> tag, int amount, float damage, int time) {
-    Builder builder = addFluid(name, tag, amount).addEntityEffect(LivingEntityPredicate.FIRE_IMMUNE.inverted(), new DamageFluidEffect(damage, DamageFluidEffect.FIRE));
+    Builder builder = addFluid(name, tag, amount).addEntityEffect(LivingEntityPredicate.FIRE_IMMUNE.inverted(), new DamageFluidEffect(damage, TinkerDamageTypes.FLUID_FIRE));
     if (time > 0) {
       builder.addEntityEffect(new FireFluidEffect(TimeAction.SET, time)).addBlockEffect(new PlaceBlockFluidEffect(Blocks.FIRE));
     }

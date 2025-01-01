@@ -104,6 +104,7 @@ public final class MaterialIds {
   public static final MaterialVariantId acacia   = create(wood, "acacia");
   public static final MaterialVariantId darkOak  = create(wood, "dark_oak");
   public static final MaterialVariantId mangrove = create(wood, "mangrove");
+  public static final MaterialVariantId cherry   = create(wood, "cherry");
   public static final MaterialVariantId crimson  = create(wood, "crimson");
   public static final MaterialVariantId warped   = create(wood, "warped");
   // stone

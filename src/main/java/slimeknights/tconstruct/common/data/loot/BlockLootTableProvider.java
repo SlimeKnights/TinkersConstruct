@@ -4,9 +4,10 @@ import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
-import net.minecraft.core.Registry;
-import net.minecraft.data.loot.BlockLoot;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -16,6 +17,7 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer.Builder;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.CopyNameFunction;
 import net.minecraft.world.level.storage.loot.functions.CopyNbtFunction;
@@ -29,7 +31,6 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.common.loot.CanToolPerformAction;
-import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.loot.function.RetexturedLootFunction;
 import slimeknights.mantle.registration.object.BuildingBlockObject;
 import slimeknights.mantle.registration.object.FenceBuildingBlockObject;
@@ -52,21 +53,25 @@ import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.DirtType;
 import slimeknights.tconstruct.world.block.FoliageType;
 
-import javax.annotation.Nonnull;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class BlockLootTableProvider extends BlockLoot {
-  @Nonnull
+public class BlockLootTableProvider extends BlockLootSubProvider {
+  protected BlockLootTableProvider() {
+    super(Set.of(), FeatureFlags.REGISTRY.allFlags());
+  }
+
+  @SuppressWarnings("deprecation")  // the vanilla registry is perfectly fine for our uses, will make migration away from forge registries easier
   @Override
   protected Iterable<Block> getKnownBlocks() {
-    return ForgeRegistries.BLOCKS.getValues().stream()
-                                 .filter((block) -> TConstruct.MOD_ID.equals(Registry.BLOCK.getKey(block).getNamespace()))
-                                 .collect(Collectors.toList());
+    return BuiltInRegistries.BLOCK.stream()
+                                  .filter(block -> TConstruct.MOD_ID.equals(BuiltInRegistries.BLOCK.getKey(block).getNamespace()))
+                                  .collect(Collectors.toList());
   }
 
   @Override
-  protected void addTables() {
+  protected void generate() {
     this.addCommon();
     this.addDecorative();
     this.addGadgets();
@@ -189,7 +194,7 @@ public class BlockLootTableProvider extends BlockLoot {
       this.dropSelf(TinkerWorld.slimeFern.get(type));
     }
     // mangrove leaves do not drop saplings, they just drop sticks. We do slimeballs instead
-    this.add(TinkerWorld.slimeLeaves.get(FoliageType.ENDER), leaves -> createSelfDropDispatchTable(leaves, SILK_TOUCH_OR_SHEARS,
+    this.add(TinkerWorld.slimeLeaves.get(FoliageType.ENDER), leaves -> droppingSilkOrShears(leaves,
       applyExplosionDecay(leaves, LootItem.lootTableItem(TinkerCommons.slimeball.get(SlimeType.ENDER)).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))
         .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, NORMAL_LEAVES_STICK_CHANCES))));
     this.add(TinkerWorld.slimeFern.get(FoliageType.ENDER), BlockLootTableProvider::onlyShears);
@@ -310,28 +315,31 @@ public class BlockLootTableProvider extends BlockLoot {
     return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).when(SHEARS).add(LootItem.lootTableItem(item)));
   }
 
+  /** Recreation of {@link #createShearsDispatchTable(Block, Builder)} using the tool action instead of the shears item */
   private static LootTable.Builder droppingSilkOrShears(Block block, LootPoolEntryContainer.Builder<?> alternativeLootEntry) {
     return createSelfDropDispatchTable(block, SILK_TOUCH_OR_SHEARS, alternativeLootEntry);
   }
 
-  private static LootTable.Builder dropSapling(Block blockIn, Block saplingIn, float... fortuneIn) {
-    return droppingSilkOrShears(blockIn, applyExplosionCondition(blockIn, LootItem.lootTableItem(saplingIn)).when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, fortuneIn)));
+  /** Reimplementation of {@link #createLeavesDrops(Block, Block, float...)} dropping the sticks from the loot table */
+  private LootTable.Builder dropSapling(Block leaves, Block sapling, float... fortune) {
+    return droppingSilkOrShears(leaves, applyExplosionCondition(leaves, LootItem.lootTableItem(sapling))
+      .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, fortune)));
   }
 
-  private static LootTable.Builder randomDropSlimeBallOrSapling(FoliageType foliageType, Block blockIn, Block sapling, float... fortuneIn) {
-    LootTable.Builder builder = dropSapling(blockIn, sapling, fortuneIn);
+  private LootTable.Builder randomDropSlimeBallOrSapling(FoliageType foliageType, Block leaves, Block sapling, float... fortune) {
+    LootTable.Builder builder = dropSapling(leaves, sapling, fortune);
     SlimeType slime = foliageType.asSlime();
     if (slime != null) {
       return builder.withPool(
         LootPool.lootPool().setRolls(ConstantValue.exactly(1))
                 .when(HAS_NO_SHEARS_OR_SILK_TOUCH)
-                .add(applyExplosionCondition(blockIn, LootItem.lootTableItem(TinkerCommons.slimeball.get(slime)))
+                .add(applyExplosionCondition(leaves, LootItem.lootTableItem(TinkerCommons.slimeball.get(slime)))
                        .when(BonusLevelTableCondition.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 1 / 50f, 1 / 45f, 1 / 40f, 1 / 30f, 1 / 20f))));
     }
     return builder;
   }
 
-  private static LootTable.Builder droppingWithFunctions(Block block, Function<LootItem.Builder<?>,LootItem.Builder<?>> mapping) {
+  private LootTable.Builder droppingWithFunctions(Block block, Function<LootItem.Builder<?>,LootItem.Builder<?>> mapping) {
     return LootTable.lootTable().withPool(applyExplosionCondition(block, LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(mapping.apply(LootItem.lootTableItem(block)))));
   }
 
@@ -341,7 +349,7 @@ public class BlockLootTableProvider extends BlockLoot {
    */
   private void registerBuildingLootTables(BuildingBlockObject object) {
     this.dropSelf(object.get());
-    this.add(object.getSlab(), BlockLoot::createSlabItemTable);
+    this.add(object.getSlab(), this::createSlabItemTable);
     this.dropSelf(object.getStairs());
   }
 
@@ -373,16 +381,17 @@ public class BlockLootTableProvider extends BlockLoot {
     this.dropSelf(object.getStrippedWood());
     // door
     this.dropSelf(object.getFenceGate());
-    this.add(object.getDoor(), BlockLoot::createDoorTable);
+    this.add(object.getDoor(), this::createDoorTable);
     this.dropSelf(object.getTrapdoor());
     // redstone
     this.dropSelf(object.getPressurePlate());
     this.dropSelf(object.getButton());
     // sign
     this.dropSelf(object.getSign());
+    this.dropSelf(object.getHangingSign());
   }
 
-  private static Function<Block, LootTable.Builder> ADD_TABLE = block -> droppingWithFunctions(block, (builder) ->
+  private final Function<Block, LootTable.Builder> ADD_TABLE = block -> droppingWithFunctions(block, (builder) ->
     builder.apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY)).apply(RetexturedLootFunction::new));
 
   /** Registers a block that drops with its own texture stored in NBT */

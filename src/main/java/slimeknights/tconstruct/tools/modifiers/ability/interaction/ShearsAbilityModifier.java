@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.modifiers.ability.interaction;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -37,6 +38,8 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
+import javax.annotation.Nullable;
+
 @RequiredArgsConstructor
 public class ShearsAbilityModifier extends NoLevelsModifier implements EntityInteractionModifierHook, ToolActionModifierHook {
   private final int range;
@@ -51,8 +54,8 @@ public class ShearsAbilityModifier extends NoLevelsModifier implements EntityInt
   }
 
   @Override
-  public Component getDisplayName(IToolStackView tool, ModifierEntry entry) {
-    return DualOptionInteraction.formatModifierName(tool, this, super.getDisplayName(tool, entry));
+  public Component getDisplayName(IToolStackView tool, ModifierEntry entry, @Nullable RegistryAccess access) {
+    return DualOptionInteraction.formatModifierName(tool, this, super.getDisplayName(tool, entry, access));
   }
 
   @Override

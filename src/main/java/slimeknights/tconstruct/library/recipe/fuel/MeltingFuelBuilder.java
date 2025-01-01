@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.recipe.fuel;
 
 import lombok.AllArgsConstructor;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
@@ -34,7 +34,7 @@ public class MeltingFuelBuilder extends AbstractRecipeBuilder<MeltingFuelBuilder
     if (input.getFluids().isEmpty()) {
       throw new IllegalStateException("Must have at least one fluid for dynamic input");
     }
-    save(consumer, Registry.FLUID.getKey(input.getFluids().get(0).getFluid()));
+    save(consumer, BuiltInRegistries.FLUID.getKey(input.getFluids().get(0).getFluid()));
   }
 
   @Override

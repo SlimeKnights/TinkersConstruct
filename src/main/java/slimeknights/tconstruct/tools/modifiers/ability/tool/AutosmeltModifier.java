@@ -90,7 +90,7 @@ public class AutosmeltModifier extends NoLevelsModifier implements ProcessLootMo
     SmeltingRecipe recipe = findCachedRecipe(stack, world);
     if (recipe != null) {
       inventory.setStack(stack);
-      ItemStack output = recipe.assemble(inventory);
+      ItemStack output = recipe.assemble(inventory, world.registryAccess());
       if (stack.getCount() > 1) {
         // recipe output is a copy, safe to modify
         output.setCount(output.getCount() * stack.getCount());

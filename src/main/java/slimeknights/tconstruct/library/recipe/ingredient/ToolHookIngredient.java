@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library.recipe.ingredient;
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -80,7 +80,7 @@ public class ToolHookIngredient extends AbstractIngredient {
       List<ItemStack> list = new ArrayList<>();
 
       // filtered version of tag values
-      for(Holder<Item> holder : Registry.ITEM.getTagOrEmpty(tag)) {
+      for(Holder<Item> holder : BuiltInRegistries.ITEM.getTagOrEmpty(tag)) {
         if (holder.value() instanceof IModifiable modifiable && modifiable.getToolDefinition().getData().getHooks().hasHook(hook)) {
           list.add(new ItemStack(modifiable));
         }

@@ -1,7 +1,8 @@
 package slimeknights.tconstruct.common.registration;
 
 import lombok.Getter;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -27,11 +28,12 @@ public class CastItemObject extends ItemObject<Item> {
   @Getter
   private final TagKey<Item> multiUseTag;
 
+  @SuppressWarnings("deprecation")  // you know, pointless deprecations is really going to make people start ignoring deprecations
   public CastItemObject(ResourceLocation name, Item gold, Item sand, Item redSand) {
-    super(Registry.ITEM, gold);
+    super(BuiltInRegistries.ITEM, gold);
     this.name = name;
-    this.sand = getHolder(Registry.ITEM, sand);
-    this.redSand = getHolder(Registry.ITEM, redSand);
+    this.sand = getHolder(BuiltInRegistries.ITEM, sand);
+    this.redSand = getHolder(BuiltInRegistries.ITEM, redSand);
     this.singleUseTag = makeTag("single_use");
     this.multiUseTag = makeTag("multi_use");
   }
@@ -50,7 +52,7 @@ public class CastItemObject extends ItemObject<Item> {
    * @return  Single use tag
    */
   protected TagKey<Item> makeTag(String type) {
-    return TagKey.create(Registry.ITEM_REGISTRY, new ResourceLocation(name.getNamespace(), "casts/" + type + "/" + name.getPath()));
+    return TagKey.create(Registries.ITEM, new ResourceLocation(name.getNamespace(), "casts/" + type + "/" + name.getPath()));
   }
 
   /**

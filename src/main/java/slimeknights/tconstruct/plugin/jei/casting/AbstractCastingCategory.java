@@ -3,7 +3,6 @@ package slimeknights.tconstruct.plugin.jei.casting;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.forge.ForgeTypes;
@@ -18,6 +17,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -28,7 +28,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.casting.IDisplayableCastingRecipe;
-import slimeknights.tconstruct.plugin.jei.IRecipeTooltipReplacement;
+import slimeknights.tconstruct.plugin.jei.util.IRecipeTooltipReplacement;
 
 import java.awt.Color;
 import java.util.Collections;
@@ -72,18 +72,18 @@ public abstract class AbstractCastingCategory implements IRecipeCategory<IDispla
   }
 
   @Override
-  public void draw(IDisplayableCastingRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack matrixStack, double mouseX, double mouseY) {
-    cachedArrows.getUnchecked(Math.max(1, recipe.getCoolingTime())).draw(matrixStack, 58, 18);
-    block.draw(matrixStack, 38, 35);
+  public void draw(IDisplayableCastingRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
+    cachedArrows.getUnchecked(Math.max(1, recipe.getCoolingTime())).draw(graphics, 58, 18);
+    block.draw(graphics, 38, 35);
     if (recipe.hasCast()) {
-      (recipe.isConsumed() ? castConsumed : castKept).draw(matrixStack, 63, 39);
+      (recipe.isConsumed() ? castConsumed : castKept).draw(graphics, 63, 39);
     }
 
     int coolingTime = recipe.getCoolingTime() / 20;
     String coolingString = I18n.get(KEY_COOLING_TIME, coolingTime);
     Font fontRenderer = Minecraft.getInstance().font;
     int x = 72 - fontRenderer.width(coolingString) / 2;
-    fontRenderer.draw(matrixStack, coolingString, x, 2, Color.GRAY.getRGB());
+    graphics.drawString(fontRenderer, coolingString, x, 2, Color.GRAY.getRGB(), false);
   }
 
   @Override

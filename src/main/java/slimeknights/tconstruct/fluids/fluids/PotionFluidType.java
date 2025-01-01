@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.fluids.fluids;
 
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
@@ -55,11 +55,12 @@ public class PotionFluidType extends FluidType {
   }
 
   /** Creates a fluid stack for the given potion */
+  @SuppressWarnings("deprecation")  // forge registries have nullable keys, like why would you want that?
   public static FluidStack potionFluid(Potion potion, int size) {
     CompoundTag tag = null;
     if (potion != Potions.EMPTY) {
       tag = new CompoundTag();
-      tag.putString("Potion", Registry.POTION.getKey(potion).toString());
+      tag.putString("Potion", BuiltInRegistries.POTION.getKey(potion).toString());
     }
     return new FluidStack(TinkerFluids.potion.get(), size, tag);
   }

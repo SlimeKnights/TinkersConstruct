@@ -4,7 +4,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.library.json.variable.ToFloatFunction;
 import slimeknights.tconstruct.library.json.variable.VariableLoaderRegistry;
@@ -15,7 +14,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 
-import static slimeknights.mantle.data.registry.GenericLoaderRegistry.SingletonLoader.singleton;
+import static slimeknights.mantle.data.loadable.record.SingletonLoader.singleton;
 
 /**
  * Variable that fetches a value from a tool instance.
@@ -28,7 +27,7 @@ public interface ToolVariable extends IHaveLoader, MeleeVariable, ConditionalSta
   float getValue(IToolStackView tool);
 
   @Override
-  IGenericLoader<? extends ToolVariable> getLoader();
+  RecordLoadable<? extends ToolVariable> getLoader();
 
 
   /* delegating methods, all tool variables are automatically the other types */
@@ -55,7 +54,7 @@ public interface ToolVariable extends IHaveLoader, MeleeVariable, ConditionalSta
       }
 
       @Override
-      public IGenericLoader<? extends ToolVariable> getLoader() {
+      public RecordLoadable<? extends ToolVariable> getLoader() {
         return loader;
       }
     });
@@ -66,7 +65,7 @@ public interface ToolVariable extends IHaveLoader, MeleeVariable, ConditionalSta
 
 
   /** Registers a variable with tools, melee, conditional stat, and mining speed */
-  static void register(ResourceLocation name, IGenericLoader<? extends ToolVariable> loader) {
+  static void register(ResourceLocation name, RecordLoadable<? extends ToolVariable> loader) {
     LOADER.register(name, loader);
     MeleeVariable.LOADER.register(name, loader);
     ConditionalStatVariable.register(name, loader);
@@ -83,7 +82,7 @@ public interface ToolVariable extends IHaveLoader, MeleeVariable, ConditionalSta
     }
 
     @Override
-    public IGenericLoader<? extends ToolVariable> getLoader() {
+    public RecordLoadable<ToolVariable.Constant> getLoader() {
       return LOADER;
     }
   }

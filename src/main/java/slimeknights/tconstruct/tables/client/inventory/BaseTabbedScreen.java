@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.tables.client.inventory;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -51,22 +51,22 @@ public class BaseTabbedScreen<TILE extends BlockEntity, CONTAINER extends Tabbed
     return this.tile;
   }
 
-  protected void drawIcon(PoseStack matrices, Slot slot, ElementScreen element) {
+  protected void drawIcon(GuiGraphics graphics, Slot slot, ElementScreen element) {
     RenderSystem.setShaderTexture(0, Icons.ICONS);
-    element.draw(matrices, slot.x + this.cornerX - 1, slot.y + this.cornerY - 1);
+    element.draw(graphics, slot.x + this.cornerX - 1, slot.y + this.cornerY - 1);
   }
 
-  protected void drawIconEmpty(PoseStack matrices, Slot slot, ElementScreen element) {
+  protected void drawIconEmpty(GuiGraphics graphics, Slot slot, ElementScreen element) {
     if (slot.hasItem()) {
       return;
     }
 
-    this.drawIcon(matrices, slot, element);
+    this.drawIcon(graphics, slot, element);
   }
 
-  protected void drawIconEmpty(PoseStack matrices, Slot slot, Pattern pattern) {
+  protected void drawIconEmpty(GuiGraphics graphics, Slot slot, Pattern pattern) {
     if (!slot.hasItem()) {
-      GuiUtil.renderPattern(matrices, pattern, slot.x + this.cornerX, slot.y + this.cornerY);
+      GuiUtil.renderPattern(graphics, pattern, slot.x + this.cornerX, slot.y + this.cornerY);
     }
   }
 
@@ -79,7 +79,8 @@ public class BaseTabbedScreen<TILE extends BlockEntity, CONTAINER extends Tabbed
   public void updateDisplay() {
   }
 
-  protected void addChestSideInventory(Inventory inventory) {
+  /** Adds the chest screen, returning true if it was added */
+  protected boolean addChestSideInventory(Inventory inventory) {
     SideInventoryContainer<?> sideInventoryContainer = getMenu().getSubContainer(SideInventoryContainer.class);
     if (sideInventoryContainer != null) {
       // no title if missing one
@@ -90,7 +91,9 @@ public class BaseTabbedScreen<TILE extends BlockEntity, CONTAINER extends Tabbed
       }
 
       this.addModule(new SideInventoryScreen<>(this, sideInventoryContainer, inventory, sideInventoryName, sideInventoryContainer.getSlotCount(), sideInventoryContainer.getColumns()));
+      return true;
     }
+    return false;
   }
 
   @Override

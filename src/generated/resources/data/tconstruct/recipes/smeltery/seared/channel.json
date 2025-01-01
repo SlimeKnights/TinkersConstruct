@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "redstone",
   "key": {
     "#": {
       "item": "tconstruct:seared_brick"
@@ -12,5 +13,6 @@
   "result": {
     "count": 5,
     "item": "tconstruct:seared_channel"
-  }
+  },
+  "show_notification": true
 }

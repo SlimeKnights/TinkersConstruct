@@ -145,6 +145,7 @@
   "tconstruct:golden":        ["minecraft:item/golden_chestplate", "tconstruct:gui/modifiers/book"],
   "tconstruct:dyed":          ["minecraft:item/green_dye", "tconstruct:gui/modifiers/book"],
   "tconstruct:embellishment": "tconstruct:gui/modifiers/armor/embellishment",
+  "tconstruct:trim":          "tconstruct:gui/modifiers/armor/trim",
   
   "tconstruct:nearsighted": "tconstruct:gui/modifiers/nearsighted",
   "tconstruct:farsighted":  "tconstruct:gui/modifiers/farsighted",

@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.tools.data.material;
 
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import slimeknights.tconstruct.library.data.material.AbstractMaterialDataProvider;
 import slimeknights.tconstruct.library.data.material.AbstractMaterialTraitDataProvider;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -13,8 +13,8 @@ import static slimeknights.tconstruct.library.materials.MaterialRegistry.MELEE_H
 import static slimeknights.tconstruct.library.materials.MaterialRegistry.RANGED;
 
 public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvider {
-  public MaterialTraitsDataProvider(DataGenerator gen, AbstractMaterialDataProvider materials) {
-    super(gen, materials);
+  public MaterialTraitsDataProvider(PackOutput packOutput, AbstractMaterialDataProvider materials) {
+    super(packOutput, materials);
   }
 
   @Override

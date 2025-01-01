@@ -8,6 +8,7 @@
     "tconstruct:farsighted",
     "tconstruct:nearsighted",
     "tconstruct:dyed",
-    "tconstruct:embellishment"
+    "tconstruct:embellishment",
+    "tconstruct:trim"
   ]
 }

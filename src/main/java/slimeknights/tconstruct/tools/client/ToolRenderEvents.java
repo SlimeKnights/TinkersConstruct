@@ -25,7 +25,8 @@ import net.minecraft.world.phys.HitResult.Type;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderHighlightEvent;
-import net.minecraftforge.client.event.RenderLevelLastEvent;
+import net.minecraftforge.client.event.RenderLevelStageEvent;
+import net.minecraftforge.client.event.RenderLevelStageEvent.Stage;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import slimeknights.tconstruct.TConstruct;
@@ -37,7 +38,6 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
 import java.util.Iterator;
 
-@SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = TConstruct.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ToolRenderEvents {
   /** Maximum number of blocks from the iterator to render */
@@ -110,7 +110,12 @@ public class ToolRenderEvents {
 
   /** Renders the block damage process on the extra blocks */
   @SubscribeEvent
-  static void renderBlockDamageProgress(RenderLevelLastEvent event) {
+  static void renderBlockDamageProgress(RenderLevelStageEvent event) {
+    // TODO: validate this is the right stage for block breaking particles, maybe I want a bit earlier
+    if (event.getStage() != Stage.AFTER_TRIPWIRE_BLOCKS) {
+      return;
+    }
+
     // validate required variables are set
     MultiPlayerGameMode controller = Minecraft.getInstance().gameMode;
     if (controller == null || !controller.isDestroying()) {
@@ -178,7 +183,8 @@ public class ToolRenderEvents {
       matrices.pushPose();
       matrices.translate(pos.getX() - x, pos.getY() - y, pos.getZ() - z);
       PoseStack.Pose entry = matrices.last();
-      VertexConsumer blockBuilder = new SheetedDecalTextureGenerator(vertexBuilder, entry.pose(), entry.normal());
+      VertexConsumer blockBuilder = new SheetedDecalTextureGenerator(vertexBuilder, entry.pose(), entry.normal(), 1);
+      // TODO: is it practical to fetch model data here?
       dispatcher.renderBreakingTexture(world.getBlockState(pos), pos, world, matrices, blockBuilder);
       matrices.popPose();
       rendered++;

@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools.stats;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ArmorItem;
 import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
@@ -12,8 +13,8 @@ import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
-import slimeknights.tconstruct.tools.item.ArmorSlotType;
-import slimeknights.tconstruct.tools.item.ArmorSlotType.ArmorShieldBuilder;
+import slimeknights.tconstruct.tools.modules.ArmorModuleBuilder;
+import slimeknights.tconstruct.tools.modules.ArmorModuleBuilder.ArmorShieldModuleBuilder;
 
 import java.util.List;
 
@@ -47,7 +48,7 @@ public record PlatingMaterialStats(MaterialStatType<?> getType, int durability, 
     MaterialStatType.CONTEXT_KEY.requiredField(), IRepairableMaterialStats.DURABILITY_FIELD, TOUGHNESS, KNOCKBACK_RESISTANCE,
     (type, durability, toughness, knockbackResistance) -> new PlatingMaterialStats(type, durability, 0, toughness, knockbackResistance)));
   /** All types including shield */
-  public static final List<MaterialStatType<PlatingMaterialStats>> TYPES = List.of(BOOTS, LEGGINGS, CHESTPLATE, HELMET, SHIELD);
+  public static final List<MaterialStatType<PlatingMaterialStats>> TYPES = List.of(HELMET, CHESTPLATE, LEGGINGS, BOOTS, SHIELD);
 
   @Override
   public List<Component> getLocalizedInfo() {
@@ -86,7 +87,7 @@ public record PlatingMaterialStats(MaterialStatType<?> getType, int durability, 
   /** Builder to create plating material stats for all four pieces */
   @Setter
   @Accessors(fluent = true)
-  public static class Builder implements ArmorShieldBuilder<PlatingMaterialStats> {
+  public static class Builder implements ArmorShieldModuleBuilder<PlatingMaterialStats> {
     private final int[] durability = new int[4];
     private int shieldDurability = 0;
     private final float[] armor = new float[4];
@@ -97,9 +98,9 @@ public record PlatingMaterialStats(MaterialStatType<?> getType, int durability, 
 
     /** Sets the durability for the piece based on the given factor */
     public Builder durabilityFactor(float maxDamageFactor) {
-      for (ArmorSlotType slotType : ArmorSlotType.values()) {
-        int index = slotType.getIndex();
-        durability[index] = (int)(ArmorSlotType.MAX_DAMAGE_ARRAY[index] * maxDamageFactor);
+      for (ArmorItem.Type slotType : ArmorItem.Type.values()) {
+        int index = slotType.ordinal();
+        durability[index] = (int)(ArmorModuleBuilder.MAX_DAMAGE_ARRAY[index] * maxDamageFactor);
       }
       if (shieldDurability == 0) {
         shieldDurability = (int)(maxDamageFactor * 18);
@@ -109,16 +110,16 @@ public record PlatingMaterialStats(MaterialStatType<?> getType, int durability, 
 
     /** Sets the armor value for each piece */
     public Builder armor(float boots, float leggings, float chestplate, float helmet) {
-      armor[ArmorSlotType.BOOTS.getIndex()] = boots;
-      armor[ArmorSlotType.LEGGINGS.getIndex()] = leggings;
-      armor[ArmorSlotType.CHESTPLATE.getIndex()] = chestplate;
-      armor[ArmorSlotType.HELMET.getIndex()] = helmet;
+      armor[ArmorItem.Type.BOOTS.ordinal()] = boots;
+      armor[ArmorItem.Type.LEGGINGS.ordinal()] = leggings;
+      armor[ArmorItem.Type.CHESTPLATE.ordinal()] = chestplate;
+      armor[ArmorItem.Type.HELMET.ordinal()] = helmet;
       return this;
     }
 
     @Override
-    public PlatingMaterialStats build(ArmorSlotType slot) {
-      int index = slot.getIndex();
+    public PlatingMaterialStats build(ArmorItem.Type slot) {
+      int index = slot.ordinal();
       return new PlatingMaterialStats(TYPES.get(index), durability[index], armor[index], toughness, knockbackResistance);
     }
 

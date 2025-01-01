@@ -64,7 +64,7 @@ public class TemperateModifier extends Modifier implements ConditionalStatModifi
   private static float getBonus(LivingEntity living, BlockPos pos) {
     // temperature ranges from -1.25 to 1.25, so make it go -1 to 1
     // negative is cold, positive is hot
-    return (living.level.getBiome(pos).value().getTemperature(pos) - BASELINE_TEMPERATURE);
+    return (living.level().getBiome(pos).value().getTemperature(pos) - BASELINE_TEMPERATURE);
   }
 
   @Override

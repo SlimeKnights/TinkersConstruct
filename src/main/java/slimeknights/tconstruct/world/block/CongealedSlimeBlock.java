@@ -2,7 +2,6 @@ package slimeknights.tconstruct.world.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -68,7 +67,7 @@ public class CongealedSlimeBlock extends Block {
   @Override
   public void fallOn(Level worldIn, BlockState state, BlockPos pos, Entity entityIn, float fallDistance) {
     // no fall damage on congealed slime
-    entityIn.causeFallDamage(fallDistance, 0.0F, DamageSource.FALL);
+    entityIn.causeFallDamage(fallDistance, 0.0F, worldIn.damageSources().fall());
   }
 
   @Override

@@ -3,8 +3,8 @@ package slimeknights.tconstruct.common.data.model;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
-import net.minecraft.core.Registry;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -50,8 +50,8 @@ import static slimeknights.mantle.util.IdExtender.INSTANCE;
 public class TinkerBlockStateProvider extends BlockStateProvider {
   private final UncheckedModelFile GENERATED = new UncheckedModelFile("item/generated");
 
-  public TinkerBlockStateProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-    super(generator, TConstruct.MOD_ID, existingFileHelper);
+  public TinkerBlockStateProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
+    super(output, TConstruct.MOD_ID, existingFileHelper);
   }
 
   @Override
@@ -125,15 +125,17 @@ public class TinkerBlockStateProvider extends BlockStateProvider {
     // helper to get textures for wood, since we put them in a nice folder
     Function<String,ResourceLocation> texture = suffix -> blockTexture("wood/" + name + "/" + suffix);
     ResourceLocation planks = texture.apply("planks");
+    ResourceLocation log = texture.apply("log");
+    ResourceLocation stripped = texture.apply("stripped_log");
 
     // planks and fences
     addFenceBuildingBlock(wood, folder, "planks", planks);
     fenceGate(wood.getFenceGate(), folder + "fence/gate", planks);
     // logs
-    axisBlock(wood.getLog(),          folder + "log/log",           texture.apply("log"), true);
-    axisBlock(wood.getStrippedLog(),  folder + "log/stripped",      texture.apply("stripped_log"), true);
-    axisBlock(wood.getWood(),         folder + "log/wood",          texture.apply("log"), false);
-    axisBlock(wood.getStrippedWood(), folder + "log/wood_stripped", texture.apply("stripped_log"), false);
+    axisBlock(wood.getLog(),          folder + "log/log",           log,      true);
+    axisBlock(wood.getStrippedLog(),  folder + "log/stripped",      stripped, true);
+    axisBlock(wood.getWood(),         folder + "log/wood",          log,      false);
+    axisBlock(wood.getStrippedWood(), folder + "log/wood_stripped", stripped, false);
     // doors
     door(wood.getDoor(), folder, doorRenderType, texture.apply("door_bottom"), texture.apply("door_top"));
     basicItem(wood.getDoor(), "wood/");
@@ -144,6 +146,10 @@ public class TinkerBlockStateProvider extends BlockStateProvider {
     // sign
     signBlock(wood.getSign(), wood.getWallSign(), models().sign(folder + "sign", planks));
     basicItem(wood.getSign(), "wood/");
+    ModelFile hangingSign = models().sign(folder + "hanging_sign", stripped);
+    simpleBlock(wood.getHangingSign(), hangingSign);
+    simpleBlock(wood.getWallHangingSign(), hangingSign);
+    basicItem(wood.getHangingSign(), "wood/");
   }
 
 
@@ -152,7 +158,7 @@ public class TinkerBlockStateProvider extends BlockStateProvider {
   /** Gets the resource location key for a block */
   @SuppressWarnings("deprecation")
   private ResourceLocation key(Block block) {
-    return Registry.BLOCK.getKey(block);
+    return BuiltInRegistries.BLOCK.getKey(block);
   }
 
   /** Gets the resource path for a block */
@@ -163,7 +169,7 @@ public class TinkerBlockStateProvider extends BlockStateProvider {
   /** Gets the resource location key for a block */
   @SuppressWarnings("deprecation")
   private ResourceLocation itemKey(ItemLike item) {
-    return Registry.ITEM.getKey(item.asItem());
+    return BuiltInRegistries.ITEM.getKey(item.asItem());
   }
 
   /** Gets the resource location key for a block */

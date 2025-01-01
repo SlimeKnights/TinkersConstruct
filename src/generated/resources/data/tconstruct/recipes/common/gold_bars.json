@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "#": {
       "tag": "forge:ingots/gold"
@@ -12,5 +13,6 @@
   "result": {
     "count": 16,
     "item": "tconstruct:gold_bars"
-  }
+  },
+  "show_notification": true
 }

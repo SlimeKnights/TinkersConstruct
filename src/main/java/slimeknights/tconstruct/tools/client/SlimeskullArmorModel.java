@@ -105,7 +105,7 @@ public class SlimeskullArmorModel extends MultilayerArmorModel {
         matrixStackIn.popPose();
       }
       if (headModel != null && headTexture != null) {
-        VertexConsumer headBuilder = ItemRenderer.getArmorFoilBuffer(buffer, RenderType.entityCutoutNoCullZOffset(headTexture), false, hasGlint);
+        VertexConsumer heaadBuffer = ItemRenderer.getArmorFoilBuffer(buffer, RenderType.entityCutoutNoCullZOffset(headTexture), false, hasGlint);
         matrixStackIn.pushPose();
         if (base.crouching) {
           matrixStackIn.translate(0, base.head.y / 16.0F, 0);
@@ -117,7 +117,7 @@ public class SlimeskullArmorModel extends MultilayerArmorModel {
           matrixStackIn.scale(1.115f, 1.115f, 1.115f);
         }
         headModel.setupAnim(0, base.head.yRot * 180f / (float)(Math.PI), base.head.xRot * 180f / (float)(Math.PI));
-        renderColored(headModel, matrixStackIn, headBuilder, packedLightIn, packedOverlayIn, headColor, red, green, blue, alpha);
+        renderColored(headModel, matrixStackIn, heaadBuffer, packedLightIn, packedOverlayIn, headColor, red, green, blue, alpha);
         matrixStackIn.popPose();
       }
     }

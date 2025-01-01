@@ -28,7 +28,7 @@ public class BurstingModifier extends UseFluidOnHitModifier implements OnAttacke
   @Override
   public FluidEffectContext.Entity createContext(LivingEntity self, @Nullable Player player, @Nullable Entity attacker) {
     assert attacker != null;
-    return new FluidEffectContext.Entity(self.level, self, player, null, attacker, asLiving(attacker));
+    return new FluidEffectContext.Entity(self.level(), self, player, null, attacker, asLiving(attacker));
   }
 
   @Override

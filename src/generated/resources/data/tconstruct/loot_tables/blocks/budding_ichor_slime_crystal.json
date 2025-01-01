@@ -1,3 +1,4 @@
 {
-  "type": "minecraft:block"
+  "type": "minecraft:block",
+  "random_sequence": "tconstruct:blocks/budding_ichor_slime_crystal"
 }

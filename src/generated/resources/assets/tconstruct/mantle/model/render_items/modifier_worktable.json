@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "center": [
+        5.0,
+        16.25,
+        8.0
+      ],
+      "size": 7.5,
+      "transform": "tconstruct:table",
+      "x": 270
+    },
+    {
+      "center": [
+        11.5,
+        17.5,
+        3.5
+      ],
+      "size": 3.0,
+      "transform": "tconstruct:table"
+    },
+    {
+      "center": [
+        11.5,
+        17.5,
+        12.5
+      ],
+      "size": 3.0,
+      "transform": "tconstruct:table"
+    }
+  ]
+}

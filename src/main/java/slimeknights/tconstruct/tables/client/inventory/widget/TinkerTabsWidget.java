@@ -2,9 +2,9 @@ package slimeknights.tconstruct.tables.client.inventory.widget;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.components.Widget;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
@@ -31,12 +31,12 @@ import slimeknights.tconstruct.tables.network.StationTabPacket;
 
 import java.util.List;
 
-public class TinkerTabsWidget implements Widget, GuiEventListener, NarratableEntry {
+public class TinkerTabsWidget implements Renderable, GuiEventListener, NarratableEntry {
   private static final ResourceLocation TAB_IMAGE = TConstruct.getResource("textures/gui/icons.png");
-  protected static final ElementScreen TAB_ELEMENT = new ElementScreen(0, 18, 26, 30, 256, 256);
-  protected static final ElementScreen ACTIVE_TAB_L_ELEMENT = new ElementScreen(26, 18, 26, 30, 256, 256);
-  protected static final ElementScreen ACTIVE_TAB_C_ELEMENT = new ElementScreen(52, 18, 26, 30, 256, 256);
-  protected static final ElementScreen ACTIVE_TAB_R_ELEMENT = new ElementScreen(78, 18, 26, 30, 256, 256);
+  protected static final ElementScreen TAB_ELEMENT = new ElementScreen(TAB_IMAGE, 0, 18, 26, 30, 256, 256);
+  protected static final ElementScreen ACTIVE_TAB_L_ELEMENT = new ElementScreen(TAB_IMAGE, 26, 18, 26, 30, 256, 256);
+  protected static final ElementScreen ACTIVE_TAB_C_ELEMENT = new ElementScreen(TAB_IMAGE, 52, 18, 26, 30, 256, 256);
+  protected static final ElementScreen ACTIVE_TAB_R_ELEMENT = new ElementScreen(TAB_IMAGE, 78, 18, 26, 30, 256, 256);
 
   private final int leftPos;
   private final int topPos;
@@ -53,7 +53,6 @@ public class TinkerTabsWidget implements Widget, GuiEventListener, NarratableEnt
     var tabs = collectTabs(this.parent.getMinecraft(), this.parent.getMenu());
 
     this.tabs = new TabsWidget(parent, TAB_ELEMENT, TAB_ELEMENT, TAB_ELEMENT, ACTIVE_TAB_L_ELEMENT, ACTIVE_TAB_C_ELEMENT, ACTIVE_TAB_R_ELEMENT);
-    this.tabs.tabsResource = TAB_IMAGE;
 
     int count = tabs.size();
     this.imageWidth = count * ACTIVE_TAB_C_ELEMENT.w + (count - 1) * this.tabs.spacing;
@@ -98,7 +97,6 @@ public class TinkerTabsWidget implements Widget, GuiEventListener, NarratableEnt
   }
 
   private void onNewTabSelection(BlockPos pos) {
-    assert this.parent.getMinecraft() != null;
     Level level = this.parent.getMinecraft().level;
 
     if (level != null) {
@@ -115,6 +113,16 @@ public class TinkerTabsWidget implements Widget, GuiEventListener, NarratableEnt
   @Override
   public boolean isMouseOver(double mouseX, double mouseY) {
     return mouseX >= this.leftPos - 1 && mouseX < this.guiRight() + 1 && mouseY >= this.topPos - 1 && mouseY < this.guiBottom() + 1;
+  }
+
+  @Override
+  public void setFocused(boolean pFocused) {
+    // TODO: do I need to do anything with focusing?
+  }
+
+  @Override
+  public boolean isFocused() {
+    return false;
   }
 
   @Override
@@ -147,11 +155,11 @@ public class TinkerTabsWidget implements Widget, GuiEventListener, NarratableEnt
   }
 
   @Override
-  public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+  public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
     RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
     int sel = this.tabs.selected;
     this.tabs.update(mouseX, mouseY);
-    this.tabs.draw(poseStack);
+    this.tabs.draw(graphics);
 
     // new selection
     if (sel != this.tabs.selected) {
@@ -159,10 +167,10 @@ public class TinkerTabsWidget implements Widget, GuiEventListener, NarratableEnt
         onNewTabSelection(this.tabData.get(this.tabs.selected));
     }
 
-    renterTooltip(poseStack, mouseX, mouseY);
+    renterTooltip(graphics, mouseX, mouseY);
   }
 
-  protected void renterTooltip(PoseStack poseStack, int mouseX, int mouseY) {
+  protected void renterTooltip(GuiGraphics graphics, int mouseX, int mouseY) {
     // highlighted tooltip
     Level world = parent.getMinecraft().level;
     if (this.tabs.highlighted > -1 && world != null) {
@@ -176,7 +184,7 @@ public class TinkerTabsWidget implements Widget, GuiEventListener, NarratableEnt
       }
 
       // TODO: renderComponentTooltip->renderTooltip
-      parent.renderComponentTooltip(poseStack, Lists.newArrayList(title), mouseX, mouseY);
+      graphics.renderComponentTooltip(parent.font, Lists.newArrayList(title), mouseX, mouseY);
     }
   }
 

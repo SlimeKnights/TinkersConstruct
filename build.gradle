@@ -8,8 +8,9 @@
 
 plugins {
     id 'eclipse'
+    id 'idea'
     id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '5.1.+'
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
     id 'io.freefair.lombok' version '8.6'
 }
@@ -48,7 +49,9 @@ repositories {
 }
 
 group = 'slimeknights.tconstruct'
-archivesBaseName = 'TinkersConstruct'
+base {
+    archivesName = 'TinkersConstruct'
+}                                                          
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 // sets version to the slimeKnights version format
@@ -89,7 +92,7 @@ sourceSets {
             srcDirs "src/generated/resources"
             //But exclude the cache of the generated data from what gets built
             exclude '.cache'
-            // exclude debug resources, they are for heling us make the mod, not for the actual mod
+            // exclude debug resources, they are for helping us make the mod, not for the actual mod
             exclude 'assets/tconstruct/debug'
         }
     }
@@ -98,19 +101,28 @@ sourceSets {
 minecraft {
     mappings channel: 'parchment', version: "${parchment_version}-${minecraft_version}"
 
+    // enableIdeaPrepareRuns = true
+    copyIdeResources = true
+
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     runs {
-        client {
+        // applies to all the run configs below
+        configureEach {
             workingDirectory project.file('run')
 
             // Recommended logging data for a userdev environment
-            property 'forge.logging.markers', 'REGISTRIES,REGISTRYDUMP,CORE'
-            // property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP,CORE' enable if you want spam from the scanner.
+            // The markers can be added/remove as needed separated by commas.
+            // "SCAN": For mods scan.
+            // "REGISTRIES": For firing of registry events.
+            // "REGISTRYDUMP": For getting the contents of all registries.
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP,CORE'
 
             // Recommended logging level for the console
+            // You can set various levels here.
+            // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
             property 'forge.logging.console.level', 'debug'
-
+            
             // IE uses mixins, remap their mixins to work in dev
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
@@ -120,7 +132,9 @@ minecraft {
                     source sourceSets.main
                 }
             }
-
+        }
+    
+        client {
             //The below if statements are to add args to your gradle.properties file in user home
             // (DO NOT add them directly to the gradle.properties file for this project)
             // Setting the below properties allows use of your normal Minecraft account in the
@@ -144,50 +158,11 @@ minecraft {
         }
 
         server {
-            workingDirectory project.file('run')
-
-            // Recommended logging data for a userdev environment
-            property 'forge.logging.markers', 'REGISTRIES,REGISTRYDUMP,CORE'
-            // property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP,CORE' enable if you want spam from the scanner.
-
-            // Recommended logging level for the console
-            property 'forge.logging.console.level', 'debug'
-
-            // IE uses mixins, remap their mixins to work in dev
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-
-            mods {
-                tconstruct {
-                    source sourceSets.main
-                }
-            }
+            args '--nogui'
         }
 
         data {
-            workingDirectory project.file('run')
-
-            // Recommended logging data for a userdev environment
-            property 'forge.logging.markers', 'REGISTRIES,REGISTRYDUMP,CORE'
-            // property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP,CORE' enable if you want spam from the scanner.
-
-            // Recommended logging level for the console
-            property 'forge.logging.console.level', 'debug'
-
-            // IE uses mixins, remap their mixins to work in dev
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-
-            environment 'assetIndex', '{asset_index}'
-            environment 'assetDirectory', '{assets_root}'
-
             args '--mod', 'tconstruct', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/'), '--existing-mod', 'mantle'
-
-            mods {
-                tconstruct {
-                    source sourceSets.main
-                }
-            }
         }
     }
 }
@@ -210,21 +185,16 @@ dependencies {
 
     // implementation fg.deobf("mcjty.theoneprobe:TheOneProbe-${minecraft_base_version}:${minecraft_base_version}-${probe_version}")
 
-    // compileOnly fg.deobf("com.blamejared.crafttweaker:CraftTweaker-${minecraft_version}:${crt_version}")
     compileOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:${minecraft_version}-${ie_version}")
-//    runtimeOnly fg.deobf("curse.maven:MoonlightLib-499980:4983974")
-//    runtimeOnly fg.deobf("curse.maven:MmmMmmMmmMmm-225738:4410143")
-//    runtimeOnly fg.deobf("curse.maven:lazy-dfu-forge-460819:4327266")
+    runtimeOnly fg.deobf("curse.maven:MoonlightLib-499980:6000197")
+    runtimeOnly fg.deobf("curse.maven:MmmMmmMmmMmm-225738:5737040")
 
-    // runtimeOnly fg.deobf("curse.maven:terrablender-563928:3619749")
-    // runtimeOnly fg.deobf("curse.maven:biomes-o-plenty-220318:3616582")
-    // runtimeOnly fg.deobf("curse.maven:terralith-513688:3606078")
-    compileOnly fg.deobf("curse.maven:diet-443570:4813890")
+    compileOnly fg.deobf("curse.maven:diet-443570:4813904")
 
     compileOnly fg.deobf("dev.gigaherz.jsonthings:JsonThings-${minecraft_version}:${json_things_version}")
 
-    compileOnly fg.deobf("curse.maven:balm-531761:4751735")
-    compileOnly fg.deobf("curse.maven:crafting-tweaks-233071:4939198")
+    compileOnly fg.deobf("curse.maven:balm-531761:5999476")
+    compileOnly fg.deobf("curse.maven:crafting-tweaks-233071:5623639")
 
     deployerJars 'org.apache.maven.wagon:wagon-ssh:2.2'
 
@@ -238,53 +208,24 @@ test {
     useJUnitPlatform()
 }
 
-// process mods.toml to inject variables
-def modsTomlSpec = copySpec{
-    from(sourceSets.main.resources) {
-        include 'META-INF/mods.toml'
-        expand 'version': artifact_version,
-            'loader_range': loader_range,
-            'minecraft_range': minecraft_range,
-            'forge_range': forge_range,
-            'mantle_range': mantle_range,
-            'jei_range': jei_range,
-            'json_things_range': json_things_range
-    }
-}
-// need to copy into each build directory, unfortunately does not seem easy to do this automatically
-def buildPaths = [
-    "$rootDir/out/production/resources", // IDEA
-    "$rootDir/bin", // Eclipse
-]
+tasks.named('processResources', ProcessResources).configure {
+    var replaceProperties = [
+        'version': artifact_version,
+        'loader_range': loader_range,
+        'minecraft_range': minecraft_range,
+        'forge_range': forge_range,
+        'mantle_range': mantle_range,
+        'jei_range': jei_range,
+        'json_things_range': json_things_range
+    ]
+    inputs.properties replaceProperties
 
-// task to add mods.toml to all relevant folders
-task replaceResources {
-    // ensure directory exists, first build likes to fail
-    new File("${processResources.destinationDir}/META-INF").mkdirs()
-    // copy for gradle
-    copy {
-        outputs.upToDateWhen { false }
-        with modsTomlSpec
-        into processResources.destinationDir
-    }
-    // copy for IDEs
-    buildPaths.each { path ->
-        if (new File(path).exists()) {
-            copy {
-                outputs.upToDateWhen { false }
-                with modsTomlSpec
-                into path
-            }
-        }
+    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
+        expand replaceProperties + [project: project]
     }
 }
 
-processResources {
-    exclude 'META-INF/mods.toml'
-    finalizedBy replaceResources
-}
-
-jar {
+tasks.named('jar', Jar).configure {
     manifest {
         attributes([
                 "Specification-Title"     : "Tinkers Construct",
@@ -300,9 +241,8 @@ jar {
 
 jar.finalizedBy('reobfJar')
 
-task sourcesJar(type: Jar) {
-    from sourceSets.main.allJava
-    classifier = 'sources'
+java {
+    withSourcesJar()
 }
 
 artifacts {
@@ -373,7 +313,7 @@ task("uploadJars", dependsOn: "build") {
 
 publishing {
     publications {
-        mavenJava(MavenPublication) {
+        register('mavenJava', MavenPublication) {
             artifact jar
             artifact sourcesJar
         }

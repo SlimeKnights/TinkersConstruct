@@ -24,10 +24,10 @@
     },
     {
       "filter": {
-        "item": "tconstruct:round_plate"
+        "item": "tconstruct:adze_head"
       },
-      "icon": "tconstruct:round_plate",
-      "translation_key": "item.tconstruct.round_plate",
+      "icon": "tconstruct:adze_head",
+      "translation_key": "item.tconstruct.adze_head",
       "x": 51,
       "y": 34
     }

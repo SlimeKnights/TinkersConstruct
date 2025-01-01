@@ -2,12 +2,9 @@
   "level_display": "tconstruct:default",
   "modules": [
     {
-      "type": "tconstruct:max_armor_stat",
-      "allow_broken": false,
-      "each_level": -0.15,
-      "held_tag": "tconstruct:modifiable/held",
-      "key": "tconstruct:explosion_knockback",
-      "tooltip_style": "percent"
+      "type": "tconstruct:enchantment_ignoring_protection",
+      "level": 1,
+      "name": "minecraft:blast_protection"
     },
     {
       "type": "tconstruct:protection",
@@ -15,7 +12,10 @@
         "type": "mantle:and",
         "predicates": [
           "mantle:can_protect",
-          "mantle:explosion"
+          {
+            "type": "mantle:tag",
+            "tag": "tconstruct:protection/projectile"
+          }
         ]
       },
       "each_level": 2.5

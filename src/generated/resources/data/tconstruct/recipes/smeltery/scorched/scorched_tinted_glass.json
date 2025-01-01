@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "key": {
     "G": {
       "tag": "forge:glass/tinted"
@@ -15,5 +16,6 @@
   ],
   "result": {
     "item": "tconstruct:scorched_tinted_glass"
-  }
+  },
+  "show_notification": true
 }

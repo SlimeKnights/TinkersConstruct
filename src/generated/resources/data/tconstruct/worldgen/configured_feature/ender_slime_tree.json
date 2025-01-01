@@ -1,0 +1,181 @@
+{
+  "type": "minecraft:tree",
+  "config": {
+    "decorators": [
+      {
+        "type": "tconstruct:leave_vines",
+        "probability": 0.125,
+        "vines": "tconstruct:ender_slime_vine"
+      },
+      {
+        "type": "minecraft:attached_to_leaves",
+        "block_provider": {
+          "type": "minecraft:randomized_int_state_provider",
+          "property": "age",
+          "source": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "tconstruct:ender_slime_sapling",
+              "Properties": {
+                "age": "0",
+                "hanging": "true",
+                "stage": "0",
+                "waterlogged": "false"
+              }
+            }
+          },
+          "values": {
+            "type": "minecraft:uniform",
+            "value": {
+              "max_inclusive": 4,
+              "min_inclusive": 0
+            }
+          }
+        },
+        "directions": [
+          "down"
+        ],
+        "exclusion_radius_xz": 1,
+        "exclusion_radius_y": 0,
+        "probability": 0.14,
+        "required_empty_blocks": 2
+      }
+    ],
+    "dirt_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:dirt"
+      }
+    },
+    "foliage_placer": {
+      "type": "minecraft:random_spread_foliage_placer",
+      "foliage_height": 2,
+      "leaf_placement_attempts": 70,
+      "offset": 0,
+      "radius": 3
+    },
+    "foliage_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "tconstruct:ender_slime_leaves",
+        "Properties": {
+          "distance": "7",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      }
+    },
+    "force_dirt": false,
+    "ignore_vines": true,
+    "minimum_size": {
+      "type": "minecraft:two_layers_feature_size",
+      "limit": 2,
+      "lower_size": 0,
+      "upper_size": 2
+    },
+    "root_placer": {
+      "type": "tconstruct:extra_root_variants",
+      "mangrove_root_placement": {
+        "can_grow_through": "#tconstruct:enderbark/roots_can_grow_through",
+        "max_root_length": 15,
+        "max_root_width": 8,
+        "muddy_roots_in": [
+          "tconstruct:earth_enderbark_roots",
+          "tconstruct:earth_congealed_slime"
+        ],
+        "muddy_roots_provider": {
+          "type": "minecraft:simple_state_provider",
+          "state": {
+            "Name": "tconstruct:earth_enderbark_roots"
+          }
+        },
+        "random_skew_chance": 0.2
+      },
+      "root_provider": {
+        "type": "minecraft:simple_state_provider",
+        "state": {
+          "Name": "tconstruct:enderbark_roots",
+          "Properties": {
+            "waterlogged": "false"
+          }
+        }
+      },
+      "root_variants": [
+        {
+          "matches": [
+            "tconstruct:sky_enderbark_roots",
+            "tconstruct:sky_congealed_slime"
+          ],
+          "state_provider": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "tconstruct:sky_enderbark_roots"
+            }
+          }
+        },
+        {
+          "matches": [
+            "tconstruct:ichor_enderbark_roots",
+            "tconstruct:ichor_congealed_slime"
+          ],
+          "state_provider": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "tconstruct:ichor_enderbark_roots"
+            }
+          }
+        },
+        {
+          "matches": [
+            "tconstruct:ender_enderbark_roots",
+            "tconstruct:ender_congealed_slime"
+          ],
+          "state_provider": {
+            "type": "minecraft:simple_state_provider",
+            "state": {
+              "Name": "tconstruct:ender_enderbark_roots"
+            }
+          }
+        }
+      ],
+      "trunk_offset_y": {
+        "type": "minecraft:uniform",
+        "value": {
+          "max_inclusive": 3,
+          "min_inclusive": 1
+        }
+      }
+    },
+    "trunk_placer": {
+      "type": "minecraft:upwards_branching_trunk_placer",
+      "base_height": 2,
+      "can_grow_through": "#tconstruct:enderbark/logs_can_grow_through",
+      "extra_branch_length": {
+        "type": "minecraft:uniform",
+        "value": {
+          "max_inclusive": 1,
+          "min_inclusive": 0
+        }
+      },
+      "extra_branch_steps": {
+        "type": "minecraft:uniform",
+        "value": {
+          "max_inclusive": 4,
+          "min_inclusive": 1
+        }
+      },
+      "height_rand_a": 1,
+      "height_rand_b": 4,
+      "place_branch_per_log_probability": 0.5
+    },
+    "trunk_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "tconstruct:enderbark_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    }
+  }
+}

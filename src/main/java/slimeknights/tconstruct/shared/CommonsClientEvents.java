@@ -4,6 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.font.FontManager;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ModelEvent.RegisterGeometryLoaders;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -13,6 +14,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.ClientEventBase;
 import slimeknights.tconstruct.library.client.book.TinkerBook;
+import slimeknights.tconstruct.library.client.model.UniqueGuiModel;
 import slimeknights.tconstruct.library.utils.DomainDisplayName;
 import slimeknights.tconstruct.shared.client.FluidParticle;
 
@@ -21,6 +23,11 @@ public class CommonsClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void addResourceListeners(RegisterClientReloadListenersEvent event) {
     DomainDisplayName.addResourceListener(event);
+  }
+
+  @SubscribeEvent
+  static void registerModelLoaders(RegisterGeometryLoaders event) {
+    event.register("gui", UniqueGuiModel.LOADER);
   }
 
   @SubscribeEvent
@@ -36,7 +43,7 @@ public class CommonsClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void registerParticleFactories(RegisterParticleProvidersEvent event) {
-    event.register(TinkerCommons.fluidParticle.get(), new FluidParticle.Factory());
+    event.registerSpecial(TinkerCommons.fluidParticle.get(), new FluidParticle.Factory());
   }
 
   private static Font unicodeRenderer;

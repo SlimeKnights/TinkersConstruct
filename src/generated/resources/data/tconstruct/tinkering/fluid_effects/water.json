@@ -5,9 +5,10 @@
       "effect": {
         "type": "tconstruct:damage",
         "damage": 2.0,
-        "modifier": [
-          "tconstruct:bypass_armor"
-        ]
+        "damage_type": {
+          "melee": "tconstruct:water_melee",
+          "ranged": "tconstruct:water_ranged"
+        }
       },
       "target": "mantle:water_sensitive"
     },

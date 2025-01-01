@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.tables.client.inventory.widget;
 
-import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiGraphics;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.ModuleScreen;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
@@ -19,7 +19,8 @@ public class BorderWidget extends Widget {
   public ScalableElementScreen borderLeft = GenericScreen.borderLeft;
   public ScalableElementScreen borderRight = GenericScreen.borderRight;
 
-  protected static final ScalableElementScreen textBackground = new ScalableElementScreen(7 + 18, 7, 18, 10);
+  // TODO: this is not used, was it supposed to be used?
+  //protected static final ScalableElementScreen textBackground = new ScalableElementScreen(7 + 18, 7, 18, 10);
 
   public int w = borderLeft.w;
   public int h = borderTop.h;
@@ -42,7 +43,7 @@ public class BorderWidget extends Widget {
     return height + this.borderTop.h + this.borderBottom.h;
   }
 
-  public void updateParent(ModuleScreen gui) {
+  public void updateParent(ModuleScreen<?,?> gui) {
     gui.leftPos -= this.borderLeft.w;
     gui.topPos -= this.borderTop.h;
 
@@ -51,29 +52,35 @@ public class BorderWidget extends Widget {
   }
 
   @Override
-  public void draw(PoseStack matrices) {
+  public void draw(GuiGraphics graphics) {
     int x = this.xPos;
     int y = this.yPos;
     int midW = this.width - this.borderLeft.w - this.borderRight.w;
     int midH = this.height - this.borderTop.h - this.borderBottom.h;
 
     // top row
-    x += this.cornerTopLeft.draw(matrices, x, y);
-    x += this.borderTop.drawScaledX(matrices, x, y, midW);
-    this.cornerTopRight.draw(matrices, x, y);
+    x += drawX(this.cornerTopLeft, graphics, x, y);
+    x += this.borderTop.drawScaledX(graphics, x, y, midW);
+    this.cornerTopRight.draw(graphics, x, y);
 
     // center row
     x = this.xPos;
     y += this.borderTop.h;
-    x += this.borderLeft.drawScaledY(matrices, x, y, midH);
+    x += this.borderLeft.drawScaledY(graphics, x, y, midH);
     x += midW;
-    this.borderRight.drawScaledY(matrices, x, y, midH);
+    this.borderRight.drawScaledY(graphics, x, y, midH);
 
     // bottom row
     x = this.xPos;
     y += midH;
-    x += this.cornerBottomLeft.draw(matrices, x, y);
-    x += this.borderBottom.drawScaledX(matrices, x, y, midW);
-    this.cornerBottomRight.draw(matrices, x, y);
+    x += drawX(this.cornerBottomLeft, graphics, x, y);
+    x += this.borderBottom.drawScaledX(graphics, x, y, midW);
+    this.cornerBottomRight.draw(graphics, x, y);
+  }
+
+  /** Draws an element ans returns its width */
+  private int drawX(ElementScreen element, GuiGraphics graphics, int x, int y) {
+    element.draw(graphics, x, y);
+    return element.w;
   }
 }

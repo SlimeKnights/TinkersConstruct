@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Setter;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
@@ -16,7 +17,6 @@ import slimeknights.mantle.client.screen.MultiModuleScreen;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.mantle.client.screen.SliderWidget;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.client.RenderUtils;
 import slimeknights.tconstruct.tables.client.inventory.widget.BorderWidget;
 
 import javax.annotation.Nullable;
@@ -25,7 +25,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 
-public class InfoPanelScreen extends ModuleScreen {
+public class InfoPanelScreen<P extends MultiModuleScreen<?>, C extends AbstractContainerMenu> extends ModuleScreen<P,C> {
   private static final int resW = 118;
   private static final int resH = 75;
 
@@ -34,24 +34,24 @@ public class InfoPanelScreen extends ModuleScreen {
 
   protected static ResourceLocation BACKGROUND_IMAGE = TConstruct.getResource("textures/gui/panel.png");
 
-  protected static final ElementScreen TOP_LEFT = new ElementScreen(0, 0, 4, 4, 256, 256);
-  protected static final ElementScreen TOP_RIGHT = new ElementScreen(resW + 4, 0, 4, 4);
-  protected static final ElementScreen BOTTOM_LEFT = new ElementScreen(0, resH + 4, 4, 4);
-  protected static final ElementScreen BOTTOM_RIGHT = new ElementScreen(resW + 4, resH + 4, 4, 4);
+  protected static final ElementScreen TOP_LEFT = new ElementScreen(BACKGROUND_IMAGE, 0, 0, 4, 4, 256, 256);
+  protected static final ElementScreen TOP_RIGHT = TOP_LEFT.move(resW + 4, 0, 4, 4);
+  protected static final ElementScreen BOTTOM_LEFT = TOP_LEFT.move(0, resH + 4, 4, 4);
+  protected static final ElementScreen BOTTOM_RIGHT = TOP_LEFT.move(resW + 4, resH + 4, 4, 4);
 
-  protected static final ScalableElementScreen TOP = new ScalableElementScreen(4, 0, resW, 4);
-  protected static final ScalableElementScreen BOTTOM = new ScalableElementScreen(4, 4 + resH, resW, 4);
-  protected static final ScalableElementScreen LEFT = new ScalableElementScreen(0, 4, 4, resH);
-  protected static final ScalableElementScreen RIGHT = new ScalableElementScreen(4 + resW, 4, 4, resH);
+  protected static final ScalableElementScreen TOP = new ScalableElementScreen(BACKGROUND_IMAGE, 4, 0, resW, 4, 256, 256);
+  protected static final ScalableElementScreen BOTTOM = TOP.move(4, 4 + resH, resW, 4);
+  protected static final ScalableElementScreen LEFT = TOP.move(0, 4, 4, resH);
+  protected static final ScalableElementScreen RIGHT = TOP.move(4 + resW, 4, 4, resH);
 
-  protected static final ScalableElementScreen BACKGROUND = new ScalableElementScreen(4, 4, resW, resH);
+  protected static final ScalableElementScreen BACKGROUND = TOP.move(4, 4, resW, resH);
 
-  protected static final ElementScreen SLIDER_NORMAL = new ElementScreen(0, 83, 3, 5);
+  protected static final ElementScreen SLIDER_NORMAL = TOP_LEFT.move(0, 83, 3, 5);
   protected static final ElementScreen SLIDER_HOVER = SLIDER_NORMAL.shift(SLIDER_NORMAL.w, 0);
 
-  protected static final ScalableElementScreen SLIDER_BAR = new ScalableElementScreen(0, 88, 3, 8);
-  protected static final ElementScreen SLIDER_TOP = new ElementScreen(3, 88, 3, 4);
-  protected static final ElementScreen SLIDER_BOTTOM = new ElementScreen(3, 92, 3, 4);
+  protected static final ScalableElementScreen SLIDER_BAR = TOP.move(0, 88, 3, 8);
+  protected static final ElementScreen SLIDER_TOP = TOP_LEFT.move(3, 88, 3, 4);
+  protected static final ElementScreen SLIDER_BOTTOM = TOP_LEFT.move(3, 92, 3, 4);
 
   protected BorderWidget border = new BorderWidget();
 
@@ -65,7 +65,7 @@ public class InfoPanelScreen extends ModuleScreen {
 
   @Setter
   protected float textScale = 1.0f;
-  public InfoPanelScreen(MultiModuleScreen parent, AbstractContainerMenu container, Inventory playerInventory, Component title) {
+  public InfoPanelScreen(P parent, C container, Inventory playerInventory, Component title) {
     super(parent, container, playerInventory, title, true, false);
 
     this.border.borderTop = TOP;
@@ -135,6 +135,7 @@ public class InfoPanelScreen extends ModuleScreen {
     return this.tooltips != null && !this.tooltips.isEmpty();
   }
 
+  @SuppressWarnings("ConstantConditions")  // well yes, if the screen is initialized it is
   public boolean hasInitialized() {
     return this.font != null;
   }
@@ -210,13 +211,13 @@ public class InfoPanelScreen extends ModuleScreen {
     return lines;
   }
 
-  public InfoPanelScreen wood() {
+  public InfoPanelScreen<P,C> wood() {
     this.shift(resW + 8, 0);
     this.shiftSlider(6, 0);
     return this;
   }
 
-  public InfoPanelScreen metal() {
+  public InfoPanelScreen<P,C> metal() {
     this.shift(resW + 8, resH + 8);
     this.shiftSlider(12, 0);
     return this;
@@ -239,13 +240,13 @@ public class InfoPanelScreen extends ModuleScreen {
   }
 
   @Override
-  protected void renderLabels(PoseStack matrixStack, int x, int y) {
+  protected void renderLabels(GuiGraphics graphics, int x, int y) {
    // no-op
   }
 
   @Override
-  protected void renderTooltip(PoseStack matrices, int mouseX, int mouseY) {
-    super.renderTooltip(matrices, mouseX, mouseY);
+  protected void renderTooltip(GuiGraphics graphics, int mouseX, int mouseY) {
+    super.renderTooltip(graphics, mouseX, mouseY);
 
     if (this.tooltips == null) {
       return;
@@ -259,7 +260,7 @@ public class InfoPanelScreen extends ModuleScreen {
     int scaledFontHeight = this.getScaledFontHeight();
     if (this.hasTooltips() && mouseX >= this.guiRight() - this.border.w - this.font.width("?") / 2 && mouseX < this.guiRight()
         && mouseY > this.topPos + 5 && mouseY < this.topPos + 5 + scaledFontHeight) {
-      this.renderTooltip(matrices, this.font.split(Component.translatable("gui.tconstruct.general.hover"), 150), mouseX - 155, mouseY);
+      graphics.renderTooltip(this.font, this.font.split(Component.translatable("gui.tconstruct.general.hover"), 150), mouseX - 155, mouseY);
     }
 
     // are we hovering over an entry?
@@ -310,7 +311,7 @@ public class InfoPanelScreen extends ModuleScreen {
 
     List<FormattedCharSequence> lines = this.font.split(this.tooltips.get(i), w);
 
-    this.renderTooltip(matrices, lines, mouseX, (mouseY - lines.size() * this.getScaledFontHeight() / 2));
+    graphics.renderTooltip(this.font, lines, mouseX, (mouseY - lines.size() * this.getScaledFontHeight() / 2));
   }
 
   /**
@@ -324,11 +325,9 @@ public class InfoPanelScreen extends ModuleScreen {
   }
 
   @Override
-  protected void renderBg(PoseStack matrices, float partialTicks, int mouseX, int mouseY) {
-    RenderUtils.setup(BACKGROUND_IMAGE);
-
-    this.border.draw(matrices);
-    BACKGROUND.drawScaled(matrices, this.leftPos + 4, this.topPos + 4, this.imageWidth - 8, this.imageHeight - 8);
+  protected void renderBg(GuiGraphics graphics, float partialTicks, int mouseX, int mouseY) {
+    this.border.draw(graphics);
+    BACKGROUND.drawScaled(graphics, this.leftPos + 4, this.topPos + 4, this.imageWidth - 8, this.imageHeight - 8);
 
     float y = 5 + this.topPos;
     float x = 5 + this.leftPos;
@@ -336,7 +335,7 @@ public class InfoPanelScreen extends ModuleScreen {
 
     // info ? in the top right corner
     if (this.hasTooltips()) {
-      this.font.draw(matrices, "?", guiRight() - this.border.w - this.font.width("?") / 2f, this.topPos + 5, 0xff5f5f5f);
+      graphics.drawString(this.font, "?", guiRight() - this.border.w - this.font.width("?") / 2f, this.topPos + 5, 0xff5f5f5f, false);
     }
 
     // draw caption
@@ -345,7 +344,7 @@ public class InfoPanelScreen extends ModuleScreen {
       int x2 = this.imageWidth / 2;
       x2 -= this.font.width(this.caption) / 2;
 
-      this.font.drawShadow(matrices, this.caption.getVisualOrderText(), (float) this.leftPos + x2, y, color);
+      graphics.drawString(this.font, this.caption.getVisualOrderText(), (float) this.leftPos + x2, y, color, true);
       y += scaledFontHeight + 3;
     }
 
@@ -356,6 +355,7 @@ public class InfoPanelScreen extends ModuleScreen {
 
     float textHeight = font.lineHeight + 0.5f;
     float lowerBound = (this.topPos + this.imageHeight - 5) / this.textScale;
+    PoseStack matrices = graphics.pose();
     matrices.pushPose();
     matrices.scale(this.textScale, this.textScale, 1.0f);
     //RenderSystem.scalef(this.textScale, this.textScale, 1.0f);
@@ -370,7 +370,7 @@ public class InfoPanelScreen extends ModuleScreen {
       }
 
       FormattedCharSequence line = iter.next();
-      this.font.drawShadow(matrices, line, x, y, color);
+      graphics.drawString(this.font, line, x, y, color, true);
       y += textHeight;
     }
 
@@ -378,9 +378,8 @@ public class InfoPanelScreen extends ModuleScreen {
     //RenderSystem.scalef(1f / textScale, 1f / textScale, 1.0f);
 
     //RenderSystem.setShaderTexture(0, BACKGROUND_IMAGE);
-    RenderUtils.setup(BACKGROUND_IMAGE);
     this.slider.update(mouseX, mouseY);
-    this.slider.draw(matrices);
+    this.slider.draw(graphics);
   }
 
   @Override

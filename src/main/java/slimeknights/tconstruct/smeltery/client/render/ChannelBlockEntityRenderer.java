@@ -13,13 +13,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
-import slimeknights.mantle.client.model.FaucetFluidLoader;
-import slimeknights.mantle.client.model.fluid.FluidCuboid;
-import slimeknights.mantle.client.model.util.ModelHelper;
+import slimeknights.mantle.client.render.ChannelFluids;
+import slimeknights.mantle.client.render.FluidCuboid;
 import slimeknights.mantle.client.render.FluidRenderer;
 import slimeknights.mantle.client.render.MantleRenderTypes;
 import slimeknights.mantle.client.render.RenderingHelper;
-import slimeknights.tconstruct.library.client.model.block.ChannelModel;
 import slimeknights.tconstruct.smeltery.block.ChannelBlock;
 import slimeknights.tconstruct.smeltery.block.ChannelBlock.ChannelConnection;
 import slimeknights.tconstruct.smeltery.block.entity.ChannelBlockEntity;
@@ -41,7 +39,7 @@ public class ChannelBlockEntityRenderer implements BlockEntityRenderer<ChannelBl
 		}
 		BlockPos pos = te.getBlockPos();
 		BlockState state = te.getBlockState();
-		ChannelModel.Baked model = ModelHelper.getBakedModel(state, ChannelModel.Baked.class);
+		ChannelFluids model = ChannelFluids.REGISTRY.get(state.getBlock());
 		if (model == null) {
 			return;
 		}
@@ -66,7 +64,7 @@ public class ChannelBlockEntityRenderer implements BlockEntityRenderer<ChannelBl
 				isRotated = RenderingHelper.applyRotation(matrices, direction);
 				// get the relevant fluid model, render it
 				if (te.isFlowing(direction)) {
-					cube = model.getSideFlow(connection == ChannelConnection.OUT);
+					cube = model.side().flow(connection == ChannelConnection.OUT);
 
 					// add to center direction
 					if (connection == ChannelConnection.OUT) {
@@ -80,10 +78,10 @@ public class ChannelBlockEntityRenderer implements BlockEntityRenderer<ChannelBl
 					}
 					// render the extra edge against other blocks
 					if (!world.getBlockState(pos.relative(direction)).is(state.getBlock())) {
-						FluidRenderer.renderCuboid(matrices, builder, model.getSideEdge(), 0, still, flowing, color, light, false);
+						FluidRenderer.renderCuboid(matrices, builder, model.side().edge(), 0, still, flowing, color, light, false);
 					}
 				} else {
-					cube = model.getSideStill();
+					cube = model.side().still();
 				}
 				FluidRenderer.renderCuboid(matrices, builder, cube, 0, still, flowing, color, light, false);
 				// undo rotation
@@ -96,9 +94,9 @@ public class ChannelBlockEntityRenderer implements BlockEntityRenderer<ChannelBl
 		// render center
 		isRotated = false;
 		if (centerFlow.getAxis().isVertical()) {
-			cube = model.getCenterFluid(false);
+			cube = model.center(false);
 		} else {
-			cube = model.getCenterFluid(true);
+			cube = model.center(true);
 			isRotated = RenderingHelper.applyRotation(matrices, centerFlow);
 		}
 		// render the cube and pop back
@@ -109,11 +107,11 @@ public class ChannelBlockEntityRenderer implements BlockEntityRenderer<ChannelBl
 
 		// render flow downwards
 		if (state.getValue(ChannelBlock.DOWN) && te.isFlowing(Direction.DOWN)) {
-			cube = model.getDownFluid();
+			cube = model.down();
 			FluidRenderer.renderCuboid(matrices, builder, cube, 0, still, flowing, color, light, false);
 
 			// render into the block(s) below
-			FaucetFluidLoader.renderFaucetFluids(world, pos, Direction.DOWN, matrices, builder, still, flowing, color, light);
+			RenderingHelper.renderFaucetFluids(world, pos, Direction.DOWN, matrices, builder, still, flowing, color, light);
 		}
 	}
 }

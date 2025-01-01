@@ -1,0 +1,6 @@
+{
+  "effects": "burning",
+  "exhaustion": 0.1,
+  "message_id": "tconstruct.smeltery_heat",
+  "scaling": "never"
+}

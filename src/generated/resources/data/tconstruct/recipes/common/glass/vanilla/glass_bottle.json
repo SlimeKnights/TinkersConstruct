@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "conditions": [
     {
       "type": "tconstruct:config",
@@ -18,5 +19,6 @@
   "result": {
     "count": 3,
     "item": "minecraft:glass_bottle"
-  }
+  },
+  "show_notification": true
 }

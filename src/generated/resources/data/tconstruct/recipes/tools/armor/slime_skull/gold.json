@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:casting_basin",
   "cast": {
-    "item": "tconstruct:piglin_head"
+    "item": "minecraft:piglin_head"
   },
   "cast_consumed": true,
   "cooling_time": 237,

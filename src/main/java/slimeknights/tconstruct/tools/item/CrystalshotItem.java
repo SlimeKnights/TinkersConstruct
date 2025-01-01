@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.tools.item;
 
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -12,9 +11,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ArrowItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.tools.TinkerTools;
@@ -58,11 +56,8 @@ public class CrystalshotItem extends ArrowItem {
 
   @Override
   public boolean isInfinite(ItemStack stack, ItemStack bow, Player player) {
-    return EnchantmentHelper.getItemEnchantmentLevel(net.minecraft.world.item.enchantment.Enchantments.INFINITY_ARROWS, bow) > 0;
+    return bow.getEnchantmentLevel(Enchantments.INFINITY_ARROWS) > 0;
   }
-
-  @Override
-  public void fillItemCategory(CreativeModeTab pCategory, NonNullList<ItemStack> pItems) {}
 
   /** Creates a crystal shot with the given variant */
   public static ItemStack withVariant(String variant, int size) {

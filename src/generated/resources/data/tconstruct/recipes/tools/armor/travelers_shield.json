@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "equipment",
   "key": {
     "l": {
       "tag": "forge:leather"
@@ -15,5 +16,6 @@
   ],
   "result": {
     "item": "tconstruct:travelers_shield"
-  }
+  },
+  "show_notification": true
 }

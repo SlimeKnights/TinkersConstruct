@@ -7,7 +7,7 @@ import net.minecraft.world.entity.EquipmentSlot.Type;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.phys.EntityHitResult;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.SingletonLoader;
+import slimeknights.mantle.data.loadable.record.SingletonLoader;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.events.teleport.EnderclearanceTeleportEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;

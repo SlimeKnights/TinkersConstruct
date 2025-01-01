@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.world.logic;
 
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.VillagerTrades.ItemListing;
@@ -25,11 +25,12 @@ import java.util.Optional;
 public enum AncientToolItemListing implements ItemListing {
   INSTANCE;
 
+  @SuppressWarnings("deprecation")
   @Nullable
   @Override
   public MerchantOffer getOffer(Entity trader, RandomSource random) {
     // step 1: select ancient tool
-    Optional<Holder<Item>> selected = Registry.ITEM.getTag(TinkerTags.Items.TRADER_TOOLS).flatMap(t -> t.getRandomElement(random));
+    Optional<Holder<Item>> selected = BuiltInRegistries.ITEM.getTag(TinkerTags.Items.TRADER_TOOLS).flatMap(t -> t.getRandomElement(random));
     if (selected.isPresent() && selected.get().value() instanceof IModifiable toolItem) {
       // step 2: select materials
       ToolStack tool = ToolBuildHandler.buildToolRandomMaterials(toolItem, random);

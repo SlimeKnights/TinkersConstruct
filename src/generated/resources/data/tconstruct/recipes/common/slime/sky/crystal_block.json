@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "group": "tconstruct:slime_crystal_block",
   "key": {
     "#": {
@@ -12,5 +13,6 @@
   ],
   "result": {
     "item": "tconstruct:sky_slime_crystal_block"
-  }
+  },
+  "show_notification": true
 }

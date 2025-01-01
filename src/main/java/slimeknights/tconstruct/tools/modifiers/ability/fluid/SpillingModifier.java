@@ -40,7 +40,7 @@ public class SpillingModifier extends Modifier implements MeleeHitModifierHook {
         if (recipe.hasEntityEffects()) {
           LivingEntity living = context.getAttacker();
           Player player = context.getPlayerAttacker();
-          int consumed = recipe.applyToEntity(fluid, modifier.getEffectiveLevel(), new FluidEffectContext.Entity(living.level, living, player, null, context.getTarget(), context.getLivingTarget()), FluidAction.EXECUTE);
+          int consumed = recipe.applyToEntity(fluid, modifier.getEffectiveLevel(), new FluidEffectContext.Entity(living.level(), living, player, null, context.getTarget(), context.getLivingTarget()), FluidAction.EXECUTE);
           if (consumed > 0 && (player == null || !player.isCreative())) {
             spawnParticles(context.getTarget(), fluid);
             fluid.shrink(consumed);

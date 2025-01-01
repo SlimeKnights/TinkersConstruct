@@ -4,7 +4,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 
 /** Variable that fetches an attribute value */
 public record AttributeEntityVariable(Attribute attribute) implements EntityVariable {
@@ -16,7 +15,7 @@ public record AttributeEntityVariable(Attribute attribute) implements EntityVari
   }
 
   @Override
-  public IGenericLoader<? extends EntityVariable> getLoader() {
+  public RecordLoadable<AttributeEntityVariable> getLoader() {
     return LOADER;
   }
 }

@@ -74,6 +74,7 @@ public class FluidEffectProjectile extends LlamaSpit {
       }
     }
     FluidStack fluid = getFluid();
+    Level level = level();
     if (!level.isClientSide && !fluid.isEmpty()) {
       FluidEffects recipe = FluidEffectManager.INSTANCE.find(fluid.getFluid());
       if (recipe.hasEntityEffects()) {
@@ -95,8 +96,9 @@ public class FluidEffectProjectile extends LlamaSpit {
   protected void onHitBlock(BlockHitResult hitResult) {
     // hit the block
     BlockPos hit = hitResult.getBlockPos();
-    BlockState state = this.level.getBlockState(hit);
-    state.onProjectileHit(this.level, state, hitResult, this);
+    Level level = level();
+    BlockState state = level.getBlockState(hit);
+    state.onProjectileHit(level, state, hitResult, this);
     // handle the fluid
     FluidStack fluid = getFluid();
     if (!level.isClientSide) {

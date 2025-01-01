@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.experimental.Accessors;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeType;
 import slimeknights.mantle.data.loadable.common.IngredientLoadable;
@@ -42,9 +41,6 @@ public abstract class AbstractCastingRecipe implements ICastingRecipe {
     this.consumed = cast != Ingredient.EMPTY && consumed;
     this.switchSlots = switchSlots;
   }
-
-  @Override
-  public abstract ItemStack getResultItem();
 
   @Override
   public NonNullList<Ingredient> getIngredients() {

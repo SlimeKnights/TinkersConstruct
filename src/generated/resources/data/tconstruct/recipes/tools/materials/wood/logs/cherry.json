@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": {
+    "tag": "minecraft:cherry_logs"
+  },
+  "leftover": "minecraft:cherry_planks",
+  "material": "tconstruct:wood#cherry",
+  "needed": 1,
+  "value": 4
+}

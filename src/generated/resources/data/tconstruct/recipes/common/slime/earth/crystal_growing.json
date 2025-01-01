@@ -1,5 +1,6 @@
 {
   "type": "minecraft:blasting",
+  "category": "misc",
   "cookingtime": 400,
   "experience": 0.2,
   "group": "tconstruct:slime_dirt",

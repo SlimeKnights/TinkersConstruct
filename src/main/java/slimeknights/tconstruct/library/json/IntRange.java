@@ -8,6 +8,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
 import slimeknights.mantle.data.loadable.Loadable;
 import slimeknights.mantle.data.loadable.field.LoadableField;
+import slimeknights.mantle.util.typed.TypedMap;
 
 import java.util.function.Function;
 import java.util.function.IntPredicate;
@@ -79,7 +80,7 @@ public record IntRange(int min, int max) implements IntPredicate, Loadable<IntRa
   }
 
   @Override
-  public IntRange convert(JsonElement element, String key) {
+  public IntRange convert(JsonElement element, String key, TypedMap context) {
     // if an object, find min and max
     if (element.isJsonObject()) {
       JsonObject json = element.getAsJsonObject();
@@ -129,7 +130,7 @@ public record IntRange(int min, int max) implements IntPredicate, Loadable<IntRa
 
   /** Reads a range from the buffer */
   @Override
-  public IntRange decode(FriendlyByteBuf buffer) {
+  public IntRange decode(FriendlyByteBuf buffer, TypedMap context) {
     return fromNetwork(buffer);
   }
 

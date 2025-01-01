@@ -22,7 +22,6 @@ public enum TinkerHeadType implements Type, StringRepresentable {
   SPIDER(() -> EntityType.SPIDER),
   CAVE_SPIDER(() -> EntityType.CAVE_SPIDER),
   // piglin
-  PIGLIN(() -> EntityType.PIGLIN),
   PIGLIN_BRUTE(() -> EntityType.PIGLIN_BRUTE),
   ZOMBIFIED_PIGLIN(() -> EntityType.ZOMBIFIED_PIGLIN);
 
@@ -36,6 +35,11 @@ public enum TinkerHeadType implements Type, StringRepresentable {
   @Override
   public String getSerializedName() {
     return this.name().toLowerCase(Locale.ROOT);
+  }
+
+  /** If true, this is a piglin head, so it uses the ears model */
+  public boolean isPiglin() {
+    return this == PIGLIN_BRUTE || this == ZOMBIFIED_PIGLIN;
   }
 
   /**

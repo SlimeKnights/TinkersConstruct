@@ -5,6 +5,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
 import slimeknights.mantle.client.TooltipKey;
+import slimeknights.tconstruct.common.TinkerDamageTypes;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -21,6 +22,7 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Objects;
 
 public class PiercingModifier extends Modifier implements ToolStatsModifierHook, MeleeHitModifierHook, TooltipModifierHook {
   @Override
@@ -36,15 +38,11 @@ public class PiercingModifier extends Modifier implements ToolStatsModifierHook,
 
   @Override
   public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt) {
+    DamageSource source = TinkerDamageTypes.source(
+      context.getLevel().registryAccess(),
+      TinkerDamageTypes.PIERCING,
+      Objects.requireNonNullElse(context.getPlayerAttacker(), context.getAttacker()));
     // deals 0.5 pierce damage per level, scaled, half of sharpness
-    DamageSource source;
-    Player player = context.getPlayerAttacker();
-    if (player != null) {
-      source = DamageSource.playerAttack(player);
-    } else {
-      source = DamageSource.mobAttack(context.getAttacker());
-    }
-    source.bypassArmor();
     float secondaryDamage = (modifier.getEffectiveLevel() * tool.getMultiplier(ToolStats.ATTACK_DAMAGE)) * context.getCooldown();
     if (context.isCritical()) {
       secondaryDamage *= 1.5f;

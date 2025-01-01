@@ -5,9 +5,10 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Multimap;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.PackOutput.Target;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtIo;
@@ -17,24 +18,29 @@ import net.minecraft.server.packs.PackType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.tconstruct.TConstruct;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Replaces blocks in a structure palette with another set of blocks
  */
+@SuppressWarnings("deprecation")  // I wish IDEA let you declare a deprecation in a source is wrong globally
 public abstract class AbstractStructureRepalleter extends GenericNBTProvider {
   private final Multimap<ResourceLocation,RepaletteTask> structures = HashMultimap.create();
 
   private final ExistingFileHelper existingFileHelper;
   private final String modId;
-  public AbstractStructureRepalleter(DataGenerator generator, ExistingFileHelper existingFileHelper, String modId) {
-    super(generator, PackType.SERVER_DATA, "structures");
+  public AbstractStructureRepalleter(PackOutput packOutput, ExistingFileHelper existingFileHelper, String modId) {
+    super(packOutput, Target.DATA_PACK, "structures");
     this.existingFileHelper = existingFileHelper;
     this.modId = modId;
   }
@@ -55,12 +61,13 @@ public abstract class AbstractStructureRepalleter extends GenericNBTProvider {
   }
 
   @Override
-  public void run(CachedOutput cache) throws IOException {
+  public CompletableFuture<?> run(CachedOutput cache) {
     addStructures();
+    List<CompletableFuture<?>> tasks = new ArrayList<>();
     for (Entry<ResourceLocation,Collection<RepaletteTask>> entry : structures.asMap().entrySet()) {
       ResourceLocation original = entry.getKey();
 
-      try (InputStream io = existingFileHelper.getResource(original, packType, ".nbt", folder).open()) {
+      try (InputStream io = existingFileHelper.getResource(original, PackType.SERVER_DATA, ".nbt", "structures").open()) {
         CompoundTag inputNBT = NbtIo.readCompressed(io);
         for (RepaletteTask task : entry.getValue()) {
           // start by fetching the palette, we assume its not randomized
@@ -82,16 +89,17 @@ public abstract class AbstractStructureRepalleter extends GenericNBTProvider {
           // if requested, run it through the structure template to cleanup NBT (e.g. compact palettes)
           if (task.reprocess) {
             StructureTemplate template = new StructureTemplate();
-            template.load(newStructure);
+            template.load(BuiltInRegistries.BLOCK.asLookup(), newStructure);
             newStructure = template.save(new CompoundTag());
           }
-          saveNBT(cache, new ResourceLocation(modId, task.location), newStructure);
+          tasks.add(saveNBT(cache, new ResourceLocation(modId, task.location), newStructure));
         }
       }
       catch (IOException e) {
         TConstruct.LOG.error("Couldn't read NBT for {}", original, e);
       }
     }
+    return GenericDataProvider.allOf(tasks);
   }
 
   /** Starts a builder for repaletting the given structure into the given output. Note calling multple times with an output not give the same builder. */
@@ -131,7 +139,7 @@ public abstract class AbstractStructureRepalleter extends GenericNBTProvider {
 
     /** Adds a mapping replacing from with to */
     public Replacement addMapping(Block from, Block to) {
-      return addMapping(Registry.BLOCK.getKey(from), Registry.BLOCK.getKey(to));
+      return addMapping(BuiltInRegistries.BLOCK.getKey(from), BuiltInRegistries.BLOCK.getKey(to));
     }
 
     /** Builds this replacement */

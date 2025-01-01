@@ -5,6 +5,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.items.ItemHandlerHelper;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -105,7 +106,8 @@ public interface BowAmmoModifierHook {
   static ItemStack findAmmo(IToolStackView tool, ItemStack bow, Player player, Predicate<ItemStack> predicate) {
     int projectilesDesired = 1 + (2 * tool.getModifierLevel(TinkerModifiers.multishot.getId()));
     // treat client side as creative, no need to shrink the stacks clientside
-    boolean creative = player.getAbilities().instabuild || player.level.isClientSide;
+    Level level = player.level();
+    boolean creative = player.getAbilities().instabuild || level.isClientSide;
 
     // first search, find what ammo type we want
     ItemStack standardAmmo = player.getProjectile(bow);
@@ -146,7 +148,7 @@ public interface BowAmmoModifierHook {
     // if we made it this far, we found ammo and are not in creative
     // we may be done already, saves making a predicate
     // can also return if on client side, they don't need the full stack
-    if (resultStack.getCount() >= projectilesDesired || player.level.isClientSide) {
+    if (resultStack.getCount() >= projectilesDesired || level.isClientSide) {
       return resultStack;
     }
 

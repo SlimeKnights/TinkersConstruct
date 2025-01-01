@@ -1,6 +1,5 @@
 {
   "render_type": "minecraft:cutout",
-  "loader": "tconstruct:casting",
   "parent": "block/block",
   "textures": {
     "particle": "#side"
@@ -146,20 +145,5 @@
         "down":  { "uv": [  7,  3, 9,  1 ], "texture": "#side", "rotation": 270 }
       }
     }
-  ],
-  "fluid": {
-    "from": [ 2.1, 4, 2.1 ],
-    "to": [ 13.9, 15.9, 13.9 ],
-    "faces": {
-      "up": {},
-      "north": {},
-      "south": {},
-      "west": {},
-      "east": {}
-    }
-  },
-  "items": [
-    { "center": [ 8, 10, 8 ], "size": 11.95, "transform": "tconstruct:casting_basin" },
-    { "center": [ 8, 10, 8 ], "size": 12,    "transform": "tconstruct:casting_basin" }
   ]
 }

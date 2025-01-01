@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.modifiers.hook.armor;
 
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.EntityDamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -46,7 +46,7 @@ public interface OnAttackedModifierHook {
 
   /** Checks if the damage source is caused directly by another entity, as opposed to indirectly by a projectile */
   static boolean isDirectDamage(DamageSource source) {
-    return source.getEntity() != null && source instanceof EntityDamageSource entityDamage && !entityDamage.isThorns();
+    return source.getEntity() != null && !source.isIndirect() && !source.is(DamageTypes.THORNS);
   }
 
   /** Internal logic for {@link #handleAttack(ModuleHook, EquipmentContext, DamageSource, float, boolean)} */

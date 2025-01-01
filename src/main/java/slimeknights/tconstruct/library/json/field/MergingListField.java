@@ -7,6 +7,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
 import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.mantle.data.loadable.field.NullableField;
+import slimeknights.mantle.util.typed.TypedMap;
 
 import java.util.List;
 import java.util.function.Function;
@@ -28,14 +29,14 @@ public record MergingListField<T,P>(LoadableField<T,T> field, String key, Functi
   }
 
   @Override
-  public List<T> get(JsonObject json) {
+  public List<T> get(JsonObject json, TypedMap context) {
     if (json.has(key)) {
       JsonArray array = GsonHelper.getAsJsonArray(json, key);
       // using an array list as immutable lists do not support null, but for our uses we need to allow null
       ImmutableList.Builder<T> builder = ImmutableList.builder();
       for (int i = 0; i < array.size(); i++) {
         JsonObject element = GsonHelper.convertToJsonObject(array.get(i), key + '[' + i + ']');
-        builder.add(field.get(element));
+        builder.add(field.get(element, context));
       }
       return builder.build();
     }
@@ -59,11 +60,11 @@ public record MergingListField<T,P>(LoadableField<T,T> field, String key, Functi
   }
 
   @Override
-  public List<T> decode(FriendlyByteBuf buffer) {
+  public List<T> decode(FriendlyByteBuf buffer, TypedMap context) {
     ImmutableList.Builder<T> builder = ImmutableList.builder();
     int size = buffer.readVarInt();
     for (int i = 0; i < size; i++) {
-      builder.add(field.decode(buffer));
+      builder.add(field.decode(buffer, context));
     }
     return builder.build();
   }

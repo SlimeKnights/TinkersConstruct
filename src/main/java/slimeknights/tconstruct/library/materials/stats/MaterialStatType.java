@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.experimental.Accessors;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.mantle.data.loadable.record.SingletonLoader;
 import slimeknights.mantle.registration.object.IdAwareObject;
-import slimeknights.tconstruct.library.json.SingletonRecordLoadable;
 
 import java.util.function.Function;
 
@@ -47,7 +47,7 @@ public class MaterialStatType<T extends IMaterialStats> implements IdAwareObject
 
   /** Creates a stat type that always resolves to the same instance */
   public static <T extends IMaterialStats> MaterialStatType<T> singleton(MaterialStatsId id, T instance) {
-    return new MaterialStatType<>(id, instance, new SingletonRecordLoadable<>(instance));
+    return new MaterialStatType<>(id, instance, new SingletonLoader<>(instance));
   }
 
   @Override

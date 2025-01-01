@@ -5,7 +5,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.library.json.variable.VariableLoaderRegistry;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -36,7 +35,7 @@ public interface MiningSpeedVariable extends IHaveLoader {
     }
 
     @Override
-    public IGenericLoader<? extends MiningSpeedVariable> getLoader() {
+    public RecordLoadable<Constant> getLoader() {
       return LOADER;
     }
   }

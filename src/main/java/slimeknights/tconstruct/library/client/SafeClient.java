@@ -7,8 +7,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.fml.loading.FMLEnvironment;
-import slimeknights.mantle.client.model.util.ModelHelper;
-import slimeknights.tconstruct.library.client.model.block.TankModel.Baked;
 
 /**
  * This class contains various methods that are safe to call on both sides, which internally call client only code.
@@ -35,8 +33,7 @@ public class SafeClient {
       if (level != null && level.isClientSide) {
         // if the amount change is bigger than a single increment, or we changed whether we have a fluid, update the world renderer
         BlockState state = be.getBlockState();
-        Baked<?> model = ModelHelper.getBakedModel(state, Baked.class);
-        if (model != null && (Math.abs(newAmount - oldAmount) >= (tank.getCapacity() / model.getFluid().getIncrements()) || (oldAmount == 0) != (newAmount == 0))) {
+        if (oldAmount != newAmount) {
           be.requestModelDataUpdate();
           Minecraft.getInstance().levelRenderer.blockChanged(level, be.getBlockPos(), state, state, 3);
         }

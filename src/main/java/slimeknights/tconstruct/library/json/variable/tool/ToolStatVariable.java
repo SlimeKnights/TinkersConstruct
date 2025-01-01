@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.json.variable.tool;
 
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.INumericToolStat;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -18,7 +17,7 @@ public record ToolStatVariable(INumericToolStat<?> stat) implements ToolVariable
   }
 
   @Override
-  public IGenericLoader<? extends ToolVariable> getLoader() {
+  public RecordLoadable<ToolStatVariable> getLoader() {
     return LOADER;
   }
 }

@@ -68,7 +68,7 @@ public class BouncyModifier extends NoLevelsModifier {
     }
     // update airborn status
     event.setDistance(0.0F);
-    if (!living.level.isClientSide) {
+    if (!living.level().isClientSide) {
       living.hasImpulse = true;
       event.setCanceled(true);
       living.setOnGround(false); // need to be on ground for server to process this event

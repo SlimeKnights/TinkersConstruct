@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.tools.data;
 
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.enchantment.Enchantments;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.data.tinkering.AbstractEnchantmentToModifierProvider;
@@ -8,8 +8,8 @@ import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 public class EnchantmentToModifierProvider extends AbstractEnchantmentToModifierProvider {
-  public EnchantmentToModifierProvider(DataGenerator generator) {
-    super(generator);
+  public EnchantmentToModifierProvider(PackOutput packOutput) {
+    super(packOutput);
   }
 
   @Override

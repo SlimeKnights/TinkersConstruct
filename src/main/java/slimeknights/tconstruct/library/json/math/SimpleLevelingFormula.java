@@ -19,13 +19,14 @@ record SimpleLevelingFormula(LevelingValue leveling, FallbackFormula formula) im
 
   @Override
   public JsonObject serialize(JsonObject json, String[] variableNames) {
-    return leveling.serialize(json);
+    LevelingValue.LOADABLE.serialize(leveling, json);
+    return json;
   }
 
   @Override
   public void toNetwork(FriendlyByteBuf buffer) {
     // -1 means simple formula, 0+ means post fix formula
     buffer.writeShort(-1);
-    leveling.toNetwork(buffer);
+    LevelingValue.LOADABLE.encode(buffer, leveling);
   }
 }

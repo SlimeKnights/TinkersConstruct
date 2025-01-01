@@ -22,8 +22,6 @@ import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
-import javax.annotation.Nullable;
-
 /**
  * Shared logic for main types of salvage recipes
  */
@@ -34,7 +32,7 @@ public class ModifierSalvage implements ICustomOutputRecipe<Container> {
     IntLoadable.FROM_ONE.defaultField("max_tool_size", ITinkerStationRecipe.DEFAULT_TOOL_STACK_SIZE, r -> r.maxToolSize), // TODO 1.20: max tool size is unused, remove it
     ModifierId.PARSER.requiredField("modifier", r -> r.modifier),
     ModifierEntry.VALID_LEVEL.defaultField("level", r -> r.level),
-    SlotCount.LOADABLE.nullableField("slots", r -> r.slots), // TODO 1.20: make non-nullable
+    SlotCount.LOADABLE.requiredField("slots", r -> r.slots),
     // TODO: should this have check_trait_level?
     ModifierSalvage::new);
 
@@ -51,19 +49,16 @@ public class ModifierSalvage implements ICustomOutputRecipe<Container> {
   /** Level for this to be applicable */
   protected final IntRange level;
   /** Slots restored by this recipe, if null no slots are restored */
-  @Nullable
   protected final SlotCount slots;
 
-  public ModifierSalvage(ResourceLocation id, Ingredient toolIngredient, int maxToolSize, ModifierId modifier, IntRange level, @Nullable SlotCount slots) {
+  public ModifierSalvage(ResourceLocation id, Ingredient toolIngredient, int maxToolSize, ModifierId modifier, IntRange level, SlotCount slots) {
     this.id = id;
     this.toolIngredient = toolIngredient;
     this.maxToolSize = maxToolSize;
     this.modifier = modifier;
     this.level = level;
     this.slots = slots;
-    if (slots != null) {
-      ModifierRecipeLookup.addSalvage(this);
-    }
+    ModifierRecipeLookup.addSalvage(this);
   }
 
   /**
@@ -83,9 +78,7 @@ public class ModifierSalvage implements ICustomOutputRecipe<Container> {
    * @param tool  Tool instance
    */
   public void updateTool(IToolStackView tool) {
-    if (slots != null) {
-      tool.getPersistentData().addSlots(slots.type(), slots.count());
-    }
+    tool.getPersistentData().addSlots(slots.type(), slots.count());
   }
 
   @Override

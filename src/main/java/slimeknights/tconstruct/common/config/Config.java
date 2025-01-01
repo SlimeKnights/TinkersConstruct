@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.common.config;
 
 import com.google.common.collect.ImmutableList;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraftforge.common.ForgeConfigSpec;
@@ -10,10 +9,8 @@ import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
 import net.minecraftforge.common.ForgeConfigSpec.EnumValue;
 import net.minecraftforge.common.ForgeConfigSpec.IntValue;
-import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.commons.lang3.tuple.Pair;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer.IOreRate;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer.OreRateType;
@@ -52,17 +49,10 @@ public class Config {
     public final OreRate smelteryOreRate;
     public final OreRate foundryOreRate, foundryByproductRate;
 
-    // overworld
-    public final ConfigValue<String> showOnlyToolMaterial;
-    public final ConfigValue<String> showOnlyPartMaterial;
-    public final BooleanValue showAllTableVariants;
-    public final BooleanValue showAllAnvilVariants;
-    public final BooleanValue showAllSmelteryVariants;
-
     // debug
     public final BooleanValue forceIntegrationMaterials;
     public final EnumValue<LogInvalidToolStack> logInvalidToolStack;
-    public enum LogInvalidToolStack { STACKTRACE, WARNING, IGNORED };
+    public enum LogInvalidToolStack { STACKTRACE, WARNING, IGNORED }
 
     Common(ForgeConfigSpec.Builder builder) {
       builder.comment("Everything to do with gameplay").push("gameplay");
@@ -77,58 +67,21 @@ public class Config {
       actions.add(new ConfigurableAction(builder, "extendFireProtectionSlots", true,
                                          "If true, extends the applicable slots for the fire protection enchantment to work better with shields. Will not impact gameplay with the vanilla enchantment.\nIf false, fire protection on a shield will not reduce fire tick time.",
                                          () -> Enchantments.FIRE_PROTECTION.slots = EquipmentSlot.values()));
-
-      builder.comment("Tweaks to vanilla damage sources to better work with armor").push("damageTweaks");
-      actions.add(new ConfigurableAction(builder, "wither", true, "Makes withering damage count as magic", DamageSource.WITHER::setMagic));
-      actions.add(new ConfigurableAction(builder, "dragon_breath", true, "Makes dragons breath count as magic", DamageSource.DRAGON_BREATH::setMagic));
-      actions.add(new ConfigurableAction(builder, "falling_block", false, "Makes falling blocks count as projectile", () -> {
-        DamageSource.FALLING_BLOCK.setProjectile();
-        DamageSource.ANVIL.setProjectile();
-        DamageSource.FALLING_STALACTITE.setProjectile();
-      }));
-      actions.add(new ConfigurableAction(builder, "lightning", true, "Makes lightning count as fire damage", DamageSource.LIGHTNING_BOLT::setIsFire));
+      actions.add(new ConfigurableAction(builder, "extendBlastProtectionSlots", true,
+                                         "If true, extends the applicable slots for the blast protection enchantment to work better with shields. Will not impact gameplay with the vanilla enchantment.\nIf false, blast protection on a shield will not reduce explosion knockback.",
+                                         () -> Enchantments.BLAST_PROTECTION.slots = EquipmentSlot.values()));
       toolTweaks = actions.build();
 
       this.repairKitAmount = builder
         .comment("Amount of durability restored by a repair kit in terms of ingots. Does not affect the cost to create the kit, that is controlled by JSON.")
         .defineInRange("repairKitAmount", 2f, 0f, Short.MAX_VALUE);
 
-      builder.pop();
-
 //      this.chestsKeepInventory = builder
 //        .comment("Pattern and Part chests keep their inventory when harvested.")
 //        .translation("tconstruct.configgui.chestsKeepInventory")
 //        .worldRestart()
 //        .define("chestsKeepInventory", true);
-
-      this.showOnlyToolMaterial = builder
-        .comment("If non-empty, only this material will be shown on tools in creative and JEI (or the first valid material if this is invalid for the tool).", "If empty, all materials will show")
-        .translation("tconstruct.configgui.showOnlyToolMaterial")
-        .worldRestart()
-        .define("showOnlyToolMaterial", "");
-
-      this.showOnlyPartMaterial = builder
-        .comment("If non-empty, only material will be shown on parts in creative and JEI (or the first valid material if this is invalid for the part).", "If empty, all materials will show")
-        .translation("tconstruct.configgui.showOnlyPartMaterial")
-        .worldRestart()
-        .define("showOnlyPartMaterial", "");
-
-      this.showAllTableVariants = builder
-        .comment("If true, tables such as the part builder and tinker station will show all variants. If false shows only a variant with a default texture.")
-        .translation("tconstruct.configgui.showAllTableVariants")
-        .define("showAllTableVariants", true);
-
-      this.showAllAnvilVariants = builder
-        .comment("If true, anvils will show all metal variants. If false, shows only a variant with the default texture")
-        .translation("tconstruct.configgui.showAllAnvilVariants")
-        .define("showAllAnvilVariants", true);
-
-      this.showAllSmelteryVariants = builder
-        .comment("If true, smeltery and foundry controllers, drains, ducts, and chutes will show all variants")
-        .translation("tconstruct.configgui.showAllSmelteryVariants")
-        .define("showAllSmelteryVariants", true);
-
-      builder.pop();
+      builder.pop(); // gameplay
 
       builder.comment("Options related to recipes, limited options as a datapack allows most recipes to be modified").push("recipes");
 
@@ -236,10 +189,18 @@ public class Config {
     public final ForgeConfigSpec.BooleanValue extraToolTips; // TODO: do we even need this config option? who would turn it off?
     public final ForgeConfigSpec.BooleanValue logMissingMaterialTextures;
     public final ForgeConfigSpec.BooleanValue logMissingModifierTextures;
-    public final ForgeConfigSpec.BooleanValue showModifiersInJEI;
     public final ForgeConfigSpec.BooleanValue renderShieldSlotItem;
     public final ForgeConfigSpec.BooleanValue modifiersIDsInAdvancedTooltips;
     public final ForgeConfigSpec.IntValue maxSmelteryItemQuads;
+
+    // JEI
+    public final BooleanValue showModifiersInJEI;
+    public final ConfigValue<String> showOnlyToolMaterial;
+    public final ConfigValue<String> showOnlyPartMaterial;
+    public final BooleanValue showAllTableVariants;
+    public final BooleanValue showAllAnvilVariants;
+    public final BooleanValue showAllSmelteryVariants;
+    public final BooleanValue showFilledFluidTanks;
 
     // framed modifier
     public final ForgeConfigSpec.BooleanValue renderItemFrame;
@@ -279,10 +240,47 @@ public class Config {
         .translation("tconstruct.configgui.logMissingMaterialTextures")
         .define("logMissingModifierTextures", false);
 
-      this.showModifiersInJEI = builder
-        .comment("If true, modifiers will be added to the JEI ingredient list. If false, they will only be visible in the modifiers recipe tab.")
-        .translation("tconstruct.configgui.showModifiersInJEI")
-        .define("showModifiersInJEI", true);
+      builder.comment("JEI configuration").push("jei");
+      {
+        this.showModifiersInJEI = builder
+          .comment("If true, modifiers will be added to the JEI ingredient list. If false, they will only be visible in the modifiers recipe tab.")
+          .translation("tconstruct.configgui.showModifiersInJEI")
+          .define("showModifiers", true);
+
+        this.showOnlyToolMaterial = builder
+          .comment("If non-empty, only this material will be shown on tools in JEI (or the first valid material if this is invalid for the tool).", "If empty, all materials will show")
+          .translation("tconstruct.configgui.showOnlyToolMaterial")
+          .worldRestart()
+          .define("showOnlyToolMaterial", "");
+
+        this.showOnlyPartMaterial = builder
+          .comment("If non-empty, only material will be shown on parts in JEI (or the first valid material if this is invalid for the part).", "If empty, all materials will show")
+          .translation("tconstruct.configgui.showOnlyPartMaterial")
+          .worldRestart()
+          .define("showOnlyPartMaterial", "");
+
+        this.showAllTableVariants = builder
+          .comment("If true, tables such as the part builder and tinker station will show all variants in JEI. If false the variants only show in the tables tab")
+          .translation("tconstruct.configgui.showAllTableVariants")
+          .define("showAllTableVariants", false);
+
+        this.showAllAnvilVariants = builder
+          .comment("If true, anvils will show all metal variants in JEI. If false, the variants only show in the tables tab")
+          .translation("tconstruct.configgui.showAllAnvilVariants")
+          .define("showAllAnvilVariants", true);
+
+        this.showAllSmelteryVariants = builder
+          .comment("If true, smeltery and foundry controllers, drains, ducts, and chutes will show all variants in JEI. If false, the variants only shows in the smeltery tab")
+          .translation("tconstruct.configgui.showAllSmelteryVariants")
+          .define("showAllSmelteryVariants", false);
+
+        this.showFilledFluidTanks = builder
+          .comment("If true, filled copper cans and fluid gauges will show in JEI. If false only empty ones will show")
+          .define("showFilledFluidTanks", false);
+      }
+      builder.pop(); // jei
+
+
 
       this.maxSmelteryItemQuads = builder
         .comment("Maximum number of quads to render for items in the smeltery. Most blocks are about 6 quads, items like ingots are around 26.",
@@ -349,8 +347,6 @@ public class Config {
   public static void init() {
     ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.commonSpec);
     ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.clientSpec);
-
-    IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
   }
 
   /** Configuration for an ore rate, such as melter or foundry */

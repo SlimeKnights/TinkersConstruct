@@ -98,7 +98,7 @@ public abstract class TableBlockEntity extends InventoryBlockEntity {
    */
   protected void playCraftSound(Player player) {
     if (isSoundReady(player)) {
-      SoundUtils.playSoundForAll(player, Sounds.SAW.getSound(), 0.8f, 0.8f + 0.4f * player.level.random.nextFloat());
+      SoundUtils.playSoundForAll(player, Sounds.SAW.getSound(), 0.8f, 0.8f + 0.4f * player.level().random.nextFloat());
     }
   }
 

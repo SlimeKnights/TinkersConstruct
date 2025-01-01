@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.random.SimpleWeightedRandomList;
@@ -34,11 +34,11 @@ import java.util.Optional;
 public class IslandStructure extends Structure {
   public static final Codec<IslandStructure> CODEC = RecordCodecBuilder.create(inst ->
     inst.group(settingsCodec(inst)).and(inst.group(
-               IslandPlacement.CODEC.fieldOf("placement").forGetter(s -> s.placement),
-               SimpleWeightedRandomList.wrappedCodec(ResourceLocation.CODEC).fieldOf("templates").forGetter(s -> s.templates),
-               SimpleWeightedRandomList.wrappedCodec(ConfiguredFeature.CODEC).fieldOf("trees").forGetter(s -> s.trees),
-               Registry.BLOCK.byNameCodec().optionalFieldOf("vines").forGetter(s -> s.vines),
-               SimpleWeightedRandomList.wrappedCodec(Registry.BLOCK.byNameCodec()).fieldOf("grasses").forGetter(s -> s.grasses)))
+          IslandPlacement.CODEC.fieldOf("placement").forGetter(s -> s.placement),
+          SimpleWeightedRandomList.wrappedCodec(ResourceLocation.CODEC).fieldOf("templates").forGetter(s -> s.templates),
+          SimpleWeightedRandomList.wrappedCodec(ConfiguredFeature.CODEC).fieldOf("trees").forGetter(s -> s.trees),
+          BuiltInRegistries.BLOCK.byNameCodec().optionalFieldOf("vines").forGetter(s -> s.vines),
+          SimpleWeightedRandomList.wrappedCodec(BuiltInRegistries.BLOCK.byNameCodec()).fieldOf("grasses").forGetter(s -> s.grasses)))
         .apply(inst, IslandStructure::new));
 
   @Getter
@@ -137,15 +137,9 @@ public class IslandStructure extends Structure {
     }
 
     /** Adds a new tree to the builder with the given weight */
-    public Builder addTree(Holder<? extends ConfiguredFeature<?,?>> tree, int weight) {
-      trees.add(Holder.hackyErase(tree), weight);
+    public Builder addTree(Holder<ConfiguredFeature<?,?>> tree, int weight) {
+      trees.add(tree, weight);
       return this;
-    }
-
-    /** Adds a new tree to the builder with the given weight */
-    @SuppressWarnings("OptionalGetWithoutIsPresent")
-    public Builder addTree(RegistryObject<? extends ConfiguredFeature<?,?>> tree, int weight) {
-      return addTree(tree.getHolder().get(), weight);
     }
 
     /** Adds a new grass type to the builder with the given weight */

@@ -28,5 +28,6 @@
     "recipes": [
       "tconstruct:common/slime/lead"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

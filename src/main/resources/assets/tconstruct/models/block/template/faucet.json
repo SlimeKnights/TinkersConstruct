@@ -1,6 +1,5 @@
 {
   "render_type": "minecraft:cutout",
-  "loader": "mantle:fluids",
   "comment": "Model is facing South (as in: the block it's connected to is south of it)",
   "parent": "minecraft:block/block",
   "textures": {
@@ -78,27 +77,6 @@
         "west":  { "uv": [  7, 10, 11, 16 ], "texture": "#tex", "rotation": 270}
       },
       "__comment": "Right side from front (west)"
-    }
-  ],
-  "fluids": [
-    {
-      "from": [  6, 6, 0 ],
-      "to":   [ 10, 9, 6 ],
-      "faces": {
-        "up":    { "flowing": true },
-        "north": {}
-      }
-    },
-    {
-      "from": [  6, 0, 6 ],
-      "to":   [ 10, 9, 8 ],
-      "faces": {
-        "up":    { "flowing": true },
-        "north": { "flowing": true },
-        "east":  { "flowing": true },
-        "south": { "flowing": true },
-        "west":  { "flowing": true }
-      }
     }
   ]
 }

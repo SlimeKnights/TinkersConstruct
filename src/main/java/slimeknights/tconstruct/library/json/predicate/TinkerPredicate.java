@@ -9,6 +9,7 @@ import slimeknights.mantle.data.predicate.block.BlockPredicate;
 import slimeknights.mantle.data.predicate.damage.DamageSourcePredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.mantle.data.predicate.item.ItemPredicate;
+import slimeknights.tconstruct.library.modifiers.hook.armor.OnAttackedModifierHook;
 import slimeknights.tconstruct.library.recipe.melting.MeltingRecipeLookup;
 
 import javax.annotation.Nullable;
@@ -17,8 +18,11 @@ import javax.annotation.Nullable;
 public class TinkerPredicate {
   private TinkerPredicate() {}
 
+  /** Damae source predicate matching directly caused damage */
+  public static DamageSourcePredicate DIRECT_DAMAGE = DamageSourcePredicate.simple(OnAttackedModifierHook::isDirectDamage);
+
   /** Entities that are in the air, notably does not count you as airborne if swimming, riding, or climbing */
-  public static LivingEntityPredicate AIRBORNE = LivingEntityPredicate.simple(entity -> !entity.isOnGround() && !entity.onClimbable() && !entity.isInWater() && !entity.isPassenger());
+  public static LivingEntityPredicate AIRBORNE = LivingEntityPredicate.simple(entity -> !entity.onGround() && !entity.onClimbable() && !entity.isInWater() && !entity.isPassenger());
 
   /** Predicate matching any arrows */
   public static ItemPredicate ARROW = ItemPredicate.simple(item -> item instanceof ArrowItem);

@@ -6,7 +6,8 @@ import it.unimi.dsi.fastutil.ints.IntList;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -72,7 +73,7 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe {
   public Stream<Pattern> getPatterns(IPartBuilderContainer inv) {
     if (inv.getStack().getItem() instanceof IModifiable modifiable) {
       return ToolPartsHook.parts(modifiable.getToolDefinition()).stream()
-                          .map(part -> Registry.ITEM.getKey(part.asItem()))
+                          .map(part -> BuiltInRegistries.ITEM.getKey(part.asItem()))
                           .distinct()
                           .map(Pattern::new);
     }
@@ -100,7 +101,7 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe {
   }
 
   @Override
-  public ItemStack assemble(IPartBuilderContainer inv, Pattern pattern) {
+  public ItemStack assemble(IPartBuilderContainer inv, RegistryAccess access, Pattern pattern) {
     ToolStack tool = ToolStack.from(inv.getStack());
     // first, try to find a matching part
     IToolPart match = null;
@@ -108,7 +109,7 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe {
     List<IToolPart> requirements = ToolPartsHook.parts(tool.getDefinition());
     for (int i = 0; i < requirements.size(); i++) {
       IToolPart part = requirements.get(i);
-      if (pattern.equals(Registry.ITEM.getKey(part.asItem()))) {
+      if (pattern.equals(BuiltInRegistries.ITEM.getKey(part.asItem()))) {
         matchIndex = i;
         match = part;
         break;
@@ -141,7 +142,7 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe {
     List<IToolPart> requirements = ToolPartsHook.parts(tool.getDefinition());
     for (int i = 0; i < requirements.size(); i++) {
       IToolPart part = requirements.get(i);
-      if (found || !pattern.equals(Registry.ITEM.getKey(part.asItem()))) {
+      if (found || !pattern.equals(BuiltInRegistries.ITEM.getKey(part.asItem()))) {
         parts.add(part);
         indices.add(i);
       } else {
@@ -155,10 +156,10 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe {
     return parts.get(index).withMaterial(tool.getMaterial(indices.getInt(index)).getVariant());
   }
 
-  /** @deprecated use {@link #assemble(IPartBuilderContainer, Pattern)} */
+  /** @deprecated use {@link IPartBuilderRecipe#assemble(IPartBuilderContainer, RegistryAccess, Pattern)} */
   @Deprecated
   @Override
-  public ItemStack getResultItem() {
+  public ItemStack getResultItem(RegistryAccess access) {
     return ItemStack.EMPTY;
   }
 
@@ -178,13 +179,7 @@ public class PartBuilderToolRecycle implements IPartBuilderRecipe {
     return ModifierUtil.hasUpgrades(inv.getStack()) ? NO_MODIFIERS : INSTRUCTIONS;
   }
 
-  @RequiredArgsConstructor
-  public static class Finished implements FinishedRecipe {
-    @Getter
-    private final ResourceLocation id;
-    private final SizedIngredient tools;
-    private final Ingredient pattern;
-
+  public record Finished(ResourceLocation getId, SizedIngredient tools, Ingredient pattern) implements FinishedRecipe {
     @Override
     public void serializeRecipeData(JsonObject json) {
       json.add("tools", tools.serialize());

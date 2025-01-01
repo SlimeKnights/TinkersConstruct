@@ -109,7 +109,7 @@ public class MagneticModifier extends Modifier implements PlantHarvestModifierHo
     double y = entity.getY();
     double z = entity.getZ();
     float range = minRange + amplifier;
-    List<T> targets = entity.level.getEntitiesOfClass(targetClass, new AABB(x - range, y - range, z - range, x + range, y + range, z + range));
+    List<T> targets = entity.level().getEntitiesOfClass(targetClass, new AABB(x - range, y - range, z - range, x + range, y + range, z + range));
 
     // only pull up to a max targets
     int pulled = 0;

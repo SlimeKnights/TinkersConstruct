@@ -3,7 +3,7 @@ package slimeknights.tconstruct.smeltery.block.entity.tank;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
@@ -186,13 +186,14 @@ public class CastingFluidHandler implements IFluidHandler {
   }
 
   /** Write the tank from NBT */
+  @SuppressWarnings("deprecation")
   public CompoundTag writeToTag(CompoundTag nbt) {
     nbt.putInt(TAG_CAPACITY, capacity);
     if (!fluid.isEmpty()) {
       nbt.put(TAG_FLUID, fluid.writeToNBT(new CompoundTag()));
     }
     if (filter != Fluids.EMPTY) {
-      nbt.putString(TAG_FILTER, Registry.FLUID.getKey(filter).toString());
+      nbt.putString(TAG_FILTER, BuiltInRegistries.FLUID.getKey(filter).toString());
     }
     return nbt;
   }

@@ -90,10 +90,8 @@ public class ToolStats {
     return ALL_STATS.get(name);
   }
 
-  /**
-   * Parses a stat from JSON, throwing if invalid
-   * @throws JsonSyntaxException if invalid
-   */
+  /** @deprecated use {@link #LOADER} with {@link StringLoadable#parseString(String, String)} */
+  @Deprecated(forRemoval = true)
   public static IToolStat<?> fromJson(String key) {
     ResourceLocation location = ResourceLocation.tryParse(key);
     if (location != null) {
@@ -105,10 +103,8 @@ public class ToolStats {
     throw new JsonSyntaxException("Unknown stat type " + key);
   }
 
-  /**
-   * Parses a numeric stat from JSON, throwing if invalid
-   * @throws JsonSyntaxException if invalid
-   */
+  /** @deprecated use {@link #NUMERIC_LOADER} with {@link StringLoadable#parseString(String, String)} */
+  @Deprecated(forRemoval = true)
   public static INumericToolStat<?> numericFromJson(String key) {
     if (fromJson(key) instanceof INumericToolStat<?> stat) {
       return stat;
@@ -116,15 +112,14 @@ public class ToolStats {
     throw new JsonSyntaxException("Invalid tool stat " + key + ", must be a numeric stat");
   }
 
-  /** Reads a stat from the network */
+  /** @deprecated use {@link #LOADER} with {@link slimeknights.mantle.data.loadable.Loadable#decode(FriendlyByteBuf)} */
+  @Deprecated(forRemoval = true)
   public static IToolStat<?> fromNetwork(FriendlyByteBuf buffer) {
     return LOADER.decode(buffer);
   }
 
-  /**
-   * Parses a numeric stat from JSON, throwing if invalid
-   * @throws JsonSyntaxException if invalid
-   */
+  /** @deprecated use {@link #NUMERIC_LOADER} with {@link slimeknights.mantle.data.loadable.Loadable#decode(FriendlyByteBuf)} */
+  @Deprecated(forRemoval = true)
   public static INumericToolStat<?> numericFromNetwork(FriendlyByteBuf buffer) {
     return NUMERIC_LOADER.decode(buffer);
   }

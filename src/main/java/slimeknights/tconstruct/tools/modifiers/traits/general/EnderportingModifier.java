@@ -3,12 +3,12 @@ package slimeknights.tconstruct.tools.modifiers.traits.general;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.protocol.game.ClientboundPlayerPositionPacket.RelativeArgument;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.RelativeMovement;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.context.UseOnContext;
@@ -43,7 +43,7 @@ import java.util.Set;
 
 public class EnderportingModifier extends NoLevelsModifier implements PlantHarvestModifierHook, ProjectileHitModifierHook, ProjectileLaunchModifierHook, BlockHarvestModifierHook, MeleeHitModifierHook {
   private static final ResourceLocation PRIMARY_ARROW = TConstruct.getResource("enderporting_primary");
-  private static final Set<RelativeArgument> PACKET_FLAGS = ImmutableSet.of(RelativeArgument.X, RelativeArgument.Y, RelativeArgument.Z);
+  private static final Set<RelativeMovement> PACKET_FLAGS = ImmutableSet.of(RelativeMovement.X, RelativeMovement.Y, RelativeMovement.Z);
 
   @Override
   protected void registerHooks(Builder hookBuilder) {
@@ -146,7 +146,7 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
     if (attacker != null && attacker != target && persistentData.getBoolean(PRIMARY_ARROW)) {
       Entity hitEntity = hit.getEntity();
       Vec3 oldPosition = attacker.position();
-      if (attacker.level == projectile.level && tryTeleport(attacker, hitEntity.getX(), hitEntity.getY(), hitEntity.getZ()) && target != null) {
+      if (attacker.level() == projectile.level() && tryTeleport(attacker, hitEntity.getX(), hitEntity.getY(), hitEntity.getZ()) && target != null) {
         tryTeleport(target, oldPosition.x, oldPosition.y, oldPosition.z);
       }
     }
@@ -157,7 +157,7 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
   public boolean onProjectileHitBlock(ModifierNBT modifiers, NamespacedNBT persistentData, ModifierEntry modifier, Projectile projectile, BlockHitResult hit, @Nullable LivingEntity attacker) {
     if (attacker != null && persistentData.getBoolean(PRIMARY_ARROW)) {
       BlockPos target = hit.getBlockPos().relative(hit.getDirection());
-      if (attacker.level == projectile.level && tryTeleport(attacker, target.getX() + 0.5f, target.getY(), target.getZ() + 0.5f)) {
+      if (attacker.level() == projectile.level() && tryTeleport(attacker, target.getX() + 0.5f, target.getY(), target.getZ() + 0.5f)) {
         projectile.discard();
       }
     }

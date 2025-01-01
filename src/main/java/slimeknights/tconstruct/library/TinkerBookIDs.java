@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library;
 
 import net.minecraft.resources.ResourceLocation;
-import slimeknights.mantle.command.BookTestCommand;
 import slimeknights.tconstruct.TConstruct;
 
 /** This class can safely be accessed serverside for book IDs */

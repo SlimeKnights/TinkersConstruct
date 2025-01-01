@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tables.recipe;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -47,7 +48,7 @@ public class TinkerStationDamagingRecipe implements ITinkerStationRecipe {
   }
 
   @Override
-  public RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv) {
+  public RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv, RegistryAccess access) {
     ToolStack tool = inv.getTinkerable();
     if (tool.isBroken()) {
       return BROKEN;
@@ -69,13 +70,6 @@ public class TinkerStationDamagingRecipe implements ITinkerStationRecipe {
     // how much did we actually consume?
     int damageTaken = result.getTool().getDamage() - inv.getTinkerable().getDamage();
     IncrementalModifierRecipe.updateInputs(inv, ingredient, damageTaken, damageAmount, ItemStack.EMPTY);
-  }
-
-  /** @deprecated Use {@link #getValidatedResult(ITinkerStationContainer)} */
-  @Deprecated
-  @Override
-  public ItemStack getResultItem() {
-    return ItemStack.EMPTY;
   }
 
   @Override

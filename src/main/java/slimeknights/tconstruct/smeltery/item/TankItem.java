@@ -1,26 +1,35 @@
 package slimeknights.tconstruct.smeltery.item;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.fluid.tooltip.FluidTooltipHandler;
 import slimeknights.mantle.item.BlockTooltipItem;
+import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.utils.NBTTags;
+import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType;
 import slimeknights.tconstruct.smeltery.block.entity.component.TankBlockEntity;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class TankItem extends BlockTooltipItem {
   private static final String KEY_FLUID = TConstruct.makeTranslationKey("block", "tank.fluid");
@@ -118,6 +127,27 @@ public class TankItem extends BlockTooltipItem {
   }
 
   /**
+   * Sets the tank to the given stack
+   * @param stack  Stack
+   * @param fluid  Fluid
+   * @return  Stack with tank
+   */
+  public static ItemStack setTank(ItemStack stack, FluidStack fluid) {
+    if (fluid.isEmpty()) {
+      CompoundTag nbt = stack.getTag();
+      if (nbt != null) {
+        nbt.remove(NBTTags.TANK);
+        if (nbt.isEmpty()) {
+          stack.setTag(null);
+        }
+      }
+    } else {
+      stack.getOrCreateTag().put(NBTTags.TANK, fluid.writeToNBT(new CompoundTag()));
+    }
+    return stack;
+  }
+
+  /**
    * Gets the tank for the given stack
    * @param stack  Tank stack
    * @return  Tank stored in the stack
@@ -129,5 +159,47 @@ public class TankItem extends BlockTooltipItem {
       tank.readFromNBT(stack.getTag().getCompound(NBTTags.TANK));
     }
     return tank;
+  }
+
+  /**
+   * Gets a string variant name for the given stack
+   * @param stack  Stack instance to check
+   * @return  String variant name
+   */
+  public static String getSubtype(ItemStack stack) {
+    CompoundTag nbt = stack.getTag();
+    if (nbt != null && nbt.contains(NBTTags.TANK, Tag.TAG_COMPOUND)) {
+      return nbt.getCompound(NBTTags.TANK).getString("FluidName");
+    }
+    return "";
+  }
+
+  /** Adds filled variants of all standard tank items to the given consumer */
+  @SuppressWarnings("deprecation")
+  public static void addFilledVariants(Consumer<ItemStack> output) {
+    for (Fluid fluid : BuiltInRegistries.FLUID) {
+      if (fluid.isSource(fluid.defaultFluidState()) && !fluid.is(TinkerTags.Fluids.HIDE_IN_CREATIVE)) {
+        // use an ingot variety for metals
+        TankType tank, gauge;
+        if (fluid.is(TinkerTags.Fluids.METAL_TOOLTIPS)) {
+          tank = TankType.INGOT_TANK;
+          gauge = TankType.INGOT_GAUGE;
+        } else {
+          tank = TankType.FUEL_TANK;
+          gauge = TankType.FUEL_GAUGE;
+        }
+        output.accept(setTank(new ItemStack(TinkerSmeltery.searedLantern), new FluidStack(fluid, FluidValues.LANTERN_CAPACITY)));
+        output.accept(fillTank(TinkerSmeltery.searedTank, tank, fluid));
+        output.accept(fillTank(TinkerSmeltery.searedTank, gauge, fluid));
+        output.accept(setTank(new ItemStack(TinkerSmeltery.scorchedLantern), new FluidStack(fluid, FluidValues.LANTERN_CAPACITY)));
+        output.accept(fillTank(TinkerSmeltery.scorchedTank, tank, fluid));
+        output.accept(fillTank(TinkerSmeltery.scorchedTank, gauge, fluid));
+      }
+    }
+  }
+
+  /** Fills a tank stack with the given fluid */
+  public static ItemStack fillTank(EnumObject<TankType,? extends ItemLike> tank, TankType type, Fluid fluid) {
+    return TankItem.setTank(new ItemStack(tank.get(type)), new FluidStack(fluid, type.getCapacity()));
   }
 }

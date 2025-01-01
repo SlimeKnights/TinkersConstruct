@@ -33,16 +33,16 @@ public abstract class FluidEffectContext {
   /** Gets a damage source based on this context */
   public DamageSource createDamageSource() {
     if (projectile != null) {
-      return DamageSource.indirectMobAttack(projectile, entity).setProjectile();
+      return projectile.damageSources().mobProjectile(projectile, entity);
     }
     if (player != null) {
-      return DamageSource.playerAttack(player);
+      return player.damageSources().playerAttack(player);
     }
     if (entity != null) {
-      return DamageSource.mobAttack(entity);
+      return entity.damageSources().mobAttack(entity);
     }
     // we should never reach here, but just in case
-    return new DamageSource("generic");
+    return level.damageSources().generic();
   }
 
   /** Context for fluid effects targeting an entity */
@@ -94,7 +94,7 @@ public abstract class FluidEffectContext {
 
     /** Checks if the block in front of the hit block is replaceable */
     public boolean isOffsetReplaceable() {
-      return level.getBlockState(hitResult.getBlockPos().relative(hitResult.getDirection())).getMaterial().isReplaceable();
+      return level.getBlockState(hitResult.getBlockPos().relative(hitResult.getDirection())).canBeReplaced();
     }
   }
 }

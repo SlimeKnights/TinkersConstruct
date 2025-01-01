@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "E": {
       "item": "minecraft:egg"
@@ -21,5 +22,6 @@
   ],
   "result": {
     "item": "tconstruct:ender_cake"
-  }
+  },
+  "show_notification": true
 }

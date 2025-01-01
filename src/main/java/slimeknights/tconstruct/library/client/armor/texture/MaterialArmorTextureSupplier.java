@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.client.armor.texture;
 
 import lombok.RequiredArgsConstructor;
 import net.minecraft.Util;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
@@ -30,7 +31,7 @@ public abstract class MaterialArmorTextureSupplier implements ArmorTextureSuppli
   private static ArmorTexture tryTexture(ResourceLocation name, int color, String material) {
     ResourceLocation texture = LocationExtender.INSTANCE.suffix(name, material);
     if (TEXTURE_VALIDATOR.test(texture)) {
-      return new ArmorTexture(ArmorTextureSupplier.getTexturePath(texture), color);
+      return new TintedArmorTexture(ArmorTextureSupplier.getTexturePath(texture), color);
     }
     return ArmorTexture.EMPTY;
   }
@@ -67,7 +68,7 @@ public abstract class MaterialArmorTextureSupplier implements ArmorTextureSuppli
           }
         }
         // base texture guaranteed to exist, else we would not be in this function
-        return new ArmorTexture(ArmorTextureSupplier.getTexturePath(name), color);
+        return new TintedArmorTexture(ArmorTextureSupplier.getTexturePath(name), color);
       }
       return ArmorTexture.EMPTY;
     });
@@ -89,7 +90,7 @@ public abstract class MaterialArmorTextureSupplier implements ArmorTextureSuppli
   protected abstract String getMaterial(ItemStack stack);
 
   @Override
-  public ArmorTexture getArmorTexture(ItemStack stack, TextureType textureType) {
+  public ArmorTexture getArmorTexture(ItemStack stack, TextureType textureType, RegistryAccess access) {
     String material = getMaterial(stack);
     if (!material.isEmpty()) {
       return textures[textureType.ordinal()].apply(material);

@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.client.armor.texture;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 
@@ -14,9 +15,9 @@ public record FirstArmorTextureSupplier(List<ArmorTextureSupplier> options) impl
   }
 
   @Override
-  public ArmorTexture getArmorTexture(ItemStack stack, TextureType textureType) {
+  public ArmorTexture getArmorTexture(ItemStack stack, TextureType textureType, RegistryAccess access) {
     for (ArmorTextureSupplier supplier : options) {
-      ArmorTexture texture = supplier.getArmorTexture(stack, textureType);
+      ArmorTexture texture = supplier.getArmorTexture(stack, textureType, access);
       if (texture != ArmorTexture.EMPTY) {
         return texture;
       }

@@ -4,9 +4,9 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.transfer.IRecipeTransferInfo;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ArmorItem;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.menu.TinkerStationContainerMenu;
-import slimeknights.tconstruct.tools.item.ArmorSlotType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ public record TinkerStationTransferInfo<T>(RecipeType<T> getRecipeType) implemen
   public List<Slot> getInventorySlots(TinkerStationContainerMenu container, T recipe) {
     List<Slot> slots = new ArrayList<>();
     // skip over inputs, output slot, tool slot, armor, and offhand
-    int start = container.getInputSlots().size() + 3 + ArmorSlotType.values().length;
+    int start = container.getInputSlots().size() + 3 + ArmorItem.Type.values().length;
     for(int i = start; i < start + 36; i++) {
       Slot slot = container.getSlot(i);
       slots.add(slot);

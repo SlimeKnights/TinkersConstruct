@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "equipment",
   "key": {
     "#": {
       "item": "minecraft:snowball"
@@ -16,5 +17,6 @@
   "result": {
     "count": 8,
     "item": "tconstruct:glow_ball"
-  }
+  },
+  "show_notification": true
 }

@@ -5,7 +5,7 @@
   "inputs": [
     {
       "type": "tconstruct:material",
-      "item": "tconstruct:round_plate"
+      "item": "tconstruct:adze_head"
     },
     {
       "tag": "forge:ingots/cobalt"

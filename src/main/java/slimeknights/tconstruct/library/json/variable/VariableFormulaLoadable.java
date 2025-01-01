@@ -59,7 +59,7 @@ public record VariableFormulaLoadable<V extends IHaveLoader, F extends VariableF
           throw new JsonSyntaxException("Variable " + key + " is already defined for this module");
         }
         newNames[index] = key;
-        variables.add(variableLoader.convert(entry.getValue(), key));
+        variables.add(variableLoader.convert(entry.getValue(), key, context));
         index++;
       }
       // we only store the variable names in the VariableFormula during datagen, any other time its an empty list as we don't need it at runtime
@@ -94,7 +94,7 @@ public record VariableFormulaLoadable<V extends IHaveLoader, F extends VariableF
     ImmutableList.Builder<V> builder = ImmutableList.builder();
     int size = buffer.readVarInt();
     for (int i = 0; i < size; i++) {
-      builder.add(variableLoader.decode(buffer));
+      builder.add(variableLoader.decode(buffer, context));
     }
     List<V> variables = builder.build();
     return constructor.apply(ModifierFormula.fromNetwork(buffer, defaultNames.length + variables.size(), fallback(percent)), variables, percent);

@@ -1,36 +1,36 @@
 package slimeknights.tconstruct.library.client.data;
 
 import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.PackOutput.Target;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.PackType;
 import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.mantle.registration.object.IdAwareObject;
 import slimeknights.tconstruct.library.client.armor.ArmorModelManager;
 import slimeknights.tconstruct.library.client.armor.ArmorModelManager.ArmorModel;
 import slimeknights.tconstruct.library.client.armor.texture.ArmorTextureSupplier;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
 
 /** Data provider for armor models */
 public abstract class AbstractArmorModelProvider extends GenericDataProvider {
   private final Map<ResourceLocation,ArmorModel> models = new HashMap<>();
 
-  public AbstractArmorModelProvider(DataGenerator generator) {
-    super(generator, PackType.CLIENT_RESOURCES, ArmorModelManager.FOLDER);
+  public AbstractArmorModelProvider(PackOutput packOutput) {
+    super(packOutput, Target.RESOURCE_PACK, ArmorModelManager.FOLDER);
   }
 
   /** Add all models to the manager */
   protected abstract void addModels();
 
   @Override
-  public void run(CachedOutput output) throws IOException {
+  public CompletableFuture<?> run(CachedOutput output) {
     addModels();
-    models.forEach((id, model) -> saveJson(output, id, ArmorModel.LOADABLE.serialize(model)));
+    return allOf(models.entrySet().stream().map(entry -> saveJson(output, entry.getKey(), ArmorModel.LOADABLE.serialize(entry.getValue()))));
   }
 
   /** Adds a model to the generator */

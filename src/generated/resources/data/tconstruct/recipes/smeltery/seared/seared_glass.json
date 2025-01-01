@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "key": {
     "G": {
       "tag": "forge:glass/colorless"
@@ -15,5 +16,6 @@
   ],
   "result": {
     "item": "tconstruct:seared_glass"
-  }
+  },
+  "show_notification": true
 }

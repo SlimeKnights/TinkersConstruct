@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.modifiers.impl;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
@@ -25,7 +26,7 @@ public abstract class DurabilityShieldModifier extends Modifier implements ToolD
   }
 
   @Override
-  public Component getDisplayName(IToolStackView tool, ModifierEntry entry) {
+  public Component getDisplayName(IToolStackView tool, ModifierEntry entry, @Nullable RegistryAccess access) {
     return IncrementalModifierEntry.addAmountToName(getDisplayName(entry.getLevel()), getShield(tool), getShieldCapacity(tool, entry));
   }
 

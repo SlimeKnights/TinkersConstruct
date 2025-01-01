@@ -3,7 +3,6 @@ package slimeknights.tconstruct.library.modifiers.modules.behavior;
 import net.minecraft.world.entity.EquipmentSlot;
 import slimeknights.mantle.data.loadable.primitive.EnumLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
@@ -48,7 +47,7 @@ public enum ShowOffhandModule implements ModifierModule, EquipmentChangeModifier
   }
 
   @Override
-  public IGenericLoader<? extends ModifierModule> getLoader() {
+  public RecordLoadable<ShowOffhandModule> getLoader() {
     return LOADER;
   }
 }

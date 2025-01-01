@@ -28,7 +28,7 @@ public class CastChestBlockEntity extends AbstractChestBlockEntity {
     @Override
     public boolean isItemValid(int slot, ItemStack stack) {
       for (int i = 0; i < this.getSlots(); i++) {
-        if (ItemStack.isSame(stack, this.getStackInSlot(i))) {
+        if (ItemStack.isSameItem(stack, this.getStackInSlot(i))) {
           return i == slot;
         }
       }

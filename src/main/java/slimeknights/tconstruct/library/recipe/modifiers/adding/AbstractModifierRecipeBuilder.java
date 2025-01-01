@@ -9,7 +9,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
-import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierSalvage;
@@ -18,6 +17,7 @@ import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 import static slimeknights.tconstruct.library.modifiers.ModifierEntry.VALID_LEVEL;
@@ -177,8 +177,7 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
       throw new IllegalStateException("Max level must be greater than min level");
     }
     if (slots == null) {
-      TConstruct.LOG.warn("Salvage for {} has no modifier slots. This is useless and will throw an exception in a future version.", id);
-      return (T) this;
+      throw new IllegalStateException("Must set modifier slots to apply modifier salvage.");
     }
     ResourceLocation advancementId = buildOptionalAdvancement(id, "modifiers");
     consumer.accept(new LoadableFinishedRecipe<>(makeSalvage(id), ModifierSalvage.LOADER, advancementId));
@@ -187,6 +186,6 @@ public abstract class AbstractModifierRecipeBuilder<T extends AbstractModifierRe
 
   /** Makes the salvage recipe to save in {@link #saveSalvage(Consumer, ResourceLocation)} */
   protected ModifierSalvage makeSalvage(ResourceLocation id) {
-    return new ModifierSalvage(id, tools, maxToolSize, result, VALID_LEVEL.range(minLevel, useSalvageMax ? maxLevel : VALID_LEVEL.max()), slots);
+    return new ModifierSalvage(id, tools, maxToolSize, result, VALID_LEVEL.range(minLevel, useSalvageMax ? maxLevel : VALID_LEVEL.max()), Objects.requireNonNull(slots));
   }
 }

@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.tools.item;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
@@ -66,16 +65,14 @@ public class CreativeSlotItem extends Item {
     }
   }
 
-  @Override
-  public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
-    if (allowedIn(group)) {
-      Collection<SlotType> allTypes = SlotType.getAllSlotTypes();
-      if (allTypes.isEmpty()) {
-        items.add(new ItemStack(this));
-      } else {
-        for (SlotType type : allTypes) {
-          items.add(withSlot(new ItemStack(this), type));
-        }
+  /** Adds all variants of this slot item to the creative tab */
+  public void addVariants(CreativeModeTab.Output items) {
+    Collection<SlotType> allTypes = SlotType.getAllSlotTypes();
+    if (allTypes.isEmpty()) {
+      items.accept(new ItemStack(this));
+    } else {
+      for (SlotType type : allTypes) {
+        items.accept(withSlot(new ItemStack(this), type));
       }
     }
   }

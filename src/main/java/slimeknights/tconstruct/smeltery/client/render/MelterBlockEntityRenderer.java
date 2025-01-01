@@ -5,12 +5,12 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.world.level.block.state.BlockState;
-import slimeknights.mantle.client.model.inventory.ModelItem;
-import slimeknights.mantle.client.model.util.ModelHelper;
+import slimeknights.mantle.client.render.FluidCuboid;
+import slimeknights.mantle.client.render.RenderItem;
 import slimeknights.mantle.client.render.RenderingHelper;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.RenderUtils;
-import slimeknights.tconstruct.library.client.model.block.MelterModel.Baked;
+import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.smeltery.block.entity.controller.MelterBlockEntity;
 
 import java.util.List;
@@ -21,20 +21,21 @@ public class MelterBlockEntityRenderer implements BlockEntityRenderer<MelterBloc
   @Override
   public void render(MelterBlockEntity melter, float partialTicks, PoseStack matrices, MultiBufferSource buffer, int light, int combinedOverlayIn) {
     BlockState state = melter.getBlockState();
-    Baked model = ModelHelper.getBakedModel(state, Baked.class);
-    if (model != null) {
+    List<FluidCuboid> fluids = Config.CLIENT.tankFluidModel.get() ? List.of() : FluidCuboid.REGISTRY.get(state, List.of());
+    List<RenderItem> renderItems = RenderItem.REGISTRY.get(state.getBlock(), List.of());
+    if (!fluids.isEmpty() || !renderItems.isEmpty()) {
       // rotate the matrix
       boolean isRotated = RenderingHelper.applyRotation(matrices, state);
 
       // render fluids
-      if (!Config.CLIENT.tankFluidModel.get()) {
-        RenderUtils.renderFluidTank(matrices, buffer, model.getFluid(), melter.getTank(), light, partialTicks, false);
+      FluidTankAnimated tank = melter.getTank();
+      for (FluidCuboid fluid : fluids) {
+        RenderUtils.renderFluidTank(matrices, buffer, fluid, tank, light, partialTicks, false);
       }
 
       // render items
-      List<ModelItem> modelItems = model.getItems();
-      for (int i = 0; i < modelItems.size(); i++) {
-        RenderingHelper.renderItem(matrices, buffer, melter.getMeltingInventory().getStackInSlot(i), modelItems.get(i), light);
+      for (int i = 0; i < renderItems.size(); i++) {
+        RenderingHelper.renderItem(matrices, buffer, melter.getMeltingInventory().getStackInSlot(i), renderItems.get(i), light);
       }
 
       // pop back rotation

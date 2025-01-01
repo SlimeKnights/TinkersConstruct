@@ -3,12 +3,12 @@ package slimeknights.tconstruct.library.json.variable;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSyntaxException;
-import net.minecraft.network.FriendlyByteBuf;
 import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
+import slimeknights.mantle.util.typed.TypedMap;
 
 import java.util.function.Function;
 
@@ -30,14 +30,14 @@ public class VariableLoaderRegistry<T extends IHaveLoader> extends GenericLoader
   }
 
   @Override
-  public T convert(JsonElement element, String key) throws JsonSyntaxException {
+  public T convert(JsonElement element, String key, TypedMap context) throws JsonSyntaxException {
     if (element.isJsonPrimitive()) {
       JsonPrimitive primitive = element.getAsJsonPrimitive();
       if (primitive.isNumber()) {
         return constantConstructor.apply(primitive.getAsFloat());
       }
     }
-    return super.convert(element, key);
+    return super.convert(element, key, context);
   }
 
   @Override
@@ -46,11 +46,6 @@ public class VariableLoaderRegistry<T extends IHaveLoader> extends GenericLoader
       return new JsonPrimitive(constant.value());
     }
     return super.serialize(src);
-  }
-
-  @Override
-  public T decode(FriendlyByteBuf buffer) {
-    return super.decode(buffer);
   }
 
   /** Interface for a float constructor */

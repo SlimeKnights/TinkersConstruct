@@ -23,7 +23,7 @@ public class CheeseItem extends Item {
 
   /** Removes a random effect from the given entity */
   public static void removeRandomEffect(LivingEntity living) {
-    if (!living.level.isClientSide) {
+    if (!living.level().isClientSide) {
       Collection<MobEffectInstance> effects = living.getActiveEffects();
       if (!effects.isEmpty()) {
         // don't remove effects that are not milk removable

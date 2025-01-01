@@ -171,7 +171,7 @@ public class StatsNBT {
     ImmutableMap.Builder<IToolStat<?>, Object> builder = ImmutableMap.builder();
     int max = buffer.readVarInt();
     for (int i = 0; i < max; i++) {
-      IToolStat<?> stat = ToolStats.fromNetwork(buffer);
+      IToolStat<?> stat = ToolStats.LOADER.decode(buffer);
       builder.put(stat, stat.fromNetwork(buffer));
     }
     return new StatsNBT(builder.build());
@@ -208,7 +208,7 @@ public class StatsNBT {
     public StatsNBT deserialize(JsonObject json, TypedMap context) {
       ImmutableMap.Builder<IToolStat<?>,Object> builder = ImmutableMap.builder();
       for (Entry<String,JsonElement> entry : json.entrySet()) {
-        IToolStat<?> stat = ToolStats.fromJson(entry.getKey());
+        IToolStat<?> stat = ToolStats.LOADER.parseString(entry.getKey(), "[map key]");
         builder.put(stat, stat.deserialize(entry.getValue()));
       }
       return new StatsNBT(builder.build());

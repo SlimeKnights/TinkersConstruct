@@ -1,0 +1,11 @@
+{
+  "parent": "forge:item/default",
+  "loader": "tconstruct:material",
+  "offset": [
+    -5,
+    1
+  ],
+  "textures": {
+    "texture": "tconstruct:item/tool/pickadze/adze"
+  }
+}

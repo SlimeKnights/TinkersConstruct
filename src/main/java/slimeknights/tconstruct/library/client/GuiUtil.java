@@ -7,18 +7,17 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat.Mode;
-import com.mojang.math.Matrix4f;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
+import org.joml.Matrix4f;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 
@@ -26,13 +25,12 @@ import slimeknights.tconstruct.library.recipe.partbuilder.Pattern;
 public final class GuiUtil {
   /**
    * Draws the background of a container
-   * @param matrices    Matrix context
+   * @param graphics    Graphics context
    * @param screen      Parent screen
    * @param background  Background location
    */
-  public static void drawBackground(PoseStack matrices, AbstractContainerScreen<?> screen, ResourceLocation background) {
-    RenderUtils.setup(background);
-    screen.blit(matrices, screen.leftPos, screen.topPos, 0, 0, screen.imageWidth, screen.imageHeight);
+  public static void drawBackground(GuiGraphics graphics, AbstractContainerScreen<?> screen, ResourceLocation background) {
+    graphics.blit(background, screen.leftPos, screen.topPos, 0, 0, screen.imageWidth, screen.imageHeight);
   }
 
   /**
@@ -140,15 +138,15 @@ public final class GuiUtil {
    */
   public static void renderTiledTextureAtlas(PoseStack matrices, AbstractContainerScreen<?> screen, TextureAtlasSprite sprite, int x, int y, int width, int height, int depth, boolean upsideDown) {
     // start drawing sprites
-    RenderUtils.bindTexture(sprite.atlas().location());
+    RenderUtils.bindTexture(sprite.atlasLocation());
     BufferBuilder builder = Tesselator.getInstance().getBuilder();
     builder.begin(Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 
     // tile vertically
     float u1 = sprite.getU0();
     float v1 = sprite.getV0();
-    int spriteHeight = sprite.getHeight();
-    int spriteWidth = sprite.getWidth();
+    int spriteHeight = sprite.contents().height();
+    int spriteWidth = sprite.contents().width();
     int startX = x + screen.leftPos;
     int startY = y + screen.topPos;
     do {
@@ -205,13 +203,13 @@ public final class GuiUtil {
   }
 
   /**
-   * Draws an upwards progress bar
+   * Draws an upwards progress bar. TODO: is this just {@link slimeknights.mantle.client.screen.ScalableElementScreen}?
    * @param element   Element to draw
    * @param x         X position to start
    * @param y         Y position to start
    * @param progress  Progress between 0 and 1
    */
-  public static void drawProgressUp(PoseStack matrices, ElementScreen element, int x, int y, float progress) {
+  public static void drawProgressUp(GuiGraphics graphics, ElementScreen element, int x, int y, float progress) {
     int height;
     if (progress > 1) {
       height = element.h;
@@ -223,28 +221,28 @@ public final class GuiUtil {
     }
     // amount to offset element by for the height
     int deltaY = element.h - height;
-    Screen.blit(matrices, x, y + deltaY, element.x, element.y + deltaY, element.w, height, element.texW, element.texH);
+    graphics.blit(element.texture, x, y + deltaY, element.x, element.y + deltaY, element.w, height, element.texW, element.texH);
   }
 
   /**
    * Renders a highlight overlay for the given area
-   * @param matrices  Matrix instance
+   * @param graphics  Graphics instance
    * @param x         Element X position
    * @param y         Element Y position
    * @param width     Element width
    * @param height    Element height
    */
-  public static void renderHighlight(PoseStack matrices, int x, int y, int width, int height) {
+  public static void renderHighlight(GuiGraphics graphics, int x, int y, int width, int height) {
       RenderSystem.disableDepthTest();
       RenderSystem.colorMask(true, true, true, false);
-      GuiComponent.fill(matrices, x, y, x + width, y + height, 0x80FFFFFF);
+      graphics.fill(x, y, x + width, y + height, 0x80FFFFFF);
       RenderSystem.colorMask(true, true, true, true);
       RenderSystem.enableDepthTest();
   }
 
   /** Renders a pattern at the given location */
-  public static void renderPattern(PoseStack matrices, Pattern pattern, int x, int y) {
+  public static void renderPattern(GuiGraphics graphics, Pattern pattern, int x, int y) {
     TextureAtlasSprite sprite = Minecraft.getInstance().getModelManager().getAtlas(InventoryMenu.BLOCK_ATLAS).getSprite(pattern.getTexture());
-    GuiComponent.blit(matrices, x, y, 100, 16, 16, sprite);
+    graphics.blit(x, y, 100, 16, 16, sprite);
   }
 }

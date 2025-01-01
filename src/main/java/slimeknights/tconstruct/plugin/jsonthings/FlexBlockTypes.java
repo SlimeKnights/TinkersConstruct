@@ -12,11 +12,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.material.FlowingFluid;
-import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.Material;
 import net.minecraftforge.common.util.Lazy;
 import slimeknights.mantle.data.loadable.Loadables;
-import slimeknights.mantle.data.loadable.primitive.ResourceLocationLoadable;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.plugin.jsonthings.block.FlexBurningLiquidBlock;
 import slimeknights.tconstruct.plugin.jsonthings.block.FlexMobEffectLiquidBlock;
@@ -30,8 +27,7 @@ public class FlexBlockTypes {
   /** Creates the supplier for a fluid in a fluid block */
   private static Supplier<FlowingFluid> fluidSupplier(ResourceLocation name) {
     return Lazy.of(() -> {
-      // TODO: make Mantle loadables resource location
-      if (((ResourceLocationLoadable<Fluid>)Loadables.FLUID).fromKey(name, "fluid") instanceof FlowingFluid flowing) {
+      if (Loadables.FLUID.fromKey(name, "fluid") instanceof FlowingFluid flowing) {
         return flowing;
       } else {
         throw new RuntimeException("LiquidBlock requires a flowing fluid");
@@ -55,14 +51,14 @@ public class FlexBlockTypes {
           }
         };
       };
-    }, Material.LAVA);
+    });
     register("mob_effect_liquid", data -> {
       ResourceLocation fluidField = Loadables.RESOURCE_LOCATION.getOrDefault(data, "fluid", null);
       ResourceLocation effectName = Loadables.RESOURCE_LOCATION.getIfPresent(data, "effect");
       int effectLevel = GsonHelper.getAsInt(data, "burn_time");
       return (props, builder) -> {
         final List<Property<?>> _properties = builder.getProperties();
-        Lazy<MobEffect> effect = Lazy.of(() -> ((ResourceLocationLoadable<MobEffect>)Loadables.MOB_EFFECT).fromKey(effectName, "effect"));
+        Lazy<MobEffect> effect = Lazy.of(() -> Loadables.MOB_EFFECT.fromKey(effectName, "effect"));
         return new FlexMobEffectLiquidBlock(props, builder.getPropertyDefaultValues(), fluidSupplier(Objects.requireNonNullElse(fluidField, builder.getRegistryName())), () -> new MobEffectInstance(effect.get(), 5*20, effectLevel - 1)) {
           @Override
           protected void createBlockStateDefinition(Builder<Block,BlockState> stateBuilder) {
@@ -71,11 +67,11 @@ public class FlexBlockTypes {
           }
         };
       };
-    }, Material.WATER);
+    });
   }
 
   /** Local helper to register our stuff */
-  private static <T extends Block & IFlexBlock> void register(String name, IBlockSerializer<T> factory, Material defaultMaterial) {
-    FlexBlockType.register(TConstruct.resourceString(name), factory, "translucent", true, defaultMaterial);
+  private static <T extends Block & IFlexBlock> void register(String name, IBlockSerializer<T> factory) {
+    FlexBlockType.register(TConstruct.resourceString(name), factory, "translucent", true, false, true);
   }
 }

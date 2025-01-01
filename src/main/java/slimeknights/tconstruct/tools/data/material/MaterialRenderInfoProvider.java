@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.tools.data.material;
 
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.tconstruct.library.client.data.material.AbstractMaterialRenderInfoProvider;
 import slimeknights.tconstruct.library.client.data.material.AbstractMaterialSpriteProvider;
@@ -8,8 +8,8 @@ import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
 
 public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvider {
-  public MaterialRenderInfoProvider(DataGenerator gen, AbstractMaterialSpriteProvider spriteProvider, ExistingFileHelper existingFileHelper) {
-    super(gen, spriteProvider, existingFileHelper);
+  public MaterialRenderInfoProvider(PackOutput packOutput, AbstractMaterialSpriteProvider spriteProvider, ExistingFileHelper existingFileHelper) {
+    super(packOutput, spriteProvider, existingFileHelper);
   }
 
   @Override
@@ -34,6 +34,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.darkOak);
     buildRenderInfo(MaterialIds.acacia);
     buildRenderInfo(MaterialIds.mangrove);
+    buildRenderInfo(MaterialIds.cherry);
     buildRenderInfo(MaterialIds.crimson);
     buildRenderInfo(MaterialIds.warped);
     buildRenderInfo(MaterialIds.bamboo);

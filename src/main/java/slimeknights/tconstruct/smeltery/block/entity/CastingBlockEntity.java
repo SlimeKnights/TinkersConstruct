@@ -213,7 +213,7 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
       MoldingRecipe recipe = findMoldingRecipe();
       if (recipe != null) {
         // if hand is empty, pick up the result (hand empty will only match recipes with no mold item)
-        ItemStack result = recipe.assemble(moldingInventory);
+        ItemStack result = recipe.assemble(moldingInventory, level.registryAccess());
         result.onCraftedBy(level, player, 1);
         if (held.isEmpty()) {
           setItem(INPUT, ItemStack.EMPTY);
@@ -238,7 +238,7 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
         recipe = findMoldingRecipe();
         if (recipe != null) {
           setItem(INPUT, ItemStack.EMPTY);
-          ItemHandlerHelper.giveItemToPlayer(player, recipe.assemble(moldingInventory), player.getInventory().selected);
+          ItemHandlerHelper.giveItemToPlayer(player, recipe.assemble(moldingInventory, level.registryAccess()), player.getInventory().selected);
           return;
         }
       }
@@ -350,7 +350,7 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
         }
 
         // actual recipe result
-        ItemStack output = currentRecipe.assemble(castingInventory);
+        ItemStack output = currentRecipe.assemble(castingInventory, level.registryAccess());
         if (currentRecipe.switchSlots() != lastRedstone) {
           if (!currentRecipe.isConsumed()) {
             setItem(OUTPUT, getItem(INPUT));
@@ -539,11 +539,11 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
    */
   public ItemStack getRecipeOutput() {
     if (lastOutput == null) {
-      if (currentRecipe == null) {
+      if (currentRecipe == null || level == null) {
         return ItemStack.EMPTY;
       }
       castingInventory.setFluid(tank.getFluid());
-      lastOutput = currentRecipe.assemble(castingInventory);
+      lastOutput = currentRecipe.assemble(castingInventory, level.registryAccess());
     }
     return lastOutput;
   }

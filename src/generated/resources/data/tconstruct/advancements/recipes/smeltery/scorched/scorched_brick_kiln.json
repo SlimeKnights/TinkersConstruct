@@ -33,7 +33,8 @@
           "recipes": [
             "tconstruct:scorched_brick"
           ]
-        }
+        },
+        "sends_telemetry_event": false
       },
       "conditions": [
         {
@@ -75,7 +76,8 @@
           "recipes": [
             "tconstruct:scorched_brick"
           ]
-        }
+        },
+        "sends_telemetry_event": false
       },
       "conditions": [
         {

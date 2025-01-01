@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "key": {
     "B": {
       "tag": "tconstruct:seared_bricks"
@@ -16,5 +17,6 @@
   "result": {
     "count": 4,
     "item": "tconstruct:seared_ladder"
-  }
+  },
+  "show_notification": true
 }

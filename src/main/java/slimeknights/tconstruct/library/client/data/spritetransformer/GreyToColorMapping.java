@@ -21,11 +21,11 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.function.ToIntFunction;
 
-import static com.mojang.blaze3d.platform.NativeImage.combine;
-import static com.mojang.blaze3d.platform.NativeImage.getA;
-import static com.mojang.blaze3d.platform.NativeImage.getB;
-import static com.mojang.blaze3d.platform.NativeImage.getG;
-import static com.mojang.blaze3d.platform.NativeImage.getR;
+import static net.minecraft.util.FastColor.ABGR32.alpha;
+import static net.minecraft.util.FastColor.ABGR32.blue;
+import static net.minecraft.util.FastColor.ABGR32.color;
+import static net.minecraft.util.FastColor.ABGR32.green;
+import static net.minecraft.util.FastColor.ABGR32.red;
 
 /** Color mcom.mojang.blaze3d.platform.NativeImager each value */
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
@@ -68,7 +68,7 @@ public class GreyToColorMapping implements IColorMapping {
   public int mapColor(int color) {
     // if fully transparent, just return fully transparent
     // we do not do 0 alpha RGB values to save effort
-    if (getA(color) == 0) {
+    if (alpha(color) == 0) {
       return 0x00000000;
     }
     int grey = getGrey(color);
@@ -207,31 +207,31 @@ public class GreyToColorMapping implements IColorMapping {
     int diff = grey - greyBefore;
     int divisor = greyAfter - greyBefore;
     // interpolate each pair of colors
-    int alpha = interpolate(getA(colorBefore), getA(colorAfter), diff, divisor);
-    int red   = interpolate(getR(colorBefore), getR(colorAfter),   diff, divisor);
-    int green = interpolate(getG(colorBefore), getG(colorAfter), diff, divisor);
-    int blue  = interpolate(getB(colorBefore), getB(colorAfter),  diff, divisor);
-    return combine(alpha, blue, green, red);
+    int alpha = interpolate(alpha(colorBefore), alpha(colorAfter), diff, divisor);
+    int red   = interpolate(red(colorBefore),   red(colorAfter),   diff, divisor);
+    int green = interpolate(green(colorBefore), green(colorAfter), diff, divisor);
+    int blue  = interpolate(blue(colorBefore),  blue(colorAfter),  diff, divisor);
+    return color(alpha, blue, green, red);
   }
 
   /** Gets the largest grey value for the given color */
   public static int getGrey(int color) {
-    return Math.max(getR(color), Math.max(getG(color), getB(color)));
+    return Math.max(red(color), Math.max(green(color), blue(color)));
   }
 
   /** Scales the new color based on the original color values and the grey value */
   public static int scaleColor(int original, int newColor, int grey) {
     // if the original color was partially transparent, set the alpha
-    int alpha = getA(original);
-    if (alpha < 255) newColor = (newColor & 0x00FFFFFF) | ((alpha * getA(newColor) / 255) << 24);
+    int alpha = alpha(original);
+    if (alpha < 255) newColor = (newColor & 0x00FFFFFF) | ((alpha * alpha(newColor) / 255) << 24);
 
     // grey is based on largest, so scale down as needed
     // if any of RGB are lower than the max, scale it down
-    int red = getR(original);
+    int red = red(original);
     if (red   < grey) newColor = (newColor & 0xFFFFFF00) | (((newColor & 0x000000FF) * red   / grey) & 0x000000FF);
-    int green = getG(original);
+    int green = green(original);
     if (green < grey) newColor = (newColor & 0xFFFF00FF) | (((newColor & 0x0000FF00) * green / grey) & 0x0000FF00);
-    int blue = getB(original);
+    int blue = blue(original);
     if (blue  < grey) newColor = (newColor & 0xFF00FFFF) | (((newColor & 0x00FF0000) * blue  / grey) & 0x00FF0000);
 
     // final color

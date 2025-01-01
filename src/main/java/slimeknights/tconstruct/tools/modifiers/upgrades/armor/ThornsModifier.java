@@ -34,7 +34,7 @@ public class ThornsModifier extends Modifier implements OnAttackedModifierHook {
       if (RANDOM.nextFloat() < (scaledLevel * 0.15f)) {
         float damage = scaledLevel > 10 ? scaledLevel - 10 : 1 + RANDOM.nextInt(4);
         LivingEntity user = context.getEntity();
-        attacker.hurt(DamageSource.thorns(user), damage);
+        attacker.hurt(user.damageSources().thorns(user), damage);
         ToolDamageUtil.damageAnimated(tool, 1, user, slotType);
       }
     }

@@ -13,10 +13,10 @@
       "tconstruct:limb",
       "tconstruct:grip",
       "tconstruct:armor_plating",
-      "tconstruct:plating_boots",
-      "tconstruct:plating_leggings",
-      "tconstruct:plating_chestplate",
       "tconstruct:plating_helmet",
+      "tconstruct:plating_chestplate",
+      "tconstruct:plating_leggings",
+      "tconstruct:plating_boots",
       "tconstruct:plating_shield",
       "tconstruct:maille",
       "tconstruct:armor_maille"

@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library.tools.layout;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import io.netty.buffer.Unpooled;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
@@ -82,7 +82,7 @@ class LayoutIconTest extends BaseMcTest {
     LayoutIcon itemIcon = LayoutIcon.ofItem(original);
     JsonObject json = itemIcon.toJson();
     assertThat(json.entrySet()).hasSize(2);
-    assertThat(GsonHelper.getAsString(json, "item")).isEqualTo(Registry.ITEM.getKey(Items.DIAMOND_PICKAXE).toString());
+    assertThat(GsonHelper.getAsString(json, "item")).isEqualTo(BuiltInRegistries.ITEM.getKey(Items.DIAMOND_PICKAXE).toString());
     assert original.getTag() != null;
     assertThat(GsonHelper.getAsString(json, "nbt")).isEqualTo(original.getTag().toString());
   }
@@ -90,7 +90,7 @@ class LayoutIconTest extends BaseMcTest {
   @Test
   void item_jsonDeserialize() {
     JsonObject json = new JsonObject();
-    json.addProperty("item", Registry.ITEM.getKey(Items.DIAMOND).toString());
+    json.addProperty("item", BuiltInRegistries.ITEM.getKey(Items.DIAMOND).toString());
     json.addProperty("nbt", "{test:1}");
     LayoutIcon icon = LayoutIcon.SERIALIZER.deserialize(json, LayoutIcon.class, mock(JsonDeserializationContext.class));
     assertThat(icon).isInstanceOf(ItemStackIcon.class);

@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:trim",
+  "text": [
+    {
+      "text": "Combine armor trims with the correct material to add a colored variant of a unique texture to the armor.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Multi-use",
+    "Slotless"
+  ]
+}

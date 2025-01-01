@@ -1,6 +1,6 @@
 {
   "render_type": "minecraft:cutout",
-  "loader": "tconstruct:melter",
+  "loader": "tconstruct:tank",
   "parent": "block/block",
   "textures": {
     "particle": "#front",
@@ -62,10 +62,5 @@
     "from": [ 0.08, 8.08, 0.08 ],
     "to": [ 15.92, 15.92, 15.92 ],
     "increments": 128
-  },
-  "items": [
-    { "center": [  8, 12, 12 ], "size": 7.5, "transform": "tconstruct:melter" },
-    { "center": [  4, 12,  4 ], "size": 7.5, "transform": "tconstruct:melter" },
-    { "center": [ 12, 12,  4 ], "size": 7.5, "transform": "tconstruct:melter" }
-  ]
+  }
 }

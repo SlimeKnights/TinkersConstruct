@@ -6,12 +6,12 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider.Context;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import slimeknights.mantle.client.model.inventory.ModelItem;
-import slimeknights.mantle.client.model.util.ModelHelper;
+import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.client.render.FluidCuboid;
 import slimeknights.mantle.client.render.FluidRenderer;
+import slimeknights.mantle.client.render.RenderItem;
 import slimeknights.mantle.client.render.RenderingHelper;
 import slimeknights.tconstruct.library.client.RenderUtils;
-import slimeknights.tconstruct.library.client.model.block.CastingModel;
 import slimeknights.tconstruct.smeltery.block.entity.CastingBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.tank.CastingFluidHandler;
 import slimeknights.tconstruct.smeltery.client.util.CastingItemRenderTypeBuffer;
@@ -24,9 +24,11 @@ public class CastingBlockEntityRenderer implements BlockEntityRenderer<CastingBl
   @Override
   public void render(CastingBlockEntity casting, float partialTicks, PoseStack matrices, MultiBufferSource buffer, int light, int combinedOverlayIn) {
     BlockState state = casting.getBlockState();
-    CastingModel.Baked model = ModelHelper.getBakedModel(state, CastingModel.Baked.class);
-    if (model != null) {
-      // rotate the matrix
+    List<FluidCuboid> fluids = FluidCuboid.REGISTRY.get(state, List.of());
+    List<RenderItem> renderItems = RenderItem.REGISTRY.get(state.getBlock(), List.of());
+
+    // rotate the matrix
+    if (!fluids.isEmpty() || !renderItems.isEmpty()) {
       boolean isRotated = RenderingHelper.applyRotation(matrices, state);
 
       // if the recipe is in progress, start fading the item away
@@ -46,34 +48,43 @@ public class CastingBlockEntityRenderer implements BlockEntityRenderer<CastingBl
       }
 
       // render fluids
-      CastingFluidHandler tank = casting.getTank();
-      // if full, start rendering with opacity for progress
-      if (tank.getFluid().getAmount() == tank.getCapacity()) {
-        RenderUtils.renderTransparentCuboid(matrices, buffer, model.getFluid(), tank.getFluid(), fluidOpacity, light);
-      } else {
-        FluidRenderer.renderScaledCuboid(matrices, buffer, model.getFluid(), tank.getFluid(), 0, tank.getCapacity(), light, false);
-      }
-
-      // render items
-      List<ModelItem> modelItems = model.getItems();
-      // input is normal
-      if (modelItems.size() >= 1) {
-        RenderingHelper.renderItem(matrices, buffer, casting.getItem(0), modelItems.get(0), light);
-      }
-
-      // output may be the recipe output instead of the current item
-      if (modelItems.size() >= 2) {
-        ModelItem outputModel = modelItems.get(1);
-        if(!outputModel.isHidden()) {
-          // get output stack
-          ItemStack output = casting.getItem(1);
-          MultiBufferSource outputBuffer = buffer;
-          if(itemOpacity > 0 && output.isEmpty()) {
-            output = casting.getRecipeOutput();
-            // apply a buffer wrapper to tint and add opacity
-            outputBuffer = new CastingItemRenderTypeBuffer(buffer, itemOpacity, fluidOpacity);
+      if (!fluids.isEmpty()) {
+        CastingFluidHandler tank = casting.getTank();
+        FluidStack fluidStack = tank.getFluid();
+        int capacity = tank.getCapacity();
+        // if full, start rendering with opacity for progress
+        if (fluidStack.getAmount() == capacity) {
+          for (FluidCuboid fluid : fluids) {
+            RenderUtils.renderTransparentCuboid(matrices, buffer, fluid, fluidStack, fluidOpacity, light);
           }
-          RenderingHelper.renderItem(matrices, outputBuffer, output, outputModel, light);
+        } else {
+          // not strictly useful to scale the fluids down, but who knows what the modeler does
+          for (FluidCuboid fluid : fluids) {
+            FluidRenderer.renderScaledCuboid(matrices, buffer, fluid, fluidStack, 0, capacity, light, false);
+          }
+        }
+      }
+
+      // render renderItems
+      if (!renderItems.isEmpty()) {
+        // render renderItems
+        // input is normal
+        RenderingHelper.renderItem(matrices, buffer, casting.getItem(0), renderItems.get(0), light);
+
+        // output may be the recipe output instead of the current item
+        if (renderItems.size() >= 2) {
+          RenderItem outputModel = renderItems.get(1);
+          if (!outputModel.isHidden()) {
+            // get output stack
+            ItemStack output = casting.getItem(1);
+            MultiBufferSource outputBuffer = buffer;
+            if (itemOpacity > 0 && output.isEmpty()) {
+              output = casting.getRecipeOutput();
+              // apply a buffer wrapper to tint and add opacity
+              outputBuffer = new CastingItemRenderTypeBuffer(buffer, itemOpacity, fluidOpacity);
+            }
+            RenderingHelper.renderItem(matrices, outputBuffer, output, outputModel, light);
+          }
         }
       }
 

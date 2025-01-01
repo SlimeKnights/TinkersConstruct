@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:trim",
+  "text": [
+    {
+      "text": "An expensive way to really deck out your armor."
+    }
+  ],
+  "effects": [
+    "Adds decorative edges to your armor",
+    "The combination of template and material chooses the design",
+    "Multi-use",
+    "Slotless"
+  ]
+}

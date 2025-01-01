@@ -3,33 +3,30 @@ package slimeknights.tconstruct.library.client.model.tools;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Sets;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.datafixers.util.Pair;
 import com.mojang.math.Transformation;
-import com.mojang.math.Vector3f;
+import lombok.AllArgsConstructor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColor;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
-import net.minecraft.client.renderer.block.model.ItemTransforms.TransformType;
 import net.minecraft.client.renderer.texture.MissingTextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.Material;
-import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.client.resources.model.ModelBaker;
 import net.minecraft.client.resources.model.ModelState;
-import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec2;
 import net.minecraftforge.client.model.BakedModelWrapper;
@@ -37,6 +34,7 @@ import net.minecraftforge.client.model.IModelBuilder;
 import net.minecraftforge.client.model.geometry.IGeometryBakingContext;
 import net.minecraftforge.client.model.geometry.IGeometryLoader;
 import net.minecraftforge.client.model.geometry.IUnbakedGeometry;
+import org.joml.Vector3f;
 import slimeknights.mantle.client.model.util.MantleItemLayerModel;
 import slimeknights.mantle.data.loadable.Loadable;
 import slimeknights.mantle.data.loadable.mapping.CompactLoadable;
@@ -46,9 +44,10 @@ import slimeknights.mantle.util.ItemLayerPixels;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.mantle.util.ReversedListBuilder;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfo.TintedSprite;
 import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoLoader;
-import slimeknights.tconstruct.library.client.model.BakedUniqueGuiModel;
+import slimeknights.tconstruct.library.client.model.UniqueGuiModel;
 import slimeknights.tconstruct.library.client.modifiers.IBakedModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
@@ -78,6 +77,7 @@ import java.util.function.Supplier;
 /**
  * Model handling all tools, both multipart and non.
  */
+@AllArgsConstructor
 public class ToolModel implements IUnbakedGeometry<ToolModel> {
   /** Shared loader instance */
   public static final IGeometryLoader<ToolModel> LOADER = ToolModel::deserialize;
@@ -85,11 +85,9 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
   private static final BitSet SMALL_TOOL_TYPES = new BitSet();
 
   /** Registers a new small tool transform type */
-  public static synchronized TransformType registerSmallTool(TransformType type) {
+  public static synchronized void registerSmallTool(ItemDisplayContext type) {
     SMALL_TOOL_TYPES.set(type.ordinal());
-    return type;
   }
-
 
   /** Color handler instance for all tools, handles both material and modifier colors */
   public static final ItemColor COLOR_HANDLER = (stack, index) -> {
@@ -186,7 +184,7 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
   }
 
   /** List of tool parts in this model */
-  private List<ToolPart> toolParts;
+  private final List<ToolPart> toolParts;
   /** If true, this is a large tool and uses double resolution textures in hand */
   private final boolean isLarge;
   /** Transform matrix to apply to child parts */
@@ -197,47 +195,6 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
   private final List<ResourceLocation> largeModifierRoots;
   /** Modifiers that show first on tools, bypassing normal sort order */
   private final List<FirstModifier> firstModifiers;
-  /** Models for the relevant modifiers */
-  private Map<ModifierId,IBakedModifierModel> modifierModels = Collections.emptyMap();
-
-  public ToolModel(List<ToolPart> parts, boolean isLarge, Vec2 offset, List<ResourceLocation> smallModifierRoots, List<ResourceLocation> largeModifierRoots, List<FirstModifier> firstModifiers) {
-    this.toolParts = parts;
-    this.isLarge = isLarge;
-    this.offset = offset;
-    this.smallModifierRoots = smallModifierRoots;
-    this.largeModifierRoots = largeModifierRoots;
-    this.firstModifiers = firstModifiers;
-  }
-
-  @Override
-  public Collection<Material> getMaterials(IGeometryBakingContext owner, Function<ResourceLocation,UnbakedModel> modelGetter, Set<Pair<String,String>> missingTextureErrors) {
-    Set<Material> allTextures = Sets.newHashSet();
-    // default is just a single part named tool, no material
-    if (toolParts.isEmpty()) {
-      toolParts = ToolPart.DEFAULT_PARTS;
-    }
-
-    // after the above condition, we always have parts, so just iterate them
-    for (ToolPart part : toolParts) {
-      // if material variants, fetch textures from the material model
-      if (part.hasMaterials()) {
-        MaterialModel.getMaterialTextures(allTextures, owner, part.getName(false), null);
-        if (isLarge) {
-          MaterialModel.getMaterialTextures(allTextures, owner, part.getName(true), null);
-        }
-      } else {
-        // static texture
-        allTextures.add(owner.getMaterial(part.getName(false)));
-        if (isLarge) {
-          allTextures.add(owner.getMaterial(part.getName(true)));
-        }
-      }
-    }
-    // load modifier models
-    modifierModels = ModifierModelManager.getModelsForTool(smallModifierRoots, isLarge ? largeModifierRoots : Collections.emptyList(), allTextures);
-
-    return allTextures;
-  }
 
   /**
    * adds quads for relevant modifiers
@@ -315,7 +272,7 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
   }
 
   /**
-   * Same as {@link #bake(IGeometryBakingContext, ModelBakery, Function, ModelState, ItemOverrides, ResourceLocation)}, but uses fewer arguments and does not require an instance
+   * Same as {@link #bake(IGeometryBakingContext, ModelBaker, Function, ModelState, ItemOverrides, ResourceLocation)}, but uses fewer arguments and does not require an instance
    * @param owner           Model configuration
    * @param spriteGetter    Sprite getter function
    * @param largeTransforms Transform to apply to the large parts. If null, only generates small parts
@@ -392,7 +349,7 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
       }
     }));
     if (largeTransforms == null) {
-      return new BakedUniqueGuiModel(smallModelBuilder.build(), guiModelBuilder.build());
+      return new UniqueGuiModel.Baked(smallModelBuilder.build(), guiModelBuilder.build());
     }
     IModelBuilder<?> largeModelBuilder = makeModelBuilder(owner, overrides, particle);
     largeQuads.build(quads -> quads.forEach(largeModelBuilder::addUnculledFace));
@@ -400,7 +357,27 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
   }
 
   @Override
-  public BakedModel bake(IGeometryBakingContext owner, ModelBakery bakery, Function<Material,TextureAtlasSprite> spriteGetter, ModelState modelTransform, ItemOverrides overrides, ResourceLocation modelLocation) {
+  public BakedModel bake(IGeometryBakingContext owner, ModelBaker baker, Function<Material,TextureAtlasSprite> spriteGetter, ModelState modelTransform, ItemOverrides overrides, ResourceLocation modelLocation) {
+    // default is just a single part named tool, no material
+    List<ToolPart> toolParts = this.toolParts;
+    if (toolParts.isEmpty()) {
+      toolParts = ToolPart.DEFAULT_PARTS;
+    }
+    // if requested, check all that all material textures exist
+    if (Config.CLIENT.logMissingMaterialTextures.get()) {
+      for (ToolPart part : toolParts) {
+        if (part.hasMaterials()) {
+          MaterialModel.validateMaterialTextures(owner, spriteGetter, part.getName(false), null);
+          if (isLarge) {
+            MaterialModel.validateMaterialTextures(owner, spriteGetter, part.getName(true), null);
+          }
+        }
+      }
+    }
+    // load modifier models
+    Map<ModifierId,IBakedModifierModel> modifierModels = ModifierModelManager.getModelsForTool(spriteGetter, smallModifierRoots, isLarge ? largeModifierRoots : Collections.emptyList());
+
+    // actual model baking
     Transformation largeTransforms = isLarge ? new Transformation(new Vector3f((offset.x - 8) / 32, (-offset.y - 8) / 32, 0), null, new Vector3f(2, 2, 1), null) : null;
     overrides = new MaterialOverrideHandler(owner, toolParts, firstModifiers, largeTransforms, modifierModels, overrides);
     // bake the original with no tool, meaning it will skip modifiers and materials
@@ -418,9 +395,9 @@ public class ToolModel implements IUnbakedGeometry<ToolModel> {
     }
 
     @Override
-    public BakedModel applyTransform(TransformType cameraTransformType, PoseStack mat, boolean applyLeftHandTransform) {
+    public BakedModel applyTransform(ItemDisplayContext cameraTransformType, PoseStack mat, boolean applyLeftHandTransform) {
       BakedModel model = originalModel;
-      if (cameraTransformType == TransformType.GUI) {
+      if (cameraTransformType == ItemDisplayContext.GUI) {
         model = gui;
       } else if (SMALL_TOOL_TYPES.get(cameraTransformType.ordinal())) {
         model = small;

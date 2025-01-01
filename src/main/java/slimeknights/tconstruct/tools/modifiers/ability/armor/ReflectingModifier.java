@@ -12,12 +12,14 @@ import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.HitResult.Type;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
+import net.minecraftforge.event.entity.ProjectileImpactEvent.ImpactResult;
 import slimeknights.mantle.util.RegistryHelper;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
@@ -39,7 +41,8 @@ public class ReflectingModifier extends Modifier {
   private void projectileImpact(ProjectileImpactEvent event) {
     Entity entity = event.getEntity();
     // first, need a projectile that is hitting a living entity
-    if (!entity.level.isClientSide) {
+    Level level = entity.level();
+    if (!level.isClientSide) {
       Projectile projectile = event.getProjectile();
 
       // handle blacklist for projectiles
@@ -88,8 +91,8 @@ public class ReflectingModifier extends Modifier {
                 if (living.getType() == EntityType.PLAYER) {
                   TinkerNetwork.getInstance().sendVanillaPacket(new ClientboundSetEntityMotionPacket(projectile), living);
                 }
-                living.level.playSound(null, living.blockPosition(), SoundEvents.SHIELD_BLOCK, SoundSource.PLAYERS, 1.0F, 1.5F + living.level.random.nextFloat() * 0.4F);
-                event.setCanceled(true);
+                level.playSound(null, living.blockPosition(), SoundEvents.SHIELD_BLOCK, SoundSource.PLAYERS, 1.0F, 1.5F + level.random.nextFloat() * 0.4F);
+                event.setImpactResult(ImpactResult.SKIP_ENTITY);
               }
             }
           }

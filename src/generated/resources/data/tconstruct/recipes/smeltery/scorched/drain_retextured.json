@@ -1,5 +1,6 @@
 {
   "type": "mantle:crafting_shaped_retextured",
+  "category": "redstone",
   "key": {
     "#": {
       "tag": "tconstruct:foundry_bricks"
@@ -15,6 +16,7 @@
   "result": {
     "item": "tconstruct:scorched_drain"
   },
+  "show_notification": true,
   "texture": {
     "tag": "tconstruct:foundry_bricks"
   }

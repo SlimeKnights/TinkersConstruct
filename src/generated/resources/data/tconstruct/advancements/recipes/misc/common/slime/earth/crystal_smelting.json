@@ -30,5 +30,6 @@
     "recipes": [
       "tconstruct:common/slime/earth/crystal_smelting"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

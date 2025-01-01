@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "B": {
       "item": "tconstruct:seared_brick"
@@ -22,5 +23,6 @@
   ],
   "result": {
     "item": "tconstruct:seared_melter"
-  }
+  },
+  "show_notification": true
 }

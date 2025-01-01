@@ -9,6 +9,9 @@
     "tconstruct:item/tool/armor/plate/boots/modifiers/broken/",
     "tconstruct:item/tool/armor/plate/boots/modifiers/"
   ],
+  "first_modifiers": [
+    "tconstruct:trim"
+  ],
   "parts": [
     {
       "name": "plating",

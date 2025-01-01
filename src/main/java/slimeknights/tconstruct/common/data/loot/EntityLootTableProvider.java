@@ -1,11 +1,11 @@
 package slimeknights.tconstruct.common.data.loot;
 
-import net.minecraft.advancements.critereon.DamageSourcePredicate;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.advancements.critereon.SlimePredicate;
-import net.minecraft.data.loot.EntityLoot;
+import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -15,7 +15,6 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.LootingEnchantFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
-import net.minecraft.world.level.storage.loot.predicates.DamageSourceCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
@@ -28,20 +27,23 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.Map.Entry;
+import java.util.stream.Stream;
 
-public class EntityLootTableProvider extends EntityLoot {
-
-  @Override
-  protected Iterable<EntityType<?>> getKnownEntities() {
-    return ForgeRegistries.ENTITY_TYPES.getEntries().stream()
-                                   // remove earth slime entity, we redirect to the vanilla loot table
-                                   .filter(entry -> TConstruct.MOD_ID.equals(entry.getKey().location().getNamespace()))
-                                   .<EntityType<?>>map(Entry::getValue)
-                                   .toList();
+public class EntityLootTableProvider extends EntityLootSubProvider {
+  protected EntityLootTableProvider() {
+    super(FeatureFlags.REGISTRY.allFlags());
   }
 
   @Override
-  protected void addTables() {
+  protected Stream<EntityType<?>> getKnownEntityTypes() {
+    return ForgeRegistries.ENTITY_TYPES.getEntries().stream()
+                                   // remove earth slime entity, we redirect to the vanilla loot table
+                                   .filter(entry -> TConstruct.MOD_ID.equals(entry.getKey().location().getNamespace()))
+                                   .map(Entry::getValue);
+  }
+
+  @Override
+  public void generate() {
     this.add(TinkerWorld.skySlimeEntity.get(), dropSlimeballs(SlimeType.SKY));
     this.add(TinkerWorld.enderSlimeEntity.get(), dropSlimeballs(SlimeType.ENDER));
     this.add(TinkerWorld.terracubeEntity.get(),
@@ -71,11 +73,7 @@ public class EntityLootTableProvider extends EntityLoot {
 
   }
 
-  private static LootItemCondition.Builder killedByFrog() {
-    return DamageSourceCondition.hasDamageSource(DamageSourcePredicate.Builder.damageType().source(EntityPredicate.Builder.entity().of(EntityType.FROG)));
-  }
-
-  private static LootTable.Builder dropSlimeballs(SlimeType type) {
+  private LootTable.Builder dropSlimeballs(SlimeType type) {
     LootItemCondition.Builder killedByFrog = killedByFrog();
     Item slimeball = TinkerCommons.slimeball.get(type);
     return LootTable.lootTable().withPool(

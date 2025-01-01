@@ -55,7 +55,7 @@ public class TastyModifier extends Modifier implements GeneralInteractionModifie
   private void eat(IToolStackView tool, ModifierEntry modifier, LivingEntity entity) {
     int level = modifier.intEffectiveLevel();
     if (level > 0 && entity instanceof Player player && player.canEat(false)) {
-      Level world = entity.getLevel();
+      Level world = entity.level();
       player.getFoodData().eat(level, 0.4F);
       ModifierUtil.foodConsumer.onConsume(player, BACON_STACK.get(), level, 0.6F);
       world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GENERIC_EAT, SoundSource.NEUTRAL, 1.0F, 1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.4F);

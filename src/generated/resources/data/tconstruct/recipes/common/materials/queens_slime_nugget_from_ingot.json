@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "group": "tconstruct:queens_slime_nugget",
   "ingredients": [
     {

@@ -1,5 +1,5 @@
 {
-  "loader": "tconstruct:table",
+  "loader": "mantle:retextured",
   "parent": "tconstruct:block/table/table",
   "textures": {
     "particle":  "tconstruct:block/table/modifier_workstation_top",
@@ -9,10 +9,5 @@
     "bottom":    "tconstruct:block/table/modifier_workstation_top",
     "legBottom": "tconstruct:block/table/modifier_workstation_top"
   },
-  "retextured": [ "leg", "legBottom" ],
-  "items": [
-    { "center": [  5,   16.25, 8   ], "transform": "tconstruct:table", "size": 7.5, "x": 270 },
-    { "center": [ 11.5, 17.5,  3.5 ], "transform": "tconstruct:table", "size": 3 },
-    { "center": [ 11.5, 17.5, 12.5 ], "transform": "tconstruct:table", "size": 3 }
-  ]
+  "retextured": [ "leg", "legBottom" ]
 }

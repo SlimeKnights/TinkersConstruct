@@ -19,7 +19,7 @@ public class SlimeColorizer {
   });
 
   public static final float LOOP = 256; // after how many blocks the pattern loops
-  public static final BlockPos LOOP_OFFSET = new BlockPos(SlimeColorizer.LOOP / 2, 0, SlimeColorizer.LOOP / 2);
+  public static final BlockPos LOOP_OFFSET = BlockPos.containing(SlimeColorizer.LOOP / 2, 0, SlimeColorizer.LOOP / 2);
 
   /**
    * Updates the colors for the given type

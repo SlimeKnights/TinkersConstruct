@@ -57,7 +57,7 @@ public class FancyItemFrameItem extends Item {
   }
 
   private boolean canPlace(Player player, Direction facing, ItemStack stack, BlockPos pos) {
-    return !player.level.isOutsideBuildHeight(pos) && player.mayUseItemAt(pos, facing, stack);
+    return !player.level().isOutsideBuildHeight(pos) && player.mayUseItemAt(pos, facing, stack);
   }
 
   @FunctionalInterface

@@ -3,24 +3,26 @@ package slimeknights.tconstruct.library.data;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.PackOutput.Target;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.IdAwareObject;
-import slimeknights.tconstruct.tools.item.ArmorSlotType;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 
 import static slimeknights.mantle.util.IdExtender.INSTANCE;
 
@@ -29,8 +31,8 @@ public abstract class AbstractToolItemModelProvider extends GenericDataProvider 
   protected final Map<String,JsonObject> models = new HashMap<>();
   protected final ExistingFileHelper existingFileHelper;
   protected final String modId;
-  public AbstractToolItemModelProvider(DataGenerator generator, ExistingFileHelper existingFileHelper, String modId) {
-    super(generator, PackType.CLIENT_RESOURCES, "models/item");
+  public AbstractToolItemModelProvider(PackOutput packOutput, ExistingFileHelper existingFileHelper, String modId) {
+    super(packOutput, Target.RESOURCE_PACK, "models/item");
     this.existingFileHelper = existingFileHelper;
     this.modId = modId;
   }
@@ -39,10 +41,14 @@ public abstract class AbstractToolItemModelProvider extends GenericDataProvider 
   protected abstract void addModels() throws IOException;
 
   @Override
-  public void run(CachedOutput cache) throws IOException {
-    addModels();
+  public CompletableFuture<?> run(CachedOutput cache) {
+    try {
+      addModels();
+    } catch (IOException e) {
+      return CompletableFuture.failedFuture(e);
+    }
     // no key comparator - I want them sorted in the same order as the input models for easier readability
-    models.forEach((location, object) -> saveJson(cache, new ResourceLocation(modId, location), object, null));
+    return allOf(models.entrySet().stream().map((entry) -> saveJson(cache, new ResourceLocation(modId, entry.getKey()), entry.getValue(), null)));
   }
 
 
@@ -109,9 +115,9 @@ public abstract class AbstractToolItemModelProvider extends GenericDataProvider 
 
   /** Adds broken and blocking models for the armor set */
   @SuppressWarnings("deprecation")  // no its not
-  protected void armor(String name, EnumObject<ArmorSlotType,? extends Item> armor, String... textures) throws IOException {
-    for (ArmorSlotType slot : ArmorSlotType.values()) {
-      transformTool("armor/" + name + '/' + slot.getSerializedName() + "_broken", readJson(Registry.ITEM.getKey(armor.get(slot))), "", false, "broken", textures);
+  protected void armor(String name, EnumObject<ArmorItem.Type,? extends Item> armor, String... textures) throws IOException {
+    for (ArmorItem.Type slot : ArmorItem.Type.values()) {
+      transformTool("armor/" + name + '/' + slot.getName() + "_broken", readJson(BuiltInRegistries.ITEM.getKey(armor.get(slot))), "", false, "broken", textures);
     }
   }
 

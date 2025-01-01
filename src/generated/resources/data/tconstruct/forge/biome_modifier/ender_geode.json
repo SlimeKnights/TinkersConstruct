@@ -3,7 +3,12 @@
   "biomes": {
     "type": "forge:and",
     "values": [
-      "#minecraft:is_end",
+      {
+        "type": "forge:or",
+        "values": [
+          "#minecraft:is_end"
+        ]
+      },
       {
         "type": "forge:not",
         "value": "minecraft:the_end"

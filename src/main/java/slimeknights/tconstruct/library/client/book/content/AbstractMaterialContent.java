@@ -7,7 +7,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -296,6 +296,7 @@ public abstract class AbstractMaterialContent extends PageContent {
   }
 
   /** Adds display items to the tool sidebars */
+  @SuppressWarnings("deprecation")  // its the best tag lookup
   protected void addDisplayItems(ArrayList<BookElement> list, int x, MaterialVariantId materialVariant) {
     List<ItemElement> displayTools = Lists.newArrayList();
 
@@ -307,7 +308,7 @@ public abstract class AbstractMaterialContent extends PageContent {
     if (displayTools.size() < 9) {
       MaterialId materialId = materialVariant.getId();
       toolLoop:
-      for (Holder<Item> item : Registry.ITEM.getTagOrEmpty(TinkerTags.Items.MULTIPART_TOOL)) {
+      for (Holder<Item> item : BuiltInRegistries.ITEM.getTagOrEmpty(TinkerTags.Items.MULTIPART_TOOL)) {
         if (item.value() instanceof IModifiable tool) {
           List<MaterialStatsId> requirements = ToolMaterialHook.stats(tool.getToolDefinition());
           // start building the tool with the given material
@@ -374,9 +375,10 @@ public abstract class AbstractMaterialContent extends PageContent {
   private static List<IToolPart> ALL_PARTS = null;
 
   /** Gets a list of all tool parts */
+  @SuppressWarnings("deprecation")
   private static List<IToolPart> getToolParts() {
     if (ALL_PARTS == null) {
-      ALL_PARTS = RegistryHelper.getTagValueStream(Registry.ITEM, TinkerTags.Items.TOOL_PARTS)
+      ALL_PARTS = RegistryHelper.getTagValueStream(BuiltInRegistries.ITEM, TinkerTags.Items.TOOL_PARTS)
                                 .filter(item -> item instanceof IToolPart)
                                 .map(item -> (IToolPart)item)
                                 .toList();

@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.fluids.data;
 
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import slimeknights.mantle.fluid.texture.AbstractFluidTextureProvider;
 import slimeknights.mantle.fluid.texture.FluidTexture;
 import slimeknights.mantle.registration.object.FluidObject;
@@ -8,11 +8,12 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 
 import static slimeknights.tconstruct.TConstruct.getResource;
+import static slimeknights.tconstruct.fluids.TinkerFluids.withoutMolten;
 
 @SuppressWarnings({"UnusedReturnValue", "SameParameterValue"})
 public class FluidTextureProvider extends AbstractFluidTextureProvider {
-  public FluidTextureProvider(DataGenerator generator) {
-    super(generator, TConstruct.MOD_ID);
+  public FluidTextureProvider(PackOutput packOutput) {
+    super(packOutput, TConstruct.MOD_ID);
   }
 
   @Override
@@ -130,22 +131,14 @@ public class FluidTextureProvider extends AbstractFluidTextureProvider {
 
   /* Molten */
 
-  /** Length of the molten prefix */
-  private static final int MOLTEN_LENGTH = "molten_".length();
-
-  /** Removes the "molten_" prefix from the fluids ID */
-  private static String withoutMolten(FluidObject<?> fluid) {
-    return fluid.getId().getPath().substring(MOLTEN_LENGTH);
-  }
-
   /** Creates a texture in the molten using the fluid ID (stripping molten) */
   private FluidTexture.Builder molten(FluidObject<?> fluid) {
-    return named(fluid, "molten/"+withoutMolten(fluid));
+    return named(fluid, "molten/" + withoutMolten(fluid));
   }
 
   /** Creates a texture in given subfolder of molten, stripping molten from the name */
   private FluidTexture.Builder moltenFolder(FluidObject<?> fluid, String folder) {
-    return named(fluid, "molten/"+folder+"/"+withoutMolten(fluid));
+    return named(fluid, "molten/" + folder + "/" + withoutMolten(fluid));
   }
 
   /** Creates a texture in the molten stone folder using the given name */

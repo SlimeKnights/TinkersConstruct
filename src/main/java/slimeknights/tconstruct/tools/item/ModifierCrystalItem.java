@@ -1,15 +1,14 @@
 package slimeknights.tconstruct.tools.item;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags.Modifiers;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
@@ -18,6 +17,7 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.function.Consumer;
 
 /** Dynamic item holding a modifier */
 public class ModifierCrystalItem extends Item {
@@ -94,10 +94,12 @@ public class ModifierCrystalItem extends Item {
     return null;
   }
 
-  @Override
-  public void fillItemCategory(CreativeModeTab category, NonNullList<ItemStack> items) {
-    if (this.allowedIn(category)) {
-      ModifierRecipeLookup.getRecipeModifierList().forEach(modifier -> items.add(withModifier(modifier.getId())));
-    }
+  /** Gets all variants of this item */
+  public static void addVariants(Consumer<ItemStack> items) {
+    ModifierRecipeLookup.getRecipeModifierList().forEach(modifier -> {
+      if (!ModifierManager.isInTag(modifier.getId(), Modifiers.EXTRACT_MODIFIER_BLACKLIST)) {
+        items.accept(withModifier(modifier.getId()));
+      }
+    });
   }
 }

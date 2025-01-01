@@ -38,7 +38,7 @@ public class InvariantModifier extends Modifier implements ConditionalStatModifi
   private static float getBonus(LivingEntity living) {
     // temperature ranges from 0 to 1.25. multiplication makes it go from 0 to 2.5
     BlockPos pos = living.blockPosition();
-    return (MAX_TEMPERATURE - Math.abs(BASELINE_TEMPERATURE - living.level.getBiome(pos).value().getTemperature(pos)));
+    return (MAX_TEMPERATURE - Math.abs(BASELINE_TEMPERATURE - living.level().getBiome(pos).value().getTemperature(pos)));
   }
 
   @Override

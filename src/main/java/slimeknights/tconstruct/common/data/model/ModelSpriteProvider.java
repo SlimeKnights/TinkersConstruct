@@ -4,8 +4,9 @@ import com.google.common.math.IntMath;
 import com.google.gson.JsonObject;
 import com.mojang.blaze3d.platform.NativeImage;
 import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.data.GenericTextureGenerator;
@@ -17,8 +18,10 @@ import slimeknights.tconstruct.library.client.data.util.DataGenSpriteReader;
 import slimeknights.tconstruct.shared.block.SlimeType;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import static slimeknights.tconstruct.TConstruct.getResource;
 
@@ -26,14 +29,15 @@ import static slimeknights.tconstruct.TConstruct.getResource;
  * Provides textures used in general models
  */
 public class ModelSpriteProvider extends GenericTextureGenerator {
+  private final List<CompletableFuture<?>> tasks = new ArrayList<>();
   private final DataGenSpriteReader spriteReader;
-  public ModelSpriteProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-    super(generator, existingFileHelper, "textures");
+  public ModelSpriteProvider(PackOutput packOutput, ExistingFileHelper existingFileHelper) {
+    super(packOutput, existingFileHelper, "textures");
     spriteReader = new DataGenSpriteReader(existingFileHelper, "textures");
   }
 
   @Override
-  public void run(CachedOutput cache) throws IOException {
+  public CompletableFuture<?> run(CachedOutput cache) {
     ResourceLocation rootsSide = getResource("block/wood/enderbark/roots");
     ResourceLocation rootsTop = getResource("block/wood/enderbark/roots_top");
 
@@ -52,7 +56,7 @@ public class ModelSpriteProvider extends GenericTextureGenerator {
     transformSprite(cache, getResource("item/tool/parts/plating_leggings"),   getResource("item/tool/armor/plate/leggings/plating"), new OffsettingSpriteTransformer(stoneColor, 0, 1));
     transformSprite(cache, getResource("item/tool/parts/plating_boots"),      getResource("item/tool/armor/plate/boots/plating"), stoneColor);
 
-    spriteReader.closeAll();
+    return CompletableFuture.allOf(tasks.toArray(new CompletableFuture[0])).thenRunAsync(spriteReader::closeAll);
   }
 
   /** Gets the LCM of two ints */
@@ -66,15 +70,19 @@ public class ModelSpriteProvider extends GenericTextureGenerator {
    * @param output        Output location
    * @param input         Input location
    * @param transformer   Transformer instance
-   * @throws IOException  If an exception happens
    */
-  protected void transformSprite(CachedOutput cache, ResourceLocation output, ResourceLocation input, ISpriteTransformer transformer) throws IOException {
-    NativeImage original = spriteReader.read(input);
-    NativeImage generated = transformer.transformCopy(original, true);
-    saveImage(cache, output, generated);
-    JsonObject meta = transformer.animationMeta(original);
-    if (meta != null) {
-      saveMetadata(cache, output, meta);
+  protected void transformSprite(CachedOutput cache, ResourceLocation output, ResourceLocation input, ISpriteTransformer transformer) {
+    try {
+      NativeImage original = spriteReader.read(input);
+      NativeImage generated = transformer.transformCopy(original, true);
+      tasks.add(saveImage(cache, output, generated));
+      JsonObject meta = transformer.animationMeta(original);
+      if (meta != null) {
+        tasks.add(saveMetadata(cache, output, meta));
+      }
+    } catch (IOException e) {
+      TConstruct.LOG.error("Error transforming sprite {} into {}", input, output, e);
+      tasks.add(CompletableFuture.failedFuture(e));
     }
   }
 
@@ -121,7 +129,7 @@ public class ModelSpriteProvider extends GenericTextureGenerator {
         for (NativeImage sprite : sprites) {
           // tile the sprite if its smaller than the output, lets you merge multiple animations
           int spriteColor = sprite.getPixelRGBA(x % sprite.getHeight(), y % sprite.getHeight());
-          if (NativeImage.getA(spriteColor) != 0) {
+          if (FastColor.ABGR32.alpha(spriteColor) != 0) {
             // TODO: this does not merge alpha, though will we ever need that?
             color = spriteColor;
             break;
@@ -130,12 +138,13 @@ public class ModelSpriteProvider extends GenericTextureGenerator {
         generated.setPixelRGBA(x, y, color);
       }
     }
-    saveImage(cache, output, generated);
+    tasks.add(saveImage(cache, output, generated));
     if (metaLocation != null) {
       try {
-        saveMetadata(cache, output, spriteReader.readMetadata(metaLocation));
+        tasks.add(saveMetadata(cache, output, spriteReader.readMetadata(metaLocation)));
       } catch (IOException e) {
         TConstruct.LOG.error("Failed to save sprite metadata", e);
+        tasks.add(CompletableFuture.failedFuture(e));
       }
     }
   }

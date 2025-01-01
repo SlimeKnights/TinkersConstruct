@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "redstone",
   "group": "wooden_trapdoor",
   "key": {
     "#": {
@@ -13,5 +14,6 @@
   "result": {
     "count": 2,
     "item": "tconstruct:bloodshroom_trapdoor"
-  }
+  },
+  "show_notification": true
 }

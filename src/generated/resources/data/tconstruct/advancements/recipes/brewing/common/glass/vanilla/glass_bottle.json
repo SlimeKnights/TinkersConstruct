@@ -28,5 +28,6 @@
     "recipes": [
       "tconstruct:common/glass/vanilla/glass_bottle"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

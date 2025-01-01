@@ -8,7 +8,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FlowingFluid;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
+import slimeknights.mantle.registration.deferred.FluidDeferredRegister;
 
 import java.util.ArrayList;
 import java.util.function.Function;
@@ -32,12 +33,7 @@ public class MobEffectLiquidBlock extends LiquidBlock {
   }
 
   /** Creates a new block supplier */
-  public static Function<Supplier<? extends FlowingFluid>, LiquidBlock> createEffect(Material material, int lightLevel, Supplier<MobEffectInstance> effect) {
-    return fluid -> new MobEffectLiquidBlock(fluid, Properties.of(material).lightLevel(state -> lightLevel).noCollission().strength(100f).noLootTable(), effect);
-  }
-
-  /** Creates a new block supplier */
-  public static Function<Supplier<? extends FlowingFluid>, LiquidBlock> createEffect(int lightLevel, Supplier<MobEffectInstance> effect) {
-    return createEffect(Material.WATER, lightLevel, effect);
+  public static Function<Supplier<? extends FlowingFluid>, LiquidBlock> createEffect(MapColor color, int lightLevel, Supplier<MobEffectInstance> effect) {
+    return fluid -> new MobEffectLiquidBlock(fluid, FluidDeferredRegister.createProperties(color, lightLevel), effect);
   }
 }

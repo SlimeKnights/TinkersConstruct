@@ -11,7 +11,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -81,42 +81,40 @@ public class ToolBuildingCategory implements IRecipeCategory<ToolBuildingRecipe>
   }
 
   @Override
-  public void draw(ToolBuildingRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX, double mouseY) {
+  public void draw(ToolBuildingRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
     // first, draw the item background
     ItemStack outputStack = recipe.getOutput() instanceof IModifiableDisplay modifiable ? modifiable.getRenderTool() : recipe.getOutput().asItem().getDefaultInstance();
-    PoseStack renderPose = RenderSystem.getModelViewStack();
+    PoseStack renderPose = graphics.pose();
     renderPose.pushPose();
-    renderPose.mulPoseMatrix(stack.last().pose());
     renderPose.translate(5, 6.5, 0);
     renderPose.scale(3.7f, 3.7f, 1.0f);
-    Minecraft.getInstance().getItemRenderer().renderGuiItem(outputStack, 0, 0);
+    graphics.renderItem(outputStack, 0, 0);
     renderPose.popPose();
 
     // next, overlay the item with transparent grey, makes it appear transparent
     RenderSystem.enableBlend();
     RenderSystem.disableDepthTest();
-    RenderSystem.applyModelViewMatrix();
     RenderSystem.setShaderColor(1, 1, 1, 0.82f);
-    itemCover.draw(stack, 5, 6);
+    itemCover.draw(graphics, 5, 6);
 
     // next, draw slot backgrounds very transparent
     RenderSystem.setShaderColor(1, 1, 1, 0.28f);
     for (LayoutSlot layoutSlot : recipe.getLayoutSlots()) {
       // need to offset by 1 because the inventory slot icons are 18x18
-      this.slotBg.draw(stack, layoutSlot.getX() + X_OFFSET - 1, layoutSlot.getY() + Y_OFFSET - 1);
+      this.slotBg.draw(graphics, layoutSlot.getX() + X_OFFSET - 1, layoutSlot.getY() + Y_OFFSET - 1);
     }
     // finally, draw slot borders opaque
     RenderSystem.setShaderColor(1, 1, 1, 1);
     for (LayoutSlot layoutSlot : recipe.getLayoutSlots()) {
       // need to offset by 1 because the inventory slot icons are 18x18
-      this.slotBorder.draw(stack, layoutSlot.getX() + X_OFFSET - 1, layoutSlot.getY() + Y_OFFSET - 1);
+      this.slotBorder.draw(graphics, layoutSlot.getX() + X_OFFSET - 1, layoutSlot.getY() + Y_OFFSET - 1);
     }
     RenderSystem.disableBlend();
     RenderSystem.enableDepthTest();
 
     // draw anvil icon if anvil is required
     if (recipe.requiresAnvil()) {
-      this.anvil.draw(stack, 76, 44);
+      this.anvil.draw(graphics, 76, 44);
     }
   }
 

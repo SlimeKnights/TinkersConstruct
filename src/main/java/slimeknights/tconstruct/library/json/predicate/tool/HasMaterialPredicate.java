@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.json.predicate.tool;
 
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariant;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
@@ -38,7 +37,7 @@ public record HasMaterialPredicate(MaterialVariantId material, int index) implem
   }
 
   @Override
-  public IGenericLoader<? extends ToolContextPredicate> getLoader() {
+  public RecordLoadable<HasMaterialPredicate> getLoader() {
     return LOADER;
   }
 }

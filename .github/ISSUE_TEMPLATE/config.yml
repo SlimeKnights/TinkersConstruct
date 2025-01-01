@@ -3,6 +3,9 @@ contact_links:
  - name: 1.19 Typo or Language bug
    url: https://github.com/SlimeKnights/TinkersConstruct/issues/5201
    about: Use the typo collection issue instead of reporting 1.19 typos as separate issues.
+ - name: 1.20 Typo or Language bug
+   url: https://github.com/SlimeKnights/TinkersConstruct/issues/5287
+   about: Use the typo collection issue instead of reporting 1.20 typos as separate issues.
  - name: SlimeKnights Discord
    url: https://discord.gg/njGrvuh
    about: Join our discord to discuss new features or to discuss behavior that may not be a bug.
@@ -11,7 +14,7 @@ contact_links:
    about: Answers to frequently asked questions about 1.16+
  - name: Roadmap
    url: https://slimeknights.github.io/docs/roadmap/
-   about: Read about plans for later 1.16 & 1.18 versions
+   about: Read about plans for later 1.20 versions
  - name: What's New in Tinkers' Construct 3?
    url: https://slimeknights.github.io/docs/whats-new/
    about: Read about what recent versions of the mod have or will change overall

@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "group": "tconstruct:stained_clear_glass_pane",
   "key": {
     "#": {
@@ -17,5 +18,6 @@
   "result": {
     "count": 8,
     "item": "tconstruct:brown_clear_stained_glass_pane"
-  }
+  },
+  "show_notification": true
 }

@@ -1,5 +1,6 @@
 {
   "type": "mantle:crafting_shaped_retextured",
+  "category": "misc",
   "key": {
     "m": {
       "tag": "tconstruct:anvil_metal"
@@ -17,6 +18,7 @@
   "result": {
     "item": "tconstruct:tinkers_anvil"
   },
+  "show_notification": true,
   "texture": {
     "tag": "tconstruct:anvil_metal"
   }

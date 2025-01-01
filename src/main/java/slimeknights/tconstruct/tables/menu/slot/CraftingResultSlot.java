@@ -27,7 +27,7 @@ public class CraftingResultSlot extends ResultSlot {
   @Override
   protected void checkTakeAchievements(ItemStack stack) {
     if (this.removeCount > 0) {
-      stack.onCraftedBy(this.player.level, this.player, this.removeCount);
+      stack.onCraftedBy(this.player.level(), this.player, this.removeCount);
       ForgeEventFactory.firePlayerCraftingEvent(this.player, stack, this.container);
     }
     this.removeCount = 0;

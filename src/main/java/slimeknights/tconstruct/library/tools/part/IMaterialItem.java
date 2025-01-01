@@ -3,9 +3,12 @@ package slimeknights.tconstruct.library.tools.part;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
+
+import java.util.function.Consumer;
 
 /**
  * Items implementing this interface contain a material
@@ -47,6 +50,35 @@ public interface IMaterialItem extends ItemLike {
   /** Returns true if the material can be used for this toolpart, simply an alias for {@link #canUseMaterial(MaterialId)} */
   default boolean canUseMaterial(IMaterial mat) {
     return canUseMaterial(mat.getIdentifier());
+  }
+
+  /** Adds all variants of the material item to the given item stack list */
+  default void addVariants(Consumer<ItemStack> items, String showOnlyMaterial) {
+    if (MaterialRegistry.isFullyLoaded()) {
+      // TODO: filter is not the best for the different material stat types
+      // if a specific material is set in the config, try adding that as search tab only
+      boolean added = false;
+      if (!showOnlyMaterial.isEmpty()) {
+        MaterialVariantId materialId = MaterialVariantId.tryParse(showOnlyMaterial);
+        if (materialId != null && canUseMaterial(materialId.getId())) {
+          items.accept(this.withMaterialForDisplay(materialId));
+          added = true;
+        }
+      }
+      // add all applicable materials to the tab, and possibly to serach
+      if (!added) {
+        for (IMaterial material : MaterialRegistry.getInstance().getVisibleMaterials()) {
+          MaterialId id = material.getIdentifier();
+          if (this.canUseMaterial(id)) {
+            items.accept(this.withMaterial(id));
+            // if filter is set we wanted just the 1 item
+            if (!showOnlyMaterial.isEmpty()) {
+              break;
+            }
+          }
+        }
+      }
+    }
   }
 
   /**

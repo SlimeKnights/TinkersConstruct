@@ -1,6 +1,18 @@
 {
   "parent": "tconstruct:smeltery/gold_casting",
   "criteria": {
+    "adze_head": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:adze_head_cast"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "boots_plating": {
       "conditions": {
         "items": [
@@ -205,18 +217,6 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "round_plate": {
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "tconstruct:round_plate_cast"
-            ]
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "small_axe_head": {
       "conditions": {
         "items": [
@@ -259,6 +259,18 @@
           {
             "items": [
               "tconstruct:tool_handle_cast"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "tough_binding": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:tough_binding_cast"
             ]
           }
         ]
@@ -319,6 +331,9 @@
       "small_blade"
     ],
     [
+      "adze_head"
+    ],
+    [
       "hammer_head"
     ],
     [
@@ -328,13 +343,13 @@
       "broad_axe_head"
     ],
     [
+      "large_plate"
+    ],
+    [
       "tool_binding"
     ],
     [
-      "round_plate"
-    ],
-    [
-      "large_plate"
+      "tough_binding"
     ],
     [
       "tool_handle"
@@ -363,5 +378,6 @@
     [
       "maille"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

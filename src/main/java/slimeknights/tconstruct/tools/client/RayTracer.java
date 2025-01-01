@@ -6,7 +6,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeMod;
 
+// TOOD: can this be removed?
 public class RayTracer {
   /**
    * Creates a BlockRayTraceEvent with a block mode of COLLIDER and whatever fluid mode you pass to it.
@@ -30,7 +32,7 @@ public class RayTracer {
    * @return a BlockRayTraceResult
    */
   public static BlockHitResult retrace(Player player, ClipContext.Block blockMode, ClipContext.Fluid fluidMode) {
-    return player.level.clip(new ClipContext(getStartVector(player), getEndVector(player), blockMode, fluidMode, player));
+    return player.level().clip(new ClipContext(getStartVector(player), getEndVector(player), blockMode, fluidMode, player));
   }
 
   /**
@@ -73,7 +75,7 @@ public class RayTracer {
    * @return the block reach distance
    */
   public static double getBlockReachDistance(Player player) {
-    return player.level.isClientSide ? ClientOnly.getBlockReachDistanceClient() : player instanceof ServerPlayer ? getBlockReachDistanceServer((ServerPlayer) player) : 5D;
+    return player.level().isClientSide ? ClientOnly.getBlockReachDistanceClient() : player instanceof ServerPlayer serverPlayer ? getBlockReachDistanceServer(serverPlayer) : 5D;
   }
 
   /**
@@ -82,7 +84,7 @@ public class RayTracer {
    * @return the block reach distance from the server
    */
   private static double getBlockReachDistanceServer(ServerPlayer player) {
-    return player.getAttributeValue(net.minecraftforge.common.ForgeMod.REACH_DISTANCE.get());
+    return player.getAttributeValue(ForgeMod.BLOCK_REACH.get());
   }
 
   private static class ClientOnly {

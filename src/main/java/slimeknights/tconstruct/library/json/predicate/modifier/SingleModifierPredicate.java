@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.json.predicate.modifier;
 
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 
 /** Predicate matching a single modifier */
@@ -14,7 +13,7 @@ public record SingleModifierPredicate(ModifierId modifier) implements ModifierPr
   }
 
   @Override
-  public IGenericLoader<? extends ModifierPredicate> getLoader() {
+  public RecordLoadable<SingleModifierPredicate> getLoader() {
     return LOADER;
   }
 }

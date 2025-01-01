@@ -38,5 +38,6 @@
     [
       "harvest_level"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

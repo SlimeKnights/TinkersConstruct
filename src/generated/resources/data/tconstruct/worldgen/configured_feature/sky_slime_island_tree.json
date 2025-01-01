@@ -1,0 +1,44 @@
+{
+  "type": "tconstruct:slime_tree",
+  "config": {
+    "base_height": 5,
+    "can_double_height": true,
+    "has_vines": true,
+    "leaves_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "tconstruct:sky_slime_leaves",
+        "Properties": {
+          "distance": "7",
+          "persistent": "false",
+          "waterlogged": "false"
+        }
+      }
+    },
+    "planted": false,
+    "random_height": 4,
+    "trunk_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "tconstruct:skyroot_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    },
+    "vines_provider": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "tconstruct:sky_slime_vine",
+        "Properties": {
+          "east": "false",
+          "north": "false",
+          "south": "false",
+          "stage": "middle",
+          "up": "false",
+          "west": "false"
+        }
+      }
+    }
+  }
+}

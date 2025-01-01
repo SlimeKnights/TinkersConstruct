@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "group": "tconstruct:seared_bricks_wall",
   "key": {
     "B": {
@@ -13,5 +14,6 @@
   "result": {
     "count": 6,
     "item": "tconstruct:seared_bricks_wall"
-  }
+  },
+  "show_notification": true
 }

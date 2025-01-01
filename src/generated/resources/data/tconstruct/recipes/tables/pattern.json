@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "p": {
       "tag": "minecraft:planks"
@@ -15,5 +16,6 @@
   "result": {
     "count": 3,
     "item": "tconstruct:pattern"
-  }
+  },
+  "show_notification": true
 }

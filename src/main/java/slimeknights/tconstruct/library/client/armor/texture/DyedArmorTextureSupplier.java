@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.client.armor.texture;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.data.loadable.Loadables;
@@ -11,6 +12,8 @@ import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
+
+import static slimeknights.tconstruct.library.client.armor.texture.FixedArmorTextureSupplier.getTexture;
 
 /**
  * Armor texture supplier that supplies a fixed texture that is colored using the given persistent data key
@@ -26,17 +29,17 @@ public class DyedArmorTextureSupplier implements ArmorTextureSupplier {
   private final ModifierId modifier;
   private final boolean alwaysRender;
   private final int defaultColor;
-  private final String[] textures;
+  private final TintedArmorTexture[] textures;
 
   public DyedArmorTextureSupplier(ResourceLocation prefix, ModifierId modifier, @Nullable Integer defaultColor) {
     this.prefix = prefix;
     this.modifier = modifier;
     this.alwaysRender = defaultColor != null;
     this.defaultColor = Objects.requireNonNullElse(defaultColor, -1);
-    this.textures = new String[] {
-      getTexture(prefix, "armor"),
-      getTexture(prefix, "leggings"),
-      getTexture(prefix, "wings"),
+    this.textures = new TintedArmorTexture[] {
+      getTexture(prefix, "armor", -1),
+      getTexture(prefix, "leggings", -1),
+      getTexture(prefix, "wings", -1),
     };
   }
 
@@ -44,21 +47,12 @@ public class DyedArmorTextureSupplier implements ArmorTextureSupplier {
     this(LocationExtender.INSTANCE.suffix(base, variant), modifier, defaultColor);
   }
 
-  /** Gets a texture if it exists, empty otherwise */
-  public static String getTexture(ResourceLocation base, String variant) {
-    ResourceLocation name = LocationExtender.INSTANCE.suffix(base, variant);
-    if (TEXTURE_VALIDATOR.test(name)) {
-      return ArmorTextureSupplier.getTexturePath(name);
-    }
-    return "";
-  }
-
   @Override
-  public ArmorTexture getArmorTexture(ItemStack stack, TextureType textureType) {
-    String texture = textures[textureType.ordinal()];
-    if (!texture.isEmpty() && (alwaysRender || ModifierUtil.getModifierLevel(stack, modifier) > 0)) {
+  public ArmorTexture getArmorTexture(ItemStack stack, TextureType textureType, RegistryAccess access) {
+    TintedArmorTexture texture = textures[textureType.ordinal()];
+    if (texture != null && (alwaysRender || ModifierUtil.getModifierLevel(stack, modifier) > 0)) {
       int color = ModifierUtil.getPersistentInt(stack, modifier, defaultColor);
-      return new ArmorTexture(textures[textureType.ordinal()], 0xFF000000 | color);
+      return texture.color(0xFF000000 | color);
     }
     return ArmorTexture.EMPTY;
   }

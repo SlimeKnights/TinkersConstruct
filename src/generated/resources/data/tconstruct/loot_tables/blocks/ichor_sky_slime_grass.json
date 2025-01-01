@@ -40,5 +40,6 @@
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "tconstruct:blocks/ichor_sky_slime_grass"
 }

@@ -1,8 +1,0 @@
-{
-  "type": "tconstruct:table_casting_material",
-  "cast": {
-    "tag": "tconstruct:casts/multi_use/round_plate"
-  },
-  "item_cost": 2,
-  "result": "tconstruct:round_plate"
-}

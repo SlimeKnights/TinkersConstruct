@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.fixture;
 
-import net.minecraft.core.Registry;
+import net.minecraft.core.MappedRegistry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -17,12 +18,13 @@ public class MaterialItemFixture {
   }
 
   private static boolean init = false;
+  @SuppressWarnings("unchecked")  // its correct, and if it were to fail this is tests
   public static void init() {
     if (init) {
       return;
     }
     init = true;
-    Registry.ITEM.unfreeze(); // yes, I know this is bad, but this is testing so we do bad things sometimes
+    ((MappedRegistry<Item>)BuiltInRegistries.ITEM).unfreeze(); // yes, I know this is bad, but this is testing so we do bad things sometimes
     MATERIAL_ITEM = new ToolPartItem(new Item.Properties(), MaterialStatsFixture.STATS_TYPE);
     MATERIAL_ITEM_2 = new ToolPartItem(new Item.Properties(), MaterialStatsFixture.STATS_TYPE_2);
     MATERIAL_ITEM_HEAD = new ToolPartItem(new Item.Properties(), HeadMaterialStats.ID);

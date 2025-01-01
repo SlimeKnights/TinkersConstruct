@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.json.predicate.modifier;
 
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.tools.SlotType;
@@ -18,7 +17,7 @@ public record SlotTypeModifierPredicate(@Nullable SlotType slotType) implements 
   }
 
   @Override
-  public IGenericLoader<SlotTypeModifierPredicate> getLoader() {
+  public RecordLoadable<SlotTypeModifierPredicate> getLoader() {
     return LOADER;
   }
 }

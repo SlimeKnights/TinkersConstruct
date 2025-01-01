@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.modifiers;
 
 import lombok.Getter;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextColor;
@@ -200,9 +201,10 @@ public class Modifier implements IdAwareObject {
    * Stack sensitive version of {@link #getDisplayName(int)}. Useful for displaying persistent data such as overslime or redstone amount
    * @param tool   Tool instance
    * @param entry  Tool level
+   * @param access Registry access intance
    * @return  Stack sensitive display name
    */
-  public Component getDisplayName(IToolStackView tool, ModifierEntry entry) {
+  public Component getDisplayName(IToolStackView tool, ModifierEntry entry, @Nullable RegistryAccess access) {
     return entry.getDisplayName();
   }
 
@@ -381,7 +383,7 @@ public class Modifier implements IdAwareObject {
     if (entity.isEyeInFluid(FluidTags.WATER) && !EnchantmentHelper.hasAquaAffinity(entity)) {
       modifier /= 5.0F;
     }
-    if (!entity.isOnGround()) {
+    if (!entity.onGround()) {
       modifier /= 5.0F;
     }
     return modifier;

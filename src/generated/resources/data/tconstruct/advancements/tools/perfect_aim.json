@@ -37,5 +37,6 @@
     [
       "accuracy"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

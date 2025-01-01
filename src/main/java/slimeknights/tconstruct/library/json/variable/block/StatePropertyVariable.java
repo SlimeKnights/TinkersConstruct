@@ -4,7 +4,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.Property;
 import slimeknights.mantle.data.loadable.primitive.StringLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 
 /** Fetches a value of an integer property */
 public record StatePropertyVariable(String name) implements BlockVariable {
@@ -20,7 +19,7 @@ public record StatePropertyVariable(String name) implements BlockVariable {
   }
 
   @Override
-  public IGenericLoader<? extends BlockVariable> getLoader() {
+  public RecordLoadable<StatePropertyVariable> getLoader() {
     return LOADER;
   }
 }

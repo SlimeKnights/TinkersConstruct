@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "group": "tconstruct:rose_gold_nugget",
   "ingredients": [
     {

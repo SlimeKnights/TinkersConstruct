@@ -4,8 +4,8 @@
     {
       "type": "tconstruct:block_damage",
       "damage_source": {
-        "type": "mantle:message",
-        "message": "hotFloor"
+        "type": "mantle:damage_type",
+        "name": "minecraft:hot_floor"
       }
     },
     {

@@ -46,5 +46,6 @@
       "crafted_overworld",
       "crafted_nether"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

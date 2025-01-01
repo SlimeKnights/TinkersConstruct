@@ -1,8 +1,13 @@
 {
   "type": "tconstruct:melting",
-  "ingredient": {
-    "item": "minecraft:brick"
-  },
+  "ingredient": [
+    {
+      "item": "minecraft:brick"
+    },
+    {
+      "tag": "minecraft:decorated_pot_sherds"
+    }
+  ],
   "result": {
     "amount": 250,
     "fluid": "tconstruct:molten_clay"

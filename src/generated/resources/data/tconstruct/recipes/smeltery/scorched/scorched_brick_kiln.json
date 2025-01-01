@@ -10,6 +10,7 @@
       ],
       "recipe": {
         "type": "ceramics:kiln",
+        "category": "misc",
         "cookingtime": 100,
         "experience": 0.3,
         "ingredient": {
@@ -26,6 +27,7 @@
       ],
       "recipe": {
         "type": "minecraft:blasting",
+        "category": "misc",
         "cookingtime": 100,
         "experience": 0.3,
         "ingredient": {

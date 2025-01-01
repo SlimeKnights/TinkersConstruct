@@ -2,18 +2,14 @@ package slimeknights.tconstruct.world.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.lighting.LayerLightEngine;
+import net.minecraft.world.level.lighting.LightEngine;
 import slimeknights.tconstruct.common.TinkerTags;
 
 /**
@@ -26,20 +22,14 @@ public class SlimeNyliumBlock extends Block implements BonemealableBlock {
     this.foliageType = foliageType;
   }
 
-  @Override
-  public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
-    if (this.foliageType != FoliageType.ICHOR) {
-      super.fillItemCategory(group, items);
-    }
-  }
-
   private static boolean isDarkEnough(BlockState state, LevelReader reader, BlockPos pos) {
     BlockPos blockpos = pos.above();
     BlockState blockstate = reader.getBlockState(blockpos);
-    int i = LayerLightEngine.getLightBlockInto(reader, state, pos, blockstate, blockpos, Direction.UP, blockstate.getLightBlock(reader, blockpos));
+    int i = LightEngine.getLightBlockInto(reader, state, pos, blockstate, blockpos, Direction.UP, blockstate.getLightBlock(reader, blockpos));
     return i < reader.getMaxLightLevel();
   }
 
+  @SuppressWarnings("deprecation")
   @Override
   public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, RandomSource random) {
     if (!isDarkEnough(state, worldIn, pos)) {
@@ -48,7 +38,7 @@ public class SlimeNyliumBlock extends Block implements BonemealableBlock {
   }
 
   @Override
-  public boolean isValidBonemealTarget(BlockGetter worldIn, BlockPos pos, BlockState state, boolean isClient) {
+  public boolean isValidBonemealTarget(LevelReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
     return worldIn.getBlockState(pos.above()).isAir();
   }
 

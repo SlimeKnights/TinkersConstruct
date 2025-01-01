@@ -5,9 +5,10 @@
       "effect": {
         "type": "tconstruct:damage",
         "damage": 1.5,
-        "modifier": [
-          "tconstruct:fire"
-        ]
+        "damage_type": {
+          "melee": "tconstruct:fluid_fire_melee",
+          "ranged": "tconstruct:fluid_fire_ranged"
+        }
       },
       "target": {
         "type": "mantle:inverted",

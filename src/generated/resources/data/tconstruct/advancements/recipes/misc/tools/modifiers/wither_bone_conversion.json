@@ -28,5 +28,6 @@
     "recipes": [
       "tconstruct:tools/modifiers/wither_bone_conversion"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

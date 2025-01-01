@@ -2,6 +2,7 @@ package slimeknights.tconstruct.tools.modifiers.ability.tool;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
@@ -52,6 +53,7 @@ import slimeknights.tconstruct.library.tools.definition.module.interaction.DualO
 import slimeknights.tconstruct.library.tools.item.ModifiableItem;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
+import javax.annotation.Nullable;
 import java.util.Objects;
 
 import static slimeknights.tconstruct.library.tools.capability.fluid.ToolTankHelper.TANK_HELPER;
@@ -68,8 +70,8 @@ public class BucketingModifier extends Modifier implements BlockInteractionModif
   }
 
   @Override
-  public Component getDisplayName(IToolStackView tool, ModifierEntry entry) {
-    return DualOptionInteraction.formatModifierName(tool, this, super.getDisplayName(tool, entry));
+  public Component getDisplayName(IToolStackView tool, ModifierEntry entry, @Nullable RegistryAccess access) {
+    return DualOptionInteraction.formatModifierName(tool, this, super.getDisplayName(tool, entry, access));
   }
 
   /**
@@ -194,7 +196,7 @@ public class BucketingModifier extends Modifier implements BlockInteractionModif
       placed = true;
     } else if (existing.canBeReplaced(fluid)) {
       // if its a liquid container, we should have validated it already
-      if (!world.isClientSide && !existing.getMaterial().isLiquid()) {
+      if (!world.isClientSide && !existing.liquid()) {
         world.destroyBlock(target, true);
       }
       if (world.setBlockAndUpdate(target, fluid.defaultFluidState().createLegacyBlock()) || existing.getFluidState().isSource()) {
@@ -229,7 +231,7 @@ public class BucketingModifier extends Modifier implements BlockInteractionModif
       return InteractionResult.PASS;
     }
     // have to trace again to find the fluid, ensure we can edit the position
-    Level world = player.level;
+    Level world = player.level();
     BlockHitResult trace = ModifiableItem.blockRayTrace(world, player, ClipContext.Fluid.SOURCE_ONLY);
     if (trace.getType() != Type.BLOCK) {
       return InteractionResult.PASS;

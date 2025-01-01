@@ -2,7 +2,6 @@ package slimeknights.tconstruct.library.json.predicate.modifier;
 
 import net.minecraft.tags.TagKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
@@ -20,7 +19,7 @@ public record TagModifierPredicate(TagKey<Modifier> tag) implements ModifierPred
   }
 
   @Override
-  public IGenericLoader<? extends ModifierPredicate> getLoader() {
+  public RecordLoadable<TagModifierPredicate> getLoader() {
     return LOADER;
   }
 }

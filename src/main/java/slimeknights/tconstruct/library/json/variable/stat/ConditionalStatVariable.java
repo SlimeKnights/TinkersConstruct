@@ -7,7 +7,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.tconstruct.library.json.variable.VariableLoaderRegistry;
 import slimeknights.tconstruct.library.json.variable.mining.MiningSpeedVariable;
@@ -37,7 +36,7 @@ public interface ConditionalStatVariable extends IHaveLoader, MiningSpeedVariabl
 
 
   /** Registers a variable with conditional stat and mining speed */
-  static void register(ResourceLocation name, IGenericLoader<? extends ConditionalStatVariable> loader) {
+  static void register(ResourceLocation name, RecordLoadable<? extends ConditionalStatVariable> loader) {
     LOADER.register(name, loader);
     MiningSpeedVariable.LOADER.register(name, loader);
   }
@@ -53,7 +52,7 @@ public interface ConditionalStatVariable extends IHaveLoader, MiningSpeedVariabl
     }
 
     @Override
-    public IGenericLoader<? extends ConditionalStatVariable> getLoader() {
+    public RecordLoadable<ConditionalStatVariable.Constant> getLoader() {
       return LOADER;
     }
   }

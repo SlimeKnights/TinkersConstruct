@@ -5,7 +5,7 @@ import com.mojang.brigadier.context.CommandContext;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.common.util.TablePrinter;
 import slimeknights.mantle.command.MantleCommand;
@@ -80,7 +80,7 @@ public class ModifierUsageCommand {
                                          .map(ModifierEntry::getModifier)
                                          .collect(Collectors.toSet());
     // finally, tool traits we limit to anything in the modifiable tag
-    Set<Modifier> toolTraits = RegistryHelper.getTagValueStream(Registry.ITEM, TinkerTags.Items.MODIFIABLE)
+    Set<Modifier> toolTraits = RegistryHelper.getTagValueStream(BuiltInRegistries.ITEM, TinkerTags.Items.MODIFIABLE)
                                              .filter(item -> item instanceof IModifiable)
                                              .flatMap(item -> {
                                                ToolDefinition definition = ((IModifiable) item).getToolDefinition();
@@ -160,7 +160,7 @@ public class ModifierUsageCommand {
     // finally, output the table
     table.build(logOutput);
     TConstruct.LOG.info(logOutput.toString());
-    context.getSource().sendSuccess(SUCCESS, true);
+    context.getSource().sendSuccess(() -> SUCCESS, true);
     return finalList.size();
   }
 

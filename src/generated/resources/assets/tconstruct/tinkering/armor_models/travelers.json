@@ -18,6 +18,7 @@
       "type": "tconstruct:dyed",
       "modifier": "tconstruct:dyed",
       "prefix": "tconstruct:travelers/overlay_"
-    }
+    },
+    "tconstruct:trim"
   ]
 }

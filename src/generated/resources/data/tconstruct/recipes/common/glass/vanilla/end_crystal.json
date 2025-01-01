@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "conditions": [
     {
       "type": "tconstruct:config",
@@ -24,5 +25,6 @@
   ],
   "result": {
     "item": "minecraft:end_crystal"
-  }
+  },
+  "show_notification": true
 }

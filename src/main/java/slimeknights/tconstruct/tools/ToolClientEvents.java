@@ -42,6 +42,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.client.armor.AbstractArmorModel;
 import slimeknights.tconstruct.library.client.armor.ArmorModelManager;
+import slimeknights.tconstruct.library.client.armor.texture.TrimArmorTextureSupplier;
 import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.client.model.DynamicTextureLoader;
 import slimeknights.tconstruct.library.client.model.TinkerItemProperties;
@@ -54,6 +55,7 @@ import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager;
 import slimeknights.tconstruct.library.client.modifiers.ModifierModelManager.ModifierModelRegistrationEvent;
 import slimeknights.tconstruct.library.client.modifiers.NormalModifierModel;
 import slimeknights.tconstruct.library.client.modifiers.TankModifierModel;
+import slimeknights.tconstruct.library.client.modifiers.TrimModifierModel;
 import slimeknights.tconstruct.library.client.particle.AttackParticle;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
@@ -75,6 +77,7 @@ import slimeknights.tconstruct.tools.network.TinkerControlPacket;
 
 import java.util.function.Consumer;
 
+import static slimeknights.tconstruct.TConstruct.getResource;
 import static slimeknights.tconstruct.library.client.model.tools.ToolModel.registerItemColors;
 
 @SuppressWarnings("unused")
@@ -99,6 +102,7 @@ public class ToolClientEvents extends ClientEventBase {
     manager.registerReloadListener(SlimeskullArmorModel.RELOAD_LISTENER);
     manager.registerReloadListener(HarvestTiers.RELOAD_LISTENER);
     ArmorModelManager.init(manager);
+    manager.registerReloadListener(TrimArmorTextureSupplier.CACHE_INVALIDATOR);
   }
 
   @SubscribeEvent
@@ -109,12 +113,13 @@ public class ToolClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void registerModifierModels(ModifierModelRegistrationEvent event) {
-    event.registerModel(TConstruct.getResource("normal"), NormalModifierModel.UNBAKED_INSTANCE);
-    event.registerModel(TConstruct.getResource("overslime"), OverslimeModifierModel.UNBAKED_INSTANCE);
-    event.registerModel(TConstruct.getResource("fluid"), FluidModifierModel.UNBAKED_INSTANCE);
-    event.registerModel(TConstruct.getResource("tank"), TankModifierModel.UNBAKED_INSTANCE);
-    event.registerModel(TConstruct.getResource("material"), MaterialModifierModel.UNBAKED_INSTANCE);
-    event.registerModel(TConstruct.getResource("dyed"), DyedModifierModel.UNBAKED_INSTANCE);
+    event.registerModel(getResource("normal"), NormalModifierModel.UNBAKED_INSTANCE);
+    event.registerModel(getResource("overslime"), OverslimeModifierModel.UNBAKED_INSTANCE);
+    event.registerModel(getResource("fluid"), FluidModifierModel.UNBAKED_INSTANCE);
+    event.registerModel(getResource("tank"), TankModifierModel.UNBAKED_INSTANCE);
+    event.registerModel(getResource("material"), MaterialModifierModel.UNBAKED_INSTANCE);
+    event.registerModel(getResource("dyed"), DyedModifierModel.UNBAKED_INSTANCE);
+    event.registerModel(getResource("trim"), TrimModifierModel.UNBAKED_INSTANCE);
   }
 
   @SubscribeEvent
@@ -186,9 +191,9 @@ public class ToolClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void registerParticleFactories(RegisterParticleProvidersEvent event) {
     ParticleEngine.SpriteParticleRegistration<SimpleParticleType> factory = AttackParticle.Factory::new;
-    event.register(TinkerTools.hammerAttackParticle.get(), factory);
-    event.register(TinkerTools.axeAttackParticle.get(), factory);
-    event.register(TinkerTools.bonkAttackParticle.get(), factory);
+    event.registerSpriteSet(TinkerTools.hammerAttackParticle.get(), factory);
+    event.registerSpriteSet(TinkerTools.axeAttackParticle.get(), factory);
+    event.registerSpriteSet(TinkerTools.bonkAttackParticle.get(), factory);
   }
 
   @SubscribeEvent

@@ -26,6 +26,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.entity.PartEntity;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
@@ -79,7 +80,7 @@ public class ToolAttackUtil {
    * @return  Attack damage
    */
   public static float getAttributeAttackDamage(IToolStackView tool, LivingEntity holder, EquipmentSlot slotType) {
-    if (slotType == EquipmentSlot.MAINHAND || holder.level.isClientSide) {
+    if (slotType == EquipmentSlot.MAINHAND || holder.level().isClientSide) {
       return (float) holder.getAttributeValue(Attributes.ATTACK_DAMAGE);
     }
 
@@ -118,9 +119,9 @@ public class ToolAttackUtil {
   /** Performs a standard attack */
   public static boolean dealDefaultDamage(LivingEntity attacker, Entity target, float damage) {
     if (attacker instanceof Player player) {
-      return target.hurt(DamageSource.playerAttack(player), damage);
+      return target.hurt(attacker.damageSources().playerAttack(player), damage);
     }
-    return target.hurt(DamageSource.mobAttack(attacker), damage);
+    return target.hurt(attacker.damageSources().mobAttack(attacker), damage);
   }
 
   /**
@@ -168,7 +169,8 @@ public class ToolAttackUtil {
     }
     // nothing to do? cancel
     // TODO: is it a problem that we return true instead of false when isExtraAttack and the final damage is 0 or we fail to hit? I don't think anywhere clientside uses that
-    if (attackerLiving.level.isClientSide || !targetEntity.isAttackable() || targetEntity.skipAttackInteraction(attackerLiving)) {
+    Level level = attackerLiving.level();
+    if (level.isClientSide || !targetEntity.isAttackable() || targetEntity.skipAttackInteraction(attackerLiving)) {
       return true;
     }
 
@@ -191,7 +193,7 @@ public class ToolAttackUtil {
 
     // calculate if it's a critical hit
     // that is, in the air, not blind, targeting living, and not sprinting
-    boolean isCritical = !isExtraAttack && fullyCharged && attackerLiving.fallDistance > 0.0F && !attackerLiving.isOnGround() && !attackerLiving.onClimbable()
+    boolean isCritical = !isExtraAttack && fullyCharged && attackerLiving.fallDistance > 0.0F && !attackerLiving.onGround() && !attackerLiving.onClimbable()
                          && !attackerLiving.isInWater() && !attackerLiving.hasEffect(MobEffects.BLINDNESS)
                          && !attackerLiving.isPassenger() && targetLiving != null && !attackerLiving.isSprinting();
 
@@ -309,7 +311,7 @@ public class ToolAttackUtil {
     // if we failed to hit, fire failure hooks
     if (!didHit) {
       if (!isExtraAttack) {
-        attackerLiving.level.playSound(null, attackerLiving.getX(), attackerLiving.getY(), attackerLiving.getZ(), SoundEvents.PLAYER_ATTACK_NODAMAGE, attackerLiving.getSoundSource(), 1.0F, 1.0F);
+        level.playSound(null, attackerLiving.getX(), attackerLiving.getY(), attackerLiving.getZ(), SoundEvents.PLAYER_ATTACK_NODAMAGE, attackerLiving.getSoundSource(), 1.0F, 1.0F);
       }
       // alert modifiers nothing was hit, mainly used for fiery
       for (ModifierEntry entry : modifiers) {
@@ -356,9 +358,9 @@ public class ToolAttackUtil {
         attackerPlayer.magicCrit(targetEntity);
       }
       // sounds
-      attackerLiving.level.playSound(null, attackerLiving.getX(), attackerLiving.getY(), attackerLiving.getZ(), sound, attackerLiving.getSoundSource(), 1.0F, 1.0F);
+      level.playSound(null, attackerLiving.getX(), attackerLiving.getY(), attackerLiving.getZ(), sound, attackerLiving.getSoundSource(), 1.0F, 1.0F);
     }
-    if (damageDealt > 2.0F && attackerLiving.level instanceof ServerLevel server) {
+    if (damageDealt > 2.0F && level instanceof ServerLevel server) {
       int particleCount = (int)(damageDealt * 0.5f);
       server.sendParticles(ParticleTypes.DAMAGE_INDICATOR, targetEntity.getX(), targetEntity.getY(0.5), targetEntity.getZ(), particleCount, 0.1, 0, 0.1, 0.2);
     }
@@ -385,7 +387,7 @@ public class ToolAttackUtil {
     // final attack hooks
     if (attackerPlayer != null) {
       if (targetLiving != null) {
-        if (!attackerLiving.level.isClientSide && !isExtraAttack) {
+        if (!level.isClientSide && !isExtraAttack) {
           ItemStack held = attackerLiving.getItemBySlot(sourceSlot);
           if (!held.isEmpty()) {
             held.hurtEnemy(targetLiving, attackerPlayer);
@@ -433,7 +435,7 @@ public class ToolAttackUtil {
    * @param height the height offset for the particle position
    */
   public static void spawnAttackParticle(ParticleOptions particleData, Entity entity, double height) {
-    if (entity.level instanceof ServerLevel server) {
+    if (entity.level() instanceof ServerLevel server) {
       double xd = -Mth.sin(entity.getYRot() / 180.0F * (float) Math.PI) * Mth.cos(entity.getXRot() / 180.0F * (float) Math.PI);
       double zd =  Mth.cos(entity.getYRot() / 180.0F * (float) Math.PI) * Mth.cos(entity.getXRot() / 180.0F * (float) Math.PI);
       double yd = -Mth.sin(entity.getXRot() / 180.0F * (float) Math.PI);

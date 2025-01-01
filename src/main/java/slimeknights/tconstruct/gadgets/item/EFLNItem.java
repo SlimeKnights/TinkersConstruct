@@ -12,16 +12,14 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.util.TranslationHelper;
 import slimeknights.tconstruct.common.Sounds;
-import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.EFLNEntity;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
 public class EFLNItem extends SnowballItem {
-
-  public EFLNItem() {
-    super((new Properties()).stacksTo(16).tab(TinkerGadgets.TAB_GADGETS));
+  public EFLNItem(Properties properties) {
+    super(properties);
   }
 
   @Override

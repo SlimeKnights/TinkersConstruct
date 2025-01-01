@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.plugin.jei.melting;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import mezz.jei.api.constants.VanillaTypes;
@@ -15,6 +14,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
@@ -72,13 +72,13 @@ public class MeltingCategory extends AbstractMeltingCategory {
   }
 
   @Override
-  public void draw(MeltingRecipe recipe, IRecipeSlotsView slots, PoseStack matrices, double mouseX, double mouseY) {
-    super.draw(recipe, slots, matrices, mouseX, mouseY);
+  public void draw(MeltingRecipe recipe, IRecipeSlotsView slots, GuiGraphics graphics, double mouseX, double mouseY) {
+    super.draw(recipe, slots, graphics, mouseX, mouseY);
 
     // solid fuel slot
     int temperature = recipe.getTemperature();
     if (temperature <= FuelModule.SOLID_TEMPERATURE) {
-      solidFuel.draw(matrices, 1, 19);
+      solidFuel.draw(graphics, 1, 19);
     }
   }
 

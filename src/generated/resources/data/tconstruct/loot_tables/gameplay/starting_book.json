@@ -11,5 +11,6 @@
       ],
       "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "tconstruct:gameplay/starting_book"
 }

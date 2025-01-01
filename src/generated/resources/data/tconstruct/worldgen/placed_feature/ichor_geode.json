@@ -1,0 +1,27 @@
+{
+  "feature": "tconstruct:ichor_geode",
+  "placement": [
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 52
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "max_inclusive": {
+          "below_top": 16
+        },
+        "min_inclusive": {
+          "below_top": 48
+        }
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

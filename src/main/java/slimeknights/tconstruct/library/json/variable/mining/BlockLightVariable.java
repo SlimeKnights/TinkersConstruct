@@ -39,7 +39,7 @@ public record BlockLightVariable(LightLayer lightLayer, float fallback) implemen
   @Override
   public float getValue(IToolStackView tool, @Nullable BreakSpeed event, @Nullable Player player, @Nullable Direction sideHit) {
     if (player != null) {
-      return player.level.getBrightness(lightLayer, getPos(event, player, sideHit));
+      return player.level().getBrightness(lightLayer, getPos(event, player, sideHit));
     }
     return fallback;
   }

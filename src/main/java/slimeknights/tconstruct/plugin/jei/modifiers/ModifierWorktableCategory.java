@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.plugin.jei.modifiers;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import lombok.Getter;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
@@ -12,6 +11,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -54,17 +54,17 @@ public class ModifierWorktableCategory implements IRecipeCategory<IModifierWorkt
   }
 
   @Override
-  public void draw(IModifierWorktableRecipe recipe, IRecipeSlotsView slots, PoseStack matrixStack, double mouseX, double mouseY) {
+  public void draw(IModifierWorktableRecipe recipe, IRecipeSlotsView slots, GuiGraphics graphics, double mouseX, double mouseY) {
     if (recipe.getInputTools().isEmpty()) {
-      toolIcon.draw(matrixStack, 23, 16);
+      toolIcon.draw(graphics, 23, 16);
     }
     for (int i = 0; i < 2; i++) {
       List<ItemStack> stacks = recipe.getDisplayItems(i);
       if (stacks.isEmpty()) {
-        slotIcons[i].draw(matrixStack, 43 + i * 18, 16);
+        slotIcons[i].draw(graphics, 43 + i * 18, 16);
       }
     }
-    Minecraft.getInstance().font.draw(matrixStack, recipe.getTitle(), 3, 2, 0x404040);
+    graphics.drawString(Minecraft.getInstance().font, recipe.getTitle(), 3, 2, 0x404040, false);
   }
 
   @Override

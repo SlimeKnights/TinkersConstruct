@@ -24,12 +24,12 @@
     },
     {
       "filter": {
-        "item": "tconstruct:pick_head"
+        "item": "tconstruct:tough_binding"
       },
-      "icon": "tconstruct:pick_head",
-      "translation_key": "item.tconstruct.pick_head",
-      "x": 50,
-      "y": 48
+      "icon": "tconstruct:tough_binding",
+      "translation_key": "item.tconstruct.tough_binding",
+      "x": 41,
+      "y": 49
     },
     {
       "filter": {

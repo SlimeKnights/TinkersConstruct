@@ -39,7 +39,7 @@ public record StatInSetPredicate<T>(IToolStat<T> stat, Set<T> values) implements
   public static final RecordLoadable<StatInSetPredicate<?>> LOADER = new RecordLoadable<>() {
     @Override
     public StatInSetPredicate<?> deserialize(JsonObject json, TypedMap context) {
-      return deserialize(json, ToolStats.LOADER.getIfPresent(json, "stat"));
+      return deserialize(json, ToolStats.LOADER.getIfPresent(json, "stat", context));
     }
 
     /** Handles generics for the set parsing */
@@ -65,7 +65,7 @@ public record StatInSetPredicate<T>(IToolStat<T> stat, Set<T> values) implements
 
     @Override
     public StatInSetPredicate<?> decode(FriendlyByteBuf buffer, TypedMap context) {
-      return fromNetwork(buffer, ToolStats.LOADER.decode(buffer));
+      return fromNetwork(buffer, ToolStats.LOADER.decode(buffer, context));
     }
 
     /** Handles generics for the set reading */

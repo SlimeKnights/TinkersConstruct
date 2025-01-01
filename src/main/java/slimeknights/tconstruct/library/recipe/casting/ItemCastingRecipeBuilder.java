@@ -3,7 +3,7 @@ package slimeknights.tconstruct.library.recipe.casting;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -73,6 +73,14 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
   }
 
   /**
+   * Creates a new casting basin recipe that duplicates the input
+   * @return  Builder instance
+   */
+  public static ItemCastingRecipeBuilder basinDuplication() {
+    return castingRecipe(ItemOutput.EMPTY, TinkerSmeltery.basinDuplicationRecipeSerializer.get());
+  }
+
+  /**
    * Creates a new casting table recipe
    * @param resultIn  Recipe result
    * @return  Builder instance
@@ -106,6 +114,14 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
    */
   public static ItemCastingRecipeBuilder tableRecipe(TagKey<Item> result) {
     return tableRecipe(ItemOutput.fromTag(result));
+  }
+
+  /**
+   * Creates a new casting table recipe that duplicates the input
+   * @return  Builder instance
+   */
+  public static ItemCastingRecipeBuilder tableDuplication() {
+    return castingRecipe(ItemOutput.EMPTY, TinkerSmeltery.tableDuplicationRecipeSerializer.get());
   }
 
 
@@ -234,7 +250,7 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
    */
   @Override
   public void save(Consumer<FinishedRecipe> consumerIn) {
-    this.save(consumerIn, Registry.ITEM.getKey(this.result.get().getItem()));
+    this.save(consumerIn, BuiltInRegistries.ITEM.getKey(this.result.get().getItem()));
   }
 
   @Override
@@ -246,8 +262,16 @@ public class ItemCastingRecipeBuilder extends AbstractRecipeBuilder<ItemCastingR
       throw new IllegalStateException("Cooling time is too low, must be at least 0");
     }
     ResourceLocation advancementId = this.buildOptionalAdvancement(id, "casting");
-    // yeah, retextured recipes have their own constructor, does not matter as long as we pass the right serializer in
-    // you can use this for your custom recipe extensions too if you don't change the JSON :)
-    consumer.accept(new LoadableFinishedRecipe<>(new ItemCastingRecipe(recipeSerializer, id, group, cast, fluid, result, coolingTime, consumed, switchSlots), ItemCastingRecipe.LOADER, advancementId));
+    // empty result is useless normally, so assume its the duplication recipe
+    if (result == ItemOutput.EMPTY) {
+      if (consumed) {
+        throw new IllegalStateException("Cannot consume cast on a duplication recipe");
+      }
+      consumer.accept(new LoadableFinishedRecipe<>(new CastDuplicationRecipe(recipeSerializer, id, group, cast, fluid, coolingTime), CastDuplicationRecipe.LOADER, advancementId));
+    } else {
+      // yeah, retextured recipes have their own constructor, does not matter as long as we pass the right serializer in
+      // you can use this for your custom recipe extensions too if you don't change the JSON :)
+      consumer.accept(new LoadableFinishedRecipe<>(new ItemCastingRecipe(recipeSerializer, id, group, cast, fluid, result, coolingTime, consumed, switchSlots), ItemCastingRecipe.LOADER, advancementId));
+    }
   }
 }

@@ -14,6 +14,7 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import slimeknights.mantle.recipe.helper.TagPreference;
 import slimeknights.tconstruct.TConstruct;
@@ -74,7 +75,8 @@ public class OlympicModifier extends Modifier implements ProjectileLaunchModifie
   public boolean onProjectileHitEntity(ModifierNBT modifiers, NamespacedNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
     // 10% chance per level
     Entity targetEntity = hit.getEntity();
-    if (!projectile.level.isClientSide && targetEntity.getType().getCategory() == MobCategory.MONSTER && RANDOM.nextInt(20) < modifier.getLevel()) {
+    Level level = projectile.level();
+    if (!level.isClientSide && targetEntity.getType().getCategory() == MobCategory.MONSTER && RANDOM.nextInt(20) < modifier.getLevel()) {
       CompoundTag startCompound = persistentData.getCompound(OLYMPIC_START);
       if (!startCompound.isEmpty() && startCompound.contains("X", Tag.TAG_ANY_NUMERIC) && startCompound.contains("Y", Tag.TAG_ANY_NUMERIC) && startCompound.contains("Z", Tag.TAG_ANY_NUMERIC)) {
         // nugget type based on distance
@@ -83,7 +85,7 @@ public class OlympicModifier extends Modifier implements ProjectileLaunchModifie
           // spawn and play sound
           targetEntity.spawnAtLocation(nugget);
           if (attacker != null) {
-            projectile.level.playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 1.0f, 1.0f);
+            level.playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), SoundEvents.PLAYER_LEVELUP, SoundSource.PLAYERS, 1.0f, 1.0f);
           }
         }
       }

@@ -7,8 +7,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
@@ -36,7 +36,7 @@ public interface AreaOfEffectIterator {
   GenericLoaderRegistry<Loadable> LOADER = new GenericLoaderRegistry<>("AOE Iterator", false);
 
   /** Registers a loader with both tool modules and area of effect (latter used for fallback loader) */
-  static void register(ResourceLocation name, IGenericLoader<? extends Loadable> loader) {
+  static void register(ResourceLocation name, RecordLoadable<? extends Loadable> loader) {
     ToolModule.LOADER.register(name, loader);
     LOADER.register(name, loader);
   }

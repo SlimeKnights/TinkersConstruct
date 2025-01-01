@@ -1,9 +1,9 @@
 package slimeknights.tconstruct.library.json.variable.entity;
 
 import net.minecraft.world.entity.LivingEntity;
+import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 import slimeknights.tconstruct.library.json.variable.ConditionalVariable;
 
 /**
@@ -11,7 +11,7 @@ import slimeknights.tconstruct.library.json.variable.ConditionalVariable;
  */
 public record ConditionalEntityVariable(IJsonPredicate<LivingEntity> condition, EntityVariable ifTrue, EntityVariable ifFalse)
     implements EntityVariable, ConditionalVariable<IJsonPredicate<LivingEntity>,EntityVariable> {
-  public static final IGenericLoader<ConditionalEntityVariable> LOADER = ConditionalVariable.loadable(LivingEntityPredicate.LOADER, EntityVariable.LOADER, ConditionalEntityVariable::new);
+  public static final RecordLoadable<ConditionalEntityVariable> LOADER = ConditionalVariable.loadable(LivingEntityPredicate.LOADER, EntityVariable.LOADER, ConditionalEntityVariable::new);
 
   public ConditionalEntityVariable(IJsonPredicate<LivingEntity> condition, float ifTrue, float ifFalse) {
     this(condition, new EntityVariable.Constant(ifTrue), new EntityVariable.Constant(ifFalse));
@@ -23,8 +23,7 @@ public record ConditionalEntityVariable(IJsonPredicate<LivingEntity> condition, 
   }
 
   @Override
-  public IGenericLoader<? extends EntityVariable> getLoader() {
+  public RecordLoadable<ConditionalEntityVariable> getLoader() {
     return LOADER;
   }
-
 }

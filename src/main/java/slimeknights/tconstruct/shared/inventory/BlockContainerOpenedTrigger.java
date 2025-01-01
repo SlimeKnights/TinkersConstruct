@@ -3,11 +3,11 @@ package slimeknights.tconstruct.shared.inventory;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
+import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.advancements.critereon.DeserializationContext;
-import net.minecraft.advancements.critereon.EntityPredicate.Composite;
 import net.minecraft.advancements.critereon.SerializationContext;
 import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.GsonHelper;
@@ -30,13 +30,13 @@ public class BlockContainerOpenedTrigger extends SimpleCriterionTrigger<BlockCon
   }
 
   @Override
-  protected Instance createInstance(JsonObject json, Composite entityPredicate, DeserializationContext conditionsParser) {
+  protected Instance createInstance(JsonObject json, ContextAwarePredicate predicate, DeserializationContext pDeserializationContext) {
     ResourceLocation id = new ResourceLocation(GsonHelper.getAsString(json, "type"));
     BlockEntityType<?> type = ForgeRegistries.BLOCK_ENTITY_TYPES.getValue(id);
     if (type == null) {
       throw new JsonSyntaxException("Unknown tile entity '" + id + "'");
     }
-    return new Instance(entityPredicate, type);
+    return new Instance(predicate, type);
   }
 
   /** Triggers this criteria */
@@ -48,13 +48,13 @@ public class BlockContainerOpenedTrigger extends SimpleCriterionTrigger<BlockCon
 
   public static class Instance extends AbstractCriterionTriggerInstance {
     private final BlockEntityType<?> type;
-    public Instance(Composite playerCondition, BlockEntityType<?> type) {
-      super(ID, playerCondition);
+    public Instance(ContextAwarePredicate predicate, BlockEntityType<?> type) {
+      super(ID, predicate);
       this.type = type;
     }
 
     public static Instance container(BlockEntityType<?> type) {
-      return new Instance(Composite.ANY, type);
+      return new Instance(ContextAwarePredicate.ANY, type);
     }
 
     /** Tests if this instance matches */
@@ -62,10 +62,11 @@ public class BlockContainerOpenedTrigger extends SimpleCriterionTrigger<BlockCon
       return this.type == type;
     }
 
+    @SuppressWarnings("deprecation")  // no forge, your registries are deprecated, you just don't realize it yet
     @Override
     public JsonObject serializeToJson(SerializationContext conditions) {
       JsonObject json = super.serializeToJson(conditions);
-      json.addProperty("type", Objects.requireNonNull(Registry.BLOCK_ENTITY_TYPE.getKey(type)).toString());
+      json.addProperty("type", Objects.requireNonNull(BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(type)).toString());
       return json;
     }
   }

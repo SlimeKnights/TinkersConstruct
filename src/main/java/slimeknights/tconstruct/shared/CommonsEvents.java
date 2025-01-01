@@ -3,7 +3,7 @@ package slimeknights.tconstruct.shared;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
@@ -36,7 +36,7 @@ public class CommonsEvents {
     }
 
     // check if we jumped from a slime block
-    BlockPos pos = new BlockPos(event.getEntity().getX(), event.getEntity().getY(), event.getEntity().getZ());
+    BlockPos pos = BlockPos.containing(event.getEntity().position());
     if (event.getEntity().getCommandSenderWorld().isEmptyBlock(pos)) {
       pos = pos.below();
     }
@@ -51,6 +51,7 @@ public class CommonsEvents {
   }
 
   /** Handles opening our containers as the vanilla logic does not grant TE access */
+  @SuppressWarnings("deprecation")  // I don't feel like forge and its nullable keys
   @SubscribeEvent
   static void openSpectatorMenu(RightClickBlock event) {
     Player player = event.getEntity();
@@ -59,7 +60,7 @@ public class CommonsEvents {
       Level world = event.getLevel();
       BlockState state = world.getBlockState(pos);
       // only handle our blocks, no guarantee this will work with other mods
-      if (TConstruct.MOD_ID.equals(Registry.BLOCK.getKey(state.getBlock()).getNamespace())) {
+      if (TConstruct.MOD_ID.equals(BuiltInRegistries.BLOCK.getKey(state.getBlock()).getNamespace())) {
         MenuProvider provider = state.getMenuProvider(world, pos);
         event.setCanceled(true);
         if (provider != null) {

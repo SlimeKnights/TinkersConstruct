@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.recipe.melting;
 
 import lombok.Getter;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -85,7 +86,7 @@ public class MaterialMeltingRecipe implements IMeltingRecipe, IMultiRecipe<Melti
   private List<MeltingRecipe> multiRecipes = null;
 
   @Override
-  public List<MeltingRecipe> getRecipes() {
+  public List<MeltingRecipe> getRecipes(RegistryAccess access) {
     if (multiRecipes == null) {
       if (input.get().isHidden()) {
         multiRecipes = Collections.emptyList();

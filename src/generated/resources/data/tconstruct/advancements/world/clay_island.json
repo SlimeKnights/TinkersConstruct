@@ -37,5 +37,6 @@
     [
       "found_island"
     ]
-  ]
+  ],
+  "sends_telemetry_event": true
 }

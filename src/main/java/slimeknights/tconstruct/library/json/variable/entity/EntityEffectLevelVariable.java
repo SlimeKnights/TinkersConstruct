@@ -5,7 +5,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.data.registry.GenericLoaderRegistry.IGenericLoader;
 
 /** Gets the level of the mob effect on an entity */
 public record EntityEffectLevelVariable(MobEffect effect) implements EntityVariable {
@@ -21,7 +20,7 @@ public record EntityEffectLevelVariable(MobEffect effect) implements EntityVaria
   }
 
   @Override
-  public IGenericLoader<? extends EntityVariable> getLoader() {
+  public RecordLoadable<EntityEffectLevelVariable> getLoader() {
     return LOADER;
   }
 }

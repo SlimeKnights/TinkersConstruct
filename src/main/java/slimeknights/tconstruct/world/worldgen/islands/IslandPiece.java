@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -49,12 +50,12 @@ public class IslandPiece extends TemplateStructurePiece {
   public IslandPiece(StructurePieceSerializationContext context, CompoundTag nbt) {
     super(TinkerStructures.islandPiece.get(), nbt, context.structureTemplateManager(), id -> makeSettings(Rotation.valueOf(nbt.getString("Rot")), Mirror.valueOf(nbt.getString("Mi"))));
     RegistryAccess access = context.registryAccess();
-    if (find(access.registryOrThrow(Registry.STRUCTURE_REGISTRY), nbt.getString("Structure")) instanceof IslandStructure island) {
+    if (find(access.registryOrThrow(Registries.STRUCTURE), nbt.getString("Structure")) instanceof IslandStructure island) {
       this.structure = island;
     } else  {
       this.structure = null;
     }
-    this.tree = find(access.registryOrThrow(Registry.CONFIGURED_FEATURE_REGISTRY), nbt.getString("Tree"));
+    this.tree = find(access.registryOrThrow(Registries.CONFIGURED_FEATURE), nbt.getString("Tree"));
     this.numberOfTreesPlaced = nbt.getInt("NumberOfTreesPlaced");
   }
 
@@ -66,7 +67,7 @@ public class IslandPiece extends TemplateStructurePiece {
   protected void addAdditionalSaveData(StructurePieceSerializationContext context, CompoundTag tag) {
     super.addAdditionalSaveData(context, tag);
     RegistryAccess access = context.registryAccess();
-    ResourceLocation structure = access.registryOrThrow(Registry.STRUCTURE_REGISTRY).getKey(this.structure);
+    ResourceLocation structure = access.registryOrThrow(Registries.STRUCTURE).getKey(this.structure);
     if (structure != null) {
       tag.putString("Structure", structure.toString());
     }
@@ -74,7 +75,7 @@ public class IslandPiece extends TemplateStructurePiece {
     tag.putString("Mi", this.placeSettings.getMirror().name());
     tag.putInt("NumberOfTreesPlaced", this.numberOfTreesPlaced);
     if (tree != null) {
-      ResourceLocation key = access.registryOrThrow(Registry.CONFIGURED_FEATURE_REGISTRY).getKey(tree);
+      ResourceLocation key = access.registryOrThrow(Registries.CONFIGURED_FEATURE).getKey(tree);
       if (key != null) {
         tag.putString("Tree", key.toString());
       }

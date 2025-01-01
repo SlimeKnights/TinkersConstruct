@@ -1,14 +1,13 @@
 package slimeknights.tconstruct.world;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.client.model.PiglinHeadModel;
 import net.minecraft.client.model.SkullModel;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
-import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
@@ -52,10 +51,9 @@ public class WorldClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void registerParticleFactories(RegisterParticleProvidersEvent event) {
-    ParticleEngine engine = Minecraft.getInstance().particleEngine;
-    engine.register(TinkerWorld.skySlimeParticle.get(), new SlimeParticle.Factory(SlimeType.SKY));
-    engine.register(TinkerWorld.enderSlimeParticle.get(), new SlimeParticle.Factory(SlimeType.ENDER));
-    engine.register(TinkerWorld.terracubeParticle.get(), new SlimeParticle.Factory(Items.CLAY_BALL));
+    event.registerSpecial(TinkerWorld.skySlimeParticle.get(), new SlimeParticle.Factory(SlimeType.SKY));
+    event.registerSpecial(TinkerWorld.enderSlimeParticle.get(), new SlimeParticle.Factory(SlimeType.ENDER));
+    event.registerSpecial(TinkerWorld.terracubeParticle.get(), new SlimeParticle.Factory(Items.CLAY_BALL));
   }
 
   @SubscribeEvent
@@ -76,8 +74,7 @@ public class WorldClientEvents extends ClientEventBase {
     registerLayerDefinition(event, TinkerHeadType.CAVE_SPIDER, spiderHead);
 
     // piglin
-    Supplier<LayerDefinition> piglinHead = Lazy.of(SkullModelHelper::createPiglinHead);
-    registerLayerDefinition(event, TinkerHeadType.PIGLIN, piglinHead);
+    Supplier<LayerDefinition> piglinHead = Lazy.of(() -> LayerDefinition.create(PiglinHeadModel.createHeadModel(), 64, 64));
     registerLayerDefinition(event, TinkerHeadType.PIGLIN_BRUTE, piglinHead);
     registerLayerDefinition(event, TinkerHeadType.ZOMBIFIED_PIGLIN, piglinHead);
   }
@@ -85,7 +82,13 @@ public class WorldClientEvents extends ClientEventBase {
   @SubscribeEvent
   static void registerSkullModels(EntityRenderersEvent.CreateSkullModels event) {
     EntityModelSet modelSet = event.getEntityModelSet();
-    SkullModelHelper.HEAD_LAYERS.forEach((type, layer) -> event.registerSkullModel(type, new SkullModel(modelSet.bakeLayer(layer))));
+    SkullModelHelper.HEAD_LAYERS.forEach((type, layer) -> {
+      if (type.isPiglin()) {
+        event.registerSkullModel(type, new PiglinHeadModel(modelSet.bakeLayer(layer)));
+      } else {
+        event.registerSkullModel(type, new SkullModel(modelSet.bakeLayer(layer)));
+      }
+    });
   }
 
   @SubscribeEvent
@@ -114,7 +117,7 @@ public class WorldClientEvents extends ClientEventBase {
       registerHeadModel(TinkerHeadType.SPIDER, MaterialIds.string, new ResourceLocation("textures/entity/spider/spider.png"));
       registerHeadModel(TinkerHeadType.CAVE_SPIDER, MaterialIds.darkthread, new ResourceLocation("textures/entity/spider/cave_spider.png"));
       // piglins
-      registerHeadModel(TinkerHeadType.PIGLIN, MaterialIds.gold, new ResourceLocation("textures/entity/piglin/piglin.png"));
+      SlimeskullArmorModel.registerHeadModel(MaterialIds.gold, ModelLayers.PIGLIN_HEAD, new ResourceLocation("textures/entity/piglin/piglin.png"));
       registerHeadModel(TinkerHeadType.PIGLIN_BRUTE, MaterialIds.roseGold, new ResourceLocation("textures/entity/piglin/piglin_brute.png"));
       registerHeadModel(TinkerHeadType.ZOMBIFIED_PIGLIN, MaterialIds.pigIron, new ResourceLocation("textures/entity/piglin/zombified_piglin.png"));
     });

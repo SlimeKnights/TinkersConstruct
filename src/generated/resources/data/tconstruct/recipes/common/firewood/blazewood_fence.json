@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "W": {
       "item": "tconstruct:blazewood"
@@ -12,5 +13,6 @@
   "result": {
     "count": 6,
     "item": "tconstruct:blazewood_fence"
-  }
+  },
+  "show_notification": true
 }

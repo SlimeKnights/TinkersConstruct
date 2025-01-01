@@ -1,27 +1,23 @@
 package slimeknights.tconstruct.tools.recipe;
 
-import com.google.gson.JsonObject;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import net.minecraft.core.Registry;
-import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.Tags.Items;
-import slimeknights.mantle.data.loadable.common.IngredientLoadable;
-import slimeknights.mantle.data.loadable.field.ContextKey;
-import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.IMultiRecipe;
 import slimeknights.mantle.util.RegistryHelper;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.json.IntRange;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
@@ -39,22 +35,18 @@ import java.util.stream.Collectors;
 
 /** Recipe to dye travelers gear */
 public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDisplayModifierRecipe> {
-  public static final RecordLoadable<ArmorDyeingRecipe> LOADER = RecordLoadable.create(ContextKey.ID.requiredField(), IngredientLoadable.DISALLOW_EMPTY.requiredField("tools", r -> r.toolRequirement), ArmorDyeingRecipe::new);
-
   @Getter
   private final ResourceLocation id;
-  private final Ingredient toolRequirement;
 
-  public ArmorDyeingRecipe(ResourceLocation id, Ingredient toolRequirement) {
+  public ArmorDyeingRecipe(ResourceLocation id) {
     this.id = id;
-    this.toolRequirement = toolRequirement;
     ModifierRecipeLookup.addRecipeModifier(null, TinkerModifiers.dyed);
   }
 
   @Override
   public boolean matches(ITinkerStationContainer inv, Level world) {
     // ensure this modifier can be applied
-    if (!this.toolRequirement.test(inv.getTinkerableStack())) {
+    if (!inv.getTinkerableStack().is(TinkerTags.Items.DYEABLE)) {
       return false;
     }
     // slots must be only dyes, and have at least 1 dye
@@ -72,11 +64,11 @@ public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDi
   }
 
   @Override
-  public ItemStack assemble(ITinkerStationContainer inv) {
+  public RecipeResult<ItemStack> getValidatedResult(ITinkerStationContainer inv, RegistryAccess access) {
     ToolStack tool = inv.getTinkerable().copy();
 
     ModDataNBT persistentData = tool.getPersistentData();
-    ResourceLocation key = TinkerModifiers.dyed.getId();
+    ModifierId key = TinkerModifiers.dyed.getId();
     int nr = 0, nb = 0, ng = 0;
     int brightness = 0;
     int count = 0;
@@ -115,7 +107,7 @@ public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDi
 
     // should never happen, but lets not crash
     if (count == 0) {
-      return ItemStack.EMPTY;
+      return RecipeResult.pass();
     }
 
     // build the final color
@@ -131,11 +123,10 @@ public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDi
     persistentData.putInt(key, finalColor);
 
     // add the modifier if missing
-    ModifierId modifier = TinkerModifiers.dyed.getId();
-    if (tool.getModifierLevel(modifier) == 0) {
-      tool.addModifier(modifier, 1);
+    if (tool.getModifierLevel(key) == 0) {
+      tool.addModifier(key, 1);
     }
-    return tool.createStack(Math.min(inv.getTinkerableSize(), shrinkToolSlotBy()));
+    return RecipeResult.success(tool.createStack(Math.min(inv.getTinkerableSize(), shrinkToolSlotBy())));
   }
 
   @Override
@@ -150,64 +141,20 @@ public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDi
   private List<IDisplayModifierRecipe> displayRecipes;
 
   @Override
-  public List<IDisplayModifierRecipe> getRecipes() {
+  public List<IDisplayModifierRecipe> getRecipes(RegistryAccess access) {
     if (displayRecipes == null) {
-      List<ItemStack> toolInputs = Arrays.stream(this.toolRequirement.getItems()).map(stack -> {
-        if (stack.getItem() instanceof IModifiableDisplay) {
-          return ((IModifiableDisplay)stack.getItem()).getRenderTool();
-        }
-        return stack;
-      }).toList();
-      ModifierEntry result = new ModifierEntry(TinkerModifiers.dyed.get(), 1);
-      displayRecipes = Arrays.stream(DyeColor.values()).map(dye -> new DisplayRecipe(result, toolInputs, dye)).collect(Collectors.toList());
+      List<ItemStack> toolInputs = RegistryHelper.getTagValueStream(BuiltInRegistries.ITEM, TinkerTags.Items.DYEABLE)
+                                                 .map(IModifiableDisplay::getDisplayStack).toList();
+      displayRecipes = Arrays.stream(DyeColor.values()).map(dye -> new DisplayRecipe(toolInputs, dye)).collect(Collectors.toList());
     }
     return displayRecipes;
-  }
-
-
-  /* Required */
-
-  /** @deprecated use {@link #assemble(ITinkerStationContainer)}  */
-  @Deprecated
-  @Override
-  public ItemStack getResultItem() {
-    return ItemStack.EMPTY;
-  }
-
-  /** Finished recipe */
-  @SuppressWarnings("ClassCanBeRecord")
-  @RequiredArgsConstructor
-  public static class Finished implements FinishedRecipe {
-    @Getter
-    private final ResourceLocation id;
-    private final Ingredient toolRequirement;
-
-    @Override
-    public void serializeRecipeData(JsonObject json) {
-      json.add("tools", toolRequirement.toJson());
-    }
-
-    @Override
-    public RecipeSerializer<?> getType() {
-      return TinkerModifiers.armorDyeingSerializer.get();
-    }
-
-    @Nullable
-    @Override
-    public JsonObject serializeAdvancement() {
-      return null;
-    }
-
-    @Nullable
-    @Override
-    public ResourceLocation getAdvancementId() {
-      return null;
-    }
   }
 
   private static class DisplayRecipe implements IDisplayModifierRecipe {
     /** Cache of tint colors to save calculating it twice */
     private static final int[] TINT_COLORS = new int[16];
+    private static final IntRange LEVELS = new IntRange(1, 1);
+    private final ModifierEntry RESULT = new ModifierEntry(TinkerModifiers.dyed, 1);
 
     /** Gets the tint color for the given dye */
     private static int getTintColor(DyeColor color) {
@@ -222,23 +169,25 @@ public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDi
 
     private final List<ItemStack> dyes;
     @Getter
-    private final ModifierEntry displayResult;
-    @Getter
     private final List<ItemStack> toolWithoutModifier;
     @Getter
     private final List<ItemStack> toolWithModifier;
     @Getter
     private final Component variant;
-    public DisplayRecipe(ModifierEntry result, List<ItemStack> tools, DyeColor color) {
-      this.displayResult = result;
+    public DisplayRecipe(List<ItemStack> tools, DyeColor color) {
       this.toolWithoutModifier = tools;
-      this.dyes = RegistryHelper.getTagValueStream(Registry.ITEM, color.getTag()).map(ItemStack::new).toList();
+      this.dyes = RegistryHelper.getTagValueStream(BuiltInRegistries.ITEM, color.getTag()).map(ItemStack::new).toList();
       this.variant = Component.translatable("color.minecraft." + color.getSerializedName());
 
-      ResourceLocation id = result.getModifier().getId();
+      ResourceLocation id = RESULT.getId();
       int tintColor = getTintColor(color);
-      List<ModifierEntry> results = List.of(result);
+      List<ModifierEntry> results = List.of(RESULT);
       toolWithModifier = tools.stream().map(stack -> IDisplayModifierRecipe.withModifiers(stack, results, data -> data.putInt(id, tintColor))).toList();
+    }
+
+    @Override
+    public ModifierEntry getDisplayResult() {
+      return RESULT;
     }
 
     @Override
@@ -256,7 +205,7 @@ public class ArmorDyeingRecipe implements ITinkerStationRecipe, IMultiRecipe<IDi
 
     @Override
     public IntRange getLevel() {
-      return new IntRange(1, 1);
+      return LEVELS;
     }
   }
 }

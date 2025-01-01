@@ -1,8 +1,7 @@
 package slimeknights.tconstruct.common;
 
 import lombok.Getter;
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.block.SoundType;
@@ -75,20 +74,22 @@ public enum Sounds {
   public static final SoundType ENDER_CRYSTAL = makeCrystalSound(1.45f);
   public static final Map<BudSize,SoundType> ENDER_CRYSTAL_CLUSTER = makeClusterSounds(1.45f);
 
+  /** Creates a new event */
+  private static SoundEvent createEvent(String name) {
+    return SoundEvent.createVariableRangeEvent(TConstruct.getResource(name));
+  }
+
   Sounds(String name) {
-    ResourceLocation registryName = TConstruct.getResource(name);
-    sound = new SoundEvent(registryName);
+    sound = createEvent(name);
   }
 
   Sounds() {
-    String name = name().toLowerCase(Locale.US);
-    ResourceLocation registryName = TConstruct.getResource(name);
-    sound = new SoundEvent(registryName);
+    sound = createEvent(name().toLowerCase(Locale.US));
   }
 
   @SubscribeEvent
   public static void registerSounds(RegisterEvent event) {
-    if (event.getRegistryKey() == Registry.SOUND_EVENT_REGISTRY) {
+    if (event.getRegistryKey() == Registries.SOUND_EVENT) {
       for (Sounds sound : values()) {
         ForgeRegistries.SOUND_EVENTS.register(sound.sound.getLocation(), sound.getSound());
       }
@@ -96,11 +97,13 @@ public enum Sounds {
   }
 
   /** Makes sound type for crystals */
+  @SuppressWarnings("deprecation")  // sound events really aren't complex enough to need suppliers
   private static SoundType makeCrystalSound(float pitch) {
     return new SoundType(1.0f, pitch, SoundEvents.AMETHYST_BLOCK_BREAK, SoundEvents.AMETHYST_BLOCK_STEP, SoundEvents.AMETHYST_BLOCK_PLACE, SoundEvents.AMETHYST_BLOCK_HIT, SoundEvents.AMETHYST_BLOCK_FALL);
   }
 
   /** Makes sound type for clusters */
+  @SuppressWarnings("deprecation")  // sound events really aren't complex enough to need suppliers
   private static Map<BudSize,SoundType> makeClusterSounds(float pitch) {
     Map<BudSize,SoundType> map = new EnumMap<>(BudSize.class);
     map.put(BudSize.CLUSTER, new SoundType(1.0f, pitch, SoundEvents.AMETHYST_CLUSTER_BREAK, SoundEvents.AMETHYST_CLUSTER_STEP, SoundEvents.AMETHYST_CLUSTER_PLACE, SoundEvents.AMETHYST_CLUSTER_HIT, SoundEvents.AMETHYST_CLUSTER_FALL));

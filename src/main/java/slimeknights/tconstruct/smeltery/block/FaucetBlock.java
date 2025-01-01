@@ -2,7 +2,6 @@ package slimeknights.tconstruct.smeltery.block;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import com.mojang.math.Vector3f;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.DustParticleOptions;
@@ -30,6 +29,7 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.joml.Vector3f;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.entity.FaucetBlockEntity;
@@ -76,6 +76,7 @@ public class FaucetBlock extends Block implements EntityBlock {
     return SHAPES.get(state.getValue(FACING));
   }
 
+  @SuppressWarnings("deprecation")
   @Override
   public boolean isPathfindable(BlockState state, BlockGetter worldIn, BlockPos pos, PathComputationType type) {
     return false;
@@ -97,7 +98,6 @@ public class FaucetBlock extends Block implements EntityBlock {
   }
 
   @SuppressWarnings("deprecation")
-  @Deprecated
   @Override
   public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
     if (player.isShiftKeyDown()) {
@@ -108,7 +108,6 @@ public class FaucetBlock extends Block implements EntityBlock {
   }
 
   @SuppressWarnings("deprecation")
-  @Deprecated
   @Override
   public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
     if (worldIn.isClientSide()) {
@@ -121,7 +120,6 @@ public class FaucetBlock extends Block implements EntityBlock {
   }
 
   @SuppressWarnings("deprecation")
-  @Deprecated
   @Override
   public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, RandomSource rand) {
     getFaucet(worldIn, pos).ifPresent(FaucetBlockEntity::activate);

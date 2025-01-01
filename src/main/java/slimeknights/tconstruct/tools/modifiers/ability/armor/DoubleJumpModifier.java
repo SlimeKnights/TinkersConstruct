@@ -59,7 +59,7 @@ public class DoubleJumpModifier extends Modifier {
    */
   public static boolean extraJump(Player entity) {
     // validate preconditions, no using when swimming, elytra, or on the ground
-    if (!entity.isOnGround() && !entity.onClimbable() && !entity.isInWaterOrBubble()) {
+    if (!entity.onGround() && !entity.onClimbable() && !entity.isInWaterOrBubble()) {
       // determine modifier level
       int maxJumps = entity.getCapability(TinkerDataCapability.CAPABILITY).resolve().map(data -> data.get(EXTRA_JUMPS)).orElse(0);
       if (maxJumps > 0) {

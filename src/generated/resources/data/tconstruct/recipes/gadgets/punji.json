@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "b": {
       "item": "minecraft:bamboo"
@@ -11,5 +12,6 @@
   ],
   "result": {
     "item": "tconstruct:punji"
-  }
+  },
+  "show_notification": true
 }

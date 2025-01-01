@@ -4,12 +4,12 @@
   "textures": {
     "head":   "tconstruct:item/tool/vein_hammer/head",
     "handle": "tconstruct:item/tool/vein_hammer/handle",
-    "back":   "tconstruct:item/tool/vein_hammer/back",
+    "grip":   "tconstruct:item/tool/vein_hammer/grip",
     "front":  "tconstruct:item/tool/vein_hammer/front",
 
     "large_head":   "tconstruct:item/tool/vein_hammer/large/head",
     "large_handle": "tconstruct:item/tool/vein_hammer/large/handle",
-    "large_back":   "tconstruct:item/tool/vein_hammer/large/back",
+    "large_grip":   "tconstruct:item/tool/vein_hammer/large/grip",
     "large_front":  "tconstruct:item/tool/vein_hammer/large/front"
   },
   "modifier_roots": {
@@ -21,7 +21,7 @@
   "parts": [
     { "name": "handle", "index": 1 },
     { "name": "head",   "index": 0 },
-    { "name": "back",   "index": 2 },
+    { "name": "grip",   "index": 2 },
     { "name": "front",  "index": 3 }
   ],
   "overrides": [

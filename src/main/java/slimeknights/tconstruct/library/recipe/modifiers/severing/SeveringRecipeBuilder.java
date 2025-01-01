@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.recipe.modifiers.severing;
 
 import lombok.RequiredArgsConstructor;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
@@ -45,7 +45,7 @@ public class SeveringRecipeBuilder extends AbstractRecipeBuilder<SeveringRecipeB
 
   @Override
   public void save(Consumer<FinishedRecipe> consumer) {
-    save(consumer, Registry.ITEM.getKey(output.get().getItem()));
+    save(consumer, BuiltInRegistries.ITEM.getKey(output.get().getItem()));
   }
 
   @Override

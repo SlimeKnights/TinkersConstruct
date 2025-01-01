@@ -103,21 +103,23 @@ public class MaterialsCommand {
     CommandSourceStack source = context.getSource();
     int size = successes.size();
     if (size == 1) {
-      source.sendSuccess(Component.translatable(ADD_SUCCESS, index, MaterialTooltipCache.getDisplayName(material), successes.get(0).getDisplayName()), true);
+      source.sendSuccess(() -> Component.translatable(ADD_SUCCESS, index, MaterialTooltipCache.getDisplayName(material), successes.get(0).getDisplayName()), true);
     } else {
-      source.sendSuccess(Component.translatable(ADD_SUCCESS_MULTIPLE, index, MaterialTooltipCache.getDisplayName(material), size), true);
+      source.sendSuccess(() -> Component.translatable(ADD_SUCCESS_MULTIPLE, index, MaterialTooltipCache.getDisplayName(material), size), true);
     }
     return size;
   }
 
   /** Sets the material at the index */
   private static int defaultStats(CommandContext<CommandSourceStack> context) {
-    MaterialStatType<?> statType = MaterialStatsArgument.getStat(context, "stat_type");
-    MutableComponent output = TConstruct.makeTranslation("command", "materials.success.stats.default", statType.getDefaultStats().getLocalizedName());
-    for (Component component : statType.getDefaultStats().getLocalizedInfo()) {
-      output.append("\n* ").append(component);
-    }
-    context.getSource().sendSuccess(output, true);
+    context.getSource().sendSuccess(() -> {
+      MaterialStatType<?> statType = MaterialStatsArgument.getStat(context, "stat_type");
+      MutableComponent output = TConstruct.makeTranslation("command", "materials.success.stats.default", statType.getDefaultStats().getLocalizedName());
+      for (Component component : statType.getDefaultStats().getLocalizedInfo()) {
+        output.append("\n* ").append(component);
+      }
+      return output;
+    }, true);
     return 1;
   }
 
@@ -127,11 +129,13 @@ public class MaterialsCommand {
     MaterialStatType<?> statType = MaterialStatsArgument.getStat(context, "stat_type");
     Optional<IMaterialStats> stats = MaterialRegistry.getInstance().getMaterialStats(material, statType.getId());
     if (stats.isPresent()) {
-      MutableComponent output = TConstruct.makeTranslation("command", "materials.success.stats.material", stats.get().getLocalizedName(), MaterialTooltipCache.getDisplayName(material));
-      for (Component component : stats.get().getLocalizedInfo()) {
-        output.append("\n* ").append(component);
-      }
-      context.getSource().sendSuccess(output, true);
+      context.getSource().sendSuccess(() -> {
+        MutableComponent output = TConstruct.makeTranslation("command", "materials.success.stats.material", stats.get().getLocalizedName(), MaterialTooltipCache.getDisplayName(material));
+        for (Component component : stats.get().getLocalizedInfo()) {
+          output.append("\n* ").append(component);
+        }
+        return output;
+      }, true);
       return 1;
     } else {
       throw INVALID_STATS.create(statType.getId(), MaterialTooltipCache.getDisplayName(material));
@@ -163,7 +167,7 @@ public class MaterialsCommand {
         output.append("\n* ").append(trait.getDisplayName());
       }
     }
-    context.getSource().sendSuccess(output, true);
+    context.getSource().sendSuccess(() -> output, true);
     return traits.size();
   }
 }

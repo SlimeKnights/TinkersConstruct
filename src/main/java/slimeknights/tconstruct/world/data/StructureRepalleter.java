@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.world.data;
 
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.tconstruct.TConstruct;
@@ -14,9 +14,8 @@ import slimeknights.tconstruct.world.block.FoliageType;
 import java.util.Objects;
 
 public class StructureRepalleter extends AbstractStructureRepalleter {
-
-  public StructureRepalleter(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-    super(generator, existingFileHelper, TConstruct.MOD_ID);
+  public StructureRepalleter(PackOutput packOutput, ExistingFileHelper existingFileHelper) {
+    super(packOutput, existingFileHelper, TConstruct.MOD_ID);
   }
 
   @Override

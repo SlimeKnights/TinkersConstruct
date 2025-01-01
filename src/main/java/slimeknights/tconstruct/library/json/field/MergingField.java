@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.GsonHelper;
 import slimeknights.mantle.data.loadable.field.LoadableField;
+import slimeknights.mantle.util.typed.TypedMap;
 
 /**
  * Field which creates a JSON object to contain its value.
@@ -24,12 +25,12 @@ public record MergingField<T,P>(LoadableField<T,P> field, String key, MissingMod
   }
 
   @Override
-  public T get(JsonObject json) {
+  public T get(JsonObject json, TypedMap context) {
     // disallowed really just improves the error message over create in the case of disallowed being a required field
     if (mode == MissingMode.DISALLOWED || json.has(key)) {
-      return field.get(GsonHelper.getAsJsonObject(json, key));
+      return field.get(GsonHelper.getAsJsonObject(json, key), context);
     } else {
-      return field.get(new JsonObject());
+      return field.get(new JsonObject(), context);
     }
   }
 
@@ -47,8 +48,8 @@ public record MergingField<T,P>(LoadableField<T,P> field, String key, MissingMod
   }
 
   @Override
-  public T decode(FriendlyByteBuf buffer) {
-    return field.decode(buffer);
+  public T decode(FriendlyByteBuf buffer, TypedMap context) {
+    return field.decode(buffer, context);
   }
 
   @Override

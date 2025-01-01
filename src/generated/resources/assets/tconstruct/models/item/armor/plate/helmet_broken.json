@@ -9,6 +9,9 @@
     "tconstruct:item/tool/armor/plate/helmet/modifiers/broken/",
     "tconstruct:item/tool/armor/plate/helmet/modifiers/"
   ],
+  "first_modifiers": [
+    "tconstruct:trim"
+  ],
   "parts": [
     {
       "name": "plating",

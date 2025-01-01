@@ -6,6 +6,7 @@ import net.minecraft.ResourceLocationException;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.mantle.data.loadable.primitive.StringLoadable;
+import slimeknights.mantle.util.typed.TypedMap;
 
 import javax.annotation.Nullable;
 import java.util.function.Function;
@@ -41,7 +42,7 @@ public record IdParser<T extends ResourceLocation>(Function<String, T> construct
   }
 
   @Override
-  public T decode(FriendlyByteBuf buf) {
+  public T decode(FriendlyByteBuf buf, TypedMap context) {
     return constructor.apply(buf.readUtf(Short.MAX_VALUE));
   }
 

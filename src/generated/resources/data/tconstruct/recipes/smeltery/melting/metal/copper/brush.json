@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "ingredient": {
+    "item": "minecraft:brush"
+  },
+  "result": {
+    "amount": 90,
+    "fluid": "tconstruct:molten_copper",
+    "unit_size": 10
+  },
+  "temperature": 500,
+  "time": 50
+}

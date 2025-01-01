@@ -1,7 +1,5 @@
 package slimeknights.tconstruct.tools.modifiers.ability.fluid;
 
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -9,8 +7,12 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -76,7 +78,8 @@ public class SpittingModifier extends Modifier implements GeneralInteractionModi
   @Override
   public void onStoppedUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {
     ScopeModifier.stopScoping(entity);
-    if (!entity.level.isClientSide) {
+    Level world = entity.level();
+    if (!world.isClientSide) {
       int chargeTime = getUseDuration(tool, modifier) - timeLeft;
       if (chargeTime > 0) {
         // find the fluid to spit
@@ -104,12 +107,12 @@ public class SpittingModifier extends Modifier implements GeneralInteractionModi
               float startAngle = ModifiableLauncherItem.getAngleStart(shots);
               int primaryIndex = shots / 2;
               for (int shotIndex = 0; shotIndex < shots; shotIndex++) {
-                FluidEffectProjectile spit = new FluidEffectProjectile(entity.level, entity, new FluidStack(fluid, amount), power);
+                FluidEffectProjectile spit = new FluidEffectProjectile(world, entity, new FluidStack(fluid, amount), power);
 
                 // setup projectile target
-                Vector3f targetVector = new Vector3f(entity.getViewVector(1.0f));
+                Vec3 upVector = entity.getUpVector(1.0f);
                 float angle = startAngle + (10 * shotIndex);
-                targetVector.transform(new Quaternion(new Vector3f(entity.getUpVector(1.0f)), angle, true));
+                Vector3f targetVector = entity.getViewVector(1.0f).toVector3f().rotate((new Quaternionf()).setAngleAxis(angle * Math.PI / 180F, upVector.x, upVector.y, upVector.z));
                 spit.shoot(targetVector.x(), targetVector.y(), targetVector.z(), velocity, inaccuracy);
 
                 // store all modifiers on the spit
@@ -123,8 +126,8 @@ public class SpittingModifier extends Modifier implements GeneralInteractionModi
                 }
 
                 // finally, fire the projectile
-                entity.level.addFreshEntity(spit);
-                entity.level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.LLAMA_SPIT, SoundSource.PLAYERS, 1.0F, 1.0F / (entity.level.getRandom().nextFloat() * 0.4F + 1.2F) + charge * 0.5F + (angle / 10f));
+                world.addFreshEntity(spit);
+                world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.LLAMA_SPIT, SoundSource.PLAYERS, 1.0F, 1.0F / (world.getRandom().nextFloat() * 0.4F + 1.2F) + charge * 0.5F + (angle / 10f));
 
               }
 

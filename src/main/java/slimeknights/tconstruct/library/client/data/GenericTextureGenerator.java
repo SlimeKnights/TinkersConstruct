@@ -3,33 +3,33 @@ package slimeknights.tconstruct.library.client.data;
 import com.google.common.hash.Hashing;
 import com.google.gson.JsonObject;
 import com.mojang.blaze3d.platform.NativeImage;
-import lombok.extern.log4j.Log4j2;
+import net.minecraft.Util;
 import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.PackOutput.Target;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import slimeknights.mantle.data.GenericDataProvider;
+import slimeknights.tconstruct.TConstruct;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 /** Data generator to create png image files */
-@Log4j2
-public abstract class GenericTextureGenerator implements DataProvider {
-  private final DataGenerator generator;
+public abstract class GenericTextureGenerator extends GenericDataProvider {
   @Nullable
   private final ExistingFileHelper existingFileHelper;
-  private final String folder;
   @Nullable
   private final ExistingFileHelper.ResourceType resourceType;
 
   /** Constructor which marks files as existing */
-  public GenericTextureGenerator(DataGenerator generator, @Nullable ExistingFileHelper existingFileHelper, String folder) {
-    this.generator = generator;
-    this.folder = folder;
+  public GenericTextureGenerator(PackOutput packOutput, @Nullable ExistingFileHelper existingFileHelper, String folder) {
+    super(packOutput, Target.RESOURCE_PACK, folder);
     this.existingFileHelper = existingFileHelper;
     if (existingFileHelper != null) {
       this.resourceType = new ExistingFileHelper.ResourceType(PackType.CLIENT_RESOURCES, ".png", folder);
@@ -39,32 +39,29 @@ public abstract class GenericTextureGenerator implements DataProvider {
   }
 
   /** Constructor which does not mark files as existing */
-  public GenericTextureGenerator(DataGenerator generator, String folder) {
-    this(generator, null, folder);
+  public GenericTextureGenerator(PackOutput packOutput, String folder) {
+    this(packOutput, null, folder);
   }
 
   /** Saves the given image to the given location */
-  @SuppressWarnings("UnstableApiUsage")
-  protected void saveImage(CachedOutput cache, ResourceLocation location, NativeImage image) {
-    try {
-      Path path = this.generator.getOutputFolder().resolve(Paths.get(PackType.CLIENT_RESOURCES.getDirectory(), location.getNamespace(), folder, location.getPath() + ".png"));
-      if (existingFileHelper != null && resourceType != null) {
-        existingFileHelper.trackGenerated(location, resourceType);
-      }
-      byte[] bytes = image.asByteArray();
-      cache.writeIfNeeded(path, bytes, Hashing.sha1().hashBytes(bytes));
-    } catch (IOException e) {
-      log.error("Couldn't write image for {}", location, e);
+  protected CompletableFuture<?> saveImage(CachedOutput cache, ResourceLocation location, NativeImage image) {
+    if (existingFileHelper != null && resourceType != null) {
+      existingFileHelper.trackGenerated(location, resourceType);
     }
+    return CompletableFuture.runAsync(() -> {
+      try {
+        Path path = this.pathProvider.file(location, "png");
+        byte[] bytes = image.asByteArray();
+        cache.writeIfNeeded(path, bytes, Hashing.sha1().hashBytes(bytes));
+      } catch (IOException e) {
+        TConstruct.LOG.error("Couldn't write image for {}", location, e);
+        throw new CompletionException(e);
+      }
+    }, Util.backgroundExecutor());
   }
 
   /** Saves metadata for the given image */
-  protected void saveMetadata(CachedOutput cache, ResourceLocation location, JsonObject metadata) {
-    try {
-      Path path = this.generator.getOutputFolder().resolve(Paths.get(PackType.CLIENT_RESOURCES.getDirectory(), location.getNamespace(), folder, location.getPath() + ".png.mcmeta"));
-      DataProvider.saveStable(cache, metadata, path);
-    } catch (IOException e) {
-      log.error("Couldn't write image metadata for {}", location, e);
-    }
+  protected CompletableFuture<?> saveMetadata(CachedOutput cache, ResourceLocation location, JsonObject metadata) {
+    return DataProvider.saveStable(cache, metadata, this.pathProvider.file(location, "png.mcmeta"));
   }
 }
