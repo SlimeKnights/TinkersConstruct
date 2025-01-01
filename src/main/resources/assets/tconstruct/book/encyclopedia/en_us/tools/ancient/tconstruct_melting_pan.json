@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:melting_pan",
+  "text": [
+    { "text": "The melting pan is an unconventional tool which mines meltable blocks and also functions as a staff. It can be found from dungeons, igloos, husks, and a gift from toolsmiths after defeating a raid." },
+    { "text": "Expanders cause adjacent blocks of the same type to also be mined, with range based on the number of expanders.", "paragraph": true }
+  ],
+  "properties": [
+    "6 Mining Speed",
+    "Stone Harvest Tier",
+    "10% Knockback Resistance",
+    "Melting+",
+    "1 Defense Slot",
+    "1 Upgrade Slot",
+    "2 Ability Slots"
+  ]
+}

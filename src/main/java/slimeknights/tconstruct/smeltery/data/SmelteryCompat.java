@@ -23,11 +23,11 @@ public enum SmelteryCompat {
   OSMIUM  (TinkerFluids.moltenOsmium,   Byproduct.IRON),
   URANIUM (TinkerFluids.moltenUranium,  Byproduct.LEAD, Byproduct.COPPER),
   // alloys
-  BRONZE    (TinkerFluids.moltenBronze),
-  BRASS     (TinkerFluids.moltenBrass),
-  ELECTRUM  (TinkerFluids.moltenElectrum),
-  INVAR     (TinkerFluids.moltenInvar),
-  CONSTANTAN(TinkerFluids.moltenConstantan),
+  BRONZE    (TinkerFluids.moltenBronze, "tin"),
+  BRASS     (TinkerFluids.moltenBrass, "zinc"),
+  ELECTRUM  (TinkerFluids.moltenElectrum, "silver"),
+  INVAR     (TinkerFluids.moltenInvar, "nickel"),
+  CONSTANTAN(TinkerFluids.moltenConstantan, "nickel"),
   PEWTER    (TinkerFluids.moltenPewter),
   STEEL     (TinkerFluids.moltenSteel),
   // thermal alloys
@@ -48,20 +48,29 @@ public enum SmelteryCompat {
   private final boolean hasDust;
   @Getter
   private final Byproduct[] byproducts;
+  @Getter
+  private final String altTag;
 
   SmelteryCompat(FluidObject<? extends ForgeFlowingFluid> fluid, boolean hasDust) {
     this.fluid = fluid;
     this.isOre = false;
     this.byproducts = new Byproduct[0];
     this.hasDust = hasDust;
+    this.altTag = "";
   }
 
   /** Byproducts means its an ore, no byproucts are alloys */
-  SmelteryCompat(FluidObject<? extends ForgeFlowingFluid> fluid, Byproduct... byproducts) {
+  SmelteryCompat(FluidObject<? extends ForgeFlowingFluid> fluid, String altTag, Byproduct... byproducts) {
     this.fluid = fluid;
     this.isOre = byproducts.length > 0;
     this.byproducts = byproducts;
     this.hasDust = true;
+    this.altTag = altTag;
+  }
+
+  /** Byproducts means its an ore, no byproucts are alloys */
+  SmelteryCompat(FluidObject<? extends ForgeFlowingFluid> fluid, Byproduct... byproducts) {
+    this(fluid, "", byproducts);
   }
 
   /** Gets teh fluid for this compat */

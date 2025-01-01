@@ -46,6 +46,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.tags.ITag;
 import slimeknights.mantle.item.RetexturedBlockItem;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
+import slimeknights.mantle.util.RegistryHelper;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.common.registration.CastItemObject;
@@ -75,6 +76,7 @@ import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
 import slimeknights.tconstruct.library.tools.nbt.MaterialIdNBT;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
+import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.plugin.jei.casting.CastingBasinCategory;
 import slimeknights.tconstruct.plugin.jei.casting.CastingTableCategory;
@@ -262,14 +264,26 @@ public class JEIPlugin implements IModPlugin {
     registry.addRecipeCatalyst(new ItemStack(TinkerSmeltery.foundryController), TConstructJEIConstants.FOUNDRY);
 
     // modifiers
-    for (Item item : Objects.requireNonNull(ForgeRegistries.ITEMS.tags()).getTag(TinkerTags.Items.MELEE)) {
-      // add any tools with a severing trait
-      if (item instanceof IModifiable modifiable && ToolTraitHook.getTraits(modifiable.getToolDefinition(), MaterialNBT.EMPTY).getLevel(TinkerModifiers.severing.getId()) > 0) {
-        registry.addRecipeCatalyst(IModifiableDisplay.getDisplayStack(item), TConstructJEIConstants.SEVERING);
-      }
-    }
     registry.addRecipeCatalyst(TConstructJEIConstants.MODIFIER_TYPE, new ModifierEntry(TinkerModifiers.severing, 1), TConstructJEIConstants.SEVERING);
     registry.addRecipeCatalyst(TConstructJEIConstants.MODIFIER_TYPE, new ModifierEntry(TinkerModifiers.melting, 1), TConstructJEIConstants.MELTING, TConstructJEIConstants.ENTITY_MELTING);
+    for (Item item : Objects.requireNonNull(ForgeRegistries.ITEMS.tags()).getTag(TinkerTags.Items.MODIFIABLE)) {
+      if (item instanceof IModifiable modifiable) {
+        // add any tools with a severing trait to severing
+        ModifierNBT traits = ToolTraitHook.getTraits(modifiable.getToolDefinition(), MaterialNBT.EMPTY);
+        if (traits.getLevel(TinkerModifiers.severing.getId()) > 0) {
+          registry.addRecipeCatalyst(IModifiableDisplay.getDisplayStack(item), TConstructJEIConstants.SEVERING);
+        }
+        // add any tools with a melting trait to melting
+        if (traits.getLevel(TinkerModifiers.melting.getId()) > 0) {
+          // only add to entity melting if its melee too
+          if (RegistryHelper.contains(TinkerTags.Items.MELEE, item)) {
+            registry.addRecipeCatalyst(IModifiableDisplay.getDisplayStack(item), TConstructJEIConstants.MELTING, TConstructJEIConstants.ENTITY_MELTING);
+          } else {
+            registry.addRecipeCatalyst(IModifiableDisplay.getDisplayStack(item), TConstructJEIConstants.MELTING);
+          }
+        }
+      }
+    }
   }
 
   @Override
@@ -423,6 +437,13 @@ public class JEIPlugin implements IModPlugin {
     for (SmelteryCompat compat : SmelteryCompat.values()) {
       ITag<Item> ingot = getTag(new ResourceLocation("forge", "ingots/" + compat.getName()));
       if (ingot.isEmpty()) {
+        // if the alt tag exists then still show the fluid
+        if (!compat.getAltTag().isEmpty()) {
+          ingot = getTag(new ResourceLocation("forge", "ingots/" + compat.getAltTag()));
+          if (!ingot.isEmpty()) {
+            continue;
+          }
+        }
         removeFluid(manager, compat.getFluid().get(), compat.getBucket());
       }
     }

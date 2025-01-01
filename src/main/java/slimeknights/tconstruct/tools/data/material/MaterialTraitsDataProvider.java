@@ -45,7 +45,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.iron, ARMOR, ModifierIds.projectileProtection);
     addDefaultTraits(MaterialIds.copper, TinkerModifiers.dwarven);
     addTraits(MaterialIds.copper, ARMOR, ModifierIds.depthProtection);
-    addDefaultTraits(MaterialIds.searedStone, TinkerModifiers.searing);
+    addDefaultTraits(MaterialIds.searedStone, ModifierIds.searing);
     addTraits(MaterialIds.searedStone, ARMOR, ModifierIds.fireProtection);
     addDefaultTraits(MaterialIds.slimewood, TinkerModifiers.overgrowth, TinkerModifiers.overslime);
     addDefaultTraits(MaterialIds.venombone, ModifierIds.antitoxin);

@@ -22,7 +22,13 @@ public class TankModifierModel extends FluidModifierModel {
                            @Nullable Material smallTexture, @Nullable Material largeTexture,
                            @Nullable Material smallPartial, @Nullable Material largePartial,
                            @Nullable Material smallFull, @Nullable Material largeFull) {
-    super(helper, smallTexture, largeTexture, new Material[] { smallPartial, largePartial, smallFull, largeFull });
+    super(helper, smallTexture, largeTexture, new Material[] {
+      smallPartial, largePartial,
+      // if the full texture is missing, sub in partial. Reduces number of textures to stitch
+      // practically, I see a usecase for full with no partial, but don't see a usecase for partial with no full
+      smallFull != null ? smallFull : smallPartial,
+      largeFull != null ? largeFull : largePartial
+    });
   }
 
   @Nullable

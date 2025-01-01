@@ -22,6 +22,7 @@ import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockingModifier;
 
 public class ZoomModifier extends NoLevelsModifier implements KeybindInteractModifierHook, GeneralInteractionModifierHook, EquipmentChangeModifierHook {
   private static final ResourceLocation ZOOM = TConstruct.getResource("zoom");
@@ -34,7 +35,7 @@ public class ZoomModifier extends NoLevelsModifier implements KeybindInteractMod
 
   @Override
   public int getPriority() {
-    return 50;
+    return 90; // after slurping, before blocking
   }
 
   @Override
@@ -49,14 +50,11 @@ public class ZoomModifier extends NoLevelsModifier implements KeybindInteractMod
 
   @Override
   public boolean startInteract(IToolStackView tool, ModifierEntry modifier, Player player, EquipmentSlot slot, TooltipKey keyModifier) {
-    if (player.isShiftKeyDown()) {
-      player.playSound(SoundEvents.SPYGLASS_USE, 1.0F, 1.0F);
-      if (player.level.isClientSide()) {
-        player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).set(ZOOM, 0.1f));
-      }
-      return true;
+    player.playSound(SoundEvents.SPYGLASS_USE, 1.0F, 1.0F);
+    if (player.level.isClientSide()) {
+      player.getCapability(TinkerDataCapability.CAPABILITY).ifPresent(data -> data.computeIfAbsent(TinkerDataKeys.FOV_MODIFIER).set(ZOOM, 0.1f));
     }
-    return false;
+    return true;
   }
 
   @Override
@@ -82,7 +80,7 @@ public class ZoomModifier extends NoLevelsModifier implements KeybindInteractMod
 
   @Override
   public UseAnim getUseAction(IToolStackView tool, ModifierEntry modifier) {
-    return UseAnim.SPYGLASS;
+    return BlockingModifier.blockWhileCharging(tool, UseAnim.SPYGLASS);
   }
 
   @Override

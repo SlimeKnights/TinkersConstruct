@@ -10,9 +10,14 @@
       {
         "tag": "tconstruct:modifiable/durability"
       },
-      {
-        "tag": "tconstruct:modifiable/interactable/right"
-      }
+      [
+        {
+          "tag": "tconstruct:modifiable/interactable/right"
+        },
+        {
+          "tag": "tconstruct:modifiable/shields"
+        }
+      ]
     ]
   }
 }

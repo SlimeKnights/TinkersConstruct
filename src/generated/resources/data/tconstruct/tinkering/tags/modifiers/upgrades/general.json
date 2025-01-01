@@ -10,6 +10,7 @@
     "tconstruct:magnetic",
     "tconstruct:zoom",
     "tconstruct:tank",
+    "tconstruct:smelting",
     "tconstruct:fireprimer",
     {
       "id": "tconstruct:the_one_probe",

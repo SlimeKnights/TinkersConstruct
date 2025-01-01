@@ -9,7 +9,7 @@
   "modifier_roots": [ "tconstruct:item/tool/war_pick/modifiers/" ],
   "parts": [
     { "name": "body",      "index": 1 },
-    { "name": "bowstring" },
+    { "name": "bowstring", "index": 2 },
     { "name": "limb",      "index": 0 }
   ],
   "overrides": [

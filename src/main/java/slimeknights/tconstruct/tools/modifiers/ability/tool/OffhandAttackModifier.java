@@ -36,11 +36,6 @@ public class OffhandAttackModifier extends NoLevelsModifier implements EntityInt
   }
 
   @Override
-  public int getPriority() {
-    return 90;
-  }
-
-  @Override
   public boolean shouldDisplay(boolean advanced) {
     return false;
   }

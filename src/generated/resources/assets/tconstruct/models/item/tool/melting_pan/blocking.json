@@ -1,0 +1,39 @@
+{
+  "parent": "tconstruct:item/melting_pan",
+  "display": {
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        0,
+        5
+      ],
+      "translation": [
+        -5,
+        0,
+        -0.2
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        0,
+        0,
+        5
+      ],
+      "translation": [
+        -5,
+        0,
+        -0.2
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ]
+    }
+  }
+}

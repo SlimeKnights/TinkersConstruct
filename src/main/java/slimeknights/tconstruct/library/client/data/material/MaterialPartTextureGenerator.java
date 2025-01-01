@@ -14,6 +14,7 @@ import slimeknights.tconstruct.library.client.data.material.GeneratorPartTexture
 import slimeknights.tconstruct.library.client.data.spritetransformer.ISpriteTransformer;
 import slimeknights.tconstruct.library.client.data.util.AbstractSpriteReader;
 import slimeknights.tconstruct.library.client.data.util.DataGenSpriteReader;
+import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 
 import javax.annotation.Nullable;
 import java.io.IOException;
@@ -93,8 +94,11 @@ public class MaterialPartTextureGenerator extends GenericTextureGenerator {
       Predicate<ResourceLocation> shouldGenerate = path -> !spriteReader.exists(path);
       for (MaterialSpriteInfo material : materials) {
         for (PartSpriteInfo part : parts) {
-          if (material.supportStatType(part.getStatType()) || overrides.hasOverride(part.getStatType(), material.getTexture())) {
-            generateSprite(spriteReader, material, part, shouldGenerate, saver, metaSaver);
+          // if any stat type matches, generate it
+          for (MaterialStatsId statType : part.getStatTypes()) {
+            if (material.supportStatType(statType) || overrides.hasOverride(statType, material.getTexture())) {
+              generateSprite(spriteReader, material, part, shouldGenerate, saver, metaSaver);
+            }
           }
         }
       }

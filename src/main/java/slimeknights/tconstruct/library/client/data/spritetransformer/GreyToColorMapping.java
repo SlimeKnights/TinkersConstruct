@@ -12,7 +12,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import slimeknights.mantle.util.JsonHelper;
+import slimeknights.mantle.data.loadable.common.ColorLoadable;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.utils.Util;
 
@@ -100,7 +100,7 @@ public class GreyToColorMapping implements IColorMapping {
       for (int i = 0; i < palette.size(); i++) {
         JsonObject palettePair = GsonHelper.convertToJsonObject(palette.get(i), "palette["+i+']');
         int grey = GsonHelper.getAsInt(palettePair, "grey");
-        int color = JsonHelper.parseColor(GsonHelper.getAsString(palettePair, "color"));
+        int color = ColorLoadable.ALPHA.getIfPresent(palettePair, "color");
         if (i == 0 && grey != 0) {
           paletteBuilder.addABGR(0, 0xFF000000);
         }

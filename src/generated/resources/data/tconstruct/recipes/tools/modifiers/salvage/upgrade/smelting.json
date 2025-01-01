@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "modifier": "tconstruct:smelting",
+  "slots": {
+    "upgrades": 1
+  },
+  "tools": [
+    {
+      "tag": "tconstruct:modifiable/interactable"
+    },
+    {
+      "tag": "tconstruct:modifiable/armor/worn"
+    }
+  ]
+}

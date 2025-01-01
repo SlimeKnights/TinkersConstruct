@@ -25,11 +25,6 @@ public class ParryingModifier extends OffhandAttackModifier implements ToolActio
   }
 
   @Override
-  public int getPriority() {
-    return 100;
-  }
-
-  @Override
   public boolean shouldDisplay(boolean advanced) {
     return true;
   }

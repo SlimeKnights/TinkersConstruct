@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.library.recipe.melting;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -30,7 +29,6 @@ import java.util.stream.Stream;
 /**
  * Recipe to melt an ingredient into a specific fuel
  */
-@RequiredArgsConstructor
 public class MeltingRecipe implements IMeltingRecipe {
   /* Reusable fields */
   protected static final LoadableField<Ingredient, MeltingRecipe> INPUT = IngredientLoadable.DISALLOW_EMPTY.requiredField("ingredient", MeltingRecipe::getInput);
@@ -56,6 +54,24 @@ public class MeltingRecipe implements IMeltingRecipe {
   protected final int time;
   protected final List<FluidStack> byproducts;
   private List<List<FluidStack>> outputWithByproducts;
+
+  public MeltingRecipe(ResourceLocation id, String group, Ingredient input, FluidStack output, int temperature, int time, List<FluidStack> byproducts) {
+    this(id, group, input, output, temperature, time, byproducts, true);
+  }
+
+  /** Constructor that allows canceling the lookup addition, for generated recipes in JEI */
+  public MeltingRecipe(ResourceLocation id, String group, Ingredient input, FluidStack output, int temperature, int time, List<FluidStack> byproducts, boolean addLookup) {
+    this.id = id;
+    this.group = group;
+    this.input = input;
+    this.output = output;
+    this.temperature = temperature;
+    this.time = time;
+    this.byproducts = byproducts;
+    if (addLookup) {
+      MeltingRecipeLookup.addMeltingFluid(input, output, temperature);
+    }
+  }
 
   @Override
   public boolean matches(IMeltingContainer inv, Level world) {

@@ -47,19 +47,13 @@ public class BonkingModifier extends SlingModifier implements MeleeHitModifierHo
   }
 
   @Override
-  public int getPriority() {
-    return 90;
-  }
-
-  @Override
   public InteractionResult onToolUse(IToolStackView tool, ModifierEntry modifier, Player player, InteractionHand hand, InteractionSource source) {
     if (!tool.isBroken() && source == InteractionSource.RIGHT_CLICK) {
-      // melee tools use attack speed for bonk, since this is also an attack
-      float speed;
+      // apply use item speed always
+      float speed = ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.DRAW_SPEED);
+      // for melee weapons, also multiply in attack speed
       if (tool.hasTag(TinkerTags.Items.MELEE_WEAPON)) {
-        speed = tool.getStats().get(ToolStats.ATTACK_SPEED);
-      } else {
-        speed = ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.DRAW_SPEED);
+        speed *= tool.getStats().get(ToolStats.ATTACK_SPEED);
       }
       tool.getPersistentData().putInt(GeneralInteractionModifierHook.KEY_DRAWTIME, (int)Math.ceil(30f / speed));
       GeneralInteractionModifierHook.startUsing(tool, modifier.getId(), player, hand);
@@ -122,7 +116,7 @@ public class BonkingModifier extends SlingModifier implements MeleeHitModifierHo
             }
 
             // cooldowns and stuff
-            player.level.playSound(null, player.getX(), player.getY(), player.getZ(), Sounds.BONK.getSound(), player.getSoundSource(), 1, 1);
+            player.level.playSound(null, player.getX(), player.getY(), player.getZ(), Sounds.BONK.getSound(), player.getSoundSource(), 1, 0.5f);
             player.causeFoodExhaustion(0.2F);
             player.getCooldowns().addCooldown(tool.getItem(), 3);
             ToolDamageUtil.damageAnimated(tool, 1, entity);
@@ -130,7 +124,7 @@ public class BonkingModifier extends SlingModifier implements MeleeHitModifierHo
           }
         }
       }
-      player.level.playSound(null, player.getX(), player.getY(), player.getZ(), Sounds.BONK.getSound(), player.getSoundSource(), 1, 0.5f);
+      player.level.playSound(null, player.getX(), player.getY(), player.getZ(), Sounds.BONK.getSound(), player.getSoundSource(), 1, 1f);
     }
   }
 }

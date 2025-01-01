@@ -17,7 +17,8 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import java.util.List;
 
 /**
- * Module that just sets a boolean flag to true on a tool
+ * Module that just sets a boolean flag to true on a tool.
+ * @see slimeknights.tconstruct.library.tools.definition.module.build.VolatileFlagModule
  */
 public record VolatileFlagModule(ResourceLocation flag, ModifierCondition<IToolContext> condition) implements VolatileDataModifierHook, ModifierModule, ConditionalModule<IToolContext> {
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<VolatileFlagModule>defaultHooks(ModifierHooks.VOLATILE_DATA);

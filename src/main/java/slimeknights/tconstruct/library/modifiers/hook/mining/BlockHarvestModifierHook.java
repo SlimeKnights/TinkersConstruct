@@ -27,12 +27,12 @@ public interface BlockHarvestModifierHook {
 
   /**
    * Called after all blocks are broken on the target block. Use to perform effects or to cleanup changes from {@link #startHarvest(IToolStackView, ModifierEntry, ToolHarvestContext)}.
-   * @param tool        Tool used
-   * @param modifier    Modifier level
-   * @param context     Harvest context
-   * @param didHarvest  If true, the block was actually broken.
+   * @param tool       Tool used
+   * @param modifier   Modifier level
+   * @param context    Harvest context
+   * @param harvested  Number of blocks harvested
    */
-  void finishHarvest(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context, boolean didHarvest);
+  void finishHarvest(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context, int harvested);
 
   /** Merger that runs all submodules */
   record AllMerger(Collection<BlockHarvestModifierHook> modules) implements BlockHarvestModifierHook {
@@ -44,9 +44,9 @@ public interface BlockHarvestModifierHook {
     }
 
     @Override
-    public void finishHarvest(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context, boolean didHarvest) {
+    public void finishHarvest(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context, int harvested) {
       for (BlockHarvestModifierHook module : modules) {
-        module.finishHarvest(tool, modifier, context, didHarvest);
+        module.finishHarvest(tool, modifier, context, harvested);
       }
     }
   }
@@ -66,7 +66,7 @@ public interface BlockHarvestModifierHook {
     }
 
     @Override
-    default void finishHarvest(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context, boolean didHarvest) {
+    default void finishHarvest(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context, int harvested) {
       tool.getPersistentData().remove(HARVESTING_FLAG);
     }
 

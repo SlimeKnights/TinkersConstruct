@@ -10,7 +10,9 @@ import slimeknights.mantle.data.predicate.block.BlockPredicate;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.data.tinkering.AbstractToolDefinitionDataProvider;
+import slimeknights.tconstruct.library.json.predicate.modifier.ModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.modifier.SingleModifierPredicate;
+import slimeknights.tconstruct.library.json.predicate.modifier.TagModifierPredicate;
 import slimeknights.tconstruct.library.materials.RandomMaterial;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.tools.SlotType;
@@ -27,6 +29,7 @@ import slimeknights.tconstruct.library.tools.definition.module.build.SetStatsMod
 import slimeknights.tconstruct.library.tools.definition.module.build.ToolActionsModule;
 import slimeknights.tconstruct.library.tools.definition.module.build.ToolSlotsModule;
 import slimeknights.tconstruct.library.tools.definition.module.build.ToolTraitsModule;
+import slimeknights.tconstruct.library.tools.definition.module.build.VolatileFlagModule;
 import slimeknights.tconstruct.library.tools.definition.module.interaction.DualOptionInteraction;
 import slimeknights.tconstruct.library.tools.definition.module.interaction.PreferenceSetInteraction;
 import slimeknights.tconstruct.library.tools.definition.module.material.DefaultMaterialsModule;
@@ -52,6 +55,8 @@ import slimeknights.tconstruct.tools.TinkerTools;
 import slimeknights.tconstruct.tools.ToolDefinitions;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
 import slimeknights.tconstruct.tools.item.ArmorSlotType;
+import slimeknights.tconstruct.tools.modules.MeltingFluidEffectiveModule;
+import slimeknights.tconstruct.tools.modules.MeltingModule;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 import slimeknights.tconstruct.tools.stats.LimbMaterialStats;
 import slimeknights.tconstruct.tools.stats.PlatingMaterialStats;
@@ -83,9 +88,11 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
   @Override
   protected void addToolDefinitions() {
     RandomMaterial tier1Material = RandomMaterial.random().tier(1).build();
+    RandomMaterial randomMaterial = RandomMaterial.random().build();
     DefaultMaterialsModule defaultTwoParts = DefaultMaterialsModule.builder().material(tier1Material, tier1Material).build();
     DefaultMaterialsModule defaultThreeParts = DefaultMaterialsModule.builder().material(tier1Material, tier1Material, tier1Material).build();
     DefaultMaterialsModule defaultFourParts = DefaultMaterialsModule.builder().material(tier1Material, tier1Material, tier1Material, tier1Material).build();
+    DefaultMaterialsModule defaultAncient = DefaultMaterialsModule.builder().material(randomMaterial, randomMaterial).build();
 
     // pickaxes
     define(ToolDefinitions.PICKAXE)
@@ -348,7 +355,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .module(PartStatsModule.parts()
          .part(smallBlade)
          .part(toolHandle).build())
-      .module(DefaultMaterialsModule.builder().material(tier1Material, tier1Material).build())
+      .module(defaultTwoParts)
       // stats
       .module(new SetStatsModule(StatsNBT.builder()
         .set(ToolStats.ATTACK_DAMAGE, 3f)
@@ -538,6 +545,10 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
 
 
     // travelers armor
+    PreferenceSetInteraction shieldInteraction = new PreferenceSetInteraction(
+      InteractionSource.RIGHT_CLICK,
+      ModifierPredicate.or(new SingleModifierPredicate(TinkerModifiers.blocking.getId()), new TagModifierPredicate(TinkerTags.Modifiers.BLOCK_WHILE_CHARGING))
+    );
     ToolModule travelersSlots =
       ToolSlotsModule.builder()
                      .slots(SlotType.UPGRADE, 3)
@@ -563,7 +574,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .module(MaterialRepairModule.of(MaterialIds.leather, 200))
       .module(MaterialRepairModule.of(MaterialIds.wood, 100))
       .module(ToolTraitsModule.builder().trait(TinkerModifiers.blocking).trait(TinkerModifiers.tanned).build())
-      .module(new PreferenceSetInteraction(InteractionSource.RIGHT_CLICK, new SingleModifierPredicate(TinkerModifiers.blocking.getId())));
+      .module(shieldInteraction);
 
     // plate armor
     ToolModule plateSlots =
@@ -595,7 +606,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
         .set(ToolStats.BLOCK_ANGLE, 180).build()))
       .module(plateSlots)
       .module(ToolTraitsModule.builder().trait(TinkerModifiers.blocking).build())
-      .module(new PreferenceSetInteraction(InteractionSource.RIGHT_CLICK, new SingleModifierPredicate(TinkerModifiers.blocking.getId())));
+      .module(shieldInteraction);
 
     // slime suit
     ToolTraitsModule.Builder slimeTraits = ToolTraitsModule.builder().trait(ModifierIds.overslimeFriend);
@@ -614,7 +625,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .module(ArmorSlotType.BOOTS, MaterialRepairModule.of(MaterialIds.leather, ArmorSlotType.BOOTS, 42))
       // stats
       .module(ArmorSlotType.HELMET, MaterialStatsModule.stats().stat(SkullStats.ID, 1).build())
-      .module(ArmorSlotType.HELMET, DefaultMaterialsModule.builder().material(RandomMaterial.random().build()).build())
+      .module(ArmorSlotType.HELMET, DefaultMaterialsModule.builder().material(randomMaterial).build())
       .module(ArmorSlotType.HELMET, slimeTraits.build())
       // traits
       .module(ArmorSlotType.CHESTPLATE, slimeTraits.copy().trait(ModifierIds.wings).build())
@@ -628,17 +639,45 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .module(ArmorSlotType.BOOTS, ToolTraitsModule.builder().trait(ModifierIds.leaping, 1).build(), ToolHooks.REBALANCED_TRAIT);
 
     // ancient
+    // melting pan
+    define(ToolDefinitions.MELTING_PAN)
+      // parts
+      .module(MaterialStatsModule.stats()
+        .stat(PlatingMaterialStats.SHIELD.getId())
+        .stat(LimbMaterialStats.ID)
+        .build())
+      .module(defaultAncient)
+      // ancient tools add a second copy of traits, and add both traits to rebalanced
+      .module(new MaterialTraitsModule(LimbMaterialStats.ID, 1), ToolHooks.REBALANCED_TRAIT)
+      // stats
+      .module(new SetStatsModule(StatsNBT.builder()
+        .set(ToolStats.MINING_SPEED, 6f)
+        .set(ToolStats.HARVEST_TIER, Tiers.STONE)
+        .set(ToolStats.KNOCKBACK_RESISTANCE, 0.1f)
+        .set(ToolStats.BLOCK_AMOUNT, 10).build()))
+      .module(ToolSlotsModule.builder()
+        .slots(SlotType.UPGRADE, 1)
+        .slots(SlotType.DEFENSE, 1)
+        .slots(SlotType.ABILITY, 2).build())
+      // traits
+      .module(new MeltingFluidEffectiveModule(BlockPredicate.tag(TinkerTags.Blocks.MINEABLE_MELTING_BLACKLIST).inverted(), 1500, false))
+      .module(new VolatileFlagModule(MeltingModule.FORCE_MELTING))
+      .module(new VeiningAOEIterator(0))
+      .module(ToolTraitsModule.builder()
+        .trait(TinkerModifiers.melting, 2)
+        .trait(ModifierIds.tank).build())
+      .module(DualOptionInteraction.INSTANCE);
     // war pick
     define(ToolDefinitions.WAR_PICK)
       // parts
       .module(MaterialStatsModule.stats()
         .stat(HeadMaterialStats.ID)
         .stat(LimbMaterialStats.ID)
-        .primaryPart(-1).build())
-      .module(defaultTwoParts)
-      // ancient tools add a second copy of traits, and add both traits to rebalanced
-      .module(new MaterialTraitsModule(HeadMaterialStats.ID, 0), ToolHooks.TOOL_TRAITS, ToolHooks.REBALANCED_TRAIT)
-      .module(new MaterialTraitsModule(LimbMaterialStats.ID, 1), ToolHooks.TOOL_TRAITS, ToolHooks.REBALANCED_TRAIT)
+        .stat(StatlessMaterialStats.BOWSTRING.getIdentifier())
+        .build())
+      .module(DefaultMaterialsModule.builder().material(randomMaterial, randomMaterial, randomMaterial).build())
+      // ancient tools when rebalanced get both heads
+      .module(new MaterialTraitsModule(LimbMaterialStats.ID, 1), ToolHooks.REBALANCED_TRAIT)
       // stats
       .module(new SetStatsModule(StatsNBT.builder().set(ToolStats.ATTACK_SPEED, 1.2f).build()))
       .smallToolStartingSlots()
@@ -651,22 +690,25 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .module(MaterialStatsModule.stats()
         .stat(HeadMaterialStats.ID)
         .stat(PlatingMaterialStats.SHIELD.getId())
-        .primaryPart(-1).build())
-      .module(defaultTwoParts)
-      // ancient tools add a second copy of traits, and add both traits to rebalanced
-      .module(new MaterialTraitsModule(HeadMaterialStats.ID,                0), ToolHooks.TOOL_TRAITS, ToolHooks.REBALANCED_TRAIT)
-      .module(new MaterialTraitsModule(PlatingMaterialStats.SHIELD.getId(), 1), ToolHooks.TOOL_TRAITS, ToolHooks.REBALANCED_TRAIT)
+        .build())
+      .module(defaultAncient)
+      // ancient tools when rebalanced get both heads
+      .module(new MaterialTraitsModule(PlatingMaterialStats.SHIELD.getId(), 1), ToolHooks.REBALANCED_TRAIT)
       // stats
       .module(new SetStatsModule(StatsNBT.builder()
         .set(ToolStats.ATTACK_DAMAGE, 2f)
-        .set(ToolStats.ATTACK_SPEED, 1.4f)
+        .set(ToolStats.ATTACK_SPEED, 1.2f)
         .set(ToolStats.BLOCK_AMOUNT, 50)
         .set(ToolStats.BLOCK_ANGLE, 120).build()))
       .module(ToolSlotsModule.builder()
         .slots(SlotType.DEFENSE, 3)
         .slots(SlotType.ABILITY, 1).build())
       // traits
-      .module(ToolTraitsModule.builder().trait(TinkerModifiers.blocking).build());
+      .module(ToolTraitsModule.builder()
+        .trait(TinkerModifiers.blocking)
+        .trait(TinkerModifiers.bonking)
+        .trait(TinkerModifiers.knockback).build())
+      .module(new ParticleWeaponAttack(TinkerTools.bonkAttackParticle.get()));
   }
 
   @Override

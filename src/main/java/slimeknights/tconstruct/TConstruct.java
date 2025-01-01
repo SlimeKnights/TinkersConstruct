@@ -1,16 +1,10 @@
 package slimeknights.tconstruct;
 
-import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -20,10 +14,8 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.MissingMappingsEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import slimeknights.mantle.registration.RegistrationHelper;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
@@ -41,7 +33,6 @@ import slimeknights.tconstruct.common.data.tags.ItemTagProvider;
 import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
-import slimeknights.tconstruct.library.TinkerBookIDs;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.ComputableDataKey;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
@@ -55,17 +46,14 @@ import slimeknights.tconstruct.plugin.jsonthings.JsonThingsPlugin;
 import slimeknights.tconstruct.shared.TinkerClient;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
-import slimeknights.tconstruct.shared.block.SlimeType;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolParts;
 import slimeknights.tconstruct.tools.TinkerTools;
-import slimeknights.tconstruct.tools.stats.ToolType;
 import slimeknights.tconstruct.world.TinkerStructures;
 import slimeknights.tconstruct.world.TinkerWorld;
 
-import javax.annotation.Nullable;
 import java.util.Locale;
 import java.util.Random;
 import java.util.function.Supplier;
@@ -76,7 +64,6 @@ import java.util.function.Supplier;
  * @author mDiyo
  */
 
-@SuppressWarnings("unused")
 @Mod(TConstruct.MOD_ID)
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class TConstruct {
@@ -94,7 +81,6 @@ public class TConstruct {
     Config.init();
 
     // initialize modules, done this way rather than with annotations to give us control over the order
-    MinecraftForge.EVENT_BUS.addListener(TConstruct::missingMappings);
     IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
     // base
     bus.register(new TinkerCommons());
@@ -117,7 +103,6 @@ public class TConstruct {
     TinkerNetwork.setup();
     TinkerTags.init();
     // init client logic
-    TinkerBookIDs.registerCommandSuggestion();
     DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> TinkerClient::onConstruct);
 
     // compat
@@ -160,70 +145,6 @@ public class TConstruct {
     datagenerator.addProvider(server, new AdvancementsProvider(datagenerator));
     datagenerator.addProvider(server, new GlobalLootModifiersProvider(datagenerator));
     datagenerator.addProvider(server, new LootTableInjectionProvider(datagenerator));
-  }
-
-  /** Shared behavior between item and block missing mappings */
-  @Nullable
-  private static Block missingBlock(String name) {
-    return switch(name) {
-      // blood removal
-      case "blood_slime" -> Blocks.SLIME_BLOCK;
-      case "blood_congealed_slime" -> TinkerWorld.congealedSlime.get(SlimeType.EARTH);
-      case "blood_fluid" -> TinkerFluids.earthSlime.getBlock();
-      // lavawood removal
-      case "lavawood" -> TinkerMaterials.blazewood.get();
-      case "lavawood_slab" -> TinkerMaterials.blazewood.getSlab();
-      case "lavawood_stairs" -> TinkerMaterials.blazewood.getStairs();
-      // migrate mud bricks to vanilla
-      case "mud_bricks" -> Blocks.MUD_BRICKS;
-      case "mud_bricks_slab" -> Blocks.MUD_BRICK_SLAB;
-      case "mud_bricks_stairs" -> Blocks.MUD_BRICK_STAIRS;
-      default -> null;
-    };
-  }
-
-  /** Handles missing mappings of all types */
-  private static void missingMappings(MissingMappingsEvent event) {
-    RegistrationHelper.handleMissingMappings(event, MOD_ID, Registry.BLOCK_REGISTRY, name -> {
-      // no item form so we handle it directly
-      if (name.equals("blood_fluid")) {
-        return TinkerFluids.earthSlime.getBlock();
-      }
-      return missingBlock(name);
-    });
-    RegistrationHelper.handleMissingMappings(event, MOD_ID, Registry.ITEM_REGISTRY, name -> switch (name) {
-      // slings are modifiers now
-      case "earth_slime_sling" -> TinkerTools.earthStaff.get();
-      case "sky_slime_sling" -> TinkerTools.skyStaff.get();
-      case "ichor_slime_sling" -> TinkerTools.ichorStaff.get();
-      case "ender_slime_sling" -> TinkerTools.enderStaff.get();
-      // earthslime no longer needed due to forge feature
-      case "earth_slime_spawn_egg" -> Items.SLIME_SPAWN_EGG;
-      // blood removal
-      case "bloodbone" -> TinkerMaterials.venombone.get();
-      case "blood_slime_ball" -> Items.SLIME_BALL;
-      case "blood_bucket" -> TinkerFluids.earthSlime.asItem();
-      case "blood_bottle" -> TinkerFluids.slimeBottle.get(SlimeType.EARTH);
-      // ID switched from non-generated to generated
-      case "ichor_bottle" -> TinkerFluids.slimeBottle.get(SlimeType.ICHOR);
-      // reinforcement rework, bronze was the only type dropped so map to the new type
-      case "bronze_reinforcement" -> TinkerModifiers.obsidianReinforcement.get();
-      default -> {
-        Block block = missingBlock(name);
-        yield block == null ? null : block.asItem();
-      }
-    });
-    RegistrationHelper.handleMissingMappings(event, MOD_ID, Registry.FLUID_REGISTRY, name -> switch (name) {
-      case "blood" -> TinkerFluids.earthSlime.getStill();
-      case "flowing_blood" -> TinkerFluids.earthSlime.getFlowing();
-      default -> null;
-    });
-    RegistrationHelper.handleMissingMappings(event, MOD_ID, Registry.ENTITY_TYPE_REGISTRY, name -> name.equals("earth_slime") ? EntityType.SLIME : null);
-    RegistrationHelper.handleMissingMappings(event, MOD_ID, Registry.MOB_EFFECT_REGISTRY, name -> switch (name) {
-      case "momentum" -> TinkerModifiers.momentumEffect.get(ToolType.HARVEST);
-      case "insatiable" -> TinkerModifiers.insatiableEffect.get(ToolType.MELEE);
-      default -> null;
-    });
   }
 
 

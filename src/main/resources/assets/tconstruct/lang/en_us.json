@@ -914,6 +914,7 @@
   "item.tconstruct.ichor_staff": "Ichor Staff",
   "item.tconstruct.ender_staff": "Enderslime Staff",
   
+  "item.tconstruct.melting_pan": "Melting Pan",
   "item.tconstruct.battlesign": "Battlesign",
   "item.tconstruct.war_pick": "War Pick",
   
@@ -2348,6 +2349,9 @@
   "modifier.tconstruct.extra_ability.flavor": "For modpacks!",
   "modifier.tconstruct.extra_ability.description": "Ask your modpack maker to provide a resource pack giving this better lore",
 
+  "modifier.tconstruct.smelting": "Smelting",
+  "modifier.tconstruct.smelting.flavor": "Nice crispy bacon",
+  "modifier.tconstruct.smelting.description": "Using the tool cooks the items inside! Fill the tool by sneaking while interacting.",
 
   "__comment": "Tier 1 Traits",
 

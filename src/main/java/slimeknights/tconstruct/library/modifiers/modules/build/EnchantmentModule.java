@@ -215,7 +215,7 @@ public interface EnchantmentModule extends ModifierModule, IntLevelModule, Condi
     }
 
     @Override
-    public void finishHarvest(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context, boolean didHarvest) {
+    public void finishHarvest(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context, int harvested) {
       tool.getPersistentData().remove(conditionFlag);
     }
 

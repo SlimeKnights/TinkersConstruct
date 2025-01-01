@@ -1,0 +1,10 @@
+{
+  "values": [
+    "tconstruct:flinging",
+    "tconstruct:springing",
+    "tconstruct:bonking",
+    "tconstruct:warping",
+    "tconstruct:spitting",
+    "tconstruct:zoom"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "forge:item/default-tool",
+  "textures": {
+    "head":    "tconstruct:item/tool/melting_pan/head",
+    "handle":  "tconstruct:item/tool/pickaxe/handle"
+  },
+  "modifier_roots": [ "tconstruct:item/tool/melting_pan/modifiers/" ],
+  "parts": [
+    { "name": "handle",  "index": 1 },
+    { "name": "head",    "index": 0 }
+  ],
+  "first_modifiers": [{ "name": "tconstruct:tank", "forced": true }],
+  "overrides": [
+    {
+      "predicate": { "tconstruct:charging": 2 },
+      "model": "tconstruct:item/tool/melting_pan/blocking"
+    },
+    {
+      "predicate": { "tconstruct:broken": 1 },
+      "model": "tconstruct:item/tool/melting_pan/broken"
+    }
+  ]
+}

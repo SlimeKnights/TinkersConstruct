@@ -10,6 +10,9 @@
     },
     {
       "tag": "tconstruct:modifiable/interactable/right"
+    },
+    {
+      "tag": "tconstruct:modifiable/shields"
     }
   ]
 }
