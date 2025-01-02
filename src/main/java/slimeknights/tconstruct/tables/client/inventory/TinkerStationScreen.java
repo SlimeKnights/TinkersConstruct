@@ -251,7 +251,7 @@ public class TinkerStationScreen extends ToolTableScreen<TinkerStationBlockEntit
       textField.setValue(tile.getItemName());
     }
 
-    updateArmorStandPreview(toolStack);
+    updateArmorStandPreview(lazyResult != null ? lazyResult.getStack() : ItemStack.EMPTY);
 
     // if the contained stack is modifiable, display some information
     if (lazyResult != null && lazyResult.getTool().hasTag(TinkerTags.Items.MODIFIABLE)) {

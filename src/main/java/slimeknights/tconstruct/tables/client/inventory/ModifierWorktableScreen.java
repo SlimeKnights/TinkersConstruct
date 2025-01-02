@@ -211,12 +211,11 @@ public class ModifierWorktableScreen extends ToolTableScreen<ModifierWorktableBl
       }
 
       // reuse logic from tinker station for final result
-      ToolStack result = lazyResult.getTool();
-      ItemStack resultStack = lazyResult.getStack();
-      updateToolPanel(result, resultStack);
+      updateToolPanel(lazyResult);
 
       this.modifierInfo.setCaption(Component.empty());
       this.modifierInfo.setText(Component.empty());
+      ToolStack result = lazyResult.getTool();
       if (result.hasTag(TinkerTags.Items.MODIFIABLE)) {
         updateModifierPanel(result);
       } else {

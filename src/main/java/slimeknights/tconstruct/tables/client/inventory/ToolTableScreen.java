@@ -20,6 +20,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.tools.item.ITinkerStationDisplay;
+import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.TinkerTooltipFlags;
 import slimeknights.tconstruct.tables.client.inventory.module.InfoPanelScreen;
@@ -109,12 +110,14 @@ public abstract class ToolTableScreen<T extends BlockEntity, C extends TabbedCon
   }
 
   /** Updates the tool panel area */
-  protected void updateToolPanel(ToolStack tool, ItemStack result) {
+  protected void updateToolPanel(LazyToolStack lazyToolStack) {
+    ToolStack tool = lazyToolStack.getTool();
     if (tool.getItem() instanceof ITinkerStationDisplay display) {
       tinkerInfo.setCaption(display.getLocalizedName());
       tinkerInfo.setText(display.getStatInformation(tool, Minecraft.getInstance().player, new ArrayList<>(), SafeClientAccess.getTooltipKey(), TinkerTooltipFlags.TINKER_STATION));
     }
     else {
+      ItemStack result = lazyToolStack.getStack();
       tinkerInfo.setCaption(result.getHoverName());
       List<Component> list = new ArrayList<>();
       result.getItem().appendHoverText(result, Minecraft.getInstance().level, list, Default.NORMAL);

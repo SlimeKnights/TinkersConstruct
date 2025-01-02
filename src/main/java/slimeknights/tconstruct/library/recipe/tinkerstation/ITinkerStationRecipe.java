@@ -32,13 +32,7 @@ public interface ITinkerStationRecipe extends ICommonRecipe<ITinkerStationContai
    * Gets the recipe result, or an object containing an error message if the recipe matches but cannot be applied.
    * @return Validated result
    */
-  default RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv) {
-    ItemStack resultItem = assemble(inv);
-    if (resultItem.isEmpty()) {
-      return RecipeResult.pass();
-    }
-    return RecipeResult.success(LazyToolStack.from(resultItem));
-  }
+  RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv, RegistryAccess access);
 
   /** Gets the number to shrink the tool slot by, perfectly valid for this to be higher than the contained number of tools */
   default int shrinkToolSlotBy() {

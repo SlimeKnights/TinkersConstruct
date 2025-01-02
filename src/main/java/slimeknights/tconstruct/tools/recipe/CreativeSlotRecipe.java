@@ -17,6 +17,7 @@ import slimeknights.tconstruct.library.recipe.modifiers.adding.IModifierRecipe;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
 import slimeknights.tconstruct.library.tools.SlotType;
+import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -78,7 +79,7 @@ public class CreativeSlotRecipe implements ITinkerStationRecipe, IModifierRecipe
   }
 
   @Override
-  public RecipeResult<ItemStack> getValidatedResult(ITinkerStationContainer inv, RegistryAccess access) {
+  public RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv, RegistryAccess access) {
     ToolStack toolStack = inv.getTinkerable().copy();
 
     // first, fetch the slots compound
@@ -105,7 +106,7 @@ public class CreativeSlotRecipe implements ITinkerStationRecipe, IModifierRecipe
     } else {
       toolStack.rebuildStats();
     }
-    return RecipeResult.success(toolStack.createStack(inv.getTinkerableSize()));
+    return RecipeResult.success(LazyToolStack.from(toolStack, inv.getTinkerableSize()));
   }
 
   @Override

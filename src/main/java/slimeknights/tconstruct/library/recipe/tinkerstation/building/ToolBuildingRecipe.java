@@ -26,6 +26,7 @@ import slimeknights.tconstruct.library.tools.definition.module.material.ToolPart
 import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.layout.LayoutSlot;
 import slimeknights.tconstruct.library.tools.layout.StationSlotLayoutLoader;
+import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
@@ -165,12 +166,12 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   }
 
   @Override
-  public RecipeResult<ItemStack> getValidatedResult(ITinkerStationContainer inv, RegistryAccess access) {
+  public RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv, RegistryAccess access) {
     // first n slots contain parts
     List<MaterialVariant> materials = IntStream.range(0, ToolPartsHook.parts(output.getToolDefinition()).size())
                                                .mapToObj(i -> MaterialVariant.of(IMaterialItem.getMaterialFromStack(inv.getInput(i))))
                                                .toList();
-    return RecipeResult.success(ToolStack.createTool(output.asItem(), output.getToolDefinition(), new MaterialNBT(materials)).createStack(outputCount));
+    return RecipeResult.success(LazyToolStack.from(ToolStack.createTool(output.asItem(), output.getToolDefinition(), new MaterialNBT(materials)), outputCount));
   }
 
   @Deprecated
@@ -182,6 +183,6 @@ public class ToolBuildingRecipe implements ITinkerStationRecipe {
   @Deprecated
   @Override
   public ItemStack assemble(ITinkerStationContainer inv, RegistryAccess access) {
-    return getValidatedResult(inv, access).getResult();
+    return getValidatedResult(inv, access).getResult().getStack();
   }
 }

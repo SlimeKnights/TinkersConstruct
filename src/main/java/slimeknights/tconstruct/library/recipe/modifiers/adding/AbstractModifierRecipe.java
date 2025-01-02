@@ -93,12 +93,6 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   @Override
   public abstract RecipeResult<LazyToolStack> getValidatedResult(ITinkerStationContainer inv, RegistryAccess access);
 
-  /** @deprecated use {@link #getValidatedResult(ITinkerStationContainer)} */
-  @Override @Deprecated
-  public ItemStack getResultItem() {
-    return ItemStack.EMPTY;
-  }
-
   @Override
   public int shrinkToolSlotBy() {
     return maxToolSize;
