@@ -1,7 +1,7 @@
 {
   "tool": "tconstruct:war_pick",
   "text": [
-    { "text": "The war pick is a hybrid mining tool, effective on stone, metal, and ores while also functioning as a crossbow. It can be found from mineshafts, pillager posts, zombie villagers, and a gift from weaponsmiths after defeating a raid." },
+    { "text": "The war pick is a crossbow effective at mining stone, metal, and ores. It is found in mineshafts, pillager posts, zombie villagers, and a gift from weaponsmiths." },
     { "text": "Expanders increase the circular radius of the pick.", "paragraph": true }
   ],
   "properties": [

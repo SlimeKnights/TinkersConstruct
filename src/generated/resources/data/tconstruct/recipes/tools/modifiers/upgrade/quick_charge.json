@@ -1,15 +1,14 @@
 {
   "type": "tconstruct:incremental_modifier",
-  "allow_crystal": false,
-  "amount_per_item": 9,
+  "allow_crystal": true,
+  "amount_per_item": 1,
   "input": {
-    "tag": "forge:storage_blocks/redstone"
+    "item": "minecraft:sunflower"
   },
-  "leftover": "minecraft:redstone",
   "level": {
     "max": 4
   },
-  "needed_per_level": 45,
+  "needed_per_level": 5,
   "result": "tconstruct:quick_charge",
   "slots": {
     "upgrades": 1

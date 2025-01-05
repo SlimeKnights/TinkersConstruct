@@ -2,8 +2,8 @@
   "loader": "tconstruct:tool",
   "parent": "forge:item/default-tool",
   "textures": {
-    "axe": "tconstruct:item/tool/pickadze/axe_broken",
-    "pick": "tconstruct:item/tool/mattock/pick_broken",
+    "adze": "tconstruct:item/tool/pickadze/adze",
+    "pick": "tconstruct:item/tool/pickadze/pick_broken",
     "handle": "tconstruct:item/tool/pickaxe/handle"
   },
   "modifier_roots": [
@@ -16,12 +16,12 @@
       "index": 1
     },
     {
-      "name": "axe",
-      "index": 0
+      "name": "adze",
+      "index": 2
     },
     {
       "name": "pick",
-      "index": 2
+      "index": 0
     }
   ]
 }

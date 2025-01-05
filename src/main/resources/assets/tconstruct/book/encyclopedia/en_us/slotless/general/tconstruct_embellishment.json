@@ -2,10 +2,10 @@
   "modifier_id": "tconstruct:embellishment",
   "text": [
     {
-      "text": "Allows changing the appearance of plate armor, slimesuits, staffs, and shields."
+      "text": "Allows changing the appearance of slimesuits, staffs, and shields."
     },
     {
-      "text": "Metal is embellished using metal ingots, while the slime uses congealed slime blocks.",
+      "text": "Slime uses congealed slime blocks, while staffs and shields use wood embellishments.",
       "paragraph": true
     }
   ],

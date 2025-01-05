@@ -12,6 +12,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.recipe.ITinkerableContainer;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
+import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.ModifierRecipe;
 import slimeknights.tconstruct.library.recipe.worktable.AbstractWorktableRecipe;
 import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
@@ -56,6 +57,18 @@ public class ModifierSortingRecipe extends AbstractWorktableRecipe {
       return NOT_ENOUGH_MODIFIERS;
     }
     return DESCRIPTION;
+  }
+
+  @Override
+  public List<ModifierEntry> getModifierOptions(@Nullable ITinkerableContainer inv) {
+    if (inv == null) {
+      return ModifierRecipeLookup.getRecipeModifierList();
+    }
+    List<ModifierEntry> modifiers = inv.getTinkerable().getUpgrades().getModifiers();
+    if (modifiers.size() < 2) {
+      return List.of();
+    }
+    return modifiers;
   }
 
   @Override

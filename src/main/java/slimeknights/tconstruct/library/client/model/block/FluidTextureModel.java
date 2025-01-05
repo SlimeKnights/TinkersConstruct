@@ -125,6 +125,7 @@ public class FluidTextureModel implements IUnbakedGeometry<FluidTextureModel> {
     private final Set<String> fluids;
     private final BitSet fluidParts;
     private final Set<String> retextured;
+    private final ItemOverrides overrides = new RetexturedOverride();
 
     protected Baked(BakedModel originalModel, List<BlockElement> elements, List<ColorData> colorData, IGeometryBakingContext owner, ModelState transform, Set<String> fluids, BitSet fluidParts, Set<String> retextured) {
       super(originalModel);
@@ -206,7 +207,27 @@ public class FluidTextureModel implements IUnbakedGeometry<FluidTextureModel> {
 
     @Override
     public ItemOverrides getOverrides() {
-      return RetexturedOverride.INSTANCE;
+      return overrides;
+    }
+
+    /** Override list to swap the texture in from NBT */
+    private class RetexturedOverride extends ItemOverrides {
+      @Nullable
+      @Override
+      public BakedModel resolve(BakedModel originalModel, ItemStack stack, @Nullable ClientLevel world, @Nullable LivingEntity entity, int pSeed) {
+        if (stack.isEmpty() || !stack.hasTag()) {
+          return originalModel;
+        }
+
+        // get the block first, ensuring its valid
+        Block block = RetexturedBlockItem.getTexture(stack);
+        if (block == Blocks.AIR) {
+          return originalModel;
+        }
+
+        // if valid, use the block
+        return getCachedModel(new BakedCacheKey(FluidStack.EMPTY, ModelHelper.getParticleTexture(block)));
+      }
     }
   }
 
@@ -222,27 +243,5 @@ public class FluidTextureModel implements IUnbakedGeometry<FluidTextureModel> {
       retextured = ImmutableSet.copyOf(JsonHelper.parseList(json, "retextured", GsonHelper::convertToString));
     }
     return new FluidTextureModel(model, fluids, retextured);
-  }
-
-  /** Override list to swap the texture in from NBT */
-  private static class RetexturedOverride extends ItemOverrides {
-    private static final RetexturedOverride INSTANCE = new RetexturedOverride();
-
-    @Nullable
-    @Override
-    public BakedModel resolve(BakedModel originalModel, ItemStack stack, @Nullable ClientLevel world, @Nullable LivingEntity entity, int pSeed) {
-      if (stack.isEmpty() || !stack.hasTag()) {
-        return originalModel;
-      }
-
-      // get the block first, ensuring its valid
-      Block block = RetexturedBlockItem.getTexture(stack);
-      if (block == Blocks.AIR) {
-        return originalModel;
-      }
-
-      // if valid, use the block
-      return ((Baked)originalModel).getCachedModel(new BakedCacheKey(FluidStack.EMPTY, ModelHelper.getParticleTexture(block)));
-    }
   }
 }

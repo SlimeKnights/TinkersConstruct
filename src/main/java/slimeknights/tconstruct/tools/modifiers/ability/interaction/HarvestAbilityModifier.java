@@ -156,7 +156,7 @@ public class HarvestAbilityModifier extends NoLevelsModifier implements BlockInt
     LootContext.Builder lootContext = new LootContext.Builder(world)
       .withRandom(world.random)
       .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(pos))
-      .withParameter(LootContextParams.TOOL, ItemStack.EMPTY)
+      .withParameter(LootContextParams.TOOL, stack)
       .withOptionalParameter(LootContextParams.BLOCK_ENTITY, world.getBlockEntity(pos));
     // find drops
     List<ItemStack> drops = state.getDrops(lootContext);

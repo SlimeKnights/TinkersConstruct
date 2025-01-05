@@ -20,7 +20,14 @@
           }
         }
       },
-      "tconstruct:repair_kit"
+      {
+        "type": "forge:nbt",
+        "item": "tconstruct:repair_kit",
+        "nbt": {
+          "tic_display": true,
+          "Material": "tconstruct:ui_render#head"
+        }
+      }
     ]
   ],
   "result": {

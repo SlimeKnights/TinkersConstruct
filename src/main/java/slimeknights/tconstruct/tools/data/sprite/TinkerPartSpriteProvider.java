@@ -90,7 +90,7 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
     buildTool("vein_hammer").withLarge().addBreakableHead("head").addHead("back").addBreakableHead("front").addHandle("handle");
     // shovel
     buildTool("mattock").addBreakableHead("axe").addBreakableHead("pick"); // handle provided by pickaxe
-    buildTool("pickadze").addBreakableHead("axe"); // handle and "pick" head provided by other tools
+    buildTool("pickadze").addBreakableHead("pick").addHead("adze"); // handle provided by pickaxe
     buildTool("excavator").withLarge().addBreakableHead("head").addHead("binding").addHandle("handle").addHandle("grip");
     // axe
     buildTool("hand_axe").addBreakableHead("head").addBinding("binding"); // handle provided by pickaxe
@@ -105,7 +105,7 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
     // bow
     buildTool("crossbow")
       .addLimb("limb").addGrip("body")
-      .addBowstring("bowstring").addBowstring("bowstring_1").addBowstring("bowstring_2").addBowstring("bowstring_3");
+      .addBreakableBowstring("bowstring").addBowstring("bowstring_1").addBowstring("bowstring_2").addBowstring("bowstring_3");
     buildTool("longbow").withLarge()
       .addLimb("limb_bottom").addLimb("limb_bottom_1").addLimb("limb_bottom_2").addLimb("limb_bottom_3")
       .addLimb("limb_top").addLimb("limb_top_1").addLimb("limb_top_2").addLimb("limb_top_3")
@@ -115,7 +115,7 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
     // ancient tools
     buildTool("melting_pan").addBreakablePart("head", PlatingMaterialStats.SHIELD.getId());
     buildTool("war_pick").addHead("limb").addLimb("body")
-                         .addBowstring("bowstring").addBowstring("bowstring_1").addBowstring("bowstring_2").addBowstring("bowstring_3");
+                         .addBreakableBowstring("bowstring").addBowstring("bowstring_1").addBowstring("bowstring_2").addBowstring("bowstring_3");
     buildTool("battlesign").addBreakableHead("head").addPart("handle", PlatingMaterialStats.SHIELD.getId());
   }
 }

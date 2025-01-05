@@ -28,7 +28,7 @@ public class ToolItemModelProvider extends AbstractToolItemModelProvider {
     tool(TinkerTools.sledgeHammer, toolBlocking, "head", "front", "back");
     tool(TinkerTools.veinHammer, toolBlocking, "head", "front");
     // shovel
-    tool(TinkerTools.pickadze, toolBlocking, "axe", "pick");
+    tool(TinkerTools.pickadze, toolBlocking, "pick");
     tool(TinkerTools.mattock, toolBlocking, "axe", "pick");
     tool(TinkerTools.excavator, toolBlocking, "head");
     // axe

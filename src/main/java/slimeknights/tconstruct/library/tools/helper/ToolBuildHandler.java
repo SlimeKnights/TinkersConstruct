@@ -37,9 +37,7 @@ public final class ToolBuildHandler {
   public static final RandomMaterial RANDOM = RandomMaterial.random().build();
   static {
     RecipeCacheInvalidator.addReloadListener(client -> {
-      if (!client) {
-        RANDOM.clearCache();
-      }
+      RANDOM.clearCache();
     });
   }
 

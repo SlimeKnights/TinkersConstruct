@@ -98,6 +98,7 @@ public class MaterialPartTextureGenerator extends GenericTextureGenerator {
           for (MaterialStatsId statType : part.getStatTypes()) {
             if (material.supportStatType(statType) || overrides.hasOverride(statType, material.getTexture())) {
               generateSprite(spriteReader, material, part, shouldGenerate, saver, metaSaver);
+              break;
             }
           }
         }

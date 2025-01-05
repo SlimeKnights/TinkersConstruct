@@ -360,11 +360,15 @@
       "stat_type": "tconstruct:head"
     },
     {
-      "path": "tconstruct:item/tool/pickadze/axe",
+      "path": "tconstruct:item/tool/pickadze/pick",
       "stat_type": "tconstruct:head"
     },
     {
-      "path": "tconstruct:item/tool/pickadze/axe_broken",
+      "path": "tconstruct:item/tool/pickadze/pick_broken",
+      "stat_type": "tconstruct:head"
+    },
+    {
+      "path": "tconstruct:item/tool/pickadze/adze",
       "stat_type": "tconstruct:head"
     },
     {
@@ -608,6 +612,10 @@
       "stat_type": "tconstruct:bowstring"
     },
     {
+      "path": "tconstruct:item/tool/crossbow/bowstring_broken",
+      "stat_type": "tconstruct:bowstring"
+    },
+    {
       "path": "tconstruct:item/tool/crossbow/bowstring_1",
       "stat_type": "tconstruct:bowstring"
     },
@@ -749,6 +757,10 @@
     },
     {
       "path": "tconstruct:item/tool/war_pick/bowstring",
+      "stat_type": "tconstruct:bowstring"
+    },
+    {
+      "path": "tconstruct:item/tool/war_pick/bowstring_broken",
       "stat_type": "tconstruct:bowstring"
     },
     {

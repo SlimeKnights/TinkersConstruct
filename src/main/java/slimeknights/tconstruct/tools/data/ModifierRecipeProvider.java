@@ -521,7 +521,13 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .setMaxLevel(5)
                                     .saveSalvage(consumer, prefix(ModifierIds.power, upgradeSalvage))
                                     .save(consumer, prefix(ModifierIds.power, upgradeFolder));
-    hasteRecipes(consumer, ModifierIds.quickCharge, ingredientFromTags(TinkerTags.Items.CROSSBOWS, TinkerTags.Items.STAFFS), 4, upgradeFolder, upgradeSalvage);
+    IncrementalModifierRecipeBuilder.modifier(ModifierIds.quickCharge)
+                                    .setTools(ingredientFromTags(TinkerTags.Items.CROSSBOWS, TinkerTags.Items.STAFFS))
+                                    .setInput(Items.SUNFLOWER, 1, 5)
+                                    .setMaxLevel(4)
+                                    .setSlots(SlotType.UPGRADE, 1)
+                                    .saveSalvage(consumer, prefix(ModifierIds.quickCharge, upgradeSalvage))
+                                    .save(consumer, prefix(ModifierIds.quickCharge, upgradeFolder));
     IncrementalModifierRecipeBuilder.modifier(ModifierIds.trueshot)
                                     .setInput(Items.TARGET, 1, 10)
                                     .setSlots(SlotType.UPGRADE, 1)

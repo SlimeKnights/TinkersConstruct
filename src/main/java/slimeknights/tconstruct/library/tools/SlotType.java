@@ -186,8 +186,8 @@ public final class SlotType {
 
       @Override
       public void encode(FriendlyByteBuf buffer, SlotCount slots) {
-        buffer.writeVarInt(slots.count());
         slots.type().write(buffer);
+        buffer.writeVarInt(slots.count());
       }
 
       @Override
