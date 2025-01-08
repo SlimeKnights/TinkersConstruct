@@ -10,6 +10,7 @@ import slimeknights.tconstruct.library.modifiers.impl.IncrementalArmorLevelModif
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay.UniqueForLevels;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability.TinkerDataKey;
+import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
@@ -34,6 +35,20 @@ public class HasteModifier extends IncrementalArmorLevelModifier {
   @Override
   public Component getDisplayName(int level) {
     return NAME.nameForLevel(this, level);
+  }
+
+  @Override
+  public void onEquip(IToolStackView tool, int level, EquipmentChangeContext context) {
+    if (tool.hasTag(TinkerTags.Items.ARMOR)) {
+      super.onEquip(tool, level, context);
+    }
+  }
+
+  @Override
+  public void onUnequip(IToolStackView tool, int level, EquipmentChangeContext context) {
+    if (tool.hasTag(TinkerTags.Items.ARMOR)) {
+      super.onUnequip(tool, level, context);
+    }
   }
 
   @Override
