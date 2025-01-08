@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.shared.item;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -16,7 +17,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class CheeseItem extends Item {
-  public static final Component TOOLTIP = TConstruct.makeTranslation("item", "cheese.tooltip");
+  public static final Component TOOLTIP = TConstruct.makeTranslation("item", "cheese.tooltip").withStyle(ChatFormatting.GRAY);
   public CheeseItem(Properties pProperties) {
     super(pProperties);
   }
