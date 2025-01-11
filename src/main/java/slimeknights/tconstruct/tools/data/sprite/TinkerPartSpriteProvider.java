@@ -85,7 +85,7 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
 
     // tools
     // pickaxe - regular variant uses handle on frypans as a grip so generate those too
-    buildTool("pickaxe").addBreakableHead("head").addPart("handle", HandleMaterialStats.ID, LimbMaterialStats.ID).addBinding("binding");
+    buildTool("pickaxe").addBreakableHead("head").addHandle("handle").addBinding("binding");
     buildTool("sledge_hammer").withLarge().addBreakableHead("head").addBreakableHead("back").addBreakableHead("front").addHandle("handle");
     buildTool("vein_hammer").withLarge().addBreakableHead("head").addBinding("grip").addBreakableHead("front").addHandle("handle");
     // shovel
@@ -113,7 +113,7 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
       .addBreakableBowstring("bowstring").addBowstring("bowstring_1").addBowstring("bowstring_2").addBowstring("bowstring_3");
 
     // ancient tools
-    buildTool("melting_pan").addBreakablePart("head", PlatingMaterialStats.SHIELD.getId());
+    buildTool("melting_pan").addBreakablePart("head", PlatingMaterialStats.SHIELD.getId()).addLimb("handle");
     buildTool("war_pick").addHead("limb").addLimb("body")
                          .addBreakableBowstring("bowstring").addBowstring("bowstring_1").addBowstring("bowstring_2").addBowstring("bowstring_3");
     buildTool("battlesign").addBreakableHead("head").addPart("handle", PlatingMaterialStats.SHIELD.getId());

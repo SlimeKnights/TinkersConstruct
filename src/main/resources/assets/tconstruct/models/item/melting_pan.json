@@ -3,7 +3,7 @@
   "parent": "forge:item/default-tool",
   "textures": {
     "head":    "tconstruct:item/tool/melting_pan/head",
-    "handle":  "tconstruct:item/tool/pickaxe/handle"
+    "handle":  "tconstruct:item/tool/melting_pan/handle"
   },
   "modifier_roots": [ "tconstruct:item/tool/melting_pan/modifiers/" ],
   "parts": [
