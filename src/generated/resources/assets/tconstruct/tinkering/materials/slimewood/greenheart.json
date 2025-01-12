@@ -1,6 +1,7 @@
 {
   "color": "FF56CF4C",
   "fallbacks": [
+    "slime_wood",
     "wood",
     "stick",
     "primitive"
