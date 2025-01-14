@@ -91,6 +91,22 @@ public abstract class AbstractToolItemModelProvider extends GenericDataProvider 
     }
   }
 
+  /** Creates models for blocking, broken and charged for the given tool */
+  protected void charged(IdAwareObject bow, JsonObject properties, String... brokenParts) throws IOException {
+    ResourceLocation id = bow.getId();
+    String name = id.getPath();
+    JsonObject base = readJson(id);
+    base.remove("overrides");
+    withDisplay("tool/" + name + "/blocking", id, properties);
+    transformTool("tool/" + name + "/broken", base, "", false, "broken", brokenParts);
+
+    addPart(base, "overlay", name, "overlay");
+
+    String charged = "tool/" + name + "/charged";
+    transformTool(charged, base, "", false, "charged", "overlay");
+    withDisplay("tool/" + name + "/blocking_charged", resource(charged), properties);
+  }
+
   /** Creates a model in the blocking folder with the given copied display */
   protected void staff(IdAwareObject staff, JsonObject properties) throws IOException {
     ResourceLocation id = staff.getId();

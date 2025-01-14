@@ -1,0 +1,32 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "forge:item/default-tool",
+  "textures": {
+    "head": "tconstruct:item/tool/melting_pan/head",
+    "handle": "tconstruct:item/tool/melting_pan/handle",
+    "overlay": "tconstruct:item/tool/melting_pan/overlay_charged"
+  },
+  "modifier_roots": [
+    "tconstruct:item/tool/melting_pan/modifiers/charged/",
+    "tconstruct:item/tool/melting_pan/modifiers/"
+  ],
+  "parts": [
+    {
+      "name": "handle",
+      "index": 1
+    },
+    {
+      "name": "head",
+      "index": 0
+    },
+    {
+      "name": "overlay"
+    }
+  ],
+  "first_modifiers": [
+    {
+      "name": "tconstruct:tank",
+      "forced": true
+    }
+  ]
+}
