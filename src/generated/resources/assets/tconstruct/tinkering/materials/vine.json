@@ -4,8 +4,7 @@
     "vine"
   ],
   "generator": {
-    "ignoreMaterialStats": false,
-    "supportedStats": [
+    "supported_stats": [
       "tconstruct:binding",
       "tconstruct:bowstring"
     ],
@@ -45,6 +44,5 @@
         ]
       }
     }
-  },
-  "luminosity": 0
+  }
 }

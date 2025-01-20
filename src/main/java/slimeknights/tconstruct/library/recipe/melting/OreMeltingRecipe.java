@@ -13,7 +13,6 @@ import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.helper.FluidOutput;
 import slimeknights.mantle.recipe.helper.LoadableRecipeSerializer;
 import slimeknights.tconstruct.common.config.Config;
-import slimeknights.tconstruct.common.config.Config.OreRate;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.json.field.MergingListField;
 import slimeknights.tconstruct.library.recipe.melting.IMeltingContainer.OreRateType;
@@ -69,18 +68,5 @@ public class OreMeltingRecipe extends MeltingRecipe {
   @Override
   public RecipeSerializer<?> getSerializer() {
     return TinkerSmeltery.oreMeltingSerializer.get();
-  }
-
-  /** Scales the byproducts using the given rate */
-  public static List<FluidStack> scaleByproducts(OreRate rate, List<FluidStack> byproducts, OreRateType rateType, List<OreRateType> byproductRates) {
-    // empty means we are coming from network buffer, don't boost it again
-    if (byproductRates.isEmpty()) {
-      return byproducts;
-    }
-    // different size should never happen since we parse the same list
-    if (byproductRates.size() != byproducts.size()) {
-      throw new IllegalArgumentException("Wrong number of byproduct rates passed, must have one per byproduct");
-    }
-    return Streams.zip(byproductRates.stream(), byproducts.stream(), (type, fluid) -> rate.applyOreBoost(type.orElse(rateType), fluid, false)).toList();
   }
 }

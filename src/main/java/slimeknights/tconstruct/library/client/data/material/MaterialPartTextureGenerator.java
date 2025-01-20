@@ -93,14 +93,17 @@ public class MaterialPartTextureGenerator extends GenericTextureGenerator {
       // want cross product of textures
       for (MaterialSpriteInfo material : materials) {
         for (PartSpriteInfo part : parts) {
-          // if any stat type matches, generate it
-          for (MaterialStatsId statType : part.getStatTypes()) {
-            if (material.supportStatType(statType) || overrides.hasOverride(statType, material.getTexture())) {
-              ResourceLocation spritePath = outputPath(part, material);
-              if (!spriteReader.exists(spritePath)) {
-                generateSprite(spriteReader, material, part, spritePath, saver, metaSaver);
+          // if the part skips variants and the material is a variant, skip
+          if (!material.isVariant() || !part.isSkipVariants()) {
+            // if any stat type matches, generate it
+            for (MaterialStatsId statType : part.getStatTypes()) {
+              if (material.supportStatType(statType) || overrides.hasOverride(statType, material.getTexture())) {
+                ResourceLocation spritePath = outputPath(part, material);
+                if (!spriteReader.exists(spritePath)) {
+                  generateSprite(spriteReader, material, part, spritePath, saver, metaSaver);
+                }
+                break;
               }
-              break;
             }
           }
         }

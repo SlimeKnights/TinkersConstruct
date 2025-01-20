@@ -3,9 +3,6 @@
   "allow_crystal": true,
   "inputs": [
     {
-      "tag": "tconstruct:casts/gold"
-    },
-    {
       "tag": "forge:gems/diamond"
     }
   ],

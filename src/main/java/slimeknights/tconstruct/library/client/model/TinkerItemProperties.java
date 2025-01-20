@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.level.ItemLike;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
@@ -73,15 +74,16 @@ public class TinkerItemProperties {
   }
 
   /** Registers properties for a tool, including the option to have charge/block animations */
-  public static void registerToolProperties(Item item) {
+  public static void registerToolProperties(ItemLike itemlike) {
+    Item item = itemlike.asItem();
     registerBrokenProperty(item);
     ItemProperties.register(item, CHARGING_ID, CHARGING);
     ItemProperties.register(item, CHARGE_ID, CHARGE);
   }
 
   /** Registers properties for a bow */
-  public static void registerCrossbowProperties(Item item) {
+  public static void registerCrossbowProperties(ItemLike item) {
     registerToolProperties(item);
-    ItemProperties.register(item, AMMO_ID, AMMO);
+    ItemProperties.register(item.asItem(), AMMO_ID, AMMO);
   }
 }

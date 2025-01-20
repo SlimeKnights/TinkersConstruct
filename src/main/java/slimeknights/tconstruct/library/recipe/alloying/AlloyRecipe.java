@@ -8,6 +8,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.data.loadable.field.ContextKey;
+import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.ICustomOutputRecipe;
@@ -19,7 +20,6 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import java.util.BitSet;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Base class for alloying recipes
@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
   public static final RecordLoadable<AlloyRecipe> LOADER = RecordLoadable.create(
     ContextKey.ID.requiredField(),
-    FluidIngredient.LOADABLE.list(2).requiredField("inputs", r -> r.inputs),
+    AlloyIngredient.LOADABLE.list(2).requiredField("inputs", r -> r.inputs),
     FluidOutput.Loadable.REQUIRED.requiredField("result", r -> r.output),
     IntLoadable.FROM_ONE.requiredField("temperature", r -> r.temperature),
     AlloyRecipe::new);
@@ -40,25 +40,13 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
    * Order matters, as if a fluid matches multiple ingredients it may produce unexpected behavior.
    * Making the most strict first will produce the best behavior
    */
-  private final List<FluidIngredient> inputs;
+  @Getter
+  private final List<AlloyIngredient> inputs;
   /** Recipe output */
   private final FluidOutput output;
   /** Required temperature to craft this */
   @Getter
   private final int temperature;
-  /** Cache of recipe input list */
-  private List<List<FluidStack>> displayInputs;
-
-  /**
-   * Gets the list of inputs for display in JEI
-   * @return  List of input list for each "slot"
-   */
-  public List<List<FluidStack>> getDisplayInputs() {
-    if (displayInputs == null) {
-      displayInputs = inputs.stream().map(FluidIngredient::getFluids).collect(Collectors.toList());
-    }
-    return displayInputs;
-  }
 
   /** Gets the result of this recipe */
   public FluidStack getOutput() {
@@ -107,9 +95,9 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
   @Override
   public boolean matches(IAlloyTank inv, Level worldIn) {
     BitSet used = makeBitset(inv);
-    for (FluidIngredient ingredient : inputs) {
+    for (AlloyIngredient ingredient : inputs) {
       // do not care about size for matches, just want a recipe with the right fluids
-      int index = findMatch(ingredient, inv, used, false);
+      int index = findMatch(ingredient.fluid, inv, used, false);
       if (index == -1) {
         return false;
       }
@@ -133,15 +121,16 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
     BitSet used = makeBitset(inv);
     int drainAmount = 0;
     FluidStack fluid;
-    for (FluidIngredient ingredient : inputs) {
+    for (AlloyIngredient ingredient : inputs) {
       // care about size, if too small just skip the recipe
-      int index = findMatch(ingredient, inv, used, true);
-      if (index != -1) {
-        fluid = inv.getFluidInTank(index);
-        drainAmount += ingredient.getAmount(fluid.getFluid());
-      } else {
+      int index = findMatch(ingredient.fluid, inv, used, true);
+      if (index == -1) {
         // no fluid matched this ingredient, match failed
         return false;
+      } else if (!ingredient.catalyst()) {
+        // increase amount to drain only for non-catalysts
+        fluid = inv.getFluidInTank(index);
+        drainAmount += ingredient.fluid.getAmount(fluid.getFluid());
       }
     }
 
@@ -165,17 +154,19 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
     BitSet used = makeBitset(inv);
 
     FluidStack fluid;
-    for (FluidIngredient ingredient : inputs) {
+    for (AlloyIngredient ingredient : inputs) {
       // care about size, if too small just skip the recipe
-      int index = findMatch(ingredient, inv, used, true);
-      if (index != -1 && drainFluids[index] == null) {
-        fluid = inv.getFluidInTank(index);
-        int amount = ingredient.getAmount(fluid.getFluid());
-        drainAmount += amount;
-        drainFluids[index] = new FluidStack(fluid, amount);
-      } else {
+      int index = findMatch(ingredient.fluid, inv, used, true);
+      if (index == -1) {
         // no fluid matched this ingredient, match failed
         return;
+      } else if (!ingredient.catalyst) {
+        // practically the drained fluid at the index should always be null as we don't reuse indexes
+        assert drainFluids[index] == null;
+        fluid = inv.getFluidInTank(index);
+        int amount = ingredient.fluid.getAmount(fluid.getFluid());
+        drainAmount += amount;
+        drainFluids[index] = new FluidStack(fluid, amount);
       }
     }
 
@@ -210,5 +201,13 @@ public class AlloyRecipe implements ICustomOutputRecipe<IAlloyTank> {
   @Override
   public RecipeSerializer<?> getSerializer() {
     return TinkerSmeltery.alloyingSerializer.get();
+  }
+
+  public record AlloyIngredient(FluidIngredient fluid, boolean catalyst) {
+    public static final RecordLoadable<AlloyIngredient> LOADABLE = RecordLoadable.create(
+      FluidIngredient.LOADABLE.tryDirectField("match", AlloyIngredient::fluid),
+      BooleanLoadable.INSTANCE.defaultField("catalyst", false, false, AlloyIngredient::catalyst),
+      AlloyIngredient::new
+    ).compact(FluidIngredient.LOADABLE.flatXmap(fluid -> new AlloyIngredient(fluid, false), AlloyIngredient::fluid), alloy -> !alloy.catalyst());
   }
 }

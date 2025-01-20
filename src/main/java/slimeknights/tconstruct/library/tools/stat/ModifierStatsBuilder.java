@@ -1,13 +1,9 @@
 package slimeknights.tconstruct.library.tools.stat;
 
 import lombok.NoArgsConstructor;
-import net.minecraft.world.item.Item;
-import org.jetbrains.annotations.ApiStatus.Internal;
-import org.jetbrains.annotations.VisibleForTesting;
 import slimeknights.tconstruct.library.tools.nbt.MultiplierNBT;
 import slimeknights.tconstruct.library.tools.nbt.StatsNBT;
 
-import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -70,11 +66,10 @@ public class ModifierStatsBuilder {
   }
 
   /**
-   * Builds the stats with a filter
-   * @param filter  Item the stats must match to be included
+   * Builds the final stats
    * @return  Built stats
    */
-  public StatsNBT build(@Nullable Item filter) {
+  public StatsNBT build() {
     if (map.isEmpty()) {
       return StatsNBT.EMPTY;
     }
@@ -82,55 +77,22 @@ public class ModifierStatsBuilder {
     // next, iterate any stats we have that are not in base
     StatsNBT.Builder builder = StatsNBT.builder();
     for (IToolStat<?> stat : map.keySet()) {
-      if (disableFilter || filter == null || stat.supports(filter)) {
-        buildStat(builder, stat);
-      }
+      buildStat(builder, stat);
     }
 
     return builder.build();
-  }
-
-  /**
-   * Builds the stats unfiltered
-   * @return  Built stats
-   */
-  public StatsNBT build() {
-    return build(null);
   }
 
   /**
    * Builds the stat multiplier object for global stat multipliers
-   * @param filter  Item the stats must match to be included
-   * @return  Multipliers stats
-   */
-  public MultiplierNBT buildMultipliers(@Nullable Item filter) {
-    MultiplierNBT.Builder builder = MultiplierNBT.builder();
-    for (Entry<INumericToolStat<?>,Float> entry : multipliers.entrySet()) {
-      INumericToolStat<?> stat = entry.getKey();
-      if (disableFilter || filter == null || stat.supports(filter)) {
-        builder.set(stat, entry.getValue());
-      }
-    }
-    return builder.build();
-  }
-
-  /**
-   * Builds the stat multiplier object for global stat multipliers unfiltered
    * @return  Multipliers stats
    */
   public MultiplierNBT buildMultipliers() {
-    return buildMultipliers(null);
-  }
-
-
-  /* Testing */
-  private static boolean disableFilter = false;
-
-  /** Disables the stat filters in the builder. Used when testing where tags don't exist, not meant to be used by mods. */
-  @Internal
-  @VisibleForTesting
-  public static void disableFilter() {
-    // TODO: is there a better way to solve this problem?
-    disableFilter = true;
+    MultiplierNBT.Builder builder = MultiplierNBT.builder();
+    for (Entry<INumericToolStat<?>,Float> entry : multipliers.entrySet()) {
+      INumericToolStat<?> stat = entry.getKey();
+      builder.set(stat, entry.getValue());
+    }
+    return builder.build();
   }
 }

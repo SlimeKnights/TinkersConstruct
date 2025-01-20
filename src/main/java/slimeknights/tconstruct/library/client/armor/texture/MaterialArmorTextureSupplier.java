@@ -50,15 +50,15 @@ public abstract class MaterialArmorTextureSupplier implements ArmorTextureSuppli
           Optional<MaterialRenderInfo> infoOptional = MaterialRenderInfoLoader.INSTANCE.getRenderInfo(material);
           if (infoOptional.isPresent()) {
             MaterialRenderInfo info = infoOptional.get();
-            ResourceLocation untinted = info.getTexture();
+            ResourceLocation untinted = info.texture();
             if (untinted != null) {
               ArmorTexture texture = tryTexture(name, -1, '_' + untinted.getNamespace() + '_' + untinted.getPath());
               if (texture != ArmorTexture.EMPTY) {
                 return texture;
               }
             }
-            color = info.getVertexColor();
-            for (String fallback : info.getFallbacks()) {
+            color = info.vertexColor();
+            for (String fallback : info.fallbacks()) {
               ArmorTexture texture = tryTexture(name, color, '_' + fallback);
               if (texture != ArmorTexture.EMPTY) {
                 return texture;

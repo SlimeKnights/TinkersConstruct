@@ -30,11 +30,11 @@ public class MaterialModifierModel implements IBakedModifierModel {
     Material baseTexture = textureGetter.apply("");
     if (baseTexture != null) {
       for (MaterialRenderInfo info : MaterialRenderInfoLoader.INSTANCE.getAllRenderInfos()) {
-        ResourceLocation texture = info.getTexture();
+        ResourceLocation texture = info.texture();
         if (texture != null) {
           textureGetter.apply("_" + MaterialRenderInfo.getSuffix(texture));
         }
-        for (String fallback : info.getFallbacks()) {
+        for (String fallback : info.fallbacks()) {
           textureGetter.apply("_" + fallback);
         }
       }

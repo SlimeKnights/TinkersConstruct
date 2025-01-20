@@ -4,8 +4,7 @@
     "cloth"
   ],
   "generator": {
-    "ignoreMaterialStats": false,
-    "supportedStats": [
+    "supported_stats": [
       "tconstruct:repair_kit",
       "tconstruct:binding",
       "tconstruct:maille",
@@ -47,6 +46,5 @@
         ]
       }
     }
-  },
-  "luminosity": 0
+  }
 }

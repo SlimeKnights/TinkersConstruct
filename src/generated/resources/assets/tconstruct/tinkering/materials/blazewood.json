@@ -5,8 +5,7 @@
     "stick"
   ],
   "generator": {
-    "ignoreMaterialStats": false,
-    "supportedStats": [
+    "supported_stats": [
       "tconstruct:shield_core",
       "tconstruct:wood"
     ],

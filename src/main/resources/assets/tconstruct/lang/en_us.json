@@ -916,6 +916,7 @@
   "item.tconstruct.melting_pan": "Melting Pan",
   "item.tconstruct.battlesign": "Battlesign",
   "item.tconstruct.war_pick": "War Pick",
+  "item.tconstruct.swasher": "Swasher",
   
   "item.tconstruct.travelers_helmet": "Traveler's Goggles",
   "item.tconstruct.travelers_chestplate": "Traveler's Vest",
@@ -1759,8 +1760,10 @@
   "material.tconstruct.silver.ranged": "Gives +0.5 projectile power against undead per level",
   "material.tconstruct.silver.armor": "Reduces damage from undead by 5% per level",
 
-  "material.tconstruct.whitestone": "Whitestone",
-  "material.tconstruct.whitestone.end": "End Stone",
+  "material.tconstruct.whitestone": "End Stone",
+  "material.tconstruct.whitestone.aluminum": "Whitestone",
+  "material.tconstruct.whitestone.tin": "Whitestone",
+  "material.tconstruct.whitestone.zinc": "Whitestone",
   "material.tconstruct.whitestone.flavor": "Take your useless white metals or rocks and make a useful tool",
   "material.tconstruct.whitestone.encyclopedia": "Mining stone has a 20% per level of granting +3 stoneshield",
 
@@ -3074,6 +3077,7 @@
   "jei.tconstruct.entity_melting.per_heart": "Per 1.0 Heart Damage",
 
   "jei.tconstruct.alloy.title": "Alloying",
+  "jei.tconstruct.alloy.catalyst": "Not consumed",
 
   "jei.tconstruct.modifiers.title": "Modifiers",
   "jei.tconstruct.modifiers.slot": "Modifier requires 1 %s slot to apply",
@@ -3184,7 +3188,8 @@
   "advancements.tconstruct.world.slime_collector.title": "Slime Collector",
   "advancements.tconstruct.world.slime_collector.description": "Obtain all 5 types of slime",
   "advancements.tconstruct.world.piggybackpack.title": "Pig Piggyback",
-  "advancements.tconstruct.world.piggybackpack.description": "Pick up a pig with a piggybackpack"
-
+  "advancements.tconstruct.world.piggybackpack.description": "Pick up a pig with a piggybackpack",
+  "advancements.tconstruct.world.ancient_tools.title": "Archeologists",
+  "advancements.tconstruct.world.ancient_tools.description": "Discover all original types of ancient tool"
 }
 

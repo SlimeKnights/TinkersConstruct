@@ -31,7 +31,7 @@ public record IdParser<T extends ResourceLocation>(Function<String, T> construct
   }
 
   @Override
-  public T parseString(String text, String key) {
+  public T parseString(String text, String key, TypedMap context) {
     try {
       return constructor.apply(text);
     } catch (ResourceLocationException ex) {

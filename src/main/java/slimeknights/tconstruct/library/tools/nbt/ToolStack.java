@@ -13,11 +13,14 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
+import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.modifiers.hook.build.ModifierTraitHook.TraitBuilder;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.context.ToolRebuildContext;
@@ -137,6 +140,7 @@ public class ToolStack implements IToolStackView {
           // bypass the setter as vanilla insists on setting damage values there, along with verifying the tag
           // both are things we will do later, doing so now causes us to recursively call this method (though not infinite)
           stack.tag = nbt;
+          // no need to set the damage value, if the tool wanted it set the stack would have had a tag already
         } else {
           switch (Config.COMMON.logInvalidToolStack.get()) {
             case STACKTRACE ->
@@ -221,7 +225,9 @@ public class ToolStack implements IToolStackView {
   /** Creates an item stack from this tool stack */
   public ItemStack createStack(int size) {
     ItemStack stack = new ItemStack(item, size);
-    stack.setTag(nbt);
+    // set the raw tag to avoid going through verifyTagAfterLoad and rebuilding stats again
+    stack.tag = nbt;
+    // damage value is already enforced via the stack creation above
     return stack;
   }
 
@@ -239,7 +245,12 @@ public class ToolStack implements IToolStackView {
     if (stack.getItem() != item) {
       throw new IllegalArgumentException("Wrong item in stack");
     }
-    stack.setTag(nbt.copy());
+    // set the raw tag to avoid going through verifyTagAfterLoad and rebuilding stats again
+    stack.tag = nbt.copy();
+    // ensure the damage value is set on the stack for the sake of stacking, since bypassing the vanilla setter skips that
+    if (!stack.tag.contains(TAG_DAMAGE, Tag.TAG_ANY_NUMERIC) && stack.getItem().isDamageable(stack)) {
+      stack.tag.putInt(TAG_DAMAGE, 0);
+    }
     return stack;
   }
 
@@ -616,6 +627,16 @@ public class ToolStack implements IToolStackView {
    * Recalculates any relevant cached data. Called after either the materials or modifiers list changes
    */
   public void rebuildStats() {
+    // quick safety checks: to rebuild stats we need
+    // * tool definition (contains stats and traits)
+    // * material registry (to fetch material stats and traits)
+    // * modifier registry (run relevant modifier hooks)
+    // * item tags (control tool behaviors in various places)
+    // if any of these are missing, attempting to rebuild stats may corrupt the tool's state (persistent data, damage, broken)
+    if (!definition.isDataLoaded() || !MaterialRegistry.isFullyLoaded() || !ModifierManager.INSTANCE.isDynamicModifiersLoaded() || !TinkerTags.isTagsLoaded()) {
+      return;
+    }
+
     // add tool slots to volatile data, ensures it is there even from an empty tool, and properly updates on datapack update
     ToolDefinitionData toolData = getDefinitionData();
 
@@ -663,8 +684,8 @@ public class ToolStack implements IToolStackView {
     for (ModifierEntry entry : modifierList) {
       entry.getHook(ModifierHooks.TOOL_STATS).addToolStats(context, entry, statBuilder);
     }
-    setStats(statBuilder.build(item));
-    setMultipliers(statBuilder.buildMultipliers(item));
+    setStats(statBuilder.build());
+    setMultipliers(statBuilder.buildMultipliers());
 
     // finally, update raw data, called last to make the parameters more convenient mostly, plus no other hooks should be responding to this data
     for (ModifierEntry entry : modifierList) {
@@ -692,16 +713,6 @@ public class ToolStack implements IToolStackView {
    */
   public static boolean isInitialized(CompoundTag tag) {
     return tag.contains(TAG_STATS, Tag.TAG_COMPOUND);
-  }
-
-  /**
-   * Checks if the given tool stats have been initialized, used as a marker to indicate slots are not yet applied
-   * @param stack  Stack to check
-   * @return  True if initialized
-   */
-  public static boolean hasMaterials(ItemStack stack) {
-    CompoundTag nbt = stack.getTag();
-    return nbt != null && nbt.contains(TAG_MATERIALS, Tag.TAG_LIST);
   }
 
   /**
@@ -742,12 +753,12 @@ public class ToolStack implements IToolStackView {
    */
   public static void verifyTag(Item item, CompoundTag tag, ToolDefinition definition) {
     // this function is sometimes called before datapack contents load, do nothing then
-    if (!definition.isDataLoaded() || tag.getBoolean(TooltipUtil.KEY_DISPLAY)) {
+    if (tag.getBoolean(TooltipUtil.KEY_DISPLAY)) {
       return;
     }
 
     // resolve all material redirects
-    boolean hasMaterials = tag.contains(ToolStack.TAG_MATERIALS, Tag.TAG_LIST);
+    boolean hasMaterials = MaterialRegistry.isFullyLoaded() && tag.contains(ToolStack.TAG_MATERIALS, Tag.TAG_LIST);
     if (hasMaterials) {
       MaterialIdNBT stored = MaterialIdNBT.readFromNBT(tag.getList(ToolStack.TAG_MATERIALS, Tag.TAG_STRING));
       MaterialIdNBT resolved = stored.resolveRedirects();
@@ -755,10 +766,9 @@ public class ToolStack implements IToolStackView {
         resolved.updateNBT(tag);
       }
     }
-    // rebuild stats if we have required data (skip if multipart with no materials)
-    ToolStack tool = ToolStack.from(item, definition, tag);
-    if (hasMaterials || !definition.hasMaterials()) {
-      tool.rebuildStats();
+    // only rebuild stats if we either have materials, or we don't need materials
+    if (definition.isDataLoaded() && (hasMaterials || !definition.hasMaterials())) {
+      ToolStack.from(item, definition, tag).rebuildStats();
     }
   }
 }

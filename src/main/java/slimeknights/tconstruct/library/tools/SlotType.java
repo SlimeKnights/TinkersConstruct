@@ -204,7 +204,7 @@ public final class SlotType {
     private record NullableSlotCountField<P>(String key, Function<P,SlotCount> getter) implements LoadableField<SlotCount,P> {
       @Nullable
       @Override
-      public SlotCount get(JsonObject json, TypedMap context) {
+      public SlotCount get(JsonObject json, String key, TypedMap context) {
         return LOADABLE.getOrDefault(json, key, null, context);
       }
 

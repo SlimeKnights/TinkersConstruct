@@ -1,8 +1,4 @@
 {
-  "color": "FF2376DD",
-  "fallbacks": [
-    "metal"
-  ],
-  "luminosity": 0,
+  "parent": "tconstruct:cobalt",
   "texture": "tconstruct:cobalt"
 }

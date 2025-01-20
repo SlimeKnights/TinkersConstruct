@@ -4,9 +4,10 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraftforge.event.entity.ProjectileImpactEvent.ImpactResult;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
+import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -22,10 +23,16 @@ public interface ProjectileHitModifierHook {
    * @param hit             Hit result
    * @param attacker        Living entity who fired the projectile, null if non-living or not fired
    * @param target          Living target, will be null if not living
-   * @return true if the hit should be canceled, preventing vanilla logic
+   * @return Impact result. Options:
+   * <ul>
+   *   <li>{@code DEFAULT} means process the hit as normal.</li>
+   *   <li>{@code STOP_AT_CURRENT} means process the hit as normal, but clear piercing level.</li>
+   *   <li>{@code STOP_AT_CURRENT_NO_DAMAGE} means the hit will not be processed and the entity will be discarded. Further modifiers will not run.</li>
+   *   <li>{@code SKIP_ENTITY} means the hit will not be processed for this entity, but the projectile may continue due to piercing. Further modifiers will not run.</li>
+   * </ul>
    */
-  default boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
-    return false;
+  default ImpactResult onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
+    return ImpactResult.DEFAULT;
   }
 
   /**
@@ -45,10 +52,18 @@ public interface ProjectileHitModifierHook {
   /** Merger that runs all hooks and returns true if any did */
   record AllMerger(Collection<ProjectileHitModifierHook> modules) implements ProjectileHitModifierHook {
     @Override
-    public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
-      boolean ret = false;
+    public ImpactResult onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
+      ImpactResult ret = ImpactResult.DEFAULT;
       for (ProjectileHitModifierHook module : modules) {
-        ret |= module.onProjectileHitEntity(modifiers, persistentData, modifier, projectile, hit, attacker, target);
+        ImpactResult newResult = module.onProjectileHitEntity(modifiers, persistentData, modifier, projectile, hit, attacker, target);
+        // if a hook says stop at current, continue running
+        if (newResult != ImpactResult.DEFAULT) {
+          ret = newResult;
+        }
+        // if a hook says skip or stop, we are done. Former means this entity is ignored while latter means
+        if (newResult == ImpactResult.SKIP_ENTITY || newResult == ImpactResult.STOP_AT_CURRENT_NO_DAMAGE) {
+          break;
+        }
       }
       return ret;
     }

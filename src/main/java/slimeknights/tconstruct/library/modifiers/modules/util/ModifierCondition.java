@@ -1,6 +1,6 @@
 package slimeknights.tconstruct.library.modifiers.modules.util;
 
-import slimeknights.mantle.data.loadable.field.LoadableField;
+import slimeknights.mantle.data.loadable.field.RecordField;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.tconstruct.library.json.IntRange;
@@ -26,12 +26,12 @@ public record ModifierCondition<T extends IToolContext>(IJsonPredicate<T> tool, 
 
   /** Swaps the modifier level condition for the passed condition */
   public ModifierCondition<T> with(IJsonPredicate<T> tool) {
-    return new ModifierCondition<T>(tool, modifierLevel);
+    return new ModifierCondition<>(tool, modifierLevel);
   }
 
   /** Swaps the modifier level condition for the passed condition */
   public ModifierCondition<T> with(IntRange modifierLevel) {
-    return new ModifierCondition<T>(this.tool, modifierLevel);
+    return new ModifierCondition<>(this.tool, modifierLevel);
   }
 
 
@@ -54,7 +54,7 @@ public record ModifierCondition<T extends IToolContext>(IJsonPredicate<T> tool, 
     ModifierCondition::new);
 
   /** Generic field instance used for most modules with conditions */
-  public static final LoadableField<ModifierCondition<IToolContext>,ConditionalModule<IToolContext>> CONTEXT_FIELD = CONTEXT_LOADABLE.directField(ConditionalModule::condition);
+  public static final RecordField<ModifierCondition<IToolContext>,ConditionalModule<IToolContext>> CONTEXT_FIELD = CONTEXT_LOADABLE.directField(ConditionalModule::condition);
   /** Generic field instance used for most modules with conditions */
-  public static final LoadableField<ModifierCondition<IToolStackView>,ConditionalModule<IToolStackView>> TOOL_FIELD = TOOL_LOADABLE.directField(ConditionalModule::condition);
+  public static final RecordField<ModifierCondition<IToolStackView>,ConditionalModule<IToolStackView>> TOOL_FIELD = TOOL_LOADABLE.directField(ConditionalModule::condition);
 }

@@ -2,6 +2,7 @@
   "values": [
     "tconstruct:dagger",
     "tconstruct:sword",
-    "tconstruct:cleaver"
+    "tconstruct:cleaver",
+    "tconstruct:swasher"
   ]
 }

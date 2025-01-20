@@ -4,8 +4,7 @@
     "metal"
   ],
   "generator": {
-    "ignoreMaterialStats": false,
-    "supportedStats": [
+    "supported_stats": [
       "tconstruct:armor_plating",
       "tconstruct:plating_helmet",
       "tconstruct:plating_chestplate",
@@ -27,7 +26,7 @@
             "grey": 0
           },
           {
-            "color": "FFB26411",
+            "color": "FF752802",
             "grey": 63
           },
           {
@@ -53,6 +52,5 @@
         ]
       }
     }
-  },
-  "luminosity": 0
+  }
 }

@@ -40,6 +40,21 @@ public class ToolDamageUtil {
     return nbt != null && nbt.getBoolean(ToolStack.TAG_BROKEN);
   }
 
+  /**
+   * Gets the max damage for use in {@link net.minecraft.world.item.Item#getMaxDamage(ItemStack)}.
+   * Intentionally avoids ever letting the tool's max damage exceed its current.
+   * For normal tool usages, see {@link ToolStack#getStats()} with {@link ToolStats#DURABILITY}.
+   */
+  public static int getFakeMaxDamage(ItemStack stack) {
+    if (!stack.getItem().canBeDepleted()) {
+      return 0;
+    }
+    ToolStack tool = ToolStack.from(stack);
+    int durability = tool.getStats().getInt(ToolStats.DURABILITY);
+    // vanilla deletes tools if max damage == getDamage, so tell vanilla our max is one higher when broken
+    return tool.isBroken() ? durability + 1 : durability;
+  }
+
 
   /* Damaging and repairing */
 

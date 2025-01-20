@@ -4,8 +4,7 @@
     "metal"
   ],
   "generator": {
-    "ignoreMaterialStats": false,
-    "supportedStats": [
+    "supported_stats": [
       "tconstruct:head",
       "tconstruct:handle",
       "tconstruct:binding",
@@ -55,6 +54,5 @@
         ]
       }
     }
-  },
-  "luminosity": 0
+  }
 }

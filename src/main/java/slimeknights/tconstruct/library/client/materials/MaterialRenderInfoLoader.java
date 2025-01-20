@@ -1,31 +1,28 @@
 package slimeknights.tconstruct.library.client.materials;
 
 import com.google.common.collect.ImmutableMap;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import lombok.extern.log4j.Log4j2;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
+import net.minecraft.util.GsonHelper;
 import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.fml.ModLoader;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import slimeknights.mantle.data.gson.ResourceLocationSerializer;
+import slimeknights.mantle.data.datamap.RegistryDataMapLoader;
 import slimeknights.mantle.data.listener.IEarlySafeManagerReloadListener;
-import slimeknights.mantle.data.loadable.common.ColorLoadable;
+import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.util.JsonHelper;
-import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.library.client.data.spritetransformer.IColorMapping;
-import slimeknights.tconstruct.library.client.data.spritetransformer.ISpriteTransformer;
+import slimeknights.mantle.util.typed.TypedMap;
+import slimeknights.mantle.util.typed.TypedMapBuilder;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
-import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.utils.Util;
 
-import java.io.IOException;
-import java.io.Reader;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -45,15 +42,6 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
 
   /** Folder to scan for material render info JSONS */
   public static final String FOLDER = "tinkering/materials";
-  /** GSON adapter for material info deserializing */
-  public static final Gson GSON = (new GsonBuilder())
-    .registerTypeAdapter(ResourceLocation.class, new ResourceLocation.Serializer())
-    .registerTypeAdapter(MaterialStatsId.class, new ResourceLocationSerializer<>(MaterialStatsId::new, TConstruct.MOD_ID))
-    .registerTypeHierarchyAdapter(ISpriteTransformer.class, ISpriteTransformer.SERIALIZER)
-    .registerTypeHierarchyAdapter(IColorMapping.class, IColorMapping.SERIALIZER)
-    .setPrettyPrinting()
-    .disableHtmlEscaping()
-    .create();
 
   /**
    * Called on mod construct to register the resource listener
@@ -99,72 +87,56 @@ public class MaterialRenderInfoLoader implements IEarlySafeManagerReloadListener
     return Optional.ofNullable(renderInfos.get(variantId.getId()));
   }
 
+  /** Gets the variant for the given render info path */
+  public static MaterialVariantId variant(ResourceLocation location) {
+    String path = location.getPath();
+
+    // locate variant as a subfolder, and create final ID
+    String variant = "";
+    int slashIndex = path.lastIndexOf('/');
+    if (slashIndex >= 0) {
+      variant = path.substring(slashIndex + 1);
+      path = path.substring(0, slashIndex);
+    }
+    return MaterialVariantId.create(location.getNamespace(), path, variant);
+  }
+
+  /** Creates the context for the render info parser */
+  public static TypedMap createContext(MaterialVariantId id) {
+    return TypedMapBuilder.builder().put(MaterialVariantId.CONTEXT_KEY, id).put(ContextKey.DEBUG, "Material Render Info " + id).build();
+  }
+
   @Override
   public void onReloadSafe(ResourceManager manager) {
     // first, we need to fetch all relevant JSON files
+    Map<ResourceLocation,JsonElement> jsons = new HashMap<>();
+    SimpleJsonResourceReloadListener.scanDirectory(manager, FOLDER, JsonHelper.DEFAULT_GSON, jsons);
+    // final result map
     Map<MaterialVariantId,MaterialRenderInfo> map = new HashMap<>();
-    for(Entry<ResourceLocation, Resource> entry : manager.listResources(FOLDER, (loc) -> loc.getPath().endsWith(".json")).entrySet()) {
+
+    // iterate the files, handling parenting thanks to the data map loader
+    for(Entry<ResourceLocation, JsonElement> entry : jsons.entrySet()) {
       // clean up ID by trimming off the extension and folder
       ResourceLocation location = entry.getKey();
-      String localPath = JsonHelper.localize(location.getPath(), FOLDER, ".json");
-
-      // locate variant as a subfolder, and create final ID
-      String variant = "";
-      int slashIndex = localPath.lastIndexOf('/');
-      if (slashIndex >= 0) {
-        variant = localPath.substring(slashIndex + 1);
-        localPath = localPath.substring(0, slashIndex);
-      }
-      MaterialVariantId id = MaterialVariantId.create(location.getNamespace(), localPath, variant);
+      MaterialVariantId id = variant(location);
 
       // read in the JSON data
-      try (Reader reader = entry.getValue().openAsReader()) {
-        MaterialRenderInfoJson json = GSON.fromJson(reader, MaterialRenderInfoJson.class);
-        if (json == null) {
-          log.error("Couldn't load data file {} from {} as it's null or empty", id, location);
-        } else {
-          // parse it into material render info
-          MaterialRenderInfo old = map.put(id, loadRenderInfo(id, json));
-          if (old != null) {
-            throw new IllegalStateException("Duplicate data file ignored with ID " + id);
-          }
+      try  {
+        JsonObject json = GsonHelper.convertToJsonObject(entry.getValue(), location.toString());
+        // skip empty objects, its the way to disable it
+        if (json.keySet().isEmpty()) {
+          continue;
         }
-      } catch (IllegalArgumentException | IOException | JsonParseException jsonparseexception) {
-        log.error("Couldn't parse data file {} from {}", id, location, jsonparseexception);
+        // parse it into material render info
+        map.put(id, RegistryDataMapLoader.parseData("Material Render Info", jsons, location, json, null, MaterialRenderInfo.LOADABLE, createContext(id)));
+      } catch (IllegalArgumentException | JsonParseException ex) {
+        log.error("Couldn't parse data file {} from {}", id, location, ex);
       }
     }
+
     // store the list immediately, otherwise it is not in place in time for models to load
-    this.renderInfos = map;
+    this.renderInfos = Map.copyOf(map);
     log.debug("Loaded material render infos: {}", Util.toIndentedStringList(map.keySet()));
     log.info("{} material render infos loaded", map.size());
-  }
-
-  /**
-   * Gets material render info based on the given JSON
-   * @param material   Material location
-   * @param json  Render info JSON data
-   * @return  Material render info data
-   */
-  private MaterialRenderInfo loadRenderInfo(MaterialVariantId material, MaterialRenderInfoJson json) {
-    // parse color
-    int color = 0xFFFFFFFF;
-    if (json.getColor() != null) {
-      color = ColorLoadable.ALPHA.parseString(json.getColor(), "color");
-    }
-
-    // texture fallback to ID if not told to skip
-    ResourceLocation texture = null;
-    if (!json.isSkipUniqueTexture()) {
-      texture = json.getTexture();
-      if (texture == null) {
-        texture = material.getLocation('_');
-      }
-    }
-    // list of fallback textures
-    String[] fallback = json.getFallbacks();
-    if (fallback == null) {
-      fallback = new String[0];
-    }
-    return new MaterialRenderInfo(material, texture, fallback, color, json.getLuminosity());
   }
 }

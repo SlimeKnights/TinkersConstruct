@@ -25,7 +25,7 @@ public record MergingField<T,P>(LoadableField<T,P> field, String key, MissingMod
   }
 
   @Override
-  public T get(JsonObject json, TypedMap context) {
+  public T get(JsonObject json, String key, TypedMap context) {
     // disallowed really just improves the error message over create in the case of disallowed being a required field
     if (mode == MissingMode.DISALLOWED || json.has(key)) {
       return field.get(GsonHelper.getAsJsonObject(json, key), context);

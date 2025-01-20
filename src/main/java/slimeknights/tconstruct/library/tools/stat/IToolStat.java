@@ -31,7 +31,8 @@ public interface IToolStat<T> {
   }
 
   /**
-   * Checks if the given item supports this stat. Typically is just a tag check
+   * Checks if the given item supports this stat for display in tooltips or specific stat usages. Typically, is just a tag check.
+   * TODO: reconsider the place of this method. We should either be calling supports in more places or ditch it in favor of direct tag usage.
    * @param item  Item to validate
    * @return  True if the stat is supported
    */

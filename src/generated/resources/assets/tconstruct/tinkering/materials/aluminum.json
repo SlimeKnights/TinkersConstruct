@@ -4,8 +4,7 @@
     "metal"
   ],
   "generator": {
-    "ignoreMaterialStats": false,
-    "supportedStats": [
+    "supported_stats": [
       "tconstruct:limb",
       "tconstruct:grip",
       "tconstruct:repair_kit",
@@ -54,6 +53,5 @@
         ]
       }
     }
-  },
-  "luminosity": 0
+  }
 }

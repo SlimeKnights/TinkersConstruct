@@ -39,7 +39,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.warped);
     buildRenderInfo(MaterialIds.bamboo);
     // tier 1 - stone
-    buildRenderInfo(MaterialIds.rock).materialTexture(MaterialIds.stone).color(0xB1AFAD).fallbacks("rock");
+    redirect(MaterialIds.rock, MaterialIds.stone);
     buildRenderInfo(MaterialIds.stone).color(0xB1AFAD);
     buildRenderInfo(MaterialIds.andesite);
     buildRenderInfo(MaterialIds.diorite);
@@ -58,9 +58,10 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.venombone).color(0xA2935E).fallbacks("bone", "rock");
     buildRenderInfo(MaterialIds.necroticBone).color(0x2A2A2A).fallbacks("bone", "rock");
     buildRenderInfo(MaterialIds.endstone);
+    redirect(MaterialIds.whitestone, MaterialIds.endstone);
     buildRenderInfo(MaterialIds.skyslimeVine).color(0x00F4DA).fallbacks("vine");
     // slimewood
-    buildRenderInfo(MaterialIds.slimewood).materialTexture(MaterialIds.greenheart).color(0x82c873).fallbacks("wood", "primitive");
+    redirect(MaterialIds.slimewood, MaterialIds.greenheart);
     buildRenderInfo(MaterialIds.greenheart);
     buildRenderInfo(MaterialIds.skyroot);
     buildRenderInfo(MaterialIds.bloodshroom);
@@ -91,7 +92,11 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.platinum).color(0xA3E7FE).fallbacks("metal");
     buildRenderInfo(MaterialIds.silver).color(0xDAF3ED).fallbacks("metal");
     buildRenderInfo(MaterialIds.lead).color(0x696579).fallbacks("metal");
-    buildRenderInfo(MaterialIds.whitestone).color(0xE0E9EC).fallbacks("rock");
+    buildRenderInfo(MaterialIds.whitestoneComposite, MaterialIds.whitestone).color(0xE0E9EC).fallbacks("rock");
+    // redirect whitestone variants to whitestone composite instead of endstone
+    redirect(MaterialIds.whitestoneAluminum, MaterialIds.whitestoneComposite);
+    redirect(MaterialIds.whitestoneTin, MaterialIds.whitestoneComposite);
+    redirect(MaterialIds.whitestoneZinc, MaterialIds.whitestoneComposite);
     buildRenderInfo(MaterialIds.aluminum);
 
     // tier 3 compat
@@ -123,11 +128,11 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.phantom);
 
     // UI internal
-    buildRenderInfo(ToolBuildHandler.getRenderMaterial(0)).color(0xD8D8D8).texture(MaterialIds.iron).fallbacks("metal");
-    buildRenderInfo(ToolBuildHandler.getRenderMaterial(1)).color(0x745f38).texture(MaterialIds.wood).fallbacks("wood", "stick");
-    buildRenderInfo(ToolBuildHandler.getRenderMaterial(2)).color(0x2376dd).texture(MaterialIds.cobalt).fallbacks("metal");
-    buildRenderInfo(ToolBuildHandler.getRenderMaterial(3)).color(0x9261cc).texture(MaterialIds.manyullyn).fallbacks("metal");
-    buildRenderInfo(ToolBuildHandler.getRenderMaterial(4)).color(0xF98648).texture(MaterialIds.copper).fallbacks("metal");
+    redirect(ToolBuildHandler.getRenderMaterial(0), MaterialIds.iron);
+    redirect(ToolBuildHandler.getRenderMaterial(1), MaterialIds.wood);
+    redirect(ToolBuildHandler.getRenderMaterial(2), MaterialIds.cobalt);
+    redirect(ToolBuildHandler.getRenderMaterial(3), MaterialIds.manyullyn);
+    redirect(ToolBuildHandler.getRenderMaterial(4), MaterialIds.copper);
   }
 
   @Override

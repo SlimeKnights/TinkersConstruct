@@ -1,6 +1,6 @@
 {
   "type": "tconstruct:modifier",
-  "allow_crystal": true,
+  "allow_crystal": false,
   "inputs": [
     {
       "ingredient": [

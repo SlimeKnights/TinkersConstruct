@@ -43,4 +43,5 @@ public final class ToolDefinitions {
   public static final ToolDefinition MELTING_PAN = ToolDefinition.create(TinkerTools.meltingPan);
   public static final ToolDefinition WAR_PICK = ToolDefinition.create(TinkerTools.warPick);
   public static final ToolDefinition BATTLESIGN = ToolDefinition.create(TinkerTools.battlesign);
+  public static final ToolDefinition SWASHER = ToolDefinition.create(TinkerTools.swasher);
 }

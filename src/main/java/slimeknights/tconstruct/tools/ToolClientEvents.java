@@ -148,39 +148,40 @@ public class ToolClientEvents extends ClientEventBase {
 
       // properties
       // stone
-      TinkerItemProperties.registerToolProperties(TinkerTools.pickaxe.asItem());
-      TinkerItemProperties.registerToolProperties(TinkerTools.sledgeHammer.asItem());
-      TinkerItemProperties.registerToolProperties(TinkerTools.veinHammer.asItem());
+      TinkerItemProperties.registerToolProperties(TinkerTools.pickaxe);
+      TinkerItemProperties.registerToolProperties(TinkerTools.sledgeHammer);
+      TinkerItemProperties.registerToolProperties(TinkerTools.veinHammer);
       // dirt
-      TinkerItemProperties.registerToolProperties(TinkerTools.mattock.asItem());
-      TinkerItemProperties.registerToolProperties(TinkerTools.pickadze.asItem());
-      TinkerItemProperties.registerToolProperties(TinkerTools.excavator.asItem());
+      TinkerItemProperties.registerToolProperties(TinkerTools.mattock);
+      TinkerItemProperties.registerToolProperties(TinkerTools.pickadze);
+      TinkerItemProperties.registerToolProperties(TinkerTools.excavator);
       // axe
-      TinkerItemProperties.registerToolProperties(TinkerTools.handAxe.asItem());
-      TinkerItemProperties.registerToolProperties(TinkerTools.broadAxe.asItem());
+      TinkerItemProperties.registerToolProperties(TinkerTools.handAxe);
+      TinkerItemProperties.registerToolProperties(TinkerTools.broadAxe);
       // leaves
-      TinkerItemProperties.registerToolProperties(TinkerTools.kama.asItem());
-      TinkerItemProperties.registerToolProperties(TinkerTools.scythe.asItem());
+      TinkerItemProperties.registerToolProperties(TinkerTools.kama);
+      TinkerItemProperties.registerToolProperties(TinkerTools.scythe);
       // sword
-      TinkerItemProperties.registerToolProperties(TinkerTools.dagger.asItem());
-      TinkerItemProperties.registerToolProperties(TinkerTools.sword.asItem());
-      TinkerItemProperties.registerToolProperties(TinkerTools.cleaver.asItem());
+      TinkerItemProperties.registerToolProperties(TinkerTools.dagger);
+      TinkerItemProperties.registerToolProperties(TinkerTools.sword);
+      TinkerItemProperties.registerToolProperties(TinkerTools.cleaver);
       // bow
-      TinkerItemProperties.registerCrossbowProperties(TinkerTools.crossbow.asItem());
-      TinkerItemProperties.registerToolProperties(TinkerTools.longbow.asItem());
+      TinkerItemProperties.registerCrossbowProperties(TinkerTools.crossbow);
+      TinkerItemProperties.registerToolProperties(TinkerTools.longbow);
       // misc
-      TinkerItemProperties.registerToolProperties(TinkerTools.flintAndBrick.asItem());
-      TinkerItemProperties.registerToolProperties(TinkerTools.skyStaff.asItem());
-      TinkerItemProperties.registerToolProperties(TinkerTools.earthStaff.asItem());
-      TinkerItemProperties.registerToolProperties(TinkerTools.ichorStaff.asItem());
-      TinkerItemProperties.registerToolProperties(TinkerTools.enderStaff.asItem());
+      TinkerItemProperties.registerToolProperties(TinkerTools.flintAndBrick);
+      TinkerItemProperties.registerToolProperties(TinkerTools.skyStaff);
+      TinkerItemProperties.registerToolProperties(TinkerTools.earthStaff);
+      TinkerItemProperties.registerToolProperties(TinkerTools.ichorStaff);
+      TinkerItemProperties.registerToolProperties(TinkerTools.enderStaff);
       // ancient
-      TinkerItemProperties.registerToolProperties(TinkerTools.meltingPan.asItem());
-      TinkerItemProperties.registerCrossbowProperties(TinkerTools.warPick.asItem());
-      TinkerItemProperties.registerToolProperties(TinkerTools.battlesign.asItem());
+      TinkerItemProperties.registerToolProperties(TinkerTools.meltingPan);
+      TinkerItemProperties.registerCrossbowProperties(TinkerTools.warPick);
+      TinkerItemProperties.registerToolProperties(TinkerTools.battlesign);
+      TinkerItemProperties.registerToolProperties(TinkerTools.swasher);
       // armor
-      TinkerItemProperties.registerToolProperties(TinkerTools.travelersShield.asItem());
-      TinkerItemProperties.registerToolProperties(TinkerTools.plateShield.asItem());
+      TinkerItemProperties.registerToolProperties(TinkerTools.travelersShield);
+      TinkerItemProperties.registerToolProperties(TinkerTools.plateShield);
       Consumer<Item> brokenConsumer = TinkerItemProperties::registerBrokenProperty;
       TinkerTools.travelersGear.forEach(brokenConsumer);
       TinkerTools.plateArmor.forEach(brokenConsumer);
@@ -226,6 +227,7 @@ public class ToolClientEvents extends ClientEventBase {
     registerItemColors(colors, TinkerTools.meltingPan);
     registerItemColors(colors, TinkerTools.warPick);
     registerItemColors(colors, TinkerTools.battlesign);
+    registerItemColors(colors, TinkerTools.swasher);
     // armor
     registerItemColors(colors, TinkerTools.travelersShield);
     registerItemColors(colors, TinkerTools.plateShield);
@@ -241,7 +243,7 @@ public class ToolClientEvents extends ClientEventBase {
         return ResourceColorManager.getColor(Util.makeTranslationKey("modifier", modifier));
       }
       return -1;
-    }, TinkerModifiers.modifierCrystal.asItem());
+    }, TinkerModifiers.modifierCrystal);
   }
 
   // values to check if a key was being pressed last tick, safe as a static value as we only care about a single player client side

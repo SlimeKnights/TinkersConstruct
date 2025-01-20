@@ -1788,17 +1788,13 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                       .addInput(TinkerFluids.meatSoup.ingredient(FluidValues.SLIMEBALL * 2))
                       .addInput(TinkerFluids.honey.ingredient(FluidValues.BOTTLE))
                       .save(consumer, prefix(TinkerFluids.moltenPigIron, folder));
-    // obsidian: 1 water + 1 lava = 2
-    // note this is not a progression break, as the same tier lets you combine glass and copper for same mining level
+    // obsidian: 1 lava = 1 obsidian, but require some water is present
+    // water being a catalyst makes this friendlier in the nether as we just need 1 bottle instead of collecting a bunch
+    // note this is not a progression break, as the same tier lets you make other alloys like amethyst bronze
     AlloyRecipeBuilder.alloy(TinkerFluids.moltenObsidian, FluidValues.GLASS_BLOCK / 10)
-                      .addInput(Fluids.WATER, FluidType.BUCKET_VOLUME / 20)
+                      .addCatalyst(FluidIngredient.of(Fluids.WATER, FluidValues.BOTTLE))
                       .addInput(Fluids.LAVA, FluidType.BUCKET_VOLUME / 10)
                       .save(consumer, prefix(TinkerFluids.moltenObsidian, folder));
-    // nether obsidian recipe: when water is rare, use the soup
-    AlloyRecipeBuilder.alloy(TinkerFluids.moltenObsidian, FluidValues.GLASS_BLOCK / 4)
-                      .addInput(TinkerFluids.mushroomStew.ingredient(FluidValues.BOWL))
-                      .addInput(Fluids.LAVA, FluidType.BUCKET_VOLUME / 4)
-                      .save(consumer, wrap(TinkerFluids.moltenObsidian, folder, "_from_soup"));
 
     // tier 4
 

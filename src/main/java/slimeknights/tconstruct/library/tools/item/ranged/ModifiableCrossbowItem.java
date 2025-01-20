@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.tools.item.ranged;
 
+import lombok.Getter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.nbt.CompoundTag;
@@ -62,17 +63,19 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
   /** Key containing the stored crossbow ammo */
   public static final ResourceLocation KEY_CROSSBOW_AMMO = TConstruct.getResource("crossbow_ammo");
   private static final String PROJECTILE_KEY = "item.minecraft.crossbow.projectile";
-  public ModifiableCrossbowItem(Properties properties, ToolDefinition toolDefinition) {
+  @Getter
+  private final Predicate<ItemStack> supportedHeldProjectiles;
+
+  public ModifiableCrossbowItem(Properties properties, ToolDefinition toolDefinition, Predicate<ItemStack> supportedHeldProjectiles) {
     super(properties, toolDefinition);
+    this.supportedHeldProjectiles = supportedHeldProjectiles;
   }
 
+  public ModifiableCrossbowItem(Properties properties, ToolDefinition toolDefinition) {
+    this(properties, toolDefinition, ARROW_OR_FIREWORK);
+  }
 
   /* Properties */
-
-  @Override
-  public Predicate<ItemStack> getSupportedHeldProjectiles() {
-    return ARROW_OR_FIREWORK;
-  }
 
   @Override
   public Predicate<ItemStack> getAllSupportedProjectiles() {

@@ -4,8 +4,7 @@
     "rock"
   ],
   "generator": {
-    "ignoreMaterialStats": false,
-    "supportedStats": [
+    "supported_stats": [
       "tconstruct:repair_kit"
     ],
     "transformer": {
@@ -44,6 +43,5 @@
         ]
       }
     }
-  },
-  "luminosity": 0
+  }
 }

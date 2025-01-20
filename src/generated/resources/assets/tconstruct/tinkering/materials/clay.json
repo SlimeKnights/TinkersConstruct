@@ -1,8 +1,7 @@
 {
   "color": "FFA1A7B1",
   "generator": {
-    "ignoreMaterialStats": false,
-    "supportedStats": [
+    "supported_stats": [
       "tconstruct:slimesuit"
     ],
     "transformer": {
@@ -41,6 +40,5 @@
         ]
       }
     }
-  },
-  "luminosity": 0
+  }
 }

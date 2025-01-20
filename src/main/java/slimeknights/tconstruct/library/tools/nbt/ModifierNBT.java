@@ -14,9 +14,12 @@ import slimeknights.tconstruct.library.tools.helper.ModifierBuilder;
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Spliterator;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
@@ -24,7 +27,7 @@ import java.util.stream.Collectors;
  */
 @EqualsAndHashCode
 @RequiredArgsConstructor
-public class ModifierNBT {
+public class ModifierNBT implements Iterable<ModifierEntry> {
 
   /** Instance containing no modifiers */
   public static final ModifierNBT EMPTY = new ModifierNBT(Collections.emptyList());
@@ -62,6 +65,24 @@ public class ModifierNBT {
    */
   public int getLevel(ModifierId modifier) {
     return getEntry(modifier).getLevel();
+  }
+
+
+  /* Iterator */
+
+  @Override
+  public Iterator<ModifierEntry> iterator() {
+    return modifiers.iterator();
+  }
+
+  @Override
+  public void forEach(Consumer<? super ModifierEntry> action) {
+    modifiers.forEach(action);
+  }
+
+  @Override
+  public Spliterator<ModifierEntry> spliterator() {
+    return modifiers.spliterator();
   }
 
 

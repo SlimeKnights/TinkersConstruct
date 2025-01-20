@@ -2,7 +2,8 @@
   "type": "tconstruct:alloy",
   "inputs": [
     {
-      "amount": 50,
+      "amount": 250,
+      "catalyst": true,
       "fluid": "minecraft:water"
     },
     {

@@ -33,6 +33,7 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
 import java.awt.Color;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * Alloy recipe category for JEI display
@@ -40,11 +41,17 @@ import java.util.List;
 public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
   private static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/alloy.png");
   private static final Component TITLE = TConstruct.makeTranslation("jei", "alloy.title");
+  private static final Component CATALYST = TConstruct.makeTranslation("jei", "alloy.catalyst").withStyle(ChatFormatting.ITALIC);
   private static final String KEY_TEMPERATURE = TConstruct.makeTranslationKey("jei", "temperature");
 
   /** Tooltip for fluid inputs */
   private static final IRecipeTooltipReplacement FLUID_TOOLTIP = (slot, list) ->
     slot.getDisplayedIngredient(ForgeTypes.FLUID_STACK).ifPresent(stack -> FluidTooltipHandler.appendMaterial(stack, list));
+  /** Tooltip for fluid inputs */
+  private static final IRecipeTooltipReplacement CATALYST_TOOLTIP = (slot, list) -> {
+    list.add(CATALYST);
+    slot.getDisplayedIngredient(ForgeTypes.FLUID_STACK).ifPresent(stack -> FluidTooltipHandler.appendMaterial(stack, list));
+  };
 
   /** Tooltip for fuel display */
   public static final IRecipeTooltipReplacement FUEL_TOOLTIP = (slot, tooltip) -> {
@@ -101,16 +108,18 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
    * @param height       Tank height
    * @param fluids       List of fluids to draw
    * @param minAmount    Minimum tank size
+   * @param mapper       Logic to get a fluid list from the object
    * @param tooltip      Tooltip callback
+   * @param <T> Object type
    * @return Max amount based on fluids
    */
-  public static int drawVariableFluids(IRecipeLayoutBuilder builder, RecipeIngredientRole role, int x, int y, int totalWidth, int height, List<List<FluidStack>> fluids, int minAmount, IRecipeSlotTooltipCallback tooltip) {
+  public static <T> int drawVariableFluids(IRecipeLayoutBuilder builder, RecipeIngredientRole role, int x, int y, int totalWidth, int height, List<T> fluids, int minAmount, Function<T,List<FluidStack>> mapper, Function<T,IRecipeSlotTooltipCallback> tooltip) {
     int count = fluids.size();
     int maxAmount = minAmount;
     if (count > 0) {
       // first, find maximum used amount in the recipe so relations are correct
-      for(List<FluidStack> list : fluids) {
-        for(FluidStack input : list) {
+      for(T ingredient : fluids) {
+        for(FluidStack input : mapper.apply(ingredient)) {
           if (input.getAmount() > maxAmount) {
             maxAmount = input.getAmount();
           }
@@ -121,17 +130,19 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
       int max = count - 1;
       for (int i = 0; i < max; i++) {
         int fluidX = x + i * w;
+        T ingredient = fluids.get(i);
         builder.addSlot(role, fluidX, y)
-               .addTooltipCallback(tooltip)
+               .addTooltipCallback(tooltip.apply(ingredient))
                .setFluidRenderer(maxAmount, false, w, height)
-               .addIngredients(ForgeTypes.FLUID_STACK, fluids.get(i));
+               .addIngredients(ForgeTypes.FLUID_STACK, mapper.apply(ingredient));
       }
       // for the last, the width is the full remaining width
       int fluidX = x + max * w;
+      T ingredient = fluids.get(max);
       builder.addSlot(role, fluidX, y)
-             .addTooltipCallback(tooltip)
+             .addTooltipCallback(tooltip.apply(ingredient))
              .setFluidRenderer(maxAmount, false, totalWidth - (w * max), height)
-             .addIngredients(ForgeTypes.FLUID_STACK, fluids.get(max));
+             .addIngredients(ForgeTypes.FLUID_STACK, mapper.apply(ingredient));
     }
     return maxAmount;
   }
@@ -139,7 +150,9 @@ public class AlloyRecipeCategory implements IRecipeCategory<AlloyRecipe> {
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, AlloyRecipe recipe, IFocusGroup focuses) {
     // inputs
-    int maxAmount = drawVariableFluids(builder, RecipeIngredientRole.INPUT, 19, 11, 48, 32, recipe.getDisplayInputs(), recipe.getOutput().getAmount(), FLUID_TOOLTIP);
+    int maxAmount = drawVariableFluids(builder, RecipeIngredientRole.INPUT, 19, 11, 48, 32, recipe.getInputs(),recipe.getOutput().getAmount(),
+                                       ingredient -> ingredient.fluid().getFluids(),
+                                       ingredient -> ingredient.catalyst() ? CATALYST_TOOLTIP : FLUID_TOOLTIP);
 
     // output
     builder.addSlot(RecipeIngredientRole.OUTPUT, 137, 11)

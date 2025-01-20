@@ -45,7 +45,7 @@ public class SlimeskullArmorModel extends MultilayerArmorModel {
   private static final SimpleCache<String,Integer> MATERIAL_COLOR_CACHE = new SimpleCache<>(mat ->
     Optional.ofNullable(MaterialVariantId.tryParse(mat))
             .flatMap(MaterialRenderInfoLoader.INSTANCE::getRenderInfo)
-            .map(MaterialRenderInfo::getVertexColor)
+            .map(MaterialRenderInfo::vertexColor)
             .orElse(-1));
   /** Listener to clear caches */
   public static final ISafeManagerReloadListener RELOAD_LISTENER = manager -> {

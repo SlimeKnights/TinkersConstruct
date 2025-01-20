@@ -4,8 +4,6 @@ import net.minecraft.world.item.ArmorItem;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.data.material.AbstractPartSpriteProvider;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
-import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
-import slimeknights.tconstruct.tools.stats.LimbMaterialStats;
 import slimeknights.tconstruct.tools.stats.PlatingMaterialStats;
 import slimeknights.tconstruct.tools.stats.StatlessMaterialStats;
 
@@ -46,15 +44,15 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
     // plate textures
     addPart("maille", StatlessMaterialStats.MAILLE.getIdentifier());
     for (ArmorItem.Type slot : ArmorItem.Type.values()) {
-      buildTool("armor/plate/" + slot.getName())
+      buildTool("armor/plate/" + slot.getName()).disallowAnimated() // the armor model won't be animated, so don't animate the item
         .addBreakablePart("plating", PlatingMaterialStats.TYPES.get(slot.ordinal()).getId())
         .addBreakablePart("maille", StatlessMaterialStats.MAILLE.getIdentifier());
     }
-    addTexture("tinker_armor/plate/plating_armor", false, ARMOR_PLATING);
-    addTexture("tinker_armor/plate/plating_leggings", false, ARMOR_PLATING);
-    addTexture("tinker_armor/plate/maille_armor", false, ARMOR_MAILLE);
-    addTexture("tinker_armor/plate/maille_leggings", false, ARMOR_MAILLE);
-    addTexture("tinker_armor/plate/maille_wings", false, ARMOR_MAILLE);
+    addTexture("tinker_armor/plate/plating_armor", ARMOR_PLATING).disallowAnimated();
+    addTexture("tinker_armor/plate/plating_leggings", ARMOR_PLATING).disallowAnimated();
+    addTexture("tinker_armor/plate/maille_armor", ARMOR_MAILLE).disallowAnimated();
+    addTexture("tinker_armor/plate/maille_leggings", ARMOR_MAILLE).disallowAnimated();
+    addTexture("tinker_armor/plate/maille_wings", ARMOR_MAILLE).disallowAnimated();
     buildTool("armor/plate/shield")
       .addBreakablePart("plating", PlatingMaterialStats.SHIELD.getId())
       .addBreakablePart("core", StatlessMaterialStats.SHIELD_CORE.getIdentifier())
@@ -70,22 +68,22 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
     addSprite("staff/modifiers/tconstruct_embellishment", WOOD);
     addSprite("staff/large_modifiers/tconstruct_embellishment", WOOD);
 
-    // slimesuit textures
-    addSprite("armor/slime/skull_modifiers/tconstruct_embellishment", SLIMESUIT);
-    addSprite("armor/slime/skull_modifiers/broken/tconstruct_embellishment", SLIMESUIT);
-    addSprite("armor/slime/wings_modifiers/tconstruct_embellishment", SLIMESUIT);
-    addSprite("armor/slime/wings_modifiers/broken/tconstruct_embellishment", SLIMESUIT);
-    addSprite("armor/slime/shell_modifiers/tconstruct_embellishment", SLIMESUIT);
-    addSprite("armor/slime/shell_modifiers/broken/tconstruct_embellishment", SLIMESUIT);
-    addSprite("armor/slime/boot_modifiers/tconstruct_embellishment", SLIMESUIT);
-    addSprite("armor/slime/boot_modifiers/broken/tconstruct_embellishment", SLIMESUIT);
-    addTexture("tinker_armor/slime/armor", false, SLIMESUIT);
-    addTexture("tinker_armor/slime/leggings", false, SLIMESUIT);
-    addTexture("tinker_armor/slime/wings", false, SLIMESUIT);
+    // slimesuit textures - the armor model won't be animated, so don't animate the item
+    addSprite("armor/slime/skull_modifiers/tconstruct_embellishment", SLIMESUIT).disallowAnimated();
+    addSprite("armor/slime/skull_modifiers/broken/tconstruct_embellishment", SLIMESUIT).disallowAnimated();
+    addSprite("armor/slime/wings_modifiers/tconstruct_embellishment", SLIMESUIT).disallowAnimated();
+    addSprite("armor/slime/wings_modifiers/broken/tconstruct_embellishment", SLIMESUIT).disallowAnimated();
+    addSprite("armor/slime/shell_modifiers/tconstruct_embellishment", SLIMESUIT).disallowAnimated();
+    addSprite("armor/slime/shell_modifiers/broken/tconstruct_embellishment", SLIMESUIT).disallowAnimated();
+    addSprite("armor/slime/boot_modifiers/tconstruct_embellishment", SLIMESUIT).disallowAnimated();
+    addSprite("armor/slime/boot_modifiers/broken/tconstruct_embellishment", SLIMESUIT).disallowAnimated();
+    addTexture("tinker_armor/slime/armor", SLIMESUIT).disallowAnimated();
+    addTexture("tinker_armor/slime/leggings", SLIMESUIT).disallowAnimated();
+    addTexture("tinker_armor/slime/wings", SLIMESUIT).disallowAnimated();
 
     // tools
     // pickaxe - regular variant uses handle on frypans as a grip so generate those too
-    buildTool("pickaxe").addBreakableHead("head").addPart("handle", HandleMaterialStats.ID, LimbMaterialStats.ID).addBinding("binding");
+    buildTool("pickaxe").addBreakableHead("head").addHandle("handle").addBinding("binding");
     buildTool("sledge_hammer").withLarge().addBreakableHead("head").addBreakableHead("back").addBreakableHead("front").addHandle("handle");
     buildTool("vein_hammer").withLarge().addBreakableHead("head").addBinding("grip").addBreakableHead("front").addHandle("handle");
     // shovel
@@ -113,9 +111,11 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
       .addBreakableBowstring("bowstring").addBowstring("bowstring_1").addBowstring("bowstring_2").addBowstring("bowstring_3");
 
     // ancient tools
-    buildTool("melting_pan").addBreakablePart("head", PlatingMaterialStats.SHIELD.getId());
-    buildTool("war_pick").addHead("limb").addLimb("body")
+    buildTool("melting_pan").skipVariants().addBreakablePart("head", PlatingMaterialStats.SHIELD.getId()).addLimb("handle");
+    buildTool("war_pick").skipVariants().addHead("limb").addLimb("body")
                          .addBreakableBowstring("bowstring").addBowstring("bowstring_1").addBowstring("bowstring_2").addBowstring("bowstring_3");
-    buildTool("battlesign").addBreakableHead("head").addPart("handle", PlatingMaterialStats.SHIELD.getId());
+    buildTool("battlesign").skipVariants().addBreakableHead("head").addPart("handle", PlatingMaterialStats.SHIELD.getId());
+    buildTool("swasher").skipVariants().addBreakableHead("blade").addHandle("handle")
+                        .addGrip("barrel").addGrip("barrel_1").addGrip("barrel_2");
   }
 }

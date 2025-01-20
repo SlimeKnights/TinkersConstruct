@@ -20,8 +20,15 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class RepairKitItem extends MaterialItem implements IRepairKitItem {
-  public RepairKitItem(Properties properties) {
+  private final float repairAmount;
+  public RepairKitItem(Properties properties, float repairAmount) {
     super(properties);
+    this.repairAmount = repairAmount;
+  }
+
+  /** Constructor using config for repair amount */
+  public RepairKitItem(Properties properties) {
+    this(properties, 0);
   }
 
   @Override
@@ -44,6 +51,9 @@ public class RepairKitItem extends MaterialItem implements IRepairKitItem {
 
   @Override
   public float getRepairAmount() {
-    return Config.COMMON.repairKitAmount.get().floatValue();
+    if (repairAmount == 0) {
+      return Config.COMMON.repairKitAmount.get().floatValue();
+    }
+    return repairAmount;
   }
 }

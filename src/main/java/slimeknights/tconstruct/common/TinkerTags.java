@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.common;
 
+import lombok.Getter;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -12,6 +13,9 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TagsUpdatedEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialManager;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -22,6 +26,10 @@ import static slimeknights.mantle.Mantle.commonResource;
 import static slimeknights.tconstruct.TConstruct.getResource;
 
 public class TinkerTags {
+  /** Checks if tags have been loaded on this instance. Used to prevent certain NBT operations that depend on tags from happening client side when tags are missing. */
+  @Getter
+  static boolean tagsLoaded = false;
+
   /** Called on mod construct to set up tags */
   public static void init() {
     // TODO: is this really needed anymore?
@@ -34,6 +42,7 @@ public class TinkerTags {
     Modifiers.init();
     Materials.init();
     DamageTypes.init();
+    MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, TagsUpdatedEvent.class, event -> tagsLoaded = true);
   }
 
   /** Creates a tag that hides things from JEI */

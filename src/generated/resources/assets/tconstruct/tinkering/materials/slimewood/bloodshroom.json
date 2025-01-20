@@ -1,13 +1,13 @@
 {
   "color": "FFC10000",
   "fallbacks": [
+    "slime_wood",
     "wood",
     "stick",
     "primitive"
   ],
   "generator": {
-    "ignoreMaterialStats": false,
-    "supportedStats": [
+    "supported_stats": [
       "tconstruct:head",
       "tconstruct:handle",
       "tconstruct:binding",
@@ -56,7 +56,7 @@
           }
         ]
       }
-    }
-  },
-  "luminosity": 0
+    },
+    "variant": true
+  }
 }

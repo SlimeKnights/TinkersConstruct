@@ -36,6 +36,9 @@
         },
         {
           "tag": "tconstruct:modifiable/shields"
+        },
+        {
+          "item": "tconstruct:swasher"
         }
       ]
     ]

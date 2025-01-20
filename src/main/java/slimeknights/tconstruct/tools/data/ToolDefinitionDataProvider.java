@@ -57,6 +57,8 @@ import slimeknights.tconstruct.tools.ToolDefinitions;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
 import slimeknights.tconstruct.tools.modules.MeltingFluidEffectiveModule;
 import slimeknights.tconstruct.tools.modules.MeltingModule;
+import slimeknights.tconstruct.tools.stats.GripMaterialStats;
+import slimeknights.tconstruct.tools.stats.HandleMaterialStats;
 import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
 import slimeknights.tconstruct.tools.stats.LimbMaterialStats;
 import slimeknights.tconstruct.tools.stats.PlatingMaterialStats;
@@ -93,7 +95,8 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
     DefaultMaterialsModule defaultTwoParts = DefaultMaterialsModule.builder().material(tier1Material, tier1Material).build();
     DefaultMaterialsModule defaultThreeParts = DefaultMaterialsModule.builder().material(tier1Material, tier1Material, tier1Material).build();
     DefaultMaterialsModule defaultFourParts = DefaultMaterialsModule.builder().material(tier1Material, tier1Material, tier1Material, tier1Material).build();
-    DefaultMaterialsModule defaultAncient = DefaultMaterialsModule.builder().material(randomMaterial, randomMaterial).build();
+    DefaultMaterialsModule ancientTwoParts = DefaultMaterialsModule.builder().material(randomMaterial, randomMaterial).build();
+    DefaultMaterialsModule ancientThreeParts = DefaultMaterialsModule.builder().material(randomMaterial, randomMaterial, randomMaterial).build();
 
     // pickaxes
     define(ToolDefinitions.PICKAXE)
@@ -644,7 +647,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
         .stat(PlatingMaterialStats.SHIELD.getId())
         .stat(LimbMaterialStats.ID)
         .build())
-      .module(defaultAncient)
+      .module(ancientTwoParts)
       // ancient tools add a second copy of traits, and add both traits to rebalanced
       .module(new MaterialTraitsModule(LimbMaterialStats.ID, 1), ToolHooks.REBALANCED_TRAIT)
       // stats
@@ -673,7 +676,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
         .stat(LimbMaterialStats.ID)
         .stat(StatlessMaterialStats.BOWSTRING.getIdentifier())
         .build())
-      .module(DefaultMaterialsModule.builder().material(randomMaterial, randomMaterial, randomMaterial).build())
+      .module(ancientThreeParts)
       // ancient tools when rebalanced get both heads
       .module(new MaterialTraitsModule(LimbMaterialStats.ID, 1), ToolHooks.REBALANCED_TRAIT)
       // stats
@@ -689,7 +692,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
         .stat(HeadMaterialStats.ID)
         .stat(PlatingMaterialStats.SHIELD.getId())
         .build())
-      .module(defaultAncient)
+      .module(ancientTwoParts)
       // ancient tools when rebalanced get both heads
       .module(new MaterialTraitsModule(PlatingMaterialStats.SHIELD.getId(), 1), ToolHooks.REBALANCED_TRAIT)
       // stats
@@ -707,6 +710,29 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
         .trait(TinkerModifiers.bonking)
         .trait(TinkerModifiers.knockback).build())
       .module(new ParticleWeaponAttack(TinkerTools.bonkAttackParticle.get()));
+    // swasher
+    define(ToolDefinitions.SWASHER)
+      .module(MaterialStatsModule.stats()
+        .stat(HeadMaterialStats.ID)
+        .stat(HandleMaterialStats.ID)
+        .stat(GripMaterialStats.ID)
+        .build())
+      .module(ancientThreeParts)
+      // ancient tools when rebalanced get both heads
+      .module(new MaterialTraitsModule(GripMaterialStats.ID, 2), ToolHooks.REBALANCED_TRAIT)
+      // stats
+      .module(new SetStatsModule(StatsNBT.builder()
+        .set(ToolStats.ATTACK_SPEED, 1.5f)
+        .set(ToolStats.DRAW_SPEED, 1.5f).build()))
+      .smallToolStartingSlots()
+      // traits
+      .module(ToolTraitsModule.builder()
+        .trait(TinkerModifiers.spitting)
+        .trait(TinkerModifiers.spilling)
+        .trait(TinkerModifiers.silkyShears).build())
+      // behavior
+      .module(ToolActionsModule.of(ToolActions.SWORD_DIG))
+      .module(swordHarvest);
   }
 
   @Override

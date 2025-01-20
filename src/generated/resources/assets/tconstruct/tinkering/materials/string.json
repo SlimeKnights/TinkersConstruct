@@ -1,11 +1,9 @@
 {
-  "color": "FFFFFFFF",
   "fallbacks": [
     "primitive"
   ],
   "generator": {
-    "ignoreMaterialStats": false,
-    "supportedStats": [
+    "supported_stats": [
       "tconstruct:binding",
       "tconstruct:bowstring",
       "tconstruct:repair_kit"
@@ -46,6 +44,5 @@
         ]
       }
     }
-  },
-  "luminosity": 0
+  }
 }

@@ -36,7 +36,6 @@ import net.minecraftforge.fml.ModLoader;
 import net.minecraftforge.fml.event.IModBusEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.ForgeRegistries;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.mantle.util.RegistryHelper;
 import slimeknights.tconstruct.TConstruct;
@@ -200,28 +199,47 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
           try {
             // parse the modifier first, its the same in both cases
             String key = entry.getKey();
-            ModifierId modifierId = new ModifierId(JsonHelper.convertToResourceLocation(entry.getValue(), "modifier"));
+
+            // if the modifier ends with a ?, its optional, so suppress errors if missing
+            String modifierStr = GsonHelper.convertToString(entry.getValue(), key);
+            boolean optional = modifierStr.charAt(modifierStr.length() - 1) == '?';
+            if (optional) {
+              modifierStr = modifierStr.substring(0, modifierStr.length() - 1);
+            }
+            ModifierId modifierId = ModifierId.PARSER.parseString(modifierStr, key);
             Modifier modifier = get(modifierId);
             if (modifier == defaultValue) {
+              if (optional) {
+                TConstruct.LOG.debug("Skipping unknown optional modifier " + modifierId + " for enchantment " + key);
+                continue;
+              }
               throw new JsonSyntaxException("Unknown modifier " + modifierId + " for enchantment " + key);
             }
 
             // if it starts with #, it's a tag
-            if (key.startsWith("#")) {
+            if (key.charAt(0) == '#') {
               ResourceLocation tagId = ResourceLocation.tryParse(key.substring(1));
               if (tagId == null) {
                 throw new JsonSyntaxException("Invalid enchantment tag ID " + key.substring(1));
               }
               this.enchantmentTagMap.put(TagKey.create(Registries.ENCHANTMENT, tagId), modifier);
             } else {
-              // assume its an ID
-              ResourceLocation enchantId = ResourceLocation.tryParse(key);
-              if (enchantId == null || !ForgeRegistries.ENCHANTMENTS.containsKey(enchantId)) {
-                throw new JsonSyntaxException("Invalid enchantment ID " + key);
+              // if it ends with a ?, its an optional enchantment, so suppress errors on missing
+              optional = key.charAt(key.length() - 1) == '?';
+              if (optional) {
+                key = key.substring(0, key.length() - 1);
               }
-              enchantmentMap.put(ForgeRegistries.ENCHANTMENTS.getValue(enchantId), modifier);
+              Enchantment enchantment = BuiltInRegistries.ENCHANTMENT.get(new ResourceLocation(key));
+              if (enchantment == null) {
+                if (optional) {
+                  TConstruct.LOG.debug("Skipping modifier " + modifierId + " due to unknown optional enchantment " + key);
+                  continue;
+                }
+                throw new JsonSyntaxException("Invalid enchantment ID " + key + " for modifier " + modifierId);
+              }
+              enchantmentMap.put(enchantment, modifier);
             }
-          } catch (JsonSyntaxException e) {
+          } catch (RuntimeException e) {
             log.info("Invalid enchantment to modifier mapping", e);
           }
         }

@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.data.loadable.Loadable;
+import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.primitive.StringLoadable;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 
@@ -24,6 +25,7 @@ public sealed interface MaterialVariantId permits MaterialId, MaterialVariantIdI
     }
     return location;
   }, MaterialVariantId::toString);
+  ContextKey<MaterialVariantId> CONTEXT_KEY = new ContextKey<>("material_variant");
 
   /** Variant ID that will match normal {@link MaterialId} with no variant, to allow checking for non-variant materials specifically. */
   String DEFAULT_VARIANT = "default";

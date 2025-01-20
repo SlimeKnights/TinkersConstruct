@@ -1,16 +1,12 @@
 package slimeknights.tconstruct.world.client;
 
-import com.google.common.collect.ImmutableMap;
 import net.minecraft.client.model.SkullModel;
-import net.minecraft.client.model.SkullModelBase;
-import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
-import net.minecraft.world.level.block.SkullBlock;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.world.TinkerHeadType;
 
@@ -27,14 +23,6 @@ public class SkullModelHelper {
     Collectors.toMap(Function.identity(), type -> new ModelLayerLocation(TConstruct.getResource(type.getSerializedName() + "_head"), "main"), (a, b) -> a, () -> new EnumMap<>(TinkerHeadType.class)));
 
   private SkullModelHelper() {}
-
-  /** Injects the extra skulls into the given map */
-  private static ImmutableMap<SkullBlock.Type,SkullModelBase> inject(EntityModelSet modelSet, Map<SkullBlock.Type,SkullModelBase> original) {
-    ImmutableMap.Builder<SkullBlock.Type,SkullModelBase> builder = ImmutableMap.builder();
-    builder.putAll(original);
-    HEAD_LAYERS.forEach((type, layer) -> builder.put(type, new SkullModel(modelSet.bakeLayer(layer))));
-    return builder.build();
-  }
 
   /** Creates a head with the given start and texture size */
   public static LayerDefinition createHeadLayer(int headX, int headY, int width, int height) {

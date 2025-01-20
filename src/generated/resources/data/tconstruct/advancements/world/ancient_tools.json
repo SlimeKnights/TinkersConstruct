@@ -1,0 +1,84 @@
+{
+  "parent": "tconstruct:world/tinkers_gadgetry",
+  "criteria": {
+    "battlesign": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:battlesign"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "melting_pan": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:melting_pan"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "swasher": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:swasher"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "war_pick": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tconstruct:war_pick"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.tconstruct.world.ancient_tools.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "tconstruct:battlesign",
+      "nbt": "{Damage:0,tic_broken:0b,tic_display:1b,tic_materials:[\"tconstruct:ui_render#head\",\"tconstruct:ui_render#handle\",\"tconstruct:ui_render#extra\",\"tconstruct:ui_render#large\",\"tconstruct:ui_render#extra_large\"]}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.tconstruct.world.ancient_tools.title"
+    }
+  },
+  "requirements": [
+    [
+      "melting_pan"
+    ],
+    [
+      "war_pick"
+    ],
+    [
+      "battlesign"
+    ],
+    [
+      "swasher"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

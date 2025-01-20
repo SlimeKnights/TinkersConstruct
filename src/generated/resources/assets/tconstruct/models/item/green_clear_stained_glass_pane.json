@@ -2,9 +2,7 @@
   "parent": "minecraft:item/generated",
   "layers": [
     {
-      "color": "FF667F33",
-      "luminosity": 0,
-      "no_tint": false
+      "color": "FF667F33"
     }
   ],
   "loader": "mantle:item_layer",

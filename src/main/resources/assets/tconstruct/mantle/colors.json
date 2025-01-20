@@ -322,6 +322,7 @@
     "seared_stone":    "#4F4A47",
     "venombone":       "#A2935E",
     "scorched_stone":  "#5B4C43",
+    "whitestone":      "#CDC68B",
     "whitestone.end":  "#CDC68B",
     "skyslime_vine":   "#00F4DA",
     "__tier_2_slimewood__": null,
@@ -357,7 +358,9 @@
     "platinum":   "#A3E7FE",
     "silver":     "#D3DFE8",
     "lead":       "#575E79",
-    "whitestone": "#E0E9EC",
+    "whitestone.aluminum": "#E0E9EC",
+    "whitestone.tin": "#E0E9EC",
+    "whitestone.zinc": "#E0E9EC",
     "aluminum":   "#CDD5D8",
 
     "__tier_3_integration__": null,

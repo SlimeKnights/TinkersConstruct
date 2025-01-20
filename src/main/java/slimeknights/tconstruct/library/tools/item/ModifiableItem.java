@@ -55,7 +55,6 @@ import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.nbt.IModDataView;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerToolActions;
 
@@ -187,13 +186,7 @@ public class ModifiableItem extends TieredItem implements IModifiableDisplay {
 
   @Override
   public int getMaxDamage(ItemStack stack) {
-    if (!canBeDepleted()) {
-      return 0;
-    }
-    ToolStack tool = ToolStack.from(stack);
-    int durability = tool.getStats().getInt(ToolStats.DURABILITY);
-    // vanilla deletes tools if max damage == getDamage, so tell vanilla our max is one higher when broken
-    return tool.isBroken() ? durability + 1 : durability;
+    return ToolDamageUtil.getFakeMaxDamage(stack);
   }
 
   @Override

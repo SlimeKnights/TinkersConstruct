@@ -29,7 +29,7 @@ public record MergingListField<T,P>(LoadableField<T,T> field, String key, Functi
   }
 
   @Override
-  public List<T> get(JsonObject json, TypedMap context) {
+  public List<T> get(JsonObject json, String key, TypedMap context) {
     if (json.has(key)) {
       JsonArray array = GsonHelper.getAsJsonArray(json, key);
       // using an array list as immutable lists do not support null, but for our uses we need to allow null

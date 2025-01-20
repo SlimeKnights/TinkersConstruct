@@ -1,10 +1,14 @@
 package slimeknights.tconstruct.library.client.data.material;
 
 import com.google.common.collect.ImmutableSet;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import com.google.errorprone.annotations.CheckReturnValue;
 import com.mojang.blaze3d.platform.NativeImage;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.mantle.data.loadable.Loadable;
 import slimeknights.mantle.data.loadable.Loadables;
@@ -31,102 +35,73 @@ import java.util.Set;
 /** Base class for listing sprites to generate */
 @SuppressWarnings("SameParameterValue")
 @RequiredArgsConstructor
+@CanIgnoreReturnValue
 public abstract class AbstractPartSpriteProvider {
 
   /** List of created sprites */
-  private final List<PartSpriteInfo> sprites = new ArrayList<>();
+  private final List<PartSpriteInfo.Builder> sprites = new ArrayList<>();
+  @Nullable
+  private List<PartSpriteInfo> finalSprites = null;
   private final List<ToolSpriteBuilder> toolSprites = new ArrayList<>();
-  /** If true, sprites have been added */
-  private boolean added = false;
   /** Default mod ID for helper functions */
   private final String modID;
 
   /** Gets the name of these part sprites */
+  @CheckReturnValue
   public abstract String getName();
 
   /** Function to add both sprites and materials */
+  @CheckReturnValue
   protected abstract void addAllSpites();
 
 
   /* Builder functions */
 
-  /**
-   * Adds a given texture to the list to generate
-   * @param sprite  Sprite name
-   * @param requiredStats  At least one of these stat types must be present for this sprite to be generated
-   */
-  protected void addTexture(ResourceLocation sprite, boolean allowAnimated, MaterialStatsId... requiredStats) {
-    sprites.add(new PartSpriteInfo(sprite, ImmutableSet.copyOf(requiredStats), allowAnimated));
+  /** Adds a given texture to the list to generate */
+  protected PartSpriteInfo.Builder addTexture(ResourceLocation sprite, MaterialStatsId... requiredStats) {
+    PartSpriteInfo.Builder builder = new PartSpriteInfo.Builder(sprite, requiredStats);
+    sprites.add(builder);
+    return builder;
   }
 
-  /**
-   * Adds a given texture to the list to generate
-   * @param sprite  Sprite name
-   * @param requiredStats  At least one of these stat types must be present for this sprite to be generated
-   */
-  protected void addTexture(ResourceLocation sprite, MaterialStatsId... requiredStats) {
-    addTexture(sprite, true, requiredStats);
+  /** Adds a given sprite to the list to generate, for the local namespace */
+  protected PartSpriteInfo.Builder addTexture(String name, MaterialStatsId... requiredStats) {
+    return addTexture(new ResourceLocation(modID, name), requiredStats);
   }
 
-  /**
-   * Adds a given sprite to the list to generate, local to textures instead of tool
-   * @param name           Name relative to the mod
-   * @param requiredStats  At least one of these stat types must be present for this sprite to be generated
-   */
-  protected void addTexture(String name, boolean allowAnimated, MaterialStatsId... requiredStats) {
-    addTexture(new ResourceLocation(modID, name), allowAnimated, requiredStats);
+  /** Adds a given sprite to the list to generated, located in the tools folder */
+  protected PartSpriteInfo.Builder addSprite(String name, MaterialStatsId... requiredStats) {
+    return addTexture(new ResourceLocation(modID, "item/tool/" + name), requiredStats);
   }
 
-  /**
-   * Adds a given sprite to the list to generate, local to textures instead of tool
-   * @param name           Name relative to the mod
-   * @param requiredStats  At least one of these stat types must be present for this sprite to be generated
-   */
-  protected void addTexture(String name, MaterialStatsId... requiredStats) {
-    addTexture(new ResourceLocation(modID, name), requiredStats);
-  }
-
-  /**
-   * Adds a given sprite to the list to generated
-   * @param name           Name relative to the mod
-   * @param requiredStats  At least one of these stat types must be present for this sprite to be generated
-   */
-  protected void addSprite(String name, MaterialStatsId... requiredStats) {
-    addTexture(new ResourceLocation(modID, "item/tool/" + name), requiredStats);
-  }
-
-  /**
-   * Adds a sprite for a generic tool part from the parts folder
-   * @param name  Part name relative to item/tool/parts
-   * @param requiredStats  At least one of these stat types must be present for this part to be generated
-   */
-  protected void addPart(String name, MaterialStatsId... requiredStats) {
-    addSprite("parts/" + name, requiredStats);
+  /** Adds a sprite for a generic tool part from the parts folder */
+  protected PartSpriteInfo.Builder addPart(String name, MaterialStatsId... requiredStats) {
+    return addSprite("parts/" + name, requiredStats);
   }
 
   /** Adds a sprite requiring head stats */
-  protected void addHead(String name) {
-    addPart(name, HeadMaterialStats.ID);
+  protected PartSpriteInfo.Builder addHead(String name) {
+    return addPart(name, HeadMaterialStats.ID);
   }
 
   /** Adds a sprite requiring handle stats */
-  protected void addHandle(String name) {
-    addPart(name, HandleMaterialStats.ID);
+  protected PartSpriteInfo.Builder addHandle(String name) {
+    return addPart(name, HandleMaterialStats.ID);
   }
 
   /** Adds a sprite requiring extra stats */
-  protected void addBinding(String name) {
-    addPart(name, StatlessMaterialStats.BINDING.getIdentifier());
+  protected PartSpriteInfo.Builder addBinding(String name) {
+    return addPart(name, StatlessMaterialStats.BINDING.getIdentifier());
   }
 
   /** Adds a sprite requiring head stats */
-  protected void addLimb(String name) {
-    addPart(name, LimbMaterialStats.ID);
+  protected PartSpriteInfo.Builder addLimb(String name) {
+    return addPart(name, LimbMaterialStats.ID);
   }
 
   /** Adds a sprite requiring head stats */
-  protected void addBowstring(String name) {
-    addPart(name, StatlessMaterialStats.BOWSTRING.getIdentifier());
+  protected PartSpriteInfo.Builder addBowstring(String name) {
+    return addPart(name, StatlessMaterialStats.BOWSTRING.getIdentifier());
   }
 
   /** Create a builder for tool sprites */
@@ -144,26 +119,22 @@ public abstract class AbstractPartSpriteProvider {
 
   /* For use in the data generator */
 
-  /** Runs {@link #addAllSpites()} if not yet run */
-  private void ensureSpritesAdded() {
-    if (!added) {
+  /** Gets all sprites produced by this provider */
+  public List<PartSpriteInfo> getSprites() {
+    if (finalSprites == null) {
       addAllSpites();
       toolSprites.forEach(ToolSpriteBuilder::build);
       toolSprites.clear();
-      added = true;
+      finalSprites = sprites.stream().map(PartSpriteInfo.Builder::build).toList();
     }
-  }
-
-  /** Gets all sprites produced by this provider */
-  public List<PartSpriteInfo> getSprites() {
-    ensureSpritesAdded();
-    return sprites;
+    return finalSprites;
   }
 
   /** Closes all open images and resets all caches */
   public void cleanCache() {
     sprites.clear();
-    added = false;
+    toolSprites.clear();
+    finalSprites = null;
   }
 
   /** Data class containing a sprite path, and different bases */
@@ -174,6 +145,7 @@ public abstract class AbstractPartSpriteProvider {
       Loadables.RESOURCE_LOCATION.requiredField("path", i -> i.path),
       MaterialStatsId.PARSER.set(CollectionLoadable.COMPACT).requiredField("stat_type", i -> i.statTypes),
       BooleanLoadable.INSTANCE.defaultField("allow_animated", true, false, i -> i.allowAnimated),
+      BooleanLoadable.INSTANCE.defaultField("skip_variants", false, false, i -> i.skipVariants),
       PartSpriteInfo::new);
     /** Loadable for a list, since its the main usage of this */
     public static final Loadable<List<PartSpriteInfo>> LIST_LOADABLE = LOADABLE.list(1);
@@ -186,16 +158,11 @@ public abstract class AbstractPartSpriteProvider {
     private final Set<MaterialStatsId> statTypes;
     @Getter
     private final boolean allowAnimated;
+    /** If true, this sprite skips variant textures, used by ancient tools to skip adding unneeded sprites */
+    @Getter
+    private final boolean skipVariants;
     /** Cache of fetched images for each sprite name */
     private transient final Map<String,NativeImage> sprites = new HashMap<>();
-
-    public PartSpriteInfo(ResourceLocation path, boolean allowAnimated, MaterialStatsId... stats) {
-      this(path, ImmutableSet.copyOf(stats), allowAnimated);
-    }
-
-    public PartSpriteInfo(ResourceLocation path, MaterialStatsId stat, boolean allowAnimated) {
-      this(path, Set.of(stat), allowAnimated);
-    }
 
     /** Gets the texture for the given fallback name, use empty string for the default */
     @Nullable
@@ -213,6 +180,38 @@ public abstract class AbstractPartSpriteProvider {
       sprites.put(name, image);
       return image;
     }
+
+    /** Builder used for serialization */
+    @CanIgnoreReturnValue
+    @Accessors(fluent = true)
+    @Setter(AccessLevel.PRIVATE)
+    public static class Builder {
+      private final ResourceLocation path;
+      private final Set<MaterialStatsId> statTypes;
+      private boolean allowAnimated = true;
+      private boolean skipVariants = false;
+
+      private Builder(ResourceLocation path, MaterialStatsId[] requiredStats) {
+        this.path = path;
+        this.statTypes = ImmutableSet.copyOf(requiredStats);
+      }
+
+      /** Disallows animating this sprite. Used for things that don't support animation such as armor */
+      public Builder disallowAnimated() {
+        return allowAnimated(false);
+      }
+
+      /** If true, this sprite skips variant textures, used by ancient tools to skip adding unneeded sprites */
+      public Builder skipVariants() {
+        return skipVariants(true);
+      }
+
+      /** Builds the final sprite info */
+      @CheckReturnValue
+      private PartSpriteInfo build() {
+        return new PartSpriteInfo(path, statTypes, allowAnimated, skipVariants);
+      }
+    }
   }
 
   @SuppressWarnings("UnusedReturnValue")
@@ -221,6 +220,27 @@ public abstract class AbstractPartSpriteProvider {
     private final ResourceLocation name;
     private final Map<String, MaterialStatsId[]> parts = new LinkedHashMap<>();
     private boolean hasLarge = false;
+    private boolean allowAnimated = true;
+    private boolean skipVariants = false;
+
+    /** Adds sprites for large parts as well */
+    public ToolSpriteBuilder withLarge() {
+      this.hasLarge = true;
+      return this;
+    }
+
+    /** Prevents sprites for this tool from being animated. Used for armor to be more consistent with the worn texture. */
+    public ToolSpriteBuilder disallowAnimated() {
+      this.allowAnimated = false;
+      return this;
+    }
+
+    /** Skips adding variant textures for this tool. Used for ancient tools to remove sprites that will never be seen. */
+    public ToolSpriteBuilder skipVariants() {
+      this.skipVariants = true;
+      return this;
+    }
+
 
     /** Adds a part to the tool */
     public ToolSpriteBuilder addPart(String name, MaterialStatsId... statTypes) {
@@ -279,16 +299,11 @@ public abstract class AbstractPartSpriteProvider {
       return addBreakablePart(name, StatlessMaterialStats.BOWSTRING.getIdentifier());
     }
 
-    /** Adds sprites for large parts as well */
-    public ToolSpriteBuilder withLarge() {
-      this.hasLarge = true;
-      return this;
-    }
-
     /** Helper to add all parts for a size */
     private void addParts(String path) {
       for (Entry<String,MaterialStatsId[]> entry : parts.entrySet()) {
-        addTexture(new ResourceLocation(name.getNamespace(), "item/tool/" + path + "/" + entry.getKey()), entry.getValue());
+        addTexture(new ResourceLocation(name.getNamespace(), "item/tool/" + path + "/" + entry.getKey()), entry.getValue())
+          .allowAnimated(allowAnimated).skipVariants(skipVariants);
       }
     }
 

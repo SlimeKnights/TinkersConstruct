@@ -356,12 +356,15 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
             setItem(OUTPUT, getItem(INPUT));
           }
           setItem(INPUT, output);
-          level.playSound(null, getBlockPos(), Sounds.CASTING_CLICKS.getSound(), SoundSource.BLOCKS, 1.0f, 1.0f);
         } else {
           if (currentRecipe.isConsumed()) {
             setItem(INPUT, ItemStack.EMPTY);
           }
           setItem(OUTPUT, output);
+        }
+        // if redstone swapped behavior, add a click sound
+        if (lastRedstone) {
+          level.playSound(null, getBlockPos(), Sounds.CASTING_CLICKS.getSound(), SoundSource.BLOCKS, 1.0f, 1.0f);
         }
         level.playSound(null, pos, Sounds.CASTING_COOLS.getSound(), SoundSource.BLOCKS, 0.5f, 4f);
         reset();

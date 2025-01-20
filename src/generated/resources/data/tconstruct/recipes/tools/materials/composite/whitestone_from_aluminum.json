@@ -14,6 +14,6 @@
     "tag": "forge:molten_aluminum"
   },
   "input": "tconstruct:rock",
-  "output": "tconstruct:whitestone",
+  "output": "tconstruct:whitestone#aluminum",
   "temperature": 425
 }

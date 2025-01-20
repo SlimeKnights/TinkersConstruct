@@ -4,8 +4,7 @@
     "cloth"
   ],
   "generator": {
-    "ignoreMaterialStats": false,
-    "supportedStats": [
+    "supported_stats": [
       "tconstruct:binding",
       "tconstruct:maille",
       "tconstruct:armor_maille"
@@ -46,6 +45,5 @@
         ]
       }
     }
-  },
-  "luminosity": 0
+  }
 }

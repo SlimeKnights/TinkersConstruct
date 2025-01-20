@@ -4,8 +4,7 @@
     "rock"
   ],
   "generator": {
-    "ignoreMaterialStats": false,
-    "supportedStats": [
+    "supported_stats": [
       "tconstruct:armor_plating",
       "tconstruct:plating_helmet",
       "tconstruct:plating_chestplate",
@@ -52,6 +51,5 @@
         ]
       }
     }
-  },
-  "luminosity": 0
+  }
 }

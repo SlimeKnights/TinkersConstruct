@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.client.data.material;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import com.google.errorprone.annotations.CheckReturnValue;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.library.client.data.spritetransformer.IColorMapping;
 import slimeknights.tconstruct.library.client.data.spritetransformer.ISpriteTransformer;
 import slimeknights.tconstruct.library.client.data.spritetransformer.RecolorSpriteTransformer;
-import slimeknights.tconstruct.library.client.materials.MaterialRenderInfoJson.MaterialGeneratorJson;
+import slimeknights.tconstruct.library.client.materials.MaterialGeneratorInfo;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
@@ -82,7 +83,7 @@ public abstract class AbstractMaterialSpriteProvider {
   }
 
   /** Data for material rendering */
-  public static class MaterialSpriteInfo extends MaterialGeneratorJson {
+  public static class MaterialSpriteInfo extends MaterialGeneratorInfo {
     /** Material texture name for the material */
     @Getter
     private transient final ResourceLocation texture;
@@ -90,14 +91,14 @@ public abstract class AbstractMaterialSpriteProvider {
     @Getter
     private transient final String[] fallbacks;
 
-    public MaterialSpriteInfo(ResourceLocation texture, String[] fallbacks, MaterialGeneratorJson generatorJson) {
+    public MaterialSpriteInfo(ResourceLocation texture, String[] fallbacks, MaterialGeneratorInfo generatorJson) {
       super(generatorJson);
       this.texture = texture;
       this.fallbacks = fallbacks;
     }
 
-    public MaterialSpriteInfo(ResourceLocation texture, String[] fallbacks, ISpriteTransformer transformer, Set<MaterialStatsId> supportedStats) {
-      super(transformer, supportedStats, false);
+    public MaterialSpriteInfo(ResourceLocation texture, String[] fallbacks, ISpriteTransformer transformer, Set<MaterialStatsId> supportedStats, boolean variant) {
+      super(transformer, supportedStats, false, variant);
       this.texture = texture;
       this.fallbacks = fallbacks;
     }
@@ -117,6 +118,8 @@ public abstract class AbstractMaterialSpriteProvider {
 
   /** Builder for material sprite info */
   @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+  @CanIgnoreReturnValue
+  @Accessors(fluent = true)
   protected static class MaterialSpriteInfoBuilder {
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
     private final ResourceLocation texture;
@@ -124,8 +127,11 @@ public abstract class AbstractMaterialSpriteProvider {
     private final ImmutableSet.Builder<MaterialStatsId> statTypes = ImmutableSet.builder();
 
     /** Transformer to modify textures */
-    @Setter @Accessors(fluent = true)
+    @Setter
+    @Nullable
     private ISpriteTransformer transformer;
+    @Setter
+    private boolean variant = false;
 
     /** Sets the fallbacks */
     public MaterialSpriteInfoBuilder fallbacks(String... fallbacks) {
@@ -134,9 +140,13 @@ public abstract class AbstractMaterialSpriteProvider {
     }
 
     /** Sets the transformer to a color mapping transform */
-    @CanIgnoreReturnValue
     public MaterialSpriteInfoBuilder colorMapper(IColorMapping mapping) {
       return transformer(new RecolorSpriteTransformer(mapping));
+    }
+
+    /** Marks this as a variant texture, which is skipped by some sprites such as ancient tools (which can never obtain them) */
+    public MaterialSpriteInfoBuilder variant() {
+      return variant(true);
     }
 
     /** Adds a stat type as supported */
@@ -197,6 +207,7 @@ public abstract class AbstractMaterialSpriteProvider {
     }
 
     /** Builds a material sprite info */
+    @CheckReturnValue
     private MaterialSpriteInfo build() {
       if (transformer == null) {
         throw new IllegalStateException("Material must have a transformer for a sprite provider");
@@ -205,7 +216,7 @@ public abstract class AbstractMaterialSpriteProvider {
       if (supportedStats.isEmpty()) {
         throw new IllegalStateException("Material must support at least one stat type");
       }
-      return new MaterialSpriteInfo(texture, fallbacks, transformer, supportedStats);
+      return new MaterialSpriteInfo(texture, fallbacks, transformer, supportedStats, variant);
     }
   }
 }

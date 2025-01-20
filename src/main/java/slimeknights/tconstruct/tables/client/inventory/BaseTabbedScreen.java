@@ -99,7 +99,11 @@ public class BaseTabbedScreen<TILE extends BlockEntity, CONTAINER extends Tabbed
   @Override
   public List<Rect2i> getModuleAreas() {
     List<Rect2i> areas = super.getModuleAreas();
-    areas.add(tabsScreen.getArea());
+    if (tabsScreen != null) {
+      areas.add(tabsScreen.getArea());
+    } else {
+      TConstruct.LOG.error("Someone is trying to access module areas before the screen is initialized. This usually indicates a recipe viewer badly implementing the JEI API. Report this issue to your recipe viewer.");
+    }
     return areas;
   }
 

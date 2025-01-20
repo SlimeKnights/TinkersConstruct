@@ -121,7 +121,12 @@ public final class MaterialIds {
   public static final MaterialVariantId granite    = create(rock, "granite");
   public static final MaterialVariantId blackstone = create(rock, "blackstone");
   public static final MaterialVariantId deepslate  = create(rock, "deepslate");
-  public static final MaterialVariantId endstone   = create(whitestone, "end");
+  // whitestone
+  public static final MaterialVariantId endstone            = create(whitestone, "end");
+  public static final MaterialVariantId whitestoneComposite = create(whitestone, "composite");
+  public static final MaterialVariantId whitestoneAluminum  = create(whitestone, "aluminum");
+  public static final MaterialVariantId whitestoneTin       = create(whitestone, "tin");
+  public static final MaterialVariantId whitestoneZinc      = create(whitestone, "zinc");
   // slimewood
   public static final MaterialVariantId slimewoodComposite = create(slimewood, "composite");
   public static final MaterialVariantId greenheart         = create(slimewood, "greenheart");

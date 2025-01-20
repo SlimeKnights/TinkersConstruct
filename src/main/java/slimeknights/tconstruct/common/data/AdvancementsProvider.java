@@ -41,6 +41,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import slimeknights.mantle.data.GenericDataProvider;
+import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
@@ -248,14 +249,14 @@ public class AdvancementsProvider extends GenericDataProvider {
       builder.requirements(RequirementsStrategy.OR);
     });
     builder(TinkerTools.veinHammer.get().getRenderTool(), resource("smeltery/tool_forge"), anvil, FrameType.CHALLENGE, builder -> {
-      Consumer<Item> with = item -> builder.addCriterion(BuiltInRegistries.ITEM.getKey(item).getPath(), hasItem(item));
-      with.accept(TinkerTools.sledgeHammer.get());
-      with.accept(TinkerTools.veinHammer.get());
-      with.accept(TinkerTools.excavator.get());
-      with.accept(TinkerTools.broadAxe.get());
-      with.accept(TinkerTools.scythe.get());
-      with.accept(TinkerTools.cleaver.get());
-      with.accept(TinkerTools.longbow.get());
+      Consumer<ItemObject<?>> with = item -> builder.addCriterion(item.getId().getPath(), hasItem(item));
+      with.accept(TinkerTools.sledgeHammer);
+      with.accept(TinkerTools.veinHammer);
+      with.accept(TinkerTools.excavator);
+      with.accept(TinkerTools.broadAxe);
+      with.accept(TinkerTools.scythe);
+      with.accept(TinkerTools.cleaver);
+      with.accept(TinkerTools.longbow);
     });
     builder(TinkerModifiers.silkyCloth, resource("smeltery/abilities"), anvil, FrameType.CHALLENGE, builder -> {
       Consumer<ModifierId> with = modifier -> builder.addCriterion(modifier.getPath(), InventoryChangeTrigger.TriggerInstance.hasItems(ToolStackItemPredicate.ofContext(HasModifierPredicate.hasUpgrade(modifier, 1))));
@@ -384,7 +385,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       builder.addCriterion("found_island", PlayerTrigger.TriggerInstance.located(LocationPredicate.inStructure(Objects.requireNonNull(TinkerStructures.endSlimeIsland)))));
     builder(Items.CLAY_BALL, resource("world/clay_island"), tinkersGadgetry, FrameType.GOAL, builder ->
       builder.addCriterion("found_island", PlayerTrigger.TriggerInstance.located(LocationPredicate.inStructure(Objects.requireNonNull(TinkerStructures.clayIsland)))));
-    Advancement slimes = builder(TinkerCommons.slimeball.get(SlimeType.ICHOR), resource("world/slime_collector"), tinkersGadgetry, FrameType.TASK, builder -> {
+    builder(TinkerCommons.slimeball.get(SlimeType.ICHOR), resource("world/slime_collector"), tinkersGadgetry, FrameType.TASK, builder -> {
       for (SlimeType type : SlimeType.values()) {
         builder.addCriterion(type.getSerializedName(), hasTag(type.getSlimeballTag()));
       }
@@ -413,6 +414,13 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(MaterialIds.gold);
       with.accept(MaterialIds.roseGold);
       with.accept(MaterialIds.pigIron);
+    });
+    builder(TinkerTools.battlesign.get().getRenderTool(), resource("world/ancient_tools"), tinkersGadgetry, FrameType.CHALLENGE, builder -> {
+      Consumer<ItemObject<?>> with = item -> builder.addCriterion(item.getId().getPath(), hasItem(item));
+      with.accept(TinkerTools.meltingPan);
+      with.accept(TinkerTools.warPick);
+      with.accept(TinkerTools.battlesign);
+      with.accept(TinkerTools.swasher);
     });
 
     // internal advancements

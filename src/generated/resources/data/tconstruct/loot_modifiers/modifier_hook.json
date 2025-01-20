@@ -3,28 +3,6 @@
   "conditions": [
     {
       "condition": "tconstruct:block_or_entity"
-    },
-    {
-      "condition": "minecraft:any_of",
-      "terms": [
-        {
-          "condition": "minecraft:match_tool",
-          "predicate": {
-            "tag": "tconstruct:modifiable/loot_capable_tool"
-          }
-        },
-        {
-          "condition": "minecraft:entity_properties",
-          "entity": "killer",
-          "predicate": {
-            "equipment": {
-              "mainhand": {
-                "tag": "tconstruct:modifiable/loot_capable_tool"
-              }
-            }
-          }
-        }
-      ]
     }
   ]
 }

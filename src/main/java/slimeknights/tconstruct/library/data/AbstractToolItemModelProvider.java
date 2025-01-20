@@ -61,32 +61,58 @@ public abstract class AbstractToolItemModelProvider extends GenericDataProvider 
     transformTool("tool/" + name + "/broken", readJson(id), "", false, "broken", brokenParts);
   }
 
+  public enum AmmoType { CROSSBOW, BOW, NONE }
+
   /** Creates a model in the blocking folder with the given copied display */
   protected void bow(IdAwareObject bow, JsonObject properties, boolean crossbow, String... pullingParts) throws IOException {
+    pulling(bow, properties, crossbow ? AmmoType.CROSSBOW : AmmoType.BOW, "bowstring", 3, pullingParts);
+  }
+
+  /** Creates a model in the blocking folder with the given copied display */
+  protected void pulling(IdAwareObject bow, JsonObject properties, AmmoType ammo, String brokenPart, int pullingCount, String... pullingParts) throws IOException {
     ResourceLocation id = bow.getId();
     String name = id.getPath();
     JsonObject base = readJson(id);
     base.remove("overrides"); // don't need them anywhere, notably ditching for the sake of ammo models
-    transformTool("tool/" + name + "/broken", base, "", false, "broken", "bowstring");
+    transformTool("tool/" + name + "/broken", base, "", false, "broken", brokenPart);
     withDisplay("tool/" + name + "/blocking", id, properties);
-    if (crossbow) {
-      // crossbows have two ammo states
-      String arrowName = "tool/" + name + "/arrow";
-      String fireworkName = "tool/" + name + "/firework";
-      JsonObject ammoBase = suffixTextures(base.deepCopy(), "3", pullingParts);
-      models.put(arrowName, addPart(ammoBase.deepCopy(), "ammo", name, "arrow"));
-      models.put(fireworkName, addPart(ammoBase.deepCopy(), "ammo", name, "firework"));
-      withDisplay("tool/" + name + "/arrow_blocking", resource(arrowName), properties);
-      withDisplay("tool/" + name + "/firework_blocking", resource(fireworkName), properties);
-    } else {
-      // bows have an arrow part that pulls back
-      addPart(base, "arrow", name, "arrow");
+    switch(ammo) {
+      case CROSSBOW -> {
+        // crossbows have two ammo states
+        String arrowName = "tool/" + name + "/arrow";
+        String fireworkName = "tool/" + name + "/firework";
+        JsonObject ammoBase = suffixTextures(base.deepCopy(), "3", pullingParts);
+        models.put(arrowName, addPart(ammoBase.deepCopy(), "ammo", name, "arrow"));
+        models.put(fireworkName, addPart(ammoBase.deepCopy(), "ammo", name, "firework"));
+        withDisplay("tool/" + name + "/arrow_blocking", resource(arrowName), properties);
+        withDisplay("tool/" + name + "/firework_blocking", resource(fireworkName), properties);
+      }
+      case BOW -> {
+        // bows have an arrow part that pulls back
+        addPart(base, "arrow", name, "arrow");
+      }
     }
-    for (int i = 1; i <= 3; i++) {
+    for (int i = 1; i <= pullingCount; i++) {
       String pulling = "tool/" + name + "/pulling_" + i;
       transformTool(pulling, base, "", false, Integer.toString(i), pullingParts);
       withDisplay("tool/" + name + "/blocking_" + i, resource(pulling), properties);
     }
+  }
+
+  /** Creates models for blocking, broken and fully charged for the given tool */
+  protected void charged(IdAwareObject bow, JsonObject properties, String... brokenParts) throws IOException {
+    ResourceLocation id = bow.getId();
+    String name = id.getPath();
+    JsonObject base = readJson(id);
+    base.remove("overrides");
+    withDisplay("tool/" + name + "/blocking", id, properties);
+    transformTool("tool/" + name + "/broken", base, "", false, "broken", brokenParts);
+
+    addPart(base, "overlay", name, "overlay");
+
+    String charged = "tool/" + name + "/charged";
+    transformTool(charged, base, "", false, "charged", "overlay");
+    withDisplay("tool/" + name + "/blocking_charged", resource(charged), properties);
   }
 
   /** Creates a model in the blocking folder with the given copied display */

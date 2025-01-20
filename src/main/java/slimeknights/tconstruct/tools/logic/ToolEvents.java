@@ -31,6 +31,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
+import net.minecraftforge.event.entity.ProjectileImpactEvent.ImpactResult;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent;
@@ -66,8 +67,8 @@ import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolAttackUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
+import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.BlockSideHitListener;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -415,12 +416,23 @@ public class ToolEvents {
   /** Implements projectile hit hook */
   @SubscribeEvent
   static void projectileHit(ProjectileImpactEvent event) {
+    ImpactResult result = event.getImpactResult();
+    // if the event was "canceled" do nothing
+    if (result == ImpactResult.STOP_AT_CURRENT_NO_DAMAGE) {
+      return;
+    }
+    // if told to skip the entity also do nothing
+    HitResult hit = event.getRayTraceResult();
+    HitResult.Type type = hit.getType();
+    if (result == ImpactResult.SKIP_ENTITY && type == HitResult.Type.ENTITY) {
+      return;
+    }
+    // from this point on we are either DEFAULT or STOP_AT_CURRENT, either one we do stuff
+
     Projectile projectile = event.getProjectile();
     ModifierNBT modifiers = EntityModifierCapability.getOrEmpty(projectile);
     if (!modifiers.isEmpty()) {
       ModDataNBT nbt = PersistentDataCapability.getOrWarn(projectile);
-      HitResult hit = event.getRayTraceResult();
-      HitResult.Type type = hit.getType();
       // extract a firing entity as that is a common need
       LivingEntity attacker = projectile.getOwner() instanceof LivingEntity l ? l : null;
       switch(type) {
@@ -432,18 +444,22 @@ public class ToolEvents {
             // extract a living target as that is the most common need
             LivingEntity target = ToolAttackUtil.getLivingEntity(entityHit.getEntity());
             for (ModifierEntry entry : modifiers.getModifiers()) {
-              // TODO: migrate hook to use ImpactResult return
-              if (entry.getHook(ModifierHooks.PROJECTILE_HIT).onProjectileHitEntity(modifiers, nbt, entry, projectile, entityHit, attacker, target)) {
-                event.setCanceled(true);
+              ImpactResult newResult = entry.getHook(ModifierHooks.PROJECTILE_HIT).onProjectileHitEntity(modifiers, nbt, entry, projectile, entityHit, attacker, target);
+              if (newResult != ImpactResult.DEFAULT) {
+                result = newResult;
+              }
+              if (newResult == ImpactResult.SKIP_ENTITY || newResult == ImpactResult.STOP_AT_CURRENT_NO_DAMAGE) {
+                break;
               }
             }
+            event.setImpactResult(result);
           }
         }
         case BLOCK -> {
           BlockHitResult blockHit = (BlockHitResult)hit;
           for (ModifierEntry entry : modifiers.getModifiers()) {
             if (entry.getHook(ModifierHooks.PROJECTILE_HIT).onProjectileHitBlock(modifiers, nbt, entry, projectile, blockHit, attacker)) {
-              event.setCanceled(true);
+              event.setImpactResult(ImpactResult.STOP_AT_CURRENT_NO_DAMAGE);
             }
           }
         }

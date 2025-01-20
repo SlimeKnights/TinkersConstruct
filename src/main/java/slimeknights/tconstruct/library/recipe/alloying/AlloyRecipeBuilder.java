@@ -11,6 +11,7 @@ import slimeknights.mantle.recipe.data.AbstractRecipeBuilder;
 import slimeknights.mantle.recipe.helper.FluidOutput;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.mantle.registration.object.FluidObject;
+import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipe.AlloyIngredient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ import static slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe.getT
 public class AlloyRecipeBuilder extends AbstractRecipeBuilder<AlloyRecipeBuilder> {
   private final FluidOutput output;
   private final int temperature;
-  private final List<FluidIngredient> inputs = new ArrayList<>();
+  private final List<AlloyIngredient> inputs = new ArrayList<>();
 
   /**
    * Creates a new recipe producing the given fluid
@@ -64,7 +65,17 @@ public class AlloyRecipeBuilder extends AbstractRecipeBuilder<AlloyRecipeBuilder
    * @return  Builder instance
    */
   public AlloyRecipeBuilder addInput(FluidIngredient input) {
-    inputs.add(input);
+    inputs.add(new AlloyIngredient(input, false));
+    return this;
+  }
+
+  /**
+   * Adds an input that is not consumed
+   * @param input  Catalyst ingredient
+   * @return  Builder instance
+   */
+  public AlloyRecipeBuilder addCatalyst(FluidIngredient input) {
+    inputs.add(new AlloyIngredient(input, true));
     return this;
   }
 

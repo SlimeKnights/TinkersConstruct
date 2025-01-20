@@ -1,0 +1,42 @@
+{
+  "loader": "tconstruct:tool",
+  "parent": "tconstruct:item/base/swasher",
+  "textures": {
+    "blade":  "tconstruct:item/tool/swasher/blade",
+    "barrel": "tconstruct:item/tool/swasher/barrel",
+    "handle": "tconstruct:item/tool/swasher/handle"
+  },
+  "modifier_roots": [ "tconstruct:item/tool/swasher/modifiers/" ],
+  "parts": [
+    { "name": "handle", "index": 1 },
+    { "name": "blade",  "index": 0 },
+    { "name": "barrel", "index": 2 }
+  ],
+  "first_modifiers": [{ "name": "tconstruct:tank", "forced": true }],
+  "overrides": [
+    {
+      "predicate": { "tconstruct:charging": 1 },
+      "model": "tconstruct:item/tool/swasher/pulling_1"
+    },
+    {
+      "predicate": { "tconstruct:charging": 1, "tconstruct:charge": 1.0 },
+      "model": "tconstruct:item/tool/swasher/pulling_2"
+    },
+    {
+      "predicate": { "tconstruct:charging": 2 },
+      "model": "tconstruct:item/tool/swasher/blocking"
+    },
+    {
+      "predicate": { "tconstruct:charging": 2, "tconstruct:charge": 0.05 },
+      "model": "tconstruct:item/tool/swasher/blocking_1"
+    },
+    {
+      "predicate": { "tconstruct:charging": 2, "tconstruct:charge": 1.0 },
+      "model": "tconstruct:item/tool/swasher/blocking_2"
+    },
+    {
+      "predicate": { "tconstruct:broken": 1 },
+      "model": "tconstruct:item/tool/swasher/broken"
+    }
+  ]
+}

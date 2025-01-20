@@ -1,6 +1,6 @@
 {
   "type": "tconstruct:modifier",
-  "allow_crystal": false,
+  "allow_crystal": true,
   "inputs": [
     {
       "item": "minecraft:leather"
