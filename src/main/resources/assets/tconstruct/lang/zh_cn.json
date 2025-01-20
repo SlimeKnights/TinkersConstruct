@@ -916,6 +916,7 @@
   "item.tconstruct.melting_pan": "熔炼锅",
   "item.tconstruct.battlesign": "战斗牌子",
   "item.tconstruct.war_pick": "战镐",
+  "item.tconstruct.swasher": "Swasher",
   
   "item.tconstruct.travelers_helmet": "旅行者护目镜",
   "item.tconstruct.travelers_chestplate": "旅行者背心",
@@ -1477,6 +1478,7 @@
 
 
   "material.tconstruct.unknown": "未知材料",
+  "trim_material.tconstruct.format": "%s质",
 
   "__comment": "Tier 1 Materials",
   "material.tconstruct.wood": "木",
@@ -1756,8 +1758,10 @@
   "material.tconstruct.silver.ranged": "每级对亡灵生物弹射物力量+0.5",
   "material.tconstruct.silver.armor": "每级来自亡灵生物伤害-5%",
 
-  "material.tconstruct.whitestone": "白石",
-  "material.tconstruct.whitestone.end": "末地石",
+  "material.tconstruct.whitestone": "末地石",
+  "material.tconstruct.whitestone.aluminum": "白石",
+  "material.tconstruct.whitestone.tin": "白石",
+  "material.tconstruct.whitestone.zinc": "白石",
   "material.tconstruct.whitestone.flavor": "拿上你那些毫无用处的白色金属和石头，做个有用的工具吧",
   "material.tconstruct.whitestone.encyclopedia": "挖掘石头时有概率石盾+3，每级概率+20%",
 
@@ -3071,6 +3075,7 @@
   "jei.tconstruct.entity_melting.per_heart": "每伤害1颗心",
 
   "jei.tconstruct.alloy.title": "合金",
+  "jei.tconstruct.alloy.catalyst": "不会消耗",
 
   "jei.tconstruct.modifiers.title": "强化",
   "jei.tconstruct.modifiers.slot": "加持该强化需要1个%s槽",
@@ -3181,7 +3186,8 @@
   "advancements.tconstruct.world.slime_collector.title": "集黏者",
   "advancements.tconstruct.world.slime_collector.description": "获取所有五种黏液球",
   "advancements.tconstruct.world.piggybackpack.title": "肩驮猪",
-  "advancements.tconstruct.world.piggybackpack.description": "用肩驮架驮起一只猪"
-
+  "advancements.tconstruct.world.piggybackpack.description": "用肩驮架驮起一只猪",
+  "advancements.tconstruct.world.ancient_tools.title": "考古学家",
+  "advancements.tconstruct.world.ancient_tools.description": "找到所有的远古工具"
 }
 

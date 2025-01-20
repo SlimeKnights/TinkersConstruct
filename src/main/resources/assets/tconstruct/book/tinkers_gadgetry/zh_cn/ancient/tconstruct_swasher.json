@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:swasher",
+  "text": [
+    { "text": "The swasher is a combination of a melee weapon and a handheld fluid pistol found in various ocean locations." }
+  ],
+  "properties": [
+    "Medium Damage",
+    "High Attack Speed",
+    "Fluid Pistol",
+    "3 Upgrade Slots",
+    "1 Ability Slot"
+  ]
+}
