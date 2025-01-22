@@ -1,7 +1,7 @@
 {
   "tool": "tconstruct:swasher",
   "text": [
-    { "text": "尖锋喷是近战武器与手持流体枪的结合体，通常在id pistol found in various ocean locations." }
+    { "text": "Swasher是近战武器与手持流体枪的结合体，多见于海洋各处。" }
   ],
   "properties": [
     "中等伤害",
