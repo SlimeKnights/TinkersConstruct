@@ -1786,9 +1786,9 @@
 
   "material.tconstruct.constantan": "康铜",
   "material.tconstruct.constantan.flavor": "诶，康铜！我还从来没见过呢。都起开，让我“康康”！",
-  "material.tconstruct.constantan.encyclopedia": "在极冷环境下挖掘速度+7.5，极热环境下则双倍增加",
-  "material.tconstruct.constantan.ranged": "在极冷环境下初速度+0.15，极热环境下则双倍增加",
-  "material.tconstruct.constantan.armor": "在极冷环境下保护+5%，极热环境下则双倍增加",
+  "material.tconstruct.constantan.encyclopedia": "在极冷环境下挖掘速度+7.5，极热环境下则双倍减少耐久度消耗",
+  "material.tconstruct.constantan.ranged": "在极冷环境下初速度+0.15，极热环境下则双倍减少耐久度消耗",
+  "material.tconstruct.constantan.armor": "在极冷环境下保护+5%，极热环境下则双倍减少耐久度消耗",
 
   "material.tconstruct.invar": "殷钢",
   "material.tconstruct.invar.flavor": "它不仅能抵御温度的变化，还能避免追捕。",
