@@ -1,13 +1,13 @@
 {
   "tool": "tconstruct:swasher",
   "text": [
-    { "text": "The swasher is a combination of a melee weapon and a handheld fluid pistol found in various ocean locations." }
+    { "text": "尖锋喷是近战武器与手持流体枪的结合体，通常在id pistol found in various ocean locations." }
   ],
   "properties": [
-    "Medium Damage",
-    "High Attack Speed",
-    "Fluid Pistol",
-    "3 Upgrade Slots",
-    "1 Ability Slot"
+    "中等伤害",
+    "高攻击速度",
+    "流体枪",
+    "3 升级槽",
+    "1 能力槽"
   ]
 }

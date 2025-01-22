@@ -1,14 +1,14 @@
 {
   "tool": "tconstruct:swasher",
   "text": [
-    { "text": "The swasher is a combination of a melee weapon and a handheld fluid pistol. It is often found in buried treasure and shipwrecks, the hands of drowned, and sometimes caught when fishing." }
+    { "text": "尖锋喷是近战武器与手持流体枪的结合体。通常可以在埋藏的宝藏与沉船中获得；也可在溺尸手中，或是钓鱼获得。" }
   ],
   "properties": [
-    "+0 Attack Damage",
-    "1.5 Attack Speed",
-    "Spitting I",
-    "Spilling I",
-    "3 Upgrade Slots",
-    "1 Ability Slot"
+    "+0 攻击伤害",
+    "1.5 攻击速度",
+    "喷洒 I",
+    "喷溅 I",
+    "3 升级槽",
+    "1 能力槽"
   ]
 }
