@@ -4,6 +4,10 @@
     {
       "key": "gui.tconstruct.fluid.bowl",
       "needed": 250
+    },
+    {
+      "key": "gui.tconstruct.fluid.sip",
+      "needed": 50
     }
   ]
 }

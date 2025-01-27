@@ -36,6 +36,7 @@ abstract class FluidModifierHookIterator<I> extends CompoundIndexHookIterator<Fl
       int filled = getHook(iterator.next()).fill(tool, indexEntry, resource, action);
       if (filled > 0) {
         // if we filled the entire stack, we are done
+        // note resource's size has been shrunk which is why totalFilled is not considered here
         if (filled >= resource.getAmount()) {
           return totalFilled + filled;
         }
@@ -46,6 +47,9 @@ abstract class FluidModifierHookIterator<I> extends CompoundIndexHookIterator<Fl
         // increase total and shrink the resource for next time
         totalFilled += filled;
         resource.shrink(filled);
+        if (resource.isEmpty()) {
+          break;
+        }
       }
     }
     return totalFilled;
@@ -67,21 +71,22 @@ abstract class FluidModifierHookIterator<I> extends CompoundIndexHookIterator<Fl
       if (!drained.isEmpty()) {
         // if we managed to drain something, add it into our current drained stack, and decrease the amount we still want to drain
         if (drainedSoFar.isEmpty()) {
-          // if the first time, make a copy of the resource before changing it
+          drainedSoFar = drained;
+          // if the first success, make a copy of the resource before shrinking it, need to shrink to prevent passing in too much to future hooks
           // though we can skip copying if the first one is all we need
+          // note the >= part is just for redundancy, practically its always either = or less than
           if (drained.getAmount() >= resource.getAmount()) {
-            return drained;
-          } else {
-            drainedSoFar = drained;
-            resource = resource.copy();
+            break;
           }
+          resource = new FluidStack(resource, resource.getAmount() - drained.getAmount());
         } else {
+          // resource is guaranteed a copy, and drainedSoFar is a newly created stack, both safe to mutate
           drainedSoFar.grow(drained.getAmount());
-        }
-        // if we drained everything desired, return
-        resource.shrink(drained.getAmount());
-        if (resource.isEmpty()) {
-          return drainedSoFar;
+          resource.shrink(drained.getAmount());
+          // if we drained everything desired, we are done
+          if (resource.isEmpty()) {
+            break;
+          }
         }
       }
     }
@@ -100,29 +105,29 @@ abstract class FluidModifierHookIterator<I> extends CompoundIndexHookIterator<Fl
     FluidStack toDrain = FluidStack.EMPTY;
     Iterator<I> iterator = getIterator(tool);
     while(iterator.hasNext()) {
-      I next = iterator.next();
+      FluidModifierHook hook = getHook(iterator.next());
       // try draining each modifier
-      // if we have no drained anything yet, use the type insensitive hook
+      // if we have not drained anything yet, use the type insensitive hook
       if (toDrain.isEmpty()) {
-        FluidStack drained = getHook(next).drain(tool, indexEntry, maxDrain, action);
+        FluidStack drained = hook.drain(tool, indexEntry, maxDrain, action);
         if (!drained.isEmpty()) {
-          // if we finished draining, we are done, otherwise try again later with the type senstive hooks
-          maxDrain -= drained.getAmount();
-          if (maxDrain > 0) {
-            drainedSoFar = drained;
-            toDrain = new FluidStack(drained, maxDrain);
-          } else {
-            return drained;
+          drainedSoFar = drained;
+          // if we finished draining, we are done, otherwise we need to create a filter for future drain attempts
+          // note the >= part is just for redundancy, practically its always either = or less than
+          if (drained.getAmount() >= maxDrain) {
+            break;
           }
+          toDrain = new FluidStack(drained, maxDrain - drained.getAmount());
         }
       } else {
         // if we already drained some fluid, type sensitive and increase our results
-        FluidStack drained = getHook(next).drain(tool, indexEntry, toDrain, action);
+        FluidStack drained = hook.drain(tool, indexEntry, toDrain, action);
         if (!drained.isEmpty()) {
           drainedSoFar.grow(drained.getAmount());
           toDrain.shrink(drained.getAmount());
+          // if we drained everything desired, we are done
           if (toDrain.isEmpty()) {
-            return drainedSoFar;
+            break;
           }
         }
       }

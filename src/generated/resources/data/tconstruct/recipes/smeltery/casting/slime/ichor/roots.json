@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_basin",
+  "cast": {
+    "item": "tconstruct:enderbark_roots"
+  },
+  "cast_consumed": true,
+  "cooling_time": 190,
+  "fluid": {
+    "amount": 1000,
+    "fluid": "tconstruct:ichor"
+  },
+  "result": "tconstruct:ichor_enderbark_roots"
+}

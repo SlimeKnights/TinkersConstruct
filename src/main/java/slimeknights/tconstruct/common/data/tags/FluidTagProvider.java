@@ -102,7 +102,8 @@ public class FluidTagProvider extends FluidTagsProvider {
     this.tag(TinkerTags.Fluids.SLIME)
         .addTag(TinkerFluids.earthSlime.getTag())
         .addTag(TinkerFluids.skySlime.getTag())
-        .addTag(TinkerFluids.enderSlime.getTag());
+        .addTag(TinkerFluids.enderSlime.getTag())
+        .add(TinkerFluids.ichor.get());
 
     fluidTag(TinkerFluids.potion);
     fluidTag(TinkerFluids.powderedSnow);

@@ -27,7 +27,6 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.events.ToolEquipmentChangeEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
-import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
@@ -99,11 +98,6 @@ public class EquipmentChangeWatcher {
     if (tool != null) {
       for (ModifierEntry entry : tool.getModifierList()) {
         entry.getHook(ModifierHooks.EQUIPMENT_CHANGE).onUnequip(tool, entry, context);
-      }
-      // only path that should bring you here that did not already call the modifier method is when your shield breaks. ideally we will switch to a forge onStoppedUsing method instead
-      // TODO 1.19: consider simplier check, such as the tool having the active modifier tag set. Will need to do a bit of work for bows which don't set modifiers though
-      if (!entity.isUsingItem() || entity.getItemBySlot(changedSlot) != entity.getUseItem()) {
-        GeneralInteractionModifierHook.finishUsing(tool);
       }
     }
 

@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "byproducts": [
+    {
+      "amount": 150,
+      "fluid": "tconstruct:ichor"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:slimeball/ichor"
+  },
+  "result": {
+    "amount": 100,
+    "fluid": "tconstruct:blazing_blood"
+  },
+  "temperature": 1500,
+  "time": 80
+}

@@ -53,9 +53,11 @@ public class ToolTankHelper {
   public FluidStack setFluid(IToolStackView tool, FluidStack fluid) {
     if (fluid.isEmpty()) {
       tool.getPersistentData().remove(fluidKey);
-      return fluid;
+      return FluidStack.EMPTY;
     }
     int capacity = getCapacity(tool);
+    // we always copy before saving to ensure the NBT on the fluid gets copied, since those being the same compound is possible
+    fluid = fluid.copy();
     if (fluid.getAmount() > capacity) {
       fluid.setAmount(capacity);
     }

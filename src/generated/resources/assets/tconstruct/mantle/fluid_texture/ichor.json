@@ -1,0 +1,5 @@
+{
+  "color": "FFFFFFFF",
+  "flowing": "tconstruct:fluid/slime/ichor/flowing",
+  "still": "tconstruct:fluid/slime/ichor/still"
+}

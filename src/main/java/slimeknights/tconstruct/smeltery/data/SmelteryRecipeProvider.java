@@ -964,9 +964,10 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
 
     // Slime
     String slimeFolder = folder + "slime/";
-    this.slimeCasting(consumer, TinkerFluids.earthSlime, true, SlimeType.EARTH, slimeFolder);
-    this.slimeCasting(consumer, TinkerFluids.skySlime, false, SlimeType.SKY, slimeFolder);
-    this.slimeCasting(consumer, TinkerFluids.enderSlime, false, SlimeType.ENDER, slimeFolder);
+    this.slimeCasting(consumer, TinkerFluids.earthSlime, SlimeType.EARTH, slimeFolder);
+    this.slimeCasting(consumer, TinkerFluids.skySlime,   SlimeType.SKY,   slimeFolder);
+    this.slimeCasting(consumer, TinkerFluids.enderSlime, SlimeType.ENDER, slimeFolder);
+    this.slimeCasting(consumer, TinkerFluids.ichor,      SlimeType.ICHOR, slimeFolder);
     // magma cream
     ItemCastingRecipeBuilder.basinRecipe(Blocks.MAGMA_BLOCK)
                             .setFluidAndTime(TinkerFluids.magma, FluidValues.SLIME_CONGEALED)
@@ -1409,8 +1410,19 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // slime
     String slimeFolder = folder + "slime/";
     slimeMelting(consumer, TinkerFluids.earthSlime, SlimeType.EARTH, slimeFolder);
-    slimeMelting(consumer, TinkerFluids.skySlime, SlimeType.SKY, slimeFolder);
+    slimeMelting(consumer, TinkerFluids.skySlime,   SlimeType.SKY, slimeFolder);
     slimeMelting(consumer, TinkerFluids.enderSlime, SlimeType.ENDER, slimeFolder);
+    // ichor is special, it requires a byproduct to melt
+    String ichorFolder = slimeFolder + SlimeType.ICHOR.getSerializedName() + "/";
+    MeltingRecipeBuilder.melting(Ingredient.of(SlimeType.ICHOR.getSlimeballTag()), TinkerFluids.blazingBlood, FluidValues.ICHOR_BLAZING_BLOOD, 1.0f)
+                        .addByproduct(TinkerFluids.ichor.result(FluidValues.ICHOR_BYPRODUCT))
+                        .save(consumer, location(ichorFolder + "ball"));
+    MeltingRecipeBuilder.melting(Ingredient.of(TinkerWorld.congealedSlime.get(SlimeType.ICHOR)), TinkerFluids.blazingBlood, FluidValues.ICHOR_BLAZING_BLOOD * 4, 2.0f)
+                        .addByproduct(TinkerFluids.ichor.result(FluidValues.ICHOR_BYPRODUCT * 4))
+                        .save(consumer, location(ichorFolder + "congealed"));
+    MeltingRecipeBuilder.melting(Ingredient.of(TinkerWorld.slime.get(SlimeType.ICHOR)), TinkerFluids.blazingBlood, FluidValues.ICHOR_BLAZING_BLOOD * 9, 3.0f)
+                        .addByproduct(TinkerFluids.ichor.result(FluidValues.ICHOR_BYPRODUCT * 9))
+                        .save(consumer, location(ichorFolder + "block"));
     // magma cream
     MeltingRecipeBuilder.melting(Ingredient.of(Items.MAGMA_CREAM), TinkerFluids.magma, FluidValues.SLIMEBALL, 1.0f)
                         .save(consumer, location(slimeFolder + "magma/ball"));
@@ -1729,6 +1741,20 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     crystalMelting(consumer, TinkerWorld.earthGeode, TinkerFluids.earthSlime, slimeFolder + "earth/");
     crystalMelting(consumer, TinkerWorld.skyGeode,   TinkerFluids.skySlime,   slimeFolder + "sky/");
     crystalMelting(consumer, TinkerWorld.enderGeode, TinkerFluids.enderSlime, slimeFolder + "ender/");
+    // ichor is again special, melting via byproduct
+    MeltingRecipeBuilder.melting(Ingredient.of(TinkerWorld.ichorGeode), TinkerFluids.blazingBlood, FluidValues.ICHOR_BLAZING_BLOOD, 1.0f)
+                        .addByproduct(TinkerFluids.ichor.result(FluidValues.ICHOR_BYPRODUCT))
+                        .save(consumer, location(folder + "crystal"));
+    MeltingRecipeBuilder.melting(Ingredient.of(TinkerWorld.ichorGeode.getBlock()), TinkerFluids.blazingBlood, FluidValues.ICHOR_BLAZING_BLOOD * 4, 2.0f)
+                        .addByproduct(TinkerFluids.ichor.result(FluidValues.ICHOR_BYPRODUCT * 4))
+                        .save(consumer, location(folder + "crystal_block"));
+    for (BudSize bud : BudSize.values()) {
+      int size = bud.getSize();
+      MeltingRecipeBuilder.melting(Ingredient.of(TinkerWorld.ichorGeode.getBud(bud)), TinkerFluids.blazingBlood, FluidValues.ICHOR_BLAZING_BLOOD * size, (size + 1) / 2f)
+                          .addByproduct(TinkerFluids.ichor.result(FluidValues.ICHOR_BYPRODUCT * size))
+                          .setOre(OreRateType.GEM)
+                          .save(consumer, location(folder + "bud_" + bud.getName()));
+    }
 
     // recycle saplings
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerWorld.slimeSapling.get(FoliageType.EARTH)), TinkerFluids.earthSlime, FluidValues.SLIMEBALL)
@@ -2360,11 +2386,10 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
    * Adds slime related casting recipes
    * @param consumer    Recipe consumer
    * @param fluid       Fluid matching the slime type
-   * @param commonTag   If true, uses a tag in the common namespace. If false, uses a local ingredient
    * @param slimeType   SlimeType for this recipe
    * @param folder      Output folder
    */
-  private void slimeCasting(Consumer<FinishedRecipe> consumer, FluidObject<?> fluid, boolean commonTag, SlimeType slimeType, String folder) {
+  private void slimeCasting(Consumer<FinishedRecipe> consumer, FluidObject<?> fluid, SlimeType slimeType, String folder) {
     String colorFolder = folder + slimeType.getSerializedName() + "/";
     ItemCastingRecipeBuilder.basinRecipe(TinkerWorld.congealedSlime.get(slimeType))
                             .setFluidAndTime(fluid, FluidValues.SLIME_CONGEALED)

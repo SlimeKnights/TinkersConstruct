@@ -8,6 +8,10 @@
     {
       "key": "gui.tconstruct.fluid.slimeball",
       "needed": 250
+    },
+    {
+      "key": "gui.tconstruct.fluid.drop",
+      "needed": 50
     }
   ]
 }

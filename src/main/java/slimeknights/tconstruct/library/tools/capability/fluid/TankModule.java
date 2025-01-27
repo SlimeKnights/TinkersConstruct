@@ -104,7 +104,6 @@ public class TankModule implements HookProvider, FluidModifierHook, TooltipModif
   @Override
   public int fill(IToolStackView tool, ModifierEntry modifier, FluidStack resource, FluidAction action) {
     // make sure this modifier is in charge of the tank, that is first come first serve
-    modifier.getId();
     if (!resource.isEmpty()) {
       // if empty, just directly fill, setFluid will check capacity
       FluidStack current = helper.getFluid(tool);

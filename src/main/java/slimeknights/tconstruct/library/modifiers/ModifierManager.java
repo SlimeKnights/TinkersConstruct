@@ -384,12 +384,17 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
     return TagKey.create(REGISTRY_KEY, id);
   }
 
+  /** Gets the set of tags on a modifier */
+  public static Stream<TagKey<Modifier>> getTagKeys(ModifierId modifier) {
+    return INSTANCE.reverseTags.getOrDefault(modifier, Set.of()).stream();
+  }
+
   /**
    * Checks if the given modifier is in the given tag
    * @return  True if the modifier is in the tag
    */
   public static boolean isInTag(ModifierId modifier, TagKey<Modifier> tag) {
-    return INSTANCE.reverseTags.getOrDefault(modifier, Collections.emptySet()).contains(tag);
+    return INSTANCE.reverseTags.getOrDefault(modifier, Set.of()).contains(tag);
   }
 
   /**
@@ -399,6 +404,11 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
    */
   public static List<Modifier> getTagValues(TagKey<Modifier> tag) {
     return INSTANCE.tags.getOrDefault(tag, List.of());
+  }
+
+  /** Gets a stream of all tag ID to tag value mappings */
+  public static Stream<Entry<TagKey<Modifier>,List<Modifier>>> getAllTags() {
+    return INSTANCE.tags.entrySet().stream();
   }
 
 

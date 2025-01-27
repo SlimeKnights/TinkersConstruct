@@ -20,7 +20,6 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityTeleportEvent;
-import net.minecraftforge.event.entity.ProjectileImpactEvent.ImpactResult;
 import slimeknights.tconstruct.common.TinkerDamageTypes;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -32,8 +31,8 @@ import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
@@ -103,7 +102,7 @@ public class EnderferenceModifier extends Modifier implements ProjectileHitModif
   }
 
   @Override
-  public ImpactResult onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
+  public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
     if (target != null) {
       target.addEffect(new MobEffectInstance(TinkerModifiers.enderferenceEffect.get(), modifier.getLevel() * 100, 0, false, true, true));
 
@@ -118,7 +117,8 @@ public class EnderferenceModifier extends Modifier implements ProjectileHitModif
             arrow.piercedAndKilledEntities = Lists.newArrayListWithCapacity(5);
           }
           if (arrow.piercingIgnoreEntityIds.size() >= arrow.getPierceLevel() + 1) {
-            return ImpactResult.STOP_AT_CURRENT_NO_DAMAGE;
+            arrow.discard();
+            return true;
           }
           arrow.piercingIgnoreEntityIds.add(target.getId());
         }
@@ -178,7 +178,7 @@ public class EnderferenceModifier extends Modifier implements ProjectileHitModif
 
           arrow.playSound(arrow.soundEvent, 1.0F, 1.2F / (RANDOM.nextFloat() * 0.2F + 0.9F));
           if (arrow.getPierceLevel() <= 0) {
-            return ImpactResult.STOP_AT_CURRENT_NO_DAMAGE;
+            arrow.discard();
           }
         } else {
           // reset fire and drop the arrow
@@ -191,13 +191,13 @@ public class EnderferenceModifier extends Modifier implements ProjectileHitModif
               arrow.spawnAtLocation(arrow.getPickupItem(), 0.1F);
             }
 
-            return ImpactResult.STOP_AT_CURRENT_NO_DAMAGE;
+            arrow.discard();
           }
         }
 
-        return ImpactResult.SKIP_ENTITY;
+        return true;
       }
     }
-    return ImpactResult.DEFAULT;
+    return false;
   }
 }

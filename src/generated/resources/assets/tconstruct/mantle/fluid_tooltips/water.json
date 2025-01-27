@@ -12,6 +12,10 @@
     {
       "key": "gui.tconstruct.fluid.bottle",
       "needed": 250
+    },
+    {
+      "key": "gui.tconstruct.fluid.drop",
+      "needed": 50
     }
   ]
 }

@@ -24,6 +24,7 @@ public class FluidTextureProvider extends AbstractFluidTextureProvider {
     // slime
     slime(TinkerFluids.earthSlime, "earth");
     slime(TinkerFluids.skySlime, "sky");
+    slime(TinkerFluids.ichor, "ichor");
     slime(TinkerFluids.enderSlime, "ender");
     slime(TinkerFluids.magma);
     slime(TinkerFluids.venom);

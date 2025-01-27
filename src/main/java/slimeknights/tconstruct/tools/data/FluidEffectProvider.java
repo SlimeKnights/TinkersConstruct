@@ -79,6 +79,7 @@ public class FluidEffectProvider extends AbstractFluidEffectProvider {
     addFluid(TinkerFluids.skySlime.getTag(), slimeballPiece).addEffect(TimeAction.SET, FluidMobEffect.builder().effect(MobEffects.JUMP, 20*20).effect(MobEffects.MOVEMENT_SLOWDOWN, 20*15));
     // ender - levitation
     addFluid(TinkerFluids.enderSlime.getTag(), slimeballPiece).addEffect(TimeAction.SET, FluidMobEffect.builder().effect(MobEffects.LEVITATION, 20*5).effect(MobEffects.MOVEMENT_SLOWDOWN, 20*15));
+    // TODO: ichor with block breaking rework
     // slimelike
     // venom - poison & strength
     addFluid(TinkerFluids.venom.getTag(), slimeballPiece).addEffect(TimeAction.SET, FluidMobEffect.builder().effect(MobEffects.POISON, 20*5).effect(MobEffects.DAMAGE_BOOST, 20*10));
@@ -153,8 +154,7 @@ public class FluidEffectProvider extends AbstractFluidEffectProvider {
 
     // potion fluid compat
     // standard potion is 250 mb, but we want a smaller number. divide into 5 pieces at 25% a piece (so healing is 1 health), means you gain 25% per potion
-    int bottleSip = FluidValues.BOTTLE / 5;
-    addFluid("potion_fluid", Objects.requireNonNull(TinkerFluids.potion.getCommonTag()), bottleSip)
+    addFluid("potion_fluid", Objects.requireNonNull(TinkerFluids.potion.getCommonTag()), FluidValues.SIP)
       .addEntityEffect(new PotionFluidEffect(0.25f, TagPredicate.ANY))
       .addBlockEffect(new PotionCloudFluidEffect(0.25f, TagPredicate.ANY));
 
@@ -165,7 +165,7 @@ public class FluidEffectProvider extends AbstractFluidEffectProvider {
       return new TagPredicate(compound);
     };
     String create = "create";
-    addFluid("potion_create", FluidNameIngredient.of(new ResourceLocation(create, "potion"), bottleSip))
+    addFluid("potion_create", FluidNameIngredient.of(new ResourceLocation(create, "potion"), FluidValues.SIP))
       .addCondition(new ModLoadedCondition(create))
       .addEntityEffect(new PotionFluidEffect(0.25f, createBottle.apply("REGULAR")))
       .addEntityEffect(new PotionFluidEffect(0.5f, createBottle.apply("SPLASH")))

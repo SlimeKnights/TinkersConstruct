@@ -548,7 +548,11 @@
   "fluid.tconstruct.flowing_venom": "Flowing Venom",
   "item.tconstruct.venom_bucket": "Venom Bucket",
   "item.tconstruct.venom_bottle": "Venom Bottle",
-  
+
+  "block.tconstruct.ichor_fluid": "Ichor",
+  "fluid.tconstruct.ichor": "Ichor",
+  "fluid.tconstruct.flowing_ichor": "Flowing Ichor",
+  "item.tconstruct.ichor_bucket": "Ichor Bucket",
   "item.tconstruct.ichor_slime_bottle": "Ichor Bottle",
 
   "_comment": "Rock",
@@ -1256,6 +1260,8 @@
   "gui.tconstruct.fluid.shard": "%s Shards",
   "gui.tconstruct.fluid.pane": "%s Panes",
   "gui.tconstruct.fluid.slimeball": "%s Slimeballs",
+  "gui.tconstruct.fluid.drop": "%s Drops",
+  "gui.tconstruct.fluid.sip": "%s Sips",
   "gui.tconstruct.fluid.brick": "%s Bricks",
   "gui.tconstruct.fluid.bowl": "%s Bowls",
   "gui.tconstruct.fluid.bottle": "%s Bottles",

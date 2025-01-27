@@ -395,7 +395,6 @@ public class ModifiableItem extends TieredItem implements IModifiableDisplay {
     if (activeModifier != ModifierEntry.EMPTY) {
       activeModifier.getHook(ModifierHooks.GENERAL_INTERACT).onFinishUsing(tool, activeModifier, entityLiving);
     }
-    GeneralInteractionModifierHook.finishUsing(tool);
     return stack;
   }
 
@@ -406,7 +405,13 @@ public class ModifiableItem extends TieredItem implements IModifiableDisplay {
     if (activeModifier != ModifierEntry.EMPTY) {
       activeModifier.getHook(ModifierHooks.GENERAL_INTERACT).onStoppedUsing(tool, activeModifier, entityLiving, timeLeft);
     }
-    GeneralInteractionModifierHook.finishUsing(tool);
+  }
+
+  @Override
+  public void onStopUsing(ItemStack stack, LivingEntity entity, int count) {
+    // TODO: consider a stop using modifier hook, is that useful?
+    // triggers on scroll away and all that
+    GeneralInteractionModifierHook.finishUsing(ToolStack.from(stack));
   }
 
   @Override

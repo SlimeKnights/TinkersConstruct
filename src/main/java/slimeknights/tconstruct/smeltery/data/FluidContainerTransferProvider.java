@@ -45,6 +45,7 @@ public class FluidContainerTransferProvider extends AbstractFluidContainerTransf
     addBottleFill("venom_bottle_fill", TinkerFluids.venomBottle, TinkerFluids.venom);
     addBottleFill("earth_slime_bottle_fill", TinkerFluids.slimeBottle.get(SlimeType.EARTH), TinkerFluids.earthSlime);
     addBottleFill("sky_slime_bottle_fill",   TinkerFluids.slimeBottle.get(SlimeType.SKY),   TinkerFluids.skySlime);
+    addBottleFill("ichor_slime_bottle_fill", TinkerFluids.slimeBottle.get(SlimeType.ICHOR), TinkerFluids.ichor);
     addBottleFill("ender_slime_bottle_fill", TinkerFluids.slimeBottle.get(SlimeType.ENDER), TinkerFluids.enderSlime);
     addBottleFill("magma_bottle_fill",       TinkerFluids.magmaBottle,                      TinkerFluids.magma);
   }

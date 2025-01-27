@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.recipe;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import net.minecraftforge.fluids.FluidType;
 
 /**
  * These values define common amounts of fluids used in recipes.
@@ -47,12 +48,20 @@ public final class FluidValues {
   public static final int SLIME_CONGEALED = SLIMEBALL * 4;
   /** Value of a block worth 9 slime */
   public static final int SLIME_BLOCK = SLIMEBALL * 9;
+  /** Minimum unit for a slime type */
+  public static final int SLIME_DROP = SLIMEBALL / 5;
+  /** Amount of ichor returned from melting 1 ball of ichor */
+  public static final int ICHOR_BYPRODUCT = SLIME_DROP * 3;
+  /** Amount of blazing blood returned from melting 1 ball of ichor, should be 1 blaze rods worth */
+  public static final int ICHOR_BLAZING_BLOOD = FluidType.BUCKET_VOLUME / 10;
 
   // soup
   /** Value of a single bowl of soup */
   public static final int BOWL = 250;
   /** Value of a single bottle of a potion */
   public static final int BOTTLE = 250;
+  /** Minimum unit for a bottle or bowl */
+  public static final int SIP = BOTTLE / 5;
 
   // tank capacities
   /** Capacity of a seared or scorched lantern */

@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "byproducts": [
+    {
+      "amount": 1350,
+      "fluid": "tconstruct:ichor"
+    }
+  ],
+  "ingredient": {
+    "item": "tconstruct:ichor_slime"
+  },
+  "result": {
+    "amount": 900,
+    "fluid": "tconstruct:blazing_blood"
+  },
+  "temperature": 1500,
+  "time": 241
+}

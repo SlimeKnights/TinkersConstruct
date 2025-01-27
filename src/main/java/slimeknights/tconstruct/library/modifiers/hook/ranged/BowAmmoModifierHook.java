@@ -162,12 +162,15 @@ public interface BowAmmoModifierHook {
         standardAmmo = findMatchingAmmo(bow, player, predicate);
       }
       // next, try asking modifiers if they have anything new again
+      int needed = projectilesDesired - resultStack.getCount();
       for (ModifierEntry entry : tool.getModifierList()) {
         BowAmmoModifierHook hook = entry.getHook(ModifierHooks.BOW_AMMO);
         ItemStack ammo = hook.findAmmo(tool, entry, player, standardAmmo, predicate);
         if (!ammo.isEmpty()) {
-          // consume as much of the stack as we need then restart the loop
-          hook.shrinkAmmo(tool, entry, player, ammo, Math.min(projectilesDesired - resultStack.getCount(), ammo.getCount()));
+          // consume as much of the stack as we need then continue, loop condition will stop if we are now done
+          int gained = Math.min(needed, ammo.getCount());
+          hook.shrinkAmmo(tool, entry, player, ammo, gained);
+          resultStack.grow(gained);
           continue hasEnough;
         }
       }
@@ -177,11 +180,11 @@ public interface BowAmmoModifierHook {
       }
 
       // if we have standard ammo, take what we can then loop again
-      int needed = projectilesDesired - resultStack.getCount();
-      if (needed <= standardAmmo.getCount()) {
+      if (needed > standardAmmo.getCount()) {
         // consume the whole stack
         resultStack.grow(standardAmmo.getCount());
         player.getInventory().removeItem(standardAmmo);
+        standardAmmo = ItemStack.EMPTY;
       } else {
         // found what we need, we are done
         standardAmmo.shrink(needed);
