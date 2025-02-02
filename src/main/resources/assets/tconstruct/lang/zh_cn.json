@@ -142,6 +142,10 @@
   "item.tconstruct.hepatizon_ingot": "黑色科林斯青铜锭",
   "item.tconstruct.hepatizon_nugget": "黑色科林斯青铜粒",
 
+  "block.tconstruct.cinderslime_block": "Cinderslime块",
+  "item.tconstruct.cinderslime_ingot": "Cinderslime锭",
+  "item.tconstruct.cinderslime_nugget": "Cinderslime粒",
+
   "block.tconstruct.queens_slime_block": "皇后史莱姆块",
   "block.tconstruct.queens_slime_block.tooltip": "可用于建造信标基座",
   "item.tconstruct.queens_slime_ingot": "皇后史莱姆锭",
@@ -549,6 +553,10 @@
   "item.tconstruct.venom_bucket": "毒液桶",
   "item.tconstruct.venom_bottle": "毒液瓶",
   
+  "block.tconstruct.ichor_fluid": "灵浆",
+  "fluid.tconstruct.ichor": "灵浆",
+  "fluid.tconstruct.flowing_ichor": "流动的灵浆",
+  "item.tconstruct.ichor_bucket": "灵浆桶",
   "item.tconstruct.ichor_slime_bottle": "灵浆瓶",
 
   "_comment": "Rock",
@@ -673,6 +681,11 @@
   "fluid.tconstruct.molten_hepatizon": "熔融黑色科林斯青铜",
   "fluid.tconstruct.flowing_molten_hepatizon": "流动的熔融黑色科林斯青铜",
   "item.tconstruct.molten_hepatizon_bucket": "熔融黑色科林斯青铜桶",
+
+  "block.tconstruct.molten_cinderslime_fluid": "熔融Cinderslime",
+  "fluid.tconstruct.molten_cinderslime": "熔融Cinderslime",
+  "fluid.tconstruct.flowing_molten_cinderslime": "流动的熔融Cinderslime",
+  "item.tconstruct.molten_cinderslime_bucket": "熔融Cinderslime桶",
 
   "block.tconstruct.molten_queens_slime_fluid": "熔融皇后史莱姆",
   "fluid.tconstruct.molten_queens_slime": "熔融皇后史莱姆",
@@ -1256,6 +1269,8 @@
   "gui.tconstruct.fluid.shard": "%s碎片",
   "gui.tconstruct.fluid.pane": "%s板",
   "gui.tconstruct.fluid.slimeball": "%s黏液球",
+  "gui.tconstruct.fluid.drop": "%s液滴",
+  "gui.tconstruct.fluid.sip": "%s口",
   "gui.tconstruct.fluid.brick": "%s砖",
   "gui.tconstruct.fluid.bowl": "%s碗",
   "gui.tconstruct.fluid.bottle": "%s瓶",
@@ -1414,6 +1429,7 @@
   "block.tconstruct.greenheart_wall_sign": "绿心木告示牌",
   "block.tconstruct.greenheart_hanging_sign": "悬挂式绿心木告示牌",
   "block.tconstruct.greenheart_wall_hanging_sign": "悬挂式绿心木告示牌",
+
   "block.tconstruct.skyroot_planks": "天根木板",
   "block.tconstruct.skyroot_planks_slab": "天根木台阶",
   "block.tconstruct.skyroot_planks_stairs": "天根木楼梯",
@@ -1432,6 +1448,7 @@
   "block.tconstruct.skyroot_wall_sign": "天根木告示牌",
   "block.tconstruct.skyroot_hanging_sign": "悬挂式天根木告示牌",
   "block.tconstruct.skyroot_wall_hanging_sign": "悬挂式天根木告示牌",
+
   "block.tconstruct.bloodshroom_planks": "血菌木板",
   "block.tconstruct.bloodshroom_planks_slab": "血菌木台阶",
   "block.tconstruct.bloodshroom_planks_stairs": "血菌木楼梯",
@@ -1658,6 +1675,10 @@
   "material.tconstruct.hepatizon.ranged": "在连续发射16次后，每级拉弓速度+25%",
   "material.tconstruct.hepatizon.armor": "受到伤害后一段时间，每级所有来源伤害-5%",
 
+  "material.tconstruct.cinderslime": "Cinderslime",
+  "material.tconstruct.cinderslime.flavor": "将其铸进烈火！",
+  "material.tconstruct.cinderslime.encyclopedia": "消耗燃料恢复黏液覆层，第4级时每秒恢复1点。",
+
   "material.tconstruct.queens_slime": "皇后史莱姆",
   "material.tconstruct.queens_slime.flavor": "公主都不是什么善茬，去找个皇后吧。",
   "material.tconstruct.queens_slime.encyclopedia": "每级耐久度-15%，并将其中的66%转化为黏液覆层",
@@ -1733,7 +1754,7 @@
   "__comment": "Tier 2 Integration Materials",
   "material.tconstruct.osmium": "锇",
   "material.tconstruct.osmium.flavor": "因为密度太大，所以很难Get到笑点",
-  "material.tconstruct.osmium.encyclopedia": "在第1级时，维修消耗+25%，耐久损失-33%",
+  "material.tconstruct.osmium.encyclopedia": "第1级时，维修消耗+25%，耐久损失-33%",
 
   "material.tconstruct.tungsten": "钨",
   "material.tconstruct.tungsten.flavor": "你考虑过组建一支重金属乐队吗？",
@@ -2479,6 +2500,9 @@
   "death.attack.tconstruct.bleed.item": "%2$s的攻击使%1$s流血致死",
 
   "__comment": "Tier 4 Traits",
+  "modifier.tconstruct.overburn": "过燃",
+  "modifier.tconstruct.overburn.flavor": "热量过载！",
+  "modifier.tconstruct.overburn.description": "工具可将液体燃料转化为黏液覆层",
   "modifier.tconstruct.overlord": "帝皇",
   "modifier.tconstruct.overlord.flavor": "九五至尊！",
   "modifier.tconstruct.overlord.description": "工具的部分耐久度会被视作黏液覆层",
