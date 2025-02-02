@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/nugget"
+  },
+  "cooling_time": 23,
+  "fluid": {
+    "amount": 10,
+    "fluid": "tconstruct:molten_cinderslime"
+  },
+  "result": {
+    "tag": "forge:nuggets/cinderslime"
+  }
+}

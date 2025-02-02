@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:tools/shovels/nickel"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:tools/shovels/nickel"
+  },
+  "result": {
+    "amount": 90,
+    "tag": "forge:molten_nickel",
+    "unit_size": 10
+  },
+  "temperature": 950,
+  "time": 65
+}

@@ -123,6 +123,7 @@ public class ModifierIds {
   public static final ModifierId depthProtection = id("depth_protection");
   public static final ModifierId enderclearance = id("enderclearance");
   // traits - tier 2
+  public static final ModifierId overgrowth = id("overgrowth");
   public static final ModifierId sturdy = id("sturdy");
   public static final ModifierId searing = id("searing");
   public static final ModifierId scorching = id("scorching");
@@ -147,6 +148,8 @@ public class ModifierIds {
   public static final ModifierId maintained = id("maintained");
   public static final ModifierId ductile = id("ductile");
   // traits - tier 4
+  public static final ModifierId overburn = id("overburn");
+  public static final ModifierId overlord = id("overlord");
   public static final ModifierId recurrentProtection = id("recurrent_protection");
   public static final ModifierId fortified = id("fortified");
   public static final ModifierId kinetic = id("kinetic");

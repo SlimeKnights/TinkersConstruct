@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:armors/leggings/lead"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:armors/leggings/lead"
+  },
+  "result": {
+    "amount": 630,
+    "tag": "forge:molten_lead",
+    "unit_size": 10
+  },
+  "temperature": 330,
+  "time": 115
+}

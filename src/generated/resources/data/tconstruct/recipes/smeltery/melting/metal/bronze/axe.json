@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:tools/axes/bronze"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:tools/axes/bronze"
+  },
+  "result": {
+    "amount": 270,
+    "tag": "forge:molten_bronze",
+    "unit_size": 10
+  },
+  "temperature": 700,
+  "time": 99
+}

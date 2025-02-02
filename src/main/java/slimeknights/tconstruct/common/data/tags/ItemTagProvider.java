@@ -143,6 +143,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     addMetalTags(TinkerMaterials.roseGold);
     addMetalTags(TinkerMaterials.pigIron);
     // tier 4
+    addMetalTags(TinkerMaterials.cinderslime);
     addMetalTags(TinkerMaterials.queensSlime);
     addMetalTags(TinkerMaterials.manyullyn);
     addMetalTags(TinkerMaterials.hepatizon);
@@ -191,7 +192,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     // trim materials
     this.tag(ItemTags.TRIM_MATERIALS).add(
       TinkerMaterials.slimesteel.getIngot(), TinkerMaterials.amethystBronze.getIngot(), TinkerMaterials.pigIron.getIngot(), TinkerMaterials.roseGold.getIngot(),
-      TinkerMaterials.cobalt.getIngot(), TinkerMaterials.manyullyn.getIngot(), TinkerMaterials.hepatizon.getIngot(), TinkerMaterials.queensSlime.getIngot(),
+      TinkerMaterials.cobalt.getIngot(), TinkerMaterials.manyullyn.getIngot(), TinkerMaterials.hepatizon.getIngot(), TinkerMaterials.cinderslime.getIngot(), TinkerMaterials.queensSlime.getIngot(),
       TinkerWorld.earthGeode.asItem(), TinkerWorld.skyGeode.asItem(), TinkerWorld.ichorGeode.asItem(), TinkerWorld.enderGeode.asItem()
     );
   }

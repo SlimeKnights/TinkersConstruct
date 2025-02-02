@@ -1,5 +1,11 @@
 {
-  "type": "tconstruct:melting",
+  "type": "tconstruct:ore_melting",
+  "byproducts": [
+    {
+      "amount": 90,
+      "tag": "forge:molten_gold"
+    }
+  ],
   "conditions": [
     {
       "type": "forge:not",
@@ -12,6 +18,7 @@
   "ingredient": {
     "tag": "forge:geore_large_buds/copper"
   },
+  "rate": "metal",
   "result": {
     "amount": 270,
     "tag": "forge:molten_copper"

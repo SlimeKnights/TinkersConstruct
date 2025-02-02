@@ -48,6 +48,7 @@ public final class MaterialIds {
   // tier 4
   public static final MaterialId manyullyn = id("manyullyn");
   public static final MaterialId hepatizon = id("hepatizon");
+  public static final MaterialId cinderslime = id("cinderslime");
   public static final MaterialId queensSlime = id("queens_slime");
   public static final MaterialId blazingBone = id("blazing_bone");
   public static final MaterialId blazewood = id("blazewood");
@@ -95,7 +96,7 @@ public final class MaterialIds {
   /** List of custom trim materials we support */
   public static final MaterialId[] TRIM_MATERIALS = {
     slimesteel, amethystBronze, pigIron, roseGold,
-    cobalt, manyullyn, hepatizon, queensSlime,
+    cobalt, manyullyn, hepatizon, cinderslime, queensSlime,
     earthslime, skyslime, ichor, enderslime
   };
 

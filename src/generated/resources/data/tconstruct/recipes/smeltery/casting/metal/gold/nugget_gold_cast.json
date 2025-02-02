@@ -8,5 +8,7 @@
     "amount": 10,
     "tag": "forge:molten_gold"
   },
-  "result": "minecraft:gold_nugget"
+  "result": {
+    "tag": "forge:nuggets/gold"
+  }
 }

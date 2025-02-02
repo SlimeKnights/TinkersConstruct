@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:storage_blocks/cinderslime"
+  },
+  "result": {
+    "amount": 810,
+    "fluid": "tconstruct:molten_cinderslime"
+  },
+  "temperature": 1050,
+  "time": 203
+}

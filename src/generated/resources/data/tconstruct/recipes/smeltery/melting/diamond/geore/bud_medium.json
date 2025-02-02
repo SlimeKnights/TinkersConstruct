@@ -1,5 +1,11 @@
 {
-  "type": "tconstruct:melting",
+  "type": "tconstruct:ore_melting",
+  "byproducts": [
+    {
+      "amount": 200,
+      "fluid": "tconstruct:molten_quartz"
+    }
+  ],
   "conditions": [
     {
       "type": "forge:not",
@@ -12,6 +18,7 @@
   "ingredient": {
     "tag": "forge:geore_medium_buds/diamond"
   },
+  "rate": "gem",
   "result": {
     "amount": 200,
     "fluid": "tconstruct:molten_diamond"

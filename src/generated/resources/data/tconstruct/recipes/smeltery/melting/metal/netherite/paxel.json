@@ -1,0 +1,29 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "byproducts": [
+    {
+      "amount": 700,
+      "fluid": "tconstruct:molten_diamond",
+      "unit_size": 25
+    }
+  ],
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:tools/paxels/netherite"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:tools/paxels/netherite"
+  },
+  "result": {
+    "amount": 90,
+    "tag": "forge:molten_netherite",
+    "unit_size": 10
+  },
+  "temperature": 1250,
+  "time": 74
+}

@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:armors/chestplates/silver"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:armors/chestplates/silver"
+  },
+  "result": {
+    "amount": 720,
+    "tag": "forge:molten_silver",
+    "unit_size": 10
+  },
+  "temperature": 790,
+  "time": 169
+}

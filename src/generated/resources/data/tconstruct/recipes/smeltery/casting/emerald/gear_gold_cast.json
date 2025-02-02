@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/gear"
+  },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:gears/emerald"
+      }
+    }
+  ],
+  "cooling_time": 136,
+  "fluid": {
+    "amount": 400,
+    "tag": "tconstruct:molten_emerald"
+  },
+  "result": {
+    "tag": "forge:gears/emerald"
+  }
+}

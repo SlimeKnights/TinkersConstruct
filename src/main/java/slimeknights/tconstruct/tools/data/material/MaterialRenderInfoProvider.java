@@ -6,6 +6,7 @@ import slimeknights.tconstruct.library.client.data.material.AbstractMaterialRend
 import slimeknights.tconstruct.library.client.data.material.AbstractMaterialSpriteProvider;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
+import slimeknights.tconstruct.shared.block.SlimeType;
 
 public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvider {
   public MaterialRenderInfoProvider(PackOutput packOutput, AbstractMaterialSpriteProvider spriteProvider, ExistingFileHelper existingFileHelper) {
@@ -78,6 +79,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.darkthread);
 
     // tier 4
+    buildRenderInfo(MaterialIds.cinderslime).luminosity(SlimeType.ICHOR.getLightLevel());
     buildRenderInfo(MaterialIds.queensSlime).color(0x809912).fallbacks("slime_metal", "metal").luminosity(9);
     buildRenderInfo(MaterialIds.hepatizon).color(0x60496b).fallbacks("metal");
     buildRenderInfo(MaterialIds.manyullyn).color(0x9261cc).fallbacks("metal");

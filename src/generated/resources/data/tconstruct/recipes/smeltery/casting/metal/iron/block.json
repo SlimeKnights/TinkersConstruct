@@ -5,5 +5,7 @@
     "amount": 810,
     "tag": "forge:molten_iron"
   },
-  "result": "minecraft:iron_block"
+  "result": {
+    "tag": "forge:storage_blocks/iron"
+  }
 }

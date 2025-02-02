@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:alloy",
+  "inputs": [
+    {
+      "amount": 90,
+      "tag": "forge:molten_gold"
+    },
+    {
+      "amount": 250,
+      "fluid": "tconstruct:ichor"
+    },
+    {
+      "amount": 250,
+      "tag": "tconstruct:scorched_stone"
+    }
+  ],
+  "result": {
+    "amount": 180,
+    "fluid": "tconstruct:molten_cinderslime"
+  },
+  "temperature": 1050
+}

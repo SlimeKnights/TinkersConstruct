@@ -8,5 +8,7 @@
     "amount": 10,
     "tag": "tconstruct:molten_pig_iron"
   },
-  "result": "tconstruct:pig_iron_nugget"
+  "result": {
+    "tag": "forge:nuggets/pig_iron"
+  }
 }

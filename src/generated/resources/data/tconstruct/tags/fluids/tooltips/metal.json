@@ -36,6 +36,7 @@
     "#forge:molten_lumium",
     "#forge:molten_signalum",
     "#forge:molten_refined_glowstone",
-    "#forge:molten_refined_obsidian"
+    "#forge:molten_refined_obsidian",
+    "tconstruct:molten_cinderslime"
   ]
 }

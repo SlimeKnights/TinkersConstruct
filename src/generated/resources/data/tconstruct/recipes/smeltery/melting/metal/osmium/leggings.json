@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:armors/leggings/osmium"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:armors/leggings/osmium"
+  },
+  "result": {
+    "amount": 630,
+    "tag": "forge:molten_osmium",
+    "unit_size": 10
+  },
+  "temperature": 975,
+  "time": 173
+}

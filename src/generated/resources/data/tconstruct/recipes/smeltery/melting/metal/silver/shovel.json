@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:tools/shovels/silver"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:tools/shovels/silver"
+  },
+  "result": {
+    "amount": 90,
+    "tag": "forge:molten_silver",
+    "unit_size": 10
+  },
+  "temperature": 790,
+  "time": 60
+}

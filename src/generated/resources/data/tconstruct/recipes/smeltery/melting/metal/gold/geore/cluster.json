@@ -1,5 +1,11 @@
 {
-  "type": "tconstruct:melting",
+  "type": "tconstruct:ore_melting",
+  "byproducts": [
+    {
+      "amount": 360,
+      "tag": "forge:molten_copper"
+    }
+  ],
   "conditions": [
     {
       "type": "forge:not",
@@ -12,6 +18,7 @@
   "ingredient": {
     "tag": "forge:geore_clusters/gold"
   },
+  "rate": "metal",
   "result": {
     "amount": 360,
     "tag": "forge:molten_gold"

@@ -1,9 +1,0 @@
-{
-  "type": "tconstruct:casting_basin",
-  "cooling_time": 210,
-  "fluid": {
-    "amount": 810,
-    "tag": "tconstruct:molten_knightslime"
-  },
-  "result": "tconstruct:knightslime_block"
-}

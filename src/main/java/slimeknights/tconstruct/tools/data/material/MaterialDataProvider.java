@@ -60,6 +60,7 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
 
     // tier 4
     addMaterial(MaterialIds.queensSlime, 4, ORDER_GENERAL, false);
+    addMaterial(MaterialIds.cinderslime, 4, ORDER_GENERAL, false);
     addMaterial(MaterialIds.hepatizon,   4, ORDER_HARVEST, false);
     addMaterial(MaterialIds.manyullyn,   4, ORDER_WEAPON,  false);
     addMaterial(MaterialIds.blazingBone, 4, ORDER_SPECIAL, true);

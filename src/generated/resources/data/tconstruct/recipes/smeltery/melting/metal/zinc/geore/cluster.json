@@ -1,5 +1,5 @@
 {
-  "type": "tconstruct:melting",
+  "type": "forge:conditional",
   "conditions": [
     {
       "type": "forge:not",
@@ -9,13 +9,62 @@
       }
     }
   ],
-  "ingredient": {
-    "tag": "forge:geore_clusters/zinc"
-  },
-  "result": {
-    "amount": 360,
-    "tag": "forge:molten_zinc"
-  },
-  "temperature": 420,
-  "time": 117
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:tag_empty",
+            "tag": "forge:ingots/tin"
+          }
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "byproducts": [
+          {
+            "amount": 360,
+            "tag": "forge:molten_tin"
+          }
+        ],
+        "ingredient": {
+          "tag": "forge:geore_clusters/zinc"
+        },
+        "rate": "metal",
+        "result": {
+          "amount": 360,
+          "tag": "forge:molten_zinc"
+        },
+        "temperature": 420,
+        "time": 117
+      }
+    },
+    {
+      "conditions": [
+        {
+          "type": "forge:true"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "byproducts": [
+          {
+            "amount": 360,
+            "tag": "forge:molten_copper"
+          }
+        ],
+        "ingredient": {
+          "tag": "forge:geore_clusters/zinc"
+        },
+        "rate": "metal",
+        "result": {
+          "amount": 360,
+          "tag": "forge:molten_zinc"
+        },
+        "temperature": 420,
+        "time": 117
+      }
+    }
+  ]
 }

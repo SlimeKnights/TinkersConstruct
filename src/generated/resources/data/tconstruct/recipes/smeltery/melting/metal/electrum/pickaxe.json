@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:tools/pickaxes/electrum"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:tools/pickaxes/electrum"
+  },
+  "result": {
+    "amount": 270,
+    "tag": "forge:molten_electrum",
+    "unit_size": 10
+  },
+  "temperature": 760,
+  "time": 102
+}

@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:armors/leggings/steel"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:armors/leggings/steel"
+  },
+  "result": {
+    "amount": 630,
+    "tag": "forge:molten_steel",
+    "unit_size": 10
+  },
+  "temperature": 950,
+  "time": 171
+}

@@ -47,7 +47,7 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addTraits(MaterialIds.copper, ARMOR, ModifierIds.depthProtection);
     addDefaultTraits(MaterialIds.searedStone, ModifierIds.searing);
     addTraits(MaterialIds.searedStone, ARMOR, ModifierIds.fireProtection);
-    addDefaultTraits(MaterialIds.slimewood, TinkerModifiers.overgrowth, TinkerModifiers.overslime);
+    addDefaultTraits(MaterialIds.slimewood, ModifierIds.overgrowth, TinkerModifiers.overslime.getId());
     addDefaultTraits(MaterialIds.venombone, ModifierIds.antitoxin);
     addDefaultTraits(MaterialIds.aluminum, ModifierIds.featherweight);
     // tier 2 - nether
@@ -75,7 +75,8 @@ public class MaterialTraitsDataProvider extends AbstractMaterialTraitDataProvide
     addDefaultTraits(MaterialIds.darkthread, ModifierIds.looting);
 
     // tier 4
-    addDefaultTraits(MaterialIds.queensSlime, TinkerModifiers.overlord, TinkerModifiers.overslime);
+    addDefaultTraits(MaterialIds.cinderslime, ModifierIds.overburn, TinkerModifiers.overslime.getId());
+    addDefaultTraits(MaterialIds.queensSlime, ModifierIds.overlord, TinkerModifiers.overslime.getId());
     addDefaultTraits(MaterialIds.hepatizon, TinkerModifiers.momentum);
     addTraits(MaterialIds.hepatizon, ARMOR, ModifierIds.recurrentProtection);
     addDefaultTraits(MaterialIds.manyullyn, TinkerModifiers.insatiable);

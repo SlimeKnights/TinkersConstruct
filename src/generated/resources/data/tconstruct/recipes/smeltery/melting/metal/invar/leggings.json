@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:armors/leggings/invar"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:armors/leggings/invar"
+  },
+  "result": {
+    "amount": 630,
+    "tag": "forge:molten_invar",
+    "unit_size": 10
+  },
+  "temperature": 900,
+  "time": 167
+}

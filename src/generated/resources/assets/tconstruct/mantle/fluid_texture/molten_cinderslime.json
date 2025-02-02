@@ -1,0 +1,5 @@
+{
+  "color": "FFFFFFFF",
+  "flowing": "tconstruct:fluid/molten/alloy/cinderslime/flowing",
+  "still": "tconstruct:fluid/molten/alloy/cinderslime/still"
+}

@@ -101,6 +101,7 @@ import slimeknights.tconstruct.library.modifiers.modules.build.ModifierTraitModu
 import slimeknights.tconstruct.library.modifiers.modules.build.RarityModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.SetStatModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.StatBoostModule;
+import slimeknights.tconstruct.library.modifiers.modules.build.StatCopyModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.SwappableSlotModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.SwappableToolTraitsModule;
 import slimeknights.tconstruct.library.modifiers.modules.build.VolatileFlagModule;
@@ -198,8 +199,6 @@ import slimeknights.tconstruct.tools.modifiers.slotless.StatOverrideModifier;
 import slimeknights.tconstruct.tools.modifiers.slotless.TrimModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.DamageSpeedTradeModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.EnderportingModifier;
-import slimeknights.tconstruct.tools.modifiers.traits.general.OvergrowthModifier;
-import slimeknights.tconstruct.tools.modifiers.traits.general.OverlordModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.SolarPoweredModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.StoneshieldModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.general.TannedModifier;
@@ -245,6 +244,8 @@ import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.PunchModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ScopeModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.SinistralModifier;
 import slimeknights.tconstruct.tools.modules.MeltingModule;
+import slimeknights.tconstruct.tools.modules.OverburnModule;
+import slimeknights.tconstruct.tools.modules.OvergrowthModule;
 import slimeknights.tconstruct.tools.modules.SmeltingModule;
 import slimeknights.tconstruct.tools.modules.TheOneProbeModule;
 import slimeknights.tconstruct.tools.modules.armor.DepthProtectionModule;
@@ -426,12 +427,9 @@ public final class TinkerModifiers extends TinkerModule {
   public static final StaticModifier<SolarPoweredModifier> solarPowered = MODIFIERS.register("solar_powered", SolarPoweredModifier::new);
   // traits - tier 2
   public static final StaticModifier<DwarvenModifier> dwarven = MODIFIERS.register("dwarven", DwarvenModifier::new);
-  public static final StaticModifier<OvergrowthModifier> overgrowth = MODIFIERS.register("overgrowth", OvergrowthModifier::new);
   // traits - tier 3
   public static final StaticModifier<LaceratingModifier> lacerating = MODIFIERS.register("lacerating", LaceratingModifier::new);
   public static final StaticModifier<TastyModifier> tasty = MODIFIERS.register("tasty", TastyModifier::new);
-  // traits - tier 4
-  public static final StaticModifier<OverlordModifier> overlord = MODIFIERS.register("overlord", OverlordModifier::new);
   public static final StaticModifier<MomentumModifier> momentum = MODIFIERS.register("momentum", MomentumModifier::new);
   public static final StaticModifier<InsatiableModifier> insatiable = MODIFIERS.register("insatiable", InsatiableModifier::new);
   public static final StaticModifier<ConductingModifier> conducting = MODIFIERS.register("conducting", ConductingModifier::new);
@@ -595,6 +593,7 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierModule.LOADER.register(getResource("swappable_bonus_slot"), SwappableSlotModule.BonusSlot.LOADER);
       ModifierModule.LOADER.register(getResource("swappable_tool_traits"), SwappableToolTraitsModule.LOADER);
       ModifierModule.LOADER.register(getResource("stat_boost"), StatBoostModule.LOADER);
+      ModifierModule.LOADER.register(getResource("stat_copy"), StatCopyModule.LOADER);
       ModifierModule.LOADER.register(getResource("set_stat"), SetStatModule.LOADER);
       ModifierModule.LOADER.register(getResource("trait"), ModifierTraitModule.LOADER);
       ModifierModule.LOADER.register(getResource("volatile_flag"), VolatileFlagModule.LOADER);
@@ -626,6 +625,8 @@ public final class TinkerModifiers extends TinkerModule {
       ModifierModule.LOADER.register(getResource("enderclearance"), EnderclearanceModule.INSTANCE.getLoader());
       ModifierModule.LOADER.register(getResource("smelting"), SmeltingModule.LOADER);
       ModifierModule.LOADER.register(getResource("melting"), MeltingModule.LOADER);
+      ModifierModule.LOADER.register(getResource("overgrowth"), OvergrowthModule.LOADER);
+      ModifierModule.LOADER.register(getResource("overburn"), OverburnModule.INSTANCE.getLoader());
       // armor
       ModifierModule.LOADER.register(getResource("depth_protection"), DepthProtectionModule.LOADER);
       ModifierModule.LOADER.register(getResource("flame_barrier"), FlameBarrierModule.LOADER);

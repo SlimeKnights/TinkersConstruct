@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:gears/emerald"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:gears/emerald"
+  },
+  "result": {
+    "amount": 400,
+    "fluid": "tconstruct:molten_emerald"
+  },
+  "temperature": 934,
+  "time": 129
+}

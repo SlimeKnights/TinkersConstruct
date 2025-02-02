@@ -9,5 +9,7 @@
     "amount": 10,
     "tag": "forge:molten_iron"
   },
-  "result": "minecraft:iron_nugget"
+  "result": {
+    "tag": "forge:nuggets/iron"
+  }
 }

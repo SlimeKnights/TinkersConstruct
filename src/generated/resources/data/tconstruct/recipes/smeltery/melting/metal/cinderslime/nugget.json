@@ -1,0 +1,12 @@
+{
+  "type": "tconstruct:melting",
+  "ingredient": {
+    "tag": "forge:nuggets/cinderslime"
+  },
+  "result": {
+    "amount": 10,
+    "fluid": "tconstruct:molten_cinderslime"
+  },
+  "temperature": 1050,
+  "time": 23
+}

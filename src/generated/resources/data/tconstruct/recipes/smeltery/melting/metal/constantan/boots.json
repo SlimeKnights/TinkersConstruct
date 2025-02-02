@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:armors/boots/constantan"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:armors/boots/constantan"
+  },
+  "result": {
+    "amount": 360,
+    "tag": "forge:molten_constantan",
+    "unit_size": 10
+  },
+  "temperature": 920,
+  "time": 128
+}

@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:tools/hoes/silver"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:tools/hoes/silver"
+  },
+  "result": {
+    "amount": 180,
+    "tag": "forge:molten_silver",
+    "unit_size": 10
+  },
+  "temperature": 790,
+  "time": 85
+}

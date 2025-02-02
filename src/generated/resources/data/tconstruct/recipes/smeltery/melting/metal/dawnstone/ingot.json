@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:ingots/dawnstone"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:ingots/dawnstone"
+  },
+  "result": {
+    "amount": 90,
+    "tag": "forge:molten_dawnstone"
+  },
+  "temperature": 900,
+  "time": 63
+}

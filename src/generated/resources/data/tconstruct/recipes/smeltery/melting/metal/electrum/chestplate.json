@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:armors/chestplates/electrum"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:armors/chestplates/electrum"
+  },
+  "result": {
+    "amount": 720,
+    "tag": "forge:molten_electrum",
+    "unit_size": 10
+  },
+  "temperature": 760,
+  "time": 166
+}

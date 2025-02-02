@@ -8,5 +8,7 @@
     "amount": 10,
     "tag": "tconstruct:molten_queens_slime"
   },
-  "result": "tconstruct:queens_slime_nugget"
+  "result": {
+    "tag": "forge:nuggets/queens_slime"
+  }
 }

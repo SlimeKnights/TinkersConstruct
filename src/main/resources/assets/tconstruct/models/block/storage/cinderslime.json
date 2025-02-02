@@ -1,0 +1,9 @@
+{
+  "parent": "tconstruct:block/template/slimy_cube",
+  "textures": {
+    "particle": "tconstruct:block/storage/cinderslime",
+    "slime": "tconstruct:block/storage/cinderslime_slime",
+    "metal": "tconstruct:block/storage/cinderslime_gold"
+  }
+}
+

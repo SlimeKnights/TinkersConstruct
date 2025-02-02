@@ -160,6 +160,7 @@ public final class TinkerFluids extends TinkerModule {
 
   public static final FlowingFluidObject<ForgeFlowingFluid> moltenManyullyn   = FLUIDS.register("molten_manyullyn").type(hot("molten_manyullyn").temperature(1500).lightLevel(11)).block(createBurning(MapColor.COLOR_PURPLE, 11, 10, 8f)).bucket().commonTag().flowing();
   public static final FlowingFluidObject<ForgeFlowingFluid> moltenHepatizon   = FLUIDS.register("molten_hepatizon").type(hot("molten_hepatizon").temperature(1700).lightLevel(8)).block(createBurning(MapColor.TERRACOTTA_BLUE, 8, 10, 7f)).bucket().commonTag().flowing();
+  public static final FluidObject<UnplaceableFluid> moltenCinderslime = FLUIDS.register("molten_cinderslime").type(hot("molten_cinderslime").temperature(1350).lightLevel(SlimeType.ICHOR.getLightLevel()).density(-2000)).bucket().unplacable();
   public static final FlowingFluidObject<ForgeFlowingFluid> moltenQueensSlime = FLUIDS.register("molten_queens_slime").type(hot("molten_queens_slime").temperature(1450).lightLevel(9)).block(createBurning(MapColor.COLOR_GREEN, 9, 10, 6f)).bucket().flowing();
   public static final FlowingFluidObject<ForgeFlowingFluid> moltenSoulsteel   = FLUIDS.register("molten_soulsteel").type(hot("molten_soulsteel").temperature(1500).lightLevel(6)).block(createBurning(MapColor.COLOR_BROWN, 6, 10, 7f)).bucket().flowing();
   public static final FlowingFluidObject<ForgeFlowingFluid> moltenNetherite   = FLUIDS.register("molten_netherite").type(hot("molten_netherite").temperature(1550).lightLevel(14)).block(createBurning(MapColor.COLOR_BLACK, 14, 10, 10f)).bucket().commonTag().flowing();
@@ -418,6 +419,7 @@ public final class TinkerFluids extends TinkerModule {
     output.accept(moltenRoseGold);
     output.accept(moltenPigIron);
     // nether alloys
+    output.accept(moltenCinderslime);
     output.accept(moltenQueensSlime);
     output.accept(moltenManyullyn);
     output.accept(moltenHepatizon);

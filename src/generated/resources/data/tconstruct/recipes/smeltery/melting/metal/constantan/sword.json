@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:tools/swords/constantan"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:tools/swords/constantan"
+  },
+  "result": {
+    "amount": 90,
+    "tag": "forge:molten_constantan",
+    "unit_size": 10
+  },
+  "temperature": 920,
+  "time": 64
+}

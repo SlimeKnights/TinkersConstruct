@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:tools/hoes/electrum"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:tools/hoes/electrum"
+  },
+  "result": {
+    "amount": 180,
+    "tag": "forge:molten_electrum",
+    "unit_size": 10
+  },
+  "temperature": 760,
+  "time": 83
+}

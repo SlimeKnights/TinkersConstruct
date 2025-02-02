@@ -1,0 +1,23 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/nugget"
+  },
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:nuggets/dawnstone"
+      }
+    }
+  ],
+  "cooling_time": 21,
+  "fluid": {
+    "amount": 10,
+    "tag": "forge:molten_dawnstone"
+  },
+  "result": {
+    "tag": "forge:nuggets/dawnstone"
+  }
+}

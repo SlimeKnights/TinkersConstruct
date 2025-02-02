@@ -99,6 +99,20 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "cinderslime": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:cinderslime"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "cobalt": {
       "conditions": {
         "items": [
@@ -529,6 +543,9 @@
     ],
     [
       "hepatizon"
+    ],
+    [
+      "cinderslime"
     ],
     [
       "queens_slime"

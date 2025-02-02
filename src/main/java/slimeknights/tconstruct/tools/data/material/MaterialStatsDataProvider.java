@@ -191,6 +191,10 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
 
     // tier 4
     // vanilla netherite: 2031, 9f, NETHERITE, 4f
+    addMaterialStats(MaterialIds.cinderslime,
+                     new HeadMaterialStats(1221, 6.5f, NETHERITE, 2.25f),
+                     HandleMaterialStats.multipliers().durability(1.2f).miningSpeed(1.1f).attackSpeed(0.90f).build(),
+                     StatlessMaterialStats.BINDING);
     addMaterialStats(MaterialIds.queensSlime,
                      new HeadMaterialStats(1650, 6f, NETHERITE, 2f),
                      HandleMaterialStats.multipliers().durability(1.35f).miningSpeed(0.9f).attackSpeed(0.95f).attackDamage(0.95f).build(),
@@ -318,6 +322,9 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
 
 
     // tier 4
+    addMaterialStats(MaterialIds.cinderslime,
+                     new LimbMaterialStats(1221, 0.1f, -0.10f, 0.1f),
+                     new GripMaterialStats(0.20f, 0.05f, 2.25f));
     addMaterialStats(MaterialIds.queensSlime,
                      new LimbMaterialStats(1650, 0f, -0.15f, 0.2f),
                      new GripMaterialStats(0.35f, -0.15f, 2f));
@@ -366,6 +373,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addArmorShieldStats(MaterialIds.electrum,   PlatingMaterialStats.builder().durabilityFactor(14).armor(1, 3, 4, 2), StatlessMaterialStats.MAILLE);
     // tier 4
     addMaterialStats(MaterialIds.blazewood, StatlessMaterialStats.SHIELD_CORE);
+    addArmorShieldStats(MaterialIds.cinderslime, PlatingMaterialStats.builder().durabilityFactor(42).armor(2, 5, 7, 2).knockbackResistance(0.10f), StatlessMaterialStats.MAILLE);
     addArmorShieldStats(MaterialIds.queensSlime, PlatingMaterialStats.builder().durabilityFactor(50).armor(2, 5, 7, 2).toughness(1), StatlessMaterialStats.MAILLE);
     addArmorShieldStats(MaterialIds.hepatizon,   PlatingMaterialStats.builder().durabilityFactor(32).armor(2, 5, 7, 2).toughness(2).knockbackResistance(0.10f), StatlessMaterialStats.MAILLE);
     addArmorShieldStats(MaterialIds.manyullyn,   PlatingMaterialStats.builder().durabilityFactor(35).armor(2, 5, 7, 2).toughness(3).knockbackResistance(0.05f), StatlessMaterialStats.MAILLE);

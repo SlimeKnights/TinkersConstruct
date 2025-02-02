@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material",
+  "ingredient": {
+    "tag": "forge:nuggets/cinderslime"
+  },
+  "material": "tconstruct:cinderslime",
+  "needed": 9,
+  "value": 1
+}

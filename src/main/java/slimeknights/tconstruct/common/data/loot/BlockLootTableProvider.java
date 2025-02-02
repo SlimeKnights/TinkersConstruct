@@ -104,6 +104,7 @@ public class BlockLootTableProvider extends BlockLootSubProvider {
     // tier 4
     this.dropSelf(TinkerMaterials.manyullyn.get());
     this.dropSelf(TinkerMaterials.hepatizon.get());
+    this.dropSelf(TinkerMaterials.cinderslime.get());
     this.dropSelf(TinkerMaterials.queensSlime.get());
     this.dropSelf(TinkerMaterials.soulsteel.get());
     // tier 5

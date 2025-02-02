@@ -9,5 +9,7 @@
     "amount": 100,
     "tag": "tconstruct:molten_emerald"
   },
-  "result": "minecraft:emerald"
+  "result": {
+    "tag": "forge:gems/emerald"
+  }
 }

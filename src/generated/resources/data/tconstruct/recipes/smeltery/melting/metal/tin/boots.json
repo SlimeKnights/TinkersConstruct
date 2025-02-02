@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:armors/boots/tin"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:armors/boots/tin"
+  },
+  "result": {
+    "amount": 360,
+    "tag": "forge:molten_tin",
+    "unit_size": 10
+  },
+  "temperature": 225,
+  "time": 78
+}

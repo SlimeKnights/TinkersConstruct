@@ -5,5 +5,7 @@
     "amount": 900,
     "tag": "tconstruct:molten_diamond"
   },
-  "result": "minecraft:diamond_block"
+  "result": {
+    "tag": "forge:storage_blocks/diamond"
+  }
 }

@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:tools/pickaxes/refined_glowstone"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:tools/pickaxes/refined_glowstone"
+  },
+  "result": {
+    "amount": 270,
+    "tag": "forge:molten_refined_glowstone",
+    "unit_size": 10
+  },
+  "temperature": 825,
+  "time": 106
+}

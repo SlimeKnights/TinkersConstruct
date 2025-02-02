@@ -9,5 +9,7 @@
     "amount": 100,
     "tag": "tconstruct:molten_quartz"
   },
-  "result": "minecraft:quartz"
+  "result": {
+    "tag": "forge:gems/quartz"
+  }
 }

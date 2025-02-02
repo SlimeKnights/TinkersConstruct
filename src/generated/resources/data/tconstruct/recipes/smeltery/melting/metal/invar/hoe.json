@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:tools/hoes/invar"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:tools/hoes/invar"
+  },
+  "result": {
+    "amount": 180,
+    "tag": "forge:molten_invar",
+    "unit_size": 10
+  },
+  "temperature": 900,
+  "time": 90
+}

@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:storage_blocks/dawnstone"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:storage_blocks/dawnstone"
+  },
+  "result": {
+    "amount": 810,
+    "tag": "forge:molten_dawnstone"
+  },
+  "temperature": 900,
+  "time": 190
+}

@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:tools/hoes/lead"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:tools/hoes/lead"
+  },
+  "result": {
+    "amount": 180,
+    "tag": "forge:molten_lead",
+    "unit_size": 10
+  },
+  "temperature": 330,
+  "time": 61
+}

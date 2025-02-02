@@ -5,5 +5,7 @@
     "amount": 400,
     "tag": "tconstruct:molten_amethyst"
   },
-  "result": "minecraft:amethyst_block"
+  "result": {
+    "tag": "forge:storage_blocks/amethyst"
+  }
 }

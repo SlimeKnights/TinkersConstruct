@@ -1,0 +1,21 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:dusts/quartz"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:dusts/quartz"
+  },
+  "result": {
+    "amount": 100,
+    "fluid": "tconstruct:molten_quartz"
+  },
+  "temperature": 637,
+  "time": 41
+}

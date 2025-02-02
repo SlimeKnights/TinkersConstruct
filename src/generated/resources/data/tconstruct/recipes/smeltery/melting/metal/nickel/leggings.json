@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:armors/leggings/nickel"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:armors/leggings/nickel"
+  },
+  "result": {
+    "amount": 630,
+    "tag": "forge:molten_nickel",
+    "unit_size": 10
+  },
+  "temperature": 950,
+  "time": 171
+}

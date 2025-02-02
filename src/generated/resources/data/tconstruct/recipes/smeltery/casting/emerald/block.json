@@ -5,5 +5,7 @@
     "amount": 900,
     "tag": "tconstruct:molten_emerald"
   },
-  "result": "minecraft:emerald_block"
+  "result": {
+    "tag": "forge:storage_blocks/emerald"
+  }
 }

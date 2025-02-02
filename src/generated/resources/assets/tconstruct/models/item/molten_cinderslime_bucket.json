@@ -1,0 +1,6 @@
+{
+  "parent": "forge:item/bucket_drip",
+  "flip_gas": true,
+  "fluid": "tconstruct:molten_cinderslime",
+  "loader": "tconstruct:fluid_container"
+}

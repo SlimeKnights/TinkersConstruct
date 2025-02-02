@@ -79,6 +79,7 @@ public class BlockTagProvider extends BlockTagsProvider {
     addMetalTags(TinkerMaterials.roseGold, false);
     addMetalTags(TinkerMaterials.pigIron, false);
     // tier 4
+    addMetalTags(TinkerMaterials.cinderslime, false);
     addMetalTags(TinkerMaterials.queensSlime, true);
     addMetalTags(TinkerMaterials.manyullyn, true);
     addMetalTags(TinkerMaterials.hepatizon, true);
@@ -129,6 +130,7 @@ public class BlockTagProvider extends BlockTagsProvider {
         .addTag(TinkerMaterials.roseGold.getBlockTag())
         .addTag(TinkerMaterials.pigIron.getBlockTag())
         // tier 4
+        .addTag(TinkerMaterials.cinderslime.getBlockTag())
         .addTag(TinkerMaterials.queensSlime.getBlockTag())
         .addTag(TinkerMaterials.manyullyn.getBlockTag())
         .addTag(TinkerMaterials.hepatizon.getBlockTag())
@@ -406,7 +408,7 @@ public class BlockTagProvider extends BlockTagsProvider {
     // materials
     tagBlocks(MINEABLE_WITH_AXE, NEEDS_IRON_TOOL, TinkerMaterials.blazewood);
     tagBlocks(MINEABLE_WITH_AXE, NEEDS_DIAMOND_TOOL, TinkerMaterials.nahuatl);
-    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_IRON_TOOL, TinkerWorld.cobaltOre, TinkerWorld.rawCobaltBlock, TinkerMaterials.cobalt, TinkerMaterials.slimesteel, TinkerMaterials.amethystBronze, TinkerMaterials.roseGold, TinkerMaterials.pigIron);
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_IRON_TOOL, TinkerWorld.cobaltOre, TinkerWorld.rawCobaltBlock, TinkerMaterials.cobalt, TinkerMaterials.slimesteel, TinkerMaterials.cinderslime, TinkerMaterials.amethystBronze, TinkerMaterials.roseGold, TinkerMaterials.pigIron);
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_DIAMOND_TOOL, TinkerMaterials.queensSlime, TinkerMaterials.manyullyn, TinkerMaterials.hepatizon, TinkerMaterials.soulsteel, TinkerModifiers.silkyJewelBlock);
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_NETHERITE_TOOL, TinkerMaterials.knightslime);
 

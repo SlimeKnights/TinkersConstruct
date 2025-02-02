@@ -142,6 +142,10 @@
   "item.tconstruct.hepatizon_ingot": "Hepatizon Ingot",
   "item.tconstruct.hepatizon_nugget": "Hepatizon Nugget",
 
+  "block.tconstruct.cinderslime_block": "Block of Cinderslime",
+  "item.tconstruct.cinderslime_ingot": "Cinderslime Ingot",
+  "item.tconstruct.cinderslime_nugget": "Cinderslime Nugget",
+
   "block.tconstruct.queens_slime_block": "Block of Queen's Slime",
   "block.tconstruct.queens_slime_block.tooltip": "Can be used as beacon base",
   "item.tconstruct.queens_slime_ingot": "Queen's Slime Ingot",
@@ -677,6 +681,11 @@
   "fluid.tconstruct.molten_hepatizon": "Molten Hepatizon",
   "fluid.tconstruct.flowing_molten_hepatizon": "Flowing Molten Hepatizon",
   "item.tconstruct.molten_hepatizon_bucket": "Molten Hepatizon Bucket",
+
+  "block.tconstruct.molten_cinderslime_fluid": "Molten Cinderslime",
+  "fluid.tconstruct.molten_cinderslime": "Molten Cinderslime",
+  "fluid.tconstruct.flowing_molten_cinderslime": "Flowing Molten Cinderslime",
+  "item.tconstruct.molten_cinderslime_bucket": "Molten Cinderslime Bucket",
 
   "block.tconstruct.molten_queens_slime_fluid": "Molten Queen's Slime",
   "fluid.tconstruct.molten_queens_slime": "Molten Queen's Slime",
@@ -1666,6 +1675,10 @@
   "material.tconstruct.hepatizon.ranged": "Boosts drawspeed by 25% per level after firing 16 consecutive arrows",
   "material.tconstruct.hepatizon.armor": "Reduces damage from all attacks by 5% per level if you recently took damage",
 
+  "material.tconstruct.cinderslime": "Cinderslime",
+  "material.tconstruct.cinderslime.flavor": "Cast it into the fire!",
+  "material.tconstruct.cinderslime.encyclopedia": "Uses fuel to restore overslime, restoring 1 per second by level 4.",
+
   "material.tconstruct.queens_slime": "Queen's Slime",
   "material.tconstruct.queens_slime.flavor": "Princesses are evil, get yourself a Queen.",
   "material.tconstruct.queens_slime.encyclopedia": "Reduces durability by 15% per level, 66% of that going towards overslime",
@@ -2487,6 +2500,9 @@
   "death.attack.tconstruct.bleed.item": "%1$s bled to death from injuries caused by %2$s",
 
   "__comment": "Tier 4 Traits",
+  "modifier.tconstruct.overburn": "Overburn",
+  "modifier.tconstruct.overburn.flavor": "Thermal!",
+  "modifier.tconstruct.overburn.description": "Tool converts liquid fuel into overslime",
   "modifier.tconstruct.overlord": "Overlord",
   "modifier.tconstruct.overlord.flavor": "Regal!",
   "modifier.tconstruct.overlord.description": "Tool takes some of the durability as new overslime subjects",

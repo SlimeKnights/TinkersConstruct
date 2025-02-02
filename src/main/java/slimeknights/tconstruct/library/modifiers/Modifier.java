@@ -44,7 +44,7 @@ import java.util.Random;
 @SuppressWarnings("unused")
 public class Modifier implements IdAwareObject {
   /** Modifier random instance, use for chance based effects */
-  protected static Random RANDOM = new Random();
+  public static Random RANDOM = new Random();
 
   /** Priority of modfiers by default */
   public static final int DEFAULT_PRIORITY = 100;

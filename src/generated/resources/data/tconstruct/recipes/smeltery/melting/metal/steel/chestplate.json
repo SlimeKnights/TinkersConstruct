@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:armors/chestplates/steel"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:armors/chestplates/steel"
+  },
+  "result": {
+    "amount": 720,
+    "tag": "forge:molten_steel",
+    "unit_size": 10
+  },
+  "temperature": 950,
+  "time": 183
+}

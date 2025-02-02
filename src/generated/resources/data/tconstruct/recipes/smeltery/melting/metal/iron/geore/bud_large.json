@@ -1,5 +1,5 @@
 {
-  "type": "tconstruct:melting",
+  "type": "forge:conditional",
   "conditions": [
     {
       "type": "forge:not",
@@ -9,13 +9,62 @@
       }
     }
   ],
-  "ingredient": {
-    "tag": "forge:geore_large_buds/iron"
-  },
-  "result": {
-    "amount": 270,
-    "tag": "forge:molten_iron"
-  },
-  "temperature": 800,
-  "time": 120
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:tag_empty",
+            "tag": "forge:ingots/nickel"
+          }
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "byproducts": [
+          {
+            "amount": 270,
+            "tag": "forge:molten_nickel"
+          }
+        ],
+        "ingredient": {
+          "tag": "forge:geore_large_buds/iron"
+        },
+        "rate": "metal",
+        "result": {
+          "amount": 270,
+          "tag": "forge:molten_iron"
+        },
+        "temperature": 800,
+        "time": 120
+      }
+    },
+    {
+      "conditions": [
+        {
+          "type": "forge:true"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "byproducts": [
+          {
+            "amount": 270,
+            "tag": "forge:molten_copper"
+          }
+        ],
+        "ingredient": {
+          "tag": "forge:geore_large_buds/iron"
+        },
+        "rate": "metal",
+        "result": {
+          "amount": 270,
+          "tag": "forge:molten_iron"
+        },
+        "temperature": 800,
+        "time": 120
+      }
+    }
+  ]
 }

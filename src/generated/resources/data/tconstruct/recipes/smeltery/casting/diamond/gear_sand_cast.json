@@ -1,0 +1,24 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "tconstruct:casts/single_use/gear"
+  },
+  "cast_consumed": true,
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:gears/diamond"
+      }
+    }
+  ],
+  "cooling_time": 166,
+  "fluid": {
+    "amount": 400,
+    "tag": "tconstruct:molten_diamond"
+  },
+  "result": {
+    "tag": "forge:gears/diamond"
+  }
+}

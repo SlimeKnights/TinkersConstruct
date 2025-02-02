@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:armors/chestplates/emerald"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:armors/chestplates/emerald"
+  },
+  "result": {
+    "amount": 800,
+    "fluid": "tconstruct:molten_emerald",
+    "unit_size": 25
+  },
+  "temperature": 934,
+  "time": 182
+}

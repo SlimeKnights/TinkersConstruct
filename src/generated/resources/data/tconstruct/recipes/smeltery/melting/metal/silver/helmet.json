@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:armors/boots/silver"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:armors/boots/silver"
+  },
+  "result": {
+    "amount": 450,
+    "tag": "forge:molten_silver",
+    "unit_size": 10
+  },
+  "temperature": 790,
+  "time": 134
+}

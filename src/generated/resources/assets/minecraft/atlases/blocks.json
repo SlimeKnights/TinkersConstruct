@@ -20,6 +20,7 @@
       "palette_key": "minecraft:trims/color_palettes/trim_palette",
       "permutations": {
         "tconstruct_amethyst_bronze": "tconstruct:trims/color_palettes/amethyst_bronze",
+        "tconstruct_cinderslime": "tconstruct:trims/color_palettes/cinderslime",
         "tconstruct_cobalt": "tconstruct:trims/color_palettes/cobalt",
         "tconstruct_earthslime": "tconstruct:trims/color_palettes/earthslime",
         "tconstruct_enderslime": "tconstruct:trims/color_palettes/enderslime",

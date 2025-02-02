@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:tools/axes/silver"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:tools/axes/silver"
+  },
+  "result": {
+    "amount": 270,
+    "tag": "forge:molten_silver",
+    "unit_size": 10
+  },
+  "temperature": 790,
+  "time": 104
+}

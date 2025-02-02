@@ -32,7 +32,6 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
   @Override
   protected void addAllMaterials() {
     // TODO: this is a lovely red palette, reuse it for something in the future
-    // GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF4A0000).addARGB(102, 0xFF5D0000).addARGB(140, 0xFF820000).addARGB(178, 0xFFA00000).addARGB(216, 0xFFB80000).addARGB(255, 0xFFE82323).build()
 
     // unknown: just do a black border, make sure it stands out when data is missing
     buildMaterial(IMaterial.UNKNOWN_ID)
@@ -277,6 +276,10 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
                                           .addTexture(140, baseTexture,      0xFFE1E1E1).addTexture(178, baseTexture)
                                           .addTexture(216, highlightTexture, 0xFFE1E1E1).addTexture(255, highlightTexture)
                                           .build());
+    buildMaterial(MaterialIds.cinderslime)
+      .meleeHarvest().ranged().armor()
+      .fallbacks("slime_metal", "metal")
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF4A0000).addARGB(102, 0xFF5D0000).addARGB(140, 0xFF820000).addARGB(178, 0xFFA00000).addARGB(216, 0xFFB80000).addARGB(255, 0xFFE82323).build());
     buildMaterial(MaterialIds.hepatizon)
       .meleeHarvest().ranged().armor()
       .fallbacks("metal")

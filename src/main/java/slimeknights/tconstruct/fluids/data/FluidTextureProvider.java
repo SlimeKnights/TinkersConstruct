@@ -67,6 +67,7 @@ public class FluidTextureProvider extends AbstractFluidTextureProvider {
     // alloy - nether
     alloy(TinkerFluids.moltenManyullyn);
     alloy(TinkerFluids.moltenHepatizon);
+    alloy(TinkerFluids.moltenCinderslime);
     alloy(TinkerFluids.moltenQueensSlime);
     alloy(TinkerFluids.moltenNetherite);
     // alloy - end

@@ -1,0 +1,9 @@
+{
+  "type": "tconstruct:material_melting",
+  "input": "tconstruct:cinderslime",
+  "result": {
+    "amount": 90,
+    "fluid": "tconstruct:molten_cinderslime"
+  },
+  "temperature": 1050
+}

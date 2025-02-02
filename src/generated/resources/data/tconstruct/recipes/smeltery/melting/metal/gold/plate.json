@@ -1,12 +1,21 @@
 {
   "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:plates/gold"
+      }
+    }
+  ],
   "ingredient": {
-    "item": "minecraft:light_weighted_pressure_plate"
+    "tag": "forge:plates/gold"
   },
   "result": {
-    "amount": 180,
+    "amount": 90,
     "tag": "forge:molten_gold"
   },
   "temperature": 700,
-  "time": 80
+  "time": 57
 }

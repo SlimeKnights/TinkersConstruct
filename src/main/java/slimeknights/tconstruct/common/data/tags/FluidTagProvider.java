@@ -129,7 +129,8 @@ public class FluidTagProvider extends FluidTagsProvider {
         // thermal alloys
         TinkerFluids.moltenEnderium.getTag(), TinkerFluids.moltenLumium.getTag(), TinkerFluids.moltenSignalum.getTag(),
         // mekanism alloys
-        TinkerFluids.moltenRefinedGlowstone.getTag(), TinkerFluids.moltenRefinedObsidian.getTag());
+        TinkerFluids.moltenRefinedGlowstone.getTag(), TinkerFluids.moltenRefinedObsidian.getTag()
+    ).add(TinkerFluids.moltenCinderslime.get());
 
     this.tag(TinkerTags.Fluids.LARGE_GEM_TOOLTIPS).addTags(TinkerFluids.moltenEmerald.getTag(), TinkerFluids.moltenDiamond.getTag());
     this.tag(TinkerTags.Fluids.SMALL_GEM_TOOLTIPS).addTags(TinkerFluids.moltenQuartz.getTag(), TinkerFluids.moltenAmethyst.getTag());

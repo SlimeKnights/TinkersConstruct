@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:tag_empty",
+        "tag": "forge:tools/hoes/osmium"
+      }
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:tools/hoes/osmium"
+  },
+  "result": {
+    "amount": 180,
+    "tag": "forge:molten_osmium",
+    "unit_size": 10
+  },
+  "temperature": 975,
+  "time": 93
+}
