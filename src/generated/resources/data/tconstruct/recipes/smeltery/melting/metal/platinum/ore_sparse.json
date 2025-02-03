@@ -3,6 +3,7 @@
   "byproducts": [
     {
       "amount": 90,
+      "rate": "metal",
       "tag": "forge:molten_gold"
     }
   ],

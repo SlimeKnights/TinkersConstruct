@@ -1,0 +1,14 @@
+{
+  "asset_name": "tconstruct_steel",
+  "description": {
+    "color": "#959595",
+    "translate": "trim_material.tconstruct.format",
+    "with": [
+      {
+        "translate": "material.tconstruct.steel"
+      }
+    ]
+  },
+  "ingredient": "tconstruct:steel_ingot",
+  "item_model_index": 0.2
+}

@@ -73,6 +73,7 @@ public class BlockTagProvider extends BlockTagsProvider {
   private void addCommon() {
     // ores
     addMetalTags(TinkerMaterials.cobalt, true);
+    addMetalTags(TinkerMaterials.steel, false);
     // tier 3
     addMetalTags(TinkerMaterials.slimesteel, false);
     addMetalTags(TinkerMaterials.amethystBronze, false);
@@ -408,7 +409,7 @@ public class BlockTagProvider extends BlockTagsProvider {
     // materials
     tagBlocks(MINEABLE_WITH_AXE, NEEDS_IRON_TOOL, TinkerMaterials.blazewood);
     tagBlocks(MINEABLE_WITH_AXE, NEEDS_DIAMOND_TOOL, TinkerMaterials.nahuatl);
-    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_IRON_TOOL, TinkerWorld.cobaltOre, TinkerWorld.rawCobaltBlock, TinkerMaterials.cobalt, TinkerMaterials.slimesteel, TinkerMaterials.cinderslime, TinkerMaterials.amethystBronze, TinkerMaterials.roseGold, TinkerMaterials.pigIron);
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_IRON_TOOL, TinkerWorld.cobaltOre, TinkerWorld.rawCobaltBlock, TinkerMaterials.steel, TinkerMaterials.cobalt, TinkerMaterials.slimesteel, TinkerMaterials.cinderslime, TinkerMaterials.amethystBronze, TinkerMaterials.roseGold, TinkerMaterials.pigIron);
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_DIAMOND_TOOL, TinkerMaterials.queensSlime, TinkerMaterials.manyullyn, TinkerMaterials.hepatizon, TinkerMaterials.soulsteel, TinkerModifiers.silkyJewelBlock);
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_NETHERITE_TOOL, TinkerMaterials.knightslime);
 

@@ -54,6 +54,7 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.roseGold,       3, ORDER_SPECIAL, false);
     addMaterial(MaterialIds.pigIron,        3, ORDER_SPECIAL, false);
     // tier 3 (nether)
+    addMaterial(MaterialIds.steel,  3, ORDER_NETHER, false);
     addMaterial(MaterialIds.cobalt, 3, ORDER_NETHER, false);
     // tier 3 - binding
     addMaterial(MaterialIds.darkthread, 3, ORDER_BINDING, false);
@@ -83,7 +84,6 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addCompatMetalMaterial(MaterialIds.lead,       2, ORDER_COMPAT + ORDER_WEAPON);
     addCompatMetalMaterial(MaterialIds.aluminum,   2, ORDER_COMPAT + ORDER_RANGED);
     // tier 3 (mod integration)
-    addCompatMetalMaterial(MaterialIds.steel,           3, ORDER_COMPAT + ORDER_GENERAL);
     addCompatMetalMaterial(MaterialIds.bronze,          3, ORDER_COMPAT + ORDER_HARVEST, "bronze", "tin");
     addCompatMetalMaterial(MaterialIds.constantan,      3, ORDER_COMPAT + ORDER_HARVEST, "constantan", "nickel");
     addCompatMetalMaterial(MaterialIds.invar,           3, ORDER_COMPAT + ORDER_WEAPON,  "invar", "nickel");

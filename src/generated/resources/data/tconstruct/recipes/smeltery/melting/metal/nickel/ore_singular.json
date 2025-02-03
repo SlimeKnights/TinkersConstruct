@@ -26,7 +26,8 @@
         "type": "tconstruct:ore_melting",
         "byproducts": [
           {
-            "amount": 60,
+            "amount": 180,
+            "rate": "metal",
             "tag": "forge:molten_platinum"
           }
         ],
@@ -64,6 +65,7 @@
         "byproducts": [
           {
             "amount": 180,
+            "rate": "metal",
             "tag": "forge:molten_iron"
           }
         ],

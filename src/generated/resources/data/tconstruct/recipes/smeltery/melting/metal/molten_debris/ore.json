@@ -2,14 +2,8 @@
   "type": "tconstruct:ore_melting",
   "byproducts": [
     {
-      "amount": 100,
-      "fluid": "tconstruct:molten_diamond",
-      "rate": "gem"
-    },
-    {
-      "amount": 270,
-      "rate": "metal",
-      "tag": "forge:molten_gold"
+      "amount": 30,
+      "tag": "forge:molten_netherite"
     }
   ],
   "ingredient": {

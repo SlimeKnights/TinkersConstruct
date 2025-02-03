@@ -152,6 +152,7 @@ public final class TinkerFluids extends TinkerModule {
   public static final FlowingFluidObject<ForgeFlowingFluid> moltenGold   = FLUIDS.register("molten_gold").type(hot("molten_gold").temperature(1000).lightLevel(12)).block(createBurning(MapColor.GOLD, 12, 10, 5f)).bucket().commonTag().flowing();
   public static final FlowingFluidObject<ForgeFlowingFluid> moltenCopper = FLUIDS.register("molten_copper").type(hot("molten_copper").temperature(800).lightLevel(12)).block(createBurning(MapColor.COLOR_ORANGE, 12, 10, 5f)).bucket().commonTag().flowing();
   public static final FlowingFluidObject<ForgeFlowingFluid> moltenCobalt = FLUIDS.register("molten_cobalt").type(hot("molten_cobalt").temperature(1250).lightLevel(8)).block(createBurning(MapColor.WATER, 8, 10, 6f)).bucket().commonTag().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenSteel  = FLUIDS.register("molten_steel").type(hot("molten_steel").temperature(1250).lightLevel(13)).block(createBurning(MapColor.STONE, 13, 10, 6f)).bucket().commonTag().flowing();
   // alloys
   public static final FlowingFluidObject<ForgeFlowingFluid> moltenSlimesteel     = FLUIDS.register("molten_slimesteel").type(hot("molten_slimesteel").temperature(1200).lightLevel(10)).block(createBurning(MapColor.DIAMOND, 10, 10, 6f)).bucket().flowing();
   public static final FlowingFluidObject<ForgeFlowingFluid> moltenAmethystBronze = FLUIDS.register("molten_amethyst_bronze").type(hot("molten_amethyst_bronze").temperature(1120).lightLevel(12)).block(createBurning(MapColor.COLOR_MAGENTA, 12, 10, 6f)).bucket().commonTag().flowing();
@@ -185,7 +186,6 @@ public final class TinkerFluids extends TinkerModule {
   public static final FlowingFluidObject<ForgeFlowingFluid> moltenInvar      = FLUIDS.register("molten_invar").type(hot("molten_invar").temperature(1200).lightLevel(10)).block(createBurning(MapColor.GLOW_LICHEN, 10, 10, 6f)).bucket().commonTag().flowing();
   public static final FlowingFluidObject<ForgeFlowingFluid> moltenConstantan = FLUIDS.register("molten_constantan").type(hot("molten_constantan").temperature(1220).lightLevel(10)).block(createBurning(MapColor.TERRACOTTA_RED, 10, 10, 6f)).bucket().commonTag().flowing();
   public static final FlowingFluidObject<ForgeFlowingFluid> moltenPewter     = FLUIDS.register("molten_pewter").type(hot("molten_pewter").temperature(700).lightLevel(10)).block(createBurning(MapColor.COLOR_GRAY, 10, 10, 6f)).bucket().commonTag().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenSteel      = FLUIDS.register("molten_steel").type(hot("molten_steel").temperature(1250).lightLevel(13)).block(createBurning(MapColor.STONE, 13, 10, 6f)).bucket().commonTag().flowing();
 
   // mod-specific compat alloys
   // thermal
@@ -412,6 +412,7 @@ public final class TinkerFluids extends TinkerModule {
     output.accept(moltenIron);
     output.accept(moltenGold);
     output.accept(moltenCobalt);
+    output.accept(moltenSteel);
 
     // overworld alloys
     output.accept(moltenSlimesteel);
@@ -445,7 +446,6 @@ public final class TinkerFluids extends TinkerModule {
     acceptMolten(output, moltenInvar, "nickel");
     acceptMolten(output, moltenConstantan, "nickel");
     acceptMolten(output, moltenPewter);
-    acceptMolten(output, moltenSteel);
     acceptMolten(output, moltenEnderium);
     acceptMolten(output, moltenLumium);
     acceptMolten(output, moltenSignalum);

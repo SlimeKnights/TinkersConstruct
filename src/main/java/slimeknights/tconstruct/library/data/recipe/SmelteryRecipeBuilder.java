@@ -237,6 +237,7 @@ public class SmelteryRecipeBuilder {
     } else if (byproducts[0].isAlwaysPresent()) {
       supplier.get()
               .addByproduct(byproducts[0].getFluid(scale))
+              .setOre(oreRate, byproducts[0].getOreRate())
               .save(wrapped, location);
     } else {
       // multiple options, will need a conditonal recipe
@@ -250,7 +251,7 @@ public class SmelteryRecipeBuilder {
         } else {
           builder.addCondition(tagCondition("ingots/" + byproduct.getName()));
         }
-        builder.addRecipe(supplier.get().addByproduct(byproduct.getFluid(scale))::save);
+        builder.addRecipe(supplier.get().addByproduct(byproduct.getFluid(scale)).setOre(oreRate, byproduct.getOreRate())::save);
 
         if (alwaysPresent) {
           break;
@@ -334,6 +335,38 @@ public class SmelteryRecipeBuilder {
 
   /* Main recipes */
 
+  /**
+   * Adds the raw ore and raw ore block metal melting recipes.
+   * This is automatically called by {@link #metal()} if {@link #hasOre}, which is set automatically by {@link #byproducts(IByproduct...)}.
+   * Provided for non-standard ores (like gold).
+   */
+  public SmelteryRecipeBuilder rawOre() {
+    assert oreRate != null;
+    assert baseUnit != 0;
+    String name = this.name.getPath();
+    oreMelting(1, "raw_materials/" + name,      null, 1.5f, "raw",       false);
+    oreMelting(9, "storage_blocks/raw_" + name, null, 6.0f, "raw_block", false);
+    return this;
+  }
+
+  /** Adds the sparse ore recipe at the given scale. Automatcally called by {@link #metal()} and {@link #gem(int)}, so only needed if doing unusual things. */
+  public SmelteryRecipeBuilder sparseOre(float scale) {
+    oreMelting(scale, "ores/" + name.getPath(), Tags.Items.ORE_RATES_SPARSE, 1.5f, "ore_sparse", false);
+    return this;
+  }
+
+  /** Adds the sparse ore recipe at the given scale. Automatcally called by {@link #metal()} and {@link #gem(int)}, so only needed if doing unusual things. */
+  public SmelteryRecipeBuilder singularOre(float scale) {
+    oreMelting(scale, "ores/" + name.getPath(), Tags.Items.ORE_RATES_SINGULAR, 2.5f, "ore_singular", false);
+    return this;
+  }
+
+  /** Adds the sparse ore recipe at the given scale. Automatcally called by {@link #metal()} and {@link #gem(int)}, so only needed if doing unusual things. */
+  public SmelteryRecipeBuilder denseOre(float scale) {
+    oreMelting(scale, "ores/" + name.getPath(), Tags.Items.ORE_RATES_DENSE, 4.5f, "ore_dense", false);
+    return this;
+  }
+
   /** Adds standard metal recipes for melting ingots, nuggets, and blocks */
   public SmelteryRecipeBuilder metal() {
     oreRate = OreRateType.METAL;
@@ -345,11 +378,10 @@ public class SmelteryRecipeBuilder {
     meltingCasting(1 / 9f, TinkerSmeltery.nuggetCast, 1 / 3f, false);
     // if we set byproducts, we are an ore
     if (hasOre) {
-      oreMelting(1, "raw_materials/" + name,      null, 1.5f, "raw",       false);
-      oreMelting(9, "storage_blocks/raw_" + name, null, 6.0f, "raw_block", false);
-      oreMelting(1, "ores/" + name, Tags.Items.ORE_RATES_SPARSE,   1.5f, "ore_sparse",   false);
-      oreMelting(2, "ores/" + name, Tags.Items.ORE_RATES_SINGULAR, 2.5f, "ore_singular", false);
-      oreMelting(6, "ores/" + name, Tags.Items.ORE_RATES_DENSE,    4.5f, "ore_dense",    false);
+      rawOre();
+      sparseOre(1);
+      singularOre(2);
+      denseOre(6);
     }
     return this;
   }
@@ -364,9 +396,9 @@ public class SmelteryRecipeBuilder {
     meltingCasting(1, TinkerSmeltery.gemCast, 1.0f, false);
     // if we set byproducts, we are an ore
     if (hasOre) {
-      oreMelting(0.5f, "ores/" + name, Tags.Items.ORE_RATES_SPARSE,   1.0f, "ore_sparse",   false);
-      oreMelting(1.0f, "ores/" + name, Tags.Items.ORE_RATES_SINGULAR, 1.5f, "ore_singular", false);
-      oreMelting(3.0f, "ores/" + name, Tags.Items.ORE_RATES_DENSE,    4.5f, "ore_dense",    false);
+      sparseOre(0.5f);
+      singularOre(1);
+      denseOre(3);
     }
     return this;
   }

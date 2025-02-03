@@ -3,31 +3,19 @@
   "modules": [
     {
       "type": "tconstruct:stat_boost",
-      "each_level": 0.04,
+      "each_level": 0.1,
       "operation": "multiply_base",
       "stat": "tconstruct:durability"
     },
     {
       "type": "tconstruct:stat_boost",
-      "each_level": 0.04,
+      "each_level": 0.1,
       "operation": "multiply_base",
       "stat": "tconstruct:attack_damage"
     },
     {
       "type": "tconstruct:stat_boost",
-      "each_level": 0.04,
-      "operation": "multiply_base",
-      "stat": "tconstruct:mining_speed"
-    },
-    {
-      "type": "tconstruct:stat_boost",
-      "each_level": 0.03,
-      "operation": "multiply_base",
-      "stat": "tconstruct:velocity"
-    },
-    {
-      "type": "tconstruct:stat_boost",
-      "each_level": 0.03,
+      "each_level": 0.05,
       "operation": "multiply_base",
       "stat": "tconstruct:projectile_damage"
     },

@@ -3,7 +3,8 @@
   "byproducts": [
     {
       "amount": 810,
-      "tag": "forge:molten_copper"
+      "rate": "metal",
+      "tag": "forge:molten_cobalt"
     }
   ],
   "ingredient": {

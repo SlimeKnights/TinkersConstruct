@@ -189,7 +189,7 @@
     "__traits__": null,
     "cultivated":    "#8e661b",
     "dense":         "#BED3CD",
-    "ductile":       "#959595",
+    "ductile":       "#67718C",
     "enderporting":  "#a92dff",
     "enhanced":      "#F7CDBB",
     "fortified":     "#7E6059",
@@ -316,7 +316,6 @@
 
     "__tier_2__": null,
     "iron":            "#D8D8D8",
-    "iron.wrought":    "#3E4453",
     "iron.oxidized":   "#E9C8B1",
     "copper":          "#E77C56",
     "copper.oxidized": "#4FAB90",
@@ -341,6 +340,7 @@
     "pig_iron":        "#F0A8A4",
     "cobalt":          "#2376dd",
     "darkthread":      "#3B2754",
+    "steel":           "#67718C",
 
     "__tier_4__": null,
     "cinderslime":  "#B80000",
@@ -366,7 +366,6 @@
     "aluminum":   "#CDD5D8",
 
     "__tier_3_integration__": null,
-    "steel":            "#959595",
     "bronze":           "#D58F36",
     "constantan":       "#9C5643",
     "invar":            "#A3B1A8",

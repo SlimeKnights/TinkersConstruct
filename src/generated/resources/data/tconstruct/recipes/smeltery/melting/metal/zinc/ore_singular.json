@@ -27,6 +27,7 @@
         "byproducts": [
           {
             "amount": 180,
+            "rate": "metal",
             "tag": "forge:molten_tin"
           }
         ],
@@ -64,6 +65,7 @@
         "byproducts": [
           {
             "amount": 180,
+            "rate": "metal",
             "tag": "forge:molten_copper"
           }
         ],

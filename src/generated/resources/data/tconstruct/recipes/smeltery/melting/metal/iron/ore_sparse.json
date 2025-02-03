@@ -1,5 +1,12 @@
 {
-  "type": "forge:conditional",
+  "type": "tconstruct:ore_melting",
+  "byproducts": [
+    {
+      "amount": 90,
+      "rate": "metal",
+      "tag": "forge:molten_steel"
+    }
+  ],
   "conditions": [
     {
       "type": "tconstruct:tag_intersection_present",
@@ -10,78 +17,22 @@
       ]
     }
   ],
-  "recipes": [
-    {
-      "conditions": [
-        {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:tag_empty",
-            "tag": "forge:ingots/nickel"
-          }
-        }
-      ],
-      "recipe": {
-        "type": "tconstruct:ore_melting",
-        "byproducts": [
-          {
-            "amount": 90,
-            "tag": "forge:molten_nickel"
-          }
-        ],
-        "ingredient": {
-          "type": "forge:intersection",
-          "children": [
-            {
-              "tag": "forge:ores/iron"
-            },
-            {
-              "tag": "forge:ore_rates/sparse"
-            }
-          ]
-        },
-        "rate": "metal",
-        "result": {
-          "amount": 90,
-          "tag": "forge:molten_iron"
-        },
-        "temperature": 800,
-        "time": 90
+  "ingredient": {
+    "type": "forge:intersection",
+    "children": [
+      {
+        "tag": "forge:ores/iron"
+      },
+      {
+        "tag": "forge:ore_rates/sparse"
       }
-    },
-    {
-      "conditions": [
-        {
-          "type": "forge:true"
-        }
-      ],
-      "recipe": {
-        "type": "tconstruct:ore_melting",
-        "byproducts": [
-          {
-            "amount": 90,
-            "tag": "forge:molten_copper"
-          }
-        ],
-        "ingredient": {
-          "type": "forge:intersection",
-          "children": [
-            {
-              "tag": "forge:ores/iron"
-            },
-            {
-              "tag": "forge:ore_rates/sparse"
-            }
-          ]
-        },
-        "rate": "metal",
-        "result": {
-          "amount": 90,
-          "tag": "forge:molten_iron"
-        },
-        "temperature": 800,
-        "time": 90
-      }
-    }
-  ]
+    ]
+  },
+  "rate": "metal",
+  "result": {
+    "amount": 90,
+    "tag": "forge:molten_iron"
+  },
+  "temperature": 800,
+  "time": 90
 }

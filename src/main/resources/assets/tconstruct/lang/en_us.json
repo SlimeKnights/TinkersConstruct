@@ -110,6 +110,10 @@
   "item.tconstruct.cobalt_ingot": "Cobalt Ingot",
   "item.tconstruct.cobalt_nugget": "Cobalt Nugget",
 
+  "block.tconstruct.steel_block": "Block of Steel",
+  "item.tconstruct.steel_ingot": "Steel Ingot",
+  "item.tconstruct.steel_nugget": "Steel Nugget",
+
 
   "__comment": "Tier 3 Metals",
 
@@ -1758,7 +1762,7 @@
 
   "material.tconstruct.tungsten": "Tungsten",
   "material.tconstruct.tungsten.flavor": "Have you considered starting a heavy metal band?",
-  "material.tconstruct.tungsten.encyclopedia": "Grants +10% mining speed and -10% movement speed per level",
+  "material.tconstruct.tungsten.encyclopedia": "Grants +15% mining speed and -10% movement speed per level",
   "material.tconstruct.tungsten.ranged": "Grants +15% draw speed and -10% movement speed per level",
   "material.tconstruct.tungsten.armor": "Grants +2 toughness and -10% movement speed per level",
 
@@ -1769,9 +1773,9 @@
 
   "material.tconstruct.lead": "Lead",
   "material.tconstruct.lead.flavor": "Could try and make a sandwich out of this.",
-  "material.tconstruct.lead.encyclopedia": "Grants +10% attack and -10% movement speed per level",
+  "material.tconstruct.lead.encyclopedia": "Grants +15% attack and -10% movement speed per level",
   "material.tconstruct.lead.ranged": "Grants +10% projectile power and -10% movement speed per level",
-  "material.tconstruct.lead.armor": "Grants +10% knockback resistance and -10% movement speed per level",
+  "material.tconstruct.lead.armor": "Grants +15% knockback resistance and -10% movement speed per level",
 
   "material.tconstruct.silver": "Silver",
   "material.tconstruct.silver.flavor": "You know, this tool isn't going to look so shiny in a few days.",
@@ -1788,16 +1792,16 @@
 
   "material.tconstruct.aluminum": "Aluminum",
   "material.tconstruct.aluminum.flavor": "Found most commonly in ashmounds.",
-  "material.tconstruct.aluminum.ranged": "Grants +7% drawspeed and accuracy",
+  "material.tconstruct.aluminum.ranged": "Grants +7% drawspeed and accuracy at the cost of 5% loss of protection",
   "material.tconstruct.aluminum.armor": "Grants +5% use item speed at the cost of 5% loss of protection",
 
 
   "__comment": "Tier 3 Integration Materials",
   "material.tconstruct.steel": "Steel",
   "material.tconstruct.steel.flavor": "Basically 90% of material science",
-  "material.tconstruct.steel.encyclopedia": "Grants +4% durability, damage, and speed per level",
-  "material.tconstruct.steel.ranged": "Grants +4% durability, +3% velocity, and +3% projectile power per level",
-  "material.tconstruct.steel.armor": "Grants +4% durability and +1 toughness per level",
+  "material.tconstruct.steel.encyclopedia": "Grants +10% durability and melee damage per level",
+  "material.tconstruct.steel.ranged": "Grants +10% durability and +5% projectile power per level",
+  "material.tconstruct.steel.armor": "Grants +10% durability and +1 toughness per level",
 
   "material.tconstruct.bronze": "Bronze",
   "material.tconstruct.bronze.flavor": "Not to be confused with amethyst bronze.",

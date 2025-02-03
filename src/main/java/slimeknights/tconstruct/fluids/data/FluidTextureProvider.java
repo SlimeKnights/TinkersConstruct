@@ -58,6 +58,7 @@ public class FluidTextureProvider extends AbstractFluidTextureProvider {
     ore(TinkerFluids.moltenIron);
     ore(TinkerFluids.moltenGold);
     ore(TinkerFluids.moltenCobalt);
+    ore(TinkerFluids.moltenSteel);
 
     // alloy - overworld
     alloy(TinkerFluids.moltenSlimesteel);
@@ -92,7 +93,6 @@ public class FluidTextureProvider extends AbstractFluidTextureProvider {
     compatAlloy(TinkerFluids.moltenElectrum);
     compatAlloy(TinkerFluids.moltenInvar);
     compatAlloy(TinkerFluids.moltenPewter);
-    compatAlloy(TinkerFluids.moltenSteel);
     // thermal
     compatAlloy(TinkerFluids.moltenEnderium);
     compatAlloy(TinkerFluids.moltenLumium);

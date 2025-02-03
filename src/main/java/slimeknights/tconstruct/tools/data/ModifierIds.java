@@ -124,7 +124,6 @@ public class ModifierIds {
   public static final ModifierId enderclearance = id("enderclearance");
   // traits - tier 2
   public static final ModifierId overgrowth = id("overgrowth");
-  public static final ModifierId sturdy = id("sturdy");
   public static final ModifierId searing = id("searing");
   public static final ModifierId scorching = id("scorching");
   public static final ModifierId antitoxin = id("antitoxin");

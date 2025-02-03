@@ -2,8 +2,9 @@
   "type": "tconstruct:ore_melting",
   "byproducts": [
     {
-      "amount": 180,
-      "tag": "forge:molten_iron"
+      "amount": 50,
+      "fluid": "tconstruct:molten_diamond",
+      "rate": "gem"
     }
   ],
   "conditions": [

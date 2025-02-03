@@ -1,5 +1,12 @@
 {
-  "type": "forge:conditional",
+  "type": "tconstruct:ore_melting",
+  "byproducts": [
+    {
+      "amount": 360,
+      "rate": "metal",
+      "tag": "forge:molten_steel"
+    }
+  ],
   "conditions": [
     {
       "type": "forge:not",
@@ -9,62 +16,14 @@
       }
     }
   ],
-  "recipes": [
-    {
-      "conditions": [
-        {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:tag_empty",
-            "tag": "forge:ingots/nickel"
-          }
-        }
-      ],
-      "recipe": {
-        "type": "tconstruct:ore_melting",
-        "byproducts": [
-          {
-            "amount": 360,
-            "tag": "forge:molten_nickel"
-          }
-        ],
-        "ingredient": {
-          "tag": "forge:geore_clusters/iron"
-        },
-        "rate": "metal",
-        "result": {
-          "amount": 360,
-          "tag": "forge:molten_iron"
-        },
-        "temperature": 800,
-        "time": 150
-      }
-    },
-    {
-      "conditions": [
-        {
-          "type": "forge:true"
-        }
-      ],
-      "recipe": {
-        "type": "tconstruct:ore_melting",
-        "byproducts": [
-          {
-            "amount": 360,
-            "tag": "forge:molten_copper"
-          }
-        ],
-        "ingredient": {
-          "tag": "forge:geore_clusters/iron"
-        },
-        "rate": "metal",
-        "result": {
-          "amount": 360,
-          "tag": "forge:molten_iron"
-        },
-        "temperature": 800,
-        "time": 150
-      }
-    }
-  ]
+  "ingredient": {
+    "tag": "forge:geore_clusters/iron"
+  },
+  "rate": "metal",
+  "result": {
+    "amount": 360,
+    "tag": "forge:molten_iron"
+  },
+  "temperature": 800,
+  "time": 150
 }

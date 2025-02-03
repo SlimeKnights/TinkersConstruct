@@ -43,6 +43,7 @@ public final class MaterialIds {
   public static final MaterialId roseGold = id("rose_gold");
   // tier 3 (nether)
   public static final MaterialId cobalt = id("cobalt");
+  public static final MaterialId steel = id("steel");
   // tier 3 - bindings
   public static final MaterialId darkthread = id("darkthread");
   // tier 4
@@ -66,7 +67,6 @@ public final class MaterialIds {
   public static final MaterialId lead = id("lead");
   public static final MaterialId aluminum = id("aluminum");
   // tier 3 (mod integration)
-  public static final MaterialId steel = id("steel");
   public static final MaterialId bronze = id("bronze");
   public static final MaterialId constantan = id("constantan");
   public static final MaterialId invar = id("invar");
@@ -96,7 +96,7 @@ public final class MaterialIds {
   /** List of custom trim materials we support */
   public static final MaterialId[] TRIM_MATERIALS = {
     slimesteel, amethystBronze, pigIron, roseGold,
-    cobalt, manyullyn, hepatizon, cinderslime, queensSlime,
+    steel, cobalt, manyullyn, hepatizon, cinderslime, queensSlime,
     earthslime, skyslime, ichor, enderslime
   };
 
@@ -135,7 +135,6 @@ public final class MaterialIds {
   public static final MaterialVariantId bloodshroom        = create(slimewood, "bloodshroom");
   public static final MaterialVariantId enderbark          = create(slimewood, "enderbark");
   // oxidized
-  public static final MaterialVariantId wroughtIron = create(iron, "wrought");
   public static final MaterialVariantId oxidizedIron = create(iron, "oxidized");
   public static final MaterialVariantId oxidizedCopper = create(copper, "oxidized");
 

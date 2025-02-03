@@ -50,7 +50,6 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
 
     // tier 2
     buildRenderInfo(MaterialIds.iron).color(0xD8D8D8).fallbacks("metal");
-    buildRenderInfo(MaterialIds.wroughtIron).color(0x3E4453).fallbacks("metal");
     buildRenderInfo(MaterialIds.oxidizedIron).color(0xE9C8B1).fallbacks("metal");
     buildRenderInfo(MaterialIds.copper).color(0xE77C56).fallbacks("metal");
     buildRenderInfo(MaterialIds.oxidizedCopper).color(0x4FAB90).fallbacks("metal");
@@ -76,6 +75,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.pigIron).color(0xF0A8A4).fallbacks("metal");
     buildRenderInfo(MaterialIds.roseGold).color(0xF7CDBB).fallbacks("metal");
     buildRenderInfo(MaterialIds.cobalt).color(0x2376dd).fallbacks("metal");
+    buildRenderInfo(MaterialIds.steel).color(0x959595).fallbacks("metal");
     buildRenderInfo(MaterialIds.darkthread);
 
     // tier 4
@@ -102,7 +102,6 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.aluminum);
 
     // tier 3 compat
-    buildRenderInfo(MaterialIds.steel).color(0x959595).fallbacks("metal");
     buildRenderInfo(MaterialIds.bronze).color(0xD49765).fallbacks("metal");
     buildRenderInfo(MaterialIds.constantan).color(0xFF8B70).fallbacks("metal");
     buildRenderInfo(MaterialIds.invar).color(0xCADBD0).fallbacks("metal");

@@ -31,7 +31,8 @@
         "tconstruct_queens_slime": "tconstruct:trims/color_palettes/queens_slime",
         "tconstruct_rose_gold": "tconstruct:trims/color_palettes/rose_gold",
         "tconstruct_skyslime": "tconstruct:trims/color_palettes/skyslime",
-        "tconstruct_slimesteel": "tconstruct:trims/color_palettes/slimesteel"
+        "tconstruct_slimesteel": "tconstruct:trims/color_palettes/slimesteel",
+        "tconstruct_steel": "tconstruct:trims/color_palettes/steel"
       },
       "textures": [
         "minecraft:trims/items/helmet_trim",

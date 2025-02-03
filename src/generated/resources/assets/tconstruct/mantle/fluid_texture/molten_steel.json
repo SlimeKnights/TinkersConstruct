@@ -1,5 +1,5 @@
 {
   "color": "FFFFFFFF",
-  "flowing": "tconstruct:fluid/molten/compat_alloy/steel/flowing",
-  "still": "tconstruct:fluid/molten/compat_alloy/steel/still"
+  "flowing": "tconstruct:fluid/molten/ore/steel/flowing",
+  "still": "tconstruct:fluid/molten/ore/steel/still"
 }

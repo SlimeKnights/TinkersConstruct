@@ -349,7 +349,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(MobEffectModule.builder(TinkerModifiers.pierceEffect.get()).level(RandomLevelingValue.perLevel(0, 1)).time(RandomLevelingValue.flat(2)).build(), ModifierHooks.PROJECTILE_HIT);
 
     // ranged
-    buildModifier(ModifierIds.power).addModule(StatBoostModule.add(ToolStats.PROJECTILE_DAMAGE).eachLevel(0.5f));
+    buildModifier(ModifierIds.power).addModule(StatBoostModule.add(ToolStats.PROJECTILE_DAMAGE).amount(0.5f, 0.5f));
     buildModifier(ModifierIds.quickCharge).addModule(StatBoostModule.multiplyBase(ToolStats.DRAW_SPEED).eachLevel(0.25f));
     buildModifier(ModifierIds.trueshot).addModule(StatBoostModule.add(ToolStats.ACCURACY).eachLevel(0.1f));
     buildModifier(ModifierIds.blindshot).addModule(StatBoostModule.add(ToolStats.ACCURACY).eachLevel(-0.1f));
@@ -495,7 +495,6 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.enderclearance).addModule(EnderclearanceModule.INSTANCE).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL);
     // traits - tier 2
     buildModifier(ModifierIds.overgrowth).addModule(new OvergrowthModule(LevelingValue.eachLevel(0.05f)));
-    buildModifier(ModifierIds.sturdy).addModule(StatBoostModule.multiplyBase(ToolStats.DURABILITY).eachLevel(0.15f));
     buildModifier(ModifierIds.searing).addModule(ConditionalMiningSpeedModule.builder().blocks(TinkerPredicate.CAN_MELT_BLOCK).eachLevel(6f));
     buildModifier(ModifierIds.scorching).addModule(ConditionalMeleeDamageModule.builder().target(LivingEntityPredicate.ON_FIRE).eachLevel(2f));
     buildModifier(ModifierIds.airborne)
@@ -554,14 +553,14 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     // traits - tier 2 compat
     buildModifier(ModifierIds.lustrous);
     buildModifier(ModifierIds.sharpweight)
-      .addModule(StatBoostModule.multiplyBase(ToolStats.MINING_SPEED).eachLevel(0.1f))
-      .addModule(StatBoostModule.multiplyBase(ToolStats.DRAW_SPEED).eachLevel(0.15f))
+      .addModule(StatBoostModule.multiplyBase(ToolStats.MINING_SPEED).eachLevel(0.15f))
+      .addModule(StatBoostModule.multiplyBase(ToolStats.DRAW_SPEED).eachLevel(0.1f))
       .addModule(StatBoostModule.add(ToolStats.ARMOR_TOUGHNESS).eachLevel(2))
       .addModule(AttributeModule.builder(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_BASE).uniqueFrom(ModifierIds.sharpweight).eachLevel(-0.1f));
     buildModifier(ModifierIds.heavy)
-      .addModule(StatBoostModule.multiplyBase(ToolStats.ATTACK_DAMAGE).eachLevel(0.1f))
-      .addModule(StatBoostModule.multiplyBase(ToolStats.PROJECTILE_DAMAGE).eachLevel(0.1f))
-      .addModule(StatBoostModule.add(ToolStats.KNOCKBACK_RESISTANCE).eachLevel(0.1f))
+      .addModule(StatBoostModule.multiplyBase(ToolStats.ATTACK_DAMAGE).eachLevel(0.15f))
+      .addModule(StatBoostModule.multiplyBase(ToolStats.PROJECTILE_DAMAGE).eachLevel(0.10f))
+      .addModule(StatBoostModule.add(ToolStats.KNOCKBACK_RESISTANCE).eachLevel(0.15f))
       .addModule(AttributeModule.builder(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_BASE).uniqueFrom(ModifierIds.heavy).eachLevel(-0.1f));
     buildModifier(ModifierIds.featherweight)
       .addModule(StatBoostModule.multiplyBase(ToolStats.DRAW_SPEED).eachLevel(0.07f))
@@ -607,14 +606,12 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(StatBoostModule.multiplyBase(ToolStats.MINING_SPEED).eachLevel(0.07f))
       .addModule(StatBoostModule.multiplyBase(ToolStats.DRAW_SPEED).eachLevel(0.03f))
       .addModule(StatBoostModule.multiplyBase(ToolStats.VELOCITY).eachLevel(0.03f));
-    // traits - tier 3 compat
     buildModifier(ModifierIds.ductile)
-      .addModule(StatBoostModule.multiplyBase(ToolStats.DURABILITY).eachLevel(0.04f))
-      .addModule(StatBoostModule.multiplyBase(ToolStats.ATTACK_DAMAGE).eachLevel(0.04f))
-      .addModule(StatBoostModule.multiplyBase(ToolStats.MINING_SPEED).eachLevel(0.04f))
-      .addModule(StatBoostModule.multiplyBase(ToolStats.VELOCITY).eachLevel(0.03f))
-      .addModule(StatBoostModule.multiplyBase(ToolStats.PROJECTILE_DAMAGE).eachLevel(0.03f))
+      .addModule(StatBoostModule.multiplyBase(ToolStats.DURABILITY).eachLevel(0.1f))
+      .addModule(StatBoostModule.multiplyBase(ToolStats.ATTACK_DAMAGE).eachLevel(0.1f))
+      .addModule(StatBoostModule.multiplyBase(ToolStats.PROJECTILE_DAMAGE).eachLevel(0.05f))
       .addModule(StatBoostModule.add(ToolStats.ARMOR_TOUGHNESS).eachLevel(1));
+    // traits - tier 3 compat
     buildModifier(ModifierIds.maintained)
       .addModule(ConditionalMiningSpeedModule.builder()
         .customVariable("durability", ToolVariable.CURRENT_DURABILITY)
@@ -678,6 +675,9 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.piglinDisguise         ).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new MobDisguiseModule(EntityType.PIGLIN));
     buildModifier(ModifierIds.piglinBruteDisguise    ).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new MobDisguiseModule(EntityType.PIGLIN_BRUTE));
     buildModifier(ModifierIds.zombifiedPiglinDisguise).levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL).addModule(new MobDisguiseModule(EntityType.ZOMBIFIED_PIGLIN));
+
+    // iron now gives magnetic. Steel is also just has better than irons old trait
+    addRedirect(id("sturdy"), redirect(ModifierIds.ductile));
   }
 
   @Override

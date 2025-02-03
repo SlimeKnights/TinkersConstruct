@@ -26,6 +26,7 @@ import slimeknights.tconstruct.shared.block.SlimesteelBlock;
 public final class TinkerMaterials extends TinkerModule {
   // ores
   public static final MetalItemObject cobalt = BLOCKS.registerMetal("cobalt", metalBuilder(MapColor.COLOR_BLUE), TOOLTIP_BLOCK_ITEM, ITEM_PROPS);
+  public static final MetalItemObject steel = BLOCKS.registerMetal("steel", metalBuilder(MapColor.STONE), TOOLTIP_BLOCK_ITEM, ITEM_PROPS);
   // tier 3
   public static final MetalItemObject slimesteel     = BLOCKS.registerMetal("slimesteel", () -> new SlimesteelBlock(metalBuilder(MapColor.WARPED_WART_BLOCK).noOcclusion()), TOOLTIP_BLOCK_ITEM, ITEM_PROPS);
   public static final MetalItemObject amethystBronze = BLOCKS.registerMetal("amethyst_bronze", metalBuilder(MapColor.COLOR_PURPLE), TOOLTIP_BLOCK_ITEM, ITEM_PROPS);
@@ -74,6 +75,7 @@ public final class TinkerMaterials extends TinkerModule {
     // natural ores
     output.accept(copperNugget);
     accept(output, cobalt);
+    accept(output, steel);
     output.accept(debrisNugget);
     // mod alloys
     accept(output, slimesteel);

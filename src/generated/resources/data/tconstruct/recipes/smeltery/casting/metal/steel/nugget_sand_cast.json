@@ -4,15 +4,6 @@
     "tag": "tconstruct:casts/single_use/nugget"
   },
   "cast_consumed": true,
-  "conditions": [
-    {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:nuggets/steel"
-      }
-    }
-  ],
   "cooling_time": 22,
   "fluid": {
     "amount": 10,

@@ -1,14 +1,5 @@
 {
   "type": "tconstruct:melting",
-  "conditions": [
-    {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:storage_blocks/steel"
-      }
-    }
-  ],
   "ingredient": {
     "tag": "forge:storage_blocks/steel"
   },

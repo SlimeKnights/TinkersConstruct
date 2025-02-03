@@ -9,21 +9,25 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeHooks;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.materials.RandomMaterial;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.tools.SlotType;
-import slimeknights.tconstruct.library.tools.nbt.ToolDataNBT;
+import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
+import slimeknights.tconstruct.library.tools.definition.module.material.ToolMaterialHook;
+import slimeknights.tconstruct.library.tools.helper.ToolBuildHandler;
+import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
+import slimeknights.tconstruct.library.tools.nbt.ToolDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
-import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.data.material.MaterialIds;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.List;
@@ -83,22 +87,14 @@ public class SkySlimeEntity extends ArmoredSlimeEntity {
     // vanilla logic but simplified down to just helmets
     float multiplier = difficulty.getSpecialMultiplier();
     if (this.random.nextFloat() < 0.15F * multiplier) {
-      // 2.5% chance of plate
-      boolean isPlate = this.random.nextFloat() < (0.05f * multiplier);
-      // TODO: allow adding more helmet types, unfortunately tags don't let me add chances
-      // TODO: randomize plate materials
-      ItemStack helmet = new ItemStack((isPlate ? TinkerTools.plateArmor : TinkerTools.travelersGear).get(ArmorItem.Type.HELMET));
-
-      // for plate, just init stats
-      ToolStack tool = ToolStack.from(helmet);
-      tool.ensureHasData();
+      // start by randomizing the plate maille, but always use steel plating
+      IModifiable helmetItem = TinkerTools.plateArmor.get(ArmorItem.Type.HELMET);
+      ToolDefinition definition = helmetItem.getToolDefinition();
+      ToolStack tool = ToolStack.createTool(
+        helmetItem.asItem(), definition,
+        RandomMaterial.build(ToolMaterialHook.stats(definition), List.of(RandomMaterial.fixed(MaterialIds.steel), ToolBuildHandler.RANDOM), random));
       ModifierNBT modifiers = tool.getUpgrades();
       ToolDataNBT persistentData = tool.getPersistentData();
-      if (!isPlate) {
-        // travelers dyes a random color
-        persistentData.putInt(TinkerModifiers.dyed.getId(), this.random.nextInt(0xFFFFFF+1));
-        modifiers = modifiers.withModifier(TinkerModifiers.dyed.getId(), 1);
-      }
 
       // add some random defense modifiers
       int max = tool.getFreeSlots(SlotType.DEFENSE);
@@ -119,7 +115,7 @@ public class SkySlimeEntity extends ArmoredSlimeEntity {
       tool.setUpgrades(modifiers);
 
       // finally, give the slime the helmet
-      this.setItemSlot(EquipmentSlot.HEAD, helmet);
+      this.setItemSlot(EquipmentSlot.HEAD, tool.createStack());
     }
   }
 

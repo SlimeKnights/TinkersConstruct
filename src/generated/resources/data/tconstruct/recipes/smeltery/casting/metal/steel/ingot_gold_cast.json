@@ -3,15 +3,6 @@
   "cast": {
     "tag": "tconstruct:casts/multi_use/ingot"
   },
-  "conditions": [
-    {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:ingots/steel"
-      }
-    }
-  ],
   "cooling_time": 65,
   "fluid": {
     "amount": 90,

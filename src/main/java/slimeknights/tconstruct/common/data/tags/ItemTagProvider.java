@@ -136,6 +136,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(TinkerTags.Items.NUGGETS_NETHERITE_SCRAP).add(TinkerMaterials.debrisNugget.get());
 
     // ores
+    addMetalTags(TinkerMaterials.steel);
     addMetalTags(TinkerMaterials.cobalt);
     // tier 3
     addMetalTags(TinkerMaterials.slimesteel);
@@ -181,7 +182,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 
     // beacons are happy to accept any expensive ingots
     this.tag(ItemTags.BEACON_PAYMENT_ITEMS)
-        .addTags(TinkerMaterials.cobalt.getIngotTag(), TinkerMaterials.queensSlime.getIngotTag(),
+        .addTags(TinkerMaterials.steel.getIngotTag(), TinkerMaterials.cobalt.getIngotTag(), TinkerMaterials.queensSlime.getIngotTag(),
                  TinkerMaterials.manyullyn.getIngotTag(), TinkerMaterials.hepatizon.getIngotTag());
 
     this.copy(TinkerTags.Blocks.COPPER_PLATFORMS, TinkerTags.Items.COPPER_PLATFORMS);
@@ -192,7 +193,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     // trim materials
     this.tag(ItemTags.TRIM_MATERIALS).add(
       TinkerMaterials.slimesteel.getIngot(), TinkerMaterials.amethystBronze.getIngot(), TinkerMaterials.pigIron.getIngot(), TinkerMaterials.roseGold.getIngot(),
-      TinkerMaterials.cobalt.getIngot(), TinkerMaterials.manyullyn.getIngot(), TinkerMaterials.hepatizon.getIngot(), TinkerMaterials.cinderslime.getIngot(), TinkerMaterials.queensSlime.getIngot(),
+      TinkerMaterials.steel.getIngot(), TinkerMaterials.cobalt.getIngot(), TinkerMaterials.manyullyn.getIngot(), TinkerMaterials.hepatizon.getIngot(), TinkerMaterials.cinderslime.getIngot(), TinkerMaterials.queensSlime.getIngot(),
       TinkerWorld.earthGeode.asItem(), TinkerWorld.skyGeode.asItem(), TinkerWorld.ichorGeode.asItem(), TinkerWorld.enderGeode.asItem()
     );
   }

@@ -1,6 +1,7 @@
 {
   "values": [
     "#forge:storage_blocks/cobalt",
+    "#forge:storage_blocks/steel",
     "#forge:storage_blocks/slimesteel",
     "#forge:storage_blocks/amethyst_bronze",
     "#forge:storage_blocks/rose_gold",

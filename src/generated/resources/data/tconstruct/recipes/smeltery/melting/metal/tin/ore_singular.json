@@ -1,11 +1,5 @@
 {
-  "type": "tconstruct:ore_melting",
-  "byproducts": [
-    {
-      "amount": 180,
-      "tag": "forge:molten_copper"
-    }
-  ],
+  "type": "forge:conditional",
   "conditions": [
     {
       "type": "tconstruct:tag_difference_present",
@@ -17,25 +11,86 @@
       ]
     }
   ],
-  "ingredient": {
-    "type": "forge:difference",
-    "base": {
-      "tag": "forge:ores/tin"
-    },
-    "subtracted": [
-      {
-        "tag": "forge:ore_rates/sparse"
-      },
-      {
-        "tag": "forge:ore_rates/dense"
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:tag_empty",
+            "tag": "forge:ingots/nickel"
+          }
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "byproducts": [
+          {
+            "amount": 180,
+            "rate": "metal",
+            "tag": "forge:molten_nickel"
+          }
+        ],
+        "ingredient": {
+          "type": "forge:difference",
+          "base": {
+            "tag": "forge:ores/tin"
+          },
+          "subtracted": [
+            {
+              "tag": "forge:ore_rates/sparse"
+            },
+            {
+              "tag": "forge:ore_rates/dense"
+            }
+          ]
+        },
+        "rate": "metal",
+        "result": {
+          "amount": 180,
+          "tag": "forge:molten_tin"
+        },
+        "temperature": 225,
+        "time": 98
       }
-    ]
-  },
-  "rate": "metal",
-  "result": {
-    "amount": 180,
-    "tag": "forge:molten_tin"
-  },
-  "temperature": 225,
-  "time": 98
+    },
+    {
+      "conditions": [
+        {
+          "type": "forge:true"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "byproducts": [
+          {
+            "amount": 180,
+            "rate": "metal",
+            "tag": "forge:molten_copper"
+          }
+        ],
+        "ingredient": {
+          "type": "forge:difference",
+          "base": {
+            "tag": "forge:ores/tin"
+          },
+          "subtracted": [
+            {
+              "tag": "forge:ore_rates/sparse"
+            },
+            {
+              "tag": "forge:ore_rates/dense"
+            }
+          ]
+        },
+        "rate": "metal",
+        "result": {
+          "amount": 180,
+          "tag": "forge:molten_tin"
+        },
+        "temperature": 225,
+        "time": 98
+      }
+    }
+  ]
 }

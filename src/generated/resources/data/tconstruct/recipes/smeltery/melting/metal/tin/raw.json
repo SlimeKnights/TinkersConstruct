@@ -1,11 +1,5 @@
 {
-  "type": "tconstruct:ore_melting",
-  "byproducts": [
-    {
-      "amount": 90,
-      "tag": "forge:molten_copper"
-    }
-  ],
+  "type": "forge:conditional",
   "conditions": [
     {
       "type": "forge:not",
@@ -15,14 +9,64 @@
       }
     }
   ],
-  "ingredient": {
-    "tag": "forge:raw_materials/tin"
-  },
-  "rate": "metal",
-  "result": {
-    "amount": 90,
-    "tag": "forge:molten_tin"
-  },
-  "temperature": 225,
-  "time": 59
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:not",
+          "value": {
+            "type": "forge:tag_empty",
+            "tag": "forge:ingots/nickel"
+          }
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "byproducts": [
+          {
+            "amount": 90,
+            "rate": "metal",
+            "tag": "forge:molten_nickel"
+          }
+        ],
+        "ingredient": {
+          "tag": "forge:raw_materials/tin"
+        },
+        "rate": "metal",
+        "result": {
+          "amount": 90,
+          "tag": "forge:molten_tin"
+        },
+        "temperature": 225,
+        "time": 59
+      }
+    },
+    {
+      "conditions": [
+        {
+          "type": "forge:true"
+        }
+      ],
+      "recipe": {
+        "type": "tconstruct:ore_melting",
+        "byproducts": [
+          {
+            "amount": 90,
+            "rate": "metal",
+            "tag": "forge:molten_copper"
+          }
+        ],
+        "ingredient": {
+          "tag": "forge:raw_materials/tin"
+        },
+        "rate": "metal",
+        "result": {
+          "amount": 90,
+          "tag": "forge:molten_tin"
+        },
+        "temperature": 225,
+        "time": 59
+      }
+    }
+  ]
 }

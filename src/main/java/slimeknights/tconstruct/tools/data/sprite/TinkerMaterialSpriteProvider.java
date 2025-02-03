@@ -124,10 +124,6 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .meleeHarvest().armor()
       .fallbacks("metal").ranged()
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF353535).addARGB(102, 0xFF5E5E5E).addARGB(140, 0xFF828282).addARGB(178, 0xFFA8A8A8).addARGB(216, 0xFFD8D8D8).addARGB(255, 0xFFFFFFFF).build());
-    buildMaterial(MaterialIds.wroughtIron)
-      .meleeHarvest().armor().ranged()
-      .fallbacks("metal").variant()
-      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF1B202D).addARGB(102, 0xFF252C3D).addARGB(140, 0xFF323847).addARGB(178, 0xFF3E4453).addARGB(216, 0xFF495065).addARGB(255, 0xFF545C72).build());
     buildMaterial(MaterialIds.oxidizedIron)
       .meleeHarvest().armor().ranged()
       .fallbacks("metal").variant()
@@ -227,7 +223,8 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
     buildMaterial(MaterialIds.steel)
       .meleeHarvest().ranged().armor()
       .fallbacks("metal")
-      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF222626).addARGB(102, 0xFF393D3D).addARGB(140, 0xFF515454).addARGB(178, 0xFF6A6D6D).addARGB(216, 0xFF898C8C).addARGB(255, 0xFFADAFAF).build());
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF1B202D).addARGB(102, 0xFF252C3D).addARGB(140, 0xFF323847).addARGB(178, 0xFF3E4453).addARGB(216, 0xFF495065).addARGB(255, 0xFF67718C).build());
+//      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF222626).addARGB(102, 0xFF393D3D).addARGB(140, 0xFF515454).addARGB(178, 0xFF6A6D6D).addARGB(216, 0xFF898C8C).addARGB(255, 0xFFADAFAF).build());
     buildMaterial(MaterialIds.bronze)
       .meleeHarvest().ranged().armor()
       .fallbacks("metal")
@@ -265,9 +262,9 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .colorMapper(obsidianPalette);
 
     // tier 4
-    ResourceLocation baseTexture = getResource("item/materials/generator/queens_slime");
-    ResourceLocation highlightTexture = getResource("item/materials/generator/queens_slime_highlight");
-    ResourceLocation borderTexture = getResource("item/materials/generator/queens_slime_border");
+    ResourceLocation baseTexture = getResource("generator/queens_slime");
+    ResourceLocation highlightTexture = getResource("generator/queens_slime_highlight");
+    ResourceLocation borderTexture = getResource("generator/queens_slime_border");
     buildMaterial(MaterialIds.queensSlime)
       .meleeHarvest().ranged().armor()
       .fallbacks("slime_metal", "metal")

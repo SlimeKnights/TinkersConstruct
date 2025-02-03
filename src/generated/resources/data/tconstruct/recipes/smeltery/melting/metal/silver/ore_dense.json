@@ -26,6 +26,7 @@
         "byproducts": [
           {
             "amount": 540,
+            "rate": "metal",
             "tag": "forge:molten_lead"
           }
         ],
@@ -60,6 +61,7 @@
         "byproducts": [
           {
             "amount": 540,
+            "rate": "metal",
             "tag": "forge:molten_gold"
           }
         ],

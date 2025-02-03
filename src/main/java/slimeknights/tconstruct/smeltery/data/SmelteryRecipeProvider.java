@@ -378,7 +378,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                        .pattern("# #")
                        .pattern("C C")
                        .pattern("# #")
-                       .unlockedBy("has_item", has(TinkerMaterials.cobalt.getIngotTag()))
+                       .unlockedBy("has_item", has(Tags.Items.INGOTS_GOLD))
                        .save(consumer, location(folder + "duct"));
     ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TinkerSmeltery.searedDuct)
@@ -444,7 +444,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // button is the closest we have to a single stone brick, just go with it, better than not having the recipe
     ItemCastingRecipeBuilder.tableRecipe(TinkerSmeltery.searedBrick)
                             .setFluidAndTime(TinkerFluids.moltenClay, FluidValues.BRICK / 2)
-                            .setCast(Items.STONE_BUTTON, true)
+                            .setCast(Items.FLINT, true) // if gravel works, flint makes sense to use
                             .save(consumer, location(castingFolder + "brick_composite"));
     // cobble
     searedCasting(consumer, TinkerSmeltery.searedCobble, CompoundIngredient.of(Ingredient.of(Tags.Items.COBBLESTONE), Ingredient.of(Blocks.GRAVEL)), castingFolder + "cobble/block");
@@ -774,7 +774,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                        .pattern("# #")
                        .pattern("C C")
                        .pattern("# #")
-                       .unlockedBy("has_item", has(TinkerMaterials.cobalt.getIngotTag()))
+                       .unlockedBy("has_item", has(Tags.Items.INGOTS_GOLD))
                        .save(consumer, location(folder + "duct"));
     ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TinkerSmeltery.scorchedDuct)
@@ -1274,9 +1274,8 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // ores
     String metalFolder = folder + "metal/";
     MeltingRecipeBuilder.melting(Ingredient.of(Tags.Items.ORES_NETHERITE_SCRAP), TinkerFluids.moltenDebris, FluidValues.INGOT, 2.0f)
-                        .setOre(OreRateType.METAL, OreRateType.GEM, OreRateType.METAL)
-                        .addByproduct(TinkerFluids.moltenDiamond.result(FluidValues.GEM))
-                        .addByproduct(TinkerFluids.moltenGold.result(FluidValues.INGOT * 3))
+                        .setOre(OreRateType.METAL)
+                        .addByproduct(TinkerFluids.moltenNetherite.result(FluidValues.NUGGET * 3))
                         .save(consumer, location(metalFolder + "molten_debris/ore"));
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerTags.Items.INGOTS_NETHERITE_SCRAP), TinkerFluids.moltenDebris, FluidValues.INGOT, 1.0f)
                         .save(consumer, location(metalFolder + "molten_debris/scrap"));
@@ -1466,6 +1465,27 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // unique melting
     MeltingRecipeBuilder.melting(Ingredient.of(Items.IRON_HORSE_ARMOR), TinkerFluids.moltenIron, FluidValues.INGOT * 7)
                         .save(consumer, location(metalFolder + "iron/horse_armor"));
+    // chainmail armor to steel
+    // working off the assumption that some mods out there decided to craft chainmail for an ingots worth of material at minimum, possibly a bit more if they used chains (which is nonsensical)
+    final int chainIron = FluidValues.NUGGET * 6;
+    final int chainSteel = FluidValues.NUGGET * 3;
+    MeltingRecipeBuilder.melting(Ingredient.of(Items.CHAINMAIL_HELMET), TinkerFluids.moltenIron, chainIron * 5)
+                        .addByproduct(TinkerFluids.moltenSteel.result(chainSteel * 5))
+                        .setDamagable(FluidValues.NUGGET)
+                        .save(consumer, location(metalFolder + "iron/chain_helmet"));
+    MeltingRecipeBuilder.melting(Ingredient.of(Items.CHAINMAIL_CHESTPLATE), TinkerFluids.moltenIron, chainIron * 8)
+                        .addByproduct(TinkerFluids.moltenSteel.result(chainSteel * 8))
+                        .setDamagable(FluidValues.NUGGET)
+                        .save(consumer, location(metalFolder + "iron/chain_chestplate"));
+    MeltingRecipeBuilder.melting(Ingredient.of(Items.CHAINMAIL_LEGGINGS), TinkerFluids.moltenIron, chainIron * 7)
+                        .addByproduct(TinkerFluids.moltenSteel.result(chainSteel * 7))
+                        .setDamagable(FluidValues.NUGGET)
+                        .save(consumer, location(metalFolder + "iron/chain_leggings"));
+    MeltingRecipeBuilder.melting(Ingredient.of(Items.CHAINMAIL_BOOTS), TinkerFluids.moltenIron, chainIron * 4)
+                        .addByproduct(TinkerFluids.moltenSteel.result(chainSteel * 4))
+                        .setDamagable(FluidValues.NUGGET)
+                        .save(consumer, location(metalFolder + "iron/chain_boots"));
+
 
 
     // gold melting
@@ -1515,7 +1535,14 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .save(consumer, location(metalFolder + "gold/horse_armor"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.ENCHANTED_GOLDEN_APPLE), TinkerFluids.moltenGold, FluidValues.METAL_BLOCK * 8)
                         .save(consumer, location(metalFolder + "gold/enchanted_apple"));
-    MeltingRecipeBuilder.melting(Ingredient.of(Blocks.GILDED_BLACKSTONE), TinkerFluids.moltenGold, FluidValues.NUGGET * 6) // bit better than mining before ore bonus
+    // we directly add the recipe for nether gold ore instead of doing a sparse gold ore as we want to change the byproduct
+    // if you add a sparse non-nether gold ore and need it meltable, let us know and we can add support
+    MeltingRecipeBuilder.melting(Ingredient.of(Blocks.NETHER_GOLD_ORE), TinkerFluids.moltenGold, FluidValues.INGOT)
+                        .addByproduct(TinkerFluids.moltenCopper.result(FluidValues.INGOT))
+                        .setOre(OreRateType.METAL)
+                        .save(consumer, location(metalFolder + "gold/nether_gold_ore"));
+    MeltingRecipeBuilder.melting(Ingredient.of(Blocks.GILDED_BLACKSTONE), TinkerFluids.moltenGold, FluidValues.NUGGET * 3) // bit below average, ore rate will bring you bit above average
+                        .addByproduct(TinkerFluids.moltenCopper.result(FluidValues.INGOT))
                         .setOre(OreRateType.METAL)
                         .save(consumer, location(metalFolder + "gold/gilded_blackstone"));
     MeltingRecipeBuilder.melting(Ingredient.of(Blocks.BELL), TinkerFluids.moltenGold, FluidValues.INGOT * 4) // bit arbitrary, I am happy to change the value if someone has a better one
@@ -2028,14 +2055,16 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
   private void addTagRecipes(Consumer<FinishedRecipe> consumer) {
     // vanilla tools and armors are handled elsewhere, lets us combine some recipes since they are not optional
     // metal ores
-    metal(consumer, TinkerFluids.moltenCopper).byproducts(Byproduct.SMALL_GOLD              ).metal().dust().plate().gear().coin().sheetmetal().geore().paxel().tools().armor().wire();
-    metal(consumer, TinkerFluids.moltenIron  ).byproducts(Byproduct.NICKEL, Byproduct.COPPER).metal().dust().plate().gear().coin().sheetmetal().geore().paxel().rod();
-    metal(consumer, TinkerFluids.moltenGold  ).byproducts(Byproduct.COPPER                  ).metal().dust().plate().gear().coin().sheetmetal().geore().paxel();
-    metal(consumer, TinkerFluids.moltenCobalt).byproducts(Byproduct.IRON                    ).metal().dust();
+    metal(consumer, TinkerFluids.moltenCopper).byproducts(Byproduct.SMALL_GOLD   ).metal().dust().plate().gear().coin().sheetmetal().geore().paxel().tools().armor().wire();
+    metal(consumer, TinkerFluids.moltenIron  ).byproducts(Byproduct.STEEL        ).metal().dust().plate().gear().coin().sheetmetal().geore().paxel().rod();
+    metal(consumer, TinkerFluids.moltenCobalt).byproducts(Byproduct.SMALL_DIAMOND).metal().dust();
+    metal(consumer, TinkerFluids.moltenSteel )                                 .metal().dust().plate().gear().coin().sheetmetal()        .paxel().tools().armor().wire().rod();
+    // gold ore does non-standard byproduct handling, as it wants sparse gold ore to have a different byproduct, hence setting hasOre to false and manually adding them
+    metal(consumer, TinkerFluids.moltenGold  ).byproducts(Byproduct.COBALT).hasOre(false).metal().rawOre().singularOre(2).denseOre(6).dust().plate().gear().coin().sheetmetal().geore().paxel();
     // gem ores
-    molten(consumer, TinkerFluids.moltenDiamond).byproducts(Byproduct.QUARTZ ).largeGem().dust().gear().geore().paxel();
+    molten(consumer, TinkerFluids.moltenDiamond).byproducts(Byproduct.DEBRIS ).largeGem().dust().gear().geore().paxel();
     molten(consumer, TinkerFluids.moltenEmerald).byproducts(Byproduct.DIAMOND).largeGem().dust().gear().geore().armor().tools();
-    molten(consumer, TinkerFluids.moltenQuartz).byproducts(Byproduct.AMETHYST).smallGem().dust().gear().geore();
+    molten(consumer, TinkerFluids.moltenQuartz ).byproducts(Byproduct.IRON   ).smallGem().dust().gear().geore();
     molten(consumer, TinkerFluids.moltenAmethyst).smallGem();
 
     // standard alloys
@@ -2052,7 +2081,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     metal(consumer, TinkerFluids.moltenQueensSlime).metal();
 
     // compat ores
-    metal(consumer, TinkerFluids.moltenTin     ).byproducts(Byproduct.COPPER                  ).optional().metal().dust().plate().gear().coin().armor().tools();
+    metal(consumer, TinkerFluids.moltenTin     ).byproducts(Byproduct.NICKEL, Byproduct.COPPER).optional().metal().dust().plate().gear().coin().armor().tools();
     metal(consumer, TinkerFluids.moltenAluminum).byproducts(Byproduct.IRON                    ).optional().metal().dust().plate().gear().coin()                .sheetmetal().wire().rod();
     metal(consumer, TinkerFluids.moltenLead    ).byproducts(Byproduct.SILVER, Byproduct.GOLD  ).optional().metal().dust().plate().gear().coin().armor().tools().sheetmetal().wire();
     metal(consumer, TinkerFluids.moltenSilver  ).byproducts(Byproduct.LEAD, Byproduct.GOLD    ).optional().metal().dust().plate().gear().coin().armor().tools().sheetmetal();
@@ -2069,7 +2098,6 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     metal(consumer, TinkerFluids.moltenInvar     ).optional().metal().dust().plate().gear().coin().armor().tools();
     metal(consumer, TinkerFluids.moltenConstantan).optional().metal().dust().plate().gear().coin().armor().tools().sheetmetal();
     metal(consumer, TinkerFluids.moltenPewter    ).optional().metal().dust();
-    metal(consumer, TinkerFluids.moltenSteel     ).optional().metal().dust().plate().gear().coin().armor().tools().sheetmetal().wire().rod().paxel();
     // specialty alloys
     metal(consumer, TinkerFluids.moltenEnderium).optional().metal().dust().plate().gear().coin();
     metal(consumer, TinkerFluids.moltenLumium  ).optional().metal().dust().plate().gear().coin();

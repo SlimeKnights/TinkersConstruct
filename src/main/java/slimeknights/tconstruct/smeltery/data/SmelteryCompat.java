@@ -30,7 +30,6 @@ public enum SmelteryCompat {
   INVAR     (TinkerFluids.moltenInvar, "nickel"),
   CONSTANTAN(TinkerFluids.moltenConstantan, "nickel"),
   PEWTER    (TinkerFluids.moltenPewter, false),
-  STEEL     (TinkerFluids.moltenSteel, false),
   // thermal alloys
   ENDERIUM(TinkerFluids.moltenEnderium, false),
   LUMIUM  (TinkerFluids.moltenLumium, false),

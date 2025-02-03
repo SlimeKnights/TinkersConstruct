@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:ore_melting",
+  "byproducts": [
+    {
+      "amount": 90,
+      "tag": "forge:molten_copper"
+    }
+  ],
+  "ingredient": {
+    "item": "minecraft:nether_gold_ore"
+  },
+  "rate": "metal",
+  "result": {
+    "amount": 90,
+    "tag": "forge:molten_gold"
+  },
+  "temperature": 700,
+  "time": 57
+}

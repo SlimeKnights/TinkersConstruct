@@ -1,14 +1,5 @@
 {
   "type": "tconstruct:material_melting",
-  "conditions": [
-    {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:ingots/steel"
-      }
-    }
-  ],
   "input": "tconstruct:steel",
   "result": {
     "amount": 90,

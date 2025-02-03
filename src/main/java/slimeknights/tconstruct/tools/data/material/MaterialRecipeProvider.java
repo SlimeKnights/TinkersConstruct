@@ -129,6 +129,7 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     // tier 2 (nether)
     // tier 3 (nether)
     metalMaterialRecipe(consumer, MaterialIds.cobalt, folder, "cobalt", false);
+    metalMaterialRecipe(consumer, MaterialIds.steel,  folder, "steel",  false);
     // tier 4
     metalMaterialRecipe(consumer, MaterialIds.cinderslime, folder, "cinderslime", false);
     metalMaterialRecipe(consumer, MaterialIds.queensSlime, folder, "queens_slime", false);
@@ -149,7 +150,6 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     metalMaterialRecipe(consumer, MaterialIds.lead, folder, "lead", true);
     // no whitestone, use repair kits
     // tier 3 (mod integration)
-    metalMaterialRecipe(consumer, MaterialIds.steel, folder, "steel", true);
     metalMaterialRecipe(consumer, MaterialIds.bronze, folder, "bronze", true);
     metalMaterialRecipe(consumer, MaterialIds.constantan, folder, "constantan", true);
     metalMaterialRecipe(consumer, MaterialIds.invar, folder, "invar", true);
@@ -184,8 +184,6 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialComposite(consumer, MaterialIds.wood, MaterialIds.slimewoodComposite, TinkerFluids.earthSlime, FluidValues.SLIMEBALL, folder);
     materialComposite(consumer, MaterialIds.flint, MaterialIds.scorchedStone,     TinkerFluids.magma,      FluidValues.SLIMEBALL, folder);
     materialComposite(consumer, MaterialIds.bone, MaterialIds.venombone,          TinkerFluids.venom,      FluidValues.SLIMEBALL, folder);
-    // decorative iron variant based on chain
-    materialComposite(consumer, MaterialIds.iron, MaterialIds.wroughtIron, TinkerFluids.moltenGlass, FluidValues.GLASS_PANE, folder);
     // oxidize copper and iron via water, it does not rust iron because magic
     MaterialFluidRecipeBuilder.material(MaterialIds.oxidizedIron)
                               .setInputId(MaterialIds.iron)
@@ -204,6 +202,7 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialMeltingCasting(consumer, MaterialIds.roseGold,       TinkerFluids.moltenRoseGold, folder);
     materialMeltingCasting(consumer, MaterialIds.pigIron,        TinkerFluids.moltenPigIron, folder);
     materialMeltingCasting(consumer, MaterialIds.cobalt,         TinkerFluids.moltenCobalt, folder);
+    materialMeltingCasting(consumer, MaterialIds.steel,          TinkerFluids.moltenSteel, folder);
     materialMeltingCasting(consumer, MaterialIds.obsidian,       TinkerFluids.moltenObsidian, FluidValues.GLASS_BLOCK, folder);
     // allow rose gold as a bowstring by string composite, means we also get a redundant binding recipe, but thats fine
     materialComposite(consumer,        MaterialIds.string, MaterialIds.roseGold,   TinkerFluids.moltenRoseGold, FluidValues.INGOT, folder);
@@ -230,7 +229,6 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialComposite(withCondition(consumer, tagCondition("ingots/tin")),      MaterialIds.rock, MaterialIds.whitestoneTin,      TinkerFluids.moltenTin,      FluidValues.INGOT, folder, "whitestone_from_tin");
     materialComposite(withCondition(consumer, tagCondition("ingots/zinc")),     MaterialIds.rock, MaterialIds.whitestoneZinc,     TinkerFluids.moltenZinc,     FluidValues.INGOT, folder, "whitestone_from_zinc");
     // tier 3 compat
-    compatMeltingCasting(consumer, MaterialIds.steel,          TinkerFluids.moltenSteel,      folder);
     compatMeltingCasting(consumer, MaterialIds.constantan,     TinkerFluids.moltenConstantan, "nickel", folder);
     compatMeltingCasting(consumer, MaterialIds.invar,          TinkerFluids.moltenInvar,      "nickel", folder);
     compatMeltingCasting(consumer, MaterialIds.electrum,       TinkerFluids.moltenElectrum,   "silver", folder);

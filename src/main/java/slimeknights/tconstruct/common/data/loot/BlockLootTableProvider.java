@@ -96,6 +96,7 @@ public class BlockLootTableProvider extends BlockLootSubProvider {
 
     // ores
     this.dropSelf(TinkerMaterials.cobalt.get());
+    this.dropSelf(TinkerMaterials.steel.get());
     // tier 3
     this.dropSelf(TinkerMaterials.slimesteel.get());
     this.dropSelf(TinkerMaterials.amethystBronze.get());

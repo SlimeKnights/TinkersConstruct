@@ -31,29 +31,29 @@
         {
           "color": "FFC8C8C8",
           "grey": 63,
-          "path": "tconstruct:item/materials/generator/queens_slime_border"
+          "path": "tconstruct:generator/queens_slime_border"
         },
         {
           "grey": 102,
-          "path": "tconstruct:item/materials/generator/queens_slime_border"
+          "path": "tconstruct:generator/queens_slime_border"
         },
         {
           "color": "FFE1E1E1",
           "grey": 140,
-          "path": "tconstruct:item/materials/generator/queens_slime"
+          "path": "tconstruct:generator/queens_slime"
         },
         {
           "grey": 178,
-          "path": "tconstruct:item/materials/generator/queens_slime"
+          "path": "tconstruct:generator/queens_slime"
         },
         {
           "color": "FFE1E1E1",
           "grey": 216,
-          "path": "tconstruct:item/materials/generator/queens_slime_highlight"
+          "path": "tconstruct:generator/queens_slime_highlight"
         },
         {
           "grey": 255,
-          "path": "tconstruct:item/materials/generator/queens_slime_highlight"
+          "path": "tconstruct:generator/queens_slime_highlight"
         }
       ]
     }

@@ -34,10 +34,6 @@
       "required": false
     },
     {
-      "id": "#forge:storage_blocks/steel",
-      "required": false
-    },
-    {
       "id": "#forge:storage_blocks/enderium",
       "required": false
     },

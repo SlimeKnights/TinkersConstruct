@@ -3,15 +3,6 @@
   "cast": {
     "tag": "tconstruct:casts/multi_use/nugget"
   },
-  "conditions": [
-    {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:nuggets/steel"
-      }
-    }
-  ],
   "cooling_time": 22,
   "fluid": {
     "amount": 10,

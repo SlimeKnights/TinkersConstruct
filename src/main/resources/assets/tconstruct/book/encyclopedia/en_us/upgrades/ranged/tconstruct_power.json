@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:power",
   "text": [
     {
-      "text": "Increases projectile power by 0.5 per level."
+      "text": "Increases projectile power by 0.5 per level, plus a bonus 0.5 for the first level."
     },
     {
       "text": "Makes flinging, springing, bonking, and warping 25% more effective per level.", "paragraph": true

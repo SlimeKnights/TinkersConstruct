@@ -1,22 +1,6 @@
 {
-  "condition": {
-    "type": "forge:or",
-    "values": [
-      {
-        "type": "tconstruct:config",
-        "prop": "force_integration_materials"
-      },
-      {
-        "type": "forge:not",
-        "value": {
-          "type": "forge:tag_empty",
-          "tag": "forge:ingots/steel"
-        }
-      }
-    ]
-  },
   "craftable": false,
   "hidden": false,
-  "sortOrder": 5,
+  "sortOrder": 10,
   "tier": 3
 }

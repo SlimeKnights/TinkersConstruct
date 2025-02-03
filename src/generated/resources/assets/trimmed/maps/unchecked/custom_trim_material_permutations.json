@@ -12,6 +12,7 @@
     "tconstruct:trims/color_palettes/queens_slime": "tconstruct_queens_slime",
     "tconstruct:trims/color_palettes/rose_gold": "tconstruct_rose_gold",
     "tconstruct:trims/color_palettes/skyslime": "tconstruct_skyslime",
-    "tconstruct:trims/color_palettes/slimesteel": "tconstruct_slimesteel"
+    "tconstruct:trims/color_palettes/slimesteel": "tconstruct_slimesteel",
+    "tconstruct:trims/color_palettes/steel": "tconstruct_steel"
   }
 }

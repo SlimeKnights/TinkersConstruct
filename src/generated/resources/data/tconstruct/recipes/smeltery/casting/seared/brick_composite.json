@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:casting_table",
   "cast": {
-    "item": "minecraft:stone_button"
+    "item": "minecraft:flint"
   },
   "cast_consumed": true,
   "cooling_time": 57,

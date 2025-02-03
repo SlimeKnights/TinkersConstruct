@@ -365,8 +365,8 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addArmorShieldStats(MaterialIds.roseGold,       PlatingMaterialStats.builder().durabilityFactor( 9).armor(1, 3, 5, 2), StatlessMaterialStats.MAILLE);
     addArmorShieldStats(MaterialIds.pigIron,        PlatingMaterialStats.builder().durabilityFactor(23).armor(1, 3, 4, 1).toughness(1).knockbackResistance(0.1f), StatlessMaterialStats.MAILLE);
     addArmorShieldStats(MaterialIds.cobalt,         PlatingMaterialStats.builder().durabilityFactor(30).armor(2, 5, 7, 2).toughness(1).knockbackResistance(0.05f), StatlessMaterialStats.MAILLE);
+    addArmorShieldStats(MaterialIds.steel,          PlatingMaterialStats.builder().durabilityFactor(29).armor(2, 5, 7, 2).toughness(2), StatlessMaterialStats.MAILLE);
     // tier 3 - compat
-    addArmorShieldStats(MaterialIds.steel,      PlatingMaterialStats.builder().durabilityFactor(29).armor(2, 5, 7, 2).toughness(2), StatlessMaterialStats.MAILLE);
     addArmorShieldStats(MaterialIds.bronze,     PlatingMaterialStats.builder().durabilityFactor(28).armor(2, 5, 6, 2).knockbackResistance(0.1f), StatlessMaterialStats.MAILLE);
     addArmorShieldStats(MaterialIds.constantan, PlatingMaterialStats.builder().durabilityFactor(25).armor(1, 4, 5, 2).toughness(2).knockbackResistance(0.05f), StatlessMaterialStats.MAILLE);
     addArmorShieldStats(MaterialIds.invar,      PlatingMaterialStats.builder().durabilityFactor(24).armor(1, 3, 5, 2).knockbackResistance(0.1f), StatlessMaterialStats.MAILLE);

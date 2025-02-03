@@ -2,8 +2,9 @@
   "type": "tconstruct:ore_melting",
   "byproducts": [
     {
-      "amount": 100,
-      "fluid": "tconstruct:molten_amethyst"
+      "amount": 90,
+      "rate": "metal",
+      "tag": "forge:molten_iron"
     }
   ],
   "conditions": [
@@ -37,5 +38,5 @@
     "fluid": "tconstruct:molten_quartz"
   },
   "temperature": 637,
-  "time": 82
+  "time": 137
 }

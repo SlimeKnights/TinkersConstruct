@@ -3,7 +3,8 @@
   "byproducts": [
     {
       "amount": 100,
-      "fluid": "tconstruct:molten_diamond"
+      "fluid": "tconstruct:molten_diamond",
+      "rate": "gem"
     }
   ],
   "conditions": [
