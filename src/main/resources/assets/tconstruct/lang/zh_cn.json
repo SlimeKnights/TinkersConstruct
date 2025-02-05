@@ -146,9 +146,9 @@
   "item.tconstruct.hepatizon_ingot": "黑色科林斯青铜锭",
   "item.tconstruct.hepatizon_nugget": "黑色科林斯青铜粒",
 
-  "block.tconstruct.cinderslime_block": "Cinderslime块",
-  "item.tconstruct.cinderslime_ingot": "Cinderslime锭",
-  "item.tconstruct.cinderslime_nugget": "Cinderslime粒",
+  "block.tconstruct.cinderslime_block": "余烬黏液块",
+  "item.tconstruct.cinderslime_ingot": "余烬黏液锭",
+  "item.tconstruct.cinderslime_nugget": "余烬黏液粒",
 
   "block.tconstruct.queens_slime_block": "皇后史莱姆块",
   "block.tconstruct.queens_slime_block.tooltip": "可用于建造信标基座",
@@ -686,10 +686,10 @@
   "fluid.tconstruct.flowing_molten_hepatizon": "流动的熔融黑色科林斯青铜",
   "item.tconstruct.molten_hepatizon_bucket": "熔融黑色科林斯青铜桶",
 
-  "block.tconstruct.molten_cinderslime_fluid": "熔融Cinderslime",
-  "fluid.tconstruct.molten_cinderslime": "熔融Cinderslime",
-  "fluid.tconstruct.flowing_molten_cinderslime": "流动的熔融Cinderslime",
-  "item.tconstruct.molten_cinderslime_bucket": "熔融Cinderslime桶",
+  "block.tconstruct.molten_cinderslime_fluid": "熔融余烬黏液",
+  "fluid.tconstruct.molten_cinderslime": "熔融余烬黏液",
+  "fluid.tconstruct.flowing_molten_cinderslime": "流动的熔融余烬黏液",
+  "item.tconstruct.molten_cinderslime_bucket": "熔融余烬黏液桶",
 
   "block.tconstruct.molten_queens_slime_fluid": "熔融皇后史莱姆",
   "fluid.tconstruct.molten_queens_slime": "熔融皇后史莱姆",
@@ -1679,7 +1679,7 @@
   "material.tconstruct.hepatizon.ranged": "在连续发射16次后，每级拉弓速度+25%",
   "material.tconstruct.hepatizon.armor": "受到伤害后一段时间，每级所有来源伤害-5%",
 
-  "material.tconstruct.cinderslime": "Cinderslime",
+  "material.tconstruct.cinderslime": "余烬黏液",
   "material.tconstruct.cinderslime.flavor": "将其铸进烈火！",
   "material.tconstruct.cinderslime.encyclopedia": "消耗燃料恢复黏液覆层，第4级时每秒恢复1点。",
 
