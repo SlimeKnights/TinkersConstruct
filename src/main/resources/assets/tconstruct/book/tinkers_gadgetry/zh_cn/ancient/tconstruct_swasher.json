@@ -1,7 +1,7 @@
 {
   "tool": "tconstruct:swasher",
   "text": [
-    { "text": "Swasher是近战武器与手持流体枪的结合体，多见于海洋各处。" }
+    { "text": "喷流刃是近战武器与手持流体枪的结合体，多见于海洋各处。" }
   ],
   "properties": [
     "中等伤害",
