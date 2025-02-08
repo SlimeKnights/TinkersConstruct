@@ -1,18 +1,13 @@
 {
   "type": "tconstruct:damagable_melting",
-  "ingredient": [
-    {
-      "item": "minecraft:diamond_axe"
-    },
-    {
-      "item": "minecraft:diamond_pickaxe"
-    }
-  ],
+  "ingredient": {
+    "tag": "tconstruct:melting/diamond/tools_costing_3"
+  },
   "result": {
     "amount": 300,
     "fluid": "tconstruct:molten_diamond",
     "unit_size": 25
   },
   "temperature": 1450,
-  "time": 144
+  "time": 137
 }

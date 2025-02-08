@@ -1075,6 +1075,14 @@
   "gui.tconstruct.melting.fuel.temperature": "Temperature: %s°C",
   "gui.tconstruct.melting.fuel.invalid": "Invalid melting fuel!",
 
+  "gui.tconstruct.tank.bucket.auto.title": "Mode: Auto",
+  "gui.tconstruct.tank.bucket.auto.description": "Slot will attempt to empty then fill the item",
+  "gui.tconstruct.tank.bucket.empty_item.title": "Mode: Empty Item",
+  "gui.tconstruct.tank.bucket.empty_item.description": "Slot will attempt to empty the item",
+  "gui.tconstruct.tank.bucket.fill_item.title": "Mode: Fill Item",
+  "gui.tconstruct.tank.bucket.fill_item.description": "Slot will attempt to fill the item",
+  "gui.tconstruct.tank.bucket.clickable": "Click to toggle fluid transfer mode",
+
   "gui.tconstruct.duct": "Duct",
 
   "multiblock.tconstruct.generic.no_attempt": "Structure detection has not yet run, this is normally a bug with the mod",

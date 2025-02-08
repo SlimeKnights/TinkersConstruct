@@ -5,11 +5,8 @@
   },
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:coins/aluminum"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:coins/aluminum"
     }
   ],
   "cooling_time": 27,

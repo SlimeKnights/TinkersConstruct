@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "tools_complement:silver_hammer"
+    }
+  ],
+  "ingredient": {
+    "item": "tools_complement:silver_hammer"
+  },
+  "result": {
+    "amount": 1170,
+    "tag": "forge:molten_silver",
+    "unit_size": 10
+  },
+  "temperature": 790,
+  "time": 216
+}

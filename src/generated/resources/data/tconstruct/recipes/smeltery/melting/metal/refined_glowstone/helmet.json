@@ -2,15 +2,12 @@
   "type": "tconstruct:damagable_melting",
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:armors/boots/refined_glowstone"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:armors/helmets/refined_glowstone"
     }
   ],
   "ingredient": {
-    "tag": "forge:armors/boots/refined_glowstone"
+    "tag": "forge:armors/helmets/refined_glowstone"
   },
   "result": {
     "amount": 450,

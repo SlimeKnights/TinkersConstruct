@@ -2,24 +2,17 @@
   "type": "forge:conditional",
   "conditions": [
     {
-      "type": "tconstruct:tag_difference_present",
-      "base": "forge:ores/uranium",
-      "registry": "minecraft:item",
-      "subtracted": [
-        "forge:ore_rates/sparse",
-        "forge:ore_rates/dense"
-      ]
+      "type": "mantle:tag_combination_filled",
+      "ignore": "tconstruct:non_singular_ore_rates",
+      "match": "forge:ores/uranium"
     }
   ],
   "recipes": [
     {
       "conditions": [
         {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:tag_empty",
-            "tag": "forge:ingots/lead"
-          }
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/lead"
         }
       ],
       "recipe": {
@@ -36,14 +29,9 @@
           "base": {
             "tag": "forge:ores/uranium"
           },
-          "subtracted": [
-            {
-              "tag": "forge:ore_rates/sparse"
-            },
-            {
-              "tag": "forge:ore_rates/dense"
-            }
-          ]
+          "subtracted": {
+            "tag": "tconstruct:non_singular_ore_rates"
+          }
         },
         "rate": "metal",
         "result": {
@@ -74,14 +62,9 @@
           "base": {
             "tag": "forge:ores/uranium"
           },
-          "subtracted": [
-            {
-              "tag": "forge:ore_rates/sparse"
-            },
-            {
-              "tag": "forge:ore_rates/dense"
-            }
-          ]
+          "subtracted": {
+            "tag": "tconstruct:non_singular_ore_rates"
+          }
         },
         "rate": "metal",
         "result": {

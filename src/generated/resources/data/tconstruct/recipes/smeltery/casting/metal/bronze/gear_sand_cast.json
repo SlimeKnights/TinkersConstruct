@@ -6,11 +6,8 @@
   "cast_consumed": true,
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:gears/bronze"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:gears/bronze"
     }
   ],
   "cooling_time": 114,

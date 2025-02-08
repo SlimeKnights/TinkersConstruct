@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "#forge:tools/pickaxes/invar",
+      "required": false
+    },
+    {
+      "id": "#forge:tools/axes/invar",
+      "required": false
+    },
+    {
+      "id": "tools_complement:invar_sickle",
+      "required": false
+    }
+  ]
+}

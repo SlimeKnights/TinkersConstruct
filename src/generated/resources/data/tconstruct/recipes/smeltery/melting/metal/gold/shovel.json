@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:damagable_melting",
   "ingredient": {
-    "item": "minecraft:golden_shovel"
+    "tag": "tconstruct:melting/gold/tools_costing_1"
   },
   "result": {
     "amount": 90,

@@ -9,11 +9,8 @@
   ],
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:geore_clusters/diamond"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:geore_clusters/diamond"
     }
   ],
   "ingredient": {

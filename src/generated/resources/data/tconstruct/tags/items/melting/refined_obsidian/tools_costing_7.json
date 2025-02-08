@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#forge:armors/leggings/refined_obsidian",
+      "required": false
+    },
+    {
+      "id": "#forge:tools/paxels/refined_obsidian",
+      "required": false
+    }
+  ]
+}

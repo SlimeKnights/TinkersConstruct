@@ -5,11 +5,8 @@
   },
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:gears/electrum"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:gears/electrum"
     }
   ],
   "cooling_time": 118,

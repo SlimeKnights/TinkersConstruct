@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#forge:tools/swords/refined_glowstone",
+      "required": false
+    },
+    {
+      "id": "#forge:tools/hoes/refined_glowstone",
+      "required": false
+    }
+  ]
+}

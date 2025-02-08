@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "tools_complement:electrum_hammer"
+    }
+  ],
+  "ingredient": {
+    "item": "tools_complement:electrum_hammer"
+  },
+  "result": {
+    "amount": 1170,
+    "tag": "forge:molten_electrum",
+    "unit_size": 10
+  },
+  "temperature": 760,
+  "time": 212
+}

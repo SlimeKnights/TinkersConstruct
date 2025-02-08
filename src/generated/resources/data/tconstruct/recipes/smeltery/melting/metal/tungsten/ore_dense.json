@@ -2,9 +2,8 @@
   "type": "forge:conditional",
   "conditions": [
     {
-      "type": "tconstruct:tag_intersection_present",
-      "registry": "minecraft:item",
-      "tags": [
+      "type": "mantle:tag_combination_filled",
+      "match": [
         "forge:ores/tungsten",
         "forge:ore_rates/dense"
       ]
@@ -14,11 +13,8 @@
     {
       "conditions": [
         {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:tag_empty",
-            "tag": "forge:ingots/platinum"
-          }
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/platinum"
         }
       ],
       "recipe": {

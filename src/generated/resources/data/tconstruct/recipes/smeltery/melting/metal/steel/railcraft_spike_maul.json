@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "railcraft:steel_spike_maul"
+    }
+  ],
+  "ingredient": {
+    "item": "railcraft:steel_spike_maul"
+  },
+  "result": {
+    "amount": 990,
+    "tag": "forge:molten_steel",
+    "unit_size": 10
+  },
+  "temperature": 950,
+  "time": 215
+}

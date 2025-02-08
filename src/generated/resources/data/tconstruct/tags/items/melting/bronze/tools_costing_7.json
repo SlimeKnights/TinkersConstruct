@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#forge:armors/leggings/bronze",
+      "required": false
+    },
+    {
+      "id": "#forge:tools/paxels/bronze",
+      "required": false
+    }
+  ]
+}

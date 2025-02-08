@@ -2,22 +2,16 @@
   "type": "forge:conditional",
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:raw_materials/tin"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:raw_materials/tin"
     }
   ],
   "recipes": [
     {
       "conditions": [
         {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:tag_empty",
-            "tag": "forge:ingots/nickel"
-          }
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/nickel"
         }
       ],
       "recipe": {

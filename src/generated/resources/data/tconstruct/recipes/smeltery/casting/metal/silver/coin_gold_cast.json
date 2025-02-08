@@ -5,11 +5,8 @@
   },
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:coins/silver"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:coins/silver"
     }
   ],
   "cooling_time": 35,

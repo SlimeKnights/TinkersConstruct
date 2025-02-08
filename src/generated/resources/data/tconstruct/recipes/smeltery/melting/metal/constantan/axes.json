@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "tconstruct:melting/constantan/tools_costing_3"
+    }
+  ],
+  "ingredient": {
+    "tag": "tconstruct:melting/constantan/tools_costing_3"
+  },
+  "result": {
+    "amount": 270,
+    "tag": "forge:molten_constantan",
+    "unit_size": 10
+  },
+  "temperature": 920,
+  "time": 111
+}

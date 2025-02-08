@@ -5,11 +5,8 @@
   },
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:gears/constantan"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:gears/constantan"
     }
   ],
   "cooling_time": 128,

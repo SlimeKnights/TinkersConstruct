@@ -8,6 +8,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import slimeknights.mantle.Mantle;
@@ -22,7 +23,7 @@ import java.util.function.BiConsumer;
 /**
  * Module handling the melter tank UI display
  */
-public class GuiTankModule implements IScreenWithFluidTank {
+public class GuiTankModule implements IScreenWithFluidTank, ClickableTankModule {
   /** Tooltip for when the capacity is 0, it breaks some stuff */
   private static final Component NO_CAPACITY = Component.translatable(Mantle.makeDescriptionId("gui", "fluid.millibucket"), 0).withStyle(ChatFormatting.GRAY);
 
@@ -45,14 +46,19 @@ public class GuiTankModule implements IScreenWithFluidTank {
     this.formatter = (amount, tooltip) -> FluidTooltipHandler.appendNamedList(tooltipId, amount, tooltip);
   }
 
-  /**
-   * Checks if the tank is hovered over
-   * @param checkX  Screen relative mouse X
-   * @param checkY  Screen relative mouse Y
-   * @return  True if hovered
-   */
-  private boolean isHovered(int checkX, int checkY) {
+  @Override
+  public AbstractContainerMenu getMenu() {
+    return screen.getMenu();
+  }
+
+  @Override
+  public boolean isHovered(int checkX, int checkY) {
     return GuiUtil.isHovered(checkX, checkY, x - 1, y - 1, width + 2, height + 2);
+  }
+
+  @Override
+  public boolean isFluidHovered(int checkY) {
+    return checkY > (y + height) - getFluidHeight();
   }
 
   /**
@@ -114,7 +120,7 @@ public class GuiTankModule implements IScreenWithFluidTank {
 
       // if hovering over the fluid, display with name
       final List<Component> tooltip;
-      if (capacity > 0 && checkY > (y + height) - getFluidHeight()) {
+      if (capacity > 0 && isFluidHovered(checkY)) {
         tooltip = FluidTooltipHandler.getFluidTooltip(fluid);
       } else {
         // function to call for amounts
@@ -145,7 +151,7 @@ public class GuiTankModule implements IScreenWithFluidTank {
 
   @Override
   public FluidLocation getFluidUnderMouse(int mouseX, int mouseY) {
-    if (isHovered(mouseX, mouseY) && mouseY > (y + height) - getFluidHeight()) {
+    if (isHovered(mouseX, mouseY) && isFluidHovered(mouseY)) {
       return new FluidLocation(tank.getFluidInTank(TANK_INDEX), fluidLoc);
     }
     return null;

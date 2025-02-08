@@ -5,11 +5,8 @@
   },
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:plates/uranium"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:plates/uranium"
     }
   ],
   "cooling_time": 61,

@@ -2,11 +2,8 @@
   "type": "tconstruct:item_part_builder",
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:plates"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:plates"
     }
   ],
   "pattern": "tconstruct:plate",

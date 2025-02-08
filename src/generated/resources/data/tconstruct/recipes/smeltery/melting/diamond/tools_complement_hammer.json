@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "tools_complement:diamond_hammer"
+    }
+  ],
+  "ingredient": {
+    "item": "tools_complement:diamond_hammer"
+  },
+  "result": {
+    "amount": 1300,
+    "fluid": "tconstruct:molten_diamond",
+    "unit_size": 25
+  },
+  "temperature": 1450,
+  "time": 285
+}

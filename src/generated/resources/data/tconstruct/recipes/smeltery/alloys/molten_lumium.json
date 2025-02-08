@@ -2,33 +2,21 @@
   "type": "tconstruct:alloy",
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:ingots/lumium"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:ingots/lumium"
     },
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:ingots/tin"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:ingots/tin"
     },
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:ingots/silver"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:ingots/silver"
     },
     {
-      "type": "forge:not",
-      "value": {
-        "type": "mantle:tag_empty",
-        "registry": "minecraft:fluid",
-        "tag": "forge:glowstone"
-      }
+      "type": "mantle:tag_filled",
+      "registry": "minecraft:fluid",
+      "tag": "forge:glowstone"
     }
   ],
   "inputs": [

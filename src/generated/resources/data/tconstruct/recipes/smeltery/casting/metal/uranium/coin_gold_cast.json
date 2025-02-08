@@ -5,11 +5,8 @@
   },
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:coins/uranium"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:coins/uranium"
     }
   ],
   "cooling_time": 35,

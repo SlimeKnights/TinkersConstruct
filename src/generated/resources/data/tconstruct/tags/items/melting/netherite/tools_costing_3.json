@@ -1,0 +1,10 @@
+{
+  "values": [
+    "minecraft:netherite_pickaxe",
+    "minecraft:netherite_axe",
+    {
+      "id": "tools_complement:netherite_sickle",
+      "required": false
+    }
+  ]
+}

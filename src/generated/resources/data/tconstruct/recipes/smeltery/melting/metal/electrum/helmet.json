@@ -2,15 +2,12 @@
   "type": "tconstruct:damagable_melting",
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:armors/boots/electrum"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:armors/helmets/electrum"
     }
   ],
   "ingredient": {
-    "tag": "forge:armors/boots/electrum"
+    "tag": "forge:armors/helmets/electrum"
   },
   "result": {
     "amount": 450,

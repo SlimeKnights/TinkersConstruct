@@ -5,11 +5,13 @@
   },
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:ingots/dawnstone"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:ingots/dawnstone"
+    },
+    {
+      "type": "mantle:tag_filled",
+      "registry": "minecraft:fluid",
+      "tag": "forge:molten_dawnstone"
     }
   ],
   "cooling_time": 63,

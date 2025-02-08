@@ -2,15 +2,12 @@
   "type": "tconstruct:damagable_melting",
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:tools/shovels/nickel"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "tconstruct:melting/nickel/tools_costing_1"
     }
   ],
   "ingredient": {
-    "tag": "forge:tools/shovels/nickel"
+    "tag": "tconstruct:melting/nickel/tools_costing_1"
   },
   "result": {
     "amount": 90,

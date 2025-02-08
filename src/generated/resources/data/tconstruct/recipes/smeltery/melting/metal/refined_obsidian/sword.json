@@ -2,21 +2,18 @@
   "type": "tconstruct:damagable_melting",
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:tools/swords/refined_obsidian"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "tconstruct:melting/refined_obsidian/tools_costing_2"
     }
   ],
   "ingredient": {
-    "tag": "forge:tools/swords/refined_obsidian"
+    "tag": "tconstruct:melting/refined_obsidian/tools_costing_2"
   },
   "result": {
-    "amount": 90,
+    "amount": 180,
     "tag": "forge:molten_refined_obsidian",
     "unit_size": 10
   },
   "temperature": 1475,
-  "time": 80
+  "time": 113
 }

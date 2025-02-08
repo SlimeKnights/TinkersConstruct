@@ -1,0 +1,13 @@
+{
+  "values": [
+    "minecraft:brush",
+    {
+      "id": "#forge:tools/shovels/copper",
+      "required": false
+    },
+    {
+      "id": "tools_complement:copper_knife",
+      "required": false
+    }
+  ]
+}

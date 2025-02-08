@@ -16,7 +16,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-/** Condition requiring that items exist in the intersection of all required item tags. */
+/** @deprecated use {@link slimeknights.mantle.recipe.condition.TagCombinationCondition#difference(TagKey, TagKey)} */
+@Deprecated(forRemoval = true)
 public class TagDifferencePresentCondition<T> implements ICondition {
   private static final ResourceLocation NAME = TConstruct.getResource("tag_difference_present");
   public static final Serializer SERIALIZER = new Serializer();

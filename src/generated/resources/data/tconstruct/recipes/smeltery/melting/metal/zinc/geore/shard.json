@@ -2,11 +2,8 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:geore_shards/zinc"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:geore_shards/zinc"
     }
   ],
   "ingredient": {

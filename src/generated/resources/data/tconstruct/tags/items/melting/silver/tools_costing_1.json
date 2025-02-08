@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#forge:tools/shovels/silver",
+      "required": false
+    },
+    {
+      "id": "tools_complement:silver_knife",
+      "required": false
+    }
+  ]
+}

@@ -6,11 +6,8 @@
   "cast_consumed": true,
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:coins/bronze"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:coins/bronze"
     }
   ],
   "cooling_time": 33,

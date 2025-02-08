@@ -312,6 +312,7 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
    */
   protected void setStructure(@Nullable StructureData structure) {
     this.structure = structure;
+    fuelModule.clearFluidListeners();
   }
 
   /**
@@ -494,7 +495,7 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
    */
   public void setStructureSize(BlockPos minPos, BlockPos maxPos, List<BlockPos> tanks) {
     setStructure(multiblock.createClient(minPos, maxPos, tanks));
-    fuelModule.clearCachedDisplayListeners();
+    fuelModule.clearFluidListeners();
     // not really possible to have no structure here as we don't sync the lack of structure to the client, but better safe
     if (structure == null) {
       fluidDisplayListeners.clear();

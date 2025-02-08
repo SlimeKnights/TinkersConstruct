@@ -2,22 +2,16 @@
   "type": "forge:conditional",
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:storage_blocks/raw_silver"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:storage_blocks/raw_silver"
     }
   ],
   "recipes": [
     {
       "conditions": [
         {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:tag_empty",
-            "tag": "forge:ingots/lead"
-          }
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/lead"
         }
       ],
       "recipe": {

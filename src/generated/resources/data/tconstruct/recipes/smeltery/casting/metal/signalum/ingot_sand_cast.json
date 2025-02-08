@@ -6,11 +6,8 @@
   "cast_consumed": true,
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:ingots/signalum"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:ingots/signalum"
     }
   ],
   "cooling_time": 70,

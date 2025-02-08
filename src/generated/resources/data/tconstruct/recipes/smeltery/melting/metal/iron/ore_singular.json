@@ -9,13 +9,9 @@
   ],
   "conditions": [
     {
-      "type": "tconstruct:tag_difference_present",
-      "base": "forge:ores/iron",
-      "registry": "minecraft:item",
-      "subtracted": [
-        "forge:ore_rates/sparse",
-        "forge:ore_rates/dense"
-      ]
+      "type": "mantle:tag_combination_filled",
+      "ignore": "tconstruct:non_singular_ore_rates",
+      "match": "forge:ores/iron"
     }
   ],
   "ingredient": {
@@ -23,14 +19,9 @@
     "base": {
       "tag": "forge:ores/iron"
     },
-    "subtracted": [
-      {
-        "tag": "forge:ore_rates/sparse"
-      },
-      {
-        "tag": "forge:ore_rates/dense"
-      }
-    ]
+    "subtracted": {
+      "tag": "tconstruct:non_singular_ore_rates"
+    }
   },
   "rate": "metal",
   "result": {

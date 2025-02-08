@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#forge:armors/leggings/refined_glowstone",
+      "required": false
+    },
+    {
+      "id": "#forge:tools/paxels/refined_glowstone",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "tools_complement:bronze_excavator"
+    }
+  ],
+  "ingredient": {
+    "item": "tools_complement:bronze_excavator"
+  },
+  "result": {
+    "amount": 990,
+    "tag": "forge:molten_bronze",
+    "unit_size": 10
+  },
+  "temperature": 700,
+  "time": 189
+}

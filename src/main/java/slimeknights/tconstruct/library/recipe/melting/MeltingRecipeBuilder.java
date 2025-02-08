@@ -148,7 +148,10 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
    * @return  Builder instance
    */
   public MeltingRecipeBuilder setDamagable(int... unitSizes) {
-    this.unitSizes = unitSizes;
+    // unit size of 0 is not useful, neither is empty array. So treat 0 as ignored to make it easier to do optional arguments
+    if (unitSizes.length > 0 && unitSizes[0] > 0) {
+      this.unitSizes = unitSizes;
+    }
     return this;
   }
 
@@ -171,6 +174,7 @@ public class MeltingRecipeBuilder extends AbstractRecipeBuilder<MeltingRecipeBui
     return addByproduct(FluidOutput.fromStack(fluid));
   }
 
+  @SuppressWarnings("deprecation")
   @Override
   public void save(Consumer<FinishedRecipe> consumer) {
     save(consumer, BuiltInRegistries.FLUID.getKey(output.get().getFluid()));

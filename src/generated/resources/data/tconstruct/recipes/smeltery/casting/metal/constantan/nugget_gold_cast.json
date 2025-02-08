@@ -5,11 +5,8 @@
   },
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:nuggets/constantan"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:nuggets/constantan"
     }
   ],
   "cooling_time": 21,

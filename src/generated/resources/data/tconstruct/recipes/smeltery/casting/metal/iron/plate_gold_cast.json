@@ -5,11 +5,8 @@
   },
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:plates/iron"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:plates/iron"
     }
   ],
   "cooling_time": 60,

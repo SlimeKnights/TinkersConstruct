@@ -17,12 +17,12 @@ import slimeknights.mantle.loot.AddEntryLootModifier;
 import slimeknights.mantle.loot.ReplaceItemLootModifier;
 import slimeknights.mantle.loot.condition.BlockTagLootCondition;
 import slimeknights.mantle.loot.condition.ContainsItemModifierLootCondition;
+import slimeknights.mantle.recipe.condition.TagFilledCondition;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.json.BlockOrEntityCondition;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
-import slimeknights.tconstruct.library.json.condition.TagNotEmptyCondition;
 import slimeknights.tconstruct.library.json.loot.TagPreferenceLootEntry;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.smeltery.data.SmelteryCompat;
@@ -82,7 +82,7 @@ public class GlobalLootModifiersProvider extends GlobalLootModifierProvider {
     builder.addCondition(new BlockTagLootCondition(TagKey.create(Registries.BLOCK, ores)))
            .addCondition(new ContainsItemModifierLootCondition(Ingredient.of(TagKey.create(Registries.ITEM, ores))).inverted());
     if (optional) {
-      builder.addCondition(new TagNotEmptyCondition<>(nuggets));
+      builder.addCondition(new TagFilledCondition<>(nuggets));
     }
     add("lustrous/" + name, builder.addCondition(new HasModifierLootCondition(ModifierIds.lustrous))
       .addFunction(SetItemCountFunction.setCount(UniformGenerator.between(2, 4)).build())

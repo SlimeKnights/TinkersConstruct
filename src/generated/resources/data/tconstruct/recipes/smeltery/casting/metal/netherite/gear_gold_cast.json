@@ -5,11 +5,8 @@
   },
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:gears/netherite"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:gears/netherite"
     }
   ],
   "cooling_time": 147,

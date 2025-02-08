@@ -6,11 +6,8 @@
   "cast_consumed": true,
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:nuggets/silver"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:nuggets/silver"
     }
   ],
   "cooling_time": 20,

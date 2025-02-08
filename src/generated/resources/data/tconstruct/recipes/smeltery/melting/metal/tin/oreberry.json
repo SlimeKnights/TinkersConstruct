@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "oreberriesreplanted:tin_oreberry"
+    }
+  ],
+  "ingredient": {
+    "item": "oreberriesreplanted:tin_oreberry"
+  },
+  "result": {
+    "amount": 10,
+    "tag": "forge:molten_tin"
+  },
+  "temperature": 225,
+  "time": 13
+}

@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "#forge:tools/pickaxes/steel",
+      "required": false
+    },
+    {
+      "id": "#forge:tools/axes/steel",
+      "required": false
+    },
+    {
+      "id": "railcraft:steel_crowbar",
+      "required": false
+    }
+  ]
+}

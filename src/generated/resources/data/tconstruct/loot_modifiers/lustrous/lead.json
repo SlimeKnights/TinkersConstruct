@@ -6,8 +6,7 @@
       "tag": "forge:ores/lead"
     },
     {
-      "condition": "tconstruct:tag_not_empty",
-      "registry": "minecraft:item",
+      "condition": "mantle:tag_filled",
       "tag": "forge:nuggets/lead"
     },
     {

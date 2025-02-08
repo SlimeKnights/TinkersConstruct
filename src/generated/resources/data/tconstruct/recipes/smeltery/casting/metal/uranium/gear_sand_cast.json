@@ -6,11 +6,8 @@
   "cast_consumed": true,
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:gears/uranium"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:gears/uranium"
     }
   ],
   "cooling_time": 122,

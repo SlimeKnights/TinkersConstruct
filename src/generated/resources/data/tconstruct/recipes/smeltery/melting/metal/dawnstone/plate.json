@@ -2,11 +2,13 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:plates/dawnstone"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:plates/dawnstone"
+    },
+    {
+      "type": "mantle:tag_filled",
+      "registry": "minecraft:fluid",
+      "tag": "forge:molten_dawnstone"
     }
   ],
   "ingredient": {

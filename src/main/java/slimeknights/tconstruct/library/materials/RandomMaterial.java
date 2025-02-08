@@ -46,7 +46,7 @@ public abstract class RandomMaterial implements IHaveLoader {
   }
 
   /** Creates an instance for a fixed material */
-  public static RandomMaterial fixed(MaterialId materialId) {
+  public static RandomMaterial fixed(MaterialVariantId materialId) {
     return new Fixed(materialId);
   }
 

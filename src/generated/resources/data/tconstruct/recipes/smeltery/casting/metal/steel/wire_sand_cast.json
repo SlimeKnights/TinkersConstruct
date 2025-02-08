@@ -6,11 +6,8 @@
   "cast_consumed": true,
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:wires/steel"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:wires/steel"
     }
   ],
   "cooling_time": 46,

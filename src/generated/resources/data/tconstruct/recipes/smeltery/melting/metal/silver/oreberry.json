@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "oreberriesreplanted:silver_oreberry"
+    }
+  ],
+  "ingredient": {
+    "item": "oreberriesreplanted:silver_oreberry"
+  },
+  "result": {
+    "amount": 10,
+    "tag": "forge:molten_silver"
+  },
+  "temperature": 790,
+  "time": 20
+}

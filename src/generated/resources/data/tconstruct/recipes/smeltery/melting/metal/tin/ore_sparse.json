@@ -2,9 +2,8 @@
   "type": "forge:conditional",
   "conditions": [
     {
-      "type": "tconstruct:tag_intersection_present",
-      "registry": "minecraft:item",
-      "tags": [
+      "type": "mantle:tag_combination_filled",
+      "match": [
         "forge:ores/tin",
         "forge:ore_rates/sparse"
       ]
@@ -14,11 +13,8 @@
     {
       "conditions": [
         {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:tag_empty",
-            "tag": "forge:ingots/nickel"
-          }
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/nickel"
         }
       ],
       "recipe": {

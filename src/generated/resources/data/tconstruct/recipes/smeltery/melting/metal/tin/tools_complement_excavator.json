@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "tools_complement:tin_excavator"
+    }
+  ],
+  "ingredient": {
+    "item": "tools_complement:tin_excavator"
+  },
+  "result": {
+    "amount": 990,
+    "tag": "forge:molten_tin",
+    "unit_size": 10
+  },
+  "temperature": 225,
+  "time": 129
+}

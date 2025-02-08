@@ -2,15 +2,12 @@
   "type": "tconstruct:damagable_melting",
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:armors/boots/nickel"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:armors/helmets/nickel"
     }
   ],
   "ingredient": {
-    "tag": "forge:armors/boots/nickel"
+    "tag": "forge:armors/helmets/nickel"
   },
   "result": {
     "amount": 450,

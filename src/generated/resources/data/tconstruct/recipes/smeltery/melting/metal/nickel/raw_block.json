@@ -2,22 +2,16 @@
   "type": "forge:conditional",
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:storage_blocks/raw_nickel"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:storage_blocks/raw_nickel"
     }
   ],
   "recipes": [
     {
       "conditions": [
         {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:tag_empty",
-            "tag": "forge:ingots/platinum"
-          }
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/platinum"
         }
       ],
       "recipe": {

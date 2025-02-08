@@ -2,29 +2,20 @@
   "type": "forge:conditional",
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:ingots/pewter"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:ingots/pewter"
     },
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:ingots/lead"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:ingots/lead"
     }
   ],
   "recipes": [
     {
       "conditions": [
         {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:tag_empty",
-            "tag": "forge:ingots/tin"
-          }
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/tin"
         }
       ],
       "recipe": {

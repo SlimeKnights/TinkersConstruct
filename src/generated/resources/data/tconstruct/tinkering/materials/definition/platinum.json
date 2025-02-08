@@ -7,11 +7,8 @@
         "prop": "force_integration_materials"
       },
       {
-        "type": "forge:not",
-        "value": {
-          "type": "forge:tag_empty",
-          "tag": "forge:ingots/platinum"
-        }
+        "type": "mantle:tag_filled",
+        "tag": "forge:ingots/platinum"
       }
     ]
   },

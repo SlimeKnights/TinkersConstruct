@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "tconstruct:melting/iron/tools_costing_11"
+    }
+  ],
+  "ingredient": {
+    "tag": "tconstruct:melting/iron/tools_costing_11"
+  },
+  "result": {
+    "amount": 990,
+    "tag": "forge:molten_iron",
+    "unit_size": 10
+  },
+  "temperature": 800,
+  "time": 199
+}

@@ -6,18 +6,12 @@
   "cast_consumed": true,
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:ingots/refined_obsidian"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:ingots/refined_obsidian"
     },
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:ingots/osmium"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:ingots/osmium"
     }
   ],
   "cooling_time": 66,

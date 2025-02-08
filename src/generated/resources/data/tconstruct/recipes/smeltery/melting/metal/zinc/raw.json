@@ -2,22 +2,16 @@
   "type": "forge:conditional",
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:raw_materials/zinc"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:raw_materials/zinc"
     }
   ],
   "recipes": [
     {
       "conditions": [
         {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:tag_empty",
-            "tag": "forge:ingots/tin"
-          }
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/tin"
         }
       ],
       "recipe": {

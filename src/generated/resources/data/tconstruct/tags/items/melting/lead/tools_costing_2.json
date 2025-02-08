@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#forge:tools/swords/lead",
+      "required": false
+    },
+    {
+      "id": "#forge:tools/hoes/lead",
+      "required": false
+    }
+  ]
+}

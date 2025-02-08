@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "#forge:tools/pickaxes/bronze",
+      "required": false
+    },
+    {
+      "id": "#forge:tools/axes/bronze",
+      "required": false
+    },
+    {
+      "id": "tools_complement:bronze_sickle",
+      "required": false
+    }
+  ]
+}

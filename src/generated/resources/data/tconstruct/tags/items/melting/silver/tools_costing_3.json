@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "#forge:tools/pickaxes/silver",
+      "required": false
+    },
+    {
+      "id": "#forge:tools/axes/silver",
+      "required": false
+    },
+    {
+      "id": "tools_complement:silver_sickle",
+      "required": false
+    }
+  ]
+}

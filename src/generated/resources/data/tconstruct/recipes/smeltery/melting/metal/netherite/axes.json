@@ -7,14 +7,9 @@
       "unit_size": 25
     }
   ],
-  "ingredient": [
-    {
-      "item": "minecraft:netherite_axe"
-    },
-    {
-      "item": "minecraft:netherite_pickaxe"
-    }
-  ],
+  "ingredient": {
+    "tag": "tconstruct:melting/netherite/tools_costing_3"
+  },
   "result": {
     "amount": 90,
     "tag": "forge:molten_netherite",

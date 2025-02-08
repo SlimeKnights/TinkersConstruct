@@ -6,11 +6,8 @@
   "cast_consumed": true,
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:gears/tin"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:gears/tin"
     }
   ],
   "cooling_time": 78,

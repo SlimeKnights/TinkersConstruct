@@ -2,22 +2,16 @@
   "type": "forge:conditional",
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:geore_large_buds/zinc"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:geore_large_buds/zinc"
     }
   ],
   "recipes": [
     {
       "conditions": [
         {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:tag_empty",
-            "tag": "forge:ingots/tin"
-          }
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/tin"
         }
       ],
       "recipe": {

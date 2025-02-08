@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "#forge:tools/pickaxes/electrum",
+      "required": false
+    },
+    {
+      "id": "#forge:tools/axes/electrum",
+      "required": false
+    },
+    {
+      "id": "tools_complement:electrum_sickle",
+      "required": false
+    }
+  ]
+}

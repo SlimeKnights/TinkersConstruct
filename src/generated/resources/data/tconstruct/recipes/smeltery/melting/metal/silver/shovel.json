@@ -2,15 +2,12 @@
   "type": "tconstruct:damagable_melting",
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:tools/shovels/silver"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "tconstruct:melting/silver/tools_costing_1"
     }
   ],
   "ingredient": {
-    "tag": "forge:tools/shovels/silver"
+    "tag": "tconstruct:melting/silver/tools_costing_1"
   },
   "result": {
     "amount": 90,

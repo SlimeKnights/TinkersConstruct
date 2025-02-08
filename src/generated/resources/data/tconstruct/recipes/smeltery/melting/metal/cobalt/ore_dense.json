@@ -9,9 +9,8 @@
   ],
   "conditions": [
     {
-      "type": "tconstruct:tag_intersection_present",
-      "registry": "minecraft:item",
-      "tags": [
+      "type": "mantle:tag_combination_filled",
+      "match": [
         "forge:ores/cobalt",
         "forge:ore_rates/dense"
       ]

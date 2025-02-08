@@ -6,8 +6,7 @@
       "tag": "forge:ores/osmium"
     },
     {
-      "condition": "tconstruct:tag_not_empty",
-      "registry": "minecraft:item",
+      "condition": "mantle:tag_filled",
       "tag": "forge:nuggets/osmium"
     },
     {

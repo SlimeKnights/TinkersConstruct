@@ -5,11 +5,8 @@
   },
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:nuggets/refined_glowstone"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:nuggets/refined_glowstone"
     }
   ],
   "cooling_time": 20,

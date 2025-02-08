@@ -5,11 +5,8 @@
   },
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:ingots/uranium"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:ingots/uranium"
     }
   ],
   "cooling_time": 61,

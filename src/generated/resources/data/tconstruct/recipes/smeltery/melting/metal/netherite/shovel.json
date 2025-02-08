@@ -8,7 +8,7 @@
     }
   ],
   "ingredient": {
-    "item": "minecraft:netherite_shovel"
+    "tag": "tconstruct:melting/netherite/tools_costing_1"
   },
   "result": {
     "amount": 90,

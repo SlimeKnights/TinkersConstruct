@@ -326,6 +326,8 @@ public class TinkerTags {
     public static final TagKey<Item> TOOL_INVENTORY_BLACKLIST = local("inventory_blacklist");
     /** List of blocks that should produce bonus gold nugget drops from the chrysophilite modifier. Will only drop bonus if the block does not drop itself */
     public static final TagKey<Item> CHRYSOPHILITE_ORES = local("chrysophilite_ores");
+    /** All ore rates that are not {@link net.minecraftforge.common.Tags.Items#ORE_RATES_SINGULAR}. Used for recipe conditioning. */
+    public static final TagKey<Item> NON_SINGULAR_ORE_RATES = local("non_singular_ore_rates");
 
     /*
      * Tool tags

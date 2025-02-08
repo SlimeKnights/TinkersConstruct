@@ -2,21 +2,18 @@
   "type": "tconstruct:damagable_melting",
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:tools/swords/electrum"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "tconstruct:melting/electrum/tools_costing_2"
     }
   ],
   "ingredient": {
-    "tag": "forge:tools/swords/electrum"
+    "tag": "tconstruct:melting/electrum/tools_costing_2"
   },
   "result": {
-    "amount": 90,
+    "amount": 180,
     "tag": "forge:molten_electrum",
     "unit_size": 10
   },
   "temperature": 760,
-  "time": 59
+  "time": 83
 }

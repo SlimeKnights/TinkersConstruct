@@ -1,0 +1,26 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "byproducts": [
+    {
+      "amount": 1300,
+      "fluid": "tconstruct:molten_diamond",
+      "unit_size": 25
+    }
+  ],
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "tools_complement:netherite_hammer"
+    }
+  ],
+  "ingredient": {
+    "item": "tools_complement:netherite_hammer"
+  },
+  "result": {
+    "amount": 90,
+    "tag": "forge:molten_netherite",
+    "unit_size": 10
+  },
+  "temperature": 1250,
+  "time": 74
+}

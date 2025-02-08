@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "mekanism:refined_obsidian_shield"
+    }
+  ],
+  "ingredient": {
+    "item": "mekanism:refined_obsidian_shield"
+  },
+  "result": {
+    "amount": 540,
+    "tag": "forge:molten_refined_obsidian",
+    "unit_size": 10
+  },
+  "temperature": 1475,
+  "time": 195
+}

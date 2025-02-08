@@ -5,11 +5,8 @@
   },
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:wires/electrum"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:wires/electrum"
     }
   ],
   "cooling_time": 42,

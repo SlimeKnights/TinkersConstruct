@@ -2,15 +2,12 @@
   "type": "tconstruct:damagable_melting",
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:armors/boots/invar"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:armors/helmets/invar"
     }
   ],
   "ingredient": {
-    "tag": "forge:armors/boots/invar"
+    "tag": "forge:armors/helmets/invar"
   },
   "result": {
     "amount": 450,

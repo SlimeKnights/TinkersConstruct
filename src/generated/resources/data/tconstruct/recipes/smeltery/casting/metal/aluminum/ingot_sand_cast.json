@@ -6,11 +6,8 @@
   "cast_consumed": true,
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:ingots/aluminum"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:ingots/aluminum"
     }
   ],
   "cooling_time": 47,

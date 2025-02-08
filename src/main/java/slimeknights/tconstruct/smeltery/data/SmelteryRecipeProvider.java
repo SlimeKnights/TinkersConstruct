@@ -32,12 +32,13 @@ import net.minecraftforge.common.crafting.CompoundIngredient;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.DifferenceIngredient;
 import net.minecraftforge.common.crafting.conditions.ICondition;
+import net.minecraftforge.common.crafting.conditions.ItemExistsCondition;
 import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
-import net.minecraftforge.common.crafting.conditions.NotCondition;
 import net.minecraftforge.common.crafting.conditions.TrueCondition;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
 import slimeknights.mantle.datagen.MantleTags;
+import slimeknights.mantle.recipe.condition.TagFilledCondition;
 import slimeknights.mantle.recipe.crafting.ShapedRetexturedRecipeBuilder;
 import slimeknights.mantle.recipe.data.ConsumerWrapperBuilder;
 import slimeknights.mantle.recipe.data.ICommonRecipeHelper;
@@ -45,10 +46,10 @@ import slimeknights.mantle.recipe.data.ItemNameIngredient;
 import slimeknights.mantle.recipe.data.ItemNameOutput;
 import slimeknights.mantle.recipe.data.NBTNameIngredient;
 import slimeknights.mantle.recipe.helper.ItemOutput;
-import slimeknights.mantle.recipe.helper.TagEmptyCondition;
 import slimeknights.mantle.recipe.ingredient.EntityIngredient;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.mantle.registration.object.FluidObject;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
@@ -59,6 +60,8 @@ import slimeknights.tconstruct.fluids.fluids.PotionFluidType;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.library.data.recipe.ISmelteryRecipeHelper;
 import slimeknights.tconstruct.library.data.recipe.SmelteryRecipeBuilder;
+import slimeknights.tconstruct.library.data.recipe.SmelteryRecipeBuilder.CommonRecipe;
+import slimeknights.tconstruct.library.data.recipe.SmelteryRecipeBuilder.ToolItemMelting;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.alloying.AlloyRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
@@ -88,6 +91,10 @@ import java.util.function.Function;
 
 import static slimeknights.mantle.Mantle.COMMON;
 import static slimeknights.mantle.Mantle.commonResource;
+import static slimeknights.tconstruct.library.data.recipe.SmelteryRecipeBuilder.ARMOR;
+import static slimeknights.tconstruct.library.data.recipe.SmelteryRecipeBuilder.AXES;
+import static slimeknights.tconstruct.library.data.recipe.SmelteryRecipeBuilder.SWORD;
+import static slimeknights.tconstruct.library.data.recipe.SmelteryRecipeBuilder.TOOLS;
 
 public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelteryRecipeHelper, ICommonRecipeHelper {
   public SmelteryRecipeProvider(PackOutput packOutput) {
@@ -1436,29 +1443,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .save(consumer, location(metalFolder + "iron/lantern"));
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerModifiers.ironReinforcement), TinkerFluids.moltenIron, FluidValues.INGOT)
                         .save(consumer, location(metalFolder + "iron/reinforcement"));
-    // armor
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.IRON_HELMET), TinkerFluids.moltenIron, FluidValues.INGOT * 5)
-                        .setDamagable(FluidValues.NUGGET)
-                        .save(consumer, location(metalFolder + "iron/helmet"));
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.IRON_CHESTPLATE), TinkerFluids.moltenIron, FluidValues.INGOT * 8)
-                        .setDamagable(FluidValues.NUGGET)
-                        .save(consumer, location(metalFolder + "iron/chestplate"));
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.IRON_LEGGINGS), TinkerFluids.moltenIron, FluidValues.INGOT * 7)
-                        .setDamagable(FluidValues.NUGGET)
-                        .save(consumer, location(metalFolder + "iron/leggings"));
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.IRON_BOOTS), TinkerFluids.moltenIron, FluidValues.INGOT * 4)
-                        .setDamagable(FluidValues.NUGGET)
-                        .save(consumer, location(metalFolder + "iron/boots"));
     // tools
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.IRON_AXE, Items.IRON_PICKAXE), TinkerFluids.moltenIron, FluidValues.INGOT * 3)
-                        .setDamagable(FluidValues.NUGGET)
-                        .save(consumer, location(metalFolder + "iron/axes"));
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.IRON_SWORD, Items.IRON_HOE, Items.SHEARS), TinkerFluids.moltenIron, FluidValues.INGOT * 2)
-                        .setDamagable(FluidValues.NUGGET)
-                        .save(consumer, location(metalFolder + "iron/weapon"));
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.IRON_SHOVEL, Items.FLINT_AND_STEEL, Items.SHIELD), TinkerFluids.moltenIron, FluidValues.INGOT)
-                        .setDamagable(FluidValues.NUGGET)
-                        .save(consumer, location(metalFolder + "iron/small"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.CROSSBOW), TinkerFluids.moltenIron, FluidValues.NUGGET * 13) // tripwire hook is 4 nuggets, ingot is 9 nuggets
                         .setDamagable(FluidValues.NUGGET)
                         .save(consumer, location(metalFolder + "iron/crossbow"));
@@ -1507,29 +1492,6 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .save(consumer, location(metalFolder + "gold/nugget_3"));
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerCommons.goldPlatform), TinkerFluids.moltenGold, FluidValues.NUGGET * 10)
                         .save(consumer, location(metalFolder + "gold/platform"));
-    // armor
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.GOLDEN_HELMET), TinkerFluids.moltenGold, FluidValues.INGOT * 5)
-                        .setDamagable(FluidValues.NUGGET)
-                        .save(consumer, location(metalFolder + "gold/helmet"));
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.GOLDEN_CHESTPLATE), TinkerFluids.moltenGold, FluidValues.INGOT * 8)
-                        .setDamagable(FluidValues.NUGGET)
-                        .save(consumer, location(metalFolder + "gold/chestplate"));
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.GOLDEN_LEGGINGS), TinkerFluids.moltenGold, FluidValues.INGOT * 7)
-                        .setDamagable(FluidValues.NUGGET)
-                        .save(consumer, location(metalFolder + "gold/leggings"));
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.GOLDEN_BOOTS), TinkerFluids.moltenGold, FluidValues.INGOT * 4)
-                        .setDamagable(FluidValues.NUGGET)
-                        .save(consumer, location(metalFolder + "gold/boots"));
-    // tools
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.GOLDEN_AXE, Items.GOLDEN_PICKAXE), TinkerFluids.moltenGold, FluidValues.INGOT * 3)
-                        .setDamagable(FluidValues.NUGGET)
-                        .save(consumer, location(metalFolder + "gold/axes"));
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.GOLDEN_SWORD, Items.GOLDEN_HOE), TinkerFluids.moltenGold, FluidValues.INGOT * 2)
-                        .setDamagable(FluidValues.NUGGET)
-                        .save(consumer, location(metalFolder + "gold/weapon"));
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.GOLDEN_SHOVEL), TinkerFluids.moltenGold, FluidValues.INGOT)
-                        .setDamagable(FluidValues.NUGGET)
-                        .save(consumer, location(metalFolder + "gold/shovel"));
     // unique melting
     MeltingRecipeBuilder.melting(Ingredient.of(Items.GOLDEN_HORSE_ARMOR), TinkerFluids.moltenGold, FluidValues.INGOT * 7)
                         .save(consumer, location(metalFolder + "gold/horse_armor"));
@@ -1571,9 +1533,6 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .save(consumer, location(metalFolder + "copper/lightning_rod"));
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerTags.Items.COPPER_PLATFORMS), TinkerFluids.moltenCopper, FluidValues.NUGGET * 10)
                         .save(consumer, location(metalFolder + "copper/platform"));
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.BRUSH), TinkerFluids.moltenCopper, FluidValues.INGOT)
-                        .setDamagable(FluidValues.NUGGET)
-                        .save(consumer, location(metalFolder + "copper/brush"));
 
     // amethyst melting
     MeltingRecipeBuilder.melting(Ingredient.of(Blocks.TINTED_GLASS, TinkerCommons.clearTintedGlass), TinkerFluids.moltenAmethyst, FluidValues.GEM * 2)
@@ -1592,29 +1551,6 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // not the full copy cost as we have a discount recipe
     MeltingRecipeBuilder.melting(CompoundIngredient.of(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), Ingredient.of(ItemTags.TRIM_TEMPLATES)), TinkerFluids.moltenDiamond, FluidValues.GEM * 5)
                         .save(consumer, location(folder + "diamond/smithing_template"));
-    // armor
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.DIAMOND_HELMET), TinkerFluids.moltenDiamond, FluidValues.GEM * 5)
-                        .setDamagable(FluidValues.GEM_SHARD)
-                        .save(consumer, location(folder + "diamond/helmet"));
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.DIAMOND_CHESTPLATE), TinkerFluids.moltenDiamond, FluidValues.GEM * 8)
-                        .setDamagable(FluidValues.GEM_SHARD)
-                        .save(consumer, location(folder + "diamond/chestplate"));
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.DIAMOND_LEGGINGS), TinkerFluids.moltenDiamond, FluidValues.GEM * 7)
-                        .setDamagable(FluidValues.GEM_SHARD)
-                        .save(consumer, location(folder + "diamond/leggings"));
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.DIAMOND_BOOTS), TinkerFluids.moltenDiamond, FluidValues.GEM * 4)
-                        .setDamagable(FluidValues.GEM_SHARD)
-                        .save(consumer, location(folder + "diamond/boots"));
-    // tools
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.DIAMOND_AXE, Items.DIAMOND_PICKAXE), TinkerFluids.moltenDiamond, FluidValues.GEM * 3)
-                        .setDamagable(FluidValues.GEM_SHARD)
-                        .save(consumer, location(folder + "diamond/axes"));
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.DIAMOND_SWORD, Items.DIAMOND_HOE), TinkerFluids.moltenDiamond, FluidValues.GEM * 2)
-                        .setDamagable(FluidValues.GEM_SHARD)
-                        .save(consumer, location(folder + "diamond/weapon"));
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.DIAMOND_SHOVEL), TinkerFluids.moltenDiamond, FluidValues.GEM)
-                        .setDamagable(FluidValues.GEM_SHARD)
-                        .save(consumer, location(folder + "diamond/shovel"));
     // unique melting
     MeltingRecipeBuilder.melting(Ingredient.of(Items.DIAMOND_HORSE_ARMOR), TinkerFluids.moltenDiamond, FluidValues.GEM * 7)
                         .save(consumer, location(folder + "diamond/horse_armor"));
@@ -1632,7 +1568,8 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .setDamagable(netheriteSizes)
                         .addByproduct(TinkerFluids.moltenDiamond.result(FluidValues.GEM * 8))
                         .save(consumer, location(metalFolder + "netherite/chestplate"));
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.NETHERITE_LEGGINGS), TinkerFluids.moltenNetherite, FluidValues.INGOT)
+    // leggings use tag for the sake of paxels from mekanism
+    MeltingRecipeBuilder.melting(Ingredient.of(getItemTag(TConstruct.MOD_ID, "melting/netherite/tools_costing_" + 7)), TinkerFluids.moltenNetherite, FluidValues.INGOT)
                         .setDamagable(netheriteSizes)
                         .addByproduct(TinkerFluids.moltenDiamond.result(FluidValues.GEM * 7))
                         .save(consumer, location(metalFolder + "netherite/leggings"));
@@ -1641,22 +1578,30 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .addByproduct(TinkerFluids.moltenDiamond.result(FluidValues.GEM * 4))
                         .save(consumer, location(metalFolder + "netherite/boots"));
     // tools
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.NETHERITE_AXE, Items.NETHERITE_PICKAXE), TinkerFluids.moltenNetherite, FluidValues.INGOT)
+    // axes uses tag for tools complement sickle
+    MeltingRecipeBuilder.melting(Ingredient.of(getItemTag(TConstruct.MOD_ID, "melting/netherite/tools_costing_" + 3)), TinkerFluids.moltenNetherite, FluidValues.INGOT)
                         .setDamagable(netheriteSizes)
                         .addByproduct(TinkerFluids.moltenDiamond.result(FluidValues.GEM * 3))
                         .save(consumer, location(metalFolder + "netherite/axes"));
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.NETHERITE_SWORD, Items.NETHERITE_HOE), TinkerFluids.moltenNetherite, FluidValues.INGOT)
+    // tools costing 2 only has vanilla sword and hoe, but its easier to use the tag then not for other metals so we use it here
+    MeltingRecipeBuilder.melting(Ingredient.of(getItemTag(TConstruct.MOD_ID, "melting/netherite/tools_costing_" + 2)), TinkerFluids.moltenNetherite, FluidValues.INGOT)
                         .setDamagable(netheriteSizes)
                         .addByproduct(TinkerFluids.moltenDiamond.result(FluidValues.GEM * 2))
-                        .save(consumer, location(metalFolder + "netherite/weapon"));
-    MeltingRecipeBuilder.melting(Ingredient.of(Items.NETHERITE_SHOVEL), TinkerFluids.moltenNetherite, FluidValues.INGOT)
+                        .save(consumer, location(metalFolder + "netherite/sword"));
+    // shovels use tags for tools complement knife
+    MeltingRecipeBuilder.melting(Ingredient.of(getItemTag(TConstruct.MOD_ID, "melting/netherite/tools_costing_" + 1)), TinkerFluids.moltenNetherite, FluidValues.INGOT)
                         .setDamagable(netheriteSizes)
                         .addByproduct(TinkerFluids.moltenDiamond.result(FluidValues.GEM))
                         .save(consumer, location(metalFolder + "netherite/shovel"));
-    MeltingRecipeBuilder.melting(Ingredient.of(getItemTag(COMMON, "tools/paxels/netherite")), TinkerFluids.moltenNetherite, FluidValues.INGOT)
+    // tools complement compat - excavators and hammers
+    MeltingRecipeBuilder.melting(ItemNameIngredient.from(new ResourceLocation("tools_complement", "netherite_excavator")), TinkerFluids.moltenNetherite, FluidValues.INGOT)
                         .setDamagable(netheriteSizes)
-                        .addByproduct(TinkerFluids.moltenDiamond.result(FluidValues.GEM * 7))
-                        .save(withCondition(consumer, tagCondition("tools/paxels/netherite")), location(metalFolder + "netherite/paxel"));
+                        .addByproduct(TinkerFluids.moltenDiamond.result(FluidValues.GEM * 11))
+                        .save(withCondition(consumer, new ItemExistsCondition("tools_complement", "netherite_excavator")), location(metalFolder + "netherite/excavator"));
+    MeltingRecipeBuilder.melting(ItemNameIngredient.from(new ResourceLocation("tools_complement", "netherite_hammer")), TinkerFluids.moltenNetherite, FluidValues.INGOT)
+                        .setDamagable(netheriteSizes)
+                        .addByproduct(TinkerFluids.moltenDiamond.result(FluidValues.GEM * 13))
+                        .save(withCondition(consumer, new ItemExistsCondition("tools_complement", "netherite_hammer")), location(metalFolder + "netherite/hammer"));
 
     // quartz
     MeltingRecipeBuilder.melting(Ingredient.of(Blocks.OBSERVER, Blocks.COMPARATOR, TinkerGadgets.quartzShuriken), TinkerFluids.moltenQuartz, FluidValues.GEM)
@@ -1877,7 +1822,7 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                      .build(wrapped, prefix(TinkerFluids.moltenPewter, folder));
 
     // thermal alloys
-    Function<String,ICondition> fluidTagLoaded = name -> new NotCondition(new TagEmptyCondition<>(Registries.FLUID, commonResource(name)));
+    Function<String,ICondition> fluidTagLoaded = name -> new TagFilledCondition<>(Registries.FLUID, commonResource(name));
     Function<String,TagKey<Fluid>> fluidTag = name -> FluidTags.create(commonResource(name));
     // enderium
     wrapped = withCondition(consumer, tagCondition("ingots/enderium"), tagCondition("ingots/lead"));
@@ -2053,22 +1998,34 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
 
   /** Handles tag based melting and casting recipes using the builder */
   private void addTagRecipes(Consumer<FinishedRecipe> consumer) {
-    // vanilla tools and armors are handled elsewhere, lets us combine some recipes since they are not optional
+    // tools complement support - they want us to use the cost 1 tag for shovels, and an excavator and hammer
+    ToolItemMelting EXCAVATOR = new ToolItemMelting(11, "tools_complement", "excavator");
+    ToolItemMelting HAMMER = new ToolItemMelting(13, "tools_complement", "hammer");
+    CommonRecipe[] TOOLS_COMPLEMENT = { SmelteryRecipeBuilder.SHOVEL_PLUS, SWORD, AXES, EXCAVATOR, HAMMER };
+    // mekanism support - they want us to use the cost 7 tag for leggings, and a shield
+    CommonRecipe[] MEKANISM_ARMOR = {
+      SmelteryRecipeBuilder.HELMET, SmelteryRecipeBuilder.CHESTPLATE, SmelteryRecipeBuilder.LEGGINGS_PLUS, SmelteryRecipeBuilder.BOOTS,
+      new ToolItemMelting(6, "mekanism", "shield")
+    };
+
     // metal ores
-    metal(consumer, TinkerFluids.moltenCopper).byproducts(Byproduct.SMALL_GOLD   ).metal().dust().plate().gear().coin().sheetmetal().geore().paxel().tools().armor().wire();
-    metal(consumer, TinkerFluids.moltenIron  ).byproducts(Byproduct.STEEL        ).metal().dust().plate().gear().coin().sheetmetal().geore().paxel().rod();
-    metal(consumer, TinkerFluids.moltenCobalt).byproducts(Byproduct.SMALL_DIAMOND).metal().dust();
-    metal(consumer, TinkerFluids.moltenSteel )                                 .metal().dust().plate().gear().coin().sheetmetal()        .paxel().tools().armor().wire().rod();
-    // gold ore does non-standard byproduct handling, as it wants sparse gold ore to have a different byproduct, hence setting hasOre to false and manually adding them
-    metal(consumer, TinkerFluids.moltenGold  ).byproducts(Byproduct.COBALT).hasOre(false).metal().rawOre().singularOre(2).denseOre(6).dust().plate().gear().coin().sheetmetal().geore().paxel();
+    // copper has the brush for cost 1, so always keep that one around
+    metal(consumer, TinkerFluids.moltenCopper).ore(Byproduct.SMALL_GOLD   ).metal().dust().plate().gear().coin().sheetmetal().geore().oreberry().wire().common(SWORD, AXES, EXCAVATOR, HAMMER).common(ARMOR).toolCostMelting(1, "shovel", false);
+    // iron has both railcraft spikemaul and tools complement excavator at cost 11
+    metal(consumer, TinkerFluids.moltenIron  ).ore(Byproduct.STEEL        ).metal().dust().plate().gear().coin().sheetmetal().geore().oreberry().minecraftTools().toolCostMelting(11, "tools_costing_11").common(HAMMER).rod();
+    metal(consumer, TinkerFluids.moltenCobalt).ore(Byproduct.SMALL_DIAMOND).metal().dust();
+    metal(consumer, TinkerFluids.moltenSteel ).metal().dust().plate().gear().coin().sheetmetal().common(TOOLS).common(MEKANISM_ARMOR).wire().rod().toolItemMelting(11, "railcraft", "spike_maul");
+    // gold ore does non-standard byproduct handling, as it wants sparse gold ore to have a different byproduct, hence moving byproducts so we don't have ores for the metal call
+    metal(consumer, TinkerFluids.moltenGold).metal().ore(Byproduct.COBALT).dust().plate().gear().coin().sheetmetal().geore().oreberry().minecraftTools("golden").common(EXCAVATOR, HAMMER).rawOre().singularOre(2).denseOre(6);
     // gem ores
-    molten(consumer, TinkerFluids.moltenDiamond).byproducts(Byproduct.DEBRIS ).largeGem().dust().gear().geore().paxel();
-    molten(consumer, TinkerFluids.moltenEmerald).byproducts(Byproduct.DIAMOND).largeGem().dust().gear().geore().armor().tools();
-    molten(consumer, TinkerFluids.moltenQuartz ).byproducts(Byproduct.IRON   ).smallGem().dust().gear().geore();
+    // diamond has both railcraft spikemaul and tools complement excavator at cost 11
+    molten(consumer, TinkerFluids.moltenDiamond).ore(Byproduct.DEBRIS ).largeGem().dust().gear().geore().minecraftTools().toolCostMelting(11, "tools_costing_11").common(HAMMER);
+    molten(consumer, TinkerFluids.moltenEmerald).ore(Byproduct.DIAMOND).largeGem().dust().gear().geore();
+    molten(consumer, TinkerFluids.moltenQuartz ).ore(Byproduct.IRON   ).smallGem().dust().gear().geore();
     molten(consumer, TinkerFluids.moltenAmethyst).smallGem();
 
     // standard alloys
-    metal(consumer, TinkerFluids.moltenNetherite).metal().dust().plate().gear().coin();
+    metal(consumer, TinkerFluids.moltenNetherite).metal().dust().plate().gear().coin(); // handles tools elsewhere due to byproducts
     // tier 3
     metal(consumer, TinkerFluids.moltenSlimesteel    ).metal();
     metal(consumer, TinkerFluids.moltenAmethystBronze).metal().dust();
@@ -2081,31 +2038,32 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     metal(consumer, TinkerFluids.moltenQueensSlime).metal();
 
     // compat ores
-    metal(consumer, TinkerFluids.moltenTin     ).byproducts(Byproduct.NICKEL, Byproduct.COPPER).optional().metal().dust().plate().gear().coin().armor().tools();
-    metal(consumer, TinkerFluids.moltenAluminum).byproducts(Byproduct.IRON                    ).optional().metal().dust().plate().gear().coin()                .sheetmetal().wire().rod();
-    metal(consumer, TinkerFluids.moltenLead    ).byproducts(Byproduct.SILVER, Byproduct.GOLD  ).optional().metal().dust().plate().gear().coin().armor().tools().sheetmetal().wire();
-    metal(consumer, TinkerFluids.moltenSilver  ).byproducts(Byproduct.LEAD, Byproduct.GOLD    ).optional().metal().dust().plate().gear().coin().armor().tools().sheetmetal();
-    metal(consumer, TinkerFluids.moltenNickel  ).byproducts(Byproduct.PLATINUM, Byproduct.IRON).optional().metal().dust().plate().gear().coin().armor().tools().sheetmetal();
-    metal(consumer, TinkerFluids.moltenZinc    ).byproducts(Byproduct.TIN, Byproduct.COPPER   ).optional().metal().dust().plate().gear().geore();
-    metal(consumer, TinkerFluids.moltenPlatinum).byproducts(Byproduct.GOLD                    ).optional().metal().dust();
-    metal(consumer, TinkerFluids.moltenTungsten).byproducts(Byproduct.PLATINUM, Byproduct.GOLD).optional().metal().dust();
-    metal(consumer, TinkerFluids.moltenOsmium  ).byproducts(Byproduct.IRON                    ).optional().metal().dust().armor().tools().paxel();
-    metal(consumer, TinkerFluids.moltenUranium ).byproducts(Byproduct.LEAD, Byproduct.COPPER  ).optional().metal().dust().plate().gear().coin().sheetmetal();
+    metal(consumer, TinkerFluids.moltenTin     ).ore(Byproduct.NICKEL, Byproduct.COPPER).optional().metal().dust().oreberry().plate().gear().coin().common(TOOLS_COMPLEMENT).common(ARMOR);
+    metal(consumer, TinkerFluids.moltenAluminum).ore(Byproduct.IRON                    ).optional().metal().dust().oreberry().plate().gear().coin().sheetmetal().wire().rod();
+    metal(consumer, TinkerFluids.moltenLead    ).ore(Byproduct.SILVER, Byproduct.GOLD  ).optional().metal().dust().oreberry().plate().gear().coin().common(TOOLS_COMPLEMENT).common(ARMOR).sheetmetal().wire();
+    metal(consumer, TinkerFluids.moltenSilver  ).ore(Byproduct.LEAD, Byproduct.GOLD    ).optional().metal().dust().oreberry().plate().gear().coin().common(TOOLS_COMPLEMENT).common(ARMOR).sheetmetal();
+    metal(consumer, TinkerFluids.moltenNickel  ).ore(Byproduct.PLATINUM, Byproduct.IRON).optional().metal().dust().oreberry().plate().gear().coin().common(TOOLS_COMPLEMENT).common(ARMOR).sheetmetal();
+    metal(consumer, TinkerFluids.moltenZinc    ).ore(Byproduct.TIN, Byproduct.COPPER   ).optional().metal().dust().oreberry().plate().gear().geore();
+    metal(consumer, TinkerFluids.moltenPlatinum).ore(Byproduct.GOLD                    ).optional().metal().dust();
+    metal(consumer, TinkerFluids.moltenTungsten).ore(Byproduct.PLATINUM, Byproduct.GOLD).optional().metal().dust();
+    metal(consumer, TinkerFluids.moltenOsmium  ).ore(Byproduct.IRON                    ).optional().metal().dust().oreberry().common(TOOLS).common(MEKANISM_ARMOR);
+    metal(consumer, TinkerFluids.moltenUranium ).ore(Byproduct.LEAD, Byproduct.COPPER  ).optional().metal().dust().oreberry().plate().gear().coin().sheetmetal();
     // compat alloys
-    metal(consumer, TinkerFluids.moltenBronze    ).optional().metal().dust().plate().gear().coin().armor().tools().paxel();
+    metal(consumer, TinkerFluids.moltenBronze    ).optional().metal().dust().plate().gear().coin().common(TOOLS_COMPLEMENT).common(MEKANISM_ARMOR);
     metal(consumer, TinkerFluids.moltenBrass     ).optional().metal().dust().plate().gear();
-    metal(consumer, TinkerFluids.moltenElectrum  ).optional().metal().dust().plate().gear().coin().armor().tools().sheetmetal().wire();
-    metal(consumer, TinkerFluids.moltenInvar     ).optional().metal().dust().plate().gear().coin().armor().tools();
-    metal(consumer, TinkerFluids.moltenConstantan).optional().metal().dust().plate().gear().coin().armor().tools().sheetmetal();
+    metal(consumer, TinkerFluids.moltenElectrum  ).optional().metal().dust().plate().gear().coin().common(TOOLS_COMPLEMENT).common(ARMOR).sheetmetal().wire();
+    metal(consumer, TinkerFluids.moltenInvar     ).optional().metal().dust().plate().gear().coin().common(TOOLS_COMPLEMENT).common(ARMOR);
+    metal(consumer, TinkerFluids.moltenConstantan).optional().metal().dust().plate().gear().coin().common(TOOLS_COMPLEMENT).common(ARMOR).sheetmetal();
     metal(consumer, TinkerFluids.moltenPewter    ).optional().metal().dust();
     // specialty alloys
     metal(consumer, TinkerFluids.moltenEnderium).optional().metal().dust().plate().gear().coin();
     metal(consumer, TinkerFluids.moltenLumium  ).optional().metal().dust().plate().gear().coin();
     metal(consumer, TinkerFluids.moltenSignalum).optional().metal().dust().plate().gear().coin();
-    metal(consumer, TinkerFluids.moltenRefinedObsidian ).optional().metal().armor().tools().paxel();
-    metal(consumer, TinkerFluids.moltenRefinedGlowstone).optional().metal().armor().tools().paxel();
+    metal(consumer, TinkerFluids.moltenRefinedObsidian ).optional().metal().common(TOOLS).common(MEKANISM_ARMOR);
+    metal(consumer, TinkerFluids.moltenRefinedGlowstone).optional().metal().common(TOOLS).common(MEKANISM_ARMOR);
     // embers provides their own fluid. so we just have to add the recipes
-    metal(consumer, "dawnstone", getFluidTag(COMMON, "molten_dawnstone")).temperature(900).optional().metal().plate();
+    TagKey<Fluid> dawnstone = getFluidTag(COMMON, "molten_dawnstone");
+    metal(withCondition(consumer, new TagFilledCondition<>(dawnstone)), "dawnstone", dawnstone).temperature(900).optional().metal().plate();
   }
 
   private void addCompatRecipes(Consumer<FinishedRecipe> consumer) {

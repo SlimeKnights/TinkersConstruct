@@ -5,18 +5,12 @@
       "type": "forge:or",
       "values": [
         {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:tag_empty",
-            "tag": "forge:ingots/invar"
-          }
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/invar"
         },
         {
-          "type": "forge:not",
-          "value": {
-            "type": "forge:tag_empty",
-            "tag": "forge:ingots/nickel"
-          }
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/nickel"
         }
       ]
     }

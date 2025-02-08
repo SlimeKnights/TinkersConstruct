@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "oreberriesreplanted:lead_oreberry"
+    }
+  ],
+  "ingredient": {
+    "item": "oreberriesreplanted:lead_oreberry"
+  },
+  "result": {
+    "amount": 10,
+    "tag": "forge:molten_lead"
+  },
+  "temperature": 330,
+  "time": 14
+}

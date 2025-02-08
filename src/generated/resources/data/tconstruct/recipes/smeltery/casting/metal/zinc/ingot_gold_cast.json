@@ -5,11 +5,8 @@
   },
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:ingots/zinc"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:ingots/zinc"
     }
   ],
   "cooling_time": 47,

@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "tools_complement:nickel_excavator"
+    }
+  ],
+  "ingredient": {
+    "item": "tools_complement:nickel_excavator"
+  },
+  "result": {
+    "amount": 990,
+    "tag": "forge:molten_nickel",
+    "unit_size": 10
+  },
+  "temperature": 950,
+  "time": 215
+}

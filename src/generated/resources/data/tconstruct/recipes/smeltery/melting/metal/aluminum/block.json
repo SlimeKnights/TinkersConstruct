@@ -2,11 +2,8 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:storage_blocks/aluminum"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:storage_blocks/aluminum"
     }
   ],
   "ingredient": {

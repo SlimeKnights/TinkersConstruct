@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "#forge:tools/pickaxes/nickel",
+      "required": false
+    },
+    {
+      "id": "#forge:tools/axes/nickel",
+      "required": false
+    },
+    {
+      "id": "tools_complement:nickel_sickle",
+      "required": false
+    }
+  ]
+}

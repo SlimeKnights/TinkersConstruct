@@ -2,21 +2,18 @@
   "type": "tconstruct:damagable_melting",
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:tools/swords/copper"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "tconstruct:melting/copper/tools_costing_2"
     }
   ],
   "ingredient": {
-    "tag": "forge:tools/swords/copper"
+    "tag": "tconstruct:melting/copper/tools_costing_2"
   },
   "result": {
-    "amount": 90,
+    "amount": 180,
     "tag": "forge:molten_copper",
     "unit_size": 10
   },
   "temperature": 500,
-  "time": 50
+  "time": 71
 }

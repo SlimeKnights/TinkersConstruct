@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "tools_complement:invar_excavator"
+    }
+  ],
+  "ingredient": {
+    "item": "tools_complement:invar_excavator"
+  },
+  "result": {
+    "amount": 990,
+    "tag": "forge:molten_invar",
+    "unit_size": 10
+  },
+  "temperature": 900,
+  "time": 210
+}

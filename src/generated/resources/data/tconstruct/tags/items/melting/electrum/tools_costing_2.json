@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#forge:tools/swords/electrum",
+      "required": false
+    },
+    {
+      "id": "#forge:tools/hoes/electrum",
+      "required": false
+    }
+  ]
+}

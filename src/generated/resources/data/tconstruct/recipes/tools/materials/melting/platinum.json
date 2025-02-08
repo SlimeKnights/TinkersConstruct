@@ -2,11 +2,8 @@
   "type": "tconstruct:material_melting",
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:ingots/platinum"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:ingots/platinum"
     }
   ],
   "input": "tconstruct:platinum",

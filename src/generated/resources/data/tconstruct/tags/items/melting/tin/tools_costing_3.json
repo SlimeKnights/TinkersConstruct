@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "#forge:tools/pickaxes/tin",
+      "required": false
+    },
+    {
+      "id": "#forge:tools/axes/tin",
+      "required": false
+    },
+    {
+      "id": "tools_complement:tin_sickle",
+      "required": false
+    }
+  ]
+}

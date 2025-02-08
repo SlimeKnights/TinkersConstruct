@@ -8,7 +8,7 @@
     }
   ],
   "ingredient": {
-    "item": "minecraft:netherite_leggings"
+    "tag": "tconstruct:melting/netherite/tools_costing_7"
   },
   "result": {
     "amount": 90,

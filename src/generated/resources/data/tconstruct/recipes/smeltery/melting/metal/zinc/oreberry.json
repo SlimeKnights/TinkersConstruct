@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "oreberriesreplanted:zinc_oreberry"
+    }
+  ],
+  "ingredient": {
+    "item": "oreberriesreplanted:zinc_oreberry"
+  },
+  "result": {
+    "amount": 10,
+    "tag": "forge:molten_zinc"
+  },
+  "temperature": 420,
+  "time": 16
+}

@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#forge:tools/shovels/invar",
+      "required": false
+    },
+    {
+      "id": "tools_complement:invar_knife",
+      "required": false
+    }
+  ]
+}

@@ -19,10 +19,8 @@ import slimeknights.mantle.util.RegistryHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.shared.TinkerCommons;
 
-/**
- * Loot table condition to test if a tag has entries.
- * TODO: the non-loot condition form is redundant to {@link slimeknights.mantle.recipe.helper.TagEmptyCondition}
- */
+/** @deprecated use {@link slimeknights.mantle.recipe.condition.TagFilledCondition} */
+@Deprecated(forRemoval = true)
 @RequiredArgsConstructor
 public class TagNotEmptyCondition<T> implements LootItemCondition, ICondition {
   private static final ResourceLocation NAME = TConstruct.getResource("tag_not_empty");

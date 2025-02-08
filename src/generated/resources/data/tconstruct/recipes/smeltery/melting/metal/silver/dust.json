@@ -2,11 +2,8 @@
   "type": "tconstruct:melting",
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:dusts/silver"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:dusts/silver"
     }
   ],
   "ingredient": {

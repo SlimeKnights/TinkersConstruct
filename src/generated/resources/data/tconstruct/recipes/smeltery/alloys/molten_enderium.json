@@ -2,18 +2,12 @@
   "type": "tconstruct:alloy",
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:ingots/enderium"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:ingots/enderium"
     },
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:ingots/lead"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:ingots/lead"
     }
   ],
   "inputs": [

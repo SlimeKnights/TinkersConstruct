@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "#forge:tools/pickaxes/lead",
+      "required": false
+    },
+    {
+      "id": "#forge:tools/axes/lead",
+      "required": false
+    },
+    {
+      "id": "tools_complement:lead_sickle",
+      "required": false
+    }
+  ]
+}

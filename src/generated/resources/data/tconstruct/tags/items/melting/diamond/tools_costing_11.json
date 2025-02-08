@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "tools_complement:diamond_excavator",
+      "required": false
+    },
+    {
+      "id": "railcraft:diamond_spike_maul",
+      "required": false
+    }
+  ]
+}

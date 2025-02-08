@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#forge:tools/shovels/nickel",
+      "required": false
+    },
+    {
+      "id": "tools_complement:nickel_knife",
+      "required": false
+    }
+  ]
+}

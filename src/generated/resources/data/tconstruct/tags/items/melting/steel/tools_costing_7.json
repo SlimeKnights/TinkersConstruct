@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#forge:armors/leggings/steel",
+      "required": false
+    },
+    {
+      "id": "#forge:tools/paxels/steel",
+      "required": false
+    }
+  ]
+}

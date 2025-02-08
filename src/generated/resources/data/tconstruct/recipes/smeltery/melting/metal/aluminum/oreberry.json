@@ -1,0 +1,18 @@
+{
+  "type": "tconstruct:melting",
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "oreberriesreplanted:aluminum_oreberry"
+    }
+  ],
+  "ingredient": {
+    "item": "oreberriesreplanted:aluminum_oreberry"
+  },
+  "result": {
+    "amount": 10,
+    "tag": "forge:molten_aluminum"
+  },
+  "temperature": 425,
+  "time": 16
+}

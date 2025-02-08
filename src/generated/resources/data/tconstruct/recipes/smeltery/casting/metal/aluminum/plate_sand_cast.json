@@ -6,11 +6,8 @@
   "cast_consumed": true,
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:plates/aluminum"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:plates/aluminum"
     }
   ],
   "cooling_time": 47,

@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.mantle.registration.object.EnumObject;
+import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.mantle.registration.object.MetalItemObject;
 import slimeknights.mantle.registration.object.WoodBlockObject;
 import slimeknights.tconstruct.TConstruct;
@@ -26,6 +27,7 @@ import slimeknights.tconstruct.common.registration.CastItemObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
+import slimeknights.tconstruct.library.data.recipe.CostTagAppender;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.shared.block.SlimeType;
@@ -432,6 +434,8 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.copy(TinkerTags.Blocks.FOUNDRY_BRICKS, TinkerTags.Items.FOUNDRY_BRICKS);
     this.copy(BlockTags.SOUL_FIRE_BASE_BLOCKS, ItemTags.SOUL_FIRE_BASE_BLOCKS);
 
+    this.tag(TinkerTags.Items.NON_SINGULAR_ORE_RATES).addTags(Tags.Items.ORE_RATES_DENSE, Tags.Items.ORE_RATES_SPARSE);
+
     // smeltery and foundry structure blocks
     this.tag(TinkerTags.Items.SMELTERY)
         .addTag(TinkerTags.Items.SEARED_BLOCKS)
@@ -523,6 +527,30 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(TinkerTags.Items.TANKS)
         .addTag(TinkerTags.Items.SEARED_TANKS)
         .addTag(TinkerTags.Items.SCORCHED_TANKS);
+
+    // melting tags //
+    // ores
+    moltenTools(TinkerFluids.moltenCopper).add(1, Items.BRUSH).toolTags().toolsComplement();
+    moltenTools(TinkerFluids.moltenIron).minecraft().add(1, Items.FLINT_AND_STEEL, Items.SHIELD).add(2, Items.SHEARS).crowbar().excavatorSpikeMaul();
+    moltenTools(TinkerFluids.moltenGold).minecraft("golden");
+    moltenTools(TinkerFluids.moltenSteel).toolTags().leggingsPaxel().crowbar();
+    moltenTools(TinkerFluids.moltenNetherite).minecraft();
+    // gems
+    moltenTools(TinkerFluids.moltenDiamond).minecraft().excavatorSpikeMaul().crowbar();
+    // mod ores
+    moltenTools(TinkerFluids.moltenTin).toolTags().toolsComplement();
+    moltenTools(TinkerFluids.moltenLead).toolTags().toolsComplement();
+    moltenTools(TinkerFluids.moltenSilver).toolTags().toolsComplement();
+    moltenTools(TinkerFluids.moltenNickel).toolTags().toolsComplement();
+    moltenTools(TinkerFluids.moltenOsmium).toolTags().leggingsPaxel();
+    // mod alloys
+    moltenTools(TinkerFluids.moltenBronze).toolTags().toolsComplement().leggingsPaxel();
+    moltenTools(TinkerFluids.moltenElectrum).toolTags().toolsComplement();
+    moltenTools(TinkerFluids.moltenInvar).toolTags().toolsComplement();
+    moltenTools(TinkerFluids.moltenConstantan).toolTags().toolsComplement();
+    // special alloys
+    moltenTools(TinkerFluids.moltenRefinedGlowstone).toolTags().leggingsPaxel();
+    moltenTools(TinkerFluids.moltenRefinedObsidian).toolTags().leggingsPaxel();
   }
 
   @Override
@@ -587,5 +615,10 @@ public class ItemTagProvider extends ItemTagsProvider {
       this.tag(getArmorTag(type)).add(item);
       this.tag(getForgeArmorTag(type)).add(item);
     });
+  }
+
+  /** Creates a builder for a melting tag with a molten fluid */
+  protected CostTagAppender moltenTools(FluidObject<?> fluid) {
+    return CostTagAppender.moltenToolMelting(fluid, tag -> tag(ItemTags.create(tag)));
   }
 }

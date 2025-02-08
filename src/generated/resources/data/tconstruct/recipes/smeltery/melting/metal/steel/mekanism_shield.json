@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "mekanism:steel_shield"
+    }
+  ],
+  "ingredient": {
+    "item": "mekanism:steel_shield"
+  },
+  "result": {
+    "amount": 540,
+    "tag": "forge:molten_steel",
+    "unit_size": 10
+  },
+  "temperature": 950,
+  "time": 159
+}

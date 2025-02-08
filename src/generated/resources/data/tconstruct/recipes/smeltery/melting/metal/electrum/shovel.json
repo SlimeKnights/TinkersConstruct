@@ -2,15 +2,12 @@
   "type": "tconstruct:damagable_melting",
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:tools/shovels/electrum"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "tconstruct:melting/electrum/tools_costing_1"
     }
   ],
   "ingredient": {
-    "tag": "forge:tools/shovels/electrum"
+    "tag": "tconstruct:melting/electrum/tools_costing_1"
   },
   "result": {
     "amount": 90,

@@ -9,11 +9,8 @@
   ],
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:raw_materials/aluminum"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:raw_materials/aluminum"
     }
   ],
   "ingredient": {

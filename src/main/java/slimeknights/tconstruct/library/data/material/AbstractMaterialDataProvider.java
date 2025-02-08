@@ -1,13 +1,14 @@
 package slimeknights.tconstruct.library.data.material;
 
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.PackOutput.Target;
 import net.minecraftforge.common.crafting.conditions.ICondition;
-import net.minecraftforge.common.crafting.conditions.NotCondition;
 import net.minecraftforge.common.crafting.conditions.OrCondition;
-import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
+import slimeknights.mantle.Mantle;
 import slimeknights.mantle.data.GenericDataProvider;
+import slimeknights.mantle.recipe.condition.TagFilledCondition;
 import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.library.json.JsonRedirect;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
@@ -25,8 +26,6 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static slimeknights.mantle.Mantle.COMMON;
 
 /**
  * Extendable material provider, useful for addons
@@ -119,7 +118,7 @@ public abstract class AbstractMaterialDataProvider extends GenericDataProvider {
 
   /** Conditions on a forge tag existing */
   protected static ICondition tagExistsCondition(String name) {
-    return new NotCondition(new TagEmptyCondition(COMMON, name));
+    return new TagFilledCondition<>(Registries.ITEM, Mantle.commonResource(name));
   }
 
   /** Creates a normal material with a condition and a redirect */

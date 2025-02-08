@@ -5,11 +5,8 @@
   },
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:plates/enderium"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:plates/enderium"
     }
   ],
   "cooling_time": 76,

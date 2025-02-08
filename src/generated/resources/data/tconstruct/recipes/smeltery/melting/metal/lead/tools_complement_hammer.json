@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "tools_complement:lead_hammer"
+    }
+  ],
+  "ingredient": {
+    "item": "tools_complement:lead_hammer"
+  },
+  "result": {
+    "amount": 1170,
+    "tag": "forge:molten_lead",
+    "unit_size": 10
+  },
+  "temperature": 330,
+  "time": 157
+}

@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "tconstruct:melting/silver/tools_costing_3"
+    }
+  ],
+  "ingredient": {
+    "tag": "tconstruct:melting/silver/tools_costing_3"
+  },
+  "result": {
+    "amount": 270,
+    "tag": "forge:molten_silver",
+    "unit_size": 10
+  },
+  "temperature": 790,
+  "time": 104
+}

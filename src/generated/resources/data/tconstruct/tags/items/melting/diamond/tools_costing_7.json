@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:diamond_leggings",
+    {
+      "id": "#forge:tools/paxels/diamond",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#forge:tools/pickaxes/refined_obsidian",
+      "required": false
+    },
+    {
+      "id": "#forge:tools/axes/refined_obsidian",
+      "required": false
+    }
+  ]
+}

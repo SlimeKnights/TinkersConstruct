@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#forge:tools/shovels/tin",
+      "required": false
+    },
+    {
+      "id": "tools_complement:tin_knife",
+      "required": false
+    }
+  ]
+}

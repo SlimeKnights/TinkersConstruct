@@ -1,13 +1,8 @@
 {
   "type": "tconstruct:damagable_melting",
-  "ingredient": [
-    {
-      "item": "minecraft:golden_axe"
-    },
-    {
-      "item": "minecraft:golden_pickaxe"
-    }
-  ],
+  "ingredient": {
+    "tag": "tconstruct:melting/gold/tools_costing_3"
+  },
   "result": {
     "amount": 270,
     "tag": "forge:molten_gold",

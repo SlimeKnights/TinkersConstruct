@@ -6,11 +6,8 @@
   "cast_consumed": true,
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:plates/zinc"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:plates/zinc"
     }
   ],
   "cooling_time": 47,

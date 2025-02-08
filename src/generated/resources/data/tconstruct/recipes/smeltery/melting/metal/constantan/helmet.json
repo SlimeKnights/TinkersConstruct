@@ -2,15 +2,12 @@
   "type": "tconstruct:damagable_melting",
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:armors/boots/constantan"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:armors/helmets/constantan"
     }
   ],
   "ingredient": {
-    "tag": "forge:armors/boots/constantan"
+    "tag": "forge:armors/helmets/constantan"
   },
   "result": {
     "amount": 450,

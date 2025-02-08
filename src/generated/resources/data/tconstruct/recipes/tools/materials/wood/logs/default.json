@@ -2,12 +2,9 @@
   "type": "tconstruct:material",
   "conditions": [
     {
-      "type": "tconstruct:tag_difference_present",
-      "base": "minecraft:logs",
-      "registry": "minecraft:item",
-      "subtracted": [
-        "tconstruct:wood_variants/logs"
-      ]
+      "type": "mantle:tag_combination_filled",
+      "ignore": "tconstruct:wood_variants/logs",
+      "match": "minecraft:logs"
     }
   ],
   "ingredient": {

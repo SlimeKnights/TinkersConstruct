@@ -6,11 +6,8 @@
   "cast_consumed": true,
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:coins/steel"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:coins/steel"
     }
   ],
   "cooling_time": 37,

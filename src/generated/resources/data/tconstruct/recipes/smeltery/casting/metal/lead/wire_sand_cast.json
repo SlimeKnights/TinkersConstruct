@@ -6,11 +6,8 @@
   "cast_consumed": true,
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:wires/lead"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:wires/lead"
     }
   ],
   "cooling_time": 31,

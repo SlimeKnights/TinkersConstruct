@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "tools_complement:electrum_excavator"
+    }
+  ],
+  "ingredient": {
+    "item": "tools_complement:electrum_excavator"
+  },
+  "result": {
+    "amount": 990,
+    "tag": "forge:molten_electrum",
+    "unit_size": 10
+  },
+  "temperature": 760,
+  "time": 195
+}

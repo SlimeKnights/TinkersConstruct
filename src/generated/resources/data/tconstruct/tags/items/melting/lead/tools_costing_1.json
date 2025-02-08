@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#forge:tools/shovels/lead",
+      "required": false
+    },
+    {
+      "id": "tools_complement:lead_knife",
+      "required": false
+    }
+  ]
+}

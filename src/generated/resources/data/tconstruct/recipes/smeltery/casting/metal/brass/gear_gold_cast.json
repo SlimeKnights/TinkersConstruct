@@ -5,11 +5,8 @@
   },
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:gears/brass"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:gears/brass"
     }
   ],
   "cooling_time": 107,

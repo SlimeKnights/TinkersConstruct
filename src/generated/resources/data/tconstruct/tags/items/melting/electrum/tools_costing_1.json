@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#forge:tools/shovels/electrum",
+      "required": false
+    },
+    {
+      "id": "tools_complement:electrum_knife",
+      "required": false
+    }
+  ]
+}

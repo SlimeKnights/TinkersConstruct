@@ -6,11 +6,8 @@
   "cast_consumed": true,
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:rods/steel"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:rods/steel"
     }
   ],
   "cooling_time": 46,

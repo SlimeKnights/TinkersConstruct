@@ -148,6 +148,8 @@ public final class TinkerCommons extends TinkerModule {
   /* Loot conditions */
   public static final RegistryObject<LootItemConditionType> lootConfig = LOOT_CONDITIONS.register(ConfigEnabledCondition.ID.getPath(), () -> new LootItemConditionType(ConfigEnabledCondition.SERIALIZER));
   public static final RegistryObject<LootItemConditionType> lootBlockOrEntity = LOOT_CONDITIONS.register("block_or_entity", () -> new LootItemConditionType(new BlockOrEntityCondition.ConditionSerializer()));
+  @SuppressWarnings("removal")
+  @Deprecated(forRemoval = true)
   public static final RegistryObject<LootItemConditionType> lootTagNotEmptyCondition = LOOT_CONDITIONS.register("tag_not_empty", () -> new LootItemConditionType(new TagNotEmptyCondition.ConditionSerializer()));
   public static final RegistryObject<LootPoolEntryType> lootTagPreference = LOOT_ENTRIES.register("tag_preference", () -> new LootPoolEntryType(new TagPreferenceLootEntry.Serializer()));
 
@@ -177,8 +179,11 @@ public final class TinkerCommons extends TinkerModule {
       CraftingHelper.register(ConfigEnabledCondition.SERIALIZER);
       CriteriaTriggers.register(CONTAINER_OPENED_TRIGGER);
 
+      //noinspection removal
       CraftingHelper.register(TagIntersectionPresentCondition.SERIALIZER);
+      //noinspection removal
       CraftingHelper.register(TagDifferencePresentCondition.SERIALIZER);
+      //noinspection removal
       CraftingHelper.register(new TagNotEmptyCondition.ConditionSerializer());
       // mantle
       DamageSourcePredicate.LOADER.register(getResource("direct"), TinkerPredicate.DIRECT_DAMAGE.getLoader());

@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "tconstruct:melting/lead/tools_costing_3"
+    }
+  ],
+  "ingredient": {
+    "tag": "tconstruct:melting/lead/tools_costing_3"
+  },
+  "result": {
+    "amount": 270,
+    "tag": "forge:molten_lead",
+    "unit_size": 10
+  },
+  "temperature": 330,
+  "time": 75
+}

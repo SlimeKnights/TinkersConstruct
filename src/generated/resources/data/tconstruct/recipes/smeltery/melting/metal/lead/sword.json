@@ -2,21 +2,18 @@
   "type": "tconstruct:damagable_melting",
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:tools/swords/lead"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "tconstruct:melting/lead/tools_costing_2"
     }
   ],
   "ingredient": {
-    "tag": "forge:tools/swords/lead"
+    "tag": "tconstruct:melting/lead/tools_costing_2"
   },
   "result": {
-    "amount": 90,
+    "amount": 180,
     "tag": "forge:molten_lead",
     "unit_size": 10
   },
   "temperature": 330,
-  "time": 43
+  "time": 61
 }

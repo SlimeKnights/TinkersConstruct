@@ -1,0 +1,9 @@
+{
+  "values": [
+    "minecraft:golden_shovel",
+    {
+      "id": "tools_complement:gold_knife",
+      "required": false
+    }
+  ]
+}

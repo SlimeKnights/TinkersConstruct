@@ -2,21 +2,18 @@
   "type": "tconstruct:damagable_melting",
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:tools/swords/tin"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "tconstruct:melting/tin/tools_costing_2"
     }
   ],
   "ingredient": {
-    "tag": "forge:tools/swords/tin"
+    "tag": "tconstruct:melting/tin/tools_costing_2"
   },
   "result": {
-    "amount": 90,
+    "amount": 180,
     "tag": "forge:molten_tin",
     "unit_size": 10
   },
   "temperature": 225,
-  "time": 39
+  "time": 55
 }

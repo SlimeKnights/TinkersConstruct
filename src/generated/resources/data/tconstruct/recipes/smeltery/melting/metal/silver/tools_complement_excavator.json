@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:damagable_melting",
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "tools_complement:silver_excavator"
+    }
+  ],
+  "ingredient": {
+    "item": "tools_complement:silver_excavator"
+  },
+  "result": {
+    "amount": 990,
+    "tag": "forge:molten_silver",
+    "unit_size": 10
+  },
+  "temperature": 790,
+  "time": 198
+}

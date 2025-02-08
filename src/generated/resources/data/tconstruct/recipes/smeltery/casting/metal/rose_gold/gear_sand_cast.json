@@ -6,11 +6,8 @@
   "cast_consumed": true,
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "forge:tag_empty",
-        "tag": "forge:gears/rose_gold"
-      }
+      "type": "mantle:tag_filled",
+      "tag": "forge:gears/rose_gold"
     }
   ],
   "cooling_time": 103,
