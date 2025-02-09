@@ -868,9 +868,7 @@
 "item.tconstruct.boots_plating_dummy": "Placa de botas de piedra",
 "item.tconstruct.maille": "Cota de malla",
 "item.tconstruct.shield_core": "Núcleo de escudo",
-Aquí tienes la traducción:  
 
-```json
 "_comentario": "Descripciones de herramientas",
 
 "item.tconstruct.pickaxe.description": "El Pico es una herramienta de minería precisa. Es efectiva en piedra y minerales.\nRompe bloques, ¿ok?",
