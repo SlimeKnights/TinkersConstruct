@@ -1035,11 +1035,6 @@
 
   "_comment": "Smeltery shared",
 
-  "block.tconstruct.tank.fluid": "流体：%s",
-  "block.tconstruct.tank.mb": "%dmB",
-  "block.tconstruct.tank.ingots": "%d锭",
-  "block.tconstruct.tank.mixed": "%d锭，%dmB",
-
   "block.tconstruct.tank.drained": "输出%smB%s",
   "block.tconstruct.tank.filled": "输入%smB%s",
 
@@ -1074,6 +1069,14 @@
   "gui.tconstruct.melting.fuel.solid": "固体燃料",
   "gui.tconstruct.melting.fuel.temperature": "温度：%s°C",
   "gui.tconstruct.melting.fuel.invalid": "无效的熔炼燃料！",
+
+  "gui.tconstruct.tank.bucket.auto.title": "模式：自动",
+  "gui.tconstruct.tank.bucket.auto.description": "将试图先倒空再装满物品槽的物品",
+  "gui.tconstruct.tank.bucket.empty_item.title": "模式：倒空物品",
+  "gui.tconstruct.tank.bucket.empty_item.description": "将试图倒空物品槽的物品",
+  "gui.tconstruct.tank.bucket.fill_item.title": "模式：装满物品",
+  "gui.tconstruct.tank.bucket.fill_item.description": "将试图装满物品槽的物品",
+  "gui.tconstruct.tank.bucket.clickable": "点击以切换流体传输模式",
 
   "gui.tconstruct.duct": "输导孔",
 
