@@ -461,7 +461,6 @@ public class FuelModule implements ContainerData, IFluidHandler {
    * @return  Fuel info
    */
   public FuelInfo getFuelInfo() {
-    List<BlockPos> positions = null;
     // if there is no position, means we have not yet consumed fuel. Just fetch the first tank
     // TODO: should we try to find a valid fuel tank? might be a bit confusing if they have multiple tanks in the structure before melting
     // however, a valid tank is a lot more effort to find
@@ -470,7 +469,7 @@ public class FuelModule implements ContainerData, IFluidHandler {
     BlockPos mainTank = lastPos;
     if (mainTank.getY() == NULL_POS.getY()) {
       // if no first, return no fuel info
-      positions = tankSupplier.get();
+      List<BlockPos> positions = tankSupplier.get();
       if (positions.isEmpty()) {
         return FuelInfo.EMPTY;
       }
@@ -592,6 +591,25 @@ public class FuelModule implements ContainerData, IFluidHandler {
 
 
   /* Fluid handler */
+
+  /** Gets the most recently used fluid */
+  public FluidStack getLastFluid() {
+    if (fluidHandler != null && fluidHandler.isPresent()) {
+      return fluidHandler.orElse(EmptyFluidHandler.INSTANCE).getFluidInTank(0);
+    }
+    BlockPos pos;
+    if (lastPos.getY() != NULL_POS.getY()) {
+      pos = lastPos;
+    } else {
+      List<BlockPos> positions = tankSupplier.get();
+      if (!positions.isEmpty()) {
+        pos = positions.get(0);
+      } else {
+        return FluidStack.EMPTY;
+      }
+    }
+    return getTankHandlers().getOrDefault(pos, LazyOptional.empty()).orElse(EmptyFluidHandler.INSTANCE).getFluidInTank(0);
+  }
 
   @Override
   public int getTanks() {

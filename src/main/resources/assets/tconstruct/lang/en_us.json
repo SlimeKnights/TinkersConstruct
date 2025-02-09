@@ -1035,11 +1035,6 @@
 
   "_comment": "Smeltery shared",
 
-  "block.tconstruct.tank.fluid": "Liquid %s",
-  "block.tconstruct.tank.mb": "%d mb",
-  "block.tconstruct.tank.ingots": "%d ingots",
-  "block.tconstruct.tank.mixed": "%d ingots, %d mb",
-
   "block.tconstruct.tank.drained": "Drained %s mb %s",
   "block.tconstruct.tank.filled": "Filled %s mb %s",
 
