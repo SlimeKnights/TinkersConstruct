@@ -869,7 +869,7 @@
 "item.tconstruct.maille": "Cota de malla",
 "item.tconstruct.shield_core": "Núcleo de escudo",
 
-"_comentario": "Descripciones de herramientas",
+"_comment": "Descripciones de herramientas",
 
 "item.tconstruct.pickaxe.description": "El Pico es una herramienta de minería precisa. Es efectiva en piedra y minerales.\nRompe bloques, ¿ok?",
 "item.tconstruct.sledge_hammer.description": "El Martillo de Maza es una herramienta de minería amplia. Extrae bloques en un área extensa.\nTambién es eficaz contra los no-muertos.",
