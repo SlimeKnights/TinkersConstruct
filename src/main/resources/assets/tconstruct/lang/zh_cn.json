@@ -1196,7 +1196,7 @@
   "block.tconstruct.scorched_soul_glass_pane.tooltip": "无法用于搭建熔铸炉，但可以从中穿过。",
   
   "block.tconstruct.scorched_ladder": "焦褐梯子",
-  "block.tconstruct.scorched_ladder.tooltip": "可供攀爬的冶炼炉建材",
+  "block.tconstruct.scorched_ladder.tooltip": "可供攀爬的熔铸炉建材",
 
   "block.tconstruct.scorched_fuel_tank": "焦褐燃料储罐",
   "block.tconstruct.scorched_fuel_tank.tooltip": "熔铸炉的心脏\n被破坏时仍能保留其中的流体",
