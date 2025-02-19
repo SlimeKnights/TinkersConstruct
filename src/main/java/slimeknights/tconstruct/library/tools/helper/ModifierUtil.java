@@ -15,6 +15,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ToolAction;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -32,11 +33,10 @@ import javax.annotation.Nullable;
 /** Generic modifier hooks that don't quite fit elsewhere */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ModifierUtil {
-  /** Drops an item at the entity position */
-  public static void dropItem(Entity target, ItemStack stack) {
-    Level level = target.level();
+  /** Drops an item at the given position */
+  public static void dropItem(Level level, double x, double y, double z, ItemStack stack) {
     if (!stack.isEmpty() && !level.isClientSide) {
-      ItemEntity ent = new ItemEntity(level, target.getX(), target.getY() + 1, target.getZ(), stack);
+      ItemEntity ent = new ItemEntity(level, x, y, z, stack);
       ent.setDefaultPickUpDelay();
       RandomSource rand = level.random;
       ent.setDeltaMovement(ent.getDeltaMovement().add((rand.nextFloat() - rand.nextFloat()) * 0.1F,
@@ -44,6 +44,16 @@ public final class ModifierUtil {
                                                       (rand.nextFloat() - rand.nextFloat()) * 0.1F));
       level.addFreshEntity(ent);
     }
+  }
+
+  /** Drops an item at the entity position */
+  public static void dropItem(Entity target, ItemStack stack) {
+    dropItem(target.level(), target.getX(), target.getY() + 1, target.getZ(), stack);
+  }
+
+  /** Drops an item at the entity position */
+  public static void dropItem(Level level, Vec3 location, ItemStack stack) {
+    dropItem(level, location.x(), location.y(), location.z(), stack);
   }
 
   /** Gets the entity as a living entity, or null if they are not a living entity */

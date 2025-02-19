@@ -14,9 +14,11 @@ import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.BlockDestructionProgress;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -33,6 +35,7 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
 import slimeknights.tconstruct.library.tools.definition.module.aoe.AreaOfEffectIterator;
+import slimeknights.tconstruct.library.tools.definition.module.aoe.AreaOfEffectIterator.AOEMatchType;
 import slimeknights.tconstruct.library.tools.definition.module.mining.IsEffectiveToolHook;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
@@ -57,7 +60,7 @@ public class ToolRenderEvents {
     }
     // must have the right tags
     ItemStack stack = player.getMainHandItem();
-    if (stack.isEmpty() || !stack.is(TinkerTags.Items.HARVEST)) {
+    if (stack.isEmpty() || !stack.is(TinkerTags.Items.MODIFIABLE)) {
       return;
     }
     // must be targeting a block
@@ -73,11 +76,15 @@ public class ToolRenderEvents {
     BlockHitResult blockTrace = event.getTarget();
     BlockPos origin = blockTrace.getBlockPos();
     BlockState state = world.getBlockState(origin);
-    // must not be broken, and the tool definition must be effective
-    if (!IsEffectiveToolHook.isEffective(tool, state)) {
+    AOEMatchType matchType = AOEMatchType.BREAKING;
+    // if we have any modifier that has an AOE interaction, make our match type more liberal
+    if (tool.getModifiers().has(TinkerTags.Modifiers.AOE_INTERACTION)) {
+      matchType = AOEMatchType.TRANSFORM;
+    } else if (!IsEffectiveToolHook.isEffective(tool, state)) {
       return;
     }
-    Iterator<BlockPos> extraBlocks = tool.getHook(ToolHooks.AOE_ITERATOR).getBlocks(tool, stack, player, world.getBlockState(origin), world, origin, blockTrace.getDirection(), AreaOfEffectIterator.AOEMatchType.BREAKING).iterator();
+    UseOnContext context = new UseOnContext(world, player, InteractionHand.MAIN_HAND, stack, blockTrace);
+    Iterator<BlockPos> extraBlocks = tool.getHook(ToolHooks.AOE_ITERATOR).getBlocks(tool, context, state, matchType).iterator();
     if (!extraBlocks.hasNext()) {
       return;
     }
@@ -160,7 +167,8 @@ public class ToolRenderEvents {
     if (!IsEffectiveToolHook.isEffective(tool, state)) {
       return;
     }
-    Iterator<BlockPos> extraBlocks = tool.getHook(ToolHooks.AOE_ITERATOR).getBlocks(tool, stack, player, state, world, target, blockTrace.getDirection(), AreaOfEffectIterator.AOEMatchType.BREAKING).iterator();
+    UseOnContext context = new UseOnContext(world, player, InteractionHand.MAIN_HAND, stack, blockTrace);
+    Iterator<BlockPos> extraBlocks = tool.getHook(ToolHooks.AOE_ITERATOR).getBlocks(tool, context, state, AreaOfEffectIterator.AOEMatchType.BREAKING).iterator();
     if (!extraBlocks.hasNext()) {
       return;
     }

@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.modifiers.fluid;
+package slimeknights.tconstruct.library.modifiers.fluid.general;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -9,6 +9,9 @@ import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.block.BlockPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.tconstruct.library.json.predicate.TinkerPredicate;
+import slimeknights.tconstruct.library.modifiers.fluid.EffectLevel;
+import slimeknights.tconstruct.library.modifiers.fluid.FluidEffect;
+import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext;
 
 /** Fluid effect that conditions on the holder and target */
 public interface ConditionalFluidEffect<C extends FluidEffectContext> extends FluidEffect<C> {

@@ -77,7 +77,7 @@ public record FluidEffects(FluidIngredient ingredient, List<FluidEffect<? super 
         usedScale = newScale;
       }
     }
-    return Math.round(amountPerLevel * Math.min(scale, usedScale));
+    return (int)Math.ceil(amountPerLevel * Math.min(scale, usedScale));
   }
 
   /**

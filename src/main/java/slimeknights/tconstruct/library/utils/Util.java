@@ -11,6 +11,7 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
@@ -160,6 +161,24 @@ public class Util {
   /** Creates a block raytrace from the given position and side, targets the block center */
   public static BlockHitResult createTraceResult(BlockPos pos, Direction sideHit, boolean empty) {
     return new BlockHitResult(toHitVec(pos, empty ? sideHit.getOpposite() : sideHit), sideHit, pos, false);
+  }
+
+  /** Offsets a hit result to the given position. Comparable to {@link BlockHitResult#withPosition(BlockPos)} except it also offsets the hit location. */
+  public static BlockHitResult offset(BlockHitResult hit, BlockPos offset) {
+    BlockPos pos = hit.getBlockPos();
+    if (pos.equals(offset)) {
+      return hit;
+    }
+    return new BlockHitResult(hit.getLocation().add(offset.getX() - pos.getX(), offset.getY() - pos.getY(), offset.getZ() - pos.getZ()), hit.getDirection(), offset, hit.isInside());
+  }
+
+  /** Offsets a use context to the given position. */
+  public static UseOnContext offset(UseOnContext context, BlockPos offset) {
+    BlockPos pos = context.getClickedPos();
+    if (pos.equals(offset)) {
+      return context;
+    }
+    return new UseOnContext(context.getLevel(), context.getPlayer(), context.getHand(), context.getItemInHand(), offset(context.getHitResult(), offset));
   }
 
   /** Creates a new client block entity data packet with better generics than the vanilla method */

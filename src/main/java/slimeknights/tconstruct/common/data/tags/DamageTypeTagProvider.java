@@ -15,6 +15,7 @@ import static net.minecraft.tags.DamageTypeTags.BYPASSES_ENCHANTMENTS;
 import static net.minecraft.tags.DamageTypeTags.IS_EXPLOSION;
 import static net.minecraft.tags.DamageTypeTags.IS_FALL;
 import static net.minecraft.tags.DamageTypeTags.IS_FIRE;
+import static net.minecraft.tags.DamageTypeTags.IS_FREEZING;
 import static net.minecraft.tags.DamageTypeTags.IS_LIGHTNING;
 import static net.minecraft.tags.DamageTypeTags.IS_PROJECTILE;
 import static net.minecraft.tags.DamageTypeTags.WITCH_RESISTANT_TO;
@@ -30,8 +31,11 @@ import static net.minecraft.world.damagesource.DamageTypes.STING;
 import static net.minecraft.world.damagesource.DamageTypes.WITHER;
 import static net.minecraft.world.damagesource.DamageTypes.WITHER_SKULL;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.BLEEDING;
+import static slimeknights.tconstruct.common.TinkerDamageTypes.FLUID_COLD;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.FLUID_FIRE;
+import static slimeknights.tconstruct.common.TinkerDamageTypes.FLUID_IMPACT;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.FLUID_MAGIC;
+import static slimeknights.tconstruct.common.TinkerDamageTypes.FLUID_SPIKE;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.PIERCING;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.SELF_DESTRUCT;
 import static slimeknights.tconstruct.common.TinkerDamageTypes.SMELTERY_HEAT;
@@ -54,12 +58,13 @@ public class DamageTypeTagProvider extends DamageTypeTagsProvider {
   protected void addTags(Provider pProvider) {
     tag(IS_FIRE).add(SMELTERY_HEAT).add(FLUID_FIRE.values());
     tag(IS_EXPLOSION).add(SELF_DESTRUCT);
+    tag(IS_FREEZING).add(FLUID_COLD.values());
     tag(WITCH_RESISTANT_TO).add(SMELTERY_MAGIC).add(FLUID_MAGIC.values());
-    tag(BYPASSES_ARMOR).add(PIERCING, SELF_DESTRUCT, BLEEDING).add(WATER.values());
+    tag(BYPASSES_ARMOR).add(PIERCING, SELF_DESTRUCT, BLEEDING).add(WATER.values()).add(FLUID_SPIKE.values());
     tag(BYPASSES_ENCHANTMENTS).add(BLEEDING);
     tag(AVOIDS_GUARDIAN_THORNS).add(BLEEDING);
     // whole reason these are a pair is so we can tag one as projectile
-    tag(IS_PROJECTILE).add(FLUID_FIRE.ranged(), FLUID_MAGIC.ranged(), WATER.ranged());
+    tag(IS_PROJECTILE).add(FLUID_IMPACT.ranged(), FLUID_FIRE.ranged(), FLUID_COLD.ranged(), FLUID_MAGIC.ranged(), WATER.ranged(), FLUID_SPIKE.ranged());
 
     // protection modifier tags
     tag(MELEE_PROTECTION).add(PLAYER_ATTACK, MOB_ATTACK, MOB_ATTACK_NO_AGGRO, CRAMMING, STING);

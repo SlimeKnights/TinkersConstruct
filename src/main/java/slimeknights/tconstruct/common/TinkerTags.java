@@ -591,6 +591,8 @@ public class TinkerTags {
 
     /** Modifiers in this tag prevent the overslime debuff */
     public static final TagKey<Modifier> OVERSLIME_FRIEND = local("overslime_friend");
+    /** Modifiers in this tag will show the wireframe hitbox on all blocks */
+    public static final TagKey<Modifier> AOE_INTERACTION = local("aoe_interaction");
 
     // book tags - these are used to determine pages to load in resource packs
     // upgrades

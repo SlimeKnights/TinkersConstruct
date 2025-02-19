@@ -1,7 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers.ability.fluid;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -12,6 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidStack;
@@ -24,6 +24,7 @@ import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectManager;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffects;
 import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.AreaOfEffectHighlightModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
@@ -36,6 +37,7 @@ import slimeknights.tconstruct.library.tools.definition.module.aoe.CircleAOEIter
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.particle.FluidParticleData;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -44,19 +46,28 @@ import static slimeknights.tconstruct.library.tools.capability.fluid.ToolTankHel
 import static slimeknights.tconstruct.library.tools.helper.ModifierUtil.asLiving;
 
 /** Modifier to handle spilling recipes on interaction */
-public class SplashingModifier extends Modifier implements EntityInteractionModifierHook, BlockInteractionModifierHook {
+public class SplashingModifier extends Modifier implements EntityInteractionModifierHook, BlockInteractionModifierHook, AreaOfEffectHighlightModifierHook {
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
     hookBuilder.addModule(ToolTankHelper.TANK_HANDLER);
     hookBuilder.addModule(StatBoostModule.add(ToolTankHelper.CAPACITY_STAT).eachLevel(FluidType.BUCKET_VOLUME));
-    hookBuilder.addHook(this, ModifierHooks.ENTITY_INTERACT, ModifierHooks.BLOCK_INTERACT);
+    hookBuilder.addHook(this, ModifierHooks.ENTITY_INTERACT, ModifierHooks.BLOCK_INTERACT, ModifierHooks.AOE_HIGHLIGHT);
+  }
+
+  @Override
+  public boolean shouldHighlight(IToolStackView tool, ModifierEntry modifier, UseOnContext context, BlockPos offset, BlockState state) {
+    FluidStack fluid = TANK_HELPER.getFluid(tool);
+    if (!fluid.isEmpty()) {
+      return FluidEffectManager.INSTANCE.find(fluid.getFluid()).hasBlockEffects();
+    }
+    return false;
   }
 
   @Override
   public InteractionResult beforeEntityUse(IToolStackView tool, ModifierEntry modifier, Player player, Entity target, InteractionHand hand, InteractionSource source) {
     // melee items get spilling via attack, non melee interact to use it
-    if (tool.getHook(ToolHooks.INTERACTION).canInteract(tool, modifier.getId(), source)) {
+    if (!tool.isBroken() && tool.getHook(ToolHooks.INTERACTION).canInteract(tool, modifier.getId(), source)) {
       FluidStack fluid = TANK_HELPER.getFluid(tool);
       if (!fluid.isEmpty()) {
         FluidEffects recipe = FluidEffectManager.INSTANCE.find(fluid.getFluid());
@@ -70,20 +81,24 @@ public class SplashingModifier extends Modifier implements EntityInteractionModi
             if (consumed > 0) {
               numTargets++;
               UseFluidOnHitModifier.spawnParticles(target, fluid);
+              fluid.shrink(consumed);
             }
 
-            // expanded logic, they do not consume fluid, you get some splash for free
-            float range = 1 + tool.getModifierLevel(TinkerModifiers.expanded.get());
-            float rangeSq = range * range;
-            for (Entity aoeTarget : world.getEntitiesOfClass(Entity.class, target.getBoundingBox().inflate(range, 0.25, range))) {
-              if (aoeTarget != player && aoeTarget != target && !(aoeTarget instanceof ArmorStand stand && stand.isMarker()) && target.distanceToSqr(aoeTarget) < rangeSq) {
-                int aoeConsumed = recipe.applyToEntity(fluid, level, new FluidEffectContext.Entity(world, player, player, null, aoeTarget, asLiving(aoeTarget)), FluidAction.EXECUTE);
-                if (aoeConsumed > 0) {
-                  numTargets++;
-                  UseFluidOnHitModifier.spawnParticles(aoeTarget, fluid);
-                  // consume the largest amount requested from any entity
-                  if (aoeConsumed > consumed) {
-                    consumed = aoeConsumed;
+            // expanded logic, consumes extra fluid per target
+            if (!fluid.isEmpty()) {
+              float range = 1 + tool.getModifierLevel(TinkerModifiers.expanded.get());
+              float rangeSq = range * range;
+              for (Entity aoeTarget : world.getEntitiesOfClass(Entity.class, target.getBoundingBox().inflate(range, 0.25, range))) {
+                if (aoeTarget != player && aoeTarget != target && !(aoeTarget instanceof ArmorStand stand && stand.isMarker()) && target.distanceToSqr(aoeTarget) < rangeSq) {
+                  consumed = recipe.applyToEntity(fluid, level, new FluidEffectContext.Entity(world, player, player, null, aoeTarget, asLiving(aoeTarget)), FluidAction.EXECUTE);
+                  if (consumed > 0) {
+                    numTargets++;
+                    UseFluidOnHitModifier.spawnParticles(aoeTarget, fluid);
+                    // consume fluid for each target entity
+                    fluid.shrink(consumed);
+                    if (fluid.isEmpty()) {
+                      break;
+                    }
                   }
                 }
               }
@@ -91,8 +106,7 @@ public class SplashingModifier extends Modifier implements EntityInteractionModi
 
             // consume the fluid last, if any target used fluid
             if (!player.isCreative() ) {
-              if (consumed > 0) {
-                fluid.shrink(consumed);
+              if (numTargets > 0) {
                 TANK_HELPER.setFluid(tool, fluid);
               }
 
@@ -120,16 +134,14 @@ public class SplashingModifier extends Modifier implements EntityInteractionModi
 
   @Override
   public InteractionResult afterBlockUse(IToolStackView tool, ModifierEntry modifier, UseOnContext context, InteractionSource source) {
-    if (tool.getHook(ToolHooks.INTERACTION).canInteract(tool, modifier.getId(), source)) {
+    if (!tool.isBroken() && tool.getHook(ToolHooks.INTERACTION).canInteract(tool, modifier.getId(), source)) {
       FluidStack fluid = TANK_HELPER.getFluid(tool);
       if (!fluid.isEmpty()) {
         FluidEffects recipe = FluidEffectManager.INSTANCE.find(fluid.getFluid());
-        if (recipe.hasEntityEffects()) {
+        if (recipe.hasBlockEffects()) {
           Player player = context.getPlayer();
           Level world = context.getLevel();
           if (!context.getLevel().isClientSide) {
-            Direction face = context.getClickedFace();
-            BlockPos pos = context.getClickedPos();
             float level = modifier.getEffectiveLevel();
             int numTargets = 0;
             BlockHitResult hit = context.getHitResult();
@@ -137,28 +149,30 @@ public class SplashingModifier extends Modifier implements EntityInteractionModi
             if (consumed > 0) {
               numTargets++;
               spawnParticles(world, hit, fluid);
+              fluid.shrink(consumed);
             }
 
-            // AOE selection logic, get boosted from both fireprimer (unique modifer) and expanded
+            // AOE selection logic, get boosted from expanded
             int range = tool.getModifierLevel(TinkerModifiers.expanded.getId());
-            if (range > 0 && player != null) {
-              for (BlockPos offset : CircleAOEIterator.calculate(tool, ItemStack.EMPTY, world, player, pos, face, 1 + range, false, AreaOfEffectIterator.AOEMatchType.TRANSFORM)) {
-                BlockHitResult offsetHit = hit.withPosition(offset);
-                int aoeConsumed = recipe.applyToBlock(fluid, level, new FluidEffectContext.Block(world, player, null, offsetHit), FluidAction.EXECUTE);
-                if (aoeConsumed > 0) {
+            if (range > 0 && !fluid.isEmpty()) {
+              for (BlockPos offset : CircleAOEIterator.calculate(tool, context, 1 + range, false, AreaOfEffectIterator.AOEMatchType.TRANSFORM)) {
+                BlockHitResult offsetHit = Util.offset(hit, offset);
+                consumed = recipe.applyToBlock(fluid, level, new FluidEffectContext.Block(world, player, null, offsetHit), FluidAction.EXECUTE);
+                if (consumed > 0) {
                   numTargets++;
                   spawnParticles(world, offsetHit, fluid);
-                  if (aoeConsumed > consumed) {
-                    consumed = aoeConsumed;
+                  fluid.shrink(consumed);
+                  // stop if we run out of fluid
+                  if (fluid.isEmpty()) {
+                    break;
                   }
                 }
               }
             }
 
-            // consume the fluid last, if any target used fluid
+            // update fluid in tool and damage tool
             if (player == null || !player.isCreative() ) {
-              if (consumed > 0) {
-                fluid.shrink(consumed);
+              if (numTargets > 0) {
                 TANK_HELPER.setFluid(tool, fluid);
               }
 
@@ -170,7 +184,7 @@ public class SplashingModifier extends Modifier implements EntityInteractionModi
             }
           }
 
-          // cooldown based on attack speed/draw speed. both are on the same scale and default to 1, we don't care which one the tool uses
+          // cooldown based on draw speed, works similarly enough to attack speed
           if (player != null) {
             player.getCooldowns().addCooldown(tool.getItem(), (int)(20 / ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.DRAW_SPEED)));
           }

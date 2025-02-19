@@ -34,6 +34,11 @@ public record ExtinguishCampfireModule(ModifierCondition<IToolStackView> conditi
   }
 
   @Override
+  public boolean shouldHighlight(IToolStackView tool, ModifierEntry modifier, UseOnContext context, BlockPos offset, BlockState state) {
+    return condition.matches(tool, modifier) && state.getBlock() instanceof CampfireBlock && state.getValue(CampfireBlock.LIT);
+  }
+
+  @Override
   public InteractionResult afterBlockUse(IToolStackView tool, ModifierEntry modifier, UseOnContext context, InteractionSource source) {
     if (condition.matches(tool, modifier)) {
       return BlockTransformModule.super.afterBlockUse(tool, modifier, context, source);

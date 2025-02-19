@@ -45,6 +45,7 @@ import slimeknights.tconstruct.library.tools.definition.module.aoe.CircleAOEIter
 import slimeknights.tconstruct.library.tools.definition.module.interaction.DualOptionInteraction;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import javax.annotation.Nullable;
@@ -144,6 +145,7 @@ public class FirestarterModifier extends NoLevelsModifier implements EntityInter
     }
     Player player = context.getPlayer();
     Level world = context.getLevel();
+    UseOnContext targetContext = context;
     BlockPos pos = context.getClickedPos();
     Direction sideHit = context.getClickedFace();
     BlockState state = world.getBlockState(pos);
@@ -152,14 +154,15 @@ public class FirestarterModifier extends NoLevelsModifier implements EntityInter
     boolean targetingFire = false;
     if (state.is(BlockTags.FIRE)) {
       pos = pos.relative(sideHit.getOpposite());
+      targetContext = Util.offset(context, pos);
       targetingFire = true;
     }
 
     // AOE selection logic, get boosted from both fireprimer (unique modifer) and expanded
     int range = tool.getModifierLevel(TinkerModifiers.fireprimer.getId()) + tool.getModifierLevel(TinkerModifiers.expanded.getId());
     Iterable<BlockPos> targets = Collections.emptyList();
-    if (range > 0 && player != null) {
-      targets = CircleAOEIterator.calculate(tool, ItemStack.EMPTY, world, player, pos, sideHit, 1 + range, true, AreaOfEffectIterator.AOEMatchType.TRANSFORM);
+    if (range > 0) {
+      targets = CircleAOEIterator.calculate(tool, targetContext, 1 + range, true, AreaOfEffectIterator.AOEMatchType.TRANSFORM);
     }
 
     // burn it all in AOE

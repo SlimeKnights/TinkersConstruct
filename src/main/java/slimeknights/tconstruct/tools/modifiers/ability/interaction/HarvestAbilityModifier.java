@@ -24,6 +24,7 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.events.TinkerToolEvent.ToolHarvestEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.AreaOfEffectHighlightModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
@@ -41,7 +42,7 @@ import java.util.Iterator;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class HarvestAbilityModifier extends NoLevelsModifier implements BlockInteractionModifierHook {
+public class HarvestAbilityModifier extends NoLevelsModifier implements BlockInteractionModifierHook, AreaOfEffectHighlightModifierHook {
   @Getter
   private final int priority;
 
@@ -49,7 +50,7 @@ public class HarvestAbilityModifier extends NoLevelsModifier implements BlockInt
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
     hookBuilder.addModule(ShowOffhandModule.DISALLOW_BROKEN);
-    hookBuilder.addHook(this, ModifierHooks.BLOCK_INTERACT);
+    hookBuilder.addHook(this, ModifierHooks.BLOCK_INTERACT, ModifierHooks.AOE_HIGHLIGHT);
   }
 
   @Override
@@ -233,6 +234,11 @@ public class HarvestAbilityModifier extends NoLevelsModifier implements BlockInt
   }
 
   @Override
+  public boolean shouldHighlight(IToolStackView tool, ModifierEntry modifier, UseOnContext context, BlockPos offset, BlockState state) {
+    return state.is(TinkerTags.Blocks.HARVESTABLE);
+  }
+
+  @Override
   public InteractionResult beforeBlockUse(IToolStackView tool, ModifierEntry modifier, UseOnContext context, InteractionSource source) {
     if (tool.isBroken() || !tool.getHook(ToolHooks.INTERACTION).canInteract(tool, modifier.getId(), source)) {
       return InteractionResult.PASS;
@@ -263,7 +269,7 @@ public class HarvestAbilityModifier extends NoLevelsModifier implements BlockInt
 
         // if we have a player and harvest logic, try doing AOE harvest
         if (!broken && player != null) {
-          for (BlockPos newPos : tool.getHook(ToolHooks.AOE_ITERATOR).getBlocks(tool, stack, player, state, world, pos, context.getClickedFace(), AreaOfEffectIterator.AOEMatchType.TRANSFORM)) {
+          for (BlockPos newPos : tool.getHook(ToolHooks.AOE_ITERATOR).getBlocks(tool, context, state, AreaOfEffectIterator.AOEMatchType.TRANSFORM)) {
             // try harvesting the crop, if successful and survival, damage the tool
             if (harvest(context, tool, server, world.getBlockState(newPos), newPos, source)) {
               didHarvest = true;

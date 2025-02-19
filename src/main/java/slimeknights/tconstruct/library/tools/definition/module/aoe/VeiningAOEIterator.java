@@ -3,8 +3,7 @@ package slimeknights.tconstruct.library.tools.definition.module.aoe;
 import com.google.common.collect.AbstractIterator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -31,9 +30,9 @@ public record VeiningAOEIterator(int maxDistance) implements AreaOfEffectIterato
   }
 
   @Override
-  public Iterable<BlockPos> getBlocks(IToolStackView tool, ItemStack stack, Player player, BlockState state, Level world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
+  public Iterable<BlockPos> getBlocks(IToolStackView tool, UseOnContext context, BlockState state, AOEMatchType matchType) {
     int expanded = tool.getModifierLevel(TinkerModifiers.expanded.getId());
-    return calculate(state, world, origin, maxDistance + expanded);
+    return calculate(state, context.getLevel(), context.getClickedPos(), maxDistance + expanded);
   }
 
   /**

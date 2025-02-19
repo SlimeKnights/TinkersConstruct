@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.data.tinkering;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import com.google.errorprone.annotations.CheckReturnValue;
 import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -8,6 +9,7 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.PackOutput.Target;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.Blocks;
@@ -22,7 +24,6 @@ import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.tconstruct.common.TinkerDamageTypes;
-import slimeknights.tconstruct.library.modifiers.fluid.ConditionalFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectManager;
@@ -31,8 +32,9 @@ import slimeknights.tconstruct.library.modifiers.fluid.FluidMobEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.TimeAction;
 import slimeknights.tconstruct.library.modifiers.fluid.block.PlaceBlockFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.DamageFluidEffect;
+import slimeknights.tconstruct.library.modifiers.fluid.entity.DamageFluidEffect.DamageTypePair;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.FireFluidEffect;
-import slimeknights.tconstruct.library.modifiers.fluid.entity.MobEffectFluidEffect;
+import slimeknights.tconstruct.library.modifiers.fluid.general.ConditionalFluidEffect;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 
 import java.util.ArrayList;
@@ -103,22 +105,56 @@ public abstract class AbstractFluidEffectProvider extends GenericDataProvider {
     return addFluid(fluid.getId().getPath(), fluid.ingredient(amount));
   }
 
-  /** Adds a builder for burning with a nugget amount */
+
+  /* Common units */
+
+  /** Builder for a gem based fluid */
+  protected Builder addGem(FluidObject<?> fluid) {
+    return addFluid(fluid, FluidValues.GEM_SHARD);
+  }
+
+  /** Builder for a metal based fluid */
+  protected Builder addMetal(FluidObject<?> fluid) {
+    return addFluid(fluid, FluidValues.NUGGET);
+  }
+
+  /** Builder for a clay based fluid */
+  protected Builder addClay(FluidObject<?> fluid) {
+    return addFluid(fluid, FluidValues.BRICK);
+  }
+
+  /** Builder for a glass based fluid */
+  protected Builder addGlass(FluidObject<?> fluid) {
+    return addFluid(fluid, FluidValues.GLASS_PANE);
+  }
+
+  /** Builder for a glass based fluid */
+  protected Builder addSlime(FluidObject<?> fluid) {
+    return addFluid(fluid, FluidValues.SLIME_DROP);
+  }
+
+
+  /* Deprecated */
+
+  /** Use {@link #addMetal(FluidObject)} with {@link Builder#fireDamage(float)}, {@link FireFluidEffect} and {@link Builder#placeFire()} */
+  @Deprecated(forRemoval = true)
   protected Builder burningFluid(TagKey<Fluid> tag, float damage, int time) {
     return burningFluid(tag.location().getPath(), tag, FluidValues.NUGGET, damage, time);
   }
 
-  /** Adds a builder for burning */
+  /** Use {@link #addFluid(TagKey, int)} with {@link Builder#fireDamage(float)}, {@link FireFluidEffect} and {@link Builder#placeFire()} */
+  @Deprecated(forRemoval = true)
   protected Builder burningFluid(String name, TagKey<Fluid> tag, int amount, float damage, int time) {
-    Builder builder = addFluid(name, tag, amount).addEntityEffect(LivingEntityPredicate.FIRE_IMMUNE.inverted(), new DamageFluidEffect(damage, TinkerDamageTypes.FLUID_FIRE));
+    Builder builder = addFluid(name, tag, amount).fireDamage(damage);
     if (time > 0) {
-      builder.addEntityEffect(new FireFluidEffect(TimeAction.SET, time)).addBlockEffect(new PlaceBlockFluidEffect(Blocks.FIRE));
+      builder.addEntityEffect(new FireFluidEffect(TimeAction.SET, time)).placeFire();
     }
     return builder;
   }
 
   /** Builder class */
   @RequiredArgsConstructor
+  @CanIgnoreReturnValue
   protected static class Builder {
     private final List<ICondition> conditions = new ArrayList<>();
     private final FluidIngredient ingredient;
@@ -132,26 +168,35 @@ public abstract class AbstractFluidEffectProvider extends GenericDataProvider {
     }
 
     /** Adds an effect to the given fluid */
-    @CanIgnoreReturnValue
     public Builder addBlockEffect(FluidEffect<? super FluidEffectContext.Block> effect) {
       blockEffects.add(effect);
       return this;
     }
 
     /** Adds an effect to the given fluid */
-    @CanIgnoreReturnValue
     public Builder addEntityEffect(FluidEffect<? super FluidEffectContext.Entity> effect) {
       entityEffects.add(effect);
       return this;
     }
 
-    /** Adds an effect to the given fluid */
-    public Builder addEffect(TimeAction action, FluidMobEffect.Builder builder) {
-      addBlockEffect(builder.buildCloud());
-      for (MobEffectFluidEffect effect : builder.buildEntity(action)) {
+    public Builder addEntityEffects(List<? extends FluidEffect<? super FluidEffectContext.Entity>> effects) {
+      for (FluidEffect<? super FluidEffectContext.Entity> effect : effects) {
         addEntityEffect(effect);
       }
       return this;
+    }
+
+    /** Adds an effect to the given fluid */
+    public Builder addEffect(FluidMobEffect.Builder builder, TimeAction action) {
+      addBlockEffect(builder.buildCloud());
+      addEntityEffects(builder.buildEntity(action));
+      return this;
+    }
+
+    /** @deprecated use {@link #addEffect(FluidMobEffect.Builder, TimeAction)}, parameter order was swapped for parity with {@link #addEntityEffects(List)} with {@link FluidMobEffect.Builder#buildEntity(TimeAction)} */
+    @Deprecated(forRemoval = true)
+    public Builder addEffect(TimeAction action, FluidMobEffect.Builder builder) {
+      return addEffect(builder, action);
     }
 
     /** Adds an effect to the given fluid */
@@ -171,7 +216,51 @@ public abstract class AbstractFluidEffectProvider extends GenericDataProvider {
       return addEntityEffect(new ConditionalFluidEffect.Entity(predicate, effect));
     }
 
+
+    /* Damage helpers */
+
+    /** Adds a fire block to the block effects */
+    public Builder placeFire() {
+      return addBlockEffect(new PlaceBlockFluidEffect(Blocks.FIRE, SoundEvents.FIRECHARGE_USE));
+    }
+
+    /** Adds a damage effect to the builder */
+    public Builder addDamage(float amount, DamageTypePair type) {
+      return addEntityEffect(new DamageFluidEffect(amount, type));
+    }
+
+    /** Adds a damage effect to the builder */
+    public Builder addDamage(IJsonPredicate<LivingEntity> predicate, float amount, DamageTypePair type) {
+      return addEntityEffect(predicate, new DamageFluidEffect(amount, type));
+    }
+
+    /** Adds fire damage to the builder */
+    public Builder impactDamage(float amount) {
+      return addDamage(amount, TinkerDamageTypes.FLUID_IMPACT);
+    }
+
+    /** Adds fire damage to the builder */
+    public Builder fireDamage(float amount) {
+      return addDamage(LivingEntityPredicate.FIRE_IMMUNE.inverted(), amount, TinkerDamageTypes.FLUID_FIRE);
+    }
+
+    /** Adds fire damage to the builder */
+    public Builder coldDamage(float amount) {
+      return addDamage(LivingEntityPredicate.CAN_FREEZE, amount, TinkerDamageTypes.FLUID_COLD);
+    }
+
+    /** Adds fire damage to the builder */
+    public Builder magicDamage(float amount) {
+      return addDamage(amount, TinkerDamageTypes.FLUID_MAGIC);
+    }
+
+    /** Adds fire damage to the builder */
+    public Builder spikeDamage(float amount) {
+      return addDamage(amount, TinkerDamageTypes.FLUID_SPIKE);
+    }
+
     /** Builds the instance */
+    @CheckReturnValue
     private JsonObject build() {
       JsonObject json = new JsonObject();
       if (!conditions.isEmpty()) {

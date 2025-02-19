@@ -37,6 +37,7 @@ import slimeknights.tconstruct.library.modifiers.hook.display.DisplayNameModifie
 import slimeknights.tconstruct.library.modifiers.hook.display.DurabilityDisplayModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.RequirementsModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.AreaOfEffectHighlightModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
@@ -256,6 +257,8 @@ public class ModifierHooks {
   public static final ModuleHook<EntityInteractionModifierHook> ENTITY_INTERACT = register("entity_interact", EntityInteractionModifierHook.class, EntityInteractionModifierHook.FirstMerger::new, new EntityInteractionModifierHook() {});
   /** Hook for when the player interacts with an armor slot. Currently, only implemented for helmets and leggings */
   public static final ModuleHook<KeybindInteractModifierHook> ARMOR_INTERACT = register("armor_interact", KeybindInteractModifierHook.class, KeybindInteractModifierHook.InteractMerger::new, new KeybindInteractModifierHook() {});
+  /** Hook for determining if a block should be highlighted when in AOE range of the tool */
+  public static final ModuleHook<AreaOfEffectHighlightModifierHook> AOE_HIGHLIGHT = register("aoe_highlight", AreaOfEffectHighlightModifierHook.class, AreaOfEffectHighlightModifierHook.AnyMerger::new, (tool, modifier, context, pos, state) -> false);
 
 
   /* Modifier sub-hooks */

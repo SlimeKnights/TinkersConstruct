@@ -8,10 +8,9 @@ import lombok.experimental.Accessors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockPos.MutableBlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.tools.definition.module.aoe.IBoxExpansion.ExpansionDirections;
@@ -76,32 +75,29 @@ public record BoxAOEIterator(BoxSize base, List<BoxSize> expansions, IBoxExpansi
   }
 
   @Override
-  public Iterable<BlockPos> getBlocks(IToolStackView tool, ItemStack stack, Player player, BlockState state, Level world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
+  public Iterable<BlockPos> getBlocks(IToolStackView tool, UseOnContext context, BlockState state, AOEMatchType matchType) {
     // expanded gives an extra width every odd level, and an extra height every even level
     int expanded = tool.getModifierLevel(TinkerModifiers.expanded.getId());
-    return calculate(tool, stack, world, player, origin, sideHit, sizeFor(expanded), direction, matchType);
+    return calculate(tool, context, sizeFor(expanded), direction, matchType);
   }
 
   /**
    *
    * @param tool          Tool used for harvest
-   * @param stack         Item stack used for harvest (for vanilla hooks)
-   * @param world         World containing the block
-   * @param player        Player harvesting
-   * @param origin        Center of harvest
-   * @param sideHit       Block side hit
+   * @param context       Interaction context
    * @param extraSize     Extra size to iterate
    * @param matchType     Type of harvest being performed
    * @return  List of block positions
    */
-  public static Iterable<BlockPos> calculate(IToolStackView tool, ItemStack stack, Level world, Player player, BlockPos origin, Direction sideHit, BoxSize extraSize, IBoxExpansion expansionDirection, AOEMatchType matchType) {
+  public static Iterable<BlockPos> calculate(IToolStackView tool, UseOnContext context, BoxSize extraSize, IBoxExpansion expansionDirection, AOEMatchType matchType) {
     // skip if no work
     if (extraSize.isZero()) {
       return Collections.emptyList();
     }
-    ExpansionDirections expansion = expansionDirection.getDirections(player, sideHit);
-    Predicate<BlockPos> posPredicate = AreaOfEffectIterator.defaultBlockPredicate(tool, stack, world, origin, matchType);
-    return () -> new RectangleIterator(origin, expansion.width(), extraSize.width, expansion.height(), extraSize.height, expansion.traverseDown(), expansion.depth(), extraSize.depth, posPredicate);
+    BlockHitResult hit = context.getHitResult();
+    ExpansionDirections expansion = expansionDirection.getDirections(context.getPlayer(), hit.getDirection());
+    Predicate<BlockPos> posPredicate = AreaOfEffectIterator.defaultBlockPredicate(tool, context, matchType);
+    return () -> new RectangleIterator(hit.getBlockPos(), expansion.width(), extraSize.width, expansion.height(), extraSize.height, expansion.traverseDown(), expansion.depth(), extraSize.depth, posPredicate);
   }
 
   /** Iterator used for getting the blocks */

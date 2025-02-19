@@ -5,7 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Plane;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -14,6 +14,7 @@ import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
+import javax.annotation.Nullable;
 import java.util.ArrayDeque;
 import java.util.HashSet;
 import java.util.Queue;
@@ -39,33 +40,30 @@ public record TreeAOEIterator(int width, int depth) implements AreaOfEffectItera
   }
 
   @Override
-  public Iterable<BlockPos> getBlocks(IToolStackView tool, ItemStack stack, Player player, BlockState state, Level world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
+  public Iterable<BlockPos> getBlocks(IToolStackView tool, UseOnContext context, BlockState state, AOEMatchType matchType) {
     int expanded = tool.getModifierLevel(TinkerModifiers.expanded.getId());
-    return calculate(tool, stack, player, state, world, origin, sideHit, width + (expanded + 1) / 2, depth + expanded / 2, matchType);
+    return calculate(context.getLevel(), context.getPlayer(), context.getClickedPos(), context.getClickedFace(), state, width + (expanded + 1) / 2, depth + expanded / 2);
   }
 
   /**
    * Gets an iterator, either for a tree, or falling back to a cube
-   * @param tool            Tool used to mine the block
-   * @param stack           Stack used to mine the block
-   * @param player          Player instance
+   * @param level           Level
+   * @param player          Player interacting, for direction choice
+   * @param origin          Origin position
+   * @param sideHit         Direction to iterate
    * @param state           State being mined
-   * @param world           World instance
-   * @param origin          AOE origin
-   * @param sideHit         Block side hit
    * @param extraWidth      Mining width
    * @param extraDepth      Mining depth
-   * @param matchType       Match type to use when not a tree
    * @return  Correct iterator for the targeted block
    */
-  public static Iterable<BlockPos> calculate(IToolStackView tool, ItemStack stack, Player player, BlockState state, Level world, BlockPos origin, Direction sideHit, int extraWidth, int extraDepth, AOEMatchType matchType) {
+  public static Iterable<BlockPos> calculate(Level level, @Nullable Player player, BlockPos origin, Direction sideHit, BlockState state, int extraWidth, int extraDepth) {
     Direction depthDir;
     Direction widthDir;
     // if we have expanders, add them in
     if (extraDepth > 0 || extraWidth > 0) {
       // if hit the top or bottom, use facing direction
       if (sideHit.getAxis().isVertical()) {
-        depthDir = player.getDirection();
+        depthDir = player != null ? player.getDirection() : Direction.NORTH;
       } else {
         depthDir = sideHit.getOpposite();
       }
@@ -75,7 +73,7 @@ public record TreeAOEIterator(int width, int depth) implements AreaOfEffectItera
       widthDir = Direction.UP;
     }
     // TODO: would be nice to allow the stipped logs here as well as the logs
-    return () -> new TreeIterator(world, state.getBlock(), origin, widthDir, extraWidth, depthDir, extraDepth);
+    return () -> new TreeIterator(level, state.getBlock(), origin, widthDir, extraWidth, depthDir, extraDepth);
   }
 
   /**

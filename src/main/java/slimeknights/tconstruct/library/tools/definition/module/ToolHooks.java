@@ -94,7 +94,7 @@ public class ToolHooks {
   /** Hook for modifying the mining speed from the stat/effectiveness */
   public static final ModuleHook<MiningSpeedToolHook> MINING_SPEED = register("mining_speed_modifier", MiningSpeedToolHook.class, MiningSpeedToolHook.ComposeMerger::new, (tool, state, speed) -> speed);
   /** Logic for finding AOE blocks */
-  public static final ModuleHook<AreaOfEffectIterator> AOE_ITERATOR = register("aoe_iterator", AreaOfEffectIterator.class, (tool, stack, player, state, world, origin, sideHit, match) -> Collections.emptyList());
+  public static final ModuleHook<AreaOfEffectIterator> AOE_ITERATOR = register("aoe_iterator", AreaOfEffectIterator.class, (tool, context, state, match) -> Collections.emptyList());
 
 
   /* Weapon */

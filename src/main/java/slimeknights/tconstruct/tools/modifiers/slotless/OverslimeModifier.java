@@ -7,7 +7,6 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.TinkerTags.Items;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
-import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.modifiers.hook.build.ToolStatsModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.DurabilityShieldModifier;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
@@ -51,20 +50,10 @@ public class OverslimeModifier extends DurabilityShieldModifier implements ToolS
 
   /* Tool building */
 
-  /** Checks if the given tool has an overslime friend */
-  private static boolean hasFriend(IToolContext context) {
-    for (ModifierEntry entry : context.getModifierList()) {
-      if (ModifierManager.isInTag(entry.getId(), TinkerTags.Modifiers.OVERSLIME_FRIEND)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
   @Override
   public void addToolStats(IToolContext context, ModifierEntry modifier, ModifierStatsBuilder builder) {
     OVERSLIME_STAT.add(builder, 50);
-    if (!hasFriend(context)) {
+    if (!context.getModifiers().has(TinkerTags.Modifiers.OVERSLIME_FRIEND)) {
       if (context.hasTag(Items.MELEE)) {
         ToolStats.ATTACK_DAMAGE.multiply(builder, 0.9f);
       }

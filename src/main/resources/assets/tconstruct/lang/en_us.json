@@ -1053,12 +1053,18 @@
   "death.attack.tconstruct.piercing": "%1$s was pierced by %2$s",
   "death.attack.tconstruct.piercing.item": "%1$s was pierced by %2$s using %3$s",
 
+  "death.attack.tconstruct.fluid.impact": "%1$s was pummeled by %2$s",
+  "death.attack.tconstruct.fluid.impact.item": "%1$s was pummeled by %2$s using %3$s",
   "death.attack.tconstruct.fluid.fire": "%1$s was burned by %2$s",
   "death.attack.tconstruct.fluid.fire.item": "%1$s was burned by %2$s using %3$s",
+  "death.attack.tconstruct.fluid.cold": "%1$s was frozen by %2$s",
+  "death.attack.tconstruct.fluid.cold.item": "%1$s was frozen by %2$s using %3$s",
   "death.attack.tconstruct.fluid.magic": "%1$s was smite by %2$s",
   "death.attack.tconstruct.fluid.magic.item": "%1$s was smite by %2$s using %3$s",
   "death.attack.tconstruct.fluid.water": "%1$s was drowned by %2$s",
   "death.attack.tconstruct.fluid.water.item": "%1$s was drowned by %2$s using %3$s",
+  "death.attack.tconstruct.fluid.spike": "%1$s was speared by %2$s",
+  "death.attack.tconstruct.fluid.spike.item": "%1$s was speared by %2$s using %3$s",
 
   "gui.tconstruct.melting.no_recipe": "Item cannot be molten.",
   "gui.tconstruct.melting.no_heat": "Not enough heat to melt this item.",
