@@ -1053,12 +1053,18 @@
   "death.attack.tconstruct.piercing": "%1$s被%2$s刺穿了",
   "death.attack.tconstruct.piercing.item": "%1$s被%2$s使用%3$s刺穿了",
 
+  "death.attack.tconstruct.fluid.impact": "%1$s被%2$sPummeled了",
+  "death.attack.tconstruct.fluid.impact.item": "%1$s被%2$s用%3$sPummeled了",
   "death.attack.tconstruct.fluid.fire": "%1$s被%2$s烧焦了",
   "death.attack.tconstruct.fluid.fire.item": "%1$s被%2$s用%3$s烧焦了",
+  "death.attack.tconstruct.fluid.cold": "%1$s被%2$s冰冻了",
+  "death.attack.tconstruct.fluid.cold.item": "%1$s被%2$s用%3$s冰冻了",
   "death.attack.tconstruct.fluid.magic": "%1$s被%2$s击穿了",
   "death.attack.tconstruct.fluid.magic.item": "%1$s被%2$s用%3$s击穿了",
   "death.attack.tconstruct.fluid.water": "%1$s被%2$溺死了",
   "death.attack.tconstruct.fluid.water.item": "%1$s被%2$s用%3$s溺死了",
+  "death.attack.tconstruct.fluid.spike": "%1$s被%2$s刺穿了",
+  "death.attack.tconstruct.fluid.spike.item": "%1$s被%2$s用%3$s刺穿了",
 
   "gui.tconstruct.melting.no_recipe": "该物品无法被熔炼。",
   "gui.tconstruct.melting.no_heat": "炉内温度不足以熔炼该物品。",
