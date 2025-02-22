@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:melting_pan",
+  "text": [
+    {"text": "Ergitme tavası bloklarını ergitip sıvılarını asalı amaçların için tutabilir. Zindanlarda, iglularda, zombi kurularında ve köylülerden armağan olarak bulunabilir."}
+  ],
+  "properties": [
+    "Ergitilebilen blokları çıkarır",
+    "Ergitme+",
+    "1 Savunma Yuvası",
+    "1 Yükseltme Yuvası",
+    "2 Yetenek Yuvası"
+  ]
+}

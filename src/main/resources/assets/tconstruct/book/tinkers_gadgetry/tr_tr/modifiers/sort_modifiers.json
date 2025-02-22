@@ -1,0 +1,13 @@
+{
+  "title": "Değiştiricileri Sıralama",
+  "image": {
+    "file": "tconstruct:book/images/worktable/sort_modifiers.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Aracına pusula eklemek aracını manyetize ederken yalnızca pusulayı aracının yakınında tutmanın değiştiriciler üzerinde ilginç bir etkisi var. Aslında pusulayı değiştiricileri araçtan kaldırmadan yeniden sıralamak için kullanılabilir! Görünmez mürekkebin aksine bunun sanattan daha fazla uygulaması var, görünüşe göre değiştiricilerdeki çatışmalar araçtaki konumlarına göre çözülüyor."
+    }
+  ]
+}

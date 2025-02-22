@@ -1,0 +1,12 @@
+{
+  "tool": "tconstruct:battlesign",
+  "text": [
+    { "text": "Savaş tabelası yakın menzilli bir silah ile kalkanın birleşimidir. Genellikle burç kalıntısında bulunur ve piglinlerden de elde edilebilir." }
+  ],
+  "properties": [
+    "Orta Hasar",
+    "Orta Engelleme Olasılığı",
+    "3 Savunma Yuvası",
+    "1 Yetenek Yuvası"
+  ]
+}

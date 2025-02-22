@@ -1,0 +1,7 @@
+{
+  "title": "Değiştirici Çalışma Masası",
+  "recipe": "tconstruct:tables/modifier_worktable",
+  "description": [
+    { "text": "Kararmış taşları buna benzer ayarlamak tariflerdeki belirli bir değiştiriciyi hedeflemeyi kolaylaştırır." }
+  ]
+}

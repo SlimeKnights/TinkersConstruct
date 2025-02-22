@@ -1,0 +1,13 @@
+{
+  "title": "Etkileşimi Kapama",
+  "image": {
+    "file": "tconstruct:book/images/worktable/untoggle_interaction.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Kuşkusuz ki değiştiriciyi açtıktan sonra eskisine değiştirmek hep olasıdır, tuhaftır ki bunu yapabilmek için ek bir şalter gerekir."
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:ender_staff",
+  "text": [
+    { "text": "Ender balçığının gücünü kullanarak çok uzaktaki hedefleri yakalamak için bir asa yapabilirsin. Ok hızı ve engelleme açısı daha güçlüdür ama doğruluğu daha kötüdür." }
+  ],
+  "properties": [
+    "Yüksek Dayanıklılık",
+    "3 Yükseltme Yuvası",
+    "1 Savunma Yuvası",
+    "2 Yetenek Yuvası",
+    "Ulaş II"
+  ]
+}

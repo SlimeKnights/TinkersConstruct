@@ -1,0 +1,13 @@
+{
+  "title": "Etkileşimi Açma",
+  "image": {
+    "file": "tconstruct:book/images/worktable/toggle_interaction.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Şalter yalnızca redstone'u değiştirmez, ayrıca balçıklı asalardaki etkileşim değiştiricilerini asayı kullanarak etkinleşitirmekten asa ile saldırarak etkinleştirmeye değiştirir."
+    }
+  ]
+}

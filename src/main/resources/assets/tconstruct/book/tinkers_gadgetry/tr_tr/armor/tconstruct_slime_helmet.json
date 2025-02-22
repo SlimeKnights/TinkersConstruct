@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:slime_helmet",
+  "text": [
+    { "text": "Enderbalçığının kafatası gibi düzgün bir odak ile canavarların etkilerini öykünmede kullanılabileceğini buldum." },
+    { "text": "Denediğim kafatasları kitabın sonraki bölümünde açıklanmıştır.", "paragraph": true }
+  ],
+  "properties": [
+    "Yüksek Dayanıklılık",
+    "5 Yükseltme Yuvası",
+    "0 Savunma Yuvası",
+    "1 Yetenek Yuvası"
+  ]
+}

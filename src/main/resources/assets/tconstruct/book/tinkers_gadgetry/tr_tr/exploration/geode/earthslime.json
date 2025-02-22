@@ -1,0 +1,13 @@
+{
+  "title": "Karabalçığı Oyukları",
+  "image": {
+	"file": "tconstruct:book/images/geodes/earthslime.png",
+    "width": 180,
+    "height": 90
+  },
+  "text": [
+    {
+      "text": "Karabalçığı oyukları derin yer altında bulunur ve gördüğüm en büyük oyuklardan bazıları olabilirler. Kilin orada bulunmasıyla onları genellikle belirliyebilirsin."
+    }
+  ]
+}
