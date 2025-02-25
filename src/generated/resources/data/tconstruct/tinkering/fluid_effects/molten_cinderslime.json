@@ -1,0 +1,40 @@
+{
+  "block_effects": [
+    {
+      "type": "tconstruct:explosion",
+      "block_interaction": "destroy_with_decay",
+      "damage": {
+        "each_level": 3.0
+      },
+      "knockback": {
+        "flat": -2.0
+      },
+      "place_fire": false,
+      "radius": {
+        "each_level": 1.0,
+        "flat": 1.0
+      }
+    }
+  ],
+  "entity_effects": [
+    {
+      "type": "tconstruct:explosion",
+      "block_interaction": "destroy_with_decay",
+      "damage": {
+        "each_level": 3.0
+      },
+      "knockback": {
+        "flat": -2.0
+      },
+      "place_fire": false,
+      "radius": {
+        "each_level": 1.0,
+        "flat": 1.0
+      }
+    }
+  ],
+  "fluid": {
+    "amount": 20,
+    "fluid": "tconstruct:molten_cinderslime"
+  }
+}

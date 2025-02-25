@@ -1,4 +1,23 @@
 {
+  "block_effects": [
+    {
+      "type": "tconstruct:conditional",
+      "block": {
+        "type": "mantle:inverted",
+        "inverted_type": "mantle:or",
+        "predicates": [
+          "tconstruct:blocks_motion",
+          {
+            "type": "mantle:tag",
+            "tag": "tconstruct:unreplacable_by_liquid"
+          }
+        ]
+      },
+      "effect": {
+        "type": "tconstruct:break_block"
+      }
+    }
+  ],
   "entity_effects": [
     {
       "type": "tconstruct:conditional",

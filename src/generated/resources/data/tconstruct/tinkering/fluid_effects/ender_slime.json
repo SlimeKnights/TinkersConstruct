@@ -1,35 +1,22 @@
 {
   "block_effects": [
     {
-      "type": "tconstruct:mob_effect_cloud",
-      "effects": [
-        {
-          "effect": "minecraft:levitation",
-          "level": 1,
-          "time": 100
-        },
-        {
-          "effect": "minecraft:slowness",
-          "level": 1,
-          "time": 300
-        }
-      ]
+      "type": "tconstruct:break_block"
+    },
+    {
+      "type": "tconstruct:place_block"
     }
   ],
   "entity_effects": [
     {
       "type": "tconstruct:mob_effect",
-      "action": "set",
-      "effect": "minecraft:levitation",
+      "action": "add",
+      "effect": "minecraft:slowness",
       "level": 1,
       "time": 100
     },
     {
-      "type": "tconstruct:mob_effect",
-      "action": "set",
-      "effect": "minecraft:slowness",
-      "level": 1,
-      "time": 300
+      "type": "tconstruct:teleport"
     }
   ],
   "fluid": {

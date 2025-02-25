@@ -50,8 +50,8 @@ public class FuelModule implements ContainerData, IFluidHandler {
   private static final BlockPos NULL_POS = new BlockPos(0, Short.MIN_VALUE, 0);
 
   /** Listener to attach to stored capability */
-  private final NonNullConsumer<LazyOptional<IFluidHandler>> fluidListener = new WeakConsumerWrapper<>(this, (self, cap) -> self.reset(true));
-  private final NonNullConsumer<LazyOptional<IItemHandler>> itemListener = new WeakConsumerWrapper<>(this, (self, cap) -> self.reset(true));
+  private final NonNullConsumer<LazyOptional<IFluidHandler>> fluidListener = new WeakConsumerWrapper<>(this, (self, cap) -> self.reset(true, cap));
+  private final NonNullConsumer<LazyOptional<IItemHandler>> itemListener = new WeakConsumerWrapper<>(this, (self, cap) -> self.reset(true, cap));
 
   /** Parent TE */
   private final MantleBlockEntity parent;
@@ -97,13 +97,17 @@ public class FuelModule implements ContainerData, IFluidHandler {
    */
 
   /** Disconnects all current handlers */
-  private void reset(boolean clearPos) {
+  private void reset(boolean clearPos, @Nullable LazyOptional<?> source) {
     if (fluidHandler != null) {
-      fluidHandler.removeListener(fluidListener);
+      if (source != fluidHandler) {
+        fluidHandler.removeListener(fluidListener);
+      }
       fluidHandler = null;
     }
     if (itemHandler != null) {
-      itemHandler.removeListener(itemListener);
+      if (source != itemHandler) {
+        itemHandler.removeListener(itemListener);
+      }
       itemHandler = null;
     }
     if (clearPos) {
@@ -297,7 +301,7 @@ public class FuelModule implements ContainerData, IFluidHandler {
       // if we find a valid cap, try to consume fuel from it
       Optional<Integer> temperature = tankCap.map(tryLiquidFuel(consume));
       if (temperature.isPresent()) {
-        reset(false);
+        reset(false, null);
         fluidHandler = tankCap;
         tankCap.addListener(fluidListener);
         lastPos = pos;
@@ -309,7 +313,7 @@ public class FuelModule implements ContainerData, IFluidHandler {
           LazyOptional<IItemHandler> itemCap = te.getCapability(ForgeCapabilities.ITEM_HANDLER);
           temperature = itemCap.map(trySolidFuel(consume));
           if (temperature.isPresent()) {
-            reset(false);
+            reset(false, null);
             itemHandler = itemCap;
             itemCap.addListener(itemListener);
             lastPos = pos;
@@ -449,7 +453,7 @@ public class FuelModule implements ContainerData, IFluidHandler {
           case LAST_Y -> lastPos = new BlockPos(lastPos.getX(), value, lastPos.getZ());
           case LAST_Z -> lastPos = new BlockPos(lastPos.getX(), lastPos.getY(), value);
         }
-        reset(false);
+        reset(false, null);
       }
     }
   }

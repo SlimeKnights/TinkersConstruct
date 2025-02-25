@@ -483,7 +483,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
     MaterialRepairModule staffRepair = MaterialRepairModule.of(MaterialIds.slimewood, LimbMaterialStats.ID);
     define(ToolDefinitions.SKY_STAFF)
       .module(new SetStatsModule(StatsNBT.builder()
-        .set(ToolStats.DURABILITY, 375)
+        .set(ToolStats.DURABILITY, 500)
         .set(ToolStats.BLOCK_AMOUNT, 15)
         .set(ToolStats.USE_ITEM_SPEED, 0.4f)
         .set(ToolStats.VELOCITY, 0.8f)
@@ -500,8 +500,9 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .module(new SetStatsModule(StatsNBT.builder()
         .set(ToolStats.DURABILITY, 800)
         .set(ToolStats.BLOCK_AMOUNT, 35)
+        .set(ToolStats.BLOCK_ANGLE, 140)
         .set(ToolStats.USE_ITEM_SPEED, 0.4f)
-        .set(ToolStats.PROJECTILE_DAMAGE, 1.5f)
+        .set(ToolStats.PROJECTILE_DAMAGE, 1f) // 1 is nice for select fluid usages, so not always a weakness
         .set(ToolStats.ACCURACY, 0.9f).build()))
       .module(ToolSlotsModule.builder()
         .slots(SlotType.UPGRADE, 2)
@@ -510,7 +511,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .module(ToolTraitsModule.builder().trait(ModifierIds.overslimeFriend).build())
       .module(ToolTraitsModule.builder().trait(ModifierIds.reach).build(), ToolHooks.REBALANCED_TRAIT)
       .module(staffRepair)
-      .module(new CircleAOEIterator(1, false))
+      .module(BoxAOEIterator.builder(0, 0, 0).addDepth(2).addHeight(1).direction(IBoxExpansion.PITCH).build())
       .module(DualOptionInteraction.INSTANCE);
     define(ToolDefinitions.ICHOR_STAFF)
       .module(new SetStatsModule(StatsNBT.builder()
@@ -525,13 +526,12 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
       .module(ToolTraitsModule.builder().trait(ModifierIds.overslimeFriend).build())
       .module(ToolTraitsModule.builder().trait(ModifierIds.reach).build(), ToolHooks.REBALANCED_TRAIT)
       .module(staffRepair)
-      .module(new CircleAOEIterator(1, false))
+      .module(new VeiningAOEIterator(0))
       .module(DualOptionInteraction.INSTANCE);
     define(ToolDefinitions.ENDER_STAFF)
       .module(new SetStatsModule(StatsNBT.builder()
         .set(ToolStats.DURABILITY, 1520)
         .set(ToolStats.BLOCK_AMOUNT, 15)
-        .set(ToolStats.BLOCK_ANGLE, 140)
         .set(ToolStats.USE_ITEM_SPEED, 0.4f)
         .set(ToolStats.PROJECTILE_DAMAGE, 3f)
         .set(ToolStats.ACCURACY, 0.5f).build()))
@@ -544,7 +544,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
         .trait(ModifierIds.reach, 2).build())
       .module(ToolTraitsModule.builder().trait(ModifierIds.reach).build(), ToolHooks.REBALANCED_TRAIT)
       .module(staffRepair)
-      .module(new CircleAOEIterator(1, false))
+      .module(BoxAOEIterator.builder(0, 0, 0).addExpansion(1, 1, 0).addDepth(2).build())
       .module(DualOptionInteraction.INSTANCE);
 
 

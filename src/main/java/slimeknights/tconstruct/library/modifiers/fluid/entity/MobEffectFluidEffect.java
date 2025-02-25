@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.library.modifiers.fluid.entity;
 
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.fluids.FluidStack;
@@ -11,6 +13,8 @@ import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext.Entity;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidMobEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.TimeAction;
+
+import java.util.Locale;
 
 /**
  * Spilling effect to apply a potion effect
@@ -79,5 +83,11 @@ public record MobEffectFluidEffect(FluidMobEffect effect, TimeAction action) imp
       }
     }
     return 0;
+  }
+
+  @Override
+  public Component getDescription(RegistryAccess registryAccess) {
+    String prefix = FluidEffect.getTranslationKey(getLoader()) + "." + action.name().toLowerCase(Locale.ROOT);
+    return Component.translatable(prefix, effect.time() / 20, Component.translatable(effect.effect().getDescriptionId()), effect.amplifier() + 1);
   }
 }

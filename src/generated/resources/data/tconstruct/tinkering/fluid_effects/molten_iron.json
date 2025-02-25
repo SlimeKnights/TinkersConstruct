@@ -6,7 +6,7 @@
         {
           "effect": "tconstruct:magnetic",
           "level": 2,
-          "time": 80
+          "time": 100
         }
       ]
     }
@@ -32,7 +32,7 @@
       "action": "set",
       "effect": "tconstruct:magnetic",
       "level": 2,
-      "time": 80
+      "time": 100
     }
   ],
   "fluid": {

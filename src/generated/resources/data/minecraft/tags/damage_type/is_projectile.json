@@ -5,6 +5,8 @@
     "tconstruct:fluid_cold_ranged",
     "tconstruct:fluid_magic_ranged",
     "tconstruct:water_ranged",
-    "tconstruct:fluid_spike_ranged"
+    "tconstruct:fluid_spike_ranged",
+    "tconstruct:explosion_ranged",
+    "tconstruct:mob_explosion_ranged"
   ]
 }

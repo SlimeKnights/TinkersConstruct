@@ -128,5 +128,40 @@
     "icon": {
       "item": "minecraft:skeleton_skull"
     }
+  },
+  {
+    "name": "fluid_effects",
+    "data": "no-load",
+    "extraData": { "tconstruct:fluid_effects": {
+      "path": "fluids",
+      "order": [
+        "water", "milk", "lava", "blazing_blood", "powdered_snow", "potion",
+        "honey", "beetroot_soup", "mushroom_stew", "rabbit_stew", "meat_soup",
+
+        "molten_clay", "seared_stone", "scorched_stone",
+        "molten_glass", "molten_obsidian", "liquid_soul",
+        "molten_amethyst", "molten_quartz", "molten_emerald", "molten_diamond", "molten_debris",
+
+        "venom", "magma", "molten_ender",
+        "earth_slime", "sky_slime", "ichor", "ender_slime",
+        "molten_slimesteel", "molten_cinderslime", "molten_queens_slime",
+
+        "molten_copper", "molten_bronze", "molten_amethyst_bronze",
+        "molten_iron", "molten_pig_iron", "molten_steel",
+        "molten_zinc", "molten_brass",
+        "molten_tin", "molten_pewter",
+        "molten_gold", "molten_rose_gold", "molten_electrum",
+        "molten_aluminum", "molten_silver",
+
+        "molten_nickel", "molten_invar", "molten_constantan",
+        "molten_lead", "molden_platinum", "molten_tungsten", "molten_osmium", "molten_uranium",
+
+        "molten_cobalt", "molten_hepatizon", "molten_manyullyn", "molten_netherite"
+      ],
+      "__comment": "Anything not in this order simply sorts to the end, for addons."
+    }},
+    "icon": {
+      "item": "tconstruct:molten_iron_bucket"
+    }
   }
 ]

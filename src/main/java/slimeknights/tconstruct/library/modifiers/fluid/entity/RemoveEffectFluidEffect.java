@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.library.modifiers.fluid.entity;
 
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.fluids.FluidStack;
@@ -30,5 +32,10 @@ public record RemoveEffectFluidEffect(MobEffect effect) implements FluidEffect<F
       return living.removeEffect(effect) ? 1 : 0;
     }
     return 0;
+  }
+
+  @Override
+  public Component getDescription(RegistryAccess registryAccess) {
+    return FluidEffect.makeTranslation(getLoader(), Component.translatable(effect.getDescriptionId()));
   }
 }

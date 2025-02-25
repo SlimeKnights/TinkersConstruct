@@ -11,12 +11,33 @@
       ]
     }
   ],
+  "conditions": [
+    {
+      "type": "forge:or",
+      "values": [
+        {
+          "type": "tconstruct:config",
+          "prop": "force_integration_materials"
+        },
+        {
+          "type": "mantle:tag_filled",
+          "registry": "minecraft:fluid",
+          "tag": "forge:ingots/invar"
+        },
+        {
+          "type": "mantle:tag_filled",
+          "registry": "minecraft:fluid",
+          "tag": "forge:ingots/nickel"
+        }
+      ]
+    }
+  ],
   "entity_effects": [
     {
       "type": "tconstruct:conditional",
       "effect": {
         "type": "tconstruct:damage",
-        "damage": 2.0,
+        "damage": 3.0,
         "damage_type": {
           "melee": "tconstruct:fluid_fire_melee",
           "ranged": "tconstruct:fluid_fire_ranged"

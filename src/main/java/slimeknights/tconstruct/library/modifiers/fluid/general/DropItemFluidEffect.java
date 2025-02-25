@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.library.modifiers.fluid.general;
 
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
@@ -34,5 +36,10 @@ public record DropItemFluidEffect(ItemOutput item) implements FluidEffect<FluidE
       return (float) count / item.getCount();
     }
     return 0;
+  }
+
+  @Override
+  public Component getDescription(RegistryAccess registryAccess) {
+    return FluidEffect.makeTranslation(getLoader(), item.get().getHoverName());
   }
 }

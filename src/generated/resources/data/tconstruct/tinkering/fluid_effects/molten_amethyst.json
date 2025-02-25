@@ -1,0 +1,19 @@
+{
+  "block_effects": [
+    {
+      "type": "tconstruct:conditional",
+      "block": {
+        "type": "tconstruct:harvest_tier",
+        "tier": "minecraft:stone"
+      },
+      "effect": {
+        "type": "tconstruct:break_block",
+        "hardness": 3.0
+      }
+    }
+  ],
+  "fluid": {
+    "amount": 25,
+    "tag": "tconstruct:molten_amethyst"
+  }
+}

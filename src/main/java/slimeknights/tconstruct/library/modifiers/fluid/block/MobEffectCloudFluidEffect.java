@@ -1,10 +1,13 @@
 package slimeknights.tconstruct.library.modifiers.fluid.block;
 
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.AreaEffectCloud;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.fluid.EffectLevel;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext;
@@ -17,6 +20,7 @@ import java.util.List;
  * @see FluidMobEffect.Builder
  */
 public record MobEffectCloudFluidEffect(List<FluidMobEffect> effects) implements FluidEffect<FluidEffectContext.Block> {
+  private static final String FORMAT = TConstruct.makeTranslationKey("fluid_effect", "mob_effect.set");
   public static final RecordLoadable<MobEffectCloudFluidEffect> LOADER = RecordLoadable.create(
     FluidMobEffect.LOADABLE.list(1).requiredField("effects", e -> e.effects),
     MobEffectCloudFluidEffect::new);
@@ -62,5 +66,14 @@ public record MobEffectCloudFluidEffect(List<FluidMobEffect> effects) implements
       return scale;
     }
     return 0;
+  }
+
+  @Override
+  public Component getDescription(RegistryAccess registryAccess) {
+    return FluidEffect.makeTranslation(
+      getLoader(),
+      effects.stream()
+             .<Component>map(effect -> Component.translatable(FORMAT, effect.time() / 20, Component.translatable(effect.effect().getDescriptionId()), effect.amplifier() + 1))
+             .reduce(MERGE_COMPONENT_LIST).orElse(Component.empty()));
   }
 }

@@ -1,9 +1,12 @@
 package slimeknights.tconstruct.library.modifiers.fluid.general;
 
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.block.BlockPredicate;
@@ -13,7 +16,11 @@ import slimeknights.tconstruct.library.modifiers.fluid.EffectLevel;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext;
 
-/** Fluid effect that conditions on the holder and target */
+/**
+ * Fluid effect that conditions on the holder and target.
+ * @apiNote This class is internal, no need to use directly. Instead, make use of the helpers in {@link slimeknights.tconstruct.library.data.tinkering.AbstractFluidEffectProvider}.
+ */
+@Internal
 public interface ConditionalFluidEffect<C extends FluidEffectContext> extends FluidEffect<C> {
   /** Gets the effect to apply */
   FluidEffect<? super C> effect();
@@ -24,6 +31,11 @@ public interface ConditionalFluidEffect<C extends FluidEffectContext> extends Fl
   @Override
   default float apply(FluidStack fluid, EffectLevel level, C context, FluidAction action) {
     return canApply(context) ? effect().apply(fluid, level, context, action) : 0;
+  }
+
+  @Override
+  default Component getDescription(RegistryAccess registryAccess) {
+    return effect().getDescription(registryAccess);
   }
 
   /** Conditional block effect */

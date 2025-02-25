@@ -1,8 +1,12 @@
 package slimeknights.tconstruct.library.modifiers.fluid;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import org.jetbrains.annotations.ApiStatus.Internal;
+import slimeknights.mantle.data.loadable.Loadables;
+import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext.Block;
@@ -11,12 +15,17 @@ import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext.Entity
 import java.util.List;
 
 /** Data class to connect fluids to fluid effects */
-public record FluidEffects(FluidIngredient ingredient, List<FluidEffect<? super FluidEffectContext.Block>> blockEffects, List<FluidEffect<? super FluidEffectContext.Entity>> entityEffects) {
+public record FluidEffects(FluidIngredient ingredient, List<FluidEffect<? super FluidEffectContext.Block>> blockEffects, List<FluidEffect<? super FluidEffectContext.Entity>> entityEffects, boolean hidden) {
   public static final RecordLoadable<FluidEffects> LOADABLE = RecordLoadable.create(
     FluidIngredient.LOADABLE.requiredField("fluid", e -> e.ingredient),
     FluidEffect.BLOCK_EFFECTS.list(0).defaultField("block_effects", List.of(), e -> e.blockEffects),
     FluidEffect.ENTITY_EFFECTS.list(0).defaultField("entity_effects", List.of(), e -> e.entityEffects),
+    BooleanLoadable.INSTANCE.defaultField("hidden", false, false, e -> e.hidden),
     FluidEffects::new);
+
+  /** @apiNote This constructor is internal, use either {@link slimeknights.tconstruct.library.data.tinkering.AbstractFluidEffectProvider} or JSON to instantiate. */
+  @Internal
+  public FluidEffects {}
 
 
   /* Fluid */
@@ -103,5 +112,13 @@ public record FluidEffects(FluidIngredient ingredient, List<FluidEffect<? super 
    */
   public int applyToEntity(FluidStack fluid, float level, Entity context, FluidAction action) {
     return apply(fluid, level, context, entityEffects, action);
+  }
+
+  /** Entry for storage in the manager */
+  public record Entry(ResourceLocation name, FluidEffects effects) {
+    public static final RecordLoadable<Entry> LOADABLE = RecordLoadable.create(
+      Loadables.RESOURCE_LOCATION.requiredField("name", Entry::name),
+      FluidEffects.LOADABLE.requiredField("effects", Entry::effects),
+      Entry::new);
   }
 }

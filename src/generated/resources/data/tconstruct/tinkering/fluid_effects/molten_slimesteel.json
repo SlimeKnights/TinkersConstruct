@@ -1,42 +1,36 @@
 {
   "block_effects": [
     {
-      "type": "tconstruct:mob_effect_cloud",
-      "effects": [
-        {
-          "effect": "minecraft:slow_falling",
-          "level": 1,
-          "time": 100
-        }
-      ]
+      "type": "tconstruct:explosion",
+      "block_interaction": "destroy_with_decay",
+      "damage": {},
+      "knockback": {
+        "each_level": 1.0
+      },
+      "place_fire": false,
+      "radius": {
+        "each_level": 0.5,
+        "flat": 1.0
+      }
     }
   ],
   "entity_effects": [
     {
-      "type": "tconstruct:conditional",
-      "effect": {
-        "type": "tconstruct:damage",
-        "damage": 1.0,
-        "damage_type": {
-          "melee": "tconstruct:fluid_fire_melee",
-          "ranged": "tconstruct:fluid_fire_ranged"
-        }
+      "type": "tconstruct:explosion",
+      "block_interaction": "destroy_with_decay",
+      "damage": {},
+      "knockback": {
+        "each_level": 1.0
       },
-      "target": {
-        "type": "mantle:inverted",
-        "inverted_type": "mantle:fire_immune"
+      "place_fire": false,
+      "radius": {
+        "each_level": 0.5,
+        "flat": 1.0
       }
-    },
-    {
-      "type": "tconstruct:mob_effect",
-      "action": "set",
-      "effect": "minecraft:slow_falling",
-      "level": 1,
-      "time": 100
     }
   ],
   "fluid": {
-    "amount": 10,
+    "amount": 20,
     "tag": "tconstruct:molten_slimesteel"
   }
 }

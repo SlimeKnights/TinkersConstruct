@@ -1,0 +1,27 @@
+{
+  "block_effects": [
+    {
+      "type": "tconstruct:break_block"
+    }
+  ],
+  "entity_effects": [
+    {
+      "type": "tconstruct:mob_effect",
+      "action": "add",
+      "effect": "minecraft:levitation",
+      "level": 1,
+      "time": 100
+    },
+    {
+      "type": "tconstruct:mob_effect",
+      "action": "add",
+      "effect": "minecraft:slowness",
+      "level": 1,
+      "time": 100
+    }
+  ],
+  "fluid": {
+    "amount": 50,
+    "fluid": "tconstruct:ichor"
+  }
+}

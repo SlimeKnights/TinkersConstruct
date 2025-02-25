@@ -481,8 +481,10 @@
   "fluid.tconstruct.blazing_blood": "Blazing Blood",
   "fluid.tconstruct.flowing_blazing_blood": "Flowing Blazing Blood",
   "item.tconstruct.blazing_blood_bucket": "Blazing Blood Bucket",
+  "fluid.tconstruct.blazing_blood.fluid_effect": "Blazing blood is an acceptable fluid for combat, but it really shines as a light source.",
 
   "fluid.tconstruct.powdered_snow": "Powdered Snow",
+  "fluid.tconstruct.powdered_snow.fluid_effect": "Powdered snow is a useful fluid for nether combat, dealing bonus damage to blazing mobs.",
 
   "_comment": "Food",
 
@@ -490,32 +492,39 @@
   "fluid.tconstruct.honey": "Honey",
   "fluid.tconstruct.flowing_honey": "Flowing Honey",
   "item.tconstruct.honey_bucket": "Honey Bucket",
+  "fluid.tconstruct.honey.fluid_effect": "So sweat, and removes toxins, what not to love with slurping honey?",
 
   "block.tconstruct.beetroot_soup_fluid": "Beetroot Soup",
   "fluid.tconstruct.beetroot_soup": "Beetroot Soup",
   "fluid.tconstruct.flowing_beetroot_soup": "Flowing Beetroot Soup",
   "item.tconstruct.beetroot_soup_bucket": "Beetroot Soup Bucket",
+  "fluid.tconstruct.beetroot_soup.fluid_effect": "Beetroot soup is an easily farmable slurpable food option.",
 
   "block.tconstruct.mushroom_stew_fluid": "Mushroom Stew",
   "fluid.tconstruct.mushroom_stew": "Mushroom Stew",
   "fluid.tconstruct.flowing_mushroom_stew": "Flowing Mushroom Stew",
   "item.tconstruct.mushroom_stew_bucket": "Mushroom Stew Bucket",
+  "fluid.tconstruct.mushroom_stew.fluid_effect": "Mushroom stew is a very affordable soup option for slurping on the go.",
 
   "block.tconstruct.rabbit_stew_fluid": "Rabbit Stew",
   "fluid.tconstruct.rabbit_stew": "Rabbit Stew",
   "fluid.tconstruct.flowing_rabbit_stew": "Flowing Rabbit Stew",
   "item.tconstruct.rabbit_stew_bucket": "Rabbit Stew Bucket",
+  "fluid.tconstruct.rabbit_stew.fluid_effect": "Rabbit stew is the best liquid food available, ideal for slurping.",
 
   "block.tconstruct.meat_soup_fluid": "Meat Soup",
   "fluid.tconstruct.meat_soup": "Meat Soup",
   "fluid.tconstruct.flowing_meat_soup": "Flowing Meat Soup",
   "item.tconstruct.meat_soup_bucket": "Meat Soup Bucket",
   "item.tconstruct.meat_soup": "Meat Soup",
+  "fluid.tconstruct.meat_soup.fluid_effect": "Don't ask what is in the meat soup; just enjoy the flavor as you slurp this down.",
 
 
   "_comment": "Potion",
 
   "fluid.tconstruct.potion": "Potion",
+  "fluid.tconstruct.potion.fluid_effect": "Potions allow a wide variety of effects crafted in a brewing stand. Can dump potions into tanks to fill tools.",
+  "fluid.tconstruct.potion.fluid_effect": "Potions allow a wide variety of effects crafted in a brewing stand. Can dump potions into tanks to fill tools.",
 
   "item.tconstruct.potion_bucket": "Uncraftable Potion Bucket",
   "item.tconstruct.potion_bucket.effect.water": "Water Bucket",
@@ -527,17 +536,19 @@
 
   "_comment": "Slime",
 
-  "block.tconstruct.earth_slime_fluid": "Slime",
-  "fluid.tconstruct.earth_slime": "Slime",
-  "fluid.tconstruct.flowing_earth_slime": "Flowing Slime",
-  "item.tconstruct.earth_slime_bucket": "Slime Bucket",
-  "item.tconstruct.earth_slime_bottle": "Slime Bottle",
+  "block.tconstruct.earth_slime_fluid": "Earthslime",
+  "fluid.tconstruct.earth_slime": "Earthslime",
+  "fluid.tconstruct.flowing_earth_slime": "Flowing Earthslime",
+  "item.tconstruct.earth_slime_bucket": "Earthslime Bucket",
+  "item.tconstruct.earth_slime_bottle": "Earthslime Bottle",
+  "fluid.tconstruct.earth_slime.fluid_effect": "Earthslime is a portable piston, ideal for simple flying carpets. Well, assuming bricks count as carpet.",
 
   "block.tconstruct.sky_slime_fluid": "Skyslime",
   "fluid.tconstruct.sky_slime": "Skyslime",
   "fluid.tconstruct.flowing_sky_slime": "Flowing Skyslime",
   "item.tconstruct.sky_slime_bucket": "Skyslime Bucket",
   "item.tconstruct.sky_slime_bottle": "Skyslime Bottle",
+  "fluid.tconstruct.sky_slime.fluid_effect": "Skyslime is a portable piston, ideal for when you built your base just 1 block away from where it belongs.",
 
   "block.tconstruct.magma_fluid": "Magma",
   "fluid.tconstruct.magma": "Magma",
@@ -556,12 +567,14 @@
   "fluid.tconstruct.flowing_venom": "Flowing Venom",
   "item.tconstruct.venom_bucket": "Venom Bucket",
   "item.tconstruct.venom_bottle": "Venom Bottle",
+  "fluid.tconstruct.venom.fluid_effect": "Venom pairs very well with venombone, the hint is in the name.",
 
   "block.tconstruct.ichor_fluid": "Ichor",
   "fluid.tconstruct.ichor": "Ichor",
   "fluid.tconstruct.flowing_ichor": "Flowing Ichor",
   "item.tconstruct.ichor_bucket": "Ichor Bucket",
   "item.tconstruct.ichor_slime_bottle": "Ichor Bottle",
+  "fluid.tconstruct.ichor.fluid_effect": "Ichor is a reverse gravity fluid, helping you also reverse gravity. Surviving the trip back down is on you.",
 
   "_comment": "Rock",
 
@@ -569,56 +582,67 @@
   "fluid.tconstruct.seared_stone": "Seared Stone",
   "fluid.tconstruct.flowing_seared_stone": "Flowing Seared Stone",
   "item.tconstruct.seared_stone_bucket": "Seared Stone Bucket",
+  "fluid.tconstruct.seared_stone.fluid_effect": "Most unusual method of smeltery construction.",
 
   "block.tconstruct.scorched_stone_fluid": "Scorched Stone",
   "fluid.tconstruct.scorched_stone": "Scorched Stone",
   "fluid.tconstruct.flowing_scorched_stone": "Flowing Scorched Stone",
   "item.tconstruct.scorched_stone_bucket": "Scorched Stone Bucket",
+  "fluid.tconstruct.scorched_stone.fluid_effect": "Unconventional approach to foundry creation.",
 
   "block.tconstruct.molten_clay_fluid": "Molten Clay",
   "fluid.tconstruct.molten_clay": "Molten Clay",
   "fluid.tconstruct.flowing_molten_clay": "Flowing Molten Clay",
   "item.tconstruct.molten_clay_bucket": "Molten Clay Bucket",
+  "fluid.tconstruct.molten_clay.fluid_effect": "Great for quickly building a wall, or just solidifying clay without a cast.",
 
   "block.tconstruct.molten_glass_fluid": "Molten Glass",
   "fluid.tconstruct.molten_glass": "Molten Glass",
   "fluid.tconstruct.flowing_molten_glass": "Flowing Molten Glass",
   "item.tconstruct.molten_glass_bucket": "Molten Glass Bucket",
+  "fluid.tconstruct.molten_glass.fluid_effect": "Molten glass can quickly solidify into an easily removable window.",
 
   "block.tconstruct.liquid_soul_fluid": "Liquid Soul",
   "fluid.tconstruct.liquid_soul": "Liquid Soul",
   "fluid.tconstruct.flowing_liquid_soul": "Flowing Liquid Soul",
   "item.tconstruct.liquid_soul_bucket": "Liquid Soul Bucket",
+  "fluid.tconstruct.liquid_soul.fluid_effect": "Liquid soul lets you greatly slow opponents, at least that is the hope.",
 
   "block.tconstruct.molten_obsidian_fluid": "Molten Obsidian",
   "fluid.tconstruct.molten_obsidian": "Molten Obsidian",
   "fluid.tconstruct.flowing_molten_obsidian": "Flowing Molten Obsidian",
   "item.tconstruct.molten_obsidian_bucket": "Molten Obsidian Bucket",
+  "fluid.tconstruct.molten_obsidian.fluid_effect": "Molten obsidian becomes a very difficult to remove blockage.",
 
   "block.tconstruct.molten_emerald_fluid": "Molten Emerald",
   "fluid.tconstruct.molten_emerald": "Molten Emerald",
   "fluid.tconstruct.flowing_molten_emerald": "Flowing Molten Emerald",
   "item.tconstruct.molten_emerald_bucket": "Molten Emerald Bucket",
+  "fluid.tconstruct.molten_emerald.fluid_effect": "Molten emerald is the choice for mining when you need silk touch.",
 
   "block.tconstruct.molten_quartz_fluid": "Molten Quartz",
   "fluid.tconstruct.molten_quartz": "Molten Quartz",
   "fluid.tconstruct.flowing_molten_quartz": "Flowing Molten Quartz",
   "item.tconstruct.molten_quartz_bucket": "Molten Quartz Bucket",
+  "fluid.tconstruct.molten_quartz.fluid_effect": "Molten quartz is a modest mining fluid, not too expensive and not too strong.",
 
   "block.tconstruct.molten_amethyst_fluid": "Molten Amethyst",
   "fluid.tconstruct.molten_amethyst": "Molten Amethyst",
   "fluid.tconstruct.flowing_molten_amethyst": "Flowing Molten Amethyst",
   "item.tconstruct.molten_amethyst_bucket": "Molten Amethyst Bucket",
+  "fluid.tconstruct.molten_amethyst.fluid_effect": "Molten amethyst is the cheapest mining fluid, but its not very strong.",
 
   "block.tconstruct.molten_diamond_fluid": "Molten Diamond",
   "fluid.tconstruct.molten_diamond": "Molten Diamond",
   "fluid.tconstruct.flowing_molten_diamond": "Flowing Molten Diamond",
   "item.tconstruct.molten_diamond_bucket": "Molten Diamond Bucket",
+  "fluid.tconstruct.molten_diamond.fluid_effect": "Molten diamond lets you maximize the drops of your ores, but is it worth the cost of the fluid?",
 
   "block.tconstruct.molten_ender_fluid": "Molten Ender",
   "fluid.tconstruct.molten_ender": "Molten Ender",
   "fluid.tconstruct.flowing_molten_ender": "Flowing Molten Ender",
   "item.tconstruct.molten_ender_bucket": "Molten Ender Bucket",
+  "fluid.tconstruct.molten_ender.fluid_effect": "Placing blocks turns a slimestaff into a building wand.",
 
   "block.tconstruct.molten_porcelain_fluid": "Molten Porcelain",
   "fluid.tconstruct.molten_porcelain": "Molten Porcelain",
@@ -631,26 +655,31 @@
   "fluid.tconstruct.molten_iron": "Molten Iron",
   "fluid.tconstruct.flowing_molten_iron": "Flowing Molten Iron",
   "item.tconstruct.molten_iron_bucket": "Molten Iron Bucket",
+  "fluid.tconstruct.molten_iron.fluid_effect": "Molten iron is used to draw nearby items towards you, though in a pinch it can be useful in combat.",
 
   "block.tconstruct.molten_gold_fluid": "Molten Gold",
   "fluid.tconstruct.molten_gold": "Molten Gold",
   "fluid.tconstruct.flowing_molten_gold": "Flowing Molten Gold",
   "item.tconstruct.molten_gold_bucket": "Molten Gold Bucket",
+  "fluid.tconstruct.molten_gold.fluid_effect": "Molten gold first hurts you, then it heals you back more. Is it worth it? Up to you.",
 
   "block.tconstruct.molten_copper_fluid": "Molten Copper",
   "fluid.tconstruct.molten_copper": "Molten Copper",
   "fluid.tconstruct.flowing_molten_copper": "Flowing Molten Copper",
   "item.tconstruct.molten_copper_bucket": "Molten Copper Bucket",
+  "fluid.tconstruct.molten_copper.fluid_effect": "Molten copper is a good emergency air supply for long underwater journeys.",
 
   "block.tconstruct.molten_cobalt_fluid": "Molten Cobalt",
   "fluid.tconstruct.molten_cobalt": "Molten Cobalt",
   "fluid.tconstruct.flowing_molten_cobalt": "Flowing Molten Cobalt",
   "item.tconstruct.molten_cobalt_bucket": "Molten Cobalt Bucket",
+  "fluid.tconstruct.molten_cobalt.fluid_effect": "Inhaling the lingering cloud is the safest way to use molten cobalt for haste, or just use it as a weapon.",
 
   "block.tconstruct.molten_debris_fluid": "Molten Debris",
   "fluid.tconstruct.molten_debris": "Molten Debris",
   "fluid.tconstruct.flowing_molten_debris": "Flowing Molten Debris",
   "item.tconstruct.molten_debris_bucket": "Molten Debris Bucket",
+  "fluid.tconstruct.molten_debris.fluid_effect": "Molten debris is the strongest fluid for mining, even capable of mining obsidian.",
 
   "_comment": "Tier 3 Alloys",
 
@@ -663,16 +692,19 @@
   "fluid.tconstruct.molten_amethyst_bronze": "Molten Amethyst Bronze",
   "fluid.tconstruct.flowing_molten_amethyst_bronze": "Flowing Molten Amethyst Bronze",
   "item.tconstruct.molten_amethyst_bronze_bucket": "Molten Amethyst Bronze Bucket",
+  "fluid.tconstruct.molten_amethyst_bronze.fluid_effect": "Sometimes you really want to fight some phantoms, drinking a lot of molten amethyst bronze can help that happen.",
 
   "block.tconstruct.molten_rose_gold_fluid": "Molten Rose Gold",
   "fluid.tconstruct.molten_rose_gold": "Molten Rose Gold",
   "fluid.tconstruct.flowing_molten_rose_gold": "Flowing Molten Rose Gold",
   "item.tconstruct.molten_rose_gold_bucket": "Molten Rose Gold Bucket",
+  "fluid.tconstruct.molten_rose_gold.fluid_effect": "Molten rose gold lets you lose a small amount of health for a temporary edge.",
 
   "block.tconstruct.molten_pig_iron_fluid": "Molten Pig Iron",
   "fluid.tconstruct.molten_pig_iron": "Molten Pig Iron",
   "fluid.tconstruct.flowing_molten_pig_iron": "Flowing Molten Pig Iron",
   "item.tconstruct.molten_pig_iron_bucket": "Molten Pig Iron Bucket",
+  "fluid.tconstruct.molten_pig_iron.fluid_effect": "Molten pig iron is the tastiest of molten metals. Not that its much of a competition.",
 
   "_comment": "Tier 4 Alloys",
 
@@ -680,11 +712,13 @@
   "fluid.tconstruct.molten_manyullyn": "Molten Manyullyn",
   "fluid.tconstruct.flowing_molten_manyullyn": "Flowing Molten Manyullyn",
   "item.tconstruct.molten_manyullyn_bucket": "Molten Manyullyn Bucket",
+  "fluid.tconstruct.molten_manyullyn.fluid_effect": "Molten manyullyn has the most damage potential between flat damage and damage over time.",
 
   "block.tconstruct.molten_hepatizon_fluid": "Molten Hepatizon",
   "fluid.tconstruct.molten_hepatizon": "Molten Hepatizon",
   "fluid.tconstruct.flowing_molten_hepatizon": "Flowing Molten Hepatizon",
   "item.tconstruct.molten_hepatizon_bucket": "Molten Hepatizon Bucket",
+  "fluid.tconstruct.molten_hepatizon.fluid_effect": "Is molten hepatizon best for defense, or combat? Either is a risk reward setup.",
 
   "block.tconstruct.molten_cinderslime_fluid": "Molten Cinderslime",
   "fluid.tconstruct.molten_cinderslime": "Molten Cinderslime",
@@ -705,6 +739,7 @@
   "fluid.tconstruct.molten_netherite": "Molten Netherite",
   "fluid.tconstruct.flowing_molten_netherite": "Flowing Molten Netherite",
   "item.tconstruct.molten_netherite_bucket": "Molten Netherite Bucket",
+  "fluid.tconstruct.molten_netherite.fluid_effect": "Molten netherite is the highest base damage, for when you cannot wait for your target to bleed out.",
 
   "block.tconstruct.molten_knightslime_fluid": "Molten Knightslime",
   "fluid.tconstruct.molten_knightslime": "Molten Knightslime",
@@ -717,51 +752,61 @@
   "fluid.tconstruct.molten_tin": "Molten Tin",
   "fluid.tconstruct.flowing_molten_tin": "Flowing Molten Tin",
   "item.tconstruct.molten_tin_bucket": "Molten Tin Bucket",
+  "fluid.tconstruct.molten_tin.fluid_effect": "They say carrots are good for your eyes, but molten tin is better.",
 
   "block.tconstruct.molten_aluminum_fluid": "Molten Aluminum",
   "fluid.tconstruct.molten_aluminum": "Molten Aluminum",
   "fluid.tconstruct.flowing_molten_aluminum": "Flowing Molten Aluminum",
   "item.tconstruct.molten_aluminum_bucket": "Molten Aluminum Bucket",
+  "fluid.tconstruct.molten_aluminum.fluid_effect": "Molten aluminium is like milk, but aggressive. Ideal for combat when your opponents have too many effects.",
 
   "block.tconstruct.molten_lead_fluid": "Molten Lead",
   "fluid.tconstruct.molten_lead": "Molten Lead",
   "fluid.tconstruct.flowing_molten_lead": "Flowing Molten Lead",
   "item.tconstruct.molten_lead_bucket": "Molten Lead Bucket",
+  "fluid.tconstruct.molten_lead.fluid_effect": "Molten lead gives your attacks a little extra boost, if you are willing to wait.",
 
   "block.tconstruct.molten_silver_fluid": "Molten Silver",
   "fluid.tconstruct.molten_silver": "Molten Silver",
   "fluid.tconstruct.flowing_molten_silver": "Flowing Molten Silver",
   "item.tconstruct.molten_silver_bucket": "Molten Silver Bucket",
+  "fluid.tconstruct.molten_silver.fluid_effect": "Molten silver removes toxins without removing helpful effects.",
 
   "block.tconstruct.molten_nickel_fluid": "Molten Nickel",
   "fluid.tconstruct.molten_nickel": "Molten Nickel",
   "fluid.tconstruct.flowing_molten_nickel": "Flowing Molten Nickel",
   "item.tconstruct.molten_nickel_bucket": "Molten Nickel Bucket",
+  "fluid.tconstruct.molten_nickel.fluid_effect": "Molten nickel lets you harm your enemies and reduce the risk of retaliation, what's not to love?",
 
   "block.tconstruct.molten_zinc_fluid": "Molten Zinc",
   "fluid.tconstruct.molten_zinc": "Molten Zinc",
   "fluid.tconstruct.flowing_molten_zinc": "Flowing Molten Zinc",
   "item.tconstruct.molten_zinc_bucket": "Molten Zinc Bucket",
+  "fluid.tconstruct.molten_zinc.fluid_effect": "Molten zinc is probably not the best choice to boost your speed, perhaps the speed will throw off an opponent.",
 
   "block.tconstruct.molten_platinum_fluid": "Molten Platinum",
   "fluid.tconstruct.molten_platinum": "Molten Platinum",
   "fluid.tconstruct.flowing_molten_platinum": "Flowing Molten Platinum",
   "item.tconstruct.molten_platinum_bucket": "Molten Platinum Bucket",
+  "fluid.tconstruct.molten_platinum.fluid_effect": "Not sure the applications of molten platinum slowing your enemies' mining speed, but you can probably figure one out.",
 
   "block.tconstruct.molten_tungsten_fluid": "Molten Tungsten",
   "fluid.tconstruct.molten_tungsten": "Molten Tungsten",
   "fluid.tconstruct.flowing_molten_tungsten": "Flowing Molten Tungsten",
   "item.tconstruct.molten_tungsten_bucket": "Molten Tungsten Bucket",
+  "fluid.tconstruct.molten_tungsten.fluid_effect": "Molten tungsten is one of the heaviest metals, hopefully it will keep your enemies still.",
 
   "block.tconstruct.molten_osmium_fluid": "Molten Osmium",
   "fluid.tconstruct.molten_osmium": "Molten Osmium",
   "fluid.tconstruct.flowing_molten_osmium": "Flowing Molten Osmium",
   "item.tconstruct.molten_osmium_bucket": "Molten Osmium Bucket",
+  "fluid.tconstruct.molten_osmium.fluid_effect": "Molten osmium keeps your enemies still for a future blow.",
 
   "block.tconstruct.molten_uranium_fluid": "Molten Uranium",
   "fluid.tconstruct.molten_uranium": "Molten Uranium",
   "fluid.tconstruct.flowing_molten_uranium": "Flowing Molten Uranium",
   "item.tconstruct.molten_uranium_bucket": "Molten Uranium Bucket",
+  "fluid.tconstruct.molten_uranium.fluid_effect": "Radioactive decay from molten uranium isn't safe to be around, so dump it on your enemies.",
 
   "_comment": "Compat Alloys",
 
@@ -769,36 +814,43 @@
   "fluid.tconstruct.molten_bronze": "Molten Bronze",
   "fluid.tconstruct.flowing_molten_bronze": "Flowing Molten Bronze",
   "item.tconstruct.molten_bronze_bucket": "Molten Bronze Bucket",
+  "fluid.tconstruct.molten_bronze.fluid_effect": "Molten bronze is the perfect dark brown beverage for when you need to stay away and stave off phantoms.",
 
   "block.tconstruct.molten_brass_fluid": "Molten Brass",
   "fluid.tconstruct.molten_brass": "Molten Brass",
   "fluid.tconstruct.flowing_molten_brass": "Flowing Molten Brass",
   "item.tconstruct.molten_brass_bucket": "Molten Brass Bucket",
+  "fluid.tconstruct.molten_brass.fluid_effect": "Molten brass helps you resist the heat, and the second sip is free if you time it right.",
 
   "block.tconstruct.molten_electrum_fluid": "Molten Electrum",
   "fluid.tconstruct.molten_electrum": "Molten Electrum",
   "fluid.tconstruct.flowing_molten_electrum": "Flowing Molten Electrum",
   "item.tconstruct.molten_electrum_bucket": "Molten Electrum Bucket",
+  "fluid.tconstruct.molten_electrum.fluid_effect": "Molten electrum is great for when you need to mine fast on a budget.",
 
   "block.tconstruct.molten_invar_fluid": "Molten Invar",
   "fluid.tconstruct.molten_invar": "Molten Invar",
   "fluid.tconstruct.flowing_molten_invar": "Flowing Molten Invar",
   "item.tconstruct.molten_invar_bucket": "Molten Invar Bucket",
+  "fluid.tconstruct.molten_invar.fluid_effect": "Molten invar may be useful if you are trying to eat that powerful cake, but otherwise is an odd fluid.",
 
   "block.tconstruct.molten_constantan_fluid": "Molten Constantan",
   "fluid.tconstruct.molten_constantan": "Molten Constantan",
   "fluid.tconstruct.flowing_molten_constantan": "Flowing Molten Constantan",
   "item.tconstruct.molten_constantan_bucket": "Molten Constantan Bucket",
+  "fluid.tconstruct.molten_constantan.fluid_effect": "Molten constantan is useful against human opponents perhaps, but not so much against monsters.",
 
   "block.tconstruct.molten_pewter_fluid": "Molten Pewter",
   "fluid.tconstruct.molten_pewter": "Molten Pewter",
   "fluid.tconstruct.flowing_molten_pewter": "Flowing Molten Pewter",
   "item.tconstruct.molten_pewter_bucket": "Molten Pewter Bucket",
+  "fluid.tconstruct.molten_pewter.fluid_effect": "Molten pewter is probably lower risk than venom to boost your strength, but not by much.",
 
   "block.tconstruct.molten_steel_fluid": "Molten Steel",
   "fluid.tconstruct.molten_steel": "Molten Steel",
   "fluid.tconstruct.flowing_molten_steel": "Flowing Molten Steel",
   "item.tconstruct.molten_steel_bucket": "Molten Steel Bucket",
+  "fluid.tconstruct.molten_steel.fluid_effect": "Molten steel lets you clear out enemies around you, or spread out bunched up enemies.",
 
   "_comment": "Thermal Alloys",
 
@@ -828,6 +880,55 @@
   "fluid.tconstruct.molten_refined_obsidian": "Molten Refined Obsidian",
   "fluid.tconstruct.flowing_molten_refined_obsidian": "Flowing Molten Refined Obsidian",
   "item.tconstruct.molten_refined_obsidian_bucket": "Molten Refined Obsidian Bucket",
+
+
+  "_comment": "Fluid effect contents",
+  "fluid_effect.tconstruct.separator": "%s and %s",
+
+  "fluid_effect.tconstruct.extinguish_fire": "Extinguishes fire",
+  "fluid_effect.tconstruct.teleport": "Teleports target",
+  "fluid_effect.tconstruct.calcified": "+10 Seconds Calcified",
+
+  "fluid_effect.tconstruct.cure_effects": "Cures most status effects",
+  "fluid_effect.tconstruct.remove_effect": "Removes %s",
+  "fluid_effect.tconstruct.mob_effect.add": "+%d seconds %s %s",
+  "fluid_effect.tconstruct.mob_effect.set": "%d seconds %s %s",
+  "fluid_effect.tconstruct.potion": "Applies effects from potion",
+
+  "fluid_effect.tconstruct.restore_hunger": "Restores %d hunger",
+  "fluid_effect.tconstruct.fire.add": "+%d seconds fire",
+  "fluid_effect.tconstruct.fire.set": "%d seconds fire",
+  "fluid_effect.tconstruct.freeze.add": "+%d seconds freeze",
+  "fluid_effect.tconstruct.freeze.set": "%d seconds freeze",
+  "fluid_effect.tconstruct.award_stat.add": "+%s %s",
+  "fluid_effect.tconstruct.award_stat.subtract": "-%s %s",
+  "fluid_effect.tconstruct.add_breath.add": "+%d Breath",
+  "fluid_effect.tconstruct.add_breath.subtract": "-%d Breath",
+  "fluid_effect.tconstruct.push_entity.push": "Pushes target",
+  "fluid_effect.tconstruct.push_entity.pull": "Pulls target",
+
+  "fluid_effect.tconstruct.damage": "%s Damage",
+  "fluid_effect.tconstruct.damage.tconstruct.fluid.impact": "%s Damage",
+  "fluid_effect.tconstruct.damage.tconstruct.fluid.fire": "%s Fire Damage",
+  "fluid_effect.tconstruct.damage.tconstruct.fluid.cold": "%s Cold Damage",
+  "fluid_effect.tconstruct.damage.tconstruct.fluid.magic": "%s Magic Damage",
+  "fluid_effect.tconstruct.damage.tconstruct.fluid.water": "%s Water Damage",
+  "fluid_effect.tconstruct.damage.tconstruct.fluid.spike": "%s Piercing Damage",
+
+  "fluid_effect.tconstruct.place_block": "Places %s",
+  "fluid_effect.tconstruct.place_block.held": "Places held block",
+  "fluid_effect.tconstruct.break_block": "Mines block",
+  "fluid_effect.tconstruct.break_block.separator": "%s, %s",
+  "fluid_effect.tconstruct.break_block.enchanted": "Mines block with %s",
+  "fluid_effect.tconstruct.break_block.hardness": "Mines up to hardness %s",
+  "fluid_effect.tconstruct.break_block.enchanted.hardness": "Mines up to hardness %s with %s",
+  "fluid_effect.tconstruct.mob_effect_cloud": "Lingering cloud with %s",
+  "fluid_effect.tconstruct.potion_cloud": "Lingering potion cloud",
+  "fluid_effect.tconstruct.move_block.push": "Pushes block",
+  "fluid_effect.tconstruct.move_block.pull": "Pulls block",
+
+  "fluid_effect.tconstruct.drop_item": "Drops %s",
+  "fluid_effect.tconstruct.explosion": "Power %s explosion",
 
 
   "_comment": "Tinkers Gadgets",
@@ -3019,6 +3120,8 @@
   "book.tconstruct.material.skull_from": "Can be created from casting Enderslime on a %s in a basin",
   "book.tconstruct.modifiers.effect": "Effects:",
   "book.tconstruct.tool.properties": "Properties:",
+  "book.tconstruct.fluid_effects.entity": "Entity Effects:",
+  "book.tconstruct.fluid_effects.block": "Block Effects:",
 
 
   "_comment": "Commands",

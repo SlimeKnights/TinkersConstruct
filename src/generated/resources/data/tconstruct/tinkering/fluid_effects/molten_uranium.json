@@ -1,10 +1,6 @@
 {
   "block_effects": [
     {
-      "type": "tconstruct:place_block",
-      "block": "minecraft:fire"
-    },
-    {
       "type": "tconstruct:mob_effect_cloud",
       "effects": [
         {
@@ -15,12 +11,28 @@
       ]
     }
   ],
+  "conditions": [
+    {
+      "type": "forge:or",
+      "values": [
+        {
+          "type": "tconstruct:config",
+          "prop": "force_integration_materials"
+        },
+        {
+          "type": "mantle:tag_filled",
+          "registry": "minecraft:fluid",
+          "tag": "forge:ingots/uranium"
+        }
+      ]
+    }
+  ],
   "entity_effects": [
     {
       "type": "tconstruct:conditional",
       "effect": {
         "type": "tconstruct:damage",
-        "damage": 1.5,
+        "damage": 2.0,
         "damage_type": {
           "melee": "tconstruct:fluid_fire_melee",
           "ranged": "tconstruct:fluid_fire_ranged"
@@ -30,11 +42,6 @@
         "type": "mantle:inverted",
         "inverted_type": "mantle:fire_immune"
       }
-    },
-    {
-      "type": "tconstruct:fire",
-      "action": "set",
-      "time": 3
     },
     {
       "type": "tconstruct:mob_effect",

@@ -32,8 +32,7 @@ import slimeknights.tconstruct.library.modifiers.modules.build.StatBoostModule;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
 import slimeknights.tconstruct.library.tools.capability.fluid.ToolTankHelper;
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
-import slimeknights.tconstruct.library.tools.definition.module.aoe.AreaOfEffectIterator;
-import slimeknights.tconstruct.library.tools.definition.module.aoe.CircleAOEIterator;
+import slimeknights.tconstruct.library.tools.definition.module.aoe.AreaOfEffectIterator.AOEMatchType;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
@@ -145,6 +144,7 @@ public class SplashingModifier extends Modifier implements EntityInteractionModi
             float level = modifier.getEffectiveLevel();
             int numTargets = 0;
             BlockHitResult hit = context.getHitResult();
+            BlockState state = world.getBlockState(hit.getBlockPos());
             int consumed = recipe.applyToBlock(fluid, level, new FluidEffectContext.Block(world, player, null, hit), FluidAction.EXECUTE);
             if (consumed > 0) {
               numTargets++;
@@ -153,9 +153,8 @@ public class SplashingModifier extends Modifier implements EntityInteractionModi
             }
 
             // AOE selection logic, get boosted from expanded
-            int range = tool.getModifierLevel(TinkerModifiers.expanded.getId());
-            if (range > 0 && !fluid.isEmpty()) {
-              for (BlockPos offset : CircleAOEIterator.calculate(tool, context, 1 + range, false, AreaOfEffectIterator.AOEMatchType.TRANSFORM)) {
+            if (!fluid.isEmpty()) {
+              for (BlockPos offset : tool.getHook(ToolHooks.AOE_ITERATOR).getBlocks(tool, context, state, AOEMatchType.TRANSFORM)) {
                 BlockHitResult offsetHit = Util.offset(hit, offset);
                 consumed = recipe.applyToBlock(fluid, level, new FluidEffectContext.Block(world, player, null, offsetHit), FluidAction.EXECUTE);
                 if (consumed > 0) {

@@ -1,5 +1,8 @@
 package slimeknights.tconstruct.library.modifiers.fluid.entity;
 
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
@@ -57,6 +60,18 @@ public record DamageFluidEffect(float damage, @Nullable DamageTypePair damageTyp
       source = context.createDamageSource();
     }
     return ToolAttackUtil.attackEntitySecondary(source, this.damage * value, context.getTarget(), context.getLivingTarget(), true) ? value : 0;
+  }
+
+  @Override
+  public Component getDescription(RegistryAccess registryAccess) {
+    String translationKey = FluidEffect.getTranslationKey(getLoader());
+    if (this.damageType != null) {
+      DamageType damageType = registryAccess.registryOrThrow(Registries.DAMAGE_TYPE).get(this.damageType.melee);
+      if (damageType != null) {
+        translationKey += '.' + damageType.msgId();
+      }
+    }
+    return Component.translatable(translationKey, damage);
   }
 
   /** Represents a pair of damage types for melee and ranged effects */

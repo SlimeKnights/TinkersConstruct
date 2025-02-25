@@ -1,16 +1,26 @@
 {
   "entity_effects": [
     {
+      "type": "tconstruct:conditional",
+      "effect": {
+        "type": "tconstruct:damage",
+        "damage": 3.0,
+        "damage_type": {
+          "melee": "tconstruct:fluid_fire_melee",
+          "ranged": "tconstruct:fluid_fire_ranged"
+        }
+      },
+      "target": {
+        "type": "mantle:inverted",
+        "inverted_type": "mantle:fire_immune"
+      }
+    },
+    {
       "type": "tconstruct:restore_hunger",
       "can_always_eat": false,
       "hunger": 2,
       "representative_item": "tconstruct:bacon",
       "saturation": 0.7
-    },
-    {
-      "type": "tconstruct:fire",
-      "action": "set",
-      "time": 2
     }
   ],
   "fluid": {

@@ -175,6 +175,8 @@ public class TinkerTags {
     public static final TagKey<Block> MINABLE_WITH_DAGGER = local("mineable/dagger");
     /** Blocks that the melting pan cannot mine */
     public static final TagKey<Block> MINEABLE_MELTING_BLACKLIST = local("mineable/melting_blacklist");
+    /** Blocks that are not replaced by liquid despite not blocking motion, used for water mining list */
+    public static final TagKey<Block> UNREPLACABLE_BY_LIQUID = local("unreplacable_by_liquid");
 
     /** Any block that can be harvested using a kama or scythe */
     public static final TagKey<Block> HARVESTABLE = local("harvestable");
@@ -490,11 +492,20 @@ public class TinkerTags {
     /** Causes the fluid to be formatted like soup in tooltips, with bowls. Similar to slime, but no blocks */
     public static final TagKey<Fluid> SOUP_TOOLTIPS = local("tooltips/soup");
 
-    // spilling tags - used to reduce the number of spilling recipes
+    /** @deprecated Fluids have all been given unique effects, use {@link slimeknights.tconstruct.library.data.tinkering.AbstractFluidEffectProvider} */
+    @Deprecated(forRemoval = true)
     public static final TagKey<Fluid> CLAY_SPILLING = local("spilling/clay");
+    /** @deprecated Fluids have all been given unique effects, use {@link slimeknights.tconstruct.library.data.tinkering.AbstractFluidEffectProvider} */
+    @Deprecated(forRemoval = true)
     public static final TagKey<Fluid> GLASS_SPILLING = local("spilling/glass");
+    /** @deprecated Fluids have all been given unique effects, use {@link slimeknights.tconstruct.library.data.tinkering.AbstractFluidEffectProvider} */
+    @Deprecated(forRemoval = true)
     public static final TagKey<Fluid> CHEAP_METAL_SPILLING = local("spilling/metal/cheap");
+    /** @deprecated Fluids have all been given unique effects, use {@link slimeknights.tconstruct.library.data.tinkering.AbstractFluidEffectProvider} */
+    @Deprecated(forRemoval = true)
     public static final TagKey<Fluid> AVERAGE_METAL_SPILLING = local("spilling/metal/average");
+    /** @deprecated Fluids have all been given unique effects, use {@link slimeknights.tconstruct.library.data.tinkering.AbstractFluidEffectProvider} */
+    @Deprecated(forRemoval = true)
     public static final TagKey<Fluid> EXPENSIVE_METAL_SPILLING = local("spilling/metal/expensive");
 
     /** Fluids in this tag won't show in the creative filled tanks */

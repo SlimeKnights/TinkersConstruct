@@ -1,42 +1,40 @@
 {
   "block_effects": [
     {
-      "type": "tconstruct:mob_effect_cloud",
-      "effects": [
-        {
-          "effect": "minecraft:levitation",
-          "level": 1,
-          "time": 100
-        }
-      ]
+      "type": "tconstruct:explosion",
+      "block_interaction": "keep",
+      "damage": {
+        "each_level": 3.0
+      },
+      "knockback": {
+        "flat": 1.0
+      },
+      "place_fire": true,
+      "radius": {
+        "each_level": 1.0,
+        "flat": 1.0
+      }
     }
   ],
   "entity_effects": [
     {
-      "type": "tconstruct:conditional",
-      "effect": {
-        "type": "tconstruct:damage",
-        "damage": 1.0,
-        "damage_type": {
-          "melee": "tconstruct:fluid_fire_melee",
-          "ranged": "tconstruct:fluid_fire_ranged"
-        }
+      "type": "tconstruct:explosion",
+      "block_interaction": "keep",
+      "damage": {
+        "each_level": 3.0
       },
-      "target": {
-        "type": "mantle:inverted",
-        "inverted_type": "mantle:fire_immune"
+      "knockback": {
+        "flat": 1.0
+      },
+      "place_fire": true,
+      "radius": {
+        "each_level": 1.0,
+        "flat": 1.0
       }
-    },
-    {
-      "type": "tconstruct:mob_effect",
-      "action": "set",
-      "effect": "minecraft:levitation",
-      "level": 1,
-      "time": 100
     }
   ],
   "fluid": {
-    "amount": 10,
+    "amount": 20,
     "tag": "tconstruct:molten_queens_slime"
   }
 }

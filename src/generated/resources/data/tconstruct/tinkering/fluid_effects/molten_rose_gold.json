@@ -4,8 +4,8 @@
       "type": "tconstruct:mob_effect_cloud",
       "effects": [
         {
-          "effect": "minecraft:health_boost",
-          "level": 1,
+          "effect": "minecraft:absorption",
+          "level": 2,
           "time": 300
         }
       ]
@@ -13,25 +13,18 @@
   ],
   "entity_effects": [
     {
-      "type": "tconstruct:conditional",
-      "effect": {
-        "type": "tconstruct:damage",
-        "damage": 2.0,
-        "damage_type": {
-          "melee": "tconstruct:fluid_magic_melee",
-          "ranged": "tconstruct:fluid_magic_ranged"
-        }
-      },
-      "target": {
-        "type": "mantle:mob_type",
-        "mobs": "minecraft:undead"
+      "type": "tconstruct:damage",
+      "damage": 3.0,
+      "damage_type": {
+        "melee": "tconstruct:fluid_magic_melee",
+        "ranged": "tconstruct:fluid_magic_ranged"
       }
     },
     {
       "type": "tconstruct:mob_effect",
       "action": "set",
-      "effect": "minecraft:health_boost",
-      "level": 1,
+      "effect": "minecraft:absorption",
+      "level": 2,
       "time": 300
     }
   ],

@@ -4,12 +4,14 @@ import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.LlamaSpit;
@@ -89,7 +91,14 @@ public class FluidEffectProjectile extends Projectile {
       Vec3 velocity = this.getDeltaMovement();
       // if we hit a block and are still alive, relocate ourself to that position so we don't skip blocks
       if (hitType == HitResult.Type.BLOCK) {
-        newLocation = hitResult.getLocation();
+        EntityDimensions dimensions = getType().getDimensions();
+        float factor = 0.01f;
+        if (((BlockHitResult)hitResult).getDirection().getAxis() == Axis.Y) {
+          factor += dimensions.height;
+        } else {
+          factor += dimensions.width / 2;
+        }
+        newLocation = hitResult.getLocation().add(velocity.normalize().scale(factor));
       } else {
         newLocation = newLocation.add(velocity);
       }

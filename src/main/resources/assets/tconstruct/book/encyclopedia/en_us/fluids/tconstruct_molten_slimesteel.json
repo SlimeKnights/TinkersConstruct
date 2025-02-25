@@ -1,0 +1,11 @@
+{
+  "text": "Slimesteel is ideal for anyone wishing to fly; as long as you found a way to deal with the landing.",
+  "entity": [
+    "Power 1.5 explosion",
+    "0 Explosion Damage",
+    "Extra explosion knockback"
+  ],
+  "block": [
+    "Explosion breaks blocks"
+  ]
+}

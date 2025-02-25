@@ -1,6 +1,10 @@
 package slimeknights.tconstruct.library.modifiers.fluid.block;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.chat.CommonComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.entity.Entity;
@@ -114,5 +118,30 @@ public record BreakBlockFluidEffect(float hardness, Map<Enchantment,Integer> enc
       return requirement;
     }
     return 0;
+  }
+
+  @Override
+  public Component getDescription(RegistryAccess registryAccess) {
+    String translationKey = FluidEffect.getTranslationKey(getLoader());
+    if (enchantments.isEmpty()) {
+      if (hardness == 0) {
+        return Component.translatable(translationKey);
+      }
+      return Component.translatable(translationKey + ".hardness", hardness);
+    } else {
+      translationKey += ".enchanted";
+      Component enchantments = enchantments().entrySet().stream().<Component>map(entry -> {
+        Enchantment enchantment = entry.getKey();
+        MutableComponent component = Component.translatable(enchantment.getDescriptionId());
+        if (enchantment.getMaxLevel() != 1) {
+          component.append(CommonComponents.SPACE).append(Component.translatable("enchantment.level." + entry.getValue()));
+        }
+        return component;
+      }).reduce(MERGE_COMPONENT_LIST).orElse(Component.empty());
+      if (hardness == 0) {
+        return Component.translatable(translationKey, enchantments);
+      }
+      return Component.translatable(translationKey + ".hardness", hardness, enchantments);
+    }
   }
 }

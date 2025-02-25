@@ -19,14 +19,14 @@
   "entity_effects": [
     {
       "type": "tconstruct:mob_effect",
-      "action": "set",
+      "action": "add",
       "effect": "minecraft:poison",
       "level": 1,
       "time": 100
     },
     {
       "type": "tconstruct:mob_effect",
-      "action": "set",
+      "action": "add",
       "effect": "minecraft:strength",
       "level": 1,
       "time": 200

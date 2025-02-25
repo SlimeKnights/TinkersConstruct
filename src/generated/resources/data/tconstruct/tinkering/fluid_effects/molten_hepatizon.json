@@ -6,7 +6,7 @@
         {
           "effect": "minecraft:resistance",
           "level": 1,
-          "time": 200
+          "time": 300
         }
       ]
     }
@@ -16,7 +16,7 @@
       "type": "tconstruct:conditional",
       "effect": {
         "type": "tconstruct:damage",
-        "damage": 2.5,
+        "damage": 4.0,
         "damage_type": {
           "melee": "tconstruct:fluid_fire_melee",
           "ranged": "tconstruct:fluid_fire_ranged"
@@ -32,7 +32,7 @@
       "action": "set",
       "effect": "minecraft:resistance",
       "level": 1,
-      "time": 200
+      "time": 300
     }
   ],
   "fluid": {

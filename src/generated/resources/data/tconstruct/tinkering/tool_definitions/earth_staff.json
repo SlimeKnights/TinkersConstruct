@@ -5,8 +5,9 @@
       "stats": {
         "tconstruct:accuracy": 0.9,
         "tconstruct:block_amount": 35.0,
+        "tconstruct:block_angle": 140.0,
         "tconstruct:durability": 800.0,
-        "tconstruct:projectile_damage": 1.5,
+        "tconstruct:projectile_damage": 1.0,
         "tconstruct:use_item_speed": 0.4
       }
     },
@@ -45,9 +46,16 @@
       "stat_type": "tconstruct:limb"
     },
     {
-      "type": "tconstruct:circle_aoe",
-      "3D": false,
-      "diameter": 1
+      "type": "tconstruct:box_aoe",
+      "expansion_direction": "tconstruct:pitch",
+      "expansions": [
+        {
+          "depth": 2
+        },
+        {
+          "height": 1
+        }
+      ]
     },
     {
       "type": "tconstruct:dual_option_interaction"

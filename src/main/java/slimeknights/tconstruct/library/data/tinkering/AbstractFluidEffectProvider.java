@@ -10,6 +10,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.PackOutput.Target;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.Blocks;
@@ -17,13 +18,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.conditions.ICondition;
+import net.minecraftforge.common.crafting.conditions.OrCondition;
 import net.minecraftforge.fluids.FluidStack;
+import slimeknights.mantle.Mantle;
 import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
+import slimeknights.mantle.recipe.condition.TagFilledCondition;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.tconstruct.common.TinkerDamageTypes;
+import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectManager;
@@ -42,6 +47,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
 
 /** Data provider for spilling fluids */
 @SuppressWarnings("deprecation")  // fluid registry is ours to use, not yours forge
@@ -118,6 +124,20 @@ public abstract class AbstractFluidEffectProvider extends GenericDataProvider {
     return addFluid(fluid, FluidValues.NUGGET);
   }
 
+  /** Builder for a metal based fluid */
+  protected Builder compatMetal(FluidObject<?> fluid, String... extraIngots) {
+    Builder builder = addMetal(fluid);
+    // automatically add ourself
+    String ourself = fluid.getId().getPath().substring("molten_".length());
+    if (extraIngots.length == 0) {
+      builder.metalCondition(ourself);
+    } else {
+      // also add extra ingots if requested
+      builder.metalCondition(Stream.concat(Stream.of(ourself), Stream.of(extraIngots)).toArray(String[]::new));
+    }
+    return builder;
+  }
+
   /** Builder for a clay based fluid */
   protected Builder addClay(FluidObject<?> fluid) {
     return addFluid(fluid, FluidValues.BRICK);
@@ -160,11 +180,28 @@ public abstract class AbstractFluidEffectProvider extends GenericDataProvider {
     private final FluidIngredient ingredient;
     private final List<FluidEffect<? super FluidEffectContext.Block>> blockEffects = new ArrayList<>();
     private final List<FluidEffect<? super FluidEffectContext.Entity>> entityEffects = new ArrayList<>();
+    private boolean hidden = false;
+
+    /** Hides this effect from the book */
+    public Builder hidden() {
+      this.hidden = true;
+      return this;
+    }
 
     /** Adds a condition to the builder */
     public Builder addCondition(ICondition condition) {
       this.conditions.add(condition);
       return this;
+    }
+
+    /** Adds conditions for a metal fluid based on any of the given list of ingots being present */
+    public Builder metalCondition(String... names) {
+      ICondition[] conditions = new ICondition[names.length + 1];
+      conditions[0] = ConfigEnabledCondition.FORCE_INTEGRATION_MATERIALS;
+      for (int i = 0; i < names.length; i++) {
+        conditions[i+1] = new TagFilledCondition<>(FluidTags.create(Mantle.commonResource("ingots/" + names[i])));
+      }
+      return addCondition(new OrCondition(conditions));
     }
 
     /** Adds an effect to the given fluid */
@@ -269,7 +306,7 @@ public abstract class AbstractFluidEffectProvider extends GenericDataProvider {
       if (blockEffects.isEmpty() && entityEffects.isEmpty()) {
         throw new IllegalStateException("Must have at least 1 effect");
       }
-      FluidEffects.LOADABLE.serialize(new FluidEffects(ingredient, blockEffects, entityEffects), json);
+      FluidEffects.LOADABLE.serialize(new FluidEffects(ingredient, blockEffects, entityEffects, hidden), json);
       return json;
     }
   }

@@ -1,0 +1,48 @@
+{
+  "block_effects": [
+    {
+      "type": "tconstruct:scaling",
+      "effects": [
+        {
+          "effect": {
+            "type": "tconstruct:drop_item",
+            "item": "tconstruct:seared_brick"
+          },
+          "level": 1.0
+        },
+        {
+          "effect": {
+            "type": "tconstruct:place_block",
+            "block": "tconstruct:seared_bricks_slab"
+          },
+          "level": 2.0
+        },
+        {
+          "effect": {
+            "type": "tconstruct:place_block",
+            "block": "tconstruct:seared_bricks"
+          },
+          "level": 4.0
+        }
+      ]
+    }
+  ],
+  "entity_effects": [
+    {
+      "type": "tconstruct:damage",
+      "damage": 3.0,
+      "damage_type": {
+        "melee": "tconstruct:fluid_impact_melee",
+        "ranged": "tconstruct:fluid_impact_ranged"
+      }
+    },
+    {
+      "type": "tconstruct:drop_item",
+      "item": "tconstruct:seared_brick"
+    }
+  ],
+  "fluid": {
+    "amount": 250,
+    "tag": "tconstruct:seared_stone"
+  }
+}

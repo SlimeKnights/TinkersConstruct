@@ -1,39 +1,37 @@
 {
   "block_effects": [
     {
-      "type": "tconstruct:mob_effect_cloud",
+      "type": "tconstruct:scaling",
       "effects": [
         {
-          "effect": "minecraft:slowness",
-          "level": 2,
-          "time": 500
+          "effect": {
+            "type": "tconstruct:place_block",
+            "block": "tconstruct:soul_glass_pane"
+          },
+          "level": 1.0
         },
         {
-          "effect": "minecraft:blindness",
-          "level": 1,
-          "time": 100
+          "effect": {
+            "type": "tconstruct:place_block",
+            "block": "tconstruct:soul_glass"
+          },
+          "level": 4.0
         }
       ]
     }
   ],
   "entity_effects": [
     {
-      "type": "tconstruct:mob_effect",
-      "action": "set",
-      "effect": "minecraft:slowness",
-      "level": 2,
-      "time": 500
-    },
-    {
-      "type": "tconstruct:mob_effect",
-      "action": "set",
-      "effect": "minecraft:blindness",
-      "level": 1,
-      "time": 100
+      "type": "tconstruct:damage",
+      "damage": 1.0,
+      "damage_type": {
+        "melee": "tconstruct:fluid_spike_melee",
+        "ranged": "tconstruct:fluid_spike_ranged"
+      }
     }
   ],
   "fluid": {
-    "amount": 50,
+    "amount": 250,
     "tag": "tconstruct:liquid_soul"
   }
 }

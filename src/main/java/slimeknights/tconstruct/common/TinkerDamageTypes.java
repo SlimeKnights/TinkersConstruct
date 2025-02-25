@@ -30,6 +30,10 @@ public class TinkerDamageTypes {
 
   /** Damage source for a non-projectile with arrow death messages */
   public static final ResourceKey<DamageType> MELEE_ARROW = create("melee_arrow");
+  /** Damage source for an explosion that does not scale with difficulty */
+  public static final DamageTypePair EXPLOSION = createPair("explosion");
+  /** Damage source for an entity caused explosion that does not scale with difficulty */
+  public static final DamageTypePair MOB_EXPLOSION = createPair("mob_explosion");
 
   /* Fluid effects */
   /** Effect for direct fluid damage with no special immunities */

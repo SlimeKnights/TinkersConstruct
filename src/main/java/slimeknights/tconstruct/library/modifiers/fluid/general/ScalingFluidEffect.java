@@ -2,8 +2,11 @@ package slimeknights.tconstruct.library.modifiers.fluid.general;
 
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import lombok.RequiredArgsConstructor;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.chat.Component;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry;
@@ -22,6 +25,10 @@ public record ScalingFluidEffect<C extends FluidEffectContext>(List<EffectForLev
   public static final RecordLoadable<ScalingFluidEffect<FluidEffectContext.Block>> BLOCK_LOADER = createLoader(EffectForLevel.BLOCK_LOADABLE, () -> ScalingFluidEffect.BLOCK_LOADER);
   public static final RecordLoadable<ScalingFluidEffect<FluidEffectContext.Entity>> ENTITY_LOADER = createLoader(EffectForLevel.ENTITY_LOADABLE, () -> ScalingFluidEffect.ENTITY_LOADER);
 
+  /** @apiNote This constructor is internal, use the builder via {@link #blocks()} or {@link #entites()} */
+  @Internal
+  public ScalingFluidEffect {}
+
   @Override
   public float apply(FluidStack fluid, EffectLevel level, C context, FluidAction action) {
     float scale = level.value();
@@ -33,6 +40,12 @@ public record ScalingFluidEffect<C extends FluidEffectContext>(List<EffectForLev
       }
     }
     return 0;
+  }
+
+  @Override
+  public Component getDescription(RegistryAccess registryAccess) {
+    // return the description of the largest effect, as that is closest to what they might want displayed
+    return effects.get(effects.size() - 1).effect().getDescription(registryAccess);
   }
 
   /** Creates a loader for the given */

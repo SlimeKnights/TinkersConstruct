@@ -2,7 +2,9 @@ package slimeknights.tconstruct.library.modifiers.fluid.block;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSoundPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -146,5 +148,14 @@ public record PlaceBlockFluidEffect(@Nullable Block block, @Nullable SoundEvent 
       }
     }
     return 0;
+  }
+
+  @Override
+  public Component getDescription(RegistryAccess registryAccess) {
+    String translationKey = FluidEffect.getTranslationKey(getLoader());
+    if (block == null) {
+      return Component.translatable(translationKey + ".held");
+    }
+    return Component.translatable(translationKey, Component.translatable(block.getDescriptionId()));
   }
 }

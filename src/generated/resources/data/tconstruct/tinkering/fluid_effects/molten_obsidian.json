@@ -1,0 +1,37 @@
+{
+  "block_effects": [
+    {
+      "type": "tconstruct:scaling",
+      "effects": [
+        {
+          "effect": {
+            "type": "tconstruct:place_block",
+            "block": "tconstruct:obsidian_pane"
+          },
+          "level": 1.0
+        },
+        {
+          "effect": {
+            "type": "tconstruct:place_block",
+            "block": "minecraft:obsidian"
+          },
+          "level": 4.0
+        }
+      ]
+    }
+  ],
+  "entity_effects": [
+    {
+      "type": "tconstruct:damage",
+      "damage": 2.0,
+      "damage_type": {
+        "melee": "tconstruct:fluid_spike_melee",
+        "ranged": "tconstruct:fluid_spike_ranged"
+      }
+    }
+  ],
+  "fluid": {
+    "amount": 250,
+    "tag": "tconstruct:molten_obsidian"
+  }
+}

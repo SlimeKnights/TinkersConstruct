@@ -548,12 +548,19 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
   private void addFoundryRecipes(Consumer<FinishedRecipe> consumer) {
     String folder = "smeltery/scorched/";
     // grout crafting
+    Ingredient soulSand = Ingredient.of(Blocks.SOUL_SAND, Blocks.SOUL_SOIL);
     ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, TinkerSmeltery.netherGrout, 2)
                           .requires(Items.MAGMA_CREAM)
-                          .requires(Ingredient.of(Blocks.SOUL_SAND, Blocks.SOUL_SOIL))
+                          .requires(soulSand)
                           .requires(Blocks.GRAVEL)
                           .unlockedBy("has_item", has(Items.MAGMA_CREAM))
                           .save(consumer, prefix(TinkerSmeltery.netherGrout, folder));
+    ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, TinkerSmeltery.netherGrout, 8)
+                          .requires(Blocks.MAGMA_BLOCK)
+                          .requires(soulSand).requires(soulSand).requires(soulSand).requires(soulSand)
+                          .requires(Blocks.GRAVEL).requires(Blocks.GRAVEL).requires(Blocks.GRAVEL).requires(Blocks.GRAVEL)
+                          .unlockedBy("has_item", has(Items.MAGMA_CREAM))
+                          .save(consumer, wrap(TinkerSmeltery.netherGrout, folder, "_multiple"));
 
     // scorched bricks from grout
     SimpleCookingRecipeBuilder.smelting(Ingredient.of(TinkerSmeltery.netherGrout), RecipeCategory.BUILDING_BLOCKS, TinkerSmeltery.scorchedBrick, 0.3f, 200)
