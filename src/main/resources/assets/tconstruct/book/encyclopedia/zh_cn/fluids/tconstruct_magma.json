@@ -1,0 +1,11 @@
+{
+  "text": "Ever wish you were a ghast? This gets you partway there.",
+  "entity": [
+    "Power 1 explosion",
+    "Up to 2 Explosion Damage"
+  ],
+  "block": [
+    "Explosion breaks blocks",
+    "Explosion causes fires"
+  ]
+}

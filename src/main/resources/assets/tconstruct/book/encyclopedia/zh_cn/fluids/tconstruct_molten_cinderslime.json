@@ -1,0 +1,11 @@
+{
+  "text": "Cinderslime flows the wrong way, and its explosion goes the wrong way.",
+  "entity": [
+    "Power 2 explosion",
+    "Up to 3 Explosion Damage",
+    "Inverted explosion knockback"
+  ],
+  "block": [
+    "Explosion breaks blocks"
+  ]
+}

@@ -38,17 +38,17 @@
   "block.tconstruct.obsidian_pane": "黑曜石板",
   "block.tconstruct.gold_bars": "金栏杆",
   "block.tconstruct.gold_bars.tooltip": "在铸件台上充当空白金质铸模",
-  
+
   "block.tconstruct.gold_platform": "金平台",
   "block.tconstruct.gold_platform.tooltip": "在铸造盆中充当空白金质铸模",
   "block.tconstruct.iron_platform": "铁平台",
   "block.tconstruct.cobalt_platform": "钴平台",
-  
+
   "block.tconstruct.copper_platform": "铜平台",
   "block.tconstruct.exposed_copper_platform": "斑驳的铜平台",
   "block.tconstruct.weathered_copper_platform": "锈蚀的铜平台",
   "block.tconstruct.oxidized_copper_platform": "氧化的铜平台",
-  
+
   "block.tconstruct.waxed_copper_platform": "涂蜡铜平台",
   "block.tconstruct.waxed_exposed_copper_platform": "斑驳的涂蜡铜平台",
   "block.tconstruct.waxed_weathered_copper_platform": "锈蚀的涂蜡铜平台",
@@ -481,8 +481,10 @@
   "fluid.tconstruct.blazing_blood": "烈焰血",
   "fluid.tconstruct.flowing_blazing_blood": "流动的烈焰血",
   "item.tconstruct.blazing_blood_bucket": "烈焰血桶",
+  "fluid.tconstruct.blazing_blood.fluid_effect": "Blazing blood is an acceptable fluid for combat, but it really shines as a light source.",
 
   "fluid.tconstruct.powdered_snow": "细雪",
+  "fluid.tconstruct.powdered_snow.fluid_effect": "Powdered snow is a useful fluid for nether combat, dealing bonus damage to blazing mobs.",
 
   "_comment": "Food",
 
@@ -490,32 +492,39 @@
   "fluid.tconstruct.honey": "蜂蜜",
   "fluid.tconstruct.flowing_honey": "流动的蜂蜜",
   "item.tconstruct.honey_bucket": "蜂蜜桶",
+  "fluid.tconstruct.honey.fluid_effect": "So sweat, and removes toxins, what not to love with slurping honey?",
 
   "block.tconstruct.beetroot_soup_fluid": "甜菜汤",
   "fluid.tconstruct.beetroot_soup": "甜菜汤",
   "fluid.tconstruct.flowing_beetroot_soup": "流动的甜菜汤",
   "item.tconstruct.beetroot_soup_bucket": "甜菜汤桶",
+  "fluid.tconstruct.beetroot_soup.fluid_effect": "Beetroot soup is an easily farmable slurpable food option.",
 
   "block.tconstruct.mushroom_stew_fluid": "蘑菇煲",
   "fluid.tconstruct.mushroom_stew": "蘑菇煲",
   "fluid.tconstruct.flowing_mushroom_stew": "流动的蘑菇煲",
   "item.tconstruct.mushroom_stew_bucket": "蘑菇煲桶",
+  "fluid.tconstruct.mushroom_stew.fluid_effect": "Mushroom stew is a very affordable soup option for slurping on the go.",
 
   "block.tconstruct.rabbit_stew_fluid": "兔肉煲",
   "fluid.tconstruct.rabbit_stew": "兔肉煲",
   "fluid.tconstruct.flowing_rabbit_stew": "流动的兔肉煲",
   "item.tconstruct.rabbit_stew_bucket": "兔肉煲桶",
+  "fluid.tconstruct.rabbit_stew.fluid_effect": "Rabbit stew is the best liquid food available, ideal for slurping.",
   
   "block.tconstruct.meat_soup_fluid": "肉汤",
   "fluid.tconstruct.meat_soup": "肉汤",
   "fluid.tconstruct.flowing_meat_soup": "流动的肉汤",
   "item.tconstruct.meat_soup_bucket": "肉汤桶",
   "item.tconstruct.meat_soup": "肉汤",
+  "fluid.tconstruct.meat_soup.fluid_effect": "Don't ask what is in the meat soup; just enjoy the flavor as you slurp this down.",
 
 
   "_comment": "Potion",
 
   "fluid.tconstruct.potion": "药水",
+  "fluid.tconstruct.potion.fluid_effect": "Potions allow a wide variety of effects crafted in a brewing stand. Can dump potions into tanks to fill tools.",
+  "fluid.tconstruct.potion.fluid_effect": "Potions allow a wide variety of effects crafted in a brewing stand. Can dump potions into tanks to fill tools.",
 
   "item.tconstruct.potion_bucket": "不可合成的药水桶",
   "item.tconstruct.potion_bucket.effect.water": "药水桶",
@@ -527,17 +536,19 @@
 
   "_comment": "Slime",
 
-  "block.tconstruct.earth_slime_fluid": "黏液",
-  "fluid.tconstruct.earth_slime": "黏液",
-  "fluid.tconstruct.flowing_earth_slime": "流动的黏液",
-  "item.tconstruct.earth_slime_bucket": "黏液桶",
-  "item.tconstruct.earth_slime_bottle": "黏液瓶",
+  "block.tconstruct.earth_slime_fluid": "大地黏液",
+  "fluid.tconstruct.earth_slime": "大地黏液",
+  "fluid.tconstruct.flowing_earth_slime": "流动的大地黏液",
+  "item.tconstruct.earth_slime_bucket": "大地黏液桶",
+  "item.tconstruct.earth_slime_bottle": "大地黏液瓶",
+  "fluid.tconstruct.earth_slime.fluid_effect": "Earthslime is a portable piston, ideal for simple flying carpets. Well, assuming bricks count as carpet.",
 
   "block.tconstruct.sky_slime_fluid": "碧空黏液",
   "fluid.tconstruct.sky_slime": "碧空黏液",
   "fluid.tconstruct.flowing_sky_slime": "流动的碧空黏液",
   "item.tconstruct.sky_slime_bucket": "碧空黏液桶",
   "item.tconstruct.sky_slime_bottle": "碧空黏液瓶",
+  "fluid.tconstruct.sky_slime.fluid_effect": "Skyslime is a portable piston, ideal for when you built your base just 1 block away from where it belongs.",
 
   "block.tconstruct.magma_fluid": "岩浆",
   "fluid.tconstruct.magma": "岩浆",
@@ -556,12 +567,14 @@
   "fluid.tconstruct.flowing_venom": "流动的毒液",
   "item.tconstruct.venom_bucket": "毒液桶",
   "item.tconstruct.venom_bottle": "毒液瓶",
-  
+  "fluid.tconstruct.venom.fluid_effect": "Venom pairs very well with venombone, the hint is in the name.",
+
   "block.tconstruct.ichor_fluid": "灵浆",
   "fluid.tconstruct.ichor": "灵浆",
   "fluid.tconstruct.flowing_ichor": "流动的灵浆",
   "item.tconstruct.ichor_bucket": "灵浆桶",
   "item.tconstruct.ichor_slime_bottle": "灵浆瓶",
+  "fluid.tconstruct.ichor.fluid_effect": "Ichor is a reverse gravity fluid, helping you also reverse gravity. Surviving the trip back down is on you.",
 
   "_comment": "Rock",
 
@@ -569,56 +582,67 @@
   "fluid.tconstruct.seared_stone": "焦黑熔石",
   "fluid.tconstruct.flowing_seared_stone": "流动的焦黑熔石",
   "item.tconstruct.seared_stone_bucket": "焦黑熔石桶",
+  "fluid.tconstruct.seared_stone.fluid_effect": "Most unusual method of smeltery construction.",
 
   "block.tconstruct.scorched_stone_fluid": "焦褐熔石",
   "fluid.tconstruct.scorched_stone": "焦褐熔石",
   "fluid.tconstruct.flowing_scorched_stone": "流动的焦褐熔石",
   "item.tconstruct.scorched_stone_bucket": "焦褐熔石桶",
+  "fluid.tconstruct.scorched_stone.fluid_effect": "Unconventional approach to foundry creation.",
 
   "block.tconstruct.molten_clay_fluid": "熔融黏土",
   "fluid.tconstruct.molten_clay": "熔融黏土",
   "fluid.tconstruct.flowing_molten_clay": "流动的熔融黏土",
   "item.tconstruct.molten_clay_bucket": "熔融黏土桶",
+  "fluid.tconstruct.molten_clay.fluid_effect": "Great for quickly building a wall, or just solidifying clay without a cast.",
 
   "block.tconstruct.molten_glass_fluid": "熔融玻璃",
   "fluid.tconstruct.molten_glass": "熔融玻璃",
   "fluid.tconstruct.flowing_molten_glass": "流动的熔融玻璃",
   "item.tconstruct.molten_glass_bucket": "熔融玻璃桶",
+  "fluid.tconstruct.molten_glass.fluid_effect": "Molten glass can quickly solidify into an easily removable window.",
 
   "block.tconstruct.liquid_soul_fluid": "液态灵魂",
   "fluid.tconstruct.liquid_soul": "液态灵魂",
   "fluid.tconstruct.flowing_liquid_soul": "流动的液态灵魂",
   "item.tconstruct.liquid_soul_bucket": "液态灵魂桶",
+  "fluid.tconstruct.liquid_soul.fluid_effect": "Liquid soul lets you greatly slow opponents, at least that is the hope.",
 
   "block.tconstruct.molten_obsidian_fluid": "熔融黑曜石",
   "fluid.tconstruct.molten_obsidian": "熔融黑曜石",
   "fluid.tconstruct.flowing_molten_obsidian": "流动的熔融黑曜石",
   "item.tconstruct.molten_obsidian_bucket": "熔融黑曜石桶",
+  "fluid.tconstruct.molten_obsidian.fluid_effect": "Molten obsidian becomes a very difficult to remove blockage.",
 
   "block.tconstruct.molten_emerald_fluid": "熔融绿宝石",
   "fluid.tconstruct.molten_emerald": "熔融绿宝石",
   "fluid.tconstruct.flowing_molten_emerald": "流动的熔融绿宝石",
   "item.tconstruct.molten_emerald_bucket": "熔融绿宝石桶",
+  "fluid.tconstruct.molten_emerald.fluid_effect": "Molten emerald is the choice for mining when you need silk touch.",
 
   "block.tconstruct.molten_quartz_fluid": "熔融石英",
   "fluid.tconstruct.molten_quartz": "熔融石英",
   "fluid.tconstruct.flowing_molten_quartz": "流动的熔融石英",
   "item.tconstruct.molten_quartz_bucket": "熔融石英桶",
+  "fluid.tconstruct.molten_quartz.fluid_effect": "Molten quartz is a modest mining fluid, not too expensive and not too strong.",
 
   "block.tconstruct.molten_amethyst_fluid": "熔融紫水晶",
   "fluid.tconstruct.molten_amethyst": "熔融紫水晶",
   "fluid.tconstruct.flowing_molten_amethyst": "流动的熔融紫水晶",
   "item.tconstruct.molten_amethyst_bucket": "熔融紫水晶桶",
+  "fluid.tconstruct.molten_amethyst.fluid_effect": "Molten amethyst is the cheapest mining fluid, but its not very strong.",
 
   "block.tconstruct.molten_diamond_fluid": "熔融钻石",
   "fluid.tconstruct.molten_diamond": "熔融钻石",
   "fluid.tconstruct.flowing_molten_diamond": "流动的熔融钻石",
   "item.tconstruct.molten_diamond_bucket": "熔融钻石桶",
+  "fluid.tconstruct.molten_diamond.fluid_effect": "Molten diamond lets you maximize the drops of your ores, but is it worth the cost of the fluid?",
 
   "block.tconstruct.molten_ender_fluid": "熔融末影珍珠",
   "fluid.tconstruct.molten_ender": "熔融末影珍珠",
   "fluid.tconstruct.flowing_molten_ender": "流动的熔融末影珍珠",
   "item.tconstruct.molten_ender_bucket": "熔融末影珍珠桶",
+  "fluid.tconstruct.molten_ender.fluid_effect": "Placing blocks turns a slimestaff into a building wand.",
 
   "block.tconstruct.molten_porcelain_fluid": "熔融陶瓷",
   "fluid.tconstruct.molten_porcelain": "熔融陶瓷",
@@ -631,26 +655,31 @@
   "fluid.tconstruct.molten_iron": "熔融铁",
   "fluid.tconstruct.flowing_molten_iron": "流动的熔融铁",
   "item.tconstruct.molten_iron_bucket": "熔融铁桶",
+  "fluid.tconstruct.molten_iron.fluid_effect": "Molten iron is used to draw nearby items towards you, though in a pinch it can be useful in combat.",
 
   "block.tconstruct.molten_gold_fluid": "熔融金",
   "fluid.tconstruct.molten_gold": "熔融金",
   "fluid.tconstruct.flowing_molten_gold": "流动的熔融金",
   "item.tconstruct.molten_gold_bucket": "熔融金桶",
+  "fluid.tconstruct.molten_gold.fluid_effect": "Molten gold first hurts you, then it heals you back more. Is it worth it? Up to you.",
 
   "block.tconstruct.molten_copper_fluid": "熔融铜",
   "fluid.tconstruct.molten_copper": "熔融铜",
   "fluid.tconstruct.flowing_molten_copper": "流动的熔融铜",
   "item.tconstruct.molten_copper_bucket": "熔融铜桶",
+  "fluid.tconstruct.molten_copper.fluid_effect": "Molten copper is a good emergency air supply for long underwater journeys.",
 
   "block.tconstruct.molten_cobalt_fluid": "熔融钴",
   "fluid.tconstruct.molten_cobalt": "熔融钴",
   "fluid.tconstruct.flowing_molten_cobalt": "流动的熔融钴",
   "item.tconstruct.molten_cobalt_bucket": "熔融钴桶",
+  "fluid.tconstruct.molten_cobalt.fluid_effect": "Inhaling the lingering cloud is the safest way to use molten cobalt for haste, or just use it as a weapon.",
 
   "block.tconstruct.molten_debris_fluid": "熔融残骸",
   "fluid.tconstruct.molten_debris": "熔融残骸",
   "fluid.tconstruct.flowing_molten_debris": "流动的熔融残骸",
   "item.tconstruct.molten_debris_bucket": "熔融残骸桶",
+  "fluid.tconstruct.molten_debris.fluid_effect": "Molten debris is the strongest fluid for mining, even capable of mining obsidian.",
 
   "_comment": "Tier 3 Alloys",
 
@@ -663,16 +692,19 @@
   "fluid.tconstruct.molten_amethyst_bronze": "熔融紫水晶青铜",
   "fluid.tconstruct.flowing_molten_amethyst_bronze": "流动的熔融紫水晶青铜",
   "item.tconstruct.molten_amethyst_bronze_bucket": "熔融紫水晶青铜桶",
+  "fluid.tconstruct.molten_amethyst_bronze.fluid_effect": "Sometimes you really want to fight some phantoms, drinking a lot of molten amethyst bronze can help that happen.",
 
   "block.tconstruct.molten_rose_gold_fluid": "熔融玫瑰金",
   "fluid.tconstruct.molten_rose_gold": "熔融玫瑰金",
   "fluid.tconstruct.flowing_molten_rose_gold": "流动的熔融玫瑰金",
   "item.tconstruct.molten_rose_gold_bucket": "熔融玫瑰金桶",
+  "fluid.tconstruct.molten_rose_gold.fluid_effect": "Molten rose gold lets you lose a small amount of health for a temporary edge.",
 
   "block.tconstruct.molten_pig_iron_fluid": "熔融生铁",
   "fluid.tconstruct.molten_pig_iron": "熔融生铁",
   "fluid.tconstruct.flowing_molten_pig_iron": "流动的熔融生铁",
   "item.tconstruct.molten_pig_iron_bucket": "熔融生铁桶",
+  "fluid.tconstruct.molten_pig_iron.fluid_effect": "Molten pig iron is the tastiest of molten metals. Not that its much of a competition.",
 
   "_comment": "Tier 4 Alloys",
 
@@ -680,12 +712,14 @@
   "fluid.tconstruct.molten_manyullyn": "熔融玛玉灵",
   "fluid.tconstruct.flowing_molten_manyullyn": "流动的熔融玛玉灵",
   "item.tconstruct.molten_manyullyn_bucket": "熔融玛玉灵桶",
+  "fluid.tconstruct.molten_manyullyn.fluid_effect": "Molten manyullyn has the most damage potential between flat damage and damage over time.",
 
   "block.tconstruct.molten_hepatizon_fluid": "熔融黑色科林斯青铜",
   "fluid.tconstruct.molten_hepatizon": "熔融黑色科林斯青铜",
   "fluid.tconstruct.flowing_molten_hepatizon": "流动的熔融黑色科林斯青铜",
   "item.tconstruct.molten_hepatizon_bucket": "熔融黑色科林斯青铜桶",
-
+  "fluid.tconstruct.molten_hepatizon.fluid_effect": "Is molten hepatizon best for defense, or combat? Either is a risk reward setup.",
+  
   "block.tconstruct.molten_cinderslime_fluid": "熔融余烬黏液",
   "fluid.tconstruct.molten_cinderslime": "熔融余烬黏液",
   "fluid.tconstruct.flowing_molten_cinderslime": "流动的熔融余烬黏液",
@@ -705,6 +739,7 @@
   "fluid.tconstruct.molten_netherite": "熔融下界合金",
   "fluid.tconstruct.flowing_molten_netherite": "流动的熔融下界合金",
   "item.tconstruct.molten_netherite_bucket": "熔融下界合金桶",
+  "fluid.tconstruct.molten_netherite.fluid_effect": "Molten netherite is the highest base damage, for when you cannot wait for your target to bleed out.",
 
   "block.tconstruct.molten_knightslime_fluid": "熔融骑士史莱姆",
   "fluid.tconstruct.molten_knightslime": "熔融骑士史莱姆",
@@ -717,51 +752,61 @@
   "fluid.tconstruct.molten_tin": "熔融锡",
   "fluid.tconstruct.flowing_molten_tin": "流动的熔融锡",
   "item.tconstruct.molten_tin_bucket": "熔融锡桶",
+  "fluid.tconstruct.molten_tin.fluid_effect": "They say carrots are good for your eyes, but molten tin is better.",
 
   "block.tconstruct.molten_aluminum_fluid": "熔融铝",
   "fluid.tconstruct.molten_aluminum": "熔融铝",
   "fluid.tconstruct.flowing_molten_aluminum": "流动的熔融铝",
   "item.tconstruct.molten_aluminum_bucket": "熔融铝桶",
+  "fluid.tconstruct.molten_aluminum.fluid_effect": "Molten aluminium is like milk, but aggressive. Ideal for combat when your opponents have too many effects.",
 
   "block.tconstruct.molten_lead_fluid": "熔融铅",
   "fluid.tconstruct.molten_lead": "熔融铅",
   "fluid.tconstruct.flowing_molten_lead": "流动的熔融铅",
   "item.tconstruct.molten_lead_bucket": "熔融铅桶",
+  "fluid.tconstruct.molten_lead.fluid_effect": "Molten lead gives your attacks a little extra boost, if you are willing to wait.",
 
   "block.tconstruct.molten_silver_fluid": "熔融银",
   "fluid.tconstruct.molten_silver": "熔融银",
   "fluid.tconstruct.flowing_molten_silver": "流动的熔融银",
   "item.tconstruct.molten_silver_bucket": "熔融银桶",
+  "fluid.tconstruct.molten_silver.fluid_effect": "Molten silver removes toxins without removing helpful effects.",
 
   "block.tconstruct.molten_nickel_fluid": "熔融镍",
   "fluid.tconstruct.molten_nickel": "熔融镍",
   "fluid.tconstruct.flowing_molten_nickel": "流动的熔融镍",
   "item.tconstruct.molten_nickel_bucket": "熔融镍桶",
+  "fluid.tconstruct.molten_nickel.fluid_effect": "Molten nickel lets you harm your enemies and reduce the risk of retaliation, what's not to love?",
 
   "block.tconstruct.molten_zinc_fluid": "熔融锌",
   "fluid.tconstruct.molten_zinc": "熔融锌",
   "fluid.tconstruct.flowing_molten_zinc": "流动的熔融锌",
   "item.tconstruct.molten_zinc_bucket": "熔融锌桶",
+  "fluid.tconstruct.molten_zinc.fluid_effect": "Molten zinc is probably not the best choice to boost your speed, perhaps the speed will throw off an opponent.",
 
   "block.tconstruct.molten_platinum_fluid": "熔融铂",
   "fluid.tconstruct.molten_platinum": "熔融铂",
   "fluid.tconstruct.flowing_molten_platinum": "流动的熔融铂",
   "item.tconstruct.molten_platinum_bucket": "熔融铂桶",
+  "fluid.tconstruct.molten_platinum.fluid_effect": "Not sure the applications of molten platinum slowing your enemies' mining speed, but you can probably figure one out.",
 
   "block.tconstruct.molten_tungsten_fluid": "熔融钨",
   "fluid.tconstruct.molten_tungsten": "熔融钨",
   "fluid.tconstruct.flowing_molten_tungsten": "流动的熔融钨",
   "item.tconstruct.molten_tungsten_bucket": "熔融钨桶",
+  "fluid.tconstruct.molten_tungsten.fluid_effect": "Molten tungsten is one of the heaviest metals, hopefully it will keep your enemies still.",
 
   "block.tconstruct.molten_osmium_fluid": "熔融锇",
   "fluid.tconstruct.molten_osmium": "熔融锇",
   "fluid.tconstruct.flowing_molten_osmium": "流动的熔融锇",
   "item.tconstruct.molten_osmium_bucket": "熔融锇桶",
+  "fluid.tconstruct.molten_osmium.fluid_effect": "Molten osmium keeps your enemies still for a future blow.",
 
   "block.tconstruct.molten_uranium_fluid": "熔融铀",
   "fluid.tconstruct.molten_uranium": "熔融铀",
   "fluid.tconstruct.flowing_molten_uranium": "流动的熔融铀",
   "item.tconstruct.molten_uranium_bucket": "熔融铀桶",
+  "fluid.tconstruct.molten_uranium.fluid_effect": "Radioactive decay from molten uranium isn't safe to be around, so dump it on your enemies.",
 
   "_comment": "Compat Alloys",
 
@@ -769,36 +814,43 @@
   "fluid.tconstruct.molten_bronze": "熔融青铜",
   "fluid.tconstruct.flowing_molten_bronze": "流动的熔融青铜",
   "item.tconstruct.molten_bronze_bucket": "熔融青铜桶",
+  "fluid.tconstruct.molten_bronze.fluid_effect": "Molten bronze is the perfect dark brown beverage for when you need to stay away and stave off phantoms.",
 
   "block.tconstruct.molten_brass_fluid": "熔融黄铜",
   "fluid.tconstruct.molten_brass": "熔融黄铜",
   "fluid.tconstruct.flowing_molten_brass": "流动的熔融黄铜",
   "item.tconstruct.molten_brass_bucket": "熔融黄铜桶",
+  "fluid.tconstruct.molten_brass.fluid_effect": "Molten brass helps you resist the heat, and the second sip is free if you time it right.",
 
   "block.tconstruct.molten_electrum_fluid": "熔融琥珀金",
   "fluid.tconstruct.molten_electrum": "熔融琥珀金",
   "fluid.tconstruct.flowing_molten_electrum": "流动的熔融琥珀金",
   "item.tconstruct.molten_electrum_bucket": "熔融琥珀金桶",
+  "fluid.tconstruct.molten_electrum.fluid_effect": "Molten electrum is great for when you need to mine fast on a budget.",
 
   "block.tconstruct.molten_invar_fluid": "熔融殷钢",
   "fluid.tconstruct.molten_invar": "熔融殷钢",
   "fluid.tconstruct.flowing_molten_invar": "流动的熔融殷钢",
   "item.tconstruct.molten_invar_bucket": "熔融殷钢桶",
+  "fluid.tconstruct.molten_invar.fluid_effect": "Molten invar may be useful if you are trying to eat that powerful cake, but otherwise is an odd fluid.",
 
   "block.tconstruct.molten_constantan_fluid": "熔融康铜",
   "fluid.tconstruct.molten_constantan": "熔融康铜",
   "fluid.tconstruct.flowing_molten_constantan": "流动的熔融康铜",
   "item.tconstruct.molten_constantan_bucket": "熔融康铜桶",
+  "fluid.tconstruct.molten_constantan.fluid_effect": "Molten constantan is useful against human opponents perhaps, but not so much against monsters.",
 
   "block.tconstruct.molten_pewter_fluid": "熔融白镴",
   "fluid.tconstruct.molten_pewter": "熔融白镴",
   "fluid.tconstruct.flowing_molten_pewter": "流动的熔融白镴",
   "item.tconstruct.molten_pewter_bucket": "熔融白镴桶",
+  "fluid.tconstruct.molten_pewter.fluid_effect": "Molten pewter is probably lower risk than venom to boost your strength, but not by much.",
 
   "block.tconstruct.molten_steel_fluid": "熔融钢",
   "fluid.tconstruct.molten_steel": "熔融钢",
   "fluid.tconstruct.flowing_molten_steel": "流动的熔融钢",
   "item.tconstruct.molten_steel_bucket": "熔融钢桶",
+  "fluid.tconstruct.molten_steel.fluid_effect": "Molten steel lets you clear out enemies around you, or spread out bunched up enemies.",
 
   "_comment": "Thermal Alloys",
 
@@ -828,6 +880,55 @@
   "fluid.tconstruct.molten_refined_obsidian": "熔融强化黑曜石",
   "fluid.tconstruct.flowing_molten_refined_obsidian": "流动的熔融强化黑曜石",
   "item.tconstruct.molten_refined_obsidian_bucket": "熔融强化黑曜石桶",
+
+
+  "_comment": "Fluid effect contents",
+  "fluid_effect.tconstruct.separator": "%s and %s",
+
+  "fluid_effect.tconstruct.extinguish_fire": "Extinguishes fire",
+  "fluid_effect.tconstruct.teleport": "Teleports target",
+  "fluid_effect.tconstruct.calcified": "+10 Seconds Calcified",
+
+  "fluid_effect.tconstruct.cure_effects": "Cures most status effects",
+  "fluid_effect.tconstruct.remove_effect": "Removes %s",
+  "fluid_effect.tconstruct.mob_effect.add": "+%d seconds %s %s",
+  "fluid_effect.tconstruct.mob_effect.set": "%d seconds %s %s",
+  "fluid_effect.tconstruct.potion": "Applies effects from potion",
+
+  "fluid_effect.tconstruct.restore_hunger": "Restores %d hunger",
+  "fluid_effect.tconstruct.fire.add": "+%d seconds fire",
+  "fluid_effect.tconstruct.fire.set": "%d seconds fire",
+  "fluid_effect.tconstruct.freeze.add": "+%d seconds freeze",
+  "fluid_effect.tconstruct.freeze.set": "%d seconds freeze",
+  "fluid_effect.tconstruct.award_stat.add": "+%s %s",
+  "fluid_effect.tconstruct.award_stat.subtract": "-%s %s",
+  "fluid_effect.tconstruct.add_breath.add": "+%d Breath",
+  "fluid_effect.tconstruct.add_breath.subtract": "-%d Breath",
+  "fluid_effect.tconstruct.push_entity.push": "Pushes target",
+  "fluid_effect.tconstruct.push_entity.pull": "Pulls target",
+
+  "fluid_effect.tconstruct.damage": "%s Damage",
+  "fluid_effect.tconstruct.damage.tconstruct.fluid.impact": "%s Damage",
+  "fluid_effect.tconstruct.damage.tconstruct.fluid.fire": "%s Fire Damage",
+  "fluid_effect.tconstruct.damage.tconstruct.fluid.cold": "%s Cold Damage",
+  "fluid_effect.tconstruct.damage.tconstruct.fluid.magic": "%s Magic Damage",
+  "fluid_effect.tconstruct.damage.tconstruct.fluid.water": "%s Water Damage",
+  "fluid_effect.tconstruct.damage.tconstruct.fluid.spike": "%s Piercing Damage",
+
+  "fluid_effect.tconstruct.place_block": "Places %s",
+  "fluid_effect.tconstruct.place_block.held": "Places held block",
+  "fluid_effect.tconstruct.break_block": "Mines block",
+  "fluid_effect.tconstruct.break_block.separator": "%s, %s",
+  "fluid_effect.tconstruct.break_block.enchanted": "Mines block with %s",
+  "fluid_effect.tconstruct.break_block.hardness": "Mines up to hardness %s",
+  "fluid_effect.tconstruct.break_block.enchanted.hardness": "Mines up to hardness %s with %s",
+  "fluid_effect.tconstruct.mob_effect_cloud": "Lingering cloud with %s",
+  "fluid_effect.tconstruct.potion_cloud": "Lingering potion cloud",
+  "fluid_effect.tconstruct.move_block.push": "Pushes block",
+  "fluid_effect.tconstruct.move_block.pull": "Pulls block",
+
+  "fluid_effect.tconstruct.drop_item": "Drops %s",
+  "fluid_effect.tconstruct.explosion": "Power %s explosion",
 
 
   "_comment": "Tinkers Gadgets",
@@ -934,13 +1035,13 @@
   "item.tconstruct.battlesign": "战斗牌子",
   "item.tconstruct.war_pick": "战镐",
   "item.tconstruct.swasher": "喷流刃",
-  
+
   "item.tconstruct.travelers_helmet": "旅行者护目镜",
   "item.tconstruct.travelers_chestplate": "旅行者背心",
   "item.tconstruct.travelers_leggings": "旅行者裤子",
   "item.tconstruct.travelers_boots": "旅行者靴子",
   "item.tconstruct.travelers_shield": "旅行者盾牌",
-  
+
   "item.tconstruct.plate_helmet": "镶板头盔",
   "item.tconstruct.plate_chestplate": "镶板胸甲",
   "item.tconstruct.plate_leggings": "镶板护腿",
@@ -1230,7 +1331,7 @@
   "block.tconstruct.scorched_glass_pane.tooltip": "无法用于搭建熔铸炉",
   "block.tconstruct.scorched_soul_glass_pane": "焦褐灵魂玻璃板",
   "block.tconstruct.scorched_soul_glass_pane.tooltip": "无法用于搭建熔铸炉，但可以从中穿过。",
-  
+
   "block.tconstruct.scorched_ladder": "焦褐梯子",
   "block.tconstruct.scorched_ladder.tooltip": "可供攀爬的熔铸炉建材",
 
@@ -1519,13 +1620,13 @@
   "material.tconstruct.wood.acacia": "金合欢木",
   "material.tconstruct.wood.dark_oak": "深色橡木",
   "material.tconstruct.wood.mangrove": "红树木",
-    "material.tconstruct.wood.cherry": "樱花木",
+  "material.tconstruct.wood.cherry": "樱花木",
   "material.tconstruct.wood.crimson": "绯红木",
   "material.tconstruct.wood.warped": "诡异木",
   "material.tconstruct.wood.format": "木%s",
   "material.tconstruct.wood.flavor": "伐伐伐伐伐伐伐伐伐木工！",
   "material.tconstruct.wood.encyclopedia": "每有一个木部件，工具修理效率提高50%",
-  
+
   "material.tconstruct.bamboo": "竹",
   "material.tconstruct.bamboo.flavor": "被敲竹杠了！",
   "material.tconstruct.bamboo.ranged": "拉弓时的移动速度惩罚-10%",
@@ -1991,7 +2092,7 @@
   "modifier.tconstruct.swiftstrike.5": "迅捷打击++++",
   "modifier.tconstruct.swiftstrike.flavor": "魔法！",
   "modifier.tconstruct.swiftstrike.description": "魔法般的紫色宝石让工具变得更轻巧，挥动更省力！",
-  
+
 
   "_comment": "Ranged",
 
@@ -2159,7 +2260,7 @@
   "modifier.tconstruct.wings": "羽翼",
   "modifier.tconstruct.wings.flavor": "天空属于我",
   "modifier.tconstruct.wings.description": "能够在半空中跳跃，翱翔蓝天",
-  
+
   "_comment": "Armor - leggings",
   "modifier.tconstruct.speedy": "迅捷",
   "modifier.tconstruct.speedy.flavor": "跑啊……跑啊……",
@@ -2273,7 +2374,7 @@
   "modifier.tconstruct.reach": "长臂",
   "modifier.tconstruct.reach.flavor": "心灵促动！",
   "modifier.tconstruct.reach.description": "手持该工具时延伸触及距离，以便进行更远的采掘与攻击！",
-  
+
   "_comment": "Block transform",
   "modifier.tconstruct.pathing": "铺路",
   "modifier.tconstruct.pathing.flavor": "铺道路，走天下！",
@@ -2845,7 +2946,7 @@
   "armor_stat.tconstruct.bad_effect_duration": "负面药水效果时间",
   "armor_stat.tconstruct.crouch_damage": "潜行伤害",
   "armor_stat.tconstruct.explosion_knockback": "爆炸击退",
-  
+
 
   "_comment": "Tooltips",
 
@@ -3020,6 +3121,8 @@
   "book.tconstruct.modifiers.effect": "效果：",
   "book.tconstruct.tool.properties": "属性：",
 
+  "book.tconstruct.fluid_effects.entity": "Entity Effects:",
+  "book.tconstruct.fluid_effects.block": "Block Effects:",
 
   "_comment": "Commands",
 
@@ -3134,7 +3237,7 @@
 
   "jei.tconstruct.modifier_worktable.title": "强化调配台",
 
-  
+
   "_comment": "Tool Advancements",
   "advancements.tconstruct.tools.materials_and_you.title": "工匠练手",
   "advancements.tconstruct.tools.materials_and_you.description": "制作一本《材料与你》，它将为你打开匠魂的大门",
