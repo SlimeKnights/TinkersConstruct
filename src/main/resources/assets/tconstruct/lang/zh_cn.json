@@ -1053,8 +1053,8 @@
   "death.attack.tconstruct.piercing": "%1$s被%2$s刺穿了",
   "death.attack.tconstruct.piercing.item": "%1$s被%2$s使用%3$s刺穿了",
 
-  "death.attack.tconstruct.fluid.impact": "%1$s被%2$sPummeled了",
-  "death.attack.tconstruct.fluid.impact.item": "%1$s被%2$s用%3$sPummeled了",
+  "death.attack.tconstruct.fluid.impact": "%1$s被%2$s击中了",
+  "death.attack.tconstruct.fluid.impact.item": "%1$s被%2$s用%3$s击中了",
   "death.attack.tconstruct.fluid.fire": "%1$s被%2$s烧焦了",
   "death.attack.tconstruct.fluid.fire.item": "%1$s被%2$s用%3$s烧焦了",
   "death.attack.tconstruct.fluid.cold": "%1$s被%2$s冰冻了",
