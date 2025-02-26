@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.tools.item.ranged;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -13,8 +14,10 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.ForgeEventFactory;
+import org.joml.Vector3f;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
@@ -90,6 +93,11 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
   public void playShotSound(LivingEntity user, float charge, float angle, RandomSource random) {
     user.level().playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F,
       1.0F / (random.nextFloat() * 0.4F + 1.2F) + charge * 0.5F + (angle / 10f));
+  }
+
+  @Override
+  public Vector3f modifyShootAngle(LivingEntity user, Vec3 target, float angle) {
+    return target.xRot(angle * Mth.DEG_TO_RAD).toVector3f();
   }
 
   @Override

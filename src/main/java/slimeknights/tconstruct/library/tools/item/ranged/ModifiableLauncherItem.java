@@ -33,7 +33,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -433,6 +432,8 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
     return new ProjectileData(arrow, 1f, 1);
   }
 
+  public abstract Vector3f modifyShootAngle(LivingEntity user, Vec3 target, float angle);
+
   /**
    * @param ctx       user info
    * @param tool      projectile weapon
@@ -455,8 +456,7 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
       assignArrowProperties(projectile, ctx.user(), tool, charge >= 1, ctx.infinite(), arrowIndex == primaryIndex);
       // setup projectile
       float angle = startAngle + (10 * arrowIndex);
-      Vec3 upVector = ctx.user().getUpVector(1.0f);
-      Vector3f targetVector = direction.toVector3f().rotate((new Quaternionf()).setAngleAxis(angle * Math.PI / 180F, upVector.x, upVector.y, upVector.z));
+      Vector3f targetVector = modifyShootAngle(ctx.user(), direction, angle);
       projectile.shoot(targetVector.x(), targetVector.y(), targetVector.z(),
         charge * velocity * data.speed() * ctx.speedFactor(),
         inaccuracy * ctx.inaccuracyFactor());

@@ -25,7 +25,10 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ToolActions;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
@@ -107,6 +110,11 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
       }
       return info;
     }
+  }
+
+  public Vector3f modifyShootAngle(LivingEntity user, Vec3 target, float angle) {
+    Vec3 upVector = user.getUpVector(1.0f);
+    return target.toVector3f().rotate((new Quaternionf()).setAngleAxis(angle * Math.PI / 180F, upVector.x, upVector.y, upVector.z));
   }
 
   @Override
