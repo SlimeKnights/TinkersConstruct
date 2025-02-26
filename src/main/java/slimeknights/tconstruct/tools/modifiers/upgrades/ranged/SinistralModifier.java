@@ -31,8 +31,8 @@ public class SinistralModifier extends Modifier implements GeneralInteractionMod
   public InteractionResult onToolUse(IToolStackView tool, ModifierEntry modifier, Player player, InteractionHand hand, InteractionSource source) {
     if (source == InteractionSource.LEFT_CLICK && hand == InteractionHand.MAIN_HAND && !tool.isBroken()) {
       CompoundTag heldAmmo = tool.getPersistentData().getCompound(ModifiableCrossbowItem.KEY_CROSSBOW_AMMO);
-      if (!heldAmmo.isEmpty()) {
-        ModifiableCrossbowItem.fireCrossbow(tool, player, hand, heldAmmo);
+      if (!heldAmmo.isEmpty() && tool.getItem() instanceof ModifiableCrossbowItem item) {
+        item.fireCrossbow(tool, player, hand, heldAmmo);
         return InteractionResult.CONSUME;
       }
     }
