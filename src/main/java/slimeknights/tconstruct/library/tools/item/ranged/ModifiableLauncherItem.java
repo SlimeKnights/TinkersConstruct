@@ -388,6 +388,7 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
 
   /* Multishot helper */
 
+  /** Play shooting sound based on charge and angle spread */
   public abstract void playShotSound(LivingEntity user, float charge, float angle, RandomSource pRandom);
 
   /** Gets the angle to fire the first arrow, each additional arrow offsets an additional 10 degrees */
@@ -426,15 +427,18 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
     }
   }
 
+  /** Create projectile from ammunition stack. Also provide speed and durability cost information */
   public ProjectileData createProjectile(Level level, LivingEntity user, ItemStack ammo) {
     ArrowItem arrowItem = ammo.getItem() instanceof ArrowItem a ? a : (ArrowItem) Items.ARROW;
     AbstractArrow arrow = arrowItem.createArrow(level, ammo, user);
     return new ProjectileData(arrow, 1f, 1);
   }
 
+  /** Modify projectile launch angle for specific angle offset. Bow use vertical spread and crossbow use horizontal spread. */
   public abstract Vector3f modifyShootAngle(LivingEntity user, Vec3 target, float angle);
 
   /**
+   * Launch projectile, play sound, and optionally consume durability. Does not handle ammunition consumption.
    * @param ctx       user info
    * @param tool      projectile weapon
    * @param hand      hand. For weapon damaging only.

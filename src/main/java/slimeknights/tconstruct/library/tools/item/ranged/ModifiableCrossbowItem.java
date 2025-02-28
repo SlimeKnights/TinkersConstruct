@@ -91,12 +91,14 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
 
   /* Arrow launching */
 
+  @Override
   public void playShotSound(LivingEntity user, float charge, float angle, RandomSource pRandom) {
     float pitch = angle == 0 ? 1 : 1.0F / (pRandom.nextFloat() * 0.5F + 1.8F) + 0.53f + (angle / 10f);
     user.level().playSound(null, user.getX(), user.getY(), user.getZ(),
       SoundEvents.CROSSBOW_SHOOT, SoundSource.PLAYERS, 1.0F, pitch);
   }
 
+  @Override
   public ProjectileData createProjectile(Level level, LivingEntity user, ItemStack ammo) {
     if (ammo.is(Items.FIREWORK_ROCKET)) {
       // TODO: don't hardcode fireworks, perhaps use a map or a JSON behavior list
@@ -112,6 +114,7 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
     }
   }
 
+  @Override
   public Vector3f modifyShootAngle(LivingEntity user, Vec3 target, float angle) {
     Vec3 upVector = user.getUpVector(1.0f);
     return target.toVector3f().rotate((new Quaternionf()).setAngleAxis(angle * Math.PI / 180F, upVector.x, upVector.y, upVector.z));

@@ -90,6 +90,7 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
     return InteractionResultHolder.consume(bow);
   }
 
+  @Override
   public void playShotSound(LivingEntity user, float charge, float angle, RandomSource random) {
     user.level().playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F,
       1.0F / (random.nextFloat() * 0.4F + 1.2F) + charge * 0.5F + (angle / 10f));
