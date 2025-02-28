@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
@@ -42,6 +43,7 @@ public class TinkerTags {
     Modifiers.init();
     Materials.init();
     DamageTypes.init();
+    MenuTypes.init();
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, TagsUpdatedEvent.class, event -> tagsLoaded = true);
   }
 
@@ -682,5 +684,12 @@ public class TinkerTags {
     private static TagKey<DamageType> local(String name) {
       return TagKey.create(Registries.DAMAGE_TYPE, getResource(name));
     }
+  }
+
+  public static class MenuTypes {
+    private static void init() {}
+
+    /** Any menus that support being closed in favor of the tool inventory */
+    public static final TagKey<MenuType<?>> TOOL_INVENTORY_REPLACEMENTS = TagKey.create(Registries.MENU, getResource("tool_inventory_replacements"));
   }
 }

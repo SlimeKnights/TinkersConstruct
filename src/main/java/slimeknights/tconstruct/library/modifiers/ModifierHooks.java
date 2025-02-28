@@ -43,6 +43,7 @@ import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteract
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InventoryTickModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.KeybindInteractModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.SlotStackModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BlockBreakModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BlockHarvestModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedModifierHook;
@@ -259,6 +260,8 @@ public class ModifierHooks {
   public static final ModuleHook<KeybindInteractModifierHook> ARMOR_INTERACT = register("armor_interact", KeybindInteractModifierHook.class, KeybindInteractModifierHook.InteractMerger::new, new KeybindInteractModifierHook() {});
   /** Hook for determining if a block should be highlighted when in AOE range of the tool */
   public static final ModuleHook<AreaOfEffectHighlightModifierHook> AOE_HIGHLIGHT = register("aoe_highlight", AreaOfEffectHighlightModifierHook.class, AreaOfEffectHighlightModifierHook.AnyMerger::new, (tool, modifier, context, pos, state) -> false);
+  /** Hook for overriding behavior of right-clicking tools or with tools */
+  public static final ModuleHook<SlotStackModifierHook> SLOT_STACK = register("slot_stack", SlotStackModifierHook.class, SlotStackModifierHook.FirstMerger::new, new SlotStackModifierHook() {});
 
 
   /* Modifier sub-hooks */

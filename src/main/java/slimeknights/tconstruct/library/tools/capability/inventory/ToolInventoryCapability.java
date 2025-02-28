@@ -6,6 +6,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
@@ -504,13 +505,25 @@ public class ToolInventoryCapability extends InventoryModifierHookIterator<Modif
 
   /** Opens the tool inventory container if an inventory is present on the given tool */
   public static InteractionResult tryOpenContainer(ItemStack stack, @Nullable IToolStackView tool, ToolDefinition definition, Player player, EquipmentSlot slotType) {
+    return tryOpenContainer(stack, tool, definition, player, switch (slotType) {
+      // mainhand is the hotbar selected slot
+      case MAINHAND -> player.getInventory().selected;
+      // offhand is its own slot
+      case OFFHAND -> Inventory.SLOT_OFFHAND;
+      // armor starts from the end of inventory
+      default -> Inventory.INVENTORY_SIZE + slotType.getIndex();
+    });
+  }
+
+  /** Opens the tool inventory container if an inventory is present on the given tool */
+  public static InteractionResult tryOpenContainer(ItemStack stack, @Nullable IToolStackView tool, ToolDefinition definition, Player player, int slotIndex) {
     IItemHandler handler = stack.getCapability(ForgeCapabilities.ITEM_HANDLER).filter(cap -> cap instanceof IItemHandlerModifiable).orElse(null);
     if (handler != null) {
       if (player instanceof ServerPlayer serverPlayer) {
         NetworkHooks.openScreen(serverPlayer, new SimpleMenuProvider(
-          (id, inventory, p) -> new ToolContainerMenu(id, inventory, stack, (IItemHandlerModifiable)handler, slotType),
+          (id, inventory, p) -> new ToolContainerMenu(id, inventory, stack, (IItemHandlerModifiable)handler, slotIndex),
           TooltipUtil.getDisplayName(stack, tool, definition)
-        ), buf -> buf.writeEnum(slotType));
+        ), buf -> buf.writeVarInt(slotIndex));
       }
       return InteractionResult.sidedSuccess(player.level().isClientSide);
     }

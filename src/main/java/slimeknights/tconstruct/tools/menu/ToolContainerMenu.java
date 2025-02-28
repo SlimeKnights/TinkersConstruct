@@ -2,7 +2,6 @@ package slimeknights.tconstruct.tools.menu;
 
 import lombok.Getter;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -34,34 +33,33 @@ public class ToolContainerMenu extends AbstractContainerMenu {
   /** Item handler being rendered */
   @Getter
   private final IItemHandler itemHandler;
+  @Getter
   private final Player player;
   @Getter
-  private final EquipmentSlot slotType;
-  @Getter
-  private final int selectedHotbarSlot;
+  private final int slotIndex;
   @Getter
   private final boolean showOffhand;
   /** Index of the first player inventory slot */
   private final int playerInventoryStart;
 
-  public ToolContainerMenu(int id, Inventory playerInventory, ItemStack stack, IItemHandlerModifiable itemHandler, EquipmentSlot slotType) {
-    this(TinkerTools.toolContainer.get(), id, playerInventory, stack, itemHandler, slotType);
+  public ToolContainerMenu(int id, Inventory playerInventory, ItemStack stack, IItemHandlerModifiable itemHandler, int slotIndex) {
+    this(TinkerTools.toolContainer.get(), id, playerInventory, stack, itemHandler, slotIndex);
   }
 
   /** Creates a new instance of this container on the client side */
   public static ToolContainerMenu forClient(int id, Inventory inventory, FriendlyByteBuf buffer) {
-    EquipmentSlot slotType = buffer.readEnum(EquipmentSlot.class);
-    ItemStack stack = inventory.player.getItemBySlot(slotType);
+    int slotIndex = buffer.readVarInt();
+    ItemStack stack = inventory.player.getInventory().getItem(slotIndex);
     IItemHandler handler = stack.getCapability(ForgeCapabilities.ITEM_HANDLER).filter(cap -> cap instanceof IItemHandlerModifiable).orElse(EmptyItemHandler.INSTANCE);
-    return new ToolContainerMenu(TinkerTools.toolContainer.get(), id, inventory, stack, handler, slotType);
+    return new ToolContainerMenu(TinkerTools.toolContainer.get(), id, inventory, stack, handler, slotIndex);
   }
 
-  protected ToolContainerMenu(@Nullable MenuType<?> type, int id, Inventory playerInventory, ItemStack stack, IItemHandler handler, EquipmentSlot slotType) {
+  protected ToolContainerMenu(@Nullable MenuType<?> type, int id, Inventory playerInventory, ItemStack stack, IItemHandler handler, int slotIndex) {
     super(type, id);
     this.stack = stack;
     this.itemHandler = handler;
     this.player = playerInventory.player;
-    this.slotType = slotType;
+    this.slotIndex = slotIndex;
 
     // add tool slots
     int slots = itemHandler.getSlots();
@@ -73,7 +71,7 @@ public class ToolContainerMenu extends AbstractContainerMenu {
     if (this.showOffhand) {
       int x = 8 + (slots % 9) * SLOT_SIZE;
       int y = (REPEAT_BACKGROUND_START + 1) + (slots / 9) * SLOT_SIZE;
-      if (slotType == EquipmentSlot.OFFHAND) {
+      if (slotIndex == Inventory.SLOT_OFFHAND) {
         this.addSlot(new ReadOnlySlot(playerInventory, 40, x, y));
       } else {
         this.addSlot(new Slot(playerInventory, 40, x, y));
@@ -87,16 +85,20 @@ public class ToolContainerMenu extends AbstractContainerMenu {
     int playerY = 32 + SLOT_SIZE * ((slots + 8) / 9);
     for(int r = 0; r < 3; ++r) {
       for(int c = 0; c < 9; ++c) {
-        this.addSlot(new Slot(playerInventory, c + r * 9 + 9, 8 + c * 18, playerY + r * 18));
+        int index = c + r * 9 + 9;
+        if (index == slotIndex) {
+          this.addSlot(new ReadOnlySlot(playerInventory, index, 8 + c * 18, playerY + r * 18));
+        } else {
+          this.addSlot(new Slot(        playerInventory, index, 8 + c * 18, playerY + r * 18));
+        }
       }
     }
     int hotbarStart = playerY + 58;
-    selectedHotbarSlot = slotType == EquipmentSlot.MAINHAND ? playerInventory.selected : (slotType == EquipmentSlot.OFFHAND ? 10 : -1);
     for(int c = 0; c < 9; ++c) {
-      if (c == selectedHotbarSlot) {
+      if (c == slotIndex) {
         this.addSlot(new ReadOnlySlot(playerInventory, c, 8 + c * 18, hotbarStart));
       } else {
-        this.addSlot(new Slot(playerInventory, c, 8 + c * 18, hotbarStart));
+        this.addSlot(new Slot(        playerInventory, c, 8 + c * 18, hotbarStart));
       }
     }
   }
@@ -104,7 +106,7 @@ public class ToolContainerMenu extends AbstractContainerMenu {
   @Override
   public boolean stillValid(Player playerIn) {
     // if the stack ever leaves the slot, close the menu, as we have no way to recover then and dupes are likely
-    return player == playerIn && !stack.isEmpty() && player.getItemBySlot(slotType) == stack;
+    return player == playerIn && !stack.isEmpty() && player.getInventory().getItem(slotIndex) == stack;
   }
 
   @Override

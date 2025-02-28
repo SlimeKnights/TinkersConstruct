@@ -5,7 +5,6 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.inventory.InventoryMenu;
@@ -74,11 +73,8 @@ public class ToolContainerScreen extends AbstractContainerScreen<ToolContainerMe
   @Override
   protected void slotClicked(Slot slot, int slotId, int index, ClickType type) {
     // disallow swapping the tool slot
-    if (type == ClickType.SWAP) {
-      EquipmentSlot toolSlot = menu.getSlotType();
-      if (toolSlot == EquipmentSlot.MAINHAND && index == menu.getSelectedHotbarSlot() || toolSlot == EquipmentSlot.OFFHAND && index == Inventory.SLOT_OFFHAND) {
-        return;
-      }
+    if (type == ClickType.SWAP && slot.container == menu.getPlayer().getInventory() && slot.getSlotIndex() == menu.getSlotIndex()) {
+      return;
     }
     super.slotClicked(slot, slotId, index, type);
   }
@@ -130,18 +126,23 @@ public class ToolContainerScreen extends AbstractContainerScreen<ToolContainerMe
     graphics.blit(TEXTURE, rowLeft, rowStart + inventoryRows * SLOT_SIZE, 0, SLOTS_START, slotsInLastRow * SLOT_SIZE, SLOT_SIZE);
 
     // draw a background on the selected slot index
-    int selectedSlot = menu.getSelectedHotbarSlot();
-    if (selectedSlot != -1) {
-      int slotIndex = slots - 1;
-      if (selectedSlot != 10) {
-        slotIndex += 28 + selectedSlot;
-      }
-      if (slotIndex < menu.slots.size()) {
-        Slot slot = menu.getSlot(slotIndex);
-        graphics.blit(TEXTURE, xStart + slot.x - 2, yStart + slot.y - 2, SELECTED_X, 0, SLOT_SIZE + 2, SLOT_SIZE + 2);
-      }
+    int slotIndex = menu.getSlotIndex();
+    int highlightIndex = -1;
+    if (slotIndex < 9) {
+      // hotbar slots are after all our slots, and after the main inventory 27
+      highlightIndex = slots + slotIndex + 27;
+    } else if (slotIndex < Inventory.INVENTORY_SIZE) {
+      // main inventory 27 is after our slots, but the index is 9 too high (hotbar)
+      highlightIndex = slots + slotIndex - 9;
+    } else if (slotIndex == Inventory.SLOT_OFFHAND && menu.isShowOffhand()) {
+      // offhand is the last slot, but only if the offhand is shown in the inveotry
+      highlightIndex = slots - 1;
     }
-
+    // armor is not shown, so that will be -1
+    if (highlightIndex != -1 && highlightIndex < menu.slots.size()) {
+      Slot slot = menu.getSlot(highlightIndex);
+      graphics.blit(TEXTURE, xStart + slot.x - 2, yStart + slot.y - 2, SELECTED_X, 0, SLOT_SIZE + 2, SLOT_SIZE + 2);
+    }
 
     // prepare pattern drawing
     assert this.minecraft != null;

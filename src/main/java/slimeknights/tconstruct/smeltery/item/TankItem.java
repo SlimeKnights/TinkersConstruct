@@ -91,7 +91,7 @@ public class TankItem extends BlockTooltipItem {
   }
 
   /** Checks if the given stack has fluid transfer */
-  private static boolean mayHaveFluid(ItemStack stack) {
+  public static boolean mayHaveFluid(ItemStack stack) {
     return FluidContainerTransferManager.INSTANCE.mayHaveTransfer(stack) || stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).isPresent();
   }
 
@@ -105,10 +105,9 @@ public class TankItem extends BlockTooltipItem {
         if (slotStack.getCount() == 1) {
           // transfer fluid
           FluidTank tank = getFluidTank(held);
-          int oldCount = held.getCount();
           ItemStack result = FluidTransferHelper.interactWithTankSlot(tank, slotStack, TransferDirection.REVERSE);
-          // update held tank
-          if (!result.isEmpty() || held.getCount() != oldCount) {
+          // update held tank and slot item if something changed (either we have a result or the stack in the slot was shrunk)
+          if (!result.isEmpty() || slotStack.isEmpty()) {
             if (held.getCount() == 1) {
               setTank(held, tank);
             } else {
@@ -119,14 +118,22 @@ public class TankItem extends BlockTooltipItem {
                 player.drop(split, false);
               }
             }
+            slot.set(FluidTransferHelper.getOrTransferFilled(player, slotStack, result));
           }
-          // update slot item
-          slot.set(FluidTransferHelper.getOrTransferFilled(player, slotStack, result));
         }
         return true;
       }
     }
     return false;
+  }
+
+  /** Updates the item the player is holding from the old instance */
+  public static void updateHeldItem(Player player, ItemStack held, ItemStack result) {
+    if (player.containerMenu.getCarried() == held) {
+      player.containerMenu.setCarried(FluidTransferHelper.getOrTransferFilled(player, held, result));
+    } else if (!player.getInventory().add(result)) {
+      player.drop(result, false);
+    }
   }
 
   @Override
@@ -137,14 +144,13 @@ public class TankItem extends BlockTooltipItem {
       if (stack.getCount() == 1) {
         // transfer the fluid
         FluidTank tank = getFluidTank(stack);
+        int oldCount = held.getCount();
         ItemStack result = FluidTransferHelper.interactWithTankSlot(tank, held, TransferDirection.AUTO);
-        // update tank
-        setTank(stack, tank);
-        // update held item, assuming its actually held
-        if (player.containerMenu.getCarried() == held) {
-          player.containerMenu.setCarried(FluidTransferHelper.getOrTransferFilled(player, held, result));
-        } else if (!player.getInventory().add(result)) {
-          player.drop(result, false);
+        if (!result.isEmpty() || held.getCount() != oldCount) {
+          // update tank
+          setTank(stack, tank);
+          // update held item, assuming its actually held
+          updateHeldItem(player, held, result);
         }
       }
       return true;

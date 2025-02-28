@@ -2,18 +2,26 @@ package slimeknights.tconstruct.library.tools.capability.inventory;
 
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.SlotAccess;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.item.ItemPredicate;
+import slimeknights.mantle.util.RegistryHelper;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.json.IntRange;
 import slimeknights.tconstruct.library.json.LevelingInt;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -22,6 +30,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ValidateModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.VolatileDataModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.SlotStackModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition.ConditionalModule;
@@ -53,8 +62,8 @@ import java.util.function.Predicate;
  * @param pattern        Slot background to show
  * @param condition      Additional conditions
  */
-public record InventoryModule(@Nullable ResourceLocation key, LevelingInt slots, LevelingInt slotLimit, IJsonPredicate<Item> filter, @Nullable Pattern pattern, ModifierCondition<IToolContext> condition, IntRange validationLevel) implements ModifierModule, InventoryModifierHook, VolatileDataModifierHook, ValidateModifierHook, ModifierRemovalHook, ModuleWithKey, ConditionalModule<IToolContext> {
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<InventoryModule>defaultHooks(ToolInventoryCapability.HOOK, ModifierHooks.VOLATILE_DATA, ModifierHooks.VALIDATE, ModifierHooks.REMOVE);
+public record InventoryModule(@Nullable ResourceLocation key, LevelingInt slots, LevelingInt slotLimit, IJsonPredicate<Item> filter, @Nullable Pattern pattern, ModifierCondition<IToolContext> condition, IntRange validationLevel) implements ModifierModule, InventoryModifierHook, VolatileDataModifierHook, ValidateModifierHook, ModifierRemovalHook, ModuleWithKey, ConditionalModule<IToolContext>, SlotStackModifierHook {
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<InventoryModule>defaultHooks(ToolInventoryCapability.HOOK, ModifierHooks.VOLATILE_DATA, ModifierHooks.VALIDATE, ModifierHooks.REMOVE, ModifierHooks.SLOT_STACK);
   /** Mod Data NBT mapper to get a compound list */
   public static final BiFunction<CompoundTag,String,ListTag> GET_COMPOUND_LIST = (nbt, name) -> nbt.getList(name, Tag.TAG_COMPOUND);
   /** Error for if the container has items preventing modifier removal */
@@ -71,6 +80,10 @@ public record InventoryModule(@Nullable ResourceLocation key, LevelingInt slots,
     ModifierCondition.CONTEXT_FIELD,
     ModifierEntry.VALID_LEVEL.defaultField("validation_level", InventoryModule::validationLevel),
     InventoryModule::new);
+
+  /** @apiNote Internal constructor. Use {@link #builder()} to instantiate. */
+  @Internal
+  public InventoryModule {}
 
   @Override
   public RecordLoadable<InventoryModule> getLoader() {
@@ -302,6 +315,34 @@ public record InventoryModule(@Nullable ResourceLocation key, LevelingInt slots,
     return stackList;
   }
 
+
+  /* Slot interaction */
+
+  private static boolean isValidContainer(AbstractContainerMenu menu) {
+    // player inventory has a null type, which throws when used through the getter
+    if (menu.menuType == null) {
+      return true;
+    }
+    // because vanilla set the throw precedent, add protection for other cases, just in case
+    // the try here is basically free
+    try {
+      return RegistryHelper.contains(BuiltInRegistries.MENU, TinkerTags.MenuTypes.TOOL_INVENTORY_REPLACEMENTS, menu.getType());
+    }
+    catch (UnsupportedOperationException e) {
+      return false;
+    }
+  }
+
+  @Override
+  public boolean overrideOtherStackedOnMe(IToolStackView slotTool, ModifierEntry modifier, ItemStack held, Slot slot, Player player, SlotAccess access) {
+    if (held.isEmpty() && slot.container == player.getInventory() && getSlots(slotTool, modifier) > 0 && isValidContainer(player.containerMenu)) {
+      if (!player.level().isClientSide) {
+        ToolInventoryCapability.tryOpenContainer(slot.getItem(), slotTool, slotTool.getDefinition(), player, slot.getSlotIndex());
+      }
+      return true;
+    }
+    return false;
+  }
 
   /* Builder */
 
