@@ -481,10 +481,10 @@
   "fluid.tconstruct.blazing_blood": "烈焰血",
   "fluid.tconstruct.flowing_blazing_blood": "流动的烈焰血",
   "item.tconstruct.blazing_blood_bucket": "烈焰血桶",
-  "fluid.tconstruct.blazing_blood.fluid_effect": "Blazing blood is an acceptable fluid for combat, but it really shines as a light source.",
+  "fluid.tconstruct.blazing_blood.fluid_effect": "烈焰血在战斗时使用效果不错，但其能自身发光的特性更为卓越。",
 
   "fluid.tconstruct.powdered_snow": "细雪",
-  "fluid.tconstruct.powdered_snow.fluid_effect": "Powdered snow is a useful fluid for nether combat, dealing bonus damage to blazing mobs.",
+  "fluid.tconstruct.powdered_snow.fluid_effect": "细雪在下界战斗时效果不错，可以对烈焰生物造成额外伤害。",
 
   "_comment": "Food",
 
@@ -492,39 +492,39 @@
   "fluid.tconstruct.honey": "蜂蜜",
   "fluid.tconstruct.flowing_honey": "流动的蜂蜜",
   "item.tconstruct.honey_bucket": "蜂蜜桶",
-  "fluid.tconstruct.honey.fluid_effect": "So sweat, and removes toxins, what not to love with slurping honey?",
+  "fluid.tconstruct.honey.fluid_effect": "甜丝丝的，还能解毒，有什么理由不喝上一口呢？",
 
   "block.tconstruct.beetroot_soup_fluid": "甜菜汤",
   "fluid.tconstruct.beetroot_soup": "甜菜汤",
   "fluid.tconstruct.flowing_beetroot_soup": "流动的甜菜汤",
   "item.tconstruct.beetroot_soup_bucket": "甜菜汤桶",
-  "fluid.tconstruct.beetroot_soup.fluid_effect": "Beetroot soup is an easily farmable slurpable food option.",
+  "fluid.tconstruct.beetroot_soup.fluid_effect": "甜菜汤，原料简单，口感顺滑。",
 
   "block.tconstruct.mushroom_stew_fluid": "蘑菇煲",
   "fluid.tconstruct.mushroom_stew": "蘑菇煲",
   "fluid.tconstruct.flowing_mushroom_stew": "流动的蘑菇煲",
   "item.tconstruct.mushroom_stew_bucket": "蘑菇煲桶",
-  "fluid.tconstruct.mushroom_stew.fluid_effect": "Mushroom stew is a very affordable soup option for slurping on the go.",
+  "fluid.tconstruct.mushroom_stew.fluid_effect": "蘑菇煲，经济实惠，旅行必备之良汤。",
 
   "block.tconstruct.rabbit_stew_fluid": "兔肉煲",
   "fluid.tconstruct.rabbit_stew": "兔肉煲",
   "fluid.tconstruct.flowing_rabbit_stew": "流动的兔肉煲",
   "item.tconstruct.rabbit_stew_bucket": "兔肉煲桶",
-  "fluid.tconstruct.rabbit_stew.fluid_effect": "Rabbit stew is the best liquid food available, ideal for slurping.",
+  "fluid.tconstruct.rabbit_stew.fluid_effect": "兔肉煲，上等汤羹，宜大口啜饮。",
   
   "block.tconstruct.meat_soup_fluid": "肉汤",
   "fluid.tconstruct.meat_soup": "肉汤",
   "fluid.tconstruct.flowing_meat_soup": "流动的肉汤",
   "item.tconstruct.meat_soup_bucket": "肉汤桶",
   "item.tconstruct.meat_soup": "肉汤",
-  "fluid.tconstruct.meat_soup.fluid_effect": "Don't ask what is in the meat soup; just enjoy the flavor as you slurp this down.",
+  "fluid.tconstruct.meat_soup.fluid_effect": "肉汤，不必询问原料，只需享受入口那一瞬的美味。",
 
 
   "_comment": "Potion",
 
   "fluid.tconstruct.potion": "药水",
-  "fluid.tconstruct.potion.fluid_effect": "Potions allow a wide variety of effects crafted in a brewing stand. Can dump potions into tanks to fill tools.",
-  "fluid.tconstruct.potion.fluid_effect": "Potions allow a wide variety of effects crafted in a brewing stand. Can dump potions into tanks to fill tools.",
+  "fluid.tconstruct.potion.fluid_effect": "可以在酿造台中酿造不同效果的药水，倒入储罐后即可装填工具内储罐。",
+  "fluid.tconstruct.potion.fluid_effect": "可以在酿造台中酿造不同效果的药水，倒入储罐后即可装填工具内储罐。",
 
   "item.tconstruct.potion_bucket": "不可合成的药水桶",
   "item.tconstruct.potion_bucket.effect.water": "药水桶",
@@ -541,14 +541,14 @@
   "fluid.tconstruct.flowing_earth_slime": "流动的大地黏液",
   "item.tconstruct.earth_slime_bucket": "大地黏液桶",
   "item.tconstruct.earth_slime_bottle": "大地黏液瓶",
-  "fluid.tconstruct.earth_slime.fluid_effect": "Earthslime is a portable piston, ideal for simple flying carpets. Well, assuming bricks count as carpet.",
+  "fluid.tconstruct.earth_slime.fluid_effect": "大地黏液可以类比成一个便携活塞，非常适合用来做个简易飞毯。好吧……假如地板就是地毯的话。",
 
   "block.tconstruct.sky_slime_fluid": "碧空黏液",
   "fluid.tconstruct.sky_slime": "碧空黏液",
   "fluid.tconstruct.flowing_sky_slime": "流动的碧空黏液",
   "item.tconstruct.sky_slime_bucket": "碧空黏液桶",
   "item.tconstruct.sky_slime_bottle": "碧空黏液瓶",
-  "fluid.tconstruct.sky_slime.fluid_effect": "Skyslime is a portable piston, ideal for when you built your base just 1 block away from where it belongs.",
+  "fluid.tconstruct.sky_slime.fluid_effect": "碧空黏液可以类比成一个便携活塞，非常适合建设基地手滑时，放偏了1格的情况。",
 
   "block.tconstruct.magma_fluid": "岩浆",
   "fluid.tconstruct.magma": "岩浆",
@@ -567,14 +567,14 @@
   "fluid.tconstruct.flowing_venom": "流动的毒液",
   "item.tconstruct.venom_bucket": "毒液桶",
   "item.tconstruct.venom_bottle": "毒液瓶",
-  "fluid.tconstruct.venom.fluid_effect": "Venom pairs very well with venombone, the hint is in the name.",
+  "fluid.tconstruct.venom.fluid_effect": "毒液和毒之骨，正如其名。",
 
   "block.tconstruct.ichor_fluid": "灵浆",
   "fluid.tconstruct.ichor": "灵浆",
   "fluid.tconstruct.flowing_ichor": "流动的灵浆",
   "item.tconstruct.ichor_bucket": "灵浆桶",
   "item.tconstruct.ichor_slime_bottle": "灵浆瓶",
-  "fluid.tconstruct.ichor.fluid_effect": "Ichor is a reverse gravity fluid, helping you also reverse gravity. Surviving the trip back down is on you.",
+  "fluid.tconstruct.ichor.fluid_effect": "灵浆是一种反重力流体，还可以助你抵抗重力。让你活着逃回来。",
 
   "_comment": "Rock",
 
