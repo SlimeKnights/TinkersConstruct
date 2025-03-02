@@ -929,6 +929,8 @@
 
   "fluid_effect.tconstruct.drop_item": "Drops %s",
   "fluid_effect.tconstruct.explosion": "Power %s explosion",
+  "fluid_effect.tconstruct.mob_effect.add": "+%d秒%s",
+  "fluid_effect.tconstruct.mob_effect.set": "%d秒%s",
 
 
   "_comment": "Tinkers Gadgets",
@@ -3134,8 +3136,8 @@
   "book.tconstruct.modifiers.effect": "效果：",
   "book.tconstruct.tool.properties": "属性：",
 
-  "book.tconstruct.fluid_effects.entity": "Entity Effects:",
-  "book.tconstruct.fluid_effects.block": "Block Effects:",
+  "book.tconstruct.fluid_effects.entity": "对实体效果：",
+  "book.tconstruct.fluid_effects.block": "对方块效果：",
 
   "_comment": "Commands",
 
