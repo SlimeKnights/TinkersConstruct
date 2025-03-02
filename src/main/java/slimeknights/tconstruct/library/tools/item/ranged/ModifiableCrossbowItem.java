@@ -190,7 +190,7 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
       // when creating the ammo stacks, we use split, so its getting smaller each time
       ItemStack ammo = ItemStack.of(heldAmmo);
       // fire arrows, damage bow, play sound
-      shootProjectiles(player, tool, hand, ammo, player.getViewVector(1.0f), 1,3.15f, 1, creative, !creative);
+      shootProjectilesAndDamageWeapon(player, tool, hand, ammo, player.getViewVector(1.0f), 1,3.15f, 1, creative, !creative);
       // clear the ammo
       tool.getPersistentData().remove(KEY_CROSSBOW_AMMO);
       // stats

@@ -465,8 +465,33 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
    * @param infinite         Whether to make the arrow marked as no-pickup. True for infinite arrows or hostile mob arrows.
    * @param damageWeapon     Whether to damage weapon. False for hostile mobs.
    */
-  public void shootProjectiles(LivingEntity holder, IToolStackView tool, InteractionHand hand, ItemStack ammo, Vec3 direction, float charge,
-                               float speedFactor, float inaccuracyFactor, boolean infinite, boolean damageWeapon) {
+  public void shootProjectilesAndDamageWeapon(
+    LivingEntity holder, IToolStackView tool, InteractionHand hand, ItemStack ammo, Vec3 direction, float charge,
+    float speedFactor, float inaccuracyFactor, boolean infinite, boolean damageWeapon
+  ) {
+    int damage = shootProjectiles(holder, tool, ammo, direction, charge, speedFactor, inaccuracyFactor, infinite);
+    if (damageWeapon) {
+      ToolDamageUtil.damageAnimated(tool, damage, holder, hand);
+    }
+  }
+
+  /**
+   * Launches projectile, plays sound, but does not consume durability nor handle ammunition consumption.
+   *
+   * @param holder           user
+   * @param tool             projectile weapon
+   * @param ammo             ammunition. Will not be modified inside this method.
+   * @param direction        direction to shoot at
+   * @param charge           charging percentage
+   * @param speedFactor      regular arrow speed at full charge. 3 for player with bow. 1.6 for skeletons. 3.15 for crossbows.
+   * @param inaccuracyFactor shoot inaccuracy factor. 1 for player, and hostile mobs use a complex formula involving difficulty.
+   * @param infinite         Whether to make the arrow marked as no-pickup. True for infinite arrows or hostile mob arrows.
+   * @return Amount of durability to consume
+   */
+  public int shootProjectiles(
+    LivingEntity holder, IToolStackView tool, ItemStack ammo, Vec3 direction, float charge,
+    float speedFactor, float inaccuracyFactor, boolean infinite
+  ) {
     float velocity = ConditionalStatModifierHook.getModifiedStat(tool, holder, ToolStats.VELOCITY);
     float inaccuracy = ModifierUtil.getInaccuracy(tool, holder);
     float startAngle = getAngleStart(ammo.getCount());
@@ -488,9 +513,7 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
       holder.level().addFreshEntity(projectile);
       playShotSound(holder, charge, angle, holder.getRandom());
     }
-    if (damageWeapon) {
-      ToolDamageUtil.damageAnimated(tool, damage, holder, hand);
-    }
+    return damage;
   }
 
   public record ProjectileData(Projectile projectile, float speed, int damage) {
