@@ -1889,7 +1889,7 @@
 
   "material.tconstruct.silver": "银",
   "material.tconstruct.silver.flavor": "你知道的，这东西没几天就不再闪闪发光了。",
-  "material.tconstruct.silver.encyclopedia": "每级对亡灵生物伤害+2.5",
+  "material.tconstruct.silver.encyclopedia": "每级对亡灵生物伤害+2",
   "material.tconstruct.silver.ranged": "每级对亡灵生物弹射物力量+0.5",
   "material.tconstruct.silver.armor": "每级来自亡灵生物伤害-5%",
 
@@ -1927,7 +1927,7 @@
 
   "material.tconstruct.invar": "殷钢",
   "material.tconstruct.invar.flavor": "它不仅能抵御温度的变化，还能避免追捕。",
-  "material.tconstruct.invar.encyclopedia": "在中等温度的生物群系伤害+2.5",
+  "material.tconstruct.invar.encyclopedia": "在中等温度的生物群系伤害+1.6",
   "material.tconstruct.invar.ranged": "在中等温度的生物群系精确度+0.15",
   "material.tconstruct.invar.armor": "在中等温度的生物群系每级伤害-5%",
 
@@ -2287,6 +2287,12 @@
   "modifier.tconstruct.swift_sneak": "迅捷潜行",
   "modifier.tconstruct.swift_sneak.flavor": "潜行，但迅捷！",
   "modifier.tconstruct.swift_sneak.description": "潜行蹲下时增加移动速度",
+  "modifier.tconstruct.workbench": "Workbench",
+  "modifier.tconstruct.workbench.flavor": "Convenient!",
+  "modifier.tconstruct.workbench.description": "Grants an inventory sized crafting grid in the tool inventory",
+  "modifier.tconstruct.crafting_table": "Crafting Table",
+  "modifier.tconstruct.crafting_table.flavor": "A full table in your pocket!",
+  "modifier.tconstruct.crafting_table.description": "Grants a full size crafting grid in the tool's inventory",
 
   "modifier.tconstruct.inventory_cannot_remove": "进行此更改将会销毁此工具中存储的一项物品",
 
@@ -2806,6 +2812,10 @@
   "modifier.tconstruct.the_one_probe": "The One Probe",
   "modifier.tconstruct.the_one_probe.flavor": "科学化！",
   "modifier.tconstruct.the_one_probe.description": "当手持或者附加于头盔时，能够显示指向方块的信息",
+  "modifier.tconstruct.headlight": "Headlight",
+  "modifier.tconstruct.headlight.flavor": "Lit!",
+  "modifier.tconstruct.headlight.variant": "Light Level %s",
+  "modifier.tconstruct.headlight.description": "Visually lights up the world.",
 
   "_comment": "Internal modifiers",
   "modifier.tconstruct.overslime_friend": "黏液之友",
@@ -2916,8 +2926,11 @@
   "tool_stat.tconstruct.tank_capacity": "储罐容量：",
   "tool_stat.tconstruct.tank_capacity.description": "工具储罐中能容纳流体的最大值",
   "tool_stat.tconstruct.tank_capacity.fluid": "流体：",
+  "tool_stat.tconstruct.energy": "%s FE",
+  "tool_stat.tconstruct.max_energy": "Max Energy: ",
+  "tool_stat.tconstruct.max_energy.description": "Maximum amount of energy that can be stord in this tool",
 
-  "stat.tconstruct.repair_kit": "修理件",
+  "stat.tconstruct.repair_kit": "修补件",
   "stat.tconstruct.skull": "黏液头颅",
 
   "stat.tconstruct.harvest_tier.minecraft.wood": "木",
