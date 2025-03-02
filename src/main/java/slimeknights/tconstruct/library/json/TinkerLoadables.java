@@ -5,6 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.LightLayer;
@@ -36,6 +37,7 @@ public class TinkerLoadables {
   public static final StringLoadable<Operation> OPERATION = new EnumLoadable<>(Operation.class);
   public static final StringLoadable<EquipmentSlot> EQUIPMENT_SLOT = new EnumLoadable<>(EquipmentSlot.class);
   public static final Loadable<Set<EquipmentSlot>> EQUIPMENT_SLOT_SET = EQUIPMENT_SLOT.set();
+  public static final StringLoadable<ArmorItem.Type> ARMOR_SLOT = new EnumLoadable<>(ArmorItem.Type.class);
   public static final StringLoadable<LightLayer> LIGHT_LAYER = new EnumLoadable<>(LightLayer.class);
   public static final StringLoadable<InteractionSource> INTERACTION_SOURCE = new EnumLoadable<>(InteractionSource.class);
   public static final StringLoadable<OreRateType> ORE_RATE_TYPE = new EnumLoadable<>(OreRateType.class);

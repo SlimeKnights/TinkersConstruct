@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:modifier_salvage",
+  "modifier": "tconstruct:crafting_table",
+  "slots": {
+    "abilities": 1
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/armor/leggings"
+  }
+}

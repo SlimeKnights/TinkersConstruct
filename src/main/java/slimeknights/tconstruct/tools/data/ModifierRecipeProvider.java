@@ -982,7 +982,24 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setTools(TinkerTags.Items.LEGGINGS)
                          .saveSalvage(consumer, prefix(ModifierIds.soulBelt, abilitySalvage))
                          .save(consumer, prefix(ModifierIds.soulBelt, abilityFolder));
-
+    ModifierRecipeBuilder.modifier(ModifierIds.workbench)
+                         .addInput(Items.LEATHER)
+                         .addInput(Blocks.CRAFTING_TABLE)
+                         .addInput(Items.LEATHER)
+                         .setSlots(SlotType.UPGRADE, 1)
+                         .setMaxLevel(1).checkTraitLevel()
+                         .setTools(TinkerTags.Items.LEGGINGS)
+                         .saveSalvage(consumer, prefix(ModifierIds.workbench, upgradeSalvage))
+                         .save(consumer, prefix(ModifierIds.workbench, upgradeFolder));
+    ModifierRecipeBuilder.modifier(ModifierIds.craftingTable)
+                         .addInput(Items.LEATHER)
+                         .addInput(TinkerTables.craftingStation)
+                         .addInput(Items.LEATHER)
+                         .setSlots(SlotType.ABILITY, 1)
+                         .setMaxLevel(1).checkTraitLevel()
+                         .setTools(TinkerTags.Items.LEGGINGS)
+                         .saveSalvage(consumer, prefix(ModifierIds.craftingTable, abilitySalvage))
+                         .save(consumer, prefix(ModifierIds.craftingTable, abilityFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.wetting)
                          .addInput(Tags.Items.DUSTS_REDSTONE)
                          .addInput(tanks)
@@ -1258,7 +1275,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     ModifierRecipeBuilder.modifier(ModifierIds.tank)
                          .addInput(tanks)
                          .setSlots(SlotType.UPGRADE, 1)
-                         .setTools(ingredientFromTags(TinkerTags.Items.INTERACTABLE, TinkerTags.Items.HELMETS, TinkerTags.Items.CHESTPLATES, TinkerTags.Items.LEGGINGS, TinkerTags.Items.SHIELDS))
+                         .setTools(ingredientFromTags(TinkerTags.Items.HELD, TinkerTags.Items.ARMOR))
                          .saveSalvage(consumer, prefix(ModifierIds.tank, upgradeSalvage))
                          .save(consumer, prefix(ModifierIds.tank, upgradeFolder));
     // expanders
@@ -1648,6 +1665,26 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1).checkTraitLevel()
                          .saveSalvage(topConsumer, prefix(ModifierIds.theOneProbe, compatSalvage))
                          .save(topConsumer, prefix(ModifierIds.theOneProbe, compatFolder));
+    Consumer<FinishedRecipe> headlightConsumer = withCondition(consumer, modLoaded("headlight"));
+    BiConsumer<Ingredient,String> headlight = (ingredient, light) -> {
+      SwappableModifierRecipeBuilder builder = SwappableModifierRecipeBuilder.modifier(ModifierIds.headlight, light);
+      builder.variantFormatter(VariantFormatter.PARAMETER)
+             .setTools(TinkerTags.Items.HELMETS)
+             .addInput(Items.LEATHER)
+             .addInput(ingredient)
+             .addInput(Items.LEATHER)
+             .setSlots(SlotType.UPGRADE, 1)
+             .disallowCrystal();
+      if ("10".equals(light)) {
+        builder.saveSalvage(headlightConsumer, prefix(ModifierIds.headlight, compatSalvage));
+      } else {
+        builder.disallowCrystal();
+      }
+      builder.save(headlightConsumer, wrap(ModifierIds.headlight, compatFolder, "_" + light));
+    };
+    headlight.accept(Ingredient.of(Blocks.LANTERN), "15");
+    headlight.accept(Ingredient.of(Blocks.SOUL_LANTERN), "10");
+    headlight.accept(Ingredient.of(ItemTags.CANDLES), "5");
   }
 
   private void addTextureRecipes(Consumer<FinishedRecipe> consumer) {

@@ -1,0 +1,18 @@
+{
+  "condition": {
+    "type": "forge:mod_loaded",
+    "modid": "headlight"
+  },
+  "level_display": "tconstruct:no_levels",
+  "modules": [
+    {
+      "type": "tconstruct:variant_name",
+      "formatter": "tconstruct:parameter"
+    },
+    {
+      "type": "tconstruct:headlight",
+      "default_light": 10
+    }
+  ],
+  "tooltip_display": "always"
+}

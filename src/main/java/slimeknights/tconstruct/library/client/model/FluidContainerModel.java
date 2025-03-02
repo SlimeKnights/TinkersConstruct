@@ -56,11 +56,10 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import slimeknights.mantle.client.model.util.ColoredBlockModel;
-import slimeknights.mantle.util.JsonHelper;
+import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.tconstruct.TConstruct;
 
 import javax.annotation.Nullable;
@@ -89,12 +88,12 @@ public record FluidContainerModel(FluidStack fluid, boolean flipGas) implements 
       CompoundTag tag = null;
       if (fluidElement.isJsonObject()) {
         JsonObject fluidObject = fluidElement.getAsJsonObject();
-        fluid = JsonHelper.getAsEntry(ForgeRegistries.FLUIDS, fluidObject, "name");
+        fluid = Loadables.FLUID.getIfPresent(fluidObject, "name");
         if (fluidObject.has("nbt")) {
           tag = CraftingHelper.getNBT(fluidObject.get("nbt"));
         }
       } else {
-        fluid = JsonHelper.convertToEntry(ForgeRegistries.FLUIDS, fluidElement, "fluid");
+        fluid = Loadables.FLUID.convert(fluidElement, "fluid");
       }
       fluidStack = new FluidStack(fluid, FluidType.BUCKET_VOLUME, tag);
     }

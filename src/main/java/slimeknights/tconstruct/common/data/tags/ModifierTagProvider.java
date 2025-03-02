@@ -112,9 +112,9 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
     this.tag(GENERAL_ARMOR_UPGRADES).add(
       TinkerModifiers.fiery.getId(), TinkerModifiers.freezing.getId(), TinkerModifiers.thorns.getId(),
       ModifierIds.ricochet, TinkerModifiers.springy.getId());
-    this.tag(HELMET_UPGRADES).add(TinkerModifiers.itemFrame.getId(), ModifierIds.respiration);
+    this.tag(HELMET_UPGRADES).add(TinkerModifiers.itemFrame.getId(), ModifierIds.respiration).addOptional(ModifierIds.headlight);
     this.tag(CHESTPLATE_UPGRADES).add(ModifierIds.haste, TinkerModifiers.knockback.getId());
-    this.tag(LEGGING_UPGRADES).add(ModifierIds.leaping, TinkerModifiers.shieldStrap.getId(), ModifierIds.speedy, ModifierIds.swiftSneak, ModifierIds.stepUp);
+    this.tag(LEGGING_UPGRADES).add(ModifierIds.leaping, TinkerModifiers.shieldStrap.getId(), ModifierIds.speedy, ModifierIds.swiftSneak, ModifierIds.stepUp, ModifierIds.workbench);
     this.tag(BOOT_UPGRADES).add(ModifierIds.depthStrider, ModifierIds.featherFalling, TinkerModifiers.lightspeedArmor.getId(), TinkerModifiers.soulspeed.getId());
 
     this.tag(RANGED_UPGRADES).add(
@@ -143,7 +143,7 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
     this.tag(GENERAL_ARMOR_ABILITIES).add(ModifierIds.protection, TinkerModifiers.bursting.getId(), TinkerModifiers.wetting.getId());
     this.tag(HELMET_ABILITIES).add(ModifierIds.aquaAffinity, TinkerModifiers.slurping.getId());
     this.tag(CHESTPLATE_ABILITIES).add(TinkerModifiers.ambidextrous.getId(), ModifierIds.reach, ModifierIds.strength, ModifierIds.wings);
-    this.tag(LEGGING_ABILITIES).add(ModifierIds.pockets, ModifierIds.soulBelt, ModifierIds.toolBelt);
+    this.tag(LEGGING_ABILITIES).add(ModifierIds.pockets, ModifierIds.soulBelt, ModifierIds.toolBelt, ModifierIds.craftingTable);
     this.tag(BOOT_ABILITIES).add(
       TinkerModifiers.bouncy.getId(), TinkerModifiers.doubleJump.getId(), ModifierIds.longFall,
       TinkerModifiers.flamewake.getId(), ModifierIds.snowdrift, ModifierIds.plowing, ModifierIds.pathMaker, ModifierIds.frostWalker);

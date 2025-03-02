@@ -37,6 +37,7 @@ import slimeknights.mantle.Mantle;
 import slimeknights.mantle.fluid.FluidTransferHelper;
 import slimeknights.mantle.fluid.transfer.FluidContainerTransferManager;
 import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer;
+import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer.TransferDirection;
 import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer.TransferResult;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.util.BlockEntityHelper;
@@ -147,7 +148,7 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
       FluidStack currentFluid = tank.getFluid();
       IFluidContainerTransfer transfer = FluidContainerTransferManager.INSTANCE.getTransfer(stack, currentFluid);
       if (transfer != null) {
-        TransferResult result = transfer.transfer(stack, currentFluid, tank);
+        TransferResult result = transfer.transfer(stack, currentFluid, tank, TransferDirection.AUTO);
         if (result != null) {
           if (result.didFill()) {
             playFillSound(level, worldPosition, player, result.fluid());

@@ -14,8 +14,6 @@ import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext.Entity
 import slimeknights.tconstruct.library.modifiers.fluid.FluidMobEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.TimeAction;
 
-import java.util.Locale;
-
 /**
  * Spilling effect to apply a potion effect
  * @param effect  Effect to apply
@@ -87,7 +85,6 @@ public record MobEffectFluidEffect(FluidMobEffect effect, TimeAction action) imp
 
   @Override
   public Component getDescription(RegistryAccess registryAccess) {
-    String prefix = FluidEffect.getTranslationKey(getLoader()) + "." + action.name().toLowerCase(Locale.ROOT);
-    return Component.translatable(prefix, effect.time() / 20, Component.translatable(effect.effect().getDescriptionId()), effect.amplifier() + 1);
+    return effect.getDisplayName(action);
   }
 }

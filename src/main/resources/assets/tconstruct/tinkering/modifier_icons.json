@@ -92,6 +92,8 @@
   "tconstruct:shulking":              "tconstruct:gui/modifiers/armor/shulking",
   "tconstruct:revitalizing":          "tconstruct:gui/modifiers/armor/revitalizing",
   "tconstruct:knockback_resistance":  "tconstruct:gui/modifiers/armor/knockback_resistance",
+  "tconstruct:crafting_table":        "tconstruct:gui/modifiers/armor/crafting_table",
+  "tconstruct:workbench":             "tconstruct:gui/modifiers/armor/workbench",
   
   "tconstruct:ricochet": "tconstruct:gui/modifiers/armor/ricochet",
   "tconstruct:springy":  "tconstruct:gui/modifiers/armor/springy",
@@ -149,5 +151,8 @@
   
   "tconstruct:nearsighted": "tconstruct:gui/modifiers/nearsighted",
   "tconstruct:farsighted":  "tconstruct:gui/modifiers/farsighted",
-  "tconstruct:shiny":       "tconstruct:gui/modifiers/shiny"
+  "tconstruct:shiny":       "tconstruct:gui/modifiers/shiny",
+
+  "tconstruct:the_one_probe": ["theoneprobe:item/probe", "tconstruct:gui/modifiers/book"],
+  "tconstruct:headlight":     ["headlight:item/headlight", "tconstruct:gui/modifiers/book"]
 }

@@ -26,6 +26,7 @@ public class TagNotEmptyCondition<T> implements LootItemCondition, ICondition {
   private static final ResourceLocation NAME = TConstruct.getResource("tag_not_empty");
   private final TagKey<T> tag;
 
+  @SuppressWarnings("removal")
   @Override
   public LootItemConditionType getType() {
     return TinkerCommons.lootTagNotEmptyCondition.get();

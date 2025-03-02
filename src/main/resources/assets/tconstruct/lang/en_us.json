@@ -891,8 +891,8 @@
 
   "fluid_effect.tconstruct.cure_effects": "Cures most status effects",
   "fluid_effect.tconstruct.remove_effect": "Removes %s",
-  "fluid_effect.tconstruct.mob_effect.add": "+%d seconds %s %s",
-  "fluid_effect.tconstruct.mob_effect.set": "%d seconds %s %s",
+  "fluid_effect.tconstruct.mob_effect.add": "+%d seconds %s",
+  "fluid_effect.tconstruct.mob_effect.set": "%d seconds %s",
   "fluid_effect.tconstruct.potion": "Applies effects from potion",
 
   "fluid_effect.tconstruct.restore_hunger": "Restores %d hunger",
@@ -1889,7 +1889,7 @@
 
   "material.tconstruct.silver": "Silver",
   "material.tconstruct.silver.flavor": "You know, this tool isn't going to look so shiny in a few days.",
-  "material.tconstruct.silver.encyclopedia": "Gives +2.5 damage against undead per level",
+  "material.tconstruct.silver.encyclopedia": "Gives +2 damage against undead per level",
   "material.tconstruct.silver.ranged": "Gives +0.5 projectile power against undead per level",
   "material.tconstruct.silver.armor": "Reduces damage from undead by 5% per level",
 
@@ -1927,7 +1927,7 @@
 
   "material.tconstruct.invar": "Invar",
   "material.tconstruct.invar.flavor": "Resists both temperature and arrest.",
-  "material.tconstruct.invar.encyclopedia": "Grants +2.5 damage in biomes with neutral temperatures",
+  "material.tconstruct.invar.encyclopedia": "Grants +1.6 damage in biomes with neutral temperatures",
   "material.tconstruct.invar.ranged": "Grants +0.15 accuracy in biomes with neutral temperatures",
   "material.tconstruct.invar.armor": "Reduces damage by 5% per level in biomes with neutral temperatures",
 
@@ -2287,6 +2287,12 @@
   "modifier.tconstruct.swift_sneak": "Swift Sneak",
   "modifier.tconstruct.swift_sneak.flavor": "Sneaky, but faster!",
   "modifier.tconstruct.swift_sneak.description": "Increases movement speed while crouching",
+  "modifier.tconstruct.workbench": "Workbench",
+  "modifier.tconstruct.workbench.flavor": "Convenient!",
+  "modifier.tconstruct.workbench.description": "Grants an inventory sized crafting grid in the tool inventory",
+  "modifier.tconstruct.crafting_table": "Crafting Table",
+  "modifier.tconstruct.crafting_table.flavor": "A full table in your pocket!",
+  "modifier.tconstruct.crafting_table.description": "Grants a full size crafting grid in the tool's inventory",
 
   "modifier.tconstruct.inventory_cannot_remove": "Making this change would cause an item stored in this tool to be deleted",
 
@@ -2806,6 +2812,10 @@
   "modifier.tconstruct.the_one_probe": "The One Probe",
   "modifier.tconstruct.the_one_probe.flavor": "Sciency!",
   "modifier.tconstruct.the_one_probe.description": "Shows information about the targeted block when held or on a helmet.",
+  "modifier.tconstruct.headlight": "Headlight",
+  "modifier.tconstruct.headlight.flavor": "Lit!",
+  "modifier.tconstruct.headlight.variant": "Light Level %s",
+  "modifier.tconstruct.headlight.description": "Visually lights up the world.",
 
   "_comment": "Internal modifiers",
   "modifier.tconstruct.overslime_friend": "Overslime Friend",
@@ -2916,6 +2926,9 @@
   "tool_stat.tconstruct.tank_capacity": "Tank Capacity: ",
   "tool_stat.tconstruct.tank_capacity.description": "Maximum amount of fluid that can be stored in this tool's tank.",
   "tool_stat.tconstruct.tank_capacity.fluid": "Fluid: ",
+  "tool_stat.tconstruct.energy": "%s FE",
+  "tool_stat.tconstruct.max_energy": "Max Energy: ",
+  "tool_stat.tconstruct.max_energy.description": "Maximum amount of energy that can be stord in this tool",
 
   "stat.tconstruct.repair_kit": "Repair Kit",
   "stat.tconstruct.skull": "Slimeskull",

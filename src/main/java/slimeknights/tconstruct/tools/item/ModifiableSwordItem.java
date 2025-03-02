@@ -12,6 +12,10 @@ public class ModifiableSwordItem extends ModifiableItem {
     super(properties, toolDefinition);
   }
 
+  public ModifiableSwordItem(Properties properties, ToolDefinition toolDefinition, int maxStackSize) {
+    super(properties, toolDefinition, maxStackSize);
+  }
+
   @Override
   public boolean canAttackBlock(BlockState state, Level worldIn, BlockPos pos, Player player) {
     return !player.isCreative();

@@ -135,8 +135,13 @@ public class ToolFluidCapability extends FluidModifierHookIterator<ModifierEntry
     volatileData.putInt(TOTAL_TANKS, hook.getTanks(volatileData, modifier) + volatileData.getInt(TOTAL_TANKS));
   }
 
-  /** Interface for modifiers with fluid capabilities to return */
+  /**
+   * Interface for modifiers with fluid capabilities to return.
+   * @deprecated We are considering removing this interface in favor of a much simpler tool tank implementation.
+   * For most use-cases {@link ToolTankHelper} is sufficient. If it does not cover your usecase, please leave a comment on <a href="https://github.com/SlimeKnights/TinkersConstruct/issues/5353">GitHub #5353</a>.
+   */
   @SuppressWarnings("unused")
+  @Deprecated
   public interface FluidModifierHook {
     /**
      * Determines how many fluid tanks are used by this modifier

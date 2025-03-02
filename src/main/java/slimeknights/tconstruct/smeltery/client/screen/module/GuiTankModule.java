@@ -16,6 +16,7 @@ import slimeknights.mantle.fluid.tooltip.FluidTooltipHandler;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.smeltery.client.screen.IScreenWithFluidTank;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -32,18 +33,24 @@ public class GuiTankModule implements IScreenWithFluidTank, ClickableTankModule 
   private final IFluidHandler tank;
   @Getter
   private final int x, y, width, height;
+  private final boolean horizontal;
   private final Rect2i fluidLoc;
   private final BiConsumer<Integer,List<Component>> formatter;
 
-  public GuiTankModule(AbstractContainerScreen<?> screen, IFluidHandler tank, int x, int y, int width, int height, ResourceLocation tooltipId) {
+  public GuiTankModule(AbstractContainerScreen<?> screen, IFluidHandler tank, int x, int y, int width, int height, @Nullable ResourceLocation tooltipId) {
+    this(screen, tank, x, y, width, height, false, tooltipId);
+  }
+
+  public GuiTankModule(AbstractContainerScreen<?> screen, IFluidHandler tank, int x, int y, int width, int height, boolean horizontal, @Nullable ResourceLocation tooltipId) {
     this.screen = screen;
     this.tank = tank;
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
+    this.horizontal = horizontal;
     this.fluidLoc = new Rect2i(x, y, width, height);
-    this.formatter = (amount, tooltip) -> FluidTooltipHandler.appendNamedList(tooltipId, amount, tooltip);
+    this.formatter = tooltipId == null ? FluidTooltipHandler.BUCKET_FORMATTER : (amount, tooltip) -> FluidTooltipHandler.appendNamedList(tooltipId, amount, tooltip);
   }
 
   @Override
@@ -57,20 +64,23 @@ public class GuiTankModule implements IScreenWithFluidTank, ClickableTankModule 
   }
 
   @Override
-  public boolean isFluidHovered(int checkY) {
-    return checkY > (y + height) - getFluidHeight();
+  public boolean isFluidHovered(int check) {
+    if (horizontal) {
+      return check - x <= scaleFluid(width);
+    }
+    return check > (y + height) - scaleFluid(height);
   }
 
   /**
-   * Gets the height of the fluid in pixels
-   * @return  Fluid height
+   * Gets the scaled amount of the fluid in pixels
+   * @return  Scaled max value
    */
-  private int getFluidHeight() {
-    int capacity =  tank.getTankCapacity(TANK_INDEX);
+  private int scaleFluid(int max) {
+    int capacity = tank.getTankCapacity(TANK_INDEX);
     if (capacity == 0) {
-      return height;
+      return max;
     }
-    return height * tank.getFluidInTank(TANK_INDEX).getAmount() / capacity;
+    return max * tank.getFluidInTank(TANK_INDEX).getAmount() / capacity;
   }
 
   /**
@@ -78,7 +88,16 @@ public class GuiTankModule implements IScreenWithFluidTank, ClickableTankModule 
    * @param graphics  GuiGraphics instance
    */
   public void draw(GuiGraphics graphics) {
-    GuiUtil.renderFluidTank(graphics.pose(), screen, tank.getFluidInTank(TANK_INDEX), tank.getTankCapacity(TANK_INDEX), x, y, width, height, 100);
+    FluidStack stack = tank.getFluidInTank(TANK_INDEX);
+    int capacity = tank.getTankCapacity(TANK_INDEX);
+    if (horizontal) {
+      if(!stack.isEmpty() && capacity > 0) {
+        int fluidWidth = Math.min(width * stack.getAmount() / capacity, width);
+        GuiUtil.renderTiledFluid(graphics.pose(), screen, stack, x, y, fluidWidth, height, 100);
+      }
+    } else {
+      GuiUtil.renderFluidTank(graphics.pose(), screen, stack, capacity, x, y, width, height, 100);
+    }
   }
 
   /**
@@ -90,15 +109,28 @@ public class GuiTankModule implements IScreenWithFluidTank, ClickableTankModule 
   public void highlightHoveredFluid(GuiGraphics graphics, int checkX, int checkY) {
     // highlight hovered fluid
     if (isHovered(checkX, checkY)) {
-      int fluidHeight = getFluidHeight();
-      int middle = y + height - fluidHeight;
+      if (horizontal) {
+        int fluidWidth = scaleFluid(width);
+        int middle = x + fluidWidth;
 
-      // highlight just fluid
-      if (checkY > middle) {
-        GuiUtil.renderHighlight(graphics, x, middle, width, fluidHeight);
+        // highlight just fluid
+        if (checkX <= middle) {
+          GuiUtil.renderHighlight(graphics, x, y, fluidWidth, height);
+        } else {
+          // or highlight empty
+          GuiUtil.renderHighlight(graphics, x + fluidWidth, y, width - fluidWidth, height);
+        }
       } else {
-        // or highlight empty
-        GuiUtil.renderHighlight(graphics, x, y, width, height - fluidHeight);
+        int fluidHeight = scaleFluid(height);
+        int middle = y + height - fluidHeight;
+
+        // highlight just fluid
+        if (checkY > middle) {
+          GuiUtil.renderHighlight(graphics, x, middle, width, fluidHeight);
+        } else {
+          // or highlight empty
+          GuiUtil.renderHighlight(graphics, x, y, width, height - fluidHeight);
+        }
       }
     }
   }
@@ -120,7 +152,7 @@ public class GuiTankModule implements IScreenWithFluidTank, ClickableTankModule 
 
       // if hovering over the fluid, display with name
       final List<Component> tooltip;
-      if (capacity > 0 && isFluidHovered(checkY)) {
+      if (capacity > 0 && isFluidHovered(horizontal ? checkX : checkY)) {
         tooltip = FluidTooltipHandler.getFluidTooltip(fluid);
       } else {
         // function to call for amounts
@@ -140,7 +172,9 @@ public class GuiTankModule implements IScreenWithFluidTank, ClickableTankModule 
             formatter.accept(capacity - amount, tooltip);
           }
           // add shift message
-          FluidTooltipHandler.appendShift(tooltip);
+          if (formatter != FluidTooltipHandler.BUCKET_FORMATTER) {
+            FluidTooltipHandler.appendShift(tooltip);
+          }
         }
       }
 
@@ -151,7 +185,7 @@ public class GuiTankModule implements IScreenWithFluidTank, ClickableTankModule 
 
   @Override
   public FluidLocation getFluidUnderMouse(int mouseX, int mouseY) {
-    if (isHovered(mouseX, mouseY) && isFluidHovered(mouseY)) {
+    if (isHovered(mouseX, mouseY) && isFluidHovered(horizontal ? mouseX : mouseY)) {
       return new FluidLocation(tank.getFluidInTank(TANK_INDEX), fluidLoc);
     }
     return null;

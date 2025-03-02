@@ -7,8 +7,12 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.SlotAccess;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
@@ -22,6 +26,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ValidateModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.VolatileDataModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.SlotStackModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition.ConditionalModule;
@@ -53,8 +58,8 @@ import java.util.function.Predicate;
  * @param pattern        Slot background to show
  * @param condition      Additional conditions
  */
-public record InventoryModule(@Nullable ResourceLocation key, LevelingInt slots, LevelingInt slotLimit, IJsonPredicate<Item> filter, @Nullable Pattern pattern, ModifierCondition<IToolContext> condition, IntRange validationLevel) implements ModifierModule, InventoryModifierHook, VolatileDataModifierHook, ValidateModifierHook, ModifierRemovalHook, ModuleWithKey, ConditionalModule<IToolContext> {
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<InventoryModule>defaultHooks(ToolInventoryCapability.HOOK, ModifierHooks.VOLATILE_DATA, ModifierHooks.VALIDATE, ModifierHooks.REMOVE);
+public record InventoryModule(@Nullable ResourceLocation key, LevelingInt slots, LevelingInt slotLimit, IJsonPredicate<Item> filter, @Nullable Pattern pattern, ModifierCondition<IToolContext> condition, IntRange validationLevel) implements ModifierModule, InventoryModifierHook, VolatileDataModifierHook, ValidateModifierHook, ModifierRemovalHook, ModuleWithKey, ConditionalModule<IToolContext>, SlotStackModifierHook {
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<InventoryModule>defaultHooks(ToolInventoryCapability.HOOK, ModifierHooks.VOLATILE_DATA, ModifierHooks.VALIDATE, ModifierHooks.REMOVE, ModifierHooks.SLOT_STACK);
   /** Mod Data NBT mapper to get a compound list */
   public static final BiFunction<CompoundTag,String,ListTag> GET_COMPOUND_LIST = (nbt, name) -> nbt.getList(name, Tag.TAG_COMPOUND);
   /** Error for if the container has items preventing modifier removal */
@@ -72,6 +77,10 @@ public record InventoryModule(@Nullable ResourceLocation key, LevelingInt slots,
     ModifierEntry.VALID_LEVEL.defaultField("validation_level", InventoryModule::validationLevel),
     InventoryModule::new);
 
+  /** @apiNote Internal constructor. Use {@link #builder()} to instantiate. */
+  @Internal
+  public InventoryModule {}
+
   @Override
   public RecordLoadable<InventoryModule> getLoader() {
     return LOADER;
@@ -86,25 +95,25 @@ public record InventoryModule(@Nullable ResourceLocation key, LevelingInt slots,
   /* Properties */
 
   /** Gets the number of slots at the given level, assuming this module is active */
-  private int getPotentialSlots(int level) {
+  private int getPotentialSlots(float level) {
     return Math.max(0, slots.computeForLevel(level));
   }
 
   @Override
   public int getSlots(IToolStackView tool, ModifierEntry modifier) {
-    return condition.matches(tool, modifier) ? getPotentialSlots(modifier.intEffectiveLevel()) : 0;
+    return condition.matches(tool, modifier) ? getPotentialSlots(modifier.getEffectiveLevel()) : 0;
   }
 
   @Override
   public void addVolatileData(IToolContext context, ModifierEntry modifier, ToolDataNBT volatileData) {
     if (condition.matches(context, modifier)) {
-      ToolInventoryCapability.addSlots(volatileData, getPotentialSlots(modifier.intEffectiveLevel()));
+      ToolInventoryCapability.addSlots(volatileData, getPotentialSlots(modifier.getEffectiveLevel()));
     }
   }
 
   @Override
   public int getSlotLimit(IToolStackView tool, ModifierEntry modifier, int slot) {
-    return slotLimit.compute(modifier.intEffectiveLevel());
+    return slotLimit.compute(modifier.getEffectiveLevel());
   }
 
   @Override
@@ -302,6 +311,16 @@ public record InventoryModule(@Nullable ResourceLocation key, LevelingInt slots,
     return stackList;
   }
 
+
+  /* Slot interaction */
+
+  @Override
+  public boolean overrideOtherStackedOnMe(IToolStackView slotTool, ModifierEntry modifier, ItemStack held, Slot slot, Player player, SlotAccess access) {
+    if (getSlots(slotTool, modifier) > 0) {
+      return InventorySlotMenuModule.INSTANCE.overrideOtherStackedOnMe(slotTool, modifier, held, slot, player, access);
+    }
+    return false;
+  }
 
   /* Builder */
 

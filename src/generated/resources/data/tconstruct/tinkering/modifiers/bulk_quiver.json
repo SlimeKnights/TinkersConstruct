@@ -6,7 +6,7 @@
       "filter": "tconstruct:arrow",
       "pattern": "tconstruct:arrow",
       "slots": {
-        "flat": 2
+        "each_level": 2
       },
       "tool": {
         "type": "mantle:inverted",
@@ -30,7 +30,7 @@
       },
       "pattern": "tconstruct:arrow",
       "slots": {
-        "flat": 2
+        "each_level": 2
       },
       "tool": {
         "type": "mantle:tag",

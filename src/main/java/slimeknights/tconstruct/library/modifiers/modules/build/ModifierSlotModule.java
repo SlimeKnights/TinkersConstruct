@@ -44,7 +44,7 @@ public record ModifierSlotModule(SlotType type, int count, ModifierCondition<ITo
   @Override
   public void addVolatileData(IToolContext context, ModifierEntry modifier, ToolDataNBT volatileData) {
     if (condition.matches(context, modifier)) {
-      volatileData.addSlots(type, count * modifier.getLevel());
+      volatileData.addSlots(type, (int)(count * modifier.getEffectiveLevel()));
     }
   }
 

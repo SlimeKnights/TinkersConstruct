@@ -4,8 +4,10 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import slimeknights.tconstruct.TConstruct;
@@ -27,6 +29,7 @@ public class DoubleJumpModifier extends Modifier {
   public DoubleJumpModifier() {
     // TODO: move this out of constructor to generalized logic
     MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, DoubleJumpModifier::onLand);
+    MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, DoubleJumpModifier::onJump);
   }
 
   @Override
@@ -80,6 +83,13 @@ public class DoubleJumpModifier extends Modifier {
       }
     }
     return false;
+  }
+  /** Event handler to reset the number of times we have jumped in mid air */
+  private static void onJump(LivingJumpEvent event) {
+    LivingEntity living = event.getEntity();
+    if (living.onGround()) {
+      living.getCapability(PersistentDataCapability.CAPABILITY).ifPresent(data -> data.remove(JUMPS));
+    }
   }
 
   /** Event handler to reset the number of times we have jumpped in mid air */

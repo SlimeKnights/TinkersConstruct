@@ -226,7 +226,7 @@ public class FaucetBlockEntity extends MantleBlockEntity {
       // can we drain?
       IFluidHandler input = inputOptional.orElse(EmptyFluidHandler.INSTANCE);
       FluidStack drained = input.drain(PACKET_SIZE, FluidAction.SIMULATE);
-      if (!drained.isEmpty() && !drained.getFluid().getFluidType().isLighterThanAir()) {
+      if (!drained.isEmpty()) {
         // can we fill
         IFluidHandler output = outputOptional.orElse(EmptyFluidHandler.INSTANCE);
         int filled = output.fill(drained, FluidAction.SIMULATE);

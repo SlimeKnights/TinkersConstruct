@@ -12,6 +12,7 @@ import slimeknights.tconstruct.library.modifiers.fluid.EffectLevel;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidMobEffect;
+import slimeknights.tconstruct.library.modifiers.fluid.TimeAction;
 
 import java.util.List;
 
@@ -73,7 +74,7 @@ public record MobEffectCloudFluidEffect(List<FluidMobEffect> effects) implements
     return FluidEffect.makeTranslation(
       getLoader(),
       effects.stream()
-             .<Component>map(effect -> Component.translatable(FORMAT, effect.time() / 20, Component.translatable(effect.effect().getDescriptionId()), effect.amplifier() + 1))
+             .map(effect -> effect.getDisplayName(TimeAction.SET))
              .reduce(MERGE_COMPONENT_LIST).orElse(Component.empty()));
   }
 }

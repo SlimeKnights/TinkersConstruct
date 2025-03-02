@@ -21,8 +21,18 @@ public record LevelingInt(int flat, int eachLevel) {
     return this.flat + this.eachLevel * level;
   }
 
+  /** Computes the value for the given float level */
+  public int compute(float level) {
+    return (int)(this.flat + this.eachLevel * level);
+  }
+
   /** Computes the value for the given level but returns 0 if level is 0 */
   public int computeForLevel(int level) {
+    return level > 0 ? compute(level) : 0;
+  }
+
+  /** Computes the value for the given float level but returns 0 if level is 0 */
+  public int computeForLevel(float level) {
     return level > 0 ? compute(level) : 0;
   }
 

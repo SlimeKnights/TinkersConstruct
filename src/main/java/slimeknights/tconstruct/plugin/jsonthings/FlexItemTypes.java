@@ -15,6 +15,7 @@ import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.armor.texture.ArmorTextureSupplier;
+import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.item.ModifiableItem;
@@ -66,9 +67,10 @@ public class FlexItemTypes {
     /* Register a modifiable tool instance for melee/harvest tools */
     register("tool", data -> {
       boolean breakBlocksInCreative = GsonHelper.getAsBoolean(data, "break_blocks_in_creative", true);
+      int stackSize = GsonHelper.getAsInt(data, "max_stack_size", 1);
       return (IToolItemFactory<ModifiableItem>)(props, builder) -> {
         ToolDefinition definition = ToolDefinition.create(builder.getRegistryName());
-        return add(TOOL_ITEMS, breakBlocksInCreative ? new ModifiableItem(props, definition) : new ModifiableSwordItem(props, definition));
+        return add(TOOL_ITEMS, breakBlocksInCreative ? new ModifiableItem(props, definition, stackSize) : new ModifiableSwordItem(props, definition, stackSize));
       };
     });
 
@@ -94,7 +96,7 @@ public class FlexItemTypes {
     register("basic_armor", data -> {
       ResourceLocation name = JsonHelper.getResourceLocation(data, "texture_name");
       SoundEvent sound = Loadables.SOUND_EVENT.getOrDefault(data, "equip_sound", SoundEvents.ARMOR_EQUIP_GENERIC);
-      ArmorItem.Type slot = JsonHelper.getAsEnum(data, "slot", ArmorItem.Type.class);
+      ArmorItem.Type slot = TinkerLoadables.ARMOR_SLOT.getIfPresent(data, "slot");
       return (IToolItemFactory<ModifiableArmorItem>)(props, builder) -> add(ARMOR_ITEMS, new ModifiableArmorItem(new DummyArmorMaterial(name, sound), slot, props, ToolDefinition.create(builder.getRegistryName())));
     });
 
@@ -103,7 +105,7 @@ public class FlexItemTypes {
     register("multilayer_armor", data -> {
       ResourceLocation name = JsonHelper.getResourceLocation(data, "model_name");
       SoundEvent sound = Loadables.SOUND_EVENT.getOrDefault(data, "equip_sound", SoundEvents.ARMOR_EQUIP_GENERIC);
-      ArmorItem.Type slot = JsonHelper.getAsEnum(data, "slot", ArmorItem.Type.class);
+      ArmorItem.Type slot = TinkerLoadables.ARMOR_SLOT.getIfPresent(data, "slot");
       return (IToolItemFactory<MultilayerArmorItem>)(props, builder) -> add(ARMOR_ITEMS, new MultilayerArmorItem(new DummyArmorMaterial(name, sound), slot, props, ToolDefinition.create(builder.getRegistryName())));
     });
   }
