@@ -21,9 +21,9 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ProjectileWeaponItem;
@@ -453,37 +453,43 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
 
   /**
    * Launch projectile, play sound, and optionally consume durability. Does not handle ammunition consumption.
-   * @param ctx       user info
-   * @param tool      projectile weapon
-   * @param hand      hand. For weapon damaging only.
-   * @param ammo      ammunition. Will not be modified inside this method.
-   * @param direction direction to shoot at
-   * @param charge    charging percentage
+   *
+   * @param holder           user
+   * @param tool             projectile weapon
+   * @param hand             hand. For weapon damaging only.
+   * @param ammo             ammunition. Will not be modified inside this method.
+   * @param direction        direction to shoot at
+   * @param charge           charging percentage
+   * @param speedFactor      regular arrow speed at full charge. 3 for player with bow. 1.6 for skeletons. 3.15 for crossbows.
+   * @param inaccuracyFactor shoot inaccuracy factor. 1 for player, and hostile mobs use a complex formula involving difficulty.
+   * @param infinite         Whether to make the arrow marked as no-pickup. True for infinite arrows or hostile mob arrows.
+   * @param damageWeapon     Whether to damage weapon. False for hostile mobs.
    */
-  public void shootProjectiles(LauncherUserInfo ctx, IToolStackView tool, InteractionHand hand, ItemStack ammo, Vec3 direction, float charge) {
-    float velocity = ConditionalStatModifierHook.getModifiedStat(tool, ctx.user(), ToolStats.VELOCITY);
-    float inaccuracy = ModifierUtil.getInaccuracy(tool, ctx.user());
+  public void shootProjectiles(LivingEntity holder, IToolStackView tool, InteractionHand hand, ItemStack ammo, Vec3 direction, float charge,
+                               float speedFactor, float inaccuracyFactor, boolean infinite, boolean damageWeapon) {
+    float velocity = ConditionalStatModifierHook.getModifiedStat(tool, holder, ToolStats.VELOCITY);
+    float inaccuracy = ModifierUtil.getInaccuracy(tool, holder);
     float startAngle = getAngleStart(ammo.getCount());
     int primaryIndex = ammo.getCount() / 2;
     int damage = 0;
     for (int arrowIndex = 0; arrowIndex < ammo.getCount(); arrowIndex++) {
       // setup projectile
-      ProjectileData data = createProjectile(ctx.level(), ctx.user(), ammo);
+      ProjectileData data = createProjectile(holder.level(), holder, ammo);
       Projectile projectile = data.projectile();
       damage += data.damage();
-      assignArrowProperties(projectile, ctx.user(), tool, charge >= 1, ctx.infinite(), arrowIndex == primaryIndex);
+      assignArrowProperties(projectile, holder, tool, charge >= 1, infinite, arrowIndex == primaryIndex);
       // setup projectile
       float angle = startAngle + (10 * arrowIndex);
-      Vector3f targetVector = modifyShootAngle(ctx.user(), direction, angle);
+      Vector3f targetVector = modifyShootAngle(holder, direction, angle);
       projectile.shoot(targetVector.x(), targetVector.y(), targetVector.z(),
-        charge * velocity * data.speed() * ctx.speedFactor(),
-        inaccuracy * ctx.inaccuracyFactor());
+        charge * velocity * data.speed() * speedFactor,
+        inaccuracy * inaccuracyFactor);
       // finally, fire the projectile
-      ctx.level().addFreshEntity(projectile);
-      playShotSound(ctx.user(), charge, angle, ctx.user().getRandom());
+      holder.level().addFreshEntity(projectile);
+      playShotSound(holder, charge, angle, holder.getRandom());
     }
-    if (ctx.damageWeapon()) {
-      ToolDamageUtil.damageAnimated(tool, damage, ctx.user(), hand);
+    if (damageWeapon) {
+      ToolDamageUtil.damageAnimated(tool, damage, holder, hand);
     }
   }
 

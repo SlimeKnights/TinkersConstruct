@@ -183,14 +183,14 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
    * @param heldAmmo   Ammo used to fire, should be non-empty
    */
   public void fireCrossbow(IToolStackView tool, Player player, InteractionHand hand, CompoundTag heldAmmo) {
-    // ammo already loaded? time to fire
     Level level = player.level();
+    boolean creative = player.getAbilities().instabuild;
     if (!level.isClientSide) {
       // the ammo has a stack size that may be greater than 1 (meaning multishot)
       // when creating the ammo stacks, we use split, so its getting smaller each time
       ItemStack ammo = ItemStack.of(heldAmmo);
       // fire arrows, damage bow, play sound
-      shootProjectiles(LauncherUserInfo.playerLike(player, 3.15f), tool, hand, ammo, player.getViewVector(1.0f), 1);
+      shootProjectiles(player, tool, hand, ammo, player.getViewVector(1.0f), 1,3.15f, 1, creative, !creative);
       // clear the ammo
       tool.getPersistentData().remove(KEY_CROSSBOW_AMMO);
       // stats

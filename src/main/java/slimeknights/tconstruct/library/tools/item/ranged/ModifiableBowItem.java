@@ -151,7 +151,7 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
       if (ammo.isEmpty()) {
         ammo = new ItemStack(Items.ARROW);
       }
-      shootProjectiles(LauncherUserInfo.playerLike(player, 3f), tool, player.getUsedItemHand(), ammo, player.getViewVector(1.0f), charge);
+      shootProjectiles(player, tool, player.getUsedItemHand(), ammo, player.getViewVector(1.0f), charge, 3, 1, creative, !creative);
     }
 
     // stats and sounds
