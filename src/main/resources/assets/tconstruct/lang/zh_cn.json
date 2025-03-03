@@ -268,7 +268,8 @@
   "item.tconstruct.creative_slot.souls": "创造灵魂槽",
   "item.tconstruct.creative_slot.defense": "创造防御槽",
   "item.tconstruct.creative_slot.missing": "定义强化槽类型的NBT缺失或无效",
-  "item.tconstruct.creative_slot.tooltip": "为工具增加1个额外的%s槽",
+  "item.tconstruct.creative_slot.tooltip": "In creative, use on a tool in the inventory to grant an additional %s slot, or use a tool on it to remove the slot.",
+  "item.tconstruct.creative_slot.only": "Creative slots only work for players with operator permissions.",
 
   "item.tconstruct.copper_can": "铜罐",
   "item.tconstruct.copper_can.tooltip": "可堆叠的流体容器，能够盛装1锭的流体",
@@ -1075,6 +1076,7 @@
   "item.tconstruct.dummy_tool_part.tooltip": "用于铸造铸模，但不能用于制造工具。",
 
   "item.tconstruct.repair_kit": "修补件",
+  "item.tconstruct.repair_kit.tooltip": "Use on a tool in the inventory to repair it the equivalent of %s ingots",
 
   "item.tconstruct.pick_head": "镐头",
   "item.tconstruct.hammer_head": "锤头",
