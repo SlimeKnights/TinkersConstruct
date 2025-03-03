@@ -1,11 +1,11 @@
 {
-  "text": "Sometimes you just want to blow up your enemies without blowing up your world.",
+  "text": "有时候你只是想把敌人炸飞，而不是把你的世界炸的乱糟糟的。",
   "entity": [
-    "Power 2 explosion",
-    "Up to 3 Explosion Damage"
+    "爆炸威力2",
+    "最高3爆炸伤害"
   ],
   "block": [
-    "Explosion ignores blocks",
-    "Explosion causes fires"
+    "爆炸不会破坏方块",
+    "爆炸后会着火"
   ]
 }

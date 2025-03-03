@@ -1,11 +1,11 @@
 {
-  "title": "Water",
-  "text": "Water is not the most useful fluid, but can protect you from fire in hot environments.",
+  "title": "谁",
+  "text": "水算不上最有用的流体，但可以在炎热的环境中保护你。",
   "entity": [
-    "2 Water Damage",
-    "Extinguishes Fire"
+    "2溺水伤害",
+    "灭火"
   ],
   "block": [
-    "Breaks blocks broken by water"
+    "破坏水能破坏的方块"
   ]
 }

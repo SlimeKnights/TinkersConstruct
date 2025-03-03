@@ -1,11 +1,11 @@
 {
-  "text": "Cinderslime flows the wrong way, and its explosion goes the wrong way.",
+  "text": "余烬黏液漂浮方向相反，爆炸也是如此。",
   "entity": [
-    "Power 2 explosion",
-    "Up to 3 Explosion Damage",
-    "Inverted explosion knockback"
+    "爆炸威力2",
+    "最高3爆炸伤害",
+    "反向爆炸击退"
   ],
   "block": [
-    "Explosion breaks blocks"
+    "爆炸会破坏方块"
   ]
 }
