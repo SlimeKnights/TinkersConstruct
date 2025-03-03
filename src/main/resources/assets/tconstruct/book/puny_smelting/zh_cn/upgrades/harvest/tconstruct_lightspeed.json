@@ -5,6 +5,7 @@
       "text": "光芒照耀你的工具，助你加速采掘。"
     }
   ],
+  "tool_filter": "tconstruct:modifiable/harvest",
   "effects": [
     "增加采掘受到良好光照的方块的挖掘速度",
     "多个等级，每级进一步增加挖掘速度",

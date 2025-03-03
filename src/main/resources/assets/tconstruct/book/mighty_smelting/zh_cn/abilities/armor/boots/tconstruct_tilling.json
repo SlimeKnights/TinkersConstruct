@@ -1,10 +1,11 @@
 {
-  "modifier_id": "tconstruct:plowing",
+  "modifier_id": "tconstruct:tilling",
   "text": [
     {
       "text": "有过建造大型农场的想法吗？真的很大的那种？现在那个想法可行了。"
     }
   ],
+  "tool_filter": "tconstruct:modifiable/armor/boots",
   "effects": [
     "使走过的土壤变为耕地",
     "“延展”可以扩大开垦范围",
