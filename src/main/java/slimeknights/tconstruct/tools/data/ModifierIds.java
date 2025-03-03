@@ -34,6 +34,7 @@ public class ModifierIds {
   public static final ModifierId smelting = id("smelting");
   // general abilities
   public static final ModifierId reach = id("reach");
+  public static final ModifierId glowing = id("glowing");
   // compat
   public static final ModifierId theOneProbe = id("the_one_probe");
   public static final ModifierId headlight = id("headlight");
@@ -104,8 +105,6 @@ public class ModifierIds {
   public static final ModifierId featherFalling = id("feather_falling");
   public static final ModifierId longFall = id("long_fall");
   public static final ModifierId frostWalker = id("frost_walker");
-  public static final ModifierId pathMaker = id("path_maker");
-  public static final ModifierId plowing = id("plowing");
   public static final ModifierId snowdrift = id("snowdrift");
   // shield
   public static final ModifierId boundless = id("boundless");

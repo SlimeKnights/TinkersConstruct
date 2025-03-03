@@ -116,6 +116,7 @@ public record ToolActionTransformModule(ToolAction action, SoundEvent sound, boo
     /**
      * Event ID to play upon success
      * @see Level#levelEvent(int, BlockPos, int)
+     * @see net.minecraft.world.level.block.LevelEvent
      */
     @Setter
     @Accessors(fluent = true)

@@ -8,6 +8,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.primitive.StringLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
@@ -48,7 +49,11 @@ public record MeleeAttributeModule(String unique, Attribute attribute, UUID uuid
     ModifierCondition.TOOL_FIELD,
     MeleeAttributeModule::new);
 
-  public MeleeAttributeModule(String unique, Attribute attribute, Operation operation, LevelingValue amount, ModifierCondition<IToolStackView> condition) {
+  /** @apiNote Internal constructor, use {@link #builder(Attribute, Operation)} */
+  @Internal
+  public MeleeAttributeModule {}
+
+  private MeleeAttributeModule(String unique, Attribute attribute, Operation operation, LevelingValue amount, ModifierCondition<IToolStackView> condition) {
     this(unique, attribute, UUID.nameUUIDFromBytes(unique.getBytes()), operation, amount, condition);
   }
 

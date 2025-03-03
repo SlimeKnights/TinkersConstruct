@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.modifiers.modules.combat;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.world.entity.LivingEntity;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
@@ -38,6 +39,10 @@ public record KnockbackModule(IJsonPredicate<LivingEntity> entity, ModifierFormu
     FORMULA.directField(KnockbackModule::formula),
     ModifierCondition.TOOL_FIELD,
     KnockbackModule::new);
+
+  /** @apiNote Internal constructor, use {@link #builder()} */
+  @Internal
+  public KnockbackModule {}
 
   @Override
   public List<ModuleHook<?>> getDefaultHooks() {

@@ -2,15 +2,26 @@ package slimeknights.tconstruct.tools.item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ClickAction;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
+import slimeknights.tconstruct.library.tools.definition.module.material.MaterialRepairToolHook;
+import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.part.IRepairKitItem;
 import slimeknights.tconstruct.library.tools.part.MaterialItem;
 import slimeknights.tconstruct.library.tools.part.ToolPartItem;
@@ -20,6 +31,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class RepairKitItem extends MaterialItem implements IRepairKitItem {
+  private static final String TOOLTIP_KEY = TConstruct.makeTranslationKey("item", "repair_kit.tooltip");
   private final float repairAmount;
   public RepairKitItem(Properties properties, float repairAmount) {
     super(properties);
@@ -47,6 +59,7 @@ public class RepairKitItem extends MaterialItem implements IRepairKitItem {
         tooltip.add((Component.translatable(ToolPartItem.MATERIAL_KEY, materialVariant.toString())).withStyle(ChatFormatting.DARK_GRAY));
       }
     }
+    tooltip.add(Component.translatable(TOOLTIP_KEY, getRepairAmount()).withStyle(ChatFormatting.GRAY));
   }
 
   @Override
@@ -55,5 +68,39 @@ public class RepairKitItem extends MaterialItem implements IRepairKitItem {
       return Config.COMMON.repairKitAmount.get().floatValue();
     }
     return repairAmount;
+  }
+
+  @Override
+  public boolean overrideStackedOnOther(ItemStack stack, Slot slot, ClickAction action, Player player) {
+    // stacking on a tool repairs the tool, if the material is valid
+    if (action == ClickAction.SECONDARY && slot.allowModification(player)) {
+      // tool must be modifiable, if so block interactions beyond repair
+      ItemStack toolItem = slot.getItem();
+      if (!toolItem.isEmpty() && toolItem.is(TinkerTags.Items.MODIFIABLE)) {
+        ToolStack tool = ToolStack.from(toolItem);
+        MaterialId material = getMaterial(stack).getId();
+        // tool must be damaged for us to repair it, and we must have a material
+        if (tool.getDamage() > 0 && material != IMaterial.UNKNOWN_ID) {
+          // ask the tool how much this material is worth
+          float amount = MaterialRepairToolHook.repairAmount(tool, material);
+          if (amount > 0) {
+            // if its worth anything, add in repair kit value, then ask modifiers to change the amount
+            amount *= getRepairAmount() / MaterialRecipe.INGOTS_PER_REPAIR;
+            for (ModifierEntry entry : tool.getModifierList()) {
+              amount = entry.getHook(ModifierHooks.REPAIR_FACTOR).getRepairFactor(tool, entry, amount);
+              if (amount <= 0) {
+                return true;
+              }
+            }
+            // assuming no modifier said no repair, we are good, time to repair
+            ToolDamageUtil.repair(tool, (int)amount);
+            tool.updateStack(toolItem);
+            stack.shrink(1);
+          }
+        }
+        return true;
+      }
+    }
+    return false;
   }
 }

@@ -143,6 +143,9 @@ public class TinkerTags {
     /** Tanks that serve as a valid input for the alloyer, should be fluid handlers with 1 fluid */
     public static final TagKey<Block> ALLOYER_TANKS = local("alloyer_tanks");
 
+    /** Blocks that are treated as equivelent to air in structure detection. Used primarily for invisible light blocks */
+    public static final TagKey<Block> STRUCTURE_AIR = local("structure_air");
+
     /** Blocks that make up the smeltery structure */
     public static final TagKey<Block> SMELTERY = local("smeltery");
     /** Blocks valid as a smeltery tank, required for fuel */

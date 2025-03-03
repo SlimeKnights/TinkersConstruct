@@ -11,6 +11,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
@@ -54,6 +55,10 @@ public record ArmorStatModule(TinkerDataKey<Float> key, LevelingValue amount, bo
     new EnumLoadable<>(TooltipStyle.class).defaultField("tooltip_style", TooltipStyle.NONE, ArmorStatModule::tooltipStyle),
     ModifierCondition.TOOL_FIELD,
     ArmorStatModule::new);
+
+  /** @apiNote Internal constructor, use {@link #builder(TinkerDataKey)} */
+  @Internal
+  public ArmorStatModule {}
 
   @Override
   public RecordLoadable<ArmorStatModule> getLoader() {

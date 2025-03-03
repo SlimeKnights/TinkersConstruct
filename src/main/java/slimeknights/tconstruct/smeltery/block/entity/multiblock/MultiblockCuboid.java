@@ -18,6 +18,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.utils.TagUtil;
 
 import javax.annotation.Nullable;
@@ -317,7 +318,7 @@ public abstract class MultiblockCuboid<T extends MultiblockStructureData> {
         mutable.set(x, height, z);
         if (isInnerBlock(world, mutable)) {
           // any non airblocks are added to extra blocks, this region is ignored by default
-          if (!world.isEmptyBlock(mutable)) {
+          if (!isAirBlock(world, mutable)) {
             candidates.add(mutable.immutable());
           }
         } else {
@@ -358,6 +359,16 @@ public abstract class MultiblockCuboid<T extends MultiblockStructureData> {
 
   /* Valid Blocks */
 
+  /** Checks if the block is air or an air equivalent */
+  public static boolean isAirBlock(BlockState state) {
+    return state.isAir() || state.is(TinkerTags.Blocks.STRUCTURE_AIR);
+  }
+
+  /** Checks if the block is air or an air equivalent */
+  public static boolean isAirBlock(Level world, BlockPos pos) {
+    return isAirBlock(world.getBlockState(pos));
+  }
+
   /**
    * Checks if a block is valid in the structure
    * @param world    Level argument
@@ -375,7 +386,7 @@ public abstract class MultiblockCuboid<T extends MultiblockStructureData> {
    * @return  True if its a valid inner block
    */
   public boolean isInnerBlock(Level world, BlockPos pos) {
-    return world.isEmptyBlock(pos);
+    return isAirBlock(world, pos);
   }
 
 

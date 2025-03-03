@@ -3,7 +3,7 @@
   "allow_crystal": true,
   "inputs": [
     {
-      "tag": "forge:ingots/cobalt"
+      "tag": "forge:ingots/steel"
     },
     {
       "item": "minecraft:flint"

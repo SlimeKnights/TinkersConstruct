@@ -12,6 +12,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.phys.EntityHitResult;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
@@ -57,6 +58,10 @@ public record MobEffectModule(IJsonPredicate<LivingEntity> target, MobEffect eff
   public static MobEffectModule.Builder builder(MobEffect effect) {
     return new Builder(effect);
   }
+  
+  /** @apiNote Internal constructor, use {@link #builder(MobEffect)} */
+  @Internal
+  public MobEffectModule {}
 
   /** Applies the effect for the given level */
   private void applyEffect(@Nullable LivingEntity target, float scaledLevel) {

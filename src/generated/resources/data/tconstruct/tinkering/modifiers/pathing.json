@@ -13,6 +13,15 @@
       "require_ground": true,
       "sound": "minecraft:item.shovel.flatten",
       "tool_action": "shovel_flatten"
+    },
+    {
+      "type": "tconstruct:tool_action_walk_transform",
+      "radius": {
+        "each_level": 1.0,
+        "flat": 0.5
+      },
+      "sound": "minecraft:item.shovel.flatten",
+      "tool_action": "shovel_flatten"
     }
   ],
   "tooltip_display": "always"

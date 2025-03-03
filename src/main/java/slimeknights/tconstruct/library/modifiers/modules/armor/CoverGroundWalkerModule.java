@@ -8,6 +8,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.common.BlockStateLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.json.LevelingValue;
@@ -32,6 +33,10 @@ public record CoverGroundWalkerModule(BlockState state, LevelingValue radius, Mo
     ModifierCondition.TOOL_FIELD,
     CoverGroundWalkerModule::new);
 
+  /** @apiNote Internal constructor, use builder via {@link #block(Block)}. */
+  @Internal
+  public CoverGroundWalkerModule {}
+
   @Override
   public float getRadius(IToolStackView tool, ModifierEntry modifier) {
     return radius.compute(modifier.getLevel() + tool.getModifierLevel(TinkerModifiers.expanded.getId()));
@@ -45,10 +50,11 @@ public record CoverGroundWalkerModule(BlockState state, LevelingValue radius, Mo
   }
 
   @Override
-  public void walkOn(IToolStackView tool, ModifierEntry entry, LivingEntity living, Level world, BlockPos target, MutableBlockPos mutable, Void context) {
+  public boolean walkOn(IToolStackView tool, ModifierEntry entry, LivingEntity living, Level world, BlockPos target, MutableBlockPos mutable, Void context) {
     if (world.isEmptyBlock(target) && state.canSurvive(world, target)) {
       world.setBlockAndUpdate(target, state);
     }
+    return false;
   }
 
   @Override

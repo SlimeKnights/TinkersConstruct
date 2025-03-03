@@ -3,15 +3,25 @@ package slimeknights.tconstruct.tools.item;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.SlotAccess;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ClickAction;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import slimeknights.mantle.command.MantleCommand;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.TinkerTags.Modifiers;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
+import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -67,6 +77,90 @@ public class ModifierCrystalItem extends Item {
       return modifier.getNamespace();
     }
     return null;
+  }
+
+  /** @see slimeknights.tconstruct.shared.command.subcommand.ModifiersCommand */
+  @Override
+  public boolean overrideStackedOnOther(ItemStack stack, Slot slot, ClickAction action, Player player) {
+    // stacking a crystal on a tool attempts to add it when in creative
+    // see also - modifier adding command
+
+    // must be op or in creative, right-clicking onto a modifiable slot
+    if (action == ClickAction.SECONDARY && slot.allowModification(player) && (player.isCreative() || player.hasPermissions(MantleCommand.PERMISSION_GAME_COMMANDS))) {
+      ModifierId modifier = getModifier(stack);
+      ItemStack toolItem = slot.getItem();
+      // slot must have a tool, NBT must be valid
+      if (modifier != null && !toolItem.isEmpty() && toolItem.is(TinkerTags.Items.MODIFIABLE)) {
+        if (!player.level().isClientSide || (player.isCreative() && player.containerMenu.menuType == null)) {
+          ToolStack tool = ToolStack.copyFrom(toolItem);
+
+          // add modifier
+          tool.addModifier(modifier, stack.getCount());
+
+          // ensure no modifier problems after adding
+          Component toolValidation = tool.tryValidate();
+          if (toolValidation != null) {
+            player.displayClientMessage(toolValidation, false);
+          } else {
+            tool.updateStack(toolItem);
+          }
+        }
+        return true;
+      }
+      return false;
+    }
+    return false;
+  }
+
+  /** @see slimeknights.tconstruct.shared.command.subcommand.ModifiersCommand */
+  @Override
+  public boolean overrideOtherStackedOnMe(ItemStack stack, ItemStack toolItem, Slot slot, ClickAction action, Player player, SlotAccess access) {
+    // stacking a tool on a crystal attempts to remove the modifier in creative
+    // see also - modifier removal command
+
+    // must be op or in creative, right-clicking onto a modifiable slot with a tool
+    if (action == ClickAction.SECONDARY && slot.allowModification(player) && !toolItem.isEmpty() && toolItem.is(TinkerTags.Items.MODIFIABLE) && (player.isCreative() || player.hasPermissions(MantleCommand.PERMISSION_GAME_COMMANDS))) {
+      // NBT must be valid
+      ModifierId modifier = getModifier(stack);
+      if (modifier != null) {
+        if (!player.level().isClientSide || (player.isCreative() && player.containerMenu.menuType == null)) {
+          ToolStack original = ToolStack.from(toolItem);
+          ToolStack tool = original.copy();
+
+          // ensure we have something to remove
+          ModifierEntry entry = tool.getUpgrades().getEntry(modifier);
+          if (entry.getLevel() <= 0) {
+            return true;
+          }
+          // call remove hook
+          int newLevel = entry.getLevel() - stack.getCount();
+          if (newLevel <= 0) {
+            entry.getHook(ModifierHooks.RAW_DATA).removeRawData(tool, entry.getModifier(), tool.getRestrictedNBT());
+          }
+          tool.removeModifier(modifier, stack.getCount());
+
+          // ensure no modifier problems after adding
+          Component toolValidation = tool.tryValidate();
+          if (toolValidation != null) {
+            player.displayClientMessage(toolValidation, false);
+            return true;
+          }
+
+          // ask modifiers if it's okay to remove them
+          toolValidation = ModifierRemovalHook.onRemoved(original, tool);
+          if (toolValidation != null) {
+            player.displayClientMessage(toolValidation, false);
+            return true;
+          }
+
+          // success, update tool
+          tool.updateStack(toolItem);
+        }
+        return true;
+      }
+      return false;
+    }
+    return false;
   }
 
 

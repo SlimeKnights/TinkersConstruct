@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:glowing",
+  "text": [
+    {
+      "text": "As you walk, places glows in dark nearby areas. Placing a glow consumes 5 durability. Range can be expanded using the expanded modifier."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/armor/boots",
+  "effects": [
+    "Maximum of 1 level",
+    "Requires 1 ability slot"
+  ]
+}

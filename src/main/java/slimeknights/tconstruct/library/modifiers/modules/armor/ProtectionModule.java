@@ -8,6 +8,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
@@ -51,6 +52,10 @@ public record ProtectionModule(IJsonPredicate<DamageSource> source, IJsonPredica
     LevelingValue.LOADABLE.directField(ProtectionModule::amount),
     ModifierCondition.TOOL_FIELD,
     ProtectionModule::new);
+
+  /** @apiNote Internal constructor, use {@link #builder()} */
+  @Internal
+  public ProtectionModule {}
 
   @Override
   public List<ModuleHook<?>> getDefaultHooks() {

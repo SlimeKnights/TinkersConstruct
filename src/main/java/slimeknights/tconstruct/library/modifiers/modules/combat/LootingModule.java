@@ -6,6 +6,7 @@ import lombok.experimental.Accessors;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
@@ -14,16 +15,16 @@ import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.json.predicate.TinkerPredicate;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.combat.ArmorLootingModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.combat.LootingModifierHook;
-import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.util.IntLevelModule;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition.ConditionalModule;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModuleBuilder;
+import slimeknights.tconstruct.library.module.HookProvider;
+import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.context.LootingContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
@@ -99,6 +100,10 @@ public interface LootingModule extends ModifierModule, IntLevelModule, Condition
     private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<Weapon>defaultHooks(ModifierHooks.WEAPON_LOOTING);
     public static final RecordLoadable<Weapon> LOADER = RecordLoadable.create(IntLevelModule.FIELD, HOLDER, TARGET, DAMAGE_SOURCE, ModifierCondition.TOOL_FIELD, Weapon::new);
 
+    /** @apiNote Internal constructor, use {@link Builder#weapon()} */
+    @Internal
+    public Weapon {}
+
     @Override
     public int updateLooting(IToolStackView tool, ModifierEntry modifier, LootingContext context, int looting) {
       if (matchesConditions(tool, modifier, context)) {
@@ -122,6 +127,10 @@ public interface LootingModule extends ModifierModule, IntLevelModule, Condition
   record Armor(int level, IJsonPredicate<LivingEntity> holder, IJsonPredicate<LivingEntity> target, IJsonPredicate<DamageSource> damageSource, ModifierCondition<IToolStackView> condition, Set<EquipmentSlot> slots) implements LootingModule, ArmorLootingModifierHook {
     private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<Armor>defaultHooks(ModifierHooks.ARMOR_LOOTING);
     public static final RecordLoadable<Armor> LOADER = RecordLoadable.create(IntLevelModule.FIELD, HOLDER, TARGET, DAMAGE_SOURCE, ModifierCondition.TOOL_FIELD, TinkerLoadables.EQUIPMENT_SLOT_SET.requiredField("slots", Armor::slots), Armor::new);
+
+    /** @apiNote Internal constructor, use {@link Builder#armor(EquipmentSlot...)} or {@link Builder#armor()} */
+    @Internal
+    public Armor {}
 
     @Override
     public int updateArmorLooting(IToolStackView tool, ModifierEntry modifier, LootingContext context, EquipmentContext equipment, EquipmentSlot slot, int looting) {

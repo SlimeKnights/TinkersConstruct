@@ -22,6 +22,13 @@ import java.util.function.Consumer;
  * Inventory composite made of a set of melting module inventories
  */
 public class MeltingModuleInventory implements IItemHandlerModifiable {
+  /**
+   * There are {@link Short#MAX_VALUE} data slots in a standard container instance.
+   * The smeltery requires 6 slots for fuel syncing. It also requires 3 slots per inventory slot.
+   * Thus, the largest number of slots we can have without breaking syncing is the below equation.
+   * This does leave us with 1 extra unused slot. If we add anything that uses more slots we will want to adjust this number.
+   */
+  private static final int MAX_SIZE = (Short.MAX_VALUE - 6) / 3;
   private static final String TAG_SLOT = "slot";
   private static final String TAG_ITEMS = "items";
   private static final String TAG_SIZE = "size";
@@ -148,6 +155,9 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
   public void resize(int newSize, Consumer<ItemStack> stackConsumer) {
     if (strictSize) {
       throw new IllegalStateException("Cannot resize this melting module inventory");
+    }
+    if (newSize > MAX_SIZE) {
+      newSize = MAX_SIZE;
     }
     // nothing to do
     if (newSize == modules.length) {

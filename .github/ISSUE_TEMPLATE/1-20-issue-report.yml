@@ -1,5 +1,5 @@
 name: 1.20 Issue Report
-description: Report an issue with 1.20, currently Alpha builds.
+description: Report an issue with 1.20, currently Beta builds.
 labels: ["1.20", Bug, Unreviewed]
 body:
   - type: markdown

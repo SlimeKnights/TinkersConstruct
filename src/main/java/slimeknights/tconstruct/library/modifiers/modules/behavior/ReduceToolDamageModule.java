@@ -4,6 +4,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.TooltipFlag;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.json.math.FormulaLoadable;
@@ -42,6 +43,10 @@ public record ReduceToolDamageModule(ModifierFormula formula, ModifierCondition<
   public static FormulaLoadable.Builder<ReduceToolDamageModule> builder() {
     return FORMULA.builder(ReduceToolDamageModule::new);
   }
+
+  /** @apiNote Internal constructor, use {@link #builder()} */
+  @Internal
+  public ReduceToolDamageModule {}
 
   @Override
   public List<ModuleHook<?>> getDefaultHooks() {

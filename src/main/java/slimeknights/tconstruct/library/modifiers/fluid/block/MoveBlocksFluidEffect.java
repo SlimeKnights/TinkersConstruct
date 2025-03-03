@@ -9,6 +9,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.piston.MovingPistonBlock;
@@ -80,7 +81,7 @@ public record MoveBlocksFluidEffect(boolean push, SoundEvent sound) implements F
         if (action.execute()) {
           destroyBlock(world, pos, originalState);
           // add breaking particles and sound
-          world.levelEvent(2001, pos, Block.getId(originalState));
+          world.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(originalState));
           // update neighbors that the block was destroyed
           BlockState airState = Blocks.AIR.defaultBlockState();
           originalState.updateIndirectNeighbourShapes(world, pos, Block.UPDATE_CLIENTS);

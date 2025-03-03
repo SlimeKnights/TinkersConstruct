@@ -15,6 +15,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootParams;
@@ -112,7 +113,7 @@ public record BreakBlockFluidEffect(float hardness, Map<Enchantment,Integer> enc
             .withOptionalParameter(LootContextParams.THIS_ENTITY, source);
           state.getDrops(lootParams).forEach(stack -> Block.popResource(world, pos, stack));
           state.spawnAfterBreak(server, pos, fakeTool, player != null);
-          world.levelEvent(2001, pos, Block.getId(state));
+          world.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, pos, Block.getId(state));
         }
       }
       return requirement;

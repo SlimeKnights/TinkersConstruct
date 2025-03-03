@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.modifiers.modules.build;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.primitive.EnumLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.json.LevelingValue;
@@ -32,6 +33,10 @@ public record StatBoostModule(INumericToolStat<?> stat, StatOperation operation,
     LevelingValue.LOADABLE.directField(StatBoostModule::amount),
     ModifierCondition.CONTEXT_FIELD,
     StatBoostModule::new);
+
+  /** @apiNote Internal constructor, use {@link #stat()} */
+  @Internal
+  public StatBoostModule {}
 
   @Override
   public void addToolStats(IToolContext context, ModifierEntry modifier, ModifierStatsBuilder builder) {

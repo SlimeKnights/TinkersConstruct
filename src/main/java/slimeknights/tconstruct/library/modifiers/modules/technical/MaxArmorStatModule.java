@@ -9,6 +9,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
@@ -43,7 +44,11 @@ public record MaxArmorStatModule(TinkerDataKey<Float> statKey, LevelingValue amo
     ModifierCondition.TOOL_FIELD,
     MaxArmorStatModule::new);
 
-  public MaxArmorStatModule(TinkerDataKey<Float> statKey, LevelingValue amount, boolean allowBroken, @Nullable TagKey<Item> heldTag, ArmorStatModule.TooltipStyle tooltipStyle, ModifierCondition<IToolStackView> condition) {
+  /** @apiNote Internal constructor, use {@link #builder(TinkerDataKey)} */
+  @Internal
+  public MaxArmorStatModule {}
+
+  private MaxArmorStatModule(TinkerDataKey<Float> statKey, LevelingValue amount, boolean allowBroken, @Nullable TagKey<Item> heldTag, ArmorStatModule.TooltipStyle tooltipStyle, ModifierCondition<IToolStackView> condition) {
     this(statKey, amount, MaxArmorLevelModule.createKey(statKey.getId()), allowBroken, heldTag, tooltipStyle, condition);
   }
 

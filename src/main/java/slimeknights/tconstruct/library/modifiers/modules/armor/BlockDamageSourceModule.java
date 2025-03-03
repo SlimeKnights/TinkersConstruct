@@ -4,17 +4,18 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.damage.DamageSourcePredicate;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.armor.DamageBlockModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition.ConditionalModule;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModuleBuilder;
+import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
@@ -30,6 +31,10 @@ public record BlockDamageSourceModule(IJsonPredicate<DamageSource> source, Modif
     DamageSourcePredicate.LOADER.defaultField("damage_source", BlockDamageSourceModule::source),
     ModifierCondition.TOOL_FIELD,
     BlockDamageSourceModule::new);
+
+  /** @apiNote Internal constructor, use {@link #source(IJsonPredicate)} */
+  @Internal
+  public BlockDamageSourceModule {}
 
   @Override
   public List<ModuleHook<?>> getDefaultHooks() {

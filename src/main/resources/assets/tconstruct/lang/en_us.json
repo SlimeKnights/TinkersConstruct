@@ -268,7 +268,8 @@
   "item.tconstruct.creative_slot.souls": "Creative Soul Slot",
   "item.tconstruct.creative_slot.defense": "Creative Defense Slot",
   "item.tconstruct.creative_slot.missing": "Missing or invalid NBT defining the slot type",
-  "item.tconstruct.creative_slot.tooltip": "Adds an additional %s slot to a tool",
+  "item.tconstruct.creative_slot.tooltip": "In creative, use on a tool in the inventory to grant an additional %s slot, or use a tool on it to remove the slot.",
+  "item.tconstruct.creative_slot.only": "Creative slots only work for players in creative or with operator permissions.",
 
   "item.tconstruct.copper_can": "Copper Can",
   "item.tconstruct.copper_can.tooltip": "Stackable container holding 1 ingot of fluid",
@@ -1075,6 +1076,7 @@
   "item.tconstruct.dummy_tool_part.tooltip": "Used to create casts, cannot be used to create tools.",
 
   "item.tconstruct.repair_kit": "Repair Kit",
+  "item.tconstruct.repair_kit.tooltip": "Use on a tool in the inventory to repair it the equivalent of %s ingots",
 
   "item.tconstruct.pick_head": "Pick Head",
   "item.tconstruct.hammer_head": "Hammer Head",
@@ -1779,14 +1781,14 @@
 
   "material.tconstruct.manyullyn": "Manyullyn",
   "material.tconstruct.manyullyn.flavor": "The metal that most Tinkers will never pronounce right. Also known as a star cutting material.",
-  "material.tconstruct.manyullyn.encyclopedia": "Grants +2 damage per level after 8 consecutive hits",
-  "material.tconstruct.manyullyn.ranged": "Arrows gain +1 damage per level (before velocity) after 8 consecutive arrow hits",
+  "material.tconstruct.manyullyn.encyclopedia": "Grants up to +2 damage per level, with the damage increasing linearly over 8 consecutive hits",
+  "material.tconstruct.manyullyn.ranged": "Arrows gain up to +1 damage per level (before velocity), with damage increasing linearly over 8 consecutive arrow hits",
   "material.tconstruct.manyullyn.armor": "Temporarily boosts melee damage by 1 after taking damage, capping at the total level across all armor",
 
   "material.tconstruct.hepatizon": "Hepatizon",
   "material.tconstruct.hepatizon.flavor": "He-pa-ti-zon - boil it, mash it, put it in a stew.",
-  "material.tconstruct.hepatizon.encyclopedia": "Boosts mining speed by 25% per level after mining 32 consecutive blocks",
-  "material.tconstruct.hepatizon.ranged": "Boosts drawspeed by 25% per level after firing 16 consecutive arrows",
+  "material.tconstruct.hepatizon.encyclopedia": "Boosts mining speed by up to 25% per level, linearly increasing over mining 32 consecutive blocks",
+  "material.tconstruct.hepatizon.ranged": "Boosts drawspeed by up to 25% per level, linearly increasing while firing 16 consecutive arrows",
   "material.tconstruct.hepatizon.armor": "Reduces damage from all attacks by 5% per level if you recently took damage",
 
   "material.tconstruct.cinderslime": "Cinderslime",
@@ -1826,7 +1828,7 @@
   "__comment": "Slimesuit materials",
   "material.tconstruct.glass": "Glass",
   "material.tconstruct.glass.skull_flavor": "Whose nice things are being destroyed now, creeper?",
-  "material.tconstruct.glass.skull_encyclopedia": "Holding the helmet interact key causes the wearer to explode",
+  "material.tconstruct.glass.skull_encyclopedia": "Holding the helmet interact key while sneaking causes the wearer to explode",
 
   "material.tconstruct.ender_pearl": "Ender Pearl",
   "material.tconstruct.ender_pearl.skull_flavor": "Endermen know how to stay away from harm, and scientists. They have been ignoring my interview requests for weeks!",
@@ -1933,8 +1935,8 @@
 
   "material.tconstruct.electrum": "Electrum",
   "material.tconstruct.electrum.flavor": "Good for electronic components.",
-  "material.tconstruct.electrum.encyclopedia": "Grants +50% XP per level from blocks and monsters",
-  "material.tconstruct.electrum.ranged": "Grants +50% XP per level from monsters killed by arrows",
+  "material.tconstruct.electrum.encyclopedia": "Grants +25% XP per level from blocks and monsters",
+  "material.tconstruct.electrum.ranged": "Grants +25% XP per level from monsters killed by arrows",
 
   "material.tconstruct.necronium": "Necronium",
   "material.tconstruct.necronium.flavor": "This much decay probably only leaves it with a quarter life",
@@ -2023,7 +2025,7 @@
   "modifier.tconstruct.hydraulic.mining_speed": "Water Mining",
   "modifier.tconstruct.lightspeed": "Lightspeed",
   "modifier.tconstruct.lightspeed.flavor": "Brighter is faster!",
-  "modifier.tconstruct.lightspeed.description": "Tool mines well lit blocks faster!",
+  "modifier.tconstruct.lightspeed.description": "Tool mines well lit blocks faster! Boots move faster in the light!",
   "modifier.tconstruct.lightspeed.mining_speed": "Mining in Light",
 
   "_comment": "Weapon",
@@ -2308,9 +2310,6 @@
   "modifier.tconstruct.soulspeed": "Soulspeed",
   "modifier.tconstruct.soulspeed.flavor": "Spooky",
   "modifier.tconstruct.soulspeed.description": "Increases movement speed on soul sand",
-  "modifier.tconstruct.lightspeed_armor": "Lightspeed",
-  "modifier.tconstruct.lightspeed_armor.flavor": "Brighter is faster!",
-  "modifier.tconstruct.lightspeed_armor.description": "Moves faster in well lit areas",
   "modifier.tconstruct.depth_strider": "Depth Strider",
   "modifier.tconstruct.depth_strider.flavor": "Splish Splash",
   "modifier.tconstruct.depth_strider.description": "Increases movement speed underwater",
@@ -2326,12 +2325,6 @@
   "modifier.tconstruct.frost_walker": "Frost Walker",
   "modifier.tconstruct.frost_walker.flavor": "Where's My Super Suit?",
   "modifier.tconstruct.frost_walker.description": "Causes water blocks to temporarily freeze",
-  "modifier.tconstruct.path_maker": "Path Maker",
-  "modifier.tconstruct.path_maker.flavor": "Lead the way",
-  "modifier.tconstruct.path_maker.description": "Leaves paths wherever you step",
-  "modifier.tconstruct.plowing": "Plowing",
-  "modifier.tconstruct.plowing.flavor": "Tractors were invented in 1892",
-  "modifier.tconstruct.plowing.description": "Tills the blocks in your path",
   "modifier.tconstruct.snowdrift": "Snowdrift",
   "modifier.tconstruct.snowdrift.flavor": "Golem golem",
   "modifier.tconstruct.snowdrift.description": "Leave a trail of snow like a snow golem",
@@ -2910,7 +2903,7 @@
   "tool_stat.tconstruct.accuracy": "Accuracy: ",
   "tool_stat.tconstruct.accuracy.description": "Determines how close the bow aims towards the center.",
   "tool_stat.tconstruct.projectile_damage": "Proj. Power: ",
-  "tool_stat.tconsturct.projectile_damage.description": "Determines the base damage or strength of projectiles fired by this weapon.",
+  "tool_stat.tconstruct.projectile_damage.description": "Determines the base damage or strength of projectiles fired by this weapon.",
 
   "stat.tconstruct.binding": "Binding",
   "stat.tconstruct.bowstring": "Bowstring",

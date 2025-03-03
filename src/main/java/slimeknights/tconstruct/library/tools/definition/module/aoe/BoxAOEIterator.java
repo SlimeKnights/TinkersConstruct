@@ -11,6 +11,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.tools.definition.module.aoe.IBoxExpansion.ExpansionDirections;
@@ -39,6 +40,10 @@ public record BoxAOEIterator(BoxSize base, List<BoxSize> expansions, IBoxExpansi
   public static BoxAOEIterator.Builder builder(int width, int height, int depth) {
     return new Builder(new BoxSize(width, height, depth));
   }
+
+  /** @apiNote Internal constructor, use {@link #builder(int, int, int)} */
+  @Internal
+  public BoxAOEIterator {}
 
   @Override
   public RecordLoadable<BoxAOEIterator> getLoader() {

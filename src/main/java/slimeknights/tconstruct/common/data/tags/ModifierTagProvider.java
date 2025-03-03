@@ -67,7 +67,7 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
     // modifiers in this tag support both left click and right click interaction
     tag(DUAL_INTERACTION)
       .add(TinkerModifiers.bucketing.getId(), TinkerModifiers.splashing.getId(),
-           TinkerModifiers.glowing.getId(), TinkerModifiers.firestarter.getId(),
+           ModifierIds.glowing, TinkerModifiers.firestarter.getId(),
            ModifierIds.stripping, ModifierIds.tilling, ModifierIds.pathing,
            TinkerModifiers.shears.getId(), TinkerModifiers.harvest.getId())
       .addOptional(ModifierIds.pockets);
@@ -115,7 +115,7 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
     this.tag(HELMET_UPGRADES).add(TinkerModifiers.itemFrame.getId(), ModifierIds.respiration).addOptional(ModifierIds.headlight);
     this.tag(CHESTPLATE_UPGRADES).add(ModifierIds.haste, TinkerModifiers.knockback.getId());
     this.tag(LEGGING_UPGRADES).add(ModifierIds.leaping, TinkerModifiers.shieldStrap.getId(), ModifierIds.speedy, ModifierIds.swiftSneak, ModifierIds.stepUp, ModifierIds.workbench);
-    this.tag(BOOT_UPGRADES).add(ModifierIds.depthStrider, ModifierIds.featherFalling, TinkerModifiers.lightspeedArmor.getId(), TinkerModifiers.soulspeed.getId());
+    this.tag(BOOT_UPGRADES).add(ModifierIds.depthStrider, ModifierIds.featherFalling, ModifierIds.lightspeed, TinkerModifiers.soulspeed.getId());
 
     this.tag(RANGED_UPGRADES).add(
       ModifierIds.pierce, ModifierIds.power, TinkerModifiers.punch.getId(), ModifierIds.quickCharge,
@@ -135,7 +135,7 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
       ModifierIds.bulkQuiver, ModifierIds.trickQuiver,
       TinkerModifiers.crystalshot.getId(), TinkerModifiers.multishot.getId());
     this.tag(INTERACTION_ABILITIES).add(
-      TinkerModifiers.bucketing.getId(), TinkerModifiers.firestarter.getId(), TinkerModifiers.glowing.getId(),
+      TinkerModifiers.bucketing.getId(), TinkerModifiers.firestarter.getId(), ModifierIds.glowing,
       ModifierIds.pathing, ModifierIds.stripping, ModifierIds.tilling,
       TinkerModifiers.spitting.getId(), TinkerModifiers.splashing.getId(),
       TinkerModifiers.bonking.getId(), TinkerModifiers.flinging.getId(), TinkerModifiers.springing.getId(), TinkerModifiers.warping.getId());
@@ -146,7 +146,7 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
     this.tag(LEGGING_ABILITIES).add(ModifierIds.pockets, ModifierIds.soulBelt, ModifierIds.toolBelt, ModifierIds.craftingTable);
     this.tag(BOOT_ABILITIES).add(
       TinkerModifiers.bouncy.getId(), TinkerModifiers.doubleJump.getId(), ModifierIds.longFall,
-      TinkerModifiers.flamewake.getId(), ModifierIds.snowdrift, ModifierIds.plowing, ModifierIds.pathMaker, ModifierIds.frostWalker);
+      TinkerModifiers.flamewake.getId(), ModifierIds.snowdrift, ModifierIds.tilling, ModifierIds.pathing, ModifierIds.frostWalker, ModifierIds.glowing);
     this.tag(SHIELD_ABILITIES).add(ModifierIds.boundless, TinkerModifiers.reflecting.getId());
 
     // defense

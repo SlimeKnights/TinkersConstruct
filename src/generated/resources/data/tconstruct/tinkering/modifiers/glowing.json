@@ -1,0 +1,23 @@
+{
+  "level_display": "tconstruct:single_level",
+  "modules": [
+    {
+      "type": "tconstruct:show_offhand",
+      "mode": "disallow_broken"
+    },
+    {
+      "type": "tconstruct:place_glow",
+      "tool_damage": 5
+    },
+    {
+      "type": "tconstruct:glow_walker",
+      "min_light": 3,
+      "radius": {
+        "each_level": 1.0,
+        "flat": 2.0
+      },
+      "tool_damage": 5
+    }
+  ],
+  "tooltip_display": "always"
+}

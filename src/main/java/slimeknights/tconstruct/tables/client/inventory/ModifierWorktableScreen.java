@@ -10,7 +10,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.ItemStack;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.client.modifiers.ModifierIconManager;
@@ -74,6 +73,8 @@ public class ModifierWorktableScreen extends ToolTableScreen<ModifierWorktableBl
         updateArmorStandPreview(menu.getSlot(ModifierWorktableBlockEntity.TINKER_SLOT).getItem());
       }
     }
+
+    this.setupArmorStandPreview(-55, 125, 50);
   }
 
   @Override
@@ -95,7 +96,7 @@ public class ModifierWorktableScreen extends ToolTableScreen<ModifierWorktableBl
 
     super.renderBg(graphics, partialTicks, mouseX, mouseY);
 
-    renderArmorStand(graphics, -55, 125, 50);
+    renderArmorStand(graphics);
   }
 
   /**
@@ -230,12 +231,12 @@ public class ModifierWorktableScreen extends ToolTableScreen<ModifierWorktableBl
     }
   }
 
-
   /* Scrollbar logic */
 
   @Override
   public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
     this.clickedOnScrollBar = false;
+
     if (this.tinkerInfo.handleMouseClicked(mouseX, mouseY, mouseButton)
         || this.modifierInfo.handleMouseClicked(mouseX, mouseY, mouseButton)) {
       return false;
@@ -277,9 +278,9 @@ public class ModifierWorktableScreen extends ToolTableScreen<ModifierWorktableBl
       this.sliderProgress = Mth.clamp(this.sliderProgress, 0.0F, 1.0F);
       this.modifierIndexOffset = (int) ((this.sliderProgress * this.getHiddenRows()) + 0.5D) * 4;
       return true;
-    } else {
-      return super.mouseDragged(mouseX, mouseY, clickedMouseButton, timeSinceLastClick, unknown);
     }
+
+    return super.mouseDragged(mouseX, mouseY, clickedMouseButton, timeSinceLastClick, unknown);
   }
 
   @Override

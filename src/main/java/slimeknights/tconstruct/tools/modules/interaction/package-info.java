@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package slimeknights.tconstruct.library.modifiers.modules.fluid;
+package slimeknights.tconstruct.tools.modules.interaction;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
 

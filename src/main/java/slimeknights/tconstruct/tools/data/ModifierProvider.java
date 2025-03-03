@@ -18,6 +18,7 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.ToolActions;
@@ -69,7 +70,6 @@ import slimeknights.tconstruct.library.modifiers.modules.armor.ReplaceBlockWalke
 import slimeknights.tconstruct.library.modifiers.modules.armor.ToolActionWalkerTransformModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.ConditionalStatModule;
-import slimeknights.tconstruct.library.modifiers.modules.behavior.ExtinguishCampfireModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.ReduceToolDamageModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.RepairModule;
 import slimeknights.tconstruct.library.modifiers.modules.behavior.ShowOffhandModule;
@@ -125,10 +125,14 @@ import slimeknights.tconstruct.tools.modules.TheOneProbeModule;
 import slimeknights.tconstruct.tools.modules.armor.DepthProtectionModule;
 import slimeknights.tconstruct.tools.modules.armor.EnderclearanceModule;
 import slimeknights.tconstruct.tools.modules.armor.FlameBarrierModule;
+import slimeknights.tconstruct.tools.modules.armor.GlowWalkerModule;
 import slimeknights.tconstruct.tools.modules.armor.KineticModule;
+import slimeknights.tconstruct.tools.modules.armor.LightspeedAttributeModule;
 import slimeknights.tconstruct.tools.modules.armor.RecurrentProtectionModule;
 import slimeknights.tconstruct.tools.modules.armor.ShieldStrapModule;
 import slimeknights.tconstruct.tools.modules.armor.ToolBeltModule;
+import slimeknights.tconstruct.tools.modules.interaction.ExtinguishCampfireModule;
+import slimeknights.tconstruct.tools.modules.interaction.PlaceGlowModule;
 import slimeknights.tconstruct.tools.modules.ranged.BulkQuiverModule;
 import slimeknights.tconstruct.tools.modules.ranged.RestrictAngleModule;
 import slimeknights.tconstruct.tools.modules.ranged.TrickQuiverModule;
@@ -227,6 +231,11 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.reach)
       .addModule(AttributeModule.builder(ForgeMod.BLOCK_REACH.get(), Operation.ADDITION).uniqueFrom(ModifierIds.reach).eachLevel(1))
       .addModule(AttributeModule.builder(ForgeMod.ENTITY_REACH.get(), Operation.ADDITION).uniqueFrom(ModifierIds.reach).eachLevel(1));
+    buildModifier(ModifierIds.glowing)
+      .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
+      .addModule(ShowOffhandModule.DISALLOW_BROKEN)
+      .addModule(new PlaceGlowModule(5))
+      .addModule(new GlowWalkerModule(new LevelingValue(2, 1), 3, 5));
     buildModifier(TinkerModifiers.melting)
       .levelDisplay(ModifierLevelDisplay.PLUSES)
       .addModule(ToolTankHelper.TANK_HANDLER)
@@ -298,7 +307,9 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
         .power()
         .variable(LEVEL).multiply()
         .variable(MULTIPLIER).multiply()
-        .variable(VALUE).add().build());
+        .variable(VALUE).add().build())
+      .addModule(new LightspeedAttributeModule(TConstruct.makeTranslationKey("modifier", "lightspeed"), Attributes.MOVEMENT_SPEED, Operation.ADDITION, LightLayer.BLOCK, 5, 0.0009f, 0.005f));
+
 
 
     // loot
@@ -472,8 +483,6 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
       .addModule(BlockDamageSourceModule.source(new DamageTypePredicate(DamageTypes.HOT_FLOOR)).build())
       .addModule(ReplaceBlockWalkerModule.builder().replaceAlways(BlockPropertiesPredicate.block(Blocks.WATER).matches(LiquidBlock.LEVEL, 0).build(), Blocks.FROSTED_ICE.defaultBlockState()).amount(2, 1));
-    buildModifier(ModifierIds.pathMaker).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(ToolActionWalkerTransformModule.builder(ToolActions.SHOVEL_FLATTEN, SoundEvents.SHOVEL_FLATTEN).amount(0.5f, 1));
-    buildModifier(ModifierIds.plowing).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(ToolActionWalkerTransformModule.builder(ToolActions.HOE_TILL, SoundEvents.HOE_TILL).amount(0.5f, 1));
     buildModifier(ModifierIds.snowdrift).priority(90).levelDisplay(ModifierLevelDisplay.NO_LEVELS).addModule(CoverGroundWalkerModule.block(Blocks.SNOW).amount(0.5f, 1));
     // shield
     buildModifier(ModifierIds.boundless)
@@ -485,15 +494,19 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
       .addModule(ShowOffhandModule.DISALLOW_BROKEN)
       .addModule(ExtinguishCampfireModule.INSTANCE)
-      .addModule(ToolActionTransformModule.builder(ToolActions.SHOVEL_FLATTEN, SoundEvents.SHOVEL_FLATTEN).requireGround().build());
+      .addModule(ToolActionTransformModule.builder(ToolActions.SHOVEL_FLATTEN, SoundEvents.SHOVEL_FLATTEN).requireGround().build())
+      .addModule(ToolActionWalkerTransformModule.builder(ToolActions.SHOVEL_FLATTEN, SoundEvents.SHOVEL_FLATTEN).amount(0.5f, 1));
     buildModifier(ModifierIds.stripping)
+      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
       .addModule(ShowOffhandModule.DISALLOW_BROKEN)
       .addModule(ToolActionTransformModule.builder(ToolActions.AXE_STRIP, SoundEvents.AXE_STRIP).build())
-      .addModule(ToolActionTransformModule.builder(ToolActions.AXE_SCRAPE, SoundEvents.AXE_SCRAPE).eventId(3005).build())
-      .addModule(ToolActionTransformModule.builder(ToolActions.AXE_WAX_OFF, SoundEvents.AXE_WAX_OFF).eventId(3004).build());
+      .addModule(ToolActionTransformModule.builder(ToolActions.AXE_SCRAPE, SoundEvents.AXE_SCRAPE).eventId(LevelEvent.PARTICLES_SCRAPE).build())
+      .addModule(ToolActionTransformModule.builder(ToolActions.AXE_WAX_OFF, SoundEvents.AXE_WAX_OFF).eventId(LevelEvent.PARTICLES_WAX_OFF).build());
     buildModifier(ModifierIds.tilling)
       .addModule(ShowOffhandModule.DISALLOW_BROKEN)
-      .addModule(ToolActionTransformModule.builder(ToolActions.HOE_TILL, SoundEvents.HOE_TILL).build());
+      .levelDisplay(ModifierLevelDisplay.NO_LEVELS)
+      .addModule(ToolActionTransformModule.builder(ToolActions.HOE_TILL, SoundEvents.HOE_TILL).build())
+      .addModule(ToolActionWalkerTransformModule.builder(ToolActions.HOE_TILL, SoundEvents.HOE_TILL).amount(0.5f, 1));
 
     // traits
     buildModifier(ModifierIds.smelting)
@@ -697,6 +710,10 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
 
     // iron now gives magnetic. Steel is also just has better than irons old trait
     addRedirect(id("sturdy"), redirect(ModifierIds.ductile));
+    // merged armor modifiers into standard ones
+    addRedirect(id("path_maker"), redirect(ModifierIds.pathing));
+    addRedirect(id("plowing"), redirect(ModifierIds.tilling));
+    addRedirect(id("lightspeed_armor"), redirect(ModifierIds.lightspeed));
   }
 
   @Override

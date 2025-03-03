@@ -14,14 +14,13 @@ import java.util.List;
 
 /**
  * Module that limits the tier to the given max
- * TODO 1.20: rename to MaxTierModule
  */
-public record MaxTierHarvestLogic(Tier tier) implements MiningTierToolHook, ToolModule {
-  public static final RecordLoadable<MaxTierHarvestLogic> LOADER = RecordLoadable.create(TinkerLoadables.TIER.requiredField("tier", MaxTierHarvestLogic::tier), MaxTierHarvestLogic::new);
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<MaxTierHarvestLogic>defaultHooks(ToolHooks.MINING_TIER);
+public record MaxTierModule(Tier tier) implements MiningTierToolHook, ToolModule {
+  public static final RecordLoadable<MaxTierModule> LOADER = RecordLoadable.create(TinkerLoadables.TIER.requiredField("tier", MaxTierModule::tier), MaxTierModule::new);
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<MaxTierModule>defaultHooks(ToolHooks.MINING_TIER);
 
   @Override
-  public RecordLoadable<MaxTierHarvestLogic> getLoader() {
+  public RecordLoadable<MaxTierModule> getLoader() {
     return LOADER;
   }
 

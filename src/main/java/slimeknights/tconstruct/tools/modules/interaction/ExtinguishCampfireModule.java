@@ -1,4 +1,4 @@
-package slimeknights.tconstruct.library.modifiers.modules.behavior;
+package slimeknights.tconstruct.tools.modules.interaction;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
+import slimeknights.tconstruct.library.modifiers.modules.behavior.BlockTransformModule;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition.ConditionalModule;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;

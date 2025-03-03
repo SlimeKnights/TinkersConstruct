@@ -129,8 +129,6 @@
   "tconstruct:frost_walker":     "tconstruct:gui/modifiers/armor/frost_walker",
   "tconstruct:lightspeed_armor": "tconstruct:gui/modifiers/armor/lightspeed",
   "tconstruct:long_fall":        "tconstruct:gui/modifiers/armor/long_fall",
-  "tconstruct:path_maker":       "tconstruct:gui/modifiers/armor/path_maker",
-  "tconstruct:plowing":          "tconstruct:gui/modifiers/armor/plowing",
   "tconstruct:reflecting":       "tconstruct:gui/modifiers/armor/reflecting",
   "tconstruct:snowdrift":        "tconstruct:gui/modifiers/armor/snowdrift",
   "tconstruct:soulspeed":        "tconstruct:gui/modifiers/armor/soulspeed",

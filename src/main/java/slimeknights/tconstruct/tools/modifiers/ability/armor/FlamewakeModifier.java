@@ -30,12 +30,13 @@ public class FlamewakeModifier extends NoLevelsModifier implements ArmorWalkRadi
   }
 
   @Override
-  public void walkOn(IToolStackView tool, ModifierEntry entry, LivingEntity living, Level world, BlockPos target, MutableBlockPos mutable, Void context) {
+  public boolean walkOn(IToolStackView tool, ModifierEntry entry, LivingEntity living, Level world, BlockPos target, MutableBlockPos mutable, Void context) {
     // fire starting
     if (BaseFireBlock.canBePlacedAt(world, target, living.getDirection())) {
       world.playSound(null, target, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, RANDOM.nextFloat() * 0.4F + 0.8F);
       world.setBlock(target, BaseFireBlock.getState(world, target), Block.UPDATE_ALL_IMMEDIATE);
       ToolDamageUtil.damageAnimated(tool, 1, living, EquipmentSlot.FEET);
     }
+    return tool.isBroken();
   }
 }

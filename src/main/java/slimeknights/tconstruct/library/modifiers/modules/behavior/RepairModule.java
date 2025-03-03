@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.modifiers.modules.behavior;
 
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.json.math.FormulaLoadable;
 import slimeknights.tconstruct.library.json.math.ModifierFormula;
@@ -29,6 +30,10 @@ public record RepairModule(ModifierFormula formula, ModifierCondition<IToolStack
   public static FormulaLoadable.Builder<RepairModule> builder() {
     return FORMULA.builder(RepairModule::new);
   }
+
+  /** @apiNote Internal constructor, use {@link #builder()} */
+  @Internal
+  public RepairModule {}
 
   @Override
   public float getRepairFactor(IToolStackView tool, ModifierEntry entry, float factor) {

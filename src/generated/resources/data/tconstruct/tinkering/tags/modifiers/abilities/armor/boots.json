@@ -5,8 +5,9 @@
     "tconstruct:long_fall",
     "tconstruct:flamewake",
     "tconstruct:snowdrift",
-    "tconstruct:plowing",
-    "tconstruct:path_maker",
-    "tconstruct:frost_walker"
+    "tconstruct:tilling",
+    "tconstruct:pathing",
+    "tconstruct:frost_walker",
+    "tconstruct:glowing"
   ]
 }

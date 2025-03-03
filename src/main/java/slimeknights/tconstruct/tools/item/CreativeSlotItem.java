@@ -4,14 +4,25 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.SlotAccess;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ClickAction;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import slimeknights.mantle.command.MantleCommand;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.tools.SlotType;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
+import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.Util;
+import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.tools.modifiers.slotless.CreativeSlotModifier;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -21,6 +32,7 @@ public class CreativeSlotItem extends Item {
   private static final String NBT_KEY = "slot";
   private static final String TOOLTIP = TConstruct.makeTranslationKey("item", "creative_slot.tooltip");
   private static final Component TOOLTIP_MISSING = TConstruct.makeTranslation("item", "creative_slot.missing").withStyle(ChatFormatting.RED);
+  private static final Component CREATIVE_ONLY = TConstruct.makeTranslation("item", "creative_slot.only").withStyle(ChatFormatting.RED);
 
   public CreativeSlotItem(Properties properties) {
     super(properties);
@@ -75,5 +87,77 @@ public class CreativeSlotItem extends Item {
         items.accept(withSlot(new ItemStack(this), type));
       }
     }
+  }
+
+  /** Common logic between two stack methods */
+  private static boolean handleStackOn(ItemStack stack, ItemStack toolItem, Player player, int amount) {
+    SlotType slotType = getSlot(stack);
+    if (slotType != null && !toolItem.isEmpty() && toolItem.is(TinkerTags.Items.MODIFIABLE)) {
+      if (!player.level().isClientSide || (player.isCreative() && player.containerMenu.menuType == null)) {
+        if (player.isCreative() || player.hasPermissions(MantleCommand.PERMISSION_GAME_COMMANDS)) {
+          ToolStack tool = ToolStack.from(toolItem);
+          // do nothing if the tool already has 0 slots and we are removing
+          if (tool.getFreeSlots(slotType) + amount < 0) {
+            return true;
+          }
+
+          // find the tool data
+          ModDataNBT persistentData = tool.getPersistentData();
+          CompoundTag slots;
+          if (persistentData.contains(CreativeSlotModifier.KEY_SLOTS, Tag.TAG_COMPOUND)) {
+            slots = persistentData.getCompound(CreativeSlotModifier.KEY_SLOTS);
+          } else {
+            slots = new CompoundTag();
+            persistentData.put(CreativeSlotModifier.KEY_SLOTS, slots);
+          }
+
+          // add the slot
+          String name = slotType.getName();
+          int updated = slots.getInt(name) + amount;
+          if (updated == 0) {
+            slots.remove(name);
+          } else {
+            slots.putInt(name, updated);
+          }
+
+          // if no slot remain in the creative modifier, remove it
+          ModifierId creative = TinkerModifiers.creativeSlot.getId();
+          int currentLevel = tool.getModifierLevel(creative);
+          if (slots.isEmpty()) {
+            // if no slots exist anymore, remove the creative modifier
+            persistentData.remove(CreativeSlotModifier.KEY_SLOTS);
+            tool.removeModifier(creative, currentLevel);
+          } else if (currentLevel == 0) {
+            // add creative modifier if needed
+            tool.addModifier(creative, 1);
+          } else {
+            // neither add or removing modifier, just build it
+            tool.rebuildStats();
+          }
+        } else if (!player.isCreative()) {
+          player.displayClientMessage(CREATIVE_ONLY, false);
+        }
+      }
+      return true;
+    }
+    return false;
+  }
+
+  @Override
+  public boolean overrideStackedOnOther(ItemStack stack, Slot slot, ClickAction action, Player player) {
+    if (action == ClickAction.SECONDARY && slot.allowModification(player)) {
+      // click tool with item - add slot
+      return handleStackOn(stack, slot.getItem(), player, stack.getCount());
+    }
+    return false;
+  }
+
+  @Override
+  public boolean overrideOtherStackedOnMe(ItemStack stack, ItemStack toolItem, Slot slot, ClickAction action, Player player, SlotAccess access) {
+    if (action == ClickAction.SECONDARY && slot.allowModification(player)) {
+      // click item with tool - remove slot
+      return handleStackOn(stack, toolItem, player, -stack.getCount());
+    }
+    return false;
   }
 }
