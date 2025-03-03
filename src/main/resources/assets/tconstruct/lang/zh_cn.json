@@ -269,7 +269,7 @@
   "item.tconstruct.creative_slot.defense": "创造防御槽",
   "item.tconstruct.creative_slot.missing": "定义强化槽类型的NBT缺失或无效",
   "item.tconstruct.creative_slot.tooltip": "In creative, use on a tool in the inventory to grant an additional %s slot, or use a tool on it to remove the slot.",
-  "item.tconstruct.creative_slot.only": "Creative slots only work for players with operator permissions.",
+  "item.tconstruct.creative_slot.only": "Creative slots only work for players in creative or with operator permissions.",
 
   "item.tconstruct.copper_can": "铜罐",
   "item.tconstruct.copper_can.tooltip": "可堆叠的流体容器，能够盛装1锭的流体",
@@ -1781,14 +1781,14 @@
 
   "material.tconstruct.manyullyn": "玛玉灵",
   "material.tconstruct.manyullyn.flavor": "没几个工匠能叫对这材料的名字。他们说这个材料能够斩断星辰。",
-  "material.tconstruct.manyullyn.encyclopedia": "8次连击后，每级伤害+2。",
-  "material.tconstruct.manyullyn.ranged": "8次连续发射后，每级箭矢伤害+1（先于初速度计算）",
+  "material.tconstruct.manyullyn.encyclopedia": "Grants up to +2 damage per level, with the damage increasing linearly over 8 consecutive hits",
+  "material.tconstruct.manyullyn.ranged": "Arrows gain up to +1 damage per level (before velocity), with damage increasing linearly over 8 consecutive arrow hits",
   "material.tconstruct.manyullyn.armor": "受到伤害后，近战伤害暂时+1，至多为盔甲强化等级之和。",
 
   "material.tconstruct.hepatizon": "黑色科林斯青铜",
   "material.tconstruct.hepatizon.flavor": "-科什么斯啊？\n-科林斯啊。\n-什么林斯啊？\n-科林斯啊！\n-科林什么啊？\n-行了你先歇着吧。",
-  "material.tconstruct.hepatizon.encyclopedia": "在连续挖掘32个方块后，每级挖掘速度+25%",
-  "material.tconstruct.hepatizon.ranged": "在连续发射16次后，每级拉弓速度+25%",
+  "material.tconstruct.hepatizon.encyclopedia": "Boosts mining speed by up to 25% per level, linearly increasing over mining 32 consecutive blocks",
+  "material.tconstruct.hepatizon.ranged": "Boosts drawspeed by up to 25% per level, linearly increasing while firing 16 consecutive arrows",
   "material.tconstruct.hepatizon.armor": "受到伤害后一段时间，每级所有来源伤害-5%",
 
   "material.tconstruct.cinderslime": "余烬黏液",
@@ -1828,7 +1828,7 @@
   "__comment": "Slimesuit materials",
   "material.tconstruct.glass": "玻璃",
   "material.tconstruct.glass.skull_flavor": "现在是谁炸谁了，苦力怕？",
-  "material.tconstruct.glass.skull_encyclopedia": "按住“头盔交互”键会使穿戴者爆炸",
+  "material.tconstruct.glass.skull_encyclopedia": "Holding the helmet interact key while sneaking causes the wearer to explode",
 
   "material.tconstruct.ender_pearl": "末影珍珠",
   "material.tconstruct.ender_pearl.skull_flavor": "末影人懂得如何回避危险，科学家也是。他们几个礼拜以来一直漠视我的采访邀请！",
@@ -1935,8 +1935,8 @@
 
   "material.tconstruct.electrum": "琥珀金",
   "material.tconstruct.electrum.flavor": "适用于电子元器件。",
-  "material.tconstruct.electrum.encyclopedia": "挖掘方块或击杀怪物时，每级经验掉落+50%",
-  "material.tconstruct.electrum.ranged": "用箭矢击杀怪物时，每级经验掉落+50%",
+  "material.tconstruct.electrum.encyclopedia": "挖掘方块或击杀怪物时，每级经验掉落+25%",
+  "material.tconstruct.electrum.ranged": "用箭矢击杀怪物时，每级经验掉落+25%",
 
   "material.tconstruct.necronium": "辐射之骨",
   "material.tconstruct.necronium.flavor": "这么多的辐射，很可能标志着你为数不多的生命只剩下四分之一了",
@@ -2903,7 +2903,7 @@
   "tool_stat.tconstruct.accuracy": "精确度：",
   "tool_stat.tconstruct.accuracy.description": "决定弓瞄准点距中心点的距离",
   "tool_stat.tconstruct.projectile_damage": "弹射物力量：",
-  "tool_stat.tconsturct.projectile_damage.description": "决定这个武器所发射的弹射物的基础伤害或力度",
+  "tool_stat.tconstruct.projectile_damage.description": "决定这个武器所发射的弹射物的基础伤害或力度",
 
   "stat.tconstruct.binding": "绑定结",
   "stat.tconstruct.bowstring": "弓弦",
