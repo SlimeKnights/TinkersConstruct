@@ -62,4 +62,4 @@ abilities.group_armor.boots=靴子能力
 abilities.group_armor.shield=盾牌能力
 
 fluid_effects=流体效果
-fluid_effects.subtext=Fluid effects define the behavior when a fluid hits a block or entity through various modifiers such as spitting, spilling, and splashing.
+fluid_effects.subtext=流体效果定义了流体通过喷洒、喷溅、飞溅强化击中物品或实体时的不同效果。
