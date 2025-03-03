@@ -24,6 +24,7 @@ import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInterac
 import slimeknights.tconstruct.library.modifiers.hook.ranged.BowAmmoModifierHook;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockingModifier;
@@ -151,7 +152,11 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
       if (ammo.isEmpty()) {
         ammo = new ItemStack(Items.ARROW);
       }
-      shootProjectilesAndDamageWeapon(player, tool, player.getUsedItemHand(), ammo, player.getViewVector(1.0f), charge, 3, 1, creative, !creative);
+      int damage = shootProjectiles(player, tool, ammo, player.getViewVector(1.0f), charge, 3, 1, creative);
+      if (!creative) {
+        ToolDamageUtil.damageAnimated(tool, damage, player, player.getUsedItemHand());
+
+      }
     }
 
     // stats and sounds

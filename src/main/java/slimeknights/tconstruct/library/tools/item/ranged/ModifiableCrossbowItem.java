@@ -35,6 +35,7 @@ import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInterac
 import slimeknights.tconstruct.library.modifiers.hook.ranged.BowAmmoModifierHook;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
+import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
@@ -190,7 +191,10 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
       // when creating the ammo stacks, we use split, so its getting smaller each time
       ItemStack ammo = ItemStack.of(heldAmmo);
       // fire arrows, damage bow, play sound
-      shootProjectilesAndDamageWeapon(player, tool, hand, ammo, player.getViewVector(1.0f), 1,3.15f, 1, creative, !creative);
+      int damage = shootProjectiles(player, tool, ammo, player.getViewVector(1.0f), 1, 3.15f, 1, creative);
+      if (!creative) {
+        ToolDamageUtil.damageAnimated(tool, damage, player, hand);
+      }
       // clear the ammo
       tool.getPersistentData().remove(KEY_CROSSBOW_AMMO);
       // stats
