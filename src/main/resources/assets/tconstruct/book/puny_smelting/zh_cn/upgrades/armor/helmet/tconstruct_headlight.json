@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:headlight",
   "text": [
     {
-      "text": "You light up my world!"
+      "text": "是你照亮了我的世界！"
     }
   ],
   "effects": [
-    "Visually up blocks around you",
-    "Single level",
-    "Requires 1 upgrade slot"
+    "视觉上照亮你周围的方块",
+    "单个等级",
+    "需要1个升级槽"
   ]
 }

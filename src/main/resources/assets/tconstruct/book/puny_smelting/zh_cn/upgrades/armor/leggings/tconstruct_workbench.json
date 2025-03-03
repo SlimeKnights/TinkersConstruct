@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:workbench",
   "text": [
     {
-      "text": "Sometimes, you don't want to stop ruffling through your pockets long enough to craft."
+      "text": "有时，你并不想停下翻找口袋的动作，花足够长的时间去静心制作。"
     }
   ],
   "effects": [
-    "Adds an inventory crafting table to the tool's inventory",
-    "Single level",
-    "Requires 1 upgrade slot"
+    "向工具的物品栏中添加一个物品栏中的工作台",
+    "单个等级",
+    "需要1个升级槽"
   ]
 }
