@@ -28,7 +28,7 @@ public class MeltingModuleInventory implements IItemHandlerModifiable {
    * Thus, the largest number of slots we can have without breaking syncing is the below equation.
    * This does leave us with 1 extra unused slot. If we add anything that uses more slots we will want to adjust this number.
    */
-  private static final int MAX_SIZE = (Short.MAX_VALUE - 6) / 3;
+  private static final int MAX_SIZE = (Short.MAX_VALUE - 7) / 3;
   private static final String TAG_SLOT = "slot";
   private static final String TAG_ITEMS = "items";
   private static final String TAG_SIZE = "size";

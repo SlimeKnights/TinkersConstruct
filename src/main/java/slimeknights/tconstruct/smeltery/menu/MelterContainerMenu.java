@@ -80,13 +80,13 @@ public class MelterContainerMenu extends TriggeringBaseContainerMenu<MelterBlock
       ItemStack held = getCarried();
       if (!held.isEmpty()) {
         if (!player.level().isClientSide && tile != null) {
-          IFluidHandler tank = id < 2 ? tile.getTank() : tile.getFuelModule();
+          IFluidHandler tank = id < 2 ? tile.getTank() : tile.getFuelModule().getTank();
           ItemStack result;
           // even means drain fluid, odd means fill
           if ((id & 1) == 0) {
             result = FluidTransferHelper.fillFromTankSlot(tank, held, tank.getFluidInTank(0));
           } else {
-            result = FluidTransferHelper.interactWithTankSlot(tile.getTank(), held, TransferDirection.EMPTY_ITEM);
+            result = FluidTransferHelper.interactWithTankSlot(tank, held, TransferDirection.EMPTY_ITEM);
           }
           setCarried(FluidTransferHelper.getOrTransferFilled(player, held, result));
           // TODO: if it failed, should we try the other direction?

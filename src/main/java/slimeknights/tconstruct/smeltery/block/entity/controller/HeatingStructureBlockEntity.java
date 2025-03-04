@@ -40,8 +40,8 @@ import slimeknights.tconstruct.library.client.model.ModelProperties;
 import slimeknights.tconstruct.smeltery.block.controller.ControllerBlock;
 import slimeknights.tconstruct.smeltery.block.controller.SmelteryControllerBlock;
 import slimeknights.tconstruct.smeltery.block.entity.module.EntityMeltingModule;
-import slimeknights.tconstruct.smeltery.block.entity.module.FuelModule;
 import slimeknights.tconstruct.smeltery.block.entity.module.MeltingModuleInventory;
+import slimeknights.tconstruct.smeltery.block.entity.module.MultitankFuelModule;
 import slimeknights.tconstruct.smeltery.block.entity.multiblock.HeatingStructureMultiblock;
 import slimeknights.tconstruct.smeltery.block.entity.multiblock.HeatingStructureMultiblock.StructureData;
 import slimeknights.tconstruct.smeltery.block.entity.multiblock.MultiblockResult;
@@ -105,7 +105,7 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
 
   /** Fuel module */
   @Getter
-  protected final FuelModule fuelModule = new FuelModule(this, () -> structure != null ? structure.getTanks() : Collections.emptyList());
+  protected final MultitankFuelModule fuelModule = new MultitankFuelModule(this, () -> structure != null ? structure.getTanks() : Collections.emptyList());
   /** Current fuel consumption rate */
   protected int fuelRate = 1;
 

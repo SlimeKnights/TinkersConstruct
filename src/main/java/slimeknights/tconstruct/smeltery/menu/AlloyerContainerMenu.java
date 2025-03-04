@@ -84,7 +84,7 @@ public class AlloyerContainerMenu extends TriggeringBaseContainerMenu<AlloyerBlo
         if (index == 0) {
           handler = tile.getTank();
         } else if (index == 1) {
-          handler = tile.getFuelModule();
+          handler = tile.getFuelModule().getTank();
         } else {
           // index 2 and onwards is a handler tank
           handler = tile.getAlloyTank().getFluidHandler(index - 2);

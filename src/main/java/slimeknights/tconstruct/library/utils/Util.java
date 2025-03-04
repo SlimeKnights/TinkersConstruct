@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeI18n;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -184,5 +185,21 @@ public class Util {
   /** Creates a new client block entity data packet with better generics than the vanilla method */
   public static <B extends BlockEntity> ClientboundBlockEntityDataPacket createBEPacket(B be, Function<? super B,CompoundTag> tagFunction) {
     return new ClientboundBlockEntityDataPacket(be.getBlockPos(), be.getType(), tagFunction.apply(be));
+  }
+
+  /** Cache of neo forge status, to make lookups faster in hot code */
+  private static Boolean IS_NEO_FORGE = null;
+
+  /** Checks if we are currently running on NeoForge as opposed to Forge. Allows branching solutions for each loader if needed */
+  public static boolean isNeo() {
+    if (IS_NEO_FORGE == null) {
+      IS_NEO_FORGE = ModList.get().getModContainerById("forge").filter(mod -> mod.getModInfo().getDisplayName().equals("NeoForge")).isPresent();
+    }
+    return IS_NEO_FORGE;
+  }
+
+  /** Checks if we are currently running on Forge as opposed to NeoForge. Allows branching solutions for each loader if needed */
+  public static boolean isForge() {
+    return !isNeo();
   }
 }

@@ -27,14 +27,13 @@ import slimeknights.tconstruct.smeltery.block.component.SearedTankBlock.TankType
 import slimeknights.tconstruct.smeltery.block.controller.ControllerBlock;
 import slimeknights.tconstruct.smeltery.block.controller.MelterBlock;
 import slimeknights.tconstruct.smeltery.block.entity.ITankBlockEntity;
-import slimeknights.tconstruct.smeltery.block.entity.module.FuelModule;
+import slimeknights.tconstruct.smeltery.block.entity.module.SolidFuelModule;
 import slimeknights.tconstruct.smeltery.block.entity.module.alloying.MixerAlloyTank;
 import slimeknights.tconstruct.smeltery.block.entity.module.alloying.SingleAlloyingModule;
 import slimeknights.tconstruct.smeltery.menu.AlloyerContainerMenu;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Collections;
 
 /**
  * Dedicated alloying block
@@ -61,7 +60,7 @@ public class AlloyerBlockEntity extends NameableBlockEntity implements ITankBloc
   private final SingleAlloyingModule alloyingModule = new SingleAlloyingModule(this, alloyTank);
   /** Fuel handling logic */
   @Getter
-  private final FuelModule fuelModule = new FuelModule(this, () -> Collections.singletonList(this.worldPosition.below()));
+  private final SolidFuelModule fuelModule;
 
   /** Last comparator strength to reduce block updates */
   @Getter @Setter
@@ -76,6 +75,7 @@ public class AlloyerBlockEntity extends NameableBlockEntity implements ITankBloc
 
   protected AlloyerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
     super(type, pos, state, NAME);
+    this.fuelModule = new SolidFuelModule(this, pos.below());
   }
 
   /*

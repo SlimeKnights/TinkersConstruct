@@ -19,8 +19,8 @@ import slimeknights.mantle.util.sync.ValidZeroDataSlot;
 import slimeknights.tconstruct.shared.inventory.TriggeringMultiModuleContainerMenu;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.entity.controller.HeatingStructureBlockEntity;
-import slimeknights.tconstruct.smeltery.block.entity.module.FuelModule;
 import slimeknights.tconstruct.smeltery.block.entity.module.MeltingModuleInventory;
+import slimeknights.tconstruct.smeltery.block.entity.module.MultitankFuelModule;
 import slimeknights.tconstruct.smeltery.block.entity.tank.SmelteryTank;
 import slimeknights.tconstruct.tables.menu.module.SideInventoryContainer;
 
@@ -114,7 +114,7 @@ public class HeatingStructureContainerMenu extends TriggeringMultiModuleContaine
         ItemStack result;
         if (id == 1) {
           // drain fuel into item
-          FuelModule fuelModule = tile.getFuelModule();
+          MultitankFuelModule fuelModule = tile.getFuelModule();
           result = FluidTransferHelper.fillFromTankSlot(fuelModule, held, fuelModule.getLastFluid());
         } else {
           // drain item into fuel/tank
