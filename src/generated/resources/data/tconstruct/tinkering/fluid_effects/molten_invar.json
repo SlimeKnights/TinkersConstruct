@@ -21,12 +21,10 @@
         },
         {
           "type": "mantle:tag_filled",
-          "registry": "minecraft:fluid",
           "tag": "forge:ingots/invar"
         },
         {
           "type": "mantle:tag_filled",
-          "registry": "minecraft:fluid",
           "tag": "forge:ingots/nickel"
         }
       ]

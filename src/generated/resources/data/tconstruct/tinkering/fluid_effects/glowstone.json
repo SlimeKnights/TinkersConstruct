@@ -1,0 +1,38 @@
+{
+  "block_effects": [
+    {
+      "type": "tconstruct:mob_effect_cloud",
+      "effects": [
+        {
+          "effect": "minecraft:glowing",
+          "level": 1,
+          "time": 200
+        }
+      ]
+    },
+    {
+      "type": "tconstruct:place_block",
+      "block": "tconstruct:glow"
+    }
+  ],
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "registry": "minecraft:fluid",
+      "tag": "forge:glowstone"
+    }
+  ],
+  "entity_effects": [
+    {
+      "type": "tconstruct:mob_effect",
+      "action": "add",
+      "effect": "minecraft:glowing",
+      "level": 1,
+      "time": 200
+    }
+  ],
+  "fluid": {
+    "amount": 100,
+    "tag": "forge:glowstone"
+  }
+}

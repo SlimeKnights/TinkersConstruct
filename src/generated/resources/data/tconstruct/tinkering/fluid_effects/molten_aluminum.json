@@ -9,7 +9,6 @@
         },
         {
           "type": "mantle:tag_filled",
-          "registry": "minecraft:fluid",
           "tag": "forge:ingots/aluminum"
         }
       ]

@@ -859,11 +859,13 @@
   "fluid.tconstruct.molten_enderium": "Molten Enderium",
   "fluid.tconstruct.flowing_molten_enderium": "Flowing Molten Enderium",
   "item.tconstruct.molten_enderium_bucket": "Molten Enderium Bucket",
+  "fluid.tconstruct.molten_enderium.fluid_effect": "Molten enderium is ideal as a weapon, keeping enemies from teleporting as you fight.",
 
   "block.tconstruct.molten_lumium_fluid": "Molten Lumium",
   "fluid.tconstruct.molten_lumium": "Molten Lumium",
   "fluid.tconstruct.flowing_molten_lumium": "Flowing Molten Lumium",
   "item.tconstruct.molten_lumium_bucket": "Molten Lumium Bucket",
+  "fluid.tconstruct.molten_lumium.fluid_effect": "Molten lumium is either used to keep your eye on the target or make a quick but obvious escape.",
 
   "block.tconstruct.molten_signalum_fluid": "Molten Signalum",
   "fluid.tconstruct.molten_signalum": "Molten Signalum",
@@ -876,11 +878,13 @@
   "fluid.tconstruct.molten_refined_glowstone": "Molten Refined Glowstone",
   "fluid.tconstruct.flowing_molten_refined_glowstone": "Flowing Molten Refined Glowstone",
   "item.tconstruct.molten_refined_glowstone_bucket": "Molten Refined Glowstone Bucket",
+  "fluid.tconstruct.molten_refined_glowstone.fluid_effect": "Molten refined glowstone is great for tracking targets without sacrificing much damage.",
 
   "block.tconstruct.molten_refined_obsidian_fluid": "Molten Refined Obsidian",
   "fluid.tconstruct.molten_refined_obsidian": "Molten Refined Obsidian",
   "fluid.tconstruct.flowing_molten_refined_obsidian": "Flowing Molten Refined Obsidian",
   "item.tconstruct.molten_refined_obsidian_bucket": "Molten Refined Obsidian Bucket",
+  "fluid.tconstruct.molten_refined_obsidian.fluid_effect": "Molten refined obsidian maximizes damage against armored targets.",
 
 
   "_comment": "Fluid effect contents",
@@ -2685,7 +2689,7 @@
   "__comment": "Tier 3 Mod Compat Traits",
   "modifier.tconstruct.ductile": "Ductile",
   "modifier.tconstruct.ductile.flavor": "Reshapes well!",
-  "modifier.tconstruct.ductile.description": "Tool is longer lasting, mines faster, damages more and is tougher",
+  "modifier.tconstruct.ductile.description": "Tool is longer lasting, damages more and is tougher",
   "modifier.tconstruct.maintained": "Maintained",
   "modifier.tconstruct.maintained.flavor": "Stays Sharper, Longer!",
   "modifier.tconstruct.maintained.description": "Tool mines faster when at higher durability",

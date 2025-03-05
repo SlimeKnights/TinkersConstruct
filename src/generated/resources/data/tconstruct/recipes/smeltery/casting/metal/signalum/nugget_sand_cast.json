@@ -10,7 +10,7 @@
       "tag": "forge:nuggets/signalum"
     }
   ],
-  "cooling_time": 23,
+  "cooling_time": 22,
   "fluid": {
     "amount": 10,
     "tag": "forge:molten_signalum"

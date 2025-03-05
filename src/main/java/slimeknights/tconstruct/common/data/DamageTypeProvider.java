@@ -48,7 +48,7 @@ public class DamageTypeProvider implements RegistrySetBuilder.RegistryBootstrap<
     register(context, FLUID_IMPACT, new DamageType(prefix("fluid.impact"), 0.1f, DamageEffects.HURT));
     register(context, FLUID_FIRE, new DamageType(prefix("fluid.fire"), 0.1f, DamageEffects.BURNING));
     register(context, FLUID_COLD, new DamageType(prefix("fluid.cold"), 0.1f, DamageEffects.FREEZING));
-    register(context, FLUID_MAGIC, new DamageType(prefix("fluid.magic"), 0.1f, DamageEffects.THORNS));
+    register(context, FLUID_MAGIC, new DamageType(prefix("fluid.magic"), 0.1f, DamageEffects.HURT));
     register(context, WATER, new DamageType(prefix("fluid.water"), 0.1f, DamageEffects.DROWNING));
     register(context, FLUID_SPIKE, new DamageType(prefix("fluid.spike"), 0.1f, DamageEffects.THORNS));
   }

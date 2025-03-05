@@ -4,9 +4,19 @@
       "type": "tconstruct:mob_effect_cloud",
       "effects": [
         {
-          "effect": "minecraft:haste",
+          "effect": "minecraft:glowing",
           "level": 1,
-          "time": 160
+          "time": 100
+        },
+        {
+          "effect": "minecraft:speed",
+          "level": 1,
+          "time": 100
+        },
+        {
+          "effect": "minecraft:jump_boost",
+          "level": 1,
+          "time": 100
         }
       ]
     }
@@ -21,11 +31,7 @@
         },
         {
           "type": "mantle:tag_filled",
-          "tag": "forge:ingots/electrum"
-        },
-        {
-          "type": "mantle:tag_filled",
-          "tag": "forge:ingots/silver"
+          "tag": "forge:ingots/lumium"
         }
       ]
     }
@@ -33,7 +39,7 @@
   "entity_effects": [
     {
       "type": "tconstruct:damage",
-      "damage": 3.0,
+      "damage": 4.0,
       "damage_type": {
         "melee": "tconstruct:fluid_magic_melee",
         "ranged": "tconstruct:fluid_magic_ranged"
@@ -42,13 +48,27 @@
     {
       "type": "tconstruct:mob_effect",
       "action": "set",
-      "effect": "minecraft:haste",
+      "effect": "minecraft:glowing",
       "level": 1,
-      "time": 160
+      "time": 100
+    },
+    {
+      "type": "tconstruct:mob_effect",
+      "action": "set",
+      "effect": "minecraft:speed",
+      "level": 1,
+      "time": 100
+    },
+    {
+      "type": "tconstruct:mob_effect",
+      "action": "set",
+      "effect": "minecraft:jump_boost",
+      "level": 1,
+      "time": 100
     }
   ],
   "fluid": {
     "amount": 10,
-    "tag": "forge:molten_electrum"
+    "tag": "forge:molten_lumium"
   }
 }

@@ -1,0 +1,12 @@
+{
+  "title": "Redstone",
+  "text": "Redstone is great for putting mobs into orderly positions without hurting them.",
+  "entity": [
+    "Power 1.5 explosion",
+    "0 Explosion Damage",
+    "Inverted explosion knockback"
+  ],
+  "block": [
+    "Explosion ignores blocks"
+  ]
+}

@@ -9,7 +9,7 @@
       "tag": "forge:gears/signalum"
     }
   ],
-  "cooling_time": 140,
+  "cooling_time": 133,
   "fluid": {
     "amount": 360,
     "tag": "forge:molten_signalum"

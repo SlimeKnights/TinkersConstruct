@@ -191,7 +191,7 @@ public final class TinkerFluids extends TinkerModule {
   // thermal
   public static final FlowingFluidObject<ForgeFlowingFluid> moltenEnderium = FLUIDS.register("molten_enderium").type(hot("molten_enderium").temperature(1650).lightLevel(12)).block(createBurning(MapColor.COLOR_CYAN, 12, 10, 7f)).bucket().commonTag().flowing();
   public static final FlowingFluidObject<ForgeFlowingFluid> moltenLumium   = FLUIDS.register("molten_lumium").type(hot("molten_lumium").temperature(1350).lightLevel(15)).block(createBurning(MapColor.GOLD, 15, 10, 7f)).bucket().commonTag().flowing();
-  public static final FlowingFluidObject<ForgeFlowingFluid> moltenSignalum = FLUIDS.register("molten_signalum").type(hot("molten_signalum").temperature(1425).lightLevel(13)).block(createBurning(MapColor.FIRE, 13, 10, 7f)).bucket().commonTag().flowing();
+  public static final FlowingFluidObject<ForgeFlowingFluid> moltenSignalum = FLUIDS.register("molten_signalum").type(hot("molten_signalum").temperature(1299).lightLevel(13)).block(createBurning(MapColor.FIRE, 13, 10, 7f)).bucket().commonTag().flowing();
   // mekanism
   public static final FlowingFluidObject<ForgeFlowingFluid> moltenRefinedGlowstone = FLUIDS.register("molten_refined_glowstone").type(hot("molten_refined_glowstone").temperature(1125).lightLevel(15)).block(createBurning(MapColor.COLOR_YELLOW, 15, 10, 7f)).bucket().commonTag().flowing();
   public static final FlowingFluidObject<ForgeFlowingFluid> moltenRefinedObsidian  = FLUIDS.register("molten_refined_obsidian").type(hot("molten_refined_obsidian").temperature(1775).lightLevel(7)).block(createBurning(MapColor.TERRACOTTA_BLUE, 7, 10, 7f)).bucket().commonTag().flowing();

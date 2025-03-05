@@ -4,6 +4,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.stats.Stats;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Tiers;
@@ -54,6 +55,8 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.StrongBonesModifier;
 
 import java.util.function.Function;
+
+import static slimeknights.mantle.Mantle.commonResource;
 
 public class FluidEffectProvider extends AbstractFluidEffectProvider {
   public FluidEffectProvider(PackOutput packOutput) {
@@ -227,8 +230,15 @@ public class FluidEffectProvider extends AbstractFluidEffectProvider {
     addMetal(TinkerFluids.moltenManyullyn).fireDamage(4).addEffect(FluidMobEffect.builder().effect(TinkerModifiers.bleeding.get(), 20 * 2, 1), TimeAction.SET);
     addMetal(TinkerFluids.moltenHepatizon).fireDamage(4).addEffect(FluidMobEffect.builder().effect(MobEffects.DAMAGE_RESISTANCE, 20 * 15, 1), TimeAction.SET);
     addMetal(TinkerFluids.moltenNetherite).fireDamage(5).addEffect(FluidMobEffect.builder().effect(MobEffects.BLINDNESS, 20 * 5, 1), TimeAction.SET);
-    // TODO: thermal
-    // TODO: mekanism
+    // thermal compat
+    compatFluid(FluidTags.create(commonResource("glowstone")), FluidValues.GEM).addEffect(FluidMobEffect.builder().effect(MobEffects.GLOWING, 20 * 10), TimeAction.ADD).addBlockEffect(new PlaceBlockFluidEffect(TinkerCommons.glow.get()));
+    compatFluid(FluidTags.create(commonResource("redstone")), FluidValues.GEM).addEffect(ExplosionFluidEffect.radius(1, 0.5f).knockback(LevelingValue.eachLevel(-2)).ignoreBlocks().build());
+    compatMetal(TinkerFluids.moltenSignalum).addEffect(ExplosionFluidEffect.radius(1, 1).damage(LevelingValue.eachLevel(2)).knockback(LevelingValue.flat(-2)).ignoreBlocks().build());
+    compatMetal(TinkerFluids.moltenLumium).magicDamage(4).addEffect(FluidMobEffect.builder().effect(MobEffects.GLOWING, 20 * 5, 1).effect(MobEffects.MOVEMENT_SPEED, 20 * 5, 1).effect(MobEffects.JUMP, 20 * 5, 1), TimeAction.SET);
+    compatMetal(TinkerFluids.moltenEnderium).magicDamage(4).addEffect(FluidMobEffect.builder().effect(TinkerModifiers.enderferenceEffect.get(), 20 * 10, 1), TimeAction.SET);
+    // mekanism compat
+    compatMetal(TinkerFluids.moltenRefinedGlowstone).magicDamage(3).addEffect(FluidMobEffect.builder().effect(MobEffects.GLOWING, 20 * 10, 1), TimeAction.SET);
+    compatMetal(TinkerFluids.moltenRefinedObsidian).spikeDamage(3).addEffect(FluidMobEffect.builder().effect(TinkerModifiers.bleeding.get(), 20 * 2, 1), TimeAction.SET);
 
     // potion fluid compat
     // standard potion is 250 mb, but we want a smaller number. divide into 5 pieces at 25% a piece (so healing is 1 health), means you gain 25% per potion
