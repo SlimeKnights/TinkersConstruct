@@ -259,7 +259,7 @@
   "item.tconstruct.modifier_crystal": "强化水晶",
   "item.tconstruct.modifier_crystal.format": "%s水晶",
   "item.tconstruct.modifier_crystal.missing": "定义强化类型的NBT缺失或无效",
-  "item.tconstruct.modifier_crystal.tooltip": "加持于工具后对应强化等级增加1级并消耗相应的强化槽",
+  "item.tconstruct.modifier_crystal.tooltip": "加持后工具对应强化等级增加1级并消耗相应的强化槽",
   "item.tconstruct.modifier_crystal.modifier_id": "强化ID: %s",
 
   "item.tconstruct.creative_slot": "创造强化槽",
@@ -2685,7 +2685,7 @@
   "__comment": "Tier 3 Mod Compat Traits",
   "modifier.tconstruct.ductile": "可塑",
   "modifier.tconstruct.ductile.flavor": "延展性出众！",
-  "modifier.tconstruct.ductile.description": "工具更加耐用，挖掘速度更快，伤害更高，韧性更高",
+  "modifier.tconstruct.ductile.description": "工具更加耐用，伤害更高，韧性更高",
   "modifier.tconstruct.maintained": "持久",
   "modifier.tconstruct.maintained.flavor": "永葆青春，永保锋利！",
   "modifier.tconstruct.maintained.description": "耐久度越高，工具的挖掘速度越快",
