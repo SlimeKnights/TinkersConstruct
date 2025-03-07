@@ -1915,7 +1915,7 @@
   "__comment": "Tier 3 Integration Materials",
   "material.tconstruct.steel": "钢",
   "material.tconstruct.steel.flavor": "差不多90%的材料科学内容都是它",
-  "material.tconstruct.steel.encyclopedia": "每级耐久度、近战伤害和速度+10%",
+  "material.tconstruct.steel.encyclopedia": "每级耐久度、近战伤害+10%",
   "material.tconstruct.steel.ranged": "每级耐久度+10%，弹射物力量+5%",
   "material.tconstruct.steel.armor": "每级耐久度+10%，盔甲韧性+1",
 

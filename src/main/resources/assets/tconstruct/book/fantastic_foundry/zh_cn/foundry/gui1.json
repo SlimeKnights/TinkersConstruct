@@ -7,10 +7,10 @@
   },
   "text": [
     {
-      "text": "1: Place items to smelt in these slots. Foundry size determines number of slots."
+      "text": "1：这里是用来放被熔炼的物品的。槽位的个数会随着熔铸炉的大小改变而改变。"
     },
     {
-      "text": "2: Molten metals are shown here. You can click a fluid to select it for pouring. Hovering over the empty area will show foundry capacity.",
+      "text": "2：这里是展示熔融材料的地方。点击其中一个能将其选为用于浇注的材料，将鼠标指向空白部分能显示关于熔铸炉容量的详细信息。",
       "paragraph": true
     }
 	]

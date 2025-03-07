@@ -1,5 +1,5 @@
 {
-  "title": "Repairing",
+  "title": "修理",
   "grid_size": "small",
   "grid": [
     [
@@ -47,7 +47,7 @@
   },
   "description": [
     {
-      "text": "To repair tools, simply place the tool in the Tinker Station or Tinker Anvil with the material of the head. Alternatively, you can use repair kits, which work both in crafting tables and when right clicking the tool directly!"
+      "text": "想要修理工具，只需要把工具和其顶端材料放在工匠站或工匠砧中即可；你还可以直接右击工具或是在工作台中使用修补件！"
     }
 	]
 }
