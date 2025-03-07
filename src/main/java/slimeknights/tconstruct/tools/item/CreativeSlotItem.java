@@ -16,6 +16,7 @@ import net.minecraft.world.level.Level;
 import slimeknights.mantle.command.MantleCommand;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
@@ -89,12 +90,17 @@ public class CreativeSlotItem extends Item {
     }
   }
 
+  /** Checks if the given player may apply this item */
+  public static boolean canApply(Player player) {
+    return player.isCreative() || (Config.COMMON.quickApplyToolModifiersSurvival.get() && player.hasPermissions(MantleCommand.PERMISSION_GAME_COMMANDS));
+  }
+
   /** Common logic between two stack methods */
   private static boolean handleStackOn(ItemStack stack, ItemStack toolItem, Player player, int amount) {
     SlotType slotType = getSlot(stack);
     if (slotType != null && !toolItem.isEmpty() && toolItem.is(TinkerTags.Items.MODIFIABLE)) {
       if (!player.level().isClientSide || (player.isCreative() && player.containerMenu.menuType == null)) {
-        if (player.isCreative() || player.hasPermissions(MantleCommand.PERMISSION_GAME_COMMANDS)) {
+        if (canApply(player)) {
           ToolStack tool = ToolStack.from(toolItem);
           // do nothing if the tool already has 0 slots and we are removing
           if (tool.getFreeSlots(slotType) + amount < 0) {

@@ -86,7 +86,7 @@ public class ModifierCrystalItem extends Item {
     // see also - modifier adding command
 
     // must be op or in creative, right-clicking onto a modifiable slot
-    if (action == ClickAction.SECONDARY && slot.allowModification(player) && (player.isCreative() || player.hasPermissions(MantleCommand.PERMISSION_GAME_COMMANDS))) {
+    if (action == ClickAction.SECONDARY && slot.allowModification(player) && CreativeSlotItem.canApply(player)) {
       ModifierId modifier = getModifier(stack);
       ItemStack toolItem = slot.getItem();
       // slot must have a tool, NBT must be valid

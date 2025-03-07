@@ -269,7 +269,7 @@
   "item.tconstruct.creative_slot.defense": "Creative Defense Slot",
   "item.tconstruct.creative_slot.missing": "Missing or invalid NBT defining the slot type",
   "item.tconstruct.creative_slot.tooltip": "In creative, use on a tool in the inventory to grant an additional %s slot, or use a tool on it to remove the slot.",
-  "item.tconstruct.creative_slot.only": "Creative slots only work for players in creative or with operator permissions.",
+  "item.tconstruct.creative_slot.only": "Creative slots only work for players in creative.",
 
   "item.tconstruct.copper_can": "Copper Can",
   "item.tconstruct.copper_can.tooltip": "Stackable container holding 1 ingot of fluid",
