@@ -1,0 +1,12 @@
+{
+  "title": "红石",
+  "text": "Redstone is great for putting mobs into orderly positions without hurting them.",
+  "entity": [
+    "爆炸威力1.5",
+    "0爆炸伤害",
+    "反向爆炸击退"
+  ],
+  "block": [
+    "爆炸不会破坏方块"
+  ]
+}
