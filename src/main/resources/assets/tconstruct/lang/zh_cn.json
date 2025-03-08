@@ -1785,14 +1785,14 @@
 
   "material.tconstruct.manyullyn": "玛玉灵",
   "material.tconstruct.manyullyn.flavor": "没几个工匠能叫对这材料的名字。他们说这个材料能够斩断星辰。",
-  "material.tconstruct.manyullyn.encyclopedia": "8次连击后伤害呈线性增加，每级伤害+2。",
-  "material.tconstruct.manyullyn.ranged": "连续发射8次后伤害呈线性增加，每级箭矢伤害+1（先于初速度计算）",
+  "material.tconstruct.manyullyn.encyclopedia": "8次连击后伤害呈线性增加，每级伤害至多+2。",
+  "material.tconstruct.manyullyn.ranged": "连续发射8次后伤害呈线性增加，每级箭矢伤害至多+1（先于初速度计算）",
   "material.tconstruct.manyullyn.armor": "受到伤害后，近战伤害暂时+1，至多为盔甲强化等级之和。",
 
   "material.tconstruct.hepatizon": "黑色科林斯青铜",
   "material.tconstruct.hepatizon.flavor": "-科什么斯啊？\n-科林斯啊。\n-什么林斯啊？\n-科林斯啊！\n-科林什么啊？\n-行了你先歇着吧。",
-  "material.tconstruct.hepatizon.encyclopedia": "在连续挖掘32个方块后挖掘速度呈线性增加，每级挖掘速度+25%",
-  "material.tconstruct.hepatizon.ranged": "连续发射16次后拉弓速度呈线性增加，每级拉弓速度+25%",
+  "material.tconstruct.hepatizon.encyclopedia": "在连续挖掘32个方块后挖掘速度呈线性增加，每级挖掘速度至多+25%",
+  "material.tconstruct.hepatizon.ranged": "连续发射16次后拉弓速度呈线性增加，每级拉弓速度至多+25%",
   "material.tconstruct.hepatizon.armor": "受到伤害后一段时间，每级所有来源伤害-5%",
 
   "material.tconstruct.cinderslime": "余烬黏液",
