@@ -3243,7 +3243,7 @@
   "jei.tconstruct.tinkering.tool_building.anvil": "宽型工具需要工匠砧制造或替换部件",
 
   "jei.tconstruct.part_builder.title": "部件制造台",
-  "jei.tconstruct.part_builder.cost": "花费：%s",
+  "jei.tconstruct.part_builder.cost": "消耗：%s",
 
   "jei.tconstruct.modifier_worktable.title": "强化调配台",
 
