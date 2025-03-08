@@ -251,7 +251,7 @@
   "item.tconstruct.modifier_crystal": "强化水晶",
   "item.tconstruct.modifier_crystal.format": "%s水晶",
   "item.tconstruct.modifier_crystal.missing": "定义强化类型的NBT缺失或无效",
-  "item.tconstruct.modifier_crystal.tooltip": "加持于工具后对应强化等级增加1级并消耗相应的强化槽",
+  "item.tconstruct.modifier_crystal.tooltip": "加持后工具对应强化等级增加1级并消耗相应的强化槽",
   "item.tconstruct.modifier_crystal.modifier_id": "强化ID: %s",
 
   "item.tconstruct.creative_slot": "创造强化槽",
@@ -2756,7 +2756,7 @@
   "tool_stat.tconstruct.tank_capacity.description": "工具储罐中能容纳流体的最大值",
   "tool_stat.tconstruct.tank_capacity.fluid": "流体：",
 
-  "stat.tconstruct.repair_kit": "修理件",
+  "stat.tconstruct.repair_kit": "修补件",
   "stat.tconstruct.skull": "黏液头颅",
 
   "stat.tconstruct.harvest_tier.minecraft.wood": "木",
@@ -3065,7 +3065,7 @@
   "jei.tconstruct.tinkering.tool_building.anvil": "宽型工具需要工匠砧制造或替换部件",
 
   "jei.tconstruct.part_builder.title": "部件制造台",
-  "jei.tconstruct.part_builder.cost": "花费：%s",
+  "jei.tconstruct.part_builder.cost": "消耗：%s",
 
   "jei.tconstruct.modifier_worktable.title": "强化调配台",
 
