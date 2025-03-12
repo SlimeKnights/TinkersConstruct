@@ -3074,7 +3074,7 @@
 
   "recipe.tconstruct.tool_recycling": "工具回收",
   "recipe.tconstruct.tool_recycling.info": "从组装此工具的工具部件中选择你想回收的一个。根据工具剩余的耐久度多少，甚至有可能回收第2个工具部件。",
-  "recipe.tconstruct.tool_recycling.no_modifiers": "加持升级或能力的工具无法被回收，你必须先将它们移除。",
+  "recipe.tconstruct.tool_recycling.no_modifiers": "加持升级或能力的工具无法回收，你必须先将它们移除。",
 
   
   "_comment": "GUIs Messages",
