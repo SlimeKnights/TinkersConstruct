@@ -575,7 +575,7 @@
   "fluid.tconstruct.flowing_ichor": "流动的灵浆",
   "item.tconstruct.ichor_bucket": "灵浆桶",
   "item.tconstruct.ichor_slime_bottle": "灵浆瓶",
-  "fluid.tconstruct.ichor.fluid_effect": "灵浆是一种反重力流体，还可以助你抵抗重力。让你活着逃回来。",
+  "fluid.tconstruct.ichor.fluid_effect": "灵浆是一种反重力流体，还可以助你抵抗重力。怎么游下来看你自己。",
 
   "_comment": "Rock",
 
@@ -631,7 +631,7 @@
   "fluid.tconstruct.molten_amethyst": "熔融紫水晶",
   "fluid.tconstruct.flowing_molten_amethyst": "流动的熔融紫水晶",
   "item.tconstruct.molten_amethyst_bucket": "熔融紫水晶桶",
-  "fluid.tconstruct.molten_amethyst.fluid_effect": "熔融紫水晶是一种最廉价的采掘流体，但它并不厉害。",
+  "fluid.tconstruct.molten_amethyst.fluid_effect": "熔融紫水晶是最廉价的采掘流体，但它并不厉害。",
 
   "block.tconstruct.molten_diamond_fluid": "熔融钻石",
   "fluid.tconstruct.molten_diamond": "熔融钻石",
@@ -789,7 +789,7 @@
   "fluid.tconstruct.molten_platinum": "熔融铂",
   "fluid.tconstruct.flowing_molten_platinum": "流动的熔融铂",
   "item.tconstruct.molten_platinum_bucket": "熔融铂桶",
-  "fluid.tconstruct.molten_platinum.fluid_effect": "熔融铂对敌人的挖掘速度削减作用尚不明晰，但其他功能仍待发掘。",
+  "fluid.tconstruct.molten_platinum.fluid_effect": "熔融铂能降低敌人的挖掘速度，具体用途仍待发掘。",
 
   "block.tconstruct.molten_tungsten_fluid": "熔融钨",
   "fluid.tconstruct.molten_tungsten": "熔融钨",
@@ -807,7 +807,7 @@
   "fluid.tconstruct.molten_uranium": "熔融铀",
   "fluid.tconstruct.flowing_molten_uranium": "流动的熔融铀",
   "item.tconstruct.molten_uranium_bucket": "熔融铀桶",
-  "fluid.tconstruct.molten_uranium.fluid_effect": "熔融铀产生的放射性衰变可不安全，所以把它喷在你的敌人身上。",
+  "fluid.tconstruct.molten_uranium.fluid_effect": "熔融铀产生的放射性衰变可不安全，所以把它喷到你的敌人身上吧。",
 
   "_comment": "Compat Alloys",
 
@@ -839,7 +839,7 @@
   "fluid.tconstruct.molten_constantan": "熔融康铜",
   "fluid.tconstruct.flowing_molten_constantan": "流动的熔融康铜",
   "item.tconstruct.molten_constantan_bucket": "熔融康铜桶",
-  "fluid.tconstruct.molten_constantan.fluid_effect": "熔融康铜对人类对手时有用，对怪物可就不一定了。",
+  "fluid.tconstruct.molten_constantan.fluid_effect": "熔融康铜对人类对手有用，对怪物可就不一定了。",
 
   "block.tconstruct.molten_pewter_fluid": "熔融白镴",
   "fluid.tconstruct.molten_pewter": "熔融白镴",
@@ -926,7 +926,7 @@
   "fluid_effect.tconstruct.break_block.separator": "%s，%s",
   "fluid_effect.tconstruct.break_block.enchanted": "%s采掘方块",
   "fluid_effect.tconstruct.break_block.hardness": "采掘硬度最高为%s的方块",
-  "fluid_effect.tconstruct.break_block.enchanted.hardness": "%2$s采掘硬度最高为%1$s的方块",
+  "fluid_effect.tconstruct.break_block.enchanted.hardness": "附带%2$s采掘硬度最高为%1$s的方块",
   "fluid_effect.tconstruct.mob_effect_cloud": "%s区域效果云",
   "fluid_effect.tconstruct.potion_cloud": "区域效果云",
   "fluid_effect.tconstruct.move_block.push": "推动方块",
@@ -2175,7 +2175,7 @@
   "modifier.tconstruct.dyed.flavor": "外观改变了！",
   "modifier.tconstruct.dyed.description": "改变盔甲的外观，就好像换了一种制作材料",
   "modifier.tconstruct.trim": "盔甲纹饰",
-  "modifier.tconstruct.trim.formatted": "%s (%s)",
+  "modifier.tconstruct.trim.formatted": "%s（%s）",
   "modifier.tconstruct.trim.flavor": "繁琐的细节！",
   "modifier.tconstruct.trim.description": "使用昂贵的锻造模板为盔甲增添细节",
 
