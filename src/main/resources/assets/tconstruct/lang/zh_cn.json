@@ -1296,7 +1296,7 @@
   "gui.tconstruct.heater": "加热器",
 
   "block.tconstruct.seared_fluid_cannon": "铜流体加农炮",
-  "block.tconstruct.seared_fluid_cannon.tooltip": "被红石激活后，发射一定数量的流体\n被破坏后仍能保留其中的流体",
+  "block.tconstruct.seared_fluid_cannon.tooltip": "被红石激活后，发射少量流体\n被破坏后仍能保留其中的流体",
   "block.tconstruct.scorched_fluid_cannon": "钴流体加农炮",
   "block.tconstruct.scorched_fluid_cannon.tooltip": "被红石激活后，发射更强大的流体弹射物\n被破坏后仍能保留其中的流体",
   "entity.tconstruct.fluid_spit": "流体弹射物",
