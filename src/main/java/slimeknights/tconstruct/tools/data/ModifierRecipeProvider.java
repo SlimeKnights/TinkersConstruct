@@ -1221,12 +1221,11 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setTools(ingredientFromTags(TinkerTags.Items.CHESTPLATES, TinkerTags.Items.SHIELDS))
                          .saveSalvage(consumer, prefix(TinkerModifiers.bursting, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.bursting, abilityFolder));
+    Ingredient bowLimb = MaterialIngredient.of(TinkerToolParts.bowLimb.get());
     ModifierRecipeBuilder.modifier(TinkerModifiers.spitting)
-                         .addInput(tanks)
-                         .addInput(Items.DISPENSER)
-                         .addInput(tanks)
-                         .addInput(Tags.Items.INGOTS_COPPER)
-                         .addInput(Tags.Items.INGOTS_COPPER)
+                         .addInput(bowLimb)
+                         .addInput(TinkerSmeltery.searedFluidCannon)
+                         .addInput(bowLimb)
                          .setSlots(SlotType.ABILITY, 1)
                          // swasher gets spitting to get multishot, doesn't really fit any good categories for it otherwise (but feel free to request a tag)
                          .setTools(IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.DURABILITY), CompoundIngredient.of(

@@ -947,16 +947,21 @@
   "item.tconstruct.diamond_item_frame": "Diamond Item Frame",
   "item.tconstruct.manyullyn_item_frame": "Manyullyn Item Frame",
   "item.tconstruct.netherite_item_frame": "Netherite Item Frame",
+  "entity.tconstruct.fancy_item_frame": "Fancy Item Frame",
 
   "item.tconstruct.glow_ball": "Glowball",
   "item.tconstruct.glow_ball.tooltip": "Not suited for consumption.",
+  "entity.tconstruct.glow_ball": "Glowball",
   "item.tconstruct.efln_ball": "EFLN",
   "item.tconstruct.efln_ball.tooltip": "Explodes! Safe for mining",
+  "entity.tconstruct.efln_ball": "EFLN",
 
   "item.tconstruct.quartz_shuriken": "Quartz Shuriken",
   "item.tconstruct.quartz_shuriken.tooltip": "A throwable weapon with higher damage",
+  "entity.tconstruct.quartz_shuriken": "Quartz Shuriken",
   "item.tconstruct.flint_shuriken": "Flint Shuriken",
   "item.tconstruct.flint_shuriken.tooltip": "A throwable weapon with high knockback",
+  "entity.tconstruct.flint_shuriken": "Flint Shuriken",
 
   "block.tconstruct.earth_cake": "Earthslime Cake",
   "block.tconstruct.sky_cake":   "Skyslime Cake",
@@ -1289,6 +1294,12 @@
   "block.tconstruct.seared_heater": "Seared Heater",
   "block.tconstruct.seared_heater.tooltip": "Solid fuel source for the Melter.",
   "gui.tconstruct.heater": "Heater",
+
+  "block.tconstruct.seared_fluid_cannon": "Copper Fluid Cannon",
+  "block.tconstruct.seared_fluid_cannon.tooltip": "Shoots basic amounts of fluids when triggered by redstone.\nRetains liquid when broken.",
+  "block.tconstruct.scorched_fluid_cannon": "Cobalt Fluid Cannon",
+  "block.tconstruct.scorched_fluid_cannon.tooltip": "Shoots stronger fluid projectiles when triggered by redstone.\nRetains liquid when broken.",
+  "entity.tconstruct.fluid_spit": "Fluid Projectile",
 
   "block.tconstruct.smeltery_controller": "Smeltery Controller",
   "block.tconstruct.smeltery_controller.tooltip": "Brain of the Smeltery.",

@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "C": {
+      "tag": "forge:ingots/cobalt"
+    },
+    "T": {
+      "type": "tconstruct:no_container",
+      "match": [
+        {
+          "item": "tconstruct:scorched_ingot_gauge"
+        },
+        {
+          "item": "tconstruct:scorched_fuel_gauge"
+        }
+      ]
+    }
+  },
+  "pattern": [
+    "CTC",
+    "CCC"
+  ],
+  "result": {
+    "item": "tconstruct:scorched_fluid_cannon"
+  },
+  "show_notification": true
+}

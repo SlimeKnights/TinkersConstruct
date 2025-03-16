@@ -3,21 +3,15 @@
   "allow_crystal": true,
   "inputs": [
     {
-      "type": "tconstruct:no_container",
-      "tag": "tconstruct:tanks"
+      "type": "tconstruct:material",
+      "item": "tconstruct:bow_limb"
     },
     {
-      "item": "minecraft:dispenser"
+      "item": "tconstruct:seared_fluid_cannon"
     },
     {
-      "type": "tconstruct:no_container",
-      "tag": "tconstruct:tanks"
-    },
-    {
-      "tag": "forge:ingots/copper"
-    },
-    {
-      "tag": "forge:ingots/copper"
+      "type": "tconstruct:material",
+      "item": "tconstruct:bow_limb"
     }
   ],
   "result": "tconstruct:spitting",
