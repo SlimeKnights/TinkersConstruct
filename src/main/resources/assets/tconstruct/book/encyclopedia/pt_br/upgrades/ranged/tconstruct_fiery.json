@@ -2,15 +2,15 @@
   "modifier_id": "tconstruct:fiery",
   "text": [
     {
-      "text": "Causes fired arrows to be ignited, burning targets they hit."
+      "text": "Faz com que as flechas disparadas sejam incendiadas, queimando os alvos atingidos."
     }
   ],
   "more_text_space": true,
   "tool_filter": "tconstruct:modifiable/ranged",
   "effects": [
-    "Can apply levels incrementally",
-    "Maximum of 5 levels",
-    "Does not work well with freezing",
-    "Requires 1 upgrade slot per level"
+    "Pode aplicar níveis de forma incremental",
+    "Máximo de 5 níveis",
+    "Não funciona bem com congelamento",
+    "Requer 1 slot de melhoria por nível"
   ]
 }
