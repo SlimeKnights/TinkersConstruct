@@ -2,14 +2,14 @@
   "modifier_id": "tconstruct:freezing",
   "text": [
     {
-      "text": "Freezes any entity hit by the arrow for 4 seconds (plus 4 seconds per level), causing damage over time and slowness."
+      "text": "Congela qualquer entidade atingida pela flecha por 4 segundos (mais 4 segundos por nível), causando dano ao longo do tempo e lentidão."
     }
   ],
   "more_text_space": true,
   "tool_filter": "tconstruct:modifiable/ranged",
   "effects": [
-    "Maximum of 3 levels",
-    "Does not work well with fiery",
-    "Requires 1 upgrade slot per level"
+    "Máximo de 3 níveis",
+    "Não funciona bem com fogo",
+    "Requer 1 slot de melhoria por nível"
   ]
 }
