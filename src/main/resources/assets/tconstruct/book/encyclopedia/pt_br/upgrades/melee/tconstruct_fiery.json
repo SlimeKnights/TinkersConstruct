@@ -6,6 +6,7 @@
     }
   ],
   "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/melee",
   "effects": [
     "Pode aplicar níveis progressivamente",
     "Máximo de 5 níveis",
