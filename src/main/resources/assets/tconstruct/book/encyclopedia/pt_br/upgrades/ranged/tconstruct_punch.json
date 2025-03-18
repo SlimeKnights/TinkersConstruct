@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:punch",
   "text": [
     {
-      "text": "Increases the knockback dealt by arrows each level."
+      "text": "Aumenta o recuo causado pelas flechas a cada nível."
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Maximum of 5 levels",
-    "Requires 1 upgrade slot per level"
+    "Máximo de 5 níveis",
+    "Requer 1 slot de melhoria por nível"
   ]
 }
