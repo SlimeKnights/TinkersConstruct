@@ -8,7 +8,7 @@
   "more_text_space": true,
   "tool_filter": "tconstruct:modifiable/ranged",
   "effects": [
-    "Pode aplicar niveis progressivamente",
+    "Pode aplicar níveis progressivamente",
     "Máximo de 5 níveis",
     "Não funciona bem com congelamento",
     "Requer 1 slot de melhoria por nível"
