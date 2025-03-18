@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:scope",
   "text": [
     {
-      "text": "Enlarges distant objects as the bow draws back. Ends up a bit less than a spyglass when fully drawn."
+      "text": "Amplia objetos distantes conforme o arco se retrai. Acaba ficando um pouco menor que uma luneta quando totalmente puxado."
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Single level",
-    "Requires 1 upgrade slot"
+    "Nível único",
+    "Requer 1 slot de melhoria"
   ]
 }
