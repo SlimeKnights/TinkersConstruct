@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:trueshot",
   "text": [
     {
-      "text": "Grants +0.1 accuracy per level."
+      "text": "Concede +0,1 de precisão por nível."
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Can apply levels incrementally",
-    "Maximum of 3 levels",
-    "Requires 1 upgrade slot per level"
+    "Pode aplicar níveis de forma incremental",
+    "Máximo de 3 níveis",
+    "Requer 1 slot de melhoria por nível"
   ]
 }
