@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:shield_strap",
+  "text": [
+    {
+      "text": "Adiciona +1 slot na mão secundária por nível, permitindo trocar o item da mão secundária ao interagir com as calças."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Requer 1 slot de melhoria por nível"
+  ]
+}
