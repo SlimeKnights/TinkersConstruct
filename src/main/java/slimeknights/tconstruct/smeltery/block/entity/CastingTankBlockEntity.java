@@ -6,15 +6,18 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.client.model.data.ModelData;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -36,7 +39,9 @@ import javax.annotation.Nullable;
 public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlockEntity { // TODO needs item handler
   /** Max capacity for the tank */
   public static final int DEFAULT_CAPACITY = FluidType.BUCKET_VOLUME * 2;
-
+  // slots
+  public static final int INPUT = 0;
+  public static final int OUTPUT = 1;
   private static final Component NAME = TConstruct.makeTranslation("gui", "casting");
 
   /**
@@ -67,7 +72,7 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
   @Getter
   protected final FluidTankAnimated tank;
   /** Capability holder for the tank */
-  private final LazyOptional<IFluidHandler> holder;
+  private final LazyOptional<IFluidHandler> fluidHolder;
   /** Last comparator strength to reduce block updates */
   @Getter @Setter
   private int lastStrength = -1;
@@ -82,9 +87,29 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
   protected CastingTankBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state, ITankBlock block) {
     super(type, pos, state, NAME, 2, 1);
     tank = new FluidTankAnimated(block.getCapacity(), this);
-    holder = LazyOptional.of(() -> tank);
+    fluidHolder = LazyOptional.of(() -> tank);
   }
 
+  /**
+   * Called from {@link slimeknights.tconstruct.smeltery.block.CastingTankBlock#use(BlockState, Level, BlockPos, Player, InteractionHand, BlockHitResult)}
+   * @param player Player activating the block.
+   */
+  public void interact(Player player, InteractionHand hand) {
+    // skip client side
+    if (level == null || level.isClientSide) {
+      return;
+    }
+
+    ItemStack input = getItem(INPUT);
+    ItemStack output = getItem(OUTPUT);
+
+    if (input.isEmpty() && input.isEmpty()) {
+      ItemStack held = player.getItemInHand(hand);
+      if (!held.isEmpty()) {
+
+      }
+    }
+  }
 
   /*
    * Tank methods
@@ -93,8 +118,8 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
   @Override
   @Nonnull
   public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
-    if (capability == ForgeCapabilities.FLUID_HANDLER) {
-      return holder.cast();
+    if (capability == ForgeCapabilities.FLUID_HANDLER) {  // TODO item
+      return fluidHolder.cast();
     }
     return super.getCapability(capability, facing);
   }
@@ -102,7 +127,7 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
   @Override
   public void invalidateCaps() {
     super.invalidateCaps();
-    holder.invalidate();
+    fluidHolder.invalidate();
   }
 
   @Nonnull

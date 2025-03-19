@@ -20,6 +20,7 @@ import slimeknights.mantle.block.InventoryBlock;
 import slimeknights.mantle.fluid.FluidTransferHelper;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.library.utils.NBTTags;
+import slimeknights.tconstruct.smeltery.block.entity.CastingBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.CastingTankBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.CastingTankBlockEntity.ITankBlock;
 import slimeknights.tconstruct.smeltery.block.entity.ITankBlockEntity;
@@ -62,9 +63,20 @@ public class CastingTankBlock extends InventoryBlock implements ITankBlock, Enti
   @Deprecated
   @Override
   public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-    if (FluidTransferHelper.interactWithTank(world, pos, player, hand, hit)) {
+//    if (FluidTransferHelper.interactWithTank(world, pos, player, hand, hit)) {  // TODO
+//      return InteractionResult.SUCCESS;
+//    }
+
+    if (player.isSuppressingBounce()) {
+      return InteractionResult.PASS;
+    }
+
+    BlockEntity te = world.getBlockEntity(pos);
+    if (te instanceof CastingTankBlockEntity) {
+      ((CastingTankBlockEntity) te).interact(player, hand);
       return InteractionResult.SUCCESS;
     }
+
     return super.use(state, world, pos, player, hand, hit);
   }
 
