@@ -2,17 +2,17 @@
   "modifier_id": "tconstruct:bane_of_sssss",
   "text": [
     {
-      "text": "Concede +2 de dano por nivel contra artrópodes e creepers."
+      "text": "Concede +2 de dano, por nível, contra artrópodes e creepers."
     },
     {
-      "text": "Além de artrópodes e creepers, aplica lentidão IV por 1 segundo, mais um possível bônus de meio segundo por nível.",
+      "text": "Além de artrópodes e creepers, aplica Lentidão IV por 1 segundo, mais um possível bônus de meio segundo por nível.",
       "paragraph": true
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Pode aplicar niveis progressivamente",
-    "Máximo de 5 niveis",
-    "Requer 1 slot de melhoria por nivel"
+    "Pode aplicar níveis progressivamente",
+    "Máximo de 5 níveis",
+    "Requer 1 slot de melhoria por nível"
   ]
 }
