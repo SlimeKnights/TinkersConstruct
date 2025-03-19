@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:step_up",
+  "text": [
+    {
+      "text": "Aumenta a altura que o jogador pode subir em 0,5 bloco por nível."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 2 níveis",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}
