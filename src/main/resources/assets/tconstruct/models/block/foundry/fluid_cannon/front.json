@@ -1,0 +1,6 @@
+{
+  "parent": "tconstruct:block/foundry/fluid_cannon/base",
+  "textures": {
+    "front": "tconstruct:block/foundry/fluid_cannon/front"
+  }
+}

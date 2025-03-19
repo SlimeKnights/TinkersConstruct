@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:melting",
+  "byproducts": [
+    {
+      "amount": 1000,
+      "fluid": "tconstruct:scorched_stone"
+    },
+    {
+      "amount": 500,
+      "fluid": "tconstruct:molten_quartz"
+    }
+  ],
+  "ingredient": {
+    "item": "tconstruct:scorched_fluid_cannon"
+  },
+  "result": {
+    "amount": 450,
+    "tag": "forge:molten_cobalt"
+  },
+  "temperature": 950,
+  "time": 227
+}

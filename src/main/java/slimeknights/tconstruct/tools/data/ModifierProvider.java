@@ -41,6 +41,7 @@ import slimeknights.tconstruct.library.data.tinkering.AbstractModifierProvider;
 import slimeknights.tconstruct.library.json.LevelingInt;
 import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.json.RandomLevelingValue;
+import slimeknights.tconstruct.library.json.predicate.HasMobEffectPredicate;
 import slimeknights.tconstruct.library.json.predicate.TinkerPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolContextPredicate;
@@ -536,6 +537,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
       .addModule(ConditionalStatModule.stat(ToolStats.ACCURACY).holder(TinkerPredicate.AIRBORNE).flat(0.5f));
     buildModifier(ModifierIds.antitoxin)
       .addModule(ConditionalMeleeDamageModule.builder()
+        .attacker(new HasMobEffectPredicate(MobEffects.POISON))
         .customVariable("poison", new EntityMeleeVariable(new EntityEffectLevelVariable(MobEffects.POISON), WhichEntity.ATTACKER, 0))
         .formula()
          // gives 1.5 bonus per level at poison 1, 2.5 at poison 2
@@ -543,6 +545,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
         // finally, add in base damage
         .variable(VALUE).add().build())
       .addModule(ConditionalStatModule.stat(ToolStats.DRAW_SPEED)
+        .holder(new HasMobEffectPredicate(MobEffects.POISON))
         .customVariable("poison", new EntityConditionalStatVariable(new EntityEffectLevelVariable(MobEffects.POISON), 0))
         .formula()
         // gives 0.15 bonus per level at poison 1, .25 at poison 2

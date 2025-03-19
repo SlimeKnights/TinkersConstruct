@@ -44,17 +44,22 @@ public class RenderFluidProvider extends BlockStateDataMapProvider<List<FluidCub
     block(TinkerSmeltery.scorchedBasin).variant(castingBasin);
 
     // melter
-    block(TinkerSmeltery.searedMelter).variant(List.of(
+    String halfTank = "templates/half_tank";
+    entry(halfTank, List.of(
       FluidCuboid.builder()
                  .from(0.08f, 8.08f, 0.08f)
                  .to(15.92f, 15.92f, 15.92f)
                  .build()));
+    block(TinkerSmeltery.searedMelter).variant(halfTank);
     // alloyer
     block(TinkerSmeltery.scorchedAlloyer).variant(List.of(
       FluidCuboid.builder()
                  .from(0.08f, 5.08f, 0.08f)
                  .to(15.92f, 15.92f, 15.92f)
                  .build()));
+    // fluid cannon
+    block(TinkerSmeltery.searedFluidCannon.get()).variant(halfTank);
+    block(TinkerSmeltery.scorchedFluidCannon.get()).variant(halfTank);
 
     // tanks
     String tank = "templates/tank";
