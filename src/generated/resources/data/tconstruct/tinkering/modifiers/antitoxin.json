@@ -3,6 +3,10 @@
   "modules": [
     {
       "type": "tconstruct:conditional_melee_damage",
+      "attacker": {
+        "type": "tconstruct:has_effect",
+        "effect": "minecraft:poison"
+      },
       "formula": [
         "$poison",
         0.5,
@@ -27,6 +31,10 @@
     },
     {
       "type": "tconstruct:conditional_stat",
+      "entity": {
+        "type": "tconstruct:has_effect",
+        "effect": "minecraft:poison"
+      },
       "formula": [
         "$poison",
         0.5,

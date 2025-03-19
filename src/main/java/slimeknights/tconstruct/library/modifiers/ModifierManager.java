@@ -36,8 +36,10 @@ import net.minecraftforge.fml.ModLoader;
 import net.minecraftforge.fml.event.IModBusEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.mantle.util.RegistryHelper;
+import slimeknights.mantle.util.typed.TypedMapBuilder;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.json.JsonRedirect;
 import slimeknights.tconstruct.library.modifiers.impl.ComposableModifier;
@@ -275,7 +277,7 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
       }
 
       // fallback to actual modifier
-      Modifier modifier = ComposableModifier.LOADER.deserialize(json);
+      Modifier modifier = ComposableModifier.LOADER.deserialize(json, TypedMapBuilder.builder().put(ContextKey.ID, key).put(ContextKey.DEBUG, "Modifier " + key).build());
       modifier.setId(new ModifierId(key));
       return modifier;
     } catch (JsonSyntaxException e) {

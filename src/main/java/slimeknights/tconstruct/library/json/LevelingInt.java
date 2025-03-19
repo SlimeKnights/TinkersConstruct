@@ -48,4 +48,21 @@ public record LevelingInt(int flat, int eachLevel) {
   public static LevelingInt eachLevel(int eachLevel) {
     return new LevelingInt(0, eachLevel);
   }
+
+
+  /** Trait to mix into a builder using leveling values */
+  public interface Builder<M> {
+    /** Creates an instance with a flat value and a leveling value*/
+    M amount(int flat, int eachLevel);
+
+    /** Creates an instance with a value that ignores level */
+    default M flat(int flat) {
+      return amount(flat, 0);
+    }
+
+    /** Creates an instance with a value that increases each level */
+    default M eachLevel(int eachLevel) {
+      return amount(0, eachLevel);
+    }
+  }
 }

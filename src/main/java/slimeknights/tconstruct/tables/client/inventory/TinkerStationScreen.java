@@ -230,7 +230,7 @@ public class TinkerStationScreen extends ToolTableScreen<TinkerStationBlockEntit
     }
 
     // fetch the tool version of the result for the screen
-    LazyToolStack lazyResult = tile.getResult(this.player);
+    LazyToolStack lazyResult = tile.getResult();
 
     // if we have a message, display instead of refreshing the tool
     Component currentError = tile.getCurrentError();

@@ -1720,6 +1720,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
 												 .save(consumer, location(folder + "wither_skeleton_skull"));
     SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.CREEPER), Items.CREEPER_HEAD)
 												 .save(consumer, location(folder + "creeper_head"));
+    SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.PIGLIN), Items.PIGLIN_HEAD)
+                         .save(consumer, location(folder + "piglin_head"));
     consumer.accept(new SimpleFinishedRecipe(location(folder + "player_head"), TinkerModifiers.playerBeheadingSerializer.get()));
     consumer.accept(new SimpleFinishedRecipe(location(folder + "snow_golem_head"), TinkerModifiers.snowGolemBeheadingSerializer.get()));
     SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.IRON_GOLEM), Blocks.CARVED_PUMPKIN)

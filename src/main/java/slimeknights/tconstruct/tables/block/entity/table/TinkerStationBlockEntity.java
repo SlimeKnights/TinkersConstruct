@@ -99,11 +99,19 @@ public class TinkerStationBlockEntity extends RetexturedTableBlockEntity impleme
 
   /** Gets the recipe result */
   @Nullable
-  public LazyToolStack getResult(@Nullable Player player) {
+  public LazyToolStack getResult() {
     // ensure the result has been resolved else we may be returning null when we shouldn't
     // if we return null that means there is no result, not its not calculated.
-    craftingResult.getResult(player);
+    craftingResult.getResult();
     return result;
+  }
+
+  /** @deprecated use {@link #getResult()} */
+  @SuppressWarnings("unused")
+  @Deprecated(forRemoval = true)
+  @Nullable
+  public LazyToolStack getResult(@Nullable Player player) {
+    return getResult();
   }
 
   @Override

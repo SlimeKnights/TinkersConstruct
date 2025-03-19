@@ -21,17 +21,20 @@ public class LazyResultContainer implements Container {
   private ItemStack result = null;
 
   /**
-   * Gets the result of this inventory, lazy loading it if not yet calculated
+   * Gets the result of this inventory, lazy loading it if not yet calculated. This result is not player sensitive.
    * @return  Item stack result
    */
   public final ItemStack getResult() {
     return getResult(null);
   }
 
-  /**
-   * Gets the result of this inventory, lazy loading it if not yet calculated
-   * @return  Item stack result
-   */
+  /** Calculates the result for the given player. Used by the crafting station since we want player sensitive results. */
+  public ItemStack calcResult(Player player) {
+    return crafter.calcResult(player);
+  }
+
+  /** @deprecated use {@link #calcResult(Player)} or {@link #getResult()} */
+  @Deprecated(forRemoval = true)
   public ItemStack getResult(@Nullable Player player) {
     if (result == null) {
       result = Objects.requireNonNull(crafter.calcResult(player), "Result cannot be null");
@@ -58,20 +61,28 @@ public class LazyResultContainer implements Container {
 
   /**
    * Gets the result of crafting, and consumes required items
+   * @param player  Player access
+   * @param result  Item that was crafted
    * @param amount  Number to craft
    */
-  public void craftResult(Player player, int amount) {
+  public void craftResult(Player player, ItemStack result, int amount) {
     // get result and consume items
-    crafter.onCraft(player, getResult(player).copy(), amount);
+    crafter.onCraft(player, result, amount);
     // clear result cache, items changed
     clearContent();
+  }
+
+  /** @deprecated use {@link #craftResult(Player, ItemStack, int)} */
+  @Deprecated(forRemoval = true)
+  public void craftResult(Player player, int amount) {
+    craftResult(player, calcResult(player).copy(), amount);
   }
 
   /**
    * Returns the result stack from the inventory. This will not consume inputs
    * @param index  Unused
    * @return  Result stack
-   * @deprecated use {@link #craftResult(Player, int)} or {@link #getResult()}
+   * @deprecated use {@link #craftResult(Player, ItemStack, int)} or {@link #getResult()}
    */
   @Deprecated
   @Override
@@ -84,7 +95,7 @@ public class LazyResultContainer implements Container {
    * @param index  Unused
    * @param count  Unused as output sizes should never change
    * @return  Result stack
-   * @deprecated use {@link #craftResult(Player, int)} or {@link #getResult()}
+   * @deprecated use {@link #craftResult(Player, ItemStack, int)} or {@link #getResult()}
    */
   @Deprecated
   @Override

@@ -493,7 +493,7 @@
   "fluid.tconstruct.honey": "Honey",
   "fluid.tconstruct.flowing_honey": "Flowing Honey",
   "item.tconstruct.honey_bucket": "Honey Bucket",
-  "fluid.tconstruct.honey.fluid_effect": "So sweat, and removes toxins, what not to love with slurping honey?",
+  "fluid.tconstruct.honey.fluid_effect": "So sweet, and removes toxins, what not to love with slurping honey?",
 
   "block.tconstruct.beetroot_soup_fluid": "Beetroot Soup",
   "fluid.tconstruct.beetroot_soup": "Beetroot Soup",
@@ -524,7 +524,6 @@
   "_comment": "Potion",
 
   "fluid.tconstruct.potion": "Potion",
-  "fluid.tconstruct.potion.fluid_effect": "Potions allow a wide variety of effects crafted in a brewing stand. Can dump potions into tanks to fill tools.",
   "fluid.tconstruct.potion.fluid_effect": "Potions allow a wide variety of effects crafted in a brewing stand. Can dump potions into tanks to fill tools.",
 
   "item.tconstruct.potion_bucket": "Uncraftable Potion Bucket",
@@ -1804,7 +1803,7 @@
   "material.tconstruct.hepatizon.flavor": "He-pa-ti-zon - boil it, mash it, put it in a stew.",
   "material.tconstruct.hepatizon.encyclopedia": "Boosts mining speed by up to 25% per level, linearly increasing over mining 32 consecutive blocks",
   "material.tconstruct.hepatizon.ranged": "Boosts drawspeed by up to 25% per level, linearly increasing while firing 16 consecutive arrows",
-  "material.tconstruct.hepatizon.armor": "Reduces damage from all attacks by 5% per level if you recently took damage",
+  "material.tconstruct.hepatizon.armor": "Converts 50% of damage taken into a temporary flat damage reduction. Reduction lasts 5 seconds per level.",
 
   "material.tconstruct.cinderslime": "Cinderslime",
   "material.tconstruct.cinderslime.flavor": "Cast it into the fire!",

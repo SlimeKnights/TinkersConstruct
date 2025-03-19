@@ -27,13 +27,12 @@ public class LazyResultSlot extends Slot {
     if (this.hasItem()) {
       this.amountCrafted += Math.min(amount, this.getItem().getCount());
     }
-
     return super.remove(amount);
   }
 
   @Override
   public void onTake(Player player, ItemStack stack) {
-    inventory.craftResult(player, amountCrafted);
+    inventory.craftResult(player, stack, amountCrafted);
     amountCrafted = 0;
   }
 
