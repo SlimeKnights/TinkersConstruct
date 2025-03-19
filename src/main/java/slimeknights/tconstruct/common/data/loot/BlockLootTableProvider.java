@@ -256,6 +256,8 @@ public class BlockLootTableProvider extends BlockLootSubProvider {
       builder.apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY))
              .apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY).copy(NBTTags.TANK, NBTTags.TANK)));
     TinkerSmeltery.searedTank.forEach(block -> this.add(block, dropTank));
+    this.add(TinkerSmeltery.searedFluidCannon.get(), dropTank);
+    this.add(TinkerSmeltery.scorchedFluidCannon.get(), dropTank);
     this.add(TinkerSmeltery.searedLantern.get(), dropTank);
 
     // fluid

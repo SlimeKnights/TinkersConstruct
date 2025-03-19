@@ -7,7 +7,6 @@
     "minecraft:dispenser",
     "minecraft:dropper",
     "minecraft:hopper",
-    "minecraft:chiseled_bookshelf",
     {
       "id": "immersiveengineering:woodencrate",
       "required": false

@@ -1,0 +1,10 @@
+{
+  "parent": "tconstruct:block/template/half_tank",
+  "textures": {
+    "front":  "tconstruct:block/smeltery/fluid_cannon/side",
+    "top":    "tconstruct:block/smeltery/fluid_cannon/top",
+    "side":   "tconstruct:block/smeltery/fluid_cannon/side",
+    "bottom": "tconstruct:block/smeltery/fluid_cannon/bottom",
+    "inside": "tconstruct:block/smeltery/fluid_cannon/inside"
+  }
+}

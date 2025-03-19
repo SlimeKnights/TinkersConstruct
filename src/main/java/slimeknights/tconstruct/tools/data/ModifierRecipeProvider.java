@@ -1221,12 +1221,11 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setTools(ingredientFromTags(TinkerTags.Items.CHESTPLATES, TinkerTags.Items.SHIELDS))
                          .saveSalvage(consumer, prefix(TinkerModifiers.bursting, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.bursting, abilityFolder));
+    Ingredient bowLimb = MaterialIngredient.of(TinkerToolParts.bowLimb.get());
     ModifierRecipeBuilder.modifier(TinkerModifiers.spitting)
-                         .addInput(tanks)
-                         .addInput(Items.DISPENSER)
-                         .addInput(tanks)
-                         .addInput(Tags.Items.INGOTS_COPPER)
-                         .addInput(Tags.Items.INGOTS_COPPER)
+                         .addInput(bowLimb)
+                         .addInput(TinkerSmeltery.searedFluidCannon)
+                         .addInput(bowLimb)
                          .setSlots(SlotType.ABILITY, 1)
                          // swasher gets spitting to get multishot, doesn't really fit any good categories for it otherwise (but feel free to request a tag)
                          .setTools(IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.DURABILITY), CompoundIngredient.of(
@@ -1721,6 +1720,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
 												 .save(consumer, location(folder + "wither_skeleton_skull"));
     SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.CREEPER), Items.CREEPER_HEAD)
 												 .save(consumer, location(folder + "creeper_head"));
+    SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.PIGLIN), Items.PIGLIN_HEAD)
+                         .save(consumer, location(folder + "piglin_head"));
     consumer.accept(new SimpleFinishedRecipe(location(folder + "player_head"), TinkerModifiers.playerBeheadingSerializer.get()));
     consumer.accept(new SimpleFinishedRecipe(location(folder + "snow_golem_head"), TinkerModifiers.snowGolemBeheadingSerializer.get()));
     SeveringRecipeBuilder.severing(EntityIngredient.of(EntityType.IRON_GOLEM), Blocks.CARVED_PUMPKIN)

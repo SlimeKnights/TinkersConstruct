@@ -464,8 +464,8 @@ public class BlockTagProvider extends BlockTagsProvider {
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_GOLD_TOOL, TinkerSmeltery.scorchedLantern, TinkerSmeltery.scorchedFaucet, TinkerSmeltery.scorchedChannel, TinkerSmeltery.scorchedBasin, TinkerSmeltery.scorchedTable);
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_GOLD_TOOL, TinkerSmeltery.searedHeater, TinkerSmeltery.searedMelter, TinkerSmeltery.scorchedAlloyer);
     // tough seared + scorched
-    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_STONE_TOOL, TinkerSmeltery.searedDrain, TinkerSmeltery.searedChute, TinkerSmeltery.smelteryController);
-    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_IRON_TOOL, TinkerSmeltery.searedDuct, TinkerSmeltery.scorchedDuct);
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_STONE_TOOL, TinkerSmeltery.searedDrain, TinkerSmeltery.searedChute, TinkerSmeltery.smelteryController, TinkerSmeltery.searedFluidCannon);
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_IRON_TOOL, TinkerSmeltery.searedDuct, TinkerSmeltery.scorchedDuct, TinkerSmeltery.scorchedFluidCannon);
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_DIAMOND_TOOL, TinkerSmeltery.scorchedDrain, TinkerSmeltery.scorchedChute, TinkerSmeltery.foundryController);
 
     // tables
@@ -501,7 +501,7 @@ public class BlockTagProvider extends BlockTagsProvider {
     tag(TinkerTags.Blocks.MINABLE_WITH_DAGGER).addTags(MINEABLE_WITH_HOE, TinkerTags.Blocks.MINABLE_WITH_SWORD);
 
     // melting pan blacklist, basically anything that feels gross due to unsupported melting recipe
-    tagBlocks(MINEABLE_MELTING_BLACKLIST, TinkerSmeltery.searedMelter, TinkerSmeltery.smelteryController, TinkerSmeltery.foundryController, TinkerSmeltery.searedLantern, TinkerSmeltery.scorchedLantern);
+    tagBlocks(MINEABLE_MELTING_BLACKLIST, TinkerSmeltery.searedMelter, TinkerSmeltery.smelteryController, TinkerSmeltery.foundryController, TinkerSmeltery.searedLantern, TinkerSmeltery.scorchedLantern, TinkerSmeltery.searedFluidCannon, TinkerSmeltery.scorchedFluidCannon);
     tagBlocks(MINEABLE_MELTING_BLACKLIST, TinkerSmeltery.searedTank, TinkerSmeltery.scorchedTank);
 
     // copy of blocks list from FlowingFLuid#canHoldFLuid

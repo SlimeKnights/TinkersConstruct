@@ -16,7 +16,7 @@ public class FluidTankBase<T extends MantleBlockEntity> extends FluidTank {
   }
 
   @Override
-  protected void onContentsChanged() {
+  public void onContentsChanged() {
     if (parent instanceof IFluidTankUpdater) {
       ((IFluidTankUpdater) parent).onTankContentsChanged();
     }

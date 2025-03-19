@@ -1,0 +1,6 @@
+{
+  "parent": "tconstruct:block/smeltery/fluid_cannon/base",
+  "textures": {
+    "bottom": "tconstruct:block/smeltery/fluid_cannon/bottom_nozzle"
+  }
+}
