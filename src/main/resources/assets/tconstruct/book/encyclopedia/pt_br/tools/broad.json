@@ -1,7 +1,7 @@
 {
   "title": "Ferramentas Grandes",
   "text": [
-    { "text": "Todas as ferramentas grandes requerem a Bigorna do Tinker's para serem fabricadas e para substituir suas partes. A maioria exige 4 peças para as ferramentas, e começam com apenas 2 slots de melhorias e 1 slot de habilidade." },
+    { "text": "Todas as ferramentas grandes requerem a Bigorna do Tinker's para serem fabricadas e para substituir suas peças. A maioria exige 4 peças para as ferramentas, e começam com apenas 2 slots de melhorias e 1 slot de habilidade." },
     { "text": "Ferramentas grandes possuem tanto bônus de ataque quanto modificadores, como as ferramentas pequenas, e muitas outras possuem atributos. Além disso, várias ferramentas têm um modificador de durabilidade ou velocidade de mineração que funciona de forma semelhante ao modificador de ataque, afetando tanto os status base quanto os bônus de status vindo de modificadores.", "paragraph": true }
   ]
 }
