@@ -11,6 +11,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -25,6 +26,8 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import slimeknights.mantle.fluid.FluidTransferHelper;
+import slimeknights.mantle.fluid.transfer.FluidContainerTransferManager;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.model.ModelProperties;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
@@ -94,7 +97,7 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
    * Called from {@link slimeknights.tconstruct.smeltery.block.CastingTankBlock#use(BlockState, Level, BlockPos, Player, InteractionHand, BlockHitResult)}
    * @param player Player activating the block.
    */
-  public void interact(Player player, InteractionHand hand) {
+  public void interact(Player player, InteractionHand hand, BlockHitResult hit) {
     // skip client side
     if (level == null || level.isClientSide) {
       return;
@@ -102,24 +105,37 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
 
     ItemStack input = getItem(INPUT);
     ItemStack output = getItem(OUTPUT);
-
-    if (input.isEmpty() && input.isEmpty()) { // if the inventory is empty, can place the player's held item
-      ItemStack held = player.getItemInHand(hand);
-      if (!held.isEmpty()) {
-        // TODO
-      }
-    } else {
-
+    ItemStack held = player.getItemInHand(hand);
+    // if the held item can be placed inside, do so
+    if (canReceiveItemStack(held)) {
+      setItem(INPUT, held.split(1));  // TODO, need to try to process the item when it is received
+    // otherwise, interact with the tank
+    } else if (!FluidTransferHelper.interactWithTank(level, worldPosition, player, hand, hit)
+      // if the tank wasn't interacted with and the player has an empty hand, the player may take the item from the casting tank
+      && held.isEmpty()
+    ) {
+      if (!output.isEmpty()) {
+        setItem(OUTPUT, ItemStack.EMPTY);
+        player.setItemInHand(hand, output);
+      } else if (!input.isEmpty()) {
+        setItem(INPUT, ItemStack.EMPTY);
+        player.setItemInHand(hand, input);
+      } // TODO, also need to handle the automation side of things by overriding container methods
     }
   }
 
   /**
-   * Checks whether a given itemStack can be received into the casting tank's inventory
-   * @param itemStack itemStack to be received
-   * @return True if itemStack can be received
+   * Checks whether a given stack can be received into the casting tank's inventory
+   * @param stack Item stack to be received
+   * @return True if the stack can be received
    */
-  protected boolean canReceiveItemStack(ItemStack itemStack) {
-
+  protected boolean canReceiveItemStack(ItemStack stack) {
+      return getItem(INPUT).isEmpty() && getItem(OUTPUT).isEmpty() && !stack.isEmpty() && (
+        // check the various options for some sort of fluid-containing stack
+        FluidContainerTransferManager.INSTANCE.mayHaveTransfer(stack)
+          || stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).isPresent()
+          || stack.getItem() instanceof BucketItem
+      );
   }
 
   /*

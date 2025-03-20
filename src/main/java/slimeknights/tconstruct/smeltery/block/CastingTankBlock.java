@@ -63,18 +63,18 @@ public class CastingTankBlock extends InventoryBlock implements ITankBlock, Enti
   @Deprecated
   @Override
   public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-//    if (FluidTransferHelper.interactWithTank(world, pos, player, hand, hit)) {  // TODO
+//    if (FluidTransferHelper.interactWithTank(world, pos, player, hand, hit)) {  // TODO what should we do on the client side?
 //      return InteractionResult.SUCCESS;
 //    }
 
     if (player.isSuppressingBounce()) {
-      return InteractionResult.PASS;
+      return InteractionResult.PASS; // TODO do we want this logic
     }
 
     BlockEntity te = world.getBlockEntity(pos);
     if (te instanceof CastingTankBlockEntity) {
-      ((CastingTankBlockEntity) te).interact(player, hand);
-      return InteractionResult.SUCCESS;
+      ((CastingTankBlockEntity) te).interact(player, hand, hit);
+      return InteractionResult.SUCCESS; // TODO we shouldn't do this if nothing happened
     }
 
     return super.use(state, world, pos, player, hand, hit);
