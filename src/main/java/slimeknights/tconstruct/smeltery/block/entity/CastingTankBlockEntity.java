@@ -44,6 +44,15 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
   public static final int OUTPUT = 1;
   private static final Component NAME = TConstruct.makeTranslation("gui", "casting");
 
+  /** Internal fluid tank instance */
+  @Getter
+  protected final FluidTankAnimated tank;
+  /** Capability holder for the tank */
+  private final LazyOptional<IFluidHandler> fluidHolder;
+  /** Last comparator strength to reduce block updates */
+  @Getter @Setter
+  private int lastStrength = -1;
+
   /**
    * Gets the capacity for the given block
    * @param block  block
@@ -67,15 +76,6 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
     }
     return DEFAULT_CAPACITY;
   }
-
-  /** Internal fluid tank instance */
-  @Getter
-  protected final FluidTankAnimated tank;
-  /** Capability holder for the tank */
-  private final LazyOptional<IFluidHandler> fluidHolder;
-  /** Last comparator strength to reduce block updates */
-  @Getter @Setter
-  private int lastStrength = -1;
 
   /** Main constructor */
   public CastingTankBlockEntity(BlockPos pos, BlockState state, ITankBlock block) {
@@ -103,12 +103,23 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
     ItemStack input = getItem(INPUT);
     ItemStack output = getItem(OUTPUT);
 
-    if (input.isEmpty() && input.isEmpty()) {
+    if (input.isEmpty() && input.isEmpty()) { // if the inventory is empty, can place the player's held item
       ItemStack held = player.getItemInHand(hand);
       if (!held.isEmpty()) {
-
+        // TODO
       }
+    } else {
+
     }
+  }
+
+  /**
+   * Checks whether a given itemStack can be received into the casting tank's inventory
+   * @param itemStack itemStack to be received
+   * @return True if itemStack can be received
+   */
+  protected boolean canReceiveItemStack(ItemStack itemStack) {
+
   }
 
   /*
@@ -118,7 +129,7 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
   @Override
   @Nonnull
   public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
-    if (capability == ForgeCapabilities.FLUID_HANDLER) {  // TODO item
+    if (capability == ForgeCapabilities.FLUID_HANDLER) {
       return fluidHolder.cast();
     }
     return super.getCapability(capability, facing);
