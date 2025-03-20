@@ -3,7 +3,12 @@
   "modules": [
     {
       "type": "tconstruct:recurrent_protection",
-      "each_level": 1.25
+      "duration": {
+        "each_level": 100
+      },
+      "percent": {
+        "flat": 0.5
+      }
     }
   ],
   "tooltip_display": "always"

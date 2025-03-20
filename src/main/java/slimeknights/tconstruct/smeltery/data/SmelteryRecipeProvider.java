@@ -1775,11 +1775,11 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                       .addInput(TinkerFluids.moltenDebris.ingredient(FluidValues.INGOT))
                       .save(consumer, prefix(TinkerFluids.moltenManyullyn, folder));
 
-    // heptazion: 2 copper + 1 cobalt + 1/4 obsidian = 2
+    // heptazion: 2 copper + 1 cobalt + 1 quartz = 2
     AlloyRecipeBuilder.alloy(TinkerFluids.moltenHepatizon, FluidValues.INGOT * 2)
                       .addInput(TinkerFluids.moltenCopper.ingredient(FluidValues.INGOT * 2))
                       .addInput(TinkerFluids.moltenCobalt.ingredient(FluidValues.INGOT))
-                      .addInput(TinkerFluids.moltenQuartz.ingredient(FluidValues.GEM * 4))
+                      .addInput(TinkerFluids.moltenQuartz.ingredient(FluidValues.GEM))
                       .save(consumer, prefix(TinkerFluids.moltenHepatizon, folder));
 
     // netherrite: 4 debris + 4 gold = 1 (why is this so dense vanilla?)
