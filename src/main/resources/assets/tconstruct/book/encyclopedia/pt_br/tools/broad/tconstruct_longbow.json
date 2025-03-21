@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:longbow",
+  "text": [
+    { "text": "O Arco Longo é uma arma de longo alcance que dispara flechas. As flechas são lançadas imediatamente após soltar o arco longo." },
+    { "text": "Ao usar modificadores de interação, o arco longo age com o clique esquerdo.", "paragraph": true }
+  ],
+  "properties": [
+    "1.0 Velocidade de Ataque",
+    "1.0 Velocidade de Puxada",
+    "1.00 Velocidade da Flecha",
+    "0.75 Precisão",
+    "Soma o status de ambos os membros",
+    "150% de Durabilidade Multiplicada"
+  ]
+}
