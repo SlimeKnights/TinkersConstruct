@@ -1,6 +1,0 @@
-{
-  "type": "tconstruct:modifier_material_repair",
-  "modifier": "tconstruct:golden",
-  "repair_material": "tconstruct:gold",
-  "stat_type": "tconstruct:skull"
-}

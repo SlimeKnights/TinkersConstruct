@@ -3,7 +3,8 @@
   "byproducts": [
     {
       "amount": 120,
-      "tag": "forge:molten_steel"
+      "tag": "forge:molten_steel",
+      "unit_size": 10
     }
   ],
   "ingredient": {

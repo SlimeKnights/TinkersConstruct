@@ -58,7 +58,6 @@ import slimeknights.tconstruct.library.recipe.modifiers.adding.OverslimeModifier
 import slimeknights.tconstruct.library.recipe.modifiers.adding.SwappableModifierRecipe.VariantFormatter;
 import slimeknights.tconstruct.library.recipe.modifiers.adding.SwappableModifierRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.modifiers.severing.SeveringRecipeBuilder;
-import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierMaterialRepairRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.tinkerstation.repairing.ModifierRepairRecipeBuilder;
 import slimeknights.tconstruct.library.recipe.worktable.ModifierSetWorktableRecipeBuilder;
 import slimeknights.tconstruct.library.tools.SlotType;
@@ -76,7 +75,6 @@ import slimeknights.tconstruct.tools.data.material.MaterialIds;
 import slimeknights.tconstruct.tools.recipe.EnchantmentConvertingRecipeBuilder;
 import slimeknights.tconstruct.tools.recipe.ModifierRemovalRecipeBuilder;
 import slimeknights.tconstruct.tools.recipe.ModifierSortingRecipeBuilder;
-import slimeknights.tconstruct.tools.stats.SkullStats;
 import slimeknights.tconstruct.world.TinkerHeadType;
 import slimeknights.tconstruct.world.TinkerWorld;
 import slimeknights.tconstruct.world.block.FoliageType;
@@ -160,18 +158,9 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                           .save(withCondition(consumer, ConfigEnabledCondition.WITHER_BONE_CONVERSION), location(folder + "wither_bone_conversion"));
 
     // modifier repair
-    // stringy - from string
-    // TODO: skull stats here feels wrong, perhaps constant int is the way to go?
-    ModifierMaterialRepairRecipeBuilder.repair(ModifierIds.stringy, MaterialIds.string, SkullStats.ID)
-                                       .saveCraftingTable(consumer, wrap(ModifierIds.stringy, folder, "_crafting_table"))
-                                       .save(consumer, wrap(ModifierIds.stringy, folder, "_tinker_station"));
     // pig iron - from bacon, only in the tinker station
     ModifierRepairRecipeBuilder.repair(TinkerModifiers.tasty, Ingredient.of(TinkerCommons.bacon), 25)
                                .save(consumer, prefix(TinkerModifiers.tasty, folder));
-    // golden makes armor repair from gold
-    ModifierMaterialRepairRecipeBuilder.repair(TinkerModifiers.golden, MaterialIds.gold, SkullStats.ID)
-                                       .saveCraftingTable(consumer, wrap(TinkerModifiers.golden, folder, "_crafting_table"))
-                                       .save(consumer, wrap(TinkerModifiers.golden, folder, "_tinker_station"));
   }
 
   private void addModifierRecipes(Consumer<FinishedRecipe> consumer) {

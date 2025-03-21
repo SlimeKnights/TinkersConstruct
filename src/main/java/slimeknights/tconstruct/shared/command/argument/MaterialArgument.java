@@ -9,12 +9,12 @@ import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.commands.SharedSuggestionProvider;
-import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.utils.IdParser;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -33,7 +33,7 @@ public class MaterialArgument implements ArgumentType<IMaterial> {
 
   @Override
   public IMaterial parse(StringReader reader) throws CommandSyntaxException {
-    MaterialId name = new MaterialId(ResourceLocation.read(reader));
+    MaterialId name = new MaterialId(IdParser.read(TConstruct.MOD_ID, reader));
     IMaterial material = MaterialRegistry.getMaterial(name);
     if (material == IMaterial.UNKNOWN) {
       throw NOT_FOUND.createWithContext(reader, name);
@@ -43,7 +43,7 @@ public class MaterialArgument implements ArgumentType<IMaterial> {
 
   @Override
   public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
-    return SharedSuggestionProvider.suggestResource(MaterialRegistry.getMaterials().stream().<ResourceLocation>map(IMaterial::getIdentifier)::iterator, builder);
+    return TinkerSuggestionProvider.suggestResource(TConstruct.MOD_ID, MaterialRegistry.getMaterials().stream().map(IMaterial::getIdentifier), builder, id -> id, MaterialTooltipCache::getColoredDisplayName);
   }
 
   @Override

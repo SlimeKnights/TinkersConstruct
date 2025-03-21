@@ -10,12 +10,11 @@ import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.commands.SharedSuggestionProvider;
-import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tools.stat.IToolStat;
 import slimeknights.tconstruct.library.tools.stat.ToolStatId;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.library.utils.IdParser;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -44,7 +43,7 @@ public class ToolStatArgument<T extends IToolStat> implements ArgumentType<T> {
 
   @Override
   public T parse(StringReader reader) throws CommandSyntaxException {
-    ToolStatId name = new ToolStatId(ResourceLocation.read(reader));
+    ToolStatId name = new ToolStatId(IdParser.read(TConstruct.MOD_ID, reader));
     IToolStat<?> stat = ToolStats.getToolStat(name);
     if (stat == null) {
       throw NOT_FOUND.createWithContext(reader, name);
@@ -57,8 +56,7 @@ public class ToolStatArgument<T extends IToolStat> implements ArgumentType<T> {
 
   @Override
   public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
-    return SharedSuggestionProvider.suggestResource(ToolStats.getAllStats().stream()
-        .filter(filter::isInstance).<ResourceLocation>map(IToolStat::getName)::iterator, builder);
+    return TinkerSuggestionProvider.suggestResource(TConstruct.MOD_ID, ToolStats.getAllStats().stream().filter(filter::isInstance), builder, IToolStat::getName, IToolStat::getPrefix);
   }
 
   @Override

@@ -9,12 +9,12 @@ import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import lombok.NoArgsConstructor;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.commands.SharedSuggestionProvider;
-import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
+import slimeknights.tconstruct.library.utils.IdParser;
+import slimeknights.tconstruct.library.utils.Util;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -28,7 +28,7 @@ public class MaterialStatsArgument implements ArgumentType<MaterialStatType<?>> 
 
     @Override
     public MaterialStatType<?> parse(StringReader reader) throws CommandSyntaxException {
-      MaterialStatsId loc = new MaterialStatsId(ResourceLocation.read(reader));
+      MaterialStatsId loc = new MaterialStatsId(IdParser.read(TConstruct.MOD_ID, reader));
       MaterialStatType<?> statType = MaterialRegistry.getInstance().getStatType(loc);
       if (statType == null) {
         throw MODIFIER_NOT_FOUND.create(loc);
@@ -43,7 +43,7 @@ public class MaterialStatsArgument implements ArgumentType<MaterialStatType<?>> 
 
     @Override
     public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
-      return SharedSuggestionProvider.suggestResource(MaterialRegistry.getInstance().getAllStatTypeIds(), builder);
+      return TinkerSuggestionProvider.suggestResource(TConstruct.MOD_ID, MaterialRegistry.getInstance().getAllStatTypeIds(), builder, id -> id, id -> Util.makeTranslation("stat", id));
     }
 
     @Override
