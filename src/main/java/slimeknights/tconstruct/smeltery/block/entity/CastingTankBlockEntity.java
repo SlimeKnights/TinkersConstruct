@@ -28,6 +28,7 @@ import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import slimeknights.mantle.fluid.FluidTransferHelper;
 import slimeknights.mantle.fluid.transfer.FluidContainerTransferManager;
+import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.model.ModelProperties;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
@@ -108,7 +109,8 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
     ItemStack held = player.getItemInHand(hand);
     // if the held item can be placed inside, do so
     if (canReceiveItemStack(held)) {
-      setItem(INPUT, held.split(1));  // TODO, need to try to process the item when it is received
+      setItem(INPUT, held.split(1));
+      tryToProcessItem();
     // otherwise, interact with the tank
     } else if (!FluidTransferHelper.interactWithTank(level, worldPosition, player, hand, hit)
       // if the tank wasn't interacted with and the player has an empty hand, the player may take the item from the casting tank
@@ -136,6 +138,20 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
           || stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).isPresent()
           || stack.getItem() instanceof BucketItem
       );
+  }
+
+  private void tryToProcessItem() {
+    ItemStack input = getItem(INPUT);
+    if (input.isEmpty() || !getItem(OUTPUT).isEmpty()) {
+      return;
+    }
+
+    ItemStack result = FluidTransferHelper.interactWithTankSlot(tank, input, IFluidContainerTransfer.TransferDirection.AUTO);
+
+    if (!result.isEmpty()) {
+      setItem(INPUT, ItemStack.EMPTY);
+      setItem(OUTPUT, result);
+    }
   }
 
   /*
