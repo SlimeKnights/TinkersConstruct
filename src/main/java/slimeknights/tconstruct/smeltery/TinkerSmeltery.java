@@ -94,6 +94,7 @@ import slimeknights.tconstruct.smeltery.block.controller.HeaterBlock;
 import slimeknights.tconstruct.smeltery.block.controller.MelterBlock;
 import slimeknights.tconstruct.smeltery.block.controller.SmelteryControllerBlock;
 import slimeknights.tconstruct.smeltery.block.entity.CastingBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.CastingTankBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.ChannelBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.FaucetBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.FluidCannonBlockEntity;
@@ -305,6 +306,8 @@ public final class TinkerSmeltery extends TinkerModule {
   // casting
   public static final RegistryObject<BlockEntityType<CastingBlockEntity>> basin = BLOCK_ENTITIES.register("basin", CastingBlockEntity.Basin::new, set -> set.add(searedBasin.get(), scorchedBasin.get()));
   public static final RegistryObject<BlockEntityType<CastingBlockEntity>> table = BLOCK_ENTITIES.register("table", CastingBlockEntity.Table::new, set -> set.add(searedTable.get(), scorchedTable.get()));
+  // casting tank
+  public static final RegistryObject<BlockEntityType<CastingTankBlockEntity>> castingTankBE = BLOCK_ENTITIES.register("casting_tank", CastingTankBlockEntity::new, set -> set.add(castingTank.get()));
 
   /*
    * Items

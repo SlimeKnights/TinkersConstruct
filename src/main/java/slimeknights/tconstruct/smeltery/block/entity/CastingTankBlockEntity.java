@@ -40,7 +40,7 @@ import slimeknights.tconstruct.smeltery.item.TankItem;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlockEntity { // TODO needs item handler
+public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlockEntity {
   /** Max capacity for the tank */
   public static final int DEFAULT_CAPACITY = FluidType.BUCKET_VOLUME * 2;
   // slots
@@ -81,9 +81,13 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
     return DEFAULT_CAPACITY;
   }
 
+  public CastingTankBlockEntity(BlockPos pos, BlockState state) {
+    this(pos, state, (ITankBlock) state.getBlock());
+  }
+
   /** Main constructor */
   public CastingTankBlockEntity(BlockPos pos, BlockState state, ITankBlock block) {
-    this(TinkerSmeltery.tank.get(), pos, state, block);
+    this(TinkerSmeltery.castingTankBE.get(), pos, state, block);
   }
 
   /** Extendable constructor */
@@ -148,9 +152,11 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
 
     ItemStack result = FluidTransferHelper.interactWithTankSlot(tank, input, IFluidContainerTransfer.TransferDirection.AUTO);
 
+    // if the item got processed
     if (!result.isEmpty()) {
       setItem(INPUT, ItemStack.EMPTY);
       setItem(OUTPUT, result);
+      // TODO, play sound
     }
   }
 
@@ -225,11 +231,6 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
         level.getLightEngine().checkBlock(worldPosition);
       }
     }
-  }
-
-  @Override
-  protected boolean shouldSyncOnUpdate() {
-    return true;
   }
 
   @Override

@@ -74,7 +74,7 @@ public class CastingTankBlock extends InventoryBlock implements ITankBlock, Enti
     BlockEntity te = world.getBlockEntity(pos);
     if (te instanceof CastingTankBlockEntity) {
       ((CastingTankBlockEntity) te).interact(player, hand, hit);
-      return InteractionResult.SUCCESS; // TODO we shouldn't do this if nothing happened
+      return InteractionResult.SUCCESS;
     }
 
     return super.use(state, world, pos, player, hand, hit);
