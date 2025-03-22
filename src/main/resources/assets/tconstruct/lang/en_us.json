@@ -922,7 +922,6 @@
   "fluid_effect.tconstruct.place_block": "Places %s",
   "fluid_effect.tconstruct.place_block.held": "Places held block",
   "fluid_effect.tconstruct.break_block": "Mines block",
-  "fluid_effect.tconstruct.break_block.separator": "%s, %s",
   "fluid_effect.tconstruct.break_block.enchanted": "Mines block with %s",
   "fluid_effect.tconstruct.break_block.hardness": "Mines up to hardness %s",
   "fluid_effect.tconstruct.break_block.enchanted.hardness": "Mines up to hardness %s with %s",
@@ -2930,9 +2929,17 @@
 
   "tool_stat.tconstruct.overslime": "Overslime Capacity: ",
   "tool_stat.tconstruct.overslime.description": "Maximum amount of overslime allowed on this tool.",
+
+  "modifier.tconstruct.tank_handler": "Tank Handler",
+  "modifier.tconstruct.tank_handler.flavor": "Tank Contents",
+  "modifier.tconstruct.tank_handler.description": "Shows the current contents and capacity of the tank.",
   "tool_stat.tconstruct.tank_capacity": "Tank Capacity: ",
   "tool_stat.tconstruct.tank_capacity.description": "Maximum amount of fluid that can be stored in this tool's tank.",
-  "tool_stat.tconstruct.tank_capacity.fluid": "Fluid: ",
+
+  "modifier.tconstruct.energy_handler": "Energy Handler",
+  "modifier.tconstruct.energy_handler.current": "Energy: ",
+  "modifier.tconstruct.energy_handler.flavor": "Current Energy",
+  "modifier.tconstruct.energy_handler.description": "Shows the current energy stored in the tool.",
   "tool_stat.tconstruct.energy": "%s FE",
   "tool_stat.tconstruct.max_energy": "Max Energy: ",
   "tool_stat.tconstruct.max_energy.description": "Maximum amount of energy that can be stord in this tool",

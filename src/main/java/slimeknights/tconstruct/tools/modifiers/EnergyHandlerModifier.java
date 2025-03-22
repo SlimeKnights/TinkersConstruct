@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.tools.modifiers;
 
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -26,14 +27,17 @@ public final class EnergyHandlerModifier extends NoLevelsModifier implements Val
   }
 
   @Override
-  public boolean shouldDisplay(boolean advanced) {
-    return false;
+  public Component getDisplayName(IToolStackView tool, ModifierEntry entry, @Nullable RegistryAccess access) {
+    // format: Energy: #,### / #,### FE
+    return Component.translatable(getTranslationKey() + ".current")
+                    .append(ToolEnergyCapability.MAX_STAT.formatContents(ToolEnergyCapability.getEnergy(tool), ToolEnergyCapability.getMaxEnergy(tool)));
   }
 
   @Override
   public int getPriority() {
-    // low priority so this runs after other modifiers
-    return 10;
+    // high priority so it shows sooner in the tooltip. Other hooks don't care much about order
+    // 299 also means this runs after tank, which we want earlier in tooltip
+    return 299;
   }
 
   @Nullable

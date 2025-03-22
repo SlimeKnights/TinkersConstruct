@@ -83,7 +83,6 @@ import slimeknights.tconstruct.library.modifiers.fluid.general.DropItemFluidEffe
 import slimeknights.tconstruct.library.modifiers.fluid.general.ExplosionFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.general.ScalingFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.general.SequenceFluidEffect;
-import slimeknights.tconstruct.library.modifiers.impl.BasicModifier.TooltipDisplay;
 import slimeknights.tconstruct.library.modifiers.impl.SingleLevelModifier;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.BlockDamageSourceModule;
@@ -396,7 +395,7 @@ public final class TinkerModifiers extends TinkerModule {
 
   public static final StaticModifier<Modifier> energyHandler = MODIFIERS.register("energy_handler", EnergyHandlerModifier::new);
   // fluid abilities
-  public static final StaticModifier<Modifier> tankHandler = MODIFIERS.register("tank_handler", () -> ModuleHookMap.builder().addModule(new TankModule(ToolTankHelper.TANK_HELPER)).modifier().levelDisplay(ModifierLevelDisplay.NO_LEVELS).tooltipDisplay(TooltipDisplay.NEVER).build());
+  public static final StaticModifier<Modifier> tankHandler = MODIFIERS.register("tank_handler", () -> ModuleHookMap.builder().addModule(new TankModule(ToolTankHelper.TANK_HELPER)).modifier().levelDisplay(ModifierLevelDisplay.NO_LEVELS).priority(300).build());
   public static final DynamicModifier melting = MODIFIERS.registerDynamic("melting");
   public static final StaticModifier<BucketingModifier> bucketing = MODIFIERS.register("bucketing", BucketingModifier::new);
   public static final StaticModifier<SpillingModifier> spilling = MODIFIERS.register("spilling", SpillingModifier::new);
