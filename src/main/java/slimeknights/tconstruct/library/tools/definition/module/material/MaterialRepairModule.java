@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.library.tools.definition.module.material;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.resources.ResourceLocation;
@@ -27,6 +28,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 /** Module for repairing a tool using a non-tool part material */
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class MaterialRepairModule implements MaterialRepairToolHook, ToolModule, IAmLoadable.Record {
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<MaterialRepairModule>defaultHooks(ToolHooks.MATERIAL_REPAIR);
   private static final LoadableField<MaterialId,MaterialRepairModule> MATERIAL_FIELD = MaterialId.PARSER.requiredField("material", m -> m.material);
@@ -39,11 +41,6 @@ public class MaterialRepairModule implements MaterialRepairToolHook, ToolModule,
   /** Amount to repair */
   @Getter(AccessLevel.PROTECTED)
   protected int repairAmount;
-
-  protected MaterialRepairModule(MaterialId material, int repairAmount) {
-    this.material = material;
-    this.repairAmount = repairAmount;
-  }
 
   /** Creates a new module using a constant durability */
   public static MaterialRepairModule of(MaterialId material, int repairAmount) {

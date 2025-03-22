@@ -9,11 +9,11 @@ import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import lombok.NoArgsConstructor;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.module.ModuleHook;
+import slimeknights.tconstruct.library.utils.IdParser;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -27,7 +27,7 @@ public class ModifierHookArgument implements ArgumentType<ModuleHook<?>> {
 
   @Override
   public ModuleHook<?> parse(StringReader reader) throws CommandSyntaxException {
-    ResourceLocation loc = ResourceLocation.read(reader);
+    ResourceLocation loc = IdParser.read(TConstruct.MOD_ID, reader);
     ModuleHook<?> hook = ModifierHooks.LOADER.getValue(loc);
     if (hook == null) {
       throw HOOK_NOT_FOUND.create(loc);
@@ -42,7 +42,7 @@ public class ModifierHookArgument implements ArgumentType<ModuleHook<?>> {
 
   @Override
   public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
-    return SharedSuggestionProvider.suggestResource(ModifierHooks.LOADER.getKeys(), builder);
+    return TinkerSuggestionProvider.suggestResource(TConstruct.MOD_ID, ModifierHooks.LOADER.getKeys(), builder);
   }
 
   @Override

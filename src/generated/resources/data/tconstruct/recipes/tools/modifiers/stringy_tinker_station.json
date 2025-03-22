@@ -1,6 +1,0 @@
-{
-  "type": "tconstruct:modifier_material_repair",
-  "modifier": "tconstruct:stringy",
-  "repair_material": "tconstruct:string",
-  "stat_type": "tconstruct:skull"
-}

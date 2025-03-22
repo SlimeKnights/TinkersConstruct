@@ -7,6 +7,7 @@ package slimeknights.tconstruct.library.utils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
@@ -79,6 +80,17 @@ public class Util {
    */
   public static String makeTranslationKey(String base, @Nullable ResourceLocation name) {
     return net.minecraft.Util.makeDescriptionId(base, name);
+  }
+
+  /**
+   * Makes a translatable component for the given name, using {@link #makeTranslationKey(String, ResourceLocation)}.
+   * @param base       Base name, such as "block" or "gui"
+   * @param name       Object name
+   * @param arguments  Arguments for translated component
+   * @return  Translated component
+   */
+  public static Component makeTranslation(String base, @Nullable ResourceLocation name, Object... arguments) {
+    return Component.translatable(makeTranslationKey(base, name), arguments);
   }
 
   /** Same as {@link net.minecraft.Util#make(Supplier)} */

@@ -1,6 +1,8 @@
 package slimeknights.tconstruct.library.tools.definition.module.material;
 
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
@@ -17,7 +19,8 @@ public interface MaterialRepairToolHook {
   boolean isRepairMaterial(IToolStackView tool, MaterialId material);
 
   /**
-   * Gets the amount of durability restored by this materail for repair
+   * Gets the amount of durability restored by this material for repair.
+   * Important: make sure to filter by your material else you will override how much is repaired by other materials.
    * @param tool      Tool instance
    * @param material  Material used for repair
    * @return  Repair amount
@@ -27,12 +30,28 @@ public interface MaterialRepairToolHook {
 
   /** Gets the repair stat for the given tool */
   static boolean canRepairWith(IToolStackView tool, MaterialId material) {
-    return tool.getHook(ToolHooks.MATERIAL_REPAIR).isRepairMaterial(tool, material);
+    // if material repair can do it, stop here as that's the fastest check
+    if (tool.getHook(ToolHooks.MATERIAL_REPAIR).isRepairMaterial(tool, material)) {
+      return true;
+    }
+    for (ModifierEntry entry : tool.getModifiers()) {
+      if (entry.getHook(ModifierHooks.MATERIAL_REPAIR).isRepairMaterial(tool, entry, material)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /** Gets the repair stat for the given tool */
   static float repairAmount(IToolStackView tool, MaterialId material) {
-    return tool.getHook(ToolHooks.MATERIAL_REPAIR).getRepairAmount(tool, material);
+    float maxRepair = tool.getHook(ToolHooks.MATERIAL_REPAIR).getRepairAmount(tool, material);
+    for (ModifierEntry entry : tool.getModifiers()) {
+      float repair = entry.getHook(ModifierHooks.MATERIAL_REPAIR).getRepairAmount(tool, entry, material);
+      if (repair > maxRepair) {
+        maxRepair = repair;
+      }
+    }
+    return maxRepair;
   }
 
   /** Merger that takes the largest option from all nested modules */
@@ -49,11 +68,14 @@ public interface MaterialRepairToolHook {
 
     @Override
     public float getRepairAmount(IToolStackView tool, MaterialId material) {
-      float amount = 0;
+      float maxRepair = 0;
       for (MaterialRepairToolHook hook : hooks) {
-        amount = Math.max(amount, hook.getRepairAmount(tool, material));
+        float repair = hook.getRepairAmount(tool, material);
+        if (repair > maxRepair) {
+          maxRepair = repair;
+        }
       }
-      return amount;
+      return maxRepair;
     }
   }
 }

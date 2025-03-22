@@ -1489,19 +1489,19 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     final int chainSteel = FluidValues.NUGGET * 3;
     MeltingRecipeBuilder.melting(Ingredient.of(Items.CHAINMAIL_HELMET), TinkerFluids.moltenIron, chainIron * 5)
                         .addByproduct(TinkerFluids.moltenSteel.result(chainSteel * 5))
-                        .setDamagable(FluidValues.NUGGET)
+                        .setDamagable(FluidValues.NUGGET, FluidValues.NUGGET)
                         .save(consumer, location(metalFolder + "iron/chain_helmet"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.CHAINMAIL_CHESTPLATE), TinkerFluids.moltenIron, chainIron * 8)
                         .addByproduct(TinkerFluids.moltenSteel.result(chainSteel * 8))
-                        .setDamagable(FluidValues.NUGGET)
+                        .setDamagable(FluidValues.NUGGET, FluidValues.NUGGET)
                         .save(consumer, location(metalFolder + "iron/chain_chestplate"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.CHAINMAIL_LEGGINGS), TinkerFluids.moltenIron, chainIron * 7)
                         .addByproduct(TinkerFluids.moltenSteel.result(chainSteel * 7))
-                        .setDamagable(FluidValues.NUGGET)
+                        .setDamagable(FluidValues.NUGGET, FluidValues.NUGGET)
                         .save(consumer, location(metalFolder + "iron/chain_leggings"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.CHAINMAIL_BOOTS), TinkerFluids.moltenIron, chainIron * 4)
                         .addByproduct(TinkerFluids.moltenSteel.result(chainSteel * 4))
-                        .setDamagable(FluidValues.NUGGET)
+                        .setDamagable(FluidValues.NUGGET, FluidValues.NUGGET)
                         .save(consumer, location(metalFolder + "iron/chain_boots"));
 
 

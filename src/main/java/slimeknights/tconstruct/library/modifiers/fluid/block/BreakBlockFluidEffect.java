@@ -56,9 +56,13 @@ public record BreakBlockFluidEffect(float hardness, Map<Enchantment,Integer> enc
   @Override
   public float apply(FluidStack fluid, EffectLevel level, FluidEffectContext.Block context, FluidAction action) {
     // compare our hardness to the block's hardness
-    BlockPos pos = context.getBlockPos();
     BlockState state = context.getBlockState();
-    float requirement = state.getDestroySpeed(context.getLevel(), pos);
+    if (state.isAir()) {
+      return 0;
+    }
+    Level world = context.getLevel();
+    BlockPos pos = context.getBlockPos();
+    float requirement = state.getDestroySpeed(world, pos);
     if (requirement < 0) {
       return 0;
     }
@@ -70,7 +74,6 @@ public record BreakBlockFluidEffect(float hardness, Map<Enchantment,Integer> enc
     }
     // if we had enough level to destroy it, return how much fluid we used
     if (requirement <= level.value()) {
-      Level world = context.getLevel();
 
       if (action.execute() && world instanceof ServerLevel server) {
         // handle enchantments by making a fake items stack

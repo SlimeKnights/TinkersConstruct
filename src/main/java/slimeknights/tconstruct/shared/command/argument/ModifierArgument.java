@@ -9,12 +9,11 @@ import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import lombok.NoArgsConstructor;
 import net.minecraft.commands.CommandSourceStack;
-import net.minecraft.commands.SharedSuggestionProvider;
-import net.minecraft.resources.ResourceLocation;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
+import slimeknights.tconstruct.library.utils.IdParser;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -28,7 +27,7 @@ public class ModifierArgument implements ArgumentType<Modifier> {
 
   @Override
   public Modifier parse(StringReader reader) throws CommandSyntaxException {
-    ModifierId loc = new ModifierId(ResourceLocation.read(reader));
+    ModifierId loc = new ModifierId(IdParser.read(TConstruct.MOD_ID, reader));
     if (!ModifierManager.INSTANCE.contains(loc)) {
       throw MODIFIER_NOT_FOUND.create(loc);
     }
@@ -42,7 +41,7 @@ public class ModifierArgument implements ArgumentType<Modifier> {
 
   @Override
   public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
-    return SharedSuggestionProvider.suggestResource(ModifierManager.INSTANCE.getAllLocations(), builder);
+    return TinkerSuggestionProvider.suggestResource(TConstruct.MOD_ID, ModifierManager.INSTANCE.getAllValues(), builder, Modifier::getId, Modifier::getDisplayName);
   }
 
   @Override

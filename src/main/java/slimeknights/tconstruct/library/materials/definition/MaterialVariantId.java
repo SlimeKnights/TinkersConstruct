@@ -13,6 +13,7 @@ import slimeknights.mantle.data.loadable.Loadable;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.primitive.StringLoadable;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
+import slimeknights.tconstruct.library.utils.IdParser;
 
 import javax.annotation.Nullable;
 
@@ -89,11 +90,13 @@ public sealed interface MaterialVariantId permits MaterialId, MaterialVariantIdI
   }
 
   /**
-   * Attempts to parse the variant ID from the given string
+   * Attempts to parse the variant ID from the given string.
+   * @param defaultDomain  Domain to use if unspecified in the string
+   * @param string         String to parse
    * @return Variant ID, or null if invalid
    */
   @Nullable
-  static MaterialVariantId tryParse(String string) {
+  static MaterialVariantId tryParse(String defaultDomain, String string) {
     int index = string.indexOf('#');
     String variant = "";
     if (index >= 0) {
@@ -103,11 +106,22 @@ public sealed interface MaterialVariantId permits MaterialId, MaterialVariantIdI
       }
       string = string.substring(0, index);
     }
-    MaterialId materialId = MaterialId.tryParse(string);
+    String[] parts = IdParser.decompose(defaultDomain, string);
+    MaterialId materialId = MaterialId.tryBuild(parts[0], parts[1]);
     if (materialId == null) {
       return null;
     }
     return create(materialId, variant);
+  }
+
+  /**
+   * Attempts to parse the variant ID from the given string.
+   * @param string  String to parse
+   * @return Variant ID, or null if invalid
+   */
+  @Nullable
+  static MaterialVariantId tryParse(String string) {
+    return tryParse("minecraft", string);
   }
 
   /** Checks if the given character is valid */
@@ -121,18 +135,25 @@ public sealed interface MaterialVariantId permits MaterialId, MaterialVariantIdI
    * @return Variant ID, or null if invalid
    */
   @Nullable
-  static MaterialVariantId tryParse(StringReader reader) {
+  static MaterialVariantId read(String defaultDomain, StringReader reader) {
     int start = reader.getCursor();
     while(reader.canRead() && isAllowed(reader.peek())) {
       reader.skip();
     }
     String substring = reader.getString().substring(start, reader.getCursor());
-    MaterialVariantId variant = MaterialVariantId.tryParse(substring);
+    MaterialVariantId variant = MaterialVariantId.tryParse(defaultDomain, substring);
     if (variant == null) {
       reader.setCursor(start);
       return null;
     }
     return variant;
+  }
+
+  /** @deprecated use {@link #read(String, StringReader)} */
+  @Deprecated(forRemoval = true)
+  @Nullable
+  static MaterialVariantId tryParse(StringReader reader) {
+    return read("minecraft", reader);
   }
 
   /**
