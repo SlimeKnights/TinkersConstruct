@@ -47,6 +47,7 @@ import slimeknights.tconstruct.library.modifiers.fluid.entity.RestoreHungerFluid
 import slimeknights.tconstruct.library.modifiers.fluid.general.DropItemFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.general.ExplosionFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.general.ScalingFluidEffect;
+import slimeknights.tconstruct.library.modifiers.fluid.general.SequenceFluidEffect;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.TagPredicate;
 import slimeknights.tconstruct.shared.TinkerCommons;
@@ -112,7 +113,7 @@ public class FluidEffectProvider extends AbstractFluidEffectProvider {
     addSlime(TinkerFluids.enderSlime)
       .addEntityEffects(FluidMobEffect.builder().effect(MobEffects.MOVEMENT_SLOWDOWN, 20*5).buildEntity(TimeAction.ADD))
       .addEntityEffect(FluidEffect.TELEPORT)
-      .addBlockEffect(new BreakBlockFluidEffect(0)).addBlockEffect(new PlaceBlockFluidEffect(null));
+      .addBlockEffect(SequenceFluidEffect.blocks().effect(new BreakBlockFluidEffect(0)).effect(new PlaceBlockFluidEffect(null)).build());
 
     // slimelike - miscelaneous //
     // venom - poison & strength

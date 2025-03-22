@@ -22,10 +22,10 @@ import java.util.function.Supplier;
 
 /** Effect that changes based on the amount of fluid present */
 public record ScalingFluidEffect<C extends FluidEffectContext>(List<EffectForLevel<C>> effects, RecordLoadable<ScalingFluidEffect<C>> getLoader) implements FluidEffect<C> {
-  public static final RecordLoadable<ScalingFluidEffect<FluidEffectContext.Block>> BLOCK_LOADER = createLoader(EffectForLevel.BLOCK_LOADABLE, () -> ScalingFluidEffect.BLOCK_LOADER);
-  public static final RecordLoadable<ScalingFluidEffect<FluidEffectContext.Entity>> ENTITY_LOADER = createLoader(EffectForLevel.ENTITY_LOADABLE, () -> ScalingFluidEffect.ENTITY_LOADER);
+  public static final RecordLoadable<ScalingFluidEffect<FluidEffectContext.Block>> BLOCK_LOADER = createLoader(EffectForLevel.BLOCK_LOADABLE);
+  public static final RecordLoadable<ScalingFluidEffect<FluidEffectContext.Entity>> ENTITY_LOADER = createLoader(EffectForLevel.ENTITY_LOADABLE);
 
-  /** @apiNote This constructor is internal, use the builder via {@link #blocks()} or {@link #entites()} */
+  /** @apiNote This constructor is internal, use the builder via {@link #blocks()} or {@link #entities()} */
   @Internal
   public ScalingFluidEffect {}
 
@@ -48,9 +48,15 @@ public record ScalingFluidEffect<C extends FluidEffectContext>(List<EffectForLev
     return effects.get(effects.size() - 1).effect().getDescription(registryAccess);
   }
 
-  /** Creates a loader for the given */
+  /** @deprecated use {@link #createLoader(RecordLoadable)} */
+  @Deprecated(forRemoval = true)
   public static <C extends FluidEffectContext> RecordLoadable<ScalingFluidEffect<C>> createLoader(RecordLoadable<EffectForLevel<C>> effectForScale, Supplier<RecordLoadable<ScalingFluidEffect<C>>> loader) {
-    return RecordLoadable.create(effectForScale.list(1).requiredField("effects", ScalingFluidEffect::effects), effects -> new ScalingFluidEffect<>(effects, loader.get()))
+    return createLoader(effectForScale);
+  }
+
+  /** Creates a loader for the given */
+  public static <C extends FluidEffectContext> RecordLoadable<ScalingFluidEffect<C>> createLoader(RecordLoadable<EffectForLevel<C>> effectForScale) {
+    return RecordLoadable.withLoader(effectForScale.list(1).<ScalingFluidEffect<C>>requiredField("effects", ScalingFluidEffect::effects), ScalingFluidEffect::new)
                          .validate((effect, error) -> {
                            // ensure scales are sorted
                            for (int i = 1; i < effect.effects.size(); i++) {
@@ -79,8 +85,14 @@ public record ScalingFluidEffect<C extends FluidEffectContext>(List<EffectForLev
     return new Builder<>(BLOCK_LOADER);
   }
 
-  /** Creates a new builder for entity effects */
+  /** @deprecated use {@link #entities()} */
+  @Deprecated(forRemoval = true)
   public static Builder<FluidEffectContext.Entity> entites() {
+    return entities();
+  }
+
+  /** Creates a new builder for entity effects */
+  public static Builder<FluidEffectContext.Entity> entities() {
     return new Builder<>(ENTITY_LOADER);
   }
 
