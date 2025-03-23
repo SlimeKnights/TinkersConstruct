@@ -525,7 +525,6 @@
 
   "fluid.tconstruct.potion": "药水",
   "fluid.tconstruct.potion.fluid_effect": "可以在酿造台中酿造不同效果的药水，倒入储罐后即可装填工具内储罐。",
-  "fluid.tconstruct.potion.fluid_effect": "可以在酿造台中酿造不同效果的药水，倒入储罐后即可装填工具内储罐。",
 
   "item.tconstruct.potion_bucket": "不可合成的药水桶",
   "item.tconstruct.potion_bucket.effect.water": "药水桶",
@@ -923,7 +922,6 @@
   "fluid_effect.tconstruct.place_block": "放置%s",
   "fluid_effect.tconstruct.place_block.held": "放置手持方块",
   "fluid_effect.tconstruct.break_block": "采掘方块",
-  "fluid_effect.tconstruct.break_block.separator": "%s，%s",
   "fluid_effect.tconstruct.break_block.enchanted": "%s采掘方块",
   "fluid_effect.tconstruct.break_block.hardness": "采掘硬度最高为%s的方块",
   "fluid_effect.tconstruct.break_block.enchanted.hardness": "附带%2$s采掘硬度最高为%1$s的方块",
@@ -1804,7 +1802,7 @@
   "material.tconstruct.hepatizon.flavor": "-科什么斯啊？\n-科林斯啊。\n-什么林斯啊？\n-科林斯啊！\n-科林什么啊？\n-行了你先歇着吧。",
   "material.tconstruct.hepatizon.encyclopedia": "在连续挖掘32个方块后挖掘速度呈线性增加，每级挖掘速度至多+25%",
   "material.tconstruct.hepatizon.ranged": "连续发射16次后拉弓速度呈线性增加，每级拉弓速度至多+25%",
-  "material.tconstruct.hepatizon.armor": "受到伤害后一段时间，每级所有来源伤害-5%",
+  "material.tconstruct.hepatizon.armor": "受到伤害后，将伤害的50%暂时转换为伤害减免值，每级伤害减免持续时间+5秒。",
 
   "material.tconstruct.cinderslime": "余烬黏液",
   "material.tconstruct.cinderslime.flavor": "将其铸进烈火！",
@@ -2931,9 +2929,17 @@
 
   "tool_stat.tconstruct.overslime": "黏液覆层容量：",
   "tool_stat.tconstruct.overslime.description": "此工具上黏液覆层堆积的最大值",
+
+  "modifier.tconstruct.tank_handler": "储罐Handler",
+  "modifier.tconstruct.tank_handler.flavor": "储罐内容物",
+  "modifier.tconstruct.tank_handler.description": "显示储罐内容物与储罐容量",
   "tool_stat.tconstruct.tank_capacity": "储罐容量：",
   "tool_stat.tconstruct.tank_capacity.description": "工具储罐中能容纳流体的最大值",
-  "tool_stat.tconstruct.tank_capacity.fluid": "流体：",
+
+  "modifier.tconstruct.energy_handler": "能量Handler",
+  "modifier.tconstruct.energy_handler.current": "能量：",
+  "modifier.tconstruct.energy_handler.flavor": "当前能量",
+  "modifier.tconstruct.energy_handler.description": "显示工具中当前存储的能量",
   "tool_stat.tconstruct.energy": "%s FE",
   "tool_stat.tconstruct.max_energy": "最大能量：",
   "tool_stat.tconstruct.max_energy.description": "工具能储存的最大能量值",
