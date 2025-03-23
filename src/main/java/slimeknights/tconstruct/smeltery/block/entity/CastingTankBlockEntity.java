@@ -118,7 +118,7 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
     // otherwise, interact with the tank
     } else if (!FluidTransferHelper.interactWithTank(level, worldPosition, player, hand, hit)
       // if the tank wasn't interacted with and the player has an empty hand, the player may take the item from the casting tank
-      && held.isEmpty()
+      && held.isEmpty() // TODO this is wrong, the player can take the item at this point if it would fit in the player's inventory, not just if empty-handed
     ) {
       if (!output.isEmpty()) {
         setItem(OUTPUT, ItemStack.EMPTY);
