@@ -2930,13 +2930,13 @@
   "tool_stat.tconstruct.overslime": "黏液覆层容量：",
   "tool_stat.tconstruct.overslime.description": "此工具上黏液覆层堆积的最大值",
 
-  "modifier.tconstruct.tank_handler": "储罐Handler",
+  "modifier.tconstruct.tank_handler": "储罐处理器",
   "modifier.tconstruct.tank_handler.flavor": "储罐内容物",
   "modifier.tconstruct.tank_handler.description": "显示储罐内容物与储罐容量",
   "tool_stat.tconstruct.tank_capacity": "储罐容量：",
   "tool_stat.tconstruct.tank_capacity.description": "工具储罐中能容纳流体的最大值",
 
-  "modifier.tconstruct.energy_handler": "能量Handler",
+  "modifier.tconstruct.energy_handler": "能量处理器",
   "modifier.tconstruct.energy_handler.current": "能量：",
   "modifier.tconstruct.energy_handler.flavor": "当前能量",
   "modifier.tconstruct.energy_handler.description": "显示工具中当前存储的能量",
