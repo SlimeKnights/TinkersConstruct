@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:sky_staff",
+  "text": [
+    { "text": "O Cajado de Slime-do-Céu é uma variante de cajado altamente aprimorável e rápida." }
+  ],
+  "properties": [
+    "500 de Durabilidade",
+    "0.8 de Velocidade",
+    "1.25 de Velocidade de Puxada",
+    "5 Slots de Melhoria",
+    "2 Slots de Habilidade"
+  ]
+}
