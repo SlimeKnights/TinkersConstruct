@@ -1,0 +1,12 @@
+{
+  "title": "Redstone",
+  "text": "Redstone é ótimo para colocar mobs em posições ordenadas sem machucá-los.",
+  "entity": [
+    "Explosão Nível 1.5",
+    "0 de Dano por Explosão",
+    "Repulsão invertida da explosão"
+  ],
+  "block": [
+    "Explosão ignora blocos"
+  ]
+}
