@@ -1,0 +1,11 @@
+{
+  "text": "Já quis ser um Ghast? Isso te leva até metade do caminho.",
+  "entity": [
+    "Explosão Nível 1",
+    "Até 2 de Dano por Explosão"
+  ],
+  "block": [
+    "Explosão quebra blocos",
+    "Explosão causa incêndios"
+  ]
+}
