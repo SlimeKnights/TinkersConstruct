@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:trim",
+  "text": [
+    {
+      "text": "Combine acabamentos de armadura com o material correto para adicionar uma variante colorida de uma textura única à armadura.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Multiúso",
+    "Sem slot"
+  ]
+}
