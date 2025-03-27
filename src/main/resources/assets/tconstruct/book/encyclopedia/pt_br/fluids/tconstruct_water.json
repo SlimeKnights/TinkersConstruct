@@ -1,0 +1,11 @@
+{
+  "title": "Água",
+  "text": "A água não é o fluido mais útil, mas pode te proteger do fogo em ambientes quentes.",
+  "entity": [
+    "2 de Dano por Água",
+    "Extingue o Fogo"
+  ],
+  "block": [
+    "Quebra blocos quebrados pela água"
+  ]
+}
