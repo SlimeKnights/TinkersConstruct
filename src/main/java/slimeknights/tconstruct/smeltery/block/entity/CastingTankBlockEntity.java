@@ -194,6 +194,8 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
       level.getLightEngine().checkBlock(this.worldPosition);
       this.requestModelDataUpdate();
     }
+
+    tryToProcessItem();
   }
 
   @Override

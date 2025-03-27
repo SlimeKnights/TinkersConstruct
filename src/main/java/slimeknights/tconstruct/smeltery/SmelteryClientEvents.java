@@ -52,6 +52,7 @@ public class SmelteryClientEvents extends ClientEventBase {
     event.registerBlockEntityRenderer(TinkerSmeltery.alloyer.get(), TankBlockEntityRenderer::new);
     event.registerBlockEntityRenderer(TinkerSmeltery.smeltery.get(), HeatingStructureBlockEntityRenderer::new);
     event.registerBlockEntityRenderer(TinkerSmeltery.foundry.get(), HeatingStructureBlockEntityRenderer::new);
+    event.registerBlockEntityRenderer(TinkerSmeltery.castingTankBE.get(), TankBlockEntityRenderer::new);
   }
 
   @SubscribeEvent
