@@ -1,13 +1,14 @@
 {
   "tool": "tconstruct:plate_chestplate",
   "text": [
-    { "text": "O peitoral de placas é um peitoral defensivo, com alta proteção, poucos slots de melhorias e com muitos slots de defesa." }
+    { "text": "O Peitoral de Placa é um peitoral defensivo, com alta proteção, poucos slots de habilidade e muitos slots de defesa." }
   ],
   "properties": [
-    "480 Durabilidade",
-    "+7 Armadura",
-    "1 Slot de Melhoria",
-    "4 Slots de Defesa",
-    "1 Slot de Habilidade"
+    "Status controlados pelo material",
+    "40% de Ataque Desarmado",
+    "2 Slots de Melhoria",
+    "3 Slots de Defesa",
+    "2 Atributos de Material"
   ]
 }
+
