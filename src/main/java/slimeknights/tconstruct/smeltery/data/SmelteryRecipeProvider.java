@@ -313,6 +313,15 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                        .pattern("BBB")
                        .unlockedBy("has_item", has(TinkerSmeltery.searedBrick))
                        .save(consumer, location(folder + "lantern"));
+    ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TinkerSmeltery.castingTank.get())
+                       .define('#', TinkerSmeltery.searedBrick)
+                       .define('B', Tags.Items.GLASS)
+                       .define('C', Tags.Items.INGOTS_COPPER)
+                       .pattern("#C#")
+                       .pattern("BBB")
+                       .pattern("#B#")
+                       .unlockedBy("has_item", has(TinkerSmeltery.searedBrick))
+                       .save(consumer, location(folder + "casting_tank"));
 
     // fluid transfer
     ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TinkerSmeltery.searedFaucet.get(), 3)
@@ -519,6 +528,10 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .addByproduct(TinkerFluids.moltenGlass.result(FluidValues.GLASS_PANE))
                         .addByproduct(TinkerFluids.moltenIron.result(FluidValues.INGOT / 3))
                         .save(consumer, location(meltingFolder + "lantern"));
+    MeltingRecipeBuilder.melting(NoContainerIngredient.of(TinkerSmeltery.castingTank), TinkerFluids.moltenCopper, FluidValues.INGOT, 2.5f)
+                        .addByproduct(TinkerFluids.searedStone.result(FluidValues.BRICK * 4))
+                        .addByproduct(TinkerFluids.moltenGlass.result(FluidValues.GLASS_BLOCK * 4))
+                        .save(consumer, location(meltingFolder + "casting_tank"));
     // glass
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.searedGlass), TinkerFluids.searedStone, FluidValues.BRICK * 4, 2f)
                         .addByproduct(TinkerFluids.moltenGlass.result( FluidValues.GLASS_BLOCK))

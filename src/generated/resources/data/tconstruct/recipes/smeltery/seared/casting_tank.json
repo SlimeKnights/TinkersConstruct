@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "#": {
+      "item": "tconstruct:seared_brick"
+    },
+    "B": {
+      "tag": "forge:glass"
+    },
+    "C": {
+      "tag": "forge:ingots/copper"
+    }
+  },
+  "pattern": [
+    "#C#",
+    "BBB",
+    "#B#"
+  ],
+  "result": {
+    "item": "tconstruct:casting_tank"
+  },
+  "show_notification": true
+}

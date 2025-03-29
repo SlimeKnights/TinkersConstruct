@@ -72,7 +72,12 @@ public class RenderFluidProvider extends BlockStateDataMapProvider<List<FluidCub
       block(TinkerSmeltery.searedTank.get(type)).variant(tank);
       block(TinkerSmeltery.scorchedTank.get(type)).variant(tank);
     }
-    block(TinkerSmeltery.castingTank.get()).variant(tank);
+
+    block(TinkerSmeltery.castingTank.get()).variant(List.of(
+      FluidCuboid.builder()
+                 .from(0.08f, 0.08f, 0.08f)
+                 .to(15.92f, 10.92f, 15.92f)
+                 .build()));
 
     // faucets
     String faucet = "templates/faucet";
