@@ -114,7 +114,7 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
     // if the held item can be placed inside, do so
     if (canReceiveItemStack(held)) {
       setItem(INPUT, held.split(1));
-      tryToProcessItem();
+      tryToProcessItem(); // also need to try when we get an item from automation
     // otherwise, interact with the tank
     } else if (!FluidTransferHelper.interactWithTank(level, worldPosition, player, hand, hit)
       // if the tank wasn't interacted with and the player has an empty hand, the player may take the item from the casting tank
@@ -126,7 +126,7 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
       } else if (!input.isEmpty()) {
         setItem(INPUT, ItemStack.EMPTY);
         player.setItemInHand(hand, input);
-      } // TODO, also need to handle the automation side of things by overriding container methods
+      }
     }
   }
 
@@ -142,6 +142,14 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
           || stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).isPresent()
           || stack.getItem() instanceof BucketItem
       );
+  }
+
+  @Override
+  public boolean canPlaceItem(int pIndex, ItemStack pStack) {
+    if (pIndex == INPUT) {
+      return canReceiveItemStack(pStack);
+    }
+    return false;
   }
 
   /**
@@ -164,7 +172,7 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
 
     // if the item wasn't emptied/filled, put it back in the input slot
     } else {
-      setItem(OUTPUT, input);
+      setItem(INPUT, input);
     }
   }
 
@@ -184,7 +192,7 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
   @Override
   public void invalidateCaps() {
     super.invalidateCaps();
-    fluidHolder.invalidate();
+    fluidHolder.invalidate(); // TODO invalidate item handler??
   }
 
   @Nonnull
