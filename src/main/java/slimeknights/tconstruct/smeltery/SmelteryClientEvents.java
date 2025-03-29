@@ -20,6 +20,7 @@ import slimeknights.tconstruct.library.client.model.block.TankModel;
 import slimeknights.tconstruct.library.client.model.tools.ToolModel;
 import slimeknights.tconstruct.smeltery.block.entity.component.TankBlockEntity;
 import slimeknights.tconstruct.smeltery.client.render.CastingBlockEntityRenderer;
+import slimeknights.tconstruct.smeltery.client.render.CastingTankBlockEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.ChannelBlockEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.FaucetBlockEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.HeatingStructureBlockEntityRenderer;
@@ -52,7 +53,7 @@ public class SmelteryClientEvents extends ClientEventBase {
     event.registerBlockEntityRenderer(TinkerSmeltery.alloyer.get(), TankBlockEntityRenderer::new);
     event.registerBlockEntityRenderer(TinkerSmeltery.smeltery.get(), HeatingStructureBlockEntityRenderer::new);
     event.registerBlockEntityRenderer(TinkerSmeltery.foundry.get(), HeatingStructureBlockEntityRenderer::new);
-    event.registerBlockEntityRenderer(TinkerSmeltery.castingTankBE.get(), TankBlockEntityRenderer::new);
+    event.registerBlockEntityRenderer(TinkerSmeltery.castingTankBE.get(), CastingTankBlockEntityRenderer::new);
   }
 
   @SubscribeEvent
