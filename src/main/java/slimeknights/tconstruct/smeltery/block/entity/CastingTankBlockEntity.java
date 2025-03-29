@@ -144,19 +144,27 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
       );
   }
 
+  /**
+   * Tries to empty or fill an item in the input spot. If either happens, the resulting item is placed in the output slot.
+   */
   private void tryToProcessItem() {
     ItemStack input = getItem(INPUT);
     if (input.isEmpty() || !getItem(OUTPUT).isEmpty()) {
       return;
     }
 
+    // need to take the item out of the input slot to prevent a nested call from getting too far if we do modify the tank
+    setItem(INPUT, ItemStack.EMPTY);
     ItemStack result = FluidTransferHelper.interactWithTankSlot(tank, input, IFluidContainerTransfer.TransferDirection.AUTO);
 
     // if the item got processed
     if (!result.isEmpty()) {
-      setItem(INPUT, ItemStack.EMPTY);
       setItem(OUTPUT, result);
       // TODO, play sound
+
+    // if the item wasn't emptied/filled, put it back in the input slot
+    } else {
+      setItem(OUTPUT, input);
     }
   }
 

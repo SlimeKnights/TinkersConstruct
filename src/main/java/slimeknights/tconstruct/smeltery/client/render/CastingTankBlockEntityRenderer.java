@@ -41,7 +41,7 @@ public class CastingTankBlockEntityRenderer extends TankBlockEntityRenderer<Cast
       if (!inputItem.isEmpty()) {
         RenderingHelper.renderItem(matrixStack, buffer, inputItem, renderItems.get(0), combinedLightIn);
       } else if (!outputItem.isEmpty()) {
-        RenderingHelper.renderItem(matrixStack, buffer, inputItem, renderItems.get(0), combinedLightIn);
+        RenderingHelper.renderItem(matrixStack, buffer, outputItem, renderItems.get(0), combinedLightIn);
       }
     }
   }

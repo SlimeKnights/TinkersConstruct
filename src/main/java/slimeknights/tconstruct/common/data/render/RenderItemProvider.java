@@ -92,6 +92,11 @@ public class RenderItemProvider extends RegistryDataMapProvider<Block,List<Rende
       itemBuilder.center( 4, 12,  4).build(),
       itemBuilder.center(12, 12,  4).build()
     ));
+    // casting tank
+    itemBuilder = RenderItem.builder().center(8, 15.5f, 8).size(14).x(270).y(180).transform(TinkerItemDisplays.CASTING_TABLE);
+    entry(TinkerSmeltery.castingTank, List.of(
+      itemBuilder.build()
+    ));
   }
 
   @Override
