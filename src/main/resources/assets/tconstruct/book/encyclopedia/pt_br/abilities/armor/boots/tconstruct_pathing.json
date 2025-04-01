@@ -6,6 +6,7 @@
     }
   ],
   "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/armor/boots",
   "effects": [
     "Máximo de 1 nível",
     "Requer 1 slot de habilidade"
