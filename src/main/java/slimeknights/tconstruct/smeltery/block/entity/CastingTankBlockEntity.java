@@ -176,6 +176,12 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
     }
   }
 
+  @Override
+  public void setChanged() {
+    super.setChanged();
+    tryToProcessItem();
+  }
+
   /*
    * Tank methods
    */
@@ -192,7 +198,7 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
   @Override
   public void invalidateCaps() {
     super.invalidateCaps();
-    fluidHolder.invalidate(); // TODO invalidate item handler??
+    fluidHolder.invalidate();
   }
 
   @Nonnull
