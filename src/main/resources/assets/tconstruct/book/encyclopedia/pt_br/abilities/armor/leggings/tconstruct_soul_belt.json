@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:soul_belt",
   "text": [
     {
-      "text": "Os itens na barra de atalho permanecem no inventário após a morte e o renascer."
+      "text": "Os itens na hotbar permanecem no inventário após a morte e o renascer."
     }
   ],
   "more_text_space": true,
