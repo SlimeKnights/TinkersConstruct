@@ -12,7 +12,7 @@
   "more_text_space": true,
   "tool_filter": "tconstruct:modifiable/interactable",
   "effects": [
-    "Sem nível máximo",
+    "Nível único",
     "Requer 1 slot de habilidade"
   ]
 }
