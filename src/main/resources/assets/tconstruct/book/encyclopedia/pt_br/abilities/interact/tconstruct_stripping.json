@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:stripping",
+  "text": [
+    {
+      "text": "Permite que a ferramenta remova a casca da madeira, de forma semelhante a machados de mão ou grande. As ferramentas usarão sua área de mineração normal para remover a casca da madeira."
+    },
+    {
+      "text": "É ativado antes da aragem ou criação de caminhos nativa da ferramenta, se presente.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Nível único",
+    "Requer 1 slot de habilidade"
+  ]
+}
