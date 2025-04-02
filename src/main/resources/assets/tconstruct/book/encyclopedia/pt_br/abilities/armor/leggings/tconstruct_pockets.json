@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:pockets",
+  "text": [
+    {
+      "text": "Concede 18 slots extras, acessíveis ao agachar e pressionar a tecla de interação das calças ou ao segurá-las."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Sem nível máximo",
+    "Requer 1 slot de habilidade por nível"
+  ]
+}
