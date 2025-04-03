@@ -7,8 +7,12 @@
   },
   "text": [
     {
-      "text": "Seu guia básico para a fundição.",
+      "text": "1: Coloque itens para derreter nestes slots. O tamanho da fundição determina o número de slots."
+    },
+    {
+      "text": "2: Metais derretidos são exibidos aqui. Você pode clicar em um fluido para selecioná-lo para despejar. Passar o mouse sobre a área vazia mostrará a capacidade da fundição.",
       "paragraph": true
     }
-	]
+  ]
 }
+
