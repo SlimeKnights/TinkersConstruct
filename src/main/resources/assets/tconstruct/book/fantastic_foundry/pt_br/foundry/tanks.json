@@ -5,12 +5,13 @@
   },
   "text": [
      {
-      "text": "Os tanques servem para armazenar fluidos ou combustíveis fundidos. Se você quiser derreter metais em sua fundição, você precisará de um! Os tanques também podem ser despejados da fundição se você quiser armazenar coisas para mais tarde.",
+      "text": "Os tanques servem para armazenar fluidos derretidos ou combustíveis. Se você quiser derreter metais na sua fundição, precisará de um! Os tanques também podem ser despejados da fundição se quiser armazenar materiais para mais tarde.",
       "paragraph": true
     },
     {
-      "text": "Os tanques não podem ser usados como o chão da fundição.",
+      "text": "Os tanques não podem ser usados como piso da fundição.",
       "paragraph": true
     }
   ]
 }
+
