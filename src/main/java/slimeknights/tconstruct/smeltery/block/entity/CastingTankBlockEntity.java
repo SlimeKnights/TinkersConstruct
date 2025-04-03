@@ -7,6 +7,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -26,6 +27,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import slimeknights.mantle.fluid.FluidTransferHelper;
 import slimeknights.mantle.fluid.transfer.FluidContainerTransferManager;
 import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer;
@@ -40,7 +42,7 @@ import slimeknights.tconstruct.smeltery.item.TankItem;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlockEntity {
+public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlockEntity, WorldlyContainer {
   /** Max capacity for the tank */
   public static final int DEFAULT_CAPACITY = FluidType.BUCKET_VOLUME * 2;
   // slots
@@ -96,6 +98,7 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
     super(type, pos, state, NAME, 2, 1);
     tank = new FluidTankAnimated(block.getCapacity(), this);
     fluidHolder = LazyOptional.of(() -> tank);
+    itemHandler = new SidedInvWrapper(this, Direction.DOWN);
   }
 
   /**
@@ -180,6 +183,22 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
   public void setChanged() {
     super.setChanged();
     tryToProcessItem();
+  }
+
+  @Override
+  @Nonnull
+  public int[] getSlotsForFace(Direction side) {
+    return new int[]{INPUT, OUTPUT};
+  }
+
+  @Override
+  public boolean canPlaceItemThroughFace(int index, ItemStack itemStackIn, @Nullable Direction direction) {
+    return index == INPUT && !isStackInSlot(OUTPUT);
+  }
+
+  @Override
+  public boolean canTakeItemThroughFace(int index, ItemStack stack, Direction direction) {
+    return index == OUTPUT;
   }
 
   /*
