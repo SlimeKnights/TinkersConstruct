@@ -2,9 +2,7 @@ package slimeknights.tconstruct.library.tools.definition.module.aoe;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.state.BlockState;
 import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
@@ -34,25 +32,21 @@ public record CircleAOEIterator(int diameter, boolean is3D) implements AreaOfEff
   }
 
   @Override
-  public Iterable<BlockPos> getBlocks(IToolStackView tool, ItemStack stack, Player player, BlockState state, Level world, BlockPos origin, Direction sideHit, AOEMatchType matchType) {
+  public Iterable<BlockPos> getBlocks(IToolStackView tool, UseOnContext context, BlockState state, AOEMatchType matchType) {
     // expanded gives an extra width every odd level, and an extra height every even level
     int expanded = tool.getModifierLevel(TinkerModifiers.expanded.getId());
-    return calculate(tool, stack, world, player, origin, sideHit, diameter + expanded, is3D, matchType);
+    return calculate(tool, context, diameter + expanded, is3D, matchType);
   }
 
   /**
    *
    * @param tool       Tool used for harvest
-   * @param stack      Item stack used for harvest (for vanilla hooks)
-   * @param world      World containing the block
-   * @param player     Player harvesting
-   * @param origin     Center of harvest
-   * @param sideHit    Block side hit
+   * @param context    Interaction context
    * @param diameter   Circle diameter
    * @param matchType  Type of harvest being performed
    * @return  List of block positions
    */
-  public static Iterable<BlockPos> calculate(IToolStackView tool, ItemStack stack, Level world, Player player, BlockPos origin, Direction sideHit, int diameter, boolean is3D, AOEMatchType matchType) {
+  public static Iterable<BlockPos> calculate(IToolStackView tool, UseOnContext context, int diameter, boolean is3D, AOEMatchType matchType) {
     // skip if no work
     if (diameter == 1) {
       return Collections.emptyList();
@@ -60,10 +54,10 @@ public record CircleAOEIterator(int diameter, boolean is3D) implements AreaOfEff
 
     // math works out that we can leave this an integer and get the radius working still
     int radiusSq = diameter * diameter / 4;
-    Predicate<BlockPos> posPredicate = AreaOfEffectIterator.defaultBlockPredicate(tool, stack, world, origin, matchType);
-    ExpansionDirections directions = IBoxExpansion.SIDE_HIT.getDirections(player, sideHit);
+    Predicate<BlockPos> posPredicate = AreaOfEffectIterator.defaultBlockPredicate(tool, context, matchType);
+    ExpansionDirections directions = IBoxExpansion.SIDE_HIT.getDirections(context.getPlayer(), context.getClickedFace());
     // max needs to be an odd number
-    return () -> new CircleIterator(origin, directions.width(), directions.height(), directions.traverseDown(), directions.depth(), radiusSq, diameter / 2, is3D, posPredicate);
+    return () -> new CircleIterator(context.getClickedPos(), directions.width(), directions.height(), directions.traverseDown(), directions.depth(), radiusSq, diameter / 2, is3D, posPredicate);
   }
 
   /** Iterator used for getting the blocks, secret is a circle is a rectangle */

@@ -70,7 +70,7 @@ public class StrongBonesModifier extends NoLevelsModifier {
   public static final FluidEffect<FluidEffectContext.Entity> FLUID_EFFECT = FluidEffect.simple((fluid, scale, context, action) -> {
     LivingEntity target = context.getLivingTarget();
     // while we could scale, doing it flat ensures we don't charge extra
-    if (target != null && drinkMilk(target, (int)(400 * scale.value()))) {
+    if (target != null && drinkMilk(target, (int)(20*10 * scale.value()))) {
       return scale.value();
     }
     return 0;

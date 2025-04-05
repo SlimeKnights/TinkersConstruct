@@ -9,7 +9,7 @@ import slimeknights.tconstruct.library.utils.Util;
 import javax.annotation.Nullable;
 
 /**
- * This is a copy of resource location with a couple extra helpers
+ * Resource location variant for pattern buttons in the part builder. Also used in a few spots for convenient icon loading.
  */
 public class Pattern extends ResourceId {
   public static final IdParser<Pattern> PARSER = new IdParser<>(Pattern::new, "Pattern");
@@ -55,13 +55,13 @@ public class Pattern extends ResourceId {
   }
 
 
-  /** {@return Pattern ID, or null of invalid} */
+  /** {@return Pattern ID, or null if invalid} */
   @Nullable
   public static Pattern tryParse(String string) {
     return tryParse(string, (namespace, path) -> new Pattern(namespace, path, null));
   }
 
-  /** {@return Pattern ID, or null of invalid} */
+  /** {@return Pattern ID, or null if invalid} */
   @Nullable
   public static Pattern tryBuild(String namespace, String path) {
     return tryBuild(namespace, path, (n, p) -> new Pattern(namespace, path, null));

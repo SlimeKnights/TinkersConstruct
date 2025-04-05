@@ -28,6 +28,11 @@ public record LevelingValue(float flat, float eachLevel) {
     return level > 0 ? compute(level) : 0;
   }
 
+  /** Checks if this doesn't level */
+  public boolean isFlat() {
+    return eachLevel == 0;
+  }
+
 
   /* JSON */
 

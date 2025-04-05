@@ -1,0 +1,48 @@
+{
+  "block_effects": [
+    {
+      "type": "tconstruct:scaling",
+      "effects": [
+        {
+          "effect": {
+            "type": "tconstruct:drop_item",
+            "item": "minecraft:brick"
+          },
+          "level": 1.0
+        },
+        {
+          "effect": {
+            "type": "tconstruct:place_block",
+            "block": "minecraft:brick_slab"
+          },
+          "level": 2.0
+        },
+        {
+          "effect": {
+            "type": "tconstruct:place_block",
+            "block": "minecraft:bricks"
+          },
+          "level": 4.0
+        }
+      ]
+    }
+  ],
+  "entity_effects": [
+    {
+      "type": "tconstruct:damage",
+      "damage": 2.0,
+      "damage_type": {
+        "melee": "tconstruct:fluid_impact_melee",
+        "ranged": "tconstruct:fluid_impact_ranged"
+      }
+    },
+    {
+      "type": "tconstruct:drop_item",
+      "item": "minecraft:brick"
+    }
+  ],
+  "fluid": {
+    "amount": 250,
+    "tag": "tconstruct:molten_clay"
+  }
+}

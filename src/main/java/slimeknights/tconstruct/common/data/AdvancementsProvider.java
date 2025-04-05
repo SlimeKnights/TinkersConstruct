@@ -280,6 +280,8 @@ public class AdvancementsProvider extends GenericDataProvider {
       // leggings
       with.accept(ModifierIds.pockets);
       with.accept(ModifierIds.toolBelt);
+      with.accept(ModifierIds.soulBelt);
+      with.accept(ModifierIds.craftingTable);
       withL.accept(TinkerModifiers.wetting);
       // boots
       withL.accept(TinkerModifiers.bouncy);
@@ -287,8 +289,6 @@ public class AdvancementsProvider extends GenericDataProvider {
       withL.accept(TinkerModifiers.flamewake);
       with.accept(ModifierIds.frostWalker);
       with.accept(ModifierIds.longFall);
-      with.accept(ModifierIds.pathMaker);
-      with.accept(ModifierIds.plowing);
       with.accept(ModifierIds.snowdrift);
       // shield
       with.accept(ModifierIds.boundless);
@@ -301,7 +301,7 @@ public class AdvancementsProvider extends GenericDataProvider {
       // interact
       withL.accept(TinkerModifiers.bucketing);
       withL.accept(TinkerModifiers.firestarter);
-      withL.accept(TinkerModifiers.glowing);
+      with.accept(ModifierIds.glowing);
       with.accept(ModifierIds.pathing);
       with.accept(ModifierIds.stripping);
       with.accept(ModifierIds.tilling);

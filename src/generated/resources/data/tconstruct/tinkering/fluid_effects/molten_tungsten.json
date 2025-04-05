@@ -1,0 +1,57 @@
+{
+  "block_effects": [
+    {
+      "type": "tconstruct:mob_effect_cloud",
+      "effects": [
+        {
+          "effect": "minecraft:slowness",
+          "level": 2,
+          "time": 200
+        }
+      ]
+    }
+  ],
+  "conditions": [
+    {
+      "type": "forge:or",
+      "values": [
+        {
+          "type": "tconstruct:config",
+          "prop": "force_integration_materials"
+        },
+        {
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/tungsten"
+        }
+      ]
+    }
+  ],
+  "entity_effects": [
+    {
+      "type": "tconstruct:conditional",
+      "effect": {
+        "type": "tconstruct:damage",
+        "damage": 2.0,
+        "damage_type": {
+          "melee": "tconstruct:fluid_fire_melee",
+          "ranged": "tconstruct:fluid_fire_ranged"
+        }
+      },
+      "target": {
+        "type": "mantle:inverted",
+        "inverted_type": "mantle:fire_immune"
+      }
+    },
+    {
+      "type": "tconstruct:mob_effect",
+      "action": "set",
+      "effect": "minecraft:slowness",
+      "level": 2,
+      "time": 200
+    }
+  ],
+  "fluid": {
+    "amount": 10,
+    "tag": "forge:molten_tungsten"
+  }
+}

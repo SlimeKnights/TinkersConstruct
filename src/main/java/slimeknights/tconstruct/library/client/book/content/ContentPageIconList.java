@@ -57,7 +57,14 @@ public class ContentPageIconList extends PageContent {
   }
 
   public int getMaxRows() {
-    return (BookScreen.PAGE_HEIGHT - (this.title != null ? 20 : 0)) / this.height;
+    int totalHeight = BookScreen.PAGE_HEIGHT;
+    if (title != null) {
+      totalHeight -= getTitleHeight();
+    }
+    if (subText != null) {
+      totalHeight -= 16 + this.parent.parent.parent.fontRenderer.wordWrapHeight(subText, BookScreen.PAGE_WIDTH) * 12 / 9;
+    }
+    return totalHeight / this.height;
   }
 
   public int getMaxColumns() {

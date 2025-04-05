@@ -7,14 +7,17 @@ package slimeknights.tconstruct.library.utils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeI18n;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -77,6 +80,17 @@ public class Util {
    */
   public static String makeTranslationKey(String base, @Nullable ResourceLocation name) {
     return net.minecraft.Util.makeDescriptionId(base, name);
+  }
+
+  /**
+   * Makes a translatable component for the given name, using {@link #makeTranslationKey(String, ResourceLocation)}.
+   * @param base       Base name, such as "block" or "gui"
+   * @param name       Object name
+   * @param arguments  Arguments for translated component
+   * @return  Translated component
+   */
+  public static Component makeTranslation(String base, @Nullable ResourceLocation name, Object... arguments) {
+    return Component.translatable(makeTranslationKey(base, name), arguments);
   }
 
   /** Same as {@link net.minecraft.Util#make(Supplier)} */
@@ -162,8 +176,42 @@ public class Util {
     return new BlockHitResult(toHitVec(pos, empty ? sideHit.getOpposite() : sideHit), sideHit, pos, false);
   }
 
+  /** Offsets a hit result to the given position. Comparable to {@link BlockHitResult#withPosition(BlockPos)} except it also offsets the hit location. */
+  public static BlockHitResult offset(BlockHitResult hit, BlockPos offset) {
+    BlockPos pos = hit.getBlockPos();
+    if (pos.equals(offset)) {
+      return hit;
+    }
+    return new BlockHitResult(hit.getLocation().add(offset.getX() - pos.getX(), offset.getY() - pos.getY(), offset.getZ() - pos.getZ()), hit.getDirection(), offset, hit.isInside());
+  }
+
+  /** Offsets a use context to the given position. */
+  public static UseOnContext offset(UseOnContext context, BlockPos offset) {
+    BlockPos pos = context.getClickedPos();
+    if (pos.equals(offset)) {
+      return context;
+    }
+    return new UseOnContext(context.getLevel(), context.getPlayer(), context.getHand(), context.getItemInHand(), offset(context.getHitResult(), offset));
+  }
+
   /** Creates a new client block entity data packet with better generics than the vanilla method */
   public static <B extends BlockEntity> ClientboundBlockEntityDataPacket createBEPacket(B be, Function<? super B,CompoundTag> tagFunction) {
     return new ClientboundBlockEntityDataPacket(be.getBlockPos(), be.getType(), tagFunction.apply(be));
+  }
+
+  /** Cache of neo forge status, to make lookups faster in hot code */
+  private static Boolean IS_NEO_FORGE = null;
+
+  /** Checks if we are currently running on NeoForge as opposed to Forge. Allows branching solutions for each loader if needed */
+  public static boolean isNeo() {
+    if (IS_NEO_FORGE == null) {
+      IS_NEO_FORGE = ModList.get().getModContainerById("forge").filter(mod -> mod.getModInfo().getDisplayName().equals("NeoForge")).isPresent();
+    }
+    return IS_NEO_FORGE;
+  }
+
+  /** Checks if we are currently running on Forge as opposed to NeoForge. Allows branching solutions for each loader if needed */
+  public static boolean isForge() {
+    return !isNeo();
   }
 }

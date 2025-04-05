@@ -174,7 +174,7 @@ public abstract class HeatingStructureMultiblock<T extends MantleBlockEntity & I
       // if not part of the actual structure, we only care if its a block that's not air in the inner section
       // in other words, ignore blocks added into the frame
       // note we don't do a check for a valid inner block, if it is a valid inner block we need to update to include it
-      return structure.isInside(pos) && !state.isAir();
+      return structure.isInside(pos) && !isAirBlock(state);
     }
 
     // if its one block above, might be trying to expand upwards

@@ -2,7 +2,7 @@
   "block_effects": [
     {
       "type": "tconstruct:place_block",
-      "block": "minecraft:fire"
+      "block": "tconstruct:glow"
     }
   ],
   "entity_effects": [
@@ -10,7 +10,7 @@
       "type": "tconstruct:conditional",
       "effect": {
         "type": "tconstruct:damage",
-        "damage": 3.0,
+        "damage": 2.0,
         "damage_type": {
           "melee": "tconstruct:fluid_fire_melee",
           "ranged": "tconstruct:fluid_fire_ranged"
@@ -23,8 +23,15 @@
     },
     {
       "type": "tconstruct:fire",
-      "action": "set",
-      "time": 5
+      "action": "add",
+      "time": 2
+    },
+    {
+      "type": "tconstruct:mob_effect",
+      "action": "add",
+      "effect": "minecraft:glowing",
+      "level": 1,
+      "time": 100
     }
   ],
   "fluid": {

@@ -1,26 +1,32 @@
 package slimeknights.tconstruct.library.tools.capability.fluid;
 
 import lombok.RequiredArgsConstructor;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
-import slimeknights.mantle.client.TooltipKey;
+import net.minecraftforge.fluids.capability.templates.FluidTank;
+import slimeknights.mantle.fluid.FluidTransferHelper;
+import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer.TransferDirection;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.ValidateModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.build.VolatileDataModifierHook;
-import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.display.DisplayNameModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.SlotStackModifierHook;
 import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.capability.fluid.ToolFluidCapability.FluidModifierHook;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolDataNBT;
-import slimeknights.tconstruct.library.utils.Util;
+import slimeknights.tconstruct.smeltery.item.TankItem;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -32,9 +38,8 @@ import java.util.List;
  */
 @SuppressWarnings("ClassCanBeRecord")  // Want to leave extendable
 @RequiredArgsConstructor
-public class TankModule implements HookProvider, FluidModifierHook, TooltipModifierHook, VolatileDataModifierHook, ValidateModifierHook, ModifierRemovalHook {
-  private static final String FLUID_KEY = ToolTankHelper.CAPACITY_STAT.getTranslationKey() + ".fluid";
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<TankModule>defaultHooks(ToolFluidCapability.HOOK, ModifierHooks.TOOLTIP, ModifierHooks.VOLATILE_DATA, ModifierHooks.VALIDATE, ModifierHooks.REMOVE);
+public class TankModule implements HookProvider, FluidModifierHook, VolatileDataModifierHook, ValidateModifierHook, ModifierRemovalHook, SlotStackModifierHook, DisplayNameModifierHook {
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<TankModule>defaultHooks(ToolFluidCapability.HOOK, ModifierHooks.VOLATILE_DATA, ModifierHooks.VALIDATE, ModifierHooks.REMOVE, ModifierHooks.SLOT_STACK, ModifierHooks.DISPLAY_NAME);
 
 
   /** Helper handling updating fluids */
@@ -54,16 +59,18 @@ public class TankModule implements HookProvider, FluidModifierHook, TooltipModif
   }
 
   @Override
-  public void addTooltip(IToolStackView tool, ModifierEntry modifier, @Nullable Player player, List<Component> tooltip, TooltipKey tooltipKey, TooltipFlag tooltipFlag) {
-    FluidStack current = helper.getFluid(tool);
-    if (!current.isEmpty()) {
-      tooltip.add(Component.translatable(FLUID_KEY)
-                           .append(Component.translatable(TankCapacityStat.MB_FORMAT, Util.COMMA_FORMAT.format(current.getAmount()))
-                                            .append(" ")
-                                            .append(current.getDisplayName())
-                                            .withStyle(style -> style.withColor(ToolTankHelper.CAPACITY_STAT.getColor()))));
+  public Component getDisplayName(IToolStackView tool, ModifierEntry entry, Component name, @Nullable RegistryAccess access) {
+    FluidStack fluid = helper.getFluid(tool);
+    int capacity = helper.getCapacity(tool);
+    if (fluid.isEmpty()) {
+      // no fluid, display as: Tank Capacity: #,### mb
+      return ToolTankHelper.CAPACITY_STAT.formatValue(capacity);
+    } else {
+      // fluid, display as: Fluid Name: #,### / #,### mb
+      return fluid.getDisplayName().copy()
+                  .append(": ")
+                  .append(ToolTankHelper.CAPACITY_STAT.formatContents(fluid.getAmount(), capacity));
     }
-    tooltip.add(helper.getCapacityStat().formatValue(helper.getCapacity(tool)));
   }
 
   @Override
@@ -173,5 +180,54 @@ public class TankModule implements HookProvider, FluidModifierHook, TooltipModif
       }
     }
     return FluidStack.EMPTY;
+  }
+
+
+  /* Inventory slot stacking */
+
+  /** Gets a tank instance for the given tool */
+  private FluidTank getTank(IToolStackView tool) {
+    FluidTank tank = new FluidTank(helper.getCapacity(tool));
+    tank.setFluid(helper.getFluid(tool));
+    return tank;
+  }
+
+  @Override
+  public boolean overrideStackedOnOther(IToolStackView heldTool, ModifierEntry modifier, Slot slot, Player player) {
+    ItemStack slotStack = slot.getItem();
+    // must have something with possible fluid in the slot
+    if (!slotStack.isEmpty() && TankItem.mayHaveFluid(slotStack)) {
+      // target must be stack size 1, if not then its not safe to modify it
+      if (slotStack.getCount() == 1) {
+        FluidTank tank = getTank(heldTool);
+        ItemStack result = FluidTransferHelper.interactWithTankSlot(tank, slotStack, TransferDirection.REVERSE);
+        // update held tank and slot item if something changed (either we have a result or the stack in the slot was shrunk)
+        if (!result.isEmpty() || slotStack.isEmpty()) {
+          helper.setFluid(heldTool, tank.getFluid());
+          slot.set(FluidTransferHelper.getOrTransferFilled(player, slotStack, result));
+        }
+      }
+      return true;
+    }
+    return false;
+  }
+
+  @Override
+  public boolean overrideOtherStackedOnMe(IToolStackView slotTool, ModifierEntry modifier, ItemStack held, Slot slot, Player player, SlotAccess access) {
+    // must have something with possible fluid held
+    if (!held.isEmpty() && TankItem.mayHaveFluid(held)) {
+      FluidTank tank = getTank(slotTool);
+      int oldCount = held.getCount();
+      ItemStack result = FluidTransferHelper.interactWithTankSlot(tank, held, TransferDirection.AUTO);
+      // update tank
+      if (!result.isEmpty() || held.getCount() != oldCount) {
+        helper.setFluid(slotTool, tank.getFluid());
+        // update held item, assuming its actually held
+        TankItem.updateHeldItem(player, held, result);
+      }
+
+      return true;
+    }
+    return false;
   }
 }

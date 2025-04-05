@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.library.modifiers.fluid.entity;
 
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -47,5 +49,10 @@ public record RestoreHungerFluidEffect(int hunger, float saturation, boolean can
       return value;
     }
     return 0;
+  }
+
+  @Override
+  public Component getDescription(RegistryAccess registryAccess) {
+    return FluidEffect.makeTranslation(getLoader(), hunger);
   }
 }

@@ -1,27 +1,40 @@
 {
   "block_effects": [
     {
-      "type": "tconstruct:mob_effect_cloud",
-      "effects": [
-        {
-          "effect": "minecraft:fire_resistance",
-          "level": 1,
-          "time": 500
-        }
-      ]
+      "type": "tconstruct:explosion",
+      "block_interaction": "destroy_with_decay",
+      "damage": {
+        "each_level": 2.0
+      },
+      "knockback": {
+        "flat": 1.0
+      },
+      "place_fire": true,
+      "radius": {
+        "each_level": 0.5,
+        "flat": 0.5
+      }
     }
   ],
   "entity_effects": [
     {
-      "type": "tconstruct:mob_effect",
-      "action": "set",
-      "effect": "minecraft:fire_resistance",
-      "level": 1,
-      "time": 500
+      "type": "tconstruct:explosion",
+      "block_interaction": "destroy_with_decay",
+      "damage": {
+        "each_level": 2.0
+      },
+      "knockback": {
+        "flat": 1.0
+      },
+      "place_fire": true,
+      "radius": {
+        "each_level": 0.5,
+        "flat": 0.5
+      }
     }
   ],
   "fluid": {
-    "amount": 50,
+    "amount": 100,
     "tag": "forge:magma"
   }
 }

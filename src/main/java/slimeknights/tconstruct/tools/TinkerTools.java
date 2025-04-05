@@ -52,6 +52,7 @@ import slimeknights.tconstruct.library.recipe.ingredient.ToolHookIngredient;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
 import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
+import slimeknights.tconstruct.library.tools.capability.ToolEnergyCapability;
 import slimeknights.tconstruct.library.tools.capability.fluid.ToolFluidCapability;
 import slimeknights.tconstruct.library.tools.capability.inventory.ToolInventoryCapability;
 import slimeknights.tconstruct.library.tools.definition.module.ToolHooks;
@@ -77,7 +78,7 @@ import slimeknights.tconstruct.library.tools.definition.module.material.Material
 import slimeknights.tconstruct.library.tools.definition.module.material.PartStatsModule;
 import slimeknights.tconstruct.library.tools.definition.module.material.PartsModule;
 import slimeknights.tconstruct.library.tools.definition.module.mining.IsEffectiveModule;
-import slimeknights.tconstruct.library.tools.definition.module.mining.MaxTierHarvestLogic;
+import slimeknights.tconstruct.library.tools.definition.module.mining.MaxTierModule;
 import slimeknights.tconstruct.library.tools.definition.module.mining.MiningSpeedModifierModule;
 import slimeknights.tconstruct.library.tools.definition.module.mining.OneClickBreakModule;
 import slimeknights.tconstruct.library.tools.definition.module.weapon.CircleWeaponAttack;
@@ -161,7 +162,7 @@ public final class TinkerTools extends TinkerModule {
 
   // setting durability to -1 makes sure its not 0 for the defaultDurability call in the TieredItem constructor, but is still less than 0 for the stacksTo call to work
   // problem is setting the durability sets the max stack size, and we don't want that. And we need TieredItem to work with piglins
-  public static final ItemObject<ModifiableItem> dagger = ITEMS.register("dagger", () -> new ModifiableSwordItem(new Item.Properties().durability(-1).stacksTo(2), ToolDefinitions.DAGGER));
+  public static final ItemObject<ModifiableItem> dagger = ITEMS.register("dagger", () -> new ModifiableSwordItem(new Item.Properties().durability(-1).stacksTo(2), ToolDefinitions.DAGGER, 2));
   public static final ItemObject<ModifiableItem> sword = ITEMS.register("sword", () -> new ModifiableSwordItem(UNSTACKABLE_PROPS, ToolDefinitions.SWORD));
   public static final ItemObject<ModifiableItem> cleaver = ITEMS.register("cleaver", () -> new ModifiableSwordItem(UNSTACKABLE_PROPS, ToolDefinitions.CLEAVER));
 
@@ -225,6 +226,7 @@ public final class TinkerTools extends TinkerModule {
     EquipmentChangeWatcher.register();
     ToolCapabilityProvider.register(ToolFluidCapability.Provider::new);
     ToolCapabilityProvider.register(ToolInventoryCapability.Provider::new);
+    ToolCapabilityProvider.register((stack, tool) -> new ToolEnergyCapability.Provider(tool));
     for (ConfigurableAction action : Config.COMMON.toolTweaks) {
       event.enqueueWork(action);
     }
@@ -248,7 +250,7 @@ public final class TinkerTools extends TinkerModule {
       // harvest
       ToolModule.LOADER.register(getResource("is_effective"), IsEffectiveModule.LOADER);
       ToolModule.LOADER.register(getResource("mining_speed_modifier"), MiningSpeedModifierModule.LOADER);
-      ToolModule.LOADER.register(getResource("max_tier"), MaxTierHarvestLogic.LOADER);
+      ToolModule.LOADER.register(getResource("max_tier"), MaxTierModule.LOADER);
       ToolModule.LOADER.register(getResource("one_click_break"), OneClickBreakModule.LOADER);
       // material
       ToolModule.LOADER.register(getResource("material_stats"), MaterialStatsModule.LOADER);

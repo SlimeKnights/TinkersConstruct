@@ -153,5 +153,7 @@ public class SwappableModifierRecipe extends ModifierRecipe {
     VariantFormatter DEFAULT = LOADER.register(getResource("default"), (modifier, variant) -> Component.translatable(Util.makeTranslationKey("modifier", modifier) + "." + variant));
     /** Formats using the material translation key */
     VariantFormatter MATERIAL = LOADER.register(getResource("material"), (modifier, variant) -> MaterialTooltipCache.getDisplayName(Objects.requireNonNullElse(MaterialVariantId.tryParse(variant), IMaterial.UNKNOWN_ID)));
+    /** Formats using the modifier ID as the base with the variant as a parameter */
+    VariantFormatter PARAMETER = LOADER.register(getResource("parameter"), (modifier, variant) -> Component.translatable(Util.makeTranslationKey("modifier", modifier) + ".variant", variant));
   }
 }

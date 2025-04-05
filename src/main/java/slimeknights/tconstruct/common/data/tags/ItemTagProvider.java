@@ -349,6 +349,8 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(RANGED).addTags(BOWS, STAFFS);
     this.tag(BOWS).addTags(LONGBOWS, CROSSBOWS);
     this.tag(TRADER_TOOLS).addTag(ANCIENT_TOOLS);
+    // headlight support
+    this.tag(ItemTags.create(new ResourceLocation("headlight", "headlight_helmets"))).addTag(HELMETS);
 
     // general
     this.tag(MODIFIABLE).addTags(MULTIPART_TOOL, DURABILITY, MELEE, HARVEST, AOE, HELD, BONUS_SLOTS);

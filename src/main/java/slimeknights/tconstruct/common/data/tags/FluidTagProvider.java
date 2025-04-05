@@ -137,32 +137,6 @@ public class FluidTagProvider extends FluidTagsProvider {
     this.tag(TinkerTags.Fluids.SMALL_GEM_TOOLTIPS).addTags(TinkerFluids.moltenQuartz.getTag(), TinkerFluids.moltenAmethyst.getTag());
     this.tag(TinkerTags.Fluids.SOUP_TOOLTIPS).addTags(TinkerFluids.beetrootSoup.getTag(), TinkerFluids.mushroomStew.getTag(), TinkerFluids.rabbitStew.getTag(), TinkerFluids.meatSoup.getTag());
 
-    // spilling tags - reduces the number of recipes generated //
-    this.tag(TinkerTags.Fluids.CLAY_SPILLING)
-        .addTag(TinkerFluids.moltenClay.getTag())
-        .addTag(TinkerFluids.moltenPorcelain.getTag())
-        .addTag(TinkerFluids.searedStone.getTag())
-        .addTag(TinkerFluids.scorchedStone.getTag());
-    this.tag(TinkerTags.Fluids.GLASS_SPILLING)
-        .addTag(TinkerFluids.moltenGlass.getTag())
-        .addTag(TinkerFluids.moltenObsidian.getTag());
-    this.tag(TinkerTags.Fluids.CHEAP_METAL_SPILLING)
-        .addTag(TinkerFluids.moltenPlatinum.getTag())
-        .addTag(TinkerFluids.moltenTungsten.getTag())
-        .addTag(TinkerFluids.moltenOsmium.getTag())
-        .addTag(TinkerFluids.moltenAmethyst.getTag());
-    this.tag(TinkerTags.Fluids.AVERAGE_METAL_SPILLING)
-        .addTag(TinkerFluids.moltenQuartz.getTag())
-        .addTag(TinkerFluids.moltenEmerald.getTag())
-        .addTag(TinkerFluids.moltenRefinedGlowstone.getTag());
-    this.tag(TinkerTags.Fluids.EXPENSIVE_METAL_SPILLING)
-        .addTag(TinkerFluids.moltenDiamond.getTag())
-        .addTag(TinkerFluids.moltenDebris.getTag())
-        .addTag(TinkerFluids.moltenEnderium.getTag())
-        .addTag(TinkerFluids.moltenLumium.getTag())
-        .addTag(TinkerFluids.moltenSignalum.getTag())
-        .addTag(TinkerFluids.moltenRefinedObsidian.getTag());
-
     // hide upcoming fluids
     tag(TinkerTags.Fluids.HIDDEN_IN_RECIPE_VIEWERS).add(TinkerFluids.moltenKnightslime.get(), TinkerFluids.moltenSoulsteel.get());
     // hide upcoming fluids that require NBT. Can expand this list if other mods report problems

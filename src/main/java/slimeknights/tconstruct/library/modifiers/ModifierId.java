@@ -7,7 +7,7 @@ import slimeknights.tconstruct.library.utils.ResourceId;
 import javax.annotation.Nullable;
 
 /**
- * This is just a copy of ResourceLocation for type safety.
+ * This is just a copy of ResourceLocation for type safety in modifier JSON.
  */
 public class ModifierId extends ResourceId {
   public static final IdParser<ModifierId> PARSER = new IdParser<>(ModifierId::new, "Modifier");
@@ -28,13 +28,13 @@ public class ModifierId extends ResourceId {
     super(namespace, path, pDummy);
   }
 
-  /** {@return Modifier ID, or null of invalid} */
+  /** {@return Modifier ID, or null if invalid} */
   @Nullable
   public static ModifierId tryParse(String string) {
     return tryParse(string, (namespace, path) -> new ModifierId(namespace, path, null));
   }
 
-  /** {@return Modifier ID, or null of invalid} */
+  /** {@return Modifier ID, or null if invalid} */
   @Nullable
   public static ModifierId tryBuild(String namespace, String path) {
     return tryBuild(namespace, path, (n, p) -> new ModifierId(namespace, path, null));

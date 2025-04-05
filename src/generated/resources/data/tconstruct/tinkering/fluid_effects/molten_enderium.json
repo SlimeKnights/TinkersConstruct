@@ -1,0 +1,50 @@
+{
+  "block_effects": [
+    {
+      "type": "tconstruct:mob_effect_cloud",
+      "effects": [
+        {
+          "effect": "tconstruct:enderference",
+          "level": 1,
+          "time": 200
+        }
+      ]
+    }
+  ],
+  "conditions": [
+    {
+      "type": "forge:or",
+      "values": [
+        {
+          "type": "tconstruct:config",
+          "prop": "force_integration_materials"
+        },
+        {
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/enderium"
+        }
+      ]
+    }
+  ],
+  "entity_effects": [
+    {
+      "type": "tconstruct:damage",
+      "damage": 4.0,
+      "damage_type": {
+        "melee": "tconstruct:fluid_magic_melee",
+        "ranged": "tconstruct:fluid_magic_ranged"
+      }
+    },
+    {
+      "type": "tconstruct:mob_effect",
+      "action": "set",
+      "effect": "tconstruct:enderference",
+      "level": 1,
+      "time": 200
+    }
+  ],
+  "fluid": {
+    "amount": 10,
+    "tag": "forge:molten_enderium"
+  }
+}

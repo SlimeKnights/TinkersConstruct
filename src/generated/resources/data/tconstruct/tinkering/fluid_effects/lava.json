@@ -2,7 +2,8 @@
   "block_effects": [
     {
       "type": "tconstruct:place_block",
-      "block": "minecraft:fire"
+      "block": "minecraft:fire",
+      "sound": "minecraft:item.firecharge.use"
     }
   ],
   "entity_effects": [
@@ -10,7 +11,7 @@
       "type": "tconstruct:conditional",
       "effect": {
         "type": "tconstruct:damage",
-        "damage": 2.0,
+        "damage": 1.0,
         "damage_type": {
           "melee": "tconstruct:fluid_fire_melee",
           "ranged": "tconstruct:fluid_fire_ranged"
@@ -23,8 +24,8 @@
     },
     {
       "type": "tconstruct:fire",
-      "action": "set",
-      "time": 10
+      "action": "add",
+      "time": 4
     }
   ],
   "fluid": {

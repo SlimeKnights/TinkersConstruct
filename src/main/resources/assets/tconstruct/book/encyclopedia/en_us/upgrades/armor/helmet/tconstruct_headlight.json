@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:headlight",
+  "text": [
+    {
+      "text": "Visually lights up blocks around you."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Single level",
+    "Requires 1 upgrade slot"
+  ]
+}

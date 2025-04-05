@@ -4,6 +4,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
@@ -43,6 +44,10 @@ public record ConditionalMeleeDamageModule(IJsonPredicate<LivingEntity> target, 
     MeleeFormula.LOADER.directField(ConditionalMeleeDamageModule::formula),
     ModifierCondition.TOOL_FIELD,
     ConditionalMeleeDamageModule::new);
+
+  /** @apiNote Internal constructor, use {@link #builder()} */
+  @Internal
+  public ConditionalMeleeDamageModule {}
 
   @Override
   public boolean percent() {

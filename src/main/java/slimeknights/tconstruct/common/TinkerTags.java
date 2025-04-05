@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
@@ -42,6 +43,7 @@ public class TinkerTags {
     Modifiers.init();
     Materials.init();
     DamageTypes.init();
+    MenuTypes.init();
     MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, TagsUpdatedEvent.class, event -> tagsLoaded = true);
   }
 
@@ -141,6 +143,9 @@ public class TinkerTags {
     /** Tanks that serve as a valid input for the alloyer, should be fluid handlers with 1 fluid */
     public static final TagKey<Block> ALLOYER_TANKS = local("alloyer_tanks");
 
+    /** Blocks that are treated as equivelent to air in structure detection. Used primarily for invisible light blocks */
+    public static final TagKey<Block> STRUCTURE_AIR = local("structure_air");
+
     /** Blocks that make up the smeltery structure */
     public static final TagKey<Block> SMELTERY = local("smeltery");
     /** Blocks valid as a smeltery tank, required for fuel */
@@ -175,6 +180,8 @@ public class TinkerTags {
     public static final TagKey<Block> MINABLE_WITH_DAGGER = local("mineable/dagger");
     /** Blocks that the melting pan cannot mine */
     public static final TagKey<Block> MINEABLE_MELTING_BLACKLIST = local("mineable/melting_blacklist");
+    /** Blocks that are not replaced by liquid despite not blocking motion, used for water mining list */
+    public static final TagKey<Block> UNREPLACABLE_BY_LIQUID = local("unreplacable_by_liquid");
 
     /** Any block that can be harvested using a kama or scythe */
     public static final TagKey<Block> HARVESTABLE = local("harvestable");
@@ -490,11 +497,20 @@ public class TinkerTags {
     /** Causes the fluid to be formatted like soup in tooltips, with bowls. Similar to slime, but no blocks */
     public static final TagKey<Fluid> SOUP_TOOLTIPS = local("tooltips/soup");
 
-    // spilling tags - used to reduce the number of spilling recipes
+    /** @deprecated Fluids have all been given unique effects, use {@link slimeknights.tconstruct.library.data.tinkering.AbstractFluidEffectProvider} */
+    @Deprecated(forRemoval = true)
     public static final TagKey<Fluid> CLAY_SPILLING = local("spilling/clay");
+    /** @deprecated Fluids have all been given unique effects, use {@link slimeknights.tconstruct.library.data.tinkering.AbstractFluidEffectProvider} */
+    @Deprecated(forRemoval = true)
     public static final TagKey<Fluid> GLASS_SPILLING = local("spilling/glass");
+    /** @deprecated Fluids have all been given unique effects, use {@link slimeknights.tconstruct.library.data.tinkering.AbstractFluidEffectProvider} */
+    @Deprecated(forRemoval = true)
     public static final TagKey<Fluid> CHEAP_METAL_SPILLING = local("spilling/metal/cheap");
+    /** @deprecated Fluids have all been given unique effects, use {@link slimeknights.tconstruct.library.data.tinkering.AbstractFluidEffectProvider} */
+    @Deprecated(forRemoval = true)
     public static final TagKey<Fluid> AVERAGE_METAL_SPILLING = local("spilling/metal/average");
+    /** @deprecated Fluids have all been given unique effects, use {@link slimeknights.tconstruct.library.data.tinkering.AbstractFluidEffectProvider} */
+    @Deprecated(forRemoval = true)
     public static final TagKey<Fluid> EXPENSIVE_METAL_SPILLING = local("spilling/metal/expensive");
 
     /** Fluids in this tag won't show in the creative filled tanks */
@@ -591,6 +607,8 @@ public class TinkerTags {
 
     /** Modifiers in this tag prevent the overslime debuff */
     public static final TagKey<Modifier> OVERSLIME_FRIEND = local("overslime_friend");
+    /** Modifiers in this tag will show the wireframe hitbox on all blocks */
+    public static final TagKey<Modifier> AOE_INTERACTION = local("aoe_interaction");
 
     // book tags - these are used to determine pages to load in resource packs
     // upgrades
@@ -669,5 +687,12 @@ public class TinkerTags {
     private static TagKey<DamageType> local(String name) {
       return TagKey.create(Registries.DAMAGE_TYPE, getResource(name));
     }
+  }
+
+  public static class MenuTypes {
+    private static void init() {}
+
+    /** Any menus that support being closed in favor of the tool inventory */
+    public static final TagKey<MenuType<?>> TOOL_INVENTORY_REPLACEMENTS = TagKey.create(Registries.MENU, getResource("tool_inventory_replacements"));
   }
 }

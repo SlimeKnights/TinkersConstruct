@@ -1,7 +1,7 @@
 package slimeknights.tconstruct.library.tools.capability;
 
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.Lazy;
@@ -9,6 +9,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +25,12 @@ public class ToolCapabilityProvider implements ICapabilityProvider {
   private final Lazy<ToolStack> tool;
   private final List<IToolCapabilityProvider> providers;
   public ToolCapabilityProvider(ItemStack stack) {
-    // NBt is not yet initialized when capabilities are created, so delay tool stack creation
+    // NBT is not yet initialized when capabilities are created, so delay tool stack creation
     this.tool = Lazy.of(() -> ToolStack.from(stack));
     this.providers = PROVIDER_CONSTRUCTORS.stream().map(con -> con.apply(stack, tool)).filter(Objects::nonNull).collect(Collectors.toList());
   }
 
+  @Nonnull
   @Override
   public <T> LazyOptional<T> getCapability(Capability<T> cap, @Nullable Direction side) {
     // clear the tool cache, as it may have changed since the last time a cap was fetched

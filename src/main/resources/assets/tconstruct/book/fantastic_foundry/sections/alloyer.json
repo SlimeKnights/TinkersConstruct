@@ -23,5 +23,9 @@
     "name": "casting",
     "type": "mantle:image_text",
     "data": "alloyer/casting.json"
+  },
+  {
+    "type": "mantle:blank",
+    "data": "no-load"
   }
 ]

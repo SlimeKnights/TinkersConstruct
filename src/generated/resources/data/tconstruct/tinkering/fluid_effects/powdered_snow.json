@@ -7,9 +7,21 @@
   ],
   "entity_effects": [
     {
+      "type": "tconstruct:conditional",
+      "effect": {
+        "type": "tconstruct:damage",
+        "damage": 2.0,
+        "damage_type": {
+          "melee": "tconstruct:fluid_cold_melee",
+          "ranged": "tconstruct:fluid_cold_ranged"
+        }
+      },
+      "target": "mantle:can_freeze"
+    },
+    {
       "type": "tconstruct:freeze",
       "action": "add",
-      "time": 160
+      "time": 80
     }
   ],
   "fluid": {

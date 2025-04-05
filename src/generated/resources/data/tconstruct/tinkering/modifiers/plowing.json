@@ -1,15 +1,7 @@
 {
-  "level_display": "tconstruct:no_levels",
-  "modules": [
+  "redirects": [
     {
-      "type": "tconstruct:tool_action_walk_transform",
-      "radius": {
-        "each_level": 1.0,
-        "flat": 0.5
-      },
-      "sound": "minecraft:item.hoe.till",
-      "tool_action": "till"
+      "id": "tconstruct:tilling"
     }
-  ],
-  "tooltip_display": "always"
+  ]
 }

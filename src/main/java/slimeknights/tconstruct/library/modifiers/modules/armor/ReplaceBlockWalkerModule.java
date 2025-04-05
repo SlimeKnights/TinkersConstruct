@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.event.ForgeEventFactory;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.common.BlockStateLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
@@ -43,6 +44,10 @@ public record ReplaceBlockWalkerModule(List<BlockReplacement> replacements, Leve
     ToolContextPredicate.LOADER.defaultField("tool", ReplaceBlockWalkerModule::tool),
     ReplaceBlockWalkerModule::new);
 
+  /** @apiNote Internal constructor, use {@link #builder()} */
+  @Internal
+  public ReplaceBlockWalkerModule {}
+
   @Override
   public float getRadius(IToolStackView tool, ModifierEntry modifier) {
     return radius.compute(modifier.getLevel() + tool.getModifierLevel(TinkerModifiers.expanded.getId()));
@@ -56,7 +61,7 @@ public record ReplaceBlockWalkerModule(List<BlockReplacement> replacements, Leve
   }
 
   @Override
-  public void walkOn(IToolStackView tool, ModifierEntry entry, LivingEntity living, Level world, BlockPos target, MutableBlockPos mutable, Void context) {
+  public boolean walkOn(IToolStackView tool, ModifierEntry entry, LivingEntity living, Level world, BlockPos target, MutableBlockPos mutable, Void context) {
     if (world.isEmptyBlock(target)) {
       mutable.set(target.getX(), target.getY() - 1, target.getZ());
       int level = entry.getLevel();
@@ -76,6 +81,7 @@ public record ReplaceBlockWalkerModule(List<BlockReplacement> replacements, Leve
         }
       }
     }
+    return tool.isBroken();
   }
 
   /** Represents a single replacement handled by this module */

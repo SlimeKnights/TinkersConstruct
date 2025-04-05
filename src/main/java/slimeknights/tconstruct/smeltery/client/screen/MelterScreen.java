@@ -29,7 +29,7 @@ public class MelterScreen extends AbstractContainerScreen<MelterContainerMenu> i
     MelterBlockEntity te = container.getTile();
     if (te != null) {
       FuelModule fuelModule = te.getFuelModule();
-      melting = new GuiMeltingModule(this, te.getMeltingInventory(), fuelModule::getTemperature, slot -> true, BACKGROUND);
+      melting = new GuiMeltingModule(this, te.getMeltingInventory(), 0, fuelModule::getTemperature, slot -> true, BACKGROUND);
       fuel = new GuiFuelModule(this, fuelModule, 153, 32, 12, 36, 152, 15, container.isHasFuelSlot(), BACKGROUND);
       tank = new GuiTankModule(this, te.getTank(), 90, 16, 52, 52, MelterContainerMenu.TOOLTIP_FORMAT);
     } else {
@@ -77,7 +77,7 @@ public class MelterScreen extends AbstractContainerScreen<MelterContainerMenu> i
     if (fuel != null) fuel.renderHighlight(graphics, checkX, checkY);
 
     // scala
-    SCALA.draw(graphics, 90, 16);
+    SCALA.draw(graphics, 90, 16, 100);
 
     // heat bars
     if (melting != null) {
@@ -97,6 +97,27 @@ public class MelterScreen extends AbstractContainerScreen<MelterContainerMenu> i
 
     // fuel tooltip
     if (fuel != null) fuel.addTooltip(graphics, mouseX, mouseY, true);
+  }
+
+  @Override
+  public boolean mouseClicked(double mouseX, double mouseY, int button) {
+    assert minecraft != null && minecraft.player != null && minecraft.gameMode != null;
+    if (!minecraft.player.isSpectator() && (button == 0 || button == 1) && !menu.getCarried().isEmpty()) {
+      int checkX = (int)mouseX - leftPos;
+      int checkY = (int)mouseY - topPos;
+      // left-clicking the fluid puts it in the held item (button 0/2)
+      // right-clicking or left clicking the empty spot dumps the item (button 1/3)
+
+      // try tank first
+      if (tank != null && tank.tryClick(checkX, checkY, button, 0)) {
+        return true;
+      }
+      // then try fuel
+      if (fuel != null && fuel.tryClick(checkX, checkY, button, 2)) {
+        return true;
+      }
+    }
+    return super.mouseClicked(mouseX, mouseY, button);
   }
 
   @Override

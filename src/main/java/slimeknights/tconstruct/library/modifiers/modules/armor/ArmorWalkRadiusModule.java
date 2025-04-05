@@ -41,8 +41,9 @@ public interface ArmorWalkRadiusModule<T> extends ArmorWalkModifierHook, HookPro
    * @param target  Position target for effect
    * @param mutable Mutable position you can freely modify
    * @param context Extra data context used by the modifier
+   * @return True to stop iteration, false to let iteration continue
    */
-  void walkOn(IToolStackView tool, ModifierEntry entry, LivingEntity living, Level world, BlockPos target, MutableBlockPos mutable, T context);
+  boolean walkOn(IToolStackView tool, ModifierEntry entry, LivingEntity living, Level world, BlockPos target, MutableBlockPos mutable, T context);
 
   /**
    * Creates additional context to pass into the on walk method
@@ -64,8 +65,7 @@ public interface ArmorWalkRadiusModule<T> extends ArmorWalkModifierHook, HookPro
       BlockPos center = BlockPos.containing(posVec.x, posVec.y + 0.5, posVec.z);
       for (BlockPos pos : BlockPos.betweenClosed(center.offset(-radius, 0, -radius), center.offset(radius, 0, radius))) {
         if (pos.closerToCenterThan(living.position(), trueRadius)) {
-          walkOn(tool, modifier, living, world, pos, mutable, context);
-          if (tool.isBroken()) {
+          if (walkOn(tool, modifier, living, world, pos, mutable, context)) {
             break;
           }
         }

@@ -5,6 +5,7 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderOwner;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistrySetBuilder;
+import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
@@ -61,7 +62,7 @@ import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride.Bound
 import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStructurePlacement;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
-import net.minecraft.world.level.levelgen.structure.placement.StructurePlacement;
+import net.minecraft.world.level.levelgen.structure.placement.StructurePlacement.FrequencyReductionMethod;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraftforge.common.world.BiomeModifier;
@@ -88,6 +89,7 @@ import slimeknights.tconstruct.world.worldgen.trees.config.SlimeTreeConfig;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 import static net.minecraft.core.HolderSet.direct;
@@ -314,10 +316,10 @@ public class WorldgenProvider {
   /** Registers all structures */
   private static void registerStructureSets(BootstapContext<StructureSet> context) {
     HolderGetter<Structure> structures = context.lookup(Registries.STRUCTURE);
-    context.register(overworldOceanIsland, structureSet(new RandomSpreadStructurePlacement(35, 25, RandomSpreadType.LINEAR, 25988585), entry(structures, earthSlimeIsland, 1)));
-    context.register(overworldSkyIsland,   structureSet(new RandomSpreadStructurePlacement(40, 15, RandomSpreadType.LINEAR, 14357800), entry(structures, skySlimeIsland, 4), entry(structures, clayIsland, 1)));
-    context.register(netherOceanIsland,    structureSet(new RandomSpreadStructurePlacement(15, 10, RandomSpreadType.LINEAR, 65245622), entry(structures, bloodIsland, 1)));
-    context.register(endSkyIsland,         structureSet(new RandomSpreadStructurePlacement(25, 12, RandomSpreadType.LINEAR, 368963602), entry(structures, endSlimeIsland, 1)));
+    context.register(overworldOceanIsland, structureSet(30, 9, RandomSpreadType.LINEAR, 25988585,  0.5f, entry(structures, earthSlimeIsland, 1)));
+    context.register(overworldSkyIsland,   structureSet(35, 4, RandomSpreadType.LINEAR, 14357800,  0.5f,  entry(structures, skySlimeIsland, 4), entry(structures, clayIsland, 1)));
+    context.register(netherOceanIsland,    structureSet(15, 7, RandomSpreadType.LINEAR, 65245622,  0.5f, entry(structures, bloodIsland, 1)));
+    context.register(endSkyIsland,         structureSet(25, 6, RandomSpreadType.LINEAR, 368963602, 0.5f, entry(structures, endSlimeIsland, 1)));
   }
 
   /** Registers all biome modifiers */
@@ -415,8 +417,8 @@ public class WorldgenProvider {
   /* Structure sets */
 
   /** Saves a structure set */
-  private static StructureSet structureSet(StructurePlacement placement, StructureSelectionEntry... structures) {
-    return new StructureSet(List.of(structures), placement);
+  private static StructureSet structureSet(int spacing, int separation, RandomSpreadType spreadType, int salt, float frequency, StructureSelectionEntry... structures) {
+    return new StructureSet(List.of(structures), new RandomSpreadStructurePlacement(Vec3i.ZERO, FrequencyReductionMethod.DEFAULT, frequency, salt, Optional.empty(), spacing, separation, spreadType));
   }
 
   /** Creates an entry for a registry object */

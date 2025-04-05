@@ -6,6 +6,7 @@
     }
   ],
   "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/harvest",
   "effects": [
     "Can apply levels incrementally",
     "Maximum of 5 levels",

@@ -5,7 +5,7 @@
       "effects": [
         {
           "effect": "minecraft:regeneration",
-          "level": 1,
+          "level": 2,
           "time": 120
         }
       ]
@@ -13,25 +13,18 @@
   ],
   "entity_effects": [
     {
-      "type": "tconstruct:conditional",
-      "effect": {
-        "type": "tconstruct:damage",
-        "damage": 2.0,
-        "damage_type": {
-          "melee": "tconstruct:fluid_magic_melee",
-          "ranged": "tconstruct:fluid_magic_ranged"
-        }
-      },
-      "target": {
-        "type": "mantle:mob_type",
-        "mobs": "minecraft:undead"
+      "type": "tconstruct:damage",
+      "damage": 2.0,
+      "damage_type": {
+        "melee": "tconstruct:fluid_magic_melee",
+        "ranged": "tconstruct:fluid_magic_ranged"
       }
     },
     {
       "type": "tconstruct:mob_effect",
       "action": "set",
       "effect": "minecraft:regeneration",
-      "level": 1,
+      "level": 2,
       "time": 120
     }
   ],

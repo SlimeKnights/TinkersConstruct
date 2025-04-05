@@ -29,4 +29,15 @@ public record EffectLevel(float value, float max) {
   public boolean isFull() {
     return value >= 1;
   }
+
+  /** Divides the effect level by the given divisor */
+  public EffectLevel divide(float divisor) {
+    if (divisor == 1) {
+      return this;
+    }
+    if (divisor == 0) {
+      throw new IllegalArgumentException("Divisor cannot be zero");
+    }
+    return new EffectLevel(value / divisor, max / divisor);
+  }
 }

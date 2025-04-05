@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.library.modifiers.fluid.entity;
 
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.fluids.FluidStack;
@@ -79,5 +81,10 @@ public record MobEffectFluidEffect(FluidMobEffect effect, TimeAction action) imp
       }
     }
     return 0;
+  }
+
+  @Override
+  public Component getDescription(RegistryAccess registryAccess) {
+    return effect.getDisplayName(action);
   }
 }

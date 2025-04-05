@@ -1,0 +1,26 @@
+{
+  "block_effects": [
+    {
+      "type": "tconstruct:move_block",
+      "push": false,
+      "sound": "tconstruct:slime_sling"
+    }
+  ],
+  "entity_effects": [
+    {
+      "type": "tconstruct:mob_effect",
+      "action": "add",
+      "effect": "minecraft:slowness",
+      "level": 1,
+      "time": 100
+    },
+    {
+      "type": "tconstruct:push_entity",
+      "each_level": -1.0
+    }
+  ],
+  "fluid": {
+    "amount": 50,
+    "tag": "forge:slime"
+  }
+}

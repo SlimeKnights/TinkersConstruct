@@ -5,24 +5,18 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.chat.Component;
 import slimeknights.mantle.data.loadable.ErrorFactory;
 import slimeknights.mantle.data.loadable.primitive.EnumLoadable;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.Modifier;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.module.ModuleHookMap;
 import slimeknights.tconstruct.library.module.WithHooks;
-import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -55,11 +49,6 @@ public class ComposableModifier extends BasicModifier {
   /** Creates a builder instance for datagen */
   public static Builder builder() {
     return new Builder();
-  }
-
-  @Override
-  public Component getDisplayName(IToolStackView tool, ModifierEntry entry, @Nullable RegistryAccess access) {
-    return getHook(ModifierHooks.DISPLAY_NAME).getDisplayName(tool, entry, entry.getDisplayName(), access);
   }
 
   /** Computes the recommended priority for a set of modifier modules */

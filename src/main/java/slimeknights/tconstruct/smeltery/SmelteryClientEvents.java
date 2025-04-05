@@ -1,6 +1,7 @@
 package slimeknights.tconstruct.smeltery;
 
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ModelEvent.RegisterGeometryLoaders;
@@ -17,6 +18,7 @@ import slimeknights.tconstruct.library.TinkerItemDisplays;
 import slimeknights.tconstruct.library.client.model.block.FluidTextureModel;
 import slimeknights.tconstruct.library.client.model.block.TankModel;
 import slimeknights.tconstruct.library.client.model.tools.ToolModel;
+import slimeknights.tconstruct.smeltery.block.entity.component.TankBlockEntity;
 import slimeknights.tconstruct.smeltery.client.render.CastingBlockEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.ChannelBlockEntityRenderer;
 import slimeknights.tconstruct.smeltery.client.render.FaucetBlockEntityRenderer;
@@ -39,7 +41,9 @@ public class SmelteryClientEvents extends ClientEventBase {
 
   @SubscribeEvent
   static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
-    event.registerBlockEntityRenderer(TinkerSmeltery.tank.get(), TankBlockEntityRenderer::new);
+    BlockEntityRendererProvider<TankBlockEntity> tankRenderer = TankBlockEntityRenderer::new;
+    event.registerBlockEntityRenderer(TinkerSmeltery.tank.get(), tankRenderer);
+    event.registerBlockEntityRenderer(TinkerSmeltery.fluidCannon.get(), tankRenderer);
     event.registerBlockEntityRenderer(TinkerSmeltery.faucet.get(), FaucetBlockEntityRenderer::new);
     event.registerBlockEntityRenderer(TinkerSmeltery.channel.get(), ChannelBlockEntityRenderer::new);
     event.registerBlockEntityRenderer(TinkerSmeltery.table.get(), CastingBlockEntityRenderer::new);

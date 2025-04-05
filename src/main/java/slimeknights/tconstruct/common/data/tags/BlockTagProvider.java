@@ -52,6 +52,7 @@ import static net.minecraftforge.common.Tags.Blocks.NEEDS_GOLD_TOOL;
 import static net.minecraftforge.common.Tags.Blocks.NEEDS_NETHERITE_TOOL;
 import static slimeknights.mantle.Mantle.commonResource;
 import static slimeknights.tconstruct.common.TinkerTags.Blocks.MINEABLE_MELTING_BLACKLIST;
+import static slimeknights.tconstruct.common.TinkerTags.Blocks.UNREPLACABLE_BY_LIQUID;
 
 @SuppressWarnings({"unchecked", "SameParameterValue"})
 public class BlockTagProvider extends BlockTagsProvider {
@@ -351,6 +352,9 @@ public class BlockTagProvider extends BlockTagsProvider {
         .addTag(TinkerTags.Blocks.SEARED_TANKS)
         .addTag(TinkerTags.Blocks.SCORCHED_TANKS);
 
+    // blocks to ignore like air
+    this.tag(TinkerTags.Blocks.STRUCTURE_AIR).add(Blocks.LIGHT, TinkerCommons.glow.get());
+
     // smeltery blocks
     // floor allows any basic seared blocks and all IO blocks
     this.tag(TinkerTags.Blocks.SMELTERY_FLOOR)
@@ -460,8 +464,8 @@ public class BlockTagProvider extends BlockTagsProvider {
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_GOLD_TOOL, TinkerSmeltery.scorchedLantern, TinkerSmeltery.scorchedFaucet, TinkerSmeltery.scorchedChannel, TinkerSmeltery.scorchedBasin, TinkerSmeltery.scorchedTable);
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_GOLD_TOOL, TinkerSmeltery.searedHeater, TinkerSmeltery.searedMelter, TinkerSmeltery.scorchedAlloyer);
     // tough seared + scorched
-    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_STONE_TOOL, TinkerSmeltery.searedDrain, TinkerSmeltery.searedChute, TinkerSmeltery.smelteryController);
-    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_IRON_TOOL, TinkerSmeltery.searedDuct, TinkerSmeltery.scorchedDuct);
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_STONE_TOOL, TinkerSmeltery.searedDrain, TinkerSmeltery.searedChute, TinkerSmeltery.smelteryController, TinkerSmeltery.searedFluidCannon);
+    tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_IRON_TOOL, TinkerSmeltery.searedDuct, TinkerSmeltery.scorchedDuct, TinkerSmeltery.scorchedFluidCannon);
     tagBlocks(MINEABLE_WITH_PICKAXE, NEEDS_DIAMOND_TOOL, TinkerSmeltery.scorchedDrain, TinkerSmeltery.scorchedChute, TinkerSmeltery.foundryController);
 
     // tables
@@ -497,8 +501,11 @@ public class BlockTagProvider extends BlockTagsProvider {
     tag(TinkerTags.Blocks.MINABLE_WITH_DAGGER).addTags(MINEABLE_WITH_HOE, TinkerTags.Blocks.MINABLE_WITH_SWORD);
 
     // melting pan blacklist, basically anything that feels gross due to unsupported melting recipe
-    tagBlocks(MINEABLE_MELTING_BLACKLIST, TinkerSmeltery.searedMelter, TinkerSmeltery.smelteryController, TinkerSmeltery.foundryController, TinkerSmeltery.searedLantern, TinkerSmeltery.scorchedLantern);
+    tagBlocks(MINEABLE_MELTING_BLACKLIST, TinkerSmeltery.searedMelter, TinkerSmeltery.smelteryController, TinkerSmeltery.foundryController, TinkerSmeltery.searedLantern, TinkerSmeltery.scorchedLantern, TinkerSmeltery.searedFluidCannon, TinkerSmeltery.scorchedFluidCannon);
     tagBlocks(MINEABLE_MELTING_BLACKLIST, TinkerSmeltery.searedTank, TinkerSmeltery.scorchedTank);
+
+    // copy of blocks list from FlowingFLuid#canHoldFLuid
+    tag(UNREPLACABLE_BY_LIQUID).addTags(BlockTags.SIGNS, BlockTags.DOORS).add(Blocks.LADDER, Blocks.SUGAR_CANE, Blocks.BUBBLE_COLUMN, Blocks.NETHER_PORTAL, Blocks.END_PORTAL, Blocks.END_GATEWAY, Blocks.STRUCTURE_VOID);
   }
 
   @Override

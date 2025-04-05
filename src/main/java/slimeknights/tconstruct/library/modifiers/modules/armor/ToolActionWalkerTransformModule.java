@@ -15,6 +15,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.ToolAction;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.json.LevelingValue;
@@ -50,6 +51,10 @@ public record ToolActionWalkerTransformModule(ToolAction action, SoundEvent soun
     LevelingValue.LOADABLE.requiredField("radius", ToolActionWalkerTransformModule::radius),
     ModifierCondition.TOOL_FIELD,
     ToolActionWalkerTransformModule::new);
+  
+  /** @apiNote Internal constructor, use {@link #builder(ToolAction, SoundEvent)} */
+  @Internal
+  public ToolActionWalkerTransformModule {}
 
   @Override
   public List<ModuleHook<?>> getDefaultHooks() {
@@ -79,7 +84,7 @@ public record ToolActionWalkerTransformModule(ToolAction action, SoundEvent soun
   }
 
   @Override
-  public void walkOn(IToolStackView tool, ModifierEntry entry, LivingEntity living, Level world, BlockPos target, MutableBlockPos mutable, MutableUseOnContext context) {
+  public boolean walkOn(IToolStackView tool, ModifierEntry entry, LivingEntity living, Level world, BlockPos target, MutableBlockPos mutable, MutableUseOnContext context) {
     BlockState state = world.getBlockState(target);
     if (state.canBeReplaced()) {
       mutable.set(target.getX(), target.getY() - 1, target.getZ());
@@ -94,6 +99,7 @@ public record ToolActionWalkerTransformModule(ToolAction action, SoundEvent soun
         ToolDamageUtil.damageAnimated(tool, 1, living, EquipmentSlot.FEET);
       }
     }
+    return tool.isBroken();
   }
 
   @Override

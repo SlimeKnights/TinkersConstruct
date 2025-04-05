@@ -30,14 +30,24 @@ public class TinkerDamageTypes {
 
   /** Damage source for a non-projectile with arrow death messages */
   public static final ResourceKey<DamageType> MELEE_ARROW = create("melee_arrow");
+  /** Damage source for an explosion that does not scale with difficulty */
+  public static final DamageTypePair EXPLOSION = createPair("explosion");
+  /** Damage source for an entity caused explosion that does not scale with difficulty */
+  public static final DamageTypePair MOB_EXPLOSION = createPair("mob_explosion");
 
   /* Fluid effects */
+  /** Effect for direct fluid damage with no special immunities */
+  public static final DamageTypePair FLUID_IMPACT = createPair("fluid_impact");
   /** Effect for a flaming fluid */
   public static final DamageTypePair FLUID_FIRE = createPair("fluid_fire");
+  /** Effect for cold damage */
+  public static final DamageTypePair FLUID_COLD = createPair("fluid_cold");
   /** Effect for a magic fluid */
   public static final DamageTypePair FLUID_MAGIC = createPair("fluid_magic");
   /** Effect for water */
   public static final DamageTypePair WATER = createPair("water");
+  /** Effect for armor piercing fluid damage */
+  public static final DamageTypePair FLUID_SPIKE = createPair("fluid_spike");
 
 
   /** Creates a new damage type tag */

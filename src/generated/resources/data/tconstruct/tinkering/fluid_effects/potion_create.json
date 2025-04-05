@@ -54,5 +54,6 @@
   "fluid": {
     "amount": 50,
     "fluid": "create:potion"
-  }
+  },
+  "hidden": true
 }

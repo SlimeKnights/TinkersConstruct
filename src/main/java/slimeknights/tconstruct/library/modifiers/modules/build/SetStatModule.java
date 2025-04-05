@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.mantle.util.typed.TypedMap;
@@ -29,6 +30,10 @@ import java.util.List;
  */
 public record SetStatModule<T>(IToolStat<T> stat, T value, ModifierCondition<IToolContext> condition) implements ModifierModule, ToolStatsModifierHook, ConditionalModule<IToolContext> {
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<SetStatModule<?>>defaultHooks(ModifierHooks.TOOL_STATS);
+
+  /** @apiNote Internal constructor, use {@link #set(IToolStat)} */
+  @Internal
+  public SetStatModule {}
 
   @Override
   public void addToolStats(IToolContext context, ModifierEntry modifier, ModifierStatsBuilder builder) {

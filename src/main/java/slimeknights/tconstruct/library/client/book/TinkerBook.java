@@ -10,9 +10,11 @@ import slimeknights.tconstruct.library.client.book.content.ArmorMaterialContent;
 import slimeknights.tconstruct.library.client.book.content.ContentMaterialSkull;
 import slimeknights.tconstruct.library.client.book.content.ContentModifier;
 import slimeknights.tconstruct.library.client.book.content.ContentTool;
+import slimeknights.tconstruct.library.client.book.content.FluidEffectContent;
 import slimeknights.tconstruct.library.client.book.content.MeleeHarvestMaterialContent;
 import slimeknights.tconstruct.library.client.book.content.RangedMaterialContent;
 import slimeknights.tconstruct.library.client.book.content.TooltipShowcaseContent;
+import slimeknights.tconstruct.library.client.book.sectiontransformer.FluidEffectInjectingTransformer;
 import slimeknights.tconstruct.library.client.book.sectiontransformer.ModifierSectionTransformer;
 import slimeknights.tconstruct.library.client.book.sectiontransformer.ModifierTagInjectorTransformer;
 import slimeknights.tconstruct.library.client.book.sectiontransformer.ToolSectionTransformer;
@@ -61,6 +63,7 @@ public class TinkerBook extends BookData {
     BookLoader.registerPageType(ContentTool.ID, ContentTool.class);
     BookLoader.registerPageType(ContentModifier.ID, ContentModifier.class);
     BookLoader.registerPageType(TooltipShowcaseContent.ID, TooltipShowcaseContent.class);
+    BookLoader.registerPageType(FluidEffectContent.ID, FluidEffectContent.class);
 
     // material types
     TierRangeMaterialSectionTransformer.registerMaterialType(getResource("melee_harvest"), MeleeHarvestMaterialContent::new, HeadMaterialStats.ID, HandleMaterialStats.ID, StatlessMaterialStats.BINDING.getIdentifier());
@@ -99,6 +102,7 @@ public class TinkerBook extends BookData {
     ENCYCLOPEDIA.addTransformer(defense);
     ENCYCLOPEDIA.addTransformer(slotless);
     ENCYCLOPEDIA.addTransformer(abilities);
+    ENCYCLOPEDIA.addTransformer(FluidEffectInjectingTransformer.INSTANCE);
 
     // TODO: do we want to fire an event to add transformers to our books? Since we need the next two to be last
     addStandardData(MATERIALS_AND_YOU, MATERIALS_BOOK_ID);

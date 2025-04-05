@@ -1,0 +1,55 @@
+{
+  "block_effects": [
+    {
+      "type": "tconstruct:explosion",
+      "block_interaction": "keep",
+      "damage": {
+        "each_level": 2.0
+      },
+      "knockback": {
+        "flat": -2.0
+      },
+      "place_fire": false,
+      "radius": {
+        "each_level": 1.0,
+        "flat": 1.0
+      }
+    }
+  ],
+  "conditions": [
+    {
+      "type": "forge:or",
+      "values": [
+        {
+          "type": "tconstruct:config",
+          "prop": "force_integration_materials"
+        },
+        {
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/signalum"
+        }
+      ]
+    }
+  ],
+  "entity_effects": [
+    {
+      "type": "tconstruct:explosion",
+      "block_interaction": "keep",
+      "damage": {
+        "each_level": 2.0
+      },
+      "knockback": {
+        "flat": -2.0
+      },
+      "place_fire": false,
+      "radius": {
+        "each_level": 1.0,
+        "flat": 1.0
+      }
+    }
+  ],
+  "fluid": {
+    "amount": 10,
+    "tag": "forge:molten_signalum"
+  }
+}

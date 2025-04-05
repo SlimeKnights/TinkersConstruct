@@ -17,18 +17,17 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import java.util.List;
 
 /** Tool that supports interaction with either hand. Uses persistent NBT to choose which hand is allowed to interact */
-public class DualOptionInteraction implements InteractionToolModule, ToolModule {
-  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<DualOptionInteraction>defaultHooks(ToolHooks.INTERACTION);
+public enum DualOptionInteraction implements InteractionToolModule, ToolModule {
   /** Singleton instance */
-  public static final DualOptionInteraction INSTANCE = new DualOptionInteraction();
+  INSTANCE;
+
+  private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<DualOptionInteraction>defaultHooks(ToolHooks.INTERACTION);
   /** Loader instance */
   public static final SingletonLoader<DualOptionInteraction> LOADER = new SingletonLoader<>(INSTANCE);
   /** Key for persistent data set of modifiers */
   public static final ResourceLocation KEY = TConstruct.getResource("attack_modifiers");
   /** Key for denoting this feature in the tooltip */
   private static final String MODIFIER_FORMAT = TConstruct.makeTranslationKey("modifier", "attack_toggled");
-
-  private DualOptionInteraction() {}
 
   @Override
   public List<ModuleHook<?>> getDefaultHooks() {

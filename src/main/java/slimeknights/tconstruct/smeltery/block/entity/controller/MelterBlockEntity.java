@@ -33,13 +33,12 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.controller.ControllerBlock;
 import slimeknights.tconstruct.smeltery.block.controller.MelterBlock;
 import slimeknights.tconstruct.smeltery.block.entity.ITankBlockEntity;
-import slimeknights.tconstruct.smeltery.block.entity.module.FuelModule;
 import slimeknights.tconstruct.smeltery.block.entity.module.MeltingModuleInventory;
+import slimeknights.tconstruct.smeltery.block.entity.module.SolidFuelModule;
 import slimeknights.tconstruct.smeltery.menu.MelterContainerMenu;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Collections;
 
 public class MelterBlockEntity extends NameableBlockEntity implements ITankBlockEntity {
 
@@ -74,7 +73,7 @@ public class MelterBlockEntity extends NameableBlockEntity implements ITankBlock
 
   /** Fuel handling logic */
   @Getter
-  private final FuelModule fuelModule = new FuelModule(this, () -> Collections.singletonList(this.worldPosition.below()));
+  private final SolidFuelModule fuelModule;
 
   /** Main constructor */
   public MelterBlockEntity(BlockPos pos, BlockState state) {
@@ -85,6 +84,7 @@ public class MelterBlockEntity extends NameableBlockEntity implements ITankBlock
   @SuppressWarnings("WeakerAccess")
   protected MelterBlockEntity(BlockEntityType<? extends MelterBlockEntity> type, BlockPos pos, BlockState state) {
     super(type, pos, state, NAME);
+    this.fuelModule = new SolidFuelModule(this, pos.below());
   }
 
   @Nullable

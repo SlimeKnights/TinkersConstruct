@@ -7,7 +7,7 @@ import slimeknights.tconstruct.library.utils.ResourceId;
 import javax.annotation.Nullable;
 
 /**
- * This is just a copy of ResourceLocation for type safety.
+ * This is just a copy of ResourceLocation for type safety in tool stat JSON.
  */
 public class ToolStatId extends ResourceId {
   public static final IdParser<ToolStatId> PARSER = new IdParser<>(ToolStatId::new, "Tool Stat");
@@ -28,13 +28,13 @@ public class ToolStatId extends ResourceId {
     super(namespace, path, pDummy);
   }
 
-  /** {@return Tool stat ID, or null of invalid} */
+  /** {@return Tool stat ID, or null if invalid} */
   @Nullable
   public static ToolStatId tryParse(String string) {
     return tryParse(string, (namespace, path) -> new ToolStatId(namespace, path, null));
   }
 
-  /** {@return Tool stat ID, or null of invalid} */
+  /** {@return Tool stat ID, or null if invalid} */
   @Nullable
   public static ToolStatId tryBuild(String namespace, String path) {
     return tryBuild(namespace, path, (n, p) -> new ToolStatId(namespace, path, null));

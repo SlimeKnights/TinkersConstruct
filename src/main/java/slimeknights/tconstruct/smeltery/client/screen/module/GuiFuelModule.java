@@ -6,6 +6,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraftforge.fluids.FluidStack;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
 import slimeknights.mantle.fluid.tooltip.FluidTooltipHandler;
@@ -23,7 +24,7 @@ import java.util.List;
 /**
  * GUI component handling the fuel module
  */
-public class GuiFuelModule implements IScreenWithFluidTank {
+public class GuiFuelModule implements IScreenWithFluidTank, ClickableTankModule {
   // tooltips
   private static final String TOOLTIP_TEMPERATURE = TConstruct.makeTranslationKey("gui", "melting.fuel.temperature");
   private static final List<Component> TOOLTIP_NO_TANK = Collections.singletonList(Component.translatable(TConstruct.makeTranslationKey("gui", "melting.fuel.no_tank")));
@@ -60,15 +61,30 @@ public class GuiFuelModule implements IScreenWithFluidTank {
     this.fire = makeFire(background);
   }
 
-  /**
-   * Checks if the fuel tank is hovered
-   * @param checkX  X position to check
-   * @param checkY  Y position to check
-   * @return  True if hovered
-   */
-  private boolean isHovered(int checkX, int checkY) {
+  @Override
+  public AbstractContainerMenu getMenu() {
+    return screen.getMenu();
+  }
+
+  @Override
+  public boolean isHovered(int checkX, int checkY) {
     return GuiUtil.isHovered(checkX, checkY, x - 1, y - 1, width + 2, height + 2);
   }
+
+  /** Gets the current height of the fluid */
+  private int getFluidHeight() {
+    int capacity = fuelInfo.getCapacity();
+    if (capacity == 0) {
+      return height;
+    }
+    return height * fuelInfo.getTotalAmount() / capacity;
+  }
+
+  @Override
+  public boolean isFluidHovered(int checkY) {
+    return checkY > (y + height) - getFluidHeight();
+  }
+
 
   /**
    * Draws the fuel at the correct location

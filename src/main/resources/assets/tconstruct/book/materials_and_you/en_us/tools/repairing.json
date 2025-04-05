@@ -47,8 +47,7 @@
   },
   "description": [
     {
-      "text": "Repairing your tool is an important thing to do, unless you want it to break. In Tinker Station or Tinker Anvil place the tool and material of the head/plate and it will repair. Alternatively, you can use repair kits, which work in crafting tables!",
-      "paragraph": true
+      "text": "To repair tools, simply place the tool in the Tinker Station or Tinker Anvil with the material of the head. Alternatively, you can use repair kits, which work both in crafting tables and when right clicking the tool directly!"
     }
 	]
 }

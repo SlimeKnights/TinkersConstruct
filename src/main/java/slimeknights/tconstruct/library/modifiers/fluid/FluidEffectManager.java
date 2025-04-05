@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.modifiers.fluid;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import lombok.Getter;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -15,15 +16,16 @@ import net.minecraftforge.common.crafting.conditions.ICondition.IContext;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.utils.JsonUtils;
 
-import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
@@ -35,13 +37,14 @@ public class FluidEffectManager extends SimpleJsonResourceReloadListener {
   /** Singleton instance of the modifier manager */
   public static final FluidEffectManager INSTANCE = new FluidEffectManager();
 
-  /** List of available fluids, only exists serverside */
-  private List<FluidEffects> fluids = List.of();
+  /** List of available fluids */
+  @Getter
+  private List<FluidEffects.Entry> fluids = List.of();
   /** Cache of fluid to recipe, recipe will be null client side */
   private final Map<Fluid,FluidEffects> cache = new ConcurrentHashMap<>();
 
   /** Empty spilling fluid instance */
-  private static final FluidEffects EMPTY = new FluidEffects(FluidIngredient.EMPTY, List.of(), List.of());
+  private static final FluidEffects EMPTY = new FluidEffects(FluidIngredient.EMPTY, List.of(), List.of(), true);
 
   /** Condition context for recipe loading */
   private IContext conditionContext = IContext.EMPTY;
@@ -67,33 +70,29 @@ public class FluidEffectManager extends SimpleJsonResourceReloadListener {
     long time = System.nanoTime();
 
     // load spilling from JSON
-    this.fluids = splashList.entrySet().stream()
-                            .map(entry -> loadFluid(entry.getKey(), entry.getValue().getAsJsonObject()))
-                            .filter(Objects::nonNull)
-                            .toList();
+    List<FluidEffects.Entry> fluids = new ArrayList<>(splashList.size());
+    for (Entry<ResourceLocation,JsonElement> entry : splashList.entrySet()) {
+      ResourceLocation key = entry.getKey();
+      try {
+        JsonObject json = GsonHelper.convertToJsonObject(entry.getValue(), "fluid_effect");
+
+        // want to parse condition without parsing effects, as the effect serializer may be missing
+        if (!CraftingHelper.processConditions(json, "conditions", conditionContext)) {
+          continue;
+        }
+        fluids.add(new FluidEffects.Entry(key, FluidEffects.LOADABLE.deserialize(json)));
+      } catch (JsonSyntaxException e) {
+        TConstruct.LOG.error("Failed to load fluid effect {}", key, e);
+      }
+    }
+    this.fluids = List.copyOf(fluids);
     this.cache.clear();
     TConstruct.LOG.info("Loaded {} spilling fluids in {} ms", fluids.size(), (System.nanoTime() - time) / 1000000f);
   }
 
-  /** Loads a modifier from JSON */
-  @Nullable
-  private FluidEffects loadFluid(ResourceLocation key, JsonElement element) {
-    try {
-      JsonObject json = GsonHelper.convertToJsonObject(element, "fluid_effect");
-
-      // want to parse condition without parsing effects, as the effect serializer may be missing
-      if (!CraftingHelper.processConditions(json, "conditions", conditionContext)) {
-        return null;
-      }
-      return FluidEffects.LOADABLE.deserialize(json);
-    } catch (JsonSyntaxException e) {
-      TConstruct.LOG.error("Failed to load fluid effect {}", key, e);
-      return null;
-    }
-  }
-
   /** Updates the modifiers from the server */
-  void updateFromServer(List<FluidEffects> fluids) {
+  @Internal
+  void updateFromServer(List<FluidEffects.Entry> fluids) {
     this.fluids = fluids;
     this.cache.clear();
   }
@@ -101,9 +100,10 @@ public class FluidEffectManager extends SimpleJsonResourceReloadListener {
   /** Finds a fluid without checking the cache, returns null if missing */
   private final Function<Fluid,FluidEffects> FIND_UNCACHED = fluid -> {
     // find all severing recipes for the entity
-    for (FluidEffects recipe : fluids) {
-      if (recipe.matches(fluid)) {
-        return recipe;
+    for (FluidEffects.Entry entry : fluids) {
+      FluidEffects effects = entry.effects();
+      if (effects.matches(fluid)) {
+        return effects;
       }
     }
     // cache null if nothing

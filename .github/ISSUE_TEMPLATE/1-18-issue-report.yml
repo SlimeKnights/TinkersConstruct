@@ -5,12 +5,12 @@ body:
   - type: markdown
     attributes:
       value: |
-        Please note that another 1.18.2 release is unlikely unless there is a signficant issue. Before submitting an issue, please search the following links to make sure your issue is not covered:
+        Before submitting an issue, please search the following links to make sure your issue is not covered:
         
         * **[Pinned Issues](/SlimeKnights/TinkersConstruct/issues)**: Some commonly reported issues are pinned
-        * **[Roadmap](https://slimeknights.github.io/docs/roadmap/)**: Discusses unimplemented features and planned new changes
-        * **[What's New](https://slimeknights.github.io/docs/whats-new/)**: Discusses many of the major changes in the 1.18 releases.
-        * **[FAQ](https://slimeknights.github.io/faq/)**: Answers to many frequently asked questions.
+        * **[The Search Bar](/SlimeKnights/TinkersConstruct/issues)**: See already reported issues.
+        * **[What's New](https://slimeknights.github.io/docs/whats-new/)**: Discusses many of the major changes in Tinkers' Construct 3.
+        * **[FAQ](https://slimeknights.github.io/faq/)**: Answers to many frequently asked questions about Tinkers' Construct 3 versions
         
         Please fill in the following template to report your issue.
         
@@ -57,6 +57,13 @@ body:
       label: Describe your issue
     validations:
       required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+        label: Steps to reproduce
+    validations:
+        required: true
   
   - type: input
     id: crash-report
@@ -65,63 +72,61 @@ body:
       description: Paste a link to the crash report, if present
     validations:
       required: false
-      
-  - type: textarea
-    id: other-mods
-    attributes:
-      label: Other mods
-      description: List the smallest set of mods you have used to reproduce this issue. Please do not list a modpack name unless the modpack is public
-    validations:
-      required: true
-        
-        
+
+
   - type: markdown
     attributes:
-      value: "## Confirm the following"
-      
+        value: "## Minimal Mods"
+
   - type: dropdown
     id: just-tinkers
     attributes:
-      label: "Tried reproducing with just Tinkers?"
-      description: "Test by removing all other mods besides Tinkers' Construct"
-      options:
-        - 'Yes'
-        - 'I will go do that now'
-        - 'No'
+        label: "Can you reproduce with just Tinkers?"
+        description: "Test by removing all other mods besides Tinkers' Construct"
+        options:
+            - 'I have not tried'
+            - 'No'
+            - 'Yes'
     validations:
-      required: true
-      
-  - type: dropdown
-    id: one-nineteen
-    attributes:
-      label: "Does this issue affect Tinkers' Construct in 1.19.2?"
-      options:
-        - 'Yes'
-        - 'I will go test that now'
-        - 'No'
-    validations:
-      required: true
-      
+        required: true
+
   - type: dropdown
     id: performance-enhancers
     attributes:
-      label: "Performance Enchancers"
-      description: "Select all that you were using when you reproduced the issue. Please attempt to reproduce the issue without them."
-      multiple: true
-      options:
-        - 'Optifine'
-        - 'Performant'
-        - 'Rubidium/Embeddium'
-        - 'Other (specify under other mods)'
-        - 'None of the above'
+        label: "Performance Enchancers"
+        description: "Select the minimal list of performance mods you were using when you reproduced the issue."
+        multiple: true
+        options:
+            - 'Optifine'
+            - 'Performant'
+            - 'Rubidium/Embeddium'
+            - 'Other (specify under other mods)'
+            - 'None of the above'
     validations:
-      required: true
-      
+        required: true
+
+  - type: textarea
+    id: other-mods
+    attributes:
+        label: Other mods
+        description: If you cannot reproduce with just Tinkers, list the smallest number of mods needed to reproduce this issue.
+
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Confirm the following
+          
+        Please check the following to see if your issue is covered:
+        * [Pinned issues](/SlimeKnights/TinkersConstruct/issues)
+        * [The search bar](/SlimeKnights/TinkersConstruct/issues)
+        * [The FAQ](https://slimeknights.github.io/faq/).
+
   - type: dropdown
     id: searched
     attributes:
       label: "Searched for known issues?"
-      description: "Select all that apply. Please check [pinned issues](/SlimeKnights/TinkersConstruct/issues), the [search bar](/SlimeKnights/TinkersConstruct/issues), and [the FAQ](https://slimeknights.github.io/faq/) to see if your issue is covered."
+      description: "Select all that apply."
       multiple: true
       options:
         - 'Checked pinned issues'

@@ -2,6 +2,7 @@ package slimeknights.tconstruct.shared.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -17,6 +18,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import javax.annotation.Nullable;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Objects;
@@ -51,6 +53,27 @@ public class GlowBlock extends Block {
   @Override
   public VoxelShape getCollisionShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
     return Shapes.empty();
+  }
+
+  @Nullable
+  @Override
+  public BlockState getStateForPlacement(BlockPlaceContext context) {
+    Level level = context.getLevel();
+    // direction of the glow to place
+    Direction direction = context.getClickedFace().getOpposite();
+    BlockPos pos = context.getClickedPos();
+    // if the direction is valid, place it there
+    if (canBlockStay(level, pos, direction)) {
+      return this.defaultBlockState().setValue(FACING, direction);
+    }
+    // try all other directions
+    for (Direction other : Direction.values()) {
+      if (other != direction && canBlockStay(level, pos, other)) {
+        return this.defaultBlockState().setValue(FACING, other);
+      }
+    }
+    // can't place
+    return null;
   }
 
   @SuppressWarnings("deprecation")

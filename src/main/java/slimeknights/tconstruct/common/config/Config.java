@@ -52,6 +52,7 @@ public class Config {
     // debug
     public final BooleanValue forceIntegrationMaterials;
     public final BooleanValue disableSideInventoryWhitelist;
+    public final BooleanValue quickApplyToolModifiersSurvival;
     public final EnumValue<LogInvalidToolStack> logInvalidToolStack;
     public enum LogInvalidToolStack { STACKTRACE, WARNING, IGNORED }
 
@@ -178,6 +179,10 @@ public class Config {
         .comment("Set to true if you wish to test whether a side inventory works without constantly reloading datapacks.",
                 "Once you find an inventory works, add it to the block entity tag `tconstruct:side_inventories` and disable this option; leaving it enabled will lead to crashes and dupe bugs.")
         .define("disableSideInventoryWhitelist", false);
+      this.quickApplyToolModifiersSurvival = builder
+        .comment("If true, modifier crystals and creative slots can be applied to tools in the inventory on right click for operators in survival. If false, this only works for players in creative mode.",
+                 "This option makes testing of tools and modifiers easier, but may cause misleading assumptions about how these items will function for non-operators.")
+        .define("quickApplyToolModifiersSurvival", false);
       this.logInvalidToolStack = builder
         .comment("If STACKTRACE, logs the stacktrace whenever a tool stack is created from a non-modifiable item. If WARNING (default), logs a shorter but more efficient error. If IGNORE, disables logging (useful for modpacks/players *after* they reported the issue). The stacktrace helps debug which mod is causing it, but is rather expensive on the chance they are doing it a lot.")
         .defineEnum("logInvalidToolStack", LogInvalidToolStack.WARNING);

@@ -11,7 +11,8 @@ import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
 
 import java.util.function.Consumer;
 
-/** Builds a recipe to repair a tool using a modifier via a material */
+/** @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.behavior.MaterialRepairModule} */
+@Deprecated(forRemoval = true)
 @RequiredArgsConstructor(staticName = "repair")
 public class ModifierMaterialRepairRecipeBuilder extends AbstractRecipeBuilder<ModifierMaterialRepairRecipeBuilder> {
   private final ModifierId modifier;

@@ -5,6 +5,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import slimeknights.mantle.client.screen.ElementScreen;
 import slimeknights.mantle.client.screen.ScalableElementScreen;
@@ -24,12 +25,13 @@ public class GuiMeltingModule {
 
   private final AbstractContainerScreen<?> screen;
   private final MeltingModuleInventory inventory;
+  private final int indexOffset;
   private final IntSupplier temperature;
   private final Predicate<Slot> slotPredicate;
   private final ProgressBars progressBars;
 
-  public GuiMeltingModule(AbstractContainerScreen<?> screen, MeltingModuleInventory inventory, IntSupplier temperature, Predicate<Slot> slotPredicate, ResourceLocation background) {
-    this(screen, inventory, temperature, slotPredicate, makeProgressBars(background));
+  public GuiMeltingModule(AbstractContainerScreen<?> screen, MeltingModuleInventory inventory, int indexOffset, IntSupplier temperature, Predicate<Slot> slotPredicate, ResourceLocation background) {
+    this(screen, inventory, indexOffset, temperature, slotPredicate, makeProgressBars(background));
   }
 
   /**
@@ -37,13 +39,14 @@ public class GuiMeltingModule {
    */
   public void drawHeatBars(GuiGraphics graphics) {
     int temperature = this.temperature.getAsInt();
+    AbstractContainerMenu menu = screen.getMenu();
     for (int i = 0; i < inventory.getSlots(); i++) {
-      Slot slot = screen.getMenu().slots.get(i);
+      Slot slot = menu.slots.get(i + indexOffset);
       if (slot.hasItem() && slotPredicate.test(slot)) {
         // determine the bar to draw and the progress
         ScalableElementScreen bar = progressBars.progress;
 
-        int index = slot.getSlotIndex();
+        int index = slot.getSlotIndex(); // note this is the inventory index, not the index in the slots list
         int currentTemp = inventory.getCurrentTime(index);
         int requiredTime = inventory.getRequiredTime(index);
 
@@ -79,13 +82,14 @@ public class GuiMeltingModule {
     int checkX = mouseX - screen.leftPos;
     int checkY = mouseY - screen.topPos;
     int temperature = this.temperature.getAsInt();
+    AbstractContainerMenu menu = screen.getMenu();
     for (int i = 0; i < inventory.getSlots(); i++) {
-      Slot slot = screen.getMenu().slots.get(i);
+      Slot slot = menu.slots.get(i + indexOffset);
       // must have a stack
       if (slot.hasItem() && slotPredicate.test(slot)) {
         // mouse must be within the slot
         if (GuiUtil.isHovered(checkX, checkY, slot.x - 5, slot.y - 1, progressBars.width() + 1, progressBars.height() + 2)) {
-          int index = slot.getSlotIndex();
+          int index = slot.getSlotIndex(); // note this is the inventory index, not the index in the slots list
           Component tooltip = null;
 
           // NaN means 0 progress for 0 need, unmeltable

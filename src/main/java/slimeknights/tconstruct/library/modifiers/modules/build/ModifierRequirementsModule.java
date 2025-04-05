@@ -15,14 +15,14 @@ import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolContextPredicate;
 import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.module.ModuleHook;
-import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.hook.build.ValidateModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.RequirementsModifierHook;
-import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
+import slimeknights.tconstruct.library.module.HookProvider;
+import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.utils.Util;
@@ -57,7 +57,7 @@ public class ModifierRequirementsModule implements ValidateModifierHook, Modifie
   /** Message to display */
   private final Component errorMessage;
 
-  public ModifierRequirementsModule(IJsonPredicate<IToolContext> requirement, IntRange level, String translationKey, List<ModifierEntry> display) {
+  private ModifierRequirementsModule(IJsonPredicate<IToolContext> requirement, IntRange level, String translationKey, List<ModifierEntry> display) {
     this.requirement = requirement;
     this.level = level;
     this.translationKey = translationKey;

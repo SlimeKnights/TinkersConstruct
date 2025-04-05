@@ -2,6 +2,7 @@ package slimeknights.tconstruct.library.modifiers.modules.build;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -29,6 +30,10 @@ public record StatCopyModule(INumericToolStat<?> target, INumericToolStat<?> sou
     LevelingValue.LOADABLE.directField(StatCopyModule::percentage),
     ModifierCondition.CONTEXT_FIELD,
     StatCopyModule::new);
+
+  /** @apiNote Internal constructor, use {@link #builder(INumericToolStat, INumericToolStat)} */
+  @Internal
+  public StatCopyModule {}
 
   @Override
   public List<ModuleHook<?>> getDefaultHooks() {

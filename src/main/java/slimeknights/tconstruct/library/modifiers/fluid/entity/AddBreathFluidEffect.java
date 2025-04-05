@@ -1,5 +1,7 @@
 package slimeknights.tconstruct.library.modifiers.fluid.entity;
 
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.fluids.FluidStack;
@@ -40,5 +42,11 @@ public record AddBreathFluidEffect(int amount) implements FluidEffect<FluidEffec
       return level.computeUsed(maxChange / (float)Math.abs(amount));
     }
     return 0;
+  }
+
+  @Override
+  public Component getDescription(RegistryAccess registryAccess) {
+    String prefix = FluidEffect.getTranslationKey(getLoader()) + (amount >= 0 ? ".add" : ".subtract");
+    return Component.translatable(prefix, Math.round(amount));
   }
 }

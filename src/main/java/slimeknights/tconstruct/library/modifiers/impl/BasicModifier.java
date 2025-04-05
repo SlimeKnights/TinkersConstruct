@@ -4,10 +4,16 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import slimeknights.tconstruct.library.modifiers.Modifier;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.util.ModifierLevelDisplay;
 import slimeknights.tconstruct.library.module.ModuleHookMap;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+
+import javax.annotation.Nullable;
 
 /**
  * Basic modifier, having a collection of hooks and the ability to set common modifier properties.
@@ -36,6 +42,11 @@ public class BasicModifier extends Modifier {
   @Override
   public Component getDisplayName(int level) {
     return levelDisplay.nameForLevel(this, level);
+  }
+
+  @Override
+  public Component getDisplayName(IToolStackView tool, ModifierEntry entry, @Nullable RegistryAccess access) {
+    return getHook(ModifierHooks.DISPLAY_NAME).getDisplayName(tool, entry, entry.getDisplayName(), access);
   }
 
   @Override

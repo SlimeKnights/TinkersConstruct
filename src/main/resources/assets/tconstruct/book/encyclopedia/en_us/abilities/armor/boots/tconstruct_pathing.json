@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:pathing",
+  "text": [
+    {
+      "text": "Flattens grass as you step, leaving a path behind. Expanded increases the area of effect."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/armor/boots",
+  "effects": [
+    "Maximum of 1 level",
+    "Requires 1 ability slot"
+  ]
+}

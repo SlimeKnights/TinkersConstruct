@@ -85,16 +85,30 @@ public class TinkerEffect extends MobEffect {
   }
 
   /**
-   * Gets the level of the effect on the entity, or -1 if not active
+   * Gets the level of the effect on the entity starting from 1, or 0 if not active
    * @param entity  Entity to check
-   * @return  Level, or -1 if inactive
+   * @return  Level, or 0 if inactive
    */
-  public int getLevel(LivingEntity entity) {
-    MobEffectInstance effect = entity.getEffect(this);
-    if (effect != null) {
-      return effect.getAmplifier();
+  public static int getLevel(LivingEntity entity, MobEffect effect) {
+    return getAmplifier(entity, effect) + 1;
+  }
+
+  /**
+   * Gets the amplifier of the effect on the entity starting from 0, or -1 if not active
+   * @param entity  Entity to check
+   * @return  Amplifier, or -1 if inactive
+   */
+  public static int getAmplifier(LivingEntity entity, MobEffect effect) {
+    MobEffectInstance instance = entity.getEffect(effect);
+    if (instance != null) {
+      return instance.getAmplifier();
     }
     return -1;
   }
 
+  /** @deprecated use {@link #getAmplifier(LivingEntity, MobEffect)} which is better named or {@link #getLevel(LivingEntity, MobEffect)} which gives a more useful return */
+  @Deprecated(forRemoval = true)
+  public int getLevel(LivingEntity entity) {
+    return getAmplifier(entity, this);
+  }
 }

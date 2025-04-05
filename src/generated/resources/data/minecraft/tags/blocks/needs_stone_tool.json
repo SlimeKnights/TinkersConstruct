@@ -13,6 +13,7 @@
     "tconstruct:seared_drain",
     "tconstruct:seared_chute",
     "tconstruct:smeltery_controller",
+    "tconstruct:seared_fluid_cannon",
     "tconstruct:cast_chest"
   ]
 }

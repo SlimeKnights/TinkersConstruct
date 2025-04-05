@@ -192,6 +192,8 @@ public class TinkerStationScreen extends ToolTableScreen<TinkerStationBlockEntit
     this.buttonsScreen = new TinkerStationButtonsWidget(this, this.cornerX - TinkerStationButtonsWidget.width(COLUMN_COUNT) - 2,
       this.cornerY + this.centerBeam.h + this.buttonDecorationTop.h, layouts, buttonsStyle);
 
+    this.setupArmorStandPreview(-55, 190, 35);
+
     this.updateLayout();
   }
 
@@ -228,7 +230,7 @@ public class TinkerStationScreen extends ToolTableScreen<TinkerStationBlockEntit
     }
 
     // fetch the tool version of the result for the screen
-    LazyToolStack lazyResult = tile.getResult(this.player);
+    LazyToolStack lazyResult = tile.getResult();
 
     // if we have a message, display instead of refreshing the tool
     Component currentError = tile.getCurrentError();
@@ -419,8 +421,10 @@ public class TinkerStationScreen extends ToolTableScreen<TinkerStationBlockEntit
       this.textField.render(graphics, mouseX, mouseY, partialTicks);
     }
 
-    renderArmorStand(graphics, -55, 190, 35);
+    renderArmorStand(graphics);
   }
+
+
 
   @Override
   public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {

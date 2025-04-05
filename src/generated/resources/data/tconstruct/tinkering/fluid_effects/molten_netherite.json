@@ -1,16 +1,12 @@
 {
   "block_effects": [
     {
-      "type": "tconstruct:place_block",
-      "block": "minecraft:fire"
-    },
-    {
       "type": "tconstruct:mob_effect_cloud",
       "effects": [
         {
           "effect": "minecraft:blindness",
           "level": 1,
-          "time": 300
+          "time": 100
         }
       ]
     }
@@ -20,7 +16,7 @@
       "type": "tconstruct:conditional",
       "effect": {
         "type": "tconstruct:damage",
-        "damage": 3.5,
+        "damage": 5.0,
         "damage_type": {
           "melee": "tconstruct:fluid_fire_melee",
           "ranged": "tconstruct:fluid_fire_ranged"
@@ -32,16 +28,11 @@
       }
     },
     {
-      "type": "tconstruct:fire",
-      "action": "set",
-      "time": 4
-    },
-    {
       "type": "tconstruct:mob_effect",
       "action": "set",
       "effect": "minecraft:blindness",
       "level": 1,
-      "time": 300
+      "time": 100
     }
   ],
   "fluid": {

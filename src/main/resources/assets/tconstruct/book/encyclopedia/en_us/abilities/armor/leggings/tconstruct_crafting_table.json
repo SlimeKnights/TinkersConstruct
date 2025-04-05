@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:crafting_table",
+  "text": [
+    {
+      "text": "Adds a 3x3 crafting table to the tool's inventory."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Single level",
+    "Requires 1 ability slot"
+  ]
+}

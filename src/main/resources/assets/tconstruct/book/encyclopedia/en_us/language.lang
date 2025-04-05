@@ -61,3 +61,5 @@ abilities.group_armor.leggings=Leggings
 abilities.group_armor.boots=Boots
 abilities.group_armor.shield=Shield
 
+fluid_effects=Fluid Effects
+fluid_effects.subtext=Fluid effects define the behavior when a fluid hits a block or entity through various modifiers such as spitting, spilling, and splashing.

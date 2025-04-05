@@ -117,8 +117,7 @@ public class AlloyerScreen extends AbstractContainerScreen<AlloyerContainerMenu>
     if (fuel != null) fuel.renderHighlight(graphics, checkX, checkY);
 
     // scala
-    assert minecraft != null;
-    SCALA.draw(graphics, 114, 16);
+    SCALA.draw(graphics, 114, 16, 100);
   }
 
   @Override
@@ -134,6 +133,31 @@ public class AlloyerScreen extends AbstractContainerScreen<AlloyerContainerMenu>
 
     // fuel tooltip
     if (fuel != null) fuel.addTooltip(graphics, mouseX, mouseY, true);
+  }
+
+  @Override
+  public boolean mouseClicked(double mouseX, double mouseY, int button) {
+    assert minecraft != null && minecraft.player != null && minecraft.gameMode != null;
+    if (!minecraft.player.isSpectator() && (button == 0 || button == 1) && !menu.getCarried().isEmpty()) {
+      int checkX = (int)mouseX - leftPos;
+      int checkY = (int)mouseY - topPos;
+
+      // try tank first, offset 0
+      if (outputTank != null && outputTank.tryClick(checkX, checkY, button, 0)) {
+        return true;
+      }
+      // then try fuel, offset 2
+      if (fuel != null && fuel.tryClick(checkX, checkY, button, 2)) {
+        return true;
+      }
+      // finally, try all input tanks, offset 4+
+      for (int i = 0; i < inputTanks.length; i++) {
+        if (inputTanks[i].tryClick(checkX, checkY, button, 4 + i*2)) {
+          return true;
+        }
+      }
+    }
+    return super.mouseClicked(mouseX, mouseY, button);
   }
 
   @Override

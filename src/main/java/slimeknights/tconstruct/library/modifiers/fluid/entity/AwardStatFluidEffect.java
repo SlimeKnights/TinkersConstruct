@@ -1,5 +1,8 @@
 package slimeknights.tconstruct.library.modifiers.fluid.entity;
 
+import net.minecraft.Util;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.entity.player.Player;
@@ -39,5 +42,11 @@ public record AwardStatFluidEffect(ResourceLocation stat, int amount) implements
       return value;
     }
     return 0;
+  }
+
+  @Override
+  public Component getDescription(RegistryAccess registryAccess) {
+    String prefix = FluidEffect.getTranslationKey(getLoader()) + (amount >= 0 ? ".add" : ".subtract");
+    return Component.translatable(prefix, Stats.CUSTOM.get(this.stat).format(Math.abs(amount)), Component.translatable(Util.makeDescriptionId("stat", stat)));
   }
 }

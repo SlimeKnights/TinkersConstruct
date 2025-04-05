@@ -1,0 +1,13 @@
+{
+  "values": [
+    "#minecraft:signs",
+    "#minecraft:doors",
+    "minecraft:ladder",
+    "minecraft:sugar_cane",
+    "minecraft:bubble_column",
+    "minecraft:nether_portal",
+    "minecraft:end_portal",
+    "minecraft:end_gateway",
+    "minecraft:structure_void"
+  ]
+}

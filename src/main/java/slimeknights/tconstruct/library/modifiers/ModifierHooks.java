@@ -8,6 +8,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.enchantment.Enchantment;
 import slimeknights.mantle.data.registry.IdAwareComponentRegistry;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.modifiers.hook.armor.ArmorWalkModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.armor.DamageBlockModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.armor.ElytraFlightModifierHook;
@@ -17,6 +18,7 @@ import slimeknights.tconstruct.library.modifiers.hook.armor.OnAttackedModifierHo
 import slimeknights.tconstruct.library.modifiers.hook.armor.ProtectionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.AttributesModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.EnchantmentModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.behavior.MaterialRepairModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.ProcessLootModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.RepairFactorModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.ToolActionModifierHook;
@@ -37,11 +39,13 @@ import slimeknights.tconstruct.library.modifiers.hook.display.DisplayNameModifie
 import slimeknights.tconstruct.library.modifiers.hook.display.DurabilityDisplayModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.RequirementsModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.AreaOfEffectHighlightModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.BlockInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InventoryTickModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.KeybindInteractModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.interaction.SlotStackModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BlockBreakModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BlockHarvestModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.mining.BreakSpeedModifierHook;
@@ -85,6 +89,18 @@ public class ModifierHooks {
 
   /** Hook for modifying the repair amount for tools */
   public static final ModuleHook<RepairFactorModifierHook> REPAIR_FACTOR = register("repair_factor", RepairFactorModifierHook.class, RepairFactorModifierHook.ComposeMerger::new, (tool, entry, factor) -> factor);
+  /** Hook for allowing an extra material to repair the tool */
+  public static final ModuleHook<MaterialRepairModifierHook> MATERIAL_REPAIR = register("material_repair", MaterialRepairModifierHook.class, MaterialRepairModifierHook.MaxMerger::new, new MaterialRepairModifierHook() {
+    @Override
+    public boolean isRepairMaterial(IToolStackView tool, ModifierEntry modifier, MaterialId material) {
+      return false;
+    }
+
+    @Override
+    public float getRepairAmount(IToolStackView tool, ModifierEntry modifier, MaterialId material) {
+      return 0;
+    }
+  });
 
   /** Hook for modifying the damage amount for tools */
   public static final ModuleHook<ToolDamageModifierHook> TOOL_DAMAGE = register("tool_damage", ToolDamageModifierHook.class, ToolDamageModifierHook.Merger::new, (tool, modifier, amount, holder) -> amount);
@@ -256,6 +272,10 @@ public class ModifierHooks {
   public static final ModuleHook<EntityInteractionModifierHook> ENTITY_INTERACT = register("entity_interact", EntityInteractionModifierHook.class, EntityInteractionModifierHook.FirstMerger::new, new EntityInteractionModifierHook() {});
   /** Hook for when the player interacts with an armor slot. Currently, only implemented for helmets and leggings */
   public static final ModuleHook<KeybindInteractModifierHook> ARMOR_INTERACT = register("armor_interact", KeybindInteractModifierHook.class, KeybindInteractModifierHook.InteractMerger::new, new KeybindInteractModifierHook() {});
+  /** Hook for determining if a block should be highlighted when in AOE range of the tool */
+  public static final ModuleHook<AreaOfEffectHighlightModifierHook> AOE_HIGHLIGHT = register("aoe_highlight", AreaOfEffectHighlightModifierHook.class, AreaOfEffectHighlightModifierHook.AnyMerger::new, (tool, modifier, context, pos, state) -> false);
+  /** Hook for overriding behavior of right-clicking tools or with tools */
+  public static final ModuleHook<SlotStackModifierHook> SLOT_STACK = register("slot_stack", SlotStackModifierHook.class, SlotStackModifierHook.FirstMerger::new, new SlotStackModifierHook() {});
 
 
   /* Modifier sub-hooks */

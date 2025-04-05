@@ -1,0 +1,19 @@
+{
+  "block_effects": [
+    {
+      "type": "tconstruct:conditional",
+      "block": {
+        "type": "tconstruct:harvest_tier",
+        "tier": "minecraft:netherite"
+      },
+      "effect": {
+        "type": "tconstruct:break_block",
+        "hardness": 50.0
+      }
+    }
+  ],
+  "fluid": {
+    "amount": 10,
+    "tag": "tconstruct:molten_debris"
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "block_effects": [
+    {
+      "type": "tconstruct:mob_effect_cloud",
+      "effects": [
+        {
+          "effect": "minecraft:glowing",
+          "level": 1,
+          "time": 100
+        },
+        {
+          "effect": "minecraft:speed",
+          "level": 1,
+          "time": 100
+        },
+        {
+          "effect": "minecraft:jump_boost",
+          "level": 1,
+          "time": 100
+        }
+      ]
+    }
+  ],
+  "conditions": [
+    {
+      "type": "forge:or",
+      "values": [
+        {
+          "type": "tconstruct:config",
+          "prop": "force_integration_materials"
+        },
+        {
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/lumium"
+        }
+      ]
+    }
+  ],
+  "entity_effects": [
+    {
+      "type": "tconstruct:damage",
+      "damage": 4.0,
+      "damage_type": {
+        "melee": "tconstruct:fluid_magic_melee",
+        "ranged": "tconstruct:fluid_magic_ranged"
+      }
+    },
+    {
+      "type": "tconstruct:mob_effect",
+      "action": "set",
+      "effect": "minecraft:glowing",
+      "level": 1,
+      "time": 100
+    },
+    {
+      "type": "tconstruct:mob_effect",
+      "action": "set",
+      "effect": "minecraft:speed",
+      "level": 1,
+      "time": 100
+    },
+    {
+      "type": "tconstruct:mob_effect",
+      "action": "set",
+      "effect": "minecraft:jump_boost",
+      "level": 1,
+      "time": 100
+    }
+  ],
+  "fluid": {
+    "amount": 10,
+    "tag": "forge:molten_lumium"
+  }
+}

@@ -6,9 +6,12 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.tags.TagKey;
 import slimeknights.tconstruct.library.modifiers.IncrementalModifierEntry;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
+import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.tools.helper.ModifierBuilder;
 
 import javax.annotation.Nullable;
@@ -65,6 +68,21 @@ public class ModifierNBT implements Iterable<ModifierEntry> {
    */
   public int getLevel(ModifierId modifier) {
     return getEntry(modifier).getLevel();
+  }
+
+  /**
+   * Checks if the listing has the given modifier tag.
+   * To check if it has a specific modifier, use {@link #getLevel(ModifierId)}.
+   * @param tag  Modifier tag
+   * @return  True if any modifier in the tag is present
+   */
+  public boolean has(TagKey<Modifier> tag) {
+    for (ModifierEntry entry : modifiers) {
+      if (ModifierManager.isInTag(entry.getId(), tag)) {
+        return true;
+      }
+    }
+    return false;
   }
 
 

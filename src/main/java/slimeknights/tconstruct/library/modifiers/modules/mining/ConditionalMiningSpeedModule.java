@@ -7,6 +7,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
@@ -51,6 +52,10 @@ public record ConditionalMiningSpeedModule(
     MiningSpeedFormula.LOADER.directField(ConditionalMiningSpeedModule::formula),
     ModifierCondition.TOOL_FIELD,
     ConditionalMiningSpeedModule::new);
+
+  /** @apiNote Internal constructor, use {@link #builder()} */
+  @Internal
+  public ConditionalMiningSpeedModule {}
 
   @Override
   public boolean percent() {

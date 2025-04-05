@@ -1,9 +1,24 @@
 {
-  "parent": "tconstruct:block/template/slimy_cube",
+  "loader": "forge:composite",
+  "parent": "block/block",
   "textures": {
-    "particle": "tconstruct:block/storage/slimesteel",
-    "slime": "tconstruct:block/storage/slimesteel_slime",
-    "metal": "tconstruct:block/storage/slimesteel_steel"
+    "particle": "tconstruct:block/storage/slimesteel"
+  },
+  "children": {
+    "metal": {
+      "render_type": "minecraft:solid",
+      "parent": "tconstruct:block/template/cube_all_14",
+      "textures": {
+        "all": "tconstruct:block/storage/slimesteel_steel"
+      }
+    },
+    "slime": {
+      "render_type": "minecraft:translucent",
+      "parent": "block/cube_all",
+      "textures": {
+        "all": "tconstruct:block/storage/slimesteel_slime"
+      }
+    }
   }
 }
 

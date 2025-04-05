@@ -26,6 +26,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.registries.RegistryObject;
@@ -72,6 +73,7 @@ import slimeknights.tconstruct.smeltery.block.CastingBasinBlock;
 import slimeknights.tconstruct.smeltery.block.CastingTableBlock;
 import slimeknights.tconstruct.smeltery.block.ChannelBlock;
 import slimeknights.tconstruct.smeltery.block.FaucetBlock;
+import slimeknights.tconstruct.smeltery.block.FluidCannonBlock;
 import slimeknights.tconstruct.smeltery.block.SearedLanternBlock;
 import slimeknights.tconstruct.smeltery.block.component.RetexturedOrientableSmelteryBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedBlock;
@@ -93,6 +95,7 @@ import slimeknights.tconstruct.smeltery.block.controller.SmelteryControllerBlock
 import slimeknights.tconstruct.smeltery.block.entity.CastingBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.ChannelBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.FaucetBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.FluidCannonBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.HeaterBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.LanternBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.component.DrainBlockEntity;
@@ -241,6 +244,9 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final ItemObject<ChannelBlock> scorchedChannel = BLOCKS.register("scorched_channel", () -> new ChannelBlock(SCORCHED_NON_SOLID), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<CastingBasinBlock> scorchedBasin = BLOCKS.register("scorched_basin", () -> new CastingBasinBlock(SCORCHED_NON_SOLID, true), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<CastingTableBlock> scorchedTable = BLOCKS.register("scorched_table", () -> new CastingTableBlock(SCORCHED_NON_SOLID, true), TOOLTIP_BLOCK_ITEM);
+  // utility
+  public static final ItemObject<FluidCannonBlock> searedFluidCannon = BLOCKS.register("seared_fluid_cannon", () -> new FluidCannonBlock(SEARED_NON_SOLID, FluidType.BUCKET_VOLUME * 2, 1.0f, 1.1f, 6.0f), b -> new TankItem(b, ITEM_PROPS, true));
+  public static final ItemObject<FluidCannonBlock> scorchedFluidCannon = BLOCKS.register("scorched_fluid_cannon", () -> new FluidCannonBlock(SCORCHED_NON_SOLID, FluidType.BUCKET_VOLUME * 2, 2.0f, 1.5f, 7.0f), b -> new TankItem(b, ITEM_PROPS, true));
 
   // controllers
   public static final ItemObject<SmelteryControllerBlock> smelteryController;
@@ -283,6 +289,7 @@ public final class TinkerSmeltery extends TinkerModule {
     set.addAll(searedTank.values());
     set.addAll(scorchedTank.values());
   });
+  public static final RegistryObject<BlockEntityType<FluidCannonBlockEntity>> fluidCannon = BLOCK_ENTITIES.register("fluid_cannon", FluidCannonBlockEntity::new, set -> set.add(searedFluidCannon.get(), scorchedFluidCannon.get()));
   public static final RegistryObject<BlockEntityType<LanternBlockEntity>> lantern = BLOCK_ENTITIES.register("lantern", LanternBlockEntity::new, set -> set.add(searedLantern.get(), scorchedLantern.get()));
   // controller
   public static final RegistryObject<BlockEntityType<MelterBlockEntity>> melter = BLOCK_ENTITIES.register("melter", MelterBlockEntity::new, searedMelter);
@@ -462,6 +469,10 @@ public final class TinkerSmeltery extends TinkerModule {
     output.accept(searedBasin);
     output.accept(scorchedBasin);
     output.accept(TinkerCommons.goldPlatform, TabVisibility.PARENT_TAB_ONLY);
+
+    // cannons
+    output.accept(searedFluidCannon);
+    output.accept(scorchedFluidCannon);
 
     // seared blocks
     accept(output, searedBricks);

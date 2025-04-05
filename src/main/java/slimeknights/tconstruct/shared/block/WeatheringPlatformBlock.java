@@ -13,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -98,7 +99,7 @@ public class WeatheringPlatformBlock extends PlatformBlock implements Weathering
         stack.shrink(1);
       }
       level.setBlock(pos, TinkerCommons.waxedCopperPlatform.get(age).withPropertiesOf(state), 11);
-      level.levelEvent(player, 3003, pos, 0);
+      level.levelEvent(player, LevelEvent.PARTICLES_AND_SOUND_WAX_ON, pos, 0);
       return InteractionResult.sidedSuccess(level.isClientSide);
     }
     return InteractionResult.PASS;

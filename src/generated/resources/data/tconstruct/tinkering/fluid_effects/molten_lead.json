@@ -4,9 +4,24 @@
       "type": "tconstruct:mob_effect_cloud",
       "effects": [
         {
-          "effect": "minecraft:slowness",
+          "effect": "minecraft:poison",
           "level": 1,
-          "time": 120
+          "time": 100
+        }
+      ]
+    }
+  ],
+  "conditions": [
+    {
+      "type": "forge:or",
+      "values": [
+        {
+          "type": "tconstruct:config",
+          "prop": "force_integration_materials"
+        },
+        {
+          "type": "mantle:tag_filled",
+          "tag": "forge:ingots/lead"
         }
       ]
     }
@@ -16,7 +31,7 @@
       "type": "tconstruct:conditional",
       "effect": {
         "type": "tconstruct:damage",
-        "damage": 1.5,
+        "damage": 2.0,
         "damage_type": {
           "melee": "tconstruct:fluid_fire_melee",
           "ranged": "tconstruct:fluid_fire_ranged"
@@ -30,9 +45,9 @@
     {
       "type": "tconstruct:mob_effect",
       "action": "set",
-      "effect": "minecraft:slowness",
+      "effect": "minecraft:poison",
       "level": 1,
-      "time": 120
+      "time": 100
     }
   ],
   "fluid": {

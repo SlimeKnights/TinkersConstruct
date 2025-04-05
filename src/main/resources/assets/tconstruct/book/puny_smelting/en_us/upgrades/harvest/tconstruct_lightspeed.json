@@ -5,6 +5,7 @@
       "text": "The light flows through your tool and helps the tool mine faster."
     }
   ],
+  "tool_filter": "tconstruct:modifiable/harvest",
   "effects": [
     "Mines well lit blocks faster",
     "Multiple levels, increases speed further with each level",

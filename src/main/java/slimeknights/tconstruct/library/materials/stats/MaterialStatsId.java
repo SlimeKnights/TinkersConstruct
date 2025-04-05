@@ -36,13 +36,13 @@ public class MaterialStatsId extends ResourceId {
   }
 
 
-  /** {@return Material Stats ID, or null of invalid} */
+  /** {@return Material Stats ID, or null if invalid} */
   @Nullable
   public static MaterialStatsId tryParse(String string) {
     return tryParse(string, (namespace, path) -> new MaterialStatsId(namespace, path, null));
   }
 
-  /** {@return Material Stats ID, or null of invalid} */
+  /** {@return Material Stats ID, or null if invalid} */
   @Nullable
   public static MaterialStatsId tryBuild(String namespace, String path) {
     return tryBuild(namespace, path, (n, p) -> new MaterialStatsId(namespace, path, null));

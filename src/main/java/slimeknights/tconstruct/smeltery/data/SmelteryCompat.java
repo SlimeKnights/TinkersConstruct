@@ -2,15 +2,18 @@ package slimeknights.tconstruct.smeltery.data;
 
 import lombok.Getter;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.registration.object.FluidObject;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 
 import java.util.Locale;
 
 /**
- * Enum holding all relevant smeltery compat, used in datagen and JEI
+ * Enum holding all relevant smeltery compat, used in datagen and JEI.
+ * Internal usage - you can do all the same things this does through your own datagen easily.
  * @see slimeknights.tconstruct.library.data.recipe.SmelteryRecipeBuilder
  */
+@Internal
 public enum SmelteryCompat {
   // ores
   TIN     (TinkerFluids.moltenTin,      true),

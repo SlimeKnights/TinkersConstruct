@@ -44,9 +44,8 @@
       "stat_type": "tconstruct:limb"
     },
     {
-      "type": "tconstruct:circle_aoe",
-      "3D": false,
-      "diameter": 1
+      "type": "tconstruct:vein_aoe",
+      "max_distance": 0
     },
     {
       "type": "tconstruct:dual_option_interaction"

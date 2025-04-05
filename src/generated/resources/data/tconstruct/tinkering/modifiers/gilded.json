@@ -3,7 +3,7 @@
   "modules": [
     {
       "type": "tconstruct:modifier_slot",
-      "count": 2,
+      "each_level": 2,
       "name": "upgrades"
     }
   ],

@@ -4,6 +4,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
@@ -43,6 +44,10 @@ public record ConditionalStatModule(INumericToolStat<?> stat, IJsonPredicate<Liv
     ConditionalStatFormula.LOADER.directField(ConditionalStatModule::formula),
     ModifierCondition.TOOL_FIELD,
     ConditionalStatModule::new);
+
+  /** @apiNote Internal constructor, use {@link #stat(INumericToolStat)} */
+  @Internal
+  public ConditionalStatModule {}
 
   @Override
   public boolean percent() {

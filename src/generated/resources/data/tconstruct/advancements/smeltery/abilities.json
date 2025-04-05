@@ -181,6 +181,24 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "crafting_table": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "check": "upgrades",
+              "modifier": {
+                "type": "tconstruct:single",
+                "modifier": "tconstruct:crafting_table"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "crystalshot": {
       "conditions": {
         "items": [
@@ -469,24 +487,6 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "path_maker": {
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_modifier",
-              "check": "upgrades",
-              "modifier": {
-                "type": "tconstruct:single",
-                "modifier": "tconstruct:path_maker"
-              }
-            }
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
     "pathing": {
       "conditions": {
         "items": [
@@ -498,24 +498,6 @@
               "modifier": {
                 "type": "tconstruct:single",
                 "modifier": "tconstruct:pathing"
-              }
-            }
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    },
-    "plowing": {
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_modifier",
-              "check": "upgrades",
-              "modifier": {
-                "type": "tconstruct:single",
-                "modifier": "tconstruct:plowing"
               }
             }
           }
@@ -642,6 +624,24 @@
               "modifier": {
                 "type": "tconstruct:single",
                 "modifier": "tconstruct:snowdrift"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "soul_belt": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "check": "upgrades",
+              "modifier": {
+                "type": "tconstruct:single",
+                "modifier": "tconstruct:soul_belt"
               }
             }
           }
@@ -937,6 +937,12 @@
       "tool_belt"
     ],
     [
+      "soul_belt"
+    ],
+    [
+      "crafting_table"
+    ],
+    [
       "wetting"
     ],
     [
@@ -953,12 +959,6 @@
     ],
     [
       "long_fall"
-    ],
-    [
-      "path_maker"
-    ],
-    [
-      "plowing"
     ],
     [
       "snowdrift"

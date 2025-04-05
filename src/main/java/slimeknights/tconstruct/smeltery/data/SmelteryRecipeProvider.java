@@ -397,8 +397,9 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                                  .build(consumer, location(folder + "duct_retextured"));
 
     // controllers
+    Ingredient similarTanks = NoContainerIngredient.of(TinkerSmeltery.searedTank.get(TankType.FUEL_GAUGE), TinkerSmeltery.searedTank.get(TankType.INGOT_GAUGE));
     ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TinkerSmeltery.searedMelter)
-                       .define('G', NoContainerIngredient.of(TinkerSmeltery.searedTank.get(TankType.FUEL_GAUGE), TinkerSmeltery.searedTank.get(TankType.INGOT_GAUGE)))
+                       .define('G', similarTanks)
                        .define('B', TinkerSmeltery.searedBrick)
                        .pattern("BGB")
                        .pattern("BBB")
@@ -411,6 +412,14 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                        .pattern("BBB")
                        .unlockedBy("has_item", has(TinkerSmeltery.searedBrick))
                        .save(consumer, location(folder + "heater"));
+    // fluid cannon
+    ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TinkerSmeltery.searedFluidCannon)
+                       .define('T', similarTanks)
+                       .define('C', Tags.Items.INGOTS_COPPER)
+                       .pattern("CTC")
+                       .pattern("CCC")
+                       .unlockedBy("has_item", has(Tags.Items.INGOTS_COPPER))
+                       .save(consumer, location(folder + "fluid_cannon"));
 
     // casting
     String castingFolder = "smeltery/casting/seared/";
@@ -534,6 +543,10 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .save(consumer, location(meltingFolder + "melter"));
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.searedHeater), TinkerFluids.searedStone, FluidValues.BRICK * 8, 3f)
                         .save(consumer, location(meltingFolder + "heater"));
+    MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.searedFluidCannon), TinkerFluids.moltenCopper, FluidValues.INGOT * 5, 2.5f)
+                        .addByproduct(TinkerFluids.searedStone.result(FluidValues.BRICK * 4))
+                        .addByproduct(TinkerFluids.moltenGlass.result(FluidValues.GLASS_PANE * 5))
+                        .save(consumer, location(meltingFolder + "fluid_cannon"));
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.smelteryController), TinkerFluids.moltenCopper, FluidValues.INGOT * 4, 3.5f)
                         .addByproduct(TinkerFluids.searedStone.result(FluidValues.BRICK * 4))
                         .save(consumer, location("smeltery/melting/metal/copper/smeltery_controller"));
@@ -548,12 +561,19 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
   private void addFoundryRecipes(Consumer<FinishedRecipe> consumer) {
     String folder = "smeltery/scorched/";
     // grout crafting
+    Ingredient soulSand = Ingredient.of(Blocks.SOUL_SAND, Blocks.SOUL_SOIL);
     ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, TinkerSmeltery.netherGrout, 2)
                           .requires(Items.MAGMA_CREAM)
-                          .requires(Ingredient.of(Blocks.SOUL_SAND, Blocks.SOUL_SOIL))
+                          .requires(soulSand)
                           .requires(Blocks.GRAVEL)
                           .unlockedBy("has_item", has(Items.MAGMA_CREAM))
                           .save(consumer, prefix(TinkerSmeltery.netherGrout, folder));
+    ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, TinkerSmeltery.netherGrout, 8)
+                          .requires(Blocks.MAGMA_BLOCK)
+                          .requires(soulSand).requires(soulSand).requires(soulSand).requires(soulSand)
+                          .requires(Blocks.GRAVEL).requires(Blocks.GRAVEL).requires(Blocks.GRAVEL).requires(Blocks.GRAVEL)
+                          .unlockedBy("has_item", has(Items.MAGMA_CREAM))
+                          .save(consumer, wrap(TinkerSmeltery.netherGrout, folder, "_multiple"));
 
     // scorched bricks from grout
     SimpleCookingRecipeBuilder.smelting(Ingredient.of(TinkerSmeltery.netherGrout), RecipeCategory.BUILDING_BLOCKS, TinkerSmeltery.scorchedBrick, 0.3f, 200)
@@ -793,13 +813,22 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                                  .build(consumer, location(folder + "duct_retextured"));
 
     // controllers
+    Ingredient similarTanks = NoContainerIngredient.of(TinkerSmeltery.scorchedTank.get(TankType.INGOT_GAUGE), TinkerSmeltery.scorchedTank.get(TankType.FUEL_GAUGE));
     ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TinkerSmeltery.scorchedAlloyer)
-                       .define('G', NoContainerIngredient.of(TinkerSmeltery.scorchedTank.get(TankType.INGOT_GAUGE), TinkerSmeltery.scorchedTank.get(TankType.FUEL_GAUGE)))
+                       .define('G', similarTanks)
                        .define('B', TinkerSmeltery.scorchedBrick)
                        .pattern("BGB")
                        .pattern("BBB")
                        .unlockedBy("has_item", has(TinkerSmeltery.scorchedBrick))
                        .save(consumer, location(folder + "alloyer"));
+    // fluid cannon
+    ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TinkerSmeltery.scorchedFluidCannon)
+                       .define('T', similarTanks)
+                       .define('C', TinkerMaterials.cobalt.getIngotTag())
+                       .pattern("CTC")
+                       .pattern("CCC")
+                       .unlockedBy("has_item", has(TinkerMaterials.cobalt.getIngotTag()))
+                       .save(consumer, location(folder + "fluid_cannon"));
 
     // casting
     String castingFolder = "smeltery/casting/scorched/";
@@ -905,6 +934,10 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.scorchedAlloyer), TinkerFluids.scorchedStone, FluidValues.BRICK * 9, 3.5f)
                         .addByproduct(TinkerFluids.moltenQuartz.result(FluidValues.GEM * 5))
                         .save(consumer, location(meltingFolder + "melter"));
+    MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.scorchedFluidCannon), TinkerFluids.moltenCobalt, FluidValues.INGOT * 5, 3.5f)
+                        .addByproduct(TinkerFluids.scorchedStone.result(FluidValues.BRICK * 4))
+                        .addByproduct(TinkerFluids.moltenQuartz.result(FluidValues.GEM * 5))
+                        .save(consumer, location(meltingFolder + "fluid_cannon"));
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.foundryController), TinkerFluids.moltenObsidian, FluidValues.GLASS_BLOCK, 3.5f)
                         .addByproduct(TinkerFluids.scorchedStone.result(FluidValues.BRICK * 4))
                         .save(consumer, location("smeltery/melting/obsidian/foundry_controller"));
@@ -1456,19 +1489,19 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     final int chainSteel = FluidValues.NUGGET * 3;
     MeltingRecipeBuilder.melting(Ingredient.of(Items.CHAINMAIL_HELMET), TinkerFluids.moltenIron, chainIron * 5)
                         .addByproduct(TinkerFluids.moltenSteel.result(chainSteel * 5))
-                        .setDamagable(FluidValues.NUGGET)
+                        .setDamagable(FluidValues.NUGGET, FluidValues.NUGGET)
                         .save(consumer, location(metalFolder + "iron/chain_helmet"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.CHAINMAIL_CHESTPLATE), TinkerFluids.moltenIron, chainIron * 8)
                         .addByproduct(TinkerFluids.moltenSteel.result(chainSteel * 8))
-                        .setDamagable(FluidValues.NUGGET)
+                        .setDamagable(FluidValues.NUGGET, FluidValues.NUGGET)
                         .save(consumer, location(metalFolder + "iron/chain_chestplate"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.CHAINMAIL_LEGGINGS), TinkerFluids.moltenIron, chainIron * 7)
                         .addByproduct(TinkerFluids.moltenSteel.result(chainSteel * 7))
-                        .setDamagable(FluidValues.NUGGET)
+                        .setDamagable(FluidValues.NUGGET, FluidValues.NUGGET)
                         .save(consumer, location(metalFolder + "iron/chain_leggings"));
     MeltingRecipeBuilder.melting(Ingredient.of(Items.CHAINMAIL_BOOTS), TinkerFluids.moltenIron, chainIron * 4)
                         .addByproduct(TinkerFluids.moltenSteel.result(chainSteel * 4))
-                        .setDamagable(FluidValues.NUGGET)
+                        .setDamagable(FluidValues.NUGGET, FluidValues.NUGGET)
                         .save(consumer, location(metalFolder + "iron/chain_boots"));
 
 
@@ -1742,11 +1775,11 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                       .addInput(TinkerFluids.moltenDebris.ingredient(FluidValues.INGOT))
                       .save(consumer, prefix(TinkerFluids.moltenManyullyn, folder));
 
-    // heptazion: 2 copper + 1 cobalt + 1/4 obsidian = 2
+    // heptazion: 2 copper + 1 cobalt + 1 quartz = 2
     AlloyRecipeBuilder.alloy(TinkerFluids.moltenHepatizon, FluidValues.INGOT * 2)
                       .addInput(TinkerFluids.moltenCopper.ingredient(FluidValues.INGOT * 2))
                       .addInput(TinkerFluids.moltenCobalt.ingredient(FluidValues.INGOT))
-                      .addInput(TinkerFluids.moltenQuartz.ingredient(FluidValues.GEM * 4))
+                      .addInput(TinkerFluids.moltenQuartz.ingredient(FluidValues.GEM))
                       .save(consumer, prefix(TinkerFluids.moltenHepatizon, folder));
 
     // netherrite: 4 debris + 4 gold = 1 (why is this so dense vanilla?)

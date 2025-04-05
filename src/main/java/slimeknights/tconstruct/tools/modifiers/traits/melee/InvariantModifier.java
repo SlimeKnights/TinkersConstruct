@@ -31,7 +31,7 @@ import java.util.List;
 public class InvariantModifier extends Modifier implements ConditionalStatModifierHook, MeleeDamageModifierHook, TooltipModifierHook, ProtectionModifierHook {
   private static final float BASELINE_TEMPERATURE = 0.75f;
   private static final float MAX_TEMPERATURE = 1.25f;
-  private static final float DAMAGE = 2.5f / MAX_TEMPERATURE;
+  private static final float DAMAGE = 1.6f / MAX_TEMPERATURE;
   private static final float ACCURACY = 0.15f / MAX_TEMPERATURE;
 
   /** Gets the bonus for this modifier */

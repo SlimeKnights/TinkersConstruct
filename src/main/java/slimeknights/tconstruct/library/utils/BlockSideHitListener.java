@@ -1,10 +1,11 @@
 package slimeknights.tconstruct.library.utils;
 
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.core.Direction;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedOutEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.LeftClickBlock;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.LeftClickBlock.Action;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +18,7 @@ public class BlockSideHitListener {
   private static final Map<UUID,Direction> HIT_FACE = new HashMap<>();
   private static boolean init = false;
 
-  /** Initializies this listener */
+  /** Initializes this listener */
   public static void init() {
     if (init) {
       return;
@@ -29,7 +30,9 @@ public class BlockSideHitListener {
 
   /** Called when the player left clicks a block to store the face */
   private static void onLeftClickBlock(LeftClickBlock event) {
-    HIT_FACE.put(event.getEntity().getUUID(), event.getFace());
+    if (event.getAction() == Action.START) {
+      HIT_FACE.put(event.getEntity().getUUID(), event.getFace());
+    }
   }
 
   /** Called when a player leaves the server to clear the face */

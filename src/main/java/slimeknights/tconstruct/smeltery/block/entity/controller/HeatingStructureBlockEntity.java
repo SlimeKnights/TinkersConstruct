@@ -40,8 +40,8 @@ import slimeknights.tconstruct.library.client.model.ModelProperties;
 import slimeknights.tconstruct.smeltery.block.controller.ControllerBlock;
 import slimeknights.tconstruct.smeltery.block.controller.SmelteryControllerBlock;
 import slimeknights.tconstruct.smeltery.block.entity.module.EntityMeltingModule;
-import slimeknights.tconstruct.smeltery.block.entity.module.FuelModule;
 import slimeknights.tconstruct.smeltery.block.entity.module.MeltingModuleInventory;
+import slimeknights.tconstruct.smeltery.block.entity.module.MultitankFuelModule;
 import slimeknights.tconstruct.smeltery.block.entity.multiblock.HeatingStructureMultiblock;
 import slimeknights.tconstruct.smeltery.block.entity.multiblock.HeatingStructureMultiblock.StructureData;
 import slimeknights.tconstruct.smeltery.block.entity.multiblock.MultiblockResult;
@@ -105,7 +105,7 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
 
   /** Fuel module */
   @Getter
-  protected final FuelModule fuelModule = new FuelModule(this, () -> structure != null ? structure.getTanks() : Collections.emptyList());
+  protected final MultitankFuelModule fuelModule = new MultitankFuelModule(this, () -> structure != null ? structure.getTanks() : Collections.emptyList());
   /** Current fuel consumption rate */
   protected int fuelRate = 1;
 
@@ -312,6 +312,7 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
    */
   protected void setStructure(@Nullable StructureData structure) {
     this.structure = structure;
+    fuelModule.clearFluidListeners();
   }
 
   /**
@@ -494,7 +495,7 @@ public abstract class HeatingStructureBlockEntity extends NameableBlockEntity im
    */
   public void setStructureSize(BlockPos minPos, BlockPos maxPos, List<BlockPos> tanks) {
     setStructure(multiblock.createClient(minPos, maxPos, tanks));
-    fuelModule.clearCachedDisplayListeners();
+    fuelModule.clearFluidListeners();
     // not really possible to have no structure here as we don't sync the lack of structure to the client, but better safe
     if (structure == null) {
       fluidDisplayListeners.clear();

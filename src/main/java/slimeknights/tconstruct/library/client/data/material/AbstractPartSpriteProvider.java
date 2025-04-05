@@ -52,7 +52,7 @@ public abstract class AbstractPartSpriteProvider {
 
   /** Function to add both sprites and materials */
   @CheckReturnValue
-  protected abstract void addAllSpites();
+  protected abstract void addAllSpites(); // TODO 1.21: rename to addAllSprites
 
 
   /* Builder functions */

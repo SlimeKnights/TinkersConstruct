@@ -9,7 +9,7 @@ import slimeknights.tconstruct.library.utils.ResourceId;
 import javax.annotation.Nullable;
 
 /**
- * This is just a copy of ResourceLocation for type safety.
+ * This is just a copy of ResourceLocation for type safety in material JSON.
  */
 public final class MaterialId extends ResourceId implements MaterialVariantId {
   public static final IdParser<MaterialId> PARSER = new IdParser<>(MaterialId::new, "Material");
@@ -70,15 +70,16 @@ public final class MaterialId extends ResourceId implements MaterialVariantId {
     return this.equals(other.getId());
   }
 
+
   /* Helpers */
 
-  /** {@return Material ID, or null of invalid} */
+  /** {@return Material ID, or null if invalid} */
   @Nullable
   public static MaterialId tryParse(String string) {
     return tryParse(string, (namespace, path) -> new MaterialId(namespace, path, null));
   }
 
-  /** {@return Material ID, or null of invalid} */
+  /** {@return Material ID, or null if invalid} */
   @Nullable
   public static MaterialId tryBuild(String namespace, String path) {
     return tryBuild(namespace, path, (n, p) -> new MaterialId(namespace, path, null));

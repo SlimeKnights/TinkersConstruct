@@ -32,7 +32,10 @@ public interface ITankBlockEntity extends IFluidTankUpdater, FluidUpdatePacket.I
    */
   default int comparatorStrength() {
     FluidTankAnimated tank = getTank();
-    return 15 * tank.getFluidAmount() / tank.getCapacity();
+    if (tank.isEmpty()) {
+      return 0;
+    }
+    return 1 + 14 * tank.getFluidAmount() / tank.getCapacity();
   }
 
   /**

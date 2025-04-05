@@ -1,0 +1,63 @@
+{
+  "render_type": "minecraft:cutout",
+  "loader": "tconstruct:tank",
+  "parent": "block/block",
+  "textures": {
+    "particle": "#front"
+  },
+  "elements": [
+    { "from": [ 0, 0, 0 ],
+      "to": [ 16, 16, 16 ],
+      "faces": {
+        "down":  { "texture": "#bottom", "cullface": "down"  },
+        "up":    { "texture": "#top",    "cullface": "up"    },
+        "north": { "texture": "#front",  "cullface": "north" },
+        "south": { "texture": "#side",   "cullface": "south" },
+        "west":  { "texture": "#side",   "cullface": "west"  },
+        "east":  { "texture": "#side",   "cullface": "east"  }
+      }
+    },
+    { "from": [ 15.9, 15.9, 15.9 ],
+      "to": [ 0.1, 8.0, 0.1 ],
+      "faces": {
+        "north": { "texture": "#side",  "shade": false },
+        "east":  { "texture": "#side",  "shade": false },
+        "south": { "texture": "#front", "shade": false },
+        "west":  { "texture": "#side",  "shade": false },
+        "down":  { "texture": "#top",   "shade": false }
+      }
+    },
+    { "from": [ 0, 8, 0 ],
+      "to": [ 16, 8, 16 ],
+      "faces": {
+        "up": { "texture": "#inside" }
+      }
+    }
+  ],
+  "gui": {
+    "elements": [
+      { "from": [ 0, 0, 0 ],
+        "to": [ 16, 16, 16 ],
+        "faces": {
+          "down":  { "texture": "#bottom", "cullface": "down"  },
+          "up":    { "texture": "#top",    "cullface": "up"    },
+          "north": { "texture": "#front",  "cullface": "north" },
+          "south": { "texture": "#side",   "cullface": "south" },
+          "west":  { "texture": "#side",   "cullface": "west"  },
+          "east":  { "texture": "#side",   "cullface": "east"  }
+        }
+      },
+      { "from": [ 0, 8, 0 ],
+        "to": [ 16, 8, 16 ],
+        "faces": {
+          "up": { "texture": "#inside" }
+        }
+      }
+    ]
+  },
+  "fluid": {
+    "from": [ 0.08, 8.08, 0.08 ],
+    "to": [ 15.92, 15.92, 15.92 ],
+    "increments": 128
+  }
+}

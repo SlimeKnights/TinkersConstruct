@@ -15,6 +15,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
@@ -54,7 +55,11 @@ public record MaxArmorAttributeModule(String unique, Attribute attribute, Operat
     ModifierCondition.TOOL_FIELD,
     MaxArmorAttributeModule::new);
 
-  public MaxArmorAttributeModule(String unique, Attribute attribute, Operation operation, LevelingValue amount, boolean allowBroken, @Nullable TagKey<Item> heldTag, ModifierCondition<IToolStackView> condition) {
+  /** @apiNote Internal constructor, use {@link #builder(Attribute, Operation)} */
+  @Internal
+  public MaxArmorAttributeModule {}
+
+  private MaxArmorAttributeModule(String unique, Attribute attribute, Operation operation, LevelingValue amount, boolean allowBroken, @Nullable TagKey<Item> heldTag, ModifierCondition<IToolStackView> condition) {
     this(unique, attribute, operation, amount, UUID.nameUUIDFromBytes(unique.getBytes()), MaxArmorLevelModule.createKey(BuiltInRegistries.ATTRIBUTE.getKey(attribute)), allowBroken, heldTag, condition);
   }
 
