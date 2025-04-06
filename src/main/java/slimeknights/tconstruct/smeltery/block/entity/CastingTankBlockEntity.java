@@ -182,7 +182,7 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
   @Override
   public void setChanged() {
     super.setChanged();
-    tryToProcessItem();
+    tryToProcessItem(); // TODO hacky, rework this. Probably use a custom itemhandler
   }
 
   @Override

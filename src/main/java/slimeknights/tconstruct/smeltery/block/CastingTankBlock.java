@@ -65,7 +65,7 @@ public class CastingTankBlock extends InventoryBlock implements ITankBlock, Enti
 
   @Override
   protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-    builder.add(FACING);  // TODO items not facing right way
+    builder.add(FACING);
   }
 
   @Override
@@ -93,12 +93,8 @@ public class CastingTankBlock extends InventoryBlock implements ITankBlock, Enti
   @Deprecated
   @Override
   public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-//    if (FluidTransferHelper.interactWithTank(world, pos, player, hand, hit)) {  // TODO what should we do on the client side?
-//      return InteractionResult.SUCCESS;
-//    }
-
     if (player.isSuppressingBounce()) {
-      return InteractionResult.PASS; // TODO do we want this logic
+      return InteractionResult.PASS;
     }
 
     BlockEntity te = world.getBlockEntity(pos);
