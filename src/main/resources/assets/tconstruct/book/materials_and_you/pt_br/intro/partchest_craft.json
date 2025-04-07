@@ -1,4 +1,7 @@
 {
   "title": "Fabricação do Baú de Peças",
-  "recipe": "tconstruct:tables/part_chest"
+  "recipe": "tconstruct:tables/part_chest",
+  "description": [
+    { "text": "Nunca se sabe quando você poderá precisar daquela peça de ferramenta que nunca foi utilizada de novo." }
+  ]
 }
