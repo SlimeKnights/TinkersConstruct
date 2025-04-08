@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:warping",
+  "text": [
+    {
+      "text": "Não podemos passar por cima disso. Não podemos passar por baixo disso. Oh, não! Temos que passar por isso!"
+    }
+  ],
+  "effects": [
+    "Carregue para teletransportar na direção olhada", 
+    "Pode aumentar o alcance do teletransporte com poder", 
+    "Nível único", 
+    "Requer 1 slot de habilidade"
+  ]
+}
+
