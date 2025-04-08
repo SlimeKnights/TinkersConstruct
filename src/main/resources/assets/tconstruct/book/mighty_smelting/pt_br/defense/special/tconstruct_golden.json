@@ -2,13 +2,14 @@
   "modifier_id": "tconstruct:golden",
   "text": [
     {
-      "text": "Os piglins amam o drip."
+      "text": "Os piglins amam essa vestimenta."
     }
   ],
   "more_text_space": true,
   "effects": [
     "Piglins não irá atacá-lo",
     "Nível único",
-    "Requer 1 slot de defesa"
+    "Requer 1 slot de defesa",
+    "Não funciona em armaduras de placas"
   ]
 }
