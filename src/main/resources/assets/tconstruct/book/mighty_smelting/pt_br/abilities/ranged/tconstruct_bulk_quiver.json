@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:bulk_quiver",
   "text": [
     {
-      "text": "Putting a quiver on your back is overrated."
+      "text": "Colocar uma aljava em suas costas é superestimado."
     }
   ],
   "effects": [
-    "Allows your bow to store arrows",
-    "Access by sneaking and attacking",
-    "Multiple levels, each level increases storage size",
-    "Requires 1 ability slot per level"
+ "Permite que seu arco armazene flechas",
+ "Acesso por meio de esgueiramento e ataque",
+ "Multiplos níveis, cada nível aumenta o tamanho do armazenamento",
+ "Requer 1 slot de habilidade por nível"
   ]
 }
