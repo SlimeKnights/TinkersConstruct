@@ -1,0 +1,13 @@
+{
+  "title": "Vidro Tingido Carbonizado",
+  "item": "tconstruct:seared_tinted_glass",
+  "text": [
+    {
+      "text": "Sua fundição está muito iluminada? Considere manter o interior escuro usando vidro tingido carbonizado, ele mantém a luz dentro, mas também é totalmente transparente, é algo mágico."
+    },
+    {
+      "text": "O vidro não pode ser usado como piso da fundição.",
+      "paragraph": true
+    }
+  ]
+}
