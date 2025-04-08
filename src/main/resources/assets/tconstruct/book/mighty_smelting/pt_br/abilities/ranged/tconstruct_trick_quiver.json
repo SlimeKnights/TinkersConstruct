@@ -6,10 +6,12 @@
     }
   ],
   "effects": [
-    "Gives the bow three toggleable arrow slots",
-    "Switch slots by attacking",
-    "Access the slots by sneaking and attacking",
-    "Single level",
-    "Requires 1 ability slot"
+    "Dá ao arco três slot de flecha alternáveis",
+    "Troca os slots atacando",
+    "Acessa os slots se esgueirando e atacando",
+    "Nível único",
+    "Requer 1 slot de habilidade"
   ]
 }
+
+
