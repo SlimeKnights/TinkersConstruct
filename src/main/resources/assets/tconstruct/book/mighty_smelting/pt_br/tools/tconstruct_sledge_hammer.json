@@ -2,7 +2,7 @@
   "tool": "tconstruct:sledge_hammer",
   "text": [
     {
-      "text": "A marreta é uma ferramenta grande de mineração. Ela colhe blocos em uma grande escala e é eficaz contra mortos-vivos."
+      "text": "A marreta é uma ferramenta grande de mineração. Ela colhe blocos em uma larga escala e é eficaz contra mortos-vivos."
     },
     {
       "text": "\n"
@@ -15,6 +15,6 @@
     "Ferramenta avançada de mineração",
     "Area de mineração 3x3",
     "Efetiva em pedras e minérios",
-    "Começa com Golpe II"
+    "Começa com Golpeada II"
   ]
 }
