@@ -12,6 +12,6 @@
   "effects": [
     "Drena o tanque ao atacar",
     "Vários efeitos baseados no fluido, incluindo fogo e veneno",
-    "Requer 1 ability slot por nível"
+    "Requer 1 slot de habilidade por nível"
   ]
 }
