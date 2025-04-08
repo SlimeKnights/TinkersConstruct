@@ -1,0 +1,14 @@
+{
+  "title": "Vidro de Alma Carbonizado",
+  "item": "tconstruct:seared_soul_glass",
+  "text": [
+    {
+      "text": "Às vezes, olhar não é suficiente, às vezes você quer sentir os fluidos na fundição. Com esse vidro de alma, você pode fazer uma janela pela qual pode até caminhar!",
+      "paragraph": true
+    },
+    {
+      "text": "Vidro não pode ser usado para o piso da fundição.",
+      "paragraph": true
+    }
+  ]
+}
