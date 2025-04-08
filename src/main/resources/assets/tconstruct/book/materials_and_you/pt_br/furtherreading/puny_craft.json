@@ -1,8 +1,9 @@
 {
-  "title": "Fabricação da Fundição Frágil",
+  "title": "Fundições Frágeis de Thruul",
   "recipe": "tconstruct:common/puny_smelting",
   "grid_size": "small",
   "description": [
-    { "text": "Guia de fundição e moldagem para iniciantes. O primeiro de uma série de Thruul M'Gon sobre a fundição." }
+    { "text": "MUITO BEM, TINKEREIROS, PRESTEM ATENÇÃO. Eu sou o único e inigualável §lTHRUUL M'GON§r e meus dois novos livros que estão por vir, §oFundições Frágeis§r e §oFundições Poderosas§r, vão ensinar vocês a usar materiais muito melhores, derreter seus metais, fazer ligas e MUITO MAIS, KARALHO!" }
   ]
 }
+
