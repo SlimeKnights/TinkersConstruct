@@ -2,13 +2,14 @@
   "modifier_id": "tconstruct:wetting",
   "text": [
     {
-      "text": "Its okay if you wet yourself a bit when you get hurt. Wait, you did not add this modifier to your pants?"
+      "text": "Tudo bem se você se molhaou um pouco quando se machucou. Espera aí, você não adicionou esse modificador na sua calça?"
     }
   ],
   "effects": [
-    "Applies fluid effects when damaged",
-    "Single level",
-    "Requires 1 ability slot",
-    "Use tool on a tank to fill with fluid."
+    "Aplica efeitos de fluido quando danificado",
+    "Nível único",
+    "Requer 1 slot de habilidade",
+    "Use a ferramenta em um tanque para encher de fluido."
   ]
 }
+
