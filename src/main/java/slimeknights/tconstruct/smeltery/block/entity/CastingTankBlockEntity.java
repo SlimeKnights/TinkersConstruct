@@ -6,6 +6,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -27,6 +29,8 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import slimeknights.mantle.fluid.FluidTransferHelper;
 import slimeknights.mantle.fluid.transfer.FluidContainerTransferManager;
@@ -166,16 +170,22 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
 
     // need to take the item out of the input slot to prevent a nested call from getting too far if we do modify the tank
     setItem(INPUT, ItemStack.EMPTY);
-    ItemStack result = FluidTransferHelper.interactWithTankSlot(tank, input, IFluidContainerTransfer.TransferDirection.AUTO);
+    IFluidContainerTransfer.TransferResult transferResult = interactWithTankSlotForTransferResult(tank, input, IFluidContainerTransfer.TransferDirection.AUTO);
+    // TODO I broke the logic apparently :(
 
-    // if the item got processed
-    if (!result.isEmpty()) {
-      setItem(OUTPUT, result);
-      // TODO, play sound
-
-    // if the item wasn't emptied/filled, put it back in the input slot
-    } else {
+    // if no transfer happened
+    if (transferResult == null) {
+      // put the input item back in the input slot
       setItem(INPUT, input);
+    } else {
+      // otherwise, the item got processed
+      setItem(OUTPUT, transferResult.stack());
+
+      // play appropriate sound
+      SoundEvent sound = transferResult.didFill() ? FluidTransferHelper.getFillSound(transferResult.fluid()) : FluidTransferHelper.getEmptySound(transferResult.fluid());
+      if (level != null) {
+        level.playSound(null, getBlockPos(), sound, SoundSource.BLOCKS, 1.0F, 1.0F);
+      }
     }
   }
 
@@ -301,5 +311,62 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
   public interface ITankBlock {
     /** Gets the capacity for this tank */
     int getCapacity();
+  }
+
+  // TODO consider moving this to Mantle
+  /**
+   * Attempts to transfer fluid from the passed stack into a tank.
+   * @param teHandler  Tank handler
+   * @param stack      Input stack, may be modified
+   * @param direction  Determines whether we may empty the item, fill, or both
+   * @return  Transfer result from attempt, or null if no transfer happened
+   */
+  public static @Nullable IFluidContainerTransfer.TransferResult interactWithTankSlotForTransferResult(IFluidHandler teHandler, ItemStack stack, IFluidContainerTransfer.TransferDirection direction) {
+    if (!stack.isEmpty()) {
+      // fallback to JSON based transfer
+      if (FluidContainerTransferManager.INSTANCE.mayHaveTransfer(stack)) {
+        // only actually transfer on the serverside, client just has items
+        FluidStack currentFluid = teHandler.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.SIMULATE);
+        IFluidContainerTransfer transfer = FluidContainerTransferManager.INSTANCE.getTransfer(stack, currentFluid);
+        if (transfer != null) {
+          IFluidContainerTransfer.TransferResult result = transfer.transfer(stack, currentFluid, teHandler, direction);
+          if (result != null) {
+            stack.shrink(1);
+            return result;
+          }
+        }
+      }
+
+      // if the item has a capability, do a direct transfer
+      ItemStack copy = ItemHandlerHelper.copyStackWithSize(stack, 1);
+      LazyOptional<IFluidHandlerItem> itemCapability = copy.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM);
+      if (itemCapability.isPresent()) {
+        IFluidHandlerItem itemHandler = itemCapability.resolve().orElseThrow();
+        // first, try filling the TE from the item
+        FluidStack transferred = FluidStack.EMPTY;
+        boolean didFillItem = false;
+        // reverse means try TE to item first
+        if (direction == IFluidContainerTransfer.TransferDirection.REVERSE) {
+          transferred = FluidTransferHelper.tryTransfer(teHandler, itemHandler, Integer.MAX_VALUE);
+          didFillItem = !transferred.isEmpty();
+        }
+        // if not reverse or reverse failed, try filling TE from item
+        if (direction.canEmpty() && transferred.isEmpty()) {
+          transferred = FluidTransferHelper.tryTransfer(itemHandler, teHandler, Integer.MAX_VALUE);
+          didFillItem = transferred.isEmpty();
+        }
+        // if that failed, try filling the item handler from the TE
+        if (direction != IFluidContainerTransfer.TransferDirection.REVERSE && direction.canFill() && transferred.isEmpty()) {
+          transferred = FluidTransferHelper.tryTransfer(teHandler, itemHandler, Integer.MAX_VALUE);
+          didFillItem = !transferred.isEmpty();
+        }
+        // if either worked, update the player's inventory
+        if (!transferred.isEmpty()) {
+          stack.shrink(1);
+          return new IFluidContainerTransfer.TransferResult(itemHandler.getContainer(), transferred, didFillItem);
+        }
+      }
+    }
+    return null;
   }
 }
