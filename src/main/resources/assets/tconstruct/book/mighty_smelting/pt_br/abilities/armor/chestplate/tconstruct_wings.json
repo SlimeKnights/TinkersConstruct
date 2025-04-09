@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:wings",
+  "text": [
+    {
+      "text": "Isso não é voar, isso é cair! Com estilo!"
+    }
+  ],
+  "effects": [
+    "Permite planar ao saltar no ar",
+    "Nível único",
+    "Requer 2 slot de habilidade"
+  ]
+}
