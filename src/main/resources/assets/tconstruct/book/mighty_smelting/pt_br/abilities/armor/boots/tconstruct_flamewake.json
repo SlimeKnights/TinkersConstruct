@@ -6,7 +6,7 @@
     }
   ],
   "effects": [
-    "Rastro de fogo por onde você andar",
+    "Cria rastros de fogo por onde você andar",
     "Pode aumentar a área através de expansores",
     "Nível único",
     "Requer 1 slot de habilidade"
