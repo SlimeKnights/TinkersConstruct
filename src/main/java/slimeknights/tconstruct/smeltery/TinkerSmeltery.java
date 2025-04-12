@@ -475,7 +475,7 @@ public final class TinkerSmeltery extends TinkerModule {
     output.accept(scorchedBasin);
     output.accept(TinkerCommons.goldPlatform, TabVisibility.PARENT_TAB_ONLY);
 
-    output.accept(castingTank); // TODO right spot?
+    output.accept(castingTank);
 
     // cannons
     output.accept(searedFluidCannon);

@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -36,6 +37,8 @@ import slimeknights.mantle.fluid.FluidTransferHelper;
 import slimeknights.mantle.fluid.transfer.FluidContainerTransferManager;
 import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.network.InventorySlotSyncPacket;
+import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.client.model.ModelProperties;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.utils.NBTTags;
@@ -119,42 +122,44 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
     ItemStack output = getItem(OUTPUT);
     ItemStack held = player.getItemInHand(hand);
     // if the held item can be placed inside, do so
-    if (canReceiveItemStack(held)) {
+    if (canPlaceItem(INPUT, held)) {
       setItem(INPUT, held.split(1));
-      tryToProcessItem(); // also need to try when we get an item from automation
     // otherwise, interact with the tank
-    } else if (!FluidTransferHelper.interactWithTank(level, worldPosition, player, hand, hit)
-      // if the tank wasn't interacted with and the player has an empty hand, the player may take the item from the casting tank
-      && held.isEmpty() // TODO this is wrong, the player can take the item at this point if it would fit in the player's inventory, not just if empty-handed
-    ) {
+    } else if (!FluidTransferHelper.interactWithTank(level, worldPosition, player, hand, hit)) {
+      // if the tank wasn't interacted with
       if (!output.isEmpty()) {
         setItem(OUTPUT, ItemStack.EMPTY);
-        player.setItemInHand(hand, output);
+        ItemHandlerHelper.giveItemToPlayer(player, output, player.getInventory().selected);
       } else if (!input.isEmpty()) {
         setItem(INPUT, ItemStack.EMPTY);
-        player.setItemInHand(hand, input);
+        ItemHandlerHelper.giveItemToPlayer(player, input, player.getInventory().selected);
       }
     }
   }
 
-  /**
-   * Checks whether a given stack can be received into the casting tank's inventory
-   * @param stack Item stack to be received
-   * @return True if the stack can be received
-   */
-  protected boolean canReceiveItemStack(ItemStack stack) {
-      return getItem(INPUT).isEmpty() && getItem(OUTPUT).isEmpty() && !stack.isEmpty() && (
-        // check the various options for some sort of fluid-containing stack
-        FluidContainerTransferManager.INSTANCE.mayHaveTransfer(stack)
-          || stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).isPresent()
-          || stack.getItem() instanceof BucketItem
-      );
+  @Override
+  public void setItem(int slot, ItemStack itemstack) {
+    ItemStack currentInput = getItem(INPUT);
+    super.setItem(slot, itemstack);
+    // if we are setting the input item and it actually changed, try to process it
+    if (slot == INPUT && !ItemStack.matches(currentInput, itemstack)) {
+      tryToProcessItem();
+    }
+  }
+
+  public void setInputItemWithoutTryingToProcess(ItemStack stack) {
+    super.setItem(INPUT, stack);
   }
 
   @Override
   public boolean canPlaceItem(int pIndex, ItemStack pStack) {
     if (pIndex == INPUT) {
-      return canReceiveItemStack(pStack);
+      return getItem(INPUT).isEmpty() && getItem(OUTPUT).isEmpty() && !pStack.isEmpty() && (
+        // check the various options for some sort of fluid-containing stack
+        FluidContainerTransferManager.INSTANCE.mayHaveTransfer(pStack)
+          || pStack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).isPresent()
+          || pStack.getItem() instanceof BucketItem
+      );
     }
     return false;
   }
@@ -162,21 +167,20 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
   /**
    * Tries to empty or fill an item in the input spot. If either happens, the resulting item is placed in the output slot.
    */
-  private void tryToProcessItem() {
+  protected void tryToProcessItem() {
     ItemStack input = getItem(INPUT);
     if (input.isEmpty() || !getItem(OUTPUT).isEmpty()) {
       return;
     }
 
     // need to take the item out of the input slot to prevent a nested call from getting too far if we do modify the tank
-    setItem(INPUT, ItemStack.EMPTY);
+    setInputItemWithoutTryingToProcess(ItemStack.EMPTY);
     IFluidContainerTransfer.TransferResult transferResult = interactWithTankSlotForTransferResult(tank, input, IFluidContainerTransfer.TransferDirection.AUTO);
-    // TODO I broke the logic apparently :(
 
     // if no transfer happened
     if (transferResult == null) {
-      // put the input item back in the input slot
-      setItem(INPUT, input);
+      // put the input item back in the input slot without trying to process, since we know that won't work
+      setInputItemWithoutTryingToProcess(input);
     } else {
       // otherwise, the item got processed
       setItem(OUTPUT, transferResult.stack());
@@ -187,12 +191,6 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
         level.playSound(null, getBlockPos(), sound, SoundSource.BLOCKS, 1.0F, 1.0F);
       }
     }
-  }
-
-  @Override
-  public void setChanged() {
-    super.setChanged();
-    tryToProcessItem(); // TODO hacky, rework this. Probably use a custom itemhandler
   }
 
   @Override

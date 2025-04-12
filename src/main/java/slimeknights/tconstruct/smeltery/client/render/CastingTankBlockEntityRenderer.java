@@ -22,40 +22,35 @@ public class CastingTankBlockEntityRenderer extends TankBlockEntityRenderer<Cast
 
   @Override
   public void render(CastingTankBlockEntity tile, float partialTicks, PoseStack matrixStack, MultiBufferSource buffer, int combinedLightIn, int combinedOverlayIn) {
-    if (Config.CLIENT.tankFluidModel.get()) { // TODO whats the deal with this
-      return;
-    }
     BlockState state = tile.getBlockState();
     List<FluidCuboid> fluids = FluidCuboid.REGISTRY.get(state, List.of());
     List<RenderItem> renderItems = RenderItem.REGISTRY.get(state.getBlock(), List.of());
 
     // rotate the matrix
-    if (!fluids.isEmpty() || !renderItems.isEmpty()) {
-      boolean isRotated = RenderingHelper.applyRotation(matrixStack, state);
+    boolean isRotated = RenderingHelper.applyRotation(matrixStack, state);
 
-      // render the fluid
-      if (!fluids.isEmpty()) {
-        FluidTankAnimated tank = tile.getTank();
-        for (FluidCuboid fluid : fluids) {
-          RenderUtils.renderFluidTank(matrixStack, buffer, fluid, tank, combinedLightIn, partialTicks, true);
-        }
+    // render the fluid
+    if (!fluids.isEmpty()) {
+      FluidTankAnimated tank = tile.getTank();
+      for (FluidCuboid fluid : fluids) {
+        RenderUtils.renderFluidTank(matrixStack, buffer, fluid, tank, combinedLightIn, partialTicks, true);
       }
+    }
 
-      // render renderItems
-      if (!renderItems.isEmpty()) {
-        ItemStack inputItem = tile.getItem(CastingTankBlockEntity.INPUT);
-        ItemStack outputItem = tile.getItem(CastingTankBlockEntity.OUTPUT);
-        if (!inputItem.isEmpty()) {
-          RenderingHelper.renderItem(matrixStack, buffer, inputItem, renderItems.get(0), combinedLightIn);
-        } else if (!outputItem.isEmpty()) {
-          RenderingHelper.renderItem(matrixStack, buffer, outputItem, renderItems.get(0), combinedLightIn);
-        }
+    // render renderItems
+    if (!renderItems.isEmpty()) {
+      ItemStack inputItem = tile.getItem(CastingTankBlockEntity.INPUT);
+      ItemStack outputItem = tile.getItem(CastingTankBlockEntity.OUTPUT);
+      if (!inputItem.isEmpty()) {
+        RenderingHelper.renderItem(matrixStack, buffer, inputItem, renderItems.get(0), combinedLightIn);
+      } else if (!outputItem.isEmpty()) {
+        RenderingHelper.renderItem(matrixStack, buffer, outputItem, renderItems.get(0), combinedLightIn);
       }
+    }
 
-      // pop back rotation
-      if (isRotated) {
-        matrixStack.popPose();
-      }
+    // pop back rotation
+    if (isRotated) {
+      matrixStack.popPose();
     }
   }
 }
