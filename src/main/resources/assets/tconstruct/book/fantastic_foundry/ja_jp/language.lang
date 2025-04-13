@@ -13,3 +13,5 @@ melee_harvest_materials=Tier4 近接/収穫用素材
 melee_harvest_materials.subtext=これらの素材を作成するには燃え盛る血液が必要で、近接武器や収穫道具の部品を作るのに使用できます。
 ranged_materials=Tier4 遠距離用素材
 ranged_materials.subtext=これらの素材を作成するには燃え盛る血液が必要で、弓のような遠距離武器の部品を作るのに使用できます。
+armor_materials=Tier4 防具用素材
+armor_materials.subtext=これらの素材を鋳造して防具や盾の部品を作れます。
