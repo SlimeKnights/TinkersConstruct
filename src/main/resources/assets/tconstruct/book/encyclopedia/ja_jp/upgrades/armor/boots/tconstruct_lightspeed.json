@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:lightspeed",
+  "text": [
+    {
+      "text": "明るい場所で移動速度に(+9×レベル)%の補正がかかります。あまり明るくない場所でも多少移動速度が上がりますが、それほど多くありません。"
+    },
+    {
+      "text": "この改造が有効となっている間、ブーツは継続的に耐久度を消費します。",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/armor/boots",
+  "effects": ["段階的に適用できる", "最大5レベル", "レベルごとにアップグレードスロットが1つ必要"]
+}

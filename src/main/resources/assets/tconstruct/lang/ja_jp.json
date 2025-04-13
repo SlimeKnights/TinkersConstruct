@@ -877,7 +877,7 @@
   "_comment": "Fluid effect contents",
   "fluid_effect.tconstruct.separator": "%s、%s",
 
-  "fluid_effect.tconstruct.extinguish_fire": "消火",
+  "fluid_effect.tconstruct.extinguish_fire": "消火する",
   "fluid_effect.tconstruct.teleport": "テレポート",
   "fluid_effect.tconstruct.calcified": "石灰化 (10秒間)",
 
@@ -920,7 +920,7 @@
   "fluid_effect.tconstruct.move_block.pull": "ブロックを引っ張る",
 
   "fluid_effect.tconstruct.drop_item": "%sを落とす",
-  "fluid_effect.tconstruct.explosion": "%sの強度の爆発",
+  "fluid_effect.tconstruct.explosion": "爆発 (強度%s)",
 
   "_comment": "Tinkers Gadgets",
 
@@ -2263,7 +2263,7 @@
   "modifier.tconstruct.soul_belt.requirements": "ソウルベルトを適用するにはソウルバウンドが必要する",
   "modifier.tconstruct.swift_sneak": "高速スニーク",
   "modifier.tconstruct.swift_sneak.flavor": "より速いスニーク！",
-  "modifier.tconstruct.swift_sneak.description": "しゃがみ状態の移動速度が増加する",
+  "modifier.tconstruct.swift_sneak.description": "スニーク状態の移動速度が増加する",
   "modifier.tconstruct.workbench": "ワークベンチ",
   "modifier.tconstruct.workbench.flavor": "便利！",
   "modifier.tconstruct.workbench.description": "ツール内のインベントリでクラフトができる",
