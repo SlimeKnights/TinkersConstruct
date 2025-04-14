@@ -1,16 +1,16 @@
 {
-  "title":"Entity Melting",
+  "title": "エンティティ溶融",
   "text": [
     {
-      "text": "Entity melting is as simple as getting the entity inside your smeltery. The only requirement is that the smeltery has fuel."
+      "text": "エンティティ溶融のやり方は、エンティティを乾式精錬炉の中に入れるだけです。唯一の要件は、乾式精錬炉に燃料が入っていることです。"
     },
     {
-      "text": "Almost any mob can be melted, some however will be much more useful than others.",
-	  "paragraph": true
+      "text": "ほとんどのMobを溶融させることができますが、Mobによってはかなり有用なものが得られます。",
+      "paragraph": true
     },
     {
-      "text": "I have a challenge for the mightiest of Tinkers: if you can manage to melt the Ender Dragon, you will receive awesome power!",
-	  "paragraph": true
+      "text": "最強のティンカーへ挑戦状: エンダードラゴンを溶融させることができれば、恐るべき力を手に入れることができます！",
+      "paragraph": true
     }
   ]
 }
