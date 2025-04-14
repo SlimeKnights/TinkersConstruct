@@ -5,6 +5,7 @@
       "text": "ネザーの炎は敵を戒める。"
     }
   ],
+  "tool_filter": "tconstruct:modifiable/melee",
   "effects": [
     "攻撃した相手を炎上させる",
     "複数回適用でき、レベルが上がると炎上時間が伸びる",
