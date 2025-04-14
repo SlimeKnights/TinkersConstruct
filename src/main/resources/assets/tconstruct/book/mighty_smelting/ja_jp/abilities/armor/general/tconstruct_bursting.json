@@ -1,11 +1,12 @@
 {
-  "modifier_id": "tconstruct:spilling",
+  "modifier_id": "tconstruct:bursting",
   "text": [
     {
-      "text": "道具に漏れがあるなんて、ちょっと嫌ですよね。しかし非常に効果的です！"
+      "text": "防具に漏れがあるなんて、ちょっと嫌ですよね。しかし非常に効果的です！"
     },
     {
-      "text": "道具でタンクをクリックすると、液体を補充できます。", "paragraph": true
+      "text": "道具でタンクをクリックすると、液体を補充できます。",
+      "paragraph": true
     }
   ],
   "effects": [

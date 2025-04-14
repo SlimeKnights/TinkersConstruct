@@ -1,0 +1,10 @@
+{
+  "modifier_id": "tconstruct:tilling",
+  "text": [
+    {
+      "text": "大きな農場を作りたいと思ったことはありませんか？とても大きな農場を作りたくありませんか？今ならできます。"
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/armor/boots",
+  "effects": ["あなたが歩くと耕地ができる", "「広範」で範囲が広がる", "単一レベル", "アビリティスロットが1つ必要"]
+}
