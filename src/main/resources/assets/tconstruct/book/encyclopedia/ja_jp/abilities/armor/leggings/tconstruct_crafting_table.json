@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:crafting_table",
   "text": [
     {
-      "text": "道具のインベントリ内に3x3のクラフトグリッドができる。"
+      "text": "道具のインベントリ内に3×3のクラフトグリッドができます。"
     }
   ],
   "more_text_space": true,
