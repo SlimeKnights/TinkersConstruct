@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "tconstruct:smeltery/seared/casting_tank"
+        "recipe": "tconstruct:smeltery/seared/seared_casting_tank"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "tconstruct:smeltery/seared/casting_tank"
+      "tconstruct:smeltery/seared/seared_casting_tank"
     ]
   },
   "sends_telemetry_event": false

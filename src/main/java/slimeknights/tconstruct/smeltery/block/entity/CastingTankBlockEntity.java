@@ -51,7 +51,7 @@ import javax.annotation.Nullable;
 
 public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlockEntity, WorldlyContainer {
   /** Max capacity for the tank */
-  public static final int DEFAULT_CAPACITY = FluidType.BUCKET_VOLUME * 2;
+  public static final int DEFAULT_CAPACITY = FluidType.BUCKET_VOLUME * 4;
   // slots
   public static final int INPUT = 0;
   public static final int OUTPUT = 1;
@@ -72,9 +72,6 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
    * @return  Capacity
    */
   public static int getCapacity(Block block) {
-    if (block instanceof ITankBlock) {
-      return ((ITankBlock) block).getCapacity();
-    }
     return DEFAULT_CAPACITY;
   }
 
@@ -84,9 +81,6 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
    * @return  Capacity
    */
   public static int getCapacity(Item item) {
-    if (item instanceof BlockItem) {
-      return getCapacity(((BlockItem) item).getBlock());
-    }
     return DEFAULT_CAPACITY;
   }
 
@@ -96,7 +90,7 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
 
   /** Main constructor */
   public CastingTankBlockEntity(BlockPos pos, BlockState state, ITankBlock block) {
-    this(TinkerSmeltery.castingTankBE.get(), pos, state, block);
+    this(TinkerSmeltery.castingTank.get(), pos, state, block);
   }
 
   /** Extendable constructor */
@@ -319,7 +313,8 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
    * @param direction  Determines whether we may empty the item, fill, or both
    * @return  Transfer result from attempt, or null if no transfer happened
    */
-  public static @Nullable IFluidContainerTransfer.TransferResult interactWithTankSlotForTransferResult(IFluidHandler teHandler, ItemStack stack, IFluidContainerTransfer.TransferDirection direction) {
+  @Nullable
+  public static IFluidContainerTransfer.TransferResult interactWithTankSlotForTransferResult(IFluidHandler teHandler, ItemStack stack, IFluidContainerTransfer.TransferDirection direction) {
     if (!stack.isEmpty()) {
       // fallback to JSON based transfer
       if (FluidContainerTransferManager.INSTANCE.mayHaveTransfer(stack)) {

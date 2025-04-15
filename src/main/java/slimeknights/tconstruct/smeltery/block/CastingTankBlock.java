@@ -35,15 +35,10 @@ import javax.annotation.Nullable;
 
 public class CastingTankBlock extends InventoryBlock implements ITankBlock, EntityBlock {
   protected static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-  private final PushReaction pushReaction;
-  public CastingTankBlock(Properties properties, PushReaction pushReaction) {
-    super(properties);
-    this.pushReaction = pushReaction;
-    registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH));
-  }
 
   public CastingTankBlock(Properties properties) {
-    this(properties, PushReaction.BLOCK);
+    super(properties);
+    registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH));
   }
 
   @Override
@@ -73,11 +68,6 @@ public class CastingTankBlock extends InventoryBlock implements ITankBlock, Enti
     return false;
   }
 
-  @Override
-  public PushReaction getPistonPushReaction(BlockState pState) {
-    return pushReaction;
-  }
-
   @Deprecated
   @Override
   public float getShadeBrightness(BlockState state, BlockGetter worldIn, BlockPos pos) {
@@ -98,8 +88,8 @@ public class CastingTankBlock extends InventoryBlock implements ITankBlock, Enti
     }
 
     BlockEntity te = world.getBlockEntity(pos);
-    if (te instanceof CastingTankBlockEntity) {
-      ((CastingTankBlockEntity) te).interact(player, hand, hit);
+    if (te instanceof CastingTankBlockEntity castingTank) {
+      castingTank.interact(player, hand, hit);
       return InteractionResult.SUCCESS;
     }
 
@@ -119,9 +109,10 @@ public class CastingTankBlock extends InventoryBlock implements ITankBlock, Enti
   @Override
   public void setPlacedBy(Level worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
     CompoundTag nbt = stack.getTag();
-    if (nbt != null) {
-      BlockEntityHelper.get(CastingTankBlockEntity.class, worldIn, pos).ifPresent(te -> te.updateTank(nbt.getCompound(NBTTags.TANK)));
+    if (nbt != null && worldIn.getBlockEntity(pos) instanceof CastingTankBlockEntity tank) {
+      tank.updateTank(nbt.getCompound(NBTTags.TANK));
     }
+
     super.setPlacedBy(worldIn, pos, state, placer, stack);
   }
 

@@ -12,7 +12,7 @@
   ],
   "ingredient": {
     "type": "tconstruct:no_container",
-    "item": "tconstruct:casting_tank"
+    "item": "tconstruct:seared_casting_tank"
   },
   "result": {
     "amount": 90,

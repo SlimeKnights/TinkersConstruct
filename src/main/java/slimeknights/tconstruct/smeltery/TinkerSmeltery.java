@@ -239,7 +239,7 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final ItemObject<ChannelBlock> searedChannel = BLOCKS.register("seared_channel", () -> new ChannelBlock(SEARED_NON_SOLID), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<CastingBasinBlock> searedBasin = BLOCKS.register("seared_basin", () -> new CastingBasinBlock(SEARED_NON_SOLID, false), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<CastingTableBlock> searedTable = BLOCKS.register("seared_table", () -> new CastingTableBlock(SEARED_NON_SOLID, false), TOOLTIP_BLOCK_ITEM);
-  public static final ItemObject<CastingTankBlock> castingTank = BLOCKS.register("casting_tank", () -> new CastingTankBlock(SEARED_NON_SOLID, PushReaction.DESTROY), b -> new TankItem(b, ITEM_PROPS, true));
+  public static final ItemObject<CastingTankBlock> searedCastingTank = BLOCKS.register("seared_casting_tank", () -> new CastingTankBlock(SEARED_NON_SOLID), b -> new TankItem(b, ITEM_PROPS, true));
   // scorched
   public static final EnumObject<TankType,SearedTankBlock> scorchedTank = BLOCKS.registerEnum("scorched", SearedTankBlock.TankType.values(), type -> new SearedTankBlock(SCORCHED_NON_SOLID, type.getCapacity(), PushReaction.DESTROY), b -> new TankItem(b, ITEM_PROPS, true));
   public static final ItemObject<SearedLanternBlock> scorchedLantern = BLOCKS.register("scorched_lantern", () -> new SearedLanternBlock(SCORCHED_LANTERN, FluidValues.LANTERN_CAPACITY), b -> new TankItem(b, ITEM_PROPS, false));
@@ -307,7 +307,7 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final RegistryObject<BlockEntityType<CastingBlockEntity>> basin = BLOCK_ENTITIES.register("basin", CastingBlockEntity.Basin::new, set -> set.add(searedBasin.get(), scorchedBasin.get()));
   public static final RegistryObject<BlockEntityType<CastingBlockEntity>> table = BLOCK_ENTITIES.register("table", CastingBlockEntity.Table::new, set -> set.add(searedTable.get(), scorchedTable.get()));
   // casting tank
-  public static final RegistryObject<BlockEntityType<CastingTankBlockEntity>> castingTankBE = BLOCK_ENTITIES.register("casting_tank", CastingTankBlockEntity::new, set -> set.add(castingTank.get()));
+  public static final RegistryObject<BlockEntityType<CastingTankBlockEntity>> castingTank = BLOCK_ENTITIES.register("casting_tank", CastingTankBlockEntity::new, set -> set.add(searedCastingTank.get()));
 
   /*
    * Items
@@ -475,7 +475,7 @@ public final class TinkerSmeltery extends TinkerModule {
     output.accept(scorchedBasin);
     output.accept(TinkerCommons.goldPlatform, TabVisibility.PARENT_TAB_ONLY);
 
-    output.accept(castingTank);
+    output.accept(searedCastingTank);
 
     // cannons
     output.accept(searedFluidCannon);
