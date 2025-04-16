@@ -2260,7 +2260,7 @@
   "modifier.tconstruct.soul_belt": "ソウルベルト",
   "modifier.tconstruct.soul_belt.flavor": "ソウルパンツを維持する！",
   "modifier.tconstruct.soul_belt.description": "ホットバーのアイテムは死亡時にもインベントリに残る！",
-  "modifier.tconstruct.soul_belt.requirements": "ソウルベルトを適用するにはソウルバウンドが必要する",
+  "modifier.tconstruct.soul_belt.requirements": "ソウルベルトを適用するにはソウルバウンドが必要です",
   "modifier.tconstruct.swift_sneak": "高速スニーク",
   "modifier.tconstruct.swift_sneak.flavor": "より速いスニーク！",
   "modifier.tconstruct.swift_sneak.description": "スニーク状態の移動速度が増加する",
