@@ -6,7 +6,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -14,7 +13,6 @@ import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -37,8 +35,6 @@ import slimeknights.mantle.fluid.FluidTransferHelper;
 import slimeknights.mantle.fluid.transfer.FluidContainerTransferManager;
 import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.network.InventorySlotSyncPacket;
-import slimeknights.tconstruct.common.network.TinkerNetwork;
 import slimeknights.tconstruct.library.client.model.ModelProperties;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.utils.NBTTags;
@@ -114,16 +110,22 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
 
     ItemStack input = getItem(INPUT);
     ItemStack output = getItem(OUTPUT);
-    ItemStack held = player.getItemInHand(hand);
-    // if the held item can be placed inside, do so
-    if (canPlaceItem(INPUT, held)) {
-      setItem(INPUT, held.split(1));
+    ItemStack heldCopy = player.getItemInHand(hand).copy();
+
+    // if there is an item in the output slot, take it
+    if (!output.isEmpty()) {
+      setItem(OUTPUT, ItemStack.EMPTY);
+      ItemHandlerHelper.giveItemToPlayer(player, output, player.getInventory().selected);
     // otherwise, interact with the tank
-    } else if (!FluidTransferHelper.interactWithTank(level, worldPosition, player, hand, hit)) {
-      // if the tank wasn't interacted with
-      if (!output.isEmpty()) {
-        setItem(OUTPUT, ItemStack.EMPTY);
-        ItemHandlerHelper.giveItemToPlayer(player, output, player.getInventory().selected);
+    } else if (!FluidTransferHelper.interactWithTank(level, worldPosition, player, hand, hit)
+      // even if we did "interact" with the tank, still need to check whether the item actually changed
+      || ItemStack.isSameItemSameTags(heldCopy, player.getItemInHand(hand))) {
+
+      // if the tank wasn't interacted with, first try to place a held item in the input
+      ItemStack held = player.getItemInHand(hand);
+      if (canPlaceItem(INPUT, held)) {
+        setItem(INPUT, held.split(1));
+        // otherwise, try to take the item from the input slot
       } else if (!input.isEmpty()) {
         setItem(INPUT, ItemStack.EMPTY);
         ItemHandlerHelper.giveItemToPlayer(player, input, player.getInventory().selected);

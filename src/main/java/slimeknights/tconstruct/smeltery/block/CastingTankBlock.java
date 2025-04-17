@@ -99,8 +99,8 @@ public class CastingTankBlock extends InventoryBlock implements ITankBlock, Enti
   @Override
   public int getLightEmission(BlockState state, BlockGetter world, BlockPos pos) {
     BlockEntity te = world.getBlockEntity(pos);
-    if (te instanceof ITankBlockEntity) {
-      FluidStack fluid = ((ITankBlockEntity) te).getTank().getFluid();
+    if (te instanceof ITankBlockEntity tankBlockEntity) {
+      FluidStack fluid = tankBlockEntity.getTank().getFluid();
       return fluid.getFluid().getFluidType().getLightLevel(fluid);
     }
     return super.getLightEmission(state, world, pos);
