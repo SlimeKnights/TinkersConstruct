@@ -285,10 +285,10 @@
 
   "pattern.tconstruct.repair_kit": "リペアキット",
   "pattern.tconstruct.plating": "プレート",
-  "pattern.tconstruct.helmet_plating": "ヘルメットプレート",
-  "pattern.tconstruct.chestplate_plating": "チェストプレート",
-  "pattern.tconstruct.leggings_plating": "レッグプレート",
-  "pattern.tconstruct.boots_plating": "ブーツプレート",
+  "pattern.tconstruct.helmet_plating": "ヘルメット用プレート",
+  "pattern.tconstruct.chestplate_plating": "チェスト用プレート",
+  "pattern.tconstruct.leggings_plating": "レッグ用プレート",
+  "pattern.tconstruct.boots_plating": "ブーツ用プレート",
 
   "_comment": "Small Head Patterns",
 
@@ -363,10 +363,10 @@
   "item.tconstruct.tough_handle_cast": "強化持ち手の金型",
 
   "_comment": "Armor Gold Casts",
-  "item.tconstruct.helmet_plating_cast": "ヘルメットプレートの金型",
-  "item.tconstruct.chestplate_plating_cast": "チェストプレートの金型",
-  "item.tconstruct.leggings_plating_cast": "レッグプレートの金型",
-  "item.tconstruct.boots_plating_cast": "ブーツプレートの金型",
+  "item.tconstruct.helmet_plating_cast": "ヘルメット用プレートの金型",
+  "item.tconstruct.chestplate_plating_cast": "チェスト用プレートの金型",
+  "item.tconstruct.leggings_plating_cast": "レッグ用プレートの金型",
+  "item.tconstruct.boots_plating_cast": "ブーツ用プレートの金型",
   "item.tconstruct.maille_cast": "鎖環の金型",
 
   "_comment": "Tinkers Sand Casts",
@@ -412,10 +412,10 @@
 
   "_comment": "Armor Sand Casts",
 
-  "item.tconstruct.helmet_plating_sand_cast": "ヘルメットプレートの砂型",
-  "item.tconstruct.chestplate_plating_sand_cast": "チェストプレートの砂型",
-  "item.tconstruct.leggings_plating_sand_cast": "レッグプレートの砂型",
-  "item.tconstruct.boots_plating_sand_cast": "ブーツプレートの砂型",
+  "item.tconstruct.helmet_plating_sand_cast": "ヘルメット用プレートの砂型",
+  "item.tconstruct.chestplate_plating_sand_cast": "チェスト用プレートの砂型",
+  "item.tconstruct.leggings_plating_sand_cast": "レッグ用プレートの砂型",
+  "item.tconstruct.boots_plating_sand_cast": "ブーツ用プレートの砂型",
   "item.tconstruct.maille_sand_cast": "鎖環の砂型",
 
   "_comment": "Tinkers Red Sand Casts",
@@ -461,10 +461,10 @@
 
   "_comment": "Armor Red Sand Casts",
 
-  "item.tconstruct.helmet_plating_red_sand_cast": "ヘルメットプレートの赤い砂型",
-  "item.tconstruct.chestplate_plating_red_sand_cast": "チェストプレートの赤い砂型",
-  "item.tconstruct.leggings_plating_red_sand_cast": "レッグプレートの赤い砂型",
-  "item.tconstruct.boots_plating_red_sand_cast": "ブーツプレートの赤い砂型",
+  "item.tconstruct.helmet_plating_red_sand_cast": "ヘルメット用プレートの赤い砂型",
+  "item.tconstruct.chestplate_plating_red_sand_cast": "チェスト用プレートの赤い砂型",
+  "item.tconstruct.leggings_plating_red_sand_cast": "レッグ用プレートの赤い砂型",
+  "item.tconstruct.boots_plating_red_sand_cast": "ブーツ用プレートの赤い砂型",
   "item.tconstruct.maille_red_sand_cast": "鎖環の赤い砂型",
 
   "_comment": "Tinkers Fluids",
@@ -1088,14 +1088,14 @@
   "item.tconstruct.bow_grip": "弓柄",
   "item.tconstruct.bowstring": "弓弦",
 
-  "item.tconstruct.helmet_plating": "ヘルメットプレート",
-  "item.tconstruct.chestplate_plating": "チェストプレート",
-  "item.tconstruct.leggings_plating": "レッグプレート",
-  "item.tconstruct.boots_plating": "ブーツプレート",
-  "item.tconstruct.helmet_plating_dummy": "石のヘルメットプレート",
-  "item.tconstruct.chestplate_plating_dummy": "石のレッグプレート",
-  "item.tconstruct.leggings_plating_dummy": "石のレッグプレート",
-  "item.tconstruct.boots_plating_dummy": "石のブーツプレート",
+  "item.tconstruct.helmet_plating": "ヘルメット用プレート",
+  "item.tconstruct.chestplate_plating": "チェスト用プレート",
+  "item.tconstruct.leggings_plating": "レッグ用プレート",
+  "item.tconstruct.boots_plating": "ブーツ用プレート",
+  "item.tconstruct.helmet_plating_dummy": "石のヘルメット用プレート",
+  "item.tconstruct.chestplate_plating_dummy": "石のチェスト用プレート",
+  "item.tconstruct.leggings_plating_dummy": "石のレッグ用プレート",
+  "item.tconstruct.boots_plating_dummy": "石のブーツ用プレート",
   "item.tconstruct.maille": "鎖環",
   "item.tconstruct.shield_core": "シールドコア",
 
@@ -2843,12 +2843,12 @@
   "tool_stat.tconstruct.attack_damage.description": "攻撃力計算の基本値。\n最終的な値は、他の構成や改造等によって変わる。",
 
   "stat.tconstruct.plating": "プレート",
-  "stat.tconstruct.plating_armor": "アーマープレート",
-  "stat.tconstruct.plating_helmet": "ヘルメットプレート",
-  "stat.tconstruct.plating_chestplate": "チェストプレート",
-  "stat.tconstruct.plating_leggings": "レッグプレート",
-  "stat.tconstruct.plating_boots": "ブーツプレート",
-  "stat.tconstruct.plating_shield": "シールドプレート",
+  "stat.tconstruct.plating_armor": "防具用プレート",
+  "stat.tconstruct.plating_helmet": "ヘルメット用プレート",
+  "stat.tconstruct.plating_chestplate": "チェスト用プレート",
+  "stat.tconstruct.plating_leggings": "レッグ用プレート",
+  "stat.tconstruct.plating_boots": "ブーツ用プレート",
+  "stat.tconstruct.plating_shield": "シールド用プレート",
   "stat.tconstruct.shield_core": "シールドコア",
   "stat.tconstruct.maille": "鎖環",
   "tool_stat.tconstruct.armor": "防具: ",
