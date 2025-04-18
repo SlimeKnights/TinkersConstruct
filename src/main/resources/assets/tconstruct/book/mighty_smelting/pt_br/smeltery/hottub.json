@@ -1,0 +1,13 @@
+{
+  "title": "Banheira de Hidromassagem",
+  "image": {
+	"file": "tconstruct:book/images/hottub.png",
+    "width": 120,
+    "height": 120
+  },
+  "text": [
+    {
+      "text": "Quer se juntar a mim?"
+    }
+  ]
+}

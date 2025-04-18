@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:spitting",
+  "text": [
+    {
+      "text": "Nunca entre em um concurso de cuspe com uma lhama"
+    }
+  ],
+  "effects": [
+    "Carregue para disparar fluido na direção mirada",
+    "Níveis mais altos lançam mais projéteis",
+    "Requer 1 slot de habilidade por nível"
+  ]
+}

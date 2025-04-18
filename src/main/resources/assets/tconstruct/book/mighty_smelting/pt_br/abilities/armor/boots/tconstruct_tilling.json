@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:tilling",
+  "text": [
+    {
+      "text": "Já precisou criar uma fazenda grande? Tipo, REALMENTE GRANDE? Bom, agora você pode."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/armor/boots",
+  "effects": [
+    "Cria terras aradas por onde você andar",
+    "Pode aumentar a área através de expansores",
+    "Nível único",
+    "Requer 1 slot de habilidade"
+  ]
+}

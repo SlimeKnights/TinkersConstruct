@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:long_fall",
+  "text": [
+    {
+      "text": "Vá em frente e tente cair de cabeça. Ha! Você não consegue!"
+    }
+  ],
+  "effects": [
+    "Previne todos os danos de queda",
+    "Requer Queda Suave IV",
+    "Nível único",
+    "Requer 1 slot de habilidade"
+  ]
+}

@@ -1,11 +1,13 @@
 {
   "title": "Controlador da Fundição",
   "image": {
-    "file": "tconstruct:book/images/scontroller.png"
+    "file": "tconstruct:book/images/scontroller.png",
+    "width": 128,
+    "height": 64
   },
   "text": [
     {
-      "text": "Usando seu fundidor, despeje quatro lingotes de cobre em um aquecedor para obter seu controlador de fundição."
+      "text": "Usando seu fundidor, despeje quatro lingotes de cobre em tijolos carbonizados para obter seu controlador de fundição."
     }
   ]
 }

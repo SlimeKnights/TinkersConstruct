@@ -6,9 +6,10 @@
     }
   ],
   "effects": [
-    "Aumenta os drops de criaturas e de blocos",
-    "Máximo de 3 niveis, receitas diferentes para cada nivel",
-    "Receita diferente para as calças",
-    "Primeiro nivel requer 1 slot de habilidade"
+    "Aumenta os drops de mobs e de blocos",
+    "Máximo de 3 níveis, receitas diferentes para cada nível",
+    "Nas calças, aumenta os drops da ferramenta segurada, máximo é 1 nível,",
+    "Primeiro nível requer 1 slot de habilidade"
   ]
 }
+

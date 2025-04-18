@@ -3,12 +3,13 @@
   "item": "tconstruct:seared_glass",
   "text": [
     {
-      "text": "Um jeito de olhar para suas grandes maravilhas de materiais fundidos sem ter que invalidar sua poderosa fundição pode ser feito através do posicionamento deste vidro. Note que ele não armazena fluido ao contrário dos tanques.",
+      "text": "Para observar suas maravilhas de materiais sendo derretidos, e sem invalidar sua fundição, você pode usar este vidro. Note que ele não armazena fluidos, diferente dos tanques.",
       "paragraph": true
     },
-	{
-      "text": "O vidro não pode ser usado como piso da fundição.",
+    {
+      "text": "O vidro não pode ser usado no piso da fundição.",
       "paragraph": true
     }
   ]
 }
+

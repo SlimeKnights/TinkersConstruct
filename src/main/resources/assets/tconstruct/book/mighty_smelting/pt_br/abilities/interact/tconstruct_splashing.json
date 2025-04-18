@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:splashing",
+  "text": [
+    {
+      "text": "Olha, uma festa na piscina, mas sem a piscina."
+    },
+    {
+      "text": "Clicar com o botão direito em um tanque com a ferramenta o enche.", "paragraph": true
+    }
+  ],
+  "effects": [
+    "Drena fluido ao interagir",
+    "Vários efeitos baseados no fluido, incluindo fogo e veneno",
+    "Requer 1 slot de habilidade por nível"
+  ]
+}

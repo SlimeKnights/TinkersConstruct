@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:soul_belt",
+  "text": [
+    {
+      "text": "Mantenha seus amigos por perto e suas ferramentas mais perto ainda."
+    }
+  ],
+  "effects": [
+    "Os itens da Hotbar permanecerão com você após morrer",
+    "Nível único",
+    "Requer 1 slot de habilidade"
+  ]
+}

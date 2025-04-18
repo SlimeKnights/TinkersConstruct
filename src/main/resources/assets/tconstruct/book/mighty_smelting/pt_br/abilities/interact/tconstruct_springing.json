@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:springing",
+  "text": [
+    {
+      "text": "A primeira parte do horário de verão."
+    }
+  ],
+  "effects": [
+    "Carregue para se lançar na direção que você está olhando",
+    "Pode aumentar a velocidade de lançamento com poder ou repulsão",
+    "Nível único",
+    "Requer 1 slot de habilidade"
+  ]
+}

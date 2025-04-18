@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:bulk_quiver",
+  "text": [
+    {
+      "text": "Colocar uma aljava em suas costas é superestimado."
+    }
+  ],
+  "effects": [
+ "Permite que seu arco armazene flechas",
+ "Acesso por meio de esgueiramento e ataque",
+ "Múltiplos níveis, cada nível aumenta o tamanho do armazenamento",
+ "Requer 1 slot de habilidade por nível"
+  ]
+}

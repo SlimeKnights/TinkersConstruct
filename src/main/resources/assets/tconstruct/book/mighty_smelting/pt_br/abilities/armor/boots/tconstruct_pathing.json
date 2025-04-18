@@ -7,8 +7,8 @@
   ],
   "effects": [
     "Cria caminhos por onde você andar",
-    "Area aumentada através de expansores",
-    "Máximo de 1 nivel",
+    "Pode aumentar a área através de expansores",
+    "Nível único",
     "Requer 1 slot de habilidade"
   ]
 }
