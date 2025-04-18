@@ -1,5 +1,5 @@
 {
-  "title": "Estação Tinker",
+  "title": "Estação do Tinker",
   "image": {
     "file": "tconstruct:book/images/tinkerstation.png",
     "width": 135,
@@ -7,8 +7,9 @@
   },
   "text": [
     {
-      "text": "Coloque isto aqui, e aquilo ali, e oh isto é ao contrário. É melhor continuar tinkerando.",
+      "text": "Coloque isso aqui, aquilo ali e, óh!, isso é ao contrário. É melhor continuar tinkerando.",
       "paragraph": true
     }
 	]
 }
+

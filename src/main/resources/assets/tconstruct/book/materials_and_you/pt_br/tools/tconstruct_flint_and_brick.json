@@ -8,11 +8,11 @@
       "text": "\n"
     },
     {
-      "text": "Ao contrário da maioria das outras ferramentas, ela é fabricada em uma estação de fabricação de artesanato ou mesa de fabricação."
+      "text": "Ao contrário da maioria das outras ferramentas, ela é fabricada em uma estação de fabricação de ou mesa de trabalho."
     }
   ],
   "properties": [
-    "Cria Fogo",
+    "Cria chamas",
     "Começa com ardente 1",
     "Reparado usando tijolos queimados ou chamuscados"
   ]

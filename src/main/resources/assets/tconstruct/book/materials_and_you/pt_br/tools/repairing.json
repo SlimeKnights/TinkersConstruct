@@ -11,16 +11,23 @@
           "tic_display": true,
           "Damage": 70,
           "tic_materials": [
-            "tconstruct:ui_render_head",
-            "tconstruct:ui_render_handle",
-            "tconstruct:ui_render_extra"
+            "tconstruct:ui_render#head",
+            "tconstruct:ui_render#handle",
+            "tconstruct:ui_render#extra"
           ],
           "tic_stats": {
             "tconstruct:durability": 100
           }
         }
       },
-      "tconstruct:repair_kit"
+      {
+        "type": "forge:nbt",
+        "item": "tconstruct:repair_kit",
+        "nbt": {
+          "tic_display": true,
+          "Material": "tconstruct:ui_render#head"
+        }
+      }
     ]
   ],
   "result": {
@@ -31,17 +38,16 @@
       "tic_display": true,
       "Damage": 10,
       "tic_materials": [
-        "tconstruct:ui_render_head",
-        "tconstruct:ui_render_handle",
-        "tconstruct:ui_render_extra"
+        "tconstruct:ui_render#head",
+        "tconstruct:ui_render#handle",
+        "tconstruct:ui_render#extra"
       ],
       "tic_stats": { "tconstruct:durability": 100 }
     }
   },
   "description": [
     {
-      "text": "Reparar sua ferramenta é uma coisa importante a se fazer, a menos que você queira que ela quebre. Na Estação Tinker ou na Bigorna Tinker coloque a ferramenta e o material da cabeça/placa e ela será reparada. Como alternativa, você pode usar kits de reparo, que funcionam em mesas de fabricação!",
-      "paragraph": true
+      "text": "Para reparar ferramentas, basta colocar a ferramenta na Estação do Tinker ou na Bigorna do Tinker com o material da cabeça.  Como alternativa, você pode usar kits de reparo, que funcionam tanto nas mesas de trabalho quanto ao clicar com o botão direito diretamente na ferramenta!"
     }
 	]
 }
