@@ -1,8 +1,8 @@
 {
   "tool": "tconstruct:flint_and_brick",
   "text": [
-    { "text": "O Isqueiro Tinker é uma ferramenta de mão inicial para um piromaniaco." },
-    { "text": "Expansor aumenta o raio de fogo, que é aumentado ainda mais com o maçarico.", "paragraph": true }
+    { "text": "O Isqueiro do Tinker é uma ferramenta portátil e ideal para o começo de um piromaniaco." },
+    { "text": "O expansor aumenta o raio do fogo, que é aumentado ainda mais com o maçarico.", "paragraph": true }
   ],
   "properties": [
     "+0 Dano de Ataque",

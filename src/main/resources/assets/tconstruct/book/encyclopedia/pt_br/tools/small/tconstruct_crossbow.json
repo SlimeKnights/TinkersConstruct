@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:crossbow",
+  "text": [
+    { "text": "A Besta é uma arma rápida de longo alcance, capaz de disparar tanto flechas quanto fogos de artifício. As flechas podem ser carregadas na besta e disparadas em um momento posterior." },
+    { "text": "Ao usar modificadores de interação, a besta age com o clique esquerdo.", "paragraph": true }
+  ],
+  "properties": [
+    "1.0 Velocidade de Ataque",
+    "1.0 Velocidade de Puxada",
+    "1.00 Velocidade da Flecha",
+    "0.75 Precisão",
+    "200% de Durabilidade Multiplicada"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:multishot",
+  "text": [
+    {
+      "text": "Permite disparar 2 flechas adicionais por nível. A posição das flechas extras pode variar dependendo do arco."
+    },
+    {
+      "text": "É necessário ter flechas extras no inventário para dispará-las. Se houver poucas flechas, o arco disparará menos.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Sem nível máximo",
+    "Requer 1 slot de habilidade por nível"
+  ]
+}

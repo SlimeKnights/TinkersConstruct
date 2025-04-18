@@ -1,7 +1,9 @@
 {
   "title": "Habilidades de Armas",
   "text": [
-    { "text": "As habilidades de armas são mais eficazes em ferramentas construídas para o combate, seja uma espada ou uma ferramenta de coleta reformulada." },
-    { "text": "Algumas habilidades de armas também funcionam em peitorais, exigindo que o modificador desarmado seja aplicado primeiro. Isto só afetará os ataques realizados a partir de uma mão vazia.", "paragraph": true }
+    { "text": "As habilidades de armas são mais eficazes em ferramentas construídas para combate, seja uma espada ou uma ferramenta de coleta reformulada." },
+    { "text": "Os modificadores de armas aplicados a armas de longo alcance só afetarão o uso do arco em combate, a menos que especificado de outra forma.", "paragraph": true },
+    { "text": "Algumas habilidades de armas também funcionam em peitorais. Elas só afetarão os ataques realizados com a mão vazia.", "paragraph": true }
   ]
 }
+

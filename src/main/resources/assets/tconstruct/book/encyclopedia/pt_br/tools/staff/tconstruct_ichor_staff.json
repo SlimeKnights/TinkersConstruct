@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:ichor_staff",
+  "text": [
+    { "text": "O Cajado de Icor é uma variante de cajado com alta capacidade de slots de habilidade e velocidade." }
+  ],
+  "properties": [
+    "1225 de Durabilidade",
+    "1.2 de Velocidade",
+    "0.75 de Velocidade de Puxada",
+    "2 Slots de Melhoria",
+    "3 Slots de Habilidade"
+  ]
+}
+

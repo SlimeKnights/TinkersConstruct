@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:long_fall",
+  "text": [
+    {
+      "text": "Neutraliza todo o dano de queda."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Máximo de 1 nível",
+    "Requer Queda Suave IV",
+    "Requer 1 slot de habilidade"
+  ]
+}
+

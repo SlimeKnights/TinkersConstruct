@@ -7,7 +7,8 @@
   ],
   "more_text_space": true,
   "effects": [
-    "Máximo de 1 nivel por peça",
-    "Requer 1 slot de defesa"
+    "Máximo de 1 nível por peça",
+    "Requer 1 slot de defesa",
+    "Não funciona em armaduras de placas"
   ]
 }

@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:smelting",
+  "text": [
+    {
+      "text": "Cozinha os itens dentro da ferramenta quando ela é usada como arma, para minerar blocos, disparar flechas ou bloquear dano. Cozinha 1 item por vez."
+    },
+    {
+      "text": "O inventário pode ser aberto ao se esgueirar enquanto interage.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Requer 1 slot de melhoria"
+  ]
+}

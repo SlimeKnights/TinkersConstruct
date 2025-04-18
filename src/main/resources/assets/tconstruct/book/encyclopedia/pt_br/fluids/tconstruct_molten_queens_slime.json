@@ -1,0 +1,11 @@
+{
+  "text": "Às vezes, você só quer explodir seus inimigos sem destruir seu mundo.",
+  "entity": [
+    "Explosão Nível 2",
+    "Até 3 de Dano por Explosão"
+  ],
+  "block": [
+    "Explosão ignora blocos",
+    "Explosão causa incêndios"
+  ]
+}

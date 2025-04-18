@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:swasher",
+  "text": [
+    { "text": "O esguichador é uma combinação de uma arma corpo a corpo e uma pistola de fluido portátil. É frequentemente encontrado em tesouros enterrados e naufrágios, nas mãos de afogados, e às vezes capturado ao pescar." }
+  ],
+  "properties": [
+    "+0 Dano de Ataque",
+    "1.5 Velocidade de Ataque",
+    "Cuspir I",
+    "Derramar I",
+    "3 Slots de Melhoria",
+    "1 Slot de Habilidade"
+  ]
+}

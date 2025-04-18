@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:melting_pan",
+  "text": [
+    { "text": "A frigideira derretedora minera blocos derretíveis e também funciona como um cajado. Pode ser encontrada em masmorras, iglus, com zumbis-múmias e como um presente de ferreiros de ferramentas após derrotar uma invasão." },
+    { "text": "Expansores mineram vários blocos do mesmo tipo, com alcance baseado no nível.", "paragraph": true }
+  ],
+  "properties": [
+    "6 de Velocidade de Mineração",
+    "Nível de Coleta de Pedra",
+    "10% de Resistência a Repulsão",
+    "Derretimento+",
+    "1 Slot de Defesa",
+    "1 Slot de Melhoria",
+    "2 Slots de Habilidade"
+  ]
+}

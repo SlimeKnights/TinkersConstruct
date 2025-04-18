@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:blocking",
+  "text": [
+    {
+      "text": "Permite usar a ferramenta como um escudo, bloqueando vários tipos de ataques. Geralmente pode bloquear enquanto carrega a ferramenta."
+    },
+    {
+      "text": "A maioria das ferramentas pode bloquear até 5 de dano, mas algumas (como cajados) podem bloquear entre 15 e 20 de dano."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Nível único",
+    "Requer 1 slot de habilidade"
+  ]
+}

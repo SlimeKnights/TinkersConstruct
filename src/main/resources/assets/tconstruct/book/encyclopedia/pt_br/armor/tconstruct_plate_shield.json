@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:plate_shield",
+  "text": [
+    { "text": "O Escudo de Placa é um escudo altamente defensivo, concedendo alto poder de bloqueio ao custo de velocidade enquanto bloqueia." }
+  ],
+  "properties": [
+    "Status controlados pelo material",
+    "Bloqueia 100 de dano",
+    "Ângulo de bloqueio de 180°",
+    "20% de velocidade de bloqueio",
+    "2 Slots de Melhoria",
+    "4 Slots de Defesa",
+    "1 Atributo de Material"
+  ]
+}

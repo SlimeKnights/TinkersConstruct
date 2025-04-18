@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:power",
+  "text": [
+    {
+      "text": "Aumenta o poder do projétil em 0,5 por nível, mais um bônus de 0,5 no primeiro nível."
+    },
+    {
+      "text": "Torna arremessos, saltos, pancadas e teletransportes 25% mais eficazes por nível.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Pode aplicar níveis progressivamente",
+    "Máximo de 5 níveis",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

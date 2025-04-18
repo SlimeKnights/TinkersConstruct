@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:scope",
+  "text": [
+    {
+      "text": "Amplia objetos distantes conforme o arco se retrai. Acaba ficando um pouco menor que uma luneta quando totalmente puxado."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Nível único",
+    "Requer 1 slot de melhoria"
+  ]
+}

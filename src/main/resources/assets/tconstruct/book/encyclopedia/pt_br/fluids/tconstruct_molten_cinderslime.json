@@ -1,0 +1,11 @@
+{
+  "text": "O Slime-de-Brasa flui na direção errada, e sua explosão também.",
+  "entity": [
+    "Explosão Nível 2",
+    "Até 3 de Dano por Explosão",
+    "Repulsão invertida da explosão"
+  ],
+  "block": [
+    "Explosão quebra blocos"
+  ]
+}
