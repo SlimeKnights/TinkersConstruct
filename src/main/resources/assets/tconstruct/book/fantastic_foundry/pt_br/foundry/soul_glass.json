@@ -1,0 +1,14 @@
+{
+  "title": "Vidro da Alma Chamuscado",
+  "item": "tconstruct:scorched_soul_glass",
+  "text": [
+    {
+      "text": "Olhar não é o bastante? Quer tocar nos metais derretidos? Nadar neles? O vidro da alma cria uma barreira que você pode atravessar, mas os fluidos não.",
+      "paragraph": true
+    },
+    {
+      "text": "O vidro não pode ser usado no piso da fundição.",
+      "paragraph": true
+    }
+  ]
+}

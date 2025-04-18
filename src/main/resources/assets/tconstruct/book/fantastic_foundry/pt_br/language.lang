@@ -6,8 +6,15 @@ foundry=Fundição
 
 blazing_blood=Sangue de Blaze
 
-armor=Armadura de Placas
-armor.subtext=A armadura é fabricada na Estação de Fabricação ao invés da Estação Tinker ou da Bigorna. A poderosa armadura de placa ostenta uma alta defesa, porém é menos modificável. Quem precisa de recursos extras quando você esta protegido por uma armadura de placas?
+armor=Armadura Fantástica
+armor.subtext=Usar recursos do Nether permite fabricar armaduras de nível superior. Por exemplo, a poderosa armadura de placas ostenta uma alta defesa, porém é menos modificável. Quem precisa de recursos extras quando se tem a proteção dessa armadura?
 
-materials=Materiais Nivel 4
-materials.subtext=Materiais que requerem sangue de blaze para sua fabricação
+melee_harvest_materials=Materiais de Coleta e Combate de Tier 4
+melee_harvest_materials.subtext=Esses materiais requerem sangue de blaze para serem fabricados e podem ser usados para criar partes de ferramentas para armas de combate ou ferramentas de coleta.  
+
+ranged_materials=Materiais de Longo Alcance de Tier 4
+ranged_materials.subtext=Esses materiais requerem sangue de blaze para serem fabricados e podem ser usados para criar partes de ferramentas para armas de longo alcance, como arcos.  
+
+armor_materials=Materiais de Armadura de Tier 4
+armor_materials.subtext=Esses materiais podem ser fundidos em armaduras e escudos. 
+
