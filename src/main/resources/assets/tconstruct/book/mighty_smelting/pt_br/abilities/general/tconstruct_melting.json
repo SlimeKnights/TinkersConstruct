@@ -9,7 +9,7 @@
     }
   ],
   "effects": [
-    "Derrete os mobs atacadas no tanque da ferramenta",
+    "Derrete os mobs atacados no tanque da ferramenta",
     "Itens dropados também são derretidos, se possível",
     "A ferramenta pode ser esvaziada em um tanque ou em um dreno de fundição",
     "Requer 1 slot de habilidade, nível único"

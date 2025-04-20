@@ -11,7 +11,7 @@
   "tooltip": [ "Ícone de Sem Slot" ],
   "text": [
     {
-      "text": "Modificadores sem slot não exigem slots, ao contrário de todos os outros tipos de modificadores. Isso geralmente significa que o modificador tem alguma compensação ou o efeito é menor."
+      "text": "Os modificadores sem slot não exigem slots, ao contrário de todos os outros tipos de modificadores. Isso geralmente significa que o modificador tem alguma compensação ou o efeito é menor."
     },
     {
       "text": "Um tipo notável de modificadores sem slot são os modificadores de bônus, que concedem slots de adicionais de modificadores. Muitos existem para conceder mais slots de melhoria, e me disseram que alguns até existem para conceder mais slots de habilidade."

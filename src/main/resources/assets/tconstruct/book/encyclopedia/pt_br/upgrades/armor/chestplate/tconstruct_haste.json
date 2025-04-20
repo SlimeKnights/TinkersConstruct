@@ -8,7 +8,7 @@
   "more_text_space": true,
   "tool_filter": "tconstruct:modifiable/armor",
   "effects": [
-    "Pode aplicar níveis de forma incremental",
+    "Pode aplicar níveis progressivamente",
     "Máximo de 5 níveis",
     "Requer 1 slot de melhoria por nível"
   ]

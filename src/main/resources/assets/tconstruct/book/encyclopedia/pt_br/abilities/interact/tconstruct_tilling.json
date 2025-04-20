@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:tilling",
   "text": [
     {
-      "text": "Permite que a ferramenta cultive a terra, de forma semelhante a chibancas ou foices. As ferramentas usarão sua área de mineração normal para aragem."
+      "text": "Permite o uso da ferramenta para arar a terra, de forma semelhante a chibancas ou foices. As ferramentas usarão sua área de mineração normal para aragem."
     },
     {
       "text": "É ativado antes da criação de caminhos ou remoção de casca nativa da ferramenta, se presente.",

@@ -1,7 +1,7 @@
 {
   "title": "Melhorias Gerais",
   "text": [
-    { "text": "Os modificadores gerais são eficazes em vários tipos de ferramentas, incluindo ferramentas de coleta e armas, bem como armaduras." },
-    { "text": "Alguns modificadores são aplicáveis apenas a armas e coleta, então verifique a lista de ferramentas exibida.", "paragraph": true }
+    { "text": "Os modificadores gerais são eficazes em vários tipos de ferramentas, incluindo ferramentas de coleta e armas de combate, bem como armaduras." },
+    { "text": "Alguns modificadores são aplicáveis apenas a armas de combate e em ferramentas de coletas, então verifique a lista de ferramentas exibida.", "paragraph": true }
   ]
 }

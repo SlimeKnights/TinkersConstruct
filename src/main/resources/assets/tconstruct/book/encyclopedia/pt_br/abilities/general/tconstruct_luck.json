@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:luck",
   "text": [
     {
-      "text": "Aumenta as taxas de drop tanto de blocos (somente para ferramentas de coleta) quanto de monstros. Sorte requer uma receita diferente para cada nível, aplicada em ordem."
+      "text": "Aumenta as taxas de drop tanto de blocos (somente para ferramentas de coleta) quanto de monstros. A 'Sorte' requer uma receita diferente para cada nível, aplicada em ordem."
     },
     {
       "text": "As calças podem receber um único nível de sorte, que aumenta os drops de mobs e de blocos ao usar ferramentas do Tinkers.",
