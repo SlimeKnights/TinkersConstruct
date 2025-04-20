@@ -173,6 +173,7 @@ public final class TinkerCommons extends TinkerModule {
     SlimeBounceHandler.init();
   }
 
+  @SuppressWarnings("removal")
   @SubscribeEvent
   void registerRecipeSerializers(RegisterEvent event) {
     if (event.getRegistryKey() == Registries.RECIPE_SERIALIZER) {

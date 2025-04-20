@@ -349,8 +349,10 @@ public class TinkerTags {
     /** Anything that supports modifiers that grant extra modifiers */
     public static final TagKey<Item> BONUS_SLOTS = local("modifiable/bonus_slots");
 
-    /** Modifiable items that contain multiple parts */
+    /** Modifiable items that contain multiple parts. TODO 1.21: rename to modifiable/parts? */
     public static final TagKey<Item> MULTIPART_TOOL = local("modifiable/multipart");
+    /** Modifiable items that contain exactly 1 tool part, special cased in JEI */
+    public static final TagKey<Item> SINGLEPART_TOOL = local("modifiable/multipart/single");
     /** Modifiable items that can have range increased */
     public static final TagKey<Item> AOE = local("modifiable/aoe");
     /** Tools that use durability and can be repaired. Items in this tag support the {@link ToolStats#DURABILITY} stat. */

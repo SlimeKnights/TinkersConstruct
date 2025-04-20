@@ -11,9 +11,9 @@
       "tconstruct:plating_leggings",
       "tconstruct:plating_boots",
       "tconstruct:plating_shield",
+      "tconstruct:repair_kit",
       "tconstruct:maille",
       "tconstruct:armor_maille",
-      "tconstruct:repair_kit",
       "tconstruct:slimesuit"
     ],
     "transformer": {

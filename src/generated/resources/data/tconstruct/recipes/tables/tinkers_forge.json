@@ -19,7 +19,12 @@
     "s s"
   ],
   "result": {
-    "item": "tconstruct:tinkers_anvil"
+    "item": "tconstruct:tinkers_anvil",
+    "nbt": {
+      "display": {
+        "Name": "{\"translate\":\"block.tconstruct.tool_forge\"}"
+      }
+    }
   },
   "show_notification": true,
   "texture": {

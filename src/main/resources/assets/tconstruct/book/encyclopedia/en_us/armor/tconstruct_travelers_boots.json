@@ -4,13 +4,13 @@
     { "text": "Traveler's Boots are balanced boots, with low protection, and average upgrade and defense slots." }
   ],
   "properties": [
-    "130 Durability",
-    "+1 Armor",
+    "75% Durability Modifier",
+    "75% Plating Stats",
     "3 Upgrade Slots",
-    "2 Defense Slots",
+    "1 Defense Slots",
     "1 Ability Slot",
-    "Insulated",
-    "Tanned",
-    "Can walk on powdered snow"
+    "1 Material Trait",
+    "Insulated & Tanned",
+    "Powdered snow walking"
   ]
 }

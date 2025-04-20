@@ -59,7 +59,10 @@
         "item": "tconstruct:travelers_chestplate",
         "nbt": {
           "tic_broken": false,
-          "tic_display": true
+          "tic_display": true,
+          "tic_materials": [
+            "tconstruct:ui_render#extra_large"
+          ]
         }
       }
     },

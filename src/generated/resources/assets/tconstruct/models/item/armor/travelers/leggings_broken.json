@@ -2,15 +2,24 @@
   "loader": "tconstruct:tool",
   "parent": "forge:item/default",
   "textures": {
-    "tool": "tconstruct:item/tool/armor/travelers/pants_broken"
+    "base": "tconstruct:item/tool/armor/travelers/pants/base_broken",
+    "metal": "tconstruct:item/tool/armor/travelers/pants/metal_broken"
   },
   "modifier_roots": [
-    "tconstruct:item/tool/armor/travelers/pants_modifiers/broken/",
-    "tconstruct:item/tool/armor/travelers/pants_modifiers/"
+    "tconstruct:item/tool/armor/travelers/pants/modifiers/broken/",
+    "tconstruct:item/tool/armor/travelers/pants/modifiers/"
   ],
   "first_modifiers": [
     "tconstruct:dyed",
-    "tconstruct:golden",
     "tconstruct:trim"
+  ],
+  "parts": [
+    {
+      "name": "base"
+    },
+    {
+      "name": "metal",
+      "index": 0
+    }
   ]
 }

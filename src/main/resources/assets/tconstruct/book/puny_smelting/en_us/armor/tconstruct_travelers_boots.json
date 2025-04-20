@@ -7,12 +7,12 @@
     }
   ],
   "properties": [
-    "Low Armor",
-    "Low Durability",
-    "Great in snow",
+    "Lower Armor",
+    "Lower Durability",
     "3 Upgrade Slots",
-    "2 Defense Slots",
+    "1 Defense Slot",
     "1 Ability Slot",
-    "Tanned"
+    "1 Material Trait",
+    "Insulated & Tanned"
   ]
 }

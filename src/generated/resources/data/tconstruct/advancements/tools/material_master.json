@@ -155,6 +155,20 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "debris": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_material",
+              "material": "tconstruct:debris"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "enderslime_vine": {
       "conditions": {
         "items": [
@@ -555,6 +569,9 @@
     ],
     [
       "blazewood"
+    ],
+    [
+      "debris"
     ],
     [
       "ancient_hide"

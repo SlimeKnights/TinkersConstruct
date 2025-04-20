@@ -1,9 +1,11 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "tconstruct:crafting_shaped_material",
   "category": "equipment",
   "key": {
     "c": {
-      "tag": "forge:ingots/copper"
+      "type": "tconstruct:material_value",
+      "stat_type": "tconstruct:plating_chestplate",
+      "value": 1.0
     },
     "l": {
       "tag": "forge:leather"

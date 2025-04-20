@@ -294,6 +294,10 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .fallbacks("wood", "stick")
       .transformer(transformerFromSprite(getResource("block/wood/blazewood"), 7, 0));
     IColorMapping ancientDebrisPalette = GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF24110B).addARGB(102, 0xFF411E15).addARGB(140, 0xFF4A281D).addARGB(178, 0xFF654740).addARGB(216, 0xFF7E6059).addARGB(255, 0xFF95867E).build();
+    buildMaterial(MaterialIds.debris)
+      .plating()
+      .fallbacks("rock")
+      .colorMapper(ancientDebrisPalette);
     buildMaterial(MaterialIds.ancientHide)
       .fallbacks("cloth")
       .statType(StatlessMaterialStats.BINDING.getIdentifier()).maille()
@@ -310,7 +314,6 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF752802).addARGB(102, 0xFFB26411).addARGB(140, 0xFFE9B115).addARGB(178, 0xFFFAD64A).addARGB(216, 0xFFFDF55F).addARGB(255, 0xFFFFFDE0).build());
     buildMaterial(MaterialIds.obsidian).armor().fallbacks("rock").colorMapper(obsidianPalette);
     // TODO: is it worth turning some of these materials into plates, given they lost their embellishments?
-//    buildMaterial(MaterialIds.debris).fallbacks("rock").colorMapper(ancientDebrisPalette);
 //    buildMaterial(MaterialIds.netherite)
 //      .fallbacks("metal")
 //      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF0A0A0A).addARGB(102, 0xFF191616).addARGB(104, 0xFF241F20).addARGB(153, 0xFF322727).addARGB(178, 0xFF3F303B).addARGB(196, 0xFF49393F).addARGB(216, 0xFF51444E).addARGB(235, 0xFF5D565D).addARGB(255, 0xFF766A76).build());

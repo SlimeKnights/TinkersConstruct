@@ -26,7 +26,7 @@ public class MaterialTagProvider extends AbstractMaterialTagProvider {
       // tier 4
       MaterialIds.manyullyn, MaterialIds.cinderslime,
       MaterialIds.queensSlime, MaterialIds.blazingBone, MaterialIds.blazewood,
-      MaterialIds.ancientHide
+      MaterialIds.debris, MaterialIds.ancientHide
     );
   }
 

@@ -19,8 +19,8 @@ import slimeknights.tconstruct.library.modifiers.hook.ranged.ProjectileHitModifi
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
+import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.stat.FloatToolStat;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerModifiers;
@@ -34,14 +34,14 @@ public class InsatiableModifier extends Modifier implements ProjectileHitModifie
 
   /** Gets the current bonus for the entity */
   private static float getBonus(LivingEntity attacker, int level, ToolType type) {
-    int effectLevel = TinkerModifiers.insatiableEffect.get(type).getLevel(attacker) + 1;
+    int effectLevel = TinkerEffect.getLevel(attacker, TinkerModifiers.insatiableEffect.get(type));
     return level * effectLevel / 4f;
   }
 
   /** Applies the effect to the target */
   public static void applyEffect(LivingEntity living, ToolType type, int duration, int add, int maxLevel) {
     TinkerEffect effect = TinkerModifiers.insatiableEffect.get(type);
-    effect.apply(living, duration, Math.min(maxLevel, effect.getLevel(living) + add), true);
+    effect.apply(living, duration, Math.min(maxLevel, TinkerEffect.getAmplifier(living, effect) + add), true);
   }
 
   @Override

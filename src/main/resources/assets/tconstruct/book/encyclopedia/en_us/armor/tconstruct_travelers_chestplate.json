@@ -4,13 +4,12 @@
     { "text": "Traveler's Vest is a balanced chestplate, with medium protection, and average upgrade and defense slots." }
   ],
   "properties": [
-    "160 Durability",
-    "+5 Armor",
-    "55% Unarmed Attack",
+    "75% Durability Modifier",
+    "75% Plating Stats",
     "3 Upgrade Slots",
-    "2 Defense Slots",
+    "1 Defense Slots",
     "1 Ability Slot",
-    "Insulated",
-    "Tanned"
+    "1 Material Trait",
+    "Insulated & Tanned"
   ]
 }

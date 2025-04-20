@@ -990,6 +990,7 @@
   "block.tconstruct.tinker_station": "Tinker Station",
   "block.tconstruct.tinkers_anvil": "Tinker's Anvil",
   "block.tconstruct.scorched_anvil": "Tinker's Anvil",
+  "block.tconstruct.tool_forge": "Tool Forge",
 
   "block.tconstruct.part_builder": "Part Builder",
   "block.tconstruct.modifier_worktable": "Modifier Worktable",
@@ -1861,6 +1862,8 @@
   "material.tconstruct.obsidian.flavor": "This is an obsidian part, if it was not it would not say \"Obsidian.\"",
   "material.tconstruct.obsidian.armor": "Grants 10% protection per level against explosions, and reduces explosion knockback",
   "material.tconstruct.debris":     "Debris",
+  "material.tconstruct.debris.flavor": "This material binds to just about any type of plating.",
+  "material.tconstruct.debris.armor": "Grants an extra defense slot",
   "material.tconstruct.netherite":  "Netherite",
   "material.tconstruct.earthslime": "Earthslime",
   "material.tconstruct.skyslime":   "Skyslime",

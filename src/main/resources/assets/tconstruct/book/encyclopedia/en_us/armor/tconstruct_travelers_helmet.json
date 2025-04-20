@@ -4,12 +4,12 @@
     { "text": "Traveler's Goggles are a balanced helmet, with low protection, and average upgrade and defense slots." }
   ],
   "properties": [
-    "110 Durability",
-    "+1 Armor",
+    "75% Durability Modifier",
+    "75% Plating Stats",
     "3 Upgrade Slots",
-    "2 Defense Slots",
+    "1 Defense Slots",
     "1 Ability Slot",
-    "Insulated",
-    "Tanned"
+    "1 Material Trait",
+    "Insulated & Tanned"
   ]
 }

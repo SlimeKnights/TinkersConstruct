@@ -68,6 +68,7 @@ public class MaterialDataProvider extends AbstractMaterialDataProvider {
     addMaterial(MaterialIds.blazewood,   4, ORDER_RANGED,  true);
     //addMetalMaterial(MaterialIds.soulsteel, 4, ORDER_SPECIAL, false, 0x6a5244);
     // tier 4 - binding
+    addMaterial(MaterialIds.debris,      4, ORDER_NETHER,  false);
     addMaterial(MaterialIds.ancientHide, 4, ORDER_BINDING, false);
 
     // tier 5 binding, temporarily in book 4

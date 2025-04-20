@@ -2,7 +2,7 @@
   "type": "tconstruct:material_melting",
   "input": "tconstruct:scorched_stone",
   "result": {
-    "amount": 500,
+    "amount": 250,
     "fluid": "tconstruct:scorched_stone"
   },
   "temperature": 500

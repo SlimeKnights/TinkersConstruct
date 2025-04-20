@@ -58,6 +58,7 @@ public class ModifierMaterialRepairKitRecipe extends CraftingTableRepairKitRecip
     return MaterialRepairModule.getDurability(tool.getDefinition().getId(), repairMaterial.getId(), statType) * tool.getModifierLevel(modifier);
   }
 
+  @SuppressWarnings("removal")
   @Override
   public RecipeSerializer<?> getSerializer() {
     return TinkerModifiers.craftingModifierMaterialRepair.get();
