@@ -990,6 +990,7 @@
   "block.tconstruct.tinker_station": "工匠站",
   "block.tconstruct.tinkers_anvil": "工匠砧",
   "block.tconstruct.scorched_anvil": "工匠砧",
+  "block.tconstruct.tool_forge": "工具锻造",
 
   "block.tconstruct.part_builder": "部件制造台",
   "block.tconstruct.modifier_worktable": "强化调配台",
@@ -1828,7 +1829,7 @@
   "material.tconstruct.ancient_hide": "远古兽皮",
   "material.tconstruct.ancient_hide.flavor": "用最古老的石头鞣制的皮革",
   "material.tconstruct.ancient_hide.encyclopedia": "增加挖掘方块时掉落物的掉落概率，可与“幸运”同时存在",
-  "material.tconstruct.ancient_hide.armor": "盔甲获得一个额外的防御槽",
+  "material.tconstruct.ancient_hide.armor": "获得一个额外的防御槽",
 
   "__comment": "Tier End Materials",
   "material.tconstruct.knightslime": "骑士史莱姆",
@@ -1861,6 +1862,8 @@
   "material.tconstruct.obsidian.flavor": "这才是真的黑曜石，所以它的名字就叫“黑曜石”。",
   "material.tconstruct.obsidian.armor": "每级对爆炸抗性+10%，同时降低爆炸造成的击退效果。",
   "material.tconstruct.debris": "残骸",
+  "material.tconstruct.debris.flavor": "这种材料可以固定住所有种类的镶板。",
+  "material.tconstruct.debris.armor": "获得一个额外的防御槽",
   "material.tconstruct.netherite": "下界合金",
   "material.tconstruct.earthslime": "大地黏液",
   "material.tconstruct.skyslime": "碧空黏液",
