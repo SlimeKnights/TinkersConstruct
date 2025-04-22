@@ -1,8 +1,8 @@
 {
-  "modifier_id": "tconstruct:plowing",
+  "modifier_id": "tconstruct:tilling",
   "text": [
     {
-      "text": "Cultiva a terra por onde você pisa. A área de efeito pode ser aumentada através de um modificador expansor."
+      "text": "Ara a terra por onde você pisa. A área de efeito pode ser aumentada através de um modificador expansor."
     }
   ],
   "more_text_space": true,
