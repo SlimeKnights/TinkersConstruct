@@ -98,6 +98,13 @@ sourceSets {
     }
 }
 
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
+
 minecraft {
     mappings channel: 'parchment', version: "${parchment_version}-${minecraft_version}"
 

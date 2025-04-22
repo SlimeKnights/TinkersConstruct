@@ -42,7 +42,6 @@ import slimeknights.tconstruct.gadgets.TinkerGadgets;
 import slimeknights.tconstruct.gadgets.entity.FrameType;
 import slimeknights.tconstruct.library.json.predicate.modifier.ModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.modifier.SlotTypeModifierPredicate;
-import slimeknights.tconstruct.library.json.predicate.modifier.TagModifierPredicate;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
@@ -704,6 +703,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setMaxLevel(1)
                          .saveSalvage(consumer, prefix(ModifierIds.knockbackResistance, defenseSalvage))
                          .save(consumer, prefix(ModifierIds.knockbackResistance, defenseFolder));
+    //noinspection removal
     ModifierRecipeBuilder.modifier(TinkerModifiers.golden)
                          .addInput(Tags.Items.INGOTS_GOLD)
                          .addInput(Tags.Items.INGOTS_GOLD)
@@ -1501,7 +1501,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                                                                                          Ingredient.of(TinkerFluids.venomBottle))))
                                 .save(consumer, location(worktableFolder + "remove_modifier_venom"));
     // modifier extracting: sponge + crystal
-    IJsonPredicate<ModifierId> extractBlacklist = new TagModifierPredicate(TinkerTags.Modifiers.EXTRACT_MODIFIER_BLACKLIST).inverted();
+    IJsonPredicate<ModifierId> extractBlacklist = ModifierPredicate.tag(TinkerTags.Modifiers.EXTRACT_MODIFIER_BLACKLIST).inverted();
     for (boolean dagger : new boolean[]{false, true}) {
       String suffix = dagger ? "_dagger" : "";
       SizedIngredient tools = dagger ? SizedIngredient.fromItems(2, TinkerTools.dagger) : SizedIngredient.of(DifferenceIngredient.of(Ingredient.of(TinkerTags.Items.MODIFIABLE), Ingredient.of(TinkerTags.Items.UNSALVAGABLE)));
@@ -1511,7 +1511,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                   .addInput(Items.AMETHYST_SHARD)
                                   .addInput(Items.WET_SPONGE)
                                   .addLeftover(Items.SPONGE)
-                                  .modifierPredicate(ModifierPredicate.and(extractBlacklist, new SlotTypeModifierPredicate(null), new TagModifierPredicate(TinkerTags.Modifiers.EXTRACT_SLOTLESS_BLACKLIST).inverted()))
+                                  .modifierPredicate(ModifierPredicate.and(extractBlacklist, new SlotTypeModifierPredicate(null), ModifierPredicate.tag(TinkerTags.Modifiers.EXTRACT_SLOTLESS_BLACKLIST).inverted()))
                                   .save(consumer, location(worktableFolder + "extract/slotless" + suffix));
       ModifierRemovalRecipeBuilder.extract()
                                   .setTools(tools)
@@ -1552,7 +1552,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
 
     // invisible ink
     ResourceLocation hiddenModifiers = TConstruct.getResource("invisible_modifiers");
-    IJsonPredicate<ModifierId> blacklist = new TagModifierPredicate(TinkerTags.Modifiers.INVISIBLE_INK_BLACKLIST).inverted();
+    IJsonPredicate<ModifierId> blacklist = ModifierPredicate.tag(TinkerTags.Modifiers.INVISIBLE_INK_BLACKLIST).inverted();
     ModifierSetWorktableRecipeBuilder.setAdding(hiddenModifiers)
                                      .modifierPredicate(blacklist)
                                      .addInput(PartialNBTIngredient.of(Items.POTION, PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.INVISIBILITY).getOrCreateTag()))
@@ -1563,7 +1563,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                      .save(consumer, location(worktableFolder + "invisible_ink_removing"));
 
     // swapping hands
-    IJsonPredicate<ModifierId> whitelist = new TagModifierPredicate(TinkerTags.Modifiers.DUAL_INTERACTION);
+    IJsonPredicate<ModifierId> whitelist = ModifierPredicate.tag(TinkerTags.Modifiers.DUAL_INTERACTION);
     ModifierSetWorktableRecipeBuilder.setAdding(DualOptionInteraction.KEY)
                                      .modifierPredicate(whitelist)
                                      .setTools(TinkerTags.Items.INTERACTABLE_DUAL)
@@ -1582,7 +1582,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
       EnchantmentConvertingRecipeBuilder.converting("slotless", matchBook)
                                         .addInput(Items.AMETHYST_SHARD)
                                         .modifierPredicate(ModifierPredicate.and(new SlotTypeModifierPredicate(null),
-                                                                                  new TagModifierPredicate(TinkerTags.Modifiers.EXTRACT_SLOTLESS_BLACKLIST).inverted()))
+                                                                                  ModifierPredicate.tag(TinkerTags.Modifiers.EXTRACT_SLOTLESS_BLACKLIST).inverted()))
                                         .save(consumer, location(worktableFolder + "enchantment_converting/slotless" + suffix));
       EnchantmentConvertingRecipeBuilder.converting("upgrades", matchBook)
                                         .addInput(TinkerWorld.skyGeode.asItem())

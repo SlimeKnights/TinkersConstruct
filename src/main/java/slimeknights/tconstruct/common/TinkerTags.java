@@ -420,7 +420,8 @@ public class TinkerTags {
     public static final TagKey<Item> HELD_ARMOR = local("modifiable/armor/held");
     /** Modifiable items that have innate shielding behavior */
     public static final TagKey<Item> SHIELDS = local("modifiable/shields");
-    /** Armor that supports being made golden */
+    /** @deprecated After migrating travelers to have a material, doing away with golden armor on slimesuit. If you still want this on your armor, we recommend adding a new recipe */
+    @Deprecated(forRemoval = true)
     public static final TagKey<Item> GOLDEN_ARMOR = local("modifiable/armor/golden");
 
     // armor book tags

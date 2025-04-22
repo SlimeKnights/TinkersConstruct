@@ -15,10 +15,16 @@ import slimeknights.mantle.registration.object.ItemObject;
 import slimeknights.mantle.registration.object.MetalItemObject;
 import slimeknights.tconstruct.common.TinkerModule;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.json.predicate.material.MaterialIdPredicate;
+import slimeknights.tconstruct.library.json.predicate.material.MaterialPredicate;
+import slimeknights.tconstruct.library.json.predicate.material.MaterialStatTypePredicate;
+import slimeknights.tconstruct.library.json.predicate.material.MaterialVariantPredicate;
 import slimeknights.tconstruct.library.recipe.ingredient.MaterialIngredient;
 import slimeknights.tconstruct.library.recipe.ingredient.MaterialValueIngredient;
 import slimeknights.tconstruct.shared.block.OrientableBlock;
 import slimeknights.tconstruct.shared.block.SlimesteelBlock;
+
+import static slimeknights.tconstruct.TConstruct.getResource;
 
 /**
  * Contains bommon blocks and items used in crafting materials
@@ -61,6 +67,10 @@ public final class TinkerMaterials extends TinkerModule {
     if (event.getRegistryKey() == Registries.RECIPE_SERIALIZER) {
       CraftingHelper.register(MaterialIngredient.Serializer.ID, MaterialIngredient.Serializer.INSTANCE);
       CraftingHelper.register(MaterialValueIngredient.Serializer.ID, MaterialValueIngredient.Serializer.INSTANCE);
+
+      MaterialPredicate.LOADER.register(getResource("variant"), MaterialVariantPredicate.LOADER);
+      MaterialPredicate.LOADER.register(getResource("id"), MaterialIdPredicate.LOADER);
+      MaterialPredicate.LOADER.register(getResource("stat_type"), MaterialStatTypePredicate.LOADER);
     }
   }
 

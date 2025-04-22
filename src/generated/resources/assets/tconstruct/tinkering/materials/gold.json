@@ -13,8 +13,7 @@
       "tconstruct:plating_shield",
       "tconstruct:repair_kit",
       "tconstruct:maille",
-      "tconstruct:armor_maille",
-      "tconstruct:slimesuit"
+      "tconstruct:armor_maille"
     ],
     "transformer": {
       "type": "tconstruct:recolor_sprite",

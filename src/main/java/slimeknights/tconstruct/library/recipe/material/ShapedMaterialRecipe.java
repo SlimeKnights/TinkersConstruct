@@ -50,13 +50,7 @@ public class ShapedMaterialRecipe extends ShapedRecipe {
             material = materialValue;
           } else {
             // ensure the stat type matches, and expand the range
-            MaterialValueIngredient merged = material.merge(materialValue);
-            if (merged == null) {
-              TConstruct.LOG.error("Material stat type mismatch for material shape recipe {}, found {} then {}, this indicates a broken recipe", getId(), material.getStatType(), material.getStatType());
-              material = null;
-              return null;
-            }
-            material = merged;
+            material = material.merge(materialValue);
           }
         }
       }

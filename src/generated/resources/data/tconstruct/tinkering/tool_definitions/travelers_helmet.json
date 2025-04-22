@@ -15,7 +15,7 @@
       "materials": [
         {
           "type": "tconstruct:fixed",
-          "material": "tconstruct:debris"
+          "material": "tconstruct:rose_gold"
         }
       ]
     },
@@ -29,8 +29,8 @@
       "type": "tconstruct:modifier_slots",
       "slots": {
         "abilities": 1,
-        "defense": 1,
-        "upgrades": 3
+        "defense": 2,
+        "upgrades": 2
       }
     },
     {

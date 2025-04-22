@@ -19,6 +19,7 @@ import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.data.recipe.IMaterialRecipeHelper;
 import slimeknights.tconstruct.library.data.recipe.IToolRecipeHelper;
+import slimeknights.tconstruct.library.json.predicate.material.MaterialStatTypePredicate;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.casting.ItemCastingRecipeBuilder;
@@ -136,7 +137,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
       .pattern("l l")
       .pattern("glg")
       .pattern("c c")
-      .define('c', MaterialValueIngredient.of(PlatingMaterialStats.HELMET.getId(), 1))
+      .define('c', MaterialValueIngredient.of(new MaterialStatTypePredicate(PlatingMaterialStats.HELMET.getId()), 1))
       .define('l', Tags.Items.LEATHER)
       .define('g', Tags.Items.GLASS_PANES_COLORLESS)
       .unlockedBy("has_item", has(Tags.Items.LEATHER))
@@ -145,7 +146,7 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
       .pattern("l l")
       .pattern("lcl")
       .pattern("lcl")
-      .define('c', MaterialValueIngredient.of(PlatingMaterialStats.CHESTPLATE.getId(), 1))
+      .define('c', MaterialValueIngredient.of(new MaterialStatTypePredicate(PlatingMaterialStats.CHESTPLATE.getId()), 1))
       .define('l', Tags.Items.LEATHER)
       .unlockedBy("has_item", has(Tags.Items.LEATHER))
       .save(shapedMaterial, location(armorFolder + "travelers_chestplate"));
@@ -153,14 +154,14 @@ public class ToolsRecipeProvider extends BaseRecipeProvider implements IMaterial
       .pattern("lll")
       .pattern("c c")
       .pattern("l l")
-      .define('c', MaterialValueIngredient.of(PlatingMaterialStats.LEGGINGS.getId(), 1))
+      .define('c', MaterialValueIngredient.of(new MaterialStatTypePredicate(PlatingMaterialStats.LEGGINGS.getId()), 1))
       .define('l', Tags.Items.LEATHER)
       .unlockedBy("has_item", has(Tags.Items.LEATHER))
       .save(shapedMaterial, location(armorFolder + "travelers_pants"));
     ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, TinkerTools.travelersGear.get(ArmorItem.Type.BOOTS))
       .pattern("c c")
       .pattern("l l")
-      .define('c', MaterialValueIngredient.of(PlatingMaterialStats.BOOTS.getId(), 1))
+      .define('c', MaterialValueIngredient.of(new MaterialStatTypePredicate(PlatingMaterialStats.BOOTS.getId()), 1))
       .define('l', Tags.Items.LEATHER)
       .unlockedBy("has_item", has(Tags.Items.LEATHER))
       .save(shapedMaterial, location(armorFolder + "travelers_boots"));

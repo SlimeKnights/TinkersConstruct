@@ -12,9 +12,11 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.crafting.AbstractIngredient;
 import net.minecraftforge.common.crafting.IIngredientSerializer;
 import slimeknights.mantle.data.loadable.field.LoadableField;
+import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.library.json.predicate.material.MaterialPredicate;
+import slimeknights.tconstruct.library.json.predicate.material.MaterialPredicateField;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
-import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipe;
 import slimeknights.tconstruct.library.recipe.material.MaterialRecipeCache;
 
@@ -27,25 +29,25 @@ import java.util.Arrays;
 @Getter
 @RequiredArgsConstructor
 public class MaterialValueIngredient extends AbstractIngredient {
-  private final MaterialStatsId statType;
+  private final IJsonPredicate<MaterialVariantId> material;
   private final float minValue;
   private final float maxValue;
   private ItemStack[] items;
 
   /** Creates an ingredient matching a range of values */
-  public static MaterialValueIngredient of(MaterialStatsId statType, float minValue, float maxValue) {
-    return new MaterialValueIngredient(statType, minValue, maxValue);
+  public static MaterialValueIngredient of(IJsonPredicate<MaterialVariantId> materials, float minValue, float maxValue) {
+    return new MaterialValueIngredient(materials, minValue, maxValue);
   }
 
   /** Creates an ingredient matching an exact value */
-  public static MaterialValueIngredient of(MaterialStatsId statType, float value) {
-    return of(statType, value, value);
+  public static MaterialValueIngredient of(IJsonPredicate<MaterialVariantId> materials, float value) {
+    return of(materials, value, value);
   }
 
   /** Checks the given material recipe against our filters */
   public boolean test(MaterialRecipe material) {
     float value = material.getValue() / (float) material.getNeeded();
-    return minValue <= value && value <= maxValue && statType.canUseMaterial(material.getMaterial().getId());
+    return minValue <= value && value <= maxValue && this.material.matches(material.getMaterial().getVariant());
   }
 
   @Override
@@ -88,18 +90,22 @@ public class MaterialValueIngredient extends AbstractIngredient {
   }
 
   /** Creates an ingredient that matches anything either of the two ingredients matches */
-  @Nullable
   public MaterialValueIngredient merge(MaterialValueIngredient other) {
-    if (!this.statType.equals(other.statType)) {
-      return null;
+    if (this == other) return this;
+
+    // if we have the same predicate, we can possibly skip creating a new instance
+    IJsonPredicate<MaterialVariantId> predicate = this.material;
+    if (this.material.equals(other.material)) {
+      if (this.contains(other)) {
+        return this;
+      }
+      if (other.contains(this)) {
+        return other;
+      }
+    } else {
+      predicate = MaterialPredicate.or(this.material, other.material);
     }
-    if (this.contains(other)) {
-      return this;
-    }
-    if (other.contains(this)) {
-      return other;
-    }
-    return new MaterialValueIngredient(statType, Math.min(this.minValue, other.minValue), Math.max(this.maxValue, other.maxValue));
+    return new MaterialValueIngredient(predicate, Math.min(this.minValue, other.minValue), Math.max(this.maxValue, other.maxValue));
   }
 
   /** Gets the material matching this recipe */
@@ -116,7 +122,7 @@ public class MaterialValueIngredient extends AbstractIngredient {
   public JsonElement toJson() {
     JsonObject json = new JsonObject();
     json.addProperty("type", Serializer.ID.toString());
-    Serializer.STAT_TYPE_FIELD.serialize(this, json);
+    Serializer.MATERIAL_FIELD.serialize(this, json);
     if (minValue == maxValue) {
       json.addProperty("value", minValue);
     } else {
@@ -142,11 +148,10 @@ public class MaterialValueIngredient extends AbstractIngredient {
   public enum Serializer implements IIngredientSerializer<MaterialValueIngredient> {
     INSTANCE;
     public static final ResourceLocation ID = TConstruct.getResource("material_value");
-    private static final LoadableField<MaterialStatsId, MaterialValueIngredient> STAT_TYPE_FIELD = MaterialStatsId.PARSER.requiredField("stat_type", i -> i.statType);
+    private static final LoadableField<IJsonPredicate<MaterialVariantId>, MaterialValueIngredient> MATERIAL_FIELD = new MaterialPredicateField<>("material", i -> i.material);
 
     @Override
     public MaterialValueIngredient parse(JsonObject json) {
-      MaterialStatsId statType = STAT_TYPE_FIELD.get(json);
       float minValue, maxValue;
       JsonElement value = json.get("value");
       if (value.isJsonPrimitive()) {
@@ -156,13 +161,13 @@ public class MaterialValueIngredient extends AbstractIngredient {
         minValue = GsonHelper.getAsFloat(object, "min", 0);
         maxValue = GsonHelper.getAsFloat(object, "max", Float.POSITIVE_INFINITY);
       }
-      return new MaterialValueIngredient(statType, minValue, maxValue);
+      return new MaterialValueIngredient(MATERIAL_FIELD.get(json), minValue, maxValue);
     }
 
     @Override
     public MaterialValueIngredient parse(FriendlyByteBuf buffer) {
       return new MaterialValueIngredient(
-        MaterialStatsId.PARSER.decode(buffer),
+        MATERIAL_FIELD.decode(buffer),
         buffer.readFloat(),
         buffer.readFloat()
       );
@@ -170,7 +175,7 @@ public class MaterialValueIngredient extends AbstractIngredient {
 
     @Override
     public void write(FriendlyByteBuf buffer, MaterialValueIngredient ingredient) {
-      STAT_TYPE_FIELD.encode(buffer, ingredient);
+      MATERIAL_FIELD.encode(buffer, ingredient);
       buffer.writeFloat(ingredient.minValue);
       buffer.writeFloat(ingredient.maxValue);
     }

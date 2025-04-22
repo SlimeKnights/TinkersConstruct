@@ -4,7 +4,10 @@
   "key": {
     "c": {
       "type": "tconstruct:material_value",
-      "stat_type": "tconstruct:plating_chestplate",
+      "material": {
+        "type": "tconstruct:stat_type",
+        "stat_type": "tconstruct:plating_chestplate"
+      },
       "value": 1.0
     },
     "l": {

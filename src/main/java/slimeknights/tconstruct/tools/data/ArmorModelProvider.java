@@ -32,7 +32,6 @@ public class ArmorModelProvider extends AbstractArmorModelProvider {
     });
     addModel(ArmorDefinitions.SLIMESUIT, name -> new ArmorTextureSupplier[] {
       new FirstArmorTextureSupplier(
-        FixedArmorTextureSupplier.builder(name, "/").materialSuffix(MaterialIds.gold).modifier(TinkerModifiers.golden.getId()).build(),
         new MaterialArmorTextureSupplier.PersistentData(name, "/", TinkerModifiers.embellishment.getId()),
         FixedArmorTextureSupplier.builder(name, "/").materialSuffix(MaterialIds.enderslime).build()),
       TrimArmorTextureSupplier.INSTANCE

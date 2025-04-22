@@ -13,7 +13,6 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.data.tinkering.AbstractToolDefinitionDataProvider;
 import slimeknights.tconstruct.library.json.predicate.modifier.ModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.modifier.SingleModifierPredicate;
-import slimeknights.tconstruct.library.json.predicate.modifier.TagModifierPredicate;
 import slimeknights.tconstruct.library.materials.RandomMaterial;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.tools.SlotType;
@@ -551,17 +550,17 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
     // travelers armor
     PreferenceSetInteraction shieldInteraction = new PreferenceSetInteraction(
       InteractionSource.RIGHT_CLICK,
-      ModifierPredicate.or(new SingleModifierPredicate(TinkerModifiers.blocking.getId()), new TagModifierPredicate(TinkerTags.Modifiers.BLOCK_WHILE_CHARGING))
+      ModifierPredicate.or(new SingleModifierPredicate(TinkerModifiers.blocking.getId()), ModifierPredicate.tag(TinkerTags.Modifiers.BLOCK_WHILE_CHARGING))
     );
     defineArmor(ArmorDefinitions.TRAVELERS)
       .modules(slots -> MaterialStatsModule.armorStats(slots).plating(0.75f))
-      .module(DefaultMaterialsModule.builder().material(MaterialIds.debris).build())
+      .module(DefaultMaterialsModule.builder().material(MaterialIds.roseGold).build())
       .modules(slots -> MultiplyStatsModule.armor(slots)
         .set(ArmorItem.Type.CHESTPLATE, ToolStats.ATTACK_DAMAGE, 0.55f)
         .setAll(ToolStats.DURABILITY, 0.75f))
       .module(ToolSlotsModule.builder()
-        .slots(SlotType.UPGRADE, 3)
-        .slots(SlotType.DEFENSE, 1)
+        .slots(SlotType.UPGRADE, 2)
+        .slots(SlotType.DEFENSE, 2)
         .slots(SlotType.ABILITY, 1).build())
       .module(MaterialRepairModule.armor(MaterialIds.leather).durabilityFactor(7.5f))
       .module(ToolTraitsModule.builder().trait(TinkerModifiers.tanned).build())

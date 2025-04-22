@@ -309,7 +309,7 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
 
     // plate
     buildMaterial(MaterialIds.gold)
-      .armor().statType(SLIMESUIT)
+      .armor()
       .fallbacks("metal")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF752802).addARGB(102, 0xFFB26411).addARGB(140, 0xFFE9B115).addARGB(178, 0xFFFAD64A).addARGB(216, 0xFFFDF55F).addARGB(255, 0xFFFFFDE0).build());
     buildMaterial(MaterialIds.obsidian).armor().fallbacks("rock").colorMapper(obsidianPalette);

@@ -4,7 +4,6 @@
     "tconstruct:projectile_protection",
     "tconstruct:fire_protection",
     "tconstruct:magic_protection",
-    "tconstruct:blast_protection",
-    "tconstruct:golden"
+    "tconstruct:blast_protection"
   ]
 }

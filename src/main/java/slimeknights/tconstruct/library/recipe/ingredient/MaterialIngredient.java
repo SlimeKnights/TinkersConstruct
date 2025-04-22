@@ -13,45 +13,71 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.IIngredientSerializer;
 import net.minecraftforge.common.crafting.VanillaIngredientSerializer;
 import slimeknights.mantle.data.loadable.field.LoadableField;
+import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
+import slimeknights.tconstruct.library.json.predicate.material.MaterialPredicate;
+import slimeknights.tconstruct.library.json.predicate.material.MaterialPredicateField;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
-import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.stream.Stream;
 
 /**
  * Extension of the vanilla ingredient to display materials on items and support matching by materials
  */
 public class MaterialIngredient extends NestedIngredient {
-  /** Material ID meaning any material matches */
-  private static final MaterialId WILDCARD = IMaterial.UNKNOWN.getIdentifier();
-
-  private final MaterialVariantId material;
-  @Nullable
-  private final TagKey<IMaterial> tag;
+  private final IJsonPredicate<MaterialVariantId> material;
   @Nullable
   private ItemStack[] materialStacks;
-  protected MaterialIngredient(Ingredient nested, MaterialVariantId material, @Nullable TagKey<IMaterial> tag) {
+  protected MaterialIngredient(Ingredient nested, IJsonPredicate<MaterialVariantId> material) {
     super(nested);
     this.material = material;
-    this.tag = tag;
+  }
+
+  /** @deprecated use {@link #MaterialIngredient(Ingredient, IJsonPredicate)} */
+  @Deprecated(forRemoval = true)
+  protected MaterialIngredient(Ingredient nested, MaterialVariantId material, @Nullable TagKey<IMaterial> tag) {
+    this(nested, makePredicate(material, tag));
+  }
+
+  /** Converts the legacy material and tag into a predicate */
+  private static IJsonPredicate<MaterialVariantId> makePredicate(MaterialVariantId material, @Nullable TagKey<IMaterial> tag) {
+    // UNKNOWN is the legacy way to express any material
+    IJsonPredicate<MaterialVariantId> predicate = material.equals(IMaterial.UNKNOWN.getIdentifier()) ? MaterialPredicate.ANY : MaterialPredicate.variant(material);
+    if (tag != null) {
+      IJsonPredicate<MaterialVariantId> tagPredicate = MaterialPredicate.tag(tag);
+      if (predicate == MaterialPredicate.ANY) {
+        predicate = tagPredicate;
+      } else {
+        predicate = MaterialPredicate.and(predicate, tagPredicate);
+      }
+    }
+    return predicate;
+  }
+
+  /** Creates an ingredient matching the given materials */
+  public static MaterialIngredient of(Ingredient ingredient, IJsonPredicate<MaterialVariantId> material) {
+    return new MaterialIngredient(ingredient, material);
+  }
+
+  /** Creates an ingredient matching a specific material */
+  public static MaterialIngredient of(Ingredient ingredient) {
+    return new MaterialIngredient(ingredient, MaterialPredicate.ANY);
   }
 
   /** Creates an ingredient matching a single material */
   public static MaterialIngredient of(Ingredient ingredient, MaterialVariantId material) {
-    return new MaterialIngredient(ingredient, material, null);
+    return of(ingredient, MaterialPredicate.variant(material));
   }
 
   /** Creates an ingredient matching a material tag */
   public static MaterialIngredient of(Ingredient ingredient, TagKey<IMaterial> tag) {
-    return new MaterialIngredient(ingredient, WILDCARD, tag);
+    return of(ingredient, MaterialPredicate.tag(tag));
   }
 
   /**
@@ -80,7 +106,7 @@ public class MaterialIngredient extends NestedIngredient {
    * @return  Material ingredient instance
    */
   public static MaterialIngredient of(ItemLike item) {
-    return of(item, WILDCARD);
+    return of(Ingredient.of(item));
   }
 
   /**
@@ -99,7 +125,7 @@ public class MaterialIngredient extends NestedIngredient {
    * @return  Material with tag
    */
   public static MaterialIngredient of(TagKey<Item> tag) {
-    return of(tag, WILDCARD);
+    return of(Ingredient.of(tag));
   }
 
   @Override
@@ -108,16 +134,9 @@ public class MaterialIngredient extends NestedIngredient {
     if (stack == null || stack.isEmpty() || !super.test(stack)) {
       return false;
     }
-    // if material is not wildcard, must match materials
-    boolean hasMaterial = !WILDCARD.equals(material);
-    if (hasMaterial || tag != null) {
-      // check fixed material match
-      MaterialVariantId stackMaterial = IMaterialItem.getMaterialFromStack(stack);
-      if (hasMaterial && !material.matchesVariant(stackMaterial)) {
-        return false;
-      }
-      // check material tag match
-      return tag == null || MaterialRegistry.getInstance().isInTag(stackMaterial.getId(), tag);
+    // no need to read material NBT if the material is the any predicate
+    if (material != MaterialPredicate.ANY) {
+      return material.matches(IMaterialItem.getMaterialFromStack(stack));
     }
     return true;
   }
@@ -130,16 +149,12 @@ public class MaterialIngredient extends NestedIngredient {
       }
       // no material? apply all materials for variants
       Stream<ItemStack> items = Arrays.stream(nested.getItems());
-      // if we have a specific material, use that
-      if (!material.equals(WILDCARD)) {
-        items = items.map(stack -> IMaterialItem.withMaterial(stack, this.material)).filter(ItemStack::hasTag);
-      } else {
-        // if we have a tag, filter values, else get all values
-        Collection<IMaterial> materials = tag != null ? MaterialRegistry.getInstance().getTagValues(tag) : MaterialRegistry.getMaterials();
-        items = items.flatMap(stack -> materials.stream()
-                                                .map(mat -> IMaterialItem.withMaterial(stack, mat.getIdentifier()))
-                                                .filter(ItemStack::hasTag));
-      }
+      // find all materials matching the filter
+      items = items.flatMap(stack -> MaterialRegistry.getMaterials().stream()
+        // TODO: this won't do variants
+        .filter(mat -> material.matches(mat.getIdentifier()))
+        .map(mat -> IMaterialItem.withMaterial(stack, mat.getIdentifier()))
+        .filter(ItemStack::hasTag));
       materialStacks = items.distinct().toArray(ItemStack[]::new);
     }
     return materialStacks;
@@ -157,7 +172,6 @@ public class MaterialIngredient extends NestedIngredient {
     }
     result.addProperty("type", Serializer.ID.toString());
     Serializer.MATERIAL_FIELD.serialize(this, result);
-    Serializer.TAG_FIELD.serialize(this, result);
     return result;
   }
 
@@ -169,7 +183,7 @@ public class MaterialIngredient extends NestedIngredient {
 
   @Override
   public boolean isSimple() {
-    return material == WILDCARD && tag == null;
+    return material == MaterialPredicate.ANY;
   }
 
   @Override
@@ -181,8 +195,7 @@ public class MaterialIngredient extends NestedIngredient {
   public enum Serializer implements IIngredientSerializer<MaterialIngredient> {
     INSTANCE;
     public static final ResourceLocation ID = TConstruct.getResource("material");
-    private static final LoadableField<MaterialVariantId,MaterialIngredient> MATERIAL_FIELD = MaterialVariantId.LOADABLE.defaultField("material", WILDCARD, i -> i.material);
-    private static final LoadableField<TagKey<IMaterial>,MaterialIngredient> TAG_FIELD = TinkerLoadables.MATERIAL_TAGS.nullableField("material_tag", i -> i.tag);
+    private static final LoadableField<IJsonPredicate<MaterialVariantId>,MaterialIngredient> MATERIAL_FIELD = new MaterialPredicateField<>("material", i -> i.material);
 
     @Override
     public MaterialIngredient parse(JsonObject json) {
@@ -193,15 +206,25 @@ public class MaterialIngredient extends NestedIngredient {
       } else {
         ingredient = VanillaIngredientSerializer.INSTANCE.parse(json);
       }
-      return new MaterialIngredient(ingredient, MATERIAL_FIELD.get(json), TAG_FIELD.get(json));
+      IJsonPredicate<MaterialVariantId> material = MATERIAL_FIELD.get(json);
+      // deprecated tag field
+      if (json.has("tag")) {
+        TConstruct.LOG.warn("Using deprecated tag field on material ingredient");
+        IJsonPredicate<MaterialVariantId> tagPredicate = MaterialPredicate.tag(TinkerLoadables.MATERIAL_TAGS.getIfPresent(json, "tag"));
+        if (material == MaterialPredicate.ANY) {
+          material = tagPredicate;
+        } else {
+          material = MaterialPredicate.and(material, tagPredicate);
+        }
+      }
+      return new MaterialIngredient(ingredient, material);
     }
 
     @Override
     public MaterialIngredient parse(FriendlyByteBuf buffer) {
       return new MaterialIngredient(
         Ingredient.fromNetwork(buffer),
-        MATERIAL_FIELD.decode(buffer),
-        TAG_FIELD.decode(buffer)
+        MATERIAL_FIELD.decode(buffer)
       );
     }
 
@@ -209,7 +232,6 @@ public class MaterialIngredient extends NestedIngredient {
     public void write(FriendlyByteBuf buffer, MaterialIngredient ingredient) {
       ingredient.nested.toNetwork(buffer);
       MATERIAL_FIELD.encode(buffer, ingredient);
-      TAG_FIELD.encode(buffer, ingredient);
     }
   }
 }
