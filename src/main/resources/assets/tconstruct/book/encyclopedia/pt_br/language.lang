@@ -21,7 +21,7 @@ materials_skull=Cranioslime
 materials_skull.subtext=Esta seção descreve os efeitos de todos os tipos de crânios na criação de um cranioslime
 
 upgrades=Melhorias
-upgrades.subtext=Cada ferramenta recebe um número total limitado de slots de melhorias.
+upgrades.subtext=Cada ferramenta recebe um número total limitado de slots de melhoria.
 upgrades.group_general=Geral
 upgrades.group_harvest=Coleta
 upgrades.group_weapon=Arma
