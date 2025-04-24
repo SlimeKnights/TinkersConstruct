@@ -44,7 +44,6 @@ public final class MaterialIds {
   // tier 3 (nether)
   public static final MaterialId cobalt = id("cobalt");
   public static final MaterialId steel = id("steel");
-  public static final MaterialId debris = id("debris");
   // tier 3 - bindings
   public static final MaterialId darkthread = id("darkthread");
   // tier 4
@@ -57,6 +56,7 @@ public final class MaterialIds {
   //public static final MaterialId soulsteel = id("soulsteel");
   // tier 4 - bindings
   public static final MaterialId ancientHide = id("ancient_hide");
+  public static final MaterialId ancient = id("ancient");
   // tier 5 - bindings
   public static final MaterialId enderslimeVine = id("enderslime_vine");
 

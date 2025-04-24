@@ -222,7 +222,7 @@ public class TankModel implements IUnbakedGeometry<TankModel> {
           return model;
         }
         // determine fluid
-        FluidTank tank = TankItem.getFluidTank(stack);
+        FluidTank tank = TankItem.getTank(stack, 1);
         if (tank.isEmpty()) {
           return model;
         }

@@ -38,8 +38,6 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.stream.Stream;
 
-import static slimeknights.tconstruct.library.tools.helper.ModifierUtil.asLiving;
-
 /**
  * Projectile that applies a fluid effect on hit, based on {@link LlamaSpit}, but not extending as we want custom movement logic
  */
@@ -136,7 +134,7 @@ public class FluidEffectProjectile extends Projectile {
     if (!level.isClientSide && !fluid.isEmpty()) {
       FluidEffects recipe = FluidEffectManager.INSTANCE.find(fluid.getFluid());
       if (recipe.hasEntityEffects()) {
-        int consumed = recipe.applyToEntity(fluid, power, new FluidEffectContext.Entity(level, asLiving(getOwner()), this, target, result.getLocation()), FluidAction.EXECUTE);
+        int consumed = recipe.applyToEntity(fluid, power, FluidEffectContext.builder(level).user(getOwner()).projectile(this).location(result.getLocation()).target(target), FluidAction.EXECUTE);
         // shrink our internal fluid, means we get a crossbow piercing like effect if its not all used
         // discarding when empty ensures the fluid won't continue with the block effect
         // unlike blocks, failing is fine, means we just continue through to the block below the entity
@@ -175,7 +173,7 @@ public class FluidEffectProjectile extends Projectile {
       if (!fluid.isEmpty()) {
         FluidEffects recipe = FluidEffectManager.INSTANCE.find(fluid.getFluid());
         if (recipe.hasBlockEffects()) {
-          FluidEffectContext.Block context = new FluidEffectContext.Block(level, asLiving(getOwner()), this, hitResult);
+          FluidEffectContext.Block context = FluidEffectContext.builder(level).user(getOwner()).projectile(this).block(hitResult);
           int consumed = recipe.applyToBlock(fluid, power, context, FluidAction.EXECUTE);
           fluid.shrink(consumed);
           // we can continue to live if we have fluid left and we broke our block

@@ -1,0 +1,12 @@
+{
+  "default": [
+    {
+      "level": 1,
+      "name": "tconstruct:vintage"
+    },
+    {
+      "level": 1,
+      "name": "tconstruct:worldbound"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "block_effects": [
     {
-      "type": "tconstruct:break_block"
+      "type": "tconstruct:place_block"
     }
   ],
   "entity_effects": [

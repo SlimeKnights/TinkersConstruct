@@ -62,7 +62,7 @@ public class FluidCannonBlockEntity extends TankBlockEntity {
           // if a block is in the way, apply directly to the block
           // this saves fluid compared to the projectile for many interactions, but also means no multi-hit behavior
           BlockHitResult hit = Util.createTraceResult(target, facing.getOpposite(), false);
-          int consumed = recipe.applyToBlock(fluid, power, new FluidEffectContext.Block(level, null, null, hit), FluidAction.EXECUTE);
+          int consumed = recipe.applyToBlock(fluid, power, FluidEffectContext.builder(level).block(hit), FluidAction.EXECUTE);
           if (consumed > 0) {
             Vec3 location = hit.getLocation();
             level.sendParticles(new FluidParticleData(TinkerCommons.fluidParticle.get(), fluid), location.x(), location.y(), location.z(), 10, 0.1, 0.2, 0.1, 0.2);

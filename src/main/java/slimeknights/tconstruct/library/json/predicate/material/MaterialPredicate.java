@@ -9,23 +9,15 @@ import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
+import slimeknights.tconstruct.library.recipe.casting.material.MaterialCastingLookup;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 /** Predicate that checks against a material variant */
 public interface MaterialPredicate extends IJsonPredicate<MaterialVariantId> {
   /** Instance that always returns true */
-  MaterialPredicate ANY = SingletonLoader.singleton(loader -> new MaterialPredicate() {
-    @Override
-    public boolean matches(MaterialVariantId input) {
-      return true;
-    }
-
-    @Override
-    public RecordLoadable<? extends MaterialPredicate> getLoader() {
-      return loader;
-    }
-  });
+  MaterialPredicate ANY = simple(material -> true);
   /** Loader for material predicates */
   TagPredicateRegistry<IMaterial,MaterialVariantId> LOADER = new TagPredicateRegistry<>("Material Predicate", ANY, TinkerLoadables.MATERIAL_TAGS, (tag, source) -> MaterialRegistry.getInstance().isInTag(source.getId(), tag));
 
@@ -37,6 +29,29 @@ public interface MaterialPredicate extends IJsonPredicate<MaterialVariantId> {
 
   @Override
   RecordLoadable<? extends MaterialPredicate> getLoader();
+
+
+  /* Singleton */
+
+  /** Matches any materials that have a casting recipe */
+  MaterialPredicate CASTABLE = simple(material -> !MaterialCastingLookup.getCastingFluids(material).isEmpty());
+  /** Matches any materials that have a composite recipe */
+  MaterialPredicate COMPOSITE = simple(material -> !MaterialCastingLookup.getCompositeFluids(material).isEmpty());
+
+  /** Creates a new simple predicate */
+  static MaterialPredicate simple(Predicate<MaterialVariantId> predicate) {
+    return SingletonLoader.singleton(loader -> new MaterialPredicate() {
+      @Override
+      public boolean matches(MaterialVariantId tool) {
+        return predicate.test(tool);
+      }
+
+      @Override
+      public RecordLoadable<? extends MaterialPredicate> getLoader() {
+        return loader;
+      }
+    });
+  }
 
 
   /* Helper methods */

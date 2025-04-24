@@ -8,6 +8,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -36,8 +37,10 @@ import slimeknights.tconstruct.smeltery.block.entity.component.TankBlockEntity;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public class TankItem extends BlockTooltipItem {
+  private static final Predicate<FluidStack> NO_FILL = FluidStack::isEmpty;
   private final boolean limitStackSize;
   public TankItem(Block blockIn, Properties builder, boolean limitStackSize) {
     super(blockIn, builder);
@@ -72,7 +75,7 @@ public class TankItem extends BlockTooltipItem {
   @Override
   public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
     if (stack.hasTag()) {
-      FluidTank tank = getFluidTank(stack);
+      FluidTank tank = getTank(stack, 1);
       if (tank.getFluidAmount() > 0) {
         FluidStack fluid = tank.getFluid();
         tooltip.add(fluid.getDisplayName().plainCopy().withStyle(ChatFormatting.GRAY));
@@ -87,7 +90,7 @@ public class TankItem extends BlockTooltipItem {
   @Nullable
   @Override
   public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-    return new TankItemFluidHandler(stack);
+    return new TankItemFluidHandler(this, stack);
   }
 
   /** Checks if the given stack has fluid transfer */
@@ -100,11 +103,12 @@ public class TankItem extends BlockTooltipItem {
     // take over right click, assuming the target has an item. If not, then we want to place 1 item in the slot
     if (action == ClickAction.SECONDARY && slot.allowModification(player)) {
       ItemStack slotStack = slot.getItem();
-      if (!slotStack.isEmpty() && mayHaveFluid(slotStack)) {
-        // target must be stack size 1, if not then its not safe to modify it
+      // if it's the same item, we might want to transfer fluid or just move 1 item; overrideOtherStackedOnMe will handle deciding which to take
+      if (!slotStack.isEmpty() && held.getItem() != slotStack.getItem() && mayHaveFluid(slotStack)) {
+        // target must be stack size 1, if not then it's not safe to modify it
         if (slotStack.getCount() == 1) {
-          // transfer fluid
-          FluidTank tank = getFluidTank(held);
+          // transfer fluid - but we work with just 1 tank at a time instead of trying to transfer the whole stack
+          FluidTank tank = getTank(held, 1);
           ItemStack result = FluidTransferHelper.interactWithTankSlot(tank, slotStack, TransferDirection.REVERSE);
           // update held tank and slot item if something changed (either we have a result or the stack in the slot was shrunk)
           if (!result.isEmpty() || slotStack.isEmpty()) {
@@ -143,7 +147,11 @@ public class TankItem extends BlockTooltipItem {
       // tank must be stack size 1 to modify. If not, then we just do nothing
       if (stack.getCount() == 1) {
         // transfer the fluid
-        FluidTank tank = getFluidTank(stack);
+        FluidTank tank = getTank(stack);
+        // if both tanks are empty, just do standard stack operations; makes it nice and easy to move just 1 item at a time
+        if (tank.isEmpty() && ItemStack.isSameItemSameTags(stack, held)) {
+          return false;
+        }
         int oldCount = held.getCount();
         ItemStack result = FluidTransferHelper.interactWithTankSlot(tank, held, TransferDirection.AUTO);
         if (!result.isEmpty() || held.getCount() != oldCount) {
@@ -210,12 +218,28 @@ public class TankItem extends BlockTooltipItem {
   }
 
   /**
-   * Gets the tank for the given stack
+   * Gets the tank for the given stack, scaled by the stack size.
    * @param stack  Tank stack
    * @return  Tank stored in the stack
    */
-  public static FluidTank getFluidTank(ItemStack stack) {
-    FluidTank tank = new FluidTank(TankBlockEntity.getCapacity(stack.getItem()));
+  public FluidTank getTank(ItemStack stack) {
+    int count = stack.getCount();
+    FluidTank tank = getTank(stack, count);
+    // disallow filling if the current size is larger than 16
+    if (limitStackSize && count > 16) {
+      tank.setValidator(NO_FILL);
+    }
+    return tank;
+  }
+
+  /**
+   * Gets the tank for the given stack
+   * @param stack  Tank stack
+   * @param scale  Number of tanks in a stack, being filled or drained together.
+   * @return  Tank stored in the stack
+   */
+  public static FluidTank getTank(ItemStack stack, int scale) {
+    FluidTank tank = ScaledFluidTank.create(TankBlockEntity.getCapacity(stack.getItem()), scale);
     if (stack.hasTag()) {
       assert stack.getTag() != null;
       tank.readFromNBT(stack.getTag().getCompound(NBTTags.TANK));

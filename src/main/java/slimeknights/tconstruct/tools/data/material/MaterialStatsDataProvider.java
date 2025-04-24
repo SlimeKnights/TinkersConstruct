@@ -212,6 +212,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      HandleMaterialStats.multipliers().durability(0.85f).attackDamage(1.05f).attackSpeed(1.2f).build(),
                      StatlessMaterialStats.BINDING);
     addMaterialStats(MaterialIds.ancientHide, StatlessMaterialStats.BINDING);
+    addMaterialStats(MaterialIds.ancient, new HeadMaterialStats(745, 7f, NETHERITE, 2.5f));
 
     // tier 4 (end)
     addMaterialStats(MaterialIds.enderslimeVine, StatlessMaterialStats.BINDING);
@@ -334,6 +335,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.manyullyn,
                      new LimbMaterialStats(1250, -0.35f, 0.25f, -0.15f),
                      new GripMaterialStats(0.1f, -0.20f, 3.5f));
+    addMaterialStats(MaterialIds.ancient, new LimbMaterialStats(745, -0.15f, 0.05f, 0.15f));
     // tier 4 (end)
     addMaterialStats(MaterialIds.enderslimeVine, StatlessMaterialStats.BOWSTRING);
   }
@@ -377,7 +379,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addArmorShieldStats(MaterialIds.queensSlime, PlatingMaterialStats.builder().durabilityFactor(50).armor(2, 5, 7, 2).toughness(1), StatlessMaterialStats.MAILLE);
     addArmorShieldStats(MaterialIds.hepatizon,   PlatingMaterialStats.builder().durabilityFactor(32).armor(2, 5, 7, 2).toughness(2).knockbackResistance(0.10f), StatlessMaterialStats.MAILLE);
     addArmorShieldStats(MaterialIds.manyullyn,   PlatingMaterialStats.builder().durabilityFactor(35).armor(2, 5, 7, 2).toughness(3).knockbackResistance(0.05f), StatlessMaterialStats.MAILLE);
-    addArmorShieldStats(MaterialIds.debris,      PlatingMaterialStats.builder().durabilityFactor(20).armor(2, 4, 6, 2).knockbackResistance(0.15f));
+    addArmorShieldStats(MaterialIds.ancient,     PlatingMaterialStats.builder().durabilityFactor(25).armor(2, 4, 6, 2).knockbackResistance(0.15f));
     addMaterialStats(MaterialIds.ancientHide, StatlessMaterialStats.MAILLE);
   }
 

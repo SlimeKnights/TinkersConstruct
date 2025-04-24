@@ -11,6 +11,8 @@ import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.tools.data.material.MaterialIds;
+import slimeknights.tconstruct.tools.stats.HeadMaterialStats;
+import slimeknights.tconstruct.tools.stats.LimbMaterialStats;
 import slimeknights.tconstruct.tools.stats.PlatingMaterialStats;
 import slimeknights.tconstruct.tools.stats.StatlessMaterialStats;
 
@@ -294,8 +296,9 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .fallbacks("wood", "stick")
       .transformer(transformerFromSprite(getResource("block/wood/blazewood"), 7, 0));
     IColorMapping ancientDebrisPalette = GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF24110B).addARGB(102, 0xFF411E15).addARGB(140, 0xFF4A281D).addARGB(178, 0xFF654740).addARGB(216, 0xFF7E6059).addARGB(255, 0xFF95867E).build();
-    buildMaterial(MaterialIds.debris)
-      .plating()
+    buildMaterial(MaterialIds.ancient)
+      // no binding, bowstring, or maille
+      .statType(HeadMaterialStats.ID, LimbMaterialStats.ID).plating()
       .fallbacks("rock")
       .colorMapper(ancientDebrisPalette);
     buildMaterial(MaterialIds.ancientHide)

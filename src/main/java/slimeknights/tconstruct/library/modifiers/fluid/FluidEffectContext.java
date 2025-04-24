@@ -1,7 +1,11 @@
 package slimeknights.tconstruct.library.modifiers.fluid;
 
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -62,6 +66,9 @@ public abstract class FluidEffectContext {
     private final LivingEntity livingTarget;
     @Getter
     private final Vec3 location;
+
+    /** @deprecated use {@link #builder(Level)} */
+    @Deprecated(forRemoval = true)
     public Entity(Level level, @Nullable LivingEntity holder, @Nullable Player player, @Nullable Projectile projectile, net.minecraft.world.entity.Entity target, @Nullable LivingEntity livingTarget, @Nullable Vec3 location) {
       super(level, holder, player, projectile);
       this.target = target;
@@ -69,14 +76,20 @@ public abstract class FluidEffectContext {
       this.location = Objects.requireNonNullElse(location, target.position());
     }
 
+    /** @deprecated use {@link #builder(Level)} */
+    @Deprecated(forRemoval = true)
     public Entity(Level level, @Nullable LivingEntity holder, @Nullable Player player, @Nullable Projectile projectile, net.minecraft.world.entity.Entity target, @Nullable LivingEntity livingTarget) {
       this(level, holder, player, projectile, target, livingTarget, null);
     }
 
+    /** @deprecated use {@link #builder(Level)} */
+    @Deprecated(forRemoval = true)
     public Entity(Level level, @Nullable LivingEntity holder, @Nullable Projectile projectile, net.minecraft.world.entity.Entity target, @Nullable Vec3 location) {
       this(level, holder, asPlayer(holder), projectile, target, asLiving(target), location);
     }
 
+    /** @deprecated use {@link #builder(Level)} */
+    @Deprecated(forRemoval = true)
     public Entity(Level level, Player player, @Nullable Projectile projectile, LivingEntity target) {
       this(level, player, player, projectile, target, target);
     }
@@ -92,15 +105,22 @@ public abstract class FluidEffectContext {
     @Getter
     private final BlockHitResult hitResult;
     private BlockState state;
+
+    /** @deprecated use {@link #builder(Level)} */
+    @Deprecated(forRemoval = true)
     public Block(Level level, @Nullable LivingEntity holder, @Nullable Player player, @Nullable Projectile projectile, BlockHitResult hitResult) {
       super(level, holder, player, projectile);
       this.hitResult = hitResult;
     }
 
+    /** @deprecated use {@link #builder(Level)} */
+    @Deprecated(forRemoval = true)
     public Block(Level level, @Nullable LivingEntity holder, @Nullable Projectile projectile, BlockHitResult hitResult) {
       this(level, holder, asPlayer(holder), projectile, hitResult);
     }
 
+    /** @deprecated use {@link #builder(Level)} */
+    @Deprecated(forRemoval = true)
     public Block(Level level, @Nullable Player player, @Nullable Projectile projectile, BlockHitResult hitResult) {
       this(level, player, player, projectile, hitResult);
     }
@@ -131,6 +151,74 @@ public abstract class FluidEffectContext {
     /** Checks if the block in front of the hit block is replaceable */
     public boolean isOffsetReplaceable() {
       return level.getBlockState(hitResult.getBlockPos().relative(hitResult.getDirection())).canBeReplaced();
+    }
+  }
+
+  /* Builder */
+
+  /** Creates a new builder instance */
+  public static Builder builder(Level level) {
+    return new Builder(level);
+  }
+
+  @Accessors(fluent = true)
+  @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+  @CanIgnoreReturnValue
+  public static class Builder {
+    /** Context level */
+    private final Level level;
+    private LivingEntity entity = null;
+    private Player player = null;
+    /** Projectile using the fluid */
+    @Setter
+    private Projectile projectile = null;
+    /** Location we hit the entity. Ignored for blocks */
+    @Setter
+    private Vec3 location = null;
+
+    /** Set the entity and player using the fluid */
+    public Builder user(@Nullable LivingEntity entity, @Nullable Player player) {
+      this.entity = entity;
+      this.player = player;
+      return this;
+    }
+
+    /** Set the entity using the fluid, setting the player by instanceof check */
+    public Builder user(@Nullable net.minecraft.world.entity.Entity entity) {
+      return user(asLiving(entity));
+    }
+
+    /** Set the entity using the fluid, setting the player by instanceof check */
+    public Builder user(@Nullable LivingEntity entity) {
+      if (entity != null) {
+        user(entity, asPlayer(entity));
+      }
+      return this;
+    }
+
+    /** Set the player using the fluid */
+    public Builder user(@Nullable Player player) {
+      return user(player, player);
+    }
+
+    /** Creates a block context */
+    public Block block(BlockHitResult hitResult) {
+      return new Block(level, entity, player, projectile, hitResult);
+    }
+
+    /** Creates an entity context */
+    public Entity target(net.minecraft.world.entity.Entity target, @Nullable LivingEntity livingTarget) {
+      return new Entity(level, entity, player, projectile, target, livingTarget, location);
+    }
+
+    /** Creates an entity context */
+    public Entity target(net.minecraft.world.entity.Entity target) {
+      return target(target, asLiving(target));
+    }
+
+    /** Creates an entity context */
+    public Entity target(LivingEntity target) {
+      return target(target, target);
     }
   }
 }

@@ -693,6 +693,14 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.kinetic).addModule(KineticModule.INSTANCE);
     buildModifier(ModifierIds.recurrentProtection).addModule(new RecurrentProtectionModule(LevelingValue.flat(0.5f), LevelingInt.eachLevel(5 * 20)));
     buildModifier(ModifierIds.flameBarrier).addModule(new FlameBarrierModule(LevelingValue.eachLevel(1.875f)));
+    buildModifier(ModifierIds.vintage)
+      .addModule(ModifierSlotModule.slot(SlotType.ABILITY).eachLevel(1))
+      .addModule(StatBoostModule.multiplyAll(ToolStats.MINING_SPEED).eachLevel(-0.1f))
+      .addModule(StatBoostModule.multiplyAll(ToolStats.ATTACK_SPEED).eachLevel(-0.1f))
+      .addModule(StatBoostModule.multiplyAll(ToolStats.DRAW_SPEED).eachLevel(-0.1f))
+      // for defensive builds, offhand debuffs main hand attack speed
+      .addModule(AttributeModule.builder(Attributes.ATTACK_SPEED, Operation.MULTIPLY_TOTAL).uniqueFrom(ModifierIds.vintage).slots(EquipmentSlot.OFFHAND).toolItem(ItemPredicate.tag(TinkerTags.Items.HELD_ARMOR)).eachLevel(-0.1f))
+      .addModule(AttributeModule.builder(Attributes.MOVEMENT_SPEED, Operation.MULTIPLY_TOTAL).uniqueFrom(ModifierIds.vintage).slots(ARMOR_SLOTS).eachLevel(-0.1f));
 
     // traits - slimeskull
     buildModifier(ModifierIds.mithridatism).addModule(new EffectImmunityModule(MobEffects.POISON)).levelDisplay(ModifierLevelDisplay.NO_LEVELS);

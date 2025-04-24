@@ -90,7 +90,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
   @Override
   protected void addToolDefinitions() {
     RandomMaterial tier1Material = RandomMaterial.random().tier(1).build();
-    RandomMaterial randomMaterial = RandomMaterial.random().build();
+    RandomMaterial randomMaterial = RandomMaterial.random().allowHidden().build();
     DefaultMaterialsModule defaultTwoParts = DefaultMaterialsModule.builder().material(tier1Material, tier1Material).build();
     DefaultMaterialsModule defaultThreeParts = DefaultMaterialsModule.builder().material(tier1Material, tier1Material, tier1Material).build();
     DefaultMaterialsModule defaultFourParts = DefaultMaterialsModule.builder().material(tier1Material, tier1Material, tier1Material, tier1Material).build();

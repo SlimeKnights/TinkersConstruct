@@ -213,6 +213,7 @@
     "sturdy":        "#D8D8D8",
     "tanned":        "#C65C35",
     "tasty":         "#F0A8A4",
+    "vintage":       "#7E6059",
 
     "__traits_melee__": null,
     "airborne":     "#00F4DA",
@@ -358,6 +359,7 @@
     "blazing_bone": "#DBCC0B",
     "blazewood":    "#DBCC0B",
     "ancient_hide": "#7E6059",
+    "ancient":      "#654740",
 
     "__tier_5__": null,
     "enderslime_vine": "#a92dff",
@@ -383,7 +385,6 @@
 
     "__plate__": null,
     "obsidian":  "#443753",
-    "debris":    "#654740",
     "netherite": "#4C4143",
     "nickel":    "#EBF1DE",
     "tin":       "#A1C6C2",

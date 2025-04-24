@@ -30,6 +30,7 @@ import slimeknights.tconstruct.library.json.predicate.TinkerPredicate;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidMobEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.TimeAction;
+import slimeknights.tconstruct.library.modifiers.fluid.block.BlockInteractFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.block.BreakBlockFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.block.MoveBlocksFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.block.PlaceBlockFluidEffect;
@@ -38,6 +39,7 @@ import slimeknights.tconstruct.library.modifiers.fluid.entity.AddBreathFluidEffe
 import slimeknights.tconstruct.library.modifiers.fluid.entity.AwardStatFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.CureEffectsFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.DamageFluidEffect;
+import slimeknights.tconstruct.library.modifiers.fluid.entity.EntityInteractFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.FireFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.FreezeFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.PotionFluidEffect;
@@ -108,7 +110,7 @@ public class FluidEffectProvider extends AbstractFluidEffectProvider {
     // ichor - levitation
     addSlime(TinkerFluids.ichor)
       .addEntityEffects(FluidMobEffect.builder().effect(MobEffects.LEVITATION, 5*20).effect(MobEffects.MOVEMENT_SLOWDOWN, 20*5).buildEntity(TimeAction.ADD))
-      .addBlockEffect(new BreakBlockFluidEffect(0));
+      .addBlockEffect(new PlaceBlockFluidEffect(null));
     // ender - teleporting
     addSlime(TinkerFluids.enderSlime)
       .addEntityEffects(FluidMobEffect.builder().effect(MobEffects.MOVEMENT_SLOWDOWN, 20*5).buildEntity(TimeAction.ADD))
@@ -122,8 +124,8 @@ public class FluidEffectProvider extends AbstractFluidEffectProvider {
     addFluid(TinkerFluids.magma, FluidValues.SLIME_DROP * 2).addEffect(ExplosionFluidEffect.radius(0.5f, 0.5f).damage(LevelingValue.eachLevel(2)).placeFire().build());
     // ender - enderference / enderference cloud
     addFluid(TinkerFluids.moltenEnder, FluidValues.SLIME_DROP)
-      .addEntityEffects(FluidMobEffect.builder().effect(TinkerModifiers.enderferenceEffect.get(), 10*20).buildEntity(TimeAction.ADD))
-      .addBlockEffect(new PlaceBlockFluidEffect(null));
+      .addEntityEffect(EntityInteractFluidEffect.INSTANCE)
+      .addBlockEffect(BlockInteractFluidEffect.INSTANCE);
 
     // glass - piercing and spikes //
     addGlass(TinkerFluids.moltenGlass)

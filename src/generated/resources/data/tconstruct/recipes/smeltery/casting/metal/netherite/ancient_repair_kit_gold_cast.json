@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "tconstruct:casts/multi_use/repair_kit"
+  },
+  "cooling_time": 101,
+  "fluid": {
+    "amount": 180,
+    "tag": "tconstruct:molten_debris"
+  },
+  "result": {
+    "item": "tconstruct:repair_kit",
+    "nbt": {
+      "Material": "tconstruct:ancient"
+    }
+  }
+}

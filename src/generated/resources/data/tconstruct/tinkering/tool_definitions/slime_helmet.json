@@ -29,7 +29,8 @@
       "type": "tconstruct:default_materials",
       "materials": [
         {
-          "type": "tconstruct:random"
+          "type": "tconstruct:random",
+          "allow_hidden": true
         }
       ]
     },

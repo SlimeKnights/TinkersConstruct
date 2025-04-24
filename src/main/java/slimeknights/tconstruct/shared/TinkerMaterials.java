@@ -71,6 +71,8 @@ public final class TinkerMaterials extends TinkerModule {
       MaterialPredicate.LOADER.register(getResource("variant"), MaterialVariantPredicate.LOADER);
       MaterialPredicate.LOADER.register(getResource("id"), MaterialIdPredicate.LOADER);
       MaterialPredicate.LOADER.register(getResource("stat_type"), MaterialStatTypePredicate.LOADER);
+      MaterialPredicate.LOADER.register(getResource("castable"), MaterialPredicate.CASTABLE.getLoader());
+      MaterialPredicate.LOADER.register(getResource("composite"), MaterialPredicate.COMPOSITE.getLoader());
     }
   }
 

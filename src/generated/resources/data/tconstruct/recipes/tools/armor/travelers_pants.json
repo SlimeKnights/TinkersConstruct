@@ -5,8 +5,14 @@
     "c": {
       "type": "tconstruct:material_value",
       "material": {
-        "type": "tconstruct:stat_type",
-        "stat_type": "tconstruct:plating_leggings"
+        "type": "mantle:and",
+        "predicates": [
+          "tconstruct:castable",
+          {
+            "type": "tconstruct:stat_type",
+            "stat_type": "tconstruct:plating_leggings"
+          }
+        ]
       },
       "value": 1.0
     },

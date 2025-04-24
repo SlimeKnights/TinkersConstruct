@@ -61,6 +61,7 @@ import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierManager;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectManager;
+import slimeknights.tconstruct.library.modifiers.fluid.block.BlockInteractFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.block.BreakBlockFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.block.MobEffectCloudFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.block.MoveBlocksFluidEffect;
@@ -70,6 +71,7 @@ import slimeknights.tconstruct.library.modifiers.fluid.entity.AddBreathFluidEffe
 import slimeknights.tconstruct.library.modifiers.fluid.entity.AwardStatFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.CureEffectsFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.DamageFluidEffect;
+import slimeknights.tconstruct.library.modifiers.fluid.entity.EntityInteractFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.FireFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.FreezeFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.MobEffectFluidEffect;
@@ -576,12 +578,14 @@ public final class TinkerModifiers extends TinkerModule {
       FluidEffect.ENTITY_EFFECTS.register(getResource("award_stat"), AwardStatFluidEffect.LOADER);
       FluidEffect.ENTITY_EFFECTS.register(getResource("add_breath"), AddBreathFluidEffect.LOADER);
       FluidEffect.ENTITY_EFFECTS.register(getResource("push_entity"), PushEntityFluidEffect.LOADER);
+      FluidEffect.ENTITY_EFFECTS.register(getResource("interact"), EntityInteractFluidEffect.INSTANCE.getLoader());
       // block
       FluidEffect.BLOCK_EFFECTS.register(getResource("place_block"), PlaceBlockFluidEffect.LOADER);
       FluidEffect.BLOCK_EFFECTS.register(getResource("break_block"), BreakBlockFluidEffect.LOADER);
       FluidEffect.BLOCK_EFFECTS.register(getResource("mob_effect_cloud"), MobEffectCloudFluidEffect.LOADER);
       FluidEffect.BLOCK_EFFECTS.register(getResource("potion_cloud"), PotionCloudFluidEffect.LOADER);
       FluidEffect.BLOCK_EFFECTS.register(getResource("move_block"), MoveBlocksFluidEffect.LOADER);
+      FluidEffect.BLOCK_EFFECTS.register(getResource("interact"), BlockInteractFluidEffect.INSTANCE.getLoader());
       // shared
       FluidEffect.registerGeneral(getResource("drop_item"), DropItemFluidEffect.LOADER);
       FluidEffect.registerGeneral(getResource("explosion"), ExplosionFluidEffect.LOADER);

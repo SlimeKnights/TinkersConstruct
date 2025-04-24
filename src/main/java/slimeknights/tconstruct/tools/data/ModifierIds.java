@@ -156,6 +156,7 @@ public class ModifierIds {
   public static final ModifierId fortified = id("fortified");
   public static final ModifierId kinetic = id("kinetic");
   public static final ModifierId flameBarrier = id("flame_barrier");
+  public static final ModifierId vintage = id("vintage");
 
   // traits - slimeskull
   public static final ModifierId mithridatism = id("mithridatism");

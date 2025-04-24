@@ -1,0 +1,56 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:modifier_slot",
+      "each_level": 1,
+      "name": "abilities"
+    },
+    {
+      "type": "tconstruct:stat_boost",
+      "each_level": -0.1,
+      "operation": "multiply_all",
+      "stat": "tconstruct:mining_speed"
+    },
+    {
+      "type": "tconstruct:stat_boost",
+      "each_level": -0.1,
+      "operation": "multiply_all",
+      "stat": "tconstruct:attack_speed"
+    },
+    {
+      "type": "tconstruct:stat_boost",
+      "each_level": -0.1,
+      "operation": "multiply_all",
+      "stat": "tconstruct:draw_speed"
+    },
+    {
+      "type": "tconstruct:attribute",
+      "attribute": "minecraft:generic.attack_speed",
+      "each_level": -0.1,
+      "operation": "multiply_total",
+      "slots": [
+        "offhand"
+      ],
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/armor/held"
+      },
+      "unique": "tconstruct.modifier.vintage"
+    },
+    {
+      "type": "tconstruct:attribute",
+      "attribute": "minecraft:generic.movement_speed",
+      "each_level": -0.1,
+      "operation": "multiply_total",
+      "slots": [
+        "feet",
+        "legs",
+        "chest",
+        "head"
+      ],
+      "unique": "tconstruct.modifier.vintage"
+    }
+  ],
+  "tooltip_display": "always"
+}
