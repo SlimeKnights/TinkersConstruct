@@ -42,8 +42,11 @@ import java.util.List;
 /**
  * Modifier that to keep track of a stat that is contributed to by all armor pieces. Can scale the stat on different modifiers or for incremental and can use float values unlike {@link ArmorLevelModule}.
  * @see ArmorLevelModule
- * @see TinkerDataKey
+ * @see TinkerDataKeys#FLOAT_REGISTRY
+ * @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule}
  */
+@SuppressWarnings("removal")
+@Deprecated
 public record ArmorStatModule(TinkerDataKey<Float> key, LevelingValue amount, boolean allowBroken, @Nullable TagKey<Item> heldTag, TooltipStyle tooltipStyle, ModifierCondition<IToolStackView> condition) implements HookProvider, EquipmentChangeModifierHook, ModifierModule, TooltipModifierHook, ConditionalModule<IToolStackView> {
   private static final List<ModuleHook<?>> TOOLTIP_HOOKS = HookProvider.<ArmorStatModule>defaultHooks(ModifierHooks.EQUIPMENT_CHANGE, ModifierHooks.TOOLTIP);
   private static final List<ModuleHook<?>> NO_TOOLTIP_HOOKS = HookProvider.<ArmorStatModule>defaultHooks(ModifierHooks.EQUIPMENT_CHANGE);

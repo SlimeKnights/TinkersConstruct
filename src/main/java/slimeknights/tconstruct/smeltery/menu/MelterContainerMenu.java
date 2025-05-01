@@ -40,7 +40,7 @@ public class MelterContainerMenu extends TriggeringBaseContainerMenu<MelterBlock
 
     // create slots
     if (melter != null) {
-      MeltingModuleInventory inventory = melter.getMeltingInventory();
+      MeltingModuleInventory inventory = melter.getItemHandler();
       inputs = new Slot[inventory.getSlots()];
       for (int i = 0; i < inputs.length; i++) {
         inputs[i] = this.addSlot(new SmartItemHandlerSlot(inventory, i, 22, 16 + (i * 18)));

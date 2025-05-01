@@ -11,8 +11,7 @@
       "type": "tconstruct:melee_attribute",
       "attribute": "minecraft:generic.armor",
       "each_level": -1.0,
-      "operation": "addition",
-      "unique": "tconstruct.modifier.pierce"
+      "operation": "addition"
     },
     {
       "type": "tconstruct:mob_effect",

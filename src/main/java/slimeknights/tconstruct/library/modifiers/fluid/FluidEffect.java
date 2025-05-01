@@ -50,7 +50,9 @@ public interface FluidEffect<C extends FluidEffectContext> extends IHaveLoader, 
   FluidEffect<FluidEffectContext.Entity> EXTINGUISH_FIRE = simple((fluid, level, context, action) -> {
     Entity target = context.getTarget();
     if (target.isOnFire() && level.isFull()) {
-      context.getTarget().clearFire();
+      if (action.execute()) {
+        context.getTarget().clearFire();
+      }
       return 1;
     }
     return 0;
@@ -60,7 +62,9 @@ public interface FluidEffect<C extends FluidEffectContext> extends IHaveLoader, 
   FluidEffect<FluidEffectContext.Entity> TELEPORT = simple((fluid, level, context, action) -> {
     LivingEntity target = context.getLivingTarget();
     if (target != null && level.isFull()) {
-      TeleportHelper.randomNearbyTeleport(target, FluidEffectTeleportEvent.TELEPORT_FACTORY);
+      if (action.execute()) {
+        TeleportHelper.randomNearbyTeleport(target, FluidEffectTeleportEvent.TELEPORT_FACTORY);
+      }
       return 1;
     }
     return 0;
@@ -88,7 +92,7 @@ public interface FluidEffect<C extends FluidEffectContext> extends IHaveLoader, 
 
       @Override
       public float apply(FluidStack fluid, EffectLevel level, C context, FluidAction action) {
-        return effect.apply(fluid, level, context, FluidAction.EXECUTE);
+        return effect.apply(fluid, level, context, action);
       }
     });
   }

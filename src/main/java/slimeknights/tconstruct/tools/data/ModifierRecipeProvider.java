@@ -997,7 +997,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.ABILITY, 1)
                          .saveSalvage(consumer, prefix(TinkerModifiers.doubleJump, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.doubleJump, abilityFolder));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.bouncy)
+    ModifierRecipeBuilder.modifier(ModifierIds.bouncy)
                          .setTools(TinkerTags.Items.BOOTS)
                          .addInput(TinkerWorld.congealedSlime.get(SlimeType.SKY),   4)
                          .addInput(TinkerWorld.congealedSlime.get(SlimeType.ICHOR), 4)
@@ -1006,8 +1006,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(TinkerWorld.congealedSlime.get(SlimeType.EARTH), 4)
                          .setSlots(SlotType.ABILITY, 1)
                          .setMaxLevel(1).checkTraitLevel()
-                         .saveSalvage(consumer, prefix(TinkerModifiers.bouncy, abilitySalvage))
-                         .save(consumer, prefix(TinkerModifiers.bouncy, abilityFolder));
+                         .saveSalvage(consumer, prefix(ModifierIds.bouncy, abilitySalvage))
+                         .save(consumer, prefix(ModifierIds.bouncy, abilityFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.frostWalker)
                          .setTools(TinkerTags.Items.BOOTS)
                          .addInput(Items.BLUE_ICE)

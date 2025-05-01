@@ -2,10 +2,18 @@
   "level_display": "tconstruct:default",
   "modules": [
     {
-      "type": "tconstruct:armor_stat",
-      "allow_broken": false,
+      "type": "tconstruct:attribute",
+      "attribute": "tconstruct:generic.jump_boost",
       "each_level": 1.0,
-      "key": "tconstruct:jump_boost"
+      "operation": "addition",
+      "slots": [
+        "mainhand",
+        "offhand",
+        "feet",
+        "legs",
+        "chest",
+        "head"
+      ]
     }
   ],
   "tooltip_display": "always"

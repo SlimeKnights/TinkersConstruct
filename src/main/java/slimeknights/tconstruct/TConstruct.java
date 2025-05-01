@@ -57,6 +57,7 @@ import slimeknights.tconstruct.plugin.DietPlugin;
 import slimeknights.tconstruct.plugin.ImmersiveEngineeringPlugin;
 import slimeknights.tconstruct.plugin.craftingtweaks.CraftingTweaksPlugin;
 import slimeknights.tconstruct.plugin.jsonthings.JsonThingsPlugin;
+import slimeknights.tconstruct.shared.TinkerAttributes;
 import slimeknights.tconstruct.shared.TinkerClient;
 import slimeknights.tconstruct.shared.TinkerCommons;
 import slimeknights.tconstruct.shared.TinkerMaterials;
@@ -107,6 +108,7 @@ public class TConstruct {
     bus.register(new TinkerMaterials());
     bus.register(new TinkerFluids());
     bus.register(new TinkerGadgets());
+    bus.register(new TinkerAttributes());
     // world
     bus.register(new TinkerWorld());
     bus.register(new TinkerStructures());

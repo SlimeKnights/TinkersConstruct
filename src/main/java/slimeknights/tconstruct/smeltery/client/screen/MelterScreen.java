@@ -29,7 +29,7 @@ public class MelterScreen extends AbstractContainerScreen<MelterContainerMenu> i
     MelterBlockEntity te = container.getTile();
     if (te != null) {
       FuelModule fuelModule = te.getFuelModule();
-      melting = new GuiMeltingModule(this, te.getMeltingInventory(), 0, fuelModule::getTemperature, slot -> true, BACKGROUND);
+      melting = new GuiMeltingModule(this, te.getItemHandler(), 0, fuelModule::getTemperature, slot -> true, BACKGROUND);
       fuel = new GuiFuelModule(this, fuelModule, 153, 32, 12, 36, 152, 15, container.isHasFuelSlot(), BACKGROUND);
       tank = new GuiTankModule(this, te.getTank(), 90, 16, 52, 52, MelterContainerMenu.TOOLTIP_FORMAT);
     } else {

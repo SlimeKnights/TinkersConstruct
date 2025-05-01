@@ -35,8 +35,7 @@
       "tool": {
         "type": "mantle:tag",
         "tag": "tconstruct:modifiable/armor/held"
-      },
-      "unique": "tconstruct.modifier.vintage"
+      }
     },
     {
       "type": "tconstruct:attribute",
@@ -48,8 +47,7 @@
         "legs",
         "chest",
         "head"
-      ],
-      "unique": "tconstruct.modifier.vintage"
+      ]
     }
   ],
   "tooltip_display": "always"

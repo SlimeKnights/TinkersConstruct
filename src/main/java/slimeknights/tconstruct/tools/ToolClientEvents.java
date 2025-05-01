@@ -65,6 +65,7 @@ import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.HarvestTiers;
 import slimeknights.tconstruct.library.utils.Util;
+import slimeknights.tconstruct.shared.TinkerAttributes;
 import slimeknights.tconstruct.tools.client.CrystalshotRenderer;
 import slimeknights.tconstruct.tools.client.FluidEffectProjectileRenderer;
 import slimeknights.tconstruct.tools.client.OverslimeModifierModel;
@@ -302,23 +303,25 @@ public class ToolClientEvents extends ClientEventBase {
     }
   }
 
+  @SuppressWarnings("removal")
   private static void handleInput(MovementInputUpdateEvent event) {
     Player player = event.getEntity();
     if (player.isUsingItem() && !player.isPassenger()) {
       ItemStack using = player.getUseItem();
-      // start by calculating tool stat
-      float speed = 0.2f;
+      // start with the attribute
+      double speed = player.getAttributeValue(TinkerAttributes.USE_ITEM_SPEED.get());
+      // start by calculating tool stat, not an attribute to ensure both hands get their say
       if (using.is(TinkerTags.Items.HELD)) {
         ToolStack tool = ToolStack.from(using);
-        speed = tool.getStats().get(ToolStats.USE_ITEM_SPEED);
+        speed += tool.getStats().get(ToolStats.USE_ITEM_SPEED) - ToolStats.USE_ITEM_SPEED.getDefaultValue();
       }
-      // next, add in armor bonus
+      // next, add in deprecated key bonus
       speed = Mth.clamp(speed + ArmorStatModule.getStat(player, TinkerDataKeys.USE_ITEM_SPEED), 0, 1);
       // update speed, note if the armor stat is 0 and the held tool is not tinkers this is a no-op effectively
       Input input = event.getInput();
       // multiply by 5 to cancel out the vanilla 20%
-      input.leftImpulse *= speed * 5;
-      input.forwardImpulse *= speed * 5;
+      input.leftImpulse *= (float) (speed * 5);
+      input.forwardImpulse *= (float) (speed * 5);
     }
   }
 }

@@ -11,6 +11,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -36,6 +37,14 @@ public abstract class FluidEffectContext {
   /** Projectile that caused the fluid, null if no projectile is used (e.g. melee or interact effects) */
   @Nullable
   protected final Projectile projectile;
+  /** Item stack fallback for when the entity is not set */
+  protected final ItemStack stack;
+
+  /** @deprecated use {@link #FluidEffectContext(Level,LivingEntity,Player,Projectile,ItemStack} */
+  @Deprecated
+  public FluidEffectContext(Level level, @Nullable LivingEntity entity, @Nullable Player player, @Nullable Projectile projectile) {
+    this(level, entity, player, projectile, ItemStack.EMPTY);
+  }
 
   /** Gets the relevant block position for this context */
   public abstract BlockPos getBlockPos();
@@ -67,13 +76,17 @@ public abstract class FluidEffectContext {
     @Getter
     private final Vec3 location;
 
-    /** @deprecated use {@link #builder(Level)} */
-    @Deprecated(forRemoval = true)
-    public Entity(Level level, @Nullable LivingEntity holder, @Nullable Player player, @Nullable Projectile projectile, net.minecraft.world.entity.Entity target, @Nullable LivingEntity livingTarget, @Nullable Vec3 location) {
-      super(level, holder, player, projectile);
+    private Entity(Level level, @Nullable LivingEntity holder, @Nullable Player player, @Nullable Projectile projectile, ItemStack stack, net.minecraft.world.entity.Entity target, @Nullable LivingEntity livingTarget, @Nullable Vec3 location) {
+      super(level, holder, player, projectile, stack);
       this.target = target;
       this.livingTarget = livingTarget;
       this.location = Objects.requireNonNullElse(location, target.position());
+    }
+
+    /** @deprecated use {@link #builder(Level)} */
+    @Deprecated(forRemoval = true)
+    public Entity(Level level, @Nullable LivingEntity holder, @Nullable Player player, @Nullable Projectile projectile, net.minecraft.world.entity.Entity target, @Nullable LivingEntity livingTarget, @Nullable Vec3 location) {
+      this(level, holder, player, projectile, ItemStack.EMPTY, target, livingTarget, location);
     }
 
     /** @deprecated use {@link #builder(Level)} */
@@ -106,11 +119,15 @@ public abstract class FluidEffectContext {
     private final BlockHitResult hitResult;
     private BlockState state;
 
+    private Block(Level level, @Nullable LivingEntity holder, @Nullable Player player, @Nullable Projectile projectile, ItemStack stack, BlockHitResult hitResult) {
+      super(level, holder, player, projectile, stack);
+      this.hitResult = hitResult;
+    }
+
     /** @deprecated use {@link #builder(Level)} */
     @Deprecated(forRemoval = true)
     public Block(Level level, @Nullable LivingEntity holder, @Nullable Player player, @Nullable Projectile projectile, BlockHitResult hitResult) {
-      super(level, holder, player, projectile);
-      this.hitResult = hitResult;
+      this(level, holder, player, projectile, ItemStack.EMPTY, hitResult);
     }
 
     /** @deprecated use {@link #builder(Level)} */
@@ -137,7 +154,7 @@ public abstract class FluidEffectContext {
 
     /** Creates a copy of this context with the given hit result */
     public Block withHitResult(BlockHitResult result) {
-      return new Block(level, entity, player, projectile, result);
+      return new Block(level, entity, player, projectile, stack, result);
     }
 
     /** Gets the block state targeted by this context */
@@ -172,6 +189,9 @@ public abstract class FluidEffectContext {
     /** Projectile using the fluid */
     @Setter
     private Projectile projectile = null;
+    /** Item stack fallback for when the entity is not set */
+    @Setter
+    private ItemStack stack = ItemStack.EMPTY;
     /** Location we hit the entity. Ignored for blocks */
     @Setter
     private Vec3 location = null;
@@ -203,12 +223,12 @@ public abstract class FluidEffectContext {
 
     /** Creates a block context */
     public Block block(BlockHitResult hitResult) {
-      return new Block(level, entity, player, projectile, hitResult);
+      return new Block(level, entity, player, projectile, stack, hitResult);
     }
 
     /** Creates an entity context */
     public Entity target(net.minecraft.world.entity.Entity target, @Nullable LivingEntity livingTarget) {
-      return new Entity(level, entity, player, projectile, target, livingTarget, location);
+      return new Entity(level, entity, player, projectile, stack, target, livingTarget, location);
     }
 
     /** Creates an entity context */

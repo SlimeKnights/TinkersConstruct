@@ -12,15 +12,22 @@
       "stat": "tconstruct:mining_speed"
     },
     {
-      "type": "tconstruct:armor_stat",
-      "allow_broken": false,
+      "type": "tconstruct:attribute",
+      "attribute": "tconstruct:player.mining_speed_multiplier",
       "each_level": 0.1,
-      "key": "tconstruct:mining_speed",
+      "operation": "multiply_total",
+      "slots": [
+        "mainhand",
+        "offhand",
+        "feet",
+        "legs",
+        "chest",
+        "head"
+      ],
       "tool": {
         "type": "mantle:tag",
         "tag": "tconstruct:modifiable/armor"
-      },
-      "tooltip_style": "percent"
+      }
     }
   ],
   "tooltip_display": "always"

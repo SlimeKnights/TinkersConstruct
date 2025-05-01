@@ -2982,7 +2982,19 @@
   "armor_stat.tconstruct.good_effect_duration": "Good Potion Time",
   "armor_stat.tconstruct.bad_effect_duration": "Bad Potion Time",
   "armor_stat.tconstruct.crouch_damage": "Crouch Damage",
-  "armor_stat.tconstruct.explosion_knockback": "Explosion Knockback",
+  "armor_stat.tconstruct.knockback": "Knockback",
+
+  "attribute.name.tconstruct.player.use_item_speed": "Use Item Speed",
+  "attribute.name.tconstruct.player.critical_damage": "Critical Damage",
+  "attribute.name.tconstruct.player.mining_speed_multiplier": "Mining Speed",
+  "attribute.name.tconstruct.player.experience_multiplier": "Experience",
+
+  "attribute.name.tconstruct.generic.protection_cap": "Max Protection",
+  "attribute.name.tconstruct.generic.jump_boost": "Jump Height",
+  "attribute.name.tconstruct.generic.crouch_damage_multiplier": "Crouch Damage",
+  "attribute.name.tconstruct.generic.knockback_multiplier": "Knockback",
+  "attribute.name.tconstruct.generic.good_effect_duration_multiplier": "Good Potion Time",
+  "attribute.name.tconstruct.generic.bad_effect_duration_multiplier": "Bad Potion Time",
 
 
   "_comment": "Tooltips",

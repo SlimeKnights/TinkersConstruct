@@ -6,6 +6,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.items.IItemHandler;
 import slimeknights.tconstruct.common.config.Config;
 import slimeknights.tconstruct.library.client.SafeClient;
 import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
@@ -113,5 +114,11 @@ public interface ITankBlockEntity extends IFluidTankUpdater, FluidUpdatePacket.I
       return 0;
     }
     return ((ITankBlockEntity) te).comparatorStrength();
+  }
+
+  /** Represents a  tank block entity with an inventory */
+  interface ITankInventoryBlockEntity extends ITankBlockEntity {
+    /** Gets the associated item handler for this tank with an inventory */
+    IItemHandler getItemHandler();
   }
 }

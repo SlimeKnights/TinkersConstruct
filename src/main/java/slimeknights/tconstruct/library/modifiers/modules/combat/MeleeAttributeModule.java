@@ -2,6 +2,8 @@ package slimeknights.tconstruct.library.modifiers.modules.combat;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -10,7 +12,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.Loadables;
-import slimeknights.mantle.data.loadable.primitive.StringLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
@@ -18,6 +19,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.combat.MeleeHitModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
+import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeUniqueField;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModifierCondition.ConditionalModule;
 import slimeknights.tconstruct.library.modifiers.modules.util.ModuleBuilder;
@@ -29,6 +31,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Supplier;
 
 /**
  * Adds an attribute modifier to the mob before hitting, then removes the modifier after hitting.
@@ -42,7 +45,7 @@ import java.util.UUID;
 public record MeleeAttributeModule(String unique, Attribute attribute, UUID uuid, Operation operation, LevelingValue amount, ModifierCondition<IToolStackView> condition) implements ModifierModule, MeleeHitModifierHook, ConditionalModule<IToolStackView> {
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<MeleeAttributeModule>defaultHooks(ModifierHooks.MELEE_HIT);
   public static final RecordLoadable<MeleeAttributeModule> LOADER = RecordLoadable.create(
-    StringLoadable.DEFAULT.requiredField("unique", MeleeAttributeModule::unique),
+    new AttributeUniqueField<>(MeleeAttributeModule::unique),
     Loadables.ATTRIBUTE.requiredField("attribute", MeleeAttributeModule::attribute),
     TinkerLoadables.OPERATION.requiredField("operation", MeleeAttributeModule::operation),
     LevelingValue.LOADABLE.directField(MeleeAttributeModule::amount),
@@ -106,19 +109,17 @@ public record MeleeAttributeModule(String unique, Attribute attribute, UUID uuid
     return new Builder(attribute, operation);
   }
 
+  public static Builder builder(Supplier<Attribute> attribute, Operation operation) {
+    return new Builder(attribute.get(), operation);
+  }
+
   @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
   public static class Builder extends ModuleBuilder.Stack<Builder> implements LevelingValue.Builder<MeleeAttributeModule>  {
     protected final Attribute attribute;
     protected final Operation operation;
-    protected String unique;
-
-    /**
-     * Sets the unique string directly
-     */
-    public Builder unique(String unique) {
-      this.unique = unique;
-      return this;
-    }
+    @Setter
+    @Accessors(fluent = true)
+    protected String unique = "";
 
     /**
      * Sets the unique string using a resource location
@@ -129,9 +130,6 @@ public record MeleeAttributeModule(String unique, Attribute attribute, UUID uuid
 
     @Override
     public MeleeAttributeModule amount(float flat, float eachLevel) {
-      if (unique == null) {
-        throw new IllegalStateException("Must set unique for attributes");
-      }
       return new MeleeAttributeModule(unique, attribute, operation, new LevelingValue(flat, eachLevel), condition);
     }
   }

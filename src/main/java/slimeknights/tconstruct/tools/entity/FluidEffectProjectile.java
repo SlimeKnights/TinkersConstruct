@@ -7,6 +7,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Direction.Axis;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -19,13 +20,18 @@ import net.minecraft.world.entity.projectile.LlamaSpit;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
+import slimeknights.mantle.inventory.EmptyItemHandler;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectManager;
@@ -33,6 +39,7 @@ import slimeknights.tconstruct.library.modifiers.fluid.FluidEffects;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -41,14 +48,17 @@ import java.util.stream.Stream;
 /**
  * Projectile that applies a fluid effect on hit, based on {@link LlamaSpit}, but not extending as we want custom movement logic
  */
+@Setter
 public class FluidEffectProjectile extends Projectile {
   private static final EntityDataAccessor<FluidStack> FLUID = SynchedEntityData.defineId(FluidEffectProjectile.class, TinkerFluids.FLUID_DATA_SERIALIZER);
-
-  @Setter
+  /** Projectile power determining how much fluid is used at most */
   private float power = 1;
-  @Setter
+  /** Amount of knockback for the projectile to cause, scaled like arrow knockback */
   @Getter
   private int knockback = 1;
+  /** Position of the cannon that fired this projectile */
+  @Nullable
+  private BlockPos cannon;
 
   public FluidEffectProjectile(EntityType<? extends FluidEffectProjectile> type, Level level) {
     super(type, level);
@@ -59,9 +69,21 @@ public class FluidEffectProjectile extends Projectile {
   }
 
   public FluidEffectProjectile(Level level, LivingEntity owner, FluidStack fluid, float power) {
-    this(TinkerModifiers.fluidSpitEntity.get(), level);
+    this(level);
     this.setPos(owner.getX(), owner.getEyeY() - 0.1, owner.getZ());
     this.setOwner(owner);
+    this.setFluid(fluid);
+    this.setPower(power);
+  }
+
+  public FluidEffectProjectile(Level level, BlockPos cannon, Direction facing, FluidStack fluid, float power) {
+    this(level);
+    this.setCannon(cannon);
+    this.setPos(
+      cannon.getX() + 0.5 + (0.7 * facing.getStepX()),
+      cannon.getY() + 0.5 + (0.7 * facing.getStepY()),
+      cannon.getZ() + 0.5 + (0.7 * facing.getStepZ())
+    );
     this.setFluid(fluid);
     this.setPower(power);
   }
@@ -83,6 +105,46 @@ public class FluidEffectProjectile extends Projectile {
   @Override
   protected Component getTypeName() {
     return getFluid().getDisplayName();
+  }
+
+  /** Gets the cannon tank */
+  @Nullable
+  private IItemHandlerModifiable getCannonInventory() {
+    Level level = level();
+    if (this.cannon != null && level.isLoaded(this.cannon)) {
+      BlockEntity cannonBE = level.getBlockEntity(this.cannon);
+      if (cannonBE != null && cannonBE.getCapability(ForgeCapabilities.ITEM_HANDLER).orElse(EmptyItemHandler.INSTANCE) instanceof IItemHandlerModifiable modifiable) {
+        return modifiable;
+      }
+    }
+    return null;
+  }
+
+  /** Creates a context builder prepared with the owner and projectile information */
+  private FluidEffectContext.Builder buildContext() {
+    Level level = level();
+    FluidEffectContext.Builder builder = FluidEffectContext.builder(level).projectile(this);
+    Entity owner = getOwner();
+    if (owner != null) {
+      builder.user(owner);
+    }
+    if (this.cannon != null) {
+      IItemHandler handler = getCannonInventory();
+      if (handler != null) {
+        builder.stack(handler.getStackInSlot(0).copy());
+      }
+    }
+    return builder;
+  }
+
+  /** Updates the stack for the fluid cannon */
+  private void updateCannonStack(FluidEffectContext context) {
+    if (cannon != null) {
+      IItemHandlerModifiable handler = getCannonInventory();
+      if (handler != null) {
+        handler.setStackInSlot(0, context.getStack());
+      }
+    }
   }
 
   @Override
@@ -134,7 +196,12 @@ public class FluidEffectProjectile extends Projectile {
     if (!level.isClientSide && !fluid.isEmpty()) {
       FluidEffects recipe = FluidEffectManager.INSTANCE.find(fluid.getFluid());
       if (recipe.hasEntityEffects()) {
-        int consumed = recipe.applyToEntity(fluid, power, FluidEffectContext.builder(level).user(getOwner()).projectile(this).location(result.getLocation()).target(target), FluidAction.EXECUTE);
+        FluidEffectContext.Entity context = buildContext().location(result.getLocation()).target(target);
+        int consumed = recipe.applyToEntity(fluid, power, context, FluidAction.EXECUTE);
+        // update the stack
+        if (consumed > 0) {
+          updateCannonStack(context);
+        }
         // shrink our internal fluid, means we get a crossbow piercing like effect if its not all used
         // discarding when empty ensures the fluid won't continue with the block effect
         // unlike blocks, failing is fine, means we just continue through to the block below the entity
@@ -173,8 +240,9 @@ public class FluidEffectProjectile extends Projectile {
       if (!fluid.isEmpty()) {
         FluidEffects recipe = FluidEffectManager.INSTANCE.find(fluid.getFluid());
         if (recipe.hasBlockEffects()) {
-          FluidEffectContext.Block context = FluidEffectContext.builder(level).user(getOwner()).projectile(this).block(hitResult);
+          FluidEffectContext.Block context = buildContext().block(hitResult);
           int consumed = recipe.applyToBlock(fluid, power, context, FluidAction.EXECUTE);
+          boolean changed = consumed > 0;
           fluid.shrink(consumed);
           // we can continue to live if we have fluid left and we broke our block
           if (!fluid.isEmpty()) {
@@ -189,7 +257,12 @@ public class FluidEffectProjectile extends Projectile {
             while (iterator.hasNext() && !fluid.isEmpty()) {
               consumed = recipe.applyToBlock(fluid, power, context.withHitResult(Util.offset(hitResult, hit.relative(iterator.next().getOpposite()))), FluidAction.EXECUTE);
               fluid.shrink(consumed);
+              changed |= consumed > 0;
             }
+          }
+          // update the item in the context with the stack changes
+          if (changed) {
+            updateCannonStack(context);
           }
         }
       }
@@ -223,6 +296,9 @@ public class FluidEffectProjectile extends Projectile {
     super.addAdditionalSaveData(nbt);
     nbt.putFloat("power", power);
     nbt.putInt("knockback", knockback);
+    if (cannon != null) {
+      nbt.put("cannon", NbtUtils.writeBlockPos(cannon));
+    }
     FluidStack fluid = getFluid();
     if (!fluid.isEmpty()) {
       nbt.put("fluid", fluid.writeToNBT(new CompoundTag()));
@@ -234,6 +310,11 @@ public class FluidEffectProjectile extends Projectile {
     super.readAdditionalSaveData(nbt);
     this.power = nbt.getFloat("power");
     this.knockback = nbt.getInt("knockback");
+    if (nbt.contains("cannon")) {
+      this.cannon = NbtUtils.readBlockPos(nbt.getCompound("cannon"));
+    } else {
+      this.cannon = null;
+    }
     setFluid(FluidStack.loadFluidStackFromNBT(nbt.getCompound("fluid")));
   }
 }

@@ -635,7 +635,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
         .trait(ModifierIds.shulking, 1).build())
       .module(ArmorItem.Type.LEGGINGS, ToolTraitsModule.builder().trait(ModifierIds.shulking, 1).build(), ToolHooks.REBALANCED_TRAIT)
       .module(ArmorItem.Type.BOOTS, slimeTraits.copy()
-        .trait(TinkerModifiers.bouncy)
+        .trait(ModifierIds.bouncy)
         .trait(ModifierIds.leaping, 1).build())
       .module(ArmorItem.Type.BOOTS, ToolTraitsModule.builder().trait(ModifierIds.leaping, 1).build(), ToolHooks.REBALANCED_TRAIT);
 

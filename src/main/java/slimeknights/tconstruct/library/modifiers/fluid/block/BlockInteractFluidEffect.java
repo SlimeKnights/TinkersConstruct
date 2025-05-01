@@ -6,6 +6,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -22,6 +24,7 @@ import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.mantle.data.loadable.record.SingletonLoader;
+import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.fluid.EffectLevel;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectContext;
@@ -32,6 +35,26 @@ public enum BlockInteractFluidEffect implements FluidEffect<FluidEffectContext.B
   INSTANCE;
 
   private final SingletonLoader<BlockInteractFluidEffect> loader = new SingletonLoader<>(this);
+
+  /** Damages the stack in the context if needed */
+  private static void damageIfNeeded(UseOnContext context) {
+    ItemStack stack = context.getItemInHand();
+    Level level = context.getLevel();
+    // vanilla tools tend not to call the proper damage methods if player is null, so just manually damage the stack
+    // we expect modded items will have the same bug, so just go ahead and damage them. On the chance it works, they get 2 damage, no big deal
+    // our tools we know work so ignore them
+    if (!level.isClientSide && context.getPlayer() == null && stack.isDamageableItem() && !stack.is(TinkerTags.Items.MODIFIABLE)) {
+      // unable to call Forge damageItem as that needs entity access, but its just vanilla broken anyways, right?
+      stack.hurt(1, level.getRandom(), null);
+      // calling methods again instead of using return as return may be incorrect for custom broken stacks
+      if (stack.getDamageValue() >= stack.getMaxDamage()) {
+        // but that won't happen, right? will need to consider another workaround in that case.
+        stack.shrink(1);
+        stack.setDamageValue(0);
+        level.playSound(null, context.getClickedPos(), SoundEvents.ITEM_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
+      }
+    }
+  }
 
   /** Based on {@link net.minecraft.server.level.ServerPlayerGameMode#useItemOn(ServerPlayer, Level, ItemStack, InteractionHand, BlockHitResult)} */
   @Override
@@ -67,7 +90,7 @@ public enum BlockInteractFluidEffect implements FluidEffect<FluidEffectContext.B
     BlockHitResult hitResult = context.getHitResult();
     for (InteractionHand hand : entity == null ? new InteractionHand[] {InteractionHand.MAIN_HAND} : InteractionHand.values()) {
       // find what item to use
-      ItemStack heldItem = ItemStack.EMPTY;
+      ItemStack heldItem = context.getStack();
       if (entity != null) {
         heldItem = entity.getItemInHand(hand);
       }
@@ -105,6 +128,7 @@ public enum BlockInteractFluidEffect implements FluidEffect<FluidEffectContext.B
             if (entity != null) {
               entity.swing(hand, true);
             }
+            damageIfNeeded(useContext);
             return 1;
           }
           return 0; // failure exits the loop
@@ -133,6 +157,7 @@ public enum BlockInteractFluidEffect implements FluidEffect<FluidEffectContext.B
           heldItem.setCount(oldCount);
         } else {
           result = heldItem.useOn(useContext);
+          damageIfNeeded(useContext);
         }
         if (result != InteractionResult.PASS) {
           if (result.consumesAction()) {

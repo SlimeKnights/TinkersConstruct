@@ -2,12 +2,22 @@
   "level_display": "tconstruct:default",
   "modules": [
     {
-      "type": "tconstruct:armor_stat",
-      "allow_broken": false,
+      "type": "tconstruct:attribute",
+      "attribute": "tconstruct:player.experience_multiplier",
       "each_level": 0.25,
-      "held_tag": "tconstruct:modifiable/armor/held",
-      "key": "tconstruct:experience",
-      "tooltip_style": "percent"
+      "operation": "multiply_base",
+      "slots": [
+        "mainhand",
+        "offhand",
+        "feet",
+        "legs",
+        "chest",
+        "head"
+      ],
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/armor"
+      }
     }
   ],
   "tooltip_display": "always"

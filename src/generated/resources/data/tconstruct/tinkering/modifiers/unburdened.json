@@ -8,10 +8,20 @@
       "stat": "tconstruct:use_item_speed"
     },
     {
-      "type": "tconstruct:armor_stat",
-      "allow_broken": false,
+      "type": "tconstruct:attribute",
+      "attribute": "tconstruct:player.use_item_speed",
       "each_level": 0.05,
-      "key": "tconstruct:use_item_speed",
+      "operation": "addition",
+      "slots": [
+        "feet",
+        "legs",
+        "chest",
+        "head"
+      ],
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/armor/worn"
+      },
       "tooltip_style": "percent"
     }
   ],

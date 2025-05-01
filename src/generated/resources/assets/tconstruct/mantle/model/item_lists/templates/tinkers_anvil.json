@@ -1,0 +1,57 @@
+[
+  {
+    "center": [
+      8.0,
+      16.25,
+      9.0
+    ],
+    "size": 7.5,
+    "transform": "tconstruct:table",
+    "x": 270
+  },
+  {
+    "center": [
+      2.5,
+      17.5,
+      10.5
+    ],
+    "size": 3.0,
+    "transform": "tconstruct:table"
+  },
+  {
+    "center": [
+      2.5,
+      17.5,
+      5.5
+    ],
+    "size": 3.0,
+    "transform": "tconstruct:table"
+  },
+  {
+    "center": [
+      8.0,
+      17.5,
+      4.5
+    ],
+    "size": 3.0,
+    "transform": "tconstruct:table"
+  },
+  {
+    "center": [
+      13.5,
+      17.5,
+      5.5
+    ],
+    "size": 3.0,
+    "transform": "tconstruct:table"
+  },
+  {
+    "center": [
+      13.5,
+      17.5,
+      10.5
+    ],
+    "size": 3.0,
+    "transform": "tconstruct:table"
+  }
+]

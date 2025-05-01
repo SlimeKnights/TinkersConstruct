@@ -56,6 +56,7 @@ public record PlaceBlockFluidEffect(@Nullable Block block, @Nullable SoundEvent 
       // its a bit magic, but eh, some fluids are magic
       Block block = this.block;
       ItemStack stack = ItemStack.EMPTY;
+      InteractionHand useHand = InteractionHand.MAIN_HAND;
       if (block != null) {
         stack = new ItemStack(block);
       } else {
@@ -67,9 +68,13 @@ public record PlaceBlockFluidEffect(@Nullable Block block, @Nullable SoundEvent 
             if (!held.isEmpty() && held.getItem() instanceof BlockItem blockItem) {
               block = blockItem.getBlock();
               stack = held;
+              useHand = hand;
               break;
             }
           }
+        } else if (context.getStack().getItem() instanceof BlockItem blockItem) {
+          block = blockItem.getBlock();
+          stack = context.getStack();
         }
       }
       // no block was found, means we either lack an entity or are holding nothing
@@ -79,7 +84,7 @@ public record PlaceBlockFluidEffect(@Nullable Block block, @Nullable SoundEvent 
       // build the context
       Player player = context.getPlayer();
       Level world = context.getLevel();
-      BlockPlaceContext placeContext = new BlockPlaceContext(world, player, InteractionHand.MAIN_HAND, stack, context.getHitResult());
+      BlockPlaceContext placeContext = new BlockPlaceContext(world, player, useHand, stack, context.getHitResult());
       BlockPos clicked = placeContext.getClickedPos();
       if (placeContext.canPlace()) {
         // if we have a blockitem, we can offload a lot of the logic to it
