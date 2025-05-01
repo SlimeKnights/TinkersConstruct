@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:power",
+  "text": [
+    {
+      "text": "§1§lPODEEEEEEEEEEEEEEEEEER§r ilimitado."
+    }
+  ],
+  "effects": [
+    "Aumenta o dano de projéteis disparados por arcos longos",
+    "Múltiplos níveis, cada nível aumenta ainda mais o dano",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

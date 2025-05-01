@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:plate_leggings",
+  "text": [
+    { "text": "Minhas pernas, minhas pernas." },
+    {
+      "text": "Estas calças oferecem alta proteção para todas as suas necessidades de combate!", "paragraph": true
+    }
+  ],
+  "properties": [
+    "Mais Durabilidade",
+    "Mais Armadura",
+    "2 Slots de Melhoria",
+    "3 Slots de Defesa",
+    "2 Atributos de Material"
+  ]
+}

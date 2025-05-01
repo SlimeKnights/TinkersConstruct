@@ -4,5 +4,10 @@
     "file": "tconstruct:book/images/sand_pick.png",
     "width": 119,
     "height": 100
-  }
+  },
+  "text": [
+    {
+      "text": "Moldes de areia podem ser fabricados pressionando uma peça de ferramenta sobre uma mesa de fundição cheia de areia."
+    }
+  ]
 }

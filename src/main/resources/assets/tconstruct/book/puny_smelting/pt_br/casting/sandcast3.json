@@ -1,0 +1,13 @@
+{
+  "title": "Moldes de Areia",
+  "image": {
+    "file": "tconstruct:book/images/sandcast_partbuilder.png",
+    "width": 172,
+    "height": 74
+  },
+  "text": [
+    {
+      "text": "Moldes de areia também podem ser fabricador no montador de peças ao colocar areia ou um molde de areia em branco no slot de padrão. Isso é necessário para criar moldes de placas de armadura."
+    }
+  ]
+}

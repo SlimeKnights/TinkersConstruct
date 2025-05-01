@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:fireprimer",
+  "text": [
+    {
+      "text": "Tudo bem, tá tudo pegando fogo, mas tudo bem."
+    }
+  ],
+  "effects": [
+    "Aumenta a área de efeito do isqueiro do tinker",
+    "Nível único",
+    "Requer 1 slot de melhoria"
+  ]
+}

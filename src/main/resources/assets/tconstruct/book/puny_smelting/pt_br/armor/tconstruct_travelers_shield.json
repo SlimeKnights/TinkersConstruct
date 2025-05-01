@@ -1,0 +1,18 @@
+{
+  "tool": "tconstruct:travelers_shield",
+  "text": [
+    { "text": "Infelizmente, não faz um bom frisbee." },
+    {
+      "text": "Escudos são importantes para se defender contra ataques no mundo, é melhor levar um quando você for viajar.", "paragraph": true
+    }
+  ],
+  "properties": [
+    "Menos Durabilidade",
+    "Menos Potencial de Bloqueio",
+    "Maior velocidade enquanto bloqueia",
+    "3 Slots de Melhoria",
+    "2 Slots de Defesa",
+    "1 Slot de Habilidade",
+    "Curada"
+  ]
+}

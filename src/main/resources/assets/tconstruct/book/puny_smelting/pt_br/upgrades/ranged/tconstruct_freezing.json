@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:freezing",
+  "text": [
+    {
+      "text": "Elsa pode ficar com ciúmes."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/ranged",
+  "effects": [
+    "Projéteis disparados desaceleram inimigos e causam dano extra",
+    "Múltiplos níveis, cada nível desacelera inimigos por mais tempo",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

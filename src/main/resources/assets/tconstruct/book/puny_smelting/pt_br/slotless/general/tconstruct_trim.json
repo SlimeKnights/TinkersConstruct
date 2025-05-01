@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:trim",
+  "text": [
+    {
+      "text": "Uma forma realmente cara de enfeitar sua armadura."
+    }
+  ],
+  "effects": [
+    "Adiciona bordas decorativas à sua armadura",
+    "A combinação de modelo e material define o design",
+    "Multiúso",
+    "Sem slot"
+  ]
+}

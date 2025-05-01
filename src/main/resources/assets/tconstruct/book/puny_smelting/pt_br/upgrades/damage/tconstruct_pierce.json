@@ -1,14 +1,19 @@
 {
-  "modifier_id": "tconstruct:piercing",
+  "modifier_id": "tconstruct:pierce",
   "text": [
     {
-      "text": "Ferramenta ganha o poder do cacto, atacando através da armadura."
+      "text": "A ferramenta adquire o poder do cacto, atacando através da armadura."
+    },
+    {
+      "text": "Não confundir com empalamento",
+      "paragraph": true
     }
   ],
+  "tool_filter": "tconstruct:modifiable/ranged",
   "effects": [
-    "Adiciona dano extra que perfura a armadura",
-    "Converte um pouco de dano regular em perfuração",
-    "Múltiplos níveis, cada nível aumenta ainda mais o dano",
+    "Anula uma pequena quantidade da armadura",
+    "Também aumenta levemente o dano da ferramenta",
+    "Múltiplos níveis, cada nível aumenta o efeito",
     "Requer 1 slot de melhoria por nível"
   ]
 }

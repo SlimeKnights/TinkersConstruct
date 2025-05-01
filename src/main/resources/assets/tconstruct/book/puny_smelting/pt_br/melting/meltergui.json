@@ -1,5 +1,5 @@
 {
-  "title": "Guia de Fundição",
+  "title": "Guia do Fundidor",
   "image": {
     "file": "tconstruct:book/images/meltergui.png",
     "width": 172,
@@ -7,7 +7,7 @@
   },
   "text": [
     {
-      "text": "Seu guia básico de fundição. Nem mais, nem menos."
+      "text": "Seu guia básico do fundidor. Nem mais, nem menos."
     }
 	]
 }

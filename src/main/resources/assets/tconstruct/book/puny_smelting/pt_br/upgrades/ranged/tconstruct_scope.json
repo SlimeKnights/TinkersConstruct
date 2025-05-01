@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:scope",
+  "text": [
+    {
+      "text": "360 sem mira."
+    }
+  ],
+  "effects": [
+    "Permite que arcos longos aproximem a visão ao carregar o arco",
+    "Nível único",
+    "Requer 1 slot de melhoria"
+  ]
+}

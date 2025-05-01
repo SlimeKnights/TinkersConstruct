@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:swift_sneak",
+  "text": [
+    {
+      "text": "Tem que agachar rápido."
+    }
+  ],
+  "effects": [
+    "Aumenta a velocidade de movimento enquanto estiver agachado",
+    "Múltiplos níveis, cada nível aumenta ainda mais a velocidade",
+    "Requer 1 slot de melhoria por nível"
+  ]
+}

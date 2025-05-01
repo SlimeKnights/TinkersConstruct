@@ -1,11 +1,11 @@
 {
-  "title": "A Fundidora",
+  "title": "O Fundidor",
   "image": {
     "file": "tconstruct:book/images/melter.png"
   },
   "text": [
     {
-      "text": "Esta é a sua fundidora mais básica ela é capaz de realizar uma variedade de tarefas simples."
+      "text": "Este aqui é o seu fundidor mais básico, capaz de realizar uma variedade de tarefas simples."
     }
   ]
 }
