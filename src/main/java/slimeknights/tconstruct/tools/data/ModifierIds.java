@@ -107,6 +107,7 @@ public class ModifierIds {
   public static final ModifierId frostWalker = id("frost_walker");
   public static final ModifierId snowdrift = id("snowdrift");
   public static final ModifierId bouncy = id("bouncy");
+  public static final ModifierId doubleJump = id("double_jump");
   // shield
   public static final ModifierId boundless = id("boundless");
 

@@ -32,6 +32,8 @@ public class TinkerAttributes {
   // stat bonuses
   /** Bonus jump height in blocks */
   public static final RegistryObject<Attribute> JUMP_BOOST = ATTRIBUTES.register("generic.jump_boost", 0, 0, 100, true);
+  /** Number of jumps the player may perform, used by the double jump modifier. */
+  public static final RegistryObject<Attribute> JUMP_COUNT = ATTRIBUTES.register("player.jump_count", 1, 1, 100, true);
 
   // stat multipliers
   /** Multiplier for knockback this entity takes. Similar to {@link net.minecraft.world.entity.ai.attributes.Attributes#KNOCKBACK_RESISTANCE} but can be used to increase knockback */
@@ -56,6 +58,7 @@ public class TinkerAttributes {
     event.add(EntityType.PLAYER, CRITICAL_DAMAGE.get());
     event.add(EntityType.PLAYER, MINING_SPEED_MULTIPLIER.get());
     event.add(EntityType.PLAYER, EXPERIENCE_MULTIPLIER.get());
+    event.add(EntityType.PLAYER, JUMP_COUNT.get());
     // general attributes
     addToAll(event, BOUNCY);
     addToAll(event, PROTECTION_CAP);

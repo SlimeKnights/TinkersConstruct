@@ -987,7 +987,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(TinkerModifiers.wetting, abilitySalvage))
                          .save(consumer, prefix(TinkerModifiers.wetting, abilityFolder));
     // boots
-    ModifierRecipeBuilder.modifier(TinkerModifiers.doubleJump)
+    ModifierRecipeBuilder.modifier(ModifierIds.doubleJump)
                          .setTools(TinkerTags.Items.BOOTS)
                          .addInput(Items.PISTON)
                          .addInput(TinkerWorld.slime.get(SlimeType.SKY))
@@ -995,8 +995,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.PHANTOM_MEMBRANE)
                          .addInput(Items.PHANTOM_MEMBRANE)
                          .setSlots(SlotType.ABILITY, 1)
-                         .saveSalvage(consumer, prefix(TinkerModifiers.doubleJump, abilitySalvage))
-                         .save(consumer, prefix(TinkerModifiers.doubleJump, abilityFolder));
+                         .saveSalvage(consumer, prefix(ModifierIds.doubleJump, abilitySalvage))
+                         .save(consumer, prefix(ModifierIds.doubleJump, abilityFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.bouncy)
                          .setTools(TinkerTags.Items.BOOTS)
                          .addInput(TinkerWorld.congealedSlime.get(SlimeType.SKY),   4)

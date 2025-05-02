@@ -74,7 +74,7 @@ public class EnchantmentToModifierProvider extends AbstractEnchantmentToModifier
 
     // ability
     addCompat(TinkerModifiers.autosmelt.getId());
-    addCompat(TinkerModifiers.doubleJump.getId());
+    addCompat(ModifierIds.doubleJump);
     addCompat(TinkerModifiers.expanded.getId());
     addCompat(ModifierIds.luck);
     addCompat(TinkerModifiers.multishot.getId());

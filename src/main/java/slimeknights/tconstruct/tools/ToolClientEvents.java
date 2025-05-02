@@ -72,8 +72,8 @@ import slimeknights.tconstruct.tools.client.OverslimeModifierModel;
 import slimeknights.tconstruct.tools.client.SlimeskullArmorModel;
 import slimeknights.tconstruct.tools.client.ToolContainerScreen;
 import slimeknights.tconstruct.tools.item.ModifierCrystalItem;
+import slimeknights.tconstruct.tools.logic.DoubleJumpHandler;
 import slimeknights.tconstruct.tools.logic.InteractionHandler;
-import slimeknights.tconstruct.tools.modifiers.ability.armor.DoubleJumpModifier;
 import slimeknights.tconstruct.tools.network.TinkerControlPacket;
 
 import java.util.function.Consumer;
@@ -264,7 +264,7 @@ public class ToolClientEvents extends ClientEventBase {
       // ensure we pressed the key since the last tick, holding should not use all your jumps at once
       boolean isJumping = minecraft.options.keyJump.isDown();
       if (!wasJumping && isJumping) {
-        if (DoubleJumpModifier.extraJump(event.player)) {
+        if (DoubleJumpHandler.extraJump(event.player)) {
           TinkerNetwork.getInstance().sendToServer(TinkerControlPacket.DOUBLE_JUMP);
         }
       }

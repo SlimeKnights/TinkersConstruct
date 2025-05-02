@@ -165,7 +165,6 @@ import slimeknights.tconstruct.tools.item.ModifierCrystalItem;
 import slimeknights.tconstruct.tools.modifiers.EnergyHandlerModifier;
 import slimeknights.tconstruct.tools.modifiers.ModifierLootModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.AmbidextrousModifier;
-import slimeknights.tconstruct.tools.modifiers.ability.armor.DoubleJumpModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.FlamewakeModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.ReflectingModifier;
 import slimeknights.tconstruct.tools.modifiers.ability.armor.ZoomModifier;
@@ -380,7 +379,9 @@ public final class TinkerModifiers extends TinkerModule {
 
   // boots
   public static final StaticModifier<SoulSpeedModifier> soulspeed = MODIFIERS.register("soulspeed", SoulSpeedModifier::new);
-  public static final StaticModifier<DoubleJumpModifier> doubleJump = MODIFIERS.register("double_jump", DoubleJumpModifier::new);
+  /** @deprecated use {@link slimeknights.tconstruct.tools.data.ModifierIds#doubleJump} */
+  @Deprecated(forRemoval = true)
+  public static final DynamicModifier doubleJump = MODIFIERS.registerDynamic("double_jump");
   /** @deprecated use {@link slimeknights.tconstruct.tools.data.ModifierIds#bouncy} */
   @Deprecated(forRemoval = true)
   public static final DynamicModifier bouncy = MODIFIERS.registerDynamic("bouncy");

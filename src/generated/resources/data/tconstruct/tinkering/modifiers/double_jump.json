@@ -1,14 +1,16 @@
 {
-  "level_display": "tconstruct:no_levels",
+  "level_display": {
+    "type": "tconstruct:unique",
+    "first_unique": false,
+    "unique_until": 4
+  },
   "modules": [
     {
       "type": "tconstruct:attribute",
-      "attribute": "tconstruct:generic.bouncy",
+      "attribute": "tconstruct:player.jump_count",
       "flat": 1.0,
       "operation": "addition",
       "slots": [
-        "mainhand",
-        "offhand",
         "feet",
         "legs",
         "chest",
