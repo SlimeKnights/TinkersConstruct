@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:melting_pan",
+  "text": [
+    {
+      "text": "A panela de fusão derrete blocos e armazena fluido para seus objetivos relacionados à fundição. Pode ser encontrada em masmorras, iglus, com zumbis do deserto e como presente de aldeões."
+    }
+  ],
+  "properties": [
+    "Minerar blocos fundíveis",
+    "Fusão+",
+    "1 Slot de Defesa",
+    "1 Slot de Melhoria",
+    "2 Slots de Habilidade"
+  ]
+}

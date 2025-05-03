@@ -1,0 +1,13 @@
+{
+  "title": "Organizar Modificadores",
+  "image": {
+    "file": "tconstruct:book/images/worktable/sort_modifiers.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Adicionar uma bússola às ferramentas as magnetiza, mas apenas segurá-la perto da ferramenta tem um efeito curioso nos modificadores. É possível usar a bússola para reorganizar os modificadores sem removê-los da ferramenta! Ao contrário da tinta invisível, isso tem mais aplicações do que estética, pois conflitos entre modificadores parecem ser resolvidos pela posição deles na ferramenta."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "tool": "tconstruct:swasher",
+  "text": [
+    {
+      "text": "O lavador é uma combinação de arma de combate e pistola de fluido portátil encontrada em várias localizações oceânicas."
+    }
+  ],
+  "properties": [
+    "Dano Médio",
+    "Alta Velocidade de Ataque",
+    "Pistola de Fluido",
+    "3 Slots de Melhoria",
+    "1 Slot de Habilidade"
+  ]
+}

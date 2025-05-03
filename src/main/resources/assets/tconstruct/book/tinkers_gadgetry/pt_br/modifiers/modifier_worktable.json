@@ -1,0 +1,9 @@
+{
+  "title": "Mesa de Trabalho de Modificadores",
+  "recipe": "tconstruct:tables/modifier_worktable",
+  "description": [
+    {
+      "text": "Organizar pedra carbonizada dessa forma facilita a seleção de um modificador específico nas receitas."
+    }
+  ]
+}

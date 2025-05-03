@@ -1,0 +1,13 @@
+{
+  "title": "Tinta Visível",
+  "image": {
+    "file": "tconstruct:book/images/worktable/visible_ink.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Depois de algumas tentativas fracassadas com esponjas para tornar o modificador visível de novo, lembrei que leite é eficaz em neutralizar poções. Dito e feito — um pouco de leite é suficiente para tornar o modificador visível novamente."
+    }
+  ]
+}

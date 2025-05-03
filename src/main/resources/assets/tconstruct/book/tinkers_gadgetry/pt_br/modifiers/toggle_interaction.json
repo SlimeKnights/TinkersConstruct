@@ -1,0 +1,13 @@
+{
+  "title": "Alternar Interação",
+  "image": {
+    "file": "tconstruct:book/images/worktable/toggle_interaction.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Alavancas não servem apenas para ativar redstone — elas também permitem alternar modificadores de interação em cajados de slime, mudando de ativação ao usar o cajado para ativação ao atacar com ele."
+    }
+  ]
+}

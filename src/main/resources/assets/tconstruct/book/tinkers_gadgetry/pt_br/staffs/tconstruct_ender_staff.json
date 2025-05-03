@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:ender_staff",
+  "text": [
+    { "text": "Usando o poder do slime-do-ender, você pode criar um cajado para alcançar alvos distantes. Possui força de projétil maior, mas menor precisão." }
+  ],
+  "properties": [
+    "Alta Durabilidade",
+    "3 Slots de Melhoria",
+    "1 Slot de Defesa",
+    "2 Slots de Habilidade",
+    "Alcance II"
+  ]
+}

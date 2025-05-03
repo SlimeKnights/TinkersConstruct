@@ -1,0 +1,11 @@
+{
+  "tool": "tconstruct:ichor_staff",
+  "text": [
+    { "text": "Icor é uma substância incomum, mas permite a fabricação de alguns dos cajados mais poderosos. Concede maior velocidade de projétil à custa da velocidade de carregamento." }
+  ],
+  "properties": [
+    "Alta Durabilidade",
+    "2 Slots de Melhoria",
+    "3 Slots de Habilidade"
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "title": "Bolo Slime",
+  "title": "Bolo de Slime",
   "image": {
 	"file": "tconstruct:book/images/cake.png",
     "width": 180,
@@ -7,7 +7,7 @@
   },
   "text": [
     {
-      "text": "Descobri que a grama de slime funciona muito bem como uma alternativa ao trigo em bolo, e o slime líquido pode ser transformado em uma cobertura com sabor único. Embora não sejam os bolos mais saborosos, parece que eu salto mais alto após comer o bolo de slime, e o bolo de magma faz o fogo me incomodar menos. Eu me pergunto o que faz a slime-terra quando consumido..."
+      "text": "Descobri que a grama de slime funciona muito bem como alternativa ao trigo em bolos, e o slime líquido pode ser transformado em uma cobertura com sabor único. Embora não sejam os bolos mais saborosos, parece que pulo mais alto logo depois de comer bolo de slime-do-céu, e o bolo de magma faz com que o fogo me incomode menos. Eu me pergunto o que o slime-do-ender ou o slime-da-terra fazem quando consumidos..."
     }
   ]
 }

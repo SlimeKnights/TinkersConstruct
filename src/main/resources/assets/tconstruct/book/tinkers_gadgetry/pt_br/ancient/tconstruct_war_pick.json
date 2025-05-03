@@ -1,0 +1,14 @@
+{
+  "tool": "tconstruct:war_pick",
+  "text": [
+    {
+      "text": "A picareta de guerra é uma combinação de picareta e besta. Pode ser encontrado em minas e obtido com aldeões ou saqueadores."
+    }
+  ],
+  "properties": [
+    "Minerar blocos de pedra e similares",
+    "Capaz de manter uma flecha preparada para disparo",
+    "3 Slots de Melhoria",
+    "1 Slot de Habilidade"
+  ]
+}

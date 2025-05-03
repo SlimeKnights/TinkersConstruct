@@ -1,0 +1,12 @@
+{
+  "tool": "tconstruct:earth_staff",
+  "text": [
+    { "text": "Usando o poder do slime-da-terra, você pode criar o mais defensivo dos cajados mágicos. Possui maior capacidade de bloqueio e precisão, mas menor força de projétil." }
+  ],
+  "properties": [
+    "Durabilidade Média",
+    "2 Slots de Melhoria",
+    "3 Slots de Defesa",
+    "2 Slots de Habilidade"
+  ]
+}

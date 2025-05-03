@@ -1,13 +1,13 @@
 {
-  "title": "Mochila-Porco",
+  "title": "Mochila de Porco",
   "image": {
-	"file": "tconstruct:book/images/piggybackpack.png",
+    "file": "tconstruct:book/images/piggybackpack.png",
     "width": 140,
     "height": 80
   },
   "text": [
     {
-      "text": "O uso de uma Mochila-Porco em uma criatura permite que você a pegue para montar em você, perfeito para quando seu porco se cansa em longas viagens. Eles também são bons para atirar monstros em sua fundição. Já usei com sucesso até 3 mochilas de uma só vez, embora seja difícil andar com tantos cavaleiros."
+      "text": "Usar uma mochila de porco em uma criatura permite que você a carregue nas costas, perfeito para quando seu porco se cansa em longas viagens. Ela também é útil para jogar monstros dentro da fundição. Já consegui usar até 3 mochilas de porco ao mesmo tempo, embora seja difícil andar com tantos passageiros."
     }
   ]
 }
