@@ -20,9 +20,8 @@ public class ArmorModelProvider extends AbstractArmorModelProvider {
   @Override
   protected void addModels() {
     addModel(ArmorDefinitions.TRAVELERS, name -> new ArmorTextureSupplier[] {
-      new FirstArmorTextureSupplier(
-        FixedArmorTextureSupplier.builder(name, "/golden_").modifier(TinkerModifiers.golden.getId()).build(),
-        FixedArmorTextureSupplier.builder(name, "/base_").build()),
+      FixedArmorTextureSupplier.builder(name, "/base_").build(),
+      new MaterialArmorTextureSupplier.Material(name, "/metal_", 0),
       new DyedArmorTextureSupplier(name, "/overlay_", TinkerModifiers.dyed.getId(), null),
       TrimArmorTextureSupplier.INSTANCE
     });
@@ -33,7 +32,6 @@ public class ArmorModelProvider extends AbstractArmorModelProvider {
     });
     addModel(ArmorDefinitions.SLIMESUIT, name -> new ArmorTextureSupplier[] {
       new FirstArmorTextureSupplier(
-        FixedArmorTextureSupplier.builder(name, "/").materialSuffix(MaterialIds.gold).modifier(TinkerModifiers.golden.getId()).build(),
         new MaterialArmorTextureSupplier.PersistentData(name, "/", TinkerModifiers.embellishment.getId()),
         FixedArmorTextureSupplier.builder(name, "/").materialSuffix(MaterialIds.enderslime).build()),
       TrimArmorTextureSupplier.INSTANCE

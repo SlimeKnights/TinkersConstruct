@@ -45,9 +45,15 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
     return true;
   }
 
+  /** Gets the stack size sensitive capacity of the container */
+  private int getCapacity() {
+    // scale up by the stack size to prevent dupes with people trying to fill a stack of containers
+    return FluidValues.INGOT * container.getCount();
+  }
+
   @Override
   public int getTankCapacity(int tank) {
-    return FluidValues.INGOT;
+    return getCapacity();
   }
 
   /** Gets the contained fluid */
@@ -64,7 +70,11 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
   @Nonnull
   @Override
   public FluidStack getFluidInTank(int tank) {
-    return new FluidStack(getFluid(), FluidValues.INGOT, getFluidTag());
+    Fluid fluid = getFluid();
+    if (fluid == Fluids.EMPTY) {
+      return FluidStack.EMPTY;
+    }
+    return new FluidStack(getFluid(), getCapacity(), getFluidTag());
   }
 
 
@@ -73,21 +83,24 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
   @Override
   public int fill(FluidStack resource, FluidAction action) {
     // must not be filled, must have enough
-    if (getFluid() != Fluids.EMPTY || resource.getAmount() < FluidValues.INGOT) {
+    int capacity = getCapacity();
+    if (getFluid() != Fluids.EMPTY || resource.getAmount() < capacity) {
       return 0;
     }
     // update fluid and return
     if (action.execute()) {
+      // this is not size sensitive so no need to shrink resource for stack size
       CopperCanItem.setFluid(container, resource);
     }
-    return FluidValues.INGOT;
+    return capacity;
   }
 
   @Nonnull
   @Override
   public FluidStack drain(FluidStack resource, FluidAction action) {
     // must be draining at least an ingot
-    if (resource.isEmpty() || resource.getAmount() < FluidValues.INGOT) {
+    int capacity = getCapacity();
+    if (resource.isEmpty() || resource.getAmount() < capacity) {
       return FluidStack.EMPTY;
     }
     // must have a fluid, must match what they are draining
@@ -95,8 +108,12 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
     if (fluid == Fluids.EMPTY || fluid != resource.getFluid()) {
       return FluidStack.EMPTY;
     }
-    // output 1 ingot
-    FluidStack output = new FluidStack(fluid, FluidValues.INGOT, getFluidTag());
+    // make sure NBT matches the requested NBT
+    FluidStack output = new FluidStack(fluid, capacity, getFluidTag());
+    if (!FluidStack.areFluidStackTagsEqual(resource, output)) {
+      return FluidStack.EMPTY;
+    }
+    // output 1 ingot times stack size
     if (action.execute()) {
       CopperCanItem.setFluid(container, FluidStack.EMPTY);
     }
@@ -107,7 +124,8 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
   @Override
   public FluidStack drain(int maxDrain, FluidAction action) {
     // must be draining at least an ingot
-    if (maxDrain < FluidValues.INGOT) {
+    int capacity = getCapacity();
+    if (maxDrain < capacity) {
       return FluidStack.EMPTY;
     }
     // must have a fluid
@@ -116,7 +134,7 @@ public class CopperCanFluidHandler implements IFluidHandlerItem, ICapabilityProv
       return FluidStack.EMPTY;
     }
     // output 1 ingot
-    FluidStack output = new FluidStack(fluid, FluidValues.INGOT, getFluidTag());
+    FluidStack output = new FluidStack(fluid, capacity, getFluidTag());
     if (action.execute()) {
       CopperCanItem.setFluid(container, FluidStack.EMPTY);
     }

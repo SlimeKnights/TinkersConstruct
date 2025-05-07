@@ -15,8 +15,6 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 
 import javax.annotation.Nullable;
 
-import static slimeknights.tconstruct.library.tools.helper.ModifierUtil.asLiving;
-
 /** Modifier to handle spilling recipes */
 public class BurstingModifier extends UseFluidOnHitModifier implements OnAttackedModifierHook {
   @Override
@@ -28,7 +26,7 @@ public class BurstingModifier extends UseFluidOnHitModifier implements OnAttacke
   @Override
   public FluidEffectContext.Entity createContext(LivingEntity self, @Nullable Player player, @Nullable Entity attacker) {
     assert attacker != null;
-    return new FluidEffectContext.Entity(self.level(), self, player, null, attacker, asLiving(attacker));
+    return FluidEffectContext.builder(self.level()).user(self, player).target(attacker);
   }
 
   @Override

@@ -49,6 +49,9 @@ public class Config {
     public final OreRate smelteryOreRate;
     public final OreRate foundryOreRate, foundryByproductRate;
 
+    // compatability
+    public final DoubleValue chemthrowerShotValue;
+
     // debug
     public final BooleanValue forceIntegrationMaterials;
     public final BooleanValue disableSideInventoryWhitelist;
@@ -167,6 +170,17 @@ public class Config {
         .comment("Weight of the ancient tool trade for the wandering trader. All traders randomly choose 1 rare trade, so this is roughly the chance the trade occurs compared to the vanilla options (of which there are 6).")
         .defineInRange("wanderer_ancient_tool_weight", 6, 0, 100);
 
+      builder.pop();
+
+      builder.comment("Configuration related to integration with other mods").push("compatability");
+      {
+        chemthrowerShotValue = builder
+          .comment(
+            "Amount of fluid each chemthrower shot projectile from Immersive Engineering is worth towards our fluid effect registry.",
+            "IE launches 8 projectiles per tick while consuming the value in their config, so dividing it by 8 makes them comparable to our projectiles.",
+            "However, keeping it as a separate config option gives pack makers more control over how strong TiC ends up in the chemthrower.")
+          .defineInRange("immersive_engineering_chemthrower_shot_value", 1.25, 0, Integer.MAX_VALUE);
+      }
       builder.pop();
 
       builder.comment("Features to use in debugging gameplay and mechanics, generally should not be enabled in packs").push("debug");

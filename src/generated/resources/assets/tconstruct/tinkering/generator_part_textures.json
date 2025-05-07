@@ -33,6 +33,16 @@
       "stat_type": "tconstruct:repair_kit"
     },
     {
+      "allow_animated": false,
+      "path": "tconstruct:tinker_armor/travelers/metal_armor",
+      "stat_type": "tconstruct:armor_plating"
+    },
+    {
+      "allow_animated": false,
+      "path": "tconstruct:tinker_armor/travelers/metal_leggings",
+      "stat_type": "tconstruct:armor_plating"
+    },
+    {
       "path": "tconstruct:item/tool/parts/maille",
       "stat_type": "tconstruct:maille"
     },
@@ -131,6 +141,46 @@
       "allow_animated": false,
       "path": "tconstruct:tinker_armor/slime/wings",
       "stat_type": "tconstruct:slimesuit"
+    },
+    {
+      "allow_animated": false,
+      "path": "tconstruct:item/tool/armor/travelers/goggles/metal",
+      "stat_type": "tconstruct:plating_helmet"
+    },
+    {
+      "allow_animated": false,
+      "path": "tconstruct:item/tool/armor/travelers/goggles/metal_broken",
+      "stat_type": "tconstruct:plating_helmet"
+    },
+    {
+      "allow_animated": false,
+      "path": "tconstruct:item/tool/armor/travelers/vest/metal",
+      "stat_type": "tconstruct:plating_chestplate"
+    },
+    {
+      "allow_animated": false,
+      "path": "tconstruct:item/tool/armor/travelers/vest/metal_broken",
+      "stat_type": "tconstruct:plating_chestplate"
+    },
+    {
+      "allow_animated": false,
+      "path": "tconstruct:item/tool/armor/travelers/pants/metal",
+      "stat_type": "tconstruct:plating_leggings"
+    },
+    {
+      "allow_animated": false,
+      "path": "tconstruct:item/tool/armor/travelers/pants/metal_broken",
+      "stat_type": "tconstruct:plating_leggings"
+    },
+    {
+      "allow_animated": false,
+      "path": "tconstruct:item/tool/armor/travelers/boots/metal",
+      "stat_type": "tconstruct:plating_boots"
+    },
+    {
+      "allow_animated": false,
+      "path": "tconstruct:item/tool/armor/travelers/boots/metal_broken",
+      "stat_type": "tconstruct:plating_boots"
     },
     {
       "allow_animated": false,

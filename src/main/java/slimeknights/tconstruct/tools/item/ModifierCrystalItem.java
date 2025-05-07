@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools.item;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
@@ -103,6 +104,7 @@ public class ModifierCrystalItem extends Item {
             player.displayClientMessage(toolValidation, false);
           } else {
             tool.updateStack(toolItem);
+            player.playSound(SoundEvents.ENCHANTMENT_TABLE_USE, 1, 0.8f + stack.getCount() * 0.2f);
           }
         }
         return true;
@@ -155,6 +157,7 @@ public class ModifierCrystalItem extends Item {
 
           // success, update tool
           tool.updateStack(toolItem);
+          player.playSound(SoundEvents.GRINDSTONE_USE, 1, 0.8f + stack.getCount() * 0.2f);
         }
         return true;
       }

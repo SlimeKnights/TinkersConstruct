@@ -2,15 +2,24 @@
   "loader": "tconstruct:tool",
   "parent": "forge:item/default",
   "textures": {
-    "tool": "tconstruct:item/tool/armor/travelers/boots_broken"
+    "base": "tconstruct:item/tool/armor/travelers/boots/base_broken",
+    "metal": "tconstruct:item/tool/armor/travelers/boots/metal_broken"
   },
   "modifier_roots": [
-    "tconstruct:item/tool/armor/travelers/boot_modifiers/broken/",
-    "tconstruct:item/tool/armor/travelers/boot_modifiers/"
+    "tconstruct:item/tool/armor/travelers/boots/modifiers/broken/",
+    "tconstruct:item/tool/armor/travelers/boots/modifiers/"
   ],
   "first_modifiers": [
     "tconstruct:dyed",
-    "tconstruct:golden",
     "tconstruct:trim"
+  ],
+  "parts": [
+    {
+      "name": "base"
+    },
+    {
+      "name": "metal",
+      "index": 0
+    }
   ]
 }

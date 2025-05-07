@@ -1,8 +1,5 @@
 [
   {
-    "type": "mantle:blank"
-  },
-  {
     "name": "casting",
     "type": "mantle:image_text",
     "data": "casting/intro.json"

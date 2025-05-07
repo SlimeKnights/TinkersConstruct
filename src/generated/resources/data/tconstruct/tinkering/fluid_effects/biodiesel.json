@@ -1,0 +1,38 @@
+{
+  "block_effects": [
+    {
+      "type": "tconstruct:mob_effect_cloud",
+      "effects": [
+        {
+          "effect": "immersiveengineering:flammable",
+          "level": 2,
+          "time": 160
+        }
+      ]
+    }
+  ],
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "immersiveengineering"
+    }
+  ],
+  "entity_effects": [
+    {
+      "type": "tconstruct:mob_effect",
+      "action": "add",
+      "effect": "immersiveengineering:flammable",
+      "level": 2,
+      "time": 160
+    },
+    {
+      "type": "tconstruct:fire",
+      "action": "add",
+      "time": 8
+    }
+  ],
+  "fluid": {
+    "amount": 50,
+    "tag": "forge:biodiesel"
+  }
+}

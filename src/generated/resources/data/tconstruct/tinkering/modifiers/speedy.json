@@ -12,8 +12,7 @@
         "legs",
         "chest",
         "head"
-      ],
-      "unique": "tconstruct.modifier.speedy"
+      ]
     }
   ],
   "tooltip_display": "always"

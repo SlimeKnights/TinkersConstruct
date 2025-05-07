@@ -1,0 +1,17 @@
+{
+  "type": "tconstruct:material_fluid",
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "registry": "minecraft:fluid",
+      "tag": "forge:creosote"
+    }
+  ],
+  "fluid": {
+    "amount": 125,
+    "tag": "forge:creosote"
+  },
+  "input": "tconstruct:wood",
+  "output": "tconstruct:treated_wood",
+  "temperature": 600
+}

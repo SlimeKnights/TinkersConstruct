@@ -77,7 +77,7 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
     tag(SLIME_DEFENSE)
       .add(ModifierIds.meleeProtection, ModifierIds.projectileProtection,
            ModifierIds.fireProtection, ModifierIds.magicProtection,
-           ModifierIds.blastProtection, TinkerModifiers.golden.getId());
+           ModifierIds.blastProtection);
     tag(OVERSLIME_FRIEND)
       .add(ModifierIds.overgrowth, ModifierIds.overcast, ModifierIds.overburn, ModifierIds.overlord,
            ModifierIds.overforced, ModifierIds.overslimeFriend, TinkerModifiers.overworked.getId());
@@ -145,7 +145,7 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
     this.tag(CHESTPLATE_ABILITIES).add(TinkerModifiers.ambidextrous.getId(), ModifierIds.reach, ModifierIds.strength, ModifierIds.wings);
     this.tag(LEGGING_ABILITIES).add(ModifierIds.pockets, ModifierIds.soulBelt, ModifierIds.toolBelt, ModifierIds.craftingTable);
     this.tag(BOOT_ABILITIES).add(
-      TinkerModifiers.bouncy.getId(), TinkerModifiers.doubleJump.getId(), ModifierIds.longFall,
+      ModifierIds.bouncy, ModifierIds.doubleJump, ModifierIds.longFall,
       TinkerModifiers.flamewake.getId(), ModifierIds.snowdrift, ModifierIds.tilling, ModifierIds.pathing, ModifierIds.frostWalker, ModifierIds.glowing);
     this.tag(SHIELD_ABILITIES).add(ModifierIds.boundless, TinkerModifiers.reflecting.getId());
 
@@ -154,7 +154,7 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
       ModifierIds.blastProtection, ModifierIds.fireProtection, ModifierIds.magicProtection,
       ModifierIds.meleeProtection, ModifierIds.projectileProtection,
       ModifierIds.dragonborn, ModifierIds.shulking, ModifierIds.turtleShell);
-    this.tag(SPECIAL_DEFENSE).add(TinkerModifiers.golden.getId(), ModifierIds.knockbackResistance, ModifierIds.revitalizing);
+    this.tag(SPECIAL_DEFENSE).add(ModifierIds.knockbackResistance, ModifierIds.revitalizing);
 
     // slotless
     this.tag(GENERAL_SLOTLESS).add(

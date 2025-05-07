@@ -25,10 +25,10 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 /**
- * Module for keeping track of the total level of a modifier across all pieces of equipment. Does not support incremental, use {@link ArmorStatModule} for that.
- * @see ArmorStatModule
- * @see TinkerDataKey
+ * Module for keeping track of the total level of a modifier across all pieces of equipment. Does not support incremental, use {@link slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule} for that.
+ * @see slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeModule
  * @see slimeknights.tconstruct.library.modifiers.modules.behavior.ShowOffhandModule
+ * @see TinkerDataKeys#INTEGER_REGISTRY
  */
 public record ArmorLevelModule(TinkerDataKey<Integer> key, boolean allowBroken, @Nullable TagKey<Item> heldTag) implements HookProvider, EquipmentChangeModifierHook, ModifierModule {
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<ArmorLevelModule>defaultHooks(ModifierHooks.EQUIPMENT_CHANGE);

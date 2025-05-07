@@ -1,10 +1,28 @@
 {
   "modules": [
     {
-      "type": "tconstruct:base_stats",
-      "stats": {
-        "tconstruct:armor": 1.0,
-        "tconstruct:durability": 130.0
+      "type": "tconstruct:material_stats",
+      "primary_part": 0,
+      "stat_types": [
+        {
+          "scale": 0.75,
+          "stat": "tconstruct:plating_boots"
+        }
+      ]
+    },
+    {
+      "type": "tconstruct:default_materials",
+      "materials": [
+        {
+          "type": "tconstruct:fixed",
+          "material": "tconstruct:rose_gold"
+        }
+      ]
+    },
+    {
+      "type": "tconstruct:multiply_stats",
+      "multipliers": {
+        "tconstruct:durability": 0.75
       }
     },
     {
@@ -12,13 +30,8 @@
       "slots": {
         "abilities": 1,
         "defense": 2,
-        "upgrades": 3
+        "upgrades": 2
       }
-    },
-    {
-      "type": "tconstruct:material_repair",
-      "durability": 130,
-      "material": "tconstruct:copper"
     },
     {
       "type": "tconstruct:material_repair",

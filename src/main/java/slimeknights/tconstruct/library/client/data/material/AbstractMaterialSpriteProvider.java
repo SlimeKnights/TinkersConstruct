@@ -190,14 +190,20 @@ public abstract class AbstractMaterialSpriteProvider {
       return this;
     }
 
-    /** Adds stat types for armor, all plating plus maille */
-    public MaterialSpriteInfoBuilder armor() {
+    /** Adds all plating stat types */
+    public MaterialSpriteInfoBuilder plating() {
       statType(TinkerPartSpriteProvider.ARMOR_PLATING);
       for (MaterialStatType<?> type : PlatingMaterialStats.TYPES) {
         statType(type.getId());
       }
-      maille();
       repairKit();
+      return this;
+    }
+
+    /** Adds stat types for armor, all plating plus maille */
+    public MaterialSpriteInfoBuilder armor() {
+      plating();
+      maille();
       return this;
     }
 

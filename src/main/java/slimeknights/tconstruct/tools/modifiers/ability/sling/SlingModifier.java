@@ -3,6 +3,7 @@ package slimeknights.tconstruct.tools.modifiers.ability.sling;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.UseAnim;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -14,6 +15,7 @@ import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
+import slimeknights.tconstruct.shared.TinkerAttributes;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockingModifier;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ScopeModifier;
@@ -77,5 +79,10 @@ public abstract class SlingModifier extends NoLevelsModifier implements GeneralI
       force /= Math.pow(2, tool.getModifierLevel(TinkerModifiers.padded.getId()));
     }
     return force;
+  }
+
+  /** Scales the given knockback value using the two attributes */
+  public static float scaleKnockback(LivingEntity target, float knockback) {
+    return (float) (knockback * target.getAttributeValue(TinkerAttributes.KNOCKBACK_MULTIPLIER.get()) * (1 - target.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE)));
   }
 }

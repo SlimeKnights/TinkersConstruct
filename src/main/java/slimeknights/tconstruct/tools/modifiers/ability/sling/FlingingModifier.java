@@ -32,6 +32,7 @@ public class FlingingModifier extends SlingModifier {
           Vec3 vec = player.getLookAngle().normalize();
           float inaccuracy = ModifierUtil.getInaccuracy(tool, player) * 0.0075f;
           RandomSource random = player.getRandom();
+          f = scaleKnockback(player, f);
           player.push((vec.x + random.nextGaussian() * inaccuracy) * -f,
                       (vec.y + random.nextGaussian() * inaccuracy) * -f / 3f,
                       (vec.z + random.nextGaussian() * inaccuracy) * -f);

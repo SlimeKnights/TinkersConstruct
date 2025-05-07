@@ -25,7 +25,7 @@ public class CastingBlockEntityRenderer implements BlockEntityRenderer<CastingBl
   public void render(CastingBlockEntity casting, float partialTicks, PoseStack matrices, MultiBufferSource buffer, int light, int combinedOverlayIn) {
     BlockState state = casting.getBlockState();
     List<FluidCuboid> fluids = FluidCuboid.REGISTRY.get(state, List.of());
-    List<RenderItem> renderItems = RenderItem.REGISTRY.get(state.getBlock(), List.of());
+    List<RenderItem> renderItems = RenderItem.STATE_REGISTRY.get(state, List.of());
 
     // rotate the matrix
     if (!fluids.isEmpty() || !renderItems.isEmpty()) {

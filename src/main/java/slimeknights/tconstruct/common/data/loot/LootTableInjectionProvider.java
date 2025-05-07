@@ -49,7 +49,7 @@ public class LootTableInjectionProvider extends AbstractLootTableInjectionProvid
       .addToPool("main", makeSeed(FoliageType.ENDER, 5), makeSapling(FoliageType.ENDER, 3));
 
     // bartering
-    RandomMaterial random = RandomMaterial.random().build();
+    RandomMaterial random = RandomMaterial.random().allowHidden().build();
     AddToolDataFunction.Builder ancientToolData2 = AddToolDataFunction.builder().addMaterial(random).addMaterial(random);
     injectGameplay("piglin_bartering")
       .addToPool("main", LootItem.lootTableItem(TinkerSmeltery.scorchedLantern).setWeight(20)
@@ -142,7 +142,7 @@ public class LootTableInjectionProvider extends AbstractLootTableInjectionProvid
                                  .apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.1f, 0.9f)))
                                  .build());
     // diamond armor shows in bastions, add in some plate with similar weight to enchanted version
-    RandomMaterial randomHighTier = RandomMaterial.random().tier(3, 4).build();
+    RandomMaterial randomHighTier = RandomMaterial.random().allowHidden().tier(3, 4).build();
     for (ArmorItem.Type slot : ArmorItem.Type.values()) {
       bastion.addToPool("main", LootItem.lootTableItem(TinkerTools.plateArmor.get(slot))
                                         .setWeight(6)

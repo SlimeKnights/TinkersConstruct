@@ -60,8 +60,8 @@ public record ExplosionFluidEffect(LevelingValue radius, LevelingValue damage, L
       return 0;
     }
     float value = level.value();
-    float radius = this.radius.compute(value);
-    if (radius == 0) {
+    float radius = this.radius.computeForScale(value);
+    if (radius < 0.5f) {
       return 0;
     }
 
@@ -81,7 +81,7 @@ public record ExplosionFluidEffect(LevelingValue radius, LevelingValue damage, L
       new CustomExplosion(
         // source is projectile, if null set no source to prevent the user from being immune to the explosion
         world, context.getLocation(), radius, projectile, null,
-        damage.compute(value), damageSource, knockback.compute(value), null,
+        damage.computeForScale(value), damageSource, knockback.computeForScale(value), null,
         placeFire, blockInteraction
       ).handleServer();
     }

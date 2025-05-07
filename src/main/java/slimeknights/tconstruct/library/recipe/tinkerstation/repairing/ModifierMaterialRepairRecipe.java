@@ -62,6 +62,7 @@ public class ModifierMaterialRepairRecipe extends TinkerStationRepairRecipe impl
     return MaterialRepairModule.getDurability(tool.getDefinition().getId(), repairMaterial, statType) * tool.getModifierLevel(modifier);
   }
 
+  @SuppressWarnings("removal")
   @Override
   public RecipeSerializer<?> getSerializer() {
     return TinkerModifiers.modifierMaterialRepair.get();

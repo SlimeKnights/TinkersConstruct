@@ -55,11 +55,24 @@ public class MaterialCastingLookup {
     return MaterialFluidRecipe.EMPTY;
   });
 
+  /** Cache for all casting recipes for a given material output */
+  private static final SimpleCache<MaterialVariantId,List<MaterialFluidRecipe>> MATERIAL_CASTABLE = new SimpleCache<>(material ->
+    CASTING_FLUIDS.stream()
+      .filter(recipe -> material.matchesVariant(recipe.getOutput()))
+      .collect(Collectors.toList()));
+  /** Cache for all composite recipes for a given material output */
+  private static final SimpleCache<MaterialVariantId,List<MaterialFluidRecipe>> MATERIAL_COMPOSITE = new SimpleCache<>(material ->
+    COMPOSITE_FLUIDS.stream()
+      .filter(recipe -> material.matchesVariant(recipe.getOutput()))
+      .collect(Collectors.toList()));
+
   /** Listener for clearing the recipe cache on recipe reload */
   private static final DuelSidedListener LISTENER = RecipeCacheInvalidator.addDuelSidedListener(() -> {
     ITEM_COST_LOOKUP.clear();
     CASTING_FLUIDS.clear();
     CASTING_CACHE.clear();
+    MATERIAL_CASTABLE.clear();
+    MATERIAL_COMPOSITE.clear();
     COMPOSITE_FLUIDS.clear();
     COMPOSITE_CACHE.clear();
   });
@@ -143,9 +156,7 @@ public class MaterialCastingLookup {
    * @return  Recipe
    */
   public static List<MaterialFluidRecipe> getCastingFluids(MaterialVariantId material) {
-    return CASTING_FLUIDS.stream()
-                         .filter(recipe -> material.matchesVariant(recipe.getOutput()))
-                         .collect(Collectors.toList());
+    return MATERIAL_CASTABLE.apply(material);
   }
 
   /**
@@ -154,9 +165,7 @@ public class MaterialCastingLookup {
    * @return  Recipe
    */
   public static List<MaterialFluidRecipe> getCompositeFluids(MaterialVariantId material) {
-    return COMPOSITE_FLUIDS.stream()
-                           .filter(recipe -> material.matchesVariant(recipe.getOutput()))
-                           .collect(Collectors.toList());
+    return MATERIAL_COMPOSITE.apply(material);
   }
 
   /**

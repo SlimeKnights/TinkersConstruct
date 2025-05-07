@@ -91,7 +91,6 @@
         "type": "mantle:tag",
         "tag": "tconstruct:modifiable/armor"
       },
-      "unique": "tconstruct.modifier.maintained",
       "variables": {
         "durability": "tconstruct:tool_durability",
         "max_durability": {

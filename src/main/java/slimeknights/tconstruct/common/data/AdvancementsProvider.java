@@ -284,8 +284,8 @@ public class AdvancementsProvider extends GenericDataProvider {
       with.accept(ModifierIds.craftingTable);
       withL.accept(TinkerModifiers.wetting);
       // boots
-      withL.accept(TinkerModifiers.bouncy);
-      withL.accept(TinkerModifiers.doubleJump);
+      with.accept(ModifierIds.bouncy);
+      with.accept(ModifierIds.doubleJump);
       withL.accept(TinkerModifiers.flamewake);
       with.accept(ModifierIds.frostWalker);
       with.accept(ModifierIds.longFall);

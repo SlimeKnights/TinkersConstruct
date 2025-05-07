@@ -16,7 +16,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -30,15 +29,10 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
-import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import slimeknights.mantle.Mantle;
 import slimeknights.mantle.fluid.FluidTransferHelper;
-import slimeknights.mantle.fluid.transfer.FluidContainerTransferManager;
-import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer;
-import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer.TransferDirection;
-import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer.TransferResult;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.TConstruct;
@@ -137,57 +131,6 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
     return super.getCapability(capability, facing);
   }
 
-  /** Interacts with a fluid item held by the player */
-  private boolean interactWithFluidItem(Player player, InteractionHand hand, ItemStack stack) {
-    if (level == null) {
-      return false;
-    }
-    // fallback to JSON based transfer
-    if (FluidContainerTransferManager.INSTANCE.mayHaveTransfer(stack)) {
-      // only actually transfer on the serverside, client just has items
-      FluidStack currentFluid = tank.getFluid();
-      IFluidContainerTransfer transfer = FluidContainerTransferManager.INSTANCE.getTransfer(stack, currentFluid);
-      if (transfer != null) {
-        TransferResult result = transfer.transfer(stack, currentFluid, tank, TransferDirection.AUTO);
-        if (result != null) {
-          if (result.didFill()) {
-            playFillSound(level, worldPosition, player, result.fluid());
-          } else {
-            playEmptySound(level, worldPosition, player, result.fluid());
-          }
-          player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, result.stack()));
-          return true;
-        }
-      }
-      // consistency with tanks: don't try fluid handler if we had JSON override for this item type
-      return false;
-    }
-
-    // if the item has a capability, do a direct transfer
-    ItemStack copy = ItemHandlerHelper.copyStackWithSize(stack, 1);
-    LazyOptional<IFluidHandlerItem> itemCapability = copy.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM);
-    if (itemCapability.isPresent()) {
-      IFluidHandlerItem itemHandler = itemCapability.resolve().orElseThrow();
-      // first, try filling the TE from the item
-      FluidStack transferred = FluidTransferHelper.tryTransfer(itemHandler, tank, Integer.MAX_VALUE);
-      if (!transferred.isEmpty()) {
-        playEmptySound(level, worldPosition, player, transferred);
-      } else if (!tank.isEmpty()) {
-        // if that failed, try filling the item handler from the TE
-        transferred = FluidTransferHelper.tryTransfer(tank, itemHandler, Integer.MAX_VALUE);
-        if (!transferred.isEmpty()) {
-          playFillSound(level, worldPosition, player, transferred);
-        }
-      }
-      // if either worked, update the player's inventory
-      if (!transferred.isEmpty()) {
-        player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, itemHandler.getContainer()));
-        return true;
-      }
-    }
-    return false;
-  }
-
   /**
    * Called from {@link slimeknights.tconstruct.smeltery.block.AbstractCastingBlock#use(BlockState, Level, BlockPos, Player, InteractionHand, BlockHitResult)}
    * @param player Player activating the block.
@@ -200,7 +143,7 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
     // first try interacting with the table as a tank. If that fails, run normal item swap logic
     // normal item swap logic should only run if we lack a fluid though
     ItemStack held = player.getItemInHand(hand);
-    if (interactWithFluidItem(player, hand, held) || !tank.isEmpty()) {
+    if (FluidTransferHelper.interactWithContainer(level, worldPosition, tank, player, hand).didTransfer() || !tank.isEmpty()) {
       return;
     }
 

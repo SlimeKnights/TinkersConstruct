@@ -1,18 +1,13 @@
 {
   "layers": [
     {
-      "type": "tconstruct:first_present",
-      "options": [
-        {
-          "type": "tconstruct:fixed",
-          "modifier": "tconstruct:golden",
-          "prefix": "tconstruct:travelers/golden_"
-        },
-        {
-          "type": "tconstruct:fixed",
-          "prefix": "tconstruct:travelers/base_"
-        }
-      ]
+      "type": "tconstruct:fixed",
+      "prefix": "tconstruct:travelers/base_"
+    },
+    {
+      "type": "tconstruct:material",
+      "index": 0,
+      "prefix": "tconstruct:travelers/metal_"
     },
     {
       "type": "tconstruct:dyed",

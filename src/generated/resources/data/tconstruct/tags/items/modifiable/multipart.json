@@ -23,7 +23,7 @@
     "tconstruct:plate_chestplate",
     "tconstruct:plate_leggings",
     "tconstruct:plate_boots",
-    "tconstruct:slime_helmet",
-    "tconstruct:plate_shield"
+    "tconstruct:plate_shield",
+    "#tconstruct:modifiable/multipart/single"
   ]
 }

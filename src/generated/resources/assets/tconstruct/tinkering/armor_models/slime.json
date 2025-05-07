@@ -4,12 +4,6 @@
       "type": "tconstruct:first_present",
       "options": [
         {
-          "type": "tconstruct:fixed",
-          "modifier": "tconstruct:golden",
-          "prefix": "tconstruct:slime/",
-          "suffix": "_tconstruct_gold"
-        },
-        {
           "type": "tconstruct:persistent_data",
           "material_key": "tconstruct:embellishment",
           "prefix": "tconstruct:slime/"

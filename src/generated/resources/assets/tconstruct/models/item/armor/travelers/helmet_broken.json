@@ -2,14 +2,23 @@
   "loader": "tconstruct:tool",
   "parent": "forge:item/default",
   "textures": {
-    "tool": "tconstruct:item/tool/armor/travelers/goggles_broken"
+    "base": "tconstruct:item/tool/armor/travelers/goggles/base_broken",
+    "metal": "tconstruct:item/tool/armor/travelers/goggles/metal_broken"
   },
   "modifier_roots": [
-    "tconstruct:item/tool/armor/travelers/goggle_modifiers/broken/",
-    "tconstruct:item/tool/armor/travelers/goggle_modifiers/"
+    "tconstruct:item/tool/armor/travelers/goggles/modifiers/broken/",
+    "tconstruct:item/tool/armor/travelers/goggles/modifiers/"
   ],
   "first_modifiers": [
-    "tconstruct:dyed",
-    "tconstruct:golden"
+    "tconstruct:dyed"
+  ],
+  "parts": [
+    {
+      "name": "base"
+    },
+    {
+      "name": "metal",
+      "index": 0
+    }
   ]
 }

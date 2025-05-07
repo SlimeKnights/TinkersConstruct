@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": "tconstruct:templates/fluid_cannon",
+    "facing=down": "tconstruct:templates/fluid_cannon_down",
+    "facing=up": "tconstruct:templates/fluid_cannon_up"
+  }
+}

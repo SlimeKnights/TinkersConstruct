@@ -31,9 +31,9 @@ import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
-import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
+import slimeknights.tconstruct.shared.TinkerEffects;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -44,7 +44,7 @@ public class EnderferenceModifier extends Modifier implements ProjectileHitModif
   }
 
   private static void onTeleport(EntityTeleportEvent event) {
-    if (event.getEntity() instanceof LivingEntity living && living.hasEffect(TinkerModifiers.enderferenceEffect.get())) {
+    if (event.getEntity() instanceof LivingEntity living && living.hasEffect(TinkerEffects.enderference.get())) {
       event.setCanceled(true);
     }
   }
@@ -64,7 +64,7 @@ public class EnderferenceModifier extends Modifier implements ProjectileHitModif
     LivingEntity entity = context.getLivingTarget();
     if (entity != null) {
       // hack: do not want them teleporting from this hit
-      TinkerModifiers.enderferenceEffect.get().apply(entity, 1, 0, true);
+      TinkerEffects.enderference.get().apply(entity, 1, 0, true);
     }
     return knockback;
   }
@@ -73,7 +73,7 @@ public class EnderferenceModifier extends Modifier implements ProjectileHitModif
   public void failedMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageAttempted) {
     LivingEntity entity = context.getLivingTarget();
     if (entity != null) {
-      entity.removeEffect(TinkerModifiers.enderferenceEffect.get());
+      entity.removeEffect(TinkerEffects.enderference.get());
     }
   }
 
@@ -82,7 +82,7 @@ public class EnderferenceModifier extends Modifier implements ProjectileHitModif
     LivingEntity entity = context.getLivingTarget();
     if (entity != null) {
       // 5 seconds of interference per level, affect all entities as players may teleport too
-      entity.addEffect(new MobEffectInstance(TinkerModifiers.enderferenceEffect.get(), modifier.getLevel() * 100, 0, false, true, true));
+      entity.addEffect(new MobEffectInstance(TinkerEffects.enderference.get(), modifier.getLevel() * 100, 0, false, true, true));
     }
   }
 
@@ -96,7 +96,7 @@ public class EnderferenceModifier extends Modifier implements ProjectileHitModif
         level *= 2;
       }
       if (RANDOM.nextFloat() < (level * 0.25f)) {
-        attacker.addEffect(new MobEffectInstance(TinkerModifiers.enderferenceEffect.get(), modifier.getLevel() * 100, 0, false, true, true));
+        attacker.addEffect(new MobEffectInstance(TinkerEffects.enderference.get(), modifier.getLevel() * 100, 0, false, true, true));
       }
     }
   }
@@ -104,7 +104,7 @@ public class EnderferenceModifier extends Modifier implements ProjectileHitModif
   @Override
   public boolean onProjectileHitEntity(ModifierNBT modifiers, ModDataNBT persistentData, ModifierEntry modifier, Projectile projectile, EntityHitResult hit, @Nullable LivingEntity attacker, @Nullable LivingEntity target) {
     if (target != null) {
-      target.addEffect(new MobEffectInstance(TinkerModifiers.enderferenceEffect.get(), modifier.getLevel() * 100, 0, false, true, true));
+      target.addEffect(new MobEffectInstance(TinkerEffects.enderference.get(), modifier.getLevel() * 100, 0, false, true, true));
 
       // endermen are hardcoded to not take arrow damage, so disagree by reimplementing arrow damage right here
       if (target.getType() == EntityType.ENDERMAN && projectile instanceof AbstractArrow arrow) {

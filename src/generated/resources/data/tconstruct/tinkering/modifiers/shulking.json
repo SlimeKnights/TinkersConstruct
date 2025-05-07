@@ -2,12 +2,12 @@
   "level_display": "tconstruct:default",
   "modules": [
     {
-      "type": "tconstruct:max_armor_stat",
+      "type": "tconstruct:max_armor_attribute",
       "allow_broken": false,
+      "attribute": "tconstruct:generic.crouch_damage_multiplier",
       "each_level": -0.1,
       "held_tag": "tconstruct:modifiable/held",
-      "key": "tconstruct:crouch_damage",
-      "tooltip_style": "percent"
+      "operation": "multiply_base"
     },
     {
       "type": "tconstruct:protection",

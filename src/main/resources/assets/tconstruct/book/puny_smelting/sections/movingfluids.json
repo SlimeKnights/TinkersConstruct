@@ -38,5 +38,10 @@
     "name": "copper_cans_craft",
     "type": "mantle:crafting",
     "data": "movingfluids/copper_can_craft.json"
+  },
+  {
+    "name": "fluid_cannon",
+    "type": "mantle:showcase",
+    "data": "movingfluids/fluid_cannon.json"
   }
 ]

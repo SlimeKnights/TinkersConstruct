@@ -40,4 +40,12 @@ public record EffectLevel(float value, float max) {
     }
     return new EffectLevel(value / divisor, max / divisor);
   }
+
+  /** Subtracts the given amount from the effect level */
+  public EffectLevel subtract(float amount) {
+    if (amount == 0) {
+      return this;
+    }
+    return new EffectLevel(value - amount, max);
+  }
 }

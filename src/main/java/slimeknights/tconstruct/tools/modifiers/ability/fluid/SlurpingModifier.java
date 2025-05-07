@@ -60,7 +60,7 @@ public class SlurpingModifier extends Modifier implements KeybindInteractModifie
   private int slurp(FluidStack fluid, float level, Player player, FluidAction action) {
     if (!fluid.isEmpty()) {
       FluidEffects recipe = FluidEffectManager.INSTANCE.find(fluid.getFluid());
-      return recipe.hasEntityEffects() ? recipe.applyToEntity(fluid, level, new FluidEffectContext.Entity(player.level(), player, null, player), action) : 0;
+      return recipe.hasEntityEffects() ? recipe.applyToEntity(fluid, level, FluidEffectContext.builder(player.level()).user(player).target(player), action) : 0;
     }
     return 0;
   }

@@ -38,7 +38,7 @@ public abstract class AbstractCastingRecipe implements ICastingRecipe {
     this.id = id;
     this.group = group;
     this.cast = cast;
-    this.consumed = cast != Ingredient.EMPTY && consumed;
+    this.consumed = consumed;
     this.switchSlots = switchSlots;
   }
 

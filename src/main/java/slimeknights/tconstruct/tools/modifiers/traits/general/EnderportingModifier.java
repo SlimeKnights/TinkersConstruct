@@ -1,14 +1,10 @@
 package slimeknights.tconstruct.tools.modifiers.traits.general;
 
-import com.google.common.collect.ImmutableSet;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.RelativeMovement;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.context.UseOnContext;
@@ -18,9 +14,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.MinecraftForge;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.library.events.teleport.EnderportingTeleportEvent;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -37,13 +31,12 @@ import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
+import slimeknights.tconstruct.library.utils.TeleportHelper;
 
 import javax.annotation.Nullable;
-import java.util.Set;
 
 public class EnderportingModifier extends NoLevelsModifier implements PlantHarvestModifierHook, ProjectileHitModifierHook, ProjectileLaunchModifierHook, BlockHarvestModifierHook, MeleeHitModifierHook {
   private static final ResourceLocation PRIMARY_ARROW = TConstruct.getResource("enderporting_primary");
-  private static final Set<RelativeMovement> PACKET_FLAGS = ImmutableSet.of(RelativeMovement.X, RelativeMovement.Y, RelativeMovement.Z);
 
   @Override
   protected void registerHooks(Builder hookBuilder) {
@@ -80,25 +73,7 @@ public class EnderportingModifier extends NoLevelsModifier implements PlantHarve
 
     // as long as no collision now, we can teleport
     if (!didCollide) {
-      // actual teleport
-      EnderportingTeleportEvent event = new EnderportingTeleportEvent(living, x, y, z);
-      MinecraftForge.EVENT_BUS.post(event);
-      if (!event.isCanceled()) {
-        // this logic only runs serverside, so need to use the server controller logic to move the player
-        if (living instanceof ServerPlayer playerMP) {
-          playerMP.connection.teleport(x, y, z, playerMP.getYRot(), playerMP.getXRot(), PACKET_FLAGS);
-        } else {
-          living.setPos(event.getTargetX(), event.getTargetY(), event.getTargetZ());
-        }
-        // particles must be sent on a server
-        if (world instanceof ServerLevel serverWorld) {
-          for (int i = 0; i < 32; ++i) {
-            serverWorld.sendParticles(ParticleTypes.PORTAL, living.getX(), living.getY() + world.random.nextDouble() * 2.0D, living.getZ(), 1, world.random.nextGaussian(), 0.0D, world.random.nextGaussian(), 0);
-          }
-        }
-        world.playSound(null, living.getX(), living.getY(), living.getZ(), Sounds.ENDERPORTING.getSound(),  living.getSoundSource(), 1f, 1f);
-        return true;
-      }
+      return TeleportHelper.tryTeleport(new EnderportingTeleportEvent(living, x, y, z));
     }
     return false;
   }

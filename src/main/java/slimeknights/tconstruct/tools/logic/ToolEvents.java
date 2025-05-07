@@ -70,6 +70,7 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.BlockSideHitListener;
+import slimeknights.tconstruct.shared.TinkerAttributes;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
 import java.util.List;
@@ -108,10 +109,9 @@ public class ToolEvents {
     }
 
     // next, add in armor haste
-    float armorHaste = ArmorStatModule.getStat(player, TinkerDataKeys.MINING_SPEED);
-    if (armorHaste > 0) {
-      // adds in 10% per level
-      event.setNewSpeed(event.getNewSpeed() * (1 + armorHaste));
+    double armorMultiplier = player.getAttributeValue(TinkerAttributes.MINING_SPEED_MULTIPLIER.get()) + ArmorStatModule.getStat(player, TinkerDataKeys.MINING_SPEED);
+    if (armorMultiplier >= 0) {
+      event.setNewSpeed((float) (event.getNewSpeed() * armorMultiplier));
     }
   }
 
@@ -244,6 +244,7 @@ public class ToolEvents {
   }
 
   // low priority to minimize conflict as we apply reduction as if we are the final change to damage before vanilla
+  @SuppressWarnings("removal")
   @SubscribeEvent(priority = EventPriority.LOW)
   static void livingHurt(LivingHurtEvent event) {
     LivingEntity entity = event.getEntity();
@@ -258,9 +259,10 @@ public class ToolEvents {
     // run shulking global damage "boost", its a bit hardcoded Java wise to make it softcoded in JSON
     Entity attacker = event.getSource().getEntity();
     if (attacker != null && attacker.isCrouching()) {
-      float crouchDamage = ArmorStatModule.getStat(attacker, TinkerDataKeys.CROUCH_DAMAGE);
-      if (crouchDamage != 0) {
-        originalDamage = originalDamage * (1 + crouchDamage);
+      double crouchMultiplier = attacker instanceof LivingEntity living ? living.getAttributeValue(TinkerAttributes.CROUCH_DAMAGE_MULTIPLIER.get()) : 1;
+      crouchMultiplier += ArmorStatModule.getStat(attacker, TinkerDataKeys.CROUCH_DAMAGE);
+      if (crouchMultiplier != 0) {
+        originalDamage *= crouchMultiplier;
       }
     }
 
@@ -308,7 +310,7 @@ public class ToolEvents {
     // that said, don't actually care about cap unless we have some protection, can use vanilla to simplify logic
     float cap = 20f;
     if (modifierValue > 0) {
-      cap = ProtectionModifierHook.getProtectionCap(context.getTinkerData());
+      cap = (float) ProtectionModifierHook.getProtectionCap(entity, context.getTinkerData());
     }
     if (vanillaModifier != modifierValue || (cap > 20 && vanillaModifier > 20) || (cap < 20 && vanillaModifier > cap)) {
       // fetch armor and toughness if blockable, passing in 0 to the logic will skip the armor calculations

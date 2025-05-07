@@ -106,6 +106,8 @@ public class ModifierIds {
   public static final ModifierId longFall = id("long_fall");
   public static final ModifierId frostWalker = id("frost_walker");
   public static final ModifierId snowdrift = id("snowdrift");
+  public static final ModifierId bouncy = id("bouncy");
+  public static final ModifierId doubleJump = id("double_jump");
   // shield
   public static final ModifierId boundless = id("boundless");
 
@@ -139,6 +141,7 @@ public class ModifierIds {
   public static final ModifierId heavy = id("heavy");
   public static final ModifierId featherweight = id("featherweight");
   public static final ModifierId consecrated = id("consecrated");
+  public static final ModifierId preserved = id("preserved");
   // traits - tier 3
   public static final ModifierId overcast = id("overcast");
   public static final ModifierId crumbling = id("crumbling");
@@ -156,6 +159,7 @@ public class ModifierIds {
   public static final ModifierId fortified = id("fortified");
   public static final ModifierId kinetic = id("kinetic");
   public static final ModifierId flameBarrier = id("flame_barrier");
+  public static final ModifierId vintage = id("vintage");
 
   // traits - slimeskull
   public static final ModifierId mithridatism = id("mithridatism");

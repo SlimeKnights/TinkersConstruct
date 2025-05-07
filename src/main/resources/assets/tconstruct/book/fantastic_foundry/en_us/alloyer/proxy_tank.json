@@ -1,0 +1,14 @@
+{
+  "title": "Proxy Tank",
+  "item": "tconstruct:scorched_proxy_tank",
+  "text": [
+    {
+      "text": "The proxy tank is great for filling or emptying variable size fluid items, such as tools with tanks. Simply place the tool in the tank, then fill it using fluid items, faucets, or channels.",
+      "paragraph": true
+    },
+    {
+      "text": "This design unfortunately does not work well with containers like buckets or copper cans, as their rigid size prevents faucets from slowly filling them. You are better off using a casting block for them.",
+      "paragraph": true
+    }
+	]
+}
