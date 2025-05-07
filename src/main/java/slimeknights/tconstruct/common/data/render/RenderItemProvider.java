@@ -114,10 +114,7 @@ public class RenderItemProvider extends BlockStateDataMapProvider<List<RenderIte
     block(TinkerSmeltery.scorchedProxyTank).variant(List.of(RenderItem.builder().size(12f).transform(TinkerItemDisplays.MELTER).center(8, 9, 8).build())).end();
 
     // casting tank
-    itemBuilder = RenderItem.builder().center(8, 15.5f, 8).size(14).x(270).y(180).transform(TinkerItemDisplays.CASTING_TABLE);
-    entry(TinkerSmeltery.searedCastingTank, List.of(
-      itemBuilder.build()
-    ));
+    block(TinkerSmeltery.searedCastingTank).variant(List.of(RenderItem.builder().center(8, 15.5f, 8).size(14).x(270).y(180).transform(TinkerItemDisplays.CASTING_TABLE).build())).end();
   }
 
   @Override

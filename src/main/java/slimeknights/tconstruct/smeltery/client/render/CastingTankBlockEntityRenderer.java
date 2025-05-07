@@ -24,7 +24,7 @@ public class CastingTankBlockEntityRenderer extends TankBlockEntityRenderer<Cast
   public void render(CastingTankBlockEntity tile, float partialTicks, PoseStack matrixStack, MultiBufferSource buffer, int combinedLightIn, int combinedOverlayIn) {
     BlockState state = tile.getBlockState();
     List<FluidCuboid> fluids = FluidCuboid.REGISTRY.get(state, List.of());
-    List<RenderItem> renderItems = RenderItem.REGISTRY.get(state.getBlock(), List.of());
+    List<RenderItem> renderItems = RenderItem.STATE_REGISTRY.get(state, List.of());
 
     // rotate the matrix
     boolean isRotated = RenderingHelper.applyRotation(matrixStack, state);

@@ -20,7 +20,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.fluids.FluidStack;
@@ -28,8 +27,8 @@ import slimeknights.mantle.block.InventoryBlock;
 import slimeknights.mantle.util.BlockEntityHelper;
 import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.smeltery.block.entity.CastingTankBlockEntity;
-import slimeknights.tconstruct.smeltery.block.entity.CastingTankBlockEntity.ITankBlock;
 import slimeknights.tconstruct.smeltery.block.entity.ITankBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.component.TankBlockEntity.ITankBlock;
 
 import javax.annotation.Nullable;
 

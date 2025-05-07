@@ -7,6 +7,7 @@
     "tconstruct:scorched_lantern",
     "tconstruct:seared_fluid_cannon",
     "tconstruct:scorched_fluid_cannon",
+    "tconstruct:seared_casting_tank",
     "tconstruct:seared_fuel_tank",
     "tconstruct:seared_fuel_gauge",
     "tconstruct:seared_ingot_tank",
@@ -14,7 +15,6 @@
     "tconstruct:scorched_fuel_tank",
     "tconstruct:scorched_fuel_gauge",
     "tconstruct:scorched_ingot_tank",
-    "tconstruct:scorched_ingot_gauge",
-    "tconstruct:seared_casting_tank"
+    "tconstruct:scorched_ingot_gauge"
   ]
 }

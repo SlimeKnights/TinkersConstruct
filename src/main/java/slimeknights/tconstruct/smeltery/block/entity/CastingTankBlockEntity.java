@@ -13,7 +13,6 @@ import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -40,6 +39,7 @@ import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.shared.block.entity.TableBlockEntity;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.smeltery.block.entity.component.TankBlockEntity.ITankBlock;
 import slimeknights.tconstruct.smeltery.item.TankItem;
 
 import javax.annotation.Nonnull;
@@ -81,7 +81,9 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
   }
 
   public CastingTankBlockEntity(BlockPos pos, BlockState state) {
-    this(pos, state, (ITankBlock) state.getBlock());
+    this(pos, state, state.getBlock() instanceof ITankBlock tankBlock
+                     ? tankBlock
+                     : TinkerSmeltery.searedCastingTank.get());
   }
 
   /** Main constructor */
@@ -143,7 +145,7 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
     }
   }
 
-  public void setInputItemWithoutTryingToProcess(ItemStack stack) {
+  private void setInputItem(ItemStack stack) {
     super.setItem(INPUT, stack);
   }
 
@@ -154,7 +156,6 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
         // check the various options for some sort of fluid-containing stack
         FluidContainerTransferManager.INSTANCE.mayHaveTransfer(pStack)
           || pStack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).isPresent()
-          || pStack.getItem() instanceof BucketItem
       );
     }
     return false;
@@ -170,13 +171,13 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
     }
 
     // need to take the item out of the input slot to prevent a nested call from getting too far if we do modify the tank
-    setInputItemWithoutTryingToProcess(ItemStack.EMPTY);
+    setInputItem(ItemStack.EMPTY);
     IFluidContainerTransfer.TransferResult transferResult = interactWithTankSlotForTransferResult(tank, input, IFluidContainerTransfer.TransferDirection.AUTO);
 
     // if no transfer happened
     if (transferResult == null) {
       // put the input item back in the input slot without trying to process, since we know that won't work
-      setInputItemWithoutTryingToProcess(input);
+      setInputItem(input);
     } else {
       // otherwise, the item got processed
       setItem(OUTPUT, transferResult.stack());
@@ -299,12 +300,6 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
   @Override
   public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory, Player pPlayer) {
     return null;
-  }
-
-  /** Interface for blocks to return their capacity */
-  public interface ITankBlock {
-    /** Gets the capacity for this tank */
-    int getCapacity();
   }
 
   // TODO consider moving this to Mantle

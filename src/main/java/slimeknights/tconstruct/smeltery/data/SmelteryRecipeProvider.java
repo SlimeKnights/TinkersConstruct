@@ -530,9 +530,9 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .addByproduct(TinkerFluids.moltenGlass.result(FluidValues.GLASS_PANE))
                         .addByproduct(TinkerFluids.moltenIron.result(FluidValues.INGOT / 3))
                         .save(consumer, location(meltingFolder + "lantern"));
-    MeltingRecipeBuilder.melting(NoContainerIngredient.of(TinkerSmeltery.searedCastingTank), TinkerFluids.moltenCopper, FluidValues.INGOT, 2.5f)
+    MeltingRecipeBuilder.melting(NoContainerIngredient.of(TinkerSmeltery.searedCastingTank), TinkerFluids.moltenCopper, FluidValues.INGOT * 2, 2.5f)
                         .addByproduct(TinkerFluids.searedStone.result(FluidValues.BRICK * 4))
-                        .addByproduct(TinkerFluids.moltenGlass.result(FluidValues.GLASS_BLOCK * 4))
+                        .addByproduct(TinkerFluids.moltenGlass.result(FluidValues.GLASS_BLOCK * 3))
                         .save(consumer, location(meltingFolder + "seared_casting_tank"));
     // glass
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.searedGlass), TinkerFluids.searedStone, FluidValues.BRICK * 4, 2f)

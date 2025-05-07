@@ -6,7 +6,7 @@
       "fluid": "tconstruct:seared_stone"
     },
     {
-      "amount": 4000,
+      "amount": 3000,
       "fluid": "tconstruct:molten_glass"
     }
   ],
@@ -15,7 +15,7 @@
     "item": "tconstruct:seared_casting_tank"
   },
   "result": {
-    "amount": 90,
+    "amount": 180,
     "tag": "forge:molten_copper"
   },
   "temperature": 500,
