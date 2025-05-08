@@ -31,8 +31,7 @@
         "legs",
         "chest",
         "head"
-      ],
-      "unique": "tconstruct.modifier.sharpweight"
+      ]
     }
   ],
   "tooltip_display": "always"

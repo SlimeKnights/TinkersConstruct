@@ -10,10 +10,12 @@
               "function": "tconstruct:add_tool_data",
               "materials": [
                 {
-                  "type": "tconstruct:random"
+                  "type": "tconstruct:random",
+                  "allow_hidden": true
                 },
                 {
-                  "type": "tconstruct:random"
+                  "type": "tconstruct:random",
+                  "allow_hidden": true
                 }
               ]
             }

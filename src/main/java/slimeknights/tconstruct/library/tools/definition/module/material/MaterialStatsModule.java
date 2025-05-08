@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ArmorItem;
 import slimeknights.mantle.data.loadable.field.LoadableField;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
@@ -16,6 +17,7 @@ import slimeknights.tconstruct.library.materials.IMaterialRegistry;
 import slimeknights.tconstruct.library.materials.MaterialRegistry;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.stats.IMaterialStats;
+import slimeknights.tconstruct.library.materials.stats.MaterialStatType;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
 import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
@@ -30,6 +32,8 @@ import slimeknights.tconstruct.library.tools.nbt.IToolContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 import slimeknights.tconstruct.library.tools.stat.ModifierStatsBuilder;
+import slimeknights.tconstruct.tools.modules.ArmorModuleBuilder;
+import slimeknights.tconstruct.tools.stats.PlatingMaterialStats;
 
 import java.util.List;
 import java.util.Optional;
@@ -151,6 +155,11 @@ public class MaterialStatsModule implements ToolStatsHook, ToolTraitHook, ToolMa
     return new Builder();
   }
 
+  /** Starts a builder for armor stats */
+  public static ArmorBuilder armorStats(List<ArmorItem.Type> slots) {
+    return new ArmorBuilder(slots);
+  }
+
   @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   public static class Builder {
     private final ImmutableList.Builder<MaterialStatsId> stats = ImmutableList.builder();
@@ -186,6 +195,68 @@ public class MaterialStatsModule implements ToolStatsHook, ToolTraitHook, ToolMa
         throw new IllegalStateException("Primary part must be within parts list, maximum " + stats.size() + ", got " + primaryPart);
       }
       return new MaterialStatsModule(stats, buildScales(scales.build()), primaryPart);
+    }
+  }
+
+  /** Builder for armor */
+  public static class ArmorBuilder implements ArmorModuleBuilder<MaterialStatsModule> {
+    private final List<ArmorItem.Type> slotTypes;
+    private final Builder[] builders = new Builder[4];
+
+    private ArmorBuilder(List<ArmorItem.Type> slotTypes) {
+      this.slotTypes = slotTypes;
+      for (ArmorItem.Type slotType : slotTypes) {
+        builders[slotType.ordinal()] = new MaterialStatsModule.Builder();
+      }
+    }
+
+    /** Gets the builder for the given slot */
+    protected Builder getBuilder(ArmorItem.Type slotType) {
+      Builder builder = builders[slotType.ordinal()];
+      if (builder == null) {
+        throw new IllegalArgumentException("Unsupported slot type " + slotType);
+      }
+      return builder;
+    }
+
+    /** Adds a stat to the given slot */
+    public ArmorBuilder part(ArmorItem.Type slotType, MaterialStatsId stat, float scale) {
+      getBuilder(slotType).stat(stat, scale);
+      return this;
+    }
+
+    /** Adds a stat to all slots */
+    public ArmorBuilder stat(MaterialStatsId stat, float scale) {
+      for (ArmorItem.Type slotType : slotTypes) {
+        getBuilder(slotType).stat(stat, scale);
+      }
+      return this;
+    }
+
+    /** Adds a stat to all slots from the given stat type list */
+    public ArmorBuilder stat(List<? extends MaterialStatType<?>> stats, float scale) {
+      for (ArmorItem.Type slotType : slotTypes) {
+        getBuilder(slotType).stat(stats.get(slotType.ordinal()).getId(), scale);
+      }
+      return this;
+    }
+
+    /** Adds a plating part type */
+    public ArmorBuilder plating(float scale) {
+      return stat(PlatingMaterialStats.TYPES, scale);
+    }
+
+    /** Sets the primary part for all slots, assuming its the same index as you defined the parts using this builder. */
+    public ArmorBuilder primaryPart(int index) {
+      for (ArmorItem.Type slotType : slotTypes) {
+        getBuilder(slotType).primaryPart(index);
+      }
+      return this;
+    }
+
+    @Override
+    public MaterialStatsModule build(ArmorItem.Type slot) {
+      return getBuilder(slot).build();
     }
   }
 }

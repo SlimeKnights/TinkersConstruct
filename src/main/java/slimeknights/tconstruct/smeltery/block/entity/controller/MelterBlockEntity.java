@@ -32,7 +32,7 @@ import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.smeltery.block.controller.ControllerBlock;
 import slimeknights.tconstruct.smeltery.block.controller.MelterBlock;
-import slimeknights.tconstruct.smeltery.block.entity.ITankBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.ITankBlockEntity.ITankInventoryBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.module.MeltingModuleInventory;
 import slimeknights.tconstruct.smeltery.block.entity.module.SolidFuelModule;
 import slimeknights.tconstruct.smeltery.menu.MelterContainerMenu;
@@ -40,7 +40,7 @@ import slimeknights.tconstruct.smeltery.menu.MelterContainerMenu;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class MelterBlockEntity extends NameableBlockEntity implements ITankBlockEntity {
+public class MelterBlockEntity extends NameableBlockEntity implements ITankInventoryBlockEntity {
 
   /** Max capacity for the tank */
   private static final int TANK_CAPACITY = FluidValues.INGOT * 12;
@@ -66,7 +66,6 @@ public class MelterBlockEntity extends NameableBlockEntity implements ITankBlock
 
   /* Heating */
   /** Handles all the melting needs */
-  @Getter
   private final MeltingModuleInventory meltingInventory = new MeltingModuleInventory(this, tank, Config.COMMON.melterOreRate, 3);
   /** Capability holder for the tank */
   private final LazyOptional<IItemHandler> inventoryHolder = LazyOptional.of(() -> meltingInventory);
@@ -91,6 +90,11 @@ public class MelterBlockEntity extends NameableBlockEntity implements ITankBlock
   @Override
   public AbstractContainerMenu createMenu(int id, Inventory inv, Player playerEntity) {
     return new MelterContainerMenu(id, inv, this);
+  }
+
+  @Override
+  public MeltingModuleInventory getItemHandler() {
+    return meltingInventory;
   }
 
   /*

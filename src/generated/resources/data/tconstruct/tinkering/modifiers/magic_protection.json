@@ -2,12 +2,12 @@
   "level_display": "tconstruct:default",
   "modules": [
     {
-      "type": "tconstruct:max_armor_stat",
+      "type": "tconstruct:max_armor_attribute",
       "allow_broken": false,
+      "attribute": "tconstruct:generic.bad_effect_duration_multiplier",
       "each_level": -0.05,
       "held_tag": "tconstruct:modifiable/held",
-      "key": "tconstruct:bad_effect_duration",
-      "tooltip_style": "percent"
+      "operation": "multiply_base"
     },
     {
       "type": "tconstruct:protection",

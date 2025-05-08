@@ -1,7 +1,7 @@
 {
   "type": "tconstruct:material_fluid",
   "fluid": {
-    "amount": 500,
+    "amount": 250,
     "tag": "tconstruct:scorched_stone"
   },
   "output": "tconstruct:scorched_stone",

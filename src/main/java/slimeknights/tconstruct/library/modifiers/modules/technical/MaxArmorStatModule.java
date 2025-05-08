@@ -33,7 +33,9 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import javax.annotation.Nullable;
 import java.util.List;
 
-/** Module that applies an armor stat to the user of this tool based on the largest level of a modifier equipped. */
+/** @deprecated use {@link slimeknights.tconstruct.library.modifiers.modules.armor.MaxArmorAttributeModule} */
+@SuppressWarnings("removal")
+@Deprecated
 public record MaxArmorStatModule(TinkerDataKey<Float> statKey, LevelingValue amount, ComputableDataKey<ModifierMaxLevel> maxLevel, boolean allowBroken, @Nullable TagKey<Item> heldTag, ArmorStatModule.TooltipStyle tooltipStyle, ModifierCondition<IToolStackView> condition) implements ModifierModule, TooltipModifierHook, MaxArmorLevelModule {
   public static final RecordLoadable<MaxArmorStatModule> LOADER = RecordLoadable.create(
     TinkerDataKeys.FLOAT_REGISTRY.requiredField("key", MaxArmorStatModule::statKey),

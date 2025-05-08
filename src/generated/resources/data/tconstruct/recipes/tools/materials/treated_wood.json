@@ -1,0 +1,15 @@
+{
+  "type": "tconstruct:material",
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:treated_wood"
+    }
+  ],
+  "ingredient": {
+    "tag": "forge:treated_wood"
+  },
+  "material": "tconstruct:treated_wood",
+  "needed": 1,
+  "value": 1
+}

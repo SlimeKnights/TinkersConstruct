@@ -1,0 +1,22 @@
+{
+  "type": "tconstruct:melting",
+  "byproducts": [
+    {
+      "amount": 1000,
+      "fluid": "tconstruct:scorched_stone"
+    },
+    {
+      "amount": 300,
+      "fluid": "tconstruct:molten_quartz"
+    }
+  ],
+  "ingredient": {
+    "item": "tconstruct:scorched_proxy_tank"
+  },
+  "result": {
+    "amount": 500,
+    "fluid": "tconstruct:molten_obsidian"
+  },
+  "temperature": 1000,
+  "time": 166
+}

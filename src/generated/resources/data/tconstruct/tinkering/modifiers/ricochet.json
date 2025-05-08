@@ -2,10 +2,18 @@
   "level_display": "tconstruct:default",
   "modules": [
     {
-      "type": "tconstruct:armor_stat",
-      "allow_broken": false,
+      "type": "tconstruct:attribute",
+      "attribute": "tconstruct:generic.knockback_multiplier",
       "each_level": 0.2,
-      "key": "tconstruct:knockback"
+      "operation": "multiply_base",
+      "slots": [
+        "mainhand",
+        "offhand",
+        "feet",
+        "legs",
+        "chest",
+        "head"
+      ]
     }
   ],
   "tooltip_display": "always"

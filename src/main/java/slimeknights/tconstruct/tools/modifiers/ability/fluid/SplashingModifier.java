@@ -47,7 +47,6 @@ import slimeknights.tconstruct.tools.TinkerModifiers;
 import javax.annotation.Nullable;
 
 import static slimeknights.tconstruct.library.tools.capability.fluid.ToolTankHelper.TANK_HELPER;
-import static slimeknights.tconstruct.library.tools.helper.ModifierUtil.asLiving;
 
 /** Modifier to handle spilling recipes on interaction */
 public class SplashingModifier extends Modifier implements EntityInteractionModifierHook, BlockInteractionModifierHook, AreaOfEffectHighlightModifierHook {
@@ -86,7 +85,7 @@ public class SplashingModifier extends Modifier implements EntityInteractionModi
             // for the main target, consume fluids
             float level = modifier.getEffectiveLevel();
             int numTargets = 0;
-            int consumed = recipe.applyToEntity(fluid, level, new FluidEffectContext.Entity(world, player, player, null, target, asLiving(target)), FluidAction.EXECUTE);
+            int consumed = recipe.applyToEntity(fluid, level, FluidEffectContext.builder(world).user(player).target(target), FluidAction.EXECUTE);
             if (consumed > 0) {
               numTargets++;
               UseFluidOnHitModifier.spawnParticles(target, fluid);
@@ -99,7 +98,7 @@ public class SplashingModifier extends Modifier implements EntityInteractionModi
               float rangeSq = range * range;
               for (Entity aoeTarget : world.getEntitiesOfClass(Entity.class, target.getBoundingBox().inflate(range, 0.25, range))) {
                 if (aoeTarget != player && aoeTarget != target && !(aoeTarget instanceof ArmorStand stand && stand.isMarker()) && target.distanceToSqr(aoeTarget) < rangeSq) {
-                  consumed = recipe.applyToEntity(fluid, level, new FluidEffectContext.Entity(world, player, player, null, aoeTarget, asLiving(aoeTarget)), FluidAction.EXECUTE);
+                  consumed = recipe.applyToEntity(fluid, level, FluidEffectContext.builder(world).user(player).target(aoeTarget), FluidAction.EXECUTE);
                   if (consumed > 0) {
                     numTargets++;
                     UseFluidOnHitModifier.spawnParticles(aoeTarget, fluid);
@@ -155,7 +154,7 @@ public class SplashingModifier extends Modifier implements EntityInteractionModi
             int numTargets = 0;
             BlockHitResult hit = context.getHitResult();
             BlockState state = world.getBlockState(hit.getBlockPos());
-            int consumed = recipe.applyToBlock(fluid, level, new FluidEffectContext.Block(world, player, null, hit), FluidAction.EXECUTE);
+            int consumed = recipe.applyToBlock(fluid, level, FluidEffectContext.builder(world).user(player).block(hit), FluidAction.EXECUTE);
             if (consumed > 0) {
               numTargets++;
               spawnParticles(world, hit, fluid);
@@ -166,7 +165,7 @@ public class SplashingModifier extends Modifier implements EntityInteractionModi
             if (!fluid.isEmpty()) {
               for (BlockPos offset : tool.getHook(ToolHooks.AOE_ITERATOR).getBlocks(tool, context, state, AOEMatchType.TRANSFORM)) {
                 BlockHitResult offsetHit = Util.offset(hit, offset);
-                consumed = recipe.applyToBlock(fluid, level, new FluidEffectContext.Block(world, player, null, offsetHit), FluidAction.EXECUTE);
+                consumed = recipe.applyToBlock(fluid, level, FluidEffectContext.builder(world).user(player).block(offsetHit), FluidAction.EXECUTE);
                 if (consumed > 0) {
                   numTargets++;
                   spawnParticles(world, offsetHit, fluid);

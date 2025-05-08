@@ -34,7 +34,7 @@ public final class ToolBuildHandler {
   private static final MaterialId RENDER_MATERIAL = new MaterialId(TConstruct.MOD_ID, "ui_render");
 
   /** Fully random material instance, used for ancient tools mainly */
-  public static final RandomMaterial RANDOM = RandomMaterial.random().build();
+  public static final RandomMaterial RANDOM = RandomMaterial.random().allowHidden().build();
   static {
     RecipeCacheInvalidator.addReloadListener(client -> {
       RANDOM.clearCache();

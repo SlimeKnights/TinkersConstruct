@@ -11,6 +11,7 @@ import slimeknights.tconstruct.tools.modifiers.traits.melee.LaceratingModifier;
 
 /**
  * Potion effect from {@link LaceratingModifier}
+ * TODO 1.21: move to {@link slimeknights.tconstruct.shared.effect}
  */
 public class BleedingEffect extends NoMilkEffect {
   public BleedingEffect() {

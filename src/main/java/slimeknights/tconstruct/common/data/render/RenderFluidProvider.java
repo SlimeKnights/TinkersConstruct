@@ -99,6 +99,14 @@ public class RenderFluidProvider extends BlockStateDataMapProvider<List<FluidCub
     block(TinkerSmeltery.scorchedFaucet)
       .variant(faucet).end()
       .variant(faucetUp).when(FaucetBlock.FACING, Direction.DOWN);
+
+    // proxy tank
+    block(TinkerSmeltery.scorchedProxyTank).variant(List.of(
+      FluidCuboid.builder().from( 0.08f, 4,  0.08f).to( 4.92f, 15.92f,  4.92f).build(),
+      FluidCuboid.builder().from(11.08f, 4,  0.08f).to(15.92f, 15.92f,  4.92f).build(),
+      FluidCuboid.builder().from( 0.08f, 4, 11.08f).to( 4.92f, 15.92f, 15.92f).build(),
+      FluidCuboid.builder().from(11.08f, 4, 11.08f).to(15.92f, 15.92f, 15.92f).build()
+    ));
   }
 
   @Override

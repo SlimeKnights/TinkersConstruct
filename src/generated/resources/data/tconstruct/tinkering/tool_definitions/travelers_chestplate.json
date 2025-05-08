@@ -1,16 +1,29 @@
 {
   "modules": [
     {
-      "type": "tconstruct:base_stats",
-      "stats": {
-        "tconstruct:armor": 5.0,
-        "tconstruct:durability": 160.0
-      }
+      "type": "tconstruct:material_stats",
+      "primary_part": 0,
+      "stat_types": [
+        {
+          "scale": 0.75,
+          "stat": "tconstruct:plating_chestplate"
+        }
+      ]
+    },
+    {
+      "type": "tconstruct:default_materials",
+      "materials": [
+        {
+          "type": "tconstruct:fixed",
+          "material": "tconstruct:rose_gold"
+        }
+      ]
     },
     {
       "type": "tconstruct:multiply_stats",
       "multipliers": {
-        "tconstruct:attack_damage": 0.55
+        "tconstruct:attack_damage": 0.55,
+        "tconstruct:durability": 0.75
       }
     },
     {
@@ -18,13 +31,8 @@
       "slots": {
         "abilities": 1,
         "defense": 2,
-        "upgrades": 3
+        "upgrades": 2
       }
-    },
-    {
-      "type": "tconstruct:material_repair",
-      "durability": 160,
-      "material": "tconstruct:copper"
     },
     {
       "type": "tconstruct:material_repair",

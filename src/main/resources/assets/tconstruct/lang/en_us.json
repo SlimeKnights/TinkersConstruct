@@ -890,8 +890,12 @@
   "fluid_effect.tconstruct.separator": "%s and %s",
 
   "fluid_effect.tconstruct.extinguish_fire": "Extinguishes fire",
+  "fluid_effect.tconstruct.remove_block": "Removes block",
+  "fluid_effect.tconstruct.weather": "Weathers copper",
   "fluid_effect.tconstruct.teleport": "Teleports target",
   "fluid_effect.tconstruct.calcified": "+10 Seconds Calcified",
+  "fluid_effect.tconstruct.interact.block": "Interacts with block",
+  "fluid_effect.tconstruct.interact.entity": "Interacts with entity",
 
   "fluid_effect.tconstruct.cure_effects": "Cures most status effects",
   "fluid_effect.tconstruct.remove_effect": "Removes %s",
@@ -921,6 +925,7 @@
 
   "fluid_effect.tconstruct.place_block": "Places %s",
   "fluid_effect.tconstruct.place_block.held": "Places held block",
+  "fluid_effect.tconstruct.set_block": "Places %s",
   "fluid_effect.tconstruct.break_block": "Mines block",
   "fluid_effect.tconstruct.break_block.enchanted": "Mines block with %s",
   "fluid_effect.tconstruct.break_block.hardness": "Mines up to hardness %s",
@@ -990,6 +995,7 @@
   "block.tconstruct.tinker_station": "Tinker Station",
   "block.tconstruct.tinkers_anvil": "Tinker's Anvil",
   "block.tconstruct.scorched_anvil": "Tinker's Anvil",
+  "block.tconstruct.tool_forge": "Tool Forge",
 
   "block.tconstruct.part_builder": "Part Builder",
   "block.tconstruct.modifier_worktable": "Modifier Worktable",
@@ -1367,6 +1373,8 @@
   "block.tconstruct.scorched_basin.tooltip": "Cast items using molten metals from a Foundry, requires a cast or gold platform to cast",
   "block.tconstruct.scorched_table": "Scorched Casting Table",
   "block.tconstruct.scorched_table.tooltip": "Cast items using molten metals from a Foundry, requires a cast or gold bars to cast",
+  "block.tconstruct.scorched_proxy_tank": "Scorched Proxy Tank",
+  "block.tconstruct.scorched_proxy_tank.tooltip": "Tank block that fills or empties the item tank inside instead of an internal tank",
 
   "block.tconstruct.scorched_channel": "Scorched Channel",
   "block.tconstruct.scorched_channel.tooltip": "Distributes fluids poured from a faucet above.",
@@ -1860,7 +1868,11 @@
   "material.tconstruct.obsidian":   "Obsidian",
   "material.tconstruct.obsidian.flavor": "This is an obsidian part, if it was not it would not say \"Obsidian.\"",
   "material.tconstruct.obsidian.armor": "Grants 10% protection per level against explosions, and reduces explosion knockback",
-  "material.tconstruct.debris":     "Debris",
+  "material.tconstruct.ancient":     "Ancient",
+  "material.tconstruct.ancient.flavor": "They don't make them like they used to.",
+  "material.tconstruct.ancient.encyclopedia": "Each level grants +1 ability slot at the cost of -10% attack speed and -10% mining speed.",
+  "material.tconstruct.ancient.ranged": "Each level grants +1 ability slot at the cost of -10% draw speed.",
+  "material.tconstruct.ancient.armor": "Each level grants +1 ability slot at the cost of -10% movement speed, or -10% attack speed on shields.",
   "material.tconstruct.netherite":  "Netherite",
   "material.tconstruct.earthslime": "Earthslime",
   "material.tconstruct.skyslime":   "Skyslime",
@@ -1919,6 +1931,10 @@
   "material.tconstruct.aluminum.flavor": "Found most commonly in ashmounds.",
   "material.tconstruct.aluminum.ranged": "Grants +7% drawspeed and accuracy at the cost of 5% loss of protection",
   "material.tconstruct.aluminum.armor": "Grants +5% use item speed at the cost of 5% loss of protection",
+
+  "material.tconstruct.treated_wood": "Treated Wood",
+  "material.tconstruct.treated_wood.flavor": "Slán go fóill",
+  "material.tconstruct.treated_wood.encyclopedia": "Increases both durability and repair efficiency by 15%",
 
 
   "__comment": "Tier 3 Integration Materials",
@@ -2327,8 +2343,9 @@
   "modifier.tconstruct.depth_strider.flavor": "Splish Splash",
   "modifier.tconstruct.depth_strider.description": "Increases movement speed underwater",
   "modifier.tconstruct.double_jump": "Double Jump",
-  "modifier.tconstruct.double_jump.double": "Double Jump",
-  "modifier.tconstruct.double_jump.triple": "Triple Jump",
+  "modifier.tconstruct.double_jump.2": "Triple Jump",
+  "modifier.tconstruct.double_jump.3": "Quadruple Jump",
+  "modifier.tconstruct.double_jump.4": "Quintuple Jump",
   "modifier.tconstruct.double_jump.flavor": "Up, up and away!",
   "modifier.tconstruct.double_jump.description": "Lets you jump again in mid air. Higher levels add even more jumps!",
   "modifier.tconstruct.bouncy": "Bouncy",
@@ -2593,6 +2610,9 @@
   "modifier.tconstruct.fortified": "Fortified",
   "modifier.tconstruct.fortified.flavor": "Fortunate!",
   "modifier.tconstruct.fortified.description": "The ancient material leaves space for a bonus defense slot!",
+  "modifier.tconstruct.vintage": "Vintage",
+  "modifier.tconstruct.vintage.flavor": "Old Fashion!",
+  "modifier.tconstruct.vintage.description": "Tool gains an ability slot at the cost of some speed.",
   "modifier.tconstruct.airborne": "Airborne",
   "modifier.tconstruct.airborne.flavor": "Take to the skies!",
   "modifier.tconstruct.airborne.description": "Tool no longer is penalized when mining in the air and gains a projectile accuracy bonus",
@@ -2693,6 +2713,9 @@
   "modifier.tconstruct.consecrated.flavor": "Die, Fowl Creature!",
   "modifier.tconstruct.consecrated.description": "Take less damage from the undead",
   "modifier.tconstruct.consecrated.resistance": "Undead Resistance",
+  "modifier.tconstruct.preserved": "Preserved",
+  "modifier.tconstruct.preserved.flavor":  "A nice oil finish",
+  "modifier.tconstruct.preserved.description": "Makes the tool more durability and easier to repair",
 
 
   "__comment": "Tier 3 Mod Compat Traits",
@@ -2828,11 +2851,41 @@
   "modifier.tconstruct.snow_boots": "Snow Boots",
 
 
-  "_comment": "Internal effects",
+  "_comment": "Potion effects",
+  "effect.tconstruct.experienced": "Experienced",
+  "effect.tconstruct.ricochet": "Ricochet",
+  "effect.tconstruct.enderference": "Enderference",
+
+  "item.minecraft.potion.effect.tconstruct.experienced":  "Potion of Experience",
+  "item.minecraft.potion.effect.tconstruct.ricochet":     "Potion of Ricochet",
+  "item.minecraft.potion.effect.tconstruct.levitation":   "Potion of Levitation",
+  "item.minecraft.potion.effect.tconstruct.enderference": "Potion of Enderference",
+
+  "item.minecraft.splash_potion.effect.tconstruct.experienced":  "Splash Potion of Experience",
+  "item.minecraft.splash_potion.effect.tconstruct.ricochet":     "Splash Potion of Ricochet",
+  "item.minecraft.splash_potion.effect.tconstruct.levitation":   "Splash Potion of Levitation",
+  "item.minecraft.splash_potion.effect.tconstruct.enderference": "Splash Potion of Enderference",
+
+  "item.minecraft.lingering_potion.effect.tconstruct.experienced":  "Lingering Potion of Experience",
+  "item.minecraft.lingering_potion.effect.tconstruct.ricochet":     "Lingering Potion of Ricochet",
+  "item.minecraft.lingering_potion.effect.tconstruct.levitation":   "Lingering Potion of Levitation",
+  "item.minecraft.lingering_potion.effect.tconstruct.enderference": "Lingering Potion of Enderference",
+
+  "_comment": "Cake effects",
+  "effect.tconstruct.bouncy": "Bouncy",
+  "effect.tconstruct.double_jump": "Double Jump",
+  "effect.tconstruct.antigravity": "Antigravity",
+  "effect.tconstruct.returning": "Returning",
+
+  "_comment": "Gameplay effects",
   "effect.tconstruct.bleeding": "Bleeding",
   "effect.tconstruct.magnetic": "Magnetic",
-  "effect.tconstruct.pierce": "Pierced",
   "effect.tconstruct.repulsive": "Repulsive",
+  "effect.tconstruct.pierce": "Pierced",
+  "effect.tconstruct.calcified": "Calcified",
+  "effect.tconstruct.self_destructing": "Self Destructing",
+
+  "_comment": "Internal effects",
   "effect.tconstruct.momentum_harvest": "Momentum",
   "effect.tconstruct.momentum_ranged": "Momentum",
   "effect.tconstruct.momentum_armor": "Recurrent",
@@ -2841,9 +2894,6 @@
   "effect.tconstruct.insatiable_armor": "Kinetic",
   "effect.tconstruct.teleport_cooldown": "Teleport Cooldown",
   "effect.tconstruct.fireball_cooldown": "Fireball Cooldown",
-  "effect.tconstruct.calcified": "Calcified",
-  "effect.tconstruct.self_destructing": "Self Destructing",
-  "effect.tconstruct.enderference": "Enderference",
 
 
   "_comment": "Roman numerals",
@@ -2972,7 +3022,20 @@
   "armor_stat.tconstruct.good_effect_duration": "Good Potion Time",
   "armor_stat.tconstruct.bad_effect_duration": "Bad Potion Time",
   "armor_stat.tconstruct.crouch_damage": "Crouch Damage",
-  "armor_stat.tconstruct.explosion_knockback": "Explosion Knockback",
+  "armor_stat.tconstruct.knockback": "Knockback",
+
+  "attribute.name.tconstruct.player.use_item_speed": "Use Item Speed",
+  "attribute.name.tconstruct.player.critical_damage": "Critical Damage",
+  "attribute.name.tconstruct.player.mining_speed_multiplier": "Mining Speed",
+  "attribute.name.tconstruct.player.experience_multiplier": "Experience",
+  "attribute.name.tconstruct.player.jump_count": "Jumps",
+
+  "attribute.name.tconstruct.generic.protection_cap": "Max Protection",
+  "attribute.name.tconstruct.generic.jump_boost": "Jump Height",
+  "attribute.name.tconstruct.generic.crouch_damage_multiplier": "Crouch Damage",
+  "attribute.name.tconstruct.generic.knockback_multiplier": "Knockback",
+  "attribute.name.tconstruct.generic.good_effect_duration_multiplier": "Good Potion Time",
+  "attribute.name.tconstruct.generic.bad_effect_duration_multiplier": "Bad Potion Time",
 
 
   "_comment": "Tooltips",

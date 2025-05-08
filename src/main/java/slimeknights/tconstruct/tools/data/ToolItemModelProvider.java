@@ -42,7 +42,7 @@ public class ToolItemModelProvider extends AbstractToolItemModelProvider {
     tool(TinkerTools.kama, toolBlocking, "head");
     tool(TinkerTools.scythe, toolBlocking, "head");
     // shield
-    armor("travelers", TinkerTools.travelersGear, "tool");
+    armor("travelers", TinkerTools.travelersGear, "base", "metal");
     armor("plate", TinkerTools.plateArmor, "plating", "maille");
     armor("slime", TinkerTools.slimesuit, "tool");
     shield("travelers", TinkerTools.travelersShield, shieldBlocking, "tool");
@@ -62,7 +62,7 @@ public class ToolItemModelProvider extends AbstractToolItemModelProvider {
     bow(TinkerTools.warPick, toolBlocking, true, "bowstring");
     // battlesign has custom properties for blocking, so that is just written directly
     transformTool("tool/battlesign/broken", readJson(TinkerTools.battlesign.getId()), "", false, "broken", "head");
-    pulling(TinkerTools.swasher, toolBlocking, AmmoType.NONE, "blade", 2, "barrel");
+    pulling(TinkerTools.swasher, readJson(getResource("base/swasher_blocking")), AmmoType.NONE, "blade", 2, "barrel");
   }
 
   @Override

@@ -114,6 +114,7 @@
     "tconstruct:scorched_fluid_cannon",
     "tconstruct:scorched_drain",
     "tconstruct:scorched_chute",
+    "tconstruct:scorched_proxy_tank",
     "tconstruct:foundry_controller",
     "tconstruct:modifier_worktable",
     "tconstruct:cast_chest",

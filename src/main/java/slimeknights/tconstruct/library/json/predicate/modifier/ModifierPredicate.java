@@ -1,9 +1,11 @@
 package slimeknights.tconstruct.library.json.predicate.modifier;
 
+import net.minecraft.tags.TagKey;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.loadable.record.SingletonLoader;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.PredicateRegistry;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 
 import java.util.List;
@@ -36,6 +38,12 @@ public interface ModifierPredicate extends IJsonPredicate<ModifierId> {
 
 
   /* Helper methods */
+
+  /** Creates a tag predicate */
+  @SuppressWarnings("removal")
+  static IJsonPredicate<ModifierId> tag(TagKey<Modifier> tag) {
+    return new TagModifierPredicate(tag);
+  }
 
   /** Creates an and predicate */
   @SafeVarargs

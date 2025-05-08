@@ -4,6 +4,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
@@ -66,8 +67,8 @@ public class PersistentDataCapability {
   /** Event listener to attach the capability */
   private static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
     Entity entity = event.getObject();
-    // must be on players, but also support anything else with modifiers, this is their data
-    if (entity instanceof Player || EntityModifierCapability.supportCapability(entity)) {
+    // must be on living entities as we use this for potions, but also support anything else with modifiers, this is their data
+    if (entity instanceof LivingEntity || EntityModifierCapability.supportCapability(entity)) {
       Provider provider = new Provider();
       event.addCapability(ID, provider);
       event.addListener(provider);

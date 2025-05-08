@@ -30,7 +30,7 @@ import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.context.ToolHarvestContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
-import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.shared.TinkerEffects;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -54,14 +54,14 @@ public class MagneticModifier extends Modifier implements PlantHarvestModifierHo
   @Override
   public void afterBlockBreak(IToolStackView tool, ModifierEntry modifier, ToolHarvestContext context) {
     if (!context.isAOE()) {
-      TinkerModifiers.magneticEffect.get().apply(context.getLiving(), 30, modifier.getLevel() - 1);
+      TinkerEffects.magnetic.get().apply(context.getLiving(), 30, modifier.getLevel() - 1);
     }
   }
 
   @Override
   public void afterMeleeHit(IToolStackView tool, ModifierEntry modifier, ToolAttackContext context, float damageDealt) {
     if (!context.isExtraAttack()) {
-      TinkerModifiers.magneticEffect.get().apply(context.getAttacker(), 30, modifier.getLevel() - 1);
+      TinkerEffects.magnetic.get().apply(context.getAttacker(), 30, modifier.getLevel() - 1);
     }
   }
 
@@ -69,21 +69,21 @@ public class MagneticModifier extends Modifier implements PlantHarvestModifierHo
   public void afterHarvest(IToolStackView tool, ModifierEntry modifier, UseOnContext context, ServerLevel world, BlockState state, BlockPos pos) {
     Player player = context.getPlayer();
     if (player != null) {
-      TinkerModifiers.magneticEffect.get().apply(player, 30, modifier.getLevel() - 1);
+      TinkerEffects.magnetic.get().apply(player, 30, modifier.getLevel() - 1);
     }
   }
 
   @Override
   public void afterShearEntity(IToolStackView tool, ModifierEntry modifier, Player player, Entity entity, boolean isTarget) {
     if (isTarget) {
-      TinkerModifiers.magneticEffect.get().apply(player, 30, modifier.getLevel() - 1);
+      TinkerEffects.magnetic.get().apply(player, 30, modifier.getLevel() - 1);
     }
   }
 
   @Override
   public void onProjectileLaunch(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, Projectile projectile, @Nullable AbstractArrow arrow, ModDataNBT persistentData, boolean primary) {
     if (primary) {
-      TinkerModifiers.magneticEffect.get().apply(shooter, 30, modifier.getLevel() - 1);
+      TinkerEffects.magnetic.get().apply(shooter, 30, modifier.getLevel() - 1);
     }
   }
 

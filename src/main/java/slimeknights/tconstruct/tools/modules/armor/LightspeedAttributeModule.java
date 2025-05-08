@@ -17,7 +17,6 @@ import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.loadable.Loadables;
 import slimeknights.mantle.data.loadable.primitive.FloatLoadable;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
-import slimeknights.mantle.data.loadable.primitive.StringLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -27,6 +26,7 @@ import slimeknights.tconstruct.library.modifiers.hook.armor.ArmorWalkModifierHoo
 import slimeknights.tconstruct.library.modifiers.hook.armor.EquipmentChangeModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.TooltipModifierHook;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
+import slimeknights.tconstruct.library.modifiers.modules.behavior.AttributeUniqueField;
 import slimeknights.tconstruct.library.module.HookProvider;
 import slimeknights.tconstruct.library.module.ModuleHook;
 import slimeknights.tconstruct.library.tools.context.EquipmentChangeContext;
@@ -41,7 +41,7 @@ import java.util.UUID;
 public record LightspeedAttributeModule(String unique, UUID uuid, Attribute attribute, Operation operation, @Nullable LightLayer lightLayer, int minLight, float amount, float damageChance) implements ModifierModule, ArmorWalkModifierHook, EquipmentChangeModifierHook, TooltipModifierHook {
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<LightspeedAttributeModule>defaultHooks(ModifierHooks.BOOT_WALK, ModifierHooks.EQUIPMENT_CHANGE, ModifierHooks.TOOLTIP);
   public static final RecordLoadable<LightspeedAttributeModule> LOADER = RecordLoadable.create(
-    StringLoadable.DEFAULT.requiredField("unique", LightspeedAttributeModule::unique),
+    new AttributeUniqueField<>(LightspeedAttributeModule::unique),
     Loadables.ATTRIBUTE.requiredField("attribute", LightspeedAttributeModule::attribute),
     TinkerLoadables.OPERATION.requiredField("operation", LightspeedAttributeModule::operation),
     TinkerLoadables.LIGHT_LAYER.nullableField("light_layer", LightspeedAttributeModule::lightLayer),

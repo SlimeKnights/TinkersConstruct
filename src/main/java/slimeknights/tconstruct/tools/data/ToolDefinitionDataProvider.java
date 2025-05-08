@@ -13,7 +13,6 @@ import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.data.tinkering.AbstractToolDefinitionDataProvider;
 import slimeknights.tconstruct.library.json.predicate.modifier.ModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.modifier.SingleModifierPredicate;
-import slimeknights.tconstruct.library.json.predicate.modifier.TagModifierPredicate;
 import slimeknights.tconstruct.library.materials.RandomMaterial;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InteractionSource;
 import slimeknights.tconstruct.library.tools.SlotType;
@@ -91,7 +90,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
   @Override
   protected void addToolDefinitions() {
     RandomMaterial tier1Material = RandomMaterial.random().tier(1).build();
-    RandomMaterial randomMaterial = RandomMaterial.random().build();
+    RandomMaterial randomMaterial = RandomMaterial.random().allowHidden().build();
     DefaultMaterialsModule defaultTwoParts = DefaultMaterialsModule.builder().material(tier1Material, tier1Material).build();
     DefaultMaterialsModule defaultThreeParts = DefaultMaterialsModule.builder().material(tier1Material, tier1Material, tier1Material).build();
     DefaultMaterialsModule defaultFourParts = DefaultMaterialsModule.builder().material(tier1Material, tier1Material, tier1Material, tier1Material).build();
@@ -551,20 +550,18 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
     // travelers armor
     PreferenceSetInteraction shieldInteraction = new PreferenceSetInteraction(
       InteractionSource.RIGHT_CLICK,
-      ModifierPredicate.or(new SingleModifierPredicate(TinkerModifiers.blocking.getId()), new TagModifierPredicate(TinkerTags.Modifiers.BLOCK_WHILE_CHARGING))
+      ModifierPredicate.or(new SingleModifierPredicate(TinkerModifiers.blocking.getId()), ModifierPredicate.tag(TinkerTags.Modifiers.BLOCK_WHILE_CHARGING))
     );
-    ToolModule travelersSlots =
-      ToolSlotsModule.builder()
-                     .slots(SlotType.UPGRADE, 3)
-                     .slots(SlotType.DEFENSE, 2)
-                     .slots(SlotType.ABILITY, 1).build();
     defineArmor(ArmorDefinitions.TRAVELERS)
-      .modules(slots -> SetStatsModule.armor(slots)
-        .durabilityFactor(10)
-        .setInOrder(ToolStats.ARMOR, 1, 5, 4, 1))
-      .module(ArmorItem.Type.CHESTPLATE, new MultiplyStatsModule(MultiplierNBT.builder().set(ToolStats.ATTACK_DAMAGE, 0.55f).build()))
-      .module(travelersSlots)
-      .module(MaterialRepairModule.armor(MaterialIds.copper).durabilityFactor(10))
+      .modules(slots -> MaterialStatsModule.armorStats(slots).plating(0.75f))
+      .module(DefaultMaterialsModule.builder().material(MaterialIds.roseGold).build())
+      .modules(slots -> MultiplyStatsModule.armor(slots)
+        .set(ArmorItem.Type.CHESTPLATE, ToolStats.ATTACK_DAMAGE, 0.55f)
+        .setAll(ToolStats.DURABILITY, 0.75f))
+      .module(ToolSlotsModule.builder()
+        .slots(SlotType.UPGRADE, 2)
+        .slots(SlotType.DEFENSE, 2)
+        .slots(SlotType.ABILITY, 1).build())
       .module(MaterialRepairModule.armor(MaterialIds.leather).durabilityFactor(7.5f))
       .module(ToolTraitsModule.builder().trait(TinkerModifiers.tanned).build())
       .module(ArmorItem.Type.BOOTS, ToolTraitsModule.builder().trait(ModifierIds.snowBoots).build());
@@ -574,7 +571,10 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
         .set(ToolStats.BLOCK_AMOUNT, 10)
         .set(ToolStats.BLOCK_ANGLE, 90)
         .set(ToolStats.USE_ITEM_SPEED, 0.8f).build()))
-      .module(travelersSlots)
+      .module(ToolSlotsModule.builder()
+        .slots(SlotType.UPGRADE, 3)
+        .slots(SlotType.DEFENSE, 2)
+        .slots(SlotType.ABILITY, 1).build())
       .module(MaterialRepairModule.of(MaterialIds.leather, 200))
       .module(MaterialRepairModule.of(MaterialIds.wood, 100))
       .module(ToolTraitsModule.builder().trait(TinkerModifiers.blocking).trait(TinkerModifiers.tanned).build())
@@ -635,7 +635,7 @@ public class ToolDefinitionDataProvider extends AbstractToolDefinitionDataProvid
         .trait(ModifierIds.shulking, 1).build())
       .module(ArmorItem.Type.LEGGINGS, ToolTraitsModule.builder().trait(ModifierIds.shulking, 1).build(), ToolHooks.REBALANCED_TRAIT)
       .module(ArmorItem.Type.BOOTS, slimeTraits.copy()
-        .trait(TinkerModifiers.bouncy)
+        .trait(ModifierIds.bouncy)
         .trait(ModifierIds.leaping, 1).build())
       .module(ArmorItem.Type.BOOTS, ToolTraitsModule.builder().trait(ModifierIds.leaping, 1).build(), ToolHooks.REBALANCED_TRAIT);
 

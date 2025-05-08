@@ -2,11 +2,23 @@
   "level_display": "tconstruct:single_level",
   "modules": [
     {
-      "type": "tconstruct:armor_stat",
-      "allow_broken": true,
-      "each_level": 2.5,
-      "held_tag": "tconstruct:modifiable/armor/held",
-      "key": "tconstruct:protection_cap"
+      "type": "tconstruct:attribute",
+      "attribute": "tconstruct:generic.protection_cap",
+      "each_level": 0.1,
+      "operation": "addition",
+      "slots": [
+        "mainhand",
+        "offhand",
+        "feet",
+        "legs",
+        "chest",
+        "head"
+      ],
+      "tool": {
+        "type": "mantle:tag",
+        "tag": "tconstruct:modifiable/armor"
+      },
+      "tooltip_style": "percent"
     }
   ],
   "tooltip_display": "always"

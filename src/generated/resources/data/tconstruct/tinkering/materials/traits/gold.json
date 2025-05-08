@@ -24,6 +24,10 @@
       {
         "level": 1,
         "name": "tconstruct:piglin_disguise"
+      },
+      {
+        "level": 1,
+        "name": "tconstruct:golden"
       }
     ]
   }

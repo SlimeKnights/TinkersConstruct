@@ -35,8 +35,7 @@
       "light_layer": "block",
       "min_light": 5,
       "operation": "addition",
-      "per_level": 9.0E-4,
-      "unique": "modifier.tconstruct.lightspeed"
+      "per_level": 9.0E-4
     }
   ],
   "tooltip_display": "always"

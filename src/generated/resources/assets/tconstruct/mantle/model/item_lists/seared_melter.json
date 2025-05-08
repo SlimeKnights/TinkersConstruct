@@ -1,0 +1,33 @@
+{
+  "variants": {
+    "": [
+      {
+        "center": [
+          8.0,
+          12.0,
+          12.0
+        ],
+        "size": 7.5,
+        "transform": "tconstruct:melter"
+      },
+      {
+        "center": [
+          4.0,
+          12.0,
+          4.0
+        ],
+        "size": 7.5,
+        "transform": "tconstruct:melter"
+      },
+      {
+        "center": [
+          12.0,
+          12.0,
+          4.0
+        ],
+        "size": 7.5,
+        "transform": "tconstruct:melter"
+      }
+    ]
+  }
+}

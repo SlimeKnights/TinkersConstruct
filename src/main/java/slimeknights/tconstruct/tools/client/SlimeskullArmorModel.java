@@ -74,15 +74,10 @@ public class SlimeskullArmorModel extends MultilayerArmorModel {
       if (skull != null && texture != null) {
         headModel = skull;
         headTexture = texture;
-        // determine the color to tint the helmet, will use gold, then embellishment, then enderslime
-        String embellishmentMaterial;
-        if (ModifierUtil.getModifierLevel(stack, TinkerModifiers.golden.getId()) > 0) {
-          embellishmentMaterial = MaterialIds.gold.toString();
-        } else {
-          embellishmentMaterial = ModifierUtil.getPersistentString(stack, TinkerModifiers.embellishment.getId());
-          if (embellishmentMaterial.isEmpty()) {
-            embellishmentMaterial = MaterialIds.enderslime.toString();
-          }
+        // determine the color to tint the helmet, fallback to enderslime if missing
+        String embellishmentMaterial = ModifierUtil.getPersistentString(stack, TinkerModifiers.embellishment.getId());
+        if (embellishmentMaterial.isEmpty()) {
+          embellishmentMaterial = MaterialIds.enderslime.toString();
         }
         headColor = MATERIAL_COLOR_CACHE.apply(embellishmentMaterial);
         return this;

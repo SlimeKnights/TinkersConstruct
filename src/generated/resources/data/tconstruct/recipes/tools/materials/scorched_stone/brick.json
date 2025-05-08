@@ -4,6 +4,6 @@
     "item": "tconstruct:scorched_brick"
   },
   "material": "tconstruct:scorched_stone",
-  "needed": 2,
+  "needed": 1,
   "value": 1
 }

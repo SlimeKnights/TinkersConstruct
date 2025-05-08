@@ -7,6 +7,8 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Component.Serializer;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -22,6 +24,7 @@ import slimeknights.mantle.recipe.helper.SimpleFinishedRecipe;
 import slimeknights.mantle.recipe.ingredient.SizedIngredient;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
+import slimeknights.tconstruct.library.data.recipe.CraftingNBTWrapper;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tables.recipe.PartBuilderToolRecycle;
@@ -169,6 +172,14 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                                  .setSource(TinkerTags.Items.ANVIL_METAL)
                                  .setMatchAll()
                                  .build(consumer, prefix(TinkerTables.tinkersAnvil, folder));
+    Consumer<FinishedRecipe> toolForge;
+    {
+      CompoundTag nbt = new CompoundTag();
+      CompoundTag display = new CompoundTag();
+      display.putString("Name", Serializer.toJson(Component.translatable("block.tconstruct.tool_forge")));
+      nbt.put("display", display);
+      toolForge = CraftingNBTWrapper.wrap(consumer, nbt);
+    }
     ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TinkerTables.tinkersAnvil)
                          .define('m', TinkerTags.Items.ANVIL_METAL)
@@ -178,9 +189,9 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                          .pattern("sts")
                          .pattern("s s")
                          .unlockedBy("has_item", has(TinkerTags.Items.ANVIL_METAL)))
-                                 .setSource(TinkerTags.Items.ANVIL_METAL)
-                                 .setMatchAll()
-                                 .build(consumer, location(folder + "tinkers_forge"));
+      .setSource(TinkerTags.Items.ANVIL_METAL)
+      .setMatchAll()
+      .build(toolForge, location(folder + "tinkers_forge"));
     ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TinkerTables.scorchedAnvil)
                          .define('m', TinkerTags.Items.ANVIL_METAL)
@@ -189,9 +200,9 @@ public class TableRecipeProvider extends BaseRecipeProvider {
                          .pattern(" s ")
                          .pattern("sss")
                          .unlockedBy("has_item", has(TinkerTags.Items.ANVIL_METAL)))
-                                 .setSource(TinkerTags.Items.ANVIL_METAL)
-                                 .setMatchAll()
-                                 .build(consumer, prefix(TinkerTables.scorchedAnvil, folder));
+      .setSource(TinkerTags.Items.ANVIL_METAL)
+      .setMatchAll()
+      .build(toolForge, prefix(TinkerTables.scorchedAnvil, folder));
     ShapedRetexturedRecipeBuilder.fromShaped(
       ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, TinkerTables.scorchedAnvil)
                          .define('m', TinkerTags.Items.ANVIL_METAL)

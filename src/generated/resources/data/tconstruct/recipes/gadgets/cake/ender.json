@@ -9,7 +9,7 @@
       "item": "tconstruct:ender_slime_bucket"
     },
     "S": {
-      "item": "minecraft:sugar"
+      "tag": "forge:dusts/redstone"
     },
     "W": {
       "item": "tconstruct:ender_slime_tall_grass"

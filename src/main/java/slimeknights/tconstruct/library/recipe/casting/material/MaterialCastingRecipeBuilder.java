@@ -16,12 +16,15 @@ import slimeknights.tconstruct.library.tools.item.IModifiable;
 import slimeknights.tconstruct.library.tools.part.IMaterialItem;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 
+import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 @RequiredArgsConstructor(staticName = "castingRecipe")
 public class MaterialCastingRecipeBuilder extends AbstractRecipeBuilder<MaterialCastingRecipeBuilder> {
+  @Nullable
   private final IMaterialItem result;
+  @Nullable
   private final IModifiable resultTool;
   private final TypeAwareRecipeSerializer<? extends AbstractMaterialCastingRecipe> recipeSerializer;
   private Ingredient cast = Ingredient.EMPTY;

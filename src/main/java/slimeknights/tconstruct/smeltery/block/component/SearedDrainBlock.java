@@ -20,9 +20,7 @@ public class SearedDrainBlock extends RetexturedOrientableSmelteryBlock {
   @Deprecated
   @Override
   public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-    if (FluidTransferHelper.interactWithFluidItem(world, pos, player, hand, hit)) {
-      return InteractionResult.SUCCESS;
-    } else if (FluidTransferHelper.interactWithBucket(world, pos, player, hand, hit.getDirection(), state.getValue(FACING).getOpposite())) {
+    if (FluidTransferHelper.interactWithTank(world, pos, player, hand, hit.getDirection(), state.getValue(FACING).getOpposite())) {
       return InteractionResult.SUCCESS;
     }
     return InteractionResult.PASS;

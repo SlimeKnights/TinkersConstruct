@@ -10,7 +10,7 @@ import slimeknights.mantle.data.loadable.primitive.StringLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.tconstruct.library.json.IntRange;
-import slimeknights.tconstruct.library.json.predicate.modifier.TagModifierPredicate;
+import slimeknights.tconstruct.library.json.predicate.modifier.ModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.HasModifierPredicate;
 import slimeknights.tconstruct.library.json.predicate.tool.ToolContextPredicate;
 import slimeknights.tconstruct.library.modifiers.Modifier;
@@ -152,13 +152,13 @@ public class ModifierRequirementsModule implements ValidateModifierHook, Modifie
 
     /** Adds an undisplayed upgrade requirement to the builder */
     public Builder requireUpgrade(TagKey<Modifier> tag, int level) {
-      this.requirements.add(HasModifierPredicate.hasUpgrade(new TagModifierPredicate(tag), level));
+      this.requirements.add(HasModifierPredicate.hasUpgrade(ModifierPredicate.tag(tag), level));
       return this;
     }
 
     /** Adds an undisplayed modifier requirement to the builder */
     public Builder requireModifier(TagKey<Modifier> tag, int level) {
-      this.requirements.add(HasModifierPredicate.hasUpgrade(new TagModifierPredicate(tag), level));
+      this.requirements.add(HasModifierPredicate.hasUpgrade(ModifierPredicate.tag(tag), level));
       return this;
     }
 

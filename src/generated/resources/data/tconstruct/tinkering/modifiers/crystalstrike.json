@@ -13,8 +13,7 @@
         "legs",
         "chest",
         "head"
-      ],
-      "unique": "tconstruct.modifier.crystalstrike"
+      ]
     },
     {
       "type": "tconstruct:armor_level",

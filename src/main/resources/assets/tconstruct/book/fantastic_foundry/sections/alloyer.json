@@ -25,6 +25,16 @@
     "data": "alloyer/casting.json"
   },
   {
+    "name": "proxy_tank",
+    "type": "mantle:showcase",
+    "data": "alloyer/proxy_tank.json"
+  },
+  {
+    "name": "fluid_cannon",
+    "type": "mantle:showcase",
+    "data": "alloyer/fluid_cannon.json"
+  },
+  {
     "type": "mantle:blank",
     "data": "no-load"
   }

@@ -1,0 +1,14 @@
+{
+  "title": "Fluid Cannon",
+  "item": "tconstruct:scorched_fluid_cannon",
+  "text": [
+    {
+      "text": "Thruul thinks he is so clever with his fluid cannon to shoot fluids at enemies. My fluid cannon harnesses the power of cobalt to shoot bigger projectiles for stronger effects. The only flaw is you go through your fluid much quicker.",
+      "paragraph": true
+    },
+	{
+      "text": "The idea to place items in front of the fluid nozzle is still a good one though, not much I can do to improve that design.",
+      "paragraph": true
+    }
+	]
+}

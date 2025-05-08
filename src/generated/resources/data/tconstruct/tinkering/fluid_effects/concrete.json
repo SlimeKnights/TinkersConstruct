@@ -1,0 +1,51 @@
+{
+  "block_effects": [
+    {
+      "type": "tconstruct:offset",
+      "block": "tconstruct:can_be_replaced",
+      "effect": {
+        "type": "tconstruct:set_block",
+        "block": "immersiveengineering:concrete_sprayed"
+      },
+      "offset_type": "tconstruct:conditional"
+    },
+    {
+      "type": "tconstruct:offset",
+      "action": "set",
+      "effect": "immersiveengineering:concrete_feet",
+      "group_cost": "max",
+      "level": 1,
+      "offset_type": "tconstruct:area_mob_effect"
+    }
+  ],
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "immersiveengineering"
+    }
+  ],
+  "entity_effects": [
+    {
+      "type": "tconstruct:conditional",
+      "effect": {
+        "type": "tconstruct:set_block",
+        "block": "immersiveengineering:concrete_sprayed"
+      },
+      "target": {
+        "type": "tconstruct:block_at_feet",
+        "block_type": "tconstruct:can_be_replaced"
+      }
+    },
+    {
+      "type": "tconstruct:area_mob_effect",
+      "action": "set",
+      "effect": "immersiveengineering:concrete_feet",
+      "group_cost": "max",
+      "level": 1
+    }
+  ],
+  "fluid": {
+    "amount": 100,
+    "tag": "forge:concrete"
+  }
+}

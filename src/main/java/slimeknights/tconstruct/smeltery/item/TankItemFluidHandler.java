@@ -22,12 +22,15 @@ import javax.annotation.Nullable;
 @RequiredArgsConstructor
 public class TankItemFluidHandler implements IFluidHandlerItem, ICapabilityProvider {
   private final LazyOptional<IFluidHandlerItem> holder = LazyOptional.of(() -> this);
+  private final TankItem tankItem;
   @Getter
   private final ItemStack container;
 
   /** Gets the tank on the stack */
   private FluidTank getTank() {
-    return TankItem.getFluidTank(container);
+    // TODO: can we directly use the nested tank as our fluid handler instead of doing this wrapper?
+    // might be more efficient, though it may require validating the stack size/NBT did not change externally
+    return tankItem.getTank(container);
   }
 
   /** Updates the container from the given tank */
@@ -54,7 +57,7 @@ public class TankItemFluidHandler implements IFluidHandlerItem, ICapabilityProvi
 
   @Override
   public int getTankCapacity(int tank) {
-    return TankBlockEntity.getCapacity(container.getItem());
+    return TankBlockEntity.getCapacity(container.getItem()) * container.getCount();
   }
 
   @Override

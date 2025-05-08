@@ -41,6 +41,14 @@ public class TinkerPartSpriteProvider extends AbstractPartSpriteProvider {
     addBinding("tough_binding");
     addPart("repair_kit", StatlessMaterialStats.REPAIR_KIT.getIdentifier());
 
+    // travelers textures
+    addTexture("tinker_armor/travelers/metal_armor", ARMOR_PLATING).disallowAnimated();
+    addTexture("tinker_armor/travelers/metal_leggings", ARMOR_PLATING).disallowAnimated();
+    buildTool("armor/travelers/goggles").disallowAnimated().addBreakablePart("metal", PlatingMaterialStats.HELMET.getId());
+    buildTool("armor/travelers/vest"   ).disallowAnimated().addBreakablePart("metal", PlatingMaterialStats.CHESTPLATE.getId());
+    buildTool("armor/travelers/pants"  ).disallowAnimated().addBreakablePart("metal", PlatingMaterialStats.LEGGINGS.getId());
+    buildTool("armor/travelers/boots"  ).disallowAnimated().addBreakablePart("metal", PlatingMaterialStats.BOOTS.getId());
+
     // plate textures
     addPart("maille", StatlessMaterialStats.MAILLE.getIdentifier());
     for (ArmorItem.Type slot : ArmorItem.Type.values()) {

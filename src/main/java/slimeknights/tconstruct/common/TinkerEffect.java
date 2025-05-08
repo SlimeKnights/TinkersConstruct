@@ -74,12 +74,12 @@ public class TinkerEffect extends MobEffect {
    * Applies this potion to an entity
    * @param entity    Entity
    * @param duration  Duration
-   * @param level     Effect level
+   * @param amplifier Effect level
    * @param showIcon  If true, shows an icon in the HUD
    * @return  Applied instance
    */
-  public MobEffectInstance apply(LivingEntity entity, int duration, int level, boolean showIcon) {
-    MobEffectInstance effect = new MobEffectInstance(this, duration, level, false, false, showIcon);
+  public MobEffectInstance apply(LivingEntity entity, int duration, int amplifier, boolean showIcon) {
+    MobEffectInstance effect = new MobEffectInstance(this, duration, amplifier, false, false, showIcon);
     entity.addEffect(effect);
     return effect;
   }
