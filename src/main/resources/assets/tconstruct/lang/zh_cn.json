@@ -890,6 +890,8 @@
   "fluid_effect.tconstruct.separator": "%s；%s",
 
   "fluid_effect.tconstruct.extinguish_fire": "灭火",
+  "fluid_effect.tconstruct.remove_block": "破坏方块",
+  "fluid_effect.tconstruct.weather": "风化铜",
   "fluid_effect.tconstruct.teleport": "传送目标",
   "fluid_effect.tconstruct.calcified": "+10秒钙质化",
   "fluid_effect.tconstruct.interact.block": "与方块交互",
@@ -923,6 +925,7 @@
 
   "fluid_effect.tconstruct.place_block": "放置%s",
   "fluid_effect.tconstruct.place_block.held": "放置手持方块",
+  "fluid_effect.tconstruct.set_block": "放置%s",
   "fluid_effect.tconstruct.break_block": "采掘方块",
   "fluid_effect.tconstruct.break_block.enchanted": "%s采掘方块",
   "fluid_effect.tconstruct.break_block.hardness": "采掘硬度最高为%s的方块",
@@ -1370,6 +1373,8 @@
   "block.tconstruct.scorched_basin.tooltip": "利用熔铸炉中的熔融材料铸造物品，在铸造时需要一个铸模或是金平台以成型",
   "block.tconstruct.scorched_table": "焦褐铸件台",
   "block.tconstruct.scorched_table.tooltip": "利用熔铸炉中的熔融材料铸造物品，在铸造时需要一个铸模或是金栏杆以成型",
+  "block.tconstruct.scorched_proxy_tank": "焦褐中转储罐",
+  "block.tconstruct.scorched_proxy_tank.tooltip": "能够装填或倒空物品内部储罐的储罐方块，但无法操作自带的内部储罐",
 
   "block.tconstruct.scorched_channel": "焦褐浇注道",
   "block.tconstruct.scorched_channel.tooltip": "将上方浇注口中流下的流体进行分流",
@@ -1927,6 +1932,10 @@
   "material.tconstruct.aluminum.ranged": "拉弓速度+7%，精确度+7%；但同时保护-5%",
   "material.tconstruct.aluminum.armor": "使用时移速+5%，但同时保护-5%",
 
+  "material.tconstruct.treated_wood": "防腐木",
+  "material.tconstruct.treated_wood.flavor": "回见",
+  "material.tconstruct.treated_wood.encyclopedia": "耐久度和修理效率+15%",
+
 
   "__comment": "Tier 3 Integration Materials",
   "material.tconstruct.steel": "钢",
@@ -2334,8 +2343,9 @@
   "modifier.tconstruct.depth_strider.flavor": "哗啦~哗啦~",
   "modifier.tconstruct.depth_strider.description": "增加在水下的移动速度",
   "modifier.tconstruct.double_jump": "多段跳",
-  "modifier.tconstruct.double_jump.double": "二段跳",
-  "modifier.tconstruct.double_jump.triple": "三段跳",
+  "modifier.tconstruct.double_jump.2": "二段跳",
+  "modifier.tconstruct.double_jump.3": "三段跳",
+  "modifier.tconstruct.double_jump.4": "四段跳",
   "modifier.tconstruct.double_jump.flavor": "更高，更远！",
   "modifier.tconstruct.double_jump.description": "能让你在空中再次起跳。等级越高跳跃次数越多！",
   "modifier.tconstruct.bouncy": "弹跳",
@@ -2703,6 +2713,9 @@
   "modifier.tconstruct.consecrated.flavor": "死吧，肮脏贱物！",
   "modifier.tconstruct.consecrated.description": "减少亡灵生物伤害",
   "modifier.tconstruct.consecrated.resistance": "亡灵抗性",
+  "modifier.tconstruct.preserved": "防腐",
+  "modifier.tconstruct.preserved.flavor": "优质的油性涂层",
+  "modifier.tconstruct.preserved.description": "增加工具耐久度，并使其更易修理",
 
 
   "__comment": "Tier 3 Mod Compat Traits",
@@ -2838,11 +2851,41 @@
   "modifier.tconstruct.snow_boots": "雪地靴",
   
 
-  "_comment": "Internal effects",
+  "_comment": "Potion effects",
+  "effect.tconstruct.experienced": "阅历",
+  "effect.tconstruct.ricochet": "弹退",
+  "effect.tconstruct.enderference": "抑影",
+
+  "item.minecraft.potion.effect.tconstruct.experienced": "阅历药水",
+  "item.minecraft.potion.effect.tconstruct.ricochet": "弹退药水",
+  "item.minecraft.potion.effect.tconstruct.levitation": "飘浮药水",
+  "item.minecraft.potion.effect.tconstruct.enderference": "抑影药水",
+
+  "item.minecraft.splash_potion.effect.tconstruct.experienced": "喷溅型阅历药水",
+  "item.minecraft.splash_potion.effect.tconstruct.ricochet": "喷溅型弹退药水",
+  "item.minecraft.splash_potion.effect.tconstruct.levitation": "喷溅型飘浮药水",
+  "item.minecraft.splash_potion.effect.tconstruct.enderference": "喷溅型抑影药水",
+
+  "item.minecraft.lingering_potion.effect.tconstruct.experienced": "滞留型阅历药水",
+  "item.minecraft.lingering_potion.effect.tconstruct.ricochet": "滞留型弹退药水",
+  "item.minecraft.lingering_potion.effect.tconstruct.levitation": "滞留型飘浮药水",
+  "item.minecraft.lingering_potion.effect.tconstruct.enderference": "滞留型抑影药水",
+
+  "_comment": "Cake effects",
+  "effect.tconstruct.bouncy": "弹跳",
+  "effect.tconstruct.double_jump": "二段跳",
+  "effect.tconstruct.antigravity": "抗重力",
+  "effect.tconstruct.returning": "折返",
+
+  "_comment": "Gameplay effects",
   "effect.tconstruct.bleeding": "流血",
   "effect.tconstruct.magnetic": "磁性",
-  "effect.tconstruct.pierce": "穿刺",
   "effect.tconstruct.repulsive": "排斥",
+  "effect.tconstruct.pierce": "穿刺",
+  "effect.tconstruct.calcified": "钙质化",
+  "effect.tconstruct.self_destructing": "自斥",
+
+  "_comment": "Internal effects",
   "effect.tconstruct.momentum_harvest": "动力",
   "effect.tconstruct.momentum_ranged": "动力",
   "effect.tconstruct.momentum_armor": "重复",
@@ -2851,9 +2894,6 @@
   "effect.tconstruct.insatiable_armor": "动能",
   "effect.tconstruct.teleport_cooldown": "传送冷却",
   "effect.tconstruct.fireball_cooldown": "火球冷却",
-  "effect.tconstruct.calcified": "钙质化",
-  "effect.tconstruct.self_destructing": "自毁",
-  "effect.tconstruct.enderference": "抑影",
 
 
   "_comment": "Roman numerals",
@@ -2988,6 +3028,7 @@
   "attribute.name.tconstruct.player.critical_damage": "暴击伤害",
   "attribute.name.tconstruct.player.mining_speed_multiplier": "挖掘速度",
   "attribute.name.tconstruct.player.experience_multiplier": "阅历",
+  "attribute.name.tconstruct.player.jump_count": "跳跃",
 
   "attribute.name.tconstruct.generic.protection_cap": "最大护甲值",
   "attribute.name.tconstruct.generic.jump_boost": "跳跃高度",
@@ -3169,9 +3210,9 @@
   "book.tconstruct.material.skull_from": "可在铸造盆中由%s浇注上末影黏液制作",
   "book.tconstruct.modifiers.effect": "效果：",
   "book.tconstruct.tool.properties": "属性：",
-
   "book.tconstruct.fluid_effects.entity": "对实体效果：",
   "book.tconstruct.fluid_effects.block": "对方块效果：",
+  
 
   "_comment": "Commands",
 
