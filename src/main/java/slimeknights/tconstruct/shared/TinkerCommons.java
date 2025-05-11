@@ -55,6 +55,7 @@ import slimeknights.tconstruct.library.json.condition.TagDifferencePresentCondit
 import slimeknights.tconstruct.library.json.condition.TagIntersectionPresentCondition;
 import slimeknights.tconstruct.library.json.condition.TagNotEmptyCondition;
 import slimeknights.tconstruct.library.json.loot.TagPreferenceLootEntry;
+import slimeknights.tconstruct.library.json.predicate.BlockAtFeetEntityPredicate;
 import slimeknights.tconstruct.library.json.predicate.HarvestTierPredicate;
 import slimeknights.tconstruct.library.json.predicate.HasMobEffectPredicate;
 import slimeknights.tconstruct.library.json.predicate.TinkerPredicate;
@@ -192,9 +193,12 @@ public final class TinkerCommons extends TinkerModule {
       DamageSourcePredicate.LOADER.register(getResource("direct"), TinkerPredicate.DIRECT_DAMAGE.getLoader());
       LivingEntityPredicate.LOADER.register(getResource("airborne"), TinkerPredicate.AIRBORNE.getLoader());
       LivingEntityPredicate.LOADER.register(getResource("has_effect"), HasMobEffectPredicate.LOADER);
+      LivingEntityPredicate.LOADER.register(getResource("block_at_feet"), BlockAtFeetEntityPredicate.LOADER);
       ItemPredicate.LOADER.register(getResource("arrow"), TinkerPredicate.ARROW.getLoader());
       ItemPredicate.LOADER.register(getResource("can_melt"), TinkerPredicate.CAN_MELT_ITEM.getLoader());
       BlockPredicate.LOADER.register(getResource("blocks_motion"), TinkerPredicate.BLOCKS_MOTION.getLoader());
+      BlockPredicate.LOADER.register(getResource("can_be_replaced"), TinkerPredicate.CAN_BE_REPLACED.getLoader());
+      BlockPredicate.LOADER.register(getResource("bush"), TinkerPredicate.BUSH.getLoader());
       BlockPredicate.LOADER.register(getResource("can_melt"), TinkerPredicate.CAN_MELT_BLOCK.getLoader());
       BlockPredicate.LOADER.register(getResource("harvest_tier"), HarvestTierPredicate.LOADER);
     }

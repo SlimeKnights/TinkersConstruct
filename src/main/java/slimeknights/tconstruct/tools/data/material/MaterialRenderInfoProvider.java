@@ -96,6 +96,7 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.silver).color(0xDAF3ED).fallbacks("metal");
     buildRenderInfo(MaterialIds.lead).color(0x696579).fallbacks("metal");
     buildRenderInfo(MaterialIds.whitestoneComposite, MaterialIds.whitestone).color(0xE0E9EC).fallbacks("rock");
+    buildRenderInfo(MaterialIds.treatedWood);
     // redirect whitestone variants to whitestone composite instead of endstone
     redirect(MaterialIds.whitestoneAluminum, MaterialIds.whitestoneComposite);
     redirect(MaterialIds.whitestoneTin, MaterialIds.whitestoneComposite);

@@ -141,6 +141,7 @@ public class ModifierIds {
   public static final ModifierId heavy = id("heavy");
   public static final ModifierId featherweight = id("featherweight");
   public static final ModifierId consecrated = id("consecrated");
+  public static final ModifierId preserved = id("preserved");
   // traits - tier 3
   public static final ModifierId overcast = id("overcast");
   public static final ModifierId crumbling = id("crumbling");

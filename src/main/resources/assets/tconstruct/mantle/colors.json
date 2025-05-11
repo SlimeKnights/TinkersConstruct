@@ -207,6 +207,7 @@
     "overgrowth":    "#82c873",
     "overlord":      "#236c45",
     "overworked":    "#E6D08D",
+    "preserved":     "#673C29",
     "solar_powered": "#48B518",
     "stoneshield":   "#E0E9EC",
     "stringy":       "#FFFFFF",
@@ -374,6 +375,7 @@
     "whitestone.tin": "#E0E9EC",
     "whitestone.zinc": "#E0E9EC",
     "aluminum":   "#CDD5D8",
+    "treated_wood": "#673C29",
 
     "__tier_3_integration__": null,
     "bronze":           "#D58F36",

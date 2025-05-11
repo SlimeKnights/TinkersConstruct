@@ -28,6 +28,16 @@ public record LevelingValue(float flat, float eachLevel) {
     return level > 0 ? compute(level) : 0;
   }
 
+  /** Computes the value for a fluid effect where level may be less than 1 */
+  public float computeForScale(float level) {
+    // when not using a full level, scale flat alongside each level
+    if (level < 1) {
+      return (this.flat + this.eachLevel) * level;
+    }
+    // normal behavior at 1+
+    return compute(level);
+  }
+
   /** Checks if this doesn't level */
   public boolean isFlat() {
     return eachLevel == 0;

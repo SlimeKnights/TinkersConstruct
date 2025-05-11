@@ -35,7 +35,7 @@ public class TankInventoryBlockEntityRenderer<T extends BlockEntity & ITankInven
       // render fluids
       FluidTankAnimated tank = melter.getTank();
       for (FluidCuboid fluid : fluids) {
-        RenderUtils.renderFluidTank(matrices, buffer, fluid, tank, light, partialTicks, false);
+        RenderUtils.renderFluidTank(matrices, buffer, fluid, tank, light, partialTicks, true);
       }
 
       // render items

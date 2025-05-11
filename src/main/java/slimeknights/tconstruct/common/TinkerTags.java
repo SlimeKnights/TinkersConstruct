@@ -288,6 +288,8 @@ public class TinkerTags {
     public static final TagKey<Item> TABLE_EMPTY_CASTS = local("casts/empty/table");
     /** Items that count as empty in a casting basin */
     public static final TagKey<Item> BASIN_EMPTY_CASTS = local("casts/empty/basin");
+    /** Tag of fluid container items disallowed in the proxy tank */
+    public static final TagKey<Item> PROXY_TANK_BLACKLIST = local("proxy_tank_blacklist");
 
     /** Items that can be placed in the pattern slot in the part builder */
     public static final TagKey<Item> PATTERNS = local("patterns");
@@ -520,6 +522,13 @@ public class TinkerTags {
     public static final TagKey<Fluid> HIDE_IN_CREATIVE_TANKS = local("hide_in_creative_tanks");
     /** Fluids in this tag won't show in JEI */
     public static final TagKey<Fluid> HIDDEN_IN_RECIPE_VIEWERS = hiddenFromRecipeViewers(Registries.FLUID);
+
+    /** Any fluids in this tag will have block {@link slimeknights.tconstruct.library.modifiers.fluid.FluidEffects} run when fired using the chem thrower */
+    public static final TagKey<Fluid> CHEMTHROWER_BLOCK_EFFECTS = local("chemthrower_effects/block");
+    /** Any fluids in this tag will have entity {@link slimeknights.tconstruct.library.modifiers.fluid.FluidEffects} run when fired using the chem thrower */
+    public static final TagKey<Fluid> CHEMTHROWER_ENTITY_EFFECTS = local("chemthrower_effects/entity");
+    /** Any fluids in this tag will have both block and entity {@link slimeknights.tconstruct.library.modifiers.fluid.FluidEffects} run when fired using the chem thrower */
+    public static final TagKey<Fluid> CHEMTHROWER_BOTH_EFFECTS = local("chemthrower_effects/both");
 
     private static TagKey<Fluid> local(String name) {
       return TagKey.create(Registries.FLUID, getResource(name));

@@ -3,16 +3,20 @@ package slimeknights.tconstruct.tools.data.material;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.DifferenceIngredient;
 import net.minecraftforge.common.crafting.conditions.OrCondition;
 import net.minecraftforge.fluids.FluidType;
 import slimeknights.mantle.datagen.MantleTags;
 import slimeknights.mantle.recipe.condition.TagCombinationCondition;
+import slimeknights.mantle.recipe.condition.TagFilledCondition;
 import slimeknights.mantle.recipe.helper.ItemOutput;
+import slimeknights.mantle.recipe.ingredient.FluidIngredient;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
 import slimeknights.tconstruct.fluids.TinkerFluids;
@@ -26,6 +30,8 @@ import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.function.Consumer;
+
+import static slimeknights.mantle.Mantle.COMMON;
 
 public class MaterialRecipeProvider extends BaseRecipeProvider implements IMaterialRecipeHelper {
   public MaterialRecipeProvider(PackOutput packOutput) {
@@ -151,6 +157,7 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     metalMaterialRecipe(consumer, MaterialIds.platinum, folder, "platinum", true);
     metalMaterialRecipe(consumer, MaterialIds.silver, folder, "silver", true);
     metalMaterialRecipe(consumer, MaterialIds.lead, folder, "lead", true);
+    materialRecipe(withCondition(consumer, tagCondition("treated_wood")),  MaterialIds.treatedWood, Ingredient.of(getItemTag(COMMON, "treated_wood")), 1, 1, folder + "treated_wood");
     // no whitestone, use repair kits
     // tier 3 (mod integration)
     metalMaterialRecipe(consumer, MaterialIds.bronze, folder, "bronze", true);
@@ -233,6 +240,12 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialComposite(withCondition(consumer, tagCondition("ingots/aluminum")), MaterialIds.rock, MaterialIds.whitestoneAluminum, TinkerFluids.moltenAluminum, FluidValues.INGOT, folder, "whitestone_from_aluminum");
     materialComposite(withCondition(consumer, tagCondition("ingots/tin")),      MaterialIds.rock, MaterialIds.whitestoneTin,      TinkerFluids.moltenTin,      FluidValues.INGOT, folder, "whitestone_from_tin");
     materialComposite(withCondition(consumer, tagCondition("ingots/zinc")),     MaterialIds.rock, MaterialIds.whitestoneZinc,     TinkerFluids.moltenZinc,     FluidValues.INGOT, folder, "whitestone_from_zinc");
+    TagKey<Fluid> creosote = getFluidTag(COMMON, "creosote");
+    MaterialFluidRecipeBuilder.material(MaterialIds.treatedWood)
+      .setInputId(MaterialIds.wood)
+      .setFluid(FluidIngredient.of(creosote, 125))
+      .setTemperature(600)
+      .save(withCondition(consumer, new TagFilledCondition<>(creosote)), location(folder + "composite/treated_wood"));
     // tier 3 compat
     compatMeltingCasting(consumer, MaterialIds.constantan,     TinkerFluids.moltenConstantan, "nickel", folder);
     compatMeltingCasting(consumer, MaterialIds.invar,          TinkerFluids.moltenInvar,      "nickel", folder);

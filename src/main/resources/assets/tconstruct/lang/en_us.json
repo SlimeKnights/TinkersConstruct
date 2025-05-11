@@ -890,6 +890,8 @@
   "fluid_effect.tconstruct.separator": "%s and %s",
 
   "fluid_effect.tconstruct.extinguish_fire": "Extinguishes fire",
+  "fluid_effect.tconstruct.remove_block": "Removes block",
+  "fluid_effect.tconstruct.weather": "Weathers copper",
   "fluid_effect.tconstruct.teleport": "Teleports target",
   "fluid_effect.tconstruct.calcified": "+10 Seconds Calcified",
   "fluid_effect.tconstruct.interact.block": "Interacts with block",
@@ -923,6 +925,7 @@
 
   "fluid_effect.tconstruct.place_block": "Places %s",
   "fluid_effect.tconstruct.place_block.held": "Places held block",
+  "fluid_effect.tconstruct.set_block": "Places %s",
   "fluid_effect.tconstruct.break_block": "Mines block",
   "fluid_effect.tconstruct.break_block.enchanted": "Mines block with %s",
   "fluid_effect.tconstruct.break_block.hardness": "Mines up to hardness %s",
@@ -1370,6 +1373,8 @@
   "block.tconstruct.scorched_basin.tooltip": "Cast items using molten metals from a Foundry, requires a cast or gold platform to cast",
   "block.tconstruct.scorched_table": "Scorched Casting Table",
   "block.tconstruct.scorched_table.tooltip": "Cast items using molten metals from a Foundry, requires a cast or gold bars to cast",
+  "block.tconstruct.scorched_proxy_tank": "Scorched Proxy Tank",
+  "block.tconstruct.scorched_proxy_tank.tooltip": "Tank block that fills or empties the item tank inside instead of an internal tank",
 
   "block.tconstruct.scorched_channel": "Scorched Channel",
   "block.tconstruct.scorched_channel.tooltip": "Distributes fluids poured from a faucet above.",
@@ -1926,6 +1931,10 @@
   "material.tconstruct.aluminum.flavor": "Found most commonly in ashmounds.",
   "material.tconstruct.aluminum.ranged": "Grants +7% drawspeed and accuracy at the cost of 5% loss of protection",
   "material.tconstruct.aluminum.armor": "Grants +5% use item speed at the cost of 5% loss of protection",
+
+  "material.tconstruct.treated_wood": "Treated Wood",
+  "material.tconstruct.treated_wood.flavor": "Slán go fóill",
+  "material.tconstruct.treated_wood.encyclopedia": "Increases both durability and repair efficiency by 15%",
 
 
   "__comment": "Tier 3 Integration Materials",
@@ -2704,6 +2713,9 @@
   "modifier.tconstruct.consecrated.flavor": "Die, Fowl Creature!",
   "modifier.tconstruct.consecrated.description": "Take less damage from the undead",
   "modifier.tconstruct.consecrated.resistance": "Undead Resistance",
+  "modifier.tconstruct.preserved": "Preserved",
+  "modifier.tconstruct.preserved.flavor":  "A nice oil finish",
+  "modifier.tconstruct.preserved.description": "Makes the tool more durability and easier to repair",
 
 
   "__comment": "Tier 3 Mod Compat Traits",
@@ -2839,11 +2851,41 @@
   "modifier.tconstruct.snow_boots": "Snow Boots",
 
 
-  "_comment": "Internal effects",
+  "_comment": "Potion effects",
+  "effect.tconstruct.experienced": "Experienced",
+  "effect.tconstruct.ricochet": "Ricochet",
+  "effect.tconstruct.enderference": "Enderference",
+
+  "item.minecraft.potion.effect.tconstruct.experienced":  "Potion of Experience",
+  "item.minecraft.potion.effect.tconstruct.ricochet":     "Potion of Ricochet",
+  "item.minecraft.potion.effect.tconstruct.levitation":   "Potion of Levitation",
+  "item.minecraft.potion.effect.tconstruct.enderference": "Potion of Enderference",
+
+  "item.minecraft.splash_potion.effect.tconstruct.experienced":  "Splash Potion of Experience",
+  "item.minecraft.splash_potion.effect.tconstruct.ricochet":     "Splash Potion of Ricochet",
+  "item.minecraft.splash_potion.effect.tconstruct.levitation":   "Splash Potion of Levitation",
+  "item.minecraft.splash_potion.effect.tconstruct.enderference": "Splash Potion of Enderference",
+
+  "item.minecraft.lingering_potion.effect.tconstruct.experienced":  "Lingering Potion of Experience",
+  "item.minecraft.lingering_potion.effect.tconstruct.ricochet":     "Lingering Potion of Ricochet",
+  "item.minecraft.lingering_potion.effect.tconstruct.levitation":   "Lingering Potion of Levitation",
+  "item.minecraft.lingering_potion.effect.tconstruct.enderference": "Lingering Potion of Enderference",
+
+  "_comment": "Cake effects",
+  "effect.tconstruct.bouncy": "Bouncy",
+  "effect.tconstruct.double_jump": "Double Jump",
+  "effect.tconstruct.antigravity": "Antigravity",
+  "effect.tconstruct.returning": "Returning",
+
+  "_comment": "Gameplay effects",
   "effect.tconstruct.bleeding": "Bleeding",
   "effect.tconstruct.magnetic": "Magnetic",
-  "effect.tconstruct.pierce": "Pierced",
   "effect.tconstruct.repulsive": "Repulsive",
+  "effect.tconstruct.pierce": "Pierced",
+  "effect.tconstruct.calcified": "Calcified",
+  "effect.tconstruct.self_destructing": "Self Destructing",
+
+  "_comment": "Internal effects",
   "effect.tconstruct.momentum_harvest": "Momentum",
   "effect.tconstruct.momentum_ranged": "Momentum",
   "effect.tconstruct.momentum_armor": "Recurrent",
@@ -2852,9 +2894,6 @@
   "effect.tconstruct.insatiable_armor": "Kinetic",
   "effect.tconstruct.teleport_cooldown": "Teleport Cooldown",
   "effect.tconstruct.fireball_cooldown": "Fireball Cooldown",
-  "effect.tconstruct.calcified": "Calcified",
-  "effect.tconstruct.self_destructing": "Self Destructing",
-  "effect.tconstruct.enderference": "Enderference",
 
 
   "_comment": "Roman numerals",

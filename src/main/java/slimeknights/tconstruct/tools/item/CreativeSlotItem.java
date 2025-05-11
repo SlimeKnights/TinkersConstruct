@@ -4,6 +4,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
@@ -140,6 +141,7 @@ public class CreativeSlotItem extends Item {
             // neither add or removing modifier, just build it
             tool.rebuildStats();
           }
+          player.playSound(amount > 0 ? SoundEvents.ENCHANTMENT_TABLE_USE : SoundEvents.GRINDSTONE_USE, 1, 0.8f + stack.getCount() * 0.2f);
         } else if (!player.isCreative()) {
           player.displayClientMessage(CREATIVE_ONLY, false);
         }

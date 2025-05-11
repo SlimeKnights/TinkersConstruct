@@ -1,0 +1,14 @@
+{
+  "title": "Fluid Cannon",
+  "item": "tconstruct:seared_fluid_cannon",
+  "text": [
+    {
+      "text": "Ever have too much molten metal and need something to do with it? Try the fluid cannon! On a redstone pulse, it shoots out contained fluid which might burn your enemies, destroy blocks, or automatically feed you!",
+      "paragraph": true
+    },
+	{
+      "text": "Interacting with the bottom allows giving it an item stack to use with its fluid; with the right fluid type this can place blocks or use tools.",
+      "paragraph": true
+    }
+	]
+}

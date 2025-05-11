@@ -26,6 +26,10 @@ public record MobEffectCloudFluidEffect(List<FluidMobEffect> effects) implements
     FluidMobEffect.LOADABLE.list(1).requiredField("effects", e -> e.effects),
     MobEffectCloudFluidEffect::new);
 
+  public MobEffectCloudFluidEffect(FluidMobEffect... effects) {
+    this(List.of(effects));
+  }
+
   @Override
   public RecordLoadable<MobEffectCloudFluidEffect> getLoader() {
     return LOADER;

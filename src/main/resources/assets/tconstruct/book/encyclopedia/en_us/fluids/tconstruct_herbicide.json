@@ -1,0 +1,8 @@
+{
+  "title": "Herbicide",
+  "text": "Would be great for harvesting if it did not destroy the crops as well.",
+  "block": [
+    "Removes most plants, including leaves",
+    "Replaces grass with dirt"
+  ]
+}

@@ -61,6 +61,7 @@ public final class MaterialIds {
   public static final MaterialId enderslimeVine = id("enderslime_vine");
 
   // tier 2 (mod integration)
+  public static final MaterialId treatedWood = id("treated_wood");
   public static final MaterialId osmium = id("osmium");
   public static final MaterialId tungsten = id("tungsten");
   public static final MaterialId platinum = id("platinum");

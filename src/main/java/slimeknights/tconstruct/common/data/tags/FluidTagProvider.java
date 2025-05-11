@@ -5,6 +5,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.FluidTagsProvider;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import slimeknights.mantle.registration.object.FlowingFluidObject;
 import slimeknights.mantle.registration.object.FluidObject;
@@ -107,6 +108,64 @@ public class FluidTagProvider extends FluidTagsProvider {
 
     fluidTag(TinkerFluids.potion);
     fluidTag(TinkerFluids.powderedSnow);
+
+    // tag local tags with the chemthrower, do not include forge tags as its on other mods to choose how they want to support IE
+    // block effects - mostly mining
+    this.tag(TinkerTags.Fluids.CHEMTHROWER_BLOCK_EFFECTS)
+      .addTags(
+        // small gem
+        TinkerFluids.moltenAmethyst.getLocalTag(), TinkerFluids.moltenQuartz.getLocalTag(),
+        // large gem
+        TinkerFluids.moltenEmerald.getLocalTag(), TinkerFluids.moltenDiamond.getLocalTag(), TinkerFluids.moltenDebris.getLocalTag()
+      );
+    // entity effects - most of these have block effects, but we don't want the clouds triggering mostly
+    this.tag(TinkerTags.Fluids.CHEMTHROWER_ENTITY_EFFECTS)
+      .add(TinkerFluids.powderedSnow.get())
+      .addTags(
+        // common
+        Tags.Fluids.MILK, TinkerFluids.blazingBlood.getLocalTag(),
+        // slime
+        TinkerFluids.venom.getLocalTag(),
+        // glass
+        TinkerFluids.moltenGlass.getLocalTag(), TinkerFluids.liquidSoul.getLocalTag(), TinkerFluids.moltenObsidian.getLocalTag(),
+        // clay
+        TinkerFluids.moltenClay.getLocalTag(), TinkerFluids.searedStone.getLocalTag(), TinkerFluids.scorchedStone.getLocalTag(),
+        // food
+        TinkerFluids.honey.getLocalTag(),
+        TinkerFluids.mushroomStew.getLocalTag(), TinkerFluids.rabbitStew.getLocalTag(), TinkerFluids.meatSoup.getLocalTag(),
+        // tier 2
+        TinkerFluids.moltenCopper.getLocalTag(), TinkerFluids.moltenIron.getLocalTag(), TinkerFluids.moltenGold.getLocalTag(),
+        // tier 2 compat
+        TinkerFluids.moltenZinc.getLocalTag(), TinkerFluids.moltenTin.getLocalTag(), TinkerFluids.moltenAluminum.getLocalTag(),
+        TinkerFluids.moltenSilver.getLocalTag(), TinkerFluids.moltenLead.getLocalTag(), TinkerFluids.moltenNickel.getLocalTag(),
+        TinkerFluids.moltenPlatinum.getLocalTag(), TinkerFluids.moltenTungsten.getLocalTag(), TinkerFluids.moltenOsmium.getLocalTag(),
+        TinkerFluids.moltenUranium.getLocalTag(),
+        // tier 3
+        TinkerFluids.moltenAmethystBronze.getLocalTag(), TinkerFluids.moltenPigIron.getLocalTag(), TinkerFluids.moltenRoseGold.getLocalTag(),
+        TinkerFluids.moltenCobalt.getLocalTag(), TinkerFluids.moltenSteel.getLocalTag(),
+        // tier 3 compat
+        TinkerFluids.moltenBronze.getLocalTag(), TinkerFluids.moltenBrass.getLocalTag(), TinkerFluids.moltenPewter.getLocalTag(),
+        TinkerFluids.moltenInvar.getLocalTag(), TinkerFluids.moltenConstantan.getLocalTag(),
+        // tier 4
+        TinkerFluids.moltenManyullyn.getLocalTag(), TinkerFluids.moltenHepatizon.getLocalTag(), TinkerFluids.moltenNetherite.getLocalTag(),
+        // thermal alloys
+        TinkerFluids.moltenLumium.getLocalTag(), TinkerFluids.moltenEnderium.getLocalTag(),
+        // mekanism alloys
+        TinkerFluids.moltenRefinedGlowstone.getLocalTag(), TinkerFluids.moltenRefinedObsidian.getLocalTag()
+      );
+    // both effects - all the neat slimes
+    this.tag(TinkerTags.Fluids.CHEMTHROWER_BOTH_EFFECTS)
+      // slime
+      .add(TinkerFluids.ichor.get(), TinkerFluids.moltenCinderslime.get())
+      .addTags(
+        // slime
+        TinkerFluids.earthSlime.getLocalTag(), TinkerFluids.skySlime.getLocalTag(), TinkerFluids.enderSlime.getTag(),
+        TinkerFluids.magma.getLocalTag(), TinkerFluids.moltenEnder.getLocalTag(),
+        // slime metal
+        TinkerFluids.moltenSlimesteel.getLocalTag(), TinkerFluids.moltenQueensSlime.getLocalTag(),
+        // thermal alloys
+        TinkerFluids.moltenSignalum.getLocalTag()
+      );
 
     // tooltips //
     this.tag(TinkerTags.Fluids.GLASS_TOOLTIPS).addTags(TinkerFluids.moltenGlass.getTag(), TinkerFluids.liquidSoul.getTag(), TinkerFluids.moltenObsidian.getTag());

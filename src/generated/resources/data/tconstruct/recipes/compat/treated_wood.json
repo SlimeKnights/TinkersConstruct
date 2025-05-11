@@ -6,8 +6,13 @@
   "cast_consumed": true,
   "conditions": [
     {
-      "type": "forge:mod_loaded",
-      "modid": "immersiveengineering"
+      "type": "mantle:tag_filled",
+      "tag": "forge:treated_wood"
+    },
+    {
+      "type": "mantle:tag_filled",
+      "registry": "minecraft:fluid",
+      "tag": "forge:creosote"
     }
   ],
   "cooling_time": 100,
@@ -15,5 +20,7 @@
     "amount": 125,
     "tag": "forge:creosote"
   },
-  "result": "immersiveengineering:treated_wood_horizontal"
+  "result": {
+    "tag": "forge:treated_wood"
+  }
 }

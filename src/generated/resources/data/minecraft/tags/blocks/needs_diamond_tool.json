@@ -29,6 +29,7 @@
     "tconstruct:ender_enderbark_roots",
     "tconstruct:scorched_drain",
     "tconstruct:scorched_chute",
+    "tconstruct:scorched_proxy_tank",
     "tconstruct:foundry_controller"
   ]
 }

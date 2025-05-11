@@ -1,19 +1,25 @@
 package slimeknights.tconstruct.tools.data;
 
+import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.stats.Stats;
-import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Tiers;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 import net.minecraftforge.fluids.FluidType;
+import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.block.BlockPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
 import slimeknights.mantle.recipe.data.FluidNameIngredient;
@@ -22,17 +28,23 @@ import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.Sounds;
 import slimeknights.tconstruct.common.TinkerDamageTypes;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.common.data.FakeRegistryEntry;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.library.data.tinkering.AbstractFluidEffectProvider;
 import slimeknights.tconstruct.library.json.LevelingValue;
+import slimeknights.tconstruct.library.json.predicate.BlockAtFeetEntityPredicate;
 import slimeknights.tconstruct.library.json.predicate.HarvestTierPredicate;
+import slimeknights.tconstruct.library.json.predicate.HasMobEffectPredicate;
 import slimeknights.tconstruct.library.json.predicate.TinkerPredicate;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidMobEffect;
+import slimeknights.tconstruct.library.modifiers.fluid.GroupCost;
 import slimeknights.tconstruct.library.modifiers.fluid.TimeAction;
 import slimeknights.tconstruct.library.modifiers.fluid.block.BlockInteractFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.block.BreakBlockFluidEffect;
+import slimeknights.tconstruct.library.modifiers.fluid.block.MobEffectCloudFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.block.MoveBlocksFluidEffect;
+import slimeknights.tconstruct.library.modifiers.fluid.block.OffsetBlockFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.block.PlaceBlockFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.block.PotionCloudFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.AddBreathFluidEffect;
@@ -42,24 +54,27 @@ import slimeknights.tconstruct.library.modifiers.fluid.entity.DamageFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.EntityInteractFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.FireFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.FreezeFluidEffect;
+import slimeknights.tconstruct.library.modifiers.fluid.entity.MobEffectFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.PotionFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.PushEntityFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.RemoveEffectFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.RestoreHungerFluidEffect;
+import slimeknights.tconstruct.library.modifiers.fluid.general.AreaMobEffectFluidEffect;
+import slimeknights.tconstruct.library.modifiers.fluid.general.ConditionalFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.general.DropItemFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.general.ExplosionFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.general.ScalingFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.general.SequenceFluidEffect;
+import slimeknights.tconstruct.library.modifiers.fluid.general.SetBlockFluidEffect;
 import slimeknights.tconstruct.library.recipe.FluidValues;
 import slimeknights.tconstruct.library.recipe.TagPredicate;
 import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.shared.TinkerEffects;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
-import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.StrongBonesModifier;
+import slimeknights.tconstruct.world.block.DirtType;
 
 import java.util.function.Function;
-
-import static slimeknights.mantle.Mantle.commonResource;
 
 public class FluidEffectProvider extends AbstractFluidEffectProvider {
   public FluidEffectProvider(PackOutput packOutput) {
@@ -109,12 +124,17 @@ public class FluidEffectProvider extends AbstractFluidEffectProvider {
       .addBlockEffect(MoveBlocksFluidEffect.push(Sounds.SLIME_SLING.getSound()));
     // ichor - levitation
     addSlime(TinkerFluids.ichor)
-      .addEntityEffects(FluidMobEffect.builder().effect(MobEffects.LEVITATION, 5*20).effect(MobEffects.MOVEMENT_SLOWDOWN, 20*5).buildEntity(TimeAction.ADD))
+      .addEntityEffects(FluidMobEffect.builder().effect(MobEffects.SLOW_FALLING, 7*20).effect(MobEffects.MOVEMENT_SLOWDOWN, 20*5).buildEntity(TimeAction.ADD))
       .addBlockEffect(new PlaceBlockFluidEffect(null));
     // ender - teleporting
+    LivingEntityPredicate hasReturning = new HasMobEffectPredicate(TinkerEffects.returning.get());
+    FluidMobEffect returningEffect = new FluidMobEffect(TinkerEffects.returning.get(), 7*20, 1, null);
     addSlime(TinkerFluids.enderSlime)
       .addEntityEffects(FluidMobEffect.builder().effect(MobEffects.MOVEMENT_SLOWDOWN, 20*5).buildEntity(TimeAction.ADD))
-      .addEntityEffect(FluidEffect.TELEPORT)
+      // if no returning, give returning then teleport
+      .addEntityEffect(hasReturning.inverted(), SequenceFluidEffect.entities().effect(new MobEffectFluidEffect(returningEffect, TimeAction.SET)).effect(FluidEffect.TELEPORT).build())
+      // if returning, extend it
+      .addEntityEffect(hasReturning, new MobEffectFluidEffect(returningEffect, TimeAction.ADD))
       .addBlockEffect(SequenceFluidEffect.blocks().effect(new BreakBlockFluidEffect(0)).effect(new PlaceBlockFluidEffect(null)).build());
 
     // slimelike - miscelaneous //
@@ -198,8 +218,8 @@ public class FluidEffectProvider extends AbstractFluidEffectProvider {
     compatMetal(TinkerFluids.moltenBronze, "tin").fireDamage(3).addEntityEffect(new AwardStatFluidEffect(Stats.TIME_SINCE_REST, - 2000));
     addMetal(TinkerFluids.moltenAmethystBronze).fireDamage(3).addEntityEffect(new AwardStatFluidEffect(Stats.TIME_SINCE_REST, 2000));
     // iron/steel - pull/push
-    addMetal(TinkerFluids.moltenIron).fireDamage(2f).addEffect(FluidMobEffect.builder().effect(TinkerModifiers.magneticEffect.get(), 20 * 5, 2), TimeAction.SET);
-    addMetal(TinkerFluids.moltenSteel).fireDamage(2f).addEffect(FluidMobEffect.builder().effect(TinkerModifiers.repulsiveEffect.get(), 20 * 5, 2), TimeAction.SET);
+    addMetal(TinkerFluids.moltenIron).fireDamage(2f).addEffect(FluidMobEffect.builder().effect(TinkerEffects.magnetic.get(), 20 * 5, 2), TimeAction.SET);
+    addMetal(TinkerFluids.moltenSteel).fireDamage(2f).addEffect(FluidMobEffect.builder().effect(TinkerEffects.repulsive.get(), 20 * 5, 2), TimeAction.SET);
     // zinc/brass - speed/heat
     compatMetal(TinkerFluids.moltenZinc).fireDamage(2).addEffect(FluidMobEffect.builder().effect(MobEffects.MOVEMENT_SPEED, 20 * 10), TimeAction.SET);
     compatMetal(TinkerFluids.moltenBrass, "zinc").fireDamage(3).addEffect(FluidMobEffect.builder().effect(MobEffects.FIRE_RESISTANCE, 20 * 8), TimeAction.SET);
@@ -230,18 +250,59 @@ public class FluidEffectProvider extends AbstractFluidEffectProvider {
     addFluid(TinkerFluids.moltenQueensSlime, slimeMetal).addEffect(ExplosionFluidEffect.radius(1, 1).damage(LevelingValue.eachLevel(3)).placeFire().ignoreBlocks().build());
     // tinkers nether
     addMetal(TinkerFluids.moltenCobalt).fireDamage(3).addEffect(FluidMobEffect.builder().effect(MobEffects.DIG_SPEED, 20 * 7, 1).effect(MobEffects.MOVEMENT_SPEED, 20 * 7, 1), TimeAction.SET);
-    addMetal(TinkerFluids.moltenManyullyn).fireDamage(4).addEffect(FluidMobEffect.builder().effect(TinkerModifiers.bleeding.get(), 20 * 2, 1), TimeAction.SET);
+    addMetal(TinkerFluids.moltenManyullyn).fireDamage(4).addEffect(FluidMobEffect.builder().effect(TinkerEffects.bleeding.get(), 20 * 2, 1), TimeAction.SET);
     addMetal(TinkerFluids.moltenHepatizon).fireDamage(4).addEffect(FluidMobEffect.builder().effect(MobEffects.DAMAGE_RESISTANCE, 20 * 15, 1), TimeAction.SET);
     addMetal(TinkerFluids.moltenNetherite).fireDamage(5).addEffect(FluidMobEffect.builder().effect(MobEffects.BLINDNESS, 20 * 5, 1), TimeAction.SET);
     // thermal compat
-    compatFluid(FluidTags.create(commonResource("glowstone")), FluidValues.GEM).addEffect(FluidMobEffect.builder().effect(MobEffects.GLOWING, 20 * 10), TimeAction.ADD).addBlockEffect(new PlaceBlockFluidEffect(TinkerCommons.glow.get()));
-    compatFluid(FluidTags.create(commonResource("redstone")), FluidValues.GEM).addEffect(ExplosionFluidEffect.radius(1, 0.5f).knockback(LevelingValue.eachLevel(-2)).ignoreBlocks().build());
+    compatFluid("glowstone", FluidValues.GEM).addEffect(FluidMobEffect.builder().effect(MobEffects.GLOWING, 20 * 10), TimeAction.ADD).addBlockEffect(new PlaceBlockFluidEffect(TinkerCommons.glow.get()));
+    compatFluid("redstone", FluidValues.GEM).addEffect(ExplosionFluidEffect.radius(1, 0.5f).knockback(LevelingValue.eachLevel(-2)).ignoreBlocks().build());
     compatMetal(TinkerFluids.moltenSignalum).addEffect(ExplosionFluidEffect.radius(1, 1).damage(LevelingValue.eachLevel(2)).knockback(LevelingValue.flat(-2)).ignoreBlocks().build());
     compatMetal(TinkerFluids.moltenLumium).magicDamage(4).addEffect(FluidMobEffect.builder().effect(MobEffects.GLOWING, 20 * 5, 1).effect(MobEffects.MOVEMENT_SPEED, 20 * 5, 1).effect(MobEffects.JUMP, 20 * 5, 1), TimeAction.SET);
-    compatMetal(TinkerFluids.moltenEnderium).magicDamage(4).addEffect(FluidMobEffect.builder().effect(TinkerModifiers.enderferenceEffect.get(), 20 * 10, 1), TimeAction.SET);
+    compatMetal(TinkerFluids.moltenEnderium).magicDamage(4).addEffect(FluidMobEffect.builder().effect(TinkerEffects.enderference.get(), 20 * 10, 1), TimeAction.SET);
     // mekanism compat
     compatMetal(TinkerFluids.moltenRefinedGlowstone).magicDamage(3).addEffect(FluidMobEffect.builder().effect(MobEffects.GLOWING, 20 * 10, 1), TimeAction.SET);
-    compatMetal(TinkerFluids.moltenRefinedObsidian).spikeDamage(3).addEffect(FluidMobEffect.builder().effect(TinkerModifiers.bleeding.get(), 20 * 2, 1), TimeAction.SET);
+    compatMetal(TinkerFluids.moltenRefinedObsidian).spikeDamage(3).addEffect(FluidMobEffect.builder().effect(TinkerEffects.bleeding.get(), 20 * 2, 1), TimeAction.SET);
+
+    // immersive engineering compat
+    // ethanol - burns
+    compatFluid("ethanol",      50).fireDamage(2f).addEntityEffect(new FireFluidEffect(TimeAction.ADD, 6)).placeFire();
+    compatFluid("acetaldehyde", 50).fireDamage(3f).addEntityEffect(new FireFluidEffect(TimeAction.ADD, 6)).placeFire();
+    // herbicide - kills plants
+    IJsonPredicate<BlockState> plants = BlockPredicate.or(BlockPredicate.tag(BlockTags.REPLACEABLE_BY_TREES), TinkerPredicate.BUSH);
+    compatFluid("herbicide", 10)
+      // remove plants without drops, both in the offset direction and above
+      .offsetBlockEffect(plants, FluidEffect.REMOVE_BLOCK)
+      .addBlockEffect(new OffsetBlockFluidEffect(new ConditionalFluidEffect.Block(plants, FluidEffect.REMOVE_BLOCK), Direction.UP))
+      // replace grass and farmland with dirt
+      .addBlockEffect(BlockPredicate.or(BlockPredicate.set(Blocks.GRASS_BLOCK, Blocks.MYCELIUM, Blocks.PODZOL, Blocks.FARMLAND), BlockPredicate.tag(DirtType.VANILLA.getBlockTag())), new SetBlockFluidEffect(Blocks.DIRT))
+      // discard leaves
+      .addBlockEffect(BlockPredicate.tag(BlockTags.LEAVES), FluidEffect.REMOVE_BLOCK);
+    // plant oil - its edible but makes you feel sick
+    compatFluid("plantoil", 50)
+      .addEntityEffect(new RestoreHungerFluidEffect(1, 1, true, ItemOutput.fromItem(Items.WHEAT_SEEDS)))
+      .addEntityEffects(FluidMobEffect.builder().effect(MobEffects.CONFUSION, 5 * 20, 1).buildEntity(TimeAction.ADD));
+    {
+      String ie = "immersiveengineering";
+      MobEffect flammable = FakeRegistryEntry.effect(new ResourceLocation(ie, "flammable"));
+      compatFluid(ie, "creosote",  50)
+        .addEffect(FluidMobEffect.builder().effect(flammable, 8 * 20, 1), TimeAction.ADD)
+        .addEntityEffect(new FireFluidEffect(TimeAction.ADD, 8));
+      compatFluid(ie, "biodiesel", 50)
+        .addEffect(FluidMobEffect.builder().effect(flammable, 8 * 20, 2), TimeAction.ADD)
+        .addEntityEffect(new FireFluidEffect(TimeAction.ADD, 8));
+      FluidMobEffect conductive = new FluidMobEffect(FakeRegistryEntry.effect(new ResourceLocation(ie, "conductive")), 8 * 20, 2);
+      compatFluid(ie, "redstone_acid",  50)
+        .addEntityEffect(new MobEffectFluidEffect(conductive, TimeAction.ADD))
+        .addBlockEffect(new MobEffectCloudFluidEffect(conductive))
+        .addBlockEffect(FluidEffect.WEATHER);
+      compatFluid(ie, "phenolic_resin", 50).addEffect(FluidMobEffect.builder().effect(FakeRegistryEntry.effect(new ResourceLocation(ie, "sticky")), 8 * 20, 2), TimeAction.ADD);
+      Block concreteSprayed = FakeRegistryEntry.block(new ResourceLocation(ie, "concrete_sprayed"));
+      AreaMobEffectFluidEffect concreteFeet = new AreaMobEffectFluidEffect(new FluidMobEffect(FakeRegistryEntry.effect(new ResourceLocation(ie, "concrete_feet")), MobEffectInstance.INFINITE_DURATION, 1), TimeAction.SET, GroupCost.MAX);
+      compatFluid(ie, "concrete", 100)
+        .addEntityEffect(new BlockAtFeetEntityPredicate(TinkerPredicate.CAN_BE_REPLACED), new SetBlockFluidEffect(concreteSprayed))
+        .offsetBlockEffect(TinkerPredicate.CAN_BE_REPLACED, new SetBlockFluidEffect(concreteSprayed))
+        .addEntityEffect(concreteFeet).offsetBlockEffect(concreteFeet);
+    }
 
     // potion fluid compat
     // standard potion is 250 mb, but we want a smaller number. divide into 5 pieces at 25% a piece (so healing is 1 health), means you gain 25% per potion

@@ -24,6 +24,7 @@ import net.minecraftforge.common.crafting.IntersectionIngredient;
 import net.minecraftforge.common.crafting.PartialNBTIngredient;
 import net.minecraftforge.fluids.FluidType;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
+import slimeknights.mantle.recipe.condition.TagFilledCondition;
 import slimeknights.mantle.recipe.data.ItemNameIngredient;
 import slimeknights.mantle.recipe.helper.ItemOutput;
 import slimeknights.mantle.recipe.helper.SimpleFinishedRecipe;
@@ -83,6 +84,7 @@ import java.util.Arrays;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
+import static slimeknights.mantle.Mantle.COMMON;
 import static slimeknights.tconstruct.library.recipe.melting.IMeltingRecipe.getTemperature;
 
 public class ModifierRecipeProvider extends BaseRecipeProvider {
@@ -1664,6 +1666,13 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     woodTexture(consumer, MaterialIds.blazewood, TinkerMaterials.blazewood, folder);
     woodTexture(consumer, MaterialIds.nahuatl, TinkerMaterials.nahuatl, folder);
     woodTexture(consumer, MaterialIds.bamboo, Blocks.BAMBOO, folder);
+    // compat
+    TagKey<Item> treatedWood = getItemTag(COMMON, "treated_wood");
+    SwappableModifierRecipeBuilder.modifier(TinkerModifiers.embellishment, MaterialIds.treatedWood.toString())
+      .variantFormatter(VariantFormatter.MATERIAL)
+      .setTools(TinkerTags.Items.EMBELLISHMENT_WOOD)
+      .addInput(treatedWood).addInput(TinkerTables.pattern).addInput(treatedWood)
+      .save(withCondition(consumer, new TagFilledCondition<>(treatedWood)), wrap(TinkerModifiers.embellishment, folder, "/wood/treated"));
 
     // cosmetics //
     consumer.accept(new SimpleFinishedRecipe(location(folder + "dyeing"), TinkerModifiers.armorDyeingSerializer.get()));

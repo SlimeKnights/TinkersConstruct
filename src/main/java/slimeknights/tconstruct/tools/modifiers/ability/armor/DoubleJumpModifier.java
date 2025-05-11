@@ -10,6 +10,8 @@ import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
 import slimeknights.tconstruct.shared.TinkerAttributes;
 import slimeknights.tconstruct.tools.logic.DoubleJumpHandler;
 
+import static slimeknights.tconstruct.library.tools.definition.ModifiableArmorMaterial.ARMOR_SLOTS;
+
 /** @deprecated use {@link TinkerAttributes#JUMP_COUNT} */
 @Deprecated(forRemoval = true)
 public class DoubleJumpModifier extends Modifier {
@@ -19,7 +21,7 @@ public class DoubleJumpModifier extends Modifier {
   @Override
   protected void registerHooks(Builder hookBuilder) {
     super.registerHooks(hookBuilder);
-    hookBuilder.addModule(AttributeModule.builder(TinkerAttributes.JUMP_COUNT.get(), Operation.ADDITION).tooltipStyle(TooltipStyle.NONE).flat(1));
+    hookBuilder.addModule(AttributeModule.builder(TinkerAttributes.JUMP_COUNT.get(), Operation.ADDITION).slots(ARMOR_SLOTS).tooltipStyle(TooltipStyle.NONE).flat(1));
   }
 
   @Override

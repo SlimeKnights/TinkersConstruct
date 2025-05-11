@@ -8,6 +8,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffectUtil;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -19,7 +20,6 @@ import slimeknights.tconstruct.fluids.util.ConstantFluidContainerWrapper;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Supplier;
 
 public class ContainerFoodItem extends Item {
@@ -37,11 +37,10 @@ public class ContainerFoodItem extends Item {
     return UseAnim.DRINK;
   }
 
-  @SuppressWarnings("deprecation")
-  @Override
-  public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
+  /** Adds effects to the tooltip */
+  public static void addEffectTooltip(FoodProperties food, List<Component> tooltip) {
     // add effects to the tooltip, code based on potion items
-    for (Pair<MobEffectInstance, Float> pair : Objects.requireNonNull(stack.getItem().getFoodProperties()).getEffects()) {
+    for (Pair<MobEffectInstance, Float> pair : food.getEffects()) {
       MobEffectInstance effect = pair.getFirst();
       if (effect != null) {
         MutableComponent mutable = Component.translatable(effect.getDescriptionId());
@@ -57,17 +56,26 @@ public class ContainerFoodItem extends Item {
   }
 
   @Override
+  public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
+    FoodProperties food = stack.getFoodProperties(null);
+    if (food != null) {
+      addEffectTooltip(food, tooltip);
+    }
+  }
+
+  @Override
   public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity living) {
     ItemStack container = stack.getCraftingRemainingItem();
     ItemStack result = super.finishUsingItem(stack, level, living);
     Player player = living instanceof Player p ? p : null;
     if (player == null || !player.getAbilities().instabuild) {
+      container = container.copy();
       if (result.isEmpty()) {
-        return container.copy();
+        return container;
       }
       if (player != null) {
-        if (!player.getInventory().add(container.copy())) {
-          player.drop(stack, false);
+        if (!player.getInventory().add(container)) {
+          player.drop(container, false);
         }
       }
     }

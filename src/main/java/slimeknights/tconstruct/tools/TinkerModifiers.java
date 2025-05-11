@@ -8,7 +8,6 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.CreativeModeTab;
@@ -65,6 +64,7 @@ import slimeknights.tconstruct.library.modifiers.fluid.block.BlockInteractFluidE
 import slimeknights.tconstruct.library.modifiers.fluid.block.BreakBlockFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.block.MobEffectCloudFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.block.MoveBlocksFluidEffect;
+import slimeknights.tconstruct.library.modifiers.fluid.block.OffsetBlockFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.block.PlaceBlockFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.block.PotionCloudFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.AddBreathFluidEffect;
@@ -80,11 +80,13 @@ import slimeknights.tconstruct.library.modifiers.fluid.entity.PushEntityFluidEff
 import slimeknights.tconstruct.library.modifiers.fluid.entity.RemoveEffectFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.RestoreHungerFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.general.AlternativesFluidEffect;
+import slimeknights.tconstruct.library.modifiers.fluid.general.AreaMobEffectFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.general.ConditionalFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.general.DropItemFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.general.ExplosionFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.general.ScalingFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.general.SequenceFluidEffect;
+import slimeknights.tconstruct.library.modifiers.fluid.general.SetBlockFluidEffect;
 import slimeknights.tconstruct.library.modifiers.impl.SingleLevelModifier;
 import slimeknights.tconstruct.library.modifiers.modules.ModifierModule;
 import slimeknights.tconstruct.library.modifiers.modules.armor.BlockDamageSourceModule;
@@ -153,6 +155,7 @@ import slimeknights.tconstruct.library.tools.capability.fluid.ToolTankHelper;
 import slimeknights.tconstruct.library.tools.capability.inventory.InventoryMenuModule;
 import slimeknights.tconstruct.library.tools.capability.inventory.InventoryModule;
 import slimeknights.tconstruct.library.tools.capability.inventory.InventorySlotMenuModule;
+import slimeknights.tconstruct.shared.TinkerEffects;
 import slimeknights.tconstruct.tables.TinkerTables;
 import slimeknights.tconstruct.tools.data.EnchantmentToModifierProvider;
 import slimeknights.tconstruct.tools.data.FluidEffectProvider;
@@ -234,7 +237,6 @@ import slimeknights.tconstruct.tools.modifiers.traits.skull.GoldGuardModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.PlagueModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.RevengeModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.SelfDestructiveModifier;
-import slimeknights.tconstruct.tools.modifiers.traits.skull.SelfDestructiveModifier.SelfDestructiveEffect;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.StrongBonesModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.WildfireModifier;
 import slimeknights.tconstruct.tools.modifiers.traits.skull.WitheredModifier;
@@ -479,17 +481,31 @@ public final class TinkerModifiers extends TinkerModule {
   
 
   /*
-   * Internal effects
+   * Effects
    */
-  public static final RegistryObject<BleedingEffect> bleeding = MOB_EFFECTS.register("bleeding", BleedingEffect::new);
-  public static final RegistryObject<MagneticEffect> magneticEffect = MOB_EFFECTS.register("magnetic", MagneticEffect::new);
-  public static final RegistryObject<RepulsiveEffect> repulsiveEffect = MOB_EFFECTS.register("repulsive", RepulsiveEffect::new);
-  public static final RegistryObject<TinkerEffect> enderferenceEffect = MOB_EFFECTS.register("enderference", () -> new NoMilkEffect(MobEffectCategory.HARMFUL, 0x8F648F, true));
+  /** @deprecated use {@link TinkerEffects#bleeding} */
+  @Deprecated(forRemoval = true)
+  public static final RegistryObject<BleedingEffect> bleeding = TinkerEffects.bleeding;
+  /** @deprecated use {@link TinkerEffects#magnetic} */
+  @Deprecated(forRemoval = true)
+  public static final RegistryObject<MagneticEffect> magneticEffect = TinkerEffects.magnetic;
+  /** @deprecated use {@link TinkerEffects#repulsive} */
+  @Deprecated(forRemoval = true)
+  public static final RegistryObject<RepulsiveEffect> repulsiveEffect = TinkerEffects.repulsive;
+  /** @deprecated use {@link TinkerEffects#enderference} */
+  @Deprecated(forRemoval = true)
+  public static final RegistryObject<TinkerEffect> enderferenceEffect = TinkerEffects.enderference;
+  /** @deprecated use {@link TinkerEffects#selfDestructing} */
+  @Deprecated(forRemoval = true)
+  public static final RegistryObject<TinkerEffect> selfDestructiveEffect = TinkerEffects.selfDestructing;
+  /** @deprecated use {@link TinkerEffects#pierce} */
+  @Deprecated(forRemoval = true)
+  public static final RegistryObject<TinkerEffect> pierceEffect = TinkerEffects.pierce;
+  // cooldown
   public static final RegistryObject<TinkerEffect> teleportCooldownEffect = MOB_EFFECTS.register("teleport_cooldown", () -> new NoMilkEffect(MobEffectCategory.HARMFUL, 0xCC00FA, true));
   public static final RegistryObject<TinkerEffect> fireballCooldownEffect = MOB_EFFECTS.register("fireball_cooldown", () -> new NoMilkEffect(MobEffectCategory.HARMFUL, 0xFC9600, true));
+  // internal
   public static final RegistryObject<TinkerEffect> calcifiedEffect = MOB_EFFECTS.register("calcified", () -> new NoMilkEffect(MobEffectCategory.BENEFICIAL, -1, true));
-  public static final RegistryObject<TinkerEffect> selfDestructiveEffect = MOB_EFFECTS.register("self_destructing", SelfDestructiveEffect::new);
-  public static final RegistryObject<TinkerEffect> pierceEffect = MOB_EFFECTS.register("pierce", () -> new NoMilkEffect(MobEffectCategory.HARMFUL, 0xD1D37A, true).addAttributeModifier(Attributes.ARMOR, "cd45be7c-c86f-4a7e-813b-42a44a054f44", -1, Operation.ADDITION));
   // markers
   public static final EnumObject<ToolType,TinkerEffect> momentumEffect = MOB_EFFECTS.registerEnum("momentum", ToolType.NO_MELEE, type -> new NoMilkEffect(MobEffectCategory.BENEFICIAL, 0x60496b, true));
   public static final EnumObject<ToolType,TinkerEffect> insatiableEffect = MOB_EFFECTS.registerEnum("insatiable", new ToolType[] {ToolType.MELEE, ToolType.RANGED, ToolType.ARMOR}, type -> {
@@ -563,10 +579,12 @@ public final class TinkerModifiers extends TinkerModule {
       FluidEffect.ENTITY_EFFECTS.register(getResource("alternatives"), AlternativesFluidEffect.ENTITY_LOADER);
       FluidEffect.BLOCK_EFFECTS.register(getResource("sequence"), SequenceFluidEffect.BLOCK_LOADER);
       FluidEffect.ENTITY_EFFECTS.register(getResource("sequence"), SequenceFluidEffect.ENTITY_LOADER);
+      FluidEffect.BLOCK_EFFECTS.register(getResource("offset"), OffsetBlockFluidEffect.LOADER);
       // simple
       FluidEffect.ENTITY_EFFECTS.register(getResource("calcified"), StrongBonesModifier.FLUID_EFFECT.getLoader());
       FluidEffect.ENTITY_EFFECTS.register(getResource("extinguish"), FluidEffect.EXTINGUISH_FIRE.getLoader());
       FluidEffect.ENTITY_EFFECTS.register(getResource("teleport"), FluidEffect.TELEPORT.getLoader());
+      FluidEffect.BLOCK_EFFECTS.register(getResource("weather"), FluidEffect.WEATHER.getLoader());
       // potions
       FluidEffect.ENTITY_EFFECTS.register(getResource("cure_effects"), CureEffectsFluidEffect.LOADER);
       FluidEffect.ENTITY_EFFECTS.register(getResource("remove_effect"), RemoveEffectFluidEffect.LOADER);
@@ -584,6 +602,7 @@ public final class TinkerModifiers extends TinkerModule {
       // block
       FluidEffect.BLOCK_EFFECTS.register(getResource("place_block"), PlaceBlockFluidEffect.LOADER);
       FluidEffect.BLOCK_EFFECTS.register(getResource("break_block"), BreakBlockFluidEffect.LOADER);
+      FluidEffect.BLOCK_EFFECTS.register(getResource("remove_block"), FluidEffect.REMOVE_BLOCK.getLoader());
       FluidEffect.BLOCK_EFFECTS.register(getResource("mob_effect_cloud"), MobEffectCloudFluidEffect.LOADER);
       FluidEffect.BLOCK_EFFECTS.register(getResource("potion_cloud"), PotionCloudFluidEffect.LOADER);
       FluidEffect.BLOCK_EFFECTS.register(getResource("move_block"), MoveBlocksFluidEffect.LOADER);
@@ -591,6 +610,8 @@ public final class TinkerModifiers extends TinkerModule {
       // shared
       FluidEffect.registerGeneral(getResource("drop_item"), DropItemFluidEffect.LOADER);
       FluidEffect.registerGeneral(getResource("explosion"), ExplosionFluidEffect.LOADER);
+      FluidEffect.registerGeneral(getResource("set_block"), SetBlockFluidEffect.LOADER);
+      FluidEffect.registerGeneral(getResource("area_mob_effect"), AreaMobEffectFluidEffect.LOADER);
 
 
       // modifier names, sometimes I wonder if I have too many registries for tiny JSON pieces

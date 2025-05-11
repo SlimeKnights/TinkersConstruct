@@ -1,0 +1,24 @@
+{
+  "condition": {
+    "type": "forge:or",
+    "values": [
+      {
+        "type": "tconstruct:config",
+        "prop": "force_integration_materials"
+      },
+      {
+        "type": "mantle:tag_filled",
+        "tag": "forge:treated_wood"
+      },
+      {
+        "type": "mantle:tag_filled",
+        "registry": "minecraft:fluid",
+        "tag": "forge:creosote"
+      }
+    ]
+  },
+  "craftable": true,
+  "hidden": false,
+  "sortOrder": 5,
+  "tier": 2
+}

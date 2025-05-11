@@ -1,0 +1,29 @@
+{
+  "type": "tconstruct:swappable_modifier",
+  "allow_crystal": false,
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "tag": "forge:treated_wood"
+    }
+  ],
+  "inputs": [
+    {
+      "tag": "forge:treated_wood"
+    },
+    {
+      "item": "tconstruct:pattern"
+    },
+    {
+      "tag": "forge:treated_wood"
+    }
+  ],
+  "result": {
+    "name": "tconstruct:embellishment",
+    "value": "tconstruct:treated_wood"
+  },
+  "tools": {
+    "tag": "tconstruct:modifiable/embellishment/wood"
+  },
+  "variant_formatter": "tconstruct:material"
+}

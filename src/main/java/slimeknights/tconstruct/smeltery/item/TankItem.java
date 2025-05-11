@@ -112,6 +112,7 @@ public class TankItem extends BlockTooltipItem {
           ItemStack result = FluidTransferHelper.interactWithTankSlot(tank, slotStack, TransferDirection.REVERSE);
           // update held tank and slot item if something changed (either we have a result or the stack in the slot was shrunk)
           if (!result.isEmpty() || slotStack.isEmpty()) {
+            slot.set(FluidTransferHelper.getOrTransferFilled(player, slotStack, result));
             if (held.getCount() == 1) {
               setTank(held, tank);
             } else {
@@ -122,7 +123,6 @@ public class TankItem extends BlockTooltipItem {
                 player.drop(split, false);
               }
             }
-            slot.set(FluidTransferHelper.getOrTransferFilled(player, slotStack, result));
           }
         }
         return true;

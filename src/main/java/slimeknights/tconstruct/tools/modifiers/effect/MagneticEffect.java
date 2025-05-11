@@ -1,10 +1,12 @@
 package slimeknights.tconstruct.tools.modifiers.effect;
 
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.LivingEntity;
+import slimeknights.tconstruct.common.TinkerEffect;
 import slimeknights.tconstruct.tools.modifiers.upgrades.general.MagneticModifier;
 
-public class MagneticEffect extends NoMilkEffect {
+/** TODO 1.21: move to {@link slimeknights.tconstruct.shared.effect} */
+public class MagneticEffect extends TinkerEffect {
   public MagneticEffect() {
     super(MobEffectCategory.BENEFICIAL, 0x720000, false);
   }

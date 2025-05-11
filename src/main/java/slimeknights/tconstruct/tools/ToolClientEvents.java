@@ -66,6 +66,7 @@ import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.library.utils.HarvestTiers;
 import slimeknights.tconstruct.library.utils.Util;
 import slimeknights.tconstruct.shared.TinkerAttributes;
+import slimeknights.tconstruct.shared.TinkerEffects;
 import slimeknights.tconstruct.tools.client.CrystalshotRenderer;
 import slimeknights.tconstruct.tools.client.FluidEffectProjectileRenderer;
 import slimeknights.tconstruct.tools.client.OverslimeModifierModel;
@@ -264,7 +265,10 @@ public class ToolClientEvents extends ClientEventBase {
       // ensure we pressed the key since the last tick, holding should not use all your jumps at once
       boolean isJumping = minecraft.options.keyJump.isDown();
       if (!wasJumping && isJumping) {
-        if (DoubleJumpHandler.extraJump(event.player)) {
+        if (TinkerEffects.antigravity.get().antigravityJump(event.player)) {
+          TinkerNetwork.getInstance().sendToServer(TinkerControlPacket.ANTIGRAVITY_JUMP);
+        }
+        else if (DoubleJumpHandler.extraJump(event.player)) {
           TinkerNetwork.getInstance().sendToServer(TinkerControlPacket.DOUBLE_JUMP);
         }
       }

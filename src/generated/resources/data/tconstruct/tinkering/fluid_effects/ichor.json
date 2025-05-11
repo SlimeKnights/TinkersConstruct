@@ -8,9 +8,9 @@
     {
       "type": "tconstruct:mob_effect",
       "action": "add",
-      "effect": "minecraft:levitation",
+      "effect": "minecraft:slow_falling",
       "level": 1,
-      "time": 100
+      "time": 140
     },
     {
       "type": "tconstruct:mob_effect",

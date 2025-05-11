@@ -174,10 +174,16 @@ public class FluidEffectProjectile extends Projectile {
       }
       velocity = velocity.scale(0.99f);
       if (!this.isNoGravity()) {
-        velocity = velocity.add(0, -0.06, 0);
+        FluidStack fluid = getFluid();
+        velocity = velocity.add(0, fluid.getFluid().getFluidType().isLighterThanAir() ? 0.06 : -0.06, 0);
       }
       this.setDeltaMovement(velocity);
       this.setPos(newLocation);
+    }
+    // if the projectile moves above the world, delete it
+    // only likely to happen for lighter than air fluids
+    if (getY() > level().getMaxBuildHeight() + 64) {
+      this.discard();
     }
   }
 

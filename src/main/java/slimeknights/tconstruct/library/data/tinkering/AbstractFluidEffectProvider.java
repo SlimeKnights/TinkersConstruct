@@ -10,6 +10,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.PackOutput.Target;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.LivingEntity;
@@ -18,9 +19,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.conditions.ICondition;
+import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
 import net.minecraftforge.common.crafting.conditions.OrCondition;
 import net.minecraftforge.fluids.FluidStack;
-import slimeknights.mantle.Mantle;
 import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.predicate.entity.LivingEntityPredicate;
@@ -35,6 +36,7 @@ import slimeknights.tconstruct.library.modifiers.fluid.FluidEffectManager;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffects;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidMobEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.TimeAction;
+import slimeknights.tconstruct.library.modifiers.fluid.block.OffsetBlockFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.block.PlaceBlockFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.DamageFluidEffect;
 import slimeknights.tconstruct.library.modifiers.fluid.entity.DamageFluidEffect.DamageTypePair;
@@ -48,6 +50,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
+
+import static slimeknights.mantle.Mantle.commonResource;
 
 /** Data provider for spilling fluids */
 @SuppressWarnings("deprecation")  // fluid registry is ours to use, not yours forge
@@ -66,7 +70,7 @@ public abstract class AbstractFluidEffectProvider extends GenericDataProvider {
   @Override
   public CompletableFuture<?> run(CachedOutput cache) {
     addFluids();
-    return allOf(entries.entrySet().stream().map(entry -> saveJson(cache, entry.getKey(), entry.getValue().build())));
+    return allOf(entries.entrySet().stream().map(entry -> saveJson(cache, entry.getKey(), entry.getValue().build(entry.getKey()))));
   }
 
   /* Helpers */
@@ -125,9 +129,23 @@ public abstract class AbstractFluidEffectProvider extends GenericDataProvider {
   }
 
   /** Adds a conditional fluid effect */
-  @SuppressWarnings("SameParameterValue")  // its an API
   protected Builder compatFluid(TagKey<Fluid> fluid, int amount) {
     return addFluid(fluid, amount).addCondition(new TagFilledCondition<>(fluid));
+  }
+
+  /** Adds a conditional fluid effect */
+  protected Builder compatFluid(String name, int amount) {
+    return compatFluid(FluidTags.create(commonResource(name)), amount);
+  }
+
+  /** Adds a conditional fluid effect */
+  protected Builder compatFluid(String modId, TagKey<Fluid> fluid, int amount) {
+    return addFluid(fluid, amount).addCondition(new ModLoadedCondition(modId));
+  }
+
+  /** Adds a conditional fluid effect */
+  protected Builder compatFluid(String modId, String name, int amount) {
+    return compatFluid(modId, FluidTags.create(commonResource(name)), amount);
   }
 
   /** Builder for a metal based fluid */
@@ -205,7 +223,7 @@ public abstract class AbstractFluidEffectProvider extends GenericDataProvider {
       ICondition[] conditions = new ICondition[names.length + 1];
       conditions[0] = ConfigEnabledCondition.FORCE_INTEGRATION_MATERIALS;
       for (int i = 0; i < names.length; i++) {
-        conditions[i+1] = new TagFilledCondition<>(ItemTags.create(Mantle.commonResource("ingots/" + names[i])));
+        conditions[i+1] = new TagFilledCondition<>(ItemTags.create(commonResource("ingots/" + names[i])));
       }
       return addCondition(new OrCondition(conditions));
     }
@@ -214,6 +232,11 @@ public abstract class AbstractFluidEffectProvider extends GenericDataProvider {
     public Builder addBlockEffect(FluidEffect<? super FluidEffectContext.Block> effect) {
       blockEffects.add(effect);
       return this;
+    }
+
+    /** Adds an offset effect to the given fluid */
+    public Builder offsetBlockEffect(FluidEffect<? super FluidEffectContext.Block> effect) {
+      return addBlockEffect(new OffsetBlockFluidEffect(effect));
     }
 
     /** Adds an effect to the given fluid */
@@ -249,9 +272,14 @@ public abstract class AbstractFluidEffectProvider extends GenericDataProvider {
       return this;
     }
 
-    /** Adds an effect to the given fluid that only matches if the entity matches the predicate */
+    /** Adds an effect to the given fluid that only matches if the block matches the predicate */
     public Builder addBlockEffect(IJsonPredicate<BlockState> predicate, FluidEffect<? super FluidEffectContext.Block> effect) {
       return addBlockEffect(new ConditionalFluidEffect.Block(predicate, effect));
+    }
+
+    /** Adds an offset effect to the given fluid that only matches if the block matches the offset predicate */
+    public Builder offsetBlockEffect(IJsonPredicate<BlockState> predicate, FluidEffect<? super FluidEffectContext.Block> effect) {
+      return offsetBlockEffect(new ConditionalFluidEffect.Block(predicate, effect));
     }
 
     /** Adds an effect to the given fluid that only matches if the entity matches the predicate */
@@ -304,7 +332,7 @@ public abstract class AbstractFluidEffectProvider extends GenericDataProvider {
 
     /** Builds the instance */
     @CheckReturnValue
-    private JsonObject build() {
+    private JsonObject build(ResourceLocation id) {
       JsonObject json = new JsonObject();
       if (!conditions.isEmpty()) {
         json.add("conditions", CraftingHelper.serialize(conditions.toArray(new ICondition[0])));
@@ -312,7 +340,12 @@ public abstract class AbstractFluidEffectProvider extends GenericDataProvider {
       if (blockEffects.isEmpty() && entityEffects.isEmpty()) {
         throw new IllegalStateException("Must have at least 1 effect");
       }
-      FluidEffects.LOADABLE.serialize(new FluidEffects(ingredient, blockEffects, entityEffects, hidden), json);
+      FluidEffects effects = new FluidEffects(ingredient, blockEffects, entityEffects, hidden);
+      try {
+        FluidEffects.LOADABLE.serialize(effects, json);
+      } catch (Exception e) {
+        throw new RuntimeException("Error serializing fluid effect ID " + id + " with value " + effects, e);
+      }
       return json;
     }
   }

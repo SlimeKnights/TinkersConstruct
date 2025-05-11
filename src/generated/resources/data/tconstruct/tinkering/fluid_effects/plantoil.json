@@ -1,0 +1,29 @@
+{
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "registry": "minecraft:fluid",
+      "tag": "forge:plantoil"
+    }
+  ],
+  "entity_effects": [
+    {
+      "type": "tconstruct:restore_hunger",
+      "can_always_eat": true,
+      "hunger": 1,
+      "representative_item": "minecraft:wheat_seeds",
+      "saturation": 1.0
+    },
+    {
+      "type": "tconstruct:mob_effect",
+      "action": "add",
+      "effect": "minecraft:nausea",
+      "level": 1,
+      "time": 100
+    }
+  ],
+  "fluid": {
+    "amount": 50,
+    "tag": "forge:plantoil"
+  }
+}

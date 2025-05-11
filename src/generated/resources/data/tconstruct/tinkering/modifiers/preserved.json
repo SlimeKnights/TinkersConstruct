@@ -1,0 +1,16 @@
+{
+  "level_display": "tconstruct:default",
+  "modules": [
+    {
+      "type": "tconstruct:stat_boost",
+      "each_level": 0.15,
+      "operation": "multiply_base",
+      "stat": "tconstruct:durability"
+    },
+    {
+      "type": "tconstruct:repair",
+      "each_level": 0.15
+    }
+  ],
+  "tooltip_display": "always"
+}

@@ -182,6 +182,10 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .ranged().armor()
       .fallbacks("metal")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF777B7C).addARGB(102, 0xFF818587).addARGB(140, 0xFF909698).addARGB(178, 0xFF999FA2).addARGB(216, 0xFFB2BABC).addARGB(255, 0xFFC5CDD0).build());
+    buildMaterial(MaterialIds.treatedWood)
+      .meleeHarvest().ranged().shieldCore().statType(WOOD)
+      .fallbacks("wood", "stick", "primitive")
+      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF362015).addARGB(102, 0xFF402215).addARGB(140, 0xFF492A1B).addARGB(178, 0xFF55311F).addARGB(216, 0xFF5C3523).addARGB(234, 0xFF673C29).addARGB(255, 0xFF72422D).build());
     // tier 2 - slimewood
     buildPlanks(MaterialIds.greenheart)
       .fallbacks("slime_wood", "wood", "stick", "primitive")

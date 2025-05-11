@@ -75,6 +75,7 @@ import slimeknights.tconstruct.smeltery.block.CastingTableBlock;
 import slimeknights.tconstruct.smeltery.block.ChannelBlock;
 import slimeknights.tconstruct.smeltery.block.FaucetBlock;
 import slimeknights.tconstruct.smeltery.block.FluidCannonBlock;
+import slimeknights.tconstruct.smeltery.block.ProxyTankBlock;
 import slimeknights.tconstruct.smeltery.block.SearedLanternBlock;
 import slimeknights.tconstruct.smeltery.block.component.RetexturedOrientableSmelteryBlock;
 import slimeknights.tconstruct.smeltery.block.component.SearedBlock;
@@ -99,6 +100,7 @@ import slimeknights.tconstruct.smeltery.block.entity.FaucetBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.FluidCannonBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.HeaterBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.LanternBlockEntity;
+import slimeknights.tconstruct.smeltery.block.entity.ProxyTankBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.component.DrainBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.component.DuctBlockEntity;
 import slimeknights.tconstruct.smeltery.block.entity.component.SmelteryComponentBlockEntity;
@@ -245,6 +247,7 @@ public final class TinkerSmeltery extends TinkerModule {
   public static final ItemObject<ChannelBlock> scorchedChannel = BLOCKS.register("scorched_channel", () -> new ChannelBlock(SCORCHED_NON_SOLID), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<CastingBasinBlock> scorchedBasin = BLOCKS.register("scorched_basin", () -> new CastingBasinBlock(SCORCHED_NON_SOLID, true), TOOLTIP_BLOCK_ITEM);
   public static final ItemObject<CastingTableBlock> scorchedTable = BLOCKS.register("scorched_table", () -> new CastingTableBlock(SCORCHED_NON_SOLID, true), TOOLTIP_BLOCK_ITEM);
+  public static final ItemObject<ProxyTankBlock> scorchedProxyTank = BLOCKS.register("scorched_proxy_tank", () -> new ProxyTankBlock(SCORCHED_NON_SOLID), TOOLTIP_BLOCK_ITEM);
   // utility
   public static final ItemObject<FluidCannonBlock> searedFluidCannon = BLOCKS.register("seared_fluid_cannon", () -> new FluidCannonBlock(SEARED_NON_SOLID, FluidType.BUCKET_VOLUME * 2, 1.0f, 1.1f, 6.0f), b -> new TankItem(b, ITEM_PROPS, true));
   public static final ItemObject<FluidCannonBlock> scorchedFluidCannon = BLOCKS.register("scorched_fluid_cannon", () -> new FluidCannonBlock(SCORCHED_NON_SOLID, FluidType.BUCKET_VOLUME * 2, 2.0f, 1.5f, 7.0f), b -> new TankItem(b, ITEM_PROPS, true));
@@ -304,6 +307,7 @@ public final class TinkerSmeltery extends TinkerModule {
   // casting
   public static final RegistryObject<BlockEntityType<CastingBlockEntity>> basin = BLOCK_ENTITIES.register("basin", CastingBlockEntity.Basin::new, set -> set.add(searedBasin.get(), scorchedBasin.get()));
   public static final RegistryObject<BlockEntityType<CastingBlockEntity>> table = BLOCK_ENTITIES.register("table", CastingBlockEntity.Table::new, set -> set.add(searedTable.get(), scorchedTable.get()));
+  public static final RegistryObject<BlockEntityType<ProxyTankBlockEntity>> proxyTank = BLOCK_ENTITIES.register("proxy_tank", ProxyTankBlockEntity::new, scorchedProxyTank);
 
   /*
    * Items
@@ -472,6 +476,8 @@ public final class TinkerSmeltery extends TinkerModule {
     output.accept(searedBasin);
     output.accept(scorchedBasin);
     output.accept(TinkerCommons.goldPlatform, TabVisibility.PARENT_TAB_ONLY);
+    // TODO: casting tank goes here
+    output.accept(scorchedProxyTank);
 
     // cannons
     output.accept(searedFluidCannon);

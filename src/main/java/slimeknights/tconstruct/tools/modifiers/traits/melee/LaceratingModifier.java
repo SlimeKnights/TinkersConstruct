@@ -18,9 +18,9 @@ import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
 import slimeknights.tconstruct.library.tools.context.EquipmentContext;
 import slimeknights.tconstruct.library.tools.context.ToolAttackContext;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
-import slimeknights.tconstruct.tools.TinkerModifiers;
+import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
+import slimeknights.tconstruct.shared.TinkerEffects;
 
 import javax.annotation.Nullable;
 
@@ -29,7 +29,7 @@ public class LaceratingModifier extends Modifier implements ProjectileHitModifie
   private static void applyEffect(LivingEntity target, int level) {
     // potions are 0 indexed instead of 1 indexed
     // 81 ticks will do about 5 damage at level 1
-    TinkerModifiers.bleeding.get().apply(target, 1 + 20 * (2 + (RANDOM.nextInt(level + 3))), level - 1, true);
+    TinkerEffects.bleeding.get().apply(target, 1 + 20 * (2 + (RANDOM.nextInt(level + 3))), level - 1, true);
   }
 
   @Override

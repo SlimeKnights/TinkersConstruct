@@ -1,0 +1,42 @@
+{
+  "block_effects": [
+    {
+      "type": "tconstruct:place_block",
+      "block": "minecraft:fire",
+      "sound": "minecraft:item.firecharge.use"
+    }
+  ],
+  "conditions": [
+    {
+      "type": "mantle:tag_filled",
+      "registry": "minecraft:fluid",
+      "tag": "forge:acetaldehyde"
+    }
+  ],
+  "entity_effects": [
+    {
+      "type": "tconstruct:conditional",
+      "effect": {
+        "type": "tconstruct:damage",
+        "damage": 3.0,
+        "damage_type": {
+          "melee": "tconstruct:fluid_fire_melee",
+          "ranged": "tconstruct:fluid_fire_ranged"
+        }
+      },
+      "target": {
+        "type": "mantle:inverted",
+        "inverted_type": "mantle:fire_immune"
+      }
+    },
+    {
+      "type": "tconstruct:fire",
+      "action": "add",
+      "time": 6
+    }
+  ],
+  "fluid": {
+    "amount": 50,
+    "tag": "forge:acetaldehyde"
+  }
+}

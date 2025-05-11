@@ -3,6 +3,7 @@ package slimeknights.tconstruct.library.json.predicate;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArrowItem;
+import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour.BlockStateBase;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.data.predicate.IJsonPredicate;
@@ -30,6 +31,10 @@ public class TinkerPredicate {
 
   /** Predicate matching blocks that block motion */
   public static BlockPredicate BLOCKS_MOTION = BlockPredicate.simple(BlockStateBase::blocksMotion);
+  /** Predicate matching blocks that can be replaced when placing blocks */
+  public static BlockPredicate CAN_BE_REPLACED = BlockPredicate.simple(BlockStateBase::canBeReplaced);
+  /** Predicate matching bush blocks */
+  public static BlockPredicate BUSH = BlockPredicate.simple(state -> state.getBlock() instanceof BushBlock);
   /** Predicate matching meltable blocks */
   public static BlockPredicate CAN_MELT_BLOCK = BlockPredicate.simple(state -> MeltingRecipeLookup.canMelt(state.getBlock()));
   /** Predicate matching meltable items */

@@ -9,6 +9,7 @@ import net.minecraft.world.item.Items;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.fluid.FluidEffect;
@@ -38,7 +39,7 @@ public class StrongBonesModifier extends NoLevelsModifier {
     hookBuilder.addModule(CureOnRemovalModule.HELMET);
   }
 
-  private static boolean drinkMilk(LivingEntity living, int duration) {
+  private static boolean drinkMilk(LivingEntity living, int duration, FluidAction action) {
     // strong bones has to be the helmet as we use it for curing
     // TODO 1.20: can use the new cure effects to make this work in any slot
     ItemStack helmet = living.getItemBySlot(EquipmentSlot.HEAD);
@@ -47,10 +48,16 @@ public class StrongBonesModifier extends NoLevelsModifier {
       MobEffectInstance effect = new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, duration);
       effect.getCurativeItems().clear();
       effect.getCurativeItems().add(new ItemStack(helmet.getItem()));
-      didSomething = living.addEffect(effect);
+      // on simulate, don't apply the effect, just ask if we can apply
+      didSomething = action.execute() ? living.addEffect(effect) : living.canBeAffected(effect);
+      // quick exit on simulate: no more information needed
+      if (didSomething && action.simulate()) {
+        return true;
+      }
     }
     if (ArmorLevelModule.getLevel(living, CALCIFIABLE) > 0) {
-      didSomething |= living.addEffect(new MobEffectInstance(TinkerModifiers.calcifiedEffect.get(), duration, 0));
+      MobEffectInstance effect = new MobEffectInstance(TinkerModifiers.calcifiedEffect.get(), duration, 0);
+      didSomething |= action.execute() ? living.addEffect(effect) : living.canBeAffected(effect);
     }
     return didSomething;
   }
@@ -59,7 +66,7 @@ public class StrongBonesModifier extends NoLevelsModifier {
   private static void onItemFinishUse(LivingEntityUseItemEvent.Finish event) {
     LivingEntity living = event.getEntity();
     if (event.getItem().getItem() == Items.MILK_BUCKET) {
-      drinkMilk(living, 1200);
+      drinkMilk(living, 1200, FluidAction.EXECUTE);
     }
   }
 
@@ -70,7 +77,7 @@ public class StrongBonesModifier extends NoLevelsModifier {
   public static final FluidEffect<FluidEffectContext.Entity> FLUID_EFFECT = FluidEffect.simple((fluid, scale, context, action) -> {
     LivingEntity target = context.getLivingTarget();
     // while we could scale, doing it flat ensures we don't charge extra
-    if (target != null && drinkMilk(target, (int)(20*10 * scale.value()))) {
+    if (target != null && drinkMilk(target, (int)(20*10 * scale.value()), action)) {
       return scale.value();
     }
     return 0;

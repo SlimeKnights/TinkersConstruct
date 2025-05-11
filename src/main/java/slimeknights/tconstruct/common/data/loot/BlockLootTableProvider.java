@@ -304,6 +304,7 @@ public class BlockLootTableProvider extends BlockLootSubProvider {
     // casting
     this.dropSelf(TinkerSmeltery.scorchedBasin.get());
     this.dropSelf(TinkerSmeltery.scorchedTable.get());
+    this.dropSelf(TinkerSmeltery.scorchedProxyTank.get());
   }
 
 

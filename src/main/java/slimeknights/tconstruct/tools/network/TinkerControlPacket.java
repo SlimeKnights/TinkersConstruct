@@ -7,6 +7,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraftforge.network.NetworkEvent.Context;
 import slimeknights.mantle.client.TooltipKey;
 import slimeknights.mantle.network.packet.IThreadsafePacket;
+import slimeknights.tconstruct.shared.TinkerEffects;
 import slimeknights.tconstruct.tools.logic.DoubleJumpHandler;
 import slimeknights.tconstruct.tools.logic.InteractionHandler;
 
@@ -16,6 +17,7 @@ import slimeknights.tconstruct.tools.logic.InteractionHandler;
 @RequiredArgsConstructor
 public enum TinkerControlPacket implements IThreadsafePacket {
   DOUBLE_JUMP,
+  ANTIGRAVITY_JUMP,
   // helmet
   START_HELMET_INTERACT(TooltipKey.NORMAL),
   START_HELMET_INTERACT_SHIFT(TooltipKey.SHIFT),
@@ -70,6 +72,7 @@ public enum TinkerControlPacket implements IThreadsafePacket {
     if (player != null) {
       switch (this) {
         case DOUBLE_JUMP -> DoubleJumpHandler.extraJump(player);
+        case ANTIGRAVITY_JUMP -> TinkerEffects.antigravity.get().antigravityJump(player);
         case START_HELMET_INTERACT, START_HELMET_INTERACT_SHIFT, START_HELMET_INTERACT_CONTROL, START_HELMET_INTERACT_ALT
           -> InteractionHandler.startArmorInteract(player, EquipmentSlot.HEAD, this.modifier);
         case STOP_HELMET_INTERACT -> InteractionHandler.stopArmorInteract(player, EquipmentSlot.HEAD);

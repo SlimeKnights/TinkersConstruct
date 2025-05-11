@@ -136,7 +136,9 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
         ItemLike grass = TinkerWorld.slimeTallGrass.get(foliage);
         ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, cake)
                            .define('M', slime != null ? TinkerFluids.slime.get(slime).getBucket() : TinkerFluids.honey.asItem())
-                           .define('S', foliage.isNether() ? Ingredient.of(Tags.Items.DUSTS_GLOWSTONE) : Ingredient.of(Items.SUGAR))
+                           .define('S', foliage.isNether()
+                             ? Ingredient.of(Tags.Items.DUSTS_GLOWSTONE)
+                             : foliage == FoliageType.ENDER ? Ingredient.of(Tags.Items.DUSTS_REDSTONE) : Ingredient.of(Items.SUGAR))
                            .define('E', Items.EGG)
                            .define('W', TinkerWorld.slimeTallGrass.get(foliage))
                            .pattern("MMM").pattern("SES").pattern("WWW")
@@ -144,6 +146,14 @@ public class GadgetRecipeProvider extends BaseRecipeProvider {
                            .save(consumer, location(cakeFolder + foliage.getSerializedName()));
       }
     });
+    ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, TinkerGadgets.cake.get(FoliageType.ICHOR))
+      .define('M', TinkerFluids.ichor)
+      .define('S', Ingredient.of(Tags.Items.DUSTS_GLOWSTONE))
+      .define('E', Items.EGG)
+      .define('W', Blocks.WARPED_ROOTS) // TODO: switch to ichor foliage one day
+      .pattern("WWW").pattern("SES").pattern("MMM")
+      .unlockedBy("has_slime", has(TinkerFluids.ichor))
+      .save(consumer, location(cakeFolder + "ichor"));
     Item bucket = TinkerFluids.magma.asItem();
     ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, TinkerGadgets.magmaCake)
                        .define('M', bucket)

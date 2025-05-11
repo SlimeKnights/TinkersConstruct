@@ -127,6 +127,10 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
                      new HeadMaterialStats(200, 5f, IRON, 2.5f),
                      HandleMaterialStats.multipliers().durability(0.9f).attackSpeed(0.95f).attackDamage(1.15f).build(),
                      StatlessMaterialStats.BINDING);
+    addMaterialStats(MaterialIds.treatedWood,
+      new HeadMaterialStats(300, 3.5f, IRON, 1.5f),
+      HandleMaterialStats.multipliers().durability(1.2f).attackSpeed(0.9f).miningSpeed(0.9f).build(),
+      StatlessMaterialStats.BINDING);
 
     // tier 3
     // vanilla diamond: 1561, 8f, DIAMOND, 3f
@@ -274,6 +278,9 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addMaterialStats(MaterialIds.lead,
                      new LimbMaterialStats(200, -0.3f, 0.15f, -0.05f),
                      new GripMaterialStats(-0.1f, -0.1f, 2.5f));
+    addMaterialStats(MaterialIds.treatedWood,
+      new LimbMaterialStats(300, 0.05f, -0.1f, 0.05f),
+      new GripMaterialStats(0.3f, -0.15f, 1.5f));
 
     // tier 3
     addMaterialStats(MaterialIds.slimesteel,
@@ -359,6 +366,7 @@ public class MaterialStatsDataProvider extends AbstractMaterialStatsDataProvider
     addArmorShieldStats(MaterialIds.aluminum, PlatingMaterialStats.builder().durabilityFactor(13).armor(1, 3, 4, 1).knockbackResistance(0.1f), StatlessMaterialStats.MAILLE);
     addArmorShieldStats(MaterialIds.silver,   PlatingMaterialStats.builder().durabilityFactor(18).armor(1, 4, 5, 2).knockbackResistance(0.05f), StatlessMaterialStats.MAILLE);
     addArmorShieldStats(MaterialIds.lead,     PlatingMaterialStats.builder().durabilityFactor(12).armor(1, 3, 4, 2).knockbackResistance(0.05f), StatlessMaterialStats.MAILLE);
+    addMaterialStats(MaterialIds.treatedWood, StatlessMaterialStats.SHIELD_CORE);
     // tier 3
     addMaterialStats(MaterialIds.nahuatl, StatlessMaterialStats.SHIELD_CORE);
     addArmorShieldStats(MaterialIds.slimesteel,     PlatingMaterialStats.builder().durabilityFactor(40).armor(2, 5, 6, 2), StatlessMaterialStats.MAILLE);

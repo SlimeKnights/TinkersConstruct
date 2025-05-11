@@ -526,6 +526,9 @@ public class ItemTagProvider extends ItemTagsProvider {
         .addTag(TinkerTags.Items.SEARED_TANKS)
         .addTag(TinkerTags.Items.SCORCHED_TANKS);
 
+    // blacklist for proxy tank - mostly to encourage you to use the better suited casting tank
+    this.tag(TinkerTags.Items.PROXY_TANK_BLACKLIST).add(Items.BUCKET, Items.GLASS_BOTTLE, Items.BOWL, TinkerSmeltery.copperCan.get());
+
     // melting tags //
     // ores
     moltenTools(TinkerFluids.moltenCopper).add(1, Items.BRUSH).toolTags().toolsComplement();

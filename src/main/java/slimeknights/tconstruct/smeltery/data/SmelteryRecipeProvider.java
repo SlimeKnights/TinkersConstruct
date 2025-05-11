@@ -760,6 +760,15 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                        .pattern("# #")
                        .unlockedBy("has_item", has(TinkerSmeltery.scorchedBrick))
                        .save(consumer, location(folder + "table"));
+    ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, TinkerSmeltery.scorchedProxyTank.get())
+      .define('#', TinkerSmeltery.scorchedBrick)
+      .define('G', Tags.Items.GEMS_QUARTZ)
+      .define('C', TinkerCommons.obsidianPane)
+      .pattern("#G#")
+      .pattern("CGC")
+      .pattern("#G#")
+      .unlockedBy("has_item", has(TinkerCommons.obsidianPane))
+      .save(consumer, location(folder + "proxy_tank"));
 
 
     // peripherals
@@ -900,6 +909,11 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                         .save(consumer, location(meltingFolder + "faucet"));
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.scorchedBasin, TinkerSmeltery.scorchedTable), TinkerFluids.scorchedStone, FluidValues.BRICK * 7, 2.5f)
                         .save(consumer, location(meltingFolder + "casting"));
+    MeltingRecipeBuilder.melting(Ingredient.of(TinkerSmeltery.scorchedProxyTank), TinkerFluids.moltenObsidian, FluidValues.GLASS_PANE * 2, 2.5f)
+      .addByproduct(TinkerFluids.scorchedStone.result(FluidValues.BRICK * 4))
+      .addByproduct(TinkerFluids.moltenQuartz.result(FluidValues.GEM * 3))
+      .save(consumer, location(meltingFolder + "proxy_tank"));
+
     // tanks
     MeltingRecipeBuilder.melting(NoContainerIngredient.of(TinkerSmeltery.scorchedTank.get(TankType.FUEL_TANK)), TinkerFluids.scorchedStone, FluidValues.BRICK * 8, 3f)
                         .addByproduct(TinkerFluids.moltenQuartz.result(FluidValues.GEM))
@@ -2118,11 +2132,13 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
                             .save(createConsumer, location(folder + "create/andesite_alloy_zinc"));
 
     // immersive engineering - casting treated wood
-    ItemCastingRecipeBuilder.basinRecipe(ItemNameOutput.fromName(new ResourceLocation("immersiveengineering", "treated_wood_horizontal")))
+    String treatedWood = "treated_wood";
+    TagKey<Fluid> creosote = getFluidTag(COMMON, "creosote");
+    ItemCastingRecipeBuilder.basinRecipe(ItemOutput.fromTag(getItemTag(COMMON, treatedWood)))
                             .setCast(ItemTags.PLANKS, true)
-                            .setFluid(TagKey.create(Registries.FLUID, commonResource("creosote")), 125)
+                            .setFluid(creosote, 125)
                             .setCoolingTime(100)
-                            .save(withCondition(consumer, new ModLoadedCondition("immersiveengineering")), location(folder + "immersiveengineering/treated_wood"));
+                            .save(withCondition(consumer, tagCondition(treatedWood), new TagFilledCondition<>(creosote)), location(folder + "treated_wood"));
 
     // ceramics compat: a lot of melting and some casting
     String ceramics = "ceramics";

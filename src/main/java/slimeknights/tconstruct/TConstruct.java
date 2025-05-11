@@ -60,6 +60,7 @@ import slimeknights.tconstruct.plugin.jsonthings.JsonThingsPlugin;
 import slimeknights.tconstruct.shared.TinkerAttributes;
 import slimeknights.tconstruct.shared.TinkerClient;
 import slimeknights.tconstruct.shared.TinkerCommons;
+import slimeknights.tconstruct.shared.TinkerEffects;
 import slimeknights.tconstruct.shared.TinkerMaterials;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
 import slimeknights.tconstruct.tables.TinkerTables;
@@ -106,6 +107,7 @@ public class TConstruct {
     // base
     bus.register(new TinkerCommons());
     bus.register(new TinkerMaterials());
+    bus.register(new TinkerEffects());
     bus.register(new TinkerFluids());
     bus.register(new TinkerGadgets());
     bus.register(new TinkerAttributes());

@@ -48,6 +48,7 @@ import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.utils.SlimeBounceHandler;
 import slimeknights.tconstruct.shared.TinkerAttributes;
+import slimeknights.tconstruct.shared.TinkerEffects;
 import slimeknights.tconstruct.tools.data.ModifierIds;
 import slimeknights.tconstruct.tools.modules.ranged.RestrictAngleModule;
 
@@ -173,14 +174,18 @@ public class ModifierEvents {
   @SuppressWarnings("removal")
   @SubscribeEvent
   static void onExperienceDrop(LivingExperienceDropEvent event) {
+    // boost entity experience if they are under the effects of experienced
+    LivingEntity entity = event.getEntity();
+    MobEffectInstance instance = entity.getEffect(TinkerEffects.experienced.get());
+    double armorMultiplier = 1 + (instance != null ? instance.getAmplifier() : 0);
+
     // always add armor boost, unfortunately no good way to stop shield stuff here
-    double armorMultiplier = 1;
     Player player = event.getAttackingPlayer();
     if (player != null) {
-      armorMultiplier = player.getAttributeValue(TinkerAttributes.EXPERIENCE_MULTIPLIER.get()) + ArmorStatModule.getStat(player, TinkerDataKeys.EXPERIENCE);
+      armorMultiplier *= player.getAttributeValue(TinkerAttributes.EXPERIENCE_MULTIPLIER.get()) + ArmorStatModule.getStat(player, TinkerDataKeys.EXPERIENCE);
     }
     // if the target was killed by an experienced arrow, use that level
-    float projectileBoost = event.getEntity().getCapability(TinkerDataCapability.CAPABILITY).resolve().map(data -> data.get(PROJECTILE_EXPERIENCE)).orElse(-1f);
+    float projectileBoost = entity.getCapability(TinkerDataCapability.CAPABILITY).resolve().map(data -> data.get(PROJECTILE_EXPERIENCE)).orElse(-1f);
     if (projectileBoost >= 0) {
       event.setDroppedExperience((int) (event.getDroppedExperience() * armorMultiplier + projectileBoost * 0.5));
       // experienced being zero means it was our arrow, but it was not modified with experienced. Being -1 means no projectile was involved, so boost by hand
