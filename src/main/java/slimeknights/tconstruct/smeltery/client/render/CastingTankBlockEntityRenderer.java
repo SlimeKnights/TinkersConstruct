@@ -38,14 +38,8 @@ public class CastingTankBlockEntityRenderer extends TankBlockEntityRenderer<Cast
     }
 
     // render renderItems
-    if (!renderItems.isEmpty()) {
-      ItemStack inputItem = tile.getItem(CastingTankBlockEntity.INPUT);
-      ItemStack outputItem = tile.getItem(CastingTankBlockEntity.OUTPUT);
-      if (!inputItem.isEmpty()) {
-        RenderingHelper.renderItem(matrixStack, buffer, inputItem, renderItems.get(0), combinedLightIn);
-      } else if (!outputItem.isEmpty()) {
-        RenderingHelper.renderItem(matrixStack, buffer, outputItem, renderItems.get(0), combinedLightIn);
-      }
+    for (int i = 0; i < renderItems.size(); i++) {
+      RenderingHelper.renderItem(matrixStack, buffer, tile.getItemHandler().getStackInSlot(i), renderItems.get(i), combinedLightIn);
     }
 
     // pop back rotation

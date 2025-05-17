@@ -39,13 +39,14 @@ import slimeknights.tconstruct.library.fluid.FluidTankAnimated;
 import slimeknights.tconstruct.library.utils.NBTTags;
 import slimeknights.tconstruct.shared.block.entity.TableBlockEntity;
 import slimeknights.tconstruct.smeltery.TinkerSmeltery;
+import slimeknights.tconstruct.smeltery.block.CastingTankBlock;
 import slimeknights.tconstruct.smeltery.block.entity.component.TankBlockEntity.ITankBlock;
 import slimeknights.tconstruct.smeltery.item.TankItem;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlockEntity, WorldlyContainer {
+public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlockEntity.ITankInventoryBlockEntity, WorldlyContainer {
   /** Max capacity for the tank */
   public static final int DEFAULT_CAPACITY = FluidType.BUCKET_VOLUME * 4;
   // slots
@@ -104,43 +105,43 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
    * Called from {@link slimeknights.tconstruct.smeltery.block.CastingTankBlock#use(BlockState, Level, BlockPos, Player, InteractionHand, BlockHitResult)}
    * @param player Player activating the block.
    */
-  public void interact(Player player, InteractionHand hand, BlockHitResult hit) {
+  public void interact(Player player, InteractionHand hand, boolean clickedTank) {
     // skip client side
     if (level == null || level.isClientSide) {
       return;
     }
 
-    ItemStack input = getItem(INPUT);
-    ItemStack output = getItem(OUTPUT);
-    ItemStack heldCopy = player.getItemInHand(hand).copy();
-
-    // if there is an item in the output slot, take it
-    if (!output.isEmpty()) {
-      setItem(OUTPUT, ItemStack.EMPTY);
-      ItemHandlerHelper.giveItemToPlayer(player, output, player.getInventory().selected);
-    // otherwise, interact with the tank
-    } else if (!FluidTransferHelper.interactWithTank(level, worldPosition, player, hand, hit)
-      // even if we did "interact" with the tank, still need to check whether the item actually changed
-      || ItemStack.isSameItemSameTags(heldCopy, player.getItemInHand(hand))) {
-
-      // if the tank wasn't interacted with, first try to place a held item in the input
+    // clicked tank? move fluid
+    if (clickedTank) {
+      if (!FluidTransferHelper.interactWithContainer(level, worldPosition, tank, player, hand).didTransfer()) {
+        FluidTransferHelper.interactWithFilledBucket(level, worldPosition, tank, player, hand, getBlockState().getValue(CastingTankBlock.FACING));
+      }
+    } else {
+      // did not click tank? swap items around
+      ItemStack input = getItem(INPUT);
+      ItemStack output = getItem(OUTPUT);
       ItemStack held = player.getItemInHand(hand);
-      if (canPlaceItem(INPUT, held)) {
-        setItem(INPUT, held.split(1));
-        // otherwise, try to take the item from the input slot
+      // if there is an item in the output slot, take it
+      if (!output.isEmpty()) {
+        setItem(OUTPUT, ItemStack.EMPTY);
+        ItemHandlerHelper.giveItemToPlayer(player, output, player.getInventory().selected);
+        // next try to take the item from the input slot
       } else if (!input.isEmpty()) {
         setItem(INPUT, ItemStack.EMPTY);
         ItemHandlerHelper.giveItemToPlayer(player, input, player.getInventory().selected);
+        // if no item in the tank, try to place a held item in the input
+      } else if (!held.isEmpty() && canPlaceItem(INPUT, held)) {
+        setItem(INPUT, held.split(1));
       }
     }
   }
 
   @Override
-  public void setItem(int slot, ItemStack itemstack) {
-    ItemStack currentInput = getItem(INPUT);
-    super.setItem(slot, itemstack);
-    // if we are setting the input item and it actually changed, try to process it
-    if (slot == INPUT && !ItemStack.matches(currentInput, itemstack)) {
+  public void setItem(int slot, ItemStack newStack) {
+    ItemStack oldStack = getItem(INPUT);
+    super.setItem(slot, newStack);
+    // if we are setting the input item to something different, try to process it
+    if (slot == INPUT && !newStack.isEmpty() && !ItemStack.matches(oldStack, newStack)) {
       tryToProcessItem();
     }
   }
@@ -235,7 +236,7 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
 
   @Override
   public void onTankContentsChanged() {
-    ITankBlockEntity.super.onTankContentsChanged();
+    ITankInventoryBlockEntity.super.onTankContentsChanged();
     if (this.level != null) {
       level.getLightEngine().checkBlock(this.worldPosition);
       this.requestModelDataUpdate();
@@ -246,7 +247,7 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
 
   @Override
   public void updateFluidTo(FluidStack fluid) {
-    ITankBlockEntity.super.updateFluidTo(fluid);
+    ITankInventoryBlockEntity.super.updateFluidTo(fluid);
     // update light if the fluid changes
     if (this.level != null) {
       level.getLightEngine().checkBlock(this.worldPosition);

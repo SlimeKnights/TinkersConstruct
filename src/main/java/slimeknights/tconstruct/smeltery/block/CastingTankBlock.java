@@ -33,7 +33,7 @@ import slimeknights.tconstruct.smeltery.block.entity.component.TankBlockEntity.I
 import javax.annotation.Nullable;
 
 public class CastingTankBlock extends InventoryBlock implements ITankBlock, EntityBlock {
-  protected static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+  public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 
   public CastingTankBlock(Properties properties) {
     super(properties);
@@ -82,17 +82,11 @@ public class CastingTankBlock extends InventoryBlock implements ITankBlock, Enti
   @Deprecated
   @Override
   public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-    if (player.isSuppressingBounce()) {
-      return InteractionResult.PASS;
-    }
-
-    BlockEntity te = world.getBlockEntity(pos);
-    if (te instanceof CastingTankBlockEntity castingTank) {
-      castingTank.interact(player, hand, hit);
+    if (world.getBlockEntity(pos) instanceof CastingTankBlockEntity tank) {
+      tank.interact(player, hand, hit.getLocation().y - pos.getY() < 0.6875);
       return InteractionResult.SUCCESS;
     }
-
-    return super.use(state, world, pos, player, hand, hit);
+    return InteractionResult.FAIL;
   }
 
   @Override
