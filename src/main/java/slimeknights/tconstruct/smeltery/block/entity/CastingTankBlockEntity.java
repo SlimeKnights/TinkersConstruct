@@ -306,6 +306,7 @@ public class CastingTankBlockEntity extends TableBlockEntity implements ITankBlo
   // TODO consider moving this to Mantle
   /**
    * Attempts to transfer fluid from the passed stack into a tank.
+   * Based on {@link FluidTransferHelper#interactWithTankSlot(IFluidHandler, ItemStack, IFluidContainerTransfer.TransferDirection)}
    * @param teHandler  Tank handler
    * @param stack      Input stack, may be modified
    * @param direction  Determines whether we may empty the item, fill, or both
