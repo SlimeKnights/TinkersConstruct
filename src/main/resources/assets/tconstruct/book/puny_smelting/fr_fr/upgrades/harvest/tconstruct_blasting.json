@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:blasting",
+  "text": [
+    {
+      "text": "So anyway, I started blasting."
+    }
+  ],
+  "effects": [
+    "Mines blocks weaker to explosives faster, such as ores",
+    "Multiple levels, increases speed further with each level",
+    "Requires 1 upgrade slot per level"
+  ]
+}

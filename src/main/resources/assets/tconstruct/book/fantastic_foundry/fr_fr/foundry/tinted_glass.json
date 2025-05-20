@@ -1,0 +1,14 @@
+{
+  "title": "Tinted Scorched Glass",
+  "item": "tconstruct:scorched_tinted_glass",
+  "text": [
+    {
+      "text": "Want to keep your foundry dark to maximize blaze spawns? Consider scorched tinted glass as a window instead of standard tinted glass, totally transparent but also does not let light through.",
+      "paragraph": true
+    },
+	  {
+      "text": "Glass cannot be used for the floor of the foundry.",
+      "paragraph": true
+    }
+  ]
+}

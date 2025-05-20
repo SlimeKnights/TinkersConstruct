@@ -1,0 +1,32 @@
+intro=Introduction
+melter=Melter
+moving_fluids=Moving Fluids
+casting=Casting
+melee_harvest_materials=Tier 2 Melee Harvest Materials
+melee_harvest_materials.subtext=These materials can be casted into tool parts for melee weapons or harvest tools.
+ranged_materials=Tier 2 Ranged Materials
+ranged_materials.subtext=These materials can be casted into tool parts for ranged weapons like bows.
+armor_materials=Tier 2 Armor Materials
+armor_materials.subtext=These materials can be casted into armor and shields.
+
+further_reading=Further Reading
+
+armor=Puny Armor
+armor.subtext=Choose your path with your armor; travelers gives you highly modifiable armor with more room for abilities, while plate gives you more opportunities for defense. If you have no fashion sense you can mix both.
+
+upgrades=Upgrades
+upgrades.subtext=Tools can be enhanced with upgrades, though only a limited number can be applied per tool.
+upgrades.group_general=General
+upgrades.group_harvest=Harvest
+upgrades.group_melee=Melee
+upgrades.group_damage=Bonus Damage
+upgrades.group_armor=Armor
+upgrades.group_armor.helmet=Helmet
+upgrades.group_armor.chestplate=Chestplate
+upgrades.group_armor.leggings=Leggings
+upgrades.group_armor.boots=Boots
+
+slotless=Slotless Modifier
+slotless.subtext=These modifiers do not require any slots to apply, you can have them all if you wish.
+slotless.group_slotless=Slotless
+slotless.group_bonus_upgrades=Slots++

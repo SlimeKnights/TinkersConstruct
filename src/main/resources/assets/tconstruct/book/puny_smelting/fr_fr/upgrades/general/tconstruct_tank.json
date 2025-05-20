@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:tank",
+  "text": [
+    {
+      "text": "This baby has a 120mm cannon, a mounted machine gu... wait this isn't that type of tank..? That's disappointing, I'd rather have the vehicle."
+    }
+  ],
+  "effects": [
+    "Increases the tank size of the tool",
+    "Tool becomes a portable fluid container",
+    "Multiple levels, each level increases tank size further",
+    "Requires 1 upgrade slot per level"
+  ]
+}

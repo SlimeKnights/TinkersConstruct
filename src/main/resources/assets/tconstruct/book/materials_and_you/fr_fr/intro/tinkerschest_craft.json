@@ -1,0 +1,7 @@
+{
+  "title": "Tinker's Chest Crafting",
+  "recipe": "tconstruct:tables/tinkers_chest",
+  "description": [
+    { "text": "After crafting, you can dye the chest any color you wish." }
+  ]
+}

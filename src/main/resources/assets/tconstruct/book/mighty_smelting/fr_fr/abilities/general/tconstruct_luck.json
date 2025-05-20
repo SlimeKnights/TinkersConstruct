@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:luck",
+  "text": [
+    {
+      "text": "In my experience, there's no such thing as luck."
+    }
+  ],
+  "effects": [
+    "Increases mob drops and block drops",
+    "On tools, max of 3 levels, different recipe for each level",
+    "On leggings, max of 1 level, boosts the drops for the held tool",
+    "Only first level requires 1 ability slot"
+  ]
+}

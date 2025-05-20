@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:plate_chestplate",
+  "text": [
+    { "text": "If you put your head against the chestplate, you can hear your own heartbeat as a creeper explodes behind you. Why did you take it off?" },
+	{
+      "text": "High armor with chainmail to provide flexibility, can't get much cooler than this!", "paragraph": true
+    }
+  ],
+  "properties": [
+    "Higher Durability",
+    "Higher Armor",
+    "2 Upgrade Slots",
+    "3 Defense Slots",
+    "2 Material Traits"
+  ]
+}

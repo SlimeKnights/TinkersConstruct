@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:depth_strider",
+  "text": [
+    {
+      "text": "This is either madness or brilliance. Its remarkable how often those two traits coincide."
+    }
+  ],
+  "effects": [
+    "Increases movement speed underwater",
+    "Multiple levels, each level further increases speed",
+    "Requires 1 upgrade slot per level"
+  ]
+}

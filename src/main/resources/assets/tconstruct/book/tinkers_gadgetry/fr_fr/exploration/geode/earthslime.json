@@ -1,0 +1,13 @@
+{
+  "title": "Earthslime Geodes",
+  "image": {
+	"file": "tconstruct:book/images/geodes/earthslime.png",
+    "width": 180,
+    "height": 90
+  },
+  "text": [
+    {
+      "text": "Earthslime geodes are located deep underground, and can be some of the largest geodes I have seen. You can often identify them by the presence of clay."
+    }
+  ]
+}

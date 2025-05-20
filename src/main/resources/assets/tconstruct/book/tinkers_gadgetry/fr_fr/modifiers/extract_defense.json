@@ -1,0 +1,13 @@
+{
+  "title": "Extract Defense",
+  "image": {
+    "file": "tconstruct:book/images/worktable/extract_defense.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Extracting defense modifiers from enchanted books or tools requires earthslime crystals and gold. The process is similarly unstable casuing loss of the tool."
+    }
+  ]
+}

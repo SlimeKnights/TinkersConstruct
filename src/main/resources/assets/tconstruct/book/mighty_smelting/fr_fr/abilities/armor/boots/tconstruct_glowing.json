@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:glowing",
+  "text": [
+    {
+      "text": "That's a bright idea."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/armor/boots",
+  "effects": [
+    "Places glows in dark places as you walk",
+    "Placing glows consumes durability",
+    "Single level",
+    "Requires 1 ability slot"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "title": "Ichor Geodes",
+  "image": {
+	"file": "tconstruct:book/images/geodes/ichor.png",
+    "width": 180,
+    "height": 106
+  },
+  "text": [
+    {
+      "text": "Ichor geodes are one of the best sources of the rare orange slime. They appear at high altitudes in the nether, and the crystals appear to glow as well."
+    }
+  ]
+}

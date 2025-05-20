@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:magnetic",
+  "text": [
+    {
+      "text": "The force is strong with this tool."
+    }
+  ],
+  "effects": [
+    "Attacking mobs or mining brings items towards you",
+    "On armor, activates the magnet passively",
+    "Multiple levels, each level increases magnetic strength",
+    "Requires 1 upgrade slot per level"
+  ]
+}

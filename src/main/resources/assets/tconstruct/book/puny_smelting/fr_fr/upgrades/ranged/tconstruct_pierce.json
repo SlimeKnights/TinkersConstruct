@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:pierce",
+  "text": [
+    {
+      "text": "Tool gains the power of the cactus, attacking through armor."
+    },
+    {
+      "text": "Not to be confused with impaling",
+      "paragraph": true
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/ranged",
+  "effects": [
+    "Arrows cancel out a small amount of armor",
+    "Multiple levels, each level increases effect",
+    "Requires 1 upgrade slot per level"
+  ]
+}

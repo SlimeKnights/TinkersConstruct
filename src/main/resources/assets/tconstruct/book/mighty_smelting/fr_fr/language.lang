@@ -1,0 +1,36 @@
+intro=Introduction
+entity_melting=Entity Melting
+melee_harvest_materials=Tier 3 Melee Harvest Materials
+melee_harvest_materials.subtext=These materials can be created with alloying then casted into tool parts for melee weapons or harvest tools.
+ranged_materials=Tier 3 Ranged Materials
+ranged_materials.subtext=These materials can be created with alloying then casted into tool parts for ranged weapons like bows.
+armor_materials=Tier 3 Armor Materials
+armor_materials.subtext=These materials can be casted into armor and shields.
+
+tools=Broad Tools
+tools.subtext=Broad tools all require the use of a tinker's anvil to create
+
+armor=Mighty Armor
+armor.subtext=Alloys unlock a wider range of materials for armor creation. These may grant additional abilities beyond basic sets like travelers gear.
+
+smeltery=Smeltery
+
+abilities=Abilities
+abilities.subtext=Abilities are more powerful than upgrades, but also have a more limited number of slots.
+abilities.group_general=General
+abilities.group_harvest=Harvest
+abilities.group_melee=Melee
+abilities.group_ranged=Ranged
+abilities.group_interact=Interaction
+abilities.group_armor=Armor
+abilities.group_armor.helmet=Helmet
+abilities.group_armor.chestplate=Chestplate
+abilities.group_armor.leggings=Leggings
+abilities.group_armor.boots=Boots
+abilities.group_armor.shield=Shield
+upgrades.subtext=Tools can be enhanced with upgrades, though only a limited number can be applied to each tool.
+
+defense=Defense
+defense.subtext=Defense modifiers can only be applied to armor, using defense slots.
+defense.group_protection=Protection
+defense.group_special=Special

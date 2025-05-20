@@ -1,0 +1,12 @@
+{
+  "tool": "tconstruct:battlesign",
+  "text": [
+    { "text": "The battlesign is a combination of a melee weapon and a shield. It will typically be located in bastions, and can be obtained from piglins." }
+  ],
+  "properties": [
+    "Medium Damage",
+    "Medium Block Potential",
+    "3 Defense Slots",
+    "1 Ability Slot"
+  ]
+}

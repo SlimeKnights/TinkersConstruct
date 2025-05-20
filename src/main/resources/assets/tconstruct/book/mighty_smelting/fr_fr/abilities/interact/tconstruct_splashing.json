@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:splashing",
+  "text": [
+    {
+      "text": "Lok a pool party, but without the pool."
+    },
+    {
+      "text": "Right clicking a tank with tool fills it.", "paragraph": true
+    }
+  ],
+  "effects": [
+    "Drains fluid on interaction",
+    "Various effects based on fluid, including fire and poison",
+    "Requires 1 ability slot per level"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:overforced",
+  "text": [
+    {
+      "text": "Overforced... what a name, using too much force?"
+    }
+  ],
+  "effects": [
+     "Increases overslime capacity",
+    "Multiple levels, each level increases overslime capacity further",
+    "Requires 1 upgrade slot per level"
+  ]
+}

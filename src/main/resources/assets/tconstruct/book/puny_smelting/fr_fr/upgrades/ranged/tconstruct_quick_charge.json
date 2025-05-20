@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:quick_charge",
+  "text": [
+    {
+      "text": "Become rather high strung."
+    }
+  ],
+  "effects": [
+    "Increases drawspeed of crossbows or staffs",
+    "Multiple levels, each level increases drawspeed further",
+    "Requires 1 upgrade slot per level"
+  ]
+}

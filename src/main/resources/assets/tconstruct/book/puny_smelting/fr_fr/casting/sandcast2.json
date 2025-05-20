@@ -1,0 +1,13 @@
+{
+  "title": "Sand Casts",
+  "image": {
+    "file": "tconstruct:book/images/sand_pick.png",
+    "width": 119,
+    "height": 100
+  },
+  "text": [
+    {
+      "text": "Sand casts can be created by pressing a tool part into a casting table filled with sand."
+    }
+  ]
+}

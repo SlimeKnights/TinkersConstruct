@@ -1,0 +1,13 @@
+{
+  "title": "Extract Modifiers",
+  "image": {
+    "file": "tconstruct:book/images/worktable/extract_modifier.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "While not possible to preserve the modifier items, I have managed to store the essence of the modifier into a crystal while removing it, allowing reuse of the modifier. The process requires a slime crystal of the appropriate type and a wet sponge. This also works on enchanted tools as books if you use dragons breath and enderslime crystals."
+    }
+  ]
+}

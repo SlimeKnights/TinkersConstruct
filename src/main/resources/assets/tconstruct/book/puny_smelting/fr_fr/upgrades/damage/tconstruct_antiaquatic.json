@@ -1,0 +1,20 @@
+{
+  "modifier_id": "tconstruct:antiaquatic",
+  "text": [
+    {
+      "text": "The enemies of the sea tremble in fear from those wielding weapons with this trait. "
+    },
+    {
+      "text": "Disclaimer: You are a horrible person if you use this on peaceful sea life."
+    },
+	{
+	  "text": "Not to be confused with impaling.",
+      "paragraph": true	
+	}
+  ],
+  "effects": [
+    "Increases damage to sea creatures",
+    "Multiple levels, each level increases damage further",
+    "Requires 1 upgrade slot per level"
+  ]
+}

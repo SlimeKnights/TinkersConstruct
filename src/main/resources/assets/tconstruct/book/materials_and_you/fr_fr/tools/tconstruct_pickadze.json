@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:pickadze",
+  "text": [
+    {
+      "text": "Proper name for this tool would be a pick mattock, but people like the familiar."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "It can create paths to glory."
+    }
+  ],
+  "properties": [
+    "Creates paths",
+    "Mines stone blocks and similar",
+    "Breaks soft dirts and gravel",
+    "Harvest level limited to wood"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "title": "Foundry GUI",
+  "text": [
+    {
+      "text": "3: This is where you can see your fuel. Hovering over it will show the exact amount and type."
+    },
+    {
+      "text": "In both 2 and 3, left clicking with a fluid item will attempt to fill the item from the tank, while right clicking will attempt to dump the item into the tank.",
+      "paragraph": true
+    },
+    {
+      "text": "4: This slot allows quickly filling or dumping an item into the main tank, following the same behavior as clicking a drain with the item. 5 allows restricting this to just fill or just drain. After interacting, the result will be moved to 6.",
+      "paragraph": true
+    }
+  ]
+}

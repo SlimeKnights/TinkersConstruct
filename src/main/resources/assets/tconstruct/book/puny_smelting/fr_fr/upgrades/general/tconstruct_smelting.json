@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:smelting",
+  "text": [
+    {
+      "text": "How hard must you slap a chicken to cook it?"
+    }
+  ],
+  "effects": [
+    "Sneak while interacting to fill tool with items",
+    "Using the tool cooks the items",
+    "Multiple levels, each level adds another slot",
+    "Requires 1 upgrade slot per level"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:revitalizing",
+  "text": [
+    {
+      "text": "Jeweled apples, what a throwback."
+    }
+  ],
+  "effects": [
+    "Can apply levels incrementally",
+    "Maximum of 5 levels",
+    "Requires 1 defense slot per level"
+  ]
+}

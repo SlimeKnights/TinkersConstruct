@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:speedy",
+  "text": [
+    {
+      "text": "Gotta go fast."
+    }
+  ],
+  "effects": [
+    "Increases movement speed",
+    "Multiple levels, each level increases speed further",
+    "Requires 1 upgrade slot per level"
+  ]
+}

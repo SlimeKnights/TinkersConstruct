@@ -1,0 +1,17 @@
+{
+  "title": "Foundry GUI",
+  "image": {
+    "file": "tconstruct:book/images/foundrygui.png",
+    "width": 161,
+    "height": 82
+  },
+  "text": [
+    {
+      "text": "1: Place items to smelt in these slots. Foundry size determines number of slots."
+    },
+    {
+      "text": "2: Molten metals are shown here. You can click a fluid to select it for pouring. Hovering over the empty area will show foundry capacity.",
+      "paragraph": true
+    }
+	]
+}

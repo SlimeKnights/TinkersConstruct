@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:freezing",
+  "text": [
+    {
+      "text": "Elsa may be jealous."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/armor",
+  "effects": [
+    "Has a chance to freeze attackers when hit",
+  	"Multiple levels, each level slows enemies for longer",
+  	"Requires 1 upgrade slot per level"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "title": "Scorched Glass",
+  "item": "tconstruct:scorched_glass",
+  "text": [
+    {
+      "text": "Looking at your mighty marvels of molten materials without invalidating your fantastic foundry can be done with this glass. Do note it doesn't store fluid unlike tanks.",
+      "paragraph": true
+    },
+	{
+      "text": "Glass cannot be used for the floor of the foundry.",
+      "paragraph": true
+    }
+  ]
+}

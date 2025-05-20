@@ -1,0 +1,13 @@
+{
+  "title": "Remove Modifiers",
+  "image": {
+    "file": "tconstruct:book/images/worktable/remove_modifier.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "I have discovered that it is possible to remove modifiers from tools using a wet sponge. if you don't happen to have one of those, spider venom is also effective. Removing the modifier gives me back space for new modifiers, but unfortunately the items used to apply the modifier are lost. At least I can reuse the sponge."
+    }
+  ]
+}

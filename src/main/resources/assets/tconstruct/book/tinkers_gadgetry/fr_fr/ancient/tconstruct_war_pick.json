@@ -1,0 +1,12 @@
+{
+  "tool": "tconstruct:war_pick",
+  "text": [
+    { "text": "The war pick is a combination of pickaxe and a crossbow. It can be found in mineshafts and obtained from villagers or illagers." }
+  ],
+  "properties": [
+    "Mines stone blocks and similar",
+    "Able to keep an arrow prepared to fire",
+    "3 Upgrade Slots",
+    "1 Ability Slot"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "title": "Tinker Station",
+  "image": {
+    "file": "tconstruct:book/images/tinkerstation.png",
+    "width": 135,
+    "height": 72
+  },
+  "text": [
+    {
+      "text": "Put this here, and that there, and oh that's backwards. Better keep tinkering.",
+      "paragraph": true
+    }
+	]
+}

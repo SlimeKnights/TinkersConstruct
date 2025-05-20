@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:magic_protection",
+  "text": [
+    {
+      "text": "You're not a very good wizard Harry if you have to use this. Use more deflection spells."
+    }
+  ],
+  "effects": [
+    "Decreases magic damage",
+    "Multiple levels, each level further decreases magic damage",
+    "Requires 1 defense slot per level"
+  ]
+}

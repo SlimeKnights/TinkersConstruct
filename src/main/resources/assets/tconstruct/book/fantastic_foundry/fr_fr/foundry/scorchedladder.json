@@ -1,0 +1,10 @@
+{
+  "title": "Scorched Ladder",
+  "item": "tconstruct:scorched_ladder",
+  "text": [
+    {
+      "text": "The scorched ladder can be used to easily climb up or out of your foundry without invalidating the structure, useful for if you plan to build it bigger later!",
+      "paragraph": true
+    }
+  ]
+}

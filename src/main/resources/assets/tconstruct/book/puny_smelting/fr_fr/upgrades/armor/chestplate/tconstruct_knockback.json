@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:knockback",
+  "text": [
+    {
+      "text": "Stop wasting energy running and make your foes waste energy returning to you."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/armor",
+  "effects": [
+    "Knocks back enemies on hit with any weapon",
+    "Multiple levels, increases force of knockback per level",
+    "Requires 1 upgrade slot per level"
+  ]
+}

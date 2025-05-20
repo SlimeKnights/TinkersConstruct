@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:wings",
+  "text": [
+    {
+      "text": "This isn't flying, this is falling! With style!"
+    }
+  ],
+  "effects": [
+    "Allows gliding by jumping while in air",
+    "Single level",
+    "Requires 2 ability slots"
+  ]
+}

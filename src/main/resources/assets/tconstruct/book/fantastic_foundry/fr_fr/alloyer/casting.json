@@ -1,0 +1,13 @@
+{
+  "title": "Casting",
+  "image": {
+    "file": "tconstruct:book/images/scorched_casting.png",
+    "width": 109,
+    "height": 75
+  },
+  "text": [
+    {
+      "text": "Real Tinkers always use a cast to prevent accidentally casting the wrong thing, so the scorched table always requires one. Gold platforms and bars can be used as a substitute for an empty casting block."
+    }
+	]
+}

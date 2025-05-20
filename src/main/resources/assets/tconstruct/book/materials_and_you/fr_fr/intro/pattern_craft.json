@@ -1,0 +1,8 @@
+{
+  "title": "Pattern Crafting",
+  "recipe": "tconstruct:tables/pattern",
+  "grid_size": "small",
+  "description": [
+    { "text": "You will need many patterns as you create tools, both to create tool parts and worktables." }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:power",
+  "text": [
+    {
+      "text": "unlimited §1§lPOWWWWWWEEEEERRRRRRRRRRRRR§r."
+    }
+  ],
+  "effects": [
+    "Increases damage of projectiles fired from longbows",
+	"Multiple levels, each level increases damage further",
+	"Requires 1 upgrade slot per level"
+  ]
+}

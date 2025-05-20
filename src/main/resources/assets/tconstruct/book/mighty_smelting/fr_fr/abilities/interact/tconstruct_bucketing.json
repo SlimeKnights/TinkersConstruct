@@ -1,0 +1,32 @@
+{
+  "modifier_id": "tconstruct:bucketing",
+  "text": [
+    {
+      "text": "§oThis is a bucket.§r"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "§lDear God.§r"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "§oThere's more.§r"
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "§lNooo.§r"
+    }
+  ],
+  "effects": [
+    "Your tool is now a bucket",
+    "Tank size can be increased with Tank Upgrade",
+    "Single level",
+    "Requires 1 ability slot"
+  ]
+}

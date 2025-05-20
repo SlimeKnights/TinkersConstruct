@@ -1,0 +1,13 @@
+{
+  "title": "Skyslime Geodes",
+  "image": {
+    "file": "tconstruct:book/images/geodes/skyslime.png",
+    "width": 180,
+    "height": 96
+  },
+  "text": [
+    {
+      "text": "Skyslime geodes are found in caves near the surface, and rarely even I have seen one on the surface leading me to believe they might have origins in space. These geodes seem to promote growth of certain varieties of moss nearby."
+    }
+  ]
+}

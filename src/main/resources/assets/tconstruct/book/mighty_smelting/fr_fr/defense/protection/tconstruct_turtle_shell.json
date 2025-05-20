@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:turtle_shell",
+  "text": [
+    {
+      "text": "Does not protect you from green, red, or blue shells."
+    }
+  ],
+  "effects": [
+    "Decreases damage underwater and increases swim speed",
+    "Multiple levels, each level further boosts the effect",
+    "Requires 1 defense slot per level"
+  ]
+}

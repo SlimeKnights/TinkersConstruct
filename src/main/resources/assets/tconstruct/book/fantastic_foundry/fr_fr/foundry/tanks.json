@@ -1,0 +1,16 @@
+{
+  "title": "Scorched Tanks",
+  "item": {
+    "tag": "tconstruct:scorched_tanks"
+  },
+  "text": [
+     {
+      "text": "Tanks are good for storing molten fluids or fuels. If you want to melt metals in your foundry you'll need one! Tanks can also be poured into from the foundry if you want to store stuff for later.",
+      "paragraph": true
+    },
+    {
+      "text": "Tanks cannot be used for the floor of the foundry.",
+      "paragraph": true
+    }
+  ]
+}

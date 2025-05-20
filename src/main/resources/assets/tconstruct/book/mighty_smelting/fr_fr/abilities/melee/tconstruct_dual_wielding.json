@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:dual_wielding",
+  "text": [
+    {
+      "text": "Duels are more honorable with dual wielding."
+    }
+  ],
+  "effects": [
+    "Allows you to dual wield your tools",
+    "Single level",
+    "Requires 1 ability slot"
+  ]
+}

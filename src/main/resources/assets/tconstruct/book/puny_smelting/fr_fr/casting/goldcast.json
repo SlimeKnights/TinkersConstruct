@@ -1,0 +1,13 @@
+{
+  "title": "Gold Casts",
+  "image": {
+    "file": "tconstruct:book/images/gold_pick.png",
+    "width": 170,
+    "height": 90
+  },
+  "text": [
+    {
+      "text": "Gold casts are reusable. To make one, simply pour one ingots worth of molten gold over a tool part placed in a casting table. The tool part is used up in the process."
+    }
+  ]
+}

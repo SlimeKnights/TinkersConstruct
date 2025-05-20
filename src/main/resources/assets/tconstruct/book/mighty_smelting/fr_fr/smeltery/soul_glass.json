@@ -1,0 +1,14 @@
+{
+  "title": "Seared Soul Glass",
+  "item": "tconstruct:seared_soul_glass",
+  "text": [
+    {
+      "text": "Sometimes looking is not enough, sometimes you want to feel the fluids in the smeltery. With soul glass you can make a window that you can walk though!",
+      "paragraph": true
+    },
+	{
+      "text": "Glass cannot be used for the floor of the smeltery.",
+      "paragraph": true
+    }
+  ]
+}

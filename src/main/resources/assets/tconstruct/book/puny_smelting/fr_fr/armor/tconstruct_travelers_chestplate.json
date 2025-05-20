@@ -1,0 +1,18 @@
+{
+  "tool": "tconstruct:travelers_chestplate",
+  "text": [
+    { "text": "Don't forget to tuck in the tag, don't want to walk around with it out." },
+	{
+      "text": "Chestplates, important to protect your important chest organs. And look mighty fine while doing so.", "paragraph": true
+    }
+  ],
+  "properties": [
+    "Lower Armor",
+    "Lower Durability",
+    "2 Upgrade Slots",
+    "2 Defense Slots",
+    "1 Ability Slot",
+    "1 Material Trait",
+    "Insulated & Tanned"
+  ]
+}

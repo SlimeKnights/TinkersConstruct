@@ -1,0 +1,13 @@
+{
+  "title": "Sand Casts",
+  "image": {
+    "file": "tconstruct:book/images/sandcast_partbuilder.png",
+    "width": 172,
+    "height": 74
+  },
+  "text": [
+    {
+      "text": "Sand casts can also be created in the part builder by placing sand or a blank sand cast in the pattern slot. This is required to create armor plating casts."
+    }
+  ]
+}

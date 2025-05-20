@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:freezing",
+  "text": [
+    {
+      "text": "Elsa may be jealous."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/ranged",
+  "effects": [
+    "Fired projectiles slows enemies and deal extra damage",
+  	"Multiple levels, each level slows enemies for longer",
+  	"Requires 1 upgrade slot per level"
+  ]
+}

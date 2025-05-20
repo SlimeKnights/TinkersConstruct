@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:frost_walker",
+  "text": [
+    {
+      "text": "Gain the ability to walk on water. Well, not exactly, but it's pretty close."
+    }
+  ],
+  "effects": [
+    "Water freezes as you walk",
+    "Area boosted by expanded",
+    "Single level",
+    "Requires 1 ability slot"
+  ]
+}

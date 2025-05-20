@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:melee_protection",
+  "text": [
+    {
+      "text": "Mobile punching bag."
+    }
+   
+  ],
+  "effects": [
+    "Decreases damage from melee attacks",
+    "Boosts movement speed when using shields and bows",
+    "Multiple levels, each level boosts effects",
+    "Requires 1 defense slot per level"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:springy",
+  "text": [
+    {
+      "text": "Away your foes go, giving you enough time to turn heels and run, or heal."
+    }
+  ],
+  "effects": [
+    "Provides a chance to knockback attackers",
+    "Multiple levels, each level further increases the chance to knockback",
+    "Requires 1 upgrade slot per level"
+  ]
+}

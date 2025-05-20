@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:spitting",
+  "text": [
+    {
+      "text": "Never get into a spitting contest with a llama"
+    }
+  ],
+  "effects": [
+    "Charge to fire fluid in the direction looked",
+    "Higher levels launch more projectiles",
+    "Requires 1 ability slot per level"
+  ]
+}

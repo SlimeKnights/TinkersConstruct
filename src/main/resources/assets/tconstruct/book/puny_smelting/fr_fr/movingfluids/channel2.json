@@ -1,0 +1,16 @@
+{
+  "title": "Channels",
+  "text": [
+    {
+      "text": "Channels can be filled with fluid from the top or from sides set to input. They output into the bottom, or sides that are set to output."
+    },
+    {
+      "text": "Channels have arrows inside them that show the direction that fluid will travel. Right clicking the sides of channels will switch them between input, output, and none. Right clicking the middle of the channel will set it to output to directly below if there is a valid fluid container underneath. Channels cannot transfer upwards.",
+      "paragraph": true
+    },
+    {
+      "text": "Channels respond to redstone as well. Powering it will enable and disable downwards flowing.",
+      "paragraph": true
+    }
+  ]
+}

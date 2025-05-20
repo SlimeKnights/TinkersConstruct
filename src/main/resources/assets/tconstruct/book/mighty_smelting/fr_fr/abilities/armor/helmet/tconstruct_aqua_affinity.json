@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:aqua_affinity",
+  "text": [
+    {
+      "text": "An alluring attunement to the aquaeous area that anti activates all air afflictions."
+    }
+  ],
+  "effects": [
+    "Increases underwater mining speed",
+    "Single level",
+    "Requires 1 ability slot"
+  ]
+}

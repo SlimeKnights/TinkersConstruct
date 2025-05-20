@@ -1,0 +1,53 @@
+{
+  "title": "Repairing",
+  "grid_size": "small",
+  "grid": [
+    [
+      {
+        "type": "forge:nbt",
+        "item": "tconstruct:pickaxe",
+        "nbt": {
+          "tic_broken": false,
+          "tic_display": true,
+          "Damage": 70,
+          "tic_materials": [
+            "tconstruct:ui_render#head",
+            "tconstruct:ui_render#handle",
+            "tconstruct:ui_render#extra"
+          ],
+          "tic_stats": {
+            "tconstruct:durability": 100
+          }
+        }
+      },
+      {
+        "type": "forge:nbt",
+        "item": "tconstruct:repair_kit",
+        "nbt": {
+          "tic_display": true,
+          "Material": "tconstruct:ui_render#head"
+        }
+      }
+    ]
+  ],
+  "result": {
+    "type": "forge:nbt",
+    "item": "tconstruct:pickaxe",
+    "nbt": {
+      "tic_broken": false,
+      "tic_display": true,
+      "Damage": 10,
+      "tic_materials": [
+        "tconstruct:ui_render#head",
+        "tconstruct:ui_render#handle",
+        "tconstruct:ui_render#extra"
+      ],
+      "tic_stats": { "tconstruct:durability": 100 }
+    }
+  },
+  "description": [
+    {
+      "text": "To repair tools, simply place the tool in the Tinker Station or Tinker Anvil with the material of the head. Alternatively, you can use repair kits, which work both in crafting tables and when right clicking the tool directly!"
+    }
+	]
+}

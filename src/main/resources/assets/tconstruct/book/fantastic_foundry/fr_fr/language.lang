@@ -1,0 +1,17 @@
+intro=Introduction
+
+alloyer=Alloyer
+
+foundry=Foundry
+
+blazing_blood=Blazing Blood
+
+armor=Fantastic Armor
+armor.subtext=Using Nether resources grants access to create higher tiers of armor. For instance, the mighty plate armor boasts a high defense, but less modifiability. Who needs extra features when you can be protected?
+
+melee_harvest_materials=Tier 4 Melee Harvest Materials
+melee_harvest_materials.subtext=These materials require blazing blood to create, and can be used to create tool parts for melee weapons or harvest tools.
+ranged_materials=Tier 4 Ranged Materials
+ranged_materials.subtext=These materials require blazing blood to create, and can be used to create tool parts for ranged weapons like bows.
+armor_materials=Tier 4 Armor Materials
+armor_materials.subtext=These materials can be casted into armor and shields.

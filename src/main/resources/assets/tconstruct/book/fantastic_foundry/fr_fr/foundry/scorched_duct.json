@@ -1,0 +1,14 @@
+{
+  "title": "Scorched Duct",
+  "item": "tconstruct:scorched_duct",
+  "text": [
+    {
+      "text": "The scorched duct is your way to pull a specific fluid out of the foundry. The fluid is chosen by putting a copper can or bucket full of that liquid in the duct's filter slot.",
+      "paragraph": true
+    },
+	{
+      "text": "The fluid that you have selected to be filtered will show on the middle of the duct.",
+      "paragraph": true
+    }
+	]
+}

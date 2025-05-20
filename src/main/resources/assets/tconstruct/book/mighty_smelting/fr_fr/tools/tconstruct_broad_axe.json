@@ -1,0 +1,19 @@
+{
+  "tool": "tconstruct:broad_axe",
+  "text": [
+    {
+      "text": "The Broad Axe is a high efficiency tree chopping tool. Able to destroy trees in one fell swoop. "
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "Optimal for cutting down forests in quick succession."
+    }
+  ],
+  "properties": [
+    "Advanced chopping tool",
+    "Able to destroy a whole tree in one chop",
+    "Able to strip a whole tree in one interaction"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "title": "Fancy Item Frames",
+  "image": {
+    "file": "tconstruct:book/images/fancy_frames.png",
+    "width": 140,
+    "height": 82
+  },
+  "text": [
+    {
+      "text": "Making use of rarer metals, I have managed to create variants of item frames with unique properties."
+    }
+  ]
+}

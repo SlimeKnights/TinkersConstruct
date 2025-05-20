@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:haste",
+  "text": [
+    {
+      "text": "Adding redstone to a tool seems to increase its speed. The mining speed boost is more potent on slower tools."
+    },
+    {
+      "text": "Redstone. Crazy stuff, amiright?",
+      "paragraph": true
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/harvest",
+  "effects": [
+    "Increases mining speed",
+    "Multiple levels, each level increases speed a bit more",
+    "Requires 1 upgrade slot per level"
+  ]
+}

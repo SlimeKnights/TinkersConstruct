@@ -1,0 +1,14 @@
+intro=Introduction
+
+melee_harvest_materials=Tier 1 Melee Harvest Materials
+melee_harvest_materials.subtext=These materials can be placed in the part builder to create tool parts for melee weapons or harvest tools.
+ranged_materials=Tier 1 Ranged Materials
+ranged_materials.subtext=These materials can be placed in the part builder to create tool parts for ranged weapons like bows.
+
+tools=Tools
+
+armor=Basic Armor
+armor.subtext=Basic armor allows basic protection without needing to hunt for resources or build any machinery. This will grant limited defense, but there are still many opportunities to upgrade your suit of armor! Oh what fun things will you create?
+
+modifiers=Modifiers
+further_reading=Further Reading

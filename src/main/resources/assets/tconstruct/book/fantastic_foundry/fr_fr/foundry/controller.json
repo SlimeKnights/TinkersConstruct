@@ -1,0 +1,11 @@
+{
+  "title": "Foundry Controller",
+  "image": {
+    "file": "tconstruct:book/images/fcontroller.png"
+  },
+  "text": [
+    {
+      "text": "Pouring one block's worth of obsidian from an alloyer on scorched bricks will grant you with this mystical Foundry Controller."
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:item_frame",
+  "text": [
+    {
+      "text": "Tired of holding your clock and compass? Why not wear it instead?"
+    }
+  ],
+  "effects": [
+    "Adds slots to the helmet, interact to access",
+    "Helmet will render items when worn",
+    "Requires 1 upgrade slot per level"
+  ]
+}

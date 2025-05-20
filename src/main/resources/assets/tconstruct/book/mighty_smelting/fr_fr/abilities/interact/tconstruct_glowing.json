@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:glowing",
+  "text": [
+    {
+      "text": "That's a bright idea."
+    }
+  ],
+  "tool_filter": "tconstruct:modifiable/interactable",
+  "effects": [
+    "Interact to place glows",
+    "Placing glows consumes durability",
+    "Single level",
+    "Requires 1 ability slot"
+  ]
+}

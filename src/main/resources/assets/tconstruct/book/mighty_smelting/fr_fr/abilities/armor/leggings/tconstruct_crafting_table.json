@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:crafting_table",
+  "text": [
+    {
+      "text": "Like when all the string in your pocket gets tangled up, except useful."
+    }
+  ],
+  "effects": [
+    "Adds a full crafting table to the tool's inventory",
+    "Single level",
+    "Requires 1 ability slot"
+  ]
+}

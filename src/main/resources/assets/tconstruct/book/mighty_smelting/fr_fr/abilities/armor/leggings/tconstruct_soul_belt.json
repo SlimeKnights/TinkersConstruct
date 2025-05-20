@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:soul_belt",
+  "text": [
+    {
+      "text": "Keep your friends close, and your tools closer."
+    }
+  ],
+  "effects": [
+    "Hotbar items will remain with you upon an untimely demise",
+    "Single Level",
+    "Requires 1 ability slot"
+  ]
+}

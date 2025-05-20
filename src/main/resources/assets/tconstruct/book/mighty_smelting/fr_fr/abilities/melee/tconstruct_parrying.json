@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:parrying",
+  "text": [
+    {
+      "text": "Use your crazy ninja skills to swipe attacks out of the air."
+    }
+  ],
+  "effects": [
+    "Allows daggers to briefly block after attacking",
+    "Single level",
+    "Requires 1 ability slot"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "title": "Scorched Soul Glass",
+  "item": "tconstruct:scorched_soul_glass",
+  "text": [
+    {
+      "text": "Looking not good enough, want to touch the molten metals? Swim in them? Soul glass creates a barrier you can pass but the fluids cannot.",
+      "paragraph": true
+    },
+	{
+      "text": "Glass cannot be used for the floor of the foundry.",
+      "paragraph": true
+    }
+  ]
+}

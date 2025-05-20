@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:reflecting",
+  "text": [
+    {
+      "text": "Your shield is also your trampoline."
+    }
+  ],
+  "effects": [
+    "Bounce projectiles within a short time of blocking",
+    "Multiple levels, each level increases reflecting window",
+    "Requires 1 ability slot"
+  ]
+}

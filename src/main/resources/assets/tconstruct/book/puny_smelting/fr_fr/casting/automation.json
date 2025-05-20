@@ -1,0 +1,17 @@
+{
+  "title": "Automation",
+  "image": {
+    "file": "tconstruct:book/images/cast_automation.png",
+    "width": 88,
+    "height": 75
+  },
+  "text": [
+    {
+      "text": "Casting basins and tables interact with hoppers, allowing items to easily be inserted and cooled items to be removed."
+    },
+    {
+      "text": "Comparators also make redstone turn funny colors when connected to a basin or table, and a redstone pulse can be used to swap the input and output.",
+      "paragraph": true
+    }
+  ]
+}

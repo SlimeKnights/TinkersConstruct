@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:bonking",
+  "text": [
+    {
+      "text": "Best used on cliffs during epic sunset."
+    }
+  ],
+  "effects": [
+    "Charge to launch the targeted mob away",
+    "Can boost launch speed with power or knockback",
+    "Single level",
+    "Requires 1 ability slot"
+  ]
+}

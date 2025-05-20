@@ -1,0 +1,13 @@
+{
+  "title": "Smeltery Controller",
+  "image": {
+    "file": "tconstruct:book/images/scontroller.png",
+    "width": 128,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "Using your melter, pour four ingots worth of copper on seared bricks to get your smeltery controller."
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:melting",
+  "text": [
+    {
+      "text": "Smeltery not portable enough? Try turning your tool into a handheld smeltery! "
+    },
+    {
+      "text": "Right clicking a tank while holding the tool to empty fluid.", "paragraph": true
+    }
+  ],
+  "effects": [
+    "Melts attacked mobs into the tool's tank",
+    "Dropped items also are melted if possible",
+    "Tool can be emptied into a tank or a smeltery drain",
+    "Requires 1 ability slot, single level"
+  ]
+}

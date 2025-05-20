@@ -1,0 +1,18 @@
+{
+  "tool": "tconstruct:mattock",
+  "text": [
+    {
+      "text": "The Mattock is a versatile tool. It is effective on logs and dirt."
+    },
+    {
+      "text": "\n"
+    },
+    {
+      "text": "It can create the farm of your dreams."
+    }
+  ],
+  "properties": [
+    "Tills dirt",
+    "Effective on dirt and logs"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "title": "Part Builder Crafting",
+  "recipe": "tconstruct:tables/part_builder",
+  "grid_size": "small",
+  "description": [
+    { "text": "Once you have created some patterns, create the part builder to get started with tool making." }
+  ]
+}

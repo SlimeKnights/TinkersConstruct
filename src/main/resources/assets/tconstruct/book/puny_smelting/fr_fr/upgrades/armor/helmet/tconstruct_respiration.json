@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:respiration",
+  "text": [
+    {
+      "text": "Who needs air to breathe anyway."
+    }
+  ],
+  "effects": [
+    "Reduces air consumption underwater", 
+    "Multiple levels, each level further decreases air consumption",
+    "Requires 1 upgrade slot per level"
+  ]
+}

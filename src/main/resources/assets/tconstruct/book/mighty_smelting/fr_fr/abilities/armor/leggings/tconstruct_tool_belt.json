@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:tool_belt",
+  "text": [
+    {
+      "text": "Its a belt to hold your tools. Tool belt."
+    }
+  ],
+  "effects": [
+    "Slots can be swapped with hotbar slots using control plus leggings interact.",
+    "Grants 4 slots, plus 1 per consecutive level",
+    "Different recipe per level",
+    "First level requires 1 ability slot"
+  ]
+}

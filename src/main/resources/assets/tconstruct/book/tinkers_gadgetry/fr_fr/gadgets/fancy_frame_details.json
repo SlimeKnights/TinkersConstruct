@@ -1,0 +1,14 @@
+{
+  "title": "Fancy Item Frames",
+  "text": [
+    { "text": "• Clear: Turn invisible when an item is placed inside, and allow interacting with the block behind when filled and not sneaking." },
+    { "text": "\n" },
+    { "text": "• Gold: Gradually rotates the item automatically. Crafting with a redstone torch reverses the direction." },
+    { "text": "\n" },
+    { "text": "• Diamond: Gradually reduces the rotation until the item is upright. Supports more rotations than a standard frame." },
+    { "text": "\n" },
+    { "text": "• Manyullyn: Always appears fully lit, even in darkness." },
+    { "text": "\n" },
+    { "text": "• Netherite: Resistant to fire and explosions." }
+  ]
+}

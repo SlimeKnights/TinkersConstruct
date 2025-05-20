@@ -1,0 +1,7 @@
+{
+  "title": "Tinker Station Crafting",
+  "recipe": "tconstruct:tables/tinker_station",
+  "description": [
+    { "text": "Hopefully you still have some patterns leftover. If not can always make more." }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:embellishment",
+  "text": [
+    {
+      "text": "The original cosmetic to change the appearance of tools and armor!"
+    }
+  ],
+  "effects": [
+    "Changes the appearance of armor, shields, and staffs",
+    "Use wood to embellish staffs and shields",
+    "Use congealed slime to embellish slime",
+    "Multi-use",
+    "Slotless"
+  ]
+}

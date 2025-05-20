@@ -1,0 +1,13 @@
+{
+  "tool": "tconstruct:ender_staff",
+  "text": [
+    { "text": "Using the power of ender slime, you can make a staff for grabbing far away targets. Has stronger projectile power, but worse accuracy." }
+  ],
+  "properties": [
+    "High Durability",
+    "3 Upgrade Slots",
+    "1 Defense Slots",
+    "2 Ability Slots",
+    "Reach II"
+  ]
+}

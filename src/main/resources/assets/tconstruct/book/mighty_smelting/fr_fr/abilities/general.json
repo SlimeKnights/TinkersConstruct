@@ -1,0 +1,12 @@
+{
+  "title": "General Abilities",
+  "text": [
+    {
+      "text": "Abilities are a special type of modifier that can drastically alter how your tool performs. These require an ability slot specifically, which are rarer than upgrade slots, but stronger per slot."
+    },
+    {
+      "text": "These abilities will enhance your tool all around!",
+      "paragraph": true
+    }
+  ]
+}

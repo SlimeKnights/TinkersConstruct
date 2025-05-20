@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:springing",
+  "text": [
+    {
+      "text": "The first part of daylight savings time."
+    }
+  ],
+  "effects": [
+    "Charge to launch in the direction you are looking",
+    "Can boost launch speed with power or knockback",
+    "Single level",
+    "Requires 1 ability slot"
+  ]
+}

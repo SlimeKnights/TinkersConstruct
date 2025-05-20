@@ -1,0 +1,13 @@
+{
+  "title": "Enderslime Geodes",
+  "image": {
+    "file": "tconstruct:book/images/geodes/enderslime.png",
+    "width": 180,
+    "height": 99
+  },
+  "text": [
+    {
+      "text": "Enderslime geodes can be found around the outer islands in the end, both underground and floating on their own. Sometimes it's hard to tell a geode apart from the other rocks floating in that sky."
+    }
+  ]
+}

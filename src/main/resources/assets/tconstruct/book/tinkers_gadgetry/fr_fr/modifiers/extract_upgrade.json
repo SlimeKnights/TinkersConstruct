@@ -1,0 +1,13 @@
+{
+  "title": "Extract Upgrade",
+  "image": {
+    "file": "tconstruct:book/images/worktable/extract_upgrade.png",
+    "width": 147,
+    "height": 64
+  },
+  "text": [
+    {
+      "text": "This discovery lead me to further experiment with other crystals and enchantments. It turns out that you can extract upgrade modifiers from enchanted books or tools using just skyslime crystals and lapis. The process seems a lot less stable than the enderslime method however, I have been unable to recover the tool."
+    }
+  ]
+}

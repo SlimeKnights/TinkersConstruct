@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:blocking",
+  "text": [
+    {
+      "text": "Your sword is now a shield, now just need a way to make your shield a sword."
+    }
+  ],
+  "effects": [
+    "Allows you to block with your tool",
+    "Single level",
+    "Requires 1 ability slot"
+  ]
+}
