@@ -1,6 +1,6 @@
 {
   "type": "tconstruct:showcase",
-  "title": "Upgrades",
+  "title": "Améliorations",
   "item": {
     "type": "forge:nbt",
     "item": "tconstruct:creative_slot",
@@ -8,16 +8,16 @@
       "slot": "upgrades"
     }
   },
-  "tooltip": [ "Upgrade Slot Icon" ],
+  "tooltip": [ "Icône d’emplacement d’amélioration" ],
   "text": [
     {
-      "text": "Upgrades are standard improvements to a tool. They are usually done by applying an item and 'rubbing off' some of its magic qualities, like redstone making tools faster. "
+      "text": "Les améliorations sont des perfectionnements standards pour un outil. Elles sont généralement effectuées en appliquant un objet et en ‘absorbant’ une partie de ses propriétés magiques, comme la redstone qui rend les outils plus rapides."
     },
     {
-      "text": "Most tools start with around 3 upgrade slots, though it's possible to get more slots through other types of modifiers."
+      "text": "La plupart des outils commencent avec environ 3 emplacements d’amélioration, bien qu’il soit possible d’en obtenir davantage grâce à d’autres types de modificateurs."
     },
     {
-      "text": "Thruul M'Gon's Puny Smelting has a full list of upgrades available on tools, along with the Encyclopedia of Tinkering.",
+      "text": "Le livret *Fonderie Minuscule* de Thruul M’Gon contient une liste complète des améliorations disponibles pour les outils, tout comme l’Encyclopédie du Bricolage.",
       "paragraph": true
     }
   ]

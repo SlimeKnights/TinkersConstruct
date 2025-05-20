@@ -1,6 +1,6 @@
 {
   "type": "tconstruct:showcase",
-  "title": "Abilities",
+  "title": "Aptitudes",
   "item": {
     "type": "forge:nbt",
     "item": "tconstruct:creative_slot",
@@ -8,16 +8,16 @@
       "slot": "abilities"
     }
   },
-  "tooltip": [ "Ability Slot Icon" ],
+  "tooltip": [ "Icône d’Emplacement d’Aptitude" ],
   "text": [
     {
-      "text": "Abilities are powerful modifiers that drastically change a tool. Modifiers such as silky and autosmelt are notable as both change the effects of mining blocks, while dual wielding makes tools much easier to handle. "
+      "text": "Les aptitudes sont des modificateurs puissants qui transforment radicalement un outil. Des modificateurs comme Soyeux ou Auto-fonte sont notables car ils changent les effets du minage, tandis que le maniement double rend les outils beaucoup plus faciles à utiliser."
     },
     {
-      "text": "Nearly all tools start with a single ability slot, and can only receive up to 2 more, so choose abilities wisely."
+      "text": "Presque tous les outils commencent avec un seul emplacement d’aptitude, et ne peuvent en recevoir que jusqu’à 2 de plus, alors choisis-les judicieusement."
     },
     {
-      "text": "Thruul M'Gon's Mighty Smelting has a full list of abilities available on tools, along with the Encyclopedia of Tinkering.",
+      "text": "*Fonderie Suprême* de Thruul M’Gon propose une liste complète des aptitudes disponibles pour les outils, tout comme l’Encyclopédie du Bricolage.",
       "paragraph": true
     }
   ]

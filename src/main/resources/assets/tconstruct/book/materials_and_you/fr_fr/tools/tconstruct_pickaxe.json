@@ -2,19 +2,19 @@
   "tool": "tconstruct:pickaxe",
   "text": [
     {
-      "text": "The Pickaxe is a precise mining tool. It is effective on stone and ores."
+      "text": "La pioche est un outil de minage précis. Elle est efficace sur la pierre et les minerais."
     },
     {
       "text": "\n"
     },
     {
-      "text": "It breaks blocks, OK?"
+      "text": "Elle casse des blocs, d’accord ?"
     }
   ],
   "properties": [
-    "Basic mining tool",
-    "It's a pickaxe",
-    "Mines stone blocks and similar",
-    "Bonus piercing damage"
+    "Outil de minage basique",
+    "C’est une pioche",
+    "Mine les blocs de pierre et similaires",
+    "Dégâts perforants bonus"
   ]
 }

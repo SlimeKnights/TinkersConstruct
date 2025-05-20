@@ -1,7 +1,7 @@
 {
-  "title": "Part Chest Crafting",
+  "title": "Fabrication du Coffre à Pièces",
   "recipe": "tconstruct:tables/part_chest",
   "description": [
-    { "text": "Never know when you might need that unused tool part again later." }
+    { "text": "On ne sait jamais quand une pièce d’outil inutilisée pourra resservir." }
   ]
 }

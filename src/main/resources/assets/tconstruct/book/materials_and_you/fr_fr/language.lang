@@ -1,14 +1,15 @@
 intro=Introduction
 
-melee_harvest_materials=Tier 1 Melee Harvest Materials
-melee_harvest_materials.subtext=These materials can be placed in the part builder to create tool parts for melee weapons or harvest tools.
-ranged_materials=Tier 1 Ranged Materials
-ranged_materials.subtext=These materials can be placed in the part builder to create tool parts for ranged weapons like bows.
+melee_harvest_materials=Matériaux de Récolte et de Mêlée de Niveau 1
+melee_harvest_materials.subtext=Ces matériaux peuvent être placés dans le constructeur de pièces pour fabriquer des pièces d’outils de combat ou de récolte.
 
-tools=Tools
+ranged_materials=Matériaux de Combat à Distance de Niveau 1
+ranged_materials.subtext=Ces matériaux peuvent être placés dans le constructeur de pièces pour fabriquer des pièces d’outils à distance comme les arcs.
 
-armor=Basic Armor
-armor.subtext=Basic armor allows basic protection without needing to hunt for resources or build any machinery. This will grant limited defense, but there are still many opportunities to upgrade your suit of armor! Oh what fun things will you create?
+tools=Outils
 
-modifiers=Modifiers
-further_reading=Further Reading
+armor=Armure de Base
+armor.subtext=L’armure de base offre une protection simple sans avoir besoin de chercher des ressources rares ni de construire de machines. Elle accorde une défense limitée, mais il existe de nombreuses possibilités d’améliorer votre équipement ! Quelles merveilles allez-vous créer ?
+
+modifiers=Modificateurs
+further_reading=Pour Aller Plus Loin

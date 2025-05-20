@@ -1,5 +1,5 @@
 {
-  "title": "Repairing",
+  "title": "Réparation",
   "grid_size": "small",
   "grid": [
     [
@@ -47,7 +47,7 @@
   },
   "description": [
     {
-      "text": "To repair tools, simply place the tool in the Tinker Station or Tinker Anvil with the material of the head. Alternatively, you can use repair kits, which work both in crafting tables and when right clicking the tool directly!"
+      "text": "Pour réparer les outils, place simplement l’outil dans l’Atelier du Bricoleur ou l’Enclume du Bricoleur avec le matériau de la tête. Sinon, tu peux utiliser des kits de réparation, qui fonctionnent aussi bien dans une table de craft qu’en faisant un clic droit directement sur l’outil !"
     }
 	]
 }

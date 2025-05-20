@@ -2,17 +2,16 @@
   "tool": "tconstruct:hand_axe",
   "text": [
     {
-      "text": "The Hand Axe is a basic chopping tool. It is effective on wood and leaves. It works as a weapon or a tool, or both. The choice is yours."
+      "text": "La hachette est un outil de coupe basique. Elle est efficace sur le bois et les feuilles. Elle peut servir d’arme ou d’outil, ou les deux. C’est toi qui choisis."
     },
-	 {
+    {
       "text": "\n"
     }
-  
   ],
   "properties": [
-    "Basic mining tool",
-    "Effective on wood",
-    "Breaks leaves really fast",
-	"Strips woods logs with ease"
+    "Outil de minage basique",
+    "Efficace sur le bois",
+    "Casse les feuilles très rapidement",
+    "Écorce les bûches facilement"
   ]
 }

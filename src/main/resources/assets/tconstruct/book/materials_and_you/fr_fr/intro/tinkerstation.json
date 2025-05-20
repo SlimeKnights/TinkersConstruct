@@ -1,5 +1,5 @@
 {
-  "title": "Tinker Station",
+  "title": "Atelier du Bricoleur",
   "image": {
     "file": "tconstruct:book/images/tinkerstation.png",
     "width": 135,
@@ -7,8 +7,8 @@
   },
   "text": [
     {
-      "text": "Put this here, and that there, and oh that's backwards. Better keep tinkering.",
+      "text": "Mets ça ici, ça là, oh mince c’est à l’envers. Il vaut mieux continuer à bricoler.",
       "paragraph": true
     }
-	]
+  ]
 }

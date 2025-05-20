@@ -1,6 +1,6 @@
 {
   "type": "tconstruct:showcase",
-  "title": "Slotless Modifiers",
+  "title": "Modificateurs Sans Emplacement",
   "item": {
     "type": "forge:nbt",
     "item": "tconstruct:creative_slot",
@@ -8,16 +8,16 @@
       "slot": "slotless"
     }
   },
-  "tooltip": [ "Slotless Icon" ],
+  "tooltip": [ "Icône Sans Emplacement" ],
   "text": [
     {
-      "text": "Slotless modifiers do not require slots, unlike all other types of modifiers. This typically means the modifier either has some tradeoff or the effect is minor. "
+      "text": "Les modificateurs sans emplacement ne nécessitent aucun emplacement, contrairement aux autres types de modificateurs. Cela signifie généralement que le modificateur comporte un inconvénient ou que son effet est mineur."
     },
     {
-      "text": "One notable type of slotless modifiers is bonus modifiers, which grant additional modifier slots. Many exist that grant more upgrade slots, and I am told some even exist to grant more ability slots."
+      "text": "Un type notable de modificateurs sans emplacement est celui des modificateurs bonus, qui octroient des emplacements de modificateurs supplémentaires. Beaucoup permettent d’obtenir plus d’emplacements d’amélioration, et on dit que certains permettent même d’obtenir des emplacements d’aptitude supplémentaires."
     },
     {
-      "text": "Thruul M'Gon's Puny Smelting has a full list of slotless modifiers available on tools, along with the Encyclopedia of Tinkering.",
+      "text": "Le livret *Fonderie Minuscule* de Thruul M’Gon contient une liste complète des modificateurs sans emplacement disponibles pour les outils, tout comme l’Encyclopédie du Bricolage.",
       "paragraph": true
     }
   ]

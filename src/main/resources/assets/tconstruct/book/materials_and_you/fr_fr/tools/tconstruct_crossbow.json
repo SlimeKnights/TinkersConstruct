@@ -2,21 +2,19 @@
   "tool": "tconstruct:crossbow",
   "text": [
     {
-      "text": "The crossbow is useful for those wanting to stay quick and ready for a fight"
+      "text": "L’arbalète est idéale pour ceux qui veulent rester rapides et prêts au combat."
     },
-	{
+    {
       "text": "\n"
     },
-	 {
-      "text": "You should never cross a bow",
-	  "paragraph": true
+    {
+      "text": "On ne devrait jamais croiser un arc.",
+      "paragraph": true
     }
-  
   ],
   "properties": [
-    "Quick and nimble type of bow",
-	"Able to keep an arrow prepared to fire",
-	"Likes to party with fireworks"
-	
+    "Type d’arc rapide et agile",
+    "Peut garder une flèche prête à tirer",
+    "Aime faire la fête avec des feux d’artifice"
   ]
 }

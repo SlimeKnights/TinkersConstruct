@@ -2,16 +2,16 @@
   "tool": "tconstruct:dagger",
   "text": [
     {
-      "text": "The dagger is a versatile weapon for the quick warrior. It has low damage with higher speed allowing for quick fast attacks. The dagger is also able to be used in your off-hand for double the daggers."
+      "text": "La dague est une arme polyvalente pour le guerrier rapide. Elle inflige peu de dégâts mais compense par une vitesse élevée, permettant des attaques très rapides. Elle peut aussi être utilisée dans la main secondaire pour une double dague."
     },
     {
       "text": "\n"
     }
   ],
   "properties": [
-    "Low Damage",
-	"High Speed",
-    "Able to use in off-hand",
-    "Stacks to 2 when crafting and modifying"
+    "Faibles Dégâts",
+    "Grande Vitesse",
+    "Utilisable en main secondaire",
+    "Se stacke par 2 à la fabrication et à la modification"
   ]
 }

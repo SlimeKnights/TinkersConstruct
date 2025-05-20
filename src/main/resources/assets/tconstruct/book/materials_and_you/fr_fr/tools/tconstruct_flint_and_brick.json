@@ -2,18 +2,18 @@
   "tool": "tconstruct:flint_and_brick",
   "text": [
     {
-      "text": "Flint and Brick is an affordable tool effective for starting fires."
+      "text": "Le silex et la brique sont un outil abordable, efficace pour allumer des feux."
     },
     {
       "text": "\n"
     },
     {
-      "text": "Unlike most other tools, it is crafted in a crafting station or crafting table."
+      "text": "Contrairement à la plupart des autres outils, il se fabrique sur une table de craft ou une station de bricolage."
     }
   ],
   "properties": [
-    "Creates fires",
-    "Starts with fiery 1",
-    "Repaired using seared or scorched bricks"
+    "Crée des feux",
+    "Commence avec Ardent 1",
+    "Réparable avec des briques brûlées ou calcinées"
   ]
 }

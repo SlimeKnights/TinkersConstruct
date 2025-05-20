@@ -2,19 +2,19 @@
   "tool": "tconstruct:pickadze",
   "text": [
     {
-      "text": "Proper name for this tool would be a pick mattock, but people like the familiar."
+      "text": "Le vrai nom de cet outil serait pioche-ratissoire, mais les gens préfèrent ce qui leur est familier."
     },
     {
       "text": "\n"
     },
     {
-      "text": "It can create paths to glory."
+      "text": "Il peut tracer des chemins vers la gloire."
     }
   ],
   "properties": [
-    "Creates paths",
-    "Mines stone blocks and similar",
-    "Breaks soft dirts and gravel",
-    "Harvest level limited to wood"
+    "Crée des chemins",
+    "Mine les blocs de pierre et similaires",
+    "Casse les terres meubles et le gravier",
+    "Niveau de récolte limité au bois"
   ]
 }

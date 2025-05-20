@@ -1,11 +1,11 @@
 {
-  "title": "Materials & You",
+  "title": "Les Matériaux & Vous",
   "text": [
     {
-      "text": "Welcome to the third edition of Materials & You: Surviving the first day and beyond. Unlike the second edition, this book focuses in on tool crafting and tool types, and leaves topics such as modifiers to Further Reading."
+      "text": "Bienvenue dans la troisième édition de *Les Matériaux & Vous* : Survivre au premier jour et au-delà. Contrairement à la deuxième édition, ce livre se concentre sur l’artisanat d’outils et les types d’outils, laissant les sujets comme les modificateurs à la section *Pour Aller Plus Loin*."
     },
     {
-      "text": "If you are wondering about the changes in the newest version, check the \"What's New\" page, linked from GitHub or on the SlimeKnights Discord. Sadly I couldn't figure out links so I can't link them to you",
+      "text": "Si tu te demandes quels sont les changements dans la dernière version, consulte la page « Quoi de Neuf », accessible via GitHub ou sur le Discord de SlimeKnights. Malheureusement, je n’ai pas réussi à faire fonctionner les liens, donc je ne peux pas t’y rediriger directement.",
       "paragraph": true
     }
   ]

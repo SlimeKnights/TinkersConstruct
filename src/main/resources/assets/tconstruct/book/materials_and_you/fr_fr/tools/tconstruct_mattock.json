@@ -2,17 +2,17 @@
   "tool": "tconstruct:mattock",
   "text": [
     {
-      "text": "The Mattock is a versatile tool. It is effective on logs and dirt."
+      "text": "Le ratissoire est un outil polyvalent. Il est efficace sur les bûches et la terre."
     },
     {
       "text": "\n"
     },
     {
-      "text": "It can create the farm of your dreams."
+      "text": "Il peut créer la ferme de vos rêves."
     }
   ],
   "properties": [
-    "Tills dirt",
-    "Effective on dirt and logs"
+    "Retourne la terre",
+    "Efficace sur la terre et les bûches"
   ]
 }

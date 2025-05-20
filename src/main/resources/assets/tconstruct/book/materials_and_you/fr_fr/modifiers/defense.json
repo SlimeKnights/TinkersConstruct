@@ -1,6 +1,6 @@
 {
   "type": "tconstruct:showcase",
-  "title": "Defense Modifiers",
+  "title": "Modificateurs Défensifs",
   "item": {
     "type": "forge:nbt",
     "item": "tconstruct:creative_slot",
@@ -8,16 +8,16 @@
       "slot": "defense"
     }
   },
-  "tooltip": [ "Defense Slot Icon" ],
+  "tooltip": [ "Icône d’Emplacement de Défense" ],
   "text": [
     {
-      "text": "Defense are a type of modifier exclusive to armor, boosting protection against particular threats such as fire or knockback. They provide another way to customize armor as most armor types lack material traits. "
+      "text": "Les modificateurs défensifs sont un type de modificateur exclusif à l’armure, améliorant la protection contre certaines menaces comme le feu ou le recul. Ils offrent une autre manière de personnaliser l’armure, car la plupart des types d’armures n’ont pas de caractéristiques de matériau."
     },
     {
-      "text": "Typically, armor with a large number of defense slots start with fewer upgrade slots, meaning functionality is sacrificed for protection."
+      "text": "En général, les armures disposant de nombreux emplacements de défense commencent avec moins d’emplacements d’amélioration, ce qui signifie que la fonctionnalité est sacrifiée au profit de la protection."
     },
-	 {
-      "text": "Mighty Smelting also has a full list of defense modifiers available on tools, along with the Encyclopedia of Tinkering.",
+    {
+      "text": "*Fonderie Suprême* contient également une liste complète des modificateurs défensifs disponibles pour les outils, tout comme l’Encyclopédie du Bricolage.",
       "paragraph": true
     }
   ]

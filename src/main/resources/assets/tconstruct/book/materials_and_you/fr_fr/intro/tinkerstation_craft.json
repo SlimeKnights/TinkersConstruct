@@ -1,7 +1,7 @@
 {
-  "title": "Tinker Station Crafting",
+  "title": "Fabrication de l’Atelier du Bricoleur",
   "recipe": "tconstruct:tables/tinker_station",
   "description": [
-    { "text": "Hopefully you still have some patterns leftover. If not can always make more." }
+    { "text": "Avec un peu de chance, il te reste quelques patrons. Sinon, tu peux toujours en fabriquer d’autres." }
   ]
 }
