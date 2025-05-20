@@ -1,0 +1,12 @@
+{
+  "title": "Redstone",
+  "text": "La redstone est idéale pour placer les mobs en ordre sans leur faire de mal.",
+  "entity": [
+    "Explosion de puissance 1,5",
+    "Dégâts d'explosion nuls",
+    "Recul d’explosion inversé"
+  ],
+  "block": [
+    "L'explosion ignore les blocs"
+  ]
+}

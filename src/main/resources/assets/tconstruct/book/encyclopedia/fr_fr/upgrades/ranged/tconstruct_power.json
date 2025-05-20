@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:power",
+  "text": [
+    {
+      "text": "Augmente la puissance des projectiles de 0,5 par niveau, avec un bonus de 0,5 au premier niveau."
+    },
+    {
+      "text": "Rend les modificateurs Lancer, Ressort, Assommer et Téléportation 25% plus efficaces par niveau.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Peut être appliqué niveau par niveau",
+    "Maximum de 5 niveaux",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}
+

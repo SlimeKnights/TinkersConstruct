@@ -1,0 +1,20 @@
+{
+  "title": "Interaction Abilities",
+  "text": [
+    {
+      "text": "Interaction abilities change the way the tool interacts with blocks, entities, and even air."
+    },
+    {
+      "text": "Due to their nature, they will often severely conflict with other interaction abilities.",
+      "paragraph": true
+    },
+    {
+      "text": "Many interaction abilities also work on ranged weapons, which are used by attacking instead of interacting.",
+      "paragraph": true
+    },
+    {
+      "text": "Many interaction abilities also work on chestplates, requiring an empty hand to be used. They can be used from the main or offhand",
+      "paragraph": true
+    }
+  ]
+}

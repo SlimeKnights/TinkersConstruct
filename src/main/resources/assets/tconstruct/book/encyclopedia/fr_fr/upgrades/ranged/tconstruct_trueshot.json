@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:trueshot",
+  "text": [
+    {
+      "text": "Octroie +0,1 de précision par niveau."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Peut être appliqué de façon incrémentale",
+    "Maximum de 3 niveaux",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}
+

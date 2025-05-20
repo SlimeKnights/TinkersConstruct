@@ -1,0 +1,11 @@
+{
+  "text": "Le signalum en fusion est parfait pour un combat explosif inversé avec un minimum de dégâts environnementaux.",
+  "entity": [
+    "Explosion de puissance 2",
+    "Jusqu’à 2 points de dégâts d’explosion",
+    "Recul inversé d’explosion"
+  ],
+  "block": [
+    "L’explosion ignore les blocs"
+  ]
+}

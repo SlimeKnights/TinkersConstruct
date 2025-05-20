@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:fiery",
+  "text": [
+    {
+      "text": "Fait que les flèches tirées s'enflamment, brûlant les cibles touchées."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/ranged",
+  "effects": [
+    "Peut être appliqué par paliers",
+    "Maximum de 5 niveaux",
+    "Fonctionne mal avec le gel",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}

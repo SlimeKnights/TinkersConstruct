@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:antiaquatic",
+  "text": [
+    {
+      "text": "Confère +2 dégâts par niveau contre les créatures aquatiques."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Peut être appliqué de manière incrémentale",
+    "Maximum de 5 niveaux",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}
+

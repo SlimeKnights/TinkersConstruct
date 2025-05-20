@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:netherite",
+  "text": [
+    {
+      "text": "Confère +20% de durabilité, +20% de dégâts d’attaque, +25% de vitesse de minage, +10% de vélocité, +5% de résistance au recul et +1 en robustesse d’armure. Augmente le niveau de minage au niveau netherite, et rend l’outil invulnérable lorsqu’il est jeté."
+    },
+    {
+      "text": "Les outils et armures ne recevront que les bonus de statistiques applicables.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum de 1 niveau",
+    "Nécessite 1 emplacement d’amélioration"
+  ]
+}
+

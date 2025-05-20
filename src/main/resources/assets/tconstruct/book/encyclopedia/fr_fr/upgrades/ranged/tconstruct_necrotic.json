@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:necrotic",
+  "text": [
+    {
+      "text": "Les flèches tirées à pleine puissance rendent un pourcentage des dégâts infligés. Soigne 25 % au niveau 1, 45 % au niveau 2, 60 % au niveau 3, 70 % au niveau 4, et 75 % au niveau 5. L’outil perd 1 point de durabilité supplémentaire par niveau."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/ranged",
+  "effects": [
+    "Maximum de 5 niveaux",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}
+

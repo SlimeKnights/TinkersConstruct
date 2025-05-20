@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:freezing",
+  "text": [
+    {
+      "text": "Gèle les monstres attaqués pendant 4 secondes (plus 4 secondes par niveau), infligeant des dégâts sur la durée et ralentissant la cible."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/melee",
+  "effects": [
+    "Maximum de 3 niveaux",
+    "Fonctionne mal avec l'effet brûlant",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}
+

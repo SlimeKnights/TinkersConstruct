@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:necrotic",
+  "text": [
+    {
+      "text": "Les coups critiques soignent 5% des dégâts infligés par niveau. L’outil perd 1 durabilité supplémentaire par niveau."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/melee",
+  "effects": [
+    "Maximum de 5 niveaux",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}
+

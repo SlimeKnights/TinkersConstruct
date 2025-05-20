@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:rebalanced",
+  "text": [
+    {
+      "text": "Accorde +1 emplacement de modificateur ; le type est déterminé par la recette. Appliquer +1 emplacement de capacité fait perdre 1 emplacement d'amélioration à l’outil."
+    },
+    {
+      "text": "L'enderslime augmente le niveau d'un des traits de l'outil, généralement le trait de la tête.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+	  "Usage unique",
+    "Sans emplacement"
+  ]
+}

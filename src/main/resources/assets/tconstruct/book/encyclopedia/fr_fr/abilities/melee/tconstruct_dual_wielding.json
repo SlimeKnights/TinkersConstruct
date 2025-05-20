@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:dual_wielding",
+  "text": [
+    {
+      "text": "Allows the tool to be used from both the main and the offhand. Tools with dual wielding have 80% attack speed and damage, or 90% attack speed and 70% damage for two handed tool."
+    },
+    {
+      "text": "Two handed tools must first receive offhanded in order to receive dual wielding.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 1 level",
+    "Requires 1 ability slot"
+  ]
+}

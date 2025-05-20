@@ -1,0 +1,21 @@
+{
+  "tool": "tconstruct:kama",
+  "text": [
+    {
+      "text": "La Kama est un outil de récolte précis, efficace sur les plantes, les toiles d’araignée et la laine."
+    },
+    {
+      "text": "Les expanders augmentent le rayon circulaire de l’outil.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+1 Dégâts d’attaque",
+    "50 % Modificateur d’attaque",
+    "1,6 Vitesse d’attaque",
+    "Coupe les plantes et les animaux",
+    "Petite attaque AOE",
+    "Récolte les plantes",
+    "Laboure la terre"
+  ]
+}

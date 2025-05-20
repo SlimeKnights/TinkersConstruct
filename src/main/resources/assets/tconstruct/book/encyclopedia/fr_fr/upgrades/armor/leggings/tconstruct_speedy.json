@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:speedy",
+  "text": [
+    {
+      "text": "Multiplie la vitesse de déplacement de 10% supplémentaires par niveau."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Peut être appliqué par paliers",
+    "Maximum de 3 niveaux",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}
+

@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:pierce",
+  "text": [
+    {
+      "text": "Ajoute +0,5 de dégâts de mêlée par niveau. Les attaques de mêlée ignorent 1 point d’armure par niveau."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/melee",
+  "effects": [
+    "Peut être appliqué de façon incrémentale",
+    "Maximum de 3 niveaux",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}
+

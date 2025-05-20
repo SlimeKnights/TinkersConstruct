@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:broad_axe",
+  "text": [
+    {
+      "text": "La hache large peut miner une colonne entière d’un arbre, ou 6 blocs dans une colonne verticale."
+    },
+    {
+      "text": "Les expanseurs alternent entre augmentation de la largeur et de la profondeur.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+5 Dégâts d’attaque",
+    "Multiplicateur d’attaque 165%",
+    "0,6 Vitesse d’attaque",
+    "Multiplicateur de minage 30%",
+    "Multiplicateur de durabilité 425%",
+    "Écorce le bois"
+  ]
+}

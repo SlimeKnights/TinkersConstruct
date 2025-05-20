@@ -1,0 +1,21 @@
+{
+  "tool": "tconstruct:war_pick",
+  "text": [
+    {
+      "text": "La pioche de guerre est une arbalète efficace pour miner la pierre, les métaux et les minerais. On la trouve dans les mines abandonnées, les avant-postes de pillards, sur les villageois zombies, ou comme cadeau d’un armurier."
+    },
+    {
+      "text": "Les expanseurs augmentent le rayon circulaire de la pioche.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+0 Dégâts d’attaque",
+    "1,2 Vitesse d’attaque",
+    "1,0 Vitesse de tir",
+    "1,00 Vélocité des flèches",
+    "0,75 Précision",
+    "3 emplacements d’amélioration",
+    "1 emplacement de capacité"
+  ]
+}

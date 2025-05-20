@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:overforced",
+  "text": [
+    {
+      "text": "Confère +75 overslime par niveau."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Peut être appliqué de façon incrémentale",
+    "Maximum de 5 niveaux",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}
+

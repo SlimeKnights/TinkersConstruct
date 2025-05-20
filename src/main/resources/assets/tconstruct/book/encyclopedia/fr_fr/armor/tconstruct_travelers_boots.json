@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:travelers_boots",
+  "text": [
+    { "text": "Traveler's Boots are balanced boots, with low protection, and average upgrade and defense slots." }
+  ],
+  "properties": [
+    "75% Durability Modifier",
+    "75% Plating Stats",
+    "2 Upgrade Slots",
+    "2 Defense Slots",
+    "1 Ability Slot",
+    "1 Material Trait",
+    "Insulated & Tanned",
+    "Powdered snow walking"
+  ]
+}

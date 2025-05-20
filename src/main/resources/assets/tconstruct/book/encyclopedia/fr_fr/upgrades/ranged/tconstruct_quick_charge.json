@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:quick_charge",
+  "text": [
+    {
+      "text": "Augmente la vitesse de rechargement de l’outil de 25% par niveau."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Peut être appliqué de façon incrémentielle",
+    "Maximum de 4 niveaux",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}
+

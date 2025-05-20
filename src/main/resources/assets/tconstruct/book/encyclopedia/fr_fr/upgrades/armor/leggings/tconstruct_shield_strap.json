@@ -1,0 +1,12 @@
+{
+  "modifier_id": "tconstruct:shield_strap",
+  "text": [
+    {
+      "text": "Ajoute +1 emplacement main secondaire par niveau, permettant d’échanger l’objet en main secondaire en interagissant avec le pantalon."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}

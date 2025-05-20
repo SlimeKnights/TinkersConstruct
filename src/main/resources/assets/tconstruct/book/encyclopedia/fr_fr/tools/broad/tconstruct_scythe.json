@@ -1,0 +1,21 @@
+{
+  "tool": "tconstruct:scythe",
+  "text": [
+    {
+      "text": "La faux est un outil de récolte large, efficace sur les plantes ou les monstres dans une zone de 3x3x3."
+    },
+    {
+      "text": "Les extensions alternent entre augmentation de la largeur/hauteur et de la profondeur, tandis que la soie confère une tonte en zone d’effet.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+1 Dégâts d’attaque",
+    "0,7 Vitesse d’attaque",
+    "Multiplicateur de minage 45%",
+    "Multiplicateur de durabilité 250%",
+    "Attaque en zone",
+    "Prépare la terre",
+    "Récolte les plantes"
+  ]
+}

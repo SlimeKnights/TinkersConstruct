@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:farsighted",
+  "text": [
+    {
+      "text": "Diminue le champ de vision de 5 % par niveau lorsqu’on porte cette armure ou tient cet outil.."
+    },
+    {
+      "text": "Ce modificateur est idéal pour annuler la modification du champ de vision causée par le modificateur vitesse, mais vous pouvez lui trouver d’autres usages.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Usage multiple",
+    "Sans emplacement"
+  ]
+}

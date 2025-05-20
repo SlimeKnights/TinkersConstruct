@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:freezing",
+  "text": [
+    {
+      "text": "Gèle toute entité touchée par la flèche pendant 4 secondes (puis 4 secondes supplémentaires par niveau), infligeant des dégâts sur la durée et ralentissant la cible."
+    }
+  ],
+  "more_text_space": true,
+  "tool_filter": "tconstruct:modifiable/ranged",
+  "effects": [
+    "Maximum de 3 niveaux",
+    "Fonctionne mal avec l'effet enflammé",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}

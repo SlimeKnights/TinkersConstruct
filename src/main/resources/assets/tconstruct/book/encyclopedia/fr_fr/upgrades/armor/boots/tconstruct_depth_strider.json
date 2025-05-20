@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:depth_strider",
+  "text": [
+    {
+      "text": "Réduit la pénalité de déplacement sous l'eau de 33% par niveau. Au niveau 3, il n'y a plus de pénalité de déplacement sous-marin."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum de 3 niveaux",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}

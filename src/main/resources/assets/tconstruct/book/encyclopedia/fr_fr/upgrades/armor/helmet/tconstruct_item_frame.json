@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:item_frame",
+  "text": [
+    {
+      "text": "Ajoute des emplacements au casque qui s’affichent sur l’interface lorsque le casque est porté."
+    },
+    {
+      "text": "L’inventaire du casque peut être ouvert en interagissant avec lui tout en le tenant en main.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}
+

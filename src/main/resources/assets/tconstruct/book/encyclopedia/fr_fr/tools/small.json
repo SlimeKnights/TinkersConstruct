@@ -1,0 +1,12 @@
+{
+  "title": "Petits Outils",
+  "text": [
+    {
+      "text": "Tous les petits outils peuvent être créés soit à la Station du Tinker, soit à l'Enclume du Tinker. Ils nécessitent entre 2 et 3 pièces, offrant 2 à 3 traits. La plupart des petits outils commencent aussi avec 1 emplacement de capacité et 3 emplacements d'amélioration."
+    },
+    {
+      "text": "La plupart des outils ont un bonus de dégâts d'attaque, ajouté aux statistiques de la tête et multiplié par celles du manche. De plus, certains outils possèdent un modificateur d'attaque, qui multiplie les dégâts d'attaque provenant de toutes les sources sur l'outil, y compris les modificateurs. Certains outils commencent également avec des traits d'outil, appliqués aux outils entièrement assemblés de manière similaire aux traits des matériaux.",
+      "paragraph": true
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "text": "Sometimes you just want to blow up your enemies without blowing up your world.",
+  "entity": [
+    "Power 2 explosion",
+    "Up to 3 Explosion Damage"
+  ],
+  "block": [
+    "Explosion ignores blocks",
+    "Explosion causes fires"
+  ]
+}

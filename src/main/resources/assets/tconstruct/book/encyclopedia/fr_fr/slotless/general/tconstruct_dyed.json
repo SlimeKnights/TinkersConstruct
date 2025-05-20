@@ -1,0 +1,16 @@
+{
+  "modifier_id": "tconstruct:dyed",
+  "text": [
+    {
+      "text": "Change la couleur des parties en cuir ou en bois de l’équipement du voyageur, des boucliers et des bâtons."
+    },
+    {
+      "text": "Peut mélanger plusieurs teintures, ainsi que les teintures de la couleur précédente de l’équipement.", "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Usage multiple",
+    "Sans emplacement"
+  ]
+}

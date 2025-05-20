@@ -1,0 +1,12 @@
+{
+  "tool": "tconstruct:plate_leggings",
+  "text": [
+    { "text": "Plate Leggings are defensive leggings, with high protection, and low ability slots and high defense slots." }
+  ],
+  "properties": [
+    "Material controlled stats",
+    "2 Upgrade Slot",
+    "3 Defense Slots",
+    "2 Material Traits"
+  ]
+}

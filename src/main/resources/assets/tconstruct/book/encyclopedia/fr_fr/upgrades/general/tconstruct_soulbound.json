@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:soulbound",
+  "text": [
+    {
+      "text": "Fait en sorte que l'outil reste dans votre inventaire après la mort et lors de la réapparition."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Niveau maximum : 1",
+    "Nécessite 1 emplacement d'amélioration"
+  ]
+}
+

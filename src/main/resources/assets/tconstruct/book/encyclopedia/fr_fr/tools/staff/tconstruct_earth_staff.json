@@ -1,0 +1,16 @@
+{
+  "tool": "tconstruct:earth_staff",
+  "text": [
+    { "text": "Le Bâton Mondeslime est une variante de bâton avec une grande défense et précision." }
+  ],
+  "properties": [
+    "800 Durabilité",
+    "1 Puissance de projectile",
+    "0.9 Précision",
+    "35 Blocage maximal",
+    "140 Angle de blocage",
+    "2 Emplacements d'amélioration",
+    "3 Emplacements de défense",
+    "2 Emplacements d'aptitude"
+  ]
+}

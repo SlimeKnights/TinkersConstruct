@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:overslime",
+  "text": [
+    {
+      "text": "L'overslime offre aux outils une seconde barre de durabilité, consommée avant la barre principale. Par défaut, les outils commencent avec 50 d'overslime maximal, multipliés par leur modificateur de durabilité."
+    },
+    {
+      "text": "Les outils sans matériaux overforced ou slimy ont des statistiques réduites.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Usage multiple",
+    "Sans emplacement",
+    "Outils non visqueux : -10 % vitesse de minage et dégâts d’attaque, -0,5 armure"
+  ]
+}

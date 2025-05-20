@@ -1,0 +1,17 @@
+{
+  "modifier_id": "tconstruct:soulspeed",
+  "text": [
+    {
+      "text": "Octroie +40,5% de vitesse sur le sable des âmes, avec 10,5% supplémentaires pour chaque niveau additionnel. Réduit le ralentissement dû à la marche sur le sable des âmes."
+    },
+    {
+      "text": "Les bottes s'abîment progressivement lorsque ce modificateur est actif.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum de 3 niveaux",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}

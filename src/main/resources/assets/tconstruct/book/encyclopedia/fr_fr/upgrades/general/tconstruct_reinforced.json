@@ -1,0 +1,15 @@
+{
+  "modifier_id": "tconstruct:reinforced",
+  "text": [
+    {
+      "text": "Réduit la probabilité que l’outil subisse des dégâts. A 75% de chances de subir des dégâts au niveau 1, 55% au niveau 2, 40% au niveau 3, 30% au niveau 4, et 25% au niveau 5."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Peut être appliqué de façon incrémentale",
+    "Maximum de 5 niveaux",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}
+

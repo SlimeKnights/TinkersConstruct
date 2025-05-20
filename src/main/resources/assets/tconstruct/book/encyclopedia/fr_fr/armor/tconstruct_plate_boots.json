@@ -1,0 +1,12 @@
+{
+  "tool": "tconstruct:plate_boots",
+  "text": [
+    { "text": "Plate Boots are defensive boots, with high protection, and low ability slots and high defense slots." }
+  ],
+  "properties": [
+    "Material controlled stats",
+    "2 Upgrade Slot",
+    "3 Defense Slots",
+    "2 Material Traits"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:wings",
+  "text": [
+    {
+      "text": "Allows you to glide by jumping while in mid air. Slowly damages the chestplate while gliding."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum of 1 level",
+    "Requires 2 ability slots"
+  ]
+}

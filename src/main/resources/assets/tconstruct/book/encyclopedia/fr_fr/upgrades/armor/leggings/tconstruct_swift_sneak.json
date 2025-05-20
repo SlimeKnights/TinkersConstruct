@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:swift_sneak",
+  "text": [
+    {
+      "text": "Réduit la pénalité de vitesse en se baissant de 15 % par niveau. Au niveau 5, il est possible de sprinter en étant accroupi."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum de 5 niveaux",
+    "Nécessite 1 emplacement d'amélioration par niveau"
+  ]
+}
+

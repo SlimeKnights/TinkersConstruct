@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:experienced",
+  "text": [
+    {
+      "text": "Augmente l’expérience obtenue en tuant des monstres et en cassant des blocs de 25% par niveau."
+    },
+    {
+      "text": "Sur les plastrons, le bonus d’expérience ne fonctionne que contre les monstres tués à mains nues. Les jambières affectent tous les outils.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum de 5 niveaux",
+    "Nécessite 1 emplacement d’amélioration par niveau"
+  ]
+}
+

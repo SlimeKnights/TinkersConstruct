@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:longbow",
+  "text": [
+    {
+      "text": "L’arc long est une arme à distance polyvalente qui tire des flèches. Les flèches sont lancées immédiatement après avoir relâché l’arc long."
+    },
+    {
+      "text": "Lorsque vous utilisez des modificateurs d’interaction, l’arc long agit au clic gauche.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "1,0 Vitesse d’attaque",
+    "1,0 Vitesse de tir",
+    "1,00 Vélocité de flèche",
+    "0,75 Précision",
+    "Additionne les stats des deux branches",
+    "Multiplicateur de durabilité 150%"
+  ]
+}

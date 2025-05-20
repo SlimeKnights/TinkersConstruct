@@ -1,0 +1,20 @@
+{
+  "tool": "tconstruct:sledge_hammer",
+  "text": [
+    {
+      "text": "Le marteau-piqueur est un outil de minage large, efficace sur la pierre dans une zone de 3x3."
+    },
+    {
+      "text": "Les extensions alternent entre augmentation de la largeur et de la hauteur.",
+      "paragraph": true
+    }
+  ],
+  "properties": [
+    "+3 Dégâts d’attaque",
+    "Multiplicateur d’attaque 135%",
+    "0,75 Vitesse d’attaque",
+    "Multiplicateur de minage 40%",
+    "Multiplicateur de durabilité 400%",
+    "Châtiment II"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "modifier_id": "tconstruct:diamond",
+  "text": [
+    {
+      "text": "Confère +500 de durabilité (+250 sur l’armure), +0,5 de dégâts d’attaque, +2 de vitesse de minage, +0,5 de puissance de projectile et +1 d’armure. Améliore également le niveau de récolte des outils au niveau diamant."
+    },
+    {
+      "text": "Les outils et armures ne reçoivent que les bonus de stats applicables ; par exemple, les outils tenus ne gagnent pas +1 d’armure.",
+      "paragraph": true
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Maximum de 1 niveau",
+    "Nécessite 1 emplacement d’amélioration"
+  ]
+}
+
