@@ -1,11 +1,11 @@
 {
-  "title": "Fantastic Foundry",
+  "title": "Haut Fourneau Fantastique",
   "text": [
     {
-      "text": "Hello fellow Tinker. My name is Nemea, and I'd like to welcome you to the wonderful world of the Fantastic Foundry."
+      "text": "Bonjour, camarade Bricoleur. Je m'appelle Nemea, et je te souhaite la bienvenue dans le merveilleux monde du Haut Fourneau Fantastique."
     },
     {
-      "text": "Using the mysticalities of the Nether I have created some outstanding devices.",
+      "text": "En utilisant les mysticités du Nether, j'ai créé des dispositifs extraordinaires.",
       "paragraph": true
     }
   ]

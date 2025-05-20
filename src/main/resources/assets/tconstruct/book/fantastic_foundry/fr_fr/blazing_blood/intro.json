@@ -1,5 +1,5 @@
 {
-  "title": "Blazing Blood",
+  "title": "Sang Ardent",
   "image": {
     "file": "tconstruct:book/images/manyullyn_alloy.png",
     "width": 179,
@@ -7,7 +7,7 @@
   },
   "text": [
     {
-      "text": "So Tinker, you are trying to make better alloys, and found lava is too weak? Why not liquefy the essence of living blazes to fuel your desires?",
+      "text": "Alors, Bricoleur, tu essaies de créer de meilleurs alliages et tu trouves que la lave est trop faible ? Pourquoi ne pas liquéfier l’essence des blazes vivants pour alimenter tes ambitions ?",
       "paragraph": true
     }
   ]

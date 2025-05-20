@@ -1,19 +1,19 @@
 {
-  "title": "Alloyer GUI",
+  "title": "Interface de l’Alliage",
   "text": [
     {
-      "text": "1: This area is where you see the materials in the side tanks, more tanks equals more spots for materials."
+      "text": "1 : Cette zone affiche les matériaux présents dans les réservoirs latéraux. Plus de réservoirs signifie plus d’emplacements pour les matériaux."
     },
     {
-      "text": "2: This is the area where your alloyed materials will show once they are finished working their magic.",
+      "text": "2 : Cette zone affiche les matériaux alliés une fois qu’ils ont terminé leur transformation magique.",
       "paragraph": true
     },
     {
-      "text": "3: This area is where your fuel shows. Hotter fuels means you can melt more things.",
+      "text": "3 : Cette zone indique ton carburant. Des carburants plus chauds permettent de fondre plus de choses.",
       "paragraph": true
     },
     {
-      "text": "In both 1 and 3, left clicking with a fluid item will attempt to fill the item from the tank, while right clicking will attempt to dump the item into the tank.",
+      "text": "Dans les zones 1 et 3, un clic gauche avec un objet contenant un fluide tente de remplir l’objet depuis le réservoir, tandis qu’un clic droit tente de vider l’objet dans le réservoir.",
       "paragraph": true
     }
   ]

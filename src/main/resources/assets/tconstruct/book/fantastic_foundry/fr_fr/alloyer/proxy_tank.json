@@ -1,14 +1,14 @@
 {
-  "title": "Proxy Tank",
+  "title": "Réservoir Proxy",
   "item": "tconstruct:scorched_proxy_tank",
   "text": [
     {
-      "text": "The proxy tank is great for filling or emptying variable size fluid items, such as tools with tanks. Simply place the tool in the tank, then fill it using fluid items, faucets, or channels.",
+      "text": "Le réservoir proxy est idéal pour remplir ou vider des objets à fluide de taille variable, comme les outils avec réservoirs. Il suffit de placer l’outil dans le réservoir, puis de le remplir avec des objets à fluide, des robinets ou des canaux.",
       "paragraph": true
     },
     {
-      "text": "This design unfortunately does not work well with containers like buckets or copper cans, as their rigid size prevents faucets from slowly filling them. You are better off using a casting block for them.",
+      "text": "Ce design ne fonctionne malheureusement pas bien avec les conteneurs comme les seaux ou les bidons en cuivre, car leur taille rigide empêche les robinets de les remplir lentement. Il vaut mieux utiliser un bloc de moulage pour ceux-là.",
       "paragraph": true
     }
-	]
+  ]
 }

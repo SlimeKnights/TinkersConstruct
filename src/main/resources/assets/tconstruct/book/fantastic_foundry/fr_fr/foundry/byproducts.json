@@ -1,15 +1,15 @@
 {
-  "title": "Byproducts",
+  "title": "Sous-produits",
   "text": [
     {
-      "text": "My Fantastic Foundry will give you byproducts from your ores. You may be asking 'But Nemea what are these byproducts?' Well just read a bit further and find out."
+      "text": "Mon Haut Fourneau Fantastique te fournira des sous-produits à partir de tes minerais. Tu te demandes peut-être « Mais Nemea, quels sont ces sous-produits ? ». Eh bien, lis un peu plus loin pour le découvrir."
     },
     {
-      "text": "Byproducts are the hidden extras inside your ores that you would not normally be able to achieve with a simple furnace. A bit of extra material of some other kind that is hidden in the rock.",
+      "text": "Les sous-produits sont les extras cachés dans tes minerais, que tu ne pourrais normalement pas obtenir avec un simple fourneau. Un peu de matière supplémentaire d’un autre type, dissimulée dans la roche.",
       "paragraph": true
     },
     {
-      "text": "A couple of examples: copper ore gives gold as a byproduct, and cobalt ore gives iron as a byproduct.",
+      "text": "Quelques exemples : le minerai de cuivre donne de l’or comme sous-produit, et le minerai de cobalt donne du fer comme sous-produit.",
       "paragraph": true
     }
   ]

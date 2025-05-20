@@ -1,5 +1,5 @@
 {
-  "title": "Foundry GUI",
+  "title": "Interface de la Fonderie",
   "image": {
     "file": "tconstruct:book/images/foundrygui.png",
     "width": 161,
@@ -7,11 +7,11 @@
   },
   "text": [
     {
-      "text": "1: Place items to smelt in these slots. Foundry size determines number of slots."
+      "text": "1 : Placez les objets à fondre dans ces emplacements. La taille de la fonderie détermine le nombre d’emplacements disponibles."
     },
     {
-      "text": "2: Molten metals are shown here. You can click a fluid to select it for pouring. Hovering over the empty area will show foundry capacity.",
+      "text": "2 : Les métaux fondus sont affichés ici. Vous pouvez cliquer sur un fluide pour le sélectionner pour la coulée. Survoler la zone vide affiche la capacité de la fonderie.",
       "paragraph": true
     }
-	]
+  ]
 }

@@ -1,11 +1,11 @@
 {
-  "title": "Scorched Blocks",
+  "title": "Blocs Calcinés",
   "item": {
     "tag": "tconstruct:scorched_blocks"
   },
   "text": [
     {
-      "text": "These blocks can be used for any part of the foundry, as floors or walls. They are also useful for decorating your base.",
+      "text": "Ces blocs peuvent être utilisés pour n’importe quelle partie de la fonderie, que ce soit pour le sol ou les murs. Ils sont aussi utiles pour décorer votre base.",
       "paragraph": true
     }
   ]

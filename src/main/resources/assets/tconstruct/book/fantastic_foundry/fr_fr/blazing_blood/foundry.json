@@ -1,5 +1,5 @@
 {
-  "title": "Foundry",
+  "title": "Fonderie",
   "image": {
     "file": "tconstruct:book/images/blaze_smeltery.png",
     "width": 128,
@@ -7,7 +7,7 @@
   },
   "text": [
     {
-      "text": "A real Master Tinker would just bring the foundry to the blazes. Just add fuel, and it absorbs those fools before they even realize what is happening. I suppose you could also do it with that inferior smeltery if you must.",
+      "text": "Un vrai Maître Bricoleur amènerait simplement la fonderie aux blazes. Il suffit d’ajouter du carburant, et elle absorbe ces idiots avant même qu’ils comprennent ce qui se passe. Je suppose que tu pourrais aussi le faire avec cette fonderie inférieure, si tu y tiens vraiment.",
       "paragraph": true
     }
   ]

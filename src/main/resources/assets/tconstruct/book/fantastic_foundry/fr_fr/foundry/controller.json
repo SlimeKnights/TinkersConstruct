@@ -1,11 +1,11 @@
 {
-  "title": "Foundry Controller",
+  "title": "Contrôleur de Fonderie",
   "image": {
     "file": "tconstruct:book/images/fcontroller.png"
   },
   "text": [
     {
-      "text": "Pouring one block's worth of obsidian from an alloyer on scorched bricks will grant you with this mystical Foundry Controller."
+      "text": "Verser l’équivalent d’un bloc d’obsidienne depuis un alliageur sur des briques calcinées te permettra d’obtenir ce mystérieux Contrôleur de Fonderie."
     }
   ]
 }

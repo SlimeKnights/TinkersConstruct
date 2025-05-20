@@ -1,15 +1,15 @@
 {
-  "title": "Scorched Tanks",
+  "title": "Réservoirs Calcinés",
   "item": {
     "tag": "tconstruct:scorched_tanks"
   },
   "text": [
-     {
-      "text": "Tanks are good for storing molten fluids or fuels. If you want to melt metals in your foundry you'll need one! Tanks can also be poured into from the foundry if you want to store stuff for later.",
+    {
+      "text": "Les réservoirs sont utiles pour stocker les fluides ou carburants en fusion. Si tu veux faire fondre des métaux dans ta fonderie, il t’en faudra un ! Les réservoirs peuvent aussi être remplis depuis la fonderie si tu veux stocker des matériaux pour plus tard.",
       "paragraph": true
     },
     {
-      "text": "Tanks cannot be used for the floor of the foundry.",
+      "text": "Les réservoirs ne peuvent pas être utilisés pour le sol de la fonderie.",
       "paragraph": true
     }
   ]

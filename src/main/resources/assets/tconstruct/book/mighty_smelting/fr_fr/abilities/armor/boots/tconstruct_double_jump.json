@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:double_jump",
   "text": [
     {
-      "text": "Bunny hopping increases your skills and makes you way better at the game. Don't forget to throw in some proning for maximum effect."
+      "text": "Le saut de lapin améliore vos compétences et vous rend bien meilleur dans le jeu. N'oubliez pas d'ajouter un peu de rampement pour un effet maximal."
     }
   ],
   "effects": [
-    "Allows an extra jump",
-    "Multiple levels, each level gives an extra jump",
-    "Requires 1 ability slot"
+    "Permet un saut supplémentaire",
+    "Niveaux multiples, chaque niveau ajoute un saut",
+    "Nécessite 1 emplacement d’aptitude"
   ]
 }

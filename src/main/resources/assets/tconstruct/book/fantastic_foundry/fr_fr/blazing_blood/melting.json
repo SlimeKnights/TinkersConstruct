@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:melting",
   "text": [
     {
-      "text": "Foundry not portable enough? Try turning your tool into a handheld foundry! Perhaps Thruul is smart enough to make something worthwhile after all."
+      "text": "La fonderie n’est pas assez portable ? Essaie de transformer ton outil en fonderie portative ! Peut-être que Thruul est finalement assez malin pour créer quelque chose d’utile."
     }
   ],
   "effects": [
-    "Melts attacked mobs into the tool's tank",
-    "Dropped items also are melted if possible",
-    "Tool can be emptied into a tank or a smeltery",
-    "Requires 1 ability slot, single level"
+    "Fait fondre les créatures attaquées dans le réservoir de l’outil",
+    "Les objets lâchés sont aussi fondus si possible",
+    "L’outil peut être vidé dans un réservoir ou une fonderie",
+    "Nécessite 1 emplacement d’aptitude, niveau unique"
   ]
 }

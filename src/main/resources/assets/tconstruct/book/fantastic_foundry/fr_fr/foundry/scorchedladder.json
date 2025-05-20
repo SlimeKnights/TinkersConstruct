@@ -1,9 +1,9 @@
 {
-  "title": "Scorched Ladder",
+  "title": "Échelle Calcinée",
   "item": "tconstruct:scorched_ladder",
   "text": [
     {
-      "text": "The scorched ladder can be used to easily climb up or out of your foundry without invalidating the structure, useful for if you plan to build it bigger later!",
+      "text": "L’échelle calcinée permet de grimper facilement dans ou hors de votre fonderie sans invalider la structure, pratique si vous prévoyez de l’agrandir plus tard !",
       "paragraph": true
     }
   ]

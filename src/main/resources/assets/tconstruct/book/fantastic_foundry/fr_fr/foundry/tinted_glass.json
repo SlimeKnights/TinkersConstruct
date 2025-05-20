@@ -1,13 +1,13 @@
 {
-  "title": "Tinted Scorched Glass",
+  "title": "Verre Calciné Teinté",
   "item": "tconstruct:scorched_tinted_glass",
   "text": [
     {
-      "text": "Want to keep your foundry dark to maximize blaze spawns? Consider scorched tinted glass as a window instead of standard tinted glass, totally transparent but also does not let light through.",
+      "text": "Tu veux garder ta fonderie sombre pour maximiser l’apparition des blazes ? Envisage le verre calciné teinté comme fenêtre à la place du verre teinté classique — totalement transparent, mais ne laisse pas passer la lumière.",
       "paragraph": true
     },
-	  {
-      "text": "Glass cannot be used for the floor of the foundry.",
+    {
+      "text": "Le verre ne peut pas être utilisé pour le sol de la fonderie.",
       "paragraph": true
     }
   ]

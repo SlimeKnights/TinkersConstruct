@@ -1,5 +1,5 @@
 {
-  "title": "Casting",
+  "title": "Fonderie",
   "image": {
     "file": "tconstruct:book/images/scorched_casting.png",
     "width": 109,
@@ -7,7 +7,7 @@
   },
   "text": [
     {
-      "text": "Real Tinkers always use a cast to prevent accidentally casting the wrong thing, so the scorched table always requires one. Gold platforms and bars can be used as a substitute for an empty casting block."
+      "text": "Les vrais bricoles utilisent toujours une fonderie pour empêcher de lancer accidentellement la mauvaise chose, donc la table brûlée en nécessite toujours une. Les plates-formes et les barres en or peuvent être utilisées comme substitut à un bloc de coulée vide."
     }
 	]
 }

@@ -1,13 +1,13 @@
 {
-  "title": "Features",
+  "title": "Fonctionnalités",
   "text": [
-    { "text": "• Gives byproducts from ores" },
-    { "text": "\n• The foundry cannot alloy which is a superior breakthrough so you never have to worry about accidentally mixing materials again" },
-    { "text": "\n• Can hold multiple metals" },
-    { "text": "\n• Extendable capacity" },
-    { "text": "\n• Much larger storage capacity than the puny smeltery" },
-    { "text": "\n• Can melt blocks that give multiple outputs" },
-    { "text": "\n• Fuel efficiency depends on size " },
-    { "text": "\n• Useful for Nether-only runs and mass storage of liquids " }
+    { "text": "• Donne des sous-produits à partir des minerais" },
+    { "text": "\n• La fonderie ne permet pas les alliages, ce qui est une avancée majeure — plus de risques de mélanger accidentellement des matériaux" },
+    { "text": "\n• Peut contenir plusieurs métaux" },
+    { "text": "\n• Capacité extensible" },
+    { "text": "\n• Capacité de stockage bien plus grande que la petite fonderie" },
+    { "text": "\n• Peut fondre des blocs générant plusieurs sorties" },
+    { "text": "\n• Rendement du carburant dépendant de la taille" },
+    { "text": "\n• Utile pour les parties exclusivement dans le Nether et le stockage massif de liquides" }
   ]
 }

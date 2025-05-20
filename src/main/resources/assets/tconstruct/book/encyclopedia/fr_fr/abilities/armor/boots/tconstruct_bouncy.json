@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:bouncy",
   "text": [
     {
-      "text": "Causes you to bounce upon landing, preventing fall damage while applying 90% of your velocity upwards."
+      "text": "Vous fait rebondir à l'atterrissage, empêchant les dégâts de chute tout en appliquant 90% de votre vitesse vers le haut."
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Maximum of 1 level",
-    "Requires 1 ability slot"
+    "Maximum de 1 niveau",
+    "Nécessite 1 emplacement de capacité"
   ]
 }

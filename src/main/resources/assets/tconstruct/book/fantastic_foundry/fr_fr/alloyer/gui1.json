@@ -1,5 +1,5 @@
 {
-  "title": "Alloyer GUI",
+  "title": "Interface de l’Alliageur",
   "image": {
     "file": "tconstruct:book/images/alloyergui.png",
     "width": 166,
@@ -7,8 +7,8 @@
   },
   "text": [
     {
-      "text": "Your basic Alloyer GUI, except there could be more or less",
+      "text": "Ton interface basique d’alliage, sauf qu’il pourrait y avoir plus ou moins d’éléments.",
       "paragraph": true
     }
-	]
+  ]
 }
