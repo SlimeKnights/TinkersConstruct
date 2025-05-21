@@ -2,14 +2,14 @@
   "modifier_id": "tconstruct:embellishment",
   "text": [
     {
-      "text": "The original cosmetic to change the appearance of tools and armor!"
+      "text": "La première touche cosmétique pour changer l’apparence des outils et armures !"
     }
   ],
   "effects": [
-    "Changes the appearance of armor, shields, and staffs",
-    "Use wood to embellish staffs and shields",
-    "Use congealed slime to embellish slime",
-    "Multi-use",
-    "Slotless"
+    "Change l’apparence des armures, boucliers et bâtons",
+    "Utilisez du bois pour orner les bâtons et boucliers",
+    "Utilisez du slime compacté pour orner le slime",
+    "Utilisation multiple",
+    "Sans emplacement"
   ]
 }

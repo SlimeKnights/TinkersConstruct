@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:freezing",
   "text": [
     {
-      "text": "Elsa may be jealous."
+      "text": "Elsa en serait peut-être jalouse."
     }
   ],
   "tool_filter": "tconstruct:modifiable/ranged",
   "effects": [
-    "Fired projectiles slows enemies and deal extra damage",
-  	"Multiple levels, each level slows enemies for longer",
-  	"Requires 1 upgrade slot per level"
+    "Les projectiles tirés ralentissent les ennemis et infligent des dégâts supplémentaires",
+    "Niveaux multiples, chaque niveau prolonge la durée du ralentissement",
+    "Nécessite 1 emplacement d’amélioration par niveau"
   ]
 }

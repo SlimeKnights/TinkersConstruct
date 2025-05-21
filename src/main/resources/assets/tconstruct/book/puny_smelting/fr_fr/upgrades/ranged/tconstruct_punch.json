@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:punch",
   "text": [
     {
-      "text": "Here comes the punchline."
+      "text": "Voici venir la chute."
     }
   ],
   "effects": [
-    "Increases knockback on fired projectiles",
-	"Multiple levels, each level increases knockback further",
-	"Requires 1 upgrade slot per level"
+    "Augmente le recul des projectiles tirés",
+    "Niveaux multiples - chaque niveau augmente davantage le recul",
+    "Nécessite 1 emplacement d'amélioration par niveau"
   ]
 }

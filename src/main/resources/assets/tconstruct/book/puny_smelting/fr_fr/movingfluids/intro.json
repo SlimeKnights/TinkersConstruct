@@ -1,11 +1,11 @@
 {
-  "title": "Moving Fluids",
+  "title": "Déplacement des Fluides",
   "image": {
     "file": "tconstruct:book/images/movingfluids.png"
   },
   "text": [
     {
-      "text": "Now that you know how to use your puny melter you may be asking 'But Thruul, how do I get these metals out?' Good question Tinker!"
+      "text": "Maintenant que vous savez utiliser votre fondoir minuscule, vous vous demandez peut-être : 'Mais Thruul, comment faire sortir ces métaux ?' Bonne question, Bricoleur !"
     }
   ]
 }

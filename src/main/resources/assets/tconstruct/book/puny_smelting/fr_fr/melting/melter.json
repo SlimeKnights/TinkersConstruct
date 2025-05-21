@@ -1,11 +1,11 @@
 {
-  "title": "The Melter",
+  "title": "Le Fourneau de Fusion",
   "image": {
     "file": "tconstruct:book/images/melter.png"
   },
   "text": [
     {
-      "text": "This here is your most basic melter able to perform a variety of simple tasks."
+      "text": "Voici votre fourneau de fusion le plus basique, capable d'effectuer diverses tâches simples."
     }
   ]
 }

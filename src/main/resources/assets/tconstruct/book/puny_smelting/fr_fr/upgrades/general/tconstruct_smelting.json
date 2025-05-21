@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:smelting",
   "text": [
     {
-      "text": "How hard must you slap a chicken to cook it?"
+      "text": "À quel point faut-il frapper un poulet pour le cuire ?"
     }
   ],
   "effects": [
-    "Sneak while interacting to fill tool with items",
-    "Using the tool cooks the items",
-    "Multiple levels, each level adds another slot",
-    "Requires 1 upgrade slot per level"
+    "Accroupissez-vous en interagissant pour remplir l’outil avec des objets",
+    "Utiliser l’outil fait cuire les objets",
+    "Niveaux multiples, chaque niveau ajoute un emplacement supplémentaire",
+    "Nécessite 1 emplacement d’amélioration par niveau"
   ]
 }

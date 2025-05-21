@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:experienced",
   "text": [
     {
-      "text": "You feel a little smarter with some experience under your belt."
+      "text": "Vous vous sentez un peu plus malin avec un peu d’expérience en poche."
     }
   ],
   "effects": [
-    "Increases XP gain from blocks and mobs",
-    "Multiple levels, increases experience gained with each level",
-    "Requires 1 upgrade slot per level"
+    "Augmente les gains d’XP provenant des blocs et des créatures",
+    "Niveaux multiples, chaque niveau augmente l’expérience gagnée",
+    "Nécessite 1 emplacement d’amélioration par niveau"
   ]
 }

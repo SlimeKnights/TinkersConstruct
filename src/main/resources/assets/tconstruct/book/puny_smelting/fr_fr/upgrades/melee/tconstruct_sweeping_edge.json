@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:sweeping_edge",
   "text": [
     {
-      "text": "Chim chiminey chim chiminey chim chim cher-ee, a sweep is as lucky as lucky can be."
+      "text": "Chim chiminey chim chiminey chim chim chéri, un balayage porte toujours chance, c’est bien connu."
     }
   ],
   "effects": [
-     "Targets of the sweep attack take a larger percentage of the tools damage",
-    "Multiple levels, each level increases percentage of damage further",
-    "Requires 1 upgrade slot per level"
+    "Les cibles de l’attaque en balayage subissent un pourcentage plus élevé des dégâts de l’outil",
+    "Niveaux multiples, chaque niveau augmente encore ce pourcentage de dégâts",
+    "Nécessite 1 emplacement d’amélioration par niveau"
   ]
 }

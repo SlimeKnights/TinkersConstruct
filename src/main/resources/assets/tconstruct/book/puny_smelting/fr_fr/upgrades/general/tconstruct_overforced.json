@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:overforced",
   "text": [
     {
-      "text": "Overforced... what a name, using too much force?"
+      "text": "Sursaturé… quel nom, trop de force peut-être ?"
     }
   ],
   "effects": [
-     "Increases overslime capacity",
-    "Multiple levels, each level increases overslime capacity further",
-    "Requires 1 upgrade slot per level"
+    "Augmente la capacité de surslime",
+    "Niveaux multiples, chaque niveau augmente encore davantage la capacité de surslime",
+    "Nécessite 1 emplacement d’amélioration par niveau"
   ]
 }

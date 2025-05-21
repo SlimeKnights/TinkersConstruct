@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:shiny",
   "text": [
     {
-      "text": "This legendary modifier holds the legendary power of the legendary enchanted golden apple. And with a legendary name such as §dShiny§r, what could possibly go wrong? This will be legendary!"
+      "text": "Ce modificateur légendaire renferme le pouvoir légendaire de la légendaire pomme dorée enchantée. Et avec un nom aussi légendaire que §dBrillant§r, que pourrait-il bien arriver ? Ce sera légendaire !"
     }
   ],
   "effects": [
-    "It makes your tool glimmer",
-    "That's literally it",
-    "Legendary",
-	"Darkosto is §4§lNOT§r legendarily legendary."
+    "Fait scintiller votre outil",
+    "C’est littéralement tout",
+    "Légendaire",
+    "Darkosto est §4§lPAS§r légendairement légendaire."
   ]
 }

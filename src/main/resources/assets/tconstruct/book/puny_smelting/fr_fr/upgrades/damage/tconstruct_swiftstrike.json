@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:swiftstrike",
   "text": [
     {
-      "text": "Such a nice \"clink\" sound when you break amethyst."
+      "text": "Quel joli \"clink\" quand on casse de l’améthyste."
     }
   ],
   "effects": [
-    "Increases attack speed",
-    "Multiple levels, each level increases speed a bit more",
-    "Requires 1 upgrade slot per level"
+    "Augmente la vitesse d’attaque",
+    "Niveaux multiples, chaque niveau augmente un peu plus la vitesse",
+    "Nécessite 1 emplacement d’amélioration par niveau"
   ]
 }

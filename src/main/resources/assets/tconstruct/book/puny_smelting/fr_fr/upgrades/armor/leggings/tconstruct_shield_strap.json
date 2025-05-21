@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:shield_strap",
   "text": [
     {
-      "text": "He protec, he attac, but most importantly he bring the torches bac."
+      "text": "Il protège, il attaque, mais surtout, il ramène les torches."
     }
   ],
   "effects": [
-    "Grants an extra offhand slot",
-    "Leggings interact allows swapping offhand",
-    "Multiple levels, each level gives +1 slot",
-    "Requires 1 upgrade slot per level"
+    "Accorde un emplacement de main secondaire supplémentaire",
+    "Interaction avec les jambières permet de changer la main secondaire",
+    "Niveaux multiples, chaque niveau donne +1 emplacement",
+    "Nécessite 1 emplacement d’amélioration par niveau"
   ]
 }

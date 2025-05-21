@@ -1,12 +1,12 @@
 {
-  "title": "Features",
+  "title": "Fonctionnalités",
   "text": [
-    { "text": "• Early smeltery" },
-    { "text": "\n• Gives +3 nuggets or +1 gem per ore" },
-    { "text": "\n• Heater can be replaced with seared tank which can increase temperature" },
-    { "text": "\n• Internal capacity of 9 ingots" },
-    { "text": "\n• Melts 3 items at once" },
-    { "text": "\n• Very fuel efficient" },
-    { "text": "\n• Ideal for melting piglin drops such as gold swords or armor" }
+    { "text": "• Fonderie basique" },
+    { "text": "\n• Produit +3 pépites ou +1 joyau par minerai" },
+    { "text": "\n• Le chauffage peut être remplacé par un réservoir scellé pour augmenter la température" },
+    { "text": "\n• Capacité interne de 9 lingots" },
+    { "text": "\n• Peut fondre 3 objets simultanément" },
+    { "text": "\n• Très économe en combustible" },
+    { "text": "\n• Idéal pour fondre les butins de Piglins (épées ou armures en or)" }
   ]
 }

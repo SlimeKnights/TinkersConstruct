@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:killager",
   "text": [
     {
-      "text": "The newest Minecraft death metal band. Coming soon to a village near you."
+      "text": "Le tout nouveau groupe de death metal Minecraft. Bientôt dans un village près de chez vous."
     }
   ],
   "effects": [
-    "Increases damage against villagers and illagers",
-    "Multiple levels, each level increases damage further",
-    "Requires 1 upgrade slot per level"
+    "Augmente les dégâts contre les villageois et les illageois",
+    "Niveaux multiples, chaque niveau augmente encore les dégâts",
+    "Nécessite 1 emplacement d’amélioration par niveau"
   ]
 }

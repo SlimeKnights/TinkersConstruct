@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:ricochet",
   "text": [
     {
-      "text": "Time to make a daring escape."
+      "text": "Il est temps de faire une fuite audacieuse."
     }
   ],
   "effects": [
-    "Increases knockback you receive",
-    "Multiple levels, each level further increases knockback",
-    "Requires 1 upgrade slot per level"
+    "Augmente le recul que vous subissez",
+    "Niveaux multiples, chaque niveau augmente davantage le recul",
+    "Nécessite 1 emplacement d’amélioration par niveau"
   ]
 }

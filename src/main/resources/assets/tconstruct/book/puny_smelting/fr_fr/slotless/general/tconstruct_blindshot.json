@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:blindshot",
   "text": [
     {
-      "text": "I'm going to put some dirt in your eye."
+      "text": "Je vais te mettre de la terre dans les yeux."
     }
   ],
   "effects": [
-    "Decreases accuracy of fired projectiles",
-    "Multiple levels, each level decreases accuracy further",
-    "Slotless"
+    "Diminue la précision des projectiles tirés",
+    "Niveaux multiples, chaque niveau réduit davantage la précision",
+    "Sans emplacement"
   ]
 }

@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:swift_sneak",
   "text": [
     {
-      "text": "Gotta sneak fast."
+      "text": "Faut se faufiler vite."
     }
   ],
   "effects": [
-    "Increases movement speed while crouching",
-    "Multiple levels, each level increases speed further",
-    "Requires 1 upgrade slot per level"
+    "Augmente la vitesse de déplacement en étant accroupi",
+    "Niveaux multiples, chaque niveau augmente encore la vitesse",
+    "Nécessite 1 emplacement d’amélioration par niveau"
   ]
 }

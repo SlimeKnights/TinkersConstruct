@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:trim",
   "text": [
     {
-      "text": "An expensive way to really deck out your armor."
+      "text": "Une manière coûteuse de vraiment orner votre armure."
     }
   ],
   "effects": [
-    "Adds decorative edges to your armor",
-    "The combination of template and material chooses the design",
-    "Multi-use",
-    "Slotless"
+    "Ajoute des bordures décoratives à votre armure",
+    "La combinaison du gabarit et du matériau détermine le motif",
+    "Utilisation multiple",
+    "Sans emplacement"
   ]
 }

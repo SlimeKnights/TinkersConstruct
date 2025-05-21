@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:thorns",
   "text": [
     {
-      "text": "What a prick."
+      "text": "Quel pique."
     }
   ],
   "effects": [
-    "Has a chance to damage attackers when hit",
-    "Multiple levels, each level further increases the chance",
-    "Requires 1 upgrade slot per level"
+    "A une chance de blesser les attaquants lorsqu’ils vous frappent",
+    "Niveaux multiples, chaque niveau augmente davantage cette chance",
+    "Nécessite 1 emplacement d’amélioration par niveau"
   ]
 }

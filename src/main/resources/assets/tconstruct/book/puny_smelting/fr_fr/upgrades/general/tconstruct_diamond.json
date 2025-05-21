@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:diamond",
   "text": [
     {
-      "text": "Diamonds are forever!"
+      "text": "Les diamants sont éternels !"
     }
   ],
   "effects": [
-    "Increases durability, mining speed, attack damage, and armor",
-    "Single Level",
-    "Requires 1 upgrade slot"
+    "Augmente la durabilité, la vitesse de minage, les dégâts d’attaque et l’armure",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’amélioration"
   ]
 }

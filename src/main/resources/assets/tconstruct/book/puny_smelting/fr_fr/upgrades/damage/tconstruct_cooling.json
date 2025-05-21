@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:cooling",
   "text": [
     {
-      "text": "The best way to beat the fires of nether is to freeze them, extinguishing their eternal flame."
+      "text": "La meilleure façon de vaincre les flammes du Nether est de les geler, éteignant ainsi leur flamme éternelle."
     }
   ],
   "effects": [
-    "Increases damage to fire based creatures",
-	"Multiple levels, each level increases damage further",
-    "Requires 1 upgrade slot per level"
+    "Augmente les dégâts contre les créatures liées au feu",
+    "Niveaux multiples, chaque niveau augmente encore les dégâts",
+    "Nécessite 1 emplacement d’amélioration par niveau"
   ]
 }

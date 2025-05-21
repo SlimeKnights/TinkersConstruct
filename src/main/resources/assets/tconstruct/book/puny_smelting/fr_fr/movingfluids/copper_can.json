@@ -1,15 +1,15 @@
 {
-  "title": "Copper Cans",
+  "title": "Bidons en Cuivre",
   "text": [
     {
-      "text": "Copper cans (and buckets!) can be used to manually transfer fluids around."
+      "text": "Les bidons en cuivre (et les seaux !) permettent de transférer manuellement des fluides."
     },
     {
-      "text": "Copper cans hold 1 ingot worth of fluid.",
+      "text": "Les bidons en cuivre contiennent l'équivalent d'un lingot de fluide.",
       "paragraph": true
     },
     {
-	    "text": "Copper cans will stack up to 16.",
+      "text": "Les bidons en cuivre peuvent s'empiler jusqu'à 16.",
       "paragraph": true
     }
   ]

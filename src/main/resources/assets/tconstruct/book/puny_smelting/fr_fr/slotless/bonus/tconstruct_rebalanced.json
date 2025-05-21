@@ -2,17 +2,17 @@
   "modifier_id": "tconstruct:rebalanced",
   "text": [
     {
-      "text": "The balance of power is the scale of peace. --Thomas Paine."
+      "text": "L’équilibre des pouvoirs est l’échelle de la paix. --Thomas Paine."
     },
     {
-      "text": "\nThe balance of power is actually the scale of a dragon. Ancient gilding is surprisingly close though. --Thruul M'Gon."
+      "text": "\nL’équilibre des pouvoirs est en réalité l’échelle d’un dragon. L’ornement ancien s’en rapproche étonnamment. --Thruul M'Gon."
     }
   ],
   "effects": [
-    "Adds a modifier slot",
-    "Slot type is determined by the recipe",
-    "Greedy are penalized",
-    "Enderslime adds a trait",
-    "Single level"
+    "Ajoute un emplacement de modificateur",
+    "Le type d’emplacement est déterminé par la recette",
+    "Les gourmands sont pénalisés",
+    "L’Enderslime ajoute une caractéristique",
+    "Niveau unique"
   ]
 }

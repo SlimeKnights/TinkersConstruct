@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:offhanded",
   "text": [
     {
-      "text": "The most nonchalant modifier."
+      "text": "Le modificateur le plus désinvolte."
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Disables tool's interaction when offhand is occupied",
-    "Second level fully disables interactions",
-    "Maximum of 2 levels"
+    "Désactive l’interaction de l’outil lorsque la main secondaire est occupée",
+    "Le deuxième niveau désactive totalement les interactions",
+    "Maximum de 2 niveaux"
   ]
 }

@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:soulbound",
   "text": [
     {
-      "text": "Infusing an object with your soul doesn't sound healthy. But it is rather useful!"
+      "text": "Infuser un objet avec votre âme ne semble pas très sain. Mais c’est plutôt utile !"
     }
   ],
   "effects": [
-    "Tool will remain with you upon an untimely demise",
-    "Single Level",
-    "Requires 1 upgrade slot"
+    "L’outil reste avec vous en cas de décès prématuré",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’amélioration"
   ]
 }

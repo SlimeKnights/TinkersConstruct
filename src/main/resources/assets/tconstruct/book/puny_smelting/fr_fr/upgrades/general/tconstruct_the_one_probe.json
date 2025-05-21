@@ -2,16 +2,16 @@
   "modifier_id": "tconstruct:the_one_probe",
   "text": [
     {
-      "text": "Cast it into the fire! Destroy it!"
+      "text": "Jette-le dans le feu ! Détruis-le !"
     },
     {
-      "text": "No.",
+      "text": "Non.",
       "paragraph": true
     }
   ],
   "effects": [
-    "Gives fancy information on blocks and entities when holding or wearing the tool",
-    "Single level",
-    "Requires 1 upgrade slot"
+    "Affiche des informations détaillées sur les blocs et entités lorsque l’outil est tenu ou porté",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’amélioration"
   ]
 }

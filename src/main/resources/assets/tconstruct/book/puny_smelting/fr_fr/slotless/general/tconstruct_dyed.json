@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:dyed",
   "text": [
     {
-      "text": "Does it come in black?"
+      "text": "Ça existe en noir ?"
     }
   ],
   "effects": [
-    "Can use dyes to change the color of the tool",
-    "Multi-use",
-    "Slotless"
+    "Permet d’utiliser des teintures pour changer la couleur de l’outil",
+    "Utilisation multiple",
+    "Sans emplacement"
   ]
 }

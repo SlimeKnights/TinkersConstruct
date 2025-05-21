@@ -2,16 +2,16 @@
   "modifier_id": "tconstruct:smite",
   "text": [
     {
-      "text": "Fear me undead..."
+      "text": "Craignez-moi, morts-vivants..."
     },
     {
-      "text": "For I wield the power of melons infused with gold! Perhaps golden melon armor would make them stay away from me.",
+      "text": "Car je manie le pouvoir des melons infusés d’or ! Peut-être qu’une armure en melon doré les tiendrait à distance.",
       "paragraph": true
     }
   ],
   "effects": [
-    "Increases damage to the undead",
-    "Multiple levels, each level further increases damage",
-    "Requires 1 upgrade slot per level"
+    "Augmente les dégâts contre les morts-vivants",
+    "Niveaux multiples, chaque niveau augmente encore les dégâts",
+    "Nécessite 1 emplacement d’amélioration par niveau"
   ]
 }

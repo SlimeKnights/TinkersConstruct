@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:necrotic",
   "text": [
     {
-      "text": "Harvest the life of your foes in order to survive longer."
+      "text": "Récoltez la vie de vos ennemis pour survivre plus longtemps."
     }
   ],
   "tool_filter": "tconstruct:modifiable/ranged",
   "effects": [
-    "Fully charged arrows steal life from your enemies to heal you",
-    "Multiple levels, increases amount of life steal per level",
-    "Requires 1 upgrade slot per level"
+    "Les flèches tirées à pleine charge volent la vie de vos ennemis pour vous soigner",
+    "Niveaux multiples, chaque niveau augmente la quantité de vie volée",
+    "Nécessite 1 emplacement d’amélioration par niveau"
   ]
 }

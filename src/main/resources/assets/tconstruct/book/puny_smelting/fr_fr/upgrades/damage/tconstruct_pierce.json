@@ -2,18 +2,18 @@
   "modifier_id": "tconstruct:pierce",
   "text": [
     {
-      "text": "Tool gains the power of the cactus, attacking through armor."
+      "text": "L’outil gagne le pouvoir du cactus, attaquant à travers l’armure."
     },
     {
-      "text": "Not to be confused with impaling",
+      "text": "À ne pas confondre avec l’empalement",
       "paragraph": true
     }
   ],
   "tool_filter": "tconstruct:modifiable/ranged",
   "effects": [
-    "Cancels out a small amount of armor",
-    "Also slightly boosts the tool's damage",
-    "Multiple levels, each level increases effect",
-    "Requires 1 upgrade slot per level"
+    "Annule une petite quantité d’armure",
+    "Augmente légèrement les dégâts de l’outil",
+    "Niveaux multiples, chaque niveau renforce l’effet",
+    "Nécessite 1 emplacement d’amélioration par niveau"
   ]
 }

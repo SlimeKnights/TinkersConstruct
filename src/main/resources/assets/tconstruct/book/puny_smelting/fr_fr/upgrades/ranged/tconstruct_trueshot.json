@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:trueshot",
   "text": [
     {
-      "text": "Zero in on your target."
+      "text": "Visez juste dans le mille."
     }
   ],
   "effects": [
-    "Increases accuracy of fired projectiles",
-	"Multiple levels, each level increases accuracy further",
-	"Requires 1 upgrade slot per level"
+    "Augmente la précision des projectiles tirés",
+    "Niveaux multiples - chaque niveau améliore davantage la précision",
+    "Nécessite 1 emplacement d'amélioration par niveau"
   ]
 }

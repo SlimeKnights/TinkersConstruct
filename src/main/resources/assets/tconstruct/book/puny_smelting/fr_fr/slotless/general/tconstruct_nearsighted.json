@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:nearsighted",
   "text": [
     {
-      "text": "You need to move on from cobblestone tools eventually."
+      "text": "Il va falloir passer à autre chose que des outils en pierre à un moment."
     }
   ],
   "effects": [
-    "Increases FOV on the held tool or worn armor",
-    "Multiple levels",
-    "Slotless"
+    "Augmente le champ de vision avec l’outil tenu ou l’armure portée",
+    "Niveaux multiples",
+    "Sans emplacement"
   ]
 }

@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:padded",
   "text": [
     {
-      "text": "A little bit of floofhips never hurt anyone."
+      "text": "Un peu de rembourrage n’a jamais fait de mal à personne."
     }
   ],
   "effects": [
-    "Reduces knockback of tool",
-    "Multiple levels, each level decreases knockback further",
-    "Requires 1 upgrade slot per level"
+    "Réduit le recul de l’outil",
+    "Niveaux multiples, chaque niveau réduit encore davantage le recul",
+    "Nécessite 1 emplacement d’amélioration par niveau"
   ]
 }

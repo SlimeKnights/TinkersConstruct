@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:depth_strider",
   "text": [
     {
-      "text": "This is either madness or brilliance. Its remarkable how often those two traits coincide."
+      "text": "C’est soit de la folie, soit du génie. C’est fou comme ces deux traits coïncident souvent."
     }
   ],
   "effects": [
-    "Increases movement speed underwater",
-    "Multiple levels, each level further increases speed",
-    "Requires 1 upgrade slot per level"
+    "Augmente la vitesse de déplacement sous l’eau",
+    "Niveaux multiples, chaque niveau augmente encore la vitesse",
+    "Nécessite 1 emplacement d’amélioration par niveau"
   ]
 }

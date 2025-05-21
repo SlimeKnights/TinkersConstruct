@@ -1,15 +1,15 @@
 {
-  "title": "Faucets",
+  "title": "Robinets",
   "text": [
     {
-      "text": "Faucets are your main way to get fluids out from melters, smelteries, tanks, or any valid fluid container. Simply place it on the block, and right click to pour into a fluid container below."
+      "text": "Les robinets sont le principal moyen d'extraire des fluides des fourneaux, fonderies, réservoirs ou tout autre conteneur valide. Placez-les simplement sur un bloc et faites un clic droit pour verser dans un récipient situé en dessous."
     },
     {
-      "text": "Faucets will pour out from the sides or bottom of the connected block to the block directly below the faucet itself.",
+      "text": "Les robinets puisent le fluide sur les côtés ou le bas du bloc connecté, et le versent dans le bloc situé directement sous le robinet.",
       "paragraph": true
     },
     {
-      "text": "Faucets respond to redstone signals, so simply placing an activated lever next to it will make it constantly pour out its contents. A redstone pulse will pour out its contents until the destination is full or the source is empty.",
+      "text": "Les robinets réagissent aux signaux redstone : un levier activé à côté versera en continu. Une impulsion redstone ne versera que jusqu'à ce que le récepteur soit plein ou la source vide.",
       "paragraph": true
     }
   ]

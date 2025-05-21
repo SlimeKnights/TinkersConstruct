@@ -2,11 +2,11 @@
   "modifier_id": "tconstruct:resurrected",
   "text": [
     {
-      "text": "The life of the dragon flows through your tool. Well, it would if you used these to summon it. Instead you used it on your tool."
+      "text": "La vie du dragon circule dans votre outil. Enfin… ce serait le cas si vous l’utilisiez pour l’invoquer. À la place, vous l’avez utilisé sur votre outil."
     }
   ],
   "effects": [
-    "Adds an upgrade slot",
-    "Single level"
+    "Ajoute un emplacement d’amélioration",
+    "Niveau unique"
   ]
 }

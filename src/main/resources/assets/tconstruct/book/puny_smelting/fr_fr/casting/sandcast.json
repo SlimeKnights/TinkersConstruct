@@ -1,11 +1,11 @@
 {
-  "title": "Sand Casts",
+  "title": "Moules en Sable",
   "text": [
     {
-      "text": "To cast your tool part: first craft a blank sand cast and use the interact button to put it into a casting table. Craft a tool part in the part builder and use it on the blank sand cast, then use it again to remove the part. You can then pour molten metal into the table and grab your part once it's cooled. The sand cast is used up in the process."
+      "text": "Pour couler une pièce d'outil: commencez par fabriquer un moule vierge en sable et utilisez le bouton d'interaction pour le placer dans une table de coulée. Créez une pièce d'outil dans le constructeur de pièces et appliquez-la sur le moule vierge, puis retirez-la. Vous pouvez alors verser du métal en fusion dans la table et récupérer votre pièce une fois refroidie. Le moule en sable est consommé lors du processus."
     },
     {
-      "text": "Non-blank sand casts will revert into blank sand casts when picked up.",
+      "text": "Les moules en sable utilisés se reconvertissent en moules vierges lorsqu'ils sont ramassés.",
       "paragraph": true
     }
   ]

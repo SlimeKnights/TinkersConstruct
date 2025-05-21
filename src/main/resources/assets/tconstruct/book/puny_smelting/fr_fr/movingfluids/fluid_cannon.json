@@ -1,14 +1,14 @@
 {
-  "title": "Fluid Cannon",
+  "title": "Canon à Fluide",
   "item": "tconstruct:seared_fluid_cannon",
   "text": [
     {
-      "text": "Ever have too much molten metal and need something to do with it? Try the fluid cannon! On a redstone pulse, it shoots out contained fluid which might burn your enemies, destroy blocks, or automatically feed you!",
+      "text": "Trop de métal en fusion à écouler ? Essayez le canon à fluide ! Lors d'une impulsion de redstone, il projette le fluide contenu, pouvant brûler vos ennemis, détruire des blocs ou même vous nourrir automatiquement !",
       "paragraph": true
     },
-	{
-      "text": "Interacting with the bottom allows giving it an item stack to use with its fluid; with the right fluid type this can place blocks or use tools.",
+    {
+      "text": "Interagir avec le bas permet de lui donner une pile d’objets à utiliser avec son fluide ; avec le bon type de fluide, cela peut placer des blocs ou utiliser des outils.",
       "paragraph": true
     }
-	]
+  ]
 }

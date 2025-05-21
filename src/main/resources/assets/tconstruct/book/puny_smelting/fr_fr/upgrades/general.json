@@ -1,11 +1,11 @@
 {
-  "title": "General Upgrades",
+  "title": "Améliorations Générales",
   "text": [
     {
-      "text": "Upgrades are modifiers added to tools using upgrade recipes. Each tool has a limited number of upgrade slots to start, though the number of slots can be increased in a few ways."
+      "text": "Les améliorations sont des modificateurs ajoutés aux outils via des recettes spécifiques. Chaque outil dispose initialement d'un nombre limité d'emplacements, qui peut être augmenté de différentes manières."
     },
     {
-      "text": "General upgrades work well on any tool! These upgrades will enhance your tool all around, by increasing its attack damage, mining speed, durability, and more!",
+      "text": "Les améliorations générales fonctionnent sur tous les outils ! Elles améliorent globalement vos outils en augmentant les dégâts, la vitesse de minage, la durabilité et plus encore !",
       "paragraph": true
     }
   ]

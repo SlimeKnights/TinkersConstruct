@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:quick_charge",
   "text": [
     {
-      "text": "Become rather high strung."
+      "text": "Devenez tendu comme un arc."
     }
   ],
   "effects": [
-    "Increases drawspeed of crossbows or staffs",
-    "Multiple levels, each level increases drawspeed further",
-    "Requires 1 upgrade slot per level"
+    "Accélère la préparation des arbalètes et bâtons",
+    "Niveaux multiples (bonus cumulatif)",
+    "Coût : 1 emplacement/niveau"
   ]
 }

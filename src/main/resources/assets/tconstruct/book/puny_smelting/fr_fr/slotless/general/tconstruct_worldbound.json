@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:worldbound",
   "text": [
     {
-      "text": "Fire is no longer your enemy, your tool feels comfortable with the world around it."
+      "text": "Le feu n’est plus votre ennemi, votre outil semble en harmonie avec le monde qui l’entoure."
     }
   ],
   "effects": [
-    "Crude version of netherite",
-    "Grants immunity to external damage but no strength increase",
-    "Single Use",
-    "Requires no slot"
+    "Version brute de la netherite",
+    "Confère une immunité aux dégâts externes sans augmentation de puissance",
+    "Utilisation unique",
+    "Ne nécessite aucun emplacement"
   ]
 }

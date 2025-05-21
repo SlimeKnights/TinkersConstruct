@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:farsighted",
   "text": [
     {
-      "text": "Manyullyn is a great material, but there are many good materials that are easier to access, take some time and try them out before rushing to the end."
+      "text": "Le manyulline est un excellent matériau, mais il en existe beaucoup d'autres, plus faciles d’accès. Prenez le temps de les essayer avant de foncer vers la fin."
     }
   ],
   "effects": [
-    "Decreases FOV on the held tool or worn armor",
-    "Multiple levels",
-    "Slotless"
+    "Réduit le champ de vision avec l’outil tenu ou l’armure portée",
+    "Niveaux multiples",
+    "Sans emplacement"
   ]
 }

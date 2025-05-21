@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:zoom",
   "text": [
     {
-      "text": "I spy with my little eyes, something off in the vast distance."
+      "text": "Je vois avec mes petits yeux quelque chose, là-bas, au loin."
     }
   ],
   "effects": [
-    "Allows you to zoom in",
-    "Single Level",
-    "Requires 1 upgrade slot"
+    "Permet de zoomer",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’amélioration"
   ]
 }

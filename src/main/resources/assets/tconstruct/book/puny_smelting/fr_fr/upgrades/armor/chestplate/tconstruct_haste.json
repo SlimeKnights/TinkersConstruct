@@ -2,17 +2,17 @@
   "modifier_id": "tconstruct:haste",
   "text": [
     {
-      "text": "Adding redstone to a chestplate seems to make all tools faster, like your arms become more efficient."
+      "text": "Ajouter de la redstone à un plastron semble rendre tous les outils plus rapides, comme si vos bras devenaient plus efficaces."
     },
     {
-      "text": "Like really, crazy stuff, amiright?",
+      "text": "Franchement, c’est dingue, non ?",
       "paragraph": true
     }
   ],
   "tool_filter": "tconstruct:modifiable/armor",
   "effects": [
-    "Increases mining speed",
-    "Multiple levels, each level increases speed a bit more",
-    "Requires 1 upgrade slot per level"
+    "Augmente la vitesse de minage",
+    "Niveaux multiples, chaque niveau augmente un peu plus la vitesse",
+    "Nécessite 1 emplacement d’amélioration par niveau"
   ]
 }

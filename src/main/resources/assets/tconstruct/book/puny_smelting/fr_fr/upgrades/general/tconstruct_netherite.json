@@ -2,15 +2,16 @@
   "modifier_id": "tconstruct:netherite",
   "text": [
     {
-      "text": "The strength of the nether flows intensely through your tool."
+      "text": "La force du Nether traverse intensément votre outil."
     },
     {
-      "text": "So much that the tool cannot be harmed by external damage such as lava.", "paragraph": true
+      "text": "À tel point que l’outil ne peut être endommagé par des agressions extérieures comme la lave.",
+      "paragraph": true
     }
   ],
   "effects": [
-    "Boosts durability, attack damage, mining speed, toughness, and knockback resistance",
-    "Single Level",
-    "Requires 1 upgrade slot"
+    "Augmente la durabilité, les dégâts d’attaque, la vitesse de minage, la robustesse et la résistance au recul",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’amélioration"
   ]
 }

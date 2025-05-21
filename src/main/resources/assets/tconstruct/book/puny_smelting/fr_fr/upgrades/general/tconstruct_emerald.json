@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:emerald",
   "text": [
     {
-      "text": "A villager's best friend, don't let the villagers see you applying this! These aren't your lucky charms."
+      "text": "Le meilleur ami des villageois… Évitez de vous faire voir en train d’en appliquer ! Ce ne sont pas des porte-bonheur pour vous."
     }
   ],
   "effects": [
-    "Increases tool durability depending on base durability",
-    "Increases conditional damage, mining speed, and knockback resistance",
-    "Single Level",
-    "Requires 1 upgrade slot"
+    "Augmente la durabilité de l’outil selon sa durabilité de base",
+    "Augmente les dégâts conditionnels, la vitesse de minage et la résistance au recul",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’amélioration"
   ]
 }

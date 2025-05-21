@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:sinistral",
   "text": [
     {
-      "text": "Double the bows double the trouble."
+      "text": "Doublez les arbalètes, doublez les ennuis."
     }
   ],
   "effects": [
-    "Crossbows in main hand will fire with attack button, and will not reload when sneaking",
-	"Allows dual wielding crossbows, or using with a shield",
-	"Single level",
-	"Requires 1 upgrade slot"
+    "Les arbalètes en main principale tirent avec le bouton d'attaque et ne rechargent pas en se cachant",
+    "Permet de manier deux arbalètes simultanément ou d'utiliser un bouclier",
+    "Niveau unique",
+    "Nécessite 1 emplacement d'amélioration"
   ]
 }

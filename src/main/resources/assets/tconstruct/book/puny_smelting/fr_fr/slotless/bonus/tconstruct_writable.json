@@ -2,11 +2,11 @@
   "modifier_id": "tconstruct:writable",
   "text": [
     {
-      "text": "As words flow through your head, your tool feels as if it could learn a little more as well. Perhaps you could also write with your tool."
+      "text": "Alors que les mots défilent dans votre esprit, votre outil semble lui aussi prêt à en apprendre davantage. Peut-être pourriez-vous même écrire avec."
     }
   ],
   "effects": [
-    "Adds an upgrade slot",
-    "Single level"
+    "Ajoute un emplacement d’amélioration",
+    "Niveau unique"
   ]
 }

@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:magnetic",
   "text": [
     {
-      "text": "The force is strong with this tool."
+      "text": "La force est puissante avec cet outil."
     }
   ],
   "effects": [
-    "Attacking mobs or mining brings items towards you",
-    "On armor, activates the magnet passively",
-    "Multiple levels, each level increases magnetic strength",
-    "Requires 1 upgrade slot per level"
+    "Attaquer des créatures ou miner attire les objets vers vous",
+    "Sur une armure, active l’aimant de façon passive",
+    "Niveaux multiples, chaque niveau augmente la puissance magnétique",
+    "Nécessite 1 emplacement d’amélioration par niveau"
   ]
 }

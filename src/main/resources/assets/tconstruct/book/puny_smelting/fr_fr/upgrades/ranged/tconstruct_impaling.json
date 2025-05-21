@@ -2,17 +2,16 @@
   "modifier_id": "tconstruct:impaling",
   "text": [
     {
-      "text": "I'd be rather appalled if you impaled me with impaling."
+      "text": "Je serais plutôt choqué si tu m’empalais avec Empalement."
     },
-	
-	{
-      "text": "Not to be confused with antiaquatic",
-	  "paragraph": true
-	}
+    {
+      "text": "À ne pas confondre avec Antiaquatique.",
+      "paragraph": true
+    }
   ],
   "effects": [
-    "Increases damage of projectiles fired from crossbows",
-	"Multiple levels, each level increases damage further",
-	"Requires 1 upgrade slot per level"
+    "Augmente les dégâts des projectiles tirés par les arbalètes",
+    "Niveaux multiples, chaque niveau augmente encore les dégâts",
+    "Nécessite 1 emplacement d’amélioration par niveau"
   ]
 }

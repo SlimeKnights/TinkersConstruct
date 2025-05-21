@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:headlight",
   "text": [
     {
-      "text": "You light up my world!"
+      "text": "Tu éclaires ma vie !"
     }
   ],
   "effects": [
-    "Visually up blocks around you",
-    "Single level",
-    "Requires 1 upgrade slot"
+    "Éclaire visuellement les blocs autour de vous",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’amélioration"
   ]
 }
