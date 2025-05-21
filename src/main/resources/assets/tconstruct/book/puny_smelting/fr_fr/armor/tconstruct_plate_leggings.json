@@ -1,16 +1,19 @@
 {
   "tool": "tconstruct:plate_leggings",
   "text": [
-    { "text": "My leg, my leg." },
-	{
-      "text": "These pants offer high protection for all your fighting needs!", "paragraph": true
+    { 
+      "text": "Ma jambe, ma jambe !" 
+    },
+    {
+      "text": "Ces jambières offrent une excellente protection pour tous vos combats !",
+      "paragraph": true
     }
   ],
   "properties": [
-    "Higher Durability",
-    "Higher Armor",
-    "2 Upgrade Slots",
-    "3 Defense Slots",
-    "2 Material Traits"
+    "Durabilité accrue",
+    "Protection renforcée",
+    "2 emplacements d'amélioration",
+    "3 emplacements de défense",
+    "2 caractéristiques de matériau"
   ]
 }

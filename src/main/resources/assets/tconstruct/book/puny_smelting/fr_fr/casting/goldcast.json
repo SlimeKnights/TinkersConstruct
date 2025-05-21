@@ -1,5 +1,5 @@
 {
-  "title": "Gold Casts",
+  "title": "Moules en Or",
   "image": {
     "file": "tconstruct:book/images/gold_pick.png",
     "width": 170,
@@ -7,7 +7,7 @@
   },
   "text": [
     {
-      "text": "Gold casts are reusable. To make one, simply pour one ingots worth of molten gold over a tool part placed in a casting table. The tool part is used up in the process."
+      "text": "Les moules en or sont réutilisables. Pour en créer un, versez simplement l'équivalent d'un lingot d'or en fusion sur une pièce d'outil placée dans une table de coulée. La pièce d'outil est consommée dans le processus."
     }
   ]
 }

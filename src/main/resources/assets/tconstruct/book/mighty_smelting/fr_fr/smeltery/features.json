@@ -1,13 +1,13 @@
 {
-  "title": "Features",
+  "title": "Fonctionnalités",
   "text": [
-    { "text": "• Gives +3 nuggets or +1 gem per ore (by default)" },
-    { "text": "\n• Mass melting capabilities" },
-    { "text": "\n• Can hold multiple metals" },
-    { "text": "\n• Extendable capacity" },
-    { "text": "\n• Able to alloy"},
-    { "text": "\n• Fuel efficiency depends on size" },
-    { "text": "\n• Able to melt mobs to get their precious materials" },
-    { "text": "\n• Ideal for smelting lots of materials at once" }
+    { "text": "• Produit +3 pépites ou +1 joyau par minerai (par défaut)" },
+    { "text": "\n• Capacité de fusion en masse" },
+    { "text": "\n• Peut contenir plusieurs métaux simultanément" },
+    { "text": "\n• Capacité extensible" },
+    { "text": "\n• Permet la création d'alliages" },
+    { "text": "\n• Efficacité du combustible dépendante de la taille" },
+    { "text": "\n• Peut fondre les créatures pour récupérer leurs matériaux précieux" },
+    { "text": "\n• Idéal pour fondre de grandes quantités de matériaux à la fois" }
   ]
 }

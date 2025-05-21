@@ -1,18 +1,21 @@
 {
   "tool": "tconstruct:travelers_helmet",
   "text": [
-    { "text": "Goggles fit for a King, or Lemmings, or King Lemmings." },
-	{
-      "text": "A good pair of goggles provide for safer adventures, easier sight, and the makings of a King.", "paragraph": true
+    { 
+      "text": "Des lunettes dignes d'un Roi, ou de Lemmings, ou du Roi des Lemmings." 
+    },
+    {
+      "text": "Une bonne paire de lunettes assure des aventures plus sûres, une meilleure vision, et les attributs d'un Roi.",
+      "paragraph": true
     }
   ],
   "properties": [
-    "Lower Armor",
-    "Lower Durability",
-    "2 Upgrade Slots",
-    "2 Defense Slots",
-    "1 Ability Slot",
-    "1 Material Trait",
-    "Insulated & Tanned"
+    "Protection réduite",
+    "Durabilité réduite",
+    "2 emplacements d'amélioration",
+    "2 emplacements de défense",
+    "1 emplacement d'aptitude",
+    "1 caractéristique de matériau",
+    "Isolé & Traité"
   ]
 }

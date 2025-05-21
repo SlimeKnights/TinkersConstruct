@@ -2,19 +2,19 @@
   "tool": "tconstruct:cleaver",
   "text": [
     {
-      "text": "The Cleaver is a high damage, slow swinging weapon."
+      "text": "L'Écorcheur est une arme puissante mais lente."
     },
     {
       "text": "\n"
     },
     {
-      "text": "Off with their heads!",
-	  "paragraph": true
+      "text": "Qu'on leur coupe la tête !",
+      "paragraph": true
     }
   ],
   "properties": [
-    "Strong Weapon",
-    "Slow Swinging",
-    "Starts with Severing II"
+    "Arme puissante",
+    "Attaques lentes",
+    "Débute avec Découpe II"
   ]
 }

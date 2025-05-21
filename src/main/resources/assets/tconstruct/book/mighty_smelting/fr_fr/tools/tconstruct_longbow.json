@@ -2,18 +2,18 @@
   "tool": "tconstruct:longbow",
   "text": [
     {
-      "text": "The longbow is useful for those ready to stand their ground and fight with power"
+      "text": "L'arc long est idéal pour ceux prêts à tenir leur position et combattre avec puissance"
     },
     {
       "text": "\n"
     },
     {
-      "text": "Longer than a bow, but shorter than a long long bow",
-	  "paragraph": true
+      "text": "Plus long qu'un arc classique, mais plus court qu'un arc très long",
+      "paragraph": true
     }
   ],
   "properties": [
-    "A slower but more powerful bow",
-	"Designed for higher damage"
+    "Un arc plus lent mais plus puissant",
+    "Conçu pour infliger plus de dégâts"
   ]
 }

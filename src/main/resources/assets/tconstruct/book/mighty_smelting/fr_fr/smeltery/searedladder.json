@@ -1,9 +1,9 @@
 {
-  "title": "Seared Ladder",
+  "title": "Échelle Scellée",
   "item": "tconstruct:seared_ladder",
   "text": [
     {
-      "text": "The seared ladder can be used to easily climb up or out of your smeltery, useful for if you plan to build it bigger later!",
+      "text": "L'échelle scellée permet d'accéder facilement à votre fonderie ou d'en sortir, particulièrement utile si vous prévoyez de l'agrandir ultérieurement !",
       "paragraph": true
     }
   ]

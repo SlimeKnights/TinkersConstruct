@@ -1,18 +1,21 @@
 {
   "tool": "tconstruct:travelers_leggings",
   "text": [
-    { "text": "Honey, where are my paaaaaaaaaaaaaaaaaants?" },
-	{
-      "text": "Going out in the world without pants on is not a very good idea, why not take a pair of pants to keep you warm, and help you travel!", "paragraph": true
+    { 
+      "text": "Chérie, où sont mon paaaaaaaaaaaaaantalon ?" 
+    },
+    {
+      "text": "Affronter le monde sans pantalon n'est pas une bonne idée. Pourquoi ne pas prendre une paire pour rester au chaud et voyager confortablement !",
+      "paragraph": true
     }
   ],
   "properties": [
-    "Lower Armor",
-    "Lower Durability",
-    "2 Upgrade Slots",
-    "2 Defense Slots",
-    "1 Ability Slot",
-    "1 Material Trait",
-    "Insulated & Tanned"
+    "Protection réduite",
+    "Durabilité réduite",
+    "2 emplacements d'amélioration",
+    "2 emplacements de défense",
+    "1 emplacement d'aptitude",
+    "1 caractéristique de matériau",
+    "Isolé & Traité"
   ]
 }

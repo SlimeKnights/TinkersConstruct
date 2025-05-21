@@ -1,11 +1,11 @@
 {
-  "title": "Seared Blocks",
+  "title": "Blocs Scellés",
   "item": {
     "tag": "tconstruct:seared_blocks"
   },
   "text": [
     {
-      "text": "These blocks can be used for any part of the smeltery, as floors or walls. They are also useful for decorating your base.",
+      "text": "Ces blocs peuvent être utilisés pour toutes les parties de la fonderie, que ce soit pour les sols ou les murs. Ils sont également utiles pour décorer votre base.",
       "paragraph": true
     }
   ]

@@ -1,5 +1,5 @@
 {
-  "title": "Automation",
+  "title": "Automatisation",
   "image": {
     "file": "tconstruct:book/images/cast_automation.png",
     "width": 88,
@@ -7,10 +7,10 @@
   },
   "text": [
     {
-      "text": "Casting basins and tables interact with hoppers, allowing items to easily be inserted and cooled items to be removed."
+      "text": "Les bassins et tables de coulée interagissent avec les entonnoirs, permettant d'insérer facilement des objets et de récupérer les pièces refroidies."
     },
     {
-      "text": "Comparators also make redstone turn funny colors when connected to a basin or table, and a redstone pulse can be used to swap the input and output.",
+      "text": "Les comparateurs produisent également des signaux redstone colorés lorsqu'ils sont connectés à un bassin ou une table, et une impulsion redstone peut permuter les entrées et sorties.",
       "paragraph": true
     }
   ]

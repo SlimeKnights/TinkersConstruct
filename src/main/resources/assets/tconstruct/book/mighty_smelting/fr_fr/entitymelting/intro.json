@@ -1,11 +1,11 @@
 {
-  "title": "Entity Melting",
+  "title": "Fusion d'Entités",
   "image": {
     "file": "tconstruct:book/images/entitymelting.png"
   },
   "text": [
     {
-      "text": "The mighty smeltery can be used to melt away the useless part of entities in order to harvest their true insides."
+      "text": "Le puissant haut fourneau peut être utilisé pour consumer les parties inutiles des entités afin d'en extraire l'essence véritable."
     }
   ]
 }

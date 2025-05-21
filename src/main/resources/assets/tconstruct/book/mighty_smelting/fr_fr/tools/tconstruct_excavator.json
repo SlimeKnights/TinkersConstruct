@@ -2,20 +2,21 @@
   "tool": "tconstruct:excavator",
   "text": [
     {
-      "text": "The Excavator is a broad digging tool. It harvests soil and snow in a wide range."
+      "text": "L'Excavatrice est un outil de terrassement à large portée. Elle extrait la terre et la neige sur une zone étendue."
     },
     {
       "text": "\n"
     },
     {
-      "text": "Useful for when you need to dig a lot of graves."
+      "text": "Utile lorsque vous avez besoin de creuser beaucoup de tombes.",
+      "paragraph": true
     }
   ],
   "properties": [
-    "Advanced digging tool",
-    "3x3 AoE Digging",
-    "Effective on dirt, sand and gravel",
-    "Can create path",
-    "Starts with Knockback II"
+    "Outil de creusement avancé",
+    "Creuse en zone 3x3",
+    "Efficace sur terre, sable et gravier",
+    "Peut créer des chemins",
+    "Débute avec Recul II"
   ]
 }

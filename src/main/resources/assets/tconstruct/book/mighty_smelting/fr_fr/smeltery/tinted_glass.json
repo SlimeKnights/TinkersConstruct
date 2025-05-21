@@ -1,13 +1,13 @@
 {
-  "title": "Tinted Seared Glass",
+  "title": "Verre Scellé Teinté",
   "item": "tconstruct:seared_tinted_glass",
   "text": [
     {
-      "text": "Your smeltery too bright? Consider keeping the insides dark using seared tinted glass, keeps the light in but is also fully transparent, its magical stuff.",
+      "text": "Votre fonderie est trop lumineuse ? Essayez le verre scellé teinté pour assombrir l'intérieur tout en conservant une transparence totale. Une vraie magie !",
       "paragraph": true
     },
-	{
-      "text": "Glass cannot be used for the floor of the smeltery.",
+    {
+      "text": "Le verre ne peut pas être utilisé pour le sol de la fonderie.",
       "paragraph": true
     }
   ]

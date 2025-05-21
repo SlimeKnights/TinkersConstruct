@@ -1,12 +1,12 @@
 {
-  "title": "Mighty Smelting",
+  "title": "Fonderie Suprême",
   "text": [
     {
-      "text": "So you survived this far fellow Tinker, perhaps you are smarter than I believed. Well then let's take that puny melter and those puny metals and make them even stronger. "
+      "text": "Alors, tu as survécu jusqu'ici, mon cher Bricoleur. Tu es peut-être plus malin que je ne le pensais. Eh bien, prenons ce minuscule fourneau et ces métaux insignifiants pour les rendre encore plus puissants."
     },
     {
-      "text": "I hope you are ready fellow Tinker, this is going to get really advanced really fast.",	
-	  "paragraph": true
+      "text": "J'espère que tu es prêt, mon cher Bricoleur, car les choses vont devenir très complexes très rapidement.",
+      "paragraph": true
     }
   ]
 }

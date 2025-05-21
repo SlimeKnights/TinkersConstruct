@@ -1,16 +1,17 @@
 {
   "tool": "tconstruct:plate_boots",
   "text": [
-    { "text": "What are thoooose?" },
-	{
-      "text": "Going into the nether requires hard boots to protect your feet! Nobody ever thinks of how hot that ground actually is.", "paragraph": true
+    { "text": "Mais c'est quoi ces trucs ?" },
+    {
+      "text": "Affronter le Nether nécessite des bottes solides pour protéger vos pieds ! Personne ne réalise à quel point le sol y est brûlant.",
+      "paragraph": true
     }
   ],
   "properties": [
-    "Higher Durability",
-    "Higher Armor",
-    "2 Upgrade Slots",
-    "3 Defense Slots",
-    "2 Material Traits"
+    "Durabilité accrue",
+    "Protection renforcée",
+    "2 emplacements d'amélioration",
+    "3 emplacements de défense",
+    "2 caractéristiques de matériau"
   ]
 }

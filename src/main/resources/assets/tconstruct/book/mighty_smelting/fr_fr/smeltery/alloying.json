@@ -1,15 +1,15 @@
 {
-  "title": "Alloying",
+  "title": "Alliage",
   "text": [
     {
-      "text": "Alloying is a process that will allow you to combine your lesser materials into stronger, more powerful ones."
+      "text": "L'alliage est un procédé qui vous permet de combiner des matériaux basiques pour en créer de plus résistants et puissants."
     },
     {
-      "text": "In order to alloy all you have to do is find two materials that can be alloyed together, put them in a fueled smeltery, and watch as they melt together to form a new stronger material.",
+      "text": "Pour réaliser un alliage, il vous suffit de trouver deux matériaux compatibles, de les placer dans une fonderie alimentée, et d'observer leur fusion pour former un nouveau matériau renforcé.",
       "paragraph": true
     },
     {
-      "text": "Some materials may need hotter fuels in order to alloy.",
+      "text": "Certains matériaux peuvent nécessiter des combustibles plus chauds pour s'alliager correctement.",
       "paragraph": true
     }
   ]

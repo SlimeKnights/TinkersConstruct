@@ -1,15 +1,15 @@
 {
-  "title": "Seared Tanks",
+  "title": "Réservoirs Scellés",
   "item": {
     "tag": "tconstruct:seared_tanks"
   },
   "text": [
     {
-      "text": "Tanks are good for storing molten fluids or fuels. If you want to melt metals in your smeltery you'll need one! Tanks can be filled from buckets, potions, and can also be poured into from the smeltery if you want to store stuff for later or cast without a smeltery.",
+      "text": "Les réservoirs permettent de stocker des fluides en fusion ou du combustible. Ils sont indispensables pour fondre des métaux dans votre fonderie ! Vous pouvez les remplir avec des seaux, des potions, ou y verser directement le contenu de la fonderie pour un stockage ultérieur ou un moulage autonome.",
       "paragraph": true
     },
     {
-      "text": "Tanks cannot be used for the floor of the smeltery.",
+      "text": "Les réservoirs ne peuvent pas être utilisés comme sol pour la fonderie.",
       "paragraph": true
     }
   ]

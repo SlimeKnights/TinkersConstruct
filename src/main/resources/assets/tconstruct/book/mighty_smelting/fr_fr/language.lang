@@ -1,36 +1,37 @@
 intro=Introduction
-entity_melting=Entity Melting
-melee_harvest_materials=Tier 3 Melee Harvest Materials
-melee_harvest_materials.subtext=These materials can be created with alloying then casted into tool parts for melee weapons or harvest tools.
-ranged_materials=Tier 3 Ranged Materials
-ranged_materials.subtext=These materials can be created with alloying then casted into tool parts for ranged weapons like bows.
-armor_materials=Tier 3 Armor Materials
-armor_materials.subtext=These materials can be casted into armor and shields.
+entity_melting=Fusion d'Entités
+melee_harvest_materials=Matériaux de Récolte/Mêlée Niveau 3
+melee_harvest_materials.subtext=Ces matériaux créés par alliage peuvent être coulés en pièces d'outils de mêlée ou de récolte.
+ranged_materials=Matériaux à Distance Niveau 3
+ranged_materials.subtext=Ces matériaux créés par alliage peuvent être coulés en pièces d'armes à distance comme les arcs.
+armor_materials=Matériaux d'Armure Niveau 3
+armor_materials.subtext=Ces matériaux peuvent être coulés pour fabriquer armures et boucliers.
 
-tools=Broad Tools
-tools.subtext=Broad tools all require the use of a tinker's anvil to create
+tools=Outils Polyvalents
+tools.subtext=Ces outils nécessitent une enclume du bricoleur pour leur fabrication
 
-armor=Mighty Armor
-armor.subtext=Alloys unlock a wider range of materials for armor creation. These may grant additional abilities beyond basic sets like travelers gear.
+armor=Armure Puissante
+armor.subtext=Les alliages débloquent des matériaux d'armure avancés, offrant des capacités supérieures aux équipements basiques.
 
-smeltery=Smeltery
+smeltery=Fonderie
 
-abilities=Abilities
-abilities.subtext=Abilities are more powerful than upgrades, but also have a more limited number of slots.
-abilities.group_general=General
-abilities.group_harvest=Harvest
-abilities.group_melee=Melee
-abilities.group_ranged=Ranged
+abilities=Aptitudes
+abilities.subtext=Les aptitudes sont plus puissantes que les améliorations, mais disposent de moins d'emplacements.
+abilities.group_general=Général
+abilities.group_harvest=Récolte
+abilities.group_melee=Mêlée
+abilities.group_ranged=Distance
 abilities.group_interact=Interaction
-abilities.group_armor=Armor
-abilities.group_armor.helmet=Helmet
-abilities.group_armor.chestplate=Chestplate
-abilities.group_armor.leggings=Leggings
-abilities.group_armor.boots=Boots
-abilities.group_armor.shield=Shield
-upgrades.subtext=Tools can be enhanced with upgrades, though only a limited number can be applied to each tool.
+abilities.group_armor=Armure
+abilities.group_armor.helmet=Casque
+abilities.group_armor.chestplate=Plastron
+abilities.group_armor.leggings=Jambières
+abilities.group_armor.boots=Bottes
+abilities.group_armor.shield=Bouclier
 
-defense=Defense
-defense.subtext=Defense modifiers can only be applied to armor, using defense slots.
+upgrades.subtext=Les outils peuvent être améliorés, mais avec un nombre limité d'améliorations par outil.
+
+defense=Défense
+defense.subtext=Les modificateurs de défense s'appliquent uniquement aux armures, utilisant des emplacements dédiés.
 defense.group_protection=Protection
-defense.group_special=Special
+defense.group_special=Spécial

@@ -1,16 +1,19 @@
 {
   "tool": "tconstruct:plate_shield",
   "text": [
-    { "text": "Shiny rectangle shield for shiny rectangle adventures." },
+    { 
+      "text": "Un bouclier rectangulaire brillant pour des aventures rectangulaires brillantes." 
+    },
     {
-      "text": "A powerful shield for blocking the strongest of attacks. Made from casting metal or ceramics on a shield core.", "paragraph": true
+      "text": "Un bouclier puissant capable de bloquer les attaques les plus violentes. Fabriqué en coulant du métal ou de la céramique sur un noyau de bouclier.",
+      "paragraph": true
     }
   ],
   "properties": [
-    "Higher Block Potential",
-    "Low speed while shielding",
-    "2 Upgrade Slots",
-    "3 Defense Slots",
-    "2 Material Traits"
+    "Potentiel de blocage accru",
+    "Vitesse réduite en position défensive",
+    "2 emplacements d'amélioration",
+    "3 emplacements de défense",
+    "2 caractéristiques de matériau"
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "title": "Composite Casts",
+  "title": "Coulée Composite",
   "image": {
     "file": "tconstruct:book/images/compositecast.png",
     "width": 177,
@@ -7,10 +7,10 @@
   },
   "text": [
     {
-      "text": "Composite casting allows you to make new materials by pouring fluid over an item/block in a casting table/basin."
+      "text": "La coulée composite permet de créer de nouveaux matériaux en versant un fluide sur un objet/bloc dans une table/bassin de coulée."
     },
     {
-      "text": "Notable materials are Slimewood and Nahuatl, which are made by pouring slime or molten obsidian, respectively, over wooden tool parts.",
+      "text": "Parmi les matériaux notables, on trouve le Troncslime et le Nahuatl, fabriqués en versant respectivement du slime ou de l'obsidienne en fusion sur des pièces d'outils en bois.",
       "paragraph": true
     }
   ]

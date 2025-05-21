@@ -1,18 +1,21 @@
 {
   "tool": "tconstruct:travelers_boots",
   "text": [
-    { "text": "These boots are made for walkin', and that's just what they'll do." },
-	{
-      "text": "Every adventurer needs a good pair of stylish, customizable boots to start their journey", "paragraph": true
+    { 
+      "text": "Ces bottes sont faites pour marcher, et c'est exactement ce qu'elles feront." 
+    },
+    {
+      "text": "Tout aventurier a besoin d'une bonne paire de bottes stylées et personnalisables pour commencer son périple.",
+      "paragraph": true
     }
   ],
   "properties": [
-    "Lower Armor",
-    "Lower Durability",
-    "2 Upgrade Slots",
-    "2 Defense Slots",
-    "1 Ability Slot",
-    "1 Material Trait",
-    "Insulated & Tanned"
+    "Protection réduite",
+    "Durabilité réduite",
+    "2 emplacements d'amélioration",
+    "2 emplacements de défense",
+    "1 emplacement d'aptitude",
+    "1 caractéristique de matériau",
+    "Isolées & Traitées"
   ]
 }

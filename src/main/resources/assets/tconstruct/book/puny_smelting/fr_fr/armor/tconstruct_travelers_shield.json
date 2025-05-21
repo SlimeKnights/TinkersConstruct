@@ -1,18 +1,21 @@
 {
   "tool": "tconstruct:travelers_shield",
   "text": [
-    { "text": "Unfortunately, makes a poor frisbee." },
+    { 
+      "text": "Malheureusement, fait un très mauvais frisbee." 
+    },
     {
-      "text": "Shields are important for defending yourself against attacks in the world, best to take one with when you go traveling.", "paragraph": true
+      "text": "Un bouclier est essentiel pour se défendre contre les attaques lors de vos voyages. Mieux vaut ne pas partir sans !",
+      "paragraph": true
     }
   ],
   "properties": [
-    "Low Durability",
-    "Low Block Potential",
-    "High speed while shielding",
-    "3 Upgrade Slots",
-    "2 Defense Slots",
-    "1 Ability Slot",
-    "Tanned"
+    "Faible durabilité",
+    "Faible potentiel de blocage",
+    "Vitesse élevée en position défensive",
+    "3 emplacements d'amélioration",
+    "2 emplacements de défense",
+    "1 emplacement d'aptitude",
+    "Traité"
   ]
 }

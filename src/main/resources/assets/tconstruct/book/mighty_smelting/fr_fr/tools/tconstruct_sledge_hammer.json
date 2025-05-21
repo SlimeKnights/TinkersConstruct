@@ -2,19 +2,19 @@
   "tool": "tconstruct:sledge_hammer",
   "text": [
     {
-      "text": "The Sledge Hammer is a broad mining tool. It harvests blocks in a wide range and is effective against undead."
+      "text": "Le Marteau de Forge est un outil minier à large portée. Il extrait les blocs sur une zone étendue et est particulièrement efficace contre les morts-vivants."
     },
     {
       "text": "\n"
     },
     {
-      "text": "It is optimal for mining out large areas and long mining trips."
+      "text": "Idéal pour creuser de vastes zones ou entreprendre de longues expéditions minières."
     }
   ],
   "properties": [
-    "Advanced mining tool",
-    "3x3 AoE Mining",
-    "Effective on stone and ores",
-    "Starts with Smite II"
+    "Outil minier avancé",
+    "Minage en zone 3x3",
+    "Efficace sur la pierre et les minerais",
+    "Débute avec Châtiment II"
   ]
 }

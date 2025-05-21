@@ -2,18 +2,18 @@
   "tool": "tconstruct:broad_axe",
   "text": [
     {
-      "text": "The Broad Axe is a high efficiency tree chopping tool. Able to destroy trees in one fell swoop. "
+      "text": "La Hache Large est un outil d'abattage haute efficacité. Capable de détruire des arbres d'un seul coup puissant."
     },
     {
       "text": "\n"
     },
     {
-      "text": "Optimal for cutting down forests in quick succession."
+      "text": "Optimale pour couper des forêts entières rapidement."
     }
   ],
   "properties": [
-    "Advanced chopping tool",
-    "Able to destroy a whole tree in one chop",
-    "Able to strip a whole tree in one interaction"
+    "Outil d'abattage avancé",
+    "Peut abattre un arbre entier en un seul coup",
+    "Peut écorcer un arbre entier en une seule interaction"
   ]
 }
