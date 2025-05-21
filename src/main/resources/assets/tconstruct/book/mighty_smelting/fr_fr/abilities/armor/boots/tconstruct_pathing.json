@@ -2,14 +2,14 @@
   "modifier_id": "tconstruct:pathing",
   "text": [
     {
-      "text": "Tired of forgetting the way back home? Why not leave a constant trail? Trample the earth as you walk and never forget where you have been!"
+      "text": "Marre d’oublier le chemin du retour ? Pourquoi ne pas laisser une trace permanente ? Piétine la terre en marchant et n’oublie jamais où tu es passé !"
     }
   ],
   "tool_filter": "tconstruct:modifiable/armor/boots",
   "effects": [
-    "Creates paths as you walk",
-    "Area boosted by expanded",
-    "Single level",
-    "Requires 1 ability slot"
+    "Crée des chemins sous tes pas",
+    "Zone augmentée avec Étendu",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
   ]
 }

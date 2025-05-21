@@ -2,14 +2,14 @@
   "modifier_id": "tconstruct:glowing",
   "text": [
     {
-      "text": "That's a bright idea."
+      "text": "Voilà une idée lumineuse."
     }
   ],
   "tool_filter": "tconstruct:modifiable/armor/boots",
   "effects": [
-    "Places glows in dark places as you walk",
-    "Placing glows consumes durability",
-    "Single level",
-    "Requires 1 ability slot"
+    "Place des lueurs dans les zones sombres en marchant",
+    "La pose de lueurs consomme de la durabilité",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
   ]
 }

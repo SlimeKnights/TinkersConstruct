@@ -2,14 +2,14 @@
   "modifier_id": "tconstruct:snowdrift",
   "text": [
     {
-      "text": "Look at the snow golem. Isn't he so cool, leaving trails of snow? Don't you wish you could leave trails of snow too?"
+      "text": "Regarde ce golem de neige. Il est trop cool, non, à laisser des traces de neige partout ? Tu ne voudrais pas, toi aussi, laisser une traînée de neige derrière toi ?"
     }
   ],
   "effects": [
-    "Creates snow as you walk",
-    "Does not work in warm biomes",
-    "Area boosted by expanded",
-    "Single level",
-    "Requires 1 ability slot"
+    "Crée de la neige sous tes pas",
+    "Ne fonctionne pas dans les biomes chauds",
+    "Zone augmentée avec Étendu",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
   ]
 }

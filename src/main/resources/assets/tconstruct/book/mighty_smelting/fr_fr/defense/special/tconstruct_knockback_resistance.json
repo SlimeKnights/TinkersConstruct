@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:knockback_resistance",
   "text": [
     {
-      "text": "Here I stand, not even a tank will move me."
+      "text": "Je tiens bon, même un tank ne me fera pas bouger."
     }
   ],
   "effects": [
-    "Decreases knockback received",
-    "Single level",
-    "Requires 1 defense slot"
+    "Réduit le recul subi",
+    "Niveau unique",
+    "Nécessite 1 emplacement de défense"
   ]
 }

@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:aqua_affinity",
   "text": [
     {
-      "text": "An alluring attunement to the aquaeous area that anti activates all air afflictions."
+      "text": "Une affinité aquatique attirante qui annule activement toutes les afflictions liées à l’air."
     }
   ],
   "effects": [
-    "Increases underwater mining speed",
-    "Single level",
-    "Requires 1 ability slot"
+    "Augmente la vitesse de minage sous l’eau",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
   ]
 }

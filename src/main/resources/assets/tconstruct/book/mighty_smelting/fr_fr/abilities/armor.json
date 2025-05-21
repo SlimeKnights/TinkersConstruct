@@ -1,11 +1,11 @@
 {
-  "title": "Armor Abilities",
+  "title": "Capacités d’armure",
   "text": [
-    { "text": "Armor abilities are typically effective on a single type of armor. Each type of armor has a different special attribute:" },
-    { "text": "• Helmets can be controlled using a keybinding for special effects.", "paragraph": true },
-    { "text": "\n• Chestplates can receive interaction abilities that are used when hands are empty. Most are covered in the interaction section." },
-    { "text": "\n• Leggings have inventory based abilities and passive boosts to the player." },
-    { "text": "\n• Boots provide movement and jump based abilities." },
-    { "text": "\n• Shields have special abilities on blocking, including stronger counterattack modifiers." }
+    { "text": "Les capacités d’armure sont généralement propres à un type d’armure. Chaque type possède un attribut spécial distinct :" },
+    { "text": "• Les casques peuvent être contrôlés via une touche dédiée pour déclencher des effets spéciaux.", "paragraph": true },
+    { "text": "\n• Les plastrons peuvent recevoir des capacités d’interaction activées lorsque les mains sont vides. La plupart sont décrites dans la section interaction." },
+    { "text": "\n• Les jambières offrent des capacités liées à l’inventaire et des bonus passifs pour le joueur." },
+    { "text": "\n• Les bottes procurent des capacités de déplacement et de saut." },
+    { "text": "\n• Les boucliers disposent de capacités spéciales en bloquant, y compris des modificateurs de contre-attaque renforcés." }
   ]
 }

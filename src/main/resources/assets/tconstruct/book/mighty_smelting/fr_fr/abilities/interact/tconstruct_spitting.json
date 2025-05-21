@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:spitting",
   "text": [
     {
-      "text": "Never get into a spitting contest with a llama"
+      "text": "Ne commence jamais un concours de crachat avec un lama."
     }
   ],
   "effects": [
-    "Charge to fire fluid in the direction looked",
-    "Higher levels launch more projectiles",
-    "Requires 1 ability slot per level"
+    "Charge pour projeter du fluide dans la direction regardée",
+    "Les niveaux supérieurs lancent plus de projectiles",
+    "Nécessite 1 emplacement d’aptitude par niveau"
   ]
 }

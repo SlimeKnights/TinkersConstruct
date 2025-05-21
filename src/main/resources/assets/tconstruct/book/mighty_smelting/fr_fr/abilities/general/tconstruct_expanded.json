@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:expanded",
   "text": [
     {
-      "text": "Bigger is always better right?"
+      "text": "Plus grand, c’est toujours mieux, non ?"
     }
   ],
   "effects": [
-    "Increases mining width & height",
-    "Range is different on every tool",
-    "Multiple levels, each level increases width & height by one",
-    "Requires 1 ability slot per level"
+    "Augmente la largeur et la hauteur de minage",
+    "La portée varie selon l’outil",
+    "Niveaux multiples, chaque niveau augmente la largeur et la hauteur de 1",
+    "Nécessite 1 emplacement d’aptitude par niveau"
   ]
 }

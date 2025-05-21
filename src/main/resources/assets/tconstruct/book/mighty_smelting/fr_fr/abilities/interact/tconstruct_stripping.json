@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:stripping",
   "text": [
     {
-      "text": "Wait it's not that kind of stripping? THIS IS DISAPPOINTING."
+      "text": "Quoi, ce n’est pas *ce* genre de déshabillage ? C’est DÉCEVANT."
     }
   ],
   "effects": [
-    "Allows you to strip wood with your tools",
-    "Single level",
-    "Requires 1 ability slot"
+    "Permet d’écorcer le bois avec vos outils",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
   ]
 }

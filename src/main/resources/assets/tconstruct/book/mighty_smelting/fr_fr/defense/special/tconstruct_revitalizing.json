@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:revitalizing",
   "text": [
     {
-      "text": "Jeweled apples, what a throwback."
+      "text": "Pommes serties, quel retour en arrière."
     }
   ],
   "effects": [
-    "Can apply levels incrementally",
-    "Maximum of 5 levels",
-    "Requires 1 defense slot per level"
+    "Les niveaux peuvent être appliqués progressivement",
+    "Maximum de 5 niveaux",
+    "Nécessite 1 emplacement de défense par niveau"
   ]
 }

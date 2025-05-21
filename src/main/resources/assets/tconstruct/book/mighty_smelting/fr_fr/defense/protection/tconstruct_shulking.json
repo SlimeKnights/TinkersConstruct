@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:shulking",
   "text": [
     {
-      "text": "Home is where the shell is."
+      "text": "Le foyer, c’est là où se trouve la carapace."
     }
   ],
   "effects": [
-    "Reduces damage given and received while sneaking",
-    "Multiple levels, each level further increases effect",
-    "Can apply levels incrementally",
-    "Requires 1 defense slot per level"
+    "Réduit les dégâts infligés et subis en étant accroupi",
+    "Niveaux multiples, chaque niveau augmente l’effet",
+    "Les niveaux peuvent être appliqués progressivement",
+    "Nécessite 1 emplacement de défense par niveau"
   ]
 }

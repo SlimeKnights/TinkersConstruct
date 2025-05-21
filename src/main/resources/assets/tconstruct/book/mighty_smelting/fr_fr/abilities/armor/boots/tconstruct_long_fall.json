@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:long_fall",
   "text": [
     {
-      "text": "Go ahead and try to land on your head. Ha! you can't do it!"
+      "text": "Vas-y, essaie de tomber sur la tête. Ha ! Tu n’y arrives pas, hein ?"
     }
   ],
   "effects": [
-    "Prevents all fall damage",
-    "Requires Feather Falling IV",
-    "Single level",
-    "Requires 1 ability slot"
+    "Empêche tous les dégâts de chute",
+    "Nécessite Chute Amortie IV",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
   ]
 }

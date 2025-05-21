@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:strength",
   "text": [
     {
-      "text": "With great power, comes greater damage."
+      "text": "Avec une grande puissance vient un plus grand potentiel de dégâts."
     }
   ],
   "more_text_space": true,
   "effects": [
-    "Increases attack damage of weapons",
-    "Multiple levels, each level increases damage further",
-    "Requires 1 ability slot per level"
+    "Augmente les dégâts d’attaque des armes",
+    "Niveaux multiples, chaque niveau augmente les dégâts",
+    "Nécessite 1 emplacement d’aptitude par niveau"
   ]
 }

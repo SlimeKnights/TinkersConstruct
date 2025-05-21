@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:pockets",
   "text": [
     {
-      "text": "Only thing you need now is a pocket calculator so you can properly add up the number of pockets."
+      "text": "La seule chose qu’il te manque maintenant, c’est une calculatrice de poche pour compter correctement le nombre de poches."
     }
   ],
   "effects": [
-    "Adds more inventory space",
-    "Access with shift plus leggings interact",
-    "Multiple levels, each level gives +18 slots",
-    "Requires 1 ability slot per level"
+    "Ajoute de l’espace d’inventaire supplémentaire",
+    "Accès avec shift + interaction sur le pantalon",
+    "Niveaux multiples, chaque niveau ajoute +18 emplacements",
+    "Nécessite 1 emplacement d’aptitude par niveau"
   ]
 }

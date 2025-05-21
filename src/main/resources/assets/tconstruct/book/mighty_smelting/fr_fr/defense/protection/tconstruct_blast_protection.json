@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:blast_protection",
   "text": [
     {
-      "text": "Creeper, Aw man."
+      "text": "Creeper, oh non."
     }
   ],
   "effects": [
-    "Reduces explosive damage and knockback",
-    "Multiple levels, each level further increases resistance",
-    "Requires 1 defense slot per level"
+    "Réduit les dégâts d’explosion et le recul",
+    "Niveaux multiples, chaque niveau augmente la résistance",
+    "Nécessite 1 emplacement de défense par niveau"
   ]
 }

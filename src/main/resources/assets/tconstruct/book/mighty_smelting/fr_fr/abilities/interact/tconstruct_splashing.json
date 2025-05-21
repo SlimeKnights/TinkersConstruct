@@ -2,15 +2,16 @@
   "modifier_id": "tconstruct:splashing",
   "text": [
     {
-      "text": "Lok a pool party, but without the pool."
+      "text": "Comme une fête à la piscine, mais sans la piscine."
     },
     {
-      "text": "Right clicking a tank with tool fills it.", "paragraph": true
+      "text": "Faire un clic droit sur un réservoir avec l’outil le remplit.",
+      "paragraph": true
     }
   ],
   "effects": [
-    "Drains fluid on interaction",
-    "Various effects based on fluid, including fire and poison",
-    "Requires 1 ability slot per level"
+    "Vide le fluide lors de l’interaction",
+    "Effets variés selon le fluide, comme le feu ou le poison",
+    "Nécessite 1 emplacement d’aptitude par niveau"
   ]
 }

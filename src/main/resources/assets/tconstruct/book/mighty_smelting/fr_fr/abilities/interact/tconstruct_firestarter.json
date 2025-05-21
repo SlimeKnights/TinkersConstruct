@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:firestarter",
   "text": [
     {
-      "text": "Everything changed when the firestarter modifier attacked."
+      "text": "Tout a changé quand le modificateur allume-feu a attaqué."
     }
   ],
   "effects": [
-    "Interact to start fires",
-    "Single level",
-    "Requires 1 ability slot",
-    "Using on flint and bronze increases radius, requiring 1 upgrade slot"
+    "Interaction pour allumer des feux",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude",
+    "Utiliser avec silex et bronze augmente le rayon, ce qui nécessite 1 emplacement d’amélioration"
   ]
 }

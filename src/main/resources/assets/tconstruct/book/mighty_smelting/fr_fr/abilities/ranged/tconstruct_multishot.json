@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:multishot",
   "text": [
     {
-      "text": "Thruul is not responsible for any accidents while shooting more than one projectile."
+      "text": "Thruul décline toute responsabilité en cas d’accident lors de tirs multiples."
     }
   ],
   "effects": [
-    "Shoots multiple arrows at once",
-    "Multiple levels, each level increases amount of arrows fired",
-    "Requires 1 ability slot per level"
+    "Tire plusieurs flèches à la fois",
+    "Niveaux multiples, chaque niveau augmente le nombre de flèches tirées",
+    "Nécessite 1 emplacement d’aptitude par niveau"
   ]
 }

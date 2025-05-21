@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:parrying",
   "text": [
     {
-      "text": "Use your crazy ninja skills to swipe attacks out of the air."
+      "text": "Utilise tes compétences de ninja déchaîné pour détourner les attaques en plein vol."
     }
   ],
   "effects": [
-    "Allows daggers to briefly block after attacking",
-    "Single level",
-    "Requires 1 ability slot"
+    "Permet aux dagues de bloquer brièvement après une attaque",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
   ]
 }

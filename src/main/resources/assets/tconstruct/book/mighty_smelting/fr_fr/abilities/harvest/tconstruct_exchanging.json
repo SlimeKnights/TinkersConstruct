@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:exchanging",
   "text": [
     {
-      "text": "Using this may or may not make a giant boulder start chasing you since you can't exchange things right."
+      "text": "Utiliser ça pourrait — ou non — faire rouler un énorme rocher à ta poursuite, vu que tu ne sais pas échanger correctement."
     }
   ],
   "effects": [
-     "Blocks broken are replaced by blocks in the offhand",
-    "Single Level",
-    "Requires 1 ability slot"
+    "Les blocs brisés sont remplacés par ceux tenus en main secondaire",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
   ]
 }

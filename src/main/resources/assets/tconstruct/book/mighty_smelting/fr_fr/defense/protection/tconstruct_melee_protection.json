@@ -2,14 +2,13 @@
   "modifier_id": "tconstruct:melee_protection",
   "text": [
     {
-      "text": "Mobile punching bag."
+      "text": "Sac de frappe ambulant."
     }
-   
   ],
   "effects": [
-    "Decreases damage from melee attacks",
-    "Boosts movement speed when using shields and bows",
-    "Multiple levels, each level boosts effects",
-    "Requires 1 defense slot per level"
+    "Réduit les dégâts des attaques de mêlée",
+    "Augmente la vitesse de déplacement lors de l’utilisation de boucliers et d’arcs",
+    "Niveaux multiples, chaque niveau renforce les effets",
+    "Nécessite 1 emplacement de défense par niveau"
   ]
 }

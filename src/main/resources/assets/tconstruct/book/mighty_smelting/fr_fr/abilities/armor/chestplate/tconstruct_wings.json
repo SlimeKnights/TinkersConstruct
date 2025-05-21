@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:wings",
   "text": [
     {
-      "text": "This isn't flying, this is falling! With style!"
+      "text": "Ce n’est pas voler, c’est tomber… avec style !"
     }
   ],
   "effects": [
-    "Allows gliding by jumping while in air",
-    "Single level",
-    "Requires 2 ability slots"
+    "Permet de planer en sautant dans les airs",
+    "Niveau unique",
+    "Nécessite 2 emplacements d’aptitude"
   ]
 }

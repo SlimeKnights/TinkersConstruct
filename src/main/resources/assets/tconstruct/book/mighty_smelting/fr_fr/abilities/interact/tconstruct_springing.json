@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:springing",
   "text": [
     {
-      "text": "The first part of daylight savings time."
+      "text": "La première étape du passage à l’heure d’été."
     }
   ],
   "effects": [
-    "Charge to launch in the direction you are looking",
-    "Can boost launch speed with power or knockback",
-    "Single level",
-    "Requires 1 ability slot"
+    "Charge pour se projeter dans la direction regardée",
+    "La vitesse de projection peut être augmentée avec Puissance ou Recul",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
   ]
 }

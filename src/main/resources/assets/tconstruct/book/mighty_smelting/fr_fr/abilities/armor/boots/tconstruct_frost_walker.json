@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:frost_walker",
   "text": [
     {
-      "text": "Gain the ability to walk on water. Well, not exactly, but it's pretty close."
+      "text": "Obtenez la capacité de marcher sur l’eau. Enfin… pas exactement, mais on s’en approche pas mal."
     }
   ],
   "effects": [
-    "Water freezes as you walk",
-    "Area boosted by expanded",
-    "Single level",
-    "Requires 1 ability slot"
+    "L’eau gèle sous vos pas",
+    "Zone augmentée avec Étendu",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
   ]
 }

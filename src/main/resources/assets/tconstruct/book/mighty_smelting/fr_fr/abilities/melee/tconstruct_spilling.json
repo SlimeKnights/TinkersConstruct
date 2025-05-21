@@ -2,16 +2,17 @@
   "modifier_id": "tconstruct:spilling",
   "text": [
     {
-      "text": "Kinda gross that your tool is leaking. But also very effective!"
+      "text": "C’est un peu dégoûtant que ton outil fuie. Mais c’est aussi très efficace !"
     },
     {
-      "text": "Right clicking a tank with tool fills it", "paragraph": true
+      "text": "Faire un clic droit sur un réservoir avec l’outil le remplit.",
+      "paragraph": true
     }
   ],
   "tool_filter": "tconstruct:modifiable/held",
   "effects": [
-    "Drains tank on attacking",
-    "Various effects based on fluid, including fire and poison",
-    "Requires 1 ability slot per level"
+    "Vide le réservoir lors d’une attaque",
+    "Effets variés selon le fluide, comme le feu ou le poison",
+    "Nécessite 1 emplacement d’aptitude par niveau"
   ]
 }

@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:silky",
   "text": [
     {
-      "text": "A nice comfortable modifier."
+      "text": "Un modificateur doux et confortable."
     }
   ],
   "effects": [
-    "Mined blocks drop themselves",
-    "Single Level",
-    "Requires 1 ability slot"
+    "Les blocs minés se lâchent eux-mêmes",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
   ]
 }

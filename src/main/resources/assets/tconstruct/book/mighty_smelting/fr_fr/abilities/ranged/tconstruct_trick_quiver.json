@@ -2,14 +2,14 @@
   "modifier_id": "tconstruct:trick_quiver",
   "text": [
     {
-      "text": "Hawkeye's quiver on your bow."
+      "text": "Le carquois d’Hawkeye directement sur ton arc."
     }
   ],
   "effects": [
-    "Gives the bow three toggleable arrow slots",
-    "Switch slots by attacking",
-    "Access the slots by sneaking and attacking",
-    "Single level",
-    "Requires 1 ability slot"
+    "Ajoute trois emplacements de flèches commutables à l’arc",
+    "Changer d’emplacement en attaquant",
+    "Accéder aux emplacements en s’accroupissant et en attaquant",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
   ]
 }

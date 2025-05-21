@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:blocking",
   "text": [
     {
-      "text": "Your sword is now a shield, now just need a way to make your shield a sword."
+      "text": "Ton épée est maintenant un bouclier, il ne te reste plus qu’à trouver comment transformer ton bouclier en épée."
     }
   ],
   "effects": [
-    "Allows you to block with your tool",
-    "Single level",
-    "Requires 1 ability slot"
+    "Permet de bloquer avec ton outil",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
   ]
 }

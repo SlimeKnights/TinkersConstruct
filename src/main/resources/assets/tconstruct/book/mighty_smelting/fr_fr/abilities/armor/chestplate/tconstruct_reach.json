@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:reach",
   "text": [
     {
-      "text": "Reach for the stars! Or the top shelf... Or the medium height shelf if you are short..."
+      "text": "Vise les étoiles ! Ou l’étagère du haut… Ou celle du milieu si tu es petit…"
     }
   ],
   "effects": [
-    "Increases reach distance for blocks, mining, and attacking",
-    "Multiple levels, each level allows you to reach further",
-    "Requires 1 ability slot per level"
+    "Augmente la portée pour les blocs, le minage et les attaques",
+    "Niveaux multiples, chaque niveau augmente la portée",
+    "Nécessite 1 emplacement d’aptitude par niveau"
   ]
 }

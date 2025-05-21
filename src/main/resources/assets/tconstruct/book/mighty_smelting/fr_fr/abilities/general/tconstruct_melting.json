@@ -2,16 +2,17 @@
   "modifier_id": "tconstruct:melting",
   "text": [
     {
-      "text": "Smeltery not portable enough? Try turning your tool into a handheld smeltery! "
+      "text": "La fonderie pas assez portable pour toi ? Essaie de transformer ton outil en fonderie de poche !"
     },
     {
-      "text": "Right clicking a tank while holding the tool to empty fluid.", "paragraph": true
+      "text": "Fais un clic droit sur un réservoir en tenant l’outil pour le vider de son fluide.",
+      "paragraph": true
     }
   ],
   "effects": [
-    "Melts attacked mobs into the tool's tank",
-    "Dropped items also are melted if possible",
-    "Tool can be emptied into a tank or a smeltery drain",
-    "Requires 1 ability slot, single level"
+    "Fait fondre les créatures attaquées dans le réservoir de l’outil",
+    "Les objets lâchés sont aussi fondus si possible",
+    "L’outil peut être vidé dans un réservoir ou un drain de fonderie",
+    "Nécessite 1 emplacement d’aptitude, niveau unique"
   ]
 }

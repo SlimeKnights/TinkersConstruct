@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:warping",
   "text": [
     {
-      "text": "We can't go over it. We can't go under it. Oh no! We've got to go through it!"
+      "text": "On ne peut pas passer par-dessus. On ne peut pas passer par-dessous. Oh non ! Il faut passer à travers !"
     }
   ],
   "effects": [
-    "Charge to teleport in the direction looked",
-    "Can boost teleport range with power",
-    "Single level",
-    "Requires 1 ability slot"
+    "Charge pour se téléporter dans la direction regardée",
+    "La portée de téléportation peut être augmentée avec Puissance",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
   ]
 }

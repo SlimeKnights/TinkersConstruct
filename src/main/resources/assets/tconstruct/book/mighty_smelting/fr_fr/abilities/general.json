@@ -1,11 +1,11 @@
 {
-  "title": "General Abilities",
+  "title": "Aptitudes générales",
   "text": [
     {
-      "text": "Abilities are a special type of modifier that can drastically alter how your tool performs. These require an ability slot specifically, which are rarer than upgrade slots, but stronger per slot."
+      "text": "Les aptitudes sont un type spécial de modificateur qui peut modifier radicalement les performances de votre outil. Elles nécessitent un emplacement d’aptitude spécifique, plus rare que les emplacements d’amélioration, mais aussi plus puissant par emplacement."
     },
     {
-      "text": "These abilities will enhance your tool all around!",
+      "text": "Ces aptitudes amélioreront votre outil à tous les niveaux !",
       "paragraph": true
     }
   ]

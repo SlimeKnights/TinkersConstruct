@@ -2,31 +2,31 @@
   "modifier_id": "tconstruct:bucketing",
   "text": [
     {
-      "text": "§oThis is a bucket.§r"
+      "text": "§oCeci est un seau.§r"
     },
     {
       "text": "\n"
     },
     {
-      "text": "§lDear God.§r"
+      "text": "§lMon Dieu.§r"
     },
     {
       "text": "\n"
     },
     {
-      "text": "§oThere's more.§r"
+      "text": "§oIl y en a d’autres.§r"
     },
     {
       "text": "\n"
     },
     {
-      "text": "§lNooo.§r"
+      "text": "§lNooooon.§r"
     }
   ],
   "effects": [
-    "Your tool is now a bucket",
-    "Tank size can be increased with Tank Upgrade",
-    "Single level",
-    "Requires 1 ability slot"
+    "Votre outil est maintenant un seau",
+    "La taille du réservoir peut être augmentée avec une Amélioration de Réservoir",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
   ]
 }

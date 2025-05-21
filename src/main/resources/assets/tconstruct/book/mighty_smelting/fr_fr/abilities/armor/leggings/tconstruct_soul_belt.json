@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:soul_belt",
   "text": [
     {
-      "text": "Keep your friends close, and your tools closer."
+      "text": "Garde tes amis près de toi, et tes outils encore plus près."
     }
   ],
   "effects": [
-    "Hotbar items will remain with you upon an untimely demise",
-    "Single Level",
-    "Requires 1 ability slot"
+    "Les objets de la barre rapide restent avec toi en cas de mort soudaine",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
   ]
 }

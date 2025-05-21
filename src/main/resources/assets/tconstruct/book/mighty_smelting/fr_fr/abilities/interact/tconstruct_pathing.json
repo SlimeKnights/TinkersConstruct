@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:pathing",
   "text": [
     {
-      "text": "If you can't find the golden brick road make your own dirt path road."
+      "text": "Si tu ne trouves pas la route de briques dorées, fais-toi un chemin de terre."
     }
   ],
   "effects": [
-     "Allows you to make paths with your tools",
-    "Single level",
-    "Requires 1 ability slot"
+    "Permet de créer des chemins avec tes outils",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
   ]
 }

@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:reflecting",
   "text": [
     {
-      "text": "Your shield is also your trampoline."
+      "text": "Ton bouclier, c’est aussi ton trampoline."
     }
   ],
   "effects": [
-    "Bounce projectiles within a short time of blocking",
-    "Multiple levels, each level increases reflecting window",
-    "Requires 1 ability slot"
+    "Rebondit les projectiles dans un court laps de temps après un blocage",
+    "Niveaux multiples, chaque niveau augmente la fenêtre de renvoi",
+    "Nécessite 1 emplacement d’aptitude"
   ]
 }

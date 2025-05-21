@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:bonking",
   "text": [
     {
-      "text": "Best used on cliffs during epic sunset."
+      "text": "À utiliser de préférence au bord d’une falaise au coucher du soleil."
     }
   ],
   "effects": [
-    "Charge to launch the targeted mob away",
-    "Can boost launch speed with power or knockback",
-    "Single level",
-    "Requires 1 ability slot"
+    "Charge pour projeter la créature ciblée au loin",
+    "La vitesse de projection peut être augmentée avec Puissance ou Recul",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
   ]
 }

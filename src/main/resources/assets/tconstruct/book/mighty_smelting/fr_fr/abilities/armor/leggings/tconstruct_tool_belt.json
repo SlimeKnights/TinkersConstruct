@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:tool_belt",
   "text": [
     {
-      "text": "Its a belt to hold your tools. Tool belt."
+      "text": "C’est une ceinture pour porter tes outils. Une ceinture à outils."
     }
   ],
   "effects": [
-    "Slots can be swapped with hotbar slots using control plus leggings interact.",
-    "Grants 4 slots, plus 1 per consecutive level",
-    "Different recipe per level",
-    "First level requires 1 ability slot"
+    "Les emplacements peuvent être échangés avec ceux de la barre rapide en maintenant contrôle + interaction sur le pantalon",
+    "Accorde 4 emplacements, plus 1 par niveau supplémentaire consécutif",
+    "Recette différente selon le niveau",
+    "Le premier niveau nécessite 1 emplacement d’aptitude"
   ]
 }

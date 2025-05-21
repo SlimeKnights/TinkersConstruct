@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:bulk_quiver",
   "text": [
     {
-      "text": "Putting a quiver on your back is overrated."
+      "text": "Porter un carquois dans le dos, c’est surfait."
     }
   ],
   "effects": [
-    "Allows your bow to store arrows",
-    "Access by sneaking and attacking",
-    "Multiple levels, each level increases storage size",
-    "Requires 1 ability slot per level"
+    "Permet à ton arc de stocker des flèches",
+    "Accès en s’accroupissant et en attaquant",
+    "Niveaux multiples, chaque niveau augmente la capacité de stockage",
+    "Nécessite 1 emplacement d’aptitude par niveau"
   ]
 }

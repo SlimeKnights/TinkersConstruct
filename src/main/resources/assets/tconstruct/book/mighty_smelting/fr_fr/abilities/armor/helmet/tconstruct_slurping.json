@@ -2,16 +2,17 @@
   "modifier_id": "tconstruct:slurping",
   "text": [
     {
-      "text": "He was number one!"
+      "text": "C’était le numéro un !"
     },
     {
-      "text": "Right clicking a tank while holding the tool fills it with fluid.", "paragraph": true
+      "text": "Faire un clic droit sur un réservoir avec l’outil en main le remplit de fluide.",
+      "paragraph": true
     }
   ],
   "effects": [
-    "Drink fluids stored in the helmet",
-    "Keybind is used to drink",
-    "Single level",
-    "Requires 1 ability slot"
+    "Permet de boire les fluides stockés dans le casque",
+    "Une touche dédiée permet de boire",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
   ]
 }

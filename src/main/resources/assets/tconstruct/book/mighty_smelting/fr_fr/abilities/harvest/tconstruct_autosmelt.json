@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:autosmelt",
   "text": [
     {
-      "text": "The fires of hell are useful for turning up the heat."
+      "text": "Les flammes de l’enfer sont bien utiles pour faire monter la température."
     }
   ],
   "effects": [
-    "Drops from all blocks are smelted if possible",
-    "Single Level",
-    "Requires 1 ability slot"
+    "Les objets lâchés par les blocs sont fondus s’il y a une recette disponible",
+    "Niveau unique",
+    "Nécessite 1 emplacement d’aptitude"
   ]
 }

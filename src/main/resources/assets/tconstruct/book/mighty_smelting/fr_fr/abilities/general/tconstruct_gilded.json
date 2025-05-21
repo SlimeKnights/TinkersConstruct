@@ -2,12 +2,12 @@
   "modifier_id": "tconstruct:gilded",
   "text": [
     {
-      "text": "It's a 2 for 1 special!"
+      "text": "C’est une offre deux pour un !"
     }
   ],
   "effects": [
-    "Trades 1 ability slot for 2 upgrade slots",
-    "Multiple levels",
-    "Requires 1 ability slot"
+    "Échange 1 emplacement d’aptitude contre 2 emplacements d’amélioration",
+    "Niveaux multiples",
+    "Nécessite 1 emplacement d’aptitude"
   ]
 }

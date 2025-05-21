@@ -2,13 +2,13 @@
   "modifier_id": "tconstruct:projectile_protection",
   "text": [
     {
-      "text": "It will not protect your knees from arrows, forcing you to give up adventuring and become a guard."
+      "text": "Ça ne protégera pas tes genoux des flèches, alors tu devras renoncer à l’aventure pour devenir garde."
     }
   ],
   "effects": [
-    "Decreases damages from projectiles",
-    "Increases knockback resistance",
-    "Multiple levels, each level boosts effects",
-    "Requires 1 defense slot per level"
+    "Réduit les dégâts des projectiles",
+    "Augmente la résistance au recul",
+    "Niveaux multiples, chaque niveau renforce les effets",
+    "Nécessite 1 emplacement de défense par niveau"
   ]
 }
