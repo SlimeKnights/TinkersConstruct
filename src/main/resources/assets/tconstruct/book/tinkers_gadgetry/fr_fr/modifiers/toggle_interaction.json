@@ -1,5 +1,5 @@
 {
-  "title": "Toggle Interaction",
+  "title": "Basculer l’Interaction",
   "image": {
     "file": "tconstruct:book/images/worktable/toggle_interaction.png",
     "width": 147,
@@ -7,7 +7,7 @@
   },
   "text": [
     {
-      "text": "Levers don't just switch redstone, they also let you switch interaction modifiers on slimestaffs from activing on using the staff to activating on attacking with the staff."
+      "text": "Les leviers ne servent pas uniquement à activer la redstone, ils permettent aussi de basculer les modificateurs d’interaction des bâtons visqueux entre une activation à l’utilisation et une activation à l’attaque."
     }
   ]
 }

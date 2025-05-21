@@ -2,30 +2,30 @@ intro=Introduction
 
 gadgets=Gadgets
 
-modifiers=Odd Modifiers
+modifiers=Modificateurs Inhabituels
 
 exploration=Exploration
-exploration.necrotic_bones=Necrotic Bone
+exploration.necrotic_bones=Os Nécrotiques
 
-exploration.skyslime_island=Skyslime
-exploration.earthslime_island=Earthslime
-exploration.clay_island=Clay
-exploration.blood_island=Blood
+exploration.skyslime_island=Céletslime
+exploration.earthslime_island=Mondeslime
+exploration.clay_island=Argile
+exploration.blood_island=Sang
 exploration.enderslime_island=Enderslime
 
-exploration.skyslime_geode=Skyslime
-exploration.earthslime_geode=Earthslime
-exploration.ichor_geode=Ichor
-exploration.enderslime_geode=Enderslime
+exploration.skyslime_geode=Géode de Céletslime
+exploration.earthslime_geode=Géode de Mondeslime
+exploration.ichor_geode=Géode d’Ichor
+exploration.enderslime_geode=Géode d’Enderslime
 
-armor=Slimy Armor
-armor.subtext=Mixing slime with various mob parts produces an interesting set of armor. Its not the most defensive, but it can really enhance your abilities.
+armor=Armure Visqueuse
+armor.subtext=Mélanger du slime avec diverses parties de créatures donne un ensemble d’armure original. Ce n’est pas la plus défensive, mais elle peut réellement améliorer vos capacités.
 
-staffs=Staffs
-staffs.subtext=Combining slime crystals and slime wood aids in creation of very flexible tools. Just need a bit of metal to hold the whole thing together.
+staffs=Bâtons
+staffs.subtext=Combiner des cristaux de slime avec du bois de slime permet de créer des outils très flexibles. Il faut juste un peu de métal pour maintenir l’ensemble.
 
-ancient_tools=Ancient Tools
-ancient_tools.subtext=Ancient tools are tools rarely found in loot throughout the world. Their material construction appears to be random and cannot be altered, but they may be modified like any other tool.
+ancient_tools=Outils Anciens
+ancient_tools.subtext=Les outils anciens sont rarement trouvés dans les butins à travers le monde. Leur composition matérielle semble aléatoire et ne peut pas être modifiée, mais ils peuvent être améliorés comme n’importe quel autre outil.
 
-materials=Skull Materials
-materials.subtext=Placing one of these skulls in a casting basin and adding enderslime can enhance their ability as a helmet.
+materials=Matériaux de Crânes
+materials.subtext=Placer l’un de ces crânes dans un bassin de coulée et y ajouter de l’enderslime peut améliorer son efficacité en tant que casque.

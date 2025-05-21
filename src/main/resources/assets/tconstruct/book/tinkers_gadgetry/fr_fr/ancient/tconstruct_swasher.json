@@ -1,13 +1,15 @@
 {
   "tool": "tconstruct:swasher",
   "text": [
-    { "text": "The swasher is a combination of a melee weapon and a handheld fluid pistol found in various ocean locations." }
+    {
+      "text": "Le doublegicleur est une combinaison d’une arme de mêlée et d’un pistolet à fluide portatif, trouvée dans diverses zones océaniques."
+    }
   ],
   "properties": [
-    "Medium Damage",
-    "High Attack Speed",
-    "Fluid Pistol",
-    "3 Upgrade Slots",
-    "1 Ability Slot"
+    "Dégâts Moyens",
+    "Vitesse d’Attaque Élevée",
+    "Pistolet à Fluide",
+    "3 Emplacements d’Amélioration",
+    "1 Emplacement d’Aptitude"
   ]
 }

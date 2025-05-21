@@ -1,5 +1,5 @@
 {
-  "title": "Extract Ability",
+  "title": "Extraction d’Aptitude",
   "image": {
     "file": "tconstruct:book/images/worktable/extract_ability.png",
     "width": 147,
@@ -7,7 +7,7 @@
   },
   "text": [
     {
-      "text": "Extracting ability modifiers from enchanted tools is a quite expensive process, requiring not only ichor crystals but also a diamond to help the process. Even with the power of ichor, the tool is still lost, seems you need enderslime if you wish to preserve the tool."
+      "text": "Extraire des modificateurs d’aptitude depuis des outils enchantés est un processus assez coûteux, nécessitant non seulement des cristaux d’ichor mais aussi un diamant pour faciliter l’opération. Même avec le pouvoir de l’ichor, l’outil est tout de même perdu — il semble que vous ayez besoin d’enderslime si vous souhaitez préserver l’outil."
     }
   ]
 }

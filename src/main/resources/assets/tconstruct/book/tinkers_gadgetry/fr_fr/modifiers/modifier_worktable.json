@@ -1,7 +1,9 @@
 {
-  "title": "Modifier Worktable",
+  "title": "Établi à Modificateurs",
   "recipe": "tconstruct:tables/modifier_worktable",
   "description": [
-    { "text": "Arranging seared stone like this makes it easier to target a specific modifier in the recipes." }
+    {
+      "text": "Disposer la pierre brûlée de cette manière permet de mieux cibler un modificateur spécifique dans les recettes."
+    }
   ]
 }

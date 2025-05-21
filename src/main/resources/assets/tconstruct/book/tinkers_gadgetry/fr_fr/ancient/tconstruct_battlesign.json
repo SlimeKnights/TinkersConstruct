@@ -1,12 +1,14 @@
 {
   "tool": "tconstruct:battlesign",
   "text": [
-    { "text": "The battlesign is a combination of a melee weapon and a shield. It will typically be located in bastions, and can be obtained from piglins." }
+    {
+      "text": "L’écriteau de guerre est à la fois une arme de mêlée et un bouclier. On le trouve généralement dans les bastions, et il peut être obtenu auprès des piglins."
+    }
   ],
   "properties": [
-    "Medium Damage",
-    "Medium Block Potential",
-    "3 Defense Slots",
-    "1 Ability Slot"
+    "Dégâts Moyens",
+    "Potentiel de Blocage Moyen",
+    "3 Emplacements de Défense",
+    "1 Emplacement d’Aptitude"
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "title": "Damage Tools",
+  "title": "Outils Endommagés",
   "image": {
     "file": "tconstruct:book/images/damage_tools.png",
     "width": 135,
@@ -7,7 +7,7 @@
   },
   "text": [
     {
-      "text": "Apparently tools do not react well to certain potions. Thick and mundane potions appear to do minor damage to the tool, while potions of harming, especially splash potions, do quite a bit more damage to the tool. Now if I could just find some dragon's breath to test with a lingering potion of harming..."
+      "text": "Apparemment, les outils ne réagissent pas bien à certaines potions. Les potions épaisses et banales semblent infliger des dégâts légers à l’outil, tandis que les potions de dégâts, en particulier les potions jetables, en infligent bien davantage. Si seulement je pouvais trouver du souffle de dragon pour tester une potion persistante de dégâts..."
     }
   ]
 }

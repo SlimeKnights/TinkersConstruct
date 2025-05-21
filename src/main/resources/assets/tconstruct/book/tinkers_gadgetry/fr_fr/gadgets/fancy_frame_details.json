@@ -1,14 +1,10 @@
 {
-  "title": "Fancy Item Frames",
+  "title": "Cadres à Objets Raffinés",
   "text": [
-    { "text": "• Clear: Turn invisible when an item is placed inside, and allow interacting with the block behind when filled and not sneaking." },
-    { "text": "\n" },
-    { "text": "• Gold: Gradually rotates the item automatically. Crafting with a redstone torch reverses the direction." },
-    { "text": "\n" },
-    { "text": "• Diamond: Gradually reduces the rotation until the item is upright. Supports more rotations than a standard frame." },
-    { "text": "\n" },
-    { "text": "• Manyullyn: Always appears fully lit, even in darkness." },
-    { "text": "\n" },
-    { "text": "• Netherite: Resistant to fire and explosions." }
+    { "text": "• Transparent : Devient invisible lorsqu’un objet est placé à l’intérieur, et permet d’interagir avec le bloc derrière lorsqu’il est rempli et que vous ne vous accroupissez pas." },
+    { "text": "\n• Doré : Fait pivoter progressivement l’objet automatiquement. Un craft avec une torche de redstone inverse la direction." },
+    { "text": "\n• Diamant : Réduit progressivement la rotation jusqu’à ce que l’objet soit droit. Permet plus de rotations qu’un cadre standard." },
+    { "text": "\n• Manyulline : Apparaît toujours entièrement éclairé, même dans l’obscurité." },
+    { "text": "\n• Netherite : Résistant au feu et aux explosions." }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "title": "Extract Defense",
+  "title": "Extraction de Défense",
   "image": {
     "file": "tconstruct:book/images/worktable/extract_defense.png",
     "width": 147,
@@ -7,7 +7,7 @@
   },
   "text": [
     {
-      "text": "Extracting defense modifiers from enchanted books or tools requires earthslime crystals and gold. The process is similarly unstable casuing loss of the tool."
+      "text": "L’extraction de modificateurs de défense depuis des livres enchantés ou des outils nécessite des cristaux de mondeslime et de l’or. Le processus est tout aussi instable, entraînant la perte de l’outil."
     }
   ]
 }

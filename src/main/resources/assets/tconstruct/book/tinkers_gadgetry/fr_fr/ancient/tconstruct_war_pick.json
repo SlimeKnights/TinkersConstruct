@@ -1,12 +1,14 @@
 {
   "tool": "tconstruct:war_pick",
   "text": [
-    { "text": "The war pick is a combination of pickaxe and a crossbow. It can be found in mineshafts and obtained from villagers or illagers." }
+    {
+      "text": "La pioche de guerre est une combinaison entre une pioche et une arbalète. Elle peut être trouvée dans les mines et obtenue auprès des villageois ou des illageois."
+    }
   ],
   "properties": [
-    "Mines stone blocks and similar",
-    "Able to keep an arrow prepared to fire",
-    "3 Upgrade Slots",
-    "1 Ability Slot"
+    "Mine les blocs de pierre et similaires",
+    "Peut maintenir une flèche prête à être tirée",
+    "3 Emplacements d’Amélioration",
+    "1 Emplacement d’Aptitude"
   ]
 }

@@ -1,14 +1,19 @@
 {
   "tool": "tconstruct:slime_leggings",
   "text": [
-    { "text": "Slimeshells are one part defense, one part storage, granting the best of both shulker abilities." },
-    { "text": "To create these wondrous pants, pour enderslime on a shulker shell in a basin. The shell can later be repaired using chorus.", "paragraph": true }
+    {
+      "text": "Les carapaces de slime offrent à la fois défense et stockage, combinant le meilleur des capacités des shulkers."
+    },
+    {
+      "text": "Pour créer ce pantalon merveilleux, versez de l’enderslime sur une carapace de shulker dans un bassin. La carapace peut ensuite être réparée avec du chorus.",
+      "paragraph": true
+    }
   ],
   "properties": [
-    "High Durability",
-    "No Armor or Defense Slots",
-    "5 Upgrade Slots",
-    "1 Ability Slot",
+    "Durabilité Élevée",
+    "Aucune Armure ni Emplacement de Défense",
+    "5 Emplacements d’Amélioration",
+    "1 Emplacement d’Aptitude",
     "Shulking"
   ]
 }

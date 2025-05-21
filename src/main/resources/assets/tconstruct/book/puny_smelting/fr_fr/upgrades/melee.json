@@ -1,11 +1,11 @@
 {
-  "title": "Melee Upgrades",
+  "title": "Améliorations de Mêlée",
   "text": [
     {
-      "text": "With these upgrades perhaps you could forge the strongest weapon of all. Of course what weapon you choose is up to you."
+      "text": "Avec ces améliorations, vous pourriez bien forger l’arme la plus puissante de toutes. Bien sûr, le choix de l’arme vous revient."
     },
     {
-      "text": "These upgrades can help increase your melee weapon's potential, increase the damage you do overall, to specific mobs, or to both. The choice is yours.",
+      "text": "Ces améliorations peuvent augmenter le potentiel de vos armes de mêlée, les dégâts que vous infligez en général, à certains monstres, ou les deux. À vous de choisir.",
       "paragraph": true
     }
   ]

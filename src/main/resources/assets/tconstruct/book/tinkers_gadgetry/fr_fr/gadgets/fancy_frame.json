@@ -1,5 +1,5 @@
 {
-  "title": "Fancy Item Frames",
+  "title": "Cadres à Objets Raffinés",
   "image": {
     "file": "tconstruct:book/images/fancy_frames.png",
     "width": 140,
@@ -7,7 +7,7 @@
   },
   "text": [
     {
-      "text": "Making use of rarer metals, I have managed to create variants of item frames with unique properties."
+      "text": "En utilisant des métaux plus rares, j’ai réussi à créer des variantes de cadres à objets dotés de propriétés uniques."
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "title": "Skyslime Geodes",
+  "title": "Géodes de Céletslime",
   "image": {
     "file": "tconstruct:book/images/geodes/skyslime.png",
     "width": 180,
@@ -7,7 +7,7 @@
   },
   "text": [
     {
-      "text": "Skyslime geodes are found in caves near the surface, and rarely even I have seen one on the surface leading me to believe they might have origins in space. These geodes seem to promote growth of certain varieties of moss nearby."
+      "text": "Les géodes de céletslime se trouvent dans les grottes proches de la surface, et il m’est même arrivé d’en apercevoir une en surface, ce qui me laisse penser qu’elles pourraient venir de l’espace. Ces géodes semblent favoriser la croissance de certaines variétés de mousse à proximité."
     }
   ]
 }
