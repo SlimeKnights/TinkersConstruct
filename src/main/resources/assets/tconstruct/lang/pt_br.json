@@ -1742,6 +1742,9 @@
 "material.tconstruct.slimewood.enderbark": "Casca-Ender",
 "material.tconstruct.slimewood.flavor": "É a madeira de um slime ou foi um slime que se infundio com madeira?",
 "material.tconstruct.slimewood.encyclopedia": "Dá 5% de chance por nível de regenerar slimebilidade a cada segundo",
+"material.tconstruct.slimeskin": "Pele de Slime",
+"material.tconstruct.slimeskin.flavor": "Slimes têm pele mesmo?",
+"material.tconstruct.slimeskin.encyclopedia": "Concede 5% de chance por nível de regenerar slimebilidade a cada segundo",
 
 "material.tconstruct.venombone": "Osso Venenoso",
 "material.tconstruct.venombone.flavor": "Eu pOSSO ser uma cobra?",
@@ -1768,7 +1771,7 @@
 "material.tconstruct.slimesteel.encyclopedia": "Concede 25 de Slimebilidade extra, +50% do total por nível",
 
 "material.tconstruct.nahuatl": "Nahuatl",
-"material.tconstruct.nahuatl.flavor": "Nah, isso não é uma peça de obsidiana, se fosse, eu diria \",
+"material.tconstruct.nahuatl.flavor": "Nah, isso não é uma peça de obsidiana, se fosse, eu diria \"Obsidian.\"",
 "material.tconstruct.nahuatl.encyclopedia": "Tem 50% de chance de causar até 5 de dano ao longo do tempo, mais dano em níveis mais altos",
 "material.tconstruct.nahuatl.armor": "Tem 25% de chance por nível de causar até 5 de dano ao longo do tempo",
 
@@ -1866,7 +1869,7 @@
 "material.tconstruct.gold.skull_encyclopedia": "Faz com que alguns minérios de ouro dropem pepitas de ouro extras e aumenta a chance de drop de armadura de ouro em 4%. Drops de pepitas e armaduras são ainda mais aumentados por cada peça de armadura dourada usada.",
 
 "material.tconstruct.obsidian": "Obsidiana",
-"material.tconstruct.obsidian.flavor": "Esta é uma peça de obsidiana, se não fosse não diria \",
+"material.tconstruct.obsidian.flavor": "Esta é uma peça de obsidiana, se não fosse não diria \"Obsidian.\"",
 "material.tconstruct.obsidian.armor": "Concede 10% de proteção por nível contra explosões e reduz o recuo de explosões",
 "material.tconstruct.ancient": "Ancestral",
 "material.tconstruct.ancient.flavor": "Eles não fazem mais como antigamente.",
@@ -1951,7 +1954,7 @@
 "material.tconstruct.bronze.armor": "Aumenta a resistência em 2 por nível quando em durabilidade total, mas o aumento cai para 0 abaixo de 50% de durabilidade",
 
 "material.tconstruct.constantan": "Constantan",
-"material.tconstruct.constantan.flavor": "Vem Constantan, Mexe o Constantantantantan... Desculpe, essa música grudou na minha cabeça \",
+"material.tconstruct.constantan.flavor": "Vem Constantan, Mexe o Constantantantantan... Desculpe, esses \"tan\" me lembrou uma música",
 "material.tconstruct.constantan.encyclopedia": "Concede +7,5 de velocidade de mineração em frio extremo e duplamente reforçado em calor extremo",
 "material.tconstruct.constantan.ranged": "Concede +0,15 de velocidade em frio extremo e duplamente reforçado em calor extremo",
 "material.tconstruct.constantan.armor": "Concede 5% de proteção em frio extremo e duplamente reforçado em calor extremo",
@@ -2982,14 +2985,14 @@
 
 "modifier.tconstruct.tank_handler": "Manipulador do Tanque",
 "modifier.tconstruct.tank_handler.flavor": "Conteúdo do Tanque",
-"modifier.tconstruct.tank_handler.description": "Mostra o conteúdo atual e a capacidade do tanque."
+"modifier.tconstruct.tank_handler.description": "Mostra o conteúdo atual e a capacidade do tanque.",
 "tool_stat.tconstruct.tank_capacity": "Capacidade do Tanque:",
 "tool_stat.tconstruct.tank_capacity.description": "Quantidade máxima de fluido que pode ser armazenada no tanque desta ferramenta.",
 
 "modifier.tconstruct.energy_handler": "Manipulador de Energia",
 "modifier.tconstruct.energy_handler.current": "Energia: ",
 "modifier.tconstruct.energy_handler.flavor": "Energia Atual",
-"modifier.tconstruct.energy_handler.description": "Mostra a energia atual armazenada na ferramenta."
+"modifier.tconstruct.energy_handler.description": "Mostra a energia atual armazenada na ferramenta.",
 "tool_stat.tconstruct.energy": "%s FE",
 "tool_stat.tconstruct.max_energy": "Energia Máxima:",
 "tool_stat.tconstruct.max_energy.description": "Quantidade máxima de energia que pode ser armazenada nesta ferramenta",
