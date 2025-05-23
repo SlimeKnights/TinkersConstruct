@@ -1742,6 +1742,9 @@
   "material.tconstruct.slimewood.enderbark":  "末影皮木",
   "material.tconstruct.slimewood.flavor": "这黏木到底是长了黏液的木头还是长了木头的黏液？",
   "material.tconstruct.slimewood.encyclopedia": "有概率每秒自行再生黏液覆层，每级概率+5%",
+  "material.tconstruct.slimeskin": "黏液皮",
+  "material.tconstruct.slimeskin.flavor": "史莱姆也有皮肤？",
+  "material.tconstruct.slimeskin.encyclopedia": "有概率每秒自行再生黏液覆层，每级概率+5%",
 
   "material.tconstruct.venombone": "毒之骨",
   "material.tconstruct.venombone.flavor": "敌人的眼中钉",
