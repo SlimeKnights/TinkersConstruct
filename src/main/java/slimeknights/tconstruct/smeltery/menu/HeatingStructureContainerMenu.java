@@ -82,7 +82,7 @@ public class HeatingStructureContainerMenu extends TriggeringMultiModuleContaine
     if (!player.level().isClientSide && tile != null) {
       ItemStack bucket = bucketContainer.getItem(0);
       if (!bucket.isEmpty() && bucketContainer.getItem(1).isEmpty()) {
-        ItemStack result = FluidTransferHelper.interactWithTankSlot(tile.getTank(), bucket, transferDirection);
+        ItemStack result = FluidTransferHelper.interactWithTankSlot(player, tile.getTank(), bucket, transferDirection);
         bucketContainer.setItem(0, bucket);
         bucketContainer.setItem(1, result);
         bucketContainer.setChanged();
@@ -115,10 +115,10 @@ public class HeatingStructureContainerMenu extends TriggeringMultiModuleContaine
         if (id == 1) {
           // drain fuel into item
           MultitankFuelModule fuelModule = tile.getFuelModule();
-          result = FluidTransferHelper.fillFromTankSlot(fuelModule, held, fuelModule.getLastFluid());
+          result = FluidTransferHelper.fillFromTankSlot(player, fuelModule, held, fuelModule.getLastFluid());
         } else {
           // drain item into fuel/tank
-          result = FluidTransferHelper.interactWithTankSlot(id == 2 ? tile.getFuelModule() : tile.getTank(), held, TransferDirection.EMPTY_ITEM);
+          result = FluidTransferHelper.interactWithTankSlot(player, id == 2 ? tile.getFuelModule() : tile.getTank(), held, TransferDirection.EMPTY_ITEM);
         }
         setCarried(FluidTransferHelper.getOrTransferFilled(player, held, result));
       }
@@ -135,7 +135,7 @@ public class HeatingStructureContainerMenu extends TriggeringMultiModuleContaine
           ItemStack held = getCarried();
           if (!held.isEmpty()) {
             // if holding an item, fill it from the fluid
-            ItemStack result = FluidTransferHelper.fillFromTankSlot(tank, held, fluid);
+            ItemStack result = FluidTransferHelper.fillFromTankSlot(player, tank, held, fluid);
             setCarried(FluidTransferHelper.getOrTransferFilled(player, held, result));
           } else {
             // switch fluid order if not holding anything

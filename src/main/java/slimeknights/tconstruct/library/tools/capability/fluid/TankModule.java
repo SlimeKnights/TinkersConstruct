@@ -200,7 +200,7 @@ public class TankModule implements HookProvider, FluidModifierHook, VolatileData
       // target must be stack size 1, if not then its not safe to modify it
       if (slotStack.getCount() == 1) {
         FluidTank tank = getTank(heldTool);
-        ItemStack result = FluidTransferHelper.interactWithTankSlot(tank, slotStack, TransferDirection.REVERSE);
+        ItemStack result = FluidTransferHelper.interactWithTankSlot(TankItem.clientPlayer(player), tank, slotStack, TransferDirection.REVERSE);
         // update held tank and slot item if something changed (either we have a result or the stack in the slot was shrunk)
         if (!result.isEmpty() || slotStack.isEmpty()) {
           helper.setFluid(heldTool, tank.getFluid());
@@ -218,7 +218,7 @@ public class TankModule implements HookProvider, FluidModifierHook, VolatileData
     if (!held.isEmpty() && TankItem.mayHaveFluid(held)) {
       FluidTank tank = getTank(slotTool);
       int oldCount = held.getCount();
-      ItemStack result = FluidTransferHelper.interactWithTankSlot(tank, held, TransferDirection.AUTO);
+      ItemStack result = FluidTransferHelper.interactWithTankSlot(TankItem.clientPlayer(player), tank, held, TransferDirection.AUTO);
       // update tank
       if (!result.isEmpty() || held.getCount() != oldCount) {
         helper.setFluid(slotTool, tank.getFluid());

@@ -92,7 +92,7 @@ public class AlloyerContainerMenu extends TriggeringBaseContainerMenu<AlloyerBlo
         // invalid index would make the handler empty through the alloy tank
         if (handler != EmptyFluidHandler.INSTANCE) {
           // even numbers are fill, odd are drain
-          ItemStack result = FluidTransferHelper.interactWithTankSlot(handler, held, (id & 1) == 0 ? TransferDirection.FILL_ITEM : TransferDirection.EMPTY_ITEM);
+          ItemStack result = FluidTransferHelper.interactWithTankSlot(player, handler, held, (id & 1) == 0 ? TransferDirection.FILL_ITEM : TransferDirection.EMPTY_ITEM);
           setCarried(FluidTransferHelper.getOrTransferFilled(player, held, result));
           // TODO: if it failed, should we try the other direction?
         }

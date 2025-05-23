@@ -34,7 +34,6 @@ public class Config {
     public final BooleanValue addGravelToFlintRecipe;
     public final BooleanValue cheaperNetheriteAlloy;
     public final BooleanValue witherBoneDrop;
-    public final BooleanValue witherBoneConversion;
     public final BooleanValue slimeRecipeFix;
     public final BooleanValue glassRecipeFix;
     public final Map<TinkerHeadType,BooleanValue> headDrops;
@@ -107,12 +106,6 @@ public class Config {
         .translation("tconstruct.configgui.witherBoneDrop")
         .worldRestart()
         .define("witherBoneDrop", true);
-
-      this.witherBoneConversion = builder
-        .comment("Allows converting wither bones to regular bones")
-        .translation("tconstruct.configgui.witherBoneConversion")
-        .worldRestart()
-        .define("witherBoneConversion", true);
 
       this.slimeRecipeFix = builder
         .comment("Slimeballs not being usable in vanilla recipes that require slimeballs. Config option exists to disable easily in case this fix is redundant to another mod")

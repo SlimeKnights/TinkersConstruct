@@ -98,6 +98,12 @@ public class TankItem extends BlockTooltipItem {
     return FluidContainerTransferManager.INSTANCE.mayHaveTransfer(stack) || stack.getCapability(ForgeCapabilities.FLUID_HANDLER_ITEM).isPresent();
   }
 
+  /** Returns the player client side or null serverside */
+  @Nullable
+  public static Player clientPlayer(Player player) {
+    return player.level().isClientSide ? player : null;
+  }
+
   @Override
   public boolean overrideStackedOnOther(ItemStack held, Slot slot, ClickAction action, Player player) {
     // take over right click, assuming the target has an item. If not, then we want to place 1 item in the slot
@@ -109,7 +115,7 @@ public class TankItem extends BlockTooltipItem {
         if (slotStack.getCount() == 1) {
           // transfer fluid - but we work with just 1 tank at a time instead of trying to transfer the whole stack
           FluidTank tank = getTank(held, 1);
-          ItemStack result = FluidTransferHelper.interactWithTankSlot(tank, slotStack, TransferDirection.REVERSE);
+          ItemStack result = FluidTransferHelper.interactWithTankSlot(clientPlayer(player), tank, slotStack, TransferDirection.REVERSE);
           // update held tank and slot item if something changed (either we have a result or the stack in the slot was shrunk)
           if (!result.isEmpty() || slotStack.isEmpty()) {
             slot.set(FluidTransferHelper.getOrTransferFilled(player, slotStack, result));
@@ -153,7 +159,7 @@ public class TankItem extends BlockTooltipItem {
           return false;
         }
         int oldCount = held.getCount();
-        ItemStack result = FluidTransferHelper.interactWithTankSlot(tank, held, TransferDirection.AUTO);
+        ItemStack result = FluidTransferHelper.interactWithTankSlot(clientPlayer(player), tank, held, TransferDirection.AUTO);
         if (!result.isEmpty() || held.getCount() != oldCount) {
           // update tank
           setTank(stack, tank);

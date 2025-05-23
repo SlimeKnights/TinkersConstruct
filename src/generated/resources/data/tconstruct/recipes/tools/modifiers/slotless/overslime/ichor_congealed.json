@@ -3,5 +3,8 @@
   "ingredient": {
     "item": "tconstruct:ichor_congealed_slime"
   },
-  "restore_amount": 450
+  "restore_amount": 400,
+  "tools": {
+    "tag": "tconstruct:modifiable/durability"
+  }
 }

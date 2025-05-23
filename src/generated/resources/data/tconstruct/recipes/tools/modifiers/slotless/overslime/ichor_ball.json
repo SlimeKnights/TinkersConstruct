@@ -3,5 +3,8 @@
   "ingredient": {
     "item": "tconstruct:ichor_slime_ball"
   },
-  "restore_amount": 100
+  "restore_amount": 100,
+  "tools": {
+    "tag": "tconstruct:modifiable/durability"
+  }
 }

@@ -6,8 +6,8 @@
     }
   ],
   "effects": [
-    "Adds an inventory crafting table to the tool's inventory",
+    "Adds an 2x2 crafting table to the tool's inventory",
     "Single level",
-    "Requires 1 upgrade slot"
+    "Slotless"
   ]
 }

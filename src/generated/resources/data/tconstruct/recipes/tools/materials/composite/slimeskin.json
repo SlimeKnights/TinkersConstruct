@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:material_fluid",
+  "fluid": {
+    "amount": 250,
+    "tag": "forge:slime"
+  },
+  "input": "tconstruct:leather",
+  "output": "tconstruct:slimeskin",
+  "temperature": 50
+}

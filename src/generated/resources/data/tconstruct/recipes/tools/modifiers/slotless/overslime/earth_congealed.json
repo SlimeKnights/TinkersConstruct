@@ -3,5 +3,8 @@
   "ingredient": {
     "item": "tconstruct:earth_congealed_slime"
   },
-  "restore_amount": 45
+  "restore_amount": 80,
+  "tools": {
+    "tag": "tconstruct:modifiable/durability"
+  }
 }

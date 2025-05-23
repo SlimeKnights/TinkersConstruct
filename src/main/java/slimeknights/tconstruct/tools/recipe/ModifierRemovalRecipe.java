@@ -146,7 +146,7 @@ public class ModifierRemovalRecipe extends AbstractWorktableRecipe {
       return RecipeResult.failure(error);
     }
     // successfully removed
-    return LazyToolStack.success(tool, originalStack.getCount());
+    return LazyToolStack.successCopy(tool, originalStack);
   }
 
   @Override

@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.repairing;
 
-import com.mojang.datafixers.util.Pair;
 import lombok.Getter;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -49,8 +48,13 @@ public class ModifierMaterialRepairKitRecipe extends CraftingTableRepairKitRecip
 
   @Override
   public boolean matches(CraftingContainer inv, Level worldIn) {
-    Pair<ToolStack, ItemStack> inputs = getRelevantInputs(inv);
-    return inputs != null && repairMaterial.equals(IMaterialItem.getMaterialFromStack(inputs.getSecond()).getId());
+    ToolRepair inputs = getRelevantInputs(inv);
+    if (inputs == null || !repairMaterial.equals(IMaterialItem.getMaterialFromStack(inputs.repairKit()).getId())) {
+      return false;
+    }
+    // tool must be damaged
+    IToolStackView tool = ToolStack.from(inputs.tool());
+    return tool.isBroken() || tool.getDamage() != 0;
   }
 
   @Override

@@ -191,8 +191,9 @@ public class MaterialRecipeProvider extends BaseRecipeProvider implements IMater
     materialMeltingCasting(consumer, MaterialIds.scorchedStone, TinkerFluids.scorchedStone, FluidValues.BRICK, folder);
     // half a clay is 1 seared brick per grout amounts
     materialComposite(consumer, MaterialIds.rock, MaterialIds.searedStone,        TinkerFluids.moltenClay, FluidValues.BRICK / 2, folder);
-    materialComposite(consumer, MaterialIds.wood, MaterialIds.slimewoodComposite, TinkerFluids.earthSlime, FluidValues.SLIMEBALL, folder);
     materialComposite(consumer, MaterialIds.flint, MaterialIds.scorchedStone,     TinkerFluids.magma,      FluidValues.SLIMEBALL / 2, folder);
+    materialComposite(consumer, MaterialIds.wood,    MaterialIds.slimewoodComposite, TinkerFluids.earthSlime, FluidValues.SLIMEBALL, folder);
+    materialComposite(consumer, MaterialIds.leather, MaterialIds.slimeskin,          TinkerFluids.earthSlime, FluidValues.SLIMEBALL, folder);
     materialComposite(consumer, MaterialIds.bone, MaterialIds.venombone,          TinkerFluids.venom,      FluidValues.SLIMEBALL, folder);
     // oxidize copper and iron via water, it does not rust iron because magic
     MaterialFluidRecipeBuilder.material(MaterialIds.oxidizedIron)

@@ -157,7 +157,7 @@ public class TinkerStationRepairRecipe implements ITinkerStationRecipe {
       ToolDamageUtil.repair(tool, repairNeeded - repairRemaining);
 
       // repair remaining can be negative
-      return LazyToolStack.success(tool, 1);
+      return LazyToolStack.successCopy(tool, 1, inv.getTinkerableStack());
     }
 
     // for some odd reason, did not repair anything

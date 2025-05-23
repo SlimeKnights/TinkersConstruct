@@ -2,17 +2,16 @@ package slimeknights.tconstruct.library.recipe.modifiers.adding;
 
 import lombok.Getter;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import slimeknights.mantle.data.loadable.common.IngredientLoadable;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.util.RegistryHelper;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
@@ -40,25 +39,35 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   private static final RecipeResult<LazyToolStack> AT_CAPACITY = RecipeResult.failure(TConstruct.makeTranslationKey("recipe", "overslime.at_capacity"));
   public static final RecordLoadable<OverslimeModifierRecipe> LOADER = RecordLoadable.create(
     ContextKey.ID.requiredField(),
+    IngredientLoadable.DISALLOW_EMPTY.defaultField("tools", Ingredient.of(TinkerTags.Items.DURABILITY), true, r -> r.tools),
     IngredientLoadable.DISALLOW_EMPTY.requiredField("ingredient", r -> r.ingredient),
     IntLoadable.FROM_ONE.requiredField("restore_amount", r -> r.restoreAmount),
     OverslimeModifierRecipe::new);
 
   @Getter
   private final ResourceLocation id;
+  private final Ingredient tools;
   private final Ingredient ingredient;
   private final int restoreAmount;
 
-  public OverslimeModifierRecipe(ResourceLocation id, Ingredient ingredient, int restoreAmount) {
+  @Internal
+  protected OverslimeModifierRecipe(ResourceLocation id, Ingredient tools, Ingredient ingredient, int restoreAmount) {
     this.id = id;
+    this.tools = tools;
     this.ingredient = ingredient;
     this.restoreAmount = restoreAmount;
     ModifierRecipeLookup.addRecipeModifier(null, TinkerModifiers.overslime);
   }
 
+  /** @deprecated use {@link #OverslimeModifierRecipe(ResourceLocation, Ingredient, Ingredient, int)} */
+  @Deprecated(forRemoval = true)
+  public OverslimeModifierRecipe(ResourceLocation id, Ingredient ingredient, int restoreAmount) {
+    this(id, Ingredient.of(TinkerTags.Items.DURABILITY), ingredient, restoreAmount);
+  }
+
   @Override
   public boolean matches(ITinkerStationContainer inv, Level world) {
-    if (!inv.getTinkerableStack().is(TinkerTags.Items.DURABILITY)) {
+    if (!tools.test(inv.getTinkerableStack())) {
       return false;
     }
     // must find at least one slime, but multiple is fine, as is empty slots
@@ -79,7 +88,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
       }
       // truely add overslime, this will cost a slime crystal if full durability
       tool = tool.copy();
-      tool.addModifier(TinkerModifiers.overslime.getId(), 1);
+      tool.addModifier(overslimeId, 1);
     } else {
       // ensure we are not at the cap already
       if (overslime.getShield(tool) >= overslime.getShieldCapacity(tool, entry)) {
@@ -136,7 +145,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
   @Override
   public List<ItemStack> getToolWithoutModifier() {
     if (toolWithoutModifier == null) {
-      toolWithoutModifier = RegistryHelper.getTagValueStream(BuiltInRegistries.ITEM, TinkerTags.Items.DURABILITY).map(MAP_TOOL_FOR_RENDERING).toList();
+      toolWithoutModifier = Arrays.stream(this.tools.getItems()).map(MAP_TOOL_STACK_FOR_RENDERING).toList();
     }
     return toolWithoutModifier;
   }
@@ -146,10 +155,10 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
     if (toolWithModifier == null) {
       OverslimeModifier overslime = TinkerModifiers.overslime.get();
       List<ModifierEntry> result = List.of(RESULT);
-      toolWithModifier = RegistryHelper.getTagValueStream(BuiltInRegistries.ITEM, TinkerTags.Items.DURABILITY)
-                                       .map(MAP_TOOL_FOR_RENDERING)
-                                       .map(stack -> withModifiers(stack, result, data -> overslime.setShield(data, restoreAmount)))
-                                       .toList();
+      toolWithModifier = Arrays.stream(this.tools.getItems())
+        .map(MAP_TOOL_STACK_FOR_RENDERING)
+        .map(stack -> withModifiers(stack, result, data -> overslime.setShield(data, restoreAmount)))
+        .toList();
     }
     return toolWithModifier;
   }

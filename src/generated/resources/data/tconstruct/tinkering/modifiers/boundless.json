@@ -1,10 +1,11 @@
 {
-  "level_display": "tconstruct:single_level",
+  "level_display": "tconstruct:default",
   "modules": [
     {
       "type": "tconstruct:attribute",
       "attribute": "tconstruct:generic.protection_cap",
-      "each_level": 0.1,
+      "each_level": 0.05,
+      "flat": 0.05,
       "operation": "addition",
       "slots": [
         "mainhand",

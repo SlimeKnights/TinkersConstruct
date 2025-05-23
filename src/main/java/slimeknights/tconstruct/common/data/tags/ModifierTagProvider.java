@@ -114,7 +114,7 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
       ModifierIds.ricochet, TinkerModifiers.springy.getId());
     this.tag(HELMET_UPGRADES).add(TinkerModifiers.itemFrame.getId(), ModifierIds.respiration).addOptional(ModifierIds.headlight);
     this.tag(CHESTPLATE_UPGRADES).add(ModifierIds.haste, TinkerModifiers.knockback.getId());
-    this.tag(LEGGING_UPGRADES).add(ModifierIds.leaping, TinkerModifiers.shieldStrap.getId(), ModifierIds.speedy, ModifierIds.swiftSneak, ModifierIds.stepUp, ModifierIds.workbench);
+    this.tag(LEGGING_UPGRADES).add(ModifierIds.leaping, TinkerModifiers.shieldStrap.getId(), ModifierIds.speedy, ModifierIds.swiftSneak, ModifierIds.stepUp);
     this.tag(BOOT_UPGRADES).add(ModifierIds.depthStrider, ModifierIds.featherFalling, ModifierIds.lightspeed, TinkerModifiers.soulspeed.getId());
 
     this.tag(RANGED_UPGRADES).add(
@@ -159,7 +159,7 @@ public class ModifierTagProvider extends AbstractModifierTagProvider {
     // slotless
     this.tag(GENERAL_SLOTLESS).add(
       TinkerModifiers.overslime.getId(), ModifierIds.shiny, ModifierIds.worldbound,
-      ModifierIds.offhanded, ModifierIds.blindshot,
+      ModifierIds.offhanded, ModifierIds.blindshot, ModifierIds.workbench,
       TinkerModifiers.farsighted.getId(), TinkerModifiers.nearsighted.getId(),
       TinkerModifiers.dyed.getId(), TinkerModifiers.embellishment.getId(), TinkerModifiers.trim.getId());
     this.tag(BONUS_SLOTLESS).add(

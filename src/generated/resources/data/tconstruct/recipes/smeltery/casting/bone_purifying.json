@@ -1,0 +1,13 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "tag": "forge:wither_bones"
+  },
+  "cast_consumed": true,
+  "cooling_time": 50,
+  "fluid": {
+    "amount": 200,
+    "tag": "forge:milk"
+  },
+  "result": "minecraft:bone"
+}

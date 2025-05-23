@@ -18,6 +18,7 @@ import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
 import slimeknights.mantle.data.loadable.primitive.EnumLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.json.DeprecatedLoader;
 import slimeknights.tconstruct.library.json.LevelingValue;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -50,14 +51,14 @@ import java.util.List;
 public record ArmorStatModule(TinkerDataKey<Float> key, LevelingValue amount, boolean allowBroken, @Nullable TagKey<Item> heldTag, TooltipStyle tooltipStyle, ModifierCondition<IToolStackView> condition) implements HookProvider, EquipmentChangeModifierHook, ModifierModule, TooltipModifierHook, ConditionalModule<IToolStackView> {
   private static final List<ModuleHook<?>> TOOLTIP_HOOKS = HookProvider.<ArmorStatModule>defaultHooks(ModifierHooks.EQUIPMENT_CHANGE, ModifierHooks.TOOLTIP);
   private static final List<ModuleHook<?>> NO_TOOLTIP_HOOKS = HookProvider.<ArmorStatModule>defaultHooks(ModifierHooks.EQUIPMENT_CHANGE);
-  public static final RecordLoadable<ArmorStatModule> LOADER = RecordLoadable.create(
+  public static final RecordLoadable<ArmorStatModule> LOADER = DeprecatedLoader.modifier(RecordLoadable.create(
     TinkerDataKeys.FLOAT_REGISTRY.requiredField("key", ArmorStatModule::key),
     LevelingValue.LOADABLE.directField(ArmorStatModule::amount),
     BooleanLoadable.INSTANCE.defaultField("allow_broken", false, ArmorStatModule::allowBroken),
     Loadables.ITEM_TAG.nullableField("held_tag", ArmorStatModule::heldTag),
     new EnumLoadable<>(TooltipStyle.class).defaultField("tooltip_style", TooltipStyle.NONE, ArmorStatModule::tooltipStyle),
     ModifierCondition.TOOL_FIELD,
-    ArmorStatModule::new);
+    ArmorStatModule::new), "use 'tconstruct:attribute' with attributes instead of float stats.");
 
   /** @apiNote Internal constructor, use {@link #builder(TinkerDataKey)} */
   @Internal

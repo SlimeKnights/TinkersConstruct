@@ -249,7 +249,7 @@ public class ToolContainerMenu extends AbstractContainerMenu {
     ItemStack held = getCarried();
     if ((id == 0 || id == 1) && !held.isEmpty() && !player.isSpectator()) {
       if (!player.level().isClientSide) {
-        ItemStack result = FluidTransferHelper.interactWithTankSlot(tank, held, id == 0 ? TransferDirection.FILL_ITEM : TransferDirection.EMPTY_ITEM);
+        ItemStack result = FluidTransferHelper.interactWithTankSlot(player, tank, held, id == 0 ? TransferDirection.FILL_ITEM : TransferDirection.EMPTY_ITEM);
         setCarried(FluidTransferHelper.getOrTransferFilled(player, held, result));
       }
       return true;

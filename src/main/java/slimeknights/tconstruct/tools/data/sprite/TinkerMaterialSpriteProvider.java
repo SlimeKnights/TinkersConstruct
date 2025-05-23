@@ -33,8 +33,6 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
 
   @Override
   protected void addAllMaterials() {
-    // TODO: this is a lovely red palette, reuse it for something in the future
-
     // unknown: just do a black border, make sure it stands out when data is missing
     buildMaterial(IMaterial.UNKNOWN_ID)
       .meleeHarvest().ranged()
@@ -182,15 +180,15 @@ public class TinkerMaterialSpriteProvider extends AbstractMaterialSpriteProvider
       .ranged().armor()
       .fallbacks("metal")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF777B7C).addARGB(102, 0xFF818587).addARGB(140, 0xFF909698).addARGB(178, 0xFF999FA2).addARGB(216, 0xFFB2BABC).addARGB(255, 0xFFC5CDD0).build());
-    buildMaterial(MaterialIds.treatedWood)
-      .meleeHarvest().ranged().shieldCore().statType(WOOD)
-      .fallbacks("wood", "stick", "primitive")
+    buildPlanks(MaterialIds.treatedWood).variant(false)
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF362015).addARGB(102, 0xFF402215).addARGB(140, 0xFF492A1B).addARGB(178, 0xFF55311F).addARGB(216, 0xFF5C3523).addARGB(234, 0xFF673C29).addARGB(255, 0xFF72422D).build());
     // tier 2 - slimewood
+    IColorMapping greenSlime = GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF229630).addARGB(102, 0xFF24A033).addARGB(140, 0xFF27AB37).addARGB(178, 0xFF3EBD42).addARGB(216, 0xFF56CF4C).addARGB(234, 0xFF6FEA60).addARGB(255, 0xFF82F86D).build();
     buildPlanks(MaterialIds.greenheart)
       .fallbacks("slime_wood", "wood", "stick", "primitive")
       .variant(false) // default texture for slimewood
-      .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF229630).addARGB(102, 0xFF24A033).addARGB(140, 0xFF27AB37).addARGB(178, 0xFF3EBD42).addARGB(216, 0xFF56CF4C).addARGB(234, 0xFF6FEA60).addARGB(255, 0xFF82F86D).build());
+      .colorMapper(greenSlime);
+    buildMaterial(MaterialIds.slimeskin).maille().colorMapper(greenSlime);
     buildPlanks(MaterialIds.skyroot)
       .fallbacks("slime_wood", "wood", "stick", "primitive")
       .colorMapper(GreyToColorMapping.builderFromBlack().addARGB(63, 0xFF007E8C).addARGB(102, 0xFF008796).addARGB(140, 0xFF0090A3).addARGB(178, 0xFF00A2AE).addARGB(216, 0xFF00B4B8).addARGB(234, 0xFF10CFCC).addARGB(255, 0xFF23DDD9).build());

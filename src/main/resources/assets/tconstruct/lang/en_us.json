@@ -1742,6 +1742,9 @@
   "material.tconstruct.slimewood.enderbark":  "Enderbark",
   "material.tconstruct.slimewood.flavor": "Is this the wood of a slime or slime that's been infused with wood?",
   "material.tconstruct.slimewood.encyclopedia": "Gives a 5% chance per level of regenerating overslime each second",
+  "material.tconstruct.slimeskin": "Slimeskin",
+  "material.tconstruct.slimeskin.flavor": "Do slimes even have skin?",
+  "material.tconstruct.slimeskin.encyclopedia": "Gives a 5% chance per level of regenerating overslime each second",
 
   "material.tconstruct.venombone": "Venombone",
   "material.tconstruct.venombone.flavor": "Become the bane of your enemies",

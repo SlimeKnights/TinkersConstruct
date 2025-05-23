@@ -4,7 +4,7 @@
     "item": "minecraft:fermented_spider_eye"
   },
   "result": {
-    "amount": 100,
+    "amount": 500,
     "fluid": "tconstruct:venom"
   },
   "temperature": 10,

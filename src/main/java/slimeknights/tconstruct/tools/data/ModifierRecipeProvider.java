@@ -2,8 +2,6 @@ package slimeknights.tconstruct.tools.data;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -36,7 +34,6 @@ import slimeknights.mantle.registration.object.WoodBlockObject;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
 import slimeknights.tconstruct.common.data.BaseRecipeProvider;
-import slimeknights.tconstruct.common.json.ConfigEnabledCondition;
 import slimeknights.tconstruct.common.registration.GeodeItemObject.BudSize;
 import slimeknights.tconstruct.fluids.TinkerFluids;
 import slimeknights.tconstruct.gadgets.TinkerGadgets;
@@ -152,12 +149,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                             .setFluidAndTime(TinkerFluids.moltenRoseGold, FluidValues.INGOT)
                             .save(consumer, prefix(TinkerModifiers.silkyCloth, folder));
 
-    // wither bone purifying
-    ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, Items.BONE)
-                          .requires(TinkerTags.Items.WITHER_BONES)
-                          .unlockedBy("has_bone", has(TinkerTags.Items.WITHER_BONES))
-                          .save(withCondition(consumer, ConfigEnabledCondition.WITHER_BONE_CONVERSION), location(folder + "wither_bone_conversion"));
-
     // modifier repair
     // pig iron - from bacon, only in the tinker station
     ModifierRepairRecipeBuilder.repair(TinkerModifiers.tasty, Ingredient.of(TinkerCommons.bacon), 25)
@@ -228,27 +219,44 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(ModifierIds.netherite, upgradeSalvage))
                          .save(consumer, prefix(ModifierIds.netherite, upgradeFolder));
 
-    // overslime - earth
-    OverslimeModifierRecipeBuilder.modifier(TinkerCommons.slimeball.get(SlimeType.EARTH), 10)
-                                  .save(consumer, location(slotlessFolder + "overslime/earth_ball"));
-    OverslimeModifierRecipeBuilder.modifier(TinkerWorld.congealedSlime.get(SlimeType.EARTH), 45)
-                                  .save(consumer, location(slotlessFolder + "overslime/earth_congealed"));
-    OverslimeModifierRecipeBuilder.modifier(TinkerWorld.slime.get(SlimeType.EARTH), 108)
-                                  .save(consumer, location(slotlessFolder + "overslime/earth_block"));
-    // sky
-    OverslimeModifierRecipeBuilder.modifier(TinkerCommons.slimeball.get(SlimeType.SKY), 40)
-                                  .save(consumer, location(slotlessFolder + "overslime/sky_ball"));
-    OverslimeModifierRecipeBuilder.modifier(TinkerWorld.congealedSlime.get(SlimeType.SKY), 180)
-                                  .save(consumer, location(slotlessFolder + "overslime/sky_congealed"));
-    OverslimeModifierRecipeBuilder.modifier(TinkerWorld.slime.get(SlimeType.SKY), 432)
-                                  .save(consumer, location(slotlessFolder + "overslime/sky_block"));
-    // ichor
-    OverslimeModifierRecipeBuilder.modifier(TinkerCommons.slimeball.get(SlimeType.ICHOR), 100)
-                                  .save(consumer, location(slotlessFolder + "overslime/ichor_ball"));
-    OverslimeModifierRecipeBuilder.modifier(TinkerWorld.congealedSlime.get(SlimeType.ICHOR), 450)
-                                  .save(consumer, location(slotlessFolder + "overslime/ichor_congealed"));
-    OverslimeModifierRecipeBuilder.modifier(TinkerWorld.slime.get(SlimeType.ICHOR), 1080)
-                                  .save(consumer, location(slotlessFolder + "overslime/ichor_block"));
+    // overslime
+    for (SlimeType type : SlimeType.values()) {
+      int amount;
+      Ingredient tool = Ingredient.of(TinkerTags.Items.DURABILITY);
+      switch (type) {
+        // earth is common and easy to get
+        case EARTH -> amount = 20;
+        // sky is tinkers specialty
+        case SKY -> amount = 50;
+        // ichor is hard to farm
+          case ICHOR -> amount = 100;
+        // ender is late game, but easier to farm than ichor
+        case ENDER -> {
+          amount = 80;
+          tool = DifferenceIngredient.of(tool, Ingredient.of(TinkerTools.slimesuit.values().toArray(Item[]::new)));
+        }
+        // unhandled -> update
+        default -> {
+          continue;
+        }
+      };
+      String name = type.getSerializedName();
+      // ball and bottle - base amount
+      OverslimeModifierRecipeBuilder.modifier(TinkerCommons.slimeball.get(type), amount)
+        .setTools(tool)
+        .save(consumer, location(slotlessFolder + "overslime/" + name + "_ball"));
+      OverslimeModifierRecipeBuilder.modifier(TinkerFluids.slimeBottle.get(type), amount)
+        .saveCrafting(consumer, location(slotlessFolder + "overslime/" + name + "_bottle_crafting_table"))
+        .save(consumer, location(slotlessFolder + "overslime/" + name + "_bottle"));
+      // congealed: 4x
+      OverslimeModifierRecipeBuilder.modifier(TinkerWorld.congealedSlime.get(type), amount * 4)
+        .setTools(tool)
+        .save(consumer, location(slotlessFolder + "overslime/" + name + "_congealed"));
+      // block: 9x
+      OverslimeModifierRecipeBuilder.modifier(TinkerWorld.slime.get(type), amount * 9)
+        .setTools(tool)
+        .save(consumer, location(slotlessFolder + "overslime/" + name + "_block"));
+    }
 
     /*
      * general effects
@@ -695,7 +703,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(TinkerWorld.ichorGeode, 2)
                          .setSlots(SlotType.ABILITY, 1)
                          .setTools(TinkerTags.Items.SHIELDS)
-                         .setMaxLevel(1)
+                         .setMaxLevel(2)
                          .saveSalvage(consumer, prefix(ModifierIds.boundless, abilitySalvage))
                          .save(consumer, prefix(ModifierIds.boundless, abilityFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.knockbackResistance)
@@ -816,7 +824,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     // upgrade - boots
     IncrementalModifierRecipeBuilder.modifier(ModifierIds.featherFalling)
                                     .setTools(TinkerTags.Items.BOOTS)
-                                    .setInput(Items.FEATHER, 1, 40)
+                                    .setInput(Items.FEATHER, 1, 15)
                                     .setSlots(SlotType.UPGRADE, 1)
                                     .setMaxLevel(4)
                                     .saveSalvage(consumer, prefix(ModifierIds.featherFalling, upgradeSalvage))
@@ -964,10 +972,8 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .addInput(Items.LEATHER)
                          .addInput(Blocks.CRAFTING_TABLE)
                          .addInput(Items.LEATHER)
-                         .setSlots(SlotType.UPGRADE, 1)
                          .setMaxLevel(1).checkTraitLevel()
                          .setTools(TinkerTags.Items.LEGGINGS)
-                         .saveSalvage(consumer, prefix(ModifierIds.workbench, upgradeSalvage))
                          .save(consumer, prefix(ModifierIds.workbench, upgradeFolder));
     ModifierRecipeBuilder.modifier(ModifierIds.craftingTable)
                          .addInput(Items.LEATHER)

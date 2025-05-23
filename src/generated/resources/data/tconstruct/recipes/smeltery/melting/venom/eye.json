@@ -4,7 +4,7 @@
     "item": "minecraft:spider_eye"
   },
   "result": {
-    "amount": 50,
+    "amount": 250,
     "fluid": "tconstruct:venom"
   },
   "temperature": 10,

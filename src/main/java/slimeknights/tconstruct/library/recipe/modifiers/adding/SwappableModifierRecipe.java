@@ -77,7 +77,8 @@ public class SwappableModifierRecipe extends ModifierRecipe {
     ModifierId modifier = result.getId();
 
     boolean needsModifier;
-    if (tool.getUpgrades().getLevel(modifier) == 0) {
+    int level = tool.getUpgrades().getLevel(modifier);
+    if (level == 0) {
       needsModifier = true;
       Component commonError = validatePrerequisites(tool);
       if (commonError != null) {
@@ -88,7 +89,7 @@ public class SwappableModifierRecipe extends ModifierRecipe {
     }
 
     // do not allow adding the modifier if this variant is already present
-    if (tool.getPersistentData().getString(modifier).equals(value)) {
+    if (level > 0 && tool.getPersistentData().getString(modifier).equals(value)) {
       return RecipeResult.failure(ALREADY_PRESENT, result.get().getDisplayName(), variant);
     }
 

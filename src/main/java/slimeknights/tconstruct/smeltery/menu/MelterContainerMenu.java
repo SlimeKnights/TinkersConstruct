@@ -84,9 +84,9 @@ public class MelterContainerMenu extends TriggeringBaseContainerMenu<MelterBlock
           ItemStack result;
           // even means drain fluid, odd means fill
           if ((id & 1) == 0) {
-            result = FluidTransferHelper.fillFromTankSlot(tank, held, tank.getFluidInTank(0));
+            result = FluidTransferHelper.fillFromTankSlot(player, tank, held, tank.getFluidInTank(0));
           } else {
-            result = FluidTransferHelper.interactWithTankSlot(tank, held, TransferDirection.EMPTY_ITEM);
+            result = FluidTransferHelper.interactWithTankSlot(player, tank, held, TransferDirection.EMPTY_ITEM);
           }
           setCarried(FluidTransferHelper.getOrTransferFilled(player, held, result));
           // TODO: if it failed, should we try the other direction?

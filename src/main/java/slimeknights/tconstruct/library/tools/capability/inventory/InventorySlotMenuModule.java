@@ -42,7 +42,14 @@ public enum InventorySlotMenuModule implements ModifierModule, SlotStackModifier
   public boolean overrideOtherStackedOnMe(IToolStackView slotTool, ModifierEntry modifier, ItemStack held, Slot slot, Player player, SlotAccess access) {
     if (held.isEmpty() && slot.container == player.getInventory() && isValidContainer(player.containerMenu)) {
       if (!player.level().isClientSide) {
+        // during inventory slot interactions, the menu calls `suppressRemoteUpdates()` and calls `resumeRemoteUpdates()` later
+        // But we are swapping the open menu, so resume will never get called and we are possibly improperly resumed
+        // mostly is an issue for inventoryMenu itself
+        // so resume updates on the container we are about to open
+        player.containerMenu.resumeRemoteUpdates();
         ToolInventoryCapability.tryOpenContainer(slot.getItem(), slotTool, slotTool.getDefinition(), player, slot.getSlotIndex());
+        // then suppress updates on the new container after opening
+        player.containerMenu.suppressRemoteUpdates();
       }
       return true;
     }

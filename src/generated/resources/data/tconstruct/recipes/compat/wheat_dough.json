@@ -1,0 +1,19 @@
+{
+  "type": "tconstruct:casting_table",
+  "cast": {
+    "item": "minecraft:wheat"
+  },
+  "cast_consumed": true,
+  "conditions": [
+    {
+      "type": "forge:item_exists",
+      "item": "farmersdelight:wheat_dough"
+    }
+  ],
+  "cooling_time": 50,
+  "fluid": {
+    "amount": 250,
+    "tag": "mantle:water"
+  },
+  "result": "farmersdelight:wheat_dough"
+}

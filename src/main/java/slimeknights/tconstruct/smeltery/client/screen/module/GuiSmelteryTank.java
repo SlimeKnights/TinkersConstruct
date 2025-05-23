@@ -87,6 +87,8 @@ public class GuiSmelteryTank implements IScreenWithFluidTank {
         GuiUtil.renderTiledFluid(matrices, parent, liquid, x, bottom - fluidH, width, fluidH, 100);
         bottom -= fluidH;
       }
+    } else if (liquidHeights != null && liquidHeights.length > 0) {
+      liquidHeights = new int[0];
     }
   }
 

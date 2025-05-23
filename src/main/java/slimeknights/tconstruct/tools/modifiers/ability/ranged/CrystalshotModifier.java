@@ -5,8 +5,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.client.ResourceColorManager;
+import slimeknights.tconstruct.library.modifiers.Modifier;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
+import slimeknights.tconstruct.library.modifiers.hook.build.ModifierRemovalHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.BowAmmoModifierHook;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
@@ -17,11 +19,11 @@ import slimeknights.tconstruct.tools.item.CrystalshotItem;
 import javax.annotation.Nullable;
 import java.util.function.Predicate;
 
-public class CrystalshotModifier extends NoLevelsModifier implements BowAmmoModifierHook {
+public class CrystalshotModifier extends NoLevelsModifier implements BowAmmoModifierHook, ModifierRemovalHook {
 
   @Override
   protected void registerHooks(Builder hookBuilder) {
-    hookBuilder.addHook(this, ModifierHooks.BOW_AMMO);
+    hookBuilder.addHook(this, ModifierHooks.BOW_AMMO, ModifierHooks.REMOVE);
   }
 
   @Override
@@ -50,5 +52,12 @@ public class CrystalshotModifier extends NoLevelsModifier implements BowAmmoModi
   @Override
   public void shrinkAmmo(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, ItemStack ammo, int needed) {
     ToolDamageUtil.damageAnimated(tool, 4 * needed, shooter, shooter.getUsedItemHand());
+  }
+
+  @Nullable
+  @Override
+  public Component onRemoved(IToolStackView tool, Modifier modifier) {
+    tool.getPersistentData().remove(getId());
+    return null;
   }
 }

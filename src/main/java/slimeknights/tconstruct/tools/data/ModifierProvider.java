@@ -491,8 +491,7 @@ public class ModifierProvider extends AbstractModifierProvider implements ICondi
     buildModifier(ModifierIds.doubleJump).levelDisplay(new UniqueForLevels(4, false)).addModule(AttributeModule.builder(TinkerAttributes.JUMP_COUNT.get(), Operation.ADDITION).slots(ARMOR_SLOTS).tooltipStyle(TooltipStyle.NONE).flat(1));
     // shield
     buildModifier(ModifierIds.boundless)
-      .levelDisplay(ModifierLevelDisplay.SINGLE_LEVEL)
-      .addModule(AttributeModule.builder(TinkerAttributes.PROTECTION_CAP, Operation.ADDITION).tooltipStyle(TooltipStyle.PERCENT).toolItem(ItemPredicate.tag(ARMOR)).eachLevel(0.1f));
+      .addModule(AttributeModule.builder(TinkerAttributes.PROTECTION_CAP, Operation.ADDITION).tooltipStyle(TooltipStyle.PERCENT).toolItem(ItemPredicate.tag(ARMOR)).amount(0.05f, 0.05f));
 
     // interaction
     buildModifier(ModifierIds.pathing)

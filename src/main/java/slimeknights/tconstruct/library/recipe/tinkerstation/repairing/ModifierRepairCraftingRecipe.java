@@ -1,6 +1,5 @@
 package slimeknights.tconstruct.library.recipe.tinkerstation.repairing;
 
-import com.mojang.datafixers.util.Pair;
 import lombok.Getter;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
@@ -20,6 +19,7 @@ import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
+import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 
@@ -41,16 +41,17 @@ public class ModifierRepairCraftingRecipe extends CustomRecipe implements IModif
     this.repairAmount = repairAmount;
   }
 
+  private record ToolFound(ItemStack tool, int itemsFound) {}
+
   /**
    * Gets the tool stack and the repair kit material from the crafting grid
    * @param inv  Crafting inventory
    * @return  Relevant inputs, or null if invalid
    */
   @Nullable
-  protected Pair<ToolStack, Integer> getRelevantInputs(CraftingContainer inv) {
-    ToolStack tool = null;
+  private ToolFound getRelevantInputs(CraftingContainer inv) {
+    ItemStack tool = null;
     int itemsFound = 0;
-    int modifierLevel = 0;
     for (int i = 0; i < inv.getContainerSize(); i++) {
       ItemStack stack = inv.getItem(i);
       if (stack.isEmpty()) {
@@ -62,16 +63,7 @@ public class ModifierRepairCraftingRecipe extends CustomRecipe implements IModif
         if (tool != null) {
           return null;
         }
-        // tool must be damaged
-        tool = ToolStack.from(stack);
-        if (!tool.isBroken() && tool.getDamage() == 0) {
-          return null;
-        }
-        // tool must have the modifier
-        modifierLevel = tool.getModifierLevel(modifier);
-        if (modifierLevel == 0) {
-          return null;
-        }
+        tool = stack;
 
         // if we found a stack, add it to our count
       } else if (ingredient.test(stack)) {
@@ -85,25 +77,32 @@ public class ModifierRepairCraftingRecipe extends CustomRecipe implements IModif
     if (tool == null || itemsFound == 0) {
       return null;
     }
-    return Pair.of(tool, repairAmount * itemsFound * modifierLevel);
+    // tool must be damaged
+    return new ToolFound(tool, itemsFound);
   }
 
   @Override
   public boolean matches(CraftingContainer inv, Level world) {
-    return getRelevantInputs(inv) != null;
+    ToolFound inputs = getRelevantInputs(inv);
+    if (inputs == null) {
+      return false;
+    }
+    // tool must have the modifier and be damaged
+    IToolStackView tool = ToolStack.from(inputs.tool);
+    return (tool.isBroken() || tool.getDamage() > 0) && tool.getModifierLevel(modifier) > 0;
   }
 
   @Override
   public ItemStack assemble(CraftingContainer inv, RegistryAccess access) {
-    Pair<ToolStack, Integer> inputs = getRelevantInputs(inv);
+    ToolFound inputs = getRelevantInputs(inv);
     if (inputs == null) {
       TConstruct.LOG.error("Recipe repair on {} failed to find items after matching", getId());
       return ItemStack.EMPTY;
     }
 
     // scale the repair based on the modifiers
-    float repairAmount = inputs.getSecond();
-    ToolStack tool = inputs.getFirst();
+    ToolStack tool = ToolStack.from(inputs.tool);
+    float repairAmount = inputs.itemsFound * this.repairAmount * tool.getModifierLevel(modifier);
     for (ModifierEntry entry : tool.getModifierList()) {
       repairAmount = entry.getHook(ModifierHooks.REPAIR_FACTOR).getRepairFactor(tool, entry, repairAmount);
       if (repairAmount <= 0) {
@@ -115,18 +114,18 @@ public class ModifierRepairCraftingRecipe extends CustomRecipe implements IModif
     // repair the tool
     tool = tool.copy();
     ToolDamageUtil.repair(tool, (int)repairAmount);
-    return tool.createStack();
+    return tool.copyStack(inputs.tool, 1);
   }
 
   @Override
   public NonNullList<ItemStack> getRemainingItems(CraftingContainer inv) {
     NonNullList<ItemStack> list = NonNullList.withSize(inv.getContainerSize(), ItemStack.EMPTY);
     // step 1: find out how much we need to repair
-    Pair<ToolStack, Integer> inputs = getRelevantInputs(inv);
+    ToolFound inputs = getRelevantInputs(inv);
     int repairPerItem = 0;
     int repairNeeded = 0;
     if (inputs != null) {
-      ToolStack tool = inputs.getFirst();
+      ToolStack tool = ToolStack.from(inputs.tool);
       repairNeeded = tool.getDamage();
       float repairFloat = tool.getModifierLevel(modifier) * repairAmount;
       if (repairFloat > 0) {
