@@ -11,7 +11,7 @@
   "more_text_space": true,
   "tool_filter": "tconstruct:modifiable/melee",
   "effects": [
-    "最高5级",
+    "最高3级",
     "每级需要1个升级槽"
   ]
 }
