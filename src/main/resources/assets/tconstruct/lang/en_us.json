@@ -2304,7 +2304,7 @@
   "modifier.tconstruct.step_up.description": "Allows climbing taller blocks as if they were stairs",
   "modifier.tconstruct.leaping": "Leaping",
   "modifier.tconstruct.leaping.flavor": "Leap tall buildings in a single bound!",
-  "modifier.tconstruct.leaping.description": "Rabbits can leap high, so this should also let you leap high",
+  "modifier.tconstruct.leaping.description": "Skyslimes can leap high, so this should also let you leap high",
   "modifier.tconstruct.pockets": "Pockets",
   "modifier.tconstruct.pockets.flavor": "Wondrous invention!",
   "modifier.tconstruct.pockets.description": "The pants have pockets, allowing you to store additional items which can be accessed by shift plus interacting",

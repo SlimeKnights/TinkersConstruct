@@ -7,6 +7,10 @@
     {
       "id": "#forge:tools/paxels/steel",
       "required": false
+    },
+    {
+      "id": "immersiveengineering:armor_steel_leggings",
+      "required": false
     }
   ]
 }

@@ -54,11 +54,15 @@ public class CostTagAppender {
   public CostTagAppender add(int cost, boolean optional, ResourceLocation prefix, String... suffixes) {
     IntrinsicTagAppender<Item> tag = tag(cost);
     if (optional) {
-      for (String path : suffixes) {
+      if (suffixes.length == 0) {
+        tag.addOptional(prefix);
+      } else for (String path : suffixes) {
         tag.addOptional(prefix.withSuffix('_' + path));
       }
     } else {
-      for (String path : suffixes) {
+      if (suffixes.length == 0) {
+        tag.add(ResourceKey.create(Registries.ITEM, prefix));
+      } else for (String path : suffixes) {
         tag.add(ResourceKey.create(Registries.ITEM, prefix.withSuffix('_' + path)));
       }
     }

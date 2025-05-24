@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#forge:armors/chestplates/steel",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:armor_steel_chestplate",
+      "required": false
+    }
+  ]
+}

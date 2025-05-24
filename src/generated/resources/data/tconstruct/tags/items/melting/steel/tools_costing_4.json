@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#forge:armors/boots/steel",
+      "required": false
+    },
+    {
+      "id": "immersiveengineering:armor_steel_boots",
+      "required": false
+    }
+  ]
+}

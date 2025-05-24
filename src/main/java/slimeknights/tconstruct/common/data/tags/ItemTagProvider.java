@@ -41,6 +41,7 @@ import slimeknights.tconstruct.world.TinkerWorld;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import static net.minecraft.tags.ItemTags.CLUSTER_MAX_HARVESTABLES;
 import static slimeknights.mantle.Mantle.commonResource;
@@ -531,10 +532,23 @@ public class ItemTagProvider extends ItemTagsProvider {
 
     // melting tags //
     // ores
+    Function<String,ResourceLocation> ie = path -> new ResourceLocation("immersiveengineering", path);
     moltenTools(TinkerFluids.moltenCopper).add(1, Items.BRUSH).toolTags().toolsComplement();
-    moltenTools(TinkerFluids.moltenIron).minecraft().add(1, Items.FLINT_AND_STEEL, Items.SHIELD).add(2, Items.SHEARS).crowbar().excavatorSpikeMaul();
+    moltenTools(TinkerFluids.moltenIron).minecraft()
+      .add(1, Items.FLINT_AND_STEEL, Items.SHIELD)
+      .add(2, Items.SHEARS)
+      .add(2, true, ie.apply("hammer"))
+      .crowbar().excavatorSpikeMaul();
     moltenTools(TinkerFluids.moltenGold).minecraft("golden");
-    moltenTools(TinkerFluids.moltenSteel).toolTags().leggingsPaxel().crowbar();
+    moltenTools(TinkerFluids.moltenSteel).toolTags().leggingsPaxel().crowbar()
+      .toolTag(1, "shovel")
+      .add(1, true, ie.apply("shovel_steel"))
+      .add(2, true, ie.apply("sword_steel")).add(3, true, ie.apply("hoe_steel"))
+      .add(3, true, ie.apply("axe_steel")).add(3, true, ie.apply("pickaxe_steel"))
+      .armorTag(5, "helmets"    ).add(5, true, ie.apply("armor_steel_helmet"))
+      .armorTag(8, "chestplates").add(8, true, ie.apply("armor_steel_chestplate"))
+                                              .add(7, true, ie.apply("armor_steel_leggings"))
+      .armorTag(4, "boots"      ).add(4, true, ie.apply("armor_steel_boots"));
     moltenTools(TinkerFluids.moltenNetherite).minecraft();
     // gems
     moltenTools(TinkerFluids.moltenDiamond).minecraft().excavatorSpikeMaul().crowbar();

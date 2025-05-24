@@ -3,11 +3,11 @@
   "conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:armors/helmets/steel"
+      "tag": "tconstruct:melting/steel/tools_costing_5"
     }
   ],
   "ingredient": {
-    "tag": "forge:armors/helmets/steel"
+    "tag": "tconstruct:melting/steel/tools_costing_5"
   },
   "result": {
     "amount": 450,

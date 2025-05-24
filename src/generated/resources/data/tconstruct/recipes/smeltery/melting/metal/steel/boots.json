@@ -3,11 +3,11 @@
   "conditions": [
     {
       "type": "mantle:tag_filled",
-      "tag": "forge:armors/boots/steel"
+      "tag": "tconstruct:melting/steel/tools_costing_4"
     }
   ],
   "ingredient": {
-    "tag": "forge:armors/boots/steel"
+    "tag": "tconstruct:melting/steel/tools_costing_4"
   },
   "result": {
     "amount": 360,
