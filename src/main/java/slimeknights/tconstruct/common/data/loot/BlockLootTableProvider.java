@@ -259,6 +259,7 @@ public class BlockLootTableProvider extends BlockLootSubProvider {
     this.add(TinkerSmeltery.searedFluidCannon.get(), dropTank);
     this.add(TinkerSmeltery.scorchedFluidCannon.get(), dropTank);
     this.add(TinkerSmeltery.searedLantern.get(), dropTank);
+    this.add(TinkerSmeltery.searedCastingTank.get(), dropTank);
 
     // fluid
     this.dropSelf(TinkerSmeltery.searedFaucet.get());

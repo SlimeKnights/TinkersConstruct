@@ -1,0 +1,215 @@
+{
+  "render_type": "minecraft:cutout",
+  "loader": "tconstruct:tank",
+  "parent": "block/block",
+  "textures": {
+    "bottom": "tconstruct:block/smeltery/tank/gauge_top",
+    "top": "tconstruct:block/smeltery/tank/casting_tank_top",
+    "particle": "#side",
+    "side": "tconstruct:block/smeltery/tank/casting_tank"
+  },
+  "elements": [
+    {
+      "from": [0, 0, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "north": {"uv": [0, 0, 16, 16], "texture": "#side",   "cullface": "north"},
+        "east":  {"uv": [0, 0, 16, 16], "texture": "#side",   "cullface": "east" },
+        "south": {"uv": [0, 0, 16, 16], "texture": "#side",   "cullface": "south"},
+        "west":  {"uv": [0, 0, 16, 16], "texture": "#side",   "cullface": "west" },
+        "down":  {"uv": [0, 0, 16, 16], "texture": "#bottom", "cullface": "down" }
+      }
+    },
+    {
+      "name": "Item Top West",
+      "from": [1, 15, 1],
+      "to": [6, 15, 15],
+      "faces": {
+        "up": {"uv": [1, 1, 6, 15], "texture": "#top", "cullface": "up"}
+      }
+    },
+    {
+      "name": "Item Top East",
+      "from": [10, 15, 1],
+      "to": [15, 15, 15],
+      "faces": {
+        "up": {"uv": [10, 1, 15, 15], "texture": "#top", "cullface": "up"}
+      }
+    },
+    {
+      "name": "Item Top North",
+      "from": [6, 15, 1],
+      "to": [10, 15, 6],
+      "faces": {
+        "up": {"uv": [6, 1, 10, 6], "texture": "#top", "cullface": "up"}
+      }
+    },
+    {
+      "name": "Item Top South",
+      "from": [6, 15, 10],
+      "to": [10, 15, 15],
+      "faces": {
+        "up": {"uv": [6, 10, 10, 15], "texture": "#top", "cullface": "up"}
+      }
+    },
+    
+    {
+      "name": "Tank inside",
+      "from": [15.9, 11, 15.9],
+      "to": [0.1, 0.1, 0.1],
+      "faces": {
+        "north": {"uv": [15.1, 15.9, 0.1, 5.1], "texture": "#side"  },
+        "south": {"uv": [15.9, 15.9, 0.1, 5.1], "texture": "#side"  },
+        "west":  {"uv": [15.9, 15.9, 0.1, 5.1], "texture": "#side"  },
+        "east":  {"uv": [15.9, 15.9, 0.1, 5.1], "texture": "#side"  },
+        "up":    {"uv": [15.9, 15.9, 0.1, 0.1], "texture": "#bottom"}
+      }
+    },
+    {
+      "name": "Item Bottom West",
+      "from": [0, 11, 0],
+      "to": [6, 11, 16],
+      "faces": {
+        "down": {"uv": [0, 0, 6, 16], "texture": "#top"}
+      }
+    },
+    {
+      "name": "Item Bottom East",
+      "from": [10, 11, 0],
+      "to": [16, 11, 16],
+      "faces": {
+        "down": {"uv": [10, 0, 16, 16], "texture": "#top"}
+      }
+    },
+    {
+      "name": "Item Bottom North",
+      "from": [6, 11, 0],
+      "to": [10, 11, 6],
+      "faces": {
+        "down": {"uv": [6, 10, 10, 16], "texture": "#top"}
+      }
+    },
+    {
+      "name": "Item Bottom South",
+      "from": [6, 11, 10],
+      "to": [10, 1, 16],
+      "faces": {
+        "down": {"uv": [6, 0, 10, 6], "texture": "#top"}
+      }
+    },
+    
+    {
+      "name": "Spout Inside",
+      "from": [10, 15, 10],
+      "to": [6, 11, 6],
+      "faces": {
+        "north": {"uv": [10, 10, 6, 6], "texture": "#top"},
+        "east":  {"uv": [10, 10, 6, 6], "texture": "#top"},
+        "south": {"uv": [10, 10, 6, 6], "texture": "#top"},
+        "west":  {"uv": [10, 10, 6, 6], "texture": "#top"}
+      }
+    },
+    
+    {
+      "name": "West top edge",
+      "from": [0, 15, 0],
+      "to": [1, 16, 16],
+      "faces": {
+        "up":   {"uv": [0, 0, 1, 16], "texture": "#top", "cullface": "up"},
+        "east": {"uv": [0, 0, 1, 16], "texture": "#top", "cullface": "up"}
+      }
+    },
+    {
+      "name": "East top edge",
+      "from": [15, 15, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "up":   {"uv": [15, 0, 16, 16], "texture": "#top", "cullface": "up"},
+        "west": {"uv": [15, 0, 16, 16], "texture": "#top", "cullface": "up"}
+      }
+    },
+    {
+      "name": "North top edge",
+      "from": [1, 15, 0],
+      "to": [15, 16, 1],
+      "faces": {
+        "up":    {"uv": [1, 0, 15, 1], "texture": "#top", "cullface": "up"},
+        "south": {"uv": [1, 0, 15, 1], "texture": "#top", "cullface": "up"}
+      }
+    },
+    {
+      "name": "South top edge",
+      "from": [1, 15, 15],
+      "to": [15, 16, 16],
+      "faces": {
+        "up":    {"uv": [1, 15, 15, 16], "texture": "#top", "cullface": "up"},
+        "north": {"uv": [1, 15, 15, 16], "texture": "#top", "cullface": "up"}
+      }
+    }
+  ],
+  "display": {},
+  "fluid": {
+    "from": [0.08, 0.08, 0.08],
+    "to": [15.92, 10.92, 15.92],
+    "increments": 256
+  },
+  "gui": {
+    "elements": [
+      {
+        "from": [0, 0, 0],
+        "to": [16, 16, 16],
+        "faces": {
+          "north": {"uv": [0, 0, 16, 16], "texture": "#side",   "cullface": "north"},
+          "east":  {"uv": [0, 0, 16, 16], "texture": "#side",   "cullface": "east" },
+          "south": {"uv": [0, 0, 16, 16], "texture": "#side",   "cullface": "south"},
+          "west":  {"uv": [0, 0, 16, 16], "texture": "#side",   "cullface": "west" },
+          "down":  {"uv": [0, 0, 16, 16], "texture": "#bottom", "cullface": "down" }
+        }
+      },
+      {
+        "name": "Top",
+        "from": [1, 15, 1],
+        "to": [15, 15, 15],
+        "faces": {
+          "up":  {"uv": [1, 1, 15, 15], "texture": "#top", "cullface": "up" }
+        }
+      },
+      {
+        "name": "West top edge",
+        "from": [0, 15, 0],
+        "to": [1, 16, 16],
+        "faces": {
+          "up":   {"uv": [0, 0, 1, 16], "texture": "#top", "cullface": "up"},
+          "east": {"uv": [0, 0, 1, 16], "texture": "#top", "cullface": "up"}
+        }
+      },
+      {
+        "name": "East top edge",
+        "from": [15, 15, 0],
+        "to": [16, 16, 16],
+        "faces": {
+          "up":   {"uv": [15, 0, 16, 16], "texture": "#top", "cullface": "up"},
+          "west": {"uv": [15, 0, 16, 16], "texture": "#top", "cullface": "up"}
+        }
+      },
+      {
+        "name": "North top edge",
+        "from": [1, 15, 0],
+        "to": [15, 16, 1],
+        "faces": {
+          "up":    {"uv": [1, 0, 15, 1], "texture": "#top", "cullface": "up"},
+          "south": {"uv": [1, 0, 15, 1], "texture": "#top", "cullface": "up"}
+        }
+      },
+      {
+        "name": "South top edge",
+        "from": [1, 15, 15],
+        "to": [15, 16, 16],
+        "faces": {
+          "up":    {"uv": [1, 15, 15, 16], "texture": "#top", "cullface": "up"},
+          "north": {"uv": [1, 15, 15, 16], "texture": "#top", "cullface": "up"}
+        }
+      }
+    ]
+  }
+}

@@ -1316,6 +1316,8 @@
   "block.tconstruct.seared_chute": "Seared Chute",
   "block.tconstruct.seared_chute.tooltip": "Smeltery item input and output",
 
+  "block.tconstruct.seared_casting_tank": "Casting Tank",
+  "block.tconstruct.seared_casting_tank.tooltip": "Automatically empties or fills inserted items.\nRetains liquid when broken.",
 
   "_comment": "Tinkers Foundry",
 
@@ -1373,7 +1375,7 @@
   "block.tconstruct.scorched_basin.tooltip": "Cast items using molten metals from a Foundry, requires a cast or gold platform to cast",
   "block.tconstruct.scorched_table": "Scorched Casting Table",
   "block.tconstruct.scorched_table.tooltip": "Cast items using molten metals from a Foundry, requires a cast or gold bars to cast",
-  "block.tconstruct.scorched_proxy_tank": "Scorched Proxy Tank",
+  "block.tconstruct.scorched_proxy_tank": "Scorched Tinker Tank",
   "block.tconstruct.scorched_proxy_tank.tooltip": "Tank block that fills or empties the item tank inside instead of an internal tank",
 
   "block.tconstruct.scorched_channel": "Scorched Channel",
@@ -2873,6 +2875,11 @@
   "item.minecraft.lingering_potion.effect.tconstruct.ricochet":     "Lingering Potion of Ricochet",
   "item.minecraft.lingering_potion.effect.tconstruct.levitation":   "Lingering Potion of Levitation",
   "item.minecraft.lingering_potion.effect.tconstruct.enderference": "Lingering Potion of Enderference",
+
+  "item.minecraft.tipped_arrow.effect.tconstruct.experienced":  "Arrow of Experience",
+  "item.minecraft.tipped_arrow.effect.tconstruct.ricochet":     "Arrow of Ricochet",
+  "item.minecraft.tipped_arrow.effect.tconstruct.levitation":   "Arrow of Levitation",
+  "item.minecraft.tipped_arrow.effect.tconstruct.enderference": "Arrow of Enderference",
 
   "_comment": "Cake effects",
   "effect.tconstruct.bouncy": "Bouncy",
