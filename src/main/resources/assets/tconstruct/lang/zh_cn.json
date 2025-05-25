@@ -1316,6 +1316,8 @@
   "block.tconstruct.seared_chute": "焦黑滑槽",
   "block.tconstruct.seared_chute.tooltip": "冶炼炉输入输出物品的端口",
 
+  "block.tconstruct.seared_casting_tank": "Casting Tank",
+  "block.tconstruct.seared_casting_tank.tooltip": "Automatically empties or fills inserted items.\nRetains liquid when broken.",
 
   "_comment": "Tinkers Foundry",
 
@@ -1373,7 +1375,7 @@
   "block.tconstruct.scorched_basin.tooltip": "利用熔铸炉中的熔融材料铸造物品，在铸造时需要一个铸模或是金平台以成型",
   "block.tconstruct.scorched_table": "焦褐铸件台",
   "block.tconstruct.scorched_table.tooltip": "利用熔铸炉中的熔融材料铸造物品，在铸造时需要一个铸模或是金栏杆以成型",
-  "block.tconstruct.scorched_proxy_tank": "焦褐中转储罐",
+  "block.tconstruct.scorched_proxy_tank": "焦褐工匠储罐",
   "block.tconstruct.scorched_proxy_tank.tooltip": "能够装填或倒空物品内部储罐的储罐方块，但无法操作自带的内部储罐",
 
   "block.tconstruct.scorched_channel": "焦褐浇注道",
@@ -2873,6 +2875,11 @@
   "item.minecraft.lingering_potion.effect.tconstruct.ricochet": "滞留型弹退药水",
   "item.minecraft.lingering_potion.effect.tconstruct.levitation": "滞留型飘浮药水",
   "item.minecraft.lingering_potion.effect.tconstruct.enderference": "滞留型抑影药水",
+
+  "item.minecraft.tipped_arrow.effect.tconstruct.experienced": "阅历之箭",
+  "item.minecraft.tipped_arrow.effect.tconstruct.ricochet": "弹退之箭",
+  "item.minecraft.tipped_arrow.effect.tconstruct.levitation": "漂浮之箭",
+  "item.minecraft.tipped_arrow.effect.tconstruct.enderference": "抑影之箭",
 
   "_comment": "Cake effects",
   "effect.tconstruct.bouncy": "弹跳",
