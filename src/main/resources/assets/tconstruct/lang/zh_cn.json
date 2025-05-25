@@ -1316,8 +1316,8 @@
   "block.tconstruct.seared_chute": "焦黑滑槽",
   "block.tconstruct.seared_chute.tooltip": "冶炼炉输入输出物品的端口",
 
-  "block.tconstruct.seared_casting_tank": "Casting Tank",
-  "block.tconstruct.seared_casting_tank.tooltip": "Automatically empties or fills inserted items.\nRetains liquid when broken.",
+  "block.tconstruct.seared_casting_tank": "浇注储罐",
+  "block.tconstruct.seared_casting_tank.tooltip": "能够装填或倒空物品内部储罐。\n被破坏后仍能保留其中的流体",
 
   "_comment": "Tinkers Foundry",
 
