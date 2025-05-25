@@ -1316,6 +1316,8 @@
 "block.tconstruct.seared_chute": "Calha Carbonizada",
 "block.tconstruct.seared_chute.tooltip": "Serve para a entrada e saída de itens da Fundição",
 
+ "block.tconstruct.seared_casting_tank": "Tanque de Fundição",
+ "block.tconstruct.seared_casting_tank.tooltip": "Esvazia ou enche automaticamente os itens inseridos.\nRetém o líquido quando quebrado.",
 
 "_comment": "Tinkers Foundry",
 
@@ -2304,7 +2306,7 @@
 "modifier.tconstruct.step_up.description": "Permite escalar blocos mais altos como se fossem escadas",
 "modifier.tconstruct.leaping": "Salto",
 "modifier.tconstruct.leaping.flavor": "Tira essa mão da vara! É só salto, sem vara!",
-"modifier.tconstruct.leaping.description": "Coelhos podem saltar alto, então isso também deve permitir que você salte alto",
+"modifier.tconstruct.leaping.description": "Slimes-do-Céu podem saltar alto, então isso também deve permitir que você salte alto",
 "modifier.tconstruct.pockets": "Bolsos",
 "modifier.tconstruct.pockets.flavor": "Invenção maravilhosa, mas cuidado se estiver no Rio!",
 "modifier.tconstruct.pockets.description": "As calças têm bolsos, permitindo armazenar itens adicionais que podem ser acessados com shift mais interação",
