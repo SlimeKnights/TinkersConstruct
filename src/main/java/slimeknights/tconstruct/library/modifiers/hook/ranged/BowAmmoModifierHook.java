@@ -100,21 +100,21 @@ public interface BowAmmoModifierHook {
    * @param tool       Tool instance
    * @param bow        Bow stack instance
    * @param predicate  Predicate for valid ammo
-   * @param player     Player to search
+   * @param holder     Weapon holder to search ammo from
    * @return  Found ammo
    */
-  static ItemStack findAmmo(IToolStackView tool, ItemStack bow, Player player, Predicate<ItemStack> predicate) {
+  static ItemStack findAmmo(IToolStackView tool, ItemStack bow, LivingEntity holder, Predicate<ItemStack> predicate) {
     int projectilesDesired = 1 + (2 * tool.getModifierLevel(TinkerModifiers.multishot.getId()));
     // treat client side as creative, no need to shrink the stacks clientside
-    Level level = player.level();
-    boolean creative = player.getAbilities().instabuild || level.isClientSide;
+    Level level = holder.level();
+    boolean creative = holder instanceof Player player && player.getAbilities().instabuild || level.isClientSide;
 
     // first search, find what ammo type we want
-    ItemStack standardAmmo = player.getProjectile(bow);
+    ItemStack standardAmmo = holder.getProjectile(bow);
     ItemStack resultStack = ItemStack.EMPTY;
     for (ModifierEntry entry : tool.getModifierList()) {
       BowAmmoModifierHook hook = entry.getHook(ModifierHooks.BOW_AMMO);
-      ItemStack ammo = hook.findAmmo(tool, entry, player, standardAmmo, predicate);
+      ItemStack ammo = hook.findAmmo(tool, entry, holder, standardAmmo, predicate);
       if (!ammo.isEmpty()) {
         // if creative, we are done, just return the ammo with the given size
         if (creative) {
@@ -123,7 +123,7 @@ public interface BowAmmoModifierHook {
 
         // not creative, split out the desired amount. We may have to do more work if it is too small
         resultStack = ItemHandlerHelper.copyStackWithSize(ammo, Math.min(projectilesDesired, ammo.getCount()));
-        hook.shrinkAmmo(tool, entry, player, ammo, resultStack.getCount());
+        hook.shrinkAmmo(tool, entry, holder, ammo, resultStack.getCount());
         break;
       }
     }
@@ -140,7 +140,7 @@ public interface BowAmmoModifierHook {
       }
       // make a copy of the result, up to the desired size
       resultStack = standardAmmo.split(projectilesDesired);
-      if (standardAmmo.isEmpty()) {
+      if (standardAmmo.isEmpty() && holder instanceof Player player) {
         player.getInventory().removeItem(standardAmmo);
       }
     }
@@ -159,17 +159,17 @@ public interface BowAmmoModifierHook {
     do {
       // if standard ammo is empty, try finding a matching stack again
       if (standardAmmo.isEmpty()) {
-        standardAmmo = findMatchingAmmo(bow, player, predicate);
+        standardAmmo = findMatchingAmmo(bow, holder, predicate);
       }
       // next, try asking modifiers if they have anything new again
       int needed = projectilesDesired - resultStack.getCount();
       for (ModifierEntry entry : tool.getModifierList()) {
         BowAmmoModifierHook hook = entry.getHook(ModifierHooks.BOW_AMMO);
-        ItemStack ammo = hook.findAmmo(tool, entry, player, standardAmmo, predicate);
+        ItemStack ammo = hook.findAmmo(tool, entry, holder, standardAmmo, predicate);
         if (!ammo.isEmpty()) {
           // consume as much of the stack as we need then continue, loop condition will stop if we are now done
           int gained = Math.min(needed, ammo.getCount());
-          hook.shrinkAmmo(tool, entry, player, ammo, gained);
+          hook.shrinkAmmo(tool, entry, holder, ammo, gained);
           resultStack.grow(gained);
           continue hasEnough;
         }
@@ -183,7 +183,10 @@ public interface BowAmmoModifierHook {
       if (needed > standardAmmo.getCount()) {
         // consume the whole stack
         resultStack.grow(standardAmmo.getCount());
-        player.getInventory().removeItem(standardAmmo);
+        standardAmmo.setCount(0);
+        if (holder instanceof Player player) {
+          player.getInventory().removeItem(standardAmmo);
+        }
         standardAmmo = ItemStack.EMPTY;
       } else {
         // found what we need, we are done

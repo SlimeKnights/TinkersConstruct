@@ -9,6 +9,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlot.Type;
@@ -17,9 +19,13 @@ import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
@@ -27,16 +33,23 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import org.joml.Vector3f;
 import slimeknights.mantle.client.SafeClientAccess;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.AttributesModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.behavior.EnchantmentModifierHook;
+import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.display.DurabilityDisplayModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.EntityInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.InventoryTickModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.SlotStackModifierHook;
 import slimeknights.tconstruct.library.tools.IndestructibleItemEntity;
+import slimeknights.tconstruct.library.tools.capability.EntityModifierCapability;
+import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataCapability;
 import slimeknights.tconstruct.library.tools.capability.TinkerDataKeys;
 import slimeknights.tconstruct.library.tools.capability.ToolCapabilityProvider;
@@ -51,7 +64,10 @@ import slimeknights.tconstruct.library.tools.helper.TooltipUtil;
 import slimeknights.tconstruct.library.tools.item.IModifiableDisplay;
 import slimeknights.tconstruct.library.tools.item.ModifiableItem;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
+import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
+import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.TinkerToolActions;
 import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ScopeModifier;
@@ -386,8 +402,99 @@ public abstract class ModifiableLauncherItem extends ProjectileWeaponItem implem
 
   /* Multishot helper */
 
+  /** Play shooting sound based on charge and angle spread */
+  public abstract void playShotSound(LivingEntity user, float charge, float angle, RandomSource pRandom);
+
   /** Gets the angle to fire the first arrow, each additional arrow offsets an additional 10 degrees */
   public static float getAngleStart(int count) {
     return -5 * (count - 1);
   }
+
+  public static void assignArrowProperties(Projectile projectile, LivingEntity user, IToolStackView tool, boolean crit, boolean infinite, boolean primary) {
+    if (projectile instanceof AbstractArrow arrow) {
+      if (crit) {
+        arrow.setCritArrow(true);
+      }
+
+      // if infinite, skip pickup
+      if (infinite) {
+        arrow.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
+      }
+
+      // vanilla arrows have a base damage of 2, cancel that out then add in our base damage to account for custom arrows with higher base damage
+      // calculate it just once as all four arrows are the same item, they should have the same damage
+      float baseArrowDamage = (float) (arrow.getBaseDamage() - 2 + tool.getStats().get(ToolStats.PROJECTILE_DAMAGE));
+      arrow.setBaseDamage(ConditionalStatModifierHook.getModifiedStat(tool, user, ToolStats.PROJECTILE_DAMAGE, baseArrowDamage));
+    }
+
+    // just store all modifiers on the tool for simplicity
+    ModifierNBT modifiers = tool.getModifiers();
+    projectile.getCapability(EntityModifierCapability.CAPABILITY).ifPresent(cap -> cap.setModifiers(modifiers));
+
+    // fetch the persistent data for the arrow as modifiers may want to store data
+    ModDataNBT arrowData = PersistentDataCapability.getOrWarn(projectile);
+
+    // let modifiers such as fiery and punch set properties
+    for (ModifierEntry entry : modifiers.getModifiers()) {
+      entry.getHook(ModifierHooks.PROJECTILE_LAUNCH).onProjectileLaunch(tool, entry, user, projectile,
+        projectile instanceof AbstractArrow arrow ? arrow : null, arrowData, primary);
+    }
+  }
+
+  /** Create projectile from ammunition stack. Also provide speed and durability cost information */
+  public ProjectileData createProjectile(Level level, LivingEntity user, ItemStack ammo) {
+    ArrowItem arrowItem = ammo.getItem() instanceof ArrowItem a ? a : (ArrowItem) Items.ARROW;
+    AbstractArrow arrow = arrowItem.createArrow(level, ammo, user);
+    return new ProjectileData(arrow, 1f, 1);
+  }
+
+  /** Modify projectile launch angle for specific angle offset. Bow use vertical spread and crossbow use horizontal spread. */
+  public abstract Vector3f modifyShootAngle(LivingEntity user, Vec3 target, float angle);
+
+  /**
+   * Launches projectile, plays sound, but does not consume durability nor handle ammunition consumption.
+   * Call {@code ToolDamageUtil.damageAnimated} to consume durability.
+   *
+   * @param holder           user
+   * @param tool             projectile weapon
+   * @param ammo             ammunition. Will not be modified inside this method.
+   * @param direction        direction to shoot at
+   * @param charge           charging percentage
+   * @param speedFactor      regular arrow speed at full charge. 3 for player with bow. 1.6 for skeletons. 3.15 for crossbows.
+   * @param inaccuracyFactor shoot inaccuracy factor. 1 for player, and hostile mobs use a complex formula involving difficulty.
+   * @param infinite         Whether to make the arrow marked as no-pickup. True for infinite arrows or hostile mob arrows.
+   * @return Amount of durability to consume
+   */
+  public int shootProjectiles(
+    LivingEntity holder, IToolStackView tool, ItemStack ammo, Vec3 direction, float charge,
+    float speedFactor, float inaccuracyFactor, boolean infinite
+  ) {
+    float velocity = ConditionalStatModifierHook.getModifiedStat(tool, holder, ToolStats.VELOCITY);
+    float inaccuracy = ModifierUtil.getInaccuracy(tool, holder);
+    float startAngle = getAngleStart(ammo.getCount());
+    int primaryIndex = ammo.getCount() / 2;
+    int damage = 0;
+    for (int arrowIndex = 0; arrowIndex < ammo.getCount(); arrowIndex++) {
+      // setup projectile
+      ProjectileData data = createProjectile(holder.level(), holder, ammo);
+      Projectile projectile = data.projectile();
+      damage += data.damage();
+      assignArrowProperties(projectile, holder, tool, charge >= 1, infinite, arrowIndex == primaryIndex);
+      // setup projectile
+      float angle = startAngle + (10 * arrowIndex);
+      Vector3f targetVector = modifyShootAngle(holder, direction, angle);
+      projectile.shoot(targetVector.x(), targetVector.y(), targetVector.z(),
+        charge * velocity * data.speed() * speedFactor,
+        inaccuracy * inaccuracyFactor);
+      // finally, fire the projectile
+      holder.level().addFreshEntity(projectile);
+      playShotSound(holder, charge, angle, holder.getRandom());
+    }
+    return damage;
+  }
+
+  public record ProjectileData(Projectile projectile, float speed, int damage) {
+
+  }
+
 }

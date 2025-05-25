@@ -3,32 +3,28 @@ package slimeknights.tconstruct.library.tools.item.ranged;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.ForgeEventFactory;
+import org.joml.Vector3f;
 import slimeknights.tconstruct.common.Sounds;
-import slimeknights.tconstruct.library.modifiers.ModifierEntry;
-import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.hook.build.ConditionalStatModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.interaction.GeneralInteractionModifierHook;
 import slimeknights.tconstruct.library.modifiers.hook.ranged.BowAmmoModifierHook;
-import slimeknights.tconstruct.library.tools.capability.EntityModifierCapability;
-import slimeknights.tconstruct.library.tools.capability.PersistentDataCapability;
 import slimeknights.tconstruct.library.tools.definition.ToolDefinition;
 import slimeknights.tconstruct.library.tools.helper.ModifierUtil;
 import slimeknights.tconstruct.library.tools.helper.ToolDamageUtil;
-import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
-import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockingModifier;
@@ -96,6 +92,17 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
   }
 
   @Override
+  public void playShotSound(LivingEntity user, float charge, float angle, RandomSource random) {
+    user.level().playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F,
+      1.0F / (random.nextFloat() * 0.4F + 1.2F) + charge * 0.5F + (angle / 10f));
+  }
+
+  @Override
+  public Vector3f modifyShootAngle(LivingEntity user, Vec3 target, float angle) {
+    return target.xRot(angle * Mth.DEG_TO_RAD).toVector3f();
+  }
+
+  @Override
   public void releaseUsing(ItemStack bow, Level level, LivingEntity living, int timeLeft) {
     // clear zoom regardless, does not matter if the tool broke, we should not be zooming
     ScopeModifier.stopScoping(living);
@@ -130,8 +137,9 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
     // calculate arrow power
     float charge = GeneralInteractionModifierHook.getToolCharge(tool, chargeTime);
     tool.getPersistentData().remove(KEY_DRAWTIME);
-    float velocity = ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.VELOCITY);
-    float power = charge * velocity;
+
+    // may we just use charge to test if we can fire the arrows?
+    float power = charge * ConditionalStatModifierHook.getModifiedStat(tool, living, ToolStats.VELOCITY);
     if (power < 0.1f) {
       return;
     }
@@ -144,45 +152,11 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
       if (ammo.isEmpty()) {
         ammo = new ItemStack(Items.ARROW);
       }
+      int damage = shootProjectiles(player, tool, ammo, player.getViewVector(1.0f), charge, 3, 1, creative);
+      if (!creative) {
+        ToolDamageUtil.damageAnimated(tool, damage, player, player.getUsedItemHand());
 
-      // prepare the arrows
-      ArrowItem arrowItem = ammo.getItem() instanceof ArrowItem arrow ? arrow : (ArrowItem)Items.ARROW;
-      float inaccuracy = ModifierUtil.getInaccuracy(tool, living);
-      float startAngle = getAngleStart(ammo.getCount());
-      int primaryIndex = ammo.getCount() / 2;
-      for (int arrowIndex = 0; arrowIndex < ammo.getCount(); arrowIndex++) {
-        AbstractArrow arrow = arrowItem.createArrow(level, ammo, player);
-        float angle = startAngle + (10 * arrowIndex);
-        arrow.shootFromRotation(player, player.getXRot() + angle, player.getYRot(), 0, power * 3.0F, inaccuracy);
-        if (charge == 1.0F) {
-          arrow.setCritArrow(true);
-        }
-
-        // vanilla arrows have a base damage of 2, cancel that out then add in our base damage to account for custom arrows with higher base damage
-        // calculate it just once as all four arrows are the same item, they should have the same damage
-        float baseArrowDamage = (float)(arrow.getBaseDamage() - 2 + tool.getStats().get(ToolStats.PROJECTILE_DAMAGE));
-        arrow.setBaseDamage(ConditionalStatModifierHook.getModifiedStat(tool, player, ToolStats.PROJECTILE_DAMAGE, baseArrowDamage));
-
-        // just store all modifiers on the tool for simplicity
-        ModifierNBT modifiers = tool.getModifiers();
-        arrow.getCapability(EntityModifierCapability.CAPABILITY).ifPresent(cap -> cap.setModifiers(modifiers));
-
-        // fetch the persistent data for the arrow as modifiers may want to store data
-        ModDataNBT arrowData = PersistentDataCapability.getOrWarn(arrow);
-
-        // if infinite, skip pickup
-        if (creative) {
-          arrow.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
-        }
-
-        // let modifiers such as fiery and punch set properties
-        for (ModifierEntry entry : modifiers.getModifiers()) {
-          entry.getHook(ModifierHooks.PROJECTILE_LAUNCH).onProjectileLaunch(tool, entry, living, arrow, arrow, arrowData, arrowIndex == primaryIndex);
-        }
-        level.addFreshEntity(arrow);
-        level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F) + charge * 0.5F + (angle / 10f));
       }
-      ToolDamageUtil.damageAnimated(tool, ammo.getCount(), player, player.getUsedItemHand());
     }
 
     // stats and sounds
