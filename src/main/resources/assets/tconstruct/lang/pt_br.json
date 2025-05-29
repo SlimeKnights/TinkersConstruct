@@ -2004,6 +2004,9 @@
 "modifier.tconstruct.offhanded.2": "Sem Mãos",
 "modifier.tconstruct.offhanded.flavor": "Nem queira saber o que essa mão está fazendo...",
 "modifier.tconstruct.offhanded.description": "Desativa as habilidades de interação da ferramenta quando a mão secundária está ocupada. O segundo nível desativa as habilidades de interação completamente.",
+"modifier.tconstruct.barebow": "Arco Nu",
+"modifier.tconstruct.barebow.flavor": "Uma disciplina histórica de arco e flecha",
+"modifier.tconstruct.barebow.description": "O arco não usará flechas do inventário, embora ainda use flechas de aljava ou tiro de cristal.",
 
 
 "_comment": "Durabilidade",

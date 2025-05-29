@@ -2,7 +2,7 @@
   "modifier_id": "tconstruct:crystalshot",
   "text": [
     {
-      "text": "Em vez de usar munição do inventário, o arco gera suas próprias flechas de cristal."
+      "text": "Se não houver munição no inventário, o arco produz suas próprias flechas de cristal."
     },
     {
       "text": "A ferramenta recebe 4 de dano extra por cada flecha produzida."
