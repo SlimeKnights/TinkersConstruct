@@ -1375,7 +1375,7 @@
 "block.tconstruct.scorched_basin.tooltip": "Funde itens usando metais derretidos por uma Forja, requer um molde ou plataforma de ouro para fundir",
 "block.tconstruct.scorched_table": "Mesa de Fundição Chamuscada",
 "block.tconstruct.scorched_table.tooltip": "Funde itens usando metais derretidos por uma Forja, requer um molde ou barras de ouro para fundir",
-"block.tconstruct.scorched_proxy_tank": "Tanque Proxy Chamuscado",
+"block.tconstruct.scorched_proxy_tank": "Tanque Tinker Chamuscado",
 "block.tconstruct.scorched_proxy_tank.tooltip": "Bloco de tanque que enche ou esvazia o tanque de itens em vez de um tanque interno",
 
 "block.tconstruct.scorched_channel": "Canal Chamuscado",
@@ -1779,7 +1779,7 @@
 
 "material.tconstruct.amethyst_bronze": "Bronze de Ametista",
 "material.tconstruct.amethyst_bronze.flavor": "Não deve ser confundido com bronze.",
-"material.tconstruct.amethyst_bronze.encyclopedia": "Concede +0,5 de velocidade de mineração por nível para blocos que não requerem ferramentas, mesmo aqueles em que a ferramenta não é eficaz",
+"material.tconstruct.amethyst_bronze.encyclopedia": "Concede +1 de velocidade de mineração por nível para blocos que não requerem ferramentas, principalmente aqueles em que a ferramenta não é eficaz",
 "material.tconstruct.amethyst_bronze.ranged": "Adiciona +0,1 de velocidade por nível ao custo de limitar os ângulos das flechas a 32, 16 ou 8 direções nos primeiros 3 níveis, respectivamente",
 "material.tconstruct.amethyst_bronze.armor": "Concede +2,5% de velocidade de ataque por nível ao custo de limitar os ângulos de recuo sofrido a 32, 16, 8 ou 4 direções",
 
@@ -2632,7 +2632,7 @@
 "modifier.tconstruct.lacerating.description": "Faz o alvo sangrar, causando dano adicional",
 "modifier.tconstruct.crumbling": "Desmoronante",
 "modifier.tconstruct.crumbling.flavor": "Segure-se firme!",
-"modifier.tconstruct.crumbling.description": "A ferramenta minera blocos que não requerem uma ferramenta mais rápido",
+"modifier.tconstruct.crumbling.description": "A ferramenta minera blocos que não requerem uma ferramenta mais rápido. Ótimo para minerar o bloco errado!",
 "modifier.tconstruct.crumbling.mining_speed": "Velocidade Desmoronante",
 "modifier.tconstruct.crystalbound": "Ligado ao Cristal",
 "modifier.tconstruct.crystalbound.flavor": "O caminho do cristal é reto",
@@ -2876,6 +2876,11 @@
 "item.minecraft.lingering_potion.effect.tconstruct.levitation": "Poção Persistente de Levitação",
 "item.minecraft.lingering_potion.effect.tconstruct.enderference": "Poção Persistente de Enderferência",
 
+"item.minecraft.tipped_arrow.effect.tconstruct.experienced":  "Flecha de experiência",
+"item.minecraft.tipped_arrow.effect.tconstruct.ricochet":     "Flecha de Ricochete",
+"item.minecraft.tipped_arrow.effect.tconstruct.levitation":   "Flecha de Levitação",
+"item.minecraft.tipped_arrow.effect.tconstruct.enderference": "Flecha de Enderferência",
+
 "_comment": "Efeitos de bolo",
 "effect.tconstruct.bouncy": "Saltitante",
 "effect.tconstruct.double_jump": "Pulo Duplo",
@@ -3013,6 +3018,7 @@
 "stat.tconstruct.slot.prefix.abilities": "Habilidades:",
 "stat.tconstruct.slot.prefix.souls": "Slots de Alma:",
 "stat.tconstruct.slot.prefix.defense": "Slots de Defesa:",
+"stat.tconstruct.slot.prefix.slotless": "Sem Slots",
 
 "stat.tconstruct.slot.display.upgrades": "melhoria",
 "stat.tconstruct.slot.display.abilities": "habilidade",
@@ -3288,6 +3294,8 @@
 "jei.tconstruct.time": "%s s",
 "jei.tconstruct.temperature": "%s°C",
 "jei.tconstruct.modifier_ingredient": "Modificador %s",
+"jei.tconstruct.modifier_slot.ingredient": "Slot de Modificador: %s",
+"jei.tconstruct.modifier_slot.id": "ID do Slot: %s",
 
 "jei.tconstruct.casting.basin": "Bacia de Fundição",
 "jei.tconstruct.casting.table": "Mesa de Fundição",
@@ -3313,8 +3321,8 @@
 "jei.tconstruct.alloy.catalyst": "Não consumido",
 
 "jei.tconstruct.modifiers.title": "Modificadores",
-"jei.tconstruct.modifiers.slot": "O modificador requer 1 slot de %s para ser aplicado",
-"jei.tconstruct.modifiers.slots": "O modificador requer %s slots de %s para ser aplicado",
+"jei.tconstruct.modifiers.slot": "Requer 1 slot de %s para ser aplicado",
+"jei.tconstruct.modifiers.slots": "Requer %s slots de %s para ser aplicado",
 "jei.tconstruct.modifiers.free": "Nenhum slot de modificador é necessário para aplicar",
 "jei.tconstruct.modifiers.incremental": "A receita é incremental, você pode aplicar parte da entrada para um efeito parcial",
 "jei.tconstruct.modifiers.level.min": "Nível mínimo: %s",

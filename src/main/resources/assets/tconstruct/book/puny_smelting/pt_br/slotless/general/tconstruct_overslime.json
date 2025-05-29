@@ -6,8 +6,8 @@
     }
   ],
   "effects": [
-    "Adiciona uma barra de slimebilidade que é consumida antes da durabilidade",
-    "Recarregada com bolas de slime, a quantidade varia conforme o tipo",
+    "Adiciona uma barra de slimebilidade, consumida antes da durabilidade",
+    "Recarregada com bolas de slime, ou frascos na bancada de trabalho",
     "A capacidade é aumentada por muitos materiais da ferramenta",
     "Aplica debuff em ferramentas sem materiais de slime"
   ]
