@@ -2,10 +2,10 @@
   "modifier_id": "tconstruct:experienced",
   "text": [
     {
-      "text": "Boosts experience from killing mobs and breaking blocks by 25% per level."
+      "text": "Boosts experience from killing mobs and breaking blocks by 50% per level."
     },
     {
-      "text": "On chestplates, the bonus experience only works against mobs killed with an empty hand. Leggings affect all tools.",
+      "text": "On armor, boosts experience by 25% per level when using any tool.",
       "paragraph": true
     }
   ],

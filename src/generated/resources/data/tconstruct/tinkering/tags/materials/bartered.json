@@ -1,0 +1,21 @@
+{
+  "values": [
+    "tconstruct:nahuatl",
+    "tconstruct:obsidian",
+    "tconstruct:darkthread",
+    "tconstruct:cobalt",
+    "tconstruct:steel",
+    "tconstruct:manyullyn",
+    "tconstruct:hepatizon",
+    "tconstruct:cinderslime",
+    "tconstruct:queens_slime",
+    "tconstruct:blazing_bone",
+    "tconstruct:blazewood",
+    "tconstruct:ancient_hide",
+    "tconstruct:ancient",
+    {
+      "id": "tconstruct:necronium",
+      "required": false
+    }
+  ]
+}

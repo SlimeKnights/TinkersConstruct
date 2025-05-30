@@ -38,6 +38,9 @@ public class ModifierIds {
   // compat
   public static final ModifierId theOneProbe = id("the_one_probe");
   public static final ModifierId headlight = id("headlight");
+  // zoom
+  public static final ModifierId scope = id("scope");
+  public static final ModifierId zoom = id("zoom");
 
   // harvest
   public static final ModifierId haste = id("haste");
@@ -68,6 +71,8 @@ public class ModifierIds {
   public static final ModifierId blindshot = id("blindshot");
   public static final ModifierId bulkQuiver = id("bulk_quiver");
   public static final ModifierId trickQuiver = id("trick_quiver");
+  public static final ModifierId crystalshot = id("crystalshot");
+  public static final ModifierId barebow = id("barebow");
 
   // armor
   public static final ModifierId protection = id("protection");
@@ -116,6 +121,7 @@ public class ModifierIds {
   public static final ModifierId pathing = id("pathing");
   public static final ModifierId stripping = id("stripping");
   public static final ModifierId tilling = id("tilling");
+  public static final ModifierId brushing = id("brushing");
 
   // internal
   public static final ModifierId overslimeFriend = id("overslime_friend");

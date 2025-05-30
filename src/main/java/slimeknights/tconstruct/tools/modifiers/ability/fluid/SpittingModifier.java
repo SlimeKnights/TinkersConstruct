@@ -34,7 +34,6 @@ import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
 import slimeknights.tconstruct.library.tools.stat.ToolStats;
 import slimeknights.tconstruct.tools.entity.FluidEffectProjectile;
 import slimeknights.tconstruct.tools.modifiers.ability.interaction.BlockingModifier;
-import slimeknights.tconstruct.tools.modifiers.upgrades.ranged.ScopeModifier;
 
 import static slimeknights.tconstruct.library.tools.capability.fluid.ToolTankHelper.TANK_HELPER;
 
@@ -45,6 +44,11 @@ public class SpittingModifier extends Modifier implements GeneralInteractionModi
     builder.addHook(this, ModifierHooks.GENERAL_INTERACT);
     builder.addModule(ToolTankHelper.TANK_HANDLER);
     builder.addModule(StatBoostModule.add(ToolTankHelper.CAPACITY_STAT).eachLevel(FluidType.BUCKET_VOLUME));
+  }
+
+  @Override
+  public int getPriority() {
+    return 110; // want to run before sling modifiers so we can sling spit
   }
 
   @Override
@@ -71,13 +75,7 @@ public class SpittingModifier extends Modifier implements GeneralInteractionModi
   }
 
   @Override
-  public void onUsingTick(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {
-    ScopeModifier.scopingUsingTick(tool, entity, getUseDuration(tool, modifier) - timeLeft);
-  }
-
-  @Override
   public void onStoppedUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {
-    ScopeModifier.stopScoping(entity);
     Level world = entity.level();
     if (!world.isClientSide) {
       int chargeTime = getUseDuration(tool, modifier) - timeLeft;
@@ -141,5 +139,4 @@ public class SpittingModifier extends Modifier implements GeneralInteractionModi
       }
     }
   }
-
 }

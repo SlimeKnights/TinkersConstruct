@@ -13,7 +13,7 @@
     "large_bowstring":   "tconstruct:item/tool/longbow/large/bowstring"
   },
   "large": true,
-  "large_offset": [-3, 13],
+  "large_offset": [-7, 9],
   "modifier_roots": {
     "small": [ "tconstruct:item/tool/longbow/modifiers/" ],
     "large": [ "tconstruct:item/tool/longbow/large/modifiers/" ]
@@ -26,7 +26,7 @@
   ],
   "overrides": [
     {
-      "predicate": { "tconstruct:charging": 1 },
+      "predicate": { "tconstruct:charging": 1, "tconstruct:charge": 0.05 },
       "model": "tconstruct:item/tool/longbow/pulling_1"
     },
     {
@@ -37,10 +37,25 @@
       "predicate": { "tconstruct:charging": 1, "tconstruct:charge": 1.0 },
       "model": "tconstruct:item/tool/longbow/pulling_3"
     },
+
+    {
+      "predicate": { "tconstruct:charging": 1.5 },
+      "model": "tconstruct:item/tool/longbow/pulling_arrow_1"
+    },
+    {
+      "predicate": { "tconstruct:charging": 1.5, "tconstruct:charge": 0.6 },
+      "model": "tconstruct:item/tool/longbow/pulling_arrow_2"
+    },
+    {
+      "predicate": { "tconstruct:charging": 1.5, "tconstruct:charge": 1.0 },
+      "model": "tconstruct:item/tool/longbow/pulling_arrow_3"
+    },
+
     {
       "predicate": { "tconstruct:charging": 2 },
       "model": "tconstruct:item/tool/longbow/blocking"
     },
+
     {
       "predicate": { "tconstruct:charging": 2, "tconstruct:charge": 0.05 },
       "model": "tconstruct:item/tool/longbow/blocking_1"
@@ -53,6 +68,20 @@
       "predicate": { "tconstruct:charging": 2, "tconstruct:charge": 1.0 },
       "model": "tconstruct:item/tool/longbow/blocking_3"
     },
+
+    {
+      "predicate": { "tconstruct:charging": 2.5, "tconstruct:charge": 0.05 },
+      "model": "tconstruct:item/tool/longbow/blocking_arrow_1"
+    },
+    {
+      "predicate": { "tconstruct:charging": 2.5, "tconstruct:charge": 0.6 },
+      "model": "tconstruct:item/tool/longbow/blocking_arrow_2"
+    },
+    {
+      "predicate": { "tconstruct:charging": 2.5, "tconstruct:charge": 1.0 },
+      "model": "tconstruct:item/tool/longbow/blocking_arrow_3"
+    },
+
     {
       "predicate": { "tconstruct:broken": 1 },
       "model": "tconstruct:item/tool/longbow/broken"

@@ -18,7 +18,8 @@
   "tconstruct:luck":      "tconstruct:gui/modifiers/luck",
   "tconstruct:melting":   "tconstruct:gui/modifiers/harvest/melting",
   "tconstruct:silky":     ["tconstruct:item/materials/silky_cloth", "tconstruct:gui/modifiers/book"],
-  
+
+  "tconstruct:brushing":    ["minecraft:item/brush", "tconstruct:gui/modifiers/book"],
   "tconstruct:bucketing":   ["minecraft:item/bucket", "tconstruct:gui/modifiers/book"],
   "tconstruct:firestarter": ["minecraft:item/flint_and_steel", "tconstruct:gui/modifiers/book"],
   "tconstruct:fireprimer":  ["minecraft:item/fire_charge", "tconstruct:gui/modifiers/book"],
@@ -64,7 +65,8 @@
   "tconstruct:severing":        "tconstruct:gui/modifiers/melee/severing",
   "tconstruct:sweeping_edge":   "tconstruct:gui/modifiers/melee/sweeping",
   "tconstruct:spilling":        "tconstruct:gui/modifiers/melee/spilling",
-  
+
+  "tconstruct:barebow":      ["minecraft:item/bow", "tconstruct:gui/modifiers/book"],
   "tconstruct:blindshot":    "tconstruct:gui/modifiers/ranged/blindshot",
   "tconstruct:freezing":     "tconstruct:gui/modifiers/ranged/freezing",
   "tconstruct:impaling":     "tconstruct:gui/modifiers/ranged/impaling",

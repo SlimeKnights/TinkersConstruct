@@ -23,5 +23,14 @@
       "name": "bowstring",
       "index": 2
     }
-  ]
+  ],
+  "ammo": {
+    "key": "tconstruct:crossbow_ammo",
+    "flip": true,
+    "left": false,
+    "offset": [
+      -1.0,
+      -1.0
+    ]
+  }
 }

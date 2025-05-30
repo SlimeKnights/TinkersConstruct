@@ -1,0 +1,9 @@
+{
+  "level_display": "tconstruct:no_levels",
+  "modules": [
+    {
+      "type": "tconstruct:brush"
+    }
+  ],
+  "tooltip_display": "always"
+}

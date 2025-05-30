@@ -1,0 +1,29 @@
+{
+  "type": "tconstruct:modifier",
+  "allow_crystal": true,
+  "check_trait_level": true,
+  "inputs": [
+    {
+      "tag": "forge:feathers"
+    },
+    {
+      "tag": "forge:ingots/copper"
+    }
+  ],
+  "level": 1,
+  "result": "tconstruct:brushing",
+  "slots": {
+    "abilities": 1
+  },
+  "tools": {
+    "type": "forge:intersection",
+    "children": [
+      {
+        "tag": "tconstruct:modifiable/durability"
+      },
+      {
+        "tag": "tconstruct:modifiable/interactable/right"
+      }
+    ]
+  }
+}

@@ -23,5 +23,14 @@
       "name": "limb",
       "index": 0
     }
-  ]
+  ],
+  "ammo": {
+    "key": "tconstruct:crossbow_ammo",
+    "flip": false,
+    "left": true,
+    "offset": [
+      1.0,
+      -1.0
+    ]
+  }
 }

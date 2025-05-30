@@ -127,6 +127,24 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "brushing": {
+      "conditions": {
+        "items": [
+          {
+            "type": "tconstruct:tool_stack",
+            "predicate": {
+              "type": "tconstruct:has_modifier",
+              "check": "upgrades",
+              "modifier": {
+                "type": "tconstruct:single",
+                "modifier": "tconstruct:brushing"
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "bucketing": {
       "conditions": {
         "items": [
@@ -864,24 +882,6 @@
         ]
       },
       "trigger": "minecraft:inventory_changed"
-    },
-    "zoom": {
-      "conditions": {
-        "items": [
-          {
-            "type": "tconstruct:tool_stack",
-            "predicate": {
-              "type": "tconstruct:has_modifier",
-              "check": "upgrades",
-              "modifier": {
-                "type": "tconstruct:single",
-                "modifier": "tconstruct:zoom"
-              }
-            }
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
     }
   },
   "display": {
@@ -917,9 +917,6 @@
     ],
     [
       "slurping"
-    ],
-    [
-      "zoom"
     ],
     [
       "ambidextrous"
@@ -998,6 +995,9 @@
     ],
     [
       "tilling"
+    ],
+    [
+      "brushing"
     ],
     [
       "bonking"

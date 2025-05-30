@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.recipe.modifiers.adding;
 
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -15,12 +16,14 @@ import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.common.TinkerTags;
+import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.modifiers.slotless.OverslimeModifier;
 
 import javax.annotation.Nullable;
+import java.util.function.Predicate;
 
 /** Recipe for applying overslime in the crafting table */
 public class OverslimeCraftingTableRecipe extends CustomRecipe {
@@ -42,15 +45,20 @@ public class OverslimeCraftingTableRecipe extends CustomRecipe {
     this.restoreAmount = restoreAmount;
   }
 
+  /** Result from {@link #findTool(CraftingContainer, Predicate, Ingredient)} */
+  public record ToolFound(ItemStack tool, int itemsFound) {}
+
   /**
-   * Checks if the recipe matches and returns the located tool.
-   * @param inv  Crafting inventory
+   * Checks if the recipe matches and returns the located tool and the number of ingredient matches.
+   * @param inv         Crafting inventory
+   * @param tools       Tool predicate
+   * @param ingredient  Allowed non-tool ingredient
    * @return  Found tool, or null if either the tool or overslime ingredient is absent
    */
   @Nullable
-  private ItemStack findMatch(CraftingContainer inv) {
-    boolean foundIngredient = false;
+  public static ToolFound findTool(CraftingContainer inv, Predicate<ItemStack> tools, Ingredient ingredient) {
     ItemStack foundTool = null;
+    int itemsFound = 0;
     for (int i = 0; i < inv.getContainerSize(); i++) {
       ItemStack stack = inv.getItem(i);
       if (stack.isEmpty()) {
@@ -64,48 +72,82 @@ public class OverslimeCraftingTableRecipe extends CustomRecipe {
         }
         foundTool = stack;
       } else if (ingredient.test(stack)) {
-        // can't have two ingredients
-        if (foundIngredient) {
-          return null;
-        }
-        foundIngredient = true;
+        itemsFound++;
       } else {
+        // unknown item input
         return null;
       }
     }
     // didn't find a match
-    if (!foundIngredient || foundTool == null) {
+    if (itemsFound == 0 || foundTool == null) {
       return null;
     }
-    return foundTool;
+    return new ToolFound(foundTool, itemsFound);
   }
 
   @Override
   public boolean matches(CraftingContainer inv, Level level) {
-    ItemStack match = findMatch(inv);
+    ToolFound match = findTool(inv, tools, ingredient);
     if (match == null) {
       return false;
     }
     // found both tool and ingredient, ensure we need overslime
-    ToolStack tool = ToolStack.from(match);
+    ToolStack tool = ToolStack.from(match.tool);
     OverslimeModifier overslime = TinkerModifiers.overslime.get();
-    return overslime.getShield(tool) < overslime.getShieldCapacity(tool, tool.getModifier(overslime));
+    ModifierEntry entry = tool.getModifier(overslime);
+    // no adding overslime via this recipe, only refilling it
+    // mostly simplifies some of the craft remainder logic
+    return entry.getLevel() > 0 || overslime.getShield(tool) < overslime.getShieldCapacity(tool, entry);
   }
 
   @Override
   public ItemStack assemble(CraftingContainer inv, RegistryAccess registryAccess) {
-    ItemStack match = findMatch(inv);
+    ToolFound match = findTool(inv, tools, ingredient);
     if (match == null) {
       TConstruct.LOG.error("Overslime crafting table recipe {} failed to find tool after matching", getId());
       return ItemStack.EMPTY;
     }
-    ToolStack tool = ToolStack.copyFrom(match);
+    ToolStack tool = ToolStack.copyFrom(match.tool);
     ModifierId overslime = TinkerModifiers.overslime.getId();
-    if (tool.getUpgrades().getLevel(overslime) == 0) {
-      tool.addModifier(overslime, 1);
+    TinkerModifiers.overslime.get().addOverslime(tool, tool.getModifier(overslime), match.itemsFound * restoreAmount);
+    return tool.copyStack(match.tool);
+  }
+
+  /** Gets the remaining items after repairing the necessary number of times */
+  public static NonNullList<ItemStack> getRemainingItems(CraftingContainer inv, Ingredient ingredient, int repairNeeded, int repairPerItem) {
+    NonNullList<ItemStack> list = NonNullList.withSize(inv.getContainerSize(), ItemStack.EMPTY);
+    for (int i = 0; i < inv.getContainerSize(); i++) {
+      ItemStack stack = inv.getItem(i);
+      if (ingredient.test(stack)) {
+        // if done repairing, leave the items
+        if (repairNeeded <= 0) {
+          list.set(i, stack.copyWithCount(1));
+          continue;
+        }
+        repairNeeded -= repairPerItem;
+      }
+      if (stack.hasCraftingRemainingItem()) {
+        list.set(i, stack.getCraftingRemainingItem());
+      }
     }
-    TinkerModifiers.overslime.get().addOverslime(tool, tool.getModifier(overslime), restoreAmount);
-    return tool.copyStack(match);
+    return list;
+  }
+
+  @Override
+  public NonNullList<ItemStack> getRemainingItems(CraftingContainer inv) {
+    // step 1: find out how much we need to repair
+    ToolFound inputs = findTool(inv, tools, ingredient);
+    int repairNeeded = 0;
+    int repairPerItem = restoreAmount;
+    if (inputs != null) {
+      ToolStack tool = ToolStack.from(inputs.tool);
+      OverslimeModifier overslime = TinkerModifiers.overslime.get();
+      repairNeeded = overslime.getShieldCapacity(tool, tool.getModifier(overslime)) - overslime.getShield(tool);
+      repairPerItem *= OverslimeModifier.getOverworkedBonus(tool);
+    }
+
+    // step 2: consume as many items as are needed to do the repair
+    return getRemainingItems(inv, ingredient, repairNeeded, repairPerItem);
   }
 
   @Override

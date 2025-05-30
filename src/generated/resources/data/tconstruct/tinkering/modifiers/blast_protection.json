@@ -14,7 +14,7 @@
           "mantle:can_protect",
           {
             "type": "mantle:tag",
-            "tag": "tconstruct:protection/projectile"
+            "tag": "tconstruct:protection/blast"
           }
         ]
       },

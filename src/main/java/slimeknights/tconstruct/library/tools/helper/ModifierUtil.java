@@ -128,6 +128,15 @@ public final class ModifierUtil {
     return false;
   }
 
+  /** Shortcut to get a persistent flag when the tool stack is not needed otherwise */
+  public static boolean checkPersistentPresent(ItemStack stack, ResourceLocation key) {
+    CompoundTag nbt = stack.getTag();
+    if (nbt != null && nbt.contains(ToolStack.TAG_VOLATILE_MOD_DATA, Tag.TAG_COMPOUND)) {
+      return nbt.getCompound(ToolStack.TAG_VOLATILE_MOD_DATA).contains(key.toString());
+    }
+    return false;
+  }
+
   /** Shortcut to get a volatile int value when the tool stack is not needed otherwise */
   public static int getVolatileInt(ItemStack stack, ResourceLocation flag) {
     CompoundTag nbt = stack.getTag();

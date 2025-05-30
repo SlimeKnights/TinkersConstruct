@@ -28,8 +28,7 @@ public class SpringingModifier extends SlingModifier {
   }
 
   @Override
-  public void onStoppedUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {
-    super.onStoppedUsing(tool, modifier, entity, timeLeft);
+  public void beforeReleaseUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int useDuration, int timeLeft, ModifierEntry activeModifier) {
     Level level = entity.level();
     if (entity instanceof Player player && !player.isFallFlying()) {
       player.causeFoodExhaustion(0.2F);
@@ -55,6 +54,8 @@ public class SpringingModifier extends SlingModifier {
         return;
       }
     }
-    level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), Sounds.SLIME_SLING.getSound(), entity.getSoundSource(), 1, 0.5f);
+    if (isActive(tool, modifier, activeModifier)) {
+      level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), Sounds.SLIME_SLING.getSound(), entity.getSoundSource(), 1, 0.5f);
+    }
   }
 }

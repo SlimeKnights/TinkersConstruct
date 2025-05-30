@@ -1717,16 +1717,16 @@ public class SmelteryRecipeProvider extends BaseRecipeProvider implements ISmelt
     // ichor is again special, melting via byproduct
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerWorld.ichorGeode), TinkerFluids.blazingBlood, FluidValues.ICHOR_BLAZING_BLOOD, 1.0f)
                         .addByproduct(TinkerFluids.ichor.result(FluidValues.ICHOR_BYPRODUCT))
-                        .save(consumer, location(folder + "crystal"));
+                        .save(consumer, location(slimeFolder + "ichor/crystal"));
     MeltingRecipeBuilder.melting(Ingredient.of(TinkerWorld.ichorGeode.getBlock()), TinkerFluids.blazingBlood, FluidValues.ICHOR_BLAZING_BLOOD * 4, 2.0f)
                         .addByproduct(TinkerFluids.ichor.result(FluidValues.ICHOR_BYPRODUCT * 4))
-                        .save(consumer, location(folder + "crystal_block"));
+                        .save(consumer, location(slimeFolder + "ichor/crystal_block"));
     for (BudSize bud : BudSize.values()) {
       int size = bud.getSize();
       MeltingRecipeBuilder.melting(Ingredient.of(TinkerWorld.ichorGeode.getBud(bud)), TinkerFluids.blazingBlood, FluidValues.ICHOR_BLAZING_BLOOD * size, (size + 1) / 2f)
                           .addByproduct(TinkerFluids.ichor.result(FluidValues.ICHOR_BYPRODUCT * size))
                           .setOre(OreRateType.GEM)
-                          .save(consumer, location(folder + "bud_" + bud.getName()));
+                          .save(consumer, location(slimeFolder + "ichor/bud_" + bud.getName()));
     }
 
     // recycle saplings

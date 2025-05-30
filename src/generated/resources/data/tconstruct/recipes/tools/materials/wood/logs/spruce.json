@@ -4,7 +4,7 @@
     "tag": "minecraft:spruce_logs"
   },
   "leftover": "minecraft:spruce_planks",
-  "material": "tconstruct:wood#spruce",
+  "material": "tconstruct:wood",
   "needed": 1,
   "value": 4
 }

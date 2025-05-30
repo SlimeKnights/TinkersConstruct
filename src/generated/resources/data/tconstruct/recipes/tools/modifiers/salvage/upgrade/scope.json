@@ -4,12 +4,7 @@
   "slots": {
     "upgrades": 1
   },
-  "tools": [
-    {
-      "tag": "tconstruct:modifiable/ranged/bows"
-    },
-    {
-      "tag": "tconstruct:modifiable/staffs"
-    }
-  ]
+  "tools": {
+    "tag": "tconstruct:modifiable/interactable/charge"
+  }
 }

@@ -6,8 +6,8 @@
     }
   ],
   "effects": [
-    "Adds an overslime bar which is consumed before durability",
-    "Recharged with slimeballs, amount varies by type",
+    "Adds an overslime bar, used before durability",
+    "Recharged with slimeballs, or bottles in the crafting table",
     "Capacity is boosted by many tool materials",
     "Applies debuff to tools without slimy materials"
   ]

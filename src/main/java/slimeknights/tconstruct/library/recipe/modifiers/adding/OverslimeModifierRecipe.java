@@ -116,7 +116,7 @@ public class OverslimeModifierRecipe implements ITinkerStationRecipe, IDisplayMo
 
     // how much did we actually consume?
     int maxNeeded = overslime.getShield(result.getTool()) - current;
-    IncrementalModifierRecipe.updateInputs(inv, ingredient, maxNeeded, restoreAmount, ItemStack.EMPTY);
+    IncrementalModifierRecipe.updateInputs(inv, ingredient, maxNeeded, restoreAmount * OverslimeModifier.getOverworkedBonus(tool), ItemStack.EMPTY);
   }
 
   @Override

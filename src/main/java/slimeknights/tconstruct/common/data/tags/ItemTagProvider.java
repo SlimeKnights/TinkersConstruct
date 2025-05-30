@@ -69,6 +69,7 @@ import static slimeknights.tconstruct.common.TinkerTags.Items.HELD_ARMOR;
 import static slimeknights.tconstruct.common.TinkerTags.Items.HELMETS;
 import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE_ARMOR;
+import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE_CHARGE;
 import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE_DUAL;
 import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE_LEFT;
 import static slimeknights.tconstruct.common.TinkerTags.Items.INTERACTABLE_RIGHT;
@@ -299,7 +300,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 
     // shields
     addToolTags(TinkerTools.travelersShield, DURABILITY, BONUS_SLOTS, SHIELDS, INTERACTABLE_LEFT, Tags.Items.TOOLS_SHIELDS, EMBELLISHMENT_WOOD, DYEABLE);
-    addToolTags(TinkerTools.plateShield,     DURABILITY, BONUS_SLOTS, SHIELDS, INTERACTABLE_LEFT, Tags.Items.TOOLS_SHIELDS, MULTIPART_TOOL);
+    addToolTags(TinkerTools.plateShield,     DURABILITY, BONUS_SLOTS, SHIELDS, INTERACTABLE_LEFT, Tags.Items.TOOLS_SHIELDS, MULTIPART_TOOL, UNSALVAGABLE);
 
     // care about order for armor in the book
     tag(BASIC_ARMOR);
@@ -330,9 +331,9 @@ public class ItemTagProvider extends ItemTagsProvider {
     // modifier helper tags
     this.tag(LOOT_CAPABLE_TOOL).addTag(MELEE).addTag(HARVEST);
     this.tag(UNARMED).addTag(CHESTPLATES);
-    // migrating one handed and two handed to interactable right
     this.tag(INTERACTABLE_RIGHT).addTags(INTERACTABLE_DUAL);
     this.tag(INTERACTABLE_LEFT).addTag(INTERACTABLE_DUAL);
+    this.tag(INTERACTABLE_CHARGE).addTags(INTERACTABLE_RIGHT, BOWS, SHIELDS);
     // interactable armor is mostly so some mod could disable all chestplate interactions in one swing
     this.tag(INTERACTABLE_ARMOR).addTag(CHESTPLATES);
     // left and right handed are held, but not armor
@@ -345,6 +346,7 @@ public class ItemTagProvider extends ItemTagsProvider {
     this.tag(RANGED).addTags(BOWS, STAFFS);
     this.tag(BOWS).addTags(LONGBOWS, CROSSBOWS);
     this.tag(TRADER_TOOLS).addTag(ANCIENT_TOOLS);
+    this.tag(UNSALVAGABLE).addTag(ANCIENT_TOOLS); // ancient tools lack tool parts, but may have special override recipes to salvage
     // headlight support
     this.tag(ItemTags.create(new ResourceLocation("headlight", "headlight_helmets"))).addTag(HELMETS);
 
@@ -371,15 +373,18 @@ public class ItemTagProvider extends ItemTagsProvider {
 
     // tag for tool parts, mostly used by JEI right now
     this.tag(TinkerTags.Items.TOOL_PARTS)
-        .add(TinkerToolParts.pickHead.get(), TinkerToolParts.hammerHead.get(),
-             TinkerToolParts.smallAxeHead.get(), TinkerToolParts.broadAxeHead.get(),
-             TinkerToolParts.smallBlade.get(), TinkerToolParts.broadBlade.get(),
-             TinkerToolParts.adzeHead.get(), TinkerToolParts.largePlate.get(),
-             TinkerToolParts.toolBinding.get(), TinkerToolParts.toughBinding.get(),
-             TinkerToolParts.toolHandle.get(), TinkerToolParts.toughHandle.get(),
-             TinkerToolParts.bowLimb.get(), TinkerToolParts.bowGrip.get(), TinkerToolParts.bowstring.get(),
-             TinkerToolParts.maille.get(), TinkerToolParts.shieldCore.get(),
-             TinkerToolParts.repairKit.get()) // repair kit is not strictly a tool part, but this list just helps out JEI
+        .add(TinkerToolParts.repairKit.get()) // repair kit is not strictly a tool part, but this list just helps out JEI
+        .addTag(TinkerTags.Items.BARTERED_PARTS); // all bartered parts must be tool parts
+    this.tag(TinkerTags.Items.BARTERED_PARTS)
+        .add(
+          TinkerToolParts.pickHead.get(), TinkerToolParts.hammerHead.get(),
+          TinkerToolParts.smallAxeHead.get(), TinkerToolParts.broadAxeHead.get(),
+          TinkerToolParts.smallBlade.get(), TinkerToolParts.broadBlade.get(),
+          TinkerToolParts.adzeHead.get(), TinkerToolParts.largePlate.get(),
+          TinkerToolParts.toolBinding.get(), TinkerToolParts.toughBinding.get(),
+          TinkerToolParts.toolHandle.get(), TinkerToolParts.toughHandle.get(),
+          TinkerToolParts.bowLimb.get(), TinkerToolParts.bowGrip.get(), TinkerToolParts.bowstring.get(),
+          TinkerToolParts.maille.get(), TinkerToolParts.shieldCore.get())
         .add(TinkerToolParts.plating.values().toArray(new Item[0]));
     // tag for the part chest items
     this.tag(TinkerTags.Items.CHEST_PARTS).addTag(TinkerTags.Items.TOOL_PARTS).add(TinkerSmeltery.dummyPlating.values().toArray(new Item[0]));
@@ -404,8 +409,9 @@ public class ItemTagProvider extends ItemTagsProvider {
              Items.BROWN_SHULKER_BOX, Items.GREEN_SHULKER_BOX, Items.RED_SHULKER_BOX, Items.BLACK_SHULKER_BOX);
 
     this.tag(TinkerTags.Items.VARIANT_PLANKS)
-        .add(Items.OAK_PLANKS, Items.SPRUCE_PLANKS, Items.BIRCH_PLANKS, Items.JUNGLE_PLANKS, Items.DARK_OAK_PLANKS, Items.ACACIA_PLANKS, Items.MANGROVE_PLANKS, Items.CHERRY_PLANKS, Items.CRIMSON_PLANKS, Items.WARPED_PLANKS)
+        .add(Items.CRIMSON_PLANKS, Items.WARPED_PLANKS)
         .addTag(TinkerTags.Items.SLIMY_PLANKS);
+    // the logs have "variants" as they have their own recipes
     this.tag(TinkerTags.Items.VARIANT_LOGS).addTags(ItemTags.OAK_LOGS, ItemTags.SPRUCE_LOGS, ItemTags.BIRCH_LOGS, ItemTags.JUNGLE_LOGS, ItemTags.DARK_OAK_LOGS, ItemTags.ACACIA_LOGS, ItemTags.MANGROVE_LOGS, ItemTags.CHERRY_LOGS, ItemTags.CRIMSON_STEMS, ItemTags.WARPED_STEMS, TinkerTags.Items.SLIMY_LOGS);
 
     // part builder

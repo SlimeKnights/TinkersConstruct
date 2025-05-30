@@ -8,8 +8,10 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.Mth;
 
 /** Represents 2 argument stack operations */
+@SuppressWarnings("SuspiciousNameCombination")
 @RequiredArgsConstructor
 public enum PostFixOperator implements StackOperation {
+  // basic math
   ADD("+", Float::sum),
   SUBTRACT("-", (left, right) -> left - right),
   SUBTRACT_FLIPPED("!-", (left, right) -> right - left),
@@ -34,6 +36,19 @@ public enum PostFixOperator implements StackOperation {
   }),
   POWER("^", (left, right) -> (float)Math.pow(left, right)),
   POWER_FLIPPED("!^", (left, right) -> (float)Math.pow(right, left)),
+
+  // logical operators
+  // for all of them, if the result is true you get 1, otherwise 0
+  EQUAL             ("==", (left, right) -> left == right ? 1 : 0),
+  NOT_EQUAL         ("!=", (left, right) -> left != right ? 1 : 0),
+  LESS_THAN         ("<",  (left, right) -> left <  right ? 1 : 0),
+  LESS_THAN_EQUAL   ("<=", (left, right) -> left <= right ? 1 : 0),
+  GREATER_THAN      (">",  (left, right) -> left >  right ? 1 : 0),
+  GREATER_THAN_EQUAL(">=", (left, right) -> left >= right ? 1 : 0),
+  EQUAL_EPS    ("~~", (left, right) -> Mth.equal(left, right) ? 1 : 0),
+  NOT_EQUAL_EPS("!~", (left, right) -> Mth.equal(left, right) ? 0 : 1),
+
+  // piecewise
   MIN("min", Math::min),
   MAX("max", Math::max),
   /** Makes the top value on the stack 0 if its negative */
@@ -84,6 +99,8 @@ public enum PostFixOperator implements StackOperation {
       stack.push(Mth.ceil(stack.popFloat()));
     }
   },
+
+  // stack operations
   /** Swaps the top two elements */
   SWAP("swap") {
     @Override

@@ -4,7 +4,9 @@ import lombok.Getter;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.ApiStatus.NonExtendable;
 import slimeknights.mantle.data.loadable.common.IngredientLoadable;
@@ -14,15 +16,21 @@ import slimeknights.mantle.data.loadable.primitive.IntLoadable;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.json.IntRange;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
+import slimeknights.tconstruct.library.modifiers.ModifierHooks;
 import slimeknights.tconstruct.library.modifiers.ModifierId;
 import slimeknights.tconstruct.library.modifiers.util.LazyModifier;
 import slimeknights.tconstruct.library.recipe.RecipeResult;
 import slimeknights.tconstruct.library.recipe.modifiers.ModifierRecipeLookup;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationContainer;
 import slimeknights.tconstruct.library.recipe.tinkerstation.ITinkerStationRecipe;
+import slimeknights.tconstruct.library.tools.SlotType;
 import slimeknights.tconstruct.library.tools.SlotType.SlotCount;
+import slimeknights.tconstruct.library.tools.nbt.DummyToolStack;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 import slimeknights.tconstruct.library.tools.nbt.LazyToolStack;
+import slimeknights.tconstruct.library.tools.nbt.ModDataNBT;
+import slimeknights.tconstruct.library.tools.nbt.ModifierNBT;
+import slimeknights.tconstruct.library.tools.nbt.ToolDataNBT;
 import slimeknights.tconstruct.library.tools.nbt.ToolStack;
 import slimeknights.tconstruct.tools.TinkerModifiers;
 import slimeknights.tconstruct.tools.item.ModifierCrystalItem;
@@ -30,6 +38,7 @@ import slimeknights.tconstruct.tools.item.ModifierCrystalItem;
 import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static slimeknights.tconstruct.library.recipe.modifiers.adding.IDisplayModifierRecipe.modifiersForResult;
@@ -103,6 +112,9 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
   /** Cache of input items shared between result and input */
   @Nullable
   private List<ItemStack> toolInputs = null;
+  /** Cache of modifier slots produced by this recipe for JEI display */
+  @Nullable
+  protected List<SlotCount> resultSlots = null;
 
   /** Gets or builds the list of tool inputs */
   protected List<ItemStack> getToolInputs() {
@@ -148,6 +160,42 @@ public abstract class AbstractModifierRecipe implements ITinkerStationRecipe, ID
       toolWithModifier = getToolInputs().stream().map(stack -> withModifiers(stack, modifiersForResult(result, result))).collect(Collectors.toList());
     }
     return toolWithModifier;
+  }
+
+  /**
+   * Helper to get the result slots for a given modifier recipe by querying volatile data.
+   * Does not handle modifier traits for simplicity.
+   * @param result  Modifier crafted by this recipe.
+   * @param tool    Representative tool for this recipe
+   * @param variant Swappable variant, for recipes like rebalanced.
+   */
+  public static List<SlotCount> getResultSlots(ModifierEntry result, Item tool, String variant) {
+    // add variant info for the sake of rebalanced
+    ModDataNBT persistentData = new ModDataNBT();
+    if (!variant.isEmpty()) {
+      persistentData.putString(result.getId(), variant);
+    }
+    // build volatile data, will read that for slot info
+    ToolDataNBT volatileData = new ToolDataNBT();
+    result.getHook(ModifierHooks.VOLATILE_DATA).addVolatileData(new DummyToolStack(tool, ModifierNBT.EMPTY, persistentData), result, volatileData);
+    return SlotType.getAllSlotTypes().stream().map(type -> {
+      int count = volatileData.getSlots(type);
+      if (count > 0) {
+        return new SlotCount(type, count);
+      }
+      return null;
+    }).filter(Objects::nonNull).toList();
+  }
+
+  @Override
+  public List<SlotCount> getResultSlots() {
+    if (resultSlots == null) {
+      // we need to decide a tool for the dummy stack. Could just use air, but might as well use a tool that shows up
+      // on the odd chance the behavior differs per tool this might be wrong, but practically that just affects ancient tools on input right now
+      ItemStack[] tools = toolRequirement.getItems();
+      resultSlots = getResultSlots(getDisplayResult(), tools.length > 0 ? tools[0].getItem() : Items.AIR, "");
+    }
+    return resultSlots;
   }
 
 

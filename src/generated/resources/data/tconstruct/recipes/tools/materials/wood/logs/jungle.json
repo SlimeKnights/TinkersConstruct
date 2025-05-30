@@ -4,7 +4,7 @@
     "tag": "minecraft:jungle_logs"
   },
   "leftover": "minecraft:jungle_planks",
-  "material": "tconstruct:wood#jungle",
+  "material": "tconstruct:wood",
   "needed": 1,
   "value": 4
 }

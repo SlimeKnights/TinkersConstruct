@@ -22,7 +22,7 @@ public class ChannelTank extends FluidTank {
 	private final ChannelBlockEntity parent;
 
 	public ChannelTank(int capacity, ChannelBlockEntity parent) {
-		super(capacity, fluid -> !fluid.getFluid().getFluidType().isLighterThanAir());
+		super(capacity);
 		this.parent = parent;
 	}
 

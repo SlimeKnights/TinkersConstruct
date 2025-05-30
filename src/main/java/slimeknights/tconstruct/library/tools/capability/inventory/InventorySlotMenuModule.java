@@ -57,7 +57,7 @@ public enum InventorySlotMenuModule implements ModifierModule, SlotStackModifier
   }
 
   /** Checks if the given menu supports opening the menu */
-  private static boolean isValidContainer(AbstractContainerMenu menu) {
+  public static boolean isValidContainer(AbstractContainerMenu menu) {
     // player inventory has a null type, which throws when used through the getter
     if (menu.menuType == null) {
       return true;

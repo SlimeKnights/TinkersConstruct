@@ -20,6 +20,7 @@
 
     "__interaction_abilities__": null,
     "blocking":    "#755A30",
+    "brushing":    "#FC9982",
     "firestarter": "#5D342C",
     "parrying":    "#755A30",
     "pathing":     "#8a361e",
@@ -96,6 +97,7 @@
 
 
     "__slotless__": null,
+    "barebow":       "#896727",
     "creative_slot": "#CCBA47",
     "dyed":          "#AAAAAA",
     "nearsighted":   "#796571",

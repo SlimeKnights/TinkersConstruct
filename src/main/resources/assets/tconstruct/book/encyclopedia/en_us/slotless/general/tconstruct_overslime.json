@@ -2,10 +2,10 @@
   "modifier_id": "tconstruct:overslime",
   "text": [
     {
-      "text": "Overslime grants tools a second durability bar, which is consumed before the main durability bar. By default, tools start with 50 max overslime, multiplied by its durability modifier."
+      "text": "Overslime grants tools a second durability bar, used before the main durability bar. By default, tools start with 50 max overslime, multiplied by its durability modifier."
     },
     {
-      "text": "Tools with no overforced or slimy materials have reduced stats",
+      "text": "Tools with no overforced or slimy materials have reduced stats. Slime bottles can be used in the crafting table to restore overslime.",
       "paragraph": true
     }
   ],

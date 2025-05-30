@@ -1,5 +1,6 @@
 package slimeknights.tconstruct.library.data;
 
+import com.google.common.collect.Streams;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -12,17 +13,23 @@ import net.minecraft.server.packs.PackType;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.phys.Vec2;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.ApiStatus.NonExtendable;
 import slimeknights.mantle.data.GenericDataProvider;
 import slimeknights.mantle.registration.object.EnumObject;
 import slimeknights.mantle.registration.object.IdAwareObject;
+import slimeknights.tconstruct.library.tools.item.ranged.ModifiableCrossbowItem;
+import slimeknights.tconstruct.library.tools.item.ranged.ModifiableLauncherItem;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Stream;
 
 /** Helper for generating tool item models */
 public abstract class AbstractToolItemModelProvider extends GenericDataProvider {
@@ -61,42 +68,136 @@ public abstract class AbstractToolItemModelProvider extends GenericDataProvider 
     transformTool("tool/" + name + "/broken", readJson(id), "", false, "broken", brokenParts);
   }
 
-  public enum AmmoType { CROSSBOW, BOW, NONE }
+  /** Logic for creating models for the given ammo type */
+  @NonExtendable
+  protected interface AmmoHandler {
+    default void apply(AbstractToolItemModelProvider self, String name, JsonObject base, JsonObject properties, int pullingCount, String[] pullingParts) {
+      for (int i = 1; i <= pullingCount; i++) {
+        String pulling = "tool/" + name + "/pulling_" + i;
+        self.transformTool(pulling, base, "", false, Integer.toString(i), pullingParts);
+        self.withDisplay("tool/" + name + "/blocking_" + i, self.resource(pulling), properties);
+      }
+    }
+  }
 
-  /** Creates a model in the blocking folder with the given copied display */
-  protected void bow(IdAwareObject bow, JsonObject properties, boolean crossbow, String... pullingParts) throws IOException {
-    pulling(bow, properties, crossbow ? AmmoType.CROSSBOW : AmmoType.BOW, "bowstring", 3, pullingParts);
+  /** Default staticly display ammo for bows or crossbows */
+  public enum AmmoType implements AmmoHandler {
+    CROSSBOW {
+      @Override
+      public void apply(AbstractToolItemModelProvider self, String name, JsonObject base, JsonObject properties, int pullingCount, String[] pullingParts) {
+        // crossbows have two ammo states
+        String arrowName = "tool/" + name + "/arrow";
+        String fireworkName = "tool/" + name + "/firework";
+        JsonObject ammoBase = suffixTextures(base.deepCopy(), "3", pullingParts);
+        self.models.put(arrowName, self.addPart(ammoBase.deepCopy(), "ammo", name, "arrow"));
+        self.models.put(fireworkName, self.addPart(ammoBase.deepCopy(), "ammo", name, "firework"));
+        self.withDisplay("tool/" + name + "/arrow_blocking", self.resource(arrowName), properties);
+        self.withDisplay("tool/" + name + "/firework_blocking", self.resource(fireworkName), properties);
+        // apply default blocking and pulling
+        super.apply(self, name, base, properties, pullingCount, pullingParts);
+      }
+    },
+    BOW {
+      @Override
+      public void apply(AbstractToolItemModelProvider self, String name, JsonObject base, JsonObject properties, int pullingCount, String[] pullingParts) {
+        // create charging tools before adding in the arrow
+        String[] pullingWithArrow = Streams.concat(Stream.of("arrow"), Arrays.stream(pullingParts)).toArray(String[]::new);
+        // bows have an arrow part that pulls back
+        JsonObject withArrow = self.addPart(base.deepCopy(), "arrow", name, "arrow");
+        for (int i = 1; i <= pullingCount; i++) {
+          String pulling = "tool/" + name + "/pulling_arrow_" + i;
+          self.transformTool(pulling, withArrow, "", false, Integer.toString(i), pullingWithArrow);
+          self.withDisplay("tool/" + name + "/blocking_arrow_" + i, self.resource(pulling), properties);
+        }
+        // apply default blocking and pulling
+        super.apply(self, name, base, properties, pullingCount, pullingParts);
+      }
+    },
+    NONE;
+  }
+
+  /** Serializes the vector to an JSON array */
+  private static JsonElement serializeVec2(Vec2 vec2) {
+    JsonArray array = new JsonArray();
+    array.add(vec2.x);
+    array.add(vec2.y);
+    return array;
+  }
+
+  /** Crossbow displaying ammo as an item stack instead of statically */
+  public record CrossbowAmmo(Vec2 ammoOffset, boolean flipAmmo, boolean leftAmmo) implements AmmoHandler {
+    @Override
+    public void apply(AbstractToolItemModelProvider self, String name, JsonObject base, JsonObject properties, int pullingCount, String[] pullingParts) {
+      // crossbows have two ammo states
+      String fireworkName = "tool/" + name + "/firework";
+      JsonObject ammoBase = suffixTextures(base.deepCopy(), "3", pullingParts);
+      self.models.put(fireworkName, self.addPart(ammoBase.deepCopy(), "ammo", name, "firework"));
+      self.withDisplay("tool/" + name + "/firework_blocking", self.resource(fireworkName), properties);
+
+      // apply default blocking and pulling
+      for (int i = 1; i < pullingCount; i++) {
+        String pulling = "tool/" + name + "/pulling_" + i;
+        self.transformTool(pulling, base, "", false, Integer.toString(i), pullingParts);
+        self.withDisplay("tool/" + name + "/blocking_" + i, self.resource(pulling), properties);
+      }
+      String pulling = "tool/" + name + "/pulling_" + pullingCount;
+      JsonObject arrow = self.transformTool(pulling, base, "", false, Integer.toString(pullingCount), pullingParts);
+      self.withDisplay("tool/" + name + "/blocking_" + pullingCount, self.resource(pulling), properties);
+      // add the arrow to pulling 3, ToolModel handles not showing it when it has no ammo
+      {
+        JsonObject ammo = new JsonObject();
+        ammo.addProperty("key", ModifiableCrossbowItem.KEY_CROSSBOW_AMMO.toString());
+        ammo.addProperty("flip", flipAmmo);
+        ammo.addProperty("left", leftAmmo);
+        ammo.add("offset", serializeVec2(ammoOffset));
+        arrow.add("ammo", ammo);
+      }
+    }
+  }
+
+  /** Longbow displaying ammo on each pulling and blocking variant */
+  public record LongbowAmmo(Vec2[] smallOffsets, Vec2[] largeOffsets, boolean flipAmmo, boolean leftAmmo) implements AmmoHandler {
+    @Override
+    public void apply(AbstractToolItemModelProvider self, String name, JsonObject base, JsonObject properties, int pullingCount, String[] pullingParts) {
+      // bows have an arrow part that pulls back
+      for (int i = 1; i <= pullingCount; i++) {
+        String pulling = "tool/" + name + "/pulling_" + i;
+        JsonObject arrow = self.transformTool(pulling, base, "", false, Integer.toString(i), pullingParts);
+        {
+          JsonObject ammo = new JsonObject();
+          ammo.addProperty("key", ModifiableLauncherItem.KEY_DRAWBACK_AMMO.toString());
+          ammo.addProperty("flip", flipAmmo);
+          ammo.addProperty("left", leftAmmo);
+          ammo.add("small_offset", serializeVec2(smallOffsets[i-1]));
+          ammo.add("large_offset", serializeVec2(largeOffsets[i-1]));
+          arrow.add("ammo", ammo);
+        }
+        self.withDisplay("tool/" + name + "/blocking_" + i, self.resource(pulling), properties);
+      }
+    }
   }
 
   /** Creates a model in the blocking folder with the given copied display */
-  protected void pulling(IdAwareObject bow, JsonObject properties, AmmoType ammo, String brokenPart, int pullingCount, String... pullingParts) throws IOException {
+  protected void bow(IdAwareObject bow, JsonObject properties, boolean crossbow, String... pullingParts) throws IOException {
+    bow(bow, properties, crossbow ? AmmoType.CROSSBOW : AmmoType.BOW, pullingParts);
+  }
+
+  /** Creates a model in the blocking folder with the given copied display */
+  protected void bow(IdAwareObject bow, JsonObject properties, AmmoHandler ammo, String... pullingParts) throws IOException {
+    pulling(bow, properties, ammo, "bowstring", 3, pullingParts);
+  }
+
+  /** Creates a model in the blocking folder with the given copied display */
+  protected void pulling(IdAwareObject bow, JsonObject properties, AmmoHandler ammo, String brokenPart, int pullingCount, String... pullingParts) throws IOException {
     ResourceLocation id = bow.getId();
     String name = id.getPath();
     JsonObject base = readJson(id);
     base.remove("overrides"); // don't need them anywhere, notably ditching for the sake of ammo models
     transformTool("tool/" + name + "/broken", base, "", false, "broken", brokenPart);
     withDisplay("tool/" + name + "/blocking", id, properties);
-    switch(ammo) {
-      case CROSSBOW -> {
-        // crossbows have two ammo states
-        String arrowName = "tool/" + name + "/arrow";
-        String fireworkName = "tool/" + name + "/firework";
-        JsonObject ammoBase = suffixTextures(base.deepCopy(), "3", pullingParts);
-        models.put(arrowName, addPart(ammoBase.deepCopy(), "ammo", name, "arrow"));
-        models.put(fireworkName, addPart(ammoBase.deepCopy(), "ammo", name, "firework"));
-        withDisplay("tool/" + name + "/arrow_blocking", resource(arrowName), properties);
-        withDisplay("tool/" + name + "/firework_blocking", resource(fireworkName), properties);
-      }
-      case BOW -> {
-        // bows have an arrow part that pulls back
-        addPart(base, "arrow", name, "arrow");
-      }
-    }
-    for (int i = 1; i <= pullingCount; i++) {
-      String pulling = "tool/" + name + "/pulling_" + i;
-      transformTool(pulling, base, "", false, Integer.toString(i), pullingParts);
-      withDisplay("tool/" + name + "/blocking_" + i, resource(pulling), properties);
-    }
+
+    // apply ammo specific code
+    ammo.apply(this, name, base, properties, pullingCount, pullingParts);
   }
 
   /** Creates models for blocking, broken and fully charged for the given tool */
@@ -211,7 +312,7 @@ public abstract class AbstractToolItemModelProvider extends GenericDataProvider 
   }
 
   /** Transforms the given tool by adding suffixes to listed textures and the modifier roots */
-  protected void transformTool(String destination, JsonObject tool, String parent, boolean allRoots, String suffix, String... updateTextures) {
+  protected JsonObject transformTool(String destination, JsonObject tool, String parent, boolean allRoots, String suffix, String... updateTextures) {
     JsonObject transformed = tool.deepCopy();
     // set parent if given
     if (!parent.isEmpty()) {
@@ -230,5 +331,6 @@ public abstract class AbstractToolItemModelProvider extends GenericDataProvider 
     // delete overrides, no need to nest them
     transformed.remove("overrides");
     models.put(destination, transformed);
+    return transformed;
   }
 }

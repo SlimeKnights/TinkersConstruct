@@ -18,8 +18,7 @@ import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
 /** Teleport through blocks in the look direction */
 public class WarpingModifier extends SlingModifier {
   @Override
-  public void onStoppedUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int timeLeft) {
-    super.onStoppedUsing(tool, modifier, entity, timeLeft);
+  public void beforeReleaseUsing(IToolStackView tool, ModifierEntry modifier, LivingEntity entity, int useDuration, int timeLeft, ModifierEntry activeModifier) {
     Level level = entity.level();
     if (!level.isClientSide && entity instanceof ServerPlayer player) {
       float f = getForce(tool, modifier, entity, timeLeft, false) * 6;
@@ -72,7 +71,9 @@ public class WarpingModifier extends SlingModifier {
           }
         }
       }
-      level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), Sounds.SLIME_SLING_TELEPORT.getSound(), entity.getSoundSource(), 1, 0.5f);
+      if (isActive(tool, modifier, activeModifier)) {
+        level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), Sounds.SLIME_SLING_TELEPORT.getSound(), entity.getSoundSource(), 1, 0.5f);
+      }
     }
   }
 }

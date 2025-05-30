@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:brushing",
+  "text": [
+    {
+      "text": "Discover an ancient civilisation. Or at least a bunch of silly pottery."
+    }
+  ],
+  "effects": [
+    "Keep using on suspicious blocks to find loot",
+    "Single level",
+    "Requires 1 ability slot"
+  ]
+}

@@ -11,11 +11,21 @@
               "materials": [
                 {
                   "type": "tconstruct:random",
-                  "allow_hidden": true
+                  "allow_hidden": true,
+                  "material": {
+                    "type": "mantle:inverted",
+                    "inverted_type": "mantle:tag",
+                    "tag": "tconstruct:exclude_from_loot"
+                  }
                 },
                 {
                   "type": "tconstruct:random",
-                  "allow_hidden": true
+                  "allow_hidden": true,
+                  "material": {
+                    "type": "mantle:inverted",
+                    "inverted_type": "mantle:tag",
+                    "tag": "tconstruct:exclude_from_loot"
+                  }
                 }
               ]
             }

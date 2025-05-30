@@ -1,0 +1,14 @@
+{
+  "modifier_id": "tconstruct:barebow",
+  "text": [
+    {
+      "text": "Whoever said bear archery was a good idea?"
+    }
+  ],
+  "effects": [
+    "Bow will not use ammo from the inventory",
+    "Useful for preferring crystalshot or quivers",
+    "Single use",
+    "Slotless"
+  ]
+}

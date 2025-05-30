@@ -1,0 +1,10 @@
+{
+  "type": "tconstruct:overslime_modifier",
+  "ingredient": {
+    "item": "tconstruct:earth_slime_bottle"
+  },
+  "restore_amount": 20,
+  "tools": {
+    "tag": "tconstruct:modifiable/durability"
+  }
+}

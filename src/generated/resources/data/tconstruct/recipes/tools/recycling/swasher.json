@@ -1,0 +1,14 @@
+{
+  "type": "tconstruct:part_builder_tool_recycling",
+  "parts": [
+    "tconstruct:small_blade",
+    "tconstruct:tool_handle",
+    "tconstruct:bow_grip"
+  ],
+  "pattern": {
+    "tag": "tconstruct:patterns/default"
+  },
+  "tools": {
+    "item": "tconstruct:swasher"
+  }
+}

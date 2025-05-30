@@ -91,6 +91,11 @@ public interface IDisplayModifierRecipe extends IModifierRecipe {
     return false;
   }
 
+  /** Gets a list of modifier slots obtained from this recipe. Generally just redirects to modifier behavior. */
+  default List<SlotCount> getResultSlots() {
+    return List.of();
+  }
+
 
   /* Helpers */
 

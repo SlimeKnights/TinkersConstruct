@@ -586,7 +586,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(ModifierIds.trickQuiver, abilitySalvage))
                          .save(consumer, prefix(ModifierIds.trickQuiver, abilityFolder));
     BiConsumer<ItemLike,String> crystalshotRecipe = (item, variant) ->
-      SwappableModifierRecipeBuilder.modifier(TinkerModifiers.crystalshot, variant)
+      SwappableModifierRecipeBuilder.modifier(ModifierIds.crystalshot, variant)
                                     .addInput(item)
                                     .addInput(Items.BLAZE_ROD)
                                     .addInput(item)
@@ -594,14 +594,14 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                     .addInput(TinkerMaterials.manyullyn.getIngotTag())
                                     .setTools(TinkerTags.Items.BOWS)
                                     .setSlots(SlotType.ABILITY, 1)
-                                    .save(consumer, wrap(TinkerModifiers.crystalshot, abilityFolder, "_" + variant));
+                                    .save(consumer, wrap(ModifierIds.crystalshot, abilityFolder, "_" + variant));
     crystalshotRecipe.accept(Items.AMETHYST_CLUSTER, "amethyst");
     crystalshotRecipe.accept(TinkerWorld.earthGeode.getBud(BudSize.CLUSTER), "earthslime");
     crystalshotRecipe.accept(TinkerWorld.skyGeode.getBud(BudSize.CLUSTER), "skyslime");
     crystalshotRecipe.accept(TinkerWorld.ichorGeode.getBud(BudSize.CLUSTER), "ichor");
     crystalshotRecipe.accept(TinkerWorld.enderGeode.getBud(BudSize.CLUSTER), "enderslime");
     crystalshotRecipe.accept(Items.NETHER_QUARTZ_ORE, "quartz");
-    SwappableModifierRecipeBuilder.modifier(TinkerModifiers.crystalshot, "random")
+    SwappableModifierRecipeBuilder.modifier(ModifierIds.crystalshot, "random")
                                   .addInput(Ingredient.of(TinkerWorld.earthGeode.getBud(BudSize.CLUSTER), TinkerWorld.skyGeode.getBud(BudSize.CLUSTER)))
                                   .addInput(Ingredient.of(Items.AMETHYST_CLUSTER, Items.NETHER_QUARTZ_ORE))
                                   .addInput(Ingredient.of(TinkerWorld.ichorGeode.getBud(BudSize.CLUSTER), TinkerWorld.enderGeode.getBud(BudSize.CLUSTER)))
@@ -610,11 +610,18 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                                   .setTools(TinkerTags.Items.BOWS)
                                   .setSlots(SlotType.ABILITY, 1)
                                   .allowCrystal() // random is the coolest, and happens to be the easiest to enable
-                                  .save(consumer, wrap(TinkerModifiers.crystalshot, abilityFolder, "_random"));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.crystalshot)
+                                  .save(consumer, wrap(ModifierIds.crystalshot, abilityFolder, "_random"));
+    ModifierRecipeBuilder.modifier(ModifierIds.crystalshot)
                          .setSlots(SlotType.ABILITY, 1)
                          .setTools(TinkerTags.Items.BOWS)
-                         .saveSalvage(consumer, prefix(TinkerModifiers.crystalshot, abilitySalvage));
+                         .saveSalvage(consumer, prefix(ModifierIds.crystalshot, abilitySalvage));
+    ModifierRecipeBuilder.modifier(ModifierIds.barebow)
+      .setTools(TinkerTags.Items.BOWS)
+      .addInput(Tags.Items.STRING)
+      .addInput(Tags.Items.RODS_WOODEN)
+      .addInput(Tags.Items.STRING)
+      .setMaxLevel(1)
+      .save(consumer, prefix(ModifierIds.barebow, slotlessFolder));
     ModifierRecipeBuilder.modifier(TinkerModifiers.multishot)
                          .addInput(Items.PISTON)
                          .addInput(TinkerMaterials.amethystBronze.getIngotTag())
@@ -636,17 +643,15 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setTools(IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.CROSSBOWS), Ingredient.of(TinkerTags.Items.INTERACTABLE_LEFT))) // this is the same recipes as dual wielding, but crossbows do not interact on left
                          .saveSalvage(consumer, prefix(TinkerModifiers.sinistral, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.sinistral, upgradeFolder));
-    ModifierRecipeBuilder.modifier(TinkerModifiers.scope)
-                         .setTools(ingredientFromTags(TinkerTags.Items.BOWS, TinkerTags.Items.STAFFS))
-                         .addInput(Tags.Items.STRING)
-                         .addInput(Items.SPYGLASS)
-                         .addInput(Tags.Items.STRING)
-                         .addInput(Tags.Items.DUSTS_REDSTONE)
-                         .addInput(Tags.Items.DUSTS_REDSTONE)
-                         .setSlots(SlotType.UPGRADE, 1)
-                         .setMaxLevel(1).checkTraitLevel()
-                         .saveSalvage(consumer, prefix(TinkerModifiers.scope, upgradeSalvage))
-                         .save(consumer, prefix(TinkerModifiers.scope, upgradeFolder));
+    ModifierRecipeBuilder.modifier(ModifierIds.scope)
+      .setTools(TinkerTags.Items.INTERACTABLE_CHARGE)
+      .addInput(Items.SUGAR)
+      .addInput(Items.SPYGLASS)
+      .addInput(Items.SUGAR)
+      .setSlots(SlotType.UPGRADE, 1)
+      .setMaxLevel(1).checkTraitLevel()
+      .saveSalvage(consumer, prefix(ModifierIds.scope, upgradeSalvage))
+      .save(consumer, prefix(ModifierIds.scope, upgradeFolder));
 
     /*
      * armor
@@ -860,15 +865,15 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
 
     // armor ability
     // helmet
-    ModifierRecipeBuilder.modifier(TinkerModifiers.zoom)
-                         .setTools(ingredientFromTags(TinkerTags.Items.HELMETS, TinkerTags.Items.INTERACTABLE_RIGHT, TinkerTags.Items.SHIELDS))
+    ModifierRecipeBuilder.modifier(ModifierIds.zoom)
+                         .setTools(ingredientFromTags(TinkerTags.Items.HELMETS, TinkerTags.Items.INTERACTABLE_CHARGE))
                          .addInput(Tags.Items.STRING)
                          .addInput(Items.SPYGLASS)
                          .addInput(Tags.Items.STRING)
                          .setSlots(SlotType.UPGRADE, 1)
                          .setMaxLevel(1).checkTraitLevel()
-                         .saveSalvage(consumer, prefix(TinkerModifiers.zoom, upgradeSalvage))
-                         .save(consumer, prefix(TinkerModifiers.zoom, upgradeFolder));
+                         .saveSalvage(consumer, prefix(ModifierIds.zoom, upgradeSalvage))
+                         .save(consumer, prefix(ModifierIds.zoom, upgradeFolder));
     Ingredient tanks = NoContainerIngredient.of(TinkerTags.Items.TANKS);
     ModifierRecipeBuilder.modifier(TinkerModifiers.slurping)
                          .addInput(Items.GLASS_BOTTLE)
@@ -1291,6 +1296,15 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .setSlots(SlotType.ABILITY, 1)
                          .saveSalvage(consumer, prefix(ModifierIds.tilling, abilitySalvage))
                          .save(consumer, prefix(ModifierIds.tilling, abilityFolder));
+    ModifierRecipeBuilder.modifier(ModifierIds.brushing)
+      .setTools(IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.DURABILITY), Ingredient.of(TinkerTags.Items.INTERACTABLE_RIGHT)))
+      .addInput(Tags.Items.FEATHERS)
+      .addInput(Tags.Items.INGOTS_COPPER)
+      .setMaxLevel(1).checkTraitLevel()
+      .setSlots(SlotType.ABILITY, 1)
+      .saveSalvage(consumer, prefix(ModifierIds.brushing, abilitySalvage))
+      .save(consumer, prefix(ModifierIds.brushing, abilityFolder));
+
     // glowing
     ModifierRecipeBuilder.modifier(ModifierIds.glowing)
                          .setTools(interactableBootsWithDurability)
@@ -1318,7 +1332,7 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
                          .saveSalvage(consumer, prefix(TinkerModifiers.fireprimer, upgradeSalvage))
                          .save(consumer, prefix(TinkerModifiers.fireprimer, upgradeFolder));
     // slings
-    Ingredient blockWhileCharging = IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.DURABILITY), ingredientFromTags(TinkerTags.Items.INTERACTABLE_RIGHT, TinkerTags.Items.SHIELDS));
+    Ingredient blockWhileCharging = IntersectionIngredient.of(Ingredient.of(TinkerTags.Items.DURABILITY), Ingredient.of(TinkerTags.Items.INTERACTABLE_CHARGE));
     ModifierRecipeBuilder.modifier(TinkerModifiers.flinging)
                          .setTools(blockWhileCharging)
                          .addInput(Tags.Items.STRING)
@@ -1651,15 +1665,6 @@ public class ModifierRecipeProvider extends BaseRecipeProvider {
     String folder = "tools/modifiers/slotless/";
 
     // slime staff
-    // overworld
-    woodTexture(consumer, MaterialIds.oak, Blocks.OAK_PLANKS, folder);
-    woodTexture(consumer, MaterialIds.birch, Blocks.BIRCH_PLANKS, folder);
-    woodTexture(consumer, MaterialIds.spruce, Blocks.SPRUCE_PLANKS, folder);
-    woodTexture(consumer, MaterialIds.jungle, Blocks.JUNGLE_PLANKS, folder);
-    woodTexture(consumer, MaterialIds.acacia, Blocks.ACACIA_PLANKS, folder);
-    woodTexture(consumer, MaterialIds.darkOak, Blocks.DARK_OAK_PLANKS, folder);
-    woodTexture(consumer, MaterialIds.mangrove, Blocks.MANGROVE_PLANKS, folder);
-    woodTexture(consumer, MaterialIds.cherry, Blocks.CHERRY_PLANKS, folder);
     // nether
     woodTexture(consumer, MaterialIds.crimson, Blocks.CRIMSON_PLANKS, folder);
     woodTexture(consumer, MaterialIds.warped, Blocks.WARPED_PLANKS, folder);

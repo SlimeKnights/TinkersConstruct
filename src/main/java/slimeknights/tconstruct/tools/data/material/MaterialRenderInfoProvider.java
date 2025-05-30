@@ -28,14 +28,6 @@ public class MaterialRenderInfoProvider extends AbstractMaterialRenderInfoProvid
     buildRenderInfo(MaterialIds.vine).color(0x48B518).fallbacks("vine");
     // tier 1 - wood
     buildRenderInfo(MaterialIds.wood).color(0x876627).fallbacks("wood", "stick", "primitive");
-    buildRenderInfo(MaterialIds.oak);
-    buildRenderInfo(MaterialIds.spruce);
-    buildRenderInfo(MaterialIds.birch);
-    buildRenderInfo(MaterialIds.jungle);
-    buildRenderInfo(MaterialIds.darkOak);
-    buildRenderInfo(MaterialIds.acacia);
-    buildRenderInfo(MaterialIds.mangrove);
-    buildRenderInfo(MaterialIds.cherry);
     buildRenderInfo(MaterialIds.crimson);
     buildRenderInfo(MaterialIds.warped);
     buildRenderInfo(MaterialIds.bamboo);

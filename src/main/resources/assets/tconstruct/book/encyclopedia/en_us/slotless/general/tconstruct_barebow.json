@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:barebow",
+  "text": [
+    {
+      "text": "Prevents the bow from using ammo from the inventory. Useful to ensure that crystalshot or bulk quiver is used instead, or to otherwise use a bow for firing things besides arrows."
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "Single use",
+    "Slotless"
+  ]
+}

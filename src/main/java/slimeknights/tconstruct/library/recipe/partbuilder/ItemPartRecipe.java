@@ -113,4 +113,9 @@ public class ItemPartRecipe implements IDisplayPartBuilderRecipe {
   public List<ItemStack> getPatternItems() {
     return Arrays.asList(patternItem.getItems());
   }
+
+  @Override
+  public List<ItemStack> getResultItems() {
+    return List.of(result.get());
+  }
 }

@@ -34,17 +34,40 @@
               "materials": [
                 {
                   "type": "tconstruct:random",
-                  "allow_hidden": true
+                  "allow_hidden": true,
+                  "material": {
+                    "type": "mantle:inverted",
+                    "inverted_type": "mantle:tag",
+                    "tag": "tconstruct:exclude_from_loot"
+                  }
                 },
                 {
                   "type": "tconstruct:random",
-                  "allow_hidden": true
+                  "allow_hidden": true,
+                  "material": {
+                    "type": "mantle:inverted",
+                    "inverted_type": "mantle:tag",
+                    "tag": "tconstruct:exclude_from_loot"
+                  }
                 }
               ]
             }
           ],
           "name": "tconstruct:battlesign",
           "weight": 5
+        },
+        {
+          "type": "tconstruct:tool_part",
+          "material": {
+            "type": "tconstruct:random",
+            "allow_hidden": true,
+            "material": {
+              "type": "mantle:tag",
+              "tag": "tconstruct:bartered"
+            }
+          },
+          "tag": "tconstruct:parts/bartered",
+          "weight": 8
         }
       ],
       "name": "main"

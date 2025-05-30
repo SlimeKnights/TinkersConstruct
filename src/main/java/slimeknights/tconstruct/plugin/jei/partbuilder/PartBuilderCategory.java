@@ -3,6 +3,7 @@ package slimeknights.tconstruct.plugin.jei.partbuilder;
 import lombok.Getter;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
+import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -14,11 +15,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import slimeknights.mantle.client.SafeClientAccess;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.client.GuiUtil;
 import slimeknights.tconstruct.library.client.materials.MaterialTooltipCache;
@@ -29,6 +28,7 @@ import slimeknights.tconstruct.plugin.jei.TConstructJEIConstants;
 import slimeknights.tconstruct.tables.TinkerTables;
 
 import java.awt.Color;
+import java.util.List;
 
 public class PartBuilderCategory implements IRecipeCategory<IDisplayPartBuilderRecipe> {
   private static final ResourceLocation BACKGROUND_LOC = TConstruct.getResource("textures/gui/jei/tinker_station.png");
@@ -71,19 +71,20 @@ public class PartBuilderCategory implements IRecipeCategory<IDisplayPartBuilderR
   @Override
   public void setRecipe(IRecipeLayoutBuilder builder, IDisplayPartBuilderRecipe recipe, IFocusGroup focuses) {
     // items
-    MaterialVariant material = recipe.getMaterial();
-    if (!material.isEmpty()) {
-      builder.addSlot(RecipeIngredientRole.INPUT, 25, 16).addItemStacks(MaterialItemList.getItems(material.getVariant()));
-    }
+    List<ItemStack> materialItems = recipe.getMaterialItems();
+    IRecipeSlotBuilder materialSlot = builder.addSlot(RecipeIngredientRole.INPUT, 25, 16).addItemStacks(materialItems);
     builder.addSlot(RecipeIngredientRole.INPUT,  4, 16).addItemStacks(recipe.getPatternItems());
     // patterns
     builder.addSlot(RecipeIngredientRole.INPUT, 46, 16).addIngredient(TConstructJEIConstants.PATTERN_TYPE, recipe.getPattern());
-    // TODO: material input?
+    // TODO: material ingredient input?
 
     // output
-    RegistryAccess access = SafeClientAccess.getRegistryAccess();
-    if (access != null) {
-      builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 15).addItemStack(recipe.getResultItem(access));
+    List<ItemStack> resultItems = recipe.getResultItems();
+    IRecipeSlotBuilder resultSlot = builder.addSlot(RecipeIngredientRole.OUTPUT, 96, 15).addItemStacks(resultItems);
+
+    // add focus link between materials and result; practically we only the size for result to be >1 for focus link; but better to be safe
+    if (resultItems.size() == materialItems.size()) {
+      builder.createFocusLink(materialSlot, resultSlot);
     }
   }
 }

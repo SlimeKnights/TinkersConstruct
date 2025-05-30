@@ -1,26 +1,33 @@
 package slimeknights.tconstruct.library.materials;
 
+import com.google.gson.JsonObject;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.minecraft.tags.TagKey;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.util.RandomSource;
+import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
 import slimeknights.mantle.data.loadable.record.SingletonLoader;
+import slimeknights.mantle.data.predicate.IJsonPredicate;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
+import slimeknights.mantle.util.typed.TypedMap;
 import slimeknights.tconstruct.TConstruct;
+import slimeknights.tconstruct.common.json.LegacyLoadable;
 import slimeknights.tconstruct.library.json.IntRange;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
+import slimeknights.tconstruct.library.json.predicate.material.MaterialPredicate;
 import slimeknights.tconstruct.library.materials.definition.IMaterial;
 import slimeknights.tconstruct.library.materials.definition.MaterialId;
 import slimeknights.tconstruct.library.materials.definition.MaterialVariantId;
 import slimeknights.tconstruct.library.materials.stats.MaterialStatsId;
+import slimeknights.tconstruct.library.recipe.material.MaterialRecipeCache;
 import slimeknights.tconstruct.library.tools.nbt.MaterialNBT;
 
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -58,6 +65,11 @@ public abstract class RandomMaterial implements IHaveLoader {
   /** Creates a builder for a random material */
   public static RandomBuilder random() {
     return new RandomBuilder();
+  }
+
+  /** Creates a predicate for a random material variant. Will include material variants unlike {@link #random()} */
+  public static RandomMaterial randomVariant(IJsonPredicate<MaterialVariantId> materials) {
+    return new RandomVariant(materials);
   }
 
   /** Gets a random material */
@@ -121,19 +133,35 @@ public abstract class RandomMaterial implements IHaveLoader {
   @RequiredArgsConstructor
   private static class Randomized extends RandomMaterial implements Function<MaterialStatsId,List<MaterialId>> {
     public static final IntRange TIER_RANGE = new IntRange(0, Integer.MAX_VALUE);
-    public static final RecordLoadable<Randomized> LOADER = RecordLoadable.create(
+    public static final RecordLoadable<Randomized> LOADER = new LegacyLoadable<>(RecordLoadable.create(
       TIER_RANGE.defaultField("tier", r -> r.tier),
       BooleanLoadable.INSTANCE.defaultField("allow_hidden", false, false, r -> r.allowHidden),
-      TinkerLoadables.MATERIAL_TAGS.nullableField("tag", r -> r.tag),
-      Randomized::new);
+      MaterialPredicate.LOADER.defaultField("material", r -> r.material),
+      Randomized::new)) {
+
+      @Override
+      public Randomized deserialize(JsonObject json, TypedMap context) {
+        if (json.has("tag")) {
+          // warn of deprecated usage
+          String debug = context.get(ContextKey.DEBUG);
+          debug = debug != null ? " while parsing " + debug : "";
+          TConstruct.LOG.warn("Using deprecated randomized material key 'tag' in {}, use 'material' instead", debug);
+          // parse all properties that existed in parallel to the deprecated field
+          IntRange tier = TIER_RANGE.getOrDefault(json, "tier");
+          boolean allowHidden = GsonHelper.getAsBoolean(json, "allow_hidden", false);
+          TagKey<IMaterial> tag = TinkerLoadables.MATERIAL_TAGS.getIfPresent(json, "tag");
+          return new Randomized(tier, allowHidden, MaterialPredicate.tag(tag));
+        }
+        return base.deserialize(json, context);
+      }
+    };
 
     /** Minimum material tier */
     private final IntRange tier;
     /** If true, hidden materials are allowed */
     private final boolean allowHidden;
-    /** Material tag condition */
-    @Nullable
-    private final TagKey<IMaterial> tag;
+    /** Material condition */
+    private final IJsonPredicate<MaterialVariantId> material;
 
     /** Cached list of material choices, automatically deleted when loot tables reload */
     private final Map<MaterialStatsId,List<MaterialId>> materialChoices = new ConcurrentHashMap<>();
@@ -148,13 +176,13 @@ public abstract class RandomMaterial implements IHaveLoader {
         .filter(material -> {
           MaterialId id = material.getIdentifier();
           return this.tier.test(material.getTier()) && (allowHidden || !material.isHidden())
-                 && (tag == null || registry.isInTag(id, tag))
+                 && this.material.matches(material.getIdentifier())
                  && registry.getMaterialStats(id, statType).isPresent();
         })
         .map(IMaterial::getIdentifier)
         .toList();
       if (choices.isEmpty()) {
-        TConstruct.LOG.warn("Random material found no options for statType={}, tier={}, allowHidden={}", statType, tier, allowHidden);
+        TConstruct.LOG.warn("Random material found no options for statType={}, tier={}, allowHidden={}, predicate={}", statType, tier, allowHidden, material);
       }
       return choices;
     }
@@ -181,14 +209,70 @@ public abstract class RandomMaterial implements IHaveLoader {
     }
   }
 
+  /** Produces a random material from a material tier */
+  @RequiredArgsConstructor
+  private static class RandomVariant extends RandomMaterial implements Function<MaterialStatsId,List<List<MaterialVariantId>>> {
+    public static final RecordLoadable<RandomVariant> LOADER = RecordLoadable.create(MaterialPredicate.LOADER.defaultField("material", r -> r.material), RandomVariant::new);
+
+    /** Material condition */
+    private final IJsonPredicate<MaterialVariantId> material;
+
+    /** Cached list of material choices, each containing a list of variant choices. Ensures materials with more variants don't get weighted higher */
+    private final Map<MaterialStatsId,List<List<MaterialVariantId>>> materialChoices = new ConcurrentHashMap<>();
+
+    @Override
+    public List<List<MaterialVariantId>> apply(MaterialStatsId statType) {
+      IMaterialRegistry registry = MaterialRegistry.getInstance();
+      List<List<MaterialVariantId>> choices = MaterialRegistry
+        .getInstance()
+        .getAllMaterials()
+        .stream()
+        .map(material -> {
+          MaterialId id = material.getIdentifier();
+          if (registry.getMaterialStats(id, statType).isEmpty()) {
+            return List.<MaterialVariantId>of();
+          }
+          return MaterialRecipeCache.getVariants(material.getIdentifier()).stream().filter(this.material::matches).toList();
+        })
+        .filter(list -> !list.isEmpty())
+        .toList();
+      if (choices.isEmpty()) {
+        TConstruct.LOG.warn("Random variant found no options for statType={}, predicate={}", statType, material);
+      }
+      return choices;
+    }
+
+    @Override
+    public void clearCache() {
+      this.materialChoices.clear();
+    }
+
+    @Override
+    public MaterialVariantId getMaterial(MaterialStatsId statType, RandomSource random) {
+      List<List<MaterialVariantId>> materialChoices = this.materialChoices.computeIfAbsent(statType, this);
+      if (materialChoices.isEmpty()) {
+        // if we have no options, just get the first with the stat type
+        // either this stat type is empty (and thus we end up with unknown), or the filter is too strict (so we end up with a useful material at least)
+        return MaterialRegistry.firstWithStatType(statType).getIdentifier();
+      }
+      List<MaterialVariantId> variantChoices = materialChoices.get(random.nextInt(materialChoices.size()));
+      return variantChoices.get(random.nextInt(variantChoices.size()));
+    }
+
+    @Override
+    public RecordLoadable<RandomVariant> getLoader() {
+      return LOADER;
+    }
+  }
+
   @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
   public static class RandomBuilder {
     /** Material tier */
     private IntRange tier = Randomized.TIER_RANGE;
     private boolean allowHidden = false;
     /** Material tag condition */
-    @Nullable @Setter @Accessors(fluent = true)
-    private TagKey<IMaterial> tag;
+    @Setter @Accessors(fluent = true)
+    private IJsonPredicate<MaterialVariantId> material = MaterialPredicate.ANY;
 
     /** Sets the required tier */
     public RandomBuilder tier(int tier) {
@@ -220,9 +304,15 @@ public abstract class RandomMaterial implements IHaveLoader {
       return this;
     }
 
+    /** Sets the material predicate to a tag predicate */
+    public RandomBuilder tag(TagKey<IMaterial> tag) {
+      this.material = MaterialPredicate.tag(tag);
+      return this;
+    }
+
     /** Builds the instance */
     public RandomMaterial build() {
-      return new Randomized(tier, allowHidden, tag);
+      return new Randomized(tier, allowHidden, material);
     }
   }
 }

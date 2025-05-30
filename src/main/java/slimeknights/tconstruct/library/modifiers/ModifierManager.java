@@ -36,6 +36,7 @@ import net.minecraftforge.fml.ModLoader;
 import net.minecraftforge.fml.event.IModBusEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLLoader;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.util.JsonHelper;
 import slimeknights.mantle.util.RegistryHelper;
@@ -168,7 +169,16 @@ public class ModifierManager extends SimpleJsonResourceReloadListener {
     // validate required modifiers
     for (ModifierId id : expectedDynamicModifiers) {
       if (!dynamicModifiers.containsKey(id)) {
-        log.error("Missing expected modifier '" + id + "'");
+        log.error("Missing expected modifier '{}'", id);
+      }
+    }
+    for (ModifierId id : staticModifiers.keySet()) {
+      if (dynamicModifiers.containsKey(id)) {
+        if (FMLLoader.isProduction()) {
+          log.warn("Dynamic modifier {} is replacing static modifier with the same ID. The ability to do this may be removed in a future version, so if this is intentional please open an issue report with reasoning..", id);
+        } else {
+          log.error("Dynamic modifier {} is replacing static modifier with the same ID. This is likely a bug with your mod, but on the chance its intentional this error does become just a warning at runtime.", id);
+        }
       }
     }
 

@@ -3,8 +3,8 @@ package slimeknights.tconstruct.tools.modules.ranged;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
-import slimeknights.mantle.data.loadable.record.SingletonLoader;
 import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.ModifierHooks;
@@ -20,12 +20,15 @@ import java.util.List;
 import java.util.function.Predicate;
 
 /** Module implementing bulk quiver, which pulls arrows from the inventory to fire */
-public enum BulkQuiverModule implements ModifierModule, BowAmmoModifierHook {
-  INSTANCE;
-
-  public static final SingletonLoader<BulkQuiverModule> LOADER = new SingletonLoader<>(INSTANCE);
+public record BulkQuiverModule(boolean checkStandardArrows) implements ModifierModule, BowAmmoModifierHook {
+  public static final RecordLoadable<BulkQuiverModule> LOADER = RecordLoadable.create(
+    BooleanLoadable.INSTANCE.defaultField("check_standard_arrows", true, BulkQuiverModule::checkStandardArrows),
+    BulkQuiverModule::new);
   private static final List<ModuleHook<?>> DEFAULT_HOOKS = HookProvider.<BulkQuiverModule>defaultHooks(ModifierHooks.BOW_AMMO);
   private static final ResourceLocation LAST_SLOT = TConstruct.getResource("quiver_last_selected");
+  /** @deprecated use {@link #BulkQuiverModule(boolean)} */
+  @Deprecated(forRemoval = true)
+  public static final BulkQuiverModule INSTANCE = new BulkQuiverModule(true);
 
   @Override
   public RecordLoadable<BulkQuiverModule> getLoader() {
@@ -40,7 +43,7 @@ public enum BulkQuiverModule implements ModifierModule, BowAmmoModifierHook {
   @Override
   public ItemStack findAmmo(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, ItemStack standardAmmo, Predicate<ItemStack> ammoPredicate) {
     // skip if we have standard ammo, this quiver holds backup arrows
-    if (!standardAmmo.isEmpty()) {
+    if (checkStandardArrows && !standardAmmo.isEmpty()) {
       return ItemStack.EMPTY;
     }
     StackMatch match = modifier.getHook(ToolInventoryCapability.HOOK).findStack(tool, modifier, ammoPredicate);
@@ -55,6 +58,6 @@ public enum BulkQuiverModule implements ModifierModule, BowAmmoModifierHook {
   public void shrinkAmmo(IToolStackView tool, ModifierEntry modifier, LivingEntity shooter, ItemStack ammo, int needed) {
     // we assume no one else touched the quiver inventory, this is a good assumption, do not make it a bad assumption by modifying the quiver in other modifiers
     ammo.shrink(needed);
-    modifier.getHook(ToolInventoryCapability.HOOK).setStack(tool, modifier, tool.getPersistentData().getInt((LAST_SLOT)), ammo);
+    modifier.getHook(ToolInventoryCapability.HOOK).setStack(tool, modifier, tool.getPersistentData().getInt(LAST_SLOT), ammo);
   }
 }

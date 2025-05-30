@@ -11,6 +11,11 @@
               "materials": [
                 {
                   "type": "tconstruct:random",
+                  "material": {
+                    "type": "mantle:inverted",
+                    "inverted_type": "mantle:tag",
+                    "tag": "tconstruct:exclude_from_loot"
+                  },
                   "tier": 1
                 },
                 {
@@ -18,6 +23,11 @@
                 },
                 {
                   "type": "tconstruct:random",
+                  "material": {
+                    "type": "mantle:inverted",
+                    "inverted_type": "mantle:tag",
+                    "tag": "tconstruct:exclude_from_loot"
+                  },
                   "tier": 1
                 }
               ]
@@ -39,6 +49,11 @@
               "materials": [
                 {
                   "type": "tconstruct:random",
+                  "material": {
+                    "type": "mantle:inverted",
+                    "inverted_type": "mantle:tag",
+                    "tag": "tconstruct:exclude_from_loot"
+                  },
                   "tier": 1
                 },
                 {
@@ -46,6 +61,11 @@
                 },
                 {
                   "type": "tconstruct:random",
+                  "material": {
+                    "type": "mantle:inverted",
+                    "inverted_type": "mantle:tag",
+                    "tag": "tconstruct:exclude_from_loot"
+                  },
                   "tier": 1
                 }
               ]
