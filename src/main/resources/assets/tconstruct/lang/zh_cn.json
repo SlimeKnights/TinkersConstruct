@@ -172,6 +172,7 @@
   "item.tconstruct.knightslime_ingot.tooltip": "黏糊糊的，还有金属光泽，但却和石头似的？还真是魅力无限！",
   "item.tconstruct.knightslime_nugget": "骑士史莱姆粒",
 
+  "item.tconstruct.book.click_to_open": "右击以阅读",
   "item.tconstruct.materials_and_you": "匠魂宝典：材料与你",
   "item.tconstruct.materials_and_you.tooltip": "深析工具与材料的指南手册\nSelena著",
   "item.tconstruct.encyclopedia": "工匠大百科",
@@ -1638,14 +1639,6 @@
 
   "__comment": "Tier 1 Materials",
   "material.tconstruct.wood": "木",
-  "material.tconstruct.wood.oak": "橡木",
-  "material.tconstruct.wood.spruce": "云杉木",
-  "material.tconstruct.wood.birch": "白桦木",
-  "material.tconstruct.wood.jungle": "丛林木",
-  "material.tconstruct.wood.acacia": "金合欢木",
-  "material.tconstruct.wood.dark_oak": "深色橡木",
-  "material.tconstruct.wood.mangrove": "红树木",
-  "material.tconstruct.wood.cherry": "樱花木",
   "material.tconstruct.wood.crimson": "绯红木",
   "material.tconstruct.wood.warped": "诡异木",
   "material.tconstruct.wood.format": "木%s",
@@ -1779,7 +1772,7 @@
 
   "material.tconstruct.amethyst_bronze": "紫水晶青铜",
   "material.tconstruct.amethyst_bronze.flavor": "别和青铜搞混了。",
-  "material.tconstruct.amethyst_bronze.encyclopedia": "挖掘不需要工具收集的方块时，每级挖掘速度+0.5，工具种类不匹配时也有效",
+  "material.tconstruct.amethyst_bronze.encyclopedia": "挖掘不需要工具收集的方块时，每级挖掘速度+1，工具种类不匹配时也有效",
   "material.tconstruct.amethyst_bronze.ranged": "每级初速度+0.1，但同时限定箭矢出射方向；前三级分别将方向限定为32、16、8向",
   "material.tconstruct.amethyst_bronze.armor": "每级攻击速度+2.5%，但同时限定回击角度；前四级分别将方向限定为32、16、8、4向",
 
@@ -1969,8 +1962,9 @@
 
   "material.tconstruct.electrum": "琥珀金",
   "material.tconstruct.electrum.flavor": "适用于电子元器件。",
-  "material.tconstruct.electrum.encyclopedia": "挖掘方块或击杀怪物时，每级经验掉落+25%",
-  "material.tconstruct.electrum.ranged": "用箭矢击杀怪物时，每级经验掉落+25%",
+  "material.tconstruct.electrum.encyclopedia": "挖掘方块或击杀怪物时，每级经验掉落+50%",
+  "material.tconstruct.electrum.ranged": "用箭矢击杀怪物时，每级经验掉落+50%",
+  "material.tconstruct.electrum.armor": "挖掘方块或击杀怪物时，每级经验掉落+25%",
 
   "material.tconstruct.necronium": "辐射之骨",
   "material.tconstruct.necronium.flavor": "这么多的辐射，很可能标志着你为数不多的生命只剩下四分之一了",
@@ -2004,6 +1998,9 @@
   "modifier.tconstruct.offhanded.2": "无持握",
   "modifier.tconstruct.offhanded.flavor": "不要想太多",
   "modifier.tconstruct.offhanded.description": "副手持握物品时禁用工具的交互功能",
+  "modifier.tconstruct.barebow": "空放",
+  "modifier.tconstruct.barebow.flavor": "古时弓箭手的训练方式",
+  "modifier.tconstruct.barebow.description": "弓不会使用物品栏中的箭矢，而会使用箭袋或晶镞代替箭矢射击。",
 
 
   "_comment": "Durability",
@@ -2419,6 +2416,9 @@
   "modifier.tconstruct.tilling": "耕耘",
   "modifier.tconstruct.tilling.flavor": "“犁”别后的重逢！",
   "modifier.tconstruct.tilling.description": "工具可耕耘泥土",
+  "modifier.tconstruct.brushing": "刷扫",
+  "modifier.tconstruct.brushing.flavor": "清刷那些可疑的方块！",
+  "modifier.tconstruct.brushing.description": "工具可清刷可疑的方块，有概率获得陶片",
   "modifier.tconstruct.glowing": "荧光",
   "modifier.tconstruct.glowing.flavor": "闪闪放光芒！",
   "modifier.tconstruct.glowing.description": "持握者潜行时可放置荧光球，会消耗工具耐久度",
@@ -2632,7 +2632,7 @@
   "modifier.tconstruct.lacerating.description": "使攻击目标流血，造成更多伤害",
   "modifier.tconstruct.crumbling": "粉碎",
   "modifier.tconstruct.crumbling.flavor": "不要粉身碎骨！",
-  "modifier.tconstruct.crumbling.description": "工具在挖掘无需工具采掘的方块时速度更快",
+  "modifier.tconstruct.crumbling.description": "工具在挖掘无需工具采掘的方块时速度更快。挖掘不匹配的方块时更好用！",
   "modifier.tconstruct.crumbling.mining_speed": "粉碎挖掘速度",
   "modifier.tconstruct.crystalbound": "晶固",
   "modifier.tconstruct.crystalbound.flavor": "水晶之道，是为稳直",
@@ -3018,6 +3018,7 @@
   "stat.tconstruct.slot.prefix.abilities": "能力槽：",
   "stat.tconstruct.slot.prefix.souls": "灵魂槽：",
   "stat.tconstruct.slot.prefix.defense": "防御槽：",
+  "stat.tconstruct.slot.prefix.slotless": "无需槽位",
 
   "stat.tconstruct.slot.display.upgrades": "升级",
   "stat.tconstruct.slot.display.abilities": "能力",
@@ -3293,6 +3294,8 @@
   "jei.tconstruct.time": "%s秒",
   "jei.tconstruct.temperature": "%s°C",
   "jei.tconstruct.modifier_ingredient": "%s强化",
+  "jei.tconstruct.modifier_slot.ingredient": "强化槽：%s",
+  "jei.tconstruct.modifier_slot.id": "槽位ID：%s",
 
   "jei.tconstruct.casting.basin": "铸造盆",
   "jei.tconstruct.casting.table": "铸件台",
@@ -3318,8 +3321,8 @@
   "jei.tconstruct.alloy.catalyst": "不会消耗",
 
   "jei.tconstruct.modifiers.title": "强化",
-  "jei.tconstruct.modifiers.slot": "加持该强化需要1个%s槽",
-  "jei.tconstruct.modifiers.slots": "加持该强化需要%s个%s槽",
+  "jei.tconstruct.modifiers.slot": "加持需要1个%s槽",
+  "jei.tconstruct.modifiers.slots": "加持需要%s个%s槽",
   "jei.tconstruct.modifiers.free": "无需强化槽",
   "jei.tconstruct.modifiers.incremental": "这个配方是递进配方，可消耗配方的部分对应材料获得部分强化",
   "jei.tconstruct.modifiers.level.min": "最低等级：%s",
