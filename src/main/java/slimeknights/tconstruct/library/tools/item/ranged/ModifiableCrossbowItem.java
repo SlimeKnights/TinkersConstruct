@@ -269,7 +269,7 @@ public class ModifiableCrossbowItem extends ModifiableLauncherItem {
 
         // let modifiers set properties
         for (ModifierEntry entry : modifiers.getModifiers()) {
-          entry.getHook(ModifierHooks.PROJECTILE_LAUNCH).onProjectileLaunch(tool, entry, living, projectile, arrow, projectileData, arrowIndex == primaryIndex);
+          entry.getHook(ModifierHooks.PROJECTILE_LAUNCH).onProjectileLaunch(tool, entry, living, ammo, projectile, arrow, projectileData, arrowIndex == primaryIndex);
         }
 
         // finally, fire the projectile

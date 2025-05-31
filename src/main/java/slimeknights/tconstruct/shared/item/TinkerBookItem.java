@@ -15,11 +15,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import slimeknights.mantle.client.SafeClientAccess;
-import slimeknights.mantle.client.book.BookHelper;
 import slimeknights.mantle.item.LecternBookItem;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.network.TinkerNetwork;
-import slimeknights.tconstruct.common.network.UpdateInventoryPagePacket;
 import slimeknights.tconstruct.library.client.book.TinkerBook;
 
 import javax.annotation.Nullable;
@@ -72,13 +69,7 @@ public class TinkerBookItem extends LecternBookItem {
       if (player.level().isClientSide) {
         player.containerMenu.resumeRemoteUpdates();
         player.closeContainer();
-        int index = slot.getSlotIndex();
-        String page = BookHelper.getCurrentSavedPage(stack);
-        TinkerBook.getBook(bookType).openGui(stack.getHoverName(), page, newPage -> {
-          // its probably safe to use stack, but just in case we refetch
-          BookHelper.writeSavedPageToBook(player.getInventory().getItem(index), newPage);
-          TinkerNetwork.getInstance().sendToServer(new UpdateInventoryPagePacket(index, newPage));
-        });
+        TinkerBook.getBook(bookType).openGui(slot.getSlotIndex(), stack);
       }
       return true;
     }

@@ -74,7 +74,6 @@ public class TinkerNetwork extends NetworkWrapper {
     instance.registerPacket(UpdateNeighborsPacket.class, UpdateNeighborsPacket::new, NetworkDirection.PLAY_TO_CLIENT);
     instance.registerPacket(GeneratePartTexturesPacket.class, GeneratePartTexturesPacket::new, NetworkDirection.PLAY_TO_CLIENT);
     instance.registerPacket(SyncPersistentDataPacket.class, SyncPersistentDataPacket::new, NetworkDirection.PLAY_TO_CLIENT);
-    instance.registerPacket(UpdateInventoryPagePacket.class, UpdateInventoryPagePacket::new, NetworkDirection.PLAY_TO_SERVER);
 
     // gadgets
     instance.registerPacket(EntityMovementChangePacket.class, EntityMovementChangePacket::new, NetworkDirection.PLAY_TO_CLIENT);

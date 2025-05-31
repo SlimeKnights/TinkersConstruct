@@ -31,7 +31,6 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
-import slimeknights.mantle.Mantle;
 import slimeknights.mantle.fluid.FluidTransferHelper;
 import slimeknights.mantle.recipe.helper.RecipeHelper;
 import slimeknights.mantle.util.BlockEntityHelper;
@@ -621,20 +620,5 @@ public abstract class CastingBlockEntity extends TableBlockEntity implements Wor
   @Nullable
   public static <CAST extends CastingBlockEntity, RET extends BlockEntity> BlockEntityTicker<RET> getTicker(Level level, BlockEntityType<RET> check, BlockEntityType<CAST> casting) {
     return BlockEntityHelper.castTicker(check, casting, level.isClientSide ? CLIENT_TICKER : SERVER_TICKER);
-  }
-
-  // TODO: make public in Mantle
-
-  private static final String KEY_FILLED = Mantle.makeDescriptionId("block", "tank.filled");
-  private static final String KEY_DRAINED = Mantle.makeDescriptionId("block", "tank.drained");
-
-  private static void playEmptySound(Level world, BlockPos pos, Player player, FluidStack transferred) {
-    world.playSound(null, pos, FluidTransferHelper.getEmptySound(transferred), SoundSource.BLOCKS, 1.0F, 1.0F);
-    player.displayClientMessage(Component.translatable(KEY_FILLED, transferred.getAmount(), transferred.getDisplayName()), true);
-  }
-
-  private static void playFillSound(Level world, BlockPos pos, Player player, FluidStack transferred) {
-    world.playSound(null, pos, FluidTransferHelper.getFillSound(transferred), SoundSource.BLOCKS, 1.0F, 1.0F);
-    player.displayClientMessage(Component.translatable(KEY_DRAINED, transferred.getAmount(), transferred.getDisplayName()), true);
   }
 }

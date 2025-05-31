@@ -8,6 +8,7 @@ import lombok.experimental.Accessors;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.RandomSource;
+import slimeknights.mantle.data.loadable.LegacyLoadable;
 import slimeknights.mantle.data.loadable.field.ContextKey;
 import slimeknights.mantle.data.loadable.primitive.BooleanLoadable;
 import slimeknights.mantle.data.loadable.record.RecordLoadable;
@@ -17,7 +18,6 @@ import slimeknights.mantle.data.registry.GenericLoaderRegistry;
 import slimeknights.mantle.data.registry.GenericLoaderRegistry.IHaveLoader;
 import slimeknights.mantle.util.typed.TypedMap;
 import slimeknights.tconstruct.TConstruct;
-import slimeknights.tconstruct.common.json.LegacyLoadable;
 import slimeknights.tconstruct.library.json.IntRange;
 import slimeknights.tconstruct.library.json.TinkerLoadables;
 import slimeknights.tconstruct.library.json.predicate.material.MaterialPredicate;
@@ -50,6 +50,7 @@ public abstract class RandomMaterial implements IHaveLoader {
     LOADER.register(getResource("fixed"), Fixed.LOADER);
     LOADER.register(getResource("first"), First.LOADER);
     LOADER.register(getResource("random"), Randomized.LOADER);
+    LOADER.register(getResource("random_variant"), RandomVariant.LOADER);
   }
 
   /** Creates an instance for a fixed material */

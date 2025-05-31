@@ -4,13 +4,13 @@
   "check_trait_level": true,
   "inputs": [
     {
-      "tag": "forge:ingots/manyullyn"
+      "tag": "forge:ingots/slimesteel"
     },
     {
       "item": "minecraft:nautilus_shell"
     },
     {
-      "tag": "forge:ingots/manyullyn"
+      "tag": "forge:ingots/slimesteel"
     },
     {
       "tag": "forge:slimeball/sky"

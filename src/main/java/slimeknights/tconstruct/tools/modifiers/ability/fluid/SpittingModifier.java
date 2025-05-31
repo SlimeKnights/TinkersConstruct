@@ -6,6 +6,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -120,7 +121,7 @@ public class SpittingModifier extends Modifier implements GeneralInteractionModi
                 ModDataNBT arrowData = PersistentDataCapability.getOrWarn(spit);
                 // let modifiers set properties
                 for (ModifierEntry entry : tool.getModifierList()) {
-                  entry.getHook(ModifierHooks.PROJECTILE_LAUNCH).onProjectileLaunch(tool, entry, entity, spit, null, arrowData, shotIndex == primaryIndex);
+                  entry.getHook(ModifierHooks.PROJECTILE_LAUNCH).onProjectileLaunch(tool, entry, entity, ItemStack.EMPTY, spit, null, arrowData, shotIndex == primaryIndex);
                 }
 
                 // finally, fire the projectile

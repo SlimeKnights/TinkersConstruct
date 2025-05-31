@@ -5,9 +5,11 @@
       "type": "tconstruct:variant_color"
     },
     {
-      "type": "tconstruct:crystalshot",
+      "type": "tconstruct:infinity",
+      "ammo": "tconstruct:crystalshot",
       "check_standard_arrows": true,
-      "durability_usage": 4
+      "durability_usage": 4,
+      "variant_tag": "variant"
     }
   ],
   "priority": 50,

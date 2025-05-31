@@ -2,21 +2,24 @@ package slimeknights.tconstruct.tools.modifiers.ability.ranged;
 
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
 import slimeknights.mantle.client.ResourceColorManager;
 import slimeknights.tconstruct.library.modifiers.ModifierEntry;
 import slimeknights.tconstruct.library.modifiers.impl.NoLevelsModifier;
+import slimeknights.tconstruct.library.modifiers.modules.behavior.InfinityModule;
 import slimeknights.tconstruct.library.module.ModuleHookMap.Builder;
 import slimeknights.tconstruct.library.tools.nbt.IToolStackView;
-import slimeknights.tconstruct.tools.modules.ranged.CrystalshotModule;
+import slimeknights.tconstruct.tools.TinkerTools;
+import slimeknights.tconstruct.tools.item.CrystalshotItem;
 
 import javax.annotation.Nullable;
 
-/** @deprecated use {@link CrystalshotModule} and {@link slimeknights.tconstruct.library.modifiers.modules.display.ModifierVariantColorModule} */
+/** @deprecated use {@link InfinityModule} and {@link slimeknights.tconstruct.library.modifiers.modules.display.ModifierVariantColorModule} */
 @Deprecated(forRemoval = true)
 public class CrystalshotModifier extends NoLevelsModifier {
   @Override
   protected void registerHooks(Builder hookBuilder) {
-    hookBuilder.addModule(new CrystalshotModule(4, false));
+    hookBuilder.addModule(new InfinityModule(new ItemStack(TinkerTools.crystalshotItem), CrystalshotItem.TAG_VARIANT,4, false));
   }
 
   @Override

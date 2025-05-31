@@ -16,6 +16,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.EmptyFluidHandler;
 import slimeknights.mantle.fluid.FluidTransferHelper;
 import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer.TransferDirection;
+import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer.TransferResult;
 import slimeknights.mantle.inventory.SmartItemHandlerSlot;
 import slimeknights.mantle.util.sync.ValidZeroDataSlot;
 import slimeknights.tconstruct.TConstruct;
@@ -92,9 +93,8 @@ public class AlloyerContainerMenu extends TriggeringBaseContainerMenu<AlloyerBlo
         // invalid index would make the handler empty through the alloy tank
         if (handler != EmptyFluidHandler.INSTANCE) {
           // even numbers are fill, odd are drain
-          ItemStack result = FluidTransferHelper.interactWithTankSlot(player, handler, held, (id & 1) == 0 ? TransferDirection.FILL_ITEM : TransferDirection.EMPTY_ITEM);
-          setCarried(FluidTransferHelper.getOrTransferFilled(player, held, result));
-          // TODO: if it failed, should we try the other direction?
+          TransferResult result = FluidTransferHelper.interactWithStack(handler, held, (id & 1) == 0 ? TransferDirection.FILL_ITEM : TransferDirection.EMPTY_ITEM);
+          setCarried(FluidTransferHelper.handleUIResult(player, held, result));
         }
       }
       return true;

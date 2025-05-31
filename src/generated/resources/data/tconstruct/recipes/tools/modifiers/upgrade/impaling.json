@@ -3,13 +3,13 @@
   "allow_crystal": true,
   "inputs": [
     {
-      "item": "minecraft:end_rod"
+      "item": "minecraft:pointed_dripstone"
     },
     {
-      "item": "minecraft:end_rod"
+      "item": "minecraft:pointed_dripstone"
     },
     {
-      "item": "minecraft:end_rod"
+      "item": "minecraft:pointed_dripstone"
     }
   ],
   "level": {

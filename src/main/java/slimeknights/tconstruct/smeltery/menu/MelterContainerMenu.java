@@ -15,6 +15,7 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import slimeknights.mantle.fluid.FluidTransferHelper;
 import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer.TransferDirection;
+import slimeknights.mantle.fluid.transfer.IFluidContainerTransfer.TransferResult;
 import slimeknights.mantle.inventory.SmartItemHandlerSlot;
 import slimeknights.mantle.util.sync.ValidZeroDataSlot;
 import slimeknights.tconstruct.TConstruct;
@@ -81,15 +82,14 @@ public class MelterContainerMenu extends TriggeringBaseContainerMenu<MelterBlock
       if (!held.isEmpty()) {
         if (!player.level().isClientSide && tile != null) {
           IFluidHandler tank = id < 2 ? tile.getTank() : tile.getFuelModule().getTank();
-          ItemStack result;
+          TransferResult result;
           // even means drain fluid, odd means fill
           if ((id & 1) == 0) {
-            result = FluidTransferHelper.fillFromTankSlot(player, tank, held, tank.getFluidInTank(0));
+            result = FluidTransferHelper.fillStack(tank, held, tank.getFluidInTank(0));
           } else {
-            result = FluidTransferHelper.interactWithTankSlot(player, tank, held, TransferDirection.EMPTY_ITEM);
+            result = FluidTransferHelper.interactWithStack(tank, held, TransferDirection.EMPTY_ITEM);
           }
-          setCarried(FluidTransferHelper.getOrTransferFilled(player, held, result));
-          // TODO: if it failed, should we try the other direction?
+          setCarried(FluidTransferHelper.handleUIResult(player, held, result));
         }
         return true;
       }

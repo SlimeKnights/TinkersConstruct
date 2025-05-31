@@ -193,7 +193,7 @@ public class ModifiableBowItem extends ModifiableLauncherItem {
 
         // let modifiers such as fiery and punch set properties
         for (ModifierEntry entry : modifiers.getModifiers()) {
-          entry.getHook(ModifierHooks.PROJECTILE_LAUNCH).onProjectileLaunch(tool, entry, living, arrow, arrow, arrowData, arrowIndex == primaryIndex);
+          entry.getHook(ModifierHooks.PROJECTILE_LAUNCH).onProjectileLaunch(tool, entry, living, ammo, arrow, arrow, arrowData, arrowIndex == primaryIndex);
         }
         level.addFreshEntity(arrow);
         level.playSound(null, living.getX(), living.getY(), living.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F) + charge * 0.5F + (angle / 10f));
