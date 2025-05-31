@@ -2,10 +2,10 @@
   "modifier_id": "tconstruct:experienced",
   "text": [
     {
-      "text": "Aumenta a experiência ganha ao matar mobs e quebrar blocos em 25% por nível."
+      "text": "Aumenta a experiência ganha ao matar mobs e quebrar blocos em 50% por nível."
     },
     {
-      "text": "Em peitorais, o bônus de experiência só será aplicado a mobs que forem mortos com uma mão vazia. Calças afetam todas as ferramentas.",
+      "text": "Em armadura, aumenta a experiência em 25% por nível ao usar qualquer ferramenta",
       "paragraph": true
     }
   ],

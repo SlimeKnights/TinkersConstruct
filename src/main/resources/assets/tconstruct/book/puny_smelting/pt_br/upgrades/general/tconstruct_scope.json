@@ -6,7 +6,7 @@
     }
   ],
   "effects": [
-    "Permite que ferramentas deêm zoom ao serem carregadas",
+    "Permite que ferramentas deêm zoom gradualmente ao serem carregadas",
     "Nível único",
     "Requer 1 slot de melhoria"
   ]
