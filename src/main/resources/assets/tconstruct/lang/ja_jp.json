@@ -168,6 +168,7 @@
   "item.tconstruct.knightslime_ingot.tooltip": "べとつくが金属のようであり石でもある？何だかわからないがすごい！",
   "item.tconstruct.knightslime_nugget": "ナイトスライム塊",
 
+  "item.tconstruct.book.click_to_open": "右クリックで開く",
   "item.tconstruct.materials_and_you": "素材とあなた",
   "item.tconstruct.materials_and_you.tooltip": "道具と材料についての入門書\nby Selena",
   "item.tconstruct.encyclopedia": "ティンカー大辞典",
@@ -1296,6 +1297,9 @@
   "block.tconstruct.seared_chute": "焼成石のシュート",
   "block.tconstruct.seared_chute.tooltip": "乾式製錬炉にアイテムを入出力する口",
 
+  "block.tconstruct.seared_casting_tank": "鋳造タンク",
+  "block.tconstruct.seared_casting_tank.tooltip": "挿入したアイテムを自動的に空にしたり、充填したりする。\n壊れても液体を保持する。",
+
   "_comment": "Tinkers Foundry",
 
   "block.tconstruct.nether_grout": "ネザーグラウト",
@@ -1352,7 +1356,7 @@
   "block.tconstruct.scorched_basin.tooltip": "鋳造炉から溶けた金属を流し込んでアイテム化させる。",
   "block.tconstruct.scorched_table": "焦熱石の鋳造台",
   "block.tconstruct.scorched_table.tooltip": "鋳造炉から溶けた金属を流し込んでアイテム化させる。",
-  "block.tconstruct.scorched_proxy_tank": "焦熱石のプロキシタンク",
+  "block.tconstruct.scorched_proxy_tank": "焦熱石のティンカータンク",
   "block.tconstruct.scorched_proxy_tank.tooltip": "内部のタンクの代わりに充填や排出が可能なタンク。",
 
   "block.tconstruct.scorched_channel": "焦熱石のチャネル",
@@ -1611,14 +1615,6 @@
 
   "__comment": "Tier 1 Materials",
   "material.tconstruct.wood": "木",
-  "material.tconstruct.wood.oak": "オークの木",
-  "material.tconstruct.wood.spruce": "トウヒの木",
-  "material.tconstruct.wood.birch": "シラカバの木",
-  "material.tconstruct.wood.jungle": "ジャングルの木",
-  "material.tconstruct.wood.acacia": "アカシアの木",
-  "material.tconstruct.wood.dark_oak": "ダークオークの木",
-  "material.tconstruct.wood.mangrove": "マングローブの木",
-  "material.tconstruct.wood.cherry": "サクラの木",
   "material.tconstruct.wood.crimson": "真紅の菌糸",
   "material.tconstruct.wood.warped": "歪んだ菌糸",
   "material.tconstruct.wood.format": "木の%s",
@@ -1716,6 +1712,9 @@
   "material.tconstruct.slimewood.enderbark": "エンダーバーク",
   "material.tconstruct.slimewood.flavor": "これはスライムの木ですか？木にスライムが染み込んでいるのですか？",
   "material.tconstruct.slimewood.encyclopedia": "レベルごとに、毎秒5%の確率でオーバースライムが回復する",
+  "material.tconstruct.slimeskin": "スライムスキン",
+  "material.tconstruct.slimeskin.flavor": "スライムに皮膚はあるのか？",
+  "material.tconstruct.slimeskin.encyclopedia": "レベルごとに、毎秒5%の確率でオーバースライムが回復する",
 
   "material.tconstruct.venombone": "ヴェノムボーン",
   "material.tconstruct.venombone.flavor": "敵の悩みの種になれ。",
@@ -1747,7 +1746,7 @@
 
   "material.tconstruct.amethyst_bronze": "アメジスト青銅",
   "material.tconstruct.amethyst_bronze.flavor": "青銅と混同しないように。",
-  "material.tconstruct.amethyst_bronze.encyclopedia": "道具を必要とせずに採掘できるブロックに対してレベルごとに+0.5の採掘速度補正を受ける（道具がそのブロック採掘に適していない場合でも効果がある）",
+  "material.tconstruct.amethyst_bronze.encyclopedia": "道具を必要とせずに採掘できるブロックに対して（特に道具が有効ではないブロックに対して）レベルごとに+1の採掘速度補正を受ける",
   "material.tconstruct.amethyst_bronze.ranged": "レベルごとに+0.1の速度補正を得るが、代償として最初の3レベルで矢を放てる角度が32方向、16方向、8方向に制限されていく",
   "material.tconstruct.amethyst_bronze.armor": "レベルごとに+2.5%の攻撃速度増加を得るが、代償としてノックバックさせる方向が32方向、16方向、8方向、4方向に制限されていく",
 
@@ -1934,8 +1933,9 @@
 
   "material.tconstruct.electrum": "エレクトラム",
   "material.tconstruct.electrum.flavor": "電子部品に良い。",
-  "material.tconstruct.electrum.encyclopedia": "鉱石またはMobから得られる経験値にレベルごとに+25%の補正を得る",
-  "material.tconstruct.electrum.ranged": "矢で倒したMobから得られる経験値にレベルごとに+25%の補正を得る",
+  "material.tconstruct.electrum.encyclopedia": "鉱石またはMobから得られる経験値にレベルごとに+50%の補正を得る",
+  "material.tconstruct.electrum.ranged": "矢で倒したMobから得られる経験値にレベルごとに+50%の補正を得る",
+  "material.tconstruct.electrum.armor": "ブロックやMobから得られる経験値にレベルごとに+25%の補正を得る",
 
   "material.tconstruct.necronium": "ネクロニウム",
   "material.tconstruct.necronium.flavor": "この大量の崩壊は恐らく自身の寿命の1/4を犠牲にする",
@@ -1968,6 +1968,9 @@
   "modifier.tconstruct.offhanded.2": "無力化",
   "modifier.tconstruct.offhanded.flavor": "あまり難しく考えなくて良い",
   "modifier.tconstruct.offhanded.description": "オフハンドに何か持っている場合にこの道具のアクション効果を無効にする",
+  "modifier.tconstruct.barebow": "裸弓",
+  "modifier.tconstruct.barebow.flavor": "歴史的なアーチェリーの種目",
+  "modifier.tconstruct.barebow.description": "弓はインベントリの矢を使用しなくなり、矢筒やクリスタルショットから使用する",
 
   "_comment": "Durability",
   "modifier.tconstruct.reinforced": "補強",
@@ -2049,7 +2052,7 @@
   "modifier.tconstruct.piercing.description": "防御を無視するボーナスダメージを与える",
   "modifier.tconstruct.piercing.attack_damage": "貫通攻撃力補正",
   "modifier.tconstruct.pierce": "防御無視",
-  "modifier.tconstruct.pierce.flavor": "サボテンになる！",
+  "modifier.tconstruct.pierce.flavor": "トラップになる！",
   "modifier.tconstruct.pierce.description": "対象の防御の一部を無視して攻撃できる",
   "modifier.tconstruct.smite": "アンデッド特効",
   "modifier.tconstruct.smite.flavor": "邪悪なるものに天罰を！",
@@ -2268,7 +2271,7 @@
   "modifier.tconstruct.step_up.description": "段差を階段のように登れるようになる",
   "modifier.tconstruct.leaping": "跳躍",
   "modifier.tconstruct.leaping.flavor": "高い建物もひとっ飛び！",
-  "modifier.tconstruct.leaping.description": "ウサギが高く跳べるように、あなたも高く跳べるようになる",
+  "modifier.tconstruct.leaping.description": "スカイスライムが高く跳べるように、あなたも高く跳べるようになる",
   "modifier.tconstruct.pockets": "ポケット",
   "modifier.tconstruct.pockets.flavor": "素晴らしい発明！",
   "modifier.tconstruct.pockets.description": "ズボンにはポケットがあるので、スニークしながらアクションボタンを押すと追加のインベントリにアクセスできるようになる",
@@ -2380,6 +2383,9 @@
   "modifier.tconstruct.tilling": "畑打ち",
   "modifier.tconstruct.tilling.flavor": "また耕す日まで！",
   "modifier.tconstruct.tilling.description": "道具で土を耕すことができる",
+  "modifier.tconstruct.brushing": "ブラッシング",
+  "modifier.tconstruct.brushing.flavor": "怪しげなブロックを洗う！",
+  "modifier.tconstruct.brushing.description": "道具で怪しげなブロックをブラッシングし、発掘できる",
   "modifier.tconstruct.glowing": "発光",
   "modifier.tconstruct.glowing.flavor": "明るく輝く！",
   "modifier.tconstruct.glowing.description": "道具で耐久度を消費してグロウボールを設置できるようになる",
@@ -2593,7 +2599,7 @@
   "modifier.tconstruct.lacerating.description": "相手を出血させ、追加ダメージを発生させる",
   "modifier.tconstruct.crumbling": "崩落",
   "modifier.tconstruct.crumbling.flavor": "正気を保て！",
-  "modifier.tconstruct.crumbling.description": "採掘に道具を必要としないブロックを早く破壊できる",
+  "modifier.tconstruct.crumbling.description": "採掘に道具を必要としないブロックを早く破壊できる。間違ったブロックを採掘するには最適！",
   "modifier.tconstruct.crumbling.mining_speed": "崩落速度補正",
   "modifier.tconstruct.crystalbound": "クリスタルバウンド",
   "modifier.tconstruct.crystalbound.flavor": "クリスタルの道は一直線",
@@ -2834,6 +2840,11 @@
   "item.minecraft.lingering_potion.effect.tconstruct.levitation": "浮遊の残留ポーション",
   "item.minecraft.lingering_potion.effect.tconstruct.enderference": "エンダーファレンスの残留ポーション",
 
+  "item.minecraft.tipped_arrow.effect.tconstruct.experienced": "経験豊富の矢",
+  "item.minecraft.tipped_arrow.effect.tconstruct.ricochet": "跳弾の矢",
+  "item.minecraft.tipped_arrow.effect.tconstruct.levitation": "浮遊の矢",
+  "item.minecraft.tipped_arrow.effect.tconstruct.enderference": "エンダーファレンスの矢",
+
   "_comment": "Cake effects",
   "effect.tconstruct.bouncy": "弾性",
   "effect.tconstruct.double_jump": "二段ジャンプ",
@@ -2962,6 +2973,7 @@
   "stat.tconstruct.slot.prefix.abilities": "アビリティ: ",
   "stat.tconstruct.slot.prefix.souls": "ソウルスロット: ",
   "stat.tconstruct.slot.prefix.defense": "防御スロット: ",
+  "stat.tconstruct.slot.prefix.slotless": "スロット不要: ",
 
   "stat.tconstruct.slot.display.upgrades": "アップグレード",
   "stat.tconstruct.slot.display.abilities": "アビリティ",
@@ -3231,6 +3243,8 @@
   "jei.tconstruct.time": "%s秒",
   "jei.tconstruct.temperature": "%s°C",
   "jei.tconstruct.modifier_ingredient": "%sの改造",
+  "jei.tconstruct.modifier_slot.ingredient": "改造スロット: %s",
+  "jei.tconstruct.modifier_slot.id": "スロットID: %s",
 
   "jei.tconstruct.casting.basin": "鋳造鉢",
   "jei.tconstruct.casting.table": "鋳造台",

@@ -1,0 +1,10 @@
+{
+  "modifier_id": "tconstruct:brushing",
+  "text": [
+    {
+      "text": "怪しげなブロックの上で使用し続けると、ゆっくりと発掘できる。範囲で発掘することもでき、完了時に耐久力を消費する。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": ["最大1レベル", "アビリティスロットが1つ必要"]
+}
