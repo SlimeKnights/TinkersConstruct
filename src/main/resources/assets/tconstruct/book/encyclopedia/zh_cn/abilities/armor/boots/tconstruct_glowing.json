@@ -1,0 +1,15 @@
+
+{
+    "modifier_id": "tconstruct:glowing",
+    "text": [
+      {
+        "text": "行走时，放置荧光球照亮临近的黑暗区域。每次放置荧光球消耗5点耐久度。范围大小可以通过加持“延展”来调整。"
+      }
+    ],
+    "more_text_space": true,
+    "tool_filter": "tconstruct:modifiable/armor/boots",
+    "effects": [
+      "最高1级",
+      "需要1个能力槽"
+    ]
+  }

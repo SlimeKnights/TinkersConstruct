@@ -3,7 +3,8 @@ intro=介绍
 tools=工具
 tools.group_small=小型工具
 tools.group_large=宽型工具
-tools.group_staff=黏液手杖
+tools.group_ancient=远古工具
+tools.group_staff=手杖
 tools.tconstruct.earth_staff=大地黏液手杖
 tools.tconstruct.sky_staff=碧空黏液手杖
 tools.tconstruct.ichor_staff=灵浆手杖
@@ -60,3 +61,5 @@ abilities.group_armor.leggings=护腿能力
 abilities.group_armor.boots=靴子能力
 abilities.group_armor.shield=盾牌能力
 
+fluid_effects=流体效果
+fluid_effects.subtext=流体效果定义了流体通过喷洒、喷溅、飞溅强化击中物品或实体时的不同效果。

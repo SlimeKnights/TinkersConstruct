@@ -1,0 +1,14 @@
+{
+  "title": "浇注储罐",
+  "item": "tconstruct:seared_casting_tank",
+  "text": [
+    {
+      "text": "浇注储罐能够自动装填或倒空简易的流体容器，比如桶、碗、瓶子等。能够搭配漏斗、浇注口和浇注道等使用。",
+      "paragraph": true
+    },
+    {
+      "text": "点击顶部输入物品，点击底部输入流体。与工具交互时无法正常工作，请换用工匠储罐。",
+      "paragraph": true
+    }
+	]
+}

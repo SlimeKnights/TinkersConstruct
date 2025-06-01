@@ -5,9 +5,10 @@
       "text": "这点子熠熠闪光。"
     }
   ],
+  "tool_filter": "tconstruct:modifiable/interactable",
   "effects": [
     "交互以放置荧光球",
-	  "放置荧光球会消耗耐久度，无视“不毁”强化",
+	  "放置荧光球会消耗耐久度",
     "单个等级",
     "需要1个能力槽"
   ]

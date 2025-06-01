@@ -1,0 +1,15 @@
+{
+    "modifier_id": "tconstruct:glowing",
+    "text": [
+      {
+        "text": "真是个好主意。"
+      }
+    ],
+    "tool_filter": "tconstruct:modifiable/armor/boots",
+    "effects": [
+      "行走时在周围的黑暗区域放置荧光球",
+      "放置荧光球会消耗耐久度",
+      "单个等级",
+      "需要1个能力槽"
+    ]
+  }

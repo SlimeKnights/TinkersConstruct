@@ -2,6 +2,6 @@
   "title": "合成部件箱",
   "recipe": "tconstruct:tables/part_chest",
   "description": [
-    { "text": "永远说不准什么时候就能用上这些没用到的工具部件。" }
+    { "text": "永远说不准什么时候这些工具部件会派上用场。" }
   ]
 }

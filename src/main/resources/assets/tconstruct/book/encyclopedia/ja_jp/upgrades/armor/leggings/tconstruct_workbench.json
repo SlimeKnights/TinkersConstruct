@@ -1,0 +1,10 @@
+{
+  "modifier_id": "tconstruct:workbench",
+  "text": [
+    {
+      "text": "道具内インベントリに2×2の作業台を追加します。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": ["単一レベル", "アップグレードスロットが1つ必要"]
+}

@@ -1,0 +1,14 @@
+{
+  "title": "流体加农炮",
+  "item": "tconstruct:scorched_fluid_cannon",
+  "text": [
+    {
+      "text": "Thruul觉得他实在是太聪明了，能做出射出流体子弹攻击敌人的流体加农炮。但我的流体加农炮由钴制成，更加坚硬，射出的流体子弹更强；但唯一的缺陷是流体消耗速度有点快了。",
+      "paragraph": true
+    },
+	{
+      "text": "目前来说，把物品放在流体喷嘴的想法确实不错，我也暂时想不出来更好的设计。",
+      "paragraph": true
+    }
+	]
+}

@@ -1,0 +1,13 @@
+{
+  "modifier_id": "tconstruct:workbench",
+  "text": [
+    {
+      "text": "向工具的物品栏中添加一个2x2物品栏合成方格。"
+    }
+  ],
+  "more_text_space": true,
+  "effects": [
+    "单个等级",
+    "无需槽位"
+  ]
+}
